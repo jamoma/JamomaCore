@@ -1,519 +1,376 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 139.0, 44.0, 995.0, 733.0 ],
+		"rect" : [ 67.0, 44.0, 1147.0, 551.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 139.0, 44.0, 995.0, 733.0 ],
+		"defrect" : [ 67.0, 44.0, 1147.0, 551.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Arial",
 		"gridonopen" : 0,
-		"gridsize" : [ 15.0, 15.0 ],
+		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
-		"metadata" : [  ],
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.message matrix/dump @type msg_none @description \"Post current matrix settings to the Max window .\"",
-					"linecount" : 2,
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 563.0, 164.0, 350.0, 27.0 ],
-					"numoutlets" : 3,
-					"id" : "obj-1",
-					"outlettype" : [ "", "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.message aed @type msg_list @description \"List describing index (counting from 1), azimuth, elevation, distance for one speaker.\"",
-					"linecount" : 2,
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 563.0, 125.0, 349.0, 27.0 ],
-					"numoutlets" : 3,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-2",
-					"outlettype" : [ "", "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "voices",
-					"text" : "jcom.message voices @type msg_int @repetitions/allow 0 @range/bounds 1 16 @range/clipmode both @description \"The number of audio channels that the ambisonic signal is diffused to. Changes only take effect when audio is off.\"",
-					"linecount" : 2,
-					"fontname" : "Arial",
 					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 563.0, 78.0, 602.0, 27.0 ],
-					"numoutlets" : 3,
-					"id" : "obj-3",
-					"outlettype" : [ "", "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "multislider",
-					"varname" : "MULTISLIDER",
-					"setminmax" : [ 0.0, 1.0 ],
-					"slidercolor" : [ 0.419608, 0.419608, 0.419608, 1.0 ],
-					"candicane3" : [ 0.290196, 0.411765, 0.713726, 1.0 ],
-					"presentation_rect" : [ 2.0, 25.0, 250.0, 31.0 ],
-					"bgcolor" : [ 0.094118, 0.094118, 0.094118, 1.0 ],
-					"candicane2" : [ 0.145098, 0.203922, 0.356863, 1.0 ],
-					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
-					"candicane7" : [ 0.878431, 0.243137, 0.145098, 1.0 ],
-					"numinlets" : 1,
-					"ghostbar" : 50,
-					"patching_rect" : [ 2.0, 25.0, 250.0, 31.0 ],
-					"candicane4" : [ 0.439216, 0.619608, 0.070588, 1.0 ],
-					"candicane6" : [ 0.733333, 0.035294, 0.788235, 1.0 ],
-					"presentation" : 1,
 					"numoutlets" : 2,
-					"candicane8" : [ 0.027451, 0.447059, 0.501961, 1.0 ],
-					"candicane5" : [ 0.584314, 0.827451, 0.431373, 1.0 ],
-					"id" : "obj-4",
 					"outlettype" : [ "", "" ],
-					"spacing" : 3,
-					"bordercolor" : [ 0.094118, 0.094118, 0.094118, 1.0 ]
+					"patching_rect" : [ 214.0, 356.0, 55.0, 19.0 ],
+					"text" : "jcom.out"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.in",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 15.0, 253.0, 43.0, 17.0 ],
-					"numoutlets" : 2,
-					"id" : "obj-5",
-					"outlettype" : [ "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "----multicable signal output----",
-					"fontname" : "Arial",
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 216.0, 486.0, 158.0, 17.0 ],
-					"numoutlets" : 0,
-					"id" : "obj-6"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.pass open",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 15.0, 277.0, 84.0, 17.0 ],
-					"numoutlets" : 2,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-7",
-					"outlettype" : [ "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "pcontrol",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 15.0, 302.0, 47.0, 17.0 ],
-					"numoutlets" : 1,
-					"id" : "obj-8",
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "outlet",
-					"numinlets" : 1,
-					"patching_rect" : [ 201.0, 486.0, 13.0, 13.0 ],
-					"numoutlets" : 0,
-					"id" : "obj-9",
-					"comment" : "Channel 1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "inlet",
-					"numinlets" : 0,
-					"patching_rect" : [ 345.0, 273.0, 13.0, 13.0 ],
-					"numoutlets" : 1,
-					"id" : "obj-10",
-					"outlettype" : [ "" ],
-					"comment" : "W - omni"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "----multicable signal input----",
-					"fontname" : "Arial",
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 171.0, 274.0, 158.0, 17.0 ],
-					"numoutlets" : 0,
-					"id" : "obj-11"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "route /mute",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 89.0, 339.0, 56.0, 17.0 ],
-					"numoutlets" : 2,
-					"id" : "obj-13",
-					"outlettype" : [ "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "mute~",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 89.0, 386.0, 38.0, 17.0 ],
-					"numoutlets" : 1,
-					"id" : "obj-14",
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jalg.sur.speaker.distamp~",
-					"fontname" : "Arial",
-					"numinlets" : 2,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 201.0, 446.0, 154.0, 17.0 ],
-					"numoutlets" : 2,
-					"id" : "obj-15",
-					"outlettype" : [ "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "message",
-					"text" : "/preset/store 1 default, /preset/write",
-					"fontname" : "Arial",
-					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
-					"numinlets" : 2,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 105.0, 78.0, 191.0, 15.0 ],
-					"numoutlets" : 1,
-					"id" : "obj-16",
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "message",
-					"text" : "/documentation/generate",
-					"fontname" : "Arial",
-					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
-					"numinlets" : 2,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 113.0, 100.0, 125.0, 15.0 ],
-					"numoutlets" : 1,
-					"id" : "obj-17",
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"varname" : "jcom.hub",
-					"text" : "jcom.hub @description \"Amplitude of speakers adjusted in proportion to distance from sweet spot\"",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 15.0, 135.0, 478.0, 17.0 ],
-					"numoutlets" : 2,
-					"id" : "obj-19",
-					"outlettype" : [ "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "command input",
-					"fontname" : "Arial",
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 29.0, 101.0, 79.0, 17.0 ],
-					"numoutlets" : 0,
-					"id" : "obj-20"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "inlet",
-					"numinlets" : 0,
-					"patching_rect" : [ 15.0, 101.0, 13.0, 13.0 ],
-					"numoutlets" : 1,
-					"id" : "obj-21",
-					"outlettype" : [ "" ],
-					"comment" : ""
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "message",
-					"text" : "/init",
-					"fontname" : "Arial",
-					"numinlets" : 2,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 244.0, 100.0, 31.0, 15.0 ],
-					"numoutlets" : 1,
-					"id" : "obj-22",
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "outlet",
-					"numinlets" : 1,
-					"patching_rect" : [ 15.0, 177.0, 13.0, 13.0 ],
-					"numoutlets" : 0,
-					"id" : "obj-23",
-					"comment" : ""
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "hint",
-					"hint" : "For display purpose only",
-					"numinlets" : 1,
-					"patching_rect" : [ 0.0, 28.0, 253.0, 30.0 ],
-					"numoutlets" : 0,
-					"id" : "obj-24"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "This module adjust amplitude of speakers according to distance from sweet spot, so that normalized amplitude correction is proportional to distance.",
-					"linecount" : 2,
-					"fontname" : "Arial",
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 15.0, 522.0, 358.0, 27.0 ],
-					"numoutlets" : 0,
-					"id" : "obj-25"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Such amplitude correction is performed in the ambipan~ Max external for ambisonic panning made by A.Sedes, B.Courribet and J.B.Thiebaut at CICM Université Paris8, Maison des Sciences de l'Homme Paris Nord.",
 					"linecount" : 3,
-					"fontname" : "Arial",
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 15.0, 553.0, 358.0, 38.0 ],
+					"maxclass" : "newobj",
+					"numinlets" : 0,
 					"numoutlets" : 0,
-					"id" : "obj-26"
+					"patching_rect" : [ 524.0, 199.0, 567.0, 43.0 ],
+					"text" : "jcom.message.array 32 speaker position @type msg_list @repetitions/allow 1 @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "MOTE: FTM is required in this module!",
-					"fontname" : "Arial",
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-1",
+					"linecount" : 2,
+					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 16.0, 600.0, 357.0, 17.0 ],
-					"numoutlets" : 0,
-					"id" : "obj-27"
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 524.0, 245.0, 362.0, 31.0 ],
+					"text" : "jcom.message matrix/dump @type msg_none @description \"Post current matrix settings to the Max window .\""
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "jcom.ui",
-					"text" : "/editing_this_module",
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"linecount" : 3,
+					"maxclass" : "newobj",
 					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 525.0, 154.0, 599.0, 43.0 ],
+					"text" : "jcom.message numSpeakers @type msg_int @repetitions/allow 0 @range/bounds 2 32 @range/clipmode both @description \"The number of loudspeaker channels that a soundscape is diffused to. Changes only take effect when audio is off.\"",
+					"varname" : "voices"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.094118, 0.094118, 0.094118, 1.0 ],
+					"bordercolor" : [ 0.094118, 0.094118, 0.094118, 1.0 ],
+					"candicane2" : [ 0.145098, 0.203922, 0.356863, 1.0 ],
+					"candicane3" : [ 0.290196, 0.411765, 0.713726, 1.0 ],
+					"candicane4" : [ 0.439216, 0.619608, 0.070588, 1.0 ],
+					"candicane5" : [ 0.584314, 0.827451, 0.431373, 1.0 ],
+					"candicane6" : [ 0.733333, 0.035294, 0.788235, 1.0 ],
+					"candicane7" : [ 0.878431, 0.243137, 0.145098, 1.0 ],
+					"candicane8" : [ 0.027451, 0.447059, 0.501961, 1.0 ],
+					"ghostbar" : 50,
+					"id" : "obj-4",
+					"ignoreclick" : 1,
+					"maxclass" : "multislider",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 5.0, 25.0, 288.0, 35.0 ],
+					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
 					"presentation" : 1,
+					"presentation_rect" : [ 3.0, 22.0, 293.0, 44.0 ],
+					"setminmax" : [ 0.0, 1.0 ],
+					"size" : 5,
+					"slidercolor" : [ 0.419608, 0.419608, 0.419608, 1.0 ],
+					"spacing" : 3,
+					"varname" : "MULTISLIDER"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-5",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 210.0, 200.0, 54.0, 19.0 ],
+					"text" : "jcom.in"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-6",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 423.0, 345.0, 67.0, 43.0 ],
+					"text" : "multicable signal output"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "Channel 1",
+					"id" : "obj-9",
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 388.0, 345.0, 30.0, 30.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "W - omni",
+					"id" : "obj-10",
+					"maxclass" : "inlet",
+					"numinlets" : 0,
 					"numoutlets" : 1,
-					"has_mute" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 385.0, 165.0, 30.0, 30.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-11",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 420.0, 160.0, 64.0, 43.0 ],
+					"text" : "multicable signal input"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-15",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 210.0, 305.0, 196.0, 19.0 ],
+					"text" : "jalg.sur.speaker.distamp~"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-16",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 50.0, 90.0, 251.0, 17.0 ],
+					"text" : "/preset/store 1 default, /preset/write"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-17",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 80.0, 110.0, 160.0, 17.0 ],
+					"text" : "/documentation/generate"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-19",
+					"linecount" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 10.0, 150.0, 295.0, 31.0 ],
+					"text" : "jcom.hub @description \"Amplitude of speakers adjusted in proportion to distance from sweet spot\"",
+					"varname" : "jcom.hub"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "",
+					"id" : "obj-21",
+					"maxclass" : "inlet",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 10.0, 90.0, 30.0, 30.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "",
+					"id" : "obj-23",
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 10.0, 345.0, 30.0, 30.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"hint" : "For display purpose only",
+					"id" : "obj-24",
+					"maxclass" : "hint",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 28.0, 253.0, 30.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-25",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 25.0, 459.0, 409.0, 31.0 ],
+					"text" : "This module adjust amplitude of speakers according to distance from sweet spot, so that normalized amplitude correction is proportional to distance."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-26",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 25.0, 490.0, 384.0, 43.0 ],
+					"text" : "Such amplitude correction is performed in the ambipan~ Max external for ambisonic panning made by A.Sedes, B.Courribet and J.B.Thiebaut at CICM Université Paris8, Maison des Sciences de l'Homme Paris Nord."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"has_bypass" : 1,
 					"id" : "obj-28",
-					"outlettype" : [ "" ]
+					"maxclass" : "jcom.ui",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"prefix" : "audio",
+					"presentation" : 1,
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
+					"text" : "/editing_this_module"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-19", 0 ],
-					"destination" : [ "obj-23", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-22", 0 ],
-					"destination" : [ "obj-19", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 253.5, 122.0, 24.5, 122.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-17", 0 ],
-					"destination" : [ "obj-19", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 122.5, 121.0, 24.5, 121.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-21", 0 ],
-					"destination" : [ "obj-19", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-16", 0 ],
-					"destination" : [ "obj-19", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 114.5, 121.0, 24.5, 121.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-13", 0 ],
-					"destination" : [ "obj-14", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-13", 1 ],
-					"destination" : [ "obj-15", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-7", 1 ],
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-5", 0 ],
-					"destination" : [ "obj-7", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-7", 0 ],
-					"destination" : [ "obj-8", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-8", 0 ],
-					"destination" : [ "obj-15", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 24.5, 326.0, 210.5, 326.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-14", 0 ],
-					"destination" : [ "obj-15", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-15", 0 ],
-					"destination" : [ "obj-9", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-10", 0 ],
 					"destination" : [ "obj-15", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-15", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-19", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 59.5, 138.0, 19.5, 138.0 ],
+					"source" : [ "obj-16", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-19", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-21", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-19", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 89.5, 141.0, 19.5, 141.0 ],
+					"source" : [ "obj-17", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-23", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-19", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-15", 1 ]
 				}
 
 			}

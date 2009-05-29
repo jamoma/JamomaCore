@@ -27,12 +27,12 @@ t_class		*loader_class;
 /************************************************************************************/
 // Main() Function
 
-int main(void)
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	t_class *c;
 	
 	jamoma_init();
-common_symbols_init();
+	common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.loader",(method)loader_new, (method)NULL, sizeof(t_loader), (method)NULL, A_GIMME, 0);

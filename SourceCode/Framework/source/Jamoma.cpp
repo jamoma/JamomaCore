@@ -8,6 +8,7 @@
  */
 
 #include "Jamoma.h"
+#include "JamomaObject.h"
 
 // constants
 const double k_pi = 3.1415926535897932;		// pi
@@ -66,28 +67,54 @@ void jamoma_init(void)
 		hash_modules = (t_hashtab*)hashtab_new(0);
 		// TODO: Use quittask_install() to set up a destructor for this to free it before Max exits
 
+		
+		// This tells Max 5.0.6 and higher that we want the patcher files to be saved such that they are sorted.
+		// Having the saved this way makes our SVN diffs much more meaningful.
+		object_method_long(max, gensym("sortpatcherdictonsave"), 1, NULL);
+	
+		
 		// Add Jamoma Key Commands:
 		
-		// J -- a new object box with "jcom." in it
+		// J -- Jamoma: a new object box with "jcom." in it
 		atom_setsym(a+0, gensym("J"));
 		atom_setsym(a+1, gensym("patcher"));
 		atom_setsym(a+2, gensym("inserttextobj"));
 		atom_setsym(a+3, gensym("jcom."));
 		object_method_typed(max, gensym("definecommand"), 4, a, NULL);
 		
-		// M -- a new object box with "jmod." in it
+		// M -- Module: a new object box with "jmod." in it
 		atom_setsym(a+0, gensym("M"));
 		atom_setsym(a+1, gensym("patcher"));
 		atom_setsym(a+2, gensym("inserttextobj"));
 		atom_setsym(a+3, gensym("jmod."));
 		object_method_typed(max, gensym("definecommand"), 4, a, NULL);
 
-		// I -- a new audio input module, O -- a new audio output module	
+		// I -- Input: a new audio input module
 		object_method_parse(max, gensym("definecommand"), "I patcher insertobj bpatcher @name jmod.input~.maxpat @args /input~", NULL);
+		// O -- Output: a new audio output module	
 		object_method_parse(max, gensym("definecommand"), "O patcher insertobj bpatcher @name jmod.output~.maxpat @args /output~", NULL);
 	
-		// B -- a new module in a bpatcher
-		object_method_parse(max, gensym("definecommand"), "B patcher inserttextobj \"bpatcher @args myModule @name jmod.\"", NULL);		
+		// B -- BPatcher: a new module in a bpatcher
+		object_method_parse(max, gensym("definecommand"), "B patcher inserttextobj \"bpatcher @name jmod. @args myModule\"", NULL);		
+		// D -- Demo: a new module in a bpatcher, but with the args reverse which is handy for super-fast demos when you don't care about the OSC name
+		object_method_parse(max, gensym("definecommand"), "D patcher inserttextobj \"bpatcher @name jmod.\"", NULL);		
+
+		
+		// Here bind the TTBlue environment object to the symbol "TTBlue"
+		{
+			t_symbol* TTBlueMaxSymbol = gensym("TTBlue");
+			
+			TTBlueMaxSymbol->s_thing = 0;
+			// Before we can do this we have to have a ttblue max class to receive the messages, duh...
+		}
+		
+		// now the jamoma object
+		{
+			t_symbol* jamomaSymbol = gensym("jamoma");
+		
+			jamoma_object_initclass();
+			jamomaSymbol->s_thing = jamoma_object_new();
+		}
 		
 		post("Jamoma %s - www.jamoma.org", JAMOMA_VERSION);
 		initialized = true;
@@ -134,36 +161,25 @@ t_object* jamoma_object_getpatcher(t_object *obj)
 {
 	t_object *patcher = NULL;
 	
-	if(max5)
-		object_obex_lookup(obj, gensym("#P"), &patcher);
-	else
-		patcher = (t_object*)gensym("#P")->s_thing;
+	object_obex_lookup(obj, gensym("#P"), &patcher);
 	return patcher;
 }
 
 
 t_symbol *jamoma_patcher_getcontext(t_object *patcher)
 {
-	if(max5){
-		t_object	*box = object_attr_getobj(patcher, jps_box);
-		t_symbol	*objclass = NULL;
-		
-		if(box)
-			objclass = object_classname(box);
-		
-		if(objclass == gensym("bpatcher"))
-			return objclass;
-		else if(objclass == gensym("newobj"))
-			return gensym("subpatcher");
-		else
-			return gensym("toplevel");
-
-		return _sym_nothing;
-	}
-	else{
-		error("This version of Jamoma requires Max 5");
-		return _sym_nothing;
-	}
+	t_object	*box = object_attr_getobj(patcher, jps_box);
+	t_symbol	*objclass = NULL;
+	
+	if(box)
+		objclass = object_classname(box);
+	
+	if(objclass == gensym("bpatcher"))
+		return objclass;
+	else if(objclass == gensym("newobj"))
+		return gensym("subpatcher");
+	else
+		return gensym("toplevel");
 }
 
 
@@ -171,27 +187,22 @@ t_symbol *jamoma_patcher_getcontext(t_object *patcher)
 // -- then the caller is responsible for freeing
 void jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv)
 {
-	if(max5){
-		t_symbol		*context = jamoma_patcher_getcontext(patcher);
-		t_object		*box = object_attr_getobj(patcher, jps_box);
-		t_object		*textfield = NULL;
-		char			*text = NULL;
-		unsigned long	textlen = 0;
+	t_symbol		*context = jamoma_patcher_getcontext(patcher);
+	t_object		*box = object_attr_getobj(patcher, jps_box);
+	t_object		*textfield = NULL;
+	char			*text = NULL;
+	unsigned long	textlen = 0;
 
-		if(context == gensym("bpatcher"))
-			object_attr_getvalueof(box, gensym("args"), argc, argv);
-		else if(context == gensym("subpatcher")){
-			textfield = object_attr_getobj(box, gensym("textfield"));
-			object_method(textfield, gensym("gettextptr"), &text, &textlen);
-			atom_setparse(argc, argv, text);
-		}
-		else{
-			*argc = 0;
-			*argv = NULL;
-		}
+	if(context == gensym("bpatcher"))
+		object_attr_getvalueof(box, gensym("args"), argc, argv);
+	else if(context == gensym("subpatcher")){
+		textfield = object_attr_getobj(box, gensym("textfield"));
+		object_method(textfield, gensym("gettextptr"), &text, &textlen);
+		atom_setparse(argc, argv, text);
 	}
 	else{
-		error("This version of Jamoma requires Max 5");
+		*argc = 0;
+		*argv = NULL;
 	}
 }
 
@@ -273,7 +284,7 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 		char		s[256];
 		t_atom		a[4];
 	
-		sprintf(s, "%s:/%s", x->attr_name->s_name, attrName->s_name);
+		snprintf(s, 256, "%s:/%s", x->attr_name->s_name, attrName->s_name);
 		atom_setsym(a+0, gensym(s));
 		sysmem_copyptr(av, a+1, sizeof(t_atom) * ac);
 		object_method_typed(x->hub, jps_feedback, ac + 1, a, NULL);

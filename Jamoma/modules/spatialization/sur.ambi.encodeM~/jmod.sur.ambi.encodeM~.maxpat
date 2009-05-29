@@ -1,605 +1,533 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 227.0, 44.0, 879.0, 524.0 ],
+		"rect" : [ 82.0, 128.0, 1092.0, 439.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 227.0, 44.0, 879.0, 524.0 ],
+		"defrect" : [ 82.0, 128.0, 1092.0, 439.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
-		"default_fontname" : "Arial",
+		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
-		"gridsize" : [ 15.0, 15.0 ],
+		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
-		"metadata" : [  ],
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "/preset/store 1 default, /preset/write",
 					"fontname" : "Arial",
-					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
-					"numinlets" : 2,
 					"fontsize" : 10.0,
-					"patching_rect" : [ 30.0, 105.0, 167.0, 16.0 ],
-					"numoutlets" : 1,
-					"id" : "obj-22",
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "flonum",
-					"fontname" : "Arial",
-					"triangle" : 0,
-					"presentation_rect" : [ 196.0, 39.0, 50.0, 18.0 ],
-					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"patching_rect" : [ 396.0, 271.0, 50.0, 18.0 ],
-					"presentation" : 1,
-					"numoutlets" : 2,
-					"id" : "obj-39",
-					"outlettype" : [ "float", "bang" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "flonum",
-					"fontname" : "Arial",
-					"triangle" : 0,
-					"presentation_rect" : [ 196.0, 20.0, 50.0, 18.0 ],
-					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"patching_rect" : [ 382.0, 205.0, 50.0, 18.0 ],
-					"presentation" : 1,
-					"numoutlets" : 2,
-					"id" : "obj-38",
-					"outlettype" : [ "float", "bang" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "number",
-					"fontname" : "Arial",
-					"triangle" : 0,
-					"presentation_rect" : [ 51.0, 39.0, 22.0, 18.0 ],
-					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"patching_rect" : [ 426.0, 131.0, 22.0, 18.0 ],
-					"presentation" : 1,
-					"numoutlets" : 2,
-					"id" : "obj-37",
-					"outlettype" : [ "int", "bang" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "number",
-					"fontname" : "Arial",
-					"triangle" : 0,
-					"presentation_rect" : [ 51.0, 20.0, 22.0, 18.0 ],
-					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"patching_rect" : [ 412.0, 62.0, 22.0, 18.0 ],
-					"presentation" : 1,
-					"numoutlets" : 2,
-					"id" : "obj-36",
-					"outlettype" : [ "int", "bang" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
+					"id" : "obj-4",
+					"linecount" : 2,
 					"maxclass" : "newobj",
-					"text" : "jcom.in",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 152.0, 194.0, 43.0, 17.0 ],
-					"numoutlets" : 2,
-					"id" : "obj-1",
-					"outlettype" : [ "", "" ]
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 502.0, 334.0, 567.0, 29.0 ],
+					"text" : "jcom.message.array 32 source active @type msg_toggle @value/default 1 @value 1 @description \"active 0 will mute the Nth source.\""
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"varname" : "center_radius",
-					"text" : "jcom.parameter center_radius @repetitions/allow 0 @type msg_float @range/bounds 0.01 5. @range/clipmode low @description \"The radius (in meters) of the center circle where spatial information collapse to an omni signal as distance approaches zero.\"",
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"id" : "obj-7",
 					"linecount" : 3,
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 462.0, 264.0, 381.0, 38.0 ],
-					"numoutlets" : 3,
-					"id" : "obj-2",
-					"outlettype" : [ "", "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "center radius",
-					"fontname" : "Arial",
-					"presentation_rect" : [ 123.0, 40.0, 70.0, 17.0 ],
-					"frgb" : [ 0.67451, 0.67451, 0.67451, 1.0 ],
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 123.0, 40.0, 70.0, 17.0 ],
-					"presentation" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-5",
-					"textcolor" : [ 0.67451, 0.67451, 0.67451, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "inlet",
+					"maxclass" : "newobj",
 					"numinlets" : 0,
-					"patching_rect" : [ 407.0, 322.0, 15.0, 15.0 ],
-					"numoutlets" : 1,
-					"id" : "obj-6",
-					"outlettype" : [ "" ],
-					"comment" : ""
+					"numoutlets" : 0,
+					"patching_rect" : [ 502.0, 289.0, 606.0, 41.0 ],
+					"text" : "jcom.message.array 32 source position @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth source. In cartesian coordinates (xyz) by default \""
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.message aed @type msg_list",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 462.0, 340.0, 213.0, 17.0 ],
-					"numoutlets" : 3,
-					"id" : "obj-8",
-					"outlettype" : [ "", "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"varname" : "db_drop_off",
-					"text" : "jcom.parameter db_drop_off @repetitions/allow 0 @type msg_float @range/bounds 0 60 @range/clipmode both @description \"db drop off per meter.\"",
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-3",
 					"linecount" : 2,
-					"fontname" : "Arial",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 462.0, 191.0, 337.0, 27.0 ],
 					"numoutlets" : 3,
-					"id" : "obj-10",
-					"outlettype" : [ "", "", "" ]
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 503.0, 252.0, 408.0, 31.0 ],
+					"text" : "jcom.message report @repetitions/allow 1 @type msg_generic @description \"reports the state of the ambiencode external in the max window\""
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"varname" : "order",
-					"text" : "jcom.parameter order @repetitions/allow 0 @type msg_int @range/bounds 1 16 @range/clipmode both @description \"Order of encoding.\"",
-					"linecount" : 2,
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 462.0, 123.0, 310.0, 27.0 ],
-					"numoutlets" : 3,
-					"id" : "obj-12",
-					"outlettype" : [ "", "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.pass open",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 152.0, 215.0, 78.0, 17.0 ],
-					"numoutlets" : 2,
-					"id" : "obj-13",
-					"outlettype" : [ "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "pcontrol",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 152.0, 237.0, 47.0, 17.0 ],
-					"numoutlets" : 1,
-					"id" : "obj-14",
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "route /mute",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 220.0, 277.0, 56.0, 17.0 ],
-					"numoutlets" : 2,
-					"id" : "obj-16",
-					"outlettype" : [ "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "mute~",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 220.0, 320.0, 38.0, 17.0 ],
-					"numoutlets" : 1,
-					"id" : "obj-17",
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "outlet",
-					"numinlets" : 1,
-					"patching_rect" : [ 280.0, 403.0, 13.0, 13.0 ],
-					"numoutlets" : 0,
-					"id" : "obj-18",
-					"comment" : "W - omni"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jalg.sur.ambi.encodeM~",
-					"fontname" : "Arial",
-					"numinlets" : 2,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 280.0, 362.0, 137.0, 17.0 ],
-					"numoutlets" : 1,
-					"id" : "obj-19",
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Order",
-					"fontname" : "Arial",
-					"presentation_rect" : [ 4.0, 39.0, 44.0, 17.0 ],
-					"frgb" : [ 0.67451, 0.67451, 0.67451, 1.0 ],
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 4.0, 39.0, 44.0, 17.0 ],
-					"presentation" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-21",
-					"textcolor" : [ 0.67451, 0.67451, 0.67451, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "db drop off",
-					"fontname" : "Arial",
-					"presentation_rect" : [ 123.0, 21.0, 59.0, 17.0 ],
-					"frgb" : [ 0.67451, 0.67451, 0.67451, 1.0 ],
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 123.0, 21.0, 59.0, 17.0 ],
-					"presentation" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-23",
-					"textcolor" : [ 0.67451, 0.67451, 0.67451, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
+					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-22",
 					"maxclass" : "message",
-					"text" : "/documentation/generate",
-					"fontname" : "Arial",
 					"numinlets" : 2,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 36.0, 123.0, 125.0, 15.0 ],
 					"numoutlets" : 1,
-					"id" : "obj-24",
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 90.0, 100.0, 199.0, 17.0 ],
+					"text" : "/preset/store 1 default, /preset/write"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Voices",
 					"fontname" : "Arial",
-					"presentation_rect" : [ 4.0, 20.0, 44.0, 17.0 ],
-					"frgb" : [ 0.67451, 0.67451, 0.67451, 1.0 ],
+					"fontsize" : 10.0,
+					"id" : "obj-39",
+					"maxclass" : "flonum",
 					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 4.0, 20.0, 44.0, 17.0 ],
-					"presentation" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-27",
-					"textcolor" : [ 0.67451, 0.67451, 0.67451, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"varname" : "jcom.hub",
-					"text" : "jcom.hub @description \"Ambisonic encoding of mono signals.\"",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 14.0, 148.0, 363.0, 17.0 ],
 					"numoutlets" : 2,
-					"id" : "obj-30",
-					"outlettype" : [ "", "" ]
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 505.0, 212.0, 50.0, 18.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 196.0, 41.0, 50.0, 18.0 ],
+					"triangle" : 0
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"id" : "obj-38",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 505.0, 149.0, 50.0, 18.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 196.0, 22.0, 50.0, 18.0 ],
+					"triangle" : 0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"id" : "obj-37",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "int", "bang" ],
+					"patching_rect" : [ 505.0, 75.0, 22.0, 18.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 57.0, 41.0, 22.0, 18.0 ],
+					"triangle" : 0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"id" : "obj-36",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "int", "bang" ],
+					"patching_rect" : [ 505.0, 36.0, 22.0, 18.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 57.0, 22.0, 22.0, 18.0 ],
+					"triangle" : 0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-1",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 85.0, 200.0, 56.0, 19.0 ],
+					"text" : "jcom.in"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frozen_object_attributes" : 					{
+						"dataspace/unit/native" : "meters",
+						"dataspace" : "distance",
+						"dataspace/unit/active" : "meters"
+					}
+,
+					"id" : "obj-2",
+					"linecount" : 3,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 575.0, 205.0, 461.0, 43.0 ],
+					"text" : "jcom.parameter centerRadius @repetitions/allow 0 @type msg_float @range/bounds 0.01 5. @range/clipmode low @description \"The radius (in meters) of the center circle where spatial information collapse to an omni signal as distance approaches zero.\"",
+					"varname" : "center_radius"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-5",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 123.0, 40.0, 74.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 123.0, 42.0, 74.0, 19.0 ],
+					"text" : "center radius"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "",
+					"id" : "obj-6",
 					"maxclass" : "inlet",
 					"numinlets" : 0,
-					"patching_rect" : [ 14.0, 124.0, 13.0, 13.0 ],
 					"numoutlets" : 1,
-					"id" : "obj-31",
 					"outlettype" : [ "" ],
-					"comment" : ""
+					"patching_rect" : [ 200.0, 195.0, 25.0, 25.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frozen_object_attributes" : 					{
+						"dataspace/unit/native" : "db",
+						"dataspace" : "gain",
+						"dataspace/unit/active" : "db"
+					}
+,
+					"id" : "obj-10",
+					"linecount" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 575.0, 145.0, 419.0, 31.0 ],
+					"text" : "jcom.parameter DropOff @repetitions/allow 0 @type msg_float @range/bounds 0 60 @range/clipmode both @description \"drop off gain per meter in [dB].\"",
+					"varname" : "db_drop_off"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-12",
+					"linecount" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 575.0, 75.0, 433.0, 31.0 ],
+					"text" : "jcom.parameter order @repetitions/allow 0 @type msg_int @range/bounds 1 3 @range/clipmode both @description \"Order of encoding.\"",
+					"varname" : "order"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "W - omni",
+					"id" : "obj-18",
 					"maxclass" : "outlet",
 					"numinlets" : 1,
-					"patching_rect" : [ 14.0, 350.0, 13.0, 13.0 ],
 					"numoutlets" : 0,
-					"id" : "obj-32",
-					"comment" : ""
+					"patching_rect" : [ 85.0, 275.0, 25.0, 25.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-19",
 					"maxclass" : "newobj",
-					"varname" : "voices",
-					"text" : "jcom.parameter voices @repetitions/allow 0 @type msg_int @range/bounds 1 16 @range/clipmode both @description \"Number of mono sources to encode.\"",
-					"linecount" : 2,
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 462.0, 56.0, 322.0, 27.0 ],
-					"numoutlets" : 3,
-					"id" : "obj-33",
-					"outlettype" : [ "", "", "" ]
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 85.0, 240.0, 131.0, 19.0 ],
+					"text" : "jalg.sur.ambi.encodeM~"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "jcom.ui",
-					"text" : "/editing_this_module",
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-21",
+					"maxclass" : "comment",
 					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 4.0, 39.0, 37.0, 19.0 ],
 					"presentation" : 1,
+					"presentation_rect" : [ 4.0, 41.0, 37.0, 19.0 ],
+					"text" : "Order"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-23",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 123.0, 21.0, 67.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 123.0, 23.0, 67.0, 19.0 ],
+					"text" : "db drop off"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-24",
+					"maxclass" : "message",
+					"numinlets" : 2,
 					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 135.0, 130.0, 159.0, 17.0 ],
+					"text" : "/documentation/generate"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-27",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 4.0, 20.0, 50.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 4.0, 22.0, 50.0, 19.0 ],
+					"text" : "Sources"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-30",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 15.0, 160.0, 455.0, 19.0 ],
+					"text" : "jcom.hub @description \"Ambisonic encoding of mono signals.\"",
+					"varname" : "jcom.hub"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "",
+					"id" : "obj-31",
+					"maxclass" : "inlet",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 15.0, 105.0, 25.0, 25.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "",
+					"id" : "obj-32",
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 15.0, 350.0, 25.0, 25.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-33",
+					"linecount" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 575.0, 30.0, 432.0, 31.0 ],
+					"text" : "jcom.parameter numSources @repetitions/allow 0 @type msg_int @range/bounds 1 32 @range/clipmode both @description \"Number of mono sources to encode.\"",
+					"varname" : "voices"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"has_mute" : 1,
 					"id" : "obj-34",
-					"outlettype" : [ "" ]
+					"maxclass" : "jcom.ui",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"prefix" : "audio",
+					"presentation" : 1,
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
+					"text" : "/editing_this_module"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-16", 0 ],
-					"destination" : [ "obj-17", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-16", 1 ],
-					"destination" : [ "obj-19", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-13", 1 ],
-					"destination" : [ "obj-16", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-2", 0 ],
-					"destination" : [ "obj-39", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-39", 0 ],
-					"destination" : [ "obj-2", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-10", 0 ],
-					"destination" : [ "obj-38", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-38", 0 ],
-					"destination" : [ "obj-10", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-12", 0 ],
 					"destination" : [ "obj-37", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-12", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-37", 0 ],
 					"destination" : [ "obj-12", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-37", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-33", 0 ],
-					"destination" : [ "obj-36", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-36", 0 ],
-					"destination" : [ "obj-33", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-1", 0 ],
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-13", 0 ],
-					"destination" : [ "obj-14", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-17", 0 ],
 					"destination" : [ "obj-19", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-1", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-14", 0 ],
-					"destination" : [ "obj-19", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 161.5, 259.0, 289.5, 259.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-19", 0 ],
 					"destination" : [ "obj-18", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-19", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-6", 0 ],
 					"destination" : [ "obj-19", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-6", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-31", 0 ],
+					"destination" : [ "obj-10", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-38", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-38", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-30", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-31", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-24", 0 ],
 					"destination" : [ "obj-30", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 45.5, 142.0, 23.5, 142.0 ]
+					"midpoints" : [ 144.5, 155.0, 24.5, 155.0 ],
+					"source" : [ "obj-24", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-30", 0 ],
 					"destination" : [ "obj-32", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-30", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-22", 0 ],
 					"destination" : [ "obj-30", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [ 99.5, 152.0, 24.5, 152.0 ],
+					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-39", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-39", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-2", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-36", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-33", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-33", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-36", 0 ]
 				}
 
 			}

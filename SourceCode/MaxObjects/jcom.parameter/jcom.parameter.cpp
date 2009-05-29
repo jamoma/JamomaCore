@@ -1,34 +1,37 @@
 /* 
  * jcom.parameter
- * External for Jamoma: parameter definition using pattr
- * By Tim Place, Copyright � 2006
+ * External for Jamoma: parameter definition
+ * By Tim Place, Copyright © 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "jcom.parameter.h"		// everything we need is in here
+#include "jcom.parameter.h"			// everything we need is in here
 
 // Globals
-t_class		*parameter_class;		// Required: Global pointer for our class
-t_class		*message_class;
+static ClassPtr	parameter_class;	// Required: Global pointer for our class
+//static char		units[2048];
 
+// Prototypes
 int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy);
-static char units[2048];
+
+
 /************************************************************************************/
 // Class Definition
 
-int main(void)				// main recieves a copy of the Max function macros table
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
-	t_class		*c;
-	t_object	*attr = NULL;
-	long		numDataspaces = 0;
-	t_symbol**	dataspaceNames = NULL;
-	TTValue		functionNames;
-	TTSymbol*	functionName;
-	char		dataspaces[2048];
-	char		functions[2048];
-	short		i;
+	ClassPtr		c;
+	ObjectPtr		attr = NULL;
+	long			numDataspaces = 0;
+	SymbolPtr*		dataspaceNames = NULL;
+	TTValue			functionNames;
+	TTSymbol*		functionName;
+	char			dataspaces[2048];
+	char			functions[2048];
+	char			drives[2048];
+	short			i;
 	
 	// Initialize Globals
 	jamoma_init();
@@ -51,82 +54,112 @@ int main(void)				// main recieves a copy of the Max function macros table
 		strcat(functions, functionName->getCString());	
 		strcat(functions, " ");
 	}
+    
+	RampLib::getUnitNames(functionNames); //reusing TTValue functionNames again here
+	drives[0] = 0;
+	for(i=0; i<functionNames.getSize(); i++)
+	{
+		functionNames.get(i, &functionName); //reusing TTSymbol* functionName again here
+		strcat(drives, functionName->getCString());	
+		strcat(drives, " ");
+	}
 	
-
+	
 	// Define our class
 	c = class_new(OBJECT_CLASS_NAME,(method)param_new, (method)param_free, sizeof(t_param), (method)0L, A_GIMME, 0);
 		
 	// Make methods accessible for our class:
 	// Note that we can't make the bang method directly accessible here (must go through another function)
 	//	because the function pointer is in out struct, which hasn't been defined yet
-	class_addmethod(c, (method)param_notify,					"notify",						A_CANT,		0);	
-	class_addmethod(c, (method)param_dispatched,				"dispatched",					A_GIMME,	0);
-	class_addmethod(c, (method)param_int,						"int",							A_DEFLONG,	0);
-	class_addmethod(c, (method)param_float,						"float",						A_DEFFLOAT,	0);
- 	class_addmethod(c, (method)param_list,						"list",							A_GIMME,	0);
- 	class_addmethod(c, (method)param_symbol,					"anything",						A_GIMME,	0);
-	class_addmethod(c, (method)param_ui_refresh,				"ui/refresh",					0);
-	class_addmethod(c, (method)param_inc,						"value/inc",					A_GIMME,	0);
-	class_addmethod(c, (method)param_dec,						"value/dec",					A_GIMME,	0);
-	class_addmethod(c, (method)param_inc,						"+",							A_GIMME,	0);
-	class_addmethod(c, (method)param_dec,						"-",							A_GIMME,	0);
-	class_addmethod(c, (method)param_dump,						"dump",							0);
-	class_addmethod(c, (method)param_bang,						"bang",							0);
-	class_addmethod(c, (method)param_assist,					"assist",						A_CANT,		0); 
+	class_addmethod(c, (method)param_notify,		"notify",		A_CANT,		0);	
+	class_addmethod(c, (method)param_dispatched,	"dispatched",	A_GIMME,	0);
+	class_addmethod(c, (method)param_int,			"int",			A_DEFLONG,	0);
+	class_addmethod(c, (method)param_float,			"float",		A_DEFFLOAT,	0);
+ 	class_addmethod(c, (method)param_list,			"list",			A_GIMME,	0);
+	class_addmethod(c, (method)param_symbol,		"symbol",		A_DEFSYM,	0);
+ 	class_addmethod(c, (method)param_anything,		"anything",		A_GIMME,	0);
+	class_addmethod(c, (method)param_ui_refresh,	"ui/refresh",				0);
+	class_addmethod(c, (method)param_inc,			"value/inc",	A_GIMME,	0);
+	class_addmethod(c, (method)param_dec,			"value/dec",	A_GIMME,	0);
+	class_addmethod(c, (method)param_inc,			"+",			A_GIMME,	0);
+	class_addmethod(c, (method)param_dec,			"-",			A_GIMME,	0);
+	class_addmethod(c, (method)param_dump,			"dump",						0);
+	class_addmethod(c, (method)param_bang,			"bang",						0);
+	class_addmethod(c, (method)param_assist,		"assist",		A_CANT,		0); 
 #ifndef JMOD_MESSAGE
-	class_addmethod(c, (method)param_reset,						"reset",						0);
+	class_addmethod(c, (method)param_reset,			"reset",					0);
 #endif
-	class_addmethod(c, (method)param_setcallback,				"setcallback",					A_CANT,		0);
+	class_addmethod(c, (method)param_setcallback,	"setcallback",	A_CANT,		0);
 
 	jcom_core_subscriber_classinit_extended(c, attr, true);		// define a name attr
 	
 	// ATTRIBUTE: ramp stuff
-	jamoma_class_attr_new(c, 	"ramp/drive", 		_sym_symbol, (method)param_attr_setramp, (method)param_attr_getramp);
+	jamoma_class_attr_new(c,		"ramp/drive",				_sym_symbol, (method)param_attr_setramp, (method)param_attr_getramp);
+	CLASS_ATTR_ENUM(c,				"ramp/drive",				0, drives);
 	
-	jamoma_class_attr_new(c, 	"ramp/function", 	_sym_symbol, (method)param_attr_setrampfunction, (method)param_attr_getrampfunction);
-	CLASS_ATTR_ENUM(c,			"ramp/function",	0, functions);
+	jamoma_class_attr_new(c,		"ramp/function",			_sym_symbol, (method)param_attr_setrampfunction, (method)param_attr_getrampfunction);
+	CLASS_ATTR_ENUM(c,				"ramp/function",			0, functions);
 	
 
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list, msg_none
-	jamoma_class_attr_new(c,	"type", 			_sym_symbol, (method)param_attr_settype, (method)param_attr_gettype);
+	jamoma_class_attr_new(c,		"type",						_sym_symbol, (method)param_attr_settype, (method)param_attr_gettype);
 #ifdef JMOD_MESSAGE
-	CLASS_ATTR_ENUM(c,			"type",	0,			"msg_int msg_float msg_toggle msg_symbol msg_list msg_none");
+	CLASS_ATTR_ENUM(c,				"type",	0,					"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic msg_none");
 #else
-	CLASS_ATTR_ENUM(c,			"type",	0,			"msg_int msg_float msg_toggle msg_symbol msg_list");
+	CLASS_ATTR_ENUM(c,				"type",	0,					"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic");
 #endif
-	
+	CLASS_ATTR_STYLE(c,				"repetitions/allow",		0, "onoff");
 	// ATTRIBUTE: ui/freeze - toggles a "frozen" ui outlet so that you can save cpu
-	jamoma_class_attr_new(c,	"ui/freeze", 		_sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
-	CLASS_ATTR_STYLE(c,			"ui/freeze",		0,	"onoff");
+	jamoma_class_attr_new(c,		"ui/freeze",				_sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
+	CLASS_ATTR_STYLE(c,				"ui/freeze",				0,	"onoff");
 	
 	// ATTRIBUTE: stepsize - how much increment or decrement by
-	jamoma_class_attr_new(c, 	"value/stepsize", 	_sym_float32, (method)param_attr_setstepsize, (method)param_attr_getstepsize);
+	jamoma_class_attr_new(c,		"value/stepsize",			_sym_float32, (method)param_attr_setstepsize, (method)param_attr_getstepsize);
 
 	// ATTRIBUTE: priority - used to determine order of parameter recall in a preset
-	jamoma_class_attr_new(c, 	"priority", 		_sym_long, (method)param_attr_setpriority, (method)param_attr_getpriority);
+	jamoma_class_attr_new(c,		"priority",					_sym_long, (method)param_attr_setpriority, (method)param_attr_getpriority);
 
 	// ATTRIBUTE: value
-	jamoma_class_attr_array_new(c, "value", 		_sym_atom, LISTSIZE, (method)param_attr_setvalue, (method)param_attr_getvalue);
+	jamoma_class_attr_array_new(c,	"value",					_sym_atom, LISTSIZE, (method)param_attr_setvalue, (method)param_attr_getvalue);
 
 	// ATTRIBUTE: value/default
-	jamoma_class_attr_array_new(c, "value/default", _sym_atom, LISTSIZE, (method)param_attr_setdefault, (method)param_attr_getdefault);
+	jamoma_class_attr_array_new(c,	"value/default",			_sym_atom, LISTSIZE, (method)param_attr_setdefault, (method)param_attr_getdefault);
 
+	jamoma_class_attr_new(c,		"readonly",					_sym_long, (method)param_attr_setreadonly, (method)param_attr_getreadonly);
+	CLASS_ATTR_STYLE(c,				"readonly",					0, "onoff");
 	// ATTRIBUTES: dataspace stuff
-	jamoma_class_attr_new(c, 	"dataspace",				_sym_symbol, (method)param_attr_setdataspace, (method)param_attr_getdataspace);
-	CLASS_ATTR_ENUM(c,			"dataspace",				0, dataspaces);
+	jamoma_class_attr_new(c,		"dataspace",				_sym_symbol, (method)param_attr_setdataspace, (method)param_attr_getdataspace);
+	CLASS_ATTR_ENUM(c,				"dataspace",				0, dataspaces);
 	
-	units[0] = 0;
-	jamoma_class_attr_new(c, 	"dataspace/unit/active", 	_sym_symbol, (method)param_attr_setactiveunit, (method)param_attr_getactiveunit);
-	//CLASS_ATTR_ENUM(c,			"dataspace/unit/active",	0, units);
-	jamoma_class_attr_new(c, 	"dataspace/unit/native",	_sym_symbol, (method)param_attr_setnativeunit, (method)param_attr_getnativeunit);
-
-	// Finalize our class
-	class_register(CLASS_BOX, c);
-#ifdef JMOD_MESSAGE
-	message_class = c;
-#else
+	//units[0] = 0;
+	jamoma_class_attr_new(c,		"dataspace/unit/active", 	_sym_symbol, (method)param_attr_setactiveunit, (method)param_attr_getactiveunit);
+	//CLASS_ATTR_ENUM(c,			"dataspace/unit/active",	0, units);	
+	jamoma_class_attr_new(c,		"dataspace/unit/native",	_sym_symbol, (method)param_attr_setnativeunit, (method)param_attr_getnativeunit);
+	jamoma_class_attr_new(c,		"dataspace/unit/display",	_sym_symbol, (method)param_attr_setdisplayunit, (method)param_attr_getdisplayunit);
+	// the override dataspace is not exposed as an attribute
+	
+	// Default Attribute Order for the Inspector
+	CLASS_ATTR_ORDER(c, "name",						0, "1");
+	CLASS_ATTR_ORDER(c, "type",						0, "2");
+	CLASS_ATTR_ORDER(c, "range/bounds",				0, "3");
+	CLASS_ATTR_ORDER(c, "range/clipmode",			0, "4");
+	CLASS_ATTR_ORDER(c, "ramp/drive",				0, "5");
+	CLASS_ATTR_ORDER(c, "ramp/function",			0, "6");
+	CLASS_ATTR_ORDER(c, "repetitions/allow",		0, "7");
+	CLASS_ATTR_ORDER(c, "dataspace",				0, "8");
+	CLASS_ATTR_ORDER(c, "dataspace/unit/native",	0, "9");
+	CLASS_ATTR_ORDER(c, "dataspace/unit/active",	0, "10");
+	CLASS_ATTR_ORDER(c, "dataspace/unit/display",	0, "11");
+	CLASS_ATTR_ORDER(c, "priority",					0, "12");
+	CLASS_ATTR_ORDER(c, "description",				0, "13");	
+	CLASS_ATTR_ORDER(c, "readonly",					0, "14");	
+	CLASS_ATTR_ORDER(c, "ui/freeze",				0, "15");
+	CLASS_ATTR_ORDER(c, "value",					0, "16");
+	CLASS_ATTR_ORDER(c, "value/default",			0, "17");
+	CLASS_ATTR_ORDER(c, "value/stepsize",			0, "18");
+		// Finalize our class
+	class_register(_sym_box, c);
 	parameter_class = c;
-#endif
 	return 0;
 }
 
@@ -139,18 +172,20 @@ int main(void)				// main recieves a copy of the Max function macros table
 void *param_new(t_symbol *s, long argc, t_atom *argv)
 {
 	short		i;
-	long		attrstart = attr_args_offset(argc, argv);
-#ifdef JMOD_MESSAGE
-	t_param		*x = (t_param *)object_alloc(message_class);
-#else
-	t_param		*x = (t_param *)object_alloc(parameter_class);
-#endif
-	t_symbol	*name = _sym_nothing;
+	long			attrstart = attr_args_offset(argc, argv);
+	t_param*		x = (t_param *)object_alloc(parameter_class);
+	SymbolPtr		name = _sym_nothing;
+	ObjectPtr		patcher = NULL;
 
 	if(attrstart && argv)
 		atom_arg_getsym(&name, 0, attrstart, argv);
 	else
 		name = symbol_unique();
+	
+	// for instances buried inside of another object:
+	// we pass a second argument which is a pointer to the patcher
+	if(attrstart>1 && argv)
+		patcher = ObjectPtr(atom_getobj(argv+1));
 
 	if(x){
 		for(i=num_outlets; i > 0; i--)
@@ -161,7 +196,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->ramp_qelem = qelem_new(x, (method)param_ramp_setup);
 
 		// set defaults...
-		x->attr_rampfunction = jps_linear;
+		x->attr_rampfunction = _sym_nothing;
 		x->attr_ramp = _sym_nothing;
 		x->ramper = NULL;
 
@@ -173,7 +208,6 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 			atom_setlong(&x->atom_listDefault[i], 0);
 		}
 		x->common.attr_name = name;
-//		atom_setsym(&x->name_atom, name);
 		x->attr_ui_freeze = 0;
 		x->attr_stepsize = 1.0;
 		x->attr_priority = 0;						// default is no priority
@@ -181,18 +215,27 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_dataspace = jps_none;
 		x->attr_unitActive = jps_none;
 		x->attr_unitNative = jps_none;
-		
+
 #ifdef JMOD_MESSAGE
 		jcom_core_subscriber_new_extended(&x->common, name, jps_subscribe_message);
 #else
 		jcom_core_subscriber_new_extended(&x->common, name, jps_subscribe_parameter);
 #endif
+		if(patcher)
+			x->common.container = patcher;
+		
+		// Any time this object subscribes, we need to (re)setup the internal direct receive object:
+		jcom_core_subscriber_setcustomsubscribe_method((t_jcom_core_subscriber_common*)x, param_makereceive);
+		
 		attr_args_process(x, argc, argv);			// handle attribute args
-		object_attach_byptr_register(x, x , CLASS_BOX);
+		object_attach_byptr_register(x, x , _sym_box);
 #ifndef JMOD_MESSAGE
 		param_reset(x);	
 #endif
-		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
+
+		// We used to defer here to try and wait for the hub to exist?
+		// but now the hub will ask about us once the patcher is ready and gets a loadbang [TAP]
+		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
 		
 		// If no type was specified by the user we call the accessor here
 		// this is important because memory is configured - not just setting a default!
@@ -206,6 +249,10 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 			atom_setsym(&a, jps_none);
 			object_attr_setvalueof(x, gensym("ramp/drive"), 1, &a);
 		}
+		if(x->attr_rampfunction == _sym_nothing && x->attr_ramp != _sym_none)
+			object_attr_setsym(x, gensym("ramp/function"), jps_linear);
+		else
+			object_attr_setsym(x, gensym("ramp/function"), _sym_none);
 	}
 	return (x);										// return the pointer to our new instantiation
 }
@@ -218,6 +265,8 @@ void param_free(t_param *x)
 	qelem_free(x->ramp_qelem);
 	if(x->ramper)
 		delete x->ramper;
+	if(x->receive)
+		object_free(x->receive);
 }
 
 
@@ -273,6 +322,7 @@ void param_reset(t_param *x)
 	if(x->listDefault_size){						// copy the default values to the current value
 		sysmem_copyptr(x->atom_listDefault, x->atom_list, sizeof(t_atom) * x->listDefault_size);
 		x->list_size = x->listDefault_size;
+		param_bang(x);
 	}
 }
 
@@ -447,6 +497,7 @@ t_max_err param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv)
 	else if(arg == jps_msg_list){
 		x->param_output = &param_output_list;
 	}
+
 #ifdef JMOD_MESSAGE
 	else if(arg == jps_msg_none){
 		x->param_output = &param_output_none;
@@ -463,9 +514,7 @@ t_max_err param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv)
 	}
 
 	qelem_set(x->ramp_qelem);	// set up the rampunit with callbacks appropriate to this data type
-
 	return MAX_ERR_NONE;
-	#pragma unused(attr)
 }
 
 
@@ -477,9 +526,7 @@ t_max_err param_attr_setramp(t_param *x, void *attr, long argc, t_atom *argv)
 	x->attr_ramp = arg;
 	
 	qelem_set(x->ramp_qelem);	// place a call to param_ramp_setup() at the end of the low-priority queue
-
 	return MAX_ERR_NONE;
-	#pragma unused(attr)
 }
 
 t_max_err param_attr_getramp(t_param *x, void *attr, long *argc, t_atom **argv)
@@ -499,9 +546,7 @@ t_max_err param_attr_setrampfunction(t_param *x, void *attr, long argc, t_atom *
 
 	if(x->ramper)
 		x->ramper->setAttributeValue(TT("function"), TT(x->attr_rampfunction->s_name));
-
 	return MAX_ERR_NONE;
-	#pragma unused(attr)
 }
 
 t_max_err param_attr_getrampfunction(t_param *x, void *attr, long *argc, t_atom **argv)
@@ -575,20 +620,42 @@ t_max_err param_attr_setpriority(t_param *x, void *attr, long argc, t_atom *argv
 }
 
 
+t_max_err param_attr_getreadonly(t_param *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setlong(*argv, x->attr_readonly);
+	return MAX_ERR_NONE;
+}
+
+t_max_err param_attr_setreadonly(t_param *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv)
+		x->attr_readonly = atom_getlong(argv);
+	return MAX_ERR_NONE;
+}
+
+
 t_max_err param_attr_getvalue(t_param *x, void *attr, long *argc, t_atom **argv)
 {
 	*argc = x->list_size;
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * x->list_size);
 	sysmem_copyptr(x->atom_list, *argv, sizeof(t_atom) * x->list_size);
-
 	return MAX_ERR_NONE;
 }
 
 t_max_err param_attr_setvalue(t_param *x, void *attr, long argc, t_atom *argv)
 {
 	x->list_size = argc;
-	sysmem_copyptr(argv, x->atom_list, argc * sizeof(t_atom));
+	//sysmem_copyptr(argv, x->atom_list, argc * sizeof(t_atom));
+	//memcpy(x->atom_list, argv, argc * sizeof(t_atom));
+	// the two calls above fail to copy the atoms ???
+	for (int i=0; i<argc; i++) {
+		x->atom_list[i].a_type = argv[i].a_type;
+		x->atom_list[i].a_w.w_long = argv[i].a_w.w_long;
+	}
 	return MAX_ERR_NONE;
 }
 
@@ -596,11 +663,10 @@ t_max_err param_attr_setvalue(t_param *x, void *attr, long argc, t_atom *argv)
 t_max_err param_attr_getdefault(t_param *x, void *attr, long *argc, t_atom **argv)
 {
 	*argc = x->listDefault_size;
-	if (!(*argv)) // otherwise use memory passed in
+	if(!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * x->listDefault_size);
-		sysmem_copyptr(x->atom_listDefault, *argv, sizeof(t_atom) * x->listDefault_size);
-		
-		return MAX_ERR_NONE;
+	sysmem_copyptr(x->atom_listDefault, *argv, sizeof(t_atom) * x->listDefault_size);
+	return MAX_ERR_NONE;
 }
 
 t_max_err param_attr_setdefault(t_param *x, void *attr, long argc, t_atom *argv)
@@ -626,23 +692,44 @@ t_max_err param_attr_setdataspace(t_param *x, void *attr, long argc, t_atom *arg
 		t_max_err	err;
 		
 		x->attr_dataspace = atom_getsym(argv);
-		jamoma_getDataspace(x->attr_dataspace, &x->dataspace);
+		jamoma_getDataspace(x->attr_dataspace, &x->dataspace_active2native);
+		jamoma_getDataspace(x->attr_dataspace, &x->dataspace_active2display);
+		jamoma_getDataspace(x->attr_dataspace, &x->dataspace_display2active);
+		jamoma_getDataspace(x->attr_dataspace, &x->dataspace_override2active);
 
 		// If there is already a unit defined, then we try to use that
 		// Otherwise we use the default (neutral) unit.
 		err = MAX_ERR_GENERIC;
-		if(x->attr_unitActive)
-			err = x->dataspace->setInputUnit(x->attr_unitActive);
-		if(err)
-			x->attr_unitActive = x->dataspace->neutralUnit;
+		if(x->attr_unitActive){
+			err = x->dataspace_active2native->setInputUnit(x->attr_unitActive);
+			err = x->dataspace_active2display->setInputUnit(x->attr_unitActive);
+			err = x->dataspace_display2active->setOutputUnit(x->attr_unitActive);
+
+			// override always defaults to the active unit
+			err = x->dataspace_override2active->setInputUnit(x->attr_unitActive);
+			err = x->dataspace_override2active->setOutputUnit(x->attr_unitActive);
+		}
+		if(err){
+			x->attr_unitActive = x->dataspace_active2native->neutralUnit;
+			err = x->dataspace_active2native->setInputUnit(x->attr_unitActive);
+			err = x->dataspace_active2display->setInputUnit(x->attr_unitActive);
+			err = x->dataspace_display2active->setOutputUnit(x->attr_unitActive);
+			err = x->dataspace_override2active->setOutputUnit(x->attr_unitActive);
+		}
 		
-		// If there is already a unit defined, then we try to use that
-		// Otherwise we use the default (neutral) unit.
 		err = MAX_ERR_GENERIC;
-		if(x->attr_unitNative)
-			err = x->dataspace->setOutputUnit(x->attr_unitNative);
+		if(x->attr_unitNative) 
+			err = x->dataspace_active2native->setOutputUnit(x->attr_unitNative);
 		if(err)
-			x->attr_unitNative = x->dataspace->neutralUnit;
+			x->attr_unitNative = x->dataspace_active2native->neutralUnit;
+
+		err = MAX_ERR_GENERIC;
+		if(x->attr_unitDisplay){
+			err = x->dataspace_active2display->setOutputUnit(x->attr_unitDisplay);
+			err = x->dataspace_display2active->setInputUnit(x->attr_unitDisplay);
+		}
+		if(err)
+			x->attr_unitNative = x->dataspace_active2native->neutralUnit;
 	}
 	return MAX_ERR_NONE;
 }
@@ -661,8 +748,12 @@ t_max_err param_attr_setactiveunit(t_param *x, void *attr, long argc, t_atom *ar
 {
 	if(argc && argv){
 		x->attr_unitActive = atom_getsym(argv);
-		if(x->dataspace)
-			x->dataspace->setInputUnit(x->attr_unitActive);
+		if(x->dataspace_active2native)
+			x->dataspace_active2native->setInputUnit(x->attr_unitActive);
+		if(x->dataspace_active2display)
+			x->dataspace_active2native->setInputUnit(x->attr_unitActive);
+		if(x->dataspace_display2active)
+			x->dataspace_display2active->setOutputUnit(x->attr_unitActive);
 	}
 	return MAX_ERR_NONE;
 }
@@ -681,8 +772,30 @@ t_max_err param_attr_setnativeunit(t_param *x, void *attr, long argc, t_atom *ar
 {
 	if(argc && argv){
 		x->attr_unitNative = atom_getsym(argv);
-		if(x->dataspace)	// fix for crashes reported by Nils
-			x->dataspace->setOutputUnit(x->attr_unitNative);
+		if(x->dataspace_active2native)
+			x->dataspace_active2native->setOutputUnit(x->attr_unitNative);
+	}
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err param_attr_getdisplayunit(t_param *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, x->attr_unitDisplay);
+	return MAX_ERR_NONE;
+}
+
+t_max_err param_attr_setdisplayunit(t_param *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv){
+		x->attr_unitDisplay = atom_getsym(argv);
+		if(x->dataspace_active2display)
+			x->dataspace_active2display->setOutputUnit(x->attr_unitDisplay);
+		if(x->dataspace_display2active)
+			x->dataspace_display2active->setInputUnit(x->attr_unitDisplay);
 	}
 	return MAX_ERR_NONE;
 }
@@ -714,76 +827,125 @@ void param_assist(t_param *x, void *b, long msg, long arg, char *dst)
 }
 
 
+// receive messages from our internal jcom.receive external
+void param_receive_callback(t_param *x, t_symbol *msg, long argc, t_atom *argv)
+{
+	if(msg == _sym_int)
+		param_int(x, atom_getlong(argv));
+	else if(msg == _sym_float)
+		param_float(x, atom_getfloat(argv));
+	else if(msg == _sym_symbol)
+		param_symbol(x, atom_getsym(argv));
+	else if(msg == _sym_list)
+		param_list(x, msg, argc, argv);
+	else
+		param_anything(x, msg, argc, argv);
+}
+
+
+void param_makereceive(void* z)
+{
+	t_param*	x = (t_param*)z;
+	t_atom		a;
+	char		osc[512];
+	t_symbol*	module_name = object_attr_getsym(x->common.hub, _sym_name);
+	
+	if(x->receive){
+		object_free(x->receive);
+		x->receive = NULL;
+	}
+	
+	if(module_name && module_name != _sym_nothing){
+		strcpy(osc, module_name->s_name);
+		strcat(osc, "/");
+		strcat(osc, x->common.attr_name->s_name);
+		
+		atom_setsym(&a, gensym(osc));
+		x->receive = (t_object*)object_new_typed(_sym_box, jps_jcom_receive, 1, &a);
+		object_method(x->receive, jps_setcallback, &param_receive_callback, x);
+	}
+	else
+		defer_low(x, (method)param_makereceive, 0, 0, 0);
+}
+
+
+
 // DUMP: use for debugging - dump state to the Max window
 void param_dump(t_param *x)
 {
-	char	s[256];
-	t_atom	a[4];
+	char		s[256];
+	t_atom		a[4];
+	AtomCount	ac;
+	AtomPtr		av;
 	
 	if(x->common.hub != NULL){
 
-		sprintf(s, "%s:/description", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/description", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_description);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 		
-		sprintf(s, "%s:/value", x->common.attr_name->s_name);
-		atom_setsym(&a[0], gensym(s));
-		jcom_core_atom_copy(&a[1], &x->attr_value);
-		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+		snprintf(s, 256, "%s:/value", x->common.attr_name->s_name);
+		ac = x->list_size + 1;
+		av = (AtomPtr)malloc(sizeof(Atom) * ac);
+		atom_setsym(av+0, gensym(s));
+		memcpy(av+1, x->atom_list, sizeof(Atom) * x->list_size);
+		object_method_typed(x->common.hub, jps_feedback, ac, av, NULL);
+		if(ac && av)
+			free(av);
 		
-		sprintf(s, "%s:/type", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/type", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_type);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
-		sprintf(s, "%s:/ramp/drive", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/ramp/drive", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_ramp);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
-		sprintf(s, "%s:/ramp/function", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/ramp/function", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_rampfunction);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
-		sprintf(s, "%s:/range/bounds", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/range/bounds", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setfloat(&a[1], x->common.attr_range[0]);
 		atom_setfloat(&a[2], x->common.attr_range[1]);
 		object_method_typed(x->common.hub, jps_feedback, 3, a, NULL);
 		
-		sprintf(s, "%s:/range/clipmode", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/range/clipmode", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_clipmode);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
-		sprintf(s, "%s:/repetitions/allow", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/repetitions/allow", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->common.attr_repetitions);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 				
-		sprintf(s, "%s:/dataspace", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/dataspace", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_dataspace);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 				
-		sprintf(s, "%s:/dataspace/unit/native", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/dataspace/unit/native", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_unitNative);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 		
-		sprintf(s, "%s:/dataspace/unit/active", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/dataspace/unit/active", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_unitActive);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-
-		sprintf(s, "%s:/ui/freeze", x->common.attr_name->s_name);
+		
+		snprintf(s, 256, "%s:/ui/freeze", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->attr_ui_freeze);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 		
-		sprintf(s, "%s:/priority", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/priority", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->attr_priority);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
@@ -791,7 +953,7 @@ void param_dump(t_param *x)
 }
 
 
-// 'bang' method for user input
+// 'bang'method for user input
 void param_bang(t_param *x)
 {
 #ifdef JMOD_MESSAGE
@@ -803,7 +965,6 @@ void param_bang(t_param *x)
 
 	// call on the hub to pass our data onward
 	if(x->common.hub != NULL){
-//		jcom_core_atom_copy(&a, &x->name_atom);
 		atom_setsym(&a, x->common.attr_name);
 		object_method_typed(x->common.hub, jps_feedback, 1, &a, NULL);
 	}
@@ -819,7 +980,8 @@ void param_bang(t_param *x)
 void param_output_generic(void *z)
 {
 	t_param *x = (t_param *)z;
-	
+
+	x->isSending = YES;
 	if(x->list_size == 1){
 		param_clip_generic(x);
 		if(x->attr_value.a_type == A_LONG)
@@ -828,54 +990,70 @@ void param_output_generic(void *z)
 			outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
 		else if(x->attr_value.a_type == A_SYM)
 			outlet_anything(x->outlets[k_outlet_direct], x->attr_value.a_w.w_sym, 0, NULL);
+		param_send_feedback(x);
 	}
 	else if(x->list_size > 1){
-		param_clip_generic(x);
+		if(param_clip_generic(x) && x->ramper)
+			x->ramper->stop();
 		outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
+		param_send_feedback(x);
 	} 
 	else{	// zero args
 		param_output_none(x);
 	}
-	param_send_feedback(x);
+	x->isSending = NO;
 }
-
 
 void param_output_int(void *z)
 {
 	t_param *x = (t_param *)z;
 
-	param_clip_int(x);
+	if(param_clip_int(x) && x->ramper)
+		x->ramper->stop();
+	x->isSending = YES;
 	outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
 	param_send_feedback(x);
+	x->isSending = NO;
 }
 
 
 void param_output_float(void *z)
 {
 	t_param *x = (t_param *)z;
+	TTBoolean	didClip;
 
-	param_clip_float(x);
+	didClip = param_clip_float(x);
+	x->isSending = YES;
 	outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
 	param_send_feedback(x);
-}
+	x->isSending = NO;
 
+	if(didClip && x->ramper)
+		x->ramper->stop();
+}
 
 void param_output_symbol(void *z)
 {
 	t_param *x = (t_param *)z;
-
-	outlet_anything(x->outlets[k_outlet_direct], x->attr_value.a_w.w_sym, 0, NULL);
-	param_send_feedback(x);
+	
+	if(atom_gettype(&x->attr_value) == A_SYM){
+		x->isSending = YES;
+		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
+		param_send_feedback(x);
+		x->isSending = NO;
+	}
 }
-
 
 void param_output_list(void *z)
 {
 	t_param *x = (t_param *)z;
 	
-	param_clip_list(x);
+	if(param_clip_list(x) && x->ramper)
+		x->ramper->stop();
+	x->isSending = YES;
 	outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
 	param_send_feedback(x);
+	x->isSending = NO;
 }
 
 
@@ -885,16 +1063,24 @@ void param_output_none(void *z)
 	t_atom output[1];
 	t_atom *out = (t_atom *)(&output);
 
+	x->isSending = YES;
+
 	// bang direct output
 	outlet_bang(x->outlets[k_outlet_direct]);
 	
 	// call on the hub to pass our data onward
 	// We can not use (method)param_send_feedback here as it assumes an additional argument
 	if(x->common.hub != NULL){
+
+		// send to the object in which this parameter is embedded
+		if(x->callback)
+			x->callback(x->callbackArg, x->common.attr_name, x->list_size, x->atom_list);
+				
 		atom_setsym(out, x->common.attr_name);
-//		jcom_core_atom_copy(out, &x->name_atom);
 		object_method_typed(x->common.hub, jps_feedback, 1, out, NULL);
 	}
+
+	x->isSending = NO;
 }
 
 
@@ -1059,9 +1245,9 @@ void param_float(t_param *x, double value)
 	// this block added for implementing the dataspace features [TAP]
 	{
 		t_atom	a;
-		t_atom*	r;
-		bool	alloc;
-		long	count;
+		t_atom*	r = NULL;
+		bool	alloc = false;
+		long	count = 0;
 		
 		atom_setfloat(&a, value);
 		param_convert_units(x, 1, &a, &count, &r, &alloc);
@@ -1073,25 +1259,39 @@ void param_float(t_param *x, double value)
 	x->param_output(x);
 }
 
-
 // SYMBOL INPUT
-void param_symbol(t_param *x, t_symbol *msg, long argc, t_atom *argv)
+void param_symbol(t_param *x, t_symbol *value)
+{
+	x->list_size = 1;
+	if(x->common.attr_repetitions == 0){
+		if(value == atom_getsym(&x->attr_value))
+			return;
+	}
+	// new input - halt any ramping...
+	if(x->ramper)
+		x->ramper->stop();
+	atom_setsym(&x->attr_value, value);
+	x->param_output(x);
+}
+
+// ANYTHING INPUT
+void param_anything(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	char*	c = strrchr(msg->s_name, ':');
-	
+	long	ac = 0;
+	t_atom*	av = NULL;
+
 	if(c){
 		param_handleProperty(x, msg, argc, argv);
 		return;
 	}
-	
-	x->list_size = 1;
-	if(x->common.attr_repetitions == 0){
-		if(jcom_core_atom_compare(x->common.attr_type, &x->attr_value, argv))
-			return;
-	}
-	atom_setsym(&x->attr_value, msg);
-	x->param_output(x);
 
+	ac = argc+1;
+	av = (t_atom*)malloc(sizeof(t_atom) * ac);
+	atom_setsym(av, msg);
+	memcpy(av+1, argv, sizeof(t_atom) * argc);
+	param_list(x, _sym_list, ac, av);
+	free(av);
 }
 
 
@@ -1142,37 +1342,38 @@ void param_ui_queuefn(t_param *x)
 // messages received from jcom.hub
 void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	// new input - halt any ramping...
-	if(x->ramper)
-		x->ramper->stop();
+	if(!x->isSending){
+		// new input - halt any ramping...
+		if(x->ramper)
+			x->ramper->stop();
 
-	if(argc == 1){
-		// If repetitions are disabled, we check for a repetition by treating
-		// this as a 1 element list
-		if(x->common.attr_repetitions == 0 && param_list_compare(x->atom_list, 
-			x->list_size, argv, argc)) 
-			return;
+		if(argc == 1){
+			// If repetitions are disabled, we check for a repetition by treating
+			// this as a 1 element list
+			if(x->common.attr_repetitions == 0 && param_list_compare(x->atom_list, 
+				x->list_size, argv, argc)) 
+				return;
 
-		if(x->dataspace){
-			t_atom* r = (t_atom*)sysmem_newptr(sizeof(t_atom));
-			x->dataspace->convert(1, argv, &x->list_size, &r);
-			jcom_core_atom_copy(&x->attr_value, r);
-		}
-		else
-			jcom_core_atom_copy(&x->attr_value, argv);
-		x->list_size = 1;				
-		
-		x->param_output(x);
-	} else if(argc > 1) {
-		param_list(x, msg, argc, argv);
-	}
-	else { 	// no args
-#ifndef JMOD_MESSAGE
-		// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
-		if(x->common.attr_type == jps_msg_generic)
+			if(x->dataspace_active2native){
+				t_atom* r = (t_atom*)sysmem_newptr(sizeof(t_atom));
+				x->dataspace_active2native->convert(1, argv, &x->list_size, &r);
+				jcom_core_atom_copy(&x->attr_value, r);
+			}
+			else
+				jcom_core_atom_copy(&x->attr_value, argv);
+			x->list_size = 1;
+			
+			x->param_output(x);
+		} 
+		else if(argc > 1)
+			param_list(x, msg, argc, argv);
+		else{ 	// no args
+			// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
+			//if(x->common.attr_type == jps_msg_generic)
 			x->list_size = 0;
-#endif			
-		x->param_output(x);
+			if (x->common.attr_type != jps_msg_list)	// zero length list parameters are not allowed
+				x->param_output(x);
+		}
 	}
 }
 
@@ -1182,6 +1383,7 @@ int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy)
 	// If lists differ in length they're obviously not the same
 	if(lengthx == lengthy) {
 		short type;
+		
 		for(int i = 0; i < lengthx; i++) {
 			if((x->a_type) != (y->a_type))
 				return 0; // not identical, types differ
@@ -1207,19 +1409,13 @@ int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy)
 
 void param_convert_units(t_param* x,long argc, t_atom* argv, long* rc, t_atom** rv, bool* alloc)
 {
-	if(x->attr_dataspace && (x->attr_unitActive != x->attr_unitNative)){
+	if((x->attr_dataspace && x->dataspace_active2native) && (x->attr_unitActive != x->attr_unitNative)){
 		long	count;
 
 		*rv = (t_atom*)sysmem_newptr(sizeof(t_atom) * argc);
 		
-		for(int i=0; i<argc; i++){
-		/*
-			Note that for now we assume that we are converting from 1 value to 1 value.
-			This isn't always true though.  
-			Maybe there could be triplets that would be converted into one value or something?
-		*/
-			x->dataspace->convert(1, argv+i, &count, rv+i);
-		}
+		x->dataspace_active2native->convert(argc, argv, &count, rv);
+		*rc = count;
 		*alloc = true;
 	}
 	else{
@@ -1233,8 +1429,8 @@ void param_convert_units(t_param* x,long argc, t_atom* argv, long* rc, t_atom** 
 // LIST INPUT <value, ramptime>
 void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	double		start[LISTSIZE], 
-				values[LISTSIZE], 
+	double		start[LISTSIZE],
+				values[LISTSIZE],
 				time;
 	int			i;
 	t_atom*		ramp;
@@ -1258,10 +1454,10 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		param_handleProperty(x, msg, argc, argv);
 		return;
 	}
-	
+
 	if(argc == 1)
 		;	// nothing to do
-	else if(argc == 2 && x->dataspace != 0){
+	else if(argc == 2 && x->attr_unitActive != jps_none){
 		if(atom_gettype(argv) != A_SYM && atom_gettype(argv+1) == A_SYM){	// assume the second atom is a unit
 			hasUnit = true;
 			unit = atom_getsym(argv+1);
@@ -1272,7 +1468,7 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		if(ramp->a_type == A_SYM && ramp->a_w.w_sym == jps_ramp){
 			hasRamp = true;
 		}
-		else if(atom_gettype(argv) != A_SYM && atom_gettype(argv+2) == A_SYM){	// assume the last atom is a unit
+		else if((x->attr_dataspace != jps_none) && atom_gettype(argv) != A_SYM && atom_gettype(argv+2) == A_SYM){	// assume the last atom is a unit
 			hasUnit = true;
 			unit = atom_getsym(argv+2);
 		}
@@ -1282,7 +1478,7 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		if(ramp->a_type == A_SYM && ramp->a_w.w_sym == jps_ramp){
 			hasRamp = true;
 		}
-		if(atom_gettype(argv) != A_SYM && atom_gettype(argv+2) == A_SYM){	// assume the last atom is a unit
+		if((x->attr_dataspace != jps_none) && atom_gettype(argv) != A_SYM && atom_gettype(argv+argc-1) == A_SYM){	// assume the last atom is a unit
 			hasUnit = true;
 			if(hasRamp)
 				unit = atom_getsym(argv+(argc-3));
@@ -1301,15 +1497,19 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		Ultimately though, we actually want to convert the units after the ramping, 
 		for example to perform a sweep that is linear vs logarithmic
 	 */
-	if(hasRamp && hasUnit)
+	if(hasRamp && hasUnit){
 		param_convert_units(x, argc-3, argv, &ac, &av, &alloc);
-	else if(hasRamp)
+	}
+	else if(hasRamp){
 		param_convert_units(x, argc-2, argv, &ac, &av, &alloc);
-	else if(hasUnit)
+	}
+	else if(hasUnit){
 		param_convert_units(x, argc-1, argv, &ac, &av, &alloc);
-	else
+	}
+	else{
 		param_convert_units(x, argc, argv, &ac, &av, &alloc);
-	
+	}
+
 	// Check the second to last item in the list first, which when ramping should == the string ramp
 //	ramp = argv + (argc - 2);
 //	if (ramp->a_type == A_SYM && ramp->a_w.w_sym == jps_ramp) {
@@ -1320,7 +1520,7 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		if( x->common.attr_type == jps_msg_int || x->common.attr_type == jps_msg_float)
 			ac = 1;
 //		else
-//			argc = argc - 2;
+//		argc = argc - 2;
 		
 		for(i=0; i<ac; i++){
 			values[i] = atom_getfloat(av+i);
@@ -1354,7 +1554,7 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		
 		// Avoid copying more than one atom if the type only can have one argument
 		if(x->common.attr_type != jps_msg_list && x->common.attr_type != jps_msg_generic
-			&& x->common.attr_type != jps_msg_none){
+			&& x->common.attr_type != jps_msg_none && x->common.attr_type != jps_msg_symbol){
 			// If attr_type is != to anyone of the above values then we know 
 			// that it must be == to a scalar type.  This ensures it will behave
 			// as a scalar and not a list.
@@ -1457,26 +1657,27 @@ void param_ramp_setup(t_param *x)
 }
 
 void param_notify(t_param *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
-{
-	t_symbol	**unitNames = NULL;
+{   //TODO: if Max5 can handle dynamically created menues in the inspector, then we can display the content of 'units'. 
+	//right now the menu items have to be provided at the time a parameter is created, therfore we can't change the items of the data units dynamically 
+	/*t_symbol	**unitNames = NULL;
 	long		numUnits = 0;
 	long		i;
 	
-	if(x->dataspace) {
-		x->dataspace->getAvailableUnits(&numUnits, &unitNames);
+	if(x->dataspace_active2native) {
+		x->dataspace_active2native->getAvailableUnits(&numUnits, &unitNames);
 		units[0] = 0;
 		for(i=0; i<numUnits; i++)
 		{   
 			strcat(units, unitNames[i]->s_name);
 			strcat(units, " ");
 		}
-		//TODO: if Max5 can handle dynamic created menues in the inspector, then we can display the content of 'units'.
+		//
 		//post("available Dataspace-units: %s", units);
 		
 	}
 	
 	if(numUnits)
-		sysmem_freeptr(unitNames);
+		sysmem_freeptr(unitNames);*/
 
 }
 

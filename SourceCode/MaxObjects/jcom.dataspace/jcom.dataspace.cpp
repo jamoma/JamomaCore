@@ -45,7 +45,7 @@ t_class		*dataspace_class;
 /************************************************************************************/
 // Main() Function
 
-int main(void)
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	t_class *c;
 	

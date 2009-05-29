@@ -21,7 +21,7 @@ typedef struct _map{
 	double			attr_outputMax;
 	double 			a, b;				// Coefficients used for normalizing input
 	double			c, d;				// Coefficients used for scaling normalized output
-	FunctionUnit	*functionUnit;
+	TTAudioObject	*functionUnit;
 	bool			valid;				// true if the functionUnit can be used
 } t_map;
 
@@ -32,6 +32,7 @@ void		map_free(t_map *obj);
 void		map_assist(t_map *obj, void *b, long m, long a, char *s);
 void		map_int(t_map *obj, long x);
 void		map_float(t_map *obj, double x);
+void		map_list(t_map* obj, SymbolPtr message, AtomCount ac, AtomPtr av);
 void		map_getFunctions(t_map *x, t_symbol *msg, long argc, t_atom *argv);
 void		map_getParameter(t_map *x, t_symbol *msg, long argc, t_atom *argv);
 void		map_getFunctionParameters(t_map *x, t_symbol *msg, long argc, t_atom *argv);
@@ -52,7 +53,7 @@ t_class		*map_class;			// Required. Global pointing to this class
 /************************************************************************************/
 // Main() Function
 
-int main(void)				// main recieves a copy of the Max function macros table
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	t_class *c;
 	
@@ -63,14 +64,15 @@ int main(void)				// main recieves a copy of the Max function macros table
 	c = class_new("jcom.map",(method)map_new, (method)map_free, sizeof(t_map), (method)0L, A_GIMME, 0);
 
 	// Make methods accessible for our class: 
-	class_addmethod(c, (method)map_int,						"int", A_GIMME, 0L);
-	class_addmethod(c, (method)map_float,					"float", A_GIMME, 0L);
-	class_addmethod(c, (method)map_getFunctions,			"functions.get", A_GIMME, 0);
- 	class_addmethod(c, (method)map_getParameter,			"parameter.get", A_GIMME, 0);
-	class_addmethod(c, (method)map_getFunctionParameters,	"function.parameters.get", A_GIMME, 0);
- 	class_addmethod(c, (method)map_setParameter,			"parameter", A_GIMME, 0);
-	class_addmethod(c, (method)map_assist,					"assist", A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout,			"dumpout", A_CANT,0);
+	class_addmethod(c, (method)map_int,						"int",						A_LONG, 0L);
+	class_addmethod(c, (method)map_float,					"float",					A_FLOAT, 0L);
+	class_addmethod(c, (method)map_list,					"list",						A_GIMME, 0L);
+	class_addmethod(c, (method)map_getFunctions,			"functions.get",			A_GIMME, 0);
+ 	class_addmethod(c, (method)map_getParameter,			"parameter.get",			A_GIMME, 0);
+	class_addmethod(c, (method)map_getFunctionParameters,	"function.parameters.get",	A_GIMME, 0);
+ 	class_addmethod(c, (method)map_setParameter,			"parameter",				A_GIMME, 0);
+	class_addmethod(c, (method)map_assist,					"assist",					A_CANT, 0L); 
+    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",					A_CANT,0);
 
 	// ATTRIBUTE: set the function to use
 	class_addattr(c, 
@@ -164,8 +166,41 @@ void map_float(t_map *obj, double x)
 	double y;
 	
 	if(obj->valid){
-		y = obj->c * obj->functionUnit->map(obj->a * x + obj->b) + obj->d;
+		//y = obj->c * obj->functionUnit->map(obj->a * x + obj->b) + obj->d;
+		obj->functionUnit->calculate(obj->a * x + obj->b, y);
+		y = obj->c * y + obj->d;
 		outlet_float(obj->outlet, y);
+	}
+}
+
+
+void map_list(t_map* obj, SymbolPtr message, AtomCount argc, AtomPtr argv)
+{	
+	if(obj->valid){
+		TTValue		v;
+		TTValue		ret;
+		double		x, y;
+		AtomCount	ac = 0;
+		AtomPtr		av = NULL;
+
+		v.clear();
+		for(int i=0; i<argc; i++){
+			x = atom_getfloat(argv+i);
+			v.append(obj->a * x + obj->b);
+		}
+		
+		obj->functionUnit->calculate(v, ret);
+		
+		ac = ret.getSize();
+		av = new Atom[ac];
+		for(int i=0; i<ac; i++){
+			ret.get(i, y);
+			y = obj->c * y + obj->d;
+			atom_setfloat(av+i, y);
+		}
+
+		outlet_anything(obj->outlet, _sym_list, ac, av);
+		delete [] av;
 	}
 }
 
@@ -183,14 +218,12 @@ void map_getFunctions(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	
 	FunctionLib::getUnitNames(functionNames);
 	numFunctions = functionNames.getSize();
+
+	atom_setsym(a+0, gensym("append"));
 	for(i=0; i<numFunctions; i++){
 		functionNames.get(i, &aName);
-		atom_setsym(a+0, gensym("append"));
 		atom_setsym(a+1, gensym((char*)aName->getCString()));
 		object_obex_dumpout(obj, gensym("functions"), 2, a);
-		
-		atom_setsym(a, obj->attr_function);
-		object_obex_dumpout(obj, gensym("functions"), 1, a);
 	}
 }
 
@@ -252,6 +285,8 @@ void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *arg
 		for(int i=0; i<n; i++){
 			atom_setsym(a+0, gensym("append"));
 			names.get(i, &aName);
+			if(aName == TT("processInPlace") || aName == TT("bypass") || aName == TT("mute") || aName == TT("maxNumChannels") || aName == TT("sr"))
+				continue;	// don't publish these parameters
 			atom_setsym(a+1, gensym((char*)aName->getCString()));
 			object_obex_dumpout(obj, gensym("function.parameters"), 2, a);
 		}
@@ -296,8 +331,7 @@ void map_doSetFunction(t_map *obj, t_symbol *newFunctionName)
 t_max_err map_setFunction(t_map *obj, void *attr, long argc, t_atom *argv)
 {
 	obj->valid = false;	// prevent values from being processed by the function while it is in a state of flux
-//map_doSetFunction(obj, atom_getsym(argv));
-	defer_low(obj, (method)map_doSetFunction, atom_getsym(argv), 0, NULL);
+	defer(obj, (method)map_doSetFunction, atom_getsym(argv), 0, NULL);
 	return MAX_ERR_NONE;
 }
 

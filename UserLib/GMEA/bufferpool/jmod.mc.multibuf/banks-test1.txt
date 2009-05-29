@@ -1,0 +1,4 @@
+bank1, anton.aif cello-f2.aif cherokee.aif drumLoop.aif;
+bank2, jongly.aif rainstick.aif;
+bank3, sho0630.aif vibes-a1.aif "peau frottement 2.wav";
+"bank test 4", "precipitation 4.wav";

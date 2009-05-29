@@ -6,7 +6,7 @@
 >
   <preset number='1' name='default'>
     <item name='audio/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/gain' type='msg_float' priority='0'>100.0</item>
+    <item name='audio/gain' type='msg_float' priority='0'>100.000000</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
     <item name='countdown' type='msg_toggle' priority='0'>0</item>
     <item name='loop' type='msg_toggle' priority='0'>0</item>

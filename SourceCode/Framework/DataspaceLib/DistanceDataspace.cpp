@@ -106,11 +106,11 @@ void MeterUnit::convertFromNeutral(long inputNumArgs, double *input, long *outpu
 
 /***********************************************************************************************/
 DistanceDataspace::DistanceDataspace()
-	: DataspaceLib("distance", "meter")
+	: DataspaceLib("distance", "meters")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new CentimeterUnit,	gensym("cm"));
-	registerUnit(new CentimeterUnit,	gensym("centimeter"));
+	registerUnit(new CentimeterUnit,	gensym("centimeters"));
 	registerUnit(new FootUnit,			gensym("'"));
 	registerUnit(new FootUnit,			gensym("feet"));
 	registerUnit(new InchUnit,			gensym("\""));

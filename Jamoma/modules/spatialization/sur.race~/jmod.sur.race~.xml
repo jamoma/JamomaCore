@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
+
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
+>
+  <preset number='1' name='default'>
+    <item name='attenation' type='msg_float' priority='0'>-2.500000</item>
+    <item name='bypass' type='msg_toggle' priority='0'>0</item>
+    <item name='delay' type='msg_float' priority='0'>70.000000</item>
+    <item name='filtertype' type='msg_symbol' priority='0'>linkwitzriley.2</item>
+    <item name='gain' type='msg_float' priority='0'>100.000000</item>
+    <item name='lowMid' type='msg_int' priority='0'>250</item>
+    <item name='midHigh' type='msg_int' priority='0'>5000</item>
+    <item name='mute' type='msg_toggle' priority='0'>0</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+  </preset>
+</jamoma>

@@ -23,11 +23,14 @@ enum JamomaError{
 	#else
 	 #define JAMOMA_PLATFORM_MAC
 	 #define JAMOMA_EXPORT
+	 #define JAMOMA_EXPORT_MAXOBJ
 	#endif
 #endif
 
 #ifdef JAMOMA_PLATFORM_WIN
  #include "windows.h"
+ #define JAMOMA_EXPORT_MAXOBJ __declspec(dllexport)
+
  #ifdef _DLL_JAMOMA_EXPORT
   #define JAMOMA_EXPORT __declspec(dllexport)
  #else

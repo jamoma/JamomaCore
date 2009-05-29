@@ -81,7 +81,7 @@
 	MAXREF--->
 */
 
-#include "Jamoma.h";
+#include "Jamoma.h"
 
 #define nonzero(x)				((x > 0) ? x : 1.)
 
@@ -114,7 +114,7 @@ t_class		*this_class;				// Required. Global pointing to this class
 /************************************************************************************/
 // Main() Function
 
-int main(void)
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {	
 	t_class *c;
 	
@@ -252,7 +252,7 @@ void delta_assist(t_delta *x, void *b, long msg, long arg, char *dst)	// Display
 		switch(arg)
 		{
 			case 0:
-				sprintf(dst, "(int/float) function value");
+				strcpy(dst, "(int/float) function value");
 				break;	
 		}
 	}
@@ -261,16 +261,16 @@ void delta_assist(t_delta *x, void *b, long msg, long arg, char *dst)	// Display
 		switch(arg)
 		{
 			case 0:
-				sprintf(dst, "(float) 1st order difference");
+				strcpy(dst, "(float) 1st order difference");
 				break;
 			case 1:
-				sprintf(dst, "(float) 2nd order difference");
+				strcpy(dst, "(float) 2nd order difference");
 				break;
 			case 2:
-				sprintf(dst, "(float) velocity");
+				strcpy(dst, "(float) velocity");
 				break;
 			case 3:
-				sprintf(dst, "dumpout");
+				strcpy(dst, "dumpout");
 				break;
 		}
 	}

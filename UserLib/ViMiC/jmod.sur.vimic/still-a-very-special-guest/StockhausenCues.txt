@@ -1,0 +1,83 @@
+##########
+CUE Setup
+##########
+
+  	/vimic/microphones/amount 4
+	/vimic/room/reflection/order 0
+    /control/audio 0
+ 
+WAIT 100
+
+# Module /output
+
+#    /output/setup 22 4 10 17 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32
+    /output/setup 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32
+    /output/numSpeakers 4  
+
+# Module /vimic
+    /vimic/audio/gain 100.000
+    /vimic/audio/mute 0 
+    /vimic/rendermode/interval 25   
+
+    /vimic/microphones.1/directivity/ratio 0.500
+    /vimic/microphones.1/gain 100.000
+    /vimic/microphones.1/active 1
+    /vimic/microphones.1/orientation 135.0 0.0
+    /vimic/microphones.1/position -1.00 1.00 0.000
+   
+    /vimic/microphones.2/directivity/ratio 0.500
+    /vimic/microphones.2/gain 100.000
+    /vimic/microphones.2/active 1
+    /vimic/microphones.2/orientation -135.0 0.0
+    /vimic/microphones.2/position 1.00 1.00 0.000
+    
+    /vimic/microphones.3/directivity/ratio 0.500
+    /vimic/microphones.3/gain 100.000
+    /vimic/microphones.3/active 1
+    /vimic/microphones.3/orientation -45.0 0.0
+    /vimic/microphones.3/position 1.00 -1.00 0.000
+
+    /vimic/microphones.4/directivity/ratio 0.500
+    /vimic/microphones.4/gain 100.000
+    /vimic/microphones.4/active 1
+    /vimic/microphones.4/orientation 45.0 0.0
+    /vimic/microphones.4/position -1.00 -1.00 0.000
+   
+     
+    /vimic/microphones/directivity/power 1
+    /vimic/microphones/polarity 1
+    
+    /vimic/rendermode ViMiC_lite
+    
+    /vimic/room/distance/dbunit 3.000
+    /vimic/room/distance/mode inverse
+    /vimic/room/distance/power 1.000
+    /vimic/room/reflection/gain.0 100.0
+    
+    /vimic/source/orientation/active 1
+    /vimic/source/orientation/mode static    
+    	   
+   	WAIT 100                           
+
+	/vimic/source/directivity/loadFile "speaker.txt" 
+	
+########
+CUE "Noise on"
+########	
+	/control/audio 1  
+	
+	/input~/audio/active 1
+	/input~/audio/gain 100. ramp 1000
+	/input~/balance -1.
+	/input~/source pink
+
+	
+	########
+	CUE "Noise off"
+	########	
+ 
+		/input~/audio/gain 0. ramp 1000  
+		
+		WAIT 1000
+		
+		/control/audio 0

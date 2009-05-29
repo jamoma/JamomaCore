@@ -36,12 +36,6 @@
 // class variables
 static t_class		*s_ui_class = NULL;
 
-//static t_jrgba		s_color_text				= {0.65,		0.65,		0.65,		1.0};
-
-//now x->bgcolor
-//static t_jrgba		s_color_background_audio	= {0.141176,	0.141176,	0.141176,	1.0};
-//static t_jrgba		s_color_titlebar_audio		= {0.0,			0.0,		0.0,		1.0};
-//static t_jrgba		s_color_border_audio		= {0.2,			0.2,		0.2,		1.0};
 static t_jrgba		s_color_background_button	= {0.2,			0.2,		0.2,		1.0};
 static t_jrgba		s_color_border_button		= {0.4,			0.4,		0.4,		1.0};
 static t_jrgba		s_color_text_button_on		= {0.7,			0.7,		0.7,		1.0};
@@ -62,7 +56,7 @@ static t_jrgba		s_color_darkgreen			= {0.05,		0.4,		0.05,		1.0};
 #pragma mark -
 #pragma mark life cycle
 
-int main(void)
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	long	flags;
 	t_class *c;
@@ -83,6 +77,7 @@ int main(void)
 	jbox_initclass(c, flags);
 	c->c_flags |= CLASS_FLAG_NEWDICTIONARY; // to specify dictionary constructor
 
+	class_addmethod(c, (method)ui_subscribe,		"subscribe",		A_CANT, 0);
 	class_addmethod(c, (method)ui_notify,			"notify",			A_CANT, 0);
 	class_addmethod(c, (method)ui_paint,			"paint",			A_CANT, 0);
 	class_addmethod(c, (method)ui_mousedown,		"mousedown",		A_CANT, 0);
@@ -97,19 +92,19 @@ int main(void)
 	CLASS_STICKY_ATTR(c,					"category",		0, "Color");
 	
 	CLASS_ATTR_RGBA(c,						"bgcolor",		0,	t_ui,	bgcolor);
-	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bgcolor",		0,	"0.141176 0.141176 0.141176 1.0");
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bgcolor",		0,	"0.93 0.93 0.93 1.0");
 	CLASS_ATTR_STYLE(c,						"bgcolor",		0,	"rgba");
 	
 	CLASS_ATTR_RGBA(c,						"bordercolor",	0,	t_ui,	bordercolor);
-	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bordercolor",	0,	"0.2 0.2 0.2 1.0");
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bordercolor",	0,	"0.6 0.6 0.6 1.0");
 	CLASS_ATTR_STYLE(c,						"bordercolor",	0,	"rgba");
 	
 	CLASS_ATTR_RGBA(c,						"headercolor",	0,	t_ui,	headercolor);
-	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"headercolor",	0,	"0.0 0.0 0.0 1.0");
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"headercolor",	0,	"0.82 0.82 0.82 1.0");
 	CLASS_ATTR_STYLE(c,						"headercolor",	0,	"rgba");
 	
 	CLASS_ATTR_RGBA(c,						"textcolor",	0,	t_ui,	textcolor);
-	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"textcolor",	0,	"0.65 0.65 0.65 1.0");
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"textcolor",	0,	"0. 0. 0. 1.0");
 	CLASS_ATTR_STYLE(c,						"textcolor",	0,	"rgba");
 	
 	CLASS_STICKY_ATTR_CLEAR(c,	"category");
@@ -125,6 +120,7 @@ int main(void)
 	CLASS_ATTR_STYLE(c,		"has_panel",		0, "onoff");
 	CLASS_ATTR_DEFAULT(c,	"has_panel",		0, "0");
 	CLASS_ATTR_SAVE(c,		"has_panel",		0);
+	CLASS_ATTR_ACCESSORS(c,	"has_panel",		NULL,	attr_set_hasinspector);
 
 	// this is needed so that we know whether or not to offer the option of turning the meters on and off in the menu
 	CLASS_ATTR_LONG(c,		"has_meters",		0, t_ui, attr_hasmeters);
@@ -203,6 +199,10 @@ int main(void)
 	CLASS_ATTR_SYM(c,		"module_name",		0, t_ui, attr_modulename);
 	CLASS_ATTR_DEFAULT(c,	"module_name",		0, "/Jamoma");
 
+	CLASS_ATTR_LONG(c,		"ui_is_frozen",		0, t_ui, attr_ui_freeze);
+	CLASS_ATTR_STYLE(c,		"ui_is_frozen",		0, "onoff");
+	CLASS_ATTR_DEFAULT(c,	"ui_is_frozen",		0, "0");
+
 	CLASS_STICKY_ATTR_CLEAR(c,	"category");
 	
 	class_register(CLASS_BOX, c);
@@ -215,9 +215,8 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_ui			*x = NULL;
 	t_dictionary 	*d = NULL;
-//	t_object 		*textfield = NULL; 
 	long 			flags;
-	t_atom			a[1];
+	t_atom			a[2];
 
 	if(!(d=object_dictionaryarg(argc, argv)))
 		return NULL;	
@@ -241,30 +240,21 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->refmenu_items = NULL;
 		x->hash_internals = hashtab_new(0);
 		
-		atom_setsym(a, jps__gui__);
-		jcom_core_loadextern(gensym("jcom.remote"), 1, a, &x->obj_remote);
+		atom_setsym(a+0, jps__gui__);
+		atom_setobj(a+1, x->box.b_patcher);
+		jcom_core_loadextern(gensym("jcom.remote"), 2, a, &x->obj_remote);
 		object_method(x->obj_remote, gensym("setcallback"), ui_remote_callback, x);
-/*		
-		textfield = jbox_get_textfield((t_object*) x); 
-		textfield_set_noactivate(textfield, 1);
-		textfield_set_readonly(textfield, 1);
-		textfield_set_editonclick(textfield, 0);
-		textfield_set_wordwrap(textfield, 0);
-		textfield_set_useellipsis(textfield, 1); 
-		textfield_set_textcolor(textfield, &s_light_gray);
-		textfield_set_textmargins(textfield, 20.0, 2.0, 60.0, 51.0);
-*/
+
 		attr_dictionary_process(x, d); 					// handle attribute args
 		jbox_ready(&x->box);
-
-		x = (t_ui *)object_register(CLASS_BOX, symbol_unique(), x);
-		object_attach_byptr(x, x); 						// sign up for notifications of changes to our attributes
 		
 		x->menu_items = (t_linklist *)linklist_new();
 		x->menu_qelem = qelem_new(x, (method)ui_menu_qfn);
 
 		x->refmenu_items = (t_linklist *)linklist_new();
 		x->refmenu_qelem = qelem_new(x, (method)ui_refmenu_qfn);
+		
+		ui_internals_createColors(x);
 	}
 	return x;
 }
@@ -284,16 +274,13 @@ void ui_free(t_ui *x)
 	
 	object_free(x->obj_remote);
 	ui_internals_destroy(x);
-
-	object_detach_byptr(x, x); 
-	object_unregister(x); 
 }
 
 
 #pragma mark -
 #pragma mark methods
 
-void ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+t_max_err ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
 	t_object	*textfield;
 	t_symbol	*attrname;
@@ -319,6 +306,26 @@ void ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 
 		jbox_redraw(&x->box);
 	}
+	return jbox_notify((t_jbox*)x, s, msg, sender, data);
+}
+
+
+void ui_subscribe(t_ui *x)
+{
+	SymbolPtr*			keys = NULL;
+	long				numkeys = 0;
+	uiInternalObject*	anObject = NULL;
+	
+	hashtab_getkeys(x->hash_internals, &numkeys, &keys);
+	if(numkeys && keys){
+		for(int i=0; i<numkeys; i++){
+			hashtab_lookup(x->hash_internals, keys[i], (t_object**)&anObject);
+			object_method(anObject->theObject, jps_subscribe);
+		}
+		sysmem_freeptr(keys);
+	}
+	
+	object_method(x->obj_remote, jps_subscribe);
 }
 
 
@@ -332,8 +339,8 @@ void ui_remote_callback(t_ui *x, t_symbol *s, long argc, t_atom* argv)
 		object_attr_setvalueof(x, gensym("module_name"), 1, argv+1);
 	else if(message == gensym("module_class") && argc == 2)
 		x->attrModuleClass = atom_getsym(argv+1);
-	else if(message == gensym("module_type") && argc == 2)
-		; // TODO: Should do something here?
+//	else if(message == gensym("module_type") && argc == 2)
+//		; // TODO: Should do something here?
 }
 
 
@@ -801,6 +808,12 @@ void ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 				else
 					jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
 			}
+			else if(item->sym == gensym("Disable UI Updates")){
+				if(x->attr_ui_freeze)
+					jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 1, 0, NULL);
+				else
+					jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
+			}
 			else
 				jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
 		}
@@ -829,9 +842,15 @@ void ui_menu_qfn(t_ui *x)
 			object_attr_setlong(x, gensym("meters_defeated"), 0);
 		else
 			object_attr_setlong(x, gensym("meters_defeated"), 1);
+		object_method_long(x->obj_remote, gensym("audio/meters/freeze"), x->attr_metersdefeated, NULL);
 	}
-	else if(item->sym == gensym("Disable UI Updates"))
-		object_method_long(x->obj_remote, gensym("/ui/freeze"), x->attr_isfrozen, NULL);
+	else if(item->sym == gensym("Disable UI Updates")){
+		if(x->attr_ui_freeze)
+			object_attr_setlong(x, gensym("ui_is_frozen"), 0);
+		else
+			object_attr_setlong(x, gensym("ui_is_frozen"), 1);
+		object_method_long(x->obj_remote, gensym("/ui/freeze"), x->attr_ui_freeze, NULL);
+	}
 	else if(item->sym == gensym("Refresh UI"))
 		object_method_sym(x->obj_remote, gensym("/ui/refresh"), item->sym, NULL);
 	else if(item->sym == gensym("Load Settings..."))
@@ -849,7 +868,7 @@ void ui_menu_qfn(t_ui *x)
 	else if(item->sym == gensym("Get Current State as Text"))
 		object_method_sym(x->obj_remote, gensym("/getstate"), item->sym, NULL);
 	else if(item->sym == gensym("View Internal Components"))
-		object_method_sym(x->obj_remote, gensym("/module/view_internals"), item->sym, NULL);
+		object_method_sym(x->obj_remote, gensym("/module/viewInternals"), item->sym, NULL);
 	else if(item->sym == gensym("Open Help Patch"))
 		object_method_sym(x->obj_remote, gensym("/module/help"), item->sym, NULL);
 	else if(item->sym == gensym("Open Reference Page"))
@@ -869,8 +888,7 @@ void ui_menu_build(t_ui *x)
 		return;
 
 	linklist_clear(x->menu_items);
-	
-	item = (t_symobject *)symobject_new(gensym("Disable UI Updates"));	// we should mark this one with a check-mark though...
+	item = (t_symobject *)symobject_new(gensym("Disable UI Updates"));
 	linklist_append(x->menu_items, item);	
 	item = (t_symobject *)symobject_new(gensym("Refresh UI"));
 	linklist_append(x->menu_items, item);
@@ -954,6 +972,7 @@ void ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 		if(!item->sym || (item->sym->s_name[0] == '\0') || item->sym->s_name[0] == '-')//{
 			jpopupmenu_addseperator(p);
 		else{
+//TODO: Instead of passing NULL for the 4th parameter, we can pass a custom color for "header" items			
 			jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
 		// TODO: use jpopupmenu_addheader instead -- requires that Max export this function though (which it currently doesn't)
 		//	if(item->flags)

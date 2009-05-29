@@ -38,14 +38,14 @@ t_class		*route_class;				// Required: Global pointer for our class
 /************************************************************************************/
 // Main() Function
 
-int main(void)				// main recieves a copy of the Max function macros table
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	long attrflags = 0;
 	t_class *c;
 	t_object *attr;
 	
 	jamoma_init();
-common_symbols_init();
+	common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.route",(method)route_new, (method)0L, sizeof(t_route), (method)0L, A_GIMME, 0);
@@ -122,8 +122,9 @@ void route_assist(t_route *x, void *b, long msg, long arg, char *dst)
 		strcpy(dst, "Input");
 	else if(msg==2){ 				// Outlets
 		switch(arg){
-			case 0: strcpy(dst, "Output"); break;
-			case 1: strcpy(dst, "Attribute Stuff"); break;
+			case 0: strcpy(dst, "Matching Output"); break;
+			case 1: strcpy(dst, "Unmatching Output"); break;
+			case 2: strcpy(dst, "Dumpout"); break;
  		}
  	}		
 }
@@ -193,11 +194,11 @@ void route_symbol(t_route *x, t_symbol *msg, long argc, t_atom *argv)
 	for(i=0; i<argc; i++){
 		switch(argv[i].a_type){
 			case A_LONG:
-				sprintf(tempstring, "%ld", argv[i].a_w.w_long);
+				snprintf(tempstring, 50, "%ld", argv[i].a_w.w_long);
 				tempsym = gensym(tempstring);
 				break;
 			case A_FLOAT:
-				sprintf(tempstring, "%f", argv[i].a_w.w_float);
+				snprintf(tempstring, 50, "%f", argv[i].a_w.w_float);
 				tempsym = gensym(tempstring);
 				break;
 			case A_SYM:
@@ -231,11 +232,11 @@ void route_list(t_route *x, t_symbol *msg, long argc, t_atom *argv)
 	for(i=0; i<argc; i++){
 		switch(argv[i].a_type){
 			case A_LONG:
-				sprintf(tempstring, "%ld", argv[i].a_w.w_long);
+				snprintf(tempstring, 50, "%ld", argv[i].a_w.w_long);
 				tempsym = gensym(tempstring);
 				break;
 			case A_FLOAT:
-				sprintf(tempstring, "%f", argv[i].a_w.w_float);
+				snprintf(tempstring, 50, "%f", argv[i].a_w.w_float);
 				tempsym = gensym(tempstring);
 				break;
 			case A_SYM:

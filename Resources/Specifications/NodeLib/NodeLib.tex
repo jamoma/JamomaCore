@@ -1,0 +1,167 @@
+%
+%  untitled
+%
+%  Created by Tim Place on 2009-03-24.
+%  Copyright (c) 2009 __MyCompanyName__. All rights reserved.
+%
+\documentclass[]{article}
+
+% Use utf-8 encoding for foreign characters
+\usepackage[utf8]{inputenc}
+
+% Setup for fullpage use
+\usepackage{fullpage}
+\usepackage{hyperref} 
+% Uncomment some of the following if you use the features
+%
+% Running Headers and footers
+%\usepackage{fancyhdr}
+
+% Multipart figures
+%\usepackage{subfigure}
+
+% More symbols
+%\usepackage{amsmath}
+%\usepackage{amssymb}
+%\usepackage{latexsym}
+
+% Surround parts of graphics with box
+\usepackage{boxedminipage}
+
+% Package for including code in the document
+\usepackage{listings}
+
+% If you want to generate a toc for each chapter (use with book)
+\usepackage{minitoc}
+
+% This is now the recommended way for checking for PDFLaTeX:
+\usepackage{ifpdf}
+
+%\newif\ifpdf
+%\ifx\pdfoutput\undefined
+%\pdffalse % we are not running PDFLaTeX
+%\else
+%\pdfoutput=1 % we are running PDFLaTeX
+%\pdftrue
+%\fi
+
+\ifpdf
+\usepackage[pdftex]{graphicx}
+\else
+\usepackage{graphicx}
+\fi
+\title{NodeLib -- Functional Specification}
+\author{ Timothy Place, Pascal Baltazar }
+
+\date{2009-04-16}
+
+\begin{document}
+
+\ifpdf
+\DeclareGraphicsExtensions{.pdf, .jpg, .tif}
+\else
+\DeclareGraphicsExtensions{.eps, .jpg}
+\fi
+
+\maketitle
+
+
+\begin{abstract}
+\end{abstract}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Overview}
+
+The \textbf{NodeLib} is a library within the Jamoma Modular framework for locating and communicating with nodes in the Jamoma system.  A node is any point in the system whose name would occur between slashes when represented using Open Sound Control nomenclature.  
+
+This spec is not complete.
+
+This work should be done in the experimental branch.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Use Cases}
+
+\subsection{Phase 1 Use Cases}
+
+\subsubsection{Case 1: Pascal the message sender}
+
+Pascal, besides being a brilliant mathematician and developing his famous triangle for showing binomial coefficients, is obsessed with the efficiency of sending messages to nodes.  Without the NodeLib, messages are broadcast to all modules and then filtered at each module.  If there are 1653 modules, then to send one message will entail sending it once, receiving it 1653 times, adn then filtering it 1653 times -- even though it is only intended for one module.  In reality the filtering is much more expensive, particularly where wildcard patterns are involved.  Pascal knows this and wishes the message could be sent directly.
+
+\subsubsection{Case 2: Cartier the explorer}
+
+Not happy with discovering Canada, Cartier wishes to explore the topology of the nodes in the Jamoma namespace.  To do this Cartier needs to know how to access the root of the namespace's tree structure.  Then any node within the tree structure (including the root) needs to be able to report what children it has (that it is aware of).  Any given node also needs to know some things about itself and be able to report them.
+
+\subsubsection{Case 3: Bob the tracker}
+Bob, a sound engineer, is used to using tracks for grouping effects, and would like to find the same thing in Jamoma. He would then organize his setup by having a series of /track nodes between his groups of modules (e.g. /track.2/filter.1, /track.3/player.1, etc...)
+
+
+\subsection{Phase 2 Use Cases}
+
+\subsubsection{Case 4: ???? the instance manager}
+???? wants to manage instances in his Jamoma setup. For example, he has a collection of player modules (named /player.1 to /player.n), and want to play a sound on one of them. As he is a lazy guy, and likes to outsource his brain activity to computers, ???? would like the system to automatically manage the instance to the first available player in this group. This could be the case as well for a module having sub-modules (consider e.g. a mixind console module, with several tracks) This would mean that modules (or nodes) would have to have a @busy attribute. 
+
+\subsubsection{Case 5: ???? the wildcard player}
+/module.*/parameter, /*/parameter, /module.2/track.*/parameter\\
+/module.[2-4]/parameter\\
+need to keep track of the namespace in a hashtab ?
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Features}
+
+\subsection{Initial Features}
+
+Initially focused on working only for local contexts (e.g. inside of a running Max process)
+
+\begin{itemize}
+	
+	\item Feedback suppression: need the ability to control feedback, including feedback through networks (suggests even serial numbers that are passed?)
+
+	\item Lightweight query system and syntax
+
+	\item jcom.send and jcom.receive
+
+	\item wildcards
+
+	\item fast hash-table based daemon running in the main thread
+
+\end{itemize}
+
+
+\subsection{Later Features}
+
+Including expansion to working with remote contexts (other processes or remote machines). 
+
+\begin{itemize}
+
+	\item {[ Aliases ] ability to create nodes which are aliases to other nodes}
+
+	\item {jcom.send= and jcom.receive=}
+
+	\item {running the daemon in another thread?}
+
+	\item {communicating with a network}
+
+\end{itemize}
+
+A list of comments, notes and feature requests can be found in the Jamoma WIKI under \url{http://groupware.bek.no/groups/jamoma/wiki/1f98f/NodeLib.html}. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\bibliographystyle{plain}
+\bibliography{}
+\end{document}

@@ -12,15 +12,18 @@
 #endif // WIN_VERSION
 
 #include "ext.h"		// Max externals header
+#include "JamomaSymbols.h"
 
 t_symbol	*jps_done,
 			*jps_none,					// ramp stuff
 			*jps_linear,
 			*jps_linear_q,
 			*jps_ramp_update,
-			*jps_low, 
+			*jps_low,					// clip stuff
 			*jps_high, 
-			*jps_both, 
+			*jps_both,
+			*jps_wrap,
+			*jps_fold,
 			*jps_inc,					// increase, decrease
 			*jps_dec,
 			*jps_msg_generic, 				// types
@@ -149,8 +152,10 @@ t_symbol	*jps_done,
 			*jps_slash_preset_slash_load,		// 	/preset/load
 			*jps_slash_preset_slash_store,
 			*jps_slash_preset_slash_storenext,
+			*jps_slash_preset_slash_storecurrent,
 			*jps_slash_preset_slash_recall,
 			*jps_slash_preset_slash_write,		// 	/preset/save
+			*jps_slash_preset_slash_writeagain,	// 	/preset/save
 			*jps_slash_preset_slash_copy,		// 	/preset/save
 			*jps_ui_slash_freeze,				//	ui/freeze
 			*jps_slash_ui_slash_freeze,			//	/ui/freeze
@@ -170,6 +175,7 @@ t_symbol	*jps_done,
 			*jps_dispatch
 			;
 
+
 void jamomaSymbolsInit()
 {
 	jps_done						= gensym("done");
@@ -178,9 +184,12 @@ void jamomaSymbolsInit()
 	jps_linear						= gensym("linear");
 	jps_linear_q					= gensym("linear.q");
 	jps_ramp_update					= gensym("ramp_update");
+	//clip stuff
 	jps_low							= gensym("low"); 
 	jps_high						= gensym("high"); 
 	jps_both						= gensym("both");
+	jps_wrap						= gensym("wrap");
+	jps_fold						= gensym("fold");
 	// increase and decrease
 	jps_inc							= gensym("inc");
 	jps_dec							= gensym("dec");
@@ -193,10 +202,10 @@ void jamomaSymbolsInit()
 	jps_msg_toggle					= gensym("msg_toggle");
 	jps_msg_none					= gensym("msg_none");			// this type only used by jcom.message
 	jps_jcom_hub					= gensym("jcom.hub"); 
-    jps_feedback					= gensym("feedback");
+    jps_feedback					= gensym("__feedback__");		// used for parameter feedback to the hub
 	// common OSC messages according to the JIG
-	jps_module_name_get				= gensym("/module_name/get");
-	jps_core_module_name_get		= gensym("core_module_name/get");
+	jps_module_name_get				= gensym("/module_name:/get");
+	jps_core_module_name_get		= gensym("core_module_name:/get");
 	jps_dumpout						= gensym("dumpout");
 	jps_audio						= gensym("audio");
 	jps_video						= gensym("video");
@@ -321,8 +330,10 @@ void jamomaSymbolsInit()
 	jps_slash_preset_slash_load		= gensym("/preset/load");
 	jps_slash_preset_slash_recall	= gensym("/preset/recall");
 	jps_slash_preset_slash_write	= gensym("/preset/write");
-	jps_slash_preset_slash_store	= gensym("/preset/store");		
-	jps_slash_preset_slash_storenext	= gensym("/preset/storenext");		
+	jps_slash_preset_slash_writeagain	= gensym("/preset/writeagain");
+	jps_slash_preset_slash_store	= gensym("/preset/store");
+	jps_slash_preset_slash_storenext	= gensym("/preset/storenext");
+	jps_slash_preset_slash_storecurrent = gensym("/preset/storecurrent");
 	jps_slash_preset_slash_copy		= gensym("/preset/copy");		
 	jps_ui_slash_freeze				= gensym("ui/freeze");
 	jps_slash_ui_slash_freeze		= gensym("/ui/freeze");

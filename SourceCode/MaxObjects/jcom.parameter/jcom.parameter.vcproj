@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="jcom.parameter"
 	ProjectGUID="{EC4B067D-6E03-40DF-BDC9-DA9B7745A637}"
 	RootNamespace="jcom.parameter"
@@ -42,11 +42,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Framework\source;&quot;..\..\ThirdParty\c74support\max-includes&quot;;..\..\ThirdParty\c74support\msp-includes;..\..\ThirdParty\c74support\jit-includes;..\..\..\..\TTBlue\includes\core;..\..\..\..\TTBlue\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\units&quot;;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib;&quot;$(ProjectDir)..\..\..\..\Tools\library\common&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="2"
+				RuntimeLibrary="1"
 				StructMemberAlignment="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -64,12 +64,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib TTBlue.lib JamomaFramework.lib"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib JamomaDSP.lib JamomaModular.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;&quot;..\..\..\..\TTBlue\library\$(ConfigurationName)&quot;;&quot;..\..\Framework\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;..\..\Framework\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
-				ModuleDefinitionFile="jcom.parameter.def"
+				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -125,12 +125,13 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..\..\Framework\source;&quot;..\..\ThirdParty\c74support\max-includes&quot;;..\..\ThirdParty\c74support\msp-includes;..\..\ThirdParty\c74support\jit-includes;..\..\..\..\TTBlue\includes\core;..\..\..\..\TTBlue\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\units&quot;;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib;&quot;$(ProjectDir)..\..\..\..\Tools\library\common&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="0"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
+				StructMemberAlignment="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
@@ -147,11 +148,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib TTBlue.lib JamomaFramework.lib"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib JamomaDSP.lib JamomaModular.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;&quot;..\..\..\..\TTBlue\library\$(ConfigurationName)&quot;;&quot;..\..\Framework\$(ConfigurationName)&quot;"
-				ModuleDefinitionFile="jcom.parameter.def"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;..\..\Framework\$(ConfigurationName)&quot;"
+				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -200,7 +201,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\ThirdParty\c74support\max-includes\common\commonsyms.c"
+				RelativePath="$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes\common\commonsyms.c"
 				>
 			</File>
 			<File

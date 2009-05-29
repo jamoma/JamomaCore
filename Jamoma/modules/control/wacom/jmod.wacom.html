@@ -37,8 +37,30 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td> /description </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> bgrb </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Use the object when Max/MSP is in background </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> flusheventqueue </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> flusheventqueue 1 message to have no delay at the output. </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> menu </td>
-			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionType"> generic </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -49,7 +71,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> nopointer </td>
-			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionType"> toggle </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -60,7 +82,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> on </td>
-			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionType"> toggle </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -71,7 +93,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/freeze </td>
-			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionType"> toggle </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -79,6 +101,17 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> xyrange </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> change range for X Y </td>
 		<tr>
 	</table>
 
@@ -99,7 +132,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> documentation/generate </td>
-			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionType"> generic </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -110,7 +143,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> init </td>
-			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionType"> generic </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -121,7 +154,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> init </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -132,7 +165,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> module/view_internals </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -143,7 +176,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> panel/open </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -154,7 +187,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/clear </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -165,7 +198,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/copy </td>
-			<td class ="instructionType"> msg_list </td>
+			<td class ="instructionType"> list </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -176,7 +209,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/default </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -187,7 +220,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/dump </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -198,7 +231,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/interpolate </td>
-			<td class ="instructionType"> msg_list </td>
+			<td class ="instructionType"> list </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -209,7 +242,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/post </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -220,7 +253,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/read </td>
-			<td class ="instructionType"> msg_symbol </td>
+			<td class ="instructionType"> symbol </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -231,7 +264,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/recall </td>
-			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionType"> generic </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -242,7 +275,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/store </td>
-			<td class ="instructionType"> msg_list </td>
+			<td class ="instructionType"> list </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -253,7 +286,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/storenext </td>
-			<td class ="instructionType"> msg_list </td>
+			<td class ="instructionType"> list </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -264,7 +297,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/write </td>
-			<td class ="instructionType"> msg_symbol </td>
+			<td class ="instructionType"> symbol </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -275,7 +308,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/refresh </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -302,8 +335,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td> /description </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> buttons </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionDataspace">  </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> low </td>
+			<td class ="instructionRampDrive">  </td>
+			<td class ="instructionRampFunction">  </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> buttons of the Wacom tool  </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> buttons/raw </td>
-			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionType"> int </td>
 			<td class ="instructionDataspace">  </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> both </td>
@@ -314,7 +358,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> direction </td>
-			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionType"> int </td>
 			<td class ="instructionDataspace">  </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> both </td>
@@ -324,33 +368,11 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Direction of the Wacom tool </td>
 		<tr>
 		<tr>
-			<td class="instructionName">  </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionDataspace">  </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive">  </td>
-			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> buttons of the Wacom tool  </td>
-		<tr>
-		<tr>
-			<td class="instructionName">  </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionDataspace">  </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive">  </td>
-			<td class ="instructionRampFunction">  </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Indicates if the tool touches the tablet </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> position/x </td>
-			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionType"> float </td>
 			<td class ="instructionDataspace">  </td>
 			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -358,7 +380,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> position/y </td>
-			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionType"> float </td>
 			<td class ="instructionDataspace">  </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> both </td>
@@ -369,10 +391,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> pressure </td>
-			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionType"> float </td>
 			<td class ="instructionDataspace">  </td>
 			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -380,7 +402,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> proximity </td>
-			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionType"> int </td>
 			<td class ="instructionDataspace">  </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> both </td>
@@ -391,7 +413,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> rotation </td>
-			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionType"> float </td>
 			<td class ="instructionDataspace">  </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> both </td>
@@ -402,7 +424,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> tilt/x </td>
-			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionType"> float </td>
 			<td class ="instructionDataspace">  </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> both </td>
@@ -413,7 +435,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> tilt/y </td>
-			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionType"> float </td>
 			<td class ="instructionDataspace">  </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> both </td>
@@ -421,6 +443,17 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction">  </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> y tilt of the Wacom tool </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> touch </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionDataspace">  </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive">  </td>
+			<td class ="instructionRampFunction">  </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Indicates if the tool touches the tablet </td>
 		<tr>
 	</table>
 

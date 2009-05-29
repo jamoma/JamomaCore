@@ -24,6 +24,7 @@ private:
 	TTSymbol*			attrClock;			///< The name of the setclock object to use
 	long				numgrains;			///< The number of steps left to take in this ramp
 	double				stepsize;			///< The size of the steps we need to take in the normalized range
+	TTBoolean			isRunning;			///< Is this running right now?
 	
 	/** Attribute setter. */
 	TTErr setClock(const TTValue& newValue);

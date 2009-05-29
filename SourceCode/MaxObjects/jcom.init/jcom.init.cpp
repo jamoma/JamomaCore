@@ -2,7 +2,7 @@
  * jcom.init
  * External for Jamoma: send bang to initialize something
  *	bang source may be global or for just one module
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -30,13 +30,13 @@ t_class			*g_init_class;			// Required. Global pointing to this class
 /************************************************************************************/
 // Main() Function
 
-int main(void)				// main recieves a copy of the Max function macros table
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	t_class		*c;
 	t_object 	*attr = NULL;
 	
 	jamoma_init();
-common_symbols_init();
+	common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.init",(method)init_new, (method)jcom_core_subscriber_common_free, sizeof(t_init), (method)0L, A_GIMME, 0);
@@ -79,7 +79,7 @@ void *init_new(t_symbol *s, long argc, t_atom *argv)
 		jcom_core_subscriber_new_common(&x->common, name, jps_subscribe_init);
 		attr_args_process(x, argc, argv);					// handle attribute args				
 
-		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
+		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
 	}
 	return (x);												// Return the pointer
 }
@@ -111,5 +111,5 @@ void init_go(t_init *x)
 void init_bang(t_init *x)
 {
 	if(x->common.hub != NULL)
-		object_method(x->common.hub, jps_init);
+		object_method_typed(x->common.hub, jps_init, 0, NULL, NULL);
 }

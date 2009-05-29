@@ -28,8 +28,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr class="tableHeading2">
 			<td> /name </td>
 			<td> /type </td>
-			<td> /dataspace </td>
 			<td> /range/bounds </td>
+			<td> /dataspace </td>
 			<td> /range/clipmode </td>
 			<td> /ramp/drive </td>
 			<td> /ramp/function </td>
@@ -37,44 +37,33 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td> /description </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> /bypass </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class="instructionName"> audio/bypass </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> When active, this attribute bypasses the module's processing algtorithm, letting audio or video pass through unaffected </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> /gain </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> gain </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class="instructionName"> audio/gain </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Set gain (as MIDI value by default). </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> /mix </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class="instructionName"> audio/mute </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> scheduler </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Controls the wet/dry mix of the module's processing routine in percent. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> /mute </td>
-			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -82,10 +71,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> mode </td>
-			<td class ="instructionType"> msg_symbol </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionType"> symbol </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -93,10 +82,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> position </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 1.000000 2.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -104,10 +93,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> shape </td>
-			<td class ="instructionType"> msg_symbol </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionType"> symbol </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -115,10 +104,10 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/freeze </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -133,8 +122,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr class="tableHeading2">
 			<td> /name </td>
 			<td> /type </td>
-			<td> /dataspace </td>
 			<td> /range/bounds </td>
+			<td> /dataspace </td>
 			<td> /range/clipmode </td>
 			<td> /ramp/drive </td>
 			<td> /ramp/function </td>
@@ -143,7 +132,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> documentation/generate </td>
-			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionType"> generic </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -154,7 +143,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> init </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -165,7 +154,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> module/view_internals </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -176,7 +165,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> panel/open </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -187,7 +176,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/clear </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -198,7 +187,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/copy </td>
-			<td class ="instructionType"> msg_list </td>
+			<td class ="instructionType"> list </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -209,7 +198,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/default </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -220,7 +209,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/dump </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -231,7 +220,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/interpolate </td>
-			<td class ="instructionType"> msg_list </td>
+			<td class ="instructionType"> list </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -242,7 +231,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/post </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -253,7 +242,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/read </td>
-			<td class ="instructionType"> msg_symbol </td>
+			<td class ="instructionType"> symbol </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -264,7 +253,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/recall </td>
-			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionType"> generic </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -275,7 +264,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/store </td>
-			<td class ="instructionType"> msg_list </td>
+			<td class ="instructionType"> list </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -286,7 +275,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/storenext </td>
-			<td class ="instructionType"> msg_list </td>
+			<td class ="instructionType"> list </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -297,7 +286,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/write </td>
-			<td class ="instructionType"> msg_symbol </td>
+			<td class ="instructionType"> symbol </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -308,7 +297,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/refresh </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -326,8 +315,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr class="tableHeading2">
 			<td> /name </td>
 			<td> /type </td>
-			<td> /dataspace </td>
 			<td> /range/bounds </td>
+			<td> /dataspace </td>
 			<td> /range/clipmode </td>
 			<td> /ramp/drive </td>
 			<td> /ramp/function </td>
@@ -336,9 +325,9 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/amplitude.1 </td>
-			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
 			<td class ="instructionDataspace">  </td>
-			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
@@ -347,9 +336,9 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/amplitude.2 </td>
-			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
 			<td class ="instructionDataspace">  </td>
-			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>

@@ -1,0 +1,18 @@
+max v2;
+#N vpatcher 15 55 275 197;
+#P origin 0 -11;
+#P inlet 210 7 15 0;
+#P outlet 115 92 15 0;
+#P inlet 161 7 15 0;
+#P toggle 19 35 15 0;
+#P window setfont "Sans Serif" 9.;
+#P window linecount 1;
+#P newex 40 33 104 196617 r $1;
+#B color 5;
+#P newex 115 61 56 196617 gate 1 $2;
+#P connect 1 0 2 0;
+#P fasten 5 0 2 0 215 28 24 28;
+#P fasten 2 0 0 0 24 55 120 55;
+#P connect 0 0 4 0;
+#P connect 3 0 0 1;
+#P pop;

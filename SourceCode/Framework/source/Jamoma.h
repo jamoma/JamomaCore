@@ -11,7 +11,7 @@
 #ifndef __JAMOMA_H__
 #define __JAMOMA_H__
 
-#define JAMOMA_VERSION "0.5 Dev"
+#define JAMOMA_VERSION "0.5 Beta"
 
 #ifdef WIN_VERSION
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
@@ -34,6 +34,7 @@
 #include "jcom.list.h"
 #include "jcom.io.h"
 #include "jcom.sendreceive.h"
+#include "JamomaMaxTypes.h"
 #include "JamomaTypes.h"
 #include "JamomaSymbols.h"
 
@@ -42,17 +43,13 @@
 #include "RampLib.h"
 
 
-#define JAMOMA_UNIT_HEIGHT 70.0
+#define JAMOMA_UNIT_HEIGHT 35.0
 #define JAMOMA_UNIT_WIDTH 150.0
 #define JAMOMA_MENU_FONT "Arial"
 #define JAMOMA_MENU_FONTSIZE 11.0
 #define JAMOMA_DEFAULT_FONT "Verdana"
 #define JAMOMA_DEFAULT_FONTSIZE 9.0
 #define JAMOMA_BUTTON_FONT JAMOMA_DEFAULT_FONT
-
-//extern t_object *obj_jamoma_clock;		// the jamoma master clock object
-//extern t_object	*obj_jamoma_scheduler;	// a shared global instance of the scheduler (there may be others too)
-extern bool		max5;					// are we in max5?
 
 
 extern "C" {

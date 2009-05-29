@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+
+<c74object name="jcom.meter~">
+	
+    <digest>
+        Logarithmic GUI level meter
+    </digest>
+
+    <description>
+        Logarithmic GUI level meter
+    </description>
+
+
+	<!--METADATA-->
+	
+	<metadatalist>
+		
+		<metadata name="author">
+			jamoma.org
+		</metadata>
+		
+		<metadata name="tag">
+			Jamoma
+		</metadata>
+		
+		<metadata name="tag">
+			MSP
+		</metadata>
+		
+		<metadata name="tag">
+			MSP U/I
+		</metadata>
+				
+	</metadatalist>
+
+
+	<!--INLETS-->
+	
+	<inletlist>
+		
+		<inlet id="0" name="INLET_NAME">
+			<digest>
+				(signal) Input Between 0-1 to Meter
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</inlet>
+		
+	</inletlist>
+
+
+	<!--OUTLETS-->
+	
+	<outletlist>
+		
+	</outletlist>
+
+
+	<!--ARGUMENTS-->
+	
+	<objarglist>
+		
+		<objarg id="0" name="OBJARG_NAME" type="OBJARG_TYPE" optional="0">
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</objarg>
+		
+	</objarglist>
+
+
+	<!--MESSAGES-->
+	
+	<methodlist>
+		
+		<method name="bang">
+			<arglist />
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				<m>bang</m> clears peak indication.
+			</description>
+		</method>
+		
+		<method name="int">
+			<arglist>
+				<arg name="input" type="int" optional="0" id="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				Converted to <m>float</m>.
+			</description>
+		</method>
+		
+		<method name="float">
+			<arglist>
+				<arg name="input" type="float" optional="0" id="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				A <m>float</m> value will set the meter to react as though a <m>signal</m> with equal amplitude peak-value has been passed to its input. 
+			</description>
+		</method>
+		
+		<method name="signal">
+			<arglist />
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				The peak amplitude of the incoming signal is displayed by the on-screen level meter according to a logartihmic scale.
+			</description>
+		</method>
+		
+		<method name="(mouse click)">
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				Mouse clicking on the GUI meter in a locked patch clears the peak indication in the same way as the <m>bang</m> message.
+			</description>
+		</method>
+		
+	</methodlist>
+
+
+	<!--ATTRIBUTES-->
+
+
+	<!--EXAMPLE-->
+	
+	<examplelist>
+		<example image="IMAGE_URL" caption=" IMAGE_CAPTION" />
+	</examplelist>
+
+
+	<!--SEEALSO-->
+	
+	<seealsolist>
+		
+		<seealso name="levelmeter~">
+			Visual RMS level indicator
+		</seealso>
+		
+		<seealso name="meter~">
+			Visual peak level indicator
+		</seealso>	
+		
+	</seealsolist>
+
+
+	<!--MISC-->
+	
+	<misc name="Output">
+		<entry name="(visual)">
+			<description>
+				<br />
+				Level and peak indication of incoming signal is visualized on a logarithmic scale. 
+			</description>
+		</entry>
+		
+	</misc>
+	
+</c74object>

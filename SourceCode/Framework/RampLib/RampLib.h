@@ -23,7 +23,7 @@ typedef void (*RampUnitCallback)(void *, long, double *);
 // Specification of our base class
 class JAMOMA_EXPORT RampUnit : public TTObject {
 	private:
-		TTSymbol*			attrFunction;		///< The name of the functionUnit
+		TTSymbolPtr			attrFunction;		///< The name of the functionUnit
 
 		/** Attribute setter. */
 		TTErr setFunction(const TTValue& functionName);
@@ -36,7 +36,7 @@ class JAMOMA_EXPORT RampUnit : public TTObject {
 		TTFloat64			*currentValue;
 		TTFloat64			normalizedValue;	///< normalized current progress in the ramp
 		TTUInt32			numValues;
-		FunctionUnit		*functionUnit;		///< The actual functionUnit object defined by attrFunction
+		TTAudioObject		*functionUnit;		///< The actual functionUnit object defined by attrFunction
 
 		/** memory allocation -- sends a message "numValuesChanged" to subclasses after this has run */
 		void RampUnit::setNumValues(TTUInt32 newNumValues);

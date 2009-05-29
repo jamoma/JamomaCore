@@ -5,17 +5,17 @@ CUE initialisation
 ##############################
 
 # Module control
-	/control/audio 0			
+	/control/audio 0
 	# turn off the dsp
 	/control/ui/freeze 0
-	
+
 # Module input~
 	/input~/audio/gain 0.
-    # Note that midi units can be specified as floats in Jamoma
-/input~/balance 0.	
-/input~/loop 0
-	/input~/play 0
-	/input~/source_select none
+	# Note that midi units can be specified as floats in Jamoma
+	/input~/balance 0.	
+	/input~/soundfile/loop 0
+	/input~/soundfile/play 0
+	/input~/source none
 	/input~/ch.1 0
 	/input~/ch.2 0
 	/input~/ui/freeze 0
@@ -28,7 +28,7 @@ CUE initialisation
 	/filter~/audio/bypass 0
 	/filter~/audio/mute 0
 	/filter~/ui/freeze 0
-	/filter~/cf 68.215
+	/filter~/frequency 68.215
 	/filter~/q 1.472
 	/filter~/filtergain -1.780
 	
@@ -48,7 +48,7 @@ CUE initialisation
 	/output~/limiter/mode exponential
 	/output~/limiter/active 1
 	/output~/ui/freeze 0
-	/output~/record 0
+	/output~/record/active 0
 
 
 
@@ -65,9 +65,8 @@ CUE audio_on
 	/control/ui/freeze 0
 	
 # Module input~
-	/input~/source_select pink
-	/input~/audio/gain 97.000 ramp 2000	
-# Ramp to this new value over 2 seconds...
+	/input~/source pink
+	/input~/audio/gain 90.000 ramp 2000		# Ramp to this new value over 2 seconds...
 	
 # Module filter~
 	/filter~/audio/gain 100.000 ramp 2000
@@ -83,7 +82,7 @@ CUE fade_in
 ##############################
 
 # Module output~
-	/output~/audio/gain 98.000 ramp 2000
+	/output~/audio/gain 90.000 ramp 2000
 
 
 
@@ -96,12 +95,12 @@ CUE sweep
 
 
 # Module filter~
-	/filter~/cf 3000 ramp 3000
+	/filter~/frequency 3000 ramp 3000
 	
 	WAIT 6000	
 	# The wait directive pauses us for 6 seconds
 	
-	/filter~/cf 200 ramp 3000
+	/filter~/frequency 200 ramp 3000
 
 
 
@@ -118,7 +117,7 @@ CUE fade_out
 # sure that the next event sets all parameters to expected final state of
 # previous cue. This prevents errouneous state in the case that the next cue
 # is triggered before the previous one had finished executing.
-	/filter~/cf 200
+	/filter~/frequency 200
 
 
 # Module output~

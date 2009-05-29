@@ -1,0 +1,2128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
+<title> jmod.autoscale~ </title>
+<style type="text/css">
+body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 24px;	font-weight:100;	padding-top: 1em;	margin: 0;}h2 {	font-size: 18px;	font-weight:200;	margin: 0;	color: #555;	text-transform: lowercase;}h3 {	color: #888;	border-bottom: 1px solid #333;	font-size: 18px;	font-weight:100;	margin-top: 20px;	margin-bottom: 10px;	margin-left: 2%;	margin-right: 2%;}h4{	color: #333;	font-size: 14px;	font-weight: bold;	margin-bottom: 0px;	margin-left: 2%;	margin-right: 2%;}h6 {	font-size: 12px;	font-weight:100;	line-height: 1.2;	margin-right: 2%;	margin-left: 2%;}p {	font-size: 12px;	font-weight:100;	margin: 5px 2%;	padding-bottom: 1em;}ul{	margin-top:0;	padding-top:0;}li {	font-size: 12px;	font-weight:100;	margin-top: 0;	margin-left: 10px;	padding: 0em 0em 0.3em;}img {	padding: 10px 10px 0px 0px;}#jmod_header{	display: block;	margin: 0 0 40px 0;}#jmod_header img{	float: left;}.objectname {	font-size: 24px;	font-weight: bold;}.moduleName {	font-size: 2em;	background-color: #c5c5c5;	text-align: right;	vertical-align: top;	font-weight: bold;}.moduleDescription {	font-size: 1em;	background-color: #000000;	color: #c5c5c5;	text-align: right;	vertical-align: top;}.tableHeading2 {	background-color: #eee;	text-align: left;	vertical-align: top;	font-weight:bold;	font-size: 12px;}table {	border: 0px;	width: 96%;	margin-top: 10px;	margin-bottom: 10px;	margin-left: 2%;	font-size: 14px;}
+.instructionName {	font-family: 'Courier New', Courier, mono;	background-color: #edd;	vertical-align: top;}.instructionType {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionDataspace {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRangeBounds {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionRangeClipmode {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRampDrive {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionRampFunction {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRepetitionsAllow {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionDescription {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}td {	padding-right: 5px;	padding-left: 5px;}ul {	list-style-type: disc;}.patchimage {	clear: both;}.comment {	color: #6666FF;}.smallTable {	width: 400px;	border: none;}caption {	font-size: 11px;	font-style: italic;}.filepath {	font-family: 'Courier New', Courier, mono;}.instruction {	font-family: 'Courier New', Courier, mono;}
+</style>
+	</head>
+
+<body>
+	<div id="jmod_header">
+	<img src="../../../documentation/images/jmod.icon.mod.png" width="128" height="128">
+	<h1> jmod.autoscale~ </h1>
+	<h2> Automatically scale up to 32 signals in a multicable </h2>
+	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
+	</div>
+
+	<h3> Configuration </h3>
+	<p> Module Type: <code> audio.control </code> <br>
+	Algorithm Type: <code> default </code> </p>
+	<p>Interface Size: <code> 1U-half </code> </p>
+	<p>Number of signal inlets: <code> 0 </ code> <br/>
+	Number of signal outlets: <code> 32 </code> </p>
+	<h3> Parameters </h3>
+	<table>
+		<tr class="tableHeading2">
+			<td> /name </td>
+			<td> /type </td>
+			<td> /range/bounds </td>
+			<td> /range/clipmode </td>
+			<td> /ramp/drive </td>
+			<td> /ramp/function </td>
+			<td> /dataspace </td>
+			<td> /repetitions/allow </td>
+			<td> /description </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.1/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 1th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.1/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 1th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.1/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 1th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.1/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 1th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.10/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 10th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.10/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 10th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.10/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 10th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.10/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 10th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.11/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 11th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.11/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 11th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.11/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 11th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.11/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 11th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.12/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 12th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.12/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 12th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.12/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 12th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.12/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 12th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.13/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 13th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.13/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 13th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.13/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 13th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.13/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 13th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.14/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 14th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.14/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 14th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.14/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 14th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.14/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 14th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.15/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 15th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.15/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 15th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.15/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 15th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.15/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 15th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.16/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 16th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.16/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 16th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.16/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 16th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.16/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 16th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.17/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 17th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.17/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 17th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.17/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 17th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.17/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 17th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.18/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 18th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.18/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 18th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.18/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 18th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.18/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 18th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.19/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 19th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.19/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 19th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.19/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 19th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.19/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 19th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.2/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 2th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.2/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 2th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.2/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 2th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.2/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 2th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.20/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 20th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.20/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 20th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.20/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 20th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.20/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 20th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.21/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 21th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.21/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 21th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.21/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 21th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.21/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 21th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.22/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 22th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.22/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 22th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.22/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 22th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.22/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 22th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.23/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 23th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.23/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 23th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.23/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 23th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.23/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 23th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.24/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 24th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.24/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 24th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.24/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 24th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.24/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 24th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.25/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 25th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.25/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 25th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.25/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 25th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.25/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 25th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.26/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 26th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.26/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 26th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.26/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 26th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.26/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 26th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.27/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 27th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.27/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 27th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.27/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 27th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.27/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 27th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.28/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 28th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.28/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 28th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.28/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 28th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.28/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 28th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.29/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 29th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.29/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 29th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.29/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 29th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.29/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 29th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.3/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 3th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.3/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 3th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.3/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 3th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.3/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 3th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.30/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 30th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.30/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 30th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.30/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 30th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.30/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 30th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.31/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 31th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.31/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 31th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.31/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 31th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.31/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 31th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.32/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 32th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.32/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 32th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.32/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 32th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.32/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 32th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.4/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 4th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.4/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 4th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.4/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 4th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.4/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 4th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.5/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 5th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.5/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 5th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.5/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 5th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.5/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 5th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.6/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 6th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.6/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 6th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.6/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 6th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.6/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 6th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.7/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 7th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.7/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 7th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.7/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 7th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.7/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 7th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.8/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 8th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.8/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 8th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.8/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 8th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.8/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 8th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.9/exp </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> exponent for 9th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.9/lock </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lock scaling for 9th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.9/max </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> upper boud of output range of 9th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.9/min </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> lower bound output range of 9th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> gain </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Set gain (as MIDI value by default). </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> mute </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> When active, this attribute turns off the module's processing algorithm to save CPU </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> numAutoscalers </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 32 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Number of autoscalers </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> ui/freeze </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/border </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The border color of the module in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/contentBackground </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The background color of the module in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/toolbarBackground </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/toolbarText </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+	</table>
+
+	<p>&nbsp;</p>
+
+	<h3> Messages </h3>
+	<table>
+		<tr class="tableHeading2">
+			<td> /name </td>
+			<td> /type </td>
+			<td> /range/bounds </td>
+			<td> /range/clipmode </td>
+			<td> /ramp/drive </td>
+			<td> /ramp/function </td>
+			<td> /dataspace </td>
+			<td> /repetitions/allow </td>
+			<td> /description </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.1/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 1th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.10/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 10th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.11/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 11th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.12/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 12th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.13/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 13th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.14/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 14th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.15/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 15th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.16/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 16th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.17/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 17th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.18/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 18th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.19/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 19th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.2/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 2th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.20/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 20th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.21/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 21th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.22/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 22th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.23/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 23th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.24/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 24th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.25/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 25th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.26/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 26th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.27/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 27th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.28/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 28th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.29/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 29th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.3/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 3th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.30/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 30th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.31/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 31th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.32/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 32th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.4/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 4th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.5/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 5th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.6/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 6th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.7/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 7th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.8/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 8th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> autoscale~.9/reset </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> resets 9th autoscale~ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> documentation/generate </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Generate a documentation page for this module and save it to disk. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> init </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Initialize a module completely to the original state. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> module/view_internals </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> panel/open </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Open an a module's control panel (inspector) if one is present. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/clear </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Clears all presets, providing a blank slate for saving new presets. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/copy </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Create a new preset (2nd argument) by copying the contents of another preset (1st argument) </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/default </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/dump </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Dump all preset names. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/interpolate </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/post </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Post all presets to the Max window. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/read </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/recall </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/store </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/storecurrent </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Store on the last recalled or stored preset </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/storenext </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Store a preset in the next preset slot.  Handy so that you do not need to specify a preset number manually. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/write </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/writeagain </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Write on same xml-preset file. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> ui/refresh </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Update displayed values for module to reflect current state. </td>
+		<tr>
+	</table>
+
+	<p>&nbsp;</p>
+
+	<h3> Return </h3>
+	<table>
+		<tr class="tableHeading2">
+			<td> /name </td>
+			<td> /type </td>
+			<td> /range/bounds </td>
+			<td> /range/clipmode </td>
+			<td> /ramp/drive </td>
+			<td> /ramp/function </td>
+			<td> /dataspace </td>
+			<td> /repetitions/allow </td>
+			<td> /description </td>
+		<tr>
+	</table>
+
+	<p>&nbsp;</p>
+
+	<h3> About Jamoma </h3>
+	<p> Jamoma is a system for creating and exchanging structured Max patches. 
+	It consists of both a set of guidelines and an implementation of those guidelines. 
+	For more information please visit <a href="http://jamoma.org/">jamoma.org</a>. </p> 
+</body>
+</html>

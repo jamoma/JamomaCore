@@ -23,18 +23,18 @@ typedef struct _in{
 	void			*outlet[MAX_NUM_CHANNELS];
 	void			*dumpout;						///< dumpout outlet
 	void			*algout;						///< alogorithm outlet         
-	t_symbol		*attr_algorithm_type;			///< the algorithm type
 	long			numInputs;						///< spec'd as an argument
-	long			vector_size;					///< cached vector_size of the audio signals
+	long			vectorSize;						///< cached vector_size of the audio signals
+	long			numChannels;					///< cached number of channels from the dsp method
 	long			last_target;					///< for poly~-based algorithms, the last target number used
 	TTAudioSignal*	audioIn;
 	TTAudioSignal*	audioOut;						///< last vector of audio samples for each channel (used by jcom.out~)
-	TTAudioObject*	copier;							///< object to copy audio signals
-	float			*out_vectors[MAX_NUM_CHANNELS];
-	float			*remote_vectors[MAX_NUM_CHANNELS];
+	//float			*out_vectors[MAX_NUM_CHANNELS];
+	//float			*remote_vectors[MAX_NUM_CHANNELS];
 	long			attr_bypass;					///< bypass flag for the module
 	long			attr_mute;						///< mute flag for the module
 	long			attr_freeze;					///< freeze flag for video modules
+	t_symbol*		attr_algorithm_type;			///< examples: 'patcher', 'poly', 'ttblue' (default is patcher)
 } t_in;
 
 
@@ -49,9 +49,9 @@ typedef struct _out{
 	void			*inlet[MAX_NUM_CHANNELS];
 	void			*outlet[MAX_NUM_CHANNELS];
 	void			*dumpout;						///< dumpout outlet
-	t_symbol		*attr_algorithm_type;			///< default is 'poly', also we need a 'blue' type (maybe a better name?)
-	long			numOutputs;						///< spec'd as an argument
-	long			vector_size;					///< cached vector_size of the audio signals
+	TTUInt16		numOutputs;						///< spec'd as an argument
+	TTUInt16		vectorSize;						///< cached vector_size of the audio signals
+	TTUInt16		numChannels;					///< cached number of channels from the dsp method
 
 	TTAudioSignal*	audioIn;
 	TTAudioSignal*	audioOut;
@@ -62,12 +62,12 @@ typedef struct _out{
 													   because the object's don't need an independent state and do not
 													   rely internally on any history.  
 													*/
-	float			*out_vectors[MAX_NUM_CHANNELS];	///< buffers of the last output for access by jcom.receive~
-	TTCrossfade*	xfade;							///< TTCrossfade implements the 'mix' and 'bypass' params
-	TTAudioObject*	copy;							///< TTAudioObject does a simple vector copy
-	TTGain*			gain;							///< TTGain implements the 'gain' param
-	TTRamp*			ramp_gain;						///< TTRamp ramps to drive smooth audio for the above params
-	TTRamp*			ramp_xfade;					///< TTRamp with the type of xfade to use
+	float			lastPeakamp[MAX_NUM_CHANNELS];	///< The last value sent to the meters, used for repetition filtering.
+	//float			*out_vectors[MAX_NUM_CHANNELS];	///< buffers of the last output for access by jcom.receive~
+	TTAudioObject*	xfade;							///< TTCrossfade implements the 'mix' and 'bypass' params
+	TTAudioObject*	gain;							///< TTGain implements the 'gain' param
+	TTAudioObject*	ramp_gain;						///< TTRamp ramps to drive smooth audio for the above params
+	TTAudioObject*	ramp_xfade;						///< TTRamp with the type of xfade to use
 	
 	float			attr_mix;						///< The mix percent, stored in percent
 	long			attr_bypass;					///< the bypass indicator for the module 

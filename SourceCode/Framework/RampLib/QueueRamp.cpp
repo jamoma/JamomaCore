@@ -69,7 +69,7 @@ void QueueRamp::tick()
 	double			*start = startValue;
 	float			ratio;
 	
-	if(active){
+	if(active && functionUnit){
 		if(currentTime > targetTime){
 			active = 0;
 			for(i=0; i < numValues; i++)
@@ -77,7 +77,7 @@ void QueueRamp::tick()
 		}
 		else{
 			ratio = (currentTime - startTime) / (float)ramptime;
-			mapped = functionUnit->map(ratio);
+			functionUnit->calculate(ratio, mapped);
 			for(i=0; i < numValues; i++)
 				current[i] = (target[i] * mapped) + (start[i] * (1 - mapped));
 			qelem_set(qelem);							// set the qelem element to run again

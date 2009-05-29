@@ -11,8 +11,6 @@
 
 #include "DataspaceLib.h"
 
-#define DEFAULT_SAMPLE_RATE	44100.0
-
 /****************************************************************************************************/
 // Class Specifications
 
@@ -48,6 +46,24 @@ class SecondUnit : DataspaceUnit{
 		
 		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+};
+
+class UpdaterateUnit : DataspaceUnit{
+	public:
+		UpdaterateUnit();
+		~UpdaterateUnit();
+	
+	void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
+	void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+};
+
+class BpmUnit : DataspaceUnit{
+	public:
+	BpmUnit();
+	~BpmUnit();
+	
+	void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
+	void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
 

@@ -1,5 +1,5 @@
 
-LIBRARY "JamomaFramework"
+LIBRARY "JamomaModular.dll"
 
 EXPORTS
 	; Globals
@@ -16,7 +16,6 @@ EXPORTS
 		jcom_core_attr_getrange
 		jcom_core_attr_getrepetitions
 		jcom_core_attr_setrange
-		jcom_core_broadcast_callback
 		jcom_core_file_writeline
 		jcom_core_getfilepath
 		jcom_core_loadextern
@@ -30,7 +29,6 @@ EXPORTS
 		jcom_core_subscriber_new_extended
 		jcom_core_subscriber_setcustomsubscribe_method
 		jcom_core_subscriber_subscribe
-		jcom_core_subscribe
 		jcom_core_unsubscribe
 	
 
@@ -180,7 +178,9 @@ EXPORTS
 		jps_slash_preset_slash_recall
 		jps_slash_preset_slash_store
 		jps_slash_preset_slash_storenext
+		jps_slash_preset_slash_storecurrent
 		jps_slash_preset_slash_write
+		jps_slash_preset_slash_writeagain
 		jps_slash_ui_slash_freeze
 		jps_slash_ui_slash_refresh
 		jps_slash_video_bypass

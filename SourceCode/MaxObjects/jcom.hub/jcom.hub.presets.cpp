@@ -44,7 +44,7 @@ void hub_preset_copy(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// number
 	presetList		*preset = x->preset;
 	
 	if(argc < 1){
-		error("jcom.hub (%s module): preset.recall requires a valid argument", x->attr_name);
+		object_error((t_object*)x, "%s module: preset.recall requires a valid argument", x->attr_name);
 		return;
 	}
 	
@@ -86,7 +86,7 @@ void hub_preset_copy(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// number
 		critical_exit(0);
 	} 
 	else
-		error("jcom.hub (%s module): preset to copy not found", x->attr_name);
+		object_error((t_object*)x, "%s module: preset to copy not found", x->attr_name);
 }
 			
 	
@@ -101,7 +101,7 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// numb
 	short			i;
 	
 	if(argc < 1){
-		error("jcom.hub (%s module): preset.recall requires a valid argument", x->attr_name);
+		object_error((t_object*)x, "%s module: preset.recall requires a valid argument", x->attr_name);
 		return;
 	}
 
@@ -132,7 +132,7 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// numb
 	
 	if(!found){
 		if(x->attr_name != gensym("/editing_this_module"))
-			error("jcom.hub (%s module): preset.recall - invalid preset specified", x->attr_name->s_name);
+			object_error((t_object*)x, "%s module: preset.recall - invalid preset specified", x->attr_name->s_name);
 		critical_exit(0);
 		return;
 	}
@@ -266,7 +266,7 @@ void hub_preset_interpolate(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	float position;
 	
 	if(argc < 3) {
-		error("jcom.hub (%s module): interpolation requires three arguments", x->attr_name);
+		object_error((t_object*)x, "%s module: interpolation requires three arguments", x->attr_name);
 		return;
 	}
 
@@ -275,13 +275,13 @@ void hub_preset_interpolate(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	
 	p1 = find_preset(presetll, p1Name);
 	if(!p1) {
-		error("can't find preset %s", p1Name);
+		object_error((t_object*)x, "can't find preset %s", p1Name);
 		return;
 	}
 	
 	p2 = find_preset(presetll, p2Name);
 	if(!p2) {
-		error("can't find preset %s", p1Name);
+		object_error((t_object*)x, "can't find preset %s", p1Name);
 		return;
 	}
 	
@@ -304,7 +304,7 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 		// write over the last preset recalled
 			
 		if(preset->empty()) {
-			error("jcom.hub (%s module): no preset specified active", x->attr_name);
+			object_error((t_object*)x, "%s module: no preset specified active", x->attr_name);
 			return;
 		}
 		// Recall the number of the preset we recalled last	
@@ -339,23 +339,33 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 	   	pIter = preset->find_if(preset->begin(), preset->end(), presetByNumber(*pIter, preset_num));
 	if(pIter != preset->end()) {
 	*/
-	for(pIter = preset->begin(); pIter != preset->end(); ++pIter) {
+	critical_enter(0);
+	pIter = preset->begin();
+	while(pIter != preset->end()){
 		p = *pIter;
 		if(p->number == preset_num) {
 			item = p->item;
 			// Free the parameters this preset contains
+			while(!item->empty()) {
+				itemIterator = item->begin();
+  				sysmem_freeptr(*itemIterator);
+				item->remove(itemIterator);
+			}
+
+			/*
 			for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
-				sysmem_freeptr(*itemIterator);
+			sysmem_freeptr(*itemIterator);
 				itemIterator = item->erase(itemIterator);
 			}
+			*/
 			delete item;
 			// Free the preset itself
 			sysmem_freeptr(p);
 			// Remove from linked list
 			pIter = preset->erase(pIter);
 		}
+		else pIter++;
 	}
-	
 	
 	// Allocate the slot for this preset, and store the data
 	p = (t_preset *)sysmem_newptr(sizeof(t_preset));
@@ -430,28 +440,53 @@ void hub_preset_store_next(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	// TODO: do we not have to free text?
 }
 
+void hub_preset_store_current(t_hub *x)
+{ 
+	defer(x,(method)hub_preset_store, NULL, 0, 0L);
+}
+
 // read the default file and recall the first preset
 void hub_preset_default(t_hub *x, t_symbol*, long, t_atom*)
 {
-	char	default_file_name[256];
-	t_atom	a;
-	t_atom	args[2];
+	char		default_file_name[256];
+	t_atom		a;
+	t_atom		args[2];
+	t_max_err	err;
+
+	// 2009-04-12 TAP: this block sets the default values prior to setting values from the default preset
+	// It could be improved by, for example, merging the values into a preset dictionary or something?
+	// Unfortunately, this current way will mean we set all values twice when a module is initialized
+	{
+		subscriberList*		subscriber = x->subscriber;	// head of the linked list
+		subscriberIterator	i;
+		t_subscriber*		t;
+				
+		critical_enter(0);
+		for (i = subscriber->begin(); i != subscriber->end(); ++i) {
+			t = *i;
+			if (t->type == jps_subscribe_parameter)
+				object_method(t->object, _sym_reset);
+		}
+		critical_exit(0);
+	}
 	
 	strcpy(default_file_name, x->attr_name->s_name);
 	strcat(default_file_name, ".xml");
 	
 	atom_setlong(&a, 1);
 
-	hub_preset_doread(x, gensym(default_file_name));
-	hub_preset_recall(x, _sym_nothing, 1, &a);
-	
-	// Is default preset recalled as part of initialization of module?
-	if (x->flag_init) {
-		atom_setsym(args, x->attr_name);
-		atom_setsym(args+1, x->osc_name);
-		object_method_typed(g_jcom_send_notifications, gensym("module.initialized"), 2, args, NULL);
-		// Initialization is now done
-		x->flag_init = 0;
+	err = hub_preset_doread(x, gensym(default_file_name));
+	if(!err){
+		hub_preset_recall(x, _sym_nothing, 1, &a);
+		
+		// Is default preset recalled as part of initialization of module?
+		if (x->flag_init) {
+			atom_setsym(args, x->attr_name);
+			atom_setsym(args+1, x->osc_name);
+			object_method_typed(g_jcom_send_notifications, gensym("module.initialized"), 2, args, NULL);
+			// Initialization is now done
+			x->flag_init = 0;
+		}
 	}
 }
 
@@ -461,41 +496,45 @@ void hub_preset_default(t_hub *x, t_symbol*, long, t_atom*)
 //void hub_preset_read(t_hub *x, t_symbol *userpath)
 void hub_preset_read(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_symbol	*userpath;
-
+	t_symbol *arg_path;
 	if(argc)
-		userpath = atom_getsym(argv);
+		arg_path = atom_getsym(argv);
 	else
-		userpath = _sym_nothing;
+		arg_path = _sym_nothing;
 
-	defer(x, (method)hub_preset_doread, userpath, 0, 0L);
+	defer(x, (method)hub_preset_doread, arg_path, 0, 0L);
 }
 
 
-void hub_preset_doread(t_hub *x, t_symbol *userpath)
+t_max_err hub_preset_doread(t_hub *x, t_symbol *userpath)
 {
-	char 			filename[256];			// for storing the name of the file locally
-	char 			fullpath[512];			// path and name passed on to the xml parser
+	char 			filename[MAX_FILENAME_CHARS];	// for storing the name of the file locally
+	char 			fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
 	short 			path;					// pathID#
 	long			outtype;				// the file type that is actually true
 
 	// FIND THE FILE WE WANT TO READ
-	if(!userpath->s_name[0]){													// Empty string
+	if(!userpath->s_name[0]){											// Empty string
 		if(open_dialog(filename, &path, &outtype ,NULL, -1))			// Returns 0 if successful
-			return;														// User Cancelled
+			return MAX_ERR_GENERIC;										// User Cancelled
 	}
 	else{
-		strcpy(filename, userpath->s_name);									// Copy symbol argument to a local string
+		strcpy(filename, userpath->s_name);								// Copy symbol argument to a local string
 		if(locatefile_extended(filename, &path, &outtype, NULL, -1)){	// Returns 0 if successful
-			if(x->attr_name != gensym("/editing_this_module"))
-				error("jcom.hub (%s module): preset file not found", x->attr_name->s_name);
-			return;														// Not found
-		}	
+			if(!x->editing)
+				object_error((t_object*)x, "%s module: preset file not found", x->attr_name->s_name);
+			return MAX_ERR_GENERIC;										// Not found
+		}
 	}
 
 	jcom_core_getfilepath(path, filename, fullpath);
+	
+	// ... AND WE SAVE THE filepath IN THE HUB ATTRIBUTE user_path.
+	x->user_path = gensym(fullpath);
+
 	//post("path for xml preset file: %s", temppath);
 	hub_preset_parse(x, fullpath);
+	return MAX_ERR_NONE;
 }
 
 
@@ -662,7 +701,7 @@ void hub_preset_parse(t_hub *x, char *path)
 									item->list_size += 1;							
 									break;
 								default:
-									error("Unable to determine data type");
+									object_error((t_object*)x, "Unable to determine data type");
 									break;
 							}
 						}
@@ -673,12 +712,12 @@ void hub_preset_parse(t_hub *x, char *path)
 		}
 		xmlFreeTextReader(reader);
 		if(ret != 0){
-			error("%s: failed to parse", path);
+			object_error((t_object*)x, "%s: failed to parse", path);
 		}
 		critical_exit(0);
 	}
 	else{
-		error("Unable to open %s", path);
+		object_error((t_object*)x, "Unable to open %s", path);
 	}
 }
 
@@ -700,7 +739,7 @@ short hub_preset_validate(t_hub *x, char *xml_path)
 	// 1. Find the XML Schema file
 	strcpy(filename, "jamoma.xsd");
 	if(locatefile_extended(filename, &path, &outtype, NULL, -1)){
-		error("jcom.hub (%s module): jamoma.xsd schema file not found", x->attr_name->s_name);
+		object_error((t_object*)x, "%s module: jamoma.xsd schema file not found", x->attr_name->s_name);
 		return -1;
 	}	
 	jcom_core_getfilepath(path, filename, fullpath);
@@ -709,37 +748,37 @@ short hub_preset_validate(t_hub *x, char *xml_path)
 	//schema_doc = xmlReadFile("/Users/tim/Developer/_electrotap/Jamoma/library/jamoma.xsd", NULL, 0);
 	schema_doc = xmlReadFile(fullpath, NULL, 0);
 	if(schema_doc == NULL){
-		error("jcom.hub: preset validation could not open schema doc");
+		object_error((t_object*)x, "preset validation could not open schema doc");
 		goto out;
 	}
 
 	parser_context = xmlSchemaNewDocParserCtxt(schema_doc);
 	if(schema_doc == NULL){
-		error("jcom.hub: preset validation could not create parser for schema doc");
+		object_error((t_object*)x, "preset validation could not create parser for schema doc");
 		goto out;
 	}
 
 	schema = xmlSchemaParse(parser_context);
 	if(schema_doc == NULL){
-		error("jcom.hub: preset validation could not create representation of schema in memory");
+		object_error((t_object*)x, "preset validation could not create representation of schema in memory");
 		goto out;
 	}
 
 	context = xmlSchemaNewValidCtxt(schema);
 	if(context == NULL){
-		error("jcom.hub: preset validation failed to create a context");
+		object_error((t_object*)x, "preset validation failed to create a context");
 		goto out;
 	}
 
 	document = xmlReadFile(xml_path, NULL, 0);
 	if(document == NULL){
-		error("jcom.hub: preset validation could not open the preset file");
+		object_error((t_object*)x, "preset validation could not open the preset file");
 		goto out;
 	}
 
 	result = xmlSchemaValidateDoc(context, document);	
 	if(result){
-		error("jcom.hub: preset file FAILED xml schema validation");
+		object_error((t_object*)x, "preset file FAILED xml schema validation");
 	}
 
 out:		
@@ -813,9 +852,9 @@ void hub_presets_post(t_hub *x, t_symbol*, long, t_atom*)
 	presetList		*preset = x->preset;
 	presetItemList	*item;
 
-	post("");
-	post("PRESET DUMP");
-	post("");
+	object_post((t_object*)x, "");
+	object_post((t_object*)x, "PRESET DUMP");
+	object_post((t_object*)x, "");
 	
 	presetListIterator i;
 	presetItemListIterator itemIterator;
@@ -824,35 +863,45 @@ void hub_presets_post(t_hub *x, t_symbol*, long, t_atom*)
 	critical_enter(0);
 	for(i = preset->begin(); i != preset->end(); ++i) {
 		p = *i;
-		post("  PRESET %i: %s", p->number, p->name->s_name);
+		object_post((t_object*)x, "  PRESET %i: %s", p->number, p->name->s_name);
 		item = p->item;
 		for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
 			presetItem = *itemIterator;
 			if((presetItem->type == jps_msg_int) || (presetItem->type == jps_msg_toggle)){
-				post("    %s (type %s, priority %i): %ld", presetItem->param_name->s_name,
+				object_post((t_object*)x, "    %s (type %s, priority %i): %ld", presetItem->param_name->s_name,
 				 	presetItem->type->s_name, presetItem->priority, atom_getlong(&(presetItem->value)));
 			}
 			else if(presetItem->type == jps_msg_symbol)
-				post("    %s (type %s, priority %i): %s", presetItem->param_name->s_name,
+				object_post((t_object*)x, "    %s (type %s, priority %i): %s", presetItem->param_name->s_name,
 				 	presetItem->type->s_name, presetItem->priority, 
 					atom_getsym(&(presetItem->value))->s_name);
 			else
-				post("    %s (type %s, priority %i): %f", presetItem->param_name->s_name, 
+				object_post((t_object*)x, "    %s (type %s, priority %i): %f", presetItem->param_name->s_name, 
 					presetItem->type->s_name, presetItem->priority, atom_getfloat(&(presetItem->value)));
 		}		
 	}
 	critical_exit(0);
 }
 
+void hub_preset_write_again(t_hub *x)
+{
+	t_atom a;
+
+	if(x->user_path->s_name[0]){
+		atom_setsym(&a,jps_slash_preset_slash_writeagain);
+		defer(x, (method)hub_preset_write, NULL, 1, &a);
+	}
+	else
+		object_error((t_object*)x, "%s module: no preset file specified active", x->attr_name);
+}
 
 void hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_symbol	*userpath;
-
+	t_symbol *arg_path;
 	if(argc)
-		userpath = atom_getsym(argv);
+		arg_path = atom_getsym(argv);
 	else
-		userpath = _sym_nothing;
+		arg_path = _sym_nothing;
 
 	if(x->preset->empty()){	// no presets have been stored, so store the current state as the default
 		t_atom	a[2];
@@ -871,7 +920,7 @@ void hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 		hub_preset_store(x, gensym("/preset/store"), 2, b);
 	}
 	
-	defer(x, (method)hub_preset_dowrite, userpath, 0, 0L);
+	defer(x, (method)hub_preset_dowrite, arg_path, 0, 0L);
 }
 
 void writeList(t_filehandle *fh, long *eof, t_preset_item *item)
@@ -916,7 +965,8 @@ void writeList(t_filehandle *fh, long *eof, t_preset_item *item)
 void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 {
 	long 			type = 'TEXT';				// four-char code for Mac file type
-	char 			filename[256];				// for storing the name of the file locally
+	char 			filename[MAX_FILENAME_CHARS];	// for storing the name of the file locally
+	char 			fullpath[MAX_PATH_CHARS];	// for storing the absolute path of the file
 	short 			path, err;					// pathID#, error number
 	long			outtype;					// the file type that is actually true
 	t_filehandle	file_handle;				// a reference to our file (for opening it, closing it, etc.)
@@ -926,24 +976,39 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 	presetItemList	*item = NULL;				// for accessing items of the preset
 	t_symbol		*result;
 
-	// SPECIFY THE FILE WE WANT TO WRITE
-	if(!userpath->s_name[0]){												// Empty string - Throw up a dialog
-		sprintf(filename, "%s.xml", x->attr_name->s_name);					// Default File Name
-		saveas_promptset("Save Preset...");									// Instructional Text in the dialog
-		err = saveasdialog_extended(filename, &path, &outtype, &type, 1);	// Returns 0 if successful
-		if(err)																// User Cancelled
-			return;															
+	if(userpath == jps_slash_preset_slash_writeagain)
+	{
+	// THE FILE WE WANT TO WRITE IS ALREADY SPECIFIED
+		strcpy(filename, x->user_path->s_name);
+		path = 0;
+		err = path_createsysfile(filename, path, type, &file_handle);
+			if(err)
+				return;
 	}
 	else{
-		strcpy(filename, userpath->s_name);									// Copy symbol argument to a local string
-		path = 0;		
-	}
+		// SPECIFY THE FILE WE WANT TO WRITE
+		if(!userpath->s_name[0]){												// Empty string - Throw up a dialog
+			snprintf(filename, MAX_FILENAME_CHARS, "%s.xml", x->attr_name->s_name);		// Default File Name
+			saveas_promptset("Save Preset...");									// Instructional Text in the dialog
+			err = saveasdialog_extended(filename, &path, &outtype, &type, 1);	// Returns 0 if successful
+			if(err)																// User Cancelled
+				return;
+		}
+		else{
+			strcpy(filename, userpath->s_name);								// Copy symbol argument to a local string
+			path = 0;
+		}
 
-	// NOW ATTEMPT TO CREATE THE FILE...
-	err = path_createsysfile(filename, path, type, &file_handle);
-	if(err){																// Handle any errors that occur
-		error("jcom.hub: %s - error %d creating file", filename, err);
-		return;	
+		// NOW ATTEMPT TO CREATE THE FILE...
+		err = path_createsysfile(filename, path, type, &file_handle);
+		if(err){																// Handle any errors that occur
+			object_error((t_object*)x, "%s - error %d creating file", filename, err);
+			return;	
+		}
+		// ... AND WE SAVE THE fullpath IN THE HUB ATTRIBUTE user_path.
+		if(path) jcom_core_getfilepath(path, filename, fullpath);
+		else strcpy(fullpath, filename);
+		x->user_path = gensym(fullpath);
 	}
 
 	// HERE WE CAN FINALLY WRITE THE DATA OUT TO THE FILE
@@ -963,7 +1028,7 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 	critical_enter(0);
 	for(i = preset->begin(); i != preset->end(); ++i) {
 		p = *i;
-		sprintf(tempstring, "  <preset number='%ld' name='%s'>", p->number, p->name->s_name);
+		snprintf(tempstring, 1024, "  <preset number='%ld' name='%s'>", p->number, p->name->s_name);
 		jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 
 		// Process each item in the preset
@@ -975,16 +1040,16 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 			} else {
 				if(presetItem->value.a_type == A_SYM){
 					result = atom_getsym(&(presetItem->value));
-					sprintf(tempstring, "    <item name='%s' type='%s' priority='%ld'>%s</item>",
+					snprintf(tempstring, 1024, "    <item name='%s' type='%s' priority='%ld'>%s</item>",
 					 	presetItem->param_name->s_name, presetItem->type->s_name, 
 						presetItem->priority, result->s_name);
 				}
 				else if(presetItem->value.a_type == A_FLOAT)
-					sprintf(tempstring, "    <item name='%s' type='%s' priority='%ld'>%f</item>",
+					snprintf(tempstring, 1024, "    <item name='%s' type='%s' priority='%ld'>%f</item>",
 					 	presetItem->param_name->s_name, presetItem->type->s_name, presetItem->priority,
 						atom_getfloat(&(presetItem->value)));
 				else if(presetItem->value.a_type == A_LONG)
-					sprintf(tempstring, "    <item name='%s' type='%s' priority='%ld'>%ld</item>",
+					snprintf(tempstring, 1024, "    <item name='%s' type='%s' priority='%ld'>%ld</item>",
 					 	presetItem->param_name->s_name, presetItem->type->s_name, presetItem->priority,
 						atom_getlong(&(presetItem->value)));
 				
@@ -1000,12 +1065,12 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 	// WE ARE DONE, SO CLOSE THE FILE
 	err = sysfile_seteof(file_handle, myEof);
 	if(err){
-		error("jcom.hub: %s - error %d creating EOF", filename, err);
+		object_error((t_object*)x, "%s - error %d creating EOF", filename, err);
 		return;	
 	}
 							
 	sysfile_close(file_handle);		// close file reference
-	post("Jamoma: /preset/write completed successfully");
+	object_post((t_object*)x, "Jamoma: /preset/write completed successfully");
 }
 
 
@@ -1054,7 +1119,7 @@ void hub_preset_interface(t_hub* x)
 	object_attr_setchar(p, _sym_openinpresentation, 1);	
 	object_attr_setchar(p, _sym_toolbarvisible, 0);	
 	object_attr_setsym(p, _sym_title, gensym("preset_interface"));		
-	object_method_parse(p, _sym_window, "constrain 500 300 757 345", NULL);
+	object_method_parse(p, _sym_window, "constrain 5 320 179 595", NULL);
 	object_attach_byptr_register(x, p, _sym_nobox);
 	
 	object_method(p, _sym_vis);	// "vis" happens immediately, "front" is defer_lowed

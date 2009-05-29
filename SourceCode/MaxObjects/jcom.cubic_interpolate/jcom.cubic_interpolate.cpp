@@ -1,7 +1,7 @@
 /* 
  * jcom.cubic_interpolate
  * External for Jamoma: cubic interpolation on a stream of floats
- * By Trond Lossius, Copyright © 2006
+ * By Trond Lossius, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -38,7 +38,7 @@ t_class		*this_class;				// Required. Global pointing to this class
 /************************************************************************************/
 // Main() Function
 
-int main(void)
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {	
 	long attrflags = 0;
 	t_class *c;
@@ -190,7 +190,7 @@ void cubic_interpolate_assist(t_cubic_interp *x, void *b, long msg, long arg, ch
 	{ 
 		switch(arg)
 		{
-			case 0: sprintf(dst, "(bang/float) interpolate, set next");
+			case 0: strcpy(dst, "(bang/float) interpolate, set next");
 			break;	
 		}
 	}
@@ -198,9 +198,9 @@ void cubic_interpolate_assist(t_cubic_interp *x, void *b, long msg, long arg, ch
 	{
 		switch(arg)
 		{
-				case 0: sprintf(dst, "(float) interpolated value"); break;
-				case 1: sprintf(dst, "(bang) need new target value"); break;
-				case 2: sprintf(dst, "dumpout"); break;
+				case 0: strcpy(dst, "(float) interpolated value"); break;
+				case 1: strcpy(dst, "(bang) need new target value"); break;
+				case 2: strcpy(dst, "dumpout"); break;
 		}
 	}
 }

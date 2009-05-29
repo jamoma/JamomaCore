@@ -18,6 +18,7 @@
 #include "ext_obex.h"
 #include "ext_critical.h"
 #include "z_dsp.h"
+#include "JamomaTypes.h"
 
 #ifdef WIN_VERSION
 #define snprintf _snprintf
@@ -46,7 +47,6 @@ typedef struct _jcom_core_subscriber_common{
 	t_symbol			*module_name;			///< the name of the module as reported when we subscribe to jcom.hub (used for contextual error message posting)
 	t_symbol			*subscriber_type;		///< the class of object this subscriber belongs to from the hub's perspective
 	t_subscribe_method	custom_subscribe;		///< function pointer to a custom subscribe method for doing additional work at subscription
-	t_object			*obj_hub_broadcast;		///< jcom.receive that listens to the hub's broadcast
 } t_jcom_core_subscriber_common;
 
 
@@ -64,7 +64,6 @@ typedef struct _jcom_core_subscriber_extended{
 	t_symbol			*module_name;			///< the name of the module as reported when we subscribe to jcom.hub (used for contextual error message posting)
 	t_symbol			*subscriber_type;		///< the class of object this subscriber belongs to from the hub's perspective
 	t_subscribe_method	custom_subscribe;		///< function pointer to a custom subscribe method for doing addition work at subscription
-	t_object			*obj_hub_broadcast;		///< jcom.receive that listens to the hub's broadcast
 	// extensions begin here
 	t_symbol			*attr_clipmode;			///< ATTRIBUTE: how to constrain values to the specified ranges
 	t_symbol			*attr_description;		///< ATTRIBUTE: textual description of this parameter
@@ -74,22 +73,6 @@ typedef struct _jcom_core_subscriber_extended{
 	t_symbol			*attr_type;				///< ATTRIBUTE: what kind of data doers this object define?	
 } t_jcom_core_subscriber_extended;
 				
-
-/** Register (or unregister) a client (such as jcom.parameter or jcom.in~) 
- * with the jcom.hub object
- * @param x pointer to the object that is subscribing
- * @param name name of the parameter, message, return, in, out, etc.
- * @param container pointer to patcher containg the parameter, in, out, etc.
- * @return a pointer to the hub object
- */
-t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, t_symbol *object_type);
-
-
-/** Unsubscribe a client from the hub.
- * @param hub pointer to the hub
- * @param object pointer to the parameter/message/in/out/etc object that we are removing
- */
-void jcom_core_unsubscribe(t_object *hub, void *object);
 
 
 /** Utility function to perform an atom copy.
@@ -173,6 +156,7 @@ t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_c
 /** Subscribe to the hub
  */
 void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x);
+//	void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x, ObjectPtr hub=NULL);
 
 
 /** Receive notification that the hub has been freed, so we shouldn't call it anymore
@@ -188,12 +172,6 @@ void jcom_core_subscriber_setcustomsubscribe_method(t_jcom_core_subscriber_commo
  *  If the module has no other special freeing to do, then this can be called as the destructor.
  */
 void jcom_core_subscriber_common_free(t_jcom_core_subscriber_common *x);
-
-
-/** This method is called when the jcom.receive in a subscriber receives the hub's broadcast messages.
- */
-void jcom_core_broadcast_callback(void *z, t_symbol *msg, long argc, t_atom *argv);
-
 
 
 t_max_err jcom_core_attr_getname(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
@@ -214,5 +192,29 @@ t_max_err jcom_core_attr_setdescription(t_jcom_core_subscriber_extended *x, void
 #ifdef __cplusplus
 }
 #endif
+
+
+
+
+/** Register (or unregister) a client (such as jcom.parameter or jcom.in~) 
+ * with the jcom.hub object
+ * @param x pointer to the object that is subscribing
+ * @param name name of the parameter, message, return, in, out, etc.
+ * @param container pointer to patcher containg the parameter, in, out, etc.
+ * @return a pointer to the hub object
+ */
+JAMOMA_EXPORT t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, t_symbol *object_type);
+
+JAMOMA_EXPORT t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, t_symbol *object_type, t_object* hub);
+
+
+/** Unsubscribe a client from the hub.
+ * @param hub pointer to the hub
+ * @param object pointer to the parameter/message/in/out/etc object that we are removing
+ */
+void jcom_core_unsubscribe(t_object *hub, void *object);
+
+
+
 
 #endif // #ifndef __JMOD_CORE_H__

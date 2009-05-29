@@ -18,34 +18,37 @@
 // Registering with the jcom.hub object
 t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, t_symbol *object_type)
 {
-	if(max5){
-		t_object	*patcher = container;
-		t_object	*box;
-		t_symbol	*objclass = NULL;
-		t_object	*hub = NULL;
-		
-	again5:
-		box = object_attr_getobj(patcher, gensym("firstobject"));
-		while(box){
-			objclass = object_attr_getsym(box, gensym("maxclass"));
-			if(objclass == jps_jcom_hub){
-				hub = object_attr_getobj(box, _sym_object);
-				object_method(hub, jps_subscribe, name, x, object_type);
-				return hub;
-			}
-			box = object_attr_getobj(box, gensym("nextobject"));
+	t_object	*patcher = container;
+	t_object	*box;
+	t_symbol	*objclass = NULL;
+	t_object	*hub = NULL;
+	
+again5:
+	box = object_attr_getobj(patcher, _sym_firstobject);
+	while(box){
+		objclass = object_attr_getsym(box, _sym_maxclass);
+		if(objclass == jps_jcom_hub){
+			hub = object_attr_getobj(box, _sym_object);
+			object_method(hub, jps_subscribe, name, x, object_type);
+			return hub;
 		}
-		patcher = object_attr_getobj(patcher, gensym("parentpatcher"));
-		if(patcher)
-			goto again5;
+		box = object_attr_getobj(box, _sym_nextobject);
+	}
+	patcher = object_attr_getobj(patcher, _sym_parentpatcher);
+	if(patcher)
+		goto again5;
 
-		return NULL;
-	}
-	else{
-		error("This version of Jamoma requires Max 5");
-		return NULL;
-	}
+	return NULL;
 }
+
+
+// Registering with the jcom.hub object -- when we have a pointer to the hub already
+t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, t_symbol *object_type, t_object* hub)
+{	
+	object_method(hub, jps_subscribe, name, x, object_type);
+	return hub;
+}
+
 
 // Unregister from the jcom.hub object
 //void jcom_core_unsubscribe(void *hub, t_symbol *name)
@@ -208,6 +211,7 @@ void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath)
 void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, bool define_name)
 {
 	// METHODS
+	class_addmethod(c, (method)jcom_core_subscriber_subscribe,	"subscribe",	A_CANT, 0); // called by a new hub to tell us to subscribe to it
 	class_addmethod(c, (method)jcom_core_subscriber_hubrelease,	"release",		A_CANT, 0);	// notification of hub being freed
 	class_addmethod(c, (method)object_obex_dumpout,				"dumpout",		A_CANT, 0);  
 
@@ -226,9 +230,9 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, bool de
 	// ATTRIBUTE: range <low, high>
 	jamoma_class_attr_array_new(c, 	"range/bounds", 		_sym_float32, 2, (method)jcom_core_attr_setrange, (method)jcom_core_attr_getrange);
 		
-	// ATTRIBUTE: clipmode - options are none, low, high, both
+	// ATTRIBUTE: clipmode - options are none, low, high, both, wrap, fold
 	jamoma_class_attr_new(c, 		"range/clipmode",	 	_sym_symbol, (method)jcom_core_attr_setclipmode, (method)jcom_core_attr_getclipmode);
-	CLASS_ATTR_ENUM(c,				"range/clipmode",		0,	"none low high both");	
+	CLASS_ATTR_ENUM(c,				"range/clipmode",		0,	"none low high both wrap fold");	
 
 	// ATTRIBUTE: repetitions - 0 means repetitive values are not allowed, 1 means they are
 	jamoma_class_attr_new(c, 		"repetitions/allow", 	_sym_long, (method)jcom_core_attr_setrepetitions, (method)jcom_core_attr_getrepetitions);
@@ -250,7 +254,6 @@ void jcom_core_subscriber_new_common(t_jcom_core_subscriber_common *x, t_symbol 
 	x->subscriber_type = subscriber_type;
 	x->custom_subscribe = NULL;
 	x->hub = NULL;
-	x->obj_hub_broadcast = NULL;
 	x->module_name = _sym_nothing;
 
 	// we call the function directly here rather than use object_attr_setvalueof() 
@@ -261,12 +264,7 @@ void jcom_core_subscriber_new_common(t_jcom_core_subscriber_common *x, t_symbol 
 	x->container = jamoma_object_getpatcher((t_object*)x);
 	
 	// set up the jcom.receive the listens to broadcast messages from the hub
-	atom_setsym(&a, jps_jcom_broadcast_fromHub);
-	if(!jcom_core_loadextern(jps_jcom_receive, 1, &a, &x->obj_hub_broadcast))
-		error("jcom.core: loading jcom.receive extern failed");
-	else
-		object_method(x->obj_hub_broadcast, jps_setcallback, &jcom_core_broadcast_callback, x);
-	
+	atom_setsym(&a, jps_jcom_broadcast_fromHub);	
 }
 
 
@@ -279,17 +277,19 @@ void jcom_core_subscriber_new_extended(t_jcom_core_subscriber_extended *x, t_sym
 	x->attr_clipmode = jps_none;
 	x->attr_description = _sym_nothing;
 	x->attr_type = jps_msg_generic;
-	x->attr_repetitions = 1;
+	x->attr_repetitions = 0;	// this should default to the most efficient and common way of working, so repetitions are filtered [TAP]
 }
 
 
 // function for registering with the jcom.hub object
 void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x)
 {
-	if(x->hub == NULL){			// do not allow multiple subscribes of this object 
+	if(x->hub)
+		x->hub = jcom_core_subscribe((t_object*)x, x->attr_name, x->container, x->subscriber_type, x->hub);
+	else
 		x->hub = jcom_core_subscribe((t_object*)x, x->attr_name, x->container, x->subscriber_type);
-		if(x->hub) 
-			x->module_name = (t_symbol *)object_method(x->hub, jps_core_module_name_get);
+	if(x->hub){
+		x->module_name = (t_symbol *)object_method(x->hub, jps_core_module_name_get);
 		if(x->custom_subscribe)
 			x->custom_subscribe(x);
 	}
@@ -315,19 +315,9 @@ void jcom_core_subscriber_common_free(t_jcom_core_subscriber_common *x)
 {
 	jcom_core_unsubscribe(x->hub, x);
 	x->hub = NULL;
-	object_free(x->obj_hub_broadcast);
-	x->obj_hub_broadcast = NULL;
 }
 
 
-// receive messages from our internal jcom.receive external
-void jcom_core_broadcast_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
-{
-	t_jcom_core_subscriber_common	*x = (t_jcom_core_subscriber_common *)z;
-	
-	if(msg == gensym("hub.changed"))
-		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
-}
 
 
 // COMMON ATTRIBUTE: name
@@ -342,11 +332,12 @@ t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_c
 		x->has_wildcard = false;
 
 //	if(x->subscriber_type == jps_subscribe_return && x->hub){
-//		jcom_core_unsubscribe(x->hub, x);
-//		x->hub = NULL;
+	if(x->hub){
+		jcom_core_unsubscribe(x->hub, x);
+		x->hub = NULL;
 //		x->attr_name = atom_getsym(argv);
-//		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
-//	}
+		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
+	}
 	// if the client understands 'update_name' then we call it
 	object_method(x, gensym("update_name"));
 	
@@ -390,7 +381,7 @@ t_max_err jcom_core_attr_getrange(t_jcom_core_subscriber_extended *x, void *attr
 {
 	*argc = 2;
 	
-//sysmem_ptrsize(*argv)
+	//sysmem_ptrsize(*argv)
 	// FIXME: This checks if we have memory passed in, good, but how do we know if it is enough memory for 2 atoms? [TAP]
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * 2);

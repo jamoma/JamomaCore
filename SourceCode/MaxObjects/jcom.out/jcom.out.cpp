@@ -1,7 +1,7 @@
 /* 
  * jcom.out~
  * External for Jamoma: manage audio outputs for a module
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -23,16 +23,17 @@
 #include "Jamoma.h"
 #include "jcom.out.h"
 
-#define POLL_INTERVAL	150			// metro time
+// Constants
+const double kPollIntervalDefault = 150;	// for meters to update
 
 // Globals
-t_class		*out_class;					// Required. Global pointing to this class
+t_class*	out_class;
 
 
 /************************************************************************************/
 // Main() Function
 
-int main(void)				// main recieves a copy of the Max function macros table
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	long 		attrflags = 0;
 	t_class 	*c;
@@ -68,12 +69,7 @@ int main(void)				// main recieves a copy of the Max function macros table
     class_addmethod(c, (method)out_assist,				"assist", 				A_CANT, 0L);
 
 	jcom_core_subscriber_classinit_common(c, attr);	
-	
-	// ATTRIBUTE: algorithm_type
-	attr = attr_offset_new("algorithm_type", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_out, attr_algorithm_type));
-	class_addattr(c, attr);
-	
+		
 	// ATTRIBUTE: num_inputs
 	attr = attr_offset_new("num_outputs", _sym_long, attrflags,
 		(method)0, (method)0, calcoffset(t_out, numOutputs));
@@ -106,13 +102,11 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		object_obex_store((void *)x, jps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
 		x->numOutputs =  1;
-		x->vector_size = 0;
 		x->attr_preview = 0;
 		x->preview_object = NULL;
 		x->attr_bypass = 0;
 		x->attr_mute = 0;
 		x->attr_mix = 100;										// Assume 100%, so that processed signal is passed through if @has_mix is false
-		x->attr_algorithm_type = _sym_nothing;
 		if(attrstart > 0){
 			int argument = atom_getlong(argv);
 			x->numOutputs = TTClip(argument, 1, MAX_NUM_CHANNELS);
@@ -133,12 +127,14 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		x->audioOut = new TTAudioSignal(x->numOutputs);
 		x->audioTemp = new TTAudioSignal(x->numOutputs);
 		x->zeroSignal = new TTAudioSignal(x->numOutputs);
-		x->xfade = new TTCrossfade(x->numOutputs);
-		x->copy = new TTAudioObject("jcom.out copier", x->numOutputs);
-		x->gain = new TTGain(x->numOutputs);
-		x->ramp_gain = new TTRamp(1);
-		x->ramp_xfade = new TTRamp(1);
-		out_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
+		
+		TTObjectInstantiate(TT("crossfade"), &x->xfade, x->numOutputs);
+		x->xfade->setAttributeValue(TT("position"), 1.0);
+		TTObjectInstantiate(TT("gain"), &x->gain, x->numOutputs);
+		TTObjectInstantiate(TT("ramp"), &x->ramp_gain, x->numOutputs);
+		TTObjectInstantiate(TT("ramp"), &x->ramp_xfade, x->numOutputs);
+
+//		out_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
 		x->gain->setAttributeValue(TT("linearGain"), 1.0);
 #else
 		for(i=x->numOutputs-1; i >= 1; i--)
@@ -150,7 +146,7 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		jcom_core_subscriber_setcustomsubscribe_method(&x->common, &out_subscribe);
 		
 		attr_args_process(x, argc, argv);					// handle attribute args				
-		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
+		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
 	}
 	return (x);												// Return the pointer
 }
@@ -162,33 +158,11 @@ void out_subscribe(void *z)
 	long		argc;
 	t_atom		a;
 	t_atom		*argv = &a;
-	t_symbol	*result;
-	t_symbol	*modtype;
 	t_out		*x = (t_out *)z;
 	
-	//x->common.hub = jcom_core_subscribe(x, x->common.attr_name, x->common.container, jps_subscribe_out);
 	if(x->common.hub != NULL){
 		object_attr_getvalueof(x->common.hub, jps_name, &argc, &argv);
 		x->common.module_name = atom_getsym(argv);
-// [TAP] Not sure why we are zeroing here -- it doesn't make much sense
-//		x->num_meter_objects = 0;
-		
-		// Find out what type of algorithm this is supposed to control
-		object_attr_getvalueof(x->common.hub, jps_algorithm_type, &argc, &argv);
-		result = atom_getsym(argv);
-		if(result == jps_default){
-			object_attr_getvalueof(x->common.hub, jps_module_type, &argc, &argv);
-			modtype = atom_getsym(argv);
-		
-			if(modtype == jps_audio)
-				x->attr_algorithm_type = jps_poly;
-			else if(modtype == jps_video)
-				x->attr_algorithm_type = jps_jitter;
-			else
-				x->attr_algorithm_type = jps_control;
-		}
-		else
-			x->attr_algorithm_type = result;
 	}
 }
 
@@ -204,11 +178,10 @@ void out_free(t_out *x)
 	delete x->audioOut;
 	delete x->audioTemp;
 	delete x->zeroSignal;
-	delete x->xfade;
-	delete x->copy;
-	delete x->gain;
-	delete x->ramp_gain;
-	delete x->ramp_xfade;
+	TTObjectRelease(&x->xfade);
+	TTObjectRelease(&x->gain);
+	TTObjectRelease(&x->ramp_gain);
+	TTObjectRelease(&x->ramp_xfade);
 #endif
 	jcom_core_subscriber_common_free(&x->common);
 }
@@ -383,14 +356,17 @@ void update_meters(t_out *x)
 	short	i;
 	t_atom	a[2];
 	
+	x->clock_is_set = 0;
 	for(i=0; i < x->num_meter_objects; i++){
-		if(x->meter_object[i]){
+		if(x->meter_object[i] && x->peakamp[i] != x->lastPeakamp[i]){
 			atom_setsym(&a[0], _sym_float);
 			atom_setfloat(&a[1], x->peakamp[i]);
 			object_method_typed(x->meter_object[i], jps_dispatched, 2, a, NULL);
+			x->lastPeakamp[i] = x->peakamp[i];
+			x->peakamp[i] = 0;
 		}
 	}
-	x->clock_is_set = 0;
+	clock_delay(x->clock, kPollIntervalDefault); 			// restart the clock
 }
 
 
@@ -400,43 +376,40 @@ t_int *out_perform(t_int *w)
 {
   	t_out*			x = (t_out *)(w[1]);
 	short			i, j;
-	TTUInt8			numChannels = x->audioIn->getNumChannels();
-	TTUInt16		vs = x->audioIn->getVectorSize();
 	TTUInt16		n;
-//	TTSampleVector	sig = NULL;
-	float			currentvalue = 0, peakvalue = 0;	// values for calculating metering
+	float			currentvalue = 0;
+	float			peakvalue = 0;	// values for calculating metering
 	
 	// Store the input from the inlets
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
+		x->audioIn->setVector(i, x->vectorSize, (TTFloat32*)w[j+1]);
 	}
-	
 	
 	if(x->attr_bypass)
-		x->copy->process(*x->in_object->audioOut, *x->audioOut);
+		TTAudioSignal::copy(*x->in_object->audioOut, *x->audioOut);
 	else if(x->attr_mute)
-		x->copy->process(*x->zeroSignal, *x->audioOut);
+		TTAudioSignal::copy(*x->zeroSignal, *x->audioOut);
 	else{
-		if(x->in_object && x->in_object->audioOut->getNumChannels())	// TODO: is this safety test really correct?
-			x->xfade->process(*x->in_object->audioOut, *x->audioIn, *x->audioTemp);	// perform bypass/mix control
+		if(x->in_object && x->in_object->numChannels)
+			x->xfade->process(x->in_object->audioOut, x->audioIn, x->audioTemp);	// perform bypass/mix control
 		else
-			x->copy->process(*x->audioIn, *x->audioTemp);
+			TTAudioSignal::copy(*x->audioIn, *x->audioTemp);
 	
-		x->gain->process(*x->audioTemp, *x->audioOut);								// perform gain control
+		x->gain->process(x->audioTemp, x->audioOut);								// perform gain control
 	}
 	
-	
 	// Send the input on to the outlets for the algorithm
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
+		x->audioOut->getVector(i, x->vectorSize, (TTFloat32*)w[j+2]);
 		
 		// since we are already looping through the channels here, we will also do the per-channel metering here
-		if(x->attr_defeat_meters == 0 && x->num_meter_objects){
+		if(x->attr_defeat_meters == 0 && x->num_meter_objects && !x->attr_mute){
 			t_float* envelope = (t_float *)(w[j+2]);
-			n = vs;
-//			sig = x->audioOut->sampleVectors[i];
+			peakvalue = 0.0;
+			
+			n = x->vectorSize;
 			while(n--){
 				if((*envelope) < 0 )						// get the current sample's absolute value
 					currentvalue = -(*envelope);
@@ -447,60 +420,30 @@ t_int *out_perform(t_int *w)
 					peakvalue = currentvalue;
 				envelope++; 										// increment pointer in the vector
 			}
-			if(peakvalue != x->peakamp[i]){					// filter out repetitions
+//			if(peakvalue != x->peakamp[i]){					// filter out repetitions
+			if(peakvalue > x->peakamp[i])
 				x->peakamp[i] = peakvalue;
-				if(x->clock_is_set == 0){
-					clock_delay(x->clock, POLL_INTERVAL); 		// start the clock
-					x->clock_is_set = 1;
-				}
-			}
+//				if(x->clock_is_set == 0){
+//					clock_delay(x->clock, POLL_INTERVAL); 		// start the clock
+//					x->clock_is_set = 1;
+//				}
+//			}
 		}		
 	}
 
-	return w + ((numChannels*2)+2);
+	return w + ((x->numChannels*2)+2);
 }
-
-
-/*
-t_int *out_perform_zero(t_int *w)
-{
-  	t_float *out 	= (t_float *)(w[1]);	// Output
-	long	n		= (long)(w[2]);			// vectorsize
-
-	while(n--)
-		*out++ = 0;
-	return(w+3);
-}
-*/
 
 
 void out_getAudioForChannel(t_out *x, int channel, float **vector)
 {
-	*vector = x->out_vectors[channel];
+//	*vector = x->out_vectors[channel];
 }
 
 
 // DSP Method
 void out_dsp(t_out *x, t_signal **sp, short *count)
 {
-/*
-	short 	i;
-	int 	vs = sp[0]->s_n;			// Vector Size
-	int		sr = sp[0]->s_sr;			// Sample Rate	
-
-	x->ramp_gain->setAttributeValue(TT("sr"), sr);	// convert midi to db for tap_gain
-	x->ramp_xfade->setAttributeValue(TT("sr"), sr);	// convert midi to db for tap_gain
-	out_alloc(x, vs);
-
-	for(i=0; i < x->num_outputs; i++){			// take a look at each
-		x->out_vectors[i] = sp[i]->s_vec;
-		if(count[i])
-			dsp_add(out_perform, 5, x, i, sp[i]->s_vec, sp[x->num_outputs + i]->s_vec, sp[i]->s_n);
-		else
-			dsp_add(out_perform_zero, 2, sp[x->num_outputs + i]->s_vec, sp[i]->s_n);
-	}
-	*/
-
 	short		i, j, k=0;
 	void**		audioVectors = NULL;
 	TTUInt8		numChannels = 0;
@@ -516,7 +459,6 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 	
 	for(i=0; i < x->numOutputs; i++){
 		j = x->numOutputs + i;
-//		if(count[i] && count[j]){
 		if(count[i] || count[j]){
 			numChannels++;
 			if(sp[i]->s_n > vs)
@@ -529,24 +471,33 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 		}
 	}
 	
-	x->audioIn->setNumChannels(numChannels);
-	x->audioOut->setNumChannels(numChannels);
-	x->audioTemp->setNumChannels(numChannels);
-	x->zeroSignal->setNumChannels(numChannels);
+	x->numChannels = numChannels;
+	x->audioIn->setAttributeValue(TT("numChannels"), numChannels);
+	x->audioOut->setAttributeValue(TT("numChannels"), numChannels);
+	x->audioTemp->setAttributeValue(TT("numChannels"), numChannels);
+	x->zeroSignal->setAttributeValue(TT("numChannels"), numChannels);
 	
-	x->audioIn->setVectorSize(vs);
-	x->audioOut->setVectorSize(vs);
-	x->audioTemp->setVectorSize(vs);
-	x->zeroSignal->setVectorSize(vs);
+	x->vectorSize = vs;
+	x->audioIn->setAttributeValue(TT("vectorSize"), vs);
+	x->audioOut->setAttributeValue(TT("vectorSize"), vs);
+	x->audioTemp->setAttributeValue(TT("vectorSize"), vs);
+	x->zeroSignal->setAttributeValue(TT("vectorSize"), vs);
 	
 	//audioIn will be set in the perform method
-	x->audioOut->alloc();
-	x->audioTemp->alloc();
-	x->zeroSignal->alloc();
-	x->zeroSignal->clear();
+	x->audioOut->sendMessage(TT("alloc"));
+	x->audioTemp->sendMessage(TT("alloc"));
+	x->zeroSignal->sendMessage(TT("alloc"));
+	x->zeroSignal->sendMessage(TT("clear"));
 		
 	dsp_addv(out_perform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
+
+	// start the meters
+	if(x->num_meter_objects){
+		for(i=0; i<MAX_NUM_CHANNELS; i++)
+			x->peakamp[i] = 0;
+		clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
+	}
 }
 
 

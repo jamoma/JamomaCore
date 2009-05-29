@@ -1,7 +1,7 @@
 /* 
  * jcom.hub
- * External for Jamoma: dispatch messages to jcom.param objects (a potential replacement for jcom.hub)
- * By Tim Place, Copyright © 2006
+ * External for Jamoma: dispatch messages to jcom.parameter objects
+ * By Tim Place, Copyright Â© 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -79,16 +79,17 @@ typedef struct _hub{							///< Data Structure for this object
 	long			flag_init;					///< FLAG: Indicates that the module is in a process of initiaizaiton
 	t_object		*jcom_send;					///< jcom.send and jcom.receive objects for remote communication
 	t_object		*jcom_receive;				//	...
-	t_object		*jcom_send_broadcast;		///< jcom.send object used to broadcast to subscribers that they should subscribe now
 	t_symbol		*osc_name;					///< the OSC name of this module for remote communication
 	bool			using_wildcard;				///< used when parsing wildcards to flag special syntax checking
 	t_hashtab		*hash_internals;			///< use Max's hashtab implementation for tracking internals objects
 	t_object		*preset_interface;
 	long			preset_lastnum;
 	t_symbol		*preset_lastname;
+	t_symbol		*user_path;					///< path of the last file used to save the presets
 	char*			text;						///< text used by /getstate window
 	TTUInt32		textSize;					///< how many chars are alloc'd to text
 	t_object*		textEditor;					///< the text editor window
+	TTBoolean		editing;					///< are we editing this module?
 } t_hub;
 
 
@@ -96,6 +97,7 @@ typedef struct _hub{							///< Data Structure for this object
 
 /** The jcom.hub constructor */
 void*		hub_new(t_symbol *s, long argc, t_atom *argv);
+void		hub_subscriptions_refresh(t_hub *x);
 void		hub_examine_context(t_hub *x);
 
 
@@ -193,6 +195,7 @@ void		hub_receive_callback(void *x, t_symbol *msg, long argc, t_atom *argv);
 // These are in jcom.hub.autodoc.cpp
 void		hub_autodoc(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
 void		hub_doautodoc(t_hub *x, t_symbol *userpath);
+void		hub_autodoc_node(t_filehandle *file_handle, long *myEof, t_subscriber* t);
 void		hub_autodoc_css(t_filehandle *file_handle, long *myEof);
 void 		table_heading(t_filehandle *file_handle, long *myEof);
 
@@ -218,7 +221,7 @@ void hub_internals_destroy(t_hub *x);
  * @param argc		the number of values to send to the parameter or message
  * @param argv		the actual values to send to the parameter or message
  */
-void hub_internals_dispatch(t_hub * x, t_symbol * osc_name, long argc, t_atom * argv);
+//void hub_internals_dispatch(t_hub * x, t_symbol * osc_name, long argc, t_atom * argv);
 
 
 // These are in jcom.hub.presets.cpp
@@ -234,7 +237,7 @@ void 		hub_preset_read(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
 /** This does the actual work for @ref hub_preset_read since the actual
  * act of reading the file is defered to the low priority thread
  * @see hub_preset_read */
-void 		hub_preset_doread(t_hub *x, t_symbol *userpath);
+t_max_err 	hub_preset_doread(t_hub *x, t_symbol *userpath);
 
 
 /** Reads in and parses an XML file of presets 
@@ -259,6 +262,12 @@ short		hub_preset_validate(t_hub *x, char *xml_path);
  */
 void 		hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
 
+/** Writes on the same XML preset file.
+ * @param x the hub whose presets should be written to disk
+ * @param userpath path to the XML file to write
+ * @see  hub_preset_dowrite hub_preset_read hub_preset_doread 
+ */
+void 		hub_preset_write_again(t_hub *x);
 
 /** This does the actual work for @ref hub_preset_write since the actual
  * act of writing the file is defered to the low priority thread 
@@ -308,6 +317,10 @@ void 		hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv);	// nu
  */
 void 		hub_preset_store_next(t_hub *x, t_symbol *msg, long argc, t_atom *argv);	// number & optional name
 
+/** Stores a preset in the last recalled or stored preset.
+ * @param x the hub containing the preset
+ */
+void		hub_preset_store_current(t_hub *x);
 
 /** Recall the default file and recall the first preset
  * @param x the hub whose default preset should be recalled */
@@ -331,6 +344,7 @@ void 		hub_presets_post(t_hub *x, t_symbol*, long, t_atom*);
 
 void hub_getstate(t_hub *x);
 void hub_edclose(t_hub *x, char **text, long size);
+void hub_script(t_hub* x, SymbolPtr s, AtomCount ac, AtomPtr av);
 
 void hub_preset_interface(t_hub* x);
 t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv);

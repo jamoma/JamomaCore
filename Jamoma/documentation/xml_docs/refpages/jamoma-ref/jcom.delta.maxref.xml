@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+
+<c74object name="jcom.delta">
+	
+    <digest>
+        Calculate difference, second order difference and velocity of incoming data stream.
+    </digest>
+
+    <description>
+        Calculate difference, second order difference and velocity of incoming data stream.
+    </description>
+
+
+	<!--METADATA-->
+	
+	<metadatalist>
+		
+		<metadata name="author">
+			jamoma.org
+		</metadata>
+		
+		<metadata name="tag">
+			Jamoma
+		</metadata>
+		
+		<metadata name="tag">
+			Max
+		</metadata>
+		
+		<metadata name="tag">
+			Math
+		</metadata>
+		
+	</metadatalist>
+
+
+	<!--INLETS-->
+	
+	<inletlist>
+		
+		<inlet id="0" name="INLET_NAME">
+			<digest>
+				(int/float) function value
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</inlet>
+		
+	</inletlist>
+
+
+	<!--OUTLETS-->
+	
+	<outletlist>
+		
+		<outlet id="0" name="OUTLET_NAME">
+			<digest>
+				(float) 1st order difference
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</outlet>
+		
+		<outlet id="1" name="OUTLET_NAME">
+			<digest>
+				(float) 2nd order difference
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</outlet>
+		
+		<outlet id="2" name="OUTLET_NAME">
+			<digest>
+				(float) velocity
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</outlet>
+		
+		<outlet id="3" name="OUTLET_NAME">
+			<digest>
+				dumpout
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</outlet>
+	</outletlist>
+
+
+	<!--ARGUMENTS-->
+	
+	<objarglist>
+		
+		<objarg id="0" name="OBJARG_NAME" type="OBJARG_TYPE" optional="0">
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</objarg>
+		
+	</objarglist>
+
+
+	<!--MESSAGES-->
+	
+	<methodlist>
+		
+		<method name="bang">
+			<arglist />
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				Calculate and output difference, second order difference and velocity using currentloy stored values.
+			</description>
+		</method>
+		
+		<method name="int">
+			<arglist>
+				<arg name="input" type="int" optional="0" id="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				Converted to <m>float</m>.
+			</description>
+		</method>
+		
+		<method name="float">
+			<arglist>
+				<arg name="input" type="float" optional="0" id="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				The number is stored as the most recent value <i>x[n]</i>, and difference, second order difference
+				and velocity is calculated and output.
+			</description>
+		</method>
+		
+		<method name="clear">
+			<arglist />
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				The history of previously received values is cleared. 
+				Next time a value is received, <i>x[n-1]</i> and <i>x[n-2]</i> are set equal to <i>x[n]</i>.
+			</description>
+		</method>		
+		
+		<method name="set">
+			<arglist>
+				<arg id="0" name="input" type="float" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				The number is stored as the most recent value <i>x[n]</i> without performing any calculation or producing any output.
+			</description>
+		</method>
+
+		
+	</methodlist>
+
+
+	<!--ATTRIBUTES-->
+
+	<!--EXAMPLE-->
+	
+	<examplelist>
+		<example image="IMAGE_URL" caption=" IMAGE_CAPTION" />
+	</examplelist>
+
+
+	<!--SEEALSO-->
+	
+	<seealsolist>
+		
+		<seealso name="jcom.stats">
+			Calculate statistics on running data
+		</seealso>
+		
+		<seealso name="expr">
+			Evaluate a mathematical expression
+		</seealso>	
+		
+	</seealsolist>
+
+
+	<!--MISC-->
+	
+	<misc name="Output">
+		<entry name="float">
+			<description>
+				<br />
+				Out 1st outlet: Difference calculated from incoming stream of data:
+				<i>&#x394;x = x[n]-x[n-1]</i><br />
+				<br />
+				Out 2nd outlet: 2nd order difference calculated from incoming stream of data:
+				<i>&#x394;^2(x) = x[n]-2*x[n-1]+x[n-2]</i><br />
+				<br />
+				Out 3rd inlet: Velocity calculated from incoming stream of data as difference divided by delta time in milliseconds: 
+				<i>velocity&#160;=&#160;1000*&#x394;x/&#x394;t</i><br />
+			</description>
+		</entry>
+		
+		<entry name="(internal)">
+			<description>
+				<br />
+				DESCRIPTION
+			</description>
+		</entry>
+	</misc>
+	
+</c74object>

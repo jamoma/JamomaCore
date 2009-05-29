@@ -32,13 +32,15 @@
  #endif // _DLL_EXPORT
 #endif
 
-extern  t_symbol JAMOMA_EXPORT *jps_none,
+extern "C" JAMOMA_EXPORT extern t_symbol *jps_none,
 				*jps_done,
 				*jps_linear,
 				*jps_linear_q,
-				*jps_low, 
+				*jps_low,							// clip stuff
 				*jps_high, 
-				*jps_both, 
+				*jps_both,
+				*jps_wrap,
+				*jps_fold,
 				*jps_inc,							// increase, decrease
 				*jps_dec,
 				*jps_msg_generic,					// DATA TYPES FOR THE PARAMETER / MESSAGE
@@ -112,7 +114,6 @@ extern  t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_algorithm_message,
 				*jps_private,
 				*jps__gui__,
-				*jps__gui__,
 				*jps__jcom_in__,
 				*jps__jcom_out__,
 				*jps___preview__,
@@ -168,8 +169,10 @@ extern  t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_slash_preset_slash_load,		// /preset/load
 				*jps_slash_preset_slash_store,		// /preset/store
 				*jps_slash_preset_slash_storenext,	// /preset/storenext
+				*jps_slash_preset_slash_storecurrent,	// /preset/storecurrent
 				*jps_slash_preset_slash_recall,
 				*jps_slash_preset_slash_write,		// /preset/save
+				*jps_slash_preset_slash_writeagain,	// /preset/save
 				*jps_slash_preset_slash_copy,		// /preset/save
 				*jps_ui_slash_freeze,				//	ui/freeze
 				*jps_slash_ui_slash_freeze,			// /ui/freeze
@@ -189,7 +192,7 @@ extern  t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_dispatch
 				;
 
-void jamomaSymbolsInit();
+extern "C" void jamomaSymbolsInit();
 
 #endif // #ifndef __JAMOMA_SYMBOLS_H__
 

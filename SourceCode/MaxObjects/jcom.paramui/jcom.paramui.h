@@ -61,7 +61,7 @@ typedef struct _paramui{
 // prototypes: general
 t_paramui*	paramui_new(t_symbol *s, long argc, t_atom *argv);
 void 		paramui_free(t_paramui *x);
-void 		paramui_notify(t_paramui *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+t_max_err	paramui_notify(t_paramui *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 // prototypes: drawing/ui
 void 		paramui_paint(t_paramui *x, t_object *view);
 void 		paramui_mousedown(t_paramui *x, t_object *patcherview, t_pt pt, long modifiers);

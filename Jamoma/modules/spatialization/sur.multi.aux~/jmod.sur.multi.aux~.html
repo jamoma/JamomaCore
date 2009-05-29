@@ -48,7 +48,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> When active, this attribute turns off the module's processing algorithm to save CPU </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> aux1/active </td>
+			<td class="instructionName"> aux.1/active </td>
 			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
@@ -59,7 +59,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> switch Bus 1 on/off </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> aux1/description </td>
+			<td class="instructionName"> aux.1/description </td>
 			<td class ="instructionType"> msg_symbol </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
@@ -70,18 +70,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> descriptive text of Aux 1 </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> aux1/gain/midi </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class="instructionName"> aux.1/gain </td>
+			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionDataspace"> gain </td>
 			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> gain of the input cable applied to aux bus 1 </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> aux2/active </td>
+			<td class="instructionName"> aux.2/active </td>
 			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
@@ -92,7 +92,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> switch Bus 2 on/off </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> aux2/description </td>
+			<td class="instructionName"> aux.2/description </td>
 			<td class ="instructionType"> msg_symbol </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
@@ -103,18 +103,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> descriptive text of Aux 2 </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> aux2/gain/midi </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class="instructionName"> aux.2/gain </td>
+			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionDataspace"> gain </td>
 			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> gain of the input cable applied to aux bus 2 </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> aux3/active </td>
+			<td class="instructionName"> aux.3/active </td>
 			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
@@ -125,7 +125,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> switch Bus 3 on/off </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> aux3/description </td>
+			<td class="instructionName"> aux.3/description </td>
 			<td class ="instructionType"> msg_symbol </td>
 			<td class ="instructionDataspace"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
@@ -136,23 +136,23 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> descriptive text of Aux 3 </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> aux3/gain/midi </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class="instructionName"> aux.3/gain </td>
+			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionDataspace"> gain </td>
 			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> gain of the input cable applied to all aux bus 3 </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> input/gain/midi </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class="instructionName"> input/gain </td>
+			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionDataspace"> gain </td>
 			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> gain of the input cable applied to all aux busses </td>
@@ -197,39 +197,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td> /description </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> aux1/gain </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> scheduler </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> gain of the input cable applied to aux bus 1 </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> aux2/gain </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> scheduler </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> gain of the input cable applied to aux bus 2 </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> aux3/gain </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> scheduler </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> gain of the input cable applied to all aux bus 3 </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> documentation/generate </td>
 			<td class ="instructionType"> msg_generic </td>
 			<td class ="instructionDataspace"> none </td>
@@ -250,17 +217,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Initialize a module completely to the original state. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> input/gain </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> scheduler </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> gain of the input cable applied to all aux busses </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> module/view_internals </td>
