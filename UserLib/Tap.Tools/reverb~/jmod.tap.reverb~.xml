@@ -7,7 +7,6 @@
   <preset number='1' name='default'>
     <item name='modfreq' type='msg_float'>0.100000</item>
     <item name='moddepth' type='msg_float'>0.100000</item>
-    <item name='mix' type='msg_float'>100.000000</item>
     <item name='lowpass' type='msg_float'>15000.000000</item>
     <item name='delay' type='msg_float'>100.000000</item>
     <item name='decay' type='msg_float'>3.500000</item>
