@@ -313,14 +313,14 @@ copydir("#{@svn_root}/examples/MaxMSP/tt.dcblock~/tt.dcblock~.maxhelp",     "#{@
 copydir("#{@svn_root}/examples/MaxMSP/tt.degrade~/tt.degrade~.maxhelp",     "#{@svn_root}/../Modular/Jamoma/documentation/jamoma-help/tt.degrade~.maxhelp")
 copydir("#{@svn_root}/examples/MaxMSP/tt.filter~/tt.filter~.maxhelp",       "#{@svn_root}/../Modular/Jamoma/documentation/jamoma-help/tt.filter~.maxhelp")
 copydir("#{@svn_root}/examples/MaxMSP/tt.gain~/tt.gain~.maxhelp",           "#{@svn_root}/../Modular/Jamoma/documentation/jamoma-help/tt.gain~.maxhelp")  
-copydir("#{@svn_root}/examples/MaxMSP/tt.gain~/tt.hmlshelf~.maxhelp",        "#{@svn_root}/../Modular/Jamoma/documentation/jamoma-help/tt.hmlshelf~.maxhelp")
+copydir("#{@svn_root}/examples/MaxMSP/tt.hmlshelf~/tt.hmlshelf~.maxhelp",   "#{@svn_root}/../Modular/Jamoma/documentation/jamoma-help/tt.hmlshelf~.maxhelp")
 copydir("#{@svn_root}/examples/MaxMSP/tt.limiter~/tt.limiter~.maxhelp",     "#{@svn_root}/../Modular/Jamoma/documentation/jamoma-help/tt.limiter~.maxhelp")
-copydir("#{@svn_root}/examples/MaxMSP/tt.overdrive~/tt.op~.maxhelp",         "#{@svn_root}/../Modular/Jamoma/documentation/jamoma-help/tt.op~.maxhelp") 
+copydir("#{@svn_root}/examples/MaxMSP/tt.op~/tt.op~.maxhelp",               "#{@svn_root}/../Modular/Jamoma/documentation/jamoma-help/tt.op~.maxhelp") 
 copydir("#{@svn_root}/examples/MaxMSP/tt.overdrive~/tt.overdrive~.maxhelp", "#{@svn_root}/../Modular/Jamoma/documentation/jamoma-help/tt.overdrive~.maxhelp")
 copydir("#{@svn_root}/examples/MaxMSP/tt.ramp~/tt.ramp~.maxhelp",           "#{@svn_root}/../Modular/Jamoma/documentation/jamoma-help/tt.ramp~.maxhelp")
 copydir("#{@svn_root}/examples/MaxMSP/tt.wavetable~/tt.wavetable~.maxhelp", "#{@svn_root}/../Modular/Jamoma/documentation/jamoma-help/tt.wavetable~.maxhelp")
 copydir("#{@svn_root}/examples/MaxMSP/tt.xfade~/tt.xfade~.maxhelp",         "#{@svn_root}/../Modular/Jamoma/documentation/jamoma-help/tt.xfade~.maxhelp")
-copydir("#{@svn_root}/examples/MaxMSP/tt.zerox~/tt.zerox~.maxhelp",         "#{@svn_root}/../Modular/Jamoma/documentation/jamoma-help/tt.zerox~.maxhelp")
+copydir("#{@svn_root}/examples/MaxMSP/tt.zerox~/tt.zerox~.maxhelp",          "#{@svn_root}/../Modular/Jamoma/documentation/jamoma-help/tt.zerox~.maxhelp")
 puts ""
 
 
