@@ -1,4 +1,4 @@
-% -----------------------------------------------
+ % -----------------------------------------------
 % Template for SMC 2009
 %     smc2009.sty -> style file
 % Last modified by Fabien Gouyon (smc2009@inescporto.pt)
@@ -46,7 +46,9 @@
 % To use with only one author or several with the same address
 % ---------------
 \oneauthor
-   {Nils Peters$^{a}$ Trond Lossius$^{b}$ Jan Schacher$^{c}$ Pascal Baltazar$^{d}$ Charles Bascou$^{e}$ Timothy Place$^{f}$} {CIRMMT, McGill University, Montr\'eal$^{a}$  BEK - Bergen Center for Electronic Arts \\Zurich School of Music, Drama and Dance GMEA \\GMAIL Cycling~'74 \\ Email1 Email2 Email3 Email4 Email5 Email6}
+   {Nils Peters$^{a}$, Trond Lossius$^{b}$, Jan Schacher$^{c}$, Pascal Baltazar$^{d}$, Charles Bascou$^{e}$, Timothy Place$^{f}$}
+   {$^{a}$CIRMMT, McGill University, Montr\'eal, nils.peters@mcgill.ca\\ $^{b}$BEK - Bergen Center for Electronic Arts, trond.lossius@bek.no\\ $^{c}$Zurich School of Music, Drama and Dance, jan.schacher@zhdk.ch \\ $^{d}$GMEA, pb@gmea.net, $^{e}$GMEM, charles.bascou@gmem.org \\ $^{f}$Cycling~'74, tim@cycling74.com} 
+%{CIRMMT, McGill University, Montr\'eal$^{a}$ --- BEK - Bergen Center for Electronic Arts \\Zurich School of Music, Drama and Dance --- GMEA --- GMEM --- Cycling~'74 \\ nils.peters@mcgill.ca trond.lossius@bek.no jan.schacher@zhdk.ch \\ pb@gmea.net charles.bascou@gmem.org tim@cycling74.com}
 
 % Two addresses
  %--------------
@@ -79,7 +81,7 @@ Furthermore,
 %The goal of any spatialization
 %rendering is it only the rendering system, or control/rendering ?
 %system is to facilitate or empower the creative use of the spatial medium for a sonic artist. 
-quantitative studies on spatial music (\cite{otondo2008ctu}, \cite{PetersSurvey}) remind us that there are great individual and context-related differences in the compositional use of spatialization and that there is no one spatialization system that could satisfy every artist. %that the compositional use of spatialization techniques varies strongly across composers and musical context.    
+quantitative studies on spatial music (\cite{otondo2008ctu}) remind us that there are great individual and context-related differences in the compositional use of spatialization and that there is no one spatialization system that could satisfy every artist. %that the compositional use of spatialization techniques varies strongly across composers and musical context.    
 % TODO: Tim thinks we can drop this next sentence, as it is redunant with the following sentences
 % For instance, the requirements of a computer aided spatialization system may vary between a fixed-media composition, an art-installation, and a live diffusion performance. 
 One example is an interactive art installation where the real-time quality of a spatial rendering system is of great importance, in combination with the possibility to control spatial processes through a multi-touch screen.  Juxtaposed is a second example: a performance of a fixed-media composition where the paramount features may be multichannel playback and the compensation of non-equidistant loudspeakers (in terms of sound pressure and time delays). Additional scenarios may require binaural rendering for headphone listening, multichannel recording, up and down mixing, or a visual representation of a sound scene.  
@@ -184,8 +186,8 @@ DAW surround panners often comprise a parameter named \emph{blur}, \emph{diverge
       
 \subsection{Media programming environments}  \label{sec:Media programming environments}
 
-Various media programming environments exist that are capable of spatial sound synthesis. These include SuperCollider, Pure Data, OpenMusic, and Max/MSP. In order to support individual approaches and to meet the specific needs of computer music and mixed media art, these environments enable the user to combine music making with computer programming. 
-However, in the name of complete flexibility, these environments lack in providing structured solutions for the specific challenges of spatial music as outlined in section \ref{sec:introduction}. Consequently, numerous self-contained spatialization libraries and toolboxes have been created by artists and researchers to generate virtual sound sources and artificial spaces, such as Space Unit Generator \cite{SUG02}, Spatialisateur \cite{JotPhD}, or ViMiC \cite{CMJ08-VIMIC}. Also toolboxes dedicated to sound diffusion practice has been developed (e.g. BEASTmulch System\footnote{\url{http://www.beast.bham.ac.uk/research}}, ICAST \cite{ICAST06}). Each tool, however, may only provide solutions for a subset of compositional viewpoints. The development of new aesthetics through combining these tools is difficult or limited through their specific designs. 
+Various media programming environments exist that are capable of spatial sound synthesis, i.e. SuperCollider, Pure Data, OpenMusic, and Max/MSP. In order to support individual approaches and to meet the specific needs of computer music and mixed media art, these environments enable the user to combine music making with computer programming. 
+While aspiring for complete flexibility, they end up lacking structured solutions for the specific challenges of spatial music as outlined in section \ref{sec:introduction}. Consequently, numerous self-contained spatialization libraries and toolboxes have been created by artists and researchers to generate virtual sound sources and artificial spaces, such as Space Unit Generator \cite{SUG02}, Spatialisateur \cite{JotPhD}, or ViMiC \cite{CMJ08-VIMIC}. Also toolboxes dedicated to sound diffusion practice has been developed (e.g. BEASTmulch System\footnote{\url{http://www.beast.bham.ac.uk/research}}, ICAST \cite{ICAST06}). Each tool, however, may only provide solutions for a subset of compositional viewpoints. The development of new aesthetics through combining these tools is difficult or limited through their specific designs. 
 
 \subsection{Stand-alone Applications}
 A variety of powerful stand-alone spatialization systems are in development, ranging from directional based spatialization frameworks (e.g. SSR \cite{geier2008ssr}, Zirkonium \cite{ramakrishnan2006zk}) and Auditory Virtual Environments (AVE, e.g. tinyAVE \cite{BorssAES35}) to sound diffusion and particle oriented approaches (e.g. Scatter \cite{ScatterSMC08}). Although these applications usually promote their graphical user interfaces as the primary method to access their embedded DSP-algorithms, a few strategies to allow communication from outside through self-contained  XML, MIDI or OSC protocols can be found.  
@@ -274,26 +276,26 @@ In the following, several developments by the authors are discussed which strive
 
 
 \subsection{SpatDIF} 
-The goal of the Spatial Sound Description Interchange Format (SpatDIF) is to develop a system-independent language for describing spatial audio \cite{Peters:2008spatdif} that can be applied around the Scene Description Layer of Figure \ref{fig:layers}, to communicate between authoring tools down to the Encoding/Decoding Layers.
+The goal of the Spatial Sound Description Interchange Format (SpatDIF) is to develop a system-independent language for describing spatial audio \cite{Peters:2008spatdif} that can be applied around the Scene Description Layer to communicate between authoring tools down to the Encoding/Decoding Layers.
 
 Formats that integrate spatial audio descriptors such as MPEG-4 Advanced Audio BIFS \cite{Vaananen:2004lr} or OpenAL did not fully succeed in the music or fine arts community because they are primary tailored to multimedia or gaming applications and don't necessarily consider the special requirements of spatial music, performances in concert venues, and site-specific media installations.
 
-To account for these specific requirements, the SpatDIF development is consequently a collaborative effort that jointly involves researcher and artists.
+To account for these specific requirements, the SpatDIF development is consequently a collaborative effort that jointly involves researchers and artists.
 
 \indent A database\footnote{\scriptsize{\url{http://redmine.spatdif.org/wiki/spatdif/SpatBASE}}} has been created to gather information about syntax and functionalities of common spatialization tools and to identify the lowest common denominator, the ``Auditory Spatial Gist'', for describing spatialized sound.
 
-\indent Beside these essential \emph{Core Descriptors}, a number of extensions have been proposed to systematically account for enhanced features, e.g. the \emph{Directivity Extension} which deals with directivity information of a virtual sound source, the \emph{Acoustic Spaces Extension} that contains acoustical properties of virtual rooms, or the \emph{Ambisonics Extension} that handles ambisonics-only parameter. The latter is an example where SpatDIF mediates between the processing layers, starting from Layer 3 to Layer 6 (Figure \ref{fig:layers}).
+\indent Beside these essential \emph{Core Descriptors}, a number of extensions have been proposed to systematically account for enhanced features, e.g. the \emph{Directivity Extension} which deals with directivity information of a virtual sound source, the \emph{Acoustic Spaces Extension} that contains acoustical properties of virtual rooms, or the \emph{Ambisonics Extension} that handles ambisonics-only parameters. The latter is an example where SpatDIF mediates between the processing layers, starting from Layer 3 to Layer 6.
  
 \indent Although SpatDIF does not imply a specific communication protocol or storing format, at present, OSC \cite{wright1997osc} for streaming and SDIF \cite{schwarz2000eaa} as a storing solution are used for piloting. 
                                                                                                             
 \subsection{ICST Ambisonics}
-The ICST Ambisonics Tools is a set of four externals for Max/MSP \cite{Schacher:2006ambi_max}.
+The ICST Ambisonics Tools is a set of externals for Max/MSP \cite{Schacher:2006ambi_max}.
 
-\indent The DSP externals ambiencode$\sim$ and ambidecode$\sim$ generate and decode Higher Order Ambisonics and are being part of the Encoding and Decoding Layer in Figure \ref{fig:layers}.%They reach 3rd order with Furse-Malham Formulas in version 1.2, and 5th order using either the Furse-Malham or Normalized 3D formulas in version 2.0.
+\indent The DSP externals ambiencode$\sim$ and ambidecode$\sim$ generate and decode Higher Order Ambisonics and are being part of the Encoding and Decoding Layer. % in Figure \ref{fig:layers}.%They reach 3rd order with Furse-Malham Formulas in version 1.2, and 5th order using either the Furse-Malham or Normalized 3D formulas in version 2.0.
 
 \indent Ambimonitor and ambicontrol complete the set as control tools for the Authoring Layer. Ambimonitor presents the user with a GUI displaying point sources in an abstract 2D or 3D space, various key commands, snapshot and file I/O capabilities and it generates coordinate information for the DSP objects. Ambicontrol provides a number of methods that control motion of points in the ambimonitor's dataset. Automated motions such as rotation, random motion, optionally constrained in bounding volumes and user defined trajectories can be applied to single or grouped points. Trajectories and state snapshots can be imported/exported  as a XML file, which will be replaced by a SpatDIF compliant formatting in a next release.
 
-\indent A novel panning algorithm \cite{Neukom:2008ambipan} was derived from in-phase ambisonics decoding and implemented as a Max/MSP external entitled ambipanning$\sim$. It encapsulates the Encoding and Decoding Layer by transcoding a set of mono sources in one process onto an ideally circular speaker setup with an arbitrary number of speakers. The algorithm works with a continuous order factor, which permits to apply individually varying directivity responses. This external understands the same Render Instructions and is therefore interchangeable with ambiencode$\sim$ and ambidecode$\sim$. 
+\indent A novel panning algorithm \cite{Neukom:2008ambipan} was derived from in-phase ambisonics decoding and implemented as a Max/MSP external entitled ambipanning$\sim$. It encapsulates the Encoding and Decoding Layer by transcoding a set of mono sources in one process onto an ideally circular speaker setup with an arbitrary number of speakers. The algorithm works with a continuous order factor, which permits to apply individually varying directivity responses. %This external understands the same Render Instructions and is therefore interchangeable with ambiencode$\sim$ and ambidecode$\sim$. 
 %
 \subsection{Jamoma}
 
@@ -305,9 +307,11 @@ Jamoma modules have been developed to convert multichannel signals, play and rec
 
 Ambisonics is the only spatialization method implemented in Jamoma that separates spatial encoding and decoding. 1st to 3rd order encoding of mono sources is implemented using the ICST externals\cite{Schacher:2006ambi_max}. Other modules are available for super stereo encoding, encoding of tracks from the portable Zoom H2 recorder and for encoding of UHJ signals. Encoded signals can be manipulated, e.g. the balance between the encoded channels can be adjusted, or the encoded signal can be rotated, tilted and tumbled. The decoding module for 1st to 3rd order signals use the ICST externals while a module for binaural decoding use Spatialisateur \cite{JotPhD}. B-format signals can also be decoded to UHJ.
 
-Jamoma supports several other popular spatialization algorithms: VBAP \cite{Pulkki:2000vbap_max}, ViMiC \cite{CMJ08-VIMIC} and DBAP \cite{dbapICMC09}. Prior to rendering, additional modules offers Doppler, air absorption and distance attenuation source pre-prosessing. 
+Jamoma supports several other popular spatialization algorithms: VBAP \cite{Pulkki:2000vbap_max}, ViMiC \cite{CMJ08-VIMIC} and DBAP \cite{dbapICMC09}.
+This way one rendering technique can easily be substituted for another, or several rendering techniques might be used in tandem for a variety of spatial expressions, analogues to how an artist will use many different brushes in one artwork.
 
-All modules operating at the Encoding Layer are SpatDIF-compliant and hence provides the same interface to controlling modules operating at higher layers. 
+Prior to rendering, additional modules offers Doppler, air absorption and distance attenuation source pre-prosessing. 
+All modules operating at the Encoding Layer are SpatDIF-compliant and hence provides the same interface to controlling modules operating at higher layers.
 
 At the Scene Description Layer a module provides a simple interface for defining the position of sources. The same module can be used to set loudspeaker positions for the Decoding Layer.
 
@@ -325,7 +329,7 @@ An important feature of Holo-Edit is the ability to display the waveform represe
 %Even if Holo-Edit is combined with a auditory virtual environment such as \cite{CMJ08-VIMIC}, its generic nature allows to use it in a more abstract way, thinking more of movements in an arbitrary space ( may it be acoustic, symbolic, semiotic ...).[TODO: I changed something here, but I don't know what you really mean] [ FIXED BY CHARLES : I wanted to point that the movements composed are not made to be strongly linked with the scales of our physical world. But we can absolutly erase this line as it's not fundamental, was just a note ]
 Holo-Edit uses OSC to communicate with media programming environments presented in section \ref{sec:Media programming environments} to control various spatialization methods and AVEs. A major challenge in these scenarios is to adapt and format the data stream that fits the specific rendering algorithm syntax (e.g. coordinate system, dimensions, units).
 
-To overcome this challenge, a Holo-Edit communication interface was developed for the Jamoma environment that handles sound file playback and position data of loudspeakers and sound sources through its standardized OSC-namespace. Therefore, Holo-edit can be used as the main authoring tool for spatialization, while all DSP audio processes are executed in Jamoma. The communication between Holo-Edit and Jamoma is full-duplex, thus allows also to record trajectories in Holo-Edit from any real-time control interface addressable through Jamoma.
+To overcome this challenge, a Holo-Edit communication interface was developed for the Jamoma environment that handles sound file playback and position data of loudspeakers and sound sources through its standardized OSC-namespace. Therefore, Holo-edit can be used as the main authoring tool for spatialization, while all DSP audio processes are executed in Jamoma (Figure \ref{fig:example}). The communication between Holo-Edit and Jamoma is full-duplex, thus allows also to record trajectories in Holo-Edit from any real-time control interface addressable through Jamoma.
 %
 %It thus adds to the features of trajectory composition playback with the associated sound cues according to the edited score, by making provisions %to record them from any real-time control inputs available in Jamoma. 
 
@@ -339,21 +343,19 @@ To overcome this challenge, a Holo-Edit communication interface was developed fo
 
 
 \begin{figure*}[!t] \centerline{
-		\includegraphics[width=1.92\columnwidth]{smcExample.pdf}} \caption{Holo-Edit, Jamoma and ICST Ambisonics Tools unified} \label{fig:example} 
+		\includegraphics[width=2.2\columnwidth]{smcExample.pdf}} \caption{Holo-Edit, Jamoma and ICST Ambisonics Tools unified} \label{fig:example} 
 	\end{figure*}
 
 
 \section{Discussion \& Conclusion}
 
-We propose a multi-layer approach to mediate across essential components involved in sound spatialization. The examples of work on spatialization done at ICST and in Jamoma and HoloEdit illustrates that a layered model can be fruitful for development within media programming environments.
-     
+We propose a multi-layer approach to mediate across essential components involved in sound spatialization. The examples of work on spatialization done at ICST and in Jamoma and HoloEdit illustrates that a layered model can be fruitful for development within media programming environments. The modular framework TANGA \cite{ReiterTANGA} for interactive audio applications reveals a related separation of tasks.
 
-An informal discussion after an ICMC 2008 panel discussion on interchange formats for spatial audio scenes\footnote{\scriptsize{\url{http://redmine.spatdif.org/wiki/spatdif/Belfast_2008}}} revealed that adequate spatialization tools for working in DAWs are strongly desired. The question remains whether this demand can be accommodated by employing the multi-layer approach in DAWs. It remains to be researched how and if a similar layered approach could also be adapted and become fruitful in DAWs. A potential limitation might be imposed by the fact that automation in DAWs generally is represented as time-tagged streams of one-dimensional values while spatial information is generally multi-dimensional.
+A few stand-alone applications are designed with a similar layered approach that allows to control different spatial rendering algorithms from one common interface, e.g. \cite{geier2008ssr}. Artists and researcher would benefit greatly if all these ``local solutions" could be accessed by any desired authoring tool and integrated into existing environments.
 
+An informal discussion after an ICMC 2008 panel discussion on interchange formats for spatial audio scenes\footnote{\scriptsize{\url{http://redmine.spatdif.org/wiki/spatdif/Belfast_2008}}} showed that adequate spatialization tools for working in DAWs are missing, but strongly desired. The proposed stratified approach would be more flexible than the current DAW architecture where tools for spatialisation are tied to a number of consumer channel configurations. The object oriented mixer approach proposed in \cite{MeltzerTMT08} suggests that stratification can be employed in DAWs. A potential limitation might be imposed by the fact that automation in DAWs generally is represented as time-tagged streams of one-dimensional values while spatial information is generally multi-dimensional.
 
-Several stand-alone applications are designed with a similar layered approach that allows to control different spatial rendering algorithms from one common interface, e.g. \cite{geier2008ssr}. Artists and researcher would benefit greatly if all these ``local solutions" could be accessed by any desired authoring tool and integrated into existing environments. 
-
-One keystone may be to define a meaningful and accepted interchange communication format for spatialization. Therefore further works needs to be done on SpatDIF which culminates in a API to be easily integrated in any spatialization software.
+One keystone may be to define a meaningful and accepted interchange communication format for spatialization. Therefore further works needs to be done on SpatDIF which culminates in an API to be easily integrated in any spatialization software.
 
 %
 %
