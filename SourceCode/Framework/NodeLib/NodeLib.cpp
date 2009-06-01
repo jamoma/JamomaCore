@@ -45,7 +45,12 @@ JamomaNode::JamomaNode(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr ne
 		if(oscAddress_parent){
 			parent_created = false;
 			JamomaNodeCheck(oscAddress_parent, &this->parent, &parent_created);
+			// add this node as a children of his parent
+			this->getParent()->getChildren()->append(oscAddress_name,this);
 		}
+		else
+			// this is the root
+			;
 
 		// register the node with his OSC address in the jamoma_node_hashtab
 		jamoma_node_hashtab->append(TT(oscAddress->getCString()),this);
@@ -75,28 +80,33 @@ TTHashPtr	JamomaNode::getChildren(){return this->children;}
 TTErr	JamomaNode::getDump()
 {
 	uint i;
-	TTValue *hk = NULL;
-	TTValue *c = NULL;
-	JamomaNodePtr* n_c = NULL;
+	TTValue *hk;
+	TTSymbolPtr key;
+	TTValue *c;
+	JamomaNodePtr n_c;
 
-	// CRASH !!!
-	post("dump : here I tried to display the name and the instance of the node");
-	post("!!! BUT IT CRASHES !!!");
-	//post("%s.%s",this->name->getCString(),this->instance->getCString());
+	if(this->name && this->instance)
+		post("%s.%s",this->name->getCString(),this->instance->getCString());
+	else	
+		if(this->name)
+			post("%s",this->name->getCString());
 
-	// DON'T CRASH
-	post("dump : here I display the type of the node");
-	post("type %s",this->type->getCString());
-	
-	//this->children->getKeys(*hk);
+	if(this->children->getSize()){
+		post("{");
 
-	//post("%d children",this->children->getSize());
+		hk = new TTValue();
+		c = new TTValue();
+		this->children->getKeys(*hk);
 
-	//for(i=0; i<this->children->getSize(); i++){
-	//	this->children->lookup(hk[i],*c);
-	//	c->get(0,(TTPtr*)n_c);
-	//	(*n_c)->getDump();
-	//}
+		for(i=0; i<this->children->getSize(); i++){
+			hk->get(i,(TTSymbol**)&key);
+			this->children->lookup(key,*c);
+			c->get(0,(TTPtr*)&n_c);
+			n_c->getDump();
+		}
+
+		post("}");
+	}
 
 	return kTTErrNone;
 }
@@ -147,14 +157,6 @@ TTErr JamomaNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr ne
 		// we create the node
 		JamomaNodePtr new_node = new JamomaNode(oscAddress, newType, newObject);
 
-		// if the node have parent
-		if(new_node->getParent())
-			// add this node as a children of his parent
-			new_node->getParent()->getChildren()->append(oscAddress,new_node);
-		else
-			// this is the root
-			;
-
 		*returnedNode = new_node;
 		*created = true;
 		return kTTErrNone;
@@ -180,6 +182,7 @@ TTErr JamomaNodeCheck(TTSymbolPtr oscAddress, JamomaNodePtr* returnedNode, TTBoo
 
 	// look into the hashtab to check if the address exist in the tree
 	found = new TTValue();
+	*created = false;
 	err = jamoma_node_hashtab->lookup(oscAddress,*found);
 
 	//// if the address doesn't exist
@@ -187,20 +190,14 @@ TTErr JamomaNodeCheck(TTSymbolPtr oscAddress, JamomaNodePtr* returnedNode, TTBoo
 
 		post("JamomaNodeCheck : %s doesn't exists", oscAddress->getCString());
 
-	//	// we create a container node
+		// we create a container node
 		JamomaNodePtr new_node = new JamomaNode(oscAddress, TT("container"), NULL);
-
-	//	// if the node have parent
-	//	if(new_node->getParent())
-	//		// add this node as a children of his parent
-	//		new_node->getParent()->getChildren()->append(key,new_node);
-	//	else
-	//		// this is the root
-	//		;
 
 		*returnedNode = new_node;
 		*created = true;
 	}
+	else
+		found->get(0,(TTPtr*)returnedNode);
 
 	return kTTErrNone;
 }
@@ -317,11 +314,8 @@ JamomaError	jamoma_node_init()
 	post("");
 	post("> DUMP THE TREE");
 	post("");
-	post("> dump the root");
 	jamoma_node_root->getDump();
-	post("");
-	post("> dump the node /jamoma/output/preamp");
-	test->getDump();
+
 
 	return JAMOMA_ERR_NONE;
 }
