@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 25.0, 69.0, 414.0, 728.0 ],
+		"rect" : [ 25.0, 69.0, 412.0, 611.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 25.0, 69.0, 414.0, 728.0 ],
+		"defrect" : [ 25.0, 69.0, 412.0, 611.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -15,111 +15,94 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
-		"metadata" : [  ],
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Requires access to the IRCAM Forum IMTR externals for MaxMSP.",
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-11",
-					"fontname" : "Verdana",
-					"presentation_rect" : [ 20.0, 83.0, 0.0, 0.0 ],
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 25.0, 85.0, 350.0, 19.0 ],
-					"fontsize" : 10.0
+					"text" : "Requires access to the IRCAM Forum IMTR externals for MaxMSP."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "bpatcher",
-					"id" : "obj-10",
-					"name" : "jmod.control.maxpat",
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
-					"numinlets" : 1,
-					"args" : [ "/control" ],
-					"numoutlets" : 1,
-					"patching_rect" : [ 25.0, 130.0, 150.0, 70.0 ],
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "bpatcher",
-					"id" : "obj-9",
-					"name" : "jmod.output~.maxpat",
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
-					"numinlets" : 3,
 					"args" : [ "/output~" ],
-					"numoutlets" : 1,
-					"patching_rect" : [ 25.0, 540.0, 300.0, 140.0 ],
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
+					"id" : "obj-9",
 					"maxclass" : "bpatcher",
-					"id" : "obj-7",
-					"name" : "jmod.imtr.supervp.trans~.maxpat",
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
+					"name" : "jmod.output~.maxpat",
 					"numinlets" : 3,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 45.0, 455.0, 300.0, 140.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"args" : [ "/supertranspose" ],
-					"numoutlets" : 3,
-					"patching_rect" : [ 25.0, 380.0, 300.0, 140.0 ],
-					"outlettype" : [ "", "signal", "signal" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
+					"id" : "obj-7",
 					"maxclass" : "bpatcher",
-					"id" : "obj-6",
-					"name" : "jmod.input~.maxpat",
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
-					"numinlets" : 1,
-					"args" : [ "/input~" ],
+					"name" : "jmod.imtr.supervp.trans~.maxpat",
+					"numinlets" : 3,
 					"numoutlets" : 3,
-					"patching_rect" : [ 25.0, 220.0, 300.0, 140.0 ],
-					"outlettype" : [ "", "signal", "signal" ]
+					"outlettype" : [ "", "signal", "signal" ],
+					"patching_rect" : [ 45.0, 295.0, 300.0, 140.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Advanced phase vocoder transformer module, based on SuperVP",
+					"args" : [ "/input~" ],
+					"id" : "obj-6",
+					"maxclass" : "bpatcher",
+					"name" : "jmod.input~.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "signal", "signal" ],
+					"patching_rect" : [ 45.0, 135.0, 300.0, 140.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-4",
-					"fontname" : "Verdana",
-					"presentation_rect" : [ 23.0, 50.0, 0.0, 0.0 ],
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 25.0, 50.0, 338.0, 19.0 ],
-					"fontsize" : 10.0
+					"text" : "Advanced phase vocoder transformer module, based on SuperVP"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "jmod.imtr.supervp.trans~",
+					"fontname" : "Verdana",
+					"fontsize" : 18.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-3",
-					"fontname" : "Verdana",
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 25.0, 20.0, 264.0, 28.0 ],
-					"fontsize" : 18.0
+					"text" : "jmod.imtr.supervp.trans~"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "panel",
 					"id" : "obj-1",
+					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 15.0, 10.0, 365.0, 65.0 ],
@@ -130,37 +113,37 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-7", 2 ],
-					"destination" : [ "obj-9", 2 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-7", 1 ],
-					"destination" : [ "obj-9", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-6", 1 ],
-					"destination" : [ "obj-7", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-6", 2 ],
 					"destination" : [ "obj-7", 2 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-6", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-6", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-7", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 2 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-7", 2 ]
 				}
 
 			}
