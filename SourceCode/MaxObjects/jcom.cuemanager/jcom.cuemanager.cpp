@@ -416,6 +416,8 @@ void cuemng_temp(t_cuemng *x){
 
 void cuemng_edit(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 {
+	void *found;
+	long exist;
 
 	if(x->trigeditmode != EDIT_MODE){
 		x->trigeditmode = EDIT_MODE;
@@ -431,8 +433,25 @@ void cuemng_edit(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 		if(atom_gettype(&argv[0]) == A_LONG){
 			cuemng_int(x,atom_getlong(&argv[0]));
 		}
-		else
-			object_error((t_object *)x, "edit : index have to be integer value");
+		
+		if(atom_gettype(&argv[0]) == A_SYM){
+
+			if(linklist_getsize(x->cuelist))
+				// Is the cue exists in the cuelist ?
+				exist = linklist_findfirst(x->cuelist, &found, cuemng_search_cue, atom_getsym(&argv[0]));
+			else
+				exist = -1;
+			
+			if(exist != -1){
+				x->current =  linklist_objptr2index(x->cuelist, found);
+				x->Kcurrent = cuemng_previous_key_index(x);
+				defer(x,(method)cuemng_bang,0,0,0);
+			}
+			else
+				object_error((t_object *)x, "edit : this index doesn't exist");
+			return;
+		}
+		object_error((t_object *)x, "edit : index have to be integer or a symbol value");
 	}
 	else{
 
@@ -442,6 +461,9 @@ void cuemng_edit(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 
 void cuemng_trigger(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 {
+	void *found;
+	long exist;
+
 	if(x->trigeditmode != TRIGGER_MODE){
 		x->trigeditmode = TRIGGER_MODE;
 	}
@@ -453,11 +475,30 @@ void cuemng_trigger(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 	}
 
 	if(argc && argv){
+
 		if(atom_gettype(&argv[0]) == A_LONG){
 			cuemng_int(x,atom_getlong(&argv[0]));
+			return;
 		}
-		else
-			object_error((t_object *)x, "trigger : index have to be integer value");
+
+		if(atom_gettype(&argv[0]) == A_SYM){
+
+			if(linklist_getsize(x->cuelist))
+				// Is the cue exists in the cuelist ?
+				exist = linklist_findfirst(x->cuelist, &found, cuemng_search_cue, atom_getsym(&argv[0]));
+			else
+				exist = -1;
+			
+			if(exist != -1){
+				x->current = linklist_objptr2index(x->cuelist, found);
+				x->Kcurrent = cuemng_previous_key_index(x);
+				defer(x,(method)cuemng_bang,0,0,0);
+			}
+			else
+				object_error((t_object *)x, "trigger : this index doesn't exist");
+			return;
+		}
+		object_error((t_object *)x, "trigger : index have to be integer or a symbol value");
 	}
 	else{
 		cuemng_int(x,x->current+1);
