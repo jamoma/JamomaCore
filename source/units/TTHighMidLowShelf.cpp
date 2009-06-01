@@ -22,15 +22,15 @@ TTHighMidLowShelf::TTHighMidLowShelf(TTUInt16 newMaxNumChannels)
 	//addAttributeProperty(frequencyMh,			rangeChecking,	TT("clip"));
 	
 	registerAttributeWithSetter(gainL,			kTypeFloat64);
-	//addAttributeProperty(gainL,					range,			TTValue(0.0000001, 1.0));
+	//addAttributeProperty(gainL,					range,			TTValue(0.0000001, 16));
 	//addAttributeProperty(gainL,					rangeChecking,	TT("clip"));
 	
 	registerAttributeWithSetter(gainM,			kTypeFloat64);
-	//addAttributeProperty(gainM,					range,			TTValue(0.0000001, 1.0));
+	//addAttributeProperty(gainM,					range,			TTValue(0.0000001, 16));
 	//addAttributeProperty(gainM,					rangeChecking,	TT("clip"));
 	
 	registerAttributeWithSetter(gainH,			kTypeFloat64);
-	//addAttributeProperty(gainH,					range,			TTValue(0.0000001, 1.0));
+	//addAttributeProperty(gainH,					range,			TTValue(0.0000001, 16));
 	//addAttributeProperty(gainH,					rangeChecking,	TT("clip"));
 	
 	// register for notifications from the parent class so we can allocate memory as required
@@ -42,8 +42,8 @@ TTHighMidLowShelf::TTHighMidLowShelf(TTUInt16 newMaxNumChannels)
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),		newMaxNumChannels);			// This attribute is inherited
-	setAttributeValue(TT("frequencyLm"),		300.0);
 	setAttributeValue(TT("frequencyMh"),		3000.0);
+	setAttributeValue(TT("frequencyLm"),		300.0);
 	setAttributeValue(TT("gainL"),				1.0);
 	setAttributeValue(TT("gainM"),				1.0);
 	setAttributeValue(TT("gainH"),				1.0);
@@ -115,7 +115,7 @@ TTErr TTHighMidLowShelf::setfrequencyMh(const TTValue& newValue)
 
 TTErr TTHighMidLowShelf::setgainL(const TTValue& newValue)
 {   
-	gainL = TTClip<TTFloat64>(newValue,0.0000001, 1.0);
+	gainL = TTClip<TTFloat64>(newValue,0.0000001, 16);
     return calculateCoefficients();
 }
 
@@ -123,20 +123,21 @@ TTErr TTHighMidLowShelf::setgainL(const TTValue& newValue)
 
 TTErr TTHighMidLowShelf::setgainM(const TTValue& newValue)
 {   
-	gainM = TTClip<TTFloat64>(newValue,0.0000001, 1.0);
+	gainM = TTClip<TTFloat64>(newValue,0.0000001, 16);
 	return calculateCoefficients();
 }
 
 TTErr TTHighMidLowShelf::setgainH(const TTValue& newValue)
-{   gainH = TTClip<TTFloat64>(newValue,0.0000001, 1.0);
+{   gainH = TTClip<TTFloat64>(newValue,0.0000001, 16);
 	return calculateCoefficients();
 }
 
 
 TTErr TTHighMidLowShelf::calculateCoefficients()
 {   
-    double f = mf_ * (kTTPi/ sr);  //kTTPi / sr could be calculated outside
-    double rf = sqrt(frequencyMh) / sqrt(frequencyLm); //could be improved
+    double f = mf_ * (kTTPi / sr);  //kTTPi / sr could be calculated outside
+    //double rf = sqrt(frequencyMh) / sqrt(frequencyLm); //could be improved
+    double rf = pow((frequencyMh / frequencyLm), 0.5); //could be improved
     double l = cos(f) / sin(f);
     double invHg = 1.0 / gainH;
     double invLg = 1.0 / gainL;
@@ -152,13 +153,15 @@ TTErr TTHighMidLowShelf::calculateCoefficients()
     double k9 = (gainM * k1) + (k2 * gainL * gainH * invMg);
     double k10 = 1.0 / (k6 + k7);
 	
-    double tempb2 = k10 * (k7 - k6);
+    /*
+	double tempb2 = k10 * (k7 - k6);
     double tempb1 = k10 * 2.0 * (k5 - invLg);
     double tempa2 = k10 * (k8 - k9);
     double tempa1 = k10 * 2.0 * (gainL - k4);
     double tempa0 = k10 * (k8 + k9);
 	
-    /* stability check */
+	
+    // stability check //
 	
     double discriminant = tempb1 * tempb1 + 4.0 * tempb2;
 	TTClip<double>(tempb1, -1.9999996, 1.9999996);
@@ -176,7 +179,28 @@ TTErr TTHighMidLowShelf::calculateCoefficients()
     a1 = tempa1;
     a2 = tempa2;
     b1 = tempb1;
-    b2 = tempb2;
+    b2 = tempb2; 
+	*/
+	
+	
+	b2 = k10 * (k7 - k6);
+	b1 = k10 * 2.0 * (k5 - invLg);
+	a2 = k10 * (k8 - k9);
+    a1 = k10 * 2.0 * (gainL - k4);
+	a0 = k10 * (k8 + k9);
+	
+	// stability check //
+	double discriminant = b1 * b1 + 4.0 * b2;
+	TTClip<double>(b1, -1.9999996, 1.9999996);
+	TTClip<double>(b2, -0.9999998, 0.9999998);
+   	
+    if(discriminant >= 0.0)
+    {
+        if(0.9999998 - b1 - b2 < 0.0)
+            b2 = 0.9999998 - b1;
+        if(0.9999998 + b1 - b2 < 0.0)
+            b2 = 0.9999998 + b1;
+    }
 	
 	return kTTErrNone;
 }
