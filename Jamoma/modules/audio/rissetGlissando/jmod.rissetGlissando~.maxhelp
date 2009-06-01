@@ -15,129 +15,114 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
-		"metadata" : [  ],
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "bpatcher",
-					"numoutlets" : 1,
-					"name" : "jmod.control.maxpat",
-					"outlettype" : [ "" ],
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
-					"patching_rect" : [ 25.0, 95.0, 150.0, 70.0 ],
-					"args" : [ "/control" ],
-					"numinlets" : 1,
-					"id" : "obj-12"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "bpatcher",
-					"numoutlets" : 1,
-					"name" : "jmod.output~.maxpat",
-					"outlettype" : [ "" ],
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
-					"patching_rect" : [ 25.0, 296.0, 300.0, 140.0 ],
 					"args" : [ "/output~" ],
+					"id" : "obj-2",
+					"maxclass" : "bpatcher",
+					"name" : "jmod.output~.maxpat",
 					"numinlets" : 3,
-					"id" : "obj-2"
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 35.0, 275.0, 300.0, 140.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "jmod.rissetGlissando~",
-					"numoutlets" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 18.0,
-					"patching_rect" : [ 25.0, 20.0, 251.0, 28.0 ],
-					"numinlets" : 1,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-3",
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ]
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 25.0, 20.0, 251.0, 28.0 ],
+					"text" : "jmod.rissetGlissando~"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "audio synthesis generating Shepard/Risset infinite glissandi.",
-					"numoutlets" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"patching_rect" : [ 25.0, 50.0, 314.0, 19.0 ],
-					"numinlets" : 1,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-4",
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ]
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 25.0, 50.0, 314.0, 19.0 ],
+					"text" : "audio synthesis generating Shepard/Risset infinite glissandi."
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"id" : "obj-5",
 					"maxclass" : "panel",
+					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 10.0, 10.0, 370.0, 65.0 ],
-					"numinlets" : 1,
-					"rounded" : 15,
-					"id" : "obj-5"
+					"rounded" : 15
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "/range 15. 96.",
-					"numoutlets" : 1,
 					"fontname" : "Verdana",
-					"outlettype" : [ "" ],
 					"fontsize" : 10.0,
-					"patching_rect" : [ 25.0, 271.0, 121.0, 17.0 ],
+					"id" : "obj-7",
+					"maxclass" : "message",
 					"numinlets" : 2,
-					"id" : "obj-7"
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 35.0, 239.0, 121.0, 17.0 ],
+					"text" : "/spacing 8."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "bpatcher",
-					"varname" : "/echo~",
-					"numoutlets" : 2,
-					"name" : "jmod.rissetGlissando~.maxpat",
-					"outlettype" : [ "", "signal" ],
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"lockeddragscroll" : 1,
-					"patching_rect" : [ 25.0, 185.0, 300.0, 70.0 ],
 					"args" : [ "/rissetGlissando~" ],
+					"id" : "obj-9",
+					"lockeddragscroll" : 1,
+					"maxclass" : "bpatcher",
+					"name" : "jmod.rissetGlissando~.maxpat",
 					"numinlets" : 1,
-					"id" : "obj-9"
+					"numoutlets" : 2,
+					"outlettype" : [ "", "signal" ],
+					"patching_rect" : [ 35.0, 114.0, 300.0, 105.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 105.0 ],
+					"varname" : "/echo~"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-9", 1 ],
-					"destination" : [ "obj-2", 2 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-9", 1 ],
-					"destination" : [ "obj-2", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-9", 0 ],
 					"destination" : [ "obj-7", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 34.5, 264.0, 136.5, 264.0 ]
+					"midpoints" : [ 44.5, 231.0, 146.5, 231.0 ],
+					"source" : [ "obj-9", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-9", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 2 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-9", 1 ]
 				}
 
 			}
