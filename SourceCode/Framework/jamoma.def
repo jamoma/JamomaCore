@@ -58,6 +58,10 @@ EXPORTS
 	; DataspaceLib
 		jamoma_getDataspace
 		jamoma_getDataspaceList
+		
+	; NodeLib
+		jamoma_node_init
+		jamoma_node_free
 
 	; JamomaSymbols
 		jps_1U

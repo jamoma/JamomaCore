@@ -41,6 +41,7 @@
 #include "DataspaceLib.h"
 #include "FunctionLib.h"
 #include "RampLib.h"
+#include "NodeLib.h"
 
 
 #define JAMOMA_UNIT_HEIGHT 35.0

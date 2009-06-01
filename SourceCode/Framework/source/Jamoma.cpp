@@ -39,6 +39,7 @@ void jamoma_init(void)
 		TTBlueInit();
 		common_symbols_init();
 		jamomaSymbolsInit();
+		jamoma_node_init();
 
 		receivemaster_initclass();
 		receive_initclass();

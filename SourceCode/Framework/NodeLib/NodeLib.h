@@ -9,13 +9,22 @@
 #ifndef __NODELIB_H__
 #define __NODELIB_H__
 
+#ifdef WIN_VERSION
+ #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
+#endif // WIN_VERSION
+
 #include "TTBlueAPI.h"
 #include "JamomaMaxTypes.h"
+#include "JamomaTypes.h"
 
 class JamomaNode;
 typedef JamomaNode*	JamomaNodePtr;
 typedef TTHash* TTHashPtr;
 typedef TTList* TTListPtr;
+
+// statics and globals
+static JamomaNodePtr		jamoma_node_root = NULL;		// a root to make a namespace tree of all modules, params, ...
+static TTHashPtr			jamoma_node_hashtab = NULL;		// a hashtab to map each address of the tree to a node pointer
 
 /**
 	We build a tree of nodes, and you can request a pointer for any node, or add an observer to any node, etc.
@@ -47,11 +56,11 @@ class JamomaNode : public TTObject			///< we will subclass TTObject in order to 
 {
 protected:
 
-	SymbolPtr		name;					///< the name of the node
-	SymbolPtr		instanceName;			///< currently instances are only numbers, but they might be symbols in the future. default to "0" or to "unnamed" ?
+	TTSymbolPtr		name;					///< the name of the node
+	TTSymbolPtr		instance;				///< currently instances are only numbers, but they might be symbols in the future. default to "0" or to "unnamed" ?
 
-	SymbolPtr		type;					///< hub, parameter, message, return, init, in, out, container, etc.
-	ObjectPtr		maxObject;			///< a jcom.hub, jcom.parameter, jcom.message (or even NULL for containters)
+	TTSymbolPtr		type;					///< hub, parameter, message, return, init, in, out, container, etc.
+	ObjectPtr		maxObject;				///< a jcom.hub, jcom.parameter, jcom.message (or even NULL for containters)
 	
 	JamomaNodePtr	parent;					///< pointer to the parent node in the tree
 	TTHashPtr		children;				///< a hashtab of linked lists:
@@ -73,14 +82,14 @@ protected:
 public:
 	
 	/**	Create a new node, at the given location in the tree. */
-	JamomaNode(SymbolPtr oscAddress, SymbolPtr newType, ObjectPtr newObject);
+	JamomaNode(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr newObject);
 	
 	/** Destroy a node. */
 	virtual ~JamomaNode();
 
-	SymbolPtr	getName();
-	SymbolPtr	getInstanceName();
-	SymbolPtr	getType();
+	TTSymbolPtr	getName();
+	TTSymbolPtr	getInstance();
+	TTSymbolPtr	getType();
 	ObjectPtr	getMaxObject();
 	JamomaNodePtr	getParent();
 	TTHashPtr	getChildren();
@@ -115,7 +124,7 @@ public:
 		@return					An error code.		*/
 	static TTErr getNodeForOSC(const char* oscAddress, JamomaNodePtr* returnedNode);
 	
-	static TTErr getNodeForOSC(SymbolPtr oscAddress, JamomaNodePtr* returnedNode);
+	static TTErr getNodeForOSC(TTSymbolPtr oscAddress, JamomaNodePtr* returnedNode);
 
 };
 
@@ -126,7 +135,7 @@ public:
 	@param	firstReturnedNode	If non-null, the address of the first JamomaNode object pointer that is found for the given pattern is returned here.  
 								The value of the pointer will be set upon return.
 	@return						An error code.				*/
-TTErr JamomaNodeLookup(SymbolPtr oscAddress, LinkedListPtr* returnedNodes, JamomaNodePtr* firstReturnedNode);
+TTErr JamomaNodeLookup(TTSymbolPtr oscAddress, LinkedListPtr* returnedNodes, JamomaNodePtr* firstReturnedNode);
 
 
 /**	A factory method 
@@ -146,7 +155,7 @@ TTErr JamomaNodeLookup(SymbolPtr oscAddress, LinkedListPtr* returnedNodes, Jamom
 								e.g. because a node already existed with this address and instance name.
 						
 	@return						An error code.				*/
-TTErr JamomaNodeCreate(SymbolPtr oscAddress, SymbolPtr newType, ObjectPtr newObject, JamomaNodePtr* returnedNode, TTBoolean* created);
+TTErr JamomaNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr newObject, JamomaNodePtr* returnedNode, TTBoolean* created);
 
 /**	A recursive method to ensure that the path to a node exist
 	@param	oscAddress			The OSC address to check
@@ -157,7 +166,7 @@ TTErr JamomaNodeCreate(SymbolPtr oscAddress, SymbolPtr newType, ObjectPtr newObj
 								e.g. because a node already existed with this address and instance name.
 						
 	@return						An error code.				*/
-TTErr JamomaNodeCheck(SymbolPtr oscAddress, JamomaNodePtr* returnedNodeParent, TTBoolean* created);
+TTErr JamomaNodeCheck(TTSymbolPtr oscAddress, JamomaNodePtr* returnedNodeParent, TTBoolean* created);
 
 
 /**	An OSC parsing tool
@@ -168,7 +177,7 @@ TTErr JamomaNodeCheck(SymbolPtr oscAddress, JamomaNodePtr* returnedNodeParent, T
 	@param	returnedNodeName			A pointer to the name of the node is returned in this parameter
 						
 	@return								An error code.				*/
-TTErr splitOSCAddress(SymbolPtr oscAddress, SymbolPtr* returnedParentOscAdress, SymbolPtr* returnedNodeName);
+TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdress, TTSymbolPtr* returnedNodeName, TTSymbolPtr* returnedNodeInstance, TTSymbolPtr* returnedNodeAttribute);
 
 
 
@@ -176,8 +185,9 @@ TTErr splitOSCAddress(SymbolPtr oscAddress, SymbolPtr* returnedParentOscAdress, 
 extern "C" {
 #endif
 
-JamomaNodePtr	jamoma_node_create_root(void);
-void			jamoma_node_free_root(JamomaNodePtr root);
+	/** Create a the root of the tree */
+	JamomaError		jamoma_node_init(void);
+	void			jamoma_node_free(void);
 
 #ifdef __cplusplus
 }

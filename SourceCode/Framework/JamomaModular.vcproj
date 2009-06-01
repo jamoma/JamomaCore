@@ -43,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\Ramplib;.\Dataspacelib;.\Functionlib;&quot;$(ProjectDir)..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\DSP\includes\units&quot;;.\source;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\common&quot;"
+				AdditionalIncludeDirectories=".\NodeLib;.\Ramplib;.\Dataspacelib;.\Functionlib;&quot;$(ProjectDir)..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\DSP\includes\units&quot;;.\source;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\common&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -126,7 +126,7 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories=".\Ramplib;.\Dataspacelib;.\Functionlib;&quot;$(ProjectDir)..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\DSP\includes\units&quot;;.\source;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\common&quot;"
+				AdditionalIncludeDirectories=".\NodeLib;.\Ramplib;.\DataspaceLib;.\Functionlib;&quot;$(ProjectDir)..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\DSP\includes\units&quot;;.\source;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\common&quot;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
@@ -254,6 +254,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NodeLib\NodeLib.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DataspaceLib\NoneDataspace.h"
 				>
 			</File>
@@ -371,6 +375,10 @@
 			</File>
 			<File
 				RelativePath=".\Internals\jcom.send~.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NodeLib\NodeLib.cpp"
 				>
 			</File>
 			<File
