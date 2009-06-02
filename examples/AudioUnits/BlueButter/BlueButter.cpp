@@ -79,23 +79,16 @@ OSStatus BlueButter::GetProperty(	AudioUnitPropertyID inID,
 {
 	if (inScope == kAudioUnitScope_Global) {
 		switch (inID) {
-			// This property allows the host application to find the UI associated with this
-			// AudioUnit
-			//
 			case kAudioUnitProperty_CocoaUI: {
-				// Look for a resource in the main bundle by name and type.
 				CFBundleRef bundle = CFBundleGetBundleWithIdentifier( CFSTR("org.jamoma.dsp.BlueButter") );
+				if (bundle == NULL) 
+					return fnfErr;
 				
-				if (bundle == NULL) return fnfErr;
+                CFURLRef bundleURL = CFBundleCopyBundleURL(bundle);				
+                if (bundleURL == NULL) 
+					return fnfErr;
                 
-				CFURLRef bundleURL = CFBundleCopyResourceURL( bundle, 
-															 CFSTR("BlueButterView"),	// this is the name of the cocoa bundle as specified in the CocoaViewFactory.plist
-															 CFSTR("bundle"),			// this is the extension of the cocoa bundle
-															 NULL);
-                
-                if (bundleURL == NULL) return fnfErr;
-                
-				CFStringRef className = CFSTR("BlueButterView_ViewFactory");			// name of the main class that implements the AUCocoaUIBase protocol
+				CFStringRef className = CFSTR("BlueButterView_ViewFactory");	// name of the main class that implements the AUCocoaUIBase protocol
 				AudioUnitCocoaViewInfo cocoaInfo = { bundleURL, className };
 				*((AudioUnitCocoaViewInfo *)outData) = cocoaInfo;
 				

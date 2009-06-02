@@ -7,9 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		222D5BE50E1BB93F00084AD7 /* BlueButter.component in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D01CCD20486CAD60068D4B7 /* BlueButter.component */; };
 		22B855A50FCDDA5E002D3BCE /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B855A40FCDDA5E002D3BCE /* JamomaDSP.framework */; };
-		22B8583D0FD060E3002D3BCE /* BlueButterView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 22B8583C0FD060E3002D3BCE /* BlueButterView.bundle */; };
+		22FA5ACF0FD5CFAA00A451BC /* AppleDemoFilter_ViewFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FA5AC90FD5CFAA00A451BC /* AppleDemoFilter_ViewFactory.h */; };
+		22FA5AD00FD5CFAA00A451BC /* AppleDemoFilter_ViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FA5ACA0FD5CFAA00A451BC /* AppleDemoFilter_ViewFactory.m */; };
+		22FA5AD10FD5CFAA00A451BC /* AppleDemoFilter_UIView.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FA5ACB0FD5CFAA00A451BC /* AppleDemoFilter_UIView.h */; };
+		22FA5AD20FD5CFAA00A451BC /* AppleDemoFilter_UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FA5ACC0FD5CFAA00A451BC /* AppleDemoFilter_UIView.m */; };
+		22FA5AD30FD5CFAA00A451BC /* AppleDemoFilter_GraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FA5ACD0FD5CFAA00A451BC /* AppleDemoFilter_GraphView.h */; };
+		22FA5AD40FD5CFAA00A451BC /* AppleDemoFilter_GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FA5ACE0FD5CFAA00A451BC /* AppleDemoFilter_GraphView.m */; };
+		22FA5AD60FD5CFB100A451BC /* Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FA5AD50FD5CFB100A451BC /* Filter.h */; };
+		22FA5ADC0FD5CFDE00A451BC /* SectionPatternLight.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 22FA5ADA0FD5CFDE00A451BC /* SectionPatternLight.tiff */; };
+		22FA5B110FD5D54100A451BC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA5B100FD5D54100A451BC /* Cocoa.framework */; };
+		22FA5B5E0FD5D7C300A451BC /* BlueButter.component in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D01CCD20486CAD60068D4B7 /* BlueButter.component */; };
+		22FA5B8B0FD5D92500A451BC /* CocoaView.nib in Resources */ = {isa = PBXBuildFile; fileRef = 22FA5B8A0FD5D92500A451BC /* CocoaView.nib */; };
 		3EEA126E089847F5002C6BFC /* CAVectorUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EEA126B089847F5002C6BFC /* CAVectorUnit.cpp */; };
 		3EEA126F089847F5002C6BFC /* CAVectorUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EEA126C089847F5002C6BFC /* CAVectorUnit.h */; };
 		3EEA1270089847F5002C6BFC /* CAVectorUnitTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EEA126D089847F5002C6BFC /* CAVectorUnitTypes.h */; };
@@ -53,13 +62,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		222D5BE00E1BB91100084AD7 /* CopyFiles */ = {
+		22FA5B610FD5D7C900A451BC /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "/Library/Audio/Plug-Ins/Components";
 			dstSubfolderSpec = 0;
 			files = (
-				222D5BE50E1BB93F00084AD7 /* BlueButter.component in CopyFiles */,
+				22FA5B5E0FD5D7C300A451BC /* BlueButter.component in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,7 +77,17 @@
 /* Begin PBXFileReference section */
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		22B855A40FCDDA5E002D3BCE /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
-		22B8583C0FD060E3002D3BCE /* BlueButterView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = BlueButterView.bundle; path = ../BlueButterView/build/Development/BlueButterView.bundle; sourceTree = "<group>"; };
+		22FA5AC90FD5CFAA00A451BC /* AppleDemoFilter_ViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppleDemoFilter_ViewFactory.h; path = ../BlueButterView/Source/CocoaUI/AppleDemoFilter_ViewFactory.h; sourceTree = "<group>"; };
+		22FA5ACA0FD5CFAA00A451BC /* AppleDemoFilter_ViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppleDemoFilter_ViewFactory.m; path = ../BlueButterView/Source/CocoaUI/AppleDemoFilter_ViewFactory.m; sourceTree = "<group>"; };
+		22FA5ACB0FD5CFAA00A451BC /* AppleDemoFilter_UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppleDemoFilter_UIView.h; path = ../BlueButterView/Source/CocoaUI/AppleDemoFilter_UIView.h; sourceTree = "<group>"; };
+		22FA5ACC0FD5CFAA00A451BC /* AppleDemoFilter_UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppleDemoFilter_UIView.m; path = ../BlueButterView/Source/CocoaUI/AppleDemoFilter_UIView.m; sourceTree = "<group>"; };
+		22FA5ACD0FD5CFAA00A451BC /* AppleDemoFilter_GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppleDemoFilter_GraphView.h; path = ../BlueButterView/Source/CocoaUI/AppleDemoFilter_GraphView.h; sourceTree = "<group>"; };
+		22FA5ACE0FD5CFAA00A451BC /* AppleDemoFilter_GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppleDemoFilter_GraphView.m; path = ../BlueButterView/Source/CocoaUI/AppleDemoFilter_GraphView.m; sourceTree = "<group>"; };
+		22FA5AD50FD5CFB100A451BC /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Filter.h; path = /Users/tim/dev/Jamoma/DSP/examples/AudioUnits/BlueButterView/Source/AUSource/Filter.h; sourceTree = "<absolute>"; };
+		22FA5ADA0FD5CFDE00A451BC /* SectionPatternLight.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = SectionPatternLight.tiff; path = ../BlueButterView/SectionPatternLight.tiff; sourceTree = "<group>"; };
+		22FA5ADE0FD5CFEC00A451BC /* FilterDemo_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FilterDemo_Prefix.pch; path = ../BlueButterView/FilterDemo_Prefix.pch; sourceTree = "<group>"; };
+		22FA5B100FD5D54100A451BC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		22FA5B8A0FD5D92500A451BC /* CocoaView.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = CocoaView.nib; sourceTree = "<group>"; };
 		3EEA126B089847F5002C6BFC /* CAVectorUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CAVectorUnit.cpp; sourceTree = "<group>"; };
 		3EEA126C089847F5002C6BFC /* CAVectorUnit.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CAVectorUnit.h; sourceTree = "<group>"; };
 		3EEA126D089847F5002C6BFC /* CAVectorUnitTypes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CAVectorUnitTypes.h; sourceTree = "<group>"; };
@@ -124,6 +143,7 @@
 				8BA05AFD072074E100365D66 /* AudioUnit.framework in Frameworks */,
 				8BA05B02072074F900365D66 /* CoreServices.framework in Frameworks */,
 				22B855A50FCDDA5E002D3BCE /* JamomaDSP.framework in Frameworks */,
+				22FA5B110FD5D54100A451BC /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +164,7 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				22FA5B100FD5D54100A451BC /* Cocoa.framework */,
 				22B855A40FCDDA5E002D3BCE /* JamomaDSP.framework */,
 				8B5C7FBF076FB2C200A15F61 /* CoreAudio.framework */,
 				8BA05B01072074F900365D66 /* CoreServices.framework */,
@@ -156,7 +177,6 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				22B8583C0FD060E3002D3BCE /* BlueButterView.bundle */,
 				8D01CCD10486CAD60068D4B7 /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
 			);
@@ -166,6 +186,7 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				22FA5AC80FD5CF9100A451BC /* CustomView */,
 				8BC6025B073B072D006C4272 /* BlueButter.h */,
 				8BA05A660720730100365D66 /* BlueButter.cpp */,
 				8BA05A56072072A900365D66 /* AU Source */,
@@ -181,6 +202,39 @@
 				8D01CCD20486CAD60068D4B7 /* BlueButter.component */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		22FA5AC80FD5CF9100A451BC /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				22FA5ADE0FD5CFEC00A451BC /* FilterDemo_Prefix.pch */,
+				22FA5AD90FD5CFDE00A451BC /* Resources */,
+				22FA5AD80FD5CFB700A451BC /* temp */,
+				22FA5AC90FD5CFAA00A451BC /* AppleDemoFilter_ViewFactory.h */,
+				22FA5ACA0FD5CFAA00A451BC /* AppleDemoFilter_ViewFactory.m */,
+				22FA5ACB0FD5CFAA00A451BC /* AppleDemoFilter_UIView.h */,
+				22FA5ACC0FD5CFAA00A451BC /* AppleDemoFilter_UIView.m */,
+				22FA5ACD0FD5CFAA00A451BC /* AppleDemoFilter_GraphView.h */,
+				22FA5ACE0FD5CFAA00A451BC /* AppleDemoFilter_GraphView.m */,
+			);
+			name = CustomView;
+			sourceTree = "<group>";
+		};
+		22FA5AD80FD5CFB700A451BC /* temp */ = {
+			isa = PBXGroup;
+			children = (
+				22FA5AD50FD5CFB100A451BC /* Filter.h */,
+			);
+			name = temp;
+			sourceTree = "<group>";
+		};
+		22FA5AD90FD5CFDE00A451BC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				22FA5B8A0FD5D92500A451BC /* CocoaView.nib */,
+				22FA5ADA0FD5CFDE00A451BC /* SectionPatternLight.tiff */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		8BA05A56072072A900365D66 /* AU Source */ = {
@@ -293,6 +347,10 @@
 				8BC6025C073B072D006C4272 /* BlueButter.h in Headers */,
 				3EEA126F089847F5002C6BFC /* CAVectorUnit.h in Headers */,
 				3EEA1270089847F5002C6BFC /* CAVectorUnitTypes.h in Headers */,
+				22FA5ACF0FD5CFAA00A451BC /* AppleDemoFilter_ViewFactory.h in Headers */,
+				22FA5AD10FD5CFAA00A451BC /* AppleDemoFilter_UIView.h in Headers */,
+				22FA5AD30FD5CFAA00A451BC /* AppleDemoFilter_GraphView.h in Headers */,
+				22FA5AD60FD5CFB100A451BC /* Filter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,7 +366,7 @@
 				8D01CCCB0486CAD60068D4B7 /* Sources */,
 				8D01CCCD0486CAD60068D4B7 /* Frameworks */,
 				8D01CCCF0486CAD60068D4B7 /* Rez */,
-				222D5BE00E1BB91100084AD7 /* CopyFiles */,
+				22FA5B610FD5D7C900A451BC /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -343,7 +401,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D01CCCA0486CAD60068D4B7 /* InfoPlist.strings in Resources */,
-				22B8583D0FD060E3002D3BCE /* BlueButterView.bundle in Resources */,
+				22FA5ADC0FD5CFDE00A451BC /* SectionPatternLight.tiff in Resources */,
+				22FA5B8B0FD5D92500A451BC /* CocoaView.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +439,9 @@
 				8BA05AE90720742100365D66 /* CAStreamBasicDescription.cpp in Sources */,
 				8BA05B070720754400365D66 /* CAAUParameter.cpp in Sources */,
 				3EEA126E089847F5002C6BFC /* CAVectorUnit.cpp in Sources */,
+				22FA5AD00FD5CFAA00A451BC /* AppleDemoFilter_ViewFactory.m in Sources */,
+				22FA5AD20FD5CFAA00A451BC /* AppleDemoFilter_UIView.m in Sources */,
+				22FA5AD40FD5CFAA00A451BC /* AppleDemoFilter_GraphView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

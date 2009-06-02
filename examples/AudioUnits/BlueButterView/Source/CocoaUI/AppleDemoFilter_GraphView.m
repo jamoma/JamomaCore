@@ -1,4 +1,4 @@
-/*	Copyright © 2007 Apple Inc. All Rights Reserved.
+/*	Copyright ï¿½ 2007 Apple Inc. All Rights Reserved.
 	
 	Disclaimer: IMPORTANT:  This Apple software is supplied to you by 
 			Apple Inc. ("Apple") in consideration of your agreement to the
@@ -111,7 +111,7 @@ NSString *kGraphViewEndGestureNotification= @"AppleDemoFilter_GraphViewEndGestur
 }
 
 /* Compute the logarithm of a number with an arbitrary base */
-inline double logValueForNumber(double number, double base) {
+double logValueForNumber(double number, double base) {
 	return log (number) / log(base);
 }
 
@@ -119,7 +119,7 @@ inline double logValueForNumber(double number, double base) {
 - (double) locationForFrequencyValue: (double) value {	
 	// how many pixels are in one base power increment?
 	double pixelIncrement = mGraphFrame.size.width / kNumGridLines;
-	double location = logValueForNumber(value/kDefaultMinHertz, kLogBase) * pixelIncrement;
+	double location = logValueForNumber((double)value/kDefaultMinHertz, (double)kLogBase) * pixelIncrement;
 	
 	location = floor(location + mGraphFrame.origin.x) + .5;
 	return location;
@@ -132,7 +132,7 @@ inline double logValueForNumber(double number, double base) {
 }
 
 /* Compute the pixel value of a specific grid line */
-inline double valueAtGridIndex(double index) {
+double valueAtGridIndex(double index) {
 	return kDefaultMinHertz * pow(kLogBase, index);
 }
 

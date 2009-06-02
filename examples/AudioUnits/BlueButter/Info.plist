@@ -24,5 +24,9 @@
 	<string>1.1</string>
 	<key>CSResourcesFileMapped</key>
 	<true/>
+	<key>NSPrincipleClass</key>
+	<string>BlueButterView_ViewFactory</string>
+	<key>NSMainNibFile</key>
+	<string>CocoaView</string>
 </dict>
 </plist>
