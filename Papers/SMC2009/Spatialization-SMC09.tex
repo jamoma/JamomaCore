@@ -48,6 +48,10 @@
 \oneauthor
    {Nils Peters$^{a}$, Trond Lossius$^{b}$, Jan Schacher$^{c}$, Pascal Baltazar$^{d}$, Charles Bascou$^{e}$, Timothy Place$^{f}$}
    {$^{a}$CIRMMT, McGill University, Montr\'eal, nils.peters@mcgill.ca\\ $^{b}$BEK - Bergen Center for Electronic Arts, trond.lossius@bek.no\\ $^{c}$Zurich School of Music, Drama and Dance, jan.schacher@zhdk.ch \\ $^{d}$GMEA, pb@gmea.net, $^{e}$GMEM, charles.bascou@gmem.org \\ $^{f}$Cycling~'74, tim@cycling74.com} 
+%TODO : isn't Tim affiliated with Electrotap or 74'Objects, rather than Cycling ?
+%TODO : Could be nice to put GMEA and GMEM entire names, which are : GMEA/M National Centre for Musical Creation of Albi/Marseille. I know this is long, but at least the cities would be nice...
+ 
+
 %{CIRMMT, McGill University, Montr\'eal$^{a}$ --- BEK - Bergen Center for Electronic Arts \\Zurich School of Music, Drama and Dance --- GMEA --- GMEM --- Cycling~'74 \\ nils.peters@mcgill.ca trond.lossius@bek.no jan.schacher@zhdk.ch \\ pb@gmea.net charles.bascou@gmem.org tim@cycling74.com}
 
 % Two addresses
@@ -76,7 +80,9 @@ We propose a multi-layer approach to mediate across essential components involve
 \end{abstract}
 
 \section{Introduction}\label{sec:introduction}         
-The improvements in computer and audio equipment in recent years make it possible to experiment more freely with resource-demanding sound synthesis techniques such as spatial sound synthesis, also known as spatialization. For seeking new means of expression, different spatialization applications should be readily combined and accessible for both programmatic and user interfaces. % and/or other controllers. %e.g. a generative mapping of a granular synth output to different spatial renderer from one common user interface, while also streaming spatial encoded audio to the internet. 
+The improvements in computer and audio equipment in recent years make it possible to experiment more freely with resource-demanding sound synthesis techniques such as spatial sound synthesis, also known as spatialization.
+%TODO : maybe clarify next sentence... Pascal isn't really able to understand it... "For seeking", is that English ?
+For seeking new means of expression, different spatialization applications should be readily combined and accessible for both programmatic and user interfaces. % and/or other controllers. %e.g. a generative mapping of a granular synth output to different spatial renderer from one common user interface, while also streaming spatial encoded audio to the internet. 
 Furthermore, 
 %The goal of any spatialization
 %rendering is it only the rendering system, or control/rendering ?
@@ -162,12 +168,12 @@ A number of DAWs are mature and offer a systematic user interface, good project 
 DAWs mainly work with common consumer channel configurations; mono, stereo and 5:1.
 
 However, through focusing on consumer media products, multichannel capabilities are limited. ITU 5.1 \cite{ITU:1993_surround_5:1}, a surround sound format with equidistant loudspeakers around an ideal located listener is the most common multichannel format. % in DAWs and in surround panning plugins. 
-Its artistic use may be limited because 5.1 favors the frontal direction and has reduced capabilities for localizing virtual sources from the sides and back. Recent extensions up to 10.2 are available\footnote{A comparison of DAWs concerning their multichannel audio capabilities shows \scriptsize{\url{http://acousmodules.free.fr/hosts.htm}}.}, but are insufficient for emerging reproduction techniques such as Wave Field Synthesis or Higher Order Ambisonics.   
+Its artistic use may be limited because 5.1 favors the frontal direction and has reduced capabilities for localizing virtual sources from the sides and back. Recent extensions up to 10.2 are available\footnote{A comparison of DAWs concerning their multichannel audio capabilities can be seen on \scriptsize{\url{http://acousmodules.free.fr/hosts.htm}}.}, but are insufficient for emerging reproduction techniques such as Wave Field Synthesis or Higher Order Ambisonics.   
 Also, in art installations or concert hall environments, non-standard loudspeaker setups are common due to artistic or practical reasons, varying in number and arrangements of loudspeakers. These configurations are typically unaccounted in DAWs and therefore often difficult to use. 
 %From 1993, emergence of the ITU 5.1 has been announced as a major improvement for mixing surround sound. Originally designed to fulfill the needs of the film industry, this loudspeaker configuration appeared to music and entertainment companies as a new way to extend their commercial offer. Since then, all DAWs surround panners have been designed to respect and organize sound processing for this set-up. It was not until the late nineties that new suggestions for surround workstations (from 6.1 to 10.2, enhancing sides precision, and perception outside of the Central Listening Position) were considered.\\
 %This was an useful approach for recording, multimedia or film prospects (cannot do business without standards), but still in a regular, circular, geometric and (FIXME: non-neutral ?we mean it influences the user) design, which cannot be acceptable and sufficient for creation or live applications. As an example, a non-flexible loudspeaker circle set-up is very rarely adapted to the concert hall.\\ 
 
-
+%TODO : This next part is a bit anecdotic, by focusing so much on this blur parameter when a lot of other parameters are missing in DAWs... maybe we should generalize this a bit ???
 DAW surround panners often comprise a parameter named \emph{blur}, \emph{divergence}, or \emph{spread} that controls the apparent source width through modifying the distributed the sound energy among loudspeakers. Although this parameter enriches the creative possibilities, it is often either missing or only indirectly accessible, e.g. through changing the distance of the sound source. 
 %, and is related to parameters such as \emph{spread} or \emph{diversity} (e.g. in Apple's Logic Pro). To the authors' opinion, the most flexible control element can be found in Sequoia \footnote{\url{http://www.magix.com/us/sequoia/}}, with \emph{soundfield} offset and character (shape) settings for each track, a \emph{global divergence} to fit to the listening room size, and a complete flexibility for the speaker set-up in the listening area. 
 %
@@ -241,17 +247,19 @@ Examples of such hierarchical rendering methods are Ambisonics B-Format, Higher 
 
 Not every rendering technique generate intermediate encoded signals, but instead can be considered to encapsulate the \emph{Encoding} and \emph{Decoding Layers} in one process. Some examples of such renderers are VBAP \cite{Pulkki:1997vbap}, DBAP \cite{dbapICMC09}, ViMiC \cite{CMJ08-VIMIC} and Ambisonics equivalent panning \cite{Neukom:2008ambipan}.
 
-Processing of sources to create an impression of distance, such as Doppler effect, gain attenuation and air absorption filters, are considered to belong to the encoding layer. Likewise early reflections and reverberation belongs in the encoding layer. The Waves IR360 surround convolution reverb internally use B-format reverb impulse responses.
+Processing of sources to create an impression of distance, such as Doppler effect, gain attenuation and air absorption filters, are considered to belong to the encoding layer. Likewise early reflections and reverberation belongs in the encoding layer (as, e.g. Waves IR360 surround convolution reverb internally using B-format reverb impulse responses).
+%TODO : why an ad for Waves here ? maybe only noticing as an example would be enough ?? Original Sentences :
+%Likewise early reflections and reverberation belongs in the encoding layer. The Waves IR360 surround convolution reverb internally use B-format reverb impulse responses.
 
 \subsection{Scene Description Layer}
 
-This layer mediates between the \emph{Authoring Layer} above and the \emph{Decoding Layer} below through an abstract and independent description about the spatial scene. This description can range from a simple static scene with one virtual sound sources up to complex dynamic audio scenes including multiple virtual spaces. These data could also be storable to recreate spatial scenes in a different context. Specific (lower-level) render instructions are communicated to the Encoding Layer beneath. Examples are ASDF \cite{geier2008ssr}, OpenAL \cite{openAL-spec1.1} or SpatDIF \cite{Peters:2008spatdif}.  	
+This layer mediates between the \emph{Authoring Layer} above and the \emph{Decoding Layer} below through an abstract and independent description about the spatial scene. This description can range from a simple static scene with one virtual sound source up to complex dynamic audio scenes including multiple virtual spaces. These data could also be storable to recreate spatial scenes in a different context. Specific (lower-level) render instructions are communicated to the Encoding Layer beneath. Examples are ASDF \cite{geier2008ssr}, OpenAL \cite{openAL-spec1.1} or SpatDIF \cite{Peters:2008spatdif}.  	
 
 \subsection{Authoring Layer}	
 
 This layer contains all software tools for the end-user to create spatial audio content without the need to control underlying processes directly. Although these tools may differ remarkably through functionality and interface design from each other to serve the requirements for varicolored approaches to spatialization, the communication to the \emph{Scene Description Layer} must be standardized. 
 
-Examples are symbolic authoring tools, generative algorithms, simulations of emergent behaviors (swarms or flock-of-birds); or more specifically, ICST ambimonitor/ambicontrol, and Holo-Edit.
+Examples are symbolic authoring tools, generative algorithms, simulations of emergent behaviors (swarms or flock-of-birds); or more specifically as discussed below, ICST ambimonitor/ambicontrol, and Holo-Edit.
 
 
 \subsection{Concluding remarks}
@@ -301,16 +309,17 @@ The ICST Ambisonics Tools is a set of externals for Max/MSP \cite{Schacher:2006a
 
 Jamoma\footnote{\url{http://www.jamoma.org}} is a framework\cite{Place:2006jamoma} for structuring and controlling modules in Max/MSP. Work on spatialization has been of strong interest to several of the developers, and solutions for spatialization in Jamoma have a layered approach in accordance with the proposed model.
 
-The Max/MSP signal processing chain only passes mono signals, and for multichannel spatial processing the patch has to be tailored to the number of sources and speakers. If Max/MSP is considered a programming environment and the patch is the program, a change in the number of sources or speakers require a rewrite of the program, instead of just a change to one or more configuration parameters. Jamoma address this by introducing multichannel audio signals between modules with all channels wrapped onto a single patch chord. Jamoma Multicore\footnote{\url{http://code.google.com/p/jamulticore/}} is being developed as a more robust solution than the current approach for handling multichannel signals which are   also used between the Encoding, Decoding and Hardware Abstraction Layers.
+The Max/MSP signal processing chain only passes mono signals, and for multichannel spatial processing the patch has to be tailored to the number of sources and speakers. If Max/MSP is considered a programming environment and the patch is the program, a change in the number of sources or speakers require a rewrite of the program, instead of just a change to one or more configuration parameters. Jamoma addresses this by introducing multichannel audio signals between modules with all channels wrapped onto a single patch cord. Jamoma Multicore\footnote{\url{http://code.google.com/p/jamulticore/}} is being developed as a more robust solution than the current approach for handling multichannel signals which are   also used between the Encoding, Decoding and Hardware Abstraction Layers.
 
 Jamoma modules have been developed to convert multichannel signals, play and record multichannel sound files, perform level metering and pass multichannel signals on to the sound card or virtual auxiliary bus. These are supplemented by modules compensating for sound-pressure and time-delay differences in non-equidistant loudspeaker arrangements.
 
 Ambisonics is the only spatialization method implemented in Jamoma that separates spatial encoding and decoding. 1st to 3rd order encoding of mono sources is implemented using the ICST externals\cite{Schacher:2006ambi_max}. Other modules are available for super stereo encoding, encoding of tracks from the portable Zoom H2 recorder and for encoding of UHJ signals. Encoded signals can be manipulated, e.g. the balance between the encoded channels can be adjusted, or the encoded signal can be rotated, tilted and tumbled. The decoding module for 1st to 3rd order signals use the ICST externals while a module for binaural decoding use Spatialisateur \cite{JotPhD}. B-format signals can also be decoded to UHJ.
+%TODO : shouldn't we cite the brand new Marlon's modules and components around here ?
 
 Jamoma supports several other popular spatialization algorithms: VBAP \cite{Pulkki:2000vbap_max}, ViMiC \cite{CMJ08-VIMIC} and DBAP \cite{dbapICMC09}.
 This way one rendering technique can easily be substituted for another, or several rendering techniques might be used in tandem for a variety of spatial expressions, analogues to how an artist will use many different brushes in one artwork.
 
-Prior to rendering, additional modules offers Doppler, air absorption and distance attenuation source pre-prosessing. 
+Prior to rendering, additional modules offer Doppler, air absorption and distance attenuation source pre-prosessing. 
 All modules operating at the Encoding Layer are SpatDIF-compliant and hence provides the same interface to controlling modules operating at higher layers.
 
 At the Scene Description Layer a module provides a simple interface for defining the position of sources. The same module can be used to set loudspeaker positions for the Decoding Layer.
@@ -329,7 +338,7 @@ An important feature of Holo-Edit is the ability to display the waveform represe
 %Even if Holo-Edit is combined with a auditory virtual environment such as \cite{CMJ08-VIMIC}, its generic nature allows to use it in a more abstract way, thinking more of movements in an arbitrary space ( may it be acoustic, symbolic, semiotic ...).[TODO: I changed something here, but I don't know what you really mean] [ FIXED BY CHARLES : I wanted to point that the movements composed are not made to be strongly linked with the scales of our physical world. But we can absolutly erase this line as it's not fundamental, was just a note ]
 Holo-Edit uses OSC to communicate with media programming environments presented in section \ref{sec:Media programming environments} to control various spatialization methods and AVEs. A major challenge in these scenarios is to adapt and format the data stream that fits the specific rendering algorithm syntax (e.g. coordinate system, dimensions, units).
 
-To overcome this challenge, a Holo-Edit communication interface was developed for the Jamoma environment that handles sound file playback and position data of loudspeakers and sound sources through its standardized OSC-namespace. Therefore, Holo-edit can be used as the main authoring tool for spatialization, while all DSP audio processes are executed in Jamoma (Figure \ref{fig:example}). The communication between Holo-Edit and Jamoma is full-duplex, thus allows also to record trajectories in Holo-Edit from any real-time control interface addressable through Jamoma.
+To overcome this challenge, a Holo-Edit communication interface was developed for the Jamoma environment that handles sound file playback and position data of loudspeakers and sound sources through its standardized OSC-namespace. Therefore, Holo-Edit can be used as the main authoring tool for spatialization, while all DSP audio processes are executed in Jamoma (Figure \ref{fig:example}). The communication between Holo-Edit and Jamoma is full-duplex, thus allows also to record trajectories in Holo-Edit from any real-time control interface addressable through Jamoma.
 %
 %It thus adds to the features of trajectory composition playback with the associated sound cues according to the edited score, by making provisions %to record them from any real-time control inputs available in Jamoma. 
 
