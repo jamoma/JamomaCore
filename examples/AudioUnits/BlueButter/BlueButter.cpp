@@ -60,6 +60,14 @@ OSStatus BlueButter::GetPropertyInfo(	AudioUnitPropertyID	inID,
 										UInt32&				outDataSize,
 										Boolean&			outWritable)
 {
+	if (inScope == kAudioUnitScope_Global) {
+		switch (inID) {
+			case kAudioUnitProperty_CocoaUI:
+				outWritable = false;
+				outDataSize = sizeof (AudioUnitCocoaViewInfo);
+				return noErr;
+		}
+	}
 	return AUEffectBase::GetPropertyInfo (inID, inScope, inElement, outDataSize, outWritable);
 }
 
@@ -69,6 +77,34 @@ OSStatus BlueButter::GetProperty(	AudioUnitPropertyID inID,
 									AudioUnitElement 	inElement,
 									void*				outData )
 {
+	if (inScope == kAudioUnitScope_Global) {
+		switch (inID) {
+			// This property allows the host application to find the UI associated with this
+			// AudioUnit
+			//
+			case kAudioUnitProperty_CocoaUI: {
+				// Look for a resource in the main bundle by name and type.
+				CFBundleRef bundle = CFBundleGetBundleWithIdentifier( CFSTR("org.jamoma.dsp.BlueButter") );
+				
+				if (bundle == NULL) return fnfErr;
+                
+				CFURLRef bundleURL = CFBundleCopyResourceURL( bundle, 
+															 CFSTR("BlueButterView"),	// this is the name of the cocoa bundle as specified in the CocoaViewFactory.plist
+															 CFSTR("bundle"),			// this is the extension of the cocoa bundle
+															 NULL);
+                
+                if (bundleURL == NULL) return fnfErr;
+                
+				CFStringRef className = CFSTR("BlueButterView_ViewFactory");			// name of the main class that implements the AUCocoaUIBase protocol
+				AudioUnitCocoaViewInfo cocoaInfo = { bundleURL, className };
+				*((AudioUnitCocoaViewInfo *)outData) = cocoaInfo;
+				
+				return noErr;
+			}
+		}
+	}
+	
+	// if we've gotten this far, handles the standard properties
 	return AUEffectBase::GetProperty (inID, inScope, inElement, outData);
 }
 
