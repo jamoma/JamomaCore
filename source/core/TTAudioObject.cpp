@@ -39,6 +39,7 @@ TTAudioObject::TTAudioObject(const char* name, TTUInt16 newMaxNumChannels)
 
 	setAttributeValue(TT("sr"),				ttEnvironment->sr);
 	setProcess(&TTAudioObject::bypassProcess);
+    setCalculate(&TTAudioObject::defaultCalculateMethod);
 	setAttributeValue(TT("bypass"),			*kTTBoolNo);
 	setAttributeValue(TT("processInPlace"), *kTTBoolNo);
 }

@@ -34,7 +34,7 @@ typedef struct _filter	{
 	long					sr;							///< The sample rate
 	long					attrBypass;					///< ATTRIBUTE: Bypass filtering
 	float					attrFrequency;				///< ATTRIBUTE: Filter cutoff or center frequency, depending on the kind of filter
-	float					attrQ;						///< ATTRIBUTE: Rilter resonance
+	float					attrQ;						///< ATTRIBUTE: Filter resonance
 	t_symbol				*attrType;					///< ATTRIBUTE: what kind of filter to use
 } t_filter;
 
