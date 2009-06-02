@@ -63,9 +63,14 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)cuemng_edit,				"edit",			A_GIMME, 0);
 
 	// this method set in TRIGGER mode and, if there is an index, 
-	// trigger out the given cue then go to the next
+	// trigger out the given cue
 	// if no index, trigger the current
 	class_addmethod(c, (method)cuemng_trigger,			"trigger",		A_GIMME, 0);
+
+	// this method set in TRIGGER mode and, if there is an index, 
+	// trigger out the KEYCUE relative to given cue
+	// if no index, trigger the currentK
+	class_addmethod(c, (method)cuemng_triggerK,			"triggerK",		A_GIMME, 0);
 
 	// this method clear the cuelist
 	class_addmethod(c, (method)cuemng_new_cuelist,		"new",			0);
@@ -502,6 +507,66 @@ void cuemng_trigger(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 	}
 	else{
 		cuemng_int(x,x->current+1);
+	}
+}
+
+void cuemng_triggerK(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
+{
+	void *found;
+	long exist, id;
+
+	if(x->trigeditmode != TRIGGER_MODE){
+		x->trigeditmode = TRIGGER_MODE;
+	}
+
+	// if there is the temp flag
+	if(cuemng_check_temp(x,argc,argv)){
+		defer(x,(method)cuemng_temp,0,0,0);
+		return;
+	}
+
+	if(argc && argv){
+
+		if(atom_gettype(&argv[0]) == A_LONG){
+
+			id = atom_getlong(&argv[0]);
+
+			// find the Kcurrent relative to id and trigger it
+			if(id > 0){
+				if(id <= linklist_getsize(x->cuelist)){ // the id starts at 1 for the user
+					x->current = id-1;
+					x->Kcurrent = cuemng_previous_key_index(x);
+					x->current = x->Kcurrent;
+					defer(x,(method)cuemng_bang,0,0,0);
+					return;
+				}
+			}
+			object_error((t_object *)x, "triggerK : this index doesn't exist");
+		}
+
+		if(atom_gettype(&argv[0]) == A_SYM){
+
+			if(linklist_getsize(x->cuelist))
+				// Is the cue exists in the cuelist ?
+				exist = linklist_findfirst(x->cuelist, &found, cuemng_search_cue, atom_getsym(&argv[0]));
+			else
+				exist = -1;
+			
+			if(exist != -1){
+				// find the Kcurrent relative to found and trigger it
+				x->current = linklist_objptr2index(x->cuelist, found);
+				x->Kcurrent = cuemng_previous_key_index(x);
+				x->current = x->Kcurrent;
+				defer(x,(method)cuemng_bang,0,0,0);
+			}
+			else
+				object_error((t_object *)x, "triggerK : this index doesn't exist");
+			return;
+		}
+		object_error((t_object *)x, "triggerK : index have to be integer or a symbol value");
+	}
+	else{
+		cuemng_int(x,x->Kcurrent+1);
 	}
 }
 

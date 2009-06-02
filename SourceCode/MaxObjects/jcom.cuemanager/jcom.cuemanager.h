@@ -150,6 +150,7 @@ void cuemng_int(t_cuemng *x, long id);
 void cuemng_temp(t_cuemng *x);
 void cuemng_edit(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_trigger(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
+void cuemng_triggerK(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_new_cuelist(t_cuemng *x);
 void cuemng_load(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv);
 void cuemng_saveas(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv);
