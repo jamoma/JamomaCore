@@ -1,163 +1,167 @@
 {
 	"patcher" : 	{
-		"rect" : [ 459.0, 44.0, 563.0, 278.0 ],
+		"fileversion" : 1,
+		"rect" : [ 459.0, 44.0, 549.0, 218.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 459.0, 44.0, 563.0, 278.0 ],
+		"defrect" : [ 459.0, 44.0, 549.0, 218.0 ],
+		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
-		"default_fontsize" : 10.0,
+		"default_fontsize" : 10.970939,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
 		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 1,
-		"boxfadetime" : 200,
 		"boxanimatetime" : 200,
-		"scrollanimatetime" : 200,
-		"metadata" : [  ],
+		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "This is the trick to flip the order of the two frames.",
+					"fontname" : "Verdana",
+					"fontsize" : 12.0,
 					"id" : "obj-1",
-					"fontsize" : 9.0,
-					"patching_rect" : [ 136.0, 92.0, 244.0, 17.0 ],
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "Removes similar frames to avoid a blank motion image.",
-					"id" : "obj-2",
-					"fontsize" : 9.0,
-					"patching_rect" : [ 136.0, 71.0, 258.0, 17.0 ],
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontname" : "Verdana"
+					"patching_rect" : [ 169.0, 86.0, 319.0, 21.0 ],
+					"text" : "This is the trick to flip the order of the two frames."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jit.change",
-					"outlettype" : [ "jit_matrix", "" ],
+					"fontname" : "Verdana",
+					"fontsize" : 12.0,
+					"id" : "obj-2",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 169.0, 58.0, 349.0, 21.0 ],
+					"text" : "Removes similar frames to avoid a blank motion image."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 12.0,
 					"id" : "obj-3",
-					"fontsize" : 9.0,
-					"patching_rect" : [ 40.0, 71.0, 53.0, 17.0 ],
+					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"fontname" : "Verdana"
+					"outlettype" : [ "jit_matrix", "" ],
+					"patching_rect" : [ 40.0, 58.0, 71.0, 21.0 ],
+					"text" : "jit.change"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Find the absolute difference between the frames.",
+					"fontname" : "Verdana",
+					"fontsize" : 12.0,
 					"id" : "obj-4",
-					"fontsize" : 9.0,
-					"patching_rect" : [ 136.0, 120.0, 229.0, 17.0 ],
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontname" : "Verdana"
+					"patching_rect" : [ 169.0, 120.0, 309.0, 21.0 ],
+					"text" : "Find the absolute difference between the frames."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jit.op @op absdiff",
-					"outlettype" : [ "jit_matrix", "" ],
+					"fontname" : "Verdana",
+					"fontsize" : 12.0,
 					"id" : "obj-5",
-					"fontsize" : 9.0,
-					"patching_rect" : [ 40.0, 120.0, 85.0, 17.0 ],
+					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"fontname" : "Verdana"
+					"outlettype" : [ "jit_matrix", "" ],
+					"patching_rect" : [ 40.0, 120.0, 118.0, 21.0 ],
+					"text" : "jit.op @op absdiff"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "t l l",
-					"outlettype" : [ "", "" ],
+					"fontname" : "Verdana",
+					"fontsize" : 12.0,
 					"id" : "obj-6",
-					"fontsize" : 9.0,
-					"patching_rect" : [ 40.0, 94.0, 27.0, 17.0 ],
+					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"fontname" : "Verdana"
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 40.0, 88.0, 37.0, 21.0 ],
+					"text" : "t l l"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "inlet",
-					"outlettype" : [ "" ],
+					"comment" : "",
 					"id" : "obj-7",
-					"patching_rect" : [ 40.0, 52.0, 15.0, 15.0 ],
+					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"comment" : ""
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 40.0, 27.0, 25.0, 25.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "outlet",
+					"comment" : "",
 					"id" : "obj-8",
-					"patching_rect" : [ 40.0, 141.0, 15.0, 15.0 ],
+					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"comment" : ""
+					"patching_rect" : [ 40.0, 151.0, 25.0, 25.0 ]
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-7", 0 ],
-					"destination" : [ "obj-3", 0 ],
-					"hidden" : 0
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-3", 0 ],
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 0
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-6", 1 ],
-					"destination" : [ "obj-5", 0 ],
-					"hidden" : 0
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-5", 0 ],
-					"destination" : [ "obj-8", 0 ],
-					"hidden" : 0
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-6", 0 ],
 					"destination" : [ "obj-5", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 49.5, 115.0, 115.5, 115.0 ]
+					"midpoints" : [ 49.5, 115.0, 148.5, 115.0 ],
+					"source" : [ "obj-6", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-6", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-7", 0 ]
 				}
 
 			}
