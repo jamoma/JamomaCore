@@ -404,11 +404,13 @@ void ui_paint(t_ui *x, t_object *view)
 	
 	// draw the menu icon
 	jgraphics_set_line_width(g, 1.5);
-	jgraphics_oval(g, 3.0, 3.0, 13.0, 13.0);
+	//jgraphics_oval(g, 3.0, 3.0, 13.0, 13.0);
+	jgraphics_arc(g, 8.0, 8.0, 5.0, 0., JGRAPHICS_2PI);
 	jgraphics_fill(g);
 
 	jgraphics_set_source_jrgba(g, &s_color_border_button);
-	jgraphics_oval(g, 3.0, 3.0, 13.0, 13.0);
+	//jgraphics_oval(g, 3.0, 3.0, 13.0, 13.0);
+	jgraphics_arc(g, 8.0, 8.0, 5.0, 0., JGRAPHICS_2PI);
 	jgraphics_stroke(g);
 
 	middle = 9.0;
@@ -443,11 +445,13 @@ void ui_paint(t_ui *x, t_object *view)
 		x->rect_gain.width = 13.0;
 		
 		jgraphics_set_line_width(g, 1.5);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+5.0, 8.0, 5.0, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+5.0, 8.0, 5.0, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 		
 		jgraphics_set_source_jrgba(g, &s_color_darkgreen);
@@ -489,11 +493,13 @@ void ui_paint(t_ui *x, t_object *view)
 		x->rect_mix.width = 13.0;
 		
 		jgraphics_set_line_width(g, 1.5);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+5.0, 8.0, 5.0, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+5.0, 8.0, 5.0, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_darkblue);
@@ -535,11 +541,13 @@ void ui_paint(t_ui *x, t_object *view)
 		x->rect_mute.width = 13.0;
 		
 		jgraphics_set_line_width(g, 1.5);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+5.0, 8.0, 5.0, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+5.0, 8.0, 5.0, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 				
 		// m
@@ -575,11 +583,13 @@ void ui_paint(t_ui *x, t_object *view)
 		x->rect_bypass.width = 13.0;
 		
 		jgraphics_set_line_width(g, 1.5);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+5.0, 8.0, 5.0, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+5.0, 8.0, 5.0, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 				
 		// b
@@ -612,11 +622,13 @@ void ui_paint(t_ui *x, t_object *view)
 		x->rect_freeze.width = 13.0;
 		
 		jgraphics_set_line_width(g, 1.5);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+5.0, 8.0, 5.0, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+5.0, 8.0, 5.0, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 				
 		// f
@@ -647,11 +659,13 @@ void ui_paint(t_ui *x, t_object *view)
 		x->rect_preview.width = 13.0;
 		
 		jgraphics_set_line_width(g, 1.5);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+5.0, 8.0, 5.0, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+5.0, 8.0, 5.0, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 				
 		// p
@@ -675,11 +689,13 @@ void ui_paint(t_ui *x, t_object *view)
 
 		jgraphics_set_source_jrgba(g, &s_color_background_button);
 		jgraphics_set_line_width(g, 1.5);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+5.0, 8.0, 5.0, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+5.0, 8.0, 5.0, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 				
 		// i
