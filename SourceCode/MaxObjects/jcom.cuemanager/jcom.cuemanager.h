@@ -100,6 +100,8 @@ typedef struct _cuemng
 	long		Kcurrent;			// index of the current key cue
 	long		current;			// index of the current cue
 
+	bool		info_cuelist;		// a flag to know if we are asking info about a cue (0) or all the cuelist (1)
+
 	bool		do_ramp;			// to enable/disable the trigger ramp driving
 	long		global_ramp;		// the current global ramp time
 
@@ -150,12 +152,13 @@ void cuemng_int(t_cuemng *x, long id);
 void cuemng_temp(t_cuemng *x);
 void cuemng_edit(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_trigger(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
+void cuemng_triggerK(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_new_cuelist(t_cuemng *x);
 void cuemng_load(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv);
 void cuemng_saveas(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv);
 void cuemng_save(t_cuemng *x);
 void cuemng_open(t_cuemng *x);
-void cuemng_info(t_cuemng *x);
+void cuemng_info(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_doramp(t_cuemng *x, long r);
 void cuemng_set_ramp(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_set_name(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);

@@ -129,11 +129,9 @@ TTErr JamomaNode::getNodeForOSC(TTSymbolPtr oscAddress, JamomaNodePtr* returnedN
 		return kTTErrGeneric;
 		
 	else{
-		
 		found->get(0,(TTPtr*)returnedNode);
 		return kTTErrNone;
 	}
-		
 }
 
 
@@ -289,35 +287,54 @@ JamomaError	jamoma_node_init()
 	if(jamoma_node_root)
 		return JAMOMA_ERR_NONE;	// already have a root, do nothing...
 
-	post("> CREATION OF AN EXPERIMENTAL TREE");
-	post("");
 
 	jamoma_node_hashtab = new TTHash();
 	jamoma_node_root = new JamomaNode(TT("/jamoma"), TT("container"), NULL);
 
 	// TEST : an experimental tree
-	JamomaNodePtr test;
 
-	test = new JamomaNode(TT("/jamoma/degrade~/bitdepth"), TT("parameter"), NULL);
-	test = new JamomaNode(TT("/jamoma/degrade~/bypass"), TT("parameter"), NULL);
-	test = new JamomaNode(TT("/jamoma/degrade~/gain"), TT("parameter"), NULL);
+	//post("> CREATION OF AN EXPERIMENTAL TREE");
+	//post("");
+	//JamomaNodePtr test;
 
-	test = new JamomaNode(TT("/jamoma/input.1/pan"), TT("parameter"), NULL);
-	test = new JamomaNode(TT("/jamoma/input.1/gain"), TT("parameter"), NULL);
-	test = new JamomaNode(TT("/jamoma/input.2/pan"), TT("parameter"), NULL);
-	test = new JamomaNode(TT("/jamoma/input.2/gain"), TT("parameter"), NULL);
+	//test = new JamomaNode(TT("/jamoma/degrade~/bitdepth"), TT("parameter"), NULL);
+	//test = new JamomaNode(TT("/jamoma/degrade~/bypass"), TT("parameter"), NULL);
+	//test = new JamomaNode(TT("/jamoma/degrade~/gain"), TT("parameter"), NULL);
 
-	test = new JamomaNode(TT("/jamoma/output/audio/gain"), TT("parameter"), NULL);
-	test = new JamomaNode(TT("/jamoma/output/limiter"), TT("parameter"), NULL);
-	test = new JamomaNode(TT("/jamoma/output/preamp"), TT("parameter"), NULL);
+	//test = new JamomaNode(TT("/jamoma/input.1/pan"), TT("parameter"), NULL);
+	//test = new JamomaNode(TT("/jamoma/input.1/gain"), TT("parameter"), NULL);
+	//test = new JamomaNode(TT("/jamoma/input.2/pan"), TT("parameter"), NULL);
+	//test = new JamomaNode(TT("/jamoma/input.2/gain"), TT("parameter"), NULL);
 
-	post("");
-	post("> DUMP THE TREE");
-	post("");
-	jamoma_node_root->getDump();
+	//test = new JamomaNode(TT("/jamoma/output/audio/gain"), TT("parameter"), NULL);
+	//test = new JamomaNode(TT("/jamoma/output/limiter"), TT("parameter"), NULL);
+	//test = new JamomaNode(TT("/jamoma/output/preamp"), TT("parameter"), NULL);
+
+	//post("");
+	//post("> DUMP THE TREE");
+	//post("");
+	//jamoma_node_root->getDump();
 
 
 	return JAMOMA_ERR_NONE;
+}
+
+JamomaError	jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj)
+{
+	JamomaNodePtr newNode;
+	char fullAddress[256];
+
+	if(jamoma_node_root){
+		strcpy(fullAddress,"/");
+		strcat(fullAddress,jamoma_node_root->getName()->getCString());
+		strcat(fullAddress,OSCaddress->s_name);
+		newNode = new JamomaNode(TT(fullAddress), TT(type->s_name), obj);
+		return JAMOMA_ERR_NONE;
+	}
+	else{
+		post("jamoma_node_hub_register : create the root before");
+		return JAMOMA_ERR_GENERIC;
+	}
 }
 
 void jamoma_node_free(void)

@@ -63,9 +63,14 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)cuemng_edit,				"edit",			A_GIMME, 0);
 
 	// this method set in TRIGGER mode and, if there is an index, 
-	// trigger out the given cue then go to the next
+	// trigger out the given cue
 	// if no index, trigger the current
 	class_addmethod(c, (method)cuemng_trigger,			"trigger",		A_GIMME, 0);
+
+	// this method set in TRIGGER mode and, if there is an index, 
+	// trigger out the KEYCUE relative to given cue
+	// if no index, trigger the currentK
+	class_addmethod(c, (method)cuemng_triggerK,			"triggerK",		A_GIMME, 0);
 
 	// this method clear the cuelist
 	class_addmethod(c, (method)cuemng_new_cuelist,		"new",			0);
@@ -89,7 +94,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	// this method output informations
 	// about the cue list file on the info outlet
-	class_addmethod(c, (method)cuemng_info,				"info",			0);
+	// about a cue if an id is given
+	class_addmethod(c, (method)cuemng_info,				"info",			A_GIMME, 0);
 
 	// this method enable/disable the ramp driving
 	class_addmethod(c, (method)cuemng_doramp,			"doramp",		A_LONG, 0);
@@ -416,6 +422,8 @@ void cuemng_temp(t_cuemng *x){
 
 void cuemng_edit(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 {
+	void *found;
+	long exist;
 
 	if(x->trigeditmode != EDIT_MODE){
 		x->trigeditmode = EDIT_MODE;
@@ -431,8 +439,25 @@ void cuemng_edit(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 		if(atom_gettype(&argv[0]) == A_LONG){
 			cuemng_int(x,atom_getlong(&argv[0]));
 		}
-		else
-			object_error((t_object *)x, "edit : index have to be integer value");
+		
+		if(atom_gettype(&argv[0]) == A_SYM){
+
+			if(linklist_getsize(x->cuelist))
+				// Is the cue exists in the cuelist ?
+				exist = linklist_findfirst(x->cuelist, &found, cuemng_search_cue, atom_getsym(&argv[0]));
+			else
+				exist = -1;
+			
+			if(exist != -1){
+				x->current =  linklist_objptr2index(x->cuelist, found);
+				x->Kcurrent = cuemng_previous_key_index(x);
+				defer(x,(method)cuemng_bang,0,0,0);
+			}
+			else
+				object_error((t_object *)x, "edit : this index doesn't exist");
+			return;
+		}
+		object_error((t_object *)x, "edit : index have to be integer or a symbol value");
 	}
 	else{
 
@@ -442,6 +467,9 @@ void cuemng_edit(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 
 void cuemng_trigger(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 {
+	void *found;
+	long exist;
+
 	if(x->trigeditmode != TRIGGER_MODE){
 		x->trigeditmode = TRIGGER_MODE;
 	}
@@ -453,14 +481,93 @@ void cuemng_trigger(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 	}
 
 	if(argc && argv){
+
 		if(atom_gettype(&argv[0]) == A_LONG){
 			cuemng_int(x,atom_getlong(&argv[0]));
+			return;
 		}
-		else
-			object_error((t_object *)x, "trigger : index have to be integer value");
+
+		if(atom_gettype(&argv[0]) == A_SYM){
+
+			if(linklist_getsize(x->cuelist))
+				// Is the cue exists in the cuelist ?
+				exist = linklist_findfirst(x->cuelist, &found, cuemng_search_cue, atom_getsym(&argv[0]));
+			else
+				exist = -1;
+			
+			if(exist != -1){
+				x->current = linklist_objptr2index(x->cuelist, found);
+				x->Kcurrent = cuemng_previous_key_index(x);
+				defer(x,(method)cuemng_bang,0,0,0);
+			}
+			else
+				object_error((t_object *)x, "trigger : this index doesn't exist");
+			return;
+		}
+		object_error((t_object *)x, "trigger : index have to be integer or a symbol value");
 	}
 	else{
 		cuemng_int(x,x->current+1);
+	}
+}
+
+void cuemng_triggerK(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
+{
+	void *found;
+	long exist, id;
+
+	if(x->trigeditmode != TRIGGER_MODE){
+		x->trigeditmode = TRIGGER_MODE;
+	}
+
+	// if there is the temp flag
+	if(cuemng_check_temp(x,argc,argv)){
+		defer(x,(method)cuemng_temp,0,0,0);
+		return;
+	}
+
+	if(argc && argv){
+
+		if(atom_gettype(&argv[0]) == A_LONG){
+
+			id = atom_getlong(&argv[0]);
+
+			// find the Kcurrent relative to id and trigger it
+			if(id > 0){
+				if(id <= linklist_getsize(x->cuelist)){ // the id starts at 1 for the user
+					x->current = id-1;
+					x->Kcurrent = cuemng_previous_key_index(x);
+					x->current = x->Kcurrent;
+					defer(x,(method)cuemng_bang,0,0,0);
+					return;
+				}
+			}
+			object_error((t_object *)x, "triggerK : this index doesn't exist");
+		}
+
+		if(atom_gettype(&argv[0]) == A_SYM){
+
+			if(linklist_getsize(x->cuelist))
+				// Is the cue exists in the cuelist ?
+				exist = linklist_findfirst(x->cuelist, &found, cuemng_search_cue, atom_getsym(&argv[0]));
+			else
+				exist = -1;
+			
+			if(exist != -1){
+				// find the Kcurrent relative to found and trigger it
+				x->current = linklist_objptr2index(x->cuelist, found);
+				x->Kcurrent = cuemng_previous_key_index(x);
+				x->current = x->Kcurrent;
+				defer(x,(method)cuemng_bang,0,0,0);
+			}
+			else
+				object_error((t_object *)x, "triggerK : this index doesn't exist");
+			return;
+		}
+		object_error((t_object *)x, "triggerK : index have to be integer or a symbol value");
+	}
+	else{
+		cuemng_int(x,x->Kcurrent+1);
 	}
 }
 
@@ -668,54 +775,123 @@ void cuemng_open(t_cuemng *x)
 		object_error((t_object *)x, "open : create a cue before");
 }
 
-void cuemng_info(t_cuemng *x)
+void cuemng_info(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 {
-	long ccid;
+	long ccid, memo, memoK;
 	t_cue *ccue;
 	t_cue *ckcue;
 	t_atom info_ccue[1];
+	void *found;
+	long exist;
 
-	// output informations about size of the cuelist outlet
-	atom_setlong(&info_ccue[0],linklist_getsize(x->cuelist));
-	outlet_anything(x->info_out, gensym("/cuelist/size"), 1, info_ccue);
-
-	if(linklist_getsize(x->cuelist)){
-
-		// output informations about all cues on the info outlet
-		ccid = x->current;
-		x->current = 0;
-		linklist_funall(x->cuelist,(method)cuemng_info_cue,x);
-		x->current = ccid;
-
-		// output informations about the current cue
-		ccue = cuemng_current_cue(x);
-
-		atom_setlong(&info_ccue[0],x->current+1);
-		outlet_anything(x->info_out, gensym("/current/id"), 1, info_ccue);
-
-		if(ccue->mode == DIFFERENTIAL_CUE) atom_setsym(&info_ccue[0],x->ps_cue);
-		else atom_setsym(&info_ccue[0],x->ps_keycue);
-		outlet_anything(x->info_out, gensym("/current/mode"), 1, info_ccue);
-
-		atom_setsym(&info_ccue[0],ccue->index);
-		outlet_anything(x->info_out, gensym("/current/name"), 1, info_ccue);
-
-		atom_setlong(&info_ccue[0],ccue->ramp);
-		outlet_anything(x->info_out, gensym("/current/ramp"), 1, info_ccue);
-
-		// output informations about the current key cue
-		ckcue = cuemng_current_key_cue(x);
-		
-		if(ckcue){
-			atom_setlong(&info_ccue[0],x->Kcurrent+1);
-			outlet_anything(x->info_out, gensym("/Kcurrent/id"), 1, info_ccue);
-
-			atom_setsym(&info_ccue[0],ckcue->index);
-			outlet_anything(x->info_out, gensym("/Kcurrent/name"), 1, info_ccue);
-		}
+	// if there is the temp flag
+	if(cuemng_check_temp(x,argc,argv)){
+		// do nothing
+		return;
 	}
-	else
-		outlet_anything(x->info_out, gensym("/cuelist"), 0, 0);
+
+	if(argc && argv){
+
+		// we are asking for info about a cue
+		x->info_cuelist = false;
+
+		// memorize the current and the Kcurrent
+		memo = x->current;
+		memoK = x->Kcurrent;
+
+		// select current and Kcurrent with the given id
+		// if it's a long id...
+		if(atom_gettype(&argv[0]) == A_LONG){
+
+			ccid = atom_getlong(&argv[0]);
+
+			// find the Kcurrent relative to id and trigger it
+			if(ccid > 0){
+				if(ccid <= linklist_getsize(x->cuelist)){ // the id starts at 1 for the user
+					x->current = ccid-1;
+					x->Kcurrent = cuemng_previous_key_index(x);
+				}
+				else
+					object_error((t_object *)x, "info : this index doesn't exist");
+			}
+			else
+				object_error((t_object *)x, "info : this index doesn't exist");
+		}
+
+		// ...or a symbol id
+		if(atom_gettype(&argv[0]) == A_SYM){
+
+			if(linklist_getsize(x->cuelist))
+				// Is the cue exists in the cuelist ?
+				exist = linklist_findfirst(x->cuelist, &found, cuemng_search_cue, atom_getsym(&argv[0]));
+			else
+				exist = -1;
+			
+			if(exist != -1){
+				x->current = linklist_objptr2index(x->cuelist, found);
+				x->Kcurrent = cuemng_previous_key_index(x);
+			}
+			else
+				object_error((t_object *)x, "info : this index doesn't exist");
+
+		}
+
+		//output info about the selected cue
+		cuemng_info_cue(cuemng_current_cue(x), x);
+
+		// back to the memo
+		x->current = memo;
+		x->Kcurrent = memoK;
+
+		return;
+	}
+	else{
+
+		// we are asking for info about all the cuelist
+		x->info_cuelist = true;
+
+		// output informations about size of the cuelist outlet
+		atom_setlong(&info_ccue[0],linklist_getsize(x->cuelist));
+		outlet_anything(x->info_out, gensym("/cuelist/size"), 1, info_ccue);
+
+		if(linklist_getsize(x->cuelist)){
+
+			// output informations about all cues on the info outlet
+			ccid = x->current;
+			x->current = 0;
+			linklist_funall(x->cuelist,(method)cuemng_info_cue,x);
+			x->current = ccid;
+
+			// output informations about the current cue
+			ccue = cuemng_current_cue(x);
+
+			atom_setlong(&info_ccue[0],x->current+1);
+			outlet_anything(x->info_out, gensym("/current/id"), 1, info_ccue);
+
+			if(ccue->mode == DIFFERENTIAL_CUE) atom_setsym(&info_ccue[0],x->ps_cue);
+			else atom_setsym(&info_ccue[0],x->ps_keycue);
+			outlet_anything(x->info_out, gensym("/current/mode"), 1, info_ccue);
+
+			atom_setsym(&info_ccue[0],ccue->index);
+			outlet_anything(x->info_out, gensym("/current/name"), 1, info_ccue);
+
+			atom_setlong(&info_ccue[0],ccue->ramp);
+			outlet_anything(x->info_out, gensym("/current/ramp"), 1, info_ccue);
+
+			// output informations about the current key cue
+			ckcue = cuemng_current_key_cue(x);
+			
+			if(ckcue){
+				atom_setlong(&info_ccue[0],x->Kcurrent+1);
+				outlet_anything(x->info_out, gensym("/Kcurrent/id"), 1, info_ccue);
+
+				atom_setsym(&info_ccue[0],ckcue->index);
+				outlet_anything(x->info_out, gensym("/Kcurrent/name"), 1, info_ccue);
+			}
+		}
+		else
+			outlet_anything(x->info_out, gensym("/cuelist"), 0, 0);
+	}
 }
 
 void cuemng_doramp(t_cuemng *x, long r){
@@ -1869,17 +2045,44 @@ void cuemng_output_line(t_line *l, t_cuemng *x)
 
 void cuemng_info_cue(t_cue *cue, t_cuemng *x)
 {
-	t_atom info_cue[3];
+	t_atom info_cue[7];
+	long memoK;
 
+	// position of the cue in the cuelist
 	atom_setlong(&info_cue[0],x->current+1);
 
+	// mode
 	if(cue->mode == DIFFERENTIAL_CUE) atom_setsym(&info_cue[1],x->ps_cue);
 	if(cue->mode == ABSOLUTE_CUE) atom_setsym(&info_cue[1],x->ps_keycue);
 	if(cue->mode == EMPTY_CUE) atom_setsym(&info_cue[1],ps_emptycue);
 
+	// name
 	atom_setsym(&info_cue[2],cue->index);
 
-	outlet_anything(x->info_out, gensym("/cuelist"), 3, info_cue);
+	if(cue->mode == DIFFERENTIAL_CUE){
+
+		// ramp
+		atom_setsym(&info_cue[3],x->ps_ramp);
+		atom_setlong(&info_cue[4],cue->ramp);
+
+		// his relative KEYCUE
+		atom_setsym(&info_cue[5],x->ps_keycue);
+		memoK = x->Kcurrent;
+		x->Kcurrent = cuemng_previous_key_index(x);
+		atom_setlong(&info_cue[6],x->Kcurrent+1);
+		x->Kcurrent = memoK;
+
+		if(x->info_cuelist)
+			outlet_anything(x->info_out, gensym("/cuelist"), 7, info_cue);
+		else
+			outlet_anything(x->info_out, gensym("/cue"), 7, info_cue);
+	}
+	else{
+		if(x->info_cuelist)
+			outlet_anything(x->info_out, gensym("/cuelist"), 3, info_cue);
+		else
+			outlet_anything(x->info_out, gensym("/cue"), 3, info_cue);
+	}
 
 	x->current++;
 }

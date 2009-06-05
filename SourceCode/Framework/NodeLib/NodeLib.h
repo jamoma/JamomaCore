@@ -160,7 +160,7 @@ TTErr JamomaNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr ne
 /**	A recursive method to ensure that the path to a node exist
 	@param	oscAddress			The OSC address to check
 		
-	@param	returnedNode		A pointer to the JamomaNode parent is returned in this parameter.
+	@param	returnedNode		A pointer to the  parent JamomaNode is returned in this parameter.
 
 	@param	created				This parameter will be set to true upon return if a new node was created, or false if one was not created - 
 								e.g. because a node already existed with this address and instance name.
@@ -170,15 +170,20 @@ TTErr JamomaNodeCheck(TTSymbolPtr oscAddress, JamomaNodePtr* returnedNodeParent,
 
 
 /**	An OSC parsing tool
-	@param	oscAddress					The OSC address to spilt.
+	@param	oscAddress					The OSC address to spilt in /parent/node.instance:attribute
 
-	@param	returnedParentOscAdress		A pointer to the oscAdress of the parent is returned in this parameter
+	@param	returnedParentOscAdress		A pointer to node parent symbol is returned in this parameter
+
+	@param	returnedNodeName			A pointer to the node name symbol is returned in this parameter
+
+	@param	returnedNodeInstance		A pointer to the node instance symbol is returned in this parameter
+
+	@param	returnedNodeAttribute		A pointer to the node attribute symbol is returned in this parameter
 										
 	@param	returnedNodeName			A pointer to the name of the node is returned in this parameter
 						
 	@return								An error code.				*/
 TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdress, TTSymbolPtr* returnedNodeName, TTSymbolPtr* returnedNodeInstance, TTSymbolPtr* returnedNodeAttribute);
-
 
 
 #ifdef __cplusplus
@@ -187,14 +192,17 @@ extern "C" {
 
 	/** Create a the root of the tree */
 	JamomaError		jamoma_node_init(void);
+
+	/** Register a hub address in the tree */
+	// this is called in "hub_attr_setname" in jcom.hub.cpp. is this good ?
+	JamomaError		jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj);
+
+	/** Free the root of the tree and all the tree */
 	void			jamoma_node_free(void);
 
 #ifdef __cplusplus
 }
 #endif
-
-
-
 
 
 #endif // __NODELIB_H__
