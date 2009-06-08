@@ -1,7 +1,7 @@
 /* 
  * jcom.oscroute
  * External for Jamoma: parse and pass OpenSoundControl messages
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -19,7 +19,7 @@ typedef struct _oscroute{					// Data Structure for this object
 	t_symbol		*arguments[MAX_ARGCOUNT];	// symbols to match
 	long unsigned	arglen[MAX_ARGCOUNT];		// strlen of symbols to match
 	short			num_args;
-	long			attr_strip;					// ATTRIBUTE: 1 = strip leading slash off any messages
+	//long			attr_strip;					// ATTRIBUTE: 1 = strip leading slash off any messages
 	void			*proxy_inlet;				// pointer to the second inlet (when present)
 } t_oscroute;
 
@@ -43,9 +43,9 @@ t_class		*oscroute_class;				// Required: Global pointer for our class
 
 int JAMOMA_EXPORT_MAXOBJ main(void)
 {
-	long attrflags = 0;
+	//long attrflags = 0;
 	t_class *c;
-	t_object *attr;
+	//t_object *attr;
 	
 	// Initialize Globals
 	jamoma_init();
@@ -64,9 +64,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);
 
 	// ATTRIBUTE: strip
-	attr = attr_offset_new("strip", _sym_long, attrflags,
+	/*attr = attr_offset_new("strip", _sym_long, attrflags,
 		(method)0, (method)0, calcoffset(t_oscroute, attr_strip));
-	class_addattr(c, attr);	
+	class_addattr(c, attr);	*/
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);
