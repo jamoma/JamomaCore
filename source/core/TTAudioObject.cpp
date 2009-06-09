@@ -186,20 +186,20 @@ TTErr TTAudioObject::setMute(const TTValue& value)
 }
 
 
-TTErr TTAudioObject::calculate(const TTFloat64& x, TTFloat64& y, TTPtr data)
+TTErr TTAudioObject::calculate(const TTFloat64& x, TTFloat64& y)
 {
 	TTErr	err = kTTErrGeneric;
 	
 	if(valid){
 		lock();
-		err = (this->*currentCalculateMethod)(x, y, data);
+		err = (this->*currentCalculateMethod)(x, y, TTPtr(-1));
 		unlock();
 	}
 	return err;
 }
 
 
-TTErr TTAudioObject::calculate(const TTValue& x, TTValue& y, TTPtr data)
+TTErr TTAudioObject::calculate(const TTValue& x, TTValue& y)
 {
 	TTErr	err = kTTErrGeneric;
 
@@ -219,7 +219,7 @@ TTErr TTAudioObject::calculate(const TTValue& x, TTValue& y, TTPtr data)
 		size = x.getSize();
 		for(TTUInt32 i=0; i<size; i++){
 			x.get(i, in);
-			err = (this->*currentCalculateMethod)(in, out, data);
+			err = (this->*currentCalculateMethod)(in, out, TTPtr(-1));
 			y.append(out);
 		}
 		unlock();
