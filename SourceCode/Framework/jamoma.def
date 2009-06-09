@@ -62,6 +62,11 @@ EXPORTS
 	; NodeLib
 		jamoma_node_init
 		jamoma_node_register
+		jamoma_node_unregister
+		jamoma_node_name
+		jamoma_node_instance
+		jamoma_node_type
+		jamoma_node_children
 		jamoma_node_free
 
 	; JamomaSymbols

@@ -21,15 +21,18 @@ JamomaNode::JamomaNode(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr ne
 	err = splitOSCAddress(oscAddress,&oscAddress_parent,&oscAddress_name, &oscAddress_instance, &oscAddress_attribute);
 
 	// DEBUG
-	post("JamomaNode : %s",oscAddress->getCString());
-	if(oscAddress_parent)
-		post("	parent : %s ",oscAddress_parent->getCString());
-	if(oscAddress_name)
-		post("	name : %s ",oscAddress_name->getCString());
-	if(oscAddress_instance)
-		post("	instance : %s ",oscAddress_instance->getCString());
-	if(oscAddress_attribute)
-		post("	attribute : %s ",oscAddress_attribute->getCString());
+	//post("JamomaNode : %s",oscAddress->getCString());
+	//if(oscAddress_parent)
+	//	post("	parent : %s ",oscAddress_parent->getCString());
+	//if(oscAddress_name)
+	//	post("	name : %s ",oscAddress_name->getCString());
+	//if(oscAddress_instance)
+	//	post("	instance : %s ",oscAddress_instance->getCString());
+	//if(oscAddress_attribute)
+	//	post("	attribute : %s ",oscAddress_attribute->getCString());
+	//if(newType)
+	//	post("	type : %s ",newType->getCString());
+
 
 	if(err == kTTErrNone){
 
@@ -58,12 +61,40 @@ JamomaNode::JamomaNode(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr ne
 	}
 }
 
-
 JamomaNode::~JamomaNode()
 {
-	;
-}
+	uint i;
+	TTValue *hk;
+	TTSymbolPtr key;
+	TTValue *c;
+	JamomaNodePtr n_c;
 
+	// it is not a child of his parent anymore
+	this->parent->children->remove(this->name);
+	this->parent = NULL;
+
+	// destroy all his children
+	if(this->children->getSize()){
+		hk = new TTValue();
+		c = new TTValue();
+		this->children->getKeys(*hk);
+
+		for(i=0; i<this->children->getSize(); i++){
+			hk->get(i,(TTSymbol**)&key);
+			this->children->lookup(key,*c);
+			c->get(0,(TTPtr*)&n_c);
+			n_c->~JamomaNode();
+		}
+	}
+	this->children->clear();
+	this->children->~TTHash();
+
+	// clear all other infomations
+	this->name = NULL;
+	this->type = NULL;
+	this->maxObject = NULL;
+	this->instance = NULL;
+}
 
 #if 0
 #pragma mark -
@@ -282,41 +313,15 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 
 /************************************************************************************/
 
-JamomaError	jamoma_node_init()
+JamomaNodePtr	jamoma_node_init()
 {
 	if(jamoma_node_root)
-		return JAMOMA_ERR_NONE;	// already have a root, do nothing...
-
+		return jamoma_node_root;	// already have a root, just return the pointer to the root...
 
 	jamoma_node_hashtab = new TTHash();
 	jamoma_node_root = new JamomaNode(TT("/jamoma"), TT("container"), NULL);
 
-	// TEST : an experimental tree
-
-	//post("> CREATION OF AN EXPERIMENTAL TREE");
-	//post("");
-	//JamomaNodePtr test;
-
-	//test = new JamomaNode(TT("/jamoma/degrade~/bitdepth"), TT("parameter"), NULL);
-	//test = new JamomaNode(TT("/jamoma/degrade~/bypass"), TT("parameter"), NULL);
-	//test = new JamomaNode(TT("/jamoma/degrade~/gain"), TT("parameter"), NULL);
-
-	//test = new JamomaNode(TT("/jamoma/input.1/pan"), TT("parameter"), NULL);
-	//test = new JamomaNode(TT("/jamoma/input.1/gain"), TT("parameter"), NULL);
-	//test = new JamomaNode(TT("/jamoma/input.2/pan"), TT("parameter"), NULL);
-	//test = new JamomaNode(TT("/jamoma/input.2/gain"), TT("parameter"), NULL);
-
-	//test = new JamomaNode(TT("/jamoma/output/audio/gain"), TT("parameter"), NULL);
-	//test = new JamomaNode(TT("/jamoma/output/limiter"), TT("parameter"), NULL);
-	//test = new JamomaNode(TT("/jamoma/output/preamp"), TT("parameter"), NULL);
-
-	//post("");
-	//post("> DUMP THE TREE");
-	//post("");
-	//jamoma_node_root->getDump();
-
-
-	return JAMOMA_ERR_NONE;
+	return jamoma_node_root;
 }
 
 JamomaError	jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj)
@@ -332,12 +337,98 @@ JamomaError	jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object 
 		return JAMOMA_ERR_NONE;
 	}
 	else{
-		post("jamoma_node_hub_register : create the root before");
+		post("jamoma_node_register : create the root before");
 		return JAMOMA_ERR_GENERIC;
 	}
 }
 
-void jamoma_node_free(void)
+JamomaError		jamoma_node_unregister(t_symbol *OSCaddress)
 {
-	;
+	JamomaNodePtr *node = NULL;
+	char fullAddress[256];
+
+	if(jamoma_node_root){
+		strcpy(fullAddress,"/");
+		strcat(fullAddress,jamoma_node_root->getName()->getCString());
+		strcat(fullAddress,OSCaddress->s_name);
+		jamoma_node_root->getNodeForOSC(fullAddress,node);
+	}
+	else{
+		post("jamoma_node_unregister : create the root before");
+		return JAMOMA_ERR_GENERIC;
+	}
+
+	if(*node){
+		(*node)->~JamomaNode();
+		return JAMOMA_ERR_NONE;
+	}
+	
+	post("jamoma_node_unregister : this address doesn't exist");
+	return JAMOMA_ERR_GENERIC;
+}
+
+t_symbol *	jamoma_node_name(JamomaNodePtr node)
+{
+	if(node->getName())
+		return gensym((char*)node->getName()->getCString());
+	else
+		return NULL;
+}
+
+
+t_symbol *	jamoma_node_instance(JamomaNodePtr node)
+{
+	if(node->getInstance())
+		return gensym((char*)node->getInstance()->getCString());
+	else
+		return NULL;
+}
+
+
+t_symbol *	jamoma_node_type(JamomaNodePtr node)
+{
+	if(node->getType())
+		return gensym((char*)node->getType()->getCString());
+	else
+		return NULL;
+}
+
+LinkedListPtr	jamoma_node_children(JamomaNodePtr node)
+{
+	uint i;
+	TTValue *hk;
+	TTSymbolPtr key;
+	TTValue *c;
+	JamomaNodePtr n_c;
+	LinkedListPtr lk_children;
+
+	if(node->getChildren()->getSize()){
+
+		hk = new TTValue();
+		c = new TTValue();
+		node->getChildren()->getKeys(*hk);
+		lk_children = new t_linklist();
+
+		for(i=0; i<node->getChildren()->getSize(); i++){
+			hk->get(i,(TTSymbol**)&key);
+			node->getChildren()->lookup(key,*c);
+			c->get(0,(TTPtr*)&n_c);
+			linklist_append(lk_children,n_c);
+		}
+		
+		return lk_children;
+	}
+
+	return NULL;
+}
+
+JamomaError jamoma_node_free(void)
+{
+	if(jamoma_node_root){
+		jamoma_node_root->~JamomaNode();
+		return JAMOMA_ERR_NONE;
+	}
+
+	post("jamoma_node_free : create the root before");	
+	return JAMOMA_ERR_GENERIC;
 }

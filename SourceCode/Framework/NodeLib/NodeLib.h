@@ -190,15 +190,32 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 extern "C" {
 #endif
 
-	/** Create a the root of the tree */
-	JamomaError		jamoma_node_init(void);
+	/** Create a the root of the tree and/or return a pointer to the root */
+	JamomaNodePtr		jamoma_node_init(void);
 
-	/** Register a hub address in the tree */
-	// this is called in "hub_attr_setname" in jcom.hub.cpp. is this good ?
+	/** Register an osc address in the tree */
+	// this is called 
+	//		> in "hub_attr_setname" (in jcom.hub.cpp) to register the hub
+	//		> in "hub_subscribe" (in jcom.hub.cpp) to register a param
 	JamomaError		jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj);
 
+	/** Unregister an osc address in the tree */
+	JamomaError		jamoma_node_unregister(t_symbol *OSCaddress);
+
+	/** Return the name of a node*/
+	t_symbol *	jamoma_node_name(JamomaNodePtr node);
+
+	/** Return the instance of a node*/
+	t_symbol *	jamoma_node_instance(JamomaNodePtr node);
+
+	/** Return the type of a node*/
+	t_symbol *	jamoma_node_type(JamomaNodePtr node);
+
+	/** Return all children of a node*/
+	LinkedListPtr	jamoma_node_children(JamomaNodePtr node);
+
 	/** Free the root of the tree and all the tree */
-	void			jamoma_node_free(void);
+	JamomaError		jamoma_node_free(void);
 
 #ifdef __cplusplus
 }

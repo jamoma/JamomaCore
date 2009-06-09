@@ -1400,7 +1400,7 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 
 		// Register with the tree ...
 		err = jamoma_node_register(x->osc_name, gensym("hub"), (t_object *)x);
-		
+
 		// Register with the framework, and making sure this name hasn't already been used...
 		// TODO: is the framework making sure that this t_object is unique and hasn't already been registered?
 		err = jamoma_hub_register(x->osc_name, (t_object *)x);
