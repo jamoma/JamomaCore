@@ -12,10 +12,11 @@
 
 
 LowpassFunction::LowpassFunction(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("lowpass", newMaxNumChannels)
+	: TTAudioObject("lowpass", newMaxNumChannels), feedback(NULL)
 {
 	registerAttributeWithSetter(coefficient, kTypeFloat64);
 	registerMessageSimple(clear);
+	registerMessageWithArgument(updateMaxNumChannels);
 	
 	// Set Defaults...
 	setAttributeValue(TT("coefficient"), 0.75);
@@ -27,14 +28,22 @@ LowpassFunction::LowpassFunction(TTUInt16 newMaxNumChannels)
 
 LowpassFunction::~LowpassFunction()
 {
-	;
+	delete[] feedback;
 }
 
+
+TTErr LowpassFunction::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+{
+	delete[] feedback;
+	feedback = new TTFloat64[maxNumChannels];
+	return clear();
+}
 
 
 TTErr LowpassFunction::clear()
 {
-	feedback = 0.0;
+	for (TTUInt16 channel=0; channel<maxNumChannels; channel++)
+		feedback[channel] = 0.0;
 	return kTTErrNone;
 }
 
@@ -50,7 +59,9 @@ TTErr LowpassFunction::setcoefficient(const TTValue& newValue)
 
 TTErr LowpassFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtr data)
 {
-	y = feedback = TTAntiDenormal((feedback * coefficient) + (x * one_minus_coefficient));
+	TTPtrSizedInt channel = TTPtrSizedInt(data);
+	
+	y = feedback[channel] = TTAntiDenormal((feedback[channel] * coefficient) + (x * one_minus_coefficient));
 	return kTTErrNone;
 }
 
@@ -63,7 +74,7 @@ TTErr LowpassFunction::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalA
 	TTSampleVector	inSample;
 	TTSampleVector	outSample;
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
+	TTPtrSizedInt	channel;
 	
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
