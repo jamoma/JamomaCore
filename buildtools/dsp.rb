@@ -260,6 +260,7 @@ ex_total, ex_count = get_count
 if  win32?
 	copydir("#{@svn_root}/../DSP/extensions/TTClipper/#{configuration}/TTClipper.ttdll",   "#{@svn_root}/../Modular/Jamoma/library/externals/TTBlueExtensions/TTClipper.ttdll")
 	copydir("#{@svn_root}/../DSP/extensions/TTFunctionLib/#{configuration}/TTFunctionLib.ttdll",    "#{@svn_root}/../Modular/Jamoma/library/externals/TTBlueExtensions/TTFunctionLib.ttdll")
+	copydir("#{@svn_root}/../DSP/extensions/TTFilterLib/#{configuration}/TTFilterLib.ttdll",    "#{@svn_root}/../Modular/Jamoma/library/externals/TTBlueExtensions/TTFilterLib.ttdll")
 end
 puts ""
 
