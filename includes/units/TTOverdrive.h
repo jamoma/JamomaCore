@@ -11,7 +11,7 @@
 
 
 #include "TTAudioObject.h"
-#include "TTDCBlock.h"
+//#include "TTDCBlock.h"
 
 /**	TTOverdrive is an audio processor that provides a soft saturation
  *	or overdrive effect to "warm" a sound up.

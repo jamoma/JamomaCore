@@ -225,31 +225,7 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
 #include "TTWavetable.h"
 
 // Filtering
-#include "TTAllpass.h"
 #include "TTAverage.h"
-#include "TTHighMidLowShelf.h"
-#include "TTBandpassButterworth2.h"
-#include "TTBandrejectButterworth2.h"
-#include "TTDCBlock.h"
-
-#include "TTHighpassButterworth1.h"
-#include "TTHighpassButterworth2.h"
-#include "TTHighpassButterworth3.h"
-#include "TTHighpassButterworth4.h"
-#include "TTHighpassLinkwitzRiley2.h"
-#include "TTHighpassLinkwitzRiley4.h"
-
-#include "TTLowpassButterworth1.h"
-#include "TTLowpassButterworth2.h"
-#include "TTLowpassButterworth3.h"
-#include "TTLowpassButterworth4.h"
-#include "TTLowpassLinkwitzRiley2.h"
-#include "TTLowpassLinkwitzRiley4.h"
-
-#include "TTLowpassOnePole.h"
-#include "TTLowpassTwoPole.h"
-#include "TTLowpassFourPole.h"
-#include "TTSvf.h"
 
 // Misc
 #include "TTBuffer.h"
@@ -290,33 +266,8 @@ void TTBlueRegisterInternalClasses()
 	
 	
 	// Filtering
-//	TTClassRegister(TT("allpass"),						"audio, processor, filter, allpass",								&TTBlueInstantiateInternalClass);
 //	TTClassRegister(TT("average"),						"audio, processor, filter, lowpass, envelope",						&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("bandpass.butterworth.2"),		"audio, processor, filter, bandpass, butterworth",					&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("bandreject.butterworth.2"),		"audio, processor, filter, notch",									&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("dcblock"),						"audio, processor, filter",											&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("highmidlowshelf"),				"audio, processor, filter",											&TTBlueInstantiateInternalClass);
-					
-	TTClassRegister(TT("highpass.butterworth.1"),		"audio, processor, filter, highpass, butterworth",					&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("highpass.butterworth.2"),		"audio, processor, filter, highpass, butterworth",					&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("highpass.butterworth.3"),		"audio, processor, filter, highpass, butterworth",					&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("highpass.butterworth.4"),		"audio, processor, filter, highpass, butterworth",					&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("highpass.linkwitzriley.2"),		"audio, processor, filter, highpass",								&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("highpass.linkwitzriley.4"),		"audio, processor, filter, highpass, crossover",					&TTBlueInstantiateInternalClass);
 
-	TTClassRegister(TT("lowpass.butterworth.1"),		"audio, processor, filter, lowpass, butterworth",					&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("lowpass.butterworth.2"),		"audio, processor, filter, lowpass, butterworth",					&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("lowpass.butterworth.3"),		"audio, processor, filter, lowpass, butterworth",					&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("lowpass.butterworth.4"),		"audio, processor, filter, lowpass, butterworth",					&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("lowpass.linkwitzriley.2"),		"audio, processor, filter, lowpass",								&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("lowpass.linkwitzriley.4"),		"audio, processor, filter, lowpass, crossover",						&TTBlueInstantiateInternalClass);
-	
-	TTClassRegister(TT("lowpass.1"),					"audio, processor, filter, lowpass",								&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("lowpass.2"),					"audio, processor, filter, lowpass",								&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("lowpass.4"),					"audio, processor, filter, lowpass",								&TTBlueInstantiateInternalClass);
-
-//	TTClassRegister(TT("svf"),							"audio, processor, filter, lowpass, highpass, bandpass, notch",		&TTBlueInstantiateInternalClass);
-	
 	
 	// Misc
 	TTClassRegister(TT("buffer"),						"audio, buffer, storage",											&TTBlueInstantiateInternalClass);
@@ -370,55 +321,9 @@ TTObject* TTBlueInstantiateInternalClass(TTSymbol* className, TTValue& arguments
 	
 	
 	// Filtering
-	else if(className == TT("allpass"))
-		return new TTAllpass(arguments);
 	else if(className == TT("average"))
 		return new TTAverage(arguments);
-	else if(className == TT("highmidlowshelf"))
-		return new TTHighMidLowShelf(arguments);
-	else if(className == TT("bandpass.butterworth.2"))
-		return new TTBandpassButterworth2(arguments);
-	else if(className == TT("bandreject.butterworth.2"))
-		return new TTBandRejectButterworth2(arguments);
-	else if(className == TT("dcblock"))
-		return new TTDCBlock(arguments);
-	
-	else if(className == TT("highpass.butterworth.1"))
-		return new TTHighpassButterworth1(arguments);
-	else if(className == TT("highpass.butterworth.2"))
-		return new TTHighpassButterworth2(arguments);
-	else if(className == TT("highpass.butterworth.3"))
-		return new TTHighpassButterworth3(arguments);
-	else if(className == TT("highpass.butterworth.4"))
-		return new TTHighpassButterworth4(arguments);
-	else if(className == TT("highpass.linkwitzriley.2"))
-		return new TTHighpassLinkwitzRiley2(arguments);
-	else if(className == TT("highpass.linkwitzriley.4"))
-		return new TTHighpassLinkwitzRiley4(arguments);
-	
-	else if(className == TT("lowpass.butterworth.1"))
-		return new TTLowpassButterworth1(arguments);
-	else if(className == TT("lowpass.butterworth.2"))
-		return new TTLowpassButterworth2(arguments);
-	else if(className == TT("lowpass.butterworth.3"))
-		return new TTLowpassButterworth3(arguments);
-	else if(className == TT("lowpass.butterworth.4"))
-		return new TTLowpassButterworth4(arguments);
-	else if(className == TT("lowpass.linkwitzriley.2"))
-		return new TTLowpassLinkwitzRiley2(arguments);
-	else if(className == TT("lowpass.linkwitzriley.4"))
-		return new TTLowpassLinkwitzRiley4(arguments);
-	
-	else if(className == TT("lowpass.1"))
-		return new TTLowpassOnePole(arguments);
-	else if(className == TT("lowpass.2"))
-		return new TTLowpassTwoPole(arguments);
-	else if(className == TT("lowpass.4"))
-		return new TTLowpassFourPole(arguments);
-	
-	else if(className == TT("svf"))
-		return new TTSvf(arguments);
-	
+
 	
 	// Misc
 	else if(className == TT("buffer"))
