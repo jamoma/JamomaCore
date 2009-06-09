@@ -192,7 +192,7 @@ TTErr TTAudioObject::calculate(const TTFloat64& x, TTFloat64& y)
 	
 	if(valid){
 		lock();
-		err = (this->*currentCalculateMethod)(x, y, TTPtr(-1));
+		err = (this->*currentCalculateMethod)(x, y, NULL);
 		unlock();
 	}
 	return err;
@@ -219,7 +219,7 @@ TTErr TTAudioObject::calculate(const TTValue& x, TTValue& y)
 		size = x.getSize();
 		for(TTUInt32 i=0; i<size; i++){
 			x.get(i, in);
-			err = (this->*currentCalculateMethod)(in, out, TTPtr(-1));
+			err = (this->*currentCalculateMethod)(in, out, NULL);
 			y.append(out);
 		}
 		unlock();
