@@ -51,7 +51,7 @@ TTErr PowerFunction::setpowerValue(const TTValue& newValue)
 }
 
 
-TTErr PowerFunction::calculatePoint(const TTFloat64& x, TTFloat64& y)
+TTErr PowerFunction::calculatePoint(const TTFloat64& x, TTFloat64& y, TTPtr data)
 {
 	TTFloat64	sign;	
 	
@@ -66,14 +66,14 @@ TTErr PowerFunction::calculatePoint(const TTFloat64& x, TTFloat64& y)
 }
 
 
-TTErr PowerFunction::calculateAxis(const TTFloat64& x, TTFloat64& y)
+TTErr PowerFunction::calculateAxis(const TTFloat64& x, TTFloat64& y, TTPtr data)
 {
 	y = pow(fabs(2*x-1), k);
 	return kTTErrNone;
 }
 
 
-TTErr PowerFunction::calculateNoSymmetry(const TTFloat64& x, TTFloat64& y)
+TTErr PowerFunction::calculateNoSymmetry(const TTFloat64& x, TTFloat64& y, TTPtr data)
 {
 	y = pow(x, k);
 	return kTTErrNone;
@@ -96,7 +96,7 @@ TTErr PowerFunction::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 		vs = in.getVectorSize();
 		
 		while(vs--){
-			(this->*calculateMethod)(*outSample, *inSample);
+			(this->*calculateMethod)(*outSample, *inSample, TTPtr(channel));
 			outSample++;
 			inSample++;
 		}

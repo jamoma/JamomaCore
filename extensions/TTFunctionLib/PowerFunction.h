@@ -37,9 +37,9 @@ public:
 	virtual ~PowerFunction();
 	
 	/** y = f(x) for a single value */
-	inline TTErr calculatePoint(const TTFloat64& x, TTFloat64& y);
-	inline TTErr calculateAxis(const TTFloat64& x, TTFloat64& y);
-	inline TTErr calculateNoSymmetry(const TTFloat64& x, TTFloat64& y);
+	inline TTErr calculatePoint(const TTFloat64& x, TTFloat64& y, TTPtr data);
+	inline TTErr calculateAxis(const TTFloat64& x, TTFloat64& y, TTPtr data);
+	inline TTErr calculateNoSymmetry(const TTFloat64& x, TTFloat64& y, TTPtr data);
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);

@@ -22,7 +22,7 @@ class TTAudioObject;
 typedef TTErr (TTAudioObject::*TTProcessMethod)(TTAudioSignalArrayPtr in, TTAudioSignalArrayPtr out);
 
 /**	A type that can be used to store a pointer to a calculate method (which calculates a single sample). */
-typedef TTErr (TTAudioObject::*TTCalculateMethod)(const TTFloat64& x, TTFloat64& y);
+typedef TTErr (TTAudioObject::*TTCalculateMethod)(const TTFloat64& x, TTFloat64& y, TTPtr data);
 
 
 /**	A convenience macro to be used by subclasses for setting the process method.
@@ -91,8 +91,8 @@ public:
 		@param	y	The output of the function.
 		@return		An error, if any.
 	 */
-	TTErr calculate(const TTFloat64& x, TTFloat64& y);
-	TTErr calculate(const TTValue& x, TTValue& y);
+	TTErr calculate(const TTFloat64& x, TTFloat64& y, TTPtr data);
+	TTErr calculate(const TTValue& x, TTValue& y, TTPtr data);
 
 	
 	/** Process the input signal, resulting in an output signal. This method wraps the actual process method
@@ -159,7 +159,7 @@ public:
 	TTErr bypassProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	/**	Produces a result for calls to calculate when the unit is bypassed.  */
-	TTErr bypassCalculate(const TTFloat64& x, TTFloat64& y);
+	TTErr bypassCalculate(const TTFloat64& x, TTFloat64& y, TTPtr data);
 	
 	/**	A muted audio processing method, which simply copies zeroes to the output.		*/
 	TTErr muteProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
@@ -168,7 +168,7 @@ public:
 	/**	A default calculate method, which simply calls the process method with 1 channel signals that are 1 sample in length.  
 		This method is not fast, and if you anticipate the calculate method to be called often, you should write a proper
 		calculate method in the subclass.  */
-	TTErr defaultCalculateMethod(const TTFloat64& x, TTFloat64& y);
+	TTErr defaultCalculateMethod(const TTFloat64& x, TTFloat64& y, TTPtr data);
 	
 	
 	// UTILITIES

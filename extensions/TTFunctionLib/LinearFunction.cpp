@@ -25,7 +25,7 @@ LinearFunction::~LinearFunction()
 }
 
 
-TTErr LinearFunction::calculateValue(const TTFloat64& x, TTFloat64& y)
+TTErr LinearFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtr data)
 {
 	y = x;
 	return kTTErrNone;
@@ -48,7 +48,7 @@ TTErr LinearFunction::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 		vs = in.getVectorSize();
 		
 		while(vs--){
-			calculateValue(*outSample, *inSample);
+			calculateValue(*outSample, *inSample, TTPtr(channel));
 			outSample++;
 			inSample++;
 		}

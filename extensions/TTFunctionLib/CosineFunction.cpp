@@ -26,7 +26,7 @@ CosineFunction::~CosineFunction()
 }
 
 
-TTErr CosineFunction::calculateValue(const TTFloat64& x, TTFloat64& y)
+TTErr CosineFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtr data)
 {
 	y = -0.5 * cos(x * kTTPi) + 0.5;
 	return kTTErrNone;
@@ -49,7 +49,7 @@ TTErr CosineFunction::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 		vs = in.getVectorSize();
 		
 		while(vs--){
-			calculateValue(*outSample, *inSample);
+			calculateValue(*outSample, *inSample, TTPtr(channel));
 			outSample++;
 			inSample++;
 		}

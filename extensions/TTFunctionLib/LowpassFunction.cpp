@@ -48,7 +48,7 @@ TTErr LowpassFunction::setcoefficient(const TTValue& newValue)
 
 
 
-TTErr LowpassFunction::calculateValue(const TTFloat64& x, TTFloat64& y)
+TTErr LowpassFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtr data)
 {
 	y = feedback = TTAntiDenormal((feedback * coefficient) + (x * one_minus_coefficient));
 	return kTTErrNone;
@@ -71,7 +71,7 @@ TTErr LowpassFunction::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalA
 		vs = in.getVectorSize();
 		
 		while(vs--){
-			calculateValue(*outSample, *inSample);
+			calculateValue(*outSample, *inSample, TTPtr(channel));
 			outSample++;
 			inSample++;
 		}

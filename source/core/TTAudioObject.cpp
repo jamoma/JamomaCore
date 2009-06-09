@@ -90,7 +90,7 @@ TTErr TTAudioObject::bypassProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 }
 
 
-TTErr TTAudioObject::bypassCalculate(const TTFloat64& x, TTFloat64& y)
+TTErr TTAudioObject::bypassCalculate(const TTFloat64& x, TTFloat64& y, TTPtr data)
 {
 	y = x;
 	return kTTErrNone;
@@ -109,7 +109,7 @@ TTErr TTAudioObject::muteProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 
 
 
-TTErr TTAudioObject::defaultCalculateMethod(const TTFloat64& x, TTFloat64& y)
+TTErr TTAudioObject::defaultCalculateMethod(const TTFloat64& x, TTFloat64& y, TTPtr data)
 {
 	TTAudioSignal	in(1);
 	TTAudioSignal	out(1);
@@ -186,20 +186,20 @@ TTErr TTAudioObject::setMute(const TTValue& value)
 }
 
 
-TTErr TTAudioObject::calculate(const TTFloat64& x, TTFloat64& y)
+TTErr TTAudioObject::calculate(const TTFloat64& x, TTFloat64& y, TTPtr data)
 {
 	TTErr	err = kTTErrGeneric;
 	
 	if(valid){
 		lock();
-		err = (this->*currentCalculateMethod)(x, y);
+		err = (this->*currentCalculateMethod)(x, y, data);
 		unlock();
 	}
 	return err;
 }
 
 
-TTErr TTAudioObject::calculate(const TTValue& x, TTValue& y)
+TTErr TTAudioObject::calculate(const TTValue& x, TTValue& y, TTPtr data)
 {
 	TTErr	err = kTTErrGeneric;
 
@@ -219,7 +219,7 @@ TTErr TTAudioObject::calculate(const TTValue& x, TTValue& y)
 		size = x.getSize();
 		for(TTUInt32 i=0; i<size; i++){
 			x.get(i, in);
-			err = (this->*currentCalculateMethod)(in, out);
+			err = (this->*currentCalculateMethod)(in, out, data);
 			y.append(out);
 		}
 		unlock();

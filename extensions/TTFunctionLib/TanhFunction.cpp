@@ -67,7 +67,7 @@ void TanhFunction::calculateOutputScaling(void)
 }
 
 
-TTErr TanhFunction::calculateValue(const TTFloat64& x, TTFloat64& y)
+TTErr TanhFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtr data)
 {
 	y = alpha * (tanh(a * (x-b)) - beta);
 	return kTTErrNone;
@@ -90,7 +90,7 @@ TTErr TanhFunction::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 		vs = in.getVectorSize();
 		
 		while(vs--){
-			calculateValue(*outSample, *inSample);
+			calculateValue(*outSample, *inSample, TTPtr(channel));
 			outSample++;
 			inSample++;
 		}
