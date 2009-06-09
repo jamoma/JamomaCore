@@ -374,10 +374,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\source\units\TTAllpass.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\source\units\TTAverage.cpp"
 				>
 			</File>
@@ -394,22 +390,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\source\units\TTBandpassButterworth2.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTBandpassButterworth2.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTBandrejectButterworth2.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTBandrejectButterworth2.h"
-				>
-			</File>
-			<File
 				RelativePath="..\source\units\TTBuffer.cpp"
 				>
 			</File>
@@ -423,14 +403,6 @@
 			</File>
 			<File
 				RelativePath="..\includes\units\TTCrossfade.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTDCBlock.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTDCBlock.h"
 				>
 			</File>
 			<File
@@ -458,131 +430,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\source\units\TTHighpassButterworth1.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTHighpassButterworth1.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTHighpassButterworth2.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTHighpassButterworth2.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTHighpassButterworth3.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTHighpassButterworth3.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTHighpassButterworth4.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTHighpassButterworth4.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTHighpassLinkwitzRiley2.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTHighpassLinkwitzRiley2.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTHighpassLinkwitzRiley4.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTHighpassLinkwitzRiley4.h"
-				>
-			</File>
-			<File
 				RelativePath="..\source\units\TTLimiter.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\includes\units\TTLimiter.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTLowpassButterworth1.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTLowpassButterworth1.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTLowpassButterworth2.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTLowpassButterworth2.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTLowpassButterworth3.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTLowpassButterworth3.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTLowpassButterworth4.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTLowpassButterworth4.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTLowpassFourPole.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTLowpassFourPole.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTLowpassLinkwitzRiley2.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTLowpassLinkwitzRiley2.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTLowpassLinkwitzRiley4.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTLowpassLinkwitzRiley4.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTLowpassOnePole.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTLowpassOnePole.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTLowpassTwoPole.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTLowpassTwoPole.h"
 				>
 			</File>
 			<File
@@ -631,14 +483,6 @@
 			</File>
 			<File
 				RelativePath="..\includes\units\TTRamp.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTSvf.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTSvf.h"
 				>
 			</File>
 			<File

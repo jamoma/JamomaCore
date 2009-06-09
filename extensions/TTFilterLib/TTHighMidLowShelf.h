@@ -9,7 +9,7 @@
 
 #include "TTAudioObject.h"
 
-class TTEXPORT TTHighMidLowShelf : public TTAudioObject {
+class TTHighMidLowShelf : public TTAudioObject {
 protected:
 	TTFloat64		frequencyLm, frequencyMh, gainL, gainM, gainH;///< filter parameter
 	TTFloat64		a0, a1, a2, b1, b2;		///< filter coefficients

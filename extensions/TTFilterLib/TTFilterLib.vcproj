@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
@@ -190,46 +190,174 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Function Units"
+			Name="Filters"
 			>
 			<File
-				RelativePath=".\CosineFunction.cpp"
+				RelativePath=".\TTAllpass.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\CosineFunction.h"
+				RelativePath=".\TTAllpass.h"
 				>
 			</File>
 			<File
-				RelativePath=".\LinearFunction.cpp"
+				RelativePath=".\TTBandpassButterworth2.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\LinearFunction.h"
+				RelativePath=".\TTBandpassButterworth2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\LowpassFunction.cpp"
+				RelativePath=".\TTBandrejectButterworth2.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\LowpassFunction.h"
+				RelativePath=".\TTBandrejectButterworth2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\PowerFunction.cpp"
+				RelativePath=".\TTDCBlock.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\PowerFunction.h"
+				RelativePath=".\TTDCBlock.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TanhFunction.cpp"
+				RelativePath=".\TTHighMidLowShelf.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TanhFunction.h"
+				RelativePath=".\TTHighMidLowShelf.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHighpassButterworth1.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHighpassButterworth1.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHighpassButterworth2.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHighpassButterworth2.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHighpassButterworth3.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHighpassButterworth3.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHighpassButterworth4.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHighpassButterworth4.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHighpassLinkwitzRiley2.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHighpassLinkwitzRiley2.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHighpassLinkwitzRiley4.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTHighpassLinkwitzRiley4.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassButterworth1.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassButterworth1.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassButterworth2.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassButterworth2.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassButterworth3.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassButterworth3.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassButterworth4.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassButterworth4.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassFourPole.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassFourPole.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassLinkwitzRiley2.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassLinkwitzRiley2.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassLinkwitzRiley4.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassLinkwitzRiley4.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassOnePole.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassOnePole.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassTwoPole.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTLowpassTwoPole.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TTSvf.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTSvf.h"
 				>
 			</File>
 		</Filter>

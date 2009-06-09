@@ -33,7 +33,7 @@
  * 5. All drivers are always wired the same (in phase).
  *
  */
-class TTEXPORT TTLowpassLinkwitzRiley4 : public TTAudioObject {
+class TTLowpassLinkwitzRiley4 : public TTAudioObject {
 protected:
 	TTFloat64		frequency;				///< filter cutoff frequency
 	TTFloat64		k, wc;						///< filter coefficients
