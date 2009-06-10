@@ -32,6 +32,30 @@ typedef TTErr (TTAudioObject::*TTCalculateMethod)(const TTFloat64& x, TTFloat64&
 #define setCalculateMethod(methodName)				setCalculate((TTCalculateMethod)& thisTTClass ::methodName )
 
 
+#define TT_WRAP_CALCULATE_METHOD(methodName) \
+TTAudioSignal&	in = inputs->getSignal(0); \
+TTAudioSignal&	out = outputs->getSignal(0); \
+TTUInt16		vs; \
+TTSampleVector	inSample; \
+TTSampleVector	outSample; \
+TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out); \
+TTPtrSizedInt	channel; \
+\
+for(channel=0; channel<numchannels; channel++){ \
+	inSample = in.sampleVectors[channel]; \
+	outSample = out.sampleVectors[channel]; \
+	vs = in.getVectorSize(); \
+	\
+	while(vs--){ \
+		methodName (*inSample, *outSample, channel); \
+		outSample++; \
+		inSample++; \
+	} \
+}\
+return kTTErrNone;
+
+
+
 /****************************************************************************************************/
 // Class Specification
 
@@ -93,6 +117,12 @@ public:
 	 */
 	TTErr calculate(const TTFloat64& x, TTFloat64& y);
 	TTErr calculate(const TTValue& x, TTValue& y);
+
+	
+	/**	A process method that may be used by subclasses to wrap a calculate method in a semi-standard way.
+		Unfortunately, this is slow.  An alternative is to use the #TT_WRAP_CALCULATE_METHOD macro.
+	 */
+	TTErr calculateProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	
 	/** Process the input signal, resulting in an output signal. This method wraps the actual process method
