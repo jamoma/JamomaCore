@@ -19,12 +19,12 @@ LowpassFunction::LowpassFunction(TTUInt16 newMaxNumChannels)
 	registerMessageWithArgument(updateMaxNumChannels);
 	
 	// Set Defaults...
+	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
 	setAttributeValue(TT("coefficient"), 0.75);
 	sendMessage(TT("clear"));
 	
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
 }
 
 LowpassFunction::~LowpassFunction()
