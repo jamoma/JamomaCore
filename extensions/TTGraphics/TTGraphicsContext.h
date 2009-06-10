@@ -68,8 +68,9 @@ public:
 	void arc(double xc, double yc, double radius, double angle1, double angle2);
 	void stroke();
 	void fill();
-	
-	
+    void clip();
+    void newPath();
+    void rectangle(double x, double y, double width, double height);
 	
 };
 

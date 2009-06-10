@@ -94,4 +94,17 @@ void TTGraphicsContext::fill()
 	cairo_fill(cairoContext);
 }
 
+void TTGraphicsContext::clip()
+{
+	cairo_clip(cairoContext);
+}
 
+void TTGraphicsContext::newPath()
+{
+	cairo_new_path(cairoContext);
+}
+
+void TTGraphicsContext::rectangle(double x, double y, double width, double height)
+{
+	cairo_rectangle(cairoContext, x, y, width, height);
+}

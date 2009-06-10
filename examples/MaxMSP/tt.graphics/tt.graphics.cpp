@@ -94,6 +94,22 @@ public:
 			gc->lineTo(xc, yc);
 			gc->stroke();
 		}
+        else if (mode == TT("clip")) {
+            gc->arc(128.0, 128.0, 76.8, 0, 2.0 * kTTPi);
+            gc->clip();
+
+            gc->newPath(); // current path is not consumed by clip()
+
+            gc->rectangle(0, 0, 256, 256);
+            gc->fill();
+            gc->setSourceRGB(0, 1, 0);
+            gc->moveTo(0, 0);
+            gc->lineTo(256, 256);
+            gc->moveTo(256, 0);
+            gc->lineTo(0, 256);
+            gc->setLineWidth(10.0);
+            gc->stroke();
+        }
 		
 		// left as an exercise for someone else: implement the other examples @ http://cairographics.org/samples/
 		
