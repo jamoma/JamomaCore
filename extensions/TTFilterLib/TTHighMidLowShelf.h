@@ -34,7 +34,7 @@ protected:
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
     /** y = f(x) */
-    TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtr data);
+    TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
 	
 	
 public:

@@ -24,6 +24,7 @@ LowpassFunction::LowpassFunction(TTUInt16 newMaxNumChannels)
 	
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);
+	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
 }
 
 LowpassFunction::~LowpassFunction()
@@ -57,7 +58,7 @@ TTErr LowpassFunction::setcoefficient(const TTValue& newValue)
 
 
 
-TTErr LowpassFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+inline TTErr LowpassFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
 	y = feedback[channel] = TTAntiDenormal((feedback[channel] * coefficient) + (x * one_minus_coefficient));
 	return kTTErrNone;

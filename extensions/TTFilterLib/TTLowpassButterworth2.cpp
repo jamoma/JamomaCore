@@ -93,36 +93,19 @@ TTErr TTLowpassButterworth2::setfrequency(const TTValue& newValue)
 	return kTTErrNone;
 }
 
+inline TTErr TTLowpassButterworth2::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+{
+    y = TTAntiDenormal(a0*x + a1*xm1[channel] + a2*xm2[channel] - b1*ym1[channel] - b2*ym2[channel]);
+    xm2[channel] = xm1[channel];
+    xm1[channel] = x;
+    ym2[channel] = ym1[channel];
+    ym1[channel] = y;
+	return kTTErrNone;
+}
+
 
 TTErr TTLowpassButterworth2::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTAudioSignal&	in = inputs->getSignal(0);
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		vs;
-	TTSampleValue	*inSample,
-					*outSample;
-	TTFloat64		tempx,
-					tempy;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
-
-	// This outside loop works through each channel one at a time
-	for(channel=0; channel<numchannels; channel++){
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
-		
-		// This inner loop works through each sample within the channel one at a time
-		while(vs--){
-			tempx = *inSample++;
-			tempy = TTAntiDenormal(a0*tempx + a1*xm1[channel] + a2*xm2[channel] - b1*ym1[channel] - b2*ym2[channel]);
-			xm2[channel] = xm1[channel];
-			xm1[channel] = tempx;
-			ym2[channel] = ym1[channel];
-			ym1[channel] = tempy;
-			*outSample++ = tempy;
-		}
-	}
-	return kTTErrNone;
+	TT_WRAP_CALCULATE_METHOD(calculateValue);
 }
 

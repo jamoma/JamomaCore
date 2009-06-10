@@ -209,34 +209,12 @@ TTErr TTHighMidLowShelf::calculateCoefficients()
 
 TTErr TTHighMidLowShelf::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-    TTAudioSignal&	in = inputs->getSignal(0);
-    TTAudioSignal&	out = outputs->getSignal(0);
-    TTUInt16		vs;
-    TTSampleValue	*inSample,
-                    *outSample;
-    TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-    TTUInt16		channel;
-
-    // This outside loop works through each channel one at a time
-    for(channel=0; channel<numchannels; channel++){
-        inSample = in.sampleVectors[channel];
-        outSample = out.sampleVectors[channel];
-        vs = in.getVectorSize();
-
-        // This inner loop works through each sample within the channel one at a time
-        while(vs--){
-			calculateValue(*outSample, *inSample, TTPtr(channel));
-			outSample++;
-			inSample++;
-        }
-    }
-    return kTTErrNone;
+	TT_WRAP_CALCULATE_METHOD(calculateValue);
 }
 
 
-inline TTErr TTHighMidLowShelf::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtr data)
+inline TTErr TTHighMidLowShelf::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
-    TTPtrSizedInt channel = TTPtrSizedInt(data);
     xm0[channel] = x + b1 * xm1[channel] + b2 * xm2[channel]; 
     y = TTAntiDenormal(a0 * xm0[channel] + a1 * xm1[channel] + a2 * xm2[channel]);
     xm2[channel] = xm1[channel];    // update feedback values
