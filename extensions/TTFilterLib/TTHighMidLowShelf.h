@@ -33,7 +33,8 @@ protected:
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
-	
+    /** y = f(x) */
+    inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtr data);
 	
 	
 public:
@@ -52,6 +53,17 @@ public:
 	TTErr setfrequencyMh(const TTValue& value);
 	TTErr clear();
 };
+
+TTErr TTHighMidLowShelf::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtr data)
+{
+    TTPtrSizedInt channel = TTPtrSizedInt(data);
+    xm0[channel] = x + b1 * xm1[channel] + b2 * xm2[channel]; 
+    y = TTAntiDenormal(a0 * xm0[channel] + a1 * xm1[channel] + a2 * xm2[channel]);
+    xm2[channel] = xm1[channel];    // update feedback values
+    xm1[channel] = xm0[channel];
+    return kTTErrNone;
+}
+
 
 
 #endif //  _HIMIDLOW_H_
