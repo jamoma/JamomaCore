@@ -32,6 +32,8 @@ TTLowpassTwoPole::TTLowpassTwoPole(TTUInt16 newMaxNumChannels)
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
 	setAttributeValue(TT("frequency"),		1000.0);
 	setAttributeValue(TT("resonance"),		1.0);
+
+	setCalculateMethod(calculateValue);
 	setProcessMethod(processAudio);
 }
 
@@ -97,32 +99,17 @@ void TTLowpassTwoPole::calculateCoefficients()
 }
 
 
+TTErr TTLowpassTwoPole::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+{
+	y = TTAntiDenormal((feedback1[channel] * coefficientA) - (feedback2[channel] * coefficientB) + (x * coefficientC));
+	feedback2[channel] = feedback1[channel];
+	feedback1[channel] = y;
+	return kTTErrNone;
+}
+
+
 TTErr TTLowpassTwoPole::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTAudioSignal&	in = inputs->getSignal(0);
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		vs;
-	TTSampleValue*	inSample;
-	TTSampleValue*	outSample;
-	TTSampleValue	tempSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
-
-	// This outside loop works through each channel one at a time
-	for(channel=0; channel<numchannels; channel++){
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
-		
-		// This inner loop works through each sample within the channel one at a time
-		while(vs--){
-			tempSample = *inSample++;
-			tempSample = TTAntiDenormal((feedback1[channel] * coefficientA) - (feedback2[channel] * coefficientB) + (tempSample * coefficientC));
-			*outSample++ = tempSample;
-			feedback2[channel] = feedback1[channel];
-			feedback1[channel] = tempSample;
-		}
-	}
-	return kTTErrNone;
+	TT_WRAP_CALCULATE_METHOD(calculateValue);
 }
 

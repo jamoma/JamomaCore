@@ -34,6 +34,8 @@ TTLowpassFourPole::TTLowpassFourPole(TTUInt16 newMaxNumChannels)
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
 	setAttributeValue(TT("frequency"),		1000.0);
 	setAttributeValue(TT("resonance"),		1.0);
+	
+	setCalculateMethod(calculateValue);
 	setProcessMethod(processAudio);
 }
 
@@ -125,42 +127,30 @@ void TTLowpassFourPole::calculateCoefficients()
 }
 
 
+TTErr TTLowpassFourPole::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+{
+	TTSampleValue tempSample = x;
+
+	tempSample -= TTAntiDenormal(y4[channel] * coefficientFB);
+	tempSample *= coefficientG;
+	
+	y1[channel] = TTAntiDenormal(tempSample + 0.3 * x1[channel] + (1 - coefficientF) * y1[channel]);
+	x1[channel] = tempSample;
+	y2[channel] = TTAntiDenormal(y1[channel] + 0.3 * x2[channel] + (1 - coefficientF) * y2[channel]);
+	x2[channel] = y1[channel];
+	y3[channel] = TTAntiDenormal(y2[channel] + 0.3 * x3[channel] + (1 - coefficientF) * y3[channel]);
+	x3[channel] = y2[channel];
+	y4[channel] = TTAntiDenormal(y3[channel] + 0.3 * x4[channel] + (1 - coefficientF) * y4[channel]);
+	x4[channel] = y3[channel];
+	tempSample = y4[channel];
+	
+	y = tempSample;
+	return kTTErrNone;
+}
+
+
 TTErr TTLowpassFourPole::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTAudioSignal&	in = inputs->getSignal(0);
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		vs;
-	TTSampleValue*	inSample;
-	TTSampleValue*	outSample;
-	TTSampleValue	tempSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
-
-	// This outside loop works through each channel one at a time
-	for(channel=0; channel<numchannels; channel++){
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
-		
-		// This inner loop works through each sample within the channel one at a time
-		while(vs--){
-			tempSample = *inSample++;
-			tempSample -= TTAntiDenormal(y4[channel] * coefficientFB);
-			tempSample *= coefficientG;
-			
-			y1[channel] = TTAntiDenormal(tempSample + 0.3 * x1[channel] + (1 - coefficientF) * y1[channel]);
-			x1[channel] = tempSample;
-			y2[channel] = TTAntiDenormal(y1[channel] + 0.3 * x2[channel] + (1 - coefficientF) * y2[channel]);
-			x2[channel] = y1[channel];
-			y3[channel] = TTAntiDenormal(y2[channel] + 0.3 * x3[channel] + (1 - coefficientF) * y3[channel]);
-			x3[channel] = y2[channel];
-			y4[channel] = TTAntiDenormal(y3[channel] + 0.3 * x4[channel] + (1 - coefficientF) * y4[channel]);
-			x4[channel] = y3[channel];
-			tempSample = y4[channel];
-			
-			*outSample++ = tempSample;
-		}
-	}
-	return kTTErrNone;
+	TT_WRAP_CALCULATE_METHOD(calculateValue);
 }
 

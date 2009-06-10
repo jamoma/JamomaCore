@@ -32,6 +32,8 @@ protected:
 
 	void calculateCoefficients();
 	
+	TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
+
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
