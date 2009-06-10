@@ -127,7 +127,7 @@ void TTLowpassFourPole::calculateCoefficients()
 }
 
 
-TTErr TTLowpassFourPole::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+inline TTErr TTLowpassFourPole::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
 	TTSampleValue tempSample = x;
 
