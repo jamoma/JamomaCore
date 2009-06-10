@@ -420,7 +420,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.framework\" \"/Library/Frameworks\"\n";
+			shellScript = "/bin/rm -rfv \"/Library/Frameworks/$PRODUCT_NAME.framework\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.framework\" \"/Library/Frameworks\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
