@@ -368,6 +368,7 @@
 				222B17B90F1D4009008B1A46 /* Resources */,
 				222B17BA0F1D4009008B1A46 /* Sources */,
 				222B17F50F1D4009008B1A46 /* Frameworks */,
+				22CC01940FDFDF8C0024A915 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -406,6 +407,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		22CC01940FDFDF8C0024A915 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.framework\" \"/Library/Frameworks\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		222B17BA0F1D4009008B1A46 /* Sources */ = {
