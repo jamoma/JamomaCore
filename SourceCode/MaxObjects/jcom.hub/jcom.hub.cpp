@@ -313,6 +313,9 @@ void hub_free(t_hub *x)
 	object_free(x->preset_interface);
 	jamoma_hub_remove(x->osc_name);
 
+	// remove the hub from the node tree (and all the sub-nodes too)
+	jamoma_node_unregister(x->osc_name);
+
 	atom_setsym(a, x->attr_name);
 	atom_setsym(a+1, x->osc_name);
 	object_method_typed(g_jcom_send_notifications, gensym("module.removed"), 2, a, NULL);
@@ -386,10 +389,12 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 	new_subscriber->type = type;
 
 	// add the param in the tree as a node of the hub : /hub/param
-	strcpy(fullAddress,x->osc_name->s_name);
-	strcat(fullAddress,"/");
-	strcat(fullAddress,name->s_name);
-	jamoma_node_register(gensym(fullAddress), type, subscriber_object);
+	if(x->osc_name != _sym_nothing){
+		strcpy(fullAddress,x->osc_name->s_name);
+		strcat(fullAddress,"/");
+		strcat(fullAddress,name->s_name);
+		jamoma_node_register(gensym(fullAddress), type, subscriber_object);
+	}
 
 	critical_enter(0);
 	// Merge new subscriber into subscriber list sorted alphabetically
@@ -1399,7 +1404,7 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		}
 
 		// Register with the tree ...
-		err = jamoma_node_register(x->osc_name, gensym("hub"), (t_object *)x);
+		jamoma_node_register(x->osc_name, gensym("hub"), (t_object *)x);
 
 		// Register with the framework, and making sure this name hasn't already been used...
 		// TODO: is the framework making sure that this t_object is unique and hasn't already been registered?

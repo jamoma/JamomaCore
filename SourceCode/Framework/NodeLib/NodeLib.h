@@ -26,6 +26,12 @@ typedef TTList* TTListPtr;
 static JamomaNodePtr		jamoma_node_root = NULL;		// a root to make a namespace tree of all modules, params, ...
 static TTHashPtr			jamoma_node_hashtab = NULL;		// a hashtab to map each address of the tree to a node pointer
 
+#define NO_NAME TT("")
+#define NO_INSTANCE TT("")
+#define NO_TYPE TT("")
+#define NO_PARENT TT("")
+#define NO_ATTRIBUTE TT("")
+
 /**
 	We build a tree of nodes, and you can request a pointer for any node, or add an observer to any node, etc.
 	
@@ -72,7 +78,7 @@ protected:
 	// future ideas: not immediately critical:
 	// HashtabPtr	properties				///< if we wish to cache this information for speed, this is where we would do it
 	
-	/**	The Jamoma node tree's root node - e.g. the container at the '/' address				*/
+	/**	The Jamoma node tree's root node - e.g. the container at the '/root_name' address				*/
 	static JamomaNodePtr root;
 	
 	/**	A fast lookup table that maps an entire address quickly and directly to a JamomaNode.	*/
@@ -87,12 +93,18 @@ public:
 	/** Destroy a node. */
 	virtual ~JamomaNode();
 
-	TTSymbolPtr	getName();
-	TTSymbolPtr	getInstance();
-	TTSymbolPtr	getType();
-	ObjectPtr	getMaxObject();
+	TTSymbolPtr		getName();
+	TTErr			setName(TTSymbolPtr name);
+
+	TTSymbolPtr		getInstance();
+	TTErr			setInstance(TTSymbolPtr instance);
+
+	TTSymbolPtr		getType();
+	ObjectPtr		getMaxObject();
 	JamomaNodePtr	getParent();
-	TTHashPtr	getChildren();
+	TTHashPtr		getChildren();
+
+	TTErr			addChild(JamomaNodePtr child);
 
 	/*
 		We have methods:
@@ -211,7 +223,7 @@ extern "C" {
 	/** Return the type of a node*/
 	t_symbol *	jamoma_node_type(JamomaNodePtr node);
 
-	/** Return all children of a node*/
+	/** Return all children of a node */
 	LinkedListPtr	jamoma_node_children(JamomaNodePtr node);
 
 	/** Free the root of the tree and all the tree */
