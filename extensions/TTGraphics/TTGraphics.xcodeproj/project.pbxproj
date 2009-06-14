@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		221402260FE580AB000E4AF6 /* TTGraphicsPane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221402240FE580AB000E4AF6 /* TTGraphicsPane.cpp */; };
+		221402270FE580AB000E4AF6 /* TTGraphicsPane.h in Headers */ = {isa = PBXBuildFile; fileRef = 221402250FE580AB000E4AF6 /* TTGraphicsPane.h */; };
 		2217FA9F0E4F284500806778 /* TTGraphicsWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2217FA950E4F284500806778 /* TTGraphicsWindow.cpp */; };
 		2217FAA00E4F284500806778 /* TTGraphicsWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 2217FA960E4F284500806778 /* TTGraphicsWindow.h */; };
 		221A3EF80FBF9E0F00EE6C04 /* TTGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221A3EF70FBF9E0F00EE6C04 /* TTGraphics.cpp */; };
@@ -33,6 +35,8 @@
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		221402240FE580AB000E4AF6 /* TTGraphicsPane.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = TTGraphicsPane.cpp; sourceTree = "<group>"; };
+		221402250FE580AB000E4AF6 /* TTGraphicsPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGraphicsPane.h; sourceTree = "<group>"; };
 		2217FA950E4F284500806778 /* TTGraphicsWindow.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = TTGraphicsWindow.cpp; sourceTree = "<group>"; };
 		2217FA960E4F284500806778 /* TTGraphicsWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGraphicsWindow.h; sourceTree = "<group>"; };
 		221A3EF70FBF9E0F00EE6C04 /* TTGraphics.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = TTGraphics.cpp; sourceTree = "<group>"; };
@@ -110,6 +114,8 @@
 				221A3EF70FBF9E0F00EE6C04 /* TTGraphics.cpp */,
 				2217FA960E4F284500806778 /* TTGraphicsWindow.h */,
 				2217FA950E4F284500806778 /* TTGraphicsWindow.cpp */,
+				221402250FE580AB000E4AF6 /* TTGraphicsPane.h */,
+				221402240FE580AB000E4AF6 /* TTGraphicsPane.cpp */,
 				221A3EFB0FBFA3D700EE6C04 /* TTGraphicsContext.h */,
 				221A3EFA0FBFA3D700EE6C04 /* TTGraphicsContext.cpp */,
 				221A3EFD0FBFA3D700EE6C04 /* TTGraphicsSurface.h */,
@@ -156,6 +162,7 @@
 				2267C72C0FC3267F005D174F /* cairo-svg.h in Headers */,
 				2267C72D0FC3267F005D174F /* cairo-version.h in Headers */,
 				2267C72E0FC3267F005D174F /* cairo.h in Headers */,
+				221402270FE580AB000E4AF6 /* TTGraphicsPane.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +230,7 @@
 				221A3EF80FBF9E0F00EE6C04 /* TTGraphics.cpp in Sources */,
 				221A3EFE0FBFA3D700EE6C04 /* TTGraphicsContext.cpp in Sources */,
 				221A3F000FBFA3D700EE6C04 /* TTGraphicsSurface.cpp in Sources */,
+				221402260FE580AB000E4AF6 /* TTGraphicsPane.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

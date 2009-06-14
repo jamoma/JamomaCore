@@ -25,7 +25,8 @@
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code here.
+        ownsWindow = NO;
+		x = NULL;
     }
     return self;
 }
@@ -37,10 +38,20 @@
 
 - (void)drawRect:(NSRect)rect 
 { 
-    CGContext *context = (CGContext*)[[NSGraphicsContext currentContext] graphicsPort]; 
+	cairo_surface_t*	surface = NULL;
+	CGContext*			context = NULL;
 	
-    cairo_surface_t *surface = cairo_quartz_surface_create_for_cg_context(context, (int)rect.size.width, (int)rect.size.height); 
-//    cairo_t *cairoContext = cairo_create(surface); 
+	if (ownsWindow) {
+		context = (CGContext*)[[NSGraphicsContext currentContext] graphicsPort]; 
+	}
+	else {
+		NSWindow*	window = [self window];
+
+		context = (CGContext*)[window context];
+//		cairoContext = 
+	}
+	surface = cairo_quartz_surface_create_for_cg_context(context, (int)rect.size.width, (int)rect.size.height); 
+	//    cairo_t *cairoContext = cairo_create(surface); 
 	
 	x->context->cairoContext = cairo_create(surface);
 	x->draw();
@@ -135,6 +146,7 @@ TTErr TTGraphicsWindow::front()
 
 		theContentView = [[TTGraphicsContentView alloc] initWithFrame:bounds];
 		theContentView->x = this;
+		theContentView->ownsWindow = YES;
 		[theWindow setContentView:theContentView];
 		
 		windowDelegate = [[TTCocoaWindowDelegate alloc] init];

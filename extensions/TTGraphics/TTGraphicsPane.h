@@ -1,16 +1,21 @@
 /* 
- * TTGraphicsWindow Object for Jamoma
+ * TTGraphicsPane Object for Jamoma
  * Copyright © 2009 by Timothy Place
+ *
+ * Like a TTGraphicsWindow, but without he window...
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TTGRAPHICSWINDOW_H__
-#define __TTGRAPHICSWINDOW_H__
+#ifndef __TTGRAPHICSPANE_H__
+#define __TTGRAPHICSPANE_H__
 
 #include "TTBlueAPI.h"
 #include "TTGraphicsContext.h"
+//#ifdef TTGRAPHICS_EXTENSION
+#include "TTGraphicsWindow.h"	// contains objc NSView subclass (which should probably be in its own file)
+//#endif
 
 #ifdef TT_PLATFORM_MAC
 //#include <Carbon/Carbon.h>
@@ -26,41 +31,20 @@
 /****************************************************************************************************/
 // Class Specifications
 
-class TTGraphicsWindow;
 
 
-@interface TTGraphicsContentView : NSView
-{
-@public
-	TTGraphicsWindow*	x;
-	TTBoolean			ownsWindow;
-}
-@end
-
-
-
-
-// A delegate class used for getting events from the NSWindow used by AudioUnit's
-// that have a Cocoa view instead of a Carbon view.
-
-@interface TTCocoaWindowDelegate : NSObject
-{
-@public
-	TTGraphicsWindow*	x;
-}
-- (BOOL)windowWillClose:(NSNotification *)notification;
-@end
-
-
-
-/**	Creates/Manages a Window on the host operating system.	*/
-class TTGraphicsWindow : public TTObject {
-	TTSymbolPtr				title;			///< Window's title	
-	TTCocoaWindowDelegate*	windowDelegate;
+/**	Creates/Manages a 'Pane' within a window on the host operating system.	*/
+class TTGraphicsPane : public TTObject {
+//	TTSymbolPtr				title;			///< Window's title	
+//	TTCocoaWindowDelegate*	windowDelegate;
 	
 public:
-	NSWindow*				theWindow;
+//	NSWindow*				theWindow;
+#ifdef TTGRAPHICS_EXTENSION
 	TTGraphicsContentView*	theContentView;
+#else
+	TTPtr					theContentView;
+#endif
 	NSRect					bounds;			///< Window coords
 //	cairo_surface_t*		windowSurface;
 	TTGraphicsContext*		context;
@@ -69,8 +53,8 @@ protected:
 	TTErr updateTitle();
 
 public:
-	TTGraphicsWindow(const TTValue& v);
-	virtual ~TTGraphicsWindow();
+	TTGraphicsPane(const TTValue& v);
+	virtual ~TTGraphicsPane();
 
 	/**	Bring the window to the front and give it keyboard focus.	*/
 	TTErr front();
@@ -88,4 +72,4 @@ public:
 };
 
 
-#endif // __TTGRAPHICSWINDOW_H__
+#endif // __TTGRAPHICSPANE_H__
