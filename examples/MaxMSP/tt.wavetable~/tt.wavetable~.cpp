@@ -69,17 +69,18 @@ int main(void)
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout", 	A_CANT, 0);  
 
 	CLASS_ATTR_SYM(c,		"mode",				0,		t_wavetable,	attrMode);
-	CLASS_ATTR_ACCESSORS(c,	"mode",				NULL,	wavetable_setMode);
+	CLASS_ATTR_ACCESSORS(c,	"mode",				NULL,	wavetable_setMode);     
+	CLASS_ATTR_ENUM(c,		"mode",				0,		"sine cosine square triangle ramp sawtooth sineMod cosineMod squareMod triangleMod rampMod sawtoothMod");
 	
 	CLASS_ATTR_SYM(c,		"interpolation",	0,		t_wavetable,	attrInterpolation);
 	CLASS_ATTR_ACCESSORS(c,	"interpolation",	NULL,	wavetable_setInterpolation);
+	CLASS_ATTR_ENUM(c,		"interpolation",	0,		"none linear");
 	
 	CLASS_ATTR_FLOAT(c,		"frequency",		0,		t_wavetable,	attrFrequency);
 	CLASS_ATTR_ACCESSORS(c,	"frequency",		NULL,	wavetable_setFrequency);
-
+	
 	CLASS_ATTR_FLOAT(c,		"gain",				0,		t_wavetable,	attrGain);
 	CLASS_ATTR_ACCESSORS(c,	"gain",				NULL,	wavetable_setGain);
-	
 	class_dspinit(c);
 	class_register(CLASS_BOX, c);
 	s_wavetable_class = c;
