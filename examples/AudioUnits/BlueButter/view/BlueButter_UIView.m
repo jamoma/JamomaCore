@@ -1,44 +1,4 @@
-/*	Copyright © 2007 Apple Inc. All Rights Reserved.
-	
-	Disclaimer: IMPORTANT:  This Apple software is supplied to you by 
-			Apple Inc. ("Apple") in consideration of your agreement to the
-			following terms, and your use, installation, modification or
-			redistribution of this Apple software constitutes acceptance of these
-			terms.  If you do not agree with these terms, please do not use,
-			install, modify or redistribute this Apple software.
-			
-			In consideration of your agreement to abide by the following terms, and
-			subject to these terms, Apple grants you a personal, non-exclusive
-			license, under Apple's copyrights in this original Apple software (the
-			"Apple Software"), to use, reproduce, modify and redistribute the Apple
-			Software, with or without modifications, in source and/or binary forms;
-			provided that if you redistribute the Apple Software in its entirety and
-			without modifications, you must retain this notice and the following
-			text and disclaimers in all such redistributions of the Apple Software. 
-			Neither the name, trademarks, service marks or logos of Apple Inc. 
-			may be used to endorse or promote products derived from the Apple
-			Software without specific prior written permission from Apple.  Except
-			as expressly stated in this notice, no other rights or licenses, express
-			or implied, are granted by Apple herein, including but not limited to
-			any patent rights that may be infringed by your derivative works or by
-			other works in which the Apple Software may be incorporated.
-			
-			The Apple Software is provided by Apple on an "AS IS" basis.  APPLE
-			MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION
-			THE IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS
-			FOR A PARTICULAR PURPOSE, REGARDING THE APPLE SOFTWARE OR ITS USE AND
-			OPERATION ALONE OR IN COMBINATION WITH YOUR PRODUCTS.
-			
-			IN NO EVENT SHALL APPLE BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL
-			OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-			SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-			INTERRUPTION) ARISING IN ANY WAY OUT OF THE USE, REPRODUCTION,
-			MODIFICATION AND/OR DISTRIBUTION OF THE APPLE SOFTWARE, HOWEVER CAUSED
-			AND WHETHER UNDER THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE),
-			STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
-			POSSIBILITY OF SUCH DAMAGE.
-*/
-#import "AppleDemoFilter_UIView.h"
+#import "BlueButter_UIView.h"
 
 enum
 {
@@ -57,19 +17,46 @@ extern NSString *kGraphViewEndGestureNotification;	// notification broadcast by 
 // This listener responds to parameter changes, gestures, and property notifications
 void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEvent *inEvent, UInt64 inHostTime, Float32 inValue)
 {
-	AppleDemoFilter_UIView *SELF = (AppleDemoFilter_UIView *)inRefCon;
+	BlueButter_UIView *SELF = (BlueButter_UIView *)inRefCon;
 	[SELF priv_eventListener:inObject event: inEvent value: inValue];
 }
 
-@implementation AppleDemoFilter_UIView
 
--(void) awakeFromNib {
-	NSString *path = [[NSBundle bundleForClass: [AppleDemoFilter_UIView class]] pathForImageResource: @"SectionPatternLight"];
-	NSImage *pattern = [[NSImage alloc] initByReferencingFile: path];
-	mBackgroundColor = [[NSColor colorWithPatternImage: [pattern autorelease]] retain];
-}
+
+
+
+@implementation BlueButter_UIView
+
+//-(void) awakeFromNib {
+//	NSString *path = [[NSBundle bundleForClass: [BlueButter_UIView class]] pathForImageResource: @"SectionPatternLight"];
+//	NSImage *pattern = [[NSImage alloc] initByReferencingFile: path];
+//	mBackgroundColor = [[NSColor colorWithPatternImage: [pattern autorelease]] retain];
+//}
+
 
 #pragma mark ____ (INIT /) DEALLOC ____
+
+/**********/
+
+- (id)initWithFrame:(NSRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code here.
+		
+		// TODO: create TTGraphicsSurface
+		
+    }
+    return self;
+}
+
+- (BOOL)isFlipped
+{
+	return YES;
+}
+
+
+/**********/
+
 - (void)dealloc {
     [self priv_removeListeners];
 	[mBackgroundColor release];
@@ -81,6 +68,7 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
     [super dealloc];
 }
 
+
 #pragma mark ____ PUBLIC FUNCTIONS ____
 - (void)setAU:(AudioUnit)inAU {
 	// remove previous listeners
@@ -90,14 +78,14 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 	if (!mData)											// only allocate the data once
 		mData = malloc(kNumberOfResponseFrequencies * sizeof(FrequencyResponse));
 	
-	mData = [graphView prepareDataForDrawing: mData];	// fill out the initial frequency values for the data displayed by the graph
+//	mData = [graphView prepareDataForDrawing: mData];	// fill out the initial frequency values for the data displayed by the graph
 
 	// register for resize notification and data changes for the graph view
-	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleGraphDataChanged:) name: kGraphViewDataChangedNotification object: graphView];
-	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleGraphSizeChanged:) name: NSViewFrameDidChangeNotification  object: graphView];
-
-	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(beginGesture:) name: kGraphViewBeginGestureNotification object: graphView];
-	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(endGesture:) name: kGraphViewEndGestureNotification object: graphView];
+//	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleGraphDataChanged:) name: kGraphViewDataChangedNotification object: graphView];
+//	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleGraphSizeChanged:) name: NSViewFrameDidChangeNotification  object: graphView];
+//
+//	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(beginGesture:) name: kGraphViewBeginGestureNotification object: graphView];
+//	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(endGesture:) name: kGraphViewEndGestureNotification object: graphView];
 
 	mAU = inAU;
     
@@ -108,13 +96,30 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 	[self priv_synchronizeUIWithParameterValues];
 }
 
+
+
+
+
+
+
+
+
 - (void)drawRect:(NSRect)rect
 {
 	[mBackgroundColor set];
 	NSRectFill(rect);		// this call is much faster than using NSBezierPath, but it doesn't handle non-opaque colors
 	
+	// Copy bitmap from TTGraphicsSurface
+	
 	[super drawRect: rect];	// we call super to draw all other controls after we have filled the background
 }
+
+
+
+
+
+
+
 
 #pragma mark ____ INTERFACE ACTIONS ____
 
@@ -135,21 +140,22 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 }
 
 - (void) handleGraphDataChanged:(NSNotification *) aNotification {
-	float resonance = [graphView getRes];
-	float cutoff	= [graphView getFreq];
+//	float resonance = [graphView getRes];
+//	float cutoff	= [graphView getFreq];
 	
 	AudioUnitParameter cutoffParameter		= {mAU, kFilterParam_CutoffFrequency, kAudioUnitScope_Global, 0 };
 	AudioUnitParameter resonanceParameter	= {mAU, kFilterParam_Resonance, kAudioUnitScope_Global, 0 };
 	
-	NSAssert(	AUParameterSet(mAUEventListener, cutoffFrequencyField, &cutoffParameter, (Float32)cutoff, 0) == noErr,
-                @"[AppleDemoFilter_UIView cutoffFrequencyChanged:] AUParameterSet()");
-
-	NSAssert(	AUParameterSet(mAUEventListener, resonanceField, &resonanceParameter, (Float32)resonance, 0) == noErr,
-                @"[AppleDemoFilter_UIView resonanceChanged:] AUParameterSet()");
+//	NSAssert(	AUParameterSet(mAUEventListener, cutoffFrequencyField, &cutoffParameter, (Float32)cutoff, 0) == noErr,
+  //              @"[AppleDemoFilter_UIView cutoffFrequencyChanged:] AUParameterSet()");
+//
+//	NSAssert(	AUParameterSet(mAUEventListener, resonanceField, &resonanceParameter, (Float32)resonance, 0) == noErr,
+  //              @"[AppleDemoFilter_UIView resonanceChanged:] AUParameterSet()");
 }
 
+
 - (void) handleGraphSizeChanged:(NSNotification *) aNotification {
-	mData = [graphView prepareDataForDrawing: mData];	// the size of the graph has changed so we need the graph to reconfigure the data frequencies that it needs to draw
+//	mData = [graphView prepareDataForDrawing: mData];	// the size of the graph has changed so we need the graph to reconfigure the data frequencies that it needs to draw
 	
 	// get the curve data from the audio unit
 	UInt32 dataSize = kNumberOfResponseFrequencies * sizeof(FrequencyResponse);
@@ -159,11 +165,12 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 													0,
 													mData,
 													&dataSize);
-	if (result == noErr)
-		[graphView plotData: mData];	// ask the graph view to plot the new data
-	else if (result == kAudioUnitErr_Uninitialized)
-		[graphView disableGraphCurve];
+//	if (result == noErr)
+//		[graphView plotData: mData];	// ask the graph view to plot the new data
+//	else if (result == kAudioUnitErr_Uninitialized)
+//		[graphView disableGraphCurve];
 }
+
 
 - (void) beginGesture:(NSNotification *) aNotification {
 	AudioUnitEvent event;
@@ -177,6 +184,7 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 	AUEventListenerNotify (mAUEventListener, self, &event);
 }
 
+
 - (void) endGesture:(NSNotification *) aNotification {
 	AudioUnitEvent event;
 	AudioUnitParameter parameter = {mAU, kFilterParam_CutoffFrequency, kAudioUnitScope_Global, 0 };
@@ -188,6 +196,7 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 	event.mArgument.mParameter.mParameterID = kFilterParam_Resonance;
 	AUEventListenerNotify (mAUEventListener, self, &event);	
 }
+
 
 void addParamListener (AUEventListenerRef listener, void* refCon, AudioUnitEvent *inEvent)
 {
@@ -245,10 +254,10 @@ void addParamListener (AUEventListenerRef listener, void* refCon, AudioUnitEvent
 													0,
 													mData,
 													&dataSize);
-	if (result == noErr)
-		[graphView plotData: mData];	// plot the new curve data and redraw the graph
-	else if (result == kAudioUnitErr_Uninitialized)
-		[graphView disableGraphCurve];
+//	if (result == noErr)
+//		[graphView plotData: mData];	// plot the new curve data and redraw the graph
+//	else if (result == kAudioUnitErr_Uninitialized)
+//		[graphView disableGraphCurve];
 }
 
 - (void)priv_synchronizeUIWithParameterValues {
@@ -262,10 +271,10 @@ void addParamListener (AUEventListenerRef listener, void* refCon, AudioUnitEvent
 //	NSAssert (	AudioUnitGetParameter(mAU, kFilterParam_Resonance, kAudioUnitScope_Global, 0, &resValue) == noErr,
 //				@"[AppleDemoFilter_UIView priv_synchronizeUIWithParameterValues] (x.1)");
 	
-	[cutoffFrequencyField setFloatValue: freqValue];	// update the frequency text field
-	[graphView setFreq: freqValue];					// update the graph's frequency visual state
-	[resonanceField setFloatValue: resValue];		// update the resonance text field
-	[graphView setRes: resValue];					// update the graph's gain visual state
+//	[cutoffFrequencyField setFloatValue: freqValue];	// update the frequency text field
+//	[graphView setFreq: freqValue];					// update the graph's frequency visual state
+//	[resonanceField setFloatValue: resValue];		// update the resonance text field
+//	[graphView setRes: resValue];					// update the graph's gain visual state
 	[self updateCurve];
 }
 
@@ -276,22 +285,22 @@ void addParamListener (AUEventListenerRef listener, void* refCon, AudioUnitEvent
 		case kAudioUnitEvent_ParameterValueChange:					// Parameter Changes
 			switch (inEvent->mArgument.mParameter.mParameterID) {
 				case kFilterParam_CutoffFrequency:					// handle cutoff frequency parameter
-					[cutoffFrequencyField setFloatValue: inValue];	// update the frequency text field
-					[graphView setFreq: inValue];					// update the graph's frequency visual state
+//					[cutoffFrequencyField setFloatValue: inValue];	// update the frequency text field
+//					[graphView setFreq: inValue];					// update the graph's frequency visual state
 					break;
 				case kFilterParam_Resonance:						// handle resonance parameter
-					[resonanceField setFloatValue: inValue];		// update the resonance text field
-					[graphView setRes: inValue];					// update the graph's gain visual state
+//					[resonanceField setFloatValue: inValue];		// update the resonance text field
+//					[graphView setRes: inValue];					// update the graph's gain visual state
 					break;					
 			}
 			// get the curve data from the audio unit
 			[self updateCurve];
 			break;
 		case kAudioUnitEvent_BeginParameterChangeGesture:			// Begin gesture
-			[graphView handleBeginGesture];							// notify graph view to update visual state
+//			[graphView handleBeginGesture];							// notify graph view to update visual state
 			break;
 		case kAudioUnitEvent_EndParameterChangeGesture:				// End gesture
-			[graphView handleEndGesture];							// notify graph view to update visual state
+//			[graphView handleEndGesture];							// notify graph view to update visual state
 			break;
 		case kAudioUnitEvent_PropertyChange:						// custom property changed
 			if (inEvent->mArgument.mProperty.mPropertyID == kAudioUnitCustomProperty_FilterFrequencyResponse)
