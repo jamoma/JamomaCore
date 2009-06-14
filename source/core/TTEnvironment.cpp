@@ -132,6 +132,11 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 }
 
 
+TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObjectPtr* anObject, const TTValue& anArgument)
+{
+	return createInstance(className, anObject, (TTValue&)anArgument); // throw away the const (I know, I know...), maybe the non-const constructor shouldn't exist at all?
+}
+
 TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObjectPtr* anObject, TTValue& anArgument)
 {
 	TTValue		v;
@@ -215,6 +220,22 @@ TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returne
 }
 
 TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, TTValue& arguments)
+{
+	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, arguments);
+}
+
+
+TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const TTValue& arguments)
+{
+	return ttEnvironment->createInstance(className, returnedObjectPtr, arguments);
+}
+
+TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTValue& arguments)
+{
+	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, arguments);
+}
+
+TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTValue& arguments)
 {
 	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, arguments);
 }

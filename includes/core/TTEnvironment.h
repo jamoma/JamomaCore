@@ -112,6 +112,7 @@ public:
 							For this reason, we overload this method with a TTUint16 argument as a convenience.
 		@return				An error code.	*/
 	TTErr createInstance(const TTSymbolPtr className, TTObjectPtr* anObject, TTValue& anArgument);
+	TTErr createInstance(const TTSymbolPtr className, TTObjectPtr* anObject, const TTValue& anArgument);
 	
 	
 	/**	Create a reference to an object. */
@@ -145,6 +146,10 @@ extern TTEXPORT TTEnvironment* ttEnvironment;
 TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, TTValue& arguments);
 TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, TTValue& arguments);
 TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, TTValue& arguments);
+
+TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const TTValue& arguments);
+TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTValue& arguments);
+TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTValue& arguments);
 
 TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
 TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
