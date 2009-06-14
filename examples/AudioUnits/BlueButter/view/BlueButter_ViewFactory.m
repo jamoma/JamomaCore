@@ -1,7 +1,10 @@
 #import "BlueButter_ViewFactory.h"
 #import "BlueButter_UIView.h"
+#import "mypainter.h"
 
 @implementation BlueButterView_ViewFactory
+
+static bool sInit = false;
 
 // version 0
 - (unsigned) interfaceVersion {
@@ -21,6 +24,12 @@
 //		return nil;
 //	}
     
+	if (!sInit) {
+		TTBlueInit();
+		TTClassRegister(TT("MyAUPainter"), "graphics", &instantiateMyAUPainter);
+		sInit = true;
+	}
+	
 	BlueButter_UIView* uiFreshlyLoadedView = [[BlueButter_UIView alloc] init];
 	
     // This particular nib has a fixed size, so we don't do anything with the inPreferredSize argument.

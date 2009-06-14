@@ -2,20 +2,28 @@
 #import <AudioUnit/AudioUnit.h>
 #import <AudioToolbox/AudioToolbox.h>
 
+#import "TTBlueAPI.h"
+#import "TTGraphicsPane.h"
+
 #import "BlueButter_GraphView.h"
 #import "Filter.h"
 
 
 //@interface AppleDemoFilter_UIView : NSView
-@interface BlueButter_UIView : NSView
+//@interface BlueButter_UIView : NSView
+@interface BlueButter_UIView : TTGraphicsContentView
 {	
 //	IBOutlet AppleDemoFilter_GraphView	*graphView;
 //	IBOutlet NSTextField				*cutoffFrequencyField;
 //	IBOutlet NSTextField				*resonanceField;
 	
+	TTObjectPtr				myAUPainter;
+	
     // Other Members
     AudioUnit 				mAU;
 	AUEventListenerRef		mAUEventListener;
+	
+	NSRect					mRect;
 	
 	FrequencyResponse 	   *mData;				// the data used to draw the filter curve
 	NSColor				   *mBackgroundColor;	// the background color (pattern) of the view
