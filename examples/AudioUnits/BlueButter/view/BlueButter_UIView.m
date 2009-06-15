@@ -26,41 +26,12 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 @implementation BlueButter_UIView
 
 -(void) awakeFromNib {
-	NSString *path = [[NSBundle bundleForClass: [BlueButter_UIView class]] pathForImageResource: @"SectionPatternLight"];
-	NSImage *pattern = [[NSImage alloc] initByReferencingFile: path];
-//	mBackgroundColor = [[NSColor colorWithPatternImage: [pattern autorelease]] retain];
 	myAUPainter = NULL;
 	TTObjectInstantiate(TT("MyAUPainter"), &myAUPainter, 0);
 }
 
 
 /**********/
-/*
-- (id)initWithFrame:(NSRect)frame 
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-		TTValue v;
-		
-		v = (TTPtr)self;
-		myAUPainter = NULL;
-		mRect = frame;
-//		TTObjectInstantiate(TT("TTGraphicsPane"), (TTObjectPtr*)&mPane, v);
-		TTObjectInstantiate(TT("MyAUPainter"), &myAUPainter, v);
-//		mAUPainter->theContentView = self;
-        // More Initialization code here if we need it...
- 
-//	    [super initWithFrame: NSMakeRect (0, 0, editorComp_->getWidth(), editorComp_->getHeight())];
-		[self setHidden: NO];
-		[self setPostsFrameChangedNotifications: YES];
-		
-//		mImage = NULL;
-//		mImageView = [[NSImageView alloc] initWithFrame:frame];
-//		[self addSubview:mImageView];
-	}
-    return self;
-}
-*/
 
 - (void)dealloc 
 {
@@ -133,7 +104,7 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 		mImage = NULL;
 	}	
 	
-//	myAUPainter->setAttributeValue(TT("mode"), TT("arc"));
+	myAUPainter->setAttributeValue(TT("mode"), TT("arc"));
 	
 	err = myAUPainter->sendMessage(TT("paint"));
 	err = myAUPainter->sendMessage(TT("getData"), v);
@@ -167,55 +138,26 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 		for (int y=0; y<height; y++) {
 			for (int x=0; x<width; x++) {
 				int offset = (y * stride) + (x * 4);
-				unsigned int pixel = bytes[offset];// & 0x00FFFFFF;
-				char c[4];
-				NSUInteger d[4];
-				
-	//			c[3] = (pixel & 0xFF000000) >> 24;	// alpha
-	//			c[0] = (pixel & 0x00FF0000) >> 16;	// red
-	//			c[1] = (pixel & 0x0000FF00) >> 8;	// green
-	//			c[2] = (pixel & 0x000000FF);		// blue			// actual red?
-				
-//				c[3] = (pixel & 0xFF000000) >> 24;	// alpha
-//				c[3] = 0;
-//				c[0] = (pixel & 0x00FF0000) >> 16;	// red
-//				c[0] = 0;
-//				c[1] = (pixel & 0x0000FF00) >> 8;	// green
-//				c[2] = (pixel & 0x000000FF);		// blue			// actual red?
-
-//				c[0] = bytes[offset+3];
-//				c[1] = bytes[offset+2];
-//				c[2] = bytes[offset+1];
-//				c[3] = bytes[offset+0];
-				
-				d[0] = bytes[offset+0];
+				NSUInteger d[5];
+								
+				d[2] = bytes[offset+0];
 				d[1] = bytes[offset+1];
-				d[2] = bytes[offset+2];
+				d[0] = bytes[offset+2];
 				d[3] = bytes[offset+3];
+				d[4] = 0;
 				
-				//				pixel = (pixel >> 8);// + ((pixel & 0xFF000000) >> 24);
-//				[bitmap setPixel:(NSUInteger*)&bytes[offset] atX:x y:y];
-//				return (typestr[0] << 24) | (typestr[1] << 16) | (typestr[2] << 8) | typestr[3];
-
-				
-//				[bitmap setPixel:(NSUInteger*)&pixel atX:x y:y];
 				[bitmap setPixel:(NSUInteger*)d atX:x y:y];
 			}
 		}
 		
 		
-		//		data = [bitmap representationUsingType:NSTIFFFileType properties:NULL];
-		data = [bitmap TIFFRepresentation];
-		[data writeToFile:@"/test.tiff" atomically:NO];
+		// USE THE FOLLOWING FOR DEBUGGING:
+		// data = [bitmap TIFFRepresentation];
+		// [data writeToFile:@"/test.tiff" atomically:NO];
 		
 		mImage = [[NSImage alloc] initWithSize:NSMakeSize(width, height)];
 		[mImage addRepresentation:bitmap];
 		
-//		mImage = [[NSImage alloc] initWithData:data];
-//		[nsData writeToFile:filespec atomically:NO];
-		
-		
-		//[mImage drawAtPoint:NSMakePoint(0.0, 0.0) fromRect:mRect operation:NSCompositeSourceOver fraction:1.0];
 		[imageView setImage:mImage];
 		[imageView setNeedsDisplay:YES];
 	}
