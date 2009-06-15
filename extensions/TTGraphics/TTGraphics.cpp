@@ -9,7 +9,6 @@
 
 #include "TTBlueAPI.h"
 #include "TTGraphicsWindow.h"
-#include "TTGraphicsPane.h"
 #include "TTGraphicsContext.h"
 #include "TTGraphicsSurface.h"
 
@@ -18,8 +17,6 @@ extern "C" TT_EXTENSION_EXPORT TTObjectPtr instantiateTTGraphicsObject(TTSymbolP
 {	
 	if(className == TT("TTGraphicsWindow"))
 		return new TTGraphicsWindow(arguments);
-	else if(className == TT("TTGraphicsPane"))
-		return new TTGraphicsPane(arguments);
 	else if(className == TT("TTGraphicsContext"))
 		return new TTGraphicsContext(arguments);
 	else if(className == TT("TTGraphicsSurface"))
@@ -33,7 +30,6 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	TTBlueInit();
 
 	TTClassRegister(TT("TTGraphicsWindow"),		"graphics",	&instantiateTTGraphicsObject);
-	TTClassRegister(TT("TTGraphicsPane"),		"graphics",	&instantiateTTGraphicsObject);
 	TTClassRegister(TT("TTGraphicsContext"),	"graphics",	&instantiateTTGraphicsObject);
 	TTClassRegister(TT("TTGraphicsSurface"),	"graphics",	&instantiateTTGraphicsObject);
 	
