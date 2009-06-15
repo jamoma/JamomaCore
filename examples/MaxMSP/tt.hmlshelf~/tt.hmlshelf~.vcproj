@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="tt.dcblock~"
+	Name="tt.hmlshelf~"
 	ProjectGUID="{C23B6815-DCAE-46F3-B8C1-0F99821D4DB3}"
-	RootNamespace="tt.dcblock~"
+	RootNamespace="tt.hmlshelf~"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
@@ -187,7 +187,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\tt.dcblock~.cpp"
+				RelativePath=".\tt.hmlshelf~.cpp"
 				>
 			</File>
 			<File
