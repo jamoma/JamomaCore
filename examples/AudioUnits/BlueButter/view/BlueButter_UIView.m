@@ -7,10 +7,10 @@ enum {
 };
 
 
-extern NSString *kGraphViewDataChangedNotification;	// notification broadcast by the view when the user has changed the resonance 
+//extern NSString *kGraphViewDataChangedNotification;	// notification broadcast by the view when the user has changed the resonance 
 													// or cutoff values via directly mousing in the graph view
-extern NSString *kGraphViewBeginGestureNotification;// notification broadcast by the view when the user has started a gesture
-extern NSString *kGraphViewEndGestureNotification;	// notification broadcast by the view when the user has finished a gesture
+//extern NSString *kGraphViewBeginGestureNotification;// notification broadcast by the view when the user has started a gesture
+//extern NSString *kGraphViewEndGestureNotification;	// notification broadcast by the view when the user has finished a gesture
 
 
 
@@ -25,15 +25,17 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 
 @implementation BlueButter_UIView
 
-//-(void) awakeFromNib {
-//	NSString *path = [[NSBundle bundleForClass: [BlueButter_UIView class]] pathForImageResource: @"SectionPatternLight"];
-//	NSImage *pattern = [[NSImage alloc] initByReferencingFile: path];
+-(void) awakeFromNib {
+	NSString *path = [[NSBundle bundleForClass: [BlueButter_UIView class]] pathForImageResource: @"SectionPatternLight"];
+	NSImage *pattern = [[NSImage alloc] initByReferencingFile: path];
 //	mBackgroundColor = [[NSColor colorWithPatternImage: [pattern autorelease]] retain];
-//}
+	myAUPainter = NULL;
+	TTObjectInstantiate(TT("MyAUPainter"), &myAUPainter, 0);
+}
 
 
 /**********/
-
+/*
 - (id)initWithFrame:(NSRect)frame 
 {
     self = [super initWithFrame:frame];
@@ -52,21 +54,23 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 		[self setHidden: NO];
 		[self setPostsFrameChangedNotifications: YES];
 		
-	
+//		mImage = NULL;
+//		mImageView = [[NSImageView alloc] initWithFrame:frame];
+//		[self addSubview:mImageView];
 	}
     return self;
 }
-
+*/
 
 - (void)dealloc 
 {
     [self priv_removeListeners];
-	[mBackgroundColor release];
+//	[mBackgroundColor release];
 		
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 
 	//free (mData);
-
+//	[mImageView release];
 	TTObjectRelease(&myAUPainter);
     [super dealloc];
 }
@@ -87,11 +91,11 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 //	mData = [graphView prepareDataForDrawing: mData];	// fill out the initial frequency values for the data displayed by the graph
 
 	// register for resize notification and data changes for the graph view
-	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleGraphDataChanged:) name: kGraphViewDataChangedNotification object: self];
+	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleGraphDataChanged:) name: @"fe" object: self];
 	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleGraphSizeChanged:) name: NSViewFrameDidChangeNotification  object: self];
 //
-	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(beginGesture:) name: kGraphViewBeginGestureNotification object: self];
-	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(endGesture:) name: kGraphViewEndGestureNotification object: self];
+	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(beginGesture:) name: @"fi" object: self];
+	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(endGesture:) name: @"fo" object: self];
 
 	mAU = inAU;
     
@@ -109,20 +113,112 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 
 
 
-
-
-
-
-
-// inherited:
-- (void)drawRect:(NSRect)rect
+//- (void)drawRect:(NSRect)rect
+- (void) makeButter
 {
-//	[mBackgroundColor set];
-//	NSRectFill(rect);		// this call is much faster than using NSBezierPath, but it doesn't handle non-opaque colors
-//	
-//	// Copy bitmap from TTGraphicsSurface
-//	
-	[super drawRect:rect];	// we call super to draw all other controls after we have filled the background
+	TTValue			v;
+	TTErr			err;
+	NSData*			data = NULL;
+	NSBitmapImageRep*	bitmap = NULL;
+	unsigned char*	bytes = NULL;
+	int				width;
+	int				height;
+	int				stride;
+	
+	if (!myAUPainter)
+		return;
+	
+	if (mImage) {
+		[mImage release];
+		mImage = NULL;
+	}	
+	
+//	myAUPainter->setAttributeValue(TT("mode"), TT("arc"));
+	
+	err = myAUPainter->sendMessage(TT("paint"));
+	err = myAUPainter->sendMessage(TT("getData"), v);
+	if (!err) {
+		bytes = (unsigned char*)TTPtr(v);
+		v.get(1, width);
+		v.get(2, height);
+		v.get(3, stride);
+		
+		bitmap = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL 
+														 pixelsWide:width 
+														 pixelsHigh:height 
+													  bitsPerSample:8 
+													samplesPerPixel:4 
+														   hasAlpha:YES 
+														   isPlanar:NO 
+													 colorSpaceName:NSDeviceRGBColorSpace
+													   bitmapFormat:NSAlphaNonpremultipliedBitmapFormat
+														bytesPerRow:stride 
+													   bitsPerPixel:32];
+
+		// NOW: WE COULD DO THIS:
+		// Create an NSGraphicsContext that draws into the NSBitmapImageRep.  
+		//(This capability is new in Tiger.)
+		//NSGraphicsContext *nsContext = [NSGraphicsContext  
+		//								graphicsContextWithBitmapImageRep:theBitMapToBeSaved];
+		//
+		// more on http://www.cocoabuilder.com/archive/message/cocoa/2005/5/18/136311
+		
+		// That might be better than what I'm about to do, which kinda sucks:
+		for (int y=0; y<height; y++) {
+			for (int x=0; x<width; x++) {
+				int offset = (y * stride) + (x * 4);
+				unsigned int pixel = bytes[offset];// & 0x00FFFFFF;
+				char c[4];
+				NSUInteger d[4];
+				
+	//			c[3] = (pixel & 0xFF000000) >> 24;	// alpha
+	//			c[0] = (pixel & 0x00FF0000) >> 16;	// red
+	//			c[1] = (pixel & 0x0000FF00) >> 8;	// green
+	//			c[2] = (pixel & 0x000000FF);		// blue			// actual red?
+				
+//				c[3] = (pixel & 0xFF000000) >> 24;	// alpha
+//				c[3] = 0;
+//				c[0] = (pixel & 0x00FF0000) >> 16;	// red
+//				c[0] = 0;
+//				c[1] = (pixel & 0x0000FF00) >> 8;	// green
+//				c[2] = (pixel & 0x000000FF);		// blue			// actual red?
+
+//				c[0] = bytes[offset+3];
+//				c[1] = bytes[offset+2];
+//				c[2] = bytes[offset+1];
+//				c[3] = bytes[offset+0];
+				
+				d[0] = bytes[offset+0];
+				d[1] = bytes[offset+1];
+				d[2] = bytes[offset+2];
+				d[3] = bytes[offset+3];
+				
+				//				pixel = (pixel >> 8);// + ((pixel & 0xFF000000) >> 24);
+//				[bitmap setPixel:(NSUInteger*)&bytes[offset] atX:x y:y];
+//				return (typestr[0] << 24) | (typestr[1] << 16) | (typestr[2] << 8) | typestr[3];
+
+				
+//				[bitmap setPixel:(NSUInteger*)&pixel atX:x y:y];
+				[bitmap setPixel:(NSUInteger*)d atX:x y:y];
+			}
+		}
+		
+		
+		//		data = [bitmap representationUsingType:NSTIFFFileType properties:NULL];
+		data = [bitmap TIFFRepresentation];
+		[data writeToFile:@"/test.tiff" atomically:NO];
+		
+		mImage = [[NSImage alloc] initWithSize:NSMakeSize(width, height)];
+		[mImage addRepresentation:bitmap];
+		
+//		mImage = [[NSImage alloc] initWithData:data];
+//		[nsData writeToFile:filespec atomically:NO];
+		
+		
+		//[mImage drawAtPoint:NSMakePoint(0.0, 0.0) fromRect:mRect operation:NSCompositeSourceOver fraction:1.0];
+		[imageView setImage:mImage];
+		[imageView setNeedsDisplay:YES];
+	}
 	[self setNeedsDisplay: YES];
 }
 
@@ -169,7 +265,8 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 //	NSAssert(	AUParameterSet(mAUEventListener, resonanceField, &resonanceParameter, (Float32)resonance, 0) == noErr,
   //              @"[AppleDemoFilter_UIView resonanceChanged:] AUParameterSet()");
 	// request a draw?
-	[self setNeedsDisplay: YES];
+//	[self setNeedsDisplay: YES];
+	[self makeButter];
 }
 
 
@@ -178,19 +275,21 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 //	mData = [graphView prepareDataForDrawing: mData];	// the size of the graph has changed so we need the graph to reconfigure the data frequencies that it needs to draw
 	
 	// get the curve data from the audio unit
-	UInt32 dataSize = kNumberOfResponseFrequencies * sizeof(FrequencyResponse);
-	ComponentResult result = AudioUnitGetProperty(	mAU,
-													kAudioUnitCustomProperty_FilterFrequencyResponse,
-													kAudioUnitScope_Global,
-													0,
-													mData,
-													&dataSize);
+//	UInt32 dataSize = kNumberOfResponseFrequencies * sizeof(FrequencyResponse);
+//	ComponentResult result = AudioUnitGetProperty(	mAU,
+//													kAudioUnitCustomProperty_FilterFrequencyResponse,
+//													kAudioUnitScope_Global,
+//													0,
+//													mData,
+//													&dataSize);
+
 //	if (result == noErr)
 //		[graphView plotData: mData];	// ask the graph view to plot the new data
 //	else if (result == kAudioUnitErr_Uninitialized)
 //		[graphView disableGraphCurve];
 	// request a draw?
-	[self drawRect:mRect];
+//	[self drawRect:mRect];
+	[self makeButter];
 }
 
 
@@ -273,18 +372,22 @@ void addParamListener (AUEventListenerRef listener, void* refCon, AudioUnitEvent
 
 - (void) updateCurve 
 {
-	UInt32 dataSize = kNumberOfResponseFrequencies * sizeof(FrequencyResponse);
-	ComponentResult result = AudioUnitGetProperty(	mAU,
-													kAudioUnitCustomProperty_FilterFrequencyResponse,
-													kAudioUnitScope_Global,
-													0,
-													mData,
-													&dataSize);
+//	UInt32 dataSize = kNumberOfResponseFrequencies * sizeof(FrequencyResponse);
+//	ComponentResult result = AudioUnitGetProperty(	mAU,
+//													kAudioUnitCustomProperty_FilterFrequencyResponse,
+//													kAudioUnitScope_Global,
+//													0,
+//													mData,
+//													&dataSize);
+
 //	if (result == noErr)
 //		[graphView plotData: mData];	// plot the new curve data and redraw the graph
 //	else if (result == kAudioUnitErr_Uninitialized)
 //		[graphView disableGraphCurve];
-	[self drawRect:mRect];	
+//	[self drawRect:mRect];	
+	
+	[self makeButter];
+
 }
 
 

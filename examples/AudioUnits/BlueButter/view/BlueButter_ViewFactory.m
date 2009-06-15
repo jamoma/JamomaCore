@@ -7,22 +7,29 @@
 static bool sInit = false;
 
 // version 0
-- (unsigned) interfaceVersion {
+- (unsigned) interfaceVersion 
+{
 	return 0;
 }
 
+
 // string description of the Cocoa UI
-- (NSString *) description {
+- (NSString *) description 
+{
 	return @"BlueButter Custom View!";
 }
 
+
 // N.B.: this class is simply a view-factory,
 // returning a new autoreleased view each time it's called.
-- (NSView *)uiViewForAudioUnit:(AudioUnit)inAU withSize:(NSSize)inPreferredSize {
-//	if (! [NSBundle loadNibNamed: @"CocoaView" owner:self]) {
-//        NSLog (@"Unable to load nib for view.");
-//		return nil;
-//	}
+- (NSView *)uiViewForAudioUnit:(AudioUnit)inAU withSize:(NSSize)inPreferredSize 
+{
+//	NSRect rect;
+	
+//	rect.origin.x = 0;
+//	rect.origin.y = 0;
+//	rect.size.width = 200.0;
+//	rect.size.height = 200.0;
     
 	if (!sInit) {
 		TTBlueInit();
@@ -30,7 +37,13 @@ static bool sInit = false;
 		sInit = true;
 	}
 	
-	BlueButter_UIView* uiFreshlyLoadedView = [[BlueButter_UIView alloc] init];
+	if (! [NSBundle loadNibNamed: @"CocoaView" owner:self]) {
+		NSLog (@"Unable to load nib for view.");
+		return nil;
+	}
+	
+	
+//	BlueButter_UIView* uiFreshlyLoadedView = [[BlueButter_UIView alloc] initWithFrame:rect];
 	
     // This particular nib has a fixed size, so we don't do anything with the inPreferredSize argument.
     // It's up to the host application to handle.

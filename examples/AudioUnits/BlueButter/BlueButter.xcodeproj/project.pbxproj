@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2214020E0FE57B3F000E4AF6 /* BlueButter_GraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = 221402080FE57B3F000E4AF6 /* BlueButter_GraphView.h */; };
-		2214020F0FE57B3F000E4AF6 /* BlueButter_GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221402090FE57B3F000E4AF6 /* BlueButter_GraphView.m */; };
 		221402100FE57B3F000E4AF6 /* BlueButter_UIView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2214020A0FE57B3F000E4AF6 /* BlueButter_UIView.h */; };
 		221402110FE57B3F000E4AF6 /* BlueButter_UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2214020B0FE57B3F000E4AF6 /* BlueButter_UIView.m */; };
 		221402120FE57B3F000E4AF6 /* BlueButter_ViewFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 2214020C0FE57B3F000E4AF6 /* BlueButter_ViewFactory.h */; };
 		221402130FE57B3F000E4AF6 /* BlueButter_ViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2214020D0FE57B3F000E4AF6 /* BlueButter_ViewFactory.m */; };
-		221402580FE58366000E4AF6 /* TTGraphicsPane.h in Headers */ = {isa = PBXBuildFile; fileRef = 221402570FE58366000E4AF6 /* TTGraphicsPane.h */; };
 		221402C10FE587E0000E4AF6 /* TTGraphics.ttdylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 221402C00FE587E0000E4AF6 /* TTGraphics.ttdylib */; };
 		221402D30FE58C36000E4AF6 /* mypainter.h in Headers */ = {isa = PBXBuildFile; fileRef = 221402D20FE58C36000E4AF6 /* mypainter.h */; };
 		221403240FE591A0000E4AF6 /* TTGraphicsContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 221403230FE591A0000E4AF6 /* TTGraphicsContext.h */; };
@@ -80,13 +77,10 @@
 
 /* Begin PBXFileReference section */
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		221402080FE57B3F000E4AF6 /* BlueButter_GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueButter_GraphView.h; sourceTree = "<group>"; };
-		221402090FE57B3F000E4AF6 /* BlueButter_GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueButter_GraphView.m; sourceTree = "<group>"; };
 		2214020A0FE57B3F000E4AF6 /* BlueButter_UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueButter_UIView.h; sourceTree = "<group>"; };
 		2214020B0FE57B3F000E4AF6 /* BlueButter_UIView.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = BlueButter_UIView.m; sourceTree = "<group>"; };
 		2214020C0FE57B3F000E4AF6 /* BlueButter_ViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueButter_ViewFactory.h; sourceTree = "<group>"; };
 		2214020D0FE57B3F000E4AF6 /* BlueButter_ViewFactory.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = BlueButter_ViewFactory.m; sourceTree = "<group>"; };
-		221402570FE58366000E4AF6 /* TTGraphicsPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphicsPane.h; path = ../../../extensions/TTGraphics/TTGraphicsPane.h; sourceTree = SOURCE_ROOT; };
 		221402C00FE587E0000E4AF6 /* TTGraphics.ttdylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = TTGraphics.ttdylib; path = "/Library/Application Support/TTBlue/Extensions/TTGraphics.ttdylib"; sourceTree = "<absolute>"; };
 		221402D20FE58C36000E4AF6 /* mypainter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mypainter.h; path = view/mypainter.h; sourceTree = "<group>"; };
 		221403230FE591A0000E4AF6 /* TTGraphicsContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphicsContext.h; path = ../../../extensions/TTGraphics/TTGraphicsContext.h; sourceTree = SOURCE_ROOT; };
@@ -217,8 +211,6 @@
 		221402070FE57B3F000E4AF6 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				221402080FE57B3F000E4AF6 /* BlueButter_GraphView.h */,
-				221402090FE57B3F000E4AF6 /* BlueButter_GraphView.m */,
 				2214020A0FE57B3F000E4AF6 /* BlueButter_UIView.h */,
 				2214020B0FE57B3F000E4AF6 /* BlueButter_UIView.m */,
 				2214020C0FE57B3F000E4AF6 /* BlueButter_ViewFactory.h */,
@@ -232,7 +224,6 @@
 			children = (
 				221403230FE591A0000E4AF6 /* TTGraphicsContext.h */,
 				221402D20FE58C36000E4AF6 /* mypainter.h */,
-				221402570FE58366000E4AF6 /* TTGraphicsPane.h */,
 				221402070FE57B3F000E4AF6 /* view */,
 				22FA5ADE0FD5CFEC00A451BC /* FilterDemo_Prefix.pch */,
 				22FA5AD90FD5CFDE00A451BC /* Resources */,
@@ -369,10 +360,8 @@
 				3EEA126F089847F5002C6BFC /* CAVectorUnit.h in Headers */,
 				3EEA1270089847F5002C6BFC /* CAVectorUnitTypes.h in Headers */,
 				22FA5AD60FD5CFB100A451BC /* Filter.h in Headers */,
-				2214020E0FE57B3F000E4AF6 /* BlueButter_GraphView.h in Headers */,
 				221402100FE57B3F000E4AF6 /* BlueButter_UIView.h in Headers */,
 				221402120FE57B3F000E4AF6 /* BlueButter_ViewFactory.h in Headers */,
-				221402580FE58366000E4AF6 /* TTGraphicsPane.h in Headers */,
 				221402D30FE58C36000E4AF6 /* mypainter.h in Headers */,
 				221403240FE591A0000E4AF6 /* TTGraphicsContext.h in Headers */,
 			);
@@ -463,7 +452,6 @@
 				8BA05AE90720742100365D66 /* CAStreamBasicDescription.cpp in Sources */,
 				8BA05B070720754400365D66 /* CAAUParameter.cpp in Sources */,
 				3EEA126E089847F5002C6BFC /* CAVectorUnit.cpp in Sources */,
-				2214020F0FE57B3F000E4AF6 /* BlueButter_GraphView.m in Sources */,
 				221402110FE57B3F000E4AF6 /* BlueButter_UIView.m in Sources */,
 				221402130FE57B3F000E4AF6 /* BlueButter_ViewFactory.m in Sources */,
 			);

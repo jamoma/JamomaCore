@@ -15,21 +15,23 @@
 
 
 class MyAUPainter : public TTObject {
-	TTObjectPtr	graphicsPane;
+	TTObjectPtr	graphicsSurface;
 	TTSymbolPtr	mode;
 	
 public:
 	
 	// Constructor
 	MyAUPainter(const TTValue &v) :
-		TTObject("MyAUPainter"), 
-		graphicsPane(NULL)
+	TTObject("MyAUPainter"), 
+	graphicsSurface(NULL)
 	{
-		TTObjectInstantiate(TT("TTGraphicsPane"), &graphicsPane, v);	// create the surface we will draw to
-		graphicsPane->registerObserverForNotifications(*this);			// cause this object to receive 'draw' messages from the window
+		TTObjectInstantiate(TT("TTGraphicsSurface"), &graphicsSurface, v);	// create the surface we will draw to
+		graphicsSurface->registerObserverForNotifications(*this);			// cause this object to receive 'draw' messages from the window
 		
 		registerAttributeSimple(mode, kTypeSymbol);
+		registerMessageSimple(paint);			// send my the Max object to tell our surface to paint
 		registerMessageWithArgument(draw);			// callback from TTGraphics surface
+		registerMessageWithArgument(getData);
 		
 		setAttributeValue(TT("mode"), TT("hello"));
 	}
@@ -37,8 +39,15 @@ public:
 	// Destructor
 	virtual ~MyAUPainter()
 	{
-		graphicsPane->unregisterObserverForNotifications(*this);
-		TTObjectRelease(&graphicsPane);
+		graphicsSurface->unregisterObserverForNotifications(*this);
+		TTObjectRelease(&graphicsSurface);
+	}
+	
+	
+	TTErr paint()
+	{
+		graphicsSurface->sendMessage(TT("clear"));
+		return graphicsSurface->sendMessage(TT("draw"));
 	}
 	
 	
@@ -75,9 +84,17 @@ public:
 			gc->lineTo(xc, yc);
 			gc->stroke();
 		}
-				
+		
+		// left as an exercise for someone else: implement the other examples @ http://cairographics.org/samples/
+		
 		return kTTErrNone;
 	}
+	
+	
+	TTErr getData(TTValue& v)
+	{
+		return graphicsSurface->sendMessage(TT("getData"), v);
+	}	
 };
 
 

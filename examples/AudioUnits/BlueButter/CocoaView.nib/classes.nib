@@ -1,24 +1,96 @@
-{
-    IBClasses = (
-        {CLASS = "AppleDemoFilter_GraphView"; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
-        {
-            ACTIONS = {cutoffFrequencyChanged = id; resonanceChanged = id; }; 
-            CLASS = "AppleDemoFilter_UIView"; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                cutoffFrequencyField = NSTextField; 
-                graphView = "AppleDemoFilter_GraphView"; 
-                resonanceField = NSTextField; 
-            }; 
-            SUPERCLASS = NSView; 
-        }, 
-        {
-            CLASS = "AppleDemoFilter_ViewFactory"; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {uiFreshlyLoadedView = "AppleDemoFilter_UIView"; }; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>CLASS</key>
+			<string>AppleDemoFilter_ViewFactory</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>uiFreshlyLoadedView</key>
+				<string>AppleDemoFilter_UIView</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSImageView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSControl</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>AppleDemoFilter_GraphView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSView</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>cutoffFrequencyChanged</key>
+				<string>id</string>
+				<key>resonanceChanged</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>BlueButter_UIView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>cutoffFrequencyField</key>
+				<string>NSTextField</string>
+				<key>imageView</key>
+				<string>NSImageView</string>
+				<key>resonanceField</key>
+				<string>NSTextField</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSView</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>cutoffFrequencyChanged</key>
+				<string>id</string>
+				<key>resonanceChanged</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>AppleDemoFilter_UIView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>cutoffFrequencyField</key>
+				<string>NSTextField</string>
+				<key>graphView</key>
+				<string>AppleDemoFilter_GraphView</string>
+				<key>resonanceField</key>
+				<string>NSTextField</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSView</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

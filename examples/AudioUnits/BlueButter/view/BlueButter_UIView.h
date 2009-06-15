@@ -3,19 +3,19 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 #import "TTBlueAPI.h"
-#import "TTGraphicsPane.h"
 
 #import "BlueButter_GraphView.h"
 #import "Filter.h"
 
 
 //@interface AppleDemoFilter_UIView : NSView
-//@interface BlueButter_UIView : NSView
-@interface BlueButter_UIView : TTGraphicsContentView
+@interface BlueButter_UIView : NSView
+//@interface BlueButter_UIView : TTGraphicsContentView
 {	
 //	IBOutlet AppleDemoFilter_GraphView	*graphView;
-//	IBOutlet NSTextField				*cutoffFrequencyField;
-//	IBOutlet NSTextField				*resonanceField;
+	IBOutlet NSTextField				*cutoffFrequencyField;
+	IBOutlet NSTextField				*resonanceField;
+	IBOutlet NSImageView				*imageView;
 	
 	TTObjectPtr				myAUPainter;
 	
@@ -25,12 +25,16 @@
 	
 	NSRect					mRect;
 	
-	FrequencyResponse 	   *mData;				// the data used to draw the filter curve
-	NSColor				   *mBackgroundColor;	// the background color (pattern) of the view
+//	FrequencyResponse 	   *mData;				// the data used to draw the filter curve
+//	NSColor				   *mBackgroundColor;	// the background color (pattern) of the view
+	
+	NSImage*			mImage;
+//	NSImageView*		mImageView;
 }
 
 #pragma mark ____ PUBLIC FUNCTIONS ____
-- (void)setAU:(AudioUnit)inAU;
+- (void) setAU:(AudioUnit)inAU;
+- (void) awakeFromNib;
 
 #pragma mark ____ INTERFACE ACTIONS ____
 - (IBAction) cutoffFrequencyChanged:(id)sender;
