@@ -23,8 +23,10 @@ typedef TTHash* TTHashPtr;
 typedef TTList* TTListPtr;
 
 // statics and globals
-static JamomaNodePtr		jamoma_node_root = NULL;		// a root to make a namespace tree of all modules, params, ...
-static TTHashPtr			jamoma_node_hashtab = NULL;		// a hashtab to map each address of the tree to a node pointer
+/**	The Jamoma node tree's root node - e.g. the container at the '/' address				*/
+static JamomaNodePtr		jamoma_node_root = NULL;
+/**	A fast lookup table that maps an entire address quickly and directly to a JamomaNode.	*/
+static TTHashPtr			jamoma_node_hashtab = NULL;
 
 #define NO_NAME TT("")
 #define NO_INSTANCE TT("")
@@ -69,8 +71,8 @@ protected:
 	ObjectPtr		maxObject;				///< a jcom.hub, jcom.parameter, jcom.message (or even NULL for containters)
 	
 	JamomaNodePtr	parent;					///< pointer to the parent node in the tree
-	TTHashPtr		children;				///< a hashtab of linked lists:
-	 										///< hashed on JamomaNode::name, and linked list because of JamomaNode::instanceName
+	TTHashPtr		children;				///< a hashtab of hashtabs:
+	 										///< hashed on JamomaNode::name, and hashtabs because of JamomaNode::instanceName
 	
 	TTListPtr		observers;
 	TTListPtr		lifecycleObservers;		///< for objects that just need to know when we do something critical, like the free the object
@@ -78,12 +80,6 @@ protected:
 	// future ideas: not immediately critical:
 	// HashtabPtr	properties				///< if we wish to cache this information for speed, this is where we would do it
 	
-	/**	The Jamoma node tree's root node - e.g. the container at the '/root_name' address				*/
-	static JamomaNodePtr root;
-	
-	/**	A fast lookup table that maps an entire address quickly and directly to a JamomaNode.	*/
-	static TTHashPtr table;
-
 	
 public:
 	
@@ -103,6 +99,8 @@ public:
 	ObjectPtr		getMaxObject();
 	JamomaNodePtr	getParent();
 	TTHashPtr		getChildren();
+
+	TTErr			getOscAddress(TTSymbolPtr *returnedOscAddress);
 
 	TTErr			addChild(JamomaNodePtr child);
 
@@ -197,13 +195,15 @@ TTErr JamomaNodeCheck(TTSymbolPtr oscAddress, JamomaNodePtr* returnedNodeParent,
 	@return								An error code.				*/
 TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdress, TTSymbolPtr* returnedNodeName, TTSymbolPtr* returnedNodeInstance, TTSymbolPtr* returnedNodeAttribute);
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 	/** Create a the root of the tree and/or return a pointer to the root */
 	JamomaNodePtr		jamoma_node_init(void);
+
+	/** Dump all the OSC address of the global hashtab in the max window */
+	JamomaError		jamoma_node_dump(void);
 
 	/** Register an osc address in the tree */
 	// this is called 
@@ -214,14 +214,23 @@ extern "C" {
 	/** Unregister an osc address in the tree */
 	JamomaError		jamoma_node_unregister(t_symbol *OSCaddress);
 
+	/** Get the node at the given address */
+	JamomaNodePtr	jamoma_node_get(t_symbol *name);
+
 	/** Return the name of a node*/
-	t_symbol *	jamoma_node_name(JamomaNodePtr node);
+	t_symbol *		jamoma_node_name(JamomaNodePtr node);
+
+	/** Set the name of a node*/
+	JamomaError		jamoma_node_set_name(JamomaNodePtr node, t_symbol *name);
 
 	/** Return the instance of a node*/
-	t_symbol *	jamoma_node_instance(JamomaNodePtr node);
+	t_symbol *		jamoma_node_instance(JamomaNodePtr node);
+
+	/** Set the instance of a node*/
+	JamomaError		jamoma_node_set_instance(JamomaNodePtr node, t_symbol *instance);
 
 	/** Return the type of a node*/
-	t_symbol *	jamoma_node_type(JamomaNodePtr node);
+	t_symbol *		jamoma_node_type(JamomaNodePtr node);
 
 	/** Return all children of a node */
 	LinkedListPtr	jamoma_node_children(JamomaNodePtr node);

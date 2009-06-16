@@ -39,8 +39,17 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// if there isn't path, open a dialog to select one.
 	class_addmethod(c, (method)node_saveas,			"saveas",		A_GIMME, 0);
 
-	// this method dump the node tree in the max window
+	// this method dump all the address of the tree in the max window
 	class_addmethod(c, (method)node_dump,			"dump",			0);
+
+	// this method go to the given address
+	class_addmethod(c, (method)node_goto,			"goto",			A_SYM, 0);
+
+	// this method set the name of the actual node
+	class_addmethod(c, (method)node_set_name,		"set_name",		A_SYM, 0);
+
+	// this method set the instance of the actual node
+	class_addmethod(c, (method)node_set_instance,	"set_instance",	A_SYM, 0);
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -112,11 +121,25 @@ void node_save(t_node *x)
 	defer((t_object*)x, (method)node_dosave, 0, 0, NULL);
 }
 
+void node_goto(t_node *x, t_symbol *address)
+{
+	x->p_node = jamoma_node_get(address);
+}
+
+void node_set_name(t_node *x, t_symbol *name)
+{
+	jamoma_node_set_name(x->p_node,name);
+}
+
+void node_set_instance(t_node *x, t_symbol *instance)
+{
+	jamoma_node_set_instance(x->p_node,instance);
+}
+
 void node_dump(t_node *x)
 {
-	// start at the root
-	x->p_node = jamoma_node_init();
-	node_dump_as_post(x,0);
+	// dump all the address of the tree
+	jamoma_node_dump();
 }
 
 
@@ -183,7 +206,9 @@ void node_dosave(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 	node_write_string(x, LB);
 
 	x->p_node = jamoma_node_init();
+	critical_enter(0);
 	node_dump_as_opml(x,0);	// dump the tree from the root
+	critical_exit(0);
 
 	node_write_string(x, "		</body>");
 	node_write_string(x, LB);

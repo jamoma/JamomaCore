@@ -43,6 +43,9 @@ void			node_assist(t_node *x, void *b, long m, long a, char *s);
 
 void			node_saveas(t_node *x, t_symbol *msg, long argc, t_atom *argv);
 void			node_save(t_node *x);
+void			node_goto(t_node *x, t_symbol *address);
+void			node_set_name(t_node *x, t_symbol *name);
+void			node_set_instance(t_node *x, t_symbol *instance);
 void			node_dump(t_node *x);
 
 // Private methods
