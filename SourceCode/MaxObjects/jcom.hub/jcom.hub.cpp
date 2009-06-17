@@ -368,6 +368,8 @@ void hub_notify(t_hub *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t_symbol *type)
 {
 	t_subscriber	*new_subscriber;
+	bool			newInstanceCreated;
+	t_symbol		*newInstance;
 	char fullAddress[256];
 	
 	if(subscriber_object == NULL){
@@ -393,7 +395,15 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 		strcpy(fullAddress,x->osc_name->s_name);
 		strcat(fullAddress,"/");
 		strcat(fullAddress,name->s_name);
-		jamoma_node_register(gensym(fullAddress), type, subscriber_object);
+		newInstanceCreated = false;
+		jamoma_node_register(gensym(fullAddress), type, subscriber_object, &newInstance, &newInstanceCreated);
+
+		// if a new instance have been created 
+		// to guarantee the unicity. We have to
+		// add the instance to the name
+		if(newInstanceCreated && (newInstance != gensym(""))){
+			// What to do in that case ???
+		}
 	}
 
 	critical_enter(0);
@@ -1349,7 +1359,8 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		t_atom			a[2];
 		int				instance = 0;
 		TTBoolean		nameConflict = false;
-		t_symbol*		nameOriginal;
+		bool			newInstanceCreated;
+		t_symbol		*nameOriginal, *newInstance;
 		
 		x->osc_name = atom_getsym(argv);
 
@@ -1392,8 +1403,23 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		nametest = name + 1;
 		if(strchr(nametest, '/'))
 			object_error((t_object*)x, "%s: OSC NAME GIVEN TO MODULES MAY NOT CONTAIN A SLASH OTHER THAN THE LEADING SLASH!", x->attr_name->s_name);
+		
+		// Memorize the original name
 		nameOriginal = gensym(name);
-	again:
+
+		// Register with the tree at the given address if possible
+		// if not, this will return a new instance
+		newInstanceCreated = false;
+		jamoma_node_register(nameOriginal, gensym("hub"), (t_object *)x, &newInstance, &newInstanceCreated);
+
+		// if a new instance have been created 
+		// to guarantee the unicity. We have to
+		// add the instance to the name
+		if(newInstanceCreated && (newInstance != gensym(""))){
+			snprintf(name, 256, "%s.%s", name, newInstance->s_name);
+			object_post((t_object*)x, "Jamoma cannot create multiple modules with the same OSC identifier (%s).  Using %s instead.", nameOriginal->s_name, name);
+		}
+
 		x->osc_name = gensym(name);
 		
 		// update the ui object
@@ -1403,27 +1429,11 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 			object_method_typed(x->gui_object, jps_dispatched, 2, a, NULL);			
 		}
 
-		// Register with the tree ...
-		jamoma_node_register(x->osc_name, gensym("hub"), (t_object *)x);
-
 		// Register with the framework, and making sure this name hasn't already been used...
 		// TODO: is the framework making sure that this t_object is unique and hasn't already been registered?
 		err = jamoma_hub_register(x->osc_name, (t_object *)x);
-		if(err){
-			if(instance){
-				nametest = strrchr(name, '.');
-				if(nametest)
-					*nametest = 0;
-			}
-			instance++;
-			nametest = name;
-			snprintf(name, 256, "%s.%i", name, instance);
-			nameConflict = true;
-			err = MAX_ERR_NONE;
-			goto again;
-		}
-		if(nameConflict)
-			object_post((t_object*)x, "Jamoma cannot create multiple modules with the same OSC identifier (%s).  Using %s instead.", nameOriginal->s_name, name);
+		if(err)
+			object_post((t_object*)x, "Error while registering the %s hub", x->osc_name->s_name);
 		
 		// And send a notification to the environment
 		atom_setsym(a, x->attr_name);

@@ -82,62 +82,93 @@ protected:
 	
 	
 public:
-	
-	/**	Create a new node, at the given location in the tree. */
-	JamomaNode(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr newObject);
-	
-	/** Destroy a node. */
+	/** constructor */
+	JamomaNode(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType, ObjectPtr newObject);
+
+	/** Destroy of the node. */
 	virtual ~JamomaNode();
 
+	/** Get the name of the node */
 	TTSymbolPtr		getName();
-	TTErr			setName(TTSymbolPtr name);
 
+	/** Set the name of the node. 
+		It maintains the tree and the global hashtab
+		@param	newName					the name to set
+		@param	newInstance				the returned instance if a new have been created
+		@param	newInstanceCreated		true if a new instance have been created
+		@return							a error code	*/
+	TTErr JamomaNode::setName(TTSymbolPtr name, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated);
+
+	/** Get the instance of the node */
 	TTSymbolPtr		getInstance();
-	TTErr			setInstance(TTSymbolPtr instance);
 
+	/** Set the instance of the node. 
+		It maintains the tree and the global hashtab	
+		@param	instance				the instance to set
+		@param	newInstance				the returned instance if a new have been created
+		@param	newInstanceCreated		true if a new instance have been created
+		@return							a error code	*/
+	TTErr			setInstance(TTSymbolPtr instance, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated);
+
+	/** Get the type of the node */
 	TTSymbolPtr		getType();
-	ObjectPtr		getMaxObject();
-	JamomaNodePtr	getParent();
-	TTHashPtr		getChildren();
 
+	/** Get a pointer to the MaxOject linked with the node */
+	ObjectPtr		getMaxObject();
+
+	/** Get a pointer to the parent node of the node */
+	JamomaNodePtr	getParent();
+
+	/** Set the parent of the node 
+		This method ensure that the path to the node exist
+		@param	oscAddress_parent	The OSC address to check
+		@param	parent_created		This parameter will be set to true upon return if a new node was created, or false if one was not created - 
+									e.g. because a node already existed with this address and instance name.			
+		@return						An error code.	*/
+	TTErr			setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created);
+
+	/** Get the hashtab of all the children of the node */
+	TTHashPtr		getChildren();
+	
+	/** Add a node as a child of the node
+		@param child			a JamomaNodePtr to add as children of the node.
+		@return					a kTTErrGeneric if the instance of the given child already exist.
+		*/
+	TTErr			setChild(JamomaNodePtr child);
+
+	/** Get the OSC address of the node 
+		It is computed dynamicaly by asking to all the ancestor of the node	
+		@param	returnedOscAddress		A TTSymbolPtr with the OOSC address is returned in this parameter.	*/
 	TTErr			getOscAddress(TTSymbolPtr *returnedOscAddress);
 
-	TTErr			addChild(JamomaNodePtr child);
+	/** Generate a new instance of a given child
+		@param childName		the name of a child.
+		@param newInstance		a new instance created (or NULL if not)	.
+		@return					a kTTErrGeneric if the child doesn't exist.	*/
+	TTErr			generateInstance(TTSymbolPtr childName, TTSymbolPtr *newInstance);
 
-	/*
-		We have methods:
+	/** TODO :
 			:/catalog?
 			:/namespace?
 			?				// synonym for :/value?
 			:/dump?
-	*/
 
 	TTErr	getCatalog();
 	TTErr	setCatalog();	
-	
 	TTErr	getValue();
 	TTErr	setValue();
-
 	TTErr	getNamespace();	// how do we return this?  Just a big block of formatted text?
-	
 	TTErr	getDump();	// how do we return this?
-	
-	
-	/**	Given a string with an OSC address, return a pointer to the JamomaNode.
-	
-		If the address is not yet represented in the tree (and there are no wildcards),
-		it is added (along with intermediate nodes).
-		The node is also added (with the complete address) to the the hash table.
-	
-		@param	oscAddress		The Open Sound Control string for which to find the JamomaNode.
-		@param	returnedNode	The .
-		@return					An error code.		*/
-	static TTErr getNodeForOSC(const char* oscAddress, JamomaNodePtr* returnedNode);
-	
-	static TTErr getNodeForOSC(TTSymbolPtr oscAddress, JamomaNodePtr* returnedNode);
-
+	**/
 };
 
+/**	Given a string with an OSC address, return a pointer to a JamomaNode.
+	@param	oscAddress			The Open Sound Control string for which to find the JamomaNode.
+	@param	returnedNode		The .
+	@return						An error code.		*/
+TTErr getNodeForOSC(const char* oscAddress, JamomaNodePtr* returnedNode);
+	
+TTErr getNodeForOSC(TTSymbolPtr oscAddress, JamomaNodePtr* returnedNode);
 
 /**	A factory method 
 	@param	oscAddress			The OSC address you wish to find, possibly including wildcards and instance names/numbers.
@@ -147,36 +178,24 @@ public:
 	@return						An error code.				*/
 TTErr JamomaNodeLookup(TTSymbolPtr oscAddress, LinkedListPtr* returnedNodes, JamomaNodePtr* firstReturnedNode);
 
+	/**	Create a new node, at the given location in the tree.
+		@param	oscAddress				The OSC address for which you wish to create a node.
+										The address may (optionally) include an instance name or number in the address of the terminal node.
+						
+										If you specify an instance name/number that already exists, then returnedNode will be a pointer to
+										the already existing node upon return and no new node will be created.
+										If you do not specify an instance name/number, then one will be generated for you automatically.
 
-/**	A factory method 
-	@param	oscAddress			The OSC address for which you wish to create a node.
-								The address may (optionally) include an instance name or number in the address of the terminal node.
-						
-								If you specify an instance name/number that already exists, then returnedNode will be a pointer to
-								the already existing node upon return and no new node will be created.
-								If you do not specify an instance name/number, then one will be generated for you automatically.
-						
-	@param	newType				The type of node to be created.
-								For example, one of the following: hub, parameter, message, return, init, in, out, container, etc.
-	@param	newObject			The object, if applicable, that is represented by this node - such as a jcom.parameter object.
-	
-	@param	returnedNode		A pointer to the JamomaNode is returned in this parameter.
-	@param	created				This parameter will be set to true upon return if a new node was created, or false if one was not created - 
-								e.g. because a node already existed with this address and instance name.
-						
-	@return						An error code.				*/
-TTErr JamomaNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr newObject, JamomaNodePtr* returnedNode, TTBoolean* created);
+		@param	newType					The type of node to be created.
+										For example, one of the following: hub, parameter, message, return, init, in, out, container, etc.
 
-/**	A recursive method to ensure that the path to a node exist
-	@param	oscAddress			The OSC address to check
+		@param	newObject				The object, if applicable, that is represented by this node - such as a jcom.parameter object.
+
+		@param	returnedNode			A pointer to the node at the given address 
 		
-	@param	returnedNode		A pointer to the  parent JamomaNode is returned in this parameter.
+		@param	nodeCreated				A boolean : true if a node have been created, else false	*/
 
-	@param	created				This parameter will be set to true upon return if a new node was created, or false if one was not created - 
-								e.g. because a node already existed with this address and instance name.
-						
-	@return						An error code.				*/
-TTErr JamomaNodeCheck(TTSymbolPtr oscAddress, JamomaNodePtr* returnedNodeParent, TTBoolean* created);
+TTErr JamomaNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr newObject, JamomaNodePtr *returnedNode, TTBoolean *nodeCreated);
 
 
 /**	An OSC parsing tool
@@ -205,11 +224,14 @@ extern "C" {
 	/** Dump all the OSC address of the global hashtab in the max window */
 	JamomaError		jamoma_node_dump(void);
 
-	/** Register an osc address in the tree */
-	// this is called 
-	//		> in "hub_attr_setname" (in jcom.hub.cpp) to register the hub
-	//		> in "hub_subscribe" (in jcom.hub.cpp) to register a param
-	JamomaError		jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj);
+	/** Register an osc address in the tree
+
+		Note : this is called 
+				> in "hub_attr_setname" (in jcom.hub.cpp) to register the hub
+				> in "hub_subscribe" (in jcom.hub.cpp) to register a param	
+
+		@return		a new instance created (or NULL if not)		*/
+	JamomaError		jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, t_symbol **newInstance, bool *newInstanceCreated);
 
 	/** Unregister an osc address in the tree */
 	JamomaError		jamoma_node_unregister(t_symbol *OSCaddress);
@@ -220,20 +242,25 @@ extern "C" {
 	/** Return the name of a node*/
 	t_symbol *		jamoma_node_name(JamomaNodePtr node);
 
-	/** Set the name of a node*/
-	JamomaError		jamoma_node_set_name(JamomaNodePtr node, t_symbol *name);
+	/** Set the name of a node
+		@return		a new instance created (or NULL if not)	*/
+	t_symbol *		jamoma_node_set_name(JamomaNodePtr node, t_symbol *name);
 
 	/** Return the instance of a node*/
 	t_symbol *		jamoma_node_instance(JamomaNodePtr node);
 
-	/** Set the instance of a node*/
-	JamomaError		jamoma_node_set_instance(JamomaNodePtr node, t_symbol *instance);
+	/** Set the instance of a node
+		@return		a new instance created (or NULL if not)	*/
+	t_symbol *		jamoma_node_set_instance(JamomaNodePtr node, t_symbol *instance);
 
 	/** Return the type of a node*/
 	t_symbol *		jamoma_node_type(JamomaNodePtr node);
 
 	/** Return all children of a node */
 	LinkedListPtr	jamoma_node_children(JamomaNodePtr node);
+
+	/** Return all children of a node */
+	t_object*	jamoma_node_max_object(JamomaNodePtr node);
 
 	/** Free the root of the tree and all the tree */
 	JamomaError		jamoma_node_free(void);

@@ -42,6 +42,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// this method dump all the address of the tree in the max window
 	class_addmethod(c, (method)node_dump,			"dump",			0);
 
+	// send something to a param object registered in the tree
+	class_addmethod(c, (method)node_send,			"send",			A_GIMME, 0);
+
 	// this method go to the given address
 	class_addmethod(c, (method)node_goto,			"goto",			A_SYM, 0);
 
@@ -119,6 +122,37 @@ void node_saveas(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 void node_save(t_node *x)
 {
 	defer((t_object*)x, (method)node_dosave, 0, 0, NULL);
+}
+
+void node_send(t_node *x, t_symbol *msg, long argc, t_atom *argv)
+{
+	t_object *obj;
+
+	if(argc && argv){
+		if(atom_gettype(&argv[0]) == A_SYM){
+			
+			// goto the address
+			x->p_node = jamoma_node_get(atom_getsym(&argv[0]));
+
+			// if the address exists
+			if(x->p_node){
+
+				obj = jamoma_node_max_object(x->p_node);
+
+				// if the node have an object
+				if(obj)
+					object_method_typed((t_object*)obj, jps_dispatched, argc-1, argv+1, NULL);
+				else
+					object_error((t_object*)x,"send : %s have no object", atom_getsym(&argv[0]));
+			}
+			else
+				object_error((t_object*)x,"send : %s doesn't exist", atom_getsym(&argv[0]));
+		}
+		else
+			object_error((t_object*)x,"send : the first arg have to be a symbol");
+	}
+	else
+		object_error((t_object*)x,"send : needs arguments");
 }
 
 void node_goto(t_node *x, t_symbol *address)
