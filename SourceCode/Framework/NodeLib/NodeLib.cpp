@@ -506,7 +506,7 @@ TTErr getNodeForOSC(TTSymbolPtr oscAddress, JamomaNodePtr* returnedNode)
 
 TTErr JamomaNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr newObject, JamomaNodePtr *returnedNode, TTBoolean *nodeCreated)
 {
-	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_attribute, newInstance;
+	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_attribute, newInstance, oscAddress_got;
 	TTBoolean parent_created;
 	TTValue* found;
 	JamomaNodePtr newNode, n_found;
@@ -569,8 +569,9 @@ TTErr JamomaNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr ne
 			// the new node is the root : no parent
 			;
 
-		// 3. Add the address to the global hashtab
-		jamoma_node_hashtab->append(oscAddress,TTValue(newNode));
+		// 3. Add the effective address (with the generated instance) to the global hashtab
+		newNode->getOscAddress(&oscAddress_got);
+		jamoma_node_hashtab->append(oscAddress_got,TTValue(newNode));
 
 		// 4. returned the new node
 		*nodeCreated = true;
@@ -598,40 +599,6 @@ TTErr JamomaNodeLookup(TTSymbolPtr oscAddress, LinkedListPtr* returnedNodes, Jam
 {
 	return kTTErrNone;
 }
-
-//TTErr JamomaNodeCheck(TTSymbolPtr oscAddress, JamomaNodePtr* returnedNode, TTBoolean* created)
-//{
-//	TTValue* found;
-//	TTErr err;
-//	TTSymbolPtr newInstance;
-//	TTBoolean parent_created;
-//
-//	// look into the hashtab to check if the address exist in the tree
-//	found = new TTValue();
-//	*created = false;
-//	err = jamoma_node_hashtab->lookup(oscAddress,*found);
-//
-//	//// if the address doesn't exist
-//	if(err == kTTErrValueNotFound){
-//
-//		//post("JamomaNodeCheck : %s doesn't exists", oscAddress->getCString());
-//
-//		// we create a container node
-//		JamomaNodePtr new_node = new JamomaNode(oscAddress, TT("container"), NULL, &newInstance);
-//
-//		if(newInstance){
-//			post("JamomaNodeCheck : error : a new instance %s of %s have been created", newInstance->getCString(), oscAddress->getCString());
-//			return kTTErrGeneric;
-//		}
-//
-//		*returnedNode = new_node;
-//		*created = true;
-//	}
-//	else
-//		found->get(0,(TTPtr*)returnedNode);
-//
-//	return kTTErrNone;
-//}
 
 TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdress, TTSymbolPtr* returnedNodeName, TTSymbolPtr* returnedNodeInstance, TTSymbolPtr* returnedNodeAttribute)
 {
