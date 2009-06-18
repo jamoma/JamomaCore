@@ -8,7 +8,7 @@
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
-		"default_fontname" : "Arial",
+		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
 		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
@@ -20,12 +20,12 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "deferlow",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-1",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"patching_rect" : [ 36.0, 119.0, 50.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -34,7 +34,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jmod.gl.alphamixer%",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-3",
 					"numinlets" : 1,
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
@@ -49,7 +49,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "A four layer slab-based video mixer using alpha channel for each layer",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-4",
 					"numinlets" : 1,
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
@@ -77,13 +77,13 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "(Foremost)",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-6",
 					"numinlets" : 1,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"numoutlets" : 0,
 					"patching_rect" : [ 336.0, 144.0, 60.0, 17.0 ],
-					"fontsize" : 9.0
+					"fontsize" : 10.0
 				}
 
 			}
@@ -91,13 +91,13 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "(Backmost)",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-7",
 					"numinlets" : 1,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"numoutlets" : 0,
 					"patching_rect" : [ 1036.0, 144.0, 61.0, 17.0 ],
-					"fontsize" : 9.0
+					"fontsize" : 10.0
 				}
 
 			}
@@ -105,13 +105,13 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Layer 3",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-8",
 					"numinlets" : 1,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"numoutlets" : 0,
 					"patching_rect" : [ 1042.0, 131.0, 45.0, 17.0 ],
-					"fontsize" : 9.0
+					"fontsize" : 10.0
 				}
 
 			}
@@ -119,13 +119,13 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Layer 2",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-9",
 					"numinlets" : 1,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"numoutlets" : 0,
 					"patching_rect" : [ 893.0, 131.0, 45.0, 17.0 ],
-					"fontsize" : 9.0
+					"fontsize" : 10.0
 				}
 
 			}
@@ -133,20 +133,20 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Layer 1",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-10",
 					"numinlets" : 1,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"numoutlets" : 0,
 					"patching_rect" : [ 668.0, 131.0, 45.0, 17.0 ],
-					"fontsize" : 9.0
+					"fontsize" : 10.0
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"maxclass" : "umenu",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"id" : "obj-11",
 					"arrowcolor" : [ 0.22, 0.22, 0.22, 1.0 ],
@@ -156,7 +156,7 @@
 					"framecolor" : [ 0.5, 0.5, 0.5, 1.0 ],
 					"numoutlets" : 3,
 					"patching_rect" : [ 568.0, 306.0, 48.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"discolor" : [ 0.43, 0.43, 0.43, 1.0 ],
 					"textcolor" : [ 0.15, 0.15, 0.15, 1.0 ],
 					"outlettype" : [ "int", "", "" ],
@@ -169,7 +169,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "umenu",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"id" : "obj-12",
 					"arrowcolor" : [ 0.22, 0.22, 0.22, 1.0 ],
@@ -179,7 +179,7 @@
 					"framecolor" : [ 0.5, 0.5, 0.5, 1.0 ],
 					"numoutlets" : 3,
 					"patching_rect" : [ 252.0, 306.0, 48.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"discolor" : [ 0.43, 0.43, 0.43, 1.0 ],
 					"textcolor" : [ 0.15, 0.15, 0.15, 1.0 ],
 					"outlettype" : [ "int", "", "" ],
@@ -194,12 +194,12 @@
 					"maxclass" : "newobj",
 					"text" : "jit.window jamoma_demo @depthbuffer 1 @floating 1",
 					"linecount" : 4,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-13",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"patching_rect" : [ 36.0, 237.0, 79.0, 48.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "bang", "" ]
 				}
 
@@ -209,12 +209,12 @@
 					"maxclass" : "newobj",
 					"text" : "jit.gl.videoplane jamoma_demo @scale 1.333 1. 1. @blend_enable 1",
 					"linecount" : 4,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-14",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"patching_rect" : [ 450.0, 634.0, 96.0, 48.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "jit_matrix", "" ]
 				}
 
@@ -223,12 +223,12 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "sel 1",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-15",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"patching_rect" : [ 124.0, 120.0, 32.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "bang", "" ]
 				}
 
@@ -237,12 +237,12 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "t b b erase",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-16",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"patching_rect" : [ 36.0, 163.0, 58.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "bang", "bang", "erase" ]
 				}
 
@@ -252,12 +252,12 @@
 					"maxclass" : "newobj",
 					"text" : "jit.gl.render jamoma_demo",
 					"linecount" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-17",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"patching_rect" : [ 36.0, 198.0, 72.0, 27.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "bang", "" ]
 				}
 
@@ -267,12 +267,12 @@
 					"maxclass" : "message",
 					"text" : "/render/context jamoma_demo",
 					"linecount" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-18",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 124.0, 447.0, 87.0, 25.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -281,12 +281,12 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "param plane $1",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-19",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 568.0, 327.0, 79.0, 15.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -296,12 +296,12 @@
 					"maxclass" : "newobj",
 					"text" : "jit.gl.slab jamoma_demo @file cc.alphaglue.jxs",
 					"linecount" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-20",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"patching_rect" : [ 552.0, 349.0, 164.0, 27.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "jit_gl_texture", "" ]
 				}
 
@@ -310,12 +310,12 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "param plane $1",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-21",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 252.0, 327.0, 79.0, 15.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -325,12 +325,12 @@
 					"maxclass" : "newobj",
 					"text" : "jit.gl.slab jamoma_demo @file cc.alphaglue.jxs",
 					"linecount" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-22",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"patching_rect" : [ 236.0, 349.0, 164.0, 27.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "jit_gl_texture", "" ]
 				}
 
@@ -350,12 +350,12 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "qmetro 40",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-24",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 36.0, 141.0, 57.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "bang" ]
 				}
 
@@ -365,12 +365,12 @@
 					"maxclass" : "message",
 					"text" : "read countdown.mov",
 					"linecount" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-25",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 438.0, 199.0, 77.0, 25.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -379,12 +379,12 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "read",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-26",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 407.0, 199.0, 28.0, 15.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -393,12 +393,12 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jit.qt.movie 320 240",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-27",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"patching_rect" : [ 390.0, 240.0, 104.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "jit_matrix", "" ]
 				}
 
@@ -408,12 +408,12 @@
 					"maxclass" : "message",
 					"text" : "read colorbars.pict",
 					"linecount" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-28",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 1050.0, 199.0, 71.0, 25.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -422,12 +422,12 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "read",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-29",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 1019.0, 199.0, 28.0, 15.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -436,12 +436,12 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jit.qt.movie 320 240",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-30",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"patching_rect" : [ 1006.0, 240.0, 104.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "jit_matrix", "" ]
 				}
 
@@ -451,12 +451,12 @@
 					"maxclass" : "message",
 					"text" : "read chilis.jpg",
 					"linecount" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-31",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 915.0, 199.0, 48.0, 25.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -465,12 +465,12 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "read",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-32",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 884.0, 199.0, 28.0, 15.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -479,12 +479,12 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jit.qt.movie 320 240",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-33",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"patching_rect" : [ 870.0, 240.0, 104.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "jit_matrix", "" ]
 				}
 
@@ -494,12 +494,12 @@
 					"maxclass" : "message",
 					"text" : "read colorswatch.pict",
 					"linecount" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-34",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 752.0, 199.0, 83.0, 25.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -508,12 +508,12 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "read",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-35",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 721.0, 199.0, 28.0, 15.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -522,12 +522,12 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jit.qt.movie 320 240",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-36",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"patching_rect" : [ 706.0, 240.0, 104.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "jit_matrix", "" ]
 				}
 
@@ -537,12 +537,12 @@
 					"maxclass" : "message",
 					"text" : "read dishes.mov",
 					"linecount" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-37",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 599.0, 199.0, 57.0, 25.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -551,12 +551,12 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "read",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-38",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 568.0, 199.0, 28.0, 15.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -565,12 +565,12 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jit.qt.movie 320 240",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-39",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"patching_rect" : [ 552.0, 240.0, 104.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "jit_matrix", "" ]
 				}
 
@@ -580,12 +580,12 @@
 					"maxclass" : "message",
 					"text" : "read dozer.mov",
 					"linecount" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-40",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 285.0, 199.0, 54.0, 25.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -594,12 +594,12 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "read",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-41",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 254.0, 199.0, 28.0, 15.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -608,12 +608,12 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jit.qt.movie 320 240",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-42",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"patching_rect" : [ 236.0, 240.0, 104.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "jit_matrix", "" ]
 				}
 
@@ -673,13 +673,13 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Layer 0",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-47",
 					"numinlets" : 1,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"numoutlets" : 0,
 					"patching_rect" : [ 344.0, 131.0, 45.0, 17.0 ],
-					"fontsize" : 9.0
+					"fontsize" : 10.0
 				}
 
 			}
@@ -700,7 +700,7 @@
 					"maxclass" : "comment",
 					"text" : "Begin by testing out the alpha values. They control opacity.",
 					"linecount" : 5,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-49",
 					"numinlets" : 1,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],

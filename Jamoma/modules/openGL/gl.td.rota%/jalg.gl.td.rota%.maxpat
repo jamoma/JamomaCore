@@ -8,7 +8,7 @@
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
-		"default_fontname" : "Arial",
+		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
 		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
@@ -20,10 +20,10 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p slab",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 330.0, 61.0, 36.0, 17.0 ],
 					"numinlets" : 1,
 					"id" : "obj-1",
@@ -36,7 +36,7 @@
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
 						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
@@ -48,10 +48,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "jcom.oscroute /slab",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 50.0, 50.0, 166.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-1"
@@ -62,10 +62,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "jcom.class.gl_slab.route",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 50.0, 72.0, 141.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-2"
@@ -147,13 +147,13 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"default_fontname" : "Verdana"
 					}
 
 				}
@@ -163,10 +163,10 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "r #0_refresh_textures",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 570.0, 37.0, 116.0, 17.0 ],
 					"numinlets" : 0,
 					"id" : "obj-2"
@@ -177,10 +177,10 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "thispatcher",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 370.0, 212.0, 61.0, 17.0 ],
 					"numinlets" : 1,
 					"id" : "obj-3",
@@ -192,10 +192,10 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p set_new_context",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 274.0, 146.0, 106.0, 17.0 ],
 					"numinlets" : 2,
 					"id" : "obj-4",
@@ -208,7 +208,7 @@
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
 						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
@@ -220,10 +220,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "t l l l",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 274.0, 206.0, 40.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-1"
@@ -234,10 +234,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "jcom.equals param",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 304.0, 254.0, 94.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-2"
@@ -248,10 +248,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "zl mth",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 274.0, 275.0, 40.0, 17.0 ],
 									"numinlets" : 2,
 									"id" : "obj-3"
@@ -262,9 +262,9 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "s #0_refresh_textures",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 0,
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 60.0, 435.0, 116.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-4"
@@ -275,10 +275,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "p scripting",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 158.0, 241.0, 58.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-5",
@@ -291,7 +291,7 @@
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Arial",
+										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
 										"gridsize" : [ 5.0, 5.0 ],
 										"gridsnaponopen" : 0,
@@ -303,10 +303,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "t b s b",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 3,
 													"outlettype" : [ "bang", "", "bang" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 51.0, 68.0, 651.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-1"
@@ -317,10 +317,10 @@
 												"box" : 												{
 													"maxclass" : "message",
 													"text" : "script connect THRU_0 0 ROTASLAB 0",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 160.0, 188.0, 189.0, 15.0 ],
 													"numinlets" : 2,
 													"id" : "obj-2"
@@ -331,10 +331,10 @@
 												"box" : 												{
 													"maxclass" : "message",
 													"text" : "script connect ROTASLAB 1 PRINT 0",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 160.0, 164.0, 180.0, 15.0 ],
 													"numinlets" : 2,
 													"id" : "obj-3"
@@ -345,10 +345,10 @@
 												"box" : 												{
 													"maxclass" : "message",
 													"text" : "script connect ROTASLAB 0 OUT 0",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 160.0, 140.0, 171.0, 15.0 ],
 													"numinlets" : 2,
 													"id" : "obj-4"
@@ -359,10 +359,10 @@
 												"box" : 												{
 													"maxclass" : "message",
 													"text" : "script delete ROTASLAB",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 691.0, 192.0, 125.0, 15.0 ],
 													"numinlets" : 2,
 													"id" : "obj-5"
@@ -374,10 +374,10 @@
 													"maxclass" : "newobj",
 													"text" : "sprintf script new ROTASLAB newex 550 230 271 196617 jit.gl.slab %s @file @file td.rota.jxs",
 													"linecount" : 2,
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 371.0, 176.0, 234.0, 27.0 ],
 													"numinlets" : 1,
 													"id" : "obj-6"
@@ -511,13 +511,13 @@
 									}
 ,
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Arial"
+										"default_fontname" : "Verdana"
 									}
 
 								}
@@ -538,10 +538,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "t b s",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 2,
 									"outlettype" : [ "bang", "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 60.0, 210.0, 108.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-7"
@@ -552,10 +552,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "deferlow",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 60.0, 237.0, 50.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-8"
@@ -577,10 +577,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "t b dump",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 2,
 									"outlettype" : [ "bang", "dump" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 60.0, 260.0, 48.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-10"
@@ -603,10 +603,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "prepend store",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 274.0, 321.0, 72.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-12"
@@ -617,10 +617,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "zl join",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 274.0, 298.0, 138.0, 17.0 ],
 									"numinlets" : 2,
 									"id" : "obj-13"
@@ -631,10 +631,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "zl slice 1",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 304.0, 231.0, 51.0, 17.0 ],
 									"numinlets" : 2,
 									"id" : "obj-14"
@@ -645,10 +645,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "coll",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 98.0, 368.0, 53.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-15",
@@ -676,9 +676,9 @@
 								"box" : 								{
 									"maxclass" : "comment",
 									"text" : "This is a hack around a current bug in jit.gl.slab (as of Jitter 1.6.3, August 2007):",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 0,
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"patching_rect" : [ 31.0, 39.0, 383.0, 17.0 ],
 									"numinlets" : 1,
@@ -691,9 +691,9 @@
 									"maxclass" : "comment",
 									"text" : "If a jit.gl.slab is created and activated while drawing to a non-existing context, it seems to die. To avoid this, the jit.gl.slab is recreated using scripting whenever context is changed. In order for settings and textures not to get lost when changing context, they are stored locally in the coll of this subpatch and the four \"zl reg\" objects of the algorithm so that they can be dumped to the newly created instance of jit.gl.slab.",
 									"linecount" : 5,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 0,
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"patching_rect" : [ 31.0, 69.0, 383.0, 58.0 ],
 									"numinlets" : 1,
@@ -859,13 +859,13 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"default_fontname" : "Verdana"
 					}
 
 				}
@@ -875,10 +875,10 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jcom.thru",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 370.0, 119.0, 75.0, 17.0 ],
 					"numinlets" : 1,
 					"id" : "obj-5"
@@ -890,10 +890,10 @@
 					"maxclass" : "newobj",
 					"varname" : "THRU_0",
 					"text" : "jcom.thru",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 550.0, 192.0, 75.0, 17.0 ],
 					"numinlets" : 1,
 					"id" : "obj-6"
@@ -904,10 +904,10 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "zl reg",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 550.0, 83.0, 36.0, 17.0 ],
 					"numinlets" : 2,
 					"id" : "obj-7"
@@ -919,9 +919,9 @@
 					"maxclass" : "newobj",
 					"varname" : "PRINT",
 					"text" : "print rotaslab_dump",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 0,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 811.0, 285.0, 101.0, 17.0 ],
 					"numinlets" : 1,
 					"id" : "obj-8"
@@ -932,10 +932,10 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p route-gl-classes",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 233.0, 61.0, 93.0, 17.0 ],
 					"numinlets" : 1,
 					"id" : "obj-9",
@@ -948,7 +948,7 @@
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
 						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
@@ -972,10 +972,10 @@
 									"maxclass" : "newobj",
 									"text" : "p render",
 									"linecount" : 2,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 332.0, 84.0, 40.0, 27.0 ],
 									"numinlets" : 1,
 									"id" : "obj-2",
@@ -988,7 +988,7 @@
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Arial",
+										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
 										"gridsize" : [ 5.0, 5.0 ],
 										"gridsnaponopen" : 0,
@@ -1000,10 +1000,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "t s s",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 290.0, 75.0, 30.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-1"
@@ -1025,10 +1025,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "prepend drawto",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 310.0, 99.0, 80.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-3"
@@ -1039,10 +1039,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "jcom.oscroute /context",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 290.0, 51.0, 117.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-4"
@@ -1053,10 +1053,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "jcom.pass /antialias /automatic /enable /layer",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 5,
 													"outlettype" : [ "", "", "", "", "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 50.0, 50.0, 225.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-5"
@@ -1181,13 +1181,13 @@
 									}
 ,
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Arial"
+										"default_fontname" : "Verdana"
 									}
 
 								}
@@ -1197,10 +1197,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "p depth",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 191.0, 84.0, 42.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-3",
@@ -1213,7 +1213,7 @@
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Arial",
+										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
 										"gridsize" : [ 5.0, 5.0 ],
 										"gridsnaponopen" : 0,
@@ -1225,10 +1225,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "prepend inherit_depth",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 274.0, 85.0, 108.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-1"
@@ -1239,10 +1239,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "prepend depth_enable",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 162.0, 85.0, 106.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-2"
@@ -1253,10 +1253,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "prepend depth_clear",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 50.0, 85.0, 101.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-3"
@@ -1267,10 +1267,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "jcom.oscroute /clear /enable /inherit",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 4,
 													"outlettype" : [ "", "", "", "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 50.0, 50.0, 348.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-4"
@@ -1368,13 +1368,13 @@
 									}
 ,
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Arial"
+										"default_fontname" : "Verdana"
 									}
 
 								}
@@ -1384,10 +1384,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "p color",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 144.0, 84.0, 41.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-4",
@@ -1400,7 +1400,7 @@
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Arial",
+										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
 										"gridsize" : [ 5.0, 5.0 ],
 										"gridsnaponopen" : 0,
@@ -1412,10 +1412,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "t b f",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 2,
 													"outlettype" : [ "bang", "float" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 105.0, 75.0, 29.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-1"
@@ -1426,10 +1426,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "prepend inherit_color",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 158.0, 109.0, 107.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-2"
@@ -1440,10 +1440,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "prepend color",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 52.0, 160.0, 71.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-3"
@@ -1454,10 +1454,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "zl join",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 52.0, 125.0, 82.0, 17.0 ],
 													"numinlets" : 2,
 													"id" : "obj-4"
@@ -1468,10 +1468,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "zl reg",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 52.0, 101.0, 36.0, 17.0 ],
 													"numinlets" : 2,
 													"id" : "obj-5"
@@ -1482,10 +1482,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "jcom.oscroute /rgb /alpha /inherit",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 4,
 													"outlettype" : [ "", "", "", "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 52.0, 50.0, 169.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-6"
@@ -1610,13 +1610,13 @@
 									}
 ,
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Arial"
+										"default_fontname" : "Verdana"
 									}
 
 								}
@@ -1626,10 +1626,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "p 3D",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 50.0, 84.0, 30.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-5",
@@ -1642,7 +1642,7 @@
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Arial",
+										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
 										"gridsize" : [ 5.0, 5.0 ],
 										"gridsnaponopen" : 0,
@@ -1654,10 +1654,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "jcom.pass /position",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 50.0, 50.0, 99.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-1"
@@ -1710,13 +1710,13 @@
 									}
 ,
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Arial"
+										"default_fontname" : "Verdana"
 									}
 
 								}
@@ -1726,10 +1726,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "p blend",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 97.0, 84.0, 41.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-6",
@@ -1742,7 +1742,7 @@
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Arial",
+										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
 										"gridsize" : [ 5.0, 5.0 ],
 										"gridsnaponopen" : 0,
@@ -1754,10 +1754,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "prepend blend_mode",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 166.0, 80.0, 100.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-1"
@@ -1768,10 +1768,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "prepend blend_enable",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 50.0, 80.0, 105.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-2"
@@ -1782,10 +1782,10 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "jcom.oscroute /enable /mode",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"patching_rect" : [ 50.0, 50.0, 243.0, 17.0 ],
 													"numinlets" : 1,
 													"id" : "obj-3"
@@ -1865,13 +1865,13 @@
 									}
 ,
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Arial"
+										"default_fontname" : "Verdana"
 									}
 
 								}
@@ -1881,10 +1881,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "jcom.oscroute /3D /blend /color /depth /fog /material /render",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 8,
 									"outlettype" : [ "", "", "", "", "", "", "", "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 50.0, 50.0, 341.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-7"
@@ -2047,13 +2047,13 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"default_fontname" : "Verdana"
 					}
 
 				}
@@ -2063,10 +2063,10 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p td.rota-route",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 370.0, 61.0, 78.0, 17.0 ],
 					"numinlets" : 1,
 					"id" : "obj-10",
@@ -2079,7 +2079,7 @@
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
 						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
@@ -2091,10 +2091,10 @@
 								"box" : 								{
 									"maxclass" : "message",
 									"text" : "boundmode $1",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 331.0, 123.0, 73.0, 15.0 ],
 									"numinlets" : 2,
 									"id" : "obj-1"
@@ -2105,10 +2105,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "prepend symbol",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 331.0, 77.0, 80.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-2"
@@ -2118,13 +2118,13 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "umenu",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"arrowlink" : 1,
 									"labelclick" : 1,
 									"numoutlets" : 3,
 									"types" : [  ],
 									"outlettype" : [ "int", "", "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"items" : [ "clear", ",", "alpha", ",", "wrap", ",", "clip", ",", "fold" ],
 									"patching_rect" : [ 331.0, 100.0, 100.0, 17.0 ],
 									"numinlets" : 1,
@@ -2136,10 +2136,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "jcom.deg2rad",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "float" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 216.0, 77.0, 71.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-4"
@@ -2150,10 +2150,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "jcom.pass /zoom /offset /anchor",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 50.0, 53.0, 162.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-5"
@@ -2164,10 +2164,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "jcom.oscroute /theta /boundmode",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 216.0, 53.0, 240.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-6"
@@ -2178,10 +2178,10 @@
 								"box" : 								{
 									"maxclass" : "message",
 									"text" : "theta $1",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 216.0, 123.0, 48.0, 15.0 ],
 									"numinlets" : 2,
 									"id" : "obj-7"
@@ -2192,10 +2192,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "prepend param",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 50.0, 217.0, 76.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-8"
@@ -2206,10 +2206,10 @@
 								"box" : 								{
 									"maxclass" : "message",
 									"text" : "getparamlist",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 133.0, 218.0, 67.0, 15.0 ],
 									"numinlets" : 2,
 									"id" : "obj-9"
@@ -2390,13 +2390,13 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"default_fontname" : "Verdana"
 					}
 
 				}
@@ -2406,10 +2406,10 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p bypass",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 451.0, 117.0, 109.0, 17.0 ],
 					"numinlets" : 2,
 					"id" : "obj-11",
@@ -2422,7 +2422,7 @@
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
 						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
@@ -2433,10 +2433,10 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"maxclass" : "message",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 69.0, 50.0, 50.0, 15.0 ],
 									"numinlets" : 2,
 									"id" : "obj-1"
@@ -2447,10 +2447,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "prepend set",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 69.0, 30.0, 62.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-2"
@@ -2461,10 +2461,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "t 1",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 71.0, 92.0, 19.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-3"
@@ -2475,10 +2475,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "t 2",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 50.0, 92.0, 19.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-4"
@@ -2489,10 +2489,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "sel 0 1",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 3,
 									"outlettype" : [ "bang", "bang", "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 50.0, 69.0, 40.0, 17.0 ],
 									"numinlets" : 1,
 									"id" : "obj-5"
@@ -2503,10 +2503,10 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "gate 2 2",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 50.0, 122.0, 96.0, 17.0 ],
 									"numinlets" : 2,
 									"id" : "obj-6"
@@ -2654,13 +2654,13 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"default_fontname" : "Verdana"
 					}
 
 				}
@@ -2670,9 +2670,9 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "OSC output",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 0,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"patching_rect" : [ 73.0, 285.0, 100.0, 17.0 ],
 					"numinlets" : 1,
@@ -2695,9 +2695,9 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "JITTER/TEXTURE INPUT",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 0,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"patching_rect" : [ 548.0, 21.0, 124.0, 17.0 ],
 					"numinlets" : 1,
@@ -2735,9 +2735,9 @@
 					"maxclass" : "comment",
 					"text" : "TEXTURE OUTPUT",
 					"linecount" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 0,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"patching_rect" : [ 567.0, 285.0, 89.0, 27.0 ],
 					"numinlets" : 1,
@@ -2762,10 +2762,10 @@
 					"maxclass" : "newobj",
 					"text" : "sel open preview disable_ui_updates /video/genframe",
 					"linecount" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 5,
 					"outlettype" : [ "bang", "bang", "bang", "bang", "" ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 48.0, 61.0, 181.0, 27.0 ],
 					"numinlets" : 1,
 					"id" : "obj-19"
@@ -2777,10 +2777,10 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.oscroute /video/bypass",
 					"linecount" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 451.0, 61.0, 76.0, 27.0 ],
 					"numinlets" : 1,
 					"id" : "obj-20"
@@ -2791,9 +2791,9 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "OSC input",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 0,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"patching_rect" : [ 48.0, 21.0, 100.0, 17.0 ],
 					"numinlets" : 1,
@@ -2806,10 +2806,10 @@
 					"maxclass" : "newobj",
 					"varname" : "ROTASLAB",
 					"text" : "jit.gl.slab none @file @file td.rota.jxs",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_gl_texture", "" ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 550.0, 230.0, 271.0, 17.0 ],
 					"numinlets" : 2,
 					"id" : "obj-22"

@@ -8,7 +8,7 @@
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
-		"default_fontname" : "Arial",
+		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
 		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
@@ -20,7 +20,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "loadbang",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"hidden" : 1,
@@ -35,11 +35,11 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "loadmess set",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"hidden" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 335.0, 380.0, 68.0, 17.0 ],
 					"id" : "obj-1"
@@ -50,10 +50,10 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "/videoplane/texture/scale 1. 0.8",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 30.0, 410.0, 281.0, 15.0 ],
 					"id" : "obj-2"
@@ -82,7 +82,7 @@
 					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"patching_rect" : [ 21.0, 43.0, 330.0, 17.0 ],
@@ -105,10 +105,10 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "t b erase l",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"numoutlets" : 3,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "bang", "erase", "" ],
 					"patching_rect" : [ 193.0, 190.0, 93.0, 17.0 ],
 					"id" : "obj-7"
@@ -119,10 +119,10 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jit.gl.render foo",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "bang", "" ],
 					"patching_rect" : [ 193.0, 224.0, 82.0, 17.0 ],
 					"id" : "obj-8"
@@ -146,10 +146,10 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "/render/context foo",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 30.0, 229.0, 103.0, 15.0 ],
 					"id" : "obj-10"
