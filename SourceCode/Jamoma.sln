@@ -93,6 +93,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.cuemanager", "MaxObjec
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.savebang", "MaxObjects\jcom.savebang\jcom.savebang.vcproj", "{D2D5BC83-CD62-4DC4-9C74-003BB9B69309}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.folder", "MaxObjects\jcom.folder\jcom.folder.vcproj", "{6A2E51A0-35E8-41D7-BA31-94B03CC78AEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -271,6 +273,10 @@ Global
 		{D2D5BC83-CD62-4DC4-9C74-003BB9B69309}.Debug|Win32.Build.0 = Debug|Win32
 		{D2D5BC83-CD62-4DC4-9C74-003BB9B69309}.Release|Win32.ActiveCfg = Release|Win32
 		{D2D5BC83-CD62-4DC4-9C74-003BB9B69309}.Release|Win32.Build.0 = Release|Win32
+		{6A2E51A0-35E8-41D7-BA31-94B03CC78AEB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6A2E51A0-35E8-41D7-BA31-94B03CC78AEB}.Debug|Win32.Build.0 = Debug|Win32
+		{6A2E51A0-35E8-41D7-BA31-94B03CC78AEB}.Release|Win32.ActiveCfg = Release|Win32
+		{6A2E51A0-35E8-41D7-BA31-94B03CC78AEB}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="jcom.folder"
-	ProjectGUID="{670497AB-6B6F-419C-99E2-781A86446F83}"
+	ProjectGUID="{6A2E51A0-35E8-41D7-BA31-94B03CC78AEB}"
 	RootNamespace="jcom.folder"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
