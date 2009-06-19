@@ -1334,13 +1334,13 @@
 ,
 					"patching_rect" : [ 121.0, 195.0, 38.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"default_fontface" : 0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p win"
@@ -1398,12 +1398,29 @@
 										"imprint" : 0,
 										"boxes" : [ 											{
 												"box" : 												{
-													"id" : "obj-16",
-													"maxclass" : "button",
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-14",
+													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 609.0, 109.0, 104.0, 19.0 ],
+													"text" : "jcom.userLib_path"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-11",
+													"maxclass" : "newobj",
+													"numinlets" : 0,
+													"numoutlets" : 1,
 													"outlettype" : [ "bang" ],
-													"patching_rect" : [ 535.0, 78.0, 20.0, 20.0 ]
+													"patching_rect" : [ 512.0, 262.0, 60.0, 19.0 ],
+													"text" : "closebang"
 												}
 
 											}
@@ -1416,7 +1433,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 2,
 													"outlettype" : [ "int", "" ],
-													"patching_rect" : [ 664.0, 444.0, 32.5, 19.0 ],
+													"patching_rect" : [ 663.0, 458.0, 32.5, 19.0 ],
 													"text" : "t 1 l"
 												}
 
@@ -1430,7 +1447,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 2,
 													"outlettype" : [ "int", "" ],
-													"patching_rect" : [ 580.0, 565.0, 32.5, 19.0 ],
+													"patching_rect" : [ 580.0, 585.0, 32.5, 19.0 ],
 													"text" : "t 0 l"
 												}
 
@@ -1444,7 +1461,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 578.0, 480.0, 52.0, 19.0 ],
+													"patching_rect" : [ 578.0, 492.0, 52.0, 19.0 ],
 													"text" : "gate 1 0"
 												}
 
@@ -1458,23 +1475,8 @@
 													"numinlets" : 1,
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
-													"patching_rect" : [ 664.0, 423.0, 260.0, 19.0 ],
+													"patching_rect" : [ 663.0, 437.0, 260.0, 19.0 ],
 													"text" : "jcom.route @searchstring jmod. @partialmatch 1"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"fontname" : "Verdana",
-													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-													"id" : "obj-9",
-													"linecount" : 2,
-													"maxclass" : "comment",
-													"numinlets" : 1,
-													"numoutlets" : 0,
-													"patching_rect" : [ 587.0, 244.0, 166.0, 31.0 ],
-													"text" : "what is the four letter type of xml ? "
 												}
 
 											}
@@ -1487,7 +1489,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 2,
 													"outlettype" : [ "", "int" ],
-													"patching_rect" : [ 663.0, 399.0, 64.0, 20.0 ],
+													"patching_rect" : [ 662.0, 413.0, 64.0, 20.0 ],
 													"text" : "strippath"
 												}
 
@@ -1501,7 +1503,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 51.0, 123.0, 298.0, 17.0 ],
+													"patching_rect" : [ 51.0, 158.0, 298.0, 17.0 ],
 													"text" : "\"Macintosh HD:/Jamoma-Dev/Modular/Jamoma/\""
 												}
 
@@ -1515,7 +1517,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 519.0, 255.0, 35.0, 17.0 ],
+													"patching_rect" : [ 509.0, 284.0, 35.0, 17.0 ],
 													"text" : "clear"
 												}
 
@@ -1543,7 +1545,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 580.0, 544.0, 47.0, 19.0 ],
+													"patching_rect" : [ 580.0, 564.0, 47.0, 19.0 ],
 													"text" : "append"
 												}
 
@@ -1557,7 +1559,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 678.0, 517.0, 70.0, 19.0 ],
+													"patching_rect" : [ 677.0, 535.0, 70.0, 19.0 ],
 													"text" : "prepend set"
 												}
 
@@ -1571,7 +1573,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 678.0, 494.0, 118.0, 19.0 ],
+													"patching_rect" : [ 677.0, 512.0, 118.0, 19.0 ],
 													"text" : "tosymbol @separator"
 												}
 
@@ -1613,7 +1615,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 678.0, 471.0, 52.0, 19.0 ],
+													"patching_rect" : [ 677.0, 489.0, 52.0, 19.0 ],
 													"text" : "prepend"
 												}
 
@@ -1655,7 +1657,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
-													"patching_rect" : [ 645.0, 283.0, 85.0, 20.0 ],
+													"patching_rect" : [ 647.0, 284.0, 85.0, 20.0 ],
 													"text" : "route populate"
 												}
 
@@ -1722,9 +1724,9 @@
 													"depth" : 2,
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frozen_box_attributes" : [ "types", "depth" ],
+													"frozen_box_attributes" : [ "depth", "types" ],
 													"id" : "obj-38",
-													"items" : [ ".svn", ",", ".svn/all-wcprops", ",", ".svn/entries", ",", ".svn/format", ",", ".svn/prop-base", ",", ".svn/props", ",", ".svn/text-base", ",", ".svn/tmp", ",", ".svn/tmp/prop-base", ",", ".svn/tmp/props", ",", ".svn/tmp/text-base", ",", "audio", ",", "audio/.svn", ",", "audio/.svn/all-wcprops", ",", "audio/.svn/entries", ",", "audio/.svn/format", ",", "audio/.svn/prop-base", ",", "audio/.svn/props", ",", "audio/.svn/text-base", ",", "audio/.svn/tmp", ",", "audio/10harmonics~", ",", "audio/10harmonics~/.svn", ",", "audio/10harmonics~/jalg.10_harmonics~.maxpat", ",", "audio/10harmonics~/jmod.10_harmonics~.html", ",", "audio/10harmonics~/jmod.10_harmonics~.maxhelp", ",", "audio/10harmonics~/jmod.10_harmonics~.maxpat", ",", "audio/10harmonics~/jmod.10_harmonics~.xml", ",", "audio/crossfade~", ",", "audio/crossfade~/.svn", ",", "audio/crossfade~/jalg.crossfade~.maxpat", ",", "audio/crossfade~/jmod.crossfade~.html", ",", "audio/crossfade~/jmod.crossfade~.maxhelp", ",", "audio/crossfade~/jmod.crossfade~.maxpat", ",", "audio/crossfade~/jmod.crossfade~.xml", ",", "audio/degrade~", ",", "audio/degrade~/.svn", ",", "audio/degrade~/jalg.degrade~.maxpat", ",", "audio/degrade~/jmod.degrade~.html", ",", "audio/degrade~/jmod.degrade~.maxhelp", ",", "audio/degrade~/jmod.degrade~.maxpat", ",", "audio/degrade~/jmod.degrade~.xml", ",", "audio/delay~", ",", "audio/delay~/.svn", ",", "audio/delay~/jalg.delay~.maxpat", ",", "audio/delay~/jmod.delay~.html", ",", "audio/delay~/jmod.delay~.maxhelp", ",", "audio/delay~/jmod.delay~.maxpat", ",", "audio/delay~/jmod.delay~.xml", ",", "audio/echo~", ",", "audio/echo~/.svn", ",", "audio/echo~/jalg.echo~.maxpat", ",", "audio/echo~/jmod.echo~.html", ",", "audio/echo~/jmod.echo~.maxhelp", ",", "audio/echo~/jmod.echo~.maxpat", ",", "audio/echo~/jmod.echo~.xml", ",", "audio/equalizer~", ",", "audio/equalizer~/.svn", ",", "audio/equalizer~/jalg.equalizer~.maxpat", ",", "audio/equalizer~/jalg.equalizer~_params.maxpat", ",", "audio/equalizer~/jmod.equalizer~.html", ",", "audio/equalizer~/jmod.equalizer~.maxhelp", ",", "audio/equalizer~/jmod.equalizer~.maxpat", ",", "audio/equalizer~/jmod.equalizer~.xml", ",", "audio/filter~", ",", "audio/filter~/.svn", ",", "audio/filter~/jalg.filter~.maxpat", ",", "audio/filter~/jmod.filter~.html", ",", "audio/filter~/jmod.filter~.maxhelp", ",", "audio/filter~/jmod.filter~.maxpat", ",", "audio/filter~/jmod.filter~.xml", ",", "audio/fluidsynth~", ",", "audio/fluidsynth~/.svn", ",", "audio/fluidsynth~/jalg.fluidsynth~.maxpat", ",", "audio/fluidsynth~/jmod.fluidsynth~.html", ",", "audio/fluidsynth~/jmod.fluidsynth~.maxhelp", ",", "audio/fluidsynth~/jmod.fluidsynth~.maxpat", ",", "audio/fluidsynth~/jmod.fluidsynth~.xml", ",", "audio/input~", ",", "audio/input~/.svn", ",", "audio/input~/jmod.input~.html", ",", "audio/input~/jmod.input~.maxhelp", ",", "audio/input~/jmod.input~.maxpat", ",", "audio/input~/jmod.input~.xml", ",", "audio/limiter~", ",", "audio/limiter~/.svn", ",", "audio/limiter~/jmod.limiter~.html", ",", "audio/limiter~/jmod.limiter~.maxhelp", ",", "audio/limiter~/jmod.limiter~.maxpat", ",", "audio/limiter~/jmod.limiter~.xml", ",", "audio/multidelay~", ",", "audio/multidelay~/.svn", ",", "audio/multidelay~/jalg.multidelay~.maxpat", ",", "audio/multidelay~/jmod.multidelay~.html", ",", "audio/multidelay~/jmod.multidelay~.maxhelp", ",", "audio/multidelay~/jmod.multidelay~.maxpat", ",", "audio/multidelay~/jmod.multidelay~.xml", ",", "audio/noisegate~", ",", "audio/noisegate~/.svn", ",", "audio/noisegate~/jalg.noisegate~.maxpat", ",", "audio/noisegate~/jmod.noisegate~.html", ",", "audio/noisegate~/jmod.noisegate~.maxhelp", ",", "audio/noisegate~/jmod.noisegate~.maxpat", ",", "audio/noisegate~/jmod.noisegate~.xml", ",", "audio/noise~", ",", "audio/noise~/.svn", ",", "audio/noise~/jalg.noise~.maxpat", ",", "audio/noise~/jmod.noise~.maxhelp", ",", "audio/noise~/jmod.noise~.maxpat", ",", "audio/noise~/jmod.noise~.xml", ",", "audio/output~", ",", "audio/output~/.svn", ",", "audio/output~/jmod.output~.html", ",", "audio/output~/jmod.output~.maxhelp", ",", "audio/output~/jmod.output~.maxpat", ",", "audio/output~/jmod.output~.xml", ",", "audio/rissetGlissando", ",", "audio/rissetGlissando/.svn", ",", "audio/rissetGlissando/jalg.rissetGlissando~.maxpat", ",", "audio/rissetGlissando/jmod.rissetGlissando~.html", ",", "audio/rissetGlissando/jmod.rissetGlissando~.maxhelp", ",", "audio/rissetGlissando/jmod.rissetGlissando~.maxpat", ",", "audio/rissetGlissando/jmod.rissetGlissando~.xml", ",", "audio/sampleplayer2~", ",", "audio/sampleplayer2~/.svn", ",", "audio/sampleplayer2~/jalg.sampleplayer2~.maxpat", ",", "audio/sampleplayer2~/jmod.sampleplayer2~.html", ",", "audio/sampleplayer2~/jmod.sampleplayer2~.maxhelp", ",", "audio/sampleplayer2~/jmod.sampleplayer2~.maxpat", ",", "audio/sampleplayer2~/jmod.sampleplayer2~.xml", ",", "audio/saturation~", ",", "audio/saturation~/.svn", ",", "audio/saturation~/jalg.saturation~.maxpat", ",", "audio/saturation~/jmod.saturation~.html", ",", "audio/saturation~/jmod.saturation~.maxhelp", ",", "audio/saturation~/jmod.saturation~.maxpat", ",", "audio/saturation~/jmod.saturation~.xml", ",", "audio/scope~", ",", "audio/scope~/.svn", ",", "audio/scope~/jmod.scope~.html", ",", "audio/scope~/jmod.scope~.maxhelp", ",", "audio/scope~/jmod.scope~.maxpat", ",", "audio/scope~/jmod.scope~.xml", ",", "audio/sine~", ",", "audio/sine~/.svn", ",", "audio/sine~/jalg.sine~.maxpat", ",", "audio/sine~/jmod.sine~.html", ",", "audio/sine~/jmod.sine~.maxhelp", ",", "audio/sine~/jmod.sine~.maxpat", ",", "audio/sine~/jmod.sine~.xml", ",", "audio/spectralShift~", ",", "audio/spectralShift~/.svn", ",", "audio/spectralShift~/jalg.spectralShift~.maxpat", ",", "audio/spectralShift~/jcom.spectralShiftVoice~.maxpat", ",", "audio/spectralShift~/jmod.spectralShift~.html", ",", "audio/spectralShift~/jmod.spectralShift~.maxhelp", ",", "audio/spectralShift~/jmod.spectralShift~.maxpat", ",", "audio/spectralShift~/jmod.spectralShift~.xml", ",", "audio/tremolo~", ",", "audio/tremolo~/.svn", ",", "audio/tremolo~/jalg.tremolo~.maxpat", ",", "audio/tremolo~/jmod.tremolo~.html", ",", "audio/tremolo~/jmod.tremolo~.maxhelp", ",", "audio/tremolo~/jmod.tremolo~.maxpat", ",", "audio/tremolo~/jmod.tremolo~.xml", ",", "audio/vst~", ",", "audio/vst~/.svn", ",", "audio/vst~/jalg.vst~.maxpat", ",", "audio/vst~/jmod.vst~.html", ",", "audio/vst~/jmod.vst~.maxhelp", ",", "audio/vst~/jmod.vst~.maxpat", ",", "audio/vst~/jmod.vst~.xml", ",", "control", ",", "control/.svn", ",", "control/.svn/all-wcprops", ",", "control/.svn/entries", ",", "control/.svn/format", ",", "control/.svn/prop-base", ",", "control/.svn/props", ",", "control/.svn/text-base", ",", "control/.svn/tmp", ",", "control/bcf2000", ",", "control/bcf2000/.svn", ",", "control/bcf2000/BCFFader.maxpat", ",", "control/bcf2000/BCFKey.maxpat", ",", "control/bcf2000/jalg.bcf2000.maxpat", ",", "control/bcf2000/jmod.bcf2000.html", ",", "control/bcf2000/jmod.bcf2000.maxhelp", ",", "control/bcf2000/jmod.bcf2000.maxpat", ",", "control/bcf2000/jmod.bcf2000.xml", ",", "control/bcf2000/Push_encoder_press.maxpat", ",", "control/bcf2000/Push_encoder_turn.maxpat", ",", "control/colorpicker", ",", "control/colorpicker/.svn", ",", "control/colorpicker/jmod.colorpicker.html", ",", "control/colorpicker/jmod.colorpicker.maxhelp", ",", "control/colorpicker/jmod.colorpicker.maxpat", ",", "control/colorpicker/jmod.colorpicker.xml", ",", "control/cont_mapper", ",", "control/cont_mapper/.svn", ",", "control/cont_mapper/jmod.cont_mapper.html", ",", "control/cont_mapper/jmod.cont_mapper.maxhelp", ",", "control/cont_mapper/jmod.cont_mapper.maxpat", ",", "control/cont_mapper/jmod.cont_mapper.maxpat.zip", ",", "control/cont_mapper/jmod.cont_mapper.xml", ",", "control/continuum", ",", "control/continuum/.svn", ",", "control/continuum/jalg.continuum.maxpat", ",", "control/continuum/jalg.continuum_synth.maxpat", ",", "control/continuum/jmod.continuum.html", ",", "control/continuum/jmod.continuum.maxhelp", ",", "control/continuum/jmod.continuum.maxpat", ",", "control/continuum/jmod.continuum.xml", ",", "control/control", ",", "control/control/.svn", ",", "control/control/jmod.control.html", ",", "control/control/jmod.control.maxhelp", ",", "control/control/jmod.control.maxpat", ",", "control/control/jmod.control.xml", ",", "control/cpu_test", ",", "control/cpu_test/.svn", ",", "control/cpu_test/jmod.cpu_test.html", ",", "control/cpu_test/jmod.cpu_test.maxhelp", ",", "control/cpu_test/jmod.cpu_test.maxpat", ",", "control/cue_trigger", ",", "control/cue_trigger/.svn", ",", "control/cue_trigger/jmod.cue_trigger.html", ",", "control/cue_trigger/jmod.cue_trigger.maxhelp", ",", "control/cue_trigger/jmod.cue_trigger.maxpat", ",", "control/cue_trigger/jmod.cue_trigger.xml", ",", "control/cuelist", ",", "control/cuelist/.svn", ",", "control/cuelist/jalg.cuelist.maxpat", ",", "control/cuelist/jmod.cuelist.html", ",", "control/cuelist/jmod.cuelist.maxhelp", ",", "control/cuelist/jmod.cuelist.maxpat", ",", "control/cuelist/jmod.cuelist.xml", ",", "control/cuelist/jmod.demo_cuescript.txt", ",", "control/cueManager", ",", "control/cueManager/.svn", ",", "control/cueManager/aCuelist.txt", ",", "control/cueManager/java-classes", ",", "control/cueManager/jmod.cueManager.html", ",", "control/cueManager/jmod.cueManager.maxhelp", ",", "control/cueManager/jmod.cueManager.maxpat", ",", "control/cueManager/jmod.cueManager.xml", ",", "control/file_browser", ",", "control/file_browser/.svn", ",", "control/file_browser/jmod.file_browser.html", ",", "control/file_browser/jmod.file_browser.maxhelp", ",", "control/file_browser/jmod.file_browser.maxpat", ",", "control/file_browser/jmod.file_browser.xml", ",", "control/hi", ",", "control/hi/.svn", ",", "control/hi/jalg.hi.maxpat", ",", "control/hi/jmod.hi.html", ",", "control/hi/jmod.hi.maxhelp", ",", "control/hi/jmod.hi.maxpat", ",", "control/hi/jmod.hi.xml", ",", "control/layout", ",", "control/layout/.svn", ",", "control/layout/jmod.layout.html", ",", "control/layout/jmod.layout.locate_patcher.js", ",", "control/layout/jmod.layout.maxhelp", ",", "control/layout/jmod.layout.maxpat", ",", "control/layout/jmod.layout.xml", ",", "control/layout/jmod.layouthelp.xml", ",", "control/mapper", ",", "control/mapper/.svn", ",", "control/mapper/jalg.mapper.maxpat", ",", "control/mapper/jalg.transformation.maxpat", ",", "control/mapper/jcom.mappings.js", ",", "control/mapper/jmod.mapper.html", ",", "control/mapper/jmod.mapper.maxhelp", ",", "control/mapper/jmod.mapper.maxpat", ",", "control/mapper/jmod.mapper.xml", ",", "control/messages", ",", "control/messages/.svn", ",", "control/messages/jmod.messages.html", ",", "control/messages/jmod.messages.maxhelp", ",", "control/messages/jmod.messages.maxpat", ",", "control/messages/jmod.messages.xml", ",", "control/midiin", ",", "control/midiin/.svn", ",", "control/midiin/jalg.midiin.maxpat", ",", "control/midiin/jmod.midiin.html", ",", "control/midiin/jmod.midiin.maxhelp", ",", "control/midiin/jmod.midiin.maxpat", ",", "control/midiin/jmod.midiin.xml", ",", "control/mouse", ",", "control/mouse/.svn", ",", "control/mouse/jalg.mouse.maxpat", ",", "control/mouse/jmod.mouse.html", ",", "control/mouse/jmod.mouse.maxhelp", ",", "control/mouse/jmod.mouse.maxpat", ",", "control/mouse/jmod.mouse.xml", ",", "control/mouse.gdif", ",", "control/mouse.gdif/.svn", ",", "control/mouse.gdif/jalg.mouse.gdif.maxpat", ",", "control/mouse.gdif/jmod.mouse.gdif.html", ",", "control/mouse.gdif/jmod.mouse.gdif.maxhelp", ",", "control/mouse.gdif/jmod.mouse.gdif.maxpat", ",", "control/mouse.gdif/jmod.mouse.gdif.xml", ",", "control/multicast", ",", "control/multicast/.svn", ",", "control/multicast/jalg.multicast.maxpat", ",", "control/multicast/jalg.multicast_elt.maxpat", ",", "control/multicast/jmod.multicast.html", ",", "control/multicast/jmod.multicast.maxhelp", ",", "control/multicast/jmod.multicast.maxpat", ",", "control/multicast/jmod.multicast.xml", ",", "control/oscnet", ",", "control/oscnet/.svn", ",", "control/oscnet/jalg.oscnet.maxpat", ",", "control/oscnet/jalg.oscnet.ui.maxpat", ",", "control/oscnet/jmod.oscnet.html", ",", "control/oscnet/jmod.oscnet.maxhelp", ",", "control/oscnet/jmod.oscnet.maxpat", ",", "control/oscnet/jmod.oscnet.xml", ",", "control/palette", ",", "control/palette/.svn", ",", "control/palette/jalg.palette.maxpat", ",", "control/palette/jmod.palette.html", ",", "control/palette/jmod.palette.maxhelp", ",", "control/palette/jmod.palette.maxpat", ",", "control/palette/jmod.palette.xml", ",", "control/polhemus", ",", "control/polhemus/.svn", ",", "control/polhemus/jalg.polhemus.maxpat", ",", "control/polhemus/jmod.polhemus.html", ",", "control/polhemus/jmod.polhemus.maxhelp", ",", "control/polhemus/jmod.polhemus.maxpat", ",", "control/polhemus/jmod.polhemus.xml", ",", "control/qmetro", ",", "control/qmetro/.svn", ",", "control/qmetro/jalg.qmetro.maxpat", ",", "control/qmetro/jmod.qmetro.html", ",", "control/qmetro/jmod.qmetro.maxhelp", ",", "control/qmetro/jmod.qmetro.maxpat", ",", "control/qmetro/jmod.qmetro.test.maxpat", ",", "control/qmetro/jmod.qmetro.xml", ",", "control/spacenavigator", ",", "control/spacenavigator/.svn", ",", "control/spacenavigator/jalg.spacenavigator.maxpat", ",", "control/spacenavigator/jmod.spacenavigator.maxhelp", ",", "control/spacenavigator/jmod.spacenavigator.maxpat", ",", "control/spacenavigator/jmod.spacenavigator.xml", ",", "control/trig_mapper", ",", "control/trig_mapper/.svn", ",", "control/trig_mapper/jmod.trig_mapper.html", ",", "control/trig_mapper/jmod.trig_mapper.maxhelp", ",", "control/trig_mapper/jmod.trig_mapper.maxpat", ",", "control/trig_mapper/jmod.trig_mapper.xml", ",", "control/trig_mapper/tmapperHelp1.xml", ",", "control/trig_mapper/tmapperHelp2.xml", ",", "control/trig_mapper.zip", ",", "control/uc-33", ",", "control/uc-33/.svn", ",", "control/uc-33/jalg.uc-33.maxpat", ",", "control/uc-33/jmod.uc-33.maxhelp", ",", "control/uc-33/jmod.uc-33.maxpat", ",", "control/uc-33/jmod.uc-33.xml", ",", "control/wacom", ",", "control/wacom/.svn", ",", "control/wacom/jalg.wacom.maxpat", ",", "control/wacom/jmod.wacom.html", ",", "control/wacom/jmod.wacom.maxhelp", ",", "control/wacom/jmod.wacom.maxpat", ",", "control/wacom/jmod.wacom.xml", ",", "data", ",", "data/.svn", ",", "data/.svn/all-wcprops", ",", "data/.svn/entries", ",", "data/.svn/format", ",", "data/.svn/prop-base", ",", "data/.svn/props", ",", "data/.svn/text-base", ",", "data/.svn/tmp", ",", "data/condition", ",", "data/condition/.svn", ",", "data/condition/jalg.condition.maxpat", ",", "data/condition/jmod.condition.html", ",", "data/condition/jmod.condition.maxhelp", ",", "data/condition/jmod.condition.maxpat", ",", "data/condition/jmod.condition.xml", ",", "data/textwriter", ",", "data/textwriter/.svn", ",", "data/textwriter/jalg.textwriter.maxpat", ",", "data/textwriter/jalg.textwriter.mxt", ",", "data/textwriter/jmod.textwriter.html", ",", "data/textwriter/jmod.textwriter.maxhelp", ",", "data/textwriter/jmod.textwriter.maxpat", ",", "data/textwriter/jmod.textwriter.xml", ",", "spatialization", ",", "spatialization/.svn", ",", "spatialization/.svn/all-wcprops", ",", "spatialization/.svn/entries", ",", "spatialization/.svn/format", ",", "spatialization/.svn/prop-base", ",", "spatialization/.svn/props", ",", "spatialization/.svn/text-base", ",", "spatialization/.svn/tmp", ",", "spatialization/sur.ambi.adjust~", ",", "spatialization/sur.ambi.adjust~/.svn", ",", "spatialization/sur.ambi.adjust~/jalg.sur.ambi.adjust~.maxpat", ",", "spatialization/sur.ambi.adjust~/jmod.sur.ambi.adjust~.html", ",", "spatialization/sur.ambi.adjust~/jmod.sur.ambi.adjust~.maxhelp", ",", "spatialization/sur.ambi.adjust~/jmod.sur.ambi.adjust~.maxpat", ",", "spatialization/sur.ambi.adjust~/jmod.sur.ambi.adjust~.xml", ",", "spatialization/sur.ambi.decode~", ",", "spatialization/sur.ambi.decode~/.svn", ",", "spatialization/sur.ambi.decode~/jalg.sur.ambi.decode~.maxpat", ",", "spatialization/sur.ambi.decode~/jmod.sur.ambi.decode~.html", ",", "spatialization/sur.ambi.decode~/jmod.sur.ambi.decode~.maxhelp", ",", "spatialization/sur.ambi.decode~/jmod.sur.ambi.decode~.maxpat", ",", "spatialization/sur.ambi.decode~/jmod.sur.ambi.decode~.xml", ",", "spatialization/sur.ambi.encodeM~", ",", "spatialization/sur.ambi.encodeM~/.svn", ",", "spatialization/sur.ambi.encodeM~/jalg.sur.ambi.encodeM~.maxpat", ",", "spatialization/sur.ambi.encodeM~/jmod.sur.ambi.encodeM~.html", ",", "spatialization/sur.ambi.encodeM~/jmod.sur.ambi.encodeM~.maxhelp", ",", "spatialization/sur.ambi.encodeM~/jmod.sur.ambi.encodeM~.maxpat", ",", "spatialization/sur.ambi.encodeM~/jmod.sur.ambi.encodeM~.xml", ",", "spatialization/sur.ambipan~", ",", "spatialization/sur.ambipan~/jalg.sur.ambipan~.maxpat", ",", "spatialization/sur.ambipan~/jcom.ambipanSource.maxpat", ",", "spatialization/sur.ambipan~/jmod.sur.ambipan~.maxhelp", ",", "spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat", ",", "spatialization/sur.dbap~", ",", "spatialization/sur.dbap~/.svn", ",", "spatialization/sur.dbap~/jalg.sur.dbap~.maxpat", ",", "spatialization/sur.dbap~/jmod.sur.dbap~.html", ",", "spatialization/sur.dbap~/jmod.sur.dbap~.maxhelp", ",", "spatialization/sur.dbap~/jmod.sur.dbap~.maxpat", ",", "spatialization/sur.dbap~/jmod.sur.dbap~.xml", ",", "spatialization/sur.doppler~", ",", "spatialization/sur.doppler~/.svn", ",", "spatialization/sur.doppler~/jalg.sur.doppler~.maxpat", ",", "spatialization/sur.doppler~/jcom.sur.ch.doppler~.maxpat", ",", "spatialization/sur.doppler~/jcom.sur.doppler.js", ",", "spatialization/sur.doppler~/jmod.sur.doppler~.html", ",", "spatialization/sur.doppler~/jmod.sur.doppler~.maxhelp", ",", "spatialization/sur.doppler~/jmod.sur.doppler~.maxpat", ",", "spatialization/sur.doppler~/jmod.sur.doppler~.xml", ",", "spatialization/sur.meters~", ",", "spatialization/sur.meters~/.svn", ",", "spatialization/sur.meters~/jmod.sur.meters~.html", ",", "spatialization/sur.meters~/jmod.sur.meters~.maxhelp", ",", "spatialization/sur.meters~/jmod.sur.meters~.maxpat", ",", "spatialization/sur.meters~/jmod.sur.meters~.xml", ",", "spatialization/sur.multi.aux~", ",", "spatialization/sur.multi.aux~/.svn", ",", "spatialization/sur.multi.aux~/jalg.sur.multi.aux~.maxpat", ",", "spatialization/sur.multi.aux~/jmod.sur.multi.aux~.html", ",", "spatialization/sur.multi.aux~/jmod.sur.multi.aux~.maxhelp", ",", "spatialization/sur.multi.aux~/jmod.sur.multi.aux~.maxpat", ",", "spatialization/sur.multi.aux~/jmod.sur.multi.aux~.xml", ",", "spatialization/sur.multi.input~", ",", "spatialization/sur.multi.input~/.svn", ",", "spatialization/sur.multi.input~/input.timeDisplay.maxpat", ",", "spatialization/sur.multi.input~/jalg.sur.multi.input~.maxpat", ",", "spatialization/sur.multi.input~/jmod.sur.multi.input~.html", ",", "spatialization/sur.multi.input~/jmod.sur.multi.input~.maxhelp", ",", "spatialization/sur.multi.input~/jmod.sur.multi.input~.maxpat", ",", "spatialization/sur.multi.input~/jmod.sur.multi.input~.xml", ",", "spatialization/sur.multi.in~", ",", "spatialization/sur.multi.in~/.svn", ",", "spatialization/sur.multi.in~/jalg.sur.multi.in~.maxpat", ",", "spatialization/sur.multi.in~/jmod.sur.multi.in~.html", ",", "spatialization/sur.multi.in~/jmod.sur.multi.in~.maxhelp", ",", "spatialization/sur.multi.in~/jmod.sur.multi.in~.maxpat", ",", "spatialization/sur.multi.in~/jmod.sur.multi.in~.xml", ",", "spatialization/sur.multi.out~", ",", "spatialization/sur.multi.out~/.svn", ",", "spatialization/sur.multi.out~/jalg.sur.multi.out~.maxpat", ",", "spatialization/sur.multi.out~/jmod.sur.multi.out~.html", ",", "spatialization/sur.multi.out~/jmod.sur.multi.out~.maxhelp", ",", "spatialization/sur.multi.out~/jmod.sur.multi.out~.maxpat", ",", "spatialization/sur.multi.out~/jmod.sur.multi.out~.xml", ",", "spatialization/sur.output~", ",", "spatialization/sur.output~/.svn", ",", "spatialization/sur.output~/jalg.sur.output~.maxpat", ",", "spatialization/sur.output~/jmod.sur.output~.html", ",", "spatialization/sur.output~/jmod.sur.output~.maxhelp", ",", "spatialization/sur.output~/jmod.sur.output~.maxpat", ",", "spatialization/sur.output~/jmod.sur.output~.xml", ",", "spatialization/sur.position", ",", "spatialization/sur.position/.svn", ",", "spatialization/sur.position/jmod.sur.position.html", ",", "spatialization/sur.position/jmod.sur.position.maxhelp", ",", "spatialization/sur.position/jmod.sur.position.maxpat", ",", "spatialization/sur.position/jmod.sur.position.xml", ",", "spatialization/sur.race~", ",", "spatialization/sur.race~/.svn", ",", "spatialization/sur.race~/jalg.sur.race~.maxpat", ",", "spatialization/sur.race~/jmod.sur.race~.html", ",", "spatialization/sur.race~/jmod.sur.race~.maxhelp", ",", "spatialization/sur.race~/jmod.sur.race~.maxpat", ",", "spatialization/sur.race~/jmod.sur.race~.xml", ",", "spatialization/sur.rolloff~", ",", "spatialization/sur.rolloff~/.svn", ",", "spatialization/sur.rolloff~/jalg.sur.rolloff~.maxpat", ",", "spatialization/sur.rolloff~/jcom.sur.ch.rolloff~.maxpat", ",", "spatialization/sur.rolloff~/jcom.sur.rolloff.js", ",", "spatialization/sur.rolloff~/jmod.sur.rolloff~.html", ",", "spatialization/sur.rolloff~/jmod.sur.rolloff~.maxhelp", ",", "spatialization/sur.rolloff~/jmod.sur.rolloff~.maxpat", ",", "spatialization/sur.rolloff~/jmod.sur.rolloff~.xml", ",", "spatialization/sur.speaker.delay~", ",", "spatialization/sur.speaker.delay~/.svn", ",", "spatialization/sur.speaker.delay~/jalg.sur.speaker.delay~.maxpat", ",", "spatialization/sur.speaker.delay~/jcom.sur.speaker.delays.js", ",", "spatialization/sur.speaker.delay~/jmod.sur.speaker.delay~.html", ",", "spatialization/sur.speaker.delay~/jmod.sur.speaker.delay~.maxhelp", ",", "spatialization/sur.speaker.delay~/jmod.sur.speaker.delay~.maxpat", ",", "spatialization/sur.speaker.delay~/jmod.sur.speaker.delay~.xml", ",", "spatialization/sur.speaker.distamp~", ",", "spatialization/sur.speaker.distamp~/.svn", ",", "spatialization/sur.speaker.distamp~/jalg.sur.speaker.distamp~.maxpat", ",", "spatialization/sur.speaker.distamp~/jmod.sur.speaker.distamp~.maxhelp", ",", "spatialization/sur.speaker.distamp~/jmod.sur.speaker.distamp~.maxpat", ",", "spatialization/sur.speaker.distamp~/jmod.sur.speaker.distamp~.xml", ",", "spatialization/sur.speaker.setup", ",", "spatialization/sur.speaker.setup/.svn", ",", "spatialization/sur.speaker.setup/jcom.sur.ch.xyz_setup.maxpat", ",", "spatialization/sur.speaker.setup/jmod.sur.speaker.setup.html", ",", "spatialization/sur.speaker.setup/jmod.sur.speaker.setup.maxhelp", ",", "spatialization/sur.speaker.setup/jmod.sur.speaker.setup.maxpat", ",", "spatialization/sur.speaker.setup/jmod.sur.speaker.setup.xml", ",", "spatialization/sur.vbap~", ",", "spatialization/sur.vbap~/.svn", ",", "spatialization/sur.vbap~/jalg.sur.vbap~.maxpat", ",", "spatialization/sur.vbap~/jmod.sur.vbap~.html", ",", "spatialization/sur.vbap~/jmod.sur.vbap~.maxhelp", ",", "spatialization/sur.vbap~/jmod.sur.vbap~.maxpat", ",", "spatialization/sur.vbap~/jmod.sur.vbap~.xml", ",", "video", ",", "video/.svn", ",", "video/.svn/all-wcprops", ",", "video/.svn/entries", ",", "video/.svn/format", ",", "video/.svn/prop-base", ",", "video/.svn/props", ",", "video/.svn/text-base", ",", "video/.svn/tmp", ",", "video/avg4%", ",", "video/avg4%/.svn", ",", "video/avg4%/jalg.avg4%.maxpat", ",", "video/avg4%/jmod.avg4%.html", ",", "video/avg4%/jmod.avg4%.maxhelp", ",", "video/avg4%/jmod.avg4%.maxpat", ",", "video/avg4%/jmod.avg4%.xml", ",", "video/background%", ",", "video/background%/.svn", ",", "video/background%/jalg.background%.maxpat", ",", "video/background%/jmod.background%.html", ",", "video/background%/jmod.background%.maxhelp", ",", "video/background%/jmod.background%.maxpat", ",", "video/background%/jmod.background%.xml", ",", "video/blur%", ",", "video/blur%/.svn", ",", "video/blur%/jalg.blur%.maxpat", ",", "video/blur%/jmod.blur%.html", ",", "video/blur%/jmod.blur%.maxhelp", ",", "video/blur%/jmod.blur%.maxpat", ",", "video/blur%/jmod.blur%.xml", ",", "video/box%", ",", "video/box%/.svn", ",", "video/box%/jalg.box%.maxpat", ",", "video/box%/jmod.box%.html", ",", "video/box%/jmod.box%.maxhelp", ",", "video/box%/jmod.box%.maxpat", ",", "video/box%/jmod.box%.xml", ",", "video/brcosa%", ",", "video/brcosa%/.svn", ",", "video/brcosa%/jalg.brcosa%.maxpat", ",", "video/brcosa%/jmod.brcosa%.html", ",", "video/brcosa%/jmod.brcosa%.maxhelp", ",", "video/brcosa%/jmod.brcosa%.maxpat", ",", "video/brcosa%/jmod.brcosa%.xml", ",", "video/chromakey%", ",", "video/chromakey%/.svn", ",", "video/chromakey%/jalg.chromakey%.maxpat", ",", "video/chromakey%/jmod.chromakey%.html", ",", "video/chromakey%/jmod.chromakey%.maxhelp", ",", "video/chromakey%/jmod.chromakey%.maxpat", ",", "video/chromakey%/jmod.chromakey%.xml", ",", "video/edge%", ",", "video/edge%/.svn", ",", "video/edge%/jalg.edge%.maxpat", ",", "video/edge%/jmod.edge%.html", ",", "video/edge%/jmod.edge%.maxhelp", ",", "video/edge%/jmod.edge%.maxpat", ",", "video/edge%/jmod.edge%.xml", ",", "video/emboss%", ",", "video/emboss%/.svn", ",", "video/emboss%/jalg.emboss%.maxpat", ",", "video/emboss%/jmod.emboss%.html", ",", "video/emboss%/jmod.emboss%.maxhelp", ",", "video/emboss%/jmod.emboss%.maxpat", ",", "video/emboss%/jmod.emboss%.xml", ",", "video/fluoride%", ",", "video/fluoride%/.svn", ",", "video/fluoride%/jalg.fluoride%.maxpat", ",", "video/fluoride%/jmod.fluoride%.html", ",", "video/fluoride%/jmod.fluoride%.maxhelp", ",", "video/fluoride%/jmod.fluoride%.maxpat", ",", "video/fluoride%/jmod.fluoride%.xml", ",", "video/gl.alphamixer%", ",", "video/gl.alphamixer%/.svn", ",", "video/gl.alphamixer%/jalg.gl.alphamixer%.maxpat", ",", "video/gl.alphamixer%/jmod.gl.alphamixer%.html", ",", "video/gl.alphamixer%/jmod.gl.alphamixer%.maxhelp", ",", "video/gl.alphamixer%/jmod.gl.alphamixer%.maxpat", ",", "video/gl.alphamixer%/jmod.gl.alphamixer%.xml", ",", "video/gl.alphamixer%/shaders", ",", "video/gl.edgeblend%", ",", "video/gl.edgeblend%/.svn", ",", "video/gl.edgeblend%/jalg.gl.edgeblend%.maxpat", ",", "video/gl.edgeblend%/jmod.gl.edgeblend%.html", ",", "video/gl.edgeblend%/jmod.gl.edgeblend%.maxhelp", ",", "video/gl.edgeblend%/jmod.gl.edgeblend%.maxpat", ",", "video/gl.edgeblend%/jmod.gl.edgeblend%.xml", ",", "video/gl.td.rota%", ",", "video/gl.td.rota%/.svn", ",", "video/gl.td.rota%/jalg.gl.td.rota%.maxpat", ",", "video/gl.td.rota%/jmod.gl.td.rota%.html", ",", "video/gl.td.rota%/jmod.gl.td.rota%.maxhelp", ",", "video/gl.td.rota%/jmod.gl.td.rota%.maxpat", ",", "video/gl.td.rota%/jmod.gl.td.rota%.xml", ",", "video/gl.text2d%", ",", "video/gl.text2d%/.svn", ",", "video/gl.text2d%/jalg.gl.text2d%.maxpat", ",", "video/gl.text2d%/jmod.gl.text2d%-demo.txt", ",", "video/gl.text2d%/jmod.gl.text2d%.html", ",", "video/gl.text2d%/jmod.gl.text2d%.maxhelp", ",", "video/gl.text2d%/jmod.gl.text2d%.maxpat", ",", "video/gl.text2d%/jmod.gl.text2d%.xml", ",", "video/gl.videoplane%", ",", "video/gl.videoplane%/.svn", ",", "video/gl.videoplane%/jalg.gl.videoplane%.maxpat", ",", "video/gl.videoplane%/jmod.gl.videoplane%.html", ",", "video/gl.videoplane%/jmod.gl.videoplane%.maxhelp", ",", "video/gl.videoplane%/jmod.gl.videoplane%.maxpat", ",", "video/gl.videoplane%/jmod.gl.videoplane%.xml", ",", "video/input%", ",", "video/input%/.svn", ",", "video/input%/jalg.input%.maxpat", ",", "video/input%/jalg.input%.ui.maxpat", ",", "video/input%/jmod.input%.html", ",", "video/input%/jmod.input%.maxhelp", ",", "video/input%/jmod.input%.maxpat", ",", "video/input%/jmod.input%.xml", ",", "video/keyscreen%", ",", "video/keyscreen%/.svn", ",", "video/keyscreen%/jalg.keyscreen%.maxpat", ",", "video/keyscreen%/jmod.keyscreen%.html", ",", "video/keyscreen%/jmod.keyscreen%.maxhelp", ",", "video/keyscreen%/jmod.keyscreen%.maxpat", ",", "video/keyscreen%/jmod.keyscreen%.xml", ",", "video/mblur%", ",", "video/mblur%/.svn", ",", "video/mblur%/jalg.mblur%.maxpat", ",", "video/mblur%/jmod.mblur%.html", ",", "video/mblur%/jmod.mblur%.maxhelp", ",", "video/mblur%/jmod.mblur%.maxpat", ",", "video/mblur%/jmod.mblur%.xml", ",", "video/motion%", ",", "video/motion%/.svn", ",", "video/motion%/jalg.motion%.maxpat", ",", "video/motion%/jmod.motion%.html", ",", "video/motion%/jmod.motion%.maxhelp", ",", "video/motion%/jmod.motion%.maxpat", ",", "video/motion%/jmod.motion%.xml", ",", "video/motion2%", ",", "video/motion2%/.svn", ",", "video/motion2%/jalg.motion2%.maxpat", ",", "video/motion2%/jmod.motion2%.html", ",", "video/motion2%/jmod.motion2%.maxhelp", ",", "video/motion2%/jmod.motion2%.maxpat", ",", "video/motion2%/jmod.motion2%.xml", ",", "video/motiongram%", ",", "video/motiongram%/.svn", ",", "video/motiongram%/jalg.motiongram%.maxpat", ",", "video/motiongram%/jmod.motiongram%.html", ",", "video/motiongram%/jmod.motiongram%.maxhelp", ",", "video/motiongram%/jmod.motiongram%.maxpat", ",", "video/motiongram%/jmod.motiongram%.xml", ",", "video/movie_player%", ",", "video/movie_player%/.svn", ",", "video/movie_player%/jalg.movie_player%.maxpat", ",", "video/movie_player%/jmod.movie_player%.html", ",", "video/movie_player%/jmod.movie_player%.maxhelp", ",", "video/movie_player%/jmod.movie_player%.maxpat", ",", "video/movie_player%/jmod.movie_player%.xml", ",", "video/op%", ",", "video/op%/.svn", ",", "video/op%/jalg.op%.maxpat", ",", "video/op%/jmod.op%.html", ",", "video/op%/jmod.op%.maxhelp", ",", "video/op%/jmod.op%.maxpat", ",", "video/op%/jmod.op%.xml", ",", "video/orsize%", ",", "video/orsize%/.svn", ",", "video/orsize%/jalg.orsize%.maxpat", ",", "video/orsize%/jmod.orsize%.html", ",", "video/orsize%/jmod.orsize%.maxhelp", ",", "video/orsize%/jmod.orsize%.maxpat", ",", "video/orsize%/jmod.orsize%.xml", ",", "video/output%", ",", "video/output%/.svn", ",", "video/output%/jalg.output%.maxpat", ",", "video/output%/jmod.output%.html", ",", "video/output%/jmod.output%.maxhelp", ",", "video/output%/jmod.output%.maxpat", ",", "video/output%/jmod.output%.xml", ",", "video/plur%", ",", "video/plur%/.svn", ",", "video/plur%/jalg.plur%.maxpat", ",", "video/plur%/jmod.plur%.html", ",", "video/plur%/jmod.plur%.maxhelp", ",", "video/plur%/jmod.plur%.maxpat", ",", "video/plur%/jmod.plur%.xml", ",", "video/record%", ",", "video/record%/.svn", ",", "video/record%/jalg.record%.maxpat", ",", "video/record%/jmod.record%.html", ",", "video/record%/jmod.record%.maxhelp", ",", "video/record%/jmod.record%.maxpat", ",", "video/record%/jmod.record%.xml", ",", "video/similarity%", ",", "video/similarity%/.svn", ",", "video/similarity%/jalg.similarity%.maxpat", ",", "video/similarity%/jmod.similarity%.help", ",", "video/similarity%/jmod.similarity%.html", ",", "video/similarity%/jmod.similarity%.maxpat", ",", "video/similarity%/jmod.similarity%.xml", ",", "video/wake%", ",", "video/wake%/.svn", ",", "video/wake%/jalg.wake%.maxpat", ",", "video/wake%/jmod.wake%.html", ",", "video/wake%/jmod.wake%.maxhelp", ",", "video/wake%/jmod.wake%.maxpat", ",", "video/wake%/jmod.wake%.xml", ",", "video/xfade%", ",", "video/xfade%/.svn", ",", "video/xfade%/jalg.xfade%.maxpat", ",", "video/xfade%/jmod.xfade%.html", ",", "video/xfade%/jmod.xfade%.maxhelp", ",", "video/xfade%/jmod.xfade%.maxpat", ",", "video/xfade%/jmod.xfade%.xml", ",", "video/yfade%", ",", "video/yfade%/.svn", ",", "video/yfade%/jalg.yfade%.maxpat", ",", "video/yfade%/jmod.yfade%.html", ",", "video/yfade%/jmod.yfade%.maxhelp", ",", "video/yfade%/jmod.yfade%.maxpat", ",", "video/yfade%/jmod.yfade%.xml" ],
+													"items" : [  ],
 													"maxclass" : "umenu",
 													"numinlets" : 1,
 													"numoutlets" : 3,
@@ -1746,10 +1748,10 @@
 													"id" : "obj-39",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 1,
-													"outlettype" : [ "bang" ],
-													"patching_rect" : [ 494.0, 83.0, 24.0, 19.0 ],
-													"text" : "t b"
+													"numoutlets" : 2,
+													"outlettype" : [ "bang", "bang" ],
+													"patching_rect" : [ 494.0, 78.0, 134.0, 19.0 ],
+													"text" : "t b b"
 												}
 
 											}
@@ -1762,7 +1764,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 494.0, 164.0, 118.0, 19.0 ],
+													"patching_rect" : [ 495.0, 152.0, 118.0, 19.0 ],
 													"text" : "tosymbol @separator"
 												}
 
@@ -1776,7 +1778,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 493.0, 141.0, 93.0, 19.0 ],
+													"patching_rect" : [ 494.0, 129.0, 93.0, 19.0 ],
 													"text" : "append modules"
 												}
 
@@ -1790,7 +1792,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 493.0, 106.0, 108.0, 19.0 ],
+													"patching_rect" : [ 494.0, 107.0, 108.0, 19.0 ],
 													"text" : "jcom.jamoma_path"
 												}
 
@@ -1902,7 +1904,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 369.0, 638.0, 65.0, 19.0 ],
+													"patching_rect" : [ 594.0, 647.0, 65.0, 19.0 ],
 													"text" : "jcom.folder"
 												}
 
@@ -1922,10 +1924,46 @@
  ],
 										"lines" : [ 											{
 												"patchline" : 												{
+													"destination" : [ "obj-31", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-12", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-37", 0 ],
+													"hidden" : 0,
+													"midpoints" : [ 618.5, 185.0, 503.5, 185.0 ],
+													"source" : [ "obj-14", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-14", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-39", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-39", 0 ],
+													"hidden" : 0,
+													"midpoints" : [ 60.5, 55.5, 503.5, 55.5 ],
+													"source" : [ "obj-65", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
 													"destination" : [ "obj-44", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
-													"source" : [ "obj-16", 0 ]
+													"source" : [ "obj-39", 0 ]
 												}
 
 											}
@@ -1942,7 +1980,7 @@
 												"patchline" : 												{
 													"destination" : [ "obj-17", 0 ],
 													"hidden" : 0,
-													"midpoints" : [ 583.5, 398.5, 672.5, 398.5 ],
+													"midpoints" : [ 583.5, 404.5, 671.5, 404.5 ],
 													"source" : [ "obj-45", 0 ]
 												}
 
@@ -1960,7 +1998,7 @@
 												"patchline" : 												{
 													"destination" : [ "obj-10", 0 ],
 													"hidden" : 0,
-													"midpoints" : [  ],
+													"midpoints" : [ 672.5, 484.0, 587.5, 484.0 ],
 													"source" : [ "obj-13", 0 ]
 												}
 
@@ -1978,17 +2016,8 @@
 												"patchline" : 												{
 													"destination" : [ "obj-10", 0 ],
 													"hidden" : 0,
-													"midpoints" : [ 589.5, 591.0, 537.0, 591.0, 537.0, 465.0, 587.5, 465.0 ],
+													"midpoints" : [ 589.5, 609.0, 571.0, 609.0, 571.0, 488.0, 587.5, 488.0 ],
 													"source" : [ "obj-12", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-31", 0 ],
-													"hidden" : 0,
-													"midpoints" : [ 603.0, 628.5, 378.5, 628.5 ],
-													"source" : [ "obj-12", 1 ]
 												}
 
 											}
@@ -2014,7 +2043,7 @@
 												"patchline" : 												{
 													"destination" : [ "obj-7", 0 ],
 													"hidden" : 0,
-													"midpoints" : [  ],
+													"midpoints" : [ 686.5, 560.5, 589.5, 560.5 ],
 													"source" : [ "obj-6", 0 ]
 												}
 
@@ -2032,7 +2061,7 @@
 												"patchline" : 												{
 													"destination" : [ "obj-10", 1 ],
 													"hidden" : 0,
-													"midpoints" : [  ],
+													"midpoints" : [ 583.5, 446.5, 620.5, 446.5 ],
 													"source" : [ "obj-1", 0 ]
 												}
 
@@ -2041,7 +2070,7 @@
 												"patchline" : 												{
 													"destination" : [ "obj-36", 1 ],
 													"hidden" : 0,
-													"midpoints" : [  ],
+													"midpoints" : [ 503.5, 127.5, 339.5, 127.5 ],
 													"source" : [ "obj-44", 0 ]
 												}
 
@@ -2113,7 +2142,7 @@
 												"patchline" : 												{
 													"destination" : [ "obj-2", 0 ],
 													"hidden" : 0,
-													"midpoints" : [ 879.5, 467.0, 687.5, 467.0 ],
+													"midpoints" : [ 879.5, 481.0, 686.5, 481.0 ],
 													"source" : [ "obj-4", 0 ]
 												}
 
@@ -2131,7 +2160,7 @@
 												"patchline" : 												{
 													"destination" : [ "obj-3", 0 ],
 													"hidden" : 0,
-													"midpoints" : [  ],
+													"midpoints" : [ 60.5, 50.0, 879.5, 50.0 ],
 													"source" : [ "obj-65", 0 ]
 												}
 
@@ -2151,24 +2180,6 @@
 													"hidden" : 0,
 													"midpoints" : [  ],
 													"source" : [ "obj-51", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-44", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-39", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-39", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-65", 0 ]
 												}
 
 											}
@@ -2266,7 +2277,7 @@
 												"patchline" : 												{
 													"destination" : [ "obj-31", 0 ],
 													"hidden" : 0,
-													"midpoints" : [  ],
+													"midpoints" : [ 60.5, 639.5, 603.5, 639.5 ],
 													"source" : [ "obj-53", 0 ]
 												}
 
@@ -2316,18 +2327,27 @@
 												}
 
 											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-30", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-11", 0 ]
+												}
+
+											}
  ]
 									}
 ,
 									"patching_rect" : [ 426.0, 101.0, 114.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"default_fontface" : 0,
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p copy_XML_presets"
@@ -2521,15 +2541,15 @@
  ]
 									}
 ,
-									"patching_rect" : [ 564.0, 95.0, 87.0, 19.0 ],
+									"patching_rect" : [ 564.0, 101.0, 87.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"default_fontface" : 0,
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p create_folder"
@@ -2923,7 +2943,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-66", 0 ],
 									"hidden" : 0,
-									"midpoints" : [  ],
+									"midpoints" : [ 59.5, 93.5, 435.5, 93.5 ],
 									"source" : [ "obj-9", 0 ]
 								}
 
@@ -2932,7 +2952,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-64", 0 ],
 									"hidden" : 0,
-									"midpoints" : [  ],
+									"midpoints" : [ 59.5, 86.5, 573.5, 86.5 ],
 									"source" : [ "obj-9", 0 ]
 								}
 
@@ -3212,13 +3232,13 @@
 ,
 					"patching_rect" : [ 185.0, 195.0, 44.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"default_fontface" : 0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p mac"
