@@ -1094,7 +1094,7 @@ void dbap_calculate_view(t_dbap *x, long dst, long src)
 /** If the attr_view_update is true : calculate the last view */
 void dbap_update_view(t_dbap *x){
 	if(x->attr_view_update)
-		defer(x,(method) dbap_view, gensym("view"), 2, x->last_view);
+		defer_low(x,(method) dbap_view, gensym("view"), 2, x->last_view);
 }
 
 void dbap_calculate_view1D(t_dbap *x, long dst, long src)
