@@ -114,6 +114,8 @@ typedef struct _cuemng
 	long		eof;				// the number of written char in the file.
 	char		*buf;				// a pointer to a text buffer
 	long		eobuf;				// the number of written char in the text buffer
+	bool		wtof;				// True : write into a file. 
+									// False : write into the editor.
 
 	long		show;				// to memorize what is showing in the text editor (0: temp_cue, 1: a cue, 2: the cuelist)
 

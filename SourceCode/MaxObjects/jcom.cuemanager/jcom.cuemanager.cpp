@@ -379,15 +379,17 @@ void cuemng_bang(t_cuemng *x)
 			if(!x->m_editor)
 				x->m_editor = (t_object *)object_new(CLASS_NOBOX, gensym("jed"), (t_object *)x , 0);
 			
+			x->wtof = false;	// we wan to write into the editor
+
 			// create a new buffer for text
 			x->eobuf = 0;
 			x->buf = sysmem_newptrclear(sizeof(char)*TEXT_BUFFER_SIZE);
 
-			// write the cue in ht
+			// write the cue in the text buffer
 			cuemng_write_cue(ccue, x);
 			
-			// write ht in the editor
-			// TODO object_method(x->m_editor, gensym("settext"), x->ht, gensym("utf-8"));
+			// write buf into the editor
+			object_method(x->m_editor, gensym("settext"), x->buf, gensym("utf-8"));
 
 			// give a title to the windows editor
 			object_attr_setsym(x->m_editor, gensym("title"), ccue->index);
@@ -722,6 +724,7 @@ void cuemng_dosave(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 
 	// HERE WE CAN FINALLY WRITE THE DATA OUT TO THE FILE
 	x->eof = 0;
+	x->wtof = true;	// we wan to write on a file
 
 	// create a new buffer
 	x->eobuf = 0;
@@ -757,15 +760,17 @@ void cuemng_open(t_cuemng *x)
 		if(!x->m_editor)
 			x->m_editor = (t_object *)object_new(CLASS_NOBOX, gensym("jed"), (t_object *)x , 0);
 		
+		x->wtof = false;	// we wan to write into the editor
+
 		// create a new buffer for text
 		x->eobuf = 0;
 		x->buf = sysmem_newptrclear(sizeof(char)*TEXT_BUFFER_SIZE);
 
-		// write all cues in ht
+		// write all cues in buf
 		linklist_funall(x->cuelist,(method)cuemng_write_cue,x);
 		
-		// write ht in the editor
-		//TODO : object_method(x->m_editor, gensym("settext"), x->ht, gensym("utf-8"));
+		// write buf into the editor
+		object_method(x->m_editor, gensym("settext"), x->buf, gensym("utf-8"));
 
 		// give a title to the windows editor
 		object_attr_setsym(x->m_editor, gensym("title"), gensym("TODO : write cue list file name here"));
@@ -2295,26 +2300,33 @@ void cuemng_write_float(t_cuemng *x, float src)
 	strcat(x->buf,temp);
 }
 
-// write the buffer into a text file (TODO : or in the jed)
+// write the buffer into a text file or the buffer (depending on x->wtof)
 void cuemng_write_buffer(t_cuemng *x)
 {
-	//char 	tempstring[TEXT_BUFFER_SIZE];
 	short	err = 0;
 	long	len = 0;
 	
-	//strcpy(tempstring, x->buf);
 	len = strlen(x->buf);
 
-	err = sysfile_write(x->fh, &len, x->buf);
-	if(err){
-		error("cuemng_write_buffer : sysfile_write error (%d)", err);
-		return;
-	}
-	x->eof += len;
+	if(x->wtof){
+		// write into a text file
+		err = sysfile_write(x->fh, &len, x->buf);
 
-	// clear the buffer
-	x->eobuf = 0;
-	x->buf = sysmem_newptrclear(sizeof(char)*TEXT_BUFFER_SIZE);
+		if(err){
+			error("cuemng_write_buffer : sysfile_write error (%d)", err);
+			return;
+		}
+		x->eof += len;
+
+		// clear the buffer
+		x->eobuf = 0;
+		x->buf = sysmem_newptrclear(sizeof(char)*TEXT_BUFFER_SIZE);
+	}
+	else{
+		// resize the buffer
+		x->eobuf = 0;
+		sysmem_resizeptr(x->buf,sizeof(char)*(len+TEXT_BUFFER_SIZE));
+	}
 }
 
 // look at the incoming args to check the temp flag
