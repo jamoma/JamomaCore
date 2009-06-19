@@ -1599,7 +1599,7 @@ void cuemng_anything(t_cuemng *x, t_symbol *start, long argc, t_atom *argv)
 		return;
 	}
 
-	// is it to set the temp_cue as an absolute cue ?
+	// is it to set the temp_cue as a temp cue ?
 	if(start == ps_tempcue){
 		cuemng_set_temp(x, TEMP_CUE, argc, argv);
 		return;
@@ -1666,6 +1666,7 @@ void cuemng_set_temp(t_cuemng *x,long mode, long argc, t_atom *argv)
 	long r, r_pos;
 
 	x->temp_cue->mode = mode;
+
 	x->temp_cue->index = atom_getsym(&argv[0]);
 	
 	r = cuemng_check_ramp(x,&r_pos,argc-1,argv+1);
@@ -2122,36 +2123,39 @@ void cuemng_info_operation(t_cuemng *x, t_symbol *s, long argc, t_atom *argv){
 
 void cuemng_write_cue(t_cue *c, t_cuemng *x)
 {
-			// write 3 new line
-			cuemng_write_sym(x,x->ps_lb);
-			cuemng_write_sym(x,x->ps_lb);
+	char name[64];
 
-			// store head info of the cue
-			// mode
-			if(c->mode == DIFFERENTIAL_CUE)cuemng_write_sym(x,x->ps_cue);
-			if(c->mode == ABSOLUTE_CUE) cuemng_write_sym(x,x->ps_keycue);
-			if(c->mode == TEMP_CUE) cuemng_write_sym(x,ps_tempcue);
-			if(c->mode == EMPTY_CUE) cuemng_write_sym(x,ps_emptycue);
+	// write 3 new line
+	cuemng_write_sym(x,x->ps_lb);
+	cuemng_write_sym(x,x->ps_lb);
 
-			// write name
-			cuemng_write_sym(x,c->index);
-			
-			// write option(s)
-			if(c->ramp > NO_RAMP){
-				cuemng_write_sym(x,x->ps_ramp);
-				cuemng_write_long(x,c->ramp);
-			}
-			
-			// write 3 new line
-			cuemng_write_sym(x,x->ps_lb);
-			cuemng_write_sym(x,x->ps_lb);
-			cuemng_write_sym(x,x->ps_lb);
-			
-			// write each line of the cue
-			linklist_funall(c->linelist, (method)cuemng_write_line, x);
+	// store head info of the cue
+	// mode
+	if(c->mode == DIFFERENTIAL_CUE)cuemng_write_sym(x,x->ps_cue);
+	if(c->mode == ABSOLUTE_CUE) cuemng_write_sym(x,x->ps_keycue);
+	if(c->mode == TEMP_CUE) cuemng_write_sym(x,ps_tempcue);
+	if(c->mode == EMPTY_CUE) cuemng_write_sym(x,ps_emptycue);
 
-			// write a new line
-			cuemng_write_sym(x,x->ps_lb);
+	// write name : wrap the name with " " to avoid the problem of SPACE
+	snprintf(name,64,"\"%s\"",c->index->s_name);
+	cuemng_write_sym(x,gensym(name));
+	
+	// write option(s)
+	if(c->ramp > NO_RAMP){
+		cuemng_write_sym(x,x->ps_ramp);
+		cuemng_write_long(x,c->ramp);
+	}
+	
+	// write 3 new line
+	cuemng_write_sym(x,x->ps_lb);
+	cuemng_write_sym(x,x->ps_lb);
+	cuemng_write_sym(x,x->ps_lb);
+	
+	// write each line of the cue
+	linklist_funall(c->linelist, (method)cuemng_write_line, x);
+
+	// write a new line
+	cuemng_write_sym(x,x->ps_lb);
 }
 
 void cuemng_write_line(t_line *l, t_cuemng *x)
