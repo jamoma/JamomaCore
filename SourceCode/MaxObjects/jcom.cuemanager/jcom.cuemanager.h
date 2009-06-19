@@ -22,7 +22,7 @@
 #define TAB "	"
 #define LB "\n"
 
-#define TEXT_BUFFER_SIZE 5000
+#define TEXT_BUFFER_SIZE 4096
 
 #define NB_TAB_PARAM 4
 #define NB_TAB_ATTR 6
@@ -110,9 +110,11 @@ typedef struct _cuemng
 
 	t_object	*m_editor;			// a textfile editor
 	t_object	*editorview;		// the textfile window
-	char		*ht;				// a pointer to the text
-	long		eof;				// the number of written char in text
-	long		ht_size;			// the size of the text
+	t_filehandle fh;				// a reference to a file (for opening it, closing it, etc.).
+	long		eof;				// the number of written char in the file.
+	char		*buf;				// a pointer to a text buffer
+	long		eobuf;				// the number of written char in the text buffer
+
 	long		show;				// to memorize what is showing in the text editor (0: temp_cue, 1: a cue, 2: the cuelist)
 
 	t_object	*dialog;			// a dialog window
@@ -212,6 +214,7 @@ void cuemng_write_atom(t_cuemng *x, t_atom *src);
 void cuemng_write_sym(t_cuemng *x, t_symbol *src);
 void cuemng_write_long(t_cuemng *x, long src);
 void cuemng_write_float(t_cuemng *x, float src);
+void cuemng_write_buffer(t_cuemng *x);
 
 long cuemng_check_temp(t_cuemng *x, long argc, t_atom *argv);
 long cuemng_check_index(t_cuemng *x, long argc, t_atom *argv);
