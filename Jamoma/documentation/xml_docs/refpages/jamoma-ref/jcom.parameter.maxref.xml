@@ -150,7 +150,7 @@
 			</digest>
 			<description>
 				Update parameter value and trigger output locally and internally. If 2nd last member is the symbol <m>ramp</m>, 
-				the parameter vil ramp to new value(s) as described by the ramp attributes.
+				the parameter will ramp to new value(s) as described by the ramp attributes.
 			</description>
 		</method>
 		
@@ -209,7 +209,7 @@
 				TEXT_HERE
 			</digest>
 			<description>
-				The <m>dispatched</m> message is used by the Jamoma system for intenal communication from the hub (<o>jcom.hub</o>) of the module to the parameter.
+				The <m>dispatched</m> message is used by the Jamoma system for internal communication from the hub (<o>jcom.hub</o>) of the module to the parameter.
 				One of the benefits of this is that the parameter can be accessed not only locally by direct communication with <o>jcom.parameter</o>,
 				but also from outside the module by passing OSC messages to the left inlet of the module with the OSC name of the module prepended to the OSC namespace:
 				<m>/parameter_name/parameter_namespace</m>.
@@ -568,9 +568,9 @@
 				All messages and attributes that can be accessed locally are therefore also accessible using the colon separator “:” as a separator 
 				between the OSC address of the node and the namespace for adressing the members of the node, e.g:<br />
 				<br />
-				• <m>/parameter_name:+</m><br />
-				• <m>/parameter_name:dataspace temperature</m><br />
-				• <m>/parameter_name:dataspace/unit/active Celsius</m><br />
+				• <m>/parameter_name:/+</m><br />
+				• <m>/parameter_name:/dataspace temperature</m><br />
+				• <m>/parameter_name:/dataspace/unit/active Celsius</m><br />
 			</description>
 		</entry>
 		<entry name="Remote communication to and from other modules">
@@ -585,9 +585,9 @@
 				<br />
 				• <m>/module_name/parameter_name (value)</m> <br />
 				• <m>/module_name/parameter_name (value) ramp 3000</m> <br />
-				• <m>/module_name/parameter_name:+</m><br />
-				• <m>/module_name/parameter_name:dataspace temperature</m><br />
-				• <m>/module_name/parameter_name:dataspace/unit/active Celsius</m><br />
+				• <m>/module_name/parameter_name:/+</m><br />
+				• <m>/module_name/parameter_name:/dataspace temperature</m><br />
+				• <m>/module_name/parameter_name:/dataspace/unit/active Celsius</m><br />
 			</description>
 		</entry>
 	</misc>
