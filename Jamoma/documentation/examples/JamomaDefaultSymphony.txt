@@ -4,50 +4,49 @@ CUE Init
     /control/audio 0
     /control/ui/freeze 0
 
-# Module /file_browser.1
-    /file_browser.1/depth 0
-    /file_browser.1/file /Applications/Max5/examples/sounds/vibes-a1.aif
-    /file_browser.1/folder ./examples/sounds/
-    /file_browser.1/type 0
-    /file_browser.1/ui/freeze 0
-# Module /file_browser.2
-    /file_browser.2/depth 0
-    /file_browser.2/file /Applications/Max5/examples/sounds/sho0630.aif
-    /file_browser.2/folder ./examples/sounds/
-    /file_browser.2/type 0
-    /file_browser.2/ui/freeze 0
-# Module /file_browser.3
-    /file_browser.3/depth 0
-    /file_browser.3/file /Applications/Max5/examples/sounds/rainstick.aif
-    /file_browser.3/folder ./examples/sounds/
-    /file_browser.3/type 0
-    /file_browser.3/ui/freeze 0
-# Module /file_browser.4
-    /file_browser.4/depth 0
-    /file_browser.4/file /Applications/Max5/examples/sounds/cherokee.aif
-    /file_browser.4/folder ./examples/sounds/
-    /file_browser.4/type 0
-    /file_browser.4/ui/freeze 0
-# Module /file_browser.5
-    /file_browser.5/depth 0
-    /file_browser.5/file /Applications/Max5/examples/sounds/cello-f2.aif
-    /file_browser.5/folder ./examples/sounds/
-    /file_browser.5/type 0
-    /file_browser.5/ui/freeze 0
-# Module /file_browser.6
-    /file_browser.6/depth 0
-    /file_browser.6/file 0
-    /file_browser.6/folder ./examples/sounds/
-    /file_browser.6/file /Applications/Max5/examples/sounds/anton.aif
-    /file_browser.6/type 0
-    /file_browser.6/ui/freeze 0
+# Module /fileBrowser.1
+    /fileBrowser.1/depth 0
+    /fileBrowser.1/file /Applications/Max5/examples/sounds/vibes-a1.aif
+    /fileBrowser.1/folder ./examples/sounds/
+    /fileBrowser.1/type all
+    /fileBrowser.1/ui/freeze 0
+# Module /fileBrowser.2
+    /fileBrowser.2/depth 0
+    /fileBrowser.2/file /Applications/Max5/examples/sounds/sho0630.aif
+    /fileBrowser.2/folder ./examples/sounds/
+    /fileBrowser.2/type all
+    /fileBrowser.2/ui/freeze 0
+# Module /fileBrowser.3
+    /fileBrowser.3/depth 0
+    /fileBrowser.3/file /Applications/Max5/examples/sounds/rainstick.aif
+    /fileBrowser.3/folder ./examples/sounds/
+    /fileBrowser.3/type all
+    /fileBrowser.3/ui/freeze 0
+# Module /fileBrowser.4
+    /fileBrowser.4/depth 0
+    /fileBrowser.4/file /Applications/Max5/examples/sounds/cherokee.aif
+    /fileBrowser.4/folder ./examples/sounds/
+    /fileBrowser.4/type all
+    /fileBrowser.4/ui/freeze 0
+# Module /fileBrowser.5
+    /fileBrowser.5/depth 0
+    /fileBrowser.5/file /Applications/Max5/examples/sounds/cello-f2.aif
+    /fileBrowser.5/folder ./examples/sounds/
+    /fileBrowser.5/type all
+    /fileBrowser.5/ui/freeze 0
+# Module /fileBrowser.6
+    /fileBrowser.6/depth 0
+    /fileBrowser.6/folder ./examples/sounds/
+    /fileBrowser.6/file /Applications/Max5/examples/sounds/anton.aif
+    /fileBrowser.6/type all
+    /fileBrowser.6/ui/freeze 0
 
 # Module /filter~.1
     /filter~.1/audio/bypass 0
     /filter~.1/audio/gain 93.000
     /filter~.1/audio/mix 100.000
     /filter~.1/audio/mute 0
-    /filter~.1/cf 1548.000
+    /filter~.1/frequency 1548.000
     /filter~.1/filtergain 0.000
     /filter~.1/filtertype lowpass
     /filter~.1/q 1.000
@@ -57,7 +56,7 @@ CUE Init
     /filter~.2/audio/gain 93.000
     /filter~.2/audio/mix 100.000
     /filter~.2/audio/mute 0
-    /filter~.2/cf 3621.312
+    /filter~.2/frequency 3621.312
     /filter~.2/filtergain 11.958
     /filter~.2/filtertype bandpass
     /filter~.2/q 1.000
@@ -67,7 +66,7 @@ CUE Init
     /filter~.3/audio/gain 93.000
     /filter~.3/audio/mix 100.000
     /filter~.3/audio/mute 0
-    /filter~.3/cf 1548.000
+    /filter~.3/frequency 1548.000
     /filter~.3/filtergain 0.000
     /filter~.3/filtertype lowpass
     /filter~.3/q 1.000
@@ -77,7 +76,7 @@ CUE Init
     /filter~.4/audio/gain 93.000
     /filter~.4/audio/mix 100.000
     /filter~.4/audio/mute 0
-    /filter~.4/cf 1548.000
+    /filter~.4/frequency 1548.000
     /filter~.4/filtergain 0.000
     /filter~.4/filtertype lowpass
     /filter~.4/q 1.000
@@ -87,7 +86,7 @@ CUE Init
     /filter~.5/audio/gain 93.000
     /filter~.5/audio/mix 100.000
     /filter~.5/audio/mute 0
-    /filter~.5/cf 1548.000
+    /filter~.5/frequency 1548.000
     /filter~.5/filtergain 0.000
     /filter~.5/filtertype lowpass
     /filter~.5/q 1.000
@@ -97,7 +96,7 @@ CUE Init
     /filter~.6/audio/gain 93.000
     /filter~.6/audio/mix 100.000
     /filter~.6/audio/mute 0
-    /filter~.6/cf 1548.000
+    /filter~.6/frequency 1548.000
     /filter~.6/filtergain 0.000
     /filter~.6/filtertype lowpass
     /filter~.6/q 1.000
@@ -170,9 +169,9 @@ CUE Init
     /multidelay~.1/audio/mix 100.000
     /multidelay~.1/audio/mute 0
     /multidelay~.1/feedback 0.200
-    /multidelay~.1/left 1786 3929 5357 7500 9643
-    /multidelay~.1/maxdelay 10000
-    /multidelay~.1/right 8929 6429 4643 2143 0
+    /multidelay~.1/delay/left 1786 3929 5357 7500 9643
+    /multidelay~.1/delay/max 10000
+    /multidelay~.1/delay/right 8929 6429 4643 2143 0
     /multidelay~.1/ui/freeze 0
 # Module /multidelay~.2
     /multidelay~.2/audio/bypass 0
@@ -180,9 +179,9 @@ CUE Init
     /multidelay~.2/audio/mix 100.000
     /multidelay~.2/audio/mute 0
     /multidelay~.2/feedback 0.200
-    /multidelay~.2/left 1786 3929 5357 7500 9643
-    /multidelay~.2/maxdelay 10000
-    /multidelay~.2/right 4048 6429 4643 2143 0
+    /multidelay~.2/delay/left 1786 3929 5357 7500 9643
+    /multidelay~.2/delay/max 10000
+    /multidelay~.2/delay/right 4048 6429 4643 2143 0
     /multidelay~.2/ui/freeze 0
 # Module /multidelay~.3
     /multidelay~.3/audio/bypass 0
@@ -190,9 +189,9 @@ CUE Init
     /multidelay~.3/audio/mix 100.000
     /multidelay~.3/audio/mute 0
    /multidelay~.3/feedback 0.200
-    /multidelay~.3/left 1786 3929 5357 7500 9643
-    /multidelay~.3/maxdelay 10000
-    /multidelay~.3/right 8929 6429 4643 2143 0
+    /multidelay~.3/delay/left 1786 3929 5357 7500 9643
+    /multidelay~.3/delay/max 10000
+    /multidelay~.3/delay/right 8929 6429 4643 2143 0
     /multidelay~.3/ui/freeze 0
 # Module /multidelay~.4
     /multidelay~.4/audio/bypass 0
@@ -200,9 +199,9 @@ CUE Init
     /multidelay~.4/audio/mix 100.000
     /multidelay~.4/audio/mute 0
    /multidelay~.4/feedback 0.200
-    /multidelay~.4/left 1786 3929 5357 7500 9643
-    /multidelay~.4/maxdelay 10000
-    /multidelay~.4/right 8929 6429 4643 2143 0
+    /multidelay~.4/delay/left 1786 3929 5357 7500 9643
+    /multidelay~.4/delay/max 10000
+    /multidelay~.4/delay/right 8929 6429 4643 2143 0
     /multidelay~.4/ui/freeze 0
 # Module /multidelay~.5
     /multidelay~.5/audio/bypass 0
@@ -210,9 +209,9 @@ CUE Init
     /multidelay~.5/audio/mix 100.000
     /multidelay~.5/audio/mute 0
    /multidelay~.5/feedback 0.200
-    /multidelay~.5/left 1786 3929 5357 7500 9643
-    /multidelay~.5/maxdelay 10000
-    /multidelay~.5/right 8929 6429 4643 2143 0
+    /multidelay~.5/delay/left 1786 3929 5357 7500 9643
+    /multidelay~.5/delay/max 10000
+    /multidelay~.5/delay/right 8929 6429 4643 2143 0
     /multidelay~.5/ui/freeze 0
 # Module /multidelay~.6
     /multidelay~.6/audio/bypass 0
@@ -220,9 +219,9 @@ CUE Init
     /multidelay~.6/audio/mix 100.000
     /multidelay~.6/audio/mute 0
    /multidelay~.6/feedback 0.200
-    /multidelay~.6/left 1786 3929 5357 7500 9643
-    /multidelay~.6/maxdelay 10000
-    /multidelay~.6/right 8929 6429 4643 2143 0
+    /multidelay~.6/delay/left 1786 3929 5357 7500 9643
+    /multidelay~.6/delay/max 10000
+    /multidelay~.6/delay/right 8929 6429 4643 2143 0
     /multidelay~.6/ui/freeze 0
 
 # Module /saturation~.1
@@ -292,7 +291,7 @@ CUE Init
     /output~/limiter/preamp 6.000
     /output~/limiter/release 300.000
     /output~/limiter/threshold -6.000
-    /output~/record 0
+    /output~/record/active 0
     /output~/record/filetype aiff
     /output~/record/samptype int24
     /output~/saturation/active 1
@@ -340,13 +339,13 @@ WAIT 9000
     /input~.6/audio/gain 109.000 ramp 8000
     /input~.4/audio/gain 40.000 ramp 4000
     /input~.2/audio/gain 110.000 ramp 6000
-    /filter~.2/cf 521.312012 ramp 5000
+    /filter~.2/frequency 521.312012 ramp 5000
     /filter~.2/filtergain 4.958 ramp 6000
     /filter~.2/q 10. ramp 12000
 
 WAIT 13000
 
-    /filter~.2/cf 5021.312012 ramp 12000
+    /filter~.2/frequency 5021.312012 ramp 12000
     /saturation~.2/depth 100. ramp 9000
 
 WAIT 12000
