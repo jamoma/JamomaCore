@@ -62,7 +62,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "jmod.movie_player",
+					"text" : "jmod.moviePlayer",
 					"numinlets" : 1,
 					"patching_rect" : [ 19.0, 29.0, 189.0, 28.0 ],
 					"numoutlets" : 0,
@@ -142,8 +142,8 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.movie_player%",
-					"name" : "jmod.movie_player%.maxpat",
+					"varname" : "jmod.moviePlayer%",
+					"name" : "jmod.moviePlayer%.maxpat",
 					"numinlets" : 2,
 					"patching_rect" : [ 44.0, 176.0, 302.0, 141.0 ],
 					"numoutlets" : 2,
