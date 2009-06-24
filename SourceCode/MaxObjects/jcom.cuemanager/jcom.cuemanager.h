@@ -22,7 +22,9 @@
 #define TAB "	"
 #define LB "\n"
 
+#define TEXT_MAX_LINE 1024			// the maximum number of lines to display in the text editor
 #define TEXT_BUFFER_SIZE 4096
+#define TEXT_LINE_SIZE 4096
 
 #define NB_TAB_PARAM 4
 #define NB_TAB_ATTR 6
@@ -112,7 +114,7 @@ typedef struct _cuemng
 	t_object	*editorview;		// the textfile window
 	t_filehandle fh;				// a reference to a file (for opening it, closing it, etc.).
 	long		eof;				// the number of written char in the file.
-	char		*buf;				// a pointer to a text buffer
+	char		**buf;				// a text handler //(pointer to a text buffer)
 	long		eobuf;				// the number of written char in the text buffer
 	bool		wtof;				// True : write into a file. 
 									// False : write into the editor.
@@ -147,8 +149,8 @@ void *cuemng_new(t_symbol *s, long argc, t_atom *argv);
 void cuemng_free(t_cuemng *x);
 t_max_err cuemng_notify(t_cuemng *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void cuemng_assist(t_cuemng *x, void *b, long m, long a, char *s);
+long cuemng_okclose(t_cuemng *x, char **ht, long size);
 void cuemng_edclose(t_cuemng *x, char **ht, long size);
-long cuemng_edsave(t_cuemng *x, char **ht, long size);
 
 // Public methods
 void cuemng_bang(t_cuemng *x);
@@ -221,3 +223,5 @@ void cuemng_write_buffer(t_cuemng *x);
 long cuemng_check_temp(t_cuemng *x, long argc, t_atom *argv);
 long cuemng_check_index(t_cuemng *x, long argc, t_atom *argv);
 long cuemng_check_ramp(t_cuemng *x, long *pos, long argc, t_atom *argv);
+
+int cuemng_count_lines(t_cuemng *x, t_cue *cue);
