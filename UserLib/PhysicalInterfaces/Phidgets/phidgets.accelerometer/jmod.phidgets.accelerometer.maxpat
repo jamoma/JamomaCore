@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 21.0, 68.0, 1185.0, 508.0 ],
+		"rect" : [ 201.0, 44.0, 1185.0, 508.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 21.0, 68.0, 1185.0, 508.0 ],
+		"defrect" : [ 201.0, 44.0, 1185.0, 508.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -103,8 +103,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 456.0, 379.0, 580.0, 34.0 ],
-					"text" : "jcom.parameter sample_rate @type msg_int @ramp/drive scheduler @repetitions/allow/allow 0 @range -1 1000 @range/clipmode low @description \"Sample rate in milliseconds\"",
+					"patching_rect" : [ 456.0, 379.0, 587.0, 34.0 ],
+					"text" : "jcom.parameter sample_rate @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/clipmode low @description \"Sample rate in milliseconds\"",
 					"varname" : "sample_rate[1]"
 				}
 
@@ -142,8 +142,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 456.0, 306.0, 520.0, 20.0 ],
-					"text" : "jcom.message init @type generic @range/clipmode none @description \"Initialization of devices\"",
+					"patching_rect" : [ 456.0, 306.0, 440.0, 20.0 ],
+					"text" : "jcom.message init @range/clipmode none @description \"Initialization of devices\"",
 					"varname" : "jmod.parameter[3]"
 				}
 
@@ -157,8 +157,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 456.0, 229.0, 496.0, 20.0 ],
-					"text" : "jcom.parameter status @type toggle @range/clipmode none @description \"Turn polling on\"",
+					"patching_rect" : [ 456.0, 229.0, 422.0, 20.0 ],
+					"text" : "jcom.parameter status @range/clipmode none @description \"Turn polling on\"",
 					"varname" : "status[1]"
 				}
 
@@ -275,6 +275,24 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
+					"destination" : [ "obj-10", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-25", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-26", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-12", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -342,24 +360,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-16", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-10", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-25", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-26", 0 ]
 				}
 
 			}
