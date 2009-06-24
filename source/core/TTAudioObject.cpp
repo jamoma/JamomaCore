@@ -54,12 +54,12 @@ TTAudioObject::~TTAudioObject()
 
 TTErr TTAudioObject::setMaxNumChannels(const TTValue& newValue)
 {
-	if(TTUInt16(newValue) != maxNumChannels){
-		TTValue	oldMaxNumChannels = maxNumChannels;
+	// one might think we should do a comparison here like "if(TTUInt16(newValue) != maxNumChannels){" to eliminate unneccesary repetitive calls.
+	// however, doing so means that initialization of objects when they are first instantiated doesn't happen correctly, which has led to crashing in the past.
+	TTValue	oldMaxNumChannels = maxNumChannels;
 	
-		maxNumChannels = newValue;
-		sendMessage(TT("updateMaxNumChannels"), oldMaxNumChannels);
-	}
+	maxNumChannels = newValue;
+	sendMessage(TT("updateMaxNumChannels"), oldMaxNumChannels);
 	return kTTErrNone;
 }
 
