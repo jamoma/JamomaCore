@@ -126,11 +126,12 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
 	CFStringRef						name;
 	char							cname[4096];
 	TTString						path;
+	TTCString						cpath = (char*)fullpath.c_str();
 	void*							handle;
 	TTExtensionInitializationMethod	initializer;
 	TTErr							err;
 	
-	FSPathMakeRef((UInt8*)fullpath.c_str(), &ref, &isDirectory);
+	FSPathMakeRef((UInt8*)cpath, &ref, &isDirectory);
 	status = FSOpenIterator(&ref, kFSIterateFlat, &iterator);
 	if(!status){
         names = (HFSUniStr255 *)malloc(sizeof(HFSUniStr255) * 4096);
