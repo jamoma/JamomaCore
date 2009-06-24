@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 37.0, 69.0, 1185.0, 508.0 ],
+		"rect" : [ 58.0, 44.0, 1185.0, 508.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 37.0, 69.0, 1185.0, 508.0 ],
+		"defrect" : [ 58.0, 44.0, 1185.0, 508.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -17,20 +17,15 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"activecolor" : [ 0.117647, 0.67451, 0.054902, 1.0 ],
-					"disabled" : [ 0 ],
-					"id" : "obj-6",
-					"inactivecolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"itemtype" : 0,
-					"maxclass" : "radiogroup",
+					"bgcolor" : [ 0.35294, 0.35294, 0.35294, 1.0 ],
+					"id" : "obj-7",
+					"maxclass" : "led",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 220.0, 221.0, 22.0, 18.0 ],
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 220.0, 229.0, 17.0, 17.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 158.0, 1.0, 22.0, 18.0 ],
-					"size" : 1,
-					"value" : 0
+					"presentation_rect" : [ 168.0, 1.0, 17.0, 17.0 ]
 				}
 
 			}
@@ -116,13 +111,15 @@
 					"fontsize" : 10.0,
 					"id" : "obj-26",
 					"maxclass" : "textbutton",
+					"mode" : 1,
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 502.0, 102.0, 43.0, 20.0 ],
+					"patching_rect" : [ 502.0, 102.0, 65.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 59.0, 34.0, 43.0, 20.0 ],
-					"text" : "Init"
+					"presentation_rect" : [ 59.0, 34.0, 63.0, 20.0 ],
+					"text" : "connect",
+					"texton" : "disconnect"
 				}
 
 			}
@@ -172,7 +169,7 @@
 					"outlettype" : [ "int", "bang" ],
 					"patching_rect" : [ 502.0, 173.0, 38.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 184.0, 34.0, 38.0, 20.0 ],
+					"presentation_rect" : [ 205.0, 34.0, 38.0, 20.0 ],
 					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
@@ -189,8 +186,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 502.0, 131.0, 434.0, 20.0 ],
-					"text" : "jcom.message init @range/clipmode none @description \"Initialization of device\"",
+					"patching_rect" : [ 502.0, 131.0, 599.0, 20.0 ],
+					"text" : "jcom.message connect @type msg_toggle @range/clipmode none @description \"Connect to bluetooth device\"",
 					"varname" : "jmod.parameter[3]"
 				}
 
@@ -204,8 +201,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 502.0, 54.0, 422.0, 20.0 ],
-					"text" : "jcom.parameter status @range/clipmode none @description \"Turn polling on\"",
+					"patching_rect" : [ 502.0, 54.0, 525.0, 20.0 ],
+					"text" : "jcom.parameter status @type msg_toggle @range/clipmode none @description \"Turn polling on\"",
 					"varname" : "status[1]"
 				}
 
@@ -300,7 +297,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 425.0, 173.0, 74.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 111.0, 34.0, 73.0, 20.0 ],
+					"presentation_rect" : [ 132.0, 34.0, 73.0, 20.0 ],
 					"text" : "sample rate",
 					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ]
 				}
@@ -322,19 +319,19 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
+					"destination" : [ "obj-10", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-26", 0 ]
+					"source" : [ "obj-25", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-6", 0 ],
+					"destination" : [ "obj-8", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-5", 1 ]
+					"source" : [ "obj-26", 0 ]
 				}
 
 			}
@@ -439,10 +436,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-10", 0 ],
+					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-25", 0 ]
+					"source" : [ "obj-5", 1 ]
 				}
 
 			}
