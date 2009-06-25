@@ -78,7 +78,7 @@ protected:
 	TTListPtr		lifecycleObservers;		///< for objects that just need to know when we do something critical, like the free the object
 	
 	// future ideas: not immediately critical:
-	// HashtabPtr	properties				///< if we wish to cache this information for speed, this is where we would do it
+	//HashtabPtr	properties				///< if we wish to cache this information for speed, this is where we would do it
 	
 	
 public:
@@ -231,7 +231,7 @@ extern "C" {
 				> in "hub_subscribe" (in jcom.hub.cpp) to register a param	
 
 		@return		a new instance created (or NULL if not)		*/
-	JamomaError		jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, t_symbol **newInstance, bool *newInstanceCreated);
+	JamomaError		jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, JamomaNodePtr *newNode, bool *newInstanceCreated);
 
 	/** Unregister an osc address in the tree */
 	JamomaError		jamoma_node_unregister(t_symbol *OSCaddress);

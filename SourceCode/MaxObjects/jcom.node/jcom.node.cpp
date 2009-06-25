@@ -173,7 +173,34 @@ void node_set_instance(t_node *x, t_symbol *instance)
 void node_dump(t_node *x)
 {
 	// dump all the address of the tree
-	jamoma_node_dump();
+	//jamoma_node_dump();
+
+	long i,j;
+	long attr_nb = 0;
+	long value_nb = 0;
+	t_symbol** attr_names = NULL;
+	t_atom* attr_value = NULL;
+	t_object * obj = jamoma_node_max_object(x->p_node);
+	
+	// a lot of test to do before !!!
+	object_method(obj, gensym("getattrnames"),&attr_nb, &attr_names);
+
+	for(i=0; i<attr_nb; i++){
+		
+		object_attr_getvalueof(obj, attr_names[i], &value_nb, &attr_value);
+
+		for(j=0; j<value_nb; j++){
+
+			if(atom_gettype(&attr_value[j]) == A_LONG)
+				object_post((t_object *)x,"		> %s %d", attr_names[i]->s_name, atom_getlong(&attr_value[j]));
+
+			if(atom_gettype(&attr_value[j]) == A_FLOAT)
+				object_post((t_object *)x,"		> %s %f", attr_names[i]->s_name, atom_getfloat(&attr_value[j]));
+
+			if((atom_gettype(&attr_value[j]) == A_SYM) && atom_getsym(&attr_value[j]))
+				object_post((t_object *)x,"		> %s %s", attr_names[i]->s_name, atom_getsym(&attr_value[j])->s_name);
+		}
+	}
 }
 
 
@@ -276,10 +303,10 @@ void node_dump_as_post(t_node *x, short level)
 		strcat(temp, tab);
 	temp[4*level] = NULL;
 
-	if(name && instance)
-		post("%s%s.%s <%s>", temp, name->s_name, instance->s_name, type->s_name);
-	else
-		if(name)
+	if(name != gensym(""))
+		if(instance != gensym(""))
+			post("%s%s.%s <%s>", temp, name->s_name, instance->s_name, type->s_name);
+		else
 			post("%s%s <%s>", temp, name->s_name, type->s_name);
 
 	if(lk){
@@ -344,8 +371,13 @@ void node_dump_as_opml(t_node *x, short level)
 
 	// write an outline for the node
 	node_write_string(x, "<outline text=\"");
-	if(name && instance){
-		snprintf(temp, sizeof(temp), "%s.%s", name->s_name, instance->s_name);
+	if(name != gensym("")){
+
+		if(instance != gensym(""))
+			snprintf(temp, sizeof(temp), "%s.%s", name->s_name, instance->s_name);
+		else
+			snprintf(temp, sizeof(temp), "%s", name->s_name);
+
 		len = strlen(temp);
 		x->eof += len;
 	

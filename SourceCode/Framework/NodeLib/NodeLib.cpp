@@ -495,9 +495,9 @@ TTErr getNodeForOSC(TTSymbolPtr oscAddress, JamomaNodePtr* returnedNode)
 	err = jamoma_node_hashtab->lookup(oscAddress,*found);
 
 	// if this address doesn't exist
-	if(err == kTTErrValueNotFound)
+	if(err == kTTErrValueNotFound){
 		return kTTErrGeneric;
-		
+	}
 	else{
 		found->get(0,(TTPtr*)returnedNode);
 		return kTTErrNone;
@@ -725,14 +725,12 @@ JamomaError jamoma_node_dump(void)
 	}
 }
 
-JamomaError	jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, t_symbol **newInstance, bool *newInstanceCreated)
+JamomaError	jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, JamomaNodePtr *newNode, bool *newInstanceCreated)
 {
-	JamomaNodePtr newNode;
 	TTBoolean *nodeCreated = new TTBoolean(false);
 
 	if(jamoma_node_root){
-		JamomaNodeCreate(TT(OSCaddress->s_name), TT(type->s_name), obj, &newNode, (TTBoolean *)newInstanceCreated);
-		*newInstance = gensym((char*)newNode->getInstance()->getCString());
+		JamomaNodeCreate(TT(OSCaddress->s_name), TT(type->s_name), obj, newNode, (TTBoolean *)newInstanceCreated);
 		return JAMOMA_ERR_NONE;
 	}
 	else{
@@ -741,7 +739,7 @@ JamomaError	jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object 
 	}
 }
 
-JamomaError		jamoma_node_unregister(t_symbol *OSCaddress)
+JamomaError jamoma_node_unregister(t_symbol *OSCaddress)
 {
 	JamomaNodePtr node = NULL;
 
@@ -762,7 +760,7 @@ JamomaError		jamoma_node_unregister(t_symbol *OSCaddress)
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaNodePtr	jamoma_node_get(t_symbol *address)
+JamomaNodePtr jamoma_node_get(t_symbol *address)
 {
 	TTErr err;
 	JamomaNodePtr got;
@@ -774,15 +772,12 @@ JamomaNodePtr	jamoma_node_get(t_symbol *address)
 		return NULL;
 }
 
-t_symbol *	jamoma_node_name(JamomaNodePtr node)
+t_symbol * jamoma_node_name(JamomaNodePtr node)
 {
-	if(node->getName() != NO_NAME)
-		return gensym((char*)node->getName()->getCString());
-	else
-		return NULL;
+	return gensym((char*)node->getName()->getCString());
 }
 
-t_symbol *	jamoma_node_set_name(JamomaNodePtr node, t_symbol *name)
+t_symbol * jamoma_node_set_name(JamomaNodePtr node, t_symbol *name)
 {
 	TTSymbolPtr newInstance;
 	TTBoolean *newInstanceCreated = new TTBoolean(false);
@@ -794,15 +789,12 @@ t_symbol *	jamoma_node_set_name(JamomaNodePtr node, t_symbol *name)
 	return NULL;
 }
 
-t_symbol *	jamoma_node_instance(JamomaNodePtr node)
+t_symbol * jamoma_node_instance(JamomaNodePtr node)
 {
-	if(node->getInstance() != NO_INSTANCE)
-		return gensym((char*)node->getInstance()->getCString());
-	else
-		return NULL;
+	return gensym((char*)node->getInstance()->getCString());
 }
 
-t_symbol *	jamoma_node_set_instance(JamomaNodePtr node, t_symbol *instance)
+t_symbol * jamoma_node_set_instance(JamomaNodePtr node, t_symbol *instance)
 {
 	TTSymbolPtr newInstance;
 	TTBoolean *newInstanceCreated = new TTBoolean(false);
@@ -815,15 +807,12 @@ t_symbol *	jamoma_node_set_instance(JamomaNodePtr node, t_symbol *instance)
 	return NULL;
 }
 
-t_symbol *	jamoma_node_type(JamomaNodePtr node)
+t_symbol * jamoma_node_type(JamomaNodePtr node)
 {
-	if(node->getType() != NO_TYPE)
-		return gensym((char*)node->getType()->getCString());
-	else
-		return NULL;
+	return gensym((char*)node->getType()->getCString());
 }
 
-LinkedListPtr	jamoma_node_children(JamomaNodePtr node)
+LinkedListPtr jamoma_node_children(JamomaNodePtr node)
 {
 	uint i, j;
 	TTValue *hk, *hk_i;

@@ -183,6 +183,8 @@ void		param_ramp_callback_list(void *v, long argc, double *value);
 void		atom_clip(t_param *x, t_atom *a);
 void 		param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 
+void		param_getattrnames(t_param *x, long* count, t_symbol*** names);
+
 t_max_err	param_attr_getramp(t_param *x, void *attr, long *argc, t_atom **argv);
 t_max_err	param_attr_setramp(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_gettype(t_param *x, void *attr, long *argc, t_atom **argv);

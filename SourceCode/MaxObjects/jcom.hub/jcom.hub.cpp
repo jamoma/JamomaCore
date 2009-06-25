@@ -369,6 +369,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 {
 	t_subscriber	*new_subscriber;
 	bool			newInstanceCreated;
+	JamomaNodePtr	newNode;
 	t_symbol		*newInstance;
 	char fullAddress[256];
 	
@@ -396,13 +397,16 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 		strcat(fullAddress,"/");
 		strcat(fullAddress,name->s_name);
 		newInstanceCreated = false;
-		jamoma_node_register(gensym(fullAddress), type, subscriber_object, &newInstance, &newInstanceCreated);
+		jamoma_node_register(gensym(fullAddress), type, subscriber_object, &newNode, &newInstanceCreated);
 
 		// if a new instance have been created 
 		// to guarantee the unicity. We have to
 		// add the instance to the name
-		if(newInstanceCreated && (newInstance != gensym(""))){
-			// What to do in that case ???
+		if(newInstanceCreated){
+			newInstance = jamoma_node_instance(newNode);
+			if(newInstance != gensym("")){
+				// What to do in that case ???
+			}
 		}
 	}
 
@@ -1360,6 +1364,7 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		int				instance = 0;
 		TTBoolean		nameConflict = false;
 		bool			newInstanceCreated;
+		JamomaNodePtr	newNode;
 		t_symbol		*nameOriginal, *newInstance;
 		
 		x->osc_name = atom_getsym(argv);
@@ -1410,14 +1415,16 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		// Register with the tree at the given address if possible
 		// if not, this will return a new instance
 		newInstanceCreated = false;
-		jamoma_node_register(nameOriginal, gensym("hub"), (t_object *)x, &newInstance, &newInstanceCreated);
+		jamoma_node_register(nameOriginal, gensym("hub"), (t_object *)x, &newNode, &newInstanceCreated);
 
 		// if a new instance have been created 
 		// to guarantee the unicity. We have to
 		// add the instance to the name
-		if(newInstanceCreated && (newInstance != gensym(""))){
-			snprintf(name, 256, "%s.%s", name, newInstance->s_name);
-			object_post((t_object*)x, "Jamoma cannot create multiple modules with the same OSC identifier (%s).  Using %s instead.", nameOriginal->s_name, name);
+		if(newInstanceCreated){
+			newInstance = jamoma_node_instance(newNode);
+			if(newInstance != gensym(""))
+				snprintf(name, 256, "%s.%s", name, newInstance->s_name);
+				object_post((t_object*)x, "Jamoma cannot create multiple modules with the same OSC identifier (%s).  Using %s instead.", nameOriginal->s_name, name);
 		}
 
 		x->osc_name = gensym(name);

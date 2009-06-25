@@ -72,6 +72,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// Note that we can't make the bang method directly accessible here (must go through another function)
 	//	because the function pointer is in out struct, which hasn't been defined yet
 	class_addmethod(c, (method)param_notify,		"notify",		A_CANT,		0);	
+	class_addmethod(c, (method)param_getattrnames,	"getattrnames",	A_CANT,		0);
 	class_addmethod(c, (method)param_dispatched,	"dispatched",	A_GIMME,	0);
 	class_addmethod(c, (method)param_int,			"int",			A_DEFLONG,	0);
 	class_addmethod(c, (method)param_float,			"float",		A_DEFFLOAT,	0);
@@ -171,7 +172,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 void *param_new(t_symbol *s, long argc, t_atom *argv)
 {
-	short		i;
+	short			i;
 	long			attrstart = attr_args_offset(argc, argv);
 	t_param*		x = (t_param *)object_alloc(parameter_class);
 	SymbolPtr		name = _sym_nothing;
@@ -468,6 +469,35 @@ void param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 				x->ramper->setFunctionParameterValue(parameterName, newValue);	
 			}
 		}
+	}
+}
+
+// This function allocates memory -- caller must free it!
+void param_getattrnames(t_param *x, long* count, t_symbol*** names)
+{
+	*count = 18;
+	*names = (t_symbol**)sysmem_newptr(sizeof(t_symbol*) * *count);
+	
+	// These should be alphabetized
+	if(*count){
+		*(*names+0) = gensym("name");
+		*(*names+1) = gensym("type");
+		*(*names+2) = gensym("range/bounds");
+		*(*names+3) = gensym("range/clipmode");
+		*(*names+4) = gensym("ramp/drive");
+		*(*names+5) = gensym("ramp/function");
+		*(*names+6) = gensym("repetitions/allow");
+		*(*names+7) = gensym("dataspace");
+		*(*names+8) = gensym("dataspace/unit/native");
+		*(*names+9) = gensym("dataspace/unit/active");
+		*(*names+10) = gensym("dataspace/unit/display");
+		*(*names+11) = gensym("priority");
+		*(*names+12) = gensym("description");
+		*(*names+13) = gensym("readonly");
+		*(*names+14) = gensym("ui/freeze");
+		*(*names+15) = gensym("value");
+		*(*names+16) = gensym("value/default");
+		*(*names+17) = gensym("value/stepsize");
 	}
 }
 
