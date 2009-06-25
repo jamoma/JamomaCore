@@ -39,10 +39,10 @@ protected:
 //	TTUInt16			numInlets;			///< Current number of inlets
 //	TTUInt16			numOutlets;			///< Current number of outlets
 
-public:
+protected:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/
 	TTDataObject(const char* name);
-	
+public:	
 	/** Destructor. */
 	virtual ~TTDataObject();
 	

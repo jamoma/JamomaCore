@@ -102,10 +102,11 @@ public:
 	/**	Setter for the sample-rate attribute.		*/
 	TTErr setSr(const TTValue& newValue);
 
-public:
+protected:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/
 	TTAudioObject(const char* name, TTUInt16 maxNumChannels);
 	
+public:
 	/** Destructor. */
 	virtual ~TTAudioObject();
 		
