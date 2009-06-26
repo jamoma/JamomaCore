@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 0.0, 44.0, 1280.0, 726.0 ],
+		"rect" : [ 79.0, 87.0, 1361.0, 784.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 0.0, 44.0, 1280.0, 726.0 ],
+		"defrect" : [ 79.0, 87.0, 1361.0, 784.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -24,7 +24,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 754.0, 603.0, 408.0, 17.0 ],
+					"patching_rect" : [ 790.0, 605.0, 513.0, 19.0 ],
 					"text" : "jcom.message direct @type msg_generic @description \"direct access to the embedded jit.gl.text2d\""
 				}
 
@@ -38,7 +38,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 758.0, 579.0, 333.0, 17.0 ],
+					"patching_rect" : [ 790.0, 580.0, 419.0, 19.0 ],
 					"text" : "jcom.message text @type msg_symbol @description \"provide a string to display\""
 				}
 
@@ -53,9 +53,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 348.0, 44.0, 289.0, 673.0 ],
+						"rect" : [ 348.0, 44.0, 275.0, 768.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 348.0, 44.0, 289.0, 673.0 ],
+						"defrect" : [ 348.0, 44.0, 275.0, 768.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 1,
 						"default_fontsize" : 10.0,
@@ -99,15 +99,15 @@
 						"lines" : [  ]
 					}
 ,
-					"patching_rect" : [ 76.0, 373.0, 59.0, 18.0 ],
+					"patching_rect" : [ 240.0, 420.0, 64.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p inspector"
@@ -123,7 +123,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 77.0, 351.0, 46.0, 18.0 ],
+					"patching_rect" : [ 240.0, 395.0, 49.0, 19.0 ],
 					"text" : "pcontrol"
 				}
 
@@ -137,7 +137,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "open" ],
-					"patching_rect" : [ 77.0, 329.0, 38.0, 18.0 ],
+					"patching_rect" : [ 240.0, 370.0, 41.0, 19.0 ],
 					"text" : "t open"
 				}
 
@@ -151,7 +151,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 77.0, 308.0, 128.0, 18.0 ],
+					"patching_rect" : [ 240.0, 345.0, 144.0, 19.0 ],
 					"text" : "jcom.oscroute /panel/open"
 				}
 
@@ -167,9 +167,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 415.0, 46.0, 57.0, 18.0 ],
+					"patching_rect" : [ 425.0, 45.0, 57.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 238.0, 21.0, 60.0, 18.0 ],
+					"presentation_rect" : [ 235.0, 25.0, 60.0, 19.0 ],
 					"types" : [  ]
 				}
 
@@ -185,9 +185,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 484.0, 518.0, 64.0, 18.0 ],
+					"patching_rect" : [ 415.0, 555.0, 64.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 177.0, 21.0, 58.0, 18.0 ],
+					"presentation_rect" : [ 175.0, 25.0, 58.0, 19.0 ],
 					"types" : [  ]
 				}
 
@@ -201,9 +201,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 760.0, 517.0, 47.0, 20.0 ],
+					"patching_rect" : [ 790.0, 520.0, 47.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 2.0, 21.0, 40.0, 18.0 ],
+					"presentation_rect" : [ 5.0, 25.0, 40.0, 18.0 ],
 					"rounded" : 8.0,
 					"text" : "Read"
 				}
@@ -211,7 +211,6 @@
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -219,17 +218,15 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 2.0, 89.0, 98.0, 17.0 ],
+					"patching_rect" : [ 2.0, 89.0, 108.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 2.0, 89.0, 98.0, 17.0 ],
+					"presentation_rect" : [ 2.0, 99.0, 108.0, 19.0 ],
 					"text" : "Shadow offset (%):"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"bordercolor" : [ 0.5, 0.5, 0.5, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-2",
@@ -237,9 +234,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 438.0, 292.0, 35.0, 17.0 ],
+					"patching_rect" : [ 445.0, 285.0, 35.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 108.0, 57.0, 35.0, 17.0 ],
+					"presentation_rect" : [ 115.0, 70.0, 35.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "TRACKING"
@@ -257,15 +254,13 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 146.0, 59.0, 79.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 146.0, 59.0, 79.0, 19.0 ],
+					"presentation_rect" : [ 155.0, 70.0, 79.0, 19.0 ],
 					"text" : "Tracking"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"bordercolor" : [ 0.5, 0.5, 0.5, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-7",
@@ -275,9 +270,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 759.0, 359.0, 36.0, 17.0 ],
+					"patching_rect" : [ 790.0, 355.0, 36.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 108.0, 87.0, 36.0, 17.0 ],
+					"presentation_rect" : [ 115.0, 95.0, 36.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "OffX"
@@ -286,8 +281,6 @@
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"bordercolor" : [ 0.5, 0.5, 0.5, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-8",
@@ -297,9 +290,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 847.0, 359.0, 36.0, 17.0 ],
+					"patching_rect" : [ 880.0, 355.0, 36.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 182.0, 87.0, 36.0, 17.0 ],
+					"presentation_rect" : [ 195.0, 95.0, 36.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "OffZ"
@@ -308,8 +301,6 @@
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"bordercolor" : [ 0.5, 0.5, 0.5, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-9",
@@ -319,9 +310,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 803.0, 359.0, 36.0, 17.0 ],
+					"patching_rect" : [ 835.0, 355.0, 36.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 145.0, 87.0, 36.0, 17.0 ],
+					"presentation_rect" : [ 155.0, 95.0, 36.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "OffY"
@@ -338,7 +329,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 915.0, 391.0, 224.0, 27.0 ],
+					"patching_rect" : [ 940.0, 390.0, 248.0, 31.0 ],
 					"text" : "jcom.parameter shadow/offset @type msg_list @description \"Offset of shadow position (%).\"",
 					"varname" : "shadow/offset"
 				}
@@ -353,7 +344,7 @@
 					"numinlets" : 11,
 					"numoutlets" : 11,
 					"outlettype" : [ "", "", "", "", "", "", "", "", "", "", "" ],
-					"patching_rect" : [ 764.0, 391.0, 144.0, 17.0 ],
+					"patching_rect" : [ 790.0, 390.0, 144.0, 19.0 ],
 					"text" : "jcom.list2parameter 3"
 				}
 
@@ -368,7 +359,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 918.0, 707.0, 17.0, 15.0 ],
+					"patching_rect" : [ 790.0, 675.0, 18.0, 17.0 ],
 					"text" : "1."
 				}
 
@@ -379,11 +370,12 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-16",
+					"linecount" : 6,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 918.0, 726.0, 43.0, 15.0 ],
+					"patching_rect" : [ 666.0, 713.0, 17.0, 77.0 ],
 					"text" : "1. 1. 1."
 				}
 
@@ -398,7 +390,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 724.0, 677.0, 588.0, 27.0 ],
+					"patching_rect" : [ 790.0, 695.0, 495.0, 31.0 ],
 					"text" : "jcom.parameter shadow/color/alpha @type msg_float @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @description \"Object alpha transparency (0.-1.).\"",
 					"varname" : "shadow/color/alpha"
 				}
@@ -414,7 +406,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 638.0, 711.0, 273.0, 27.0 ],
+					"patching_rect" : [ 620.0, 730.0, 286.0, 31.0 ],
 					"text" : "jcom.parameter shadow/color/rgb @type msg_list @description \"Object color as red, green, blue (0.-1.).\"",
 					"varname" : "shadow/color/rgb"
 				}
@@ -429,15 +421,13 @@
 					"numinlets" : 11,
 					"numoutlets" : 11,
 					"outlettype" : [ "", "", "", "", "", "", "", "", "", "", "" ],
-					"patching_rect" : [ 487.0, 711.0, 144.0, 17.0 ],
+					"patching_rect" : [ 465.0, 730.0, 144.0, 19.0 ],
 					"text" : "jcom.list2parameter 3"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"bordercolor" : [ 0.5, 0.5, 0.5, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-24",
@@ -447,9 +437,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 462.0, 685.0, 36.0, 17.0 ],
+					"patching_rect" : [ 465.0, 700.0, 36.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 108.0, 103.0, 36.0, 17.0 ],
+					"presentation_rect" : [ 115.0, 115.0, 36.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "ColR"
@@ -458,8 +448,6 @@
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"bordercolor" : [ 0.5, 0.5, 0.5, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-25",
@@ -469,9 +457,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 675.0, 681.0, 36.0, 17.0 ],
+					"patching_rect" : [ 741.0, 699.0, 37.427734, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 216.0, 103.0, 36.0, 17.0 ],
+					"presentation_rect" : [ 235.0, 115.0, 36.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "ColA"
@@ -480,8 +468,6 @@
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"bordercolor" : [ 0.5, 0.5, 0.5, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-26",
@@ -491,9 +477,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 554.0, 685.0, 36.0, 17.0 ],
+					"patching_rect" : [ 550.0, 700.0, 36.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 180.0, 103.0, 36.0, 17.0 ],
+					"presentation_rect" : [ 195.0, 115.0, 36.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "ColB"
@@ -502,8 +488,6 @@
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"bordercolor" : [ 0.5, 0.5, 0.5, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-27",
@@ -513,9 +497,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 508.0, 685.0, 36.0, 17.0 ],
+					"patching_rect" : [ 510.0, 700.0, 36.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 144.0, 103.0, 36.0, 17.0 ],
+					"presentation_rect" : [ 155.0, 115.0, 36.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "ColG"
@@ -531,9 +515,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 2.0, 105.0, 105.0, 17.0 ],
+					"patching_rect" : [ 2.0, 105.0, 116.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 2.0, 105.0, 105.0, 17.0 ],
+					"presentation_rect" : [ 2.0, 115.0, 116.0, 19.0 ],
 					"text" : "Shadow color (rgba):"
 				}
 
@@ -547,7 +531,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 487.0, 652.0, 339.0, 17.0 ],
+					"patching_rect" : [ 485.0, 655.0, 380.0, 19.0 ],
 					"text" : "jcom.parameter shadow/enable @type msg_toggle \"Enable text shadow.\"",
 					"varname" : "shadow/enable"
 				}
@@ -563,7 +547,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 487.0, 221.0, 383.0, 27.0 ],
+					"patching_rect" : [ 490.0, 221.0, 581.0, 31.0 ],
 					"text" : "jcom.parameter screenmode @type msg_toggle @description \"If screenmode = 1, some 3D transformations are skipped so that pixel-accurate text can be drawn..\"",
 					"varname" : "screenmode"
 				}
@@ -578,9 +562,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 417.0, 224.0, 76.0, 19.0 ],
+					"patching_rect" : [ 420.0, 225.0, 71.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 18.0, 58.0, 76.0, 19.0 ],
+					"presentation_rect" : [ 20.0, 65.0, 76.0, 19.0 ],
 					"text" : "screenmode"
 				}
 
@@ -594,9 +578,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 401.0, 224.0, 80.0, 18.0 ],
+					"patching_rect" : [ 395.0, 225.0, 80.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 2.0, 55.0, 80.0, 18.0 ],
+					"presentation_rect" : [ 5.0, 65.0, 80.0, 18.0 ],
 					"size" : 1,
 					"values" : [ 1 ],
 					"varname" : "SCREENMODE"
@@ -613,7 +597,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 757.0, 540.0, 249.0, 27.0 ],
+					"patching_rect" : [ 790.0, 545.0, 282.0, 31.0 ],
 					"text" : "jcom.message read @type msg_generic @description \"Read a text file containing the text to be displayed.\""
 				}
 
@@ -628,7 +612,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 487.0, 540.0, 255.0, 27.0 ],
+					"patching_rect" : [ 485.0, 555.0, 287.0, 31.0 ],
 					"text" : "jcom.parameter face @type msg_symbol @description \"Specifies the face variant of the current font..\"",
 					"varname" : "face"
 				}
@@ -643,7 +627,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 487.0, 477.0, 549.0, 17.0 ],
+					"patching_rect" : [ 487.0, 482.0, 690.0, 19.0 ],
 					"text" : "jcom.parameter fontsize @type msg_int @range/bounds 1 72 @range/clipmode low @description \"Specifies the size in which to draw.\"",
 					"varname" : "fontsize"
 				}
@@ -659,9 +643,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 487.0, 458.0, 50.0, 18.0 ],
+					"patching_rect" : [ 430.0, 480.0, 50.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 146.0, 21.0, 28.0, 18.0 ],
+					"presentation_rect" : [ 145.0, 25.0, 28.0, 19.0 ],
 					"triangle" : 0
 				}
 
@@ -676,7 +660,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 487.0, 397.0, 241.0, 27.0 ],
+					"patching_rect" : [ 485.0, 410.0, 263.0, 31.0 ],
 					"text" : "jcom.parameter font @type msg_symbol @description \"Specifies the font in which to draw.\"",
 					"varname" : "font"
 				}
@@ -691,7 +675,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 487.0, 332.0, 50.0, 17.0 ],
+					"patching_rect" : [ 485.0, 330.0, 52.0, 19.0 ],
 					"text" : "jcom.init"
 				}
 
@@ -702,14 +686,14 @@
 					"fontsize" : 10.0,
 					"hint" : "Font",
 					"id" : "obj-46",
-					"items" : [ "Apple Braille Outline 6 Dot", ",", "Apple Braille Outline 8 Dot", ",", "Apple Braille Pinpoint 6 Dot", ",", "Apple Braille Pinpoint 8 Dot", ",", "Apple Braille", ",", "Apple Symbols", ",", "AppleGothic Regular", ",", ".Aqua Kana", ",", "Courier", ",", "Courier Oblique", ",", "Geeza Pro", ",", "Geneva", ",", ".Helvetica LT MM", ",", "Helvetica", ",", "Helvetica Oblique", ",", "Helvetica Neue", ",", "Helvetica Neue Condensed Bold", ",", "Helvetica Neue UltraLight", ",", "Helvetica Neue Light", ",", "Helvetica Neue Condensed Black", ",", ".Keyboard", ",", "LastResort", ",", "Lucida Grande", ",", "Monaco", ",", "Symbol", ",", "Thonburi", ",", ".Times LT MM", ",", "Times Roman", ",", "Times Bold", ",", "Times Italic", ",", "Zapf Dingbats", ",", "Hiragino Mincho ProN W3", ",", "Hiragino Mincho ProN W6", ",", "Hiragino Kaku Gothic ProN W3", ",", "Hiragino Kaku Gothic ProN W6", ",", "LiHei Pro", ",", "STXihei", ",", "STHeiti", ",", "#GungSeo Regular", ",", "#HeadLineA Regular", ",", "#PCMyungjo Regular", ",", "#PilGi Regular", ",", "Adobe Heiti Std R", ",", "Adobe Kaiti Std R", ",", "Adobe Ming Std L", ",", "Adobe Myungjo Std M", ",", "Adobe Song Std L", ",", "Kozuka Gothic Pro M", ",", "Kozuka Gothic Pro R", ",", "Kozuka Mincho Pro B", ",", "Kozuka Mincho Pro EL", ",", "Al Bayan Plain", ",", "American Typewriter", ",", "American Typewriter Condensed", ",", "American Typewriter Light", ",", "American Typewriter Condensed Light", ",", "Andale Mono", ",", "Apple Chancery", ",", "Apple LiGothic Medium", ",", "Apple LiSung Light", ",", "AppleMyungjo Regular", ",", "Verdana", ",", "Verdana Black", ",", "Verdana Black", ",", "Verdana Narrow", ",", "Verdana Narrow", ",", "Verdana Rounded MT Bold", ",", "Verdana Rounded MT Bold", ",", "Verdana Unicode MS", ",", "Verdana", ",", "Verdana Hebrew", ",", "Arno Pro Bold 08pt", ",", "Arno Pro Bold 10pt", ",", "Arno Pro Bold 12pt", ",", "Arno Pro Bold 18pt", ",", "Arno Pro Bold 36pt", ",", "Arno Pro Bold Italic 08pt", ",", "Arno Pro Bold Italic 10pt", ",", "Arno Pro Bold Italic 12pt", ",", "Arno Pro Bold Italic 18pt", ",", "Arno Pro Bold Italic 36pt", ",", "Arno Pro Italic 08pt", ",", "Arno Pro Italic 10pt", ",", "Arno Pro Italic 12pt", ",", "Arno Pro Italic 18pt", ",", "Arno Pro Italic 36pt", ",", "Arno Pro Light 36pt", ",", "Arno Pro Light Italic 36pt", ",", "Arno Pro Regular 08pt", ",", "Arno Pro Regular 10pt", ",", "Arno Pro Regular 12pt", ",", "Arno Pro Regular 18pt", ",", "Arno Pro Regular 36pt", ",", "Arno Pro Semibold 08pt", ",", "Arno Pro Semibold 10pt", ",", "Arno Pro Semibold 12pt", ",", "Arno Pro Semibold 18pt", ",", "Arno Pro Semibold 36pt", ",", "Arno Pro Semibold Italic 08pt", ",", "Arno Pro Semibold Italic 10pt", ",", "Arno Pro Semibold Italic 12pt", ",", "Arno Pro Semibold Italic 18pt", ",", "Arno Pro Semibold Italic 36pt", ",", "Ayuthaya", ",", "Baghdad", ",", "Baskerville", ",", "Baskerville SemiBold", ",", "Kozuka Mincho Pro H", ",", "Kozuka Mincho Pro L", ",", "BiauKai", ",", "Bickham Script Pro", ",", "Bickham Script Pro Semibold", ",", "Big Caslon Medium", ",", "Kozuka Mincho Pro M", ",", "Kozuka Mincho Pro R", ",", "Brush Script MT Italic", ",", "Brush Script MT Italic", ",", "Letter Gothic Std Bold", ",", "Carta", ",", "Chalkboard", ",", "Letter Gothic Std Bold Slanted", ",", "Letter Gothic Std Slanted", ",", "Letter Gothic Std Medium", ",", "Lithos Pro Black", ",", "Charcoal CY", ",", "Lithos Pro", ",", "Cochin", ",", "Comic Sans MS", ",", "Comic Sans MS", ",", "Mesquite Std Medium", ",", "Copperplate", ",", "Copperplate Light", ",", "Corsiva Hebrew", ",", "Courier New", ",", "Courier New", ",", "DecoType Naskh", ",", "Devanagari MT", ",", "Didot", ",", "Minion Pro Bold Cond", ",", "Engraver Font Extras", ",", "Engraver Font Set", ",", "Engraver Text H", ",", "Engraver Text NCS", ",", "Engraver Text T", ",", "Engraver Time", ",", "Euphemia UCAS", ",", "Garamond Premier Pro Semibold", ",", "Garamond Premier Pro", ",", "Geneva CY", ",", "Georgia", ",", "Georgia", ",", "Gill Sans", ",", "Gill Sans Light", ",", "Guitar Pro 5", ",", "Gujarati MT", ",", "Gurmukhi MT", ",", "Hei Regular", ",", "Helvetica CY Plain", ",", "Helvetica CY Oblique", ",", "Herculanum", ",", "Hoefler Text", ",", "Hoefler Text Black", ",", "Hoefler Text Ornaments", ",", "Impact", ",", "InaiMathi", ",", "Jazz", ",", "JazzCord", ",", "JazzPerc", ",", "JazzText Extended", ",", "JazzText", ",", "Kai Regular", ",", "Kailasa Regular", ",", "Kokonor Regular", ",", "Minion Pro Medium", ",", "Minion Pro", ",", "Minion Pro Semibold", ",", "Myriad Pro Bold Condensed", ",", "Myriad Pro Condensed", ",", "Krungthep", ",", "KufiStandardGK", ",", "Adobe Fangsong Std R", ",", "Kozuka Gothic Pro L", ",", "Maestro Percussion", ",", "Maestro Wide", ",", "Maestro", ",", "Marker Felt Thin", ",", "Marker Felt Wide", ",", "Microsoft Sans Serif", ",", "Mshtakan Oblique", ",", "Mshtakan", ",", "Futura Medium", ",", "Futura Condensed Medium", ",", "Futura Condensed ExtraBold", ",", "Nadeem", ",", "New Peninim MT", ",", "New Peninim MT Bold Inclined", ",", "New Peninim MT Inclined", ",", "GB18030 Bitmap", ",", "Optima ExtraBlack", ",", "Optima Regular", ",", "Optima Bold", ",", "Optima Italic", ",", "Osaka", ",", "Osaka-Mono", ",", "Papyrus", ",", "Papyrus Condensed", ",", "Petrucci", ",", "Plantagenet Cherokee", ",", "Raanana", ",", "Sathu", ",", "Seville Regular", ",", "Silom", ",", "Skia Regular", ",", "Sonata", ",", "Tahoma", ",", "Tamburo", ",", "Times New Roman", ",", "Times New Roman", ",", "Trebuchet MS", ",", "Trebuchet MS", ",", "Verdana", ",", "Verdana", ",", "Webdings", ",", "Webdings", ",", "Wingdings 2", ",", "Wingdings 3", ",", "Wingdings", ",", "Zapfino", ",", "Hiragino Maru Gothic Pro W4", ",", "Hiragino Maru Gothic ProN W4", ",", "Hiragino Mincho Pro W3", ",", "Hiragino Mincho Pro W6", ",", "Hiragino Kaku Gothic Pro W3", ",", "Hiragino Kaku Gothic Pro W6", ",", "Hiragino Kaku Gothic Std W8", ",", "Hiragino Kaku Gothic StdN W8", ",", "LiSong Pro", ",", "STFangsong", ",", "STSong", ",", "STKaiti", ",", "DejaVu Sans Mono", ",", "Adobe Caslon Pro", ",", "Adobe Caslon Pro Semibold", ",", "Adobe Garamond Pro", ",", "Bell Gothic Std Black", ",", "Bell Gothic Std Bold", ",", "Birch Std", ",", "Blackoak Std", ",", "Brush Script Std Medium", ",", "Chaparral Pro", ",", "Charlemagne Std Bold", ",", "Cooper Std Black", ",", "Eccentric Std", ",", "Giddyup Std", ",", "Hobo Std Medium", ",", "Kozuka Gothic Pro B", ",", "Kozuka Gothic Pro EL", ",", "Kozuka Gothic Pro H", ",", "Myriad Pro", ",", "Myriad Pro Semibold", ",", "Nueva Std Bold Condensed", ",", "Nueva Std Condensed", ",", "OCR A Std", ",", "Orator Std Slanted", ",", "Orator Std Medium", ",", "Poplar Std Black", ",", "Prestige Elite Std Bold", ",", "Rosewood Std", ",", "Stencil Std Bold", ",", "Tekton Pro Bold", ",", "Tekton Pro Bold Condensed", ",", "Tekton Pro Bold Extended", ",", "Tekton Pro Bold Oblique", ",", "Trajan Pro", ",", "Academy Engraved LET Plain:1.0", ",", "Bank Gothic Light", ",", "Bank Gothic Medium", ",", "Blackmoor LET Plain:2.0", ",", "Bodoni Ornaments ITC TT", ",", "Bodoni SvtyTwo ITC TT Book", ",", "Bodoni SvtyTwo ITC TT Bold", ",", "Bodoni SvtyTwo ITC TT BookIta", ",", "Bodoni SvtyTwo OS ITC TT Book", ",", "Bodoni SvtyTwo OS ITC TT Bold", ",", "Bodoni SvtyTwo OS ITC TT BookIt", ",", "Bodoni SvtyTwo SC ITC TT Book", ",", "Bradley Hand ITC TT Bold", ",", "Capitals", ",", "Jazz LET Plain:1.0", ",", "Mona Lisa Solid ITC TT", ",", "Party LET Plain:1.0", ",", "Princetown LET", ",", "Santa Fe LET Plain:1.0", ",", "Savoye LET Plain:1.0", ",", "SchoolHouse Cursive B", ",", "SchoolHouse Printed A", ",", "Snell Roundhand", ",", "Snell Roundhand Black", ",", "Stone Sans Sem ITC TT Semi", ",", "Stone Sans ITC TT Bold", ",", "Stone Sans Sem ITC TT SemiIta", ",", "Synchro LET", ",", "Type Embellishments One LET Embellishments One LET Plain:1.0", ",", "Apple Casual", ",", "BlairMdITC TT Medium", ",", "Bordeaux Roman Bold LET Plain:1.0", ",", "Cracked", ",", "Handwriting - Dakota", ",", "Palatino", ",", "PortagoITC TT" ],
+					"items" : [ "Apple Braille Outline 6 Dot", ",", "Apple Braille Outline 8 Dot", ",", "Apple Braille Pinpoint 6 Dot", ",", "Apple Braille Pinpoint 8 Dot", ",", "Apple Braille", ",", "Apple Symbols", ",", "AppleGothic Regular", ",", ".Aqua Kana", ",", "Courier", ",", "Courier Oblique", ",", "Geeza Pro", ",", "Geneva", ",", ".Helvetica LT MM", ",", "Helvetica", ",", "Helvetica Oblique", ",", "Helvetica Neue", ",", "Helvetica Neue Condensed Bold", ",", "Helvetica Neue UltraLight", ",", "Helvetica Neue Light", ",", "Helvetica Neue Condensed Black", ",", ".Keyboard", ",", "LastResort", ",", "Lucida Grande", ",", "Monaco", ",", "Symbol", ",", "Thonburi", ",", ".Times LT MM", ",", "Times Roman", ",", "Times Bold", ",", "Times Italic", ",", "Zapf Dingbats", ",", "Hiragino Mincho ProN W3", ",", "Hiragino Mincho ProN W6", ",", "Hiragino Kaku Gothic ProN W3", ",", "Hiragino Kaku Gothic ProN W6", ",", "LiHei Pro", ",", "STXihei", ",", "STHeiti", ",", "#GungSeo Regular", ",", "#HeadLineA Regular", ",", "#PCMyungjo Regular", ",", "#PilGi Regular", ",", "Al Bayan Plain", ",", "American Typewriter", ",", "American Typewriter Condensed", ",", "American Typewriter Light", ",", "American Typewriter Condensed Light", ",", "Andale Mono", ",", "Apple Chancery", ",", "Apple LiGothic Medium", ",", "Apple LiSung Light", ",", "Apple Casual", ",", "AppleMyungjo Regular", ",", "Arial Black", ",", "Arial Narrow", ",", "Arial Rounded MT Bold", ",", "Arial Unicode MS", ",", "Arial", ",", "Arial Hebrew", ",", "Ayuthaya", ",", "Baghdad", ",", "Baskerville", ",", "Baskerville SemiBold", ",", "BiauKai", ",", "Big Caslon Medium", ",", "Charis SIL", ",", "Doulos SIL", ",", "Brush Script MT Italic", ",", "Brush Script MT Italic", ",", "Chalkboard", ",", "Charcoal CY", ",", "Cochin", ",", "Comic Sans MS", ",", "Copperplate", ",", "Copperplate Light", ",", "Corsiva Hebrew", ",", "Courier New", ",", "Courier New", ",", "Cracked", ",", "DecoType Naskh", ",", "Devanagari MT", ",", "Didot", ",", "Euphemia UCAS", ",", "Fang Song Regular", ",", "Fughetta", ",", "Futura Medium", ",", "Futura Condensed Medium", ",", "Futura Condensed ExtraBold", ",", "Geneva CY", ",", "Georgia", ",", "Gill Sans", ",", "Gill Sans Light", ",", "Gujarati MT", ",", "Gurmukhi MT", ",", "Handwriting - Dakota", ",", "Hei Regular", ",", "Helvetica CY Plain", ",", "Helvetica CY Oblique", ",", "Herculanum", ",", "Hoefler Text", ",", "Hoefler Text Black", ",", "Hoefler Text Ornaments", ",", "Impact", ",", "InaiMathi", ",", "Kai Regular", ",", "Kailasa Regular", ",", "Kokonor Regular", ",", "Krungthep", ",", "KufiStandardGK", ",", "Marker Felt Thin", ",", "Marker Felt Wide", ",", "Abadi MT Condensed Extra Bold", ",", "Abadi MT Condensed Light", ",", "Andale Mono", ",", "Arial", ",", "Arial Black", ",", "Arial Narrow", ",", "Arial Rounded MT Bold", ",", "Baskerville Old Face", ",", "Batang", ",", "Bauhaus 93", ",", "Bell MT", ",", "Bernard MT Condensed", ",", "Book Antiqua", ",", "Bookman Old Style", ",", "Bookshelf Symbol 7", ",", "Braggadocio", ",", "Britannic Bold", ",", "Brush Script MT Italic", ",", "Calibri", ",", "Calisto MT", ",", "Cambria", ",", "Candara", ",", "Century", ",", "Century Gothic", ",", "Century Schoolbook", ",", "Colonna MT", ",", "Comic Sans MS", ",", "Consolas", ",", "Constantia", ",", "Cooper Black", ",", "Copperplate Gothic Bold", ",", "Copperplate Gothic Light", ",", "Corbel", ",", "Curlz MT", ",", "Desdemona", ",", "Edwardian Script ITC", ",", "Engravers MT", ",", "Eurostile", ",", "Footlight MT Light", ",", "Franklin Gothic Book", ",", "Franklin Gothic Medium", ",", "Garamond", ",", "Georgia", ",", "Gill Sans MT", ",", "Gill Sans Ultra Bold", ",", "Gloucester MT Extra Condensed", ",", "Goudy Old Style", ",", "Gulim", ",", "Haettenschweiler", ",", "Harrington", ",", "Impact", ",", "Imprint MT Shadow", ",", "Kino MT", ",", "Lucida Blackletter", ",", "Lucida Bright", ",", "Lucida Bright Demibold", ",", "Lucida Calligraphy Italic", ",", "Lucida Console", ",", "Lucida Fax Regular", ",", "Lucida Fax Demibold", ",", "Lucida Fax Italic", ",", "Lucida Handwriting Italic", ",", "Lucida Sans Regular", ",", "Lucida Sans Demibold Roman", ",", "Lucida Sans Italic", ",", "Lucida Sans Demibold Italic", ",", "Lucida Sans Typewriter Regular", ",", "Lucida Sans Typewriter Bold", ",", "Lucida Sans Typewriter Oblique", ",", "Lucida Sans Typewriter Bold Oblique", ",", "Lucida Sans Unicode", ",", "Marlett", ",", "Matura MT Script Capitals", ",", "Meiryo", ",", "Mistral", ",", "Modern No. 20", ",", "Monotype Corsiva", ",", "Monotype Sorts", ",", "MS Gothic", ",", "MS Mincho", ",", "MS PGothic", ",", "MS PMincho", ",", "MS Reference Sans Serif", ",", "MS Reference Specialty", ",", "MT Extra", ",", "News Gothic MT", ",", "Onyx", ",", "Perpetua Titling MT Light", ",", "Perpetua Titling MT Bold", ",", "Perpetua", ",", "Playbill", ",", "PMingLiU", ",", "Rockwell", ",", "Rockwell Extra Bold", ",", "SimSun", ",", "Stencil", ",", "Tahoma", ",", "Times New Roman", ",", "Trebuchet MS", ",", "Tw Cen MT", ",", "Verdana", ",", "Wide Latin", ",", "Wingdings", ",", "Wingdings 2", ",", "Wingdings 3", ",", "Microsoft Sans Serif", ",", "Mshtakan Oblique", ",", "Mshtakan", ",", "Nadeem", ",", "New Peninim MT", ",", "New Peninim MT Bold Inclined", ",", "New Peninim MT Inclined", ",", "GB18030 Bitmap", ",", "OMAntonin", ",", "omextras", ",", "omheads", ",", "Optima ExtraBlack", ",", "Optima Regular", ",", "Optima Bold", ",", "Optima Italic", ",", "Osaka", ",", "Osaka-Mono", ",", "omicron", ",", "omsign", ",", "Papyrus", ",", "Papyrus Condensed", ",", "Pixelyn", ",", "Plantagenet Cherokee", ",", "Raanana", ",", "Sathu", ",", "SILDoulos IPA93 Regular", ",", "SILDoulos IPA93 Bold", ",", "SILDoulos IPA93 Italic", ",", "Silkscreen", ",", "Silkscreen Expanded", ",", "SILManuscript IPA93 Regular", ",", "SILManuscript IPA93 Bold", ",", "SILManuscript IPA93 Italic", ",", "Silom", ",", "SILSophia IPA93 Regular", ",", "SILSophia IPA93 Bold", ",", "SILSophia IPA93 Italic", ",", "Skia Regular", ",", "Song Regular", ",", "Steinberg Chord Symbols", ",", "Steinberg Notation", ",", "Tahoma", ",", "Times New Roman", ",", "Trebuchet MS", ",", "Verdana", ",", "Webdings", ",", "Webdings", ",", "Wingdings 2", ",", "Wingdings 3", ",", "Wingdings", ",", "Zapfino", ",", "Hiragino Maru Gothic Pro W4", ",", "Hiragino Maru Gothic ProN W4", ",", "Hiragino Mincho Pro W3", ",", "Hiragino Mincho Pro W6", ",", "Hiragino Kaku Gothic Pro W3", ",", "Hiragino Kaku Gothic Pro W6", ",", "Hiragino Kaku Gothic Std W8", ",", "Hiragino Kaku Gothic StdN W8", ",", "LiSong Pro", ",", "STFangsong", ",", "STSong", ",", "STKaiti", ",", "Brush Script MT Italic", ",", "Adobe Caslon Pro", ",", "Adobe Caslon Pro Semibold", ",", "Adobe Fangsong Std R", ",", "Adobe Heiti Std R", ",", "Adobe Kaiti Std R", ",", "Adobe Ming Std L", ",", "Adobe Myungjo Std M", ",", "Adobe Song Std L", ",", "Adobe Garamond Pro", ",", "Bell Gothic Std Black", ",", "Bell Gothic Std Bold", ",", "Birch Std", ",", "Blackoak Std", ",", "Brush Script Std Medium", ",", "Chaparral Pro", ",", "Charlemagne Std Bold", ",", "Cooper Std Black", ",", "Eccentric Std", ",", "Giddyup Std", ",", "Hobo Std Medium", ",", "Kozuka Gothic Pro B", ",", "Kozuka Gothic Pro EL", ",", "Kozuka Gothic Pro H", ",", "Kozuka Gothic Pro L", ",", "Kozuka Gothic Pro M", ",", "Kozuka Gothic Pro R", ",", "Kozuka Mincho Pro B", ",", "Kozuka Mincho Pro EL", ",", "Kozuka Mincho Pro H", ",", "Kozuka Mincho Pro L", ",", "Kozuka Mincho Pro M", ",", "Kozuka Mincho Pro R", ",", "Letter Gothic Std Bold", ",", "Letter Gothic Std Bold Slanted", ",", "Letter Gothic Std Slanted", ",", "Letter Gothic Std Medium", ",", "Lithos Pro Black", ",", "Lithos Pro", ",", "Mesquite Std Medium", ",", "Minion Pro Bold Cond", ",", "Minion Pro Medium", ",", "Minion Pro", ",", "Minion Pro Semibold", ",", "Myriad Pro Bold Condensed", ",", "Myriad Pro Condensed", ",", "Myriad Pro", ",", "Myriad Pro Semibold", ",", "Nueva Std Bold Condensed", ",", "Nueva Std Condensed", ",", "OCR A Std", ",", "Orator Std Slanted", ",", "Orator Std Medium", ",", "Poplar Std Black", ",", "Prestige Elite Std Bold", ",", "Rosewood Std", ",", "Stencil Std Bold", ",", "Tekton Pro Bold", ",", "Tekton Pro Bold Condensed", ",", "Tekton Pro Bold Extended", ",", "Tekton Pro Bold Oblique", ",", "Trajan Pro", ",", "Academy Engraved LET Plain:1.0", ",", "Bank Gothic Light", ",", "Bank Gothic Medium", ",", "Blackmoor LET Plain:2.0", ",", "BlairMdITC TT Medium", ",", "Bodoni Ornaments ITC TT", ",", "Bodoni SvtyTwo ITC TT Book", ",", "Bodoni SvtyTwo ITC TT Bold", ",", "Bodoni SvtyTwo ITC TT BookIta", ",", "Bodoni SvtyTwo OS ITC TT Book", ",", "Bodoni SvtyTwo OS ITC TT Bold", ",", "Bodoni SvtyTwo OS ITC TT BookIt", ",", "Bodoni SvtyTwo SC ITC TT Book", ",", "Bordeaux Roman Bold LET Plain", ",", "Bradley Hand ITC TT Bold", ",", "Capitals", ",", "Jazz LET Plain:1.0", ",", "Mona Lisa Solid ITC TT", ",", "Palatino", ",", "Party LET Plain:1.0", ",", "PortagoITC TT", ",", "Princetown LET", ",", "Santa Fe LET Plain:1.0", ",", "Savoye LET Plain:1.0", ",", "SchoolHouse Cursive B", ",", "SchoolHouse Printed A", ",", "Snell Roundhand", ",", "Snell Roundhand Black", ",", "Stone Sans Sem ITC TT Semi", ",", "Stone Sans ITC TT Bold", ",", "Stone Sans Sem ITC TT SemiIta", ",", "Synchro LET", ",", "Type Embellishments One LET Embellishments One LET Plain:1.0" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 487.0, 375.0, 100.0, 18.0 ],
+					"patching_rect" : [ 485.0, 383.0, 100.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 43.0, 21.0, 100.0, 18.0 ],
+					"presentation_rect" : [ 45.0, 25.0, 100.0, 19.0 ],
 					"types" : [  ]
 				}
 
@@ -724,7 +708,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 487.0, 282.0, 595.0, 27.0 ],
+					"patching_rect" : [ 487.0, 282.0, 599.0, 31.0 ],
 					"text" : "jcom.parameter tracking @type msg_float @range/bounds 0.5 2 @range/clipmode none @description \"The tracking (intra-character spacing) as a multiple of the standard tracking for the face. \"",
 					"varname" : "tracking"
 				}
@@ -740,7 +724,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 496.0, 163.0, 343.0, 27.0 ],
+					"patching_rect" : [ 490.0, 163.0, 580.0, 31.0 ],
 					"text" : "jcom.parameter interp @type msg_toggle @description \"Controls whether interpolation is used to draw textures when not in classic mode.\"",
 					"varname" : "interp"
 				}
@@ -755,9 +739,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 420.0, 168.0, 73.0, 19.0 ],
+					"patching_rect" : [ 415.0, 160.0, 73.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 18.0, 42.0, 73.0, 19.0 ],
+					"presentation_rect" : [ 20.0, 50.0, 73.0, 19.0 ],
 					"text" : "interpolate"
 				}
 
@@ -771,9 +755,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 398.0, 167.0, 80.0, 18.0 ],
+					"patching_rect" : [ 395.0, 160.0, 80.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 2.0, 39.0, 80.0, 18.0 ],
+					"presentation_rect" : [ 5.0, 50.0, 80.0, 18.0 ],
 					"size" : 1,
 					"values" : [ 1 ],
 					"varname" : "INTERP"
@@ -790,7 +774,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 487.0, 94.0, 598.0, 27.0 ],
+					"patching_rect" : [ 490.0, 94.0, 600.0, 31.0 ],
 					"text" : "jcom.parameter leadscale @type msg_float @range/bounds 0.5 2 @range/clipmode none @description \"The leading between multiple rows of text as a multiple of the standard leading. \"",
 					"varname" : "leadscale"
 				}
@@ -805,7 +789,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 487.0, 49.0, 395.0, 17.0 ],
+					"patching_rect" : [ 490.0, 45.0, 437.0, 19.0 ],
 					"text" : "jcom.parameter align @type msg_symbol @description \"Alignment for rows of text.\"",
 					"varname" : "align"
 				}
@@ -820,15 +804,13 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 487.0, 352.0, 42.0, 17.0 ],
+					"patching_rect" : [ 485.0, 355.0, 43.0, 19.0 ],
 					"text" : "fontlist"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"bordercolor" : [ 0.5, 0.5, 0.5, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-62",
@@ -836,9 +818,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 444.0, 102.0, 35.0, 17.0 ],
+					"patching_rect" : [ 445.0, 95.0, 35.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 108.0, 41.0, 35.0, 17.0 ],
+					"presentation_rect" : [ 115.0, 50.0, 35.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "LEADSCALE"
@@ -856,7 +838,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 146.0, 43.0, 77.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 146.0, 43.0, 77.0, 19.0 ],
+					"presentation_rect" : [ 155.0, 50.0, 77.0, 19.0 ],
 					"text" : "Lead Scale"
 				}
 
@@ -871,7 +853,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 117.0, 166.0, 191.0, 15.0 ],
+					"patching_rect" : [ 133.0, 162.0, 196.0, 17.0 ],
 					"text" : "/preset/store 1 default, /preset/write"
 				}
 
@@ -885,7 +867,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 257.0, 452.0, 58.0, 17.0 ],
+					"patching_rect" : [ 205.0, 455.0, 63.0, 19.0 ],
 					"text" : "jcom.out 1"
 				}
 
@@ -899,7 +881,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 204.0, 280.0, 52.0, 17.0 ],
+					"patching_rect" : [ 204.0, 305.0, 56.0, 19.0 ],
 					"text" : "jcom.in 1"
 				}
 
@@ -914,7 +896,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 129.0, 184.0, 125.0, 15.0 ],
+					"patching_rect" : [ 145.0, 180.0, 137.0, 17.0 ],
 					"text" : "/documentation/generate"
 				}
 
@@ -929,7 +911,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 23.0, 211.0, 339.0, 27.0 ],
+					"patching_rect" : [ 15.0, 215.0, 339.0, 31.0 ],
 					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Write bitmap text.\"",
 					"varname" : "jmod.hub"
 				}
@@ -944,7 +926,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 274.0, 480.0, 76.0, 17.0 ],
+					"patching_rect" : [ 240.0, 485.0, 86.0, 19.0 ],
 					"text" : "VIDEO OUTPUT"
 				}
 
@@ -956,7 +938,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 259.0, 480.0, 13.0, 13.0 ]
+					"patching_rect" : [ 205.0, 485.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -968,7 +950,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 204.0, 259.0, 13.0, 13.0 ]
+					"patching_rect" : [ 205.0, 260.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -981,7 +963,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 219.0, 259.0, 66.0, 17.0 ],
+					"patching_rect" : [ 235.0, 260.0, 76.0, 19.0 ],
 					"text" : "VIDEO INPUT"
 				}
 
@@ -995,22 +977,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 172.0, 432.0, 101.0, 17.0 ],
+					"patching_rect" : [ 135.0, 390.0, 88.0, 19.0 ],
 					"text" : "jalg.gl.text2d%"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-77",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 259.0, 184.0, 31.0, 15.0 ],
-					"text" : "/init"
 				}
 
 			}
@@ -1023,7 +991,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 38.0, 183.0, 79.0, 17.0 ],
+					"patching_rect" : [ 38.0, 183.0, 87.0, 19.0 ],
 					"text" : "command input"
 				}
 
@@ -1035,7 +1003,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 23.0, 268.0, 13.0, 13.0 ]
+					"patching_rect" : [ 15.0, 270.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -1047,7 +1015,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 23.0, 181.0, 13.0, 13.0 ]
+					"patching_rect" : [ 15.0, 155.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -1060,9 +1028,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 614.0, 630.0, 90.0, 19.0 ],
+					"patching_rect" : [ 405.0, 655.0, 90.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 18.0, 74.0, 90.0, 19.0 ],
+					"presentation_rect" : [ 20.0, 80.0, 90.0, 19.0 ],
 					"text" : "shadow enable"
 				}
 
@@ -1076,9 +1044,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 382.0, 651.0, 93.0, 18.0 ],
+					"patching_rect" : [ 382.0, 656.0, 93.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 2.0, 71.0, 93.0, 18.0 ],
+					"presentation_rect" : [ 5.0, 80.0, 93.0, 18.0 ],
 					"size" : 1,
 					"values" : [ 1 ],
 					"varname" : "SHADOW_ENABLE"
@@ -1106,61 +1074,24 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-4", 0 ],
+					"destination" : [ "obj-89", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-13", 0 ]
+					"source" : [ "obj-38", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 230.0, 302.0, 86.5, 302.0 ],
-					"source" : [ "obj-69", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
+					"destination" : [ "obj-41", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-12", 0 ]
+					"source" : [ "obj-40", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-12", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-6", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-49", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-49", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-2", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"color" : [ 0.156863, 0.8, 0.54902, 1.0 ],
 					"destination" : [ "obj-69", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -1170,110 +1101,316 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-73", 0 ],
+					"destination" : [ "obj-76", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-68", 0 ]
+					"source" : [ "obj-69", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-61", 0 ],
+					"destination" : [ "obj-6", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-45", 0 ]
+					"source" : [ "obj-69", 1 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-20", 10 ],
+					"destination" : [ "obj-76", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-19", 0 ]
+					"source" : [ "obj-69", 1 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-11", 10 ],
+					"destination" : [ "obj-68", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-10", 0 ]
+					"source" : [ "obj-76", 1 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ],
-					"destination" : [ "obj-19", 0 ],
+					"destination" : [ "obj-50", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 790.0, 143.5, 499.5, 143.5 ],
+					"source" : [ "obj-55", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-55", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-16", 0 ]
+					"source" : [ "obj-62", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-19", 0 ],
+					"destination" : [ "obj-62", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-20", 10 ]
+					"source" : [ "obj-55", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-10", 0 ],
+					"destination" : [ "obj-11", 2 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-11", 10 ]
+					"source" : [ "obj-8", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-71", 0 ],
+					"destination" : [ "obj-11", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-80", 0 ]
+					"source" : [ "obj-9", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-71", 0 ],
+					"destination" : [ "obj-8", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 138.5, 206.0, 32.5, 206.0 ],
-					"source" : [ "obj-70", 0 ]
+					"midpoints" : [ 824.5, 426.0, 767.0, 426.0, 767.0, 338.0, 889.5, 338.0 ],
+					"source" : [ "obj-11", 2 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-71", 0 ],
+					"destination" : [ "obj-9", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 268.5, 206.0, 32.5, 206.0 ],
-					"source" : [ "obj-77", 0 ]
+					"midpoints" : [ 812.0, 422.0, 772.25, 422.0, 772.25, 342.0, 844.5, 342.0 ],
+					"source" : [ "obj-11", 1 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-71", 0 ],
+					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 126.5, 206.0, 32.5, 206.0 ],
-					"source" : [ "obj-67", 0 ]
+					"midpoints" : [ 799.5, 418.0, 780.5, 418.0, 780.5, 345.0, 799.5, 345.0 ],
+					"source" : [ "obj-11", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-79", 0 ],
+					"destination" : [ "obj-11", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-71", 0 ]
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-94", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-59", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-59", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-94", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-43", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 535.0, 405.5, 494.5, 405.5 ],
+					"source" : [ "obj-46", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-38", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-89", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-36", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-88", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-40", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-41", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-46", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-61", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-46", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 494.5, 447.0, 477.0, 447.0, 477.0, 380.0, 494.5, 380.0 ],
+					"source" : [ "obj-43", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-25", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-17", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-17", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-25", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-26", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 499.5, 765.0, 448.5, 765.0, 448.5, 684.0, 559.5, 684.0 ],
+					"source" : [ "obj-20", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-20", 2 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-26", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-27", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 487.0, 762.0, 452.25, 762.0, 452.25, 687.0, 519.5, 687.0 ],
+					"source" : [ "obj-20", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-20", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-27", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-24", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 474.5, 758.0, 458.5, 758.0, 458.5, 690.0, 474.5, 690.0 ],
+					"source" : [ "obj-20", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-20", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-24", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-84", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-30", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-30", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-84", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-34", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-31", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-31", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-34", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-53", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-50", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-50", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-53", 0 ]
 				}
 
 			}
@@ -1289,326 +1426,146 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-50", 0 ],
+					"destination" : [ "obj-79", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-53", 0 ]
+					"source" : [ "obj-71", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-53", 0 ],
+					"destination" : [ "obj-71", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 142.5, 206.0, 24.5, 206.0 ],
+					"source" : [ "obj-67", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-71", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 154.5, 206.0, 24.5, 206.0 ],
+					"source" : [ "obj-70", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-71", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-50", 0 ]
+					"source" : [ "obj-80", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-31", 0 ],
+					"destination" : [ "obj-10", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-34", 0 ]
+					"source" : [ "obj-11", 10 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-34", 0 ],
+					"destination" : [ "obj-19", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-31", 0 ]
+					"source" : [ "obj-20", 10 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-30", 0 ],
+					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ],
+					"destination" : [ "obj-19", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-84", 0 ]
+					"source" : [ "obj-16", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-84", 0 ],
+					"destination" : [ "obj-11", 10 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-30", 0 ]
+					"source" : [ "obj-10", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-20", 0 ],
+					"destination" : [ "obj-20", 10 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-24", 0 ]
+					"source" : [ "obj-19", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-24", 0 ],
+					"destination" : [ "obj-61", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-20", 0 ]
+					"source" : [ "obj-45", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-20", 1 ],
+					"destination" : [ "obj-73", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-27", 0 ]
+					"source" : [ "obj-68", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-27", 0 ],
+					"destination" : [ "obj-49", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-20", 1 ]
+					"source" : [ "obj-2", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-20", 2 ],
+					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-26", 0 ]
+					"source" : [ "obj-49", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-26", 0 ],
+					"destination" : [ "obj-12", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-20", 2 ]
+					"source" : [ "obj-6", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-17", 0 ],
+					"destination" : [ "obj-13", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-25", 0 ]
+					"source" : [ "obj-12", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-25", 0 ],
+					"destination" : [ "obj-4", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-17", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-46", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 496.5, 430.0, 479.0, 430.0, 479.0, 372.0, 496.5, 372.0 ],
-					"source" : [ "obj-43", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-46", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-61", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-41", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 496.5, 509.0, 479.0, 509.0, 479.0, 455.0, 496.5, 455.0 ],
-					"source" : [ "obj-40", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-40", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-41", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-36", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-88", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-38", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-89", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-89", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-38", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-43", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-46", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-59", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-94", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-94", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-59", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-11", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-7", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-11", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-9", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-11", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-11", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-11", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-9", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-11", 2 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-8", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-62", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-55", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-55", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-62", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-50", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-55", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-68", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-76", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"color" : [ 0.156863, 0.8, 0.54902, 1.0 ],
-					"destination" : [ "obj-76", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-69", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-76", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-69", 1 ]
+					"source" : [ "obj-13", 0 ]
 				}
 
 			}
