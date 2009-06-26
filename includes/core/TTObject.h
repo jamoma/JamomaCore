@@ -93,7 +93,7 @@ private:
 	TTPtrSizedInt		reserved2;			///< Reserved -- May be used for something in the future without changing the size of the struct.
 
 protected:
-	TTObject(TTValue& arguments);
+	TTObject(const TTSymbolPtr name, TTValue& arguments);
 public:
 	virtual ~TTObject();
 	
