@@ -40,7 +40,7 @@ protected:
 public:
 
 	/**	Constructor. */
-	TTHighpassButterworth2(TTUInt16 newMaxNumChannels);
+	TTHighpassButterworth2(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTHighpassButterworth2();

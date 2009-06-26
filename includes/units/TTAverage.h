@@ -37,7 +37,7 @@ protected:
 public:
 
 	/**	Constructor. */
-	TTAverage(TTUInt16 newMaxNumChannels);
+	TTAverage(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTAverage();

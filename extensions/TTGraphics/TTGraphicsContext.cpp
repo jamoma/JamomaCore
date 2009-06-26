@@ -10,8 +10,8 @@
 #define thisTTClass TTGraphicsContext
 
 
-TTGraphicsContext::TTGraphicsContext(const TTValue& v)
-: TTObject("TTGraphicsContext")
+TTGraphicsContext::TTGraphicsContext(TTValue& arguments)
+: TTObject(TT("TTGraphicsContext"), arguments)
 {
 //	TTPtr surface = v;
 //	cairoRenderSurface = (cairo_surface_t*)TTPtr(v);

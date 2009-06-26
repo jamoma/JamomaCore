@@ -48,7 +48,7 @@ protected:
 public:
 
 	/**	Constructor. */
-	TTAllpass(TTUInt16 newMaxNumChannels);
+	TTAllpass(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTAllpass();

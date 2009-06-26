@@ -10,8 +10,8 @@
 #define thisTTClass TTPhasor
 
 
-TTPhasor::TTPhasor(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("audio.phasor", newMaxNumChannels),
+TTPhasor::TTPhasor(TTValue& arguments)
+	: TTAudioObject(TT("phasor"), arguments),
 	phase(0.0), step(0.0), linearGain(1.0)
 {
 	registerAttributeWithSetter(frequency,		kTypeFloat64);

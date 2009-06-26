@@ -13,9 +13,11 @@
 
 /****************************************************************************************************/
 
-TTAudioSignal::TTAudioSignal(const TTUInt16 initialMaxNumChannels)
- 	: TTObject("audiosignal"), isLocallyOwned(false), maxNumChannels(0), vectorSize(0), numChannels(0), sampleVectors(NULL)
+TTAudioSignal::TTAudioSignal(TTValue& arguments)
+ 	: TTObject(kTTSym_audiosignal, arguments), isLocallyOwned(false), maxNumChannels(0), vectorSize(0), numChannels(0), sampleVectors(NULL)
 {
+	TTUInt16	initialMaxNumChannels = arguments;
+	
 	registerAttributeWithSetter(vectorSize, kTypeUInt16);
 	registerAttributeWithSetter(numChannels, kTypeUInt16);
 	registerAttributeWithSetter(maxNumChannels, kTypeUInt16);

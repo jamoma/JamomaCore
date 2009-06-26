@@ -40,7 +40,7 @@ protected:
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 public:
-	TTPulseSub(const TTUInt16 newMaxNumChannels);
+	TTPulseSub(TTValue& arguments);
 	virtual ~TTPulseSub();
 	
 	TTErr setTrigger(const TTValue& newValue);

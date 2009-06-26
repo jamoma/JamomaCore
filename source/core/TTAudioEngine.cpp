@@ -11,8 +11,8 @@
 #define thisTTClass TTAudioEngine
 
 
-TTAudioEngine::TTAudioEngine()
-	:TTObject("audioEngine"),
+TTAudioEngine::TTAudioEngine(TTValue& arguments)
+	:TTObject(TT("audioEngine"), arguments),
 	 numInputChannels(2),
 	 numOutputChannels(2),
 	 vectorSize(64),
@@ -358,7 +358,7 @@ TTErr TTAudioEngineCreate()
 	if(!sAudioEngine){
 		paErr = Pa_Initialize();
 		if(paErr == paNoError)
-			sAudioEngine = new TTAudioEngine;
+			sAudioEngine = new TTAudioEngine(*kTTValNONE);
 		else
 			TTLogError("PortAudio error: %s", Pa_GetErrorText(paErr));
 			err = kTTErrGeneric;

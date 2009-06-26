@@ -10,8 +10,8 @@
 #define thisTTClass TTLowpassTwoPole
 
 
-TTLowpassTwoPole::TTLowpassTwoPole(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("filter.lowpass.twopole", newMaxNumChannels),
+TTLowpassTwoPole::TTLowpassTwoPole(TTValue& arguments)
+	: TTAudioObject(TT("lowpass.2"), arguments),
 	feedback1(NULL), feedback2(NULL)
 {
 	// register attributes
@@ -29,7 +29,7 @@ TTLowpassTwoPole::TTLowpassTwoPole(TTUInt16 newMaxNumChannels)
 	registerMessageSimple(updateSr);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
+	setAttributeValue(TT("maxNumChannels"),	arguments);			// This attribute is inherited
 	setAttributeValue(TT("frequency"),		1000.0);
 	setAttributeValue(TT("resonance"),		1.0);
 

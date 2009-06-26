@@ -11,8 +11,8 @@
 #define thisTTClass PowerFunction
 
 
-PowerFunction::PowerFunction(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("power", newMaxNumChannels)
+PowerFunction::PowerFunction(TTValue& arguments)
+	: TTAudioObject(TT("power"), arguments)
 {
 	registerAttributeWithSetter(symmetry,	kTypeSymbol);
 	registerAttributeWithSetter(powerValue,	kTypeFloat64);

@@ -21,11 +21,11 @@ class MyPainter : public TTObject {
 public:
 	
 	// Constructor
-	MyPainter(const TTValue &v) :
-		TTObject("MyPainter"), 
+	MyPainter(TTValue& arguments) :
+		TTObject(TT("MyPainter"), arguments), 
 		graphicsSurface(NULL)
 	{
-		TTObjectInstantiate(TT("TTGraphicsSurface"), &graphicsSurface, v);	// create the surface we will draw to
+		TTObjectInstantiate(TT("TTGraphicsSurface"), &graphicsSurface, arguments);	// create the surface we will draw to
 		graphicsSurface->registerObserverForNotifications(*this);			// cause this object to receive 'draw' messages from the window
 		
 		registerAttributeSimple(mode, kTypeSymbol);

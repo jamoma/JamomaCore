@@ -34,7 +34,7 @@ protected:
 public:
 
 	/**	Constructor. */
-	TTLowpassOnePole(TTUInt16 newMaxNumChannels);
+	TTLowpassOnePole(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTLowpassOnePole();

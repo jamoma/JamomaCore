@@ -46,7 +46,7 @@ protected:
 
 public:
 	/**	Constructor. */
-	TTRamp(TTUInt16 maxNumChannels);
+	TTRamp(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTRamp();

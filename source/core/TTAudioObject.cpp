@@ -18,8 +18,8 @@ static const double kGainMidiPowerInv = 1./kGainMidiPower;
 
 /****************************************************************************************************/
 
-TTAudioObject::TTAudioObject(const char* name, TTUInt16 newMaxNumChannels)
-	: TTObject(name), attrMute(0), inputArray(NULL), outputArray(NULL)
+TTAudioObject::TTAudioObject(const TTSymbolPtr name, TTValue& arguments)
+	: TTObject(name, arguments), attrMute(0), inputArray(NULL), outputArray(NULL)
 {
 	registerAttribute(TT("maxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
 	registerAttribute(TT("sr"),				kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObject::setSr);
@@ -111,8 +111,8 @@ TTErr TTAudioObject::muteProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 
 TTErr TTAudioObject::defaultCalculateMethod(const TTFloat64& x, TTFloat64& y, TTPtr data)
 {
-	TTAudioSignal	in(1);
-	TTAudioSignal	out(1);
+	TTAudioSignal	in(*kTTVal1);
+	TTAudioSignal	out(*kTTVal1);
 	TTErr			err;
 	
 	in.allocWithVectorSize(1);

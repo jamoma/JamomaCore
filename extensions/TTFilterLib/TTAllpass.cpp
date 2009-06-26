@@ -8,8 +8,8 @@
 #include "TTAllpass.h"
 #define thisTTClass TTAllpass
 
-TTAllpass::TTAllpass(TTUInt16 newMaxNumChannels)
-: TTAudioObject("allpass", newMaxNumChannels)
+TTAllpass::TTAllpass(TTValue& arguments)
+: TTAudioObject(TT("allpass"), arguments)
 {;}
 
 TTAllpass::~TTAllpass()

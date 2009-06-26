@@ -33,10 +33,8 @@
 
 extern "C" TT_EXTENSION_EXPORT TTObjectPtr instantiateFilter(TTSymbolPtr className, TTValue& arguments)
 {
-	TTUInt16 numChannels = 1;
-
-	if(arguments.getSize())
-		numChannels = arguments;
+	if(arguments.getSize() == 0)
+		arguments = 1;
 	
 	if(className == TT("allpass"))
 		return new TTAllpass(arguments);

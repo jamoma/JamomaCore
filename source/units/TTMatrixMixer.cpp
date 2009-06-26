@@ -10,56 +10,76 @@
 #define thisTTClass TTMatrixMixer
 
 
-TTMatrixMixer::TTMatrixMixer(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("matrixmixer", newMaxNumChannels), 
-	  gainMatrix(NULL)
+TTMatrixMixer::TTMatrixMixer(TTValue& arguments)
+	: TTAudioObject(TT("matrixmixer"), arguments), 
+	  numInputs(2), numOutputs(2), gainMatrix(NULL)
 {
+	registerAttributeWithSetter(numInputs, kTypeUInt16);
+	registerAttributeWithSetter(numOutputs, kTypeUInt16);
+	
 	registerMessageWithArgument(setGain);
 	registerMessageWithArgument(setLinearGain);
 	registerMessageWithArgument(setMidiGain);
-	registerMessageWithArgument(updateMaxNumChannels);
+	//registerMessageWithArgument(updateMaxNumChannels);
 	registerMessageSimple(clear);	
 
-	setAttributeValue(kTTSym_maxNumChannels, newMaxNumChannels);
+	//setAttributeValue(kTTSym_maxNumChannels, newMaxNumChannels);
+	//setAttributeValue(kTTSym_maxNumChannels, newMaxNumChannels);
+	allocGainMatrix();
 	setProcessMethod(processAudio);
 }
 
 
 TTMatrixMixer::~TTMatrixMixer()
 {
-	if(gainMatrix){
-		for(TTUInt16 i=0; i<maxNumChannels; i++)
-			delete [] gainMatrix[i];
-		delete [] gainMatrix;
-		gainMatrix = NULL;
-	}
+	freeGainMatrix();
 }
 
 
-TTErr TTMatrixMixer::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTMatrixMixer::allocGainMatrix()
 {
-	TTUInt16 old = oldMaxNumChannels;
-	
-	if(gainMatrix){
-		for(TTUInt16 i=0; i<old; i++)
-			delete [] gainMatrix[i];
-		delete [] gainMatrix;
-		gainMatrix = NULL;
-	}
-
-	gainMatrix = new TTFloat64*[maxNumChannels];
-	for(TTUInt16 i=0; i<maxNumChannels; i++)
-		gainMatrix[i] = new TTFloat64[maxNumChannels];
-
+	gainMatrix = new TTFloat64*[numOutputs];
+	for(TTUInt16 x=0; x<numInputs; x++)
+		gainMatrix[x] = new TTFloat64[numOutputs];
 	clear();
 	return kTTErrNone;
 }
 
 
+TTErr TTMatrixMixer::freeGainMatrix()
+{
+	if(gainMatrix){
+		for(TTUInt16 x=0; x<numOutputs; x++)
+			delete [] gainMatrix[x];
+		delete [] gainMatrix;
+		gainMatrix = NULL;
+	}
+	return kTTErrNone;
+}
+
+
+TTErr TTMatrixMixer::setnumInputs(const TTValue& newValue)
+{
+	freeGainMatrix();
+	numInputs = newValue;
+	return allocGainMatrix();
+}
+
+
+TTErr TTMatrixMixer::setnumOutputs(const TTValue& newValue)
+{
+	freeGainMatrix();
+	numOutputs = newValue;
+	return allocGainMatrix();
+}
+
+
+
+
 TTErr TTMatrixMixer::clear()
 {
-	for(TTUInt16 x=0; x<maxNumChannels; x++){
-		for(TTUInt16 y=0; y<maxNumChannels; y++)
+	for(TTUInt16 x=0; x<numInputs; x++){
+		for(TTUInt16 y=0; y<numOutputs; y++)
 			gainMatrix[x][y] = 0.0;
 	}
 	return kTTErrNone;
@@ -145,11 +165,13 @@ void TTMatrixMixer::processOne(TTAudioSignal& in, TTAudioSignal& out, TTFloat64 
 */
 TTErr TTMatrixMixer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	for(TTUInt16 y=0; y < outputs->numAudioSignals; y++){
+//	for(TTUInt16 y=0; y < outputs->numAudioSignals; y++){
+	for(TTUInt16 y=0; y < numOutputs; y++){
 		TTAudioSignal&	out = outputs->getSignal(y);
 		
 		out.clear();
-		for(TTUInt16 x=0; x < inputs->numAudioSignals; x++){
+//		for(TTUInt16 x=0; x < inputs->numAudioSignals; x++){
+		for(TTUInt16 x=0; x < numInputs; x++){
 			TTAudioSignal&	in = inputs->getSignal(x);
 			
 			processOne(in, out, gainMatrix[x][y]);

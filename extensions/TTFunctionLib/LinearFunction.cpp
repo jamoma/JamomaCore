@@ -11,8 +11,8 @@
 #define thisTTClass LinearFunction
 
 
-LinearFunction::LinearFunction(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("linear", newMaxNumChannels)
+LinearFunction::LinearFunction(TTValue& arguments)
+	: TTAudioObject(TT("linear"), arguments)
 {
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);

@@ -111,9 +111,12 @@ void* gain_new(t_symbol* s, long argc, t_atom* argv)
 		//x->gain = new TTGain(x->numChannels);
 		TTObjectInstantiate(TT("crossfade"), &x->xfade, x->numChannels);
 		TTObjectInstantiate(TT("gain"), &x->gain, x->numChannels);
-		x->signalTemp = new TTAudioSignal(x->numChannels);
-		x->signalOut = new TTAudioSignal(x->numChannels);
-		x->signalIn = new TTAudioSignal(x->numChannels*2);
+		TTObjectInstantiate(kTTSym_audiosignal, &x->signalTemp, x->numChannels);
+		TTObjectInstantiate(kTTSym_audiosignal, &x->signalOut, x->numChannels);
+		TTObjectInstantiate(kTTSym_audiosignal, &x->signalIn, x->numChannels*2);
+		//x->signalTemp = new TTAudioSignal(x->numChannels);
+		//x->signalOut = new TTAudioSignal(x->numChannels);
+		//x->signalIn = new TTAudioSignal(x->numChannels*2);
 		
 		x->xfade->setAttributeValue(TT("position"), 1.0);		// defaults
 		x->gain->setAttributeValue(TT("linearGain"), 0.0);
@@ -132,9 +135,9 @@ void gain_free(t_gain *x)
 	dsp_free((t_pxobject *)x);		// Always call dsp_free first in this routine
 	TTObjectRelease(&x->xfade);
 	TTObjectRelease(&x->gain);
-	delete x->signalTemp;
-	delete x->signalOut;
-	delete x->signalIn;
+	TTObjectRelease(&x->signalTemp);
+	TTObjectRelease(&x->signalOut);
+	TTObjectRelease(&x->signalIn);
 }
 
 /************************************************************************************/

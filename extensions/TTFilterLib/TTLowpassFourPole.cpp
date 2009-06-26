@@ -10,8 +10,8 @@
 #define thisTTClass TTLowpassFourPole
 
 
-TTLowpassFourPole::TTLowpassFourPole(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("filter.lowpass.fourpole", newMaxNumChannels),
+TTLowpassFourPole::TTLowpassFourPole(TTValue& arguments)
+	: TTAudioObject(TT("lowpass.4"), arguments),
 	x1(NULL), x2(NULL), x3(NULL), x4(NULL), y1(NULL), y2(NULL), y3(NULL), y4(NULL)
 {
 	// register attributes
@@ -31,7 +31,7 @@ TTLowpassFourPole::TTLowpassFourPole(TTUInt16 newMaxNumChannels)
 	registerMessageSimple(updateSr);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
+	setAttributeValue(TT("maxNumChannels"),	arguments);			// This attribute is inherited
 	setAttributeValue(TT("frequency"),		1000.0);
 	setAttributeValue(TT("resonance"),		1.0);
 	

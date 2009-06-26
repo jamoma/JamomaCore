@@ -10,8 +10,8 @@
 #define thisTTClass TTOperator
 
 
-TTOperator::TTOperator(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("audio.operator", newMaxNumChannels)
+TTOperator::TTOperator(TTValue& arguments)
+	: TTAudioObject(TT("operator"), arguments)
 {
 	registerAttribute(TT("operator"), kTypeSymbol, &operatorAttribute, (TTSetterMethod)&TTOperator::setoperator);
 	registerAttributeWithSetter(operand, kTypeFloat64);

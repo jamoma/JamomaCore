@@ -10,9 +10,11 @@
 #define thisTTClass TTZerocross
 
 
-TTZerocross::TTZerocross(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("analysis.zerocross", newMaxNumChannels)
+TTZerocross::TTZerocross(TTValue& arguments)
+	: TTAudioObject(TT("zerocross"), arguments)
 {
+	TTUInt16	initialMaxNumChannels = arguments;
+	
 	// Attributes
 	registerAttributeWithSetter(size, kTypeUInt32);
 	
@@ -21,7 +23,7 @@ TTZerocross::TTZerocross(TTUInt16 newMaxNumChannels)
 	registerMessageWithArgument(updateMaxNumChannels);
 	
 	// Set Defaults
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
+	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
 	setAttributeValue(TT("size"), 2000);
 	setProcessMethod(processAudio);
 	clear();

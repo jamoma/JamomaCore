@@ -8,8 +8,8 @@
 #define thisTTClass TTHighMidLowShelf 
 
 
-TTHighMidLowShelf::TTHighMidLowShelf(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("filter.highmidlowshelf", newMaxNumChannels), 
+TTHighMidLowShelf::TTHighMidLowShelf(TTValue& arguments)
+	: TTAudioObject(TT("highmidlowshelf"), arguments), 
 	xm1(NULL), xm2(NULL), xm0(NULL)
 {
 	// register attributes
@@ -41,7 +41,7 @@ TTHighMidLowShelf::TTHighMidLowShelf(TTUInt16 newMaxNumChannels)
 	registerMessageSimple(clear);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),		newMaxNumChannels);			// This attribute is inherited
+	setAttributeValue(TT("maxNumChannels"),		arguments);			// This attribute is inherited
 	setAttributeValue(TT("frequencyMh"),		3000.0);
 	setAttributeValue(TT("frequencyLm"),		300.0);
 	setAttributeValue(TT("gainL"),				1.0);

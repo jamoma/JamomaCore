@@ -15,8 +15,8 @@ static TTSampleValue zeroVector2[2048]; //TODO: make this dynamically sized
 static TTSampleValue zeroVector3[2048]; //TODO: make this dynamically sized
 
 
-TTCrossfade::TTCrossfade(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("audio.crossfade", newMaxNumChannels)
+TTCrossfade::TTCrossfade(TTValue& arguments)
+	: TTAudioObject(TT("crossfade"), arguments)
 {
 	registerAttributeSimple(position,	kTypeFloat64);
 	addAttributeProperty(position,		range,			TTValue(0.0, 1.0));

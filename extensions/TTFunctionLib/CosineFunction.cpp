@@ -12,8 +12,8 @@
 #define thisTTClass CosineFunction
 
 
-CosineFunction::CosineFunction(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("cosine", newMaxNumChannels)
+CosineFunction::CosineFunction(TTValue& arguments)
+	: TTAudioObject(TT("cosine"), arguments)
 {
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);

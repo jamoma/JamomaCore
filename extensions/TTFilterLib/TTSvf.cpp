@@ -10,8 +10,8 @@
 #define thisTTClass TTSvf
 
 
-TTSvf::TTSvf(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("filter.svf", newMaxNumChannels),
+TTSvf::TTSvf(TTValue& arguments)
+	: TTAudioObject(TT("svf"), arguments),
 	lowpass_output(NULL), highpass_output(NULL), bandpass_output(NULL), notch_output(NULL), peak_output(NULL)
 {
 	// register attributes
@@ -28,7 +28,7 @@ TTSvf::TTSvf(TTUInt16 newMaxNumChannels)
 	registerMessageSimple(updateSr);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
+	setAttributeValue(TT("maxNumChannels"),	arguments);			// This attribute is inherited
 	setAttributeValue(TT("mode"),			TT("lowpass"));
 	setAttributeValue(TT("frequency"),		1000.0);
 	setAttributeValue(TT("resonance"),		1.0);

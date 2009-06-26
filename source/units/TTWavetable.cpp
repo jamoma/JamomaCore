@@ -10,11 +10,13 @@
 #define thisTTClass TTWavetable
 
 
-TTWavetable::TTWavetable(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("audio.wavetable", newMaxNumChannels),
+TTWavetable::TTWavetable(TTValue& arguments)
+	: TTAudioObject(TT("wavetable"), arguments),
 	  index(0.0),
 	  indexDelta(0.0)
 {
+	TTUInt16	initialMaxNumChannels = arguments;
+	
 	registerAttribute(TT("frequency"),		kTypeFloat64,	&attrFrequency,		(TTSetterMethod)&TTWavetable::setFrequency);
 	registerAttribute(TT("mode"),			kTypeSymbol,	&attrMode,			(TTSetterMethod)&TTWavetable::setMode);
 	registerAttribute(TT("gain"),			kTypeFloat64,	&attrGain,			(TTSetterMethod)&TTWavetable::setGain);
@@ -23,13 +25,13 @@ TTWavetable::TTWavetable(TTUInt16 newMaxNumChannels)
 	
 	registerMessageSimple(updateSr);
 
-	wavetable = new TTBuffer;
+	wavetable = new TTBuffer(*kTTValNONE);
 	if(!wavetable)
 		throw TTException("Could not create internal buffer object");
 	wavetable->setnumChannels(1);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
+	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
 	setAttributeValue(TT("size"), 4096);
 	setAttributeValue(TT("mode"), kTTSym_sine);
 	setAttributeValue(TT("frequency"), 440.0);

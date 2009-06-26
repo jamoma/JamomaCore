@@ -12,8 +12,8 @@
 #define thisTTClass TanhFunction
 
 
-TanhFunction::TanhFunction(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("tanh", newMaxNumChannels)
+TanhFunction::TanhFunction(TTValue& arguments)
+	: TTAudioObject(TT("tanh"), arguments)
 {
 	// Register Attributes...
 	registerAttributeWithSetter(offset,	kTypeFloat64);

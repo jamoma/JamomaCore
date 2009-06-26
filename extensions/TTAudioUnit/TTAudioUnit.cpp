@@ -37,8 +37,8 @@ public:
 	TTHashPtr			parameterNames;		///< parameter names -> parameter ids
 	
 	/**	Constructor. */
-	TTAudioUnit(TTUInt16 newMaxNumChannels)
-		: TTAudioObject("audiounit", newMaxNumChannels),
+	TTAudioUnit(TTValue& arguments)
+		: TTAudioObject(TT("audiounit"), arguments),
 		  inputBufferList(NULL), 
 		  outputBufferList(NULL)
 	{

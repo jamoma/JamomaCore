@@ -12,19 +12,19 @@
 #define thisTTClass TTGraphicsSurface
 
 
-TTGraphicsSurface::TTGraphicsSurface(const TTValue& v)
-	: TTObject("TTGraphicsSurface"),
+TTGraphicsSurface::TTGraphicsSurface(TTValue& arguments)
+	: TTObject(TT("TTGraphicsSurface"), arguments),
 	  context(NULL)
 {
 	TTInt32	width = 200.0;
 	TTInt32	height = 200.0;
 	
-	if (v.getSize() == 2) {
-		v.get(0, width);
-		v.get(1, height);
+	if (arguments.getSize() == 2) {
+		arguments.get(0, width);
+		arguments.get(1, height);
 	}
 	
-	TTObjectInstantiate(TT("TTGraphicsContext"), (TTObjectPtr*)&context, v);
+	TTObjectInstantiate(TT("TTGraphicsContext"), (TTObjectPtr*)&context, arguments);
 	//surface = cairo_quartz_surface_create(CAIRO_FORMAT_ARGB32, width, height);
 	surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
 	context->cairoContext = cairo_create(surface);

@@ -59,7 +59,7 @@ protected:
 		
 	
 public:
-	TTAdsr(TTUInt16 newMaxNumChannels);
+	TTAdsr(TTValue& arguments);
 	virtual ~TTAdsr();
 	
 	TTErr setAttack(const TTValue& newValue);

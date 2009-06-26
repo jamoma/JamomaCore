@@ -15,6 +15,8 @@
 /**	TTGain is an exceptionally simple audio processor scales an input audio signal */
 class TTEXPORT TTMatrixMixer : public TTAudioObject {
 protected:
+	TTUInt16		numInputs;
+	TTUInt16		numOutputs;
 	TTFloat64**		gainMatrix;
 
 	/**	A standard audio processing method as used by TTBlue objects.*/
@@ -26,15 +28,16 @@ public:
 	/**	Constructor. 
 		@param newMaxNumChannels	Specifies the initial maximum number of channels.
 									This applies to both inputs and outputs.	 */
-	TTMatrixMixer(TTUInt16 newMaxNumChannels);
+	TTMatrixMixer(TTValue& arguments);
 
 	
 	/**	Destructor. */
 	virtual ~TTMatrixMixer();
 	
-
-	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
-	
+	TTErr allocGainMatrix();
+	TTErr freeGainMatrix();
+	TTErr setnumInputs(const TTValue& newValue);
+	TTErr setnumOutputs(const TTValue& newValue);
 	
 	TTErr clear();
 

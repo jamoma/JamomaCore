@@ -9,8 +9,8 @@
 #include "TTAverage.h"
 #define thisTTClass TTAverage
 
-TTAverage::TTAverage(TTUInt16 newMaxNumChannels)
-: TTAudioObject("filter.runningAverage", newMaxNumChannels)
+TTAverage::TTAverage(TTValue& arguments)
+: TTAudioObject(TT("average"), arguments)
 {;}
 
 TTAverage::~TTAverage()

@@ -52,7 +52,7 @@ protected:
 	
 public:
 	/**	Constructor. */
-	TTDelay(TTUInt16 maxNumChannels);
+	TTDelay(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTDelay();

@@ -12,10 +12,12 @@
 #define ONE_OVER_BIG_INT 1.1920928955E-7
 
 
-TTDegrade::TTDegrade(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("audio.degrade", newMaxNumChannels),
+TTDegrade::TTDegrade(TTValue& arguments)
+	: TTAudioObject(TT("degrade"), arguments),
 	accumulator(NULL), output(NULL)
 {
+	TTUInt16	initialMaxNumChannels = arguments;
+	
 	// register attributes
 	registerAttributeWithSetter(bitdepth,	kTypeUInt8);
 	registerAttributeSimple(srRatio,		kTypeFloat64);
@@ -24,7 +26,7 @@ TTDegrade::TTDegrade(TTUInt16 newMaxNumChannels)
 	registerMessageWithArgument(updateMaxNumChannels);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
+	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
 	setAttributeValue(TT("bitdepth"),		24);
 	setAttributeValue(TT("srRatio"),		1.0);
 	setProcessMethod(processAudio);

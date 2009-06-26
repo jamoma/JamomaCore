@@ -15,6 +15,7 @@
 extern TTEXPORT TTValuePtr	kTTBoolNo;
 extern TTEXPORT TTValuePtr	kTTBoolYes;
 
+extern TTEXPORT TTValuePtr	kTTValNONE;
 extern TTEXPORT TTValuePtr	kTTVal0;
 extern TTEXPORT TTValuePtr	kTTVal1;
 extern TTEXPORT TTValuePtr	kTTVal0_pt_0;

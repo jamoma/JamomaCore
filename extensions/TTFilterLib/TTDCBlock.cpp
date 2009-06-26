@@ -10,8 +10,8 @@
 #define thisTTClass TTDCBlock
 
 
-TTDCBlock::TTDCBlock(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("filter.dcblock", newMaxNumChannels),
+TTDCBlock::TTDCBlock(TTValue& arguments)
+	: TTAudioObject(TT("dcblock"), arguments),
 	lastInput(NULL),
 	lastOutput(NULL)
 {
@@ -22,7 +22,7 @@ TTDCBlock::TTDCBlock(TTUInt16 newMaxNumChannels)
 	registerMessageWithArgument(updateMaxNumChannels);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
+	setAttributeValue(TT("maxNumChannels"),	arguments);
 	setProcessMethod(processAudio);
 }
 

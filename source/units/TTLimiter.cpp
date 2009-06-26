@@ -11,11 +11,13 @@
 #define thisTTClass TTLimiter
 
 
-TTLimiter::TTLimiter(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("audio.limiter", newMaxNumChannels),
+TTLimiter::TTLimiter(TTValue& arguments)
+	: TTAudioObject(TT("limiter"), arguments),
 	  recover(0.0), lookaheadBufferIndex(0), lookaheadBuffer(NULL), gain(NULL), last(0.0),
 	  dcBlocker(NULL), preamp(NULL), maxBufferSize(512), attrMode(TT("exponential"))
 {
+	TTUInt16	initialMaxNumChannels = arguments;
+	
 	// register our attributes
 	registerAttribute(TT("preamp"),		kTypeFloat64,	NULL,			(TTGetterMethod)&TTLimiter::getPreamp,		(TTSetterMethod)&TTLimiter::setPreamp);
 	registerAttribute(TT("postamp"),	kTypeFloat64,	&attrPostamp,	(TTGetterMethod)&TTLimiter::getPostamp,		(TTSetterMethod)&TTLimiter::setPostamp);
@@ -32,11 +34,11 @@ TTLimiter::TTLimiter(TTUInt16 newMaxNumChannels)
 	// clear the history
 	registerMessageSimple(clear);
 
-	TTObjectInstantiate(kTTSym_dcblock, &dcBlocker, newMaxNumChannels);
-	TTObjectInstantiate(kTTSym_gain, &preamp, newMaxNumChannels);
+	TTObjectInstantiate(kTTSym_dcblock, &dcBlocker, initialMaxNumChannels);
+	TTObjectInstantiate(kTTSym_gain, &preamp, initialMaxNumChannels);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
+	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
 	setAttributeValue(TT("threshold"),		0.0);
 	setAttributeValue(TT("preamp"),			0.0);
 	setAttributeValue(TT("postamp"),		0.0);

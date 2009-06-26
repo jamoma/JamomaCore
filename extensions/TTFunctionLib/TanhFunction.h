@@ -41,7 +41,7 @@ private:
 
 public:
 	//** Constructor. */
-	TanhFunction(TTUInt16 newMaxNumChannels);
+	TanhFunction(TTValue& arguments);
 	
 	/** Destructor. */
 	virtual ~TanhFunction();

@@ -13,9 +13,12 @@
 
 /****************************************************************************************************/
 
-TTAudioSignalArray::TTAudioSignalArray(const TTUInt16 initialMaxNumAudioSignals)
-: TTObject("audiosignalarray"), audioSignals(NULL)
+TTAudioSignalArray::TTAudioSignalArray(TTValue& arguments)
+	: TTObject(TT("audiosignalarray"), arguments), 
+	  audioSignals(NULL)
 {
+	TTUInt16 initialMaxNumAudioSignals = arguments;
+	
 	setMaxNumAudioSignals(initialMaxNumAudioSignals);
 }
 

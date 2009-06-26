@@ -42,7 +42,7 @@ protected:
 public:
 
 	/**	Constructor. */
-	TTCrossfade(TTUInt16 newMaxNumChannels);
+	TTCrossfade(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTCrossfade();

@@ -42,7 +42,7 @@ protected:
 public:
 
 	/**	Constructor. */
-	TTBalance(TTUInt16 newMaxNumChannels);
+	TTBalance(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTBalance();

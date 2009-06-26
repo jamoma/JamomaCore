@@ -59,7 +59,7 @@ protected:
 public:
 
 	/**	Constructor. */
-	TTLowpassLinkwitzRiley2(TTUInt16 newMaxNumChannels);
+	TTLowpassLinkwitzRiley2(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTLowpassLinkwitzRiley2();

@@ -100,8 +100,8 @@
 #pragma mark C++ Code
 
 
-TTGraphicsWindow::TTGraphicsWindow(const TTValue& v) :
-	TTObject("TTGraphicsWindow"), 
+TTGraphicsWindow::TTGraphicsWindow(TTValue& arguments) :
+	TTObject(TT("TTGraphicsWindow"), arguments), 
 	theWindow(NULL),
 	context(NULL)
 {
@@ -109,7 +109,7 @@ TTGraphicsWindow::TTGraphicsWindow(const TTValue& v) :
 	registerMessageSimple(front);
 	registerMessageSimple(refresh);
 
-	TTObjectInstantiate(TT("TTGraphicsContext"), (TTObjectPtr*)&context, v);
+	TTObjectInstantiate(TT("TTGraphicsContext"), (TTObjectPtr*)&context, arguments);
 	
 	// TODO: make bounds an attribute
 	bounds.origin.x = 200;

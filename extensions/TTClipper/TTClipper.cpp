@@ -18,8 +18,8 @@ class TTClipper : public TTAudioObject {
 	
 public:
 	/**	Constructor. */
-	TTClipper(TTUInt16 newMaxNumChannels)
-		: TTAudioObject("audio.gain", newMaxNumChannels)
+	TTClipper(TTValue& arguments)
+		: TTAudioObject(TT("clipper"), arguments)
 	{
 		registerAttributeSimple(lowBound,	kTypeFloat64);
 		registerAttributeSimple(highBound,	kTypeFloat64);

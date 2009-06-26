@@ -22,7 +22,7 @@
  */
 class LinearFunction : public TTAudioObject {
 public:
-	LinearFunction(TTUInt16 newMaxNumChannels);
+	LinearFunction(TTValue& arguments);
 	virtual ~LinearFunction();
 
 	/** y = f(x) for a single value */

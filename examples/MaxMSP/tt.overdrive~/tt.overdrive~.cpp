@@ -22,8 +22,8 @@ class TTOverdriveExtended : public TTOverdrive {
 public:
 	
 	// Constructor
-	TTOverdriveExtended(TTUInt16 newMaxNumChannels)
-	: TTOverdrive(newMaxNumChannels)
+	TTOverdriveExtended(TTValue& arguments)
+	: TTOverdrive(arguments)
 	{
 		registerAttribute(TT("overdrive"), kTypeFloat64, &drive, (TTSetterMethod)&TTOverdrive::setdrive);
 		registerAttribute(TT("/saturation"), kTypeFloat64, &drive, (TTSetterMethod)&TTOverdrive::setdrive);

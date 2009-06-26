@@ -42,7 +42,7 @@ protected:
 
 public:
 	/**	Constructor. */
-	TTDCBlock(TTUInt16 maxNumChannels);
+	TTDCBlock(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTDCBlock();

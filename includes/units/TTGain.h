@@ -23,7 +23,7 @@ protected:
 public:
 
 	/**	Constructor. */
-	TTGain(TTUInt16 newMaxNumChannels);
+	TTGain(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTGain();

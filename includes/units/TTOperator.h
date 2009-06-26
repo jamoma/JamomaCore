@@ -45,7 +45,7 @@ protected:
 public:
 
 	/**	Constructor. */
-	TTOperator(TTUInt16 newMaxNumChannels);
+	TTOperator(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTOperator();

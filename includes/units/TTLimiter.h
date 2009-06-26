@@ -64,7 +64,7 @@ protected:
 public:
 
 	/**	Constructor. */
-	TTLimiter(TTUInt16 newMaxNumChannels);
+	TTLimiter(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTLimiter();

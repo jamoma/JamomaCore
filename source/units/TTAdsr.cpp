@@ -10,8 +10,8 @@
 #define thisTTClass TTAdsr
 
 
-TTAdsr::TTAdsr(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("audio.adsr", newMaxNumChannels), output(0.), output_db(NOISE_FLOOR), 
+TTAdsr::TTAdsr(TTValue& arguments)
+	: TTAudioObject(TT("adsr"), arguments), output(0.), output_db(NOISE_FLOOR), 
 	eg_state(k_eg_inactive), trigger(false), attrMode(TT("linear"))
 {
 	registerAttribute(TT("attack"), kTypeFloat64, &attack_ms, (TTSetterMethod)&TTAdsr::setAttack);

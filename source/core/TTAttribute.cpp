@@ -11,7 +11,7 @@
 
 
 TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress)
-: TTObject("attribute"), name(newName), type(newType), address(newAddress), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
+: TTObject(TT("attribute"), *kTTValNONE), name(newName), type(newType), address(newAddress), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
   readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none"))
 {
 	getter = (TTGetterMethod)&TTAttribute::defaultGetter;
@@ -19,21 +19,21 @@ TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* ne
 }
 
 TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter)
-: TTObject("attribute"), name(newName), type(newType), address(newAddress), getter(newGetter), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
+: TTObject(TT("attribute"), *kTTValNONE), name(newName), type(newType), address(newAddress), getter(newGetter), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
   readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none"))
 {
 	setter = (TTSetterMethod)&TTAttribute::defaultSetter;
 }
 
 TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter)
-: TTObject("attribute"), name(newName), type(newType), address(newAddress), setter(newSetter), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
+: TTObject(TT("attribute"), *kTTValNONE), name(newName), type(newType), address(newAddress), setter(newSetter), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
   readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none"))
 {
 	getter = (TTGetterMethod)&TTAttribute::defaultGetter;
 }
 
 TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter)
-: TTObject("attribute"), name(newName), type(newType), address(newAddress), getter(newGetter), setter(newSetter), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
+: TTObject(TT("attribute"), *kTTValNONE), name(newName), type(newType), address(newAddress), getter(newGetter), setter(newSetter), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
   readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none"))
 {
 	;

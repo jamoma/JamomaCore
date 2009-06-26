@@ -33,7 +33,7 @@ private:
 	TTErr setpowerValue(const TTValue& newValue);
 	
 public:
-	PowerFunction(TTUInt16 newMaxNumChannels);
+	PowerFunction(TTValue& arguments);
 	virtual ~PowerFunction();
 	
 	/** y = f(x) for a single value */

@@ -43,7 +43,7 @@ protected:
 public:
 
 	/**	Constructor. */
-	TTDegrade(TTUInt16 newMaxNumChannels);
+	TTDegrade(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTDegrade();

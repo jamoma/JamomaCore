@@ -12,6 +12,7 @@
 TTEXPORT TTValuePtr	kTTBoolNo;
 TTEXPORT TTValuePtr	kTTBoolYes;
 
+TTEXPORT TTValuePtr kTTValNONE;
 TTEXPORT TTValuePtr	kTTVal0;
 TTEXPORT TTValuePtr	kTTVal1;
 TTEXPORT TTValuePtr	kTTVal0_pt_0;
@@ -22,6 +23,9 @@ void TTValueCacheInit()
 	kTTBoolNo = new TTValue(TTBoolean(NO));
 	kTTBoolYes = new TTValue(TTBoolean(YES));
 
+	kTTValNONE = new TTValue;
+	kTTValNONE->clear();
+	
 	kTTVal0 = new TTValue(TTInt32(0));
 	kTTVal1 = new TTValue(TTInt32(1));
 	kTTVal0_pt_0 = new TTValue(double(0.0));

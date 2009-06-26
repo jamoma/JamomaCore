@@ -10,8 +10,8 @@
 #define thisTTClass TTLowpassButterworth3
 
 
-TTLowpassButterworth3::TTLowpassButterworth3(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("filter.lowpass.butterworth", newMaxNumChannels),
+TTLowpassButterworth3::TTLowpassButterworth3(TTValue& arguments)
+	: TTAudioObject(TT("lowpass.butterworth.3"), arguments),
 	xm1(NULL), xm2(NULL), xm3(NULL), ym1(NULL), ym2(NULL), ym3(NULL)
 {
 	// register attributes
@@ -27,7 +27,7 @@ TTLowpassButterworth3::TTLowpassButterworth3(TTUInt16 newMaxNumChannels)
 	registerMessageSimple(clear);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
+	setAttributeValue(TT("maxNumChannels"),	arguments);			// This attribute is inherited
 	setAttributeValue(TT("frequency"),		1000.0);
 	setProcessMethod(processAudio);
 }

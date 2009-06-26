@@ -39,7 +39,7 @@ protected:
 
 public:
 	/**	Constructor. */
-	TTWavetable(TTUInt16 maxNumChannels);
+	TTWavetable(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTWavetable();

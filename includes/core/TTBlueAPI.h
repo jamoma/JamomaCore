@@ -38,10 +38,7 @@
 extern "C" TT_EXTENSION_EXPORT TTObject* instantiate ## className (TTSymbol*, TTValue& arguments); \
 TTObject*  instantiate ## className (TTSymbol*, TTValue& arguments) \
 {\
-TTUInt16 numChannels = 1;\
-if(arguments.getSize())\
-numChannels = arguments;\
-return new className (numChannels);\
+return new className (arguments);\
 }\
 \
 extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\

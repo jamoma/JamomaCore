@@ -43,7 +43,7 @@ protected:
 public:
 
 	/**	Constructor. */
-	TTLowpassButterworth2(TTUInt16 newMaxNumChannels);
+	TTLowpassButterworth2(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTLowpassButterworth2();

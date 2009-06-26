@@ -17,21 +17,19 @@
 
 extern "C" TT_EXTENSION_EXPORT TTObjectPtr instantiateFunctionUnit(TTSymbolPtr className, TTValue& arguments)
 {
-	TTUInt16 numChannels = 1;
-
-	if(arguments.getSize())
-		numChannels = arguments;
+	if(arguments.getSize() == 0)
+		arguments = 1;
 	
 	if(className == TT("cosine"))
-		return new CosineFunction(numChannels);
+		return new CosineFunction(arguments);
 	else if(className == TT("linear"))
-		return new LinearFunction(numChannels);
+		return new LinearFunction(arguments);
 	else if(className == TT("lowpass"))
-		return new LowpassFunction(numChannels);
+		return new LowpassFunction(arguments);
 	else if(className == TT("power"))
-		return new PowerFunction(numChannels);
+		return new PowerFunction(arguments);
 	else if(className == TT("tanh"))
-		return new TanhFunction(numChannels);
+		return new TanhFunction(arguments);
 	
 	return NULL;
 }

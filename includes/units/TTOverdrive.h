@@ -40,7 +40,7 @@ protected:
 
 public:
 	/**	Constructor. */
-	TTOverdrive(TTUInt16 maxNumChannels);
+	TTOverdrive(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTOverdrive();

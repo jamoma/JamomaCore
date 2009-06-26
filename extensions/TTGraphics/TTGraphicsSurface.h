@@ -35,7 +35,7 @@ class TTGraphicsSurface : public TTObject {
 public:
 	
 	/**	Constructor	*/
-	TTGraphicsSurface(const TTValue& v);
+	TTGraphicsSurface(TTValue& arguments);
 	
 	/**	Destructor	*/
 	virtual ~TTGraphicsSurface();

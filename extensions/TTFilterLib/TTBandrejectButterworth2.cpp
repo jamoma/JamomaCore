@@ -10,8 +10,8 @@
 #define thisTTClass TTBandRejectButterworth2
 
 
-TTBandRejectButterworth2::TTBandRejectButterworth2(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("filter.bandreject.butterworth", newMaxNumChannels),
+TTBandRejectButterworth2::TTBandRejectButterworth2(TTValue& arguments)
+	: TTAudioObject(TT("bandreject.butterworth.2"), arguments),
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
 	// register attributes
@@ -29,7 +29,7 @@ TTBandRejectButterworth2::TTBandRejectButterworth2(TTUInt16 newMaxNumChannels)
 	registerMessageSimple(clear);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
+	setAttributeValue(TT("maxNumChannels"),	arguments);			// This attribute is inherited
 	setAttributeValue(TT("frequency"),		1000.0);
 	setAttributeValue(TT("q"),				50.0);
 	setProcessMethod(processAudio);

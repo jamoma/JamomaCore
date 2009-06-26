@@ -21,11 +21,11 @@ class TTGraphicsExample : public TTObject {
 public:
 	
 	// Constructor
-	TTGraphicsExample(const TTValue &v) :
-		TTObject("TTGraphicsExample"), 
+	TTGraphicsExample(TTValue& arguments) :
+		TTObject(TT("TTGraphicsExample"), arguments), 
 		graphicsWindow(NULL)
 	{
-		TTObjectInstantiate(TT("TTGraphicsWindow"), &graphicsWindow, v);	// create the window
+		TTObjectInstantiate(TT("TTGraphicsWindow"), &graphicsWindow, arguments);	// create the window
 		graphicsWindow->registerObserverForNotifications(*this);			// cause this object to receive 'draw' messages from the window
 
 		registerAttributeWithSetter(mode, kTypeSymbol);

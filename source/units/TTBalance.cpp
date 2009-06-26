@@ -10,10 +10,12 @@
 #define thisTTClass TTBalance
 
 
-TTBalance::TTBalance(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("filter.lowpass.butterworth", newMaxNumChannels),
+TTBalance::TTBalance(TTValue& arguments)
+	: TTAudioObject(TT("balance"), arguments),
 	xm1A(NULL), xm2A(NULL), ym1A(NULL), ym2A(NULL), xm1B(NULL), xm2B(NULL), ym1B(NULL), ym2B(NULL)
 {
+	TTUInt16	initialMaxNumChannels = arguments;
+	
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);
 
@@ -25,7 +27,7 @@ TTBalance::TTBalance(TTUInt16 newMaxNumChannels)
 	registerMessageSimple(clear);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
+	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);			// This attribute is inherited
 	setAttributeValue(TT("frequency"),		10.0);						// Default frequency is 10 Hz
 	setProcessMethod(processAudio);
 }

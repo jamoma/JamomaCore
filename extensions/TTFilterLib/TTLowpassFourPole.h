@@ -46,7 +46,7 @@ protected:
 public:
 
 	/**	Constructor. */
-	TTLowpassFourPole(TTUInt16 newMaxNumChannels);
+	TTLowpassFourPole(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTLowpassFourPole();

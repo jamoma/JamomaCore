@@ -40,7 +40,7 @@ protected:
 public:
 
 	/**	Constructor. */
-	TTHighMidLowShelf(TTUInt16 newMaxNumChannels);
+	TTHighMidLowShelf(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTHighMidLowShelf();

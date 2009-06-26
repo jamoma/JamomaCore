@@ -49,7 +49,7 @@ public:
 
 	
 
-	TTAudioEngine();
+	TTAudioEngine(TTValue& arguments);
 	virtual ~TTAudioEngine();
 	
 	TTErr initStream();

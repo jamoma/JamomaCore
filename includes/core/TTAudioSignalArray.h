@@ -28,7 +28,7 @@ public:
 	TTUInt16			numAudioSignals;		///< The number of audio signal pointers which are actually valid.
 
 	
-	TTAudioSignalArray(const TTUInt16 initialMaxNumAudioSignals);
+	TTAudioSignalArray(TTValue& arguments);
 	~TTAudioSignalArray();
 	
 	

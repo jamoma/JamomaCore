@@ -30,7 +30,7 @@ protected:
 	
 public:
 	/**	Constructor. */
-	TTNoise(TTUInt16 maxNumChannels);
+	TTNoise(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTNoise();

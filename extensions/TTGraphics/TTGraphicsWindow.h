@@ -69,7 +69,7 @@ protected:
 	TTErr updateTitle();
 
 public:
-	TTGraphicsWindow(const TTValue& v);
+	TTGraphicsWindow(TTValue& arguments);
 	virtual ~TTGraphicsWindow();
 
 	/**	Bring the window to the front and give it keyboard focus.	*/

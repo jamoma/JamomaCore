@@ -40,7 +40,7 @@ protected:
 
 public:
 	/**	Constructor. */
-	TTBuffer();
+	TTBuffer(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTBuffer();

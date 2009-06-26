@@ -9,8 +9,8 @@
 #include "TTBuffer.h"
 #define thisTTClass TTBuffer
 
-TTBuffer::TTBuffer()
-	: TTDataObject("buffer"),
+TTBuffer::TTBuffer(TTValue& arguments)
+	: TTDataObject(TT("buffer"), arguments),
 	contents(NULL),
 	numChannels(0),
 	length(0),

@@ -22,7 +22,7 @@
  */
 class CosineFunction : public TTAudioObject {
 public:
-	CosineFunction(TTUInt16 newMaxNumChannels);
+	CosineFunction(TTValue& arguments);
 	virtual ~CosineFunction();
 
 	/** y = f(x) for a single value */

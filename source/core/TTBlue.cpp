@@ -328,7 +328,7 @@ TTObject* TTBlueInstantiateInternalClass(TTSymbol* className, TTValue& arguments
 	
 	// Misc
 	else if(className == TT("buffer"))
-		return new TTBuffer;
+		return new TTBuffer(arguments);
 	else if(className == TT("crossfade"))
 		return new TTCrossfade(arguments);
 	else if(className == TT("degrade"))

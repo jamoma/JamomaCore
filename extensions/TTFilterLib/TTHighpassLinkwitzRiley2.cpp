@@ -10,8 +10,8 @@
 #define thisTTClass TTHighpassLinkwitzRiley2
 
 
-TTHighpassLinkwitzRiley2::TTHighpassLinkwitzRiley2(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("filter.highpass.linkwitzRiley4", newMaxNumChannels),
+TTHighpassLinkwitzRiley2::TTHighpassLinkwitzRiley2(TTValue& arguments)
+	: TTAudioObject(TT("highpass.linkwitzriley.2"), arguments),
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
 	// register attributes
@@ -27,7 +27,7 @@ TTHighpassLinkwitzRiley2::TTHighpassLinkwitzRiley2(TTUInt16 newMaxNumChannels)
 	registerMessageSimple(clear);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
+	setAttributeValue(TT("maxNumChannels"),	arguments);			// This attribute is inherited
 	setAttributeValue(TT("frequency"),		1000.0);
 	setProcessMethod(processAudio);
 }

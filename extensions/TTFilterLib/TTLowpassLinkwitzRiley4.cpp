@@ -10,8 +10,8 @@
 #define thisTTClass TTLowpassLinkwitzRiley4
 
 
-TTLowpassLinkwitzRiley4::TTLowpassLinkwitzRiley4(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("filter.lowpass.linkwitzRiley4", newMaxNumChannels),
+TTLowpassLinkwitzRiley4::TTLowpassLinkwitzRiley4(TTValue& arguments)
+	: TTAudioObject(TT("lowpass.linkwitzriley.4"), arguments),
 	xm1(NULL), xm2(NULL), xm3(NULL), xm4(NULL), ym1(NULL), ym2(NULL), ym3(NULL), ym4(NULL)
 {
 	// register attributes
@@ -27,7 +27,7 @@ TTLowpassLinkwitzRiley4::TTLowpassLinkwitzRiley4(TTUInt16 newMaxNumChannels)
 	registerMessageSimple(clear);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
+	setAttributeValue(TT("maxNumChannels"),	arguments);			// This attribute is inherited
 	setAttributeValue(TT("frequency"),		1000.0);
 	setProcessMethod(processAudio);
 }

@@ -48,7 +48,7 @@ public:
 	
 	/**	For the moment at least, we are passing a pointer to a surface for the window here.
 		We may not want to share this data across classes though, and instead copy the data in the Window itself.	*/
-	TTGraphicsContext(const TTValue& v);
+	TTGraphicsContext(TTValue& arguments);
 	
 	/**	Destructor.	*/
 	virtual ~TTGraphicsContext();

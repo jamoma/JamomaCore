@@ -11,10 +11,12 @@
 #define thisTTClass TTOverdrive
 
 
-TTOverdrive::TTOverdrive(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("audio.overdrive", newMaxNumChannels),
+TTOverdrive::TTOverdrive(TTValue& arguments)
+	: TTAudioObject(TT("overdrive"), arguments),
 	  dcBlockerUnit(NULL)
 {
+	TTUInt16	initialMaxNumChannels = arguments;
+	
 	// Register Attributes
 	registerAttributeWithSetter(drive,				kTypeFloat64);
 	registerAttributeWithSetter(dcBlocker,			kTypeBoolean);
@@ -26,10 +28,10 @@ TTOverdrive::TTOverdrive(TTUInt16 newMaxNumChannels)
 	registerMessageWithArgument(updateMaxNumChannels);
 	
 	// Additional Initialization
-	TTObjectInstantiate(kTTSym_dcblock, &dcBlockerUnit, newMaxNumChannels);
+	TTObjectInstantiate(kTTSym_dcblock, &dcBlockerUnit, initialMaxNumChannels);
 
 	// Set Defaults
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
+	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
 	setAttributeValue(TT("mode"), 1);
 	setAttributeValue(TT("preamp"), 0.0);
 	setAttributeValue(TT("drive"), 3.0);

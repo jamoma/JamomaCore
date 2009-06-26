@@ -12,8 +12,8 @@
 
 /****************************************************************************************************/
 
-TTDataObject::TTDataObject(const char* name)
-	: TTObject(name)
+TTDataObject::TTDataObject(const TTSymbolPtr name, TTValue& arguments)
+	: TTObject(name, arguments)
 {
 	registerAttribute(TT("sr"),	kTypeUInt32, &sr, (TTSetterMethod)&TTDataObject::setSr);
 	setAttributeValue(TT("sr"),	ttEnvironment->sr);

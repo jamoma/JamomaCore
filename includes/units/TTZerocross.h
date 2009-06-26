@@ -45,7 +45,7 @@ protected:
 
 public:
 	/**	Constructor. */
-	TTZerocross(TTUInt16 maxNumChannels);
+	TTZerocross(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTZerocross();

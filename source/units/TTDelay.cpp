@@ -10,11 +10,13 @@
 #define thisTTClass TTDelay
 
 
-TTDelay::TTDelay(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("filter.dcblock", newMaxNumChannels),
+TTDelay::TTDelay(TTValue& arguments)
+	: TTAudioObject(TT("delay"), arguments),
 	  delay(0), delayInSamples(0), delayMax(0), delayMaxInSamples(0),
 	  buffer(NULL), inPtr(NULL), outPtr(NULL), endPtr(NULL)
 {
+	TTUInt16	initialMaxNumChannels = arguments;
+	
 	// declare attributes
 	registerAttributeWithSetter(delay,				kTypeFloat64);
 	registerAttributeWithSetter(delayInSamples,		kTypeInt64);
@@ -30,7 +32,7 @@ TTDelay::TTDelay(TTUInt16 newMaxNumChannels)
 	registerMessageWithArgument(updateMaxNumChannels);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
+	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
 	setAttributeValue(TT("delayMaxInSamples"), 256);
 	setAttributeValue(TT("delayInSamples"), 100);
 	setAttributeValue(TT("interpolation"), TT("none"));		// TODO: change this to cubic (or at least to linear), this sets the process method

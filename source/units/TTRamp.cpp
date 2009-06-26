@@ -10,8 +10,8 @@
 #define thisTTClass TTRamp
 
 
-TTRamp::TTRamp(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("audio.ramp", newMaxNumChannels),
+TTRamp::TTRamp(TTValue& arguments)
+	: TTAudioObject(TT("ramp"), arguments),
 	attrMode(TT("vector")), attrCurrentValue(0), attrDestinationValue(0), step(0), direction(0)
 {
 	registerAttribute(TT("rampTime"),			kTypeFloat64,	&attrRampTime,	(TTSetterMethod)&TTRamp::setRampTime);

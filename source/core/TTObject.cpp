@@ -10,8 +10,8 @@
 #include "TTEnvironment.h"
 
 
-TTObject::TTObject(const char* name)
-	: objectName(TT(name)), observers(NULL), messageObservers(NULL), attributeObservers(NULL), 
+TTObject::TTObject(const TTSymbolPtr name, TTValue& arguments)
+	: objectName(name), observers(NULL), messageObservers(NULL), attributeObservers(NULL), 
 	  locked(false), referenceCount(1), valid(false), reserved1(0), reserved2(0)
 {
 	messages = new TTHash;

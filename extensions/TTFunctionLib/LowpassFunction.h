@@ -34,7 +34,7 @@ private:
 	TTErr setcoefficient(const TTValue& newValue);
 
 public:
-	LowpassFunction(TTUInt16 newMaxNumChannels);
+	LowpassFunction(TTValue& arguments);
 	virtual ~LowpassFunction();
 	
 	/** y = f(x) for a single value */

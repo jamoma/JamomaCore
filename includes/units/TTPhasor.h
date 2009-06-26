@@ -36,7 +36,7 @@ protected:
 
 public:
 	/**	Constructor. */
-	TTPhasor(TTUInt16 maxNumChannels);
+	TTPhasor(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTPhasor();

@@ -47,7 +47,7 @@ protected:
 public:
 
 	/**	Constructor. */
-	TTSvf(TTUInt16 newMaxNumChannels);
+	TTSvf(TTValue& arguments);
 
 	/**	Destructor. */
 	virtual ~TTSvf();

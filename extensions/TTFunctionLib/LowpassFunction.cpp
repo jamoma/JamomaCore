@@ -11,15 +11,15 @@
 #define thisTTClass LowpassFunction
 
 
-LowpassFunction::LowpassFunction(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("lowpass", newMaxNumChannels), feedback(NULL)
+LowpassFunction::LowpassFunction(TTValue& arguments)
+	: TTAudioObject(TT("lowpass"), arguments), feedback(NULL)
 {
 	registerAttributeWithSetter(coefficient, kTypeFloat64);
 	registerMessageSimple(clear);
 	registerMessageWithArgument(updateMaxNumChannels);
 	
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
+	setAttributeValue(TT("maxNumChannels"),	arguments);			// This attribute is inherited
 	setAttributeValue(TT("coefficient"), 0.75);
 	sendMessage(TT("clear"));
 	
