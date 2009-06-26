@@ -1,7 +1,7 @@
 /* 
  * jcom.in~
  * External for Jamoma: manage audio inputs for a module
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -133,12 +133,8 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 		for(i=0; i < (x->numInputs); i++)
 			outlet_new((t_pxobject *)x, "signal");			// Create a signal outlet
 		
-		x->audioIn = new TTAudioSignal(x->numInputs);
-		x->audioOut = new TTAudioSignal(x->numInputs);
-//		for(i=0; i < x->numInputs; i++){
-//			x->remote_vectors[i] = NULL;
-//		}
-//		in_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
+		TTObjectInstantiate(kTTSym_audiosignal, &x->audioIn, x->numInputs);
+		TTObjectInstantiate(kTTSym_audiosignal, &x->audioOut, x->numInputs);
 #else
 		for(i = x->numInputs-1; i >= 1; i--)
 			x->inlet[i] = proxy_new(x, i, 0L);
@@ -167,8 +163,8 @@ void in_free(t_in *x)
 {
 #ifdef JCOM_IN_TILDE
 	dsp_free((t_pxobject *)x);			// Always call dsp_free first in this routine
-	delete x->audioIn;
-	delete x->audioOut;
+	TTObjectRelease(&x->audioIn);
+	TTObjectRelease(&x->audioOut);
 #endif
 	jcom_core_subscriber_common_free(&x->common);
 }

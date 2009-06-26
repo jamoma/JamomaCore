@@ -72,6 +72,10 @@ void jamoma_init(void)
 		// Having the saved this way makes our SVN diffs much more meaningful.
 		object_method_long(max, gensym("sortpatcherdictonsave"), 1, NULL);
 	
+		// This tells Max 4.5.7 and higher to take any posts to the Max window and also make the
+		// post to the system console, which greatly aids in debugging problems and crashes
+		object_method_long(max, gensym("setmirrortoconsole"), 1, NULL);
+
 		
 		// Add Jamoma Key Commands:
 		

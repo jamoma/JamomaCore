@@ -14,7 +14,7 @@
 #include "ext.h"
 
 RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void *aBaton)
-	: TTObject(rampName), startValue(NULL), targetValue(NULL), currentValue(NULL), normalizedValue(0.0), numValues(0), functionUnit(NULL)
+	: TTObject(TT(rampName), *kTTValNONE), startValue(NULL), targetValue(NULL), currentValue(NULL), normalizedValue(0.0), numValues(0), functionUnit(NULL)
 {
 	callback = aCallbackMethod;
 	baton = aBaton;

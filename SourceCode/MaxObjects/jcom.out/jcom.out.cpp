@@ -123,10 +123,10 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 
 		x->clock = clock_new(x, (method)update_meters);
 		x->clock_is_set = 0;
-		x->audioIn = new TTAudioSignal(x->numOutputs);
-		x->audioOut = new TTAudioSignal(x->numOutputs);
-		x->audioTemp = new TTAudioSignal(x->numOutputs);
-		x->zeroSignal = new TTAudioSignal(x->numOutputs);
+		TTObjectInstantiate(kTTSym_audiosignal, &x->audioIn, x->numOutputs);
+		TTObjectInstantiate(kTTSym_audiosignal, &x->audioOut, x->numOutputs);
+		TTObjectInstantiate(kTTSym_audiosignal, &x->audioTemp, x->numOutputs);
+		TTObjectInstantiate(kTTSym_audiosignal, &x->zeroSignal, x->numOutputs);
 		
 		TTObjectInstantiate(TT("crossfade"), &x->xfade, x->numOutputs);
 		x->xfade->setAttributeValue(TT("position"), 1.0);
@@ -174,10 +174,10 @@ void out_free(t_out *x)
 	dsp_free((t_pxobject *)x);			// Always call dsp_free first in this routine
 	freeobject((t_object *)x->clock);	// delete our clock
 	
-	delete x->audioIn;
-	delete x->audioOut;
-	delete x->audioTemp;
-	delete x->zeroSignal;
+	TTObjectRelease(&x->audioIn);
+	TTObjectRelease(&x->audioOut);
+	TTObjectRelease(&x->audioTemp);
+	TTObjectRelease(&x->zeroSignal);
 	TTObjectRelease(&x->xfade);
 	TTObjectRelease(&x->gain);
 	TTObjectRelease(&x->ramp_gain);
