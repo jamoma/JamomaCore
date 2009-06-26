@@ -69,6 +69,7 @@ protected:
 
 	TTSymbolPtr		type;					///< hub, parameter, message, return, init, in, out, container, etc.
 	ObjectPtr		maxObject;				///< a jcom.hub, jcom.parameter, jcom.message (or even NULL for containters)
+	TTHashPtr		properties;				///< a hashtab of properties of the node (no data stored yet, just properties as keys)
 	
 	JamomaNodePtr	parent;					///< pointer to the parent node in the tree
 	TTHashPtr		children;				///< a hashtab of hashtabs:
@@ -76,10 +77,6 @@ protected:
 	
 	TTListPtr		observers;
 	TTListPtr		lifecycleObservers;		///< for objects that just need to know when we do something critical, like the free the object
-	
-	// future ideas: not immediately critical:
-	//HashtabPtr	properties				///< if we wish to cache this information for speed, this is where we would do it
-	
 	
 public:
 	/** constructor */
@@ -135,6 +132,14 @@ public:
 		@return					a kTTErrGeneric if the instance of the given child already exist.
 		*/
 	TTErr			setChild(JamomaNodePtr child);
+
+	/** Get the hashtab of all the properties of the node */
+	TTHashPtr		getProperties();
+	
+	/** Add a propertie to the node.
+		@param properties		a TTSymbolPtr to store as a key in the hashtable.
+		@return					a kTTErrGeneric if the propertie already exists.	*/
+	TTErr			setProperties(TTSymbolPtr propertie);
 
 	/** Get the OSC address of the node 
 		It is computed dynamicaly by asking to all the ancestor of the node	
@@ -208,18 +213,30 @@ TTErr JamomaNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr ne
 	@param	returnedNodeInstance		A pointer to the node instance symbol is returned in this parameter
 
 	@param	returnedNodeAttribute		A pointer to the node attribute symbol is returned in this parameter
-										
-	@param	returnedNodeName			A pointer to the name of the node is returned in this parameter
 						
 	@return								An error code.				*/
 TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdress, TTSymbolPtr* returnedNodeName, TTSymbolPtr* returnedNodeInstance, TTSymbolPtr* returnedNodeAttribute);
+
+/**	An OSC merging tool
+	@param	oscAddress					A pointer to osc address symbol is returned in this parameter
+
+	@param	parent						A node parent symbol
+
+	@param	name						A node name symbol
+
+	@param	instance					A node instance symbol
+
+	@param	attribute					A pointer to the node attribute symbol
+						
+	@return								An error code.				*/
+TTErr mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSymbolPtr name, TTSymbolPtr instance, TTSymbolPtr attribute);
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 	/** Create a the root of the tree and/or return a pointer to the root */
-	JamomaNodePtr		jamoma_node_init(void);
+	JamomaNodePtr	jamoma_node_init(void);
 
 	/** Dump all the OSC address of the global hashtab in the max window */
 	JamomaError		jamoma_node_dump(void);
@@ -259,8 +276,14 @@ extern "C" {
 	/** Return all children of a node */
 	LinkedListPtr	jamoma_node_children(JamomaNodePtr node);
 
-	/** Return all children of a node */
-	t_object*	jamoma_node_max_object(JamomaNodePtr node);
+	/** Return the Max object of a node */
+	t_object*		jamoma_node_max_object(JamomaNodePtr node);
+
+	/** Return all properties of a node */
+	LinkedListPtr	jamoma_node_properties(JamomaNodePtr node);
+
+	/** Add a propertie to a node as a ky in the hashtab (without value) */
+	JamomaError		jamoma_node_set_properties(JamomaNodePtr node, t_symbol *propertie);
 
 	/** Free the root of the tree and all the tree */
 	JamomaError		jamoma_node_free(void);

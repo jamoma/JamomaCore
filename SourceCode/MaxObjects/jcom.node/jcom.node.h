@@ -51,7 +51,6 @@ void			node_dump(t_node *x);
 
 // Private methods
 void			node_dosave(t_node *x, t_symbol *msg, long argc, t_atom *argv);
-void			node_dump_as_post(t_node *x, short level);
 void			node_opml_header(t_node *x);
 void			node_dump_as_opml(t_node *x, short level);
 void			node_write_atom(t_node *x, t_atom *src);

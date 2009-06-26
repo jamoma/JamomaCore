@@ -371,6 +371,8 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 	bool			newInstanceCreated;
 	JamomaNodePtr	newNode;
 	t_symbol		*newInstance;
+	long i, attr_nb = 0;
+	t_symbol** attr_names = NULL;
 	char fullAddress[256];
 	
 	if(subscriber_object == NULL){
@@ -407,6 +409,13 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 			if(newInstance != gensym("")){
 				// What to do in that case ???
 			}
+		}
+
+		// add each attributes of parameters as properties of the node
+		object_method(subscriber_object, gensym("getattrnames"),&attr_nb, &attr_names);
+
+		for(i=0; i<attr_nb; i++){
+			jamoma_node_set_properties(newNode,attr_names[i]);
 		}
 	}
 

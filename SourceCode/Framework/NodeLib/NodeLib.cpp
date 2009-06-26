@@ -21,6 +21,10 @@ JamomaNode::JamomaNode(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr
 
 	// a new node have no parent
 	this->parent = NULL;
+
+	// a new node have no propertie
+	this->properties = new TTHash();
+
 }
 
 JamomaNode::~JamomaNode()
@@ -101,6 +105,8 @@ JamomaNode::~JamomaNode()
 	this->children->~TTHash();
 
 	// clear all other infomations
+	this->properties->clear();
+	this->properties->~TTHash();
 	this->name = NULL;
 	this->type = NULL;
 	this->maxObject = NULL;
@@ -121,6 +127,7 @@ TTSymbolPtr		JamomaNode::getType(){return this->type;}
 ObjectPtr		JamomaNode::getMaxObject(){return this->maxObject;}
 JamomaNodePtr	JamomaNode::getParent(){return this->parent;}
 TTHashPtr		JamomaNode::getChildren(){return this->children;}
+TTHashPtr		JamomaNode::getProperties(){return this->properties;}
 
 TTErr JamomaNode::setName(TTSymbolPtr name, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
 {
@@ -308,6 +315,23 @@ TTErr JamomaNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_cre
 		found->get(0,(TTPtr*)&this->parent);
 
 	return kTTErrNone;
+}
+
+TTErr JamomaNode::setProperties(TTSymbolPtr propertie)
+{
+	TTErr err;
+	TTValue* found = new TTValue();
+
+	// look into the hashtab to check if the propertie exists
+	err = this->properties->lookup(propertie,*found);
+
+	// if this propertie doesn't exist
+	if(err == kTTErrValueNotFound){
+		this->properties->append(propertie,TTValue());	// TODO : add a value too
+		return kTTErrNone;
+	}
+	else
+		return kTTErrGeneric;
 }
 
 TTErr JamomaNode::getOscAddress(TTSymbolPtr *returnedOscAddress)
@@ -512,7 +536,7 @@ TTErr JamomaNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr ne
 	JamomaNodePtr newNode, n_found;
 	TTErr err;
 
-	// Split the OSC address in /parent/name.instance:attribute
+	// Split the OSC address in /parent/name.instance:/attribute
 	err = splitOSCAddress(oscAddress,&oscAddress_parent,&oscAddress_name, &oscAddress_instance, &oscAddress_attribute);
 
 	// DEBUG
@@ -521,13 +545,37 @@ TTErr JamomaNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr ne
 	// if no error in the parsing of the OSC address
 	if(err == kTTErrNone){
 
+		// If there is an attribute part
+		if(oscAddress_attribute != NO_ATTRIBUTE){
+
+			// get the node
+			mergeOSCAddress(&oscAddress_got,oscAddress_parent,oscAddress_name,oscAddress_instance,NO_ATTRIBUTE);
+			found = new TTValue();
+			err = jamoma_node_hashtab->lookup(oscAddress_got, *found);
+
+			// if the node doesn't exist
+			if(err == kTTErrValueNotFound)
+				return kTTErrGeneric;
+
+			else{
+				// get the JamomaNode at this address
+				found->get(0,(TTPtr*)&n_found);
+				n_found->setProperties(oscAddress_attribute);
+
+				// DEBUG
+				post("	attribute : %s ",oscAddress_attribute->getCString());
+
+				return kTTErrNone;
+			}
+		}
+
 		// is there a node with this address in the tree ?
 		found = new TTValue();
 		err = jamoma_node_hashtab->lookup(oscAddress, *found);
 
 		// if it's the first at this address
 		if(err == kTTErrValueNotFound)
-			// keep the instance fond in the OSC address
+			// keep the instance found in the OSC address
 			newInstance = oscAddress_instance;
 
 		else{
@@ -584,8 +632,6 @@ TTErr JamomaNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr ne
 			post("	name : %s ",newNode->getName()->getCString());
 		if(newNode->getInstance() != NO_INSTANCE)
 			post("	instance : %s ",newNode->getInstance()->getCString());
-		if(oscAddress_attribute != NO_ATTRIBUTE)
-			post("	attribute : %s ",oscAddress_attribute->getCString());
 		if(newNode->getType() != NO_TYPE)
 			post("	type : %s ",newNode->getType()->getCString());
 
@@ -683,6 +729,32 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 	return kTTErrNone;
 }
 
+TTErr mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSymbolPtr name, TTSymbolPtr instance, TTSymbolPtr attribute)
+{
+	char address[256] = "";
+
+	if(parent != NO_PARENT)
+		strcat(address,parent->getCString());
+
+	if(name != NO_NAME){
+		strcat(address,"/");
+		strcat(address,name->getCString());
+	}
+
+	if(instance != NO_INSTANCE){
+		strcat(address,".");
+		strcat(address,instance->getCString());
+	}
+
+	if(attribute != NO_INSTANCE){
+		strcat(address,":");
+		strcat(address,attribute->getCString());
+	}
+
+	*returnedOscAddress = TT(address);
+
+	return kTTErrNone;
+}
 
 /***********************************************************************************
 *
@@ -727,8 +799,6 @@ JamomaError jamoma_node_dump(void)
 
 JamomaError	jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, JamomaNodePtr *newNode, bool *newInstanceCreated)
 {
-	TTBoolean *nodeCreated = new TTBoolean(false);
-
 	if(jamoma_node_root){
 		JamomaNodeCreate(TT(OSCaddress->s_name), TT(type->s_name), obj, newNode, (TTBoolean *)newInstanceCreated);
 		return JAMOMA_ERR_NONE;
@@ -861,6 +931,50 @@ LinkedListPtr jamoma_node_children(JamomaNodePtr node)
 t_object * jamoma_node_max_object(JamomaNodePtr node)
 {
 	return (t_object*)node->getMaxObject();
+}
+
+LinkedListPtr	jamoma_node_properties(JamomaNodePtr node)
+{
+	uint i;
+	TTValue *hk;
+	TTSymbolPtr key;
+	TTValue *c;
+	JamomaNodePtr n_c;
+	LinkedListPtr lk_properties;
+
+	// if there are properties
+	if(node->getProperties()->getSize()){
+
+		hk = new TTValue();
+		c = new TTValue();
+		node->getProperties()->getKeys(*hk);
+		lk_properties = new t_linklist();
+		
+		// for each propertie
+		for(i=0; i<node->getProperties()->getSize(); i++){
+			hk->get(i,(TTSymbol**)&key);
+			// add the propertie to the linklist
+			linklist_append(lk_properties,gensym((char *)key->getCString()));
+		}
+
+		return lk_properties;
+	}
+	return NULL;
+}
+
+JamomaError	jamoma_node_set_properties(JamomaNodePtr node, t_symbol *propertie)
+{
+	TTErr err;
+
+	err = node->setProperties(TT(propertie->s_name));
+	
+	if(err == kTTErrNone){
+		// DEBUG
+		post("	attribut : %s",propertie->s_name);
+		return JAMOMA_ERR_NONE;
+	}
+	
+	return JAMOMA_ERR_GENERIC;
 }
 
 JamomaError jamoma_node_free(void)
