@@ -18,6 +18,20 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
+					"fontsize" : 10.970939,
+					"id" : "obj-25",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 766.0, 246.0, 332.0, 46.0 ],
+					"text" : "For MPEG-4 files to be listed you will need to add \nmax fileformat .mp4 MP4 0 Video moviefile;\nto max-fileformats.txt"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
 					"fontsize" : 9.873845,
 					"id" : "obj-8",
 					"linecount" : 2,
@@ -315,8 +329,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 168.0, 195.0, 363.0, 16.0 ],
-									"text" : "\"MOV \" \"AVI \" MooV \"VfW \" dvc! MPEG MPGa MPGv MPGx SWFL \"SWF \""
+									"patching_rect" : [ 168.0, 195.0, 389.0, 16.0 ],
+									"text" : "\"MOV \" \"AVI \" MooV \"VfW \" dvc! MPEG MPGa MPGv MPGx SWFL \"SWF \" MP4"
 								}
 
 							}
