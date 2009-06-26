@@ -153,7 +153,7 @@ public:
 	void getMessageNames(TTValue& messageNameList);
 	
 	/** return the name of this class */
-	TTSymbol* getName();
+	TTSymbol* getName() const;
 
 	
 	TTErr registerMessage(const TTSymbolPtr name, TTMethod method);

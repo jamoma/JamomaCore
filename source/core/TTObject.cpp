@@ -236,7 +236,7 @@ void TTObject::getMessageNames(TTValue& messageNameList)
 }
 
 
-TTSymbol* TTObject::getName()
+TTSymbol* TTObject::getName() const
 {
 	return objectName;
 }
