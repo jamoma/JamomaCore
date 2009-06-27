@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 25.0, 69.0, 268.0, 96.0 ],
+		"rect" : [ 25.0, 69.0, 838.0, 530.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 25.0, 69.0, 268.0, 96.0 ],
+		"defrect" : [ 25.0, 69.0, 838.0, 530.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -54,7 +54,7 @@
 					"outlettype" : [ "int", "bang" ],
 					"patching_rect" : [ 167.0, 156.0, 39.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 134.0, 30.0, 39.0, 18.0 ],
+					"presentation_rect" : [ 125.0, 30.0, 39.0, 18.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "DIM[1]"
@@ -73,7 +73,7 @@
 					"outlettype" : [ "int", "bang" ],
 					"patching_rect" : [ 126.0, 156.0, 39.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 92.0, 30.0, 39.0, 18.0 ],
+					"presentation_rect" : [ 85.0, 30.0, 39.0, 18.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "DIM[0]"
@@ -197,7 +197,7 @@
 					"outlettype" : [ "float", "bang" ],
 					"patching_rect" : [ 60.0, 413.0, 40.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 92.0, 68.0, 39.0, 18.0 ],
+					"presentation_rect" : [ 85.0, 70.0, 39.0, 18.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "TEXRECT[0]"
@@ -215,7 +215,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 58.0, 181.0, 45.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 193.0, 30.0, 45.0, 18.0 ],
+					"presentation_rect" : [ 190.0, 30.0, 45.0, 18.0 ],
 					"text" : "Adapt"
 				}
 
@@ -231,7 +231,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 68.0, 206.0, 18.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 178.0, 30.0, 73.0, 18.0 ],
+					"presentation_rect" : [ 170.0, 30.0, 73.0, 18.0 ],
 					"size" : 1,
 					"values" : [ 1 ],
 					"varname" : "ADAPT"
@@ -249,7 +249,7 @@
 					"outlettype" : [ "", "", "int" ],
 					"patching_rect" : [ 685.0, 30.0, 100.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 183.0, 4.0, 79.0, 18.0 ],
+					"presentation_rect" : [ 170.0, 10.0, 85.0, 18.0 ],
 					"rounded" : 8.0,
 					"text" : "Defaults"
 				}
@@ -280,7 +280,7 @@
 					"outlettype" : [ "float", "bang" ],
 					"patching_rect" : [ 59.0, 317.0, 40.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 92.0, 49.0, 39.0, 18.0 ],
+					"presentation_rect" : [ 85.0, 50.0, 39.0, 18.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "RECT[0]"
@@ -298,7 +298,7 @@
 					"outlettype" : [ "float", "bang" ],
 					"patching_rect" : [ 185.0, 317.0, 40.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 220.0, 49.0, 40.0, 18.0 ],
+					"presentation_rect" : [ 215.0, 50.0, 40.0, 18.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "RECT[3]"
@@ -316,7 +316,7 @@
 					"outlettype" : [ "float", "bang" ],
 					"patching_rect" : [ 143.0, 317.0, 40.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 177.0, 49.0, 40.0, 18.0 ],
+					"presentation_rect" : [ 170.0, 50.0, 40.0, 18.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "RECT[2]"
@@ -334,7 +334,7 @@
 					"outlettype" : [ "float", "bang" ],
 					"patching_rect" : [ 101.0, 317.0, 40.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 134.0, 49.0, 40.0, 18.0 ],
+					"presentation_rect" : [ 125.0, 50.0, 40.0, 18.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "RECT[1]"
@@ -352,7 +352,7 @@
 					"outlettype" : [ "float", "bang" ],
 					"patching_rect" : [ 186.0, 413.0, 40.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 220.0, 68.0, 40.0, 18.0 ],
+					"presentation_rect" : [ 215.0, 70.0, 40.0, 18.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "TEXRECT[3]"
@@ -370,7 +370,7 @@
 					"outlettype" : [ "float", "bang" ],
 					"patching_rect" : [ 144.0, 413.0, 40.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 177.0, 68.0, 40.0, 18.0 ],
+					"presentation_rect" : [ 170.0, 70.0, 40.0, 18.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "TEXRECT[2]"
@@ -388,7 +388,7 @@
 					"outlettype" : [ "float", "bang" ],
 					"patching_rect" : [ 104.0, 413.0, 40.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 134.0, 68.0, 40.0, 18.0 ],
+					"presentation_rect" : [ 125.0, 70.0, 40.0, 18.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "TEXRECT[1]"
@@ -406,7 +406,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 235.0, 317.0, 64.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 7.0, 49.0, 64.0, 18.0 ],
+					"presentation_rect" : [ 10.0, 50.0, 64.0, 18.0 ],
 					"text" : "Rect"
 				}
 
@@ -422,7 +422,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 237.0, 413.0, 64.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 7.0, 68.0, 64.0, 18.0 ],
+					"presentation_rect" : [ 10.0, 70.0, 64.0, 18.0 ],
 					"text" : "Texrect:"
 				}
 
@@ -438,7 +438,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 210.0, 156.0, 64.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 7.0, 31.0, 64.0, 18.0 ],
+					"presentation_rect" : [ 10.0, 30.0, 64.0, 18.0 ],
 					"text" : "Dimension"
 				}
 
@@ -454,7 +454,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 55.0, 41.0, 98.0, 21.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 7.0, 9.0, 98.0, 21.0 ],
+					"presentation_rect" : [ 10.0, 10.0, 98.0, 21.0 ],
 					"text" : "Slab settings"
 				}
 
@@ -462,14 +462,13 @@
 , 			{
 				"box" : 				{
 					"background" : 1,
-					"border" : 1,
 					"id" : "obj-5",
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 326.0, 418.0, 143.0, 27.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 0.0, 0.0, 265.0, 93.0 ]
+					"presentation_rect" : [ 1.0, 4.0, 265.0, 88.0 ]
 				}
 
 			}
