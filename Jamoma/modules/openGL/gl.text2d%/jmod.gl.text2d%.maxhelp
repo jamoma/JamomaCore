@@ -89,7 +89,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "/movie_player" ],
+					"args" : [ "/moviePlayer" ],
 					"id" : "obj-3",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
@@ -99,7 +99,7 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 365.0, 285.0, 300.0, 105.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 105.0 ],
-					"varname" : "jmod.movie_player%"
+					"varname" : "jmod.moviePlayer%"
 				}
 
 			}
@@ -220,7 +220,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "txt_display" ],
+					"args" : [ "textDisplay" ],
 					"id" : "obj-12",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
