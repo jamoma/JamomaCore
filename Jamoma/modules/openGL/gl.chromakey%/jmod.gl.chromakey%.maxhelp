@@ -232,13 +232,13 @@
 					"id" : "obj-12",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.gl.chromakey.maxpat",
+					"name" : "jmod.gl.chromakey%.maxpat",
 					"numinlets" : 3,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 30.0, 300.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"varname" : "jmod.gl.chromakey.mxt"
+					"varname" : "jmod.gl.chromakey%.mxt"
 				}
 
 			}
