@@ -333,8 +333,12 @@ void ui_remote_callback(t_ui *x, t_symbol *s, long argc, t_atom* argv)
 {
 	t_symbol*	message = atom_getsym(argv);
 	
-	if(argc == 1)
-		outlet_anything(x->outlet, _sym_jit_matrix, argc, argv);
+	if(argc == 1){
+		if (s == _sym_jit_matrix)
+			outlet_anything(x->outlet, _sym_jit_matrix, argc, argv);
+		else if (s == _sym_jit_gl_texture)
+			outlet_anything(x->outlet, _sym_jit_gl_texture, argc, argv);
+	}
 	else if(message == gensym("module_name") && argc == 2)
 		object_attr_setvalueof(x, gensym("module_name"), 1, argv+1);
 	else if(message == gensym("module_class") && argc == 2)

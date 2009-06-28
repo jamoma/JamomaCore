@@ -341,9 +341,10 @@ void out_anything(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 	sysmem_copyptr(argv, x->last_argv[inletnum], argc * sizeof(t_atom));
 	
 	if(x->attr_preview == 1){
-		if(msg == _sym_jit_matrix){
+		if(msg == _sym_jit_matrix)
 			object_method_typed(x->preview_object, _sym_jit_matrix, argc, argv, NULL);
-		}
+		else if (msg == _sym_jit_gl_texture)
+			object_method_typed(x->preview_object, _sym_jit_gl_texture, argc, argv, NULL);
 	}
 	outlet_anything(x->outlet[inletnum], msg, argc, argv);
 }

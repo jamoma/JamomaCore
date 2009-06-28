@@ -27,6 +27,7 @@ void *remote_new(t_symbol *s, long argc, t_atom *argv);			// New Object Creation
 void remote_assist(t_remote *x, void *b, long m, long a, char *s);		// Assistance Method
 void remote_dispatched(t_remote *x, t_symbol *msg, long argc, t_atom *argv);
 void remote_jit_matrix(t_remote *x, t_symbol *msg, long argc, t_atom *argv);
+void remote_jit_gl_texture(t_remote *x, t_symbol *msg, long argc, t_atom *argv);
 void remote_send_feedback(t_remote *x);
 void remote_int(t_remote *x, long value);
 void remote_float(t_remote *x, double value);
@@ -56,6 +57,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)remote_dispatched,		"dispatched",	A_GIMME, 0L);
 	class_addmethod(c, (method)remote_jit_matrix,		"jit_matrix",	A_GIMME, 0L);
+	class_addmethod(c, (method)remote_jit_gl_texture,	"jit_gl_texture",	A_GIMME, 0L);
 	class_addmethod(c, (method)remote_int,				"int",			A_DEFLONG,	0L);
 	class_addmethod(c, (method)remote_float,			"float",		A_DEFFLOAT,	0L);
  	class_addmethod(c, (method)remote_list,				"list",			A_GIMME, 0L);
@@ -147,6 +149,13 @@ void remote_dispatched(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 
 // messages received from jcom.out
 void remote_jit_matrix(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
+{
+	outlet_anything(x->outlet, msg, argc, argv);
+	if(x->callback)
+		x->callback(x->callbackArg, msg, argc, argv);
+}
+
+void remote_jit_gl_texture(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	outlet_anything(x->outlet, msg, argc, argv);
 	if(x->callback)
