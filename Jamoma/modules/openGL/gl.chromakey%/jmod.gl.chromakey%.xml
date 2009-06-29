@@ -12,7 +12,7 @@
     <item name='blend/enable' type='msg_toggle' priority='0'>0</item>
     <item name='blend/mode' type='msg_list' priority='0'>6 7 </item>
     <item name='bypass' type='msg_toggle' priority='0'>0</item>
-    <item name='color' type='msg_list' priority='0'>0.000000 0.000000 1.000000 </item>
+    <item name='chromakey/color' type='msg_list' priority='0'>0.000000 0.000000 1.000000 </item>
     <item name='color/alpha' type='msg_float' priority='0'>1.000000</item>
     <item name='color/inherit' type='msg_toggle' priority='0'>0</item>
     <item name='color/rgb' type='msg_list' priority='0'>1.000000 1.000000 1.000000 </item>
@@ -35,6 +35,7 @@
     <item name='material/shininess' type='msg_float' priority='0'>16.000000</item>
     <item name='modus' type='msg_toggle' priority='0'>0</item>
     <item name='mute' type='msg_toggle' priority='0'>0</item>
+    <item name='preview' type='msg_toggle' priority='0'>0</item>
     <item name='render/antialias' type='msg_toggle' priority='0'>0</item>
     <item name='render/automatic' type='msg_toggle' priority='0'>1</item>
     <item name='render/context' type='msg_symbol' priority='0'>none</item>
