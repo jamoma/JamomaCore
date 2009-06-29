@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 329.0, 92.0, 695.0, 516.0 ],
+		"rect" : [ 249.0, 67.0, 764.0, 517.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 329.0, 92.0, 695.0, 516.0 ],
+		"defrect" : [ 249.0, 67.0, 764.0, 517.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.970939,
@@ -16,6 +16,20 @@
 		"boxanimatetime" : 200,
 		"imprint" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.970939,
+					"id" : "obj-2",
+					"linecount" : 4,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 650.0, 140.0, 110.0, 60.0 ],
+					"text" : "Tip: click and drag in the preview window to change values."
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 16.0,
@@ -321,8 +335,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 54.0, 341.0, 73.0, 16.0 ],
-					"text" : "/feedback $1"
+					"patching_rect" : [ 54.0, 341.0, 77.0, 16.0 ],
+					"text" : "/tolerance $1"
 				}
 
 			}
@@ -335,8 +349,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 54.0, 323.0, 88.0, 16.0 ],
-					"text" : "/feedforward $1"
+					"patching_rect" : [ 54.0, 323.0, 82.0, 16.0 ],
+					"text" : "/luminance $1"
 				}
 
 			}
