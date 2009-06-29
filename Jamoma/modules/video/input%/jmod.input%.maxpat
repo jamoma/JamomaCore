@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 205.0, 44.0, 850.0, 577.0 ],
+		"rect" : [ 205.0, 44.0, 731.0, 537.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 205.0, 44.0, 850.0, 577.0 ],
+		"defrect" : [ 205.0, 44.0, 731.0, 537.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.970939,
@@ -37,7 +37,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 193.0, 157.0, 198.0, 17.0 ],
+					"patching_rect" : [ 193.0, 139.0, 198.0, 17.0 ],
 					"text" : "/preset/store 1 default, /preset/write"
 				}
 
@@ -88,11 +88,12 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-5",
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 362.0, 414.0, 569.0, 19.0 ],
+					"patching_rect" : [ 362.0, 414.0, 330.0, 31.0 ],
 					"text" : "jcom.parameter source @type msg_symbol @description \"Choose between camera - file or synthesis as input\"",
 					"varname" : "source_mode[1]"
 				}
@@ -102,12 +103,11 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-6",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 260.0, 330.0, 86.0, 19.0 ],
+					"patching_rect" : [ 268.0, 330.0, 86.0, 19.0 ],
 					"text" : "VIDEO OUTPUT"
 				}
 
@@ -119,7 +119,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 240.0, 330.0, 20.0, 20.0 ]
+					"patching_rect" : [ 240.0, 330.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -169,7 +169,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 40.0, 155.0, 137.0, 17.0 ],
+					"patching_rect" : [ 46.0, 139.0, 137.0, 17.0 ],
 					"text" : "/documentation/generate"
 				}
 
@@ -198,7 +198,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 15.0, 185.0, 597.0, 31.0 ],
+					"patching_rect" : [ 15.0, 185.0, 419.0, 31.0 ],
 					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Input from either a camera - video file - noise synthesis - or a real time screen capture.\"",
 					"varname" : "jcom.hub"
 				}
@@ -212,7 +212,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 15.0, 155.0, 20.0, 20.0 ]
+					"patching_rect" : [ 15.0, 139.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -223,7 +223,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 15.0, 240.0, 20.0, 20.0 ]
+					"patching_rect" : [ 15.0, 240.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -248,19 +248,55 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
+					"destination" : [ "obj-9", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-16", 1 ]
+					"midpoints" : [ 527.0, 475.0, 331.75, 475.0, 331.75, 412.0, 73.5, 412.0 ],
+					"source" : [ "obj-5", 1 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-16", 0 ],
+					"destination" : [ "obj-9", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 159.5, 357.5, 73.5, 357.5 ],
+					"source" : [ "obj-16", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-3", 0 ]
+					"source" : [ "obj-2", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-14", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-34", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 371.5, 446.0, 348.0, 446.0, 348.0, 373.0, 371.5, 373.0 ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-8", 1 ]
 				}
 
 			}
@@ -268,17 +304,8 @@
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-18", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-17", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-13", 0 ]
+					"midpoints" : [ 202.5, 170.0, 24.5, 170.0 ],
+					"source" : [ "obj-4", 0 ]
 				}
 
 			}
@@ -295,62 +322,35 @@
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-4", 0 ]
+					"midpoints" : [ 55.5, 170.0, 24.5, 170.0 ],
+					"source" : [ "obj-13", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
+					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-8", 1 ]
+					"source" : [ "obj-18", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 371.5, 446.0, 348.0, 446.0, 348.0, 373.0, 371.5, 373.0 ],
-					"source" : [ "obj-5", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-14", 0 ],
+					"destination" : [ "obj-16", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-34", 0 ]
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
+					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-2", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-9", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 159.5, 357.5, 73.5, 357.5 ],
-					"source" : [ "obj-16", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-9", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 646.5, 475.0, 331.75, 475.0, 331.75, 412.0, 73.5, 412.0 ],
-					"source" : [ "obj-5", 1 ]
+					"source" : [ "obj-16", 1 ]
 				}
 
 			}
