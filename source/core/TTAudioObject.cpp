@@ -18,8 +18,12 @@ static const double kGainMidiPowerInv = 1./kGainMidiPower;
 
 /****************************************************************************************************/
 
-TTAudioObject::TTAudioObject(const TTSymbolPtr name, TTValue& arguments)
-	: TTObject(name, arguments), attrMute(0), inputArray(NULL), outputArray(NULL)
+TTAudioObject::TTAudioObject(TTValue& arguments) : 
+	TTObject(arguments), 
+	maxNumChannels(0),
+	attrMute(0), 
+	inputArray(NULL), 
+	outputArray(NULL) 
 {
 	registerAttribute(TT("maxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
 	registerAttribute(TT("sr"),				kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObject::setSr);
@@ -27,16 +31,11 @@ TTAudioObject::TTAudioObject(const TTSymbolPtr name, TTValue& arguments)
 	registerAttribute(TT("mute"),			kTypeBoolean,	&attrMute,			(TTSetterMethod)&TTAudioObject::setMute);
 	registerAttribute(TT("processInPlace"), kTypeBoolean,	&attrProcessInPlace);
 
-	// Set Defaults...
-	
-	// Commenting this out, thus making this initial argument unused.
-	// The problem is that if we set it here, then it is too early to trigger the notification in the subclass.
-	// And then because it is already defined, then our repetition filtering won't let it through to allocate memory...
-	// setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
-	
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&inputArray, 2);
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&outputArray, 2);
 
+	// Set Defaults...
+		
 	setAttributeValue(TT("sr"),				ttEnvironment->sr);
 	setProcess(&TTAudioObject::bypassProcess);
     setCalculate(&TTAudioObject::defaultCalculateMethod);
@@ -54,12 +53,12 @@ TTAudioObject::~TTAudioObject()
 
 TTErr TTAudioObject::setMaxNumChannels(const TTValue& newValue)
 {
-	// one might think we should do a comparison here like "if(TTUInt16(newValue) != maxNumChannels){" to eliminate unneccesary repetitive calls.
-	// however, doing so means that initialization of objects when they are first instantiated doesn't happen correctly, which has led to crashing in the past.
-	TTValue	oldMaxNumChannels = maxNumChannels;
-	
-	maxNumChannels = newValue;
-	sendMessage(TT("updateMaxNumChannels"), oldMaxNumChannels);
+	if (TTUInt16(newValue) != maxNumChannels) {
+		TTValue	oldMaxNumChannels = maxNumChannels;
+		
+		maxNumChannels = newValue;
+		sendMessage(TT("updateMaxNumChannels"), oldMaxNumChannels);
+	}
 	return kTTErrNone;
 }
 
@@ -111,16 +110,22 @@ TTErr TTAudioObject::muteProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 
 TTErr TTAudioObject::defaultCalculateMethod(const TTFloat64& x, TTFloat64& y, TTPtr data)
 {
-	TTAudioSignal	in(*kTTVal1);
-	TTAudioSignal	out(*kTTVal1);
-	TTErr			err;
+	TTAudioSignalPtr	in;
+	TTAudioSignalPtr	out;
+	TTErr				err;
 	
-	in.allocWithVectorSize(1);
-	out.allocWithVectorSize(1);
+	TTObjectInstantiate(kTTSym_audiosignal, &in, *kTTVal1);
+	TTObjectInstantiate(kTTSym_audiosignal, &out, *kTTVal1);
 	
-	in.sampleVectors[0][0] = x;
+	in->allocWithVectorSize(1);
+	out->allocWithVectorSize(1);
+	
+	in->sampleVectors[0][0] = x;
 	err = process(in, out);
-	y = out.sampleVectors[0][0];
+	y = out->sampleVectors[0][0];
+	
+	TTObjectRelease(&in);
+	TTObjectRelease(&out);
 
 	return err;
 }

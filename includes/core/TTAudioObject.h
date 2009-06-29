@@ -12,6 +12,7 @@
 #include "TTObject.h"
 #include "TTSymbol.h"
 #include "TTValue.h"
+#include "TTAudioSignal.h"
 #include "TTAudioSignalArray.h"
 
 
@@ -104,7 +105,7 @@ public:
 
 protected:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/
-	TTAudioObject(const TTSymbolPtr name, TTValue& arguments);
+	TTAudioObject(TTValue& arguments);
 	
 public:
 	/** Destructor. */

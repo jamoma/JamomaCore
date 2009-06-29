@@ -7,10 +7,12 @@
 #ifndef _TT_HIMIDLOW_H_
 #define _TT_HIMIDLOW_H_
 
-#include "TTAudioObject.h"
+#include "TTBlueAPI.h"
 
-class TTHighMidLowShelf : public TTAudioObject {
-protected:
+
+/**	High-Mid-Low shelf filter.	*/
+TTAUDIOCLASS(TTHighMidLowShelf)
+
 	TTFloat64		frequencyLm, frequencyMh, gainL, gainM, gainH;///< filter parameter
 	TTFloat64		a0, a1, a2, b1, b2;		///< filter coefficients
 	TTFloat64		*xm1;
@@ -36,15 +38,6 @@ protected:
     /** y = f(x) */
     TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
 	
-	
-public:
-
-	/**	Constructor. */
-	TTHighMidLowShelf(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTHighMidLowShelf();
-
 	/**	Setter for the filter attribute. */
 	TTErr setgainL(const TTValue& value);
 	TTErr setgainM(const TTValue& value);

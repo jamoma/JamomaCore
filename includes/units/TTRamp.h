@@ -9,13 +9,12 @@
 #ifndef __TT_RAMP_H__
 #define __TT_RAMP_H__
 
-#include "TTAudioObject.h"
+#include "TTBlueAPI.h"
 
-/**	TTRamp is an audio processor that provides a soft saturation
- *	or overdrive effect to "warm" a sound up.
- */ 
-class TTEXPORT TTRamp : public TTAudioObject {
-protected:
+
+/**	TTRamp is an audio processor that provides a soft saturation or overdrive effect to "warm" a sound up. */ 
+TTAUDIOCLASS(TTRamp)
+
 	enum rampDirection {
 		kUP = 0,
 		kDOWN
@@ -43,13 +42,6 @@ protected:
 	TTErr processSampleAccurateDown(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	/**	Process method 	*/
 	TTErr processSampleAccurateUp(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-	/**	Constructor. */
-	TTRamp(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTRamp();
 	
 	/**	Setter for the mode attribute.  The options are 'sample' and 'vector' which determine 
 	 the desired accuracy of the ramp that is generated. */

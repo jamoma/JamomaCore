@@ -210,8 +210,6 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
 // Analysis
 #include "TTZerocross.h"
 
-// Data
-
 // Dynamics
 #include "TTBalance.h"
 #include "TTGain.h"
@@ -225,9 +223,6 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
 #include "TTRamp.h"
 #include "TTWavetable.h"
 
-// Filtering
-#include "TTAverage.h"
-
 // Misc
 #include "TTBuffer.h"
 #include "TTCrossfade.h"
@@ -240,114 +235,31 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
 
 void TTBlueRegisterInternalClasses()
 {
-	// Core
-	TTClassRegister(TT("audiosignal"),					"audio, signal, core",												&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("audiosignalarray"),				"audio, signal, core",												&TTBlueInstantiateInternalClass);
+	TTAudioSignal::registerClass();
+	TTAudioSignalArray::registerClass();
+	TTBuffer::registerClass();
 	
 	// Analysis
-	TTClassRegister(TT("zerocross"),					"audio, analysis, frequency",										&TTBlueInstantiateInternalClass);
-	
-	
-	// Data
-	
+	TTZerocross::registerClass();
 	
 	// Dynamics
-	TTClassRegister(TT("balance"),						"audio, processor, dynamics",										&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("gain"),							"audio, processor, dynamics",										&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("limiter"),						"audio, processor, dynamics, limiter",								&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("pulsesub"),						"audio, processor, dynamics, envelope",								&TTBlueInstantiateInternalClass);
-	
-	
-	// Generators
-	TTClassRegister(TT("adsr"),							"audio, generator, envelope",										&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("noise"),						"audio, generator, noise",											&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("phasor"),						"audio, generator, oscillator",										&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("ramp"),							"audio, generator",													&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("wavetable"),					"audio, generator, oscillator, buffer",								&TTBlueInstantiateInternalClass);
-	
-	
-	// Filtering
-//	TTClassRegister(TT("average"),						"audio, processor, filter, lowpass, envelope",						&TTBlueInstantiateInternalClass);
-
-	
-	// Misc
-	TTClassRegister(TT("buffer"),						"audio, buffer, storage",											&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("crossfade"),					"audio, processor, mixing",											&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("degrade"),						"audio, processor, distortion",										&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("delay"),						"audio, processor, delay",											&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("operator"),						"audio, processor, math",											&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("overdrive"),					"audio, processor",													&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("matrixmixer"),					"audio, mixing, matrix",											&TTBlueInstantiateInternalClass);
-}
-
-
-TTObject* TTBlueInstantiateInternalClass(TTSymbol* className, TTValue& arguments)
-{
-	// Core
-	if(className == TT("audiosignal"))
-		return new TTAudioSignal(arguments);
-	else if(className == TT("audiosignalarray")) // kTTSym_audiosignalarray)
-		return new TTAudioSignalArray(arguments);
-	
-	// Analysis
-	else if(className == TT("zerocross"))
-		return new TTZerocross(arguments);
-	
-	
-	// Data
-	
-	
-	// Dynamics
-	else if(className == TT("balance"))
-		return new TTBalance(arguments);
-	else if(className == TT("gain"))
-		return new TTGain(arguments);
-	else if(className == TT("limiter"))
-		return new TTLimiter(arguments);
-	else if(className == TT("pulsesub"))
-		return new TTPulseSub(arguments);
-	
+	TTBalance::registerClass();
+	TTGain::registerClass();
+	TTLimiter::registerClass();
+	TTPulseSub::registerClass();
 	
 	// Generators
-	else if(className == TT("adsr"))
-		return new TTAdsr(arguments);
-	else if(className == TT("noise"))
-		return new TTNoise(arguments);
-	else if(className == TT("phasor"))
-		return new TTPhasor(arguments);
-	else if(className == TT("ramp"))
-		return new TTRamp(arguments);
-	else if(className == TT("wavetable"))
-		return new TTWavetable(arguments);
-	
-	
-	// Filtering
-	else if(className == TT("average"))
-		return new TTAverage(arguments);
-
-	
+	TTAdsr::registerClass();
+	TTNoise::registerClass();
+	TTPhasor::registerClass();
+	TTRamp::registerClass();
+	TTWavetable::registerClass();
+		
 	// Misc
-	else if(className == TT("buffer"))
-		return new TTBuffer(arguments);
-	else if(className == TT("crossfade"))
-		return new TTCrossfade(arguments);
-	else if(className == TT("degrade"))
-		return new TTDegrade(arguments);
-	else if(className == TT("delay"))
-		return new TTDelay(arguments);
-	else if(className == TT("operator"))
-		return new TTOperator(arguments);
-	else if(className == TT("overdrive"))
-		return new TTOverdrive(arguments);
-	else if(className == TT("matrixmixer"))
-		return new TTMatrixMixer(arguments);
-
-	
-	// Not found
-	else{
-		TTLogError("TTBlue: cannot instantiate object of %s class.  No such class.", className->getCString());
-		return NULL;
-	}
-
+	TTCrossfade::registerClass();
+	TTDegrade::registerClass();
+	TTDelay::registerClass();
+	TTOperator::registerClass();
+	TTOverdrive::registerClass();
+	TTMatrixMixer::registerClass();
 }
-

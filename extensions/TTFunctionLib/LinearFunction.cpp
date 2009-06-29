@@ -8,11 +8,13 @@
  */
 
 #include "LinearFunction.h"
+
 #define thisTTClass LinearFunction
+#define thisTTClassName		"linear"
+#define thisTTClassTags		"audio, processor, function"
 
 
-LinearFunction::LinearFunction(TTValue& arguments)
-	: TTAudioObject(TT("linear"), arguments)
+TT_AUDIO_CONSTRUCTOR
 {
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);

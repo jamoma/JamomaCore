@@ -9,11 +9,13 @@
 
 #include "TanhFunction.h"
 #include <math.h>
+
 #define thisTTClass TanhFunction
+#define thisTTClassName		"tanh"
+#define thisTTClassTags		"audio, processor, function"
 
 
-TanhFunction::TanhFunction(TTValue& arguments)
-	: TTAudioObject(TT("tanh"), arguments)
+TT_AUDIO_CONSTRUCTOR
 {
 	// Register Attributes...
 	registerAttributeWithSetter(offset,	kTypeFloat64);

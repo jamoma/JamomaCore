@@ -9,10 +9,8 @@
 #ifndef __TT_LIMITER_H__
 #define __TT_LIMITER_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
-//#include "TTDCBlock.h"
-//#include "TTGain.h"
 
 /**	TTLimiter implements a lookahead limiter processor for controlling the dynamics of an input. 
 	
@@ -27,8 +25,8 @@
 	The release attribute (specified in seconds) determines how long it takes for a gain reduction to "wear off"
 	once the amplitude level of the input has been reduced.
 */
-class TTEXPORT TTLimiter : public TTAudioObject {
-protected:
+TTAUDIOCLASS(TTLimiter)
+
 	TTFloat64			recover;				///< 
 	TTFloat64			lookaheadInv;			///< reciprocal (inverse) of the lookahead attribute
 	TTUInt32			lookaheadBufferIndex;
@@ -60,14 +58,6 @@ protected:
 
 	/**	Standard audio processing method as used by TTBlue objects.	 */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-	
-public:
-
-	/**	Constructor. */
-	TTLimiter(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTLimiter();
 	
 	/**	Setter for the threshold attribute. */
 	TTErr setPreamp(const TTValue& value);

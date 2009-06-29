@@ -7,12 +7,15 @@
  */
 
 #include "TTHighpassLinkwitzRiley4.h"
-#define thisTTClass TTHighpassLinkwitzRiley4
+
+#define thisTTClass			TTHighpassLinkwitzRiley4
+#define thisTTClassName		"highpass.linkwitzriley.4"
+#define thisTTClassTags		"audio, processor, filter, highpass, crossover"
 
 
-TTHighpassLinkwitzRiley4::TTHighpassLinkwitzRiley4(TTValue& arguments)
-	: TTAudioObject(TT("highpass.linkwitzriley.4"), arguments),
-	xm1(NULL), xm2(NULL), xm3(NULL), xm4(NULL), ym1(NULL), ym2(NULL), ym3(NULL), ym4(NULL)
+TT_AUDIO_CONSTRUCTOR,
+	xm1(NULL), xm2(NULL), xm3(NULL), xm4(NULL), 
+	ym1(NULL), ym2(NULL), ym3(NULL), ym4(NULL)
 {
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);

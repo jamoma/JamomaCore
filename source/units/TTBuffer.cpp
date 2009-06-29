@@ -7,10 +7,13 @@
  */
 
 #include "TTBuffer.h"
-#define thisTTClass TTBuffer
 
-TTBuffer::TTBuffer(TTValue& arguments)
-	: TTDataObject(TT("buffer"), arguments),
+#define thisTTClass TTBuffer
+#define thisTTClassName		"pulsesub"
+#define thisTTClassTags		"audio, processor, dynamics, envelope"
+
+
+TT_DATA_CONSTRUCTOR,
 	contents(NULL),
 	numChannels(0),
 	length(0),

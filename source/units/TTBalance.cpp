@@ -1,18 +1,20 @@
 /* 
  * TTBlue Balance Signal Amplitude
- * Copyright Â© 2008, Trond Lossius
+ * Copyright © 2008, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
 #include "TTBalance.h"
-#define thisTTClass TTBalance
+
+#define thisTTClass			TTBalance
+#define thisTTClassName		"balance"
+#define thisTTClassTags		"audio, processor, dynamics"
 
 
-TTBalance::TTBalance(TTValue& arguments)
-	: TTAudioObject(TT("balance"), arguments),
-	xm1A(NULL), xm2A(NULL), ym1A(NULL), ym2A(NULL), xm1B(NULL), xm2B(NULL), ym1B(NULL), ym2B(NULL)
+TT_AUDIO_CONSTRUCTOR
+, xm1A(NULL), xm2A(NULL), ym1A(NULL), ym2A(NULL), xm1B(NULL), xm2B(NULL), ym1B(NULL), ym2B(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	

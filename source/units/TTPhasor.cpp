@@ -7,12 +7,14 @@
  */
 
 #include "TTPhasor.h"
+
 #define thisTTClass TTPhasor
+#define thisTTClassName		"phasor"
+#define thisTTClassTags		"audio, generator, oscillator"
 
 
-TTPhasor::TTPhasor(TTValue& arguments)
-	: TTAudioObject(TT("phasor"), arguments),
-	phase(0.0), step(0.0), linearGain(1.0)
+TT_AUDIO_CONSTRUCTOR
+, phase(0.0), step(0.0), linearGain(1.0)
 {
 	registerAttributeWithSetter(frequency,		kTypeFloat64);
 	registerAttributeWithSetterAndGetter(gain,	kTypeFloat64);

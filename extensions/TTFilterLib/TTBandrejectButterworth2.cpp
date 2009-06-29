@@ -7,12 +7,17 @@
  */
 
 #include "TTBandRejectButterworth2.h"
-#define thisTTClass TTBandRejectButterworth2
+
+#define thisTTClass			TTBandRejectButterworth2
+#define thisTTClassName		"bandreject.butterworth.2"
+#define thisTTClassTags		"audio, processor, filter, notch, butterworth"
 
 
-TTBandRejectButterworth2::TTBandRejectButterworth2(TTValue& arguments)
-	: TTAudioObject(TT("bandreject.butterworth.2"), arguments),
-	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
+TT_AUDIO_CONSTRUCTOR,
+	xm1(NULL), 
+	xm2(NULL),
+	ym1(NULL), 
+	ym2(NULL)
 {
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);

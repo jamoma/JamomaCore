@@ -7,11 +7,13 @@
  */
 
 #include "TTZerocross.h"
-#define thisTTClass TTZerocross
+
+#define thisTTClass			TTZerocross
+#define thisTTClassName		"zerocross"
+#define thisTTClassTags		"audio, analysis, frequency"
 
 
-TTZerocross::TTZerocross(TTValue& arguments)
-	: TTAudioObject(TT("zerocross"), arguments)
+TT_AUDIO_CONSTRUCTOR
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	

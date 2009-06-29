@@ -9,16 +9,15 @@
 #ifndef __TT_PULSESUB_H__
 #define __TT_PULSESUB_H__
 
-#include "TTAudioObject.h"
-#include "TTPhasor.h"
-#include "TTAdsr.h"
-#include "TTOperator.h"
+#include "TTBlueAPI.h"
+//#include "TTPhasor.h"
+//#include "TTAdsr.h"
+//#include "TTOperator.h"
 
 
-/**	TTPulseSub generates a repeating ADSR envelope which is then applied to the gain of an input signal.
- */ 
-class TTEXPORT TTPulseSub : public TTAudioObject {
-protected:
+/**	TTPulseSub generates a repeating ADSR envelope which is then applied to the gain of an input signal. */ 
+TTAUDIOCLASS(TTPulseSub)
+
 	TTFloat64			attrAttack;
 	TTFloat64			attrDecay;
 	TTFloat64			attrSustain;
@@ -38,11 +37,7 @@ protected:
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-	
-public:
-	TTPulseSub(TTValue& arguments);
-	virtual ~TTPulseSub();
-	
+		
 	TTErr setTrigger(const TTValue& newValue);
 	TTErr setAttack(const TTValue& newValue);
 	TTErr setDecay(const TTValue& newValue);

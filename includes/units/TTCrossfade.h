@@ -9,17 +9,17 @@
 #ifndef __TT_CROSSFADE_H__
 #define __TT_CROSSFADE_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
 /**	TTCrossfade in an audio processor that crossfades between two input signals.	
- *	
- *	In fact, this processor can work on a number of channels, provided that the number of input
- *	channels is twice the number of output channels.  In this case the first N/2 input channels are
- *	considered as the A source and the last N/2 input channels are considered the B source.
+ 	
+ 	In fact, this processor can work on a number of channels, provided that the number of input
+ 	channels is twice the number of output channels.  In this case the first N/2 input channels are
+ 	considered as the A source and the last N/2 input channels are considered the B source.
  */
-class TTEXPORT TTCrossfade : public TTAudioObject {
-protected:
+TTAUDIOCLASS(TTCrossfade)
+
 	TTFloat64		position;	///< Use a range of 0.0 to 1.0 to specify a ratio of the B source to the A source.
 	TTSymbol*		shape;		///< The shape attribute is set with a TTSymbol that is either "equalPower" (the default) or "linear"
 	TTSymbol*		mode;		///< The mode attribute is set with a TTSymbol that is either "lookup" (the default) or "calculate"
@@ -39,14 +39,6 @@ protected:
 	 *	This method will return an error if the input and output channels are not matched properly.		*/
 	TTErr processCalc(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
-public:
-
-	/**	Constructor. */
-	TTCrossfade(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTCrossfade();
-	
 	/**	Setter for the shape attribute. */
 	TTErr setshape(const TTValue& value);
 	

@@ -7,7 +7,10 @@
  */
 
 #include "TTGraphicsWindow.h"
-#define thisTTClass TTGraphicsWindow
+
+#define thisTTClass			TTGraphicsWindow
+#define thisTTClassName		"TTGraphicsWindow"
+#define thisTTClassTags		"graphics"
 
 
 // http://developer.apple.com/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_context/dq_context.html#//apple_ref/doc/uid/TP30001066-CH203-CJBDCHAC
@@ -100,8 +103,9 @@
 #pragma mark C++ Code
 
 
-TTGraphicsWindow::TTGraphicsWindow(TTValue& arguments) :
-	TTObject(TT("TTGraphicsWindow"), arguments), 
+//TTGraphicsWindow::TTGraphicsWindow(TTValue& arguments) :
+//	TTObject(TT("TTGraphicsWindow"), arguments), 
+TT_OBJECT_CONSTRUCTOR,
 	theWindow(NULL),
 	context(NULL)
 {

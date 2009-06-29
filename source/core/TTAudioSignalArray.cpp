@@ -6,16 +6,17 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTAudioSignalArray.h"
-#include "TTEnvironment.h"
-#define thisTTClass TTAudioSignalArray
+#include "TTBlueAPI.h"
+
+#define thisTTClass			TTAudioSignalArray
+#define thisTTClassName		"audiosignalarray"
+#define thisTTClassTags		"audio, processor, dynamics, envelope"
 
 
 /****************************************************************************************************/
 
-TTAudioSignalArray::TTAudioSignalArray(TTValue& arguments)
-	: TTObject(TT("audiosignalarray"), arguments), 
-	  audioSignals(NULL)
+TT_OBJECT_CONSTRUCTOR, 
+	audioSignals(NULL)
 {
 	TTUInt16 initialMaxNumAudioSignals = arguments;
 	

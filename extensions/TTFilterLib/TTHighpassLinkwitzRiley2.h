@@ -1,8 +1,5 @@
 /* 
  * TTBlue 2nd order Linkwitz Riley Highpass Filter Object
- *
-
- * 
  * Copyright © 2008, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
@@ -12,8 +9,8 @@
 #ifndef __TT_HIGHPASS_LINKWITZ_RILEY_2_H__
 #define __TT_HIGHPASS_LINKWITZ_RILEY_2_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
 /**	2nd order Linkwitz Riley Highpass Filter
  *
@@ -33,8 +30,8 @@
  * 5. All drivers are always wired the same (in phase).
  *
  */
-class TTHighpassLinkwitzRiley2 : public TTAudioObject {
-protected:
+TTAUDIOCLASS(TTHighpassLinkwitzRiley2)
+
 	TTFloat64		frequency;				///< filter cutoff frequency
 	TTFloat64		k, wc;						///< filter coefficients
 	TTFloat64		a0, a1, a2;					///< filter coefficients for input samples
@@ -55,14 +52,6 @@ protected:
 
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-
-	/**	Constructor. */
-	TTHighpassLinkwitzRiley2(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTHighpassLinkwitzRiley2();
 
 	/**	Setter for the frequency attribute. */
 	TTErr setfrequency(const TTValue& value);

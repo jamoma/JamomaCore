@@ -10,14 +10,13 @@
 #define __TT_WAVETABLE_H__
 
 
-#include "TTAudioObject.h"
+#include "TTBlueAPI.h"
 #include "TTBuffer.h"
 
-/**	TTWavetable is a table-lookup oscillator.
-	The wavetable is implemented as a TTBuffer.
- */ 
-class TTEXPORT TTWavetable : public TTAudioObject {
-protected:
+
+/**	TTWavetable is a table-lookup oscillator. The wavetable is implemented as a TTBuffer. */ 
+TTAUDIOCLASS(TTWavetable)
+
 	TTSymbol*			attrMode;
 	TTFloat64			attrFrequency;
 	TTFloat64			attrGain;
@@ -37,14 +36,6 @@ protected:
 	/**	Process method 	*/
 	TTErr processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
-public:
-	/**	Constructor. */
-	TTWavetable(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTWavetable();
-	
-	
 	/**	Setter for the mode attribute. 
 	 This is a symbol that names the waveform that fills the buffer.
 	 If the symbol is the string "externalBuffer", then a second symbol names the buffer to use in the buffer hash.  */

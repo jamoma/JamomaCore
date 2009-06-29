@@ -5,12 +5,16 @@
  */
 
 #include "TTHighMidLowShelf.h"
-#define thisTTClass TTHighMidLowShelf 
+
+#define thisTTClass			TTHighMidLowShelf 
+#define thisTTClassName		"highmidlowshelf"
+#define thisTTClassTags		"audio, processor, filter"
 
 
-TTHighMidLowShelf::TTHighMidLowShelf(TTValue& arguments)
-	: TTAudioObject(TT("highmidlowshelf"), arguments), 
-	xm1(NULL), xm2(NULL), xm0(NULL)
+TT_AUDIO_CONSTRUCTOR, 
+	xm1(NULL), 
+	xm2(NULL), 
+	xm0(NULL)
 {
 	// register attributes
 	registerAttributeWithSetter(frequencyLm,	kTypeFloat64);

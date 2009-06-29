@@ -9,8 +9,8 @@
 #ifndef __TT_BUFFER_H__
 #define __TT_BUFFER_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTDataObject.h"
 
 /**	TTBuffer is a container object that holds some audio in a chunk of memory.
 	Other objects can then access this buffer to record into it, play back from it,
@@ -21,9 +21,8 @@
 	
 	@see TTAudioSignal
 */
- 
-class TTEXPORT TTBuffer : public TTDataObject {
-protected:
+TTDATACLASS(TTBuffer)
+
 	TTSampleVector*		contents;			///< An array of vectors (one vector per channel) to hold the samples.
 	TTUInt16			numChannels;		///< The number of channels in the buffer
 	TTFloat64			length;				///< The size of the buffer in milliseconds
@@ -37,14 +36,8 @@ protected:
 
 	/** Notification from the parent class of a sample-rate change. */
 	TTErr updateSr();
-
-public:
-	/**	Constructor. */
-	TTBuffer(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTBuffer();
 	
+public:
 	/**	Attribute accessor: set the number of channels for this buffer.
 		@return Returns a TTErr error code.	*/
 	TTErr setnumChannels(const TTValue& newNumChannels);

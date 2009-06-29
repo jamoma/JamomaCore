@@ -7,12 +7,15 @@
  */
 
 #include "TTLowpassTwoPole.h"
-#define thisTTClass TTLowpassTwoPole
+
+#define thisTTClass			TTLowpassTwoPole
+#define thisTTClassName		"lowpass.2"
+#define thisTTClassTags		"audio, processor, filter, lowpass"
 
 
-TTLowpassTwoPole::TTLowpassTwoPole(TTValue& arguments)
-	: TTAudioObject(TT("lowpass.2"), arguments),
-	feedback1(NULL), feedback2(NULL)
+TT_AUDIO_CONSTRUCTOR,
+	feedback1(NULL), 
+	feedback2(NULL)
 {
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);

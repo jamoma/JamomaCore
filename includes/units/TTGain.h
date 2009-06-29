@@ -9,24 +9,16 @@
 #ifndef __TT_GAIN_H__
 #define __TT_GAIN_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
 /**	TTGain is an exceptionally simple audio processor scales an input audio signal */
-class TTEXPORT TTGain : public TTAudioObject {
-protected:
+TTAUDIOCLASS(TTGain)
+
 	TTFloat64		gain;	///< linear gain to be applied to the input signal
 
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-
-	/**	Constructor. */
-	TTGain(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTGain();
 	
 	/** setter for converting gain input from db to linear. */
 	TTErr setGain(const TTValue& newValue);

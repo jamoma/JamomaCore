@@ -9,14 +9,12 @@
 #ifndef __TT_DELAY_H__
 #define __TT_DELAY_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
-/**	Delay a signal.
- */
- 
-class TTEXPORT TTDelay : public TTAudioObject {
-protected:
+/**	Delay a signal. */
+TTAUDIOCLASS(TTDelay)
+
 	TTFloat64			delay;
 	TTUInt64			delayInSamples;
 	TTFloat64			delayMax;
@@ -49,14 +47,6 @@ protected:
 //	TTErr processAudioNoInterpolationWithDelaySignal(TTAudioSignal& in, TTAudioSignal& delayIn, TTAudioSignal& out, TTAudioSignal&);
 //	TTErr processAudioLinearInterpolationWithDelaySignal(TTAudioSignal& in, TTAudioSignal& delayIn, TTAudioSignal& out, TTAudioSignal&);
 //	TTErr processAudioCubicInterpolationWithDelaySignal(TTAudioSignal& in, TTAudioSignal& delayIn, TTAudioSignal& out, TTAudioSignal&);
-	
-public:
-	/**	Constructor. */
-	TTDelay(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTDelay();
-
 	
 	/** Zero out the delay's buffer. */
 	TTErr clear();

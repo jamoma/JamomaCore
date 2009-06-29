@@ -117,16 +117,16 @@ protected:
 			TTObjectInstantiate(TT("lowpass.butterworth.4"), &mButter, numChannels);
 			mButter->setAttributeValue(TT("sr"), GetSampleRate());
 			
-			mInput = new TTAudioSignal(numChannels);
-			mOutput = new TTAudioSignal(numChannels);
+			TTObjectInstantiate(kTTSym_audiosignal, &mInput, numChannels);
+			TTObjectInstantiate(kTTSym_audiosignal, &mOutput, numChannels);
 		}
 		
 		
 		virtual ~BlueButterKernel()
 		{
 			TTObjectRelease(&mButter);
-			delete mInput;
-			delete mOutput;
+			TTObjectRelease(&mInput);
+			TTObjectRelease(&mOutput);
 		}
 		
 		

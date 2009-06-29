@@ -34,20 +34,34 @@
 /** A macro for setting up the class binding to the library in extension classes. 
 	@param strname A C-string that names the object as it should be listed in the environment. */
 #define TT_CLASS_SETUP(strname, tags, className)\
-\
-extern "C" TT_EXTENSION_EXPORT TTObject* instantiate ## className (TTSymbol*, TTValue& arguments); \
-TTObject*  instantiate ## className (TTSymbol*, TTValue& arguments) \
-{\
-return new className (arguments);\
-}\
-\
-extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\
-TTErr loadTTExtension(void)\
-{\
-TTBlueInit();\
-TTClassRegister(TT(strname), tags, & instantiate ## className);\
-return kTTErrNone;\
-}
+	\
+	extern "C" TT_EXTENSION_EXPORT TTObject* instantiate ## className (TTSymbol*, TTValue& arguments); \
+	\
+	TTObject*  instantiate ## className (TTSymbol*, TTValue& arguments) \
+	{\
+		return new className (arguments);\
+	}\
+	\
+	extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\
+	TTErr loadTTExtension(void)\
+	{\
+		TTBlueInit();\
+		TTClassRegister(TT(strname), tags, & instantiate ## className);\
+		return kTTErrNone;\
+	}
+
+
+#define TT_AUDIO_CONSTRUCTOR_EXPORT \
+	\
+	extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\
+	TTErr loadTTExtension(void)\
+	{\
+		TTBlueInit();\
+		thisTTClass :: registerClass(); \
+		return kTTErrNone;\
+	}\
+	\
+	TT_AUDIO_CONSTRUCTOR
 
 
 #endif // __TT_BLUE_API_H__

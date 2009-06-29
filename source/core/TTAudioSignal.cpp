@@ -6,15 +6,21 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTAudioSignal.h"
-#include "TTEnvironment.h"
-#define thisTTClass TTAudioSignal
+#include "TTBlueAPI.h"
+
+#define thisTTClass			TTAudioSignal
+#define thisTTClassName		"audiosignal"
+#define thisTTClassTags		"audio, processor, dynamics, envelope"
 
 
 /****************************************************************************************************/
 
-TTAudioSignal::TTAudioSignal(TTValue& arguments)
- 	: TTObject(kTTSym_audiosignal, arguments), isLocallyOwned(false), maxNumChannels(0), vectorSize(0), numChannels(0), sampleVectors(NULL)
+TT_OBJECT_CONSTRUCTOR,
+	isLocallyOwned(false),
+	maxNumChannels(0),
+	vectorSize(0),
+	numChannels(0),
+	sampleVectors(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	

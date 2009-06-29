@@ -54,6 +54,8 @@
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		220D07340FF644A40032DAF9 /* TTBandpassButterworth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBandpassButterworth2.h; sourceTree = "<group>"; };
+		220D07350FF644B20032DAF9 /* TTBandrejectButterworth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBandrejectButterworth2.h; sourceTree = "<group>"; };
 		22398BAD0E243E2D00A5F732 /* TTFilterLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTFilterLib.cpp; sourceTree = "<group>"; };
 		22CC00290FDEFC310024A915 /* TTAllpass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTAllpass.cpp; sourceTree = "<group>"; };
 		22CC002A0FDEFC310024A915 /* TTAllpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAllpass.h; sourceTree = "<group>"; };
@@ -151,46 +153,48 @@
 		2217FAAA0E4F284D00806778 /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				22CC00290FDEFC310024A915 /* TTAllpass.cpp */,
 				22CC002A0FDEFC310024A915 /* TTAllpass.h */,
+				22CC00290FDEFC310024A915 /* TTAllpass.cpp */,
+				220D07340FF644A40032DAF9 /* TTBandpassButterworth2.h */,
 				22CC002B0FDEFC310024A915 /* TTBandpassButterworth2.cpp */,
+				220D07350FF644B20032DAF9 /* TTBandrejectButterworth2.h */,
 				22CC002C0FDEFC310024A915 /* TTBandrejectButterworth2.cpp */,
-				22CC002D0FDEFC310024A915 /* TTDCBlock.cpp */,
 				22CC002E0FDEFC310024A915 /* TTDCBlock.h */,
-				22CC00360FDEFC3D0024A915 /* TTHighMidLowShelf.cpp */,
+				22CC002D0FDEFC310024A915 /* TTDCBlock.cpp */,
 				22CC00370FDEFC3D0024A915 /* TTHighMidLowShelf.h */,
-				22CC00380FDEFC3D0024A915 /* TTHighpassButterworth1.cpp */,
+				22CC00360FDEFC3D0024A915 /* TTHighMidLowShelf.cpp */,
 				22CC00390FDEFC3D0024A915 /* TTHighpassButterworth1.h */,
-				22CC003A0FDEFC3D0024A915 /* TTHighpassButterworth2.cpp */,
+				22CC00380FDEFC3D0024A915 /* TTHighpassButterworth1.cpp */,
 				22CC003B0FDEFC3D0024A915 /* TTHighpassButterworth2.h */,
-				22CC003C0FDEFC3D0024A915 /* TTHighpassButterworth3.cpp */,
+				22CC003A0FDEFC3D0024A915 /* TTHighpassButterworth2.cpp */,
 				22CC003D0FDEFC3D0024A915 /* TTHighpassButterworth3.h */,
-				22CC003E0FDEFC3D0024A915 /* TTHighpassButterworth4.cpp */,
+				22CC003C0FDEFC3D0024A915 /* TTHighpassButterworth3.cpp */,
 				22CC003F0FDEFC3D0024A915 /* TTHighpassButterworth4.h */,
-				22CC00400FDEFC3D0024A915 /* TTHighpassLinkwitzRiley2.cpp */,
+				22CC003E0FDEFC3D0024A915 /* TTHighpassButterworth4.cpp */,
 				22CC00410FDEFC3D0024A915 /* TTHighpassLinkwitzRiley2.h */,
-				22CC00420FDEFC3D0024A915 /* TTHighpassLinkwitzRiley4.cpp */,
+				22CC00400FDEFC3D0024A915 /* TTHighpassLinkwitzRiley2.cpp */,
 				22CC00430FDEFC3D0024A915 /* TTHighpassLinkwitzRiley4.h */,
-				22CC00440FDEFC3D0024A915 /* TTLowpassButterworth1.cpp */,
+				22CC00420FDEFC3D0024A915 /* TTHighpassLinkwitzRiley4.cpp */,
 				22CC00450FDEFC3D0024A915 /* TTLowpassButterworth1.h */,
-				22CC00460FDEFC3D0024A915 /* TTLowpassButterworth2.cpp */,
+				22CC00440FDEFC3D0024A915 /* TTLowpassButterworth1.cpp */,
 				22CC00470FDEFC3D0024A915 /* TTLowpassButterworth2.h */,
-				22CC00480FDEFC3D0024A915 /* TTLowpassButterworth3.cpp */,
+				22CC00460FDEFC3D0024A915 /* TTLowpassButterworth2.cpp */,
 				22CC00490FDEFC3D0024A915 /* TTLowpassButterworth3.h */,
-				22CC004A0FDEFC3D0024A915 /* TTLowpassButterworth4.cpp */,
+				22CC00480FDEFC3D0024A915 /* TTLowpassButterworth3.cpp */,
 				22CC004B0FDEFC3D0024A915 /* TTLowpassButterworth4.h */,
-				22CC004C0FDEFC3D0024A915 /* TTLowpassFourPole.cpp */,
-				22CC004D0FDEFC3D0024A915 /* TTLowpassFourPole.h */,
-				22CC004E0FDEFC3D0024A915 /* TTLowpassLinkwitzRiley2.cpp */,
+				22CC004A0FDEFC3D0024A915 /* TTLowpassButterworth4.cpp */,
 				22CC004F0FDEFC3D0024A915 /* TTLowpassLinkwitzRiley2.h */,
-				22CC00500FDEFC3D0024A915 /* TTLowpassLinkwitzRiley4.cpp */,
+				22CC004E0FDEFC3D0024A915 /* TTLowpassLinkwitzRiley2.cpp */,
 				22CC00510FDEFC3D0024A915 /* TTLowpassLinkwitzRiley4.h */,
-				22CC00520FDEFC3D0024A915 /* TTLowpassOnePole.cpp */,
+				22CC00500FDEFC3D0024A915 /* TTLowpassLinkwitzRiley4.cpp */,
 				22CC00530FDEFC3D0024A915 /* TTLowpassOnePole.h */,
-				22CC00540FDEFC3D0024A915 /* TTLowpassTwoPole.cpp */,
+				22CC00520FDEFC3D0024A915 /* TTLowpassOnePole.cpp */,
 				22CC00550FDEFC3D0024A915 /* TTLowpassTwoPole.h */,
-				22CC00560FDEFC3D0024A915 /* TTSvf.cpp */,
+				22CC00540FDEFC3D0024A915 /* TTLowpassTwoPole.cpp */,
+				22CC004D0FDEFC3D0024A915 /* TTLowpassFourPole.h */,
+				22CC004C0FDEFC3D0024A915 /* TTLowpassFourPole.cpp */,
 				22CC00570FDEFC3D0024A915 /* TTSvf.h */,
+				22CC00560FDEFC3D0024A915 /* TTSvf.cpp */,
 			);
 			name = Filters;
 			sourceTree = "<group>";

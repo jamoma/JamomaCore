@@ -15,15 +15,23 @@
 
 
 class MyAUPainter : public TTObject {
+	friend class TTEnvironment;
+	
+public:																		
+	static void registerClass();											
+	
+protected:																	
+	static TTObjectPtr instantiate(TTSymbolPtr name, TTValue& arguments);	
+
+	
 	TTObjectPtr	graphicsSurface;
 	TTSymbolPtr	mode;
-	
-public:
+		
 	
 	// Constructor
-	MyAUPainter(const TTValue &v) :
-	TTObject("MyAUPainter"), 
-	graphicsSurface(NULL)
+	MyAUPainter(TTValue &v) :
+		TTObject(v), 
+		graphicsSurface(NULL)
 	{
 		TTObjectInstantiate(TT("TTGraphicsSurface"), &graphicsSurface, v);	// create the surface we will draw to
 		graphicsSurface->registerObserverForNotifications(*this);			// cause this object to receive 'draw' messages from the window
@@ -43,7 +51,8 @@ public:
 		TTObjectRelease(&graphicsSurface);
 	}
 	
-	
+public:
+
 	TTErr paint()
 	{
 		graphicsSurface->sendMessage(TT("clear"));
@@ -94,12 +103,17 @@ public:
 	TTErr getData(TTValue& v)
 	{
 		return graphicsSurface->sendMessage(TT("getData"), v);
-	}	
+	}
 };
 
 
-TTObject* instantiateMyAUPainter(TTSymbolPtr className, TTValue& arguments)
+TTObjectPtr MyAUPainter::instantiate(TTSymbolPtr name, TTValue& arguments) 
 {
 	return new MyAUPainter(arguments);
+}
+
+void MyAUPainter::registerClass()
+{
+	TTClassRegister( TT("MyAUPainter"), "graphics", MyAUPainter::instantiate );
 }
 

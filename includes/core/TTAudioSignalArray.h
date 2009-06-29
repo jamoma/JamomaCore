@@ -9,9 +9,6 @@
 #ifndef __TT_AUDIO_SIGNAL_ARRAY_H__
 #define __TT_AUDIO_SIGNAL_ARRAY_H__
 
-#include "TTObject.h"
-#include "TTSymbol.h"
-#include "TTValue.h"
 #include "TTAudioSignal.h"
 
 
@@ -20,17 +17,12 @@
 
 /**	A simple container for an array of TTAudioSignal pointers.
 	This class does not automatically manage the signals themselves, instantiate, or free them.	*/
-class TTEXPORT TTAudioSignalArray : public TTObject {
-protected:
+TTOBJECTCLASS(TTAudioSignalArray)
+	
 	TTAudioSignalPtr*	audioSignals;			///< The actual array of audio signal pointers.
 	TTUInt16			maxNumAudioSignals;		///< The maximum number of audio signals that can be passed in this array.
 public:
 	TTUInt16			numAudioSignals;		///< The number of audio signal pointers which are actually valid.
-
-	
-	TTAudioSignalArray(TTValue& arguments);
-	~TTAudioSignalArray();
-	
 	
 	void		init();
 	void		releaseAll();

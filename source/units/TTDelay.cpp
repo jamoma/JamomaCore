@@ -7,13 +7,14 @@
  */
 
 #include "TTDelay.h"
-#define thisTTClass TTDelay
+
+#define thisTTClass			TTDelay
+#define thisTTClassName		"delay"
+#define thisTTClassTags		"audio, processor, delay"
 
 
-TTDelay::TTDelay(TTValue& arguments)
-	: TTAudioObject(TT("delay"), arguments),
-	  delay(0), delayInSamples(0), delayMax(0), delayMaxInSamples(0),
-	  buffer(NULL), inPtr(NULL), outPtr(NULL), endPtr(NULL)
+TT_AUDIO_CONSTRUCTOR
+, delay(0), delayInSamples(0), delayMax(0), delayMaxInSamples(0), buffer(NULL), inPtr(NULL), outPtr(NULL), endPtr(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	

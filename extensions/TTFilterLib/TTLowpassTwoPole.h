@@ -9,13 +9,12 @@
 #ifndef __TT_LOWPASS_TWOPOLE_H__
 #define __TT_LOWPASS_TWOPOLE_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
-/**	A resonant two-pole, no-zero, lowpass filter. Based on the Hal Chamberlin book.
- */
-class TTLowpassTwoPole : public TTAudioObject {
-protected:
+/**	A resonant two-pole, no-zero, lowpass filter. Based on the Hal Chamberlin book. */
+TTAUDIOCLASS(TTLowpassTwoPole)
+
 	TTFloat64		frequency;			///< filter cutoff frequency
 	TTFloat64		resonance;			///< filter resonance
 	TTFloat64		coefficientA;			///< filter coefficient
@@ -36,14 +35,6 @@ protected:
 
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-
-	/**	Constructor. */
-	TTLowpassTwoPole(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTLowpassTwoPole();
 	
 	// Attributes
 	TTErr setfrequency(const TTValue& newValue);

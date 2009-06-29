@@ -9,34 +9,31 @@
 #ifndef __TT_NOISE_H__
 #define __TT_NOISE_H__
 
-#include "TTAudioObject.h"
+#include "TTBlueAPI.h"
 
 
 /**	Noise Generator */
-class TTEXPORT TTNoise : public TTAudioObject {
-protected:
+TTAUDIOCLASS(TTNoise)
+
 	TTSymbol*		mode;	///< Attribute: what color is the noise?
 	TTUInt32		accum;	///< accumulator for the noise generation
 	TTSampleValue	b[6];	///< for the "pinking" filter
 	
 	/**	Audio Processing Method	*/
 	TTErr processWhiteNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
 	/**	Audio Processing Method	*/
 	TTErr processPinkNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
 	/**	Audio Processing Method	*/
 	TTErr processBrownNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
 	/**	Audio Processing Method	*/
 	TTErr processBlueNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-	
-public:
-	/**	Constructor. */
-	TTNoise(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTNoise();
 
 	/**	Attribute Setter. */
 	TTErr setmode(const TTValue& newMode);
+
 };
 
 

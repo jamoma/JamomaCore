@@ -7,11 +7,15 @@
  */
 
 #include "TTGraphicsContext.h"
-#define thisTTClass TTGraphicsContext
+
+#define thisTTClass			TTGraphicsContext
+#define thisTTClassName		"TTGraphicsContext"
+#define thisTTClassTags		"graphics"
 
 
-TTGraphicsContext::TTGraphicsContext(TTValue& arguments)
-: TTObject(TT("TTGraphicsContext"), arguments)
+//TTGraphicsContext::TTGraphicsContext(TTValue& arguments)
+//: TTObject(TT("TTGraphicsContext"), arguments)
+TT_OBJECT_CONSTRUCTOR
 {
 //	TTPtr surface = v;
 //	cairoRenderSurface = (cairo_surface_t*)TTPtr(v);

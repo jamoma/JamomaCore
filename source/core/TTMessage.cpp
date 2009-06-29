@@ -11,7 +11,7 @@
 
 
 TTMessage::TTMessage(const TTSymbolPtr newName, TTMethod newMethod, TTMessageFlags newFlags)
-	: TTObject(TT("message"), *kTTValNONE), name(newName), flags(newFlags), method(newMethod)
+	: TTObject(*kTTValNONE), name(newName), flags(newFlags), method(newMethod)
 {
 	;
 }

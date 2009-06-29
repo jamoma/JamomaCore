@@ -9,8 +9,8 @@
 #ifndef __TT_LOWPASS_BUTTERWORTH_1_H__
 #define __TT_LOWPASS_BUTTERWORTH_1_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
 /**	1rst order Butterworth lowpass filter; Butterworth filters have maximum flat frequency response in the pass band.
  *
@@ -22,8 +22,8 @@
  * http://www.planetanalog.com/article/printableArticle.jhtml?articleID=12802683
  *
  */
-class TTLowpassButterworth1 : public TTAudioObject {
-protected:
+TTAUDIOCLASS(TTLowpassButterworth1)
+
 	TTFloat64		frequency;				///< filter cutoff frequency
 	TTFloat64		k, wc;						///< filter coefficients	
 	TTFloat64		a0, a1, b1;					///< filter coefficients
@@ -41,14 +41,6 @@ protected:
 
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-
-	/**	Constructor. */
-	TTLowpassButterworth1(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTLowpassButterworth1();
 
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
 	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the

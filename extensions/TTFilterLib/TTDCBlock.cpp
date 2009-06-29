@@ -7,11 +7,13 @@
  */
 
 #include "TTDCBlock.h"
-#define thisTTClass TTDCBlock
+
+#define thisTTClass			TTDCBlock
+#define thisTTClassName		"dcblock"
+#define thisTTClassTags		"audio, processor, filter"
 
 
-TTDCBlock::TTDCBlock(TTValue& arguments)
-	: TTAudioObject(TT("dcblock"), arguments),
+TT_AUDIO_CONSTRUCTOR,
 	lastInput(NULL),
 	lastOutput(NULL)
 {

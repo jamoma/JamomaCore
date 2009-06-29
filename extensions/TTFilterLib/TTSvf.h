@@ -9,8 +9,8 @@
 #ifndef __TT_SVF_H__
 #define __TT_SVF_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
 /**	A State Variable Filter object.
 	One of the features of a state variable filter is that it can provide all 4 filter types 
@@ -19,8 +19,8 @@
 	This implementation takes a different approach which requires the selection of one of the types.
 	At some point in the future we could add a mode to get all 4 signals out of the output...
  */
-class TTSvf : public TTAudioObject {
-protected:
+TTAUDIOCLASS(TTSvf)
+
 	TTFloat64		frequency;			///< filter cutoff frequency
 	TTFloat64		resonance;			///< filter resonance -- range is best between 1.0 and 16.0
 	TTSymbolPtr		mode;				///< lowpass, highpass, bandpass, notch, or peak
@@ -43,14 +43,6 @@ protected:
 	TTErr processBandpass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processNotch(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processPeak(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-
-	/**	Constructor. */
-	TTSvf(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTSvf();
 
 	// Attributes
 	TTErr setmode(const TTValue& newValue);

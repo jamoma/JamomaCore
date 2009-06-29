@@ -9,16 +9,15 @@
 #ifndef __TT_ZEROCROSS_H__
 #define __TT_ZEROCROSS_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
 /**	TTZerocross analyzes the incoming audio by looking for zero-crossings.
 	When a zero crossing occurs it both reports the crossing and also 
 	keeps a count of the number of zero crossings per analysis period.
  */
- 
-class TTEXPORT TTZerocross : public TTAudioObject {
-protected:
+TTAUDIOCLASS(TTZerocross)
+
 	TTUInt32	size;					///< Attribute: size of the analysis buffer
 	TTFloat64	rSize;					///< reciprocal of the size attribute
 	TTBoolean	lastSampleWasOverZero;	///< was the last sample over zero?
@@ -42,13 +41,6 @@ protected:
 	 	@param	out		A pointer to a TTAudioSignal object that has the output sample vectors.
 	 	@return			A TTBlue error code.	*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-	/**	Constructor. */
-	TTZerocross(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTZerocross();
 
 	/**	Attribute Setter. */
 	TTErr setsize(const TTValue& value);

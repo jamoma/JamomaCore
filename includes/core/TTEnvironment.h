@@ -19,6 +19,7 @@ typedef TTObject* (*TTObjectInstantiationMethod)(TTSymbol* className, TTValue& a
 /**	A function pointer for an instance creation function required to be provided by all classes. */
 typedef TTErr (*TTExtensionInitializationMethod)();
 
+class TTClass;
 
 /****************************************************************************************************/
 // Class Specifications
@@ -58,6 +59,9 @@ public:
 		@param	anInstantiationMethod	A pointer to the C-function that is used to create a new instance of the class.
 		@return				An error code.	*/
 	TTErr registerClass(const TTSymbolPtr className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod);
+
+	// The above creates a class and registers it -- this one just registers a class after it is created.
+	TTErr registerClass(TTClass* theClass);
 	
 	
 	/** Remove a class from the environment's registry.	

@@ -8,11 +8,14 @@
  */
 
 #include "LowpassFunction.h"
+
 #define thisTTClass LowpassFunction
+#define thisTTClassName		"lowpass"
+#define thisTTClassTags		"audio, processor, function"
 
 
-LowpassFunction::LowpassFunction(TTValue& arguments)
-	: TTAudioObject(TT("lowpass"), arguments), feedback(NULL)
+TT_AUDIO_CONSTRUCTOR, 
+	feedback(NULL)
 {
 	registerAttributeWithSetter(coefficient, kTypeFloat64);
 	registerMessageSimple(clear);

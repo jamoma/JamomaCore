@@ -22,7 +22,7 @@ public:
 	
 	// Constructor
 	TTGraphicsExample(TTValue& arguments) :
-		TTObject(TT("TTGraphicsExample"), arguments), 
+		TTObject(arguments), 
 		graphicsWindow(NULL)
 	{
 		TTObjectInstantiate(TT("TTGraphicsWindow"), &graphicsWindow, arguments);	// create the window

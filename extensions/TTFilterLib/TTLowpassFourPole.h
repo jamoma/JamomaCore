@@ -9,13 +9,12 @@
 #ifndef __TT_LOWPASS_FOURPOLE_H__
 #define __TT_LOWPASS_FOURPOLE_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
-/**	A resonant two-pole, no-zero, lowpass filter.  Based on moog-variation2 @ musicdsp.org.
- */
-class TTLowpassFourPole : public TTAudioObject {
-protected:
+/**	A resonant two-pole, no-zero, lowpass filter.  Based on moog-variation2 @ musicdsp.org. */
+TTAUDIOCLASS(TTLowpassFourPole)
+
 	TTFloat64		frequency;			///< filter cutoff frequency
 	TTFloat64		resonance;			///< filter resonance -- range is best between 1.0 and 16.0
 	TTFloat64		coefficientF;			///< filter coefficient
@@ -41,15 +40,6 @@ protected:
 	
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-	
-public:
-
-	/**	Constructor. */
-	TTLowpassFourPole(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTLowpassFourPole();
 	
 	// Attributes
 	TTErr setfrequency(const TTValue& newValue);

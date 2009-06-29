@@ -7,12 +7,18 @@
  */
 
 #include "TTSvf.h"
-#define thisTTClass TTSvf
+
+#define thisTTClass			TTSvf
+#define thisTTClassName		"svf"
+#define thisTTClassTags		"audio, processor, filter, lowpass, highpass, bandpass, notch"
 
 
-TTSvf::TTSvf(TTValue& arguments)
-	: TTAudioObject(TT("svf"), arguments),
-	lowpass_output(NULL), highpass_output(NULL), bandpass_output(NULL), notch_output(NULL), peak_output(NULL)
+TT_AUDIO_CONSTRUCTOR,
+	lowpass_output(NULL), 
+	highpass_output(NULL), 
+	bandpass_output(NULL), 
+	notch_output(NULL), 
+	peak_output(NULL)
 {
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);

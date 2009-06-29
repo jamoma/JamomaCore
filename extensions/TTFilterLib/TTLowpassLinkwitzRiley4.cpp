@@ -7,12 +7,15 @@
  */
 
 #include "TTLowpassLinkwitzRiley4.h"
-#define thisTTClass TTLowpassLinkwitzRiley4
+
+#define thisTTClass			TTLowpassLinkwitzRiley4
+#define thisTTClassName		"lowpass.linkwitzriley.4"
+#define thisTTClassTags		"audio, processor, filter, lowpass, crossover"
 
 
-TTLowpassLinkwitzRiley4::TTLowpassLinkwitzRiley4(TTValue& arguments)
-	: TTAudioObject(TT("lowpass.linkwitzriley.4"), arguments),
-	xm1(NULL), xm2(NULL), xm3(NULL), xm4(NULL), ym1(NULL), ym2(NULL), ym3(NULL), ym4(NULL)
+TT_AUDIO_CONSTRUCTOR,
+	xm1(NULL), xm2(NULL), xm3(NULL), xm4(NULL), 
+	ym1(NULL), ym2(NULL), ym3(NULL), ym4(NULL)
 {
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);

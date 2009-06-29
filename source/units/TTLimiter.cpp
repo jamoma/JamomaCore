@@ -7,14 +7,15 @@
  */
 
 #include "TTLimiter.h"
-#include "TTEnvironment.h"
-#define thisTTClass TTLimiter
+
+#define thisTTClass			TTLimiter
+#define thisTTClassName		"limiter"
+#define thisTTClassTags		"audio, processor, dynamics, limiter"
 
 
-TTLimiter::TTLimiter(TTValue& arguments)
-	: TTAudioObject(TT("limiter"), arguments),
-	  recover(0.0), lookaheadBufferIndex(0), lookaheadBuffer(NULL), gain(NULL), last(0.0),
-	  dcBlocker(NULL), preamp(NULL), maxBufferSize(512), attrMode(TT("exponential"))
+TT_AUDIO_CONSTRUCTOR
+, recover(0.0), lookaheadBufferIndex(0), lookaheadBuffer(NULL), gain(NULL), last(0.0)
+, dcBlocker(NULL), preamp(NULL), maxBufferSize(512), attrMode(TT("exponential"))
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	

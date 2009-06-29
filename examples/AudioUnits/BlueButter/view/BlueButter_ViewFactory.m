@@ -33,7 +33,7 @@ static bool sInit = false;
     
 	if (!sInit) {
 		TTBlueInit();
-		TTClassRegister(TT("MyAUPainter"), "graphics", &instantiateMyAUPainter);
+		MyAUPainter::registerClass();
 		sInit = true;
 	}
 	

@@ -7,11 +7,13 @@
  */
 
 #include "TTOperator.h"
-#define thisTTClass TTOperator
+
+#define thisTTClass			TTOperator
+#define thisTTClassName		"operator"
+#define thisTTClassTags		"audio, processor, math"
 
 
-TTOperator::TTOperator(TTValue& arguments)
-	: TTAudioObject(TT("operator"), arguments)
+TT_AUDIO_CONSTRUCTOR
 {
 	registerAttribute(TT("operator"), kTypeSymbol, &operatorAttribute, (TTSetterMethod)&TTOperator::setoperator);
 	registerAttributeWithSetter(operand, kTypeFloat64);

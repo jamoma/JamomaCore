@@ -12,7 +12,7 @@
 
 
 TTAudioEngine::TTAudioEngine(TTValue& arguments)
-	:TTObject(TT("audioEngine"), arguments),
+	:TTObject(arguments),
 	 numInputChannels(2),
 	 numOutputChannels(2),
 	 vectorSize(64),

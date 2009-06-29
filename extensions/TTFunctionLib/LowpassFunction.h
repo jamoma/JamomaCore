@@ -10,11 +10,7 @@
 #ifndef __LOWPASSFUNCTION_H__
 #define __LOWPASSFUNCTION_H__
 
-#include "TTAudioObject.h"
-
-
-/****************************************************************************************************/
-// Class Specification
+#include "TTBlueAPI.h"
 
 
 /**	A simple one-pole lowpass function.
@@ -23,8 +19,8 @@
 	is much simpler and is optimized for calls to calculate a single output rather than
 	multichannel audio signals.
  */
-class LowpassFunction : public TTAudioObject {
-private:
+TTAUDIOCLASS(LowpassFunction)
+
 	TTFloat64		coefficient;
 	TTFloat64		one_minus_coefficient;
 	TTFloat64*		feedback;
@@ -33,15 +29,12 @@ private:
 	TTErr clear();
 	TTErr setcoefficient(const TTValue& newValue);
 
-public:
-	LowpassFunction(TTValue& arguments);
-	virtual ~LowpassFunction();
-	
 	/** y = f(x) for a single value */
 	TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
 };
 
 

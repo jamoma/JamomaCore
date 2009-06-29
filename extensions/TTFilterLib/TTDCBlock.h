@@ -9,8 +9,8 @@
 #ifndef __TT_DCBLOCK_H__
 #define __TT_DCBLOCK_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
 /**	TTDCBlock in an audio processor that filters out DC Offsets from an input.
  *	This class is a good example of a very simple audio filter that can process any 
@@ -21,8 +21,8 @@
  *	"biquad~ 1.0 -1.0 -0.9997 0.0"
  */
  
-class TTDCBlock : public TTAudioObject {
-protected:
+TTAUDIOCLASS(TTDCBlock)
+
 	TTSampleValue*		lastInput;		///< Feedback values used for the audio filter			
 	TTSampleValue*		lastOutput;		///< Feedback values used for the audio filter
 
@@ -39,13 +39,6 @@ protected:
 	 *	@return	Returns a TTBlue Error Code.  TODO: Perhaps we should check if the signals are matched and then
 	 *			return an error if they aren't?  Currently we are just returning TT_ERR_NONE all the time.	*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-	/**	Constructor. */
-	TTDCBlock(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTDCBlock();
 
 	/**	Resets the DC-Blocking filter.
 	 *	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should

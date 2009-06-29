@@ -27,6 +27,7 @@
 class TTEXPORT TTClass : public TTElement {
 private:
 	friend class TTEnvironment;
+	friend class TTObject;
 	
 	TTSymbolPtr						name;					///< The name of the class.
 	TTValue							tags;					///< An array of TTSymbols containing tags associated with this class.

@@ -9,11 +9,13 @@
 
 #include "CosineFunction.h"
 #include <math.h>
-#define thisTTClass CosineFunction
+
+#define thisTTClass			CosineFunction
+#define thisTTClassName		"cosine"
+#define thisTTClassTags		"audio, processor, function"
 
 
-CosineFunction::CosineFunction(TTValue& arguments)
-	: TTAudioObject(TT("cosine"), arguments)
+TT_AUDIO_CONSTRUCTOR
 {
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);

@@ -10,26 +10,20 @@
 #ifndef __LINEARFUNCTION_H__
 #define __LINEARFUNCTION_H__
 
-#include "TTAudioObject.h"
-
-
-/****************************************************************************************************/
-// Class Specification
+#include "TTBlueAPI.h"
 
 
 /**	This implements a function which basically does nothing: 
 	y = f(x)
  */
-class LinearFunction : public TTAudioObject {
-public:
-	LinearFunction(TTValue& arguments);
-	virtual ~LinearFunction();
+TTAUDIOCLASS(LinearFunction)
 
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
 };
 
 

@@ -9,11 +9,12 @@
 #ifndef __TT_ADSR_H__
 #define __TT_ADSR_H__
 
-#include "TTAudioObject.h"
+#include "TTBlueAPI.h"
+
 
 /**	TTAdsr is an attack-decay-sustain-release envelope generator */
-class TTEXPORT TTAdsr : public TTAudioObject {
-protected:
+TTAUDIOCLASS(TTAdsr)
+
 	TTFloat64	attack_ms;
 	TTInt32		attack_samples;
 	TTFloat64	attack_step;
@@ -56,11 +57,6 @@ protected:
 		k_eg_sustain,
 		k_eg_release
 	};
-		
-	
-public:
-	TTAdsr(TTValue& arguments);
-	virtual ~TTAdsr();
 	
 	TTErr setAttack(const TTValue& newValue);
 	TTErr setDecay(const TTValue& newValue);

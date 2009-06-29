@@ -9,19 +9,19 @@
 #ifndef __TT_BALANCE_H__
 #define __TT_BALANCE_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
 /**	Use signal B to balance gain levels of signal A
- *	Based on an algorithm from Dodge & Jerse (1997): Computer Music -
- * 	Synthesis, Composition, and Performance. 2nd edition. Schirmer.
+ 	Based on an algorithm from Dodge & Jerse (1997): Computer Music -
+  	Synthesis, Composition, and Performance. 2nd edition. Schirmer.
 
- *	In fact, this processor can work on a number of channels, provided that the number of input
- *	channels is twice the number of output channels.  In this case the first N/2 input channels are
- *	considered as the A source and the last N/2 input channels are considered the B source.
+ 	In fact, this processor can work on a number of channels, provided that the number of input
+ 	channels is twice the number of output channels.  In this case the first N/2 input channels are
+ 	considered as the A source and the last N/2 input channels are considered the B source.
  */
-class TTEXPORT TTBalance : public TTAudioObject {
-protected:
+TTAUDIOCLASS(TTBalance)
+
 	TTFloat64		frequency;					///< filter cutoff frequency of inherent lowpass filter
 	TTFloat64		c, a0, a1, a2, b1, b2;			///< filter coefficients
 	TTFloat64		*xm1A, *xm2A, *ym1A, *ym2A;		///< previous input and output values of signal to be balanced
@@ -38,14 +38,6 @@ protected:
 
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-
-	/**	Constructor. */
-	TTBalance(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTBalance();
 	
 	/**	Setter for the frequency attribute. */
 	TTErr setfrequency(const TTValue& value);

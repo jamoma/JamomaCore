@@ -7,11 +7,13 @@
  */
 
 #include "TTLowpassOnePole.h"
-#define thisTTClass TTLowpassOnePole
+
+#define thisTTClass			TTLowpassOnePole
+#define thisTTClassName		"lowpass.1"
+#define thisTTClassTags		"audio, processor, filter, lowpass"
 
 
-TTLowpassOnePole::TTLowpassOnePole(TTValue& arguments)
-	: TTAudioObject(TT("lowpass.1"), arguments),
+TT_AUDIO_CONSTRUCTOR,
 	feedback(NULL)
 {
 	// register attributes

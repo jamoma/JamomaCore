@@ -1,5 +1,5 @@
 /*
- * TTBlue 4rth order Butterworth Lowpass Filter Object
+ * TTBlue 4th order Butterworth Lowpass Filter Object
  * Copyright © 2008, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
@@ -7,12 +7,15 @@
  */
 
 #include "TTLowpassButterworth4.h"
-#define thisTTClass TTLowpassButterworth4
+
+#define thisTTClass			TTLowpassButterworth4
+#define thisTTClassName		"lowpass.butterworth.4"
+#define thisTTClassTags		"audio, processor, filter, lowpass, butterworth"
 
 
-TTLowpassButterworth4::TTLowpassButterworth4(TTValue& arguments)
-	: TTAudioObject(TT("lowpass.butterworth.4"), arguments),
-	xm1(NULL), xm2(NULL), xm3(NULL), xm4(NULL), ym1(NULL), ym2(NULL), ym3(NULL), ym4(NULL)
+TT_AUDIO_CONSTRUCTOR,
+	xm1(NULL), xm2(NULL), xm3(NULL), xm4(NULL), 
+	ym1(NULL), ym2(NULL), ym3(NULL), ym4(NULL)
 {
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);

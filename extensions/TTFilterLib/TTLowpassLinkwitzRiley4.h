@@ -1,8 +1,5 @@
 /* 
  * TTBlue 4th order Linkwitz Riley Lowpass Filter Object
- *
-
- * 
  * Copyright © 2008, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
@@ -12,8 +9,8 @@
 #ifndef __TT_LOWPASS_LINKWITZ_RILEY_4_H__
 #define __TT_LOWPASS_LINKWITZ_RILEY_4_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
 /**	4th order Linkwitz Riley Lowpass Filter
  *
@@ -33,8 +30,8 @@
  * 5. All drivers are always wired the same (in phase).
  *
  */
-class TTLowpassLinkwitzRiley4 : public TTAudioObject {
-protected:
+TTAUDIOCLASS(TTLowpassLinkwitzRiley4)
+
 	TTFloat64		frequency;				///< filter cutoff frequency
 	TTFloat64		k, wc;						///< filter coefficients
 	TTFloat64		a0, a1, a2, a3, a4;			///< filter coefficients for input samples
@@ -59,14 +56,6 @@ protected:
 
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-
-	/**	Constructor. */
-	TTLowpassLinkwitzRiley4(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTLowpassLinkwitzRiley4();
 	
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
 	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the

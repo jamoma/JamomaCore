@@ -7,11 +7,14 @@
  */
 
 #include "TTNoise.h"
+
 #define thisTTClass TTNoise
+#define thisTTClassName		"noise"
+#define thisTTClassTags		"audio, generator, noise"
 
 
-TTNoise::TTNoise(TTValue& arguments)
-	: TTAudioObject(TT("noise"), arguments), accum(0)
+TT_AUDIO_CONSTRUCTOR
+, accum(0)
 {
 	registerAttributeWithSetter(mode, kTypeSymbol);
 	b[0] = b[1] = b[2] = b[3] = b[4] = b[5] = 0.0;

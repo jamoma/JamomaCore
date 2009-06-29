@@ -8,31 +8,18 @@
  */
 
 #include "TTBlueAPI.h"
-#define thisTTClass TTClipper
+
+#define thisTTClass			TTClipper
+#define thisTTClassName		"clipper"
+#define thisTTClassTags		"audio, processor"
 
 
 /**	Hard-clip signals to a low and high bound. */
-class TTClipper : public TTAudioObject {
+TTAUDIOCLASS(TTClipper)
+
 	TTFloat64	lowBound;		///< Attribute: low bound for clipping
 	TTFloat64	highBound;		///< Attribute: high bound for clipping
-	
-public:
-	/**	Constructor. */
-	TTClipper(TTValue& arguments)
-		: TTAudioObject(TT("clipper"), arguments)
-	{
-		registerAttributeSimple(lowBound,	kTypeFloat64);
-		registerAttributeSimple(highBound,	kTypeFloat64);
-		
-		setAttributeValue(TT("lowBound"), -1.0);
-		setAttributeValue(TT("highBound"), -1.0);
-		setProcessMethod(processAudio);
-	}
-	
 
-	/**	Destructor. */
-	~TTClipper(){;}
-	
 	
 	/** Audio Processing Method */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
@@ -58,5 +45,17 @@ public:
 };
 
 
-TT_CLASS_SETUP("clipper", "audio, processor", TTClipper);		// Register our class with the TTBlue environment
+TT_AUDIO_CONSTRUCTOR_EXPORT
+{
+	registerAttributeSimple(lowBound,	kTypeFloat64);
+	registerAttributeSimple(highBound,	kTypeFloat64);
+	
+	setAttributeValue(TT("lowBound"), -1.0);
+	setAttributeValue(TT("highBound"), -1.0);
+	setProcessMethod(processAudio);	
+}
+
+
+TTClipper::~TTClipper()
+{;}
 

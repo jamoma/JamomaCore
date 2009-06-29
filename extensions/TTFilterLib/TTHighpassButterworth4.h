@@ -9,8 +9,8 @@
 #ifndef __TT_HIGHPASS_BUTTERWORTH_4_H__
 #define __TT_HIGHPASS_BUTTERWORTH_4_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
 /**	4rth order Butterworth highpass filter; Butterworth filters have maximum flat frequency response in the pass band.
  *
@@ -22,8 +22,8 @@
  * http://www.planetanalog.com/article/printableArticle.jhtml?articleID=12802683
  *
  */
-class TTHighpassButterworth4 : public TTAudioObject {
-protected:
+TTAUDIOCLASS(TTHighpassButterworth4)
+
 	TTFloat64		frequency;								///< filter cutoff frequency
 	TTFloat64		k, k2, k3, k4, wc, wc2, wc3, wc4, a, b;		///< filter coefficients
 	TTFloat64		a0, a1, a2, a3, a4, b1, b2, b3, b4;			///< filter coefficients
@@ -47,14 +47,6 @@ protected:
 
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-
-	/**	Constructor. */
-	TTHighpassButterworth4(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTHighpassButterworth4();
 
 	/**	Setter for the frequency attribute. */
 	TTErr setfrequency(const TTValue& value);

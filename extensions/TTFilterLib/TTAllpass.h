@@ -9,12 +9,12 @@
 #ifndef __TT_ALLPASS_H__
 #define __TT_ALLPASS_H__
 
-#include "TTAudioObject.h"
+#include "TTBlueAPI.h"
 
 
 /**	An allpass filter. */
-class TTAllpass : public TTAudioObject {
-protected:
+TTAUDIOCLASS(TTAllpass)
+
 	TTFloat64		delay;				///< Attribute: delay time in milliseconds
 	TTFloat64		delayMax;			///< Maximum delay time in milliseconds (how long is the buffer?)
 	TTUInt32		delayInSamples;		///< Delay time in samples (internal)		
@@ -44,14 +44,6 @@ protected:
 	
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-
-	/**	Constructor. */
-	TTAllpass(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTAllpass();
 	
 	/** Attribute accessor. */
 	TTErr setdelay(const TTValue& newValue);

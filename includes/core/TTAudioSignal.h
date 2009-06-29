@@ -9,10 +9,10 @@
 #ifndef __TT_AUDIO_SIGNAL_H__
 #define __TT_AUDIO_SIGNAL_H__
 
+#include "TTBlue.h"
 #include "TTObject.h"
 #include "TTSymbol.h"
 #include "TTValue.h"
-//#include "TTEnvironment.h"
 
 
 /****************************************************************************************************/
@@ -26,7 +26,8 @@
 	Where speed is less critical, the preferred method of work with audio signals is the same as for other objects:
 	use the dynamic message passing interface.
 */
-class TTEXPORT TTAudioSignal : public TTObject {
+TTOBJECTCLASS(TTAudioSignal)
+
 private:
 	enum{
 		kExternallyOwned = 0,
@@ -41,12 +42,6 @@ private:
 
 public:
 	TTSampleVector	*sampleVectors;		///< An array of pointers to the first sample in each vector. Declared Public for fast access.
-
-	/** Constructor.  Defines a maximum number of audio channels that can be used. */
-	TTAudioSignal(TTValue& arguments);
-	
-	/** Destructor */
-	virtual ~TTAudioSignal();
 
 private:
 	/**	Internal method for freeing the vectors. */

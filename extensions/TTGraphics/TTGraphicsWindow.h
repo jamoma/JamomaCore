@@ -54,7 +54,9 @@ class TTGraphicsWindow;
 
 
 /**	Creates/Manages a Window on the host operating system.	*/
-class TTGraphicsWindow : public TTObject {
+//class TTGraphicsWindow : public TTObject {
+TTOBJECTCLASS(TTGraphicsWindow)
+
 	TTSymbolPtr				title;			///< Window's title	
 	TTCocoaWindowDelegate*	windowDelegate;
 	
@@ -69,8 +71,8 @@ protected:
 	TTErr updateTitle();
 
 public:
-	TTGraphicsWindow(TTValue& arguments);
-	virtual ~TTGraphicsWindow();
+//	TTGraphicsWindow(TTValue& arguments);
+//	virtual ~TTGraphicsWindow();
 
 	/**	Bring the window to the front and give it keyboard focus.	*/
 	TTErr front();

@@ -20,7 +20,7 @@ TTEnvironment*	ttEnvironment = NULL;
 /****************************************************************************************************/
 
 TTEnvironment::TTEnvironment()
-	: TTObject(TT("environment"), *kTTValNONE), debugBasic(false), debugMessaging(false), sr(0)
+	: TTObject(*kTTValNONE), debugBasic(false), debugMessaging(false), sr(0)
 {	
 	classes = new TTHash();
 	tags = new TTHash();
@@ -54,20 +54,19 @@ TTErr TTEnvironment::getVersion(TTValue &value)
 
 TTErr TTEnvironment::registerClass(const TTSymbolPtr className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod)
 {
-	TTErr		err;
 	TTValue		v((TTString&)tagString);	// The tags to be associated with the class we are registering.
 	TTValue		tagObjects;					// Contains a TTList of objects in the environment with the given tag.
+	TTClassPtr	theClass;
+	TTErr		err;
 	TTList*		classNamesForTag;			// The TTList contained by tagObjects
 	TTUInt16	size;
-	TTSymbolPtr	tag;
-	TTClassPtr	theClass;
-	
+	TTSymbolPtr	tag;	
+
 	// 1. Turn the string into an array of symbols
 	v.transformCSVStringToSymbolArray();
 	
 	// 2. Create the class and associate it with its name
 	theClass = new TTClass(className, v, anInstantiationMethod);
-	classes->append(className, TTPtr(theClass));
 	
 	// 3. For each symbol in the TTValue array...
 	size = v.getSize();
@@ -84,6 +83,8 @@ TTErr TTEnvironment::registerClass(const TTSymbolPtr className, const TTString& 
 			//	Second, TTList is taking references but keeping things internally as pointers, which leads to lots of confusion
 			//	Third, we have to pass objects that are permanent - so no temporaries are allowed unless we make TTList do a copy
 			//	etc.
+
+			// TODO: We need to factor out a function to add a tag for a named class (or a given class ptr)
 			
 			//classNamesForTag->append(className);
 			classNamesForTag->append(*new TTValue(className));
@@ -94,11 +95,17 @@ TTErr TTEnvironment::registerClass(const TTSymbolPtr className, const TTString& 
 			tags->append(tag ,tagObjects);
 			classNamesForTag->append(*new TTValue(className));
 		}
-	}
+	}	
 	
-	return kTTErrNone;
+	// 4. Register it
+	return registerClass(theClass);
 }
 
+
+TTErr TTEnvironment::registerClass(TTClassPtr theClass)
+{
+	return classes->append(theClass->name, TTPtr(theClass));
+}
 
 
 TTErr TTEnvironment::getAllClassNames(TTValue& returnedClassNames)
@@ -161,6 +168,7 @@ TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObjectPtr* an
 		if(oldObject)
 			releaseInstance(&oldObject);
 
+		(*anObject)->classPtr = theClass;
 		(*anObject)->valid = true;
 	}
 		

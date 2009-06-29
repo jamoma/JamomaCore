@@ -7,12 +7,14 @@
  */
 
 #include "TTRamp.h"
+
 #define thisTTClass TTRamp
+#define thisTTClassName		"ramp"
+#define thisTTClassTags		"audio, generator"
 
 
-TTRamp::TTRamp(TTValue& arguments)
-	: TTAudioObject(TT("ramp"), arguments),
-	attrMode(TT("vector")), attrCurrentValue(0), attrDestinationValue(0), step(0), direction(0)
+TT_AUDIO_CONSTRUCTOR
+, attrMode(TT("vector")), attrCurrentValue(0), attrDestinationValue(0), step(0), direction(0)
 {
 	registerAttribute(TT("rampTime"),			kTypeFloat64,	&attrRampTime,	(TTSetterMethod)&TTRamp::setRampTime);
 	registerAttribute(TT("currentValue"),		kTypeFloat64,	&attrCurrentValue);

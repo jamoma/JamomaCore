@@ -5,11 +5,15 @@
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
-#include "TTAllpass.h"
-#define thisTTClass TTAllpass
 
-TTAllpass::TTAllpass(TTValue& arguments)
-: TTAudioObject(TT("allpass"), arguments)
+#include "TTAllpass.h"
+
+#define thisTTClass			TTAllpass
+#define thisTTClassName		"allpass"
+#define thisTTClassTags		"audio, processor, filter, allpass"
+
+
+TT_AUDIO_CONSTRUCTOR
 {;}
 
 TTAllpass::~TTAllpass()

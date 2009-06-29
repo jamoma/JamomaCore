@@ -41,7 +41,7 @@ protected:
 
 protected:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/
-	TTDataObject(const TTSymbolPtr name, TTValue& arguments);
+	TTDataObject(TTValue& arguments);
 public:	
 	/** Destructor. */
 	virtual ~TTDataObject();

@@ -8,12 +8,14 @@
 
 #include "TTOverdrive.h"
 #include "TTEnvironment.h"
-#define thisTTClass TTOverdrive
+
+#define thisTTClass			TTOverdrive
+#define thisTTClassName		"overdrive"
+#define thisTTClassTags		"audio, processor, distortion"
 
 
-TTOverdrive::TTOverdrive(TTValue& arguments)
-	: TTAudioObject(TT("overdrive"), arguments),
-	  dcBlockerUnit(NULL)
+TT_AUDIO_CONSTRUCTOR
+, dcBlockerUnit(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	

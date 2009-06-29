@@ -11,6 +11,7 @@
 
 #include "TTClassWrapperMax.h"
 #include "TTGraphicsContext.h"
+
 #define thisTTClass MyPainter
 
 
@@ -22,7 +23,7 @@ public:
 	
 	// Constructor
 	MyPainter(TTValue& arguments) :
-		TTObject(TT("MyPainter"), arguments), 
+		TTObject(arguments), 
 		graphicsSurface(NULL)
 	{
 		TTObjectInstantiate(TT("TTGraphicsSurface"), &graphicsSurface, arguments);	// create the surface we will draw to

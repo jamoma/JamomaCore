@@ -9,7 +9,7 @@
 #ifndef __TTGRAPHICSSURFACE_H__
 #define __TTGRAPHICSSURFACE_H__
 
-#include "TTAudioObject.h"
+#include "TTBlueAPI.h"
 
 #ifdef TT_PLATFORM_MAC
 //#include <Carbon/Carbon.h>
@@ -27,7 +27,8 @@ class TTGraphicsContext;
 
 
 /**	Creates/Manages a graphics surface (image) in the Cairo sense of a surface.	*/
-class TTGraphicsSurface : public TTObject {
+//class TTGraphicsSurface : public TTObject {
+TTOBJECTCLASS(TTGraphicsSurface)
 
 	cairo_surface_t*		surface;
 	TTGraphicsContext*		context;		///< context used for drawing
@@ -35,10 +36,10 @@ class TTGraphicsSurface : public TTObject {
 public:
 	
 	/**	Constructor	*/
-	TTGraphicsSurface(TTValue& arguments);
+//	TTGraphicsSurface(TTValue& arguments);
 	
 	/**	Destructor	*/
-	virtual ~TTGraphicsSurface();
+//	virtual ~TTGraphicsSurface();
 	
 	/**	Clear the contents to a completely transparent state. */
 	TTErr clear();

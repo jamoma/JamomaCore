@@ -7,12 +7,14 @@
  */
 
 #include "TTAdsr.h"
+
 #define thisTTClass TTAdsr
+#define thisTTClassName		"adsr"
+#define thisTTClassTags		"audio, generator, envelope"
 
 
-TTAdsr::TTAdsr(TTValue& arguments)
-	: TTAudioObject(TT("adsr"), arguments), output(0.), output_db(NOISE_FLOOR), 
-	eg_state(k_eg_inactive), trigger(false), attrMode(TT("linear"))
+TT_AUDIO_CONSTRUCTOR
+, output(0.), output_db(NOISE_FLOOR), eg_state(k_eg_inactive), trigger(false), attrMode(TT("linear"))
 {
 	registerAttribute(TT("attack"), kTypeFloat64, &attack_ms, (TTSetterMethod)&TTAdsr::setAttack);
 	registerAttribute(TT("decay"), kTypeFloat64, &decay_ms, (TTSetterMethod)&TTAdsr::setDecay);

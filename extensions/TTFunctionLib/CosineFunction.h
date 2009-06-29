@@ -10,20 +10,13 @@
 #ifndef __COSINEFUNCTION_H__
 #define __COSINEFUNCTION_H__
 
-#include "TTAudioObject.h"
-
-
-/****************************************************************************************************/
-// Class Specification
+#include "TTBlueAPI.h"
 
 
 /**	A simple function unit the implements the following:
 	y = cos(x)
  */
-class CosineFunction : public TTAudioObject {
-public:
-	CosineFunction(TTValue& arguments);
-	virtual ~CosineFunction();
+TTAUDIOCLASS(CosineFunction)
 
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);

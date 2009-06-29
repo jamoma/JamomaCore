@@ -9,15 +9,12 @@
 #ifndef __TT_OVERDRIVE_H__
 #define __TT_OVERDRIVE_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
-//#include "TTDCBlock.h"
 
-/**	TTOverdrive is an audio processor that provides a soft saturation
- *	or overdrive effect to "warm" a sound up.
- */ 
-class TTEXPORT TTOverdrive : public TTAudioObject {
-protected:
+/**	TTOverdrive is an audio processor that provides a soft saturation or overdrive effect to "warm" a sound up. */ 
+TTAUDIOCLASS(TTOverdrive)
+
 	TTFloat64			drive;			///< Attribute:
 	TTBoolean			dcBlocker;		///< Attribute:
 	TTUInt8				mode;			///< Attribute:
@@ -39,13 +36,7 @@ protected:
 	TTErr processMode1(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 public:
-	/**	Constructor. */
-	TTOverdrive(TTValue& arguments);
 
-	/**	Destructor. */
-	virtual ~TTOverdrive();
-	
-	
 	/**	Setter for the mode attribute. */
 	TTErr setdrive(const TTValue& value);
 	
@@ -62,7 +53,6 @@ public:
 	
 	/**	Reset the DC Blocker.			*/
 	TTErr clear();
-	
 };
 
 

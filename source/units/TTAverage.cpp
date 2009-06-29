@@ -7,10 +7,13 @@
  */
 
 #include "TTAverage.h"
-#define thisTTClass TTAverage
 
-TTAverage::TTAverage(TTValue& arguments)
-: TTAudioObject(TT("average"), arguments)
+#define thisTTClass TTAverage
+#define thisTTClassName		"average"
+#define thisTTClassTags		"audio, processor, filter, lowpass, envelope"
+
+
+TT_AUDIO_CONSTRUCTOR
 {;}
 
 TTAverage::~TTAverage()

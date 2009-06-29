@@ -7,7 +7,11 @@
  */
 
 #include "TTCrossfade.h"
-#define thisTTClass TTCrossfade
+
+#define thisTTClass			TTCrossfade
+#define thisTTClassName		"crossfade"
+#define thisTTClassTags		"audio, processor, mixing"
+
 
 static bool zeroed = false;
 static TTSampleValue zeroVector1[2048]; //TODO: make this dynamically sized
@@ -15,8 +19,7 @@ static TTSampleValue zeroVector2[2048]; //TODO: make this dynamically sized
 static TTSampleValue zeroVector3[2048]; //TODO: make this dynamically sized
 
 
-TTCrossfade::TTCrossfade(TTValue& arguments)
-	: TTAudioObject(TT("crossfade"), arguments)
+TT_AUDIO_CONSTRUCTOR
 {
 	registerAttributeSimple(position,	kTypeFloat64);
 	addAttributeProperty(position,		range,			TTValue(0.0, 1.0));

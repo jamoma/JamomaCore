@@ -7,12 +7,17 @@
  */
 
 #include "TTHighpassButterworth2.h"
-#define thisTTClass TTHighpassButterworth2
+
+#define thisTTClass			TTHighpassButterworth2
+#define thisTTClassName		"highpass.butterworth.2"
+#define thisTTClassTags		"audio, processor, filter, highpass, butterworth"
 
 
-TTHighpassButterworth2::TTHighpassButterworth2(TTValue& arguments)
-	: TTAudioObject(TT("highpass.butterworth.2"), arguments),
-	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
+TT_AUDIO_CONSTRUCTOR,
+	xm1(NULL), 
+	xm2(NULL), 
+	ym1(NULL), 
+	ym2(NULL)
 {
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);

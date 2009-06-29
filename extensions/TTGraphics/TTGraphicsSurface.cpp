@@ -9,12 +9,16 @@
 #include "TTBlueAPI.h"
 #include "TTGraphicsSurface.h"
 #include "TTGraphicsContext.h"
-#define thisTTClass TTGraphicsSurface
+
+#define thisTTClass			TTGraphicsSurface
+#define thisTTClassName		"TTGraphicsSurface"
+#define thisTTClassTags		"graphics"
 
 
-TTGraphicsSurface::TTGraphicsSurface(TTValue& arguments)
-	: TTObject(TT("TTGraphicsSurface"), arguments),
-	  context(NULL)
+//TTGraphicsSurface::TTGraphicsSurface(TTValue& arguments)
+//	: TTObject(TT("TTGraphicsSurface"), arguments),
+TT_OBJECT_CONSTRUCTOR,
+	context(NULL)
 {
 	TTInt32	width = 200.0;
 	TTInt32	height = 200.0;

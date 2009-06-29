@@ -7,12 +7,17 @@
  */
 
 #include "TTBandpassButterworth2.h"
-#define thisTTClass TTBandpassButterworth2
+
+#define thisTTClass			TTBandpassButterworth2
+#define thisTTClassName		"bandpass.butterworth.2"
+#define thisTTClassTags		"audio, processor, filter, bandpass, butterworth"
 
 
-TTBandpassButterworth2::TTBandpassButterworth2(TTValue& arguments)
-	: TTAudioObject(TT("bandpass.butterworth.2"), arguments),
-	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
+TT_AUDIO_CONSTRUCTOR,
+	xm1(NULL), 
+	xm2(NULL), 
+	ym1(NULL), 
+	ym2(NULL)
 {
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);

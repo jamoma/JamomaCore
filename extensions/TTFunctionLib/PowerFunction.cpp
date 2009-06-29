@@ -8,11 +8,13 @@
  */
 
 #include "PowerFunction.h"
+
 #define thisTTClass PowerFunction
+#define thisTTClassName		"power"
+#define thisTTClassTags		"audio, processor, function"
 
 
-PowerFunction::PowerFunction(TTValue& arguments)
-	: TTAudioObject(TT("power"), arguments)
+TT_AUDIO_CONSTRUCTOR
 {
 	registerAttributeWithSetter(symmetry,	kTypeSymbol);
 	registerAttributeWithSetter(powerValue,	kTypeFloat64);

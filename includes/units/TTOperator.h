@@ -9,13 +9,12 @@
 #ifndef __TT_OPERATOR_H__
 #define __TT_OPERATOR_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
-/**	TTOperator performs basic mathematical operations on an input signal, 
-	or a pair of input signals */
-class TTEXPORT TTOperator : public TTAudioObject {
-protected:
+/**	TTOperator performs basic mathematical operations on an input signal, or a pair of input signals */
+TTAUDIOCLASS(TTOperator)
+
 	TTSymbol*		operatorAttribute;		///< The type of calculation to perform. (The identifier 'operator' is reserved by C++).
 	TTFloat64		operand;				///< The right-hand value of the calculation.
 	TTBoolean		operandIsInteger;		///< Set to true if there is no fractional part.
@@ -43,12 +42,6 @@ protected:
 	TTErr processModuloSignal		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 public:
-
-	/**	Constructor. */
-	TTOperator(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTOperator();
 	
 	/** setter for the operator attribute. */
 	TTErr setoperator(const TTValue& newValue);

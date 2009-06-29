@@ -7,12 +7,14 @@
  */
 
 #include "TTMatrixMixer.h"
-#define thisTTClass TTMatrixMixer
+
+#define thisTTClass			TTMatrixMixer
+#define thisTTClassName		"matrixmixer"
+#define thisTTClassTags		"audio, mixing, matrix"
 
 
-TTMatrixMixer::TTMatrixMixer(TTValue& arguments)
-	: TTAudioObject(TT("matrixmixer"), arguments), 
-	  numInputs(2), numOutputs(2), gainMatrix(NULL)
+TT_AUDIO_CONSTRUCTOR
+, numInputs(2), numOutputs(2), gainMatrix(NULL)
 {
 	registerAttributeWithSetter(numInputs, kTypeUInt16);
 	registerAttributeWithSetter(numOutputs, kTypeUInt16);

@@ -38,7 +38,7 @@ public:
 	
 	/**	Constructor. */
 	TTAudioUnit(TTValue& arguments)
-		: TTAudioObject(TT("audiounit"), arguments),
+		: TTAudioObject(arguments),
 		  inputBufferList(NULL), 
 		  outputBufferList(NULL)
 	{

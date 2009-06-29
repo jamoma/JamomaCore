@@ -8,10 +8,11 @@
 
 #include "TTObject.h"
 #include "TTEnvironment.h"
+#include "TTClass.h"
 
 
-TTObject::TTObject(const TTSymbolPtr name, TTValue& arguments)
-	: objectName(name), observers(NULL), messageObservers(NULL), attributeObservers(NULL), 
+TTObject::TTObject(TTValue& arguments)
+	: classPtr(NULL), observers(NULL), messageObservers(NULL), attributeObservers(NULL), 
 	  locked(false), referenceCount(1), valid(false), reserved1(0), reserved2(0)
 {
 	messages = new TTHash;
@@ -238,7 +239,7 @@ void TTObject::getMessageNames(TTValue& messageNameList)
 
 TTSymbol* TTObject::getName() const
 {
-	return objectName;
+	return classPtr->name;
 }
 
 
@@ -381,7 +382,7 @@ TTErr TTObject::logMessage(char* fmtstring, ...)
 	va_end(ap);
 	str[4095] = 0;
 	
-	strncpy(fullstr, objectName->getCString(), 4095);
+	strncpy(fullstr, classPtr->name->getCString(), 4095);
 	strncat(fullstr, " : ", 4095);
 	strncat(fullstr, str, 4095);
 	TTLogMessage(fullstr);
@@ -400,7 +401,7 @@ TTErr TTObject::logWarning(char* fmtstring, ...)
 	va_end(ap);
 	str[4095] = 0;
 	
-	strncpy(fullstr, objectName->getCString(), 4095);
+	strncpy(fullstr, classPtr->name->getCString(), 4095);
 	strncat(fullstr, " : ", 4095);
 	strncat(fullstr, str, 4095);
 	TTLogWarning(fullstr);
@@ -419,7 +420,7 @@ TTErr TTObject::logError(char* fmtstring, ...)
 	va_end(ap);
 	str[4095] = 0;
 	
-	strncpy(fullstr, objectName->getCString(), 4095);
+	strncpy(fullstr, classPtr->name->getCString(), 4095);
 	strncat(fullstr, " : ", 4095);
 	strncat(fullstr, str, 4095);
 	TTLogError(fullstr);
@@ -439,7 +440,7 @@ TTErr TTObject::logDebug(char* fmtstring, ...)
 		va_end(ap);
 		str[4095] = 0;
 		
-		strncpy(fullstr, objectName->getCString(), 4095);
+		strncpy(fullstr, classPtr->name->getCString(), 4095);
 		strncat(fullstr, " : ", 4095);
 		strncat(fullstr, str, 4095);
 		TTLogDebug(fullstr);

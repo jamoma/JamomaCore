@@ -7,11 +7,13 @@
  */
 
 #include "TTGain.h"
-#define thisTTClass TTGain
+
+#define thisTTClass			TTGain
+#define thisTTClassName		"gain"
+#define thisTTClassTags		"audio, processor, dynamics"
 
 
-TTGain::TTGain(TTValue& arguments)
-	: TTAudioObject(TT("gain"), arguments)
+TT_AUDIO_CONSTRUCTOR
 {
 	registerAttribute(TT("linearGain"),	kTypeFloat64,	&gain);
 	registerAttribute(TT("gain"),		kTypeFloat64,	NULL,	(TTGetterMethod)&TTGain::getGain, (TTSetterMethod)&TTGain::setGain);

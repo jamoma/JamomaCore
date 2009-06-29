@@ -24,11 +24,13 @@
 class TTAttribute;
 class TTMessage;
 class TTObject;
+class TTClass;
 
 typedef TTAttribute*	TTAttributePtr;
 typedef TTMessage*		TTMessagePtr;
 typedef TTObject*		TTObjectPtr;
-
+typedef TTClass*		TTClassPtr;
+	
 
 /** A type that can be used to store a pointer to a message for an object */
 typedef TTErr (TTObject::*TTMethod)(const TTSymbol* methodName, TTValue& value);
@@ -76,7 +78,7 @@ class TTEXPORT TTObject : public TTElement {
 private:
 	friend class TTEnvironment;
 
-	TTSymbolPtr			objectName;			///< The class name of this object -- can't be static because it needs to be different for every subclass
+	TTClassPtr			classPtr;			///< The class definition for this object
 	TTHash*				messages;			///< The collection of all messages for this object, keyed on the message name.
 	TTHash*				attributes;			///< The collection of all attributes for this object, keyed on the attribute name.
 protected:
@@ -93,7 +95,7 @@ private:
 	TTPtrSizedInt		reserved2;			///< Reserved -- May be used for something in the future without changing the size of the struct.
 
 protected:
-	TTObject(const TTSymbolPtr name, TTValue& arguments);
+	TTObject(TTValue& arguments);
 public:
 	virtual ~TTObject();
 	

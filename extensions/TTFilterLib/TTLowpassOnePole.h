@@ -9,13 +9,12 @@
 #ifndef __TT_LOWPASS_ONEPOLE_H__
 #define __TT_LOWPASS_ONEPOLE_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
-/**	The simplest of lowpass filters: a single-pole, no-zero algorithm.
- */
-class TTLowpassOnePole : public TTAudioObject {
-protected:
+/**	The simplest of lowpass filters: a single-pole, no-zero algorithm. */
+TTAUDIOCLASS(TTLowpassOnePole)
+
 	TTFloat64		frequency;		///< filter cutoff frequency
 	TTFloat64		coefficient;		///< filter coefficients
 	TTFloat64		*feedback;			///< previous output sample for each channel
@@ -30,14 +29,6 @@ protected:
 	
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-
-	/**	Constructor. */
-	TTLowpassOnePole(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTLowpassOnePole();
 
 	/**	Setter for the frequency attribute. */
 	TTErr setfrequency(const TTValue& value);

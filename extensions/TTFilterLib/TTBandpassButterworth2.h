@@ -9,15 +9,15 @@
 #ifndef __TT_BANDPASS_BUTTERWORTH_2_H__
 #define __TT_BANDPASS_BUTTERWORTH_2_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
 /**	2nd order Butterworth bandpass filter; Butterworth filters have maximum flat frequency response in the pass band.
  *	Based on an algorithm from Dodge & Jerse (1997): Computer Music -
  * 	Synthesis, Composition, and Performance. 2nd edition. Schirmer.
  */
-class TTBandpassButterworth2 : public TTAudioObject {
-protected:
+TTAUDIOCLASS(TTBandpassButterworth2)
+
 	TTFloat64		frequency;				///< filter cutoff frequency
 	TTFloat64		q;						///< filter resonance
 	TTFloat64		c, d, bw, a0, a2, b1, b2;	///< filter coefficients. a1=0 and hence ignored
@@ -40,14 +40,6 @@ protected:
 
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-
-	/**	Constructor. */
-	TTBandpassButterworth2(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTBandpassButterworth2();
 	
 	/**	Setter for the frequency attribute. */
 	TTErr setfrequency(const TTValue& value);

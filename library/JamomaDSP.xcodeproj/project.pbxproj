@@ -279,8 +279,6 @@
 		223985E60E200FD500A5F732 /* Units-Misc */ = {
 			isa = PBXGroup;
 			children = (
-				222A37180E1987E100C72891 /* TTBuffer.h */,
-				222A37160E1987D000C72891 /* TTBuffer.cpp */,
 				22569C160D3E416F00328864 /* TTCrossfade.h */,
 				22569C420D3E419300328864 /* TTCrossfade.cpp */,
 				22569C180D3E416F00328864 /* TTDegrade.h */,
@@ -345,6 +343,8 @@
 		22D7F5EA0D10576E009E4AF4 /* Units-Data */ = {
 			isa = PBXGroup;
 			children = (
+				222A37180E1987E100C72891 /* TTBuffer.h */,
+				222A37160E1987D000C72891 /* TTBuffer.cpp */,
 			);
 			name = "Units-Data";
 			sourceTree = "<group>";

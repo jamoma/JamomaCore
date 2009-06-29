@@ -7,12 +7,15 @@
  */
 
 #include "TTLowpassFourPole.h"
-#define thisTTClass TTLowpassFourPole
+
+#define thisTTClass			TTLowpassFourPole
+#define thisTTClassName		"lowpass.4"
+#define thisTTClassTags		"audio, processor, filter, lowpass"
 
 
-TTLowpassFourPole::TTLowpassFourPole(TTValue& arguments)
-	: TTAudioObject(TT("lowpass.4"), arguments),
-	x1(NULL), x2(NULL), x3(NULL), x4(NULL), y1(NULL), y2(NULL), y3(NULL), y4(NULL)
+TT_AUDIO_CONSTRUCTOR,
+	x1(NULL), x2(NULL), x3(NULL), x4(NULL), 
+	y1(NULL), y2(NULL), y3(NULL), y4(NULL)
 {
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);

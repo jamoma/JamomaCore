@@ -9,30 +9,18 @@
 #ifndef __TT_MATRIXMIXER_H__
 #define __TT_MATRIXMIXER_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
 /**	TTGain is an exceptionally simple audio processor scales an input audio signal */
-class TTEXPORT TTMatrixMixer : public TTAudioObject {
-protected:
+TTAUDIOCLASS(TTMatrixMixer)
+
 	TTUInt16		numInputs;
 	TTUInt16		numOutputs;
 	TTFloat64**		gainMatrix;
 
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-
-	
-	/**	Constructor. 
-		@param newMaxNumChannels	Specifies the initial maximum number of channels.
-									This applies to both inputs and outputs.	 */
-	TTMatrixMixer(TTValue& arguments);
-
-	
-	/**	Destructor. */
-	virtual ~TTMatrixMixer();
 	
 	TTErr allocGainMatrix();
 	TTErr freeGainMatrix();

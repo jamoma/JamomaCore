@@ -9,16 +9,15 @@
 #ifndef __TT_DEGRADE_H__
 #define __TT_DEGRADE_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
 /**	TTDegrade in an audio processor that distorts a signal in ugly digital ways.
- *	This class is a good example of a very simple audio filter that can process any 
- *	number of parallel audio channels, with just a couple of attributes.
+ 	This class is a good example of a very simple audio filter that can process any 
+ 	number of parallel audio channels, with just a couple of attributes.
  */
+TTAUDIOCLASS(TTDegrade)
 
-class TTEXPORT TTDegrade : public TTAudioObject {
-protected:
 	TTUInt16		bitShift;		///< Amount of bits to shift away based on attrBitdepth.
 	TTSampleValue*	accumulator;	///< Holds values over from one vector to the next for each channel.
 	TTSampleValue*	output;			///< Holds values over from one vector to the next for each channel..
@@ -39,19 +38,9 @@ protected:
 	 *			return an error if they aren't?  Currently we are just returning TT_ERR_NONE all the time.
 	 */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-
-	/**	Constructor. */
-	TTDegrade(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTDegrade();
-	
 	
 	/**	Setter for the bitdepth attribute. */
 	TTErr setbitdepth(const TTValue& value);
-	
 };
 
 

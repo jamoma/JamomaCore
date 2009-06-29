@@ -7,12 +7,15 @@
  */
 
 #include "TTLowpassButterworth3.h"
-#define thisTTClass TTLowpassButterworth3
+
+#define thisTTClass			TTLowpassButterworth3
+#define thisTTClassName		"lowpass.butterworth.3"
+#define thisTTClassTags		"audio, processor, filter, lowpass, butterworth"
 
 
-TTLowpassButterworth3::TTLowpassButterworth3(TTValue& arguments)
-	: TTAudioObject(TT("lowpass.butterworth.3"), arguments),
-	xm1(NULL), xm2(NULL), xm3(NULL), ym1(NULL), ym2(NULL), ym3(NULL)
+TT_AUDIO_CONSTRUCTOR,
+	xm1(NULL), xm2(NULL), xm3(NULL), 
+	ym1(NULL), ym2(NULL), ym3(NULL)
 {
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);

@@ -7,13 +7,14 @@
  */
 
 #include "TTWavetable.h"
+
 #define thisTTClass TTWavetable
+#define thisTTClassName		"wavetable"
+#define thisTTClassTags		"audio, generator, oscillator, buffer"
 
 
-TTWavetable::TTWavetable(TTValue& arguments)
-	: TTAudioObject(TT("wavetable"), arguments),
-	  index(0.0),
-	  indexDelta(0.0)
+TT_AUDIO_CONSTRUCTOR
+, index(0.0), indexDelta(0.0)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	
@@ -25,7 +26,8 @@ TTWavetable::TTWavetable(TTValue& arguments)
 	
 	registerMessageSimple(updateSr);
 
-	wavetable = new TTBuffer(*kTTValNONE);
+//	wavetable = new TTBuffer(*kTTValNONE);
+	TTObjectInstantiate(TT("buffer"), (TTObjectPtr*)&wavetable, *kTTValNONE);
 	if(!wavetable)
 		throw TTException("Could not create internal buffer object");
 	wavetable->setnumChannels(1);
@@ -42,7 +44,7 @@ TTWavetable::TTWavetable(TTValue& arguments)
 
 TTWavetable::~TTWavetable()
 {
-	delete wavetable;
+	TTObjectRelease((TTObject**)&wavetable);
 }
 
 

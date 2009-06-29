@@ -9,13 +9,12 @@
 #ifndef __TT_AVERAGE_H__
 #define __TT_AVERAGE_H__
 
+#include "TTBlueAPI.h"
 
-#include "TTAudioObject.h"
 
-/**	A running average filter.
- */
-class TTAverage : public TTAudioObject {
-protected:
+/**	A running average filter. */
+TTAUDIOCLASS(TTAverage)
+
 	TTUInt16		maxInterval;	///< Maximum number of samples over which one can average
 	TTUInt16		interval;		///< The actual number of samples over which one is averaging
 	TTSymbol*		mode;			///< options: bipolar, rms, or absolute
@@ -33,14 +32,6 @@ protected:
 	
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-public:
-
-	/**	Constructor. */
-	TTAverage(TTValue& arguments);
-
-	/**	Destructor. */
-	virtual ~TTAverage();
 	
 	// Attributes
 	TTErr setfrequency(const TTValue& newValue);
