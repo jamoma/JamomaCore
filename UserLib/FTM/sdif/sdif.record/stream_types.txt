@@ -20,6 +20,6 @@
 "GDIF: Jerk 2D" XAC2 "X\\\, Y" "2D_jerk"
 "GDIF: Jerk 3D" XAC3 "X\\\, Y\\\, Z" "3D_jerk"
 "GDIF: Pressure 1D" XPR1 "Pressure" "1D_pressure"
-"GDIF: Tilt 2D" XTI2 "Tilt" "2D_tilt"
+"GDIF: Tilt 2D" XTI2 "X\\\, Y" "2D_tilt"
 "-- Biosignal descriptors --"
 "GDIF: EMG" XEMG "emg_value" "EMG_data"
