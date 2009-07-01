@@ -61,6 +61,19 @@
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-2",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 0,
+					"patching_rect" : [ 170.0, 394.0, 159.0, 19.0 ],
+					"text" : "dac~ 1 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"handoff" : "",
 					"id" : "obj-29",
 					"maxclass" : "ubutton",
@@ -125,7 +138,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 31.0, 369.0, 144.0, 17.0 ],
-					"text" : "/module/view_internals"
+					"text" : "/midHigh 5000"
 				}
 
 			}
@@ -154,20 +167,6 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 341.0, 328.0, 294.0, 19.0 ],
 					"text" : "http://www-users.york.ac.uk/~ahm105/ambiophonics/"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "/output~" ],
-					"id" : "obj-7",
-					"maxclass" : "bpatcher",
-					"name" : "jmod.output~.maxpat",
-					"numinlets" : 3,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 29.0, 392.0, 300.0, 140.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ]
 				}
 
 			}
@@ -208,16 +207,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-4", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 38.5, 363.0, 165.5, 363.0 ],
-					"source" : [ "obj-3", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-7", 2 ],
+					"destination" : [ "obj-2", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-3", 2 ]
@@ -226,10 +216,19 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-7", 1 ],
+					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-3", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 38.5, 363.0, 165.5, 363.0 ],
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}

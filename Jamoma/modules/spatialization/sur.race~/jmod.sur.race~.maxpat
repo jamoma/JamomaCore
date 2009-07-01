@@ -51,14 +51,13 @@
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
 						"range/bounds" : [ 5.0, 20000.0 ],
-						"range/clipmode" : "both",
-						"dataspace/unit/active" : "Hz",
-						"type" : "msg_int",
-						"dataspace/unit/native" : "Hz",
 						"value/default" : [ 5000 ],
-						"dataspace" : "pitch",
+						"range/clipmode" : "both",
 						"description" : "Mid High X-over Frequency",
-						"dataspace/unit/internal" : "Hz"
+						"dataspace/unit/active" : "Hz",
+						"dataspace" : "pitch",
+						"type" : "msg_int",
+						"dataspace/unit/native" : "Hz"
 					}
 ,
 					"id" : "obj-11",
@@ -90,12 +89,12 @@
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
 						"range/bounds" : [ 0.0, 1.0 ],
-						"value/stepsize" : 0.01,
-						"range/clipmode" : "low",
-						"type" : "msg_float",
 						"value/default" : [ 0.07 ],
+						"range/clipmode" : "low",
+						"description" : "delaytime for the crosstalk cancelling [µseconds]",
+						"value/stepsize" : 0.01,
 						"dataspace" : "time",
-						"description" : "delaytime for the crosstalk cancelling [µseconds]"
+						"type" : "msg_float"
 					}
 ,
 					"id" : "obj-13",
@@ -146,10 +145,11 @@
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
 						"range/bounds" : [ -10.0, 0.0 ],
-						"range/clipmode" : "both",
-						"type" : "msg_float",
 						"value/default" : [ -2.5 ],
-						"description" : "attenation value for the crosstalk frequency"
+						"range/clipmode" : "both",
+						"description" : "attenation value for the crosstalk frequency",
+						"ramp/drive" : "scheduler",
+						"type" : "msg_float"
 					}
 ,
 					"id" : "obj-17",
@@ -351,8 +351,8 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"type" : "msg_symbol",
-						"description" : "type of the filter for separating the bands"
+						"description" : "type of the filter for separating the bands",
+						"type" : "msg_symbol"
 					}
 ,
 					"id" : "obj-30",
@@ -425,13 +425,12 @@
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
 						"range/bounds" : [ 5.0, 16000.0 ],
+						"value/default" : [ 250 ],
 						"range/clipmode" : "both",
 						"dataspace/unit/active" : "Hz",
-						"type" : "msg_int",
-						"dataspace/unit/native" : "Hz",
-						"value/default" : [ 250 ],
 						"dataspace" : "pitch",
-						"dataspace/unit/internal" : "Hz"
+						"type" : "msg_int",
+						"dataspace/unit/native" : "Hz"
 					}
 ,
 					"id" : "obj-7",
