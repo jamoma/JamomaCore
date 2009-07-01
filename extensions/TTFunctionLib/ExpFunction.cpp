@@ -18,12 +18,10 @@
 TT_AUDIO_CONSTRUCTOR
 {
 	// Register Attributes...
-	registerAttributeWithSetter(offset,	kTypeFloat64);
-	registerAttributeWithSetter(width,	kTypeFloat64);
-		
-	// Set Defaults...
-	setAttributeValue(TT("offset"),	0.0);
-	setAttributeValue(TT("width"), 1.0);
+	registerAttributeWithSetter(base,	kTypeFloat64);
+	
+	// Set Defaults (should be sufficient resolution for a while):
+	setAttributeValue(TT("base"),	2.718281828459045235360287471352662497757247093699959574966967627724076630353547594571382178525166427427466391932003059921817413596629043572900334295260595630738132328627943490763);
 	
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);
@@ -36,42 +34,23 @@ ExpFunction::~ExpFunction()
 }
 
 
-TTErr ExpFunction::setoffset(const TTValue& newValue)
+TTErr ExpFunction::setbase(const TTValue& newValue)
 {
-	offset = newValue;
-	b = 0.5*(offset+1);
-	calculateOutputScaling();
+	// TODO: Add test to ensure that base > 0;
+	base = newValue;
+	k = log(base);
 	return kTTErrNone;
-}
-
-
-TTErr ExpFunction::setwidth(const TTValue& newValue)
-{
-	width = newValue;
-	if(width <= 0)
-		a = log(7.0);
-	else 
-		a = log(7.0)/width;
-	calculateOutputScaling();
-	return kTTErrNone;
-}
-
-
-void ExpFunction::calculateOutputScaling(void)
-{
-	double f0, f1;
-	
-	f0=tanh(a*(-b));
-	f1=tanh(a*(1-b));
-	// This will never be division by zero, due to the fact that we always have width > 0
-	alpha = 1/(f1-f0);
-	beta = f0;
 }
 
 
 TTErr ExpFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = alpha * (tanh(a * (x-b)) - beta);
+	// Avoid division by zero
+	if (base==1.)
+		y = x;
+	else
+		y = exp(k*x - 1.) / (base - 1.);
+	
 	return kTTErrNone;
 }
 
