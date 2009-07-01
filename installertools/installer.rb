@@ -137,6 +137,7 @@ if win32?
   `cp "#{@c74}/Jamoma/documentation/jamoma-templates/jalg.template.video%.maxpat"  root/patches/templates/jalg.template.video%.maxpat`
   `cp "#{@c74}/Jamoma/documentation/jamoma-templates/jmod.template.audio~.maxpat"  root/patches/templates/jmod.template.audio~.maxpat`
   `cp "#{@c74}/Jamoma/documentation/jamoma-templates/jmod.template.control.maxpat" root/patches/templates/jmod.template.control.maxpat`
+  `cp "#{@c74}/Jamoma/documentation/jamoma-templates/jmod.template.maxhelp"        root/patches/templates/jmod.template.maxhelp`
   `cp "#{@c74}/Jamoma/documentation/jamoma-templates/jmod.template.video%.maxpat"  root/patches/templates/jmod.template.video%.maxpat`
   `cp "#{@c74}/Jamoma/documentation/jamoma-templates/layout.xml"                   root/patches/templates/layout.xml`
 
