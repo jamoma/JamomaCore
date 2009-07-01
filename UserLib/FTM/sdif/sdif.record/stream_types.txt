@@ -1,7 +1,7 @@
 "-- Select stream type --"
 "-- Info --"
 "GDIF: Index number" XIDX "index_number" "Index_number"
-"GDIF: Sync stream" XSYN "Sync" "Sync"
+"GDIF: Synchronisation stream" XSNC "synchronisation_stream" "Sync"
 "-- Sound descriptors --"
 "SDIF: MIDI" 1MID "Status_byte\\\, First_data_byte\\\, Second_data_byte" "MIDI"
 "-- Gesture descriptors --"
