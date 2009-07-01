@@ -11,7 +11,7 @@
 #include <math.h>
 
 #define thisTTClass ExpFunction
-#define thisTTClassName		"exp"
+#define thisTTClassName		"exponential"
 #define thisTTClassTags		"audio, processor, function"
 
 
@@ -49,7 +49,7 @@ TTErr ExpFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedIn
 	if (base==1.)
 		y = x;
 	else
-		y = exp(k*x - 1.) / (base - 1.);
+		y = (exp(k*x) - 1.) / (base - 1.);
 	
 	return kTTErrNone;
 }
