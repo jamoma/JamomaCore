@@ -9,6 +9,7 @@
 
 #include "TTBlueAPI.h"
 #include "CosineFunction.h"
+#include "ExpFunction.h"
 #include "LinearFunction.h"
 #include "LowpassFunction.h"
 #include "PowerFunction.h"

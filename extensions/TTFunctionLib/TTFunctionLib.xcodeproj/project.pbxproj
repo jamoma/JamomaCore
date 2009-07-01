@@ -19,6 +19,8 @@
 		2217FAA80E4F284500806778 /* TanhFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2217FA9E0E4F284500806778 /* TanhFunction.h */; };
 		22398BAE0E243E2D00A5F732 /* TTFunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22398BAD0E243E2D00A5F732 /* TTFunctionLib.cpp */; };
 		22D43C4C0F1DA02200C16BB0 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */; };
+		A731218C0FFBF36F00266F90 /* ExpFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = A731218A0FFBF36F00266F90 /* ExpFunction.h */; };
+		A731218D0FFBF36F00266F90 /* ExpFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A731218B0FFBF36F00266F90 /* ExpFunction.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +38,8 @@
 		2217FA9E0E4F284500806778 /* TanhFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TanhFunction.h; sourceTree = "<group>"; };
 		22398BAD0E243E2D00A5F732 /* TTFunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTFunctionLib.cpp; sourceTree = "<group>"; };
 		22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
+		A731218A0FFBF36F00266F90 /* ExpFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpFunction.h; sourceTree = SOURCE_ROOT; };
+		A731218B0FFBF36F00266F90 /* ExpFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExpFunction.cpp; sourceTree = SOURCE_ROOT; };
 		D2AAC09D05546B4700DB518D /* TTFunctionLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = TTFunctionLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -93,6 +97,8 @@
 			children = (
 				2217FA960E4F284500806778 /* CosineFunction.h */,
 				2217FA950E4F284500806778 /* CosineFunction.cpp */,
+				A731218A0FFBF36F00266F90 /* ExpFunction.h */,
+				A731218B0FFBF36F00266F90 /* ExpFunction.cpp */,
 				2217FA980E4F284500806778 /* LinearFunction.h */,
 				2217FA970E4F284500806778 /* LinearFunction.cpp */,
 				2217FA9A0E4F284500806778 /* LowpassFunction.h */,
@@ -117,6 +123,7 @@
 				2217FAA40E4F284500806778 /* LowpassFunction.h in Headers */,
 				2217FAA60E4F284500806778 /* PowerFunction.h in Headers */,
 				2217FAA80E4F284500806778 /* TanhFunction.h in Headers */,
+				A731218C0FFBF36F00266F90 /* ExpFunction.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +193,7 @@
 				2217FAA30E4F284500806778 /* LowpassFunction.cpp in Sources */,
 				2217FAA50E4F284500806778 /* PowerFunction.cpp in Sources */,
 				2217FAA70E4F284500806778 /* TanhFunction.cpp in Sources */,
+				A731218D0FFBF36F00266F90 /* ExpFunction.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
