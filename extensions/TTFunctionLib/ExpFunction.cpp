@@ -11,7 +11,7 @@
 #include <math.h>
 
 #define thisTTClass ExpFunction
-#define thisTTClassName		"tanh"
+#define thisTTClassName		"exp"
 #define thisTTClassTags		"audio, processor, function"
 
 

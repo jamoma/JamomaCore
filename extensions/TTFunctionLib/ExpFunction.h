@@ -15,7 +15,7 @@
 
 
 /**	A function unit providing a curve based on
-	y = tanh(x)
+	y = exp(log(base)*x)
 	but with a variety of additions to the basic trig function.
  */
 TTAUDIOCLASS(ExpFunction)

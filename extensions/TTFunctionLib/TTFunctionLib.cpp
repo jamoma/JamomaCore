@@ -21,6 +21,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	TTBlueInit();
 
 	CosineFunction::registerClass();
+	ExpFunction::registerClass();	
 	LinearFunction::registerClass();
 	LowpassFunction::registerClass();
 	PowerFunction::registerClass();
