@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 23.0, 76.0, 407.0, 559.0 ],
+		"rect" : [ 427.0, 44.0, 381.0, 545.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 23.0, 76.0, 407.0, 559.0 ],
+		"defrect" : [ 427.0, 44.0, 381.0, 545.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -60,7 +60,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 132.0, 299.0, 272.0, 19.0 ],
+					"patching_rect" : [ 132.0, 308.0, 232.0, 19.0 ],
 					"text" : "The right outlet outputs only the /file message"
 				}
 
@@ -177,7 +177,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "/fileNameGenerator" ],
+					"args" : [  ],
 					"id" : "obj-20",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
@@ -186,8 +186,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 23.0, 225.0, 300.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"varname" : "/fileNameGenerator"
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
 				}
 
 			}
@@ -200,22 +199,13 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 19.0, 74.0, 372.0, 133.0 ],
-					"text" : "The module generates indexed file names. It was initially designed to work with jmod.sdif.record, but may structurize recording of audio or video files as well.\n\nUSAGE\n1. locate folder for the files to be recorded\n2. write a base file name\n3. type in file extention\n4. use \"new\" button to generate file name\n- remember to press tab or return after writing in text boxes"
+					"patching_rect" : [ 19.0, 74.0, 306.0, 133.0 ],
+					"text" : "The module generates indexed file names. It was initially designed to work with jmod.sdif.record, but may work well for recording of audio or video files as well.\n\nUSAGE\n1. locate folder for the files to be recorded\n2. write a base file name\n3. type in file extention\n4. use \"new\" button to generate file name\n- remember to press tab or return after writing in text boxes"
 				}
 
 			}
  ],
 		"lines" : [ 			{
-				"patchline" : 				{
-					"destination" : [ "obj-11", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-20", 0 ]
-				}
-
-			}
-, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
@@ -266,6 +256,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 32.5, 332.5, 304.5, 332.5 ],
 					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-20", 0 ]
 				}
 
 			}
