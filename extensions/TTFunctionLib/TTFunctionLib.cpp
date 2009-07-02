@@ -11,6 +11,7 @@
 #include "CosineFunction.h"
 #include "ExpFunction.h"
 #include "LinearFunction.h"
+#include "logFunction.h"
 #include "LowpassFunction.h"
 #include "PowerFunction.h"
 #include "TanhFunction.h"
@@ -23,6 +24,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	CosineFunction::registerClass();
 	ExpFunction::registerClass();	
 	LinearFunction::registerClass();
+	LogFunction::registerClass();
 	LowpassFunction::registerClass();
 	PowerFunction::registerClass();
 	TanhFunction::registerClass();
