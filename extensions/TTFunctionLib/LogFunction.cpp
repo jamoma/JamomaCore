@@ -39,8 +39,8 @@ TTErr LogFunction::setbase(const TTValue& newValue)
 	// TODO: Add test to ensure that base > 0;
 	base = newValue;
 
-	invLogBase = 1. / log(base);
-	invBaseMinusOne = 1. / (base - 1.);
+	k = 1. / log(base);
+	l = base - 1.;
 	
 	return kTTErrNone;
 }
@@ -48,16 +48,11 @@ TTErr LogFunction::setbase(const TTValue& newValue)
 
 TTErr LogFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	// Avoid division by zero
-	//if (base==1.)
-	//	y = x;
-	//else
-	//	y = outScale * (log(inScale * x - 1.) - 1.);
-	//y = ( log(x) * invLogBase - 1. ) * invBaseMinusOne;
-	//y = invLogBase * (log(x*(base-1)) + 1);
-	//y = (log(x)/log(base) - 1) / (base - 1);
-	
-	y = invLogBase * log(x*(base-1.)+1.);
+	// Avoid multiplication by zero
+	if (base==1.)
+		y = x;
+	else
+		y = k * log(x*l+1.);
 	
 	return kTTErrNone;
 }

@@ -21,11 +21,8 @@ TTAUDIOCLASS(LogFunction)
 
 	TTFloat64	base;			///< Base for the exponential function
 	
-	double invLogBase;			///< Internal coefficient
-	double invBaseMinusOne;		///< Internal coefficient
-
-	//double		inScale;		///< Internal coefficient
-	//double		outScale;		///< Internal coefficient
+	double k;					///< Internal coefficient
+	double l;					///< Internal coefficient
 		
 	/** Calculate coefficients when this attr is set */
 	TTErr setbase(const TTValue& value);
