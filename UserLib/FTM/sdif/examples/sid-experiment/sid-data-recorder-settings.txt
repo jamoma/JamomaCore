@@ -8,17 +8,21 @@ CUE Wacom
     /fileBrowser.experiment/type audio
     /fileBrowser.experiment/depth 1
     /fileBrowser.experiment/folder /Users/alexanje/Desktop/SOR_morpho/corpus/
+
 # Module /fileBrowser.trial
     /fileBrowser.trial/type audio
     /fileBrowser.trial/depth 1
-    /fileBrowser.trial/folder /Users/alexanje/Desktop/SOR_morpho/corpus/
+    /fileBrowser.trial/folder /Users/alexanje/Desktop/SOR_morpho/trial/
+
 # Module /fileNameGenerator
     /fileNameGenerator/folder /Users/alexanje/Desktop/SOR_morpho/pilot/
+
 # Module /mouse.gdif
     /mouse.gdif/mode poll
     /mouse.gdif/mouse_on 0
     /mouse.gdif/reference screen
     /mouse.gdif/sample_rate 0
+
 # Module /sdif.record
     /sdif.record/record 0
     /sdif.record/stream0 2
@@ -26,14 +30,17 @@ CUE Wacom
     /sdif.record/stream2 8
     /sdif.record/stream3 21
     /sdif.record/stream4 22
-    /sdif.record/stream4 0
-    /sdif.record/stream4 0
-    /sdif.record/stream4 0
+    /sdif.record/stream4 22
+    /sdif.record/stream5 0
+    /sdif.record/stream6 0
+    /sdif.record/stream7 0
     /sdif.record/streamcount 5
+
 # Module /wacom
     /wacom/nopointer 1
     /wacom/on 1
     /wacom/xyrange 1
+
 # Module /wii
     /wii/sample_rate 0
     /wii/status 0
