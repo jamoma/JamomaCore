@@ -5,9 +5,14 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='sample_rate' type='msg_int' priority='0'>0</item>
-    <item name='status' type='msg_toggle' priority='0'>0</item>
+    <item name='active' type='msg_toggle' priority='0'>0</item>
+    <item name='led/1' type='msg_toggle' priority='0'>0</item>
+    <item name='led/2' type='msg_toggle' priority='0'>0</item>
+    <item name='led/3' type='msg_toggle' priority='0'>0</item>
+    <item name='led/4' type='msg_toggle' priority='0'>0</item>
+    <item name='sampleRate' type='msg_int' priority='0'>0</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='vibration' type='msg_toggle' priority='0'>0</item>
     <item name='view/color/border' type='msg_list' priority='0'>0</item>
     <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
     <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>

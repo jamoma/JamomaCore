@@ -27,7 +27,7 @@ CUE Wacom
     /mouse.gdif/mouse_on 0
 
 # Module /wii
-    /wii/status 0
+    /wii/active 0
 
 # Module /wacom
     /wacom/nopointer 1
@@ -57,7 +57,13 @@ CUE Wii
     /mouse.gdif/mouse_on 0
 
 # Module /wii
-    /wii/status 0
+    /wii/active 1
+    /wii/led/1 0
+    /wii/led/2 0
+    /wii/led/3 0
+    /wii/led/4 0
+    /wii/sampleRate -1
+    /wii/vibration 0
 
 # Module /wacom
     /wacom/on 0
@@ -66,14 +72,13 @@ CUE Wii
     /sdif.record/record 0
     /sdif.record/stream0 2
     /sdif.record/stream1 3
-    /sdif.record/stream2 8
-    /sdif.record/stream3 21
-    /sdif.record/stream4 22
-    /sdif.record/stream4 22
+    /sdif.record/stream2 17
+    /sdif.record/stream3 0
+    /sdif.record/stream4 0
     /sdif.record/stream5 0
     /sdif.record/stream6 0
     /sdif.record/stream7 0
-    /sdif.record/streamcount 5
+    /sdif.record/streamcount 3
 
 ##############################
 
@@ -95,7 +100,7 @@ CUE Mouse
     /mouse.gdif/sample_rate 0
 
 # Module /wii
-    /wii/status 0
+    /wii/active 0
 
 # Module /wacom
     /wacom/on 0
