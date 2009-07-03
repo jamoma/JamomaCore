@@ -5,21 +5,23 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='amp/jit' type='msg_float' priority='0'>0.000000</item>
     <item name='amp' type='msg_float' priority='0'>0.499000</item>
-    <item name='audio/gain' type='msg_float' priority='0'>0.000000</item>
+    <item name='amp/jit' type='msg_float' priority='0'>0.000000</item>
+    <item name='audio/gain' type='msg_float' priority='0'>100.000000</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='continuous' type='msg_int' priority='28'>1</item>
+    <item name='buffersize' type='msg_float' priority='0'>0</item>
+    <item name='continuous' type='msg_int' priority='28'>0</item>
+    <item name='currentBuffer' type='msg_list' priority='0'>cherokee.aif</item>
     <item name='delay' type='msg_int' priority='0'>0</item>
-    <item name='delay/jit' type='msg_int' priority='0'>96</item>
-    <item name='density' type='msg_float' priority='24'>8.000000</item>
+    <item name='delay/jit' type='msg_float' priority='0'>0.104167</item>
     <item name='density/jit' type='msg_float' priority='24'>0</item>
-    <item name='length/jit' type='msg_float' priority='0'>167.000000</item>
+    <item name='density' type='msg_float' priority='24'>8.000000</item>
     <item name='length' type='msg_int' priority='0'>291</item>
+    <item name='length/jit' type='msg_float' priority='0'>0.060000</item>
     <item name='pitch/jit' type='msg_float' priority='0'>0.000000</item>
     <item name='pitch' type='msg_float' priority='0'>1.000000</item>
-    <item name='position/jit' type='msg_generic' priority='5'>1.000000</item>
-    <item name='position' type='msg_float' priority='4'>1.000000</item>
+    <item name='position/jit' type='msg_generic' priority='5'>0.099138</item>
+    <item name='position' type='msg_float' priority='4'>0.000000</item>
     <item name='record/active' type='msg_int' priority='0'>0</item>
     <item name='record/input' type='msg_list' priority='0'>0</item>
     <item name='sound/bufferpool' type='msg_list' priority='1'>/bufferpool</item>
@@ -27,6 +29,11 @@
     <item name='sound/enveloppe' type='msg_symbol' priority='31'>blackman.aif</item>
     <item name='sound/folder' type='msg_list' priority='2'>AddedFiles</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='view/color/border' type='msg_list' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
+    <item name='view/size' type='msg_list' priority='0'>300 175 </item>
     <item name='voices' type='msg_generic' priority='0'>64</item>
   </preset>
 </jamoma>
