@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
@@ -201,11 +201,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ExpFunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ExpFunction.h"
+				>
+			</File>
+			<File
 				RelativePath=".\LinearFunction.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\LinearFunction.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LogFunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LogFunction.h"
 				>
 			</File>
 			<File
