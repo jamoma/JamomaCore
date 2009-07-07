@@ -12,6 +12,8 @@
 		222B15370F1D1185008B1A46 /* JitterAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B15360F1D1185008B1A46 /* JitterAPI.framework */; };
 		222B15B10F1D1461008B1A46 /* commonsyms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222B15B00F1D1461008B1A46 /* commonsyms.cpp */; };
 		222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */; };
+		22759F5A1003E0D5006BA4FB /* TTOverdrive.h in Headers */ = {isa = PBXBuildFile; fileRef = 22759F591003E0D5006BA4FB /* TTOverdrive.h */; };
+		22759F631003E147006BA4FB /* TTEffectsLib.ttdylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22759F621003E147006BA4FB /* TTEffectsLib.ttdylib */; };
 		22D43C610F1DA2B300C16BB0 /* tt-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22D43C600F1DA2B300C16BB0 /* tt-max.xcconfig */; };
 		22D43C670F1DA30D00C16BB0 /* TTClassWrapperMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D43C660F1DA30D00C16BB0 /* TTClassWrapperMax.cpp */; };
 		22D43CD40F1DA44C00C16BB0 /* tt.overdrive~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D43CD30F1DA44C00C16BB0 /* tt.overdrive~.cpp */; };
@@ -23,6 +25,8 @@
 		222B15360F1D1185008B1A46 /* JitterAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JitterAPI.framework; path = "../../../../Tools/library/max-sdk/c74support/jit-includes/JitterAPI.framework"; sourceTree = SOURCE_ROOT; };
 		222B15B00F1D1461008B1A46 /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../../../../Tools/library/max-sdk/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
 		222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
+		22759F591003E0D5006BA4FB /* TTOverdrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTOverdrive.h; path = ../../../extensions/TTEffectsLib/TTOverdrive.h; sourceTree = SOURCE_ROOT; };
+		22759F621003E147006BA4FB /* TTEffectsLib.ttdylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = TTEffectsLib.ttdylib; path = ../../../extensions/TTEffectsLib/build/Development/TTEffectsLib.ttdylib; sourceTree = SOURCE_ROOT; };
 		22D43C600F1DA2B300C16BB0 /* tt-max.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max.xcconfig"; path = "../tt-max.xcconfig"; sourceTree = SOURCE_ROOT; };
 		22D43C660F1DA30D00C16BB0 /* TTClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTClassWrapperMax.cpp; path = ../TTClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
 		22D43CD30F1DA44C00C16BB0 /* tt.overdrive~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "tt.overdrive~.cpp"; sourceTree = "<group>"; };
@@ -38,6 +42,7 @@
 				222B15350F1D1179008B1A46 /* MaxAudioAPI.framework in Frameworks */,
 				222B15370F1D1185008B1A46 /* JitterAPI.framework in Frameworks */,
 				222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */,
+				22759F631003E147006BA4FB /* TTEffectsLib.ttdylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +63,7 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				22759F621003E147006BA4FB /* TTEffectsLib.ttdylib */,
 				222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */,
 				222B15360F1D1185008B1A46 /* JitterAPI.framework */,
 				222B15340F1D1179008B1A46 /* MaxAudioAPI.framework */,
@@ -69,6 +75,7 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				22759F591003E0D5006BA4FB /* TTOverdrive.h */,
 				22D43CD30F1DA44C00C16BB0 /* tt.overdrive~.cpp */,
 				222B15B00F1D1461008B1A46 /* commonsyms.cpp */,
 				22D43C660F1DA30D00C16BB0 /* TTClassWrapperMax.cpp */,
@@ -91,6 +98,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22759F5A1003E0D5006BA4FB /* TTOverdrive.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +205,10 @@
 					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../extensions/TTEffectsLib/build/Development\"",
+				);
 			};
 			name = Development;
 		};
@@ -219,6 +231,10 @@
 					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../Framework/build/Development\"",
 					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../extensions/TTEffectsLib/build/Development\"",
 				);
 			};
 			name = Deployment;
