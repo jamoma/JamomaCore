@@ -8,7 +8,7 @@
 
 #include "NodeLib.h"
 
-JamomaNode::JamomaNode(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType, ObjectPtr newObject):TTObject(newName->getCString())
+JamomaNode::JamomaNode(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType, ObjectPtr newObject):TTObject(*kTTValNONE)
 {
 	// a new node have just a name, an instance, a type and an object
 	this->name = newName;
