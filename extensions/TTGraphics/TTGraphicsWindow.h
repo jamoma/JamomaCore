@@ -54,8 +54,8 @@ class TTGraphicsWindow;
 
 
 /**	Creates/Manages a Window on the host operating system.	*/
-//class TTGraphicsWindow : public TTObject {
-TTOBJECTCLASS(TTGraphicsWindow)
+class TTGraphicsWindow : public TTObject {
+	TTCLASS_SETUP(TTGraphicsWindow)
 
 	TTSymbolPtr				title;			///< Window's title	
 	TTCocoaWindowDelegate*	windowDelegate;

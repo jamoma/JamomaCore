@@ -34,8 +34,9 @@ typedef enum {
 
 
 /**	Creates/Manages a drawing context.  Typically this context will be displayed in a TTGraphicsWindow.	*/
-//class TTGraphicsContext : public TTObject {
-TTOBJECTCLASS(TTGraphicsContext)
+class TTGraphicsContext : public TTObject {
+	TTCLASS_SETUP(TTGraphicsContext)
+
 //	cairo_surface_t*	cairoRenderSurface;
 
 public:

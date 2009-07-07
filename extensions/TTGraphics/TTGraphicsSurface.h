@@ -27,8 +27,8 @@ class TTGraphicsContext;
 
 
 /**	Creates/Manages a graphics surface (image) in the Cairo sense of a surface.	*/
-//class TTGraphicsSurface : public TTObject {
-TTOBJECTCLASS(TTGraphicsSurface)
+class TTGraphicsSurface : public TTObject {
+	TTCLASS_SETUP(TTGraphicsSurface)
 
 	cairo_surface_t*		surface;
 	TTGraphicsContext*		context;		///< context used for drawing
