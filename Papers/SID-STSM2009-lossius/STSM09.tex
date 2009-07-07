@@ -38,7 +38,7 @@ Report of a COST IC0601 SID Short-Term Scientific Mission April 2009 \\Hosted by
 % Authors will not be informed of who reviews their papers, and author names will be concealed from the reviewers 
 % Please avoid evident self references in the text
 
-% Authors' names must be omitted from title page (or listed as “name(s) omitted for submission”)
+% Authors' names must be omitted from title page (or listed as √íname(s) omitted for submission√ì)
 
 
 % Single address
@@ -76,7 +76,28 @@ Report of a COST IC0601 SID Short-Term Scientific Mission April 2009 \\Hosted by
 
 \end{abstract}
 
-\section{Introduction}\label{sec:introduction}         
+\section{Introduction}\label{sec:introduction}        
+
+
+\subsection{Real-time technologies in the arts}
+
+The development of real-time technology has opened new possibilities for artistic expression, enabling live generation of and interaction with media. The processing in real-time of media and live input, often combined with possibilities for physical computing \cite{Sullivan_2004_physical_computing}, has become an integrated part of a variety of contemporary artistic practises such as works for stage, live music performances using new instruments for musical expression, interactive and generative installations and sound art. A major challenge in this kind of works is how to develop control systems that maintain access to a rich set of parameters while remaining manageable in a live performance setting.
+
+\subsection{Accessing complex sets of parameters in real-time through a structured approach}
+
+Max/MSP/Jitter is one of several programming environments for real time processing of media. According to one of its creators ``Max/MSP does not enforce readability, consistency, or efficiency on its users. There are no real standards for interoperability at the level of the patcher.'' \cite{Zicarelli:2002_program_that_do_nothing}.
+
+Jamoma  attempts to address this issue by providing a framework for modular development in Max with a structured API for interfacing with modules \cite{Place:2006jamoma}. Jamoma modules communicate using the Open Sound Control (OSC) protocol \cite{Wright_2002_OSC}, extended through an object-oriented approach to OSC nodes, conceiving them as having properties and methods \cite{Place:2008osc_properties}. The process of assigning additional properties to parameters defining their behaviour increase the abilities for continuous transformation and shaping of the artistic material \cite{Place_2008_flexible_control}. The OSC namespace implementation in Jamoma also provides possibilities of querying the system for the namespace of available nodes, as well as retrieving information on current values of nodes and node properties, along somewhat similar lines as suggested by \cite{Jazzmutant:2006_osc2}. This way Jamoma partly offers solutions to a fundamental question of how to maintain access to and control of complex sets of parameters and data in real-time systems.
+
+Apart from being used for artistic purposes, Jamoma is also used for research and prototyping of protocols for capturing and communication of data streams, e.g. gestural data using GDIF - Gestural Description Interchange Format \cite{Jensenius:2006a}, \cite{Nymoen_2008_GDIF_sync} and spatial audio information according to SpatDIF - Spatial Sound Description Interchange Format (Peters, 2008).
+
+\subsection{Controlling complex sets of parameters in real-time environments}
+
+The Jamoma  API offers simple access to all parameters of all modules, but relatively few modules so far takes advantage of this for advanced controlling purposes. The exceptions are a text-based cue list system, a number of modules for one-to-one mappings between parameter values, and a series of modules for work on SDIF - Sound Description Interchange Format data \cite{Nymoen_2008_GDIF_sync}.
+
+FTM is a shared library and a set of modules extending the signal and message data Ô¨Çow paradigm of Max permitting the representation and processing of complex data structures such as matrices, sequences or dictionaries as well as tuples, MIDI events or score elements \cite{Schnell:2005ftm}. FTM forms the basis for the MnM toolbox, dedicated to mapping between gesture and sound, and more generally to statistical and machine learning methods \cite{Bevilacqua:2005mnm}, as well as Gabor, a unified framework for a number of advanced audio processing techniques \cite{Schnell_2005_Gabor}.
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
