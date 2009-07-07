@@ -374,22 +374,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\source\units\TTAverage.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTAverage.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTBalance.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTBalance.h"
-				>
-			</File>
-			<File
 				RelativePath="..\source\units\TTBuffer.cpp"
 				>
 			</File>
@@ -403,38 +387,6 @@
 			</File>
 			<File
 				RelativePath="..\includes\units\TTCrossfade.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTDegrade.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTDegrade.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTDelay.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTDelay.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTGain.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTGain.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTLimiter.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTLimiter.h"
 				>
 			</File>
 			<File
@@ -454,27 +406,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\source\units\TTOverdrive.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTOverdrive.h"
-				>
-			</File>
-			<File
 				RelativePath="..\source\units\TTPhasor.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\includes\units\TTPhasor.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\units\TTPulseSub.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\units\TTPulseSub.h"
 				>
 			</File>
 			<File

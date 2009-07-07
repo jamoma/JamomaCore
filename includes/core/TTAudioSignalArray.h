@@ -17,8 +17,9 @@
 
 /**	A simple container for an array of TTAudioSignal pointers.
 	This class does not automatically manage the signals themselves, instantiate, or free them.	*/
-TTOBJECTCLASS(TTAudioSignalArray)
-	
+class TTEXPORT TTAudioSignalArray : public TTObject {
+	TTCLASS_SETUP(TTAudioSignalArray)
+
 	TTAudioSignalPtr*	audioSignals;			///< The actual array of audio signal pointers.
 	TTUInt16			maxNumAudioSignals;		///< The maximum number of audio signals that can be passed in this array.
 public:

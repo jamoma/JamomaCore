@@ -13,7 +13,8 @@
 
 
 /**	A resonant two-pole, no-zero, lowpass filter.  Based on moog-variation2 @ musicdsp.org. */
-TTAUDIOCLASS(TTLowpassFourPole)
+class TTLowpassFourPole : TTAudioObject {
+	TTCLASS_SETUP(TTLowpassFourPole)
 
 	TTFloat64		frequency;			///< filter cutoff frequency
 	TTFloat64		resonance;			///< filter resonance -- range is best between 1.0 and 16.0

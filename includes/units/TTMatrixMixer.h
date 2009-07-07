@@ -13,7 +13,8 @@
 
 
 /**	TTGain is an exceptionally simple audio processor scales an input audio signal */
-TTAUDIOCLASS(TTMatrixMixer)
+class TTMatrixMixer : TTAudioObject {
+	TTCLASS_SETUP(TTMatrixMixer)
 
 	TTUInt16		numInputs;
 	TTUInt16		numOutputs;

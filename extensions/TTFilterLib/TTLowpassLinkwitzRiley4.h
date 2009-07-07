@@ -13,24 +13,27 @@
 
 
 /**	4th order Linkwitz Riley Lowpass Filter
- *
- * Filter equations from
- * 
- * Second-order IIR Filters will support cascade implementations
- * By Rusty Allred, Texas Instruments, Dallas
- * July 01, 2003
- * http://www.planetanalog.com/article/printableArticle.jhtml?articleID=12802683
- *
- * 4th order Linkwitz-Riley filters are typically used as crossover filters, with the following properties:
- *
- * 1. Absolutely flat amplitude response throughout the passband with a steep 24 dB/octave rolloff rate after the crossover point. 
- * 2. The acoustic sum of the two driver responses is unity at crossover. (Amplitude response of each is -6 dB at crossover, i.e., there is no peaking in the summed acoustic output.)
- * 3. Zero phase difference between drivers at crossover. (Lobing error equals zero, i.e., no tilt to the polar radiation pattern.) In addition, the phase difference of zero degrees through crossover places the lobe of the summed acoustic output on axis at all frequencies.
- * 4. The low pass and high pass outputs are everywhere in phase. (This guarantees symmetry of the polar response about the crossover point.)
- * 5. All drivers are always wired the same (in phase).
- *
+ 
+  Filter equations from
+  
+  Second-order IIR Filters will support cascade implementations
+  By Rusty Allred, Texas Instruments, Dallas
+  July 01, 2003
+  http://www.planetanalog.com/article/printableArticle.jhtml?articleID=12802683
+ 
+  4th order Linkwitz-Riley filters are typically used as crossover filters, with the following properties:
+ 
+  1. Absolutely flat amplitude response throughout the passband with a steep 24 dB/octave rolloff rate after the crossover point. 
+  2. The acoustic sum of the two driver responses is unity at crossover. 
+     (Amplitude response of each is -6 dB at crossover, i.e., there is no peaking in the summed acoustic output.)
+  3. Zero phase difference between drivers at crossover. (Lobing error equals zero, i.e., no tilt to the polar radiation pattern.) 
+     In addition, the phase difference of zero degrees through crossover places the lobe of the summed acoustic output on axis at all frequencies.
+  4. The low pass and high pass outputs are everywhere in phase. (This guarantees symmetry of the polar response about the crossover point.)
+  5. All drivers are always wired the same (in phase).
+  
  */
-TTAUDIOCLASS(TTLowpassLinkwitzRiley4)
+class TTLowpassLinkwitzRiley4 : TTAudioObject {
+	TTCLASS_SETUP(TTLowpassLinkwitzRiley4)
 
 	TTFloat64		frequency;				///< filter cutoff frequency
 	TTFloat64		k, wc;						///< filter coefficients

@@ -19,7 +19,8 @@
 	is much simpler and is optimized for calls to calculate a single output rather than
 	multichannel audio signals.
  */
-TTAUDIOCLASS(LowpassFunction)
+class LowpassFunction : TTAudioObject {
+	TTCLASS_SETUP(LowpassFunction)
 
 	TTFloat64		coefficient;
 	TTFloat64		one_minus_coefficient;

@@ -16,7 +16,8 @@
 /**	A simple function unit the implements the following:
 	y = cos(x)
  */
-TTAUDIOCLASS(CosineFunction)
+class CosineFunction : TTAudioObject {
+	TTCLASS_SETUP(CosineFunction)
 
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);

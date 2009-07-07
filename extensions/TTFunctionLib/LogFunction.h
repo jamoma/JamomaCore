@@ -17,7 +17,8 @@
 /**	A function unit providing logaritmic mapping with variable base
 	y = (log(x)/log(base)-1) / (base - 1)
  */
-TTAUDIOCLASS(LogFunction)
+class LogFunction : TTAudioObject {
+	TTCLASS_SETUP(LogFunction)
 
 	TTFloat64	base;			///< Base for the exponential function
 	

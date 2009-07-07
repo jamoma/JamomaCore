@@ -13,7 +13,8 @@
 
 
 /**	An allpass filter. */
-TTAUDIOCLASS(TTAllpass)
+class TTAllpass : TTAudioObject {
+	TTCLASS_SETUP(TTAllpass)
 
 	TTFloat64		delay;				///< Attribute: delay time in milliseconds
 	TTFloat64		delayMax;			///< Maximum delay time in milliseconds (how long is the buffer?)

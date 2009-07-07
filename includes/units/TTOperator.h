@@ -13,7 +13,8 @@
 
 
 /**	TTOperator performs basic mathematical operations on an input signal, or a pair of input signals */
-TTAUDIOCLASS(TTOperator)
+class TTOperator : TTAudioObject {
+	TTCLASS_SETUP(TTOperator)
 
 	TTSymbol*		operatorAttribute;		///< The type of calculation to perform. (The identifier 'operator' is reserved by C++).
 	TTFloat64		operand;				///< The right-hand value of the calculation.

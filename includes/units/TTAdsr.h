@@ -13,7 +13,8 @@
 
 
 /**	TTAdsr is an attack-decay-sustain-release envelope generator */
-TTAUDIOCLASS(TTAdsr)
+class TTAdsr : TTAudioObject {
+	TTCLASS_SETUP(TTAdsr)
 
 	TTFloat64	attack_ms;
 	TTInt32		attack_samples;

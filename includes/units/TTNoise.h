@@ -13,7 +13,8 @@
 
 
 /**	Noise Generator */
-TTAUDIOCLASS(TTNoise)
+class TTNoise : TTAudioObject {
+	TTCLASS_SETUP(TTNoise)
 
 	TTSymbol*		mode;	///< Attribute: what color is the noise?
 	TTUInt32		accum;	///< accumulator for the noise generation

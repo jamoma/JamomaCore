@@ -17,7 +17,8 @@
 	y = tanh(x)
 	but with a variety of additions to the basic trig function.
  */
-TTAUDIOCLASS(TanhFunction)
+class TanhFunction : TTAudioObject {
+	TTCLASS_SETUP(TanhFunction)
 
 	TTFloat64	width;			///< Parameter for function: y pow(x,pow(2,powerValue))	
 	TTFloat64	offset;			///< k = pow(2,powerValue)

@@ -16,7 +16,8 @@
 /**	A function unit that provides exponential curves,
 	along with a number of options to control the behavior of the curve.
  */
-TTAUDIOCLASS(PowerFunction)
+class PowerFunction : TTAudioObject {
+	TTCLASS_SETUP(PowerFunction)
 
 	TTSymbolPtr	symmetry;		///< Mode: none, point or axis
 	double		powerValue;		///< Parameter for function: y pow(x,pow(2,powerValue))	

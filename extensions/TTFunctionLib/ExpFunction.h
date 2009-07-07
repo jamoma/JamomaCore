@@ -18,7 +18,8 @@
 	y = exp(log(base)*x)
 	but with a variety of additions to the basic trig function.
  */
-TTAUDIOCLASS(ExpFunction)
+class ExpFunction : TTAudioObject {
+	TTCLASS_SETUP(ExpFunction)
 
 	TTFloat64	base;			///< Base for the exponential function
 	double		k;				///< Internal coefficient

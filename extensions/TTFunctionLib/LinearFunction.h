@@ -16,7 +16,8 @@
 /**	This implements a function which basically does nothing: 
 	y = f(x)
  */
-TTAUDIOCLASS(LinearFunction)
+class LinearFunction : TTAudioObject {
+	TTCLASS_SETUP(LinearFunction)
 
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);

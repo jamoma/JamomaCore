@@ -15,11 +15,11 @@
 
 
 /**	Hard-clip signals to a low and high bound. */
-TTAUDIOCLASS(TTClipper)
+class TTClipper : TTAudioObject {
+	TTCLASS_SETUP(TTClipper)
 
 	TTFloat64	lowBound;		///< Attribute: low bound for clipping
 	TTFloat64	highBound;		///< Attribute: high bound for clipping
-
 	
 	/** Audio Processing Method */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)

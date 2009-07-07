@@ -16,7 +16,8 @@
 	When a zero crossing occurs it both reports the crossing and also 
 	keeps a count of the number of zero crossings per analysis period.
  */
-TTAUDIOCLASS(TTZerocross)
+class TTZerocross : TTAudioObject {
+	TTCLASS_SETUP(TTZerocross)
 
 	TTUInt32	size;					///< Attribute: size of the analysis buffer
 	TTFloat64	rSize;					///< reciprocal of the size attribute

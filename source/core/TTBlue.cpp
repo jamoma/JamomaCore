@@ -211,10 +211,10 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
 #include "TTZerocross.h"
 
 // Dynamics
-#include "TTBalance.h"
-#include "TTGain.h"
-#include "TTLimiter.h"
-#include "TTPulseSub.h"
+//#include "TTBalance.h"
+//#include "TTGain.h"
+//#include "TTLimiter.h"
+//#include "TTPulseSub.h"
 
 // Generators
 #include "TTAdsr.h"
@@ -226,10 +226,10 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
 // Misc
 #include "TTBuffer.h"
 #include "TTCrossfade.h"
-#include "TTDegrade.h"
-#include "TTDelay.h"
+//#include "TTDegrade.h"
+//#include "TTDelay.h"
 #include "TTOperator.h"
-#include "TTOverdrive.h"
+//#include "TTOverdrive.h"
 #include "TTMatrixMixer.h"
 
 
@@ -243,10 +243,10 @@ void TTBlueRegisterInternalClasses()
 	TTZerocross::registerClass();
 	
 	// Dynamics
-	TTBalance::registerClass();
-	TTGain::registerClass();
-	TTLimiter::registerClass();
-	TTPulseSub::registerClass();
+//	TTBalance::registerClass();
+//	TTGain::registerClass();
+//	TTLimiter::registerClass();
+//	TTPulseSub::registerClass();
 	
 	// Generators
 	TTAdsr::registerClass();
@@ -257,9 +257,9 @@ void TTBlueRegisterInternalClasses()
 		
 	// Misc
 	TTCrossfade::registerClass();
-	TTDegrade::registerClass();
-	TTDelay::registerClass();
+//	TTDegrade::registerClass();
+//	TTDelay::registerClass();
 	TTOperator::registerClass();
-	TTOverdrive::registerClass();
+//	TTOverdrive::registerClass();
 	TTMatrixMixer::registerClass();
 }

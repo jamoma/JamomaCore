@@ -53,10 +53,7 @@ extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClass
 thisTTClass :: thisTTClass (TTValue& arguments) : TTObject(arguments)
 
 
-
-
-#define TTAUDIOCLASS(className)													\
-	class TTEXPORT className : public TTAudioObject {							\
+#define TTCLASS_SETUP(className)												\
 		friend class TTEnvironment;												\
 	public:																		\
 		static void registerClass();											\
@@ -68,32 +65,9 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTObject(arguments)
 		virtual ~ className ();													\
 
 
-#define TTDATACLASS(className)													\
-	class TTEXPORT className : public TTDataObject {							\
-		friend class TTEnvironment;												\
-	public:																		\
-		static void registerClass();											\
-	protected:																	\
-		static TTObjectPtr instantiate (TTSymbolPtr name, TTValue& arguments);	\
-		/** Constructor */														\
-		className (TTValue& arguments);											\
-		/** Destructor */														\
-		virtual ~ className ();													\
-
-
-#define TTOBJECTCLASS(className)												\
-	class TTEXPORT className : public TTObject {								\
-		friend class TTEnvironment;												\
-	public:																		\
-		static void registerClass();											\
-	protected:																	\
-		static TTObjectPtr instantiate (TTSymbolPtr name, TTValue& arguments);	\
-		/** Constructor */														\
-		className (TTValue& arguments);											\
-		/** Destructor */														\
-		virtual ~ className ();													\
-
-
+#define TTAUDIOCLASS(arg) \
+class arg : TTAudioObject { \
+	TTCLASS_SETUP(arg)
 
 
 void TTEXPORT TTBlueInit();
