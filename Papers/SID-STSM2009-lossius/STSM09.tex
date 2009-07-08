@@ -79,21 +79,21 @@ Report of a COST IC0601 SID Short-Term Scientific Mission April 2009 \\Hosted by
 \section{Introduction}\label{sec:introduction}        
 
 
-\subsection{Real-time technologies in the arts}
+\subsection{Real-time technologies in the arts.}\label{sec:intro-real-time}
 
 The development of real-time technology has opened new possibilities for artistic expression, enabling live generation of and interaction with media. The processing in real-time of media and live input, often combined with possibilities for physical computing \cite{Sullivan_2004_physical_computing}, has become an integrated part of a variety of contemporary artistic practises such as works for stage, live music performances using New Instruments for Musical Expression, interactive and generative installations and sound art. A major challenge in this kind of works is how to develop control systems that maintain access to a rich set of parameters while remaining manageable in a live performance setting.
 
-\subsection{Accessing complex sets of parameters in real-time through a structured approach}
+\subsection{Jamoma: Accessing complex sets of parameters in real-time through a structured approach.}\label{sec:intro-accessing}
 
 Max/MSP/Jitter is one of several programming environments for real time processing of media. According to one of its creators ``Max/MSP does not enforce readability, consistency, or efficiency on its users. There are no real standards for interoperability at the level of the patcher.'' \cite{Zicarelli:2002_program_that_do_nothing}.
 
-Jamoma  attempts to address this issue by providing a framework for modular development in Max with a structured API for interfacing with modules \cite{Place:2006jamoma}. Jamoma modules communicate using the Open Sound Control (OSC) protocol \cite{Wright_2002_OSC}, extended through an object-oriented approach to OSC nodes, conceiving them as having properties and methods \cite{Place:2008osc_properties}. The process of assigning additional properties to parameters defining their behaviour increase the abilities for continuous transformation and shaping of the artistic material \cite{Place_2008_flexible_control}. The OSC namespace implementation in Jamoma also provides possibilities of querying the system for the namespace of available nodes, as well as retrieving information on current values of nodes and node properties, along somewhat similar lines as suggested by \cite{Jazzmutant:2006_osc2}. This way Jamoma partly offers solutions to a fundamental question of how to maintain access to and control of complex sets of parameters and data in real-time systems.
+Jamoma attempts to address this issue by providing a framework for modular development in Max with a structured API for interfacing with modules \cite{Place:2006jamoma}. Jamoma modules communicate using the Open Sound Control (OSC) protocol \cite{Wright_2002_OSC}, extended through an object-oriented approach to OSC nodes, conceiving them as having properties and methods \cite{Place:2008osc_properties}. The process of assigning additional properties to parameters defining their behaviour increase the abilities for continuous transformation and shaping of the artistic material \cite{Place_2008_flexible_control}. The OSC namespace implementation in Jamoma also provides possibilities of querying the system for the namespace of available nodes, as well as retrieving information on current values of nodes and node properties, along somewhat similar lines as suggested by \cite{Jazzmutant:2006_osc2}. This way Jamoma partly offers solutions to a fundamental question of how to maintain access to and control of complex sets of parameters and data in real-time systems.
 
 Apart from being used for artistic purposes, Jamoma is also used for research and prototyping of protocols for capturing and communication of data streams, e.g. gestural data using GDIF - Gestural Description Interchange Format \cite{Jensenius:2006a, Nymoen_2008_GDIF_sync} and spatial audio information according to SpatDIF - Spatial Sound Description Interchange Format (Peters, 2008).
 
-\subsection{Controlling complex sets of parameters in real-time environments}
+\subsection{Controlling complex sets of parameters in real-time environments.}\label{sec:intro-complex-control}
 
-The Jamoma  API offers simple access to all parameters of all modules, but relatively few modules so far takes advantage of this for advanced controlling purposes. The exceptions are a text-based cue list system, a number of modules for one-to-one mappings between parameter values, and a series of modules for work on SDIF - Sound Description Interchange Format data \cite{Nymoen_2008_GDIF_sync}.
+The Jamoma  API offers simple access to all parameters of all modules, but relatively few modules so far takes advantage of this for advanced controlling purposes. The main exceptions are two modules providing text-based cue list systems, a number of modules for one-to-one mappings between parameter values, and a series of modules for work on SDIF - Sound Description Interchange Format data \cite{Nymoen_2008_GDIF_sync}. In addition \emph{Virage Sequencer} is currently being development within the framework the Virage Platform as a stand-alone OSC sequencer able to interface with Jamoma \footnote{http://www.plateforme-virage.org/}.
 
 FTM is a shared library and a set of modules extending the signal and message data ﬂow paradigm of Max permitting the representation and processing of complex data structures such as matrices, sequences or dictionaries as well as tuples, MIDI events or score elements \cite{Schnell:2005ftm}. FTM forms the basis for the MnM toolbox, dedicated to mapping between gesture and sound, and more generally to statistical and machine learning methods \cite{Bevilacqua:2005mnm}, as well as Gabor, a unified framework for a number of advanced audio processing techniques \cite{Schnell_2005_Gabor}.
 
@@ -104,8 +104,74 @@ FTM is a shared library and a set of modules extending the signal and message da
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{A section}  
+\section{Querying OSC namespace and node properties in Jamoma.}  
  
+The mechanisms for querying Jamoma modules for their nodes and properties are implemented as part of the Jamoma Core C++ externals for Max utilized in all modules. A number of \emph{components} or Max abstractions have been developed to simplify queries:
+
+\begin{itemize}
+	
+	\item Modules:
+	
+	\begin{itemize}
+		
+		\item \textbf{jcom.getModules}: 
+
+	\end{itemize}
+	
+	\item Parameters etc:
+	
+	\begin{itemize}
+
+		\item \textbf{jcom.getParameterNames}:
+	
+		\item \textbf{jcom.getMessageNames}:
+	
+		\item \textbf{jcom.getReturnNames}:
+		
+	\end{itemize}
+	
+	\item Attributes:
+	
+	\begin{itemize}
+
+		\item \textbf{jcom.getAllAttributes}:
+	
+		\item \textbf{jcom.getOneAttribute}:
+		
+		\end{itemize}
+		
+\end{itemize}
+
+
+As an addition to online documentation of Jamoma, a tutorial has been added on how to retrieve information about existing Jamoma modules \footnote{http://groupware.bek.no/groups/jamoma/wiki/f11fc/ \\ Retrieving\_information\_about\_existing\_Jamoma\_modules.html}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Storing properties in FTM.}
+
+\subsection{Storing information on the namespace as a matrix.}
+
+\subsection{Recording events as sequences.}
+
+\subsection{Compound data}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Controlling Jamoma by manipulation of FTM data objects.}
+
+\subsection{Test patches.}
+
+\subsubsection{Modulus interacting with physical devices.}
+
+
+\subsubsection{Modules for audio processing}
+
 
 
 
@@ -113,14 +179,10 @@ FTM is a shared library and a set of modules extending the signal and message da
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{A section}   
+\section{Discussion \& Conclusion.}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Discussion \& Conclusion}
+\subsection{Towards a layered model for control of real-time systems}
 
 
 
@@ -128,7 +190,7 @@ FTM is a shared library and a set of modules extending the signal and message da
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Acknowledgment}
+\section{Acknowledgment.}
 
  The COST IC0601 Action on Sonic Interaction Design (SID) .
 
