@@ -114,7 +114,7 @@ The mechanisms for querying Jamoma modules for their nodes and properties are im
 	
 	\begin{itemize}
 		
-		\item \textbf{jcom.getModules}: 
+		\item \emph{jcom.getModules}: 
 
 	\end{itemize}
 	
@@ -122,11 +122,11 @@ The mechanisms for querying Jamoma modules for their nodes and properties are im
 	
 	\begin{itemize}
 
-		\item \textbf{jcom.getParameterNames}:
+		\item \emph{jcom.getParameterNames}:
 	
-		\item \textbf{jcom.getMessageNames}:
+		\item \emph{jcom.getMessageNames}:
 	
-		\item \textbf{jcom.getReturnNames}:
+		\item \emph{jcom.getReturnNames}:
 		
 	\end{itemize}
 	
@@ -134,13 +134,15 @@ The mechanisms for querying Jamoma modules for their nodes and properties are im
 	
 	\begin{itemize}
 
-		\item \textbf{jcom.getAllAttributes}:
+		\item \emph{jcom.getAllAttributes}:
 	
-		\item \textbf{jcom.getOneAttribute}:
+		\item \emph{jcom.getOneAttribute}:
 		
 		\end{itemize}
 		
 \end{itemize}
+
+In addition to instant queries of current state of Jamoma modules, the externals \emph{jcom.send} and \emph{jcom.receive} can be used to tap into live streams of OSC data passing through Jamoma. This will catch changes to all parameters of all modules as well as any returned OSC messages generated internally by Jamoma modules.
 
 
 As an addition to online documentation of Jamoma, a tutorial has been added on how to retrieve information about existing Jamoma modules \footnote{http://groupware.bek.no/groups/jamoma/wiki/f11fc/ \\ Retrieving\_information\_about\_existing\_Jamoma\_modules.html}.
