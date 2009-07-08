@@ -217,7 +217,7 @@
 					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
-				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				USER_HEADER_SEARCH_PATHS = /Developer/SDKs/MacOSX10.4u.sdk/usr/include/libxml2;
 			};
 			name = Development;
 		};
