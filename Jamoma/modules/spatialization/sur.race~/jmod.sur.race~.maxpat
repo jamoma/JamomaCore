@@ -50,14 +50,14 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"range/bounds" : [ 5.0, 20000.0 ],
 						"value/default" : [ 5000 ],
-						"range/clipmode" : "both",
-						"description" : "Mid High X-over Frequency",
-						"dataspace/unit/active" : "Hz",
 						"dataspace" : "pitch",
-						"type" : "msg_int",
-						"dataspace/unit/native" : "Hz"
+						"description" : "Mid High X-over Frequency",
+						"range/bounds" : [ 5.0, 20000.0 ],
+						"dataspace/unit/active" : "Hz",
+						"range/clipmode" : "both",
+						"dataspace/unit/native" : "Hz",
+						"type" : "msg_int"
 					}
 ,
 					"id" : "obj-11",
@@ -88,13 +88,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"range/bounds" : [ 0.0, 1.0 ],
 						"value/default" : [ 0.07 ],
-						"range/clipmode" : "low",
-						"description" : "delaytime for the crosstalk cancelling [µseconds]",
-						"value/stepsize" : 0.01,
 						"dataspace" : "time",
-						"type" : "msg_float"
+						"description" : "delaytime for the crosstalk cancelling [µseconds]",
+						"range/bounds" : [ 0.0, 1.0 ],
+						"range/clipmode" : "low",
+						"type" : "msg_float",
+						"value/stepsize" : 0.01
 					}
 ,
 					"id" : "obj-13",
@@ -144,11 +144,11 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"range/bounds" : [ -10.0, 0.0 ],
 						"value/default" : [ -2.5 ],
-						"range/clipmode" : "both",
-						"description" : "attenation value for the crosstalk frequency",
 						"ramp/drive" : "scheduler",
+						"description" : "attenation value for the crosstalk frequency",
+						"range/bounds" : [ -10.0, 0.0 ],
+						"range/clipmode" : "both",
 						"type" : "msg_float"
 					}
 ,
@@ -252,7 +252,7 @@
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 269.0, 110.0, 100.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 163.0, 1.0, 84.0, 19.0 ],
+					"presentation_rect" : [ 147.0, 1.0, 84.0, 19.0 ],
 					"types" : [  ]
 				}
 
@@ -383,6 +383,7 @@
 					"has_bypass" : 1,
 					"has_gain" : 1,
 					"has_meters" : 1,
+					"has_mix" : 1,
 					"has_mute" : 1,
 					"id" : "obj-4",
 					"maxclass" : "jcom.ui",
@@ -424,13 +425,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"range/bounds" : [ 5.0, 16000.0 ],
 						"value/default" : [ 250 ],
-						"range/clipmode" : "both",
-						"dataspace/unit/active" : "Hz",
 						"dataspace" : "pitch",
-						"type" : "msg_int",
-						"dataspace/unit/native" : "Hz"
+						"range/bounds" : [ 5.0, 16000.0 ],
+						"dataspace/unit/active" : "Hz",
+						"range/clipmode" : "both",
+						"dataspace/unit/native" : "Hz",
+						"type" : "msg_int"
 					}
 ,
 					"id" : "obj-7",

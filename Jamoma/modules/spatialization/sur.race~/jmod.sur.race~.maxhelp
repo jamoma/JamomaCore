@@ -18,6 +18,49 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-14",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 526.0, 296.0, 49.0, 19.0 ],
+					"text" : "patch",
+					"underline" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"handoff" : "",
+					"id" : "obj-12",
+					"maxclass" : "ubutton",
+					"numinlets" : 1,
+					"numoutlets" : 4,
+					"outlettype" : [ "bang", "bang", "", "int" ],
+					"patching_rect" : [ 526.122437, 296.69873, 43.0, 17.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"hidden" : 1,
+					"id" : "obj-10",
+					"linecount" : 4,
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 389.0, 337.0, 222.0, 53.0 ],
+					"text" : ";\rmax launchbrowser http://www.ambiophonics.org/files/RACE/RM-RACE_F%2Bmidi.amh"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
 					"fontsize" : 18.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-1",
@@ -35,12 +78,11 @@
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-11",
-					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 341.0, 296.0, 182.0, 31.0 ],
-					"text" : "this module based on a PD-patch \nby Alastair H. Moore"
+					"patching_rect" : [ 341.0, 296.0, 230.0, 19.0 ],
+					"text" : "this module based on a Audiomulch-"
 				}
 
 			}
@@ -53,7 +95,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 215.0, 81.0, 37.0, 19.0 ],
+					"patching_rect" : [ 217.0, 82.0, 37.0, 19.0 ],
 					"text" : "here",
 					"underline" : 1
 				}
@@ -80,7 +122,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "bang", "bang", "", "int" ],
-					"patching_rect" : [ 214.122467, 81.69873, 43.0, 17.0 ]
+					"patching_rect" : [ 217.122467, 82.69873, 43.0, 17.0 ]
 				}
 
 			}
@@ -138,7 +180,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 31.0, 369.0, 144.0, 17.0 ],
-					"text" : "/midHigh 5000"
+					"text" : "/filtertype butterworth.2"
 				}
 
 			}
@@ -153,20 +195,6 @@
 					"outlettype" : [ "", "signal", "signal" ],
 					"patching_rect" : [ 29.0, 133.0, 300.0, 140.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-6",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 341.0, 328.0, 294.0, 19.0 ],
-					"text" : "http://www-users.york.ac.uk/~ahm105/ambiophonics/"
 				}
 
 			}
@@ -247,6 +275,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-5", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-10", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-12", 0 ]
 				}
 
 			}
