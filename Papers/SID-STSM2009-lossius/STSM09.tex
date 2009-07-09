@@ -106,46 +106,27 @@ FTM is a shared library and a set of modules extending the signal and message da
 
 \section{Querying OSC namespace and node properties in Jamoma.}  
  
-The mechanisms for querying Jamoma modules for their nodes and properties are implemented as part of the Jamoma Core C++ externals for Max utilized in all modules. A number of \emph{components} or Max abstractions have been developed to simplify queries:
+\begin{figure*}[!t] \centerline{
+		\includegraphics[width=1.8\columnwidth]{SID-STSM-jamomaQuery.png}} \caption{Example patch illustrating the process of querying Jamoma modules for OSC namespace and node properties.} \label{fig:querying} 
+	\end{figure*}
+
+Mechanisms for querying Jamoma modules for their nodes and properties are implemented as part of the Jamoma Core C++ externals for Max utilised in all modules. A number of \emph{components} or Max abstractions made to behave like externals have been developed to simplify the process of performing queries:
 
 \begin{itemize}
 	
-	\item Modules:
-	
-	\begin{itemize}
-		
-		\item \emph{jcom.getModules}: 
+	\item \emph{jcom.getModules} when banged will dump the OSC names of all module instances that are currently running on the client.
 
-	\end{itemize}
-	
-	\item Parameters etc:
-	
-	\begin{itemize}
+	\item The OSC addresses of parameters, messages and returns of a module can be queried by passing the OSC name of a module to the components \emph{jcom.getParameterNames} \emph{jcom.getMessageNames} and \emph{jcom.getReturnNames} respectively. \footnote{\emph{Parameters} are OSC nodes stored as part of the state of the module. \emph{Messages} behave the same as parameters, except that they are stateless. \emph{Returns} are used when the module algorithm generate new data returned as OSC messages, but this data is not stored as part of the state of the module itself.}
 
-		\item \emph{jcom.getParameterNames}:
-	
-		\item \emph{jcom.getMessageNames}:
-	
-		\item \emph{jcom.getReturnNames}:
-		
-	\end{itemize}
-	
-	\item Attributes:
-	
-	\begin{itemize}
-
-		\item \emph{jcom.getAllAttributes}:
-	
-		\item \emph{jcom.getOneAttribute}:
-		
-		\end{itemize}
+	\item Parameters, messages and returns in Jamoma are enhanced by the addition of properties and methods, controlling the data type, range, ramps to new values, filtering of repetitions etc. \cite{Place:2006jamoma, Place:2008osc_properties, Place_2008_flexible_control}. By passing the OSC name of a module and a node (parameter, message or return) of that module to the component \emph{jcom.getAllAttributes}, current values of all properties of that node will be returned, including the value of the node itself. The component \emph{jcom.getOneAttribute} can be used to query the property of one attribute only.
 		
 \end{itemize}
 
-In addition to instant queries of current state of Jamoma modules, the externals \emph{jcom.send} and \emph{jcom.receive} can be used to tap into live streams of OSC data passing through Jamoma. This will catch changes to all parameters of all modules as well as any returned OSC messages generated internally by Jamoma modules.
+Figure \ref{fig:querying} illustrates the use of these components to investigate a simple patch containing three Jamoma modules.
 
+In addition to instant queries of current state of Jamoma modules, the externals \emph{jcom.send} and \emph{jcom.receive} can be used to tap into live streams of OSC data passing through Jamoma. This will on an ongoing basis catch changes to all parameters of all modules as well as any returned OSC messages generated internally by Jamoma modules.
 
-As an addition to online documentation of Jamoma, a tutorial has been added on how to retrieve information about existing Jamoma modules \footnote{http://groupware.bek.no/groups/jamoma/wiki/f11fc/ \\ Retrieving\_information\_about\_existing\_Jamoma\_modules.html}.
+As an addition to the online documentation of Jamoma, a tutorial has been added on how to retrieve information about existing Jamoma modules \footnote{http://groupware.bek.no/groups/jamoma/wiki/f11fc/ \\ Retrieving\_information\_about\_existing\_Jamoma\_modules.html}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
