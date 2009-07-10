@@ -369,7 +369,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 {
 	t_subscriber	*new_subscriber;
 	bool			newInstanceCreated;
-	JamomaNodePtr	newNode;
+	NodePtr			newNode;
 	t_symbol		*newInstance;
 	long i, attr_nb = 0;
 	t_symbol** attr_names = NULL;
@@ -1373,7 +1373,7 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		int				instance = 0;
 		TTBoolean		nameConflict = false;
 		bool			newInstanceCreated;
-		JamomaNodePtr	newNode;
+		NodePtr			newNode;
 		t_symbol		*nameOriginal, *newInstance;
 		
 		x->osc_name = atom_getsym(argv);

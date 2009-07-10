@@ -222,6 +222,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NodeLib\JamomaNode.h"
+				>
+			</File>
+			<File
 				RelativePath=".\source\JamomaObject.h"
 				>
 			</File>
@@ -343,6 +347,10 @@
 			</File>
 			<File
 				RelativePath=".\jamoma.def"
+				>
+			</File>
+			<File
+				RelativePath=".\NodeLib\JamomaNode.cpp"
 				>
 			</File>
 			<File
