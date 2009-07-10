@@ -205,7 +205,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes\common\commonsyms.c"
+				RelativePath="..\..\..\..\Tools\library\max-sdk\c74support\max-includes\common\commonsyms.c"
 				>
 			</File>
 			<File

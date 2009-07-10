@@ -44,8 +44,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
     class_addmethod(c, (method)cuemng_bang,				"bang",			0);
 
 	// What to do when the text editor window is closed
+	class_addmethod(c, (method)cuemng_okclose,			"okclose",		A_CANT, 0);
 	class_addmethod(c, (method)cuemng_edclose,			"edclose",		A_CANT, 0);
-	class_addmethod(c, (method)cuemng_edsave,			"edsave",		A_CANT, 0);
 
 	// this method select the given cue as the current and,
 	// in TRIGGER mode, trigger out the current cue
@@ -81,11 +81,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	// this method save the cuelist in a textfile
 	// at selected path (if the path already exist)
-	class_addmethod(c, (method)cuemng_save,				"save",			0);
+	class_addmethod(c, (method)cuemng_save,				"writeagain",			0);
 
 	// this method save the cuelist in a textfile at the given path or,
 	// if there isn't path, open a dialog to select one.
-	class_addmethod(c, (method)cuemng_saveas,			"saveas",		A_GIMME, 0);
+	class_addmethod(c, (method)cuemng_saveas,			"write",		A_GIMME, 0);
 
 	// this method open a text editor to 
 	// show the entire cue list file
@@ -331,14 +331,14 @@ void cuemng_edclose(t_cuemng *x, char **handletext, long size)
 			}
 		}
 	}
+	sysmem_freehandle(x->buf);
     x->m_editor = NULL;
 }
 
-long cuemng_edsave(t_cuemng *x, char **ht, long size)
+long cuemng_okclose(t_cuemng *x, char **ht, long size)
 {
-	// do something with the text
-	object_post((t_object  *)x,"Save modifications");
-	return 1;	// 0 : tell editor it can save the text, otherwise do nothing
+	object_post((t_object  *)x,"Okclose");
+	return 1;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -350,6 +350,7 @@ long cuemng_edsave(t_cuemng *x, char **ht, long size)
 void cuemng_bang(t_cuemng *x)
 {
 	t_atom a[1];
+	int nblines;
 
 	// return the temp cue if x->current == -1
 	t_cue *ccue = cuemng_current_cue(x);
@@ -371,30 +372,41 @@ void cuemng_bang(t_cuemng *x)
 			}
 		}
 		else{ // EDIT_MODE
-
-			if(x->current == -1) x->show = TEMP_TEXT;
-			else x->show = CUE_TEXT;
-
-			// if the jed object doesn't exist, create it
-			if(!x->m_editor)
-				x->m_editor = (t_object *)object_new(CLASS_NOBOX, gensym("jed"), (t_object *)x , 0);
 			
-			// create a new ptr to the text
-			x->eof = 0;
-			x->ht_size = TEXT_BUFFER_SIZE;
-			x->ht = sysmem_newptrclear(sizeof(char)*x->ht_size);
+			nblines = cuemng_count_lines(x, ccue);
+			if(nblines < TEXT_MAX_LINE){
 
-			// write the cue in ht
-			cuemng_write_cue(ccue, x);
-			
-			// write ht in the editor
-			object_method(x->m_editor, gensym("settext"), x->ht, gensym("utf-8"));
+				if(x->current == -1) x->show = TEMP_TEXT;
+				else x->show = CUE_TEXT;
 
-			// give a title to the windows editor
-			object_attr_setsym(x->m_editor, gensym("title"), ccue->index);
+				// if the jed object doesn't exist, create it
+				if(!x->m_editor)
+					x->m_editor = (t_object *)object_new(CLASS_NOBOX, gensym("jed"), (t_object *)x , 0);
+				
+				x->wtof = false;	// we wan to write into the editor
 
-			// open the text window editor
-			object_attr_setchar(x->m_editor, gensym("visible"), 1);
+				// create a new buffer for text
+				x->eobuf = 0;
+				x->buf = sysmem_newhandleclear(TEXT_BUFFER_SIZE);
+				
+				critical_enter(0);
+				
+				// write the cue in the text buffer
+				cuemng_write_cue(ccue, x);
+				
+				// write buf into the editor
+				object_method(x->m_editor, gensym("settext"), *(x->buf), gensym("utf-8"));
+
+				critical_exit(0);
+
+				// give a title to the windows editor
+				object_attr_setsym(x->m_editor, gensym("title"), ccue->index);
+
+				// open the text window editor
+				object_attr_setchar(x->m_editor, gensym("visible"), 1);
+			}
+			else
+				object_error((t_object*)x,"can't display the text in text editor : too much lines (%d).", nblines);
 		}
 	}else
 		object_error((t_object *)x, "bang : create a cue before");
@@ -688,7 +700,6 @@ void cuemng_dosave(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 	char 			fullpath[MAX_PATH_CHARS];		// for storing the absolute path of the file
 	short 			err;							// error number
 	long			outtype;						// the file type that is actually true
-	t_filehandle	fh;								// a reference to our file (for opening it, closing it, etc.)
 
 	// GET THE PATH
 	// check the args to see if there is a user_path
@@ -712,7 +723,7 @@ void cuemng_dosave(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 	}
 
 	// NOW ATTEMPT TO CREATE THE FILE...
-	err = path_createsysfile(filename, x->cuelist_path, type, &fh);
+	err = path_createsysfile(filename, x->cuelist_path, type, &x->fh);
 
 	if(err){
 		object_error((t_object *)x, "save : error saving %s", filename);
@@ -723,54 +734,74 @@ void cuemng_dosave(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 	x->cuelist_file = gensym(filename);
 
 	// HERE WE CAN FINALLY WRITE THE DATA OUT TO THE FILE
-	// create a new ptr to the text
 	x->eof = 0;
-	x->ht_size = TEXT_BUFFER_SIZE;
-	x->ht = sysmem_newptrclear(sizeof(char)*TEXT_BUFFER_SIZE);
+	x->wtof = true;	// we wan to write on a file
 
-	// write all cues in ht
+	// create a new buffer
+	x->eobuf = 0;
+	x->buf = sysmem_newhandleclear(TEXT_BUFFER_SIZE);
+
+	// write all cues in the text file
+	critical_enter(0);
 	linklist_funall(x->cuelist,(method)cuemng_write_cue,x);
 
-	// write ht into the text file
-	err = sysfile_write(fh, &x->eof, x->ht);
+	// write the buffer into the text file in case of...
+	cuemng_write_buffer(x);
+
+	critical_exit(0);
 
 	// close the file
-	err = sysfile_seteof(fh, x->eof);
+	err = sysfile_seteof(x->fh, x->eof);
 	if(err){
 		object_error((t_object*)x, "save : error %d creating EOF of %s", err, filename);
 		return;	
 	}
-	sysfile_close(fh);
+	sysfile_close(x->fh);
 
 	defer(x,(method)cuemng_info_operation,gensym("save"),0,0);
 }
 
 void cuemng_open(t_cuemng *x)
 {
+	int nblines;
+
 	if(linklist_getsize(x->cuelist)){
 
-		x->show = CUELIST_TEXT;
+		nblines = cuemng_count_lines(x,NULL);
+		if(nblines < TEXT_MAX_LINE){
 
-		// if the jed object doesn't exist, create it
-		if(!x->m_editor)
-			x->m_editor = (t_object *)object_new(CLASS_NOBOX, gensym("jed"), (t_object *)x , 0);
-		
-		// create a ptr to the text
-		x->eof = 0;
-		x->ht_size = TEXT_BUFFER_SIZE;
-		x->ht = sysmem_newptrclear(sizeof(char)*TEXT_BUFFER_SIZE);
+			x->show = CUELIST_TEXT;
 
-		// write all cues in ht
-		linklist_funall(x->cuelist,(method)cuemng_write_cue,x);
-		
-		// write ht in the editor
-		object_method(x->m_editor, gensym("settext"), x->ht, gensym("utf-8"));
+			// if the jed object doesn't exist, create it
+			if(!x->m_editor)
+				x->m_editor = (t_object *)object_new(CLASS_NOBOX, gensym("jed"), (t_object *)x , 0);
+			
+			x->wtof = false;	// we wan to write into the editor
 
-		// give a title to the windows editor
-		object_attr_setsym(x->m_editor, gensym("title"), gensym("TODO : write cue list file name here"));
+			// create a new buffer for text
+			x->eobuf = 0;
+			x->buf = sysmem_newhandleclear(TEXT_BUFFER_SIZE);
 
-		// open the text window editor
-		object_attr_setchar(x->m_editor, gensym("visible"), 1);
+			critical_enter(0);
+
+			// write all cues in buf
+			linklist_funall(x->cuelist,(method)cuemng_write_cue,x);
+			
+			// write buf into the editor
+			object_method(x->m_editor, gensym("settext"), *(x->buf), gensym("utf-8"));
+
+			critical_exit(0);
+
+			// give a title to the windows editor
+			object_attr_setsym(x->m_editor, gensym("title"), gensym("TODO : write cue list file name here"));
+
+			// open the text window editor
+			object_attr_setchar(x->m_editor, gensym("visible"), 1);
+
+		}
+		else
+			object_error((t_object*)x,"can't display the text in text editor : too much lines (%d).", nblines);
+
 	}else
 		object_error((t_object *)x, "open : create a cue before");
 }
@@ -1599,7 +1630,7 @@ void cuemng_anything(t_cuemng *x, t_symbol *start, long argc, t_atom *argv)
 		return;
 	}
 
-	// is it to set the temp_cue as an absolute cue ?
+	// is it to set the temp_cue as a temp cue ?
 	if(start == ps_tempcue){
 		cuemng_set_temp(x, TEMP_CUE, argc, argv);
 		return;
@@ -1666,6 +1697,7 @@ void cuemng_set_temp(t_cuemng *x,long mode, long argc, t_atom *argv)
 	long r, r_pos;
 
 	x->temp_cue->mode = mode;
+
 	x->temp_cue->index = atom_getsym(&argv[0]);
 	
 	r = cuemng_check_ramp(x,&r_pos,argc-1,argv+1);
@@ -1939,7 +1971,7 @@ long cuemng_read_text(t_cuemng *x, char **texthd, long str)
 		last = t;	// memorise the number of the first letter of the line
 		if(text[t] != ' '){ // remove space before
 			l = 0;
-			line = sysmem_newptrclear(sizeof(char)*1024);	// TODO : dynamic memory allocation ???
+			line = sysmem_newptrclear(sizeof(char)*TEXT_LINE_SIZE);	// TODO : dynamic memory allocation ???
 			argc = 0;
 			argv = NULL;
 			while(text[t] != x->ps_lb->s_name[0]){	// copy a line of the text
@@ -2122,43 +2154,47 @@ void cuemng_info_operation(t_cuemng *x, t_symbol *s, long argc, t_atom *argv){
 
 void cuemng_write_cue(t_cue *c, t_cuemng *x)
 {
-			// write 3 new line
-			cuemng_write_sym(x,x->ps_lb);
-			cuemng_write_sym(x,x->ps_lb);
+	char name[64];
 
-			// store head info of the cue
-			// mode
-			if(c->mode == DIFFERENTIAL_CUE)cuemng_write_sym(x,x->ps_cue);
-			if(c->mode == ABSOLUTE_CUE) cuemng_write_sym(x,x->ps_keycue);
-			if(c->mode == TEMP_CUE) cuemng_write_sym(x,ps_tempcue);
-			if(c->mode == EMPTY_CUE) cuemng_write_sym(x,ps_emptycue);
+	// write 3 new line
+	cuemng_write_sym(x,x->ps_lb);
+	cuemng_write_sym(x,x->ps_lb);
 
-			// write name
-			cuemng_write_sym(x,c->index);
-			
-			// write option(s)
-			if(c->ramp > NO_RAMP){
-				cuemng_write_sym(x,x->ps_ramp);
-				cuemng_write_long(x,c->ramp);
-			}
-			
-			// write 3 new line
-			cuemng_write_sym(x,x->ps_lb);
-			cuemng_write_sym(x,x->ps_lb);
-			cuemng_write_sym(x,x->ps_lb);
-			
-			// write each line of the cue
-			linklist_funall(c->linelist, (method)cuemng_write_line, x);
+	// store head info of the cue
+	// mode
+	if(c->mode == DIFFERENTIAL_CUE)cuemng_write_sym(x,x->ps_cue);
+	if(c->mode == ABSOLUTE_CUE) cuemng_write_sym(x,x->ps_keycue);
+	if(c->mode == TEMP_CUE) cuemng_write_sym(x,ps_tempcue);
+	if(c->mode == EMPTY_CUE) cuemng_write_sym(x,ps_emptycue);
 
-			// write a new line
-			cuemng_write_sym(x,x->ps_lb);
+	// write name : wrap the name with " " to avoid the problem of SPACE
+	snprintf(name,64,"\"%s\"",c->index->s_name);
+	cuemng_write_sym(x,gensym(name));
+	
+	// write option(s)
+	if(c->ramp > NO_RAMP){
+		cuemng_write_sym(x,x->ps_ramp);
+		cuemng_write_long(x,c->ramp);
+	}
+	
+	// write 3 new line
+	cuemng_write_sym(x,x->ps_lb);
+	cuemng_write_sym(x,x->ps_lb);
+	cuemng_write_sym(x,x->ps_lb);
+	
+	// write each line of the cue
+	linklist_funall(c->linelist, (method)cuemng_write_line, x);
+
+	// write a new line
+	cuemng_write_sym(x,x->ps_lb);
 }
 
 void cuemng_write_line(t_line *l, t_cuemng *x)
 {
 	long i, nb_tab;
 
-	if(x->ht){
+	// if there is a buffer
+	if(*(x->buf)){
 
 		// l->type : number of newline before
 		if(l->type == _WAIT){
@@ -2207,9 +2243,8 @@ void cuemng_write_line(t_line *l, t_cuemng *x)
 void cuemng_write_atom(t_cuemng *x, t_atom *src)
 {
 	char temp[512];
-	long len, err;
+	long len = 0;
 	t_symbol* sym;
-	len = err = 0;
 
 	switch(src->a_type) 
 	{
@@ -2224,72 +2259,105 @@ void cuemng_write_atom(t_cuemng *x, t_atom *src)
 			snprintf(temp, sizeof(temp), "%ld ", atom_getlong(src));
 			break;
 	}
-	len = strlen(temp);
-	x->eof += len;
-	
-	if(x->eof >= x->ht_size){
-		x->ht_size += TEXT_BUFFER_SIZE;
-		sysmem_resizeptr(x->ht,sizeof(char)*x->ht_size);
+
+	x->eobuf += strlen(temp);
+
+	// before buffer becomes full ...
+	if(x->eobuf >= TEXT_BUFFER_SIZE){
+		// ... write the buffer into the text file
+		cuemng_write_buffer(x);
 	}
 
-	strcat(x->ht,temp);
+	// append the temp to the text buffer
+	if(*(x->buf))
+		strcat(*(x->buf),temp);
 }
 
 void cuemng_write_sym(t_cuemng *x, t_symbol *src)
 {
 	char temp[256];
-	long len, err;
-	len = err = 0;
 
 	snprintf(temp, sizeof(temp), "%s ", src->s_name);
 
-	len = strlen(temp);
-	x->eof += len;
+	x->eobuf += strlen(temp);
 
-	if(x->eof >= x->ht_size){
-		x->ht_size += TEXT_BUFFER_SIZE;
-		sysmem_resizeptr(x->ht,sizeof(char)*x->ht_size);
+	// before buffer becomes full ...
+	if(x->eobuf >= TEXT_BUFFER_SIZE){
+		// ... write the buffer into the text file
+		cuemng_write_buffer(x);
 	}
 
-	strcat(x->ht,temp);
+	// append the temp to the text buffer
+	if(*(x->buf))
+		strcat(*(x->buf),temp);
 }
 
 void cuemng_write_long(t_cuemng *x, long src)
 {
 	char temp[32];
-	long len, err;
-	len = err = 0;
 
 	snprintf(temp, sizeof(temp), "%ld ", src);
 
-	len = strlen(temp);
-	x->eof += len;
+	x->eobuf += strlen(temp);
 
-	if(x->eof >= x->ht_size){
-		x->ht_size += TEXT_BUFFER_SIZE;
-		sysmem_resizeptr(x->ht,sizeof(char)*x->ht_size);
+	// before buffer becomes full ...
+	if(x->eobuf >= TEXT_BUFFER_SIZE){
+		// ... write the buffer into the text file
+		cuemng_write_buffer(x);
 	}
 
-	strcat(x->ht,temp);
+	// append the temp to the text buffer
+	if(*(x->buf))
+		strcat(*(x->buf),temp);
 }
 
 void cuemng_write_float(t_cuemng *x, float src)
 {
 	char temp[32];
-	long len, err;
-	len = err = 0;
 
 	snprintf(temp, sizeof(temp), "%f ", src);
 
-	len = strlen(temp);
-	x->eof += len;
+	x->eobuf += strlen(temp);
 
-	if(x->eof >= x->ht_size){
-		x->ht_size += TEXT_BUFFER_SIZE;
-		sysmem_resizeptr(x->ht,sizeof(char)*x->ht_size);
+	// before buffer becomes full ...
+	if(x->eobuf >= TEXT_BUFFER_SIZE){
+		// ... write the buffer into the text file
+		cuemng_write_buffer(x);
 	}
 
-	strcat(x->ht,temp);
+	// append the temp to the text buffer
+	if(*(x->buf))
+		strcat(*(x->buf),temp);
+}
+
+// write the buffer into a text file or resize the buffer (depending on x->wtof)
+void cuemng_write_buffer(t_cuemng *x)
+{
+	short	err = 0;
+	long	len = 0;
+	
+	len = strlen(*(x->buf));
+
+	if(x->wtof){
+		// write into a text file
+		err = sysfile_write(x->fh, &len, *(x->buf));
+
+		if(err){
+			error("cuemng_write_buffer : sysfile_write error (%d)", err);
+			return;
+		}
+		x->eof += len;
+
+		// clear the buffer
+		x->eobuf = 0;
+		sysmem_freehandle(x->buf);
+		x->buf = sysmem_newhandleclear(TEXT_BUFFER_SIZE);
+	}
+	else{
+		// resize the buffer
+		x->eobuf = 0;
+		sysmem_resizehandle(x->buf,len+TEXT_BUFFER_SIZE);
+	}
 }
 
 // look at the incoming args to check the temp flag
@@ -2363,4 +2431,23 @@ long cuemng_check_ramp(t_cuemng *x, long *pos, long argc, t_atom *argv)
 	}
 	*pos = -1;
 	return NO_RAMP;
+}
+
+int cuemng_count_lines(t_cuemng *x, t_cue *cue)
+{
+	int i, count;
+	t_cue *c;
+
+	count = 0;
+
+	// return the size of the cuelist
+	if(cue == NULL){
+		for(i = 0; i < linklist_getsize(x->cuelist); i++){
+			c = (t_cue *)linklist_getindex(x->cuelist, i);
+			count += linklist_getsize(c->linelist);
+		}		
+		return count;
+	}
+	else
+		return linklist_getsize(cue->linelist);
 }

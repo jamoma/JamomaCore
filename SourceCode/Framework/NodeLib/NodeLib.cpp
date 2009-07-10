@@ -126,7 +126,6 @@ TTSymbolPtr		JamomaNode::getInstance(){return this->instance;}
 TTSymbolPtr		JamomaNode::getType(){return this->type;}
 ObjectPtr		JamomaNode::getMaxObject(){return this->maxObject;}
 JamomaNodePtr	JamomaNode::getParent(){return this->parent;}
-TTHashPtr		JamomaNode::getChildren(){return this->children;}
 TTHashPtr		JamomaNode::getProperties(){return this->properties;}
 
 TTErr JamomaNode::setName(TTSymbolPtr name, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
@@ -332,6 +331,107 @@ TTErr JamomaNode::setProperties(TTSymbolPtr propertie)
 	}
 	else
 		return kTTErrGeneric;
+}
+
+TTErr JamomaNode::getChildren(TTSymbolPtr name, TTSymbolPtr instance, LinkedListPtr *lk_children)
+{
+	uint i, j;
+	TTErr err;
+	TTValue *hk, *hk_i;
+	TTSymbolPtr key, key_i;
+	TTValue *c, *c_i;
+	TTHashPtr ht_i;
+	JamomaNodePtr n_c;
+
+	// if there are children
+	if(this->children->getSize()){
+
+		hk = new TTValue();
+		c = new TTValue();
+		this->children->getKeys(*hk);
+		*lk_children = new t_linklist();
+		
+		if(name == TT("*")){
+			// for each children
+			for(i=0; i<this->children->getSize(); i++){
+			
+				hk->get(i,(TTSymbol**)&key);
+				this->children->lookup(key,*c);
+				c->get(0,(TTPtr*)&ht_i);
+
+				// if there are instances
+				if(ht_i->getSize()){
+
+					hk_i = new TTValue();
+					c_i = new TTValue();
+					ht_i->getKeys(*hk_i);
+
+					if(instance == TT("*")){
+						// for each instance
+						for(j=0; j<ht_i->getSize(); j++){
+							hk_i->get(j,(TTSymbol**)&key_i);
+							ht_i->lookup(key_i,*c_i);
+							c_i->get(0,(TTPtr*)&n_c);
+
+							linklist_append(*lk_children,n_c);
+						}
+					}
+					// there is an instance
+					else{
+						err = ht_i->lookup(instance,*c_i);
+						if(err == kTTErrNone){
+							c_i->get(0,(TTPtr*)&n_c);
+							linklist_append(*lk_children,n_c);
+						}
+						else
+							return err;
+					}
+				}
+			}
+		}
+		// there is a name
+		else{
+			err = this->children->lookup(name,*c);
+			if(err == kTTErrNone){
+				c->get(0,(TTPtr*)&ht_i);
+
+				// if there are instances
+				if(ht_i->getSize()){
+
+					hk_i = new TTValue();
+					c_i = new TTValue();
+					ht_i->getKeys(*hk_i);
+
+					if(instance == TT("*")){
+						// for each instance
+						for(j=0; j<ht_i->getSize(); j++){
+							hk_i->get(j,(TTSymbol**)&key_i);
+							ht_i->lookup(key_i,*c_i);
+							c_i->get(0,(TTPtr*)&n_c);
+
+							linklist_append(*lk_children,n_c);
+						}
+					}
+					// there is an instance
+					else{
+						err = ht_i->lookup(instance,*c_i);
+						if(err == kTTErrNone){
+							c_i->get(0,(TTPtr*)&n_c);
+							linklist_append(*lk_children,n_c);
+						}
+						else
+							return err;
+					}
+				}
+			}
+			else
+				return err;
+		}
+	}
+	else
+		return kTTErrGeneric;
+
+	return kTTErrNone;
 }
 
 TTErr JamomaNode::getOscAddress(TTSymbolPtr *returnedOscAddress)
@@ -643,8 +743,82 @@ TTErr JamomaNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, ObjectPtr ne
 
 TTErr JamomaNodeLookup(TTSymbolPtr oscAddress, LinkedListPtr* returnedNodes, JamomaNodePtr* firstReturnedNode)
 {
-	return kTTErrNone;
+	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_attribute;
+	JamomaNodePtr n_found;
+	t_strwild *args;
+	TTErr err;
+
+	// Make sure we are dealing with valid OSC input by looking for a leading slash
+	if(oscAddress->getCString()[0] != '/')
+		return kTTErrGeneric;
+
+	// Is there a wild card ?
+	if(strrchr(oscAddress->getCString(),'*')){
+		
+		// Split the address /parent/name.instance:attribut
+		splitOSCAddress(oscAddress, &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_attribute);
+
+		// Here is a recursive call to the JamomaNodeLookup to get all nodes at upper levels
+		err = JamomaNodeLookup(oscAddress_parent, returnedNodes, firstReturnedNode);
+
+		if(err == kTTErrNone){
+			// for each found nodes at upper levels
+
+			// prepare args
+			args = (t_strwild *)malloc(sizeof(t_strwild));
+			args->name = oscAddress_name;
+			args->instance = oscAddress_instance;
+			args->selectedNodes = NULL;
+
+			// get a linkedlist of all
+			// selected nodes (by name and by instance)
+			linklist_funall(*returnedNodes,(method)JamomaNodeWilcard, args);
+
+			if(args->selectedNodes){
+				*returnedNodes = args->selectedNodes;
+				*firstReturnedNode = (JamomaNodePtr)linklist_getindex(args->selectedNodes,1);
+				free(args);
+				return kTTErrNone;
+			}
+			else{
+				free(args);
+				return kTTErrValueNotFound;
+			}
+		}
+
+		return err;
+	}
+	// no wild card : do a lookup in the global hashtab
+	else{
+		err = getNodeForOSC(oscAddress, &n_found);
+		*returnedNodes = linklist_new();
+		linklist_append(*returnedNodes,n_found);
+		*firstReturnedNode = n_found;
+		return err;
+	}
 }
+
+void JamomaNodeWilcard(JamomaNodePtr node, t_strwild *args)
+{
+	TTErr err;
+	LinkedListPtr lk_temp;
+
+	err = node->getChildren(args->name, args->instance,&lk_temp);
+
+	// if there are children
+	if(err == kTTErrNone){
+		
+		// if there are other selected nodes
+		if(args->selectedNodes)
+			// merge to other
+			// TODO : find a better way to do that !!!
+			linklist_funall(lk_temp,(method)JamomaNode_linklist_merge,args->selectedNodes);
+		else
+			args->selectedNodes = lk_temp;
+	}
+}
+
+void JamomaNode_linklist_merge(JamomaNodePtr toappend, LinkedListPtr result){linklist_append(result,toappend);}
 
 TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdress, TTSymbolPtr* returnedNodeName, TTSymbolPtr* returnedNodeInstance, TTSymbolPtr* returnedNodeAttribute)
 {
@@ -830,16 +1004,16 @@ JamomaError jamoma_node_unregister(t_symbol *OSCaddress)
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaNodePtr jamoma_node_get(t_symbol *address)
+JamomaError jamoma_node_get(t_symbol *address, LinkedListPtr *returnedNodes, JamomaNodePtr *firstReturnedNode)
 {
 	TTErr err;
-	JamomaNodePtr got;
-	err = getNodeForOSC(address->s_name, &got);
+
+	err = JamomaNodeLookup(TT(address->s_name), returnedNodes, firstReturnedNode);
 
 	if(err == kTTErrNone)
-		return got;
+		return JAMOMA_ERR_NONE;
 	else
-		return NULL;
+		return JAMOMA_ERR_GENERIC;
 }
 
 t_symbol * jamoma_node_name(JamomaNodePtr node)
@@ -884,48 +1058,15 @@ t_symbol * jamoma_node_type(JamomaNodePtr node)
 
 LinkedListPtr jamoma_node_children(JamomaNodePtr node)
 {
-	uint i, j;
-	TTValue *hk, *hk_i;
-	TTSymbolPtr key, key_i;
-	TTValue *c, *c_i;
-	TTHashPtr ht_i;
-	JamomaNodePtr n_c;
 	LinkedListPtr lk_children;
+	TTErr err;
 
-	// if there are children
-	if(node->getChildren()->getSize()){
+	err =  node->getChildren(TT("*"),TT("*"), &lk_children);
 
-		hk = new TTValue();
-		c = new TTValue();
-		node->getChildren()->getKeys(*hk);
-		lk_children = new t_linklist();
-		
-		// for each children
-		for(i=0; i<node->getChildren()->getSize(); i++){
-			hk->get(i,(TTSymbol**)&key);
-			node->getChildren()->lookup(key,*c);
-			c->get(0,(TTPtr*)&ht_i);
-
-			// if there are instances
-			if(ht_i->getSize()){
-
-				hk_i = new TTValue();
-				c_i = new TTValue();
-				ht_i->getKeys(*hk_i);
-				
-				// for each instance
-				for(j=0; j<ht_i->getSize(); j++){
-					hk_i->get(j,(TTSymbol**)&key_i);
-					ht_i->lookup(key_i,*c_i);
-					c_i->get(0,(TTPtr*)&n_c);
-
-					linklist_append(lk_children,n_c);
-				}
-			}
-		}		
+	if(err == kTTErrNone)
 		return lk_children;
-	}
-	return NULL;
+	else
+		return NULL;
 }
 
 t_object * jamoma_node_max_object(JamomaNodePtr node)

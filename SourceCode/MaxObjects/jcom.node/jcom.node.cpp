@@ -33,11 +33,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	// this method save the node tree in an opml file
 	// at selected path (if the path already exist)
-	class_addmethod(c, (method)node_save,			"save",			0);
+	class_addmethod(c, (method)node_writeagain,			"writeagain",			0);
 
 	// this method save the node tree in an opml file at the given path or,
 	// if there isn't path, open a dialog to select one.
-	class_addmethod(c, (method)node_saveas,			"saveas",		A_GIMME, 0);
+	class_addmethod(c, (method)node_write,			"write",		A_GIMME, 0);
 
 	// this method dump all the address of the tree in the max window
 	class_addmethod(c, (method)node_dump,			"dump",			0);
@@ -111,42 +111,53 @@ void node_assist(t_node *x, void *b, long msg, long arg, char *dst)
 	}		
 }
 
-void node_saveas(t_node *x, t_symbol *msg, long argc, t_atom *argv)
+void node_write(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	if(argc && argv)
-		defer((t_object*)x, (method)node_dosave, 0, argc, argv);
+		defer((t_object*)x, (method)node_dowrite, 0, argc, argv);
 	else 
-		defer((t_object*)x, (method)node_dosave, gensym("no args in save as"), argc, argv);
+		defer((t_object*)x, (method)node_dowrite, gensym("no args in write"), argc, argv);
 }
 
-void node_save(t_node *x)
+void node_writeagain(t_node *x)
 {
-	defer((t_object*)x, (method)node_dosave, 0, 0, NULL);
+	defer((t_object*)x, (method)node_dowrite, 0, 0, NULL);
 }
 
 void node_send(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_object *obj;
+	int i;
+	t_symbol *address;
+	JamomaError err = JAMOMA_ERR_NONE;
 
 	if(argc && argv){
 		if(atom_gettype(&argv[0]) == A_SYM){
 			
 			// goto the address
-			x->p_node = jamoma_node_get(atom_getsym(&argv[0]));
+			address = atom_getsym(&argv[0]);
+			if(address != x->address){
+				x->address = address;
+				err = jamoma_node_get(address, &(x->lk_nodes), &(x->p_node));
+			}
 
 			// if the address exists
-			if(x->p_node){
+			if(err == JAMOMA_ERR_NONE){
 
-				obj = jamoma_node_max_object(x->p_node);
+				for(i=0; i<linklist_getsize(x->lk_nodes); i++){
 
-				// if the node have an object
-				if(obj)
-					object_method_typed((t_object*)obj, jps_dispatched, argc-1, argv+1, NULL);
-				else
-					object_error((t_object*)x,"send : %s have no object", atom_getsym(&argv[0]));
+					x->p_node = (JamomaNodePtr)linklist_getindex(x->lk_nodes,i);
+					obj = jamoma_node_max_object(x->p_node);
+
+					// if the node have an object
+					if(obj)
+						object_method_typed((t_object*)obj, jps_dispatched, argc-1, argv+1, NULL);
+					else
+						object_error((t_object*)x,"send : %s have no object", jamoma_node_name(x->p_node)->s_name);
+				}
 			}
 			else
-				object_error((t_object*)x,"send : %s doesn't exist", atom_getsym(&argv[0]));
+				object_error((t_object*)x,"send : %s doesn't exist", address->s_name);
 		}
 		else
 			object_error((t_object*)x,"send : the first arg have to be a symbol");
@@ -157,7 +168,13 @@ void node_send(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 
 void node_goto(t_node *x, t_symbol *address)
 {
-	x->p_node = jamoma_node_get(address);
+	JamomaError err = JAMOMA_ERR_NONE;
+
+	// goto the address
+	if(address != x->address){
+		x->address = address;
+		err = jamoma_node_get(address, &(x->lk_nodes), &(x->p_node));
+	}
 }
 
 void node_set_name(t_node *x, t_symbol *name)
@@ -195,7 +212,7 @@ void node_dump(t_node *x)
 
 
 // Private methods
-void node_dosave(t_node *x, t_symbol *msg, long argc, t_atom *argv)
+void node_dowrite(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	long 			type = 'TEXT';					// four-char code for Mac file type
 	char 			filename[MAX_FILENAME_CHARS];	// for storing the name of the file locally
@@ -212,7 +229,7 @@ void node_dosave(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 	}
 	else{
 		// Does a former cuelist_path exist ?
-		if(x->node_tree_path && (msg != gensym("no args in save as"))){
+		if(x->node_tree_path && (msg != gensym("no args in write"))){
 			strcpy(filename,x->node_tree_file->s_name);
 		}
 		else{
@@ -226,7 +243,7 @@ void node_dosave(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 	}
 
 	// NOW ATTEMPT TO CREATE THE FILE...
-	err = path_createsysfile(filename, x->node_tree_path, type, &fh);
+	err = path_createsysfile(filename, x->node_tree_path, type, &x->fh);
 
 	if(err){
 		object_error((t_object *)x, "save : error saving %s", filename);
@@ -237,12 +254,14 @@ void node_dosave(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 	x->node_tree_file = gensym(filename);
 
 	// HERE WE CAN FINALLY WRITE THE DATA OUT TO THE FILE
-	// create a new ptr to the text
 	x->eof = 0;
-	x->ht_size = TEXT_BUFFER_SIZE;
-	x->ht = sysmem_newptrclear(sizeof(char)*TEXT_BUFFER_SIZE);
+
+	// create a new buffer
+	x->eobuf = 0;
+	x->buf = sysmem_newhandleclear(TEXT_BUFFER_SIZE);
 
 	// write the tree as an opml file
+	critical_enter(0);
 	node_write_string(x, "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>");
 	node_write_string(x, LB);
 	node_write_string(x, "<opml version=\"2.0\">");
@@ -257,9 +276,7 @@ void node_dosave(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 	node_write_string(x, LB);
 
 	x->p_node = jamoma_node_init();
-	critical_enter(0);
 	node_dump_as_opml(x,0);	// dump the tree from the root
-	critical_exit(0);
 
 	node_write_string(x, "		</body>");
 	node_write_string(x, LB);
@@ -267,16 +284,18 @@ void node_dosave(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 	// close the opml file
 	node_write_string(x, "	</opml>");
 
-	// write ht into the text file
-	err = sysfile_write(fh, &x->eof, x->ht);
+	// write the buffer
+	node_write_buffer(x);
+
+	critical_exit(0);
 
 	// close the file
-	err = sysfile_seteof(fh, x->eof);
+	err = sysfile_seteof(x->fh, x->eof);
 	if(err){
 		object_error((t_object*)x, "save : error %d creating EOF of %s", err, filename);
 		return;	
 	}
-	sysfile_close(fh);
+	sysfile_close(x->fh);
 }
 
 void node_opml_header(t_node *x)
@@ -346,7 +365,7 @@ void node_dump_as_opml(t_node *x, short level)
 	// if there are properties
 	if(lk_prp){
 		// write an outline for the attributes
-		node_write_string(x, "<outline text=\"attributes\">");
+		node_write_string(x, "<outline text=\":\">");
 		node_write_string(x, LB);
 
 		// write an outline for each attribute
@@ -380,32 +399,34 @@ void node_dump_as_opml(t_node *x, short level)
 void node_write_atom(t_node *x, t_atom *src)
 {
 	char temp[512];
-	long len, err;
+	long len = 0;
 	t_symbol* sym;
-	len = err = 0;
 
 	switch(src->a_type) 
 	{
 		case A_SYM:
 			sym = atom_getsym(src);
-			snprintf(temp, sizeof(temp), "%s", sym->s_name);
+			snprintf(temp, sizeof(temp), "%s ", sym->s_name);
 			break;
 		case A_FLOAT:
-			snprintf(temp, sizeof(temp), "%f", atom_getfloat(src));
+			snprintf(temp, sizeof(temp), "%f ", atom_getfloat(src));
 			break;
 		case A_LONG:
-			snprintf(temp, sizeof(temp), "%ld", atom_getlong(src));
+			snprintf(temp, sizeof(temp), "%ld ", atom_getlong(src));
 			break;
 	}
-	len = strlen(temp);
-	x->eof += len;
-	
-	if(x->eof >= x->ht_size){
-		x->ht_size += TEXT_BUFFER_SIZE;
-		sysmem_resizeptr(x->ht,sizeof(char)*x->ht_size);
+
+	x->eobuf += strlen(temp);
+
+	// before buffer becomes full ...
+	if(x->eobuf >= TEXT_BUFFER_SIZE){
+		// ... write the buffer into the text file
+		node_write_buffer(x);
 	}
 
-	strcat(x->ht,temp);
+	// append the temp to the text buffer
+	if(*(x->buf))
+		strcat(*(x->buf),temp);
 }
 
 void node_write_sym(t_node *x, t_symbol *src)
@@ -416,56 +437,79 @@ void node_write_sym(t_node *x, t_symbol *src)
 void node_write_string(t_node *x, char *src)
 {
 	char temp[256];
-	long len, err;
-	len = err = 0;
 
-	snprintf(temp, sizeof(temp), "%s", src);
+	snprintf(temp, sizeof(temp), "%s ", src);
 
-	len = strlen(temp);
-	x->eof += len;
+	x->eobuf += strlen(temp);
 
-	if(x->eof >= x->ht_size){
-		x->ht_size += TEXT_BUFFER_SIZE;
-		sysmem_resizeptr(x->ht,sizeof(char)*x->ht_size);
+	// before buffer becomes full ...
+	if(x->eobuf >= TEXT_BUFFER_SIZE){
+		// ... write the buffer into the text file
+		node_write_buffer(x);
 	}
 
-	strcat(x->ht,temp);
+	// append the temp to the text buffer
+	if(*(x->buf))
+		strcat(*(x->buf),temp);
 }
 
 void node_write_long(t_node *x, long src)
 {
 	char temp[32];
-	long len, err;
-	len = err = 0;
 
-	snprintf(temp, sizeof(temp), "%ld", src);
+	snprintf(temp, sizeof(temp), "%ld ", src);
 
-	len = strlen(temp);
-	x->eof += len;
+	x->eobuf += strlen(temp);
 
-	if(x->eof >= x->ht_size){
-		x->ht_size += TEXT_BUFFER_SIZE;
-		sysmem_resizeptr(x->ht,sizeof(char)*x->ht_size);
+	// before buffer becomes full ...
+	if(x->eobuf >= TEXT_BUFFER_SIZE){
+		// ... write the buffer into the text file
+		node_write_buffer(x);
 	}
 
-	strcat(x->ht,temp);
+	// append the temp to the text buffer
+	if(*(x->buf))
+		strcat(*(x->buf),temp);
 }
 
 void node_write_float(t_node *x, float src)
 {
 	char temp[32];
-	long len, err;
-	len = err = 0;
 
-	snprintf(temp, sizeof(temp), "%f", src);
+	snprintf(temp, sizeof(temp), "%f ", src);
 
-	len = strlen(temp);
-	x->eof += len;
+	x->eobuf += strlen(temp);
 
-	if(x->eof >= x->ht_size){
-		x->ht_size += TEXT_BUFFER_SIZE;
-		sysmem_resizeptr(x->ht,sizeof(char)*x->ht_size);
+	// before buffer becomes full ...
+	if(x->eobuf >= TEXT_BUFFER_SIZE){
+		// ... write the buffer into the text file
+		node_write_buffer(x);
 	}
 
-	strcat(x->ht,temp);
+	// append the temp to the text buffer
+	if(*(x->buf))
+		strcat(*(x->buf),temp);
+}
+
+// write the buffer into a text file
+void node_write_buffer(t_node *x)
+{
+	short	err = 0;
+	long	len = 0;
+	
+	len = strlen(*(x->buf));
+
+	// write into a text file
+	err = sysfile_write(x->fh, &len, *(x->buf));
+
+	if(err){
+		error("node_write_buffer : sysfile_write error (%d)", err);
+		return;
+	}
+	x->eof += len;
+
+	// clear the buffer
+	x->eobuf = 0;
+	sysmem_freehandle(x->buf);
+	x->buf = sysmem_newhandleclear(TEXT_BUFFER_SIZE);
 }

@@ -22,6 +22,16 @@ typedef JamomaNode*	JamomaNodePtr;
 typedef TTHash* TTHashPtr;
 typedef TTList* TTListPtr;
 
+// this a structure called as args 
+// in a linklist_funall process
+// in JamomaNodeLookup
+typedef struct _strwild
+{
+	TTSymbolPtr	name;
+	TTSymbolPtr	instance;
+	LinkedListPtr selectedNodes;
+}t_strwild;
+
 // statics and globals
 /**	The Jamoma node tree's root node - e.g. the container at the '/' address				*/
 static JamomaNodePtr		jamoma_node_root = NULL;
@@ -124,8 +134,8 @@ public:
 		@return						An error code.	*/
 	TTErr			setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created);
 
-	/** Get the hashtab of all the children of the node */
-	TTHashPtr		getChildren();
+	/** Get a linklist of children of the node : select them by name and instance (use wilcards to select them all) */
+	TTErr getChildren(TTSymbolPtr name, TTSymbolPtr instance, LinkedListPtr *lk_children);
 	
 	/** Add a node as a child of the node
 		@param child			a JamomaNodePtr to add as children of the node.
@@ -182,6 +192,8 @@ TTErr getNodeForOSC(TTSymbolPtr oscAddress, JamomaNodePtr* returnedNode);
 								The value of the pointer will be set upon return.
 	@return						An error code.				*/
 TTErr JamomaNodeLookup(TTSymbolPtr oscAddress, LinkedListPtr* returnedNodes, JamomaNodePtr* firstReturnedNode);
+void JamomaNodeWilcard(JamomaNodePtr node, t_strwild *args);
+void JamomaNode_linklist_merge(JamomaNodePtr toappend, LinkedListPtr result);
 
 	/**	Create a new node, at the given location in the tree.
 		@param	oscAddress				The OSC address for which you wish to create a node.
@@ -245,18 +257,16 @@ extern "C" {
 
 		Note : this is called 
 				> in "hub_attr_setname" (in jcom.hub.cpp) to register the hub
-				> in "hub_subscribe" (in jcom.hub.cpp) to register a param	
-
-		@return		a new instance created (or NULL if not)		*/
+				> in "hub_subscribe" (in jcom.hub.cpp) to register a param	*/
 	JamomaError		jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, JamomaNodePtr *newNode, bool *newInstanceCreated);
 
 	/** Unregister an osc address in the tree */
 	JamomaError		jamoma_node_unregister(t_symbol *OSCaddress);
 
-	/** Get the node at the given address */
-	JamomaNodePtr	jamoma_node_get(t_symbol *name);
+	/** Get the node(s) at the given address (with wildcard too) */
+	JamomaError jamoma_node_get(t_symbol *address, LinkedListPtr *returnedNodes, JamomaNodePtr *firstReturnedNode);
 
-	/** Return the name of a node*/
+	/** Return the name of a node */
 	t_symbol *		jamoma_node_name(JamomaNodePtr node);
 
 	/** Set the name of a node
@@ -282,7 +292,7 @@ extern "C" {
 	/** Return all properties of a node */
 	LinkedListPtr	jamoma_node_properties(JamomaNodePtr node);
 
-	/** Add a propertie to a node as a ky in the hashtab (without value) */
+	/** Add a propertie to a node as a key in the hashtab (without value) */
 	JamomaError		jamoma_node_set_properties(JamomaNodePtr node, t_symbol *propertie);
 
 	/** Free the root of the tree and all the tree */
