@@ -15,7 +15,6 @@
 		221402D30FE58C36000E4AF6 /* mypainter.h in Headers */ = {isa = PBXBuildFile; fileRef = 221402D20FE58C36000E4AF6 /* mypainter.h */; };
 		221403240FE591A0000E4AF6 /* TTGraphicsContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 221403230FE591A0000E4AF6 /* TTGraphicsContext.h */; };
 		22B855A50FCDDA5E002D3BCE /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B855A40FCDDA5E002D3BCE /* JamomaDSP.framework */; };
-		22FA5AD60FD5CFB100A451BC /* Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FA5AD50FD5CFB100A451BC /* Filter.h */; };
 		22FA5B110FD5D54100A451BC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA5B100FD5D54100A451BC /* Cocoa.framework */; };
 		22FA5B5E0FD5D7C300A451BC /* BlueButter.component in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D01CCD20486CAD60068D4B7 /* BlueButter.component */; };
 		22FA5B8B0FD5D92500A451BC /* CocoaView.nib in Resources */ = {isa = PBXBuildFile; fileRef = 22FA5B8A0FD5D92500A451BC /* CocoaView.nib */; };
@@ -84,7 +83,6 @@
 		221402D20FE58C36000E4AF6 /* mypainter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mypainter.h; path = view/mypainter.h; sourceTree = "<group>"; };
 		221403230FE591A0000E4AF6 /* TTGraphicsContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphicsContext.h; path = ../../../extensions/TTGraphics/TTGraphicsContext.h; sourceTree = SOURCE_ROOT; };
 		22B855A40FCDDA5E002D3BCE /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
-		22FA5AD50FD5CFB100A451BC /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Filter.h; path = temp/Filter.h; sourceTree = "<group>"; };
 		22FA5ADE0FD5CFEC00A451BC /* FilterDemo_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterDemo_Prefix.pch; sourceTree = "<group>"; };
 		22FA5B100FD5D54100A451BC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		22FA5B8A0FD5D92500A451BC /* CocoaView.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = CocoaView.nib; sourceTree = "<group>"; };
@@ -225,17 +223,8 @@
 				221402070FE57B3F000E4AF6 /* view */,
 				22FA5ADE0FD5CFEC00A451BC /* FilterDemo_Prefix.pch */,
 				22FA5B8A0FD5D92500A451BC /* CocoaView.nib */,
-				22FA5AD80FD5CFB700A451BC /* temp */,
 			);
 			name = CustomView;
-			sourceTree = "<group>";
-		};
-		22FA5AD80FD5CFB700A451BC /* temp */ = {
-			isa = PBXGroup;
-			children = (
-				22FA5AD50FD5CFB100A451BC /* Filter.h */,
-			);
-			name = temp;
 			sourceTree = "<group>";
 		};
 		8BA05A56072072A900365D66 /* AU Source */ = {
@@ -348,7 +337,6 @@
 				8BC6025C073B072D006C4272 /* BlueButter.h in Headers */,
 				3EEA126F089847F5002C6BFC /* CAVectorUnit.h in Headers */,
 				3EEA1270089847F5002C6BFC /* CAVectorUnitTypes.h in Headers */,
-				22FA5AD60FD5CFB100A451BC /* Filter.h in Headers */,
 				221402100FE57B3F000E4AF6 /* BlueButter_UIView.h in Headers */,
 				221402120FE57B3F000E4AF6 /* BlueButter_ViewFactory.h in Headers */,
 				221402D30FE58C36000E4AF6 /* mypainter.h in Headers */,

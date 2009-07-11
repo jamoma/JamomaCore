@@ -4,9 +4,10 @@
 
 #import "TTBlueAPI.h"
 
-#import "BlueButter_GraphView.h"
-#import "Filter.h"
+//#import "BlueButter_GraphView.h"
+//#import "Filter.h"
 
+const long kAudioUnitCustomProperty_FilterFrequencyResponse = 'prHz';
 
 //@interface AppleDemoFilter_UIView : NSView
 @interface BlueButter_UIView : NSView
