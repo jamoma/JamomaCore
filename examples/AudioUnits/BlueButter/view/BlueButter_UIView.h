@@ -13,8 +13,8 @@
 //@interface BlueButter_UIView : TTGraphicsContentView
 {	
 //	IBOutlet AppleDemoFilter_GraphView	*graphView;
-	IBOutlet NSTextField				*cutoffFrequencyField;
-	IBOutlet NSTextField				*resonanceField;
+//	IBOutlet NSTextField				*cutoffFrequencyField;
+//	IBOutlet NSTextField				*resonanceField;
 	IBOutlet NSImageView				*imageView;
 	
 	TTObjectPtr				myAUPainter;

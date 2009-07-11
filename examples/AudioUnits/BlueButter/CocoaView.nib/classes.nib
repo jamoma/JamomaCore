@@ -6,14 +6,9 @@
 	<array>
 		<dict>
 			<key>CLASS</key>
-			<string>AppleDemoFilter_ViewFactory</string>
+			<string>FirstResponder</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
-			<key>OUTLETS</key>
-			<dict>
-				<key>uiFreshlyLoadedView</key>
-				<string>AppleDemoFilter_UIView</string>
-			</dict>
 			<key>SUPERCLASS</key>
 			<string>NSObject</string>
 		</dict>
@@ -24,14 +19,6 @@
 			<string>ObjC</string>
 			<key>SUPERCLASS</key>
 			<string>NSControl</string>
-		</dict>
-		<dict>
-			<key>CLASS</key>
-			<string>FirstResponder</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>SUPERCLASS</key>
-			<string>NSObject</string>
 		</dict>
 		<dict>
 			<key>CLASS</key>
@@ -88,6 +75,19 @@
 			</dict>
 			<key>SUPERCLASS</key>
 			<string>NSView</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>AppleDemoFilter_ViewFactory</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>uiFreshlyLoadedView</key>
+				<string>AppleDemoFilter_UIView</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
 		</dict>
 	</array>
 	<key>IBVersion</key>
