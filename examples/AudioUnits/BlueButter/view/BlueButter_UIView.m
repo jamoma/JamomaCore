@@ -26,8 +26,11 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 @implementation BlueButter_UIView
 
 -(void) awakeFromNib {
+	NSRect rect = [imageView bounds];
+	TTValue v(rect.size.width, rect.size.height);
+	
 	myAUPainter = NULL;
-	TTObjectInstantiate(TT("MyAUPainter"), &myAUPainter, 0);
+	TTObjectInstantiate(TT("MyAUPainter"), &myAUPainter, v);
 }
 
 
@@ -36,12 +39,10 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 - (void)dealloc 
 {
     [self priv_removeListeners];
-//	[mBackgroundColor release];
 		
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 
-	//free (mData);
-//	[mImageView release];
+	// [mImageView release];
 	TTObjectRelease(&myAUPainter);
     [super dealloc];
 }
@@ -64,7 +65,7 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 	// register for resize notification and data changes for the graph view
 	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleGraphDataChanged:) name: @"fe" object: self];
 	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleGraphSizeChanged:) name: NSViewFrameDidChangeNotification  object: self];
-//
+
 	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(beginGesture:) name: @"fi" object: self];
 	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(endGesture:) name: @"fo" object: self];
 
@@ -76,25 +77,21 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 	// initial setup
 	[self priv_synchronizeUIWithParameterValues];
 	
-	
-	
 	// request a draw?
 	[self setNeedsDisplay: YES];
 }
 
 
-
-//- (void)drawRect:(NSRect)rect
+// draw
 - (void) makeButter
 {
-	TTValue			v;
-	TTErr			err;
-	NSData*			data = NULL;
+	TTValue				v;
+	TTErr				err;
 	NSBitmapImageRep*	bitmap = NULL;
-	unsigned char*	bytes = NULL;
-	int				width;
-	int				height;
-	int				stride;
+	unsigned char*		bytes = NULL;
+	int					width;
+	int					height;
+	int					stride;
 	
 	if (!myAUPainter)
 		return;
@@ -102,7 +99,8 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 	if (mImage) {
 		[mImage release];
 		mImage = NULL;
-	}	
+	}
+		
 	
 	myAUPainter->setAttributeValue(TT("mode"), TT("arc"));
 	
@@ -150,10 +148,11 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 			}
 		}
 		
-		
 		// USE THE FOLLOWING FOR DEBUGGING:
-		// data = [bitmap TIFFRepresentation];
-		// [data writeToFile:@"/test.tiff" atomically:NO];
+		{
+			// NSData* data = [bitmap TIFFRepresentation];
+			// [data writeToFile:@"/test.tiff" atomically:NO];
+		}
 		
 		mImage = [[NSImage alloc] initWithSize:NSMakeSize(width, height)];
 		[mImage addRepresentation:bitmap];
@@ -173,24 +172,24 @@ void EventListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitEve
 
 #pragma mark ____ INTERFACE ACTIONS ____
 
-- (IBAction) cutoffFrequencyChanged:(id)sender 
-{
-	float floatValue = [sender floatValue];
-	AudioUnitParameter cutoffParameter = {mAU, kFilterParam_CutoffFrequency, kAudioUnitScope_Global, 0 };
-	
-	NSAssert(	AUParameterSet(mAUEventListener, sender, &cutoffParameter, (Float32)floatValue, 0) == noErr,
-                @"[AppleDemoFilter_UIView cutoffFrequencyChanged:] AUParameterSet()");
-}
+//- (IBAction) cutoffFrequencyChanged:(id)sender 
+//{
+//	float floatValue = [sender floatValue];
+//	AudioUnitParameter cutoffParameter = {mAU, kFilterParam_CutoffFrequency, kAudioUnitScope_Global, 0 };
+//	
+//	NSAssert(	AUParameterSet(mAUEventListener, sender, &cutoffParameter, (Float32)floatValue, 0) == noErr,
+//                @"[AppleDemoFilter_UIView cutoffFrequencyChanged:] AUParameterSet()");
+//}
 
 
-- (IBAction) resonanceChanged:(id)sender 
-{
-	float floatValue = [sender floatValue];
-	AudioUnitParameter resonanceParameter = {mAU, kFilterParam_Resonance, kAudioUnitScope_Global, 0 };
-
-	NSAssert(	AUParameterSet(mAUEventListener, sender, &resonanceParameter, (Float32)floatValue, 0) == noErr,
-                @"[AppleDemoFilter_UIView resonanceChanged:] AUParameterSet()");
-}
+//- (IBAction) resonanceChanged:(id)sender 
+//{
+//	float floatValue = [sender floatValue];
+//	AudioUnitParameter resonanceParameter = {mAU, kFilterParam_Resonance, kAudioUnitScope_Global, 0 };
+//
+//	NSAssert(	AUParameterSet(mAUEventListener, sender, &resonanceParameter, (Float32)floatValue, 0) == noErr,
+//                @"[AppleDemoFilter_UIView resonanceChanged:] AUParameterSet()");
+//}
 
 
 - (void) handleGraphDataChanged:(NSNotification *) aNotification 
@@ -314,41 +313,18 @@ void addParamListener (AUEventListenerRef listener, void* refCon, AudioUnitEvent
 
 - (void) updateCurve 
 {
-//	UInt32 dataSize = kNumberOfResponseFrequencies * sizeof(FrequencyResponse);
-//	ComponentResult result = AudioUnitGetProperty(	mAU,
-//													kAudioUnitCustomProperty_FilterFrequencyResponse,
-//													kAudioUnitScope_Global,
-//													0,
-//													mData,
-//													&dataSize);
-
-//	if (result == noErr)
-//		[graphView plotData: mData];	// plot the new curve data and redraw the graph
-//	else if (result == kAudioUnitErr_Uninitialized)
-//		[graphView disableGraphCurve];
-//	[self drawRect:mRect];	
-	
 	[self makeButter];
-
 }
 
 
 - (void)priv_synchronizeUIWithParameterValues 
 {
-	Float32 freqValue = 1000, resValue = 1;
-//	AudioUnitParameter parameter = {mAU, kFilterParam_CutoffFrequency, kAudioUnitScope_Global, 0 };
+	Float32 freqValue = 1234;
+	//AudioUnitParameter parameter = {mAU, kFilterParam_CutoffFrequency, kAudioUnitScope_Global, 0 };
 	
-//	NSAssert (	AudioUnitGetParameter(mAU, kFilterParam_CutoffFrequency, kAudioUnitScope_Global, 0, &freqValue) == noErr,
-//				@"[AppleDemoFilter_UIView priv_synchronizeUIWithParameterValues] (x.1)");
-
-//	parameter.mParameterID = kFilterParam_Resonance;
-//	NSAssert (	AudioUnitGetParameter(mAU, kFilterParam_Resonance, kAudioUnitScope_Global, 0, &resValue) == noErr,
-//				@"[AppleDemoFilter_UIView priv_synchronizeUIWithParameterValues] (x.1)");
+	AudioUnitGetParameter(mAU, kFilterParam_CutoffFrequency, kAudioUnitScope_Global, 0, &freqValue);
 	
-//	[cutoffFrequencyField setFloatValue: freqValue];	// update the frequency text field
-//	[graphView setFreq: freqValue];					// update the graph's frequency visual state
-//	[resonanceField setFloatValue: resValue];		// update the resonance text field
-//	[graphView setRes: resValue];					// update the graph's gain visual state
+	myAUPainter->setAttributeValue(TT("position"), freqValue/20000.0);
 	[self updateCurve];
 }
 
@@ -363,8 +339,8 @@ void addParamListener (AUEventListenerRef listener, void* refCon, AudioUnitEvent
 		case kAudioUnitEvent_ParameterValueChange:					// Parameter Changes
 			switch (inEvent->mArgument.mParameter.mParameterID) {
 				case kFilterParam_CutoffFrequency:					// handle cutoff frequency parameter
-//					[cutoffFrequencyField setFloatValue: inValue];	// update the frequency text field
-//					[graphView setFreq: inValue];					// update the graph's frequency visual state
+					// kFilterParam_CutoffFrequency == kParam_One == 0
+					myAUPainter->setAttributeValue(TT("position"), inValue/20000.0);					
 					break;
 				case kFilterParam_Resonance:						// handle resonance parameter
 //					[resonanceField setFloatValue: inValue];		// update the resonance text field
@@ -388,6 +364,10 @@ void addParamListener (AUEventListenerRef listener, void* refCon, AudioUnitEvent
 }
 
 
+
+#pragma mark -
+#pragma mark mouse interaction
+
 /* If we get a mouseDown, that means it was not in the graph view, or one of the text fields. 
    In this case, we should make the window the first responder. This will deselect our text fields if they are active. */
 - (void) mouseDown: (NSEvent *) theEvent 
@@ -398,7 +378,8 @@ void addParamListener (AUEventListenerRef listener, void* refCon, AudioUnitEvent
 
 
 
-
+#pragma mark -
+#pragma mark flags
 
 - (BOOL) acceptsFirstResponder 
 {

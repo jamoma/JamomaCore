@@ -75,10 +75,10 @@
 
 /* Begin PBXFileReference section */
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		2214020A0FE57B3F000E4AF6 /* BlueButter_UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueButter_UIView.h; sourceTree = "<group>"; };
-		2214020B0FE57B3F000E4AF6 /* BlueButter_UIView.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = BlueButter_UIView.m; sourceTree = "<group>"; };
-		2214020C0FE57B3F000E4AF6 /* BlueButter_ViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueButter_ViewFactory.h; sourceTree = "<group>"; };
-		2214020D0FE57B3F000E4AF6 /* BlueButter_ViewFactory.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = BlueButter_ViewFactory.m; sourceTree = "<group>"; };
+		2214020A0FE57B3F000E4AF6 /* BlueButter_UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlueButter_UIView.h; path = view/BlueButter_UIView.h; sourceTree = "<group>"; };
+		2214020B0FE57B3F000E4AF6 /* BlueButter_UIView.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = BlueButter_UIView.m; path = view/BlueButter_UIView.m; sourceTree = "<group>"; };
+		2214020C0FE57B3F000E4AF6 /* BlueButter_ViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlueButter_ViewFactory.h; path = view/BlueButter_ViewFactory.h; sourceTree = "<group>"; };
+		2214020D0FE57B3F000E4AF6 /* BlueButter_ViewFactory.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = BlueButter_ViewFactory.m; path = view/BlueButter_ViewFactory.m; sourceTree = "<group>"; };
 		221402C00FE587E0000E4AF6 /* TTGraphics.ttdylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = TTGraphics.ttdylib; path = "/Library/Application Support/TTBlue/Extensions/TTGraphics.ttdylib"; sourceTree = "<absolute>"; };
 		221402D20FE58C36000E4AF6 /* mypainter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mypainter.h; path = view/mypainter.h; sourceTree = "<group>"; };
 		221403230FE591A0000E4AF6 /* TTGraphicsContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphicsContext.h; path = ../../../extensions/TTGraphics/TTGraphicsContext.h; sourceTree = SOURCE_ROOT; };
@@ -152,6 +152,7 @@
 		089C166AFE841209C02AAC07 /* BlueButter */ = {
 			isa = PBXGroup;
 			children = (
+				22FA5ADE0FD5CFEC00A451BC /* FilterDemo_Prefix.pch */,
 				08FB77ADFE841716C02AAC07 /* Source */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
@@ -186,10 +187,12 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				22FA5AC80FD5CF9100A451BC /* CustomView */,
 				8BC6025B073B072D006C4272 /* BlueButter.h */,
 				8BA05A660720730100365D66 /* BlueButter.cpp */,
-				8BA05A56072072A900365D66 /* AU Source */,
+				8BA05A670720730100365D66 /* BlueButter.exp */,
+				8BA05A680720730100365D66 /* BlueButter.r */,
+				8BA05A690720730100365D66 /* BlueButterVersion.h */,
+				22FA5AC80FD5CF9100A451BC /* ui */,
 				8BA05AEB0720742700365D66 /* PublicUtility */,
 				8BA05A7D072073D200365D66 /* AUPublic */,
 			);
@@ -204,37 +207,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		221402070FE57B3F000E4AF6 /* view */ = {
-			isa = PBXGroup;
-			children = (
-				2214020A0FE57B3F000E4AF6 /* BlueButter_UIView.h */,
-				2214020B0FE57B3F000E4AF6 /* BlueButter_UIView.m */,
-				2214020C0FE57B3F000E4AF6 /* BlueButter_ViewFactory.h */,
-				2214020D0FE57B3F000E4AF6 /* BlueButter_ViewFactory.m */,
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
-		22FA5AC80FD5CF9100A451BC /* CustomView */ = {
+		22FA5AC80FD5CF9100A451BC /* ui */ = {
 			isa = PBXGroup;
 			children = (
 				221403230FE591A0000E4AF6 /* TTGraphicsContext.h */,
 				221402D20FE58C36000E4AF6 /* mypainter.h */,
-				221402070FE57B3F000E4AF6 /* view */,
-				22FA5ADE0FD5CFEC00A451BC /* FilterDemo_Prefix.pch */,
+				2214020A0FE57B3F000E4AF6 /* BlueButter_UIView.h */,
+				2214020B0FE57B3F000E4AF6 /* BlueButter_UIView.m */,
+				2214020C0FE57B3F000E4AF6 /* BlueButter_ViewFactory.h */,
+				2214020D0FE57B3F000E4AF6 /* BlueButter_ViewFactory.m */,
 				22FA5B8A0FD5D92500A451BC /* CocoaView.nib */,
 			);
-			name = CustomView;
-			sourceTree = "<group>";
-		};
-		8BA05A56072072A900365D66 /* AU Source */ = {
-			isa = PBXGroup;
-			children = (
-				8BA05A670720730100365D66 /* BlueButter.exp */,
-				8BA05A680720730100365D66 /* BlueButter.r */,
-				8BA05A690720730100365D66 /* BlueButterVersion.h */,
-			);
-			name = "AU Source";
+			name = ui;
 			sourceTree = "<group>";
 		};
 		8BA05A7D072073D200365D66 /* AUPublic */ = {

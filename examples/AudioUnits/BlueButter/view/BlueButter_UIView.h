@@ -4,34 +4,24 @@
 
 #import "TTBlueAPI.h"
 
-//#import "BlueButter_GraphView.h"
-//#import "Filter.h"
 
 const long kAudioUnitCustomProperty_FilterFrequencyResponse = 'prHz';
 
-//@interface AppleDemoFilter_UIView : NSView
-@interface BlueButter_UIView : NSView
-//@interface BlueButter_UIView : TTGraphicsContentView
-{	
+
+@interface BlueButter_UIView : NSView {	
 //	IBOutlet AppleDemoFilter_GraphView	*graphView;
 //	IBOutlet NSTextField				*cutoffFrequencyField;
 //	IBOutlet NSTextField				*resonanceField;
-	IBOutlet NSImageView				*imageView;
+
+	IBOutlet NSImageView*	imageView;			// ui widget that displays mImage
+	NSImage*				mImage;				// this is the object to which we actually draw
+	TTObjectPtr				myAUPainter;		// TTGraphics object that performs the drawing
 	
-	TTObjectPtr				myAUPainter;
-	
-    // Other Members
     AudioUnit 				mAU;
 	AUEventListenerRef		mAUEventListener;
-	
 	NSRect					mRect;
-	
-//	FrequencyResponse 	   *mData;				// the data used to draw the filter curve
-//	NSColor				   *mBackgroundColor;	// the background color (pattern) of the view
-	
-	NSImage*			mImage;
-//	NSImageView*		mImageView;
 }
+
 
 #pragma mark ____ PUBLIC FUNCTIONS ____
 - (void) setAU:(AudioUnit)inAU;
