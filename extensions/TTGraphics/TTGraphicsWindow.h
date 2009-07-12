@@ -13,7 +13,6 @@
 #include "TTGraphicsContext.h"
 
 #ifdef TT_PLATFORM_MAC
-//#include <Carbon/Carbon.h>
 #include <Cocoa/Cocoa.h>
 #ifdef TTGRAPHICS_EXTENSION
 #include "cairo-quartz.h"
@@ -64,15 +63,12 @@ public:
 	NSWindow*				theWindow;
 	TTGraphicsContentView*	theContentView;
 	NSRect					bounds;			///< Window coords
-//	cairo_surface_t*		windowSurface;
 	TTGraphicsContext*		context;
 
 protected:
 	TTErr updateTitle();
 
 public:
-//	TTGraphicsWindow(TTValue& arguments);
-//	virtual ~TTGraphicsWindow();
 
 	/**	Bring the window to the front and give it keyboard focus.	*/
 	TTErr front();

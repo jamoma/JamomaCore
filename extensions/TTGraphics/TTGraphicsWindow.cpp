@@ -51,21 +51,13 @@
 		NSWindow*	window = [self window];
 
 		context = (CGContext*)[window context];
-//		cairoContext = 
 	}
 	surface = cairo_quartz_surface_create_for_cg_context(context, (int)rect.size.width, (int)rect.size.height); 
 	//    cairo_t *cairoContext = cairo_create(surface); 
 	
 	x->context->cairoContext = cairo_create(surface);
 	x->draw();
-	
-    // do your drawings with cairo here:
-//	cairo_select_font_face(cairoContext, "serif", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
-//	cairo_set_font_size(cairoContext, 32.0);
-//	cairo_set_source_rgb(cairoContext, 0.0, 0.0, 1.0);
-//	cairo_move_to(cairoContext, 10.0, 50.0);
-//	cairo_show_text(cairoContext, "Hello, world");
-	
+		
     cairo_destroy(x->context->cairoContext);
 	x->context->cairoContext = NULL;
     cairo_surface_destroy(surface);
@@ -103,8 +95,6 @@
 #pragma mark C++ Code
 
 
-//TTGraphicsWindow::TTGraphicsWindow(TTValue& arguments) :
-//	TTObject(TT("TTGraphicsWindow"), arguments), 
 TT_OBJECT_CONSTRUCTOR,
 	theWindow(NULL),
 	context(NULL)

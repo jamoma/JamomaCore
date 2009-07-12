@@ -33,11 +33,12 @@ typedef enum {
 
 
 
-/**	Creates/Manages a drawing context.  Typically this context will be displayed in a TTGraphicsWindow.	*/
+/**	Creates/Manages a drawing context.  Typically this context will be displayed in a TTGraphicsWindow.	
+	For the moment at least, we are passing a pointer to a surface for the window to the constructor?.
+	We may not want to share this data across classes though, and instead copy the data in the Window itself.
+ */
 class TTGraphicsContext : public TTObject {
 	TTCLASS_SETUP(TTGraphicsContext)
-
-//	cairo_surface_t*	cairoRenderSurface;
 
 public:
 	
@@ -47,15 +48,6 @@ public:
 #else
 	TTPtr				cairoContext;
 #endif
-	
-	/**	For the moment at least, we are passing a pointer to a surface for the window here.
-		We may not want to share this data across classes though, and instead copy the data in the Window itself.	*/
-//	TTGraphicsContext(TTValue& arguments);
-	
-	/**	Destructor.	*/
-//	virtual ~TTGraphicsContext();
-	
-	
 	
 	
 	void selectFontFace(TTCString family, TTGraphicsFontSlant slant, TTGraphicsFontWeight weight);

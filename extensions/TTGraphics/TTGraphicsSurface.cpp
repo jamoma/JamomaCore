@@ -15,8 +15,6 @@
 #define thisTTClassTags		"graphics"
 
 
-//TTGraphicsSurface::TTGraphicsSurface(TTValue& arguments)
-//	: TTObject(TT("TTGraphicsSurface"), arguments),
 TT_OBJECT_CONSTRUCTOR,
 	context(NULL)
 {

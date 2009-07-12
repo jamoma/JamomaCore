@@ -12,8 +12,6 @@
 #include "TTBlueAPI.h"
 
 #ifdef TT_PLATFORM_MAC
-//#include <Carbon/Carbon.h>
-//#include <Cocoa/Cocoa.h>
 #include "cairo-quartz.h"
 #else
 #include "cairo.h"
@@ -34,13 +32,7 @@ class TTGraphicsSurface : public TTObject {
 	TTGraphicsContext*		context;		///< context used for drawing
 
 public:
-	
-	/**	Constructor	*/
-//	TTGraphicsSurface(TTValue& arguments);
-	
-	/**	Destructor	*/
-//	virtual ~TTGraphicsSurface();
-	
+		
 	/**	Clear the contents to a completely transparent state. */
 	TTErr clear();
 	

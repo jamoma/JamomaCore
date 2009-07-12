@@ -13,17 +13,12 @@
 #define thisTTClassTags		"graphics"
 
 
-//TTGraphicsContext::TTGraphicsContext(TTValue& arguments)
-//: TTObject(TT("TTGraphicsContext"), arguments)
 TT_OBJECT_CONSTRUCTOR
 {
-//	TTPtr surface = v;
-//	cairoRenderSurface = (cairo_surface_t*)TTPtr(v);
-//	cairoRenderSurface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, 240, 80);
-//	cairoContext = cairo_create(cairoRenderSurface);
-
-	
-
+	//	TTPtr surface = v;
+	//	cairoRenderSurface = (cairo_surface_t*)TTPtr(v);
+	//	cairoRenderSurface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, 240, 80);
+	//	cairoContext = cairo_create(cairoRenderSurface);
 }
 
 
