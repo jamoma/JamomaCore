@@ -48,6 +48,13 @@ protected:
 		registerMessageWithArgument(draw);			// callback from TTGraphics surface
 		registerMessageWithArgument(getData);
 		
+		registerMessageWithArgument(mouseDown);
+		registerMessageWithArgument(mouseDragged);
+		registerMessageWithArgument(mouseUp);
+		registerMessageWithArgument(mouseEntered);
+		registerMessageWithArgument(mouseExited);
+		registerMessageWithArgument(mouseMoved);
+
 		//setAttributeValue(TT("mode"), TT("hello"));
 		setAttributeValue(TT("position"), 0.25);
 	}
@@ -125,6 +132,53 @@ public:
 	{
 		return graphicsSurface->sendMessage(TT("getData"), v);
 	}
+	
+	
+	
+	TTErr mouseDown(const TTValue& v)
+	{
+		return kTTErrGeneric;	// return an error if we don't handle the mouse gesture
+	}
+	
+	TTErr mouseDragged(const TTValue& v)
+	{
+		TTFloat64 x;
+		TTFloat64 y;
+		
+		v.get(0, x);
+		v.get(1, y);
+		
+		if (x < width && x > 0 && y < height && y > 0) {
+			// logMessage("groovy: %f, %f\n", x, y);
+			// TODO: the above debug message causes memory corruption!
+				
+			setAttributeValue(TT("position"), y/height);
+			return kTTErrNone;
+		}
+		
+		return kTTErrGeneric;	// return an error if we don't handle the mouse gesture
+	}
+	
+	TTErr mouseUp(const TTValue& v)
+	{
+		return kTTErrGeneric;	// return an error if we don't handle the mouse gesture
+	}
+	
+	TTErr mouseEntered(const TTValue& v)
+	{
+		return kTTErrGeneric;	// return an error if we don't handle the mouse gesture
+	}
+	
+	TTErr mouseExited(const TTValue& v)
+	{
+		return kTTErrGeneric;	// return an error if we don't handle the mouse gesture
+	}
+	
+	TTErr mouseMoved(const TTValue& v)
+	{
+		return kTTErrGeneric;	// return an error if we don't handle the mouse gesture
+	}
+		
 };
 
 

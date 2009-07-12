@@ -372,9 +372,80 @@ void addParamListener (AUEventListenerRef listener, void* refCon, AudioUnitEvent
    In this case, we should make the window the first responder. This will deselect our text fields if they are active. */
 - (void) mouseDown: (NSEvent *) theEvent 
 {
-	[super mouseDown: theEvent];
+	NSPoint eventLocation = [theEvent locationInWindow];
+	TTValue v(eventLocation.x, eventLocation.y);
+	
+	if (myAUPainter->sendMessage(TT("mouseDown"), v))
+		[super mouseDown: theEvent];
+	
 	[[self window] makeFirstResponder: self];
 }
+
+
+- (void) mouseDragged: (NSEvent*) theEvent
+{
+	NSPoint eventLocation = [theEvent locationInWindow];
+	TTValue v(eventLocation.x, eventLocation.y);
+	Float32 freqValue;
+	
+	if (myAUPainter->sendMessage(TT("mouseDragged"), v))
+		[super mouseDragged: theEvent];
+	else{
+		myAUPainter->getAttributeValue(TT("position"), v);
+		freqValue = TTFloat32(v) * 20000.0;
+		AudioUnitSetParameter(mAU, kFilterParam_CutoffFrequency, kAudioUnitScope_Global, 0, freqValue, 0);
+		[self makeButter];
+	}
+}
+
+
+- (void) mouseUp: (NSEvent*) theEvent
+{
+	NSPoint eventLocation = [theEvent locationInWindow];
+	TTValue v(eventLocation.x, eventLocation.y);
+	
+	if (myAUPainter->sendMessage(TT("mouseUp"), v))
+		[super mouseUp: theEvent];
+
+	[[self window] makeFirstResponder: self];
+}
+
+
+- (void) mouseEntered: (NSEvent*) theEvent
+{
+	NSPoint eventLocation = [theEvent locationInWindow];
+	TTValue v(eventLocation.x, eventLocation.y);
+	
+	if (myAUPainter->sendMessage(TT("mouseEntered"), v))
+		[super mouseEntered: theEvent];
+
+	[[self window] makeFirstResponder: self];
+}
+
+
+- (void) mouseExited: (NSEvent*) theEvent
+{
+	NSPoint eventLocation = [theEvent locationInWindow];
+	TTValue v(eventLocation.x, eventLocation.y);
+	
+	if (myAUPainter->sendMessage(TT("mouseExited"), v))
+		[super mouseExited: theEvent];
+
+	[[self window] makeFirstResponder: self];
+}
+
+
+- (void) mouseMoved: (NSEvent*) theEvent
+{
+	NSPoint eventLocation = [theEvent locationInWindow];
+	TTValue v(eventLocation.x, eventLocation.y);
+	
+	if (myAUPainter->sendMessage(TT("mouseMoved"), v))
+		[super mouseMoved: theEvent];
+
+	[[self window] makeFirstResponder: self];
+}
+
 
 
 
@@ -401,5 +472,10 @@ void addParamListener (AUEventListenerRef listener, void* refCon, AudioUnitEvent
 //{
 //	return YES;
 //}
+
+
+// TODO: we might need to do this...
+// setAcceptsMouseMovedEvents:
+
 
 @end
