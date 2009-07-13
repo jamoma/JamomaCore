@@ -1729,7 +1729,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 13.482065,
+									"fontsize" : 14.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-4",
 									"maxclass" : "comment",
@@ -1743,7 +1743,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 13.482065,
+									"fontsize" : 14.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-5",
 									"maxclass" : "comment",
@@ -1757,7 +1757,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 13.482065,
+									"fontsize" : 14.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-6",
 									"maxclass" : "comment",
@@ -1771,7 +1771,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 13.482065,
+									"fontsize" : 14.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-7",
 									"maxclass" : "comment",

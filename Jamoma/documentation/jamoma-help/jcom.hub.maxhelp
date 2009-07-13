@@ -939,7 +939,7 @@
 					"id" : "obj-58",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 13.482065,
+					"fontsize" : 14.0,
 					"numoutlets" : 0
 				}
 

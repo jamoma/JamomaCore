@@ -512,7 +512,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 13.482065,
+					"fontsize" : 14.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-36",
 					"maxclass" : "comment",

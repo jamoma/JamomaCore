@@ -199,7 +199,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 13.482065,
+					"fontsize" : 14.0,
 					"id" : "obj-24",
 					"items" : "...",
 					"maxclass" : "umenu",
@@ -373,7 +373,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 13.482065,
+					"fontsize" : 14.0,
 					"id" : "obj-11",
 					"items" : "...",
 					"maxclass" : "umenu",
@@ -391,7 +391,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 13.482065,
+					"fontsize" : 14.0,
 					"id" : "obj-12",
 					"items" : "Message Display Module",
 					"maxclass" : "umenu",
@@ -409,7 +409,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 13.482065,
+					"fontsize" : 14.0,
 					"id" : "obj-13",
 					"items" : "Welcome...",
 					"maxclass" : "umenu",

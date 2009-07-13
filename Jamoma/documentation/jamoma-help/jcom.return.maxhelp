@@ -134,7 +134,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Inlet:",
-					"fontsize" : 13.482065,
+					"fontsize" : 14.0,
 					"id" : "obj-10",
 					"patching_rect" : [ 20.0, 500.0, 176.0, 23.0 ],
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -177,7 +177,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Argument (obligatory):",
-					"fontsize" : 13.482065,
+					"fontsize" : 14.0,
 					"id" : "obj-13",
 					"patching_rect" : [ 20.0, 80.0, 176.0, 23.0 ],
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -219,7 +219,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Attributes:",
-					"fontsize" : 13.482065,
+					"fontsize" : 14.0,
 					"id" : "obj-17",
 					"patching_rect" : [ 20.0, 155.0, 85.0, 23.0 ],
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],

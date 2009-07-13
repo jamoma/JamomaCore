@@ -58,7 +58,7 @@
 					"id" : "obj-4",
 					"fontname" : "Verdana",
 					"numoutlets" : 0,
-					"fontsize" : 11.556055
+					"fontsize" : 12.0
 				}
 
 			}

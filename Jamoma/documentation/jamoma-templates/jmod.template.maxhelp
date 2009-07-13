@@ -95,7 +95,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 413.0, 285.0, 172.0, 23.0 ],
-					"fontsize" : 13.482065,
+					"fontsize" : 14.0,
 					"patcher" : 					{
 						"fileversion" : 1,
 						"rect" : [ 238.0, 214.0, 443.0, 449.0 ],
@@ -219,7 +219,7 @@
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"numoutlets" : 0,
 					"patching_rect" : [ 414.0, 131.0, 149.0, 21.0 ],
-					"fontsize" : 11.556055
+					"fontsize" : 12.0
 				}
 
 			}

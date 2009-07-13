@@ -535,7 +535,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 13.482065,
+					"fontsize" : 14.0,
 					"id" : "obj-3",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
