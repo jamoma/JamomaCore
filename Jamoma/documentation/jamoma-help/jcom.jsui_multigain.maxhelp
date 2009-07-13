@@ -470,7 +470,7 @@
 					"id" : "obj-7",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 11.556055,
+					"fontsize" : 12.0,
 					"numoutlets" : 0
 				}
 
@@ -880,7 +880,7 @@
 					"id" : "obj-37",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 11.556055,
+					"fontsize" : 12.0,
 					"numoutlets" : 0
 				}
 
@@ -908,7 +908,7 @@
 					"id" : "obj-39",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 11.556055,
+					"fontsize" : 12.0,
 					"numoutlets" : 0
 				}
 
