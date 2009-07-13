@@ -1987,7 +1987,7 @@
 														"openinpresentation" : 0,
 														"default_fontsize" : 10.0,
 														"default_fontface" : 0,
-														"default_fontname" : "Arial",
+														"default_fontname" : "Verdana",
 														"gridonopen" : 0,
 														"gridsize" : [ 15.0, 15.0 ],
 														"gridsnaponopen" : 0,
@@ -2164,7 +2164,7 @@
 														"default_fontface" : 0,
 														"globalpatchername" : "",
 														"fontname" : "Verdana",
-														"default_fontname" : "Arial",
+														"default_fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"fontface" : 0,
 														"fontsize" : 10.0
