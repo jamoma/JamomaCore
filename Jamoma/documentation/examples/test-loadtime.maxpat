@@ -26,7 +26,7 @@
 					"id" : "obj-1",
 					"fontname" : "Verdana",
 					"numoutlets" : 0,
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -40,7 +40,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -54,7 +54,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -68,7 +68,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -82,7 +82,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "bang" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -107,7 +107,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -137,7 +137,7 @@
 					"id" : "obj-9",
 					"fontname" : "Verdana",
 					"numoutlets" : 0,
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}

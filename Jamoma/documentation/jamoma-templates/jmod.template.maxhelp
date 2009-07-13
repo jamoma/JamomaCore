@@ -123,7 +123,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 246.0, 44.0, 111.0, 18.0 ],
-									"fontsize" : 9.873845
+									"fontsize" : 10.0
 								}
 
 							}
@@ -192,7 +192,7 @@
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"numoutlets" : 0,
 					"patching_rect" : [ 31.0, 63.0, 333.0, 18.0 ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -247,7 +247,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 437.0, 195.0, 141.0, 18.0 ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}

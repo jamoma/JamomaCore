@@ -29,7 +29,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 0,
 					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -44,7 +44,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -59,7 +59,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -90,7 +90,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 0,
 					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -105,7 +105,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 0,
 					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -119,7 +119,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -133,7 +133,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -149,7 +149,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 0,
 					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -163,7 +163,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -189,7 +189,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 0,
 					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -203,7 +203,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -217,7 +217,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -231,7 +231,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -278,7 +278,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 0,
 					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
