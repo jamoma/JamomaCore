@@ -20,7 +20,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "loadbang",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "bang" ],
 					"id" : "obj-17",
 					"patching_rect" : [ 125.0, 55.0, 100.0, 18.0 ],
@@ -34,7 +34,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "js",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-34",
 					"patching_rect" : [ 125.0, 80.0, 100.0, 18.0 ],
@@ -49,7 +49,7 @@
 					"maxclass" : "comment",
 					"text" : "Here : javascript to get the \"module name\" attribute :",
 					"linecount" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-33",
 					"frgb" : [ 1.0, 0.0, 0.0, 1.0 ],
 					"patching_rect" : [ 60.0, 15.0, 180.0, 39.0 ],
@@ -75,7 +75,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Problem :",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-28",
 					"frgb" : [ 1.0, 0.0, 0.0, 1.0 ],
 					"patching_rect" : [ 55.0, 157.0, 70.0, 23.0 ],
@@ -91,7 +91,7 @@
 					"maxclass" : "comment",
 					"text" : "How can we close this patcher only after the text window is closed ?",
 					"linecount" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-25",
 					"frgb" : [ 1.0, 0.0, 0.0, 1.0 ],
 					"patching_rect" : [ 55.0, 187.0, 265.0, 39.0 ],
@@ -106,7 +106,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "t b s",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "bang", "" ],
 					"id" : "obj-21",
 					"patching_rect" : [ 125.0, 110.0, 64.0, 17.0 ],
@@ -120,7 +120,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "t close",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "close" ],
 					"id" : "obj-22",
 					"patching_rect" : [ 125.0, 134.0, 40.0, 17.0 ],
@@ -134,7 +134,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p get_state",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-2",
 					"patching_rect" : [ 170.0, 135.0, 61.0, 17.0 ],
 					"fontsize" : 9.0,
@@ -161,7 +161,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "deferlow",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-1",
 									"patching_rect" : [ 60.0, 105.0, 49.0, 17.0 ],
@@ -175,7 +175,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "p get_parameter_values",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-2",
 									"patching_rect" : [ 141.0, 145.0, 120.0, 17.0 ],
@@ -203,7 +203,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "print ttt",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"id" : "obj-1",
 													"patching_rect" : [ 132.0, 333.0, 50.0, 17.0 ],
 													"fontsize" : 9.0,
@@ -216,7 +216,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "t b s b",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "bang", "", "bang" ],
 													"id" : "obj-2",
 													"patching_rect" : [ 93.0, 102.0, 40.0, 17.0 ],
@@ -231,7 +231,7 @@
 													"maxclass" : "comment",
 													"text" : "This stops jcom.receive from listening if we are not currently requesting the names of all modules.",
 													"linecount" : 3,
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"id" : "obj-3",
 													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 													"patching_rect" : [ 286.0, 196.0, 207.0, 38.0 ],
@@ -245,7 +245,7 @@
 												"box" : 												{
 													"maxclass" : "message",
 													"text" : "name jcom.remote.module.from",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "" ],
 													"bgcolor" : [ 1.0, 0.890196, 0.090196, 1.0 ],
 													"id" : "obj-4",
@@ -260,7 +260,7 @@
 												"box" : 												{
 													"maxclass" : "message",
 													"text" : "name \"that deaf dumb and blind kid\"",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "" ],
 													"bgcolor" : [ 1.0, 0.890196, 0.090196, 1.0 ],
 													"id" : "obj-5",
@@ -275,7 +275,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "t cr l tab",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "cr", "", "tab" ],
 													"id" : "obj-6",
 													"patching_rect" : [ 51.0, 469.0, 50.0, 17.0 ],
@@ -289,7 +289,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "zl join",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "", "" ],
 													"id" : "obj-7",
 													"patching_rect" : [ 51.0, 437.0, 113.0, 17.0 ],
@@ -303,7 +303,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "zl slice 1",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "", "" ],
 													"id" : "obj-8",
 													"patching_rect" : [ 113.0, 369.0, 51.0, 17.0 ],
@@ -317,7 +317,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "sprintf %s%s",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "" ],
 													"id" : "obj-9",
 													"patching_rect" : [ 51.0, 409.0, 72.0, 17.0 ],
@@ -331,7 +331,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "t b l",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "bang", "" ],
 													"id" : "obj-10",
 													"patching_rect" : [ 93.0, 340.0, 27.0, 17.0 ],
@@ -345,7 +345,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "t cr s",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "cr", "" ],
 													"id" : "obj-11",
 													"patching_rect" : [ 332.0, 133.0, 35.0, 17.0 ],
@@ -359,7 +359,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "t s s s",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "", "", "" ],
 													"id" : "obj-12",
 													"patching_rect" : [ 93.0, 50.0, 40.0, 17.0 ],
@@ -373,7 +373,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "zl reg",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "", "" ],
 													"id" : "obj-13",
 													"patching_rect" : [ 51.0, 376.0, 36.0, 17.0 ],
@@ -387,7 +387,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "jcom.oscroute /parameter_value",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "", "" ],
 													"id" : "obj-14",
 													"patching_rect" : [ 93.0, 312.0, 160.0, 17.0 ],
@@ -401,7 +401,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "prepend # Module",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "" ],
 													"id" : "obj-15",
 													"patching_rect" : [ 357.0, 158.0, 89.0, 17.0 ],
@@ -415,7 +415,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "jcom.receive \"that deaf dumb and blind kid\"",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "", "" ],
 													"id" : "obj-16",
 													"patching_rect" : [ 93.0, 243.0, 206.0, 17.0 ],
@@ -430,7 +430,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "jcom.oscroute /*",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "", "" ],
 													"id" : "obj-17",
 													"patching_rect" : [ 93.0, 283.0, 90.0, 17.0 ],
@@ -445,7 +445,7 @@
 													"maxclass" : "newobj",
 													"text" : "jcom.send jcom.remote.module.to",
 													"linecount" : 2,
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "" ],
 													"id" : "obj-18",
 													"patching_rect" : [ 108.0, 154.0, 112.0, 27.0 ],
@@ -460,7 +460,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "sprintf %s/parameter_values/dump",
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"outlettype" : [ "" ],
 													"id" : "obj-19",
 													"patching_rect" : [ 108.0, 128.0, 181.0, 17.0 ],
@@ -498,7 +498,7 @@
 													"maxclass" : "comment",
 													"text" : "This part introduce a comment to mark the beginning of a new module",
 													"linecount" : 2,
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"id" : "obj-22",
 													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 													"patching_rect" : [ 345.0, 100.0, 184.0, 27.0 ],
@@ -747,7 +747,7 @@
 									}
 ,
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
+										"fontname" : "Verdana",
 										"default_fontface" : 0,
 										"globalpatchername" : "",
 										"default_fontname" : "Arial",
@@ -763,7 +763,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "t open s clear",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "open", "", "clear" ],
 									"id" : "obj-3",
 									"patching_rect" : [ 60.0, 72.0, 181.0, 17.0 ],
@@ -777,7 +777,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "text",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "", "bang", "int" ],
 									"id" : "obj-4",
 									"patching_rect" : [ 60.0, 198.0, 40.0, 17.0 ],
@@ -858,7 +858,7 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
 						"globalpatchername" : "",
 						"default_fontname" : "Arial",

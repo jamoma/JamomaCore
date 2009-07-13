@@ -989,7 +989,7 @@
 					"patching_rect" : [ 795.0, 65.0, 68.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"globalpatchername" : "",
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"default_fontface" : 0,
@@ -1003,7 +1003,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 12.0,
 					"id" : "obj-16",
 					"maxclass" : "newobj",
@@ -3624,7 +3624,7 @@
 											}
 , 											{
 												"box" : 												{
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"fontsize" : 9.0,
 													"id" : "obj-58",
 													"maxclass" : "newobj",
@@ -3638,7 +3638,7 @@
 											}
 , 											{
 												"box" : 												{
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"fontsize" : 9.0,
 													"id" : "obj-55",
 													"maxclass" : "newobj",
@@ -11825,7 +11825,7 @@
 											}
 , 											{
 												"box" : 												{
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"id" : "obj-10",
 													"maxclass" : "newobj",
@@ -11862,7 +11862,7 @@
 											}
 , 											{
 												"box" : 												{
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"id" : "obj-3",
 													"maxclass" : "newobj",
@@ -11876,7 +11876,7 @@
 											}
 , 											{
 												"box" : 												{
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"id" : "obj-4",
 													"maxclass" : "newobj",
@@ -11890,7 +11890,7 @@
 											}
 , 											{
 												"box" : 												{
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"id" : "obj-5",
 													"maxclass" : "newobj",
@@ -11992,7 +11992,7 @@
 									"patching_rect" : [ 523.0, 468.0, 72.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"globalpatchername" : "",
-										"fontname" : "Arial",
+										"fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,

@@ -2111,7 +2111,7 @@
 										"imprint" : 0,
 										"boxes" : [ 											{
 												"box" : 												{
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"fontsize" : 12.0,
 													"id" : "obj-14",
 													"maxclass" : "newobj",
@@ -2124,7 +2124,7 @@
 											}
 , 											{
 												"box" : 												{
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"fontsize" : 12.0,
 													"id" : "obj-19",
 													"maxclass" : "newobj",
@@ -2138,7 +2138,7 @@
 											}
 , 											{
 												"box" : 												{
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"fontsize" : 12.0,
 													"id" : "obj-20",
 													"maxclass" : "newobj",
@@ -2152,7 +2152,7 @@
 											}
 , 											{
 												"box" : 												{
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"fontsize" : 12.0,
 													"id" : "obj-33",
 													"maxclass" : "newobj",
@@ -2996,7 +2996,7 @@
 															}
 , 															{
 																"box" : 																{
-																	"fontname" : "Arial",
+																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
 																	"id" : "obj-19",
 																	"maxclass" : "newobj",
@@ -3010,7 +3010,7 @@
 															}
 , 															{
 																"box" : 																{
-																	"fontname" : "Arial",
+																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
 																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 																	"id" : "obj-15",
@@ -3024,7 +3024,7 @@
 															}
 , 															{
 																"box" : 																{
-																	"fontname" : "Arial",
+																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
 																	"id" : "obj-10",
 																	"maxclass" : "newobj",
@@ -3038,7 +3038,7 @@
 															}
 , 															{
 																"box" : 																{
-																	"fontname" : "Arial",
+																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
 																	"id" : "obj-9",
 																	"maxclass" : "newobj",

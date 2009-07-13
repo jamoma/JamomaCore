@@ -2606,7 +2606,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"id" : "obj-13",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "float", "bang" ],
 									"fontsize" : 12.0,
 									"mouseup" : 1
@@ -2621,7 +2621,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"id" : "obj-12",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"fontsize" : 12.0
 								}
@@ -2634,7 +2634,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"id" : "obj-9",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "float", "bang" ],
 									"fontsize" : 12.0,
 									"mouseup" : 1
@@ -2664,7 +2664,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"id" : "obj-1",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"fontsize" : 12.0
 								}
@@ -2677,7 +2677,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"id" : "obj-11",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "float", "bang" ],
 									"fontsize" : 12.0,
 									"mouseup" : 1
@@ -2707,7 +2707,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"id" : "obj-3",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"fontsize" : 12.0
 								}
@@ -2722,7 +2722,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"id" : "obj-4",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"fontsize" : 12.0
 								}
@@ -2765,7 +2765,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"id" : "obj-6",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"fontsize" : 12.0
 								}
@@ -2884,7 +2884,7 @@
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
@@ -3748,7 +3748,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"id" : "obj-2",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "", "" ],
 									"fontsize" : 12.0
 								}
@@ -3762,7 +3762,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"id" : "obj-4",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"fontsize" : 12.0
 								}
@@ -3790,7 +3790,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"id" : "obj-52",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"fontsize" : 11.595187
 								}
@@ -3935,7 +3935,7 @@
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
@@ -3982,7 +3982,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"id" : "obj-16",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "float", "float" ],
 									"fontsize" : 12.0
 								}
@@ -3997,7 +3997,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"id" : "obj-15",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "float", "float" ],
 									"fontsize" : 12.0
 								}
@@ -4011,7 +4011,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"id" : "obj-12",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "", "", "" ],
 									"fontsize" : 12.0
 								}
@@ -4076,7 +4076,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"id" : "obj-3",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "", "" ],
 									"fontsize" : 12.0
 								}
@@ -4118,7 +4118,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"id" : "obj-57",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "", "" ],
 									"fontsize" : 11.595187
 								}
@@ -4132,7 +4132,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"id" : "obj-6",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "int", "int" ],
 									"fontsize" : 12.0
 								}
@@ -4399,7 +4399,7 @@
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
 						"fontface" : 0,

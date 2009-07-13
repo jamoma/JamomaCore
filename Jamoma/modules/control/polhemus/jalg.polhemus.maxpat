@@ -45,7 +45,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 9.0,
 					"id" : "obj-45",
 					"maxclass" : "newobj",
@@ -59,7 +59,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-46",
 					"maxclass" : "newobj",

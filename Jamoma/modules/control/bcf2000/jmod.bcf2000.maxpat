@@ -45,7 +45,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 11.595187,
 					"id" : "obj-44",
 					"maxclass" : "message",

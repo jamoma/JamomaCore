@@ -59,7 +59,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 9.0,
 					"hidden" : 1,
 					"id" : "obj-20",
@@ -74,7 +74,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 9.0,
 					"hidden" : 1,
 					"id" : "obj-21",

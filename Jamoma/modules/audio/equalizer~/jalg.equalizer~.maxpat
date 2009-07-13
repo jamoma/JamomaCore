@@ -52,7 +52,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "" ],
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-9"
 				}
 

@@ -150,7 +150,7 @@
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0
 					}
 ,
@@ -954,7 +954,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-23",
 									"maxclass" : "newobj",

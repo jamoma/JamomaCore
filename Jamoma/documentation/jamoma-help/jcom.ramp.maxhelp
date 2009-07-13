@@ -224,7 +224,7 @@
 					"maxclass" : "number",
 					"patching_rect" : [ 653.0, 258.0, 35.0, 18.0 ],
 					"id" : "obj-2",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"fontsize" : 10.0,
 					"numoutlets" : 2,
@@ -847,7 +847,7 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
 						"globalpatchername" : "",
 						"default_fontname" : "Arial",
@@ -1529,7 +1529,7 @@
 					"maxclass" : "flonum",
 					"patching_rect" : [ 210.0, 365.0, 54.0, 18.0 ],
 					"id" : "obj-38",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"fontsize" : 10.0,
 					"numoutlets" : 2,

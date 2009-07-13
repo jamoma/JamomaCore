@@ -36,7 +36,7 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 10.0, 59.333332, 83.0, 18.0 ],
 					"id" : "obj-16",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numinlets" : 1
 				}
 
@@ -50,7 +50,7 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 10.0, 32.333332, 103.0, 18.0 ],
 					"id" : "obj-14",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numinlets" : 1
 				}
 

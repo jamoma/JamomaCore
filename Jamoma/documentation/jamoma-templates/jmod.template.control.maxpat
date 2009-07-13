@@ -17,7 +17,7 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 14.0,
 					"id" : "obj-4",
 					"maxclass" : "newobj",
@@ -41,7 +41,7 @@
 						"imprint" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 12.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-1",
@@ -62,7 +62,7 @@
 					"saved_object_attributes" : 					{
 						"default_fontname" : "Arial",
 						"globalpatchername" : "",
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
@@ -75,7 +75,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 14.0,
 					"id" : "obj-44",
 					"maxclass" : "newobj",
@@ -615,7 +615,7 @@
 , 							{
 								"box" : 								{
 									"bgcolor" : [ 0.188235, 0.188235, 0.188235, 1.0 ],
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"id" : "obj-1",
@@ -1176,7 +1176,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 18.0,
 									"frgb" : [ 0.392157, 0.403922, 0.901961, 1.0 ],
 									"id" : "obj-4",

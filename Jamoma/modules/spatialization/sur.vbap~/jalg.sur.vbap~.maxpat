@@ -1996,7 +1996,7 @@
 														"imprint" : 0,
 														"boxes" : [ 															{
 																"box" : 																{
-																	"fontname" : "Arial",
+																	"fontname" : "Verdana",
 																	"fontsize" : 9.0,
 																	"id" : "obj-1",
 																	"maxclass" : "newobj",
@@ -2010,7 +2010,7 @@
 															}
 , 															{
 																"box" : 																{
-																	"fontname" : "Arial",
+																	"fontname" : "Verdana",
 																	"fontsize" : 9.0,
 																	"id" : "obj-2",
 																	"maxclass" : "newobj",
@@ -2024,7 +2024,7 @@
 															}
 , 															{
 																"box" : 																{
-																	"fontname" : "Arial",
+																	"fontname" : "Verdana",
 																	"fontsize" : 9.0,
 																	"id" : "obj-3",
 																	"maxclass" : "newobj",
@@ -2038,7 +2038,7 @@
 															}
 , 															{
 																"box" : 																{
-																	"fontname" : "Arial",
+																	"fontname" : "Verdana",
 																	"fontsize" : 9.0,
 																	"id" : "obj-4",
 																	"maxclass" : "newobj",
@@ -2075,7 +2075,7 @@
 															}
 , 															{
 																"box" : 																{
-																	"fontname" : "Arial",
+																	"fontname" : "Verdana",
 																	"fontsize" : 9.0,
 																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 																	"id" : "obj-7",
@@ -2089,7 +2089,7 @@
 															}
 , 															{
 																"box" : 																{
-																	"fontname" : "Arial",
+																	"fontname" : "Verdana",
 																	"fontsize" : 9.0,
 																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 																	"id" : "obj-8",
@@ -2163,7 +2163,7 @@
 													"saved_object_attributes" : 													{
 														"default_fontface" : 0,
 														"globalpatchername" : "",
-														"fontname" : "Arial",
+														"fontname" : "Verdana",
 														"default_fontname" : "Arial",
 														"default_fontsize" : 10.0,
 														"fontface" : 0,

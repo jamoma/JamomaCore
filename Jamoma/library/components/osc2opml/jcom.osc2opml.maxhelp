@@ -66,7 +66,7 @@
 					"fontsize" : 9.0,
 					"hidden" : 1,
 					"outlettype" : [ "" ],
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-30",
 					"numinlets" : 2
 				}

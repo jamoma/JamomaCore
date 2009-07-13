@@ -262,7 +262,7 @@
 					"patching_rect" : [ 467.0, 168.0, 77.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"fontface" : 0,

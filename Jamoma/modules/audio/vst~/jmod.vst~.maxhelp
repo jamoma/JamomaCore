@@ -140,7 +140,7 @@
 										"imprint" : 0,
 										"boxes" : [ 											{
 												"box" : 												{
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 													"id" : "obj-2",
@@ -219,7 +219,7 @@
 										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"globalpatchername" : "",
-										"fontname" : "Arial",
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"fontface" : 0,
 										"fontsize" : 10.0

@@ -279,7 +279,7 @@
 									"text" : "jcom.oscroute /param_a /message_b",
 									"patching_rect" : [ 70.0, 90.0, 180.0, 17.0 ],
 									"id" : "obj-1",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numinlets" : 1,
 									"fontsize" : 9.0,
 									"numoutlets" : 3,
@@ -317,7 +317,7 @@
 									"patching_rect" : [ 70.0, 155.0, 398.0, 27.0 ],
 									"frgb" : [ 0.392157, 0.403922, 0.901961, 1.0 ],
 									"id" : "obj-4",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"textcolor" : [ 0.392157, 0.403922, 0.901961, 1.0 ],
 									"numinlets" : 1,
 									"fontsize" : 18.0,
@@ -339,7 +339,7 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
 						"globalpatchername" : "",
 						"default_fontname" : "Arial",

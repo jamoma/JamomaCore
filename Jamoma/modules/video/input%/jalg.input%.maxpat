@@ -2839,7 +2839,7 @@
 											}
 , 											{
 												"box" : 												{
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"fontsize" : 12.0,
 													"id" : "obj-2",
 													"maxclass" : "number",
@@ -3035,7 +3035,7 @@
 ,
 									"patching_rect" : [ 45.0, 60.0, 73.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
+										"fontname" : "Verdana",
 										"globalpatchername" : "",
 										"default_fontface" : 0,
 										"fontface" : 0,

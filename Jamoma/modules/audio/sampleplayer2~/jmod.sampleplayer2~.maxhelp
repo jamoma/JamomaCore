@@ -46,7 +46,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 11.595187,
 					"id" : "obj-17",
 					"interval" : 250.0,
@@ -76,7 +76,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-11",
 					"maxclass" : "message",
@@ -129,7 +129,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-2",
 					"items" : [ "normalized", ",", "loop_time", ",", "sample_time" ],

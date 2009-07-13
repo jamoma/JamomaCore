@@ -159,7 +159,7 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"globalpatchername" : "",
@@ -334,7 +334,7 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"globalpatchername" : "",

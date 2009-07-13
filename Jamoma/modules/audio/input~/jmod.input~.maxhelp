@@ -567,7 +567,7 @@
 					"saved_object_attributes" : 					{
 						"default_fontname" : "Arial",
 						"default_fontsize" : 10.0,
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,

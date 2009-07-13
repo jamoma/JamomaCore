@@ -347,7 +347,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 9.0,
 									"hidden" : 1,
 									"id" : "obj-1",

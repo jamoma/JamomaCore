@@ -623,7 +623,7 @@
 ,
 					"saved_object_attributes" : 					{
 						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
@@ -1151,7 +1151,7 @@
 ,
 					"saved_object_attributes" : 					{
 						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
@@ -1673,7 +1673,7 @@
 ,
 					"saved_object_attributes" : 					{
 						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
@@ -1924,7 +1924,7 @@
 ,
 					"saved_object_attributes" : 					{
 						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,

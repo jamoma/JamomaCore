@@ -38,7 +38,7 @@
 					"patching_rect" : [ 425.0, 36.0, 72.0, 18.0 ],
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-32",
 					"patcher" : 					{
 						"fileversion" : 1,
@@ -118,7 +118,7 @@
 									"patching_rect" : [ 124.0, 193.0, 44.0, 18.0 ],
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"id" : "obj-29"
 								}
 
@@ -132,7 +132,7 @@
 									"patching_rect" : [ 124.0, 137.0, 47.0, 18.0 ],
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"id" : "obj-28"
 								}
 
@@ -146,7 +146,7 @@
 									"patching_rect" : [ 124.0, 75.0, 267.0, 18.0 ],
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"id" : "obj-27"
 								}
 

@@ -399,7 +399,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 11.595187,
 					"id" : "obj-3",
 					"maxclass" : "newobj",
@@ -449,7 +449,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 11.595187,
 									"id" : "obj-2",
 									"maxclass" : "newobj",
@@ -463,7 +463,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 11.595187,
 									"id" : "obj-3",
 									"maxclass" : "newobj",
@@ -477,7 +477,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 11.595187,
 									"id" : "obj-4",
 									"maxclass" : "newobj",
@@ -491,7 +491,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 11.595187,
 									"id" : "obj-5",
 									"maxclass" : "newobj",
@@ -505,7 +505,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 11.595187,
 									"id" : "obj-6",
 									"maxclass" : "newobj",
@@ -620,7 +620,7 @@
 					"patching_rect" : [ 50.0, 413.0, 65.0, 20.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontname" : "Arial",
 						"default_fontsize" : 11.595187,
 						"globalpatchername" : "",

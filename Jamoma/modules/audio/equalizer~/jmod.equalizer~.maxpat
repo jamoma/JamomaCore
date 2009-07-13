@@ -54,7 +54,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 195.0, 480.0, 116.0, 18.0 ],
 					"id" : "obj-44",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numinlets" : 2
 				}
 
