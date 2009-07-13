@@ -1861,7 +1861,7 @@
 				"box" : 				{
 					"bgcolor" : [ 1.0, 0.52549, 0.05098, 1.0 ],
 					"fontname" : "Verdana",
-					"fontsize" : 9.295724,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-14",
 					"maxclass" : "newobj",
@@ -1877,7 +1877,7 @@
 				"box" : 				{
 					"bgcolor" : [ 1.0, 0.52549, 0.05098, 1.0 ],
 					"fontname" : "Verdana",
-					"fontsize" : 9.295724,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-19",
 					"maxclass" : "newobj",

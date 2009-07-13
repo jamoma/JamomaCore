@@ -1067,7 +1067,7 @@
 					"align" : 1,
 					"arrow" : 0,
 					"fontname" : "Verdana",
-					"fontsize" : 8.0,
+					"fontsize" : 10.0,
 					"id" : "obj-5",
 					"items" : [ "=", ",", "=>", ",", "<=>" ],
 					"labelclick" : 1,

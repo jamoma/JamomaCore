@@ -746,7 +746,7 @@
 				"box" : 				{
 					"bgcolor" : [ 1.0, 0.52549, 0.05098, 1.0 ],
 					"fontname" : "Verdana",
-					"fontsize" : 9.295724,
+					"fontsize" : 10.0,
 					"id" : "obj-65",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -761,7 +761,7 @@
 				"box" : 				{
 					"bgcolor" : [ 1.0, 0.52549, 0.05098, 1.0 ],
 					"fontname" : "Verdana",
-					"fontsize" : 9.295724,
+					"fontsize" : 10.0,
 					"id" : "obj-19",
 					"maxclass" : "newobj",
 					"numinlets" : 1,

@@ -954,7 +954,7 @@
 					"varname" : "filter",
 					"presentation_rect" : [ 9.0, 43.0, 284.0, 93.0 ],
 					"numoutlets" : 7,
-					"fontsize" : 8.998901,
+					"fontsize" : 10.0,
 					"hcurvecolor" : [ 0.74902, 0.172549, 0.160784, 1.0 ],
 					"outlettype" : [ "list", "float", "float", "float", "float", "list", "int" ],
 					"patching_rect" : [ 380.0, 220.0, 284.0, 93.0 ],

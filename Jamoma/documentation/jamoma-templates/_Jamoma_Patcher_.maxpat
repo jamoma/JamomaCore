@@ -1824,7 +1824,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "t none",
-					"fontsize" : 9.295724,
+					"fontsize" : 10.0,
 					"numoutlets" : 1,
 					"hidden" : 1,
 					"outlettype" : [ "none" ],
@@ -1840,7 +1840,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "hover",
-					"fontsize" : 9.295724,
+					"fontsize" : 10.0,
 					"numoutlets" : 4,
 					"hidden" : 1,
 					"outlettype" : [ "", "", "", "" ],
@@ -1856,7 +1856,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "thispatcher",
-					"fontsize" : 9.295724,
+					"fontsize" : 10.0,
 					"numoutlets" : 2,
 					"hidden" : 1,
 					"outlettype" : [ "", "" ],
