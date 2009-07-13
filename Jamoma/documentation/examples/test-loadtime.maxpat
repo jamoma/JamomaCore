@@ -121,7 +121,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ]
 				}
 

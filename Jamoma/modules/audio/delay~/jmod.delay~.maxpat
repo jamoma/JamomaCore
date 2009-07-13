@@ -355,7 +355,7 @@
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-24",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 0
 				}
 

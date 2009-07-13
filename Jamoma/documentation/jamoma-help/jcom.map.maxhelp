@@ -2016,7 +2016,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"id" : "obj-52",
 									"linecount" : 2,
 									"maxclass" : "newobj",
@@ -2031,7 +2031,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"id" : "obj-53",
 									"maxclass" : "newobj",
 									"numinlets" : 6,
@@ -2045,7 +2045,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"id" : "obj-54",
 									"maxclass" : "newobj",
 									"numinlets" : 2,

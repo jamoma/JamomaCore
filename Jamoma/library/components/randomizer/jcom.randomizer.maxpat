@@ -20,7 +20,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "t b f",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "float" ],
 					"id" : "obj-1",
@@ -34,7 +34,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "patcherargs",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"id" : "obj-2",
@@ -48,7 +48,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "t b f",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "float" ],
 					"id" : "obj-3",
@@ -62,7 +62,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "* -1.",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 1,
 					"outlettype" : [ "float" ],
 					"id" : "obj-4",
@@ -75,7 +75,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "flonum",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
 					"triscale" : 0.9,
@@ -102,7 +102,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jcom.random",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 1,
 					"outlettype" : [ "float" ],
 					"id" : "obj-7",
@@ -139,7 +139,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "+ 0.",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 1,
 					"outlettype" : [ "float" ],
 					"id" : "obj-10",

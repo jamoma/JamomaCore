@@ -20,7 +20,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "RETURNED MESSAGES",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 73.0, 399.0, 124.0, 18.0 ],
@@ -33,7 +33,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "VIDEO OUTPUT",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 343.0, 399.0, 87.0, 18.0 ],
@@ -58,7 +58,7 @@
 					"maxclass" : "newobj",
 					"varname" : "+[1]",
 					"text" : "+ 1",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 313.0, 280.0, 32.5, 18.0 ],
@@ -83,7 +83,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "gate 2 1",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"patching_rect" : [ 313.0, 302.0, 52.0, 18.0 ],
@@ -98,7 +98,7 @@
 					"maxclass" : "newobj",
 					"varname" : "u339000005[1]",
 					"text" : "jit.rgb2luma",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"patching_rect" : [ 346.0, 326.0, 71.0, 18.0 ],
@@ -112,7 +112,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jit.brcosa",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"patching_rect" : [ 346.0, 253.0, 57.0, 18.0 ],
@@ -126,7 +126,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jcom.oscroute /dummy /monochrome /genframe /direct",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"patching_rect" : [ 75.0, 60.0, 290.0, 18.0 ],
@@ -140,7 +140,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "INSTRUCTIONS",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 99.0, 25.0, 88.0, 18.0 ],
@@ -153,7 +153,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jcom.pass /brightness /contrast /saturation",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"patching_rect" : [ 346.0, 162.0, 227.0, 18.0 ],
@@ -179,7 +179,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "VIDEO INPUT",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 509.0, 25.0, 77.0, 18.0 ],

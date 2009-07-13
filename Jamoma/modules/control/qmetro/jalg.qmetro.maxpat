@@ -25,7 +25,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 85.0, 219.0, 35.0, 18.0 ]
 				}
 
@@ -39,7 +39,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "int" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 85.0, 146.0, 28.0, 18.0 ]
 				}
 
@@ -53,7 +53,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 85.0, 195.0, 27.0, 18.0 ]
 				}
 
@@ -67,7 +67,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 116.0, 159.0, 35.0, 18.0 ]
 				}
 
@@ -81,7 +81,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 116.0, 132.0, 64.0, 18.0 ]
 				}
 
@@ -95,7 +95,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 170.0, 106.0, 34.0, 18.0 ]
 				}
 
@@ -109,7 +109,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 153.0, 80.0, 35.0, 18.0 ]
 				}
 
@@ -123,7 +123,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 116.0, 106.0, 56.0, 18.0 ]
 				}
 
@@ -148,7 +148,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 17.0, 239.0, 78.0, 18.0 ]
 				}
 
@@ -162,7 +162,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 17.0, 54.0, 216.0, 18.0 ]
 				}
 

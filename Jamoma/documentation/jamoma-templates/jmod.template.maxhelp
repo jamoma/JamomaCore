@@ -39,7 +39,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"patching_rect" : [ 32.0, 311.0, 73.0, 18.0 ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -52,7 +52,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 31.0, 331.0, 192.0, 16.0 ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 
@@ -261,7 +261,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"patching_rect" : [ 30.0, 215.0, 140.0, 18.0 ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 

@@ -394,7 +394,7 @@
 					"fontname" : "Verdana",
 					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
 					"numoutlets" : 0,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 55.0, 365.0, 105.0, 18.0 ]
 				}
 

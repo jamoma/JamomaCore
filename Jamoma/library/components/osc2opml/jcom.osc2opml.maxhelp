@@ -229,7 +229,7 @@
 					"text" : "jcom.osc2opml @name MyPatch @sortmode 0 @attributes 1",
 					"patching_rect" : [ 40.0, 230.0, 316.0, 18.0 ],
 					"numoutlets" : 0,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"id" : "obj-15",
 					"numinlets" : 1

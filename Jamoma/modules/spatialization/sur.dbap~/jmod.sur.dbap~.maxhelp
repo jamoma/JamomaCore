@@ -793,7 +793,7 @@
 									"outlettype" : [ "", "" ],
 									"id" : "obj-7",
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 2
 								}
@@ -807,7 +807,7 @@
 									"outlettype" : [ "", "" ],
 									"id" : "obj-15",
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 2
 								}
@@ -821,7 +821,7 @@
 									"outlettype" : [ "", "" ],
 									"id" : "obj-13",
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 2
 								}
@@ -835,7 +835,7 @@
 									"outlettype" : [ "", "" ],
 									"id" : "obj-14",
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 2
 								}

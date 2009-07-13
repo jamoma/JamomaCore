@@ -45,7 +45,7 @@
 					"text" : "3.141593",
 					"patching_rect" : [ 71.0, 83.0, 58.0, 16.0 ],
 					"numoutlets" : 1,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ],
 					"id" : "obj-3",
 					"fontname" : "Verdana",

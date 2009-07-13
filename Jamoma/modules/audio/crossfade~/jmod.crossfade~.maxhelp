@@ -49,7 +49,7 @@
 									"text" : "s jmod.crossfade.cmd",
 									"numoutlets" : 0,
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 675.0, 453.0, 117.0, 18.0 ],
 									"numinlets" : 1,
 									"id" : "obj-1"
@@ -75,7 +75,7 @@
 									"text" : "s jmod.crossfade.cmd",
 									"numoutlets" : 0,
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 280.0, 254.0, 117.0, 18.0 ],
 									"numinlets" : 1,
 									"id" : "obj-3"
@@ -101,7 +101,7 @@
 									"text" : "s jmod.crossfade.cmd",
 									"numoutlets" : 0,
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 279.0, 25.0, 117.0, 18.0 ],
 									"numinlets" : 1,
 									"id" : "obj-5"
@@ -128,7 +128,7 @@
 									"numoutlets" : 1,
 									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 543.0, 399.0, 119.0, 16.0 ],
 									"numinlets" : 2,
 									"id" : "obj-8"
@@ -163,7 +163,7 @@
 									"text" : "s jmod.crossfade.cmd",
 									"numoutlets" : 0,
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 649.0, 346.0, 117.0, 18.0 ],
 									"numinlets" : 1,
 									"id" : "obj-16"
@@ -177,7 +177,7 @@
 									"numoutlets" : 1,
 									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 543.0, 381.0, 119.0, 16.0 ],
 									"numinlets" : 2,
 									"id" : "obj-18"
@@ -193,7 +193,7 @@
 									"fontname" : "Verdana",
 									"outlettype" : [ "float", "bang" ],
 									"triscale" : 0.9,
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 411.0, 381.0, 35.0, 18.0 ],
 									"numinlets" : 1,
 									"minimum" : 1.0,
@@ -208,7 +208,7 @@
 									"numoutlets" : 1,
 									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 428.0, 417.0, 57.0, 16.0 ],
 									"numinlets" : 2,
 									"id" : "obj-20"
@@ -222,7 +222,7 @@
 									"numoutlets" : 1,
 									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 428.0, 399.0, 58.0, 16.0 ],
 									"numinlets" : 2,
 									"id" : "obj-21"
@@ -236,7 +236,7 @@
 									"numoutlets" : 1,
 									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"patching_rect" : [ 448.0, 381.0, 68.0, 16.0 ],
 									"numinlets" : 2,
 									"id" : "obj-22"

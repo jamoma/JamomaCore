@@ -577,7 +577,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jcom.send jcom.remote.module.to",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -2471,7 +2471,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jcom.send jcom.remote.module.to",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -3113,7 +3113,7 @@
 								"box" : 								{
 									"maxclass" : "message",
 									"text" : "name dumbto",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -3127,7 +3127,7 @@
 								"box" : 								{
 									"maxclass" : "message",
 									"text" : "name jcom.remote.module.to",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -3141,7 +3141,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "sprintf %s/preset/dump",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -3155,7 +3155,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "t b s b clear",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 4,
 									"outlettype" : [ "bang", "", "bang", "clear" ],
@@ -3169,7 +3169,7 @@
 								"box" : 								{
 									"maxclass" : "message",
 									"text" : "name jcom.remote.module.from",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -3183,7 +3183,7 @@
 								"box" : 								{
 									"maxclass" : "message",
 									"text" : "name dumb",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -3197,7 +3197,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "jcom.receive dumb",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
@@ -3211,7 +3211,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "jcom.send jcom.remote.module.to",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -3548,7 +3548,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jcom.send jcom.remote.module.to",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],

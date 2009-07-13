@@ -1832,7 +1832,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-70",
 					"maxclass" : "textbutton",
 					"mode" : 1,
@@ -1852,7 +1852,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-84",
 					"maxclass" : "textbutton",
 					"mode" : 1,
@@ -1872,7 +1872,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-83",
 					"maxclass" : "textbutton",
 					"numinlets" : 1,

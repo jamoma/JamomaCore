@@ -198,7 +198,7 @@
 									"id" : "obj-1",
 									"numoutlets" : 0,
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ]
 								}
@@ -278,7 +278,7 @@
 									"id" : "obj-7",
 									"numoutlets" : 0,
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ]
 								}
@@ -900,7 +900,7 @@
 					"id" : "obj-34",
 					"numoutlets" : 0,
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ]
 				}
