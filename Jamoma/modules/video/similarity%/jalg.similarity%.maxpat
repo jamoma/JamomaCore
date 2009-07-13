@@ -220,7 +220,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"id" : "obj-15",
 					"maxclass" : "comment",
 					"numinlets" : 1,

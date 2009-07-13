@@ -23,7 +23,7 @@
 					"maxclass" : "textbutton",
 					"hint" : "save the current set of presets to an XML file",
 					"rounded" : 6.0,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"bgcolor" : [ 0.890196, 0.298039, 0.298039, 1.0 ],
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -104,7 +104,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "t b l",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "" ],
@@ -175,7 +175,7 @@
 									"maxclass" : "newobj",
 									"text" : "vexpr $i1 + $i2 @scalarmode 1",
 									"linecount" : 2,
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -189,7 +189,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "loadbang",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
@@ -218,7 +218,7 @@
 									"maxclass" : "newobj",
 									"text" : "vexpr $i1 + $i2 @scalarmode 1",
 									"linecount" : 2,
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -247,7 +247,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "t b i",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "bang", "int" ],
@@ -261,7 +261,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "+ 1",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
@@ -275,7 +275,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "gate 2",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
@@ -544,7 +544,7 @@
 						"fontface" : 0,
 						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
-						"fontsize" : 9.0,
+						"fontsize" : 10.0,
 						"default_fontsize" : 9.0,
 						"fontname" : "Verdana"
 					}
@@ -557,7 +557,7 @@
 					"maxclass" : "textbutton",
 					"hint" : "not working yet...",
 					"rounded" : 6.0,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"bgcolor" : [ 1.0, 0.94902, 0.101961, 1.0 ],
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -662,7 +662,7 @@
 					"maxclass" : "textbutton",
 					"hint" : "read a preset XML file from disk",
 					"rounded" : 6.0,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"bgcolor" : [ 0.431373, 0.831373, 0.435294, 1.0 ],
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -683,7 +683,7 @@
 					"maxclass" : "textbutton",
 					"hint" : "save the current set of presets to an XML file",
 					"rounded" : 6.0,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"bgcolor" : [ 0.890196, 0.298039, 0.298039, 1.0 ],
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -703,7 +703,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "sel 13",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "" ],
@@ -747,7 +747,7 @@
 					"maxclass" : "textbutton",
 					"hint" : "not working yet...",
 					"rounded" : 6.0,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"bgcolor" : [ 0.890196, 0.298039, 0.298039, 1.0 ],
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -853,7 +853,7 @@
 					"maxclass" : "textbutton",
 					"hint" : "copy selected preset to next available slot",
 					"rounded" : 6.0,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"presentation_rect" : [ 1.0, 235.0, 33.0, 18.0 ],
@@ -875,7 +875,7 @@
 					"rounded" : 6.0,
 					"textcolor" : [ 1.0, 0.0, 0.0, 1.0 ],
 					"fontface" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"bgcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"bordercolor" : [ 1.0, 0.0, 0.0, 0.501961 ],
 					"numinlets" : 1,
@@ -1011,7 +1011,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "t 0",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
@@ -1063,7 +1063,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "loadmess 0",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -1077,7 +1077,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "del 500",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
@@ -1091,7 +1091,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "deferlow",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -1105,7 +1105,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "loadbang",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
@@ -2368,7 +2368,7 @@
 						"fontface" : 0,
 						"globalpatchername" : "",
 						"default_fontname" : "Arial",
-						"fontsize" : 9.0,
+						"fontsize" : 10.0,
 						"default_fontsize" : 9.0,
 						"fontname" : "Arial"
 					}
@@ -2499,7 +2499,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "zl reg",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
@@ -2513,7 +2513,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "sprintf %s/preset/interpolate %s %s %f",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 4,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -2527,7 +2527,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "interpolate between 2 presets :",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"numoutlets" : 0,
@@ -2542,7 +2542,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "flonum",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"presentation_rect" : [ 304.0, 18.0, 42.0, 17.0 ],
@@ -2573,7 +2573,7 @@
 				"box" : 				{
 					"maxclass" : "textbutton",
 					"rounded" : 5.0,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"bgoncolor" : [ 0.501961, 0.717647, 0.764706, 1.0 ],
 					"mode" : 1,
@@ -2608,7 +2608,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "zl reg",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
@@ -2622,7 +2622,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "sprintf %s/preset/recall %ld",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -2994,7 +2994,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "route bang",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
@@ -3022,7 +3022,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "i",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
@@ -3036,7 +3036,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "prepend set",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -3076,7 +3076,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "prepend append",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -3562,7 +3562,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "t select",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "select" ],
@@ -3576,7 +3576,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p store",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 4,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -3653,7 +3653,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "sprintf %s/preset/store %ld %s",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 3,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -3667,7 +3667,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "zl reg",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
@@ -3681,7 +3681,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "sel bang",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "bang", "" ],
@@ -3695,7 +3695,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "route text",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
@@ -3709,7 +3709,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "tosymbol",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -3855,7 +3855,7 @@
 					"maxclass" : "textedit",
 					"text" : "unnamed_preset",
 					"lines" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"numoutlets" : 4,
@@ -3874,7 +3874,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "number",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"presentation_rect" : [ 1.0, 18.0, 33.0, 17.0 ],
@@ -3892,7 +3892,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p copy",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 4,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -3944,7 +3944,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "tosymbol",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -3969,7 +3969,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "sprintf %s/preset/copy %s %s",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 3,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -3983,7 +3983,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "zl reg",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
@@ -3997,7 +3997,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "sel bang",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "bang", "" ],
@@ -4011,7 +4011,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "route text",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
@@ -4025,7 +4025,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "tosymbol",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -4171,7 +4171,7 @@
 					"maxclass" : "textedit",
 					"text" : "copy_of_un",
 					"lines" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"numoutlets" : 4,
@@ -4191,7 +4191,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "umenu",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"labelclick" : 1,
 					"numoutlets" : 3,
@@ -4208,7 +4208,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "t b l",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "" ],
@@ -4222,7 +4222,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "deferlow",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -4236,7 +4236,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "to :",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"numoutlets" : 0,
@@ -4252,7 +4252,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "store current state as :",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"numoutlets" : 0,

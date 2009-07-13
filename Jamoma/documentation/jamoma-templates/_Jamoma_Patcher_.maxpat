@@ -326,7 +326,7 @@
 												"box" : 												{
 													"maxclass" : "message",
 													"text" : "window flags close",
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 210.0, 375.0, 91.0, 15.0 ],
@@ -390,7 +390,7 @@
 												"box" : 												{
 													"maxclass" : "message",
 													"text" : "toolbarvisible $1",
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 240.0, 120.0, 76.0, 15.0 ],
@@ -404,7 +404,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"text" : "thispatcher",
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 420.0, 105.0, 100.0, 17.0 ],
@@ -1690,7 +1690,7 @@
 									"saved_object_attributes" : 									{
 										"default_fontname" : "Arial",
 										"fontface" : 0,
-										"fontsize" : 9.0,
+										"fontsize" : 10.0,
 										"default_fontsize" : 9.0,
 										"fontname" : "Verdana",
 										"globalpatchername" : "",

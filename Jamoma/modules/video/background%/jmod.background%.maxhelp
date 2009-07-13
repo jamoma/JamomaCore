@@ -141,7 +141,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"id" : "obj-10",
 					"maxclass" : "jit.fpsgui",
 					"numinlets" : 1,

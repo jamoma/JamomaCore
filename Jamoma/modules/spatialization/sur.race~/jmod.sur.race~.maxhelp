@@ -143,7 +143,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-30",
 					"linecount" : 3,

@@ -468,7 +468,7 @@
 				"box" : 				{
 					"border" : 1,
 					"fontname" : "Verdana",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"id" : "obj-20",
 					"maxclass" : "textbutton",
 					"numinlets" : 1,
@@ -1852,7 +1852,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"id" : "obj-69",
 					"maxclass" : "jcom.textslider",
 					"numinlets" : 1,

@@ -871,7 +871,7 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"hidden" : 1,
 									"id" : "obj-29",
 									"linecount" : 2,
@@ -964,7 +964,7 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"hidden" : 1,
 									"id" : "obj-29",
 									"linecount" : 3,
@@ -1106,7 +1106,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"id" : "obj-20",
 					"maxclass" : "flonum",
 					"maximum" : 1.0,

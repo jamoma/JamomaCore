@@ -2143,7 +2143,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"id" : "obj-8",
 					"maxclass" : "jcom.textslider",
 					"numinlets" : 1,

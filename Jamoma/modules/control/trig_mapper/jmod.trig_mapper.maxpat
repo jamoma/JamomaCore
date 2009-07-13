@@ -300,7 +300,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"hidden" : 1,
 					"hint" : "Output Unit",
@@ -318,7 +318,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"hidden" : 1,
 					"hint" : "Input Unit",
@@ -993,7 +993,7 @@
 				"box" : 				{
 					"arrow" : 0,
 					"fontname" : "Verdana",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"hint" : "current state of input",
 					"id" : "obj-67",
 					"ignoreclick" : 1,

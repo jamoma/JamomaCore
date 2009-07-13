@@ -322,7 +322,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"id" : "obj-13",
 					"maxclass" : "jit.fpsgui",
 					"numinlets" : 1,

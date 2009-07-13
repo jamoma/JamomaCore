@@ -63,7 +63,7 @@
 					"linecount" : 3,
 					"patching_rect" : [ 180.122498, 119.69873, 176.0, 36.0 ],
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"outlettype" : [ "" ],
 					"fontname" : "Verdana",

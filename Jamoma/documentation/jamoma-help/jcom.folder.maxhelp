@@ -225,7 +225,7 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"hidden" : 1,
 									"id" : "obj-29",
 									"linecount" : 2,

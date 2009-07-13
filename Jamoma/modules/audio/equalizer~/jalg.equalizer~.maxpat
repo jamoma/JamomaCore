@@ -47,7 +47,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "t b l",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 270.0, 55.0, 27.0, 17.0 ],
 					"numinlets" : 1,
 					"numoutlets" : 2,

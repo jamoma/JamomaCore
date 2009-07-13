@@ -17699,7 +17699,7 @@
 										"boxes" : [ 											{
 												"box" : 												{
 													"fontname" : "Verdana",
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"id" : "obj-16",
 													"maxclass" : "number",
 													"numinlets" : 1,
@@ -17726,7 +17726,7 @@
 , 											{
 												"box" : 												{
 													"fontname" : "Verdana",
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"id" : "obj-13",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
@@ -17740,7 +17740,7 @@
 , 											{
 												"box" : 												{
 													"fontname" : "Verdana",
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"id" : "obj-11",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
@@ -17766,7 +17766,7 @@
 , 											{
 												"box" : 												{
 													"fontname" : "Verdana",
-													"fontsize" : 9.0,
+													"fontsize" : 10.0,
 													"id" : "obj-9",
 													"maxclass" : "newobj",
 													"numinlets" : 2,
@@ -17941,7 +17941,7 @@
 , 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
-																	"fontsize" : 9.0,
+																	"fontsize" : 10.0,
 																	"id" : "obj-11",
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
@@ -18015,7 +18015,7 @@
 , 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
-																	"fontsize" : 9.0,
+																	"fontsize" : 10.0,
 																	"id" : "obj-2",
 																	"maxclass" : "newobj",
 																	"numinlets" : 5,
@@ -18043,7 +18043,7 @@
 , 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
-																	"fontsize" : 9.0,
+																	"fontsize" : 10.0,
 																	"id" : "obj-21",
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
@@ -18057,7 +18057,7 @@
 , 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
-																	"fontsize" : 9.0,
+																	"fontsize" : 10.0,
 																	"id" : "obj-22",
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
@@ -18099,7 +18099,7 @@
 , 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
-																	"fontsize" : 9.0,
+																	"fontsize" : 10.0,
 																	"id" : "obj-27",
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
@@ -18142,7 +18142,7 @@
 , 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
-																	"fontsize" : 9.0,
+																	"fontsize" : 10.0,
 																	"id" : "obj-3",
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
@@ -18170,7 +18170,7 @@
 , 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
-																	"fontsize" : 9.0,
+																	"fontsize" : 10.0,
 																	"id" : "obj-31",
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
@@ -18304,7 +18304,7 @@
 , 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
-																	"fontsize" : 9.0,
+																	"fontsize" : 10.0,
 																	"id" : "obj-6",
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
@@ -18318,7 +18318,7 @@
 , 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
-																	"fontsize" : 9.0,
+																	"fontsize" : 10.0,
 																	"id" : "obj-7",
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
@@ -18708,7 +18708,7 @@
 														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"fontface" : 0,
-														"fontsize" : 9.0,
+														"fontsize" : 10.0,
 														"globalpatchername" : "",
 														"default_fontsize" : 9.0
 													}
@@ -18960,7 +18960,7 @@
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontface" : 0,
-										"fontsize" : 9.0,
+										"fontsize" : 10.0,
 										"globalpatchername" : "",
 										"default_fontsize" : 9.0
 									}

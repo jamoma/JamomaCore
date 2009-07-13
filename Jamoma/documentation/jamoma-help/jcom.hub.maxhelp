@@ -281,7 +281,7 @@
 									"id" : "obj-1",
 									"fontname" : "Verdana",
 									"numinlets" : 1,
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ]
 								}

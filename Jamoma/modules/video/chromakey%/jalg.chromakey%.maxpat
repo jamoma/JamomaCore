@@ -22,7 +22,7 @@
 					"numinlets" : 5,
 					"patching_rect" : [ 5.0, 90.0, 165.0, 17.0 ],
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-1"
@@ -36,7 +36,7 @@
 					"numinlets" : 2,
 					"patching_rect" : [ 517.0, 85.0, 76.0, 15.0 ],
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-2"
@@ -50,7 +50,7 @@
 					"numinlets" : 2,
 					"patching_rect" : [ 445.0, 85.0, 60.0, 15.0 ],
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-3"
@@ -64,7 +64,7 @@
 					"numinlets" : 2,
 					"patching_rect" : [ 373.0, 86.0, 57.0, 15.0 ],
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-4"
@@ -78,7 +78,7 @@
 					"numinlets" : 2,
 					"patching_rect" : [ 301.0, 87.0, 44.0, 15.0 ],
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-5"
@@ -92,7 +92,7 @@
 					"numinlets" : 2,
 					"patching_rect" : [ 229.0, 87.0, 35.0, 15.0 ],
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-6"
@@ -142,7 +142,7 @@
 					"numinlets" : 1,
 					"patching_rect" : [ 45.0, 190.0, 77.0, 17.0 ],
 					"numoutlets" : 0,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"id" : "obj-10"
 				}
@@ -166,7 +166,7 @@
 					"numinlets" : 2,
 					"patching_rect" : [ 30.0, 158.0, 73.0, 17.0 ],
 					"numoutlets" : 2,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"outlettype" : [ "jit_matrix", "" ],
 					"id" : "obj-12"
@@ -180,7 +180,7 @@
 					"numinlets" : 1,
 					"patching_rect" : [ 13.0, 57.0, 589.0, 17.0 ],
 					"numoutlets" : 9,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"outlettype" : [ "", "", "", "", "", "", "", "", "" ],
 					"id" : "obj-13"

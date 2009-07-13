@@ -23,7 +23,7 @@
 					"numinlets" : 1,
 					"patching_rect" : [ 146.0, 89.0, 79.0, 28.0 ],
 					"numoutlets" : 4,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"outlettype" : [ "", "", "", "" ],
 					"id" : "obj-1"
@@ -38,7 +38,7 @@
 					"numinlets" : 1,
 					"patching_rect" : [ 54.0, 89.0, 79.0, 28.0 ],
 					"numoutlets" : 4,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"outlettype" : [ "", "", "", "" ],
 					"id" : "obj-2"
@@ -52,7 +52,7 @@
 					"numinlets" : 1,
 					"patching_rect" : [ 54.0, 61.0, 286.0, 17.0 ],
 					"numoutlets" : 4,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"outlettype" : [ "", "", "", "" ],
 					"id" : "obj-3"
@@ -66,7 +66,7 @@
 					"numinlets" : 5,
 					"patching_rect" : [ 18.0, 140.0, 85.0, 17.0 ],
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-4"
@@ -80,7 +80,7 @@
 					"numinlets" : 2,
 					"patching_rect" : [ 175.0, 141.0, 44.0, 15.0 ],
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-5"
@@ -94,7 +94,7 @@
 					"numinlets" : 2,
 					"patching_rect" : [ 130.0, 141.0, 44.0, 15.0 ],
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-6"
@@ -108,7 +108,7 @@
 					"numinlets" : 2,
 					"patching_rect" : [ 220.0, 141.0, 45.0, 15.0 ],
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-7"
@@ -146,7 +146,7 @@
 					"numinlets" : 1,
 					"patching_rect" : [ 33.0, 268.0, 77.0, 17.0 ],
 					"numoutlets" : 0,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"id" : "obj-10"
 				}
@@ -170,7 +170,7 @@
 					"numinlets" : 1,
 					"patching_rect" : [ 18.0, 246.0, 48.0, 17.0 ],
 					"numoutlets" : 2,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"fontname" : "Verdana",
 					"outlettype" : [ "jit_matrix", "" ],
 					"id" : "obj-12"

@@ -348,7 +348,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"hidden" : 1,
 									"id" : "obj-1",
 									"linecount" : 6,

@@ -4522,7 +4522,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Geneva",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"id" : "obj-9",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -4537,7 +4537,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Geneva",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"id" : "obj-10",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -4552,7 +4552,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Geneva",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"id" : "obj-12",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -4567,7 +4567,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Geneva",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"id" : "obj-13",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -4582,7 +4582,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Geneva",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"id" : "obj-14",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -4597,7 +4597,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Geneva",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"id" : "obj-15",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -4612,7 +4612,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Geneva",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"id" : "obj-16",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -4627,7 +4627,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Geneva",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"id" : "obj-17",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -4642,7 +4642,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Geneva",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"id" : "obj-18",
 					"maxclass" : "newobj",
 					"numinlets" : 16,

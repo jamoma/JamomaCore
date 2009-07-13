@@ -24,7 +24,7 @@
 					"id" : "obj-1",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 9.0
+					"fontsize" : 10.0
 				}
 
 			}
@@ -37,7 +37,7 @@
 					"id" : "obj-2",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 9.0
+					"fontsize" : 10.0
 				}
 
 			}
@@ -50,7 +50,7 @@
 					"id" : "obj-3",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ]
 				}
 

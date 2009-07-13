@@ -43,7 +43,7 @@
 					"maxclass" : "comment",
 					"text" : "...for patching convenience",
 					"id" : "obj-3",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 29.0, 30.0, 128.0, 17.0 ],
 					"numinlets" : 1,
 					"numoutlets" : 0,
