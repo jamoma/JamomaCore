@@ -66,7 +66,7 @@
 					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"patching_rect" : [ 10.0, 10.0, 313.0, 28.0 ],
 					"numoutlets" : 0,
 					"id" : "obj-4",

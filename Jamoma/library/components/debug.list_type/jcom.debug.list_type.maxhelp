@@ -47,7 +47,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jcom.debug.list_type",
-					"fontsize" : 17.553501,
+					"fontsize" : 18.0,
 					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 					"patching_rect" : [ 14.0, 14.0, 237.0, 28.0 ],
 					"id" : "obj-4",

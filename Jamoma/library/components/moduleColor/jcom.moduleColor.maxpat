@@ -155,7 +155,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"id" : "obj-46",
 					"linecount" : 2,
 					"maxclass" : "message",
@@ -1199,7 +1199,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"id" : "obj-40",
 					"maxclass" : "message",
 					"numinlets" : 2,

@@ -62,7 +62,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jmod.send",
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"patching_rect" : [ 28.0, 16.0, 189.0, 28.0 ],

@@ -77,7 +77,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jcom.absdiff",
-					"fontsize" : 17.553501,
+					"fontsize" : 18.0,
 					"patching_rect" : [ 17.0, 18.0, 157.0, 28.0 ],
 					"id" : "obj-5",
 					"numinlets" : 1,

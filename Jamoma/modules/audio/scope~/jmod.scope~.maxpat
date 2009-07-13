@@ -25,7 +25,7 @@
 					"outlettype" : [ "float", "float" ],
 					"fontname" : "Verdana",
 					"patching_rect" : [ 975.0, 240.0, 62.5, 20.0 ],
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"numinlets" : 1
 				}
 
@@ -39,7 +39,7 @@
 					"outlettype" : [ "signal", "" ],
 					"fontname" : "Verdana",
 					"patching_rect" : [ 89.0, 495.0, 79.0, 20.0 ],
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"numinlets" : 1
 				}
 

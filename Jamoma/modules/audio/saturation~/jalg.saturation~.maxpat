@@ -22,7 +22,7 @@
 					"text" : "print DDD",
 					"numoutlets" : 0,
 					"fontname" : "Verdana",
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"patching_rect" : [ 425.0, 265.0, 66.0, 20.0 ],
 					"numinlets" : 1,
 					"id" : "obj-16"
@@ -35,7 +35,7 @@
 					"text" : "print CCC",
 					"numoutlets" : 0,
 					"fontname" : "Verdana",
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"patching_rect" : [ 425.0, 240.0, 63.0, 20.0 ],
 					"numinlets" : 1,
 					"id" : "obj-15"

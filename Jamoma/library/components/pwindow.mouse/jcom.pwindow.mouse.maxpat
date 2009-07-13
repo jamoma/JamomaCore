@@ -20,7 +20,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "pack 0 0 0 0 0 0 0 0",
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"numinlets" : 8,
 					"numoutlets" : 1,
 					"patching_rect" : [ 87.0, 346.0, 292.0, 20.0 ],

@@ -20,7 +20,7 @@
 					"maxclass" : "newobj",
 					"text" : "prepend ignoreclick",
 					"numinlets" : 1,
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"patching_rect" : [ 457.0, 157.0, 118.0, 20.0 ],
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],

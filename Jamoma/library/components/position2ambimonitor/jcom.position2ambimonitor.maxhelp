@@ -20,7 +20,7 @@
 					"maxclass" : "comment",
 					"text" : "jcom.position2ambimonitor",
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 17.553501,
+					"fontsize" : 18.0,
 					"patching_rect" : [ 15.0, 15.0, 317.0, 28.0 ],
 					"numinlets" : 1,
 					"id" : "obj-14",

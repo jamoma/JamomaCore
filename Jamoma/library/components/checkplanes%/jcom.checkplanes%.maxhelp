@@ -200,7 +200,7 @@
 					"text" : "jcom.checkplanes%",
 					"patching_rect" : [ 22.0, 18.0, 207.0, 28.0 ],
 					"numoutlets" : 0,
-					"fontsize" : 17.553501,
+					"fontsize" : 18.0,
 					"id" : "obj-14",
 					"fontname" : "Verdana",
 					"numinlets" : 1

@@ -458,7 +458,7 @@
 									"fontname" : "Verdana",
 									"frgb" : [ 0.392157, 0.403922, 0.901961, 1.0 ],
 									"numinlets" : 1,
-									"fontsize" : 17.334082,
+									"fontsize" : 18.0,
 									"patching_rect" : [ 70.0, 155.0, 398.0, 28.0 ],
 									"numoutlets" : 0,
 									"id" : "obj-4",

@@ -260,7 +260,7 @@
 									"text" : "Module specific attributes",
 									"numoutlets" : 0,
 									"fontname" : "Verdana",
-									"fontsize" : 17.334082,
+									"fontsize" : 18.0,
 									"patching_rect" : [ 409.0, 346.0, 236.0, 28.0 ],
 									"numinlets" : 1,
 									"id" : "obj-28",

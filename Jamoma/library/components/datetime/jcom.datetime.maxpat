@@ -25,7 +25,7 @@
 					"patching_rect" : [ 426.0, 354.0, 32.5, 18.0 ],
 					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
-					"fontsize" : 10.970939
+					"fontsize" : 11.0
 				}
 
 			}

@@ -641,7 +641,7 @@
 					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
 					"id" : "obj-52",
 					"fontname" : "Verdana",
-					"fontsize" : 17.334082
+					"fontsize" : 18.0
 				}
 
 			}

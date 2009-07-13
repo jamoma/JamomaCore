@@ -26,7 +26,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 150.0, 80.0, 93.0, 20.0 ],
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"numinlets" : 1
 				}
 
@@ -54,7 +54,7 @@
 					"numoutlets" : 0,
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"patching_rect" : [ 28.0, 25.0, 226.0, 28.0 ],
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"numinlets" : 1
 				}
 

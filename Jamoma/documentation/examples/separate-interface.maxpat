@@ -56,7 +56,7 @@
 					"id" : "obj-3",
 					"fontname" : "Verdana",
 					"numoutlets" : 0,
-					"fontsize" : 17.334082
+					"fontsize" : 18.0
 				}
 
 			}
@@ -535,7 +535,7 @@
 									"id" : "obj-7",
 									"fontname" : "Verdana",
 									"numoutlets" : 0,
-									"fontsize" : 17.334082
+									"fontsize" : 18.0
 								}
 
 							}

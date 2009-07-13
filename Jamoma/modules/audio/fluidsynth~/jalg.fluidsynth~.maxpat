@@ -20,7 +20,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p load",
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"numoutlets" : 1,
 					"patching_rect" : [ 199.0, 102.0, 44.0, 20.0 ],
 					"outlettype" : [ "load" ],
@@ -48,7 +48,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "prepend load",
-									"fontsize" : 10.970939,
+									"fontsize" : 11.0,
 									"numoutlets" : 1,
 									"patching_rect" : [ 90.0, 135.0, 83.0, 20.0 ],
 									"outlettype" : [ "" ],
@@ -62,7 +62,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "route 0 bang",
-									"fontsize" : 10.970939,
+									"fontsize" : 11.0,
 									"numoutlets" : 3,
 									"patching_rect" : [ 52.0, 100.0, 82.0, 20.0 ],
 									"outlettype" : [ "", "", "" ],

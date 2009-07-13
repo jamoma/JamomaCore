@@ -177,7 +177,7 @@
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"numoutlets" : 0,
 					"patching_rect" : [ 31.0, 35.0, 189.0, 28.0 ],
-					"fontsize" : 17.334082
+					"fontsize" : 18.0
 				}
 
 			}
@@ -276,7 +276,7 @@
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"numoutlets" : 0,
 					"patching_rect" : [ 413.0, 100.0, 138.0, 28.0 ],
-					"fontsize" : 17.334082
+					"fontsize" : 18.0
 				}
 
 			}

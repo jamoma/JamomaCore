@@ -191,7 +191,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jcom.return",
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"id" : "obj-14",
 					"patching_rect" : [ 20.0, 15.0, 189.0, 28.0 ],
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],

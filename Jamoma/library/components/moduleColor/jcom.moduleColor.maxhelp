@@ -132,7 +132,7 @@
 					"maxclass" : "comment",
 					"text" : "jcom.moduleColor",
 					"presentation_rect" : [ 30.0, 35.0, 189.0, 28.0 ],
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"patching_rect" : [ 30.0, 35.0, 189.0, 28.0 ],
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"presentation" : 1,

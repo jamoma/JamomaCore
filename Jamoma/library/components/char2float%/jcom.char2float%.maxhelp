@@ -371,7 +371,7 @@
 					"text" : "jcom.char2float%",
 					"patching_rect" : [ 15.0, 15.0, 223.0, 28.0 ],
 					"numoutlets" : 0,
-					"fontsize" : 17.553501,
+					"fontsize" : 18.0,
 					"id" : "obj-26",
 					"fontname" : "Verdana",
 					"numinlets" : 1

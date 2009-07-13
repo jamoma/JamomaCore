@@ -18,7 +18,7 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"hidden" : 1,
 					"id" : "obj-8",
 					"maxclass" : "newobj",
@@ -74,7 +74,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"id" : "obj-4",
 					"maxclass" : "comment",
 					"numinlets" : 1,

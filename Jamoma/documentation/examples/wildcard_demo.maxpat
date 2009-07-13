@@ -293,7 +293,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 0,
 					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
-					"fontsize" : 17.334082
+					"fontsize" : 18.0
 				}
 
 			}

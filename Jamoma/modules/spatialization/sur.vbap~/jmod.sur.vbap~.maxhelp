@@ -656,7 +656,7 @@
 					"maxclass" : "comment",
 					"text" : "jmod.sur.vbap~",
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"patching_rect" : [ 15.0, 15.0, 164.0, 28.0 ],
 					"numinlets" : 1,
 					"id" : "obj-38",

@@ -198,7 +198,7 @@
 					"id" : "obj-20",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"numoutlets" : 0
 				}
 
@@ -360,7 +360,7 @@
 					"id" : "obj-15",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"numoutlets" : 0
 				}
 
@@ -374,7 +374,7 @@
 					"id" : "obj-14",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"numoutlets" : 0
 				}
 

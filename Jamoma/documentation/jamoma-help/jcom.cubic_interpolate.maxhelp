@@ -90,7 +90,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Output:",
-					"fontsize" : 13.165127,
+					"fontsize" : 14.0,
 					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 					"patching_rect" : [ 15.0, 152.0, 124.0, 22.0 ],
 					"id" : "obj-6",
@@ -327,7 +327,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jcom.cubic_interpolate",
-					"fontsize" : 17.553501,
+					"fontsize" : 18.0,
 					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 					"patching_rect" : [ 16.0, 19.0, 317.0, 28.0 ],
 					"id" : "obj-22",
@@ -462,7 +462,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Input:",
-					"fontsize" : 13.165127,
+					"fontsize" : 14.0,
 					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 					"patching_rect" : [ 19.0, 76.0, 130.0, 22.0 ],
 					"id" : "obj-32",

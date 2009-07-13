@@ -255,7 +255,7 @@
 					"text" : "jcom.rgb2luma%",
 					"patching_rect" : [ 33.0, 21.0, 189.0, 28.0 ],
 					"numoutlets" : 0,
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"id" : "obj-18",
 					"fontname" : "Verdana",
 					"numinlets" : 1

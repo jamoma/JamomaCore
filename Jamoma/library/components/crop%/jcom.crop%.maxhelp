@@ -201,7 +201,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jcom.crop%",
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 38.0, 26.0, 189.0, 28.0 ],
 					"fontname" : "Verdana",

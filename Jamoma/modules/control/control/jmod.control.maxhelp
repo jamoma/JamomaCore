@@ -64,7 +64,7 @@
 					"numoutlets" : 1,
 					"id" : "obj-4",
 					"patching_rect" : [ 560.0, 65.0, 99.0, 18.0 ],
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"outlettype" : [ "" ],
 					"fontname" : "Verdana"
 				}

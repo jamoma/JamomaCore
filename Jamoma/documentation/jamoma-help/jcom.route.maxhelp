@@ -210,7 +210,7 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "getsearchpositions",
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"bgcolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"numinlets" : 2,
 					"numoutlets" : 1,
@@ -479,7 +479,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jcom.route",
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"numinlets" : 1,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"numoutlets" : 0,

@@ -122,7 +122,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jcom.cpu_timer",
-					"fontsize" : 17.553501,
+					"fontsize" : 18.0,
 					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 					"patching_rect" : [ 30.0, 15.0, 191.0, 28.0 ],
 					"id" : "obj-8",

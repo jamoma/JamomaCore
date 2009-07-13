@@ -152,7 +152,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"id" : "obj-18",
 					"maxclass" : "comment",
 					"numinlets" : 1,

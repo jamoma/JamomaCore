@@ -148,7 +148,7 @@
 					"id" : "obj-15",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"numoutlets" : 0
 				}
 

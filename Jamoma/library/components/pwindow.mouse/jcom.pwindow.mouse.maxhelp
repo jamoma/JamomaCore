@@ -256,7 +256,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 17.553501,
+					"fontsize" : 18.0,
 					"id" : "obj-26",
 					"maxclass" : "comment",
 					"numinlets" : 1,

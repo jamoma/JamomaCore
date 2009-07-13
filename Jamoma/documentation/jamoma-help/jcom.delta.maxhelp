@@ -284,7 +284,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"patching_rect" : [ 45.0, 490.0, 66.0, 20.0 ],
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
@@ -602,7 +602,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 10.0, 15.0, 145.0, 28.0 ],
-					"fontsize" : 17.334082
+					"fontsize" : 18.0
 				}
 
 			}

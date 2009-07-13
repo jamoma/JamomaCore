@@ -64,7 +64,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jcom.receive",
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"numoutlets" : 0,
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"id" : "obj-4",

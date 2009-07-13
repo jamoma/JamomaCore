@@ -1003,7 +1003,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 25.0, 20.0, 145.0, 28.0 ],
-					"fontsize" : 17.334082
+					"fontsize" : 18.0
 				}
 
 			}

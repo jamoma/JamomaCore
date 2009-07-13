@@ -31,7 +31,7 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "ignoreclick $1",
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"numoutlets" : 1,
 					"patching_rect" : [ 411.0, 375.0, 85.0, 18.0 ],
 					"outlettype" : [ "" ],
@@ -1356,7 +1356,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jcom.numberslider",
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 21.0, 15.0, 172.0, 28.0 ],
 					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],

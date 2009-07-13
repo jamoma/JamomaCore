@@ -162,7 +162,7 @@
 					"text" : "jcom.autosize%",
 					"patching_rect" : [ 13.0, 16.0, 189.0, 28.0 ],
 					"numoutlets" : 0,
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"id" : "obj-11",
 					"fontname" : "Verdana",
 					"numinlets" : 1

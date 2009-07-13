@@ -171,7 +171,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jcom.sum%",
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 					"patching_rect" : [ 20.0, 20.0, 199.0, 28.0 ],
 					"numinlets" : 1,

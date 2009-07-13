@@ -269,7 +269,7 @@
 					"maxclass" : "comment",
 					"text" : "jcom.passmatrixinfo%",
 					"numoutlets" : 0,
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 					"patching_rect" : [ 12.0, 24.0, 204.0, 28.0 ],
 					"id" : "obj-19",

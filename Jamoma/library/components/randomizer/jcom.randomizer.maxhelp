@@ -160,7 +160,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jcom.randomizer",
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"numoutlets" : 0,
 					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
 					"id" : "obj-11",

@@ -25,7 +25,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 255.0, 295.0, 93.0, 18.0 ],
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"outlettype" : [ "" ]
 				}
 

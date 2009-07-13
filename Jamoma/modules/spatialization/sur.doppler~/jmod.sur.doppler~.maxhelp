@@ -19,7 +19,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jmod.sur.doppler~",
-					"fontsize" : 17.334082,
+					"fontsize" : 18.0,
 					"numinlets" : 1,
 					"patching_rect" : [ 18.0, 11.0, 192.0, 28.0 ],
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],

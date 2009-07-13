@@ -240,7 +240,7 @@
 					"numoutlets" : 2,
 					"id" : "obj-1",
 					"patching_rect" : [ 55.0, 175.0, 575.0, 33.0 ],
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"outlettype" : [ "", "" ],
 					"fontname" : "Verdana"
 				}
@@ -254,7 +254,7 @@
 					"numoutlets" : 2,
 					"id" : "obj-52",
 					"patching_rect" : [ 20.0, 25.0, 161.0, 20.0 ],
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"outlettype" : [ "", "" ],
 					"fontname" : "Verdana"
 				}
