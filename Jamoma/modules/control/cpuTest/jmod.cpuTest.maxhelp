@@ -739,9 +739,9 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.cpu_test",
+					"varname" : "jmod.cpuTest",
 					"patching_rect" : [ 172.0, 308.0, 255.0, 60.0 ],
-					"name" : "jmod.cpu_test.maxpat",
+					"name" : "jmod.cpuTest.maxpat",
 					"lockeddragscroll" : 1,
 					"id" : "obj-20",
 					"numinlets" : 1,
