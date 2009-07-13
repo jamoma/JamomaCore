@@ -160,7 +160,7 @@
 								"box" : 								{
 									"maxclass" : "message",
 									"text" : "0 0 174 0",
-									"fontsize" : 11.595187,
+									"fontsize" : 12.0,
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -203,7 +203,7 @@
 								"box" : 								{
 									"maxclass" : "message",
 									"text" : "0 0 -174 0",
-									"fontsize" : 11.595187,
+									"fontsize" : 12.0,
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -323,7 +323,7 @@
 								"box" : 								{
 									"maxclass" : "message",
 									"text" : "window getsize",
-									"fontsize" : 11.595187,
+									"fontsize" : 12.0,
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -337,7 +337,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "route size",
-									"fontsize" : 11.595187,
+									"fontsize" : 12.0,
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
@@ -351,7 +351,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "route window",
-									"fontsize" : 11.595187,
+									"fontsize" : 12.0,
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
@@ -980,7 +980,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p View",
-					"fontsize" : 11.595187,
+					"fontsize" : 12.0,
 					"numinlets" : 3,
 					"hidden" : 1,
 					"numoutlets" : 1,

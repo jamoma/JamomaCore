@@ -287,7 +287,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "p View",
-									"fontsize" : 11.595187,
+									"fontsize" : 12.0,
 									"numoutlets" : 1,
 									"hidden" : 1,
 									"outlettype" : [ "" ],

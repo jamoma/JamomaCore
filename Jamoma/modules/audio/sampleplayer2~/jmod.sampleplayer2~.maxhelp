@@ -47,7 +47,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 11.595187,
+					"fontsize" : 12.0,
 					"id" : "obj-17",
 					"interval" : 250.0,
 					"maxclass" : "number~",

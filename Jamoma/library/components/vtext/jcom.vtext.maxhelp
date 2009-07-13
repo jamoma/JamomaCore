@@ -45,7 +45,7 @@
 				"box" : 				{
 					"fontface" : 1,
 					"fontname" : "Verdana",
-					"fontsize" : 11.595187,
+					"fontsize" : 12.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-55",
 					"maxclass" : "comment",
@@ -60,7 +60,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 11.595187,
+					"fontsize" : 12.0,
 					"id" : "obj-56",
 					"items" : [ "jcom.textslider", ",", "jcom.numberslider", ",", "jmod.messages" ],
 					"maxclass" : "umenu",
@@ -324,7 +324,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 11.595187,
+					"fontsize" : 12.0,
 					"id" : "obj-14",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -352,7 +352,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 11.595187,
+					"fontsize" : 12.0,
 					"id" : "obj-29",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -381,7 +381,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 11.595187,
+					"fontsize" : 12.0,
 					"id" : "obj-7",
 					"items" : [ "Apple Braille Outline 6 Dot", ",", "Apple Braille Outline 8 Dot", ",", "Apple Braille Pinpoint 6 Dot", ",", "Apple Braille Pinpoint 8 Dot", ",", "Apple Braille", ",", "Apple Symbols", ",", "AppleGothic Regular", ",", ".Aqua Kana", ",", "Courier", ",", "Courier Oblique", ",", "Geeza Pro", ",", "Geneva", ",", ".Helvetica LT MM", ",", "Helvetica", ",", "Helvetica Oblique", ",", "Helvetica Neue", ",", "Helvetica Neue Condensed Bold", ",", "Helvetica Neue UltraLight", ",", "Helvetica Neue Light", ",", "Helvetica Neue Condensed Black", ",", ".Keyboard", ",", "LastResort", ",", "Lucida Grande", ",", "Monaco", ",", "Symbol", ",", "Thonburi", ",", ".Times LT MM", ",", "Times Roman", ",", "Times Bold", ",", "Times Italic", ",", "Zapf Dingbats", ",", "Hiragino Mincho ProN W3", ",", "Hiragino Mincho ProN W6", ",", "Hiragino Kaku Gothic ProN W3", ",", "Hiragino Kaku Gothic ProN W6", ",", "LiHei Pro", ",", "STXihei", ",", "STHeiti", ",", "#GungSeo Regular", ",", "#HeadLineA Regular", ",", "#PCMyungjo Regular", ",", "#PilGi Regular", ",", "Adobe Heiti Std R", ",", "Adobe Kaiti Std R", ",", "Adobe Ming Std L", ",", "Adobe Myungjo Std M", ",", "Adobe Song Std L", ",", "Kozuka Gothic Pro M", ",", "Kozuka Gothic Pro R", ",", "Kozuka Mincho Pro B", ",", "Kozuka Mincho Pro EL", ",", "Al Bayan Plain", ",", "American Typewriter", ",", "American Typewriter Condensed", ",", "American Typewriter Light", ",", "American Typewriter Condensed Light", ",", "Andale Mono", ",", "Apple Chancery", ",", "Apple LiGothic Medium", ",", "Apple LiSung Light", ",", "AppleMyungjo Regular", ",", "Arial", ",", "Arial Black", ",", "Arial Black", ",", "Arial Narrow", ",", "Arial Narrow", ",", "Arial Rounded MT Bold", ",", "Arial Rounded MT Bold", ",", "Arial Unicode MS", ",", "Arial", ",", "Arial Hebrew", ",", "Arno Pro Bold 08pt", ",", "Arno Pro Bold 10pt", ",", "Arno Pro Bold 12pt", ",", "Arno Pro Bold 18pt", ",", "Arno Pro Bold 36pt", ",", "Arno Pro Bold Italic 08pt", ",", "Arno Pro Bold Italic 10pt", ",", "Arno Pro Bold Italic 12pt", ",", "Arno Pro Bold Italic 18pt", ",", "Arno Pro Bold Italic 36pt", ",", "Arno Pro Italic 08pt", ",", "Arno Pro Italic 10pt", ",", "Arno Pro Italic 12pt", ",", "Arno Pro Italic 18pt", ",", "Arno Pro Italic 36pt", ",", "Arno Pro Light 36pt", ",", "Arno Pro Light Italic 36pt", ",", "Arno Pro Regular 08pt", ",", "Arno Pro Regular 10pt", ",", "Arno Pro Regular 12pt", ",", "Arno Pro Regular 18pt", ",", "Arno Pro Regular 36pt", ",", "Arno Pro Semibold 08pt", ",", "Arno Pro Semibold 10pt", ",", "Arno Pro Semibold 12pt", ",", "Arno Pro Semibold 18pt", ",", "Arno Pro Semibold 36pt", ",", "Arno Pro Semibold Italic 08pt", ",", "Arno Pro Semibold Italic 10pt", ",", "Arno Pro Semibold Italic 12pt", ",", "Arno Pro Semibold Italic 18pt", ",", "Arno Pro Semibold Italic 36pt", ",", "Ayuthaya", ",", "Baghdad", ",", "Baskerville", ",", "Baskerville SemiBold", ",", "Kozuka Mincho Pro H", ",", "Kozuka Mincho Pro L", ",", "BiauKai", ",", "Bickham Script Pro", ",", "Bickham Script Pro Semibold", ",", "Big Caslon Medium", ",", "Kozuka Mincho Pro M", ",", "Kozuka Mincho Pro R", ",", "Neo3Symbol", ",", "Brush Script MT Italic", ",", "Brush Script MT Italic", ",", "Letter Gothic Std Bold", ",", "Carta", ",", "Chalkboard", ",", "Letter Gothic Std Bold Slanted", ",", "Letter Gothic Std Slanted", ",", "Letter Gothic Std Medium", ",", "Lithos Pro Black", ",", "Charcoal CY", ",", "Lithos Pro", ",", "Cochin", ",", "Comic Sans MS", ",", "Comic Sans MS", ",", "Mesquite Std Medium", ",", "Copperplate", ",", "Copperplate Light", ",", "Corsiva Hebrew", ",", "Courier New", ",", "Courier New", ",", "DecoType Naskh", ",", "Devanagari MT", ",", "Didot", ",", "Minion Pro Bold Cond", ",", "Engraver Font Extras", ",", "Engraver Font Set", ",", "Engraver Text H", ",", "Engraver Text NCS", ",", "Engraver Text T", ",", "Engraver Time", ",", "Euphemia UCAS", ",", "Garamond Premier Pro Semibold", ",", "Garamond Premier Pro", ",", "Geneva CY", ",", "Georgia", ",", "Georgia", ",", "Gill Sans", ",", "Gill Sans Light", ",", "Guitar Pro 5", ",", "Gujarati MT", ",", "Gurmukhi MT", ",", "Hei Regular", ",", "Helvetica CY Plain", ",", "Helvetica CY Oblique", ",", "Herculanum", ",", "Hoefler Text", ",", "Hoefler Text Black", ",", "Hoefler Text Ornaments", ",", "Impact", ",", "InaiMathi", ",", "Jazz", ",", "JazzCord", ",", "JazzPerc", ",", "JazzText Extended", ",", "JazzText", ",", "Kai Regular", ",", "Kailasa Regular", ",", "Kokonor Regular", ",", "Minion Pro Medium", ",", "Minion Pro", ",", "Minion Pro Semibold", ",", "Myriad Pro Bold Condensed", ",", "Myriad Pro Condensed", ",", "Krungthep", ",", "KufiStandardGK", ",", "Adobe Fangsong Std R", ",", "Kozuka Gothic Pro L", ",", "Maestro Percussion", ",", "Maestro Wide", ",", "Maestro", ",", "Marker Felt Thin", ",", "Marker Felt Wide", ",", "Microsoft Sans Serif", ",", "Mshtakan Oblique", ",", "Mshtakan", ",", "Futura Medium", ",", "Futura Condensed Medium", ",", "Futura Condensed ExtraBold", ",", "Nadeem", ",", "New Peninim MT", ",", "New Peninim MT Bold Inclined", ",", "New Peninim MT Inclined", ",", "GB18030 Bitmap", ",", "Optima ExtraBlack", ",", "Optima Regular", ",", "Optima Bold", ",", "Optima Italic", ",", "Osaka", ",", "Osaka-Mono", ",", "Papyrus", ",", "Papyrus Condensed", ",", "Petrucci", ",", "Plantagenet Cherokee", ",", "Raanana", ",", "Sathu", ",", "Seville Regular", ",", "Silom", ",", "Skia Regular", ",", "Sonata", ",", "Tahoma", ",", "Tamburo", ",", "Times New Roman", ",", "Times New Roman", ",", "Trebuchet MS", ",", "Trebuchet MS", ",", "Verdana", ",", "Verdana", ",", "Webdings", ",", "Webdings", ",", "Wingdings 2", ",", "Wingdings 3", ",", "Wingdings", ",", "Zapfino", ",", "Hiragino Maru Gothic Pro W4", ",", "Hiragino Maru Gothic ProN W4", ",", "Hiragino Mincho Pro W3", ",", "Hiragino Mincho Pro W6", ",", "Hiragino Kaku Gothic Pro W3", ",", "Hiragino Kaku Gothic Pro W6", ",", "Hiragino Kaku Gothic Std W8", ",", "Hiragino Kaku Gothic StdN W8", ",", "LiSong Pro", ",", "STFangsong", ",", "STSong", ",", "STKaiti", ",", "DejaVu Sans Mono", ",", "Adobe Caslon Pro", ",", "Adobe Caslon Pro Semibold", ",", "Adobe Garamond Pro", ",", "Bell Gothic Std Black", ",", "Bell Gothic Std Bold", ",", "Birch Std", ",", "Blackoak Std", ",", "Brush Script Std Medium", ",", "Chaparral Pro", ",", "Charlemagne Std Bold", ",", "Cooper Std Black", ",", "Eccentric Std", ",", "Giddyup Std", ",", "Hobo Std Medium", ",", "Kozuka Gothic Pro B", ",", "Kozuka Gothic Pro EL", ",", "Kozuka Gothic Pro H", ",", "Myriad Pro", ",", "Myriad Pro Semibold", ",", "Nueva Std Bold Condensed", ",", "Nueva Std Condensed", ",", "OCR A Std", ",", "Orator Std Slanted", ",", "Orator Std Medium", ",", "Poplar Std Black", ",", "Prestige Elite Std Bold", ",", "Rosewood Std", ",", "Stencil Std Bold", ",", "Tekton Pro Bold", ",", "Tekton Pro Bold Condensed", ",", "Tekton Pro Bold Extended", ",", "Tekton Pro Bold Oblique", ",", "Trajan Pro", ",", "Academy Engraved LET Plain:1.0", ",", "Bank Gothic Light", ",", "Bank Gothic Medium", ",", "Blackmoor LET Plain:2.0", ",", "Bodoni Ornaments ITC TT", ",", "Bodoni SvtyTwo ITC TT Book", ",", "Bodoni SvtyTwo ITC TT Bold", ",", "Bodoni SvtyTwo ITC TT BookIta", ",", "Bodoni SvtyTwo OS ITC TT Book", ",", "Bodoni SvtyTwo OS ITC TT Bold", ",", "Bodoni SvtyTwo OS ITC TT BookIt", ",", "Bodoni SvtyTwo SC ITC TT Book", ",", "Bradley Hand ITC TT Bold", ",", "Capitals", ",", "Jazz LET Plain:1.0", ",", "Mona Lisa Solid ITC TT", ",", "Party LET Plain:1.0", ",", "Princetown LET", ",", "Santa Fe LET Plain:1.0", ",", "Savoye LET Plain:1.0", ",", "SchoolHouse Cursive B", ",", "SchoolHouse Printed A", ",", "Snell Roundhand", ",", "Snell Roundhand Black", ",", "Stone Sans Sem ITC TT Semi", ",", "Stone Sans ITC TT Bold", ",", "Stone Sans Sem ITC TT SemiIta", ",", "Synchro LET", ",", "Type Embellishments One LET Embellishments One LET Plain:1.0", ",", "Apple Casual", ",", "BlairMdITC TT Medium", ",", "Bordeaux Roman Bold LET Plain:1.0", ",", "Cracked", ",", "Handwriting - Dakota", ",", "Palatino", ",", "PortagoITC TT" ],
 					"maxclass" : "umenu",
@@ -396,7 +396,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 11.595187,
+					"fontsize" : 12.0,
 					"hidden" : 1,
 					"id" : "obj-21",
 					"maxclass" : "newobj",

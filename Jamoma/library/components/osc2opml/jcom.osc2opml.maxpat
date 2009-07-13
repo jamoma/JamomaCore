@@ -5475,7 +5475,7 @@
 									"patching_rect" : [ 492.0, 190.0, 74.0, 18.0 ],
 									"id" : "obj-11",
 									"fontname" : "Verdana",
-									"fontsize" : 11.595187,
+									"fontsize" : 12.0,
 									"numinlets" : 2,
 									"presentation_rect" : [ 30.0, 30.0, 74.0, 18.0 ],
 									"numoutlets" : 1,

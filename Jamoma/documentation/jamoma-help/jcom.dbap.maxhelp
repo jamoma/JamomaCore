@@ -3792,7 +3792,7 @@
 									"id" : "obj-52",
 									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
-									"fontsize" : 11.595187
+									"fontsize" : 12.0
 								}
 
 							}
@@ -4120,7 +4120,7 @@
 									"id" : "obj-57",
 									"fontname" : "Verdana",
 									"outlettype" : [ "", "" ],
-									"fontsize" : 11.595187
+									"fontsize" : 12.0
 								}
 
 							}

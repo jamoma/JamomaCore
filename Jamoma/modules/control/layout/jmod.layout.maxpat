@@ -2867,7 +2867,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 11.595187,
+									"fontsize" : 12.0,
 									"id" : "obj-54",
 									"maxclass" : "message",
 									"numinlets" : 2,
@@ -3331,7 +3331,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 11.595187,
+									"fontsize" : 12.0,
 									"hidden" : 1,
 									"id" : "obj-140",
 									"maxclass" : "newobj",
@@ -5039,7 +5039,7 @@
 , 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
-																	"fontsize" : 11.595187,
+																	"fontsize" : 12.0,
 																	"id" : "obj-8",
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
@@ -5162,7 +5162,7 @@
 , 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
-																	"fontsize" : 11.595187,
+																	"fontsize" : 12.0,
 																	"id" : "obj-75",
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
@@ -5176,7 +5176,7 @@
 , 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
-																	"fontsize" : 11.595187,
+																	"fontsize" : 12.0,
 																	"id" : "obj-76",
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,

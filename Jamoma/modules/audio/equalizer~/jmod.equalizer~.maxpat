@@ -50,7 +50,7 @@
 					"maxclass" : "message",
 					"text" : "refreshSubscriptions",
 					"numoutlets" : 1,
-					"fontsize" : 11.595187,
+					"fontsize" : 12.0,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 195.0, 480.0, 116.0, 18.0 ],
 					"id" : "obj-44",
