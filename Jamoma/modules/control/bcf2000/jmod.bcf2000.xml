@@ -11,8 +11,8 @@
     <item name='button.4' type='msg_toggle' priority='1'>0</item>
     <item name='foot/control' type='msg_int' priority='1'>0</item>
     <item name='foot/switch' type='msg_toggle' priority='1'>0</item>
-    <item name='midi_in' type='msg_generic' priority='0'>BCF2000</item>
-    <item name='midi_out' type='msg_generic' priority='0'>BCF2000</item>
+    <item name='midiIn' type='msg_generic' priority='0'>BCF2000</item>
+    <item name='midiOut' type='msg_generic' priority='0'>BCF2000</item>
     <item name='track.1/fader' type='msg_int' priority='1'>0</item>
     <item name='track.1/key.lower' type='msg_toggle' priority='1'>0</item>
     <item name='track.1/key.upper' type='msg_toggle' priority='1'>0</item>
@@ -115,8 +115,8 @@
     <item name='button.4' type='msg_toggle' priority='1'>0</item>
     <item name='foot/control' type='msg_int' priority='1'>0</item>
     <item name='foot/switch' type='msg_toggle' priority='1'>0</item>
-    <item name='midi_in' type='msg_generic' priority='0'>BCF2000</item>
-    <item name='midi_out' type='msg_generic' priority='0'>BCF2000</item>
+    <item name='midiIn' type='msg_generic' priority='0'>BCF2000</item>
+    <item name='midiOut' type='msg_generic' priority='0'>BCF2000</item>
     <item name='track.1/fader' type='msg_int' priority='1'>0</item>
     <item name='track.1/key.lower' type='msg_toggle' priority='1'>0</item>
     <item name='track.1/key.upper' type='msg_toggle' priority='1'>0</item>
@@ -219,8 +219,8 @@
     <item name='button.4' type='msg_toggle' priority='1'>0</item>
     <item name='foot/control' type='msg_int' priority='1'>0</item>
     <item name='foot/switch' type='msg_toggle' priority='1'>0</item>
-    <item name='midi_in' type='msg_generic' priority='0'>BCF2000</item>
-    <item name='midi_out' type='msg_generic' priority='0'>BCF2000</item>
+    <item name='midiIn' type='msg_generic' priority='0'>BCF2000</item>
+    <item name='midiOut' type='msg_generic' priority='0'>BCF2000</item>
     <item name='track.1/fader' type='msg_int' priority='1'>0</item>
     <item name='track.1/key.lower' type='msg_toggle' priority='1'>0</item>
     <item name='track.1/key.upper' type='msg_toggle' priority='1'>0</item>
@@ -323,8 +323,8 @@
     <item name='button.4' type='msg_toggle' priority='1'>0</item>
     <item name='foot/control' type='msg_int' priority='1'>0</item>
     <item name='foot/switch' type='msg_toggle' priority='1'>0</item>
-    <item name='midi_in' type='msg_generic' priority='0'>BCF2000</item>
-    <item name='midi_out' type='msg_generic' priority='0'>BCF2000</item>
+    <item name='midiIn' type='msg_generic' priority='0'>BCF2000</item>
+    <item name='midiOut' type='msg_generic' priority='0'>BCF2000</item>
     <item name='track.1/fader' type='msg_int' priority='1'>64</item>
     <item name='track.1/key.lower' type='msg_toggle' priority='1'>0</item>
     <item name='track.1/key.upper' type='msg_toggle' priority='1'>0</item>
