@@ -30,7 +30,7 @@
 						"defrect" : [ 305.0, 224.0, 907.0, 511.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
@@ -544,7 +544,7 @@
 					"patching_rect" : [ 179.0, 105.0, 78.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"fontname" : "Verdana",
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,

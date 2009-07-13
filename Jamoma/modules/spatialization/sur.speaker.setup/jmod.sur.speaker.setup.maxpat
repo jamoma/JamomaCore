@@ -1946,7 +1946,7 @@
 										"defrect" : [ 350.0, 65.0, 1213.0, 498.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
@@ -2736,7 +2736,7 @@
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0
 									}

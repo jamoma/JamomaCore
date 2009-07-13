@@ -1090,7 +1090,7 @@
 										"defrect" : [ 199.0, 70.0, 247.0, 211.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
@@ -1267,7 +1267,7 @@
 										"fontface" : 0,
 										"fontsize" : 12.0,
 										"globalpatchername" : "",
-										"default_fontsize" : 12.0
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p prepare next_name"
@@ -1968,7 +1968,7 @@
 						"defrect" : [ 132.0, 118.0, 202.0, 209.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
@@ -2156,7 +2156,7 @@
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"globalpatchername" : "",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p hide_ramp_interface"
@@ -2208,7 +2208,7 @@
 						"defrect" : [ 29.0, 75.0, 254.0, 196.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
@@ -2365,7 +2365,7 @@
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"globalpatchername" : "",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p hide_button"
@@ -2433,7 +2433,7 @@
 						"defrect" : [ 50.0, 183.0, 242.0, 227.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
@@ -2662,7 +2662,7 @@
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"globalpatchername" : "",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p route"
@@ -2782,7 +2782,7 @@
 						"defrect" : [ 29.0, 75.0, 214.0, 212.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
@@ -2906,7 +2906,7 @@
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"globalpatchername" : "",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p ramptime_number"
@@ -2998,7 +2998,7 @@
 						"defrect" : [ 29.0, 75.0, 214.0, 212.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
@@ -3099,7 +3099,7 @@
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"globalpatchername" : "",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p comment"
@@ -3180,7 +3180,7 @@
 						"defrect" : [ 29.0, 75.0, 719.0, 174.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
@@ -3353,7 +3353,7 @@
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"globalpatchername" : "",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p return_info"
@@ -3428,7 +3428,7 @@
 						"defrect" : [ 29.0, 75.0, 214.0, 212.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
@@ -3616,7 +3616,7 @@
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"globalpatchername" : "",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p color_background"
@@ -3652,7 +3652,7 @@
 						"defrect" : [ 373.0, 97.0, 236.0, 175.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
@@ -3785,7 +3785,7 @@
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"globalpatchername" : "",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p cue_number"
@@ -3808,7 +3808,7 @@
 						"defrect" : [ 397.0, 282.0, 386.0, 324.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
@@ -4129,7 +4129,7 @@
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"globalpatchername" : "",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p cuemenu"
@@ -4185,7 +4185,7 @@
 						"defrect" : [ 4.0, 71.0, 1272.0, 694.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
@@ -5240,7 +5240,7 @@
 										"defrect" : [ 705.0, 507.0, 279.0, 216.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
@@ -5391,7 +5391,7 @@
 										"fontface" : 0,
 										"fontsize" : 12.0,
 										"globalpatchername" : "",
-										"default_fontsize" : 12.0
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p /CONFIG"
@@ -5537,7 +5537,7 @@
 														"defrect" : [ 29.0, 75.0, 602.0, 414.0 ],
 														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 														"openinpresentation" : 0,
-														"default_fontsize" : 12.0,
+														"default_fontsize" : 10.0,
 														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"gridonopen" : 0,
@@ -5891,7 +5891,7 @@
 														"fontface" : 0,
 														"fontsize" : 12.0,
 														"globalpatchername" : "",
-														"default_fontsize" : 12.0
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p REFRESH"
@@ -6235,7 +6235,7 @@
 										"defrect" : [ 29.0, 75.0, 142.0, 164.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
@@ -6368,7 +6368,7 @@
 										"fontface" : 0,
 										"fontsize" : 12.0,
 										"globalpatchername" : "",
-										"default_fontsize" : 12.0
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p load_cuelist"
@@ -6798,7 +6798,7 @@
 										"defrect" : [ 411.0, 133.0, 232.0, 172.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
@@ -6946,7 +6946,7 @@
 										"fontface" : 0,
 										"fontsize" : 12.0,
 										"globalpatchername" : "",
-										"default_fontsize" : 12.0
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p update_CUE"
@@ -6968,7 +6968,7 @@
 										"defrect" : [ 451.0, 135.0, 503.0, 287.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
@@ -7375,7 +7375,7 @@
 										"fontface" : 0,
 										"fontsize" : 12.0,
 										"globalpatchername" : "",
-										"default_fontsize" : 12.0
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p update_KEYCUE"
@@ -7413,7 +7413,7 @@
 										"defrect" : [ 339.0, 50.0, 551.0, 557.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
@@ -7480,7 +7480,7 @@
 														"defrect" : [ 14.0, 67.0, 317.0, 570.0 ],
 														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 														"openinpresentation" : 0,
-														"default_fontsize" : 12.0,
+														"default_fontsize" : 10.0,
 														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"gridonopen" : 0,
@@ -8037,7 +8037,7 @@
 														"fontface" : 0,
 														"fontsize" : 12.0,
 														"globalpatchername" : "",
-														"default_fontsize" : 12.0
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p getdrive"
@@ -8489,7 +8489,7 @@
 										"fontface" : 0,
 										"fontsize" : 12.0,
 										"globalpatchername" : "",
-										"default_fontsize" : 12.0
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p live_modifications"
@@ -8511,7 +8511,7 @@
 										"defrect" : [ 413.0, 91.0, 348.0, 614.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
@@ -9025,7 +9025,7 @@
 										"fontface" : 0,
 										"fontsize" : 12.0,
 										"globalpatchername" : "",
-										"default_fontsize" : 12.0
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p create_CUE"
@@ -9075,7 +9075,7 @@
 										"defrect" : [ 80.0, 136.0, 353.0, 308.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
@@ -9402,7 +9402,7 @@
 										"fontface" : 0,
 										"fontsize" : 12.0,
 										"globalpatchername" : "",
-										"default_fontsize" : 12.0
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p create_KEYCUE"
@@ -9726,7 +9726,7 @@
 														"defrect" : [ 54.0, 100.0, 283.0, 308.0 ],
 														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 														"openinpresentation" : 0,
-														"default_fontsize" : 12.0,
+														"default_fontsize" : 10.0,
 														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"gridonopen" : 0,
@@ -10060,7 +10060,7 @@
 														"fontface" : 0,
 														"fontsize" : 12.0,
 														"globalpatchername" : "",
-														"default_fontsize" : 12.0
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p get_drive"
@@ -10248,7 +10248,7 @@
 														"defrect" : [ 976.0, 223.0, 261.0, 478.0 ],
 														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 														"openinpresentation" : 0,
-														"default_fontsize" : 12.0,
+														"default_fontsize" : 10.0,
 														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"gridonopen" : 0,
@@ -10735,7 +10735,7 @@
 														"fontface" : 0,
 														"fontsize" : 12.0,
 														"globalpatchername" : "",
-														"default_fontsize" : 12.0
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p parameter_value"
@@ -10758,7 +10758,7 @@
 														"defrect" : [ 533.0, 51.0, 304.0, 415.0 ],
 														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 														"openinpresentation" : 0,
-														"default_fontsize" : 12.0,
+														"default_fontsize" : 10.0,
 														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"gridonopen" : 0,
@@ -11096,7 +11096,7 @@
 														"fontface" : 0,
 														"fontsize" : 12.0,
 														"globalpatchername" : "",
-														"default_fontsize" : 12.0
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p attribute_value"
@@ -12410,7 +12410,7 @@
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"globalpatchername" : "",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p jalg.Qmanager"
@@ -13299,7 +13299,7 @@
 																		"defrect" : [ 73.0, 109.0, 259.0, 250.0 ],
 																		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 																		"openinpresentation" : 0,
-																		"default_fontsize" : 12.0,
+																		"default_fontsize" : 10.0,
 																		"default_fontface" : 0,
 																		"default_fontname" : "Verdana",
 																		"gridonopen" : 0,
@@ -13416,7 +13416,7 @@
 																		"fontface" : 0,
 																		"fontsize" : 12.0,
 																		"globalpatchername" : "",
-																		"default_fontsize" : 12.0
+																		"default_fontsize" : 10.0
 																	}
 ,
 																	"text" : "p ENTETE"
@@ -17687,7 +17687,7 @@
 										"defrect" : [ 97.0, 501.0, 304.0, 356.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
-										"default_fontsize" : 9.0,
+										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
@@ -17906,7 +17906,7 @@
 														"defrect" : [ 326.0, 118.0, 619.0, 584.0 ],
 														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 														"openinpresentation" : 0,
-														"default_fontsize" : 9.0,
+														"default_fontsize" : 10.0,
 														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"gridonopen" : 0,
@@ -18710,7 +18710,7 @@
 														"fontface" : 0,
 														"fontsize" : 10.0,
 														"globalpatchername" : "",
-														"default_fontsize" : 9.0
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p colors"
@@ -18962,7 +18962,7 @@
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"globalpatchername" : "",
-										"default_fontsize" : 9.0
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p switch"

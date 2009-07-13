@@ -261,7 +261,7 @@
 						"defrect" : [ 410.0, 236.0, 346.0, 269.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"gridonopen" : 0,
@@ -310,7 +310,7 @@
 										"defrect" : [ 714.0, 302.0, 294.0, 211.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"gridonopen" : 0,
@@ -529,7 +529,7 @@
 										"fontface" : 0,
 										"fontsize" : 12.0,
 										"default_fontname" : "Arial",
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"fontname" : "Arial",
 										"globalpatchername" : ""
 									}
@@ -578,7 +578,7 @@
 										"defrect" : [ 714.0, 302.0, 294.0, 211.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"gridonopen" : 0,
@@ -797,7 +797,7 @@
 										"fontface" : 0,
 										"fontsize" : 12.0,
 										"default_fontname" : "Arial",
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"fontname" : "Arial",
 										"globalpatchername" : ""
 									}
@@ -822,7 +822,7 @@
 										"defrect" : [ 714.0, 302.0, 294.0, 211.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"gridonopen" : 0,
@@ -1041,7 +1041,7 @@
 										"fontface" : 0,
 										"fontsize" : 12.0,
 										"default_fontname" : "Arial",
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"fontname" : "Arial",
 										"globalpatchername" : ""
 									}
@@ -1066,7 +1066,7 @@
 										"defrect" : [ 714.0, 302.0, 294.0, 211.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"gridonopen" : 0,
@@ -1285,7 +1285,7 @@
 										"fontface" : 0,
 										"fontsize" : 12.0,
 										"default_fontname" : "Arial",
-										"default_fontsize" : 12.0,
+										"default_fontsize" : 10.0,
 										"fontname" : "Arial",
 										"globalpatchername" : ""
 									}
@@ -1435,7 +1435,7 @@
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"fontname" : "Arial",
 						"globalpatchername" : ""
 					}

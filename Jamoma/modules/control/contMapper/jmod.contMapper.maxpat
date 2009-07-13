@@ -792,7 +792,7 @@
 						"defrect" : [ 0.0, 97.0, 487.0, 372.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
@@ -994,7 +994,7 @@
 						"fontsize" : 12.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"default_fontsize" : 12.0
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p ignoreclik"
@@ -3452,7 +3452,7 @@
 										"defrect" : [ 396.0, 200.0, 489.0, 526.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
-										"default_fontsize" : 9.0,
+										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
@@ -3902,7 +3902,7 @@
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"default_fontsize" : 9.0
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p display"

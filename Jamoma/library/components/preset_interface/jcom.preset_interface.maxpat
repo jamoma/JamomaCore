@@ -146,7 +146,7 @@
 						"defrect" : [ 147.0, 475.0, 407.0, 355.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 9.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
@@ -545,7 +545,7 @@
 						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
 						"fontsize" : 10.0,
-						"default_fontsize" : 9.0,
+						"default_fontsize" : 10.0,
 						"fontname" : "Verdana"
 					}
 
@@ -997,7 +997,7 @@
 						"defrect" : [ 761.0, 137.0, 657.0, 488.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 9.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
@@ -2369,7 +2369,7 @@
 						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
 						"fontsize" : 10.0,
-						"default_fontsize" : 9.0,
+						"default_fontsize" : 10.0,
 						"fontname" : "Verdana"
 					}
 

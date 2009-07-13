@@ -1,12 +1,12 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 123.0, 48.0, 450.0, 558.0 ],
+		"rect" : [ 427.0, 44.0, 381.0, 545.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 123.0, 48.0, 450.0, 558.0 ],
+		"defrect" : [ 427.0, 44.0, 381.0, 545.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
-		"default_fontsize" : 12.0,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -19,7 +19,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-10",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -33,7 +32,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 18.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-22",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -58,12 +56,11 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 11.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-1",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 132.0, 308.0, 267.0, 20.0 ],
+					"patching_rect" : [ 132.0, 308.0, 232.0, 19.0 ],
 					"text" : "The right outlet outputs only the /file message"
 				}
 
@@ -77,7 +74,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 57.0, 404.0, 46.0, 20.0 ],
+					"patching_rect" : [ 57.0, 404.0, 40.0, 19.0 ],
 					"text" : "*~ 0.1"
 				}
 
@@ -102,7 +99,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 23.0, 351.0, 85.0, 20.0 ],
+					"patching_rect" : [ 23.0, 351.0, 76.0, 19.0 ],
 					"text" : "prepend open"
 				}
 
@@ -116,7 +113,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 57.0, 376.0, 46.0, 20.0 ],
+					"patching_rect" : [ 57.0, 376.0, 41.0, 19.0 ],
 					"text" : "noise~"
 				}
 
@@ -146,7 +143,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 23.0, 432.0, 62.0, 20.0 ],
+					"patching_rect" : [ 23.0, 432.0, 60.0, 19.0 ],
 					"text" : "sfrecord~"
 				}
 
@@ -160,7 +157,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 104.0, 354.0, 210.0, 18.0 ]
+					"patching_rect" : [ 104.0, 354.0, 210.0, 17.0 ]
 				}
 
 			}
@@ -173,7 +170,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 23.0, 308.0, 112.0, 20.0 ],
+					"patching_rect" : [ 23.0, 308.0, 105.0, 19.0 ],
 					"text" : "jcom.oscroute /file"
 				}
 
@@ -197,13 +194,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 11.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-21",
 					"linecount" : 10,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 19.0, 74.0, 345.0, 140.0 ],
+					"patching_rect" : [ 19.0, 74.0, 306.0, 133.0 ],
 					"text" : "The module generates indexed file names. It was initially designed to work with jmod.sdif.record, but may work well for recording of audio or video files as well.\n\nUSAGE\n1. locate folder for the files to be recorded\n2. write a base file name\n3. type in file extention\n4. use \"new\" button to generate file name\n- remember to press tab or return after writing in text boxes"
 				}
 
@@ -211,28 +207,10 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-11", 0 ],
+					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-20", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-9", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 32.5, 332.5, 304.5, 332.5 ],
-					"source" : [ "obj-11", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 32.5, 340.0, 32.5, 340.0 ],
-					"source" : [ "obj-11", 0 ]
+					"source" : [ "obj-6", 0 ]
 				}
 
 			}
@@ -240,8 +218,8 @@
 				"patchline" : 				{
 					"destination" : [ "obj-8", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 32.5, 380.0, 32.5, 380.0 ],
-					"source" : [ "obj-5", 0 ]
+					"midpoints" : [ 66.5, 427.0, 32.5, 427.0 ],
+					"source" : [ "obj-2", 0 ]
 				}
 
 			}
@@ -258,17 +236,35 @@
 				"patchline" : 				{
 					"destination" : [ "obj-8", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 66.5, 427.0, 32.5, 427.0 ],
-					"source" : [ "obj-2", 0 ]
+					"midpoints" : [ 32.5, 380.0, 32.5, 380.0 ],
+					"source" : [ "obj-5", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 32.5, 340.0, 32.5, 340.0 ],
+					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 32.5, 332.5, 304.5, 332.5 ],
+					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-6", 0 ]
+					"source" : [ "obj-20", 0 ]
 				}
 
 			}
