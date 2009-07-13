@@ -668,7 +668,7 @@
 					"id" : "obj-7",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.cont_mapper.maxpat",
+					"name" : "jmod.contMapper.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -917,7 +917,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 30.0, 34.0, 226.0, 28.0 ],
-					"text" : "jmod.cont_mapper"
+					"text" : "jmod.contMapper"
 				}
 
 			}
@@ -983,7 +983,7 @@
 					"id" : "obj-29",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.cont_mapper.maxpat",
+					"name" : "jmod.contMapper.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
