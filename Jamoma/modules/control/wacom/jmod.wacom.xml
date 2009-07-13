@@ -5,12 +5,17 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='bgrb' type='msg_toggle' priority='0'>1</item>
+    <item name='bgrd' type='msg_toggle' priority='0'>0</item>
     <item name='flusheventqueue' type='msg_toggle' priority='0'>1</item>
     <item name='menu' type='msg_generic' priority='0'>0</item>
     <item name='nopointer' type='msg_toggle' priority='0'>1</item>
     <item name='on' type='msg_toggle' priority='0'>1</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='view/color/border' type='msg_list' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
+    <item name='view/size' type='msg_list' priority='0'>300 70 </item>
     <item name='xyrange' type='msg_generic' priority='0'>1</item>
   </preset>
 </jamoma>
