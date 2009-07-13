@@ -159,7 +159,7 @@
 					"id" : "obj-11",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-					"fontsize" : 15.799999,
+					"fontsize" : 16.0,
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"rect" : [ 34.0, 304.0, 539.0, 417.0 ],
@@ -312,7 +312,7 @@
 									"id" : "obj-10",
 									"numinlets" : 3,
 									"numoutlets" : 1,
-									"fontsize" : 15.799999,
+									"fontsize" : 16.0,
 									"outlettype" : [ "" ],
 									"patcher" : 									{
 										"rect" : [ 436.0, 302.0, 373.0, 303.0 ],

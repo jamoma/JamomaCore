@@ -761,7 +761,7 @@
 					"id" : "obj-21",
 					"numinlets" : 0,
 					"numoutlets" : 0,
-					"fontsize" : 15.799999,
+					"fontsize" : 16.0,
 					"patcher" : 					{
 						"rect" : [ 20.0, 74.0, 853.0, 729.0 ],
 										"bglocked" : 0,

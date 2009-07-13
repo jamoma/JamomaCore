@@ -2684,7 +2684,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "coll",
-					"fontsize" : 16.452309,
+					"fontsize" : 16.0,
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],

@@ -37,7 +37,7 @@
 					"bgcolor" : [ 1.0, 0.52549, 0.05098, 1.0 ],
 					"bgcolor2" : [ 0.352941, 0.337255, 0.521569, 1.0 ],
 					"fontname" : "Verdana",
-					"fontsize" : 37.747066,
+					"fontsize" : 36.0,
 					"id" : "obj-29",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -586,7 +586,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 12.723935,
+					"fontsize" : 12.023935,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-7",
 					"linecount" : 3,
@@ -679,7 +679,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 11.230778,
+					"fontsize" : 11.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-11",
 					"maxclass" : "comment",
@@ -727,7 +727,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 12.723935,
+					"fontsize" : 12.023935,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-10",
 					"linecount" : 4,

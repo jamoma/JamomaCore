@@ -2258,7 +2258,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 7.921853,
+					"fontsize" : 10.0,
 					"id" : "obj-2",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -2307,7 +2307,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 7.921853,
+					"fontsize" : 10.0,
 					"id" : "obj-22",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -2335,7 +2335,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 7.921853,
+					"fontsize" : 10.0,
 					"id" : "obj-32",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -7430,7 +7430,7 @@
 , 											{
 												"box" : 												{
 													"fontname" : "Verdana",
-													"fontsize" : 10.502739,
+													"fontsize" : 10.0,
 													"id" : "obj-23",
 													"maxclass" : "message",
 													"numinlets" : 2,
@@ -12184,7 +12184,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 7.921853,
+					"fontsize" : 10.0,
 					"id" : "obj-43",
 					"maxclass" : "message",
 					"numinlets" : 2,

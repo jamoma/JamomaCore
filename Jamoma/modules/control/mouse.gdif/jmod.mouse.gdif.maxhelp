@@ -7303,7 +7303,7 @@
 					"numinlets" : 1,
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"numoutlets" : 0,
-					"fontsize" : 15.799999
+					"fontsize" : 16.0
 				}
 
 			}
@@ -7410,7 +7410,7 @@
 					"menumode" : 2,
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"numoutlets" : 3,
-					"fontsize" : 10.533333,
+					"fontsize" : 10.0,
 					"items" : [ "more", "about", "GDIF" ],
 					"bgcolor" : [ 0.866667, 0.866667, 0.866667, 1.0 ],
 					"labelclick" : 1,
