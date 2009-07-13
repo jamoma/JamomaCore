@@ -2097,7 +2097,7 @@
 						"fontsize" : 10.0
 					}
 ,
-					"text" : "p jalg.cue_trigger"
+					"text" : "p jalg.cueTrigger"
 				}
 
 			}

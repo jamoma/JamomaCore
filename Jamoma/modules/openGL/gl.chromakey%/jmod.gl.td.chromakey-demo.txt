@@ -31,14 +31,14 @@ CUE oh
     /cue_script/view/color/toolbarBackground 0
     /cue_script/view/color/toolbarText 0
     /cue_script/view/size 300 70
-# Module /cue_trigger
-    /cue_trigger/repeat 0
-    /cue_trigger/ui/freeze 0
-    /cue_trigger/view/color/border 0
-    /cue_trigger/view/color/contentBackground 0
-    /cue_trigger/view/color/toolbarBackground 0
-    /cue_trigger/view/color/toolbarText 0
-    /cue_trigger/view/size 300 140
+# Module /cueTrigger
+    /cueTrigger/repeat 0
+    /cueTrigger/ui/freeze 0
+    /cueTrigger/view/color/border 0
+    /cueTrigger/view/color/contentBackground 0
+    /cueTrigger/view/color/toolbarBackground 0
+    /cueTrigger/view/color/toolbarText 0
+    /cueTrigger/view/size 300 140
 # Module /foregrundMovie
 	/foregrundMovie/colormode argb
     /foregrundMovie/deinterlace 1

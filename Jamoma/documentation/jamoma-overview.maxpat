@@ -5773,7 +5773,7 @@
 									"patching_rect" : [ 881.0, 409.0, 95.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 850.0, 464.0, 162.0, 17.0 ],
-									"text" : "jmod.cue_trigger"
+									"text" : "jmod.cueTrigger"
 								}
 
 							}

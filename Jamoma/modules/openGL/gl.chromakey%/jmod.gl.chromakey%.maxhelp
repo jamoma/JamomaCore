@@ -206,17 +206,17 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "cue_trigger" ],
+					"args" : [ "cueTrigger" ],
 					"id" : "obj-15",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.cue_trigger.maxpat",
+					"name" : "jmod.cueTrigger.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 695.0, 455.0, 300.0, 140.0 ],
 					"presentation_rect" : [ 15.0, 15.0, 300.0, 140.0 ],
-					"varname" : "jmod.cue_trigger"
+					"varname" : "jmod.cueTrigger"
 				}
 
 			}

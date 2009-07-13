@@ -69,7 +69,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 23.0, 154.0, 416.0, 19.0 ],
-					"text" : "3) Play around with the /cue_trigger interface."
+					"text" : "3) Play around with the /cueTrigger interface."
 				}
 
 			}
@@ -98,7 +98,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 19.0, 29.0, 217.0, 28.0 ],
-					"text" : "jmod.cue_trigger"
+					"text" : "jmod.cueTrigger"
 				}
 
 			}
@@ -191,17 +191,17 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "cue_trigger" ],
+					"args" : [ "cueTrigger" ],
 					"id" : "obj-10",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.cue_trigger.maxpat",
+					"name" : "jmod.cueTrigger.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 50.0, 357.0, 300.0, 140.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
-					"varname" : "jmod.cue_trigger.mxt"
+					"varname" : "jmod.cueTrigger.mxt"
 				}
 
 			}
