@@ -3394,7 +3394,7 @@
 , 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
-																	"fontsize" : 34.668163,
+																	"fontsize" : 34.0,
 																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 																	"id" : "obj-21",
 																	"maxclass" : "comment",
@@ -3422,7 +3422,7 @@
 , 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
-																	"fontsize" : 34.668163,
+																	"fontsize" : 34.0,
 																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 																	"id" : "obj-23",
 																	"maxclass" : "comment",
@@ -3476,7 +3476,7 @@
 , 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
-																	"fontsize" : 34.668163,
+																	"fontsize" : 34.0,
 																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 																	"id" : "obj-27",
 																	"maxclass" : "comment",

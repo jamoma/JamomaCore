@@ -355,7 +355,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 34.668163,
+					"fontsize" : 34.0,
 					"id" : "obj-10",
 					"items" : "Jamoma",
 					"maxclass" : "umenu",
