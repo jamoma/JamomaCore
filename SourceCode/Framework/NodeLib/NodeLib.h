@@ -100,7 +100,7 @@ public:
 	TTSymbolPtr		getName();
 
 	/** Set the name of the node. 
-		It maintains the tree and the global hashtab
+		It maintains the tree and the directory
 		@param	newName					the name to set
 		@param	newInstance				the returned instance if a new have been created
 		@param	newInstanceCreated		true if a new instance have been created

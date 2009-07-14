@@ -21,7 +21,7 @@ typedef struct _node{
 	t_object				ob;
 	void					*p_out;		// the leftmost outlet
 	t_symbol				*address;	// memorized the current adress
-	JamomaNodePtr			p_node;		// a pointer to a node of the tree
+	NodePtr					p_node;		// a pointer to a node of the tree
 	t_linklist				*lk_nodes;	// a pointer to a selection of nodes of the tree
 
 	short		node_tree_path;			// a text file /path/name
@@ -49,8 +49,9 @@ void			node_writeagain(t_node *x);
 void			node_goto(t_node *x, t_symbol *address);
 void			node_set_name(t_node *x, t_symbol *name);
 void			node_set_instance(t_node *x, t_symbol *instance);
-void			node_send(t_node *x, t_symbol *msg, long argc, t_atom *argv);
+void			node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv);
 void			node_dump(t_node *x);
+void			node_add_max_tree(t_node *x);
 
 // Private methods
 void			node_dowrite(t_node *x, t_symbol *msg, long argc, t_atom *argv);
@@ -62,3 +63,4 @@ void			node_write_string(t_node *x, char *src);
 void			node_write_long(t_node *x, long src);
 void			node_write_float(t_node *x, float src);
 void			node_write_buffer(t_node *x);
+long			node_myobject_iterator(t_node *x, t_object *b);

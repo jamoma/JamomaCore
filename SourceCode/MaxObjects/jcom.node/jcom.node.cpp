@@ -43,7 +43,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)node_dump,			"dump",			0);
 
 	// send something to a param object registered in the tree
-	class_addmethod(c, (method)node_send,			"send",			A_GIMME, 0);
+	class_addmethod(c, (method)node_anything,		"anything",		A_GIMME, 0);
 
 	// this method go to the given address
 	class_addmethod(c, (method)node_goto,			"goto",			A_SYM, 0);
@@ -53,6 +53,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	// this method set the instance of the actual node
 	class_addmethod(c, (method)node_set_instance,	"set_instance",	A_SYM, 0);
+
+	// this method add the tree of scripting name space of Max to the Jamoma tree
+	class_addmethod(c, (method)node_add_max_tree,	"add_max_tree",	0);
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -124,56 +127,69 @@ void node_writeagain(t_node *x)
 	defer((t_object*)x, (method)node_dowrite, 0, 0, NULL);
 }
 
-void node_send(t_node *x, t_symbol *msg, long argc, t_atom *argv)
+void node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_object *obj;
 	int i;
-	t_symbol *address;
+	t_symbol *type;
 	JamomaError err = JAMOMA_ERR_NONE;
 
-	if(argc && argv){
-		if(atom_gettype(&argv[0]) == A_SYM){
-			
-			// goto the address
-			address = atom_getsym(&argv[0]);
-			if(address != x->address){
-				x->address = address;
-				err = jamoma_node_get(address, &(x->lk_nodes), &(x->p_node));
-			}
+	// Are we dealing with an OSC message ?
+	if(msg->s_name[0] == S_SEPARATOR[0]){
 
-			// if the address exists
-			if(err == JAMOMA_ERR_NONE){
+		if(msg != x->address)
+			err = jamoma_node_get(msg, &(x->lk_nodes), &(x->p_node));
 
-				for(i=0; i<linklist_getsize(x->lk_nodes); i++){
+		// if the address exists
+		if(err == JAMOMA_ERR_NONE){
 
-					x->p_node = (JamomaNodePtr)linklist_getindex(x->lk_nodes,i);
-					obj = jamoma_node_max_object(x->p_node);
+			x->address = msg;
 
-					// if the node have an object
-					if(obj)
-						object_method_typed((t_object*)obj, jps_dispatched, argc-1, argv+1, NULL);
+			for(i=0; i<linklist_getsize(x->lk_nodes); i++){
+
+				x->p_node = (NodePtr)linklist_getindex(x->lk_nodes,i);
+				obj = jamoma_node_max_object(x->p_node);
+				type = jamoma_node_type(x->p_node);
+
+				// if the node have an object
+				if(obj){
+					// to send to a maxobject
+					if(type == gensym("maxobject")){
+
+						if(atom_gettype(&argv[0]) == A_SYM)
+							if(object_getmethod(obj, atom_getsym(&argv[0])))
+								object_method_typed((t_object*)obj, atom_getsym(&argv[0]), argc-1, argv+1,NULL);
+							else
+								object_method_typed((t_object*)obj, NULL, argc, argv, NULL);
+							
+					}
+					// to send to a jcom.parameter
 					else
-						object_error((t_object*)x,"send : %s have no object", jamoma_node_name(x->p_node)->s_name);
+						object_method_typed((t_object*)obj, jps_dispatched, argc, argv, NULL);
 				}
+				else
+					object_error((t_object*)x,"send : %s have no object", jamoma_node_name(x->p_node)->s_name);
 			}
-			else
-				object_error((t_object*)x,"send : %s doesn't exist", address->s_name);
 		}
 		else
-			object_error((t_object*)x,"send : the first arg have to be a symbol");
+			object_error((t_object*)x,"send : %s doesn't exist", msg->s_name);
 	}
-	else
-		object_error((t_object*)x,"send : needs arguments");
 }
 
 void node_goto(t_node *x, t_symbol *address)
 {
 	JamomaError err = JAMOMA_ERR_NONE;
 
-	// goto the address
-	if(address != x->address){
-		x->address = address;
-		err = jamoma_node_get(address, &(x->lk_nodes), &(x->p_node));
+	// Are we dealing with an OSC message ?
+	if(address->s_name[0] == S_SEPARATOR[0]){
+
+		if(address != x->address){
+			err = jamoma_node_get(address, &(x->lk_nodes), &(x->p_node));
+
+			// if the address exists
+			if(err == JAMOMA_ERR_NONE)
+			x->address = address;
+		}
 	}
 }
 
@@ -208,6 +224,48 @@ void node_dump(t_node *x)
 	//			object_post((t_object *)x,"		> %s %s", attr_names[i]->s_name, atom_getsym(&attr_value[j])->s_name);
 	//	}
 	//}
+}
+
+void node_add_max_tree(t_node *x)
+{
+	t_object *patcher;
+	t_max_err err;
+	long result = 0;
+
+	err = object_obex_lookup(x, gensym("#P"), &patcher);
+
+	object_method(patcher, gensym("iterate"), node_myobject_iterator, (void *)x, PI_WANTBOX | PI_DEEP, &result);
+}
+
+long node_myobject_iterator(t_node *x, t_object *b)
+{
+	NodePtr newNode;
+	bool newInstanceCreated;
+	char temp[256];
+	long i, attr_nb = 0;
+	t_symbol** attr_names = NULL;
+    t_symbol *varname = object_attr_getsym(b, gensym("varname"));
+
+	// Make sure we are dealing with valid OSC input by looking for a leading slash
+	if(varname){
+		if(varname->s_name[0] == S_SEPARATOR[0]){
+			newInstanceCreated = false;
+			
+			// put all scripting name in a /max node
+			snprintf(temp,256,"/max%s", varname->s_name);
+
+			jamoma_node_register(gensym(temp), gensym("maxobject"), (t_object *)b, &newNode, &newInstanceCreated);
+
+			// add varname and maxclass as properties of the node
+			jamoma_node_set_properties(newNode,gensym("varname"));
+			jamoma_node_set_properties(newNode,gensym("maxclass"));
+
+			//if(newInstanceCreated)
+			//	object_warn((t_object *)x,"%s : this scripting name is already registered in the tree", varname->s_name);
+		}
+	}
+
+    return 0;
 }
 
 
@@ -385,7 +443,7 @@ void node_dump_as_opml(t_node *x, short level)
 	// if there are children : do the same for each child
 	if(lk_chd){
 		for(i=0; i<linklist_getsize(lk_chd); i++){
-			x->p_node = (JamomaNodePtr)linklist_getindex(lk_chd,i);
+			x->p_node = (NodePtr)linklist_getindex(lk_chd,i);
 			node_dump_as_opml(x, level+1);
 		}
 	}
