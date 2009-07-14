@@ -11,6 +11,6 @@
 		<item name="video/freeze" type="msg_toggle">0</item>
 		<item name="video/mute" type="msg_toggle">0</item>
 		<item name="op" type="msg_menu">0</item>
-		<item name="op_value" type="msg_float">0.</item>
+		<item name="opValue" type="msg_float">0.</item>
     </preset>
 </jamoma>
