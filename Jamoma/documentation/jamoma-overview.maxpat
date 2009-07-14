@@ -6254,7 +6254,7 @@
 									"patching_rect" : [ 881.0, 443.0, 104.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 850.0, 504.0, 162.0, 17.0 ],
-									"text" : "jmod.contMapper"
+									"text" : "jmod.mapperContinuous"
 								}
 
 							}
