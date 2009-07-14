@@ -487,7 +487,7 @@
 					"id" : "obj-7",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.trigMapper.maxpat",
+					"name" : "jmod.mapperDiscrete.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -552,7 +552,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 30.0, 34.0, 239.0, 28.0 ],
-					"text" : "jmod.trigMapper"
+					"text" : "jmod.mapperDiscrete"
 				}
 
 			}
@@ -634,7 +634,7 @@
 					"id" : "obj-25",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.trigMapper.maxpat",
+					"name" : "jmod.mapperDiscrete.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],

@@ -579,7 +579,7 @@
 				The Jamoma framework also have a system for listening to and controlling parameters, messages and returns of modules remoetely.
 				This enables modules to control other modules using OSC messages with the name of the module and the name of the 
 				parameter prepended to the local namespace of the node. Some examples of modules using this feature are <o>jmod.cuelist</o>,
-				<o>jmod.mapper</o>, <o>jmod.mapperContinuous</o> and <o>jmod.trigMapper</o>.<br />
+				<o>jmod.mapper</o>, <o>jmod.mapperContinuous</o> and <o>jmod.mapperDiscrete</o>.<br />
 				<br />
 				Here are some examples illustrating the syntax used for addressing a parameter from e.g. the cuelist of <o>jmod.cuescript</o>:<br />
 				<br />

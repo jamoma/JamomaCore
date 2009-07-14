@@ -6222,7 +6222,7 @@
 									"patching_rect" : [ 881.0, 460.0, 100.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 850.0, 524.0, 164.0, 17.0 ],
-									"text" : "jmod.trigMapper"
+									"text" : "jmod.mapperDiscrete"
 								}
 
 							}
