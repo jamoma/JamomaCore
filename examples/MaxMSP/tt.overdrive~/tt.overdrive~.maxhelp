@@ -73,7 +73,7 @@
 					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 60.0, 170.0, 50.0, 18.0 ],
 					"outlettype" : [ "float", "bang" ]
 				}
@@ -180,7 +180,7 @@
 						"defrect" : [ 355.0, 182.0, 635.0, 586.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 9.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
@@ -734,12 +734,12 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 9.0,
+						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
 						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"fontface" : 0,
-						"fontsize" : 9.0,
+						"fontsize" : 10.0,
 						"default_fontname" : "Verdana"
 					}
 

@@ -20,11 +20,11 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "range -1.05 1.05",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"hidden" : 1,
-					"fontsize" : 11.595187,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 75.0, 195.0, 96.0, 18.0 ],
 					"id" : "obj-13"

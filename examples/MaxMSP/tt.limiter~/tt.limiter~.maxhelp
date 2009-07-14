@@ -6,7 +6,7 @@
 		"defrect" : [ 64.0, 44.0, 867.0, 728.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
-		"default_fontsize" : 9.873845,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -341,7 +341,7 @@
 						"defrect" : [ 374.0, 251.0, 766.0, 434.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 9.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
@@ -577,9 +577,9 @@
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"default_fontface" : 0,
-						"fontsize" : 9.0,
+						"fontsize" : 10.0,
 						"default_fontname" : "Verdana",
-						"default_fontsize" : 9.0
+						"default_fontsize" : 10.0
 					}
 
 				}
@@ -647,7 +647,7 @@
 					"numinlets" : 1,
 					"spacing" : 2,
 					"numoutlets" : 4,
-					"fontsize" : 12.754706,
+					"fontsize" : 12.0,
 					"outlettype" : [ "preset", "int", "preset", "int" ],
 					"patching_rect" : [ 520.0, 110.0, 56.0, 27.0 ],
 					"margin" : 4,
@@ -1055,7 +1055,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Look-ahead limiter with built-in DC blocking and Overdrive",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"fontsize" : 10.0,
@@ -1069,7 +1069,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "tt.limiter~",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"fontsize" : 18.0,
