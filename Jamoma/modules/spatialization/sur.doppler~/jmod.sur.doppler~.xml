@@ -6,8 +6,13 @@
 >
   <preset number='1' name='default'>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='metersPerUnit' type='msg_float' priority='0'>0</item>
+    <item name='metersPerUnit' type='msg_float' priority='0'>1.000000</item>
     <item name='numSources' type='msg_int' priority='0'>0</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='view/color/border' type='msg_list' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
+    <item name='view/size' type='msg_list' priority='0'>300 70 </item>
   </preset>
 </jamoma>
