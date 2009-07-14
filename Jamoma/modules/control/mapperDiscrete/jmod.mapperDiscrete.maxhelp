@@ -151,7 +151,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 490.0, 124.0, 232.0, 40.0 ],
-									"text" : "/tmapper.1/preset/read tmapperHelp1.xml, /tmapper.2/preset/read tmapperHelp2.xml, /mouse/active 1"
+									"text" : "/tmapper.1/preset/read mappperDiscreteHelp1.xml, /tmapper.2/preset/read mappperDiscreteHelp2.xml, /mouse/active 1"
 								}
 
 							}
