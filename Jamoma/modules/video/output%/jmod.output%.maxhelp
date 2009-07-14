@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 39.0, 61.0, 445.0, 339.0 ],
+		"rect" : [ 442.0, 52.0, 445.0, 339.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 39.0, 61.0, 445.0, 339.0 ],
+		"defrect" : [ 442.0, 52.0, 445.0, 339.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -19,6 +19,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 					"id" : "obj-25",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -32,6 +33,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 18.0,
+					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 					"id" : "obj-31",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -100,18 +102,18 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 1 ],
+					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 313.5, 210.0, 313.5, 210.0 ],
+					"midpoints" : [ 313.5, 168.0, 346.5, 168.0 ],
 					"source" : [ "obj-6", 1 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
+					"destination" : [ "obj-1", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 313.5, 168.0, 346.5, 168.0 ],
+					"midpoints" : [ 313.5, 210.0, 313.5, 210.0 ],
 					"source" : [ "obj-6", 1 ]
 				}
 
