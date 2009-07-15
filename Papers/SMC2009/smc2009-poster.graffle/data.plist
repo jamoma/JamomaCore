@@ -6,7 +6,7 @@
 	<integer>0</integer>
 	<key>ApplicationVersion</key>
 	<array>
-		<string>com.omnigroup.OmniGraffle</string>
+		<string>com.omnigroup.OmniGrafflePro</string>
 		<string>137.11.0.108132</string>
 	</array>
 	<key>AutoAdjust</key>
@@ -40,18 +40,993 @@
 	<key>ColumnSpacing</key>
 	<real>36</real>
 	<key>CreationDate</key>
-	<string>2009-07-14 20:20:49 +0200</string>
+	<string>2009-07-14 14:20:49 -0400</string>
 	<key>Creator</key>
 	<string>lossius</string>
 	<key>DisplayScale</key>
-	<string>1 0/72 in = 1 0/72 in</string>
+	<string>1 0/72 in = 1.0000 in</string>
 	<key>GraphDocumentVersion</key>
 	<integer>6</integer>
 	<key>GraphicsList</key>
 	<array>
 		<dict>
 			<key>Bounds</key>
-			<string>{{225.968, 2567.5}, {604.022, 200}}</string>
+			<string>{{1790, 2188}, {388.818, 57}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>FitText</key>
+			<string>Vertical</string>
+			<key>Flow</key>
+			<string>Resize</string>
+			<key>FontInfo</key>
+			<dict>
+				<key>Font</key>
+				<string>GillSans-Bold</string>
+				<key>Size</key>
+				<real>48</real>
+			</dict>
+			<key>ID</key>
+			<integer>577</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+			<key>Text</key>
+			<dict>
+				<key>Align</key>
+				<integer>0</integer>
+				<key>Pad</key>
+				<integer>0</integer>
+				<key>Text</key>
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf460
+{\fonttbl\f0\fnil\fcharset0 GillSans;}
+{\colortbl;\red255\green255\blue255;\red204\green102\blue102;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\b\fs96 \cf2 DESIGN}</string>
+				<key>VerticalPad</key>
+				<integer>0</integer>
+			</dict>
+			<key>TextPlacement</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{1548, 1021.5}, {596, 110}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>FitText</key>
+			<string>Vertical</string>
+			<key>Flow</key>
+			<string>Resize</string>
+			<key>FontInfo</key>
+			<dict>
+				<key>Color</key>
+				<dict>
+					<key>b</key>
+					<string>0.4</string>
+					<key>g</key>
+					<string>0.4</string>
+					<key>r</key>
+					<string>0.8</string>
+				</dict>
+				<key>Font</key>
+				<string>GillSans-Bold</string>
+				<key>NSKern</key>
+				<real>0.0</real>
+				<key>Size</key>
+				<real>48</real>
+			</dict>
+			<key>ID</key>
+			<integer>576</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+					<key>GradientColor</key>
+					<dict>
+						<key>w</key>
+						<string>0.666667</string>
+					</dict>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+			<key>Text</key>
+			<dict>
+				<key>Align</key>
+				<integer>0</integer>
+				<key>Pad</key>
+				<integer>0</integer>
+				<key>Text</key>
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf460
+{\fonttbl\f0\fnil\fcharset0 GillSans;}
+{\colortbl;\red255\green255\blue255;\red204\green102\blue102;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\b\fs96 \cf2 \expnd0\expndtw0\kerning0
+STRATIFIED APPROACH }</string>
+				<key>VerticalPad</key>
+				<integer>0</integer>
+			</dict>
+			<key>TextPlacement</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{179.938, 1187}, {604.022, 533}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>FitText</key>
+			<string>Vertical</string>
+			<key>Flow</key>
+			<string>Resize</string>
+			<key>FontInfo</key>
+			<dict>
+				<key>Font</key>
+				<string>GillSans</string>
+				<key>Size</key>
+				<real>31</real>
+			</dict>
+			<key>ID</key>
+			<integer>575</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+			<key>Text</key>
+			<dict>
+				<key>Align</key>
+				<integer>0</integer>
+				<key>Pad</key>
+				<integer>0</integer>
+				<key>Text</key>
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf460
+{\fonttbl\f0\fnil\fcharset0 GillSans;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\fs72 \cf0 There are great individual and context-related differences in the compositional use of spatialization. There is no one spatialization system that could satisfy every artist.\
+\
+Different spatialisation applications should be readily combined.\
+\
+Guaranteeing efficient workflow for sound spatialization requires structure, flexibility, and interoperability across all involved components.}</string>
+				<key>VerticalPad</key>
+				<integer>0</integer>
+			</dict>
+			<key>TextPlacement</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{1682, 2108}, {90, 165}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>FitText</key>
+			<string>Vertical</string>
+			<key>Flow</key>
+			<string>Resize</string>
+			<key>FontInfo</key>
+			<dict>
+				<key>Color</key>
+				<dict>
+					<key>b</key>
+					<string>0.4</string>
+					<key>g</key>
+					<string>0.4</string>
+					<key>r</key>
+					<string>0.8</string>
+				</dict>
+				<key>Font</key>
+				<string>GillSans-Bold</string>
+				<key>NSKern</key>
+				<real>0.0</real>
+				<key>Size</key>
+				<real>141</real>
+			</dict>
+			<key>ID</key>
+			<integer>573</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+					<key>GradientColor</key>
+					<dict>
+						<key>w</key>
+						<string>0.666667</string>
+					</dict>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+			<key>Text</key>
+			<dict>
+				<key>Align</key>
+				<integer>0</integer>
+				<key>Pad</key>
+				<integer>0</integer>
+				<key>Text</key>
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf460
+{\fonttbl\f0\fnil\fcharset0 GillSans;}
+{\colortbl;\red255\green255\blue255;\red204\green102\blue102;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\b\fs282 \cf2 \expnd0\expndtw0\kerning0
+4}</string>
+				<key>VerticalPad</key>
+				<integer>0</integer>
+			</dict>
+			<key>TextPlacement</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{1440, 994}, {90, 165}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>FitText</key>
+			<string>Vertical</string>
+			<key>Flow</key>
+			<string>Resize</string>
+			<key>FontInfo</key>
+			<dict>
+				<key>Color</key>
+				<dict>
+					<key>b</key>
+					<string>0.4</string>
+					<key>g</key>
+					<string>0.4</string>
+					<key>r</key>
+					<string>0.8</string>
+				</dict>
+				<key>Font</key>
+				<string>GillSans-Bold</string>
+				<key>NSKern</key>
+				<real>0.0</real>
+				<key>Size</key>
+				<real>141</real>
+			</dict>
+			<key>ID</key>
+			<integer>571</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+					<key>GradientColor</key>
+					<dict>
+						<key>w</key>
+						<string>0.666667</string>
+					</dict>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+			<key>Text</key>
+			<dict>
+				<key>Align</key>
+				<integer>0</integer>
+				<key>Pad</key>
+				<integer>0</integer>
+				<key>Text</key>
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf460
+{\fonttbl\f0\fnil\fcharset0 GillSans;}
+{\colortbl;\red255\green255\blue255;\red204\green102\blue102;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\b\fs282 \cf2 \expnd0\expndtw0\kerning0
+3}</string>
+				<key>VerticalPad</key>
+				<integer>0</integer>
+			</dict>
+			<key>TextPlacement</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{198, 994}, {90, 165}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>FitText</key>
+			<string>Vertical</string>
+			<key>Flow</key>
+			<string>Resize</string>
+			<key>FontInfo</key>
+			<dict>
+				<key>Color</key>
+				<dict>
+					<key>b</key>
+					<string>0.4</string>
+					<key>g</key>
+					<string>0.4</string>
+					<key>r</key>
+					<string>0.8</string>
+				</dict>
+				<key>Font</key>
+				<string>GillSans-Bold</string>
+				<key>NSKern</key>
+				<real>0.0</real>
+				<key>Size</key>
+				<real>141</real>
+			</dict>
+			<key>ID</key>
+			<integer>569</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+					<key>GradientColor</key>
+					<dict>
+						<key>w</key>
+						<string>0.666667</string>
+					</dict>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+			<key>Text</key>
+			<dict>
+				<key>Align</key>
+				<integer>0</integer>
+				<key>Pad</key>
+				<integer>0</integer>
+				<key>Text</key>
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf460
+{\fonttbl\f0\fnil\fcharset0 GillSans;}
+{\colortbl;\red255\green255\blue255;\red204\green102\blue102;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\b\fs282 \cf2 \expnd0\expndtw0\kerning0
+2}</string>
+				<key>VerticalPad</key>
+				<integer>0</integer>
+			</dict>
+			<key>TextPlacement</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{198, 690}, {90, 165}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>FitText</key>
+			<string>Vertical</string>
+			<key>Flow</key>
+			<string>Resize</string>
+			<key>FontInfo</key>
+			<dict>
+				<key>Color</key>
+				<dict>
+					<key>b</key>
+					<string>0.4</string>
+					<key>g</key>
+					<string>0.4</string>
+					<key>r</key>
+					<string>0.8</string>
+				</dict>
+				<key>Font</key>
+				<string>GillSans-Bold</string>
+				<key>NSKern</key>
+				<real>0.0</real>
+				<key>Size</key>
+				<real>141</real>
+			</dict>
+			<key>ID</key>
+			<integer>568</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+					<key>GradientColor</key>
+					<dict>
+						<key>w</key>
+						<string>0.666667</string>
+					</dict>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+			<key>Text</key>
+			<dict>
+				<key>Align</key>
+				<integer>0</integer>
+				<key>Pad</key>
+				<integer>0</integer>
+				<key>Text</key>
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf460
+{\fonttbl\f0\fnil\fcharset0 GillSans;}
+{\colortbl;\red255\green255\blue255;\red204\green102\blue102;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\b\fs282 \cf2 \expnd0\expndtw0\kerning0
+1}</string>
+				<key>VerticalPad</key>
+				<integer>0</integer>
+			</dict>
+			<key>TextPlacement</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{770.45, 3124}, {61.77, 142}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>ID</key>
+			<integer>153</integer>
+			<key>ImageID</key>
+			<integer>6</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{1291.25, 3124}, {199.224, 142}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>ID</key>
+			<integer>152</integer>
+			<key>ImageID</key>
+			<integer>10</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{1412.98, 3111.58}, {6.08637, 12}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>FitText</key>
+			<string>Vertical</string>
+			<key>Flow</key>
+			<string>Resize</string>
+			<key>ID</key>
+			<integer>151</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+			<key>Text</key>
+			<dict>
+				<key>Pad</key>
+				<integer>0</integer>
+				<key>VerticalPad</key>
+				<integer>0</integer>
+			</dict>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{521.323, 3124}, {181.323, 142}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>ID</key>
+			<integer>566</integer>
+			<key>ImageID</key>
+			<integer>5</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{1097.7, 3124}, {140.609, 142}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>ID</key>
+			<integer>148</integer>
+			<key>ImageID</key>
+			<integer>7</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{1553.54, 3124}, {261.135, 142}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>ID</key>
+			<integer>147</integer>
+			<key>ImageID</key>
+			<integer>8</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{904.141, 3124}, {142, 142}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>ID</key>
+			<integer>146</integer>
+			<key>ImageID</key>
+			<integer>9</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Class</key>
+			<string>LineGraphic</string>
+			<key>ID</key>
+			<integer>565</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Points</key>
+			<array>
+				<string>{225.969, 2120}</string>
+				<string>{2121.97, 2120}</string>
+			</array>
+			<key>Style</key>
+			<dict>
+				<key>stroke</key>
+				<dict>
+					<key>Cap</key>
+					<integer>0</integer>
+					<key>HeadArrow</key>
+					<string>0</string>
+					<key>Join</key>
+					<integer>0</integer>
+					<key>TailArrow</key>
+					<string>0</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{368.575, 2200}, {1576.72, 809.422}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>ID</key>
+			<integer>564</integer>
+			<key>ImageID</key>
+			<integer>4</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{1524, 1159}, {707.124, 854}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>ID</key>
+			<integer>563</integer>
+			<key>ImageID</key>
+			<integer>3</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Class</key>
+			<string>LineGraphic</string>
+			<key>ID</key>
+			<integer>562</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Points</key>
+			<array>
+				<string>{225.969, 1003.5}</string>
+				<string>{2121.97, 1003.5}</string>
+			</array>
+			<key>Style</key>
+			<dict>
+				<key>stroke</key>
+				<dict>
+					<key>Cap</key>
+					<integer>0</integer>
+					<key>HeadArrow</key>
+					<string>0</string>
+					<key>Join</key>
+					<integer>0</integer>
+					<key>TailArrow</key>
+					<string>0</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{1626, 364}, {440, 250}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>FitText</key>
+			<string>Vertical</string>
+			<key>Flow</key>
+			<string>Resize</string>
+			<key>FontInfo</key>
+			<dict>
+				<key>Font</key>
+				<string>LucidaGrande</string>
+				<key>Size</key>
+				<real>48</real>
+			</dict>
+			<key>ID</key>
+			<integer>561</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+			<key>Text</key>
+			<dict>
+				<key>Align</key>
+				<integer>0</integer>
+				<key>Pad</key>
+				<integer>2</integer>
+				<key>Text</key>
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf460
+{\fonttbl\f0\fnil\fcharset0 GillSans;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\fs72 \cf0 nils.peters@mcgill.ca\
+trond.lossius@bek.no\
+jan.schacher@zhdk.ch\
+pb@gmea.net\
+charles.bascou@gmem.org\
+tim@cycling74.com}</string>
+				<key>VerticalPad</key>
+				<integer>2</integer>
+			</dict>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{742, 364}, {868, 250}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>FitText</key>
+			<string>Vertical</string>
+			<key>Flow</key>
+			<string>Resize</string>
+			<key>FontInfo</key>
+			<dict>
+				<key>Font</key>
+				<string>LucidaGrande</string>
+				<key>Size</key>
+				<real>48</real>
+			</dict>
+			<key>ID</key>
+			<integer>560</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+			<key>Text</key>
+			<dict>
+				<key>Pad</key>
+				<integer>2</integer>
+				<key>Text</key>
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf460
+{\fonttbl\f0\fnil\fcharset0 GillSans;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc\pardirnatural
+
+\f0\fs72 \cf0 CIRMMT, McGill University, Montr\'e9al \
+BEK - Bergen Center for Electronic Arts\
+ICST, Zurich University of the Arts\
+GMEA - National Centre for Musical Creation of Albi\
+GMEM- National Centre for Musical Creation of Marseille\
+Cycling'74, Electrotap}</string>
+				<key>VerticalPad</key>
+				<integer>2</integer>
+			</dict>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{179.938, 1702}, {604.022, 200}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -98,12 +1073,13 @@
 				<key>Text</key>
 				<string>{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf460
 {\fonttbl\f0\fnil\fcharset0 GillSans;}
-{\colortbl;\red255\green255\blue255;\red204\green102\blue102;\red0\green0\blue0;}
+{\colortbl;\red255\green255\blue255;\red204\green102\blue102;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
 \f0\b\fs62 \cf2 A STRATIFIED APPROACH\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
-\b0\fs72 \cf3 In different sfgsfdg\
+\b0\fs72 \cf0 In different sfgsfdg\
 sfdgfsgd\
 fsdgfgsd\
 fdgs}</string>
@@ -115,7 +1091,7 @@ fdgs}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{225.969, 1095}, {604.022, 569}}</string>
+			<string>{{297.182, 1025}, {542.031, 165}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -124,10 +1100,21 @@ fdgs}</string>
 			<string>Resize</string>
 			<key>FontInfo</key>
 			<dict>
+				<key>Color</key>
+				<dict>
+					<key>b</key>
+					<string>0.4</string>
+					<key>g</key>
+					<string>0.4</string>
+					<key>r</key>
+					<string>0.8</string>
+				</dict>
 				<key>Font</key>
-				<string>GillSans</string>
+				<string>GillSans-Bold</string>
+				<key>NSKern</key>
+				<real>0.0</real>
 				<key>Size</key>
-				<real>31</real>
+				<real>48</real>
 			</dict>
 			<key>ID</key>
 			<integer>558</integer>
@@ -141,6 +1128,11 @@ fdgs}</string>
 				<dict>
 					<key>Draws</key>
 					<string>NO</string>
+					<key>GradientColor</key>
+					<dict>
+						<key>w</key>
+						<string>0.666667</string>
+					</dict>
 				</dict>
 				<key>shadow</key>
 				<dict>
@@ -163,80 +1155,10 @@ fdgs}</string>
 				<string>{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf460
 {\fonttbl\f0\fnil\fcharset0 GillSans;}
 {\colortbl;\red255\green255\blue255;\red204\green102\blue102;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
 
-\f0\b\fs62 \cf2 A NEED FOR INTEROPERABILITY:
-\b0\fs72 \cf0 \
-There are great individual and context-related differences in the compositional use of spatialization. There is no one spatialization system that could satisfy every artist.\
-\
-Different spatialisation applications should be readily combined.\
-\
-Guaranteeing efficient workflow for sound spatialization requires structure, flexibility, and interoperability across all involved components.}</string>
-				<key>VerticalPad</key>
-				<integer>0</integer>
-			</dict>
-			<key>TextPlacement</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>Bounds</key>
-			<string>{{1517.95, 727.5}, {604.022, 352}}</string>
-			<key>Class</key>
-			<string>ShapedGraphic</string>
-			<key>FitText</key>
-			<string>Vertical</string>
-			<key>Flow</key>
-			<string>Resize</string>
-			<key>FontInfo</key>
-			<dict>
-				<key>Font</key>
-				<string>GillSans</string>
-				<key>Size</key>
-				<real>31</real>
-			</dict>
-			<key>ID</key>
-			<integer>557</integer>
-			<key>Layer</key>
-			<integer>0</integer>
-			<key>Shape</key>
-			<string>Rectangle</string>
-			<key>Style</key>
-			<dict>
-				<key>fill</key>
-				<dict>
-					<key>Draws</key>
-					<string>NO</string>
-				</dict>
-				<key>shadow</key>
-				<dict>
-					<key>Draws</key>
-					<string>NO</string>
-				</dict>
-				<key>stroke</key>
-				<dict>
-					<key>Draws</key>
-					<string>NO</string>
-				</dict>
-			</dict>
-			<key>Text</key>
-			<dict>
-				<key>Align</key>
-				<integer>0</integer>
-				<key>Pad</key>
-				<integer>0</integer>
-				<key>Text</key>
-				<string>{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf460
-{\fonttbl\f0\fnil\fcharset0 GillSans;}
-{\colortbl;\red255\green255\blue255;\red204\green102\blue102;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-
-\f0\b\fs62 \cf2 ABSTRACT
-\b0 \cf0  \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-
-\fs72 \cf0 We propose a multi-layer structure to mediate essential components in sound spatialization. This approach will facilitate artistic work with spatialization systems, a process which currently lacks structure, flexibility, and interoperability. 
-\fs62 \
-\
+\f0\b\fs96 \cf2 \expnd0\expndtw0\kerning0
+NEED FOR INTEROPERABILITY\
 }</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
@@ -246,73 +1168,7 @@ Guaranteeing efficient workflow for sound spatialization requires structure, fle
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{871.958, 727.5}, {604.022, 352}}</string>
-			<key>Class</key>
-			<string>ShapedGraphic</string>
-			<key>FitText</key>
-			<string>Vertical</string>
-			<key>Flow</key>
-			<string>Resize</string>
-			<key>FontInfo</key>
-			<dict>
-				<key>Font</key>
-				<string>GillSans</string>
-				<key>Size</key>
-				<real>31</real>
-			</dict>
-			<key>ID</key>
-			<integer>556</integer>
-			<key>Layer</key>
-			<integer>0</integer>
-			<key>Shape</key>
-			<string>Rectangle</string>
-			<key>Style</key>
-			<dict>
-				<key>fill</key>
-				<dict>
-					<key>Draws</key>
-					<string>NO</string>
-				</dict>
-				<key>shadow</key>
-				<dict>
-					<key>Draws</key>
-					<string>NO</string>
-				</dict>
-				<key>stroke</key>
-				<dict>
-					<key>Draws</key>
-					<string>NO</string>
-				</dict>
-			</dict>
-			<key>Text</key>
-			<dict>
-				<key>Align</key>
-				<integer>0</integer>
-				<key>Pad</key>
-				<integer>0</integer>
-				<key>Text</key>
-				<string>{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf460
-{\fonttbl\f0\fnil\fcharset0 GillSans;}
-{\colortbl;\red255\green255\blue255;\red204\green102\blue102;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-
-\f0\b\fs62 \cf2 ABSTRACT
-\b0 \cf0  \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-
-\fs72 \cf0 We propose a multi-layer structure to mediate essential components in sound spatialization. This approach will facilitate artistic work with spatialization systems, a process which currently lacks structure, flexibility, and interoperability. 
-\fs62 \
-\
-}</string>
-				<key>VerticalPad</key>
-				<integer>0</integer>
-			</dict>
-			<key>TextPlacement</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>Bounds</key>
-			<string>{{225.969, 1752.5}, {604.022, 774}}</string>
+			<string>{{854.923, 1097}, {604.022, 774}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -384,7 +1240,7 @@ A variety of
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{225.969, 727.5}, {604.022, 352}}</string>
+			<string>{{289.97, 732}, {1826.03, 207}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -393,10 +1249,21 @@ A variety of
 			<string>Resize</string>
 			<key>FontInfo</key>
 			<dict>
+				<key>Color</key>
+				<dict>
+					<key>b</key>
+					<string>0.4</string>
+					<key>g</key>
+					<string>0.4</string>
+					<key>r</key>
+					<string>0.8</string>
+				</dict>
 				<key>Font</key>
-				<string>GillSans</string>
+				<string>GillSans-Bold</string>
+				<key>NSKern</key>
+				<real>0.0</real>
 				<key>Size</key>
-				<real>31</real>
+				<real>48</real>
 			</dict>
 			<key>ID</key>
 			<integer>157</integer>
@@ -410,6 +1277,11 @@ A variety of
 				<dict>
 					<key>Draws</key>
 					<string>NO</string>
+					<key>GradientColor</key>
+					<dict>
+						<key>w</key>
+						<string>0.666667</string>
+					</dict>
 				</dict>
 				<key>shadow</key>
 				<dict>
@@ -434,13 +1306,12 @@ A variety of
 {\colortbl;\red255\green255\blue255;\red204\green102\blue102;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
-\f0\b\fs62 \cf2 ABSTRACT
+\f0\b\fs96 \cf2 ABSTRACT
 \b0 \cf0  \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
-\fs72 \cf0 We propose a multi-layer structure to mediate essential components in sound spatialization. This approach will facilitate artistic work with spatialization systems, a process which currently lacks structure, flexibility, and interoperability. 
+\fs72 \cf0 We propose a multi-layer structure to mediate essential components in sound spatialization. This approach will facilitate artistic work with spatialization systems, a process which currently lacks structure, flexibility, and interoperability. \
+
 \fs62 \
-\
 }</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
@@ -457,8 +1328,8 @@ A variety of
 			<integer>1</integer>
 			<key>Points</key>
 			<array>
-				<string>{225.969, 3020}</string>
-				<string>{2121.97, 3020}</string>
+				<string>{225.969, 3088}</string>
+				<string>{2121.97, 3088}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -472,28 +1343,6 @@ A variety of
 					<integer>0</integer>
 					<key>TailArrow</key>
 					<string>0</string>
-				</dict>
-			</dict>
-		</dict>
-		<dict>
-			<key>Bounds</key>
-			<string>{{871.958, 1120.5}, {1250.01, 910.487}}</string>
-			<key>Class</key>
-			<string>ShapedGraphic</string>
-			<key>ID</key>
-			<integer>7</integer>
-			<key>ImageID</key>
-			<integer>2</integer>
-			<key>Layer</key>
-			<integer>1</integer>
-			<key>Shape</key>
-			<string>Rectangle</string>
-			<key>Style</key>
-			<dict>
-				<key>fill</key>
-				<dict>
-					<key>Draws</key>
-					<string>NO</string>
 				</dict>
 			</dict>
 		</dict>
@@ -526,11 +1375,11 @@ A variety of
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{392.469, 372}, {1563, 291}}</string>
+			<string>{{388, 364}, {306, 250}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
-			<string>YES</string>
+			<string>Vertical</string>
 			<key>Flow</key>
 			<string>Resize</string>
 			<key>FontInfo</key>
@@ -566,37 +1415,35 @@ A variety of
 			</dict>
 			<key>Text</key>
 			<dict>
+				<key>Align</key>
+				<integer>2</integer>
 				<key>Pad</key>
 				<integer>2</integer>
 				<key>Text</key>
 				<string>{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf460
 {\fonttbl\f0\fnil\fcharset0 GillSans;}
 {\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc\pardirnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qr\pardirnatural
 
 \f0\b\fs72 \cf0 Nils Peters
-\b0 , CIRMMT, McGill University, Montr\'e9al, nils.peters@mcgill.ca\
+\b0 \
 
 \b Trond Lossius
-\b0 , BEK - Bergen Center for Electronic Arts, trond.lossius@bek.no\
+\b0 \
 
-\b Jan Schacher,
-\b0  ICST, Zurich University of the Arts, jan.schacher@zhdk.ch\
+\b Jan Schacher
+\b0 \
 
 \b Pascal Baltazar
-\b0 , GMEA - National Centre for Musical Creation of Albi,pb@gmea.net\
+\b0 \
 
 \b Charles Bascou
-\b0 , GMEM - National Centre for Musical Creation of Marseille, charles.bascou@gmem.org\
+\b0 \
 
-\b Timothy Place
-\b0 , Cycling'74, tim@cycling74.com\
-}</string>
+\b Timothy Place}</string>
 				<key>VerticalPad</key>
 				<integer>2</integer>
 			</dict>
-			<key>Wrap</key>
-			<string>NO</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
@@ -657,14 +1504,28 @@ for sound spatialization}</string>
 	<key>HPages</key>
 	<integer>1</integer>
 	<key>ImageCounter</key>
-	<integer>3</integer>
+	<integer>11</integer>
 	<key>ImageLinkBack</key>
 	<array>
+		<dict/>
+		<dict/>
+		<dict/>
+		<dict/>
+		<dict/>
+		<dict/>
+		<dict/>
 		<dict/>
 	</array>
 	<key>ImageList</key>
 	<array>
-		<string>image2.jpg</string>
+		<string>image10.tiff</string>
+		<string>image9.tiff</string>
+		<string>image8.tiff</string>
+		<string>image7.tiff</string>
+		<string>image6.tiff</string>
+		<string>image5.pdf</string>
+		<string>image4.pdf</string>
+		<string>image3.pdf</string>
 	</array>
 	<key>KeepToScale</key>
 	<false/>
@@ -723,9 +1584,9 @@ for sound spatialization}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2009-07-14 22:00:13 +0200</string>
+	<string>2009-07-15 18:07:50 -0400</string>
 	<key>Modifier</key>
-	<string>lossius</string>
+	<string>Nils Peters</string>
 	<key>NotesVisible</key>
 	<string>NO</string>
 	<key>Orientation</key>
@@ -749,7 +1610,7 @@ for sound spatialization}</string>
 		<key>NSPaperName</key>
 		<array>
 			<string>string</string>
-			<string>A0 portrait</string>
+			<string>619AF05D-3FAF-4DB8-80CE-406B0DE516D5</string>
 		</array>
 		<key>NSPaperSize</key>
 		<array>
@@ -799,7 +1660,7 @@ for sound spatialization}</string>
 			</dict>
 		</array>
 		<key>Frame</key>
-		<string>{{-121, 4}, {1099, 874}}</string>
+		<string>{{79, 4}, {816, 774}}</string>
 		<key>ListView</key>
 		<true/>
 		<key>OutlineWidth</key>
@@ -813,7 +1674,7 @@ for sound spatialization}</string>
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{-726, 0}, {3800, 2880}}</string>
+		<string>{{-160, 832}, {2668, 2480}}</string>
 		<key>Zoom</key>
 		<real>0.25</real>
 		<key>ZoomValues</key>
