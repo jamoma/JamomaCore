@@ -6,9 +6,9 @@
 		"defrect" : [ 421.0, 44.0, 912.0, 781.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
-		"default_fontsize" : 12.0,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
-		"default_fontname" : "Arial",
+		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 0,
@@ -17,8 +17,8 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-1",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -72,7 +72,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-10",
 									"maxclass" : "number",
@@ -102,7 +102,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-12",
 									"maxclass" : "number",
@@ -173,7 +173,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-17",
 									"maxclass" : "flonum",
@@ -518,7 +518,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-9",
 									"maxclass" : "number",
@@ -3662,7 +3662,7 @@
 														"openinpresentation" : 0,
 														"default_fontsize" : 10.0,
 														"default_fontface" : 0,
-														"default_fontname" : "Arial",
+														"default_fontname" : "Verdana",
 														"gridonopen" : 0,
 														"gridsize" : [ 15.0, 15.0 ],
 														"gridsnaponopen" : 0,
@@ -3740,8 +3740,8 @@
 													"patching_rect" : [ 260.0, 190.0, 46.0, 19.0 ],
 													"saved_object_attributes" : 													{
 														"default_fontface" : 0,
-														"default_fontname" : "Arial",
-														"fontname" : "Arial",
+														"default_fontname" : "Verdana",
+														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
@@ -6747,8 +6747,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-4",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -6761,8 +6761,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-5",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -6791,7 +6791,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 12.0,
 					"id" : "obj-75",
 					"maxclass" : "newobj",
@@ -7116,8 +7116,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-9",
 					"maxclass" : "message",
 					"numinlets" : 2,

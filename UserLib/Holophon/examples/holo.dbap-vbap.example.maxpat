@@ -6,9 +6,9 @@
 		"defrect" : [ 498.0, 44.0, 1218.0, 782.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
-		"default_fontsize" : 12.0,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
-		"default_fontname" : "Arial",
+		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 0,
@@ -21,7 +21,7 @@
 					"maxclass" : "message",
 					"text" : "/source.1/position 0.711389 -1.142705 0.",
 					"linecount" : 3,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-35",
 					"outlettype" : [ "" ],
@@ -35,7 +35,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "r toSPAT",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-6",
 					"outlettype" : [ "" ],
@@ -49,11 +49,11 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "/transport/play bang",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-1",
 					"outlettype" : [ "" ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2,
 					"patching_rect" : [ 376.0, 60.0, 107.0, 15.0 ]
 				}
@@ -515,7 +515,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p display",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-18",
 					"outlettype" : [ "" ],
@@ -683,7 +683,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "route /numSpeakers",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 2,
 									"id" : "obj-27",
 									"outlettype" : [ "", "" ],
@@ -1028,7 +1028,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "prepend /audio/gain",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-19",
 					"outlettype" : [ "" ],
@@ -1099,7 +1099,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "SPEAKERS",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 0,
 					"id" : "obj-23",
 					"fontsize" : 20.084375,
@@ -1112,7 +1112,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "SOURCES",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 0,
 					"id" : "obj-24",
 					"fontsize" : 20.084375,
@@ -1125,7 +1125,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "s toSPAT",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 0,
 					"id" : "obj-25",
 					"fontsize" : 12.0,
@@ -1138,7 +1138,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "r toSPAT",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-26",
 					"outlettype" : [ "" ],
@@ -1152,7 +1152,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "r toSPAT",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-27",
 					"outlettype" : [ "" ],
@@ -1180,7 +1180,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p active",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-29",
 					"outlettype" : [ "" ],
@@ -1194,9 +1194,9 @@
 						"defrect" : [ 153.0, 83.0, 640.0, 480.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
 						"gridsize" : [ 15.0, 15.0 ],
 						"gridsnaponopen" : 0,
@@ -1220,7 +1220,7 @@
 								"box" : 								{
 									"maxclass" : "message",
 									"text" : "/track/8/on 1",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"id" : "obj-11",
 									"outlettype" : [ "" ],
@@ -1234,7 +1234,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "sprintf /track/%d/on",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"id" : "obj-13",
 									"outlettype" : [ "" ],
@@ -1248,7 +1248,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "zl join",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 2,
 									"id" : "obj-14",
 									"outlettype" : [ "", "" ],
@@ -1273,7 +1273,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "regexp /track.([\\\\d]*)/enable",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 5,
 									"id" : "obj-3",
 									"outlettype" : [ "", "", "", "", "" ],
@@ -1287,7 +1287,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "zl slice 1",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 2,
 									"id" : "obj-4",
 									"outlettype" : [ "", "" ],
@@ -1365,13 +1365,13 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
 						"fontface" : 0,
 						"globalpatchername" : "",
 						"fontsize" : 12.0,
-						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0
 					}
 
 				}
@@ -1395,7 +1395,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "r toSPAT",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-30",
 					"outlettype" : [ "" ],
@@ -1409,7 +1409,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p display",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-31",
 					"outlettype" : [ "" ],
@@ -1577,7 +1577,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "route /numSpeakers",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 2,
 									"id" : "obj-27",
 									"outlettype" : [ "", "" ],
@@ -1921,7 +1921,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "flonum",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"id" : "obj-32",
 					"outlettype" : [ "float", "bang" ],
@@ -2225,7 +2225,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p simul-REC",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-34",
 					"outlettype" : [ "" ],
@@ -2239,9 +2239,9 @@
 						"defrect" : [ 509.0, 134.0, 469.0, 382.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
 						"gridsize" : [ 15.0, 15.0 ],
 						"gridsnaponopen" : 0,
@@ -2265,7 +2265,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "- 100",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"id" : "obj-11",
 									"outlettype" : [ "int" ],
@@ -2279,7 +2279,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "random 200",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"id" : "obj-12",
 									"outlettype" : [ "int" ],
@@ -2293,7 +2293,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "- 100",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"id" : "obj-13",
 									"outlettype" : [ "int" ],
@@ -2307,7 +2307,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "random 200",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"id" : "obj-14",
 									"outlettype" : [ "int" ],
@@ -2332,7 +2332,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "pack 0. 0. 0.",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"id" : "obj-17",
 									"outlettype" : [ "" ],
@@ -2346,7 +2346,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "prepend /recorder/6/in",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"id" : "obj-18",
 									"outlettype" : [ "" ],
@@ -2360,7 +2360,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "prepend /recorder/6/enable",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"id" : "obj-3",
 									"outlettype" : [ "" ],
@@ -2385,7 +2385,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "metro 30",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"id" : "obj-6",
 									"outlettype" : [ "bang" ],
@@ -2399,7 +2399,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "random 200",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"id" : "obj-7",
 									"outlettype" : [ "int" ],
@@ -2413,7 +2413,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "- 100",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"id" : "obj-8",
 									"outlettype" : [ "int" ],
@@ -2554,13 +2554,13 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
 						"fontface" : 0,
 						"globalpatchername" : "",
 						"fontsize" : 12.0,
-						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0
 					}
 
 				}
@@ -2584,11 +2584,11 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "/transport/stop bang",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-4",
 					"outlettype" : [ "" ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2,
 					"patching_rect" : [ 396.0, 79.0, 107.0, 15.0 ]
 				}
@@ -2598,7 +2598,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p boules",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 0,
 					"id" : "obj-40",
 					"fontsize" : 12.0,
@@ -2611,9 +2611,9 @@
 						"defrect" : [ 712.0, 161.0, 726.0, 570.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
 						"gridsize" : [ 15.0, 15.0 ],
 						"gridsnaponopen" : 0,
@@ -2625,7 +2625,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "jcom.oscinstance",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 4,
 									"id" : "obj-1",
 									"outlettype" : [ "", "", "", "" ],
@@ -2638,7 +2638,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "message",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"id" : "obj-11",
 									"outlettype" : [ "" ],
@@ -2664,7 +2664,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "sprintf source %d %f %f",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"id" : "obj-2",
 									"outlettype" : [ "" ],
@@ -2678,7 +2678,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "jcom.oscroute /source",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 2,
 									"id" : "obj-7",
 									"outlettype" : [ "", "" ],
@@ -2692,7 +2692,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "t b",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 1,
 									"id" : "obj-8",
 									"outlettype" : [ "bang" ],
@@ -2706,7 +2706,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "zl reg",
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"numoutlets" : 2,
 									"id" : "obj-9",
 									"outlettype" : [ "", "" ],
@@ -2793,13 +2793,13 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
 						"fontface" : 0,
 						"globalpatchername" : "",
 						"fontsize" : 12.0,
-						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0
 					}
 
 				}
@@ -2809,7 +2809,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jmod.sur.meters~ /AudioSignals",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"id" : "obj-41",
 					"outlettype" : [ "", "" ],
@@ -2857,12 +2857,12 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "r jmod.decode.cmd",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-44",
 					"outlettype" : [ "" ],
 					"hidden" : 1,
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"patching_rect" : [ 702.0, 484.0, 87.0, 17.0 ]
 				}
@@ -2872,7 +2872,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p adapt",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-45",
 					"outlettype" : [ "" ],
@@ -3031,7 +3031,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jmod.sur.meters~ /AmbiSignals",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"id" : "obj-46",
 					"outlettype" : [ "", "" ],
@@ -3098,7 +3098,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jmod.sur.meters~ /outmeters",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"id" : "obj-5",
 					"outlettype" : [ "", "" ],
@@ -3114,7 +3114,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "r toSPAT",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-50",
 					"outlettype" : [ "" ],
@@ -3127,7 +3127,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "flonum",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"id" : "obj-51",
 					"outlettype" : [ "float", "bang" ],
@@ -3141,7 +3141,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "prepend /audio/gain",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-52",
 					"outlettype" : [ "" ],
@@ -3168,7 +3168,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p adapt",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-54",
 					"outlettype" : [ "" ],
@@ -3367,7 +3367,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p adapt",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"id" : "obj-61",
 					"outlettype" : [ "", "" ],
@@ -3873,7 +3873,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p display",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-75",
 					"outlettype" : [ "" ],
@@ -4198,11 +4198,11 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "/speaker/queryspeakers",
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"id" : "obj-9",
 					"outlettype" : [ "" ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2,
 					"patching_rect" : [ 371.0, 38.0, 107.0, 15.0 ]
 				}
