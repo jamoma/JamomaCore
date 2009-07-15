@@ -6,11 +6,11 @@
 		"defrect" : [ 10.0, 59.0, 1379.0, 776.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
-		"default_fontsize" : 12.0,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
-		"default_fontname" : "Arial",
+		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
-		"gridsize" : [ 15.0, 15.0 ],
+		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
@@ -21,10 +21,10 @@
 					"maxclass" : "newobj",
 					"text" : "s holo.spat.port",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-1",
 					"patching_rect" : [ 1013.0, 219.0, 81.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -35,11 +35,11 @@
 					"maxclass" : "newobj",
 					"text" : "sw use.bonjour",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-10",
 					"patching_rect" : [ 966.0, 681.0, 78.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -50,10 +50,10 @@
 					"maxclass" : "newobj",
 					"text" : "s holo.edit",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-100",
 					"patching_rect" : [ 458.0, 372.0, 59.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -64,10 +64,10 @@
 					"maxclass" : "newobj",
 					"text" : "s holo.edit.key",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-101",
 					"patching_rect" : [ 336.0, 320.0, 75.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -78,11 +78,11 @@
 					"maxclass" : "newobj",
 					"text" : "r holo.edit.key",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-102",
 					"patching_rect" : [ 146.0, 85.0, 75.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -93,11 +93,11 @@
 					"maxclass" : "newobj",
 					"text" : "prepend set",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-103",
 					"patching_rect" : [ 146.0, 106.0, 62.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -107,11 +107,11 @@
 					"maxclass" : "newobj",
 					"text" : "js OSC-unroute2.js /holoedit",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-104",
 					"patching_rect" : [ 130.0, 148.0, 141.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -121,11 +121,11 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.oscroute /connect /key /name /address",
 					"numoutlets" : 5,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "", "", "", "", "" ],
 					"id" : "obj-105",
 					"patching_rect" : [ 300.0, 251.0, 187.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -135,11 +135,11 @@
 					"maxclass" : "newobj",
 					"text" : "udpreceive 13008",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-106",
 					"patching_rect" : [ 300.0, 123.0, 92.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -149,10 +149,10 @@
 					"maxclass" : "newobj",
 					"text" : "udpsend localhost 13005",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-107",
 					"patching_rect" : [ 128.0, 371.0, 120.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -162,11 +162,11 @@
 					"maxclass" : "newobj",
 					"text" : "oscbonjour",
 					"numoutlets" : 3,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "", "", "" ],
 					"id" : "obj-108",
 					"patching_rect" : [ 43.0, 705.0, 59.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -176,10 +176,10 @@
 					"maxclass" : "newobj",
 					"text" : "print IN",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-109",
 					"patching_rect" : [ 574.0, 103.0, 53.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -189,11 +189,11 @@
 					"maxclass" : "newobj",
 					"text" : "gate",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-11",
 					"patching_rect" : [ 43.0, 677.0, 29.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2
 				}
 
@@ -203,11 +203,11 @@
 					"maxclass" : "newobj",
 					"text" : "prepend host",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-110",
 					"patching_rect" : [ 140.0, 335.0, 67.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -217,10 +217,10 @@
 					"maxclass" : "comment",
 					"text" : ">> To HoloEdit",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-111",
 					"patching_rect" : [ 128.0, 392.0, 100.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -230,11 +230,11 @@
 					"maxclass" : "newobj",
 					"text" : "sw holo.edit.port",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-12",
 					"patching_rect" : [ 822.0, 680.0, 86.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -245,11 +245,11 @@
 					"maxclass" : "newobj",
 					"text" : "sw holo.edit.ip",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-13",
 					"patching_rect" : [ 894.0, 654.0, 75.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -260,11 +260,11 @@
 					"maxclass" : "newobj",
 					"text" : "r get-hostname",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-14",
 					"patching_rect" : [ 156.0, 500.0, 79.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -287,11 +287,11 @@
 					"maxclass" : "message",
 					"text" : "/connection/connect $1",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-16",
 					"patching_rect" : [ 651.0, 440.0, 118.0, 15.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2
 				}
 
@@ -301,11 +301,11 @@
 					"maxclass" : "newobj",
 					"text" : "r holo.spat.connected",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-17",
 					"patching_rect" : [ 651.0, 408.0, 105.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -316,10 +316,10 @@
 					"maxclass" : "newobj",
 					"text" : "s holo.spat.connected",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-18",
 					"patching_rect" : [ 1144.0, 141.0, 105.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -342,11 +342,11 @@
 					"maxclass" : "newobj",
 					"text" : "sw use.bonjour",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-2",
 					"patching_rect" : [ 1128.0, 194.0, 78.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -357,11 +357,11 @@
 					"maxclass" : "message",
 					"text" : "set $1",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-20",
 					"patching_rect" : [ 1192.0, 258.0, 39.0, 15.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2
 				}
 
@@ -371,10 +371,10 @@
 					"maxclass" : "newobj",
 					"text" : "s holo.edit",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-21",
 					"patching_rect" : [ 982.0, 403.0, 56.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -396,11 +396,11 @@
 					"maxclass" : "newobj",
 					"text" : "prepend /speaker/queryspeakers",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-23",
 					"patching_rect" : [ 982.0, 379.0, 161.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -410,11 +410,11 @@
 					"maxclass" : "newobj",
 					"text" : "r holo.edit.connected",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-24",
 					"patching_rect" : [ 1192.0, 228.0, 103.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -436,11 +436,11 @@
 					"maxclass" : "newobj",
 					"text" : "loadmess /connection/connect 1",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-26",
 					"patching_rect" : [ 605.0, 381.0, 156.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -450,10 +450,10 @@
 					"maxclass" : "newobj",
 					"text" : "s holo.edit",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-27",
 					"patching_rect" : [ 651.0, 493.0, 56.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -475,10 +475,10 @@
 					"maxclass" : "comment",
 					"text" : ">> Connection config",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-29",
 					"patching_rect" : [ 500.0, 500.0, 100.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -488,11 +488,11 @@
 					"maxclass" : "newobj",
 					"text" : "sw holo.edit.port",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-3",
 					"patching_rect" : [ 1053.0, 143.0, 86.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -503,11 +503,11 @@
 					"maxclass" : "newobj",
 					"text" : "prepend set",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-30",
 					"patching_rect" : [ 750.0, 648.0, 62.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -517,11 +517,11 @@
 					"maxclass" : "newobj",
 					"text" : "prepend set",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-31",
 					"patching_rect" : [ 678.0, 649.0, 62.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -531,11 +531,11 @@
 					"maxclass" : "newobj",
 					"text" : "prepend set",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-32",
 					"patching_rect" : [ 606.0, 651.0, 62.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -545,11 +545,11 @@
 					"maxclass" : "newobj",
 					"text" : "route key service inport outport outhost bonjour",
 					"numoutlets" : 7,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "", "", "", "", "", "", "" ],
 					"id" : "obj-33",
 					"patching_rect" : [ 606.0, 629.0, 450.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -559,11 +559,11 @@
 					"maxclass" : "newobj",
 					"text" : "sel done",
 					"numoutlets" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "bang", "" ],
 					"id" : "obj-34",
 					"patching_rect" : [ 570.0, 589.0, 46.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -574,11 +574,11 @@
 					"text" : "patcherargs @bonjour 0 @inport 13008 @outport 13005 @outhost localhost @key /holospat @service holo.spat",
 					"linecount" : 3,
 					"numoutlets" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "", "" ],
 					"id" : "obj-35",
 					"patching_rect" : [ 430.0, 521.0, 233.0, 38.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -588,10 +588,10 @@
 					"maxclass" : "newobj",
 					"text" : "s get-hostname",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-36",
 					"patching_rect" : [ 505.0, 647.0, 79.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -602,11 +602,11 @@
 					"maxclass" : "newobj",
 					"text" : "t b b b",
 					"numoutlets" : 3,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "bang", "bang", "bang" ],
 					"id" : "obj-37",
 					"patching_rect" : [ 475.0, 624.0, 40.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -616,11 +616,11 @@
 					"maxclass" : "message",
 					"text" : "13008",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-38",
 					"patching_rect" : [ 661.0, 687.0, 50.0, 15.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2
 				}
 
@@ -630,10 +630,10 @@
 					"maxclass" : "newobj",
 					"text" : "s holo.spat.port",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-39",
 					"patching_rect" : [ 661.0, 706.0, 81.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -644,11 +644,11 @@
 					"maxclass" : "newobj",
 					"text" : "sw holo.edit.ip",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-4",
 					"patching_rect" : [ 1093.0, 166.0, 75.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -659,11 +659,11 @@
 					"maxclass" : "newobj",
 					"text" : "loadbang",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "bang" ],
 					"id" : "obj-40",
 					"patching_rect" : [ 430.0, 495.0, 48.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -673,11 +673,11 @@
 					"maxclass" : "message",
 					"text" : "holo.spat",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-41",
 					"patching_rect" : [ 562.0, 686.0, 50.0, 15.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2
 				}
 
@@ -687,10 +687,10 @@
 					"maxclass" : "newobj",
 					"text" : "s spat-osc-name",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-42",
 					"patching_rect" : [ 562.0, 712.0, 85.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -701,11 +701,11 @@
 					"maxclass" : "message",
 					"text" : "/holospat",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-43",
 					"patching_rect" : [ 475.0, 689.0, 53.0, 15.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2
 				}
 
@@ -715,10 +715,10 @@
 					"maxclass" : "newobj",
 					"text" : "s holo.spat.key",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-44",
 					"patching_rect" : [ 475.0, 713.0, 77.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -729,10 +729,10 @@
 					"maxclass" : "newobj",
 					"text" : "print OSC->>>>",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-45",
 					"patching_rect" : [ 432.0, 185.0, 78.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -754,11 +754,11 @@
 					"maxclass" : "newobj",
 					"text" : "r holo.OSCdebug",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-47",
 					"patching_rect" : [ 432.0, 123.0, 82.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -769,11 +769,11 @@
 					"maxclass" : "newobj",
 					"text" : "gate",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-48",
 					"patching_rect" : [ 432.0, 164.0, 29.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2
 				}
 
@@ -783,10 +783,10 @@
 					"maxclass" : "newobj",
 					"text" : "s holo.edit",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-49",
 					"patching_rect" : [ 551.0, 177.0, 56.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -797,11 +797,11 @@
 					"maxclass" : "newobj",
 					"text" : "route inport outport outhost connect",
 					"numoutlets" : 5,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "", "", "", "", "" ],
 					"id" : "obj-5",
 					"patching_rect" : [ 1013.0, 112.0, 173.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -822,11 +822,11 @@
 					"maxclass" : "newobj",
 					"text" : "prepend /speaker/queryspeakers",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-51",
 					"patching_rect" : [ 551.0, 153.0, 161.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -836,11 +836,11 @@
 					"maxclass" : "newobj",
 					"text" : "r holo.spat.key",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-52",
 					"patching_rect" : [ 638.0, 186.0, 77.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -851,11 +851,11 @@
 					"maxclass" : "newobj",
 					"text" : "prepend set 1",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-53",
 					"patching_rect" : [ 638.0, 207.0, 71.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -865,11 +865,11 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.oscroute",
 					"numoutlets" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "", "" ],
 					"id" : "obj-54",
 					"patching_rect" : [ 608.0, 302.0, 67.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2
 				}
 
@@ -891,10 +891,10 @@
 					"maxclass" : "newobj",
 					"text" : "s before-save",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-56",
 					"patching_rect" : [ 34.0, 413.0, 73.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.360784, 0.682353, 1.0 ]
 				}
@@ -905,11 +905,11 @@
 					"maxclass" : "newobj",
 					"text" : "r holo.edit",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-57",
 					"patching_rect" : [ 29.0, 107.0, 56.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -920,11 +920,11 @@
 					"maxclass" : "newobj",
 					"text" : "r holo.spat.key",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-58",
 					"patching_rect" : [ 656.0, 274.0, 77.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -946,11 +946,11 @@
 					"maxclass" : "newobj",
 					"text" : "sw use.bonjour",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-6",
 					"patching_rect" : [ 174.0, 232.0, 78.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -961,10 +961,10 @@
 					"maxclass" : "newobj",
 					"text" : "s init",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-60",
 					"patching_rect" : [ 65.0, 72.0, 33.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -974,11 +974,11 @@
 					"maxclass" : "newobj",
 					"text" : "p OSC-transport-msg",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-66",
 					"patching_rect" : [ 813.0, 325.0, 107.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"patcher" : 					{
 						"fileversion" : 1,
@@ -987,11 +987,11 @@
 						"defrect" : [ 0.0, 375.0, 817.0, 460.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
-						"gridsize" : [ 15.0, 15.0 ],
+						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
@@ -1002,10 +1002,10 @@
 									"maxclass" : "newobj",
 									"text" : "s holo.edit",
 									"numoutlets" : 0,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"id" : "obj-1",
 									"patching_rect" : [ 262.0, 424.0, 56.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 								}
@@ -1016,11 +1016,11 @@
 									"maxclass" : "newobj",
 									"text" : "sw holo.beginTime",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-10",
 									"patching_rect" : [ 137.0, 265.0, 85.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 								}
@@ -1031,11 +1031,11 @@
 									"maxclass" : "message",
 									"text" : "/resume",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-11",
 									"patching_rect" : [ 463.0, 295.0, 49.0, 15.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1045,11 +1045,11 @@
 									"maxclass" : "newobj",
 									"text" : "sel 1 0",
 									"numoutlets" : 3,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "bang", "bang", "" ],
 									"id" : "obj-12",
 									"patching_rect" : [ 448.0, 271.0, 41.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1
 								}
 
@@ -1059,11 +1059,11 @@
 									"maxclass" : "newobj",
 									"text" : "/ 10.",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "float" ],
 									"id" : "obj-13",
 									"patching_rect" : [ 43.0, 309.0, 34.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1073,11 +1073,11 @@
 									"maxclass" : "message",
 									"text" : "1",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-14",
 									"patching_rect" : [ 317.0, 219.0, 16.0, 15.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1087,11 +1087,11 @@
 									"maxclass" : "newobj",
 									"text" : "* 10",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "int" ],
 									"id" : "obj-15",
 									"patching_rect" : [ 43.0, 267.0, 32.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1101,11 +1101,11 @@
 									"maxclass" : "message",
 									"text" : "/totaltime $1",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-16",
 									"patching_rect" : [ 43.0, 330.0, 72.0, 15.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1115,11 +1115,11 @@
 									"maxclass" : "message",
 									"text" : "/position",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-17",
 									"patching_rect" : [ 642.0, 252.0, 51.0, 15.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1129,11 +1129,11 @@
 									"maxclass" : "newobj",
 									"text" : "sw holo.totalTime",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-18",
 									"patching_rect" : [ 43.0, 288.0, 80.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 								}
@@ -1144,11 +1144,11 @@
 									"maxclass" : "newobj",
 									"text" : "jcom.oscroute /time /total /begin /end",
 									"numoutlets" : 5,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "", "", "", "", "" ],
 									"id" : "obj-19",
 									"patching_rect" : [ 91.0, 102.0, 158.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1
 								}
 
@@ -1169,11 +1169,11 @@
 									"maxclass" : "newobj",
 									"text" : "r holo.update",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-20",
 									"patching_rect" : [ 703.0, 208.0, 63.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 0,
 									"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 								}
@@ -1184,11 +1184,11 @@
 									"maxclass" : "newobj",
 									"text" : "r holo.preload",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-21",
 									"patching_rect" : [ 642.0, 208.0, 66.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 0,
 									"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 								}
@@ -1199,11 +1199,11 @@
 									"maxclass" : "newobj",
 									"text" : "sw holo.pause",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-22",
 									"patching_rect" : [ 448.0, 247.0, 68.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 								}
@@ -1214,11 +1214,11 @@
 									"maxclass" : "newobj",
 									"text" : "sw holo.stop",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-23",
 									"patching_rect" : [ 380.0, 251.0, 61.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 								}
@@ -1229,11 +1229,11 @@
 									"maxclass" : "newobj",
 									"text" : "sw holo.record",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-24",
 									"patching_rect" : [ 565.0, 268.0, 69.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 								}
@@ -1244,11 +1244,11 @@
 									"maxclass" : "message",
 									"text" : "/record $1",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-25",
 									"patching_rect" : [ 565.0, 290.0, 61.0, 15.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1258,10 +1258,10 @@
 									"maxclass" : "newobj",
 									"text" : "s holo.time",
 									"numoutlets" : 0,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"id" : "obj-26",
 									"patching_rect" : [ 40.0, 157.0, 54.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 								}
@@ -1272,11 +1272,11 @@
 									"maxclass" : "newobj",
 									"text" : "sw holo.play",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-27",
 									"patching_rect" : [ 317.0, 248.0, 60.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 								}
@@ -1287,11 +1287,11 @@
 									"maxclass" : "message",
 									"text" : "/update",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-28",
 									"patching_rect" : [ 703.0, 232.0, 45.0, 15.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1301,11 +1301,11 @@
 									"maxclass" : "message",
 									"text" : "/preload",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-29",
 									"patching_rect" : [ 655.0, 232.0, 49.0, 15.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1327,11 +1327,11 @@
 									"maxclass" : "message",
 									"text" : "/loop $1",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-30",
 									"patching_rect" : [ 526.0, 246.0, 49.0, 15.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1341,11 +1341,11 @@
 									"maxclass" : "message",
 									"text" : "/endtime $1",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-31",
 									"patching_rect" : [ 211.0, 334.0, 66.0, 15.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1355,11 +1355,11 @@
 									"maxclass" : "message",
 									"text" : "/stop",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-32",
 									"patching_rect" : [ 380.0, 275.0, 35.0, 15.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1369,11 +1369,11 @@
 									"maxclass" : "message",
 									"text" : "/pause",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-33",
 									"patching_rect" : [ 448.0, 319.0, 41.0, 15.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1383,11 +1383,11 @@
 									"maxclass" : "message",
 									"text" : "/play",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-34",
 									"patching_rect" : [ 317.0, 291.0, 35.0, 15.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1397,11 +1397,11 @@
 									"maxclass" : "newobj",
 									"text" : "js OSC-unroute2.js /transport",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-35",
 									"patching_rect" : [ 262.0, 390.0, 149.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1
 								}
 
@@ -1411,11 +1411,11 @@
 									"maxclass" : "newobj",
 									"text" : "sw holo.loop",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-36",
 									"patching_rect" : [ 526.0, 222.0, 61.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 								}
@@ -1426,11 +1426,11 @@
 									"maxclass" : "message",
 									"text" : "0",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-37",
 									"patching_rect" : [ 487.0, 224.0, 16.0, 15.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1440,11 +1440,11 @@
 									"maxclass" : "message",
 									"text" : "1",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-38",
 									"patching_rect" : [ 448.0, 226.0, 16.0, 15.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1454,11 +1454,11 @@
 									"maxclass" : "newobj",
 									"text" : "jcom.oscroute /play /stop /jump /pause /resume /loop /record /looping",
 									"numoutlets" : 9,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "", "", "", "", "", "", "", "", "" ],
 									"id" : "obj-39",
 									"patching_rect" : [ 331.0, 103.0, 286.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1
 								}
 
@@ -1468,11 +1468,11 @@
 									"maxclass" : "newobj",
 									"text" : "jcom.oscroute /transport",
 									"numoutlets" : 2,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "", "" ],
 									"id" : "obj-4",
 									"patching_rect" : [ 91.0, 59.0, 107.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1
 								}
 
@@ -1482,11 +1482,11 @@
 									"maxclass" : "newobj",
 									"text" : "sel 1 bang 0",
 									"numoutlets" : 4,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "bang", "bang", "bang", "" ],
 									"id" : "obj-40",
 									"patching_rect" : [ 317.0, 270.0, 60.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1
 								}
 
@@ -1496,11 +1496,11 @@
 									"maxclass" : "message",
 									"text" : "/begtime $1",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-41",
 									"patching_rect" : [ 137.0, 334.0, 66.0, 15.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2
 								}
 
@@ -1510,10 +1510,10 @@
 									"maxclass" : "newobj",
 									"text" : "s holo.timeLIM",
 									"numoutlets" : 0,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"id" : "obj-42",
 									"patching_rect" : [ 102.0, 183.0, 69.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 								}
@@ -1524,11 +1524,11 @@
 									"maxclass" : "newobj",
 									"text" : "speedlim 100",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-43",
 									"patching_rect" : [ 102.0, 162.0, 64.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 2,
 									"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 								}
@@ -1539,11 +1539,11 @@
 									"maxclass" : "newobj",
 									"text" : "change",
 									"numoutlets" : 3,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "", "int", "int" ],
 									"id" : "obj-5",
 									"patching_rect" : [ 137.0, 311.0, 40.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1
 								}
 
@@ -1553,11 +1553,11 @@
 									"maxclass" : "newobj",
 									"text" : "mousefilter",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-6",
 									"patching_rect" : [ 137.0, 288.0, 62.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1
 								}
 
@@ -1567,11 +1567,11 @@
 									"maxclass" : "newobj",
 									"text" : "change",
 									"numoutlets" : 3,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "", "int", "int" ],
 									"id" : "obj-7",
 									"patching_rect" : [ 211.0, 311.0, 40.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1
 								}
 
@@ -1581,11 +1581,11 @@
 									"maxclass" : "newobj",
 									"text" : "mousefilter",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-8",
 									"patching_rect" : [ 211.0, 288.0, 62.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1
 								}
 
@@ -1595,11 +1595,11 @@
 									"maxclass" : "newobj",
 									"text" : "sw holo.endTime",
 									"numoutlets" : 1,
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"outlettype" : [ "" ],
 									"id" : "obj-9",
 									"patching_rect" : [ 210.0, 265.0, 78.0, 17.0 ],
-									"fontsize" : 9.0,
+									"fontsize" : 10.0,
 									"numinlets" : 1,
 									"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 								}
@@ -2105,13 +2105,13 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"default_fontname" : "Verdana"
 					}
 
 				}
@@ -2122,10 +2122,10 @@
 					"maxclass" : "comment",
 					"text" : ">> From HoloEdit",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-67",
 					"patching_rect" : [ 300.0, 61.0, 100.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -2135,11 +2135,11 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.oscroute /*/connection/holoedit /*/connection/holospat/querykey",
 					"numoutlets" : 3,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "", "", "" ],
 					"id" : "obj-68",
 					"patching_rect" : [ 300.0, 209.0, 327.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -2149,11 +2149,11 @@
 					"maxclass" : "newobj",
 					"text" : "sprintf %s@%s:%d",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-69",
 					"patching_rect" : [ 62.0, 556.0, 199.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 3
 				}
 
@@ -2163,11 +2163,11 @@
 					"maxclass" : "newobj",
 					"text" : "gate",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-7",
 					"patching_rect" : [ 140.0, 233.0, 29.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2
 				}
 
@@ -2177,11 +2177,11 @@
 					"maxclass" : "newobj",
 					"text" : "mxj holoedit.hostname",
 					"numoutlets" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "", "" ],
 					"id" : "obj-70",
 					"patching_rect" : [ 156.0, 523.0, 113.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -2191,11 +2191,11 @@
 					"maxclass" : "newobj",
 					"text" : "t b i",
 					"numoutlets" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "bang", "int" ],
 					"id" : "obj-71",
 					"patching_rect" : [ 170.0, 434.0, 27.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -2205,11 +2205,11 @@
 					"maxclass" : "newobj",
 					"text" : "zl reg",
 					"numoutlets" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "", "" ],
 					"id" : "obj-72",
 					"patching_rect" : [ 62.0, 610.0, 36.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2
 				}
 
@@ -2219,11 +2219,11 @@
 					"maxclass" : "newobj",
 					"text" : "r holo.spat.port",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-73",
 					"patching_rect" : [ 170.0, 413.0, 85.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -2234,11 +2234,11 @@
 					"maxclass" : "newobj",
 					"text" : "prepend set",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-74",
 					"patching_rect" : [ 187.0, 457.0, 62.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -2248,11 +2248,11 @@
 					"maxclass" : "newobj",
 					"text" : "route host port",
 					"numoutlets" : 3,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "", "", "" ],
 					"id" : "obj-75",
 					"patching_rect" : [ 140.0, 287.0, 78.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -2262,11 +2262,11 @@
 					"maxclass" : "newobj",
 					"text" : "prepend port",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-76",
 					"patching_rect" : [ 300.0, 101.0, 67.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -2276,11 +2276,11 @@
 					"maxclass" : "newobj",
 					"text" : "r holo.spat.port",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-77",
 					"patching_rect" : [ 300.0, 78.0, 81.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -2291,11 +2291,11 @@
 					"maxclass" : "newobj",
 					"text" : "sw holo.edit.port",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-78",
 					"patching_rect" : [ 174.0, 310.0, 86.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -2306,11 +2306,11 @@
 					"maxclass" : "newobj",
 					"text" : "sw holo.edit.ip",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-79",
 					"patching_rect" : [ 140.0, 310.0, 75.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -2321,11 +2321,11 @@
 					"maxclass" : "newobj",
 					"text" : "sw use.bonjour",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-8",
 					"patching_rect" : [ 187.0, 71.0, 78.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -2336,11 +2336,11 @@
 					"maxclass" : "newobj",
 					"text" : "append 13008",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-80",
 					"patching_rect" : [ 62.0, 645.0, 73.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -2350,11 +2350,11 @@
 					"maxclass" : "newobj",
 					"text" : "prepend register",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-81",
 					"patching_rect" : [ 62.0, 588.0, 85.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -2364,11 +2364,11 @@
 					"maxclass" : "newobj",
 					"text" : "r spat-osc-name",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-82",
 					"patching_rect" : [ 62.0, 443.0, 85.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -2379,11 +2379,11 @@
 					"maxclass" : "newobj",
 					"text" : "t 1",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "int" ],
 					"id" : "obj-83",
 					"patching_rect" : [ 300.0, 351.0, 21.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -2393,10 +2393,10 @@
 					"maxclass" : "newobj",
 					"text" : "s holo.control",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-84",
 					"patching_rect" : [ 300.0, 374.0, 71.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -2407,11 +2407,11 @@
 					"maxclass" : "message",
 					"text" : "/holoedit",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-85",
 					"patching_rect" : [ 157.0, 128.0, 77.0, 15.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2
 				}
 
@@ -2421,11 +2421,11 @@
 					"maxclass" : "newobj",
 					"text" : "prepend port",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-86",
 					"patching_rect" : [ 174.0, 337.0, 67.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -2435,11 +2435,11 @@
 					"maxclass" : "newobj",
 					"text" : "zl slice 1",
 					"numoutlets" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "", "" ],
 					"id" : "obj-87",
 					"patching_rect" : [ 23.0, 252.0, 51.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2
 				}
 
@@ -2449,11 +2449,11 @@
 					"maxclass" : "newobj",
 					"text" : "r holo.edit.address",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-88",
 					"patching_rect" : [ 23.0, 232.0, 94.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -2464,10 +2464,10 @@
 					"maxclass" : "newobj",
 					"text" : "s holo.edit.address",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-89",
 					"patching_rect" : [ 448.0, 399.0, 94.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -2478,11 +2478,11 @@
 					"maxclass" : "newobj",
 					"text" : "sw use.bonjour",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-9",
 					"patching_rect" : [ 77.0, 676.0, 78.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -2493,10 +2493,10 @@
 					"maxclass" : "newobj",
 					"text" : "s holo.edit.connected",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-90",
 					"patching_rect" : [ 290.0, 435.0, 103.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -2507,11 +2507,11 @@
 					"maxclass" : "newobj",
 					"text" : "r holo.edit.name",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-91",
 					"patching_rect" : [ 159.0, 181.0, 82.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -2522,10 +2522,10 @@
 					"maxclass" : "newobj",
 					"text" : "s holo.edit.name",
 					"numoutlets" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-92",
 					"patching_rect" : [ 372.0, 300.0, 82.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -2536,11 +2536,11 @@
 					"maxclass" : "newobj",
 					"text" : "prepend resolve",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-93",
 					"patching_rect" : [ 159.0, 203.0, 82.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -2550,11 +2550,11 @@
 					"maxclass" : "newobj",
 					"text" : "oscbonjour",
 					"numoutlets" : 3,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "", "", "" ],
 					"id" : "obj-94",
 					"patching_rect" : [ 140.0, 260.0, 59.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -2564,11 +2564,11 @@
 					"maxclass" : "newobj",
 					"text" : "r holo.spat.key",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-95",
 					"patching_rect" : [ 469.0, 283.0, 77.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ]
 				}
@@ -2579,11 +2579,11 @@
 					"maxclass" : "message",
 					"text" : "/holospat",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-96",
 					"patching_rect" : [ 458.0, 330.0, 111.0, 15.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2
 				}
 
@@ -2593,11 +2593,11 @@
 					"maxclass" : "newobj",
 					"text" : "prepend set",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-97",
 					"patching_rect" : [ 469.0, 304.0, 62.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
@@ -2607,11 +2607,11 @@
 					"maxclass" : "newobj",
 					"text" : "sel 1",
 					"numoutlets" : 2,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "bang", "" ],
 					"id" : "obj-98",
 					"patching_rect" : [ 300.0, 320.0, 32.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 2
 				}
 
@@ -2621,11 +2621,11 @@
 					"maxclass" : "newobj",
 					"text" : "prepend holo.spat key",
 					"numoutlets" : 1,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"outlettype" : [ "" ],
 					"id" : "obj-99",
 					"patching_rect" : [ 458.0, 351.0, 107.0, 17.0 ],
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"numinlets" : 1
 				}
 
