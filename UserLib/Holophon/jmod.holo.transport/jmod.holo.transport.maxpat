@@ -20,6 +20,20 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-2",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 95.0, 290.0, 243.0, 19.0 ],
+					"text" : "This one doesn't seem to do anything at all...."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-100",
 					"linecount" : 3,
 					"maxclass" : "newobj",
@@ -359,7 +373,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 52.0, 66.0, 15.0, 15.0 ]
+					"patching_rect" : [ 75.0, 290.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -2895,8 +2909,6 @@
 					}
 ,
 					"patching_rect" : [ 890.0, 125.0, 153.0, 19.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 76.0, 110.0, 153.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
