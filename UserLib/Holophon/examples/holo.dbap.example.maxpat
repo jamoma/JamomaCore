@@ -443,7 +443,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 640.0, 210.0, 215.0, 19.0 ],
-									"text" : "poly~ jcom.sur.dbap.source_instance 32"
+									"text" : "poly~ jcom.sur.dbap.sourceInstance 32"
 								}
 
 							}
@@ -467,7 +467,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 640.0, 235.0, 221.0, 19.0 ],
-									"text" : "poly~ jcom.sur.dbap.speaker_instance 32"
+									"text" : "poly~ jcom.sur.dbap.speakerInstance 32"
 								}
 
 							}
