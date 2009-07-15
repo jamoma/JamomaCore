@@ -11,9 +11,9 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 
 <body>
 	<div id="jmod_header">
-	<img src="../../../documentation/images/jmod.icon.mod.png" width="128" height="128">
+	<img src="../../../documentation/graphics/jmod.icon.mod.png" width="128" height="128">
 	<h1> jmod.holo.reccontrol </h1>
-	<h2> This module doesn't do much yet </h2>
+	<h2> Manage Position Recording to HoloEdit </h2>
 	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 	</div>
 
@@ -45,7 +45,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> arm record </td>
+			<td class ="instructionDescription"> Arm record. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> recorder/2/enable </td>
@@ -56,7 +56,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> arm record </td>
+			<td class ="instructionDescription"> Arm record. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> recorder/3/enable </td>
@@ -67,7 +67,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> arm record </td>
+			<td class ="instructionDescription"> Arm record. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> recorder/4/enable </td>
@@ -78,7 +78,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> arm record </td>
+			<td class ="instructionDescription"> Arm record. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> recorder/5/enable </td>
@@ -89,7 +89,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> arm record </td>
+			<td class ="instructionDescription"> Arm record. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> recorder/6/enable </td>
@@ -100,7 +100,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> arm record </td>
+			<td class ="instructionDescription"> Arm record. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> recorder/7/enable </td>
@@ -111,7 +111,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> arm record </td>
+			<td class ="instructionDescription"> Arm record. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> recorder/8/enable </td>
@@ -122,7 +122,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> arm record </td>
+			<td class ="instructionDescription"> Arm record. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/freeze </td>
@@ -134,6 +134,61 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/border </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The border color of the module in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/contentBackground </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The background color of the module in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/toolbarBackground </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/toolbarText </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/size </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The size of the module's UI. </td>
 		<tr>
 	</table>
 
@@ -175,7 +230,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Initialize a module completely to the original state. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> module/view_internals </td>
+			<td class="instructionName"> module/viewInternals </td>
 			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -184,17 +239,6 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> panel/open </td>
-			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Open an a module's control panel (inspector) if one is present. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/clear </td>
@@ -264,8 +308,8 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/read </td>
-			<td class ="instructionType"> symbol </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
@@ -319,8 +363,8 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/write </td>
-			<td class ="instructionType"> symbol </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
@@ -330,7 +374,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/writeagain </td>
-			<td class ="instructionType"> symbol </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -338,6 +382,193 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Write on same xml-preset file. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> recorder/1/in </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> x y z input position. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> recorder/1/segment </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Begin a new trajectory. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> recorder/2/in </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> x y z input position. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> recorder/2/segment </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Begin a new trajectory. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> recorder/3/in </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> x y z input position. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> recorder/3/segment </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Begin a new trajectory. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> recorder/4/in </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> x y z input position. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> recorder/4/segment </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Begin a new trajectory. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> recorder/5/in </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> x y z input position. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> recorder/5/segment </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Begin a new trajectory. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> recorder/6/in </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> x y z input position. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> recorder/6/segment </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Begin a new trajectory. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> recorder/7/in </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> x y z input position. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> recorder/7/segment </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Begin a new trajectory. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> recorder/8/in </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> x y z input position. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> recorder/8/segment </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Begin a new trajectory. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> script </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Low-level module hacking.  Any arguments arguments to this message will be interpreted as patcher scripting for the top-level patcher of the module. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/refresh </td>
