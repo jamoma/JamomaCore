@@ -365,6 +365,88 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
+			<string>{{881.049, 1117.52}, {604.022, 992}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>FitText</key>
+			<string>Vertical</string>
+			<key>Flow</key>
+			<string>Resize</string>
+			<key>FontInfo</key>
+			<dict>
+				<key>Font</key>
+				<string>GillSans</string>
+				<key>Size</key>
+				<real>31</real>
+			</dict>
+			<key>ID</key>
+			<integer>584</integer>
+			<key>Layer</key>
+			<integer>2</integer>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>shadow</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>Draws</key>
+					<string>NO</string>
+				</dict>
+			</dict>
+			<key>Text</key>
+			<dict>
+				<key>Align</key>
+				<integer>0</integer>
+				<key>Pad</key>
+				<integer>0</integer>
+				<key>Text</key>
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf460
+{\fonttbl\f0\fnil\fcharset0 GillSans;\f1\fnil\fcharset0 LucidaGrande;}
+{\colortbl;\red255\green255\blue255;\red204\green102\blue102;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{check\}}{\leveltext\leveltemplateid0\'02\'05.;}{\levelnumbers\'01;}}{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\fs72 \cf0 When dealing with spatialization, the workflow comprises a number of steps. We propose to conceptually organize them according to six layers according to levels of abstraction. Each layer provides services to the layer above it and receives services from the layer below it.\
+\
+The paper presents the layers, and the communication streams passing sound and control data between layers.\
+\
+Furthermore prototype implementations are presented combining:\
+\
+\pard\tx220\tx720\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li1110\fi-1110\ql\qnatural\pardirnatural
+\ls1\ilvl0\cf0 {\listtext	
+\f1 \uc0\u10003 
+\f0 	}\cf2 Jamoma\cf0  - A modular framework for Max\
+\pard\tx220\tx720\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li720\fi-720\ql\qnatural\pardirnatural
+\ls1\ilvl0\cf0 {\listtext	
+\f1 \uc0\u10003 
+\f0 	}The \cf2 ICST Ambisonics Tools\cf0  for Max\
+\pard\tx220\tx720\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li1120\fi-1120\ql\qnatural\pardirnatural
+\ls1\ilvl0\cf0 {\listtext	
+\f1 \uc0\u10003 
+\f0 	}\cf2 SpatDIF\cf0  - Spatial Sound Description Interchange format\
+{\listtext	
+\f1 \uc0\u10003 
+\f0 	}\cf2 Holo-Edit\cf0  - A graphical and algorithmic editor of sound trajectories\
+}</string>
+				<key>VerticalPad</key>
+				<integer>0</integer>
+			</dict>
+			<key>TextPlacement</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>Bounds</key>
 			<string>{{122.5, 895}, {48.5, 154.82}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
@@ -629,12 +711,8 @@ STRATIFIED APPROACH }</string>
 			<dict>
 				<key>Color</key>
 				<dict>
-					<key>b</key>
-					<string>0.4</string>
-					<key>g</key>
-					<string>0.4</string>
-					<key>r</key>
-					<string>0.8</string>
+					<key>w</key>
+					<string>1</string>
 				</dict>
 				<key>Font</key>
 				<string>GillSans-Bold</string>
@@ -695,79 +773,7 @@ NEED FOR INTEROPERABILITY\
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{927.081, 1171.79}, {604.022, 774}}</string>
-			<key>Class</key>
-			<string>ShapedGraphic</string>
-			<key>FitText</key>
-			<string>Vertical</string>
-			<key>Flow</key>
-			<string>Resize</string>
-			<key>FontInfo</key>
-			<dict>
-				<key>Font</key>
-				<string>GillSans</string>
-				<key>Size</key>
-				<real>31</real>
-			</dict>
-			<key>ID</key>
-			<integer>555</integer>
-			<key>Layer</key>
-			<integer>2</integer>
-			<key>Shape</key>
-			<string>Rectangle</string>
-			<key>Style</key>
-			<dict>
-				<key>fill</key>
-				<dict>
-					<key>Draws</key>
-					<string>NO</string>
-				</dict>
-				<key>shadow</key>
-				<dict>
-					<key>Draws</key>
-					<string>NO</string>
-				</dict>
-				<key>stroke</key>
-				<dict>
-					<key>Draws</key>
-					<string>NO</string>
-				</dict>
-			</dict>
-			<key>Text</key>
-			<dict>
-				<key>Align</key>
-				<integer>0</integer>
-				<key>Pad</key>
-				<integer>0</integer>
-				<key>Text</key>
-				<string>{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf460
-{\fonttbl\f0\fnil\fcharset0 GillSans;}
-{\colortbl;\red255\green255\blue255;\red204\green102\blue102;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-
-\f0\b\fs62 \cf2 THE CURRENT PARADIGM\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-
-\fs72 \cf0 DAW
-\b0 s mainly work with common consumer channel configurations; mono, stereo and 5.1. Beyond this multichannel and spatialization capabilities are limited, and adequate spatialization tools for working in DAWs are missing, but strongly desired.\
-\
-
-\b Media programming environments
-\b0  (e.g. SuperCollider, Pd and Max) are capable of spatial sound synthesis . Each tool, however, may only provide solutions for a subset of compositional viewpoints.\
-\
-A variety of 
-\b stand-alone
-\b0  spatialization systems are in development.  \
-}</string>
-				<key>VerticalPad</key>
-				<integer>0</integer>
-			</dict>
-			<key>TextPlacement</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>Bounds</key>
-			<string>{{235.06, 1171.79}, {604.022, 902}}</string>
+			<string>{{235.06, 1117.52}, {604.022, 902}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -1572,7 +1578,7 @@ for sound spatialization}</string>
 			<key>Print</key>
 			<string>YES</string>
 			<key>View</key>
-			<string>YES</string>
+			<string>NO</string>
 		</dict>
 		<dict>
 			<key>Lock</key>
@@ -1617,7 +1623,7 @@ for sound spatialization}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2009-07-16 22:46:02 +0200</string>
+	<string>2009-07-16 23:11:34 +0200</string>
 	<key>Modifier</key>
 	<string>lossius</string>
 	<key>NotesVisible</key>
@@ -1707,7 +1713,7 @@ for sound spatialization}</string>
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{-303, 596.97}, {2954.55, 2166.67}}</string>
+		<string>{{-303, 766.667}, {2954.55, 2166.67}}</string>
 		<key>Zoom</key>
 		<real>0.33000001311302185</real>
 		<key>ZoomValues</key>
@@ -1715,7 +1721,7 @@ for sound spatialization}</string>
 			<array>
 				<string>Canvas 1</string>
 				<real>0.33000001311302185</real>
-				<real>0.5</real>
+				<real>1</real>
 			</array>
 		</array>
 	</dict>
