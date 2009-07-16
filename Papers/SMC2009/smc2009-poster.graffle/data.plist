@@ -159,7 +159,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{1548, 1157.56}, {637.071, 936.378}}</string>
+			<string>{{1504.93, 1147.39}, {618.041, 908.407}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FontInfo</key>
@@ -333,7 +333,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{355.228, 2199.79}, {1576.72, 809.422}}</string>
+			<string>{{385.61, 2208.88}, {1576.72, 809.422}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -365,7 +365,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{881.049, 1117.52}, {604.022, 992}}</string>
+			<string>{{876.504, 1117.52}, {604.022, 992}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -472,7 +472,7 @@ Furthermore prototype implementations are presented combining:\
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{1603.12, 988.103}, {596, 110}}</string>
+			<string>{{1603.12, 988.103}, {392.879, 110}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -870,8 +870,8 @@ Different spatialisation applications should be readily combined, guaranteeing e
 			<integer>2</integer>
 			<key>Points</key>
 			<array>
-				<string>{101.939, 955.288}</string>
-				<string>{101.939, 1229.29}</string>
+				<string>{2265.94, 870.207}</string>
+				<string>{2265.94, 2042.62}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -1578,7 +1578,7 @@ for sound spatialization}</string>
 			<key>Print</key>
 			<string>YES</string>
 			<key>View</key>
-			<string>NO</string>
+			<string>YES</string>
 		</dict>
 		<dict>
 			<key>Lock</key>
@@ -1598,7 +1598,7 @@ for sound spatialization}</string>
 			<key>Print</key>
 			<string>YES</string>
 			<key>View</key>
-			<string>NO</string>
+			<string>YES</string>
 		</dict>
 	</array>
 	<key>LayoutInfo</key>
@@ -1623,7 +1623,7 @@ for sound spatialization}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2009-07-16 23:11:34 +0200</string>
+	<string>2009-07-16 23:15:29 +0200</string>
 	<key>Modifier</key>
 	<string>lossius</string>
 	<key>NotesVisible</key>
@@ -1713,7 +1713,7 @@ for sound spatialization}</string>
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{-303, 766.667}, {2954.55, 2166.67}}</string>
+		<string>{{-303, 1142.42}, {2954.55, 2166.67}}</string>
 		<key>Zoom</key>
 		<real>0.33000001311302185</real>
 		<key>ZoomValues</key>
