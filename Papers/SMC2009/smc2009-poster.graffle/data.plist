@@ -51,111 +51,116 @@
 	<array>
 		<dict>
 			<key>Class</key>
-			<string>LineGraphic</string>
+			<string>Group</string>
+			<key>Graphics</key>
+			<array>
+				<dict>
+					<key>Class</key>
+					<string>LineGraphic</string>
+					<key>ID</key>
+					<integer>589</integer>
+					<key>Points</key>
+					<array>
+						<string>{225.969, 2131.27}</string>
+						<string>{2121.97, 2131.27}</string>
+					</array>
+					<key>Style</key>
+					<dict>
+						<key>stroke</key>
+						<dict>
+							<key>Cap</key>
+							<integer>0</integer>
+							<key>HeadArrow</key>
+							<string>0</string>
+							<key>Join</key>
+							<integer>0</integer>
+							<key>TailArrow</key>
+							<string>0</string>
+						</dict>
+					</dict>
+				</dict>
+				<dict>
+					<key>Class</key>
+					<string>LineGraphic</string>
+					<key>ID</key>
+					<integer>590</integer>
+					<key>Points</key>
+					<array>
+						<string>{225.969, 939.59}</string>
+						<string>{2121.97, 939.59}</string>
+					</array>
+					<key>Style</key>
+					<dict>
+						<key>stroke</key>
+						<dict>
+							<key>Cap</key>
+							<integer>0</integer>
+							<key>HeadArrow</key>
+							<string>0</string>
+							<key>Join</key>
+							<integer>0</integer>
+							<key>TailArrow</key>
+							<string>0</string>
+						</dict>
+					</dict>
+				</dict>
+				<dict>
+					<key>Class</key>
+					<string>LineGraphic</string>
+					<key>ID</key>
+					<integer>591</integer>
+					<key>Points</key>
+					<array>
+						<string>{225.969, 3096.68}</string>
+						<string>{2121.97, 3096.68}</string>
+					</array>
+					<key>Style</key>
+					<dict>
+						<key>stroke</key>
+						<dict>
+							<key>Cap</key>
+							<integer>0</integer>
+							<key>HeadArrow</key>
+							<string>0</string>
+							<key>Join</key>
+							<integer>0</integer>
+							<key>TailArrow</key>
+							<string>0</string>
+						</dict>
+					</dict>
+				</dict>
+				<dict>
+					<key>Class</key>
+					<string>LineGraphic</string>
+					<key>ID</key>
+					<integer>592</integer>
+					<key>Points</key>
+					<array>
+						<string>{225.969, 671.68}</string>
+						<string>{2121.97, 671.68}</string>
+					</array>
+					<key>Style</key>
+					<dict>
+						<key>stroke</key>
+						<dict>
+							<key>Cap</key>
+							<integer>0</integer>
+							<key>HeadArrow</key>
+							<string>0</string>
+							<key>Join</key>
+							<integer>0</integer>
+							<key>TailArrow</key>
+							<string>0</string>
+						</dict>
+					</dict>
+				</dict>
+			</array>
 			<key>ID</key>
-			<integer>565</integer>
+			<integer>588</integer>
+			<key>IsLocked</key>
+			<string>YES</string>
 			<key>Layer</key>
 			<integer>0</integer>
-			<key>Points</key>
-			<array>
-				<string>{235.06, 2129.09}</string>
-				<string>{2131.06, 2129.09}</string>
-			</array>
-			<key>Style</key>
-			<dict>
-				<key>stroke</key>
-				<dict>
-					<key>Cap</key>
-					<integer>0</integer>
-					<key>HeadArrow</key>
-					<string>0</string>
-					<key>Join</key>
-					<integer>0</integer>
-					<key>TailArrow</key>
-					<string>0</string>
-				</dict>
-			</dict>
-		</dict>
-		<dict>
-			<key>Class</key>
-			<string>LineGraphic</string>
-			<key>ID</key>
-			<integer>562</integer>
-			<key>Layer</key>
-			<integer>0</integer>
-			<key>Points</key>
-			<array>
-				<string>{225.97, 937.815}</string>
-				<string>{2121.97, 937.815}</string>
-			</array>
-			<key>Style</key>
-			<dict>
-				<key>stroke</key>
-				<dict>
-					<key>Cap</key>
-					<integer>0</integer>
-					<key>HeadArrow</key>
-					<string>0</string>
-					<key>Join</key>
-					<integer>0</integer>
-					<key>TailArrow</key>
-					<string>0</string>
-				</dict>
-			</dict>
-		</dict>
-		<dict>
-			<key>Class</key>
-			<string>LineGraphic</string>
-			<key>ID</key>
-			<integer>156</integer>
-			<key>Layer</key>
-			<integer>0</integer>
-			<key>Points</key>
-			<array>
-				<string>{235.06, 3097.09}</string>
-				<string>{2131.06, 3097.09}</string>
-			</array>
-			<key>Style</key>
-			<dict>
-				<key>stroke</key>
-				<dict>
-					<key>Cap</key>
-					<integer>0</integer>
-					<key>HeadArrow</key>
-					<string>0</string>
-					<key>Join</key>
-					<integer>0</integer>
-					<key>TailArrow</key>
-					<string>0</string>
-				</dict>
-			</dict>
-		</dict>
-		<dict>
-			<key>Class</key>
-			<string>LineGraphic</string>
-			<key>ID</key>
-			<integer>150</integer>
-			<key>Layer</key>
-			<integer>0</integer>
-			<key>Points</key>
-			<array>
-				<string>{235.06, 672.09}</string>
-				<string>{2131.06, 672.09}</string>
-			</array>
-			<key>Style</key>
-			<dict>
-				<key>stroke</key>
-				<dict>
-					<key>Cap</key>
-					<integer>0</integer>
-					<key>HeadArrow</key>
-					<string>0</string>
-					<key>Join</key>
-					<integer>0</integer>
-					<key>TailArrow</key>
-					<string>0</string>
-				</dict>
-			</dict>
 		</dict>
 		<dict>
 			<key>Bounds</key>
@@ -198,7 +203,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{1705.33, 2193.94}, {499.667, 57}}</string>
+			<string>{{348.5, 2178.38}, {499.667, 57}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -257,7 +262,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{1597.33, 2108}, {90, 165}}</string>
+			<string>{{223.469, 2155.5}, {90, 165}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -333,7 +338,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{385.61, 2208.88}, {1576.72, 809.422}}</string>
+			<string>{{435.901, 2271}, {1476.14, 757.787}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -364,8 +369,62 @@
 			</dict>
 		</dict>
 		<dict>
+			<key>Class</key>
+			<string>LineGraphic</string>
+			<key>ID</key>
+			<integer>587</integer>
+			<key>Layer</key>
+			<integer>2</integer>
+			<key>Points</key>
+			<array>
+				<string>{2121.97, 536}</string>
+				<string>{2121.97, 3187.82}</string>
+			</array>
+			<key>Style</key>
+			<dict>
+				<key>stroke</key>
+				<dict>
+					<key>Cap</key>
+					<integer>0</integer>
+					<key>HeadArrow</key>
+					<string>0</string>
+					<key>Join</key>
+					<integer>0</integer>
+					<key>TailArrow</key>
+					<string>0</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Class</key>
+			<string>LineGraphic</string>
+			<key>ID</key>
+			<integer>581</integer>
+			<key>Layer</key>
+			<integer>2</integer>
+			<key>Points</key>
+			<array>
+				<string>{225.969, 588.368}</string>
+				<string>{225.969, 3170.18}</string>
+			</array>
+			<key>Style</key>
+			<dict>
+				<key>stroke</key>
+				<dict>
+					<key>Cap</key>
+					<integer>0</integer>
+					<key>HeadArrow</key>
+					<string>0</string>
+					<key>Join</key>
+					<integer>0</integer>
+					<key>TailArrow</key>
+					<string>0</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
 			<key>Bounds</key>
-			<string>{{876.504, 1117.52}, {604.022, 992}}</string>
+			<string>{{871.959, 1117.52}, {604.022, 910}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -419,25 +478,23 @@
 
 \f0\fs72 \cf0 When dealing with spatialization, the workflow comprises a number of steps. We propose to conceptually organize them according to six layers according to levels of abstraction. Each layer provides services to the layer above it and receives services from the layer below it.\
 \
-The paper presents the layers, and the communication streams passing sound and control data between layers.\
-\
-Furthermore prototype implementations are presented combining:\
+The paper presents the layers, and the communication streams passing sound and control data between layers. Prototype implementations are discussed combining:\
 \
 \pard\tx220\tx720\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li1110\fi-1110\ql\qnatural\pardirnatural
 \ls1\ilvl0\cf0 {\listtext	
 \f1 \uc0\u10003 
-\f0 	}\cf2 Jamoma\cf0  - A modular framework for Max\
+\f0 	}\cf2 Jamoma\cf0  - A modular framework for Max.\
 \pard\tx220\tx720\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li720\fi-720\ql\qnatural\pardirnatural
 \ls1\ilvl0\cf0 {\listtext	
 \f1 \uc0\u10003 
-\f0 	}The \cf2 ICST Ambisonics Tools\cf0  for Max\
+\f0 	}The \cf2 ICST Ambisonics Tools\cf0  for Max.\
 \pard\tx220\tx720\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li1120\fi-1120\ql\qnatural\pardirnatural
 \ls1\ilvl0\cf0 {\listtext	
 \f1 \uc0\u10003 
-\f0 	}\cf2 SpatDIF\cf0  - Spatial Sound Description Interchange format\
+\f0 	}\cf2 SpatDIF\cf0  - Spatial Sound Description Interchange format.\
 {\listtext	
 \f1 \uc0\u10003 
-\f0 	}\cf2 Holo-Edit\cf0  - A graphical and algorithmic editor of sound trajectories\
+\f0 	}\cf2 Holo-Edit\cf0  - A graphical editor of sound trajectories.\
 }</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
@@ -447,7 +504,7 @@ Furthermore prototype implementations are presented combining:\
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{122.5, 895}, {48.5, 154.82}}</string>
+			<string>{{22.5, 2092.62}, {49.5, 256.376}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -624,7 +681,7 @@ STRATIFIED APPROACH }</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{220, 966.076}, {90, 165}}</string>
+			<string>{{218, 966.076}, {90, 165}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -700,7 +757,7 @@ STRATIFIED APPROACH }</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{344.5, 988.103}, {542.031, 165}}</string>
+			<string>{{342.5, 988.103}, {542.031, 165}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -773,7 +830,7 @@ NEED FOR INTEROPERABILITY\
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{235.06, 1117.52}, {604.022, 902}}</string>
+			<string>{{226.969, 1117.52}, {604.022, 902}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -862,35 +919,8 @@ Different spatialisation applications should be readily combined, guaranteeing e
 			</dict>
 		</dict>
 		<dict>
-			<key>Class</key>
-			<string>LineGraphic</string>
-			<key>ID</key>
-			<integer>581</integer>
-			<key>Layer</key>
-			<integer>2</integer>
-			<key>Points</key>
-			<array>
-				<string>{2265.94, 870.207}</string>
-				<string>{2265.94, 2042.62}</string>
-			</array>
-			<key>Style</key>
-			<dict>
-				<key>stroke</key>
-				<dict>
-					<key>Cap</key>
-					<integer>0</integer>
-					<key>HeadArrow</key>
-					<string>0</string>
-					<key>Join</key>
-					<integer>0</integer>
-					<key>TailArrow</key>
-					<string>0</string>
-				</dict>
-			</dict>
-		</dict>
-		<dict>
 			<key>Bounds</key>
-			<string>{{206.182, 699.091}, {90, 165}}</string>
+			<string>{{198.182, 699.091}, {90, 165}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -1088,7 +1118,7 @@ Cycling'74, Electrotap}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{310, 724.027}, {1826.03, 207}}</string>
+			<string>{{302, 724.027}, {1826.03, 207}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -1598,7 +1628,7 @@ for sound spatialization}</string>
 			<key>Print</key>
 			<string>YES</string>
 			<key>View</key>
-			<string>YES</string>
+			<string>NO</string>
 		</dict>
 	</array>
 	<key>LayoutInfo</key>
@@ -1623,7 +1653,7 @@ for sound spatialization}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2009-07-16 23:15:29 +0200</string>
+	<string>2009-07-16 23:29:40 +0200</string>
 	<key>Modifier</key>
 	<string>lossius</string>
 	<key>NotesVisible</key>
@@ -1713,7 +1743,7 @@ for sound spatialization}</string>
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{-303, 1142.42}, {2954.55, 2166.67}}</string>
+		<string>{{-303, 824.242}, {2954.55, 2166.67}}</string>
 		<key>Zoom</key>
 		<real>0.33000001311302185</real>
 		<key>ZoomValues</key>
@@ -1721,7 +1751,7 @@ for sound spatialization}</string>
 			<array>
 				<string>Canvas 1</string>
 				<real>0.33000001311302185</real>
-				<real>1</real>
+				<real>2</real>
 			</array>
 		</array>
 	</dict>
