@@ -724,7 +724,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	if(px.y > 20.0)	// we only handle clicks in the title bar
 		return;
 	
-	if(px.x > (rect.width - 120)){
+	if(px.x > 18){//(rect.width - 112)){
 		// we check the gain and mix knobs first because they are continuous parameters and should run as fast as possible
 		if(x->attr_hasgain && px.x >= x->rect_gain.x && px.x <= (x->rect_gain.x + x->rect_gain.width)){
 			setGainDataspaceUnit(x, gensym("midi"));
@@ -749,11 +749,12 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			object_attr_setlong(x, gensym("is_bypassed"), !x->attr_isbypassed);
 		else if(x->attr_hasmute && px.x >= x->rect_mute.x && px.x <= (x->rect_mute.x + x->rect_mute.width))
 			object_attr_setlong(x, gensym("is_muted"), !x->attr_ismuted);
+		else //if(px.x < 150)
+			ui_refmenu_do(x, patcherview, px, modifiers);
 	}
-	else if(px.x < 25)
+	else //if(px.x < 18)
 		ui_menu_do(x, patcherview, px, modifiers);
-	else if(px.x < 150)
-		ui_refmenu_do(x, patcherview, px, modifiers);
+	
 }
 
 
@@ -766,14 +767,14 @@ void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 	
 	if(modifiers & eShiftKey)
-		factor = 50.0;
+		factor = 0.02;
 	
 	if(x->mixDragging){
-		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y / factor), 0.0, 100.0);
+		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y * factor), 0.0, 100.0);
 		object_attr_setfloat(x, gensym("mix"), x->anchorValue);
 	}
 	else if(x->gainDragging){
-		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y / factor), 0.0, 127.0);
+		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y * factor), 0.0, 127.0);
 		object_attr_setfloat(x, gensym("gain"), x->anchorValue);
 	}
 }
