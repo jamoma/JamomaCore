@@ -12,7 +12,7 @@
 
 #define thisTTClass			SpatDisplay
 #define thisTTClassName		"SpatDisplay"
-#define thisTTClassTags		"audio, processor"
+#define thisTTClassTags		"graphics, widget, spatialization"
 
 
 /**	A basic user interface for spatial positioning. */
@@ -95,7 +95,7 @@ TTErr SpatDisplay::draw(const TTValue& v)
 	gc->setFontSize(18.0);
 	gc->setSourceRGBA(0.8, 0.8, 0.8, 1.0);
 	gc->moveTo(10.0, 20.0);
-	gc->showText("Blue Butter");
+	gc->showText("Spat Display");
 	
 	gc->setFontSize(12.0);
 	gc->moveTo(width-100.0, height-60.0);
@@ -182,5 +182,15 @@ TTErr SpatDisplay::mouseExited(const TTValue& v)
 TTErr SpatDisplay::mouseMoved(const TTValue& v)
 {
 	return kTTErrGeneric;	// return an error if we don't handle the mouse gesture
+}
+
+
+
+
+extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
+{
+	TTBlueInit();
+	SpatDisplay::registerClass();
+	return kTTErrNone;
 }
 
