@@ -749,7 +749,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			object_attr_setlong(x, gensym("is_bypassed"), !x->attr_isbypassed);
 		else if(x->attr_hasmute && px.x >= x->rect_mute.x && px.x <= (x->rect_mute.x + x->rect_mute.width))
 			object_attr_setlong(x, gensym("is_muted"), !x->attr_ismuted);
-		else //if(px.x < 150)
+		else if(px.x < 100)
 			ui_refmenu_do(x, patcherview, px, modifiers);
 	}
 	else //if(px.x < 18)
