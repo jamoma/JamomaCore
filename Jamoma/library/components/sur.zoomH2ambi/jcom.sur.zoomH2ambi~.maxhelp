@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 336.0, 44.0, 548.0, 704.0 ],
+		"rect" : [ 124.0, 46.0, 591.0, 709.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 336.0, 44.0, 548.0, 704.0 ],
+		"defrect" : [ 124.0, 46.0, 591.0, 709.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -357,15 +357,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 15.0, 261.0, 138.0, 19.0 ],
+					"patching_rect" : [ 49.0, 264.0, 138.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p equal_horizontal_distro"
@@ -383,7 +383,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 15.0, 239.0, 37.0, 19.0 ],
+					"patching_rect" : [ 49.0, 242.0, 37.0, 19.0 ],
 					"triscale" : 0.9
 				}
 
@@ -399,9 +399,9 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"defrect" : [ 25.0, 69.0, 640.0, 480.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -528,15 +528,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 15.0, 361.0, 49.0, 19.0 ],
+					"patching_rect" : [ 49.0, 364.0, 49.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p adapt"
@@ -552,7 +552,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 15.0, 383.0, 151.0, 151.0 ],
+					"patching_rect" : [ 49.0, 386.0, 151.0, 151.0 ],
 					"presentation_rect" : [ 30.0, 30.0, 100.0, 100.0 ]
 				}
 
@@ -828,15 +828,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 492.0, 139.5, 59.5, 19.0 ],
+					"patching_rect" : [ 526.0, 142.5, 59.5, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p init"
@@ -879,7 +879,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 47.0, 73.0, 238.0, 25.0 ],
+									"patching_rect" : [ 47.0, 73.0, 304.0, 29.0 ],
 									"text" : ";\rmax launchbrowser http://www.radio.uqam.ca/ambisonic/"
 								}
 
@@ -911,13 +911,13 @@
 ,
 					"patching_rect" : [ 17.0, 101.5, 24.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p"
@@ -947,9 +947,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"rect" : [ 229.0, 153.0, 640.0, 480.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"defrect" : [ 229.0, 153.0, 640.0, 480.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -972,7 +972,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 50.0, 100.0, 182.0, 36.0 ],
+									"patching_rect" : [ 50.0, 100.0, 236.0, 41.0 ],
 									"text" : ";\rmax launchbrowser http://www.zoom.co.jp/english/products/h2/"
 								}
 
@@ -1004,13 +1004,13 @@
 ,
 					"patching_rect" : [ 69.0, 61.5, 24.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p"
@@ -1025,7 +1025,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "bang", "bang", "", "int" ],
-					"patching_rect" : [ 82.0, 37.5, 56.0, 20.0 ]
+					"patching_rect" : [ 61.0, 22.5, 232.0, 37.0 ]
 				}
 
 			}
@@ -1033,36 +1033,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-27",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 133.0, 39.0, 336.0, 19.0 ],
-					"text" : "four channel recording into a horizontal-only B-format 2nd order"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-26",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 82.0, 39.0, 58.0, 19.0 ],
-					"text" : "Zoom-H2",
-					"underline" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-24",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -1083,7 +1053,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 74.0, 129.0, 90.0, 19.0 ],
+					"patching_rect" : [ 108.0, 132.0, 90.0, 19.0 ],
 					"text" : "loadmess set 1."
 				}
 
@@ -1092,13 +1062,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 11.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-23",
-					"linecount" : 3,
+					"linecount" : 4,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 149.0, 96.0, 47.0 ],
+					"patching_rect" : [ 16.0, 150.0, 85.0, 60.0 ],
 					"text" : "the W channel may need  some tweaking"
 				}
 
@@ -1114,7 +1083,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 74.0, 164.0, 47.0, 17.0 ]
+					"patching_rect" : [ 108.0, 167.0, 47.0, 19.0 ]
 				}
 
 			}
@@ -1127,36 +1096,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 74.0, 204.0, 67.0, 17.0 ],
+					"patching_rect" : [ 108.0, 207.0, 67.0, 17.0 ],
 					"text" : "/gain/W $1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-3",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 27.0, 39.0, 64.0, 19.0 ],
-					"text" : "converts a "
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-4",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 27.0, 11.0, 240.0, 28.0 ],
-					"text" : "jcom.sur.zoomH2ambi~"
 				}
 
 			}
@@ -1169,7 +1110,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 183.0, 594.0, 184.0, 19.0 ],
+					"patching_rect" : [ 217.0, 597.0, 184.0, 19.0 ],
 					"text" : "jcom.pass /numSpeakers @strip 0"
 				}
 
@@ -1183,7 +1124,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 183.0, 432.0, 184.0, 19.0 ],
+					"patching_rect" : [ 217.0, 435.0, 184.0, 19.0 ],
 					"text" : "jcom.pass /numSpeakers @strip 0"
 				}
 
@@ -1197,7 +1138,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 183.0, 617.0, 300.0, 70.0 ],
+					"patching_rect" : [ 217.0, 620.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
 				}
 
@@ -1211,7 +1152,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 15.0, 282.0, 150.0, 70.0 ],
+					"patching_rect" : [ 49.0, 285.0, 150.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ]
 				}
 
@@ -1225,7 +1166,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 183.0, 453.0, 300.0, 140.0 ],
+					"patching_rect" : [ 217.0, 456.0, 300.0, 140.0 ],
 					"presentation_rect" : [ 30.0, 30.0, 300.0, 140.0 ]
 				}
 
@@ -1239,14 +1180,14 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 183.0, 360.0, 300.0, 70.0 ],
+					"patching_rect" : [ 217.0, 363.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"color" : [ 1.0, 0.0, 0.0, 0.8 ],
+					"color" : [ 0.619608, 0.0, 0.360784, 0.698039 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-6",
@@ -1254,7 +1195,7 @@
 					"numinlets" : 5,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 191.0, 190.0, 292.0, 19.0 ],
+					"patching_rect" : [ 225.0, 193.0, 292.0, 19.0 ],
 					"text" : "jcom.sur.zoomH2ambi~ @gain/W 1."
 				}
 
@@ -1268,7 +1209,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 183.0, 216.0, 300.0, 140.0 ],
+					"patching_rect" : [ 217.0, 219.0, 300.0, 140.0 ],
 					"presentation_rect" : [ 15.0, 15.0, 300.0, 140.0 ]
 				}
 
@@ -1282,20 +1223,22 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 183.0, 114.0, 300.0, 70.0 ],
+					"patching_rect" : [ 217.0, 117.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"background" : 1,
-					"id" : "obj-22",
-					"maxclass" : "panel",
+					"args" : [ "@name", "jcom.sur.zoomH2ambi~", "@description", "Convert a Zoom-H2 four channel recording into a horizontal-only B-format 2nd order" ],
+					"bgmode" : 1,
+					"id" : "obj-19",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 15.0, 11.0, 456.0, 50.0 ],
-					"rounded" : 15
+					"patching_rect" : [ 0.0, 0.0, 591.0, 60.0 ],
+					"varname" : "maxhelpui"
 				}
 
 			}
@@ -1313,7 +1256,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-5", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 200.5, 212.0, 473.5, 212.0 ],
+					"midpoints" : [ 234.5, 215.0, 507.5, 215.0 ],
 					"source" : [ "obj-6", 0 ]
 				}
 
@@ -1403,7 +1346,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-6", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 83.5, 228.0, 165.0, 228.0, 165.0, 187.0, 200.5, 187.0 ],
+					"midpoints" : [ 117.5, 231.0, 199.0, 231.0, 199.0, 190.0, 234.5, 190.0 ],
 					"source" : [ "obj-18", 0 ]
 				}
 
@@ -1502,7 +1445,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 24.5, 358.5, 192.5, 358.5 ],
+					"midpoints" : [ 58.5, 361.5, 226.5, 361.5 ],
 					"source" : [ "obj-10", 0 ]
 				}
 

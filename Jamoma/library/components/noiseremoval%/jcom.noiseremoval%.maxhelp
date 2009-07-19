@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 123.0, 125.0, 637.0, 410.0 ],
+		"rect" : [ 123.0, 125.0, 662.0, 440.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 123.0, 125.0, 637.0, 410.0 ],
+		"defrect" : [ 123.0, 125.0, 662.0, 440.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,6 +17,20 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [ "@name", "jcom.noiseremoval%", "@description", "Remove noises from images" ],
+					"bgmode" : 1,
+					"id" : "obj-19",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 662.0, 70.0 ],
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 11.0,
 					"hidden" : 1,
@@ -25,7 +39,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 462.0, 150.0, 80.0, 20.0 ],
+					"patching_rect" : [ 479.0, 178.0, 80.0, 20.0 ],
 					"text" : "loadmess 50"
 				}
 
@@ -38,7 +52,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 25.0, 230.0, 160.0, 120.0 ]
+					"patching_rect" : [ 42.0, 258.0, 160.0, 120.0 ]
 				}
 
 			}
@@ -51,7 +65,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 462.0, 175.0, 47.0, 19.0 ],
+					"patching_rect" : [ 479.0, 203.0, 47.0, 19.0 ],
 					"triscale" : 0.9
 				}
 
@@ -65,7 +79,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 195.0, 360.0, 60.0, 35.0 ]
+					"patching_rect" : [ 212.0, 388.0, 60.0, 35.0 ]
 				}
 
 			}
@@ -74,11 +88,11 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-8",
-					"linecount" : 4,
+					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 335.0, 90.0, 285.0, 55.0 ],
+					"patching_rect" : [ 10.0, 72.0, 558.0, 31.0 ],
 					"text" : "This component is useful for removing noise from motion images. It does this by blurring out the image and adding a threshold to keep only the large blobs in the image."
 				}
 
@@ -91,12 +105,13 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 365.0, 230.0, 160.0, 120.0 ]
+					"patching_rect" : [ 382.0, 258.0, 160.0, 120.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"color" : [ 0.619608, 0.0, 0.360784, 0.698039 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-10",
@@ -104,7 +119,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "jit_matrix" ],
-					"patching_rect" : [ 365.0, 200.0, 116.0, 19.0 ],
+					"patching_rect" : [ 382.0, 228.0, 116.0, 19.0 ],
 					"text" : "jcom.noiseremoval%"
 				}
 
@@ -117,7 +132,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 195.0, 230.0, 160.0, 120.0 ]
+					"patching_rect" : [ 212.0, 258.0, 160.0, 120.0 ]
 				}
 
 			}
@@ -130,7 +145,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 25.0, 80.0, 300.0, 70.0 ],
+					"patching_rect" : [ 42.0, 119.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"varname" : "/input%"
 				}
@@ -145,21 +160,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "jit_matrix" ],
-					"patching_rect" : [ 195.0, 190.0, 92.0, 19.0 ],
+					"patching_rect" : [ 212.0, 218.0, 92.0, 19.0 ],
 					"text" : "jcom.motion%"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"id" : "obj-14",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 25.0, 20.0, 194.0, 28.0 ],
-					"text" : "jcom.noiseremoval%"
 				}
 
 			}
@@ -171,32 +173,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 397.0, 175.0, 77.0, 19.0 ],
+					"patching_rect" : [ 414.0, 203.0, 77.0, 19.0 ],
 					"text" : "threshold"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-15",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 25.0, 45.0, 304.0, 19.0 ],
-					"text" : "removes noise from images"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-16",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 15.0, 383.0, 51.0 ],
-					"rounded" : 15
 				}
 
 			}
@@ -214,7 +192,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 204.5, 219.0, 344.0, 219.0, 344.0, 191.0, 374.5, 191.0 ],
+					"midpoints" : [ 221.5, 247.0, 361.0, 247.0, 361.0, 219.0, 391.5, 219.0 ],
 					"source" : [ "obj-13", 0 ]
 				}
 
@@ -259,7 +237,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-13", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 315.5, 166.0, 204.5, 166.0 ],
+					"midpoints" : [ 332.5, 205.0, 221.5, 205.0 ],
 					"source" : [ "obj-12", 1 ]
 				}
 
@@ -268,7 +246,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 315.5, 154.0, 34.5, 154.0 ],
+					"midpoints" : [ 332.5, 197.0, 51.5, 197.0 ],
 					"source" : [ "obj-12", 1 ]
 				}
 

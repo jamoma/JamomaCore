@@ -17,6 +17,20 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [ "@name", "jcom.spray%", "@description", "Distribute a video over multiple outlets" ],
+					"bgmode" : 1,
+					"id" : "obj-1",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 876.0, 70.0 ],
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-24",
@@ -37,8 +51,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 30.0, 359.0, 800.0, 300.0 ],
-					"presentation_rect" : [ 182.0, 394.0, 800.0, 300.0 ]
+					"patching_rect" : [ 30.0, 359.0, 800.0, 400.0 ],
+					"presentation_rect" : [ 182.0, 394.0, 800.0, 400.0 ]
 				}
 
 			}
@@ -122,6 +136,7 @@
 			}
 , 			{
 				"box" : 				{
+					"color" : [ 0.619608, 0.0, 0.360784, 0.698039 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-16",
@@ -149,43 +164,6 @@
 				}
 
 			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"id" : "obj-18",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 25.0, 25.0, 142.0, 28.0 ],
-					"text" : "jcom.spray%"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-19",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 25.0, 50.0, 205.0, 19.0 ],
-					"text" : "Distribute a video over multiple outlets"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-20",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 15.0, 15.0, 294.0, 64.0 ],
-					"rounded" : 15
-				}
-
-			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
@@ -200,7 +178,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-16", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 320.5, 265.0, 39.5, 265.0 ],
+					"midpoints" : [ 320.5, 266.5, 39.5, 266.5 ],
 					"source" : [ "obj-17", 1 ]
 				}
 

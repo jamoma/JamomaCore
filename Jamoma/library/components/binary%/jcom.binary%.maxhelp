@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 40.0, 57.0, 590.0, 432.0 ],
+		"rect" : [ 40.0, 57.0, 668.0, 471.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 40.0, 57.0, 590.0, 432.0 ],
+		"defrect" : [ 40.0, 57.0, 668.0, 471.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -15,261 +15,233 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
-		"metadata" : [  ],
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "(values between 0 255)",
-					"patching_rect" : [ 130.0, 215.0, 150.0, 19.0 ],
-					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
-					"id" : "obj-14",
-					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"numoutlets" : 0,
-					"presentation_rect" : [ 130.0, 221.0, 0.0, 0.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "jit.fpsgui",
-					"patching_rect" : [ 305.0, 375.0, 60.0, 35.0 ],
-					"id" : "obj-1",
-					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Attributes: \r@mode (negative/positive)\r@threshold (int/float)",
-					"linecount" : 3,
-					"patching_rect" : [ 325.0, 170.0, 170.0, 43.0 ],
-					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
-					"id" : "obj-2",
-					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"numoutlets" : 0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "number",
-					"patching_rect" : [ 530.0, 195.0, 35.0, 19.0 ],
-					"id" : "obj-3",
-					"fontname" : "Verdana",
-					"minimum" : 0,
-					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"numoutlets" : 2,
-					"triscale" : 0.9,
-					"outlettype" : [ "int", "bang" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "jit.pwindow",
-					"patching_rect" : [ 305.0, 245.0, 160.0, 120.0 ],
-					"id" : "obj-4",
-					"depthbuffer" : 0,
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.binary% @mode negative @threshold 10",
-					"patching_rect" : [ 305.0, 220.0, 244.0, 19.0 ],
-					"id" : "obj-5",
-					"fontname" : "Verdana",
-					"numinlets" : 2,
-					"fontsize" : 10.0,
-					"numoutlets" : 1,
-					"outlettype" : [ "jit_matrix" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "jit.pwindow",
-					"patching_rect" : [ 25.0, 260.0, 160.0, 120.0 ],
-					"id" : "obj-6",
-					"depthbuffer" : 0,
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "number",
-					"patching_rect" : [ 90.0, 195.0, 35.0, 19.0 ],
-					"id" : "obj-7",
-					"fontname" : "Verdana",
-					"minimum" : 0,
-					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"numoutlets" : 2,
-					"triscale" : 0.9,
-					"outlettype" : [ "int", "bang" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
+					"args" : [ "@name", "jcom.binary%", "@description", "Create a binary image" ],
+					"bgmode" : 1,
+					"id" : "obj-15",
 					"maxclass" : "bpatcher",
-					"varname" : "/input%",
-					"patching_rect" : [ 25.0, 80.0, 300.0, 70.0 ],
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 1031.0, 60.0 ],
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-14",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 130.0, 215.0, 150.0, 19.0 ],
+					"text" : "(values between 0 255)"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-1",
+					"maxclass" : "jit.fpsgui",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 304.0, 375.0, 60.0, 35.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-2",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 488.0, 248.0, 170.0, 43.0 ],
+					"text" : "Attributes: \r@mode (negative/positive)\r@threshold (int/float)"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"maxclass" : "number",
+					"minimum" : 0,
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "int", "bang" ],
+					"patching_rect" : [ 529.0, 195.0, 35.0, 19.0 ],
+					"triscale" : 0.9
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"depthbuffer" : 0,
+					"id" : "obj-4",
+					"maxclass" : "jit.pwindow",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 304.0, 245.0, 160.0, 120.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"color" : [ 0.619608, 0.0, 0.360784, 0.698039 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-5",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "jit_matrix" ],
+					"patching_rect" : [ 304.0, 220.0, 244.0, 19.0 ],
+					"text" : "jcom.binary% @mode negative @threshold 10"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"depthbuffer" : 0,
+					"id" : "obj-6",
+					"maxclass" : "jit.pwindow",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 25.0, 260.0, 160.0, 120.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-7",
+					"maxclass" : "number",
+					"minimum" : 0,
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "int", "bang" ],
+					"patching_rect" : [ 90.0, 195.0, 35.0, 19.0 ],
+					"triscale" : 0.9
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"args" : [  ],
 					"id" : "obj-8",
+					"maxclass" : "bpatcher",
 					"name" : "jmod.input%.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 23.0, 80.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"outlettype" : [ "", "" ]
+					"varname" : "/input%"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.binary%",
-					"patching_rect" : [ 25.0, 220.0, 84.0, 19.0 ],
+					"color" : [ 0.619608, 0.0, 0.360784, 0.698039 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-9",
-					"fontname" : "Verdana",
+					"maxclass" : "newobj",
 					"numinlets" : 2,
-					"fontsize" : 10.0,
 					"numoutlets" : 1,
-					"outlettype" : [ "jit_matrix" ]
+					"outlettype" : [ "jit_matrix" ],
+					"patching_rect" : [ 25.0, 220.0, 84.0, 19.0 ],
+					"text" : "jcom.binary%"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "jcom.binary%",
-					"patching_rect" : [ 21.0, 18.0, 142.0, 28.0 ],
-					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
-					"id" : "obj-10",
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"fontsize" : 18.0,
-					"numoutlets" : 0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Creates a binary image",
-					"patching_rect" : [ 21.0, 43.0, 217.0, 19.0 ],
-					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
-					"id" : "obj-11",
-					"fontname" : "Verdana",
-					"numinlets" : 1,
 					"fontsize" : 10.0,
-					"numoutlets" : 0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "panel",
-					"patching_rect" : [ 16.0, 13.0, 292.0, 50.0 ],
-					"id" : "obj-12",
-					"rounded" : 15,
-					"numinlets" : 1,
-					"numoutlets" : 0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Threshold (default = 50)",
-					"patching_rect" : [ 130.0, 195.0, 150.0, 19.0 ],
-					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
 					"id" : "obj-13",
-					"fontname" : "Verdana",
+					"maxclass" : "comment",
 					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"numoutlets" : 0
+					"numoutlets" : 0,
+					"patching_rect" : [ 130.0, 195.0, 150.0, 19.0 ],
+					"text" : "Threshold (default = 50)"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-8", 1 ],
-					"destination" : [ "obj-9", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 315.5, 166.0, 34.5, 166.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-9", 0 ],
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-7", 0 ],
-					"destination" : [ "obj-9", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-8", 1 ],
-					"destination" : [ "obj-5", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-5", 0 ],
-					"destination" : [ "obj-4", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-4", 0 ],
-					"destination" : [ "obj-1", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-3", 0 ],
 					"destination" : [ "obj-5", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-4", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-8", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-9", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 313.5, 166.0, 34.5, 166.0 ],
+					"source" : [ "obj-8", 1 ]
 				}
 
 			}

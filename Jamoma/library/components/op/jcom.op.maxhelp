@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 212.0, 252.0, 373.0, 295.0 ],
+		"rect" : [ 219.0, 120.0, 410.0, 297.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 212.0, 252.0, 373.0, 295.0 ],
+		"defrect" : [ 219.0, 120.0, 410.0, 297.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -15,193 +15,239 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
-		"metadata" : [  ],
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "umenu",
-					"types" : [  ],
-					"patching_rect" : [ 84.0, 110.0, 60.0, 19.0 ],
-					"id" : "obj-1",
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"pattrmode" : 1,
 					"fontsize" : 10.0,
-					"numoutlets" : 3,
-					"items" : [ "pass", ",", "*", ",", "/", ",", "+", ",", "-", ",", "+m", ",", "-m", ",", "%", ",", "min", ",", "max", ",", "abs", ",", "avg", ",", "absdiff", ",", "wrap", ",", "fold", ",", "!pass", ",", "!/", ",", "!-", ",", "!%", ",", "&", ",", "|", ",", "^", ",", "~", ",", ">>", ",", "<<", ",", "&&", ",", "||", ",", "!", ",", ">", ",", "<", ",", ">=", ",", "<=", ",", "==", ",", "!=", ",", ">p", ",", "<p", ",", ">=p", ",", "<=p", ",", "==p", ",", "!=p", ",", "sin", ",", "cos", ",", "tan", ",", "asin", ",", "acos", ",", "atan", ",", "atan2", ",", "sinh", ",", "cosh", ",", "tanh", ",", "asinh", ",", "acosh", ",", "atanh", ",", "exp", ",", "exp2", ",", "ln", ",", "log2", ",", "log10", ",", "hypot", ",", "pow", ",", "sqrt", ",", "ceil", ",", "floor", ",", "round", ",", "trunc", ",", "ignore" ],
-					"outlettype" : [ "int", "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
+					"hidden" : 1,
+					"id" : "obj-13",
 					"maxclass" : "newobj",
-					"text" : "prepend op",
-					"patching_rect" : [ 104.0, 129.0, 70.0, 19.0 ],
-					"id" : "obj-2",
-					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 10.0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 399.0, 226.0, 76.0, 19.0 ],
+					"text" : "prepend help"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "flonum",
-					"patching_rect" : [ 173.0, 109.0, 37.0, 19.0 ],
-					"id" : "obj-3",
 					"fontname" : "Verdana",
-					"numinlets" : 1,
 					"fontsize" : 10.0,
-					"numoutlets" : 2,
-					"triscale" : 0.9,
-					"outlettype" : [ "float", "bang" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "flonum",
-					"patching_rect" : [ 30.0, 201.0, 37.0, 19.0 ],
-					"id" : "obj-4",
-					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"numoutlets" : 2,
-					"triscale" : 0.9,
-					"outlettype" : [ "float", "bang" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "flonum",
-					"patching_rect" : [ 30.0, 109.0, 37.0, 19.0 ],
-					"id" : "obj-5",
-					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"numoutlets" : 2,
-					"triscale" : 0.9,
-					"outlettype" : [ "float", "bang" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
+					"hidden" : 1,
+					"id" : "obj-12",
 					"maxclass" : "newobj",
-					"text" : "jcom.op @op + @val 2",
-					"patching_rect" : [ 30.0, 166.0, 186.0, 19.0 ],
-					"id" : "obj-6",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 399.0, 251.0, 51.0, 19.0 ],
+					"text" : "pcontrol"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-11",
+					"maxclass" : "message",
 					"numinlets" : 2,
-					"fontsize" : 10.0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 333.0, 246.0, 37.0, 17.0 ],
+					"text" : "jit.op"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "jcom.op",
-					"patching_rect" : [ 15.0, 15.0, 142.0, 28.0 ],
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"id" : "obj-7",
 					"fontname" : "Verdana",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"numinlets" : 1,
-					"fontsize" : 18.0,
-					"numoutlets" : 0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "For all those times you whished you could use jit.op for numbers.",
-					"patching_rect" : [ 15.0, 40.0, 341.0, 19.0 ],
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
+					"fontsize" : 10.0,
 					"id" : "obj-8",
-					"fontname" : "Verdana",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"numoutlets" : 0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "panel",
-					"patching_rect" : [ 8.0, 9.0, 344.0, 63.0 ],
-					"id" : "obj-9",
-					"rounded" : 15,
-					"bgcolor" : [ 0.262745, 0.254902, 0.419608, 1.0 ],
-					"numinlets" : 1,
-					"numoutlets" : 0
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "Works the same way as jit.op, but on floats.",
-					"linecount" : 2,
-					"patching_rect" : [ 224.0, 154.0, 124.0, 31.0 ],
-					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
-					"id" : "obj-10",
-					"fontname" : "Verdana",
 					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 331.0, 225.0, 57.0, 19.0 ],
+					"text" : "See also:"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "@name", "jcom.op", "@description", "For all those times you wished you could use jit.op for numbers" ],
+					"bgmode" : 1,
+					"id" : "obj-19",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 1031.0, 60.0 ],
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"numoutlets" : 0
+					"id" : "obj-1",
+					"items" : [ "pass", ",", "*", ",", "/", ",", "+", ",", "-", ",", "+m", ",", "-m", ",", "%", ",", "min", ",", "max", ",", "abs", ",", "avg", ",", "absdiff", ",", "wrap", ",", "fold", ",", "!pass", ",", "!/", ",", "!-", ",", "!%", ",", "&", ",", "|", ",", "^", ",", "~", ",", ">>", ",", "<<", ",", "&&", ",", "||", ",", "!", ",", ">", ",", "<", ",", ">=", ",", "<=", ",", "==", ",", "!=", ",", ">p", ",", "<p", ",", ">=p", ",", "<=p", ",", "==p", ",", "!=p", ",", "sin", ",", "cos", ",", "tan", ",", "asin", ",", "acos", ",", "atan", ",", "atan2", ",", "sinh", ",", "cosh", ",", "tanh", ",", "asinh", ",", "acosh", ",", "atanh", ",", "exp", ",", "exp2", ",", "ln", ",", "log2", ",", "log10", ",", "hypot", ",", "pow", ",", "sqrt", ",", "ceil", ",", "floor", ",", "round", ",", "trunc", ",", "ignore" ],
+					"maxclass" : "umenu",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "int", "", "" ],
+					"patching_rect" : [ 83.0, 108.0, 60.0, 19.0 ],
+					"pattrmode" : 1,
+					"types" : [  ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-2",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 104.0, 129.0, 70.0, 19.0 ],
+					"text" : "prepend op"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 197.0, 108.0, 37.0, 19.0 ],
+					"triscale" : 0.9
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-4",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 30.0, 201.0, 37.0, 19.0 ],
+					"triscale" : 0.9
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-5",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 30.0, 108.0, 37.0, 19.0 ],
+					"triscale" : 0.9
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"color" : [ 0.619608, 0.0, 0.360784, 0.698039 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-6",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 30.0, 166.0, 186.0, 19.0 ],
+					"text" : "jcom.op @op + @val 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-10",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 223.0, 159.0, 124.0, 31.0 ],
+					"text" : "Works the same way as jit.op, but on floats."
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-5", 0 ],
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-13", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-2", 0 ],
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 113.5, 156.0, 39.5, 156.0 ]
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-11", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-6", 0 ],
-					"destination" : [ "obj-4", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-1", 1 ],
-					"destination" : [ "obj-2", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-3", 0 ],
 					"destination" : [ "obj-6", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-1", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-6", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 113.5, 156.0, 39.5, 156.0 ],
+					"source" : [ "obj-2", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 0 ]
 				}
 
 			}

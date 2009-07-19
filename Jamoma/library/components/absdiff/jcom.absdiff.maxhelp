@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 145.0, 130.0, 346.0, 247.0 ],
+		"rect" : [ 145.0, 130.0, 376.0, 226.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 145.0, 130.0, 346.0, 247.0 ],
+		"defrect" : [ 145.0, 130.0, 376.0, 226.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -15,126 +15,102 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
-		"metadata" : [  ],
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "flonum",
-					"outlettype" : [ "float", "bang" ],
+					"args" : [ "@name", "jcom.absdiff", "@description", "Calculate the absolute difference between two numbers" ],
+					"bgmode" : 1,
+					"id" : "obj-8",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 325.0, 60.0 ],
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"patching_rect" : [ 88.0, 106.0, 41.0, 19.0 ],
-					"triscale" : 0.9,
 					"id" : "obj-1",
+					"maxclass" : "flonum",
 					"numinlets" : 1,
-					"fontname" : "Verdana",
-					"numoutlets" : 2
+					"numoutlets" : 2,
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 212.0, 95.0, 41.0, 19.0 ],
+					"triscale" : 0.9
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "flonum",
-					"outlettype" : [ "float", "bang" ],
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"patching_rect" : [ 32.0, 173.0, 41.0, 19.0 ],
-					"triscale" : 0.9,
 					"id" : "obj-2",
-					"numinlets" : 1,
-					"fontname" : "Verdana",
-					"numoutlets" : 2
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 156.0, 162.0, 41.0, 19.0 ],
+					"triscale" : 0.9
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"patching_rect" : [ 32.0, 106.0, 41.0, 19.0 ],
-					"triscale" : 0.9,
 					"id" : "obj-3",
+					"maxclass" : "flonum",
 					"numinlets" : 1,
-					"fontname" : "Verdana",
-					"numoutlets" : 2
+					"numoutlets" : 2,
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 156.0, 95.0, 41.0, 19.0 ],
+					"triscale" : 0.9
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.absdiff",
-					"outlettype" : [ "float" ],
+					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"patching_rect" : [ 32.0, 138.0, 75.0, 19.0 ],
 					"id" : "obj-4",
+					"maxclass" : "newobj",
 					"numinlets" : 2,
-					"fontname" : "Verdana",
 					"numoutlets" : 1,
-					"color" : [ 0.5, 0.5, 0.5, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "jcom.absdiff",
-					"fontsize" : 18.0,
-					"patching_rect" : [ 17.0, 18.0, 157.0, 28.0 ],
-					"id" : "obj-5",
-					"numinlets" : 1,
-					"fontname" : "Verdana",
-					"numoutlets" : 0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Calculates the absolute difference between two numbers",
-					"fontsize" : 10.0,
-					"patching_rect" : [ 17.0, 43.0, 308.0, 19.0 ],
-					"id" : "obj-6",
-					"numinlets" : 1,
-					"fontname" : "Verdana",
-					"numoutlets" : 0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "panel",
-					"rounded" : 15,
-					"patching_rect" : [ 16.0, 13.0, 310.0, 50.0 ],
-					"id" : "obj-7",
-					"numinlets" : 1,
-					"numoutlets" : 0
+					"outlettype" : [ "float" ],
+					"patching_rect" : [ 156.0, 127.0, 75.0, 19.0 ],
+					"text" : "jcom.absdiff"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-1", 0 ],
 					"destination" : [ "obj-4", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-1", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-4", 0 ],
 					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-4", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-3", 0 ],
 					"destination" : [ "obj-4", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}
