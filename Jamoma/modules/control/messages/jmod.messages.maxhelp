@@ -1722,7 +1722,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "int", "clear" ],
 									"patching_rect" : [ 588.0, 95.0, 196.0, 19.0 ],
-									"text" : "jcom.modules_dumper"
+									"text" : "jcom.modulesDumper"
 								}
 
 							}
