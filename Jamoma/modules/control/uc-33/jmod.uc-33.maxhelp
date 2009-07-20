@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 125.0, 69.0, 438.0, 301.0 ],
+		"rect" : [ 411.0, 90.0, 438.0, 301.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 125.0, 69.0, 438.0, 301.0 ],
+		"defrect" : [ 411.0, 90.0, 438.0, 301.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,9 +17,23 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [ "@name", "jmod.uc-33", "@description", "Module interfacing with the Edirol UC-33 MIDI fader" ],
+					"bgmode" : 1,
+					"id" : "obj-7",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 438.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-1",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -53,7 +67,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 45.0, 260.0, 195.0, 17.0 ]
+					"patching_rect" : [ 45.0, 260.0, 195.0, 17.0 ],
+					"text" : "/midiIn UC-33"
 				}
 
 			}
@@ -77,46 +92,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-6",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 50.0, 345.0, 19.0 ],
-					"text" : "module interfacing with the Edirol UC-33 MIDI fader"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-7",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 20.0, 325.0, 28.0 ],
-					"text" : "jmod.uc-33"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-8",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 10.0, 403.0, 65.0 ],
-					"rounded" : 15
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-9",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -129,19 +104,19 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-3", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 54.5, 237.0, 230.5, 237.0 ],
-					"source" : [ "obj-5", 0 ]
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-2", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-3", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-2", 0 ]
+					"destination" : [ "obj-3", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 54.5, 237.0, 230.5, 237.0 ],
+					"source" : [ "obj-5", 0 ]
 				}
 
 			}

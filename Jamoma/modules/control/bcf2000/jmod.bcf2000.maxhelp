@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 91.0, 44.0, 400.0, 388.0 ],
+		"rect" : [ 128.0, 85.0, 592.0, 500.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 91.0, 44.0, 400.0, 388.0 ],
+		"defrect" : [ 128.0, 85.0, 592.0, 500.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,9 +17,23 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [ "@name", "jmod.bcf2000", "@description", "Module interfacing with the Behringer BCF2000 motorized controller" ],
+					"bgmode" : 1,
+					"id" : "obj-7",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 1.0, -1.0, 592.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-1",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -34,7 +48,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-2",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -48,7 +61,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-3",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -63,7 +75,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-4",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -84,7 +95,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 111.0, 338.0, 73.0, 18.0 ],
+					"patching_rect" : [ 111.0, 338.0, 74.0, 19.0 ],
 					"text" : "loadmess set"
 				}
 
@@ -98,8 +109,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 44.0, 361.0, 192.0, 16.0 ],
-					"text" : "/module_name /bcf2000"
+					"patching_rect" : [ 44.0, 361.0, 192.0, 17.0 ],
+					"text" : "/midiOut BCF2000"
 				}
 
 			}
@@ -123,46 +134,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-9",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 24.0, 53.0, 360.0, 19.0 ],
-					"text" : "module interfacing with the Behringer BCF2000 motorized controller"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-10",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 24.0, 25.0, 239.0, 28.0 ],
-					"text" : "jmod.bcf2000"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-11",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 19.0, 17.0, 360.0, 58.0 ],
-					"rounded" : 15
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-12",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -176,19 +147,19 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-6", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 53.5, 336.0, 226.5, 336.0 ],
-					"source" : [ "obj-8", 0 ]
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 1,
+					"midpoints" : [ 120.5, 358.0, 53.5, 358.0 ],
+					"source" : [ "obj-5", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 1,
-					"midpoints" : [ 120.5, 358.0, 53.5, 358.0 ],
-					"source" : [ "obj-5", 0 ]
+					"destination" : [ "obj-6", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 53.5, 336.0, 226.5, 336.0 ],
+					"source" : [ "obj-8", 0 ]
 				}
 
 			}

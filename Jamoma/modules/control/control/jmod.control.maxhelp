@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 269.0, 83.0, 662.0, 566.0 ],
+		"rect" : [ 247.0, 102.0, 738.0, 634.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 269.0, 83.0, 662.0, 566.0 ],
+		"defrect" : [ 247.0, 102.0, 738.0, 634.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -15,572 +15,531 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
-		"metadata" : [  ],
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "/dspStatus",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"id" : "obj-1",
-					"patching_rect" : [ 475.0, 65.0, 65.0, 17.0 ],
-					"fontsize" : 10.0,
-					"outlettype" : [ "" ],
+					"args" : [ "@name", "jmod.control", "@description", "A control module for handling various global tasks" ],
+					"bgmode" : 1,
+					"id" : "obj-5",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 805.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
-					"presentation_rect" : [ 477.0, 73.0, 0.0, 0.0 ]
+					"fontsize" : 10.0,
+					"id" : "obj-1",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 512.0, 115.0, 65.0, 17.0 ],
+					"text" : "/dspStatus"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "toggle",
-					"numinlets" : 1,
-					"numoutlets" : 1,
 					"id" : "obj-34",
-					"patching_rect" : [ 560.0, 40.0, 20.0, 20.0 ],
-					"outlettype" : [ "int" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Return",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-33",
-					"patching_rect" : [ 590.0, 40.0, 57.0, 19.0 ],
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "message",
-					"text" : "/cpu:/enable $1",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"id" : "obj-4",
-					"patching_rect" : [ 560.0, 65.0, 99.0, 18.0 ],
-					"fontsize" : 11.0,
-					"outlettype" : [ "" ],
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Messages",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-2",
-					"patching_rect" : [ 440.0, 40.0, 57.0, 19.0 ],
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "message",
-					"text" : "/panic",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"id" : "obj-3",
-					"patching_rect" : [ 430.0, 65.0, 40.0, 17.0 ],
-					"fontsize" : 10.0,
-					"outlettype" : [ "" ],
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "toggle",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-					"id" : "obj-6",
-					"patching_rect" : [ 345.0, 40.0, 20.0, 20.0 ],
-					"outlettype" : [ "int" ]
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 597.0, 90.0, 20.0, 20.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-33",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 627.0, 90.0, 57.0, 19.0 ],
+					"text" : "Return"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 11.0,
+					"id" : "obj-4",
 					"maxclass" : "message",
-					"text" : "/audio $1",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"id" : "obj-7",
-					"patching_rect" : [ 345.0, 65.0, 57.0, 17.0 ],
-					"fontsize" : 10.0,
 					"outlettype" : [ "" ],
-					"fontname" : "Verdana"
+					"patching_rect" : [ 597.0, 115.0, 99.0, 18.0 ],
+					"text" : "/cpu:/enable $1"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-2",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 477.0, 90.0, 57.0, 19.0 ],
+					"text" : "Messages"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 467.0, 115.0, 40.0, 17.0 ],
+					"text" : "/panic"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-6",
+					"maxclass" : "toggle",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 382.0, 90.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-7",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 382.0, 115.0, 57.0, 17.0 ],
+					"text" : "/audio $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-8",
 					"maxclass" : "flonum",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"id" : "obj-8",
-					"patching_rect" : [ 345.0, 230.0, 36.0, 19.0 ],
-					"fontsize" : 10.0,
 					"outlettype" : [ "float", "bang" ],
-					"fontname" : "Verdana",
+					"patching_rect" : [ 382.0, 280.0, 36.0, 19.0 ],
 					"triscale" : 0.9
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-9",
 					"maxclass" : "newobj",
-					"text" : "route /cpu",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"id" : "obj-9",
-					"patching_rect" : [ 345.0, 180.0, 66.0, 19.0 ],
-					"fontsize" : 10.0,
 					"outlettype" : [ "", "" ],
-					"fontname" : "Verdana"
+					"patching_rect" : [ 382.0, 230.0, 66.0, 19.0 ],
+					"text" : "route /cpu"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"hidden" : 1,
+					"id" : "obj-10",
 					"maxclass" : "newobj",
-					"text" : "loadmess set",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-					"id" : "obj-10",
-					"patching_rect" : [ 460.0, 200.0, 74.0, 19.0 ],
-					"hidden" : 1,
-					"fontsize" : 10.0,
 					"outlettype" : [ "" ],
-					"fontname" : "Verdana"
+					"patching_rect" : [ 497.0, 250.0, 74.0, 19.0 ],
+					"text" : "loadmess set"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-11",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"id" : "obj-11",
-					"patching_rect" : [ 390.0, 230.0, 116.0, 17.0 ],
-					"fontsize" : 10.0,
 					"outlettype" : [ "" ],
-					"fontname" : "Verdana"
+					"patching_rect" : [ 427.0, 280.0, 116.0, 17.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "prepend set",
-					"numinlets" : 1,
-					"numoutlets" : 1,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-12",
-					"patching_rect" : [ 390.0, 200.0, 68.0, 19.0 ],
-					"fontsize" : 10.0,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"fontname" : "Verdana"
+					"patching_rect" : [ 427.0, 250.0, 68.0, 19.0 ],
+					"text" : "prepend set"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "bpatcher",
-					"varname" : "/output~",
-					"numinlets" : 3,
-					"lockeddragscroll" : 1,
 					"args" : [ "/output~" ],
-					"numoutlets" : 1,
 					"id" : "obj-13",
-					"patching_rect" : [ 345.0, 410.0, 300.0, 140.0 ],
-					"outlettype" : [ "" ],
+					"lockeddragscroll" : 1,
+					"maxclass" : "bpatcher",
 					"name" : "jmod.output~.maxpat",
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "bpatcher",
-					"varname" : "/input~",
-					"numinlets" : 1,
-					"lockeddragscroll" : 1,
-					"args" : [ "/input~" ],
-					"numoutlets" : 3,
-					"id" : "obj-14",
-					"patching_rect" : [ 345.0, 265.0, 300.0, 140.0 ],
-					"outlettype" : [ "", "signal", "signal" ],
-					"name" : "jmod.input~.maxpat",
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "- CPU monitoring. Also reported out left outlet as \"cpu (float).\"",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-15",
-					"patching_rect" : [ 17.0, 337.0, 325.0, 19.0 ],
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "- turn audio off imideately (panic)",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-16",
-					"patching_rect" : [ 17.0, 304.0, 316.0, 19.0 ],
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Some jamoma modules (jmod.input~.mod and jmod.output~mod) will perform a soft fade in/fade out if audio instead is turned on and off using jmod.control.mod",
-					"linecount" : 3,
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-17",
-					"patching_rect" : [ 24.0, 264.0, 315.0, 43.0 ],
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Turning audio on and off using dac~, ezdac or similar will cause abrupt start and stop of audio signal.",
-					"linecount" : 2,
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-18",
-					"patching_rect" : [ 24.0, 240.0, 315.0, 31.0 ],
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "- turn audio on/off.",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-19",
-					"patching_rect" : [ 17.0, 228.0, 314.0, 19.0 ],
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "MSP:",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-20",
-					"patching_rect" : [ 17.0, 214.0, 101.0, 19.0 ],
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "- initialize all Jamoma modules, and set to their default state",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-21",
-					"patching_rect" : [ 17.0, 193.0, 316.0, 19.0 ],
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "bpatcher",
-					"varname" : "/control",
-					"numinlets" : 1,
-					"lockeddragscroll" : 1,
-					"args" : [  ],
+					"numinlets" : 3,
 					"numoutlets" : 1,
-					"id" : "obj-22",
-					"patching_rect" : [ 345.0, 105.0, 150.0, 70.0 ],
 					"outlettype" : [ "" ],
+					"patching_rect" : [ 382.0, 460.0, 300.0, 140.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
+					"varname" : "/output~"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "/input~" ],
+					"id" : "obj-14",
+					"lockeddragscroll" : 1,
+					"maxclass" : "bpatcher",
+					"name" : "jmod.input~.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "signal", "signal" ],
+					"patching_rect" : [ 382.0, 315.0, 300.0, 140.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
+					"varname" : "/input~"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-15",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 17.0, 337.0, 325.0, 19.0 ],
+					"text" : "- CPU monitoring. Also reported out left outlet as \"cpu (float).\""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-16",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 17.0, 304.0, 316.0, 19.0 ],
+					"text" : "- turn audio off imideately (panic)"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-17",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 24.0, 264.0, 315.0, 43.0 ],
+					"text" : "Some jamoma modules (jmod.input~.mod and jmod.output~mod) will perform a soft fade in/fade out if audio instead is turned on and off using jmod.control.mod"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-18",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 24.0, 240.0, 315.0, 31.0 ],
+					"text" : "Turning audio on and off using dac~, ezdac or similar will cause abrupt start and stop of audio signal."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-19",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 17.0, 228.0, 314.0, 19.0 ],
+					"text" : "- turn audio on/off."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-20",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 17.0, 214.0, 101.0, 19.0 ],
+					"text" : "MSP:"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-21",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 17.0, 193.0, 316.0, 19.0 ],
+					"text" : "- initialize all Jamoma modules, and set to their default state"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [  ],
+					"id" : "obj-22",
+					"lockeddragscroll" : 1,
+					"maxclass" : "bpatcher",
 					"name" : "jmod.control.maxpat",
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ]
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 382.0, 155.0, 150.0, 70.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
+					"varname" : "/control"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "jmod.control",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-23",
-					"patching_rect" : [ 25.0, 20.0, 197.0, 28.0 ],
-					"fontsize" : 18.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "a control module for handling various global tasks",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-24",
-					"patching_rect" : [ 25.0, 50.0, 260.0, 19.0 ],
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-25",
-					"patching_rect" : [ 17.0, 15.0, 276.0, 65.0 ],
-					"rounded" : 15
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "This module is meant to offer a simple way of handling a number of global tasks in the Jamoma environment.",
-					"linecount" : 2,
-					"numinlets" : 1,
-					"numoutlets" : 0,
 					"id" : "obj-26",
-					"patching_rect" : [ 17.0, 91.0, 289.0, 31.0 ],
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "The module is still premature and will be enhanced in the future, but so far the following is implemented:",
 					"linecount" : 2,
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
+					"patching_rect" : [ 17.0, 91.0, 289.0, 31.0 ],
+					"text" : "This module is meant to offer a simple way of handling a number of global tasks in the Jamoma environment."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-27",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
 					"patching_rect" : [ 17.0, 130.0, 286.0, 31.0 ],
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
+					"text" : "The module is still premature and will be enhanced in the future, but so far the following is implemented:"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "- refresh all Max windows",
-					"numinlets" : 1,
-					"numoutlets" : 0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-28",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
 					"patching_rect" : [ 17.0, 181.0, 137.0, 19.0 ],
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
+					"text" : "- refresh all Max windows"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Max:",
-					"numinlets" : 1,
-					"numoutlets" : 0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-29",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
 					"patching_rect" : [ 17.0, 165.0, 101.0, 19.0 ],
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
+					"text" : "Max:"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "If you don't have time for a soft fade out",
-					"numinlets" : 1,
-					"numoutlets" : 0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-30",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
 					"patching_rect" : [ 24.0, 316.0, 301.0, 19.0 ],
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
+					"text" : "If you don't have time for a soft fade out"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-31",
 					"maxclass" : "comment",
-					"text" : "Parameter",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"id" : "obj-31",
-					"patching_rect" : [ 370.0, 40.0, 61.0, 19.0 ],
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana"
+					"patching_rect" : [ 407.0, 90.0, 61.0, 19.0 ],
+					"text" : "Parameter"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-1", 0 ],
-					"destination" : [ "obj-22", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 484.5, 99.0, 414.0, 99.0, 414.0, 99.0, 354.5, 99.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-14", 2 ],
-					"destination" : [ "obj-13", 2 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-14", 1 ],
-					"destination" : [ "obj-13", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-6", 0 ],
-					"destination" : [ "obj-7", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-7", 0 ],
-					"destination" : [ "obj-22", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 354.5, 84.0, 354.5, 84.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-3", 0 ],
-					"destination" : [ "obj-22", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 439.5, 99.0, 414.0, 99.0, 414.0, 99.0, 354.5, 99.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-22", 0 ],
-					"destination" : [ "obj-9", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-9", 0 ],
-					"destination" : [ "obj-8", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-9", 1 ],
-					"destination" : [ "obj-12", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-10", 0 ],
-					"destination" : [ "obj-11", 0 ],
-					"hidden" : 1,
-					"midpoints" : [ 469.5, 222.0, 399.5, 222.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-12", 0 ],
-					"destination" : [ "obj-11", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-4", 0 ],
-					"destination" : [ "obj-22", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 569.5, 99.0, 354.5, 99.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-34", 0 ],
 					"destination" : [ "obj-4", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-34", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 606.5, 149.0, 391.5, 149.0 ],
+					"source" : [ "obj-4", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-12", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"hidden" : 1,
+					"midpoints" : [ 506.5, 272.0, 436.5, 272.0 ],
+					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-9", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-9", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 476.5, 149.0, 451.0, 149.0, 451.0, 149.0, 391.5, 149.0 ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 391.5, 134.0, 391.5, 134.0 ],
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-6", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-14", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 2 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-14", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 521.5, 149.0, 451.0, 149.0, 451.0, 149.0, 391.5, 149.0 ],
+					"source" : [ "obj-1", 0 ]
 				}
 
 			}
