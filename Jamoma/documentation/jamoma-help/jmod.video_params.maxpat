@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 899.0, 101.0, 322.0, 190.0 ],
+		"rect" : [ 134.0, 526.0, 322.0, 190.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 899.0, 101.0, 322.0, 190.0 ],
+		"defrect" : [ 134.0, 526.0, 322.0, 190.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -192,6 +192,9 @@
 , 			{
 				"box" : 				{
 					"background" : 1,
+					"bgcolor" : [ 0.901961, 0.901961, 0.901961, 1.0 ],
+					"border" : 1,
+					"bordercolor" : [ 0.6, 0.6, 0.6, 1.0 ],
 					"id" : "obj-13",
 					"maxclass" : "panel",
 					"numinlets" : 1,
@@ -206,13 +209,14 @@
 , 			{
 				"box" : 				{
 					"background" : 1,
+					"bgcolor" : [ 0.901961, 0.901961, 0.901961, 1.0 ],
 					"id" : "obj-14",
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 0.0, 30.0, 373.0, 113.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 0.0, 30.0, 196.0, 113.0 ],
+					"presentation_rect" : [ 0.0, 30.0, 196.0, 125.0 ],
 					"rounded" : 15
 				}
 
