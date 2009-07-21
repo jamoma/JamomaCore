@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 152.0, 44.0, 843.0, 578.0 ],
+		"rect" : [ 105.0, 86.0, 823.0, 593.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 152.0, 44.0, 843.0, 578.0 ],
+		"defrect" : [ 105.0, 86.0, 823.0, 593.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -19,12 +19,42 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"hidden" : 1,
+					"id" : "obj-21",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 32.0, 319.0, 230.0, 19.0 ],
+					"text" : "loadmess view/color/border 0.62 0. 0.36 1."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "@name", "jmod.textwriter", "@description", "Write data to a text file, with timestamping for each line of values" ],
+					"bgmode" : 1,
+					"id" : "obj-7",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 823.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-1",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 489.0, 511.0, 25.0, 17.0 ],
+					"patching_rect" : [ 760.0, 546.0, 25.0, 17.0 ],
 					"text" : "coll"
 				}
 
@@ -33,12 +63,11 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-2",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 406.0, 513.0, 102.0, 19.0 ],
+					"patching_rect" : [ 677.0, 548.0, 102.0, 19.0 ],
 					"text" : "see also:"
 				}
 
@@ -52,7 +81,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 455.0, 511.0, 29.0, 17.0 ],
+					"patching_rect" : [ 726.0, 546.0, 29.0, 17.0 ],
 					"text" : "text"
 				}
 
@@ -67,7 +96,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 455.0, 535.0, 74.0, 19.0 ],
+					"patching_rect" : [ 726.0, 570.0, 74.0, 19.0 ],
 					"text" : "prepend help"
 				}
 
@@ -82,7 +111,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 455.0, 555.0, 49.0, 19.0 ],
+					"patching_rect" : [ 726.0, 590.0, 49.0, 19.0 ],
 					"text" : "pcontrol"
 				}
 
@@ -91,13 +120,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-6",
 					"linecount" : 4,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 367.0, 448.0, 276.0, 55.0 ],
+					"patching_rect" : [ 362.0, 459.0, 282.0, 55.0 ],
 					"text" : "This module is storing data in memory before writing to a file. For long recordings of large amounts of data it may be better to use solutions for storing directly to file, e.g. using some of the FTM-tools."
 				}
 
@@ -112,8 +140,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 39.0, 274.0, 284.0, 29.0 ],
-					"text" : "0.891382 0.653805 0.663509 0.410077 0.649702 0.803717 0.530094 0.231105 0.668528 0.164422"
+					"patching_rect" : [ 34.0, 285.0, 284.0, 29.0 ],
+					"text" : "0.245971 0.686373 0.678504 0.514753 0.680719 0.888636 0.089911 0.153803 0.393399 0.543849"
 				}
 
 			}
@@ -224,13 +252,12 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-7",
 									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 49.0, 33.0, 160.0, 31.0 ],
+									"patching_rect" : [ 49.0, 33.0, 161.0, 31.0 ],
 									"text" : "Just outputting some random data: 10 values between 0.-1."
 								}
 
@@ -284,15 +311,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 39.0, 88.0, 88.0, 19.0 ],
+					"patching_rect" : [ 34.0, 99.0, 88.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p simulate-data"
@@ -313,11 +340,12 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 363.0, 116.0, 444.0, 300.0 ],
+					"patching_rect" : [ 358.0, 127.0, 444.0, 300.0 ],
 					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
 					"setminmax" : [ 0.0, 1.0 ],
 					"setstyle" : 5,
-					"size" : 10
+					"size" : 10,
+					"slidercolor" : [ 0.619608, 0.0, 0.360784, 1.0 ]
 				}
 
 			}
@@ -335,50 +363,12 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 39.0, 128.0, 293.0, 81.0 ],
+					"patching_rect" : [ 34.0, 139.0, 293.0, 81.0 ],
 					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
 					"setminmax" : [ 0.0, 1.0 ],
 					"setstyle" : 1,
-					"size" : 10
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-12",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 29.0, 24.0, 316.0, 28.0 ],
-					"text" : "jmod.textwriter"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-13",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 29.0, 51.0, 344.0, 19.0 ],
-					"text" : "Write data to a text file, with timestamping for each line of values."
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-14",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 24.0, 19.0, 343.0, 56.0 ],
-					"rounded" : 15
+					"size" : 10,
+					"slidercolor" : [ 0.619608, 0.0, 0.360784, 1.0 ]
 				}
 
 			}
@@ -392,7 +382,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 39.0, 348.0, 300.0, 70.0 ],
+					"patching_rect" : [ 34.0, 359.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
 				}
 
@@ -401,13 +391,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-17",
 					"linecount" : 7,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 41.0, 423.0, 272.0, 92.0 ],
+					"patching_rect" : [ 36.0, 434.0, 277.0, 92.0 ],
 					"text" : "How to use: \r1. Send in some data (any type of text data)\r2. Turn on the recording when appropriate\r3. Write the data to a text file when done\r\rYou can check the status of the recording by looking at the recorded data with the 'open' message."
 				}
 
@@ -415,9 +404,18 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-21", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-8", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 48.5, 259.0, 313.5, 259.0 ],
+					"midpoints" : [ 43.5, 270.0, 308.5, 270.0 ],
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -453,7 +451,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 48.5, 109.0, 372.5, 109.0 ],
+					"midpoints" : [ 43.5, 120.0, 367.5, 120.0 ],
 					"source" : [ "obj-9", 0 ]
 				}
 
@@ -471,7 +469,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-16", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 48.5, 259.0, 329.5, 259.0 ],
+					"midpoints" : [ 43.5, 270.0, 324.5, 270.0 ],
 					"source" : [ "obj-11", 0 ]
 				}
 

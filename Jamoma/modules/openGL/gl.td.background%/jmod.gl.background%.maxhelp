@@ -19,14 +19,43 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"hidden" : 1,
+					"id" : "obj-5",
+					"linecount" : 3,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 16.0, 478.0, 101.0, 43.0 ],
+					"text" : "loadmess view/color/border 0.62 0. 0.36 1."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "@name", "jmod.gl.background%", "@description", "Slab-based background extractor (foreground remover)" ],
+					"bgmode" : 1,
+					"id" : "obj-3",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 785.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-10",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 460.0, 170.0, 285.0, 31.0 ],
-					"presentation_rect" : [ 465.0, 153.0, 0.0, 0.0 ],
 					"text" : "See how resulting image evolves over time: The foreground become pretty transparent."
 				}
 
@@ -35,13 +64,11 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-9",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 460.0, 145.0, 286.0, 19.0 ],
-					"presentation_rect" : [ 465.0, 136.0, 0.0, 0.0 ],
 					"text" : "3) Hit the clear button in the /gl.background% module"
 				}
 
@@ -50,13 +77,11 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-8",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 460.0, 130.0, 201.0, 19.0 ],
-					"presentation_rect" : [ 466.0, 115.0, 0.0, 0.0 ],
 					"text" : "2) Start metro in the /qmetro module"
 				}
 
@@ -65,7 +90,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-4",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -184,7 +208,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "bang", "bang", "bang", "erase" ],
-					"patching_rect" : [ 125.0, 215.0, 72.0, 19.0 ],
+					"patching_rect" : [ 125.0, 215.0, 73.0, 19.0 ],
 					"text" : "t b b b erase"
 				}
 
@@ -216,45 +240,6 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 445.0, 455.0, 320.0, 240.0 ],
 					"varname" : "background_context"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-5",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 15.0, 211.0, 28.0 ],
-					"text" : "jmod.gl.background%"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-6",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 40.0, 299.0, 19.0 ],
-					"text" : "Slab-based background extractor (foreground remover)"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-7",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 10.0, 360.0, 55.0 ],
-					"rounded" : 15
 				}
 
 			}
@@ -292,6 +277,15 @@
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-11", 1 ],
 					"hidden" : 0,
@@ -340,7 +334,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-21", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 187.5, 241.0, 134.5, 241.0 ],
+					"midpoints" : [ 188.5, 241.0, 134.5, 241.0 ],
 					"source" : [ "obj-22", 3 ]
 				}
 
@@ -349,7 +343,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-1", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 152.166672, 236.0, 415.5, 236.0 ],
+					"midpoints" : [ 152.5, 236.0, 415.5, 236.0 ],
 					"source" : [ "obj-22", 1 ]
 				}
 

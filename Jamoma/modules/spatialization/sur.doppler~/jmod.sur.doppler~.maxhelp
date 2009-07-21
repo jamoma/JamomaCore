@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 10.0, 59.0, 270.0, 157.0 ],
+		"rect" : [ 188.0, 160.0, 326.0, 222.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 10.0, 59.0, 270.0, 157.0 ],
+		"defrect" : [ 188.0, 160.0, 326.0, 222.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,117 +17,92 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "jmod.sur.doppler~",
-					"fontsize" : 18.0,
+					"args" : [ "@name", "jmod.sur.doppler~", "@description", "Doppler effect" ],
+					"bgmode" : 1,
+					"id" : "obj-4",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
-					"patching_rect" : [ 18.0, 11.0, 192.0, 28.0 ],
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 604.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
-					"id" : "obj-38"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "doppler-effect",
 					"fontsize" : 10.0,
-					"numinlets" : 1,
-					"patching_rect" : [ 18.0, 37.0, 193.0, 19.0 ],
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"numoutlets" : 0,
-					"fontname" : "Verdana",
-					"id" : "obj-39"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"patching_rect" : [ 13.0, 7.0, 199.0, 53.0 ],
-					"rounded" : 15,
-					"numoutlets" : 0,
-					"id" : "obj-40"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "prepend help",
-					"fontsize" : 10.0,
-					"numinlets" : 1,
-					"patching_rect" : [ 51.0, 129.0, 74.0, 19.0 ],
 					"hidden" : 1,
+					"id" : "obj-1",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"fontname" : "Verdana",
-					"id" : "obj-1"
+					"patching_rect" : [ 111.0, 140.0, 74.0, 19.0 ],
+					"text" : "prepend help"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-2",
 					"maxclass" : "message",
-					"text" : "jmod.sur.rolloff~",
-					"fontsize" : 10.0,
 					"numinlets" : 2,
-					"patching_rect" : [ 51.0, 107.0, 94.0, 17.0 ],
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"fontname" : "Verdana",
-					"id" : "obj-2"
+					"patching_rect" : [ 111.0, 118.0, 94.0, 17.0 ],
+					"text" : "jmod.sur.rolloff~"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "pcontrol",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"numinlets" : 1,
-					"patching_rect" : [ 51.0, 151.0, 49.0, 19.0 ],
 					"hidden" : 1,
+					"id" : "obj-3",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"fontname" : "Verdana",
-					"id" : "obj-3"
+					"patching_rect" : [ 111.0, 162.0, 49.0, 19.0 ],
+					"text" : "pcontrol"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "See help file for",
-					"fontsize" : 10.0,
-					"numinlets" : 1,
-					"patching_rect" : [ 50.0, 91.0, 100.0, 19.0 ],
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"numoutlets" : 0,
 					"fontname" : "Verdana",
-					"id" : "obj-7"
+					"fontsize" : 10.0,
+					"id" : "obj-7",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 110.0, 102.0, 100.0, 19.0 ],
+					"text" : "See help file for"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-2", 0 ],
-					"destination" : [ "obj-1", 0 ],
+					"destination" : [ "obj-3", 0 ],
 					"hidden" : 1,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-1", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-1", 0 ],
-					"destination" : [ "obj-3", 0 ],
+					"destination" : [ "obj-1", 0 ],
 					"hidden" : 1,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-2", 0 ]
 				}
 
 			}

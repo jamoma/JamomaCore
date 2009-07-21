@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 527.0, 55.0, 748.0, 783.0 ],
+		"rect" : [ 436.0, 69.0, 711.0, 786.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 527.0, 55.0, 748.0, 783.0 ],
+		"defrect" : [ 436.0, 69.0, 711.0, 786.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -19,12 +19,41 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"hidden" : 1,
+					"id" : "obj-9",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 214.0, 259.0, 230.0, 19.0 ],
+					"text" : "loadmess view/color/border 0.62 0. 0.36 1."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "@name", "jmod.gl.text2d%", "@description", "Read text file and display as OpenGL bitmap text" ],
+					"bgmode" : 1,
+					"id" : "obj-19",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 711.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-22",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 370.0, 75.0, 265.0, 19.0 ],
+					"patching_rect" : [ 255.0, 151.0, 265.0, 19.0 ],
 					"text" : "2) Step through the three cues."
 				}
 
@@ -33,12 +62,11 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-21",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 370.0, 55.0, 268.0, 19.0 ],
+					"patching_rect" : [ 255.0, 131.0, 268.0, 19.0 ],
 					"text" : "1) Load the cuescript into the jmod.cuelist module."
 				}
 
@@ -47,12 +75,11 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-20",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 370.0, 30.0, 184.0, 19.0 ],
+					"patching_rect" : [ 255.0, 106.0, 184.0, 19.0 ],
 					"text" : "Steps to see the module in action:"
 				}
 
@@ -181,45 +208,6 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-9",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 20.0, 189.0, 28.0 ],
-					"text" : "jmod.gl.text2d%"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-10",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 50.0, 253.0, 19.0 ],
-					"text" : "read text file and display as OpenGL bitmap text"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-11",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 10.0, 273.0, 63.0 ],
-					"rounded" : 15
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"args" : [ "textDisplay" ],
 					"id" : "obj-12",
 					"lockeddragscroll" : 1,
@@ -301,7 +289,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "bang", "bang", "bang", "erase" ],
-					"patching_rect" : [ 50.0, 200.0, 72.0, 19.0 ],
+					"patching_rect" : [ 50.0, 200.0, 73.0, 19.0 ],
 					"text" : "t b b b erase"
 				}
 
@@ -310,7 +298,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-18",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -324,9 +311,18 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-9", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-3", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 94.833336, 233.5, 655.5, 233.5 ],
+					"midpoints" : [ 95.5, 233.5, 655.5, 233.5 ],
 					"source" : [ "obj-17", 2 ]
 				}
 
@@ -362,7 +358,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-16", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 112.5, 226.0, 59.5, 226.0 ],
+					"midpoints" : [ 113.5, 226.0, 59.5, 226.0 ],
 					"source" : [ "obj-17", 3 ]
 				}
 
@@ -430,7 +426,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-12", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 77.166664, 241.0, 340.5, 241.0 ],
+					"midpoints" : [ 77.5, 241.0, 340.5, 241.0 ],
 					"source" : [ "obj-17", 1 ]
 				}
 
