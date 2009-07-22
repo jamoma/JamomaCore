@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		22443C53100A727C009949AE /* SpatDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22443C52100A727C009949AE /* SpatDisplay.cpp */; };
 		22443C7D100A75F7009949AE /* TTGraphics.ttdylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22443C7C100A75F7009949AE /* TTGraphics.ttdylib */; };
+		22A2E59A1017B8FD0022843A /* SpatDisplayEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A2E5991017B8FD0022843A /* SpatDisplayEntity.cpp */; };
 		22D43B740F1D9F3500C16BB0 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D43B730F1D9F3500C16BB0 /* JamomaDSP.framework */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
@@ -17,6 +18,9 @@
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22443C52100A727C009949AE /* SpatDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpatDisplay.cpp; sourceTree = "<group>"; };
 		22443C7C100A75F7009949AE /* TTGraphics.ttdylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = TTGraphics.ttdylib; path = "/Library/Application Support/TTBlue/Extensions/TTGraphics.ttdylib"; sourceTree = "<absolute>"; };
+		22A2E5971017B88C0022843A /* SpatDisplayEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpatDisplayEntity.h; sourceTree = "<group>"; };
+		22A2E5981017B8940022843A /* SpatDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpatDisplay.h; sourceTree = "<group>"; };
+		22A2E5991017B8FD0022843A /* SpatDisplayEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpatDisplayEntity.cpp; sourceTree = "<group>"; };
 		22D43B730F1D9F3500C16BB0 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		D2AAC09D05546B4700DB518D /* SpatDisplay.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = SpatDisplay.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -66,6 +70,9 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				22A2E5971017B88C0022843A /* SpatDisplayEntity.h */,
+				22A2E5991017B8FD0022843A /* SpatDisplayEntity.cpp */,
+				22A2E5981017B8940022843A /* SpatDisplay.h */,
 				22443C52100A727C009949AE /* SpatDisplay.cpp */,
 			);
 			name = Source;
@@ -142,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22443C53100A727C009949AE /* SpatDisplay.cpp in Sources */,
+				22A2E59A1017B8FD0022843A /* SpatDisplayEntity.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

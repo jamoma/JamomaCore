@@ -7,65 +7,12 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTBlueAPI.h"
-#include "TTGraphicsContext.h"
+#include "SpatDisplay.h"
+#include "SpatDisplayEntity.h"
 
 #define thisTTClass			SpatDisplay
 #define thisTTClassName		"SpatDisplay"
 #define thisTTClassTags		"graphics, widget, spatialization"
-
-
-/**	An entity within the SpatDisplay that is located in 3d space. 
-	Examples include mic positions, source locations, and speaker coords. */
-class SpatDisplayEntity : TTElement {
-public:
-	TTFloat64		x;				///< x
-	TTFloat64		y;				///< y 
-	TTFloat64		z;				///< z  
-	TTFloat64		yaw;			///< rotation on the horizontal plane
-	TTFloat64		pitch;			///< rotation on the z axis
-	TTFloat64		directivity;	///< how directional is the entity
-	TTFloat64		intensity;		///< the intensity of the signal for the entity
-	
-	SpatDisplayEntity():
-	x(0), y(0), z(0), yaw(0), pitch(0), directivity(0), intensity(0)
-	{
-		;
-	}
-};
-
-
-/**	A basic user interface for spatial positioning. */
-class SpatDisplay : TTObject {
-	TTCLASS_SETUP(SpatDisplay)
-
-	TTObjectPtr			graphicsSurface;
-	TTGraphicsContext*	g;
-	TTListPtr			sources;
-	TTListPtr			microphones;
-	TTFloat64			width;
-	TTFloat64			height;
-	
-	
-	TTErr setnumSources(const TTValue& newValue);
-	TTErr getnumSources(TTValue& returnedValue);
-	TTErr setnumMicrophones(const TTValue& newValue);
-	TTErr getnumMicrophones(TTValue& returnedValue);
-	TTErr drawSource(const TTValue& v);
-	TTErr drawMicrophone(const TTValue& v);
-	
-	TTErr paint();
-	TTErr draw(const TTValue& v);
-	TTErr getData(TTValue& v);
-	
-	TTErr mouseDown(const TTValue& v);
-	TTErr mouseDragged(const TTValue& v);
-	TTErr mouseUp(const TTValue& v);
-	TTErr mouseEntered(const TTValue& v);
-	TTErr mouseExited(const TTValue& v);
-	TTErr mouseMoved(const TTValue& v);
-	
-};
 
 
 TT_OBJECT_CONSTRUCTOR,
@@ -124,7 +71,7 @@ TTErr SpatDisplay::setnumSources(const TTValue& newValue)
 		// FIXME: memory leak: we free the TTValue, but not the entity pointed to by the value!
 	
 	for (TTUInt16 i=0; i<newNumSources; i++) {
-		SpatDisplayEntity*	source = new SpatDisplayEntity;
+		SpatDisplayEntity*	source = new SpatDisplayEntity(this, TT("source1"));
 		TTValue*			v = new TTValue(TTPtr(source));
 		
 		sources->append(v);
@@ -150,7 +97,7 @@ TTErr SpatDisplay::setnumMicrophones(const TTValue& newValue)
 		microphones->clear();
 	
 	for (TTUInt16 i=0; i<newNumMicrophones; i++) {
-		SpatDisplayEntity*	mic = new SpatDisplayEntity;
+		SpatDisplayEntity*	mic = new SpatDisplayEntity(this, TT("mic1"));
 		microphones->append(TTPtr(mic));
 	}
 	return kTTErrNone;
@@ -240,8 +187,12 @@ TTErr SpatDisplay::drawMicrophone(const TTValue& v)
 	TTGraphicsColor		fillColor(0.4, 0.1, 0.1, 1.0);
 	TTGraphicsColor		borderColor(0.7, 0.1, 0.1, 1.0);
 	
-	g->filledCircle((width*0.5)+mic->x, (height*0.5)+mic->y, 3.0, 2.0, fillColor, borderColor);
-	return kTTErrNone;
+	if (mic) {
+		g->filledCircle((width*0.5)+mic->x, (height*0.5)+mic->y, 3.0, 2.0, fillColor, borderColor);
+		return kTTErrNone;
+	}
+	else
+		return kTTErrInvalidValue;
 }
 
 
