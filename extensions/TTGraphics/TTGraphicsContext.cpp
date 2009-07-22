@@ -107,3 +107,42 @@ void TTGraphicsContext::rectangle(double x, double y, double width, double heigh
 {
 	cairo_rectangle(cairoContext, x, y, width, height);
 }
+
+
+
+
+
+#pragma mark -
+#pragma mark convenience functions
+
+
+void TTGraphicsContext::setColor(TTGraphicsColor& color)
+{
+	setSourceRGBA(color.red, color.green, color.blue, color.alpha);
+}
+
+
+void TTGraphicsContext::filledCircle(TTFloat64 xc, TTFloat64 yc, TTFloat64 radius, TTFloat64 borderThickness, TTGraphicsColor& fillColor, TTGraphicsColor& borderColor)
+{
+	moveTo(xc, yc);
+	setColor(borderColor);
+	setLineWidth(borderThickness);
+	arc(xc, yc, radius, 0, 2.0 * kTTPi);
+	stroke();
+	
+	setColor(fillColor);
+	arc(xc, yc, radius-(borderThickness*0.5), 0, 2.0 * kTTPi);
+	fill();
+}
+
+
+void TTGraphicsContext::lineSegment(TTFloat64 x1, TTFloat64 y1, TTFloat64 x2, TTFloat64 y2, TTFloat64 width, TTGraphicsColor& color)
+{
+	setColor(color);
+	setLineWidth(width);
+	moveTo(x1, y1);
+	lineTo(x2, y2);
+	stroke();
+}
+
+
