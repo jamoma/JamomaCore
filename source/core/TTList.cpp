@@ -117,6 +117,21 @@ void TTList::assignToValue(TTValue& value)
 }
 
 
+TTErr TTList::iterate(const TTObjectPtr target, const TTSymbolPtr messageName)
+{
+	lock();
+	for(TTListIter iter = theList.begin(); iter != theList.end(); iter++){
+//		TTValuePtr aValue = NULL;
+//		
+//		(*iter)->get(0, &obj);
+//		if(obj && obj->valid)
+		target->sendMessage(messageName, **iter);
+	}
+	unlock();
+	return kTTErrNone;	
+}
+
+
 TTErr TTList::iterateObjectsSendingMessage(const TTSymbolPtr messageName)
 {
 	lock();

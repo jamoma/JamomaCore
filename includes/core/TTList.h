@@ -14,7 +14,8 @@
 #include <list>
 using namespace std;
 
-
+class TTObject;
+typedef TTObject* TTObjectPtr;
 typedef list<TTValue*>::iterator	TTListIter;
 
 /****************************************************************************************************/
@@ -76,7 +77,10 @@ public:
 	/**	Assign the contents of the list to a value as an array.	*/
 	void assignToValue(TTValue& value);
 	
-	/**	Traverse the entire list, and if the item in the list is an object, then send it the specified message.	*/
+	/**	Traverse the entire list, sending each item of the list to a specified object with the specified message.	*/
+	TTErr iterate(const TTObjectPtr target, const TTSymbolPtr messageName);
+	
+	/**	Traverse the entire list, and if the item in the list is an object, then send it the specified message.		*/
 	TTErr iterateObjectsSendingMessage(const TTSymbolPtr messageName);
 	TTErr iterateObjectsSendingMessage(const TTSymbolPtr messageName, TTValue& aValue);
 	
