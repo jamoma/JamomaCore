@@ -75,6 +75,9 @@ public:
 	
 	/** Remove all values from the list					*/
 	void clear();
+	
+	/**	Remove all values from the list and free them.	*/
+	void free();
 
 	/**	Assign the contents of the list to a value as an array.	*/
 	void assignToValue(TTValue& value);
