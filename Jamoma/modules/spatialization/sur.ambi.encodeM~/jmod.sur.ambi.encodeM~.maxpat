@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 82.0, 128.0, 1092.0, 439.0 ],
+		"rect" : [ 183.0, 206.0, 1092.0, 439.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 82.0, 128.0, 1092.0, 439.0 ],
+		"defrect" : [ 183.0, 206.0, 1092.0, 439.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -24,7 +24,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 0,
-					"patching_rect" : [ 502.0, 334.0, 567.0, 29.0 ],
+					"patching_rect" : [ 502.0, 334.0, 567.0, 31.0 ],
 					"text" : "jcom.message.array 32 source active @type msg_toggle @value/default 1 @value 1 @description \"active 0 will mute the Nth source.\""
 				}
 
@@ -38,7 +38,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 0,
-					"patching_rect" : [ 502.0, 289.0, 606.0, 41.0 ],
+					"patching_rect" : [ 502.0, 289.0, 606.0, 43.0 ],
 					"text" : "jcom.message.array 32 source position @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth source. In cartesian coordinates (xyz) by default \""
 				}
 
@@ -82,9 +82,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 505.0, 212.0, 50.0, 18.0 ],
+					"patching_rect" : [ 505.0, 212.0, 50.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 196.0, 41.0, 50.0, 18.0 ],
+					"presentation_rect" : [ 196.0, 45.0, 50.0, 19.0 ],
 					"triangle" : 0
 				}
 
@@ -98,9 +98,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 505.0, 149.0, 50.0, 18.0 ],
+					"patching_rect" : [ 505.0, 149.0, 50.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 196.0, 22.0, 50.0, 18.0 ],
+					"presentation_rect" : [ 196.0, 25.0, 50.0, 19.0 ],
 					"triangle" : 0
 				}
 
@@ -114,9 +114,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 505.0, 75.0, 22.0, 18.0 ],
+					"patching_rect" : [ 505.0, 75.0, 22.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 57.0, 41.0, 22.0, 18.0 ],
+					"presentation_rect" : [ 57.0, 45.0, 22.0, 19.0 ],
 					"triangle" : 0
 				}
 
@@ -130,9 +130,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 505.0, 36.0, 22.0, 18.0 ],
+					"patching_rect" : [ 505.0, 36.0, 22.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 57.0, 22.0, 22.0, 18.0 ],
+					"presentation_rect" : [ 57.0, 25.0, 22.0, 19.0 ],
 					"triangle" : 0
 				}
 
@@ -156,9 +156,9 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"dataspace/unit/native" : "meters",
+						"dataspace/unit/active" : "meters",
 						"dataspace" : "distance",
-						"dataspace/unit/active" : "meters"
+						"dataspace/unit/native" : "meters"
 					}
 ,
 					"id" : "obj-2",
@@ -177,14 +177,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-5",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 123.0, 40.0, 74.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 123.0, 42.0, 74.0, 19.0 ],
+					"presentation_rect" : [ 123.0, 46.0, 74.0, 19.0 ],
 					"text" : "center radius"
 				}
 
@@ -206,9 +205,9 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"dataspace/unit/native" : "db",
+						"dataspace/unit/active" : "db",
 						"dataspace" : "gain",
-						"dataspace/unit/active" : "db"
+						"dataspace/unit/native" : "db"
 					}
 ,
 					"id" : "obj-10",
@@ -268,14 +267,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-21",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 4.0, 39.0, 37.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 4.0, 41.0, 37.0, 19.0 ],
+					"presentation_rect" : [ 4.0, 44.0, 37.0, 19.0 ],
 					"text" : "Order"
 				}
 
@@ -284,14 +282,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-23",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 123.0, 21.0, 67.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 123.0, 23.0, 67.0, 19.0 ],
+					"presentation_rect" : [ 123.0, 26.0, 67.0, 19.0 ],
 					"text" : "db drop off"
 				}
 
@@ -314,14 +311,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-27",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 4.0, 20.0, 50.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 4.0, 22.0, 50.0, 19.0 ],
+					"presentation_rect" : [ 4.0, 25.0, 50.0, 19.0 ],
 					"text" : "Sources"
 				}
 

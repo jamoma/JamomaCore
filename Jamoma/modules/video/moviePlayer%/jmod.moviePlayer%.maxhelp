@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 359.0, 44.0, 689.0, 509.0 ],
+		"rect" : [ 359.0, 44.0, 718.0, 574.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 359.0, 44.0, 689.0, 509.0 ],
+		"defrect" : [ 359.0, 44.0, 718.0, 574.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,6 +17,36 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [ "@name", "jmod.moviePlayer%", "@description", "Playback of Quicktime movies" ],
+					"bgmode" : 1,
+					"id" : "obj-5",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 718.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"hidden" : 1,
+					"id" : "obj-21",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 326.0, 119.0, 230.0, 19.0 ],
+					"text" : "loadmess view/color/border 0.62 0. 0.36 1."
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"hidden" : 1,
@@ -25,38 +55,8 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 272.0, 101.0, 63.0, 18.0 ],
+					"patching_rect" : [ 326.0, 143.0, 63.0, 19.0 ],
 					"text" : "r toModule"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 16.0,
-					"id" : "obj-32",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 5.0, 249.0, 140.0, 26.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 63.0, 61.0, 202.0, 26.0 ],
-					"text" : "Module Controls"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-34",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 5.0, 279.0, 180.0, 19.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 63.0, 91.0, 180.0, 19.0 ],
-					"text" : "Specific module messages"
 				}
 
 			}
@@ -69,7 +69,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 5.0, 224.0, 64.0, 18.0 ],
+					"patching_rect" : [ 70.0, 297.0, 69.0, 19.0 ],
 					"text" : "s toModule"
 				}
 
@@ -84,44 +84,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 5.0, 70.0, 247.0, 147.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-25",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 15.0, 41.0, 262.0, 19.0 ],
-					"text" : "playback of QuictTime movies."
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"id" : "obj-31",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 15.0, 12.0, 269.0, 28.0 ],
-					"text" : "jmod.moviePlayer%"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-33",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 4.0, 2.0, 273.0, 63.0 ],
-					"rounded" : 15
+					"patching_rect" : [ 70.0, 143.0, 200.0, 164.0 ]
 				}
 
 			}
@@ -134,7 +97,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 66.0, 377.0, 73.0, 16.0 ],
+					"patching_rect" : [ 619.0, 541.0, 74.0, 17.0 ],
 					"text" : "jmod.input%"
 				}
 
@@ -149,7 +112,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 66.0, 396.0, 74.0, 18.0 ],
+					"patching_rect" : [ 619.0, 560.0, 74.0, 19.0 ],
 					"text" : "prepend help"
 				}
 
@@ -164,7 +127,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 66.0, 415.0, 49.0, 18.0 ],
+					"patching_rect" : [ 619.0, 579.0, 49.0, 19.0 ],
 					"text" : "pcontrol"
 				}
 
@@ -176,7 +139,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 516.0, 65.0, 20.0, 20.0 ]
+					"patching_rect" : [ 570.0, 107.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -189,7 +152,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 516.0, 91.0, 60.0, 18.0 ],
+					"patching_rect" : [ 570.0, 133.0, 61.0, 19.0 ],
 					"text" : "qmetro 40"
 				}
 
@@ -202,7 +165,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 272.0, 243.0, 320.0, 240.0 ]
+					"patching_rect" : [ 326.0, 285.0, 320.0, 240.0 ]
 				}
 
 			}
@@ -216,7 +179,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 272.0, 122.0, 300.0, 105.0 ],
+					"patching_rect" : [ 326.0, 164.0, 300.0, 105.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 105.0 ],
 					"varname" : "jmod.moviePlayer%"
 				}
@@ -231,7 +194,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 577.0, 63.0, 80.0, 54.0 ],
+					"patching_rect" : [ 631.0, 105.0, 81.0, 55.0 ],
 					"text" : "Rightmost inlet can be used to feed bang as signal"
 				}
 
@@ -244,7 +207,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 17.0, 378.0, 49.0, 18.0 ],
+					"patching_rect" : [ 570.0, 542.0, 49.0, 19.0 ],
 					"text" : "see also"
 				}
 
@@ -254,40 +217,12 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-13",
-					"linecount" : 4,
+					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 286.0, 6.0, 203.0, 54.0 ],
+					"patching_rect" : [ 3.0, 72.0, 552.0, 31.0 ],
 					"text" : "Compared to jmod.input% this is a module for playback of Quick Time movies only, with additional control parameters, and external clocking."
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"background" : 1,
-					"id" : "obj-35",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 2.0, 248.0, 188.0, 27.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 60.0, 60.0, 241.0, 27.0 ],
-					"rounded" : 15
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"background" : 1,
-					"id" : "obj-36",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 2.0, 278.0, 188.0, 82.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 60.0, 90.0, 241.0, 113.0 ],
-					"rounded" : 15
 				}
 
 			}
@@ -314,7 +249,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-10", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 525.5, 115.0, 562.5, 115.0 ],
+					"midpoints" : [ 579.5, 157.0, 616.5, 157.0 ],
 					"source" : [ "obj-8", 0 ]
 				}
 
@@ -350,8 +285,17 @@
 				"patchline" : 				{
 					"destination" : [ "obj-9", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 562.5, 236.0, 281.5, 236.0 ],
+					"midpoints" : [ 616.5, 278.0, 335.5, 278.0 ],
 					"source" : [ "obj-10", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-10", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-21", 0 ]
 				}
 
 			}

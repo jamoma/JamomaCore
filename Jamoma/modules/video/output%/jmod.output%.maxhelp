@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 442.0, 52.0, 445.0, 339.0 ],
+		"rect" : [ 430.0, 126.0, 445.0, 339.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 442.0, 52.0, 445.0, 339.0 ],
+		"defrect" : [ 430.0, 126.0, 445.0, 339.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -19,38 +19,29 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
-					"id" : "obj-25",
-					"maxclass" : "comment",
+					"hidden" : 1,
+					"id" : "obj-21",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 34.0, 48.0, 262.0, 19.0 ],
-					"text" : "Output video to an OpenGL driven window"
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 53.0, 206.0, 230.0, 19.0 ],
+					"text" : "loadmess view/color/border 0.62 0. 0.36 1."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
-					"id" : "obj-31",
-					"maxclass" : "comment",
+					"args" : [ "@name", "jmod.output%", "@description", "Output video to an OpenGl driven window" ],
+					"bgmode" : 1,
+					"id" : "obj-3",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 34.0, 19.0, 269.0, 28.0 ],
-					"text" : "jmod.output%"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-33",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 23.0, 9.0, 273.0, 63.0 ],
-					"rounded" : 15
+					"patching_rect" : [ 0.0, 0.0, 445.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
 				}
 
 			}
@@ -64,7 +55,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 23.0, 215.0, 300.0, 70.0 ],
+					"patching_rect" : [ 53.0, 231.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"varname" : "/output%"
 				}
@@ -79,7 +70,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 337.0, 173.0, 60.0, 35.0 ]
+					"patching_rect" : [ 367.0, 189.0, 60.0, 35.0 ]
 				}
 
 			}
@@ -93,7 +84,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 23.0, 80.0, 300.0, 70.0 ],
+					"patching_rect" : [ 53.0, 96.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"varname" : "/input%"
 				}
@@ -102,10 +93,10 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 313.5, 168.0, 346.5, 168.0 ],
-					"source" : [ "obj-6", 1 ]
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-21", 0 ]
 				}
 
 			}
@@ -113,7 +104,16 @@
 				"patchline" : 				{
 					"destination" : [ "obj-1", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 313.5, 210.0, 313.5, 210.0 ],
+					"midpoints" : [ 343.5, 226.0, 343.5, 226.0 ],
+					"source" : [ "obj-6", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 343.5, 184.0, 376.5, 184.0 ],
 					"source" : [ "obj-6", 1 ]
 				}
 

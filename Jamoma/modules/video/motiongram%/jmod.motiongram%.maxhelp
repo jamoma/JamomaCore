@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 156.0, 44.0, 949.0, 626.0 ],
+		"rect" : [ 156.0, 44.0, 949.0, 679.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 156.0, 44.0, 949.0, 626.0 ],
+		"defrect" : [ 156.0, 44.0, 949.0, 679.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -19,36 +19,29 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"hidden" : 1,
 					"id" : "obj-3",
-					"maxclass" : "comment",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 23.0, 45.0, 262.0, 19.0 ],
-					"text" : "creates motiongrams from video stream"
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 628.0, 146.0, 230.0, 19.0 ],
+					"text" : "loadmess view/color/border 0.62 0. 0.36 1."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"id" : "obj-31",
-					"maxclass" : "comment",
+					"args" : [ "@name", "jmod.motiongram%", "@description", "Create motiongrams from video stream" ],
+					"bgmode" : 1,
+					"id" : "obj-2",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 23.0, 16.0, 269.0, 28.0 ],
-					"text" : "jmod.motiongram%"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-33",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 12.0, 6.0, 273.0, 63.0 ],
-					"rounded" : 15
+					"patching_rect" : [ 0.0, 0.0, 949.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
 				}
 
 			}
@@ -59,7 +52,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 630.0, 33.0, 80.0, 60.0 ]
+					"patching_rect" : [ 635.0, 86.0, 80.0, 60.0 ]
 				}
 
 			}
@@ -73,7 +66,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 55.0, 359.0, 64.0, 18.0 ],
+					"patching_rect" : [ 60.0, 412.0, 64.0, 19.0 ],
 					"text" : "delay 1000"
 				}
 
@@ -88,7 +81,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 55.0, 380.0, 50.0, 16.0 ],
+					"patching_rect" : [ 60.0, 433.0, 51.0, 17.0 ],
 					"text" : "/mode 1"
 				}
 
@@ -102,7 +95,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 659.0, 431.0, 240.0, 140.0 ],
+					"patching_rect" : [ 664.0, 484.0, 240.0, 140.0 ],
 					"text" : "A motiongram is a way of displaying motion (e.g. human motion) in the time-domain, somehow similar to how we are used to working with time-representations of audio (e.g. waveform displays and sono/spectrograms).\r\rThe method is based on creating a motion image, doing a matrix reduction on it and plotting the resultant 1xn or nx1 matrices over time either horizontally or vertically."
 				}
 
@@ -184,7 +177,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 488.0, 271.0, 432.0, 54.0 ],
+									"patching_rect" : [ 488.0, 271.0, 435.0, 55.0 ],
 									"text" : "Motiongrams of three dancers doing free movements to the same excerpts of music repeated three times (total time displayed is approximately 40 seconds). It is easy to follow the two hands (yellow and read) and head (pink due to saturation), as well as the body (appears as blue stripes due to the blue background)."
 								}
 
@@ -198,7 +191,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 488.0, 72.0, 418.0, 66.0 ],
+									"patching_rect" : [ 488.0, 72.0, 423.0, 67.0 ],
 									"text" : "The resultant displays are useful for inspecting repetitive motion, such as this\rmotiongram of a 5 minute video of free dance movements to music. The dancer moved to 5 different musical excerpts (a-e) and each excerpt was repeated three times (1-3). Although quite rough, it is easy to see differences in quantity of motion and similarities in upward/downward patterns between the sequences. \r"
 								}
 
@@ -211,7 +204,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 47.0, 36.0, 122.0, 28.0 ],
+									"patching_rect" : [ 47.0, 36.0, 126.0, 28.0 ],
 									"text" : "Motiongrams"
 								}
 
@@ -225,7 +218,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 47.0, 72.0, 433.0, 78.0 ],
+									"patching_rect" : [ 47.0, 72.0, 435.0, 79.0 ],
 									"text" : "A motiongram is a way of displaying motion (e.g. human motion) in the time-domain, somehow similar to how we are used to working with time-representations of audio (e.g. waveform displays and sono/spectrograms).\r\rThe method is based on creating a motion image, doing a matrix reduction on it and plotting the resultant 1xn or nx1 matrices over time either horizontally or vertically."
 								}
 
@@ -239,7 +232,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 488.0, 585.0, 406.0, 54.0 ],
+									"patching_rect" : [ 488.0, 585.0, 408.0, 55.0 ],
 									"text" : "Reference:\r- Jensenius, A. R. (2006). Using motiongrams in the study of musical gestures. In Proceedings of the 2006 International Computer Music Conference, 6-11 November, New Orleans. (PDF available from http://musicalgestures.uio.no)"
 								}
 
@@ -248,15 +241,15 @@
 						"lines" : [  ]
 					}
 ,
-					"patching_rect" : [ 698.0, 580.0, 151.0, 19.0 ],
+					"patching_rect" : [ 703.0, 633.0, 151.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p more-about-motiongrams"
@@ -273,7 +266,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 311.0, 33.0, 300.0, 70.0 ],
+					"patching_rect" : [ 316.0, 86.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"varname" : "/input%"
 				}
@@ -287,7 +280,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 627.0, 210.0, 20.0, 180.0 ],
+					"patching_rect" : [ 632.0, 263.0, 20.0, 180.0 ],
 					"varname" : "jit.pwindow[3]"
 				}
 
@@ -302,7 +295,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 624.0, 116.0, 300.0, 70.0 ],
+					"patching_rect" : [ 629.0, 169.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"varname" : "/motiongram-horizontal"
 				}
@@ -316,7 +309,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 651.0, 210.0, 240.0, 180.0 ]
+					"patching_rect" : [ 656.0, 263.0, 240.0, 180.0 ]
 				}
 
 			}
@@ -328,7 +321,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 379.0, 403.0, 240.0, 20.0 ],
+					"patching_rect" : [ 384.0, 456.0, 240.0, 20.0 ],
 					"varname" : "jit.pwindow[2]"
 				}
 
@@ -343,7 +336,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 55.0, 403.0, 300.0, 70.0 ],
+					"patching_rect" : [ 60.0, 456.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"varname" : "/motiongram-vertical"
 				}
@@ -357,7 +350,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 379.0, 429.0, 240.0, 180.0 ]
+					"patching_rect" : [ 384.0, 482.0, 240.0, 180.0 ]
 				}
 
 			}
@@ -371,7 +364,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 55.0, 337.0, 54.0, 18.0 ],
+					"patching_rect" : [ 60.0, 390.0, 54.0, 19.0 ],
 					"text" : "loadbang"
 				}
 
@@ -385,7 +378,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 12.0, 225.0, 54.0, 18.0 ],
+					"patching_rect" : [ 21.0, 270.0, 54.0, 19.0 ],
 					"text" : "s module"
 				}
 
@@ -400,7 +393,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 12.0, 74.0, 260.0, 146.0 ]
+					"patching_rect" : [ 21.0, 119.0, 200.0, 156.0 ]
 				}
 
 			}
@@ -412,7 +405,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 379.0, 210.0, 240.0, 180.0 ]
+					"patching_rect" : [ 384.0, 263.0, 240.0, 180.0 ]
 				}
 
 			}
@@ -426,7 +419,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 311.0, 116.0, 300.0, 70.0 ],
+					"patching_rect" : [ 316.0, 169.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"varname" : "/motion%"
 				}
@@ -435,100 +428,19 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-28", 1 ],
+					"destination" : [ "obj-14", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 601.5, 112.0, 601.5, 112.0 ],
+					"midpoints" : [ 606.5, 157.0, 631.5, 157.0, 631.5, 82.0, 644.5, 82.0 ],
 					"source" : [ "obj-10", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-17", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 601.5, 196.0, 345.5, 196.0 ],
-					"source" : [ "obj-28", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-14", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 601.5, 186.0, 617.0, 186.0, 617.0, 107.0, 914.5, 107.0 ],
-					"source" : [ "obj-28", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-27", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 601.5, 196.0, 388.5, 196.0 ],
-					"source" : [ "obj-28", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-22", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-23", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-4", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-4", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-21", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-15", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 914.5, 196.0, 660.5, 196.0 ],
-					"source" : [ "obj-14", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 774.0, 191.0, 636.5, 191.0 ],
-					"source" : [ "obj-14", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-18", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 345.5, 475.0, 366.0, 475.0, 366.0, 430.0, 388.5, 430.0 ],
-					"source" : [ "obj-17", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-16", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 205.0, 484.0, 374.0, 484.0, 374.0, 406.0, 388.5, 406.0 ],
-					"source" : [ "obj-17", 1 ]
 				}
 
 			}
@@ -543,9 +455,99 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
+					"destination" : [ "obj-16", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 601.5, 104.0, 626.5, 104.0, 626.5, 29.0, 639.5, 29.0 ],
+					"midpoints" : [ 210.0, 537.0, 379.0, 537.0, 379.0, 459.0, 393.5, 459.0 ],
+					"source" : [ "obj-17", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 350.5, 528.0, 371.0, 528.0, 371.0, 483.0, 393.5, 483.0 ],
+					"source" : [ "obj-17", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 779.0, 244.0, 641.5, 244.0 ],
+					"source" : [ "obj-14", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-15", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 919.5, 249.0, 665.5, 249.0 ],
+					"source" : [ "obj-14", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-21", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-4", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-23", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-27", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 606.5, 249.0, 393.5, 249.0 ],
+					"source" : [ "obj-28", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-14", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 606.5, 239.0, 622.0, 239.0, 622.0, 160.0, 919.5, 160.0 ],
+					"source" : [ "obj-28", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-17", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 606.5, 249.0, 350.5, 249.0 ],
+					"source" : [ "obj-28", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-28", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 606.5, 165.0, 606.5, 165.0 ],
 					"source" : [ "obj-10", 1 ]
 				}
 

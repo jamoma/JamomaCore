@@ -17,6 +17,37 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"hidden" : 1,
+					"id" : "obj-21",
+					"linecount" : 3,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 463.0, 183.0, 104.0, 43.0 ],
+					"text" : "loadmess view/color/border 0.62 0. 0.36 1."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "@name", "jmod.yfade%", "@description", "Crossfade a source to two outputs" ],
+					"bgmode" : 1,
+					"id" : "obj-9",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 993.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"depthbuffer" : 0,
 					"id" : "obj-5",
 					"maxclass" : "jit.pwindow",
@@ -36,7 +67,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 23.0, 260.0, 140.0, 26.0 ],
+					"patching_rect" : [ 65.0, 255.0, 140.0, 26.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 78.0, 76.0, 202.0, 26.0 ],
 					"text" : "Module Controls"
@@ -51,47 +82,10 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 23.0, 290.0, 180.0, 19.0 ],
+					"patching_rect" : [ 65.0, 285.0, 180.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 78.0, 106.0, 180.0, 19.0 ],
 					"text" : "Specific module messages"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-25",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 28.0, 54.0, 181.0, 19.0 ],
-					"text" : "crossfade a source to two outputs"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"id" : "obj-31",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 28.0, 25.0, 132.0, 28.0 ],
-					"text" : "jmod.yfade%"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-33",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 17.0, 15.0, 273.0, 63.0 ],
-					"rounded" : 15
 				}
 
 			}
@@ -105,7 +99,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 84.0, 323.0, 64.0, 18.0 ],
+					"patching_rect" : [ 126.0, 318.0, 64.0, 19.0 ],
 					"pattrmode" : 1,
 					"types" : [  ]
 				}
@@ -119,7 +113,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 36.0, 367.0, 93.0, 18.0 ],
+					"patching_rect" : [ 78.0, 362.0, 94.0, 19.0 ],
 					"text" : "s jmod.op%.cmd"
 				}
 
@@ -135,7 +129,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 36.0, 323.0, 35.0, 18.0 ],
+					"patching_rect" : [ 78.0, 318.0, 35.0, 19.0 ],
 					"triscale" : 0.9
 				}
 
@@ -149,7 +143,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 36.0, 348.0, 114.0, 16.0 ],
+					"patching_rect" : [ 78.0, 343.0, 116.0, 17.0 ],
 					"text" : "/yfade $1 ramp 1000"
 				}
 
@@ -180,7 +174,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 308.0, 162.0, 92.0, 18.0 ],
+					"patching_rect" : [ 308.0, 162.0, 93.0, 19.0 ],
 					"text" : "r jmod.op%.cmd"
 				}
 
@@ -194,7 +188,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 17.0, 239.0, 93.0, 18.0 ],
+					"patching_rect" : [ 59.0, 234.0, 94.0, 19.0 ],
 					"text" : "s jmod.op%.cmd"
 				}
 
@@ -209,7 +203,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 232.0, 263.0, 73.0, 18.0 ],
+					"patching_rect" : [ 232.0, 263.0, 74.0, 19.0 ],
 					"text" : "loadmess set"
 				}
 
@@ -223,8 +217,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 308.0, 263.0, 191.0, 16.0 ],
-					"text" : "/yfade 0.465753"
+					"patching_rect" : [ 308.0, 263.0, 191.0, 17.0 ],
+					"text" : "/view/color/border 0.62 0. 0.36 1."
 				}
 
 			}
@@ -267,18 +261,21 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 17.0, 91.0, 260.0, 146.0 ]
+					"patching_rect" : [ 59.0, 86.0, 200.0, 157.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"background" : 1,
-					"id" : "obj-35",
+					"bgcolor" : [ 0.901961, 0.901961, 0.901961, 1.0 ],
+					"border" : 1,
+					"bordercolor" : [ 0.6, 0.6, 0.6, 1.0 ],
+					"id" : "obj-58",
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 259.0, 188.0, 27.0 ],
+					"patching_rect" : [ 58.0, 255.0, 195.0, 25.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 75.0, 75.0, 241.0, 27.0 ],
 					"rounded" : 15
@@ -288,11 +285,12 @@
 , 			{
 				"box" : 				{
 					"background" : 1,
-					"id" : "obj-36",
+					"bgcolor" : [ 0.901961, 0.901961, 0.901961, 1.0 ],
+					"id" : "obj-59",
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 289.0, 188.0, 109.0 ],
+					"patching_rect" : [ 58.0, 285.0, 196.0, 167.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 75.0, 105.0, 241.0, 113.0 ],
 					"rounded" : 15
@@ -340,7 +338,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-4", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 93.5, 346.0, 45.5, 346.0 ],
+					"midpoints" : [ 135.5, 341.0, 87.5, 341.0 ],
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -387,6 +385,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 598.5, 169.0, 448.5, 169.0 ],
 					"source" : [ "obj-6", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-14", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-21", 0 ]
 				}
 
 			}

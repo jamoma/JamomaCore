@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 14.0, 44.0, 1195.0, 503.0 ],
+		"rect" : [ 14.0, 44.0, 1214.0, 548.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 14.0, 44.0, 1195.0, 503.0 ],
+		"defrect" : [ 14.0, 44.0, 1214.0, 548.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -18,37 +18,30 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"id" : "obj-20",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 23.0, 207.0, 28.0 ],
-					"text" : "jmod.background%"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-34",
-					"maxclass" : "comment",
+					"hidden" : 1,
+					"id" : "obj-21",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 53.0, 261.0, 19.0 ],
-					"text" : "Background video subtraction"
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 306.0, 177.0, 230.0, 19.0 ],
+					"text" : "loadmess view/color/border 0.62 0. 0.36 1."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"id" : "obj-35",
-					"maxclass" : "panel",
+					"args" : [ "@name", "jmod.background%", "@description", "Background video substraction" ],
+					"bgmode" : 1,
+					"id" : "obj-7",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 13.0, 282.0, 68.0 ],
-					"rounded" : 15
+					"patching_rect" : [ 0.0, 0.0, 1214.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
 				}
 
 			}
@@ -61,7 +54,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_matrix", "" ],
-					"patching_rect" : [ 521.0, 109.0, 85.0, 19.0 ],
+					"patching_rect" : [ 521.0, 174.0, 85.0, 19.0 ],
 					"text" : "jit.rgb2luma"
 				}
 
@@ -89,7 +82,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 866.0, 191.0, 321.0, 262.0 ],
+					"patching_rect" : [ 866.0, 256.0, 324.0, 262.0 ],
 					"text" : "Simple: is a simple background removal based on recording the background as a single image and subtracting this from the input image. \n\nSlide: here a sliding window is applied when recording the background image, which may help to create a better result if for example the light in room is changing. \n\nMean: is looking at the average of a certain period of time when recording the background. \n\rMask: is the most advanced algorithm implemented, and is based on finding a \"foreground mask\" which is used for subtraction. This technique results in a better foreground/background separation. Unfortunately, this technique is much more computationally expensive than the other techniques. \n\nAll the above techqniues should be followed by proper filtering, and here is it possible to use either a low-pass filter and possibly also a noise removal algorithm."
 				}
 
@@ -103,7 +96,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 641.0, 26.0, 474.0, 140.0 ],
+					"patching_rect" : [ 641.0, 91.0, 474.0, 140.0 ],
 					"text" : "In computer vision it is common to talk about the \"background\" and \"foreground\" of an image. The foreground is typically an object or a person in the focus of the analysis, while the background may be considered \"noise\" that should be removed to enhance the foreground.\r\rBackground subtraction is still a hot research topic, and much work still has to be done before it is properly understood. While there are several techniques that work fairly well for static backgrounds, it is far more difficult to be able to subtract the background when it is changing over time. \r\rThis module contains some popular algorithms for carrying out background subtraction."
 				}
 
@@ -118,7 +111,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 306.0, 26.0, 300.0, 70.0 ],
+					"patching_rect" : [ 306.0, 91.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"varname" : "/input%"
 				}
@@ -147,7 +140,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 304.0, 428.0, 60.0, 32.0 ]
+					"patching_rect" : [ 304.0, 493.0, 60.0, 35.0 ]
 				}
 
 			}
@@ -159,7 +152,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 304.0, 241.0, 240.0, 180.0 ]
+					"patching_rect" : [ 304.0, 306.0, 240.0, 180.0 ]
 				}
 
 			}
@@ -173,7 +166,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 306.0, 139.0, 300.0, 70.0 ],
+					"patching_rect" : [ 306.0, 204.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"varname" : "jmod.background%"
 				}
@@ -187,7 +180,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 379.0, 110.0, 140.0, 19.0 ],
+					"patching_rect" : [ 379.0, 175.0, 140.0, 19.0 ],
 					"text" : "Usually works best in b/w"
 				}
 
@@ -200,26 +193,44 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 612.0, 241.0, 240.0, 180.0 ]
+					"patching_rect" : [ 612.0, 306.0, 240.0, 180.0 ]
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-11", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 596.5, 224.0, 313.5, 224.0 ],
-					"source" : [ "obj-12", 1 ]
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-21", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-10", 0 ],
+					"destination" : [ "obj-14", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-11", 0 ]
+					"midpoints" : [ 596.5, 165.0, 621.5, 165.0 ],
+					"source" : [ "obj-5", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 530.5, 197.0, 596.5, 197.0 ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 596.5, 165.0, 530.5, 165.0 ],
+					"source" : [ "obj-5", 1 ]
 				}
 
 			}
@@ -234,28 +245,19 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
+					"destination" : [ "obj-10", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 596.5, 100.0, 530.5, 100.0 ],
-					"source" : [ "obj-5", 1 ]
+					"midpoints" : [  ],
+					"source" : [ "obj-11", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-12", 1 ],
+					"destination" : [ "obj-11", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 530.5, 132.0, 596.5, 132.0 ],
-					"source" : [ "obj-1", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-14", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 596.5, 100.0, 621.5, 100.0 ],
-					"source" : [ "obj-5", 1 ]
+					"midpoints" : [ 596.5, 289.0, 313.5, 289.0 ],
+					"source" : [ "obj-12", 1 ]
 				}
 
 			}

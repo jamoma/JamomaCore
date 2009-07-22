@@ -17,6 +17,21 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"hidden" : 1,
+					"id" : "obj-69",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 25.0, 82.0, 230.0, 19.0 ],
+					"text" : "loadmess view/color/border 0.62 0. 0.36 1."
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"args" : [ "@name", "jmod.spacenavigator", "@description", "Use the Space Navigator from 3D Connexion" ],
 					"bgmode" : 1,
 					"id" : "obj-68",
@@ -1054,9 +1069,9 @@
 					"name" : "jmod.spacenavigator.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-					"offset" : [ 3.0, 2.0 ],
+					"offset" : [ 2.0, 1.0 ],
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 25.0, 110.0, 154.0, 73.0 ],
+					"patching_rect" : [ 25.0, 110.0, 155.0, 73.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
 					"varname" : "/wacom"
 				}
@@ -1393,6 +1408,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-5", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-71", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-69", 0 ]
 				}
 
 			}
