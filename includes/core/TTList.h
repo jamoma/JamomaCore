@@ -11,6 +11,7 @@
 
 #include "TTElement.h"
 #include "TTValue.h"
+#include "TTMutex.h"
 #include <list>
 using namespace std;
 
@@ -24,7 +25,8 @@ typedef list<TTValue*>::iterator	TTListIter;
 class TTEXPORT TTList : TTElement {
 private:
 	TTBoolean	threadProtection;	///< Use thread safety mechanisms.  Only disable this if you are certain that you will be calling from a single thread.
-	
+	TTMutex*	mutex;
+
 	#ifdef TT_PLATFORM_WIN
 	#pragma warning(disable:4251)
 	#endif

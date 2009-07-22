@@ -7,24 +7,21 @@
  */
 
 #include "TTList.h"
-#include "TTMutex.h"
 #include "TTObject.h"
 
-static TTMutex* sListMutex=NULL;
 
 /****************************************************************************************************/
 
 TTList::TTList()
 	:threadProtection(YES)
 {
-	if(!sListMutex)
-		sListMutex = new TTMutex(false);
+	mutex = new TTMutex(false);
 }
 
 
 TTList::~TTList()
 {
-	;
+	delete mutex;
 }
 
 
@@ -165,12 +162,12 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbolPtr messageName, TTValu
 void TTList::lock()
 {
 	if(threadProtection)
-		sListMutex->lock();
+		mutex->lock();
 }
 
 void TTList::unlock()
 {
 	if(threadProtection)
-		sListMutex->unlock();
+		mutex->unlock();
 }
 
