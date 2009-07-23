@@ -51,6 +51,7 @@ TT_AUDIO_CONSTRUCTOR,
 	setAttributeValue(TT("gainL"),				1.0);
 	setAttributeValue(TT("gainM"),				1.0);
 	setAttributeValue(TT("gainH"),				1.0);
+	setCalculateMethod(calculateValue);
 	setProcessMethod(processAudio);
 }
 
