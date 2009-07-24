@@ -34,10 +34,16 @@ function doRemove {
 		
 		echo -ne "- Extra Files ($maxAppFolder/patches/extras/)"
 		rm -f "$maxAppFolder/patches/extras/"jamoma* && echo -ne "... done.\n"
-	
-		else
-			echo -ne "Sorry, $maxAppFolder doesn't exist. Extra files can't be uninstalled.\n"
-		fi
+		
+		echo -ne "- Template Files ($maxAppFolder/patches/templates/)"
+		rm -f "$maxAppFolder/patches/templates/"jmod* && echo -ne "... done.\n"
+		rm -f "$maxAppFolder/patches/templates/"jalg* && echo -ne "... done.\n"
+		rm -f "$maxAppFolder/patches/templates/"_Jamoma_Patcher_.maxpat && echo -ne "... done.\n"
+		rm -f "$maxAppFolder/patches/templates/"layout.xml && echo -ne "... done.\n"
+		
+	else
+		echo -ne "Sorry, $maxAppFolder doesn't exist. Extra files can't be uninstalled.\n"
+	fi
 
 
 
