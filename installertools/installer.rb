@@ -273,6 +273,7 @@ else
   cmd("cp \"#{@c74}/Jamoma/ReadMe.rtf\" \"#{@installers}/Jamoma\"")
   cmd("cp \"#{@c74}/Jamoma/GNU-LGPL.rtf\" \"#{@installers}/resources/License.rtf\"")
   cmd("cp \"#{@c74}/Jamoma/GNU-LGPL.rtf\" \"#{@installers}/Jamoma/License.rtf\"")
+  cmd("cp \"Uninstall.command\" \"#{@installers}/Jamoma/Uninstall.command\"")
 
   puts "  Building Package -- this could take a while..."
   cmd("rm -rfv \"#{@installers}/MacInstaller/Jamoma.pkg\"")
