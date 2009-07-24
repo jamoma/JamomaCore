@@ -943,10 +943,10 @@ void dbap_calculate_hull1D(t_dbap *x, long n)
 }
 
 // TODO : a way to select dst
-// TODO : put the algotithm in hull2.cpp (keep it here while isn't tested to use post())
+// TODO : put the algorithm in hull2.cpp (keep it here while isn't tested to use post())
 void dbap_calculate_hull2D(t_dbap *x, long n)
 {
-	t_H2D h2;			//the data strucuture to perform calculation
+	t_H2D h2;			// the data structure used to perform calculation
 	long i,j;
 	float dx,dy;		// to calculate the lenght of each border of the hull
 	long m;				// Index of lowest so far
@@ -1024,7 +1024,7 @@ void dbap_calculate_hull2D(t_dbap *x, long n)
 	// Debug
 	//post("h2D : %d points sorted by angle",h2.nb_point);
 	
-	h2.stack = Graham(h2);
+	h2.stack = Graham(h2);	// return NULL if it fails
 	
 	// Debug
 	//post("h2D : Hull");
