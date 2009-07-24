@@ -23,7 +23,10 @@ function doRemove {
 		rm -f "$C74Folder/default-definitions/"jcom* && echo -ne "... done.\n"
 		
 		echo -ne "- Extension File ($C74Folder/extensions/)"
-		rm -Rf "$C74Folder/extensions/"jcom* && echo -ne "... done.\n"
+		rm -Rf "$C74Folder/extensions/"jcom* && echo -ne "... done.\n"    
+		
+		echo -ne "- Java Class Files ($C74Folder/java/classes/cueManager)"
+		rm -Rf "$C74Folder/java/classes/cueManager" && echo -ne "... done.\n"
 	
 	else
 		echo -ne "Sorry, $C74Folder doen't exist. can't uninstall Jamoma files.\n"
@@ -45,20 +48,21 @@ function doRemove {
 		echo -ne "Sorry, $maxAppFolder doesn't exist. Extra files can't be uninstalled.\n"
 	fi
 
-
-
-	
-	if [ -e "$FrameworkFolder" ] ; then
-		echo -ne "- DSP Framework ($FrameworkFolder/JamomaDSP.framework)"
-		rm -Rf "$FrameworkFolder/JamomaDSP.framework" && echo -ne "... done.\n"
-		
+    if [ -e "$FrameworkFolder" ] ; then
 		echo -ne "- Modular Framework ($FrameworkFolder/Jamoma.framework)"
 		rm -Rf "$FrameworkFolder/Jamoma.framework" && echo -ne "... done.\n"
-	
+		if [-e "$TapTools"]; then
+			echo -ne "It seems that Tap.Tools is installed. Therfore the files that are shared between Jamoma and TapTools will remain.\n"
+		else    
+	    	echo -ne "- DSP Framework ($FrameworkFolder/JamomaDSP.framework)."
+			rm -Rf "$FrameworkFolder/JamomaDSP.framework" && echo -ne "... done.\n" 
+			rm -Rf "/Library/Application Support/TTBlue" && echo -ne "... done.\n" 
+		fi
 	else
 		echo -ne "Sorry, $FrameworkFolder doesn't exist. Frameworks can't be uninstalled.\n"
 	fi
 	
+ 
 	echo -ne "\n";
 
 }
@@ -91,7 +95,8 @@ fi
 
 maxAppFolder="/Applications/Max5";
 FrameworkFolder="/Library/Frameworks";
-C74Folder="$maxAppFolder/Cycling '74";
+C74Folder="$maxAppFolder/Cycling '74"; 
+TapTools="$C74Folder/extensions/tap.tools.mxo";
 remove5;
 
 echo -ne "done"
