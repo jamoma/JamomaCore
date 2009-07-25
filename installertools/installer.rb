@@ -26,7 +26,7 @@ else
 end
 @c74 = "#{@max}/Cycling '74"
 
-@version = "0.5.0b15"
+@version = "0.5"
 
 
 ###################################################################
@@ -204,8 +204,10 @@ if win32?
 
 else 
 # mac
-  create_logs
-
+  create_logs  
+  puts " "  
+  puts "  Version string is set to Version #{@version}"
+  puts " "
   puts "  Creating installer directory structure @ #{@temp} ..."
   cmd("rm -rfv \"#{@temp}\"")                                            # remove an old temp dir if it exists
   cmd("mkdir -pv \"#{@temp}\"")                                         # now make a clean one, and build dir structure in it
@@ -277,7 +279,7 @@ else
 
   puts "  Building Package -- this could take a while..."
   cmd("rm -rfv \"#{@installers}/MacInstaller/Jamoma.pkg\"")
-  cmd("/Developer/usr/bin/packagemaker --verbose --root \"#{@temp}\" --id org.jamoma.modular --out \"#{@installers}/Jamoma/Jamoma.pkg\" --version #{@version} --title Jamoma --resources \"#{@installers}/resources\" --target 10.4 --domain system --root-volume-only")
+  cmd("/Developer/usr/bin/packagemaker --verbose --root \"#{@temp}\" --id org.jamoma.modular --out \"#{@installers}/Jamoma/Jamoma-#{@version}.pkg\" --version #{@version} --title Jamoma-#{@version} --resources \"#{@installers}/resources\" --target 10.4 --domain system --root-volume-only")
 
   # Warning: the zip thing seems to be a real problem on the Mac using OS 10.5 at least...  Renaming the zip ends up causing the install to fail
   #puts "  Zipping the Installer..."
