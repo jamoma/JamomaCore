@@ -48,11 +48,11 @@ function doRemove {
 		echo -ne "Sorry, $maxAppFolder doesn't exist. Extra files can't be uninstalled.\n"
 	fi
 
-    if [ -e "$FrameworkFolder" ] ; then
+   if [ -e "$FrameworkFolder" ] ; then
 		echo -ne "- Modular Framework ($FrameworkFolder/Jamoma.framework)"
 		rm -Rf "$FrameworkFolder/Jamoma.framework" && echo -ne "... done.\n"
-		if [-e "$TapTools"]; then
-			echo -ne "It seems that Tap.Tools is installed. Therfore the files that are shared between Jamoma and TapTools will remain.\n"
+		if [ -e "$TapTools" ]; then
+			echo -ne "It seems that Tap.Tools is installed. Therfore the files that are shared between Jamoma and Tap.Tools will remain.\n"
 		else    
 	    	echo -ne "- DSP Framework ($FrameworkFolder/JamomaDSP.framework)."
 			rm -Rf "$FrameworkFolder/JamomaDSP.framework" && echo -ne "... done.\n" 
@@ -90,13 +90,14 @@ whichVersion=0;
 if [[ -e "/sysbuild/Development" ]]; then
 	maxAppFolder="/sysbuild/Development";
 	C74Folder="$maxAppFolder/Cycling '74";
+	TapTools="$maxAppFolder/Cycling '74/extensions";
 	remove5;
 fi
 
 maxAppFolder="/Applications/Max5";
 FrameworkFolder="/Library/Frameworks";
 C74Folder="$maxAppFolder/Cycling '74"; 
-TapTools="$C74Folder/extensions/tap.tools.mxo";
+TapTools="$maxAppFolder/Cycling '74/extensions/tap.tools.mxo";
 remove5;
 
 echo -ne "done"
