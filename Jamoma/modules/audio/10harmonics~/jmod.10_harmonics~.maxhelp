@@ -17,22 +17,6 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"hidden" : 1,
-					"id" : "obj-21",
-					"linecount" : 3,
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 3.0, 82.0, 99.0, 43.0 ],
-					"text" : "loadmess view/color/border 0.62 0. 0.36 1."
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"args" : [ "@name", "jmod.10_harmonics~", "@description", "A module for additive synthesis" ],
 					"bgmode" : 1,
 					"id" : "obj-1",
@@ -76,10 +60,10 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-21", 0 ]
+					"destination" : [ "obj-47", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 398.5, 233.0, 258.0, 233.0 ],
+					"source" : [ "obj-2", 1 ]
 				}
 
 			}
@@ -88,15 +72,6 @@
 					"destination" : [ "obj-47", 2 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-2", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-47", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 398.5, 233.0, 258.0, 233.0 ],
 					"source" : [ "obj-2", 1 ]
 				}
 
