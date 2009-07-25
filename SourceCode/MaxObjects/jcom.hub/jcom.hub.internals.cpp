@@ -93,11 +93,11 @@ void hub_internals_create(t_hub *x)
 	anObject->setAction((method)hub_preset_store, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/store"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/storenext",			x->container,	"msg_list",		"none",	"Store a preset in the next preset slot.  Handy so that you do not need to specify a preset number manually.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/storenext",			x->container,	"msg_none",		"none",	"Store a preset in the next preset slot.  Handy so that you do not need to specify a preset number manually.", 1);
 	anObject->setAction((method)hub_preset_store_next, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/storenext"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/storecurrent",		x->container,	"msg_list",		"none",	"Store on the last recalled or stored preset", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/storecurrent",		x->container,	"msg_none",		"none",	"Store on the last recalled or stored preset", 1);
 	anObject->setAction((method)hub_preset_store_current, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/storecurrent"), (t_object*)anObject);
 
