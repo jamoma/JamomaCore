@@ -4,7 +4,7 @@
 		"rect" : [ 1.0, 21.0, 240.0, 47.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 56.0, 201.0, 1213.0, 730.0 ],
+		"defrect" : [ -7.0, 44.0, 1342.0, 752.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -25,7 +25,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 765.0, 865.0, 56.0, 19.0 ],
+					"patching_rect" : [ 774.0, 843.0, 56.0, 19.0 ],
 					"text" : "tosymbol"
 				}
 
@@ -434,7 +434,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "int" ],
-					"patching_rect" : [ 735.0, 888.0, 129.0, 19.0 ],
+					"patching_rect" : [ 744.0, 866.0, 129.0, 19.0 ],
 					"text" : "conformpath slash boot"
 				}
 
@@ -508,7 +508,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 710.0, 865.0, 48.017475, 15.000001 ],
+					"patching_rect" : [ 709.0, 846.0, 48.017475, 15.000001 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1.931239, 120.0, 33.266159, 14.000001 ],
 					"prototypename" : "jamoma open",
@@ -1412,7 +1412,7 @@
 					"patching_rect" : [ 913.0, 133.0, 85.0, 15.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 80.0, 120.0, 150.0, 13.0 ],
-					"size" : 72.0,
+					"size" : 18.0,
 					"varname" : "file_loop_points"
 				}
 
@@ -1589,9 +1589,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 711.0, 888.0, 22.0, 19.0 ],
-					"text" : "t b"
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 710.0, 869.0, 27.0, 19.0 ],
+					"text" : "t "
 				}
 
 			}
@@ -1679,12 +1679,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-49",
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 711.0, 909.0, 515.0, 19.0 ],
-					"text" : "jcom.parameter file/open @type msg_generic @description \"Open dialog to select video file\"",
+					"patching_rect" : [ 710.0, 890.0, 515.0, 31.0 ],
+					"text" : "jcom.parameter file/open @type msg_generic @description \"Open dialog to select video file\" @repetitions/allow 1",
 					"varname" : "jcom.parameter[2]"
 				}
 
@@ -1899,8 +1900,8 @@
 					"patching_rect" : [ 666.0, 198.0, 128.0, 14.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 3.0, 135.0, 227.0, 13.0 ],
-					"range" : [ 0.0, 7240.0 ],
-					"text" : "blading.mov",
+					"range" : [ 0.0, 1840.0 ],
+					"text" : "dishes.mov",
 					"textpos" : [ 10.0, 0.0 ]
 				}
 
@@ -2145,7 +2146,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 765.0, 850.0, 131.0, 11.0 ],
+					"patching_rect" : [ 774.0, 828.0, 131.0, 11.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 3.0, 115.0, 234.0, 59.0 ],
 					"rounded" : 0.0,
@@ -2156,19 +2157,10 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-40", 0 ],
+					"destination" : [ "obj-49", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-70", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-70", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-38", 0 ]
+					"source" : [ "obj-40", 0 ]
 				}
 
 			}
@@ -2183,10 +2175,28 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-49", 0 ],
+					"destination" : [ "obj-36", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-40", 0 ]
+					"source" : [ "obj-20", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-40", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-70", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-70", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-38", 0 ]
 				}
 
 			}
@@ -2286,15 +2296,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-62", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-36", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-20", 0 ]
 				}
 
 			}
