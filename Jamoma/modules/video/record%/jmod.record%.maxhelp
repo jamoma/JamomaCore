@@ -17,21 +17,6 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"hidden" : 1,
-					"id" : "obj-21",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 90.0, 350.0, 230.0, 19.0 ],
-					"text" : "loadmess view/color/border 0.62 0. 0.36 1."
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"args" : [ "@name", "jmod.record%", "@description", "A module for recording video to disk" ],
 					"bgmode" : 1,
 					"id" : "obj-8",
@@ -39,7 +24,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 696.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 706.0, 70.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
 				}
@@ -108,18 +93,9 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 1,
-					"midpoints" : [ 99.5, 371.0, 77.0, 371.0, 77.0, 260.0, 101.5, 260.0 ],
-					"source" : [ "obj-21", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-6", 1 ],
+					"destination" : [ "obj-1", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
+					"midpoints" : [ 382.5, 260.0, 396.0, 260.0, 396.0, 129.0, 412.5, 129.0 ],
 					"source" : [ "obj-5", 1 ]
 				}
 
@@ -135,9 +111,9 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
+					"destination" : [ "obj-6", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 382.5, 260.0, 396.0, 260.0, 396.0, 129.0, 412.5, 129.0 ],
+					"midpoints" : [  ],
 					"source" : [ "obj-5", 1 ]
 				}
 
