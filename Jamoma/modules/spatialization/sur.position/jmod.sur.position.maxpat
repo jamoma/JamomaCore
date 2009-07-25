@@ -424,7 +424,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "x[7]",
-					"text" : "jcom.parameter source.8/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/internal xyz @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.8/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -505,7 +505,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "x[6]",
-					"text" : "jcom.parameter source.7/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/internal xyz @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.7/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -586,7 +586,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "x[5]",
-					"text" : "jcom.parameter source.6/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/internal xyz @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.6/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -667,7 +667,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "x[4]",
-					"text" : "jcom.parameter source.5/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/internal xyz @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.5/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -748,7 +748,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "x[3]",
-					"text" : "jcom.parameter source.4/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/internal xyz @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.4/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -829,7 +829,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "x[2]",
-					"text" : "jcom.parameter source.3/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/internal xyz @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.3/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -910,7 +910,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "x[1]",
-					"text" : "jcom.parameter source.2/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/internal xyz @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.2/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -1028,7 +1028,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "x",
-					"text" : "jcom.parameter source.1/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/internal xyz @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.1/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
