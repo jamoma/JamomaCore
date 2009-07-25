@@ -1,10 +1,10 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 21.0, 44.0, 1213.0, 730.0 ],
+		"rect" : [ 1.0, 21.0, 240.0, 47.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 21.0, 44.0, 1213.0, 730.0 ],
+		"defrect" : [ 56.0, 201.0, 1213.0, 730.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -17,6 +17,36 @@
 		"boxanimatetime" : 200,
 		"imprint" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-70",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 765.0, 865.0, 56.0, 19.0 ],
+					"text" : "tosymbol"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-66",
+					"linecount" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 715.0, 770.0, 443.0, 31.0 ],
+					"text" : "jcom.message camera/direct @repetitions/allow 1 @description \"Direct access to the embedded jit.qt/dx.grab object\"",
+					"varname" : "jcom.parameter[5]"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -42,7 +72,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 680.0, 723.0, 564.0, 31.0 ],
+					"patching_rect" : [ 680.0, 723.0, 568.0, 31.0 ],
 					"text" : "jcom.parameter camera/updaterate @type msg_int @range/bounds 1 100 @range/clipmode low @description \"Update rate of the camera, in milliseconds\"",
 					"varname" : "camera/camera[1]"
 				}
@@ -85,7 +115,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 709.0, 885.0, 572.0, 19.0 ],
+					"patching_rect" : [ 707.0, 941.0, 572.0, 19.0 ],
 					"text" : "jcom.message file/direct @repetitions/allow 1 @description \"Direct access to the embedded jit.qt.movie object\"",
 					"varname" : "jcom.parameter[4]"
 				}
@@ -109,6 +139,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-94",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -125,6 +156,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-92",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -140,6 +172,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-93",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -155,6 +188,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-82",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -335,7 +369,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 128.0, 971.0, 97.0, 19.0 ],
+					"patching_rect" : [ 128.0, 971.0, 113.0, 19.0 ],
 					"text" : "r #1_desktop_off"
 				}
 
@@ -400,7 +434,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "int" ],
-					"patching_rect" : [ 737.0, 832.0, 129.0, 19.0 ],
+					"patching_rect" : [ 735.0, 888.0, 129.0, 19.0 ],
 					"text" : "conformpath slash boot"
 				}
 
@@ -474,9 +508,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 713.0, 813.744507, 48.017475, 15.000001 ],
+					"patching_rect" : [ 710.0, 865.0, 48.017475, 15.000001 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1.931239, 120.0, 30.266159, 14.000001 ],
+					"presentation_rect" : [ 1.931239, 120.0, 33.266159, 14.000001 ],
 					"prototypename" : "jamoma open",
 					"rounded" : 8.0,
 					"text" : "open",
@@ -496,9 +530,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 719.0, 934.886536, 21.466906, 15.933016 ],
+					"patching_rect" : [ 717.0, 990.886536, 21.466906, 15.933016 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 31.819288, 120.0, 20.461647, 14.0 ],
+					"presentation_rect" : [ 32.81929, 120.0, 22.461647, 14.0 ],
 					"prototypename" : "jamoma on/off",
 					"rounded" : 8.0,
 					"text" : "on",
@@ -559,7 +593,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 133.0, 611.0, 99.0, 19.0 ],
+					"patching_rect" : [ 133.0, 611.0, 100.0, 19.0 ],
 					"text" : "r #1_noise_off"
 				}
 
@@ -573,7 +607,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 784.0, 933.0, 88.0, 19.0 ],
+					"patching_rect" : [ 782.0, 989.0, 89.0, 19.0 ],
 					"text" : "r #1_file_off"
 				}
 
@@ -587,7 +621,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 747.0, 444.0, 110.0, 19.0 ],
+					"patching_rect" : [ 747.0, 444.0, 111.0, 19.0 ],
 					"text" : "r #1_camera_off"
 				}
 
@@ -625,7 +659,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 714.0, 201.0, 98.0, 19.0 ],
+									"patching_rect" : [ 714.0, 201.0, 114.0, 19.0 ],
 									"text" : "s #1_desktop_off"
 								}
 
@@ -680,7 +714,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 612.0, 200.0, 100.0, 19.0 ],
+									"patching_rect" : [ 612.0, 200.0, 101.0, 19.0 ],
 									"text" : "s #1_noise_off"
 								}
 
@@ -706,7 +740,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 389.0, 199.0, 111.0, 19.0 ],
+									"patching_rect" : [ 389.0, 199.0, 112.0, 19.0 ],
 									"text" : "s #1_camera_off"
 								}
 
@@ -1050,12 +1084,12 @@
 					"patching_rect" : [ 245.0, 51.0, 73.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p offsets_etc"
@@ -1122,7 +1156,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 660.0, 622.0, 90.0, 19.0 ],
+					"patching_rect" : [ 660.0, 622.0, 91.0, 19.0 ],
 					"text" : "r #1_camera"
 				}
 
@@ -1136,7 +1170,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 660.0, 555.0, 85.0, 19.0 ],
+					"patching_rect" : [ 660.0, 555.0, 86.0, 19.0 ],
 					"text" : "r #1_device"
 				}
 
@@ -1151,7 +1185,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 719.0, 995.0, 365.0, 31.0 ],
+					"patching_rect" : [ 717.0, 1051.0, 368.0, 31.0 ],
 					"text" : "jcom.parameter file/framedump @type msg_toggle @repetitions/allow 0 @description \"Turn on or off framedump of the video\"",
 					"varname" : "file/framedump"
 				}
@@ -1328,12 +1362,12 @@
 					"patching_rect" : [ 913.0, 169.0, 43.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p scale"
@@ -1378,7 +1412,7 @@
 					"patching_rect" : [ 913.0, 133.0, 85.0, 15.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 80.0, 120.0, 150.0, 13.0 ],
-					"size" : 1763.0,
+					"size" : 72.0,
 					"varname" : "file_loop_points"
 				}
 
@@ -1419,6 +1453,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-27",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1453,6 +1488,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-29",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1554,7 +1590,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 713.0, 832.0, 22.0, 19.0 ],
+					"patching_rect" : [ 711.0, 888.0, 22.0, 19.0 ],
 					"text" : "t b"
 				}
 
@@ -1585,7 +1621,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 717.0, 1129.0, 451.0, 31.0 ],
+					"patching_rect" : [ 715.0, 1185.0, 452.0, 31.0 ],
 					"text" : "jcom.parameter file/rate @type msg_float @repetitions/allow 0 @ramp/drive scheduler @range/bounds -2. 2. @range/clipmode none @description \"Playback rate of video file\"",
 					"varname" : "file/rate"
 				}
@@ -1601,7 +1637,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 717.0, 1067.0, 311.0, 31.0 ],
+					"patching_rect" : [ 715.0, 1123.0, 311.0, 31.0 ],
 					"text" : "jcom.parameter file/size @type msg_int @repetitions/allow 0 @description \"Select size of video playback\"",
 					"varname" : "file/size"
 				}
@@ -1632,7 +1668,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 719.0, 955.0, 528.0, 19.0 ],
+					"patching_rect" : [ 717.0, 1011.0, 528.0, 19.0 ],
 					"text" : "jcom.parameter file/active @type msg_toggle @repetitions/allow 0 @description \"Turn video on or off\"",
 					"varname" : "file/on"
 				}
@@ -1647,8 +1683,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 713.0, 853.0, 515.0, 19.0 ],
-					"text" : "jcom.message file/open @type msg_generic @description \"Open dialog to select video file\"",
+					"patching_rect" : [ 711.0, 909.0, 515.0, 19.0 ],
+					"text" : "jcom.parameter file/open @type msg_generic @description \"Open dialog to select video file\"",
 					"varname" : "jcom.parameter[2]"
 				}
 
@@ -1679,7 +1715,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 32.0, 563.0, 474.0, 31.0 ],
+					"patching_rect" : [ 32.0, 563.0, 477.0, 31.0 ],
 					"text" : "jcom.parameter synth/noise/rate @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 2 1000 @range/clipmode low @description \"Metro speed for noise\"",
 					"varname" : "synth/noise/rate"
 				}
@@ -1689,6 +1725,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-54",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1704,6 +1741,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-55",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1826,7 +1864,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 717.0, 1109.0, 32.0, 19.0 ],
+					"patching_rect" : [ 715.0, 1165.0, 32.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 31.0, 149.0, 35.0, 19.0 ],
 					"triangle" : 0,
@@ -1839,6 +1877,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-68",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1860,7 +1899,8 @@
 					"patching_rect" : [ 666.0, 198.0, 128.0, 14.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 3.0, 135.0, 227.0, 13.0 ],
-					"text" : "drag file into the window",
+					"range" : [ 0.0, 7240.0 ],
+					"text" : "blading.mov",
 					"textpos" : [ 10.0, 0.0 ]
 				}
 
@@ -1876,7 +1916,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 717.0, 1046.0, 99.0, 19.0 ],
+					"patching_rect" : [ 715.0, 1102.0, 99.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 67.0, 149.0, 89.0, 19.0 ],
 					"types" : [  ],
@@ -1948,7 +1988,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 32.0, 633.0, 478.0, 31.0 ],
+					"patching_rect" : [ 32.0, 633.0, 481.0, 31.0 ],
 					"text" : "jcom.parameter synth/noise/active @type msg_toggle @range/bounds 0 1 @range/clipmode both @repetitions/allow 0 @ramp/drive none @description \"Turn video noise on or off\"",
 					"varname" : "synth/noise/on"
 				}
@@ -2000,6 +2040,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-84",
 					"linecount" : 3,
 					"maxclass" : "comment",
@@ -2104,7 +2145,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 764.0, 816.0, 131.0, 11.0 ],
+					"patching_rect" : [ 765.0, 850.0, 131.0, 11.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 3.0, 115.0, 234.0, 59.0 ],
 					"rounded" : 0.0,
@@ -2114,6 +2155,42 @@
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-40", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-70", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-70", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-38", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-49", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-36", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-49", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-40", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-39", 0 ],
 					"hidden" : 0,
@@ -2209,15 +2286,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-62", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-40", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-38", 0 ]
 				}
 
 			}
@@ -2423,7 +2491,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-71", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 726.5, 1098.0, 712.0, 1098.0, 712.0, 1041.0, 726.5, 1041.0 ],
+					"midpoints" : [ 724.5, 1154.0, 710.0, 1154.0, 710.0, 1097.0, 724.5, 1097.0 ],
 					"source" : [ "obj-43", 0 ]
 				}
 
@@ -2441,7 +2509,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-67", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 726.5, 1161.0, 712.0, 1161.0, 712.0, 1104.0, 726.5, 1104.0 ],
+					"midpoints" : [ 724.5, 1217.0, 710.0, 1217.0, 710.0, 1160.0, 724.5, 1160.0 ],
 					"source" : [ "obj-41", 0 ]
 				}
 
@@ -2639,7 +2707,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-47", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 793.5, 953.0, 728.5, 953.0 ],
+					"midpoints" : [ 791.5, 1009.0, 726.5, 1009.0 ],
 					"source" : [ "obj-2", 0 ]
 				}
 
@@ -2657,7 +2725,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-19", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 728.5, 977.524414, 714.885742, 977.524414, 714.885742, 929.921875, 728.5, 929.921875 ],
+					"midpoints" : [ 726.5, 1033.524414, 712.885742, 1033.524414, 712.885742, 985.921875, 726.5, 985.921875 ],
 					"source" : [ "obj-47", 0 ]
 				}
 
@@ -2740,24 +2808,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-33", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-49", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-40", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-49", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-36", 0 ]
 				}
 
 			}
