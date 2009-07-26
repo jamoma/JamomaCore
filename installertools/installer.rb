@@ -98,9 +98,9 @@ if win32?
   `mkdir root`
   `mkdir "root/Cycling '74"`
   `mkdir "root/Cycling '74/max-startup"`
-  `mkdir "root/Cycling '74/java"`
-  `mkdir "root/Cycling '74/java/classes"`
-  `mkdir "root/Cycling '74/java/classes/cueManager"`
+#  `mkdir "root/Cycling '74/java"`
+#  `mkdir "root/Cycling '74/java/classes"`
+#  `mkdir "root/Cycling '74/java/classes/cueManager"`
   `mkdir root/patches`
   `mkdir root/patches/extras`
   `mkdir root/patches/templates`
@@ -141,10 +141,10 @@ if win32?
   `cp "#{@c74}/Jamoma/documentation/jamoma-templates/jmod.template.video%.maxpat"  root/patches/templates/jmod.template.video%.maxpat`
   `cp "#{@c74}/Jamoma/documentation/jamoma-templates/layout.xml"                   root/patches/templates/layout.xml`
 
-  `cp "#{@c74}/Jamoma/modules/control/cueManager/java-classes/Cue.class" "root/Cycling '74/java/classes/cueManager/Cue.class"`
-  `cp "#{@c74}/Jamoma/modules/control/cueManager/java-classes/CueList.class" "root/Cycling '74/java/classes/cueManager/CueList.class"`
-  `cp "#{@c74}/Jamoma/modules/control/cueManager/java-classes/Data.class" "root/Cycling '74/java/classes/cueManager/Data.class"`
-  `cp "#{@c74}/Jamoma/modules/control/cueManager/java-classes/CueManager.class" "root/Cycling '74/java/classes/cueManager/CueManager.class"`
+#  `cp "#{@c74}/Jamoma/modules/control/cueManager/java-classes/Cue.class" "root/Cycling '74/java/classes/cueManager/Cue.class"`
+#  `cp "#{@c74}/Jamoma/modules/control/cueManager/java-classes/CueList.class" "root/Cycling '74/java/classes/cueManager/CueList.class"`
+#  `cp "#{@c74}/Jamoma/modules/control/cueManager/java-classes/Data.class" "root/Cycling '74/java/classes/cueManager/Data.class"`
+#  `cp "#{@c74}/Jamoma/modules/control/cueManager/java-classes/CueManager.class" "root/Cycling '74/java/classes/cueManager/CueManager.class"`
 
   puts " Stripping .svn folders..."
   `rm -rf "#{@c74}/Jamoma"/.svn`                              # and remove all .svn folders by brute force (someone can make this better)
@@ -217,9 +217,9 @@ else
   cmd("mkdir -pv \"#{@max}/patches/templates\"")
   cmd("mkdir -pv \"#{@max}/patches/extras\"")
   cmd("mkdir -pv \"#{@c74}\"")
-  cmd("mkdir -pv \"#{@c74}/java\"")
-  cmd("mkdir -pv \"#{@c74}/java/classes\"")
-  cmd("mkdir -pv \"#{@c74}/java/classes/cueManager\"")
+#  cmd("mkdir -pv \"#{@c74}/java\"")
+#  cmd("mkdir -pv \"#{@c74}/java/classes\"")
+#  cmd("mkdir -pv \"#{@c74}/java/classes/cueManager\"")
   cmd("mkdir -pv \"#{@c74}/extensions\"")
   cmd("mkdir -pv \"#{@c74}/default-definitions\"")
   cmd("mkdir -pv \"#{@c74}/default-settings\"")
@@ -265,10 +265,10 @@ else
   cmd("mv \"#{@c74}/Jamoma/support\"/*.maxdefines \"#{@c74}/default-definitions\"")
   # cmd("mv \"#{@c74}/Jamoma/support/jcom.ui.maxdefines\" \"#{@c74}/default-definitions/jcom.ui.maxdefines\"")
   # now we have several maxdefines
-  cmd("cp \"#{@c74}/Jamoma/modules/control/cueManager/java-classes/Cue.class\" \"#{@c74}/java/classes/cueManager\"") 
-  cmd("cp \"#{@c74}/Jamoma/modules/control/cueManager/java-classes/CueList.class\" \"#{@c74}/java/classes/cueManager\"") 
-  cmd("cp \"#{@c74}/Jamoma/modules/control/cueManager/java-classes/Data.class\" \"#{@c74}/java/classes/cueManager\"") 
-  cmd("cp \"#{@c74}/Jamoma/modules/control/cueManager/java-classes/CueManager.class\" \"#{@c74}/java/classes/cueManager\"") 
+#  cmd("cp \"#{@c74}/Jamoma/modules/control/cueManager/java-classes/Cue.class\" \"#{@c74}/java/classes/cueManager\"") 
+#  cmd("cp \"#{@c74}/Jamoma/modules/control/cueManager/java-classes/CueList.class\" \"#{@c74}/java/classes/cueManager\"") 
+#  cmd("cp \"#{@c74}/Jamoma/modules/control/cueManager/java-classes/Data.class\" \"#{@c74}/java/classes/cueManager\"") 
+#  cmd("cp \"#{@c74}/Jamoma/modules/control/cueManager/java-classes/CueManager.class\" \"#{@c74}/java/classes/cueManager\"") 
 
   puts "  Copying readme, license, etc...."
   cmd("cp \"#{@c74}/Jamoma/ReadMe.rtf\" \"#{@installers}/resources\"")

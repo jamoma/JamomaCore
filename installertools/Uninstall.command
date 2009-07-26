@@ -25,8 +25,8 @@ function doRemove {
 		echo -ne "- Extension File ($C74Folder/extensions/)"
 		rm -Rf "$C74Folder/extensions/"jcom* && echo -ne "... done.\n"    
 		
-		echo -ne "- Java Class Files ($C74Folder/java/classes/cueManager)"
-		rm -Rf "$C74Folder/java/classes/cueManager" && echo -ne "... done.\n"
+#		echo -ne "- Java Class Files ($C74Folder/java/classes/cueManager)"
+#		rm -Rf "$C74Folder/java/classes/cueManager" && echo -ne "... done.\n"
 	
 	else
 		echo -ne "Sorry, $C74Folder doen't exist. can't uninstall Jamoma files.\n"
