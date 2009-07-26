@@ -85,7 +85,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1015.0, 475.0, 149.0, 19.0 ],
-					"text" : "sprintf name filter.%ld/freq"
+					"text" : "sprintf name filter.%ld/frequency"
 				}
 
 			}
@@ -113,7 +113,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1015.0, 355.0, 137.0, 19.0 ],
-					"text" : "sprintf name filter.%ld/Q"
+					"text" : "sprintf name filter.%ld/q"
 				}
 
 			}
@@ -1221,7 +1221,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 480.0, 520.0, 594.0, 43.0 ],
-					"text" : "jcom.parameter filter.0/freq @type msg_float @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\" @dataspace pitch @dataspace/unit/active Hz @dataspace/unit/native Hz @dataspace/unit/display Hz"
+					"text" : "jcom.parameter filter.0/frequency @type msg_float @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\" @dataspace pitch @dataspace/unit/active Hz @dataspace/unit/native Hz @dataspace/unit/display Hz"
 				}
 
 			}
@@ -1236,7 +1236,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 480.0, 390.0, 525.0, 31.0 ],
-					"text" : "jcom.parameter filter.0/Q @type msg_float @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\""
+					"text" : "jcom.parameter filter.0/q @type msg_float @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\""
 				}
 
 			}
