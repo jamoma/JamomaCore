@@ -5,7 +5,7 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='sr_ratio' type='msg_float'>1.000000</item>
+    <item name='samplerateRatio' type='msg_float'>1.000000</item>
     <item name='bitdepth' type='msg_int'>24</item>
     <item name='audio/mute' type='msg_toggle'>1</item>
     <item name='audio/mix' type='msg_float'>100.000000</item>
@@ -19,7 +19,7 @@
     <item name='audio/mix' type='msg_float'>0.000000</item>
     <item name='audio/meters/freeze' type='msg_toggle'>0</item>
     <item name='audio/gain' type='msg_int'>0</item>
-    <item name='sr_ratio' type='msg_float'>0.050000</item>
+    <item name='samplerateRatio' type='msg_float'>0.050000</item>
     <item name='bitdepth' type='msg_int'>5</item>
   </preset>
 </jamoma>

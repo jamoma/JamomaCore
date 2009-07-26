@@ -102,7 +102,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.oscroute /sr_ratio /bitdepth",
+					"text" : "jcom.oscroute /samplerateRatio /bitdepth",
 					"numoutlets" : 3,
 					"fontname" : "Verdana",
 					"outlettype" : [ "", "", "" ],

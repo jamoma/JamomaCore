@@ -102,8 +102,8 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "sr_ratio",
-					"text" : "jcom.parameter sr_ratio @type msg_float @range/bounds 0. 1. @repetitions/allow 1 @range/clipmode both @ramp/drive scheduler @description \"A ratio of the emulated sample-rate to the global sample-rate.\"",
+					"varname" : "samplerateRatio",
+					"text" : "jcom.parameter samplerateRatio @type msg_float @range/bounds 0. 1. @repetitions/allow 1 @range/clipmode both @ramp/drive scheduler @description \"A ratio of the emulated sample-rate to the global sample-rate.\"",
 					"linecount" : 3,
 					"patching_rect" : [ 695.0, 35.0, 401.0, 43.0 ],
 					"id" : "obj-18",
@@ -253,7 +253,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "message",
-					"text" : "/sr_ratio:ramp/function cosine",
+					"text" : "/samplerateRatio:ramp/function cosine",
 					"patching_rect" : [ 345.0, 142.0, 170.0, 17.0 ],
 					"id" : "obj-45",
 					"fontsize" : 10.0,
@@ -267,7 +267,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "message",
-					"text" : "/sr_ratio 0.4",
+					"text" : "/samplerateRatio 0.4",
 					"patching_rect" : [ 331.0, 117.0, 79.0, 17.0 ],
 					"id" : "obj-44",
 					"fontsize" : 10.0,
