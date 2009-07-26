@@ -29,8 +29,7 @@
   of Jamoma, and will ease the development of modules. The provided framework, 
   however, is just one of many possible implementations of these guidelines.</p>
 <h3>File Name and Format</h3>
-<p>All filenames should end with the &#147;<code>.mxt</code>&#148; extension, 
-  and should be saved in Max&#146;s text format. There are three prefixes which are
+<p>All filenames should end with the &#147;<code>.maxpat</code>&#148; extension. There are three prefixes which are
   used by Jamoma for filenames.  The three prefixes are:
 <ul>
   <li><code>jmod</code> - A module.  A module encapsulates the algorithm and the
@@ -41,13 +40,13 @@
 	the non-GUI part of any Max patch.</li>
 </ul>
 
-<p>If there is a situation where a binary format patcher must be used, the preferred 
-  extension for binary Max patches is <code>.mxb</code>.</p>
+
 <p>The preferred format for graphics files in the Portable Network Graphics (PNG) 
   format.</p>
 <p>Tilde (<code>~</code>) is used to indicate a audio 
   module or algorithm: <code>jmod.myaudiomodule~.mxt</code> and <code>jalg.myaudioalgorithm~.mxt</code>. 
-  A percentage sign is used to indicate a video module or algorithm: <code>jmod.myvideomodule%.mxt</code> 
+<br> 
+ A percentage sign is used to indicate a video module or algorithm: <code>jmod.myvideomodule%.mxt</code> 
   and <code>jalg.myvideoalgorithm%.mxt</code>.</p>
 <h3>The structure of the modules</h3>
 <p>Jamoma is modular. All parts of the Jamoma system are to be implemented as 
@@ -69,71 +68,27 @@
 </ul>
 <h3>User Interface: Dimensions</h3>
 <p>User interface dimensions are based on the paradigm of conventional rack mount 
-  hardware. To demonstrate this, the width a &#147;1U&#148; module is 510 pixels. 
-  Thus the width of a half rack unit module is 255 pixels. The width of 510 pixels 
-  was chosen to maximize the number of modules that can fit on a monitor with 
-  a resolution 1024 pixels wide.</p>
-<p>The height of a 1U module is 60 pixels. Heights then, must be a multiple of 
-  60 pixels high. The size of a module&#146;s interface must follow these guidelines. 
-  Furthermore, the size of the module should be accessible to the host patch so 
-  that it may query the module about this. </p>
-<p>The chart below shows the dimensions of the most common module sizes. </p>
-<table class="smallTable">
-  <tr class="tableHeading2"> 
-    <td>Module Size</td>
-    <td>Width</td>
-    <td>Height</td>
-  </tr>
-  <tr> 
-    <td class="instructionName">1U-half</td>
-    <td class="instructionType">255</td>
-    <td class="instructionDescription">60</td>
-  </tr>
-  <tr> 
-    <td class="instructionName">1U</td>
-    <td class="instructionType">510</td>
-    <td class="instructionDescription">60</td>
-  </tr>
-  <tr> 
-    <td class="instructionName">2U-half</td>
-    <td class="instructionType">255</td>
-    <td class="instructionDescription">120</td>
-  </tr>
-  <tr> 
-    <td class="instructionName">2U</td>
-    <td class="instructionType">510</td>
-    <td class="instructionDescription">120</td>
-  </tr>
-  <tr> 
-    <td class="instructionName">3U-half</td>
-    <td class="instructionType">255</td>
-    <td class="instructionDescription">180</td>
-  </tr>
-  <tr> 
-    <td class="instructionName">3U</td>
-    <td class="instructionType">510</td>
-    <td class="instructionDescription">180</td>
-  </tr>
-</table>
-<p>Modules may be made which are taller that those in this table, provided they 
-  follow the same convention.</p>
+  hardware. To demonstrate this, the width of a default (1U) module is 300 pixels, and it's height is 70 pixels. 
+Smaller modules can be made, down to 150*35 pixels.
+</p>
+
+<p>
+Heights and Widths, then, must be multiples of 150 *
+  35 pixels, which is automatically handled by the object.
+The bpatcher instanciating this module, when it's loaded into a patcher, will automatically resize to jcom.ui's size when in presentation mode. 
+  </p>
+
 <h3>User Interface: Features</h3>
 <p>The user interface may be designed according to the desires and whims of the 
   developer. To maximize the experience of a user, however, it is ideal to remain 
   somewhat consistent with the conventions established by the example modules 
-  that are included with the canonical Jamoma package. The framework provided 
-  by the Jamoma developers is "skinnable" - meaning that you can provide custom 
-  graphics files and then simply set a skin name as an attribute to the <code>jcom.hub</code>
-  object.</p>
+  that are included with the canonical Jamoma package. 
+</p>
 <h4>Recommendations</h4>
-<p>For reference, it might be desirable to use the same colors for text as the standard texts in Jamoma.  
-	If so, the following information is provided:</p>
-	<ul>
-		<li>Comments for labeling (RGB): 149 149 149</li>
-		<li>Number box numbers (RGB): 181 181 181</li>
-		<li>Number box highlighted numbers (RGB): 255 255 255</li>
-		<li>JSUI button height: 16 pixels recommended</li>
-	</ul>
+<p>For reference, it might be desirable to set all UI objects colors to <em>Named default</em> in the object's inspector, so that they can look whichever Object Default color scheme is chosen by the user </p>
+<p>We recommend setting modules to "open in presentation" in the patcher's inspector, and placing UI objects on jcom.ui in presentation mode (and adding them to presentation)
+	</p>
+	
 
 <h3>OpenSoundControl (OSC) compatibility</h3>
 <p>Jamoma is implemented according to the <a href="http://www.opensoundcontrol.org">OpenSoundControl 
@@ -233,7 +188,10 @@
   types of modules.</p>
 <p>&nbsp;</p>
 <h4>All modules</h4>
-<p>All modules should, where feasible, implement the following <code>parameters</code>:</p>
+
+<p>The following <code>parameters</code> and <code>messages</code> are implemented by default, and the use of these names should accordingly be avoided in any module <code>parameters</code> and <code>messages</code> </p>
+
+<p>All modules implement by default the following <code>parameters</code>:</p>
 <table>
   <tr class="tableHeading2"> 
     <td> Parameter Name </td>
@@ -253,20 +211,9 @@
     <td class="instructionRepetitions"> yes </td>
     <td class="instructionDescription"> Turn off the updating of user interface 
       elements when parameters change. This may be done to conserve CPU resources. 
-    </td>
-  </tr>
-  <tr> 
-    <td class="instructionName"> /set_clock </td>
-    <td class="instructionType"> msg_symbol </td>
-    <td class="instructionRange"> default </td>
-    <td class="instructionClipmode"> none </td>
-    <td class="instructionRamp"> no </td>
-    <td class="instructionRepetitions"> yes </td>
-    <td class="instructionDescription"> Sync module to external clock. <br> <code>/set_clock 
-      max</code> set module to use the Max scheduler (default behaviour). </td>
   </tr>
 </table>
-<p>&nbsp;</p><p>All modules should, where feasible, implement the following <code>messages</code>:</p>
+<p>&nbsp;</p><p>All modules implement by default the following <code>messages</code>:</p>
 <table>
   <tr class="tableHeading2"> 
     <td> Message Name </td>
@@ -286,16 +233,6 @@
     <td class="instructionRepetitions">yes</td>
     <td class="instructionDescription">Auto-generate html documentation for the 
       module. </td>
-  </tr>
-  <tr> 
-    <td class="instructionName"> parameter_names/get </td>
-    <td class="instructionType"> n/a</td>
-    <td class="instructionRange"> n/a </td>
-    <td class="instructionClipmode"> both </td>
-    <td class="instructionRamp"> no </td>
-    <td class="instructionRepetitions"> yes </td>
-    <td class="instructionDescription"> Returns a dump of symbols out the feedback 
-      outlet with the names of parameters accessible in this module.</td>
   </tr>
   <tr> 
     <td class="instructionName"> documentation/help </td>
@@ -370,7 +307,7 @@
   </tr>
 </table>
 <p>&nbsp;</p><h4>Audio modules</h4>
-<p>All audio modules should, where feasible, implement these <code>parameters</code>, 
+<p>All audio modules implement by default these <code>parameters</code>, 
   in addition to those above:</p>
 <table>
   <tr class="tableHeading2"> 
@@ -443,7 +380,7 @@
   </tr>
 </table>
 <p>&nbsp;</p>
-<p>All audio modules should also, where feasible, also implement these <code>messages</code>:</p>
+<p>All audio modules implement by default these <code>messages</code>:</p>
 <table>
   <tr class="tableHeading2"> 
     <td> Message Name </td>
@@ -492,7 +429,7 @@
   </tr>
 </table>
 <p>&nbsp;</p><h4>Video modules</h4>
-<p>All jitter-based video modules should, where feasible, implement these <code>parameters</code>, 
+<p>All jitter-based video modules implement by default these <code>parameters</code>, 
   in addition to those above:</p>
 <table>
   <tr class="tableHeading2"> 
@@ -546,7 +483,7 @@
   </tr>
 </table>
 <p>&nbsp;</p>
-<p>All jitter-based video modules should, where feasible, implement these <code>messages</code>, 
+<p>All jitter-based video modules implement by default these <code>messages</code>, 
   in addition to those above:</p>
 <table>
   <tr class="tableHeading2"> 
