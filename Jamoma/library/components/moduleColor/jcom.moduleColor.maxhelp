@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 89.0, 138.0, 882.0, 600.0 ],
+		"rect" : [ 89.0, 138.0, 743.0, 520.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 89.0, 138.0, 882.0, 600.0 ],
+		"defrect" : [ 89.0, 138.0, 743.0, 520.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,6 +17,20 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [ "cuelist" ],
+					"id" : "obj-4",
+					"maxclass" : "bpatcher",
+					"name" : "jmod.cuelist.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 386.0, 419.0, 300.0, 70.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"args" : [ "@name", "jcom.moduleColor", "@description", "Utility for managing module colors" ],
 					"bgmode" : 1,
 					"id" : "obj-19",
@@ -24,7 +38,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 1031.0, 60.0 ],
+					"patching_rect" : [ 0.0, 0.0, 882.0, 70.0 ],
 					"varname" : "maxhelpui"
 				}
 
@@ -33,31 +47,17 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-2",
+					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 365.0, 355.0, 281.0, 19.0 ],
+					"patching_rect" : [ 389.0, 372.0, 300.0, 31.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
 					"presentation_rect" : [ 377.0, 317.0, 189.0, 31.0 ],
-					"text" : "colors are parameters, and then can be stored in cues"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "/cueManager" ],
-					"id" : "obj-36",
-					"maxclass" : "bpatcher",
-					"name" : "jmod.cueManager.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 355.0, 385.0, 300.0, 105.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 30.0, 145.0, 300.0, 105.0 ],
-					"varname" : "/cueManager"
+					"text" : "colors are parameters of modules and can be set also through cues:"
 				}
 
 			}
@@ -77,6 +77,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-3",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -142,19 +143,10 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-28", 2 ],
+					"destination" : [ "obj-43", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-27", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-28", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-27", 1 ]
+					"source" : [ "obj-28", 1 ]
 				}
 
 			}
@@ -169,10 +161,19 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-43", 1 ],
+					"destination" : [ "obj-28", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-28", 1 ]
+					"source" : [ "obj-27", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-28", 2 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-27", 2 ]
 				}
 
 			}
