@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 108.0, 44.0, 418.0, 622.0 ],
+		"rect" : [ 6.0, 44.0, 418.0, 622.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 108.0, 44.0, 418.0, 622.0 ],
+		"defrect" : [ 6.0, 44.0, 418.0, 622.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -83,9 +83,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 560.0, 74.0, 403.0, 428.0 ],
+						"rect" : [ 430.0, 45.0, 399.0, 409.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 560.0, 74.0, 403.0, 428.0 ],
+						"defrect" : [ 430.0, 45.0, 399.0, 409.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -106,7 +106,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 275.0, 30.0, 105.0, 19.0 ],
+									"patching_rect" : [ 268.0, 10.0, 105.0, 19.0 ],
 									"text" : "s jmod.input~.help"
 								}
 
@@ -120,7 +120,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 17.0, 25.0, 372.0, 221.0 ]
+									"patching_rect" : [ 10.0, 5.0, 372.0, 221.0 ]
 								}
 
 							}
@@ -133,7 +133,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 25.0, 353.0, 141.0, 21.0 ],
+									"patching_rect" : [ 18.0, 333.0, 141.0, 21.0 ],
 									"text" : "adc~: Input Channels"
 								}
 
@@ -147,7 +147,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 25.0, 283.0, 115.0, 21.0 ],
+									"patching_rect" : [ 18.0, 263.0, 115.0, 21.0 ],
 									"text" : "Sources"
 								}
 
@@ -163,7 +163,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "int", "bang" ],
-									"patching_rect" : [ 40.0, 396.0, 35.0, 19.0 ],
+									"patching_rect" : [ 33.0, 376.0, 35.0, 19.0 ],
 									"triscale" : 0.9
 								}
 
@@ -180,7 +180,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "int", "bang" ],
-									"patching_rect" : [ 40.0, 376.0, 35.0, 19.0 ],
+									"patching_rect" : [ 33.0, 356.0, 35.0, 19.0 ],
 									"triscale" : 0.9
 								}
 
@@ -194,7 +194,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 77.0, 396.0, 53.0, 17.0 ],
+									"patching_rect" : [ 70.0, 376.0, 53.0, 17.0 ],
 									"text" : "/ch.2 $1"
 								}
 
@@ -208,7 +208,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 77.0, 376.0, 53.0, 17.0 ],
+									"patching_rect" : [ 70.0, 356.0, 53.0, 17.0 ],
 									"text" : "/ch.1 $1"
 								}
 
@@ -222,7 +222,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 292.0, 257.0, 105.0, 19.0 ],
+									"patching_rect" : [ 285.0, 237.0, 105.0, 19.0 ],
 									"text" : "s jmod.input~.help"
 								}
 
@@ -236,7 +236,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 224.0, 397.0, 87.0, 17.0 ],
+									"patching_rect" : [ 217.0, 377.0, 87.0, 17.0 ],
 									"text" : "/soundfile/open"
 								}
 
@@ -250,7 +250,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 224.0, 379.0, 135.0, 17.0 ],
+									"patching_rect" : [ 217.0, 359.0, 135.0, 17.0 ],
 									"text" : "/soundfile/open anton.aif"
 								}
 
@@ -264,7 +264,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 241.0, 331.0, 101.0, 17.0 ],
+									"patching_rect" : [ 234.0, 311.0, 101.0, 17.0 ],
 									"text" : "/soundfile/loop $1"
 								}
 
@@ -276,7 +276,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
-									"patching_rect" : [ 224.0, 331.0, 15.0, 15.0 ]
+									"patching_rect" : [ 217.0, 311.0, 15.0, 15.0 ]
 								}
 
 							}
@@ -289,7 +289,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 241.0, 311.0, 94.0, 17.0 ],
+									"patching_rect" : [ 234.0, 291.0, 94.0, 17.0 ],
 									"text" : "/soudfile/play $1"
 								}
 
@@ -301,7 +301,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
-									"patching_rect" : [ 224.0, 311.0, 15.0, 15.0 ]
+									"patching_rect" : [ 217.0, 291.0, 15.0, 15.0 ]
 								}
 
 							}
@@ -316,7 +316,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "int", "", "" ],
-									"patching_rect" : [ 40.0, 305.0, 123.0, 19.0 ],
+									"patching_rect" : [ 33.0, 285.0, 123.0, 19.0 ],
 									"types" : [  ]
 								}
 
@@ -433,7 +433,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 40.0, 325.0, 48.0, 19.0 ],
+									"patching_rect" : [ 33.0, 305.0, 48.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
@@ -457,7 +457,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 25.0, 252.0, 129.0, 28.0 ],
+									"patching_rect" : [ 18.0, 232.0, 129.0, 28.0 ],
 									"text" : "Input Control"
 								}
 
@@ -471,7 +471,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 209.0, 290.0, 119.0, 21.0 ],
+									"patching_rect" : [ 202.0, 270.0, 119.0, 21.0 ],
 									"text" : "Sound File Control"
 								}
 
@@ -482,7 +482,7 @@
 									"maxclass" : "panel",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 17.0, 250.0, 375.0, 30.0 ],
+									"patching_rect" : [ 10.0, 230.0, 375.0, 30.0 ],
 									"rounded" : 0
 								}
 
@@ -493,7 +493,7 @@
 									"maxclass" : "panel",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 17.0, 351.0, 180.0, 68.0 ],
+									"patching_rect" : [ 10.0, 331.0, 180.0, 68.0 ],
 									"rounded" : 0
 								}
 
@@ -504,7 +504,7 @@
 									"maxclass" : "panel",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 17.0, 281.0, 180.0, 68.0 ],
+									"patching_rect" : [ 10.0, 261.0, 180.0, 68.0 ],
 									"rounded" : 0
 								}
 
@@ -515,7 +515,7 @@
 									"maxclass" : "panel",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 200.0, 281.0, 194.0, 137.0 ],
+									"patching_rect" : [ 193.0, 261.0, 194.0, 137.0 ],
 									"rounded" : 0
 								}
 
@@ -662,13 +662,13 @@
 					"fontsize" : 10.0,
 					"id" : "obj-39",
 					"maxclass" : "newobj",
-					"numinlets" : 0,
+					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 105.0, 118.0, 382.0, 512.0 ],
+						"rect" : [ 830.0, 44.0, 382.0, 512.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 105.0, 118.0, 382.0, 512.0 ],
+						"defrect" : [ 830.0, 44.0, 382.0, 512.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -681,6 +681,19 @@
 						"boxanimatetime" : 200,
 						"imprint" : 0,
 						"boxes" : [ 							{
+								"box" : 								{
+									"comment" : "",
+									"hidden" : 1,
+									"id" : "obj-1",
+									"maxclass" : "inlet",
+									"numinlets" : 0,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 5.0, 5.0, 25.0, 25.0 ]
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -717,6 +730,15 @@
 								}
 
 							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-3", 0 ],
+									"hidden" : 1,
+									"midpoints" : [  ],
+									"source" : [ "obj-1", 0 ]
+								}
+
+							}
  ]
 					}
 ,
@@ -745,9 +767,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 463.0, 124.0, 436.0, 431.0 ],
+						"rect" : [ 429.0, 478.0, 402.0, 361.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 463.0, 124.0, 436.0, 431.0 ],
+						"defrect" : [ 429.0, 478.0, 402.0, 361.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -768,7 +790,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 287.0, 28.0, 105.0, 19.0 ],
+									"patching_rect" : [ 278.0, 11.0, 105.0, 19.0 ],
 									"text" : "s jmod.input~.help"
 								}
 
@@ -782,7 +804,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 19.0, 22.0, 374.0, 347.0 ]
+									"patching_rect" : [ 10.0, 5.0, 374.0, 347.0 ]
 								}
 
 							}
@@ -821,7 +843,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 55.0, 410.0, 15.0, 15.0 ]
+					"patching_rect" : [ 55.0, 420.0, 15.0, 15.0 ]
 				}
 
 			}
@@ -834,7 +856,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 55.0, 385.0, 126.0, 19.0 ],
+					"patching_rect" : [ 55.0, 395.0, 126.0, 19.0 ],
 					"text" : "route /soundfile/report"
 				}
 
@@ -928,6 +950,15 @@
 					"destination" : [ "obj-14", 1 ],
 					"hidden" : 0,
 					"midpoints" : [ 64.5, 354.5, 174.5, 354.5 ],
+					"source" : [ "obj-32", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-39", 0 ],
+					"hidden" : 1,
+					"midpoints" : [ 64.5, 351.0, 42.0, 351.0, 42.0, 90.0, 64.5, 90.0 ],
 					"source" : [ "obj-32", 0 ]
 				}
 
