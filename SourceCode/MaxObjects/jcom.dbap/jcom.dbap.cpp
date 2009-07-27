@@ -94,6 +94,7 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 	
 	if(x){
     	object_obex_store(x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
+		x->outlet[2] = outlet_new(x, 0);				// Third outlet: Visualization data
 		x->outlet[1] = outlet_new(x, 0);				// Middle outlet: Distance from convex hull
 		x->outlet[0] = outlet_new(x, 0);				// Left outlet: Feed to matrix~
 		
@@ -565,6 +566,9 @@ void dbap_assist(t_dbap *x, void *b, long msg, long arg, char *dst)	// Display a
 				strcpy(dst, "(list) distance from convex hull");
 				break;
 			case 2: 
+				strcpy(dst, "(list) visualization data");
+				break;
+			case 3: 
 				strcpy(dst, "dumpout");
 				break;
 		}
@@ -1168,9 +1172,11 @@ void dbap_output_view(t_dbap *x)
 			atom_setlong(&a[0], i);
 			atom_setlong(&a[1], j);
 			atom_setlong(&a[2], x->view_matrix[i][j]);
-			object_obex_dumpout(x, gensym("view"), 3, a);	// on info outlet (?)
+			//object_obex_dumpout(x, gensym("view"), 3, a);	// on info outlet (?)
+			outlet_anything(x->outlet[2], gensym("view"), 3, a);
 		}
 	}
 	atom_setsym(&e[0],gensym("bang"));
-	object_obex_dumpout(x, gensym("view"), 1, e);	// on info outlet (?)
+	//object_obex_dumpout(x, gensym("view"), 1, e);	// on info outlet (?)
+	outlet_anything(x->outlet[2], gensym("view"), 1, e);
 }
