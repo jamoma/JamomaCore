@@ -275,6 +275,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 9.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-6",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -318,6 +319,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-10",
 									"keymode" : 1,
 									"lines" : 1,
@@ -336,6 +338,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-274",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -353,6 +356,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-273",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -370,6 +374,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-272",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -471,6 +476,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-207",
 									"keymode" : 1,
 									"lines" : 1,
@@ -503,6 +509,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-212",
 									"keymode" : 1,
 									"lines" : 1,
@@ -605,6 +612,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-219",
 									"keymode" : 1,
 									"lines" : 1,
@@ -665,6 +673,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-224",
 									"keymode" : 1,
 									"lines" : 1,
@@ -767,6 +776,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-231",
 									"keymode" : 1,
 									"lines" : 1,
@@ -827,6 +837,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-236",
 									"keymode" : 1,
 									"lines" : 1,
@@ -929,6 +940,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-243",
 									"keymode" : 1,
 									"lines" : 1,
@@ -989,6 +1001,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-248",
 									"keymode" : 1,
 									"lines" : 1,
@@ -1035,6 +1048,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 9.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-251",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1078,6 +1092,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-254",
 									"keymode" : 1,
 									"lines" : 1,
@@ -1220,6 +1235,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-263",
 									"keymode" : 1,
 									"lines" : 1,
@@ -1307,6 +1323,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-270",
 									"keymode" : 1,
 									"lines" : 1,
@@ -1325,6 +1342,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-271",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1424,6 +1442,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-195",
 									"keymode" : 1,
 									"lines" : 1,
@@ -1456,6 +1475,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-200",
 									"keymode" : 1,
 									"lines" : 1,
@@ -1558,6 +1578,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-183",
 									"keymode" : 1,
 									"lines" : 1,
@@ -1618,6 +1639,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-188",
 									"keymode" : 1,
 									"lines" : 1,
@@ -1720,6 +1742,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-171",
 									"keymode" : 1,
 									"lines" : 1,
@@ -1780,6 +1803,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-176",
 									"keymode" : 1,
 									"lines" : 1,
@@ -1882,6 +1906,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-159",
 									"keymode" : 1,
 									"lines" : 1,
@@ -1942,6 +1967,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-164",
 									"keymode" : 1,
 									"lines" : 1,
@@ -1988,6 +2014,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 9.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-125",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2031,6 +2058,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-128",
 									"keymode" : 1,
 									"lines" : 1,
@@ -2202,6 +2230,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-113",
 									"keymode" : 1,
 									"lines" : 1,
@@ -2289,6 +2318,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-95",
 									"keymode" : 1,
 									"lines" : 1,
@@ -2307,6 +2337,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-103",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2497,6 +2528,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 9.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-55",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2540,6 +2572,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-58",
 									"keymode" : 1,
 									"lines" : 1,
@@ -2558,6 +2591,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 9.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-51",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2601,6 +2635,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-54",
 									"keymode" : 1,
 									"lines" : 1,
@@ -2620,6 +2655,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 9.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-47",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2663,6 +2699,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-50",
 									"keymode" : 1,
 									"lines" : 1,
@@ -2681,6 +2718,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 9.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-46",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2738,6 +2776,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-31",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2753,6 +2792,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 10.0,
+									"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 									"id" : "obj-3",
 									"keymode" : 1,
 									"lines" : 1,
@@ -2812,6 +2852,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 12.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-5",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -4808,13 +4849,13 @@
 ,
 					"patching_rect" : [ 517.0, 625.0, 46.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"default_fontname" : "Arial",
 						"default_fontsize" : 10.0,
+						"fontname" : "Arial",
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p more"
@@ -5160,13 +5201,13 @@
 ,
 					"patching_rect" : [ 424.0, 150.0, 105.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"default_fontname" : "Arial",
 						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p populate_menus"
@@ -6100,13 +6141,13 @@
 ,
 					"patching_rect" : [ 441.0, 520.0, 322.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Arial",
-						"default_fontname" : "Arial",
 						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p read_types_from_file"
@@ -6118,7 +6159,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-144",
-					"items" : [  ],
+					"items" : [ "-- Select stream type --", ",", "-- Info --", ",", "GDIF: Index number", ",", "GDIF: Synchronisation stream", ",", "-- Sound descriptors --", ",", "SDIF: MIDI", ",", "-- Gesture descriptors --", ",", "GDIF: Position 1D", ",", "GDIF: Position 2D", ",", "GDIF: Position 3D", ",", "GDIF: Orientation 3D Euler", ",", "GDIF: Position & orientation 6D", ",", "GDIF: Velocity 1D", ",", "GDIF: Velocity 2D", ",", "GDIF: Velocity 3D", ",", "GDIF: Acceleration 1D", ",", "GDIF: Acceleration 2D", ",", "GDIF: Acceleration 3D", ",", "GDIF: Jerk 1D", ",", "GDIF: Jerk 2D", ",", "GDIF: Jerk 3D", ",", "GDIF: Pressure 1D", ",", "GDIF: Tilt 2D", ",", "-- Biosignal descriptors --", ",", "GDIF: EMG" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -6135,7 +6176,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-145",
-					"items" : [  ],
+					"items" : [ "-- Select stream type --", ",", "-- Info --", ",", "GDIF: Index number", ",", "GDIF: Synchronisation stream", ",", "-- Sound descriptors --", ",", "SDIF: MIDI", ",", "-- Gesture descriptors --", ",", "GDIF: Position 1D", ",", "GDIF: Position 2D", ",", "GDIF: Position 3D", ",", "GDIF: Orientation 3D Euler", ",", "GDIF: Position & orientation 6D", ",", "GDIF: Velocity 1D", ",", "GDIF: Velocity 2D", ",", "GDIF: Velocity 3D", ",", "GDIF: Acceleration 1D", ",", "GDIF: Acceleration 2D", ",", "GDIF: Acceleration 3D", ",", "GDIF: Jerk 1D", ",", "GDIF: Jerk 2D", ",", "GDIF: Jerk 3D", ",", "GDIF: Pressure 1D", ",", "GDIF: Tilt 2D", ",", "-- Biosignal descriptors --", ",", "GDIF: EMG" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -6152,7 +6193,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-146",
-					"items" : [  ],
+					"items" : [ "-- Select stream type --", ",", "-- Info --", ",", "GDIF: Index number", ",", "GDIF: Synchronisation stream", ",", "-- Sound descriptors --", ",", "SDIF: MIDI", ",", "-- Gesture descriptors --", ",", "GDIF: Position 1D", ",", "GDIF: Position 2D", ",", "GDIF: Position 3D", ",", "GDIF: Orientation 3D Euler", ",", "GDIF: Position & orientation 6D", ",", "GDIF: Velocity 1D", ",", "GDIF: Velocity 2D", ",", "GDIF: Velocity 3D", ",", "GDIF: Acceleration 1D", ",", "GDIF: Acceleration 2D", ",", "GDIF: Acceleration 3D", ",", "GDIF: Jerk 1D", ",", "GDIF: Jerk 2D", ",", "GDIF: Jerk 3D", ",", "GDIF: Pressure 1D", ",", "GDIF: Tilt 2D", ",", "-- Biosignal descriptors --", ",", "GDIF: EMG" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -6169,7 +6210,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-147",
-					"items" : [  ],
+					"items" : [ "-- Select stream type --", ",", "-- Info --", ",", "GDIF: Index number", ",", "GDIF: Synchronisation stream", ",", "-- Sound descriptors --", ",", "SDIF: MIDI", ",", "-- Gesture descriptors --", ",", "GDIF: Position 1D", ",", "GDIF: Position 2D", ",", "GDIF: Position 3D", ",", "GDIF: Orientation 3D Euler", ",", "GDIF: Position & orientation 6D", ",", "GDIF: Velocity 1D", ",", "GDIF: Velocity 2D", ",", "GDIF: Velocity 3D", ",", "GDIF: Acceleration 1D", ",", "GDIF: Acceleration 2D", ",", "GDIF: Acceleration 3D", ",", "GDIF: Jerk 1D", ",", "GDIF: Jerk 2D", ",", "GDIF: Jerk 3D", ",", "GDIF: Pressure 1D", ",", "GDIF: Tilt 2D", ",", "-- Biosignal descriptors --", ",", "GDIF: EMG" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -6186,7 +6227,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-143",
-					"items" : [  ],
+					"items" : [ "-- Select stream type --", ",", "-- Info --", ",", "GDIF: Index number", ",", "GDIF: Synchronisation stream", ",", "-- Sound descriptors --", ",", "SDIF: MIDI", ",", "-- Gesture descriptors --", ",", "GDIF: Position 1D", ",", "GDIF: Position 2D", ",", "GDIF: Position 3D", ",", "GDIF: Orientation 3D Euler", ",", "GDIF: Position & orientation 6D", ",", "GDIF: Velocity 1D", ",", "GDIF: Velocity 2D", ",", "GDIF: Velocity 3D", ",", "GDIF: Acceleration 1D", ",", "GDIF: Acceleration 2D", ",", "GDIF: Acceleration 3D", ",", "GDIF: Jerk 1D", ",", "GDIF: Jerk 2D", ",", "GDIF: Jerk 3D", ",", "GDIF: Pressure 1D", ",", "GDIF: Tilt 2D", ",", "-- Biosignal descriptors --", ",", "GDIF: EMG" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -6203,7 +6244,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-142",
-					"items" : [  ],
+					"items" : [ "-- Select stream type --", ",", "-- Info --", ",", "GDIF: Index number", ",", "GDIF: Synchronisation stream", ",", "-- Sound descriptors --", ",", "SDIF: MIDI", ",", "-- Gesture descriptors --", ",", "GDIF: Position 1D", ",", "GDIF: Position 2D", ",", "GDIF: Position 3D", ",", "GDIF: Orientation 3D Euler", ",", "GDIF: Position & orientation 6D", ",", "GDIF: Velocity 1D", ",", "GDIF: Velocity 2D", ",", "GDIF: Velocity 3D", ",", "GDIF: Acceleration 1D", ",", "GDIF: Acceleration 2D", ",", "GDIF: Acceleration 3D", ",", "GDIF: Jerk 1D", ",", "GDIF: Jerk 2D", ",", "GDIF: Jerk 3D", ",", "GDIF: Pressure 1D", ",", "GDIF: Tilt 2D", ",", "-- Biosignal descriptors --", ",", "GDIF: EMG" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -6220,7 +6261,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-141",
-					"items" : [  ],
+					"items" : [ "-- Select stream type --", ",", "-- Info --", ",", "GDIF: Index number", ",", "GDIF: Synchronisation stream", ",", "-- Sound descriptors --", ",", "SDIF: MIDI", ",", "-- Gesture descriptors --", ",", "GDIF: Position 1D", ",", "GDIF: Position 2D", ",", "GDIF: Position 3D", ",", "GDIF: Orientation 3D Euler", ",", "GDIF: Position & orientation 6D", ",", "GDIF: Velocity 1D", ",", "GDIF: Velocity 2D", ",", "GDIF: Velocity 3D", ",", "GDIF: Acceleration 1D", ",", "GDIF: Acceleration 2D", ",", "GDIF: Acceleration 3D", ",", "GDIF: Jerk 1D", ",", "GDIF: Jerk 2D", ",", "GDIF: Jerk 3D", ",", "GDIF: Pressure 1D", ",", "GDIF: Tilt 2D", ",", "-- Biosignal descriptors --", ",", "GDIF: EMG" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -6267,7 +6308,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-115",
-					"items" : [  ],
+					"items" : [ "-- Select stream type --", ",", "-- Info --", ",", "GDIF: Index number", ",", "GDIF: Synchronisation stream", ",", "-- Sound descriptors --", ",", "SDIF: MIDI", ",", "-- Gesture descriptors --", ",", "GDIF: Position 1D", ",", "GDIF: Position 2D", ",", "GDIF: Position 3D", ",", "GDIF: Orientation 3D Euler", ",", "GDIF: Position & orientation 6D", ",", "GDIF: Velocity 1D", ",", "GDIF: Velocity 2D", ",", "GDIF: Velocity 3D", ",", "GDIF: Acceleration 1D", ",", "GDIF: Acceleration 2D", ",", "GDIF: Acceleration 3D", ",", "GDIF: Jerk 1D", ",", "GDIF: Jerk 2D", ",", "GDIF: Jerk 3D", ",", "GDIF: Pressure 1D", ",", "GDIF: Tilt 2D", ",", "-- Biosignal descriptors --", ",", "GDIF: EMG" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -6333,32 +6374,20 @@
 			}
 , 			{
 				"box" : 				{
-					"filename" : "jcom.jsui_texttoggle.js",
-					"id" : "obj-1",
-					"jsarguments" : [ "Verbose", "Verbose" ],
-					"maxclass" : "jsui",
-					"nofsaa" : 1,
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 3.0, 21.0, 45.0, 19.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 3.0, 21.0, 45.0, 19.0 ],
-					"varname" : "print_button"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
+					"fontname" : "Arial",
 					"fontsize" : 10.0,
-					"id" : "obj-2",
-					"maxclass" : "newobj",
+					"id" : "obj-1",
+					"maxclass" : "textbutton",
+					"mode" : 1,
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 25.0, 331.0, 102.0, 19.0 ],
-					"text" : "pvar print_button"
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
+					"patching_rect" : [ 27.0, 343.0, 67.0, 18.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 3.0, 22.0, 67.0, 18.0 ],
+					"rounded" : 8.0,
+					"text" : "Verbose Off",
+					"texton" : "Verbose On"
 				}
 
 			}
@@ -6372,7 +6401,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 25.0, 351.0, 275.0, 31.0 ],
+					"patching_rect" : [ 25.0, 366.0, 275.0, 31.0 ],
 					"text" : "jcom.parameter verbose @type msg_toggle @description \"Print script messages to Max window\"",
 					"varname" : "print"
 				}
@@ -6410,6 +6439,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-31",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -6425,6 +6455,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-39",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -6440,27 +6471,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-46",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 25.0, 391.0, 111.0, 19.0 ],
-					"text" : "pvar record_button"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
 					"id" : "obj-47",
 					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 25.0, 411.0, 234.0, 31.0 ],
+					"patching_rect" : [ 25.0, 437.0, 234.0, 31.0 ],
 					"text" : "jcom.parameter record @type msg_toggle @description \"Start/Stop recording\"",
 					"varname" : "record"
 				}
@@ -6500,6 +6517,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-76",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -6515,6 +6533,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-80",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -6530,6 +6549,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-84",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -6545,6 +6565,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-92",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -6587,18 +6608,22 @@
 			}
 , 			{
 				"box" : 				{
-					"filename" : "jcom.jsui_texttoggle.js",
+					"bgoncolor" : [ 1.0, 0.0, 0.0, 1.0 ],
+					"bgoveroncolor" : [ 0.882353, 0.027451, 0.027451, 1.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
 					"id" : "obj-100",
-					"jsarguments" : [ "Record", "Record", 68, 68, 68, 225, 225, 225, 255, 40, 40, 0, 0, 0 ],
-					"maxclass" : "jsui",
-					"nofsaa" : 1,
+					"maxclass" : "textbutton",
+					"mode" : 1,
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 248.0, 219.0, 45.0, 19.0 ],
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
+					"patching_rect" : [ 26.0, 415.0, 51.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 248.0, 219.0, 45.0, 19.0 ],
-					"varname" : "record_button"
+					"presentation_rect" : [ 244.0, 219.0, 51.0, 18.0 ],
+					"rounded" : 8.0,
+					"text" : "Record",
+					"texton" : "Record"
 				}
 
 			}
@@ -6714,6 +6739,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-120",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -6729,6 +6755,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-35",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -6744,6 +6771,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-43",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -6867,24 +6895,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-102", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-46", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 34.5, 442.0, 20.0, 442.0, 20.0, 387.0, 34.5, 387.0 ],
-					"source" : [ "obj-47", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-47", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 34.5, 408.0, 34.5, 408.0 ],
-					"source" : [ "obj-46", 0 ]
 				}
 
 			}
@@ -7150,24 +7160,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-3", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 34.5, 348.0, 34.5, 348.0 ],
-					"source" : [ "obj-2", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 34.5, 381.0, 20.0, 381.0, 20.0, 327.0, 34.5, 327.0 ],
-					"source" : [ "obj-3", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -7197,7 +7189,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 142.0, 457.5, 296.5, 457.5 ],
+					"midpoints" : [ 142.0, 474.5, 296.5, 474.5 ],
 					"source" : [ "obj-47", 1 ]
 				}
 
@@ -7372,6 +7364,42 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-115", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-47", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-100", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-100", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-47", 0 ]
 				}
 
 			}
