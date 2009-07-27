@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 83.0, 44.0, 668.0, 602.0 ],
+		"rect" : [ 589.0, 56.0, 668.0, 602.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 83.0, 44.0, 668.0, 602.0 ],
+		"defrect" : [ 589.0, 56.0, 668.0, 602.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,6 +17,24 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-11",
+					"items" : [ "clip", ",", "fold", ",", "wrap" ],
+					"maxclass" : "umenu",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "int", "", "" ],
+					"patching_rect" : [ 22.0, 320.0, 60.0, 19.0 ],
+					"pattrmode" : 1,
+					"presentation" : 1,
+					"presentation_rect" : [ 68.0, 49.0, 60.0, 19.0 ],
+					"types" : [  ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"args" : [ "@name", "jmod.avg4%", "@description", "Average 4 pixels of input for each pixel of output" ],
 					"bgmode" : 1,
 					"id" : "obj-2",
@@ -24,7 +42,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 764.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 668.0, 70.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
 				}
@@ -66,31 +84,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
-					"id" : "obj-4",
-					"maxclass" : "number",
-					"maximum" : 3,
-					"minimum" : 1,
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 23.0, 305.0, 35.0, 19.0 ],
-					"triscale" : 0.9
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"bgcolor" : [ 0.866667, 0.866667, 0.866667, 1.0 ],
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
 					"id" : "obj-5",
 					"maxclass" : "number",
 					"minimum" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 23.0, 287.0, 35.0, 19.0 ],
+					"patching_rect" : [ 45.0, 296.0, 35.0, 19.0 ],
 					"triscale" : 0.9
 				}
 
@@ -107,7 +107,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 23.0, 269.0, 35.0, 19.0 ],
+					"patching_rect" : [ 45.0, 271.0, 35.0, 19.0 ],
 					"triscale" : 0.9
 				}
 
@@ -121,7 +121,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 22.0, 328.0, 106.0, 19.0 ],
+					"patching_rect" : [ 134.0, 342.0, 106.0, 19.0 ],
 					"text" : "s jmod.avg4%.cmd"
 				}
 
@@ -218,7 +218,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 61.0, 305.0, 61.0, 17.0 ],
+					"patching_rect" : [ 89.0, 320.0, 61.0, 17.0 ],
 					"text" : "/mode $1"
 				}
 
@@ -232,7 +232,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 61.0, 287.0, 44.0, 17.0 ],
+					"patching_rect" : [ 89.0, 296.0, 44.0, 17.0 ],
 					"text" : "/y $1"
 				}
 
@@ -246,7 +246,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 61.0, 269.0, 43.0, 17.0 ],
+					"patching_rect" : [ 89.0, 271.0, 43.0, 17.0 ],
 					"text" : "/x $1"
 				}
 
@@ -254,10 +254,10 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-16", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-3", 1 ]
+					"destination" : [ "obj-17", 0 ],
+					"hidden" : 1,
+					"midpoints" : [ 52.0, 348.0, 79.0, 348.0, 79.0, 310.0, 98.5, 310.0 ],
+					"source" : [ "obj-11", 1 ]
 				}
 
 			}
@@ -317,15 +317,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-17", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-4", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-3", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -344,6 +335,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-15", 0 ],
 					"hidden" : 0,
 					"midpoints" : [ 607.5, 278.0, 326.5, 278.0 ],
@@ -353,10 +353,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-16", 0 ],
+					"destination" : [ "obj-16", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-8", 0 ]
+					"source" : [ "obj-3", 1 ]
 				}
 
 			}
