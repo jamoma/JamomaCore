@@ -176,7 +176,7 @@ if win32?
   puts " Building Package -- this could take a while..."
 
   puts " Making candle with paraffin"
-  puts `../wix/Paraffin.exe -dir "root/Cycling '74"                             -custom JamomaC74        -g -direXclude .svn -ext .WXS JamomaC74.wxs`
+  puts `../wix/Paraffin.exe -dir "root/Cycling '74"                     -custom JamomaC74        -g -direXclude .svn -ext .WXS JamomaC74.wxs`
   puts `../wix/Paraffin.exe -dir root/patches/                          -custom JamomaPatches    -g -direXclude .svn -ext .WXS JamomaPatches.wxs`
   puts `../wix/Paraffin.exe -dir root/support/                          -custom JamomaSupport    -g -direXclude .svn -ext .WXS JamomaSupport.wxs`
   puts `../wix/Paraffin.exe -dir "root/Common Files/TTBlue/Extensions/" -custom JamomaExtensions -g -direXclude .svn -ext .WXS JamomaExtensions.wxs`
@@ -248,12 +248,15 @@ else
 
   puts "  Removing files that are not needed (.zips, windows externs, etc)..."
   cmd("rm -fv \"#{@c74}/Jamoma/library/externals/\"*.zip")
-  cmd("rm -fv \"#{@c74}/Jamoma/library/externals/\"*.log")
+  cmd("rm -fv \"#{@c74}/Jamoma/library/externals/\"*.log")  
+  cmd("rm -fv \"#{@c74}/Jamoma/library/externals/JamomaFramework.dll\"")
+  cmd("rm -rfv \"#{@c74}/Jamoma/library/externals/TTBlueExtensions\"")
   cmd("rm -rfv \"#{@c74}/Jamoma/library/externals/windows\"")
   cmd("rm -rfv \"#{@c74}/Jamoma/library/externals/ramplib_windows\"")
   cmd("rm -fv \"#{@c74}/Jamoma/library/third-party/Mac/\"*.zip")
   cmd("rm -fv \"#{@c74}/Jamoma/library/third-party/Mac\"*.dmg")
-  cmd("rm -rfv \"#{@c74}/Jamoma/library/third-party/WinXP\"")
+  cmd("rm -rfv \"#{@c74}/Jamoma/library/third-party/WinXP\"") 
+  
 
   puts "  Moving things around (loader, templates, etc)..."
   cmd("cp \"#{@c74}/Jamoma/documentation/jamoma-templates/\"* \"#{@max}/patches/templates\"")
@@ -262,7 +265,9 @@ else
   cmd("mv \"#{@c74}/Jamoma/library/externals/TTBlue.framework\" \"#{@temp}/Library/Frameworks\"")
   cmd("mv \"#{@c74}/Jamoma/library/externals/mac/jcom.loader.mxo\" \"#{@c74}/extensions/\"")
   cmd("mv \"#{@c74}/Jamoma/support\"/*.maxdefaults \"#{@c74}/default-settings\"")
-  cmd("mv \"#{@c74}/Jamoma/support\"/*.maxdefines \"#{@c74}/default-definitions\"")
+  cmd("mv \"#{@c74}/Jamoma/support\"/*.maxdefines \"#{@c74}/default-definitions\"")   
+  cmd("rm -rfv \"#{@c74}/Jamoma/support\"")  
+  
   # cmd("mv \"#{@c74}/Jamoma/support/jcom.ui.maxdefines\" \"#{@c74}/default-definitions/jcom.ui.maxdefines\"")
   # now we have several maxdefines
 #  cmd("cp \"#{@c74}/Jamoma/modules/control/cueManager/java-classes/Cue.class\" \"#{@c74}/java/classes/cueManager\"") 
