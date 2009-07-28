@@ -25,7 +25,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 240.0, 293.0, 131.0, 20.0 ],
-					"text" : "jmod.holo.soundcues~"
+					"text" : "jmod.holoSoundcues~"
 				}
 
 			}
@@ -1705,7 +1705,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 401.0, 661.0, 215.0, 18.0 ],
-					"text" : "/holo.transport/speaker/queryspeakers"
+					"text" : "/holoTransport/speaker/queryspeakers"
 				}
 
 			}
@@ -2344,7 +2344,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 435.0, 335.0, 191.0, 20.0 ],
-									"text" : "prepend /holo.reccontrol/recorder/"
+									"text" : "prepend /holoRecControl/recorder/"
 								}
 
 							}
@@ -2386,7 +2386,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 146.0, 225.0, 191.0, 20.0 ],
-									"text" : "prepend /holo.reccontrol/recorder/"
+									"text" : "prepend /holoRecControl/recorder/"
 								}
 
 							}
@@ -2911,10 +2911,10 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "holo.reccontrol" ],
+					"args" : [ "holoRecControl" ],
 					"id" : "obj-22",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.holo.reccontrol.maxpat",
+					"name" : "jmod.holoRecControl.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -4886,13 +4886,13 @@
 					"id" : "obj-7",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.holo.transport.maxpat",
+					"name" : "jmod.holoTransport.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 71.0, 79.899994, 300.0, 210.0 ],
 					"presentation_rect" : [ 15.0, 15.0, 300.0, 210.0 ],
-					"varname" : "jmod.holo.transport"
+					"varname" : "jmod.holoTransport"
 				}
 
 			}

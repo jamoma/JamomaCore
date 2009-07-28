@@ -320,7 +320,7 @@
 					"args" : [ "reccontrol" ],
 					"id" : "obj-43",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.holo.reccontrol.maxpat",
+					"name" : "jmod.holoRecControl.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -336,14 +336,14 @@
 					"id" : "obj-48",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.holo.transport.maxpat",
+					"name" : "jmod.holoTransport.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 811.0, 398.0, 300.0, 210.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 624.0, 99.0, 300.0, 210.0 ],
-					"varname" : "jmod.holo.transport"
+					"varname" : "jmod.holoTransport"
 				}
 
 			}

@@ -1306,7 +1306,7 @@
 					"numoutlets" : 10,
 					"outlettype" : [ "", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "list" ],
 					"patching_rect" : [ 68.0, 343.0, 451.0, 19.0 ],
-					"text" : "jalg.holo.soundcues~"
+					"text" : "jalg.holoSoundcues~"
 				}
 
 			}

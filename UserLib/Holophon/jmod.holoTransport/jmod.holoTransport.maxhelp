@@ -196,7 +196,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 25.0, 20.0, 184.0, 28.0 ],
-					"text" : "jmod.holo.transport"
+					"text" : "jmod.holoTransport"
 				}
 
 			}
@@ -565,13 +565,13 @@
 					"id" : "obj-7",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.holo.transport.maxpat",
+					"name" : "jmod.holoTransport.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 44.0, 151.0, 300.0, 210.0 ],
 					"presentation_rect" : [ 15.0, 15.0, 300.0, 210.0 ],
-					"varname" : "jmod.holo.transport"
+					"varname" : "jmod.holoTransport"
 				}
 
 			}

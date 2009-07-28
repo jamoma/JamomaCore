@@ -20,7 +20,7 @@
 					"args" : [ "holoSoundCues" ],
 					"id" : "obj-5",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.holo.soundcues~.maxpat",
+					"name" : "jmod.holoSoundcues~.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
@@ -263,7 +263,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 25.0, 20.0, 267.0, 28.0 ],
-					"text" : "jmod.holo.soundcues~"
+					"text" : "jmod.holoSoundcues~"
 				}
 
 			}

@@ -63,13 +63,13 @@
 					"args" : [  ],
 					"id" : "obj-12",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.holo.soundcues~.maxpat",
+					"name" : "jmod.holoSoundcues~.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 86.0, 339.0, 300.0, 175.0 ],
 					"presentation_rect" : [ 15.0, 15.0, 300.0, 175.0 ],
-					"varname" : "/holo.soundcues"
+					"varname" : "/holoSoundcues"
 				}
 
 			}
@@ -1316,13 +1316,13 @@
 					"id" : "obj-7",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.holo.transport.maxpat",
+					"name" : "jmod.holoTransport.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 86.0, 101.0, 300.0, 210.0 ],
 					"presentation_rect" : [ 30.0, 30.0, 300.0, 210.0 ],
-					"varname" : "jmod.holo.transport"
+					"varname" : "jmod.holoTransport"
 				}
 
 			}
