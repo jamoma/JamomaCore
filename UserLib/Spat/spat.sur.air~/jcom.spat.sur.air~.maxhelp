@@ -569,7 +569,7 @@
 									"id" : "obj-13",
 									"lockeddragscroll" : 1,
 									"maxclass" : "bpatcher",
-									"name" : "spat.jmod.sur.air~.maxpat",
+									"name" : "jmod.spat.sur.air~.maxpat",
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
@@ -684,7 +684,7 @@
 					"id" : "obj-13",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "spat.jmod.sur.air~.maxpat",
+					"name" : "jmod.spat.sur.air~.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
@@ -794,7 +794,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 20.0, 20.0, 261.0, 28.0 ],
-					"text" : "spat.jmod.sur.air~"
+					"text" : "jmod.spat.sur.air~"
 				}
 
 			}
@@ -921,7 +921,7 @@
 					"id" : "obj-29",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "spat.jmod.ambi2binaural~.maxpat",
+					"name" : "jmod.spat.ambi2binaural~.maxpat",
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 360.0, 530.0, 255.0, 60.0 ],

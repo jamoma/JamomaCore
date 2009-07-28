@@ -270,7 +270,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 310.0, 475.0, 104.0, 19.0 ],
-					"text" : "spat.jalg.sur.air~"
+					"text" : "jalg.spat.sur.air~"
 				}
 
 			}

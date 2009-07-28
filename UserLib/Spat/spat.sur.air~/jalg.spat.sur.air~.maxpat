@@ -251,7 +251,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 867.0, 587.0, 124.0, 19.0 ],
-					"text" : "js spat.jcom.sur.air.js",
+					"text" : "js jcom.spat.sur.air.js",
 					"varname" : "javascript"
 				}
 
