@@ -5434,7 +5434,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 430.0, 675.0, 113.0, 19.0 ],
-					"text" : "jalg.holo.OSCRemote"
+					"text" : "jalg.holoOSCRemote"
 				}
 
 			}
