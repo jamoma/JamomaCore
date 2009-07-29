@@ -11,7 +11,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 
 <body>
 	<div id="jmod_header">
-	<img src="../../../documentation/images/jmod.icon.mod.png" width="128" height="128">
+	<img src="../../../documentation/graphics/jmod.icon.mod.png" width="128" height="128">
 	<h1> jmod.fluidsynth~ </h1>
 	<h2> Synthesizer using soundfonts </h2>
 	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
@@ -22,7 +22,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	Algorithm Type: <code> default </code> </p>
 	<p>Interface Size: <code> 1U-half </code> </p>
 	<p>Number of signal inlets: <code> 0 </ code> <br/>
-	Number of signal outlets: <code> 2 </code> </p>
+	Number of signal outlets: <code> 4194306 </code> </p>
 	<h3> Parameters </h3>
 	<table>
 		<tr class="tableHeading2">
@@ -59,26 +59,125 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> When active, this attribute turns off the module's processing algorithm to save CPU </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> chorus </td>
+			<td class="instructionName"> chorus/active </td>
 			<td class ="instructionType"> toggle </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> scheduler </td>
-			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Turn on chorus. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> reverb </td>
-			<td class ="instructionType"> toggle </td>
-			<td class ="instructionRangeBounds"> 0 1 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class="instructionName"> chorus/depth </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> low </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> level of the chorus. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> chorus/level </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> low </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> level of the chorus. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> chorus/speed </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> low </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> level of the chorus. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> chorus/type </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> type-parameter of the fluidsynth~: 1 - sine 2 - triangle. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> chorus/units </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> low </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> number of units??  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> reverb/active </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Turn on reverb. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> reverb/damping </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> low </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> damping parameter of fluidsynth~. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> reverb/level </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> low </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> level of the reverb. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> reverb/roomsize </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> low </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> room size parameter of fluidsynth~. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> reverb/width </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> low </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> width parameter of fluidsynth~. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/freeze </td>
@@ -90,6 +189,61 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/border </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The border color of the module in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/contentBackground </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The background color of the module in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/toolbarBackground </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/toolbarText </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/size </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The size of the module's UI. </td>
 		<tr>
 	</table>
 
@@ -116,7 +270,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> direct access to fluidsynth~ external </td>
 		<tr>
 		<tr>
@@ -129,6 +283,17 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Generate a documentation page for this module and save it to disk. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> info </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> print current state to the max window </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> init </td>
@@ -153,7 +318,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> load a file </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> module/view_internals </td>
+			<td class="instructionName"> module/viewInternals </td>
 			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -171,19 +336,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Receive midi information </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> panel/open </td>
-			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Open an a module's control panel (inspector) if one is present. </td>
+			<td class ="instructionDescription"> Receive midi information </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/clear </td>
@@ -253,8 +407,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/read </td>
-			<td class ="instructionType"> symbol </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
@@ -286,7 +440,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/storecurrent </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -297,7 +451,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/storenext </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -308,8 +462,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/write </td>
-			<td class ="instructionType"> symbol </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
@@ -319,7 +473,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/writeagain </td>
-			<td class ="instructionType"> symbol </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -327,6 +481,17 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Write on same xml-preset file. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> script </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Low-level module hacking.  Any arguments arguments to this message will be interpreted as patcher scripting for the top-level patcher of the module. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/refresh </td>
