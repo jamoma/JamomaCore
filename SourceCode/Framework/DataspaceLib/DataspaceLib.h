@@ -26,6 +26,11 @@ static const double kDegreesToRadians = 3.14159265358979323846264338327950288419
 static const double kGainMidiPower = log(pow(10.,10./20.))/log(127./100.);
 static const double kGainMidiPowerInv = 1./kGainMidiPower;
 
+// This coeff is used for some of the color convertions:
+static const double inv255 = 1./255.;
+
+
+
 
 /****************************************************************************************************/
 // Class Specification

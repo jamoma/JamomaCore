@@ -173,7 +173,7 @@ void HSVUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outp
 	double	hue = atom_getfloat(inputAtoms+0);
 	double	saturation = atom_getfloat(inputAtoms+1);
 	double	value = atom_getfloat(inputAtoms+2);
-	long	r, g, b;
+	double	r, g, b;
 	double	h,s,v,h1, a[7], q, f;                             
 
 	h = (float)hue;
@@ -219,9 +219,9 @@ void HSVUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
     double  hue, saturation, value;
     double	y,h,s,v, r,g,b, r1,g1,b1; 
 	
-	r = long(*(input+0));
-	g = long(*(input+1));
-	b = long(*(input+2));
+	r = *(input+0);
+	g = *(input+1);
+	b = *(input+2);
 
 	v = r;
 	
@@ -324,18 +324,20 @@ RGB8Unit::~RGB8Unit()
 void RGB8Unit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
 	*outputNumArgs = 3;
-	*(output+0) = atom_getfloat(inputAtoms+0) * inv255;
-	*(output+1) = atom_getfloat(inputAtoms+1) * inv255;
-	*(output+2) = atom_getfloat(inputAtoms+2) * inv255;	
+	
+	*(output+0) = atom_getfloat(inputAtoms+0)*inv255;
+	*(output+1) = atom_getfloat(inputAtoms+1)*inv255;
+	*(output+2) = atom_getfloat(inputAtoms+2)*inv255;	
 }
 
 
 void RGB8Unit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
 {
 	*outputNumArgs = 3;
-	atom_setfloat(*outputAtoms+0, *(input+0)) * 255;
-	atom_setfloat(*outputAtoms+1, *(input+1)) * 255;
-	atom_setfloat(*outputAtoms+2, *(input+2)) * 255;
+	
+	atom_setfloat(*outputAtoms+0, *(input+0)*255);
+	atom_setfloat(*outputAtoms+1, *(input+1)*255);
+	atom_setfloat(*outputAtoms+2, *(input+2)*255);
 }
 
 
@@ -348,7 +350,7 @@ ColorDataspace::ColorDataspace()
 	registerUnit(new HSLUnit,		gensym("hsl"));
 	registerUnit(new HSVUnit,		gensym("hsv"));
 	registerUnit(new RGBUnit,		gensym("rgb"));
-	registerUnit(new RGBUnit,		gensym("rgb8"));
+	registerUnit(new RGB8Unit,		gensym("rgb8"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
