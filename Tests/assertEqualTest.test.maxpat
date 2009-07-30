@@ -34,7 +34,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.finished",
+					"text" : "test.finished",
 					"patching_rect" : [ 20.0, 110.0, 102.0, 19.0 ],
 					"outlettype" : [ "" ],
 					"id" : "obj-2",
@@ -90,7 +90,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal list_that_starts_with_a_sym_test goof 87 hug me",
+					"text" : "test.assert.equal list_that_starts_with_a_sym_test goof 87 hug me",
 					"patching_rect" : [ 370.0, 170.0, 378.0, 19.0 ],
 					"id" : "obj-6",
 					"fontname" : "Verdana",
@@ -117,7 +117,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal list_that_starts_with_a_number_test 43 a b",
+					"text" : "test.assert.equal list_that_starts_with_a_number_test 43 a b",
 					"patching_rect" : [ 311.0, 200.0, 348.0, 19.0 ],
 					"id" : "obj-8",
 					"fontname" : "Verdana",
@@ -144,7 +144,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal sym_test_fail yo! @reverse 1",
+					"text" : "test.assert.equal sym_test_fail yo! @reverse 1",
 					"patching_rect" : [ 265.0, 228.0, 274.0, 19.0 ],
 					"id" : "obj-10",
 					"fontname" : "Verdana",
@@ -171,7 +171,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal sym_test yo!",
+					"text" : "test.assert.equal sym_test yo!",
 					"patching_rect" : [ 226.0, 254.0, 192.0, 19.0 ],
 					"id" : "obj-12",
 					"fontname" : "Verdana",
@@ -198,7 +198,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal float_test_fail 23.1 @reverse 1",
+					"text" : "test.assert.equal float_test_fail 23.1 @reverse 1",
 					"patching_rect" : [ 180.0, 280.0, 282.0, 19.0 ],
 					"id" : "obj-14",
 					"fontname" : "Verdana",
@@ -225,7 +225,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal float_test 23.1",
+					"text" : "test.assert.equal float_test 23.1",
 					"patching_rect" : [ 134.0, 307.0, 200.0, 19.0 ],
 					"id" : "obj-16",
 					"fontname" : "Verdana",
@@ -252,7 +252,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal int_test_fail 23 @reverse 1",
+					"text" : "test.assert.equal int_test_fail 23 @reverse 1",
 					"patching_rect" : [ 102.0, 334.0, 263.0, 19.0 ],
 					"id" : "obj-18",
 					"fontname" : "Verdana",
@@ -279,7 +279,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal int_test 23",
+					"text" : "test.assert.equal int_test 23",
 					"patching_rect" : [ 70.0, 360.0, 183.0, 19.0 ],
 					"id" : "obj-20",
 					"fontname" : "Verdana",

@@ -57,7 +57,7 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TEST1dataspace/convert_lists 60. 70.",
+									"text" : "test.assert.equal TEST1dataspace/convert_lists 60. 70.",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"fontsize" : 10.0,
@@ -100,7 +100,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TEST2dataspace/convert_lists 6000. 7200.",
+									"text" : "test.assert.equal TEST2dataspace/convert_lists 6000. 7200.",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"fontsize" : 10.0,
@@ -262,7 +262,7 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TEST/Dataspace/color/cmy2neutral 135. 155. 205.",
+									"text" : "test.assert.equal TEST/Dataspace/color/cmy2neutral 135. 155. 205.",
 									"linecount" : 3,
 									"fontname" : "Verdana",
 									"numinlets" : 2,
@@ -276,7 +276,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdatapace/color/hsl2neutral 0. 255. 0.",
+									"text" : "test.assert.equal TESTdatapace/color/hsl2neutral 0. 255. 0.",
 									"linecount" : 3,
 									"fontname" : "Verdana",
 									"numinlets" : 2,
@@ -290,7 +290,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdataspace/color/hsv2neutral 0. 255. 0.",
+									"text" : "test.assert.equal TESTdataspace/color/hsv2neutral 0. 255. 0.",
 									"linecount" : 3,
 									"fontname" : "Verdana",
 									"numinlets" : 2,
@@ -319,7 +319,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdataspace/color/rgb2neutral 118. 120. 122.",
+									"text" : "test.assert.equal TESTdataspace/color/rgb2neutral 118. 120. 122.",
 									"linecount" : 3,
 									"fontname" : "Verdana",
 									"numinlets" : 2,
@@ -753,7 +753,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdataspace/pitch/neutralspeed 2.",
+									"text" : "test.assert.equal TESTdataspace/pitch/neutralspeed 2.",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"fontsize" : 10.0,
@@ -766,7 +766,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdataspace/pitch/neutral2midi 69.",
+									"text" : "test.assert.equal TESTdataspace/pitch/neutral2midi 69.",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"fontsize" : 10.0,
@@ -779,7 +779,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdataspace/pitch/neutral2Hz 440.",
+									"text" : "test.assert.equal TESTdataspace/pitch/neutral2Hz 440.",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"fontsize" : 10.0,
@@ -792,7 +792,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdataspace/pitch/neutral2cents 6900.",
+									"text" : "test.assert.equal TESTdataspace/pitch/neutral2cents 6900.",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"fontsize" : 10.0,
@@ -887,7 +887,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdataspace/pitch/speed2neutral 16.351599",
+									"text" : "test.assert.equal TESTdataspace/pitch/speed2neutral 16.351599",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"fontsize" : 10.0,
@@ -900,7 +900,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdataspace/pitch/midi2neutral 440.",
+									"text" : "test.assert.equal TESTdataspace/pitch/midi2neutral 440.",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"fontsize" : 10.0,
@@ -913,7 +913,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdataspace/pitch/Hz2neutral 440.",
+									"text" : "test.assert.equal TESTdataspace/pitch/Hz2neutral 440.",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"fontsize" : 10.0,
@@ -926,7 +926,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdataspace/pitch/cents2neutral 440.",
+									"text" : "test.assert.equal TESTdataspace/pitch/cents2neutral 440.",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"fontsize" : 10.0,
@@ -1352,7 +1352,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdataspace/nonexisting_dataspace 0.",
+									"text" : "test.assert.equal TESTdataspace/nonexisting_dataspace 0.",
 									"linecount" : 2,
 									"fontname" : "Verdana",
 									"numinlets" : 2,
@@ -1409,7 +1409,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdataspace/input_unit_is_nonsense 0.",
+									"text" : "test.assert.equal TESTdataspace/input_unit_is_nonsense 0.",
 									"linecount" : 2,
 									"fontname" : "Verdana",
 									"numinlets" : 2,
@@ -1481,7 +1481,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdataspace/output_unit_is_nonsense 0.",
+									"text" : "test.assert.equal TESTdataspace/output_unit_is_nonsense 0.",
 									"linecount" : 2,
 									"fontname" : "Verdana",
 									"numinlets" : 2,
@@ -1713,7 +1713,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.finished",
+					"text" : "test.finished",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"fontsize" : 10.0,

@@ -88,7 +88,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTparameter/dataspace/color/hsl2native 0. 255. 0.",
+									"text" : "test.assert.equal TESTparameter/dataspace/color/hsl2native 0. 255. 0.",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"fontsize" : 10.0,
@@ -143,7 +143,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTparameter/dataspace/color/rgb2native 120. 100. 80.",
+									"text" : "test.assert.equal TESTparameter/dataspace/color/rgb2native 120. 100. 80.",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"fontsize" : 10.0,
@@ -290,7 +290,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.finished",
+					"text" : "test.finished",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"fontsize" : 10.0,

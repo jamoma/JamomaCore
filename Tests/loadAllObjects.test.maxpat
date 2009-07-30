@@ -90,7 +90,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.log",
+					"text" : "test.log",
 					"patching_rect" : [ 300.0, 320.0, 78.0, 19.0 ],
 					"id" : "obj-1",
 					"fontname" : "Verdana",
@@ -157,7 +157,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal objects_missing 0",
+					"text" : "test.assert.equal objects_missing 0",
 					"patching_rect" : [ 214.0, 507.0, 219.0, 19.0 ],
 					"id" : "obj-6",
 					"fontname" : "Verdana",
@@ -185,7 +185,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.finished",
+					"text" : "test.finished",
 					"patching_rect" : [ 20.0, 507.0, 102.0, 19.0 ],
 					"outlettype" : [ "" ],
 					"id" : "obj-8",
