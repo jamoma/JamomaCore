@@ -158,7 +158,23 @@ void HSLUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 }
 
 
-/***********************************************************************************************/
+/***********************************************************************************************
+
+Code for RGB <-> HSV convertion is based on source code provided by Marcelo Gattass:
+http://www.tecgraf.puc-rio.br/~mgattass/color/ColorIndex.html
+Last retrieved 2009-07-30
+
+License:
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+*/
+
+
 HSVUnit::HSVUnit()
 	: DataspaceUnit("hsv")
 {;}
@@ -170,42 +186,33 @@ HSVUnit::~HSVUnit()
 		
 void HSVUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
-	double	hue = atom_getfloat(inputAtoms+0);
-	double	saturation = atom_getfloat(inputAtoms+1);
-	double	value = atom_getfloat(inputAtoms+2);
+	double	h = atom_getfloat(inputAtoms+0)/360.;
+	double	s = atom_getfloat(inputAtoms+1)/100.;
+	double	v = atom_getfloat(inputAtoms+2)/100.;
 	double	r, g, b;
-	double	h,s,v,h1, a[7], q, f;                             
+	//double	h1, a[7], q, f;                             
 
-	h = (float)hue;
-	s = saturation/100.0;
-	v = value/100.0;
-	h1 = h;
-	//q = trunc(h1);
-#ifdef MAC_VERSION
-	q = roundf(h1);
-#else
-	q = (long)(h1 + 0.5);
-#endif
-	//q = h1 + 0.49; // round
-	f = h1-q; 
-	a[1] = v;
-	a[2] = v;
-	a[3] = v*(1-(s*f));
-	a[4] = v*(1-s);
-	a[5] = a[4];
-	a[6] = v*(1-(s*(1-f)));
+	if ( s == 0 )
+	{
+		r = v;
+		g = v;
+		b = v;
+	}
+	else
+	{
+		double var_h = h * 6;
+		double var_i = floor( var_h );
+		double var_1 = v * ( 1 - s );
+		double var_2 = v * ( 1 - s * ( var_h - var_i ) );
+		double var_3 = v * ( 1 - s * ( 1 - ( var_h - var_i ) ) );
 
-	if (q > 4) q = q-4;
-	else q = q+2;
-	r=a[(int)q];
-
-	if (q > 4) q = q-4;
-	else q = q+2;
-	b=a[(int)q];
-
-	if (q > 4) q = q-4;
-	else q = q+2;
-	g=a[(int)q];
+		if      ( var_i == 0 ) { r = v     ; g = var_3 ; b = var_1; }
+		else if ( var_i == 1 ) { r = var_2 ; g = v     ; b = var_1; }
+		else if ( var_i == 2 ) { r = var_1 ; g = v     ; b = var_3; }
+		else if ( var_i == 3 ) { r = var_1 ; g = var_2 ; b = v;     }
+		else if ( var_i == 4 ) { r = var_3 ; g = var_1 ; b = v;     }
+		else                   { r = v     ; g = var_1 ; b = var_2; }
+	}
 				
 	*outputNumArgs = 3;
 	*(output+0) = r;
@@ -216,26 +223,83 @@ void HSVUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outp
 
 void HSVUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
 {
+	double r = *(input+0);
+	double g = *(input+1);
+	double b = *(input+2);
+
+	double h,s,v;
+
+	double var_Min;
+	double var_Max;
+	double del_Max;
+
+	//Min. value of RGB
+	var_Min = r;
+	if (g<var_Min) var_Min = g;
+	if (b<var_Min) var_Min = b;
+		
+	//Max. value of RGB
+	var_Max = r;
+	if (g>var_Max) var_Max = g;
+	if (b>var_Max) var_Max = b;
+	
+	//Delta RGB value
+	del_Max = var_Max - var_Min;
+
+	v = var_Max;
+
+	if ( del_Max == 0 )
+	{
+	   h = 0;
+	   s = 0;
+	}
+	else
+	{
+	   double del_R = ( ( ( var_Max - r ) / 6 ) + ( del_Max / 2 ) ) / del_Max;
+	   double del_G = ( ( ( var_Max - g ) / 6 ) + ( del_Max / 2 ) ) / del_Max;
+	   double del_B = ( ( ( var_Max - b ) / 6 ) + ( del_Max / 2 ) ) / del_Max;
+
+	   s = del_Max / var_Max;
+
+	   if      ( r == var_Max ) h = del_B - del_G;
+	   else if ( g == var_Max ) h = ( 1 / 3 ) + del_R - del_B;
+	   else if ( g == var_Max ) h = ( 2 / 3 ) + del_G - del_R;
+
+	   if ( h < 0 ) h += 1;
+	   if ( h > 1 ) h -= 1;
+	}
+
+	*outputNumArgs = 3;	
+	atom_setfloat(*outputAtoms+0, h*360);
+	atom_setfloat(*outputAtoms+1, s*100);
+	atom_setfloat(*outputAtoms+2, v*100);
+
+
+	/*
     double  hue, saturation, value;
+	double  min, max;   // y, v
     double	y,h,s,v, r,g,b, r1,g1,b1; 
 	
 	r = *(input+0);
 	g = *(input+1);
 	b = *(input+2);
 
-	v = r;
-	
-	if(v<g)
-		v=g;
-	if(v<b)
-		v=b;
-	y = r;
-	if(y>g)
-		y=g;
-	if(y>b)
-		y=b;
-	if(v != 0)
-		s = (v-y)/v;
+	// Find max color
+	max = r;	
+	if(max<g)
+		max=g;
+	if(max<b)
+		max=b;
+
+	// Find min color
+	min = r;
+	if(min>g)
+		min=g;
+	if(min>b)
+		min=b;
+
+	if(max != 0)
+		s = (max-min)/v;
 	else
 		s = 0;
 	if(s == 0){
@@ -280,6 +344,7 @@ setit:
 	atom_setfloat(*outputAtoms+0, hue);
 	atom_setfloat(*outputAtoms+1, saturation);
 	atom_setfloat(*outputAtoms+2, value);
+	*/
 }
 
 
