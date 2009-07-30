@@ -1,5 +1,5 @@
 /* 
- * jcom.cubic_interpolate
+ * jcom.cubicInterpolate
  * External for Jamoma: cubic interpolation on a stream of floats
  * By Trond Lossius, Copyright � 2006
  * 
@@ -48,7 +48,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	common_symbols_init();
 
 	// Define our class
-	c = class_new("jcom.cubic_interpolate",(method)cubic_interpolate_new, (method)0L, sizeof(t_cubic_interp), 
+	c = class_new("jcom.cubicInterpolate",(method)cubic_interpolate_new, (method)0L, sizeof(t_cubic_interp), 
 		(method)0L, A_GIMME, 0);		
 
 	// Make methods accessible for our class: 
