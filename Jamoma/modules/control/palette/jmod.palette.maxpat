@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 209.0, 173.0, 920.0, 548.0 ],
+		"rect" : [ 209.0, 173.0, 1062.0, 553.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 209.0, 173.0, 920.0, 548.0 ],
+		"defrect" : [ 209.0, 173.0, 1062.0, 553.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -25,7 +25,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 408.0, 156.0, 53.287197, 15.000001 ],
+					"patching_rect" : [ 405.0, 145.0, 60.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 251.0, 2.0, 39.287197, 15.000001 ],
 					"prototypename" : "jamoma settings",
@@ -46,7 +46,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 390.0, 40.0, 53.287197, 15.000001 ],
+					"patching_rect" : [ 405.0, 40.0, 85.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 181.0, 2.0, 66.287193, 15.000001 ],
 					"prototypename" : "jamoma settings",
@@ -67,7 +67,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 177.0, 89.0, 193.0, 16.0 ],
+					"patching_rect" : [ 195.0, 85.0, 196.0, 17.0 ],
 					"text" : "/preset/store 1 default, /preset/write"
 				}
 
@@ -81,7 +81,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 191.0, 247.0, 45.0, 18.0 ],
+					"patching_rect" : [ 195.0, 245.0, 46.0, 19.0 ],
 					"text" : "jcom.in"
 				}
 
@@ -129,7 +129,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 406.0, 279.0, 47.0, 19.0 ],
+					"patching_rect" : [ 405.0, 285.0, 47.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 66.0, 44.0, 47.0, 19.0 ],
 					"triangle" : 0,
@@ -148,7 +148,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 394.0, 86.0, 339.0, 30.0 ],
+					"patching_rect" : [ 405.0, 100.0, 343.0, 31.0 ],
 					"text" : "jcom.message colors @type msg_list @description \"Set what colors to mix from (list containing 1 to 12 triplets of RGB values).\"",
 					"varname" : "jcom.parameter[7]"
 				}
@@ -164,8 +164,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 406.0, 299.0, 432.0, 42.0 ],
-					"text" : "jcom.parameter random/step_size @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description \"Set how much next color can deviate from the current when random mode is walk.\"",
+					"patching_rect" : [ 405.0, 310.0, 596.0, 43.0 ],
+					"text" : "jcom.parameter random/stepSize @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description \"Set how much next color can deviate from the current when random mode is walk.\"",
 					"varname" : "random/step_size"
 				}
 
@@ -179,7 +179,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 406.0, 176.0, 345.0, 18.0 ],
+					"patching_rect" : [ 405.0, 175.0, 350.0, 19.0 ],
 					"text" : "jcom.message clear @description \"Set all colors on palett to black.\"",
 					"varname" : "jcom.parameter[5]"
 				}
@@ -194,8 +194,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 390.0, 61.0, 537.0, 18.0 ],
-					"text" : "jcom.message gencolor @repetitions/allow 1 @type msg_none @description \"Generate new color triplet.\"",
+					"patching_rect" : [ 405.0, 65.0, 571.0, 19.0 ],
+					"text" : "jcom.message generateColor @repetitions/allow 1 @type msg_none @description \"Generate new color triplet.\"",
 					"varname" : "jcom.parameter[4]"
 				}
 
@@ -210,8 +210,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 406.0, 450.0, 486.0, 30.0 ],
-					"text" : "jcom.parameter interpolate/step_size @type msg_float @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Step size when interpolating.\"",
+					"patching_rect" : [ 405.0, 475.0, 584.0, 31.0 ],
+					"text" : "jcom.parameter interpolate/stepSize @type msg_float @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Step size when interpolating.\"",
 					"varname" : "interpolate/step_size"
 				}
 
@@ -226,7 +226,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 406.0, 235.0, 295.0, 30.0 ],
+					"patching_rect" : [ 405.0, 240.0, 299.0, 31.0 ],
 					"text" : "jcom.parameter random/mode @type msg_symbol @description \"Select distribution mode: random or walk.\"",
 					"varname" : "random/mode"
 				}
@@ -242,7 +242,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 406.0, 386.0, 254.0, 30.0 ],
+					"patching_rect" : [ 405.0, 400.0, 257.0, 31.0 ],
 					"text" : "jcom.parameter interpolate @type msg_toggle @description \"Perform cubic interpolation (flag).\"",
 					"varname" : "interpolate"
 				}
@@ -259,7 +259,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 406.0, 213.0, 72.0, 19.0 ],
+					"patching_rect" : [ 405.0, 210.0, 72.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 66.0, 23.0, 70.0, 19.0 ],
 					"types" : [  ],
@@ -292,7 +292,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 38.0, 89.0, 135.0, 16.0 ],
+					"patching_rect" : [ 50.0, 85.0, 137.0, 17.0 ],
 					"text" : "/documentation/generate"
 				}
 
@@ -305,7 +305,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 190.0, 280.0, 82.0, 18.0 ],
+					"patching_rect" : [ 195.0, 290.0, 82.0, 19.0 ],
 					"text" : "jalg.palette"
 				}
 
@@ -336,7 +336,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 16.0, 114.0, 220.0, 42.0 ],
+					"patching_rect" : [ 15.0, 140.0, 220.0, 43.0 ],
 					"text" : "jcom.hub @module_type control @description \"Create various blends of the RGB colors available.\"",
 					"varname" : "jcom.hub"
 				}
@@ -350,7 +350,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 16.0, 90.0, 13.0, 13.0 ]
+					"patching_rect" : [ 15.0, 80.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -361,7 +361,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 16.0, 316.0, 13.0, 13.0 ]
+					"patching_rect" : [ 15.0, 310.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -374,7 +374,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 30.0, 280.0, 153.0, 16.0 ],
+					"patching_rect" : [ 195.0, 315.0, 153.0, 17.0 ],
 					"text" : "/interpolate/step_size 0."
 				}
 
@@ -390,7 +390,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 406.0, 429.0, 47.0, 19.0 ],
+					"patching_rect" : [ 405.0, 450.0, 47.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 244.0, 45.0, 47.0, 19.0 ],
 					"triangle" : 0,
@@ -409,7 +409,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 406.0, 366.0, 78.0, 18.0 ],
+					"patching_rect" : [ 405.0, 375.0, 78.0, 18.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 184.0, 22.0, 20.0, 18.0 ],
 					"size" : 1,
@@ -434,64 +434,19 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-28", 0 ],
+					"destination" : [ "obj-18", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-2", 0 ]
+					"source" : [ "obj-35", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-30", 0 ],
+					"destination" : [ "obj-35", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-31", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-30", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 47.5, 108.0, 25.5, 108.0 ],
-					"source" : [ "obj-25", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-30", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 186.5, 109.0, 25.5, 109.0 ],
-					"source" : [ "obj-1", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-32", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-30", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-19", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 442.0, 231.0, 415.5, 231.0 ],
-					"source" : [ "obj-21", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-21", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 415.5, 267.0, 393.0, 267.0, 393.0, 210.0, 415.5, 210.0 ],
-					"source" : [ "obj-19", 0 ]
+					"midpoints" : [ 414.5, 514.0, 392.0, 514.0, 392.0, 446.0, 414.5, 446.0 ],
+					"source" : [ "obj-18", 0 ]
 				}
 
 			}
@@ -508,44 +463,26 @@
 				"patchline" : 				{
 					"destination" : [ "obj-13", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 415.5, 342.0, 393.0, 342.0, 393.0, 276.0, 415.5, 276.0 ],
+					"midpoints" : [ 414.5, 358.0, 392.0, 358.0, 392.0, 281.0, 414.5, 281.0 ],
 					"source" : [ "obj-15", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-20", 0 ],
+					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-36", 0 ]
+					"source" : [ "obj-6", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-36", 0 ],
+					"destination" : [ "obj-33", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 415.5, 418.0, 393.0, 418.0, 393.0, 363.0, 415.5, 363.0 ],
-					"source" : [ "obj-20", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-18", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-35", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-35", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 415.5, 480.0, 393.0, 480.0, 393.0, 426.0, 415.5, 426.0 ],
-					"source" : [ "obj-18", 0 ]
+					"midpoints" : [ 204.5, 284.0, 338.5, 284.0 ],
+					"source" : [ "obj-2", 0 ]
 				}
 
 			}
@@ -560,19 +497,82 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-33", 1 ],
+					"destination" : [ "obj-36", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-2", 0 ]
+					"midpoints" : [ 414.5, 437.0, 392.0, 437.0, 392.0, 368.0, 414.5, 368.0 ],
+					"source" : [ "obj-20", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-17", 0 ],
+					"destination" : [ "obj-20", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-6", 0 ]
+					"source" : [ "obj-36", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-21", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 414.5, 272.0, 392.0, 272.0, 392.0, 204.0, 414.5, 204.0 ],
+					"source" : [ "obj-19", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-19", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 441.0, 236.0, 414.5, 236.0 ],
+					"source" : [ "obj-21", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-32", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-30", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-30", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 204.5, 118.0, 24.5, 118.0 ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-30", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 59.5, 118.0, 24.5, 118.0 ],
+					"source" : [ "obj-25", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-30", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-31", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-28", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-2", 0 ]
 				}
 
 			}

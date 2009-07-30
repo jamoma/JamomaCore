@@ -5,9 +5,9 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='random/step_size' type='msg_float'>0</item>
-    <item name='random/mode' type='msg_symbol'>0</item>
-    <item name='interpolate' type='msg_toggle'>0</item>
-    <item name='interpolate/step_size' type='msg_float'>0</item>
+    <item name='random/stepSize' type='msg_float'>0.2</item>
+    <item name='random/mode' type='msg_symbol'>random</item>
+    <item name='interpolate' type='msg_toggle'>1</item>
+    <item name='interpolate/stepSize' type='msg_float'>0.05</item>
   </preset>
 </jamoma>
