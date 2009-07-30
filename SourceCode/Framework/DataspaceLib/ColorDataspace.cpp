@@ -41,18 +41,18 @@ CMYUnit::~CMYUnit()
 void CMYUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
 	*outputNumArgs = 3;
-	*(output+0) = 255 - atom_getfloat(inputAtoms+0);
-	*(output+1) = 255 - atom_getfloat(inputAtoms+1);
-	*(output+2) = 255 - atom_getfloat(inputAtoms+2);	
+	*(output+0) = (255 - atom_getfloat(inputAtoms+0)) * inv255;
+	*(output+1) = (255 - atom_getfloat(inputAtoms+1)) * inv255;
+	*(output+2) = (255 - atom_getfloat(inputAtoms+2)) * inv255;	
 }
 
 
 void CMYUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
 {
 	*outputNumArgs = 3;	
-	atom_setfloat(*outputAtoms+0, 255 - *(input+0));
-	atom_setfloat(*outputAtoms+1, 255 - *(input+1));
-	atom_setfloat(*outputAtoms+2, 255 - *(input+2));
+	atom_setfloat(*outputAtoms+0, 255 * (1 - *(input+0)));
+	atom_setfloat(*outputAtoms+1, 255 * (1 - *(input+1)));
+	atom_setfloat(*outputAtoms+2, 255 * (1 - *(input+2)));
 }
 
 
@@ -72,11 +72,10 @@ void HSLUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outp
 	double	s = atom_getfloat(inputAtoms+1);
 	double	l = atom_getfloat(inputAtoms+2);
 	double	red, green, blue;
-	double	m1, m2, tr, tg, tb, hue, lightness, saturation;
+	double	m1, m2, hue, lightness, saturation;
 
 	// scale to floating point... number range should be 360, 1, 1
 	hue = h;
-	//hue = ((hue/255.)*360.);
 	saturation = s/100.0;
 	lightness = l/100.0;
 
@@ -87,18 +86,15 @@ void HSLUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outp
 	
 	m1 = 2.0 * lightness-m2;
 	if(saturation == 0.0){
-		tr = lightness;
-		tg = lightness;
-		tb = lightness;
+		red = lightness;
+		green = lightness;
+		blue = lightness;
 	} 
 	else{
-		tr = hls_value(m1, m2, hue+120.0);
-		tg = hls_value(m1, m2, hue);
-		tb = hls_value(m1, m2, hue-120.0);
+		red = hls_value(m1, m2, hue+120.0);
+		green = hls_value(m1, m2, hue);
+		blue = hls_value(m1, m2, hue-120.0);
 	}
-	red = tr * 255.0;
-	green = tg * 255.0;
-	blue = tb * 255.0;
 	
 	*outputNumArgs = 3;
 	*(output+0) = red;
@@ -109,18 +105,12 @@ void HSLUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outp
 
 void HSLUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
 {
-	double	red = (*(input+0));
-	double	green = (*(input+1));
-	double	blue = (*(input+2));
+	double	r = (*(input+0));
+	double	g = (*(input+1));
+	double	b = (*(input+2));
 	double	hue, lightness, saturation;
 	double	max,min,delta;
-	double	r,g,b;
 	double	H,L,S;
-	
-	// first thing, convert them to 0-1
-	r = red/255.0;
-	g = green/255.0;
-	b = blue/255.0;
 	
 	max = r;
 	if(max<g)
@@ -180,11 +170,11 @@ HSVUnit::~HSVUnit()
 		
 void HSVUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
-	long	hue = atom_getlong(inputAtoms+0);
-	long	saturation = atom_getlong(inputAtoms+1);
-	long	value = atom_getlong(inputAtoms+2);
-	long	red, green, blue;
-	double	h,s,v,h1, a[7], tr, tg, tb, q, f;                             
+	double	hue = atom_getfloat(inputAtoms+0);
+	double	saturation = atom_getfloat(inputAtoms+1);
+	double	value = atom_getfloat(inputAtoms+2);
+	long	r, g, b;
+	double	h,s,v,h1, a[7], q, f;                             
 
 	h = (float)hue;
 	s = saturation/100.0;
@@ -207,36 +197,32 @@ void HSVUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outp
 
 	if (q > 4) q = q-4;
 	else q = q+2;
-	tr=a[(int)q];
+	r=a[(int)q];
 
 	if (q > 4) q = q-4;
 	else q = q+2;
-	tb=a[(int)q];
+	b=a[(int)q];
 
 	if (q > 4) q = q-4;
 	else q = q+2;
-	tg=a[(int)q];
+	g=a[(int)q];
 				
-	// output scaling
 	*outputNumArgs = 3;
-	*(output+0) = red = (int)(tr*255.);
-	*(output+1) = green = (int)(tg*255.);
-	*(output+2) = blue = (int)(tb*255.);	
+	*(output+0) = r;
+	*(output+1) = g;
+	*(output+2) = b;	
 }
 
 
 void HSVUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
 {
-    long    /*i, j, roubitez, pix, red, green, blue,*/ hue, saturation, value;
+    double  hue, saturation, value;
     double	y,h,s,v, r,g,b, r1,g1,b1; 
-	long	red = long(*(input+0));
-	long	green = long(*(input+1));
-	long	blue = long(*(input+2));
+	
+	r = long(*(input+0));
+	g = long(*(input+1));
+	b = long(*(input+2));
 
-	// first thing, convert them to 0-1
-	r = red/255.0;
-	g = green/255.0;
-	b = blue/255.0;
 	v = r;
 	
 	if(v<g)
@@ -285,9 +271,9 @@ void HSVUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 	h = h * 60.; 
 	if(h >= 360.)
 		h = h-360.;
-	hue = (int)h;					//hue = (int)((h/360.)*255.0);
-	saturation = (int)(s*100.);		// was 0-1 from the start
-	value = (int)(v*100.);			// it was 0-1 from the start
+	hue = h;					//hue = (int)((h/360.)*255.0);
+	saturation = (s*100.);		// was 0-1 from the start
+	value = (v*100.);			// it was 0-1 from the start
 
 setit:
 	*outputNumArgs = 3;	
@@ -326,6 +312,34 @@ void RGBUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 
 
 /***********************************************************************************************/
+RGB8Unit::RGB8Unit()
+	: DataspaceUnit("rgb8")
+{;}
+
+
+RGB8Unit::~RGB8Unit()
+{;}
+
+		
+void RGB8Unit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+{
+	*outputNumArgs = 3;
+	*(output+0) = atom_getfloat(inputAtoms+0) * inv255;
+	*(output+1) = atom_getfloat(inputAtoms+1) * inv255;
+	*(output+2) = atom_getfloat(inputAtoms+2) * inv255;	
+}
+
+
+void RGB8Unit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+{
+	*outputNumArgs = 3;
+	atom_setfloat(*outputAtoms+0, *(input+0)) * 255;
+	atom_setfloat(*outputAtoms+1, *(input+1)) * 255;
+	atom_setfloat(*outputAtoms+2, *(input+2)) * 255;
+}
+
+
+/***********************************************************************************************/
 ColorDataspace::ColorDataspace()
 	: DataspaceLib("color", "rgb")
 {
@@ -334,6 +348,7 @@ ColorDataspace::ColorDataspace()
 	registerUnit(new HSLUnit,		gensym("hsl"));
 	registerUnit(new HSVUnit,		gensym("hsv"));
 	registerUnit(new RGBUnit,		gensym("rgb"));
+	registerUnit(new RGBUnit,		gensym("rgb8"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
