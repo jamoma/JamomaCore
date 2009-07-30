@@ -17,7 +17,7 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.cubic_interpolate", "@description", "Cubic interpolation on a stream of number" ],
+					"args" : [ "@name", "jcom.cubicInterpolate", "@description", "Cubic interpolation on a stream of number" ],
 					"bgmode" : 1,
 					"id" : "obj-33",
 					"maxclass" : "bpatcher",
@@ -402,7 +402,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "float", "bang", "" ],
 					"patching_rect" : [ 199.0, 350.0, 186.0, 19.0 ],
-					"text" : "jcom.cubic_interpolate @step 0.02"
+					"text" : "jcom.cubicInterpolate @step 0.02"
 				}
 
 			}

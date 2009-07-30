@@ -3854,7 +3854,7 @@
 									"patching_rect" : [ 170.0, 130.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 170.0, 120.0, 133.0, 17.0 ],
-									"text" : "jcom.cubic_interpolate"
+									"text" : "jcom.cubicInterpolate"
 								}
 
 							}

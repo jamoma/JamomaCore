@@ -1791,7 +1791,7 @@
 						"globalpatchername" : ""
 					}
 ,
-					"text" : "p cubic_interpolation"
+					"text" : "p cubicInterpolation"
 				}
 
 			}
