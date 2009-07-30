@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 239.0, 281.0, 451.0, 434.0 ],
+		"rect" : [ 239.0, 281.0, 453.0, 485.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 239.0, 281.0, 451.0, 434.0 ],
+		"defrect" : [ 239.0, 281.0, 453.0, 485.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -39,7 +39,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 451.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 453.0, 70.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
 				}
@@ -218,13 +218,13 @@
 ,
 					"patching_rect" : [ 60.0, 170.0, 56.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
-						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"globalpatchername" : ""
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p rgb2hsl"
@@ -309,27 +309,27 @@
 						"count" : 6,
 						"data" : [ 							{
 								"key" : "red",
-								"value" : [ 255, 0, 0 ]
+								"value" : [ 1.0, 0.0, 0.0 ]
 							}
 , 							{
 								"key" : "green",
-								"value" : [ 0, 255, 0 ]
+								"value" : [ 0, 1.0, 0 ]
 							}
 , 							{
 								"key" : "blue",
-								"value" : [ 0, 0, 255 ]
+								"value" : [ 0, 0, 1.0 ]
 							}
 , 							{
 								"key" : "red&green&blue",
-								"value" : [ 255, 0, 0, 0, 255, 0, 0, 0, 255 ]
+								"value" : [ 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 ]
 							}
 , 							{
 								"key" : "black&white",
-								"value" : [ 0, 0, 0, 255, 255, 255 ]
+								"value" : [ 0.0, 0.0, 0.0, 1.0, 1.0, 1.0 ]
 							}
 , 							{
 								"key" : "colorwheel",
-								"value" : [ 255, 0, 0, 255, 127, 0, 255, 255, 0, 127, 255, 0, 0, 255, 0, 0, 255, 127, 0, 255, 255, 0, 127, 255, 0, 0, 255, 127, 0, 255, 255, 0, 255, 255, 0, 127 ]
+								"value" : [ 1.0, 0.0, 0.0, 1.0, 0.5, 0.0, 1.0, 1.0, 0.0, 0.5, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.5, 0.0, 1.0, 1.0, 0.0, 0.5, 1.0, 0.0, 0.0, 1.0, 0.5, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 0.5 ]
 							}
  ]
 					}
