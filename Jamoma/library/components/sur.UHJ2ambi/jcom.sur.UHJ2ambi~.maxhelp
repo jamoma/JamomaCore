@@ -1485,7 +1485,7 @@
 					"args" : [ "setup" ],
 					"id" : "obj-76",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.sur.speaker.setup.maxpat",
+					"name" : "jmod.sur.setup.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
