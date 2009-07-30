@@ -57,7 +57,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
  	class_addmethod(c, (method)cubic_interpolate_float, 	"float",	A_FLOAT,	0);
 	class_addmethod(c, (method)cubic_interpolate_assist, 	"assist",	A_CANT,		0);  
     class_addmethod(c, (method)cubic_interpolate_clear,		"clear",	0);
-	class_addmethod(c, (method)object_obex_dumpout,			"dumpout",	0);  
+	class_addmethod(c, (method)object_obex_dumpout,			"dumpout",	A_CANT,		0);  
 
 	// Add attributes to our class:	
 	// ATTRIBUTE: step size - clipped to the range [0, 1]
@@ -82,7 +82,7 @@ void *cubic_interpolate_new(t_symbol *msg, long argc, t_atom *argv)
 	x = (t_cubic_interp *)object_alloc(this_class);	// create the new instance and return a pointer to it
 	
 	if(x){
-    	object_obex_store(x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
+    	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
 		x->outlet2 = bangout(x);					// create 2nd outlet. Used to ask for new value
 		x->outlet = floatout(x);					// create the outlet
 		cubic_interpolate_clear(x);					// initilaize instance		
