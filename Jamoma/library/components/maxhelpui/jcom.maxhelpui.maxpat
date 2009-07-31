@@ -18,6 +18,22 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Century Gothic",
+					"fontsize" : 11.0,
+					"frgb" : [ 0.62, 0.0, 0.36, 1.0 ],
+					"id" : "obj-9",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 358.0, 356.0, 42.0, 19.0 ],
+					"text" : "Issues",
+					"textcolor" : [ 0.62, 0.0, 0.36, 1.0 ],
+					"varname" : "redminetext"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Lucida Grande",
 					"fontsize" : 11.0,
 					"hidden" : 1,
@@ -26,8 +42,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 570.0, 296.0, 34.0, 19.0 ],
-					"text" : "- 50"
+					"patching_rect" : [ 571.0, 296.0, 34.0, 19.0 ],
+					"text" : "- 40"
 				}
 
 			}
@@ -70,7 +86,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "bang", "bang", "", "int" ],
-					"patching_rect" : [ 375.0, 334.0, 35.0, 17.0 ],
+					"patching_rect" : [ 363.0, 334.0, 39.0, 19.0 ],
 					"varname" : "redminetoggle"
 				}
 
@@ -657,13 +673,13 @@
 					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-45",
-					"linecount" : 4,
+					"linecount" : 2,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 441.0, 205.0, 587.0, 53.0 ],
-					"text" : "script newobject comment @varname description @text $1 @fixwidth 1 @textcolor 0.62 0. 0.36 1. @orderfront 1 @fontsize 11 @fontname \"Century Gothic\", script offsetfrom description logo 1 1 -10, script newobject comment @varname redminetext @text Issues @fixwidth 1 @textcolor 0.62 0. 0.36 1. @orderfront 1 @fontsize 11 @fontname \"Century Gothic\", script offsetfrom redminetext description 1 1 -10"
+					"patching_rect" : [ 441.0, 205.0, 587.0, 29.0 ],
+					"text" : "script newobject comment @varname description @text $1 @fixwidth 1 @textcolor 0.62 0. 0.36 1. @orderfront 1 @fontsize 11 @fontname \"Century Gothic\", script offsetfrom description logo 1 1 -10"
 				}
 
 			}
