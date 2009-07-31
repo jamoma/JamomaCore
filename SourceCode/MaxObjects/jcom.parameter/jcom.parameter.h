@@ -65,6 +65,7 @@ typedef struct _param{
 	ObjectPtr		callbackArg;				///< The object for which the callback method should be applied
 	ObjectPtr		receive;					///< Direct receive
 	TTBoolean		isSending;					///< flag to tell us if we are currently sending out our value
+	TTBoolean		isInitialised;				///< The parameter or message has been initialised
 } t_param;
 
 

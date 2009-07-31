@@ -211,10 +211,11 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_ui_freeze = 0;
 		x->attr_stepsize = 1.0;
 		x->attr_priority = 0;						// default is no priority
-		x->param_output = &param_output_generic;		// set function pointer to default
+		x->param_output = &param_output_generic;	// set function pointer to default
 		x->attr_dataspace = jps_none;
 		x->attr_unitActive = jps_none;
 		x->attr_unitNative = jps_none;
+		x->isInitialised = 0;						// the message/parameter has not yet been initialised
 
 #ifdef JMOD_MESSAGE
 		jcom_core_subscriber_new_extended(&x->common, name, jps_subscribe_message);
@@ -1218,10 +1219,12 @@ void param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 void param_int(t_param *x, long value)
 {
 	x->list_size = 1;
-	if(x->common.attr_repetitions == 0){
+	if(x->common.attr_repetitions == 0 && x->isInitialised){
 		if(value == atom_getlong(&x->attr_value))
 			return;
 	}
+	// By the end of this function call the parameter has been set at least once.
+	x->isInitialised = 1;
 	// new input - halt any ramping...
 	if(x->ramper)
 		x->ramper->stop();
@@ -1234,10 +1237,12 @@ void param_int(t_param *x, long value)
 void param_float(t_param *x, double value)
 {
 	x->list_size = 1;
-	if(x->common.attr_repetitions == 0){
+	if(x->common.attr_repetitions == 0  && x->isInitialised){
 		if(value == atom_getfloat(&x->attr_value))
 			return;
 	}
+	// By the end of this function call the parameter has been set at least once.
+	x->isInitialised = 1;
 	// new input - halt any ramping...
 	if(x->ramper)
 		x->ramper->stop();
@@ -1263,10 +1268,12 @@ void param_float(t_param *x, double value)
 void param_symbol(t_param *x, t_symbol *value)
 {
 	x->list_size = 1;
-	if(x->common.attr_repetitions == 0){
+	if(x->common.attr_repetitions == 0 && x->isInitialised){
 		if(value == atom_getsym(&x->attr_value))
 			return;
 	}
+	// By the end of this function call the parameter has been set at least once.
+	x->isInitialised = 1;
 	// new input - halt any ramping...
 	if(x->ramper)
 		x->ramper->stop();
@@ -1350,10 +1357,11 @@ void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		if(argc == 1){
 			// If repetitions are disabled, we check for a repetition by treating
 			// this as a 1 element list
-			if(x->common.attr_repetitions == 0 && param_list_compare(x->atom_list, 
-				x->list_size, argv, argc)) 
+			if(x->common.attr_repetitions == 0 && x->isInitialised && param_list_compare(x->atom_list, x->list_size, argv, argc)) 
 				return;
-
+			// By the end of this function call the parameter has been set at least once.
+			x->isInitialised = 1;
+			
 			if(x->dataspace_active2native){
 				t_atom* r = (t_atom*)sysmem_newptr(sizeof(t_atom));
 				x->dataspace_active2native->convert(1, argv, &x->list_size, &r);
@@ -1536,21 +1544,25 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			return;
 		}	
 
-		if(x->common.attr_repetitions == 0){
+		if(x->common.attr_repetitions == 0 && x->isInitialised){
 			if(param_list_compare(x->atom_list, x->list_size, av, ac))
 				return;	// nothing to do
 		}
-
+		// By the end of this function call the parameter has been set at least once.
+		x->isInitialised = 1;
+		
 		x->list_size = ac;
 		x->ramper->set(ac, start);
 		x->ramper->go(ac, values, time);
 	} 
 	else{
 		// Don't output if the input data is identical
-		if(!x->common.attr_repetitions){
+		if(!x->common.attr_repetitions && x->isInitialised){
 			if(param_list_compare(x->atom_list, x->list_size, av, ac))
 				return;	// nothing to do
 		}
+		// By the end of this function call the parameter has been set at least once.
+		x->isInitialised = 1;
 		
 		// Avoid copying more than one atom if the type only can have one argument
 		if(x->common.attr_type != jps_msg_list && x->common.attr_type != jps_msg_generic
@@ -1594,7 +1606,7 @@ void param_ramp_callback_float(void *v, long, double *value)
 	t_param *x = (t_param *)v;
 	float	oldval = atom_getfloat(&x->attr_value);
 	
-	if(x->common.attr_repetitions || *value != oldval){
+	if(x->common.attr_repetitions || *value != oldval || !(x->isInitialised)){
 		atom_setfloat(&x->attr_value, *value);
 		param_output_float(x);
 	}
@@ -1608,7 +1620,7 @@ void param_ramp_callback_int(void *v, long, double *value)
 	long	oldval;
 
 	oldval = atom_getlong(&x->attr_value);
-	if (x->common.attr_repetitions || val != oldval){
+	if (x->common.attr_repetitions || val != oldval || !(x->isInitialised)){
 		atom_setlong(&x->attr_value, val);
 		param_output_int(x);
 	}
