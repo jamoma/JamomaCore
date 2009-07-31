@@ -11,8 +11,8 @@
     <item name='chorus/depth' type='msg_float' priority='0'>40</item>
     <item name='chorus/level' type='msg_float' priority='0'>10</item>
     <item name='chorus/speed' type='msg_float' priority='0'>0.5</item>
-    <item name='chorus/type' type='msg_float' priority='0'>0</item>
-    <item name='chorus/units' type='msg_float' priority='0'>10</item>
+    <item name='chorus/type' type='msg_int' priority='0'>0</item>
+    <item name='chorus/units' type='msg_int' priority='0'>10</item>
     <item name='reverb/active' type='msg_toggle' priority='0'>0</item>
     <item name='reverb/damping' type='msg_float' priority='0'>0.5</item>
     <item name='reverb/level' type='msg_float' priority='0'>1.</item>
