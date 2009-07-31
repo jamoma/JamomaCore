@@ -800,7 +800,6 @@ void hub_init(t_hub *x, t_symbol*, long, t_atom*)
 		if((*i)->type == jps_subscribe_init)
 			object_method((*i)->object, jps_go);		// TODO: This is an exceptionally bad thing to do inside of the critical region
 														// It could result in a deadlock
-		// TODO: In jcom.parameter x->isInitialised should be reset to 0.
 	}
 	
 	critical_exit(0);

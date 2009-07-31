@@ -320,6 +320,9 @@ t_max_err param_getvalueof(t_param *x, long *argc, t_atom **argv)
 // resets to default value
 void param_reset(t_param *x)
 {
+	// Set parameter to be uninitialised, to circumvent filtering of repetitions when outputing value from default preset
+	x->isInitialised = 0;
+	
 	if(x->listDefault_size){						// copy the default values to the current value
 		sysmem_copyptr(x->atom_listDefault, x->atom_list, sizeof(t_atom) * x->listDefault_size);
 		x->list_size = x->listDefault_size;
