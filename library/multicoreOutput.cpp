@@ -9,11 +9,13 @@
 
 #include "multicore.h"
 #include "TTAudioEngine.h"
-#define thisTTClass MCoreOutput
 
+#define thisTTClass			MCoreOutput
+#define thisTTClassName		"multicore.output"
+#define thisTTClassTags		"audio, multicore, output"
 
-MCoreOutput::MCoreOutput(TTUInt16 newMaxNumChannels)
-: TTAudioObject("multicore.output", newMaxNumChannels), placeHolder(NULL)
+TT_AUDIO_CONSTRUCTOR,
+	placeHolder(NULL)
 {
 	TTObjectInstantiate(kTTSym_audiosignal, &placeHolder, 1);
 	audioEngine = TTAudioEngineReference();

@@ -8,13 +8,15 @@
  */
 
 #include "multicore.h"
-#define thisTTClass MCoreSource
 
+#define thisTTClass			MCoreSource
+#define thisTTClassName		"multicore.source"
+#define thisTTClassTags		"audio, multicore, source"
 
-MCoreSource::MCoreSource(TTUInt16 newMaxNumChannels)
-: TTAudioObject("multicore.source", newMaxNumChannels), buffer(NULL)
+TT_AUDIO_CONSTRUCTOR,
+	buffer(NULL)
 {
-	TTObjectInstantiate(kTTSym_audiosignal, &buffer, newMaxNumChannels);
+	TTObjectInstantiate(kTTSym_audiosignal, &buffer, arguments);
 	setProcessMethod(processAudio);
 }
 

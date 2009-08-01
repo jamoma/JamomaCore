@@ -8,12 +8,23 @@
  */
 
 #include "multicore.h"
-#define thisTTClass MCoreObject
 
+#define thisTTClass			MCoreObject
+#define thisTTClassName		"multicore.object"
+#define thisTTClassTags		"audio, multicore, wrapper"
 
-MCoreObject::MCoreObject(const TTValue& arguments)
-	: TTObject("multicore.object"), flags(kMCoreProcessor), alwaysProcessSidechain(false), audioSources(NULL), sidechainSources(NULL), numSources(0), numSidechainSources(0), 
-	audioInput(NULL), audioOutput(NULL), sidechainInput(NULL), sidechainOutput(NULL), audioObject(NULL)
+TT_OBJECT_CONSTRUCTOR,
+	flags(kMCoreProcessor), 
+	alwaysProcessSidechain(false), 
+	audioSources(NULL), 
+	sidechainSources(NULL), 
+	numSources(0), 
+	numSidechainSources(0), 
+	audioInput(NULL), 
+	audioOutput(NULL), 
+	sidechainInput(NULL), 
+	sidechainOutput(NULL), 
+	audioObject(NULL)
 {
 	TTErr		err;
 	TTSymbolPtr	wrappedObjectName;

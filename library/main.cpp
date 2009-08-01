@@ -10,10 +10,8 @@
 #include "TTBlueAPI.h"
 #include "multicore.h"
 
-
-TTObjectPtr MCoreInstantiateTTObject(TTSymbolPtr className, TTValue& arguments);
-
 static bool initialized = false;
+
 
 /***********************************************************/
 
@@ -21,23 +19,10 @@ void MCoreInit(void)
 {
 	if(!initialized){
 		TTBlueInit();
-		TTClassRegister(TT("multicore.object"),	"audio, multicore, wrapper",	&MCoreInstantiateTTObject);
-		TTClassRegister(TT("multicore.source"),	"audio, multicore",				&MCoreInstantiateTTObject);
-		TTClassRegister(TT("multicore.output"),	"audio, multicore",				&MCoreInstantiateTTObject);
+		MCoreObject::registerClass();
+		MCoreSource::registerClass();
+		MCoreOutput::registerClass();
 	}
 }
 
-
-
-TTObjectPtr MCoreInstantiateTTObject(TTSymbolPtr className, TTValue& arguments)
-{
-	if(className == TT("multicore.object"))
-		return new MCoreObject(arguments);
-	else if(className == TT("multicore.source"))
-		return new MCoreSource(arguments);
-	else if(className == TT("multicore.output"))
-		return new MCoreOutput(arguments);
-	else
-		return NULL;
-}
 

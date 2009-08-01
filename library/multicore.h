@@ -55,6 +55,8 @@ typedef MCoreObject*	MCoreObjectPtr;
 */
 
 class MULTICORE_EXPORT MCoreObject : public TTObject {	
+	TTCLASS_SETUP(MCoreObject)
+	
 protected:
 	MCoreProcessStatus		processStatus;				///< Used to enable correct processing of feedback loops, multiple destinations, etc.
 	MCoreFlags				flags;
@@ -83,10 +85,10 @@ public:
 		@param	arguments		There should be two arguments: 
 								1. The name of the TTBlue object you want to wrap, and
 								2. The initial number of channel. */
-	MCoreObject(const TTValue& arguments);
+//	MCoreObject(const TTValue& arguments);
 	
 	/**	Destructor.		*/
-	virtual ~MCoreObject();
+//	virtual ~MCoreObject();
 
 	/**	A notification that the specified object is being deleted -- so we should drop it from our list of input sources.  */
 	TTErr objectFreeing(const TTValue& theObjectBeingDeleted);
@@ -167,18 +169,13 @@ public:
 /**	MCoreOutput is an audio object that serves as the destination and master for a MCore graph.		*/
 class MULTICORE_EXPORT MCoreOutput : public TTAudioObject
 {
+	TTCLASS_SETUP(MCoreOutput)
+
 public:
 	TTObjectPtr			audioEngine;
 	TTAudioSignalPtr	placeHolder;	///< an unused audio signal that we pass
 	MCoreObjectPtr	owner;			///< the owning lydbaer instance
 	TTValuePtr			me;
-
-	
-	/**	Constructor. */
-	MCoreOutput(TTUInt16 newMaxNumChannels);
-	
-	/**	Destructor. */
-	virtual ~MCoreOutput();
 	
 	
 	TTErr start();
@@ -211,15 +208,11 @@ typedef MCoreOutput* MCoreOutputPtr;
  that can be used by a MCore graph.		*/
 class MULTICORE_EXPORT MCoreSource : public TTAudioObject
 {
+	TTCLASS_SETUP(MCoreSource)
+
 public:
 	TTAudioSignalPtr	buffer;		///< storage for the audioSignal that we provide
 	
-	
-	/**	Constructor. */
-	MCoreSource(TTUInt16 newMaxNumChannels);
-	
-	/**	Destructor. */
-	virtual ~MCoreSource();
 	
 	/**	A standard audio processing method as used by TTBlue objects.
 		@param	inputs	unused.				*/
