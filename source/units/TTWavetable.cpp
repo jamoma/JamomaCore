@@ -8,13 +8,14 @@
 
 #include "TTWavetable.h"
 
-#define thisTTClass TTWavetable
+#define thisTTClass			TTWavetable
 #define thisTTClassName		"wavetable"
 #define thisTTClassTags		"audio, generator, oscillator, buffer"
 
 
-TT_AUDIO_CONSTRUCTOR
-, index(0.0), indexDelta(0.0)
+TT_AUDIO_CONSTRUCTOR,
+	index(0.0), 
+	indexDelta(0.0)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	

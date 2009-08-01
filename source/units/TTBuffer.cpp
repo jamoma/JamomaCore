@@ -8,9 +8,9 @@
 
 #include "TTBuffer.h"
 
-#define thisTTClass TTBuffer
-#define thisTTClassName		"pulsesub"
-#define thisTTClassTags		"audio, processor, dynamics, envelope"
+#define thisTTClass			TTBuffer
+#define thisTTClassName		"buffer"
+#define thisTTClassTags		"audio, buffer"
 
 
 TT_DATA_CONSTRUCTOR,
