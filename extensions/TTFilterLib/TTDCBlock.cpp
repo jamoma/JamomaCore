@@ -9,7 +9,7 @@
 #include "TTDCBlock.h"
 
 #define thisTTClass			TTDCBlock
-#define thisTTClassName		"dcblocker"
+#define thisTTClassName		"dcblock"
 #define thisTTClassTags		"audio, processor, filter"
 
 
