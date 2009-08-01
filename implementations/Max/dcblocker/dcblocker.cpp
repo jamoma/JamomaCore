@@ -81,7 +81,7 @@ DCBlockerBaerPtr dcBlockerBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		// TODO: we need to update objects to work with the correct number of channels when the network is configured
 		// Either that, or when we pull we just up the number of channels if when we need to ???
 		v.setSize(2);
-		v.set(0, TT("dcblocker"));
+		v.set(0, TT("dcblock"));
 		v.set(1, 1);
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
 
