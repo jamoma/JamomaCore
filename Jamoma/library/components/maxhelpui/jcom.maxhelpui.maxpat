@@ -18,16 +18,426 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Century Gothic",
+					"fontname" : "Lucida Grande",
 					"fontsize" : 11.0,
-					"frgb" : [ 0.62, 0.0, 0.36, 1.0 ],
-					"id" : "obj-9",
-					"maxclass" : "comment",
+					"hidden" : 1,
+					"id" : "obj-51",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 358.0, 356.0, 42.0, 19.0 ],
-					"text" : "Issues",
-					"textcolor" : [ 0.62, 0.0, 0.36, 1.0 ],
+					"patcher" : 					{
+						"fileversion" : 1,
+						"rect" : [ 421.0, 107.0, 576.0, 449.0 ],
+						"bglocked" : 0,
+						"defrect" : [ 421.0, 107.0, 576.0, 449.0 ],
+						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
+						"openinpresentation" : 1,
+						"default_fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"gridonopen" : 0,
+						"gridsize" : [ 25.0, 25.0 ],
+						"gridsnaponopen" : 0,
+						"toolbarvisible" : 0,
+						"boxanimatetime" : 200,
+						"imprint" : 0,
+						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"hidden" : 1,
+									"id" : "obj-39",
+									"linecount" : 2,
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 400.0, 279.0, 125.0, 29.0 ],
+									"text" : ";\rmax launchbrowser $1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-20",
+									"linecount" : 2,
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 449.0, 166.0, 134.0, 29.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 321.0, 380.0, 167.0, 17.0 ],
+									"text" : "www.jamoma.org/forums.html"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-18",
+									"linecount" : 4,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 208.0, 285.0, 150.0, 55.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 36.0, 279.0, 485.0, 19.0 ],
+									"text" : "Add your findings, if applicable, please add a small Max5 example-patch (copy compressed)."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-16",
+									"linecount" : 7,
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 533.0, 207.0, 50.0, 90.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 151.0, 243.0, 272.0, 17.0 ],
+									"text" : "http://redmine.jamoma.org/projects/show/modular"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-14",
+									"linecount" : 6,
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 391.0, 167.0, 50.0, 77.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 309.0, 206.0, 237.0, 17.0 ],
+									"text" : "http://redmine.jamoma.org/account/register"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"comment" : "",
+									"id" : "obj-3",
+									"maxclass" : "inlet",
+									"numinlets" : 0,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 247.0, 14.0, 25.0, 25.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-13",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 66.0, 362.0, 431.0, 19.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 36.0, 380.0, 288.0, 19.0 ],
+									"text" : "You can find more information about the mailing list at "
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-12",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 66.0, 319.0, 432.0, 31.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 36.0, 352.0, 530.0, 19.0 ],
+									"text" : "Alternatively to the first option, you can also use the Jamoma User mailing list to report an issue. "
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-11",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 66.0, 242.0, 431.0, 19.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 36.0, 302.0, 288.0, 19.0 ],
+									"text" : "Submitt your report by pressing  the \"Create\"-button."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-10",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 59.0, 224.0, 431.0, 31.0 ],
+									"presentation" : 1,
+									"presentation_linecount" : 2,
+									"presentation_rect" : [ 36.0, 243.0, 533.0, 31.0 ],
+									"text" : "if you signed in, go to                                                                               and select \"New issue\" from the menu. "
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-9",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 58.0, 190.0, 430.0, 31.0 ],
+									"presentation" : 1,
+									"presentation_linecount" : 2,
+									"presentation_rect" : [ 36.0, 206.0, 515.0, 31.0 ],
+									"text" : "If you don't have an account yet, please navigate to                                \nto register for the Jamoma development resources."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-5",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 46.0, 171.0, 306.0, 19.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 12.0, 175.0, 236.0, 19.0 ],
+									"text" : "1. Jamoma Developer Page (recommended)",
+									"underline" : 1
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-4",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 43.0, 292.0, 150.0, 19.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 12.0, 327.0, 125.0, 19.0 ],
+									"text" : "2. Jamoma User List",
+									"underline" : 1
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-2",
+									"linecount" : 5,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 20.0, 87.0, 595.0, 67.0 ],
+									"presentation" : 1,
+									"presentation_linecount" : 5,
+									"presentation_rect" : [ 0.0, 80.0, 573.0, 67.0 ],
+									"text" : "All issue/bug reports are highly appreciated.\n\nIf you have dicsovered an issue, please let us know - the earlier something is reported, the earlier we can fix it.\n\nThere are two ways how to report an issue:"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 18.0,
+									"frgb" : [ 0.4, 0.4, 0.4, 1.0 ],
+									"id" : "obj-6",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 21.0, 31.0, 189.0, 28.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 20.0, 10.0, 86.0, 28.0 ],
+									"text" : "Jamoma",
+									"textcolor" : [ 0.4, 0.4, 0.4, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.619608, 0.0, 0.360784, 1.0 ],
+									"id" : "obj-7",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 22.0, 57.0, 203.0, 19.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 20.0, 40.0, 230.0, 19.0 ],
+									"text" : "How to report an issue ?",
+									"textcolor" : [ 0.619608, 0.0, 0.360784, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"bgcolor" : [ 0.901961, 0.901961, 0.901961, 1.0 ],
+									"id" : "obj-8",
+									"maxclass" : "panel",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 15.0, 15.0, 205.0, 72.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 1.0, 0.0, 575.0, 80.0 ],
+									"rounded" : 0
+								}
+
+							}
+ ],
+						"lines" : [ 							{
+								"patchline" : 								{
+									"destination" : [ "obj-39", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-16", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-39", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-20", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-39", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-14", 0 ]
+								}
+
+							}
+ ]
+					}
+,
+					"patching_rect" : [ 264.0, 426.0, 56.0, 19.0 ],
+					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0
+					}
+,
+					"text" : "p Report"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Lucida Grande",
+					"fontsize" : 11.0,
+					"hidden" : 1,
+					"id" : "obj-50",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 264.0, 384.0, 37.0, 17.0 ],
+					"text" : "open"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Lucida Grande",
+					"fontsize" : 11.0,
+					"hidden" : 1,
+					"id" : "obj-48",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 264.0, 404.0, 55.0, 19.0 ],
+					"text" : "pcontrol"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Lucida Grande",
+					"fontsize" : 11.0,
+					"hidden" : 1,
+					"id" : "obj-42",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "bang", "bang", "" ],
+					"patching_rect" : [ 264.0, 355.0, 46.0, 19.0 ],
+					"text" : "sel 1 0"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"activesafe" : 0,
+					"button" : 1,
+					"clicktabcolor" : [ 0.501961, 0.85098, 0.619608, 0.0 ],
+					"clicktextcolor" : [ 0.619608, 0.0, 0.360784, 1.0 ],
+					"fontname" : "Century Gothic",
+					"fontsize" : 11.0,
+					"hovertextcolor" : [ 0.619608, 0.0, 0.360784, 1.0 ],
+					"htextcolor" : [ 0.619608, 0.0, 0.360784, 1.0 ],
+					"id" : "obj-40",
+					"margin" : 0,
+					"maxclass" : "tab",
+					"mode" : 1,
+					"multiline" : 0,
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "int", "", "" ],
+					"patching_rect" : [ 264.0, 328.0, 90.0, 18.0 ],
+					"rounded" : 0.0,
+					"spacing_x" : 1.0,
+					"spacing_y" : 0.0,
+					"tabcolor" : [ 0.85098, 0.85098, 0.85098, 0.0 ],
+					"tabs" : [ "issues", "report" ],
+					"textcolor" : [ 0.619608, 0.0, 0.360784, 1.0 ],
 					"varname" : "redminetext"
 				}
 
@@ -43,7 +453,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
 					"patching_rect" : [ 571.0, 296.0, 34.0, 19.0 ],
-					"text" : "- 40"
+					"text" : "- 90"
 				}
 
 			}
@@ -57,8 +467,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 569.0, 317.0, 454.0, 17.0 ],
-					"text" : "script move redminetext $1 50, script offsetfrom redminetoggle redminetext 0 0 0"
+					"patching_rect" : [ 569.0, 317.0, 176.0, 17.0 ],
+					"text" : "script move redminetext $1 50"
 				}
 
 			}
@@ -75,19 +485,6 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 410.0, 387.0, 125.0, 29.0 ],
 					"text" : ";\rmax launchbrowser $1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"handoff" : "",
-					"id" : "obj-49",
-					"maxclass" : "ubutton",
-					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "bang", "bang", "", "int" ],
-					"patching_rect" : [ 363.0, 334.0, 39.0, 19.0 ],
-					"varname" : "redminetoggle"
 				}
 
 			}
@@ -357,13 +754,13 @@
 ,
 					"patching_rect" : [ 336.0, 146.0, 83.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"default_fontsize" : 10.0,
-						"fontsize" : 10.0,
-						"fontname" : "Arial",
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"globalpatchername" : ""
+						"fontname" : "Arial",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p bordercolor"
@@ -800,7 +1197,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 5.0, 22.0, 35.0, 35.0 ],
+					"patching_rect" : [ 5.0, 14.0, 35.0, 35.0 ],
 					"varname" : "logo"
 				}
 
@@ -808,19 +1205,28 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-41", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-32", 0 ]
+					"destination" : [ "obj-36", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 287.0, 377.0, 408.0, 377.0, 408.0, 330.0, 419.5, 330.0 ],
+					"source" : [ "obj-42", 1 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-32", 0 ],
+					"destination" : [ "obj-50", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-42", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-42", 0 ],
 					"hidden" : 1,
 					"midpoints" : [  ],
-					"source" : [ "obj-11", 0 ]
+					"source" : [ "obj-40", 0 ]
 				}
 
 			}
@@ -1168,15 +1574,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-36", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-49", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-13", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -1190,6 +1587,42 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-48", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-50", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-51", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-48", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-41", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-32", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-32", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-11", 0 ]
 				}
 
 			}
