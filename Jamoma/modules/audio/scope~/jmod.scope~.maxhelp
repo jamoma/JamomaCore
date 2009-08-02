@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 118.0, 51.0, 398.0, 732.0 ],
+		"rect" : [ 258.0, 44.0, 398.0, 732.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 118.0, 51.0, 398.0, 732.0 ],
+		"defrect" : [ 258.0, 44.0, 398.0, 732.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -54,9 +54,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 25.0, 69.0, 811.0, 476.0 ],
+						"rect" : [ -63.0, 113.0, 811.0, 476.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 25.0, 69.0, 811.0, 476.0 ],
+						"defrect" : [ -63.0, 113.0, 811.0, 476.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -77,8 +77,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 439.0, 280.0, 150.0, 17.0 ],
-									"text" : "/samples_per_buffer $1"
+									"patching_rect" : [ 441.0, 282.0, 107.0, 17.0 ],
+									"text" : "/buffer/samples $1"
 								}
 
 							}
@@ -93,7 +93,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "int", "bang" ],
-									"patching_rect" : [ 402.0, 280.0, 35.0, 19.0 ],
+									"patching_rect" : [ 404.0, 282.0, 35.0, 19.0 ],
 									"triscale" : 0.9
 								}
 
@@ -102,13 +102,13 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-3",
 									"linecount" : 3,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 612.0, 261.0, 177.0, 43.0 ],
+									"patching_rect" : [ 614.0, 263.0, 177.0, 43.0 ],
 									"text" : "change this module's specific parameters remotely : continuously or with a ramp"
 								}
 
@@ -192,7 +192,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 660.0, 214.0, 100.0, 19.0 ],
+									"patching_rect" : [ 662.0, 216.0, 100.0, 19.0 ],
 									"text" : "s jmod.scope.cmd"
 								}
 
@@ -206,8 +206,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 513.0, 242.0, 140.0, 17.0 ],
-									"text" : "/range 0.1 ramp 5000"
+									"patching_rect" : [ 534.0, 244.0, 129.0, 17.0 ],
+									"text" : "/range 100. ramp 5000"
 								}
 
 							}
@@ -229,25 +229,28 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-14",
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 398.0, 210.0, 239.0, 28.0 ],
+									"patching_rect" : [ 400.0, 212.0, 239.0, 28.0 ],
 									"text" : "Module specific attributes"
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"bgcolor" : [ 0.596078, 0.596078, 0.701961, 1.0 ],
+									"background" : 1,
+									"bgcolor" : [ 0.815686, 0.815686, 0.815686, 1.0 ],
+									"border" : 1,
+									"bordercolor" : [ 0.6, 0.6, 0.6, 1.0 ],
 									"id" : "obj-15",
 									"maxclass" : "panel",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 395.0, 208.0, 373.0, 27.0 ],
-									"rounded" : 0
+									"patching_rect" : [ 397.0, 210.0, 373.0, 27.0 ],
+									"rounded" : 15
 								}
 
 							}
@@ -260,8 +263,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 439.0, 261.0, 140.0, 17.0 ],
-									"text" : "/buffers_per_pixel $1"
+									"patching_rect" : [ 441.0, 263.0, 89.0, 17.0 ],
+									"text" : "/buffer/pixel $1"
 								}
 
 							}
@@ -276,7 +279,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "int", "bang" ],
-									"patching_rect" : [ 402.0, 261.0, 35.0, 19.0 ],
+									"patching_rect" : [ 404.0, 263.0, 35.0, 19.0 ],
 									"triscale" : 0.9
 								}
 
@@ -290,7 +293,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 439.0, 242.0, 84.0, 17.0 ],
+									"patching_rect" : [ 441.0, 244.0, 84.0, 17.0 ],
 									"text" : "/range $1"
 								}
 
@@ -306,20 +309,21 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "float", "bang" ],
-									"patching_rect" : [ 402.0, 242.0, 35.0, 19.0 ],
+									"patching_rect" : [ 404.0, 244.0, 35.0, 19.0 ],
 									"triscale" : 0.9
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"bgcolor" : [ 0.780392, 0.780392, 0.839216, 1.0 ],
+									"background" : 1,
+									"bgcolor" : [ 0.815686, 0.815686, 0.815686, 1.0 ],
 									"id" : "obj-25",
 									"maxclass" : "panel",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 395.0, 236.0, 377.0, 75.0 ],
-									"rounded" : 0
+									"patching_rect" : [ 397.0, 238.0, 373.0, 75.0 ],
+									"rounded" : 15
 								}
 
 							}
@@ -419,13 +423,13 @@
 ,
 					"patching_rect" : [ 20.0, 480.0, 136.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p controling_the_module"
@@ -455,8 +459,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 20.0, 450.0, 154.0, 17.0 ],
-					"text" : "/range 1."
+					"patching_rect" : [ 20.0, 450.0, 205.0, 17.0 ],
+					"text" : "/view/color/border 0.62 0. 0.36 1."
 				}
 
 			}
@@ -515,7 +519,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-16", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 29.5, 442.0, 164.5, 442.0 ],
+					"midpoints" : [ 29.5, 442.0, 215.5, 442.0 ],
 					"source" : [ "obj-20", 0 ]
 				}
 
