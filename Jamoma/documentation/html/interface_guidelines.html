@@ -284,7 +284,7 @@ The bpatcher instanciating this module, when it's loaded into a patcher, will au
     <td class="instructionDescription"> Write an xml-preset file to disk. An optional 
       argument defines the file to open.</td>
   </tr>
-  <tr> 
+  <!-- <tr> 
     <td class="instructionName"> /set_clock </td>
     <td class="instructionType"> msg_symbol </td>
     <td class="instructionRange"> default </td>
@@ -293,7 +293,7 @@ The bpatcher instanciating this module, when it's loaded into a patcher, will au
     <td class="instructionRepetitions"> yes </td>
     <td class="instructionDescription"> Sync module to external clock. <br> <code>/set_clock 
       max</code> set module to use the Max scheduler (default behaviour). </td>
-  </tr>
+  </tr> -->
   <tr> 
     <td class="instructionName"> module/view_internals </td>
     <td class="instructionType"> n/a </td>
@@ -515,30 +515,21 @@ The bpatcher instanciating this module, when it's loaded into a patcher, will au
     <td class="instructionDescription"> Forces a frame of output to be sent. </td>
   </tr>
 </table>
-<h3>Reserved Syntax and Messages</h3>
-		
-<p>No module may accept or use the following:</p>
-		
-<ul>
-  <li>Any message beginning with &quot;<code>jcom.</code>&quot;. These messages 
-    are reserved for internal communicatin within and between the modules. Specifically, 
-    the following messages are currently being used: 
-    <ul>
-      <li><code>jcom.init (bang)</code>: Initialisation of all modules</li>
-      <li><code>jcom.dsp.off (bang)</code>: Can be used for a quick fade-out when 
-        audio is turned of.</li>
-      <li><code>jcom.remote.module.to</code>: Used for wireless communication from 
-        <code>jcom.cuescript.mod</code> to all other modules.</li>
-      <li><code>jcom.remote.module.from</code>: Used for wireless communication 
-        from all Jamoma modules to <code>jmod.cuescript.mod</code>.</li>
-      <li><code>jcom.remote.state.get</code>: Used by <code>jmod.cuescript</code> for
-        polling state from all named modules.</li>
-      <li><code>jcom.remote.state.return</code>: Used to provide info on
-      	state from named modules to <code>jmod.cuescript.mod</code>.</li>
-    </ul>
-  <li>Any standard message, as previously defined, in a way that differs from 
-    the way defined in these guidelines. 
-</ul>
-</body>
 
+
+<h3>Reserved Syntax and Messages</h3>
+
+<p>No object in Max (e.g. send, receive, coll, buffer~, etc.) may used a symbol beginning with &quot;<code>jcom.</code>&quot;. 
+	These messages are reserved for internal communication within and between the modules. 
+	For example, <code>jcom.init (bang)</code> is used to Initialize all modules.
+</p>
+
+<p>No module may accept or use the following:</p>
+<ul>
+	<li>Any message beginning with an underscore.  These messages are reserved for internal use.</li>
+	<li>Any standard message, as previously defined, in a way that differs from 
+    the way defined in these guidelines. </li>
+</ul>
+
+</body>
 </html>
