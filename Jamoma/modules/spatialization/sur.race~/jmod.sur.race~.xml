@@ -8,16 +8,16 @@
     <item name='attenation' type='msg_float' priority='0'>-2.500000</item>
     <item name='bypass' type='msg_toggle' priority='0'>0</item>
     <item name='delay' type='msg_float' priority='0'>70.000000</item>
-    <item name='filtertype' type='msg_symbol' priority='0'>butterworth.2</item>
     <item name='gain' type='msg_float' priority='0'>100.000000</item>
     <item name='lowMid' type='msg_int' priority='0'>250</item>
     <item name='midHigh' type='msg_int' priority='0'>7000</item>
     <item name='mute' type='msg_toggle' priority='0'>0</item>
-    <item name='mix' type='msg_float' priority='0'>100</item> 
+    <item name='sidechain' type='msg_float' priority='0'>0.000000</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
+    <item name='view/color/border' type='msg_list' priority='0'>0.620000 0.000000 0.360000 1.000000 </item>
     <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
     <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
     <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
+    <item name='view/size' type='msg_list' priority='0'>300 70 </item>
   </preset>
 </jamoma>

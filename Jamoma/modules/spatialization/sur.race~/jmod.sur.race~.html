@@ -70,17 +70,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> delaytime for the crosstalk cancelling [µseconds] </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> filtertype </td>
-			<td class ="instructionType"> symbol </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> type of the filter for separating the bands </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> gain </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
@@ -123,6 +112,17 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> When active, this attribute turns off the module's processing algorithm to save CPU </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> sidechain </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> -60.000000 3.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> gain for controlling the effect of the recursive bandpass sidechain </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/freeze </td>
@@ -341,7 +341,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/storecurrent </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -352,7 +352,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/storenext </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
