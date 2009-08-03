@@ -27,9 +27,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 421.0, 107.0, 576.0, 449.0 ],
+						"rect" : [ 421.0, 107.0, 617.0, 413.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 421.0, 107.0, 576.0, 449.0 ],
+						"defrect" : [ 421.0, 107.0, 617.0, 413.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 1,
 						"default_fontsize" : 10.0,
@@ -69,7 +69,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 449.0, 166.0, 134.0, 29.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 321.0, 380.0, 167.0, 17.0 ],
+									"presentation_rect" : [ 337.0, 371.0, 167.0, 17.0 ],
 									"text" : "www.jamoma.org/forums.html"
 								}
 
@@ -86,7 +86,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 208.0, 285.0, 150.0, 55.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 36.0, 279.0, 485.0, 19.0 ],
+									"presentation_rect" : [ 48.0, 270.0, 485.0, 19.0 ],
 									"text" : "Add your findings, if applicable, please add a small Max5 example-patch (copy compressed)."
 								}
 
@@ -103,7 +103,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 533.0, 207.0, 50.0, 90.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 151.0, 243.0, 272.0, 17.0 ],
+									"presentation_rect" : [ 163.0, 234.0, 272.0, 17.0 ],
 									"text" : "http://redmine.jamoma.org/projects/show/modular"
 								}
 
@@ -120,7 +120,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 391.0, 167.0, 50.0, 77.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 309.0, 206.0, 237.0, 17.0 ],
+									"presentation_rect" : [ 321.0, 197.0, 237.0, 17.0 ],
 									"text" : "http://redmine.jamoma.org/account/register"
 								}
 
@@ -148,8 +148,8 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 66.0, 362.0, 431.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 36.0, 380.0, 288.0, 19.0 ],
-									"text" : "You can find more information about the mailing list at "
+									"presentation_rect" : [ 48.0, 371.0, 290.0, 19.0 ],
+									"text" : "You can find more information about the mailing lists at "
 								}
 
 							}
@@ -165,7 +165,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 66.0, 319.0, 432.0, 31.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 36.0, 352.0, 530.0, 19.0 ],
+									"presentation_rect" : [ 48.0, 343.0, 530.0, 19.0 ],
 									"text" : "Alternatively to the first option, you can also use the Jamoma User mailing list to report an issue. "
 								}
 
@@ -181,8 +181,8 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 66.0, 242.0, 431.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 36.0, 302.0, 288.0, 19.0 ],
-									"text" : "Submitt your report by pressing  the \"Create\"-button."
+									"presentation_rect" : [ 48.0, 293.0, 405.0, 19.0 ],
+									"text" : "Submitt your report by pressing  the \"Create\"-button at the end of the page."
 								}
 
 							}
@@ -199,7 +199,7 @@
 									"patching_rect" : [ 59.0, 224.0, 431.0, 31.0 ],
 									"presentation" : 1,
 									"presentation_linecount" : 2,
-									"presentation_rect" : [ 36.0, 243.0, 533.0, 31.0 ],
+									"presentation_rect" : [ 48.0, 234.0, 533.0, 31.0 ],
 									"text" : "if you signed in, go to                                                                               and select \"New issue\" from the menu. "
 								}
 
@@ -217,7 +217,7 @@
 									"patching_rect" : [ 58.0, 190.0, 430.0, 31.0 ],
 									"presentation" : 1,
 									"presentation_linecount" : 2,
-									"presentation_rect" : [ 36.0, 206.0, 515.0, 31.0 ],
+									"presentation_rect" : [ 48.0, 197.0, 515.0, 31.0 ],
 									"text" : "If you don't have an account yet, please navigate to                                \nto register for the Jamoma development resources."
 								}
 
@@ -233,7 +233,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 46.0, 171.0, 306.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 12.0, 175.0, 236.0, 19.0 ],
+									"presentation_rect" : [ 24.0, 166.0, 236.0, 19.0 ],
 									"text" : "1. Jamoma Developer Page (recommended)",
 									"underline" : 1
 								}
@@ -250,7 +250,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 43.0, 292.0, 150.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 12.0, 327.0, 125.0, 19.0 ],
+									"presentation_rect" : [ 24.0, 318.0, 125.0, 19.0 ],
 									"text" : "2. Jamoma User List",
 									"underline" : 1
 								}
@@ -262,15 +262,15 @@
 									"fontsize" : 10.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-2",
-									"linecount" : 5,
+									"linecount" : 7,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 20.0, 87.0, 595.0, 67.0 ],
+									"patching_rect" : [ 35.0, 46.0, 505.0, 92.0 ],
 									"presentation" : 1,
-									"presentation_linecount" : 5,
-									"presentation_rect" : [ 0.0, 80.0, 573.0, 67.0 ],
-									"text" : "All issue/bug reports are highly appreciated.\n\nIf you have dicsovered an issue, please let us know - the earlier something is reported, the earlier we can fix it.\n\nThere are two ways how to report an issue:"
+									"presentation_linecount" : 7,
+									"presentation_rect" : [ 12.0, 73.0, 578.0, 92.0 ],
+									"text" : "All issue/bug reports are highly appreciated. \n\nPlease check through the \"issues\" button of the Jamoma helpfile, if the issue you have discovered has not been already reported yet. If you have indeed found a new one, please let us know - the earlier something is reported, the earlier we can fix it. \n\nThere are two ways how to report an issue:"
 								}
 
 							}
@@ -280,13 +280,14 @@
 									"fontsize" : 18.0,
 									"frgb" : [ 0.4, 0.4, 0.4, 1.0 ],
 									"id" : "obj-6",
+									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 21.0, 31.0, 189.0, 28.0 ],
+									"patching_rect" : [ 21.0, 31.0, 189.0, 50.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 20.0, 10.0, 86.0, 28.0 ],
-									"text" : "Jamoma",
+									"presentation_rect" : [ 20.0, 10.0, 246.0, 28.0 ],
+									"text" : "Found a bug in Jamoma ?",
 									"textcolor" : [ 0.4, 0.4, 0.4, 1.0 ]
 								}
 
@@ -303,7 +304,7 @@
 									"patching_rect" : [ 22.0, 57.0, 203.0, 19.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 20.0, 40.0, 230.0, 19.0 ],
-									"text" : "How to report an issue ?",
+									"text" : "How to report it.",
 									"textcolor" : [ 0.619608, 0.0, 0.360784, 1.0 ]
 								}
 
@@ -317,7 +318,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 15.0, 15.0, 205.0, 72.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 1.0, 0.0, 575.0, 80.0 ],
+									"presentation_rect" : [ 0.0, 0.0, 615.0, 66.0 ],
 									"rounded" : 0
 								}
 
@@ -355,13 +356,13 @@
 ,
 					"patching_rect" : [ 264.0, 426.0, 56.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
+						"default_fontsize" : 10.0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"fontname" : "Verdana",
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p Report"
@@ -374,12 +375,12 @@
 					"fontsize" : 11.0,
 					"hidden" : 1,
 					"id" : "obj-50",
-					"maxclass" : "message",
-					"numinlets" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 264.0, 384.0, 37.0, 17.0 ],
-					"text" : "open"
+					"outlettype" : [ "open" ],
+					"patching_rect" : [ 264.0, 382.0, 45.0, 19.0 ],
+					"text" : "t open"
 				}
 
 			}
@@ -754,13 +755,13 @@
 ,
 					"patching_rect" : [ 336.0, 146.0, 83.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
+						"default_fontsize" : 10.0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"fontname" : "Arial",
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p bordercolor"
@@ -1206,18 +1207,9 @@
 		"lines" : [ 			{
 				"patchline" : 				{
 					"destination" : [ "obj-36", 0 ],
-					"hidden" : 0,
+					"hidden" : 1,
 					"midpoints" : [ 287.0, 377.0, 408.0, 377.0, 408.0, 330.0, 419.5, 330.0 ],
 					"source" : [ "obj-42", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-50", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-42", 0 ]
 				}
 
 			}
@@ -1592,15 +1584,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-48", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-50", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-51", 0 ],
 					"hidden" : 1,
 					"midpoints" : [  ],
@@ -1623,6 +1606,24 @@
 					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-48", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-50", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-50", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-42", 0 ]
 				}
 
 			}
