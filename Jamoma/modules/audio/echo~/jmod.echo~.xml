@@ -18,6 +18,7 @@
 		<item name="filtergain" type="msg_float">-0.547163</item>
 		<item name="filtertype" type="msg_symbol">lowpass</item>
 		<item name="right" type="msg_int">750</item>
-		<item name="feedback" type="msg_float" priority ="1">0.2</item>
+	    <item name='feedback/gain' type='msg_float' priority='0'>0.2</item>
+	    <item name='feedback/mode' type='msg_symbol' priority='0'>stereo</item>
     </preset>
 </jamoma>

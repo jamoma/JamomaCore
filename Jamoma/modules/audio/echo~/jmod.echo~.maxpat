@@ -19,6 +19,39 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-12",
+					"linecount" : 3,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 561.0, 551.0, 585.0, 43.0 ],
+					"text" : "jcom.parameter feedback/mode @type msg_symbol @description \"Feedback mode. 'pingpong': crossed-over feedback between the two delays. 'stereo': two mono delay lines each with independent feedback paths.'pingleft' and 'pingright' feed the left or the right delay outputs back.\"",
+					"varname" : "feedback[2]"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-1",
+					"items" : [ "stereo", ",", "pingpong", ",", "pingright", ",", "pingleft" ],
+					"maxclass" : "umenu",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "int", "", "" ],
+					"patching_rect" : [ 456.0, 565.0, 100.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 103.0, 46.0, 72.0, 19.0 ],
+					"types" : [  ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-51",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
@@ -164,9 +197,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 18.18182, 241.818176, 41.0, 19.0 ],
+					"patching_rect" : [ 560.181824, 619.818176, 41.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 100.0, 45.0, 41.0, 19.0 ],
+					"presentation_rect" : [ 60.0, 46.0, 41.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "Feedback"
@@ -186,7 +219,7 @@
 					"outlettype" : [ "int", "bang" ],
 					"patching_rect" : [ 674.181824, 246.909119, 44.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 55.0, 45.0, 44.0, 19.0 ],
+					"presentation_rect" : [ 96.0, 23.0, 39.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "Right"
@@ -206,7 +239,7 @@
 					"outlettype" : [ "int", "bang" ],
 					"patching_rect" : [ 674.181824, 170.272705, 44.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 55.0, 25.0, 44.0, 19.0 ],
+					"presentation_rect" : [ 27.0, 23.0, 39.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "Left"
@@ -218,13 +251,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-13",
-					"linecount" : 2,
+					"linecount" : 3,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 18.0, 265.0, 448.0, 31.0 ],
-					"text" : "jcom.parameter feedback @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description Feedback.",
+					"patching_rect" : [ 560.0, 644.0, 596.0, 43.0 ],
+					"text" : "jcom.parameter feedback/gain @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description Feedback. @dataspace gain @dataspace/unit/active linear @dataspace/unit/native linear @dataspace/unit/display linear",
 					"varname" : "feedback"
 				}
 
@@ -256,7 +289,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 140.0, 40.0, 56.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 140.0, 45.0, 56.0, 19.0 ],
+					"presentation_rect" : [ 6.0, 46.0, 56.0, 19.0 ],
 					"text" : "Feedback"
 				}
 
@@ -562,13 +595,13 @@
 ,
 					"patching_rect" : [ 497.818176, 323.272736, 111.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"default_fontsize" : 10.0,
-						"fontsize" : 10.0,
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"globalpatchername" : ""
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p DecodeFilterGraph"
@@ -588,7 +621,7 @@
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 459.090881, 80.909088, 70.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 100.0, 25.0, 100.0, 19.0 ],
+					"presentation_rect" : [ 136.0, 23.0, 71.0, 19.0 ],
 					"types" : [  ],
 					"varname" : "FilterType"
 				}
@@ -842,13 +875,13 @@
 ,
 					"patching_rect" : [ 473.545441, 443.545441, 136.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"default_fontsize" : 10.0,
-						"fontsize" : 10.0,
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"globalpatchername" : ""
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p PrepareForFiltergraph~"
@@ -953,7 +986,7 @@
 					"outlettype" : [ "list", "float", "float", "float", "float", "list", "int" ],
 					"patching_rect" : [ 501.036774, 274.59021, 88.0, 39.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 210.0, 25.0, 88.0, 39.0 ],
+					"presentation_rect" : [ 208.0, 21.0, 90.0, 45.0 ],
 					"setfilter" : [ 0, 1, 1, 0, 0, 8571.957031, 0.938949, 0.80165, 30.0, 11025.0, 0.0625, 16.0, 0.0, 25.0 ],
 					"varname" : "FilterGraph"
 				}
@@ -985,7 +1018,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 15.0, 40.0, 38.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 15.0, 45.0, 38.0, 19.0 ],
+					"presentation_rect" : [ 64.0, 23.0, 38.0, 19.0 ],
 					"text" : "Right"
 				}
 
@@ -1107,7 +1140,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 15.0, 20.0, 37.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 15.0, 25.0, 37.0, 19.0 ],
+					"presentation_rect" : [ 1.0, 23.0, 31.0, 19.0 ],
 					"text" : "Left"
 				}
 
@@ -1164,6 +1197,7 @@
 			}
 , 			{
 				"box" : 				{
+					"background" : 1,
 					"bordercolor" : [ 0.6, 0.6, 0.6, 1.0 ],
 					"has_bypass" : 1,
 					"has_gain" : 1,
@@ -1420,24 +1454,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-9", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-9", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 27.5, 300.909088, 12.727272, 300.909088, 12.727272, 238.181808, 27.68182, 238.181808 ],
-					"source" : [ "obj-13", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-26", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -1541,6 +1557,42 @@
 					"hidden" : 0,
 					"midpoints" : [ 483.045441, 468.545441, 471.43396, 468.545441, 471.43396, 264.59021, 559.82251, 264.59021 ],
 					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-12", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-1", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-9", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 569.5, 692.909058, 554.727295, 692.909058, 554.727295, 616.181824, 569.681824, 616.181824 ],
+					"source" : [ "obj-13", 0 ]
 				}
 
 			}
