@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 81.0, 44.0, 1221.0, 744.0 ],
+		"rect" : [ 22.0, 44.0, 1221.0, 744.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 81.0, 44.0, 1221.0, 744.0 ],
+		"defrect" : [ 22.0, 44.0, 1221.0, 744.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -24,7 +24,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 825.0, 55.0, 142.0, 19.0 ],
+					"patching_rect" : [ 873.0, 14.0, 142.0, 19.0 ],
 					"text" : "jcom.meter_receive 2"
 				}
 
@@ -38,7 +38,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 820.0, 10.0, 142.0, 19.0 ],
+					"patching_rect" : [ 726.0, 14.0, 142.0, 19.0 ],
 					"text" : "jcom.meter_receive 1"
 				}
 
@@ -50,7 +50,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 730.0, 85.0, 80.0, 4.0 ],
+					"patching_rect" : [ 873.0, 39.0, 80.0, 4.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 150.0, 10.0, 80.0, 4.0 ]
 				}
@@ -63,7 +63,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 725.0, 40.0, 80.0, 4.0 ],
+					"patching_rect" : [ 726.0, 40.0, 80.0, 4.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 150.0, 5.0, 80.0, 4.0 ]
 				}
@@ -184,7 +184,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 18.636366, 160.909103, 44.0, 19.0 ],
+					"patching_rect" : [ 674.181824, 246.909119, 44.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 55.0, 45.0, 44.0, 19.0 ],
 					"triangle" : 0,
@@ -204,7 +204,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 23.181824, 77.27272, 44.0, 19.0 ],
+					"patching_rect" : [ 674.181824, 170.272705, 44.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 55.0, 25.0, 44.0, 19.0 ],
 					"triangle" : 0,
@@ -239,8 +239,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 18.0, 184.0, 396.0, 43.0 ],
-					"text" : "jcom.parameter right @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for right channel.\"",
+					"patching_rect" : [ 674.181824, 270.0, 529.0, 43.0 ],
+					"text" : "jcom.parameter right @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for right channel.\" @dataspace time @dataspace/unit/native ms @dataspace/unit/display ms @dataspace/unit/active ms",
 					"varname" : "right"
 				}
 
@@ -310,7 +310,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 34.0, 260.0, 445.0, 30.0 ],
+									"patching_rect" : [ 34.0, 260.0, 451.0, 31.0 ],
 									"text" : "Else \"Restore Default Settings\" will not function properly as past values for q, filtergain and cf maintained in FilterGraph will overrule the attempt to reset values to defaults."
 								}
 
@@ -357,7 +357,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 88.0, 157.0, 37.0, 18.0 ],
+									"patching_rect" : [ 88.0, 157.0, 37.0, 19.0 ],
 									"text" : "atodb"
 								}
 
@@ -407,7 +407,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 142.0, 128.0, 50.0, 18.0 ],
+									"patching_rect" : [ 142.0, 128.0, 50.0, 19.0 ],
 									"text" : "gate 1 1"
 								}
 
@@ -421,7 +421,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 88.0, 128.0, 50.0, 18.0 ],
+									"patching_rect" : [ 88.0, 128.0, 50.0, 19.0 ],
 									"text" : "gate 1 1"
 								}
 
@@ -435,7 +435,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 34.0, 128.0, 50.0, 18.0 ],
+									"patching_rect" : [ 34.0, 128.0, 50.0, 19.0 ],
 									"text" : "gate 1 1"
 								}
 
@@ -461,7 +461,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 34.0, 238.0, 348.0, 18.0 ],
+									"patching_rect" : [ 34.0, 238.0, 353.0, 19.0 ],
 									"text" : "Output from FilterFraph has to be muted when filtertype is changes."
 								}
 
@@ -562,13 +562,13 @@
 ,
 					"patching_rect" : [ 497.818176, 323.272736, 111.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
-						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"fontface" : 0,
+						"default_fontsize" : 10.0,
 						"fontsize" : 10.0,
-						"default_fontname" : "Verdana"
+						"fontname" : "Verdana",
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p DecodeFilterGraph"
@@ -591,33 +591,6 @@
 					"presentation_rect" : [ 100.0, 25.0, 100.0, 19.0 ],
 					"types" : [  ],
 					"varname" : "FilterType"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-20",
-					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 345.0, 5.0, 130.0, 19.0 ],
-					"text" : "r #0_xxx_to_filtergraph"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-21",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 473.545441, 467.545441, 131.0, 19.0 ],
-					"text" : "s #0_xxx_to_filtergraph"
 				}
 
 			}
@@ -655,7 +628,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 267.0, 143.0, 37.0, 18.0 ],
+									"patching_rect" : [ 267.0, 143.0, 37.0, 19.0 ],
 									"text" : "dbtoa"
 								}
 
@@ -669,7 +642,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 401.0, 232.0, 133.0, 18.0 ],
+									"patching_rect" : [ 401.0, 232.0, 134.0, 19.0 ],
 									"text" : "Set message to 6nd inlet"
 								}
 
@@ -694,7 +667,7 @@
 									"numinlets" : 4,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 131.0, 177.0, 215.0, 18.0 ],
+									"patching_rect" : [ 131.0, 177.0, 215.0, 19.0 ],
 									"text" : "pak set 1200. 1. 1."
 								}
 
@@ -708,7 +681,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 335.0, 119.0, 53.0, 18.0 ],
+									"patching_rect" : [ 335.0, 119.0, 54.0, 19.0 ],
 									"text" : "route set"
 								}
 
@@ -734,7 +707,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 267.0, 119.0, 53.0, 18.0 ],
+									"patching_rect" : [ 267.0, 119.0, 54.0, 19.0 ],
 									"text" : "route set"
 								}
 
@@ -760,7 +733,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 199.0, 119.0, 53.0, 18.0 ],
+									"patching_rect" : [ 199.0, 119.0, 54.0, 19.0 ],
 									"text" : "route set"
 								}
 
@@ -786,7 +759,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 405.0, 121.0, 100.0, 18.0 ],
+									"patching_rect" : [ 405.0, 121.0, 100.0, 19.0 ],
 									"text" : "Get rid of set"
 								}
 
@@ -869,13 +842,13 @@
 ,
 					"patching_rect" : [ 473.545441, 443.545441, 136.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
-						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"fontface" : 0,
+						"default_fontsize" : 10.0,
 						"fontsize" : 10.0,
-						"default_fontname" : "Verdana"
+						"fontname" : "Verdana",
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p PrepareForFiltergraph~"
@@ -892,7 +865,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 340.0, 25.0, 279.0, 31.0 ],
+					"patching_rect" : [ 371.0, 34.0, 279.0, 31.0 ],
 					"text" : "jcom.message filtergraph @description \"Messages to filtergraph. See the MSP reference for further details\""
 				}
 
@@ -996,7 +969,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 620.545471, 481.545441, 276.0, 43.0 ],
+					"patching_rect" : [ 623.545471, 485.545441, 276.0, 43.0 ],
 					"text" : "Convertion from freq, gain and q to biquad coeffisients has to take place inside the poly~ (.alg) in case the poly is up- or downsampled."
 				}
 
@@ -1105,8 +1078,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 23.0, 100.0, 397.0, 43.0 ],
-					"text" : "jcom.parameter left @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for left channel.\"",
+					"patching_rect" : [ 674.181824, 193.0, 521.0, 43.0 ],
+					"text" : "jcom.parameter left @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for left channel.\" @dataspace time @dataspace/unit/native ms @dataspace/unit/display ms @dataspace/unit/active ms",
 					"varname" : "left"
 				}
 
@@ -1191,6 +1164,7 @@
 			}
 , 			{
 				"box" : 				{
+					"bordercolor" : [ 0.6, 0.6, 0.6, 1.0 ],
 					"has_bypass" : 1,
 					"has_gain" : 1,
 					"has_mix" : 1,
@@ -1356,15 +1330,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-21", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-22", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -1378,15 +1343,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-42", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-30", 5 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-20", 0 ]
 				}
 
 			}
@@ -1459,42 +1415,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-39", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-41", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-11", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-11", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 32.5, 145.454544, 13.636363, 145.454544, 13.636363, 77.272728 ],
-					"source" : [ "obj-41", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-15", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-10", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-10", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 27.5, 230.909088, 12.727272, 230.909088, 12.727272, 156.363632, 28.136366, 156.363632 ],
-					"source" : [ "obj-15", 0 ]
 				}
 
 			}
@@ -1576,6 +1496,51 @@
 					"hidden" : 0,
 					"midpoints" : [ 174.166672, 446.0, 47.5, 446.0 ],
 					"source" : [ "obj-7", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 683.681824, 238.454529, 664.636353, 238.454529, 664.636353, 170.272705 ],
+					"source" : [ "obj-41", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-41", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-10", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 683.681824, 316.909088, 665.727295, 316.909088, 665.727295, 242.363632, 683.681824, 242.363632 ],
+					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-15", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-30", 5 ],
+					"hidden" : 0,
+					"midpoints" : [ 483.045441, 468.545441, 471.43396, 468.545441, 471.43396, 264.59021, 559.82251, 264.59021 ],
+					"source" : [ "obj-22", 0 ]
 				}
 
 			}
