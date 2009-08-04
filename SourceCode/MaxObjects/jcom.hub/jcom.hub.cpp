@@ -275,7 +275,7 @@ void hub_examine_context(t_hub *x)
 			t_rect	uiRect;
 			
 			if(context == gensym("bpatcher")){
-				object_attr_get_rect(ui, _sym_patching_rect, &uiRect);
+				object_attr_get_rect(ui, _sym_presentation_rect, &uiRect);
 				object_attr_get_rect(box, _sym_patching_rect, &boxRect);
 				boxRect.width = uiRect.width;
 				boxRect.height = uiRect.height;
@@ -287,7 +287,7 @@ void hub_examine_context(t_hub *x)
 				object_attr_set_rect(box, _sym_presentation_rect, &boxRect);
 			}
 			else if(context == gensym("subpatcher")){
-				object_attr_get_rect(ui, _sym_patching_rect, &uiRect);
+				object_attr_get_rect(ui, _sym_presentation_rect, &uiRect);
 				object_attr_get_rect(patcher, _sym_defrect, &boxRect);
 				boxRect.width = uiRect.width;
 				boxRect.height = uiRect.height;
