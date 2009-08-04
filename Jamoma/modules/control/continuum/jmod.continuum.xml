@@ -12,7 +12,7 @@
     <item name='gdif/environment/on' type='msg_toggle' priority='0'>0</item>
     <item name='gdif/performance/on' type='msg_toggle' priority='0'>0</item>
     <item name='gdif/raw/on' type='msg_toggle' priority='0'>0</item>
-    <item name='midi_in' type='msg_generic' priority='0'>continuum</item>
+    <item name='midiIn' type='msg_generic' priority='0'>continuum</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
 </jamoma>
