@@ -9,8 +9,7 @@
 	url = git://github.com/tap/JamomaMulticore.git
 [submodule "Tools"]
 	path = Tools
-	url = git://github.com/JamomaTools.git
-
+	url = git://github.com/tap/JamomaTools.git
 [submodule "Modules/DSP"]
 	path = Modules/DSP
 	url = git://github.com/tap/JamomaDSP.git
