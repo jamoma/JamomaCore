@@ -17,11 +17,15 @@
     <item name='limiter/preamp' type='msg_float' priority='0'>6.000000</item>
     <item name='limiter/release' type='msg_float' priority='0'>300.000000</item>
     <item name='limiter/threshold' type='msg_float' priority='0'>-6.000000</item>
-    <item name='record/active' type='msg_toggle' priority='0'>0</item>
     <item name='record/filetype' type='msg_symbol' priority='0'>aiff</item>
     <item name='record/samptype' type='msg_symbol' priority='0'>int24</item>
     <item name='saturation/active' type='msg_toggle' priority='0'>1</item>
     <item name='saturation/depth' type='msg_float' priority='0'>10.000000</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='view/color/border' type='msg_list' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
+    <item name='view/size' type='msg_list' priority='0'>300 140 </item>
   </preset>
 </jamoma>
