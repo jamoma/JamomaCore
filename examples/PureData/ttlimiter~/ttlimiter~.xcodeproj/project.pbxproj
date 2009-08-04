@@ -161,7 +161,7 @@
 					suppress,
 				);
 				PRODUCT_NAME = "ttlimiter~";
-				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/PureData.framework/Headers ../../../includes/**";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../library/includes\"";
 			};
 			name = Debug;
 		};
@@ -194,7 +194,7 @@
 					suppress,
 				);
 				PRODUCT_NAME = "ttlimiter~";
-				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/PureData.framework/Headers ../../../includes/**";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../library/includes\"";
 			};
 			name = Release;
 		};

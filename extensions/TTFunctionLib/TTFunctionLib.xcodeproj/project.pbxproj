@@ -232,7 +232,7 @@
 					"-Wno-deprecated",
 				);
 				PRODUCT_NAME = TTFunctionLib;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../includes/**\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../library/includes\"";
 			};
 			name = Development;
 		};
@@ -257,7 +257,7 @@
 					"-Wno-deprecated",
 				);
 				PRODUCT_NAME = TTFunctionLib;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../includes/**\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../library/includes\"";
 			};
 			name = Deployment;
 		};

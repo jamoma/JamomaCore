@@ -13,9 +13,9 @@ PRODUCT_VERSION = 0.5.5
 
 
 // Paths
-C74SUPPORT = $(SRCROOT)/../../../../Tools/library/max-sdk/c74support
+C74SUPPORT = $(SRCROOT)/../../../../../Tools/library/max-sdk/c74support
 DSPLIB =     $(SRCROOT)/../../..
-HEADER_SEARCH_PATHS = /Developer/Headers/FlatCarbon "$(C74SUPPORT)/max-includes" "$(C74SUPPORT)/msp-includes" "$(C74SUPPORT)/jit-includes" "$(SRCROOT)/.." "$(DSPLIB)/includes/**"
+HEADER_SEARCH_PATHS = /Developer/Headers/FlatCarbon "$(C74SUPPORT)/max-includes" "$(C74SUPPORT)/msp-includes" "$(C74SUPPORT)/jit-includes" "$(SRCROOT)/.." "$(DSPLIB)/library/includes"
 FRAMEWORK_SEARCH_PATHS = "$(C74SUPPORT)/max-includes" "$(C74SUPPORT)/msp-includes" "$(C74SUPPORT)/jit-includes" "$(DSPLIB)/library/build-mac"
 DSTROOT = $(SRCROOT)/../../Build_Mac
 // (This next path is relative to DSTROOT)

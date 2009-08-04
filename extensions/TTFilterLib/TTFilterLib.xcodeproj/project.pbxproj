@@ -340,7 +340,7 @@
 					"-Wno-deprecated",
 				);
 				PRODUCT_NAME = TTFilterLib;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../includes/**\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../library/includes\"";
 			};
 			name = Development;
 		};
@@ -365,7 +365,7 @@
 					"-Wno-deprecated",
 				);
 				PRODUCT_NAME = TTFilterLib;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../includes/**\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../library/includes\"";
 			};
 			name = Deployment;
 		};
