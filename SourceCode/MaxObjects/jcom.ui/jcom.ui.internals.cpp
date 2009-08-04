@@ -123,25 +123,30 @@ void ui_preview(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
 
 void ui_color_contentBackground(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	object_attr_setvalueof(obj, _sym_bgcolor, argc, argv);
+	// Colors default to "0". If default value is passed, we avoid setting the color, in order to stick to object defaults.
+	if (argc>1)
+		object_attr_setvalueof(obj, _sym_bgcolor, argc, argv);
 }
 
 
 void ui_color_toolbarBackground(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	object_attr_setvalueof(obj, gensym("headercolor"), argc, argv);
+	if (argc>1)
+		object_attr_setvalueof(obj, gensym("headercolor"), argc, argv);
 }
 
 
 void ui_color_toolbarText(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	object_attr_setvalueof(obj, _sym_textcolor, argc, argv);
+	if (argc>1)
+		object_attr_setvalueof(obj, _sym_textcolor, argc, argv);
 }
 
 
 void ui_color_border(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	object_attr_setvalueof(obj, gensym("bordercolor"), argc, argv);
+	if (argc>1)
+		object_attr_setvalueof(obj, gensym("bordercolor"), argc, argv);
 }
 
 
