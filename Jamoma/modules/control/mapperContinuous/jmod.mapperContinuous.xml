@@ -27,10 +27,6 @@
     <item name='slide/down' type='msg_float' priority='0'>0.000000</item>
     <item name='slide/up' type='msg_float' priority='0'>0.000000</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
   </preset>
   <preset number='2' name='mouse'>
     <item name='clipmode' type='msg_symbol' priority='0'>none</item>
@@ -55,10 +51,6 @@
     <item name='slide/down' type='msg_float' priority='0'>0.000000</item>
     <item name='slide/up' type='msg_float' priority='0'>0.000000</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
   </preset>
   <preset number='3' name='audio'>
     <item name='clipmode' type='msg_symbol' priority='0'>both</item>
@@ -83,9 +75,5 @@
     <item name='slide/down' type='msg_float' priority='0'>0.000000</item>
     <item name='slide/up' type='msg_float' priority='0'>0.000000</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
-  </preset>
+   </preset>
 </jamoma>
