@@ -37,10 +37,6 @@
     <item name='render/enable' type='msg_toggle' priority='0'>1</item>
     <item name='render/layer' type='msg_int' priority='0'>0</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
     <item name='view/size' type='msg_list' priority='0'>300 105 </item>
     <item name='weight' type='msg_float' priority='0'>0.995000</item>
   </preset>

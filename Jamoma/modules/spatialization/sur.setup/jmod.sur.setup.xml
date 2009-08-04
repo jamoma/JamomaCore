@@ -18,10 +18,6 @@
     <item name='source.3/position' type='msg_list' priority='5'>-4 -4 0.000000 </item>
     <item name='source.4/position' type='msg_list' priority='5'>-4 4 0.000000 </item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
   </preset>
   <preset number='2' name='2 (2-0) channel stereo'>
     <item name='type' type='msg_symbol' priority='1'>speaker</item>

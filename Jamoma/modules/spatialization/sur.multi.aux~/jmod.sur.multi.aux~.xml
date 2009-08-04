@@ -16,9 +16,5 @@
     <item name='channels' type='msg_int' priority='0'>1</item>
     <item name='channels/alias' type='msg_symbol' priority='2'>channels</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
   </preset>
 </jamoma>
