@@ -14,3 +14,6 @@
 [submodule "Modules/DSP"]
 	path = Modules/DSP
 	url = git://github.com/tap/JamomaDSP.git
+[submodule "Modules/Modular"]
+	path = Modules/Modular
+	url = git://github.com/tap/JamomaModular.git
