@@ -11,7 +11,7 @@
 
 // Name & Version
 PRODUCT_NAME = $(PROJECT_NAME)
-PRODUCT_VERSION = 0.5.4
+PRODUCT_VERSION = 0.5.6
 SVNREV = $Rev$
 
 
@@ -23,7 +23,7 @@ INSTALL_PATH = /
 
 
 // Special Files
-INFOPLIST_FILE = $(SRCROOT)/resources/Info.plist
+INFOPLIST_FILE = $(SRCROOT)/Info.plist
 
 LIBRARY_SEARCH_PATHS = $(inherited) "$(SRCROOT)/portaudio"
 
