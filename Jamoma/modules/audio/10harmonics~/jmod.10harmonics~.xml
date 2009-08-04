@@ -20,10 +20,6 @@
     <item name='harmonic.8/gain' type='msg_float' priority='0'>-60.000000</item>
     <item name='harmonic.9/gain' type='msg_float' priority='0'>-60.000000</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
     <item name='view/size' type='msg_list' priority='0'>300 140 </item>
   </preset>
 </jamoma>

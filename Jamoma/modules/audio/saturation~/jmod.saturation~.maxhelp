@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 105.0, 68.0, 403.0, 602.0 ],
+		"rect" : [ 105.0, 68.0, 481.0, 602.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 105.0, 68.0, 403.0, 602.0 ],
+		"defrect" : [ 105.0, 68.0, 481.0, 602.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -24,7 +24,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 403.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 481.0, 70.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
 				}
@@ -39,7 +39,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 35.0, 395.0, 300.0, 140.0 ],
+					"patching_rect" : [ 95.0, 394.0, 300.0, 140.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ]
 				}
 
@@ -54,9 +54,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 96.0, 71.0, 792.0, 596.0 ],
+						"rect" : [ 411.0, 65.0, 792.0, 596.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 96.0, 71.0, 792.0, 596.0 ],
+						"defrect" : [ 411.0, 65.0, 792.0, 596.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -77,7 +77,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 612.0, 410.0, 82.0, 19.0 ],
+									"patching_rect" : [ 605.0, 293.0, 82.0, 19.0 ],
 									"text" : "prepend mode"
 								}
 
@@ -93,7 +93,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "int", "", "" ],
-									"patching_rect" : [ 612.0, 392.0, 100.0, 19.0 ],
+									"patching_rect" : [ 607.0, 271.0, 100.0, 19.0 ],
 									"types" : [  ]
 								}
 
@@ -109,7 +109,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "float", "bang" ],
-									"patching_rect" : [ 499.0, 392.0, 35.0, 19.0 ],
+									"patching_rect" : [ 494.0, 271.0, 35.0, 19.0 ],
 									"triscale" : 0.9
 								}
 
@@ -123,7 +123,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 536.0, 392.0, 69.0, 17.0 ],
+									"patching_rect" : [ 531.0, 271.0, 69.0, 17.0 ],
 									"text" : "/preamp $1"
 								}
 
@@ -137,7 +137,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 662.0, 444.0, 122.0, 19.0 ],
+									"patching_rect" : [ 657.0, 323.0, 122.0, 19.0 ],
 									"text" : "s jmod.saturation.cmd"
 								}
 
@@ -152,7 +152,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 391.0, 440.0, 374.0, 143.0 ]
+									"patching_rect" : [ 386.0, 319.0, 398.0, 152.0 ]
 								}
 
 							}
@@ -221,7 +221,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 647.0, 360.0, 122.0, 19.0 ],
+									"patching_rect" : [ 642.0, 239.0, 122.0, 19.0 ],
 									"text" : "s jmod.saturation.cmd"
 								}
 
@@ -237,7 +237,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "float", "bang" ],
-									"patching_rect" : [ 398.0, 392.0, 35.0, 19.0 ],
+									"patching_rect" : [ 393.0, 271.0, 35.0, 19.0 ],
 									"triscale" : 0.9
 								}
 
@@ -251,20 +251,21 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 435.0, 392.0, 59.0, 17.0 ],
+									"patching_rect" : [ 430.0, 271.0, 59.0, 17.0 ],
 									"text" : "/depth $1"
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"bgcolor" : [ 0.780392, 0.780392, 0.839216, 1.0 ],
+									"background" : 1,
+									"bgcolor" : [ 0.815686, 0.815686, 0.815686, 1.0 ],
 									"id" : "obj-25",
 									"maxclass" : "panel",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 392.0, 386.0, 373.0, 44.0 ],
-									"rounded" : 0
+									"patching_rect" : [ 388.0, 264.0, 374.0, 52.0 ],
+									"rounded" : 15
 								}
 
 							}
@@ -272,30 +273,51 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 18.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-26",
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 396.0, 357.0, 239.0, 28.0 ],
+									"patching_rect" : [ 391.0, 236.0, 239.0, 28.0 ],
 									"text" : "Module specific attributes"
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"bgcolor" : [ 0.596078, 0.596078, 0.701961, 1.0 ],
+									"background" : 1,
+									"bgcolor" : [ 0.815686, 0.815686, 0.815686, 1.0 ],
+									"border" : 1,
+									"bordercolor" : [ 0.6, 0.6, 0.6, 1.0 ],
 									"id" : "obj-27",
 									"maxclass" : "panel",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 392.0, 355.0, 373.0, 27.0 ],
-									"rounded" : 0
+									"patching_rect" : [ 388.0, 234.0, 373.0, 27.0 ],
+									"rounded" : 15
 								}
 
 							}
  ],
 						"lines" : [ 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"hidden" : 1,
+									"midpoints" : [  ],
+									"source" : [ "obj-2", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-17", 0 ],
+									"hidden" : 1,
+									"midpoints" : [  ],
+									"source" : [ "obj-1", 0 ]
+								}
+
+							}
+, 							{
 								"patchline" : 								{
 									"destination" : [ "obj-9", 0 ],
 									"hidden" : 1,
@@ -333,24 +355,6 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-1", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-2", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-17", 0 ],
-									"hidden" : 1,
-									"midpoints" : [  ],
-									"source" : [ "obj-1", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"destination" : [ "obj-17", 0 ],
 									"hidden" : 1,
 									"midpoints" : [  ],
@@ -370,15 +374,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 40.0, 560.0, 139.0, 19.0 ],
+					"patching_rect" : [ 100.0, 559.0, 139.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
+						"default_fontsize" : 10.0,
 						"fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p controlling_the_module"
@@ -395,7 +399,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
-					"patching_rect" : [ 35.0, 110.0, 300.0, 140.0 ],
+					"patching_rect" : [ 95.0, 109.0, 300.0, 140.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
 					"varname" : "/input~"
 				}
@@ -410,7 +414,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 35.0, 255.0, 125.0, 19.0 ],
+					"patching_rect" : [ 95.0, 254.0, 125.0, 19.0 ],
 					"text" : "r jmod.saturation.cmd"
 				}
 
@@ -424,8 +428,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 35.0, 365.0, 126.0, 17.0 ],
-					"text" : "/audio/gain 0."
+					"patching_rect" : [ 45.0, 364.0, 195.0, 17.0 ],
+					"text" : "/mode s-shaped"
 				}
 
 			}
@@ -439,7 +443,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
-					"patching_rect" : [ 35.0, 280.0, 300.0, 70.0 ],
+					"patching_rect" : [ 95.0, 279.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"varname" : "/saturation~"
 				}
@@ -450,7 +454,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-22", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 44.5, 360.0, 151.5, 360.0 ],
+					"midpoints" : [ 104.5, 359.0, 230.5, 359.0 ],
 					"source" : [ "obj-24", 0 ]
 				}
 

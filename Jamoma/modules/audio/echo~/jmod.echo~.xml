@@ -10,8 +10,7 @@
 		<item name="audio/meters/freeze" type="msg_int">0</item>
 		<item name="audio/mix" type="msg_float">100.</item>
 		<item name="audio/bypass" type="msg_int">0</item>
-		<item name="audio/mute" type="msg_int">1</item>
-		
+		<item name="audio/mute" type="msg_int">1</item>		
 		<item name="left" type="msg_int">250</item>
 		<item name="frequency" type="msg_float" priority="4">8571.957031</item>
 		<item name="q" type="msg_float">0.80165</item>
