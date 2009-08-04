@@ -1,12 +1,16 @@
-[submodule "Tools"]
-	path = Tools
-	url = git://github.com/JamomaTools.git
-[submodule "Modules/Multicore"]
-	path = Modules/Multicore
-	url = git://github.com/tap/JamomaMulticore.git
-[submodule "Modules/Graphics"]
-	path = Modules/Graphics
-	url = git://github.com/tap/JamomaGraphics.git
 [submodule "Modules/Core"]
 	path = Modules/Core
 	url = git://github.com/tap/JamomaCore.git
+[submodule "Modules/Graphics"]
+	path = Modules/Graphics
+	url = git://github.com/tap/JamomaGraphics.git
+[submodule "Modules/Multicore"]
+	path = Modules/Multicore
+	url = git://github.com/tap/JamomaMulticore.git
+[submodule "Tools"]
+	path = Tools
+	url = git://github.com/JamomaTools.git
+
+[submodule "Modules/DSP"]
+	path = Modules/DSP
+	url = git://github.com/tap/JamomaDSP.git
