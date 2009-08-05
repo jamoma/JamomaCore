@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 458.0, 62.0, 931.0, 696.0 ],
+		"rect" : [ 349.0, 62.0, 931.0, 696.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 458.0, 62.0, 931.0, 696.0 ],
+		"defrect" : [ 349.0, 62.0, 931.0, 696.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,6 +17,20 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [ "@name", "jcom.map", "@description", "scaling and mapping input to output using the Jamoma function library" ],
+					"bgmode" : 1,
+					"id" : "obj-2",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 931.0, 70.0 ],
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-4",
@@ -26,7 +40,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 465.0, 265.0, 181.0, 29.0 ],
-					"text" : "current.parameter powerValue 0.59"
+					"text" : "function.parameters append powerValue"
 				}
 
 			}
@@ -58,7 +72,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-29",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -72,7 +86,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-21",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -140,7 +154,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-16",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -154,7 +168,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-15",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -236,7 +250,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-11",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -422,13 +436,13 @@
 ,
 					"patching_rect" : [ 95.0, 595.0, 68.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p logarithm"
@@ -610,13 +624,13 @@
 ,
 					"patching_rect" : [ 310.0, 150.0, 167.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p setFuntionAndGetParameters"
@@ -680,7 +694,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-38",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -781,13 +795,13 @@
 ,
 					"patching_rect" : [ 340.0, 195.0, 106.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p GetFunctionUnits"
@@ -859,7 +873,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 													"id" : "obj-46",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -873,7 +887,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 													"id" : "obj-45",
 													"linecount" : 3,
 													"maxclass" : "comment",
@@ -1405,13 +1419,13 @@
 ,
 									"patching_rect" : [ 65.0, 550.0, 236.0, 21.0 ],
 									"saved_object_attributes" : 									{
+										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana"
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p ExponentialDecayEnvelopeExample"
@@ -1422,7 +1436,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-29",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1436,7 +1450,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-21",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1504,7 +1518,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-16",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1518,7 +1532,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-15",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1600,7 +1614,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-11",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1786,13 +1800,13 @@
 ,
 					"patching_rect" : [ 95.0, 575.0, 78.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p exponential"
@@ -2269,13 +2283,13 @@
 ,
 					"patching_rect" : [ 665.0, 260.0, 64.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p display"
@@ -2302,6 +2316,7 @@
 					"presentation_rect" : [ 567.0, 36.0, 45.0, 45.0 ],
 					"setminmax" : [ 0.01, 1.0 ],
 					"size" : 100,
+					"slidercolor" : [ 0.619608, 0.0, 0.360784, 0.698039 ],
 					"thickness" : 1,
 					"varname" : "vu[2]"
 				}
@@ -2870,13 +2885,13 @@
 ,
 					"patching_rect" : [ 615.0, 155.0, 76.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p parameters"
@@ -2903,7 +2918,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-16",
-					"items" : [ "powerValue", ",", "symmetry" ],
+					"items" : [ "symmetry", ",", "powerValue" ],
 					"labelclick" : 1,
 					"maxclass" : "umenu",
 					"numinlets" : 1,
@@ -2931,7 +2946,8 @@
 					"patching_rect" : [ 40.0, 420.0, 256.0, 89.0 ],
 					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
 					"setminmax" : [ 0.0, 1.0 ],
-					"setstyle" : 4
+					"setstyle" : 4,
+					"slidercolor" : [ 0.619608, 0.0, 0.360784, 1.0 ]
 				}
 
 			}
@@ -2977,7 +2993,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-1",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -3006,7 +3022,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-11",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -3210,13 +3226,13 @@
 ,
 					"patching_rect" : [ 95.0, 657.0, 41.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p tanh"
@@ -3336,7 +3352,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-7",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3397,13 +3413,13 @@
 ,
 					"patching_rect" : [ 95.0, 615.0, 58.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p lowpass"
@@ -3641,55 +3657,16 @@
 ,
 					"patching_rect" : [ 95.0, 636.0, 49.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p power"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 20.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"id" : "obj-23",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 15.0, 275.0, 31.0 ],
-					"text" : "jcom.map"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"id" : "obj-24",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 45.0, 368.0, 19.0 ],
-					"text" : "scaling and mapping input to output using the Jamoma function library"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-25",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 10.0, 400.0, 55.0 ],
-					"rounded" : 15
 				}
 
 			}
@@ -3710,7 +3687,8 @@
 					"patching_rect" : [ 310.0, 420.0, 256.0, 89.0 ],
 					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
 					"setminmax" : [ 0.0, 1.0 ],
-					"setstyle" : 4
+					"setstyle" : 4,
+					"slidercolor" : [ 0.619608, 0.0, 0.360784, 1.0 ]
 				}
 
 			}
@@ -3813,6 +3791,7 @@
 			}
 , 			{
 				"box" : 				{
+					"color" : [ 0.619608, 0.0, 0.360784, 0.698039 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-36",
@@ -3980,7 +3959,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-48",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -3994,7 +3973,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-49",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -4064,6 +4043,7 @@
 						"imprint" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
+									"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-1",
@@ -4304,13 +4284,13 @@
 ,
 					"patching_rect" : [ 751.0, 574.0, 78.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p list_support"
