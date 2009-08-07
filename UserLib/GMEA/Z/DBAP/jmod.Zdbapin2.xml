@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
+
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
+>
+  <preset number='1' name='default'>
+    <item name='aux.1/gain' type='msg_float' priority='0'>0</item>
+    <item name='aux.2/gain' type='msg_float' priority='0'>0</item>
+    <item name='aux.3/gain' type='msg_float' priority='0'>0</item>
+    <item name='aux.4/gain' type='msg_float' priority='0'>0</item>
+    <item name='aux.5/gain' type='msg_float' priority='0'>0</item>
+    <item name='blur' type='msg_float' priority='0'>0</item>
+    <item name='link' type='msg_int' priority='28'>0</item>
+    <item name='position.1/x' type='msg_float' priority='0'>0</item>
+    <item name='position.1/y' type='msg_float' priority='0'>0</item>
+    <item name='position.2/x' type='msg_float' priority='0'>0</item>
+    <item name='position.2/y' type='msg_float' priority='0'>0</item>
+    <item name='source' type='msg_int' priority='0'>2</item>
+    <item name='speakers/show' type='msg_toggle' priority='0'>0</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='view/color/border' type='msg_list' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
+    <item name='view/size' type='msg_list' priority='0'>300 140 </item>
+    <item name='volume' type='msg_float' priority='0'>0</item>
+    <item name='weight' type='msg_list' priority='0'>1.000000 1.000000 1.000000 1.000000 </item>
+  </preset>
+</jamoma>
