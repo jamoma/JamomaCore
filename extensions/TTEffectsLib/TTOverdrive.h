@@ -11,9 +11,20 @@
 
 #include "TTBlueAPI.h"
 
+// silly stuff to get symbols exported so we can subclass this class in external code
+#ifdef TT_PLATFORM_MAC
+#define TT_OVERDRIVE_EXPORT TTEXPORT
+#else
+#ifdef TT_EFFECTS_LIB
+#define TT_OVERDRIVE_EXPORT __declspec(dllexport)
+#else
+#define TT_OVERDRIVE_EXPORT __declspec(dllimport)
+#endif
+#endif
+
 
 /**	TTOverdrive is an audio processor that provides a soft saturation or overdrive effect to "warm" a sound up. */ 
-class TTEXPORT TTOverdrive : public TTAudioObject {
+class TT_OVERDRIVE_EXPORT TTOverdrive : public TTAudioObject {
 	TTCLASS_SETUP(TTOverdrive)
 
 	TTFloat64			drive;			///< Attribute:
