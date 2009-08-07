@@ -414,7 +414,7 @@
 					"args" : [ "/cueManager" ],
 					"id" : "obj-36",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.cueManager.maxpat",
+					"name" : "jmod.Qmanager.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],

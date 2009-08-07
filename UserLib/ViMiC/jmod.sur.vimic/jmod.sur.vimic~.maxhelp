@@ -1116,7 +1116,7 @@
 					"id" : "obj-189",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.cuelist.maxpat",
+					"name" : "jmod.cueScript.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],

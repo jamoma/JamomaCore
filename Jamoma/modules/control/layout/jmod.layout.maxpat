@@ -1,10 +1,10 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 576.0, 107.0, 850.0, 645.0 ],
+		"rect" : [ 0.0, 70.0, 150.0, 70.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 576.0, 107.0, 850.0, 645.0 ],
+		"defrect" : [ 228.0, 99.0, 850.0, 645.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -17,6 +17,34 @@
 		"boxanimatetime" : 200,
 		"imprint" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-4",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 17.0, 236.0, 24.0, 19.0 ],
+					"text" : "t 0"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 17.0, 213.0, 100.0, 19.0 ],
+					"text" : "freebang"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -234,13 +262,13 @@
 ,
 					"patching_rect" : [ 525.0, 53.0, 72.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontface" : 0,
+						"globalpatchername" : "",
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p filter"
@@ -424,13 +452,13 @@
 ,
 									"patching_rect" : [ 176.0, 121.0, 32.5, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"fontface" : 0,
+										"globalpatchername" : "",
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p"
@@ -587,13 +615,13 @@
 ,
 					"patching_rect" : [ 225.0, 225.0, 87.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontface" : 0,
+						"globalpatchername" : "",
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p preset2layout"
@@ -948,13 +976,13 @@
 ,
 									"patching_rect" : [ 205.0, 95.0, 47.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"fontface" : 0,
+										"globalpatchername" : "",
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p dump"
@@ -1269,13 +1297,13 @@
 ,
 					"patching_rect" : [ 515.0, 135.0, 55.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontface" : 0,
+						"globalpatchername" : "",
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p presets"
@@ -1551,8 +1579,276 @@
 , 							{
 								"box" : 								{
 									"coll_data" : 									{
-										"count" : 0,
-										"data" : [  ]
+										"count" : 67,
+										"data" : [ 											{
+												"key" : "/input~",
+												"value" : [ 300, 70, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~",
+												"value" : [ 300, 280, 1 ]
+											}
+, 											{
+												"key" : "/saturation~",
+												"value" : [ 300, 350, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_2",
+												"value" : [ 600, 0, 1 ]
+											}
+, 											{
+												"key" : "/input~[2]",
+												"value" : [ 600, 70, 1 ]
+											}
+, 											{
+												"key" : "/filter~[2]",
+												"value" : [ 600, 210, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[2]",
+												"value" : [ 600, 280, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_3",
+												"value" : [ 900, 0, 1 ]
+											}
+, 											{
+												"key" : "/input~[3]",
+												"value" : [ 900, 70, 1 ]
+											}
+, 											{
+												"key" : "/filter~[3]",
+												"value" : [ 900, 210, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[3]",
+												"value" : [ 900, 280, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[3]",
+												"value" : [ 900, 350, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_4",
+												"value" : [ 300, 455, 1 ]
+											}
+, 											{
+												"key" : "/input~[4]",
+												"value" : [ 300, 525, 1 ]
+											}
+, 											{
+												"key" : "/filter~[4]",
+												"value" : [ 300, 665, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[4]",
+												"value" : [ 300, 735, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[4]",
+												"value" : [ 300, 805, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_5",
+												"value" : [ 600, 455, 1 ]
+											}
+, 											{
+												"key" : "/input~[5]",
+												"value" : [ 600, 525, 1 ]
+											}
+, 											{
+												"key" : "/filter~[5]",
+												"value" : [ 600, 665, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[5]",
+												"value" : [ 600, 735, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[5]",
+												"value" : [ 600, 805, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_6",
+												"value" : [ 900, 455, 1 ]
+											}
+, 											{
+												"key" : "/input~[6]",
+												"value" : [ 900, 525, 1 ]
+											}
+, 											{
+												"key" : "/filter~[6]",
+												"value" : [ 900, 665, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[6]",
+												"value" : [ 900, 735, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[6]",
+												"value" : [ 900, 805, 1 ]
+											}
+, 											{
+												"key" : "jmod.control",
+												"value" : [ 0, 0, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[2]",
+												"value" : [ 600, 350, 1 ]
+											}
+, 											{
+												"key" : "/filter~",
+												"value" : [ 300, 210, 1 ]
+											}
+, 											{
+												"key" : "/mouse/1",
+												"value" : [ 0, 175, 1 ]
+											}
+, 											{
+												"key" : "/output~",
+												"value" : [ 0, 735, 1 ]
+											}
+, 											{
+												"key" : "cuelist",
+												"value" : [ 0, 455, 1 ]
+											}
+, 											{
+												"key" : "/cueTrigger",
+												"value" : [ 0, 525, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_1",
+												"value" : [ 300, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.1",
+												"value" : [ 0, 315, 1 ]
+											}
+, 											{
+												"key" : "/cueManager",
+												"value" : [ 150, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.1",
+												"value" : [ 0, 455, 1 ]
+											}
+, 											{
+												"key" : "edit",
+												"value" : [ 0, 280, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.1",
+												"value" : [ 0, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.1",
+												"value" : [ 0, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.2",
+												"value" : [ 300, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.2",
+												"value" : [ 300, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.2",
+												"value" : [ 300, 455, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.2",
+												"value" : [ 300, 315, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.3",
+												"value" : [ 600, 315, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.3",
+												"value" : [ 600, 455, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.3",
+												"value" : [ 600, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.3",
+												"value" : [ 600, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.4",
+												"value" : [ 900, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.4",
+												"value" : [ 900, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.4",
+												"value" : [ 900, 455, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.4",
+												"value" : [ 900, 315, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.2",
+												"value" : [ 900, 70, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.2",
+												"value" : [ 900, 0, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.1",
+												"value" : [ 600, 70, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.1",
+												"value" : [ 600, 210, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.2",
+												"value" : [ 900, 210, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.4",
+												"value" : [ 1200, 315, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.4",
+												"value" : [ 1200, 385, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.3",
+												"value" : [ 1200, 70, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.3",
+												"value" : [ 1200, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.3",
+												"value" : [ 1200, 210, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.4",
+												"value" : [ 1200, 525, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.1",
+												"value" : [ 600, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zin~",
+												"value" : [ 450, 175, 1 ]
+											}
+, 											{
+												"key" : "/Zanalyzer",
+												"value" : [ 150, 175, 1 ]
+											}
+ ]
 									}
 ,
 									"fontname" : "Verdana",
@@ -1615,8 +1911,276 @@
 , 							{
 								"box" : 								{
 									"coll_data" : 									{
-										"count" : 0,
-										"data" : [  ]
+										"count" : 67,
+										"data" : [ 											{
+												"key" : "/input~",
+												"value" : [ 300, 70, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~",
+												"value" : [ 300, 280, 1 ]
+											}
+, 											{
+												"key" : "/saturation~",
+												"value" : [ 300, 350, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_2",
+												"value" : [ 600, 0, 1 ]
+											}
+, 											{
+												"key" : "/input~[2]",
+												"value" : [ 600, 70, 1 ]
+											}
+, 											{
+												"key" : "/filter~[2]",
+												"value" : [ 600, 210, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[2]",
+												"value" : [ 600, 280, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_3",
+												"value" : [ 900, 0, 1 ]
+											}
+, 											{
+												"key" : "/input~[3]",
+												"value" : [ 900, 70, 1 ]
+											}
+, 											{
+												"key" : "/filter~[3]",
+												"value" : [ 900, 210, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[3]",
+												"value" : [ 900, 280, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[3]",
+												"value" : [ 900, 350, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_4",
+												"value" : [ 300, 455, 1 ]
+											}
+, 											{
+												"key" : "/input~[4]",
+												"value" : [ 300, 525, 1 ]
+											}
+, 											{
+												"key" : "/filter~[4]",
+												"value" : [ 300, 665, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[4]",
+												"value" : [ 300, 735, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[4]",
+												"value" : [ 300, 805, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_5",
+												"value" : [ 600, 455, 1 ]
+											}
+, 											{
+												"key" : "/input~[5]",
+												"value" : [ 600, 525, 1 ]
+											}
+, 											{
+												"key" : "/filter~[5]",
+												"value" : [ 600, 665, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[5]",
+												"value" : [ 600, 735, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[5]",
+												"value" : [ 600, 805, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_6",
+												"value" : [ 900, 455, 1 ]
+											}
+, 											{
+												"key" : "/input~[6]",
+												"value" : [ 900, 525, 1 ]
+											}
+, 											{
+												"key" : "/filter~[6]",
+												"value" : [ 900, 665, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[6]",
+												"value" : [ 900, 735, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[6]",
+												"value" : [ 900, 805, 1 ]
+											}
+, 											{
+												"key" : "jmod.control",
+												"value" : [ 0, 0, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[2]",
+												"value" : [ 600, 350, 1 ]
+											}
+, 											{
+												"key" : "/filter~",
+												"value" : [ 300, 210, 1 ]
+											}
+, 											{
+												"key" : "/mouse/1",
+												"value" : [ 0, 175, 1 ]
+											}
+, 											{
+												"key" : "/output~",
+												"value" : [ 0, 735, 1 ]
+											}
+, 											{
+												"key" : "cuelist",
+												"value" : [ 0, 455, 1 ]
+											}
+, 											{
+												"key" : "/cueTrigger",
+												"value" : [ 0, 525, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_1",
+												"value" : [ 300, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.1",
+												"value" : [ 0, 315, 1 ]
+											}
+, 											{
+												"key" : "/cueManager",
+												"value" : [ 150, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.1",
+												"value" : [ 0, 455, 1 ]
+											}
+, 											{
+												"key" : "edit",
+												"value" : [ 0, 280, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.1",
+												"value" : [ 0, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.1",
+												"value" : [ 0, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.2",
+												"value" : [ 300, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.2",
+												"value" : [ 300, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.2",
+												"value" : [ 300, 455, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.2",
+												"value" : [ 300, 315, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.3",
+												"value" : [ 600, 315, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.3",
+												"value" : [ 600, 455, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.3",
+												"value" : [ 600, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.3",
+												"value" : [ 600, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.4",
+												"value" : [ 900, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.4",
+												"value" : [ 900, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.4",
+												"value" : [ 900, 455, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.4",
+												"value" : [ 900, 315, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.2",
+												"value" : [ 900, 70, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.2",
+												"value" : [ 900, 0, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.1",
+												"value" : [ 600, 70, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.1",
+												"value" : [ 600, 210, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.2",
+												"value" : [ 900, 210, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.4",
+												"value" : [ 1200, 315, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.4",
+												"value" : [ 1200, 385, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.3",
+												"value" : [ 1200, 70, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.3",
+												"value" : [ 1200, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.3",
+												"value" : [ 1200, 210, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.4",
+												"value" : [ 1200, 525, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.1",
+												"value" : [ 600, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zin~",
+												"value" : [ 450, 175, 1 ]
+											}
+, 											{
+												"key" : "/Zanalyzer",
+												"value" : [ 150, 175, 1 ]
+											}
+ ]
 									}
 ,
 									"fontname" : "Verdana",
@@ -1664,8 +2228,276 @@
 , 							{
 								"box" : 								{
 									"coll_data" : 									{
-										"count" : 0,
-										"data" : [  ]
+										"count" : 67,
+										"data" : [ 											{
+												"key" : "/input~",
+												"value" : [ 300, 70, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~",
+												"value" : [ 300, 280, 1 ]
+											}
+, 											{
+												"key" : "/saturation~",
+												"value" : [ 300, 350, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_2",
+												"value" : [ 600, 0, 1 ]
+											}
+, 											{
+												"key" : "/input~[2]",
+												"value" : [ 600, 70, 1 ]
+											}
+, 											{
+												"key" : "/filter~[2]",
+												"value" : [ 600, 210, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[2]",
+												"value" : [ 600, 280, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_3",
+												"value" : [ 900, 0, 1 ]
+											}
+, 											{
+												"key" : "/input~[3]",
+												"value" : [ 900, 70, 1 ]
+											}
+, 											{
+												"key" : "/filter~[3]",
+												"value" : [ 900, 210, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[3]",
+												"value" : [ 900, 280, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[3]",
+												"value" : [ 900, 350, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_4",
+												"value" : [ 300, 455, 1 ]
+											}
+, 											{
+												"key" : "/input~[4]",
+												"value" : [ 300, 525, 1 ]
+											}
+, 											{
+												"key" : "/filter~[4]",
+												"value" : [ 300, 665, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[4]",
+												"value" : [ 300, 735, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[4]",
+												"value" : [ 300, 805, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_5",
+												"value" : [ 600, 455, 1 ]
+											}
+, 											{
+												"key" : "/input~[5]",
+												"value" : [ 600, 525, 1 ]
+											}
+, 											{
+												"key" : "/filter~[5]",
+												"value" : [ 600, 665, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[5]",
+												"value" : [ 600, 735, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[5]",
+												"value" : [ 600, 805, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_6",
+												"value" : [ 900, 455, 1 ]
+											}
+, 											{
+												"key" : "/input~[6]",
+												"value" : [ 900, 525, 1 ]
+											}
+, 											{
+												"key" : "/filter~[6]",
+												"value" : [ 900, 665, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[6]",
+												"value" : [ 900, 735, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[6]",
+												"value" : [ 900, 805, 1 ]
+											}
+, 											{
+												"key" : "jmod.control",
+												"value" : [ 0, 0, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[2]",
+												"value" : [ 600, 350, 1 ]
+											}
+, 											{
+												"key" : "/filter~",
+												"value" : [ 300, 210, 1 ]
+											}
+, 											{
+												"key" : "/mouse/1",
+												"value" : [ 0, 175, 1 ]
+											}
+, 											{
+												"key" : "/output~",
+												"value" : [ 0, 735, 1 ]
+											}
+, 											{
+												"key" : "cuelist",
+												"value" : [ 0, 455, 1 ]
+											}
+, 											{
+												"key" : "/cueTrigger",
+												"value" : [ 0, 525, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_1",
+												"value" : [ 300, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.1",
+												"value" : [ 0, 315, 1 ]
+											}
+, 											{
+												"key" : "/cueManager",
+												"value" : [ 150, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.1",
+												"value" : [ 0, 455, 1 ]
+											}
+, 											{
+												"key" : "edit",
+												"value" : [ 0, 280, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.1",
+												"value" : [ 0, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.1",
+												"value" : [ 0, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.2",
+												"value" : [ 300, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.2",
+												"value" : [ 300, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.2",
+												"value" : [ 300, 455, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.2",
+												"value" : [ 300, 315, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.3",
+												"value" : [ 600, 315, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.3",
+												"value" : [ 600, 455, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.3",
+												"value" : [ 600, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.3",
+												"value" : [ 600, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.4",
+												"value" : [ 900, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.4",
+												"value" : [ 900, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.4",
+												"value" : [ 900, 455, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.4",
+												"value" : [ 900, 315, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.2",
+												"value" : [ 900, 70, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.2",
+												"value" : [ 900, 0, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.1",
+												"value" : [ 600, 70, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.1",
+												"value" : [ 600, 210, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.2",
+												"value" : [ 900, 210, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.4",
+												"value" : [ 1200, 315, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.4",
+												"value" : [ 1200, 385, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.3",
+												"value" : [ 1200, 70, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.3",
+												"value" : [ 1200, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.3",
+												"value" : [ 1200, 210, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.4",
+												"value" : [ 1200, 525, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.1",
+												"value" : [ 600, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zin~",
+												"value" : [ 450, 175, 1 ]
+											}
+, 											{
+												"key" : "/Zanalyzer",
+												"value" : [ 150, 175, 1 ]
+											}
+ ]
 									}
 ,
 									"fontname" : "Verdana",
@@ -1839,8 +2671,276 @@
 , 							{
 								"box" : 								{
 									"coll_data" : 									{
-										"count" : 0,
-										"data" : [  ]
+										"count" : 67,
+										"data" : [ 											{
+												"key" : "/input~",
+												"value" : [ 300, 70, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~",
+												"value" : [ 300, 280, 1 ]
+											}
+, 											{
+												"key" : "/saturation~",
+												"value" : [ 300, 350, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_2",
+												"value" : [ 600, 0, 1 ]
+											}
+, 											{
+												"key" : "/input~[2]",
+												"value" : [ 600, 70, 1 ]
+											}
+, 											{
+												"key" : "/filter~[2]",
+												"value" : [ 600, 210, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[2]",
+												"value" : [ 600, 280, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_3",
+												"value" : [ 900, 0, 1 ]
+											}
+, 											{
+												"key" : "/input~[3]",
+												"value" : [ 900, 70, 1 ]
+											}
+, 											{
+												"key" : "/filter~[3]",
+												"value" : [ 900, 210, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[3]",
+												"value" : [ 900, 280, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[3]",
+												"value" : [ 900, 350, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_4",
+												"value" : [ 300, 455, 1 ]
+											}
+, 											{
+												"key" : "/input~[4]",
+												"value" : [ 300, 525, 1 ]
+											}
+, 											{
+												"key" : "/filter~[4]",
+												"value" : [ 300, 665, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[4]",
+												"value" : [ 300, 735, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[4]",
+												"value" : [ 300, 805, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_5",
+												"value" : [ 600, 455, 1 ]
+											}
+, 											{
+												"key" : "/input~[5]",
+												"value" : [ 600, 525, 1 ]
+											}
+, 											{
+												"key" : "/filter~[5]",
+												"value" : [ 600, 665, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[5]",
+												"value" : [ 600, 735, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[5]",
+												"value" : [ 600, 805, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_6",
+												"value" : [ 900, 455, 1 ]
+											}
+, 											{
+												"key" : "/input~[6]",
+												"value" : [ 900, 525, 1 ]
+											}
+, 											{
+												"key" : "/filter~[6]",
+												"value" : [ 900, 665, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[6]",
+												"value" : [ 900, 735, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[6]",
+												"value" : [ 900, 805, 1 ]
+											}
+, 											{
+												"key" : "jmod.control",
+												"value" : [ 0, 0, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[2]",
+												"value" : [ 600, 350, 1 ]
+											}
+, 											{
+												"key" : "/filter~",
+												"value" : [ 300, 210, 1 ]
+											}
+, 											{
+												"key" : "/mouse/1",
+												"value" : [ 0, 175, 1 ]
+											}
+, 											{
+												"key" : "/output~",
+												"value" : [ 0, 735, 1 ]
+											}
+, 											{
+												"key" : "cuelist",
+												"value" : [ 0, 455, 1 ]
+											}
+, 											{
+												"key" : "/cueTrigger",
+												"value" : [ 0, 525, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_1",
+												"value" : [ 300, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.1",
+												"value" : [ 0, 315, 1 ]
+											}
+, 											{
+												"key" : "/cueManager",
+												"value" : [ 150, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.1",
+												"value" : [ 0, 455, 1 ]
+											}
+, 											{
+												"key" : "edit",
+												"value" : [ 0, 280, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.1",
+												"value" : [ 0, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.1",
+												"value" : [ 0, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.2",
+												"value" : [ 300, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.2",
+												"value" : [ 300, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.2",
+												"value" : [ 300, 455, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.2",
+												"value" : [ 300, 315, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.3",
+												"value" : [ 600, 315, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.3",
+												"value" : [ 600, 455, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.3",
+												"value" : [ 600, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.3",
+												"value" : [ 600, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.4",
+												"value" : [ 900, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.4",
+												"value" : [ 900, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.4",
+												"value" : [ 900, 455, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.4",
+												"value" : [ 900, 315, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.2",
+												"value" : [ 900, 70, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.2",
+												"value" : [ 900, 0, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.1",
+												"value" : [ 600, 70, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.1",
+												"value" : [ 600, 210, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.2",
+												"value" : [ 900, 210, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.4",
+												"value" : [ 1200, 315, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.4",
+												"value" : [ 1200, 385, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.3",
+												"value" : [ 1200, 70, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.3",
+												"value" : [ 1200, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.3",
+												"value" : [ 1200, 210, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.4",
+												"value" : [ 1200, 525, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.1",
+												"value" : [ 600, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zin~",
+												"value" : [ 450, 175, 1 ]
+											}
+, 											{
+												"key" : "/Zanalyzer",
+												"value" : [ 150, 175, 1 ]
+											}
+ ]
 									}
 ,
 									"fontname" : "Verdana",
@@ -2126,13 +3226,13 @@
 ,
 					"patching_rect" : [ 340.0, 379.0, 162.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontface" : 0,
+						"globalpatchername" : "",
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p refresh"
@@ -2176,7 +3276,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 13.0, 243.0, 151.0, 55.0 ],
+					"patching_rect" : [ 17.0, 286.0, 151.0, 55.0 ],
 					"text" : "jcom.message fullscreen @repetitions/allow 0 @type msg_int @description \"turn patch to fullscreen mode\"",
 					"varname" : "hue_angle[1]"
 				}
@@ -2222,7 +3322,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 13.0, 225.0, 63.0, 15.0 ],
+					"patching_rect" : [ 17.0, 268.0, 63.0, 15.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 83.0, 45.0, 63.0, 18.0 ],
 					"text" : "fullscreen",
@@ -2239,7 +3339,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 340.0, 358.0, 169.0, 19.0 ],
+					"patching_rect" : [ 340.0, 358.0, 171.0, 19.0 ],
 					"text" : "js jmod.layout.locate_patcher.js"
 				}
 
@@ -2358,10 +3458,10 @@
 					"outlettype" : [ "", "bang", "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 6.0, 59.0, 183.0, 265.0 ],
+						"rect" : [ 436.0, 47.0, 187.0, 269.0 ],
 						"bgcolor" : [ 0.694118, 0.694118, 0.694118, 1.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 6.0, 59.0, 183.0, 265.0 ],
+						"defrect" : [ 436.0, 47.0, 187.0, 269.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 1,
 						"default_fontsize" : 9.3,
@@ -2456,8 +3556,276 @@
 , 							{
 								"box" : 								{
 									"coll_data" : 									{
-										"count" : 0,
-										"data" : [  ]
+										"count" : 67,
+										"data" : [ 											{
+												"key" : "/input~",
+												"value" : [ 300, 70, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~",
+												"value" : [ 300, 280, 1 ]
+											}
+, 											{
+												"key" : "/saturation~",
+												"value" : [ 300, 350, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_2",
+												"value" : [ 600, 0, 1 ]
+											}
+, 											{
+												"key" : "/input~[2]",
+												"value" : [ 600, 70, 1 ]
+											}
+, 											{
+												"key" : "/filter~[2]",
+												"value" : [ 600, 210, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[2]",
+												"value" : [ 600, 280, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_3",
+												"value" : [ 900, 0, 1 ]
+											}
+, 											{
+												"key" : "/input~[3]",
+												"value" : [ 900, 70, 1 ]
+											}
+, 											{
+												"key" : "/filter~[3]",
+												"value" : [ 900, 210, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[3]",
+												"value" : [ 900, 280, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[3]",
+												"value" : [ 900, 350, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_4",
+												"value" : [ 300, 455, 1 ]
+											}
+, 											{
+												"key" : "/input~[4]",
+												"value" : [ 300, 525, 1 ]
+											}
+, 											{
+												"key" : "/filter~[4]",
+												"value" : [ 300, 665, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[4]",
+												"value" : [ 300, 735, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[4]",
+												"value" : [ 300, 805, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_5",
+												"value" : [ 600, 455, 1 ]
+											}
+, 											{
+												"key" : "/input~[5]",
+												"value" : [ 600, 525, 1 ]
+											}
+, 											{
+												"key" : "/filter~[5]",
+												"value" : [ 600, 665, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[5]",
+												"value" : [ 600, 735, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[5]",
+												"value" : [ 600, 805, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_6",
+												"value" : [ 900, 455, 1 ]
+											}
+, 											{
+												"key" : "/input~[6]",
+												"value" : [ 900, 525, 1 ]
+											}
+, 											{
+												"key" : "/filter~[6]",
+												"value" : [ 900, 665, 1 ]
+											}
+, 											{
+												"key" : "/multidelay~[6]",
+												"value" : [ 900, 735, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[6]",
+												"value" : [ 900, 805, 1 ]
+											}
+, 											{
+												"key" : "jmod.control",
+												"value" : [ 0, 0, 1 ]
+											}
+, 											{
+												"key" : "/saturation~[2]",
+												"value" : [ 600, 350, 1 ]
+											}
+, 											{
+												"key" : "/filter~",
+												"value" : [ 300, 210, 1 ]
+											}
+, 											{
+												"key" : "/mouse/1",
+												"value" : [ 0, 175, 1 ]
+											}
+, 											{
+												"key" : "/output~",
+												"value" : [ 0, 735, 1 ]
+											}
+, 											{
+												"key" : "cuelist",
+												"value" : [ 0, 455, 1 ]
+											}
+, 											{
+												"key" : "/cueTrigger",
+												"value" : [ 0, 525, 1 ]
+											}
+, 											{
+												"key" : "/fileBrowser_1",
+												"value" : [ 300, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.1",
+												"value" : [ 0, 315, 1 ]
+											}
+, 											{
+												"key" : "/cueManager",
+												"value" : [ 150, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.1",
+												"value" : [ 0, 455, 1 ]
+											}
+, 											{
+												"key" : "edit",
+												"value" : [ 0, 280, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.1",
+												"value" : [ 0, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.1",
+												"value" : [ 0, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.2",
+												"value" : [ 300, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.2",
+												"value" : [ 300, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.2",
+												"value" : [ 300, 455, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.2",
+												"value" : [ 300, 315, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.3",
+												"value" : [ 600, 315, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.3",
+												"value" : [ 600, 455, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.3",
+												"value" : [ 600, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.3",
+												"value" : [ 600, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zspat.4",
+												"value" : [ 900, 735, 1 ]
+											}
+, 											{
+												"key" : "/Zequalizer~.4",
+												"value" : [ 900, 595, 1 ]
+											}
+, 											{
+												"key" : "/Zenveloppe~.4",
+												"value" : [ 900, 455, 1 ]
+											}
+, 											{
+												"key" : "/Zlooper~.4",
+												"value" : [ 900, 315, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.2",
+												"value" : [ 900, 70, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.2",
+												"value" : [ 900, 0, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.1",
+												"value" : [ 600, 70, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.1",
+												"value" : [ 600, 210, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.2",
+												"value" : [ 900, 210, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.4",
+												"value" : [ 1200, 315, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.4",
+												"value" : [ 1200, 385, 1 ]
+											}
+, 											{
+												"key" : "/equalizer~.3",
+												"value" : [ 1200, 70, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.3",
+												"value" : [ 1200, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.3",
+												"value" : [ 1200, 210, 1 ]
+											}
+, 											{
+												"key" : "/Zspat2.4",
+												"value" : [ 1200, 525, 1 ]
+											}
+, 											{
+												"key" : "/ZDtD2.1",
+												"value" : [ 600, 0, 1 ]
+											}
+, 											{
+												"key" : "/Zin~",
+												"value" : [ 450, 175, 1 ]
+											}
+, 											{
+												"key" : "/Zanalyzer",
+												"value" : [ 150, 175, 1 ]
+											}
+ ]
 									}
 ,
 									"fontname" : "Verdana",
@@ -2662,13 +4030,13 @@
 ,
 									"patching_rect" : [ 15.0, 135.0, 68.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"fontface" : 0,
+										"globalpatchername" : "",
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p active"
@@ -3042,7 +4410,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 160.0, 95.0, 130.0, 17.0 ],
+													"patching_rect" : [ 160.0, 95.0, 131.0, 17.0 ],
 													"text" : "locked 1, presentation 1"
 												}
 
@@ -3056,7 +4424,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 30.0, 95.0, 130.0, 17.0 ],
+													"patching_rect" : [ 30.0, 95.0, 131.0, 17.0 ],
 													"text" : "locked 0, presentation 0"
 												}
 
@@ -3124,13 +4492,13 @@
 ,
 									"patching_rect" : [ 286.0, 465.0, 100.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"fontface" : 0,
+										"globalpatchername" : "",
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p patch/pres"
@@ -4527,13 +5895,13 @@
 									"presentation" : 1,
 									"presentation_rect" : [ 60.0, 187.0, 56.0, 21.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"fontface" : 0,
+										"globalpatchername" : "",
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p View"
@@ -4591,6 +5959,7 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"hidden" : 1,
 									"id" : "obj-30",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -4722,7 +6091,6 @@
 								"box" : 								{
 									"args" : [  ],
 									"embed" : 1,
-									"hidden" : 1,
 									"id" : "obj-10",
 									"maxclass" : "bpatcher",
 									"numinlets" : 1,
@@ -4973,7 +6341,7 @@
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"id" : "obj-21",
-													"items" : [ "jmod.10_harmonics~", ",", "jmod.crossfade~", ",", "jmod.degrade~", ",", "jmod.delay~", ",", "jmod.echo~", ",", "jmod.equalizer~", ",", "jmod.filter~", ",", "jmod.fluidsynth~", ",", "jmod.input~", ",", "jmod.limiter~", ",", "jmod.multidelay~", ",", "jmod.noisegate~", ",", "jmod.noise~", ",", "jmod.output~", ",", "jmod.rissetGlissando~", ",", "jmod.sampleplayer2~", ",", "jmod.saturation~", ",", "jmod.scope~", ",", "jmod.sine~", ",", "jmod.spectralShift~", ",", "jmod.tremolo~", ",", "jmod.vst~" ],
+													"items" : [ "jmod.10harmonics~", ",", "jmod.crossfade~", ",", "jmod.degrade~", ",", "jmod.delay~", ",", "jmod.echo~", ",", "jmod.equalizer~", ",", "jmod.filter~", ",", "jmod.fluidsynth~", ",", "jmod.input~", ",", "jmod.limiter~", ",", "jmod.multidelay~", ",", "jmod.noisegate~", ",", "jmod.noise~", ",", "jmod.output~", ",", "jmod.rissetGlissando~", ",", "jmod.sampleplayer2~", ",", "jmod.saturation~", ",", "jmod.scope~", ",", "jmod.sine~", ",", "jmod.spectralShift~", ",", "jmod.tremolo~", ",", "jmod.vst~" ],
 													"maxclass" : "umenu",
 													"numinlets" : 1,
 													"numoutlets" : 3,
@@ -5266,13 +6634,13 @@
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
 																	"id" : "obj-84",
-																	"items" : [ "10harmonics~/jalg.10_harmonics~.maxpat", ",", "10harmonics~/jmod.10_harmonics~.maxhelp", ",", "10harmonics~/jmod.10_harmonics~.maxpat", ",", "crossfade~/jalg.crossfade~.maxpat", ",", "crossfade~/jmod.crossfade~.maxhelp", ",", "crossfade~/jmod.crossfade~.maxpat", ",", "degrade~/jalg.degrade~.maxpat", ",", "degrade~/jmod.degrade~.maxhelp", ",", "degrade~/jmod.degrade~.maxpat", ",", "delay~/jalg.delay~.maxpat", ",", "delay~/jmod.delay~.maxhelp", ",", "delay~/jmod.delay~.maxpat", ",", "echo~/jalg.echo~.maxpat", ",", "echo~/jmod.echo~.maxhelp", ",", "echo~/jmod.echo~.maxpat", ",", "equalizer~/jalg.equalizer~.maxpat", ",", "equalizer~/jalg.equalizer~_params.maxpat", ",", "equalizer~/jmod.equalizer~.maxhelp", ",", "equalizer~/jmod.equalizer~.maxpat", ",", "filter~/jalg.filter~.maxpat", ",", "filter~/jmod.filter~.maxhelp", ",", "filter~/jmod.filter~.maxpat", ",", "fluidsynth~/jalg.fluidsynth~.maxpat", ",", "fluidsynth~/jmod.fluidsynth~.maxhelp", ",", "fluidsynth~/jmod.fluidsynth~.maxpat", ",", "input~/jmod.input~.maxhelp", ",", "input~/jmod.input~.maxpat", ",", "limiter~/jmod.limiter~.maxhelp", ",", "limiter~/jmod.limiter~.maxpat", ",", "multidelay~/jalg.multidelay~.maxpat", ",", "multidelay~/jmod.multidelay~.maxhelp", ",", "multidelay~/jmod.multidelay~.maxpat", ",", "noisegate~/jalg.noisegate~.maxpat", ",", "noisegate~/jmod.noisegate~.maxhelp", ",", "noisegate~/jmod.noisegate~.maxpat", ",", "noise~/jalg.noise~.maxpat", ",", "noise~/jmod.noise~.maxhelp", ",", "noise~/jmod.noise~.maxpat", ",", "output~/jmod.output~.maxhelp", ",", "output~/jmod.output~.maxpat", ",", "rissetGlissando/jalg.rissetGlissando~.maxpat", ",", "rissetGlissando/jmod.rissetGlissando~.maxhelp", ",", "rissetGlissando/jmod.rissetGlissando~.maxpat", ",", "sampleplayer2~/jalg.sampleplayer2~.maxpat", ",", "sampleplayer2~/jmod.sampleplayer2~.maxhelp", ",", "sampleplayer2~/jmod.sampleplayer2~.maxpat", ",", "saturation~/jmod.saturation~.maxhelp", ",", "saturation~/jmod.saturation~.maxpat", ",", "scope~/jmod.scope~.maxhelp", ",", "scope~/jmod.scope~.maxpat", ",", "sine~/jalg.sine~.maxpat", ",", "sine~/jmod.sine~.maxhelp", ",", "sine~/jmod.sine~.maxpat", ",", "spectralShift~/jalg.spectralShift~.maxpat", ",", "spectralShift~/jcom.spectralShiftVoice~.maxpat", ",", "spectralShift~/jmod.spectralShift~.maxhelp", ",", "spectralShift~/jmod.spectralShift~.maxpat", ",", "tremolo~/jalg.tremolo~.maxpat", ",", "tremolo~/jmod.tremolo~.maxhelp", ",", "tremolo~/jmod.tremolo~.maxpat", ",", "vst~/jalg.vst~.maxpat", ",", "vst~/jmod.vst~.maxhelp", ",", "vst~/jmod.vst~.maxpat" ],
+																	"items" : [ "10harmonics~/jalg.10harmonics~.maxpat", ",", "10harmonics~/jmod.10harmonics~.maxhelp", ",", "10harmonics~/jmod.10harmonics~.maxpat", ",", "crossfade~/jalg.crossfade~.maxpat", ",", "crossfade~/jmod.crossfade~.maxhelp", ",", "crossfade~/jmod.crossfade~.maxpat", ",", "degrade~/jalg.degrade~.maxpat", ",", "degrade~/jmod.degrade~.maxhelp", ",", "degrade~/jmod.degrade~.maxpat", ",", "delay~/jalg.delay~.maxpat", ",", "delay~/jmod.delay~.maxhelp", ",", "delay~/jmod.delay~.maxpat", ",", "echo~/jalg.echo~.maxpat", ",", "echo~/jmod.echo~.maxhelp", ",", "echo~/jmod.echo~.maxpat", ",", "equalizer~/jalg.equalizer~.maxpat", ",", "equalizer~/jalg.equalizer~_params.maxpat", ",", "equalizer~/jmod.equalizer~.maxhelp", ",", "equalizer~/jmod.equalizer~.maxpat", ",", "filter~/jalg.filter~.maxpat", ",", "filter~/jmod.filter~.maxhelp", ",", "filter~/jmod.filter~.maxpat", ",", "fluidsynth~/jalg.fluidsynth~.maxpat", ",", "fluidsynth~/jmod.fluidsynth~.maxhelp", ",", "fluidsynth~/jmod.fluidsynth~.maxpat", ",", "input~/jmod.input~.maxhelp", ",", "input~/jmod.input~.maxpat", ",", "limiter~/jmod.limiter~.maxhelp", ",", "limiter~/jmod.limiter~.maxpat", ",", "multidelay~/jalg.multidelay~.maxpat", ",", "multidelay~/jmod.multidelay~.maxhelp", ",", "multidelay~/jmod.multidelay~.maxpat", ",", "noisegate~/jalg.noisegate~.maxpat", ",", "noisegate~/jmod.noisegate~.maxhelp", ",", "noisegate~/jmod.noisegate~.maxpat", ",", "noise~/jalg.noise~.maxpat", ",", "noise~/jmod.noise~.maxhelp", ",", "noise~/jmod.noise~.maxpat", ",", "output~/jmod.output~.maxhelp", ",", "output~/jmod.output~.maxpat", ",", "rissetGlissando/jalg.rissetGlissando~.maxpat", ",", "rissetGlissando/jmod.rissetGlissando~.maxhelp", ",", "rissetGlissando/jmod.rissetGlissando~.maxpat", ",", "sampleplayer2~/jalg.sampleplayer2~.maxpat", ",", "sampleplayer2~/jmod.sampleplayer2~.maxhelp", ",", "sampleplayer2~/jmod.sampleplayer2~.maxpat", ",", "saturation~/jmod.saturation~.maxhelp", ",", "saturation~/jmod.saturation~.maxpat", ",", "scope~/jmod.scope~.maxhelp", ",", "scope~/jmod.scope~.maxpat", ",", "sine~/jalg.sine~.maxpat", ",", "sine~/jmod.sine~.maxhelp", ",", "sine~/jmod.sine~.maxpat", ",", "spectralShift~/jalg.spectralShift~.maxpat", ",", "spectralShift~/jcom.spectralShiftVoice~.maxpat", ",", "spectralShift~/jmod.spectralShift~.maxhelp", ",", "spectralShift~/jmod.spectralShift~.maxpat", ",", "tremolo~/jalg.tremolo~.maxpat", ",", "tremolo~/jmod.tremolo~.maxhelp", ",", "tremolo~/jmod.tremolo~.maxpat", ",", "vst~/jalg.vst~.maxpat", ",", "vst~/jmod.vst~.maxhelp", ",", "vst~/jmod.vst~.maxpat" ],
 																	"maxclass" : "umenu",
 																	"numinlets" : 1,
 																	"numoutlets" : 3,
 																	"outlettype" : [ "int", "", "" ],
 																	"patching_rect" : [ 68.5, 125.0, 100.0, 19.0 ],
-																	"prefix" : "Servo:/Users/pascalbaltazar/Documents/Docs_boulo/Max_trucs/Jamoma/Modular/Jamoma/modules/audio/",
+																	"prefix" : "Servo:/Users/bltzr/Documents/Dev/Jamoma/Modular/Jamoma/modules/audio/",
 																	"types" : "JSON"
 																}
 
@@ -5507,13 +6875,13 @@
 ,
 													"patching_rect" : [ 89.0, 145.0, 94.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
-														"globalpatchername" : "",
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"default_fontname" : "Verdana"
+														"default_fontname" : "Verdana",
+														"fontface" : 0,
+														"globalpatchername" : "",
+														"fontsize" : 10.0
 													}
 ,
 													"text" : "p module-folders"
@@ -5532,7 +6900,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "int", "", "" ],
 													"patching_rect" : [ 20.5, 123.0, 155.0, 19.0 ],
-													"prefix" : "Servo:/Users/pascalbaltazar/Documents/Docs_boulo/Max_trucs/Jamoma/Modular/Jamoma/modules/",
+													"prefix" : "Servo:/Users/bltzr/Documents/Dev/Jamoma/Modular/Jamoma/modules/",
 													"presentation" : 1,
 													"presentation_rect" : [ 90.5, 22.0, 86.0, 19.0 ],
 													"types" : "fold"
@@ -5867,13 +7235,13 @@
 ,
 													"patching_rect" : [ 164.0, 228.0, 72.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
-														"globalpatchername" : "",
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"default_fontname" : "Verdana"
+														"default_fontname" : "Verdana",
+														"fontface" : 0,
+														"globalpatchername" : "",
+														"fontsize" : 10.0
 													}
 ,
 													"text" : "p auto.name"
@@ -6151,13 +7519,13 @@
 ,
 													"patching_rect" : [ 127.0, 412.0, 72.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
-														"globalpatchername" : "",
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"default_fontname" : "Verdana"
+														"default_fontname" : "Verdana",
+														"fontface" : 0,
+														"globalpatchername" : "",
+														"fontsize" : 10.0
 													}
 ,
 													"text" : "p auto.name"
@@ -6523,13 +7891,13 @@
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
 																	"id" : "obj-31",
-																	"linecount" : 3,
+																	"linecount" : 2,
 																	"maxclass" : "message",
 																	"numinlets" : 2,
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 150.0, 332.0, 235.0, 41.0 ],
-																	"text" : "Servo:/Users/pascalbaltazar/Documents/Docs_boulo/Max_trucs/Jamoma/Modular/UserLib"
+																	"patching_rect" : [ 150.0, 332.0, 235.0, 29.0 ],
+																	"text" : "Servo:/Users/bltzr/Documents/Dev/Jamoma/Modular/UserLib"
 																}
 
 															}
@@ -6807,13 +8175,13 @@
 ,
 													"patching_rect" : [ 22.0, 100.0, 73.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
-														"globalpatchername" : "",
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"default_fontname" : "Verdana"
+														"default_fontname" : "Verdana",
+														"fontface" : 0,
+														"globalpatchername" : "",
+														"fontsize" : 10.0
 													}
 ,
 													"text" : "p auto-path"
@@ -7322,7 +8690,7 @@
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 303.0, 514.0, 124.0, 65.0 ],
+													"patching_rect" : [ 303.0, 514.0, 128.0, 65.0 ],
 													"text" : "refer #0-modules_position, col 0 width 100, col 1 width 30, col 2 width 30, col 3 width 20"
 												}
 
@@ -7559,8 +8927,276 @@
 , 											{
 												"box" : 												{
 													"coll_data" : 													{
-														"count" : 0,
-														"data" : [  ]
+														"count" : 67,
+														"data" : [ 															{
+																"key" : "/input~",
+																"value" : [ 300, 70, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~",
+																"value" : [ 300, 280, 1 ]
+															}
+, 															{
+																"key" : "/saturation~",
+																"value" : [ 300, 350, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_2",
+																"value" : [ 600, 0, 1 ]
+															}
+, 															{
+																"key" : "/input~[2]",
+																"value" : [ 600, 70, 1 ]
+															}
+, 															{
+																"key" : "/filter~[2]",
+																"value" : [ 600, 210, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[2]",
+																"value" : [ 600, 280, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_3",
+																"value" : [ 900, 0, 1 ]
+															}
+, 															{
+																"key" : "/input~[3]",
+																"value" : [ 900, 70, 1 ]
+															}
+, 															{
+																"key" : "/filter~[3]",
+																"value" : [ 900, 210, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[3]",
+																"value" : [ 900, 280, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[3]",
+																"value" : [ 900, 350, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_4",
+																"value" : [ 300, 455, 1 ]
+															}
+, 															{
+																"key" : "/input~[4]",
+																"value" : [ 300, 525, 1 ]
+															}
+, 															{
+																"key" : "/filter~[4]",
+																"value" : [ 300, 665, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[4]",
+																"value" : [ 300, 735, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[4]",
+																"value" : [ 300, 805, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_5",
+																"value" : [ 600, 455, 1 ]
+															}
+, 															{
+																"key" : "/input~[5]",
+																"value" : [ 600, 525, 1 ]
+															}
+, 															{
+																"key" : "/filter~[5]",
+																"value" : [ 600, 665, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[5]",
+																"value" : [ 600, 735, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[5]",
+																"value" : [ 600, 805, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_6",
+																"value" : [ 900, 455, 1 ]
+															}
+, 															{
+																"key" : "/input~[6]",
+																"value" : [ 900, 525, 1 ]
+															}
+, 															{
+																"key" : "/filter~[6]",
+																"value" : [ 900, 665, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[6]",
+																"value" : [ 900, 735, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[6]",
+																"value" : [ 900, 805, 1 ]
+															}
+, 															{
+																"key" : "jmod.control",
+																"value" : [ 0, 0, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[2]",
+																"value" : [ 600, 350, 1 ]
+															}
+, 															{
+																"key" : "/filter~",
+																"value" : [ 300, 210, 1 ]
+															}
+, 															{
+																"key" : "/mouse/1",
+																"value" : [ 0, 175, 1 ]
+															}
+, 															{
+																"key" : "/output~",
+																"value" : [ 0, 735, 1 ]
+															}
+, 															{
+																"key" : "cuelist",
+																"value" : [ 0, 455, 1 ]
+															}
+, 															{
+																"key" : "/cueTrigger",
+																"value" : [ 0, 525, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_1",
+																"value" : [ 300, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.1",
+																"value" : [ 0, 315, 1 ]
+															}
+, 															{
+																"key" : "/cueManager",
+																"value" : [ 150, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.1",
+																"value" : [ 0, 455, 1 ]
+															}
+, 															{
+																"key" : "edit",
+																"value" : [ 0, 280, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.1",
+																"value" : [ 0, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.1",
+																"value" : [ 0, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.2",
+																"value" : [ 300, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.2",
+																"value" : [ 300, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.2",
+																"value" : [ 300, 455, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.2",
+																"value" : [ 300, 315, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.3",
+																"value" : [ 600, 315, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.3",
+																"value" : [ 600, 455, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.3",
+																"value" : [ 600, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.3",
+																"value" : [ 600, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.4",
+																"value" : [ 900, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.4",
+																"value" : [ 900, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.4",
+																"value" : [ 900, 455, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.4",
+																"value" : [ 900, 315, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.2",
+																"value" : [ 900, 70, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.2",
+																"value" : [ 900, 0, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.1",
+																"value" : [ 600, 70, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.1",
+																"value" : [ 600, 210, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.2",
+																"value" : [ 900, 210, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.4",
+																"value" : [ 1200, 315, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.4",
+																"value" : [ 1200, 385, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.3",
+																"value" : [ 1200, 70, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.3",
+																"value" : [ 1200, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.3",
+																"value" : [ 1200, 210, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.4",
+																"value" : [ 1200, 525, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.1",
+																"value" : [ 600, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zin~",
+																"value" : [ 450, 175, 1 ]
+															}
+, 															{
+																"key" : "/Zanalyzer",
+																"value" : [ 150, 175, 1 ]
+															}
+ ]
 													}
 ,
 													"fontname" : "Verdana",
@@ -8035,8 +9671,276 @@
 , 															{
 																"box" : 																{
 																	"coll_data" : 																	{
-																		"count" : 0,
-																		"data" : [  ]
+																		"count" : 67,
+																		"data" : [ 																			{
+																				"key" : "/input~",
+																				"value" : [ 300, 70, 1 ]
+																			}
+, 																			{
+																				"key" : "/multidelay~",
+																				"value" : [ 300, 280, 1 ]
+																			}
+, 																			{
+																				"key" : "/saturation~",
+																				"value" : [ 300, 350, 1 ]
+																			}
+, 																			{
+																				"key" : "/fileBrowser_2",
+																				"value" : [ 600, 0, 1 ]
+																			}
+, 																			{
+																				"key" : "/input~[2]",
+																				"value" : [ 600, 70, 1 ]
+																			}
+, 																			{
+																				"key" : "/filter~[2]",
+																				"value" : [ 600, 210, 1 ]
+																			}
+, 																			{
+																				"key" : "/multidelay~[2]",
+																				"value" : [ 600, 280, 1 ]
+																			}
+, 																			{
+																				"key" : "/fileBrowser_3",
+																				"value" : [ 900, 0, 1 ]
+																			}
+, 																			{
+																				"key" : "/input~[3]",
+																				"value" : [ 900, 70, 1 ]
+																			}
+, 																			{
+																				"key" : "/filter~[3]",
+																				"value" : [ 900, 210, 1 ]
+																			}
+, 																			{
+																				"key" : "/multidelay~[3]",
+																				"value" : [ 900, 280, 1 ]
+																			}
+, 																			{
+																				"key" : "/saturation~[3]",
+																				"value" : [ 900, 350, 1 ]
+																			}
+, 																			{
+																				"key" : "/fileBrowser_4",
+																				"value" : [ 300, 455, 1 ]
+																			}
+, 																			{
+																				"key" : "/input~[4]",
+																				"value" : [ 300, 525, 1 ]
+																			}
+, 																			{
+																				"key" : "/filter~[4]",
+																				"value" : [ 300, 665, 1 ]
+																			}
+, 																			{
+																				"key" : "/multidelay~[4]",
+																				"value" : [ 300, 735, 1 ]
+																			}
+, 																			{
+																				"key" : "/saturation~[4]",
+																				"value" : [ 300, 805, 1 ]
+																			}
+, 																			{
+																				"key" : "/fileBrowser_5",
+																				"value" : [ 600, 455, 1 ]
+																			}
+, 																			{
+																				"key" : "/input~[5]",
+																				"value" : [ 600, 525, 1 ]
+																			}
+, 																			{
+																				"key" : "/filter~[5]",
+																				"value" : [ 600, 665, 1 ]
+																			}
+, 																			{
+																				"key" : "/multidelay~[5]",
+																				"value" : [ 600, 735, 1 ]
+																			}
+, 																			{
+																				"key" : "/saturation~[5]",
+																				"value" : [ 600, 805, 1 ]
+																			}
+, 																			{
+																				"key" : "/fileBrowser_6",
+																				"value" : [ 900, 455, 1 ]
+																			}
+, 																			{
+																				"key" : "/input~[6]",
+																				"value" : [ 900, 525, 1 ]
+																			}
+, 																			{
+																				"key" : "/filter~[6]",
+																				"value" : [ 900, 665, 1 ]
+																			}
+, 																			{
+																				"key" : "/multidelay~[6]",
+																				"value" : [ 900, 735, 1 ]
+																			}
+, 																			{
+																				"key" : "/saturation~[6]",
+																				"value" : [ 900, 805, 1 ]
+																			}
+, 																			{
+																				"key" : "jmod.control",
+																				"value" : [ 0, 0, 1 ]
+																			}
+, 																			{
+																				"key" : "/saturation~[2]",
+																				"value" : [ 600, 350, 1 ]
+																			}
+, 																			{
+																				"key" : "/filter~",
+																				"value" : [ 300, 210, 1 ]
+																			}
+, 																			{
+																				"key" : "/mouse/1",
+																				"value" : [ 0, 175, 1 ]
+																			}
+, 																			{
+																				"key" : "/output~",
+																				"value" : [ 0, 735, 1 ]
+																			}
+, 																			{
+																				"key" : "cuelist",
+																				"value" : [ 0, 455, 1 ]
+																			}
+, 																			{
+																				"key" : "/cueTrigger",
+																				"value" : [ 0, 525, 1 ]
+																			}
+, 																			{
+																				"key" : "/fileBrowser_1",
+																				"value" : [ 300, 0, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zlooper~.1",
+																				"value" : [ 0, 315, 1 ]
+																			}
+, 																			{
+																				"key" : "/cueManager",
+																				"value" : [ 150, 0, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zenveloppe~.1",
+																				"value" : [ 0, 455, 1 ]
+																			}
+, 																			{
+																				"key" : "edit",
+																				"value" : [ 0, 280, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zequalizer~.1",
+																				"value" : [ 0, 595, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zspat.1",
+																				"value" : [ 0, 735, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zspat.2",
+																				"value" : [ 300, 735, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zequalizer~.2",
+																				"value" : [ 300, 595, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zenveloppe~.2",
+																				"value" : [ 300, 455, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zlooper~.2",
+																				"value" : [ 300, 315, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zlooper~.3",
+																				"value" : [ 600, 315, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zenveloppe~.3",
+																				"value" : [ 600, 455, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zequalizer~.3",
+																				"value" : [ 600, 595, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zspat.3",
+																				"value" : [ 600, 735, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zspat.4",
+																				"value" : [ 900, 735, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zequalizer~.4",
+																				"value" : [ 900, 595, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zenveloppe~.4",
+																				"value" : [ 900, 455, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zlooper~.4",
+																				"value" : [ 900, 315, 1 ]
+																			}
+, 																			{
+																				"key" : "/equalizer~.2",
+																				"value" : [ 900, 70, 1 ]
+																			}
+, 																			{
+																				"key" : "/ZDtD2.2",
+																				"value" : [ 900, 0, 1 ]
+																			}
+, 																			{
+																				"key" : "/equalizer~.1",
+																				"value" : [ 600, 70, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zspat2.1",
+																				"value" : [ 600, 210, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zspat2.2",
+																				"value" : [ 900, 210, 1 ]
+																			}
+, 																			{
+																				"key" : "/ZDtD2.4",
+																				"value" : [ 1200, 315, 1 ]
+																			}
+, 																			{
+																				"key" : "/equalizer~.4",
+																				"value" : [ 1200, 385, 1 ]
+																			}
+, 																			{
+																				"key" : "/equalizer~.3",
+																				"value" : [ 1200, 70, 1 ]
+																			}
+, 																			{
+																				"key" : "/ZDtD2.3",
+																				"value" : [ 1200, 0, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zspat2.3",
+																				"value" : [ 1200, 210, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zspat2.4",
+																				"value" : [ 1200, 525, 1 ]
+																			}
+, 																			{
+																				"key" : "/ZDtD2.1",
+																				"value" : [ 600, 0, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zin~",
+																				"value" : [ 450, 175, 1 ]
+																			}
+, 																			{
+																				"key" : "/Zanalyzer",
+																				"value" : [ 150, 175, 1 ]
+																			}
+ ]
 																	}
 ,
 																	"fontname" : "Verdana",
@@ -8615,13 +10519,13 @@
 ,
 													"patching_rect" : [ 95.0, 154.317322, 48.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
-														"globalpatchername" : "",
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"default_fontname" : "Verdana"
+														"default_fontname" : "Verdana",
+														"fontface" : 0,
+														"globalpatchername" : "",
+														"fontsize" : 10.0
 													}
 ,
 													"text" : "p colors"
@@ -8825,8 +10729,276 @@
 , 											{
 												"box" : 												{
 													"coll_data" : 													{
-														"count" : 0,
-														"data" : [  ]
+														"count" : 67,
+														"data" : [ 															{
+																"key" : "/input~",
+																"value" : [ 300, 70, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~",
+																"value" : [ 300, 280, 1 ]
+															}
+, 															{
+																"key" : "/saturation~",
+																"value" : [ 300, 350, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_2",
+																"value" : [ 600, 0, 1 ]
+															}
+, 															{
+																"key" : "/input~[2]",
+																"value" : [ 600, 70, 1 ]
+															}
+, 															{
+																"key" : "/filter~[2]",
+																"value" : [ 600, 210, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[2]",
+																"value" : [ 600, 280, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_3",
+																"value" : [ 900, 0, 1 ]
+															}
+, 															{
+																"key" : "/input~[3]",
+																"value" : [ 900, 70, 1 ]
+															}
+, 															{
+																"key" : "/filter~[3]",
+																"value" : [ 900, 210, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[3]",
+																"value" : [ 900, 280, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[3]",
+																"value" : [ 900, 350, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_4",
+																"value" : [ 300, 455, 1 ]
+															}
+, 															{
+																"key" : "/input~[4]",
+																"value" : [ 300, 525, 1 ]
+															}
+, 															{
+																"key" : "/filter~[4]",
+																"value" : [ 300, 665, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[4]",
+																"value" : [ 300, 735, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[4]",
+																"value" : [ 300, 805, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_5",
+																"value" : [ 600, 455, 1 ]
+															}
+, 															{
+																"key" : "/input~[5]",
+																"value" : [ 600, 525, 1 ]
+															}
+, 															{
+																"key" : "/filter~[5]",
+																"value" : [ 600, 665, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[5]",
+																"value" : [ 600, 735, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[5]",
+																"value" : [ 600, 805, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_6",
+																"value" : [ 900, 455, 1 ]
+															}
+, 															{
+																"key" : "/input~[6]",
+																"value" : [ 900, 525, 1 ]
+															}
+, 															{
+																"key" : "/filter~[6]",
+																"value" : [ 900, 665, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[6]",
+																"value" : [ 900, 735, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[6]",
+																"value" : [ 900, 805, 1 ]
+															}
+, 															{
+																"key" : "jmod.control",
+																"value" : [ 0, 0, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[2]",
+																"value" : [ 600, 350, 1 ]
+															}
+, 															{
+																"key" : "/filter~",
+																"value" : [ 300, 210, 1 ]
+															}
+, 															{
+																"key" : "/mouse/1",
+																"value" : [ 0, 175, 1 ]
+															}
+, 															{
+																"key" : "/output~",
+																"value" : [ 0, 735, 1 ]
+															}
+, 															{
+																"key" : "cuelist",
+																"value" : [ 0, 455, 1 ]
+															}
+, 															{
+																"key" : "/cueTrigger",
+																"value" : [ 0, 525, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_1",
+																"value" : [ 300, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.1",
+																"value" : [ 0, 315, 1 ]
+															}
+, 															{
+																"key" : "/cueManager",
+																"value" : [ 150, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.1",
+																"value" : [ 0, 455, 1 ]
+															}
+, 															{
+																"key" : "edit",
+																"value" : [ 0, 280, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.1",
+																"value" : [ 0, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.1",
+																"value" : [ 0, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.2",
+																"value" : [ 300, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.2",
+																"value" : [ 300, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.2",
+																"value" : [ 300, 455, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.2",
+																"value" : [ 300, 315, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.3",
+																"value" : [ 600, 315, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.3",
+																"value" : [ 600, 455, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.3",
+																"value" : [ 600, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.3",
+																"value" : [ 600, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.4",
+																"value" : [ 900, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.4",
+																"value" : [ 900, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.4",
+																"value" : [ 900, 455, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.4",
+																"value" : [ 900, 315, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.2",
+																"value" : [ 900, 70, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.2",
+																"value" : [ 900, 0, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.1",
+																"value" : [ 600, 70, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.1",
+																"value" : [ 600, 210, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.2",
+																"value" : [ 900, 210, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.4",
+																"value" : [ 1200, 315, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.4",
+																"value" : [ 1200, 385, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.3",
+																"value" : [ 1200, 70, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.3",
+																"value" : [ 1200, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.3",
+																"value" : [ 1200, 210, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.4",
+																"value" : [ 1200, 525, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.1",
+																"value" : [ 600, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zin~",
+																"value" : [ 450, 175, 1 ]
+															}
+, 															{
+																"key" : "/Zanalyzer",
+																"value" : [ 150, 175, 1 ]
+															}
+ ]
 													}
 ,
 													"fontname" : "Verdana",
@@ -9430,13 +11602,13 @@
 ,
 									"patching_rect" : [ 326.971619, 357.569183, 100.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"fontface" : 0,
+										"globalpatchername" : "",
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p cellblock-----"
@@ -9802,8 +11974,276 @@
 , 											{
 												"box" : 												{
 													"coll_data" : 													{
-														"count" : 0,
-														"data" : [  ]
+														"count" : 67,
+														"data" : [ 															{
+																"key" : "/input~",
+																"value" : [ 300, 70, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~",
+																"value" : [ 300, 280, 1 ]
+															}
+, 															{
+																"key" : "/saturation~",
+																"value" : [ 300, 350, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_2",
+																"value" : [ 600, 0, 1 ]
+															}
+, 															{
+																"key" : "/input~[2]",
+																"value" : [ 600, 70, 1 ]
+															}
+, 															{
+																"key" : "/filter~[2]",
+																"value" : [ 600, 210, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[2]",
+																"value" : [ 600, 280, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_3",
+																"value" : [ 900, 0, 1 ]
+															}
+, 															{
+																"key" : "/input~[3]",
+																"value" : [ 900, 70, 1 ]
+															}
+, 															{
+																"key" : "/filter~[3]",
+																"value" : [ 900, 210, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[3]",
+																"value" : [ 900, 280, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[3]",
+																"value" : [ 900, 350, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_4",
+																"value" : [ 300, 455, 1 ]
+															}
+, 															{
+																"key" : "/input~[4]",
+																"value" : [ 300, 525, 1 ]
+															}
+, 															{
+																"key" : "/filter~[4]",
+																"value" : [ 300, 665, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[4]",
+																"value" : [ 300, 735, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[4]",
+																"value" : [ 300, 805, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_5",
+																"value" : [ 600, 455, 1 ]
+															}
+, 															{
+																"key" : "/input~[5]",
+																"value" : [ 600, 525, 1 ]
+															}
+, 															{
+																"key" : "/filter~[5]",
+																"value" : [ 600, 665, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[5]",
+																"value" : [ 600, 735, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[5]",
+																"value" : [ 600, 805, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_6",
+																"value" : [ 900, 455, 1 ]
+															}
+, 															{
+																"key" : "/input~[6]",
+																"value" : [ 900, 525, 1 ]
+															}
+, 															{
+																"key" : "/filter~[6]",
+																"value" : [ 900, 665, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[6]",
+																"value" : [ 900, 735, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[6]",
+																"value" : [ 900, 805, 1 ]
+															}
+, 															{
+																"key" : "jmod.control",
+																"value" : [ 0, 0, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[2]",
+																"value" : [ 600, 350, 1 ]
+															}
+, 															{
+																"key" : "/filter~",
+																"value" : [ 300, 210, 1 ]
+															}
+, 															{
+																"key" : "/mouse/1",
+																"value" : [ 0, 175, 1 ]
+															}
+, 															{
+																"key" : "/output~",
+																"value" : [ 0, 735, 1 ]
+															}
+, 															{
+																"key" : "cuelist",
+																"value" : [ 0, 455, 1 ]
+															}
+, 															{
+																"key" : "/cueTrigger",
+																"value" : [ 0, 525, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_1",
+																"value" : [ 300, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.1",
+																"value" : [ 0, 315, 1 ]
+															}
+, 															{
+																"key" : "/cueManager",
+																"value" : [ 150, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.1",
+																"value" : [ 0, 455, 1 ]
+															}
+, 															{
+																"key" : "edit",
+																"value" : [ 0, 280, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.1",
+																"value" : [ 0, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.1",
+																"value" : [ 0, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.2",
+																"value" : [ 300, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.2",
+																"value" : [ 300, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.2",
+																"value" : [ 300, 455, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.2",
+																"value" : [ 300, 315, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.3",
+																"value" : [ 600, 315, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.3",
+																"value" : [ 600, 455, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.3",
+																"value" : [ 600, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.3",
+																"value" : [ 600, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.4",
+																"value" : [ 900, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.4",
+																"value" : [ 900, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.4",
+																"value" : [ 900, 455, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.4",
+																"value" : [ 900, 315, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.2",
+																"value" : [ 900, 70, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.2",
+																"value" : [ 900, 0, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.1",
+																"value" : [ 600, 70, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.1",
+																"value" : [ 600, 210, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.2",
+																"value" : [ 900, 210, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.4",
+																"value" : [ 1200, 315, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.4",
+																"value" : [ 1200, 385, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.3",
+																"value" : [ 1200, 70, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.3",
+																"value" : [ 1200, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.3",
+																"value" : [ 1200, 210, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.4",
+																"value" : [ 1200, 525, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.1",
+																"value" : [ 600, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zin~",
+																"value" : [ 450, 175, 1 ]
+															}
+, 															{
+																"key" : "/Zanalyzer",
+																"value" : [ 150, 175, 1 ]
+															}
+ ]
 													}
 ,
 													"fontname" : "Verdana",
@@ -9999,7 +12439,7 @@
 													"maxclass" : "comment",
 													"numinlets" : 1,
 													"numoutlets" : 0,
-													"patching_rect" : [ 851.0, 728.073242, 157.0, 31.0 ],
+													"patching_rect" : [ 851.0, 728.073242, 158.0, 31.0 ],
 													"text" : "parceque sinon, une liste est tronquée par jcom.parameter"
 												}
 
@@ -10091,8 +12531,276 @@
 , 											{
 												"box" : 												{
 													"coll_data" : 													{
-														"count" : 0,
-														"data" : [  ]
+														"count" : 67,
+														"data" : [ 															{
+																"key" : "/input~",
+																"value" : [ 300, 70, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~",
+																"value" : [ 300, 280, 1 ]
+															}
+, 															{
+																"key" : "/saturation~",
+																"value" : [ 300, 350, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_2",
+																"value" : [ 600, 0, 1 ]
+															}
+, 															{
+																"key" : "/input~[2]",
+																"value" : [ 600, 70, 1 ]
+															}
+, 															{
+																"key" : "/filter~[2]",
+																"value" : [ 600, 210, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[2]",
+																"value" : [ 600, 280, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_3",
+																"value" : [ 900, 0, 1 ]
+															}
+, 															{
+																"key" : "/input~[3]",
+																"value" : [ 900, 70, 1 ]
+															}
+, 															{
+																"key" : "/filter~[3]",
+																"value" : [ 900, 210, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[3]",
+																"value" : [ 900, 280, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[3]",
+																"value" : [ 900, 350, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_4",
+																"value" : [ 300, 455, 1 ]
+															}
+, 															{
+																"key" : "/input~[4]",
+																"value" : [ 300, 525, 1 ]
+															}
+, 															{
+																"key" : "/filter~[4]",
+																"value" : [ 300, 665, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[4]",
+																"value" : [ 300, 735, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[4]",
+																"value" : [ 300, 805, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_5",
+																"value" : [ 600, 455, 1 ]
+															}
+, 															{
+																"key" : "/input~[5]",
+																"value" : [ 600, 525, 1 ]
+															}
+, 															{
+																"key" : "/filter~[5]",
+																"value" : [ 600, 665, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[5]",
+																"value" : [ 600, 735, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[5]",
+																"value" : [ 600, 805, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_6",
+																"value" : [ 900, 455, 1 ]
+															}
+, 															{
+																"key" : "/input~[6]",
+																"value" : [ 900, 525, 1 ]
+															}
+, 															{
+																"key" : "/filter~[6]",
+																"value" : [ 900, 665, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[6]",
+																"value" : [ 900, 735, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[6]",
+																"value" : [ 900, 805, 1 ]
+															}
+, 															{
+																"key" : "jmod.control",
+																"value" : [ 0, 0, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[2]",
+																"value" : [ 600, 350, 1 ]
+															}
+, 															{
+																"key" : "/filter~",
+																"value" : [ 300, 210, 1 ]
+															}
+, 															{
+																"key" : "/mouse/1",
+																"value" : [ 0, 175, 1 ]
+															}
+, 															{
+																"key" : "/output~",
+																"value" : [ 0, 735, 1 ]
+															}
+, 															{
+																"key" : "cuelist",
+																"value" : [ 0, 455, 1 ]
+															}
+, 															{
+																"key" : "/cueTrigger",
+																"value" : [ 0, 525, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_1",
+																"value" : [ 300, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.1",
+																"value" : [ 0, 315, 1 ]
+															}
+, 															{
+																"key" : "/cueManager",
+																"value" : [ 150, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.1",
+																"value" : [ 0, 455, 1 ]
+															}
+, 															{
+																"key" : "edit",
+																"value" : [ 0, 280, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.1",
+																"value" : [ 0, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.1",
+																"value" : [ 0, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.2",
+																"value" : [ 300, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.2",
+																"value" : [ 300, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.2",
+																"value" : [ 300, 455, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.2",
+																"value" : [ 300, 315, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.3",
+																"value" : [ 600, 315, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.3",
+																"value" : [ 600, 455, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.3",
+																"value" : [ 600, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.3",
+																"value" : [ 600, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.4",
+																"value" : [ 900, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.4",
+																"value" : [ 900, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.4",
+																"value" : [ 900, 455, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.4",
+																"value" : [ 900, 315, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.2",
+																"value" : [ 900, 70, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.2",
+																"value" : [ 900, 0, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.1",
+																"value" : [ 600, 70, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.1",
+																"value" : [ 600, 210, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.2",
+																"value" : [ 900, 210, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.4",
+																"value" : [ 1200, 315, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.4",
+																"value" : [ 1200, 385, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.3",
+																"value" : [ 1200, 70, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.3",
+																"value" : [ 1200, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.3",
+																"value" : [ 1200, 210, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.4",
+																"value" : [ 1200, 525, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.1",
+																"value" : [ 600, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zin~",
+																"value" : [ 450, 175, 1 ]
+															}
+, 															{
+																"key" : "/Zanalyzer",
+																"value" : [ 150, 175, 1 ]
+															}
+ ]
 													}
 ,
 													"fontname" : "Verdana",
@@ -10237,8 +12945,276 @@
 , 											{
 												"box" : 												{
 													"coll_data" : 													{
-														"count" : 0,
-														"data" : [  ]
+														"count" : 67,
+														"data" : [ 															{
+																"key" : "/input~",
+																"value" : [ 300, 70, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~",
+																"value" : [ 300, 280, 1 ]
+															}
+, 															{
+																"key" : "/saturation~",
+																"value" : [ 300, 350, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_2",
+																"value" : [ 600, 0, 1 ]
+															}
+, 															{
+																"key" : "/input~[2]",
+																"value" : [ 600, 70, 1 ]
+															}
+, 															{
+																"key" : "/filter~[2]",
+																"value" : [ 600, 210, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[2]",
+																"value" : [ 600, 280, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_3",
+																"value" : [ 900, 0, 1 ]
+															}
+, 															{
+																"key" : "/input~[3]",
+																"value" : [ 900, 70, 1 ]
+															}
+, 															{
+																"key" : "/filter~[3]",
+																"value" : [ 900, 210, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[3]",
+																"value" : [ 900, 280, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[3]",
+																"value" : [ 900, 350, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_4",
+																"value" : [ 300, 455, 1 ]
+															}
+, 															{
+																"key" : "/input~[4]",
+																"value" : [ 300, 525, 1 ]
+															}
+, 															{
+																"key" : "/filter~[4]",
+																"value" : [ 300, 665, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[4]",
+																"value" : [ 300, 735, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[4]",
+																"value" : [ 300, 805, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_5",
+																"value" : [ 600, 455, 1 ]
+															}
+, 															{
+																"key" : "/input~[5]",
+																"value" : [ 600, 525, 1 ]
+															}
+, 															{
+																"key" : "/filter~[5]",
+																"value" : [ 600, 665, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[5]",
+																"value" : [ 600, 735, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[5]",
+																"value" : [ 600, 805, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_6",
+																"value" : [ 900, 455, 1 ]
+															}
+, 															{
+																"key" : "/input~[6]",
+																"value" : [ 900, 525, 1 ]
+															}
+, 															{
+																"key" : "/filter~[6]",
+																"value" : [ 900, 665, 1 ]
+															}
+, 															{
+																"key" : "/multidelay~[6]",
+																"value" : [ 900, 735, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[6]",
+																"value" : [ 900, 805, 1 ]
+															}
+, 															{
+																"key" : "jmod.control",
+																"value" : [ 0, 0, 1 ]
+															}
+, 															{
+																"key" : "/saturation~[2]",
+																"value" : [ 600, 350, 1 ]
+															}
+, 															{
+																"key" : "/filter~",
+																"value" : [ 300, 210, 1 ]
+															}
+, 															{
+																"key" : "/mouse/1",
+																"value" : [ 0, 175, 1 ]
+															}
+, 															{
+																"key" : "/output~",
+																"value" : [ 0, 735, 1 ]
+															}
+, 															{
+																"key" : "cuelist",
+																"value" : [ 0, 455, 1 ]
+															}
+, 															{
+																"key" : "/cueTrigger",
+																"value" : [ 0, 525, 1 ]
+															}
+, 															{
+																"key" : "/fileBrowser_1",
+																"value" : [ 300, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.1",
+																"value" : [ 0, 315, 1 ]
+															}
+, 															{
+																"key" : "/cueManager",
+																"value" : [ 150, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.1",
+																"value" : [ 0, 455, 1 ]
+															}
+, 															{
+																"key" : "edit",
+																"value" : [ 0, 280, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.1",
+																"value" : [ 0, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.1",
+																"value" : [ 0, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.2",
+																"value" : [ 300, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.2",
+																"value" : [ 300, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.2",
+																"value" : [ 300, 455, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.2",
+																"value" : [ 300, 315, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.3",
+																"value" : [ 600, 315, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.3",
+																"value" : [ 600, 455, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.3",
+																"value" : [ 600, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.3",
+																"value" : [ 600, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zspat.4",
+																"value" : [ 900, 735, 1 ]
+															}
+, 															{
+																"key" : "/Zequalizer~.4",
+																"value" : [ 900, 595, 1 ]
+															}
+, 															{
+																"key" : "/Zenveloppe~.4",
+																"value" : [ 900, 455, 1 ]
+															}
+, 															{
+																"key" : "/Zlooper~.4",
+																"value" : [ 900, 315, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.2",
+																"value" : [ 900, 70, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.2",
+																"value" : [ 900, 0, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.1",
+																"value" : [ 600, 70, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.1",
+																"value" : [ 600, 210, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.2",
+																"value" : [ 900, 210, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.4",
+																"value" : [ 1200, 315, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.4",
+																"value" : [ 1200, 385, 1 ]
+															}
+, 															{
+																"key" : "/equalizer~.3",
+																"value" : [ 1200, 70, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.3",
+																"value" : [ 1200, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.3",
+																"value" : [ 1200, 210, 1 ]
+															}
+, 															{
+																"key" : "/Zspat2.4",
+																"value" : [ 1200, 525, 1 ]
+															}
+, 															{
+																"key" : "/ZDtD2.1",
+																"value" : [ 600, 0, 1 ]
+															}
+, 															{
+																"key" : "/Zin~",
+																"value" : [ 450, 175, 1 ]
+															}
+, 															{
+																"key" : "/Zanalyzer",
+																"value" : [ 150, 175, 1 ]
+															}
+ ]
 													}
 ,
 													"fontname" : "Verdana",
@@ -11157,13 +14133,13 @@
 ,
 									"patching_rect" : [ 78.0, 563.926697, 100.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"fontface" : 0,
+										"globalpatchername" : "",
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p mouse-ctrl"
@@ -11175,6 +14151,7 @@
 									"fontname" : "Verdana",
 									"fontsize" : 9.0,
 									"frgb" : [ 0.882353, 0.870588, 0.870588, 1.0 ],
+									"hidden" : 1,
 									"id" : "obj-37",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -11190,6 +14167,7 @@
 							}
 , 							{
 								"box" : 								{
+									"hidden" : 1,
 									"id" : "obj-35",
 									"maxclass" : "toggle",
 									"numinlets" : 1,
@@ -11248,7 +14226,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 15.0, 100.0, 73.0, 19.0 ],
-									"save" : [ "#N", "thispatcher", ";", "#Q", "savewindow", 1, ";", "#Q", "end", ";" ],
+									"save" : [ "#N", "thispatcher", ";", "#Q", "window", "flags", "grow", "close", "zoom", "float", "menu", "minimize", ";", "#Q", "window", "constrain", 2, 2, 32768, 32768, ";", "#Q", "window", "size", 436, 47, 623, 316, ";", "#Q", "window", "title", ";", "#Q", "window", "exec", ";", "#Q", "savewindow", 1, ";", "#Q", "end", ";" ],
 									"text" : "thispatcher"
 								}
 
@@ -11272,10 +14250,11 @@
 									"bblend" : 100,
 									"bgcolor" : [ 0.784314, 1.0, 0.784314, 0.0 ],
 									"coldef" : [ [ 0, 100, 1, 1.0, 1.0, 1.0, 1, 1.0, 1.0, 1.0, -1, -1, -1 ], [ 3, 20, 1, 1.0, 1.0, 1.0, 1, 1.0, 1.0, 1.0, -1, -1, -1 ], [ 2, 30, 1, 1.0, 1.0, 1.0, 1, 1.0, 1.0, 1.0, -1, -1, -1 ], [ 1, 30, 1, 1.0, 1.0, 1.0, 1, 1.0, 1.0, 1.0, -1, -1, -1 ] ],
-									"cols" : 1,
+									"cols" : 4,
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"hcellcolor" : [ 1.0, 0.784314, 0.784314, 255.0 ],
+									"hcellcolor" : [ 0.784314, 1.0, 0.784314, 255.0 ],
+									"hidden" : 1,
 									"hint" : "click in list to hide / show module",
 									"hscroll" : 0,
 									"id" : "obj-119",
@@ -11287,8 +14266,8 @@
 									"patching_rect" : [ 327.0, 251.681458, 238.381195, 99.686684 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 0.0, 32.681458, 183.381195, 211.686676 ],
-									"rowdef" : [ [ 0, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 66, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 65, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 64, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 63, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 62, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 61, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 60, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 59, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 58, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 57, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 56, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 55, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 54, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 53, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 52, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 51, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 50, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 49, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 48, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 47, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 46, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 45, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 44, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 43, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 42, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 41, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 40, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 39, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 38, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 37, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 36, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 35, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 34, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 33, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 32, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 31, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 30, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 29, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 28, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 27, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 26, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 25, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 24, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 23, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 22, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 21, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 20, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 19, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 18, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 17, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 16, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 15, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 14, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 13, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 12, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 11, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 10, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 9, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 8, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 7, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 6, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 5, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 1, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 2, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 3, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 4, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 67, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 68, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 69, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ] ],
-									"rows" : 1,
+									"rowdef" : [ [ 0, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 66, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 65, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 64, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 63, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 62, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 61, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 60, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 59, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 58, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 57, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 56, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 55, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 54, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 53, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 52, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 51, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 50, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 49, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 48, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 47, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 46, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 45, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 44, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 43, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 42, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 41, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 40, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 39, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 38, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 37, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 36, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 35, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 34, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 33, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 32, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 31, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 30, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 29, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 28, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 27, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 26, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 25, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 24, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 23, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 22, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 21, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 20, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 19, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 18, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 17, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 16, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 15, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 14, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 13, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 12, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 11, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 10, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 9, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 8, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 7, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 6, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 5, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 1, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 2, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 3, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 4, 0, 1, 1.0, 1.0, 1.0, 0, 0.78125, 0.996094, 0.78125, -1, -1, -1 ], [ 67, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 68, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ], [ 69, 0, 1, 1.0, 1.0, 1.0, 0, 0.996094, 0.78125, 0.78125, -1, -1, -1 ] ],
+									"rows" : 67,
 									"selmode" : 3
 								}
 
@@ -12129,13 +15108,13 @@
 ,
 					"patching_rect" : [ 235.0, 327.0, 228.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 9.3,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 9.3,
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontface" : 0,
+						"globalpatchername" : "",
+						"fontsize" : 9.3
 					}
 ,
 					"text" : "p LAYOUTS"
@@ -12206,12 +15185,30 @@
 					"patching_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
-					"text" : "/editing_this_module"
+					"text" : "/layout"
 				}
 
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-23", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-4", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-62", 1 ],
 					"hidden" : 0,
@@ -12521,7 +15518,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-23", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 22.5, 307.0, 8.5, 307.0, 8.5, 215.0, 22.5, 215.0 ],
+					"midpoints" : [ 26.5, 350.0, 12.5, 350.0, 12.5, 258.0, 26.5, 258.0 ],
 					"source" : [ "obj-9", 0 ]
 				}
 

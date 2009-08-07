@@ -374,7 +374,7 @@
 					"args" : [ "cuelist" ],
 					"id" : "obj-2",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.cuelist.maxpat",
+					"name" : "jmod.cueScript.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],

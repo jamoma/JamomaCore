@@ -406,7 +406,7 @@
 					"patching_rect" : [ 371.0, 137.0, 300.0, 70.0 ],
 					"id" : "obj-26",
 					"numoutlets" : 1,
-					"name" : "jmod.cuelist.maxpat",
+					"name" : "jmod.cueScript.maxpat",
 					"outlettype" : [ "" ],
 					"args" : [  ]
 				}

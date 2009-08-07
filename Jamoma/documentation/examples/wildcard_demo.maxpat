@@ -319,7 +319,7 @@
 					"patching_rect" : [ 21.0, 420.0, 300.0, 70.0 ],
 					"id" : "obj-19",
 					"numoutlets" : 1,
-					"name" : "jmod.cuelist.maxpat",
+					"name" : "jmod.cueScript.maxpat",
 					"outlettype" : [ "" ],
 					"args" : [ "/cuelist" ]
 				}
