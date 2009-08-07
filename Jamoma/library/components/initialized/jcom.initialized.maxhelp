@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 635.0, 293.0, 428.0, 374.0 ],
+		"rect" : [ 310.0, 252.0, 438.0, 373.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 635.0, 293.0, 428.0, 374.0 ],
+		"defrect" : [ 310.0, 252.0, 438.0, 373.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -31,13 +31,13 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-9",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 35.0, 295.0, 115.0, 18.0 ],
+					"patching_rect" : [ 35.0, 295.0, 135.0, 19.0 ],
 					"text" : "print /setup_Initialized"
 				}
 
@@ -73,27 +73,27 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-2",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 30.0, 155.0, 115.0, 18.0 ],
+					"patching_rect" : [ 30.0, 155.0, 135.0, 19.0 ],
 					"text" : "print /control_Initialized"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.initialized", "@description", "sends a bang when a module has bee initialized" ],
+					"args" : [ "@name", "jcom.initialized", "@description", "Send a bang when a module has been initialized" ],
 					"bgmode" : 1,
 					"id" : "obj-8",
 					"maxclass" : "bpatcher",
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 435.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 438.0, 70.0 ],
 					"varname" : "maxhelpui"
 				}
 
