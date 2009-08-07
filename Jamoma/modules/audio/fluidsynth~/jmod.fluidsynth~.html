@@ -22,7 +22,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	Algorithm Type: <code> default </code> </p>
 	<p>Interface Size: <code> 1U-half </code> </p>
 	<p>Number of signal inlets: <code> 0 </ code> <br/>
-	Number of signal outlets: <code> 4194306 </code> </p>
+	Number of signal outlets: <code> 2 </code> </p>
 	<h3> Parameters </h3>
 	<table>
 		<tr class="tableHeading2">
@@ -104,19 +104,19 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> chorus/type </td>
-			<td class ="instructionType"> float </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> low </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> type-parameter of the fluidsynth~: 1 - sine 2 - triangle. </td>
+			<td class ="instructionDescription"> type-parameter of the fluidsynth~: 0 - sine 1 - triangle. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> chorus/units </td>
-			<td class ="instructionType"> float </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -307,17 +307,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Initialize a module completely to the original state. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> load </td>
-			<td class ="instructionType"> symbol </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> load a file </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> module/viewInternals </td>
 			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
@@ -338,6 +327,28 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Receive midi information </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> open </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> load a file </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> panel/open </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Open an a module's control panel (inspector) if one is present. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/clear </td>

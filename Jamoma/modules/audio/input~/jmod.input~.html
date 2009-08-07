@@ -78,7 +78,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription">  Set logical intput for left channel. </td>
+			<td class ="instructionDescription">  Set logical input for left channel. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ch.2 </td>
@@ -89,16 +89,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription">  Set logical ointput for right channel. </td>
+			<td class ="instructionDescription">  Set logical input for right channel. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> clicktrain/rate </td>
 			<td class ="instructionType"> float </td>
-			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
-			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRangeBounds"> 0.010000 100.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> time </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> How often a click is generated. in [Hz] by default. </td>
 		<tr>
@@ -112,6 +112,17 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Loop soundfile. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> soundfile/open </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> soundfile/play </td>
@@ -263,7 +274,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Initialize a module completely to the original state. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> module/view_internals </td>
+			<td class="instructionName"> module/viewInternals </td>
 			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -272,17 +283,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> panel/open </td>
-			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Open an a module's control panel (inspector) if one is present. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/clear </td>
@@ -385,7 +385,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/storecurrent </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -396,7 +396,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/storenext </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -436,7 +436,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Low-level module hacking.  Any arguments arguments to this message will be interpretted as patcher scripting for the top-level patcher of the module. </td>
+			<td class ="instructionDescription"> Low-level module hacking.  Any arguments arguments to this message will be interpreted as patcher scripting for the top-level patcher of the module. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> soundfile/direct </td>
@@ -448,17 +448,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> container for various messages sent directly to the sfplay~ object. Refer to the MSP documentation for further details. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> soundfile/open </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/refresh </td>
@@ -518,7 +507,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
 			<td class ="instructionDataspace">  </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Report when sound file reach end point and loop to start point. </td>
 		<tr>
 	</table>
