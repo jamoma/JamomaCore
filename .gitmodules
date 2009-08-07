@@ -1,6 +1,3 @@
-[submodule "Modules/Core"]
-	path = Modules/Core
-	url = git://github.com/tap/JamomaCore.git
 [submodule "Modules/Graphics"]
 	path = Modules/Graphics
 	url = git://github.com/tap/JamomaGraphics.git
@@ -16,3 +13,6 @@
 [submodule "Modules/Modular"]
 	path = Modules/Modular
 	url = git://github.com/tap/JamomaModular.git
+[submodule "Modules/Foundation"]
+	path = Modules/Foundation
+	url = git://github.com/tap/JamomaFoundation.git
