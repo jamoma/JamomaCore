@@ -417,7 +417,7 @@
 				• <m>msg_generic</m>: The parameter can contain an array with one or more integers, floating-point numbers and/or symbols.<br />
 				• <m>msg_int</m>: The parameter is a container for an integer value.<br />
 				• <m>msg_list</m>: The parameter is a container for a list. Currently all list members are assumed to be of type <m>int</m> or <f>float</f>.<br />
-				• <m>msg_none</m>: The parameter does not conatin any value. In this case it makes more sense to use <o>jcom.message</o> with the <m>type</m> attribute
+				• <m>msg_none</m>: The parameter does not contain any value. In this case it makes more sense to use <o>jcom.message</o> with the <m>type</m> attribute
 				set to <m>msg_none</m>, as there's no state that can be queried, stored or recalled.<br />
 				• <m>msg_symbol</m>: The parameter is a container for a symbol.<br />
 				• <m>msg_toggle</m>: The parameter is a container for a boolean (1/0) value.<br />
