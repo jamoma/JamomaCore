@@ -9,7 +9,7 @@
 #ifndef __TT_AUDIO_SIGNAL_H__
 #define __TT_AUDIO_SIGNAL_H__
 
-#include "TTBlue.h"
+#include "TTFoundation.h"
 #include "TTObject.h"
 #include "TTSymbol.h"
 #include "TTValue.h"

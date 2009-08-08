@@ -6,12 +6,14 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTBlue.h"
+
+/*
+#include "TTFoundation.h"
 #include "TTSymbolTable.h"
 #include "TTEnvironment.h"
 #include "TTSymbolCache.h"
 #include "TTValueCache.h"
-#include "TTAudioEngine.h"
+//#include "TTAudioEngine.h"
 
 #ifdef TT_PLATFORM_MAC
 #include <dlfcn.h>
@@ -26,9 +28,13 @@ void		TTBlueLoadExternalClasses();
 void		TTBlueLoadExternalClassesFromFolder(const TTString& fullpath);
 void		TTBlueRegisterInternalClasses();
 TTObjectPtr	TTBlueInstantiateInternalClass(TTSymbol* className, TTValue& arguments);
+*/
 
 
 /****************************************************************************************************/
+
+
+/*
 void TTBlueInit()
 {
 	if(!TTBlueHasInitialized){
@@ -51,18 +57,20 @@ void TTBlueInit()
 		
 		TTBlueRegisterInternalClasses();
 		TTBlueLoadExternalClasses();
-		TTAudioEngineCreate();
+//		TTAudioEngineCreate();
 	}
 }
 
 
 void TTBlueShutdown()
 {
-	TTAudioEngineFree();
+//	TTAudioEngineFree();
 }
-
+*/
 
 /****************************************************************************************************/
+
+/*
 
 void TTBlueLoadExternalClasses()
 {
@@ -201,14 +209,15 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
 #endif
 }
 
+*/
 
 /****************************************************************************************************/
 
 // Core
-#include "TTAudioSignal.h"
+//#include "TTAudioSignal.h"
 
 // Analysis
-#include "TTZerocross.h"
+//#include "TTZerocross.h"
 
 // Dynamics
 //#include "TTBalance.h"
@@ -217,24 +226,25 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
 //#include "TTPulseSub.h"
 
 // Generators
-#include "TTAdsr.h"
-#include "TTNoise.h"
-#include "TTPhasor.h"
-#include "TTRamp.h"
-#include "TTWavetable.h"
+//#include "TTAdsr.h"
+//#include "TTNoise.h"
+//#include "TTPhasor.h"
+//#include "TTRamp.h"
+//#include "TTWavetable.h"
 
 // Misc
-#include "TTBuffer.h"
-#include "TTCrossfade.h"
+//#include "TTBuffer.h"
+//#include "TTCrossfade.h"
 //#include "TTDegrade.h"
 //#include "TTDelay.h"
-#include "TTOperator.h"
+//#include "TTOperator.h"
 //#include "TTOverdrive.h"
-#include "TTMatrixMixer.h"
+//#include "TTMatrixMixer.h"
 
 
-void TTBlueRegisterInternalClasses()
+void TTDSPRegisterInternalClasses()
 {
+	/*
 	TTAudioSignal::registerClass();
 	TTAudioSignalArray::registerClass();
 	TTBuffer::registerClass();
@@ -262,4 +272,5 @@ void TTBlueRegisterInternalClasses()
 	TTOperator::registerClass();
 //	TTOverdrive::registerClass();
 	TTMatrixMixer::registerClass();
-}
+*/
+	 }

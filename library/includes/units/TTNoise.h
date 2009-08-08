@@ -9,7 +9,7 @@
 #ifndef __TT_NOISE_H__
 #define __TT_NOISE_H__
 
-#include "TTBlueAPI.h"
+#include "TTFoundationAPI.h"
 
 
 /**	Noise Generator */

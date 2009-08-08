@@ -9,7 +9,7 @@
 #ifndef __TT_BUFFER_H__
 #define __TT_BUFFER_H__
 
-#include "TTBlueAPI.h"
+#include "TTFoundationAPI.h"
 
 
 /**	TTBuffer is a container object that holds some audio in a chunk of memory.

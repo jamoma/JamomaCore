@@ -13,6 +13,8 @@
 		222B17F90F1D4009008B1A46 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */; };
 		222B17FA0F1D4009008B1A46 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1B0EC276B200A5EC32 /* AudioUnit.framework */; };
 		222B17FB0F1D4009008B1A46 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1C0EC276B200A5EC32 /* CoreServices.framework */; };
+		228505A2102CFE7E004D74BC /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228505A1102CFE7E004D74BC /* JamomaFoundation.framework */; };
+		228505CD102D001E004D74BC /* TTDSP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 228505CC102D001E004D74BC /* TTDSP.cpp */; };
 		22E385BC10286B72002000A9 /* TTAdsr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385B210286B72002000A9 /* TTAdsr.cpp */; };
 		22E385BD10286B72002000A9 /* TTBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385B310286B72002000A9 /* TTBuffer.cpp */; };
 		22E385BE10286B72002000A9 /* TTCrossfade.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385B410286B72002000A9 /* TTCrossfade.cpp */; };
@@ -23,28 +25,10 @@
 		22E385C310286B72002000A9 /* TTRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385B910286B72002000A9 /* TTRamp.cpp */; };
 		22E385C410286B72002000A9 /* TTWavetable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385BA10286B72002000A9 /* TTWavetable.cpp */; };
 		22E385C510286B72002000A9 /* TTZerocross.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385BB10286B72002000A9 /* TTZerocross.cpp */; };
-		22E3861310286BBE002000A9 /* TTAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F210286BBE002000A9 /* TTAttribute.cpp */; };
 		22E3861410286BBE002000A9 /* TTAudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F310286BBE002000A9 /* TTAudioEngine.cpp */; };
 		22E3861510286BBE002000A9 /* TTAudioObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F410286BBE002000A9 /* TTAudioObject.cpp */; };
 		22E3861610286BBE002000A9 /* TTAudioSignal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F510286BBE002000A9 /* TTAudioSignal.cpp */; };
 		22E3861710286BBE002000A9 /* TTAudioSignalArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F610286BBE002000A9 /* TTAudioSignalArray.cpp */; };
-		22E3861810286BBE002000A9 /* TTBlue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F710286BBE002000A9 /* TTBlue.cpp */; };
-		22E3861910286BBE002000A9 /* TTClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F810286BBE002000A9 /* TTClass.cpp */; };
-		22E3861A10286BBE002000A9 /* TTDataObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F910286BBE002000A9 /* TTDataObject.cpp */; };
-		22E3861B10286BBE002000A9 /* TTElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FA10286BBE002000A9 /* TTElement.cpp */; };
-		22E3861C10286BBE002000A9 /* TTEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FB10286BBE002000A9 /* TTEnvironment.cpp */; };
-		22E3861D10286BBE002000A9 /* TTHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FC10286BBE002000A9 /* TTHash.cpp */; };
-		22E3861E10286BBE002000A9 /* TTList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FD10286BBE002000A9 /* TTList.cpp */; };
-		22E3861F10286BBE002000A9 /* TTMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FE10286BBE002000A9 /* TTMessage.cpp */; };
-		22E3862010286BBE002000A9 /* TTMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FF10286BBE002000A9 /* TTMutex.cpp */; };
-		22E3862110286BBE002000A9 /* TTObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860010286BBE002000A9 /* TTObject.cpp */; };
-		22E3862210286BBE002000A9 /* TTQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860110286BBE002000A9 /* TTQueue.cpp */; };
-		22E3862310286BBE002000A9 /* TTSymbol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860210286BBE002000A9 /* TTSymbol.cpp */; };
-		22E3862410286BBE002000A9 /* TTSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860310286BBE002000A9 /* TTSymbolCache.cpp */; };
-		22E3862510286BBE002000A9 /* TTSymbolTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860410286BBE002000A9 /* TTSymbolTable.cpp */; };
-		22E3862610286BBE002000A9 /* TTThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860510286BBE002000A9 /* TTThread.cpp */; };
-		22E3862710286BBE002000A9 /* TTValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860610286BBE002000A9 /* TTValue.cpp */; };
-		22E3862810286BBE002000A9 /* TTValueCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860710286BBE002000A9 /* TTValueCache.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +40,9 @@
 		22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		22578F1B0EC276B200A5EC32 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
 		22578F1C0EC276B200A5EC32 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
+		228505A1102CFE7E004D74BC /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
+		228505CB102CFFFA004D74BC /* TTDSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDSP.h; path = includes/TTDSP.h; sourceTree = "<group>"; };
+		228505CC102D001E004D74BC /* TTDSP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDSP.cpp; path = source/TTDSP.cpp; sourceTree = "<group>"; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22E385B210286B72002000A9 /* TTAdsr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTAdsr.cpp; sourceTree = "<group>"; };
 		22E385B310286B72002000A9 /* TTBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTBuffer.cpp; sourceTree = "<group>"; };
@@ -77,51 +64,15 @@
 		22E385CD10286B80002000A9 /* TTRamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTRamp.h; path = includes/units/TTRamp.h; sourceTree = SOURCE_ROOT; };
 		22E385CE10286B80002000A9 /* TTWavetable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTWavetable.h; path = includes/units/TTWavetable.h; sourceTree = SOURCE_ROOT; };
 		22E385CF10286B80002000A9 /* TTZerocross.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTZerocross.h; path = includes/units/TTZerocross.h; sourceTree = SOURCE_ROOT; };
-		22E385D010286B97002000A9 /* TTBlueAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBlueAPI.h; path = includes/TTBlueAPI.h; sourceTree = "<group>"; };
-		22E385D110286BB0002000A9 /* TTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAttribute.h; path = includes/TTAttribute.h; sourceTree = "<group>"; };
+		22E385D010286B97002000A9 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = ../../Foundation/library/includes/TTFoundationAPI.h; sourceTree = "<group>"; };
 		22E385D210286BB0002000A9 /* TTAudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioEngine.h; path = includes/TTAudioEngine.h; sourceTree = "<group>"; };
 		22E385D310286BB0002000A9 /* TTAudioObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = includes/TTAudioObject.h; sourceTree = "<group>"; };
 		22E385D410286BB0002000A9 /* TTAudioSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioSignal.h; path = includes/TTAudioSignal.h; sourceTree = "<group>"; };
 		22E385D510286BB0002000A9 /* TTAudioSignalArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioSignalArray.h; path = includes/TTAudioSignalArray.h; sourceTree = "<group>"; };
-		22E385D610286BB0002000A9 /* TTBlue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBlue.h; path = includes/TTBlue.h; sourceTree = "<group>"; };
-		22E385D710286BB0002000A9 /* TTClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTClass.h; path = includes/TTClass.h; sourceTree = "<group>"; };
-		22E385D810286BB0002000A9 /* TTDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDataObject.h; path = includes/TTDataObject.h; sourceTree = "<group>"; };
-		22E385D910286BB0002000A9 /* TTElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTElement.h; path = includes/TTElement.h; sourceTree = "<group>"; };
-		22E385DA10286BB0002000A9 /* TTEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTEnvironment.h; path = includes/TTEnvironment.h; sourceTree = "<group>"; };
-		22E385DB10286BB0002000A9 /* TTHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTHash.h; path = includes/TTHash.h; sourceTree = "<group>"; };
-		22E385DC10286BB0002000A9 /* TTList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTList.h; path = includes/TTList.h; sourceTree = "<group>"; };
-		22E385DD10286BB0002000A9 /* TTMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMessage.h; path = includes/TTMessage.h; sourceTree = "<group>"; };
-		22E385DE10286BB0002000A9 /* TTMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMutex.h; path = includes/TTMutex.h; sourceTree = "<group>"; };
-		22E385DF10286BB0002000A9 /* TTObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTObject.h; path = includes/TTObject.h; sourceTree = "<group>"; };
-		22E385E010286BB0002000A9 /* TTQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTQueue.h; path = includes/TTQueue.h; sourceTree = "<group>"; };
-		22E385E110286BB0002000A9 /* TTSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbol.h; path = includes/TTSymbol.h; sourceTree = "<group>"; };
-		22E385E210286BB0002000A9 /* TTSymbolCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbolCache.h; path = includes/TTSymbolCache.h; sourceTree = "<group>"; };
-		22E385E310286BB0002000A9 /* TTSymbolTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbolTable.h; path = includes/TTSymbolTable.h; sourceTree = "<group>"; };
-		22E385E410286BB0002000A9 /* TTThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTThread.h; path = includes/TTThread.h; sourceTree = "<group>"; };
-		22E385E510286BB0002000A9 /* TTValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTValue.h; path = includes/TTValue.h; sourceTree = "<group>"; };
-		22E385E610286BB0002000A9 /* TTValueCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTValueCache.h; path = includes/TTValueCache.h; sourceTree = "<group>"; };
-		22E385F210286BBE002000A9 /* TTAttribute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAttribute.cpp; path = source/TTAttribute.cpp; sourceTree = "<group>"; };
 		22E385F310286BBE002000A9 /* TTAudioEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioEngine.cpp; path = source/TTAudioEngine.cpp; sourceTree = "<group>"; };
 		22E385F410286BBE002000A9 /* TTAudioObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioObject.cpp; path = source/TTAudioObject.cpp; sourceTree = "<group>"; };
 		22E385F510286BBE002000A9 /* TTAudioSignal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioSignal.cpp; path = source/TTAudioSignal.cpp; sourceTree = "<group>"; };
 		22E385F610286BBE002000A9 /* TTAudioSignalArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioSignalArray.cpp; path = source/TTAudioSignalArray.cpp; sourceTree = "<group>"; };
-		22E385F710286BBE002000A9 /* TTBlue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTBlue.cpp; path = source/TTBlue.cpp; sourceTree = "<group>"; };
-		22E385F810286BBE002000A9 /* TTClass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTClass.cpp; path = source/TTClass.cpp; sourceTree = "<group>"; };
-		22E385F910286BBE002000A9 /* TTDataObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataObject.cpp; path = source/TTDataObject.cpp; sourceTree = "<group>"; };
-		22E385FA10286BBE002000A9 /* TTElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTElement.cpp; path = source/TTElement.cpp; sourceTree = "<group>"; };
-		22E385FB10286BBE002000A9 /* TTEnvironment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTEnvironment.cpp; path = source/TTEnvironment.cpp; sourceTree = "<group>"; };
-		22E385FC10286BBE002000A9 /* TTHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTHash.cpp; path = source/TTHash.cpp; sourceTree = "<group>"; };
-		22E385FD10286BBE002000A9 /* TTList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTList.cpp; path = source/TTList.cpp; sourceTree = "<group>"; };
-		22E385FE10286BBE002000A9 /* TTMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMessage.cpp; path = source/TTMessage.cpp; sourceTree = "<group>"; };
-		22E385FF10286BBE002000A9 /* TTMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMutex.cpp; path = source/TTMutex.cpp; sourceTree = "<group>"; };
-		22E3860010286BBE002000A9 /* TTObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTObject.cpp; path = source/TTObject.cpp; sourceTree = "<group>"; };
-		22E3860110286BBE002000A9 /* TTQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTQueue.cpp; path = source/TTQueue.cpp; sourceTree = "<group>"; };
-		22E3860210286BBE002000A9 /* TTSymbol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbol.cpp; path = source/TTSymbol.cpp; sourceTree = "<group>"; };
-		22E3860310286BBE002000A9 /* TTSymbolCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbolCache.cpp; path = source/TTSymbolCache.cpp; sourceTree = "<group>"; };
-		22E3860410286BBE002000A9 /* TTSymbolTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbolTable.cpp; path = source/TTSymbolTable.cpp; sourceTree = "<group>"; };
-		22E3860510286BBE002000A9 /* TTThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTThread.cpp; path = source/TTThread.cpp; sourceTree = "<group>"; };
-		22E3860610286BBE002000A9 /* TTValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValue.cpp; path = source/TTValue.cpp; sourceTree = "<group>"; };
-		22E3860710286BBE002000A9 /* TTValueCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValueCache.cpp; path = source/TTValueCache.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +86,7 @@
 				222B17F90F1D4009008B1A46 /* AudioToolbox.framework in Frameworks */,
 				222B17FA0F1D4009008B1A46 /* AudioUnit.framework in Frameworks */,
 				222B17FB0F1D4009008B1A46 /* CoreServices.framework in Frameworks */,
+				228505A2102CFE7E004D74BC /* JamomaFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,7 +105,9 @@
 			isa = PBXGroup;
 			children = (
 				2227748E0EF1BFF100CA7476 /* JamomaDSP.xcconfig */,
-				22E385D010286B97002000A9 /* TTBlueAPI.h */,
+				22E385D010286B97002000A9 /* TTFoundationAPI.h */,
+				228505CB102CFFFA004D74BC /* TTDSP.h */,
+				228505CC102D001E004D74BC /* TTDSP.cpp */,
 				08FB77AEFE84172EC02AAC07 /* Core */,
 				22E385B110286B72002000A9 /* units */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
@@ -165,6 +119,7 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				228505A1102CFE7E004D74BC /* JamomaFoundation.framework */,
 				22A403830CAD7B9400E5299E /* Carbon.framework */,
 				22578F170EC2767800A5EC32 /* portaudio.h */,
 				22578F110EC2762900A5EC32 /* libportaudio.a */,
@@ -179,76 +134,16 @@
 		08FB77AEFE84172EC02AAC07 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				22398CC00E25643800A5F732 /* BaseClasses */,
-				22B66A200E298A2F00CB474E /* DataStorageClasses */,
-				22B66A220E298A6D00CB474E /* SymbolTable */,
-				22E385F310286BBE002000A9 /* TTAudioEngine.cpp */,
-				22E385F510286BBE002000A9 /* TTAudioSignal.cpp */,
-				22E385F610286BBE002000A9 /* TTAudioSignalArray.cpp */,
-				22E385F710286BBE002000A9 /* TTBlue.cpp */,
-				22E385F810286BBE002000A9 /* TTClass.cpp */,
-				22E385FB10286BBE002000A9 /* TTEnvironment.cpp */,
-				22E385FF10286BBE002000A9 /* TTMutex.cpp */,
-				22E3860110286BBE002000A9 /* TTQueue.cpp */,
-				22E3860510286BBE002000A9 /* TTThread.cpp */,
-				22E3860710286BBE002000A9 /* TTValueCache.cpp */,
-				22E385D210286BB0002000A9 /* TTAudioEngine.h */,
-				22E385D410286BB0002000A9 /* TTAudioSignal.h */,
-				22E385D510286BB0002000A9 /* TTAudioSignalArray.h */,
-				22E385D610286BB0002000A9 /* TTBlue.h */,
-				22E385D710286BB0002000A9 /* TTClass.h */,
-				22E385DA10286BB0002000A9 /* TTEnvironment.h */,
-				22E385DE10286BB0002000A9 /* TTMutex.h */,
-				22E385E010286BB0002000A9 /* TTQueue.h */,
-				22E385E410286BB0002000A9 /* TTThread.h */,
-				22E385E610286BB0002000A9 /* TTValueCache.h */,
-			);
-			name = Core;
-			sourceTree = "<group>";
-		};
-		22398CC00E25643800A5F732 /* BaseClasses */ = {
-			isa = PBXGroup;
-			children = (
-				22E385D110286BB0002000A9 /* TTAttribute.h */,
-				22E385F210286BBE002000A9 /* TTAttribute.cpp */,
 				22E385D310286BB0002000A9 /* TTAudioObject.h */,
 				22E385F410286BBE002000A9 /* TTAudioObject.cpp */,
-				22E385D810286BB0002000A9 /* TTDataObject.h */,
-				22E385F910286BBE002000A9 /* TTDataObject.cpp */,
-				22E385D910286BB0002000A9 /* TTElement.h */,
-				22E385FA10286BBE002000A9 /* TTElement.cpp */,
-				22E385DD10286BB0002000A9 /* TTMessage.h */,
-				22E385FE10286BBE002000A9 /* TTMessage.cpp */,
-				22E385DF10286BB0002000A9 /* TTObject.h */,
-				22E3860010286BBE002000A9 /* TTObject.cpp */,
+				22E385D410286BB0002000A9 /* TTAudioSignal.h */,
+				22E385F510286BBE002000A9 /* TTAudioSignal.cpp */,
+				22E385D510286BB0002000A9 /* TTAudioSignalArray.h */,
+				22E385F610286BBE002000A9 /* TTAudioSignalArray.cpp */,
+				22E385D210286BB0002000A9 /* TTAudioEngine.h */,
+				22E385F310286BBE002000A9 /* TTAudioEngine.cpp */,
 			);
-			name = BaseClasses;
-			sourceTree = "<group>";
-		};
-		22B66A200E298A2F00CB474E /* DataStorageClasses */ = {
-			isa = PBXGroup;
-			children = (
-				22E385DB10286BB0002000A9 /* TTHash.h */,
-				22E385DC10286BB0002000A9 /* TTList.h */,
-				22E385E510286BB0002000A9 /* TTValue.h */,
-				22E385FC10286BBE002000A9 /* TTHash.cpp */,
-				22E385FD10286BBE002000A9 /* TTList.cpp */,
-				22E3860610286BBE002000A9 /* TTValue.cpp */,
-			);
-			name = DataStorageClasses;
-			sourceTree = "<group>";
-		};
-		22B66A220E298A6D00CB474E /* SymbolTable */ = {
-			isa = PBXGroup;
-			children = (
-				22E385E110286BB0002000A9 /* TTSymbol.h */,
-				22E385E210286BB0002000A9 /* TTSymbolCache.h */,
-				22E385E310286BB0002000A9 /* TTSymbolTable.h */,
-				22E3860210286BBE002000A9 /* TTSymbol.cpp */,
-				22E3860310286BBE002000A9 /* TTSymbolCache.cpp */,
-				22E3860410286BBE002000A9 /* TTSymbolTable.cpp */,
-			);
-			name = SymbolTable;
+			name = Core;
 			sourceTree = "<group>";
 		};
 		22E385B110286B72002000A9 /* units */ = {
@@ -360,28 +255,11 @@
 				22E385C310286B72002000A9 /* TTRamp.cpp in Sources */,
 				22E385C410286B72002000A9 /* TTWavetable.cpp in Sources */,
 				22E385C510286B72002000A9 /* TTZerocross.cpp in Sources */,
-				22E3861310286BBE002000A9 /* TTAttribute.cpp in Sources */,
 				22E3861410286BBE002000A9 /* TTAudioEngine.cpp in Sources */,
 				22E3861510286BBE002000A9 /* TTAudioObject.cpp in Sources */,
 				22E3861610286BBE002000A9 /* TTAudioSignal.cpp in Sources */,
 				22E3861710286BBE002000A9 /* TTAudioSignalArray.cpp in Sources */,
-				22E3861810286BBE002000A9 /* TTBlue.cpp in Sources */,
-				22E3861910286BBE002000A9 /* TTClass.cpp in Sources */,
-				22E3861A10286BBE002000A9 /* TTDataObject.cpp in Sources */,
-				22E3861B10286BBE002000A9 /* TTElement.cpp in Sources */,
-				22E3861C10286BBE002000A9 /* TTEnvironment.cpp in Sources */,
-				22E3861D10286BBE002000A9 /* TTHash.cpp in Sources */,
-				22E3861E10286BBE002000A9 /* TTList.cpp in Sources */,
-				22E3861F10286BBE002000A9 /* TTMessage.cpp in Sources */,
-				22E3862010286BBE002000A9 /* TTMutex.cpp in Sources */,
-				22E3862110286BBE002000A9 /* TTObject.cpp in Sources */,
-				22E3862210286BBE002000A9 /* TTQueue.cpp in Sources */,
-				22E3862310286BBE002000A9 /* TTSymbol.cpp in Sources */,
-				22E3862410286BBE002000A9 /* TTSymbolCache.cpp in Sources */,
-				22E3862510286BBE002000A9 /* TTSymbolTable.cpp in Sources */,
-				22E3862610286BBE002000A9 /* TTThread.cpp in Sources */,
-				22E3862710286BBE002000A9 /* TTValue.cpp in Sources */,
-				22E3862810286BBE002000A9 /* TTValueCache.cpp in Sources */,
+				228505CD102D001E004D74BC /* TTDSP.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +294,10 @@
 				DEPLOYMENT_LOCATION = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../Foundation/library/build/UninstalledProducts\"",
+				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -450,6 +332,10 @@
 				DEPLOYMENT_LOCATION = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../Foundation/library/build/UninstalledProducts\"",
+				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;

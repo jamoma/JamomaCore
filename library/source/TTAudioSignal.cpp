@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTBlueAPI.h"
+#include "TTFoundationAPI.h"
 
 #define thisTTClass			TTAudioSignal
 #define thisTTClassName		"audiosignal"

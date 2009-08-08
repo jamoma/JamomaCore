@@ -25,6 +25,7 @@ INSTALL_PATH = /
 // Special Files
 INFOPLIST_FILE = $(SRCROOT)/Info.plist
 
+HEADER_SEARCH_PATHS = $(inherited) "$(SRCROOT)/../../Foundation/library/includes"
 LIBRARY_SEARCH_PATHS = $(inherited) "$(SRCROOT)/portaudio"
 
 // Per architecture and deployment settings
