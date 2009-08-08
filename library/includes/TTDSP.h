@@ -55,16 +55,16 @@ class arg : TTAudioObject { \
 void TTEXPORT TTDSPInit();
 
 // Convenience methods so that casting is not a worry:
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, TTValue& arguments);
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, TTValue& arguments);
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTValue& arguments);
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTValue& arguments);
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTUInt16 arguments);
-TTAudioObjectPtr TTObjectReference(TTAudioObjectPtr anObject);
-TTAudioSignalPtr TTObjectReference(TTAudioSignalPtr anObject);
-TTErr TTObjectRelease(TTAudioObjectPtr* anObject);
-TTErr TTObjectRelease(TTAudioSignalPtr* anObject);
+TTErr TTEXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, TTValue& arguments);
+TTErr TTEXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, TTValue& arguments);
+TTErr TTEXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTValue& arguments);
+TTErr TTEXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTValue& arguments);
+TTErr TTEXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
+TTErr TTEXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTUInt16 arguments);
+TTAudioObjectPtr TTEXPORT TTObjectReference(TTAudioObjectPtr anObject);
+TTAudioSignalPtr TTEXPORT TTObjectReference(TTAudioSignalPtr anObject);
+TTErr TTEXPORT TTObjectRelease(TTAudioObjectPtr* anObject);
+TTErr TTEXPORT TTObjectRelease(TTAudioSignalPtr* anObject);
 
 
 #endif // __TTDSP_H__
