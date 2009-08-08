@@ -9,14 +9,12 @@
 #ifndef __TT_BLUE_H__
 #define __TT_BLUE_H__
 
-#define TT_VERSION_STRING "0.5.5"
+#define TTFOUNDATION_VERSION_STRING "0.6"
 
 #include "TTElement.h"
 #include "TTThread.h"
 #include "TTSymbolCache.h"
 #include "TTValueCache.h"
-
-
 
 
 /*
@@ -27,15 +25,6 @@
 	This also enforces the protection of the constructor and destructor methods so that they
 	cannot be manipulated directly.
  */
-
-
-#define TT_AUDIO_CONSTRUCTOR \
-TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {return new thisTTClass (arguments);} \
-\
-extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
-\
-thisTTClass :: thisTTClass (TTValue& arguments) : TTAudioObject(arguments)
-
 
 #define TT_DATA_CONSTRUCTOR \
 TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {return new thisTTClass (arguments);} \
@@ -65,12 +54,8 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTObject(arguments)
 		virtual ~ className ();													\
 
 
-#define TTAUDIOCLASS(arg) \
-class arg : TTAudioObject { \
-	TTCLASS_SETUP(arg)
 
-
-void TTEXPORT TTBlueInit();
+void TTEXPORT TTFoundationInit();
 
 
 #endif // __TT_BLUE_H__

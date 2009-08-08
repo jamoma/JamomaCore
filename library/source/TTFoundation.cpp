@@ -20,19 +20,18 @@
 #endif
 
 
-static bool TTBlueHasInitialized = false;
+static bool TTFoundationHasInitialized = false;
 
-void		TTBlueLoadExternalClasses();
-void		TTBlueLoadExternalClassesFromFolder(const TTString& fullpath);
-void		TTBlueRegisterInternalClasses();
-TTObjectPtr	TTBlueInstantiateInternalClass(TTSymbol* className, TTValue& arguments);
+void		TTFoundationLoadExternalClasses();
+void		TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath);
+TTObjectPtr	TTFoundationInstantiateInternalClass(TTSymbol* className, TTValue& arguments);
 
 
 /****************************************************************************************************/
-void TTBlueInit()
+void TTFoundationInit()
 {
-	if(!TTBlueHasInitialized){
-		TTBlueHasInitialized = true;
+	if(!TTFoundationHasInitialized){
+		TTFoundationHasInitialized = true;
 		
 		ttSymbolTable = new TTSymbolTable;
 		for(int i=0; i<kNumTTDataTypes; i++)
@@ -44,27 +43,26 @@ void TTBlueInit()
 		TTValueCacheInit();
 		
 #ifdef TT_DEBUG
-		TTLogMessage("TTBlue -- Version %s -- Debugging Enabled\n", TT_VERSION_STRING);
+		TTLogMessage("JamomaFoundation -- Version %s -- Debugging Enabled\n", TTFOUNDATION_VERSION_STRING);
 #else
-		TTLogMessage("TTBlue -- Version %s\n", TT_VERSION_STRING);
+		TTLogMessage("JamomaFoundation -- Version %s\n", TTFOUNDATION_VERSION_STRING);
 #endif
 		
-		TTBlueRegisterInternalClasses();
-		TTBlueLoadExternalClasses();
-//		TTAudioEngineCreate();
+		TTFoundationLoadExternalClasses();
 	}
 }
 
 
-void TTBlueShutdown()
+void TTFoundationShutdown()
 {
-//	TTAudioEngineFree();
+	// FIXME: How do we call this (i.e. TTDSPShutdown()?) -- do we need to setup an observer of some sort on the environment class?
+	// TODO: we need to free singletons like the environment here!
 }
 
 
 /****************************************************************************************************/
 
-void TTBlueLoadExternalClasses()
+void TTFoundationLoadExternalClasses()
 {
 #ifdef TT_PLATFORM_MAC
 	OSErr		err = noErr;
@@ -77,8 +75,8 @@ void TTBlueLoadExternalClasses()
 	if(!err){
 		FSRefMakePath(&ref, path, 4096);
 		fullpath = (char*)path;
-		fullpath += "/TTBlue/Extensions";
-		TTBlueLoadExternalClassesFromFolder(fullpath);
+		fullpath += "/Jamoma/Extensions";
+		TTFoundationLoadExternalClassesFromFolder(fullpath);
 	}
 	
 	// Look in /Library/Application Support/TTBlue/Extensions
@@ -86,8 +84,8 @@ void TTBlueLoadExternalClasses()
 	if(!err){
 		FSRefMakePath(&ref, path, 4096);
 		fullpath = (char*)path;
-		fullpath += "/TTBlue/Extensions";
-		TTBlueLoadExternalClassesFromFolder(fullpath);
+		fullpath += "/Jamoma/Extensions";
+		TTFoundationLoadExternalClassesFromFolder(fullpath);
 	}
 #elif TT_PLATFORM_WIN
 	TTString	fullpath;
@@ -101,7 +99,7 @@ void TTBlueLoadExternalClasses()
 	hr = SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES_COMMON, NULL, SHGFP_TYPE_CURRENT, (LPSTR)temppath);
 	if(!FAILED(hr)){
 		fullpath = temppath;
-		fullpath += "\\TTBlue\\Extensions\\";
+		fullpath += "\\Jamoma\\Extensions\\";
 		lRes = SHCreateDirectory(NULL, (LPCWSTR)fullpath.c_str());
 		TTBlueLoadExternalClassesFromFolder(fullpath);
 	}
@@ -114,7 +112,7 @@ void TTBlueLoadExternalClasses()
 }
 
 
-void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
+void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 {
 #ifdef TT_PLATFORM_MAC
 	FSRef							ref;
@@ -201,67 +199,3 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
 #endif
 }
 
-
-/****************************************************************************************************/
-
-// Core
-//#include "TTAudioSignal.h"
-
-// Analysis
-//#include "TTZerocross.h"
-
-// Dynamics
-//#include "TTBalance.h"
-//#include "TTGain.h"
-//#include "TTLimiter.h"
-//#include "TTPulseSub.h"
-
-// Generators
-//#include "TTAdsr.h"
-//#include "TTNoise.h"
-//#include "TTPhasor.h"
-//#include "TTRamp.h"
-//#include "TTWavetable.h"
-
-// Misc
-//#include "TTBuffer.h"
-//#include "TTCrossfade.h"
-//#include "TTDegrade.h"
-//#include "TTDelay.h"
-//#include "TTOperator.h"
-//#include "TTOverdrive.h"
-//#include "TTMatrixMixer.h"
-
-
-void TTBlueRegisterInternalClasses()
-{
-	/*
-	TTAudioSignal::registerClass();
-	TTAudioSignalArray::registerClass();
-	TTBuffer::registerClass();
-	
-	// Analysis
-	TTZerocross::registerClass();
-	
-	// Dynamics
-//	TTBalance::registerClass();
-//	TTGain::registerClass();
-//	TTLimiter::registerClass();
-//	TTPulseSub::registerClass();
-	
-	// Generators
-	TTAdsr::registerClass();
-	TTNoise::registerClass();
-	TTPhasor::registerClass();
-	TTRamp::registerClass();
-	TTWavetable::registerClass();
-		
-	// Misc
-	TTCrossfade::registerClass();
-//	TTDegrade::registerClass();
-//	TTDelay::registerClass();
-	TTOperator::registerClass();
-//	TTOverdrive::registerClass();
-	TTMatrixMixer::registerClass();
-*/
-	 }

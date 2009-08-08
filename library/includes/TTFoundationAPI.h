@@ -6,13 +6,11 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TT_BLUE_API_H__
-#define __TT_BLUE_API_H__
+#ifndef __TT_FOUNDATION_API_H__
+#define __TT_FOUNDATION_API_H__
 
 // CORE
 #include "TTFoundation.h"
-#include "TTAudioObject.h"
-#include "TTAudioSignal.h"
 #include "TTDataObject.h"
 #include "TTEnvironment.h"
 #include "TTHash.h"
@@ -51,17 +49,4 @@
 	}
 
 
-#define TT_AUDIO_CONSTRUCTOR_EXPORT \
-	\
-	extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\
-	TTErr loadTTExtension(void)\
-	{\
-		TTBlueInit();\
-		thisTTClass :: registerClass(); \
-		return kTTErrNone;\
-	}\
-	\
-	TT_AUDIO_CONSTRUCTOR
-
-
-#endif // __TT_BLUE_API_H__
+#endif // __TT_FOUNDATION_API_H__

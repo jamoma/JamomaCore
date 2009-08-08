@@ -47,7 +47,7 @@ TTEnvironment::~TTEnvironment()
 
 TTErr TTEnvironment::getVersion(TTValue &value)
 {
-	value = TT_VERSION_STRING;
+	value = TTFOUNDATION_VERSION_STRING;
 	return kTTErrNone;
 }
 
