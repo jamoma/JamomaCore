@@ -17,9 +17,11 @@ C74SUPPORT =	$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support
 DSPLIB =		$(SRCROOT)/../../../../DSP
 GRAPHICS =		$(SRCROOT)/../../../../Graphics
 FOUNDATION =	$(SRCROOT)/../../../../Foundation
+BUILDS =		$(SRCROOT)/../../../../../Builds
+
 HEADER_SEARCH_PATHS = /Developer/Headers/FlatCarbon "$(C74SUPPORT)/max-includes" "$(C74SUPPORT)/msp-includes" "$(C74SUPPORT)/jit-includes" "$(SRCROOT)/.." "$(FOUNDATION)/library/includes" "$(DSPLIB)/library/includes" "$(GRAPHICS)/library/includes"
 FRAMEWORK_SEARCH_PATHS = "$(C74SUPPORT)/max-includes" "$(C74SUPPORT)/msp-includes" "$(C74SUPPORT)/jit-includes" "$(DSPLIB)/library/build-mac"
-DSTROOT = $(SRCROOT)/../../Build_Mac
+DSTROOT = $(BUILDS)
 // (This next path is relative to DSTROOT)
 INSTALL_PATH = /
 
