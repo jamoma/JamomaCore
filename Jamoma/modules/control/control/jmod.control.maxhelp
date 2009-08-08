@@ -31,7 +31,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jmod.control", "@description", "A control module for handling various global tasks" ],
+					"args" : [ "@name", "jmod.control", "@description", "A control module for handling various global audio controls" ],
 					"bgmode" : 1,
 					"id" : "obj-5",
 					"maxclass" : "bpatcher",
@@ -351,8 +351,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 17.0, 91.0, 289.0, 31.0 ],
-					"text" : "This module is meant to offer a simple way of handling a number of global tasks in the Jamoma environment."
+					"patching_rect" : [ 17.0, 91.0, 326.0, 31.0 ],
+					"text" : "This module is meant to offer a simple way of handling a number of global audio controls in the Jamoma environment."
 				}
 
 			}
@@ -361,6 +361,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"hidden" : 1,
 					"id" : "obj-27",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -432,19 +433,55 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-22", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 606.5, 149.0, 391.5, 149.0 ],
-					"source" : [ "obj-4", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-9", 0 ],
+					"destination" : [ "obj-4", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-22", 0 ]
+					"source" : [ "obj-34", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-9", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-6", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-14", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 2 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-14", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 438.5, 264.0, 630.5, 264.0 ],
+					"source" : [ "obj-9", 1 ]
 				}
 
 			}
@@ -452,8 +489,8 @@
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 476.5, 149.0, 451.0, 149.0, 451.0, 149.0, 391.5, 149.0 ],
-					"source" : [ "obj-3", 0 ]
+					"midpoints" : [ 521.5, 149.0, 451.0, 149.0, 451.0, 149.0, 391.5, 149.0 ],
+					"source" : [ "obj-1", 0 ]
 				}
 
 			}
@@ -470,62 +507,26 @@
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 521.5, 149.0, 451.0, 149.0, 451.0, 149.0, 391.5, 149.0 ],
-					"source" : [ "obj-1", 0 ]
+					"midpoints" : [ 476.5, 149.0, 451.0, 149.0, 451.0, 149.0, 391.5, 149.0 ],
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-11", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 438.5, 264.0, 630.5, 264.0 ],
-					"source" : [ "obj-9", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 2 ],
+					"destination" : [ "obj-9", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-14", 2 ]
+					"source" : [ "obj-22", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-13", 1 ],
+					"destination" : [ "obj-22", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-14", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-6", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-9", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-4", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-34", 0 ]
+					"midpoints" : [ 606.5, 149.0, 391.5, 149.0 ],
+					"source" : [ "obj-4", 0 ]
 				}
 
 			}
