@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 312.0, 110.0, 649.0, 461.0 ],
+		"rect" : [ 450.0, 100.0, 649.0, 461.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 312.0, 110.0, 649.0, 461.0 ],
+		"defrect" : [ 450.0, 100.0, 649.0, 461.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -139,13 +139,13 @@
 ,
 					"patching_rect" : [ 240.0, 162.0, 49.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p adapt"
@@ -427,7 +427,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 293.0, 164.0, 234.0, 17.0 ],
-					"text" : "/countdown 0"
+					"text" : "/open"
 				}
 
 			}
@@ -463,7 +463,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "/jmod.sur.multi.input~" ],
+					"args" : [ "multi.input~" ],
 					"id" : "obj-52",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
@@ -472,8 +472,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 240.0, 89.0, 300.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"varname" : "jmod.sur.multi.input~"
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
 				}
 
 			}
@@ -495,17 +494,8 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-31", 1 ],
+					"destination" : [ "obj-1", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-52", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-25", 1 ],
-					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-52", 0 ]
 				}
@@ -522,10 +512,19 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"hidden" : 0,
+					"destination" : [ "obj-25", 1 ],
+					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-52", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-31", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-52", 1 ]
 				}
 
 			}
