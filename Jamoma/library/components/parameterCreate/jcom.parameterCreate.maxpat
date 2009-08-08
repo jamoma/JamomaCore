@@ -4156,7 +4156,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-34",
-					"items" : [ ",", "both", ",", "high", ",", "low", ",", "none" ],
+					"items" : [ ",", "both", ",", "high", ",", "low", ",", "none", ",","wrap", ",", "fold"],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
