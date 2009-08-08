@@ -9,10 +9,7 @@
 #ifndef __TT_PULSESUB_H__
 #define __TT_PULSESUB_H__
 
-#include "TTBlueAPI.h"
-//#include "TTPhasor.h"
-//#include "TTAdsr.h"
-//#include "TTOperator.h"
+#include "TTDSP.h"
 
 
 /**	TTPulseSub generates a repeating ADSR envelope which is then applied to the gain of an input signal. */ 

@@ -7,7 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 #define thisTTClass			TTClipper
 #define thisTTClassName		"clipper"

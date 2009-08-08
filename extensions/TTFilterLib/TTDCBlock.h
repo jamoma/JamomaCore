@@ -9,7 +9,7 @@
 #ifndef __TT_DCBLOCK_H__
 #define __TT_DCBLOCK_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	TTDCBlock in an audio processor that filters out DC Offsets from an input.

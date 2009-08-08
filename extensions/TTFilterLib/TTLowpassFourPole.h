@@ -9,7 +9,7 @@
 #ifndef __TT_LOWPASS_FOURPOLE_H__
 #define __TT_LOWPASS_FOURPOLE_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	A resonant two-pole, no-zero, lowpass filter.  Based on moog-variation2 @ musicdsp.org. */

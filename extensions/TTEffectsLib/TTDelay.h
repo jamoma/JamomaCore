@@ -9,7 +9,7 @@
 #ifndef __TT_DELAY_H__
 #define __TT_DELAY_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	Delay a signal. */

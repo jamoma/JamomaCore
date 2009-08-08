@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		22398BAE0E243E2D00A5F732 /* TTAudioUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22398BAD0E243E2D00A5F732 /* TTAudioUnit.cpp */; };
 		22D43C010F1D9FF000C16BB0 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D43C000F1D9FF000C16BB0 /* JamomaDSP.framework */; };
+		22EB3983102E0F27006D027A /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EB3982102E0F27006D027A /* JamomaFoundation.framework */; };
 		22F4B8470E58997800BE6DDB /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4B8460E58997800BE6DDB /* AudioUnit.framework */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
@@ -17,6 +18,7 @@
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22398BAD0E243E2D00A5F732 /* TTAudioUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTAudioUnit.cpp; sourceTree = "<group>"; };
 		22D43C000F1D9FF000C16BB0 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
+		22EB3982102E0F27006D027A /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
 		22F4B8460E58997800BE6DDB /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
 		D2AAC09D05546B4700DB518D /* TTAudioUnit.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = TTAudioUnit.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -29,6 +31,7 @@
 				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
 				22F4B8470E58997800BE6DDB /* AudioUnit.framework in Frameworks */,
 				22D43C010F1D9FF000C16BB0 /* JamomaDSP.framework in Frameworks */,
+				22EB3983102E0F27006D027A /* JamomaFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +59,7 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				22EB3982102E0F27006D027A /* JamomaFoundation.framework */,
 				22D43C000F1D9FF000C16BB0 /* JamomaDSP.framework */,
 				22F4B8460E58997800BE6DDB /* AudioUnit.framework */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
@@ -132,7 +136,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/mkdir -p -m 775 \"/Library/Application Support/TTBlue/Extensions\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"/Library/Application Support/TTBlue/Extensions\"\n";
+			shellScript = "/bin/mkdir -p -m 775 \"/Library/Application Support/Jamoma/Extensions\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"/Library/Application Support/Jamoma/Extensions\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -159,6 +163,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -172,7 +177,7 @@
 					"-Wno-deprecated",
 				);
 				PRODUCT_NAME = TTAudioUnit;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../library/includes\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Foundation/library/includes\" \"$(SRCROOT)/../../library/includes\"";
 			};
 			name = Development;
 		};
@@ -187,6 +192,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;

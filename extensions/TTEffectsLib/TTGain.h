@@ -9,7 +9,7 @@
 #ifndef __TT_GAIN_H__
 #define __TT_GAIN_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	TTGain is an exceptionally simple audio processor scales an input audio signal */

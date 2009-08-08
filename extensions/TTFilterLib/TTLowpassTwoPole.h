@@ -9,7 +9,7 @@
 #ifndef __TT_LOWPASS_TWOPOLE_H__
 #define __TT_LOWPASS_TWOPOLE_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	A resonant two-pole, no-zero, lowpass filter. Based on the Hal Chamberlin book. */

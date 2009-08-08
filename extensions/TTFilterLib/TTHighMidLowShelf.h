@@ -7,7 +7,7 @@
 #ifndef _TT_HIMIDLOW_H_
 #define _TT_HIMIDLOW_H_
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	High-Mid-Low shelf filter.	*/

@@ -10,7 +10,7 @@
 #ifndef __LINEARFUNCTION_H__
 #define __LINEARFUNCTION_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	This implements a function which basically does nothing: 

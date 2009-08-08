@@ -10,7 +10,7 @@
 #ifndef __POWERFUNCTION_H__
 #define __POWERFUNCTION_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	A function unit that provides exponential curves,

@@ -11,7 +11,7 @@
 #ifndef __EXPFUNCTION_H__
 #define __EXPFUNCTION_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	A function unit providing a curve based on

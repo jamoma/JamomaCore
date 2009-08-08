@@ -9,7 +9,7 @@
 #ifndef __TT_LOWPASS_LINKWITZ_RILEY_4_H__
 #define __TT_LOWPASS_LINKWITZ_RILEY_4_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	4th order Linkwitz Riley Lowpass Filter

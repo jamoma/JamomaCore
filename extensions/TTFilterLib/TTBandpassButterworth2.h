@@ -9,7 +9,7 @@
 #ifndef __TT_BANDPASS_BUTTERWORTH_2_H__
 #define __TT_BANDPASS_BUTTERWORTH_2_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	2nd order Butterworth bandpass filter; Butterworth filters have maximum flat frequency response in the pass band.

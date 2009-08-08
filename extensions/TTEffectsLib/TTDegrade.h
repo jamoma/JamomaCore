@@ -9,7 +9,7 @@
 #ifndef __TT_DEGRADE_H__
 #define __TT_DEGRADE_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	TTDegrade in an audio processor that distorts a signal in ugly digital ways.

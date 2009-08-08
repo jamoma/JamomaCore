@@ -19,6 +19,7 @@
 		2217FAA80E4F284500806778 /* TanhFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2217FA9E0E4F284500806778 /* TanhFunction.h */; };
 		22398BAE0E243E2D00A5F732 /* TTFunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22398BAD0E243E2D00A5F732 /* TTFunctionLib.cpp */; };
 		22D43C4C0F1DA02200C16BB0 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */; };
+		22EB398A102E0F41006D027A /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EB3989102E0F41006D027A /* JamomaFoundation.framework */; };
 		A731218C0FFBF36F00266F90 /* ExpFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = A731218A0FFBF36F00266F90 /* ExpFunction.h */; };
 		A731218D0FFBF36F00266F90 /* ExpFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A731218B0FFBF36F00266F90 /* ExpFunction.cpp */; };
 		A78693EE0FFCF03B00B58540 /* LogFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A78693EC0FFCF03B00B58540 /* LogFunction.cpp */; };
@@ -40,6 +41,7 @@
 		2217FA9E0E4F284500806778 /* TanhFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TanhFunction.h; sourceTree = "<group>"; };
 		22398BAD0E243E2D00A5F732 /* TTFunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTFunctionLib.cpp; sourceTree = "<group>"; };
 		22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
+		22EB3989102E0F41006D027A /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
 		A731218A0FFBF36F00266F90 /* ExpFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpFunction.h; sourceTree = SOURCE_ROOT; };
 		A731218B0FFBF36F00266F90 /* ExpFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExpFunction.cpp; sourceTree = SOURCE_ROOT; };
 		A78693EC0FFCF03B00B58540 /* LogFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogFunction.cpp; sourceTree = SOURCE_ROOT; };
@@ -54,6 +56,7 @@
 			files = (
 				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
 				22D43C4C0F1DA02200C16BB0 /* JamomaDSP.framework in Frameworks */,
+				22EB398A102E0F41006D027A /* JamomaFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +84,7 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				22EB3989102E0F41006D027A /* JamomaFoundation.framework */,
 				22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
 			);
@@ -105,8 +109,8 @@
 				A731218B0FFBF36F00266F90 /* ExpFunction.cpp */,
 				2217FA980E4F284500806778 /* LinearFunction.h */,
 				2217FA970E4F284500806778 /* LinearFunction.cpp */,
-				A78693EC0FFCF03B00B58540 /* LogFunction.cpp */,
 				A78693ED0FFCF03B00B58540 /* LogFunction.h */,
+				A78693EC0FFCF03B00B58540 /* LogFunction.cpp */,
 				2217FA9A0E4F284500806778 /* LowpassFunction.h */,
 				2217FA990E4F284500806778 /* LowpassFunction.cpp */,
 				2217FA9C0E4F284500806778 /* PowerFunction.h */,
@@ -185,7 +189,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/mkdir -p -m 775 \"/Library/Application Support/TTBlue/Extensions\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"/Library/Application Support/TTBlue/Extensions\"\n";
+			shellScript = "/bin/mkdir -p -m 775 \"/Library/Application Support/Jamoma/Extensions\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"/Library/Application Support/Jamoma/Extensions\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -219,6 +223,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -232,7 +237,7 @@
 					"-Wno-deprecated",
 				);
 				PRODUCT_NAME = TTFunctionLib;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../library/includes\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Foundation/library/includes\" \"$(SRCROOT)/../../library/includes\"";
 			};
 			name = Development;
 		};
@@ -247,6 +252,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -257,7 +263,7 @@
 					"-Wno-deprecated",
 				);
 				PRODUCT_NAME = TTFunctionLib;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../library/includes\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Foundation/library/includes\" \"$(SRCROOT)/../../library/includes\"";
 			};
 			name = Deployment;
 		};

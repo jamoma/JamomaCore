@@ -30,22 +30,42 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTAudioObject(arguments)
 
 
 #define TT_AUDIO_CONSTRUCTOR_EXPORT \
-\
-extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\
-TTErr loadTTExtension(void)\
-{\
-TTBlueInit();\
-thisTTClass :: registerClass(); \
-return kTTErrNone;\
-}\
-\
-TT_AUDIO_CONSTRUCTOR
+	\
+	extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\
+	TTErr loadTTExtension(void)\
+	{\
+		TTDSPInit();\
+		thisTTClass :: registerClass(); \
+		return kTTErrNone;\
+	}\
+	\
+	TT_AUDIO_CONSTRUCTOR
 
 
 
 #define TTAUDIOCLASS(arg) \
-class arg : TTAudioObject { \
-	TTCLASS_SETUP(arg)
+	class arg : TTAudioObject { \
+		TTCLASS_SETUP(arg)
+
+
+/** A macro for setting up the class binding to the library in extension classes. 
+ @param strname A C-string that names the object as it should be listed in the environment. */
+#define TT_AUDIO_CLASS_SETUP(strname, tags, className)\
+	\
+	extern "C" TT_EXTENSION_EXPORT TTObject* instantiate ## className (TTSymbol*, TTValue& arguments); \
+	\
+	TTObject*  instantiate ## className (TTSymbol*, TTValue& arguments) \
+	{\
+		return new className (arguments);\
+	}\
+	\
+	extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\
+	TTErr loadTTExtension(void)\
+	{\
+		TTFoundationInit();\
+		TTClassRegister(TT(strname), tags, & instantiate ## className);\
+		return kTTErrNone;\
+	}
 
 
 

@@ -10,7 +10,7 @@
 #ifndef __TANHFUNCTION_H__
 #define __TANHFUNCTION_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	A function unit providing a curve based on

@@ -7,7 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 #include "CosineFunction.h"
 #include "ExpFunction.h"
 #include "LinearFunction.h"
@@ -19,7 +19,7 @@
 
 extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 {
-	TTBlueInit();
+	TTDSPInit();
 
 	CosineFunction::registerClass();
 	ExpFunction::registerClass();	

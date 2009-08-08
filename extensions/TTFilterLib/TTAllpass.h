@@ -9,7 +9,7 @@
 #ifndef __TT_ALLPASS_H__
 #define __TT_ALLPASS_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	An allpass filter. */

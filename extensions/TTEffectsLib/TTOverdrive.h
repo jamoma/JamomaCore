@@ -9,7 +9,7 @@
 #ifndef __TT_OVERDRIVE_H__
 #define __TT_OVERDRIVE_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 // silly stuff to get symbols exported so we can subclass this class in external code
 #ifdef TT_PLATFORM_MAC

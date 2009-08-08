@@ -9,7 +9,7 @@
 #ifndef __TT_SVF_H__
 #define __TT_SVF_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	A State Variable Filter object.

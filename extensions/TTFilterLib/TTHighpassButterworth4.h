@@ -9,7 +9,7 @@
 #ifndef __TT_HIGHPASS_BUTTERWORTH_4_H__
 #define __TT_HIGHPASS_BUTTERWORTH_4_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	4rth order Butterworth highpass filter; Butterworth filters have maximum flat frequency response in the pass band.

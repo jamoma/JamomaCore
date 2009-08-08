@@ -7,7 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 #include "TTAllpass.h"
 #include "TTBandpassButterworth2.h"
 #include "TTBandrejectButterworth2.h"
@@ -33,7 +33,7 @@
 
 extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 {
-	TTBlueInit();
+	TTDSPInit();
 	
 	//	TTAllpass::registerClass();					//"audio, processor, filter, allpass",					
 	//	TTAverage::registerClass();

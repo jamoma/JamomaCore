@@ -10,7 +10,7 @@
 #ifndef __LOWPASSFUNCTION_H__
 #define __LOWPASSFUNCTION_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	A simple one-pole lowpass function.

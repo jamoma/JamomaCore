@@ -9,7 +9,7 @@
 #ifndef __TT_LOWPASS_BUTTERWORTH_3_H__
 #define __TT_LOWPASS_BUTTERWORTH_3_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	3rd order Butterworth lowpass filter; Butterworth filters have maximum flat frequency response in the pass band.

@@ -9,7 +9,7 @@
 #ifndef __TT_LOWPASS_ONEPOLE_H__
 #define __TT_LOWPASS_ONEPOLE_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	The simplest of lowpass filters: a single-pole, no-zero algorithm. */

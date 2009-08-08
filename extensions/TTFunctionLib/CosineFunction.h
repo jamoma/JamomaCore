@@ -10,7 +10,7 @@
 #ifndef __COSINEFUNCTION_H__
 #define __COSINEFUNCTION_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	A simple function unit the implements the following:

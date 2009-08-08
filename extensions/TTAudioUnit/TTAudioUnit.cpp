@@ -7,7 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 #include <CoreServices/CoreServices.h>
 #include <AudioToolbox/AudioToolBox.h>
 #include <AudioUnit/AudioUnit.h>
@@ -373,5 +373,5 @@ OSStatus TTAudioUnitGetInputSamples(void*						inRefCon,
 
 
 
-TT_CLASS_SETUP("audiounit", "audio, processor", TTAudioUnit);
+TT_AUDIO_CLASS_SETUP("audiounit", "audio, processor", TTAudioUnit);
 

@@ -9,7 +9,7 @@
 #ifndef __TT_BALANCE_H__
 #define __TT_BALANCE_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	Use signal B to balance gain levels of signal A

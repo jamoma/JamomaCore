@@ -9,7 +9,7 @@
 #ifndef __TT_LIMITER_H__
 #define __TT_LIMITER_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	TTLimiter implements a lookahead limiter processor for controlling the dynamics of an input. 

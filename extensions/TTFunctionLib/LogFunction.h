@@ -11,7 +11,7 @@
 #ifndef __LOGFUNCTION_H__
 #define __LOGFUNCTION_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	A function unit providing logaritmic mapping with variable base

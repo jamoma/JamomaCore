@@ -9,7 +9,7 @@
 #ifndef __TT_HIGHPASS_LINKWITZ_RILEY_2_H__
 #define __TT_HIGHPASS_LINKWITZ_RILEY_2_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 /**	2nd order Linkwitz Riley Highpass Filter
