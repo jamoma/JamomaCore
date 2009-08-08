@@ -6,8 +6,8 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
+#include "TTDSP.h"
 #include "TTAudioObject.h"
-#include "TTEnvironment.h"
 
 
 // This coeff is used in GainDataspace mapping MIDI to and from linear gain 

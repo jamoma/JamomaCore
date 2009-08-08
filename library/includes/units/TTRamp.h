@@ -9,7 +9,7 @@
 #ifndef __TT_RAMP_H__
 #define __TT_RAMP_H__
 
-#include "TTFoundationAPI.h"
+#include "TTDSP.h"
 
 
 /**	TTRamp is an audio processor that provides a soft saturation or overdrive effect to "warm" a sound up. */ 

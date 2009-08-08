@@ -10,7 +10,7 @@
 #define __TT_WAVETABLE_H__
 
 
-#include "TTFoundationAPI.h"
+#include "TTDSP.h"
 #include "TTBuffer.h"
 
 

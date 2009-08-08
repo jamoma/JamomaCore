@@ -9,7 +9,7 @@
 #ifndef __TT_ZEROCROSS_H__
 #define __TT_ZEROCROSS_H__
 
-#include "TTFoundationAPI.h"
+#include "TTDSP.h"
 
 
 /**	TTZerocross analyzes the incoming audio by looking for zero-crossings.

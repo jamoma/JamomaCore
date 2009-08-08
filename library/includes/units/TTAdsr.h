@@ -9,7 +9,7 @@
 #ifndef __TT_ADSR_H__
 #define __TT_ADSR_H__
 
-#include "TTFoundationAPI.h"
+#include "TTDSP.h"
 
 
 /**	TTAdsr is an attack-decay-sustain-release envelope generator */

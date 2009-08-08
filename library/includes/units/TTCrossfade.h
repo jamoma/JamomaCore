@@ -9,7 +9,7 @@
 #ifndef __TT_CROSSFADE_H__
 #define __TT_CROSSFADE_H__
 
-#include "TTFoundationAPI.h"
+#include "TTDSP.h"
 
 
 /**	TTCrossfade in an audio processor that crossfades between two input signals.	

@@ -9,7 +9,7 @@
 #ifndef __TT_OPERATOR_H__
 #define __TT_OPERATOR_H__
 
-#include "TTFoundationAPI.h"
+#include "TTDSP.h"
 
 
 /**	TTOperator performs basic mathematical operations on an input signal, or a pair of input signals */

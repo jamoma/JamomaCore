@@ -9,7 +9,7 @@
 #ifndef __TT_MATRIXMIXER_H__
 #define __TT_MATRIXMIXER_H__
 
-#include "TTFoundationAPI.h"
+#include "TTDSP.h"
 
 
 /**	TTGain is an exceptionally simple audio processor scales an input audio signal */
