@@ -43,7 +43,7 @@
 	extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\
 	TTErr loadTTExtension(void)\
 	{\
-		TTBlueInit();\
+		TTFoundationInit();\
 		TTClassRegister(TT(strname), tags, & instantiate ## className);\
 		return kTTErrNone;\
 	}
