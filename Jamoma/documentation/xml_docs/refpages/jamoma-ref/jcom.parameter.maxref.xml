@@ -367,7 +367,12 @@
 				Determines the mechanism used to drive ramping to new parameter values.
 			</digest>
 			<description>
-				Determines the mechanism used to drive ramping to new parameter values.
+				Determines the mechanism used to drive ramping to new parameter values.<br />
+				Possible balues are :<br />
+				• <m>none</m> : no ramp happens<br />
+				• <m>scheduler</m> : ramps are driven by Max's scheduler (similar to [line] object)<br />
+				• <m>queue</m> : ramps are drive at low priority<br />
+				• <m>async</m> : ramps are event-driven (similar to [bline] object)<br />
 			</description>
 		</attribute>
 		
@@ -391,10 +396,14 @@
 		
 		<attribute name="range/clipmode" get="1" set="1" type="symbol" size="1">
 			<digest>
-				Define clipping behaviour at the boundaries of the parameter range. Possible values are none 0 low 0 high and both.
+				Define clipping behaviour at the boundaries of the parameter range. Possible values are none,low, high and both.
 			</digest>
 			<description>
-				Define clipping behaviour at the boundaries of the parameter range. Possible values are none 0 low 0 high and both.
+				Define clipping behaviour at the boundaries of the parameter range. Possible values are :<br />
+				• <m>none</m> : no clipping occurs<br />
+				• <m>both</m> : clipping occurs on both bounds<br />
+				• <m>high</m> : clipping occurs on higher value only<br />
+				• <m>low</m> : clipping occurs on lower value only<br />
 			</description>
 		</attribute>
 		
