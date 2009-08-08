@@ -15,7 +15,9 @@
 #include "ext_strings.h"			// String Functions
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
-#include "TTBlueAPI.h"				// TTBlue Interfaces...
+#include "TTFoundationAPI.h"		// Jamoma Foundation API
+#include "TTDSP.h"					// Jamoma DSP API
+#include "TTGraphics.h"				// Jamoma Graphics API
 
 #ifdef WIN_VERSION
 #define TTCLASSWRAPPERMAX_EXPORT __declspec(dllexport) 

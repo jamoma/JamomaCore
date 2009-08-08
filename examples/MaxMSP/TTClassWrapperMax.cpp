@@ -300,7 +300,7 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Wra
 	WrappedClass*	wrappedMaxClass = NULL;
 
 	common_symbols_init();
-	TTBlueInit();
+	TTDSPInit();
 	
 	if(!wrappedMaxClasses)
 		wrappedMaxClasses = hashtab_new(0);
