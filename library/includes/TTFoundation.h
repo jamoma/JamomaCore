@@ -27,19 +27,19 @@
  */
 
 #define TT_DATA_CONSTRUCTOR \
-TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {return new thisTTClass (arguments);} \
-\
-extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
-\
-thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObject(arguments)
+	TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {return new thisTTClass (arguments);} \
+	\
+	extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
+	\
+	thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObject(arguments)
 
 
 #define TT_OBJECT_CONSTRUCTOR \
-TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {return new thisTTClass (arguments);} \
-\
-extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
-\
-thisTTClass :: thisTTClass (TTValue& arguments) : TTObject(arguments)
+	TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {return new thisTTClass (arguments);} \
+	\
+	extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
+	\
+	thisTTClass :: thisTTClass (TTValue& arguments) : TTObject(arguments)
 
 
 #define TTCLASS_SETUP(className)												\

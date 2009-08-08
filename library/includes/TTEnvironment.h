@@ -166,7 +166,7 @@ TTEXPORT TTErr TTObjectRelease(TTObjectPtr* anObject);
 //TTEXPORT TTErr TTObjectRelease(TTAudioSignalPtr* anObject);
 
 TTEXPORT TTErr TTClassRegister(const TTSymbolPtr className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod);
-TTEXPORT TTErr TTClassRegister(const TTSymbolPtr className, const TTCString tagString, const TTObjectInstantiationMethod anInstantiationMethod);
+TTEXPORT TTErr TTClassRegister(const TTSymbolPtr className, TTImmutableCString tagString, const TTObjectInstantiationMethod anInstantiationMethod);
 TTEXPORT TTErr TTGetRegisteredClassNames(TTValue& classNames);
 TTEXPORT TTErr TTGetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags);
 
