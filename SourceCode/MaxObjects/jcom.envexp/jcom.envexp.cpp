@@ -301,12 +301,12 @@ void envExp_assist(t_envExp *x, void *b, long msg, long arg, char *dst)
 {
 	if (msg==1) { 
 		switch(arg){
-			case 0: sprintf(dst, "(List) Max. ampl, attack time, decay time");
+			case 0: strcpy(dst, "(List) Max. ampl, attack time, decay time");
 			break;
 		}
 	}
 	else if (msg==2) {
-		sprintf(dst, "Envelope data in line~ format");
+		strcpy(dst, "Envelope data in line~ format");
 	}
 }
 
