@@ -37,7 +37,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 35.0, 295.0, 135.0, 19.0 ],
+					"patching_rect" : [ 30.0, 295.0, 135.0, 19.0 ],
 					"text" : "print /setup_Initialized"
 				}
 
@@ -52,17 +52,17 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 35.0, 260.0, 121.0, 19.0 ],
+					"patching_rect" : [ 30.0, 260.0, 121.0, 19.0 ],
 					"text" : "jcom.initialized /setup"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "/control" ],
+					"args" : [ "/mouse" ],
 					"id" : "obj-1",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.control.maxpat",
+					"name" : "jmod.mouse.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -80,7 +80,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 30.0, 155.0, 135.0, 19.0 ],
-					"text" : "print /control_Initialized"
+					"text" : "print /mouse_Initialized"
 				}
 
 			}
@@ -109,26 +109,26 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 30.0, 120.0, 129.0, 19.0 ],
-					"text" : "jcom.initialized /control"
+					"text" : "jcom.initialized /mouse"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
+					"destination" : [ "obj-9", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-4", 0 ]
+					"source" : [ "obj-10", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-9", 0 ],
+					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-10", 0 ]
+					"source" : [ "obj-4", 0 ]
 				}
 
 			}

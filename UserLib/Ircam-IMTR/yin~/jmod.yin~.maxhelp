@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 274.0, 177.0, 640.0, 506.0 ],
+		"rect" : [ 274.0, 177.0, 452.0, 354.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 274.0, 177.0, 640.0, 506.0 ],
+		"defrect" : [ 274.0, 177.0, 452.0, 354.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -16,6 +16,16 @@
 		"boxanimatetime" : 200,
 		"imprint" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-2",
+					"maxclass" : "ezdac~",
+					"numinlets" : 2,
+					"numoutlets" : 0,
+					"patching_rect" : [ 56.0, 99.0, 45.0, 45.0 ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -63,21 +73,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 640.0, 70.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [  ],
-					"id" : "obj-2",
-					"maxclass" : "bpatcher",
-					"name" : "jmod.control.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 434.0, 161.0, 150.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ]
+					"patching_rect" : [ 0.0, 0.0, 452.0, 70.0 ]
 				}
 
 			}

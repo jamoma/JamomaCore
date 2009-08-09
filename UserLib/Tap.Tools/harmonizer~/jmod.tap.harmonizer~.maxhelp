@@ -25,7 +25,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 152.0, 158.0, 50.0, 19.0 ]
+					"patching_rect" : [ 155.0, 254.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -39,7 +39,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 49.0, 103.0, 229.0, 50.0 ],
+					"patching_rect" : [ 52.0, 199.0, 229.0, 50.0 ],
 					"text" : "this module wraps a pair of tap.shift~ objects from tap.tools. it is based on crossfading delays with moving play heads. the size of the delay is determined by the window parameters.",
 					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ]
 				}
@@ -54,7 +54,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 152.0, 206.0, 135.0, 15.0 ],
+					"patching_rect" : [ 155.0, 302.0, 135.0, 15.0 ],
 					"text" : "/harmonizer~/audio/gain 0"
 				}
 
@@ -68,7 +68,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 152.0, 181.0, 128.0, 15.0 ],
+					"patching_rect" : [ 155.0, 277.0, 128.0, 15.0 ],
 					"text" : "/harmonizer~/window $1"
 				}
 
@@ -82,7 +82,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 30.0, 157.0, 50.0, 19.0 ]
+					"patching_rect" : [ 33.0, 253.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -95,7 +95,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 30.0, 181.0, 115.0, 15.0 ],
+					"patching_rect" : [ 33.0, 277.0, 115.0, 15.0 ],
 					"text" : "/harmonizer~/shift $1"
 				}
 
@@ -109,24 +109,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 30.0, 210.0, 86.0, 17.0 ],
-					"text" : "prepend /remote"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "/cuelist" ],
-					"id" : "obj-8",
-					"lockeddragscroll" : 1,
-					"maxclass" : "bpatcher",
-					"name" : "jmod.cueScript.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 30.0, 231.0, 300.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"varname" : "tap.jmod.reverb~.mxt[4]"
+					"patching_rect" : [ 34.0, 348.0, 167.0, 17.0 ],
+					"text" : "jcom.send jcom.remote.module.to"
 				}
 
 			}
@@ -142,36 +126,6 @@
 					"patching_rect" : [ 49.0, 68.0, 130.0, 17.0 ],
 					"text" : "pitch-shifter for jamoma",
 					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 9.0,
-					"hidden" : 1,
-					"id" : "obj-10",
-					"maxclass" : "newobj",
-					"numinlets" : 4,
-					"numoutlets" : 0,
-					"patching_rect" : [ 502.0, 412.0, 88.0, 17.0 ],
-					"text" : "bgcolor 35 35 35"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "/control" ],
-					"id" : "obj-11",
-					"lockeddragscroll" : 1,
-					"maxclass" : "bpatcher",
-					"name" : "jmod.control.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 31.0, 303.0, 150.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
-					"varname" : "tap.jmod.reverb~.mxt[3]"
 				}
 
 			}
@@ -253,6 +207,33 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 164.5, 332.0, 43.5, 332.0 ],
+					"source" : [ "obj-2", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 164.5, 296.5, 43.5, 296.5 ],
+					"source" : [ "obj-4", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-6", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-6", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -302,42 +283,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-14", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-6", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 161.5, 201.0, 39.5, 201.0 ],
-					"source" : [ "obj-4", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 161.5, 226.0, 132.0, 226.0, 132.0, 203.0, 39.5, 203.0 ],
-					"source" : [ "obj-2", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-7", 0 ]
 				}
 
 			}

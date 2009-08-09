@@ -19,6 +19,56 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-4",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 30.0, 293.0, 165.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 30.0, 293.0, 165.0, 19.0 ],
+					"text" : "some hardwired mappings :"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "/input~.1" ],
+					"id" : "obj-25",
+					"lockeddragscroll" : 1,
+					"maxclass" : "bpatcher",
+					"name" : "jmod.input~.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "signal", "signal" ],
+					"patching_rect" : [ 261.0, 166.0, 300.0, 140.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 300.0, 70.0, 300.0, 140.0 ],
+					"varname" : "/input~"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "/mouse" ],
+					"id" : "obj-28",
+					"lockeddragscroll" : 1,
+					"maxclass" : "bpatcher",
+					"name" : "jmod.mouse.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 15.0, 310.0, 150.0, 70.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 0.0, 350.0, 150.0, 70.0 ],
+					"varname" : "/mouse/1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-18",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -49,17 +99,17 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 14.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-16",
-					"linecount" : 2,
+					"linecount" : 4,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 581.0, 783.0, 191.0, 41.0 ],
+					"patching_rect" : [ 581.0, 783.0, 191.0, 75.0 ],
 					"presentation" : 1,
-					"presentation_linecount" : 2,
-					"presentation_rect" : [ 20.0, 678.0, 194.0, 41.0 ],
-					"text" : "press Go to pass through the different cues"
+					"presentation_linecount" : 3,
+					"presentation_rect" : [ 8.0, 116.0, 241.0, 58.0 ],
+					"text" : "press Go on the cueTrigger module below to pass through the different cues "
 				}
 
 			}
@@ -143,23 +193,6 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "/mouse" ],
-					"id" : "obj-28",
-					"lockeddragscroll" : 1,
-					"maxclass" : "bpatcher",
-					"name" : "jmod.mouse.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 15.0, 310.0, 150.0, 70.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 0.0, 175.0, 150.0, 70.0 ],
-					"varname" : "/mouse/1"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"args" : [ "/filter~.1" ],
 					"id" : "obj-26",
 					"lockeddragscroll" : 1,
@@ -194,22 +227,6 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "/control" ],
-					"id" : "obj-35",
-					"maxclass" : "bpatcher",
-					"name" : "jmod.control.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 15.0, 230.0, 150.0, 70.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
-					"varname" : "jmod.control"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"args" : [  ],
 					"id" : "obj-15",
 					"maxclass" : "bpatcher",
@@ -219,7 +236,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 54.0, 720.0, 150.0, 70.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 0.0, 70.0, 150.0, 70.0 ]
+					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ]
 				}
 
 			}
@@ -656,23 +673,6 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "/input~.1" ],
-					"id" : "obj-25",
-					"lockeddragscroll" : 1,
-					"maxclass" : "bpatcher",
-					"name" : "jmod.input~.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "signal", "signal" ],
-					"patching_rect" : [ 261.0, 166.0, 300.0, 140.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 300.0, 70.0, 300.0, 140.0 ],
-					"varname" : "/input~"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-3",
@@ -714,12 +714,40 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"id" : "obj-9",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 47.0, 27.0, 139.0, 19.0 ],
+									"text" : "loadmess /preset/recall 1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-10",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 47.0, 77.0, 51.0, 19.0 ],
+									"text" : "deferlow"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
 									"id" : "obj-8",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 25.0, 10.0, 122.0, 19.0 ],
+									"patching_rect" : [ 94.0, 55.0, 122.0, 19.0 ],
 									"text" : "loadmess /fullscreen 1"
 								}
 
@@ -733,7 +761,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 25.0, 60.0, 51.0, 19.0 ],
+									"patching_rect" : [ 94.0, 105.0, 51.0, 19.0 ],
 									"text" : "deferlow"
 								}
 
@@ -747,7 +775,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 110.0, 60.0, 267.0, 19.0 ],
+									"patching_rect" : [ 179.0, 105.0, 267.0, 19.0 ],
 									"text" : "loadmess /loadScript JamomaDefaultSymphony.txt"
 								}
 
@@ -761,7 +789,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 85.0, 35.0, 225.0, 19.0 ],
+									"patching_rect" : [ 154.0, 80.0, 225.0, 19.0 ],
 									"text" : "loadmess /preset/read BigPatchLayout.xml"
 								}
 
@@ -775,7 +803,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 110.0, 110.0, 51.0, 19.0 ],
+									"patching_rect" : [ 179.0, 155.0, 51.0, 19.0 ],
 									"text" : "deferlow"
 								}
 
@@ -789,7 +817,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 85.0, 85.0, 51.0, 19.0 ],
+									"patching_rect" : [ 154.0, 130.0, 51.0, 19.0 ],
 									"text" : "deferlow"
 								}
 
@@ -801,7 +829,7 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 110.0, 140.0, 25.0, 25.0 ]
+									"patching_rect" : [ 179.0, 185.0, 25.0, 25.0 ]
 								}
 
 							}
@@ -812,7 +840,7 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 85.0, 140.0, 25.0, 25.0 ]
+									"patching_rect" : [ 154.0, 185.0, 25.0, 25.0 ]
 								}
 
 							}
@@ -871,17 +899,35 @@
 								}
 
 							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-10", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-9", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-7", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-10", 0 ]
+								}
+
+							}
  ]
 					}
 ,
-					"patching_rect" : [ 97.0, 655.0, 76.0, 19.0 ],
+					"patching_rect" : [ 55.0, 649.0, 76.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
+						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"fontface" : 0,
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
 						"fontsize" : 10.0
 					}
 ,
@@ -1082,12 +1128,12 @@
 ,
 					"patching_rect" : [ 1881.0, 136.0, 67.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
+						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"fontface" : 0,
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
 						"fontsize" : 10.0
 					}
 ,
@@ -1288,12 +1334,12 @@
 ,
 					"patching_rect" : [ 1485.0, 135.0, 67.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
+						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"fontface" : 0,
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
 						"fontsize" : 10.0
 					}
 ,
@@ -1494,12 +1540,12 @@
 ,
 					"patching_rect" : [ 1236.0, 131.0, 67.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
+						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"fontface" : 0,
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
 						"fontsize" : 10.0
 					}
 ,
@@ -1700,12 +1746,12 @@
 ,
 					"patching_rect" : [ 911.0, 131.0, 67.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
+						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"fontface" : 0,
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
 						"fontsize" : 10.0
 					}
 ,
@@ -1906,12 +1952,12 @@
 ,
 					"patching_rect" : [ 586.0, 131.0, 67.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
+						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"fontface" : 0,
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
 						"fontsize" : 10.0
 					}
 ,
@@ -2144,12 +2190,12 @@
 ,
 					"patching_rect" : [ 261.0, 132.0, 67.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
+						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"fontface" : 0,
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
 						"fontsize" : 10.0
 					}
 ,
@@ -2161,17 +2207,17 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-43",
-					"linecount" : 8,
+					"linecount" : 10,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 15.0, 85.0, 200.0, 123.0 ],
+					"patching_rect" : [ 15.0, 85.0, 200.0, 152.0 ],
 					"presentation" : 1,
-					"presentation_linecount" : 6,
-					"presentation_rect" : [ 6.0, 312.0, 256.0, 94.0 ],
-					"text" : "Notice the subpatch \"mappers\" below, where you can map several data flows, as the mouse position, or audio amplitudes of any module. For further explanation, use jmod.mapperContinuous.maxhelp"
+					"presentation_linecount" : 7,
+					"presentation_rect" : [ 6.0, 183.0, 256.0, 109.0 ],
+					"text" : "Notice the subpatch \"mappers\" below, where you can map several data flows, as the mouse position, or audio amplitudes of any module. \nFor further \nexplanation, \nuse jmod.mapperContinuous.maxhelp"
 				}
 
 			}
@@ -2179,7 +2225,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 14.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-41",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -2188,7 +2234,7 @@
 					"patching_rect" : [ 15.0, 35.0, 187.0, 41.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
-					"presentation_rect" : [ 16.0, 261.0, 187.0, 41.0 ],
+					"presentation_rect" : [ 8.0, 74.0, 245.0, 41.0 ],
 					"text" : "This is a quite big patch, organized in \"tracks\""
 				}
 
@@ -2197,7 +2243,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-36",
 					"linecount" : 3,
 					"maxclass" : "comment",
@@ -2205,8 +2251,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 123.0, 514.0, 73.0, 43.0 ],
 					"presentation" : 1,
-					"presentation_linecount" : 3,
-					"presentation_rect" : [ 187.0, 191.0, 73.0, 43.0 ],
+					"presentation_rect" : [ 32.0, 329.0, 163.0, 19.0 ],
 					"text" : "unmutes all modules  in a row"
 				}
 
@@ -2235,7 +2280,7 @@
 					"outlettype" : [ "int" ],
 					"patching_rect" : [ 15.0, 445.0, 20.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 4.0, 152.0, 20.0, 20.0 ]
+					"presentation_rect" : [ 7.0, 307.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -2243,14 +2288,14 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-32",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 40.0, 445.0, 165.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 29.0, 152.0, 165.0, 19.0 ],
+					"presentation_rect" : [ 35.0, 309.0, 165.0, 19.0 ],
 					"text" : "use the mouse as a global gain"
 				}
 
@@ -2310,7 +2355,7 @@
 					"outlettype" : [ "int" ],
 					"patching_rect" : [ 98.0, 524.0, 20.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 162.0, 201.0, 20.0, 20.0 ]
+					"presentation_rect" : [ 7.0, 328.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -2643,14 +2688,14 @@
 ,
 					"patching_rect" : [ 70.0, 820.0, 105.0, 28.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 14.0, 413.0, 105.0, 28.0 ],
+					"presentation_rect" : [ 97.0, 244.0, 105.0, 28.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
+						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"fontface" : 0,
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
 						"fontsize" : 10.0
 					}
 ,

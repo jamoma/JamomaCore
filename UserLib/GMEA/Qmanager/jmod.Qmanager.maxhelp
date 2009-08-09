@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 37.0, 44.0, 866.0, 722.0 ],
+		"rect" : [ 37.0, 44.0, 786.0, 676.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 37.0, 44.0, 866.0, 722.0 ],
+		"defrect" : [ 37.0, 44.0, 786.0, 676.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -24,7 +24,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 1007.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 866.0, 70.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1.0, 0.0, 592.0, 70.0 ],
 					"prototypename" : "bphelp",
@@ -127,6 +127,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-14",
 					"linecount" : 3,
 					"maxclass" : "comment",
@@ -150,10 +151,10 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 445.0, 585.0, 262.0, 31.0 ],
+					"patching_rect" : [ 445.0, 585.0, 264.0, 31.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
-					"presentation_rect" : [ 445.0, 614.0, 262.0, 31.0 ],
+					"presentation_rect" : [ 445.0, 614.0, 264.0, 31.0 ],
 					"text" : "DIFFERENTIAL STORE MODE : store only changed parameters since the last stored or recalled cue.",
 					"textcolor" : [ 0.592157, 0.278431, 0.486275, 1.0 ]
 				}
@@ -180,6 +181,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-10",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -197,15 +199,16 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-9",
 					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 445.0, 450.0, 286.0, 43.0 ],
+					"patching_rect" : [ 445.0, 450.0, 288.0, 43.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 3,
-					"presentation_rect" : [ 445.0, 479.0, 286.0, 43.0 ],
+					"presentation_rect" : [ 445.0, 479.0, 288.0, 43.0 ],
 					"text" : "AS NEXT STEP : store parameters as a new step in the selected cue. When the cue is called, each step comes after time fixed near the button"
 				}
 
@@ -214,6 +217,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-8",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -231,6 +235,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-7",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -248,6 +253,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-6",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -265,15 +271,16 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-5",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 445.0, 260.0, 283.0, 31.0 ],
+					"patching_rect" : [ 445.0, 260.0, 286.0, 31.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
-					"presentation_rect" : [ 445.0, 289.0, 283.0, 31.0 ],
+					"presentation_rect" : [ 445.0, 289.0, 286.0, 31.0 ],
 					"text" : "VIEW CUE : open a text file to show the selected cue. \nChanges will not be saved"
 				}
 
@@ -282,15 +289,16 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-4",
 					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 445.0, 210.0, 305.0, 43.0 ],
+					"patching_rect" : [ 445.0, 210.0, 309.0, 43.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 3,
-					"presentation_rect" : [ 445.0, 239.0, 308.0, 43.0 ],
+					"presentation_rect" : [ 445.0, 239.0, 309.0, 43.0 ],
 					"text" : "EDIT CUE : open a text file to show the selected cue. For now, you have to save the changes with the STORE button after closing the window."
 				}
 
@@ -299,6 +307,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-3",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -314,6 +323,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-2",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -354,24 +364,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 15.0, 535.0, 300.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 15.0, 564.0, 300.0, 140.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "/control" ],
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
-					"id" : "obj-26",
-					"maxclass" : "bpatcher",
-					"name" : "jmod.control.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 15.0, 240.0, 150.0, 70.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 15.0, 269.0, 150.0, 70.0 ],
-					"varname" : "/control"
+					"presentation_rect" : [ 17.0, 504.0, 300.0, 140.0 ]
 				}
 
 			}
@@ -387,7 +380,7 @@
 					"outlettype" : [ "", "signal", "signal" ],
 					"patching_rect" : [ 15.0, 315.0, 300.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 15.0, 344.0, 300.0, 140.0 ],
+					"presentation_rect" : [ 17.0, 284.0, 300.0, 140.0 ],
 					"varname" : "/input~"
 				}
 
@@ -404,7 +397,7 @@
 					"outlettype" : [ "", "signal", "signal" ],
 					"patching_rect" : [ 15.0, 460.0, 300.0, 70.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 15.0, 489.0, 300.0, 70.0 ],
+					"presentation_rect" : [ 17.0, 429.0, 300.0, 70.0 ],
 					"varname" : "/degrade~"
 				}
 
@@ -428,37 +421,10 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-28", 2 ],
+					"destination" : [ "obj-36", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-27", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-28", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-27", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-19", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-13", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-17", 0 ]
+					"source" : [ "obj-16", 0 ]
 				}
 
 			}
@@ -466,35 +432,8 @@
 				"patchline" : 				{
 					"destination" : [ "obj-36", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 404.5, 85.0, 24.5, 85.0 ],
-					"source" : [ "obj-15", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-43", 1 ],
-					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-28", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-43", 2 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-28", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-36", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 356.5, 85.0, 24.5, 85.0 ],
-					"source" : [ "obj-1", 0 ]
+					"source" : [ "obj-20", 0 ]
 				}
 
 			}
@@ -511,8 +450,26 @@
 				"patchline" : 				{
 					"destination" : [ "obj-36", 0 ],
 					"hidden" : 0,
+					"midpoints" : [ 356.5, 85.0, 24.5, 85.0 ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-43", 2 ],
+					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-20", 0 ]
+					"source" : [ "obj-28", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-43", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-28", 1 ]
 				}
 
 			}
@@ -520,8 +477,44 @@
 				"patchline" : 				{
 					"destination" : [ "obj-36", 0 ],
 					"hidden" : 0,
+					"midpoints" : [ 404.5, 85.0, 24.5, 85.0 ],
+					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-16", 0 ]
+					"source" : [ "obj-17", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-19", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-28", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-27", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-28", 2 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-27", 2 ]
 				}
 
 			}

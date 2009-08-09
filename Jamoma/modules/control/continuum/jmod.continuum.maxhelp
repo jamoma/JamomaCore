@@ -17,21 +17,6 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"hidden" : 1,
-					"id" : "obj-21",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 63.0, 71.0, 230.0, 19.0 ],
-					"text" : "loadmess view/color/border 0.62 0. 0.36 1."
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"args" : [ "@name", "jmod.continuum", "@description", "Module interfacing with the Haken Continuum Fingerboard" ],
 					"bgmode" : 1,
 					"id" : "obj-7",
@@ -42,20 +27,6 @@
 					"patching_rect" : [ 0.0, 0.0, 426.0, 70.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [  ],
-					"id" : "obj-8",
-					"maxclass" : "bpatcher",
-					"name" : "jmod.control.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 215.0, 95.0, 150.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ]
 				}
 
 			}
@@ -152,55 +123,10 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-10", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-21", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-4", 2 ],
-					"hidden" : 0,
-					"midpoints" : [ 72.5, 239.0, 353.5, 239.0 ],
-					"source" : [ "obj-6", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-4", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 72.5, 245.0, 213.0, 245.0 ],
-					"source" : [ "obj-6", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-6", 0 ],
+					"destination" : [ "obj-2", 2 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-5", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-11", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-11", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-10", 0 ]
+					"source" : [ "obj-4", 2 ]
 				}
 
 			}
@@ -215,10 +141,46 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-2", 2 ],
+					"destination" : [ "obj-11", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-4", 2 ]
+					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 72.5, 245.0, 213.0, 245.0 ],
+					"source" : [ "obj-6", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 2 ],
+					"hidden" : 0,
+					"midpoints" : [ 72.5, 239.0, 353.5, 239.0 ],
+					"source" : [ "obj-6", 0 ]
 				}
 
 			}

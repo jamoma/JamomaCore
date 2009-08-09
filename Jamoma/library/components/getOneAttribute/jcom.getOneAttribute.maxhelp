@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 35.0, 75.0, 632.0, 472.0 ],
+		"rect" : [ 35.0, 75.0, 585.0, 319.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 35.0, 75.0, 632.0, 472.0 ],
+		"defrect" : [ 35.0, 75.0, 585.0, 319.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,14 +17,28 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.getOneAttribute", "@description", "Get the attribute of a parameter, message or return" ],
+					"args" : [ "/setup" ],
+					"id" : "obj-3",
+					"maxclass" : "bpatcher",
+					"name" : "jmod.sur.setup.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 26.0, 208.0, 150.0, 70.0 ],
+					"presentation_rect" : [ 28.0, 195.0, 150.0, 70.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "@name", "jcom.getOneAttribute", "@description", "Get the value of one attribute of a parameter, message or return" ],
 					"bgmode" : 1,
 					"id" : "obj-19",
 					"maxclass" : "bpatcher",
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 1031.0, 60.0 ],
+					"patching_rect" : [ 0.0, 0.0, 585.0, 70.0 ],
 					"varname" : "maxhelpui"
 				}
 
@@ -67,7 +81,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 25.0, 200.0, 150.0, 70.0 ],
+					"patching_rect" : [ 26.0, 132.0, 150.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ]
 				}
 
@@ -96,7 +110,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 240.0, 125.0, 81.0, 17.0 ],
-					"text" : "/control/audio"
+					"text" : "/setup/type"
 				}
 
 			}
@@ -111,20 +125,6 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 330.0, 125.0, 83.0, 17.0 ],
 					"text" : "/mouse/active"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "/control" ],
-					"id" : "obj-2",
-					"maxclass" : "bpatcher",
-					"name" : "jmod.control.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 25.0, 125.0, 150.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ]
 				}
 
 			}

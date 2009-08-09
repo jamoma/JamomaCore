@@ -1,8 +1,6 @@
 CUE Init
 
-# Module /control
-    /control/audio 0
-    /control/ui/freeze 0
+    /output~/audio/active 0
 
 # Module /fileBrowser.1
     /fileBrowser.1/depth 0
@@ -298,10 +296,11 @@ CUE Init
     /output~/saturation/depth 10.000
     /output~/ui/freeze 0
 
+
+
 CUE audio_on
 
-    /control/audio 1
-
+    /output~/audio/active 1
     /output~/audio/gain 100.000 ramp 500
 
 CUE Symphony !
@@ -364,3 +363,7 @@ WAIT 12000
 WAIT 12000
 
     /output~/audio/gain 0. ramp 20000    
+
+WAIT 22000
+
+    /output~/audio/active 0

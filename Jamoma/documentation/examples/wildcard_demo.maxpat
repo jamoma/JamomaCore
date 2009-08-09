@@ -2,7 +2,6 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"rect" : [ 295.0, 52.0, 651.0, 617.0 ],
-		"bgcolor" : [ 0.137255, 0.137255, 0.137255, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 295.0, 52.0, 651.0, 617.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
@@ -56,22 +55,6 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 36.0, 169.0, 117.0, 17.0 ],
 					"text" : "/*/audio/gain $1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "/control" ],
-					"id" : "obj-1",
-					"lockeddragscroll" : 1,
-					"maxclass" : "bpatcher",
-					"name" : "jmod.control.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 21.0, 493.0, 150.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
-					"varname" : "jmod.degrade~.mxt[7]"
 				}
 
 			}
@@ -295,18 +278,6 @@
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 0.180392, 0.180392, 0.180392, 1.0 ],
-					"id" : "obj-18",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 19.0, 255.0, 60.0 ],
-					"rounded" : 7
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"args" : [ "/cuelist" ],
 					"id" : "obj-19",
 					"lockeddragscroll" : 1,
@@ -382,6 +353,16 @@
 					"patching_rect" : [ 326.0, 163.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"varname" : "jmod.degrade~.mxt"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-1",
+					"maxclass" : "panel",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 25.0, 19.0, 253.0, 67.0 ]
 				}
 
 			}

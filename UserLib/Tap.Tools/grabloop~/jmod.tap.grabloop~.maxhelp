@@ -65,36 +65,6 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 9.0,
-					"hidden" : 1,
-					"id" : "obj-4",
-					"maxclass" : "newobj",
-					"numinlets" : 4,
-					"numoutlets" : 0,
-					"patching_rect" : [ 46.0, 251.0, 88.0, 17.0 ],
-					"text" : "bgcolor 35 35 35"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "/control" ],
-					"id" : "obj-5",
-					"lockeddragscroll" : 1,
-					"maxclass" : "bpatcher",
-					"name" : "jmod.control.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 30.0, 291.0, 150.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
-					"varname" : "tap.jmod.reverb~.mxt[3]"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"args" : [ "/output~" ],
 					"id" : "obj-6",
 					"lockeddragscroll" : 1,

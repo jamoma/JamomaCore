@@ -83,7 +83,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 60.0, 292.0, 149.0, 39.0 ],
+					"patching_rect" : [ 60.0, 292.0, 152.0, 39.0 ],
 					"text" : "• flext port with additional new features by Ivica Ico Bukvic and Ji-Sun Kim, Virginia Tech"
 				}
 
@@ -95,9 +95,11 @@
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
 					"name" : "jmod.munger~.maxpat",
-					"numinlets" : 0,
-					"numoutlets" : 0,
-					"patching_rect" : [ 319.0, 213.0, 100.0, 100.0 ],
+					"numinlets" : 3,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "signal", "signal" ],
+					"patching_rect" : [ 403.0, 238.0, 300.0, 70.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"varname" : "jmod.munger~.mxt"
 				}
 
@@ -129,22 +131,6 @@
 					"patching_rect" : [ 23.0, 24.0, 258.0, 28.0 ],
 					"text" : "jmod.munger~",
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "/control" ],
-					"id" : "obj-9",
-					"lockeddragscroll" : 1,
-					"maxclass" : "bpatcher",
-					"name" : "jmod.control.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 677.0, 261.0, 150.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
-					"varname" : "jmod.control"
 				}
 
 			}
@@ -236,18 +222,18 @@
 		"lines" : [ 			{
 				"patchline" : 				{
 					"destination" : [ "obj-13", 0 ],
-					"hidden" : 1,
-					"midpoints" : [ 476.5, 349.0, 411.5, 349.0 ],
-					"source" : [ "obj-12", 0 ]
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-14", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-13", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-14", 0 ]
+					"hidden" : 1,
+					"midpoints" : [ 476.5, 349.0, 411.5, 349.0 ],
+					"source" : [ "obj-12", 0 ]
 				}
 
 			}
