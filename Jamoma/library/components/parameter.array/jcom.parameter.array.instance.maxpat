@@ -244,7 +244,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.parameter #0_ @type msg_int",
+					"text" : "jcom.parameter #0_ @type integer",
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"fontsize" : 10.0,

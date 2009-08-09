@@ -43,7 +43,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 879.0, 598.0, 349.0, 42.0 ],
-					"text" : "jcom.parameter render/layer @type msg_int @range/bounds 0 255 @range/clipmode none @ramp/drive none @description \"Object layer number. Only valid when /render/automatic is enabled.\"",
+					"text" : "jcom.parameter render/layer @type integer @range/bounds 0 255 @range/clipmode none @ramp/drive none @description \"Object layer number. Only valid when /render/automatic is enabled.\"",
 					"varname" : "render/layer"
 				}
 
@@ -137,7 +137,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 879.0, 562.0, 313.0, 30.0 ],
-					"text" : "jcom.parameter render/context @type msg_symbol @description \"The named drawing context in which to draw.\"",
+					"text" : "jcom.parameter render/context @type string @description \"The named drawing context in which to draw.\"",
 					"varname" : "render/context"
 				}
 
@@ -397,7 +397,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 266.0, 355.0, 302.0, 30.0 ],
-					"text" : "jcom.parameter blend/mode @type msg_list @description \"Blend modes for source and destination planes.\"",
+					"text" : "jcom.parameter blend/mode @type array @description \"Blend modes for source and destination planes.\"",
 					"varname" : "blend/mode"
 				}
 
@@ -476,7 +476,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 384.0, 413.0, 30.0 ],
-					"text" : "jcom.parameter material/shininess @type msg_float @range/bounds 0. 255. @range/clipmode both @ramp/drive scheduler @description \"Material shininess.\"",
+					"text" : "jcom.parameter material/shininess @type decimal @range/bounds 0. 255. @range/clipmode both @ramp/drive scheduler @description \"Material shininess.\"",
 					"varname" : "material/shininess"
 				}
 
@@ -492,7 +492,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 879.0, 726.0, 265.0, 30.0 ],
-					"text" : "jcom.parameter render/enable @type msg_toggle @description \"Enable drawing.\"",
+					"text" : "jcom.parameter render/enable @type boolean @description \"Enable drawing.\"",
 					"varname" : "render/enable"
 				}
 
@@ -508,7 +508,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 879.0, 689.0, 273.0, 30.0 ],
-					"text" : "jcom.parameter render/automatic @type msg_toggle @description \"Automatic rendering flag.\"",
+					"text" : "jcom.parameter render/automatic @type boolean @description \"Automatic rendering flag.\"",
 					"varname" : "render/automatic"
 				}
 
@@ -524,7 +524,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 879.0, 652.0, 270.0, 30.0 ],
-					"text" : "jcom.parameter render/antialias @type msg_toggle @description \"Aliasing flag.\"",
+					"text" : "jcom.parameter render/antialias @type boolean @description \"Aliasing flag.\"",
 					"varname" : "render/antialias"
 				}
 
@@ -540,7 +540,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 507.0, 287.0, 30.0 ],
-					"text" : "jcom.parameter material/inherit @type msg_toggle @description \"Inherit material properties from context.\"",
+					"text" : "jcom.parameter material/inherit @type boolean @description \"Inherit material properties from context.\"",
 					"varname" : "material/inherit"
 				}
 
@@ -556,7 +556,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 470.0, 286.0, 30.0 ],
-					"text" : "jcom.parameter material/automatic @type msg_toggle @description \"Automatic material attributes.\"",
+					"text" : "jcom.parameter material/automatic @type boolean @description \"Automatic material attributes.\"",
 					"varname" : "material/automatic"
 				}
 
@@ -572,7 +572,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 433.0, 236.0, 30.0 ],
-					"text" : "jcom.parameter material/light/enable @type msg_toggle @description \"Calculate lighting.\"",
+					"text" : "jcom.parameter material/light/enable @type boolean @description \"Calculate lighting.\"",
 					"varname" : "material/light/enable"
 				}
 
@@ -588,7 +588,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 310.0, 323.0, 30.0 ],
-					"text" : "jcom.parameter fog/amount @type msg_float @range/bounds 0. 1. @description \"The amount of fog effect.\"",
+					"text" : "jcom.parameter fog/amount @type decimal @range/bounds 0. 1. @description \"The amount of fog effect.\"",
 					"varname" : "fog/amount"
 				}
 
@@ -604,7 +604,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 347.0, 261.0, 30.0 ],
-					"text" : "jcom.parameter fog/inherit @type msg_toggle @description \"inherit fog properties from context.\"",
+					"text" : "jcom.parameter fog/inherit @type boolean @description \"inherit fog properties from context.\"",
 					"varname" : "fog/inherit"
 				}
 
@@ -620,7 +620,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 273.0, 275.0, 30.0 ],
-					"text" : "jcom.parameter depth/inherit @type msg_toggle @description \"Inherit depth properties from context.\"",
+					"text" : "jcom.parameter depth/inherit @type boolean @description \"Inherit depth properties from context.\"",
 					"varname" : "depth/inherit"
 				}
 
@@ -636,7 +636,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 236.0, 281.0, 30.0 ],
-					"text" : "jcom.parameter depth/enable @type msg_toggle @description \"Enable depth buffering.\"",
+					"text" : "jcom.parameter depth/enable @type boolean @description \"Enable depth buffering.\"",
 					"varname" : "depth/enable"
 				}
 
@@ -652,7 +652,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 199.0, 316.0, 30.0 ],
-					"text" : "jcom.parameter depth/clear @type msg_toggle @description \"Clear depth buffer before rendering the object.\"",
+					"text" : "jcom.parameter depth/clear @type boolean @description \"Clear depth buffer before rendering the object.\"",
 					"varname" : "depth/clear"
 				}
 
@@ -668,7 +668,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 162.0, 270.0, 30.0 ],
-					"text" : "jcom.parameter color/inherit @type msg_toggle @description \"Inherit color properties from context.\"",
+					"text" : "jcom.parameter color/inherit @type boolean @description \"Inherit color properties from context.\"",
 					"varname" : "color/inherit"
 				}
 
@@ -684,7 +684,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 125.0, 265.0, 30.0 ],
-					"text" : "jcom.parameter blend/enable @type msg_toggle @description \"Enable blending.\"",
+					"text" : "jcom.parameter blend/enable @type boolean @description \"Enable blending.\"",
 					"varname" : "blend/enable"
 				}
 
@@ -700,7 +700,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 872.0, 436.0, 30.0 ],
-					"text" : "jcom.parameter material/light/specular @type msg_list @ramp/drive scheduler @description \"The specular light material property as red, green, blue, alpha (0.-1.).\"",
+					"text" : "jcom.parameter material/light/specular @type array @ramp/drive scheduler @description \"The specular light material property as red, green, blue, alpha (0.-1.).\"",
 					"varname" : "material/light/specular"
 				}
 
@@ -730,7 +730,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 802.0, 412.0, 30.0 ],
-					"text" : "jcom.parameter material/light/emission @type msg_list @ramp/drive scheduler @description \"The material emission property as red, green, blue, alpha (0.-1.).\"",
+					"text" : "jcom.parameter material/light/emission @type array @ramp/drive scheduler @description \"The material emission property as red, green, blue, alpha (0.-1.).\"",
 					"varname" : "material/light/emission"
 				}
 
@@ -760,7 +760,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 736.0, 427.0, 30.0 ],
-					"text" : "jcom.parameter material/light/diffuse @type msg_list @ramp/drive scheduler @description \"The diffuse light material property as red, green, blue, alpha (0.-1.).\"",
+					"text" : "jcom.parameter material/light/diffuse @type array @ramp/drive scheduler @description \"The diffuse light material property as red, green, blue, alpha (0.-1.).\"",
 					"varname" : "material/light/diffuse"
 				}
 
@@ -790,7 +790,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 668.0, 435.0, 30.0 ],
-					"text" : "jcom.parameter material/light/ambient @type msg_list @ramp/drive scheduler @description \"The ambient light material property as red, green, blue, alpha (0.-1.).\"",
+					"text" : "jcom.parameter material/light/ambient @type array @ramp/drive scheduler @description \"The ambient light material property as red, green, blue, alpha (0.-1.).\"",
 					"varname" : "material/light/ambient"
 				}
 
@@ -820,7 +820,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 566.0, 339.0, 30.0 ],
-					"text" : "jcom.parameter fog/params @type msg_list @ramp/drive scheduler @description \"Fog color (RGBA), density,start and end.\"",
+					"text" : "jcom.parameter fog/params @type array @ramp/drive scheduler @description \"Fog color (RGBA), density,start and end.\"",
 					"varname" : "fog/params"
 				}
 
@@ -850,7 +850,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 322.0, 407.0, 352.0, 42.0 ],
-					"text" : "jcom.parameter color/alpha @type msg_float @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @description \"Object alpha transparency (0.-1.).\"",
+					"text" : "jcom.parameter color/alpha @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @description \"Object alpha transparency (0.-1.).\"",
 					"varname" : "color/alpha"
 				}
 
@@ -866,7 +866,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 457.0, 334.0, 30.0 ],
-					"text" : "jcom.parameter color/rgb @type msg_list @ramp/drive scheduler @description \"Object color as red, green, blue (0.-1.).\"",
+					"text" : "jcom.parameter color/rgb @type array @ramp/drive scheduler @description \"Object color as red, green, blue (0.-1.).\"",
 					"varname" : "color/rgb"
 				}
 
@@ -896,7 +896,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 266.0, 293.0, 313.0, 30.0 ],
-					"text" : "jcom.parameter 3D/scale @ramp/drive scheduler @type msg_list @description \"3D scaling factor as xyz coordinates.\"",
+					"text" : "jcom.parameter 3D/scale @ramp/drive scheduler @type array @description \"3D scaling factor as xyz coordinates.\"",
 					"varname" : "3D/scale"
 				}
 
@@ -926,7 +926,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 266.0, 230.0, 358.0, 30.0 ],
-					"text" : "jcom.parameter 3D/rotate @type msg_list @ramp/drive scheduler @description \"3D rotation as angle and xyz rotation axis coordinates.\"",
+					"text" : "jcom.parameter 3D/rotate @type array @ramp/drive scheduler @description \"3D rotation as angle and xyz rotation axis coordinates.\"",
 					"varname" : "3D/rotate"
 				}
 
@@ -956,7 +956,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 266.0, 158.0, 301.0, 30.0 ],
-					"text" : "jcom.parameter 3D/position @type msg_list @ramp/drive scheduler @description \"3D origin as xyz coordinates.\"",
+					"text" : "jcom.parameter 3D/position @type array @ramp/drive scheduler @description \"3D origin as xyz coordinates.\"",
 					"varname" : "3D/position"
 				}
 

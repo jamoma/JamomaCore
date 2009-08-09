@@ -243,7 +243,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.message #0_ @type msg_int",
+					"text" : "jcom.message #0_ @type integer",
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"fontsize" : 10.0,

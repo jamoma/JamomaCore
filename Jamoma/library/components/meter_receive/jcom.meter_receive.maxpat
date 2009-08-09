@@ -240,7 +240,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 55.0, 175.0, 575.0, 33.0 ],
-					"text" : "jcom.return audio/amplitude @type msg_float @range/bounds 0. 1. @enable 0 @description \"instant amplitude of the signal number #1\""
+					"text" : "jcom.return audio/amplitude @type decimal @range/bounds 0. 1. @enable 0 @description \"instant amplitude of the signal number #1\""
 				}
 
 			}

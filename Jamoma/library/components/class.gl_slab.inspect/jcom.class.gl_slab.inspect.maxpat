@@ -91,7 +91,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 234.0, 372.0, 511.0, 30.0 ],
-					"text" : "jcom.parameter slab/texrect @type msg_list @ramp/drive none @description \"The extent or rectangular coordinates bounding the texture coordinates for the slab geometry (default = 0 0 1 1).\"",
+					"text" : "jcom.parameter slab/texrect @type array @ramp/drive none @description \"The extent or rectangular coordinates bounding the texture coordinates for the slab geometry (default = 0 0 1 1).\"",
 					"varname" : "slab/texrect"
 				}
 
@@ -121,7 +121,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 206.0, 270.0, 423.0, 30.0 ],
-					"text" : "jcom.parameter slab/rect @type msg_list @ramp/drive none @description \"The extent or rectangular coordinates bounding the slab geometry (default = 0 0 1 1).\"",
+					"text" : "jcom.parameter slab/rect @type array @ramp/drive none @description \"The extent or rectangular coordinates bounding the slab geometry (default = 0 0 1 1).\"",
 					"varname" : "slab/rect"
 				}
 
@@ -151,7 +151,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 95.0, 199.0, 372.0, 30.0 ],
-					"text" : "jcom.parameter slab/adapt @type msg_toggle @description \"Enables or disables adapting and resizing to input source dimensions (default = 1).\"",
+					"text" : "jcom.parameter slab/adapt @type boolean @description \"Enables or disables adapting and resizing to input source dimensions (default = 1).\"",
 					"varname" : "slab/adapt"
 				}
 
@@ -167,7 +167,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 271.0, 126.0, 460.0, 30.0 ],
-					"text" : "jcom.parameter slab/dim @type msg_list @ramp/drive none @description \"The dimensions of the output jit.gl.texture object when adapt is disabled (default = 720 480).\"",
+					"text" : "jcom.parameter slab/dim @type array @ramp/drive none @description \"The dimensions of the output jit.gl.texture object when adapt is disabled (default = 720 480).\"",
 					"varname" : "slab/dim"
 				}
 

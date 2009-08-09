@@ -17,7 +17,7 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.list2parameter", "@description", "Make life easier when accessing the individual members of a @type msg_list parameter in the GUI" ],
+					"args" : [ "@name", "jcom.list2parameter", "@description", "Make life easier when accessing the individual members of a @type array parameter in the GUI" ],
 					"bgmode" : 1,
 					"id" : "obj-21",
 					"maxclass" : "bpatcher",
@@ -150,7 +150,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 391.0, 172.0, 233.0, 19.0 ],
-					"text" : "jcom.parameter testing @type msg_list",
+					"text" : "jcom.parameter testing @type array",
 					"varname" : "testing"
 				}
 

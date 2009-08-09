@@ -349,7 +349,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 270.0, 507.0, 421.0, 18.0 ],
-					"text" : "jcom.message #1/clear @type msg_generic @description \"Set all cell values to 0.\""
+					"text" : "jcom.message #1/clear @type generic @description \"Set all cell values to 0.\""
 				}
 
 			}
@@ -381,7 +381,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 270.0, 439.0, 315.0, 30.0 ],
-					"text" : "jcom.parameter #1/type @type msg_generic @description \"The matrix data type (char, long, float32, or float64).\"",
+					"text" : "jcom.parameter #1/type @type generic @description \"The matrix data type (char, long, float32, or float64).\"",
 					"varname" : "#1/type"
 				}
 
@@ -416,7 +416,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 270.0, 355.0, 445.0, 30.0 ],
-					"text" : "jcom.parameter #1/planecount @type msg_int @range/bounds 1 32 @range/clipmode both @repetitions/allow 1 @ramp/drive none @description \"The number of planes\"",
+					"text" : "jcom.parameter #1/planecount @type integer @range/bounds 1 32 @range/clipmode both @repetitions/allow 1 @ramp/drive none @description \"The number of planes\"",
 					"varname" : "#1/planecount"
 				}
 
@@ -482,7 +482,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 270.0, 274.0, 289.0, 30.0 ],
-					"text" : "jcom.parameter #1/name @type msg_list @description \"The input or output name (default = UID)\"",
+					"text" : "jcom.parameter #1/name @type array @description \"The input or output name (default = UID)\"",
 					"varname" : "#1/name"
 				}
 
@@ -554,7 +554,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 270.0, 86.0, 324.0, 30.0 ],
-					"text" : "jcom.parameter #1/adapt @type msg_toggle @description \"Adapt to incoming matrix planecount, type, and dimensions\"",
+					"text" : "jcom.parameter #1/adapt @type boolean @description \"Adapt to incoming matrix planecount, type, and dimensions\"",
 					"varname" : "#1/adapt"
 				}
 
@@ -606,7 +606,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 270.0, 191.0, 374.0, 18.0 ],
-					"text" : "jcom.parameter #1/dim @type msg_list @description \"Matrix dimension\"",
+					"text" : "jcom.parameter #1/dim @type array @description \"Matrix dimension\"",
 					"varname" : "#1/dim"
 				}
 

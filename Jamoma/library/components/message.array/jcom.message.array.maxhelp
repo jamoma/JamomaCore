@@ -360,7 +360,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 40.0, 205.0, 378.0, 19.0 ],
-					"text" : "jcom.message.array 4 source position @type msg_int @description Hello"
+					"text" : "jcom.message.array 4 source position @type integer @description Hello"
 				}
 
 			}
@@ -374,7 +374,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 40.0, 235.0, 343.0, 19.0 ],
-					"text" : "jcom.message.array 6 object @type msg_float @description Hello"
+					"text" : "jcom.message.array 6 object @type decimal @description Hello"
 				}
 
 			}
