@@ -15,7 +15,7 @@
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 
-#include "TTBlueAPI.h"				// TTBlue Interfaces...
+#include "TTDSP.h"					// TTBlue Interfaces...
 
 
 // Data Structure for this object
@@ -53,7 +53,7 @@ int main(void)
 {
 	t_class *c;
 
-	TTBlueInit();	
+	TTDSPInit();	
 	common_symbols_init();
 
 	c = class_new("tt.op~",(method)op_new, (method)op_free, sizeof(t_op), (method)0L, A_GIMME, 0);

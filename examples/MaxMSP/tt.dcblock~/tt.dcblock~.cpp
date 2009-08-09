@@ -13,7 +13,7 @@
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
-	TTBlueInit();
+	TTDSPInit();
 	return wrapTTClassAsMaxClass(TT("dcblock"), "tt.dcblock~", NULL);
 }
 

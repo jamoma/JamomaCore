@@ -88,7 +88,7 @@ void TTOverdriveExtended::registerClass()
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	// First, we have to register our custom subclass with the TTBlue framework.
-	TTBlueInit();
+	TTDSPInit();
 	TTOverdriveExtended::registerClass();
 	
 	// Then we are able to wrap it as a Max class.

@@ -15,7 +15,7 @@
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 
-#include "TTBlueAPI.h"				// TTBlue Interfaces...
+#include "TTDSP.h"					// TTBlue Interfaces...
 
 #define MAX_NUM_CHANNELS 32
 
@@ -60,7 +60,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	t_class *c;
 	t_object *attr;
 	
-	TTBlueInit();
+	TTDSPInit();
 	common_symbols_init();
 	
 	// Define our class

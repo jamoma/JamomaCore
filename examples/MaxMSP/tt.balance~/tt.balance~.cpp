@@ -17,7 +17,7 @@
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 
-#include "TTBlueAPI.h"				// TTBlue Interfaces...
+#include "TTDSP.h"					// TTBlue Interfaces...
 
 
 // Data Structure for this object
@@ -58,7 +58,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	t_class *c;
 	t_object *attr;
 
-	TTBlueInit();	
+	TTDSPInit();	
 	common_symbols_init();
 
 	c = class_new("tt.balance~",(method)balance_new, (method)balance_free, (short)sizeof(t_balance), 

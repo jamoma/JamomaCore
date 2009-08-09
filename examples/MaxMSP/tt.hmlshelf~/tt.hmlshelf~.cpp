@@ -13,6 +13,6 @@
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
-	TTBlueInit();
+	TTDSPInit();
 	return wrapTTClassAsMaxClass(TT("highmidlowshelf"), "tt.hmlshelf~", NULL);
 }

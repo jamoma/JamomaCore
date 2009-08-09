@@ -16,7 +16,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	WrappedClassOptionsPtr	options = new WrappedClassOptions;
 	TTValue					value;
 
-	TTBlueInit();
+	TTDSPInit();
 
 	value.clear();
 	value.append(TT("srRatio"));
