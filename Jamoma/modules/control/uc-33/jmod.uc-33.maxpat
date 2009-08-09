@@ -621,7 +621,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 46.0, 147.0, 437.0, 19.0 ],
-													"text" : "jcom.return transport/stop @type msg_none @description \"Transport button: Stop.\"",
+													"text" : "jcom.return transport/stop @type none @description \"Transport button: Stop.\"",
 													"varname" : "transport/record"
 												}
 
@@ -814,7 +814,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 46.0, 149.0, 433.0, 19.0 ],
-													"text" : "jcom.return transport/play @type msg_none @description \"Transport button: Play.\"",
+													"text" : "jcom.return transport/play @type none @description \"Transport button: Play.\"",
 													"varname" : "transport/play"
 												}
 
@@ -1021,7 +1021,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 46.0, 127.0, 471.0, 19.0 ],
-													"text" : "jcom.return button.tapTempo @type msg_toggle @description \"Button labeled Tap Tempo.\"",
+													"text" : "jcom.return button.tapTempo @type boolean @description \"Button labeled Tap Tempo.\"",
 													"varname" : "button/tap"
 												}
 
@@ -1238,7 +1238,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 46.0, 127.0, 252.0, 30.0 ],
-													"text" : "jcom.return transport/record @type msg_toggle @description \"Transport button: Record.\"",
+													"text" : "jcom.return transport/record @type boolean @description \"Transport button: Record.\"",
 													"varname" : "transport/record"
 												}
 
@@ -1467,7 +1467,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 46.0, 127.0, 412.0, 19.0 ],
-													"text" : "jcom.return button.stop @type msg_toggle @description \"Button labeled stop.\"",
+													"text" : "jcom.return button.stop @type boolean @description \"Button labeled stop.\"",
 													"varname" : "button/stop"
 												}
 
@@ -1692,7 +1692,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 46.0, 127.0, 420.0, 19.0 ],
-													"text" : "jcom.return button.pluss @type msg_toggle @description \"Button labeled pluss.\"",
+													"text" : "jcom.return button.pluss @type boolean @description \"Button labeled pluss.\"",
 													"varname" : "button/pluss"
 												}
 
@@ -1908,7 +1908,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 46.0, 127.0, 343.0, 19.0 ],
-													"text" : "jcom.return button.6 @type msg_toggle @description \"Button 6.\"",
+													"text" : "jcom.return button.6 @type boolean @description \"Button 6.\"",
 													"varname" : "button/6"
 												}
 
@@ -2124,7 +2124,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 46.0, 127.0, 342.0, 19.0 ],
-													"text" : "jcom.return button.3 @type msg_toggle @description \"Button 3.\"",
+													"text" : "jcom.return button.3 @type boolean @description \"Button 3.\"",
 													"varname" : "button/3"
 												}
 
@@ -2340,7 +2340,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 46.0, 127.0, 342.0, 19.0 ],
-													"text" : "jcom.return button.1 @type msg_toggle @description \"Button 1.\"",
+													"text" : "jcom.return button.1 @type boolean @description \"Button 1.\"",
 													"varname" : "button/1"
 												}
 
@@ -2556,7 +2556,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 46.0, 127.0, 409.0, 19.0 ],
-													"text" : "jcom.return button.play @type msg_toggle @description \"Button labeled Play.\"",
+													"text" : "jcom.return button.play @type boolean @description \"Button labeled Play.\"",
 													"varname" : "button/play"
 												}
 
@@ -3126,7 +3126,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 46.0, 127.0, 342.0, 19.0 ],
-													"text" : "jcom.return button.2 @type msg_toggle @description \"Button 2.\"",
+													"text" : "jcom.return button.2 @type boolean @description \"Button 2.\"",
 													"varname" : "button/2"
 												}
 
@@ -3558,7 +3558,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 46.0, 127.0, 342.0, 19.0 ],
-													"text" : "jcom.return button.4 @type msg_toggle @description \"Button 4.\"",
+													"text" : "jcom.return button.4 @type boolean @description \"Button 4.\"",
 													"varname" : "button/4"
 												}
 

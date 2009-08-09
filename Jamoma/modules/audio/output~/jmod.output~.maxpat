@@ -27,7 +27,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 230.0, 389.0, 415.0, 31.0 ],
-					"text" : "jcom.return audio/amplitude.2 @type msg_float @range/bounds 0. 1. @enable 0 @description \"instant amplitude of the signal number 2\" @repetitions/allow 1"
+					"text" : "jcom.return audio/amplitude.2 @type decimal @range/bounds 0. 1. @enable 0 @description \"instant amplitude of the signal number 2\" @repetitions/allow 1"
 				}
 
 			}
@@ -42,7 +42,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 120.0, 430.0, 424.0, 31.0 ],
-					"text" : "jcom.return audio/amplitude.1 @type msg_float @range/bounds 0. 1. @enable 0 @description \"instant amplitude of the signal number 1\" @repetitions/allow 1"
+					"text" : "jcom.return audio/amplitude.1 @type decimal @range/bounds 0. 1. @enable 0 @description \"instant amplitude of the signal number 1\" @repetitions/allow 1"
 				}
 
 			}
@@ -56,7 +56,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 815.0, 535.0, 473.0, 19.0 ],
-					"text" : "jcom.message audio/panic @type msg_none @description \"Panic: Stop audio immediately.\""
+					"text" : "jcom.message audio/panic @type none @description \"Panic: Stop audio immediately.\""
 				}
 
 			}
@@ -84,7 +84,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 815.0, 490.0, 456.0, 19.0 ],
-					"text" : "jcom.parameter audio/active @type msg_toggle @description \"Toggle audio on and off.\"",
+					"text" : "jcom.parameter audio/active @type boolean @description \"Toggle audio on and off.\"",
 					"varname" : "audio[1]"
 				}
 
@@ -374,7 +374,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 160.0, 195.0, 553.0, 19.0 ],
-									"text" : "jcom.parameter limiter/dcblocker/active @type msg_toggle @description \"DC Blocker: Active or bypassed.\"",
+									"text" : "jcom.parameter limiter/dcblocker/active @type boolean @description \"DC Blocker: Active or bypassed.\"",
 									"varname" : "limiter/active[1]"
 								}
 
@@ -444,7 +444,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 160.0, 83.5, 333.0, 31.0 ],
-									"text" : "jcom.parameter limiter/mode @type msg_symbol @description \"Limiter: Set the function to be used for calculating the scaling.\"",
+									"text" : "jcom.parameter limiter/mode @type string @description \"Limiter: Set the function to be used for calculating the scaling.\"",
 									"varname" : "limiter/mode"
 								}
 
@@ -460,7 +460,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 159.0, 36.5, 604.0, 43.0 ],
-									"text" : "jcom.parameter limiter/threshold @ramp/drive scheduler @range/bounds -24 48 @range/clipmode none @type msg_float @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB @description \"Limiter: Set threshold as dB.\"",
+									"text" : "jcom.parameter limiter/threshold @ramp/drive scheduler @range/bounds -24 48 @range/clipmode none @type decimal @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB @description \"Limiter: Set threshold as dB.\"",
 									"varname" : "limiter/threshold"
 								}
 
@@ -476,7 +476,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 160.0, 157.5, 539.0, 31.0 ],
-									"text" : "jcom.parameter limiter/lookahead @ramp/drive scheduler @range/bounds 0 256 @range/clipmode both @type msg_int @description \"Limiter: The number of samples to look ahead.\"",
+									"text" : "jcom.parameter limiter/lookahead @ramp/drive scheduler @range/bounds 0 256 @range/clipmode both @type integer @description \"Limiter: The number of samples to look ahead.\"",
 									"varname" : "limiter/lookahead"
 								}
 
@@ -492,7 +492,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 160.0, 120.5, 704.0, 31.0 ],
-									"text" : "jcom.parameter limiter/postamp @ramp/drive scheduler @range/bounds -24 48 @range/clipmode none @type msg_float @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB @description \"Limiter: Postamp as dB.\"",
+									"text" : "jcom.parameter limiter/postamp @ramp/drive scheduler @range/bounds -24 48 @range/clipmode none @type decimal @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB @description \"Limiter: Postamp as dB.\"",
 									"varname" : "limiter/postamp"
 								}
 
@@ -764,7 +764,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 355.0, 79.0, 336.0, 55.0 ],
-					"text" : "jcom.parameter audio/gain @type msg_float @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/display midi @description \"master gain\"",
+					"text" : "jcom.parameter audio/gain @type decimal @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/display midi @description \"master gain\"",
 					"varname" : "jcom.parameter.gain"
 				}
 
@@ -808,7 +808,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 390.0, 285.0, 257.0, 31.0 ],
-					"text" : "jcom.message record/active @type msg_toggle @description \"record to a sound file\"",
+					"text" : "jcom.message record/active @type boolean @description \"record to a sound file\"",
 					"varname" : "record"
 				}
 
@@ -868,7 +868,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 810.0, 190.0, 479.0, 19.0 ],
-					"text" : "jcom.parameter limiter/active @type msg_toggle @description \"Limiter: Active or bypassed.\"",
+					"text" : "jcom.parameter limiter/active @type boolean @description \"Limiter: Active or bypassed.\"",
 					"varname" : "limiter/active"
 				}
 
@@ -939,7 +939,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 815.0, 265.0, 710.0, 31.0 ],
-					"text" : "jcom.parameter limiter/release @ramp/drive scheduler @type msg_float @range/bounds 0 3000 @range/clipmode low @description \"Limiter: Set release time as ms.\" @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @dataspace/unit/display ms",
+					"text" : "jcom.parameter limiter/release @ramp/drive scheduler @type decimal @range/bounds 0 3000 @range/clipmode low @description \"Limiter: Set release time as ms.\" @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @dataspace/unit/display ms",
 					"varname" : "limiter/release"
 				}
 
@@ -955,7 +955,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 815.0, 225.0, 693.0, 31.0 ],
-					"text" : "jcom.parameter limiter/preamp @ramp/drive scheduler @range/bounds 0 48 @range/clipmode none @type msg_float @description \"Limiter: Preamp as dB.\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
+					"text" : "jcom.parameter limiter/preamp @ramp/drive scheduler @range/bounds 0 48 @range/clipmode none @type decimal @description \"Limiter: Preamp as dB.\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
 					"varname" : "limiter/preamp"
 				}
 
@@ -1017,7 +1017,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 815.0, 124.0, 419.0, 31.0 ],
-					"text" : "jcom.parameter saturation/active @type msg_toggle @description \"Saturation: Active or bypassed.\"",
+					"text" : "jcom.parameter saturation/active @type boolean @description \"Saturation: Active or bypassed.\"",
 					"varname" : "saturation/active"
 				}
 
@@ -1033,7 +1033,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 815.0, 81.0, 461.0, 31.0 ],
-					"text" : "jcom.parameter saturation/depth @ramp/drive scheduler @repetitions/allow 0 @type msg_float @range/bounds 0 99 @range/clipmode both @description \"Saturation: Depth.\"",
+					"text" : "jcom.parameter saturation/depth @ramp/drive scheduler @repetitions/allow 0 @type decimal @range/bounds 0 99 @range/clipmode both @description \"Saturation: Depth.\"",
 					"varname" : "saturation/depth"
 				}
 
@@ -1065,7 +1065,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 388.0, 240.0, 304.0, 31.0 ],
-					"text" : "jcom.parameter record/samptype @type msg_symbol @description \"Recording: Set sample type for sound files.\"",
+					"text" : "jcom.parameter record/samptype @type string @description \"Recording: Set sample type for sound files.\"",
 					"varname" : "record/samptype"
 				}
 
@@ -1081,7 +1081,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 388.0, 202.0, 283.0, 31.0 ],
-					"text" : "jcom.parameter record/filetype @type msg_symbol @description \"Recording: Set file type for sound files.\"",
+					"text" : "jcom.parameter record/filetype @type string @description \"Recording: Set file type for sound files.\"",
 					"varname" : "record/filetype"
 				}
 
@@ -1428,7 +1428,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 815.0, 368.0, 460.0, 19.0 ],
-					"text" : "jcom.parameter ch.2 @type msg_int @description \" Set logical output for right channel.\"",
+					"text" : "jcom.parameter ch.2 @type integer @description \" Set logical output for right channel.\"",
 					"varname" : "ch_2"
 				}
 
@@ -1443,7 +1443,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 815.0, 338.0, 452.0, 19.0 ],
-					"text" : "jcom.parameter ch.1 @type msg_int @description \" Set logical output for left channel.\"",
+					"text" : "jcom.parameter ch.1 @type integer @description \" Set logical output for left channel.\"",
 					"varname" : "ch_1"
 				}
 

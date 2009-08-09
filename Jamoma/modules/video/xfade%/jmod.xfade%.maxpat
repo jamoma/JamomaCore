@@ -289,7 +289,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 285.0, 273.0, 427.0, 31.0 ],
-					"text" : "jcom.parameter xfade @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description \"Crossfade value\"",
+					"text" : "jcom.parameter xfade @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description \"Crossfade value\"",
 					"varname" : "xfade[1]"
 				}
 

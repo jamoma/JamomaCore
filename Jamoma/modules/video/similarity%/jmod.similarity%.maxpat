@@ -41,7 +41,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 380.0, 118.0, 298.0, 31.0 ],
-					"text" : "jcom.parameter algorithm @type msg_generic @description \"Choose which algorithm to use\"",
+					"text" : "jcom.parameter algorithm @type generic @description \"Choose which algorithm to use\"",
 					"varname" : "algorithm"
 				}
 
@@ -214,7 +214,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 377.0, 34.0, 340.0, 31.0 ],
-					"text" : "jcom.parameter mode @type msg_generic @description \"There are four different modes with an increasing amount of visibility\"",
+					"text" : "jcom.parameter mode @type generic @description \"There are four different modes with an increasing amount of visibility\"",
 					"varname" : "mode"
 				}
 

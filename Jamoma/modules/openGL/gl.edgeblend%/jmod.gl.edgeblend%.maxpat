@@ -68,7 +68,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 629.0, 461.0, 257.0, 31.0 ],
-					"text" : "jcom.parameter edgeblend/invert @type msg_toggle @description \"Invert edge blending.\"",
+					"text" : "jcom.parameter edgeblend/invert @type boolean @description \"Invert edge blending.\"",
 					"varname" : "edgeblend/invert"
 				}
 
@@ -84,7 +84,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 630.0, 380.0, 424.0, 31.0 ],
-					"text" : "jcom.parameter edgeblend/fade/bottom @type msg_float @ramp/drive scheduler @range/bounds 0. 1. @range/clipmode both @description \"Edge blend left side.\"",
+					"text" : "jcom.parameter edgeblend/fade/bottom @type decimal @ramp/drive scheduler @range/bounds 0. 1. @range/clipmode both @description \"Edge blend left side.\"",
 					"varname" : "edgeblend/fade/bottom"
 				}
 
@@ -100,7 +100,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 630.0, 295.0, 417.0, 31.0 ],
-					"text" : "jcom.parameter edgeblend/fade/right @type msg_float @ramp/drive scheduler @range/bounds 0. 1. @range/clipmode both @description \"Edge blend left side.\"",
+					"text" : "jcom.parameter edgeblend/fade/right @type decimal @ramp/drive scheduler @range/bounds 0. 1. @range/clipmode both @description \"Edge blend left side.\"",
 					"varname" : "edgeblend/fade/right"
 				}
 
@@ -116,7 +116,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 630.0, 215.0, 417.0, 31.0 ],
-					"text" : "jcom.parameter edgeblend/fade/top @type msg_float @ramp/drive scheduler @range/bounds 0. 1. @range/clipmode both @description \"Edge blend left side.\"",
+					"text" : "jcom.parameter edgeblend/fade/top @type decimal @ramp/drive scheduler @range/bounds 0. 1. @range/clipmode both @description \"Edge blend left side.\"",
 					"varname" : "edgeblend/fade/top"
 				}
 
@@ -132,7 +132,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 630.0, 135.0, 417.0, 31.0 ],
-					"text" : "jcom.parameter edgeblend/fade/left @type msg_float @ramp/drive scheduler @range/bounds 0. 1. @range/clipmode both @description \"Edge blend left side.\"",
+					"text" : "jcom.parameter edgeblend/fade/left @type decimal @ramp/drive scheduler @range/bounds 0. 1. @range/clipmode both @description \"Edge blend left side.\"",
 					"varname" : "edgeblend/fade/left"
 				}
 

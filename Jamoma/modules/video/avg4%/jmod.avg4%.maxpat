@@ -131,7 +131,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 440.0, 57.0, 303.0, 31.0 ],
-					"text" : "jcom.parameter y @type msg_int @ramp/drive scheduler @description \"Specify the x-axis offset in pixels.\"",
+					"text" : "jcom.parameter y @type integer @ramp/drive scheduler @description \"Specify the x-axis offset in pixels.\"",
 					"varname" : "y"
 				}
 
@@ -215,7 +215,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 436.0, 20.0, 303.0, 31.0 ],
-					"text" : "jcom.parameter x @type msg_int @ramp/drive scheduler @description \"Specify the x-axis offset in pixels.\"",
+					"text" : "jcom.parameter x @type integer @ramp/drive scheduler @description \"Specify the x-axis offset in pixels.\"",
 					"varname" : "x"
 				}
 
@@ -231,7 +231,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 464.0, 100.0, 601.0, 31.0 ],
-					"text" : "jcom.parameter mode @type msg_symbol @description \"Determine what happens when an offset pixel is outside of the video frame's boundaries. Possible edgemodes are clip fold and wrap.\"",
+					"text" : "jcom.parameter mode @type string @description \"Determine what happens when an offset pixel is outside of the video frame's boundaries. Possible edgemodes are clip fold and wrap.\"",
 					"varname" : "mode"
 				}
 

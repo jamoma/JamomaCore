@@ -35,7 +35,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "z[8]",
-					"text" : "jcom.parameter source.8/blur @repetitions/allow 1 @type msg_float @ramp/drive scheduler @ramp/function linear @range/bounds 0. 1. @range/clipmode low @description \"Spatial bluriness of nth source.\"",
+					"text" : "jcom.parameter source.8/blur @repetitions/allow 1 @type decimal @ramp/drive scheduler @ramp/function linear @range/bounds 0. 1. @range/clipmode low @description \"Spatial bluriness of nth source.\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -68,7 +68,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "z[7]",
-					"text" : "jcom.parameter source.7/blur @repetitions/allow 1 @type msg_float @ramp/drive scheduler @ramp/function linear @range/bounds 0. 1. @range/clipmode low @description \"Spatial bluriness of nth source.\"",
+					"text" : "jcom.parameter source.7/blur @repetitions/allow 1 @type decimal @ramp/drive scheduler @ramp/function linear @range/bounds 0. 1. @range/clipmode low @description \"Spatial bluriness of nth source.\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -101,7 +101,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "z[6]",
-					"text" : "jcom.parameter source.6/blur @repetitions/allow 1 @type msg_float @ramp/drive scheduler @ramp/function linear @range/bounds 0. 1. @range/clipmode low @description \"Spatial bluriness of nth source.\"",
+					"text" : "jcom.parameter source.6/blur @repetitions/allow 1 @type decimal @ramp/drive scheduler @ramp/function linear @range/bounds 0. 1. @range/clipmode low @description \"Spatial bluriness of nth source.\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -134,7 +134,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "z[5]",
-					"text" : "jcom.parameter source.5/blur @repetitions/allow 1 @type msg_float @ramp/drive scheduler @ramp/function linear @range/bounds 0. 1. @range/clipmode low @description \"Spatial bluriness of nth source.\"",
+					"text" : "jcom.parameter source.5/blur @repetitions/allow 1 @type decimal @ramp/drive scheduler @ramp/function linear @range/bounds 0. 1. @range/clipmode low @description \"Spatial bluriness of nth source.\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -167,7 +167,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "z[4]",
-					"text" : "jcom.parameter source.4/blur @repetitions/allow 1 @type msg_float @ramp/drive scheduler @ramp/function linear @range/bounds 0. 1. @range/clipmode low @description \"Spatial bluriness of nth source.\"",
+					"text" : "jcom.parameter source.4/blur @repetitions/allow 1 @type decimal @ramp/drive scheduler @ramp/function linear @range/bounds 0. 1. @range/clipmode low @description \"Spatial bluriness of nth source.\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -200,7 +200,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "z[3]",
-					"text" : "jcom.parameter source.3/blur @repetitions/allow 1 @type msg_float @ramp/drive scheduler @ramp/function linear @range/bounds 0. 1. @range/clipmode low @description \"Spatial bluriness of nth source.\"",
+					"text" : "jcom.parameter source.3/blur @repetitions/allow 1 @type decimal @ramp/drive scheduler @ramp/function linear @range/bounds 0. 1. @range/clipmode low @description \"Spatial bluriness of nth source.\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -233,7 +233,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "z[2]",
-					"text" : "jcom.parameter source.2/blur @repetitions/allow 1 @type msg_float @ramp/drive scheduler @ramp/function linear @range/bounds 0. 1. @range/clipmode low @description \"Spatial bluriness of nth source.\"",
+					"text" : "jcom.parameter source.2/blur @repetitions/allow 1 @type decimal @ramp/drive scheduler @ramp/function linear @range/bounds 0. 1. @range/clipmode low @description \"Spatial bluriness of nth source.\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -424,7 +424,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "x[7]",
-					"text" : "jcom.parameter source.8/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.8/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type array @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -505,7 +505,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "x[6]",
-					"text" : "jcom.parameter source.7/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.7/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type array @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -586,7 +586,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "x[5]",
-					"text" : "jcom.parameter source.6/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.6/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type array @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -667,7 +667,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "x[4]",
-					"text" : "jcom.parameter source.5/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.5/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type array @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -748,7 +748,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "x[3]",
-					"text" : "jcom.parameter source.4/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.4/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type array @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -829,7 +829,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "x[2]",
-					"text" : "jcom.parameter source.3/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.3/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type array @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -910,7 +910,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "x[1]",
-					"text" : "jcom.parameter source.2/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.2/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type array @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -995,7 +995,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "z[1]",
-					"text" : "jcom.parameter source.1/blur @repetitions/allow 1 @type msg_float @ramp/drive scheduler @ramp/function linear @range/bounds 0. 1. @range/clipmode low @description \"Spatial bluriness of nth source.\"",
+					"text" : "jcom.parameter source.1/blur @repetitions/allow 1 @type decimal @ramp/drive scheduler @ramp/function linear @range/bounds 0. 1. @range/clipmode low @description \"Spatial bluriness of nth source.\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
@@ -1028,7 +1028,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "x",
-					"text" : "jcom.parameter source.1/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type msg_list @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.1/position @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz  @type array @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numoutlets" : 3,

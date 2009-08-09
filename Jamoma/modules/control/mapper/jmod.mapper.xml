@@ -6,10 +6,10 @@
 >
 	
 	<preset number="1" name="default">
-		<item name="mapFrom" type="msg_int">0</item>
-		<item name="mapTo" type="msg_int">0</item>
-		<item name="mapAlgorithm" type="msg_int">0</item>
-		<item name="mapFromReturn" type="msg_int">0</item>
-		<item name="mapToReturn" type="msg_int">0</item>
+		<item name="mapFrom" type="integer">0</item>
+		<item name="mapTo" type="integer">0</item>
+		<item name="mapAlgorithm" type="integer">0</item>
+		<item name="mapFromReturn" type="integer">0</item>
+		<item name="mapToReturn" type="integer">0</item>
     </preset>
 </jamoma>

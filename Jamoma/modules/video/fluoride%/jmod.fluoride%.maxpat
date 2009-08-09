@@ -752,7 +752,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 459.0, 181.0, 287.0, 30.0 ],
-					"text" : "jcom.parameter mode @type msg_toggle @description \"Toggles between grayscale (0) and color (1) modes\"",
+					"text" : "jcom.parameter mode @type boolean @description \"Toggles between grayscale (0) and color (1) modes\"",
 					"varname" : "mode"
 				}
 
@@ -768,7 +768,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 436.0, 271.0, 371.0, 42.0 ],
-					"text" : "jcom.parameter glow @type msg_list @repetitions/allow 0 @description \"Specify the red green and blue components for the glowing color. The range for each component should be between 0.0 and 1.0.\"",
+					"text" : "jcom.parameter glow @type array @repetitions/allow 0 @description \"Specify the red green and blue components for the glowing color. The range for each component should be between 0.0 and 1.0.\"",
 					"varname" : "glow"
 				}
 
@@ -831,7 +831,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 438.0, 75.0, 355.0, 30.0 ],
-					"text" : "jcom.parameter luminance @type msg_float @ramp/drive scheduler @range/bounds 0. 1. @description \"Sets the luminance.\"",
+					"text" : "jcom.parameter luminance @type decimal @ramp/drive scheduler @range/bounds 0. 1. @description \"Sets the luminance.\"",
 					"varname" : "lum"
 				}
 
@@ -847,7 +847,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 438.0, 122.0, 350.0, 30.0 ],
-					"text" : "jcom.parameter tolerance @type msg_float @ramp/drive scheduler @range/bounds 0. 1. @description \"Sets the tolerance.\"",
+					"text" : "jcom.parameter tolerance @type decimal @ramp/drive scheduler @range/bounds 0. 1. @description \"Sets the tolerance.\"",
 					"varname" : "tol"
 				}
 

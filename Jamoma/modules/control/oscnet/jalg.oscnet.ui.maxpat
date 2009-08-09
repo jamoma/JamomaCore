@@ -53,7 +53,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 390.0, 549.0, 469.0, 20.0 ],
-					"text" : "jcom.parameter send/active @type msg_toggle @description \"turn on/off sending\""
+					"text" : "jcom.parameter send/active @type boolean @description \"turn on/off sending\""
 				}
 
 			}
@@ -421,7 +421,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 4.0, 418.0, 380.0, 42.0 ],
-					"text" : "jcom.parameter osc_prefix @type msg_symbol @repetitions/allow 0 @description \"Define a string to concatenate to the beginning of all OpenSoundControl strings sent by this module.\"",
+					"text" : "jcom.parameter osc_prefix @type string @repetitions/allow 0 @description \"Define a string to concatenate to the beginning of all OpenSoundControl strings sent by this module.\"",
 					"varname" : "osc_prefix"
 				}
 
@@ -536,7 +536,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 408.0, 415.0, 590.0, 30.0 ],
-					"text" : "jcom.parameter multicast_port @range/bounds 1 9999 @range/clipmode low @type msg_int @description \"Set the network port number used for sending out multicast OpenSoundControl messages.\"",
+					"text" : "jcom.parameter multicast_port @range/bounds 1 9999 @range/clipmode low @type integer @description \"Set the network port number used for sending out multicast OpenSoundControl messages.\"",
 					"varname" : "multicast_port[1]"
 				}
 
@@ -587,7 +587,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 408.0, 496.0, 584.0, 30.0 ],
-					"text" : "jcom.parameter multicast_join @type msg_toggle @description \"Set the network port number on which to receive OpenSoundControl messages.\"",
+					"text" : "jcom.parameter multicast_join @type boolean @description \"Set the network port number on which to receive OpenSoundControl messages.\"",
 					"varname" : "multicast_join[1]"
 				}
 
@@ -604,7 +604,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 381.0, 316.0, 323.0, 54.0 ],
-					"text" : "jcom.parameter multicast_ip @type msg_symbol @repetitions/allow 0 @description \"Define the multicast host to for OpenSoundControl messages to which you would like to join.  This may be symbolic or an ip address.\"",
+					"text" : "jcom.parameter multicast_ip @type string @repetitions/allow 0 @description \"Define the multicast host to for OpenSoundControl messages to which you would like to join.  This may be symbolic or an ip address.\"",
 					"varname" : "multicast_ip"
 				}
 
@@ -760,7 +760,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 367.0, 41.0, 343.0, 42.0 ],
-					"text" : "jcom.parameter send_host @type msg_symbol @repetitions/allow 0 @description \"Set the host to which OpenSoundControl messages should be sent.  This may be symbolic or an ip address.\"",
+					"text" : "jcom.parameter send_host @type string @repetitions/allow 0 @description \"Set the host to which OpenSoundControl messages should be sent.  This may be symbolic or an ip address.\"",
 					"varname" : "send_host"
 				}
 
@@ -878,7 +878,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 381.0, 232.0, 568.0, 30.0 ],
-					"text" : "jcom.parameter send_port @type msg_int @range/bounds 1 9999 @range/clipmode low @description \"Set the network port number used for sending out OpenSoundControl messages.\"",
+					"text" : "jcom.parameter send_port @type integer @range/bounds 1 9999 @range/clipmode low @description \"Set the network port number used for sending out OpenSoundControl messages.\"",
 					"varname" : "send_port"
 				}
 
@@ -911,7 +911,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 369.0, 147.0, 581.0, 30.0 ],
-					"text" : "jcom.parameter receive_port @type msg_int @range/bounds 1 9999 @range/clipmode low @description \"Set the network port number on which to receive OpenSoundControl messages.\"",
+					"text" : "jcom.parameter receive_port @type integer @range/bounds 1 9999 @range/clipmode low @description \"Set the network port number on which to receive OpenSoundControl messages.\"",
 					"varname" : "receive_port"
 				}
 

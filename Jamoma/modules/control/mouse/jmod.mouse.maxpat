@@ -59,7 +59,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 500.0, 263.0, 321.0, 30.0 ],
-					"text" : "jcom.parameter reference @type msg_symbol @range/clipmode none @description \"Choose reference mode\"",
+					"text" : "jcom.parameter reference @type string @range/clipmode none @description \"Choose reference mode\"",
 					"varname" : "reference"
 				}
 
@@ -94,7 +94,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 500.0, 183.0, 374.0, 18.0 ],
-					"text" : "jcom.parameter active @type msg_toggle @description \"Turn polling on\"",
+					"text" : "jcom.parameter active @type boolean @description \"Turn polling on\"",
 					"varname" : "mouse_on[1]"
 				}
 

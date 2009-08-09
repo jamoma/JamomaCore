@@ -103,7 +103,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "samplerateRatio",
-					"text" : "jcom.parameter samplerateRatio @type msg_float @range/bounds 0. 1. @repetitions/allow 1 @range/clipmode both @ramp/drive scheduler @description \"A ratio of the emulated sample-rate to the global sample-rate.\"",
+					"text" : "jcom.parameter samplerateRatio @type decimal @range/bounds 0. 1. @repetitions/allow 1 @range/clipmode both @ramp/drive scheduler @description \"A ratio of the emulated sample-rate to the global sample-rate.\"",
 					"linecount" : 3,
 					"patching_rect" : [ 695.0, 35.0, 401.0, 43.0 ],
 					"id" : "obj-18",
@@ -119,7 +119,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "bitdepth",
-					"text" : "jcom.parameter bitdepth @type msg_int @range/bounds 1 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"The number of bits that will be retained in each sample - use this for bit crunching effects\"",
+					"text" : "jcom.parameter bitdepth @type integer @range/bounds 1 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"The number of bits that will be retained in each sample - use this for bit crunching effects\"",
 					"linecount" : 3,
 					"patching_rect" : [ 695.0, 85.0, 425.0, 43.0 ],
 					"id" : "obj-19",

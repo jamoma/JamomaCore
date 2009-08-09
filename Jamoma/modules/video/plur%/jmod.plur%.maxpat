@@ -576,7 +576,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 342.0, 492.714294, 419.0, 42.0 ],
-					"text" : "jcom.parameter colormode @type msg_int @range/bounds 0 2 @range/clipmode both @ramp/drive none @description \"colormode determines how jit.plur handles values that exceed the hi and lo values. 0 = wrap. 1 = clip. 2 = bounce\"",
+					"text" : "jcom.parameter colormode @type integer @range/bounds 0 2 @range/clipmode both @ramp/drive none @description \"colormode determines how jit.plur handles values that exceed the hi and lo values. 0 = wrap. 1 = clip. 2 = bounce\"",
 					"varname" : "colormode"
 				}
 
@@ -592,7 +592,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 342.0, 423.714294, 346.0, 30.0 ],
-					"text" : "jcom.parameter scale @type msg_int @ramp/drive scheduler @description \"scale: actually a bit shift before display. normal is 8.\"",
+					"text" : "jcom.parameter scale @type integer @ramp/drive scheduler @description \"scale: actually a bit shift before display. normal is 8.\"",
 					"varname" : "scale"
 				}
 
@@ -608,7 +608,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 342.0, 354.714294, 463.0, 42.0 ],
-					"text" : "jcom.parameter mode @type msg_int @range/bounds 0 15 @range/clipmode both @ramp/drive none @description \"the different modes represent different (highly arbitrary) variations on the classic linear interpolationorithm. there are 16 of them. try them all!\"",
+					"text" : "jcom.parameter mode @type integer @range/bounds 0 15 @range/clipmode both @ramp/drive none @description \"the different modes represent different (highly arbitrary) variations on the classic linear interpolationorithm. there are 16 of them. try them all!\"",
 					"varname" : "mode"
 				}
 
@@ -882,7 +882,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 342.0, 561.714294, 420.0, 30.0 ],
-					"text" : "jcom.parameter gang @type msg_toggle @description \"when gang is on (default) x_ and y_range values are ignored - using the x_ and y_step values instead.\"",
+					"text" : "jcom.parameter gang @type boolean @description \"when gang is on (default) x_ and y_range values are ignored - using the x_ and y_step values instead.\"",
 					"varname" : "gang"
 				}
 
@@ -898,7 +898,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 342.0, 78.0, 472.0, 30.0 ],
-					"text" : "jcom.parameter x_step @type msg_int @ramp/drive scheduler @description \"x_ and y_step represent the distance between the 'corners' between which the 'interpolation' takes place.\"",
+					"text" : "jcom.parameter x_step @type integer @ramp/drive scheduler @description \"x_ and y_step represent the distance between the 'corners' between which the 'interpolation' takes place.\"",
 					"varname" : "x_step"
 				}
 
@@ -914,7 +914,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 342.0, 147.714294, 472.0, 30.0 ],
-					"text" : "jcom.parameter y_step @type msg_int @ramp/drive scheduler @description \"x_ and y_step represent the distance between the 'corners' between which the 'interpolation' takes place.\"",
+					"text" : "jcom.parameter y_step @type integer @ramp/drive scheduler @description \"x_ and y_step represent the distance between the 'corners' between which the 'interpolation' takes place.\"",
 					"varname" : "y_step"
 				}
 
@@ -960,7 +960,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 342.0, 285.714264, 487.0, 30.0 ],
-					"text" : "jcom.parameter y_range @type msg_int @ramp/drive scheduler @description \"x_ and y_range represent the distance between the actual points used for the 'interpolation' calculation.\"",
+					"text" : "jcom.parameter y_range @type integer @ramp/drive scheduler @description \"x_ and y_range represent the distance between the actual points used for the 'interpolation' calculation.\"",
 					"varname" : "y_range"
 				}
 
@@ -1036,7 +1036,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 342.0, 216.714279, 487.0, 30.0 ],
-					"text" : "jcom.parameter x_range @type msg_int @ramp/drive scheduler @description \"x_ and y_range represent the distance between the actual points used for the 'interpolation' calculation.\"",
+					"text" : "jcom.parameter x_range @type integer @ramp/drive scheduler @description \"x_ and y_range represent the distance between the actual points used for the 'interpolation' calculation.\"",
 					"varname" : "x_range"
 				}
 

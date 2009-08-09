@@ -6,6 +6,6 @@
 >
 	
 	<preset number="1" name="default">
-		<item name="listen" type="msg_int">0</item>
+		<item name="listen" type="integer">0</item>
     </preset>
 </jamoma>

@@ -106,7 +106,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 454.0, 408.0, 355.0, 17.0 ],
-					"text" : "jcom.parameter color @type msg_toggle @description \"Color or greyscale\"",
+					"text" : "jcom.parameter color @type boolean @description \"Color or greyscale\"",
 					"varname" : "color[1]"
 				}
 
@@ -157,7 +157,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 454.0, 346.0, 371.0, 17.0 ],
-					"text" : "jcom.parameter edge/threshold @type msg_float @description \"Edge threshold\"",
+					"text" : "jcom.parameter edge/threshold @type decimal @description \"Edge threshold\"",
 					"varname" : "edge/threshold"
 				}
 
@@ -186,7 +186,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 454.0, 290.0, 382.0, 17.0 ],
-					"text" : "jcom.parameter edge/algorithm @type msg_symbol @description \"Edge detection\"",
+					"text" : "jcom.parameter edge/algorithm @type string @description \"Edge detection\"",
 					"varname" : "edge/algorithm"
 				}
 
@@ -216,7 +216,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 34.0, 460.0, 213.0, 27.0 ],
-					"text" : "jcom.parameter slide @type msg_float @description \"Level of slide for thre trails\"",
+					"text" : "jcom.parameter slide @type decimal @description \"Level of slide for thre trails\"",
 					"varname" : "slide[1]"
 				}
 
@@ -245,7 +245,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 34.0, 402.0, 380.0, 17.0 ],
-					"text" : "jcom.parameter trails @type msg_toggle @description \"Trails - ghostlike image\"",
+					"text" : "jcom.parameter trails @type boolean @description \"Trails - ghostlike image\"",
 					"varname" : "trails[1]"
 				}
 
@@ -293,7 +293,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 34.0, 341.0, 340.0, 17.0 ],
-					"text" : "jcom.parameter noise @type msg_toggle @description \"Noise reduction\"",
+					"text" : "jcom.parameter noise @type boolean @description \"Noise reduction\"",
 					"varname" : "noise[1]"
 				}
 
@@ -387,7 +387,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 34.0, 281.0, 352.0, 17.0 ],
-					"text" : "jcom.parameter threshold @type msg_float @description \\\"Threshold\\\"",
+					"text" : "jcom.parameter threshold @type decimal @description \\\"Threshold\\\"",
 					"varname" : "threshold[1]"
 				}
 

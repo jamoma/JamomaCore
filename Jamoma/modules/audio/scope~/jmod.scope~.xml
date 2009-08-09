@@ -5,9 +5,9 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='buffer/pixel' type='msg_int' priority='0'>128</item>
-    <item name='buffer/samples' type='msg_int' priority='0'>128</item>
-    <item name='range' type='msg_float' priority='0'>1.000000</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='buffer/pixel' type='integer' priority='0'>128</item>
+    <item name='buffer/samples' type='integer' priority='0'>128</item>
+    <item name='range' type='decimal' priority='0'>1.000000</item>
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
    </preset>
 </jamoma>

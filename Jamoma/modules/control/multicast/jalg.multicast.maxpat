@@ -26,7 +26,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 205.0, 310.0, 603.0, 33.0 ],
-					"text" : "jcom.return clientMenu @repetitions/allow 1 @type msg_generic @description \"connect this to a menu for a list of clients\""
+					"text" : "jcom.return clientMenu @repetitions/allow 1 @type generic @description \"connect this to a menu for a list of clients\""
 				}
 
 			}
@@ -56,7 +56,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 395.0, 270.0, 393.0, 33.0 ],
-					"text" : "jcom.return received @repetitions/allow 1 @type msg_generic @description \"stuff received from the network\""
+					"text" : "jcom.return received @repetitions/allow 1 @type generic @description \"stuff received from the network\""
 				}
 
 			}

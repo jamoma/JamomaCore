@@ -40,7 +40,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 647.0, 356.0, 536.0, 19.0 ],
-					"text" : "jcom.message dump @type msg_generic @repetitions/allow 1 @description \"Bang to send all positions\""
+					"text" : "jcom.message dump @type generic @repetitions/allow 1 @description \"Bang to send all positions\""
 				}
 
 			}
@@ -100,7 +100,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 583.0, 161.0, 339.0, 43.0 ],
-					"text" : "jcom.message numSources @type msg_int @range/bounds 0 32 @repetitions/allow 1 @range/clipmode both @description \"alternative description of number of channels to display.\""
+					"text" : "jcom.message numSources @type integer @range/bounds 0 32 @repetitions/allow 1 @range/clipmode both @description \"alternative description of number of channels to display.\""
 				}
 
 			}
@@ -115,7 +115,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 926.0, 162.0, 346.0, 43.0 ],
-					"text" : "jcom.message numSpeakers @type msg_int @range/bounds 0 32 @repetitions/allow 1 @range/clipmode both @description \"alternative description of number of channels to display.\""
+					"text" : "jcom.message numSpeakers @type integer @range/bounds 0 32 @repetitions/allow 1 @range/clipmode both @description \"alternative description of number of channels to display.\""
 				}
 
 			}
@@ -130,7 +130,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 593.0, 245.0, 580.0, 31.0 ],
-					"text" : "jcom.parameter numChannels @repetitions/allow 1 @type msg_int @range/bounds 0 32 @range/clipmode both @priority 2 @description \"Number of channels in the set.\"",
+					"text" : "jcom.parameter numChannels @repetitions/allow 1 @type integer @range/bounds 0 32 @range/clipmode both @priority 2 @description \"Number of channels in the set.\"",
 					"varname" : "voices[4]"
 				}
 
@@ -255,7 +255,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 593.0, 97.0, 555.0, 19.0 ],
-					"text" : "jcom.parameter type @repetitions/allow 0 @type msg_symbol @description \"Type of instances\" @priority 1",
+					"text" : "jcom.parameter type @repetitions/allow 0 @type string @description \"Type of instances\" @priority 1",
 					"varname" : "module_in[1]"
 				}
 

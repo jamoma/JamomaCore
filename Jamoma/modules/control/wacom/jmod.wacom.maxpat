@@ -41,7 +41,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 497.0, 513.0, 316.0, 43.0 ],
-					"text" : "jcom.parameter flusheventqueue @type msg_toggle @description flusheventqueue \"1 message to have no delay at the output.\"",
+					"text" : "jcom.parameter flusheventqueue @type boolean @description flusheventqueue \"1 message to have no delay at the output.\"",
 					"varname" : "nopointer[3]"
 				}
 
@@ -57,7 +57,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 498.0, 444.0, 316.0, 31.0 ],
-					"text" : "jcom.parameter bgrd @type msg_toggle @description \"Use the object when Max/MSP is in background\"",
+					"text" : "jcom.parameter bgrd @type boolean @description \"Use the object when Max/MSP is in background\"",
 					"varname" : "nopointer[2]"
 				}
 
@@ -147,7 +147,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 498.0, 372.0, 311.0, 31.0 ],
-					"text" : "jcom.parameter xyrange @type msg_generic @range/clipmode none @description \"change range for X Y\""
+					"text" : "jcom.parameter xyrange @type generic @range/clipmode none @description \"change range for X Y\""
 				}
 
 			}
@@ -232,7 +232,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 495.0, 210.0, 310.0, 31.0 ],
-					"text" : "jcom.parameter nopointer @type msg_toggle @range/clipmode none @description \"Move mouse pointer\"",
+					"text" : "jcom.parameter nopointer @type boolean @range/clipmode none @description \"Move mouse pointer\"",
 					"varname" : "nopointer[1]"
 				}
 
@@ -248,7 +248,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 497.0, 136.0, 298.0, 31.0 ],
-					"text" : "jcom.message init @type msg_generic @range/clipmode none @description \"Initialization of wacom object\"",
+					"text" : "jcom.message init @type generic @range/clipmode none @description \"Initialization of wacom object\"",
 					"varname" : "jcom.parameter[3]"
 				}
 
@@ -264,7 +264,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 495.0, 68.0, 283.0, 31.0 ],
-					"text" : "jcom.parameter on @type msg_toggle @range/clipmode none @description \"Turn polling on\"",
+					"text" : "jcom.parameter on @type boolean @range/clipmode none @description \"Turn polling on\"",
 					"varname" : "on[1]"
 				}
 
@@ -315,7 +315,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 496.0, 305.0, 323.0, 31.0 ],
-					"text" : "jcom.parameter menu @type msg_generic @range/clipmode none @description \"Choose which wacom device to use\"",
+					"text" : "jcom.parameter menu @type generic @range/clipmode none @description \"Choose which wacom device to use\"",
 					"varname" : "menu[1]"
 				}
 

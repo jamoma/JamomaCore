@@ -811,7 +811,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "mask/blue",
-					"text" : "jcom.parameter mask/blue @type msg_float @ramp/drive scheduler @description \"Sets the masking for the blue component.\"",
+					"text" : "jcom.parameter mask/blue @type decimal @ramp/drive scheduler @description \"Sets the masking for the blue component.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"id" : "obj-7",
@@ -861,7 +861,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "tint/blue",
-					"text" : "jcom.parameter tint/blue @type msg_float @ramp/drive scheduler @description \"Sets the tinting of the blue component.\"",
+					"text" : "jcom.parameter tint/blue @type decimal @ramp/drive scheduler @description \"Sets the tinting of the blue component.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"id" : "obj-10",
@@ -945,7 +945,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "mask/red",
-					"text" : "jcom.parameter mask/red @type msg_float @ramp/drive scheduler @description \"Sets the masking for the red component.\"",
+					"text" : "jcom.parameter mask/red @type decimal @ramp/drive scheduler @description \"Sets the masking for the red component.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"id" : "obj-15",
@@ -961,7 +961,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "mask/green",
-					"text" : "jcom.parameter mask/green @type msg_float @ramp/drive scheduler @description \"Sets the masking for the green component.\"",
+					"text" : "jcom.parameter mask/green @type decimal @ramp/drive scheduler @description \"Sets the masking for the green component.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"id" : "obj-16",
@@ -1045,7 +1045,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "tint/red",
-					"text" : "jcom.parameter tint/red @type msg_float @ramp/drive scheduler @description \"Sets the tinting of the red component.\"",
+					"text" : "jcom.parameter tint/red @type decimal @ramp/drive scheduler @description \"Sets the tinting of the red component.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"id" : "obj-21",
@@ -1061,7 +1061,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "tint/green",
-					"text" : "jcom.parameter tint/green @type msg_float @ramp/drive scheduler @description \"Sets the tinting of the green component.\"",
+					"text" : "jcom.parameter tint/green @type decimal @ramp/drive scheduler @description \"Sets the tinting of the green component.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"id" : "obj-22",

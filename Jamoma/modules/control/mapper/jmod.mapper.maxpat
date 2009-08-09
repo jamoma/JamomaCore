@@ -195,7 +195,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 66.0, 442.0, 285.0, 31.0 ],
-					"text" : "jcom.parameter mapToReturn @type msg_generic @description \"Displays the currently active parameter\"",
+					"text" : "jcom.parameter mapToReturn @type generic @description \"Displays the currently active parameter\"",
 					"varname" : "mapToReturn[1]"
 				}
 
@@ -211,7 +211,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 66.0, 381.0, 285.0, 31.0 ],
-					"text" : "jcom.parameter mapFromReturn @type msg_generic @description \"Displays the currently active parameter\"",
+					"text" : "jcom.parameter mapFromReturn @type generic @description \"Displays the currently active parameter\"",
 					"varname" : "mapFromReturn[1]"
 				}
 
@@ -242,7 +242,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 66.0, 542.0, 270.0, 31.0 ],
-					"text" : "jcom.parameter mapAlgorithm @type msg_generic @description \"algorithm to use when mapping. \"",
+					"text" : "jcom.parameter mapAlgorithm @type generic @description \"algorithm to use when mapping. \"",
 					"varname" : "mapAlgorithm[1]"
 				}
 
@@ -258,7 +258,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 441.0, 539.0, 325.0, 31.0 ],
-					"text" : "jcom.parameter mapTo @type msg_toggle @description \"Turn on the listen function for values that you want to map to.\"",
+					"text" : "jcom.parameter mapTo @type boolean @description \"Turn on the listen function for values that you want to map to.\"",
 					"varname" : "mapTo[1]"
 				}
 
@@ -274,7 +274,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 441.0, 476.0, 340.0, 31.0 ],
-					"text" : "jcom.parameter mapFrom @type msg_toggle @description \"Turn on the listen function for values that you want to map from.\"",
+					"text" : "jcom.parameter mapFrom @type boolean @description \"Turn on the listen function for values that you want to map from.\"",
 					"varname" : "mapFrom[1]"
 				}
 

@@ -467,7 +467,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 377.179108, 581.0, 441.0, 30.0 ],
-					"text" : "jcom.parameter angle @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 90 @range/clipmode none @description \"Rotate image - in degrees\"",
+					"text" : "jcom.parameter angle @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 90 @range/clipmode none @description \"Rotate image - in degrees\"",
 					"varname" : "angle[1]"
 				}
 
@@ -483,7 +483,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 377.179108, 338.0, 480.0, 30.0 ],
-					"text" : "jcom.parameter offset_y @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1000 1000 @range/clipmode none @description \"Offset image in Y-direction\"",
+					"text" : "jcom.parameter offset_y @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1000 1000 @range/clipmode none @description \"Offset image in Y-direction\"",
 					"varname" : "offset_y"
 				}
 
@@ -498,7 +498,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 377.179108, 467.0, 361.0, 18.0 ],
-					"text" : "jcom.parameter rotate2 @type msg_toggle @description \"Flip vertical\"",
+					"text" : "jcom.parameter rotate2 @type boolean @description \"Flip vertical\"",
 					"varname" : "rotate2[1]"
 				}
 
@@ -619,7 +619,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 377.179108, 270.0, 481.0, 30.0 ],
-					"text" : "jcom.parameter offset_x @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1000 1000 @range/clipmode none @description \"Offset image in X-direction\"",
+					"text" : "jcom.parameter offset_x @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1000 1000 @range/clipmode none @description \"Offset image in X-direction\"",
 					"varname" : "offset_x"
 				}
 
@@ -649,7 +649,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 377.179108, 523.0, 362.0, 18.0 ],
-					"text" : "jcom.parameter mirror @type msg_toggle @description \"Mirror image\"",
+					"text" : "jcom.parameter mirror @type boolean @description \"Mirror image\"",
 					"varname" : "mirror[1]"
 				}
 
@@ -746,7 +746,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 377.179108, 407.0, 374.0, 18.0 ],
-					"text" : "jcom.parameter rotate1 @type msg_toggle @description \"Flip horizontal\"",
+					"text" : "jcom.parameter rotate1 @type boolean @description \"Flip horizontal\"",
 					"varname" : "rotate1[1]"
 				}
 
@@ -762,7 +762,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 377.179108, 204.0, 425.0, 30.0 ],
-					"text" : "jcom.parameter zoom @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 10. @range/clipmode none @description \"Zoom in the image\"",
+					"text" : "jcom.parameter zoom @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 10. @range/clipmode none @description \"Zoom in the image\"",
 					"varname" : "zoom[1]"
 				}
 

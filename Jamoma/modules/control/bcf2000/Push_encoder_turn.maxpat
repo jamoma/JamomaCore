@@ -288,7 +288,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 46.0, 127.0, 502.0, 30.0 ],
-					"text" : "jcom.parameter turn @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @ramp/drive scheduler @priority 1 @description \"Push encoder turn.\"",
+					"text" : "jcom.parameter turn @type integer @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @ramp/drive scheduler @priority 1 @description \"Push encoder turn.\"",
 					"varname" : "8/push_encoder/3/turn"
 				}
 

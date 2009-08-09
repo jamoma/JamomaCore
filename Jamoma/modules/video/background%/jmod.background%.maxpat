@@ -94,7 +94,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 502.0, 335.0, 484.0, 18.0 ],
-					"text" : "jcom.parameter noise/threshold @type msg_float @description \"Set threshold level for the noise reduction\"",
+					"text" : "jcom.parameter noise/threshold @type decimal @description \"Set threshold level for the noise reduction\"",
 					"varname" : "noise[2]"
 				}
 
@@ -109,7 +109,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 502.0, 157.0, 419.0, 18.0 ],
-					"text" : "jcom.parameter filter/active @type msg_toggle @description \"Turn low pass filter on and off\"",
+					"text" : "jcom.parameter filter/active @type boolean @description \"Turn low pass filter on and off\"",
 					"varname" : "filter/on"
 				}
 
@@ -143,7 +143,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 502.0, 276.0, 398.0, 18.0 ],
-					"text" : "jcom.parameter noise/active @type msg_toggle @description \"Turn on noise reduction\"",
+					"text" : "jcom.parameter noise/active @type boolean @description \"Turn on noise reduction\"",
 					"varname" : "noise[1]"
 				}
 
@@ -204,7 +204,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 502.0, 221.0, 488.0, 18.0 ],
-					"text" : "jcom.parameter filter/threshold @type msg_float @description \"Set the threshold level for the low pass filter\"",
+					"text" : "jcom.parameter filter/threshold @type decimal @description \"Set the threshold level for the low pass filter\"",
 					"varname" : "filter/threshold"
 				}
 
@@ -219,7 +219,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 502.0, 101.093468, 446.0, 18.0 ],
-					"text" : "jcom.parameter record @type msg_int @description \"Turn on recording of the background image.\"",
+					"text" : "jcom.parameter record @type integer @description \"Turn on recording of the background image.\"",
 					"varname" : "record"
 				}
 
@@ -253,7 +253,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 502.0, 65.0, 527.0, 18.0 ],
-					"text" : "jcom.parameter mode @type msg_int @description \"Choose between four different background subtraction models.\"",
+					"text" : "jcom.parameter mode @type integer @description \"Choose between four different background subtraction models.\"",
 					"varname" : "mode"
 				}
 

@@ -503,7 +503,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 295.0, 427.0, 19.0 ],
-					"text" : "jcom.parameter chromakey/modus @type msg_toggle @description \"Mask mode.\"",
+					"text" : "jcom.parameter chromakey/modus @type boolean @description \"Mask mode.\"",
 					"varname" : "modus"
 				}
 
@@ -518,7 +518,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 270.0, 426.0, 19.0 ],
-					"text" : "jcom.parameter chromakey/invert @type msg_toggle @description \"Invert mask.\"",
+					"text" : "jcom.parameter chromakey/invert @type boolean @description \"Invert mask.\"",
 					"varname" : "invert"
 				}
 
@@ -534,7 +534,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 505.0, 135.0, 383.0, 31.0 ],
-					"text" : "jcom.parameter chromakey/fade @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"Fade amount.\"",
+					"text" : "jcom.parameter chromakey/fade @type decimal @range/bounds 0. 1. @range/clipmode both @description \"Fade amount.\"",
 					"varname" : "fade"
 				}
 
@@ -550,7 +550,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 505.0, 60.0, 407.0, 31.0 ],
-					"text" : "jcom.parameter chromakey/tolerance @type msg_float @range/bounds 0. 1. @range/clipmode both @description Tolerance.",
+					"text" : "jcom.parameter chromakey/tolerance @type decimal @range/bounds 0. 1. @range/clipmode both @description Tolerance.",
 					"varname" : "tolerance"
 				}
 
@@ -582,7 +582,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 490.0, 515.0, 603.0, 31.0 ],
-					"text" : "jcom.parameter chromakey/color @type msg_list @range/bounds 0. 255 @range/clipmode both @description \"Color target (RGB).\"",
+					"text" : "jcom.parameter chromakey/color @type array @range/bounds 0. 255 @range/clipmode both @description \"Color target (RGB).\"",
 					"varname" : "color"
 				}
 
@@ -715,7 +715,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 320.0, 428.0, 31.0 ],
-					"text" : "jcom.parameter chromakey/binary @type msg_toggle @description \"Mix with second source (if 0, just gen alpha channel).\"",
+					"text" : "jcom.parameter chromakey/binary @type boolean @description \"Mix with second source (if 0, just gen alpha channel).\"",
 					"varname" : "binary"
 				}
 

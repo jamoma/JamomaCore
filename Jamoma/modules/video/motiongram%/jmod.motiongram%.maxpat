@@ -202,7 +202,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 349.0, 401.0, 406.0, 18.0 ],
-					"text" : "jcom.message exportimage @type msg_none @description \"Clears the image.\"",
+					"text" : "jcom.message exportimage @type none @description \"Clears the image.\"",
 					"varname" : "jmod.parameter.mxb[2]"
 				}
 
@@ -217,7 +217,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 349.0, 319.0, 367.0, 18.0 ],
-					"text" : "jcom.message clear @type msg_none @description \"Clears the image.\"",
+					"text" : "jcom.message clear @type none @description \"Clears the image.\"",
 					"varname" : "jmod.parameter.mxb[1]"
 				}
 
@@ -251,7 +251,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 349.0, 217.0, 426.0, 42.0 ],
-					"text" : "jcom.parameter dimensions/height @type msg_int @range/bounds 0 2000 @range/clipmode low @ramp/drive none @description \"Specify the x-axis offset in pixels.\"",
+					"text" : "jcom.parameter dimensions/height @type integer @range/bounds 0 2000 @range/clipmode low @ramp/drive none @description \"Specify the x-axis offset in pixels.\"",
 					"varname" : "dimensions/height"
 				}
 
@@ -333,7 +333,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 349.0, 136.0, 426.0, 42.0 ],
-					"text" : "jcom.parameter dimensions/width @type msg_int @range/bounds 0 2000 @range/clipmode low @ramp/drive none @description \"Specify the x-axis offset in pixels.\"",
+					"text" : "jcom.parameter dimensions/width @type integer @range/bounds 0 2000 @range/clipmode low @ramp/drive none @description \"Specify the x-axis offset in pixels.\"",
 					"varname" : "dimensions/width"
 				}
 
@@ -349,7 +349,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 349.0, 55.0, 397.0, 30.0 ],
-					"text" : "jcom.parameter mode @type msg_toggle @description \"Mode - horizontal or vertical direction of motiongram.\"",
+					"text" : "jcom.parameter mode @type boolean @description \"Mode - horizontal or vertical direction of motiongram.\"",
 					"varname" : "mode"
 				}
 

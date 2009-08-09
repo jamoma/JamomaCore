@@ -44,7 +44,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 415.0, 82.0, 588.0, 43.0 ],
-					"text" : "jcom.parameter sidechain @type msg_float @range/bounds -60. 3. @range/clipmode both @description \"gain for controlling the effect of the recursive bandpass sidechain\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/display dB @dataspace/unit/native dB"
+					"text" : "jcom.parameter sidechain @type decimal @range/bounds -60. 3. @range/clipmode both @description \"gain for controlling the effect of the recursive bandpass sidechain\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/display dB @dataspace/unit/native dB"
 				}
 
 			}
@@ -84,7 +84,7 @@
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
 						"dataspace/unit/active" : "Hz",
-						"type" : "msg_int",
+						"type" : "integer",
 						"value/default" : [ 5000 ],
 						"dataspace/unit/native" : "Hz",
 						"dataspace" : "pitch",
@@ -121,7 +121,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"type" : "msg_float",
+						"type" : "decimal",
 						"value/default" : [ 0.07 ],
 						"value/stepsize" : 0.01,
 						"dataspace" : "time",
@@ -177,7 +177,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"type" : "msg_float",
+						"type" : "decimal",
 						"value/default" : [ -2.5 ],
 						"ramp/drive" : "scheduler",
 						"description" : "attenation value for the crosstalk frequency",
@@ -422,7 +422,7 @@
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
 						"dataspace/unit/active" : "Hz",
-						"type" : "msg_int",
+						"type" : "integer",
 						"value/default" : [ 250 ],
 						"dataspace/unit/native" : "Hz",
 						"dataspace" : "pitch",

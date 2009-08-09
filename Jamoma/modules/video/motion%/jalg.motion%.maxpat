@@ -275,7 +275,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 105.0, 303.436279, 595.0, 31.0 ],
-									"text" : "jcom.return motion/y @range/bounds 0. 1. @type msg_float @description \"The center of gravity for the y-axis of the motion in the frame in a range of 0. to 1. (zero is bottom - one is top).\""
+									"text" : "jcom.return motion/y @range/bounds 0. 1. @type decimal @description \"The center of gravity for the y-axis of the motion in the frame in a range of 0. to 1. (zero is bottom - one is top).\""
 								}
 
 							}
@@ -304,7 +304,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 93.0, 354.0, 595.0, 31.0 ],
-									"text" : "jcom.return motion/x @range/bounds 0. 1. @type msg_float @description \"The center of gravity for the x-axis of the motion in the frame in a range of 0. to 1. (zero is left - one is right).\""
+									"text" : "jcom.return motion/x @range/bounds 0. 1. @type decimal @description \"The center of gravity for the x-axis of the motion in the frame in a range of 0. to 1. (zero is left - one is right).\""
 								}
 
 							}
@@ -318,7 +318,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 83.0, 389.0, 718.0, 19.0 ],
-									"text" : "jcom.return motion/quantity @type msg_float @range/bounds 0. 1. @description \"The amount of motion in the frame in a range of 0. to 1.\""
+									"text" : "jcom.return motion/quantity @type decimal @range/bounds 0. 1. @description \"The amount of motion in the frame in a range of 0. to 1.\""
 								}
 
 							}
@@ -4223,7 +4223,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 113.0, 460.0, 647.0, 19.0 ],
-													"text" : "jcom.return contraction/height @range/bounds 0. 1. @type msg_float @description \"Contraction_height in a range of 0. to 1.\""
+													"text" : "jcom.return contraction/height @range/bounds 0. 1. @type decimal @description \"Contraction_height in a range of 0. to 1.\""
 												}
 
 											}
@@ -4237,7 +4237,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 98.0, 500.0, 636.0, 19.0 ],
-													"text" : "jcom.return contraction/width @range/bounds 0. 1. @type msg_float @description \"Contraction width in a range of 0. to 1.\""
+													"text" : "jcom.return contraction/width @range/bounds 0. 1. @type decimal @description \"Contraction width in a range of 0. to 1.\""
 												}
 
 											}

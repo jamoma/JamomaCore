@@ -25,7 +25,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 502.0, 334.0, 567.0, 31.0 ],
-					"text" : "jcom.message.array 32 source active @type msg_toggle @value/default 1 @value 1 @description \"active 0 will mute the Nth source.\""
+					"text" : "jcom.message.array 32 source active @type boolean @value/default 1 @value 1 @description \"active 0 will mute the Nth source.\""
 				}
 
 			}
@@ -39,7 +39,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 502.0, 289.0, 606.0, 43.0 ],
-					"text" : "jcom.message.array 32 source position @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth source. In cartesian coordinates (xyz) by default \""
+					"text" : "jcom.message.array 32 source position @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth source. In cartesian coordinates (xyz) by default \""
 				}
 
 			}
@@ -54,7 +54,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 503.0, 252.0, 408.0, 31.0 ],
-					"text" : "jcom.message report @repetitions/allow 1 @type msg_generic @description \"reports the state of the ambiencode external in the max window\""
+					"text" : "jcom.message report @repetitions/allow 1 @type generic @description \"reports the state of the ambiencode external in the max window\""
 				}
 
 			}
@@ -168,7 +168,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 205.0, 461.0, 43.0 ],
-					"text" : "jcom.parameter centerRadius @repetitions/allow 0 @type msg_float @range/bounds 0.01 5. @range/clipmode low @description \"The radius (in meters) of the center circle where spatial information collapse to an omni signal as distance approaches zero.\"",
+					"text" : "jcom.parameter centerRadius @repetitions/allow 0 @type decimal @range/bounds 0.01 5. @range/clipmode low @description \"The radius (in meters) of the center circle where spatial information collapse to an omni signal as distance approaches zero.\"",
 					"varname" : "center_radius"
 				}
 
@@ -217,7 +217,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 145.0, 419.0, 31.0 ],
-					"text" : "jcom.parameter DropOff @repetitions/allow 0 @type msg_float @range/bounds 0 60 @range/clipmode both @description \"drop off gain per meter in [dB].\"",
+					"text" : "jcom.parameter DropOff @repetitions/allow 0 @type decimal @range/bounds 0 60 @range/clipmode both @description \"drop off gain per meter in [dB].\"",
 					"varname" : "db_drop_off"
 				}
 
@@ -233,7 +233,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 75.0, 433.0, 31.0 ],
-					"text" : "jcom.parameter order @repetitions/allow 0 @type msg_int @range/bounds 1 3 @range/clipmode both @description \"Order of encoding.\"",
+					"text" : "jcom.parameter order @repetitions/allow 0 @type integer @range/bounds 1 3 @range/clipmode both @description \"Order of encoding.\"",
 					"varname" : "order"
 				}
 
@@ -371,7 +371,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 30.0, 432.0, 31.0 ],
-					"text" : "jcom.parameter numSources @repetitions/allow 0 @type msg_int @range/bounds 1 32 @range/clipmode both @description \"Number of mono sources to encode.\"",
+					"text" : "jcom.parameter numSources @repetitions/allow 0 @type integer @range/bounds 1 32 @range/clipmode both @description \"Number of mono sources to encode.\"",
 					"varname" : "voices"
 				}
 

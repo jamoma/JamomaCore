@@ -149,7 +149,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 405.0, 100.0, 343.0, 31.0 ],
-					"text" : "jcom.message colors @type msg_list @description \"Set what colors to mix from (list containing 1 to 12 triplets of RGB values).\"",
+					"text" : "jcom.message colors @type array @description \"Set what colors to mix from (list containing 1 to 12 triplets of RGB values).\"",
 					"varname" : "jcom.parameter[7]"
 				}
 
@@ -165,7 +165,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 405.0, 310.0, 596.0, 43.0 ],
-					"text" : "jcom.parameter random/stepSize @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description \"Set how much next color can deviate from the current when random mode is walk.\"",
+					"text" : "jcom.parameter random/stepSize @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description \"Set how much next color can deviate from the current when random mode is walk.\"",
 					"varname" : "random/step_size"
 				}
 
@@ -195,7 +195,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 405.0, 65.0, 571.0, 19.0 ],
-					"text" : "jcom.message generateColor @repetitions/allow 1 @type msg_none @description \"Generate new color triplet.\"",
+					"text" : "jcom.message generateColor @repetitions/allow 1 @type none @description \"Generate new color triplet.\"",
 					"varname" : "jcom.parameter[4]"
 				}
 
@@ -211,7 +211,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 405.0, 475.0, 584.0, 31.0 ],
-					"text" : "jcom.parameter interpolate/stepSize @type msg_float @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Step size when interpolating.\"",
+					"text" : "jcom.parameter interpolate/stepSize @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Step size when interpolating.\"",
 					"varname" : "interpolate/step_size"
 				}
 
@@ -227,7 +227,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 405.0, 240.0, 299.0, 31.0 ],
-					"text" : "jcom.parameter random/mode @type msg_symbol @description \"Select distribution mode: random or walk.\"",
+					"text" : "jcom.parameter random/mode @type string @description \"Select distribution mode: random or walk.\"",
 					"varname" : "random/mode"
 				}
 
@@ -243,7 +243,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 405.0, 400.0, 257.0, 31.0 ],
-					"text" : "jcom.parameter interpolate @type msg_toggle @description \"Perform cubic interpolation (flag).\"",
+					"text" : "jcom.parameter interpolate @type boolean @description \"Perform cubic interpolation (flag).\"",
 					"varname" : "interpolate"
 				}
 

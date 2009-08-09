@@ -41,7 +41,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 428.0, 58.0, 549.0, 31.0 ],
-					"text" : "jcom.message.array 32 speaker active @type msg_toggle @priority 2 @description \"enables or disables a loudspeaker.\" @value 1"
+					"text" : "jcom.message.array 32 speaker active @type boolean @priority 2 @description \"enables or disables a loudspeaker.\" @value 1"
 				}
 
 			}
@@ -104,7 +104,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 476.0, 434.0, 571.0, 31.0 ],
-					"text" : "jcom.parameter distModel @repetitions/allow 0 @type msg_toggle @range/bounds 0 1 @range/clipmode both @description \"sets one of the two distance attenuation models\"",
+					"text" : "jcom.parameter distModel @repetitions/allow 0 @type boolean @range/bounds 0 1 @range/clipmode both @description \"sets one of the two distance attenuation models\"",
 					"varname" : "destination/voices[2]"
 				}
 
@@ -136,7 +136,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 425.0, 382.0, 501.0, 43.0 ],
-					"text" : "jcom.parameter center/decay @repetitions/allow 0 @type msg_float @range/bounds 0 1 @range/clipmode both @description \"max. attenuation inside the center area in dB\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
+					"text" : "jcom.parameter center/decay @repetitions/allow 0 @type decimal @range/bounds 0 1 @range/clipmode both @description \"max. attenuation inside the center area in dB\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
 					"varname" : "destination/voices[4]"
 				}
 
@@ -168,7 +168,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 426.0, 346.0, 579.0, 31.0 ],
-					"text" : "jcom.parameter center/curve @repetitions/allow 0 @type msg_float @range/bounds 0 1 @range/clipmode both @description \"curvature of the distance function inside the center area\"",
+					"text" : "jcom.parameter center/curve @repetitions/allow 0 @type decimal @range/bounds 0 1 @range/clipmode both @description \"curvature of the distance function inside the center area\"",
 					"varname" : "destination/voices[3]"
 				}
 
@@ -200,7 +200,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 425.0, 313.0, 583.0, 31.0 ],
-					"text" : "jcom.parameter center/size @repetitions/allow 0 @type msg_float @range/bounds 0 128 @range/clipmode both @description \"Size of the center (in model units)\"",
+					"text" : "jcom.parameter center/size @repetitions/allow 0 @type decimal @range/bounds 0 128 @range/clipmode both @description \"Size of the center (in model units)\"",
 					"varname" : "destination/voices[1]"
 				}
 
@@ -3093,7 +3093,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 428.0, 24.0, 599.0, 31.0 ],
-					"text" : "jcom.message.array 32 speaker position @type msg_list @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
+					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
 				}
 
 			}
@@ -3124,7 +3124,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 429.0, 160.0, 587.0, 31.0 ],
-					"text" : "jcom.parameter interpolation @repetitions/allow 0 @type msg_toggle @range/bounds 0 1 @range/clipmode both @description \"switch blockwise interpolation of all coefficient changes on/off\"",
+					"text" : "jcom.parameter interpolation @repetitions/allow 0 @type boolean @range/bounds 0 1 @range/clipmode both @description \"switch blockwise interpolation of all coefficient changes on/off\"",
 					"varname" : "destination/dimensions[1]"
 				}
 
@@ -3222,7 +3222,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 430.0, 125.0, 580.0, 31.0 ],
-					"text" : "jcom.parameter numSpeakers @repetitions/allow 0 @type msg_int @range/bounds 2 32 @range/clipmode both @description \"Number of speakers that signals are distributed to.\" @priority 3",
+					"text" : "jcom.parameter numSpeakers @repetitions/allow 0 @type integer @range/bounds 2 32 @range/clipmode both @description \"Number of speakers that signals are distributed to.\" @priority 3",
 					"varname" : "destination/voices"
 				}
 
@@ -3328,7 +3328,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 430.0, 194.0, 574.0, 31.0 ],
-					"text" : "jcom.parameter numSources @repetitions/allow 0 @type msg_int @range/bounds 1 32 @range/clipmode both @description \"Number of incomming mono sources to pan.\" @priority 1",
+					"text" : "jcom.parameter numSources @repetitions/allow 0 @type integer @range/bounds 1 32 @range/clipmode both @description \"Number of incomming mono sources to pan.\" @priority 1",
 					"varname" : "source/voices"
 				}
 

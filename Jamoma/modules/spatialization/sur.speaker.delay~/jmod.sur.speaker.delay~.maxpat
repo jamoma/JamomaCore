@@ -47,7 +47,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 443.0, 304.0, 366.0, 31.0 ],
-					"text" : "jcom.parameter automatic @type msg_toggle @description \"position based calculation (automatic) or manual setting of delays.\" @priority 2"
+					"text" : "jcom.parameter automatic @type boolean @description \"position based calculation (automatic) or manual setting of delays.\" @priority 2"
 				}
 
 			}
@@ -94,7 +94,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 395.0, 6.0, 603.0, 43.0 ],
-					"text" : "jcom.parameter temperature @type msg_float @repetitions/allow 0 @range/bounds -273. 40. @range/clipmode low @description \"temperature to calculate speed of sound.\" @dataspace temperature @dataspace/unit/active Celsius @dataspace/unit/native Celsius @dataspace/unit/display Celsius",
+					"text" : "jcom.parameter temperature @type decimal @repetitions/allow 0 @range/bounds -273. 40. @range/clipmode low @description \"temperature to calculate speed of sound.\" @dataspace temperature @dataspace/unit/active Celsius @dataspace/unit/native Celsius @dataspace/unit/display Celsius",
 					"varname" : "voices[1]"
 				}
 
@@ -1790,7 +1790,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 407.0, 253.0, 585.0, 43.0 ],
-					"text" : "jcom.parameter.array 32 speaker delay @type msg_float @repetitions/allow 1 @value/default 0. @range/bounds 0. 1000. @range/clipmode both @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @dataspace/unit/display ms @description \"delay to be applied on the Nth speaker  in [ms] by default\""
+					"text" : "jcom.parameter.array 32 speaker delay @type decimal @repetitions/allow 1 @value/default 0. @range/bounds 0. 1000. @range/clipmode both @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @dataspace/unit/display ms @description \"delay to be applied on the Nth speaker  in [ms] by default\""
 				}
 
 			}
@@ -1804,7 +1804,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 407.0, 207.0, 565.0, 43.0 ],
-					"text" : "jcom.message.array 32 speaker position @type msg_list @repetitions/allow 1 @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
+					"text" : "jcom.message.array 32 speaker position @type array @repetitions/allow 1 @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
 				}
 
 			}
@@ -1916,7 +1916,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 405.0, 163.0, 466.0, 43.0 ],
-					"text" : "jcom.parameter numSpeakers @type msg_int @repetitions/allow 0 @range/bounds 2 32 @range/clipmode both @description \"The number of audio channels that the ambisonic signal is diffused to. Changes only take effect when audio is off.\" @priority 1",
+					"text" : "jcom.parameter numSpeakers @type integer @repetitions/allow 0 @range/bounds 2 32 @range/clipmode both @description \"The number of audio channels that the ambisonic signal is diffused to. Changes only take effect when audio is off.\" @priority 1",
 					"varname" : "voices"
 				}
 

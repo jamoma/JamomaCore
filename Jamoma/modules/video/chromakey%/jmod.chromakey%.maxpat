@@ -143,7 +143,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "key/blue",
-					"text" : "jcom.parameter key/blue @repetitions/allow 0 @type msg_float @range/bounds 0. 1. @description \"blue level of the chromakey\"",
+					"text" : "jcom.parameter key/blue @repetitions/allow 0 @type decimal @range/bounds 0. 1. @description \"blue level of the chromakey\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"id" : "obj-13",
@@ -159,7 +159,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "key/green",
-					"text" : "jcom.parameter key/green @repetitions/allow 0 @type msg_float @range/bounds 0. 1. @description \"green level of the chromakey\"",
+					"text" : "jcom.parameter key/green @repetitions/allow 0 @type decimal @range/bounds 0. 1. @description \"green level of the chromakey\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"id" : "obj-15",
@@ -175,7 +175,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "key/red",
-					"text" : "jcom.parameter key/red @repetitions/allow 0 @type msg_float @range/bounds 0. 1. @description \"red level of the chromakey\"",
+					"text" : "jcom.parameter key/red @repetitions/allow 0 @type decimal @range/bounds 0. 1. @description \"red level of the chromakey\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"id" : "obj-17",
@@ -439,7 +439,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "alpha",
-					"text" : "jcom.parameter alpha @repetitions/allow 0 @type msg_toggle @range/bounds 0. 1. @description \"alpha of the chromakey\"",
+					"text" : "jcom.parameter alpha @repetitions/allow 0 @type boolean @range/bounds 0. 1. @description \"alpha of the chromakey\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"id" : "obj-40",
@@ -455,7 +455,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "maxkey[1]",
-					"text" : "jcom.parameter maxkey @repetitions/allow 0 @type msg_float @range/bounds 0. 10. @description \"maxkey of the chromakey\"",
+					"text" : "jcom.parameter maxkey @repetitions/allow 0 @type decimal @range/bounds 0. 10. @description \"maxkey of the chromakey\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"id" : "obj-42",
@@ -471,7 +471,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "minkey[1]",
-					"text" : "jcom.parameter minkey @repetitions/allow 0 @type msg_float @range/bounds 0. 10. @description \"minkey of the chromakey\"",
+					"text" : "jcom.parameter minkey @repetitions/allow 0 @type decimal @range/bounds 0. 10. @description \"minkey of the chromakey\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"id" : "obj-44",
@@ -487,7 +487,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "fade[1]",
-					"text" : "jcom.parameter fade @repetitions/allow 0 @type msg_float @range/bounds 0. 10. @description \"fade of the chromakey\"",
+					"text" : "jcom.parameter fade @repetitions/allow 0 @type decimal @range/bounds 0. 10. @description \"fade of the chromakey\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"id" : "obj-46",
@@ -533,7 +533,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "tolerance",
-					"text" : "jcom.parameter tolerance @repetitions/allow 0 @type msg_float @range/bounds 0. 1. @description \"Tolerance of the chromakey\"",
+					"text" : "jcom.parameter tolerance @repetitions/allow 0 @type decimal @range/bounds 0. 1. @description \"Tolerance of the chromakey\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"id" : "obj-52",

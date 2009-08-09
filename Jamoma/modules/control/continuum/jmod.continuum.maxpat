@@ -319,7 +319,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 306.0, 295.0, 275.0, 31.0 ],
-									"text" : "jcom.parameter gdif/emotion/on @type msg_toggle @range/clipmode none @description \"Turn data on\"",
+									"text" : "jcom.parameter gdif/emotion/on @type boolean @range/clipmode none @description \"Turn data on\"",
 									"varname" : "gdif/emotion/on"
 								}
 
@@ -336,7 +336,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 306.0, 255.0, 297.0, 31.0 ],
-									"text" : "jcom.parameter gdif/performance/on @type msg_toggle @range/clipmode none @description \"Turn data on\"",
+									"text" : "jcom.parameter gdif/performance/on @type boolean @range/clipmode none @description \"Turn data on\"",
 									"varname" : "gdif/performance/on"
 								}
 
@@ -353,7 +353,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 306.0, 215.0, 298.0, 31.0 ],
-									"text" : "jcom.parameter gdif/environment/on @type msg_toggle @range/clipmode none @description \"Turn data on\"",
+									"text" : "jcom.parameter gdif/environment/on @type boolean @range/clipmode none @description \"Turn data on\"",
 									"varname" : "gdif/environment/on"
 								}
 
@@ -370,7 +370,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 306.0, 175.0, 271.0, 31.0 ],
-									"text" : "jcom.parameter gdif/device/on @type msg_toggle @range/clipmode none @description \"Turn data on\"",
+									"text" : "jcom.parameter gdif/device/on @type boolean @range/clipmode none @description \"Turn data on\"",
 									"varname" : "gdif/device/on"
 								}
 
@@ -387,7 +387,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 306.0, 135.0, 271.0, 31.0 ],
-									"text" : "jcom.parameter gdif/body/on @type msg_toggle @range/clipmode none @description \"Turn data on\"",
+									"text" : "jcom.parameter gdif/body/on @type boolean @range/clipmode none @description \"Turn data on\"",
 									"varname" : "gdif/body/on"
 								}
 
@@ -404,7 +404,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 306.0, 95.0, 271.0, 31.0 ],
-									"text" : "jcom.parameter gdif/cooked/on @type msg_toggle @range/clipmode none @description \"Turn data on\"",
+									"text" : "jcom.parameter gdif/cooked/on @type boolean @range/clipmode none @description \"Turn data on\"",
 									"varname" : "gdif/cooked/on"
 								}
 
@@ -421,7 +421,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 306.0, 55.0, 271.0, 31.0 ],
-									"text" : "jcom.parameter gdif/raw/on @type msg_toggle @range/clipmode none @description \"Turn data on\"",
+									"text" : "jcom.parameter gdif/raw/on @type boolean @range/clipmode none @description \"Turn data on\"",
 									"varname" : "gdif/raw/on"
 								}
 

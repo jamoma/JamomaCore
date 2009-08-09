@@ -280,7 +280,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 718.0, 451.0, 170.0, 42.0 ],
-					"text" : "jcom.return raw/voice.*/poly @type msg_list @description \"poly information on channel *.\""
+					"text" : "jcom.return raw/voice.*/poly @type array @description \"poly information on channel *.\""
 				}
 
 			}
@@ -410,7 +410,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 317.0, 142.0, 112.0, 28.0 ],
-									"text" : "type msg_int, range/bounds 0 127"
+									"text" : "type integer, range/bounds 0 127"
 								}
 
 							}
@@ -425,7 +425,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 199.0, 141.0, 107.0, 28.0 ],
-									"text" : "type msg_float, range/bounds 0. 1."
+									"text" : "type decimal, range/bounds 0. 1."
 								}
 
 							}
@@ -678,7 +678,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 535.0, 451.0, 180.0, 54.0 ],
-					"text" : "jcom.return raw/voice.*/program @type msg_int @range/bounds 0 127 @description \"Program change information on channel *.\""
+					"text" : "jcom.return raw/voice.*/program @type integer @range/bounds 0 127 @description \"Program change information on channel *.\""
 				}
 
 			}
@@ -1094,7 +1094,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 202.0, 451.0, 169.0, 66.0 ],
-					"text" : "jcom.return raw/voice.*/cc.* @type msg_int @range/bounds 0 127 @description \"Control number m changed at channel n. (1st*=n, 2d*=m) \""
+					"text" : "jcom.return raw/voice.*/cc.* @type integer @range/bounds 0 127 @description \"Control number m changed at channel n. (1st*=n, 2d*=m) \""
 				}
 
 			}
@@ -1109,7 +1109,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 35.0, 450.0, 169.0, 54.0 ],
-					"text" : "jcom.return raw/voice.*/note @type msg_list @description \"MIDI note information as pitch and velocity on channel *.\""
+					"text" : "jcom.return raw/voice.*/note @type array @description \"MIDI note information as pitch and velocity on channel *.\""
 				}
 
 			}
@@ -1124,7 +1124,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 374.0, 451.0, 183.0, 54.0 ],
-					"text" : "jcom.return raw/voice.*/bend @type msg_float @range/bounds -24. 24. @description \"Pitch bend on channel *.\""
+					"text" : "jcom.return raw/voice.*/bend @type decimal @range/bounds -24. 24. @description \"Pitch bend on channel *.\""
 				}
 
 			}

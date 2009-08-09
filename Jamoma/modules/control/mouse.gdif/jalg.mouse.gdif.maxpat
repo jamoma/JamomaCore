@@ -420,7 +420,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/meta/flow @type msg_float @range/bounds 0. 1. @description \"Fluidity of movements (legato-staccato)\"",
+									"text" : "jcom.return gdif/meta/flow @type decimal @range/bounds 0. 1. @description \"Fluidity of movements (legato-staccato)\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -435,7 +435,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/meta/dynamics @type msg_float @range/bounds 0. 1. @description \"Dynamic level (pp-FF)\"",
+									"text" : "jcom.return gdif/meta/dynamics @type decimal @range/bounds 0. 1. @description \"Dynamic level (pp-FF)\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -1387,7 +1387,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/device/mouse/location/vertical @type msg_float @range/bounds 0. 1. @description \"Vertical position of hand\"",
+									"text" : "jcom.return gdif/device/mouse/location/vertical @type decimal @range/bounds 0. 1. @description \"Vertical position of hand\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -1402,7 +1402,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/device/mouse/location/horizontal @type msg_float @range/bounds 0. 1. @description \"Horizontal position of hand\"",
+									"text" : "jcom.return gdif/device/mouse/location/horizontal @type decimal @range/bounds 0. 1. @description \"Horizontal position of hand\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -2250,7 +2250,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/performance/fluidity @type msg_float @range/bounds 0. 1. @description \"Fluidity of movements (legato-staccato)\"",
+									"text" : "jcom.return gdif/performance/fluidity @type decimal @range/bounds 0. 1. @description \"Fluidity of movements (legato-staccato)\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -2265,7 +2265,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/performance/dynamics @type msg_float @range/bounds 0. 1. @description \"Dynamic level (pp-FF)\"",
+									"text" : "jcom.return gdif/performance/dynamics @type decimal @range/bounds 0. 1. @description \"Dynamic level (pp-FF)\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -3485,7 +3485,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return position/y @type msg_float @range/bounds 0. 1. @description \"Vertical position of mouse\"",
+					"text" : "jcom.return position/y @type decimal @range/bounds 0. 1. @description \"Vertical position of mouse\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",
@@ -3500,7 +3500,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return position/x @type msg_float @range/bounds 0. 1. @description \"Horizontal position of mouse\"",
+					"text" : "jcom.return position/x @type decimal @range/bounds 0. 1. @description \"Horizontal position of mouse\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",
@@ -3861,7 +3861,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/body/hand/right/motion/direction @type msg_float @range/bounds 0. 1. @description \"Direction of motion in radians\"",
+									"text" : "jcom.return gdif/body/hand/right/motion/direction @type decimal @range/bounds 0. 1. @description \"Direction of motion in radians\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -3876,7 +3876,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/body/hand/right/motion/quantity @type msg_float @range/bounds 0. 1. @description \"Quantity of Motion (QoM) of hand\"",
+									"text" : "jcom.return gdif/body/hand/right/motion/quantity @type decimal @range/bounds 0. 1. @description \"Quantity of Motion (QoM) of hand\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -3933,7 +3933,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/body/hand/right/orientation @type msg_float @range/bounds 0. 1. @description \"Vertical position of hand\"",
+									"text" : "jcom.return gdif/body/hand/right/orientation @type decimal @range/bounds 0. 1. @description \"Vertical position of hand\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -3948,7 +3948,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/body/hand/right/distance @type msg_float @range/bounds 0. 1. @description \"Horizontal position of hand\"",
+									"text" : "jcom.return gdif/body/hand/right/distance @type decimal @range/bounds 0. 1. @description \"Horizontal position of hand\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -4141,7 +4141,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/body/hand/right/location/vertical @type msg_float @range/bounds 0. 1. @description \"Vertical position of hand\"",
+									"text" : "jcom.return gdif/body/hand/right/location/vertical @type decimal @range/bounds 0. 1. @description \"Vertical position of hand\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -4156,7 +4156,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/body/hand/right/location/horizontal @type msg_float @range/bounds 0. 1. @description \"Horizontal position of hand\"",
+									"text" : "jcom.return gdif/body/hand/right/location/horizontal @type decimal @range/bounds 0. 1. @description \"Horizontal position of hand\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -4987,7 +4987,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/cooked/location/vertical @type msg_float @range/bounds 0. 1. @description \"Vertical position of mouse\"",
+									"text" : "jcom.return gdif/cooked/location/vertical @type decimal @range/bounds 0. 1. @description \"Vertical position of mouse\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -5002,7 +5002,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/cooked/location/horizontal @type msg_float @range/bounds 0. 1. @description \"Horizontal position of mouse\"",
+									"text" : "jcom.return gdif/cooked/location/horizontal @type decimal @range/bounds 0. 1. @description \"Horizontal position of mouse\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -5688,7 +5688,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/raw/location/vertical @type msg_int @range/bounds 0 2000 @description \"Vertical position of mouse\"",
+									"text" : "jcom.return gdif/raw/location/vertical @type integer @range/bounds 0 2000 @description \"Vertical position of mouse\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -5703,7 +5703,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return gdif/raw/location/horizontal @type msg_int @range/bounds 0 2000 @description \"Horizontal position of mouse\"",
+									"text" : "jcom.return gdif/raw/location/horizontal @type integer @range/bounds 0 2000 @description \"Horizontal position of mouse\"",
 									"linecount" : 2,
 									"numinlets" : 1,
 									"fontname" : "Verdana",
@@ -6228,7 +6228,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return delta/angle @type msg_float @range/bounds -3.14 3.14 @description \"Angle (in radians) of relative position of mouse.\"",
+					"text" : "jcom.return delta/angle @type decimal @range/bounds -3.14 3.14 @description \"Angle (in radians) of relative position of mouse.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",
@@ -6285,7 +6285,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return delta/magnitude @type msg_float @range/bounds 0. 0.4 @description \"Mangitude (in screen percentage) of relative position of mouse (sum of horizontal and vertical).\"",
+					"text" : "jcom.return delta/magnitude @type decimal @range/bounds 0. 0.4 @description \"Mangitude (in screen percentage) of relative position of mouse (sum of horizontal and vertical).\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",
@@ -6300,7 +6300,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return delta/y @type msg_float @range/bounds -0.2 0.2 @description \"Vertical delta position of mouse\"",
+					"text" : "jcom.return delta/y @type decimal @range/bounds -0.2 0.2 @description \"Vertical delta position of mouse\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",
@@ -6315,7 +6315,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return delta/x @type msg_float @range/bounds -0.2 0.2 @description \"Horizontal delta position of mouse\"",
+					"text" : "jcom.return delta/x @type decimal @range/bounds -0.2 0.2 @description \"Horizontal delta position of mouse\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",

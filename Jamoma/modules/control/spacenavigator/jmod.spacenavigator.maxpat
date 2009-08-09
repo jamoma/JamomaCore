@@ -73,7 +73,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 390.0, 30.0, 283.0, 31.0 ],
-					"text" : "jcom.parameter active @type msg_toggle @range/clipmode none @description \"Turn polling on\"",
+					"text" : "jcom.parameter active @type boolean @range/clipmode none @description \"Turn polling on\"",
 					"varname" : "on[1]"
 				}
 

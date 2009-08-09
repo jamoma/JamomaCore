@@ -43,7 +43,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 86.0, 418.0, 491.0, 18.0 ],
-					"text" : "jcom.parameter repeat @type msg_symbol @repetitions/allow 1 @description \"repeat mode: none, all, one \""
+					"text" : "jcom.parameter repeat @type string @repetitions/allow 1 @description \"repeat mode: none, all, one \""
 				}
 
 			}
@@ -58,7 +58,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 475.0, 365.0, 257.0, 38.0 ],
-					"text" : "jcom.return cue @type msg_symbol @repetitions/allow 1 @description \"Cue to be triggered. For communication with jmod.cuelist.\""
+					"text" : "jcom.return cue @type string @repetitions/allow 1 @description \"Cue to be triggered. For communication with jmod.cuelist.\""
 				}
 
 			}
@@ -100,7 +100,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 30.0, 373.0, 422.0, 17.0 ],
-					"text" : "jcom.message rewind @type msg_none @repetitions/allow 1 @description \"Rewind to first cue in list.\""
+					"text" : "jcom.message rewind @type none @repetitions/allow 1 @description \"Rewind to first cue in list.\""
 				}
 
 			}
@@ -133,7 +133,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 25.0, 440.0, 405.0, 27.0 ],
-					"text" : "jcom.message cues @type msg_generic @repetitions/allow 1 @description \"Stream of all cues as symbols.\""
+					"text" : "jcom.message cues @type generic @repetitions/allow 1 @description \"Stream of all cues as symbols.\""
 				}
 
 			}
@@ -771,7 +771,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 28.0, 9.0, 202.0, 58.0 ],
-									"text" : "jcom.message go @type msg_generic @repetitions/allow 1 @description \"Trigger selected cue. If a number is provided e.g. /go 2, then the Nth cue in the cuelist is immediately triggered\""
+									"text" : "jcom.message go @type generic @repetitions/allow 1 @description \"Trigger selected cue. If a number is provided e.g. /go 2, then the Nth cue in the cuelist is immediately triggered\""
 								}
 
 							}

@@ -55,7 +55,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 194.0, 286.0, 599.0, 30.0 ],
-					"text" : "jcom.return receive @repetitions/allow 1 @type msg_generic @description \"Open Sound Control messages coming in from the network are reported here.\""
+					"text" : "jcom.return receive @repetitions/allow 1 @type generic @description \"Open Sound Control messages coming in from the network are reported here.\""
 				}
 
 			}
@@ -88,7 +88,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 490.0, 95.0, 525.0, 18.0 ],
-					"text" : "jcom.parameter mode @type msg_symbol @description \"Choose between single IP or multicast usage\"",
+					"text" : "jcom.parameter mode @type string @description \"Choose between single IP or multicast usage\"",
 					"varname" : "mode"
 				}
 

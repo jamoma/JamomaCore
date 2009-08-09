@@ -156,7 +156,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 395.0, 135.0, 442.0, 19.0 ],
-					"text" : "jcom.parameter mode @type msg_symbol @description \"choose the waveform type.\"",
+					"text" : "jcom.parameter mode @type string @description \"choose the waveform type.\"",
 					"varname" : "mode[1]"
 				}
 
@@ -172,7 +172,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 395.0, 205.0, 637.0, 31.0 ],
-					"text" : "jcom.parameter frequency @type msg_float @range/bounds 0. 20000. @ramp/drive scheduler @description \"Frequency used.\" @dataspace pitch @dataspace/unit/active Hz @dataspace/unit/native Hz @dataspace/unit/display Hz",
+					"text" : "jcom.parameter frequency @type decimal @range/bounds 0. 20000. @ramp/drive scheduler @description \"Frequency used.\" @dataspace pitch @dataspace/unit/active Hz @dataspace/unit/native Hz @dataspace/unit/display Hz",
 					"varname" : "frequency"
 				}
 

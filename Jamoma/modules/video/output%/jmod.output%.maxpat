@@ -98,7 +98,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 115.0, 565.0, 245.0, 42.0 ],
-					"text" : "jcom.parameter context @type msg_symbol @description \"Name of the window and rendering context\"",
+					"text" : "jcom.parameter context @type string @description \"Name of the window and rendering context\"",
 					"varname" : "interpolate[2]"
 				}
 
@@ -216,7 +216,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 28.0, 386.0, 245.0, 30.0 ],
-					"text" : "jcom.parameter interpolate @type msg_toggle @description \"Interpolate the video output\"",
+					"text" : "jcom.parameter interpolate @type boolean @description \"Interpolate the video output\"",
 					"varname" : "interpolate[1]"
 				}
 
@@ -232,7 +232,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 27.0, 306.0, 328.0, 30.0 ],
-					"text" : "jcom.parameter fullscreen @type msg_toggle @description \"Toggle fullscreen - can be turned on and off with the ESC key.\"",
+					"text" : "jcom.parameter fullscreen @type boolean @description \"Toggle fullscreen - can be turned on and off with the ESC key.\"",
 					"varname" : "fullscreen[1]"
 				}
 

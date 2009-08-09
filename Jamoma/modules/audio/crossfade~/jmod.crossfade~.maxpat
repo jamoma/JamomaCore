@@ -348,7 +348,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 300.0, 115.0, 446.0, 31.0 ],
-					"text" : "jcom.parameter mode @type msg_symbol @description \"choose the calculation mode for the crossfade: fast uses a lookup table while precisision performs trig calculations\"",
+					"text" : "jcom.parameter mode @type string @description \"choose the calculation mode for the crossfade: fast uses a lookup table while precisision performs trig calculations\"",
 					"varname" : "mode[1]"
 				}
 
@@ -364,7 +364,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 300.0, 75.0, 307.0, 31.0 ],
-					"text" : "jcom.parameter shape @type msg_symbol @description \"Choose the shape of the crossfade: linear or equal-power\"",
+					"text" : "jcom.parameter shape @type string @description \"Choose the shape of the crossfade: linear or equal-power\"",
 					"varname" : "shape[1]"
 				}
 
@@ -380,7 +380,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 300.0, 155.0, 447.0, 43.0 ],
-					"text" : "jcom.parameter position @type msg_float @range/bounds 1. 2. @ramp/drive scheduler @description \"set the position of the crossfade.  1 is entirely source 1 - 2 is entirely source 2 - positions in the middle are a location between source one and two.\"",
+					"text" : "jcom.parameter position @type decimal @range/bounds 1. 2. @ramp/drive scheduler @description \"set the position of the crossfade.  1 is entirely source 1 - 2 is entirely source 2 - positions in the middle are a location between source one and two.\"",
 					"varname" : "position"
 				}
 

@@ -199,7 +199,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "bands",
-					"text" : "jcom.parameter bands @type msg_int @repetitions/allow 1 @priority 1 @description \"Number of bands of the filter\"",
+					"text" : "jcom.parameter bands @type integer @repetitions/allow 1 @priority 1 @description \"Number of bands of the filter\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"fontsize" : 10.0,

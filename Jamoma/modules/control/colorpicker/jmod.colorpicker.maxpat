@@ -760,7 +760,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 20.0, 565.0, 239.0, 31.0 ],
-									"text" : "jcom.parameter colors @type msg_list @description \"List of 1 to 12 HSL triplets.\"",
+									"text" : "jcom.parameter colors @type array @description \"List of 1 to 12 HSL triplets.\"",
 									"varname" : "colors"
 								}
 

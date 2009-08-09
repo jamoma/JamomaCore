@@ -120,7 +120,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 320.0, 225.0, 440.0, 19.0 ],
-					"text" : "jcom.message dspStatus @type msg_none @description \"Open DSP Status window.\""
+					"text" : "jcom.message dspStatus @type none @description \"Open DSP Status window.\""
 				}
 
 			}
@@ -901,7 +901,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 318.0, 77.0, 422.0, 19.0 ],
-					"text" : "jcom.parameter audio @type msg_toggle @description \"Toggle audio on and off.\"",
+					"text" : "jcom.parameter audio @type boolean @description \"Toggle audio on and off.\"",
 					"varname" : "audio[1]"
 				}
 

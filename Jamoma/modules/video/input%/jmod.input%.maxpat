@@ -94,7 +94,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 362.0, 414.0, 330.0, 31.0 ],
-					"text" : "jcom.parameter source @type msg_symbol @description \"Choose between camera - file or synthesis as input\"",
+					"text" : "jcom.parameter source @type string @description \"Choose between camera - file or synthesis as input\"",
 					"varname" : "source_mode[1]"
 				}
 

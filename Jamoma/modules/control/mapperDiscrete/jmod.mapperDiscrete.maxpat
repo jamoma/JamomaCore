@@ -139,7 +139,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 900.0, 673.0, 590.0, 42.0 ],
-					"text" : "jcom.parameter in/value/variation @repetitions/allow 1 @type msg_float @range/bounds 0. 100. @range/clipmode low @description \"optional amont of variation for /input/value to fulfill trigger condition. ranges are calculated in/value±/in/value/variation\"",
+					"text" : "jcom.parameter in/value/variation @repetitions/allow 1 @type decimal @range/bounds 0. 100. @range/clipmode low @description \"optional amont of variation for /input/value to fulfill trigger condition. ranges are calculated in/value±/in/value/variation\"",
 					"varname" : "in_value[3]"
 				}
 
@@ -155,7 +155,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 335.0, 70.0, 472.0, 31.0 ],
-					"text" : "jcom.parameter in/direct @repetitions/allow 1 @ramp/drive scheduler @type msg_generic @description \"use this parameter to alternatively provide a source for mapping\""
+					"text" : "jcom.parameter in/direct @repetitions/allow 1 @ramp/drive scheduler @type generic @description \"use this parameter to alternatively provide a source for mapping\""
 				}
 
 			}
@@ -1334,7 +1334,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 189.0, 687.0, 584.0, 31.0 ],
-					"text" : "jcom.parameter in/module/derivative @repetitions/allow 1 @type msg_int @range/bounds 0 2 @range/clipmode both @description \"mapping from the 0th, 1st, or 2nd derivative input value\" @value/default 0",
+					"text" : "jcom.parameter in/module/derivative @repetitions/allow 1 @type integer @range/bounds 0 2 @range/clipmode both @description \"mapping from the 0th, 1st, or 2nd derivative input value\" @value/default 0",
 					"varname" : "module_in_nr[2]"
 				}
 
@@ -1372,7 +1372,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 186.0, 645.0, 603.0, 31.0 ],
-					"text" : "jcom.parameter in/module/listindex @repetitions/allow 1 @type msg_int @range/bounds 1 32 @range/clipmode low @description \"If input parameter is a list, this option allows to pick the Nth value from that list\"",
+					"text" : "jcom.parameter in/module/listindex @repetitions/allow 1 @type integer @range/bounds 1 32 @range/clipmode low @description \"If input parameter is a list, this option allows to pick the Nth value from that list\"",
 					"varname" : "moduleListindex"
 				}
 
@@ -1460,7 +1460,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 434.0, 207.0, 322.0, 42.0 ],
-					"text" : "jcom.parameter time/wait @repetitions/allow 1 @type msg_float @range/bounds 0. 99. @range/clipmode low @description \"Wait time before sending the output data\"",
+					"text" : "jcom.parameter time/wait @repetitions/allow 1 @type decimal @range/bounds 0. 99. @range/clipmode low @description \"Wait time before sending the output data\"",
 					"varname" : "wait_time"
 				}
 
@@ -1476,7 +1476,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 436.0, 129.0, 336.0, 42.0 ],
-					"text" : "jcom.parameter time/repeat @repetitions/allow 1 @range/bounds 0. 99. @range/clipmode low @type msg_float @description \"minimum time between two trigger messages\"",
+					"text" : "jcom.parameter time/repeat @repetitions/allow 1 @range/bounds 0. 99. @range/clipmode low @type decimal @description \"minimum time between two trigger messages\"",
 					"varname" : "repeat_time"
 				}
 
@@ -2417,7 +2417,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 779.0, 547.0, 552.0, 42.0 ],
-					"text" : "jcom.parameter out/ramp @repetitions/allow 1 @type msg_int @description \"ramp time,  sent as {ramp #} together with the trigger message. in [ms] by default\" @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @dataspace/unit/display ms @range/bounds 0 9999 @range/clipmode low",
+					"text" : "jcom.parameter out/ramp @repetitions/allow 1 @type integer @description \"ramp time,  sent as {ramp #} together with the trigger message. in [ms] by default\" @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @dataspace/unit/display ms @range/bounds 0 9999 @range/clipmode low",
 					"varname" : "out_value[3]"
 				}
 
@@ -2480,7 +2480,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 847.0, 159.0, 184.0, 54.0 ],
-					"text" : "jcom.parameter in/action @repetitions/allow 1 @type msg_int @description \"Destination module of the mapping\"",
+					"text" : "jcom.parameter in/action @repetitions/allow 1 @type integer @description \"Destination module of the mapping\"",
 					"varname" : "module_in_action[1]"
 				}
 
@@ -2816,7 +2816,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 862.0, 632.0, 342.0, 30.0 ],
-					"text" : "jcom.parameter in/value @repetitions/allow 1 @type msg_float @description \"Input number that fulfills trigger condition.\"",
+					"text" : "jcom.parameter in/value @repetitions/allow 1 @type decimal @description \"Input number that fulfills trigger condition.\"",
 					"varname" : "in_value[1]"
 				}
 
@@ -2847,7 +2847,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 861.0, 483.0, 329.0, 42.0 ],
-					"text" : "jcom.parameter in/message @repetitions/allow 1 @type msg_generic @description \"Input message that fulfills trigger condition.\"",
+					"text" : "jcom.parameter in/message @repetitions/allow 1 @type generic @description \"Input message that fulfills trigger condition.\"",
 					"varname" : "in_message[1]"
 				}
 
@@ -2863,7 +2863,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1039.0, 175.0, 186.0, 54.0 ],
-					"text" : "jcom.parameter out/action @repetitions/allow 1 @type msg_int @description \"Destination module of the mapping\"",
+					"text" : "jcom.parameter out/action @repetitions/allow 1 @type integer @description \"Destination module of the mapping\"",
 					"varname" : "module_out_action[1]"
 				}
 
@@ -2894,7 +2894,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 862.0, 402.0, 312.0, 30.0 ],
-					"text" : "jcom.parameter out/value @repetitions/allow 1 @type msg_float @description \"value sent to output\"",
+					"text" : "jcom.parameter out/value @repetitions/allow 1 @type decimal @description \"value sent to output\"",
 					"varname" : "out_value[1]"
 				}
 
@@ -2910,7 +2910,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 864.0, 328.0, 313.0, 30.0 ],
-					"text" : "jcom.parameter out/message @repetitions/allow 1 @type msg_generic @description \"Message sent to output\"",
+					"text" : "jcom.parameter out/message @repetitions/allow 1 @type generic @description \"Message sent to output\"",
 					"varname" : "out_message[1]"
 				}
 
@@ -2997,7 +2997,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 207.0, 497.0, 559.0, 30.0 ],
-					"text" : "jcom.parameter in/module/parameter @repetitions/allow 1 @type msg_symbol @description \"Source module parameter used as input to the mapping\" @priority 5",
+					"text" : "jcom.parameter in/module/parameter @repetitions/allow 1 @type string @description \"Source module parameter used as input to the mapping\" @priority 5",
 					"varname" : "module_in_function"
 				}
 
@@ -3013,7 +3013,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 865.0, 60.0, 327.0, 31.0 ],
-					"text" : "jcom.parameter edit @repetitions/allow 1 @type msg_symbol @description \"Choose operation mode (active, edit, bypass)\"",
+					"text" : "jcom.parameter edit @repetitions/allow 1 @type string @description \"Choose operation mode (active, edit, bypass)\"",
 					"varname" : "jcom.parameter[10]"
 				}
 
@@ -3029,7 +3029,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 133.0, 605.0, 604.0, 30.0 ],
-					"text" : "jcom.parameter out/module/parameter @repetitions/allow 1 @type msg_symbol @description \"Destination parameter that the output from he mapping is passed to\" @priority 6",
+					"text" : "jcom.parameter out/module/parameter @repetitions/allow 1 @type string @description \"Destination parameter that the output from he mapping is passed to\" @priority 6",
 					"varname" : "module_out_function"
 				}
 
@@ -3064,7 +3064,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 326.0, 391.0, 376.0, 30.0 ],
-					"text" : "jcom.parameter in/module/instance @repetitions/allow 1 @type msg_int @description \"Source module instance of the mapping\" @priority 2",
+					"text" : "jcom.parameter in/module/instance @repetitions/allow 1 @type integer @description \"Source module instance of the mapping\" @priority 2",
 					"varname" : "module_in_nr"
 				}
 
@@ -3080,7 +3080,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 360.0, 349.0, 390.0, 30.0 ],
-					"text" : "jcom.parameter in/module/name @repetitions/allow 1 @type msg_symbol @description \"Source module name of the mapping\" @priority 1",
+					"text" : "jcom.parameter in/module/name @repetitions/allow 1 @type string @description \"Source module name of the mapping\" @priority 1",
 					"varname" : "module_in[1]"
 				}
 
@@ -3096,7 +3096,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 171.0, 541.0, 424.0, 30.0 ],
-					"text" : "jcom.parameter out/module/instance @repetitions/allow 1 @priority 4 @type msg_int @description \"Destination module instance of the mapping\"",
+					"text" : "jcom.parameter out/module/instance @repetitions/allow 1 @priority 4 @type integer @description \"Destination module instance of the mapping\"",
 					"varname" : "module_out_nr"
 				}
 
@@ -3167,7 +3167,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 95.0, 261.0, 274.0, 31.0 ],
-									"text" : "jcom.return out/direct @repetitions/allow 1 @type msg_generic @description \"mapping result\""
+									"text" : "jcom.return out/direct @repetitions/allow 1 @type generic @description \"mapping result\""
 								}
 
 							}
@@ -3849,7 +3849,7 @@
 																	"numoutlets" : 4,
 																	"outlettype" : [ "bang", "bang", "bang", "" ],
 																	"patching_rect" : [ 306.0, 110.0, 859.0, 19.0 ],
-																	"text" : "sel msg_generic msg_none msg_toggle"
+																	"text" : "sel generic none boolean"
 																}
 
 															}
@@ -3908,7 +3908,7 @@
 																	"numoutlets" : 4,
 																	"outlettype" : [ "bang", "bang", "bang", "" ],
 																	"patching_rect" : [ 49.0, 109.0, 167.0, 19.0 ],
-																	"text" : "sel msg_list msg_float msg_int"
+																	"text" : "sel array decimal integer"
 																}
 
 															}
@@ -4862,7 +4862,7 @@
 																					"numoutlets" : 3,
 																					"outlettype" : [ "bang", "bang", "" ],
 																					"patching_rect" : [ 324.0, 233.0, 147.0, 19.0 ],
-																					"text" : "sel msg_symbol msg_none"
+																					"text" : "sel string none"
 																				}
 
 																			}
@@ -5220,7 +5220,7 @@
 																					"numoutlets" : 3,
 																					"outlettype" : [ "bang", "bang", "" ],
 																					"patching_rect" : [ 501.0, 284.0, 147.0, 19.0 ],
-																					"text" : "sel msg_symbol msg_none"
+																					"text" : "sel string none"
 																				}
 
 																			}
@@ -8258,7 +8258,7 @@
 																	"numoutlets" : 2,
 																	"outlettype" : [ "bang", "" ],
 																	"patching_rect" : [ 126.0, 86.0, 80.0, 19.0 ],
-																	"text" : "sel msg_none"
+																	"text" : "sel none"
 																}
 
 															}
@@ -8287,7 +8287,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 251.0, 135.0, 150.0, 31.0 ],
-																	"text" : "if destination has the type msg_none"
+																	"text" : "if destination has the type none"
 																}
 
 															}
@@ -11094,7 +11094,7 @@
 																	"numoutlets" : 3,
 																	"outlettype" : [ "bang", "bang", "" ],
 																	"patching_rect" : [ 557.0, 71.0, 154.0, 19.0 ],
-																	"text" : "sel msg_toggle msg_generic"
+																	"text" : "sel boolean generic"
 																}
 
 															}
@@ -11108,7 +11108,7 @@
 																	"numoutlets" : 4,
 																	"outlettype" : [ "bang", "bang", "bang", "" ],
 																	"patching_rect" : [ 30.0, 88.0, 167.0, 19.0 ],
-																	"text" : "sel msg_list msg_float msg_int"
+																	"text" : "sel array decimal integer"
 																}
 
 															}
@@ -11181,7 +11181,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 177.0, 40.0, 74.0, 17.0 ],
-																	"text" : "msg_symbol"
+																	"text" : "string"
 																}
 
 															}
@@ -11774,7 +11774,7 @@
 																	"numoutlets" : 2,
 																	"outlettype" : [ "bang", "" ],
 																	"patching_rect" : [ 50.0, 100.0, 88.0, 19.0 ],
-																	"text" : "sel msg_list"
+																	"text" : "sel array"
 																}
 
 															}
@@ -13645,7 +13645,7 @@
 																					"numoutlets" : 3,
 																					"outlettype" : [ "bang", "bang", "" ],
 																					"patching_rect" : [ 324.0, 233.0, 147.0, 19.0 ],
-																					"text" : "sel msg_symbol msg_none"
+																					"text" : "sel string none"
 																				}
 
 																			}
@@ -13968,7 +13968,7 @@
 																					"numoutlets" : 3,
 																					"outlettype" : [ "bang", "bang", "" ],
 																					"patching_rect" : [ 324.0, 233.0, 147.0, 19.0 ],
-																					"text" : "sel msg_symbol msg_none"
+																					"text" : "sel string none"
 																				}
 
 																			}
@@ -14326,7 +14326,7 @@
 																					"numoutlets" : 3,
 																					"outlettype" : [ "bang", "bang", "" ],
 																					"patching_rect" : [ 501.0, 284.0, 147.0, 19.0 ],
-																					"text" : "sel msg_symbol msg_none"
+																					"text" : "sel string none"
 																				}
 
 																			}
@@ -16161,7 +16161,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 367.0, 458.0, 401.0, 30.0 ],
-					"text" : "jcom.parameter out/module/name @repetitions/allow 1 @priority 3 @type msg_symbol @description \"Destination module name of the mapping\"",
+					"text" : "jcom.parameter out/module/name @repetitions/allow 1 @priority 3 @type string @description \"Destination module name of the mapping\"",
 					"varname" : "module_out[1]"
 				}
 

@@ -124,7 +124,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 370.0, 200.0, 398.0, 20.0 ],
-					"text" : "jcom.return xyz.0/active @type msg_int"
+					"text" : "jcom.return xyz.0/active @type integer"
 				}
 
 			}
@@ -181,7 +181,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1046.0, 238.0, 567.0, 31.0 ],
-					"text" : "jcom.message xyz.2 @type msg_list @priority 4 @repetitions/allow 1 @description \"alternative description of position of voice #1 as xyz coodinate.\"",
+					"text" : "jcom.message xyz.2 @type array @priority 4 @repetitions/allow 1 @description \"alternative description of position of voice #1 as xyz coodinate.\"",
 					"varname" : "parameter[3]"
 				}
 
@@ -392,7 +392,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 349.0, 302.0, 645.0, 19.0 ],
-					"text" : "jcom.parameter xyz.0 @type msg_list @priority 4 @repetitions/allow 1 @description \"Position of voice 0 as xyz coordinates.\"",
+					"text" : "jcom.parameter xyz.0 @type array @priority 4 @repetitions/allow 1 @description \"Position of voice 0 as xyz coordinates.\"",
 					"varname" : "parameter"
 				}
 

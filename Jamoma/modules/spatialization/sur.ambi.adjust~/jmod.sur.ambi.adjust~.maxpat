@@ -129,7 +129,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 467.0, 138.0, 282.0, 31.0 ],
-					"text" : "jcom.parameter meter @type msg_toggle @description \"Enable or disable monotoring of levels.\"",
+					"text" : "jcom.parameter meter @type boolean @description \"Enable or disable monotoring of levels.\"",
 					"varname" : "meter"
 				}
 
@@ -634,7 +634,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 256.0, 221.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter r/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter r/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "r/gain"
 								}
 
@@ -650,7 +650,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 256.0, 89.0, 706.0, 31.0 ],
-									"text" : "jcom.parameter w/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter w/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "w/gain"
 								}
 
@@ -666,7 +666,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 256.0, 123.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter x/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter x/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "x/gain"
 								}
 
@@ -682,7 +682,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 256.0, 155.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter y/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter y/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "y/gain"
 								}
 
@@ -698,7 +698,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 256.0, 188.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter z/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter z/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "z/gain"
 								}
 
@@ -714,7 +714,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 256.0, 254.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter s/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter s/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "s/gain"
 								}
 
@@ -730,7 +730,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 256.0, 287.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter t/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter t/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "t/gain"
 								}
 
@@ -746,7 +746,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 256.0, 320.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter u/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter u/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "u/gain"
 								}
 
@@ -762,7 +762,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 255.0, 353.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter v/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter v/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "v/gain"
 								}
 
@@ -778,7 +778,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 255.0, 386.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter k/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter k/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "k/gain"
 								}
 
@@ -794,7 +794,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 255.0, 419.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter l/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter l/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "l/gain"
 								}
 
@@ -810,7 +810,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 255.0, 452.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter m/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter m/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "m/gain"
 								}
 
@@ -826,7 +826,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 255.0, 485.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter n/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter n/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "n/gain"
 								}
 
@@ -842,7 +842,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 255.0, 518.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter o/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter o/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "o/gain"
 								}
 
@@ -858,7 +858,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 255.0, 551.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter p/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter p/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "p/gain"
 								}
 
@@ -874,7 +874,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 255.0, 584.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter q/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter q/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "q/gain"
 								}
 
@@ -1341,7 +1341,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 467.0, 63.0, 361.0, 43.0 ],
-					"text" : "jcom.parameter order @type msg_int @range/bounds 1 3 @range/clipmode both @repetitions/allow 1 @description \"Ambisonic order. Note: Order is only updated when audio is not running.\"",
+					"text" : "jcom.parameter order @type integer @range/bounds 1 3 @range/clipmode both @repetitions/allow 1 @description \"Ambisonic order. Note: Order is only updated when audio is not running.\"",
 					"varname" : "order"
 				}
 

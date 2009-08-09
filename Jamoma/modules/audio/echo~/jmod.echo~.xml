@@ -6,18 +6,18 @@
 >
 	
 	<preset number="1" name="default">
-		<item name="audio/gain" type="msg_int">0</item>
-		<item name="audio/meters/freeze" type="msg_int">0</item>
-		<item name="audio/mix" type="msg_float">100.</item>
-		<item name="audio/bypass" type="msg_int">0</item>
-		<item name="audio/mute" type="msg_int">1</item>		
-		<item name="left" type="msg_int">250</item>
-		<item name="frequency" type="msg_float" priority="4">8571.957031</item>
-		<item name="q" type="msg_float">0.80165</item>
-		<item name="filtergain" type="msg_float">-0.547163</item>
-		<item name="filtertype" type="msg_symbol">lowpass</item>
-		<item name="right" type="msg_int">750</item>
-	    <item name='feedback/gain' type='msg_float' priority='0'>0.2</item>
-	    <item name='feedback/mode' type='msg_symbol' priority='0'>stereo</item>
+		<item name="audio/gain" type="integer">0</item>
+		<item name="audio/meters/freeze" type="integer">0</item>
+		<item name="audio/mix" type="decimal">100.</item>
+		<item name="audio/bypass" type="integer">0</item>
+		<item name="audio/mute" type="integer">1</item>		
+		<item name="left" type="integer">250</item>
+		<item name="frequency" type="decimal" priority="4">8571.957031</item>
+		<item name="q" type="decimal">0.80165</item>
+		<item name="filtergain" type="decimal">-0.547163</item>
+		<item name="filtertype" type="string">lowpass</item>
+		<item name="right" type="integer">750</item>
+	    <item name='feedback/gain' type='decimal' priority='0'>0.2</item>
+	    <item name='feedback/mode' type='string' priority='0'>stereo</item>
     </preset>
 </jamoma>

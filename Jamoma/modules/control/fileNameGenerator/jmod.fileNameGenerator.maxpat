@@ -298,7 +298,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 773.0, 139.0, 354.0, 31.0 ],
-					"text" : "jcom.message file_extension @type msg_symbol @description \"file extension file name to be generated\"",
+					"text" : "jcom.message file_extension @type string @description \"file extension file name to be generated\"",
 					"varname" : "file_name[1]"
 				}
 
@@ -360,7 +360,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 813.0, 421.0, 271.0, 43.0 ],
-					"text" : "jcom.parameter take @type msg_int @range/bounds 0 9999999 @range/clipmode low @description \"take index - tail of current file name\"",
+					"text" : "jcom.parameter take @type integer @range/bounds 0 9999999 @range/clipmode low @description \"take index - tail of current file name\"",
 					"varname" : "take_p"
 				}
 
@@ -375,7 +375,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 631.0, 639.0, 331.0, 19.0 ],
-					"text" : "jcom.return file @type msg_list @description \"current new file\""
+					"text" : "jcom.return file @type array @description \"current new file\""
 				}
 
 			}
@@ -457,7 +457,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 717.0, 522.0, 336.0, 31.0 ],
-					"text" : "jcom.message file_name @type msg_symbol @description \"first part of the file name to be generated\"",
+					"text" : "jcom.message file_name @type string @description \"first part of the file name to be generated\"",
 					"varname" : "file_name"
 				}
 
@@ -562,7 +562,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 331.0, 194.0, 130.0, 31.0 ],
-					"text" : "jcom.parameter folder @type msg_symbol",
+					"text" : "jcom.parameter folder @type string",
 					"varname" : "folder"
 				}
 

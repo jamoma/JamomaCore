@@ -70,7 +70,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 313.0, 476.0, 577.0, 31.0 ],
-					"text" : "jcom.parameter source.1/daFact @type msg_float @range/bounds 0. 100. @range/clipmode both @description \"Sets the distance unit for the exponential distance model.\""
+					"text" : "jcom.parameter source.1/daFact @type decimal @range/bounds 0. 100. @range/clipmode both @description \"Sets the distance unit for the exponential distance model.\""
 				}
 
 			}
@@ -115,7 +115,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 309.0, 413.0, 577.0, 31.0 ],
-					"text" : "jcom.parameter source.1/dBUnit @type msg_float @range/bounds 0. 100. @range/clipmode both @description \"Sets the distance unit for the exponential distance model.\""
+					"text" : "jcom.parameter source.1/dBUnit @type decimal @range/bounds 0. 100. @range/clipmode both @description \"Sets the distance unit for the exponential distance model.\""
 				}
 
 			}
@@ -226,7 +226,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 325.0, 348.0, 554.0, 19.0 ],
-					"text" : "jcom.message source.1/active @type msg_toggle @description \"Mute or unmute the nth source.\" @value 1"
+					"text" : "jcom.message source.1/active @type boolean @description \"Mute or unmute the nth source.\" @value 1"
 				}
 
 			}
@@ -241,7 +241,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 346.0, 263.0, 572.0, 31.0 ],
-					"text" : "jcom.message source.1/gain @type msg_float @range/bounds 0. 127. @range/clipmode low @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\""
+					"text" : "jcom.message source.1/gain @type decimal @range/bounds 0. 127. @range/clipmode low @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\""
 				}
 
 			}
@@ -256,7 +256,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 370.0, 188.0, 601.0, 31.0 ],
-					"text" : "jcom.parameter source.1/order @type msg_float @range/bounds 0. 100. @range/clipmode both @description \"Sets the ambisonics order of the nth source.\""
+					"text" : "jcom.parameter source.1/order @type decimal @range/bounds 0. 100. @range/clipmode both @description \"Sets the ambisonics order of the nth source.\""
 				}
 
 			}
@@ -427,7 +427,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 377.0, 124.0, 568.0, 31.0 ],
-					"text" : "jcom.message source.1/position @type msg_list @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
+					"text" : "jcom.message source.1/position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
 				}
 
 			}

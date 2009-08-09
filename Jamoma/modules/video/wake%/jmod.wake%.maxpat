@@ -653,7 +653,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 362.0, 389.0, 254.0, 30.0 ],
-					"text" : "jcom.parameter normalize @type msg_toggle @description \"Switches normalization on and off\"",
+					"text" : "jcom.parameter normalize @type boolean @description \"Switches normalization on and off\"",
 					"varname" : "normalize"
 				}
 
@@ -703,7 +703,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 396.0, 176.0, 329.0, 30.0 ],
-					"text" : "jcom.parameter bleed @type msg_float @ramp/drive scheduler @description \"Sets convolution kernel value for all colors\"",
+					"text" : "jcom.parameter bleed @type decimal @ramp/drive scheduler @description \"Sets convolution kernel value for all colors\"",
 					"varname" : "bleed"
 				}
 
@@ -719,7 +719,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 416.0, 101.0, 272.0, 30.0 ],
-					"text" : "jcom.parameter gain @type msg_float @ramp/drive scheduler @description \"The gain level for all colors\"",
+					"text" : "jcom.parameter gain @type decimal @ramp/drive scheduler @description \"The gain level for all colors\"",
 					"varname" : "gain"
 				}
 
@@ -799,7 +799,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 377.0, 245.0, 297.0, 30.0 ],
-					"text" : "jcom.parameter feedback @type msg_float @ramp/drive scheduler @description \"The feedback value for all colors\"",
+					"text" : "jcom.parameter feedback @type decimal @ramp/drive scheduler @description \"The feedback value for all colors\"",
 					"varname" : "feedback"
 				}
 
@@ -895,7 +895,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 357.0, 311.0, 312.0, 30.0 ],
-					"text" : "jcom.parameter feedforward @type msg_float @ramp/drive scheduler @description \"The feedforward value for all colors\"",
+					"text" : "jcom.parameter feedforward @type decimal @ramp/drive scheduler @description \"The feedforward value for all colors\"",
 					"varname" : "feedforward"
 				}
 

@@ -25,7 +25,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 394.0, 276.0, 533.0, 19.0 ],
-					"text" : "jcom.message update @type msg_none @description \"get update command through an external clock\"",
+					"text" : "jcom.message update @type none @description \"get update command through an external clock\"",
 					"varname" : "jcom.parameter[1]"
 				}
 
@@ -118,7 +118,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 395.0, 243.0, 528.0, 19.0 ],
-					"text" : "jcom.message init @type msg_generic @range/clipmode none @description \"Initialization of hi object\"",
+					"text" : "jcom.message init @type generic @range/clipmode none @description \"Initialization of hi object\"",
 					"varname" : "jcom.parameter[3]"
 				}
 
@@ -133,7 +133,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 395.0, 172.0, 584.0, 19.0 ],
-					"text" : "jcom.parameter active @type msg_toggle @range/clipmode none @description \"Turn polling on (10 ms interval)\"",
+					"text" : "jcom.parameter active @type boolean @range/clipmode none @description \"Turn polling on (10 ms interval)\"",
 					"varname" : "hi_on[1]"
 				}
 
@@ -168,7 +168,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 395.0, 103.0, 585.0, 19.0 ],
-					"text" : "jcom.parameter device @type msg_symbol @range/clipmode none @description \"Choose which HI device to use\"",
+					"text" : "jcom.parameter device @type string @range/clipmode none @description \"Choose which HI device to use\"",
 					"varname" : "device_menu[1]"
 				}
 

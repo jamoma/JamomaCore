@@ -289,7 +289,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 46.0, 147.0, 502.0, 30.0 ],
-					"text" : "jcom.parameter press @type msg_toggle @range/clipmode both @repetitions/allow 1 @priority 1 @description \"Push encoder turn.\"",
+					"text" : "jcom.parameter press @type boolean @range/clipmode both @repetitions/allow 1 @priority 1 @description \"Push encoder turn.\"",
 					"varname" : "8/push_encoder/3/turn"
 				}
 

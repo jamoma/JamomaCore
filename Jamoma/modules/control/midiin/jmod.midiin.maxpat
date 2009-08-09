@@ -131,7 +131,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 530.0, 237.0, 405.0, 30.0 ],
-					"text" : "jcom.parameter normalizeMidi @type msg_toggle @range/clipmode none @description \"Choose whether data should be normalized to a [0. 1.] range.\"",
+					"text" : "jcom.parameter normalizeMidi @type boolean @range/clipmode none @description \"Choose whether data should be normalized to a [0. 1.] range.\"",
 					"varname" : "midi_normalize[1]"
 				}
 
@@ -147,7 +147,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 530.0, 300.0, 326.0, 30.0 ],
-					"text" : "jcom.message initMidi @type msg_generic @range/clipmode none @description \"Initialization of midi devices\"",
+					"text" : "jcom.message initMidi @type generic @range/clipmode none @description \"Initialization of midi devices\"",
 					"varname" : "jcom.parameter[3]"
 				}
 
@@ -183,7 +183,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 279.0, 354.0, 227.0, 42.0 ],
-					"text" : "jcom.parameter device @type msg_symbol @range/clipmode none @description \"Choose which MIDI device to use\"",
+					"text" : "jcom.parameter device @type string @range/clipmode none @description \"Choose which MIDI device to use\"",
 					"varname" : "device_menu[1]"
 				}
 

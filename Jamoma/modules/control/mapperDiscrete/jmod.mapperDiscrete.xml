@@ -5,27 +5,27 @@
         xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='edit' type='msg_symbol' priority='0'>edit</item>
-    <item name='in/action' type='msg_int' priority='0'>0</item>
-    <item name='in/direct' type='msg_generic' priority='0'>0</item>
-    <item name='in/message' type='msg_generic' priority='0'>0</item>
-    <item name='in/module/derivative' type='msg_int' priority='0'>0</item>
-    <item name='in/module/instance' type='msg_int' priority='2'>0</item>
-    <item name='in/module/listindex' type='msg_int' priority='0'>0</item>
-    <item name='in/module/name' type='msg_symbol' priority='1'>0</item>
-    <item name='in/module/parameter' type='msg_symbol' priority='5'>0</item>
-    <item name='in/value' type='msg_float' priority='0'>0.000000</item>
-    <item name='in/value/variation' type='msg_float' priority='0'>0</item>
-    <item name='out/action' type='msg_int' priority='0'>0</item>
-    <item name='out/direct' type='msg_generic' priority='0'>0</item>  
-    <item name='out/message' type='msg_generic' priority='0'>0</item>
-    <item name='out/module/instance' type='msg_int' priority='4'>0</item>
-    <item name='out/module/name' type='msg_symbol' priority='3'>0</item>
-    <item name='out/module/parameter' type='msg_symbol' priority='6'>0</item>
-    <item name='out/ramp' type='msg_int' priority='0'>0</item>
-    <item name='out/value' type='msg_float' priority='0'>0.000000</item>
-    <item name='time/repeat' type='msg_float' priority='0'>0.000000</item>
-    <item name='time/wait' type='msg_float' priority='0'>0</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='edit' type='string' priority='0'>edit</item>
+    <item name='in/action' type='integer' priority='0'>0</item>
+    <item name='in/direct' type='generic' priority='0'>0</item>
+    <item name='in/message' type='generic' priority='0'>0</item>
+    <item name='in/module/derivative' type='integer' priority='0'>0</item>
+    <item name='in/module/instance' type='integer' priority='2'>0</item>
+    <item name='in/module/listindex' type='integer' priority='0'>0</item>
+    <item name='in/module/name' type='string' priority='1'>0</item>
+    <item name='in/module/parameter' type='string' priority='5'>0</item>
+    <item name='in/value' type='decimal' priority='0'>0.000000</item>
+    <item name='in/value/variation' type='decimal' priority='0'>0</item>
+    <item name='out/action' type='integer' priority='0'>0</item>
+    <item name='out/direct' type='generic' priority='0'>0</item>  
+    <item name='out/message' type='generic' priority='0'>0</item>
+    <item name='out/module/instance' type='integer' priority='4'>0</item>
+    <item name='out/module/name' type='string' priority='3'>0</item>
+    <item name='out/module/parameter' type='string' priority='6'>0</item>
+    <item name='out/ramp' type='integer' priority='0'>0</item>
+    <item name='out/value' type='decimal' priority='0'>0.000000</item>
+    <item name='time/repeat' type='decimal' priority='0'>0.000000</item>
+    <item name='time/wait' type='decimal' priority='0'>0</item>
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

@@ -465,7 +465,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 355.0, 568.0, 318.0, 31.0 ],
-					"text" : "jcom.parameter listen @type msg_toggle @repetitions/allow 0 @description \"Listen to remote change of parameters.\"",
+					"text" : "jcom.parameter listen @type boolean @repetitions/allow 0 @description \"Listen to remote change of parameters.\"",
 					"varname" : "listen"
 				}
 
@@ -480,7 +480,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 355.0, 295.0, 488.0, 19.0 ],
-					"text" : "jcom.message view @description \"View current cue script in a text window.\" @type msg_none"
+					"text" : "jcom.message view @description \"View current cue script in a text window.\" @type none"
 				}
 
 			}
@@ -495,7 +495,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 355.0, 390.0, 321.0, 31.0 ],
-					"text" : "jcom.message cue @repetitions/allow 1 @type msg_generic @description \"Recall cue event from cue script.\""
+					"text" : "jcom.message cue @repetitions/allow 1 @type generic @description \"Recall cue event from cue script.\""
 				}
 
 			}
@@ -605,7 +605,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 355.0, 66.0, 566.0, 31.0 ],
-					"text" : "jcom.message getState @type msg_none @description \"Poll state for all bridged modules, and display in text window.\"",
+					"text" : "jcom.message getState @type none @description \"Poll state for all bridged modules, and display in text window.\"",
 					"varname" : "jcom.parameter"
 				}
 

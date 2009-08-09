@@ -390,7 +390,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 655.0, 315.0, 465.0, 19.0 ],
-					"text" : "jcom.parameter boundmode @type msg_symbol @description \"Boundary handling mode.\"",
+					"text" : "jcom.parameter boundmode @type string @description \"Boundary handling mode.\"",
 					"varname" : "boundmode"
 				}
 
@@ -424,7 +424,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 655.0, 275.0, 442.0, 31.0 ],
-					"text" : "jcom.parameter theta @type msg_float @range/bounds -180. 180. @range/clipmode none @ramp/drive scheduler @description \"Rotation angle in degrees.\"",
+					"text" : "jcom.parameter theta @type decimal @range/bounds -180. 180. @range/clipmode none @ramp/drive scheduler @description \"Rotation angle in degrees.\"",
 					"varname" : "theta"
 				}
 
@@ -439,7 +439,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 655.0, 195.0, 466.0, 19.0 ],
-					"text" : "jcom.parameter anchor @type msg_list @ramp/drive scheduler @description \\\"Zooming.\\\"",
+					"text" : "jcom.parameter anchor @type array @ramp/drive scheduler @description \\\"Zooming.\\\"",
 					"varname" : "anchor"
 				}
 
@@ -468,7 +468,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 655.0, 125.0, 460.0, 19.0 ],
-					"text" : "jcom.parameter offset @type msg_list @ramp/drive scheduler @description \\\"Zooming.\\\"",
+					"text" : "jcom.parameter offset @type array @ramp/drive scheduler @description \\\"Zooming.\\\"",
 					"varname" : "offset"
 				}
 
@@ -497,7 +497,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 655.0, 45.0, 459.0, 19.0 ],
-					"text" : "jcom.parameter zoom @type msg_list @ramp/drive scheduler @description \\\"Zooming.\\\"",
+					"text" : "jcom.parameter zoom @type array @ramp/drive scheduler @description \\\"Zooming.\\\"",
 					"varname" : "zoom"
 				}
 

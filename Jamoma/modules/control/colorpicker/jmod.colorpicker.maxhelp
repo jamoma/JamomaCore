@@ -32,7 +32,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jmod.colorpicker", "@description", "a module for setting up to 12 RGB triplets as a parameter of type msg_list" ],
+					"args" : [ "@name", "jmod.colorpicker", "@description", "a module for setting up to 12 RGB triplets as a parameter of type array" ],
 					"bgmode" : 1,
 					"id" : "obj-3",
 					"maxclass" : "bpatcher",

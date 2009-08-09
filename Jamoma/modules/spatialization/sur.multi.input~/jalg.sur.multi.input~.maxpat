@@ -494,7 +494,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 52.0, 161.0, 154.0, 79.0 ],
-									"text" : "jcom.return info/position @enable 0 @type msg_float @description \"returns the normalized value for the current position in the soundfile\""
+									"text" : "jcom.return info/position @enable 0 @type decimal @description \"returns the normalized value for the current position in the soundfile\""
 								}
 
 							}

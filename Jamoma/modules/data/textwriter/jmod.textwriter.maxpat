@@ -147,7 +147,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 440.0, 240.0, 593.0, 19.0 ],
-					"text" : "jcom.message show @type msg_none @repetitions/allow 1 @description \"Open the text buffer to view the content\"",
+					"text" : "jcom.message show @type none @repetitions/allow 1 @description \"Open the text buffer to view the content\"",
 					"varname" : "jcom.parameter[2]"
 				}
 
@@ -163,7 +163,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 440.0, 170.0, 313.0, 31.0 ],
-					"text" : "jcom.message write @type msg_generic @repetitions/allow 1 @description \"Write the text buffer to a file\"",
+					"text" : "jcom.message write @type generic @repetitions/allow 1 @description \"Write the text buffer to a file\"",
 					"varname" : "jcom.parameter[1]"
 				}
 
@@ -178,7 +178,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 440.0, 104.0, 490.0, 19.0 ],
-					"text" : "jcom.message clear @type msg_none @repetitions/allow 1 @description \"Clear the text buffer\"",
+					"text" : "jcom.message clear @type none @repetitions/allow 1 @description \"Clear the text buffer\"",
 					"varname" : "jcom.parameter[3]"
 				}
 
@@ -207,7 +207,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 440.0, 44.0, 387.0, 19.0 ],
-					"text" : "jcom.parameter active @type msg_toggle @description \"Turn buffering on\"",
+					"text" : "jcom.parameter active @type boolean @description \"Turn buffering on\"",
 					"varname" : "on[1]"
 				}
 

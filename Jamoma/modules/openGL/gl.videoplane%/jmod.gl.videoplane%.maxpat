@@ -133,7 +133,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 185.0, 547.0, 31.0 ],
-					"text" : "jcom.parameter videoplane/gridmode @type msg_symbol @description \"Grid mode (0 = quadrilated, 1 = triangular).\"",
+					"text" : "jcom.parameter videoplane/gridmode @type string @description \"Grid mode (0 = quadrilated, 1 = triangular).\"",
 					"varname" : "videoplane/gridmode"
 				}
 
@@ -148,7 +148,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 150.0, 527.0, 19.0 ],
-					"text" : "jcom.parameter videoplane/colormode @type msg_symbol @description \"Color mode (argb or uyvy).\"",
+					"text" : "jcom.parameter videoplane/colormode @type string @description \"Color mode (argb or uyvy).\"",
 					"varname" : "videoplane/colormode"
 				}
 
@@ -163,7 +163,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 115.0, 464.0, 19.0 ],
-					"text" : "jcom.parameter videoplane/interpolate @type msg_toggle @description \\\"Interpolation.\\\"",
+					"text" : "jcom.parameter videoplane/interpolate @type boolean @description \\\"Interpolation.\\\"",
 					"varname" : "videoplane/interpolate"
 				}
 
@@ -179,7 +179,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 75.0, 563.0, 31.0 ],
-					"text" : "jcom.parameter videoplane/displaylist @type msg_toggle @description \"Cache in displaylist (might speed up rendering on graphic card).\"",
+					"text" : "jcom.parameter videoplane/displaylist @type boolean @description \"Cache in displaylist (might speed up rendering on graphic card).\"",
 					"varname" : "videoplane/displaylist"
 				}
 
@@ -195,7 +195,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 30.0, 590.0, 31.0 ],
-					"text" : "jcom.parameter videoplane/client_storage @type msg_toggle @description \"When set jit.videoplane use incoming matrix's storage rather than allocating texture memory.\"",
+					"text" : "jcom.parameter videoplane/client_storage @type boolean @description \"When set jit.videoplane use incoming matrix's storage rather than allocating texture memory.\"",
 					"varname" : "videoplane/client_storage"
 				}
 
@@ -211,7 +211,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 275.0, 601.0, 43.0 ],
-					"text" : "jcom.parameter videoplane/nudge @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"Amount of the texture that is nudged from boundary to accomodate for boundary errors when mapping the texture to the plane.\"",
+					"text" : "jcom.parameter videoplane/nudge @type decimal @range/bounds 0. 1. @range/clipmode both @description \"Amount of the texture that is nudged from boundary to accomodate for boundary errors when mapping the texture to the plane.\"",
 					"varname" : "videoplane/nudge"
 				}
 
@@ -240,7 +240,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 385.0, 539.0, 19.0 ],
-					"text" : "jcom.parameter videoplane/dim @type msg_list @description \"Dimension of the grid (x, y coordinates).\"",
+					"text" : "jcom.parameter videoplane/dim @type array @description \"Dimension of the grid (x, y coordinates).\"",
 					"varname" : "videoplane/dim"
 				}
 
@@ -269,7 +269,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 470.0, 544.0, 19.0 ],
-					"text" : "jcom.parameter videoplane/texture/scale @type msg_list @description \"Texture scale (x, y coordinates).\"",
+					"text" : "jcom.parameter videoplane/texture/scale @type array @description \"Texture scale (x, y coordinates).\"",
 					"varname" : "videoplane/texture/scale"
 				}
 
@@ -298,7 +298,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 550.0, 550.0, 19.0 ],
-					"text" : "jcom.parameter videoplane/texture/offset @type msg_list @description \"Texture offset (x, y coordinates).\"",
+					"text" : "jcom.parameter videoplane/texture/offset @type array @description \"Texture offset (x, y coordinates).\"",
 					"varname" : "videoplane/texture/offset"
 				}
 

@@ -243,7 +243,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "mode[1]",
-					"text" : "jcom.parameter mode @type msg_symbol @description \"choose the noise function.\"",
+					"text" : "jcom.parameter mode @type string @description \"choose the noise function.\"",
 					"id" : "obj-15",
 					"fontname" : "Verdana",
 					"numinlets" : 1,

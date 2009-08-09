@@ -547,7 +547,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 130.0, 190.0, 516.0, 31.0 ],
-									"text" : "jcom.return cooked/motion/quantity @range/bounds 0. 1. @type msg_float @range/clipmode none @description \"Quantity of motion from 3D Connexion Space Navigator\""
+									"text" : "jcom.return cooked/motion/quantity @range/bounds 0. 1. @type decimal @range/clipmode none @description \"Quantity of motion from 3D Connexion Space Navigator\""
 								}
 
 							}
@@ -732,7 +732,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 448.0, 113.0, 408.0, 31.0 ],
-									"text" : "jcom.return cooked/button/right @range/bounds 0 1 @type msg_int @range/clipmode both @description \"Cooked right button activity on-off (1-0)\""
+									"text" : "jcom.return cooked/button/right @range/bounds 0 1 @type integer @range/clipmode both @description \"Cooked right button activity on-off (1-0)\""
 								}
 
 							}
@@ -747,7 +747,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 426.0, 70.0, 399.0, 31.0 ],
-									"text" : "jcom.return raw/rightButton @range/bounds 0 1 @type msg_int @range/clipmode both @description \"Raw right button activity on-off (1-0)\""
+									"text" : "jcom.return raw/rightButton @range/bounds 0 1 @type integer @range/clipmode both @description \"Raw right button activity on-off (1-0)\""
 								}
 
 							}
@@ -762,7 +762,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 30.0, 111.0, 401.0, 31.0 ],
-									"text" : "jcom.return cooked/button/left @range/bounds 0 1 @type msg_int @range/clipmode both @description \"Cooked left button activity on-off (1-0)\""
+									"text" : "jcom.return cooked/button/left @range/bounds 0 1 @type integer @range/clipmode both @description \"Cooked left button activity on-off (1-0)\""
 								}
 
 							}
@@ -777,7 +777,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 13.0, 68.0, 388.0, 31.0 ],
-									"text" : "jcom.return raw/leftButton @range/bounds 0 1 @type msg_int @range/clipmode both @description \"Raw left button activity on-off (1-0)\""
+									"text" : "jcom.return raw/leftButton @range/bounds 0 1 @type integer @range/clipmode both @description \"Raw left button activity on-off (1-0)\""
 								}
 
 							}
@@ -895,7 +895,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 239.0, 333.0, 459.0, 31.0 ],
-									"text" : "jcom.return cooked/rotation/z @range/bounds -1. 1. @type msg_float @range/clipmode none @description \"Cooked Z rotation from the 3D Connexion Space Navigator\""
+									"text" : "jcom.return cooked/rotation/z @range/bounds -1. 1. @type decimal @range/clipmode none @description \"Cooked Z rotation from the 3D Connexion Space Navigator\""
 								}
 
 							}
@@ -910,7 +910,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 226.0, 288.0, 414.0, 31.0 ],
-									"text" : "jcom.return raw/Rz @range/bounds -225 221 @type msg_int @range/clipmode none @description \"Raw Z rotation from the 3D Connexion Space Navigator\""
+									"text" : "jcom.return raw/Rz @range/bounds -225 221 @type integer @range/clipmode none @description \"Raw Z rotation from the 3D Connexion Space Navigator\""
 								}
 
 							}
@@ -925,7 +925,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 156.0, 236.0, 460.0, 31.0 ],
-									"text" : "jcom.return cooked/rotation/y @range/bounds -1. 1. @type msg_float @range/clipmode none @description \"Cooked Y rotation from the 3D Connexion Space Navigator\""
+									"text" : "jcom.return cooked/rotation/y @range/bounds -1. 1. @type decimal @range/clipmode none @description \"Cooked Y rotation from the 3D Connexion Space Navigator\""
 								}
 
 							}
@@ -940,7 +940,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 133.0, 191.0, 415.0, 31.0 ],
-									"text" : "jcom.return raw/Ry @range/bounds -294 175 @type msg_int @range/clipmode none @description \"Raw Y rotation from the 3D Connexion Space Navigator\""
+									"text" : "jcom.return raw/Ry @range/bounds -294 175 @type integer @range/clipmode none @description \"Raw Y rotation from the 3D Connexion Space Navigator\""
 								}
 
 							}
@@ -955,7 +955,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 60.0, 139.0, 460.0, 31.0 ],
-									"text" : "jcom.return cooked/rotation/x @range/bounds -1. 1. @type msg_float @range/clipmode none @description \"Cooked X rotation from the 3D Connexion Space Navigator\""
+									"text" : "jcom.return cooked/rotation/x @range/bounds -1. 1. @type decimal @range/clipmode none @description \"Cooked X rotation from the 3D Connexion Space Navigator\""
 								}
 
 							}
@@ -970,7 +970,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 50.0, 94.0, 415.0, 31.0 ],
-									"text" : "jcom.return raw/Rx @range/bounds -207 208 @type msg_int @range/clipmode none @description \"Raw X rotation from the 3D Connexion Space Navigator\""
+									"text" : "jcom.return raw/Rx @range/bounds -207 208 @type integer @range/clipmode none @description \"Raw X rotation from the 3D Connexion Space Navigator\""
 								}
 
 							}
@@ -1187,7 +1187,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 233.0, 337.0, 459.0, 31.0 ],
-									"text" : "jcom.return cooked/position/z @range/bounds -1. 1. @type msg_float @range/clipmode none @description \"Cooked Z position from the 3D Connexion Space Navigator\""
+									"text" : "jcom.return cooked/position/z @range/bounds -1. 1. @type decimal @range/clipmode none @description \"Cooked Z position from the 3D Connexion Space Navigator\""
 								}
 
 							}
@@ -1202,7 +1202,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 212.0, 292.0, 413.0, 31.0 ],
-									"text" : "jcom.return raw/Tz @range/bounds -243 232 @type msg_int @range/clipmode none @description \"Raw Z position from the 3D Connexion Space Navigator\""
+									"text" : "jcom.return raw/Tz @range/bounds -243 232 @type integer @range/clipmode none @description \"Raw Z position from the 3D Connexion Space Navigator\""
 								}
 
 							}
@@ -1217,7 +1217,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 150.0, 240.0, 460.0, 31.0 ],
-									"text" : "jcom.return cooked/position/y @range/bounds -1. 1. @type msg_float @range/clipmode none @description \"Cooked Y position from the 3D Connexion Space Navigator\""
+									"text" : "jcom.return cooked/position/y @range/bounds -1. 1. @type decimal @range/clipmode none @description \"Cooked Y position from the 3D Connexion Space Navigator\""
 								}
 
 							}
@@ -1232,7 +1232,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 120.0, 195.0, 414.0, 31.0 ],
-									"text" : "jcom.return raw/Ty @range/bounds -241 255 @type msg_int @range/clipmode none @description \"Raw Y position from the 3D Connexion Space Navigator\""
+									"text" : "jcom.return raw/Ty @range/bounds -241 255 @type integer @range/clipmode none @description \"Raw Y position from the 3D Connexion Space Navigator\""
 								}
 
 							}
@@ -1247,7 +1247,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 60.0, 143.0, 460.0, 31.0 ],
-									"text" : "jcom.return cooked/position/x @range/bounds -1. 1. @type msg_float @range/clipmode none @description \"Cooked X position from the 3D Connexion Space Navigator\""
+									"text" : "jcom.return cooked/position/x @range/bounds -1. 1. @type decimal @range/clipmode none @description \"Cooked X position from the 3D Connexion Space Navigator\""
 								}
 
 							}
@@ -1304,7 +1304,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 50.0, 98.0, 414.0, 31.0 ],
-									"text" : "jcom.return raw/Tx @range/bounds -214 281 @type msg_int @range/clipmode none @description \"Raw X position from the 3D Connexion Space Navigator\""
+									"text" : "jcom.return raw/Tx @range/bounds -214 281 @type integer @range/clipmode none @description \"Raw X position from the 3D Connexion Space Navigator\""
 								}
 
 							}

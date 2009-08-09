@@ -26,7 +26,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 219.0, 356.0, 585.0, 43.0 ],
-					"text" : "jcom.parameter feedback/mode @type msg_symbol @description \"Feedback mode. 'pingpong': crossed-over feedback between the two delays. 'stereo': two mono delay lines each with independent feedback paths.'pingleft' and 'pingright' feed the left or the right delay outputs back.\"",
+					"text" : "jcom.parameter feedback/mode @type string @description \"Feedback mode. 'pingpong': crossed-over feedback between the two delays. 'stereo': two mono delay lines each with independent feedback paths.'pingleft' and 'pingright' feed the left or the right delay outputs back.\"",
 					"varname" : "feedback[2]"
 				}
 
@@ -155,7 +155,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 15.0, 195.0, 604.0, 43.0 ],
-					"text" : "jcom.parameter feedback/gain @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/clipmode both @range/bounds 0. 1. @description \"Amount of delay feedback.\" @dataspace gain @dataspace/unit/active linear @dataspace/unit/native linear @dataspace/unit/display linear",
+					"text" : "jcom.parameter feedback/gain @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/clipmode both @range/bounds 0. 1. @description \"Amount of delay feedback.\" @dataspace gain @dataspace/unit/active linear @dataspace/unit/native linear @dataspace/unit/display linear",
 					"varname" : "feedback[1]"
 				}
 
@@ -644,7 +644,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 15.0, 425.0, 530.0, 31.0 ],
-					"text" : "jcom.parameter delay/right @type msg_list @repetitions/allow 0 @ramp/drive none @range/bounds 0 10000 @range/clipmode low @description \"Delay time in milliseconds for right channel.\"",
+					"text" : "jcom.parameter delay/right @type array @repetitions/allow 0 @ramp/drive none @range/bounds 0 10000 @range/clipmode low @description \"Delay time in milliseconds for right channel.\"",
 					"varname" : "right[1]"
 				}
 
@@ -765,7 +765,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 15.0, 300.0, 523.0, 31.0 ],
-					"text" : "jcom.parameter delay/left @type msg_list @repetitions/allow 0 @ramp/drive none @range/bounds 0 10000 @range/clipmode low @description \"Delay time in milliseconds for left channel.\"",
+					"text" : "jcom.parameter delay/left @type array @repetitions/allow 0 @ramp/drive none @range/bounds 0 10000 @range/clipmode low @description \"Delay time in milliseconds for left channel.\"",
 					"varname" : "left[1]"
 				}
 
@@ -860,7 +860,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 15.0, 125.0, 527.0, 43.0 ],
-					"text" : "jcom.parameter delay/max @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode low @description \"Max delay time in milliseconds.\" @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @dataspace/unit/display ms",
+					"text" : "jcom.parameter delay/max @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode low @description \"Max delay time in milliseconds.\" @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @dataspace/unit/display ms",
 					"varname" : "maxdelay"
 				}
 

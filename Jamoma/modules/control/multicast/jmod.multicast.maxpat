@@ -319,7 +319,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 422.0, 193.0, 268.0, 31.0 ],
-					"text" : "jcom.parameter service_name @type msg_symbol @description \"bonjour name of this multicast core\"",
+					"text" : "jcom.parameter service_name @type string @description \"bonjour name of this multicast core\"",
 					"varname" : "service_name"
 				}
 
@@ -449,7 +449,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 415.0, 75.0, 303.0, 31.0 ],
-					"text" : "jcom.parameter port @repetitions/allow 0 @type msg_int @description \"port number for this multicast core\"",
+					"text" : "jcom.parameter port @repetitions/allow 0 @type integer @description \"port number for this multicast core\"",
 					"varname" : "port"
 				}
 

@@ -5,22 +5,22 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='frequency/scale' type='msg_float' priority='0'>-2.260000</item>
-    <item name='frequency/shift' type='msg_float' priority='0'>-344.000000</item>
-    <item name='bypass' type='msg_toggle' priority='0'>0</item>
-    <item name='feedback/gain' type='msg_float' priority='0'>-60.000000</item>
-    <item name='feedback/time' type='msg_int' priority='0'>10</item>
-    <item name='gain' type='msg_float' priority='0'>0.000000</item>
-    <item name='limiter/dcblocker/active' type='msg_toggle' priority='0'>1</item>
-    <item name='limiter/lookahead' type='msg_int' priority='0'>100</item>
-    <item name='limiter/mode' type='msg_symbol' priority='0'>exponential</item>
-    <item name='limiter/postamp' type='msg_float' priority='0'>0</item>
-    <item name='limiter/preamp' type='msg_float' priority='0'>6.000000</item>
-    <item name='limiter/release' type='msg_float' priority='0'>250.000000</item>
-    <item name='limiter/threshold' type='msg_float' priority='0'>0</item>
-    <item name='mix' type='msg_float' priority='0'>100.000000</item>
-    <item name='mute' type='msg_toggle' priority='0'>1</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/size' type='msg_list' priority='0'>300 70 </item>
+    <item name='frequency/scale' type='decimal' priority='0'>-2.260000</item>
+    <item name='frequency/shift' type='decimal' priority='0'>-344.000000</item>
+    <item name='bypass' type='boolean' priority='0'>0</item>
+    <item name='feedback/gain' type='decimal' priority='0'>-60.000000</item>
+    <item name='feedback/time' type='integer' priority='0'>10</item>
+    <item name='gain' type='decimal' priority='0'>0.000000</item>
+    <item name='limiter/dcblocker/active' type='boolean' priority='0'>1</item>
+    <item name='limiter/lookahead' type='integer' priority='0'>100</item>
+    <item name='limiter/mode' type='string' priority='0'>exponential</item>
+    <item name='limiter/postamp' type='decimal' priority='0'>0</item>
+    <item name='limiter/preamp' type='decimal' priority='0'>6.000000</item>
+    <item name='limiter/release' type='decimal' priority='0'>250.000000</item>
+    <item name='limiter/threshold' type='decimal' priority='0'>0</item>
+    <item name='mix' type='decimal' priority='0'>100.000000</item>
+    <item name='mute' type='boolean' priority='0'>1</item>
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/size' type='array' priority='0'>300 70 </item>
   </preset>
 </jamoma>

@@ -3277,7 +3277,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 17.0, 286.0, 151.0, 55.0 ],
-					"text" : "jcom.message fullscreen @repetitions/allow 0 @type msg_int @description \"turn patch to fullscreen mode\"",
+					"text" : "jcom.message fullscreen @repetitions/allow 0 @type integer @description \"turn patch to fullscreen mode\"",
 					"varname" : "hue_angle[1]"
 				}
 
@@ -3307,7 +3307,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 234.0, 26.0, 300.0, 31.0 ],
-					"text" : "jcom.parameter layout @type msg_symbol @priority 1 @repetitions/allow 0 @description \"layout name to recall\""
+					"text" : "jcom.parameter layout @type string @priority 1 @repetitions/allow 0 @description \"layout name to recall\""
 				}
 
 			}
@@ -3400,7 +3400,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 415.0, 334.0, 31.0 ],
-					"text" : "jcom.parameter positions @repetitions/allow 1 @type msg_list @description \"list of modules + position + show/hide\"",
+					"text" : "jcom.parameter positions @repetitions/allow 1 @type array @description \"list of modules + position + show/hide\"",
 					"varname" : "hue_angle"
 				}
 

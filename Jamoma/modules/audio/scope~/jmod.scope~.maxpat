@@ -174,7 +174,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 750.0, 185.0, 551.0, 31.0 ],
-					"text" : "jcom.parameter range @range/bounds 0 100 @range/clipmode low @repetitions/allow 0 @type msg_float @ramp/drive scheduler @description \"range of values above and below the zero line to display.\"",
+					"text" : "jcom.parameter range @range/bounds 0 100 @range/clipmode low @repetitions/allow 0 @type decimal @ramp/drive scheduler @description \"range of values above and below the zero line to display.\"",
 					"varname" : "jcom.parameter.mxb"
 				}
 
@@ -190,7 +190,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 267.0, 289.0, 604.0, 31.0 ],
-					"text" : "jcom.parameter buffer/samples @range/bounds 8 256 @type msg_int @range/clipmode both @description \"samples per buffer, control the scope display\"",
+					"text" : "jcom.parameter buffer/samples @range/bounds 8 256 @type integer @range/clipmode both @description \"samples per buffer, control the scope display\"",
 					"varname" : "jcom.parameter.mxb[2]"
 				}
 
@@ -303,7 +303,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 69.0, 184.0, 587.0, 31.0 ],
-					"text" : "jcom.parameter buffer/pixel @range/bounds 2 8092 @range/clipmode both @type msg_int @description \"buffers per pixel, control the scope display\"",
+					"text" : "jcom.parameter buffer/pixel @range/bounds 2 8092 @range/clipmode both @type integer @description \"buffers per pixel, control the scope display\"",
 					"varname" : "jcom.parameter.mxb[3]"
 				}
 

@@ -549,7 +549,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 464.0, 252.0, 300.0, 30.0 ],
-					"text" : "jcom.parameter realtime @type msg_toggle @description \"Realtime (flag). When enabled internal clock is used.\"",
+					"text" : "jcom.parameter realtime @type boolean @description \"Realtime (flag). When enabled internal clock is used.\"",
 					"varname" : "realtime"
 				}
 
@@ -564,7 +564,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 465.0, 206.0, 386.0, 18.0 ],
-					"text" : "jcom.parameter interp @type msg_toggle @description \"Interpolate (flag).\"",
+					"text" : "jcom.parameter interp @type boolean @description \"Interpolate (flag).\"",
 					"varname" : "interp"
 				}
 
@@ -608,7 +608,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 462.0, 39.0, 424.0, 30.0 ],
-					"text" : "jcom.parameter framerate @type msg_float @ramp/drive none @repetitions/allow 0 @range/bounds 1. 25 @range/clipmode low @description Framerate.",
+					"text" : "jcom.parameter framerate @type decimal @ramp/drive none @repetitions/allow 0 @range/bounds 1. 25 @range/clipmode low @description Framerate.",
 					"varname" : "framerate"
 				}
 
@@ -623,7 +623,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 465.0, 154.0, 379.0, 18.0 ],
-					"text" : "jcom.parameter quality @type msg_symbol @description \"Codec quality.\"",
+					"text" : "jcom.parameter quality @type string @description \"Codec quality.\"",
 					"varname" : "quality"
 				}
 
@@ -638,7 +638,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 449.0, 409.0, 362.0, 18.0 ],
-					"text" : "jcom.parameter codec @type msg_symbol @description \"Codec type.\"",
+					"text" : "jcom.parameter codec @type string @description \"Codec type.\"",
 					"varname" : "codec"
 				}
 

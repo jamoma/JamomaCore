@@ -26,7 +26,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 497.0, 123.0, 317.0, 31.0 ],
-					"text" : "jcom.parameter /contraction/window/on @type msg_toggle @description \"Turn display of contraction box on or off.\"",
+					"text" : "jcom.parameter /contraction/window/on @type boolean @description \"Turn display of contraction box on or off.\"",
 					"varname" : "centroid/on[1]"
 				}
 
@@ -42,7 +42,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 497.0, 89.0, 260.0, 31.0 ],
-					"text" : "jcom.parameter centroid/on @type msg_toggle @description \"Turn display of centre of mass on.\"",
+					"text" : "jcom.parameter centroid/on @type boolean @description \"Turn display of centre of mass on.\"",
 					"varname" : "centroid/on"
 				}
 
@@ -58,7 +58,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 497.0, 57.0, 295.0, 31.0 ],
-					"text" : "jcom.parameter contraction/max/on @type msg_toggle @description \"Turn max contraction box on or off.\"",
+					"text" : "jcom.parameter contraction/max/on @type boolean @description \"Turn max contraction box on or off.\"",
 					"varname" : "contraction/max/on"
 				}
 
@@ -74,7 +74,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 497.0, 22.0, 269.0, 31.0 ],
-					"text" : "jcom.parameter contraction/on @type msg_toggle @description \"Turn local contraction box on or off.\"",
+					"text" : "jcom.parameter contraction/on @type boolean @description \"Turn local contraction box on or off.\"",
 					"varname" : "contraction/on"
 				}
 
@@ -315,7 +315,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 217.0, 321.0, 468.0, 31.0 ],
-									"text" : "jcom.parameter /centroid/size @type msg_int @range/bounds 0 20 @range/clipmode low @description \"Size of the centre of mass.\"",
+									"text" : "jcom.parameter /centroid/size @type integer @range/bounds 0 20 @range/clipmode low @description \"Size of the centre of mass.\"",
 									"varname" : "centroid/size/on[2]"
 								}
 
@@ -346,7 +346,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 216.0, 279.0, 414.0, 31.0 ],
-									"text" : "jcom.parameter /contraction/window/size @type msg_int @range/bounds 0 20 @range/clipmode low @description \"Size of the contraction window border.\"",
+									"text" : "jcom.parameter /contraction/window/size @type integer @range/bounds 0 20 @range/clipmode low @description \"Size of the contraction window border.\"",
 									"varname" : "centroid/size/on[1]"
 								}
 
@@ -963,7 +963,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 216.0, 180.0, 482.0, 31.0 ],
-									"text" : "jcom.parameter data/smoothing @type msg_float @range/bounds 0. 12. @range/clipmode low @description \"Level of smoothing for the returned data\"",
+									"text" : "jcom.parameter data/smoothing @type decimal @range/bounds 0. 12. @range/clipmode low @description \"Level of smoothing for the returned data\"",
 									"varname" : "data/smoothing"
 								}
 
@@ -979,7 +979,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 764.0, 387.0, 249.0, 31.0 ],
-									"text" : "jcom.parameter centroid/color @type msg_list @description \"Change color of centroid.\"",
+									"text" : "jcom.parameter centroid/color @type array @description \"Change color of centroid.\"",
 									"varname" : "centroid/color"
 								}
 
@@ -995,7 +995,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 764.0, 224.0, 211.0, 43.0 ],
-									"text" : "jcom.parameter contraction/max/color @type msg_list @description \"Change color of max contraction box.\"",
+									"text" : "jcom.parameter contraction/max/color @type array @description \"Change color of max contraction box.\"",
 									"varname" : "contraction/max/color"
 								}
 
@@ -1011,7 +1011,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 764.0, 71.0, 278.0, 31.0 ],
-									"text" : "jcom.parameter contraction/color @type msg_list @description \"Change color of local contraction box.\"",
+									"text" : "jcom.parameter contraction/color @type array @description \"Change color of local contraction box.\"",
 									"varname" : "contraction/color"
 								}
 
@@ -1027,7 +1027,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 216.0, 245.0, 446.0, 31.0 ],
-									"text" : "jcom.parameter centroid/size/on @type msg_toggle @description \"Turn on automatic size adjustment of centre of mass - based on quantity of motion.\"",
+									"text" : "jcom.parameter centroid/size/on @type boolean @description \"Turn on automatic size adjustment of centre of mass - based on quantity of motion.\"",
 									"varname" : "centroid/size/on"
 								}
 
@@ -1058,7 +1058,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 216.0, 144.0, 480.0, 31.0 ],
-									"text" : "jcom.parameter contraction/slide @type msg_float @range/bounds 0. 10. @range/clipmode low @repetitions/allow 0 @description \"The level of smoothing for contraction box.\"",
+									"text" : "jcom.parameter contraction/slide @type decimal @range/bounds 0. 10. @range/clipmode low @repetitions/allow 0 @description \"The level of smoothing for contraction box.\"",
 									"varname" : "contraction/slide"
 								}
 

@@ -324,7 +324,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 485.0, 21.0, 601.0, 31.0 ],
-					"text" : "jcom.parameter channels/alias @repetitions/allow 0 @type msg_symbol @priority 2 @description \"select alternative OSC name for channels: \\\"numSpeakers\\\" or \\\" numSources\\\" .\"",
+					"text" : "jcom.parameter channels/alias @repetitions/allow 0 @type string @priority 2 @description \"select alternative OSC name for channels: \\\"numSpeakers\\\" or \\\" numSources\\\" .\"",
 					"varname" : "voices[1]"
 				}
 
@@ -340,7 +340,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 610.0, 58.0, 305.0, 43.0 ],
-					"text" : "jcom.message numSources @type msg_int @range/bounds 1 32 @range/clipmode both @description \"alternative description of channels in that multi~ cable..\""
+					"text" : "jcom.message numSources @type integer @range/bounds 1 32 @range/clipmode both @description \"alternative description of channels in that multi~ cable..\""
 				}
 
 			}
@@ -355,7 +355,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 798.0, 107.0, 312.0, 43.0 ],
-					"text" : "jcom.message numSpeakers @type msg_int @range/bounds 1 32 @range/clipmode both @description \"alternative description of channels in that multi~ cable.\""
+					"text" : "jcom.message numSpeakers @type integer @range/bounds 1 32 @range/clipmode both @description \"alternative description of channels in that multi~ cable.\""
 				}
 
 			}
@@ -1384,7 +1384,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 21.0, 551.0, 380.0, 17.0 ],
-					"text" : "jcom.message aux.3/description @type msg_symbol @description \"descriptive text of Aux 3\"",
+					"text" : "jcom.message aux.3/description @type string @description \"descriptive text of Aux 3\"",
 					"varname" : "aux.3/description"
 				}
 
@@ -1399,7 +1399,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 21.0, 479.0, 380.0, 17.0 ],
-					"text" : "jcom.message aux.2/description @type msg_symbol @description \"descriptive text of Aux 2\"",
+					"text" : "jcom.message aux.2/description @type string @description \"descriptive text of Aux 2\"",
 					"varname" : "aux.2/description"
 				}
 
@@ -1414,7 +1414,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 21.0, 404.0, 380.0, 17.0 ],
-					"text" : "jcom.message aux.1/description @type msg_symbol @description \"descriptive text of Aux 1\"",
+					"text" : "jcom.message aux.1/description @type string @description \"descriptive text of Aux 1\"",
 					"varname" : "aux.1/description"
 				}
 
@@ -1429,7 +1429,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 108.0, 598.0, 390.0, 17.0 ],
-					"text" : "jcom.parameter aux.3/active @type msg_toggle @description \"switch Bus 3 on/off\"",
+					"text" : "jcom.parameter aux.3/active @type boolean @description \"switch Bus 3 on/off\"",
 					"varname" : "aux.3/active"
 				}
 
@@ -1444,7 +1444,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 108.0, 527.0, 390.0, 17.0 ],
-					"text" : "jcom.parameter aux.2/active @type msg_toggle @description \"switch Bus 2 on/off\"",
+					"text" : "jcom.parameter aux.2/active @type boolean @description \"switch Bus 2 on/off\"",
 					"varname" : "aux.2/active"
 				}
 
@@ -1459,7 +1459,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 108.0, 450.0, 390.0, 17.0 ],
-					"text" : "jcom.parameter aux.1/active @type msg_toggle @description \"switch Bus 1 on/off\"",
+					"text" : "jcom.parameter aux.1/active @type boolean @description \"switch Bus 1 on/off\"",
 					"varname" : "aux.1/active"
 				}
 
@@ -1491,7 +1491,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 411.0, 567.0, 558.0, 27.0 ],
-					"text" : "jcom.parameter aux.3/gain @repetitions/allow 0 @type msg_float @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @description \"gain of the input cable applied to all aux bus 3\"",
+					"text" : "jcom.parameter aux.3/gain @repetitions/allow 0 @type decimal @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @description \"gain of the input cable applied to all aux bus 3\"",
 					"varname" : "aux.3/gain"
 				}
 
@@ -1523,7 +1523,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 411.0, 499.0, 554.0, 27.0 ],
-					"text" : "jcom.parameter aux.2/gain @repetitions/allow 0 @type msg_float @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @description \"gain of the input cable applied to aux bus 2\"",
+					"text" : "jcom.parameter aux.2/gain @repetitions/allow 0 @type decimal @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @description \"gain of the input cable applied to aux bus 2\"",
 					"varname" : "aux.2/gain"
 				}
 
@@ -1555,7 +1555,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 411.0, 419.0, 554.0, 27.0 ],
-					"text" : "jcom.parameter aux.1/gain @repetitions/allow 0 @type msg_float @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @description \"gain of the input cable applied to aux bus 1\"",
+					"text" : "jcom.parameter aux.1/gain @repetitions/allow 0 @type decimal @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @description \"gain of the input cable applied to aux bus 1\"",
 					"varname" : "aux.1/gain"
 				}
 
@@ -1733,7 +1733,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 559.0, 180.0, 599.0, 27.0 ],
-					"text" : "jcom.parameter channels @type msg_int @repetitions/allow 0 @range/bounds 1 32 @range/clipmode both @description \"The number of audio channels in that multi~ cable. Changes only take effect when audio is off.\"",
+					"text" : "jcom.parameter channels @type integer @repetitions/allow 0 @range/bounds 1 32 @range/clipmode both @description \"The number of audio channels in that multi~ cable. Changes only take effect when audio is off.\"",
 					"varname" : "voices"
 				}
 

@@ -2017,7 +2017,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 790.0, 307.0, 347.0, 33.0 ],
-									"text" : "jcom.return gdif/meta/flow @type msg_float @range/bounds 0. 1. @description \"Fluidity of movements (legato-staccato)\""
+									"text" : "jcom.return gdif/meta/flow @type decimal @range/bounds 0. 1. @description \"Fluidity of movements (legato-staccato)\""
 								}
 
 							}
@@ -2032,7 +2032,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 790.0, 256.0, 337.0, 33.0 ],
-									"text" : "jcom.return gdif/meta/dynamics @type msg_float @range/bounds 0. 1. @description \"Dynamic level (pp-FF)\""
+									"text" : "jcom.return gdif/meta/dynamics @type decimal @range/bounds 0. 1. @description \"Dynamic level (pp-FF)\""
 								}
 
 							}
@@ -2983,7 +2983,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 519.0, 422.0, 370.0, 33.0 ],
-									"text" : "jcom.return gdif/device/mouse/location/vertical @type msg_float @range/bounds 0. 1. @description \"Vertical position of hand\""
+									"text" : "jcom.return gdif/device/mouse/location/vertical @type decimal @range/bounds 0. 1. @description \"Vertical position of hand\""
 								}
 
 							}
@@ -2998,7 +2998,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 346.0, 371.0, 384.0, 33.0 ],
-									"text" : "jcom.return gdif/device/mouse/location/horizontal @type msg_float @range/bounds 0. 1. @description \"Horizontal position of hand\""
+									"text" : "jcom.return gdif/device/mouse/location/horizontal @type decimal @range/bounds 0. 1. @description \"Horizontal position of hand\""
 								}
 
 							}
@@ -3844,7 +3844,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 790.0, 307.0, 404.0, 33.0 ],
-									"text" : "jcom.return gdif/performance/fluidity @type msg_float @range/bounds 0. 1. @description \"Fluidity of movements (legato-staccato)\""
+									"text" : "jcom.return gdif/performance/fluidity @type decimal @range/bounds 0. 1. @description \"Fluidity of movements (legato-staccato)\""
 								}
 
 							}
@@ -3859,7 +3859,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 790.0, 256.0, 337.0, 33.0 ],
-									"text" : "jcom.return gdif/performance/dynamics @type msg_float @range/bounds 0. 1. @description \"Dynamic level (pp-FF)\""
+									"text" : "jcom.return gdif/performance/dynamics @type decimal @range/bounds 0. 1. @description \"Dynamic level (pp-FF)\""
 								}
 
 							}
@@ -4949,7 +4949,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 790.0, 270.0, 386.0, 33.0 ],
-									"text" : "jcom.return gdif/body/hand/right/motion/direction @type msg_float @range/bounds 0. 1. @description \"Direction of motion in radians\""
+									"text" : "jcom.return gdif/body/hand/right/motion/direction @type decimal @range/bounds 0. 1. @description \"Direction of motion in radians\""
 								}
 
 							}
@@ -4964,7 +4964,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 790.0, 219.0, 401.0, 33.0 ],
-									"text" : "jcom.return gdif/body/hand/right/motion/quantity @type msg_float @range/bounds 0. 1. @description \"Quantity of Motion (QoM) of hand\""
+									"text" : "jcom.return gdif/body/hand/right/motion/quantity @type decimal @range/bounds 0. 1. @description \"Quantity of Motion (QoM) of hand\""
 								}
 
 							}
@@ -5021,7 +5021,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 699.0, 371.0, 355.0, 33.0 ],
-									"text" : "jcom.return gdif/body/hand/right/orientation @type msg_float @range/bounds 0. 1. @description \"Vertical position of hand\""
+									"text" : "jcom.return gdif/body/hand/right/orientation @type decimal @range/bounds 0. 1. @description \"Vertical position of hand\""
 								}
 
 							}
@@ -5036,7 +5036,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 662.0, 327.0, 363.0, 33.0 ],
-									"text" : "jcom.return gdif/body/hand/right/distance @type msg_float @range/bounds 0. 1. @description \"Horizontal position of hand\""
+									"text" : "jcom.return gdif/body/hand/right/distance @type decimal @range/bounds 0. 1. @description \"Horizontal position of hand\""
 								}
 
 							}
@@ -5229,7 +5229,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 519.0, 422.0, 383.0, 33.0 ],
-									"text" : "jcom.return gdif/body/hand/right/location/vertical @type msg_float @range/bounds 0. 1. @description \"Vertical position of hand\""
+									"text" : "jcom.return gdif/body/hand/right/location/vertical @type decimal @range/bounds 0. 1. @description \"Vertical position of hand\""
 								}
 
 							}
@@ -5244,7 +5244,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 346.0, 371.0, 398.0, 33.0 ],
-									"text" : "jcom.return gdif/body/hand/right/location/horizontal @type msg_float @range/bounds 0. 1. @description \"Horizontal position of hand\""
+									"text" : "jcom.return gdif/body/hand/right/location/horizontal @type decimal @range/bounds 0. 1. @description \"Horizontal position of hand\""
 								}
 
 							}
@@ -6035,7 +6035,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 657.0, 241.0, 358.0, 33.0 ],
-									"text" : "jcom.return gdif/cooked/location/vertical @type msg_float @range/bounds 0. 1. @description \"Vertical position of mouse\""
+									"text" : "jcom.return gdif/cooked/location/vertical @type decimal @range/bounds 0. 1. @description \"Vertical position of mouse\""
 								}
 
 							}
@@ -6050,7 +6050,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 346.0, 241.0, 372.0, 33.0 ],
-									"text" : "jcom.return gdif/cooked/location/horizontal @type msg_float @range/bounds 0. 1. @description \"Horizontal position of mouse\""
+									"text" : "jcom.return gdif/cooked/location/horizontal @type decimal @range/bounds 0. 1. @description \"Horizontal position of mouse\""
 								}
 
 							}

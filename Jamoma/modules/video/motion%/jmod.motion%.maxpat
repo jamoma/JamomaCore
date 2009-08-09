@@ -50,7 +50,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 140.0, 335.0, 253.0, 27.0 ],
-									"text" : "jcom.parameter /contraction/window/on @type msg_toggle @description \"Turn display of contraction box on or off.\"",
+									"text" : "jcom.parameter /contraction/window/on @type boolean @description \"Turn display of contraction box on or off.\"",
 									"varname" : "centroid/on[1]"
 								}
 
@@ -66,7 +66,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 139.0, 301.0, 235.0, 27.0 ],
-									"text" : "jcom.parameter centroid/on @type msg_toggle @description \"Turn display of centre of mass on.\"",
+									"text" : "jcom.parameter centroid/on @type boolean @description \"Turn display of centre of mass on.\"",
 									"varname" : "centroid/on"
 								}
 
@@ -82,7 +82,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 140.0, 269.0, 262.0, 27.0 ],
-									"text" : "jcom.parameter contraction/max/on @type msg_toggle @description \"Turn max contraction box on or off.\"",
+									"text" : "jcom.parameter contraction/max/on @type boolean @description \"Turn max contraction box on or off.\"",
 									"varname" : "contraction/max/on"
 								}
 
@@ -98,7 +98,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 139.0, 234.0, 244.0, 27.0 ],
-									"text" : "jcom.parameter contraction/on @type msg_toggle @description \"Turn local contraction box on or off.\"",
+									"text" : "jcom.parameter contraction/on @type boolean @description \"Turn local contraction box on or off.\"",
 									"varname" : "contraction/on"
 								}
 
@@ -302,7 +302,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 341.0, 193.0, 329.0, 27.0 ],
-									"text" : "jcom.parameter /centroid/size @type msg_int @range/bounds 0 20 @range/clipmode low @description \"Size of the centre of mass.\"",
+									"text" : "jcom.parameter /centroid/size @type integer @range/bounds 0 20 @range/clipmode low @description \"Size of the centre of mass.\"",
 									"varname" : "centroid/size/on[2]"
 								}
 
@@ -333,7 +333,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 340.0, 151.0, 334.0, 27.0 ],
-									"text" : "jcom.parameter /contraction/window/size @type msg_int @range/bounds 0 20 @range/clipmode low @description \"Size of the contraction window border.\"",
+									"text" : "jcom.parameter /contraction/window/size @type integer @range/bounds 0 20 @range/clipmode low @description \"Size of the contraction window border.\"",
 									"varname" : "centroid/size/on[1]"
 								}
 
@@ -997,7 +997,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 340.0, 52.0, 350.0, 27.0 ],
-									"text" : "jcom.parameter data/smoothing @type msg_float @range/bounds 0. 12. @range/clipmode low @description \"Level of smoothing for the returned data\"",
+									"text" : "jcom.parameter data/smoothing @type decimal @range/bounds 0. 12. @range/clipmode low @description \"Level of smoothing for the returned data\"",
 									"varname" : "data/smoothing"
 								}
 
@@ -1013,7 +1013,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 524.0, 438.0, 224.0, 27.0 ],
-									"text" : "jcom.parameter centroid/color @type msg_list @description \"Change color of centroid.\"",
+									"text" : "jcom.parameter centroid/color @type array @description \"Change color of centroid.\"",
 									"varname" : "centroid/color"
 								}
 
@@ -1029,7 +1029,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 137.0, 445.0, 263.0, 27.0 ],
-									"text" : "jcom.parameter contraction/max/color @type msg_list @description \"Change color of max contraction box.\"",
+									"text" : "jcom.parameter contraction/max/color @type array @description \"Change color of max contraction box.\"",
 									"varname" : "contraction/max/color"
 								}
 
@@ -1045,7 +1045,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 519.0, 309.0, 250.0, 27.0 ],
-									"text" : "jcom.parameter contraction/color @type msg_list @description \"Change color of local contraction box.\"",
+									"text" : "jcom.parameter contraction/color @type array @description \"Change color of local contraction box.\"",
 									"varname" : "contraction/color"
 								}
 
@@ -1061,7 +1061,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 340.0, 117.0, 352.0, 27.0 ],
-									"text" : "jcom.parameter centroid/size/on @type msg_toggle @description \"Turn on automatic size adjustment of centre of mass - based on quantity of motion.\"",
+									"text" : "jcom.parameter centroid/size/on @type boolean @description \"Turn on automatic size adjustment of centre of mass - based on quantity of motion.\"",
 									"varname" : "centroid/size/on"
 								}
 
@@ -1092,7 +1092,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 340.0, 16.0, 406.0, 27.0 ],
-									"text" : "jcom.parameter contraction/slide @type msg_float @range/bounds 0. 10. @range/clipmode low @repetitions/allow 0 @description \"The level of smoothing for contraction box.\"",
+									"text" : "jcom.parameter contraction/slide @type decimal @range/bounds 0. 10. @range/clipmode low @repetitions/allow 0 @description \"The level of smoothing for contraction box.\"",
 									"varname" : "contraction/slide"
 								}
 
@@ -1723,7 +1723,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 33.681591, 636.0, 391.0, 19.0 ],
-					"text" : "jcom.parameter color @type msg_toggle @description \"Color or greyscale\"",
+					"text" : "jcom.parameter color @type boolean @description \"Color or greyscale\"",
 					"varname" : "color[1]"
 				}
 
@@ -1772,7 +1772,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 33.681591, 574.0, 418.0, 19.0 ],
-					"text" : "jcom.parameter edge/threshold @type msg_float @description \"Edge threshold\"",
+					"text" : "jcom.parameter edge/threshold @type decimal @description \"Edge threshold\"",
 					"varname" : "edge/threshold"
 				}
 
@@ -1893,7 +1893,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 33.681591, 518.0, 409.0, 19.0 ],
-					"text" : "jcom.parameter edge/algorithm @type msg_int @description \"Edge detection\"",
+					"text" : "jcom.parameter edge/algorithm @type integer @description \"Edge detection\"",
 					"varname" : "edge/algorithm"
 				}
 
@@ -1908,7 +1908,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 33.681591, 460.0, 425.0, 19.0 ],
-					"text" : "jcom.parameter slide @type msg_float @description \"Level of slide for thre trails\"",
+					"text" : "jcom.parameter slide @type decimal @description \"Level of slide for thre trails\"",
 					"varname" : "slide[1]"
 				}
 
@@ -1923,7 +1923,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 33.681591, 402.0, 418.0, 19.0 ],
-					"text" : "jcom.parameter trails @type msg_toggle @description \"Trails - ghostlike image\"",
+					"text" : "jcom.parameter trails @type boolean @description \"Trails - ghostlike image\"",
 					"varname" : "trails[1]"
 				}
 
@@ -1957,7 +1957,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 33.681591, 341.0, 380.0, 19.0 ],
-					"text" : "jcom.parameter noise @type msg_toggle @description \"Noise reduction\"",
+					"text" : "jcom.parameter noise @type boolean @description \"Noise reduction\"",
 					"varname" : "noise[1]"
 				}
 
@@ -2047,7 +2047,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 33.681591, 275.0, 372.0, 19.0 ],
-					"text" : "jcom.parameter threshold @type msg_float @description \\\"Threshold\\\"",
+					"text" : "jcom.parameter threshold @type decimal @description \\\"Threshold\\\"",
 					"varname" : "threshold[1]"
 				}
 

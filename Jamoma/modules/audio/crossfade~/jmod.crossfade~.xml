@@ -5,22 +5,22 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/gain' type='msg_float' priority='0'>0.000000</item>
-    <item name='audio/mute' type='msg_toggle' priority='0'>1</item>
-    <item name='mode' type='msg_symbol' priority='0'>FastMode</item>
-    <item name='position' type='msg_float' priority='0'>1.000000</item>
-    <item name='shape' type='msg_symbol' priority='0'>EqualPowerFade</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/bypass' type='boolean' priority='0'>0</item>
+    <item name='audio/gain' type='decimal' priority='0'>0.000000</item>
+    <item name='audio/mute' type='boolean' priority='0'>1</item>
+    <item name='mode' type='string' priority='0'>FastMode</item>
+    <item name='position' type='decimal' priority='0'>1.000000</item>
+    <item name='shape' type='string' priority='0'>EqualPowerFade</item>
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
   </preset>
   <preset number='2' name='linear_fade'>
-    <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>	
-    <item name='audio/gain' type='msg_float' priority='0'>0.000000</item>	
-    <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/mute' type='msg_toggle' priority='0'>1</item>
-    <item name='mode' type='msg_symbol' priority='0'>FastMode</item>
-    <item name='position' type='msg_float' priority='0'>1.000000</item>
-    <item name='shape' type='msg_symbol' priority='0'>LinearFade</item>	
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/bypass' type='boolean' priority='0'>0</item>	
+    <item name='audio/gain' type='decimal' priority='0'>0.000000</item>	
+    <item name='audio/meters/freeze' type='boolean' priority='0'>0</item>
+    <item name='audio/mute' type='boolean' priority='0'>1</item>
+    <item name='mode' type='string' priority='0'>FastMode</item>
+    <item name='position' type='decimal' priority='0'>1.000000</item>
+    <item name='shape' type='string' priority='0'>LinearFade</item>	
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

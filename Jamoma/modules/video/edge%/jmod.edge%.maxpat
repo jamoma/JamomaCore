@@ -330,7 +330,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 525.0, 226.0, 331.0, 31.0 ],
-					"text" : "jcom.parameter algorithm @type msg_symbol @description \"Choose the type of algorithm to use for the edge detection.\"",
+					"text" : "jcom.parameter algorithm @type string @description \"Choose the type of algorithm to use for the edge detection.\"",
 					"varname" : "algorithm"
 				}
 
@@ -346,7 +346,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 525.0, 146.0, 406.0, 31.0 ],
-					"text" : "jcom.parameter thresh @type msg_float @ramp/drive scheduler @description \"Edge detection threshold - pixels below the threshold are set to black.\"",
+					"text" : "jcom.parameter thresh @type decimal @ramp/drive scheduler @description \"Edge detection threshold - pixels below the threshold are set to black.\"",
 					"varname" : "thresh"
 				}
 

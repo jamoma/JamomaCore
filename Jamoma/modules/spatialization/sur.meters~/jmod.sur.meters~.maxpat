@@ -62,7 +62,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 969.0, 497.0, 116.0, 128.0 ],
-									"text" : "jcom.return audio/amplitude.32 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.32 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -89,7 +89,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 846.0, 498.0, 116.0, 128.0 ],
-									"text" : "jcom.return audio/amplitude.28 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.28 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -116,7 +116,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 723.0, 499.0, 116.0, 128.0 ],
-									"text" : "jcom.return audio/amplitude.24 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.24 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -143,7 +143,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 600.0, 500.0, 116.0, 128.0 ],
-									"text" : "jcom.return audio/amplitude.20 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.20 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -170,7 +170,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 477.0, 501.0, 116.0, 128.0 ],
-									"text" : "jcom.return audio/amplitude.16 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.16 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -197,7 +197,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 354.0, 502.0, 116.0, 128.0 ],
-									"text" : "jcom.return audio/amplitude.12 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.12 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -224,7 +224,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 230.0, 504.0, 119.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.8 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.8 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -251,7 +251,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 107.0, 505.0, 119.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.4 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.4 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -278,7 +278,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 940.0, 332.0, 114.0, 128.0 ],
-									"text" : "jcom.return audio/amplitude.31 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.31 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -305,7 +305,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 817.0, 333.0, 114.0, 128.0 ],
-									"text" : "jcom.return audio/amplitude.27 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.27 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -332,7 +332,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 694.0, 334.0, 114.0, 128.0 ],
-									"text" : "jcom.return audio/amplitude.23 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.23 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -359,7 +359,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 571.0, 335.0, 114.0, 128.0 ],
-									"text" : "jcom.return audio/amplitude.19 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.19 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -386,7 +386,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 448.0, 336.0, 114.0, 128.0 ],
-									"text" : "jcom.return audio/amplitude.15 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.15 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -413,7 +413,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 325.0, 337.0, 114.0, 128.0 ],
-									"text" : "jcom.return audio/amplitude.11 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.11 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -440,7 +440,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 204.0, 339.0, 118.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.7 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.7 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -467,7 +467,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 79.0, 339.0, 118.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.3 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.3 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -494,7 +494,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 911.0, 182.0, 119.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.30 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.30 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -521,7 +521,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 788.0, 183.0, 119.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.26 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.26 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -548,7 +548,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 665.0, 184.0, 119.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.22 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.22 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -575,7 +575,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 542.0, 185.0, 119.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.18 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.18 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -602,7 +602,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 419.0, 186.0, 119.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.14 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.14 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -629,7 +629,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 296.0, 187.0, 119.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.10 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.10 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -656,7 +656,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 172.0, 185.0, 119.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.6 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.6 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -683,7 +683,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 49.0, 186.0, 119.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.2 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.2 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -710,7 +710,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 880.0, 31.0, 117.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.29 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.29 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -737,7 +737,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 757.0, 32.0, 117.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.25 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.25 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -764,7 +764,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 634.0, 33.0, 117.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.21 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.21 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -791,7 +791,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 511.0, 34.0, 117.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.17 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.17 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -818,7 +818,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 388.0, 35.0, 117.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.13 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.13 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -845,7 +845,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 264.0, 36.0, 119.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.9 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.9 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -872,7 +872,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 141.0, 37.0, 119.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.5 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.5 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -899,7 +899,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 19.0, 38.0, 118.0, 116.0 ],
-									"text" : "jcom.return audio/amplitude.1 @type msg_float @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
+									"text" : "jcom.return audio/amplitude.1 @type decimal @range/bounds 0. 1. @enable 0 @description \"amplitude of the Nth multichannel cable\" @repetitions/allow 1"
 								}
 
 							}
@@ -1534,7 +1534,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 321.0, 389.0, 601.0, 31.0 ],
-					"text" : "jcom.parameter channels/alias @repetitions/allow 0 @type msg_symbol @priority 2 @description \"select alternative OSC name for channels: \\\"numSpeakers\\\" or \\\" numSources\\\" .\"",
+					"text" : "jcom.parameter channels/alias @repetitions/allow 0 @type string @priority 2 @description \"select alternative OSC name for channels: \\\"numSpeakers\\\" or \\\" numSources\\\" .\"",
 					"varname" : "voices[1]"
 				}
 
@@ -1550,7 +1550,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 446.0, 426.0, 305.0, 43.0 ],
-					"text" : "jcom.message numSources @type msg_int @range/bounds 0 32 @range/clipmode both @description \"alternative description of number of channels to display.\""
+					"text" : "jcom.message numSources @type integer @range/bounds 0 32 @range/clipmode both @description \"alternative description of number of channels to display.\""
 				}
 
 			}
@@ -1565,7 +1565,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 634.0, 475.0, 312.0, 43.0 ],
-					"text" : "jcom.message numSpeakers @type msg_int @range/bounds 0 32 @range/clipmode both @description \"alternative description of number of channels to display.\""
+					"text" : "jcom.message numSpeakers @type integer @range/bounds 0 32 @range/clipmode both @description \"alternative description of number of channels to display.\""
 				}
 
 			}
@@ -1674,7 +1674,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 396.0, 550.0, 606.0, 31.0 ],
-					"text" : "jcom.parameter channels @repetitions/allow 0 @type msg_int @range/bounds 0 32 @range/clipmode both @priority 1 @description \"Number of channels to display.\"",
+					"text" : "jcom.parameter channels @repetitions/allow 0 @type integer @range/bounds 0 32 @range/clipmode both @priority 1 @description \"Number of channels to display.\"",
 					"varname" : "voices"
 				}
 
@@ -1705,7 +1705,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 358.0, 250.0, 202.0, 31.0 ],
-					"text" : "jcom.message clear @type msg_none @description \"clears meters\""
+					"text" : "jcom.message clear @type none @description \"clears meters\""
 				}
 
 			}

@@ -731,7 +731,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 462.0, 357.0, 349.0, 30.0 ],
-					"text" : "jcom.return delta/angle @type msg_float @range/bounds -3.14 3.14 @description \"Angle (in radians) of relative position of mouse.\""
+					"text" : "jcom.return delta/angle @type decimal @range/bounds -3.14 3.14 @description \"Angle (in radians) of relative position of mouse.\""
 				}
 
 			}
@@ -774,7 +774,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 425.0, 402.0, 486.0, 30.0 ],
-					"text" : "jcom.return delta/magnitude @type msg_float @range/bounds 0. 0.4 @description \"Mangitude (in screen percentage) of relative position of mouse (sum of horizontal and vertical).\""
+					"text" : "jcom.return delta/magnitude @type decimal @range/bounds 0. 0.4 @description \"Mangitude (in screen percentage) of relative position of mouse (sum of horizontal and vertical).\""
 				}
 
 			}
@@ -789,7 +789,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 391.0, 298.0, 286.0, 30.0 ],
-					"text" : "jcom.return delta/y @type msg_float @range/bounds -0.2 0.2 @description \"Vertical delta position of mouse\""
+					"text" : "jcom.return delta/y @type decimal @range/bounds -0.2 0.2 @description \"Vertical delta position of mouse\""
 				}
 
 			}
@@ -804,7 +804,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 390.0, 261.0, 303.0, 30.0 ],
-					"text" : "jcom.return delta/x @type msg_float @range/bounds -0.2 0.2 @description \"Horizontal delta position of mouse\""
+					"text" : "jcom.return delta/x @type decimal @range/bounds -0.2 0.2 @description \"Horizontal delta position of mouse\""
 				}
 
 			}
@@ -819,7 +819,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 112.0, 336.0, 293.0, 30.0 ],
-					"text" : "jcom.return position/y @type msg_float @range/bounds 0. 1. @description \"Vertical position of mouse\""
+					"text" : "jcom.return position/y @type decimal @range/bounds 0. 1. @description \"Vertical position of mouse\""
 				}
 
 			}
@@ -834,7 +834,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 112.0, 302.0, 293.0, 30.0 ],
-					"text" : "jcom.return position/x @type msg_float @range/bounds 0. 1. @description \"Horizontal position of mouse\""
+					"text" : "jcom.return position/x @type decimal @range/bounds 0. 1. @description \"Horizontal position of mouse\""
 				}
 
 			}

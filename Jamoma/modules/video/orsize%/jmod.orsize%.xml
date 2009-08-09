@@ -5,17 +5,17 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='angle' type='msg_int' priority='0'>0</item>
-    <item name='mirror' type='msg_toggle' priority='0'>1</item>
-    <item name='offset_x' type='msg_int' priority='0'>0</item>
-    <item name='offset_y' type='msg_int' priority='0'>0</item>
-    <item name='rotate1' type='msg_toggle' priority='0'>0</item>
-    <item name='rotate2' type='msg_toggle' priority='0'>0</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='video/bypass' type='msg_toggle' priority='0'>0</item>
-    <item name='video/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='video/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='video/preview' type='msg_toggle' priority='0'>0</item>
-    <item name='zoom' type='msg_float' priority='0'>1.000000</item>
+    <item name='angle' type='integer' priority='0'>0</item>
+    <item name='mirror' type='boolean' priority='0'>1</item>
+    <item name='offset_x' type='integer' priority='0'>0</item>
+    <item name='offset_y' type='integer' priority='0'>0</item>
+    <item name='rotate1' type='boolean' priority='0'>0</item>
+    <item name='rotate2' type='boolean' priority='0'>0</item>
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='video/bypass' type='boolean' priority='0'>0</item>
+    <item name='video/freeze' type='boolean' priority='0'>0</item>
+    <item name='video/mute' type='boolean' priority='0'>0</item>
+    <item name='video/preview' type='boolean' priority='0'>0</item>
+    <item name='zoom' type='decimal' priority='0'>1.000000</item>
   </preset>
 </jamoma>

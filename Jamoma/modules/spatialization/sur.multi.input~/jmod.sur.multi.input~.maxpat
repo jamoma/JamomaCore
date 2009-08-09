@@ -51,7 +51,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 297.0, 298.0, 189.0, 43.0 ],
-									"text" : "jcom.return info/channels @type msg_int @description \"number of channels of the soundfile\""
+									"text" : "jcom.return info/channels @type integer @description \"number of channels of the soundfile\""
 								}
 
 							}
@@ -66,7 +66,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 331.0, 238.0, 166.0, 43.0 ],
-									"text" : "jcom.return test/length @type msg_int @description \"length of the soundfile in [ms]\""
+									"text" : "jcom.return test/length @type integer @description \"length of the soundfile in [ms]\""
 								}
 
 							}
@@ -81,7 +81,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 336.0, 141.0, 176.0, 43.0 ],
-									"text" : "jcom.return test/playername @type msg_symbol @description \"name of the sfplay~ object\""
+									"text" : "jcom.return test/playername @type string @description \"name of the sfplay~ object\""
 								}
 
 							}
@@ -2097,7 +2097,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 485.0, 345.0, 602.0, 19.0 ],
-					"text" : "jcom.message direct @type msg_generic @repetitions/allow 1 @description \"direct commands to the sfplay~ object\"",
+					"text" : "jcom.message direct @type generic @repetitions/allow 1 @description \"direct commands to the sfplay~ object\"",
 					"varname" : "play[2]"
 				}
 
@@ -2143,7 +2143,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 827.0, 490.0, 602.0, 31.0 ],
-					"text" : "jcom.message start @type msg_float @repetitions/allow 0 @dataspace time @dataspace/unit/active second @dataspace/unit/native second @dataspace/unit/native second @description \"start time in soundfile to play in [sec]\"",
+					"text" : "jcom.message start @type decimal @repetitions/allow 0 @dataspace time @dataspace/unit/active second @dataspace/unit/native second @dataspace/unit/native second @description \"start time in soundfile to play in [sec]\"",
 					"varname" : "start"
 				}
 
@@ -2367,7 +2367,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 622.0, 15.0, 331.0, 31.0 ],
-					"text" : "jcom.parameter countdown @type msg_toggle @description \"changes the time displayed in the module to countdown mode\"",
+					"text" : "jcom.parameter countdown @type boolean @description \"changes the time displayed in the module to countdown mode\"",
 					"varname" : "countdown[1]"
 				}
 
@@ -2429,7 +2429,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 548.0, 185.0, 439.0, 19.0 ],
-					"text" : "jcom.message pause @type msg_toggle @repetitions/allow 0 @description \\\"Pause\\\"",
+					"text" : "jcom.message pause @type boolean @repetitions/allow 0 @description \\\"Pause\\\"",
 					"varname" : "play[1]"
 				}
 
@@ -2519,7 +2519,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 487.0, 242.0, 470.0, 19.0 ],
-					"text" : "jcom.message play @type msg_toggle @repetitions/allow 0 @description \"starts playback\"",
+					"text" : "jcom.message play @type boolean @repetitions/allow 0 @description \"starts playback\"",
 					"varname" : "play"
 				}
 
@@ -2535,7 +2535,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 487.0, 296.0, 369.0, 19.0 ],
-					"text" : "jcom.parameter loop @type msg_toggle @description \"Loop soundfile.\"",
+					"text" : "jcom.parameter loop @type boolean @description \"Loop soundfile.\"",
 					"varname" : "loop"
 				}
 
@@ -2552,7 +2552,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 497.0, 109.0, 593.0, 31.0 ],
-					"text" : "jcom.message open @type msg_generic @repetitions/allow 1 @description \"Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file.\""
+					"text" : "jcom.message open @type generic @repetitions/allow 1 @description \"Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file.\""
 				}
 
 			}

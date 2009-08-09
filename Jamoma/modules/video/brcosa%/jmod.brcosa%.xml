@@ -6,13 +6,13 @@
 >
 	
 	<preset number="1" name="default">
-		<item name="video/preview" type="msg_int">0</item>
-		<item name="video/bypass" type="msg_int">0</item>
-		<item name="video/freeze" type="msg_int">0</item>
-		<item name="video/mute" type="msg_int">0</item>
-		<item name="brightness" type="msg_float">1.</item>
-		<item name="contrast" type="msg_float">1.</item>
-		<item name="saturation" type="msg_float">1.</item>
-		<item name="monochrome" type="msg_int">0</item>
+		<item name="video/preview" type="integer">0</item>
+		<item name="video/bypass" type="integer">0</item>
+		<item name="video/freeze" type="integer">0</item>
+		<item name="video/mute" type="integer">0</item>
+		<item name="brightness" type="decimal">1.</item>
+		<item name="contrast" type="decimal">1.</item>
+		<item name="saturation" type="decimal">1.</item>
+		<item name="monochrome" type="integer">0</item>
     </preset>
 </jamoma>

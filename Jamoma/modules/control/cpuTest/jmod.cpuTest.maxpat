@@ -116,7 +116,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 460.0, 127.0, 372.0, 31.0 ],
-					"text" : "jcom.message my_message @repetitions/allow 1 @type msg_int @ramp/drive scheduler @range/bounds 0 40000 @range/clipmode both"
+					"text" : "jcom.message my_message @repetitions/allow 1 @type integer @ramp/drive scheduler @range/bounds 0 40000 @range/clipmode both"
 				}
 
 			}
@@ -338,7 +338,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 458.0, 47.0, 372.0, 31.0 ],
-					"text" : "jcom.parameter my_parameter @repetitions/allow 1 @type msg_int @ramp/drive scheduler @range/bounds 0 40000 @range/clipmode both",
+					"text" : "jcom.parameter my_parameter @repetitions/allow 1 @type integer @ramp/drive scheduler @range/bounds 0 40000 @range/clipmode both",
 					"varname" : "jcom.parameter"
 				}
 

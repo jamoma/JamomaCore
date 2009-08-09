@@ -27,7 +27,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 543.0, 225.0, 298.0, 31.0 ],
-					"text" : "jcom.message cue @type msg_list @repetitions/allow 1 @description \"trigger the selected cue by its name\""
+					"text" : "jcom.message cue @type array @repetitions/allow 1 @description \"trigger the selected cue by its name\""
 				}
 
 			}
@@ -97,7 +97,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 827.0, 358.0, 286.0, 31.0 ],
-					"text" : "jcom.message debug @repetitions/allow 1 @type msg_toggle @description \"on/off the debugging mode\""
+					"text" : "jcom.message debug @repetitions/allow 1 @type boolean @description \"on/off the debugging mode\""
 				}
 
 			}
@@ -112,7 +112,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 543.0, 193.0, 273.0, 31.0 ],
-					"text" : "jcom.message previous @repetitions/allow 1 @type msg_none @description \"recall to the previous cue\""
+					"text" : "jcom.message previous @repetitions/allow 1 @type none @description \"recall to the previous cue\""
 				}
 
 			}
@@ -127,7 +127,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 543.0, 162.0, 253.0, 31.0 ],
-					"text" : "jcom.message next @repetitions/allow 1 @type msg_none @description \"trigger the next cue\""
+					"text" : "jcom.message next @repetitions/allow 1 @type none @description \"trigger the next cue\""
 				}
 
 			}
@@ -1384,7 +1384,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 179.0, 407.0, 320.0, 31.0 ],
-									"text" : "jcom.message create/cue @type msg_list @repetitions/allow 1 @description \"insert a cue after the current\""
+									"text" : "jcom.message create/cue @type array @repetitions/allow 1 @description \"insert a cue after the current\""
 								}
 
 							}
@@ -1426,7 +1426,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 136.0, 375.0, 338.0, 31.0 ],
-									"text" : "jcom.message create/keycue @type msg_list @repetitions/allow 1 @description \"insert a keycue after the current\""
+									"text" : "jcom.message create/keycue @type array @repetitions/allow 1 @description \"insert a keycue after the current\""
 								}
 
 							}
@@ -2231,7 +2231,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 544.0, 131.0, 298.0, 31.0 ],
-					"text" : "jcom.message trigger @type msg_int @repetitions/allow 1 @description \"trigger the selected cue\""
+					"text" : "jcom.message trigger @type integer @repetitions/allow 1 @description \"trigger the selected cue\""
 				}
 
 			}
@@ -2725,7 +2725,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 35.0, 595.0, 290.0, 31.0 ],
-					"text" : "jcom.message update/cue @type msg_generic @description \"Store a last changes in the selected CUE\""
+					"text" : "jcom.message update/cue @type generic @description \"Store a last changes in the selected CUE\""
 				}
 
 			}
@@ -2918,7 +2918,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 952.0, 565.0, 323.0, 31.0 ],
-					"text" : "jcom.message ramptime @type msg_float @repetitions/allow 1 @description \"set the ramp of the selected cue (in second)\""
+					"text" : "jcom.message ramptime @type decimal @repetitions/allow 1 @description \"set the ramp of the selected cue (in second)\""
 				}
 
 			}
@@ -3109,7 +3109,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 343.0, 478.0, 274.0, 31.0 ],
-					"text" : "jcom.message remove @type msg_int @repetitions/allow 1 @description \"remove a cue\""
+					"text" : "jcom.message remove @type integer @repetitions/allow 1 @description \"remove a cue\""
 				}
 
 			}
@@ -3138,7 +3138,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 390.0, 510.0, 277.0, 31.0 ],
-					"text" : "jcom.message rename @type msg_list @repetitions/allow 1 @description \"rename a cue\""
+					"text" : "jcom.message rename @type array @repetitions/allow 1 @description \"rename a cue\""
 				}
 
 			}
@@ -3153,7 +3153,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 295.0, 446.0, 290.0, 31.0 ],
-					"text" : "jcom.message copy @type msg_list @repetitions/allow 1 @description \"copy a cue (insert)\""
+					"text" : "jcom.message copy @type array @repetitions/allow 1 @description \"copy a cue (insert)\""
 				}
 
 			}
@@ -3299,7 +3299,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 50.0, 206.0, 400.0, 19.0 ],
-													"text" : "jcom.return cues @type msg_list @description \"output all cues in the cuelist\""
+													"text" : "jcom.return cues @type array @description \"output all cues in the cuelist\""
 												}
 
 											}
@@ -3437,7 +3437,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 301.0, 134.0, 466.0, 19.0 ],
-									"text" : "jcom.return operation @type msg_symbol @description \"info about all internal operations\""
+									"text" : "jcom.return operation @type string @description \"info about all internal operations\""
 								}
 
 							}
@@ -3479,7 +3479,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 84.0, 74.0, 490.0, 19.0 ],
-									"text" : "jcom.return cuelist/size @type msg_int @description \"output the number of cues in the cuelist\""
+									"text" : "jcom.return cuelist/size @type integer @description \"output the number of cues in the cuelist\""
 								}
 
 							}
@@ -3493,7 +3493,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 11.0, 54.0, 527.0, 19.0 ],
-									"text" : "jcom.return cuelist @type msg_list @description \"output all cues in the cuelist [id mode name option]\""
+									"text" : "jcom.return cuelist @type array @description \"output all cues in the cuelist [id mode name option]\""
 								}
 
 							}
@@ -3507,7 +3507,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 229.0, 114.0, 465.0, 19.0 ],
-									"text" : "jcom.return current/name @type msg_symbol @description \"the name of the current cue\""
+									"text" : "jcom.return current/name @type string @description \"the name of the current cue\""
 								}
 
 							}
@@ -3521,7 +3521,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 156.0, 94.0, 404.0, 19.0 ],
-									"text" : "jcom.return current/id @type msg_int @description \"the id of the current cue\""
+									"text" : "jcom.return current/id @type integer @description \"the id of the current cue\""
 								}
 
 							}
@@ -3618,7 +3618,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 921.0, 113.0, 308.0, 31.0 ],
-					"text" : "jcom.message new @type msg_symbol @repetitions/allow 1 @description \"clear all the cuelist to start a new one\""
+					"text" : "jcom.message new @type string @repetitions/allow 1 @description \"clear all the cuelist to start a new one\""
 				}
 
 			}
@@ -3633,7 +3633,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 975.0, 237.0, 250.0, 31.0 ],
-					"text" : "jcom.message open @type msg_generic @description \"open the cuelist in a text edoitor\""
+					"text" : "jcom.message open @type generic @description \"open the cuelist in a text edoitor\""
 				}
 
 			}
@@ -12954,7 +12954,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 544.0, 100.0, 294.0, 31.0 ],
-					"text" : "jcom.message select @type msg_int @repetitions/allow 1 @description \"recall the selected cue\""
+					"text" : "jcom.message select @type integer @repetitions/allow 1 @description \"recall the selected cue\""
 				}
 
 			}
@@ -12992,7 +12992,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 935.0, 144.0, 292.0, 31.0 ],
-					"text" : "jcom.message load @type msg_symbol @repetitions/allow 1 @description \"load a cuelist file\""
+					"text" : "jcom.message load @type string @repetitions/allow 1 @description \"load a cuelist file\""
 				}
 
 			}
@@ -13030,7 +13030,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 948.0, 175.0, 279.0, 31.0 ],
-					"text" : "jcom.message writeagain @type msg_generic @description \"save the cues in the last file\""
+					"text" : "jcom.message writeagain @type generic @description \"save the cues in the last file\""
 				}
 
 			}
@@ -15245,7 +15245,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 490.0, 545.0, 321.0, 31.0 ],
-									"text" : "jcom.message doramp @type msg_toggle @repetitions/allow 1 @description \"to enable/disable the driving of the ramp\""
+									"text" : "jcom.message doramp @type boolean @repetitions/allow 1 @description \"to enable/disable the driving of the ramp\""
 								}
 
 							}
@@ -18463,7 +18463,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 345.0, 625.0, 307.0, 31.0 ],
-					"text" : "jcom.message edit @type msg_generic @repetitions/allow 1 @description \"edit the current cue in a text editor\""
+					"text" : "jcom.message edit @type generic @repetitions/allow 1 @description \"edit the current cue in a text editor\""
 				}
 
 			}
@@ -18496,7 +18496,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 962.0, 206.0, 251.0, 31.0 ],
-					"text" : "jcom.message write @type msg_generic @description \"save cues into a file\""
+					"text" : "jcom.message write @type generic @description \"save cues into a file\""
 				}
 
 			}
@@ -18529,7 +18529,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 12.0, 626.0, 316.0, 31.0 ],
-					"text" : "jcom.message update/keycue @type msg_generic @description \"Store a new snapshot in the selected KEYCUE\""
+					"text" : "jcom.message update/keycue @type generic @description \"Store a new snapshot in the selected KEYCUE\""
 				}
 
 			}

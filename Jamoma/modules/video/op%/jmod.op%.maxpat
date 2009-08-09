@@ -117,7 +117,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 378.0, 208.0, 348.0, 43.0 ],
-					"text" : "jcom.parameter opValue @type msg_float @ramp/drive scheduler @repetitions/allow 0 @description \"Number to associate with operation.\"",
+					"text" : "jcom.parameter opValue @type decimal @ramp/drive scheduler @repetitions/allow 0 @description \"Number to associate with operation.\"",
 					"varname" : "op_value"
 				}
 
@@ -216,7 +216,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 377.0, 118.0, 351.0, 43.0 ],
-					"text" : "jcom.parameter op @type msg_symbol @description \"Chooses the type of operation to perform on the two video inputs to the module.\"",
+					"text" : "jcom.parameter op @type string @description \"Chooses the type of operation to perform on the two video inputs to the module.\"",
 					"varname" : "op"
 				}
 

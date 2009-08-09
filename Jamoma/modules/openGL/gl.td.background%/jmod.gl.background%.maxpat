@@ -39,7 +39,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 510.0, 140.0, 392.0, 19.0 ],
-					"text" : "jcom.message clear @type msg_none @description \"Clear buffered image.\"",
+					"text" : "jcom.message clear @type none @description \"Clear buffered image.\"",
 					"varname" : "tolerance[1]"
 				}
 
@@ -318,7 +318,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 505.0, 60.0, 597.0, 31.0 ],
-					"text" : "jcom.parameter weight @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"Low pass filter coefficient.\"",
+					"text" : "jcom.parameter weight @type decimal @range/bounds 0. 1. @range/clipmode both @description \"Low pass filter coefficient.\"",
 					"varname" : "tolerance"
 				}
 

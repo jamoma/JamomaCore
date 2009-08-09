@@ -6,36 +6,36 @@
 >
 	
 	<preset number="1" name="default">
-		<item name="receive_port" type="msg_int">7400</item>
-		<item name="send_port" type="msg_int">7400</item>
-		<item name="send_host" type="msg_symbol">127.0.0.1</item>
-		<item name="multicast_ip" type="msg_symbol">224.0.0.3</item>
-		<item name="multicast_join" type="msg_int">0</item>
-		<item name="multicast_port" type="msg_int">7500</item>
-		<item name="osc_prefix" type="msg_symbol">null</item>
-		<item name="send/active" type="msg_toggle">1</item>
-		<item name="mode" type="msg_int">single</item>
+		<item name="receive_port" type="integer">7400</item>
+		<item name="send_port" type="integer">7400</item>
+		<item name="send_host" type="string">127.0.0.1</item>
+		<item name="multicast_ip" type="string">224.0.0.3</item>
+		<item name="multicast_join" type="integer">0</item>
+		<item name="multicast_port" type="integer">7500</item>
+		<item name="osc_prefix" type="string">null</item>
+		<item name="send/active" type="boolean">1</item>
+		<item name="mode" type="integer">single</item>
 	</preset>
 	<preset number ="2" name ="multicast">
-		<item name="receive_port" type="msg_int">7400</item>
-		<item name="send_port" type="msg_int">7400</item>
-		<item name="send_host" type="msg_symbol">127.0.0.1</item>
-		<item name="multicast_ip" type="msg_symbol">224.0.0.3</item>
-		<item name="multicast_join" type="msg_int">1</item>
-		<item name="multicast_port" type="msg_int">7500</item>
-		<item name="osc_prefix" type="msg_symbol">null</item>
-		<item name="send/active" type="msg_toggle">1</item> 
-		<item name="mode" type="msg_int">multicast</item>
+		<item name="receive_port" type="integer">7400</item>
+		<item name="send_port" type="integer">7400</item>
+		<item name="send_host" type="string">127.0.0.1</item>
+		<item name="multicast_ip" type="string">224.0.0.3</item>
+		<item name="multicast_join" type="integer">1</item>
+		<item name="multicast_port" type="integer">7500</item>
+		<item name="osc_prefix" type="string">null</item>
+		<item name="send/active" type="boolean">1</item> 
+		<item name="mode" type="integer">multicast</item>
 	</preset>
 	<preset number ="3" name ="broadcast">
-		<item name="receive_port" type="msg_int">7400</item>
-		<item name="send_port" type="msg_int">7400</item>
-		<item name="send_host" type="msg_float">255.255.255.255</item>
-		<item name="multicast_ip" type="msg_symbol">224.0.0.3</item>
-		<item name="multicast_join" type="msg_int">0</item>
-		<item name="multicast_port" type="msg_int"></item>
-		<item name="osc_prefix" type="msg_symbol">null</item> 
-		<item name="send/active" type="msg_toggle">1</item> 
-		<item name="mode" type="msg_int"></item>
+		<item name="receive_port" type="integer">7400</item>
+		<item name="send_port" type="integer">7400</item>
+		<item name="send_host" type="decimal">255.255.255.255</item>
+		<item name="multicast_ip" type="string">224.0.0.3</item>
+		<item name="multicast_join" type="integer">0</item>
+		<item name="multicast_port" type="integer"></item>
+		<item name="osc_prefix" type="string">null</item> 
+		<item name="send/active" type="boolean">1</item> 
+		<item name="mode" type="integer"></item>
     </preset>
 </jamoma>

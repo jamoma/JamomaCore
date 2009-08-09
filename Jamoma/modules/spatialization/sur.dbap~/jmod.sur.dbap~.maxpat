@@ -26,7 +26,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 470.0, 385.0, 604.0, 31.0 ],
-					"text" : "jcom.parameter.array 32 source weight @type msg_list @range/bounds 0. 1. @description \"Set spatial weight of the nth source.\""
+					"text" : "jcom.parameter.array 32 source weight @type array @range/bounds 0. 1. @description \"Set spatial weight of the nth source.\""
 				}
 
 			}
@@ -39,7 +39,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 470.0, 360.0, 664.0, 19.0 ],
-					"text" : "jcom.message.array 32 source active @type msg_toggle @repetitions/allow 1 @description \"Mute or unmute the nth source.\""
+					"text" : "jcom.message.array 32 source active @type boolean @repetitions/allow 1 @description \"Mute or unmute the nth source.\""
 				}
 
 			}
@@ -53,7 +53,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 470.0, 325.0, 594.0, 31.0 ],
-					"text" : "jcom.message.array 32 source gain @type msg_float @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\""
+					"text" : "jcom.message.array 32 source gain @type decimal @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\""
 				}
 
 			}
@@ -67,7 +67,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 470.0, 290.0, 589.0, 31.0 ],
-					"text" : "jcom.message.array 32 source blur @type msg_float @range/bounds 0. 100. @description \"Set spatial blur of the nth source.\""
+					"text" : "jcom.message.array 32 source blur @type decimal @range/bounds 0. 100. @description \"Set spatial blur of the nth source.\""
 				}
 
 			}
@@ -109,7 +109,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 470.0, 460.0, 599.0, 31.0 ],
-					"text" : "jcom.message.array 32 speaker position @type msg_list @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
+					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
 				}
 
 			}
@@ -123,7 +123,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 470.0, 255.0, 603.0, 31.0 ],
-					"text" : "jcom.message.array 32 source position @type msg_list @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
+					"text" : "jcom.message.array 32 source position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
 				}
 
 			}
@@ -148,7 +148,7 @@
 					"frozen_object_attributes" : 					{
 						"name" : "info",
 						"description" : "Get info on current positions of sources and speakers",
-						"type" : "msg_none"
+						"type" : "none"
 					}
 ,
 					"id" : "obj-28",
@@ -188,7 +188,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 530.0, 150.0, 592.0, 31.0 ],
-					"text" : "jcom.parameter rolloff @type msg_float @range/bounds 1 6 @range/clipmode low @description \"Rolloff in dB with doubling of distance.\"",
+					"text" : "jcom.parameter rolloff @type decimal @range/bounds 1 6 @range/clipmode low @description \"Rolloff in dB with doubling of distance.\"",
 					"varname" : "voices[3]"
 				}
 
@@ -222,7 +222,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 530.0, 115.0, 606.0, 31.0 ],
-					"text" : "jcom.parameter dimensions @type msg_int @range/bounds 1 3 @range/clipmode both @description \"Dimensions of the space spanned by loudspeakers.\"",
+					"text" : "jcom.parameter dimensions @type integer @range/bounds 1 3 @range/clipmode both @description \"Dimensions of the space spanned by loudspeakers.\"",
 					"varname" : "voices[2]"
 				}
 
@@ -256,7 +256,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 530.0, 80.0, 568.0, 31.0 ],
-					"text" : "jcom.parameter numSpeakers @type msg_int @range/bounds 1 32 @range/clipmode both @description \"The number of speakers to diffuse to.\" @priority 3",
+					"text" : "jcom.parameter numSpeakers @type integer @range/bounds 1 32 @range/clipmode both @description \"The number of speakers to diffuse to.\" @priority 3",
 					"varname" : "voices[1]"
 				}
 
@@ -529,7 +529,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 530.0, 45.0, 604.0, 31.0 ],
-					"text" : "jcom.parameter numSources @type msg_int @range/bounds 1 32 @range/clipmode both @description \"The number of sources to process.\" @priority 2",
+					"text" : "jcom.parameter numSources @type integer @range/bounds 1 32 @range/clipmode both @description \"The number of sources to process.\" @priority 2",
 					"varname" : "voices"
 				}
 

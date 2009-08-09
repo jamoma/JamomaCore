@@ -6,10 +6,10 @@
 >
 	
 	<preset number="1" name="default">
-		<item name="video/preview" type="msg_toggle">0</item>
-		<item name="video/bypass" type="msg_toggle">0</item>
-		<item name="video/freeze" type="msg_toggle">0</item>
-		<item name="video/mute" type="msg_toggle">0</item>
-		<item name="xfade" type="msg_float">0.</item>
+		<item name="video/preview" type="boolean">0</item>
+		<item name="video/bypass" type="boolean">0</item>
+		<item name="video/freeze" type="boolean">0</item>
+		<item name="video/mute" type="boolean">0</item>
+		<item name="xfade" type="decimal">0.</item>
 	</preset>
 </jamoma>

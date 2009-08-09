@@ -282,7 +282,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 819.0, 73.0, 749.0, 43.0 ],
-					"text" : "jcom.parameter clicktrain/rate @type msg_float @ramp/drive scheduler @description \"How often a click is generated. in [Hz] by default.\" @range/bounds 0.01 100. @range/clipmode both @dataspace time @dataspace/unit/active hz @dataspace/unit/native hz @dataspace/unit/display hz",
+					"text" : "jcom.parameter clicktrain/rate @type decimal @ramp/drive scheduler @description \"How often a click is generated. in [Hz] by default.\" @range/bounds 0.01 100. @range/clipmode both @dataspace time @dataspace/unit/active hz @dataspace/unit/native hz @dataspace/unit/display hz",
 					"varname" : "ch_1[1]"
 				}
 
@@ -314,7 +314,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 817.0, 583.0, 546.0, 19.0 ],
-					"text" : "jcom.message audio/panic @type msg_none @repetitions/allow 1 @description \"Stop audio immediately.\"",
+					"text" : "jcom.message audio/panic @type none @repetitions/allow 1 @description \"Stop audio immediately.\"",
 					"varname" : "jcom.parameter"
 				}
 
@@ -343,7 +343,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 825.0, 550.0, 456.0, 19.0 ],
-					"text" : "jcom.parameter audio/active @type msg_toggle @description \"Toggle audio on and off.\"",
+					"text" : "jcom.parameter audio/active @type boolean @description \"Toggle audio on and off.\"",
 					"varname" : "audio[1]"
 				}
 
@@ -562,7 +562,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 815.0, 475.0, 452.0, 19.0 ],
-					"text" : "jcom.parameter ch.2 @type msg_int @description \" Set logical input for right channel.\"",
+					"text" : "jcom.parameter ch.2 @type integer @description \" Set logical input for right channel.\"",
 					"varname" : "ch_2"
 				}
 
@@ -577,7 +577,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 815.0, 445.0, 444.0, 19.0 ],
-					"text" : "jcom.parameter ch.1 @type msg_int @description \" Set logical input for left channel.\"",
+					"text" : "jcom.parameter ch.1 @type integer @description \" Set logical input for left channel.\"",
 					"varname" : "ch_1"
 				}
 
@@ -635,7 +635,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 335.0, 200.0, 423.0, 31.0 ],
-					"text" : "jcom.parameter balance @type msg_float @range/bounds -1 1 @range/clipmode both @ramp/drive scheduler @description \"Pan-pot for the stereo signal\""
+					"text" : "jcom.parameter balance @type decimal @range/bounds -1 1 @range/clipmode both @ramp/drive scheduler @description \"Pan-pot for the stereo signal\""
 				}
 
 			}
@@ -707,7 +707,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 334.0, 81.0, 358.0, 55.0 ],
-					"text" : "jcom.parameter audio/gain @type msg_float @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/display midi @description \"master gain\"",
+					"text" : "jcom.parameter audio/gain @type decimal @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/display midi @description \"master gain\"",
 					"varname" : "jcom.parameter.gain"
 				}
 
@@ -764,7 +764,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 330.0, 521.0, 440.0, 19.0 ],
-					"text" : "jcom.message dspStatus @type msg_none @description \"Open DSP Status window.\""
+					"text" : "jcom.message dspStatus @type none @description \"Open DSP Status window.\""
 				}
 
 			}
@@ -3116,7 +3116,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 460.0, 355.0, 583.0, 31.0 ],
-													"text" : "jcom.return soundfile/report @type msg_none @description \"Report when sound file reach end point and loop to start point.\" @repetitions/allow 1"
+													"text" : "jcom.return soundfile/report @type none @description \"Report when sound file reach end point and loop to start point.\" @repetitions/allow 1"
 												}
 
 											}
@@ -5547,7 +5547,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 830.0, 200.0, 601.0, 31.0 ],
-					"text" : "jcom.parameter soundfile/open @type msg_generic @repetitions/allow 1 @description \"Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file.\" @value bang",
+					"text" : "jcom.parameter soundfile/open @type generic @repetitions/allow 1 @description \"Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file.\" @value bang",
 					"varname" : "jcom.parameter.mxb[10]"
 				}
 
@@ -5562,7 +5562,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 828.0, 24.0, 475.0, 19.0 ],
-					"text" : "jcom.parameter source @type msg_symbol @description \"Select what audio source to use.\"",
+					"text" : "jcom.parameter source @type string @description \"Select what audio source to use.\"",
 					"varname" : "source_select"
 				}
 
@@ -5578,7 +5578,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 825.0, 400.0, 595.0, 31.0 ],
-					"text" : "jcom.message soundfile/direct @type msg_none @repetitions/allow 1 @description container for various messages sent directly to the sfplay~ object. Refer to the MSP documentation for further details.",
+					"text" : "jcom.message soundfile/direct @type none @repetitions/allow 1 @description container for various messages sent directly to the sfplay~ object. Refer to the MSP documentation for further details.",
 					"varname" : "jcom.parameter.mxb[9]"
 				}
 
@@ -5593,7 +5593,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 825.0, 275.0, 527.0, 19.0 ],
-					"text" : "jcom.parameter soundfile/play @type msg_toggle @repetitions/allow 1 @description \"Play sound file.\"",
+					"text" : "jcom.parameter soundfile/play @type boolean @repetitions/allow 1 @description \"Play sound file.\"",
 					"varname" : "play"
 				}
 
@@ -5608,7 +5608,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 830.0, 335.0, 420.0, 19.0 ],
-					"text" : "jcom.parameter soundfile/loop @type msg_toggle @description \"Loop soundfile.\"",
+					"text" : "jcom.parameter soundfile/loop @type boolean @description \"Loop soundfile.\"",
 					"varname" : "loop"
 				}
 

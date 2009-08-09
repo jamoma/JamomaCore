@@ -41,7 +41,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 312.0, 220.0, 405.0, 17.0 ],
-					"text" : "jcom.message update @type msg_none @description \"get update messagefrom an external clock\"",
+					"text" : "jcom.message update @type none @description \"get update messagefrom an external clock\"",
 					"varname" : "jcom.parameter[2]"
 				}
 
@@ -76,7 +76,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 323.0, 110.0, 452.0, 19.0 ],
-					"text" : "jcom.message initSerial @type msg_none @description \"Initialization of the serial port\"",
+					"text" : "jcom.message initSerial @type none @description \"Initialization of the serial port\"",
 					"varname" : "jcom.parameter[1]"
 				}
 
@@ -112,7 +112,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 170.0, 341.0, 318.0, 30.0 ],
-					"text" : "jcom.parameter menu @type msg_generic @description \"Define the Polhemus port\"",
+					"text" : "jcom.parameter menu @type generic @description \"Define the Polhemus port\"",
 					"varname" : "menu"
 				}
 
@@ -142,7 +142,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 312.0, 178.0, 569.0, 30.0 ],
-					"text" : "jcom.parameter updaterate @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 240 @range/clipmode low @description \"Sample rate in [Hz] by default\"",
+					"text" : "jcom.parameter updaterate @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 240 @range/clipmode low @description \"Sample rate in [Hz] by default\"",
 					"varname" : "sample_rate[1]"
 				}
 
@@ -196,7 +196,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 328.0, 49.0, 374.0, 18.0 ],
-					"text" : "jcom.parameter active @type msg_toggle @description \"Turn polling on\"",
+					"text" : "jcom.parameter active @type boolean @description \"Turn polling on\"",
 					"varname" : "status[1]"
 				}
 
