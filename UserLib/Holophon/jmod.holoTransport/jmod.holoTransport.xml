@@ -5,9 +5,9 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='inport' type='msg_int' priority='0'>13005</item>
-    <item name='outip' type='msg_symbol' priority='0'>locahost</item>
-    <item name='outport' type='msg_int' priority='0'>13008</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='inport' type='integer' priority='0'>13005</item>
+    <item name='outip' type='string' priority='0'>locahost</item>
+    <item name='outport' type='integer' priority='0'>13008</item>
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

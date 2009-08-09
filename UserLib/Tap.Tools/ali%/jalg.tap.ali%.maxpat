@@ -82,7 +82,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 3.0, 316.0, 200.0, 28.0 ],
-					"text" : "jcom.return output/list @type msg_list @description \"list of interpolated values.\""
+					"text" : "jcom.return output/list @type array @description \"list of interpolated values.\""
 				}
 
 			}
@@ -120,7 +120,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 627.0, 340.0, 285.0, 19.0 ],
-									"text" : "jcom.return output/value.25 @type msg_float"
+									"text" : "jcom.return output/value.25 @type decimal"
 								}
 
 							}
@@ -134,7 +134,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 627.0, 311.0, 285.0, 19.0 ],
-									"text" : "jcom.return output/value.24 @type msg_float"
+									"text" : "jcom.return output/value.24 @type decimal"
 								}
 
 							}
@@ -148,7 +148,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 627.0, 282.0, 285.0, 19.0 ],
-									"text" : "jcom.return output/value.23 @type msg_float"
+									"text" : "jcom.return output/value.23 @type decimal"
 								}
 
 							}
@@ -162,7 +162,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 627.0, 252.0, 285.0, 19.0 ],
-									"text" : "jcom.return output/value.22 @type msg_float"
+									"text" : "jcom.return output/value.22 @type decimal"
 								}
 
 							}
@@ -176,7 +176,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 627.0, 223.0, 285.0, 19.0 ],
-									"text" : "jcom.return output/value.21 @type msg_float"
+									"text" : "jcom.return output/value.21 @type decimal"
 								}
 
 							}
@@ -190,7 +190,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 318.0, 490.0, 285.0, 19.0 ],
-									"text" : "jcom.return output/value.20 @type msg_float"
+									"text" : "jcom.return output/value.20 @type decimal"
 								}
 
 							}
@@ -204,7 +204,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 318.0, 460.0, 285.0, 19.0 ],
-									"text" : "jcom.return output/value.19 @type msg_float"
+									"text" : "jcom.return output/value.19 @type decimal"
 								}
 
 							}
@@ -218,7 +218,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 318.0, 430.0, 285.0, 19.0 ],
-									"text" : "jcom.return output/value.18 @type msg_float"
+									"text" : "jcom.return output/value.18 @type decimal"
 								}
 
 							}
@@ -232,7 +232,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 318.0, 399.0, 285.0, 19.0 ],
-									"text" : "jcom.return output/value.17 @type msg_float"
+									"text" : "jcom.return output/value.17 @type decimal"
 								}
 
 							}
@@ -246,7 +246,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 318.0, 369.0, 285.0, 19.0 ],
-									"text" : "jcom.return output/value.16 @type msg_float"
+									"text" : "jcom.return output/value.16 @type decimal"
 								}
 
 							}
@@ -260,7 +260,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 318.0, 340.0, 285.0, 19.0 ],
-									"text" : "jcom.return output/value.15 @type msg_float"
+									"text" : "jcom.return output/value.15 @type decimal"
 								}
 
 							}
@@ -274,7 +274,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 318.0, 311.0, 285.0, 19.0 ],
-									"text" : "jcom.return output/value.14 @type msg_float"
+									"text" : "jcom.return output/value.14 @type decimal"
 								}
 
 							}
@@ -288,7 +288,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 318.0, 282.0, 285.0, 19.0 ],
-									"text" : "jcom.return output/value.13 @type msg_float"
+									"text" : "jcom.return output/value.13 @type decimal"
 								}
 
 							}
@@ -302,7 +302,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 318.0, 251.0, 285.0, 19.0 ],
-									"text" : "jcom.return output/value.12 @type msg_float"
+									"text" : "jcom.return output/value.12 @type decimal"
 								}
 
 							}
@@ -316,7 +316,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 318.0, 223.0, 285.0, 19.0 ],
-									"text" : "jcom.return output/value.11 @type msg_float"
+									"text" : "jcom.return output/value.11 @type decimal"
 								}
 
 							}
@@ -330,7 +330,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 13.0, 490.0, 285.0, 19.0 ],
-									"text" : "jcom.return output/value.10 @type msg_float"
+									"text" : "jcom.return output/value.10 @type decimal"
 								}
 
 							}
@@ -344,7 +344,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 13.0, 460.0, 279.0, 19.0 ],
-									"text" : "jcom.return output/value.9 @type msg_float"
+									"text" : "jcom.return output/value.9 @type decimal"
 								}
 
 							}
@@ -358,7 +358,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 13.0, 430.0, 279.0, 19.0 ],
-									"text" : "jcom.return output/value.8 @type msg_float"
+									"text" : "jcom.return output/value.8 @type decimal"
 								}
 
 							}
@@ -372,7 +372,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 13.0, 399.0, 279.0, 19.0 ],
-									"text" : "jcom.return output/value.7 @type msg_float"
+									"text" : "jcom.return output/value.7 @type decimal"
 								}
 
 							}
@@ -386,7 +386,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 13.0, 369.0, 279.0, 19.0 ],
-									"text" : "jcom.return output/value.6 @type msg_float"
+									"text" : "jcom.return output/value.6 @type decimal"
 								}
 
 							}
@@ -400,7 +400,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 13.0, 340.0, 279.0, 19.0 ],
-									"text" : "jcom.return output/value.5 @type msg_float"
+									"text" : "jcom.return output/value.5 @type decimal"
 								}
 
 							}
@@ -414,7 +414,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 13.0, 311.0, 279.0, 19.0 ],
-									"text" : "jcom.return output/value.4 @type msg_float"
+									"text" : "jcom.return output/value.4 @type decimal"
 								}
 
 							}
@@ -428,7 +428,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 13.0, 282.0, 279.0, 19.0 ],
-									"text" : "jcom.return output/value.3 @type msg_float"
+									"text" : "jcom.return output/value.3 @type decimal"
 								}
 
 							}
@@ -442,7 +442,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 13.0, 252.0, 279.0, 19.0 ],
-									"text" : "jcom.return output/value.2 @type msg_float"
+									"text" : "jcom.return output/value.2 @type decimal"
 								}
 
 							}
@@ -456,7 +456,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 13.0, 222.0, 279.0, 19.0 ],
-									"text" : "jcom.return output/value.1 @type msg_float"
+									"text" : "jcom.return output/value.1 @type decimal"
 								}
 
 							}
@@ -3670,7 +3670,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 134.0, 258.0, 230.0, 39.0 ],
-					"text" : "jcom.return output/normalized @type msg_list @description \"list of normalized weights as determined by the content of the space_matrix.\""
+					"text" : "jcom.return output/normalized @type array @description \"list of normalized weights as determined by the content of the space_matrix.\""
 				}
 
 			}

@@ -149,7 +149,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "updaterate[3]",
-					"text" : "jcom.parameter channel @type msg_int @range/bounds 1 16 @range/clipmode both @description \"set the input MIDI channel\"",
+					"text" : "jcom.parameter channel @type integer @range/bounds 1 16 @range/clipmode both @description \"set the input MIDI channel\"",
 					"id" : "obj-14",
 					"fontname" : "Arial",
 					"numinlets" : 1,
@@ -266,7 +266,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "updaterate",
-					"text" : "jcom.parameter resolution @type msg_int @description \"Resolution of interface\"",
+					"text" : "jcom.parameter resolution @type integer @description \"Resolution of interface\"",
 					"id" : "obj-6",
 					"fontname" : "Arial",
 					"numinlets" : 1,
@@ -301,7 +301,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "menu",
-					"text" : "jcom.parameter midiin @type msg_symbol @description \"Define the Interface-Z MIDI port\"",
+					"text" : "jcom.parameter midiin @type string @description \"Define the Interface-Z MIDI port\"",
 					"id" : "obj-16",
 					"fontname" : "Arial",
 					"numinlets" : 1,

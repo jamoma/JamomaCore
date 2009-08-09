@@ -5,23 +5,23 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='aux.1/gain' type='msg_float' priority='0'>0.000000</item>
-    <item name='aux.2/gain' type='msg_float' priority='0'>0.000000</item>
-    <item name='aux.3/gain' type='msg_float' priority='0'>0</item>
-    <item name='aux.4/gain' type='msg_float' priority='0'>0</item>
-    <item name='aux.5/gain' type='msg_float' priority='0'>0</item>
-    <item name='blur' type='msg_float' priority='0'>0.000000</item>
-    <item name='position.1/x' type='msg_float' priority='0'>-2.625000</item>
-    <item name='position.1/y' type='msg_float' priority='0'>1.166667</item>
-    <item name='source' type='msg_int' priority='0'>1</item>
-    <item name='speakers/show' type='msg_toggle' priority='0'>0</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
-    <item name='view/size' type='msg_list' priority='0'>300 140 </item>
-    <item name='volume' type='msg_float' priority='0'>0.000000</item>
-    <item name='weight' type='msg_list' priority='0'>1.000000 1.000000 1.000000 1.000000 </item>
+    <item name='aux.1/gain' type='decimal' priority='0'>0.000000</item>
+    <item name='aux.2/gain' type='decimal' priority='0'>0.000000</item>
+    <item name='aux.3/gain' type='decimal' priority='0'>0</item>
+    <item name='aux.4/gain' type='decimal' priority='0'>0</item>
+    <item name='aux.5/gain' type='decimal' priority='0'>0</item>
+    <item name='blur' type='decimal' priority='0'>0.000000</item>
+    <item name='position.1/x' type='decimal' priority='0'>-2.625000</item>
+    <item name='position.1/y' type='decimal' priority='0'>1.166667</item>
+    <item name='source' type='integer' priority='0'>1</item>
+    <item name='speakers/show' type='boolean' priority='0'>0</item>
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/color/border' type='array' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
+    <item name='view/size' type='array' priority='0'>300 140 </item>
+    <item name='volume' type='decimal' priority='0'>0.000000</item>
+    <item name='weight' type='array' priority='0'>1.000000 1.000000 1.000000 1.000000 </item>
   </preset>
 </jamoma>

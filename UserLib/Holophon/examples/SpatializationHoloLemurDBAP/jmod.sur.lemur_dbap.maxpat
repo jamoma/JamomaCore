@@ -933,7 +933,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 558.0, 540.0, 572.0, 20.0 ],
-													"text" : "jcom.parameter interpol.8 @type msg_float @description \"interpolation coef\" @repetitions/allow 1"
+													"text" : "jcom.parameter interpol.8 @type decimal @description \"interpolation coef\" @repetitions/allow 1"
 												}
 
 											}
@@ -947,7 +947,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 501.080139, 510.0, 572.0, 20.0 ],
-													"text" : "jcom.parameter interpol.7 @type msg_float @description \"interpolation coef\" @repetitions/allow 1"
+													"text" : "jcom.parameter interpol.7 @type decimal @description \"interpolation coef\" @repetitions/allow 1"
 												}
 
 											}
@@ -961,7 +961,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 441.080139, 486.0, 572.0, 20.0 ],
-													"text" : "jcom.parameter interpol.6 @type msg_float @description \"interpolation coef\" @repetitions/allow 1"
+													"text" : "jcom.parameter interpol.6 @type decimal @description \"interpolation coef\" @repetitions/allow 1"
 												}
 
 											}
@@ -975,7 +975,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 225.080139, 360.0, 588.0, 20.0 ],
-													"text" : "jcom.parameter interpol.1 @type msg_float @description \"interpolation coef\" @repetitions/allow 1"
+													"text" : "jcom.parameter interpol.1 @type decimal @description \"interpolation coef\" @repetitions/allow 1"
 												}
 
 											}
@@ -989,7 +989,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 265.080139, 386.0, 572.0, 20.0 ],
-													"text" : "jcom.parameter interpol.2 @type msg_float @description \"interpolation coef\" @repetitions/allow 1"
+													"text" : "jcom.parameter interpol.2 @type decimal @description \"interpolation coef\" @repetitions/allow 1"
 												}
 
 											}
@@ -1003,7 +1003,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 313.900116, 410.0, 572.0, 20.0 ],
-													"text" : "jcom.parameter interpol.3 @type msg_float @description \"interpolation coef\" @repetitions/allow 1"
+													"text" : "jcom.parameter interpol.3 @type decimal @description \"interpolation coef\" @repetitions/allow 1"
 												}
 
 											}
@@ -1017,7 +1017,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 354.583435, 436.0, 572.0, 20.0 ],
-													"text" : "jcom.parameter interpol.4 @type msg_float @description \"interpolation coef\" @repetitions/allow 1"
+													"text" : "jcom.parameter interpol.4 @type decimal @description \"interpolation coef\" @repetitions/allow 1"
 												}
 
 											}
@@ -1031,7 +1031,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 391.198395, 460.0, 572.0, 20.0 ],
-													"text" : "jcom.parameter interpol.5 @type msg_float @description \"interpolation coef\" @repetitions/allow 1"
+													"text" : "jcom.parameter interpol.5 @type decimal @description \"interpolation coef\" @repetitions/allow 1"
 												}
 
 											}
@@ -1080,7 +1080,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ -10.0, 246.0, 530.0, 20.0 ],
-													"text" : "jcom.parameter allsourceweight @type msg_float @description \"blurall coef\" @repetitions/allow 1"
+													"text" : "jcom.parameter allsourceweight @type decimal @description \"blurall coef\" @repetitions/allow 1"
 												}
 
 											}
@@ -1543,7 +1543,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 556.919861, 542.0, 626.0, 20.0 ],
-													"text" : "jcom.parameter preset/source.8 @type msg_list @description \"list of preset to interpolate from\" @repetitions/allow 1"
+													"text" : "jcom.parameter preset/source.8 @type array @description \"list of preset to interpolate from\" @repetitions/allow 1"
 												}
 
 											}
@@ -1557,7 +1557,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 501.997375, 512.0, 626.0, 20.0 ],
-													"text" : "jcom.parameter preset/source.7 @type msg_list @description \"list of preset to interpolate from\" @repetitions/allow 1"
+													"text" : "jcom.parameter preset/source.7 @type array @description \"list of preset to interpolate from\" @repetitions/allow 1"
 												}
 
 											}
@@ -1571,7 +1571,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 440.0, 488.0, 626.0, 20.0 ],
-													"text" : "jcom.parameter preset/source.6 @type msg_list @description \"list of preset to interpolate from\" @repetitions/allow 1"
+													"text" : "jcom.parameter preset/source.6 @type array @description \"list of preset to interpolate from\" @repetitions/allow 1"
 												}
 
 											}
@@ -1585,7 +1585,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 224.0, 362.0, 642.0, 20.0 ],
-													"text" : "jcom.parameter preset/source.1 @type msg_list @description \"list of preset to interpolate from\" @repetitions/allow 1"
+													"text" : "jcom.parameter preset/source.1 @type array @description \"list of preset to interpolate from\" @repetitions/allow 1"
 												}
 
 											}
@@ -1599,7 +1599,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 264.0, 388.0, 626.0, 20.0 ],
-													"text" : "jcom.parameter preset/source.2 @type msg_list @description \"list of preset to interpolate from\" @repetitions/allow 1"
+													"text" : "jcom.parameter preset/source.2 @type array @description \"list of preset to interpolate from\" @repetitions/allow 1"
 												}
 
 											}
@@ -1627,7 +1627,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 314.0, 412.0, 626.0, 20.0 ],
-													"text" : "jcom.parameter preset/source.3 @type msg_list @description \"list of preset to interpolate from\" @repetitions/allow 1"
+													"text" : "jcom.parameter preset/source.3 @type array @description \"list of preset to interpolate from\" @repetitions/allow 1"
 												}
 
 											}
@@ -1641,7 +1641,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 353.503296, 438.0, 626.0, 20.0 ],
-													"text" : "jcom.parameter preset/source.4 @type msg_list @description \"list of preset to interpolate from\" @repetitions/allow 1"
+													"text" : "jcom.parameter preset/source.4 @type array @description \"list of preset to interpolate from\" @repetitions/allow 1"
 												}
 
 											}
@@ -1655,7 +1655,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 390.0, 462.0, 626.0, 20.0 ],
-													"text" : "jcom.parameter preset/source.5 @type msg_list @description \"list of preset to interpolate from\" @repetitions/allow 1"
+													"text" : "jcom.parameter preset/source.5 @type array @description \"list of preset to interpolate from\" @repetitions/allow 1"
 												}
 
 											}
@@ -1705,7 +1705,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 60.0, 222.0, 285.0, 48.0 ],
-													"text" : "jcom.parameter allsourcepreset @type msg_list @description \"list of preset to interpolate from\" @repetitions/allow 1"
+													"text" : "jcom.parameter allsourcepreset @type array @description \"list of preset to interpolate from\" @repetitions/allow 1"
 												}
 
 											}
@@ -9167,7 +9167,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 508.0, 538.0, 637.0, 20.0 ],
-									"text" : "jcom.parameter source.8/blur @type msg_list @description \"Blur coef for source 8\" @repetitions/allow 1"
+									"text" : "jcom.parameter source.8/blur @type array @description \"Blur coef for source 8\" @repetitions/allow 1"
 								}
 
 							}
@@ -9181,7 +9181,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 454.0, 510.0, 637.0, 20.0 ],
-									"text" : "jcom.parameter source.7/blur @type msg_list @description \"Blur coef for source 7\" @repetitions/allow 1"
+									"text" : "jcom.parameter source.7/blur @type array @description \"Blur coef for source 7\" @repetitions/allow 1"
 								}
 
 							}
@@ -9195,7 +9195,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 394.0, 484.0, 637.0, 20.0 ],
-									"text" : "jcom.parameter source.6/blur @type msg_list @description \"Blur coef for source 6\" @repetitions/allow 1"
+									"text" : "jcom.parameter source.6/blur @type array @description \"Blur coef for source 6\" @repetitions/allow 1"
 								}
 
 							}
@@ -9209,7 +9209,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 180.0, 358.0, 647.0, 20.0 ],
-									"text" : "jcom.parameter source.1/blur @type msg_list @description \"Blur coef for source1\" @repetitions/allow 1"
+									"text" : "jcom.parameter source.1/blur @type array @description \"Blur coef for source1\" @repetitions/allow 1"
 								}
 
 							}
@@ -9223,7 +9223,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 224.0, 384.0, 637.0, 20.0 ],
-									"text" : "jcom.parameter source.2/blur @type msg_list @description \"Blur coef for source 2\" @repetitions/allow 1"
+									"text" : "jcom.parameter source.2/blur @type array @description \"Blur coef for source 2\" @repetitions/allow 1"
 								}
 
 							}
@@ -9237,7 +9237,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 268.0, 408.0, 637.0, 20.0 ],
-									"text" : "jcom.parameter source.3/blur @type msg_list @description \"Blur coef for source 3\" @repetitions/allow 1"
+									"text" : "jcom.parameter source.3/blur @type array @description \"Blur coef for source 3\" @repetitions/allow 1"
 								}
 
 							}
@@ -9251,7 +9251,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 308.0, 434.0, 637.0, 20.0 ],
-									"text" : "jcom.parameter source.4/blur @type msg_list @description \"Blur coef for source 4\" @repetitions/allow 1"
+									"text" : "jcom.parameter source.4/blur @type array @description \"Blur coef for source 4\" @repetitions/allow 1"
 								}
 
 							}
@@ -9265,7 +9265,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 344.0, 458.0, 637.0, 20.0 ],
-									"text" : "jcom.parameter source.5/blur @type msg_list @description \"Blur coef for source 5\" @repetitions/allow 1"
+									"text" : "jcom.parameter source.5/blur @type array @description \"Blur coef for source 5\" @repetitions/allow 1"
 								}
 
 							}
@@ -9279,7 +9279,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 12.0, 224.0, 468.0, 20.0 ],
-									"text" : "jcom.parameter blurall @type msg_list @description \"blurall coef\" @repetitions/allow 1"
+									"text" : "jcom.parameter blurall @type array @description \"blurall coef\" @repetitions/allow 1"
 								}
 
 							}
@@ -10884,7 +10884,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 220.0, 366.0, 578.0, 20.0 ],
-									"text" : "jcom.parameter weight.6 @type msg_list @description \"list of all weight for speakers\" @repetitions/allow 1"
+									"text" : "jcom.parameter weight.6 @type array @description \"list of all weight for speakers\" @repetitions/allow 1"
 								}
 
 							}
@@ -10913,7 +10913,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 236.0, 390.0, 578.0, 20.0 ],
-									"text" : "jcom.parameter weight.7 @type msg_list @description \"list of all weight for speakers\" @repetitions/allow 1"
+									"text" : "jcom.parameter weight.7 @type array @description \"list of all weight for speakers\" @repetitions/allow 1"
 								}
 
 							}
@@ -10983,7 +10983,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 144.0, 244.0, 578.0, 20.0 ],
-									"text" : "jcom.parameter weight.1 @type msg_list @description \"list of all weight for speakers\" @repetitions/allow 1"
+									"text" : "jcom.parameter weight.1 @type array @description \"list of all weight for speakers\" @repetitions/allow 1"
 								}
 
 							}
@@ -10997,7 +10997,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 160.0, 268.0, 578.0, 20.0 ],
-									"text" : "jcom.parameter weight.2 @type msg_list @description \"list of all weight for speakers\" @repetitions/allow 1"
+									"text" : "jcom.parameter weight.2 @type array @description \"list of all weight for speakers\" @repetitions/allow 1"
 								}
 
 							}
@@ -11011,7 +11011,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 174.0, 292.0, 578.0, 20.0 ],
-									"text" : "jcom.parameter weight.3 @type msg_list @description \"list of all weight for speakers\" @repetitions/allow 1"
+									"text" : "jcom.parameter weight.3 @type array @description \"list of all weight for speakers\" @repetitions/allow 1"
 								}
 
 							}
@@ -11025,7 +11025,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 189.0, 317.0, 578.0, 20.0 ],
-									"text" : "jcom.parameter weight.4 @type msg_list @description \"list of all weight for speakers\" @repetitions/allow 1"
+									"text" : "jcom.parameter weight.4 @type array @description \"list of all weight for speakers\" @repetitions/allow 1"
 								}
 
 							}
@@ -11039,7 +11039,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 204.0, 342.0, 578.0, 20.0 ],
-									"text" : "jcom.parameter weight.5 @type msg_list @description \"list of all weight for speakers\" @repetitions/allow 1"
+									"text" : "jcom.parameter weight.5 @type array @description \"list of all weight for speakers\" @repetitions/allow 1"
 								}
 
 							}
@@ -11081,7 +11081,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 252.0, 414.0, 578.0, 20.0 ],
-									"text" : "jcom.parameter weight.8 @type msg_list @description \"list of all weight for speakers\" @repetitions/allow 1"
+									"text" : "jcom.parameter weight.8 @type array @description \"list of all weight for speakers\" @repetitions/allow 1"
 								}
 
 							}

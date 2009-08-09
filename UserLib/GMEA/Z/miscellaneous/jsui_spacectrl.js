@@ -31,7 +31,7 @@ draw_circle.immediate=1;
 draw_square.immediate=1;
 onclick.immediate=1;
 ondrag.immediate=1;
-msg_float.immediate=1;
+decimal.immediate=1;
 list_stat.immediate=1;
 list_square.immediate=1;
 list_circle.immediate=1;
@@ -114,7 +114,7 @@ function draw_square()
 
 }
 
-function msg_float(v)
+function decimal(v)
 {
     var i = inlet;
 

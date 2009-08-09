@@ -90,7 +90,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "jcom.parameter[1]",
-					"text" : "jcom.message update @type msg_none @description \"get data due to an external clock\"",
+					"text" : "jcom.message update @type none @description \"get data due to an external clock\"",
 					"outlettype" : [ "", "", "" ],
 					"fontsize" : 9.0,
 					"patching_rect" : [ 381.0, 313.0, 403.0, 17.0 ],
@@ -106,7 +106,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "updaterate",
-					"text" : "jcom.parameter updaterate @type msg_int @range/bounds 10 66 @range/clipmode both @description \"set the internal clock frequency how often Arduino is asked for data\"",
+					"text" : "jcom.parameter updaterate @type integer @range/bounds 10 66 @range/clipmode both @description \"set the internal clock frequency how often Arduino is asked for data\"",
 					"linecount" : 2,
 					"outlettype" : [ "", "", "" ],
 					"fontsize" : 9.0,
@@ -123,7 +123,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "jcom.parameter[3]",
-					"text" : "jcom.message init_serial @type msg_none @description \"Initialization of the serial port\"",
+					"text" : "jcom.message init_serial @type none @description \"Initialization of the serial port\"",
 					"outlettype" : [ "", "", "" ],
 					"fontsize" : 9.0,
 					"patching_rect" : [ 382.0, 215.0, 360.0, 17.0 ],
@@ -159,7 +159,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "on",
-					"text" : "jcom.parameter active @type msg_toggle @description \"Turns polling on\"",
+					"text" : "jcom.parameter active @type boolean @description \"Turns polling on\"",
 					"outlettype" : [ "", "", "" ],
 					"fontsize" : 9.0,
 					"patching_rect" : [ 463.0, 190.0, 305.0, 17.0 ],
@@ -175,7 +175,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "menu",
-					"text" : "jcom.parameter menu @type msg_int @description \"Define the Arduino port\"",
+					"text" : "jcom.parameter menu @type integer @description \"Define the Arduino port\"",
 					"outlettype" : [ "", "", "" ],
 					"fontsize" : 9.0,
 					"patching_rect" : [ 191.0, 282.0, 317.0, 17.0 ],

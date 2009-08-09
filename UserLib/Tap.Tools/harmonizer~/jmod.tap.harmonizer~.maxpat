@@ -100,7 +100,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 378.0, 157.0, 423.0, 43.0 ],
-					"text" : "jcom.message window @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 1 250 @range/clipmode both @description \"Length of the internal buffers in milliseconds to apply to both channels.\"",
+					"text" : "jcom.message window @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 1 250 @range/clipmode both @description \"Length of the internal buffers in milliseconds to apply to both channels.\"",
 					"varname" : "jmod.parameter[5]"
 				}
 
@@ -116,7 +116,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 603.0, 251.0, 587.0, 31.0 ],
-					"text" : "jcom.parameter window/right @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 1 250 @range/clipmode both @description \"Length of internal buffers in milliseconds.\"",
+					"text" : "jcom.parameter window/right @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 1 250 @range/clipmode both @description \"Length of internal buffers in milliseconds.\"",
 					"varname" : "window/right"
 				}
 
@@ -164,7 +164,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 381.0, 9.0, 426.0, 43.0 ],
-					"text" : "jcom.message shift @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
+					"text" : "jcom.message shift @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
 					"varname" : "jmod.parameter[3]"
 				}
 
@@ -180,7 +180,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 611.0, 61.0, 584.0, 31.0 ],
-					"text" : "jcom.parameter shift/left @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones.\"",
+					"text" : "jcom.parameter shift/left @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones.\"",
 					"varname" : "shift/left"
 				}
 
@@ -299,7 +299,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 611.0, 101.0, 592.0, 31.0 ],
-					"text" : "jcom.parameter shift/right @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones.\"",
+					"text" : "jcom.parameter shift/right @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones.\"",
 					"varname" : "shift/right"
 				}
 
@@ -315,7 +315,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 603.0, 211.0, 579.0, 31.0 ],
-					"text" : "jcom.parameter window/left @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 1 250 @range/clipmode both @description \"Length of internal buffers in milliseconds.\"",
+					"text" : "jcom.parameter window/left @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 1 250 @range/clipmode both @description \"Length of internal buffers in milliseconds.\"",
 					"varname" : "window/left"
 				}
 

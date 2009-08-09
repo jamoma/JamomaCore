@@ -1016,7 +1016,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 400.0, 350.0, 220.0, 19.0 ],
-									"text" : "jcom.return button.15 @type msg_toggle"
+									"text" : "jcom.return button.15 @type boolean"
 								}
 
 							}
@@ -1030,7 +1030,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 375.0, 375.0, 220.0, 19.0 ],
-									"text" : "jcom.return button.14 @type msg_toggle"
+									"text" : "jcom.return button.14 @type boolean"
 								}
 
 							}
@@ -1044,7 +1044,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 350.0, 400.0, 220.0, 19.0 ],
-									"text" : "jcom.return button.13 @type msg_toggle"
+									"text" : "jcom.return button.13 @type boolean"
 								}
 
 							}
@@ -1058,7 +1058,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 325.0, 425.0, 220.0, 19.0 ],
-									"text" : "jcom.return button.12 @type msg_toggle"
+									"text" : "jcom.return button.12 @type boolean"
 								}
 
 							}
@@ -1072,7 +1072,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 300.0, 450.0, 220.0, 19.0 ],
-									"text" : "jcom.return button.11 @type msg_toggle"
+									"text" : "jcom.return button.11 @type boolean"
 								}
 
 							}
@@ -1086,7 +1086,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 275.0, 475.0, 220.0, 19.0 ],
-									"text" : "jcom.return button.10 @type msg_toggle"
+									"text" : "jcom.return button.10 @type boolean"
 								}
 
 							}
@@ -1100,7 +1100,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 250.0, 500.0, 214.0, 19.0 ],
-									"text" : "jcom.return button.9 @type msg_toggle"
+									"text" : "jcom.return button.9 @type boolean"
 								}
 
 							}
@@ -1114,7 +1114,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 225.0, 525.0, 214.0, 19.0 ],
-									"text" : "jcom.return button.8 @type msg_toggle"
+									"text" : "jcom.return button.8 @type boolean"
 								}
 
 							}
@@ -1128,7 +1128,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 200.0, 550.0, 214.0, 19.0 ],
-									"text" : "jcom.return button.7 @type msg_toggle"
+									"text" : "jcom.return button.7 @type boolean"
 								}
 
 							}
@@ -1142,7 +1142,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 175.0, 575.0, 214.0, 19.0 ],
-									"text" : "jcom.return button.6 @type msg_toggle"
+									"text" : "jcom.return button.6 @type boolean"
 								}
 
 							}
@@ -1156,7 +1156,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 150.0, 600.0, 214.0, 19.0 ],
-									"text" : "jcom.return button.5 @type msg_toggle"
+									"text" : "jcom.return button.5 @type boolean"
 								}
 
 							}
@@ -1170,7 +1170,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 125.0, 625.0, 214.0, 19.0 ],
-									"text" : "jcom.return button.4 @type msg_toggle"
+									"text" : "jcom.return button.4 @type boolean"
 								}
 
 							}
@@ -1184,7 +1184,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 100.0, 650.0, 214.0, 19.0 ],
-									"text" : "jcom.return button.3 @type msg_toggle"
+									"text" : "jcom.return button.3 @type boolean"
 								}
 
 							}
@@ -1198,7 +1198,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 75.0, 675.0, 214.0, 19.0 ],
-									"text" : "jcom.return button.2 @type msg_toggle"
+									"text" : "jcom.return button.2 @type boolean"
 								}
 
 							}
@@ -1212,7 +1212,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 50.0, 700.0, 214.0, 19.0 ],
-									"text" : "jcom.return button.1 @type msg_toggle"
+									"text" : "jcom.return button.1 @type boolean"
 								}
 
 							}
@@ -1492,7 +1492,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 265.0, 170.0, 213.0, 19.0 ],
-									"text" : "jcom.return switch.3 @type msg_toggle"
+									"text" : "jcom.return switch.3 @type boolean"
 								}
 
 							}
@@ -1506,7 +1506,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 225.0, 195.0, 213.0, 19.0 ],
-									"text" : "jcom.return switch.2 @type msg_toggle"
+									"text" : "jcom.return switch.2 @type boolean"
 								}
 
 							}
@@ -1520,7 +1520,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 190.0, 220.0, 213.0, 19.0 ],
-									"text" : "jcom.return switch.1 @type msg_toggle"
+									"text" : "jcom.return switch.1 @type boolean"
 								}
 
 							}
@@ -1548,7 +1548,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 120.0, 250.0, 231.0, 19.0 ],
-									"text" : "jcom.return segmented @type msg_symbol"
+									"text" : "jcom.return segmented @type string"
 								}
 
 							}
@@ -1562,7 +1562,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 175.0, 320.0, 198.0, 19.0 ],
-									"text" : "jcom.return slider.6 @type msg_float"
+									"text" : "jcom.return slider.6 @type decimal"
 								}
 
 							}
@@ -1576,7 +1576,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 150.0, 345.0, 198.0, 19.0 ],
-									"text" : "jcom.return slider.5 @type msg_float"
+									"text" : "jcom.return slider.5 @type decimal"
 								}
 
 							}
@@ -1590,7 +1590,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 125.0, 370.0, 198.0, 19.0 ],
-									"text" : "jcom.return slider.4 @type msg_float"
+									"text" : "jcom.return slider.4 @type decimal"
 								}
 
 							}
@@ -1604,7 +1604,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 100.0, 395.0, 198.0, 19.0 ],
-									"text" : "jcom.return slider.3 @type msg_float"
+									"text" : "jcom.return slider.3 @type decimal"
 								}
 
 							}
@@ -1618,7 +1618,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 75.0, 420.0, 198.0, 19.0 ],
-									"text" : "jcom.return slider.2 @type msg_float"
+									"text" : "jcom.return slider.2 @type decimal"
 								}
 
 							}
@@ -1632,7 +1632,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 50.0, 445.0, 198.0, 19.0 ],
-									"text" : "jcom.return slider.1 @type msg_float"
+									"text" : "jcom.return slider.1 @type decimal"
 								}
 
 							}

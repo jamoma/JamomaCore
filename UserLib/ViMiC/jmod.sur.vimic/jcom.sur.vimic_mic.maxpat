@@ -633,7 +633,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 173.0, 1448.0, 832.0, 17.0 ],
-									"text" : "append @type msg_float @range/bounds -20. 20. @ramp/drive scheduler @range/clipmode both @repetitions/allow 0 @description \\\"Z coordinate of the Nth microphone position\\\" @priority"
+									"text" : "append @type decimal @range/bounds -20. 20. @ramp/drive scheduler @range/clipmode both @repetitions/allow 0 @description \\\"Z coordinate of the Nth microphone position\\\" @priority"
 								}
 
 							}
@@ -661,7 +661,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 190.0, 33.0, 346.0, 17.0 ],
-									"text" : "append @type msg_toggle @description \\\"activates solo mode for this microphone\\\""
+									"text" : "append @type boolean @description \\\"activates solo mode for this microphone\\\""
 								}
 
 							}
@@ -745,7 +745,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 172.0, 1303.0, 416.0, 17.0 ],
-									"text" : "append @type msg_symbol @description \\\"load a directivity preset for the Nth microphone\\\" @priority"
+									"text" : "append @type string @description \\\"load a directivity preset for the Nth microphone\\\" @priority"
 								}
 
 							}
@@ -815,7 +815,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 176.0, 1168.0, 822.0, 17.0 ],
-									"text" : "append @type msg_float @range/bounds -180. 180. @range/clipmode wrap @ramp/drive scheduler @repetitions/allow 0 @description \\\"Yaw angle for the orientation of the Nth microphone\\\" @priority"
+									"text" : "append @type decimal @range/bounds -180. 180. @range/clipmode wrap @ramp/drive scheduler @repetitions/allow 0 @description \\\"Yaw angle for the orientation of the Nth microphone\\\" @priority"
 								}
 
 							}
@@ -885,7 +885,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 177.0, 1015.0, 757.0, 17.0 ],
-									"text" : "append @type msg_float @range/bounds -180. 180. @ramp/drive scheduler @range/clipmode wrap @repetitions/allow 0 @description \\\"Pitch angle of the Nth microphone\\\" @priority"
+									"text" : "append @type decimal @range/bounds -180. 180. @ramp/drive scheduler @range/clipmode wrap @repetitions/allow 0 @description \\\"Pitch angle of the Nth microphone\\\" @priority"
 								}
 
 							}
@@ -927,7 +927,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 182.0, 853.0, 509.0, 17.0 ],
-									"text" : "append @type msg_list @repetitions/allow 1 @description \\\"Position in spherical coodinate of the Nth microphone\\\" @priority"
+									"text" : "append @type array @repetitions/allow 1 @description \\\"Position in spherical coodinate of the Nth microphone\\\" @priority"
 								}
 
 							}
@@ -955,7 +955,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 181.0, 590.359009, 788.0, 17.0 ],
-									"text" : "append @type msg_toggle @range/bounds 0 1 @range/clipmode both @value 0 @repetitions/allow 1 @description \\\"if active is set to 0 then the Nth microphone is muted\\\" @priority"
+									"text" : "append @type boolean @range/bounds 0 1 @range/clipmode both @value 0 @repetitions/allow 1 @description \\\"if active is set to 0 then the Nth microphone is muted\\\" @priority"
 								}
 
 							}
@@ -1012,7 +1012,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 179.071808, 717.894897, 693.0, 27.0 ],
-									"text" : "append @repetitions/allow 0 @ramp/drive scheduler @type msg_float @dataspace gain @range/bounds 0. 127. @range/clipmode both @dataspace/unit/native midi @ramp/drive scheduler @dataspace/unit/active midi @dataspace/unit/native midi @description \\\"Gain of of the Nth microphone\\\" @priority"
+									"text" : "append @repetitions/allow 0 @ramp/drive scheduler @type decimal @dataspace gain @range/bounds 0. 127. @range/clipmode both @dataspace/unit/native midi @ramp/drive scheduler @dataspace/unit/active midi @dataspace/unit/native midi @description \\\"Gain of of the Nth microphone\\\" @priority"
 								}
 
 							}
@@ -1082,7 +1082,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 181.0, 445.287231, 864.0, 17.0 ],
-									"text" : "append @type msg_float @ramp/drive scheduler @range/bounds 0. 1. @range/clipmode both @repetitions/allow 0 @value/default 0.123 @description \\\"Directivity value of the Nth microphone\\\" @priority"
+									"text" : "append @type decimal @ramp/drive scheduler @range/bounds 0. 1. @range/clipmode both @repetitions/allow 0 @value/default 0.123 @description \\\"Directivity value of the Nth microphone\\\" @priority"
 								}
 
 							}
@@ -1152,7 +1152,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 184.0, 294.0, 777.0, 17.0 ],
-									"text" : "append @type msg_list @repetitions/allow 0 @range/bounds -180. 180. @range/clipmode wrap @description \\\"orientation [yaw_pitch] of the Nth microphone\\\" @priority"
+									"text" : "append @type array @repetitions/allow 0 @range/bounds -180. 180. @range/clipmode wrap @description \\\"orientation [yaw_pitch] of the Nth microphone\\\" @priority"
 								}
 
 							}
@@ -1250,7 +1250,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 184.0, 141.0, 486.0, 17.0 ],
-									"text" : "append @type msg_list @repetitions/allow 0 @description \\\"Position in xyz coodinate of the Nth microphone\\\" @priority"
+									"text" : "append @type array @repetitions/allow 0 @description \\\"Position in xyz coodinate of the Nth microphone\\\" @priority"
 								}
 
 							}

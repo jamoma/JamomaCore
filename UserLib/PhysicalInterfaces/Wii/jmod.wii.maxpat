@@ -25,7 +25,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 487.0, 321.0, 588.0, 19.0 ],
-					"text" : "jcom.parameter led/4 @type msg_toggle @range/clipmode none @repetitions/allow 0 @description \"Turn LED on\"",
+					"text" : "jcom.parameter led/4 @type boolean @range/clipmode none @repetitions/allow 0 @description \"Turn LED on\"",
 					"varname" : "status[6]"
 				}
 
@@ -58,7 +58,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 487.0, 294.0, 588.0, 19.0 ],
-					"text" : "jcom.parameter led/3 @type msg_toggle @range/clipmode none @repetitions/allow 0 @description \"Turn LED on\"",
+					"text" : "jcom.parameter led/3 @type boolean @range/clipmode none @repetitions/allow 0 @description \"Turn LED on\"",
 					"varname" : "status[5]"
 				}
 
@@ -91,7 +91,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 487.0, 266.0, 588.0, 19.0 ],
-					"text" : "jcom.parameter led/2 @type msg_toggle @range/clipmode none @repetitions/allow 0 @description \"Turn LED on\"",
+					"text" : "jcom.parameter led/2 @type boolean @range/clipmode none @repetitions/allow 0 @description \"Turn LED on\"",
 					"varname" : "status[4]"
 				}
 
@@ -124,7 +124,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 487.0, 238.0, 588.0, 19.0 ],
-					"text" : "jcom.parameter led/1 @type msg_toggle @range/clipmode none @repetitions/allow 0 @description \"Turn LED on\"",
+					"text" : "jcom.parameter led/1 @type boolean @range/clipmode none @repetitions/allow 0 @description \"Turn LED on\"",
 					"varname" : "status[2]"
 				}
 
@@ -158,7 +158,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 487.0, 384.0, 567.0, 31.0 ],
-					"text" : "jcom.parameter vibration @type msg_toggle @range/clipmode none @repetitions/allow 0 @description \"Turn vibration on\"",
+					"text" : "jcom.parameter vibration @type boolean @range/clipmode none @repetitions/allow 0 @description \"Turn vibration on\"",
 					"varname" : "status[3]"
 				}
 
@@ -344,7 +344,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 487.0, 162.0, 592.0, 31.0 ],
-					"text" : "jcom.parameter sampleRate @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1. 100. @range/clipmode low @description \"Sample rate in milliseconds\"",
+					"text" : "jcom.parameter sampleRate @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1. 100. @range/clipmode low @description \"Sample rate in milliseconds\"",
 					"varname" : "sample_rate[1]"
 				}
 
@@ -382,7 +382,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 487.0, 124.0, 566.0, 19.0 ],
-					"text" : "jcom.message connect @type msg_toggle @range/clipmode none @description \"Connect to bluetooth device\"",
+					"text" : "jcom.message connect @type boolean @range/clipmode none @description \"Connect to bluetooth device\"",
 					"varname" : "jmod.parameter[3]"
 				}
 
@@ -397,7 +397,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 487.0, 83.0, 500.0, 19.0 ],
-					"text" : "jcom.parameter active @type msg_toggle @range/clipmode none @description \"Turn polling on\"",
+					"text" : "jcom.parameter active @type boolean @range/clipmode none @description \"Turn polling on\"",
 					"varname" : "status[1]"
 				}
 

@@ -25,7 +25,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 412.0, 218.0, 566.0, 18.0 ],
-					"text" : "jcom.parameter menu @type msg_int @range/clipmode none @description \"Choose which serial device to use\"",
+					"text" : "jcom.parameter menu @type integer @range/clipmode none @description \"Choose which serial device to use\"",
 					"varname" : "device_menu[1]"
 				}
 
@@ -40,7 +40,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 416.0, 279.0, 510.0, 18.0 ],
-					"text" : "jcom.message reset @type msg_none @range/clipmode none @description \"Resetting serial object\"",
+					"text" : "jcom.message reset @type none @range/clipmode none @description \"Resetting serial object\"",
 					"varname" : "jcom.parameter[3]"
 				}
 

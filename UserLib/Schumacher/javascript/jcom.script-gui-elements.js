@@ -34,7 +34,7 @@ function loadbang(a,b,c)
 //	post(jsarguments[1],jsarguments[2],jsarguments[3]);
 }
 
-function msg_int(value)
+function integer(value)
 {
 
     {    

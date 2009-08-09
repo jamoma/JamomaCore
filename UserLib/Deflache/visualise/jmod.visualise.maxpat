@@ -436,7 +436,7 @@
 					"patching_rect" : [ 825.0, 108.0, 589.0, 31.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "jcom.parameter scroll-time @repetitions/allow 1 @type msg_float @range/bounds 0. 1000. @range/clipmode low @description \"Refresh time (ms) / Zoom on time axis (if 0.-1.)\"",
+					"text" : "jcom.parameter scroll-time @repetitions/allow 1 @type decimal @range/bounds 0. 1000. @range/clipmode low @description \"Refresh time (ms) / Zoom on time axis (if 0.-1.)\"",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"varname" : "curve[1]"
 				}
@@ -461,7 +461,7 @@
 					"patching_rect" : [ 178.0, 603.0, 602.0, 31.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "jcom.parameter in_max @repetitions/allow 1 @type msg_float @description \"Maximum value of scale, calculated by autoscale over a sliding window\"",
+					"text" : "jcom.parameter in_max @repetitions/allow 1 @type decimal @description \"Maximum value of scale, calculated by autoscale over a sliding window\"",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"varname" : "out_max[1]"
 				}
@@ -486,7 +486,7 @@
 					"patching_rect" : [ 182.0, 676.0, 596.0, 31.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "jcom.parameter in_min @repetitions/allow 1 @type msg_float @description \"Minimum value of scale, calculated by autoscale over a sliding window\"",
+					"text" : "jcom.parameter in_min @repetitions/allow 1 @type decimal @description \"Minimum value of scale, calculated by autoscale over a sliding window\"",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"varname" : "out_min[1]"
 				}
@@ -511,7 +511,7 @@
 					"patching_rect" : [ 733.0, 211.0, 597.0, 31.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "jcom.parameter window_size @type msg_int @range/bounds 2 1150 @range/clipmode both @description \"Window size for autoscale\"",
+					"text" : "jcom.parameter window_size @type integer @range/bounds 2 1150 @range/clipmode both @description \"Window size for autoscale\"",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"varname" : "in_min[1]"
 				}
@@ -664,7 +664,7 @@
 					"patching_rect" : [ 884.0, 538.0, 603.0, 31.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "jcom.parameter module_in_function @repetitions/allow 1 @type msg_symbol @description \"Source module function of the visualisation\" @priority 6",
+					"text" : "jcom.parameter module_in_function @repetitions/allow 1 @type string @description \"Source module function of the visualisation\" @priority 6",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"varname" : "module_in_function"
 				}
@@ -735,7 +735,7 @@
 					"patching_rect" : [ 843.0, 441.0, 584.0, 31.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "jcom.parameter module_in_nr @repetitions/allow 1 @type msg_int @description \"Source module instance of the visualization\" @priority 2",
+					"text" : "jcom.parameter module_in_nr @repetitions/allow 1 @type integer @description \"Source module instance of the visualization\" @priority 2",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"varname" : "module_in_nr"
 				}
@@ -760,7 +760,7 @@
 					"patching_rect" : [ 876.0, 355.0, 545.0, 31.0 ],
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"text" : "jcom.parameter module_in @repetitions/allow 1 @type msg_symbol @description \"Source module of the visualization\" @priority 1",
+					"text" : "jcom.parameter module_in @repetitions/allow 1 @type string @description \"Source module of the visualization\" @priority 1",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"varname" : "module_in[1]"
 				}

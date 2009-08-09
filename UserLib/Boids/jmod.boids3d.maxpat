@@ -42,7 +42,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 521.0, 195.0, 332.0, 17.0 ],
-					"text" : "jcom.parameter mode @type msg_int @description \"Turn boids on/off\"",
+					"text" : "jcom.parameter mode @type integer @description \"Turn boids on/off\"",
 					"varname" : "mode"
 				}
 
@@ -647,7 +647,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 178.0, 487.0, 376.0, 39.0 ],
-									"text" : "jcom.parameter flyrect @type msg_list @ramp/drive scheduler @repetitions/allow 1 @range/bounds -1. 1. @range/clipmode both @description \"bounding box (walls) in which to fly (left/top/right/bottom/front/back)\"",
+									"text" : "jcom.parameter flyrect @type array @ramp/drive scheduler @repetitions/allow 1 @range/bounds -1. 1. @range/clipmode both @description \"bounding box (walls) in which to fly (left/top/right/bottom/front/back)\"",
 									"varname" : "flyrect"
 								}
 
@@ -719,7 +719,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 802.0, 746.0, 373.0, 28.0 ],
-									"text" : "jcom.parameter prefdist @repetitions/allow 0 @type msg_float @range/bounds 0. 100. @range/clipmode low @description \"preferred distance from neighbors\"",
+									"text" : "jcom.parameter prefdist @repetitions/allow 0 @type decimal @range/bounds 0. 100. @range/clipmode low @description \"preferred distance from neighbors\"",
 									"varname" : "prefdist"
 								}
 
@@ -749,7 +749,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 460.0, 747.0, 386.0, 28.0 ],
-									"text" : "jcom.parameter acceleration @repetitions/allow 0 @type msg_float @range/bounds 0. 100. @range/clipmode low @description \"speed of acceleration\"",
+									"text" : "jcom.parameter acceleration @repetitions/allow 0 @type decimal @range/bounds 0. 100. @range/clipmode low @description \"speed of acceleration\"",
 									"varname" : "acceleration"
 								}
 
@@ -779,7 +779,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 458.0, 684.0, 392.0, 28.0 ],
-									"text" : "jcom.parameter inertia @repetitions/allow 0 @type msg_float @range/bounds 0. 100. @range/clipmode low @description \"willingness to change speed and direction\"",
+									"text" : "jcom.parameter inertia @repetitions/allow 0 @type decimal @range/bounds 0. 100. @range/clipmode low @description \"willingness to change speed and direction\"",
 									"varname" : "inertia"
 								}
 
@@ -826,7 +826,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 458.0, 621.0, 350.0, 28.0 ],
-									"text" : "jcom.parameter speed @repetitions/allow 0 @type msg_float @range/bounds 0. 100. @range/clipmode low @description \"overall speed\"",
+									"text" : "jcom.parameter speed @repetitions/allow 0 @type decimal @range/bounds 0. 100. @range/clipmode low @description \"overall speed\"",
 									"varname" : "speed"
 								}
 
@@ -856,7 +856,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 458.0, 560.0, 389.0, 28.0 ],
-									"text" : "jcom.parameter edgedist @repetitions/allow 0 @type msg_float @range/bounds 0. 100. @range/clipmode low @description \"distance of vision for avoiding wall edges\"",
+									"text" : "jcom.parameter edgedist @repetitions/allow 0 @type decimal @range/bounds 0. 100. @range/clipmode low @description \"distance of vision for avoiding wall edges\"",
 									"varname" : "edgedist"
 								}
 
@@ -886,7 +886,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 544.0, 497.0, 367.0, 28.0 ],
-									"text" : "jcom.parameter repel @repetitions/allow 0 @type msg_float @range/bounds 0. 100. @range/clipmode low @description \"strengh of wall avoidance instinct\"",
+									"text" : "jcom.parameter repel @repetitions/allow 0 @type decimal @range/bounds 0. 100. @range/clipmode low @description \"strengh of wall avoidance instinct\"",
 									"varname" : "repel"
 								}
 
@@ -916,7 +916,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 544.0, 435.0, 380.0, 28.0 ],
-									"text" : "jcom.parameter avoid @repetitions/allow 0 @type msg_float @range/bounds 0. 100. @range/clipmode low @description \"strength of neighbor avoidance instinct\"",
+									"text" : "jcom.parameter avoid @repetitions/allow 0 @type decimal @range/bounds 0. 100. @range/clipmode low @description \"strength of neighbor avoidance instinct\"",
 									"varname" : "avoid"
 								}
 
@@ -1048,7 +1048,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 458.0, 369.0, 402.0, 28.0 ],
-									"text" : "jcom.parameter match @repetitions/allow 0 @type msg_float @range/bounds 0. 100. @range/clipmode low @description \"strength of neighbor speed matching instinct\"",
+									"text" : "jcom.parameter match @repetitions/allow 0 @type decimal @range/bounds 0. 100. @range/clipmode low @description \"strength of neighbor speed matching instinct\"",
 									"varname" : "match"
 								}
 
@@ -1078,7 +1078,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 458.0, 302.0, 381.0, 28.0 ],
-									"text" : "jcom.parameter attract @repetitions/allow 0 @type msg_float @range/bounds 0. 100. @range/clipmode low @description \"strength of attraction to 'attractpoint'\"",
+									"text" : "jcom.parameter attract @repetitions/allow 0 @type decimal @range/bounds 0. 100. @range/clipmode low @description \"strength of attraction to 'attractpoint'\"",
 									"varname" : "attract"
 								}
 
@@ -1108,7 +1108,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 458.0, 238.0, 367.0, 28.0 ],
-									"text" : "jcom.parameter center @repetitions/allow 0 @type msg_float @range/bounds 0. 100. @range/clipmode low @description \"strength of centering instinct\"",
+									"text" : "jcom.parameter center @repetitions/allow 0 @type decimal @range/bounds 0. 100. @range/clipmode low @description \"strength of centering instinct\"",
 									"varname" : "center"
 								}
 
@@ -1155,7 +1155,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 458.0, 176.0, 382.0, 28.0 ],
-									"text" : "jcom.parameter minspeed @repetitions/allow 0 @type msg_float @range/bounds 0. 100. @range/clipmode low @description \"minimum speed of speed range\"",
+									"text" : "jcom.parameter minspeed @repetitions/allow 0 @type decimal @range/bounds 0. 100. @range/clipmode low @description \"minimum speed of speed range\"",
 									"varname" : "minspeed"
 								}
 
@@ -1185,7 +1185,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 458.0, 115.0, 385.0, 28.0 ],
-									"text" : "jcom.parameter maxspeed @repetitions/allow 0 @type msg_float @range/bounds 0. 100. @range/clipmode low @description \"maximum speed of speed range\"",
+									"text" : "jcom.parameter maxspeed @repetitions/allow 0 @type decimal @range/bounds 0. 100. @range/clipmode low @description \"maximum speed of speed range\"",
 									"varname" : "maxspeed"
 								}
 
@@ -1215,7 +1215,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 458.0, 53.0, 426.0, 28.0 ],
-									"text" : "jcom.parameter neighbors @repetitions/allow 0 @type msg_float @range/bounds 0. 100. @range/clipmode low @description \"number of neighbors each boid consults when flocking\"",
+									"text" : "jcom.parameter neighbors @repetitions/allow 0 @type decimal @range/bounds 0. 100. @range/clipmode low @description \"number of neighbors each boid consults when flocking\"",
 									"varname" : "neighbors"
 								}
 
@@ -2089,7 +2089,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 31.0, 334.0, 17.0 ],
-					"text" : "jcom.parameter on @type msg_toggle @description \"Turn boids on/off\"",
+					"text" : "jcom.parameter on @type boolean @description \"Turn boids on/off\"",
 					"varname" : "on"
 				}
 
@@ -2182,7 +2182,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 509.0, 60.0, 583.0, 17.0 ],
-					"text" : "jcom.parameter updaterate @type msg_int @range/bounds 0 50 @range/clipmode low @description \"updaterate of the flock\"",
+					"text" : "jcom.parameter updaterate @type integer @range/bounds 0 50 @range/clipmode low @description \"updaterate of the flock\"",
 					"varname" : "updaterate"
 				}
 
@@ -2281,7 +2281,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 717.0, 237.0, 571.0, 28.0 ],
-					"text" : "jcom.message attractpoint @type msg_list @dataspace position @description \"Current position of the point of attraction in xyz-coordinates\"",
+					"text" : "jcom.message attractpoint @type array @dataspace position @description \"Current position of the point of attraction in xyz-coordinates\"",
 					"varname" : "attractpoint/xyz[1]"
 				}
 
@@ -2298,7 +2298,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 503.0, 87.0, 601.0, 28.0 ],
-					"text" : "jcom.parameter number @repetitions/allow 0 @type msg_int @range/bounds 0 32 @range/clipmode both @description \"number of boids\"",
+					"text" : "jcom.parameter number @repetitions/allow 0 @type integer @range/bounds 0 32 @range/clipmode both @description \"number of boids\"",
 					"varname" : "number"
 				}
 
@@ -2382,7 +2382,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 457.0, 170.0, 467.0, 17.0 ],
-					"text" : "jcom.message update @type msg_none @description \"updates boids from external clock\"",
+					"text" : "jcom.message update @type none @description \"updates boids from external clock\"",
 					"varname" : "jcom.parameter[1]"
 				}
 
@@ -2428,7 +2428,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 561.0, 135.0, 443.0, 17.0 ],
-					"text" : "jcom.message random @type msg_none @description \"reset boids randomly inside the flyrect\"",
+					"text" : "jcom.message random @type none @description \"reset boids randomly inside the flyrect\"",
 					"varname" : "jcom.parameter[3]"
 				}
 

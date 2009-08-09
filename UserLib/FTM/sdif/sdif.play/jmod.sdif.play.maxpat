@@ -53,7 +53,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 439.0, 13.0, 223.0, 20.0 ],
-					"text" : "jcom.parameter loop @type msg_toggle"
+					"text" : "jcom.parameter loop @type boolean"
 				}
 
 			}
@@ -255,7 +255,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 23.0, 342.0, 181.0, 62.0 ],
-					"text" : "jcom.parameter file @type msg_symbol @repetitions/allow 1 @description \"SDIF file to read\"",
+					"text" : "jcom.parameter file @type string @repetitions/allow 1 @description \"SDIF file to read\"",
 					"varname" : "jalg.sdif.player[4]"
 				}
 
@@ -271,7 +271,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 435.0, 73.0, 375.0, 34.0 ],
-					"text" : "jcom.parameter speed @type msg_float @range/bounds 0 5 @range/clipmode low @description \"Playing speed of SDIF stream\"",
+					"text" : "jcom.parameter speed @type decimal @range/bounds 0 5 @range/clipmode low @description \"Playing speed of SDIF stream\"",
 					"varname" : "speed[1]"
 				}
 
@@ -367,7 +367,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 653.0, 436.0, 224.0, 34.0 ],
-					"text" : "jcom.parameter play @type msg_toggle @description \"Play SDIF stream.\"",
+					"text" : "jcom.parameter play @type boolean @description \"Play SDIF stream.\"",
 					"varname" : "play"
 				}
 
@@ -383,7 +383,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 714.0, 492.0, 214.0, 48.0 ],
-					"text" : "jcom.parameter stream @type msg_int @repetitions/allow 1 @description \"SDIF stream index\"",
+					"text" : "jcom.parameter stream @type integer @repetitions/allow 1 @description \"SDIF stream index\"",
 					"varname" : "stream[1]"
 				}
 

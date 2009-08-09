@@ -5,14 +5,14 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='note1/nbr' type='msg_int' priority='0'>1</item>
-    <item name='note2/nbr' type='msg_int' priority='0'>2</item>
-    <item name='note3/nbr' type='msg_int' priority='0'>3</item>
-    <item name='note4/nbr' type='msg_int' priority='0'>4</item>
-    <item name='note5/nbr' type='msg_int' priority='0'>5</item>
-    <item name='note6/nbr' type='msg_int' priority='0'>6</item>
-    <item name='note7/nbr' type='msg_int' priority='0'>7</item>
-    <item name='note8/nbr' type='msg_int' priority='0'>8</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='note1/nbr' type='integer' priority='0'>1</item>
+    <item name='note2/nbr' type='integer' priority='0'>2</item>
+    <item name='note3/nbr' type='integer' priority='0'>3</item>
+    <item name='note4/nbr' type='integer' priority='0'>4</item>
+    <item name='note5/nbr' type='integer' priority='0'>5</item>
+    <item name='note6/nbr' type='integer' priority='0'>6</item>
+    <item name='note7/nbr' type='integer' priority='0'>7</item>
+    <item name='note8/nbr' type='integer' priority='0'>8</item>
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

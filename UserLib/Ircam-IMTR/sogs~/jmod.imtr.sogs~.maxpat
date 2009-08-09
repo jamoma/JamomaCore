@@ -318,7 +318,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 495.0, 665.0, 581.0, 43.0 ],
-					"text" : "jcom.parameter position/onset_variation @type msg_float @dataspace time @dataspace/unit/active millisecond @dataspace/unit/native millisecond @ramp/drive scheduler @range/bounds 0. 200. @range/clipmode low @description \"Variation in grain onset position.\""
+					"text" : "jcom.parameter position/onset_variation @type decimal @dataspace time @dataspace/unit/active millisecond @dataspace/unit/native millisecond @ramp/drive scheduler @range/bounds 0. 200. @range/clipmode low @description \"Variation in grain onset position.\""
 				}
 
 			}
@@ -333,7 +333,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 495.0, 580.0, 556.0, 43.0 ],
-					"text" : "jcom.parameter position @type msg_float @dataspace time @dataspace/unit/active millisecond @dataspace/unit/native millisecond @range/bounds 0. 5000. @range/clipmode low @ramp/drive scheduler @description \"Onset variation.\""
+					"text" : "jcom.parameter position @type decimal @dataspace time @dataspace/unit/active millisecond @dataspace/unit/native millisecond @range/bounds 0. 5000. @range/clipmode low @ramp/drive scheduler @description \"Onset variation.\""
 				}
 
 			}
@@ -348,7 +348,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 495.0, 415.0, 586.0, 55.0 ],
-					"text" : "jcom.parameter pitch/transpose @type msg_list @dataspace pitch @dataspace/unit/active midi @dataspace/unit/native midi @ramp/drive scheduler @range/bounds -1200. 1200. @range/clipmode none @description \"Pitch transposition. If more than one value is given, grains will be distributed between the possible options.\""
+					"text" : "jcom.parameter pitch/transpose @type array @dataspace pitch @dataspace/unit/active midi @dataspace/unit/native midi @ramp/drive scheduler @range/bounds -1200. 1200. @range/clipmode none @description \"Pitch transposition. If more than one value is given, grains will be distributed between the possible options.\""
 				}
 
 			}
@@ -363,7 +363,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 495.0, 510.0, 500.0, 31.0 ],
-					"text" : "jcom.parameter pitch/variation @type msg_float @dataspace pitch @dataspace/unit/active midi @dataspace/unit/native midi @description \"Pitch variation.\""
+					"text" : "jcom.parameter pitch/variation @type decimal @dataspace pitch @dataspace/unit/active midi @dataspace/unit/native midi @description \"Pitch variation.\""
 				}
 
 			}
@@ -378,7 +378,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 495.0, 314.0, 579.0, 31.0 ],
-					"text" : "jcom.parameter grain/duration @type msg_float @dataspace time @dataspace/unit/active millisecond @dataspace/unit/native millisecond @range/bounds 5. 500. @range/clipmode low @description \"Grain duration\""
+					"text" : "jcom.parameter grain/duration @type decimal @dataspace time @dataspace/unit/active millisecond @dataspace/unit/native millisecond @range/bounds 5. 500. @range/clipmode low @description \"Grain duration\""
 				}
 
 			}
@@ -393,7 +393,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 495.0, 240.0, 537.0, 31.0 ],
-					"text" : "jcom.parameter grain/overlap @type msg_int @dataspace none @ramp/drive none @range/bounds 1 6 @range/clipmode both @description \"Set 2^i number of overlapping grains.\""
+					"text" : "jcom.parameter grain/overlap @type integer @dataspace none @ramp/drive none @range/bounds 1 6 @range/clipmode both @description \"Set 2^i number of overlapping grains.\""
 				}
 
 			}
@@ -424,7 +424,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 495.0, 185.0, 570.0, 31.0 ],
-					"text" : "jcom.message buffer/view @type msg_none @repetitions/allow 1 @description \"View the content of the audio buffer.\""
+					"text" : "jcom.message buffer/view @type none @repetitions/allow 1 @description \"View the content of the audio buffer.\""
 				}
 
 			}
@@ -455,7 +455,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 495.0, 120.0, 548.0, 31.0 ],
-					"text" : "jcom.parameter buffer/file @type msg_symbol @repetitions/allow 1 @description \"The sound file used for granulation.\""
+					"text" : "jcom.parameter buffer/file @type string @repetitions/allow 1 @description \"The sound file used for granulation.\""
 				}
 
 			}

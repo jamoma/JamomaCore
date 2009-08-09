@@ -25,7 +25,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 300.0, 217.0, 17.0 ],
-					"text" : "jcom.parameter trigger/thresvalues @type msg_list"
+					"text" : "jcom.parameter trigger/thresvalues @type array"
 				}
 
 			}
@@ -39,7 +39,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 562.0, 240.0, 190.0, 17.0 ],
-					"text" : "jcom.parameter threshold @type msg_float"
+					"text" : "jcom.parameter threshold @type decimal"
 				}
 
 			}
@@ -227,7 +227,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 168.0, 440.0, 190.0, 17.0 ],
-					"text" : "jcom.return sensor @type msg_float"
+					"text" : "jcom.return sensor @type decimal"
 				}
 
 			}
@@ -241,7 +241,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 170.0, 190.0, 17.0 ],
-					"text" : "jcom.parameter ctrl/nbr @type msg_int"
+					"text" : "jcom.parameter ctrl/nbr @type integer"
 				}
 
 			}

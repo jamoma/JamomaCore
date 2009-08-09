@@ -160,7 +160,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "pitch[7]",
-									"text" : "jcom.parameter npartial @type msg_int @repetitions/allow 0 @description \"• Higher partials are weighed less strongly than lower ones in determining the pitch -- this specifies the number of the partial (7) which will be weighted half as strongly as the fundamental.\"",
+									"text" : "jcom.parameter npartial @type integer @repetitions/allow 0 @description \"• Higher partials are weighed less strongly than lower ones in determining the pitch -- this specifies the number of the partial (7) which will be weighted half as strongly as the fundamental.\"",
 									"linecount" : 3,
 									"numoutlets" : 3,
 									"fontsize" : 9.0,
@@ -195,7 +195,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "pitch[5]",
-									"text" : "jcom.parameter vibrato/interval @type msg_float @repetitions/allow 0 @description \"backlash for pitch  tracking\"",
+									"text" : "jcom.parameter vibrato/interval @type decimal @repetitions/allow 0 @description \"backlash for pitch  tracking\"",
 									"numoutlets" : 3,
 									"fontsize" : 9.0,
 									"outlettype" : [ "", "", "" ],
@@ -211,7 +211,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "pitch[6]",
-									"text" : "jcom.parameter vibrato/period @type msg_int @repetitions/allow 0 @description \" A period in milliseconds  over which the raw pitch may not deviate more than an interval in half-tones specified by the vibrato/interval parameter from the average pitch to report it as a note to the cooked pitch outlet.\"",
+									"text" : "jcom.parameter vibrato/period @type integer @repetitions/allow 0 @description \" A period in milliseconds  over which the raw pitch may not deviate more than an interval in half-tones specified by the vibrato/interval parameter from the average pitch to report it as a note to the cooked pitch outlet.\"",
 									"linecount" : 3,
 									"numoutlets" : 3,
 									"fontsize" : 9.0,
@@ -246,7 +246,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "pitch[4]",
-									"text" : "jcom.parameter reattack/dynamic @type msg_int @repetitions/allow 0 @description \" if the amplitude rises more than this parameter during reattack/period, the re-attack will result in a bang in the attack outlet and may give rise to repeated notes in the cooked pitch output.\"",
+									"text" : "jcom.parameter reattack/dynamic @type integer @repetitions/allow 0 @description \" if the amplitude rises more than this parameter during reattack/period, the re-attack will result in a bang in the attack outlet and may give rise to repeated notes in the cooked pitch output.\"",
 									"linecount" : 3,
 									"numoutlets" : 3,
 									"fontsize" : 9.0,
@@ -281,7 +281,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "pitch[3]",
-									"text" : "jcom.parameter reattack/period @type msg_int @repetitions/allow 0 @description \"• A period in milliseconds  over which a re-attack is reported if the amplitude rises more than reattack/dynamic  parameter.\"",
+									"text" : "jcom.parameter reattack/period @type integer @repetitions/allow 0 @description \"• A period in milliseconds  over which a re-attack is reported if the amplitude rises more than reattack/dynamic  parameter.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 9.0,
@@ -316,7 +316,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "pitch",
-									"text" : "jcom.parameter hopsize @type msg_int @repetitions/allow 0 @description \"Hop size in # of sample for the analysis\"",
+									"text" : "jcom.parameter hopsize @type integer @repetitions/allow 0 @description \"Hop size in # of sample for the analysis\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 9.0,
@@ -607,7 +607,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "pitch[12]",
-					"text" : "jcom.return noisyness @type msg_float @range/bounds 0. 1. @repetitions/allow 1 @description noisyness",
+					"text" : "jcom.return noisyness @type decimal @range/bounds 0. 1. @repetitions/allow 1 @description noisyness",
 					"linecount" : 2,
 					"numoutlets" : 2,
 					"fontsize" : 9.0,
@@ -624,7 +624,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "pitch[11]",
-					"text" : "jcom.return brightness @type msg_float @range/bounds 0. 11000. @repetitions/allow 1 @description \"Brightness in hz\"",
+					"text" : "jcom.return brightness @type decimal @range/bounds 0. 11000. @repetitions/allow 1 @description \"Brightness in hz\"",
 					"linecount" : 2,
 					"numoutlets" : 2,
 					"fontsize" : 9.0,
@@ -641,7 +641,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "pitch[10]",
-					"text" : "jcom.return loudness @type msg_float @range/bounds -96. 30. @repetitions/allow 1 @description \"loudness in db\"",
+					"text" : "jcom.return loudness @type decimal @range/bounds -96. 30. @repetitions/allow 1 @description \"loudness in db\"",
 					"numoutlets" : 2,
 					"fontsize" : 9.0,
 					"outlettype" : [ "", "" ],
@@ -671,7 +671,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "pitch[9]",
-					"text" : "jcom.return pitch/hz @type msg_float @repetitions/allow 1 @range/bounds 0. 11000. @description \"pitch in hz\"",
+					"text" : "jcom.return pitch/hz @type decimal @repetitions/allow 1 @range/bounds 0. 11000. @description \"pitch in hz\"",
 					"numoutlets" : 2,
 					"fontsize" : 9.0,
 					"outlettype" : [ "", "" ],
@@ -687,7 +687,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "pitch[8]",
-					"text" : "jcom.return pitch/midi @type msg_float @repetitions/allow 1 @range/bounds 0 127. @description \"pitch in midinote\"",
+					"text" : "jcom.return pitch/midi @type decimal @repetitions/allow 1 @range/bounds 0 127. @description \"pitch in midinote\"",
 					"linecount" : 2,
 					"numoutlets" : 2,
 					"fontsize" : 9.0,
@@ -868,7 +868,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "pitch[2]",
-					"text" : "jcom.parameter threshold/high @type msg_int @repetitions/allow 1 @description \"Hight threshold\"",
+					"text" : "jcom.parameter threshold/high @type integer @repetitions/allow 1 @description \"Hight threshold\"",
 					"linecount" : 3,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
@@ -885,7 +885,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "pitch[1]",
-					"text" : "jcom.parameter threshold/low @type msg_int @repetitions/allow 1 @description \"low threshold \"",
+					"text" : "jcom.parameter threshold/low @type integer @repetitions/allow 1 @description \"low threshold \"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,

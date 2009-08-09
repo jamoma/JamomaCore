@@ -5,16 +5,16 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='currentCueId' type='msg_int' priority='0'>0</item>
-    <item name='currentCueMode' type='msg_toggle' priority='0'>1</item>
-    <item name='currentCueName' type='msg_symbol' priority='0'>Init</item>
-    <item name='getStateMode' type='msg_toggle' priority='0'>1</item>
-    <item name='listCue' type='msg_list' priority='0'>NO-CUE</item>
-    <item name='live' type='msg_toggle' priority='0'>0</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
+    <item name='currentCueId' type='integer' priority='0'>0</item>
+    <item name='currentCueMode' type='boolean' priority='0'>1</item>
+    <item name='currentCueName' type='string' priority='0'>Init</item>
+    <item name='getStateMode' type='boolean' priority='0'>1</item>
+    <item name='listCue' type='array' priority='0'>NO-CUE</item>
+    <item name='live' type='boolean' priority='0'>0</item>
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/color/border' type='array' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
   </preset>
 </jamoma>

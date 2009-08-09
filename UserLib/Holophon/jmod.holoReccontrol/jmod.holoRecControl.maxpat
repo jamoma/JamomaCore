@@ -84,7 +84,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 127.0, 188.0, 519.0, 19.0 ],
-									"text" : "jcom.message recorder/1/in @repetitions/allow 1 @type msg_list @description \"x y z input position.\"",
+									"text" : "jcom.message recorder/1/in @repetitions/allow 1 @type array @description \"x y z input position.\"",
 									"varname" : "hue_angle[15]"
 								}
 
@@ -99,7 +99,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 127.0, 20.0, 519.0, 19.0 ],
-									"text" : "jcom.message recorder/8/in @repetitions/allow 1 @type msg_list @description \"x y z input position.\"",
+									"text" : "jcom.message recorder/8/in @repetitions/allow 1 @type array @description \"x y z input position.\"",
 									"varname" : "hue_angle[1]"
 								}
 
@@ -114,7 +114,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 76.0, 407.0, 578.0, 19.0 ],
-									"text" : "jcom.message recorder/1/segment @repetitions/allow 1 @type msg_none @description \"Begin a new trajectory.\"",
+									"text" : "jcom.message recorder/1/segment @repetitions/allow 1 @type none @description \"Begin a new trajectory.\"",
 									"varname" : "hue_angle[2]"
 								}
 
@@ -129,7 +129,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 76.0, 383.0, 578.0, 19.0 ],
-									"text" : "jcom.message recorder/2/segment @repetitions/allow 1 @type msg_none @description \"Begin a new trajectory.\"",
+									"text" : "jcom.message recorder/2/segment @repetitions/allow 1 @type none @description \"Begin a new trajectory.\"",
 									"varname" : "hue_angle[3]"
 								}
 
@@ -144,7 +144,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 76.0, 359.0, 578.0, 19.0 ],
-									"text" : "jcom.message recorder/3/segment @repetitions/allow 1 @type msg_none @description \"Begin a new trajectory.\"",
+									"text" : "jcom.message recorder/3/segment @repetitions/allow 1 @type none @description \"Begin a new trajectory.\"",
 									"varname" : "hue_angle[4]"
 								}
 
@@ -159,7 +159,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 76.0, 335.0, 578.0, 19.0 ],
-									"text" : "jcom.message recorder/4/segment @repetitions/allow 1 @type msg_none @description \"Begin a new trajectory.\"",
+									"text" : "jcom.message recorder/4/segment @repetitions/allow 1 @type none @description \"Begin a new trajectory.\"",
 									"varname" : "hue_angle[5]"
 								}
 
@@ -174,7 +174,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 76.0, 311.0, 578.0, 19.0 ],
-									"text" : "jcom.message recorder/5/segment @repetitions/allow 1 @type msg_none @description \"Begin a new trajectory.\"",
+									"text" : "jcom.message recorder/5/segment @repetitions/allow 1 @type none @description \"Begin a new trajectory.\"",
 									"varname" : "hue_angle[6]"
 								}
 
@@ -189,7 +189,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 76.0, 287.0, 578.0, 19.0 ],
-									"text" : "jcom.message recorder/6/segment @repetitions/allow 1 @type msg_none @description \"Begin a new trajectory.\"",
+									"text" : "jcom.message recorder/6/segment @repetitions/allow 1 @type none @description \"Begin a new trajectory.\"",
 									"varname" : "hue_angle[7]"
 								}
 
@@ -204,7 +204,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 76.0, 263.0, 578.0, 19.0 ],
-									"text" : "jcom.message recorder/7/segment @repetitions/allow 1 @type msg_none @description \"Begin a new trajectory.\"",
+									"text" : "jcom.message recorder/7/segment @repetitions/allow 1 @type none @description \"Begin a new trajectory.\"",
 									"varname" : "hue_angle[8]"
 								}
 
@@ -219,7 +219,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 76.0, 239.0, 578.0, 19.0 ],
-									"text" : "jcom.message recorder/8/segment @repetitions/allow 1 @type msg_none @description \"Begin a new trajectory.\"",
+									"text" : "jcom.message recorder/8/segment @repetitions/allow 1 @type none @description \"Begin a new trajectory.\"",
 									"varname" : "hue_angle[16]"
 								}
 
@@ -234,7 +234,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 127.0, 44.0, 519.0, 19.0 ],
-									"text" : "jcom.message recorder/7/in @repetitions/allow 1 @type msg_list @description \"x y z input position.\"",
+									"text" : "jcom.message recorder/7/in @repetitions/allow 1 @type array @description \"x y z input position.\"",
 									"varname" : "hue_angle[9]"
 								}
 
@@ -249,7 +249,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 127.0, 68.0, 519.0, 19.0 ],
-									"text" : "jcom.message recorder/6/in @repetitions/allow 1 @type msg_list @description \"x y z input position.\"",
+									"text" : "jcom.message recorder/6/in @repetitions/allow 1 @type array @description \"x y z input position.\"",
 									"varname" : "hue_angle[10]"
 								}
 
@@ -264,7 +264,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 127.0, 92.0, 519.0, 19.0 ],
-									"text" : "jcom.message recorder/5/in @repetitions/allow 1 @type msg_list @description \"x y z input position.\"",
+									"text" : "jcom.message recorder/5/in @repetitions/allow 1 @type array @description \"x y z input position.\"",
 									"varname" : "hue_angle[11]"
 								}
 
@@ -279,7 +279,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 127.0, 116.0, 519.0, 19.0 ],
-									"text" : "jcom.message recorder/4/in @repetitions/allow 1 @type msg_list @description \"x y z input position.\"",
+									"text" : "jcom.message recorder/4/in @repetitions/allow 1 @type array @description \"x y z input position.\"",
 									"varname" : "hue_angle[12]"
 								}
 
@@ -294,7 +294,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 127.0, 140.0, 519.0, 19.0 ],
-									"text" : "jcom.message recorder/3/in @repetitions/allow 1 @type msg_list @description \"x y z input position.\"",
+									"text" : "jcom.message recorder/3/in @repetitions/allow 1 @type array @description \"x y z input position.\"",
 									"varname" : "hue_angle[13]"
 								}
 
@@ -309,7 +309,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 127.0, 164.0, 519.0, 19.0 ],
-									"text" : "jcom.message recorder/2/in @repetitions/allow 1 @type msg_list @description \"x y z input position.\"",
+									"text" : "jcom.message recorder/2/in @repetitions/allow 1 @type array @description \"x y z input position.\"",
 									"varname" : "hue_angle[14]"
 								}
 
@@ -459,7 +459,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 465.0, 54.0, 596.0, 31.0 ],
-					"text" : "jcom.parameter recorder/2/enable @repetitions/allow 0 @type msg_int @range/bounds 0 1 @range/clipmode both @description \"Arm record.\"",
+					"text" : "jcom.parameter recorder/2/enable @repetitions/allow 0 @type integer @range/bounds 0 1 @range/clipmode both @description \"Arm record.\"",
 					"varname" : "hue_angle[2]"
 				}
 
@@ -568,7 +568,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 185.0, 315.0, 273.0, 19.0 ],
-									"text" : "generic (default), msg_int, msg_float, menu, toggle"
+									"text" : "generic (default), integer, decimal, menu, toggle"
 								}
 
 							}
@@ -877,7 +877,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 465.0, 19.0, 596.0, 31.0 ],
-					"text" : "jcom.parameter recorder/1/enable @repetitions/allow 0 @type msg_int @range/bounds 0 1 @range/clipmode both @description \"Arm record.\"",
+					"text" : "jcom.parameter recorder/1/enable @repetitions/allow 0 @type integer @range/bounds 0 1 @range/clipmode both @description \"Arm record.\"",
 					"varname" : "hue_angle"
 				}
 
@@ -913,7 +913,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 465.0, 122.0, 596.0, 31.0 ],
-					"text" : "jcom.parameter recorder/4/enable @repetitions/allow 0 @type msg_int @range/bounds 0 1 @range/clipmode both @description \"Arm record.\"",
+					"text" : "jcom.parameter recorder/4/enable @repetitions/allow 0 @type integer @range/bounds 0 1 @range/clipmode both @description \"Arm record.\"",
 					"varname" : "hue_angle[3]"
 				}
 
@@ -1333,7 +1333,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 465.0, 88.0, 596.0, 31.0 ],
-					"text" : "jcom.parameter recorder/3/enable @repetitions/allow 0 @type msg_int @range/bounds 0 1 @range/clipmode both @description \"Arm record.\"",
+					"text" : "jcom.parameter recorder/3/enable @repetitions/allow 0 @type integer @range/bounds 0 1 @range/clipmode both @description \"Arm record.\"",
 					"varname" : "hue_angle[4]"
 				}
 
@@ -1450,7 +1450,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 465.0, 194.0, 596.0, 31.0 ],
-					"text" : "jcom.parameter recorder/6/enable @repetitions/allow 0 @type msg_int @range/bounds 0 1 @range/clipmode both @description \"Arm record.\"",
+					"text" : "jcom.parameter recorder/6/enable @repetitions/allow 0 @type integer @range/bounds 0 1 @range/clipmode both @description \"Arm record.\"",
 					"varname" : "hue_angle[5]"
 				}
 
@@ -1486,7 +1486,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 465.0, 159.0, 596.0, 31.0 ],
-					"text" : "jcom.parameter recorder/5/enable @repetitions/allow 0 @type msg_int @range/bounds 0 1 @range/clipmode both @description \"Arm record.\"",
+					"text" : "jcom.parameter recorder/5/enable @repetitions/allow 0 @type integer @range/bounds 0 1 @range/clipmode both @description \"Arm record.\"",
 					"varname" : "hue_angle[6]"
 				}
 
@@ -1536,7 +1536,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 465.0, 265.0, 596.0, 31.0 ],
-					"text" : "jcom.parameter recorder/8/enable @repetitions/allow 0 @type msg_int @range/bounds 0 1 @range/clipmode both @description \"Arm record.\"",
+					"text" : "jcom.parameter recorder/8/enable @repetitions/allow 0 @type integer @range/bounds 0 1 @range/clipmode both @description \"Arm record.\"",
 					"varname" : "hue_angle[7]"
 				}
 
@@ -1572,7 +1572,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 465.0, 230.0, 596.0, 31.0 ],
-					"text" : "jcom.parameter recorder/7/enable @repetitions/allow 0 @type msg_int @range/bounds 0 1 @range/clipmode both @description \"Arm record.\"",
+					"text" : "jcom.parameter recorder/7/enable @repetitions/allow 0 @type integer @range/bounds 0 1 @range/clipmode both @description \"Arm record.\"",
 					"varname" : "hue_angle[8]"
 				}
 

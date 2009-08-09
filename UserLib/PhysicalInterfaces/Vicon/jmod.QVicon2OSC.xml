@@ -5,45 +5,45 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='QVicon2OSC/info/auto' type='msg_toggle' priority='0'>0</item>
-    <item name='QVicon2OSC/info/port' type='msg_int' priority='0'>10000</item>
-    <item name='QVicon2OSC/osc/host' type='msg_symbol' priority='0'>127.0.0.1</item>
-    <item name='QVicon2OSC/osc/plain/prefix' type='msg_symbol' priority='0'>/prefix</item>
-    <item name='QVicon2OSC/osc/port' type='msg_int' priority='0'>10001</item>
-    <item name='QVicon2OSC/osc/type' type='msg_int' priority='0'>0</item>
-    <item name='QVicon2OSC/vicon/connect' type='msg_toggle' priority='0'>0</item>
-    <item name='QVicon2OSC/vicon/host' type='msg_symbol' priority='0'>127.0.0.1</item>
-    <item name='control_ip' type='msg_symbol' priority='0'>127.0.0.1</item>
-    <item name='control_port' type='msg_int' priority='0'>9999</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='QVicon2OSC/info/auto' type='boolean' priority='0'>0</item>
+    <item name='QVicon2OSC/info/port' type='integer' priority='0'>10000</item>
+    <item name='QVicon2OSC/osc/host' type='string' priority='0'>127.0.0.1</item>
+    <item name='QVicon2OSC/osc/plain/prefix' type='string' priority='0'>/prefix</item>
+    <item name='QVicon2OSC/osc/port' type='integer' priority='0'>10001</item>
+    <item name='QVicon2OSC/osc/type' type='integer' priority='0'>0</item>
+    <item name='QVicon2OSC/vicon/connect' type='boolean' priority='0'>0</item>
+    <item name='QVicon2OSC/vicon/host' type='string' priority='0'>127.0.0.1</item>
+    <item name='control_ip' type='string' priority='0'>127.0.0.1</item>
+    <item name='control_port' type='integer' priority='0'>9999</item>
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
   </preset>
 
   <preset number='2' name='iplocal'>
-    <item name='QVicon2OSC/info/auto' type='msg_toggle' priority='0'>0</item>
-    <item name='QVicon2OSC/info/port' type='msg_int' priority='0'>10000</item>
-    <item name='QVicon2OSC/osc/host' type='msg_symbol' priority='0'>10.0.0.113</item>
-    <item name='QVicon2OSC/osc/plain/prefix' type='msg_symbol' priority='0'>/prefix</item>
-    <item name='QVicon2OSC/osc/port' type='msg_int' priority='0'>10001</item>
-    <item name='QVicon2OSC/osc/type' type='msg_int' priority='0'>0</item>
-    <item name='QVicon2OSC/vicon/connect' type='msg_toggle' priority='0'>0</item>
-    <item name='QVicon2OSC/vicon/host' type='msg_symbol' priority='0'>10.0.0.113</item>
-    <item name='control_ip' type='msg_symbol' priority='0'>10.0.0.113</item>
-    <item name='control_port' type='msg_int' priority='0'>9999</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='QVicon2OSC/info/auto' type='boolean' priority='0'>0</item>
+    <item name='QVicon2OSC/info/port' type='integer' priority='0'>10000</item>
+    <item name='QVicon2OSC/osc/host' type='string' priority='0'>10.0.0.113</item>
+    <item name='QVicon2OSC/osc/plain/prefix' type='string' priority='0'>/prefix</item>
+    <item name='QVicon2OSC/osc/port' type='integer' priority='0'>10001</item>
+    <item name='QVicon2OSC/osc/type' type='integer' priority='0'>0</item>
+    <item name='QVicon2OSC/vicon/connect' type='boolean' priority='0'>0</item>
+    <item name='QVicon2OSC/vicon/host' type='string' priority='0'>10.0.0.113</item>
+    <item name='control_ip' type='string' priority='0'>10.0.0.113</item>
+    <item name='control_port' type='integer' priority='0'>9999</item>
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
   </preset>
 
   <preset number='3' name='ipnetwork'>
-    <item name='QVicon2OSC/info/auto' type='msg_toggle' priority='0'>0</item>
-    <item name='QVicon2OSC/info/port' type='msg_int' priority='0'>10000</item>
-    <item name='QVicon2OSC/osc/host' type='msg_symbol' priority='0'>192.168.1.101</item>
-    <item name='QVicon2OSC/osc/plain/prefix' type='msg_symbol' priority='0'>/prefix</item>
-    <item name='QVicon2OSC/osc/port' type='msg_int' priority='0'>10001</item>
-    <item name='QVicon2OSC/osc/type' type='msg_int' priority='0'>0</item>
-    <item name='QVicon2OSC/vicon/connect' type='msg_toggle' priority='0'>0</item>
-    <item name='QVicon2OSC/vicon/host' type='msg_symbol' priority='0'>192.168.1.100</item>
-    <item name='control_ip' type='msg_symbol' priority='0'>192.168.1.101</item>
-    <item name='control_port' type='msg_int' priority='0'>9999</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='QVicon2OSC/info/auto' type='boolean' priority='0'>0</item>
+    <item name='QVicon2OSC/info/port' type='integer' priority='0'>10000</item>
+    <item name='QVicon2OSC/osc/host' type='string' priority='0'>192.168.1.101</item>
+    <item name='QVicon2OSC/osc/plain/prefix' type='string' priority='0'>/prefix</item>
+    <item name='QVicon2OSC/osc/port' type='integer' priority='0'>10001</item>
+    <item name='QVicon2OSC/osc/type' type='integer' priority='0'>0</item>
+    <item name='QVicon2OSC/vicon/connect' type='boolean' priority='0'>0</item>
+    <item name='QVicon2OSC/vicon/host' type='string' priority='0'>192.168.1.100</item>
+    <item name='control_ip' type='string' priority='0'>192.168.1.101</item>
+    <item name='control_port' type='integer' priority='0'>9999</item>
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
   </preset>
 
 </jamoma>

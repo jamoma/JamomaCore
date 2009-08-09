@@ -402,7 +402,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 150.0, 530.0, 561.0, 31.0 ],
-					"text" : "jcom.parameter mainfolder @type msg_list @repetitions/allow 0 @description \"path of the parent folder dropped in, containing subfolders with sound files in \"",
+					"text" : "jcom.parameter mainfolder @type array @repetitions/allow 0 @description \"path of the parent folder dropped in, containing subfolders with sound files in \"",
 					"varname" : "jcom.parameter.mxb[2]"
 				}
 
@@ -7858,7 +7858,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 468.0, 99.0, 590.0, 31.0 ],
-					"text" : "jcom.message type @type msg_list @repetitions/allow 1 @description \"Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
+					"text" : "jcom.message type @type array @repetitions/allow 1 @description \"Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
 					"varname" : "jcom.parameter.mxb[1]"
 				}
 
@@ -7968,7 +7968,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 335.0, 165.0, 591.0, 31.0 ],
-					"text" : "jcom.message path @type msg_list @repetitions/allow 1 @description \"path of the parent folder dropped in, containing subfolders with sound files in or path of the sound file dropped in\"",
+					"text" : "jcom.message path @type array @repetitions/allow 1 @description \"path of the parent folder dropped in, containing subfolders with sound files in or path of the sound file dropped in\"",
 					"varname" : "jcom.parameter.mxb[10]"
 				}
 

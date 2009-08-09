@@ -45,7 +45,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.parameter.array 32 source weight @type msg_list @range/bounds 0. 1. @description \"Set spatial blur of the nth source.\"",
+					"text" : "jcom.parameter.array 32 source weight @type array @range/bounds 0. 1. @description \"Set spatial blur of the nth source.\"",
 					"linecount" : 2,
 					"fontsize" : 10.0,
 					"numinlets" : 0,
@@ -59,7 +59,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.message.array 32 source active @type msg_toggle @description \"Mute or unmute the nth source.\"",
+					"text" : "jcom.message.array 32 source active @type boolean @description \"Mute or unmute the nth source.\"",
 					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"patching_rect" : [ 470.0, 310.0, 538.0, 19.0 ],
@@ -72,7 +72,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.message.array 32 source gain @type msg_float @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\"",
+					"text" : "jcom.message.array 32 source gain @type decimal @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\"",
 					"linecount" : 2,
 					"fontsize" : 10.0,
 					"numinlets" : 0,
@@ -86,7 +86,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.message.array 32 source blur @type msg_float @range/bounds 0. 100. @description \"Set spatial blur of the nth source.\"",
+					"text" : "jcom.message.array 32 source blur @type decimal @range/bounds 0. 100. @description \"Set spatial blur of the nth source.\"",
 					"linecount" : 2,
 					"fontsize" : 10.0,
 					"numinlets" : 0,
@@ -126,7 +126,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.message.array 32 speaker position @type msg_list @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\"",
+					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\"",
 					"linecount" : 2,
 					"fontsize" : 10.0,
 					"numinlets" : 0,
@@ -140,7 +140,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.message.array 32 source position @type msg_list @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\"",
+					"text" : "jcom.message.array 32 source position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\"",
 					"linecount" : 2,
 					"fontsize" : 10.0,
 					"numinlets" : 0,
@@ -177,7 +177,7 @@
 					"id" : "obj-28",
 					"frozen_object_attributes" : 					{
 						"description" : "Get info on current positions of sources and speakers",
-						"type" : "msg_none",
+						"type" : "none",
 						"name" : "info"
 					}
 
@@ -215,7 +215,7 @@
 						"range/clipmode" : "low",
 						"description" : "The relative rolloff of amplitude with distance from speakers, expressed in dB.",
 						"dataspace/unit/active" : "none",
-						"type" : "msg_float",
+						"type" : "decimal",
 						"priority" : 3,
 						"dataspace" : "none",
 						"dataspace/unit/native" : "none",
@@ -257,7 +257,7 @@
 					"frozen_object_attributes" : 					{
 						"description" : "Dimensions of the virtual space.",
 						"dataspace/unit/active" : "none",
-						"type" : "msg_int",
+						"type" : "integer",
 						"priority" : 1,
 						"dataspace" : "none",
 						"dataspace/unit/native" : "none",

@@ -116,7 +116,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 528.0, 85.0, 251.0, 28.0 ],
-					"text" : "jcom.parameter QVicon2OSC/osc/type @type msg_int @clipmode none @description \"Data format\"",
+					"text" : "jcom.parameter QVicon2OSC/osc/type @type integer @clipmode none @description \"Data format\"",
 					"varname" : "QVicon2OSC/osc/type"
 				}
 
@@ -133,7 +133,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 456.0, 39.0, 340.0, 28.0 ],
-					"text" : "jcom.parameter QVicon2OSC/vicon/host @type msg_symbol @clipmode none @description \"IP address of the tarsus realtime engine\"",
+					"text" : "jcom.parameter QVicon2OSC/vicon/host @type string @clipmode none @description \"IP address of the tarsus realtime engine\"",
 					"varname" : "QVicon2OSC/vicon/host"
 				}
 
@@ -440,7 +440,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 447.0, 114.0, 302.0, 28.0 ],
-									"text" : "jcom.parameter QVicon2OSC/osc/host @type msg_symbol @description \"IP address for incoming messages (this machine)\"",
+									"text" : "jcom.parameter QVicon2OSC/osc/host @type string @description \"IP address for incoming messages (this machine)\"",
 									"varname" : "QVicon2OSC/osc/host"
 								}
 
@@ -542,7 +542,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 447.0, 185.0, 252.0, 28.0 ],
-									"text" : "jcom.parameter control_ip @type msg_symbol @description \"IP address for control messages\"",
+									"text" : "jcom.parameter control_ip @type string @description \"IP address for control messages\"",
 									"varname" : "control_ip"
 								}
 
@@ -574,7 +574,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 838.0, 155.0, 310.0, 28.0 ],
-									"text" : "jcom.parameter control_port @type msg_int @range 1000 15000 @clipmode none @description \"UDP port for control messages\"",
+									"text" : "jcom.parameter control_port @type integer @range 1000 15000 @clipmode none @description \"UDP port for control messages\"",
 									"varname" : "control_port[1]"
 								}
 
@@ -806,7 +806,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 838.0, 94.0, 323.0, 28.0 ],
-									"text" : "jcom.parameter QVicon2OSC/info/port @type msg_int @range 1000 15000 @clipmode none @description \"UDP port for info messages\"",
+									"text" : "jcom.parameter QVicon2OSC/info/port @type integer @range 1000 15000 @clipmode none @description \"UDP port for info messages\"",
 									"varname" : "QVicon2OSC/info/port"
 								}
 
@@ -838,7 +838,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 838.0, 30.0, 321.0, 28.0 ],
-									"text" : "jcom.parameter QVicon2OSC/osc/port @type msg_int @range 1000 15000 @clipmode none @description \"UDP port for data messages\"",
+									"text" : "jcom.parameter QVicon2OSC/osc/port @type integer @range 1000 15000 @clipmode none @description \"UDP port for data messages\"",
 									"varname" : "QVicon2OSC/osc/port"
 								}
 
@@ -855,7 +855,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 447.0, 34.0, 275.0, 28.0 ],
-									"text" : "jcom.parameter QVicon2OSC/osc/plain/prefix @type msg_symbol @description \"Prefix for plain OSC messages\"",
+									"text" : "jcom.parameter QVicon2OSC/osc/plain/prefix @type string @description \"Prefix for plain OSC messages\"",
 									"varname" : "QVicon2OSC/osc/plain/prefix"
 								}
 
@@ -872,7 +872,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 838.0, 218.0, 352.0, 28.0 ],
-									"text" : "jcom.parameter QVicon2OSC/info/auto @type msg_toggle @description \"turn on/off the automatic notification of selection changes of the info host\"",
+									"text" : "jcom.parameter QVicon2OSC/info/auto @type boolean @description \"turn on/off the automatic notification of selection changes of the info host\"",
 									"varname" : "QVicon2OSC/info/auto"
 								}
 
@@ -1354,7 +1354,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 539.0, 180.0, 273.0, 28.0 ],
-					"text" : "jcom.message QVicon2OSC/channels @type msg_toggle @clipmode none @description \"turn all channels on or off\"",
+					"text" : "jcom.message QVicon2OSC/channels @type boolean @clipmode none @description \"turn all channels on or off\"",
 					"varname" : "channels_on[1]"
 				}
 
@@ -1410,7 +1410,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 443.0, 143.0, 299.0, 28.0 ],
-					"text" : "jcom.parameter QVicon2OSC/vicon/connect @type msg_toggle @clipmode none @description \"Connect the QVicon2Osc\"",
+					"text" : "jcom.parameter QVicon2OSC/vicon/connect @type boolean @clipmode none @description \"Connect the QVicon2Osc\"",
 					"varname" : "QVicon2OSC/vicon/connect"
 				}
 

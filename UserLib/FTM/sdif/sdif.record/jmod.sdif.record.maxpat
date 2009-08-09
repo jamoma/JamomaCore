@@ -26,7 +26,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 494.0, 460.0, 429.0, 31.0 ],
-					"text" : "jcom.parameter stream7 @type msg_int @repetitions/allow 0 @range/bounds 0 7 @range/clipmode low @description \"Select stream in S/GDIF file\""
+					"text" : "jcom.parameter stream7 @type integer @repetitions/allow 0 @range/bounds 0 7 @range/clipmode low @description \"Select stream in S/GDIF file\""
 				}
 
 			}
@@ -41,7 +41,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 494.0, 422.0, 429.0, 31.0 ],
-					"text" : "jcom.parameter stream6 @type msg_int @repetitions/allow 0 @range/bounds 0 7 @range/clipmode low @description \"Select stream in S/GDIF file\""
+					"text" : "jcom.parameter stream6 @type integer @repetitions/allow 0 @range/bounds 0 7 @range/clipmode low @description \"Select stream in S/GDIF file\""
 				}
 
 			}
@@ -56,7 +56,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 494.0, 384.0, 429.0, 31.0 ],
-					"text" : "jcom.parameter stream5 @type msg_int @repetitions/allow 0 @range/bounds 0 7 @range/clipmode low @description \"Select stream in S/GDIF file\""
+					"text" : "jcom.parameter stream5 @type integer @repetitions/allow 0 @range/bounds 0 7 @range/clipmode low @description \"Select stream in S/GDIF file\""
 				}
 
 			}
@@ -71,7 +71,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 494.0, 346.0, 429.0, 31.0 ],
-					"text" : "jcom.parameter stream4 @type msg_int @repetitions/allow 0 @range/bounds 0 7 @range/clipmode low @description \"Select stream in S/GDIF file\""
+					"text" : "jcom.parameter stream4 @type integer @repetitions/allow 0 @range/bounds 0 7 @range/clipmode low @description \"Select stream in S/GDIF file\""
 				}
 
 			}
@@ -86,7 +86,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 494.0, 307.0, 429.0, 31.0 ],
-					"text" : "jcom.parameter stream3 @type msg_int @repetitions/allow 0 @range/bounds 0 7 @range/clipmode low @description \"Select stream in S/GDIF file\""
+					"text" : "jcom.parameter stream3 @type integer @repetitions/allow 0 @range/bounds 0 7 @range/clipmode low @description \"Select stream in S/GDIF file\""
 				}
 
 			}
@@ -101,7 +101,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 494.0, 267.0, 429.0, 31.0 ],
-					"text" : "jcom.parameter stream2 @type msg_int @repetitions/allow 0 @range/bounds 0 7 @range/clipmode low @description \"Select stream in S/GDIF file\""
+					"text" : "jcom.parameter stream2 @type integer @repetitions/allow 0 @range/bounds 0 7 @range/clipmode low @description \"Select stream in S/GDIF file\""
 				}
 
 			}
@@ -116,7 +116,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 494.0, 226.0, 429.0, 31.0 ],
-					"text" : "jcom.parameter stream1 @type msg_int @repetitions/allow 0 @range/bounds 0 7 @range/clipmode low @description \"Select stream in S/GDIF file\""
+					"text" : "jcom.parameter stream1 @type integer @repetitions/allow 0 @range/bounds 0 7 @range/clipmode low @description \"Select stream in S/GDIF file\""
 				}
 
 			}
@@ -131,7 +131,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 494.0, 184.0, 429.0, 31.0 ],
-					"text" : "jcom.parameter stream0 @type msg_int @repetitions/allow 0 @range/bounds 0 7 @range/clipmode low @description \"Select stream in S/GDIF file\""
+					"text" : "jcom.parameter stream0 @type integer @repetitions/allow 0 @range/bounds 0 7 @range/clipmode low @description \"Select stream in S/GDIF file\""
 				}
 
 			}
@@ -6284,7 +6284,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 420.0, 106.0, 366.0, 31.0 ],
-					"text" : "jcom.message typeDeclarationsFile @type msg_symbol @description \"full path of text file containing stream type declarations\"",
+					"text" : "jcom.message typeDeclarationsFile @type string @description \"full path of text file containing stream type declarations\"",
 					"varname" : "jalg.sdif.player[1]"
 				}
 
@@ -6402,7 +6402,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 25.0, 366.0, 275.0, 31.0 ],
-					"text" : "jcom.parameter verbose @type msg_toggle @description \"Print script messages to Max window\"",
+					"text" : "jcom.parameter verbose @type boolean @description \"Print script messages to Max window\"",
 					"varname" : "print"
 				}
 
@@ -6430,7 +6430,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 27.0, 503.0, 259.0, 31.0 ],
-					"text" : "jcom.message file @type msg_symbol @description \"full path of sdif file to record\"",
+					"text" : "jcom.message file @type string @description \"full path of sdif file to record\"",
 					"varname" : "jalg.sdif.player[5]"
 				}
 
@@ -6478,7 +6478,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 25.0, 437.0, 234.0, 31.0 ],
-					"text" : "jcom.parameter record @type msg_toggle @description \"Start/Stop recording\"",
+					"text" : "jcom.parameter record @type boolean @description \"Start/Stop recording\"",
 					"varname" : "record"
 				}
 
@@ -6508,7 +6508,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 25.0, 288.0, 293.0, 31.0 ],
-					"text" : "jcom.parameter streamcount @type msg_int @description \"Number of streams to be recorded\"",
+					"text" : "jcom.parameter streamcount @type integer @description \"Number of streams to be recorded\"",
 					"varname" : "streamcount[1]"
 				}
 

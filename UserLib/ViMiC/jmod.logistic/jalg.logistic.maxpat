@@ -74,7 +74,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return output @enable 0 @repetitions/allow 1 @type msg_float",
+					"text" : "jcom.return output @enable 0 @repetitions/allow 1 @type decimal",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"fontname" : "Arial",

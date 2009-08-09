@@ -410,7 +410,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 595.0, 650.0, 232.0, 27.0 ],
-					"text" : "jcom.parameter record/input @type msg_list @description \"Select the input to record.\"",
+					"text" : "jcom.parameter record/input @type array @description \"Select the input to record.\"",
 					"varname" : "jmod.parameter.mxb[16]"
 				}
 
@@ -546,7 +546,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 385.0, 222.0, 154.0, 27.0 ],
-					"text" : "jcom.parameter sound/enveloppe @type msg_symbol @priority 31",
+					"text" : "jcom.parameter sound/enveloppe @type string @priority 31",
 					"varname" : "sample/buffername[3]"
 				}
 
@@ -612,7 +612,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 495.0, 713.0, 385.0, 17.0 ],
-					"text" : "jcom.parameter record/active @type msg_int @description \"Start and stop to record.\"",
+					"text" : "jcom.parameter record/active @type integer @description \"Start and stop to record.\"",
 					"varname" : "jmod.parameter.mxb[17]"
 				}
 
@@ -708,7 +708,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 145.0, 663.0, 279.0, 38.0 ],
-					"text" : "jcom.parameter density @type msg_float @range/bounds 0. 512. @range/clipmode both @ramp/function linear @repetitions/allow 0 @description \"desired grain density\" @priority 24",
+					"text" : "jcom.parameter density @type decimal @range/bounds 0. 512. @range/clipmode both @ramp/function linear @repetitions/allow 0 @description \"desired grain density\" @priority 24",
 					"varname" : "dispstart[1]"
 				}
 
@@ -723,7 +723,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 275.0, 420.0, 242.0, 19.0 ],
-					"text" : "jcom.parameter currentBuffer @type msg_list"
+					"text" : "jcom.parameter currentBuffer @type array"
 				}
 
 			}
@@ -763,7 +763,7 @@
 						"name" : "delay/jit",
 						"dataspace" : "time",
 						"ramp/drive" : "scheduler",
-						"type" : "msg_float",
+						"type" : "decimal",
 						"range/bounds" : [ 0.0, 1.0 ],
 						"ramp/function" : "linear",
 						"range/clipmode" : "low"
@@ -1350,7 +1350,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 599.0, 105.0, 286.0, 17.0 ],
-					"text" : "jcom.parameter sound/buffer @type msg_list @priority 3",
+					"text" : "jcom.parameter sound/buffer @type array @priority 3",
 					"varname" : "sample/buffername[2]"
 				}
 
@@ -1421,7 +1421,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 135.0, 618.0, 252.0, 38.0 ],
-					"text" : "jcom.parameter continuous @type msg_int @repetitions/allow 1 @description \"One shot/ continuous play mode.\" @priority 28",
+					"text" : "jcom.parameter continuous @type integer @repetitions/allow 1 @description \"One shot/ continuous play mode.\" @priority 28",
 					"varname" : "jmod.parameter.mxb[5]"
 				}
 
@@ -1432,7 +1432,7 @@
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
 						"ramp/drive" : "scheduler",
-						"type" : "msg_float",
+						"type" : "decimal",
 						"ramp/function" : "linear",
 						"priority" : 4,
 						"range/clipmode" : "both"
@@ -1492,7 +1492,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 310.0, 390.0, 232.0, 19.0 ],
-					"text" : "jcom.parameter buffersize @type msg_float"
+					"text" : "jcom.parameter buffersize @type decimal"
 				}
 
 			}
@@ -5423,7 +5423,7 @@
 						"name" : "pitch",
 						"repetitions/allow" : 0,
 						"ramp/drive" : "scheduler",
-						"type" : "msg_float",
+						"type" : "decimal",
 						"range/bounds" : [ 0.0, 1.0 ],
 						"ramp/function" : "linear",
 						"range/clipmode" : "none"
@@ -5830,7 +5830,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 497.0, 43.0, 293.0, 17.0 ],
-					"text" : "jcom.parameter sound/folder @type msg_list @priority 2",
+					"text" : "jcom.parameter sound/folder @type array @priority 2",
 					"varname" : "sample/buffername[1]"
 				}
 
@@ -5889,7 +5889,7 @@
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
 						"ramp/drive" : "scheduler",
-						"type" : "msg_float",
+						"type" : "decimal",
 						"range/bounds" : [ 0.0, 1.0 ],
 						"ramp/function" : "linear",
 						"range/clipmode" : "low"
@@ -5915,7 +5915,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 574.0, 390.0, 255.0, 19.0 ],
-					"text" : "jcom.parameter length @type msg_int"
+					"text" : "jcom.parameter length @type integer"
 				}
 
 			}
@@ -6335,7 +6335,7 @@
 										"name" : "delay",
 										"dataspace" : "time",
 										"ramp/drive" : "scheduler",
-										"type" : "msg_int",
+										"type" : "integer",
 										"range/bounds" : [ 0.0, 10000.0 ],
 										"ramp/function" : "linear",
 										"range/clipmode" : "low"
@@ -6363,7 +6363,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 190.0, 40.0, 258.0, 17.0 ],
-									"text" : "jcom.parameter sound/bufferpool @type msg_list @priority 1",
+									"text" : "jcom.parameter sound/bufferpool @type array @priority 1",
 									"varname" : "sample/buffername[3]"
 								}
 
@@ -6429,7 +6429,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 140.0, 355.0, 280.0, 38.0 ],
-									"text" : "jcom.parameter density/jit @type msg_float @range/bounds 0. 512. @range/clipmode both @ramp/function linear @repetitions/allow 0 @description \"jitterr around grain density\" @priority 24",
+									"text" : "jcom.parameter density/jit @type decimal @range/bounds 0. 512. @range/clipmode both @ramp/function linear @repetitions/allow 0 @description \"jitterr around grain density\" @priority 24",
 									"varname" : "dispstart[2]"
 								}
 
@@ -6502,7 +6502,7 @@
 									"frozen_object_attributes" : 									{
 										"name" : "pitch/jit",
 										"ramp/drive" : "scheduler",
-										"type" : "msg_float",
+										"type" : "decimal",
 										"ramp/function" : "linear",
 										"range/clipmode" : "low"
 									}
@@ -6574,7 +6574,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 160.0, 320.0, 230.0, 19.0 ],
-									"text" : "jcom.parameter amp/jit @type msg_float"
+									"text" : "jcom.parameter amp/jit @type decimal"
 								}
 
 							}
@@ -6622,7 +6622,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 159.0, 300.0, 205.0, 19.0 ],
-									"text" : "jcom.parameter amp @type msg_float"
+									"text" : "jcom.parameter amp @type decimal"
 								}
 
 							}

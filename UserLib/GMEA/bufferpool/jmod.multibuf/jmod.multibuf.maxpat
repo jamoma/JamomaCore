@@ -132,7 +132,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "hue_angle[4]",
-					"text" : "jcom.parameter mono @repetitions/allow 1 @type msg_toggle @description \"load only 1rst channel of each sound file\" @priority 1",
+					"text" : "jcom.parameter mono @repetitions/allow 1 @type boolean @description \"load only 1rst channel of each sound file\" @priority 1",
 					"linecount" : 2,
 					"id" : "obj-57",
 					"numinlets" : 1,
@@ -393,7 +393,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "hue_angle",
-					"text" : "jcom.parameter buffers_list @repetitions/allow 1 @type msg_list @description \"list of buffers\" @priority 2",
+					"text" : "jcom.parameter buffers_list @repetitions/allow 1 @type array @description \"list of buffers\" @priority 2",
 					"linecount" : 2,
 					"id" : "obj-29",
 					"numinlets" : 1,

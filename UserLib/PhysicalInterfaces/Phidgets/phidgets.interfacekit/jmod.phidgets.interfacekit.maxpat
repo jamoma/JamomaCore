@@ -97,7 +97,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 453.0, 213.0, 580.0, 28.0 ],
-					"text" : "jcom.parameter output/digital @type msg_list @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Turn the digital outputs on and off.\" @value/default 1 1 1 1 1 1 1 1",
+					"text" : "jcom.parameter output/digital @type array @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Turn the digital outputs on and off.\" @value/default 1 1 1 1 1 1 1 1",
 					"varname" : "output/digital"
 				}
 
@@ -129,7 +129,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 458.0, 143.0, 414.0, 39.0 ],
-					"text" : "jcom.parameter updaterate @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1 1000 @range/clipmode low @description \"Sample rate\" @dataspace time @dataspace/unit/active Hz @dataspace/unit/native Hz @dataspace/unit/display Hz",
+					"text" : "jcom.parameter updaterate @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1 1000 @range/clipmode low @description \"Sample rate\" @dataspace time @dataspace/unit/active Hz @dataspace/unit/native Hz @dataspace/unit/display Hz",
 					"varname" : "sample_rate[1]"
 				}
 
@@ -146,7 +146,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 460.0, 105.0, 270.0, 28.0 ],
-					"text" : "jcom.message init @type msg_generic @range/clipmode none @description \"Initialization of devices\"",
+					"text" : "jcom.message init @type generic @range/clipmode none @description \"Initialization of devices\"",
 					"varname" : "jcom.parameter[3]"
 				}
 
@@ -163,7 +163,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 461.0, 72.0, 260.0, 28.0 ],
-					"text" : "jcom.parameter active @type msg_toggle @range/clipmode none @description \"Turn polling on\"",
+					"text" : "jcom.parameter active @type boolean @range/clipmode none @description \"Turn polling on\"",
 					"varname" : "status[2]"
 				}
 

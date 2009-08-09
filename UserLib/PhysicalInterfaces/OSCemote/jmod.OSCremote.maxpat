@@ -443,7 +443,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 510.0, 90.0, 570.0, 43.0 ],
-					"text" : "jcom.parameter port @type msg_int @range/bounds 0 65535 @range/clipmode both @ramp/drive none @description \"UPD port that the module is receiving OSC messages at from the iPhone/iPod touch OSCremote application.\""
+					"text" : "jcom.parameter port @type integer @range/bounds 0 65535 @range/clipmode both @ramp/drive none @description \"UPD port that the module is receiving OSC messages at from the iPhone/iPod touch OSCremote application.\""
 				}
 
 			}

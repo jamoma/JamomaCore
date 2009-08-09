@@ -289,7 +289,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 201.0, 401.0, 404.0, 18.0 ],
-					"text" : "jcom.parameter mute.n @type msg_toggle @description \"spectral respect in tone cents\""
+					"text" : "jcom.parameter mute.n @type boolean @description \"spectral respect in tone cents\""
 				}
 
 			}
@@ -463,7 +463,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 252.0, 216.0, 382.0, 29.0 ],
-					"text" : "jcom.parameter respect.n @type msg_int @range/bounds -120 120 @ramp/drive scheduler @description \"transposition in tone cents\""
+					"text" : "jcom.parameter respect.n @type integer @range/bounds -120 120 @ramp/drive scheduler @description \"transposition in tone cents\""
 				}
 
 			}
@@ -637,7 +637,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 222.0, 302.0, 382.0, 29.0 ],
-					"text" : "jcom.parameter volume.n @type msg_int @range/bounds 0 100 @ramp/drive scheduler @description \"spectral respect in tone cents\""
+					"text" : "jcom.parameter volume.n @type integer @range/bounds 0 100 @ramp/drive scheduler @description \"spectral respect in tone cents\""
 				}
 
 			}
@@ -652,7 +652,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 332.0, 112.0, 382.0, 29.0 ],
-					"text" : "jcom.parameter transpose.n @type msg_int @range/bounds -120 120 @ramp/drive scheduler @description \"transposition in tone cents\""
+					"text" : "jcom.parameter transpose.n @type integer @range/bounds -120 120 @ramp/drive scheduler @description \"transposition in tone cents\""
 				}
 
 			}

@@ -226,7 +226,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 170.0, 233.0, 120.0, 100.0 ],
-									"text" : "jcom.parameter pause_ambitus/deviation @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"deviated pause time for random modulation. (fragmented mode only).\"",
+									"text" : "jcom.parameter pause_ambitus/deviation @type decimal @range/bounds 0. 1. @range/clipmode both @description \"deviated pause time for random modulation. (fragmented mode only).\"",
 									"varname" : "jmod.parameter.mxb[1]"
 								}
 
@@ -243,7 +243,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 43.0, 233.0, 113.0, 100.0 ],
-									"text" : "jcom.parameter pause_ambitus/center @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"Center pause time for random modulation. (fragmented mode only)\"",
+									"text" : "jcom.parameter pause_ambitus/center @type decimal @range/bounds 0. 1. @range/clipmode both @description \"Center pause time for random modulation. (fragmented mode only)\"",
 									"varname" : "jmod.parameter.mxb[11]"
 								}
 
@@ -718,7 +718,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 172.0, 234.0, 109.0, 89.0 ],
-									"text" : "jcom.parameter time_ambitus/deviation @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"deviated time for random modulation.\"",
+									"text" : "jcom.parameter time_ambitus/deviation @type decimal @range/bounds 0. 1. @range/clipmode both @description \"deviated time for random modulation.\"",
 									"varname" : "jmod.parameter.mxb[1]"
 								}
 
@@ -735,7 +735,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 42.0, 234.0, 111.0, 89.0 ],
-									"text" : "jcom.parameter time_ambitus/center @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"Center time for random modulation.\"",
+									"text" : "jcom.parameter time_ambitus/center @type decimal @range/bounds 0. 1. @range/clipmode both @description \"Center time for random modulation.\"",
 									"varname" : "jmod.parameter.mxb[11]"
 								}
 
@@ -1074,7 +1074,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 555.0, 280.0, 354.0, 27.0 ],
-					"text" : "jcom.parameter hardness @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"The hardness of the fragmentatoin slope(only in frag mode).\"",
+					"text" : "jcom.parameter hardness @type decimal @range/bounds 0. 1. @range/clipmode both @description \"The hardness of the fragmentatoin slope(only in frag mode).\"",
 					"varname" : "jmod.parameter.mxb[18]"
 				}
 
@@ -1091,7 +1091,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 549.0, 88.0, 326.0, 27.0 ],
-					"text" : "jcom.parameter mode @type msg_int @description \"Select dynamic modulation mode to use (fluctuant or fragmented).\"",
+					"text" : "jcom.parameter mode @type integer @description \"Select dynamic modulation mode to use (fluctuant or fragmented).\"",
 					"varname" : "mod_mode"
 				}
 
@@ -1244,7 +1244,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 170.0, 233.0, 400.0, 38.0 ],
-									"text" : "jcom.parameter volume_ambitus/deviation @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"Select min and max value of volume for random modulation.\"",
+									"text" : "jcom.parameter volume_ambitus/deviation @type decimal @range/bounds 0. 1. @range/clipmode both @description \"Select min and max value of volume for random modulation.\"",
 									"varname" : "jmod.parameter.mxb[1]"
 								}
 
@@ -1261,7 +1261,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 36.0, 298.0, 446.0, 27.0 ],
-									"text" : "jcom.parameter volume_ambitus/center @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"Center volume for random modulation.\"",
+									"text" : "jcom.parameter volume_ambitus/center @type decimal @range/bounds 0. 1. @range/clipmode both @description \"Center volume for random modulation.\"",
 									"varname" : "jmod.parameter.mxb[11]"
 								}
 

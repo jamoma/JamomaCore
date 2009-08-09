@@ -122,7 +122,7 @@
 									"frozen_object_attributes" : 									{
 										"dataspace/unit/active" : "none",
 										"name" : "dimensions",
-										"type" : "msg_int",
+										"type" : "integer",
 										"priority" : 1,
 										"dataspace" : "none",
 										"ramp/drive" : "none",
@@ -149,7 +149,7 @@
 									"frozen_object_attributes" : 									{
 										"dataspace/unit/active" : "none",
 										"name" : "rolloff",
-										"type" : "msg_float",
+										"type" : "decimal",
 										"priority" : 3,
 										"dataspace" : "none",
 										"ramp/drive" : "none",
@@ -291,7 +291,7 @@
 									"fontsize" : 10.0,
 									"frozen_object_attributes" : 									{
 										"name" : "info",
-										"type" : "msg_none",
+										"type" : "none",
 										"description" : "Get info on current positions of sources and speakers"
 									}
 ,
@@ -877,7 +877,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 364.0, 16.0, 606.0, 31.0 ],
-									"text" : "jcom.parameter channels @repetitions/allow 0 @type msg_int @range/bounds 0 32 @range/clipmode both @priority 1 @description \"Number of channels to display.\"",
+									"text" : "jcom.parameter channels @repetitions/allow 0 @type integer @range/bounds 0 32 @range/clipmode both @priority 1 @description \"Number of channels to display.\"",
 									"varname" : "voices"
 								}
 
@@ -922,7 +922,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 439.0, 281.0, 351.0, 19.0 ],
-									"text" : "jcom.message clear @type msg_none @description \"clears meters\""
+									"text" : "jcom.message clear @type none @description \"clears meters\""
 								}
 
 							}
@@ -3342,7 +3342,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 555.0, 503.0, 456.0, 19.0 ],
-									"text" : "jcom.parameter audio/active @type msg_toggle @description \"Toggle audio on and off.\"",
+									"text" : "jcom.parameter audio/active @type boolean @description \"Toggle audio on and off.\"",
 									"varname" : "audio[1]"
 								}
 
@@ -3371,7 +3371,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 555.0, 540.0, 518.0, 20.0 ],
-									"text" : "jcom.message audio/panic @type msg_none @description \"Panic: Stop audio immediately.\""
+									"text" : "jcom.message audio/panic @type none @description \"Panic: Stop audio immediately.\""
 								}
 
 							}
@@ -3562,7 +3562,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 290.0, 425.0, 319.0, 31.0 ],
-													"text" : "jcom.parameter setup @type msg_list @description \"List of output channels that multicable signal is routed to.\"",
+													"text" : "jcom.parameter setup @type array @description \"List of output channels that multicable signal is routed to.\"",
 													"varname" : "setup"
 												}
 
@@ -5043,7 +5043,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 585.0, 220.0, 479.0, 19.0 ],
-									"text" : "jcom.parameter limiter/active @type msg_toggle @description \"Limiter: Active or bypassed.\"",
+									"text" : "jcom.parameter limiter/active @type boolean @description \"Limiter: Active or bypassed.\"",
 									"varname" : "limiter/active"
 								}
 
@@ -5111,7 +5111,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 585.0, 50.0, 581.0, 31.0 ],
-									"text" : "jcom.parameter numSpeakers @type msg_int @repetitions/allow 0 @range/bounds 2 32 @range/clipmode both @description \"Set number of output channels to use. Changes only take effect when audio is off.\"",
+									"text" : "jcom.parameter numSpeakers @type integer @repetitions/allow 0 @range/bounds 2 32 @range/clipmode both @description \"Set number of output channels to use. Changes only take effect when audio is off.\"",
 									"varname" : "voices"
 								}
 
@@ -5356,7 +5356,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 370.0, 440.0, 283.0, 31.0 ],
-													"text" : "jcom.parameter record/filetype @type msg_symbol @description \"Recording: Set file type for sound files.\"",
+													"text" : "jcom.parameter record/filetype @type string @description \"Recording: Set file type for sound files.\"",
 													"varname" : "record/filetype"
 												}
 
@@ -5551,7 +5551,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 370.0, 100.0, 333.0, 31.0 ],
-													"text" : "jcom.parameter limiter/mode @type msg_symbol @description \"Limiter: Set the function to be used for calculating the scaling.\"",
+													"text" : "jcom.parameter limiter/mode @type string @description \"Limiter: Set the function to be used for calculating the scaling.\"",
 													"varname" : "limiter/mode"
 												}
 
@@ -5567,7 +5567,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 370.0, 55.0, 440.0, 31.0 ],
-													"text" : "jcom.parameter limiter/threshold @ramp/drive scheduler @range/bounds -24 48 @range/clipmode none @type msg_float @description \"Limiter: Set threshold as dB.\"",
+													"text" : "jcom.parameter limiter/threshold @ramp/drive scheduler @range/bounds -24 48 @range/clipmode none @type decimal @description \"Limiter: Set threshold as dB.\"",
 													"varname" : "limiter/threshold"
 												}
 
@@ -5599,7 +5599,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 370.0, 320.0, 462.0, 31.0 ],
-													"text" : "jcom.parameter limiter/release @ramp/drive scheduler @type msg_float @range/bounds 0 3000 @range/clipmode low @description \"Limiter: Set release time as ms.\"",
+													"text" : "jcom.parameter limiter/release @ramp/drive scheduler @type decimal @range/bounds 0 3000 @range/clipmode low @description \"Limiter: Set release time as ms.\"",
 													"varname" : "limiter/release"
 												}
 
@@ -5615,7 +5615,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 370.0, 190.0, 513.0, 31.0 ],
-													"text" : "jcom.parameter limiter/lookahead @ramp/drive scheduler @range/bounds 0 256 @range/clipmode both @type msg_int @description \"Limiter: The number of samples to look ahead.\"",
+													"text" : "jcom.parameter limiter/lookahead @ramp/drive scheduler @range/bounds 0 256 @range/clipmode both @type integer @description \"Limiter: The number of samples to look ahead.\"",
 													"varname" : "limiter/lookahead"
 												}
 
@@ -5631,7 +5631,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 370.0, 145.0, 417.0, 31.0 ],
-													"text" : "jcom.parameter limiter/postamp @ramp/drive scheduler @range/bounds -24 48 @range/clipmode none @type msg_float @description \"Limiter: Postamp as dB.\"",
+													"text" : "jcom.parameter limiter/postamp @ramp/drive scheduler @range/bounds -24 48 @range/clipmode none @type decimal @description \"Limiter: Postamp as dB.\"",
 													"varname" : "limiter/postamp"
 												}
 
@@ -5647,7 +5647,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 370.0, 275.0, 411.0, 31.0 ],
-													"text" : "jcom.parameter limiter/preamp @ramp/drive scheduler @range/bounds 0 48 @range/clipmode none @type msg_float @description \"Limiter: Preamp as dB.\"",
+													"text" : "jcom.parameter limiter/preamp @ramp/drive scheduler @range/bounds 0 48 @range/clipmode none @type decimal @description \"Limiter: Preamp as dB.\"",
 													"varname" : "limiter/preamp"
 												}
 
@@ -5679,7 +5679,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 370.0, 485.0, 304.0, 31.0 ],
-													"text" : "jcom.parameter record/samptype @type msg_symbol @description \"Recording: Set sample type for sound files.\"",
+													"text" : "jcom.parameter record/samptype @type string @description \"Recording: Set sample type for sound files.\"",
 													"varname" : "record/samptype"
 												}
 
@@ -6067,7 +6067,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 370.0, 240.0, 552.0, 19.0 ],
-													"text" : "jcom.parameter limiter/dcblocker/active @type msg_toggle @description \"DC Blocker: Active or bypassed.\"",
+													"text" : "jcom.parameter limiter/dcblocker/active @type boolean @description \"DC Blocker: Active or bypassed.\"",
 													"varname" : "limiter/active[1]"
 												}
 
@@ -6355,7 +6355,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 585.0, 260.0, 543.0, 43.0 ],
-									"text" : "jcom.message record/active @type msg_generic @repetitions/allow 1 @description \"record to a sound file, a value of 1 opens save-as dialog and will start recording afterwards; a string value will start the recording and will save the recording under the provided  string; a value of 0 stops recording\"",
+									"text" : "jcom.message record/active @type generic @repetitions/allow 1 @description \"record to a sound file, a value of 1 opens save-as dialog and will start recording afterwards; a string value will start the recording and will save the recording under the provided  string; a value of 0 stops recording\"",
 									"varname" : "record"
 								}
 
@@ -6443,7 +6443,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 585.0, 170.0, 539.0, 31.0 ],
-									"text" : "jcom.parameter offset @type msg_int @repetitions/allow 0 @range/bounds 0 64 @range/clipmode both @description \"Set channel offset for the multicable. Changes only take effect when audio is off.\"",
+									"text" : "jcom.parameter offset @type integer @repetitions/allow 0 @range/bounds 0 64 @range/clipmode both @description \"Set channel offset for the multicable. Changes only take effect when audio is off.\"",
 									"varname" : "offset"
 								}
 

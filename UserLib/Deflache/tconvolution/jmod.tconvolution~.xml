@@ -5,25 +5,25 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='IR.1/gain' type='msg_float' priority='0'>0</item>
-    <item name='IR.1/reverse' type='msg_toggle' priority='0'>0</item>
-    <item name='IR.2/gain' type='msg_float' priority='0'>0</item>
-    <item name='IR.2/reverse' type='msg_toggle' priority='0'>0</item>
-    <item name='IR.3/gain' type='msg_float' priority='0'>0</item>
-    <item name='IR.3/reverse' type='msg_toggle' priority='0'>0</item>
-    <item name='IR.4/gain' type='msg_float' priority='0'>0</item>
-    <item name='IR.4/reverse' type='msg_toggle' priority='0'>0</item>
-    <item name='SegmentSize' type='msg_int' priority='0'>2048</item>
-    <item name='normalize' type='msg_toggle' priority='0'>1</item>
-    <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/gain' type='msg_float' priority='0'>100</item>
-    <item name='audio/mix' type='msg_float' priority='0'>100</item>
-    <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='channels' type='msg_int' priority='4'>2</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
+    <item name='IR.1/gain' type='decimal' priority='0'>0</item>
+    <item name='IR.1/reverse' type='boolean' priority='0'>0</item>
+    <item name='IR.2/gain' type='decimal' priority='0'>0</item>
+    <item name='IR.2/reverse' type='boolean' priority='0'>0</item>
+    <item name='IR.3/gain' type='decimal' priority='0'>0</item>
+    <item name='IR.3/reverse' type='boolean' priority='0'>0</item>
+    <item name='IR.4/gain' type='decimal' priority='0'>0</item>
+    <item name='IR.4/reverse' type='boolean' priority='0'>0</item>
+    <item name='SegmentSize' type='integer' priority='0'>2048</item>
+    <item name='normalize' type='boolean' priority='0'>1</item>
+    <item name='audio/bypass' type='boolean' priority='0'>0</item>
+    <item name='audio/gain' type='decimal' priority='0'>100</item>
+    <item name='audio/mix' type='decimal' priority='0'>100</item>
+    <item name='audio/mute' type='boolean' priority='0'>0</item>
+    <item name='channels' type='integer' priority='4'>2</item>
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/color/border' type='array' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
   </preset>
 </jamoma>

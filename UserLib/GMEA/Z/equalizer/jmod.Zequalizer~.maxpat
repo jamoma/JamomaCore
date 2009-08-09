@@ -281,7 +281,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "max_bands",
-									"text" : "t max_bands @type msg_int @range/bounds 1 24 @range/clipmode both @repetitions/allow 0 @ramp/drive none @description \"Maximum Number of bands of the filter\"",
+									"text" : "t max_bands @type integer @range/bounds 1 24 @range/clipmode both @repetitions/allow 0 @ramp/drive none @description \"Maximum Number of bands of the filter\"",
 									"linecount" : 3,
 									"id" : "obj-8",
 									"fontname" : "Verdana",
@@ -289,7 +289,7 @@
 									"numinlets" : 1,
 									"fontsize" : 9.873845,
 									"numoutlets" : 14,
-									"outlettype" : [ "max_bands", "@type", "msg_int", "@range/bounds", "int", "int", "@range/clipmode", "both", "@repetitions/allow", "int", "@ramp/drive", "none", "@description", "Maximum Number of bands of the filter" ],
+									"outlettype" : [ "max_bands", "@type", "integer", "@range/bounds", "int", "int", "@range/clipmode", "both", "@repetitions/allow", "int", "@ramp/drive", "none", "@description", "Maximum Number of bands of the filter" ],
 									"patching_rect" : [ 405.0, 238.0, 341.0, 42.0 ]
 								}
 
@@ -545,7 +545,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "bands",
-					"text" : "jcom.parameter bands @type msg_int @repetitions/allow 1 @priority 1 @description \"Number of bands of the filter\"",
+					"text" : "jcom.parameter bands @type integer @repetitions/allow 1 @priority 1 @description \"Number of bands of the filter\"",
 					"linecount" : 2,
 					"id" : "obj-12",
 					"fontname" : "Verdana",

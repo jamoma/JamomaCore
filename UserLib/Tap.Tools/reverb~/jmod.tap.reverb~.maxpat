@@ -128,7 +128,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 430.0, 310.0, 585.0, 43.0 ],
-					"text" : "jcom.parameter damping @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
+					"text" : "jcom.parameter damping @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
 					"varname" : "damping"
 				}
 
@@ -196,7 +196,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 430.0, 160.0, 582.0, 43.0 ],
-					"text" : "jcom.parameter lowpass @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
+					"text" : "jcom.parameter lowpass @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
 					"varname" : "lowpass"
 				}
 
@@ -264,7 +264,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 430.0, 60.0, 584.0, 43.0 ],
-					"text" : "jcom.parameter modfreq @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
+					"text" : "jcom.parameter modfreq @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
 					"varname" : "modfreq"
 				}
 
@@ -280,7 +280,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 430.0, 110.0, 593.0, 43.0 ],
-					"text" : "jcom.parameter moddepth @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
+					"text" : "jcom.parameter moddepth @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
 					"varname" : "moddepth"
 				}
 
@@ -346,7 +346,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 430.0, 260.0, 573.0, 43.0 ],
-					"text" : "jcom.parameter delay @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
+					"text" : "jcom.parameter delay @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
 					"varname" : "delay"
 				}
 
@@ -378,7 +378,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 430.0, 210.0, 573.0, 43.0 ],
-					"text" : "jcom.parameter decay @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
+					"text" : "jcom.parameter decay @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
 					"varname" : "decay"
 				}
 

@@ -1877,7 +1877,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 410.0, 48.0, 592.0, 31.0 ],
-					"text" : "jcom.parameter numAutoscalers @repetitions/allow 1 @type msg_int @range/bounds 0 32 @range/clipmode both @priority 1 @description \"Number of autoscalers\"",
+					"text" : "jcom.parameter numAutoscalers @repetitions/allow 1 @type integer @range/bounds 0 32 @range/clipmode both @priority 1 @description \"Number of autoscalers\"",
 					"varname" : "voices"
 				}
 

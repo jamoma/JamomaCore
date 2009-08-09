@@ -808,7 +808,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 318.0, 165.0, 312.0, 20.0 ],
-									"text" : "jcom.return nvt @repetitions/allow 1 @type msg_generic"
+									"text" : "jcom.return nvt @repetitions/allow 1 @type generic"
 								}
 
 							}

@@ -49,7 +49,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 57.0, 432.0, 285.0, 17.0 ],
-									"text" : "jcom.return analog.8 @type msg_int @enable 0 @repetitions/allow 0"
+									"text" : "jcom.return analog.8 @type integer @enable 0 @repetitions/allow 0"
 								}
 
 							}
@@ -63,7 +63,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 56.0, 389.0, 285.0, 17.0 ],
-									"text" : "jcom.return analog.7 @type msg_int @enable 0 @repetitions/allow 0"
+									"text" : "jcom.return analog.7 @type integer @enable 0 @repetitions/allow 0"
 								}
 
 							}
@@ -77,7 +77,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 54.0, 350.0, 285.0, 17.0 ],
-									"text" : "jcom.return analog.6 @type msg_int @enable 0 @repetitions/allow 0"
+									"text" : "jcom.return analog.6 @type integer @enable 0 @repetitions/allow 0"
 								}
 
 							}
@@ -91,7 +91,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 53.0, 308.0, 285.0, 17.0 ],
-									"text" : "jcom.return analog.5 @type msg_int @enable 0 @repetitions/allow 0"
+									"text" : "jcom.return analog.5 @type integer @enable 0 @repetitions/allow 0"
 								}
 
 							}
@@ -105,7 +105,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 52.0, 265.0, 285.0, 17.0 ],
-									"text" : "jcom.return analog.4 @type msg_int @enable 0 @repetitions/allow 0"
+									"text" : "jcom.return analog.4 @type integer @enable 0 @repetitions/allow 0"
 								}
 
 							}
@@ -119,7 +119,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 51.0, 222.0, 285.0, 17.0 ],
-									"text" : "jcom.return analog.3 @type msg_int @enable 0 @repetitions/allow 0"
+									"text" : "jcom.return analog.3 @type integer @enable 0 @repetitions/allow 0"
 								}
 
 							}
@@ -133,7 +133,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 50.0, 179.0, 285.0, 17.0 ],
-									"text" : "jcom.return analog.2 @type msg_int @enable 0 @repetitions/allow 0"
+									"text" : "jcom.return analog.2 @type integer @enable 0 @repetitions/allow 0"
 								}
 
 							}
@@ -147,7 +147,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 49.0, 136.0, 285.0, 17.0 ],
-									"text" : "jcom.return analog.1 @type msg_int @enable 0 @repetitions/allow 0"
+									"text" : "jcom.return analog.1 @type integer @enable 0 @repetitions/allow 0"
 								}
 
 							}
@@ -312,7 +312,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 51.0, 163.0, 208.0, 38.0 ],
-									"text" : "jcom.return digital.1 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both"
+									"text" : "jcom.return digital.1 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both"
 								}
 
 							}
@@ -327,7 +327,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 703.0, 164.0, 205.0, 38.0 ],
-									"text" : "jcom.return digital.7 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both"
+									"text" : "jcom.return digital.7 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both"
 								}
 
 							}
@@ -342,7 +342,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 586.0, 208.0, 205.0, 38.0 ],
-									"text" : "jcom.return digital.6 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both"
+									"text" : "jcom.return digital.6 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both"
 								}
 
 							}
@@ -357,7 +357,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 480.0, 164.0, 205.0, 38.0 ],
-									"text" : "jcom.return digital.5 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both"
+									"text" : "jcom.return digital.5 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both"
 								}
 
 							}
@@ -372,7 +372,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 371.0, 209.0, 205.0, 38.0 ],
-									"text" : "jcom.return digital.4 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both"
+									"text" : "jcom.return digital.4 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both"
 								}
 
 							}
@@ -387,7 +387,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 266.0, 163.0, 205.0, 38.0 ],
-									"text" : "jcom.return digital.3 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both"
+									"text" : "jcom.return digital.3 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both"
 								}
 
 							}
@@ -402,7 +402,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 817.0, 210.0, 205.0, 38.0 ],
-									"text" : "jcom.return digital.8 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both"
+									"text" : "jcom.return digital.8 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both"
 								}
 
 							}
@@ -417,7 +417,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 161.0, 210.0, 205.0, 38.0 ],
-									"text" : "jcom.return digital.2 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both"
+									"text" : "jcom.return digital.2 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both"
 								}
 
 							}

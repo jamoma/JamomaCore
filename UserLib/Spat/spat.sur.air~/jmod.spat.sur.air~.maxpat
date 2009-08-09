@@ -39,7 +39,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 500.0, 210.0, 603.0, 31.0 ],
-					"text" : "jcom.message.array 32 source position @type msg_list @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
+					"text" : "jcom.message.array 32 source position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
 				}
 
 			}
@@ -229,7 +229,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 500.0, 125.0, 606.0, 43.0 ],
-					"text" : "jcom.parameter numSources @type msg_int @ramp/drive none @repetitions/allow 1 @range/bounds 1 16 @range/clipmode both @description \"The number of audio channels that the ambisonic signal is diffused to. Changes only take effect when audio is off.\"",
+					"text" : "jcom.parameter numSources @type integer @ramp/drive none @repetitions/allow 1 @range/bounds 1 16 @range/clipmode both @description \"The number of audio channels that the ambisonic signal is diffused to. Changes only take effect when audio is off.\"",
 					"varname" : "jcom.parameter[2]"
 				}
 

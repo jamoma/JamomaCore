@@ -5,9 +5,9 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='ctrl/nbr' type='msg_int' priority='0'>0</item>
-    <item name='threshold' type='msg_float' priority='0'>0</item>
-    <item name='trigger/thresvalues' type='msg_list' priority='0'>0</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='ctrl/nbr' type='integer' priority='0'>0</item>
+    <item name='threshold' type='decimal' priority='0'>0</item>
+    <item name='trigger/thresvalues' type='array' priority='0'>0</item>
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

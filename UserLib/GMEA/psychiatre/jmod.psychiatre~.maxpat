@@ -371,7 +371,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 695.0, 100.0, 382.0, 29.0 ],
-					"text" : "jcom.parameter respect @type msg_int @range/bounds -120 120 @ramp/drive scheduler @description \"spectral respect in tone cents\""
+					"text" : "jcom.parameter respect @type integer @range/bounds -120 120 @ramp/drive scheduler @description \"spectral respect in tone cents\""
 				}
 
 			}
@@ -386,7 +386,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 695.0, 35.0, 382.0, 29.0 ],
-					"text" : "jcom.parameter transpose @type msg_int @range/bounds -120 120 @ramp/drive scheduler @description \"transposition in tone cents\""
+					"text" : "jcom.parameter transpose @type integer @range/bounds -120 120 @ramp/drive scheduler @description \"transposition in tone cents\""
 				}
 
 			}
@@ -823,7 +823,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 569.0, 722.0, 567.0, 18.0 ],
-									"text" : "jcom.parameter randomness/granular @type msg_int @range/bounds 0 100 @range/clipmode both @ramp/drive scheduler"
+									"text" : "jcom.parameter randomness/granular @type integer @range/bounds 0 100 @range/clipmode both @ramp/drive scheduler"
 								}
 
 							}
@@ -837,7 +837,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 555.0, 693.0, 567.0, 18.0 ],
-									"text" : "jcom.parameter randomness/frequency @type msg_int @range/bounds 0 1000 @range/clipmode low @ramp/drive scheduler"
+									"text" : "jcom.parameter randomness/frequency @type integer @range/bounds 0 1000 @range/clipmode low @ramp/drive scheduler"
 								}
 
 							}
@@ -851,7 +851,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 550.0, 650.0, 541.0, 18.0 ],
-									"text" : "jcom.parameter interpolation/time @type msg_int @range/bounds 0 1000 @range/clipmode low @ramp/drive scheduler"
+									"text" : "jcom.parameter interpolation/time @type integer @range/bounds 0 1000 @range/clipmode low @ramp/drive scheduler"
 								}
 
 							}
@@ -866,7 +866,7 @@
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 550.0, 629.0, 515.0, 18.0 ],
 									"presentation_rect" : [ 550.0, 629.0, 0.0, 0.0 ],
-									"text" : "jcom.parameter period/max @type msg_int @range/bounds 0 1000 @range/clipmode low @ramp/drive scheduler"
+									"text" : "jcom.parameter period/max @type integer @range/bounds 0 1000 @range/clipmode low @ramp/drive scheduler"
 								}
 
 							}
@@ -880,7 +880,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 550.0, 610.0, 515.0, 18.0 ],
-									"text" : "jcom.parameter period/min @type msg_int @range/bounds 0 1000 @range/clipmode low @ramp/drive scheduler"
+									"text" : "jcom.parameter period/min @type integer @range/bounds 0 1000 @range/clipmode low @ramp/drive scheduler"
 								}
 
 							}
@@ -894,7 +894,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 550.0, 590.0, 520.0, 18.0 ],
-									"text" : "jcom.parameter pitch/transpose @type msg_int @range/bounds -120 120 @ramp/drive scheduler"
+									"text" : "jcom.parameter pitch/transpose @type integer @range/bounds -120 120 @ramp/drive scheduler"
 								}
 
 							}
@@ -908,7 +908,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 551.0, 569.0, 468.0, 18.0 ],
-									"text" : "jcom.message pitch/go @type msg_none @description \"launch pitch modulation\""
+									"text" : "jcom.message pitch/go @type none @description \"launch pitch modulation\""
 								}
 
 							}
@@ -922,7 +922,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 551.0, 547.0, 468.0, 18.0 ],
-									"text" : "jcom.parameter pitch/active @type msg_toggle @description \"switch pitch modulation on or off\""
+									"text" : "jcom.parameter pitch/active @type boolean @description \"switch pitch modulation on or off\""
 								}
 
 							}
@@ -936,7 +936,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 551.0, 495.0, 509.0, 18.0 ],
-									"text" : "jcom.parameter speed/min @type msg_float @range/bounds 0. 2. @range/clipmode low @ramp/drive scheduler"
+									"text" : "jcom.parameter speed/min @type decimal @range/bounds 0. 2. @range/clipmode low @ramp/drive scheduler"
 								}
 
 							}
@@ -950,7 +950,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 550.0, 475.0, 509.0, 18.0 ],
-									"text" : "jcom.parameter speed/min @type msg_float @range/bounds 0. 2. @range/clipmode low @ramp/drive scheduler"
+									"text" : "jcom.parameter speed/min @type decimal @range/bounds 0. 2. @range/clipmode low @ramp/drive scheduler"
 								}
 
 							}
@@ -964,7 +964,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 550.0, 452.0, 511.0, 18.0 ],
-									"text" : "jcom.parameter delay/max @type msg_int @range/bounds 0 1000 @range/clipmode low @ramp/drive scheduler"
+									"text" : "jcom.parameter delay/max @type integer @range/bounds 0 1000 @range/clipmode low @ramp/drive scheduler"
 								}
 
 							}
@@ -978,7 +978,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 550.0, 429.0, 468.0, 18.0 ],
-									"text" : "jcom.parameter temporal/active @type msg_toggle @description \"switch temporal modulation on or off\""
+									"text" : "jcom.parameter temporal/active @type boolean @description \"switch temporal modulation on or off\""
 								}
 
 							}

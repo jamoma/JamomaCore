@@ -1088,7 +1088,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "hue_angle[5]",
-					"text" : "jcom.parameter curve @repetitions/allow 0 @type msg_float @range/bounds -1. 1. @range/clipmode both @description \"Curve applied on scaling: <0 exponential, 0 linear, >0 logarithmic\"",
+					"text" : "jcom.parameter curve @repetitions/allow 0 @type decimal @range/bounds -1. 1. @range/clipmode both @description \"Curve applied on scaling: <0 exponential, 0 linear, >0 logarithmic\"",
 					"linecount" : 2,
 					"fontsize" : 10.0,
 					"patching_rect" : [ 882.0, 447.0, 554.0, 31.0 ],
@@ -1104,7 +1104,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "hue_angle[6]",
-					"text" : "jcom.parameter max @repetitions/allow 0 @type msg_float @description \"scale maximum\"",
+					"text" : "jcom.parameter max @repetitions/allow 0 @type decimal @description \"scale maximum\"",
 					"fontsize" : 10.0,
 					"patching_rect" : [ 882.0, 387.0, 472.0, 19.0 ],
 					"numinlets" : 1,
@@ -1119,7 +1119,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "hue_angle[7]",
-					"text" : "jcom.parameter min @repetitions/allow 0 @type msg_float @description \"scale minimum\"",
+					"text" : "jcom.parameter min @repetitions/allow 0 @type decimal @description \"scale minimum\"",
 					"fontsize" : 10.0,
 					"patching_rect" : [ 881.0, 349.0, 466.0, 19.0 ],
 					"numinlets" : 1,
@@ -1134,7 +1134,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "hue_angle[8]",
-					"text" : "jcom.message raw @repetitions/allow 1 @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"Dynamic input: 0-1. to be scaled to /value according to output range\"",
+					"text" : "jcom.message raw @repetitions/allow 1 @type decimal @range/bounds 0. 1. @range/clipmode both @description \"Dynamic input: 0-1. to be scaled to /value according to output range\"",
 					"linecount" : 2,
 					"fontsize" : 10.0,
 					"patching_rect" : [ 880.0, 268.0, 601.0, 31.0 ],
@@ -1150,7 +1150,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "hue_angle[9]",
-					"text" : "jcom.return value @repetitions/allow 1 @type msg_float @description \"Scaled value\"",
+					"text" : "jcom.return value @repetitions/allow 1 @type decimal @description \"Scaled value\"",
 					"fontsize" : 10.0,
 					"patching_rect" : [ 68.0, 583.0, 441.0, 19.0 ],
 					"numinlets" : 1,

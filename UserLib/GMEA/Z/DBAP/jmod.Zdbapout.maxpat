@@ -5244,7 +5244,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 529.0, 152.0, 569.0, 31.0 ],
-					"text" : "jcom.parameter numSpeakers @type msg_int @range/bounds 1 32 @range/clipmode both @description \"The number of  speakers.\" @priority 5",
+					"text" : "jcom.parameter numSpeakers @type integer @range/bounds 1 32 @range/clipmode both @description \"The number of  speakers.\" @priority 5",
 					"varname" : "voices[2]"
 				}
 
@@ -5295,7 +5295,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 529.0, 115.0, 597.0, 31.0 ],
-					"text" : "jcom.parameter numAux @type msg_int @range/bounds 1 32 @range/clipmode both @description \"The number of aux send.\" @priority 3",
+					"text" : "jcom.parameter numAux @type integer @range/bounds 1 32 @range/clipmode both @description \"The number of aux send.\" @priority 3",
 					"varname" : "voices[1]"
 				}
 
@@ -5341,7 +5341,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 530.0, 80.0, 593.0, 31.0 ],
-					"text" : "jcom.parameter rolloff @type msg_float @range/bounds 1 6 @range/clipmode low @description \"Rolloff in dB with doubling of distance.\" @priority 2",
+					"text" : "jcom.parameter rolloff @type decimal @range/bounds 1 6 @range/clipmode low @description \"Rolloff in dB with doubling of distance.\" @priority 2",
 					"varname" : "voices[3]"
 				}
 
@@ -5580,7 +5580,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 530.0, 45.0, 604.0, 31.0 ],
-					"text" : "jcom.parameter numSources @type msg_int @range/bounds 1 32 @range/clipmode both @description \"The number of sources to process.\" @priority 1",
+					"text" : "jcom.parameter numSources @type integer @range/bounds 1 32 @range/clipmode both @description \"The number of sources to process.\" @priority 1",
 					"varname" : "voices"
 				}
 

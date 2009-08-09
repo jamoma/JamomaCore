@@ -329,7 +329,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 50.0, 133.0, 450.0, 19.0 ],
-									"text" : "jcom.parameter lock @repetitions/allow 1 @type msg_int @value/default 0 @priority 3",
+									"text" : "jcom.parameter lock @repetitions/allow 1 @type integer @value/default 0 @priority 3",
 									"varname" : "parameter"
 								}
 
@@ -531,7 +531,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 147.0, 136.0, 321.0, 19.0 ],
-									"text" : "jcom.message reset @type msg_symbol @repetitions/allow 1",
+									"text" : "jcom.message reset @type string @repetitions/allow 1",
 									"varname" : "parameter[2]"
 								}
 
@@ -783,7 +783,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 50.0, 133.0, 461.0, 19.0 ],
-									"text" : "jcom.parameter exp @repetitions/allow 1 @type msg_float @value/default 1. @priority 3",
+									"text" : "jcom.parameter exp @repetitions/allow 1 @type decimal @value/default 1. @priority 3",
 									"varname" : "parameter"
 								}
 
@@ -988,7 +988,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 50.0, 133.0, 465.0, 19.0 ],
-									"text" : "jcom.parameter max @repetitions/allow 1 @type msg_float @value/default 1. @priority 3",
+									"text" : "jcom.parameter max @repetitions/allow 1 @type decimal @value/default 1. @priority 3",
 									"varname" : "parameter"
 								}
 
@@ -1241,7 +1241,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 50.0, 133.0, 467.0, 19.0 ],
-									"text" : "jcom.parameter min @repetitions/allow 1 @type msg_float @value/default -1. @priority 3",
+									"text" : "jcom.parameter min @repetitions/allow 1 @type decimal @value/default -1. @priority 3",
 									"varname" : "parameter"
 								}
 

@@ -5,12 +5,12 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='audio/gain' type='msg_float' priority='0'>100.000000</item>
-    <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='enveloppe/attack' type='msg_float' priority='30'>10.000000</item>
-    <item name='enveloppe/release' type='msg_float' priority='30'>128.000000</item>
-    <item name='inputname' type='msg_symbol' priority='31'>type in the name</item>
-    <item name='inputnumber' type='msg_int' priority='30'>1</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/gain' type='decimal' priority='0'>100.000000</item>
+    <item name='audio/mute' type='boolean' priority='0'>0</item>
+    <item name='enveloppe/attack' type='decimal' priority='30'>10.000000</item>
+    <item name='enveloppe/release' type='decimal' priority='30'>128.000000</item>
+    <item name='inputname' type='string' priority='31'>type in the name</item>
+    <item name='inputnumber' type='integer' priority='30'>1</item>
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

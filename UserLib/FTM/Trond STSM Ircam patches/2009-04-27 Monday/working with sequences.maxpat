@@ -1868,7 +1868,7 @@
 									"persistence" : 1,
 									"presentation_rect" : [ 395.0, 135.0, 139.352539, 18.15332 ],
 									"scope" : 0,
-									"serialized_objects" : [ [ "dict", 1 ], [ 1, "set", "msg_toggle", "number" ], [ 1, "set", "msg_list", "tuple" ], [ 1, "set", "msg_symbol", "symbol" ], [ 1, "set", "msg_float", "number" ], [ 1, "set", "msg_int", "number" ], [ 1, "set", "msg_generic", "tuple" ] ]
+									"serialized_objects" : [ [ "dict", 1 ], [ 1, "set", "boolean", "number" ], [ 1, "set", "array", "tuple" ], [ 1, "set", "string", "symbol" ], [ 1, "set", "decimal", "number" ], [ 1, "set", "integer", "number" ], [ 1, "set", "generic", "tuple" ] ]
 								}
 
 							}
@@ -3730,7 +3730,7 @@
 									"numoutlets" : 4,
 									"outlettype" : [ "bang", "bang", "bang", "" ],
 									"patching_rect" : [ 245.0, 355.0, 184.0, 19.0 ],
-									"text" : "sel msg_float msg_int msg_toggle"
+									"text" : "sel decimal integer boolean"
 								}
 
 							}

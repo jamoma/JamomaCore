@@ -1988,7 +1988,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 72.0, 335.0, 438.0, 30.0 ],
-													"text" : "jcom.parameter out/ramp @repetitions/allow 1 @type msg_float @description \"ramp time (sec.) for the value sent to output\"",
+													"text" : "jcom.parameter out/ramp @repetitions/allow 1 @type decimal @description \"ramp time (sec.) for the value sent to output\"",
 													"varname" : "out_value[3]"
 												}
 
@@ -2004,7 +2004,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 76.0, 409.0, 337.0, 30.0 ],
-													"text" : "jcom.parameter out/action @repetitions/allow 1 @type msg_int @description \"Destination module of the mapping\"",
+													"text" : "jcom.parameter out/action @repetitions/allow 1 @type integer @description \"Destination module of the mapping\"",
 													"varname" : "module_out_action[1]"
 												}
 
@@ -2034,7 +2034,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 80.0, 590.0, 312.0, 30.0 ],
-													"text" : "jcom.parameter out/value @repetitions/allow 1 @type msg_float @description \"value sent to output\"",
+													"text" : "jcom.parameter out/value @repetitions/allow 1 @type decimal @description \"value sent to output\"",
 													"varname" : "out_value[1]"
 												}
 
@@ -2050,7 +2050,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 79.0, 512.0, 312.0, 30.0 ],
-													"text" : "jcom.parameter out/message @repetitions/allow 1 @type msg_generic @description \"Message sent to output\"",
+													"text" : "jcom.parameter out/message @repetitions/allow 1 @type generic @description \"Message sent to output\"",
 													"varname" : "out_message[1]"
 												}
 
@@ -2101,7 +2101,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 80.0, 230.0, 394.0, 30.0 ],
-													"text" : "jcom.parameter out/module/function @repetitions/allow 1 @type msg_symbol @description \"Destination function of the mapping\" @priority 6",
+													"text" : "jcom.parameter out/module/function @repetitions/allow 1 @type string @description \"Destination function of the mapping\" @priority 6",
 													"varname" : "module_out_function"
 												}
 
@@ -2137,7 +2137,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 81.0, 169.0, 394.0, 30.0 ],
-													"text" : "jcom.parameter out/module/nr @repetitions/allow 1 @priority 4 @type msg_int @description \"Destination module instance of the mapping\"",
+													"text" : "jcom.parameter out/module/nr @repetitions/allow 1 @priority 4 @type integer @description \"Destination module instance of the mapping\"",
 													"varname" : "module_out_nr"
 												}
 
@@ -6068,7 +6068,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 215.0, 125.0, 401.0, 30.0 ],
-													"text" : "jcom.parameter out/module/name @repetitions/allow 1 @priority 3 @type msg_symbol @description \"Destination module name of the mapping\"",
+													"text" : "jcom.parameter out/module/name @repetitions/allow 1 @priority 3 @type string @description \"Destination module name of the mapping\"",
 													"varname" : "module_out[1]"
 												}
 
@@ -6424,7 +6424,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 400.0, 115.0, 165.0, 67.0 ],
-					"text" : "jcom.message mappingsWindow/open @repetitions/allow 1 @type msg_none @description \"Opens the mappings window\""
+					"text" : "jcom.message mappingsWindow/open @repetitions/allow 1 @type none @description \"Opens the mappings window\""
 				}
 
 			}
@@ -6536,7 +6536,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 55.0, 60.0, 264.0, 31.0 ],
-									"text" : "jcom.return modifiers @repetitions/allow 1 @type msg_int @description \" modifiers pressed\""
+									"text" : "jcom.return modifiers @repetitions/allow 1 @type integer @description \" modifiers pressed\""
 								}
 
 							}
@@ -6551,7 +6551,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 62.0, 143.0, 191.0, 43.0 ],
-									"text" : "jcom.return modifier/shift @type msg_toggle @range/bounds 0 1 @description \"Shift key pressed\""
+									"text" : "jcom.return modifier/shift @type boolean @range/bounds 0 1 @description \"Shift key pressed\""
 								}
 
 							}
@@ -6566,7 +6566,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 195.0, 250.0, 191.0, 43.0 ],
-									"text" : "jcom.return modifier/alt @type msg_toggle @range/bounds 0 1 @description \"Alt key pressed\""
+									"text" : "jcom.return modifier/alt @type boolean @range/bounds 0 1 @description \"Alt key pressed\""
 								}
 
 							}
@@ -6581,7 +6581,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 130.0, 200.0, 191.0, 43.0 ],
-									"text" : "jcom.return modifier/caps @type msg_toggle @range/bounds 0 1 @description \"Caps key pressed\""
+									"text" : "jcom.return modifier/caps @type boolean @range/bounds 0 1 @description \"Caps key pressed\""
 								}
 
 							}
@@ -6596,7 +6596,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 325.0, 200.0, 191.0, 43.0 ],
-									"text" : "jcom.return modifier/cmdFn @type msg_toggle @range/bounds 0 1 @description \"Cmd/Fn key pressed\""
+									"text" : "jcom.return modifier/cmdFn @type boolean @range/bounds 0 1 @description \"Cmd/Fn key pressed\""
 								}
 
 							}
@@ -6611,7 +6611,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 255.0, 145.0, 191.0, 43.0 ],
-									"text" : "jcom.return modifier/ctrl @type msg_toggle @range/bounds 0 1 @description \"Ctrl key pressed\""
+									"text" : "jcom.return modifier/ctrl @type boolean @range/bounds 0 1 @description \"Ctrl key pressed\""
 								}
 
 							}
@@ -6640,7 +6640,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 325.0, 60.0, 273.0, 31.0 ],
-									"text" : "jcom.return key @repetitions/allow 1 @type msg_int @description \" key pressed\""
+									"text" : "jcom.return key @repetitions/allow 1 @type integer @description \" key pressed\""
 								}
 
 							}

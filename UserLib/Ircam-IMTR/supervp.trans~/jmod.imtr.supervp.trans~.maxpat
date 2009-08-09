@@ -189,7 +189,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 415.0, 602.0, 31.0 ],
-					"text" : "jcom.parameter remix/noise_error @type msg_float @range/bounds 0. 1. @range/clipmode both @repetitions/allow 0 @description \"Noise error.\"",
+					"text" : "jcom.parameter remix/noise_error @type decimal @range/bounds 0. 1. @range/clipmode both @repetitions/allow 0 @description \"Noise error.\"",
 					"varname" : "hue_angle[7]"
 				}
 
@@ -239,7 +239,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 380.0, 592.0, 31.0 ],
-					"text" : "jcom.parameter remix/relax @type msg_float @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Relax coefficient.\"",
+					"text" : "jcom.parameter remix/relax @type decimal @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Relax coefficient.\"",
 					"varname" : "hue_angle[6]"
 				}
 
@@ -289,7 +289,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 330.0, 601.0, 43.0 ],
-					"text" : "jcom.parameter remix/transient @type msg_float @range/bounds 0. 1. @range/clipmode none @repetitions/allow 0 @dataspace gain @dataspace/unit/active db @dataspace/unit/native db @description \"Remixing of the transient component of the signal.\"",
+					"text" : "jcom.parameter remix/transient @type decimal @range/bounds 0. 1. @range/clipmode none @repetitions/allow 0 @dataspace gain @dataspace/unit/active db @dataspace/unit/native db @description \"Remixing of the transient component of the signal.\"",
 					"varname" : "hue_angle[5]"
 				}
 
@@ -339,7 +339,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 280.0, 583.0, 43.0 ],
-					"text" : "jcom.parameter remix/noise @type msg_float @range/bounds 0. 1. @range/clipmode none @repetitions/allow 0 @dataspace gain @dataspace/unit/active db @dataspace/unit/native db @description \"Remixing of the noise component of the signal.\"",
+					"text" : "jcom.parameter remix/noise @type decimal @range/bounds 0. 1. @range/clipmode none @repetitions/allow 0 @dataspace gain @dataspace/unit/active db @dataspace/unit/native db @description \"Remixing of the noise component of the signal.\"",
 					"varname" : "hue_angle[4]"
 				}
 
@@ -389,7 +389,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 230.0, 586.0, 43.0 ],
-					"text" : "jcom.parameter remix/sinus @type msg_float @range/bounds 0. 1. @range/clipmode none @repetitions/allow 0 @dataspace gain @dataspace/unit/active db @dataspace/unit/native db @description \"Remixing of the sinusodial component of the signal.\"",
+					"text" : "jcom.parameter remix/sinus @type decimal @range/bounds 0. 1. @range/clipmode none @repetitions/allow 0 @dataspace gain @dataspace/unit/active db @dataspace/unit/native db @description \"Remixing of the sinusodial component of the signal.\"",
 					"varname" : "hue_angle[3]"
 				}
 
@@ -439,7 +439,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 165.0, 593.0, 55.0 ],
-					"text" : "jcom.parameter spectral_envelope/max_freq @type msg_float @range/bounds -12. 12. @range/clipmode none @repetitions/allow 1 @dataspace pitch @dataspace/unit/active midi @dataspace/unit/native midi @description \"Maximal frequency for spectral envelope transposition. Keep max_freq just above the expected frequencies of the source signal - or use a pitch tracker.\"",
+					"text" : "jcom.parameter spectral_envelope/max_freq @type decimal @range/bounds -12. 12. @range/clipmode none @repetitions/allow 1 @dataspace pitch @dataspace/unit/active midi @dataspace/unit/native midi @description \"Maximal frequency for spectral envelope transposition. Keep max_freq just above the expected frequencies of the source signal - or use a pitch tracker.\"",
 					"varname" : "hue_angle[2]"
 				}
 
@@ -490,7 +490,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 115.0, 578.0, 43.0 ],
-					"text" : "jcom.parameter spectral_envelope/transpose @type msg_float @range/bounds -12. 12. @range/clipmode none @repetitions/allow 1 @dataspace pitch @dataspace/unit/active midi @dataspace/unit/native midi @description \"Transposition of spectral envelope.\"",
+					"text" : "jcom.parameter spectral_envelope/transpose @type decimal @range/bounds -12. 12. @range/clipmode none @repetitions/allow 1 @dataspace pitch @dataspace/unit/active midi @dataspace/unit/native midi @description \"Transposition of spectral envelope.\"",
 					"varname" : "hue_angle[1]"
 				}
 
@@ -540,7 +540,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 80.0, 590.0, 31.0 ],
-					"text" : "jcom.parameter transpose @type msg_float @range/bounds -12. 12. @range/clipmode none @repetitions/allow 1 @dataspace pitch @dataspace/unit/active midi @dataspace/unit/native midi @description \"Pitch transposition.\"",
+					"text" : "jcom.parameter transpose @type decimal @range/bounds -12. 12. @range/clipmode none @repetitions/allow 1 @dataspace pitch @dataspace/unit/active midi @dataspace/unit/native midi @description \"Pitch transposition.\"",
 					"varname" : "hue_angle"
 				}
 

@@ -259,7 +259,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 147.0, 136.0, 541.0, 31.0 ],
-									"text" : "jcom.message calibrate @type msg_int @repetitions/allow 1 @range/bounds 0 1 @range/clipmode both @value/default 0 @priority 3 @description \"Frequency of sine-demodulator\" @priority 3",
+									"text" : "jcom.message calibrate @type integer @repetitions/allow 1 @range/bounds 0 1 @range/clipmode both @value/default 0 @priority 3 @description \"Frequency of sine-demodulator\" @priority 3",
 									"varname" : "parameter[2]"
 								}
 
@@ -533,7 +533,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 147.0, 136.0, 582.0, 43.0 ],
-									"text" : "jcom.parameter cutoff @type msg_float @repetitions/allow 1 @range/bounds 0 48000 @range/clipmode both @value/default 300 @description \"cutoff-frequency of lowpass-filter (to remove high-frequency components and noise)\" @priority 3",
+									"text" : "jcom.parameter cutoff @type decimal @repetitions/allow 1 @range/bounds 0 48000 @range/clipmode both @value/default 300 @description \"cutoff-frequency of lowpass-filter (to remove high-frequency components and noise)\" @priority 3",
 									"varname" : "parameter[2]"
 								}
 
@@ -739,7 +739,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 79.0, 128.0, 601.0, 31.0 ],
-									"text" : "jcom.parameter xyz.2 @type msg_float @repetitions/allow 1 @range/bounds 0 1 @range/clipmode both @priority 3 @value/default 0. @priority 3 @description \"Initial phase of sine-demodulator\"",
+									"text" : "jcom.parameter xyz.2 @type decimal @repetitions/allow 1 @range/bounds 0 1 @range/clipmode both @priority 3 @value/default 0. @priority 3 @description \"Initial phase of sine-demodulator\"",
 									"varname" : "parameter[1]"
 								}
 
@@ -972,7 +972,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 50.0, 133.0, 590.0, 31.0 ],
-									"text" : "jcom.parameter frequency @repetitions/allow 1 @type msg_float @range/bounds 0 48000 @range/clipmode both @value/default 0 @priority 3 @description \"Frequency of sine-demodulator\" @priority 3",
+									"text" : "jcom.parameter frequency @repetitions/allow 1 @type decimal @range/bounds 0 48000 @range/clipmode both @value/default 0 @priority 3 @description \"Frequency of sine-demodulator\" @priority 3",
 									"varname" : "parameter"
 								}
 

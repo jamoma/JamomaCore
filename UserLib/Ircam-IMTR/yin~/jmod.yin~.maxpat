@@ -142,7 +142,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 439.0, 401.0, 602.0, 31.0 ],
-					"text" : "jcom.parameter updaterate @repetitions/allow 0 @type msg_float @range/bounds 0. 20000. @range/clipmode both @description \"update rate in [Hz] \" @value/default 200",
+					"text" : "jcom.parameter updaterate @repetitions/allow 0 @type decimal @range/bounds 0. 20000. @range/clipmode both @description \"update rate in [Hz] \" @value/default 200",
 					"varname" : "hue_angle[3]"
 				}
 
@@ -174,7 +174,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 436.0, 351.0, 605.0, 31.0 ],
-					"text" : "jcom.parameter lowestFrequency @repetitions/allow 0 @type msg_float @range/bounds 0. 20000. @range/clipmode both @description \"lowest frewquency \" @value/default 10",
+					"text" : "jcom.parameter lowestFrequency @repetitions/allow 0 @type decimal @range/bounds 0. 20000. @range/clipmode both @description \"lowest frewquency \" @value/default 10",
 					"varname" : "hue_angle[2]"
 				}
 
@@ -206,7 +206,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 448.0, 245.0, 578.0, 31.0 ],
-					"text" : "jcom.parameter downsampling @repetitions/allow 0 @type msg_int @range/bounds 0 8 @range/clipmode both @description \"downsampling factor, should be at least 2 according to yin~ documentation \" @value/default 8",
+					"text" : "jcom.parameter downsampling @repetitions/allow 0 @type integer @range/bounds 0 8 @range/clipmode both @description \"downsampling factor, should be at least 2 according to yin~ documentation \" @value/default 8",
 					"varname" : "hue_angle[1]"
 				}
 
@@ -285,7 +285,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 442.0, 207.0, 571.0, 31.0 ],
-					"text" : "jcom.parameter threshold @repetitions/allow 0 @type msg_float @range/bounds 0. 1. @range/clipmode none @description \"threshold \" @value/default 0.1",
+					"text" : "jcom.parameter threshold @repetitions/allow 0 @type decimal @range/bounds 0. 1. @range/clipmode none @description \"threshold \" @value/default 0.1",
 					"varname" : "hue_angle"
 				}
 

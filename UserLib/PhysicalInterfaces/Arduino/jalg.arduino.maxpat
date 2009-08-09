@@ -32,7 +32,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.13 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
+					"text" : "jcom.return digital.13 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
 					"linecount" : 3,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -58,7 +58,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.12 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
+					"text" : "jcom.return digital.12 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
 					"linecount" : 3,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -73,7 +73,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.11 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
+					"text" : "jcom.return digital.11 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
 					"linecount" : 3,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -88,7 +88,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.10 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
+					"text" : "jcom.return digital.10 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
 					"linecount" : 3,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -103,7 +103,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.9 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
+					"text" : "jcom.return digital.9 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
 					"linecount" : 3,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -118,7 +118,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.7 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
+					"text" : "jcom.return digital.7 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
 					"linecount" : 3,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -133,7 +133,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.6 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
+					"text" : "jcom.return digital.6 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
 					"linecount" : 3,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -148,7 +148,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.5 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
+					"text" : "jcom.return digital.5 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
 					"linecount" : 3,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -163,7 +163,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.4 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
+					"text" : "jcom.return digital.4 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
 					"linecount" : 3,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -178,7 +178,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.3 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
+					"text" : "jcom.return digital.3 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
 					"linecount" : 3,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -193,7 +193,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.5 @type msg_int @enable 0 @repetitions/allow 0",
+					"text" : "jcom.return analog.5 @type integer @enable 0 @repetitions/allow 0",
 					"linecount" : 2,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -208,7 +208,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.4 @type msg_int @enable 0 @repetitions/allow 0",
+					"text" : "jcom.return analog.4 @type integer @enable 0 @repetitions/allow 0",
 					"linecount" : 2,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -223,7 +223,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.3 @type msg_int @enable 0 @repetitions/allow 0",
+					"text" : "jcom.return analog.3 @type integer @enable 0 @repetitions/allow 0",
 					"linecount" : 2,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -238,7 +238,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.2 @type msg_int @enable 0 @repetitions/allow 0",
+					"text" : "jcom.return analog.2 @type integer @enable 0 @repetitions/allow 0",
 					"linecount" : 2,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -253,7 +253,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.1 @type msg_int @enable 0 @repetitions/allow 0",
+					"text" : "jcom.return analog.1 @type integer @enable 0 @repetitions/allow 0",
 					"linecount" : 2,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -282,7 +282,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.8 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
+					"text" : "jcom.return digital.8 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
 					"linecount" : 3,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -1012,7 +1012,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.2 @type msg_int @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
+					"text" : "jcom.return digital.2 @type integer @range/bounds 0 1 @enable 0 @repetitions/allow 0 @range/clipmode both",
 					"linecount" : 3,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,
@@ -1027,7 +1027,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.0 @type msg_int @enable 0 @repetitions/allow 0",
+					"text" : "jcom.return analog.0 @type integer @enable 0 @repetitions/allow 0",
 					"linecount" : 2,
 					"outlettype" : [ "", "" ],
 					"fontsize" : 9.0,

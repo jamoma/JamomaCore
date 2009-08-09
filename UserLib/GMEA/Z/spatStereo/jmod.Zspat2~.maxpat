@@ -65,7 +65,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 95.0, 430.0, 263.0, 31.0 ],
-					"text" : "jcom.parameter record/active @type msg_toggle @description \"record to a sound file\"",
+					"text" : "jcom.parameter record/active @type boolean @description \"record to a sound file\"",
 					"varname" : "record"
 				}
 
@@ -823,7 +823,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 386.0, 348.0, 355.0, 27.0 ],
-					"text" : "jcom.parameter volume @type msg_float @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @description \"Ouput Volume.\"",
+					"text" : "jcom.parameter volume @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @description \"Ouput Volume.\"",
 					"varname" : "volume_pattr[1]"
 				}
 
@@ -1052,7 +1052,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 382.0, 482.0, 321.0, 38.0 ],
-					"text" : "jcom.parameter aux.1 @type msg_float @ramp/drive scheduler @range/bounds 0. 1. @range/clipmode both @description \"Send level to aux 1.\"",
+					"text" : "jcom.parameter aux.1 @type decimal @ramp/drive scheduler @range/bounds 0. 1. @range/clipmode both @description \"Send level to aux 1.\"",
 					"varname" : "volume_pattr[2]"
 				}
 
@@ -1470,7 +1470,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 384.0, 610.0, 317.0, 27.0 ],
-					"text" : "jcom.parameter aux.2 @type msg_float @range/bounds 0. 1. @ramp/drive scheduler @range/clipmode both @description \"Send level to aux 2.\"",
+					"text" : "jcom.parameter aux.2 @type decimal @range/bounds 0. 1. @ramp/drive scheduler @range/clipmode both @description \"Send level to aux 2.\"",
 					"varname" : "volume_pattr[3]"
 				}
 
@@ -1822,7 +1822,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 108.0, 264.0, 446.0, 27.0 ],
-									"text" : "jcom.parameter position2/x @type msg_float @range/bounds -1. 1.@ramp/drive scheduler @description \"x-axis position\" @priority 34 @repetitions/allow 1",
+									"text" : "jcom.parameter position2/x @type decimal @range/bounds -1. 1.@ramp/drive scheduler @description \"x-axis position\" @priority 34 @repetitions/allow 1",
 									"varname" : "jmod.parameter.mxb[18]"
 								}
 
@@ -1839,7 +1839,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 174.0, 224.0, 459.0, 27.0 ],
-									"text" : "jcom.parameter position2/y @type msg_float @range/bounds -1. 1. @ramp/drive scheduler @description \"y-axis position\" @priority 33",
+									"text" : "jcom.parameter position2/y @type decimal @range/bounds -1. 1. @ramp/drive scheduler @description \"y-axis position\" @priority 33",
 									"varname" : "jmod.parameter.mxb[1]"
 								}
 
@@ -1856,7 +1856,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 444.0, 186.0, 458.0, 27.0 ],
-									"text" : "jcom.parameter position2/rd @type msg_float @range/bounds -1. 1. @range/clipmode both @ramp/drive scheduler @description \"y-axis position\" @priority 32",
+									"text" : "jcom.parameter position2/rd @type decimal @range/bounds -1. 1. @range/clipmode both @ramp/drive scheduler @description \"y-axis position\" @priority 32",
 									"varname" : "jmod.parameter.mxb[2]"
 								}
 
@@ -1873,7 +1873,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 506.0, 152.0, 464.0, 27.0 ],
-									"text" : "jcom.parameter position2/sps @type msg_float @range/bounds -1. 1. @range/clipmode both @ramp/drive scheduler @description \"y-axis position\" @priority 31",
+									"text" : "jcom.parameter position2/sps @type decimal @range/bounds -1. 1. @range/clipmode both @ramp/drive scheduler @description \"y-axis position\" @priority 31",
 									"varname" : "jmod.parameter.mxb[3]"
 								}
 
@@ -1925,7 +1925,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 96.0, 354.0, 464.0, 27.0 ],
-									"text" : "jcom.message position2/dist @type msg_float @range/bounds 0 1.5 @ramp/drive scheduler @description \"Polar coordinate position : distance \" @repetitions/allow 1",
+									"text" : "jcom.message position2/dist @type decimal @range/bounds 0 1.5 @ramp/drive scheduler @description \"Polar coordinate position : distance \" @repetitions/allow 1",
 									"varname" : "jmod.parameter.mxb[4]"
 								}
 
@@ -1942,7 +1942,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 364.0, 386.0, 466.0, 27.0 ],
-									"text" : "jcom.message position2/angle @type msg_float @ramp/drive scheduler @description \"Polar coordinate position : angle\" @repetitions/allow 1",
+									"text" : "jcom.message position2/angle @type decimal @ramp/drive scheduler @description \"Polar coordinate position : angle\" @repetitions/allow 1",
 									"varname" : "jmod.parameter.mxb[5]"
 								}
 
@@ -2601,7 +2601,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 64.0, 588.0, 282.0, 27.0 ],
-					"text" : "jcom.parameter link @type msg_int @description \"Spat mode\" @priority 28",
+					"text" : "jcom.parameter link @type integer @description \"Spat mode\" @priority 28",
 					"varname" : "jmod.parameter.mxb[7]"
 				}
 
@@ -2685,7 +2685,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 845.0, 335.0, 410.0, 27.0 ],
-					"text" : "jcom.parameter timeambitus/max @type msg_int @range/bounds 0 2000 @description \"Ambitus speed for mooving algo\" @repetitions/allow 1",
+					"text" : "jcom.parameter timeambitus/max @type integer @range/bounds 0 2000 @description \"Ambitus speed for mooving algo\" @repetitions/allow 1",
 					"varname" : "jmod.parameter.mxb[8]"
 				}
 
@@ -3850,7 +3850,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 502.0, 278.0, 276.0, 27.0 ],
-					"text" : "jcom.parameter mode @type msg_symbol @description \"Spat mode\" @priority 30",
+					"text" : "jcom.parameter mode @type string @description \"Spat mode\" @priority 30",
 					"varname" : "jmod.parameter.mxb[18]"
 				}
 
@@ -4346,7 +4346,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 108.0, 264.0, 446.0, 27.0 ],
-									"text" : "jcom.parameter position/x @type msg_float @range/bounds -1. 1.@ramp/drive scheduler @description \"x-axis position\" @priority 34 @repetitions/allow 1",
+									"text" : "jcom.parameter position/x @type decimal @range/bounds -1. 1.@ramp/drive scheduler @description \"x-axis position\" @priority 34 @repetitions/allow 1",
 									"varname" : "jmod.parameter.mxb[18]"
 								}
 
@@ -4363,7 +4363,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 174.0, 224.0, 459.0, 27.0 ],
-									"text" : "jcom.parameter position/y @type msg_float @range/bounds -1. 1. @ramp/drive scheduler @description \"y-axis position\" @priority 33 @repetitions/allow 1",
+									"text" : "jcom.parameter position/y @type decimal @range/bounds -1. 1. @ramp/drive scheduler @description \"y-axis position\" @priority 33 @repetitions/allow 1",
 									"varname" : "jmod.parameter.mxb[1]"
 								}
 
@@ -4380,7 +4380,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 444.0, 186.0, 458.0, 27.0 ],
-									"text" : "jcom.parameter position/rd @type msg_float @range/bounds -1. 1. @range/clipmode both @ramp/drive scheduler @description \"y-axis position\" @priority 32",
+									"text" : "jcom.parameter position/rd @type decimal @range/bounds -1. 1. @range/clipmode both @ramp/drive scheduler @description \"y-axis position\" @priority 32",
 									"varname" : "jmod.parameter.mxb[2]"
 								}
 
@@ -4397,7 +4397,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 506.0, 152.0, 464.0, 27.0 ],
-									"text" : "jcom.parameter position/sps @type msg_float @range/bounds -1. 1. @range/clipmode both @ramp/drive scheduler @description \"y-axis position\" @priority 31",
+									"text" : "jcom.parameter position/sps @type decimal @range/bounds -1. 1. @range/clipmode both @ramp/drive scheduler @description \"y-axis position\" @priority 31",
 									"varname" : "jmod.parameter.mxb[3]"
 								}
 
@@ -4449,7 +4449,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 96.0, 354.0, 459.0, 27.0 ],
-									"text" : "jcom.message position/dist @type msg_float @range/bounds 0 1.5 @ramp/drive scheduler @description \"Polar coordinate position : distance \" @repetitions/allow 1",
+									"text" : "jcom.message position/dist @type decimal @range/bounds 0 1.5 @ramp/drive scheduler @description \"Polar coordinate position : distance \" @repetitions/allow 1",
 									"varname" : "jmod.parameter.mxb[4]"
 								}
 
@@ -4466,7 +4466,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 364.0, 386.0, 461.0, 27.0 ],
-									"text" : "jcom.message position/angle @type msg_float @ramp/drive scheduler @description \"Polar coordinate position : angle\" @repetitions/allow 1",
+									"text" : "jcom.message position/angle @type decimal @ramp/drive scheduler @description \"Polar coordinate position : angle\" @repetitions/allow 1",
 									"varname" : "jmod.parameter.mxb[5]"
 								}
 
@@ -4814,7 +4814,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 807.0, 522.0, 384.0, 27.0 ],
-					"text" : "jcom.parameter output/topLeft @type msg_int @description \"Audio output number for the topleft corner\"",
+					"text" : "jcom.parameter output/topLeft @type integer @description \"Audio output number for the topleft corner\"",
 					"varname" : "jmod.parameter.mxb[1]"
 				}
 
@@ -4831,7 +4831,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 803.0, 584.0, 408.0, 27.0 ],
-					"text" : "jcom.parameter output/topRight @type msg_int @description \"Audio output number for the top right corner\"",
+					"text" : "jcom.parameter output/topRight @type integer @description \"Audio output number for the top right corner\"",
 					"varname" : "jmod.parameter.mxb[2]"
 				}
 
@@ -4870,7 +4870,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 795.0, 720.0, 408.0, 27.0 ],
-					"text" : "jcom.parameter output/bottomRight @type msg_int @description \"Audio output number for the bottom right corner\"",
+					"text" : "jcom.parameter output/bottomRight @type integer @description \"Audio output number for the bottom right corner\"",
 					"varname" : "jmod.parameter.mxb[3]"
 				}
 
@@ -4887,7 +4887,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 807.0, 646.0, 389.0, 27.0 ],
-					"text" : "jcom.parameter output/bottomLeft @type msg_int @description \"Audio output number for the bottomLeft corner\"",
+					"text" : "jcom.parameter output/bottomLeft @type integer @description \"Audio output number for the bottomLeft corner\"",
 					"varname" : "jmod.parameter.mxb[4]"
 				}
 
@@ -4904,7 +4904,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 797.0, 406.0, 408.0, 27.0 ],
-					"text" : "jcom.parameter output/ramptime @type msg_float @description \"Ramp time for interpolation between 2 differents output setup\"",
+					"text" : "jcom.parameter output/ramptime @type decimal @description \"Ramp time for interpolation between 2 differents output setup\"",
 					"varname" : "jmod.parameter.mxb[5]"
 				}
 
@@ -4941,7 +4941,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 808.0, 296.0, 429.0, 27.0 ],
-					"text" : "jcom.parameter timeambitus/min @type msg_int @range/bounds 0 2000 @description \"Ambitus speed for mooving algo\" @repetitions/allow 1",
+					"text" : "jcom.parameter timeambitus/min @type integer @range/bounds 0 2000 @description \"Ambitus speed for mooving algo\" @repetitions/allow 1",
 					"varname" : "jmod.parameter.mxb[6]"
 				}
 

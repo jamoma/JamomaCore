@@ -27,7 +27,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 736.0, 36.0, 198.0, 27.0 ],
-					"text" : "jcom.parameter invert/nbr @type msg_toggle @description \"invert the sensor output\""
+					"text" : "jcom.parameter invert/nbr @type boolean @description \"invert the sensor output\""
 				}
 
 			}
@@ -73,7 +73,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 208.0, 366.0, 177.0, 17.0 ],
-					"text" : "jcom.return trigger/high @type msg_int"
+					"text" : "jcom.return trigger/high @type integer"
 				}
 
 			}
@@ -87,7 +87,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 130.0, 406.0, 174.0, 17.0 ],
-					"text" : "jcom.return trigger/low @type msg_int"
+					"text" : "jcom.return trigger/low @type integer"
 				}
 
 			}
@@ -1138,7 +1138,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 258.0, 350.0, 177.0, 17.0 ],
-					"text" : "jcom.return threshold/high @type msg_int"
+					"text" : "jcom.return threshold/high @type integer"
 				}
 
 			}
@@ -1153,7 +1153,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 504.0, 156.0, 402.0, 27.0 ],
-					"text" : "jcom.parameter sensor/nbr @type msg_int @range/bounds 1 16 @range/clipmode both @description \"number of the sensor\""
+					"text" : "jcom.parameter sensor/nbr @type integer @range/bounds 1 16 @range/clipmode both @description \"number of the sensor\""
 				}
 
 			}
@@ -1167,7 +1167,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 180.0, 390.0, 174.0, 17.0 ],
-					"text" : "jcom.return threshold/low @type msg_int"
+					"text" : "jcom.return threshold/low @type integer"
 				}
 
 			}
@@ -1182,7 +1182,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 490.0, 88.0, 366.0, 17.0 ],
-					"text" : "jcom.parameter sensor/name @type msg_list @description \"Name of the sensor\"",
+					"text" : "jcom.parameter sensor/name @type array @description \"Name of the sensor\"",
 					"varname" : "jmod.parameter.mxb[7]"
 				}
 
@@ -1312,7 +1312,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 520.0, 492.0, 378.0, 27.0 ],
-					"text" : "jcom.parameter range/low @type msg_int @range/bounds 0 1024 @range/clipmode both @description \"lower value for incoming data to trigger tilt/low\""
+					"text" : "jcom.parameter range/low @type integer @range/bounds 0 1024 @range/clipmode both @description \"lower value for incoming data to trigger tilt/low\""
 				}
 
 			}
@@ -1327,7 +1327,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 518.0, 460.0, 374.0, 27.0 ],
-					"text" : "jcom.parameter range/high @type msg_int @range/bounds 0 1024 @range/clipmode both @description \"higher value for incoming data to trigger tilt/high\""
+					"text" : "jcom.parameter range/high @type integer @range/bounds 0 1024 @range/clipmode both @description \"higher value for incoming data to trigger tilt/high\""
 				}
 
 			}
@@ -1370,7 +1370,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 510.0, 294.0, 393.0, 27.0 ],
-					"text" : "jcom.parameter calibration/high @type msg_int @range/bounds 0 1024 @range/clipmode both @description \"higher value for incoming data from sensor\""
+					"text" : "jcom.parameter calibration/high @type integer @range/bounds 0 1024 @range/clipmode both @description \"higher value for incoming data from sensor\""
 				}
 
 			}
@@ -1385,7 +1385,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 482.0, 328.0, 401.0, 27.0 ],
-					"text" : "jcom.parameter calibration/low @type msg_int @range/bounds 0 1024 @range/clipmode both @description \"lower value for incoming data from sensor\""
+					"text" : "jcom.parameter calibration/low @type integer @range/bounds 0 1024 @range/clipmode both @description \"lower value for incoming data from sensor\""
 				}
 
 			}
@@ -1469,7 +1469,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 116.0, 430.0, 259.0, 38.0 ],
-					"text" : "jcom.return sensor/value @type msg_float @range/bounds 0. 1. @range/clipmode both @repetitions/allow 1 @description \"scaled value from the sensor\""
+					"text" : "jcom.return sensor/value @type decimal @range/bounds 0. 1. @range/clipmode both @repetitions/allow 1 @description \"scaled value from the sensor\""
 				}
 
 			}

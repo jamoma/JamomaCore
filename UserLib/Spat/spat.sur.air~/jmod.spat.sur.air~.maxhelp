@@ -904,7 +904,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 350.0, 75.0, 459.0, 19.0 ],
-									"text" : "jcom.parameter head @type msg_generic @description \"Head-related transfer function.\"",
+									"text" : "jcom.parameter head @type generic @description \"Head-related transfer function.\"",
 									"varname" : "jmod.parameter"
 								}
 

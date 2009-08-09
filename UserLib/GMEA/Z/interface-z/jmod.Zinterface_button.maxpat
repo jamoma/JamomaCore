@@ -453,7 +453,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 618.0, 400.0, 160.0, 17.0 ],
-					"text" : "jcom.return button.1 @type msg_int"
+					"text" : "jcom.return button.1 @type integer"
 				}
 
 			}
@@ -733,7 +733,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 560.0, 424.0, 160.0, 17.0 ],
-					"text" : "jcom.return button.2 @type msg_int"
+					"text" : "jcom.return button.2 @type integer"
 				}
 
 			}
@@ -1013,7 +1013,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 504.0, 450.0, 160.0, 17.0 ],
-					"text" : "jcom.return button.3 @type msg_int"
+					"text" : "jcom.return button.3 @type integer"
 				}
 
 			}
@@ -1293,7 +1293,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 454.0, 476.0, 160.0, 17.0 ],
-					"text" : "jcom.return button.4 @type msg_int"
+					"text" : "jcom.return button.4 @type integer"
 				}
 
 			}
@@ -1573,7 +1573,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 248.0, 400.0, 160.0, 17.0 ],
-					"text" : "jcom.return button.5 @type msg_int"
+					"text" : "jcom.return button.5 @type integer"
 				}
 
 			}
@@ -1847,7 +1847,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 192.0, 426.0, 160.0, 17.0 ],
-					"text" : "jcom.return button.6 @type msg_int"
+					"text" : "jcom.return button.6 @type integer"
 				}
 
 			}
@@ -2127,7 +2127,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 136.0, 452.0, 160.0, 17.0 ],
-					"text" : "jcom.return button.7 @type msg_int"
+					"text" : "jcom.return button.7 @type integer"
 				}
 
 			}
@@ -2156,7 +2156,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 664.0, 218.0, 190.0, 17.0 ],
-					"text" : "jcom.parameter button.8/nr @type msg_int"
+					"text" : "jcom.parameter button.8/nr @type integer"
 				}
 
 			}
@@ -2203,7 +2203,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 666.0, 158.0, 190.0, 17.0 ],
-					"text" : "jcom.parameter button.7/nr @type msg_int"
+					"text" : "jcom.parameter button.7/nr @type integer"
 				}
 
 			}
@@ -2250,7 +2250,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 666.0, 102.0, 190.0, 17.0 ],
-					"text" : "jcom.parameter button.6/nr @type msg_int"
+					"text" : "jcom.parameter button.6/nr @type integer"
 				}
 
 			}
@@ -2297,7 +2297,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 664.0, 48.0, 190.0, 17.0 ],
-					"text" : "jcom.parameter button.5/nr @type msg_int"
+					"text" : "jcom.parameter button.5/nr @type integer"
 				}
 
 			}
@@ -2344,7 +2344,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 398.0, 216.0, 190.0, 17.0 ],
-					"text" : "jcom.parameter button.4/nr @type msg_int"
+					"text" : "jcom.parameter button.4/nr @type integer"
 				}
 
 			}
@@ -2391,7 +2391,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 400.0, 156.0, 190.0, 17.0 ],
-					"text" : "jcom.parameter button.3/nr @type msg_int"
+					"text" : "jcom.parameter button.3/nr @type integer"
 				}
 
 			}
@@ -2438,7 +2438,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 400.0, 100.0, 190.0, 17.0 ],
-					"text" : "jcom.parameter button.2/nr @type msg_int"
+					"text" : "jcom.parameter button.2/nr @type integer"
 				}
 
 			}
@@ -2831,7 +2831,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 398.0, 46.0, 190.0, 17.0 ],
-					"text" : "jcom.parameter button.1/nr @type msg_int"
+					"text" : "jcom.parameter button.1/nr @type integer"
 				}
 
 			}
@@ -2861,7 +2861,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 86.0, 478.0, 160.0, 17.0 ],
-					"text" : "jcom.return button.8 @type msg_int"
+					"text" : "jcom.return button.8 @type integer"
 				}
 
 			}

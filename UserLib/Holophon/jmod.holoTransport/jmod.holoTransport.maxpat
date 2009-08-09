@@ -80,7 +80,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 850.0, 560.0, 133.0, 43.0 ],
-					"text" : "jcom.parameter outport @repetitions/allow 0 @type msg_int"
+					"text" : "jcom.parameter outport @repetitions/allow 0 @type integer"
 				}
 
 			}
@@ -214,7 +214,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 695.0, 560.0, 127.0, 43.0 ],
-					"text" : "jcom.parameter inport @repetitions/allow 0 @type msg_int"
+					"text" : "jcom.parameter inport @repetitions/allow 0 @type integer"
 				}
 
 			}
@@ -229,7 +229,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1010.0, 560.0, 128.0, 43.0 ],
-					"text" : "jcom.parameter outip @repetitions/allow 0 @type msg_symbol"
+					"text" : "jcom.parameter outip @repetitions/allow 0 @type string"
 				}
 
 			}

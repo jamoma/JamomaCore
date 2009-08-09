@@ -591,7 +591,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "hue_angle[4]",
-					"text" : "jcom.parameter mono @repetitions/allow 1 @type msg_toggle @description \"load only 1rst channel of each sound file\" @priority 1",
+					"text" : "jcom.parameter mono @repetitions/allow 1 @type boolean @description \"load only 1rst channel of each sound file\" @priority 1",
 					"linecount" : 2,
 					"patching_rect" : [ 662.0, 45.0, 525.0, 31.0 ],
 					"outlettype" : [ "", "", "" ],

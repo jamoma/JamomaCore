@@ -1105,7 +1105,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 440.0, 678.0, 383.0, 17.0 ],
-					"text" : "jcom.message source.8/name @type msg_symbol @description \"descriptive text of source.8\"",
+					"text" : "jcom.message source.8/name @type string @description \"descriptive text of source.8\"",
 					"varname" : "aux.1/description[7]"
 				}
 
@@ -1354,7 +1354,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 441.0, 565.0, 383.0, 17.0 ],
-					"text" : "jcom.message source.7/name @type msg_symbol @description \"descriptive text of source.7\"",
+					"text" : "jcom.message source.7/name @type string @description \"descriptive text of source.7\"",
 					"varname" : "aux.1/description[6]"
 				}
 
@@ -1603,7 +1603,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 447.0, 465.0, 383.0, 17.0 ],
-					"text" : "jcom.message source.6/name @type msg_symbol @description \"descriptive text of source.6\"",
+					"text" : "jcom.message source.6/name @type string @description \"descriptive text of source.6\"",
 					"varname" : "aux.1/description[5]"
 				}
 
@@ -1852,7 +1852,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 448.0, 376.0, 383.0, 17.0 ],
-					"text" : "jcom.message source.5/name @type msg_symbol @description \"descriptive text of source.5\"",
+					"text" : "jcom.message source.5/name @type string @description \"descriptive text of source.5\"",
 					"varname" : "aux.1/description[4]"
 				}
 
@@ -2101,7 +2101,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 448.0, 286.0, 383.0, 17.0 ],
-					"text" : "jcom.message source.4/name @type msg_symbol @description \"descriptive text of source.4\"",
+					"text" : "jcom.message source.4/name @type string @description \"descriptive text of source.4\"",
 					"varname" : "aux.1/description[3]"
 				}
 
@@ -2350,7 +2350,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 450.0, 194.0, 383.0, 17.0 ],
-					"text" : "jcom.message source.3/name @type msg_symbol @description \"descriptive text of source.3\"",
+					"text" : "jcom.message source.3/name @type string @description \"descriptive text of source.3\"",
 					"varname" : "aux.1/description[2]"
 				}
 
@@ -2599,7 +2599,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 452.0, 101.0, 383.0, 17.0 ],
-					"text" : "jcom.message source.2/name @type msg_symbol @description \"descriptive text of source.2\"",
+					"text" : "jcom.message source.2/name @type string @description \"descriptive text of source.2\"",
 					"varname" : "aux.1/description[1]"
 				}
 
@@ -2848,7 +2848,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 444.0, 10.0, 383.0, 17.0 ],
-					"text" : "jcom.message source.1/name @type msg_symbol @description \"descriptive text of source.1\"",
+					"text" : "jcom.message source.1/name @type string @description \"descriptive text of source.1\"",
 					"varname" : "aux.1/description"
 				}
 
@@ -2878,7 +2878,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1360.0, 536.0, 459.0, 17.0 ],
-					"text" : "jcom.message source.8/solo @type msg_toggle @repetitions/allow 1 @description \"makes what solo should do\"",
+					"text" : "jcom.message source.8/solo @type boolean @repetitions/allow 1 @description \"makes what solo should do\"",
 					"varname" : "rendermode[23]"
 				}
 
@@ -2894,7 +2894,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1361.0, 516.0, 459.0, 17.0 ],
-					"text" : "jcom.message source.7/solo @type msg_toggle @repetitions/allow 1 @description \"makes what solo should do\"",
+					"text" : "jcom.message source.7/solo @type boolean @repetitions/allow 1 @description \"makes what solo should do\"",
 					"varname" : "rendermode[22]"
 				}
 
@@ -2910,7 +2910,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1361.0, 496.0, 459.0, 17.0 ],
-					"text" : "jcom.message source.6/solo @type msg_toggle @repetitions/allow 1 @description \"makes what solo should do\"",
+					"text" : "jcom.message source.6/solo @type boolean @repetitions/allow 1 @description \"makes what solo should do\"",
 					"varname" : "rendermode[21]"
 				}
 
@@ -2926,7 +2926,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1361.0, 476.0, 459.0, 17.0 ],
-					"text" : "jcom.message source.5/solo @type msg_toggle @repetitions/allow 1 @description \"makes what solo should do\"",
+					"text" : "jcom.message source.5/solo @type boolean @repetitions/allow 1 @description \"makes what solo should do\"",
 					"varname" : "rendermode[20]"
 				}
 
@@ -2942,7 +2942,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1361.0, 456.0, 459.0, 17.0 ],
-					"text" : "jcom.message source.4/solo @type msg_toggle @repetitions/allow 1 @description \"makes what solo should do\"",
+					"text" : "jcom.message source.4/solo @type boolean @repetitions/allow 1 @description \"makes what solo should do\"",
 					"varname" : "rendermode[19]"
 				}
 
@@ -2958,7 +2958,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1361.0, 435.0, 459.0, 17.0 ],
-					"text" : "jcom.message source.3/solo @type msg_toggle @repetitions/allow 1 @description \"makes what solo should do\"",
+					"text" : "jcom.message source.3/solo @type boolean @repetitions/allow 1 @description \"makes what solo should do\"",
 					"varname" : "rendermode[18]"
 				}
 
@@ -2974,7 +2974,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1361.0, 416.0, 459.0, 17.0 ],
-					"text" : "jcom.message source.2/solo @type msg_toggle @repetitions/allow 1 @description \"makes what solo should do\"",
+					"text" : "jcom.message source.2/solo @type boolean @repetitions/allow 1 @description \"makes what solo should do\"",
 					"varname" : "rendermode[17]"
 				}
 
@@ -2990,7 +2990,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1361.0, 396.0, 459.0, 17.0 ],
-					"text" : "jcom.message source.1/solo @type msg_toggle @repetitions/allow 1 @description \"makes what solo should do\"",
+					"text" : "jcom.message source.1/solo @type boolean @repetitions/allow 1 @description \"makes what solo should do\"",
 					"varname" : "rendermode[16]"
 				}
 
@@ -3786,7 +3786,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 153.0, 404.0, 338.0, 17.0 ],
-									"text" : "jcom.message source.2/directivity/create @type msg_symbol @repetitions/allow 1",
+									"text" : "jcom.message source.2/directivity/create @type string @repetitions/allow 1",
 									"varname" : "source/orientation/active[1]"
 								}
 
@@ -3932,7 +3932,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 481.0, 570.0, 578.0, 17.0 ],
-									"text" : "jcom.parameter source.2/orientation/active @type msg_toggle @repetitions/allow 0 @description \"when ticked, source directivity is calculated\"",
+									"text" : "jcom.parameter source.2/orientation/active @type boolean @repetitions/allow 0 @description \"when ticked, source directivity is calculated\"",
 									"varname" : "source/orientation/active"
 								}
 
@@ -3949,7 +3949,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 478.0, 535.0, 574.0, 27.0 ],
-									"text" : "jcom.parameter source.2/orientation/mode @type msg_symbol @repetitions/allow 1 @description \"source orientation mode (center, static, or follow)\"",
+									"text" : "jcom.parameter source.2/orientation/mode @type string @repetitions/allow 1 @description \"source orientation mode (center, static, or follow)\"",
 									"varname" : "source/orientation/mode"
 								}
 
@@ -4347,7 +4347,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 276.0, 472.0, 579.0, 27.0 ],
-									"text" : "jcom.parameter source.2/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
+									"text" : "jcom.parameter source.2/orientation/yaw @type integer @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
 									"varname" : "source/orientation/yaw"
 								}
 
@@ -4478,7 +4478,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 476.0, 34.0, 605.0, 17.0 ],
-									"text" : "jcom.message source.2/directivity/loadFile @repetitions/allow 1 @type msg_generic @description \"sound source directivity preset\""
+									"text" : "jcom.message source.2/directivity/loadFile @repetitions/allow 1 @type generic @description \"sound source directivity preset\""
 								}
 
 							}
@@ -5848,7 +5848,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 866.0, 122.0, 601.0, 17.0 ],
-									"text" : "jcom.message source.2/directivity/preset @type msg_symbol @repetitions/allow 1 @description \"sound source directivity preset\"",
+									"text" : "jcom.message source.2/directivity/preset @type string @repetitions/allow 1 @description \"sound source directivity preset\"",
 									"varname" : "source/directivity/azimuth/preset"
 								}
 
@@ -7841,7 +7841,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 153.0, 404.0, 338.0, 17.0 ],
-									"text" : "jcom.message source.3/directivity/create @type msg_symbol @repetitions/allow 1",
+									"text" : "jcom.message source.3/directivity/create @type string @repetitions/allow 1",
 									"varname" : "source/orientation/active[1]"
 								}
 
@@ -7987,7 +7987,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 481.0, 570.0, 578.0, 17.0 ],
-									"text" : "jcom.parameter source.3/orientation/active @type msg_toggle @repetitions/allow 0 @description \"when ticked, source directivity is calculated\"",
+									"text" : "jcom.parameter source.3/orientation/active @type boolean @repetitions/allow 0 @description \"when ticked, source directivity is calculated\"",
 									"varname" : "source/orientation/active"
 								}
 
@@ -8004,7 +8004,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 478.0, 535.0, 574.0, 27.0 ],
-									"text" : "jcom.parameter source.3/orientation/mode @type msg_symbol @repetitions/allow 1 @description \"source orientation mode (center, static, or follow)\"",
+									"text" : "jcom.parameter source.3/orientation/mode @type string @repetitions/allow 1 @description \"source orientation mode (center, static, or follow)\"",
 									"varname" : "source/orientation/mode"
 								}
 
@@ -8402,7 +8402,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 276.0, 472.0, 579.0, 27.0 ],
-									"text" : "jcom.parameter source.3/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
+									"text" : "jcom.parameter source.3/orientation/yaw @type integer @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
 									"varname" : "source/orientation/yaw"
 								}
 
@@ -8533,7 +8533,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 476.0, 34.0, 605.0, 17.0 ],
-									"text" : "jcom.message source.3/directivity/loadFile @repetitions/allow 1 @type msg_generic @description \"sound source directivity preset\""
+									"text" : "jcom.message source.3/directivity/loadFile @repetitions/allow 1 @type generic @description \"sound source directivity preset\""
 								}
 
 							}
@@ -9903,7 +9903,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 866.0, 122.0, 601.0, 17.0 ],
-									"text" : "jcom.message source.3/directivity/preset @type msg_symbol @repetitions/allow 1 @description \"sound source directivity preset\"",
+									"text" : "jcom.message source.3/directivity/preset @type string @repetitions/allow 1 @description \"sound source directivity preset\"",
 									"varname" : "source/directivity/azimuth/preset"
 								}
 
@@ -11896,7 +11896,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 153.0, 404.0, 338.0, 17.0 ],
-									"text" : "jcom.message source.4/directivity/create @type msg_symbol @repetitions/allow 1",
+									"text" : "jcom.message source.4/directivity/create @type string @repetitions/allow 1",
 									"varname" : "source/orientation/active[1]"
 								}
 
@@ -12042,7 +12042,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 481.0, 570.0, 578.0, 17.0 ],
-									"text" : "jcom.parameter source.4/orientation/active @type msg_toggle @repetitions/allow 0 @description \"when ticked, source directivity is calculated\"",
+									"text" : "jcom.parameter source.4/orientation/active @type boolean @repetitions/allow 0 @description \"when ticked, source directivity is calculated\"",
 									"varname" : "source/orientation/active"
 								}
 
@@ -12059,7 +12059,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 478.0, 535.0, 574.0, 27.0 ],
-									"text" : "jcom.parameter source.4/orientation/mode @type msg_symbol @repetitions/allow 1 @description \"source orientation mode (center, static, or follow)\"",
+									"text" : "jcom.parameter source.4/orientation/mode @type string @repetitions/allow 1 @description \"source orientation mode (center, static, or follow)\"",
 									"varname" : "source/orientation/mode"
 								}
 
@@ -12457,7 +12457,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 276.0, 472.0, 579.0, 27.0 ],
-									"text" : "jcom.parameter source.4/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
+									"text" : "jcom.parameter source.4/orientation/yaw @type integer @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
 									"varname" : "source/orientation/yaw"
 								}
 
@@ -12588,7 +12588,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 476.0, 34.0, 605.0, 17.0 ],
-									"text" : "jcom.message source.4/directivity/loadFile @repetitions/allow 1 @type msg_generic @description \"sound source directivity preset\""
+									"text" : "jcom.message source.4/directivity/loadFile @repetitions/allow 1 @type generic @description \"sound source directivity preset\""
 								}
 
 							}
@@ -13958,7 +13958,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 866.0, 122.0, 601.0, 17.0 ],
-									"text" : "jcom.message source.4/directivity/preset @type msg_symbol @repetitions/allow 1 @description \"sound source directivity preset\"",
+									"text" : "jcom.message source.4/directivity/preset @type string @repetitions/allow 1 @description \"sound source directivity preset\"",
 									"varname" : "source/directivity/azimuth/preset"
 								}
 
@@ -15981,7 +15981,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 153.0, 404.0, 338.0, 17.0 ],
-									"text" : "jcom.message source.5/directivity/create @type msg_symbol @repetitions/allow 1",
+									"text" : "jcom.message source.5/directivity/create @type string @repetitions/allow 1",
 									"varname" : "source/orientation/active[1]"
 								}
 
@@ -16127,7 +16127,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 481.0, 570.0, 578.0, 17.0 ],
-									"text" : "jcom.parameter source.5/orientation/active @type msg_toggle @repetitions/allow 0 @description \"when ticked, source directivity is calculated\"",
+									"text" : "jcom.parameter source.5/orientation/active @type boolean @repetitions/allow 0 @description \"when ticked, source directivity is calculated\"",
 									"varname" : "source/orientation/active"
 								}
 
@@ -16144,7 +16144,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 478.0, 535.0, 574.0, 27.0 ],
-									"text" : "jcom.parameter source.5/orientation/mode @type msg_symbol @repetitions/allow 1 @description \"source orientation mode (center, static, or follow)\"",
+									"text" : "jcom.parameter source.5/orientation/mode @type string @repetitions/allow 1 @description \"source orientation mode (center, static, or follow)\"",
 									"varname" : "source/orientation/mode"
 								}
 
@@ -16542,7 +16542,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 276.0, 472.0, 579.0, 27.0 ],
-									"text" : "jcom.parameter source.5/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
+									"text" : "jcom.parameter source.5/orientation/yaw @type integer @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
 									"varname" : "source/orientation/yaw"
 								}
 
@@ -16673,7 +16673,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 476.0, 34.0, 605.0, 17.0 ],
-									"text" : "jcom.message source.5/directivity/loadFile @repetitions/allow 1 @type msg_generic @description \"sound source directivity preset\""
+									"text" : "jcom.message source.5/directivity/loadFile @repetitions/allow 1 @type generic @description \"sound source directivity preset\""
 								}
 
 							}
@@ -18043,7 +18043,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 866.0, 122.0, 601.0, 17.0 ],
-									"text" : "jcom.message source.5/directivity/preset @type msg_symbol @repetitions/allow 1 @description \"sound source directivity preset\"",
+									"text" : "jcom.message source.5/directivity/preset @type string @repetitions/allow 1 @description \"sound source directivity preset\"",
 									"varname" : "source/directivity/azimuth/preset"
 								}
 
@@ -20036,7 +20036,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 153.0, 404.0, 338.0, 17.0 ],
-									"text" : "jcom.message source.6/directivity/create @type msg_symbol @repetitions/allow 1",
+									"text" : "jcom.message source.6/directivity/create @type string @repetitions/allow 1",
 									"varname" : "source/orientation/active[1]"
 								}
 
@@ -20182,7 +20182,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 481.0, 570.0, 578.0, 17.0 ],
-									"text" : "jcom.parameter source.6/orientation/active @type msg_toggle @repetitions/allow 0 @description \"when ticked, source directivity is calculated\"",
+									"text" : "jcom.parameter source.6/orientation/active @type boolean @repetitions/allow 0 @description \"when ticked, source directivity is calculated\"",
 									"varname" : "source/orientation/active"
 								}
 
@@ -20199,7 +20199,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 478.0, 535.0, 574.0, 27.0 ],
-									"text" : "jcom.parameter source.6/orientation/mode @type msg_symbol @repetitions/allow 1 @description \"source orientation mode (center, static, or follow)\"",
+									"text" : "jcom.parameter source.6/orientation/mode @type string @repetitions/allow 1 @description \"source orientation mode (center, static, or follow)\"",
 									"varname" : "source/orientation/mode"
 								}
 
@@ -20597,7 +20597,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 276.0, 470.0, 579.0, 27.0 ],
-									"text" : "jcom.parameter source.6/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
+									"text" : "jcom.parameter source.6/orientation/yaw @type integer @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
 									"varname" : "source/orientation/yaw"
 								}
 
@@ -20728,7 +20728,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 476.0, 34.0, 605.0, 17.0 ],
-									"text" : "jcom.message source.6/directivity/loadFile @repetitions/allow 1 @type msg_generic @description \"sound source directivity preset\""
+									"text" : "jcom.message source.6/directivity/loadFile @repetitions/allow 1 @type generic @description \"sound source directivity preset\""
 								}
 
 							}
@@ -22098,7 +22098,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 866.0, 122.0, 601.0, 17.0 ],
-									"text" : "jcom.message source.6/directivity/preset @type msg_symbol @repetitions/allow 1 @description \"sound source directivity preset\"",
+									"text" : "jcom.message source.6/directivity/preset @type string @repetitions/allow 1 @description \"sound source directivity preset\"",
 									"varname" : "source/directivity/azimuth/preset"
 								}
 
@@ -24091,7 +24091,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 153.0, 404.0, 338.0, 17.0 ],
-									"text" : "jcom.message source.7/directivity/create @type msg_symbol @repetitions/allow 1",
+									"text" : "jcom.message source.7/directivity/create @type string @repetitions/allow 1",
 									"varname" : "source/orientation/active[1]"
 								}
 
@@ -24237,7 +24237,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 481.0, 570.0, 578.0, 17.0 ],
-									"text" : "jcom.parameter source.7/orientation/active @type msg_toggle @repetitions/allow 0 @description \"when ticked, source directivity is calculated\"",
+									"text" : "jcom.parameter source.7/orientation/active @type boolean @repetitions/allow 0 @description \"when ticked, source directivity is calculated\"",
 									"varname" : "source/orientation/active"
 								}
 
@@ -24254,7 +24254,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 478.0, 535.0, 574.0, 27.0 ],
-									"text" : "jcom.parameter source.7/orientation/mode @type msg_symbol @repetitions/allow 1 @description \"source orientation mode (center, static, or follow)\"",
+									"text" : "jcom.parameter source.7/orientation/mode @type string @repetitions/allow 1 @description \"source orientation mode (center, static, or follow)\"",
 									"varname" : "source/orientation/mode"
 								}
 
@@ -24652,7 +24652,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 276.0, 472.0, 579.0, 27.0 ],
-									"text" : "jcom.parameter source.7/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
+									"text" : "jcom.parameter source.7/orientation/yaw @type integer @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
 									"varname" : "source/orientation/yaw"
 								}
 
@@ -24783,7 +24783,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 476.0, 34.0, 605.0, 17.0 ],
-									"text" : "jcom.message source.7/directivity/loadFile @repetitions/allow 1 @type msg_generic @description \"sound source directivity preset\""
+									"text" : "jcom.message source.7/directivity/loadFile @repetitions/allow 1 @type generic @description \"sound source directivity preset\""
 								}
 
 							}
@@ -26153,7 +26153,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 866.0, 122.0, 601.0, 17.0 ],
-									"text" : "jcom.message source.7/directivity/preset @type msg_symbol @repetitions/allow 1 @description \"sound source directivity preset\"",
+									"text" : "jcom.message source.7/directivity/preset @type string @repetitions/allow 1 @description \"sound source directivity preset\"",
 									"varname" : "source/directivity/azimuth/preset"
 								}
 
@@ -28146,7 +28146,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 153.0, 404.0, 338.0, 17.0 ],
-									"text" : "jcom.message source.8/directivity/create @type msg_symbol @repetitions/allow 1",
+									"text" : "jcom.message source.8/directivity/create @type string @repetitions/allow 1",
 									"varname" : "source/orientation/active[1]"
 								}
 
@@ -28292,7 +28292,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 481.0, 570.0, 578.0, 17.0 ],
-									"text" : "jcom.parameter source.8/orientation/active @type msg_toggle @repetitions/allow 0 @description \"when ticked, source directivity is calculated\"",
+									"text" : "jcom.parameter source.8/orientation/active @type boolean @repetitions/allow 0 @description \"when ticked, source directivity is calculated\"",
 									"varname" : "source/orientation/active"
 								}
 
@@ -28309,7 +28309,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 478.0, 535.0, 574.0, 27.0 ],
-									"text" : "jcom.parameter source.8/orientation/mode @type msg_symbol @repetitions/allow 1 @description \"source orientation mode (center, static, or follow)\"",
+									"text" : "jcom.parameter source.8/orientation/mode @type string @repetitions/allow 1 @description \"source orientation mode (center, static, or follow)\"",
 									"varname" : "source/orientation/mode"
 								}
 
@@ -28707,7 +28707,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 273.0, 512.0, 220.0, 48.0 ],
-									"text" : "jcom.parameter source.8/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
+									"text" : "jcom.parameter source.8/orientation/yaw @type integer @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
 									"varname" : "source/orientation/yaw"
 								}
 
@@ -28839,7 +28839,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 569.0, 51.0, 311.0, 28.0 ],
-									"text" : "jcom.message source.8/directivity/loadFile @repetitions/allow 1 @type msg_generic @description \"sound source directivity preset\""
+									"text" : "jcom.message source.8/directivity/loadFile @repetitions/allow 1 @type generic @description \"sound source directivity preset\""
 								}
 
 							}
@@ -30210,7 +30210,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 880.0, 64.0, 336.0, 28.0 ],
-									"text" : "jcom.message source.8/directivity/preset @type msg_symbol @repetitions/allow 1 @description \"sound source directivity preset\"",
+									"text" : "jcom.message source.8/directivity/preset @type string @repetitions/allow 1 @description \"sound source directivity preset\"",
 									"varname" : "source/directivity/azimuth/preset"
 								}
 
@@ -32203,7 +32203,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 153.0, 404.0, 367.0, 17.0 ],
-									"text" : "jcom.message source.1/directivity/create @type msg_symbol @repetitions/allow 1",
+									"text" : "jcom.message source.1/directivity/create @type string @repetitions/allow 1",
 									"varname" : "source/orientation/active[1]"
 								}
 
@@ -32350,7 +32350,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 481.0, 570.0, 357.0, 27.0 ],
-									"text" : "jcom.parameter source.1/orientation/active @type msg_toggle @repetitions/allow 0 @description \"when ticked, source directivity is calculated\"",
+									"text" : "jcom.parameter source.1/orientation/active @type boolean @repetitions/allow 0 @description \"when ticked, source directivity is calculated\"",
 									"varname" : "source/orientation/active"
 								}
 
@@ -32367,7 +32367,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 478.0, 535.0, 361.0, 27.0 ],
-									"text" : "jcom.parameter source.1/orientation/mode @type msg_symbol @repetitions/allow 1 @description \"source orientation mode (center, static, or follow)\"",
+									"text" : "jcom.parameter source.1/orientation/mode @type string @repetitions/allow 1 @description \"source orientation mode (center, static, or follow)\"",
 									"varname" : "source/orientation/mode"
 								}
 
@@ -32765,7 +32765,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 280.0, 503.0, 158.0, 69.0 ],
-									"text" : "jcom.parameter source.1/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
+									"text" : "jcom.parameter source.1/orientation/yaw @type integer @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
 									"varname" : "source/orientation/yaw"
 								}
 
@@ -32897,7 +32897,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 569.0, 51.0, 311.0, 28.0 ],
-									"text" : "jcom.message source.1/directivity/loadFile @repetitions/allow 1 @type msg_generic @description \"sound source directivity preset\""
+									"text" : "jcom.message source.1/directivity/loadFile @repetitions/allow 1 @type generic @description \"sound source directivity preset\""
 								}
 
 							}
@@ -34268,7 +34268,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 880.0, 64.0, 334.0, 28.0 ],
-									"text" : "jcom.message source.1/directivity/preset @type msg_symbol @repetitions/allow 1 @description \"sound source directivity preset\"",
+									"text" : "jcom.message source.1/directivity/preset @type string @repetitions/allow 1 @description \"sound source directivity preset\"",
 									"varname" : "source/directivity/azimuth/preset"
 								}
 
@@ -35918,7 +35918,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1362.0, 666.0, 571.0, 27.0 ],
-					"text" : "jcom.parameter room/reflection/gain.2 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @repetitions/allow 0 @type msg_float @ramp/drive scheduler @description \"gain of the early reflections 2nd order\"",
+					"text" : "jcom.parameter room/reflection/gain.2 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @repetitions/allow 0 @type decimal @ramp/drive scheduler @description \"gain of the early reflections 2nd order\"",
 					"varname" : "room/reflection/2/gain"
 				}
 
@@ -35935,7 +35935,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1362.0, 632.0, 571.0, 27.0 ],
-					"text" : "jcom.parameter room/reflection/gain.1 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @repetitions/allow 0 @type msg_float @ramp/drive scheduler @description \"gain of the early reflections 1st order\"",
+					"text" : "jcom.parameter room/reflection/gain.1 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @repetitions/allow 0 @type decimal @ramp/drive scheduler @description \"gain of the early reflections 1st order\"",
 					"varname" : "room/reflection/1/gain"
 				}
 
@@ -35952,7 +35952,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 802.0, 572.0, 27.0 ],
-					"text" : "jcom.parameter room/reflection/gain.0 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @repetitions/allow 0 @type msg_float @ramp/drive scheduler @description \"gain of the direct sound component\"",
+					"text" : "jcom.parameter room/reflection/gain.0 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @repetitions/allow 0 @type decimal @ramp/drive scheduler @description \"gain of the direct sound component\"",
 					"varname" : "room/reflection/0/gain"
 				}
 
@@ -35969,7 +35969,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 823.0, 118.0, 490.0, 27.0 ],
-					"text" : "jcom.parameter source.2/gain @repetitions/allow 0 @type msg_float @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @description \"gain of source 2\"",
+					"text" : "jcom.parameter source.2/gain @repetitions/allow 0 @type decimal @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @description \"gain of source 2\"",
 					"varname" : "room/reflection/2/gain[3]"
 				}
 
@@ -35986,7 +35986,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 815.0, 27.0, 493.0, 27.0 ],
-					"text" : "jcom.parameter source.1/gain @repetitions/allow 0 @type msg_float @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @description \"gain of source 1\"",
+					"text" : "jcom.parameter source.1/gain @repetitions/allow 0 @type decimal @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @description \"gain of source 1\"",
 					"varname" : "room/reflection/2/gain[4]"
 				}
 
@@ -36003,7 +36003,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 819.0, 305.0, 490.0, 27.0 ],
-					"text" : "jcom.parameter source.4/gain @repetitions/allow 0 @type msg_float @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @description \"gain of source 4\"",
+					"text" : "jcom.parameter source.4/gain @repetitions/allow 0 @type decimal @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @description \"gain of source 4\"",
 					"varname" : "room/reflection/2/gain[5]"
 				}
 
@@ -36020,7 +36020,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 821.0, 212.0, 490.0, 27.0 ],
-					"text" : "jcom.parameter source.3/gain @repetitions/allow 0 @type msg_float @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @description \"gain of source 3\"",
+					"text" : "jcom.parameter source.3/gain @repetitions/allow 0 @type decimal @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @description \"gain of source 3\"",
 					"varname" : "room/reflection/2/gain[6]"
 				}
 
@@ -36037,7 +36037,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 818.0, 486.0, 490.0, 27.0 ],
-					"text" : "jcom.parameter source.6/gain @repetitions/allow 0 @type msg_float @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @description \"gain of source 6\"",
+					"text" : "jcom.parameter source.6/gain @repetitions/allow 0 @type decimal @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @description \"gain of source 6\"",
 					"varname" : "room/reflection/2/gain[1]"
 				}
 
@@ -36054,7 +36054,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 819.0, 396.0, 490.0, 27.0 ],
-					"text" : "jcom.parameter source.5/gain @repetitions/allow 0 @type msg_float @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @description \"gain of source 5\"",
+					"text" : "jcom.parameter source.5/gain @repetitions/allow 0 @type decimal @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @description \"gain of source 5\"",
 					"varname" : "room/reflection/2/gain[2]"
 				}
 
@@ -36298,7 +36298,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 506.0, 730.0, 494.0, 17.0 ],
-					"text" : "jcom.message source.8/directivity/openEditor @type msg_none @description \"opens the directiviy editor for source 8\"",
+					"text" : "jcom.message source.8/directivity/openEditor @type none @description \"opens the directiviy editor for source 8\"",
 					"varname" : "report_all[8]"
 				}
 
@@ -36362,7 +36362,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 515.0, 616.0, 490.0, 17.0 ],
-					"text" : "jcom.message source.7/directivity/openEditor @type msg_none @description \"opens the directiviy editor for source 7\"",
+					"text" : "jcom.message source.7/directivity/openEditor @type none @description \"opens the directiviy editor for source 7\"",
 					"varname" : "report_all[7]"
 				}
 
@@ -36426,7 +36426,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 524.0, 519.0, 493.0, 17.0 ],
-					"text" : "jcom.message source.6/directivity/openEditor @type msg_none @description \"opens the directiviy editor for source 6\"",
+					"text" : "jcom.message source.6/directivity/openEditor @type none @description \"opens the directiviy editor for source 6\"",
 					"varname" : "report_all[6]"
 				}
 
@@ -36490,7 +36490,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 522.0, 426.0, 493.0, 17.0 ],
-					"text" : "jcom.message source.5/directivity/openEditor @type msg_none @description \"opens the directiviy editor for source 5\"",
+					"text" : "jcom.message source.5/directivity/openEditor @type none @description \"opens the directiviy editor for source 5\"",
 					"varname" : "report_all[5]"
 				}
 
@@ -36554,7 +36554,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 507.0, 336.0, 494.0, 17.0 ],
-					"text" : "jcom.message source.4/directivity/openEditor @type msg_none @description \"opens the directiviy editor for source 4\"",
+					"text" : "jcom.message source.4/directivity/openEditor @type none @description \"opens the directiviy editor for source 4\"",
 					"varname" : "report_all[4]"
 				}
 
@@ -36618,7 +36618,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 512.0, 244.0, 491.0, 17.0 ],
-					"text" : "jcom.message source.3/directivity/openEditor @type msg_none @description \"opens the directiviy editor for source 3\"",
+					"text" : "jcom.message source.3/directivity/openEditor @type none @description \"opens the directiviy editor for source 3\"",
 					"varname" : "report_all[3]"
 				}
 
@@ -36682,7 +36682,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 522.0, 150.0, 494.0, 17.0 ],
-					"text" : "jcom.message source.2/directivity/openEditor @type msg_none @description \"opens the directiviy editor for source 2\"",
+					"text" : "jcom.message source.2/directivity/openEditor @type none @description \"opens the directiviy editor for source 2\"",
 					"varname" : "report_all[2]"
 				}
 
@@ -36746,7 +36746,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 513.0, 59.0, 488.0, 17.0 ],
-					"text" : "jcom.message source.1/directivity/openEditor @type msg_none @description \"opens the directiviy editor for source 1\"",
+					"text" : "jcom.message source.1/directivity/openEditor @type none @description \"opens the directiviy editor for source 1\"",
 					"varname" : "report_all[1]"
 				}
 
@@ -36792,7 +36792,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 811.0, 696.0, 490.0, 27.0 ],
-					"text" : "jcom.parameter source.8/gain @repetitions/allow 0 @type msg_float @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @description \"gain of source 8\"",
+					"text" : "jcom.parameter source.8/gain @repetitions/allow 0 @type decimal @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @description \"gain of source 8\"",
 					"varname" : "room/reflection/2/gain[8]"
 				}
 
@@ -36809,7 +36809,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 812.0, 582.5, 490.0, 27.0 ],
-					"text" : "jcom.parameter source.7/gain @repetitions/allow 0 @type msg_float @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @description \"gain of source 7\"",
+					"text" : "jcom.parameter source.7/gain @repetitions/allow 0 @type decimal @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @description \"gain of source 7\"",
 					"varname" : "room/reflection/2/gain[7]"
 				}
 
@@ -36845,7 +36845,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1384.0, 158.0, 570.0, 17.0 ],
-					"text" : "jcom.parameter source.8/active @type msg_toggle @repetitions/allow 1 @value 0 @description \"deactivates rendering of the sound source\"",
+					"text" : "jcom.parameter source.8/active @type boolean @repetitions/allow 1 @value 0 @description \"deactivates rendering of the sound source\"",
 					"varname" : "rendermode[12]"
 				}
 
@@ -36881,7 +36881,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1384.0, 139.0, 570.0, 17.0 ],
-					"text" : "jcom.parameter source.7/active @type msg_toggle @repetitions/allow 1 @value 0 @description \"deactivates rendering of the sound source\"",
+					"text" : "jcom.parameter source.7/active @type boolean @repetitions/allow 1 @value 0 @description \"deactivates rendering of the sound source\"",
 					"varname" : "rendermode[13]"
 				}
 
@@ -36917,7 +36917,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1384.0, 120.0, 570.0, 17.0 ],
-					"text" : "jcom.parameter source.6/active @type msg_toggle @repetitions/allow 1 @value 0 @description \"deactivates rendering of the sound source\"",
+					"text" : "jcom.parameter source.6/active @type boolean @repetitions/allow 1 @value 0 @description \"deactivates rendering of the sound source\"",
 					"varname" : "rendermode[14]"
 				}
 
@@ -36953,7 +36953,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1384.0, 101.0, 570.0, 17.0 ],
-					"text" : "jcom.parameter source.5/active @type msg_toggle @repetitions/allow 1 @value 0 @description \"deactivates rendering of the sound source\"",
+					"text" : "jcom.parameter source.5/active @type boolean @repetitions/allow 1 @value 0 @description \"deactivates rendering of the sound source\"",
 					"varname" : "rendermode[15]"
 				}
 
@@ -36989,7 +36989,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1384.0, 82.0, 570.0, 17.0 ],
-					"text" : "jcom.parameter source.4/active @type msg_toggle @repetitions/allow 1 @value 0 @description \"deactivates rendering of the sound source\"",
+					"text" : "jcom.parameter source.4/active @type boolean @repetitions/allow 1 @value 0 @description \"deactivates rendering of the sound source\"",
 					"varname" : "rendermode[11]"
 				}
 
@@ -37025,7 +37025,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1384.0, 63.0, 570.0, 17.0 ],
-					"text" : "jcom.parameter source.3/active @type msg_toggle @repetitions/allow 1 @value 0 @description \"deactivates rendering of the sound source\"",
+					"text" : "jcom.parameter source.3/active @type boolean @repetitions/allow 1 @value 0 @description \"deactivates rendering of the sound source\"",
 					"varname" : "rendermode[10]"
 				}
 
@@ -37061,7 +37061,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1384.0, 44.0, 570.0, 17.0 ],
-					"text" : "jcom.parameter source.2/active @type msg_toggle @repetitions/allow 1 @value 0 @description \"deactivates rendering of the sound source\"",
+					"text" : "jcom.parameter source.2/active @type boolean @repetitions/allow 1 @value 0 @description \"deactivates rendering of the sound source\"",
 					"varname" : "rendermode[9]"
 				}
 
@@ -37097,7 +37097,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1384.0, 25.0, 570.0, 17.0 ],
-					"text" : "jcom.parameter source.1/active @type msg_toggle @repetitions/allow 1 @value 0 @description \"deactivates rendering of the sound source\"",
+					"text" : "jcom.parameter source.1/active @type boolean @repetitions/allow 1 @value 0 @description \"deactivates rendering of the sound source\"",
 					"varname" : "rendermode[8]"
 				}
 
@@ -37114,7 +37114,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1212.0, 754.0, 471.0, 27.0 ],
-					"text" : "jcom.message source.1/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source.1/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"varname" : "source/position/absolute[8]"
 				}
 
@@ -37131,7 +37131,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1212.0, 962.0, 471.0, 27.0 ],
-					"text" : "jcom.message source.8/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source.8/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"varname" : "source/position/absolute[7]"
 				}
 
@@ -37148,7 +37148,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1212.0, 933.0, 471.0, 27.0 ],
-					"text" : "jcom.message source.7/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source.7/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"varname" : "source/position/absolute[6]"
 				}
 
@@ -37165,7 +37165,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1212.0, 903.0, 471.0, 27.0 ],
-					"text" : "jcom.message source.6/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source.6/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"varname" : "source/position/absolute[5]"
 				}
 
@@ -37182,7 +37182,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1212.0, 873.0, 471.0, 27.0 ],
-					"text" : "jcom.message source.5/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source.5/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"varname" : "source/position/absolute[4]"
 				}
 
@@ -37199,7 +37199,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1212.0, 843.0, 471.0, 27.0 ],
-					"text" : "jcom.message source.4/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source.4/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"varname" : "source/position/absolute[3]"
 				}
 
@@ -37216,7 +37216,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1212.0, 813.0, 471.0, 27.0 ],
-					"text" : "jcom.message source.3/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source.3/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"varname" : "source/position/absolute[2]"
 				}
 
@@ -37233,7 +37233,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1212.0, 783.0, 471.0, 27.0 ],
-					"text" : "jcom.message source.2/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source.2/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"varname" : "source/position/absolute[1]"
 				}
 
@@ -37269,7 +37269,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1404.0, 369.0, 520.0, 17.0 ],
-					"text" : "jcom.parameter source.8/rendermode @type msg_symbol @repetitions/allow 0 @description \"ViMiC Rendermode for source 8\"",
+					"text" : "jcom.parameter source.8/rendermode @type string @repetitions/allow 0 @description \"ViMiC Rendermode for source 8\"",
 					"varname" : "rendermode[6]"
 				}
 
@@ -37305,7 +37305,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1404.0, 344.0, 520.0, 17.0 ],
-					"text" : "jcom.parameter source.7/rendermode @type msg_symbol @repetitions/allow 0 @description \"ViMiC Rendermode for source 7\"",
+					"text" : "jcom.parameter source.7/rendermode @type string @repetitions/allow 0 @description \"ViMiC Rendermode for source 7\"",
 					"varname" : "rendermode[7]"
 				}
 
@@ -37341,7 +37341,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1403.0, 319.0, 522.0, 17.0 ],
-					"text" : "jcom.parameter source.6/rendermode @type msg_symbol @repetitions/allow 0 @description \"ViMiC Rendermode for source 6\"",
+					"text" : "jcom.parameter source.6/rendermode @type string @repetitions/allow 0 @description \"ViMiC Rendermode for source 6\"",
 					"varname" : "rendermode[5]"
 				}
 
@@ -37377,7 +37377,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1403.0, 294.0, 522.0, 17.0 ],
-					"text" : "jcom.parameter source.5/rendermode @type msg_symbol @repetitions/allow 0 @description \"ViMiC Rendermode for source 5\"",
+					"text" : "jcom.parameter source.5/rendermode @type string @repetitions/allow 0 @description \"ViMiC Rendermode for source 5\"",
 					"varname" : "rendermode[4]"
 				}
 
@@ -37413,7 +37413,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1403.0, 269.0, 522.0, 17.0 ],
-					"text" : "jcom.parameter source.4/rendermode @type msg_symbol @repetitions/allow 0 @description \"ViMiC Rendermode for source 4\"",
+					"text" : "jcom.parameter source.4/rendermode @type string @repetitions/allow 0 @description \"ViMiC Rendermode for source 4\"",
 					"varname" : "rendermode[3]"
 				}
 
@@ -37449,7 +37449,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1403.0, 244.0, 522.0, 17.0 ],
-					"text" : "jcom.parameter source.3/rendermode @type msg_symbol @repetitions/allow 0 @description \"ViMiC Rendermode for source 3\"",
+					"text" : "jcom.parameter source.3/rendermode @type string @repetitions/allow 0 @description \"ViMiC Rendermode for source 3\"",
 					"varname" : "rendermode[2]"
 				}
 
@@ -37485,7 +37485,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1403.0, 217.0, 522.0, 17.0 ],
-					"text" : "jcom.parameter source.2/rendermode @type msg_symbol @repetitions/allow 0 @description \"ViMiC Rendermode for source 2\"",
+					"text" : "jcom.parameter source.2/rendermode @type string @repetitions/allow 0 @description \"ViMiC Rendermode for source 2\"",
 					"varname" : "rendermode[1]"
 				}
 
@@ -37775,7 +37775,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1211.0, 721.0, 363.0, 27.0 ],
-					"text" : "jcom.message update @type msg_none @description \"updates ViMiC manually (e.g. through an external clock), rather than automatically each time set with /updaterate\"",
+					"text" : "jcom.message update @type none @description \"updates ViMiC manually (e.g. through an external clock), rather than automatically each time set with /updaterate\"",
 					"varname" : "update"
 				}
 
@@ -38091,7 +38091,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1314.0, 568.0, 380.0, 27.0 ],
-					"text" : "jcom.parameter room/reflection/order @type msg_int @range/bounds 0 2 @repetitions/allow 0 @priority 300 @range/clipmode both @description \"order of early reflections\"",
+					"text" : "jcom.parameter room/reflection/order @type integer @range/bounds 0 2 @repetitions/allow 0 @priority 300 @range/clipmode both @description \"order of early reflections\"",
 					"varname" : "room/reflection/order"
 				}
 
@@ -38178,7 +38178,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 923.0, 1109.0, 547.0, 17.0 ],
-									"text" : "jcom.parameter room/distance/mode @type msg_symbol @repetitions/allow 0 @description \"distance function: inverse or exponential\"",
+									"text" : "jcom.parameter room/distance/mode @type string @repetitions/allow 0 @description \"distance function: inverse or exponential\"",
 									"varname" : "room/distance/power[2]"
 								}
 
@@ -38307,7 +38307,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 939.0, 1197.0, 603.0, 27.0 ],
-									"text" : "jcom.parameter room/distance/dbunit @type msg_float @range/bounds 0. 60. @range/clipmode both @repetitions/allow 0 @description \"db-Unit for exponential attenuation function due to distance\"",
+									"text" : "jcom.parameter room/distance/dbunit @type decimal @range/bounds 0. 60. @range/clipmode both @repetitions/allow 0 @description \"db-Unit for exponential attenuation function due to distance\"",
 									"varname" : "room/distance/power[1]"
 								}
 
@@ -38359,7 +38359,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 940.0, 1140.0, 597.0, 27.0 ],
-									"text" : "jcom.parameter room/distance/power @type msg_float @range/bounds 0. 9. @range/clipmode both @repetitions/allow 0 @description \"power law for inverse attenuation function due to distance\"",
+									"text" : "jcom.parameter room/distance/power @type decimal @range/bounds 0. 9. @range/clipmode both @repetitions/allow 0 @description \"power law for inverse attenuation function due to distance\"",
 									"varname" : "room/distance/power"
 								}
 
@@ -39211,7 +39211,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1684.0, 834.0, 325.0, 27.0 ],
-									"text" : "jcom.parameter warning @type msg_int @range/bounds 0 1 @range/clipmode both @description \"turn on/off the printing of ViMiC's warning messages\"",
+									"text" : "jcom.parameter warning @type integer @range/bounds 0 1 @range/clipmode both @description \"turn on/off the printing of ViMiC's warning messages\"",
 									"varname" : "warning[1]"
 								}
 
@@ -39228,7 +39228,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1679.0, 870.0, 317.0, 27.0 ],
-									"text" : "jcom.parameter report @type msg_int @range/bounds 0 1 @range/clipmode both @description \"report changes inside the vimic module\"",
+									"text" : "jcom.parameter report @type integer @range/bounds 0 1 @range/clipmode both @description \"report changes inside the vimic module\"",
 									"varname" : "report[1]"
 								}
 
@@ -39916,7 +39916,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 693.0, 962.0, 359.0, 38.0 ],
-									"text" : "jcom.parameter microphones/polarity @type msg_toggle @repetitions/allow 0 @description \"when unchecked, the polarity of all microphones is restricted - so all gain values are between 0 and 1, rather that between -1 and 1\"",
+									"text" : "jcom.parameter microphones/polarity @type boolean @repetitions/allow 0 @description \"when unchecked, the polarity of all microphones is restricted - so all gain values are between 0 and 1, rather that between -1 and 1\"",
 									"varname" : "rendermode/normalization/active[1]"
 								}
 
@@ -40118,7 +40118,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1720.0, 770.0, 643.0, 27.0 ],
-									"text" : "jcom.parameter room/absorption.ceiling/mid_high_frequency @type msg_int @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"mid-high crossover frequencies for the ceiling filter\""
+									"text" : "jcom.parameter room/absorption.ceiling/mid_high_frequency @type integer @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"mid-high crossover frequencies for the ceiling filter\""
 								}
 
 							}
@@ -40133,7 +40133,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1721.0, 714.0, 646.0, 27.0 ],
-									"text" : "jcom.parameter room/absorption.ceiling/low_mid_frequency @type msg_int @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"low-mid crossover frequencies for the ceiling wall filter\""
+									"text" : "jcom.parameter room/absorption.ceiling/low_mid_frequency @type integer @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"low-mid crossover frequencies for the ceiling wall filter\""
 								}
 
 							}
@@ -40366,7 +40366,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1724.0, 633.0, 637.0, 27.0 ],
-									"text" : "jcom.parameter room/absorption.floor/mid_high_frequency @type msg_int @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"mid-high crossover frequencies for the floor filter\""
+									"text" : "jcom.parameter room/absorption.floor/mid_high_frequency @type integer @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"mid-high crossover frequencies for the floor filter\""
 								}
 
 							}
@@ -40381,7 +40381,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1725.0, 577.0, 638.0, 27.0 ],
-									"text" : "jcom.parameter room/absorption.floor/low_mid_frequency @type msg_int @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"low-mid crossover frequencies for the floor filter\""
+									"text" : "jcom.parameter room/absorption.floor/low_mid_frequency @type integer @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"low-mid crossover frequencies for the floor filter\""
 								}
 
 							}
@@ -40614,7 +40614,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1725.0, 500.0, 638.0, 27.0 ],
-									"text" : "jcom.parameter room/absorption.right/mid_high_frequency @type msg_int @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"mid-high crossover frequencies for the right wall filter\""
+									"text" : "jcom.parameter room/absorption.right/mid_high_frequency @type integer @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"mid-high crossover frequencies for the right wall filter\""
 								}
 
 							}
@@ -40629,7 +40629,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1725.0, 438.0, 563.0, 27.0 ],
-									"text" : "jcom.parameter room/absorption.right/low_mid_frequency @type msg_int @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"low-mid crossover frequencies for the right wall filter\""
+									"text" : "jcom.parameter room/absorption.right/low_mid_frequency @type integer @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"low-mid crossover frequencies for the right wall filter\""
 								}
 
 							}
@@ -40862,7 +40862,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1724.0, 357.0, 616.0, 27.0 ],
-									"text" : "jcom.parameter room/absorption.left/mid_high_frequency @type msg_int @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"mid-high crossover frequencies for the left wall filter\""
+									"text" : "jcom.parameter room/absorption.left/mid_high_frequency @type integer @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"mid-high crossover frequencies for the left wall filter\""
 								}
 
 							}
@@ -40877,7 +40877,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1723.0, 295.0, 569.0, 27.0 ],
-									"text" : "jcom.parameter room/absorption.left/low_mid_frequency @type msg_int @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"low-mid crossover frequencies for the left wall filter\""
+									"text" : "jcom.parameter room/absorption.left/low_mid_frequency @type integer @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"low-mid crossover frequencies for the left wall filter\""
 								}
 
 							}
@@ -41110,7 +41110,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1723.0, 224.0, 600.0, 27.0 ],
-									"text" : "jcom.parameter room/absorption.rear/mid_high_frequency @type msg_int @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"mid-high crossover frequencies for the rear wall filter\""
+									"text" : "jcom.parameter room/absorption.rear/mid_high_frequency @type integer @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"mid-high crossover frequencies for the rear wall filter\""
 								}
 
 							}
@@ -41125,7 +41125,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1722.0, 162.0, 603.0, 27.0 ],
-									"text" : "jcom.parameter room/absorption.rear/low_mid_frequency @type msg_int @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"low-mid crossover frequencies for the rear wall filter\""
+									"text" : "jcom.parameter room/absorption.rear/low_mid_frequency @type integer @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"low-mid crossover frequencies for the rear wall filter\""
 								}
 
 							}
@@ -41358,7 +41358,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1727.0, 98.0, 614.0, 27.0 ],
-									"text" : "jcom.parameter room/absorption.front/mid_high_frequency @type msg_int @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \" mid-high crossover frequencies for the front wall filter\""
+									"text" : "jcom.parameter room/absorption.front/mid_high_frequency @type integer @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \" mid-high crossover frequencies for the front wall filter\""
 								}
 
 							}
@@ -41373,7 +41373,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1726.0, 36.0, 613.0, 27.0 ],
-									"text" : "jcom.parameter room/absorption.front/low_mid_frequency @type msg_int @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"low-mid  crossover frequencies for the front wall filter\""
+									"text" : "jcom.parameter room/absorption.front/low_mid_frequency @type integer @repetitions/allow 1 @range/bounds 10 9999 @range/clipmode both @description \"low-mid  crossover frequencies for the front wall filter\""
 								}
 
 							}
@@ -41451,7 +41451,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 658.0, 678.0, 310.0, 27.0 ],
-									"text" : "jcom.parameter rendermode/threshold/active @type msg_toggle @repetitions/allow 0 @description \"when ticked, renderthreshold is active\"",
+									"text" : "jcom.parameter rendermode/threshold/active @type boolean @repetitions/allow 0 @description \"when ticked, renderthreshold is active\"",
 									"varname" : "rendermode/threshold/active"
 								}
 
@@ -41468,7 +41468,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 687.0, 625.0, 277.0, 48.0 ],
-									"text" : "jcom.parameter rendermode/threshold @type msg_float @repetitions/allow 0 @range/bounds 0. 1000. @range/clipmode both @description \"renders ony reflecitions above this amplitude value (full scale range)\"",
+									"text" : "jcom.parameter rendermode/threshold @type decimal @repetitions/allow 0 @range/bounds 0. 1000. @range/clipmode both @description \"renders ony reflecitions above this amplitude value (full scale range)\"",
 									"varname" : "rendermode/threshold"
 								}
 
@@ -41485,7 +41485,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 686.0, 584.0, 297.0, 38.0 ],
-									"text" : "jcom.parameter rendermode/normalization/active @type msg_toggle @repetitions/allow 0 @description \"when ticked, all calculated reflections are getting normalized to unity intensity\"",
+									"text" : "jcom.parameter rendermode/normalization/active @type boolean @repetitions/allow 0 @description \"when ticked, all calculated reflections are getting normalized to unity intensity\"",
 									"varname" : "rendermode/normalization/active"
 								}
 
@@ -43990,7 +43990,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1095.0, 945.0, 596.0, 38.0 ],
-									"text" : "jcom.parameter room/temperature @type msg_float @repetitions/allow 1 @range/bounds -20. 30. @range/clipmode low @dataspace temperature @dataspace/unit/active C @dataspace/unit/native C @dataspace/unit/native C @description \"Temperature in Celsius to calculate the speed of sound\""
+									"text" : "jcom.parameter room/temperature @type decimal @repetitions/allow 1 @range/bounds -20. 30. @range/clipmode low @dataspace temperature @dataspace/unit/active C @dataspace/unit/native C @dataspace/unit/native C @description \"Temperature in Celsius to calculate the speed of sound\""
 								}
 
 							}
@@ -44005,7 +44005,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1093.0, 891.0, 379.0, 38.0 ],
-									"text" : "jcom.parameter rendermode/interval @type msg_int @range/bounds 1 200 @range/clipmode both @description \"tells ViMiC over how many signalblocks a change in position is interpolated - shorter time leads to faster transition and stronger doppler effect\""
+									"text" : "jcom.parameter rendermode/interval @type integer @range/bounds 1 200 @range/clipmode both @description \"tells ViMiC over how many signalblocks a change in position is interpolated - shorter time leads to faster transition and stronger doppler effect\""
 								}
 
 							}
@@ -44054,7 +44054,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1387.0, 686.0, 312.0, 27.0 ],
-									"text" : "jcom.message room/absorption.ceiling/preset @type msg_symbol @repetitions/allow 1 @description \"absorption presets for the floor\"",
+									"text" : "jcom.message room/absorption.ceiling/preset @type string @repetitions/allow 1 @description \"absorption presets for the floor\"",
 									"varname" : "room/absorption.ceiling/preset"
 								}
 
@@ -44104,7 +44104,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1378.0, 577.0, 305.0, 27.0 ],
-									"text" : "jcom.message room/absorption.floor/preset @type msg_symbol @repetitions/allow 1 @description \"absorption presets for the floor\"",
+									"text" : "jcom.message room/absorption.floor/preset @type string @repetitions/allow 1 @description \"absorption presets for the floor\"",
 									"varname" : "room/absorption.floor/preset"
 								}
 
@@ -44154,7 +44154,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1358.0, 412.0, 315.0, 27.0 ],
-									"text" : "jcom.message room/absorption.right/preset @type msg_symbol @repetitions/allow 1 @description \"absorption presets for the right wall\"",
+									"text" : "jcom.message room/absorption.right/preset @type string @repetitions/allow 1 @description \"absorption presets for the right wall\"",
 									"varname" : "room/absorption.right/preset"
 								}
 
@@ -44204,7 +44204,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1365.0, 268.0, 309.0, 27.0 ],
-									"text" : "jcom.message room/absorption.left/preset @type msg_symbol @repetitions/allow 1 @description \"absorption presets for the left wall\"",
+									"text" : "jcom.message room/absorption.left/preset @type string @repetitions/allow 1 @description \"absorption presets for the left wall\"",
 									"varname" : "room/absorption.left/preset"
 								}
 
@@ -44254,7 +44254,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1356.0, 154.0, 313.0, 27.0 ],
-									"text" : "jcom.message room/absorption.rear/preset @type msg_symbol @repetitions/allow 1 @description \"absorption presets for the rear wall\"",
+									"text" : "jcom.message room/absorption.rear/preset @type string @repetitions/allow 1 @description \"absorption presets for the rear wall\"",
 									"varname" : "room/absorption.rear/preset"
 								}
 
@@ -44304,7 +44304,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1357.0, 46.0, 316.0, 27.0 ],
-									"text" : "jcom.message room/absorption.front/preset @type msg_symbol @repetitions/allow 1 @description \"absorption presets for the front wall\"",
+									"text" : "jcom.message room/absorption.front/preset @type string @repetitions/allow 1 @description \"absorption presets for the front wall\"",
 									"varname" : "room/absorption"
 								}
 
@@ -44320,7 +44320,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1052.0, 818.0, 418.0, 27.0 ],
-									"text" : "jcom.parameter room/absorption.ceiling/high @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the high frequencies of the ceiling\""
+									"text" : "jcom.parameter room/absorption.ceiling/high @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the high frequencies of the ceiling\""
 								}
 
 							}
@@ -44335,7 +44335,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1052.0, 773.0, 416.0, 27.0 ],
-									"text" : "jcom.parameter room/absorption.ceiling/mid @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the mid frequencies of the ceiling\""
+									"text" : "jcom.parameter room/absorption.ceiling/mid @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the mid frequencies of the ceiling\""
 								}
 
 							}
@@ -44350,7 +44350,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1052.0, 727.0, 416.0, 27.0 ],
-									"text" : "jcom.parameter room/absorption.ceiling/low @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the low frequencies of the ceiling\""
+									"text" : "jcom.parameter room/absorption.ceiling/low @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the low frequencies of the ceiling\""
 								}
 
 							}
@@ -44413,7 +44413,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1050.0, 684.0, 292.0, 38.0 ],
-									"text" : "jcom.parameter room/absorption.floor/high @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the high frequencies of the floor wall\""
+									"text" : "jcom.parameter room/absorption.floor/high @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the high frequencies of the floor wall\""
 								}
 
 							}
@@ -44428,7 +44428,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1050.0, 639.0, 290.0, 38.0 ],
-									"text" : "jcom.parameter room/absorption.floor/mid @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the mid frequencies of the floor wall\""
+									"text" : "jcom.parameter room/absorption.floor/mid @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the mid frequencies of the floor wall\""
 								}
 
 							}
@@ -44443,7 +44443,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1050.0, 593.0, 290.0, 38.0 ],
-									"text" : "jcom.parameter room/absorption.floor/low @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the low frequencies of the floor wall\""
+									"text" : "jcom.parameter room/absorption.floor/low @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the low frequencies of the floor wall\""
 								}
 
 							}
@@ -44506,7 +44506,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1049.0, 550.0, 292.0, 38.0 ],
-									"text" : "jcom.parameter room/absorption.right/high @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the high frequencies of the right wall\""
+									"text" : "jcom.parameter room/absorption.right/high @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the high frequencies of the right wall\""
 								}
 
 							}
@@ -44521,7 +44521,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1049.0, 505.0, 290.0, 38.0 ],
-									"text" : "jcom.parameter room/absorption.right/mid @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the mid frequencies of the right wall\""
+									"text" : "jcom.parameter room/absorption.right/mid @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the mid frequencies of the right wall\""
 								}
 
 							}
@@ -44536,7 +44536,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1049.0, 459.0, 290.0, 38.0 ],
-									"text" : "jcom.parameter room/absorption.right/low @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the low frequencies of the right wall\"",
+									"text" : "jcom.parameter room/absorption.right/low @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the low frequencies of the right wall\"",
 									"varname" : "room/absorption.right/low"
 								}
 
@@ -44600,7 +44600,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1047.0, 413.0, 287.0, 38.0 ],
-									"text" : "jcom.parameter room/absorption.left/high @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the high frequencies of the left wall\""
+									"text" : "jcom.parameter room/absorption.left/high @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the high frequencies of the left wall\""
 								}
 
 							}
@@ -44615,7 +44615,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1047.0, 368.0, 284.0, 38.0 ],
-									"text" : "jcom.parameter room/absorption.left/mid @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the mid frequencies of the left wall\""
+									"text" : "jcom.parameter room/absorption.left/mid @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the mid frequencies of the left wall\""
 								}
 
 							}
@@ -44630,7 +44630,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1047.0, 322.0, 284.0, 38.0 ],
-									"text" : "jcom.parameter room/absorption.left/low @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the low frequencies of the left wall\""
+									"text" : "jcom.parameter room/absorption.left/low @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the low frequencies of the left wall\""
 								}
 
 							}
@@ -44693,7 +44693,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1047.0, 277.0, 290.0, 38.0 ],
-									"text" : "jcom.parameter room/absorption.rear/high @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the high frequencies of the rear wall\""
+									"text" : "jcom.parameter room/absorption.rear/high @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the high frequencies of the rear wall\""
 								}
 
 							}
@@ -44708,7 +44708,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1047.0, 231.0, 288.0, 38.0 ],
-									"text" : "jcom.parameter room/absorption.rear/mid @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the mid frequencies of the rear wall\""
+									"text" : "jcom.parameter room/absorption.rear/mid @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the mid frequencies of the rear wall\""
 								}
 
 							}
@@ -44723,7 +44723,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1047.0, 185.0, 288.0, 38.0 ],
-									"text" : "jcom.parameter room/absorption.rear/low @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the low frequencies of the rear wall\""
+									"text" : "jcom.parameter room/absorption.rear/low @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the low frequencies of the rear wall\""
 								}
 
 							}
@@ -44786,7 +44786,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1047.0, 139.0, 293.0, 38.0 ],
-									"text" : "jcom.parameter room/absorption.front/high @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the high frequencies of the front wall\""
+									"text" : "jcom.parameter room/absorption.front/high @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the high frequencies of the front wall\""
 								}
 
 							}
@@ -44801,7 +44801,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1047.0, 92.0, 291.0, 38.0 ],
-									"text" : "jcom.parameter room/absorption.front/mid @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the mid frequencies of the front wall\"",
+									"text" : "jcom.parameter room/absorption.front/mid @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the mid frequencies of the front wall\"",
 									"varname" : "room/absorption.front/mid"
 								}
 
@@ -44817,7 +44817,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1047.0, 46.0, 294.0, 38.0 ],
-									"text" : "jcom.parameter room/absorption.front/low @type msg_float @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the low frequencies of the front wall\"",
+									"text" : "jcom.parameter room/absorption.front/low @type decimal @repetitions/allow 1 @range/bounds 0.1 99.9 @range/clipmode both @description \"absorption for the low frequencies of the front wall\"",
 									"varname" : "room/absorption.front/low"
 								}
 
@@ -44895,7 +44895,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 565.0, 877.0, 403.0, 27.0 ],
-									"text" : "jcom.parameter rendermode/xfade/fadefunction @type msg_symbol @description \"fading function of the crossfade for the x-fade mode\""
+									"text" : "jcom.parameter rendermode/xfade/fadefunction @type string @description \"fading function of the crossfade for the x-fade mode\""
 								}
 
 							}
@@ -44910,7 +44910,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 566.0, 832.0, 329.0, 38.0 ],
-									"text" : "jcom.parameter rendermode/xfade/threshold @type msg_int @range/bounds 0 4096 @repetitions/allow 0 @range/clipmode low @description \"distance in samples before a crossfade in the x-fade mode is activated\""
+									"text" : "jcom.parameter rendermode/xfade/threshold @type integer @range/bounds 0 4096 @repetitions/allow 0 @range/clipmode low @description \"distance in samples before a crossfade in the x-fade mode is activated\""
 								}
 
 							}
@@ -44925,7 +44925,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 565.0, 799.0, 432.0, 27.0 ],
-									"text" : "jcom.parameter rendermode/xfade/fadelength @type msg_int @repetitions/allow 0 @range/bounds 0 9999 @range/clipmode both @description \"length of the crossfade for the x-fade mode in samples\""
+									"text" : "jcom.parameter rendermode/xfade/fadelength @type integer @repetitions/allow 0 @range/bounds 0 9999 @range/clipmode both @description \"length of the crossfade for the x-fade mode in samples\""
 								}
 
 							}
@@ -45188,7 +45188,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1093.0, 859.0, 407.0, 27.0 ],
-									"text" : "jcom.parameter updaterate @type msg_int @range/bounds 1 50 @range/clipmode low @description \"vimic internal updaterate in [Hz]- tells how often new parameter are getting updated\""
+									"text" : "jcom.parameter updaterate @type integer @range/bounds 1 50 @range/clipmode low @description \"vimic internal updaterate in [Hz]- tells how often new parameter are getting updated\""
 								}
 
 							}
@@ -45204,7 +45204,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1409.0, 1007.0, 230.0, 48.0 ],
-									"text" : "jcom.parameter room/reflection/airfilter @type msg_int @range/bounds 500 19000 @range/clipmode both @repetitions/allow 0 @description \"damping frequency of the early reflections due to air absorption\"",
+									"text" : "jcom.parameter room/reflection/airfilter @type integer @range/bounds 500 19000 @range/clipmode both @repetitions/allow 0 @description \"damping frequency of the early reflections due to air absorption\"",
 									"varname" : "room/reflection/airfilter"
 								}
 
@@ -45282,7 +45282,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 583.0, 917.0, 386.0, 27.0 ],
-									"text" : "jcom.parameter room/size/xyz @type msg_list @ramp/drive scheduler @range/bounds 0. 40. @repetitions/allow 0 @range/clipmode both @description \"Size of the virtual room in XYZ\"",
+									"text" : "jcom.parameter room/size/xyz @type array @ramp/drive scheduler @range/bounds 0. 40. @repetitions/allow 0 @range/clipmode both @description \"Size of the virtual room in XYZ\"",
 									"varname" : "room/size/xyz"
 								}
 
@@ -45299,7 +45299,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1384.0, 1062.0, 307.0, 38.0 ],
-									"text" : "jcom.parameter microphones/directivity/power @type msg_int @repetitions/allow 0 @range/bounds 0 9 @range/clipmode both @description \"power law for attenuation due to microphone directivity\"",
+									"text" : "jcom.parameter microphones/directivity/power @type integer @repetitions/allow 0 @range/bounds 0 9 @range/clipmode both @description \"power law for attenuation due to microphone directivity\"",
 									"varname" : "microphones/direct/power"
 								}
 
@@ -45332,7 +45332,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1074.0, 1016.0, 253.0, 27.0 ],
-									"text" : "jcom.message getState @type msg_none @description \"report inner state of the vimic module\"",
+									"text" : "jcom.message getState @type none @description \"report inner state of the vimic module\"",
 									"varname" : "report_all"
 								}
 
@@ -47430,7 +47430,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1403.0, 194.0, 518.0, 17.0 ],
-					"text" : "jcom.parameter source.1/rendermode @type msg_symbol @repetitions/allow 0 @description \"ViMiC Rendermode for source 1\"",
+					"text" : "jcom.parameter source.1/rendermode @type string @repetitions/allow 0 @description \"ViMiC Rendermode for source 1\"",
 					"varname" : "rendermode"
 				}
 
@@ -47479,7 +47479,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1577.0, 757.0, 289.0, 38.0 ],
-					"text" : "jcom.parameter microphones/amount @type msg_int @range/bounds 1 24 @repetitions/allow 0 @range/clipmode low @priority 301 @description \"Number of rendered virtual microphones\"",
+					"text" : "jcom.parameter microphones/amount @type integer @range/bounds 1 24 @repetitions/allow 0 @range/clipmode low @priority 301 @description \"Number of rendered virtual microphones\"",
 					"varname" : "microphones/amount"
 				}
 

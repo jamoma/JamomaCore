@@ -5,11 +5,11 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='720x576 (DV PAL)'>
-    <item name='colormode' type='msg_symbol' priority='0'>argb</item>
-    <item name='deinterlace' type='msg_toggle' priority='0'>1</item>
-    <item name='dim' type='msg_list' priority='0'>720 576 </item>
-    <item name='highquality' type='msg_toggle' priority='0'>1</item>
-    <item name='singlefield' type='msg_toggle' priority='0'>1</item>
-    <item name='unique' type='msg_toggle' priority='0'>0</item>
+    <item name='colormode' type='string' priority='0'>argb</item>
+    <item name='deinterlace' type='boolean' priority='0'>1</item>
+    <item name='dim' type='array' priority='0'>720 576 </item>
+    <item name='highquality' type='boolean' priority='0'>1</item>
+    <item name='singlefield' type='boolean' priority='0'>1</item>
+    <item name='unique' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

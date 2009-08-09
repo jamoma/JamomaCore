@@ -100,7 +100,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 726.0, 26.0, 578.0, 31.0 ],
-					"text" : "jcom.parameter track.1/enable @type msg_int @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Channel 1 active.\"",
+					"text" : "jcom.parameter track.1/enable @type integer @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Channel 1 active.\"",
 					"varname" : "channel_offset[1]"
 				}
 
@@ -116,7 +116,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 726.0, 74.0, 578.0, 31.0 ],
-					"text" : "jcom.parameter track.2/enable @type msg_int @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Channel 2 active.\"",
+					"text" : "jcom.parameter track.2/enable @type integer @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Channel 2 active.\"",
 					"varname" : "channel_offset[2]"
 				}
 
@@ -166,7 +166,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 726.0, 120.0, 578.0, 31.0 ],
-					"text" : "jcom.parameter track.3/enable @type msg_int @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Channel 3 active.\"",
+					"text" : "jcom.parameter track.3/enable @type integer @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Channel 3 active.\"",
 					"varname" : "channel_offset[3]"
 				}
 
@@ -214,7 +214,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 726.0, 169.0, 578.0, 31.0 ],
-					"text" : "jcom.parameter track.4/enable @type msg_int @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Channel 4 active.\"",
+					"text" : "jcom.parameter track.4/enable @type integer @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Channel 4 active.\"",
 					"varname" : "channel_offset[4]"
 				}
 
@@ -250,7 +250,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 726.0, 352.0, 578.0, 31.0 ],
-					"text" : "jcom.parameter track.8/enable @type msg_int @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Channel 8 active.\"",
+					"text" : "jcom.parameter track.8/enable @type integer @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Channel 8 active.\"",
 					"varname" : "channel_offset[5]"
 				}
 
@@ -286,7 +286,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 726.0, 305.0, 578.0, 31.0 ],
-					"text" : "jcom.parameter track.7/enable @type msg_int @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Channel 7 active.\"",
+					"text" : "jcom.parameter track.7/enable @type integer @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Channel 7 active.\"",
 					"varname" : "channel_offset[6]"
 				}
 
@@ -322,7 +322,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 726.0, 258.0, 578.0, 31.0 ],
-					"text" : "jcom.parameter track.6/enable @type msg_int @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Channel 6 active.\"",
+					"text" : "jcom.parameter track.6/enable @type integer @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Channel 6 active.\"",
 					"varname" : "channel_offset[7]"
 				}
 
@@ -358,7 +358,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 726.0, 212.0, 578.0, 31.0 ],
-					"text" : "jcom.parameter track.5/enable @type msg_int @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Channel 5 active.\"",
+					"text" : "jcom.parameter track.5/enable @type integer @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Channel 5 active.\"",
 					"varname" : "channel_offset[8]"
 				}
 
@@ -419,7 +419,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 994.0, 447.0, 193.0, 67.0 ],
-					"text" : "jcom.parameter track_offset @type msg_int @repetitions/allow 1 @range/bounds 0 64 @range/clipmode low @description \"Set Track offset. \"",
+					"text" : "jcom.parameter track_offset @type integer @repetitions/allow 1 @range/bounds 0 64 @range/clipmode low @description \"Set Track offset. \"",
 					"varname" : "channel_offset[9]"
 				}
 
@@ -1203,7 +1203,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 702.0, 443.0, 264.0, 67.0 ],
-					"text" : "jcom.parameter channel_offset @type msg_int @repetitions/allow 1 @range/bounds 0 64 @range/clipmode low @description \"Set channel offset for signals. Only take effect the next time audio is started.\"",
+					"text" : "jcom.parameter channel_offset @type integer @repetitions/allow 1 @range/bounds 0 64 @range/clipmode low @description \"Set channel offset for signals. Only take effect the next time audio is started.\"",
 					"varname" : "channel_offset"
 				}
 
