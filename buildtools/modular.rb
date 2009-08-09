@@ -48,39 +48,11 @@ puts "  clean: #{clean}"
 #puts "  debug the build script: #{debug}"
 puts "  "
 
-@svn_root = "../"
-@build_root = @svn_root + "../Modular/Jamoma/library/externals"
+@svn_root = "../../Modules/Modular"
+@build_root = @svn_root + "/Jamoma/library/externals"
 @log_root = "../logs"
 @fail_array = Array.new
 @zerolink = false
-
-
-# If there isn't a TTBlue checkout, then we go ahead and check it out
-if(Dir.glob("#{@svn_root}../DSP").size == 0)
-  puts "We need to check out the Jamoma DSP Library (TTBlue) from its repository."
-  puts "This could take quite a while, and it will give you no feedback while it is happening."
-  puts ""
-  `svn co http://ttblue.googlecode.com/svn/branches/active #{@svn_root}../DSP`
-else
-  puts "TTBlue looks to be already checked-out..."
-  puts "Did you make sure it is updated to the correct revision?"
-  puts ""
-end
-
-# Then we do the same for Multicore
-if(Dir.glob("#{@svn_root}../Multicore").size == 0)
-  puts "We need to check out Jamoma Multicore from its repository."
-  puts "This could take quite a while, and it will give you no feedback while it is happening."
-  puts ""
-  `svn co http://jamulticore.googlecode.com/svn/branches/active #{@svn_root}../Multicore`
-else
-  puts "The Jamoma Multicore look to be already checked-out..."
-  puts "Did you make sure it is updated to the correct revision?"
-  puts ""
-end
-
-# Then we do the same for the Jamoma Tools
-  puts "You did update the Jamoma Tools, right?"
 
 
 #######
@@ -269,11 +241,11 @@ puts "Building Frameworks..."
 zero_count
 
 if  win32?
-	build_project("#{@svn_root}../Modular/SourceCode/Framework", "JamomaModular.vcproj", configuration, true)
-	`cp #{@svn_root}../Modular/SourceCode/Framework/#{configuration}/JamomaModular.dll  #{@svn_root}../Modular/Jamoma/library/externals/JamomaModular.dll`
+	build_project("#{@svn_root}/SourceCode/Framework", "JamomaModular.vcproj", configuration, true)
+#	`cp #{@svn_root}/SourceCode/Framework/#{configuration}/JamomaModular.dll  #{@svn_root}../Modular/Jamoma/library/externals/JamomaModular.dll`
 else
-	build_project("#{@svn_root}../Modular/SourceCode/Framework", "Jamoma.xcodeproj", configuration, true)
-	copydir("#{@svn_root}../Modular/SourceCode/Framework/build/UninstalledProducts/Jamoma.framework", "/Library/Frameworks/Jamoma.framework")
+	build_project("#{@svn_root}/SourceCode/Framework", "Jamoma.xcodeproj", configuration, true)
+#	copydir("#{@svn_root}/SourceCode/Framework/build/UninstalledProducts/Jamoma.framework", "/Library/Frameworks/Jamoma.framework")
 end
 
 ex_total, ex_count = get_count
@@ -287,13 +259,13 @@ puts ""
 puts "Building Max Externals..."
 
 zero_count
-build_dir("../Modular/SourceCode/MaxObjects", configuration, clean)  
+build_dir("#{@svn_root}/SourceCode/MaxObjects", configuration, clean)  
 ex_total, ex_count = get_count
 puts ""
 
 if  win32?
 else
-	copydir("#{@svn_root}../Modular/Jamoma/library/externals/mac/jcom.loader.mxo", "\"/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo\"")
+	copydir("#{@svn_root}/Jamoma/library/externals/mac/jcom.loader.mxo", "\"/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo\"")
 end
 puts ""
 

@@ -65,7 +65,7 @@ puts "  clean: #{clean}"
 puts "  "
 
 
-@svn_root = Dir.pwd + "/../../Multicore"
+@svn_root = Dir.pwd + "/../../Modules/Multicore"
 @build_root = @svn_root + "/implementations/Max";
 @fail_array = Array.new
 @zerolink = false
