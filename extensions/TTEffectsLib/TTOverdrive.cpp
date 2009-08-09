@@ -59,16 +59,17 @@ TTErr TTOverdrive::setdrive(const TTValue& newValue)
 	int			i;
 		
 	drive = TTClip(TTFloat32(newValue), TTFloat32(1.0), TTFloat32(10.0));
-
+	
 	// These calculations really only apply to mode 1...
 	f = (drive - 0.999) * 0.111;	// range is roughly [0.001 to 0.999]
+	
 	z = kTTPi * f;
 	s = 1.0 / sin(z);
 	b = 1.0 / f;
 	b = TTClip(b, 0.0, 1.0);
-	nb = b * -1;
+	nb = b * -1.;
 	i = int(f);
-	if(f-i > 0.5) 
+	if((f-(TTFloat64)i) > 0.5) 
 		scale = sin(f * kTTPi);
 	else 
 		scale = 1.0;
@@ -164,7 +165,8 @@ TTErr TTOverdrive::processMode1(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 					*outSample;
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTUInt16		channel;
-	TTSampleValue	temp;
+	TTSampleValue	temp,
+					sign;
 
 	dcBlockerUnit->process(in, out);
 
@@ -179,8 +181,25 @@ TTErr TTOverdrive::processMode1(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 				temp = 1.0;
 			else if(temp < nb) 
 				temp = -1.0;
+	#ifdef TT_PLATFORM_WIN
+			else {
+				// http://redmine.jamoma.org/issues/show/54
+				// It is insane, but on Windows sin() returns bad values 
+				// if the argument is negative, so we have to do this crazy workaround.
+				if(temp < 0.0){
+					temp = -temp;
+					sign = -1.0;
+				}
+				else
+					sign = 1.0;
+				temp = sign * sin(z * temp) * s;
+				// instead of using this more simple solution:
+				//temp = (z * temp) * s;
+			}
+	#else
 			else 
 				temp = sin(z * temp) * s;
+	#endif		
 			*outSample++ = temp * scale;				
 		}
 	}
