@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 20.0, 44.0, 250.0, 316.0 ],
+		"rect" : [ 1.0, 44.0, 250.0, 316.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 20.0, 44.0, 250.0, 316.0 ],
+		"defrect" : [ 1.0, 44.0, 250.0, 316.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -5345,7 +5345,6 @@
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
 						"imprint" : 0,
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"args" : [ "@name", "jamoma externals", "@description", "Overview of externals included in the Jamoma distribution" ],
