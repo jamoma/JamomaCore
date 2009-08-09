@@ -5,23 +5,23 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='myFloat0' type='msg_float' priority='0'>0</item>
-    <item name='myFloat1' type='msg_float' priority='0'>1.000000</item>
-    <item name='myInt0' type='msg_int' priority='0'>0</item>
-    <item name='myInt1' type='msg_int' priority='0'>1</item>
-    <item name='myToggle0' type='msg_toggle' priority='0'>0</item>
-    <item name='myToggle1' type='msg_toggle' priority='0'>1</item>
-    <item name='test/bypass' type='msg_toggle' priority='0'>1</item>
-    <item name='test/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='test/gain' type='msg_float' priority='0'>0.000000</item>
-    <item name='test/mix' type='msg_float' priority='0'>50.000000</item>
-    <item name='test/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='test/preview' type='msg_toggle' priority='0'>1</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
-    <item name='view/size' type='msg_list' priority='0'>300 70 </item>
+    <item name='myFloat0' type='decimal' priority='0'>0</item>
+    <item name='myFloat1' type='decimal' priority='0'>1.000000</item>
+    <item name='myInt0' type='integer' priority='0'>0</item>
+    <item name='myInt1' type='integer' priority='0'>1</item>
+    <item name='myToggle0' type='boolean' priority='0'>0</item>
+    <item name='myToggle1' type='boolean' priority='0'>1</item>
+    <item name='test/bypass' type='boolean' priority='0'>1</item>
+    <item name='test/freeze' type='boolean' priority='0'>0</item>
+    <item name='test/gain' type='decimal' priority='0'>0.000000</item>
+    <item name='test/mix' type='decimal' priority='0'>50.000000</item>
+    <item name='test/mute' type='boolean' priority='0'>0</item>
+    <item name='test/preview' type='boolean' priority='0'>1</item>
+    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/color/border' type='array' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
+    <item name='view/size' type='array' priority='0'>300 70 </item>
   </preset>
 </jamoma>

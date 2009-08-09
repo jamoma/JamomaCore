@@ -156,7 +156,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.parameter color/rgb2native @type msg_list @dataspace color @dataspace/unit/active rgb @dataspace/unit/native rgb @repetitions/allow 1",
+									"text" : "jcom.parameter color/rgb2native @type array @dataspace color @dataspace/unit/active rgb @dataspace/unit/native rgb @repetitions/allow 1",
 									"linecount" : 2,
 									"fontname" : "Verdana",
 									"numinlets" : 1,
@@ -171,7 +171,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.parameter color/hsl2native @type msg_list @dataspace color @dataspace/unit/active hsl @dataspace/unit/native rgb @repetitions/allow 1",
+									"text" : "jcom.parameter color/hsl2native @type array @dataspace color @dataspace/unit/active hsl @dataspace/unit/native rgb @repetitions/allow 1",
 									"linecount" : 2,
 									"fontname" : "Verdana",
 									"numinlets" : 1,

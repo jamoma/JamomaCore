@@ -710,7 +710,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 470.0, 165.0, 353.0, 19.0 ],
-					"text" : "jcom.parameter myToggle1 @type msg_toggle @repetitions/allow 0"
+					"text" : "jcom.parameter myToggle1 @type boolean @repetitions/allow 0"
 				}
 
 			}
@@ -737,7 +737,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 470.0, 80.0, 317.0, 19.0 ],
-					"text" : "jcom.parameter myInt0 @type msg_int @repetitions/allow 0"
+					"text" : "jcom.parameter myInt0 @type integer @repetitions/allow 0"
 				}
 
 			}
@@ -764,7 +764,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 470.0, 15.0, 337.0, 19.0 ],
-					"text" : "jcom.parameter myFloat0 @type msg_float @repetitions/allow 0"
+					"text" : "jcom.parameter myFloat0 @type decimal @repetitions/allow 0"
 				}
 
 			}
@@ -882,7 +882,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 470.0, 135.0, 353.0, 19.0 ],
-					"text" : "jcom.parameter myToggle0 @type msg_toggle @repetitions/allow 0"
+					"text" : "jcom.parameter myToggle0 @type boolean @repetitions/allow 0"
 				}
 
 			}
@@ -896,7 +896,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 470.0, 105.0, 317.0, 19.0 ],
-					"text" : "jcom.parameter myInt1 @type msg_int @repetitions/allow 0"
+					"text" : "jcom.parameter myInt1 @type integer @repetitions/allow 0"
 				}
 
 			}
@@ -910,7 +910,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 470.0, 45.0, 337.0, 19.0 ],
-					"text" : "jcom.parameter myFloat1 @type msg_float @repetitions/allow 0"
+					"text" : "jcom.parameter myFloat1 @type decimal @repetitions/allow 0"
 				}
 
 			}
