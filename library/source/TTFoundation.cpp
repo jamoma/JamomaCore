@@ -87,6 +87,18 @@ void TTFoundationLoadExternalClasses()
 		fullpath += "/Jamoma/Extensions";
 		TTFoundationLoadExternalClassesFromFolder(fullpath);
 	}
+	
+	// Look in the folder of the host application	
+	CFBundleRef mainBundle = CFBundleGetMainBundle();
+	CFURLRef	mainBundleURL = CFBundleCopyBundleURL(mainBundle);
+	CFStringRef mainBundlePath = CFURLCopyFileSystemPath(mainBundleURL, kCFURLPOSIXPathStyle);
+	char		mainBundleStr[4096];
+
+	CFStringGetCString(mainBundlePath, mainBundleStr, 4096, kCFStringEncodingUTF8);
+	strncat(mainBundleStr, "/Contents/Jamoma/Extensions", 4096);
+	mainBundleStr[4095] = 0;
+	TTFoundationLoadExternalClassesFromFolder(mainBundleStr);
+	
 #elif TT_PLATFORM_WIN
 	TTString	fullpath;
 	char		temppath[4096];
@@ -129,7 +141,14 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 	TTExtensionInitializationMethod	initializer;
 	TTErr							err;
 	
-	FSPathMakeRef((UInt8*)cpath, &ref, &isDirectory);
+	status = FSPathMakeRef((UInt8*)cpath, &ref, &isDirectory);
+	if (status != noErr) {
+#ifdef TT_DEBUG
+		TTLogMessage("TTFoundation - no extensions location found @ %s\n", cpath);
+#endif
+		return;
+	}
+	
 	status = FSOpenIterator(&ref, kFSIterateFlat, &iterator);
 	if(!status){
         names = (HFSUniStr255 *)malloc(sizeof(HFSUniStr255) * 4096);
