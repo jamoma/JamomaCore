@@ -17,6 +17,155 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"hidden" : 1,
+					"id" : "obj-22",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patcher" : 					{
+						"fileversion" : 1,
+						"rect" : [ 25.0, 69.0, 317.0, 183.0 ],
+						"bglocked" : 0,
+						"defrect" : [ 25.0, 69.0, 317.0, 183.0 ],
+						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
+						"openinpresentation" : 0,
+						"default_fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"gridonopen" : 0,
+						"gridsize" : [ 5.0, 5.0 ],
+						"gridsnaponopen" : 0,
+						"toolbarvisible" : 1,
+						"boxanimatetime" : 200,
+						"imprint" : 0,
+						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 9.160198,
+									"hidden" : 1,
+									"id" : "obj-44",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "bang" ],
+									"patching_rect" : [ 51.0, 100.0, 22.0, 17.0 ],
+									"text" : "b 1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 9.160198,
+									"hidden" : 1,
+									"id" : "obj-45",
+									"linecount" : 5,
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 50.0, 126.0, 108.0, 57.0 ],
+									"text" : ";\rmax launch_browser http://www.iamas.ac.jp/~jovan02/cv/download.html"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"comment" : "",
+									"id" : "obj-3",
+									"maxclass" : "inlet",
+									"numinlets" : 0,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 51.0, 40.0, 25.0, 25.0 ]
+								}
+
+							}
+ ],
+						"lines" : [ 							{
+								"patchline" : 								{
+									"destination" : [ "obj-45", 0 ],
+									"hidden" : 1,
+									"midpoints" : [  ],
+									"source" : [ "obj-44", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-44", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-3", 0 ]
+								}
+
+							}
+ ]
+					}
+,
+					"patching_rect" : [ 149.0, 448.0, 42.0, 18.0 ],
+					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"fontname" : "Arial",
+						"default_fontname" : "Arial",
+						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
+						"fontsize" : 10.0
+					}
+,
+					"text" : "p CV.jit"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.0, 0.0, 0.0, 0.0 ],
+					"bgoncolor" : [ 0.0, 0.0, 0.0, 0.0 ],
+					"bgovercolor" : [ 0.0, 0.0, 0.0, 0.0 ],
+					"bgoveroncolor" : [ 0.0, 0.0, 0.0, 0.0 ],
+					"bordercolor" : [ 0.0, 0.0, 0.0, 0.0 ],
+					"fontface" : 3,
+					"fontlink" : 1,
+					"fontname" : "Arial",
+					"fontsize" : 12.754705,
+					"id" : "obj-23",
+					"maxclass" : "textbutton",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
+					"patching_rect" : [ 148.0, 422.0, 133.435806, 14.666666 ],
+					"presentation_rect" : [ 75.0, 75.0, 133.435806, 14.666666 ],
+					"spacing_x" : 0.0,
+					"spacing_y" : 0.0,
+					"text" : "cv.jit download page",
+					"textcolor" : [ 0.27, 0.35, 0.47, 1.0 ],
+					"textoncolor" : [ 0.27, 0.35, 0.47, 1.0 ],
+					"textovercolor" : [ 0.4, 0.5, 0.65, 1.0 ],
+					"underline" : 1,
+					"varname" : "autohelp_top_ref"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-21",
+					"linecount" : 4,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 14.0, 383.0, 269.0, 55.0 ],
+					"text" : "note : this module depends on an 3rd party external, cv.jit.mean, which is not included in the Jamoma distribution.\nPlease download it here :"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"args" : [ "@name", "jmod.background%", "@description", "Background video substraction" ],
 					"bgmode" : 1,
 					"id" : "obj-7",
@@ -48,7 +197,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-2",
 					"linecount" : 8,
 					"maxclass" : "comment",
@@ -63,7 +212,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-3",
 					"linecount" : 21,
 					"maxclass" : "comment",
@@ -78,7 +227,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-4",
 					"linecount" : 11,
 					"maxclass" : "comment",
@@ -164,7 +313,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-13",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -189,36 +338,18 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-11", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 596.5, 289.0, 313.5, 289.0 ],
-					"source" : [ "obj-12", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-10", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-11", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-12", 0 ],
+					"destination" : [ "obj-22", 0 ],
 					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-6", 0 ]
+					"midpoints" : [ 157.5, 447.333313, 158.5, 447.333313 ],
+					"source" : [ "obj-23", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
+					"destination" : [ "obj-14", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 596.5, 165.0, 530.5, 165.0 ],
+					"midpoints" : [ 596.5, 165.0, 621.5, 165.0 ],
 					"source" : [ "obj-5", 1 ]
 				}
 
@@ -234,10 +365,37 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-14", 0 ],
+					"destination" : [ "obj-1", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 596.5, 165.0, 621.5, 165.0 ],
+					"midpoints" : [ 596.5, 165.0, 530.5, 165.0 ],
 					"source" : [ "obj-5", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-6", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-10", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 596.5, 289.0, 313.5, 289.0 ],
+					"source" : [ "obj-12", 1 ]
 				}
 
 			}
