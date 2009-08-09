@@ -19,10 +19,10 @@
 	#endif
 #endif
 
-#include <math.h>
-#include <stdlib.h>
-#include <stdio.h>
-//#include <iostream>
+#include <cmath>
+#include <cstdlib>
+#include <cstdio>
+#include <iostream>
 #include <string>
 using namespace std;
 
