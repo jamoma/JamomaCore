@@ -15,7 +15,7 @@
 #include "JamomaSymbols.h"
 
 t_symbol	*jps_done,
-			*jps_none,					// ramp stuff
+//		*jps_none,					// ramp stuff
 			*jps_linear,
 			*jps_linear_q,
 			*jps_ramp_update,
@@ -26,13 +26,13 @@ t_symbol	*jps_done,
 			*jps_fold,
 			*jps_inc,					// increase, decrease
 			*jps_dec,
-			*jps_msg_generic, 				// types
-			*jps_msg_int, 
-			*jps_msg_float, 
-			*jps_msg_symbol,
-			*jps_msg_list,
-			*jps_msg_toggle, 
-			*jps_msg_none,				// this type only used by jcom.message
+			*jps_generic, 				// types
+			*jps_integer, 
+			*jps_decimal, 
+			*jps_string,
+			*jps_array,
+			*jps_boolean, 
+			*jps_none,				// this type only used by jcom.message
 			*jps_jcom_hub, 
 			*jps_feedback,
 			*jps_module_name_get,		// common OSC messages according to the JIG
@@ -194,13 +194,13 @@ void jamomaSymbolsInit()
 	jps_inc							= gensym("inc");
 	jps_dec							= gensym("dec");
 	// types
-	jps_msg_generic					= gensym("msg_generic"); 
-	jps_msg_int						= gensym("msg_int"); 
-	jps_msg_float					= gensym("msg_float"); 
-	jps_msg_symbol					= gensym("msg_symbol");
-	jps_msg_list					= gensym("msg_list");
-	jps_msg_toggle					= gensym("msg_toggle");
-	jps_msg_none					= gensym("msg_none");			// this type only used by jcom.message
+	jps_generic					= gensym("generic"); 
+	jps_integer						= gensym("integer"); 
+	jps_decimal					= gensym("decimal"); 
+	jps_string					= gensym("string");
+	jps_array					= gensym("array");
+	jps_boolean					= gensym("boolean");
+	jps_none					= gensym("none");			// this type only used by jcom.message
 	jps_jcom_hub					= gensym("jcom.hub"); 
     jps_feedback					= gensym("__feedback__");		// used for parameter feedback to the hub
 	// common OSC messages according to the JIG

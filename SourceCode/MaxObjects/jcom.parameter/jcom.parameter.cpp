@@ -101,12 +101,12 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_ENUM(c,				"ramp/function",			0, functions);
 	
 
-	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list, msg_none
+	// ATTRIBUTE: type - options are generic, integer, decimal, string, boolean, array, none
 	jamoma_class_attr_new(c,		"type",						_sym_symbol, (method)param_attr_settype, (method)param_attr_gettype);
 #ifdef JMOD_MESSAGE
-	CLASS_ATTR_ENUM(c,				"type",	0,					"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic msg_none");
+	CLASS_ATTR_ENUM(c,				"type",	0,					"integer decimal boolean string array generic none");
 #else
-	CLASS_ATTR_ENUM(c,				"type",	0,					"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic");
+	CLASS_ATTR_ENUM(c,				"type",	0,					"integer decimal boolean string array generic");
 #endif
 	CLASS_ATTR_STYLE(c,				"repetitions/allow",		0, "onoff");
 	// ATTRIBUTE: ui/freeze - toggles a "frozen" ui outlet so that you can save cpu
@@ -242,7 +242,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		// this is important because memory is configured - not just setting a default!
 		if(x->common.attr_type == NULL){
 			t_atom a;
-			atom_setsym(&a, jps_msg_generic);
+			atom_setsym(&a, jps_generic);
 			object_attr_setvalueof(x, jps_type, 1, &a);
 		}
 		if(x->attr_ramp == _sym_nothing){
@@ -483,27 +483,27 @@ t_max_err param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv)
 	t_symbol *arg = atom_getsym(argv);
 	x->common.attr_type = arg;
 
-	if(arg == jps_msg_int){
+	if(arg == jps_integer){
 		x->param_output = &param_output_int;
 	}
-	else if(arg == jps_msg_float){
+	else if(arg == jps_decimal){
 		x->param_output = &param_output_float;
 	}
-	else if(arg == jps_msg_symbol){
+	else if(arg == jps_string){
 		x->param_output = &param_output_symbol;
 	}
-	else if(arg == jps_msg_toggle){
+	else if(arg == jps_boolean){
 		x->param_output = &param_output_int;
 	}
-	else if(arg == jps_msg_generic){
+	else if(arg == jps_generic){
 		x->param_output = &param_output_generic;
 	} 
-	else if(arg == jps_msg_list){
+	else if(arg == jps_array){
 		x->param_output = &param_output_list;
 	}
 
 #ifdef JMOD_MESSAGE
-	else if(arg == jps_msg_none){
+	else if(arg == jps_none){
 		x->param_output = &param_output_none;
 	}
 #endif // JMOD_MESSAGE
@@ -513,7 +513,7 @@ t_max_err param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv)
 #else
 		error("Jamoma - invalid type specified for %s jcom.parameter in the %s module.", x->common.attr_name->s_name, x->common.module_name->s_name);
 #endif
-		x->common.attr_type = jps_msg_generic;
+		x->common.attr_type = jps_generic;
 		x->param_output = &param_output_generic;
 	}
 
@@ -1132,11 +1132,11 @@ void param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	if(x->ramper)
 		x->ramper->stop();
 		
-	if(x->common.attr_type == jps_msg_int)
+	if(x->common.attr_type == jps_integer)
 		atom_setlong(a, x->attr_value.a_w.w_long + (x->attr_stepsize * stepmult));
-	else if((x->common.attr_type == jps_msg_float) || (x->common.attr_type == jps_msg_generic))
+	else if((x->common.attr_type == jps_decimal) || (x->common.attr_type == jps_generic))
 		atom_setfloat(a, x->attr_value.a_w.w_float + (x->attr_stepsize * stepmult));
-	else if(x->common.attr_type == jps_msg_toggle){
+	else if(x->common.attr_type == jps_boolean){
 		if(x->attr_value.a_w.w_long == 1)
 			x->attr_value.a_w.w_long = 0;
 		else
@@ -1197,11 +1197,11 @@ void param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	if(x->ramper)
 		x->ramper->stop();
 		
-	if(x->common.attr_type == jps_msg_int)
+	if(x->common.attr_type == jps_integer)
 		atom_setlong(a, x->attr_value.a_w.w_long - (x->attr_stepsize * stepmult));
-	else if((x->common.attr_type == jps_msg_float) || (x->common.attr_type == jps_msg_generic))
+	else if((x->common.attr_type == jps_decimal) || (x->common.attr_type == jps_generic))
 		atom_setfloat(a, x->attr_value.a_w.w_float - (x->attr_stepsize * stepmult));
-	else if(x->common.attr_type == jps_msg_toggle){
+	else if(x->common.attr_type == jps_boolean){
 		if(x->attr_value.a_w.w_long == 1)
 			x->attr_value.a_w.w_long = 0;
 		else
@@ -1380,9 +1380,9 @@ void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			param_list(x, msg, argc, argv);
 		else{ 	// no args
 			// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
-			//if(x->common.attr_type == jps_msg_generic)
+			//if(x->common.attr_type == jps_generic)
 			x->list_size = 0;
-			if (x->common.attr_type != jps_msg_list)	// zero length list parameters are not allowed
+			if (x->common.attr_type != jps_array)	// zero length list parameters are not allowed
 				x->param_output(x);
 		}
 	}
@@ -1527,8 +1527,8 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	if(hasRamp){
 		time = atom_getfloat(argv+(argc-1));
 
-		// Only one list member if @type is msg_int of msg_float
-		if( x->common.attr_type == jps_msg_int || x->common.attr_type == jps_msg_float)
+		// Only one list member if @type is integer of decimal
+		if( x->common.attr_type == jps_integer || x->common.attr_type == jps_decimal)
 			ac = 1;
 //		else
 //		argc = argc - 2;
@@ -1568,8 +1568,8 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		x->isInitialised = 1;
 		
 		// Avoid copying more than one atom if the type only can have one argument
-		if(x->common.attr_type != jps_msg_list && x->common.attr_type != jps_msg_generic
-			&& x->common.attr_type != jps_msg_none && x->common.attr_type != jps_msg_symbol){
+		if(x->common.attr_type != jps_array && x->common.attr_type != jps_generic
+			&& x->common.attr_type != jps_none && x->common.attr_type != jps_string){
 			// If attr_type is != to anyone of the above values then we know 
 			// that it must be == to a scalar type.  This ensures it will behave
 			// as a scalar and not a list.
@@ -1653,13 +1653,13 @@ void param_ramp_setup(t_param *x)
 		
 	// 2. create the new rampunit
 	// For some types ramping doesn't make sense, so they will be set to none
-	if((x->common.attr_type == jps_msg_none) || (x->common.attr_type == jps_msg_symbol) || (x->common.attr_type == jps_msg_generic))
+	if((x->common.attr_type == jps_none) || (x->common.attr_type == jps_string) || (x->common.attr_type == jps_generic))
 		x->attr_ramp = gensym("none");
 		
 		
-	if((x->common.attr_type == jps_msg_int) || (x->common.attr_type == jps_msg_toggle))
+	if((x->common.attr_type == jps_integer) || (x->common.attr_type == jps_boolean))
 		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_int, (void *)x);
-	else if (x->common.attr_type == jps_msg_list)
+	else if (x->common.attr_type == jps_array)
 		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_list, (void *)x);
 	else
 		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_float, (void *)x);

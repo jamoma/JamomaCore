@@ -87,8 +87,8 @@ common_symbols_init();
 
 	CLASS_ATTR_SYM(c,			"type",				0, t_paramui, attr_type);
 	CLASS_ATTR_LABEL(c,			"type",				0, "Data Type");
-	CLASS_ATTR_ENUM(c,			"type",				0, "msg_float msg_int msg_symbol msg_toggle");
-	CLASS_ATTR_DEFAULT(c,		"type",				0, "msg_float");
+	CLASS_ATTR_ENUM(c,			"type",				0, "decimal integer string boolean");
+	CLASS_ATTR_DEFAULT(c,		"type",				0, "decimal");
 	CLASS_ATTR_SAVE(c,			"type",				0);
 	CLASS_ATTR_ACCESSORS(c,		"type",				paramui_getType, paramui_setType);
 
@@ -412,11 +412,11 @@ void paramui_paint(t_paramui *x, t_object *view)
 		if(x->obj_parameter){
 			object_attr_getvalueof(x->obj_parameter, gensym("value"), &ac, &av);
 			if(ac){
-				if(x->attr_type == jps_msg_float)
+				if(x->attr_type == jps_decimal)
 					snprintf(data, 256, "%.4f", atom_getfloat(av));
-				else if(x->attr_type == jps_msg_int || x->attr_type == jps_msg_toggle)
+				else if(x->attr_type == jps_integer || x->attr_type == jps_boolean)
 					snprintf(data, 256, "%ld", atom_getlong(av));
-				else if(x->attr_type == jps_msg_symbol)
+				else if(x->attr_type == jps_string)
 					strcpy(data, atom_getsym(av)->s_name);
 				
 				jtextlayout_settextcolor(x->layout_value, &s_light_gray);

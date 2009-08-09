@@ -57,79 +57,79 @@ void hub_internals_create(t_hub *x)
 
 	x->hash_internals = hashtab_new(0);
 
-	anObject = new hubInternalObject("jcom.message", 	"init",						x->container,	"msg_none",		"none",	"Initialize a module completely to the original state.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"init",						x->container,	"none",		"none",	"Initialize a module completely to the original state.", 1);
 	anObject->setAction((method)hub_init, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("init"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"documentation/generate",	x->container,	"msg_generic",	"none",	"Generate a documentation page for this module and save it to disk.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"documentation/generate",	x->container,	"generic",	"none",	"Generate a documentation page for this module and save it to disk.", 1);
 	anObject->setAction((method)hub_autodoc, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("documentation/generate"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"module/viewInternals",	x->container,	"msg_none",		"none",	"Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"module/viewInternals",	x->container,	"none",		"none",	"Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning.", 1);
 	anObject->setAction((method)hub_module_view_alg, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("module/viewInternals"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/read",				x->container,	"msg_generic",	"none",	"Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/read",				x->container,	"generic",	"none",	"Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open.", 1);
 	anObject->setAction((method)hub_preset_read, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/read"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/write",				x->container,	"msg_generic",	"none",	"Write an xml-preset file to disk.  An optional argument defines the file to open.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/write",				x->container,	"generic",	"none",	"Write an xml-preset file to disk.  An optional argument defines the file to open.", 1);
 	anObject->setAction((method)hub_preset_write, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/write"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/writeagain",		x->container,	"msg_none",		"none",	"Write on same xml-preset file.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/writeagain",		x->container,	"none",		"none",	"Write on same xml-preset file.", 1);
 	anObject->setAction((method)hub_preset_write_again, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/writeagain"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/recall",			x->container,	"msg_generic",	"none",	"Recall a preset by number - you can also choose presets from the module menu.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/recall",			x->container,	"generic",	"none",	"Recall a preset by number - you can also choose presets from the module menu.", 1);
 	anObject->setAction((method)hub_preset_recall, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/recall"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/copy",				x->container,	"msg_list",		"none",	"Create a new preset (2nd argument) by copying the contents of another preset (1st argument)", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/copy",				x->container,	"array",		"none",	"Create a new preset (2nd argument) by copying the contents of another preset (1st argument)", 1);
 	anObject->setAction((method)hub_preset_copy, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/copy"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/store",				x->container,	"msg_list",		"none",	"Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/store",				x->container,	"array",		"none",	"Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module.", 1);
 	anObject->setAction((method)hub_preset_store, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/store"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/storenext",			x->container,	"msg_none",		"none",	"Store a preset in the next preset slot.  Handy so that you do not need to specify a preset number manually.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/storenext",			x->container,	"none",		"none",	"Store a preset in the next preset slot.  Handy so that you do not need to specify a preset number manually.", 1);
 	anObject->setAction((method)hub_preset_store_next, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/storenext"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/storecurrent",		x->container,	"msg_none",		"none",	"Store on the last recalled or stored preset", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/storecurrent",		x->container,	"none",		"none",	"Store on the last recalled or stored preset", 1);
 	anObject->setAction((method)hub_preset_store_current, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/storecurrent"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/interpolate",		x->container,	"msg_list",		"none",	"Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument.", 0);
+	anObject = new hubInternalObject("jcom.message", 	"preset/interpolate",		x->container,	"array",		"none",	"Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument.", 0);
 	anObject->setAction((method)hub_preset_interpolate, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/interpolate"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/default",			x->container,	"msg_none",		"none",	"Open the default preset file and recall the first preset in that file.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/default",			x->container,	"none",		"none",	"Open the default preset file and recall the first preset in that file.", 1);
 	anObject->setAction((method)hub_preset_default, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/default"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/clear",				x->container,	"msg_none",		"none",	"Clears all presets, providing a blank slate for saving new presets.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/clear",				x->container,	"none",		"none",	"Clears all presets, providing a blank slate for saving new presets.", 1);
 	anObject->setAction((method)hub_presets_clear, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/clear"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/dump",				x->container,	"msg_none",		"none",	"Dump all preset names.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/dump",				x->container,	"none",		"none",	"Dump all preset names.", 1);
 	anObject->setAction((method)hub_presets_dump, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/dump"), (t_object*)anObject);
 	
-	anObject = new hubInternalObject("jcom.message", 	"preset/post",				x->container,	"msg_none",		"none",	"Post all presets to the Max window.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/post",				x->container,	"none",		"none",	"Post all presets to the Max window.", 1);
 	anObject->setAction((method)hub_presets_post, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/post"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.parameter",	"ui/freeze",				x->container,	"msg_toggle",	"none",	"Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources.", 0);
+	anObject = new hubInternalObject("jcom.parameter",	"ui/freeze",				x->container,	"boolean",	"none",	"Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources.", 0);
 	anObject->setAction((method)hub_ui_freeze, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("ui/freeze"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"ui/refresh",				x->container,	"msg_none",		"none",	"Update displayed values for module to reflect current state.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"ui/refresh",				x->container,	"none",		"none",	"Update displayed values for module to reflect current state.", 1);
 	anObject->setAction((method)hub_ui_refresh, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("ui/refresh"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"script",					x->container,	"msg_generic",	"none",	"Low-level module hacking.  Any arguments arguments to this message will be interpreted as patcher scripting for the top-level patcher of the module.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"script",					x->container,	"generic",	"none",	"Low-level module hacking.  Any arguments arguments to this message will be interpreted as patcher scripting for the top-level patcher of the module.", 1);
 	anObject->setAction((method)hub_script, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("script"), (t_object*)anObject);
 }

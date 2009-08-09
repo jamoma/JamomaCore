@@ -43,13 +43,13 @@ extern "C" JAMOMA_EXPORT extern t_symbol *jps_none,
 				*jps_fold,
 				*jps_inc,							// increase, decrease
 				*jps_dec,
-				*jps_msg_generic,					// DATA TYPES FOR THE PARAMETER / MESSAGE
-				*jps_msg_int,						// 
-				*jps_msg_float,						// 
-				*jps_msg_symbol,					// 
-				*jps_msg_list,						//
-				*jps_msg_toggle,					// 
-				*jps_msg_none,						// this type only used by jcom.message
+				*jps_generic,					// DATA TYPES FOR THE PARAMETER / MESSAGE
+				*jps_integer,						// 
+				*jps_decimal,						// 
+				*jps_string,					// 
+				*jps_array,						//
+				*jps_boolean,					// 
+				*jps_none,						// this type only used by jcom.message
 				*jps_jcom_hub, 
 				*jps_feedback,
 				*jps_module_name_get,
