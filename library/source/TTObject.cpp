@@ -371,9 +371,9 @@ TTErr TTObject::unregisterObserverForNotifications(const TTObject& observingObje
 #endif
 
 /**	Log messages scoped to this object instance. */
-TTErr TTObject::logMessage(char* fmtstring, ...)
+TTErr TTObject::logMessage(TTImmutableCString fmtstring, ...)
 {
-	char	str[4000];
+	char	str[4096];
 	char	fullstr[4096];
 	va_list	ap;
 	
@@ -390,9 +390,9 @@ TTErr TTObject::logMessage(char* fmtstring, ...)
 }
 
 
-TTErr TTObject::logWarning(char* fmtstring, ...)
+TTErr TTObject::logWarning(TTImmutableCString fmtstring, ...)
 {
-	char	str[4000];
+	char	str[4096];
 	char	fullstr[4096];
 	va_list	ap;
 	
@@ -409,9 +409,9 @@ TTErr TTObject::logWarning(char* fmtstring, ...)
 }
 
 
-TTErr TTObject::logError(char* fmtstring, ...)
+TTErr TTObject::logError(TTImmutableCString fmtstring, ...)
 {
-	char	str[4000];
+	char	str[4096];
 	char	fullstr[4096];
 	va_list	ap;
 	
@@ -428,7 +428,7 @@ TTErr TTObject::logError(char* fmtstring, ...)
 }
 
 
-TTErr TTObject::logDebug(char* fmtstring, ...)
+TTErr TTObject::logDebug(TTImmutableCString fmtstring, ...)
 {
 	if(ttEnvironment->debugBasic){
 		char	str[4000];

@@ -176,12 +176,12 @@ public:
 	
 	
 	/**	Log messages scoped to this object instance. */
-	TTErr logMessage(char* fmtstring, ...);
-	TTErr logWarning(char* fmtstring, ...);
-	TTErr logError(char* fmtstring, ...);
+	TTErr logMessage(TTImmutableCString fmtstring, ...);
+	TTErr logWarning(TTImmutableCString fmtstring, ...);
+	TTErr logError(TTImmutableCString fmtstring, ...);
 	
 	/**	Log messages (scoped to this object instance) to output only if the basic debugging flag is enabled in the environment.  */
-	TTErr logDebug(char* fmtstring, ...);
+	TTErr logDebug(TTImmutableCString fmtstring, ...);
 	
 	
 	inline TTErr lock()

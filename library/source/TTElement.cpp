@@ -231,7 +231,7 @@ void TTDataInfo::addDataInfoForType(TTDataType type)
 
 
 
-void TTLogMessage(char *message, ...)
+void TTLogMessage(TTImmutableCString message, ...)
 {
 	char	str[4096];
 	va_list	ap;
@@ -239,13 +239,16 @@ void TTLogMessage(char *message, ...)
 	va_start(ap, message);
 	vsnprintf(str, 4096, message, ap);
 	va_end(ap);
-	str[4095] = 0; 
-	
+	str[4095] = 0;
+#ifdef TT_PLATFORM_WIN
+	OutputDebugString(str);
+#else
 	fprintf(stderr, str);
+#endif
 }
 
 
-void TTLogWarning(char *message, ...)
+void TTLogWarning(TTImmutableCString message, ...)
 {
 	char	str[4096];
 	va_list	ap;
@@ -253,13 +256,16 @@ void TTLogWarning(char *message, ...)
 	va_start(ap, message);
 	vsnprintf(str, 4096, message, ap);
 	va_end(ap);
-	str[4095] = 0; 
-	
+	str[4095] = 0;
+#ifdef TT_PLATFORM_WIN
+	OutputDebugString(str);
+#else
 	fprintf(stderr, str);
+#endif
 }
 
 
-void TTLogError(char *message, ...)
+void TTLogError(TTImmutableCString message, ...)
 {
 	char	str[4096];
 	va_list	ap;
@@ -267,13 +273,16 @@ void TTLogError(char *message, ...)
 	va_start(ap, message);
 	vsnprintf(str, 4096, message, ap);
 	va_end(ap);
-	str[4095] = 0; 
-	
+	str[4095] = 0;
+#ifdef TT_PLATFORM_WIN
+	OutputDebugString(str);
+#else
 	fprintf(stderr, str);
+#endif
 }
 
 
-void TTLogDebug(char *message, ...)
+void TTLogDebug(TTImmutableCString message, ...)
 {
 	if(ttEnvironment->debugBasic){
 		char	str[4096];
@@ -282,9 +291,12 @@ void TTLogDebug(char *message, ...)
 		va_start(ap, message);
 		vsnprintf(str, 4096, message, ap);
 		va_end(ap);
-		str[4095] = 0; 
-		
+		str[4095] = 0;
+#ifdef TT_PLATFORM_WIN
+		OutputDebugString(str);
+#else
 		fprintf(stderr, str);
+#endif
 	}
 }
 

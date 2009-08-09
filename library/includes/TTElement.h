@@ -224,16 +224,16 @@ TTEXPORT extern const TTFloat64 kTTSqrt2;						///< pre-calculated square-root o
 
 
 /** Platform and host independent method for posting messages. */
-void TTEXPORT TTLogMessage(char *message, ...);
+void TTEXPORT TTLogMessage(TTImmutableCString message, ...);
 
 /** Platform and host independent method for posting messages. */
-void TTEXPORT TTLogWarning(char *message, ...);
+void TTEXPORT TTLogWarning(TTImmutableCString message, ...);
 
 /** Platform and host independent method for posting errors. */
-void TTEXPORT TTLogError(char *message, ...);
+void TTEXPORT TTLogError(TTImmutableCString message, ...);
 
 /** Platform and host independent method for posting messages only when debugging is enabled in the environment. */
-void TTEXPORT TTLogDebug(char *message, ...);
+void TTEXPORT TTLogDebug(TTImmutableCString message, ...);
 
 
 /** Filter out denormaled values, which can make processing extremely slow when they are present. */
