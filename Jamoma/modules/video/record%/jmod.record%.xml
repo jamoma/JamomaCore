@@ -6,13 +6,8 @@
 >
   <preset number='1' name='default'>
     <item name='codec' type='string' priority='0'>0</item>
-    <item name='framerate' type='decimal' priority='0'>0</item>
+    <item name='framerate' type='decimal' priority='0'>1.000000</item>
     <item name='interp' type='boolean' priority='0'>0</item>
-    <item name='matrix/adapt' type='boolean' priority='0'>0</item>
-    <item name='matrix/dim' type='array' priority='0'>0</item>
-    <item name='matrix/name' type='array' priority='0'>0</item>
-    <item name='matrix/planecount' type='integer' priority='0'>0</item>
-    <item name='matrix/type' type='generic' priority='0'>0</item>
     <item name='quality' type='string' priority='0'>0</item>
     <item name='realtime' type='boolean' priority='0'>0</item>
     <item name='ui/freeze' type='boolean' priority='0'>0</item>
@@ -20,5 +15,10 @@
     <item name='video/freeze' type='boolean' priority='0'>0</item>
     <item name='video/mute' type='boolean' priority='0'>0</item>
     <item name='video/preview' type='boolean' priority='0'>0</item>
+    <item name='view/color/border' type='array' priority='0'>0.620000 0.000000 0.360000 1.000000 </item>
+    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
+    <item name='view/size' type='array' priority='0'>300 70 </item>
   </preset>
 </jamoma>
