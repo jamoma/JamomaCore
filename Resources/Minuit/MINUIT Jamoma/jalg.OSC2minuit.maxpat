@@ -8468,7 +8468,7 @@
 													"numoutlets" : 8,
 													"outlettype" : [ "", "", "", "", "", "", "", "" ],
 													"patching_rect" : [ 167.0, 129.0, 453.0, 20.0 ],
-													"text" : "route msg_int msg_float msg_list msg_generic msg_none msg_toggle msg_symbol"
+													"text" : "route integer decimal array generic none boolean string"
 												}
 
 											}

@@ -21,7 +21,7 @@
           </outline>
         </outline>
         <outline text="think about the instance separator : . -&gt; for non numerical instances (e.g. x, y, z)" Who="Pascal, Tim, Nils..." DiscussinAlbi="0">
-          <outline text="e.g. if we want to access one of the elements of a msg_list parameter  (e.g. red channel of one layer of jmod.gl.alphamixer) with a float (from cont_mapper, e.g.), it could be handy to have /layer_0.1, or better /layer_0.r" DiscussinAlbi="0"/>
+          <outline text="e.g. if we want to access one of the elements of a array parameter  (e.g. red channel of one layer of jmod.gl.alphamixer) with a float (from cont_mapper, e.g.), it could be handy to have /layer_0.1, or better /layer_0.r" DiscussinAlbi="0"/>
         </outline>
         <outline text="list support for range" DiscussinAlbi="0">
           <outline text=":/range/bounds.1 0 1 etc...." DiscussinAlbi="0"/>

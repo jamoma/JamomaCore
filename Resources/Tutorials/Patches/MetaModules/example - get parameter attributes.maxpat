@@ -85,7 +85,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 100.0, 555.0, 342.0, 162.0 ],
-					"text" : "/description Feedback.;\r/value 0.2;\r/type msg_float;\r/ramp/drive scheduler;\r/ramp/function linear;\r/range/bounds 0. 1.;\r/range/clipmode both;\r/repetitions/allow 0;\r/dataspace none;\r/dataspace/unit/native none;\r/dataspace/unit/active none;\r/ui/freeze 0;\r/priority 0;\r"
+					"text" : "/description Feedback.;\r/value 0.2;\r/type decimal;\r/ramp/drive scheduler;\r/ramp/function linear;\r/range/bounds 0. 1.;\r/range/clipmode both;\r/repetitions/allow 0;\r/dataspace none;\r/dataspace/unit/native none;\r/dataspace/unit/active none;\r/ui/freeze 0;\r/priority 0;\r"
 				}
 
 			}
