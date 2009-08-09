@@ -31,6 +31,7 @@ you have to update rosc:
 	cd ..
 4. try now to make the build
 
+
 --------------------------------------------------
 
 MAKING AN INSTALLER
@@ -41,6 +42,7 @@ If you want to make an installer, then follow these instructions:
 2. all zips should be unzipped (3rd-party externs) too
 3. go to /installertools folder
 4. ./installer.rb
+
 
 --------------------------------------------------
 
@@ -54,6 +56,7 @@ The version we are using is included in the Tools/rosc folder.  To install it:
 
 Now you are ready to run automated tests, as described below.
 
+
 --------------------------------------------------
 
 RUNNING AUTOMATED TESTS
@@ -66,6 +69,7 @@ The test components need to be in that location, because they need to be in Max'
 
 The tests themselves are located in the 'Tests' folder at the top level of the branch, and all subfolders.
 The script also looks in every folder of the Modules folder so that module tests can be kept together with the module.
+
 
 --------------------------------------------------
 
