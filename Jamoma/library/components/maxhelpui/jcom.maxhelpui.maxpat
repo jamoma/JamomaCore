@@ -388,13 +388,13 @@
 ,
 					"patching_rect" : [ 172.0, 203.0, 83.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Arial",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p bordercolor"
@@ -427,6 +427,21 @@
 						"boxanimatetime" : 200,
 						"imprint" : 0,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-2",
+									"linecount" : 3,
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 176.0, 105.0, 73.0, 41.0 ],
+									"text" : "http://pledgie.com/campaigns/5615"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -850,15 +865,15 @@
  ]
 									}
 ,
-									"patching_rect" : [ 131.0, 147.5, 54.0, 19.0 ],
+									"patching_rect" : [ 155.0, 165.5, 54.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p credits"
@@ -903,10 +918,10 @@
 									"id" : "obj-27",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 5,
-									"outlettype" : [ "bang", "bang", "bang", "bang", "" ],
-									"patching_rect" : [ 50.0, 123.5, 180.0, 19.0 ],
-									"text" : "sel 0 3 1 2"
+									"numoutlets" : 6,
+									"outlettype" : [ "bang", "bang", "bang", "bang", "bang", "" ],
+									"patching_rect" : [ 50.0, 73.5, 281.5, 19.0 ],
+									"text" : "sel 0 3 1 4 2"
 								}
 
 							}
@@ -1250,13 +1265,13 @@
 ,
 									"patching_rect" : [ 90.0, 190.5, 56.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p Report"
@@ -1375,55 +1390,10 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-27", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-34", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-49", 0 ],
-									"hidden" : 1,
-									"midpoints" : [  ],
-									"source" : [ "obj-27", 2 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"destination" : [ "obj-39", 0 ],
 									"hidden" : 1,
-									"midpoints" : [ 140.5, 169.5, 262.5, 169.5 ],
+									"midpoints" : [ 164.5, 188.5, 262.5, 188.5 ],
 									"source" : [ "obj-49", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-36", 0 ],
-									"hidden" : 1,
-									"midpoints" : [ 180.25, 146.5, 243.375, 146.5, 243.375, 101.5, 262.5, 101.5 ],
-									"source" : [ "obj-27", 3 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-50", 0 ],
-									"hidden" : 1,
-									"midpoints" : [  ],
-									"source" : [ "obj-27", 1 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-31", 0 ],
-									"hidden" : 1,
-									"midpoints" : [  ],
-									"source" : [ "obj-27", 0 ]
 								}
 
 							}
@@ -1472,18 +1442,81 @@
 								}
 
 							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-27", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-34", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-49", 0 ],
+									"hidden" : 1,
+									"midpoints" : [  ],
+									"source" : [ "obj-27", 2 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-50", 0 ],
+									"hidden" : 1,
+									"midpoints" : [  ],
+									"source" : [ "obj-27", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-31", 0 ],
+									"hidden" : 1,
+									"midpoints" : [  ],
+									"source" : [ "obj-27", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-36", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-27", 4 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-2", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-27", 3 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-39", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-2", 0 ]
+								}
+
+							}
  ]
 					}
 ,
-					"patching_rect" : [ 207.0, 356.5, 88.0, 19.0 ],
+					"patching_rect" : [ 245.0, 346.5, 88.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p menu-stuff"
@@ -1508,12 +1541,12 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 879.0, 50.0, 166.0, 21.0 ],
+					"patching_rect" : [ 879.0, 50.0, 221.0, 22.0 ],
 					"rounded" : 0.0,
 					"spacing_x" : 1.0,
 					"spacing_y" : 0.0,
 					"tabcolor" : [ 0.85098, 0.85098, 0.85098, 0.0 ],
-					"tabs" : [ "overview", "credits", "issues", "report" ],
+					"tabs" : [ "overview", "credits", "issues", "report", "donate" ],
 					"textcolor" : [ 0.619608, 0.0, 0.360784, 1.0 ],
 					"varname" : "redminetext"
 				}
@@ -1530,7 +1563,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
 					"patching_rect" : [ 561.0, 296.0, 41.0, 19.0 ],
-					"text" : "- 168"
+					"text" : "- 220"
 				}
 
 			}
@@ -1808,13 +1841,13 @@
 ,
 					"patching_rect" : [ 336.0, 146.0, 83.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Arial",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p bordercolor"
@@ -2265,13 +2298,31 @@
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ -1.0, -1.0, 5000.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 5000.0, 70.0 ],
 					"rounded" : 0
 				}
 
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-41", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-32", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-32", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-33", 0 ],
 					"hidden" : 1,
@@ -2601,24 +2652,6 @@
 					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-13", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-41", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-32", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-32", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-11", 0 ]
 				}
 
 			}
