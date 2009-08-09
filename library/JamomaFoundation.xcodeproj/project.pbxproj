@@ -30,6 +30,25 @@
 		22E3862610286BBE002000A9 /* TTThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860510286BBE002000A9 /* TTThread.cpp */; };
 		22E3862710286BBE002000A9 /* TTValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860610286BBE002000A9 /* TTValue.cpp */; };
 		22E3862810286BBE002000A9 /* TTValueCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860710286BBE002000A9 /* TTValueCache.cpp */; };
+		22EB3BB7102F0BEB006D027A /* TTFoundationAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D010286B97002000A9 /* TTFoundationAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BB8102F0BEB006D027A /* TTAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D110286BB0002000A9 /* TTAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BB9102F0BEB006D027A /* TTDataObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D810286BB0002000A9 /* TTDataObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BBA102F0BEB006D027A /* TTElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D910286BB0002000A9 /* TTElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BBB102F0BEB006D027A /* TTMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385DD10286BB0002000A9 /* TTMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BBC102F0BEB006D027A /* TTObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385DF10286BB0002000A9 /* TTObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BBD102F0BEB006D027A /* TTHash.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385DB10286BB0002000A9 /* TTHash.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BBE102F0BEB006D027A /* TTList.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385DC10286BB0002000A9 /* TTList.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BBF102F0BEB006D027A /* TTValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E510286BB0002000A9 /* TTValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BC0102F0BEB006D027A /* TTSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E110286BB0002000A9 /* TTSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BC1102F0BEB006D027A /* TTSymbolCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E210286BB0002000A9 /* TTSymbolCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BC2102F0BEB006D027A /* TTSymbolTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E310286BB0002000A9 /* TTSymbolTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BC3102F0BEB006D027A /* TTFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D610286BB0002000A9 /* TTFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BC4102F0BEB006D027A /* TTClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D710286BB0002000A9 /* TTClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BC5102F0BEB006D027A /* TTEnvironment.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385DA10286BB0002000A9 /* TTEnvironment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BC6102F0BEB006D027A /* TTMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385DE10286BB0002000A9 /* TTMutex.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BC7102F0BEB006D027A /* TTQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E010286BB0002000A9 /* TTQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BC8102F0BEB006D027A /* TTThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E410286BB0002000A9 /* TTThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3BC9102F0BEB006D027A /* TTValueCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E610286BB0002000A9 /* TTValueCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -196,12 +215,42 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		22EB3BB6102F0BD4006D027A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22EB3BB7102F0BEB006D027A /* TTFoundationAPI.h in Headers */,
+				22EB3BB8102F0BEB006D027A /* TTAttribute.h in Headers */,
+				22EB3BB9102F0BEB006D027A /* TTDataObject.h in Headers */,
+				22EB3BBA102F0BEB006D027A /* TTElement.h in Headers */,
+				22EB3BBB102F0BEB006D027A /* TTMessage.h in Headers */,
+				22EB3BBC102F0BEB006D027A /* TTObject.h in Headers */,
+				22EB3BBD102F0BEB006D027A /* TTHash.h in Headers */,
+				22EB3BBE102F0BEB006D027A /* TTList.h in Headers */,
+				22EB3BBF102F0BEB006D027A /* TTValue.h in Headers */,
+				22EB3BC0102F0BEB006D027A /* TTSymbol.h in Headers */,
+				22EB3BC1102F0BEB006D027A /* TTSymbolCache.h in Headers */,
+				22EB3BC2102F0BEB006D027A /* TTSymbolTable.h in Headers */,
+				22EB3BC3102F0BEB006D027A /* TTFoundation.h in Headers */,
+				22EB3BC4102F0BEB006D027A /* TTClass.h in Headers */,
+				22EB3BC5102F0BEB006D027A /* TTEnvironment.h in Headers */,
+				22EB3BC6102F0BEB006D027A /* TTMutex.h in Headers */,
+				22EB3BC7102F0BEB006D027A /* TTQueue.h in Headers */,
+				22EB3BC8102F0BEB006D027A /* TTThread.h in Headers */,
+				22EB3BC9102F0BEB006D027A /* TTValueCache.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		222B177B0F1D4009008B1A46 /* JamomaFoundation */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 222B17FD0F1D4009008B1A46 /* Build configuration list for PBXNativeTarget "JamomaFoundation" */;
 			buildPhases = (
 				222B17B90F1D4009008B1A46 /* Resources */,
+				22EB3BB6102F0BD4006D027A /* Headers */,
 				222B17BA0F1D4009008B1A46 /* Sources */,
 				222B17F50F1D4009008B1A46 /* Frameworks */,
 				22CC01940FDFDF8C0024A915 /* ShellScript */,
