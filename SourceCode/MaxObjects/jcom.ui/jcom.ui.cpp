@@ -684,7 +684,7 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_show_text(g, "p");
 	}
 
-	// draw the info button
+	// draw the panel button
 	if(x->attr_hasinspector){
 		long right_side = rect.width - 16.0;
 		
@@ -705,10 +705,10 @@ void ui_paint(t_ui *x, t_object *view)
 		// i
 		jgraphics_set_source_jrgba(g, &s_color_text_button_off);
 		jgraphics_set_line_width(g, 2.0);
-		jgraphics_move_to(g, right_side + 5.0, 13.0);
+		jgraphics_move_to(g, right_side + 2.0, 13.0);
 		jgraphics_select_font_face(g, JAMOMA_BUTTON_FONT, JGRAPHICS_FONT_SLANT_NORMAL, JGRAPHICS_FONT_WEIGHT_BOLD);
-		jgraphics_set_font_size(g, 7.0);
-		jgraphics_show_text(g, "i");
+		jgraphics_set_font_size(g, 10.0);
+		jgraphics_show_text(g, "+");
 	}
 }
 
