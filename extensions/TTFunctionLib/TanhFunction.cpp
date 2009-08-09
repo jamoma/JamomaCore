@@ -23,7 +23,7 @@ TT_AUDIO_CONSTRUCTOR
 		
 	// Set Defaults...
 	setAttributeValue(TT("offset"),	0.0);
-	setAttributeValue(TT("width"), 1.0);
+	setAttributeValue(TT("width"), 0.5);
 	
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);
