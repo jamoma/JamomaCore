@@ -111,6 +111,12 @@ TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
 			return kTTErrNone;
 		case kTypeNone:
 			return kTTErrNone;
+			
+		case kTypePointer:
+		case kTypeString:
+		case kTypeLocalValue:
+		case kNumTTDataTypes:
+			return kTTErrInvalidType;
 	}
 	return kTTErrInvalidType;
 }
@@ -160,6 +166,12 @@ TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& va
 			return kTTErrNone;
 		case kTypeNone:
 			return kTTErrNone;
+			
+		case kTypePointer:
+		case kTypeString:
+		case kTypeLocalValue:
+		case kNumTTDataTypes:
+			return kTTErrInvalidType;			
 	}
 	return kTTErrInvalidType;
 }
