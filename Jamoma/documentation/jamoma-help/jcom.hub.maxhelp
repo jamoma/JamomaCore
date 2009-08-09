@@ -716,7 +716,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 885.0, 245.0, 248.0, 19.0 ],
-					"text" : "jcom.message mymessage @type msg_generic"
+					"text" : "jcom.message mymessage @type generic"
 				}
 
 			}

@@ -158,7 +158,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 219.0, 281.0, 324.0, 19.0 ],
-									"text" : "- only msg_int, msg_float, and msg_list support ramping"
+									"text" : "- only integer, decimal, and array support ramping"
 								}
 
 							}
@@ -171,7 +171,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 215.0, 209.0, 99.0, 19.0 ],
-									"text" : "msg_none (bang)"
+									"text" : "none (bang)"
 								}
 
 							}
@@ -184,7 +184,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 215.0, 164.0, 52.0, 19.0 ],
-									"text" : "msg_list"
+									"text" : "array"
 								}
 
 							}
@@ -197,7 +197,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 215.0, 134.0, 60.0, 19.0 ],
-									"text" : "msg_float"
+									"text" : "decimal"
 								}
 
 							}
@@ -210,7 +210,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 215.0, 119.0, 51.0, 19.0 ],
-									"text" : "msg_int"
+									"text" : "integer"
 								}
 
 							}
@@ -223,7 +223,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 215.0, 179.0, 73.0, 19.0 ],
-									"text" : "msg_symbol"
+									"text" : "string"
 								}
 
 							}
@@ -236,7 +236,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 215.0, 149.0, 68.0, 19.0 ],
-									"text" : "msg_toggle"
+									"text" : "boolean"
 								}
 
 							}
@@ -566,7 +566,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 215.0, 194.0, 134.0, 19.0 ],
-									"text" : "msg_generic (default)"
+									"text" : "generic (default)"
 								}
 
 							}
@@ -775,7 +775,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 175.0, 350.0, 84.0, 17.0 ],
-									"text" : "type msg_float"
+									"text" : "type decimal"
 								}
 
 							}
@@ -825,7 +825,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 400.0, 65.0, 113.0, 17.0 ],
-									"text" : "/bear:/type msg_int"
+									"text" : "/bear:/type integer"
 								}
 
 							}
@@ -839,7 +839,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 90.0, 350.0, 75.0, 17.0 ],
-									"text" : "type msg_int"
+									"text" : "type integer"
 								}
 
 							}
@@ -1091,7 +1091,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 45.0, 385.0, 198.0, 19.0 ],
-									"text" : "jcom.parameter joe @type msg_float",
+									"text" : "jcom.parameter joe @type decimal",
 									"varname" : "joe"
 								}
 
@@ -1121,7 +1121,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 45.0, 215.0, 199.0, 19.0 ],
-									"text" : "jcom.parameter buba @type msg_int",
+									"text" : "jcom.parameter buba @type integer",
 									"varname" : "buba[1]"
 								}
 
@@ -1800,7 +1800,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 433.0, 500.0, 267.0, 31.0 ],
-					"text" : "jcom.parameter my_menu @type msg_symbol @repetitions/allow 0 @description \"My menu\"",
+					"text" : "jcom.parameter my_menu @type string @repetitions/allow 0 @description \"My menu\"",
 					"varname" : "my_menu"
 				}
 
@@ -1817,7 +1817,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 433.0, 415.0, 259.0, 31.0 ],
-					"text" : "jcom.parameter my_toggle @repetitions/allow 0 @type msg_toggle @description \"My toggle\"",
+					"text" : "jcom.parameter my_toggle @repetitions/allow 0 @type boolean @description \"My toggle\"",
 					"varname" : "my_toggle"
 				}
 
@@ -1834,7 +1834,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 433.0, 340.0, 346.0, 31.0 ],
-					"text" : "jcom.parameter my_int @range/clipmode none @type msg_int @ramp/drive scheduler @repetitions/allow 0 @description \"My int\"",
+					"text" : "jcom.parameter my_int @range/clipmode none @type integer @ramp/drive scheduler @repetitions/allow 0 @description \"My int\"",
 					"varname" : "my_int"
 				}
 
@@ -1851,7 +1851,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 433.0, 260.0, 301.0, 31.0 ],
-					"text" : "jcom.parameter my_float @range/clipmode none @type msg_float @ramp/drive scheduler @description \"My float\"",
+					"text" : "jcom.parameter my_float @range/clipmode none @type decimal @ramp/drive scheduler @description \"My float\"",
 					"varname" : "my_float"
 				}
 
@@ -1868,7 +1868,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 433.0, 185.0, 308.0, 43.0 ],
-					"text" : "jcom.parameter my_slider @type msg_int @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"My slider\"",
+					"text" : "jcom.parameter my_slider @type integer @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"My slider\"",
 					"varname" : "my_slider"
 				}
 

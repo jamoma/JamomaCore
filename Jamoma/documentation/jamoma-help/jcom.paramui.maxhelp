@@ -44,7 +44,7 @@
 					"ramp/function" : "none",
 					"text" : "your/parameter",
 					"textcolor" : [ 0.65, 0.65, 0.65, 1.0 ],
-					"type" : "msg_symbol"
+					"type" : "string"
 				}
 
 			}
@@ -62,7 +62,7 @@
 					"ramp/function" : "none",
 					"text" : "my/parameter",
 					"textcolor" : [ 0.65, 0.65, 0.65, 1.0 ],
-					"type" : "msg_int"
+					"type" : "integer"
 				}
 
 			}

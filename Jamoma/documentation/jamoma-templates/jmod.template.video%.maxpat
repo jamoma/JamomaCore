@@ -128,7 +128,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 495.0, 310.0, 523.0, 19.0 ],
-					"text" : "jcom.parameter a_menu @repetitions/allow 1 @type msg_symbol @description \"a menu\" @priority 1",
+					"text" : "jcom.parameter a_menu @repetitions/allow 1 @type string @description \"a menu\" @priority 1",
 					"varname" : "module_in[1]"
 				}
 
@@ -158,7 +158,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 494.0, 267.0, 564.0, 31.0 ],
-					"text" : "jcom.parameter a_slider @repetitions/allow 0 @type msg_float @range/bounds 0. 1. @range/clipmode none @description \"Document what this parameter does...\"",
+					"text" : "jcom.parameter a_slider @repetitions/allow 0 @type decimal @range/bounds 0. 1. @range/clipmode none @description \"Document what this parameter does...\"",
 					"varname" : "hue_angle[2]"
 				}
 
@@ -261,7 +261,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 495.0, 236.0, 588.0, 19.0 ],
-					"text" : "jcom.parameter a_toggle @type msg_toggle @description \"Tell me what you are doing I will tell you who you are\"",
+					"text" : "jcom.parameter a_toggle @type boolean @description \"Tell me what you are doing I will tell you who you are\"",
 					"varname" : "saturation/active"
 				}
 
@@ -686,7 +686,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 146.0, 214.0, 273.0, 19.0 ],
-									"text" : "generic (default), msg_int, msg_float, menu, toggle"
+									"text" : "generic (default), integer, decimal, menu, toggle"
 								}
 
 							}
@@ -805,7 +805,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 131.821503, 151.313141, 436.0, 31.0 ],
-									"text" : "jcom.parameter a_bang @type msg_generic @repetitions/allow 1 @ramp/drive none @priority 1 @description \"a bang\"",
+									"text" : "jcom.parameter a_bang @type generic @repetitions/allow 1 @ramp/drive none @priority 1 @description \"a bang\"",
 									"varname" : "foot/switch"
 								}
 
@@ -1215,7 +1215,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 494.0, 148.0, 576.0, 31.0 ],
-					"text" : "jcom.message this_message @repetitions/allow 0 @type msg_int @range/bounds 0. 1. @range/clipmode none @description \"Document what this message does...\"",
+					"text" : "jcom.message this_message @repetitions/allow 0 @type integer @range/bounds 0. 1. @range/clipmode none @description \"Document what this message does...\"",
 					"varname" : "hue_angle[1]"
 				}
 
@@ -1264,7 +1264,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 493.0, 113.0, 456.0, 31.0 ],
-					"text" : "jcom.parameter this_parameter @repetitions/allow 0 @type msg_float @range/bounds 0. 1. @range/clipmode none @description \"Document what this parameter does...\"",
+					"text" : "jcom.parameter this_parameter @repetitions/allow 0 @type decimal @range/bounds 0. 1. @range/clipmode none @description \"Document what this parameter does...\"",
 					"varname" : "hue_angle"
 				}
 

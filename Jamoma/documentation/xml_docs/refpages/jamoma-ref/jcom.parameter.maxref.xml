@@ -162,7 +162,7 @@
 				TEXT_HERE
 			</digest>
 			<description>
-				Update parameter value and trigger output locally and internally if @type is msg_symbol or msg_generic.
+				Update parameter value and trigger output locally and internally if @type is string or generic.
 			</description>
 		</method>
 		
@@ -404,6 +404,8 @@
 				• <m>both</m> : clipping occurs on both bounds<br />
 				• <m>high</m> : clipping occurs on higher value only<br />
 				• <m>low</m> : clipping occurs on lower value only<br />
+				• <m>wrap</m> : if a value exceeds either bound range, the value reappears at the opposite range side<br />
+				• <m>fold</m> : if a value exceeds either bound range, the value bounces back at the same range side<br />
 			</description>
 		</attribute>
 		
@@ -418,18 +420,18 @@
 		
 		<attribute name="type" get="1" set="1" type="symbol" size="1">
 			<digest>
-				Set the type of data stored and handled by the parameter. Options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list and msg_none.
+				Set the type of data stored and handled by the parameter. Options are generic, integer, decimal, string, boolean, array and none.
 			</digest>
 			<description>
 				Set the type of data stored and handled by the parameter. Options are:<br />
-				• <m>msg_float</m>: The parameter is a container for a floating-point value.<br />
-				• <m>msg_generic</m>: The parameter can contain an array with one or more integers, floating-point numbers and/or symbols.<br />
-				• <m>msg_int</m>: The parameter is a container for an integer value.<br />
-				• <m>msg_list</m>: The parameter is a container for a list. Currently all list members are assumed to be of type <m>int</m> or <f>float</f>.<br />
-				• <m>msg_none</m>: The parameter does not contain any value. In this case it makes more sense to use <o>jcom.message</o> with the <m>type</m> attribute
-				set to <m>msg_none</m>, as there's no state that can be queried, stored or recalled.<br />
-				• <m>msg_symbol</m>: The parameter is a container for a symbol.<br />
-				• <m>msg_toggle</m>: The parameter is a container for a boolean (1/0) value.<br />
+				• <m>decimal</m>: The parameter is a container for a floating-point value.<br />
+				• <m>generic</m>: The parameter can contain an array with one or more integers, floating-point numbers and/or symbols.<br />
+				• <m>integer</m>: The parameter is a container for an integer value.<br />
+				• <m>array</m>: The parameter is a container for a list. Currently all list members are assumed to be of type <m>int</m> or <f>float</f>.<br />
+				• <m>none</m>: The parameter does not contain any value. In this case it makes more sense to use <o>jcom.message</o> with the <m>type</m> attribute
+				set to <m>none</m>, as there's no state that can be queried, stored or recalled.<br />
+				• <m>string</m>: The parameter is a container for a symbol.<br />
+				• <m>boolean</m>: The parameter is a container for a boolean (1/0) value.<br />
 		</description>
 		</attribute>
 		

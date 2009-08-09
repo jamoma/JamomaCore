@@ -637,7 +637,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 121.821503, 211.313141, 413.0, 31.0 ],
-									"text" : "jcom.parameter a_bang @type msg_generic @repetitions/allow 1 @ramp/drive none @priority 1 @description \"a bang\"",
+									"text" : "jcom.parameter a_bang @type generic @repetitions/allow 1 @ramp/drive none @priority 1 @description \"a bang\"",
 									"varname" : "foot/switch"
 								}
 
@@ -1046,7 +1046,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 490.0, 120.0, 576.0, 31.0 ],
-					"text" : "jcom.message this_message @type msg_int @range/bounds 0. 1. @range/clipmode none @repetitions/allow 0 @ramp/drive none @description \"Document what this message does...\"",
+					"text" : "jcom.message this_message @type integer @range/bounds 0. 1. @range/clipmode none @repetitions/allow 0 @ramp/drive none @description \"Document what this message does...\"",
 					"varname" : "hue_angle[1]"
 				}
 
@@ -1095,7 +1095,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 490.0, 85.0, 576.0, 31.0 ],
-					"text" : "jcom.parameter this_parameter @type msg_float @range/bounds 0. 1. @range/clipmode none @repetitions/allow 0 @ramp/drive scheduler @description \"Document what this parameter does...\"",
+					"text" : "jcom.parameter this_parameter @type decimal @range/bounds 0. 1. @range/clipmode none @repetitions/allow 0 @ramp/drive scheduler @description \"Document what this parameter does...\"",
 					"varname" : "hue_angle"
 				}
 

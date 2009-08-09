@@ -54,7 +54,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 388.0, 510.0, 367.0, 19.0 ],
-					"text" : "jcom.message my_menu @type msg_symbol @description \"My menu\"",
+					"text" : "jcom.message my_menu @type string @description \"My menu\"",
 					"varname" : "my_menu"
 				}
 
@@ -70,7 +70,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 388.0, 480.0, 368.0, 19.0 ],
-					"text" : "jcom.message my_toggle @type msg_toggle @description \"My toggle\"",
+					"text" : "jcom.message my_toggle @type boolean @description \"My toggle\"",
 					"varname" : "my_toggle"
 				}
 
@@ -87,7 +87,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 388.0, 440.0, 457.0, 31.0 ],
-					"text" : "jcom.message my_int @range/clipmode none @type msg_int @ramp/drive scheduler @description \"My int\"",
+					"text" : "jcom.message my_int @range/clipmode none @type integer @ramp/drive scheduler @description \"My int\"",
 					"varname" : "my_int"
 				}
 
@@ -104,7 +104,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 388.0, 400.0, 455.0, 31.0 ],
-					"text" : "jcom.message my_float @range/clipmode none @type msg_float @ramp/drive scheduler @description \"My float\"",
+					"text" : "jcom.message my_float @range/clipmode none @type decimal @ramp/drive scheduler @description \"My float\"",
 					"varname" : "my_float"
 				}
 
@@ -121,7 +121,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 388.0, 360.0, 457.0, 31.0 ],
-					"text" : "jcom.message my_slider @type msg_int @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @description \"My slider\"",
+					"text" : "jcom.message my_slider @type integer @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @description \"My slider\"",
 					"varname" : "my_slider"
 				}
 
@@ -266,7 +266,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 388.0, 202.0, 240.0, 19.0 ],
-					"text" : "jcom.message mymessage @type msg_int"
+					"text" : "jcom.message mymessage @type integer"
 				}
 
 			}

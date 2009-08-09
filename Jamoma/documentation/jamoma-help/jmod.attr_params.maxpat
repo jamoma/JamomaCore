@@ -1504,7 +1504,7 @@
 					"patching_rect" : [ 194.0, 100.0, 177.0, 17.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 195.0, 100.0, 177.0, 17.0 ],
-					"text" : "#1:/type msg_int"
+					"text" : "#1:/type integer"
 				}
 
 			}
@@ -1520,7 +1520,7 @@
 					"patching_rect" : [ 194.0, 84.0, 177.0, 17.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 195.0, 82.0, 177.0, 17.0 ],
-					"text" : "#1:/type msg_float"
+					"text" : "#1:/type decimal"
 				}
 
 			}
