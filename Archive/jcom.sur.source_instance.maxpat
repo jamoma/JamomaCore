@@ -45,7 +45,7 @@
 						"value" : [ 1 ],
 						"dataspace/unit/native" : "none",
 						"dataspace" : "none",
-						"type" : "msg_toggle",
+						"type" : "boolean",
 						"value/default" : [ 1 ],
 						"description" : "enables/disables the effect of the Nth source.",
 						"priority" : 0,
@@ -112,7 +112,7 @@
 						"dataspace/unit/internal" : "aed",
 						"dataspace/unit/native" : "aed",
 						"dataspace" : "position",
-						"type" : "msg_list",
+						"type" : "array",
 						"description" : "Position of the Nth source. In spherical coordinates (aed) by default.",
 						"priority" : 0,
 						"dataspace/unit/active" : "aed"

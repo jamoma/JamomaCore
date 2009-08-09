@@ -2359,7 +2359,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "sel generic menu toggle msg_int msg_float msg_list msg_symbol jit_matrix",
+													"text" : "sel generic menu toggle integer decimal array string jit_matrix",
 													"linecount" : 3,
 													"outlettype" : [ "bang", "bang", "bang", "bang", "bang", "bang", "bang", "bang", "" ],
 													"id" : "obj-17",
@@ -2669,7 +2669,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "sel generic menu toggle msg_int msg_float msg_list msg_symbol jit_matrix",
+													"text" : "sel generic menu toggle integer decimal array string jit_matrix",
 													"linecount" : 3,
 													"outlettype" : [ "bang", "bang", "bang", "bang", "bang", "bang", "bang", "bang", "" ],
 													"id" : "obj-38",
@@ -3505,7 +3505,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "sel generic menu toggle msg_int msg_float msg_list msg_symbol jit_matrix",
+													"text" : "sel generic menu toggle integer decimal array string jit_matrix",
 													"linecount" : 3,
 													"outlettype" : [ "bang", "bang", "bang", "bang", "bang", "bang", "bang", "bang", "" ],
 													"id" : "obj-66",
@@ -3815,7 +3815,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "sel generic menu toggle msg_int msg_float msg_list msg_symbol jit_matrix",
+													"text" : "sel generic menu toggle integer decimal array string jit_matrix",
 													"linecount" : 3,
 													"outlettype" : [ "bang", "bang", "bang", "bang", "bang", "bang", "bang", "bang", "" ],
 													"id" : "obj-87",
@@ -5875,7 +5875,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "sel msg_float msg_int menu",
+													"text" : "sel decimal integer menu",
 													"outlettype" : [ "bang", "bang", "bang", "" ],
 													"id" : "obj-17",
 													"fontsize" : 9.0,
@@ -7005,7 +7005,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "sel msg_float msg_int menu",
+													"text" : "sel decimal integer menu",
 													"outlettype" : [ "bang", "bang", "bang", "" ],
 													"id" : "obj-65",
 													"fontsize" : 9.0,
@@ -7314,7 +7314,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "sel msg_float msg_int menu",
+													"text" : "sel decimal integer menu",
 													"outlettype" : [ "bang", "bang", "bang", "" ],
 													"id" : "obj-86",
 													"fontsize" : 9.0,
@@ -7476,7 +7476,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "sel msg_float msg_int menu",
+													"text" : "sel decimal integer menu",
 													"outlettype" : [ "bang", "bang", "bang", "" ],
 													"id" : "obj-97",
 													"fontsize" : 9.0,

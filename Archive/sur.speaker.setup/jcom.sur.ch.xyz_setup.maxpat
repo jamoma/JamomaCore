@@ -238,7 +238,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 340.0, 125.0, 586.0, 31.0 ],
-					"text" : "jcom.parameter xyz.2 @type msg_list @priority 4 @repetitions/allow 1 @description \"Position of 2th voice as xyz coodinate.\"",
+					"text" : "jcom.parameter xyz.2 @type array @priority 4 @repetitions/allow 1 @description \"Position of 2th voice as xyz coodinate.\"",
 					"varname" : "parameter"
 				}
 

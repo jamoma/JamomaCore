@@ -116,9 +116,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-					"outlettype" : [ "msg_symbol" ],
+					"outlettype" : [ "string" ],
 					"patching_rect" : [ 213.0, 148.0, 86.0, 20.0 ],
-					"text" : "t msg_symbol"
+					"text" : "t string"
 				}
 
 			}
@@ -130,9 +130,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-					"outlettype" : [ "msg_int" ],
+					"outlettype" : [ "integer" ],
 					"patching_rect" : [ 145.0, 148.0, 61.0, 20.0 ],
-					"text" : "t msg_int"
+					"text" : "t integer"
 				}
 
 			}
@@ -144,9 +144,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-					"outlettype" : [ "msg_float" ],
+					"outlettype" : [ "decimal" ],
 					"patching_rect" : [ 77.0, 148.0, 71.0, 20.0 ],
-					"text" : "t msg_float"
+					"text" : "t decimal"
 				}
 
 			}

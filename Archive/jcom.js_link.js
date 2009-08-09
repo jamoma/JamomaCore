@@ -24,7 +24,7 @@ function link(v)
 }
 
 // if linked
-function msg_float(v)
+function decimal(v)
 {
 	var i;
 	var a = v;
@@ -54,7 +54,7 @@ function msg_float(v)
 	}
 }
 
-function msg_int(v)
+function integer(v)
 {
-	msg_float(v);
+	decimal(v);
 }

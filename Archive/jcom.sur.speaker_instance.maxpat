@@ -85,7 +85,7 @@
 						"dataspace/unit/internal" : "xyz",
 						"dataspace" : "position",
 						"dataspace/unit/active" : "xyz",
-						"type" : "msg_list",
+						"type" : "array",
 						"description" : "Position of the Nth speaker. In cartesian coordinates (xyz) by default.",
 						"priority" : 0,
 						"dataspace/unit/native" : "xyz",

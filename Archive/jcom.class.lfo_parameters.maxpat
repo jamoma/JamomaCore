@@ -240,7 +240,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 380.0, 235.0, 355.0, 43.0 ],
-					"text" : "jcom.parameter #1/lfo/depth @type msg_float @range/bounds 0. 100. @range/clipmode low @ramp/drive scheduler @repetitions/allow 0",
+					"text" : "jcom.parameter #1/lfo/depth @type decimal @range/bounds 0. 100. @range/clipmode low @ramp/drive scheduler @repetitions/allow 0",
 					"varname" : "#1/lfo/depth"
 				}
 
@@ -256,7 +256,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 23.0, 226.0, 332.0, 67.0 ],
-					"text" : "jcom.parameter #1/lfo/frequency @type msg_float @range/bounds 0. 100. @range/clipmode low @ramp/drive scheduler @repetitions/allow 0 @dataspace pitch @dataspace/unit/active Hz @dataspace/unit/native Hz @dataspace/unit/display Hz",
+					"text" : "jcom.parameter #1/lfo/frequency @type decimal @range/bounds 0. 100. @range/clipmode low @ramp/drive scheduler @repetitions/allow 0 @dataspace pitch @dataspace/unit/active Hz @dataspace/unit/native Hz @dataspace/unit/display Hz",
 					"varname" : "#1/lfo/frequency"
 				}
 

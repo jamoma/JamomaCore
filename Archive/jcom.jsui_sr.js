@@ -21,7 +21,7 @@
  
  draw();
  
- function msg_int(into)
+ function integer(into)
  {
  	if (inlet==1)
         {

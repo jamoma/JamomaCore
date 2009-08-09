@@ -1965,7 +1965,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 50.0, 181.0, 245.0, 20.0 ],
-													"text" : "jcom.return speaker.1/active @type msg_int"
+													"text" : "jcom.return speaker.1/active @type integer"
 												}
 
 											}
@@ -1979,7 +1979,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 301.0, 319.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.15/active @type msg_int"
+													"text" : "jcom.return speaker.15/active @type integer"
 												}
 
 											}
@@ -1993,7 +1993,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 301.0, 296.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.14/active @type msg_int"
+													"text" : "jcom.return speaker.14/active @type integer"
 												}
 
 											}
@@ -2007,7 +2007,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 301.0, 273.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.13/active @type msg_int"
+													"text" : "jcom.return speaker.13/active @type integer"
 												}
 
 											}
@@ -2021,7 +2021,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 301.0, 250.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.12/active @type msg_int"
+													"text" : "jcom.return speaker.12/active @type integer"
 												}
 
 											}
@@ -2035,7 +2035,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 301.0, 227.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.11/active @type msg_int"
+													"text" : "jcom.return speaker.11/active @type integer"
 												}
 
 											}
@@ -2049,7 +2049,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 301.0, 204.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.10/active @type msg_int"
+													"text" : "jcom.return speaker.10/active @type integer"
 												}
 
 											}
@@ -2063,7 +2063,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 301.0, 180.0, 245.0, 20.0 ],
-													"text" : "jcom.return speaker.9/active @type msg_int"
+													"text" : "jcom.return speaker.9/active @type integer"
 												}
 
 											}
@@ -2077,7 +2077,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 558.0, 344.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.24/active @type msg_int"
+													"text" : "jcom.return speaker.24/active @type integer"
 												}
 
 											}
@@ -2091,7 +2091,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 558.0, 321.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.23/active @type msg_int"
+													"text" : "jcom.return speaker.23/active @type integer"
 												}
 
 											}
@@ -2105,7 +2105,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 558.0, 298.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.22/active @type msg_int"
+													"text" : "jcom.return speaker.22/active @type integer"
 												}
 
 											}
@@ -2119,7 +2119,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 50.0, 205.0, 245.0, 20.0 ],
-													"text" : "jcom.return speaker.2/active @type msg_int"
+													"text" : "jcom.return speaker.2/active @type integer"
 												}
 
 											}
@@ -2133,7 +2133,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 558.0, 275.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.21/active @type msg_int"
+													"text" : "jcom.return speaker.21/active @type integer"
 												}
 
 											}
@@ -2147,7 +2147,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 558.0, 252.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.20/active @type msg_int"
+													"text" : "jcom.return speaker.20/active @type integer"
 												}
 
 											}
@@ -2161,7 +2161,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 558.0, 229.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.19/active @type msg_int"
+													"text" : "jcom.return speaker.19/active @type integer"
 												}
 
 											}
@@ -2175,7 +2175,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 558.0, 206.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.18/active @type msg_int"
+													"text" : "jcom.return speaker.18/active @type integer"
 												}
 
 											}
@@ -2189,7 +2189,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 558.0, 182.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.17/active @type msg_int"
+													"text" : "jcom.return speaker.17/active @type integer"
 												}
 
 											}
@@ -2217,7 +2217,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 816.0, 345.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.32/active @type msg_int"
+													"text" : "jcom.return speaker.32/active @type integer"
 												}
 
 											}
@@ -2243,7 +2243,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 816.0, 322.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.31/active @type msg_int"
+													"text" : "jcom.return speaker.31/active @type integer"
 												}
 
 											}
@@ -2257,7 +2257,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 816.0, 299.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.30/active @type msg_int"
+													"text" : "jcom.return speaker.30/active @type integer"
 												}
 
 											}
@@ -2271,7 +2271,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 50.0, 228.0, 245.0, 20.0 ],
-													"text" : "jcom.return speaker.3/active @type msg_int"
+													"text" : "jcom.return speaker.3/active @type integer"
 												}
 
 											}
@@ -2285,7 +2285,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 816.0, 276.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.29/active @type msg_int"
+													"text" : "jcom.return speaker.29/active @type integer"
 												}
 
 											}
@@ -2299,7 +2299,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 816.0, 253.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.28/active @type msg_int"
+													"text" : "jcom.return speaker.28/active @type integer"
 												}
 
 											}
@@ -2313,7 +2313,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 817.0, 229.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.27/active @type msg_int"
+													"text" : "jcom.return speaker.27/active @type integer"
 												}
 
 											}
@@ -2327,7 +2327,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 816.0, 207.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.26/active @type msg_int"
+													"text" : "jcom.return speaker.26/active @type integer"
 												}
 
 											}
@@ -2341,7 +2341,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 816.0, 183.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.25/active @type msg_int"
+													"text" : "jcom.return speaker.25/active @type integer"
 												}
 
 											}
@@ -2355,7 +2355,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 50.0, 251.0, 245.0, 20.0 ],
-													"text" : "jcom.return speaker.4/active @type msg_int"
+													"text" : "jcom.return speaker.4/active @type integer"
 												}
 
 											}
@@ -2369,7 +2369,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 50.0, 274.0, 245.0, 20.0 ],
-													"text" : "jcom.return speaker.5/active @type msg_int"
+													"text" : "jcom.return speaker.5/active @type integer"
 												}
 
 											}
@@ -2383,7 +2383,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 50.0, 297.0, 245.0, 20.0 ],
-													"text" : "jcom.return speaker.6/active @type msg_int"
+													"text" : "jcom.return speaker.6/active @type integer"
 												}
 
 											}
@@ -2397,7 +2397,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 50.0, 320.0, 245.0, 20.0 ],
-													"text" : "jcom.return speaker.7/active @type msg_int"
+													"text" : "jcom.return speaker.7/active @type integer"
 												}
 
 											}
@@ -2411,7 +2411,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 50.0, 343.0, 245.0, 20.0 ],
-													"text" : "jcom.return speaker.8/active @type msg_int"
+													"text" : "jcom.return speaker.8/active @type integer"
 												}
 
 											}
@@ -2425,7 +2425,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 301.0, 342.0, 251.0, 20.0 ],
-													"text" : "jcom.return speaker.16/active @type msg_int"
+													"text" : "jcom.return speaker.16/active @type integer"
 												}
 
 											}
@@ -3203,7 +3203,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 220.0, 220.0, 581.0, 31.0 ],
-					"text" : "jcom.parameter numSpeakers @repetitions/allow 0 @type msg_int @range/bounds 0 32 @range/clipmode both @priority 1 @description \"Number of speaker channels in the arrangement.\"",
+					"text" : "jcom.parameter numSpeakers @repetitions/allow 0 @type integer @range/bounds 0 32 @range/clipmode both @priority 1 @description \"Number of speaker channels in the arrangement.\"",
 					"varname" : "voices"
 				}
 
@@ -3248,7 +3248,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 120.0, 475.0, 185.0, 31.0 ],
-					"text" : "jcom.return delete @type msg_int @description \"Delete Nth voice.\""
+					"text" : "jcom.return delete @type integer @description \"Delete Nth voice.\""
 				}
 
 			}
@@ -3263,7 +3263,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 120.0, 520.0, 324.0, 31.0 ],
-					"text" : "jcom.return aed @type msg_list @description \"Position of Nth voice as list of polar coordinates (index, azi, ele, dist, active).\""
+					"text" : "jcom.return aed @type array @description \"Position of Nth voice as list of polar coordinates (index, azi, ele, dist, active).\""
 				}
 
 			}

@@ -241,7 +241,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message #1/d @type msg_float @slave 1 @description \"Set distance.\"",
+									"text" : "jcom.message #1/d @type decimal @slave 1 @description \"Set distance.\"",
 									"numoutlets" : 3,
 									"fontname" : "Verdana",
 									"outlettype" : [ "", "", "" ],
@@ -255,7 +255,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message #1/e @type msg_float @slave 1 @description \"Set elevation.\"",
+									"text" : "jcom.message #1/e @type decimal @slave 1 @description \"Set elevation.\"",
 									"numoutlets" : 3,
 									"fontname" : "Verdana",
 									"outlettype" : [ "", "", "" ],
@@ -269,7 +269,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message #1/a @type msg_float @slave 1 @description \"Set azimuth.\"",
+									"text" : "jcom.message #1/a @type decimal @slave 1 @description \"Set azimuth.\"",
 									"numoutlets" : 3,
 									"fontname" : "Verdana",
 									"outlettype" : [ "", "", "" ],
@@ -894,7 +894,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message #1/z @type msg_float @slave 1 @description \"Change z coordinate only.\"",
+									"text" : "jcom.message #1/z @type decimal @slave 1 @description \"Change z coordinate only.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontname" : "Verdana",
@@ -909,7 +909,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message #1/y @type msg_float @slave 1 @description \"Change y coordinate only.\"",
+									"text" : "jcom.message #1/y @type decimal @slave 1 @description \"Change y coordinate only.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontname" : "Verdana",
@@ -924,7 +924,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message #1/x @type msg_float @slave 1 @description \"Change x coordinate only.\"",
+									"text" : "jcom.message #1/x @type decimal @slave 1 @description \"Change x coordinate only.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontname" : "Verdana",
@@ -1381,7 +1381,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "#1/aed",
-					"text" : "jcom.parameter #1/aed @type msg_list @description \"Set position using Cartesian coordinates.\"",
+					"text" : "jcom.parameter #1/aed @type array @description \"Set position using Cartesian coordinates.\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"fontname" : "Verdana",
@@ -1396,7 +1396,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.message #1/xyz @type msg_list @slave 1 @description \"Set position using spherical coordinates.\"",
+					"text" : "jcom.message #1/xyz @type array @slave 1 @description \"Set position using spherical coordinates.\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"fontname" : "Verdana",
