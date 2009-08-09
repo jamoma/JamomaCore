@@ -29,6 +29,10 @@
 		22E3861510286BBE002000A9 /* TTAudioObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F410286BBE002000A9 /* TTAudioObject.cpp */; };
 		22E3861610286BBE002000A9 /* TTAudioSignal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F510286BBE002000A9 /* TTAudioSignal.cpp */; };
 		22E3861710286BBE002000A9 /* TTAudioSignalArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F610286BBE002000A9 /* TTAudioSignalArray.cpp */; };
+		22EB3C05102F0D0F006D027A /* TTDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = 228505CB102CFFFA004D74BC /* TTDSP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3C06102F0D0F006D027A /* TTAudioObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D310286BB0002000A9 /* TTAudioObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3C07102F0D0F006D027A /* TTAudioSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D410286BB0002000A9 /* TTAudioSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22EB3C08102F0D0F006D027A /* TTAudioSignalArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D510286BB0002000A9 /* TTAudioSignalArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -176,12 +180,27 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		22EB3C04102F0D06006D027A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22EB3C05102F0D0F006D027A /* TTDSP.h in Headers */,
+				22EB3C06102F0D0F006D027A /* TTAudioObject.h in Headers */,
+				22EB3C07102F0D0F006D027A /* TTAudioSignal.h in Headers */,
+				22EB3C08102F0D0F006D027A /* TTAudioSignalArray.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		222B177B0F1D4009008B1A46 /* JamomaDSP */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 222B17FD0F1D4009008B1A46 /* Build configuration list for PBXNativeTarget "JamomaDSP" */;
 			buildPhases = (
 				222B17B90F1D4009008B1A46 /* Resources */,
+				22EB3C04102F0D06006D027A /* Headers */,
 				222B17BA0F1D4009008B1A46 /* Sources */,
 				222B17F50F1D4009008B1A46 /* Frameworks */,
 				22CC01940FDFDF8C0024A915 /* ShellScript */,
