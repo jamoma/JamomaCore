@@ -72,9 +72,9 @@ puts "Building Frameworks..."
 zero_count
 
 if win32?
-	build_project("#{@svn_root}/library", "JamomaMulticore.vcproj", configuration, true)
+	build_project("#{@svn_root}library", "JamomaMulticore.vcproj", configuration, true)
 else
-	build_project("#{@svn_root}/library", "JamomaMulticore.xcodeproj", configuration, true)
+	build_project("#{@svn_root}library", "JamomaMulticore.xcodeproj", configuration, true)
 end
 
 ex_total, ex_count = get_count
