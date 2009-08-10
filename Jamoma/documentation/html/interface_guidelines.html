@@ -44,10 +44,10 @@
 <p>The preferred format for graphics files in the Portable Network Graphics (PNG) 
   format.</p>
 <p>Tilde (<code>~</code>) is used to indicate a audio 
-  module or algorithm: <code>jmod.myaudiomodule~.mxt</code> and <code>jalg.myaudioalgorithm~.mxt</code>. 
+  module or algorithm: <code>jmod.myaudiomodule~.maxpat</code> and <code>jalg.myaudioalgorithm~.maxpat</code>. 
 <br> 
- A percentage sign is used to indicate a video module or algorithm: <code>jmod.myvideomodule%.mxt</code> 
-  and <code>jalg.myvideoalgorithm%.mxt</code>.</p>
+ A percentage sign is used to indicate a video module or algorithm: <code>jmod.myvideomodule%.maxpat</code> 
+  and <code>jalg.myvideoalgorithm%.maxpat</code>.</p>
 <h3>The structure of the modules</h3>
 <p>Jamoma is modular. All parts of the Jamoma system are to be implemented as 
   modules: Self-contained components of a system, with a well-defined interface 
@@ -235,14 +235,23 @@ The bpatcher instanciating this module, when it's loaded into a patcher, will au
       module. </td>
   </tr>
   <tr> 
-    <td class="instructionName"> documentation/help </td>
+    <td class="instructionName"> module/reference </td>
     <td class="instructionType"> n/a</td>
     <td class="instructionRange"> n/a </td>
     <td class="instructionClipmode"> both </td>
     <td class="instructionRamp"> no </td>
     <td class="instructionRepetitions"> yes </td>
-    <td class="instructionDescription"> Open the online html reference for this 
+    <td class="instructionDescription"> Open the associated html reference for this 
       module.</td>
+  </tr> 
+  <tr> 
+    <td class="instructionName"> module/help </td>
+    <td class="instructionType"> n/a</td>
+    <td class="instructionRange"> n/a </td>
+    <td class="instructionClipmode"> both </td>
+    <td class="instructionRamp"> no </td>
+    <td class="instructionRepetitions"> yes </td>
+    <td class="instructionDescription"> Open the associated helpfile for this module.</td>
   </tr>
   <tr> 
     <td class="instructionName"> preset/read </td>
@@ -284,18 +293,8 @@ The bpatcher instanciating this module, when it's loaded into a patcher, will au
     <td class="instructionDescription"> Write an xml-preset file to disk. An optional 
       argument defines the file to open.</td>
   </tr>
-  <!-- <tr> 
-    <td class="instructionName"> /set_clock </td>
-    <td class="instructionType"> string </td>
-    <td class="instructionRange"> default </td>
-    <td class="instructionClipmode"> none </td>
-    <td class="instructionRamp"> no </td>
-    <td class="instructionRepetitions"> yes </td>
-    <td class="instructionDescription"> Sync module to external clock. <br> <code>/set_clock 
-      max</code> set module to use the Max scheduler (default behaviour). </td>
-  </tr> -->
   <tr> 
-    <td class="instructionName"> module/view_internals </td>
+    <td class="instructionName"> view/internals </td>
     <td class="instructionType"> n/a </td>
     <td class="instructionRange"> n/a </td>
     <td class="instructionClipmode"> both </td>
@@ -340,7 +339,7 @@ The bpatcher instanciating this module, when it's loaded into a patcher, will au
       the signal level meters in the module to conserve CPU. </td>
   </tr>
   <tr> 
-    <td class="instructionName"> audio/gain/midi </td>
+    <td class="instructionName"> audio/gain </td>
     <td class="instructionType"> decimal </td>
     <td class="instructionRange"> 0 158 </td>
     <td class="instructionClipmode"> both </td>
@@ -368,16 +367,6 @@ The bpatcher instanciating this module, when it's loaded into a patcher, will au
     <td class="instructionDescription"> When active, this attribute turns off 
       the module's processing algorithm to save CPU </td>
   </tr>
-  <tr> 
-    <td class="instructionName"> audio/sample_rate </td>
-    <td class="instructionType"> integer </td>
-    <td class="instructionRange"> -2 0 </td>
-    <td class="instructionClipmode"> none </td>
-    <td class="instructionRamp"> no </td>
-    <td class="instructionRepetitions"> no </td>
-    <td class="instructionDescription"> Sets the relative sample-rate for this 
-      module. </td>
-  </tr>
 </table>
 <p>&nbsp;</p>
 <p>All audio modules implement by default these <code>messages</code>:</p>
@@ -401,16 +390,7 @@ The bpatcher instanciating this module, when it's loaded into a patcher, will au
     <td class="instructionDescription"> no info provided </td>
   </tr>
   <tr> 
-    <td class="instructionName"> audio/gain </td>
-    <td class="instructionType"> decimal </td>
-    <td class="instructionRange"> -144 0 </td>
-    <td class="instructionClipmode"> none </td>
-    <td class="instructionRamp"> yes </td>
-    <td class="instructionRepetitions"> yes </td>
-    <td class="instructionDescription"> Set gain as dB value. </td>
-  </tr>
-  <tr> 
-    <td class="instructionName"> audio/gain:dec </td>
+    <td class="instructionName"> audio/gain:/value/dec </td>
     <td class="instructionType"> n/a</td>
     <td class="instructionRange"> N/A </td>
     <td class="instructionClipmode"> none </td>
@@ -419,7 +399,7 @@ The bpatcher instanciating this module, when it's loaded into a patcher, will au
     <td class="instructionDescription"> Increase gain MIDI value by one. </td>
   </tr>
   <tr> 
-    <td class="instructionName"> audio/gain:inc </td>
+    <td class="instructionName"> audio/gain:/value/inc </td>
     <td class="instructionType"> n/a</td>
     <td class="instructionRange"> N/A </td>
     <td class="instructionClipmode"> none </td>
