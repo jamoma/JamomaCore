@@ -11,7 +11,7 @@
     <item name='offset_y' type='integer' priority='0'>0</item>
     <item name='rotate1' type='boolean' priority='0'>0</item>
     <item name='rotate2' type='boolean' priority='0'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='video/bypass' type='boolean' priority='0'>0</item>
     <item name='video/freeze' type='boolean' priority='0'>0</item>
     <item name='video/mute' type='boolean' priority='0'>0</item>

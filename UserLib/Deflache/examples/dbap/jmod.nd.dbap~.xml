@@ -11,6 +11,6 @@
     <item name='numSources' type='generic' priority='0'>3</item>
     <item name='numSpeakers' type='generic' priority='0'>8</item>
     <item name='rolloff' type='decimal' priority='3'>6.000000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

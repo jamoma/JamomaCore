@@ -9,7 +9,7 @@
     <item name='audio/mute' type='boolean' priority='0'>0</item>
     <item name='numSpeakers' type='integer' priority='0'>8</item>
     <item name='order' type='integer' priority='0'>1</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='weights/first' type='decimal' priority='0'>1.000000</item>
     <item name='weights/omni' type='decimal' priority='0'>0.823242</item>
     <item name='weights/preset' type='string' priority='0'>default</item>

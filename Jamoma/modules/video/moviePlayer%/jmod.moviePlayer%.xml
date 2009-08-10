@@ -11,7 +11,7 @@
     <item name='highquality' type='boolean' priority='0'>1</item>
     <item name='loop' type='string' priority='0'>normal</item>
     <item name='singlefield' type='boolean' priority='0'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='unique' type='boolean' priority='0'>0</item>
     <item name='video/bypass' type='boolean' priority='0'>0</item>
     <item name='video/freeze' type='boolean' priority='0'>0</item>

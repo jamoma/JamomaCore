@@ -228,7 +228,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 22.0, 377.0, 299.0, 15.0 ],
-					"text" : "/ui/freeze 0"
+					"text" : "/view/freeze 0"
 				}
 
 			}

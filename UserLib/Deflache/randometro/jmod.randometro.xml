@@ -9,6 +9,6 @@
     <item name='period' type='integer' priority='0'>1728</item>
     <item name='randomness' type='integer' priority='0'>480</item>
     <item name='toggle' type='boolean' priority='0'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

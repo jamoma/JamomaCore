@@ -6,16 +6,16 @@
 >
   <preset number='1' name='default'>
     <item name='mono' type='boolean' priority='1'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
   <preset number='2' name='buffer_set_2'>
     <item name='buffers_list' type='array' priority='0'>anton.aif jongly.aif cherokee.aif </item>
     <item name='mono' type='boolean' priority='0'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
   <preset number='3' name='buffer_set_3'>
     <item name='buffers_list' type='array' priority='0'>talk.aiff</item>
     <item name='mono' type='boolean' priority='0'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

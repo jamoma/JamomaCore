@@ -32,7 +32,7 @@
     <item name='render/context' type='string' priority='0'>none</item>
     <item name='render/enable' type='boolean' priority='0'>1</item>
     <item name='render/layer' type='integer' priority='0'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='video/freeze' type='boolean' priority='0'>0</item>
     <item name='video/mute' type='boolean' priority='0'>0</item>
     <item name='videoplane/client_storage' type='boolean' priority='0'>1</item>

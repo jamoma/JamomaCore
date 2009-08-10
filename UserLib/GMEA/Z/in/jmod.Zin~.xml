@@ -11,6 +11,6 @@
     <item name='enveloppe/release' type='decimal' priority='30'>128.000000</item>
     <item name='inputname' type='string' priority='31'>type in the name</item>
     <item name='inputnumber' type='integer' priority='30'>1</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

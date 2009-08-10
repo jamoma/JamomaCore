@@ -13,7 +13,7 @@
     <item name='pause_ambitus/deviation' type='decimal' priority='0'>0</item>
     <item name='time_ambitus/center' type='decimal' priority='0'>0</item>
     <item name='time_ambitus/deviation' type='decimal' priority='0'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='volume_ambitus/center' type='decimal' priority='0'>0</item>
     <item name='volume_ambitus/deviation' type='decimal' priority='0'>0</item>
   </preset>

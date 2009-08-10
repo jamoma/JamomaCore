@@ -13,7 +13,7 @@
     <item name='demodulator.1/frequency' type='decimal' priority='3'>10000.000000</item>
     <item name='demodulator.1/phase' type='decimal' priority='3'>0.000000</item>
     <item name='numDemodulators' type='integer' priority='1'>1</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='view/color/border' type='array' priority='0'>0</item>
     <item name='view/color/contentBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
@@ -44,7 +44,7 @@
     <item name='demodulator.6/frequency' type='decimal' priority='3'>12000.000000</item>
     <item name='demodulator.6/phase' type='decimal' priority='3'>0.000000</item>
     <item name='numDemodulators' type='integer' priority='1'>6</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='view/color/border' type='array' priority='0'>0</item>
     <item name='view/color/contentBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>

@@ -14,6 +14,6 @@
     <item name='delay/right' type='array' priority='0'>8929 6429 4643 2143 0 </item>
     <item name='feedback/gain' type='decimal' priority='0'>0</item>
     <item name='feedback/mode' type='string' priority='0'>stereo</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

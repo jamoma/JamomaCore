@@ -12,7 +12,7 @@
     <item name='module_in_nr' type='integer' priority='2'>0</item>
     <item name='module_in' type='string' priority='1'>0</item>
     <item name='scroll-time' type='decimal' priority='0'>0.000000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='window_size' type='integer' priority='0'>2</item>
   </preset>
 </jamoma>

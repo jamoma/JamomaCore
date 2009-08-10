@@ -30,7 +30,7 @@
     <item name='filter.5/freq' type='decimal' priority='12'>5000.000000</item>
     <item name='filter.5/gain' type='decimal' priority='11'>0.000000</item>
     <item name='filter.5/type' type='string' priority='9'>highshelf</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
   <preset number='2' name='notches'>
     <item name='audio/bypass' type='boolean' priority='0'>0</item>
@@ -134,6 +134,6 @@
     <item name='filter.9/freq' type='decimal' priority='0'>1025.156250</item>
     <item name='filter.9/gain' type='decimal' priority='0'>0</item>
     <item name='filter.9/type' type='string' priority='0'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

@@ -54,7 +54,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 781.0, 511.0, 101.0, 20.0 ],
-					"text" : "r #0-ui/freeze"
+					"text" : "r #0-view/freeze"
 				}
 
 			}
@@ -68,7 +68,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 1040.0, 238.0, 102.0, 20.0 ],
-					"text" : "s #0-ui/freeze"
+					"text" : "s #0-view/freeze"
 				}
 
 			}
@@ -223,7 +223,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 856.0, 206.0, 295.0, 20.0 ],
-					"text" : "jcom.oscroute /video/mute /video/freeze /ui/freeze"
+					"text" : "jcom.oscroute /video/mute /video/freeze /view/freeze"
 				}
 
 			}

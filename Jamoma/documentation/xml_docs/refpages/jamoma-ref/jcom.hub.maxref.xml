@@ -647,7 +647,7 @@
 				</description>
 			</entry>			
 
-			<entry name = "ui/refresh">
+			<entry name = "view/refresh">
 				<description>
 					<br />
 					<m>type</m> = <m>none</m> <br />
@@ -659,7 +659,7 @@
 		</misc>
 
 		<misc name = "Embedded jcom.parameter instances">
-			<entry name = "ui/freeze">
+			<entry name = "view/freeze">
 				<description>
 					<br />
 					<m>type</m> = <m>boolean</m> <br />

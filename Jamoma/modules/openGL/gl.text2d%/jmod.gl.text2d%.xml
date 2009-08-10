@@ -44,7 +44,7 @@
     <item name='shadow/enable' type='boolean' priority='0'>1</item>
     <item name='shadow/offset' type='array' priority='0'>0.300000 0.300000 0.000000 </item>
     <item name='tracking' type='decimal' priority='0'>1.000000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='video/freeze' type='boolean' priority='0'>0</item>
     <item name='video/mute' type='boolean' priority='0'>0</item>
     <item name='view/size' type='array' priority='0'>300 140 </item>

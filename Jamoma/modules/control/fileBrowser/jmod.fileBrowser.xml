@@ -8,6 +8,6 @@
     <item name='depth' type='integer' priority='6'>1</item>
     <item name='folder' type='string' priority='0'></item>
     <item name='type' type='string' priority='4'>all</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

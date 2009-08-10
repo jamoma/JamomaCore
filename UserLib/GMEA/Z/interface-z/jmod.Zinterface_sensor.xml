@@ -8,6 +8,6 @@
     <item name='ctrl/nbr' type='integer' priority='0'>0</item>
     <item name='threshold' type='decimal' priority='0'>0</item>
     <item name='trigger/thresvalues' type='array' priority='0'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

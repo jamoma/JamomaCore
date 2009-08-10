@@ -12,7 +12,7 @@
     <item name='damping' type='decimal' priority='0'>0.300000</item>
     <item name='freeze' type='integer' priority='0'>0</item>
     <item name='roomsize' type='decimal' priority='0'>0.400000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='width' type='decimal' priority='0'>1.000000</item>
   </preset>
 </jamoma>

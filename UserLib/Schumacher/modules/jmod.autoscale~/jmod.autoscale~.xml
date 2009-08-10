@@ -12,7 +12,7 @@
     <item name='autoscale~.1/max' type='decimal' priority='3'>1.000000</item>
     <item name='autoscale~.1/min' type='decimal' priority='3'>-1.000000</item>
     <item name='numAutoscalers' type='integer' priority='1'>1</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='view/color/border' type='array' priority='0'>0</item>
     <item name='view/color/contentBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
@@ -47,7 +47,7 @@
     <item name='autoscale~.6/max' type='decimal' priority='3'>1.000000</item>
     <item name='autoscale~.6/min' type='decimal' priority='3'>-1.000000</item>
     <item name='numAutoscalers' type='integer' priority='1'>6</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='view/color/border' type='array' priority='0'>0</item>
     <item name='view/color/contentBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>

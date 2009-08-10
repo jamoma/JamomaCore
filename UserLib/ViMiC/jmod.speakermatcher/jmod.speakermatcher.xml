@@ -125,7 +125,7 @@
     <item name='e/7' type='decimal' priority='21'>0</item>
     <item name='e/8' type='decimal' priority='24'>0</item>
     <item name='e/9' type='decimal' priority='27'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='voices' type='integer' priority='1'>0</item>
     <item name='xyz/10' type='array' priority='21'>0</item>
     <item name='xyz/11' type='array' priority='23'>0</item>

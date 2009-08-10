@@ -13,6 +13,6 @@
     <item name='gdif/performance/on' type='boolean' priority='0'>0</item>
     <item name='gdif/raw/on' type='boolean' priority='0'>0</item>
     <item name='midiIn' type='generic' priority='0'>continuum</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

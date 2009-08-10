@@ -592,7 +592,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 539.0, 44.0, 197.0, 19.0 ],
-									"text" : "jcom.oscroute /countdown /ui/freeze"
+									"text" : "jcom.oscroute /countdown /view/freeze"
 								}
 
 							}

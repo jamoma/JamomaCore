@@ -11,7 +11,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 
 <body>
 	<div id="jmod_header">
-	<img src="../../../documentation/graphics/jmod.icon.mod.png" width="128" height="128">
+	<img src="../../../documentation/graphics/jmodular.icon.png" width="128" height="128">
 	<h1> jmod.messages </h1>
 	<h2> Message Display </h2>
 	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
@@ -38,7 +38,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> display.1 </td>
-			<td class ="instructionType"> symbol </td>
+			<td class ="instructionType"> string </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -49,7 +49,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> display.2 </td>
-			<td class ="instructionType"> symbol </td>
+			<td class ="instructionType"> string </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -60,7 +60,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> display.3 </td>
-			<td class ="instructionType"> symbol </td>
+			<td class ="instructionType"> string </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -71,7 +71,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> display.4 </td>
-			<td class ="instructionType"> symbol </td>
+			<td class ="instructionType"> string </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -82,7 +82,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> display.5 </td>
-			<td class ="instructionType"> symbol </td>
+			<td class ="instructionType"> string </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -92,19 +92,8 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Lower-right display string </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> ui/freeze </td>
-			<td class ="instructionType"> toggle </td>
-			<td class ="instructionRangeBounds"> 0 1 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> view/color/border </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -115,7 +104,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/color/contentBackground </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -126,7 +115,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/color/display.1 </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -137,7 +126,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/color/display.2 </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -148,7 +137,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/color/display.3 </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -159,7 +148,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/color/display.4 </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -170,7 +159,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/color/display.5 </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -181,7 +170,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/color/toolbarBackground </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -192,7 +181,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/color/toolbarText </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -200,6 +189,28 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/freeze </td>
+			<td class ="instructionType"> boolean </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/size </td>
+			<td class ="instructionType"> array </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The size of the module's UI. </td>
 		<tr>
 	</table>
 
@@ -241,28 +252,6 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Initialize a module completely to the original state. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> module/view_internals </td>
-			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> panel/open </td>
-			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Open an a module's control panel (inspector) if one is present. </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> preset/clear </td>
 			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
@@ -275,7 +264,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/copy </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -308,7 +297,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/interpolate </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -352,7 +341,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/store </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -363,7 +352,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/storecurrent </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -374,7 +363,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/storenext </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -406,7 +395,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Write on same xml-preset file. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> ui/refresh </td>
+			<td class="instructionName"> view/internals </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/refresh </td>
 			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -415,6 +415,17 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Update displayed values for module to reflect current state. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/script </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Low-level module hacking.  Any arguments arguments to this message will be interpreted as patcher scripting for the top-level patcher of the module. </td>
 		<tr>
 	</table>
 

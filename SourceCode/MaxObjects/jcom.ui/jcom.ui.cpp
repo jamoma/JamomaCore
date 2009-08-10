@@ -870,10 +870,10 @@ void ui_menu_qfn(t_ui *x)
 			object_attr_setlong(x, gensym("ui_is_frozen"), 0);
 		else
 			object_attr_setlong(x, gensym("ui_is_frozen"), 1);
-		object_method_long(x->obj_remote, gensym("/ui/freeze"), x->attr_ui_freeze, NULL);
+		object_method_long(x->obj_remote, gensym("/view/freeze"), x->attr_ui_freeze, NULL);
 	}
 	else if(item->sym == gensym("Refresh UI"))
-		object_method_sym(x->obj_remote, gensym("/ui/refresh"), item->sym, NULL);
+		object_method_sym(x->obj_remote, gensym("/view/refresh"), item->sym, NULL);
 	else if(item->sym == gensym("Load Settings..."))
 		object_method_sym(x->obj_remote, gensym("/preset/load"), item->sym, NULL);
 	else if(item->sym == gensym("Save Settings..."))
@@ -889,7 +889,7 @@ void ui_menu_qfn(t_ui *x)
 	else if(item->sym == gensym("Get Current State as Text"))
 		object_method_sym(x->obj_remote, gensym("/getstate"), item->sym, NULL);
 	else if(item->sym == gensym("View Internal Components"))
-		object_method_sym(x->obj_remote, gensym("/module/viewInternals"), item->sym, NULL);
+		object_method_sym(x->obj_remote, gensym("/view/internals"), item->sym, NULL);
 	else if(item->sym == gensym("Open Help Patch"))
 		object_method_sym(x->obj_remote, gensym("/module/help"), item->sym, NULL);
 	else if(item->sym == gensym("Open Reference Page"))

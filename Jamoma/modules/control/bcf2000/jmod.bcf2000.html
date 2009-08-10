@@ -11,7 +11,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 
 <body>
 	<div id="jmod_header">
-	<img src="../../../documentation/graphics/jmod.icon.mod.png" width="128" height="128">
+	<img src="../../../documentation/graphics/jmodular.icon.png" width="128" height="128">
 	<h1> jmod.bcf2000 </h1>
 	<h2> A module interfacing with the Behringer BCF2000 motorized MIDI fader. </h2>
 	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
@@ -38,7 +38,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> button.1 </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -49,7 +49,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> button.2 </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -60,7 +60,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> button.3 </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -71,7 +71,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> button.4 </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -82,7 +82,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> foot/control </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -93,7 +93,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> foot/switch </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -126,7 +126,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.1/fader </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -137,7 +137,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.1/key.lower </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -148,7 +148,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.1/key.upper </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -159,7 +159,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.1/pushEncoder.1/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -170,7 +170,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.1/pushEncoder.1/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -181,7 +181,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.1/pushEncoder.2/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -192,7 +192,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.1/pushEncoder.2/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -203,7 +203,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.1/pushEncoder.3/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -214,7 +214,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.1/pushEncoder.3/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -225,7 +225,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.1/pushEncoder.4/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -236,7 +236,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.1/pushEncoder.4/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -247,7 +247,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.2/fader </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -258,7 +258,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.2/key.lower </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -269,7 +269,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.2/key.upper </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -280,7 +280,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.2/pushEncoder.1/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -291,7 +291,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.2/pushEncoder.1/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -302,7 +302,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.2/pushEncoder.2/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -313,7 +313,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.2/pushEncoder.2/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -324,7 +324,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.2/pushEncoder.3/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -335,7 +335,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.2/pushEncoder.3/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -346,7 +346,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.2/pushEncoder.4/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -357,7 +357,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.2/pushEncoder.4/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -368,7 +368,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.3/fader </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -379,7 +379,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.3/key.lower </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -390,7 +390,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.3/key.upper </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -401,7 +401,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.3/pushEncoder.1/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -412,7 +412,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.3/pushEncoder.1/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -423,7 +423,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.3/pushEncoder.2/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -434,7 +434,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.3/pushEncoder.2/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -445,7 +445,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.3/pushEncoder.3/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -456,7 +456,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.3/pushEncoder.3/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -467,7 +467,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.3/pushEncoder.4/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -478,7 +478,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.3/pushEncoder.4/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -489,7 +489,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.4/fader </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -500,7 +500,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.4/key.lower </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -511,7 +511,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.4/key.upper </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -522,7 +522,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.4/pushEncoder.1/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -533,7 +533,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.4/pushEncoder.1/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -544,7 +544,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.4/pushEncoder.2/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -555,7 +555,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.4/pushEncoder.2/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -566,7 +566,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.4/pushEncoder.3/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -577,7 +577,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.4/pushEncoder.3/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -588,7 +588,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.4/pushEncoder.4/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -599,7 +599,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.4/pushEncoder.4/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -610,7 +610,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.5/fader </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -621,7 +621,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.5/key.lower </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -632,7 +632,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.5/key.upper </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -643,7 +643,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.5/pushEncoder.1/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -654,7 +654,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.5/pushEncoder.1/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -665,7 +665,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.5/pushEncoder.2/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -676,7 +676,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.5/pushEncoder.2/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -687,7 +687,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.5/pushEncoder.3/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -698,7 +698,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.5/pushEncoder.3/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -709,7 +709,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.5/pushEncoder.4/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -720,7 +720,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.5/pushEncoder.4/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -731,7 +731,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.6/fader </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -742,7 +742,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.6/key.lower </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -753,7 +753,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.6/key.upper </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -764,7 +764,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.6/pushEncoder.1/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -775,7 +775,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.6/pushEncoder.1/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -786,7 +786,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.6/pushEncoder.2/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -797,7 +797,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.6/pushEncoder.2/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -808,7 +808,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.6/pushEncoder.3/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -819,7 +819,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.6/pushEncoder.3/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -830,7 +830,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.6/pushEncoder.4/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -841,7 +841,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.6/pushEncoder.4/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -852,7 +852,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.7/fader </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -863,7 +863,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.7/key.lower </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -874,7 +874,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.7/key.upper </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -885,7 +885,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.7/pushEncoder.1/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -896,7 +896,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.7/pushEncoder.1/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -907,7 +907,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.7/pushEncoder.2/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -918,7 +918,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.7/pushEncoder.2/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -929,7 +929,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.7/pushEncoder.3/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -940,7 +940,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.7/pushEncoder.3/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -951,7 +951,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.7/pushEncoder.4/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -962,7 +962,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.7/pushEncoder.4/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -973,7 +973,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.8/fader </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -984,7 +984,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.8/key.lower </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -995,7 +995,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.8/key.upper </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -1006,7 +1006,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.8/pushEncoder.1/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -1017,7 +1017,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.8/pushEncoder.1/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -1028,7 +1028,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.8/pushEncoder.2/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -1039,7 +1039,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.8/pushEncoder.2/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -1050,7 +1050,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.8/pushEncoder.3/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -1061,7 +1061,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.8/pushEncoder.3/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -1072,7 +1072,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.8/pushEncoder.4/press </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -1083,7 +1083,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> track.8/pushEncoder.4/turn </td>
-			<td class ="instructionType"> int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
@@ -1093,19 +1093,8 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Push encoder turn. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> ui/freeze </td>
-			<td class ="instructionType"> toggle </td>
-			<td class ="instructionRangeBounds"> 0 1 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> view/color/border </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -1116,7 +1105,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/color/contentBackground </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -1127,7 +1116,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/color/toolbarBackground </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -1138,7 +1127,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/color/toolbarText </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -1148,8 +1137,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]. </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> view/freeze </td>
+			<td class ="instructionType"> boolean </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> view/size </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -1198,17 +1198,6 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Initialize a module completely to the original state. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> module/viewInternals </td>
-			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> panel/open </td>
 			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
@@ -1232,7 +1221,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/copy </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -1265,7 +1254,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/interpolate </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -1309,7 +1298,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/store </td>
-			<td class ="instructionType"> list </td>
+			<td class ="instructionType"> array </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -1363,18 +1352,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Write on same xml-preset file. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> script </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class="instructionName"> view/internals </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Low-level module hacking.  Any arguments arguments to this message will be interpreted as patcher scripting for the top-level patcher of the module. </td>
+			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> ui/refresh </td>
+			<td class="instructionName"> view/refresh </td>
 			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1383,6 +1372,17 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Update displayed values for module to reflect current state. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/script </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Low-level module hacking.  Any arguments arguments to this message will be interpreted as patcher scripting for the top-level patcher of the module. </td>
 		<tr>
 	</table>
 

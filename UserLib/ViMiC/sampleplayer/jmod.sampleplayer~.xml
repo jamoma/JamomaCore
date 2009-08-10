@@ -16,7 +16,7 @@
     <item name='sample/vzoom' type='decimal' priority='0'>0</item>
     <item name='speed/active' type='boolean' priority='0'>0</item>
     <item name='speed/ratio' type='decimal' priority='0'>1.000000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='view/color/border' type='array' priority='0'>0</item>
     <item name='view/color/contentBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>

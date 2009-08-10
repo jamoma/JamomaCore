@@ -10,7 +10,7 @@
     <item name='interp' type='boolean' priority='0'>0</item>
     <item name='quality' type='string' priority='0'>0</item>
     <item name='realtime' type='boolean' priority='0'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='video/bypass' type='boolean' priority='0'>0</item>
     <item name='video/freeze' type='boolean' priority='0'>0</item>
     <item name='video/mute' type='boolean' priority='0'>0</item>

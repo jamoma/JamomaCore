@@ -15,7 +15,7 @@
     <item name='QVicon2OSC/vicon/host' type='string' priority='0'>127.0.0.1</item>
     <item name='control_ip' type='string' priority='0'>127.0.0.1</item>
     <item name='control_port' type='integer' priority='0'>9999</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 
   <preset number='2' name='iplocal'>
@@ -29,7 +29,7 @@
     <item name='QVicon2OSC/vicon/host' type='string' priority='0'>10.0.0.113</item>
     <item name='control_ip' type='string' priority='0'>10.0.0.113</item>
     <item name='control_port' type='integer' priority='0'>9999</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 
   <preset number='3' name='ipnetwork'>
@@ -43,7 +43,7 @@
     <item name='QVicon2OSC/vicon/host' type='string' priority='0'>192.168.1.100</item>
     <item name='control_ip' type='string' priority='0'>192.168.1.101</item>
     <item name='control_port' type='integer' priority='0'>9999</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 
 </jamoma>

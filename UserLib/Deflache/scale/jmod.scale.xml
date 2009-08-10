@@ -9,6 +9,6 @@
     <item name='curve' type='decimal' priority='0'>0.000000</item>
     <item name='max' type='decimal' priority='0'>1000.000000</item>
     <item name='min' type='decimal' priority='0'>0.000000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

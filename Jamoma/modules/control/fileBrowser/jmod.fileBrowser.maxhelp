@@ -619,7 +619,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 50.0, 191.0, 194.0, 17.0 ],
-									"text" : "/fileBrowser2/ui/freeze 0"
+									"text" : "/fileBrowser2/view/freeze 0"
 								}
 
 							}

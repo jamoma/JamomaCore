@@ -5,7 +5,7 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='preamp' type='decimal' priority='0'>0</item>
     <item name='mode' type='string' priority='0'>sinus</item>
     <item name='depth' type='decimal' priority='0'>10.000000</item>

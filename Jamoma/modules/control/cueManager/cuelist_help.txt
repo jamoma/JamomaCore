@@ -9,7 +9,7 @@
  # 
  # Module /control 
  	 	 	 	 /control/audio 1 
- 	 	 	 	 /control/ui/freeze 0 
+ 	 	 	 	 /control/view/freeze 0 
  	 	 	 	 /control/view/color/border 0 
  	 	 	 	 /control/view/color/contentBackground 0 
  	 	 	 	 /control/view/color/toolbarBackground 0 
@@ -23,7 +23,7 @@
  	 	 	 	 /degrade~/audio/mute 0 
  	 	 	 	 /degrade~/bitdepth 24 ramp global 
  	 	 	 	 /degrade~/sr_ratio 1.000000 ramp global 
- 	 	 	 	 /degrade~/ui/freeze 0 
+ 	 	 	 	 /degrade~/view/freeze 0 
  	 	 	 	 /degrade~/view/color/border 0 
  	 	 	 	 /degrade~/view/color/contentBackground 0 
  	 	 	 	 /degrade~/view/color/toolbarBackground 0 
@@ -40,7 +40,7 @@
  	 	 	 	 /input~/soundfile/loop 1 
  	 	 	 	 /input~/soundfile/play 0 
  	 	 	 	 /input~/source none 
- 	 	 	 	 /input~/ui/freeze 0 
+ 	 	 	 	 /input~/view/freeze 0 
  	 	 	 	 /input~/view/color/border 0 
  	 	 	 	 /input~/view/color/contentBackground 0 
  	 	 	 	 /input~/view/color/toolbarBackground 0 
@@ -64,7 +64,7 @@
  	 	 	 	 /output~/record/samptype int24 
  	 	 	 	 /output~/saturation/active 1 
  	 	 	 	 /output~/saturation/depth 10.000000 ramp global 
- 	 	 	 	 /output~/ui/freeze 0 
+ 	 	 	 	 /output~/view/freeze 0 
  	 	 	 	 /output~/view/color/border 0 
  	 	 	 	 /output~/view/color/contentBackground 0 
  	 	 	 	 /output~/view/color/toolbarBackground 0 

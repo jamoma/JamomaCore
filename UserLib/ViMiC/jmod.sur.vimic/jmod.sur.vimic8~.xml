@@ -226,7 +226,7 @@
     <item name='source.8/orientation/mode' type='string' priority='0'>0</item>
     <item name='source.8/orientation/yaw' type='integer' priority='0'>0</item>
     <item name='source.8/rendermode' type='string' priority='0'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='updaterate' type='integer' priority='0'>20</item>
     <item name='warning' type='integer' priority='0'>0</item>
   </preset>

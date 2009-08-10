@@ -60,7 +60,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)hub_private,				"private", 					A_GIMME, 0L);	// internal communications such as jcom.remote
 	class_addmethod(c, (method)hub_return,				"return",					A_GIMME, 0L);	// feedback from jcom.return
 	class_addmethod(c, (method)hub_return_extended,		"return_extended",			A_GIMME, 0L);	// feedback from jcom.return
-
+//	class_addmethod(c, (method)hub_autodoc,				"documentation/generate",	0);
+//	class_addmethod(c, (method)hub_autodoc,				"/documentation/generate",	0);
+//	class_addmethod(c, (method)hub_presets_post,		"preset/post",	0); 
+//	class_addmethod(c, (method)hub_presets_post,		"/preset/post",	0); 
 	class_addmethod(c, (method)hub_paramnames_get,		"parameter_names:/dump",		0L);
 	class_addmethod(c, (method)hub_paramnames_get,		"/parameter_names:/dump", 	0L);
 	class_addmethod(c, (method)hub_messagenames_get,	"message_names:/dump",		0L);
@@ -563,10 +566,10 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 		else if(private_message == gensym("/getstate")){
 			hub_getstate(x);
 		}
-		else if (private_message == jps_slash_ui_slash_freeze) {			// 	/ui/freeze
+		else if (private_message == jps_slash_ui_slash_freeze) {			// 	/view/freeze
 			hub_symbol(x, jps_slash_ui_slash_freeze, argc, argv);
 		}
-		else if ( private_message == jps_slash_ui_slash_refresh )		//	/ui/refresh
+		else if ( private_message == jps_slash_ui_slash_refresh )		//	/view/refresh
 			hub_ui_refresh(x, NULL, 0, NULL);
 		else if(private_message == gensym("fetchParameterNamesInLinklist"))
 			hub_paramnames_linklist(x, (t_linklist*)atom_getobj(argv));
