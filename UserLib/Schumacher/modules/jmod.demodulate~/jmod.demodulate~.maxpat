@@ -811,7 +811,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 207.0, 212.0, 19.0 ],
-					"text" : "jcom.oscroute /panel/open /audio/mute"
+					"text" : "jcom.oscroute /view/panel /audio/mute"
 				}
 
 			}

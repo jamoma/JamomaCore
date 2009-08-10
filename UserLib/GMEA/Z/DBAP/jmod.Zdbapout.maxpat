@@ -1967,7 +1967,7 @@
 																	"numoutlets" : 2,
 																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 50.0, 50.0, 144.0, 18.0 ],
-																	"text" : "jcom.oscroute /panel/open"
+																	"text" : "jcom.oscroute /view/panel"
 																}
 
 															}
@@ -4541,7 +4541,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 15.0, 25.0, 232.0, 20.0 ],
-									"text" : "jcom.oscroute /panel/open /numSpeakers"
+									"text" : "jcom.oscroute /view/panel /numSpeakers"
 								}
 
 							}

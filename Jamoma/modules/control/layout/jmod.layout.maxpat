@@ -14241,7 +14241,7 @@
 									"numoutlets" : 5,
 									"outlettype" : [ "", "", "", "", "" ],
 									"patching_rect" : [ 16.0, 47.0, 324.0, 19.0 ],
-									"text" : "jcom.oscroute /panel/open /positions /fullscreen /preset/recall"
+									"text" : "jcom.oscroute /view/panel /positions /fullscreen /preset/recall"
 								}
 
 							}

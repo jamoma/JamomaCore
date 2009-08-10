@@ -58,7 +58,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.oscroute /panel/open",
+					"text" : "jcom.oscroute /view/panel",
 					"id" : "obj-1",
 					"fontname" : "Verdana",
 					"numinlets" : 1,

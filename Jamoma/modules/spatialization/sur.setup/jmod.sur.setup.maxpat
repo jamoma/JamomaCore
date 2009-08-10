@@ -443,7 +443,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 50.0, 50.0, 144.0, 18.0 ],
-													"text" : "jcom.oscroute /panel/open"
+													"text" : "jcom.oscroute /view/panel"
 												}
 
 											}

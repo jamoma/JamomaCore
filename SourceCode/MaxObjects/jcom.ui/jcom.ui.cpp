@@ -740,7 +740,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			jbox_set_mousedragdelta((t_object *)x, 1);
 		}
 		else if(x->attr_hasinspector && px.x >= x->rect_inspector.x && px.x <= (x->rect_inspector.x + x->rect_inspector.width))
-			object_method_typed(x->obj_remote, gensym("/panel/open"), 0, NULL, NULL);
+			object_method_typed(x->obj_remote, gensym("/view/panel"), 0, NULL, NULL);
 		else if(x->attr_haspreview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width))
 			object_attr_setlong(x, gensym("is_previewing"), !x->attr_ispreviewing);
 		else if(x->attr_hasfreeze && px.x >= x->rect_freeze.x && px.x <= (x->rect_freeze.x + x->rect_freeze.width))
