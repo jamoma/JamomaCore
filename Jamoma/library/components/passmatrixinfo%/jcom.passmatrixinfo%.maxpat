@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 464.0, 44.0, 445.0, 345.0 ],
+		"rect" : [ 464.0, 44.0, 405.0, 316.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 464.0, 44.0, 445.0, 345.0 ],
+		"defrect" : [ 464.0, 44.0, 405.0, 316.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -15,162 +15,160 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
-		"metadata" : [  ],
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "zl change",
-					"patching_rect" : [ 137.0, 158.0, 57.0, 18.0 ],
-					"id" : "obj-1",
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-1",
+					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"fontsize" : 10.0,
-					"outlettype" : [ "", "" ]
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 129.0, 158.0, 58.0, 19.0 ],
+					"text" : "zl change"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.pass planecount dim",
-					"patching_rect" : [ 67.0, 128.0, 138.0, 18.0 ],
-					"id" : "obj-2",
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-2",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
-					"fontsize" : 10.0,
-					"outlettype" : [ "", "", "" ]
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 67.0, 128.0, 142.0, 19.0 ],
+					"text" : "jcom.pass planecount dim"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "zl change",
-					"patching_rect" : [ 67.0, 158.0, 57.0, 18.0 ],
-					"id" : "obj-3",
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"fontsize" : 10.0,
-					"outlettype" : [ "", "" ]
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 67.0, 158.0, 58.0, 19.0 ],
+					"text" : "zl change"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jit.matrixinfo",
-					"patching_rect" : [ 67.0, 107.0, 73.0, 18.0 ],
-					"id" : "obj-4",
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-4",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-					"fontsize" : 10.0,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 67.0, 107.0, 76.0, 19.0 ],
+					"text" : "jit.matrixinfo"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "inlet",
-					"patching_rect" : [ 67.0, 50.0, 15.0, 15.0 ],
+					"comment" : "",
 					"id" : "obj-5",
+					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"comment" : ""
+					"patching_rect" : [ 67.0, 50.0, 25.0, 25.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "outlet",
-					"patching_rect" : [ 67.0, 238.0, 15.0, 15.0 ],
+					"comment" : "",
 					"id" : "obj-6",
+					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"comment" : ""
+					"patching_rect" : [ 67.0, 238.0, 25.0, 25.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "This little thing passes on the planecount and dimensions of the matrix, so that following jit.matrix or jit.matrixset objects don't have problems.",
-					"linecount" : 5,
-					"patching_rect" : [ 225.0, 117.0, 175.0, 66.0 ],
-					"id" : "obj-7",
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-7",
+					"linecount" : 7,
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ]
+					"patching_rect" : [ 225.0, 117.0, 127.0, 92.0 ],
+					"text" : "This little thing passes on the planecount and dimensions of the matrix, so that following jit.matrix or jit.matrixset objects don't have problems."
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-1", 0 ],
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-2", 1 ],
-					"destination" : [ "obj-1", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-2", 0 ],
-					"destination" : [ "obj-3", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-3", 0 ],
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-5", 0 ],
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 76.0, 88.0, 46.0, 88.0, 46.0, 210.0, 76.0, 210.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-4", 0 ],
-					"destination" : [ "obj-2", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-5", 0 ],
 					"destination" : [ "obj-4", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-4", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 76.5, 88.0, 46.0, 88.0, 46.0, 210.0, 76.5, 210.0 ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-2", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-2", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 138.5, 207.0, 76.5, 207.0 ],
+					"source" : [ "obj-1", 0 ]
 				}
 
 			}
