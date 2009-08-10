@@ -706,7 +706,7 @@ void hub_edclose(t_hub *x, char **text, long size)
 
 void hub_script(t_hub* x, SymbolPtr s, AtomCount ac, AtomPtr av)
 {
-	object_method_typed(x->container, s, ac, av, NULL);
+	object_method_typed(x->container, _sym_script, ac, av, NULL);
 }
 
 
