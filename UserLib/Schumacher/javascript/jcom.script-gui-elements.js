@@ -16,9 +16,9 @@ MAX_VOICES = 32;                        // Maximum number of gui-elements
 
 // VARIABLES
 
-var num_voices = 0;                   	// Current number of voices
-var num_voices_prev = 0;            	// Previous number of voices
-var i                               	// A counter
+var num_voices = 0;                       // Current number of voices
+var num_voices_prev = 0;                // Previous number of voices
+var i                                   // A counter
 
 
 // INLETS AND OUTLETS
@@ -31,10 +31,10 @@ setoutletassist(0,"Scripting messages");
 
 function loadbang(a,b,c)
 {
-//	post(jsarguments[1],jsarguments[2],jsarguments[3]);
+//    post(jsarguments[1],jsarguments[2],jsarguments[3]);
 }
 
-function integer(value)
+function msg_int(value)
 {
 
     {    
@@ -52,8 +52,8 @@ function integer(value)
          for (i=num_voices_prev; i>value; i--)
                 {
             outlet(0, "script", "delete", "gui-element["+(i)+"]");
-        	}
-        	
+            }
+            
           for (i=num_voices_prev; i<value; i++)     
         {
             outlet(0, "script", "new", "gui-element["+(i+1)+"]", "bpatcher", (0), (i*(jsarguments[3])+21), (jsarguments[2]), 28, 0, 0, (jsarguments[1]), 0, [i+1]); 

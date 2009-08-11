@@ -114,7 +114,7 @@ function draw_square()
 
 }
 
-function decimal(v)
+function msg_float(v)
 {
     var i = inlet;
 
