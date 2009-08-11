@@ -31,7 +31,6 @@
     <item name='synth/noise/rate' type='integer' priority='0'>100</item>
     <item name='synth/noise/size/x' type='integer' priority='0'>320</item>
     <item name='synth/noise/size/y' type='integer' priority='0'>240</item>
-    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='video/freeze' type='boolean' priority='0'>0</item>
     <item name='video/mute' type='boolean' priority='0'>0</item>
     <item name='video/preview' type='boolean' priority='0'>0</item>
