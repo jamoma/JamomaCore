@@ -24,20 +24,9 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 949.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 918.0, 70.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-1",
-					"maxclass" : "jit.pwindow",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 590.0, 86.0, 80.0, 60.0 ]
 				}
 
 			}
@@ -67,7 +56,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 15.0, 432.0, 51.0, 17.0 ],
-					"text" : "/mode 1"
+					"text" : "/mode 2"
 				}
 
 			}
@@ -228,13 +217,13 @@
 ,
 					"patching_rect" : [ 658.0, 632.0, 151.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"default_fontsize" : 10.0
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p more-about-motiongrams"
@@ -313,7 +302,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "motiongram%.1" ],
+					"args" : [ "motiongram%.vertical" ],
 					"id" : "obj-17",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
@@ -322,8 +311,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 15.0, 455.0, 300.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"varname" : "/motiongram-vertical"
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
 				}
 
 			}
@@ -413,42 +401,6 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 561.5, 156.0, 586.5, 156.0, 586.5, 81.0, 599.5, 81.0 ],
-					"source" : [ "obj-10", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-17", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-5", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-16", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 165.0, 536.0, 334.0, 536.0, 334.0, 458.0, 348.5, 458.0 ],
-					"source" : [ "obj-17", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-18", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 305.5, 527.0, 326.0, 527.0, 326.0, 482.0, 348.5, 482.0 ],
-					"source" : [ "obj-17", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-13", 0 ],
 					"hidden" : 0,
 					"midpoints" : [ 734.0, 243.0, 596.5, 243.0 ],
@@ -512,6 +464,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-28", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 561.5, 164.0, 561.5, 164.0 ],
+					"source" : [ "obj-10", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-17", 1 ],
 					"hidden" : 0,
 					"midpoints" : [ 561.5, 248.0, 305.5, 248.0 ],
@@ -521,10 +482,28 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-28", 1 ],
+					"destination" : [ "obj-18", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 561.5, 164.0, 561.5, 164.0 ],
-					"source" : [ "obj-10", 1 ]
+					"midpoints" : [ 305.5, 527.0, 326.0, 527.0, 326.0, 482.0, 348.5, 482.0 ],
+					"source" : [ "obj-17", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 165.0, 536.0, 334.0, 536.0, 334.0, 458.0, 348.5, 458.0 ],
+					"source" : [ "obj-17", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-17", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 0 ]
 				}
 
 			}
