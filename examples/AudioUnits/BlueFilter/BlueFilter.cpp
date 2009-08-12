@@ -6,7 +6,7 @@ COMPONENT_ENTRY(BlueFilter)
 BlueFilter::BlueFilter(AudioUnit component)
 	: AUEffectBase(component)
 {	
-	TTBlueInit();
+	TTDSPInit();
 	
 	CreateElements();
 	Globals()->UseIndexedParameters(kNumberOfParameters);
@@ -129,7 +129,7 @@ void BlueFilter::BlueFilterKernel::Process(	const	Float32*	inSourceP,
                                                     bool		&ioSilence )
 {
 	mInput->setVector(0, inFramesToProcess, (TTFloat32*)inSourceP);
-	mOutput->setvectorSize(inFramesToProcess);
+	mOutput->setVectorSize(inFramesToProcess);
 	mOutput->alloc();
 
 	mButter->setAttributeValue(TT("frequency"),  GetParameter(kParam_One));

@@ -1,6 +1,6 @@
 #include "AUEffectBase.h"
 #include "BlueFilterVersion.h"
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 #if AU_DEBUG_DISPATCHER
 	#include "AUDebugDispatcher.h"
