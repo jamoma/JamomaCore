@@ -13,15 +13,15 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
-	<string>iLaX</string>
+	<string>????</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>SVNREV</string>
+	<string>${SVNREV}</string>
 	<key>CFBundleShortVersionString</key>
-	<string>VERSION (SVNREV)</string>
+	<string>${PRODUCT_VERSION} (${SVNREV})</string>
 	<key>CFBundleLongVersionString</key>
-	<string>Jamoma VERSION (build SVNREV), Copyright 2005-2009 jamoma.org</string>
+	<string>Jamoma Modular System: ${PRODUCT_NAME} ${PRODUCT_VERSION} (build ${SVNREV})</string>
 	<key>CSResourcesFileMapped</key>
 	<true/>
 </dict>
