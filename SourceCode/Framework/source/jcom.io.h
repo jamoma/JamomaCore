@@ -10,7 +10,7 @@
 #ifndef __JCOM_IO_H__
 #define __JCOM_IO_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 #define MAX_NUM_CHANNELS 32
 

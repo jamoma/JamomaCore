@@ -124,10 +124,10 @@ PitchDataspace::PitchDataspace()
 	: DataspaceLib("pitch", "Hz")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new CentUnit,			gensym("cents"));
-	registerUnit(new FrequencyUnit,		gensym("Hz"));
-	registerUnit(new MidiPitchUnit,		gensym("midi"));
-	registerUnit(new SpeedUnit,			gensym("speed"));	// Transposition playback speed of buffers or sound files 
+	registerUnit(new CentUnit,			SymbolGen("cents"));
+	registerUnit(new FrequencyUnit,		SymbolGen("Hz"));
+	registerUnit(new MidiPitchUnit,		SymbolGen("midi"));
+	registerUnit(new SpeedUnit,			SymbolGen("speed"));	// Transposition playback speed of buffers or sound files 
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

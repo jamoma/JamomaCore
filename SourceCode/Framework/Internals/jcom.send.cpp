@@ -69,12 +69,12 @@ void *send_new(t_symbol *s, long argc, t_atom *argv)
 		if(attrstart > 0)
 			x->attr_name = atom_getsym(argv);
 		else
-			x->attr_name = gensym("jcom.send no arg specified");
+			x->attr_name = SymbolGen("jcom.send no arg specified");
 			
 		attr_args_process(x, argc, argv);					// handle attribute args
 		
 		if(!g_receivemaster_object)
-			g_receivemaster_object = (t_object *)object_new(CLASS_NOBOX, gensym("jcom.receivemaster"));
+			g_receivemaster_object = (t_object *)object_new(CLASS_NOBOX, SymbolGen("jcom.receivemaster"));
 	}
 	return x;
 }

@@ -339,7 +339,7 @@ t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_c
 		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
 	}
 	// if the client understands 'update_name' then we call it
-	object_method(x, gensym("update_name"));
+	object_method(x, SymbolGen("update_name"));
 	
 	return MAX_ERR_NONE;
 }
@@ -444,7 +444,7 @@ t_max_err jcom_core_attr_setdescription(t_jcom_core_subscriber_extended *x, void
 	
 	atom_gettext(argc, argv, &textsize, &text, OBEX_UTIL_ATOM_GETTEXT_SYM_NO_QUOTE);
 	if(text && textsize){
-		x->attr_description = gensym(text);
+		x->attr_description = SymbolGen(text);
 		sysmem_freeptr(text);
 	}
 	return MAX_ERR_NONE;

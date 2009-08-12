@@ -339,11 +339,11 @@ ColorDataspace::ColorDataspace()
 	: DataspaceLib("color", "rgb")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new CMYUnit,		gensym("cmy"));
-	registerUnit(new HSLUnit,		gensym("hsl"));
-	registerUnit(new HSVUnit,		gensym("hsv"));
-	registerUnit(new RGBUnit,		gensym("rgb"));
-	registerUnit(new RGB8Unit,		gensym("rgb8"));
+	registerUnit(new CMYUnit,		SymbolGen("cmy"));
+	registerUnit(new HSLUnit,		SymbolGen("hsl"));
+	registerUnit(new HSVUnit,		SymbolGen("hsv"));
+	registerUnit(new RGBUnit,		SymbolGen("rgb"));
+	registerUnit(new RGB8Unit,		SymbolGen("rgb8"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

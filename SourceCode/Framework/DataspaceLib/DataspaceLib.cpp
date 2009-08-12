@@ -8,9 +8,9 @@
 
 #include "DataspaceLib.h"
 
-DataspaceUnit::DataspaceUnit(char *cName)
+DataspaceUnit::DataspaceUnit(const char *cName)
 {
-	name = gensym(cName);
+	name = SymbolGen(cName);
 }
 
 
@@ -22,12 +22,12 @@ DataspaceUnit::~DataspaceUnit()
 
 /***********************************************************************************/
 
-DataspaceLib::DataspaceLib(char *cName, char *cNativeUnit)
+DataspaceLib::DataspaceLib(const char *cName, const char *cNativeUnit)
 	: inUnit(NULL), outUnit(NULL)
 {
 	unitHash = hashtab_new(0);
-	name = gensym(cName);
-	neutralUnit = gensym(cNativeUnit);
+	name = SymbolGen(cName);
+	neutralUnit = SymbolGen(cNativeUnit);
 }
 
 
@@ -141,23 +141,23 @@ JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspac
 	}
 
 	// These should be alphabetized
-	if(dataspaceName == gensym("angle"))
+	if(dataspaceName == SymbolGen("angle"))
 		*dataspace = (DataspaceLib*) new AngleDataspace;
-	else if(dataspaceName == gensym("color"))
+	else if(dataspaceName == SymbolGen("color"))
 		*dataspace = (DataspaceLib*) new ColorDataspace;
-	else if(dataspaceName == gensym("distance"))
+	else if(dataspaceName == SymbolGen("distance"))
 		*dataspace = (DataspaceLib*) new DistanceDataspace;
-	else if(dataspaceName == gensym("gain"))
+	else if(dataspaceName == SymbolGen("gain"))
 		*dataspace = (DataspaceLib*) new GainDataspace;
-	else if(dataspaceName == gensym("none"))
+	else if(dataspaceName == SymbolGen("none"))
 		*dataspace = (DataspaceLib*) new NoneDataspace;
-	else if(dataspaceName == gensym("pitch"))
+	else if(dataspaceName == SymbolGen("pitch"))
 		*dataspace = (DataspaceLib*) new PitchDataspace;
-	else if(dataspaceName == gensym("position")) 
+	else if(dataspaceName == SymbolGen("position")) 
 		*dataspace = (DataspaceLib*) new PositionDataspace;
-	else if(dataspaceName == gensym("temperature"))
+	else if(dataspaceName == SymbolGen("temperature"))
 		*dataspace = (DataspaceLib*) new TemperatureDataspace;
-	else if(dataspaceName == gensym("time"))
+	else if(dataspaceName == SymbolGen("time"))
 		*dataspace = (DataspaceLib*) new TimeDataspace;
 	else 
 		// Invalid -- default to temperature
@@ -175,15 +175,15 @@ void jamoma_getDataspaceList(long *numDataspaces, t_symbol ***dataspaceNames)
 	
 	// These should be alphabetized
 	if(*numDataspaces){
-		*(*dataspaceNames+0) = gensym("angle");
-		*(*dataspaceNames+1) = gensym("color");
-		*(*dataspaceNames+2) = gensym("distance");
-		*(*dataspaceNames+3) = gensym("gain");
-		*(*dataspaceNames+4) = gensym("none");
-		*(*dataspaceNames+5) = gensym("pitch");
-		*(*dataspaceNames+6) = gensym("position"); 
-		*(*dataspaceNames+7) = gensym("temperature");
-		*(*dataspaceNames+8) = gensym("time");
+		*(*dataspaceNames+0) = SymbolGen("angle");
+		*(*dataspaceNames+1) = SymbolGen("color");
+		*(*dataspaceNames+2) = SymbolGen("distance");
+		*(*dataspaceNames+3) = SymbolGen("gain");
+		*(*dataspaceNames+4) = SymbolGen("none");
+		*(*dataspaceNames+5) = SymbolGen("pitch");
+		*(*dataspaceNames+6) = SymbolGen("position"); 
+		*(*dataspaceNames+7) = SymbolGen("temperature");
+		*(*dataspaceNames+8) = SymbolGen("time");
 	}
 }
 
