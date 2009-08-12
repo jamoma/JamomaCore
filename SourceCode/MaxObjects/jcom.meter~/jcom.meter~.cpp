@@ -16,7 +16,7 @@
 #include "jpatcher_api.h"	// jpatcher_api.h must come before z_dsp.h (in Jamoma.h)
 #include "jgraphics.h"
 #include "Jamoma.h"
-#include "TTBlue.h"
+#include "TTDSP.h"
 
 
 // Constants
