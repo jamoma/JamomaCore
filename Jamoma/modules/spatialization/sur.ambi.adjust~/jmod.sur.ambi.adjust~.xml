@@ -19,7 +19,7 @@
     <item name='s/gain' type='decimal' priority='0'>0.000000</item>
     <item name='t/gain' type='decimal' priority='0'>0.000000</item>
     <item name='u/gain' type='decimal' priority='0'>0.000000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='v/gain' type='decimal' priority='0'>0.000000</item>
     <item name='view/size' type='array' priority='0'>300 140 </item>
     <item name='w/gain' type='decimal' priority='0'>0.000000</item>

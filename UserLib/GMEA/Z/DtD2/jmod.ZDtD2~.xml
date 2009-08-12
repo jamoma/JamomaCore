@@ -15,7 +15,7 @@
     <item name='rampmode' type='integer' priority='32'>0</item>
     <item name='ramptime' type='decimal' priority='33'>0</item>
     <item name='selectedfile' type='string' priority='31'>Copie de solopeltetmarto2.wav </item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='view/color/border' type='array' priority='0'>0</item>
     <item name='view/color/contentBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>

@@ -62,8 +62,8 @@
       <outline text=":/repetitions/allow" Type="Property" Description="1/0" Implemented="Yes" Getimplemented="Yes"/>
     </outline>
     <outline text="User Interface">
-      <outline text=":/ui/freeze" Type="Property" Implemented="Yes" Getimplemented="Yes"/>
-      <outline text=":/ui/refresh" Type="Method" Implemented="Yes" Getimplemented="Yes"/>
+      <outline text=":/view/freeze" Type="Property" Implemented="Yes" Getimplemented="Yes"/>
+      <outline text=":/view/refresh" Type="Method" Implemented="Yes" Getimplemented="Yes"/>
     </outline>
     <outline text="Implemented in jcom.return:">
       <outline text=":/enable" Type="Property" Description="Enable or disable the return" Implemented="Yes" Getimplemented="Yes"/>

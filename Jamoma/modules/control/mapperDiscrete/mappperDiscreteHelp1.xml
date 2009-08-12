@@ -18,7 +18,7 @@
     <item name='out/message' type='generic' priority='0'>0</item>
     <item name='out/value' type='decimal' priority='0'>1.000000</item>
     <item name='time/repeat' type='decimal' priority='0'>0.000000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='time/wait' type='decimal' priority='0'>0.000000</item>
   </preset>
   <preset number='1' name='toggle limiter modes'>
@@ -36,7 +36,7 @@
     <item name='out/value' type='decimal' priority='0'>1.000000</item>
     <item name='time/repeat' type='decimal' priority='0'>0.000000</item>
     <item name='time/wait' type='decimal' priority='0'>0.000000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
   <preset number='2' name='ramp audio gain'>
     <item name='in/action' type='integer' priority='0'>3</item>
@@ -54,7 +54,7 @@
     <item name='out/value' type='decimal' priority='0'>100.000000</item>
     <item name='time/repeat' type='decimal' priority='0'>2.000000</item>
     <item name='time/wait' type='decimal' priority='0'>0.000000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
   <preset number='3' name='limiter modes w/delay'>
     <item name='edit' type='string' priority='0'>edit</item>
@@ -73,7 +73,7 @@
     <item name='out/value' type='decimal' priority='0'>1.000000</item>
     <item name='time/repeat' type='decimal' priority='0'>0.000000</item>
     <item name='time/wait' type='decimal' priority='0'>2.000000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='view/color/border' type='array' priority='0'>0</item>
     <item name='view/color/contentBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>

@@ -26,7 +26,7 @@
 	<item name='ramp' type='integer' priority='0'>0</item>
     <item name='slide/down' type='decimal' priority='0'>0.000000</item>
     <item name='slide/up' type='decimal' priority='0'>0.000000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
   <preset number='2' name='mouse'>
     <item name='clipmode' type='string' priority='0'>none</item>
@@ -50,7 +50,7 @@
     <item name='ramp' type='integer' priority='0'>0</item>
     <item name='slide/down' type='decimal' priority='0'>0.000000</item>
     <item name='slide/up' type='decimal' priority='0'>0.000000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
   <preset number='3' name='audio'>
     <item name='clipmode' type='string' priority='0'>both</item>
@@ -74,6 +74,6 @@
     <item name='ramp' type='integer' priority='0'>150</item>
     <item name='slide/down' type='decimal' priority='0'>0.000000</item>
     <item name='slide/up' type='decimal' priority='0'>0.000000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
    </preset>
 </jamoma>

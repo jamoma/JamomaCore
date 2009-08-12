@@ -12,7 +12,7 @@ CUE oh
     /backgroundMovie/loop normal
 	/backgroundMovie/read sunset.jpg
     /backgroundMovie/singlefield 0
-    /backgroundMovie/ui/freeze 0
+    /backgroundMovie/view/freeze 0
     /backgroundMovie/unique 0
     /backgroundMovie/video/bypass 0
     /backgroundMovie/video/freeze 0
@@ -25,7 +25,7 @@ CUE oh
     /backgroundMovie/view/size 300 105
 # Module /cue_script
     /cue_script/listen 0
-    /cue_script/ui/freeze 0
+    /cue_script/view/freeze 0
     /cue_script/view/color/border 0
     /cue_script/view/color/contentBackground 0
     /cue_script/view/color/toolbarBackground 0
@@ -33,7 +33,7 @@ CUE oh
     /cue_script/view/size 300 70
 # Module /cueTrigger
     /cueTrigger/repeat 0
-    /cueTrigger/ui/freeze 0
+    /cueTrigger/view/freeze 0
     /cueTrigger/view/color/border 0
     /cueTrigger/view/color/contentBackground 0
     /cueTrigger/view/color/toolbarBackground 0
@@ -47,7 +47,7 @@ CUE oh
     /foregrundMovie/loop normal
 	/foregrundMovie/read oh.mov
     /foregrundMovie/singlefield 0
-    /foregrundMovie/ui/freeze 0
+    /foregrundMovie/view/freeze 0
     /foregrundMovie/unique 0
     /foregrundMovie/video/bypass 0
     /foregrundMovie/video/freeze 0
@@ -62,7 +62,7 @@ CUE oh
     /qmetro/randomness 0
     /qmetro/time 40
     /qmetro/toggle 1
-    /qmetro/ui/freeze 0
+    /qmetro/view/freeze 0
     /qmetro/view/color/border 0
     /qmetro/view/color/contentBackground 0
     /qmetro/view/color/toolbarBackground 0
@@ -106,7 +106,7 @@ CUE oh
     /slab_based_chromakey/render/context chroma_context
     /slab_based_chromakey/render/enable 1
     /slab_based_chromakey/render/layer 0
-    /slab_based_chromakey/ui/freeze 0
+    /slab_based_chromakey/view/freeze 0
     /slab_based_chromakey/view/color/border 0
     /slab_based_chromakey/view/color/contentBackground 0
     /slab_based_chromakey/view/color/toolbarBackground 0
@@ -140,7 +140,7 @@ CUE oh
     /videoplane/render/context chroma_context
     /videoplane/render/enable 1
     /videoplane/render/layer 0
-    /videoplane/ui/freeze 0
+    /videoplane/view/freeze 0
     /videoplane/video/freeze 0
     /videoplane/video/mute 0
     /videoplane/videoplane/client_storage 1

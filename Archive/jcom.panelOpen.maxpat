@@ -44,7 +44,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.oscroute /panel",
+					"text" : "jcom.oscroute /view",
 					"numoutlets" : 2,
 					"fontsize" : 10.0,
 					"outlettype" : [ "", "" ],

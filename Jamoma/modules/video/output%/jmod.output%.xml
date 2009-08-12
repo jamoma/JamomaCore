@@ -8,7 +8,7 @@
     <item name='context' type='string' priority='0'>this_context</item>
     <item name='fullscreen' type='boolean' priority='0'>0</item>
     <item name='interpolate' type='boolean' priority='0'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='video/freeze' type='boolean' priority='0'>0</item>
     <item name='video/mute' type='boolean' priority='0'>0</item>
     <item name='video/preview' type='boolean' priority='0'>0</item>

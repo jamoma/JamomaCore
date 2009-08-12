@@ -248,7 +248,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 497.0, 136.0, 298.0, 31.0 ],
-					"text" : "jcom.message init @type generic @range/clipmode none @description \"Initialization of wacom object\"",
+					"text" : "jcom.message initDevice @type generic @range/clipmode none @description \"Initialization of wacom object\"",
 					"varname" : "jcom.parameter[3]"
 				}
 

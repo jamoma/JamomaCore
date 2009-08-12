@@ -7,7 +7,7 @@
   <preset number='1' name='default'>
     <item name='active' type='boolean' priority='0'>0</item>
     <item name='menu' type='integer' priority='0'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='updaterate' type='integer' priority='0'>10</item>
   </preset> 
 

@@ -13,6 +13,6 @@
     <item name='pitch/variation' type='decimal' priority='0'>0.000000</item>
     <item name='position/onset_variation' type='decimal' priority='0'>5.000000</item>
     <item name='position' type='decimal' priority='0'>0.000000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

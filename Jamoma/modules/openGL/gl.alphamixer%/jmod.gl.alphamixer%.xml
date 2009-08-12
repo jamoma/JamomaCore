@@ -40,7 +40,7 @@
     <item name='slab/dim' type='array' priority='0'>720 480 </item>
     <item name='slab/rect' type='array' priority='0'>0 0 1 1 </item>
     <item name='slab/texrect' type='array' priority='0'>0 0 1 1 </item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='video/bypass' type='boolean' priority='0'>0</item>
     <item name='video/freeze' type='boolean' priority='0'>0</item>
     <item name='video/mute' type='boolean' priority='0'>0</item>

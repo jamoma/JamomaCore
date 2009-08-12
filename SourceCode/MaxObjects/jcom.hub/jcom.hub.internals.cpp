@@ -65,9 +65,9 @@ void hub_internals_create(t_hub *x)
 	anObject->setAction((method)hub_autodoc, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("documentation/generate"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"module/viewInternals",	x->container,	"none",		"none",	"Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"view/internals",	x->container,	"none",		"none",	"Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning.", 1);
 	anObject->setAction((method)hub_module_view_alg, (t_object*)x);
-	hashtab_store(x->hash_internals, gensym("module/viewInternals"), (t_object*)anObject);
+	hashtab_store(x->hash_internals, gensym("view/internals"), (t_object*)anObject);
 
 	anObject = new hubInternalObject("jcom.message", 	"preset/read",				x->container,	"generic",	"none",	"Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open.", 1);
 	anObject->setAction((method)hub_preset_read, (t_object*)x);
@@ -121,15 +121,15 @@ void hub_internals_create(t_hub *x)
 	anObject->setAction((method)hub_presets_post, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/post"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.parameter",	"ui/freeze",				x->container,	"boolean",	"none",	"Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources.", 0);
+	anObject = new hubInternalObject("jcom.parameter",	"view/freeze",				x->container,	"boolean",	"none",	"Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources.", 0);
 	anObject->setAction((method)hub_ui_freeze, (t_object*)x);
-	hashtab_store(x->hash_internals, gensym("ui/freeze"), (t_object*)anObject);
+	hashtab_store(x->hash_internals, gensym("view/freeze"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"ui/refresh",				x->container,	"none",		"none",	"Update displayed values for module to reflect current state.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"view/refresh",				x->container,	"none",		"none",	"Update displayed values for module to reflect current state.", 1);
 	anObject->setAction((method)hub_ui_refresh, (t_object*)x);
-	hashtab_store(x->hash_internals, gensym("ui/refresh"), (t_object*)anObject);
+	hashtab_store(x->hash_internals, gensym("view/refresh"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"script",					x->container,	"generic",	"none",	"Low-level module hacking.  Any arguments arguments to this message will be interpreted as patcher scripting for the top-level patcher of the module.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"view/script",					x->container,	"generic",	"none",	"Low-level module hacking.  Any arguments arguments to this message will be interpreted as patcher scripting for the top-level patcher of the module.", 1);
 	anObject->setAction((method)hub_script, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("script"), (t_object*)anObject);
 }

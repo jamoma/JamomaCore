@@ -20,7 +20,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-18",
-					"items" : [ "/audio/bypass", ",", "/audio/gain", ",", "/audio/mix", ",", "/audio/mute", ",", "/cf", ",", "/feedback", ",", "/filtergain", ",", "/filtertype", ",", "/left", ",", "/q", ",", "/right", ",", "/ui/freeze", ",", "/view/color/border", ",", "/view/color/contentBackground", ",", "/view/color/toolbarBackground", ",", "/view/color/toolbarText", ",", "/view/size" ],
+					"items" : [ "/audio/bypass", ",", "/audio/gain", ",", "/audio/mix", ",", "/audio/mute", ",", "/cf", ",", "/feedback", ",", "/filtergain", ",", "/filtertype", ",", "/left", ",", "/q", ",", "/right", ",", "/view/freeze", ",", "/view/color/border", ",", "/view/color/contentBackground", ",", "/view/color/toolbarBackground", ",", "/view/color/toolbarText", ",", "/view/size" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,

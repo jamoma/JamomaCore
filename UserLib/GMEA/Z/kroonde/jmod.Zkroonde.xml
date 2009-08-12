@@ -11,6 +11,6 @@
     <item name='range/low' type='integer' priority='0'>0</item>
     <item name='sensor/name' type='string' priority='0'>0</item>
     <item name='sensor/nbr' type='integer' priority='0'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

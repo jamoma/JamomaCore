@@ -11,6 +11,6 @@
     <item name='audio/mute' type='boolean' priority='0'>1</item>
     <item name='delay/left' type='integer' priority='0'>512</item>
     <item name='delay/right' type='integer' priority='0'>512</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

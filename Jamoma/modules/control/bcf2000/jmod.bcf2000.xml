@@ -101,7 +101,7 @@
     <item name='track.8/pushEncoder.3/turn' type='integer' priority='1'>0</item>
     <item name='track.8/pushEncoder.4/press' type='boolean' priority='1'>0</item>
     <item name='track.8/pushEncoder.4/turn' type='integer' priority='1'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='view/size' type='array' priority='0'>300 70 </item>
   </preset>
   <preset number='2' name='All_turns_at_0'>
@@ -201,7 +201,7 @@
     <item name='track.8/pushEncoder.3/turn' type='integer' priority='1'>0</item>
     <item name='track.8/pushEncoder.4/press' type='boolean' priority='1'>0</item>
     <item name='track.8/pushEncoder.4/turn' type='integer' priority='1'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='view/size' type='array' priority='0'>300 70 </item>
   </preset>
   <preset number='3' name='All_turns_at_64'>
@@ -301,7 +301,7 @@
     <item name='track.8/pushEncoder.3/turn' type='integer' priority='1'>64</item>
     <item name='track.8/pushEncoder.4/press' type='boolean' priority='1'>0</item>
     <item name='track.8/pushEncoder.4/turn' type='integer' priority='1'>64</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='view/size' type='array' priority='0'>300 70 </item>
   </preset>
   <preset number='4' name='All_faders_at_64'>
@@ -401,7 +401,7 @@
     <item name='track.8/pushEncoder.3/turn' type='integer' priority='1'>0</item>
     <item name='track.8/pushEncoder.4/press' type='boolean' priority='1'>0</item>
     <item name='track.8/pushEncoder.4/turn' type='integer' priority='1'>0</item>
-    <item name='ui/freeze' type='boolean' priority='0'>1</item>
+    <item name='view/freeze' type='boolean' priority='0'>1</item>
     <item name='view/size' type='array' priority='0'>300 70 </item>
   </preset>
 </jamoma>

@@ -296,7 +296,7 @@ t_max_err attr_set_hasinspector(t_ui *obj, void *attr, long argc, t_atom *argv)
 	
 	
 	if(obj->attr_hasinspector){
-		anObject = new uiInternalObject("jcom.message", 	"panel/open",	obj->box.b_patcher,	"none",		"none",	"Open an a module's control panel (inspector) if one is present.", NULL, NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.message", 	"view/panel",	obj->box.b_patcher,	"none",		"none",	"Open an a module's control panel (inspector) if one is present.", NULL, NULL, NULL, NULL);
 		hashtab_store(obj->hash_internals, gensym("panel/open"), (t_object*)anObject);	
 	}
 	else{

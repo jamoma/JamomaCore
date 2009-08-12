@@ -59,7 +59,7 @@ KEY CUE Init
 	/output~/saturation/depth 10.0
 
 
-	/output~/ui/freeze 0
+	/output~/view/freeze 0
 
 
 
@@ -70,7 +70,7 @@ KEY CUE Init
 	/control/audio 0
 
 
-	/control/ui/freeze 0
+	/control/view/freeze 0
 
 
 
@@ -102,7 +102,7 @@ KEY CUE Init
 	/input~/source soundfile
 
 
-	/input~/ui/freeze 0
+	/input~/view/freeze 0
 
 
 
@@ -128,7 +128,7 @@ KEY CUE Init
 	/degrade~/sr_ratio 1.0
 
 
-	/degrade~/ui/freeze 0
+	/degrade~/view/freeze 0
 
 
 ##############################
@@ -293,7 +293,7 @@ KEY CUE cue_4
 	/output~/saturation/depth 10.0
 
 
-	/output~/ui/freeze 0
+	/output~/view/freeze 0
 
 
 	/output~/view/color/border 0
@@ -316,7 +316,7 @@ KEY CUE cue_4
 	/control/audio 0
 
 
-	/control/ui/freeze 0
+	/control/view/freeze 0
 
 
 	/control/view/color/border 0
@@ -360,7 +360,7 @@ KEY CUE cue_4
 	/input~/source soundfile
 
 
-	/input~/ui/freeze 0
+	/input~/view/freeze 0
 
 
 	/input~/view/color/border 0
@@ -398,7 +398,7 @@ KEY CUE cue_4
 	/degrade~/sr_ratio 1.0
 
 
-	/degrade~/ui/freeze 0
+	/degrade~/view/freeze 0
 
 
 	/degrade~/view/color/border 0
@@ -478,7 +478,7 @@ KEY CUE cue_5
 	/output~/saturation/depth 10.0
 
 
-	/output~/ui/freeze 0
+	/output~/view/freeze 0
 
 
 	/output~/view/color/border 0
@@ -501,7 +501,7 @@ KEY CUE cue_5
 	/control/audio 0
 
 
-	/control/ui/freeze 0
+	/control/view/freeze 0
 
 
 	/control/view/color/border 0
@@ -545,7 +545,7 @@ KEY CUE cue_5
 	/input~/source soundfile
 
 
-	/input~/ui/freeze 0
+	/input~/view/freeze 0
 
 
 	/input~/view/color/border 0
@@ -583,7 +583,7 @@ KEY CUE cue_5
 	/degrade~/sr_ratio 1.0
 
 
-	/degrade~/ui/freeze 0
+	/degrade~/view/freeze 0
 
 
 	/degrade~/view/color/border 0

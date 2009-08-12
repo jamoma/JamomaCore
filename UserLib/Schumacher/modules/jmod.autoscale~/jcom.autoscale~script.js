@@ -40,11 +40,11 @@ function dspstate(value)
     if (value==0)
     {
         if (hold_flag==1)
-            integer(hold_voices);
+            msg_int(hold_voices);
     }
 }
 
-function integer(value)
+function msg_int(value)
 {
     // Put change in number of voices on hold if audio is running
     if (DSP_running==1)

@@ -22,7 +22,7 @@
     <item name='prefdist' type='decimal' priority='0'>2.550000</item>
     <item name='repel' type='decimal' priority='0'>1.000000</item>
     <item name='speed' type='decimal' priority='0'>1.540000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='updaterate' type='integer' priority='0'>33</item>
   </preset>
 </jamoma>

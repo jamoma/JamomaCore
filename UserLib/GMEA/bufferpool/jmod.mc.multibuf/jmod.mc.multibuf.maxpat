@@ -12117,7 +12117,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.oscroute /panel/open",
+									"text" : "jcom.oscroute /view/panel",
 									"patching_rect" : [ 7.0, 32.0, 121.0, 17.0 ],
 									"outlettype" : [ "", "" ],
 									"id" : "obj-1",

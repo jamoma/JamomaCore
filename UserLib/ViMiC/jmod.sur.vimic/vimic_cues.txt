@@ -16,7 +16,7 @@ CUE "1 init 8 microphones"
 	/jmod.multi.aux/aux.3/gain 100.000
 	/jmod.multi.aux/audio/gain 100.000
 	/jmod.multi.aux/audio/mute 0
-	/jmod.multi.aux/ui/freeze 0
+	/jmod.multi.aux/view/freeze 0
 	/jmod.multi.aux/channels 8
 # Module /jmod.sur.vimic~
     /jmod.sur.vimic~/microphones/amount 8
@@ -117,7 +117,7 @@ CUE "1 init 8 microphones"
 /output~/record/filetype default
 /output~/record/samptype default
 /output~/setup 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32
-/output~/ui/freeze 0
+/output~/view/freeze 0
 /output~/numSpeakers 8
 
 # Module /reverb~
@@ -141,7 +141,7 @@ CUE "1 init 8 microphones"
 	/reverb~/outputs 8
 	/reverb~/predelay 0.000
 	/reverb~/t60 2.300	
-	/reverb~/ui/freeze 0
+	/reverb~/view/freeze 0
 	
 	WAIT 200
 
@@ -209,7 +209,7 @@ CUE "init 24 speakers"
 /output~/record/filetype default
 /output~/record/samptype default
 /output~/setup 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32
-/output~/ui/freeze 0
+/output~/view/freeze 0
 /output~/numSpeakers 24
 
 # Module /jmod.control
@@ -226,7 +226,7 @@ CUE "init 24 speakers"
 	/jmod.multi.aux/aux.3/gain 100.0
 	/jmod.multi.aux/audio/gain 100.0
 	/jmod.multi.aux/audio/mute 0
-	/jmod.multi.aux/ui/freeze 0
+	/jmod.multi.aux/view/freeze 0
 	/jmod.multi.aux/channels 24
 # Module /jmod.sur.vimic~
     /jmod.sur.vimic~/microphones/amount 24
@@ -372,7 +372,7 @@ WAIT 200
 	/jmod.sur.vimic~/room/size/xyz 20.000 30.000 8.000
 	/jmod.sur.vimic~/source/orientation/yaw 0.000
 	/jmod.sur.vimic~/room/temperature 21.000
-	/jmod.sur.vimic~/ui/freeze 0
+	/jmod.sur.vimic~/view/freeze 0
 	/jmod.sur.vimic~/updaterate 10
 	/jmod.sur.vimic~/warning 0
 	/jmod.sur.vimic~/room/absorption.ceiling/preset full
@@ -403,7 +403,7 @@ WAIT 200
 	/reverb~/outputs 16
 	/reverb~/predelay 0.000
 	/reverb~/t60 2.300	
-	/reverb~/ui/freeze 0
+	/reverb~/view/freeze 0
 
 
 	

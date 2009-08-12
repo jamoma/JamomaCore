@@ -85,7 +85,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 100.0, 555.0, 342.0, 162.0 ],
-					"text" : "/description Feedback.;\r/value 0.2;\r/type decimal;\r/ramp/drive scheduler;\r/ramp/function linear;\r/range/bounds 0. 1.;\r/range/clipmode both;\r/repetitions/allow 0;\r/dataspace none;\r/dataspace/unit/native none;\r/dataspace/unit/active none;\r/ui/freeze 0;\r/priority 0;\r"
+					"text" : "/description Feedback.;\r/value 0.2;\r/type decimal;\r/ramp/drive scheduler;\r/ramp/function linear;\r/range/bounds 0. 1.;\r/range/clipmode both;\r/repetitions/allow 0;\r/dataspace none;\r/dataspace/unit/native none;\r/dataspace/unit/active none;\r/view/freeze 0;\r/priority 0;\r"
 				}
 
 			}
@@ -276,7 +276,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-18",
-					"items" : [ "/audio/bypass", ",", "/audio/gain", ",", "/audio/mix", ",", "/audio/mute", ",", "/cf", ",", "/feedback", ",", "/filtergain", ",", "/filtertype", ",", "/left", ",", "/q", ",", "/right", ",", "/ui/freeze", ",", "/view/color/border", ",", "/view/color/contentBackground", ",", "/view/color/toolbarBackground", ",", "/view/color/toolbarText", ",", "/view/size" ],
+					"items" : [ "/audio/bypass", ",", "/audio/gain", ",", "/audio/mix", ",", "/audio/mute", ",", "/cf", ",", "/feedback", ",", "/filtergain", ",", "/filtertype", ",", "/left", ",", "/q", ",", "/right", ",", "/view/freeze", ",", "/view/color/border", ",", "/view/color/contentBackground", ",", "/view/color/toolbarBackground", ",", "/view/color/toolbarText", ",", "/view/size" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,

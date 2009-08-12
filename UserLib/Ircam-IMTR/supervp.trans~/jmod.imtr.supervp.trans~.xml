@@ -17,6 +17,6 @@
     <item name='spectral_envelope/max_freq' type='decimal' priority='0'>0</item>
     <item name='spectral_envelope/transpose' type='decimal' priority='0'>0.000000</item>
     <item name='transpose' type='decimal' priority='0'>0.000000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

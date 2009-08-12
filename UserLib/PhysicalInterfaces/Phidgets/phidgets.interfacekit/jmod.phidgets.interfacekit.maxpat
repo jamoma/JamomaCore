@@ -146,7 +146,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 460.0, 105.0, 270.0, 28.0 ],
-					"text" : "jcom.message init @type generic @range/clipmode none @description \"Initialization of devices\"",
+					"text" : "jcom.message initDevice @type generic @range/clipmode none @description \"Initialization of devices\"",
 					"varname" : "jcom.parameter[3]"
 				}
 

@@ -111,12 +111,12 @@ common_symbols_init();
 	CLASS_ATTR_SAVE(c,			"ramp/function",	0);
 	CLASS_ATTR_ACCESSORS(c,		"ramp/function",	paramui_getRampFunction, paramui_setRampFunction);
 
-	CLASS_ATTR_LONG(c,			"ui/freeze",		0, t_paramui, attr_uiFreeze);
-	CLASS_ATTR_LABEL(c,			"ui/freeze",		0, "Freeze the UI");
-	CLASS_ATTR_STYLE(c,			"ui/freeze",		0, "onoff");
-	CLASS_ATTR_DEFAULT(c,		"ui/freeze",		0, "0");
-	CLASS_ATTR_SAVE(c,			"ui/freeze",		0);
-	CLASS_ATTR_ACCESSORS(c,		"ui/freeze",		paramui_getUIFreeze, paramui_setUIFreeze);
+	CLASS_ATTR_LONG(c,			"view/freeze",		0, t_paramui, attr_uiFreeze);
+	CLASS_ATTR_LABEL(c,			"view/freeze",		0, "Freeze the UI");
+	CLASS_ATTR_STYLE(c,			"view/freeze",		0, "onoff");
+	CLASS_ATTR_DEFAULT(c,		"view/freeze",		0, "0");
+	CLASS_ATTR_SAVE(c,			"view/freeze",		0);
+	CLASS_ATTR_ACCESSORS(c,		"view/freeze",		paramui_getUIFreeze, paramui_setUIFreeze);
 
 	CLASS_ATTR_FLOAT(c,			"value/stepsize",	0, t_paramui, attr_stepsize);
 	CLASS_ATTR_LABEL(c,			"value/stepsize",	0, "Step Size for inc/dec");
@@ -242,7 +242,7 @@ t_paramui* paramui_new(t_symbol *s, long argc, t_atom *argv)
 		atom_setsym(a+4, x->attr_rampDrive);
 		atom_setsym(a+5, gensym("@ramp/function"));
 		atom_setsym(a+6, x->attr_rampFunction);
-		atom_setsym(a+7, gensym("@ui/freeze"));
+		atom_setsym(a+7, gensym("@view/freeze"));
 		atom_setlong(a+8, x->attr_uiFreeze);
 		atom_setsym(a+9, gensym("@value/stepsize"));
 		atom_setfloat(a+10, x->attr_stepsize);

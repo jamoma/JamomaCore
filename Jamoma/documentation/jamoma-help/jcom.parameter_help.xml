@@ -10,6 +10,6 @@
     <item name='my_menu' type='string' priority='0'>0</item>
     <item name='my_slider' type='integer' priority='0'>64</item>
     <item name='my_toggle' type='boolean' priority='0'>1</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

@@ -118,7 +118,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 6.0, 319.0, 66.0, 17.0 ],
-					"text" : "/ui/refresh"
+					"text" : "/view/refresh"
 				}
 
 			}
@@ -143,7 +143,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 6.0, 301.0, 78.0, 17.0 ],
-					"text" : "/ui/freeze $1"
+					"text" : "/view/freeze $1"
 				}
 
 			}

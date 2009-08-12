@@ -23,7 +23,7 @@ CUE initialisation
     /output~/limiter/threshold -6.000
     /output~/limiter/mode exponential
     /output~/limiter/active 1
-    /output~/ui/freeze 0
+    /output~/view/freeze 0
     /output~/record/active 0
 
 # Module input~
@@ -35,7 +35,7 @@ CUE initialisation
     /input~/source none
     /input~/ch.1 0
     /input~/ch.2 0
-    /input~/ui/freeze 0
+    /input~/view/freeze 0
     
 # Module filter~
     /filter~/filtertype bandpass
@@ -44,7 +44,7 @@ CUE initialisation
     /filter~/audio/mix 100.000
     /filter~/audio/bypass 0
     /filter~/audio/mute 0
-    /filter~/ui/freeze 0
+    /filter~/view/freeze 0
     /filter~/frequency 68.215
     /filter~/q 1.472
     /filter~/filtergain -1.780

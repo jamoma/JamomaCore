@@ -79,7 +79,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 16.0, 48.0, 18.0, 18.0 ],
 					"size" : 1,
-					"values" : [ 1 ],
+					"values" : [ 0 ],
 					"varname" : "filter-on"
 				}
 
@@ -89,12 +89,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-5",
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 502.0, 335.0, 484.0, 18.0 ],
-					"text" : "jcom.parameter noise/threshold @type decimal @description \"Set threshold level for the noise reduction\"",
+					"patching_rect" : [ 502.0, 335.0, 588.0, 31.0 ],
+					"text" : "jcom.parameter noise/threshold @type decimal @range/bounds 0. 100. @range/clipmode both @description \"Set threshold level for the noise reduction\"",
 					"varname" : "noise[2]"
 				}
 
@@ -108,7 +109,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 502.0, 157.0, 419.0, 18.0 ],
+					"patching_rect" : [ 502.0, 157.0, 461.0, 19.0 ],
 					"text" : "jcom.parameter filter/active @type boolean @description \"Turn low pass filter on and off\"",
 					"varname" : "filter/on"
 				}
@@ -142,7 +143,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 502.0, 276.0, 398.0, 18.0 ],
+					"patching_rect" : [ 502.0, 276.0, 432.0, 19.0 ],
 					"text" : "jcom.parameter noise/active @type boolean @description \"Turn on noise reduction\"",
 					"varname" : "noise[1]"
 				}
@@ -199,12 +200,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-15",
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 502.0, 221.0, 488.0, 18.0 ],
-					"text" : "jcom.parameter filter/threshold @type decimal @description \"Set the threshold level for the low pass filter\"",
+					"patching_rect" : [ 502.0, 221.0, 562.0, 31.0 ],
+					"text" : "jcom.parameter filter/threshold @type decimal @range/bounds 0. 1. @range/clipmode both @description \"Set the threshold level for the low pass filter\"",
 					"varname" : "filter/threshold"
 				}
 
@@ -218,7 +220,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 502.0, 101.093468, 446.0, 18.0 ],
+					"patching_rect" : [ 502.0, 101.093468, 503.0, 19.0 ],
 					"text" : "jcom.parameter record @type integer @description \"Turn on recording of the background image.\"",
 					"varname" : "record"
 				}
@@ -229,7 +231,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-21",
-					"items" : [ "Select", "mode", ",", "Simple", ",", "Slide", ",", "Mask", ",", "Mean" ],
+					"items" : [ "Select", "mode", ",", "Simple", ",", "Slide", ",", "Mask" ],
 					"labelclick" : 1,
 					"maxclass" : "umenu",
 					"numinlets" : 1,
@@ -252,7 +254,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 502.0, 65.0, 527.0, 18.0 ],
+					"patching_rect" : [ 502.0, 65.0, 594.0, 19.0 ],
 					"text" : "jcom.parameter mode @type integer @description \"Choose between four different background subtraction models.\"",
 					"varname" : "mode"
 				}
@@ -281,7 +283,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 104.0, 329.0, 64.0, 18.0 ],
+					"patching_rect" : [ 104.0, 329.0, 64.0, 19.0 ],
 					"text" : "jcom.out 1"
 				}
 
@@ -295,7 +297,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 104.0, 240.0, 57.0, 18.0 ],
+					"patching_rect" : [ 104.0, 240.0, 57.0, 19.0 ],
 					"text" : "jcom.in 1"
 				}
 
@@ -338,7 +340,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 126.0, 362.0, 87.0, 18.0 ],
+					"patching_rect" : [ 126.0, 362.0, 87.0, 19.0 ],
 					"text" : "VIDEO OUTPUT"
 				}
 
@@ -374,7 +376,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 136.0, 208.0, 77.0, 18.0 ],
+					"patching_rect" : [ 136.0, 208.0, 77.0, 19.0 ],
 					"text" : "VIDEO INPUT"
 				}
 
@@ -388,7 +390,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 104.0, 303.0, 101.0, 18.0 ],
+					"patching_rect" : [ 104.0, 303.0, 101.0, 19.0 ],
 					"text" : "jalg.background%"
 				}
 
@@ -464,6 +466,42 @@
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-15", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-31", 0 ],
 					"hidden" : 0,
@@ -574,24 +612,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-15", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-15", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-13", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-9", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -623,24 +643,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-4", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-3", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-3", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-5", 0 ]
 				}
 
 			}

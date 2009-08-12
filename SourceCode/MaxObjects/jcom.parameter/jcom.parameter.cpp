@@ -78,7 +78,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
  	class_addmethod(c, (method)param_list,			"list",			A_GIMME,	0);
 	class_addmethod(c, (method)param_symbol,		"symbol",		A_DEFSYM,	0);
  	class_addmethod(c, (method)param_anything,		"anything",		A_GIMME,	0);
-	class_addmethod(c, (method)param_ui_refresh,	"ui/refresh",				0);
+	class_addmethod(c, (method)param_ui_refresh,	"view/refresh",				0);
 	class_addmethod(c, (method)param_inc,			"value/inc",	A_GIMME,	0);
 	class_addmethod(c, (method)param_dec,			"value/dec",	A_GIMME,	0);
 	class_addmethod(c, (method)param_inc,			"+",			A_GIMME,	0);
@@ -109,9 +109,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_ENUM(c,				"type",	0,					"integer decimal boolean string array generic");
 #endif
 	CLASS_ATTR_STYLE(c,				"repetitions/allow",		0, "onoff");
-	// ATTRIBUTE: ui/freeze - toggles a "frozen" ui outlet so that you can save cpu
-	jamoma_class_attr_new(c,		"ui/freeze",				_sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
-	CLASS_ATTR_STYLE(c,				"ui/freeze",				0,	"onoff");
+	// ATTRIBUTE: view/freeze - toggles a "frozen" ui outlet so that you can save cpu
+	jamoma_class_attr_new(c,		"view/freeze",				_sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
+	CLASS_ATTR_STYLE(c,				"view/freeze",				0,	"onoff");
 	
 	// ATTRIBUTE: stepsize - how much increment or decrement by
 	jamoma_class_attr_new(c,		"value/stepsize",			_sym_float32, (method)param_attr_setstepsize, (method)param_attr_getstepsize);
@@ -153,7 +153,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_ORDER(c, "priority",					0, "12");
 	CLASS_ATTR_ORDER(c, "description",				0, "13");	
 	CLASS_ATTR_ORDER(c, "readonly",					0, "14");	
-	CLASS_ATTR_ORDER(c, "ui/freeze",				0, "15");
+	CLASS_ATTR_ORDER(c, "view/freeze",				0, "15");
 	CLASS_ATTR_ORDER(c, "value",					0, "16");
 	CLASS_ATTR_ORDER(c, "value/default",			0, "17");
 	CLASS_ATTR_ORDER(c, "value/stepsize",			0, "18");
@@ -944,7 +944,7 @@ void param_dump(t_param *x)
 		atom_setsym(&a[1], x->attr_unitActive);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 		
-		snprintf(s, 256, "%s:/ui/freeze", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/view/freeze", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->attr_ui_freeze);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);

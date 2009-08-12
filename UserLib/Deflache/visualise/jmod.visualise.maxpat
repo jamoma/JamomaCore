@@ -692,7 +692,7 @@
 					"hltcolor" : [ 0.92, 0.92, 0.92, 1.0 ],
 					"id" : "obj-80",
 					"ignoreclick" : 0,
-					"items" : [ "<separator>", ",", "/module_in", ",", "/module_in_nr", ",", "/module_in_function", ",", "/freeze", ",", "/in_max", ",", "/in_min", ",", "/scroll-time", ",", "/ui/freeze", ",", "/view/color/border", ",", "/view/color/contentBackground", ",", "/view/color/toolbarBackground", ",", "/view/color/toolbarText", ",", "/view/size", ",", "/window_size" ],
+					"items" : [ "<separator>", ",", "/module_in", ",", "/module_in_nr", ",", "/module_in_function", ",", "/freeze", ",", "/in_max", ",", "/in_min", ",", "/scroll-time", ",", "/view/freeze", ",", "/view/color/border", ",", "/view/color/contentBackground", ",", "/view/color/toolbarBackground", ",", "/view/color/toolbarText", ",", "/view/size", ",", "/window_size" ],
 					"labelclick" : 0,
 					"maxclass" : "umenu",
 					"menumode" : 0,

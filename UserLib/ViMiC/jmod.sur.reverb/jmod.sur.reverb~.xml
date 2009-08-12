@@ -24,6 +24,6 @@
     <item name='outputs' type='integer' priority='2'>8</item>
     <item name='predelay' type='decimal' priority='0'>0.000000</item>
     <item name='t60' type='decimal' priority='0'>1.700000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

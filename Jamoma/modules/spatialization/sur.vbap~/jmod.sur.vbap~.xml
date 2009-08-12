@@ -11,6 +11,6 @@
     <item name='interpolationTime' type='integer' priority='0'>10</item>
     <item name='numSources' type='integer' priority='1'>1</item>
     <item name='numSpeakers' type='integer' priority='3'>4</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

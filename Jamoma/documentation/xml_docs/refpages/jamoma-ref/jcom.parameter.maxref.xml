@@ -237,7 +237,7 @@
 			</description>
 		</method>
 		
-		<method name="ui/refresh">
+		<method name="view/refresh">
 			<arglist />
 			<digest>
 				TEXT_HERE
@@ -435,7 +435,7 @@
 		</description>
 		</attribute>
 		
-		<attribute name="ui/freeze" get="1" set="1" type="1" size="1">
+		<attribute name="view/freeze" get="1" set="1" type="1" size="1">
 			<digest>
 				Toggles a frozen ui outlet so that you can save cpu
 			</digest>

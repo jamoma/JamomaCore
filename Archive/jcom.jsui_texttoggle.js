@@ -83,7 +83,7 @@ function getvalueof()
 
 function setvalueof(v)
 {
-	integer(v);
+	msg_int(v);
 }
 
 function smooth(v)
@@ -165,12 +165,12 @@ function bevel(v)
 function bang()
 {
 	if  (myval==0)
-		integer(1);
+		msg_int(1);
 	else 
-		integer(0);
+		msg_int(0);
 }
 
-function integer(v)
+function msg_int(v)
 {
 	if (v==0)
 		myval = 0;

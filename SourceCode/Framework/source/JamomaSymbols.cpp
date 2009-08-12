@@ -157,10 +157,10 @@ t_symbol	*jps_done,
 			*jps_slash_preset_slash_write,		// 	/preset/save
 			*jps_slash_preset_slash_writeagain,	// 	/preset/save
 			*jps_slash_preset_slash_copy,		// 	/preset/save
-			*jps_ui_slash_freeze,				//	ui/freeze
-			*jps_slash_ui_slash_freeze,			//	/ui/freeze
-			*jps_ui_slash_refresh,				//	ui/refresh
-			*jps_slash_ui_slash_refresh,			//	/ui/refresh		
+			*jps_ui_slash_freeze,				//	view/freeze
+			*jps_slash_ui_slash_freeze,			//	/view/freeze
+			*jps_ui_slash_refresh,				//	view/refresh
+			*jps_slash_ui_slash_refresh,			//	/view/refresh		
 			*jps_register_meter,
 			*jps_register_preview,
 			*jps_voices,
@@ -335,10 +335,10 @@ void jamomaSymbolsInit()
 	jps_slash_preset_slash_storenext	= gensym("/preset/storenext");
 	jps_slash_preset_slash_storecurrent = gensym("/preset/storecurrent");
 	jps_slash_preset_slash_copy		= gensym("/preset/copy");		
-	jps_ui_slash_freeze				= gensym("ui/freeze");
-	jps_slash_ui_slash_freeze		= gensym("/ui/freeze");
-	jps_ui_slash_refresh			= gensym("ui/refresh");
-	jps_slash_ui_slash_refresh		= gensym("/ui/refresh");
+	jps_ui_slash_freeze				= gensym("view/freeze");
+	jps_slash_ui_slash_freeze		= gensym("/view/freeze");
+	jps_ui_slash_refresh			= gensym("view/refresh");
+	jps_slash_ui_slash_refresh		= gensym("/view/refresh");
 	jps_voices						= gensym("voices");
 	jps_mute						= gensym("mute");
 	jps_target						= gensym("target");

@@ -11,7 +11,7 @@
     <item name='mode' type='string' priority='0'>FastMode</item>
     <item name='position' type='decimal' priority='0'>1.000000</item>
     <item name='shape' type='string' priority='0'>EqualPowerFade</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
   <preset number='2' name='linear_fade'>
     <item name='audio/bypass' type='boolean' priority='0'>0</item>	
@@ -21,6 +21,6 @@
     <item name='mode' type='string' priority='0'>FastMode</item>
     <item name='position' type='decimal' priority='0'>1.000000</item>
     <item name='shape' type='string' priority='0'>LinearFade</item>	
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

@@ -12,7 +12,7 @@
     <item name='reattack/period' type='integer' priority='0'>100</item>
     <item name='threshold/high' type='integer' priority='0'>77</item>
     <item name='threshold/low' type='integer' priority='0'>45</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='vibrato/interval' type='decimal' priority='0'>0.500000</item>
     <item name='vibrato/period' type='integer' priority='0'>100</item>
   </preset>

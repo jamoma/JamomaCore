@@ -99,21 +99,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 397.0, 504.0, 178.0, 17.0 ],
-					"text" : "/active 0"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-6",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 397.0, 481.0, 68.0, 19.0 ],
-					"text" : "prepend set"
+					"text" : "/module_name /mouse"
 				}
 
 			}
@@ -158,21 +144,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 397.0, 621.0, 178.0, 17.0 ],
-					"text" : "/view/size 150 70"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-10",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 397.0, 598.0, 68.0, 19.0 ],
-					"text" : "prepend set"
+					"text" : "/module_name /midi.in"
 				}
 
 			}
@@ -262,7 +234,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 28.0, 415.0, 374.0, 237.0 ],
+					"patching_rect" : [ 28.0, 415.0, 376.0, 237.0 ],
 					"text" : "Mappings can also be made with the \"listening\" function:\r\r1. Click on the \"Map from\" toggle in the mapper module to listen for the value to listen for (e.g. try turning on the mouse module to the right). Turn the toggle off when you have found the correct parameter. \r\r2. Click on the \"Map to\" toggle in the mapper module. Then select the parameter you want to control, for example the input volume or filter coefficient in the audio modules to the right. Toggle off in mapper module when you have found the parameter you want. \r\r3. Optionally type in an algorithm to use, for example \"/ 2.\" or \"scale 0.-1. 400 5000\" (don't type the quotation marks in the algorithm window, only the normal max message).\r\r4. Click \"Create mapping\"\r\r5. The mapping is created and can be viewed in the text window. The mapping will start to work immediately."
 				}
 
@@ -291,7 +263,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 33.0, 216.0, 263.0, 29.0 ],
+					"patching_rect" : [ 43.0, 223.0, 263.0, 29.0 ],
 					"text" : "/create mymapping /analysis/result jalg.transformation -> /reverb/decay"
 				}
 
@@ -306,7 +278,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 359.0, 98.0, 290.0, 55.0 ],
+					"patching_rect" : [ 359.0, 86.0, 290.0, 55.0 ],
 					"text" : "Modify the algorithm that is applied to the data for a named link. This happens by sending the message that follows the link name to the algorithm. Any message that the algorithm object accepts may be sent:"
 				}
 
@@ -320,7 +292,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 541.0, 241.0, 116.0, 19.0 ],
+					"patching_rect" : [ 556.0, 244.0, 116.0, 19.0 ],
 					"text" : "Remove all mappings"
 				}
 
@@ -404,7 +376,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 501.0, 240.0, 39.0, 17.0 ],
+					"patching_rect" : [ 516.0, 243.0, 39.0, 17.0 ],
 					"text" : "/clear"
 				}
 
@@ -418,7 +390,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 359.0, 151.0, 141.0, 17.0 ],
+					"patching_rect" : [ 359.0, 147.0, 141.0, 17.0 ],
 					"text" : "/modify mapping2 ft1 500"
 				}
 
@@ -432,7 +404,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 492.0, 151.0, 151.0, 17.0 ],
+					"patching_rect" : [ 502.0, 147.0, 151.0, 17.0 ],
 					"text" : "/modify mapping2 ft1 1000."
 				}
 
@@ -446,7 +418,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 492.0, 223.0, 104.0, 17.0 ],
+					"patching_rect" : [ 500.0, 223.0, 104.0, 17.0 ],
 					"text" : "/remove mapping2"
 				}
 
@@ -901,13 +873,13 @@
 ,
 					"patching_rect" : [ 760.0, 169.0, 87.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p js-component"
@@ -1027,33 +999,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-9", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-10", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-10", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-11", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-6", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
 					"hidden" : 1,
 					"midpoints" : [ 470.5, 501.0, 406.5, 501.0 ],
@@ -1063,18 +1008,9 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-7", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-35", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 42.5, 234.0, 42.5, 234.0 ],
+					"midpoints" : [ 52.5, 262.0, 42.5, 262.0 ],
 					"source" : [ "obj-20", 0 ]
 				}
 
@@ -1083,7 +1019,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-35", 0 ],
 					"hidden" : 1,
-					"midpoints" : [ 501.5, 261.0, 42.5, 261.0 ],
+					"midpoints" : [ 511.5, 261.0, 42.5, 261.0 ],
 					"source" : [ "obj-30", 0 ]
 				}
 
@@ -1101,7 +1037,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-35", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 501.5, 261.0, 42.5, 261.0 ],
+					"midpoints" : [ 509.5, 261.0, 42.5, 261.0 ],
 					"source" : [ "obj-31", 0 ]
 				}
 
@@ -1137,7 +1073,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-35", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 510.5, 263.0, 42.5, 263.0 ],
+					"midpoints" : [ 525.5, 263.0, 42.5, 263.0 ],
 					"source" : [ "obj-28", 0 ]
 				}
 
@@ -1148,6 +1084,24 @@
 					"hidden" : 0,
 					"midpoints" : [ 378.5, 261.0, 42.5, 261.0 ],
 					"source" : [ "obj-19", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 406.5, 494.5, 565.5, 494.5 ],
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 406.5, 611.5, 565.5, 611.5 ],
+					"source" : [ "obj-11", 0 ]
 				}
 
 			}

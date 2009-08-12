@@ -12,6 +12,6 @@
     <item name='lfo/depth' type='decimal' priority='0'>50.000000</item>
     <item name='lfo/frequency' type='decimal' priority='0'>5.000000</item>
     <item name='lfo/phase' type='decimal' priority='0'>0.000000</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

@@ -545,7 +545,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 895.0, 665.0, 220.0, 43.0 ],
-					"text" : "test.assert.equal TEST/moduleInitialization/ui/freeze=zero 0"
+					"text" : "test.assert.equal TEST/moduleInitialization/view/freeze=zero 0"
 				}
 
 			}

@@ -9,13 +9,13 @@
     <item name='midiin' type='string' priority='0'>Fireface (754) Port 1</item>
     <item name='mute' type='boolean' priority='0'>0</item>
     <item name='resolution' type='integer' priority='0'>12</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
   <preset number='2' name='chateau de preset'>
     <item name='channel' type='integer' priority='0'>1</item>
     <item name='midiin' type='string' priority='0'>0</item>
     <item name='mute' type='boolean' priority='0'>0</item>
     <item name='resolution' type='integer' priority='0'>12</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

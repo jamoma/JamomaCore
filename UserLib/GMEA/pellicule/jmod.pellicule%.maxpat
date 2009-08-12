@@ -646,7 +646,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 511.0, 306.0, 146.0, 20.0 ],
-					"text" : "jcom.oscroute /ui/freeze"
+					"text" : "jcom.oscroute /view/freeze"
 				}
 
 			}

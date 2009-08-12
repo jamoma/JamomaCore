@@ -28,7 +28,7 @@
     <item name='sound/buffer' type='array' priority='3'>cherokee.aif</item>
     <item name='sound/enveloppe' type='string' priority='31'>blackman.aif</item>
     <item name='sound/folder' type='array' priority='2'>AddedFiles</item>
-    <item name='ui/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='view/color/border' type='array' priority='0'>0</item>
     <item name='view/color/contentBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
