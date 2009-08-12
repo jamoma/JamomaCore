@@ -2,7 +2,7 @@
 #define __bluesaturation__
 
 #include "public.sdk/source/vst2.x/audioeffectx.h"
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 enum {
