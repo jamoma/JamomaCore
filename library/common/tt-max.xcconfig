@@ -16,6 +16,7 @@ PRODUCT_VERSION = 0.6
 C74SUPPORT =	$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support
 DSPLIB =		$(SRCROOT)/../../../../DSP
 GRAPHICS =		$(SRCROOT)/../../../../Graphics
+MULTICORE =		$(SRCROOT)/../../../../Multicore
 FOUNDATION =	$(SRCROOT)/../../../../Foundation
 BUILDS =		$(SRCROOT)/../../../../../Builds
 
