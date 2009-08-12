@@ -6,7 +6,7 @@
  */
 
 #include "m_pd.h"
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 // Types & Structs
@@ -39,7 +39,7 @@ static t_class *ttlimiter_class;
 // Class Definition
 void ttlimiter_tilde_setup(void) 
 {	
-	TTBlueInit();
+	TTDSPInit();
 	
 	ttlimiter_class = class_new(gensym("ttlimiter~"), (t_newmethod)ttlimiter_new, (t_method)ttlimiter_free, 
 		sizeof(t_ttlimiter), 0, A_GIMME, 0);
@@ -62,8 +62,8 @@ void *ttlimiter_new(t_symbol *s, long ac, t_atom *at)
 	if(x){
 		outlet_new(&x->obj, gensym("signal"));	// Create new signal outlet
 		TTObjectInstantiate(TT("limiter"), &x->limiter, numChannels);		
-		x->audioIn = new TTAudioSignal(numChannels);
-		x->audioOut = new TTAudioSignal(numChannels);
+		TTObjectInstantiate(kTTSym_audiosignal, &x->audioIn, numChannels);		
+		TTObjectInstantiate(kTTSym_audiosignal, &x->audioOut, numChannels);		
 	}
 	return(x);
 }
@@ -72,6 +72,8 @@ void *ttlimiter_new(t_symbol *s, long ac, t_atom *at)
 void ttlimiter_free(t_ttlimiter *x)
 {
 	TTObjectRelease(&x->limiter);
+	TTObjectRelease(&x->audioIn);
+	TTObjectRelease(&x->audioOut);
 }
 
 

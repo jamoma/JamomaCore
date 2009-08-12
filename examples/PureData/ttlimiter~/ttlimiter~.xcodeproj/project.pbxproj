@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22C9F4F2103256A80062F7B8 /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F4F1103256A80062F7B8 /* JamomaFoundation.framework */; };
 		22DEC1A90E1C89C600F4ADDF /* ttlimiter~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DEC1A80E1C89C600F4ADDF /* ttlimiter~.cpp */; };
 		22DEC1BF0E1C8A0600F4ADDF /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DEC1BE0E1C8A0600F4ADDF /* JamomaDSP.framework */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
@@ -14,6 +15,7 @@
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		22C9F4F1103256A80062F7B8 /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
 		22DEC1A80E1C89C600F4ADDF /* ttlimiter~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "ttlimiter~.cpp"; sourceTree = "<group>"; };
 		22DEC1BE0E1C8A0600F4ADDF /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		32BAE0B70371A74B00C91783 /* prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prefix.pch; sourceTree = "<group>"; };
@@ -27,6 +29,7 @@
 			files = (
 				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
 				22DEC1BF0E1C8A0600F4ADDF /* JamomaDSP.framework in Frameworks */,
+				22C9F4F2103256A80062F7B8 /* JamomaFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +57,7 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				22C9F4F1103256A80062F7B8 /* JamomaFoundation.framework */,
 				22DEC1BE0E1C8A0600F4ADDF /* JamomaDSP.framework */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
 			);
@@ -137,6 +141,10 @@
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = "";
 				EXECUTABLE_EXTENSION = pd_darwin;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -161,7 +169,7 @@
 					suppress,
 				);
 				PRODUCT_NAME = "ttlimiter~";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../library/includes\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../../Foundation/library/includes\" \"$(SRCROOT)/..\" \"$(SRCROOT)/../../../library/includes\"";
 			};
 			name = Debug;
 		};
@@ -173,6 +181,10 @@
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = "";
 				EXECUTABLE_EXTENSION = pd_darwin;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ttlimiter~_Prefix.pch";
@@ -194,7 +206,7 @@
 					suppress,
 				);
 				PRODUCT_NAME = "ttlimiter~";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../library/includes\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../../Foundation/library/includes\" \"$(SRCROOT)/..\" \"$(SRCROOT)/../../../library/includes\"";
 			};
 			name = Release;
 		};
