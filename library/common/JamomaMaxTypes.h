@@ -24,4 +24,6 @@ typedef t_linklist*	LinkedListPtr;
 typedef t_hashtab*	HashtabPtr;
 
 
+SymbolPtr SymbolGen(const char* string); // temporarilty implemented in Jamoma.cpp
+
 #endif // __JAMOMAMAXTYPES_H__
