@@ -7,7 +7,7 @@
  *
  */
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 #include "multicore.h"
 
 static bool initialized = false;
@@ -18,7 +18,7 @@ static bool initialized = false;
 void MCoreInit(void)
 {
 	if(!initialized){
-		TTBlueInit();
+		TTDSPInit();
 		MCoreObject::registerClass();
 		MCoreSource::registerClass();
 		MCoreOutput::registerClass();

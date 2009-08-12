@@ -10,7 +10,7 @@
 #ifndef __LYDBAER_H__
 #define __LYDBAER_H__
 
-#include "TTBlueAPI.h"
+#include "TTDSP.h"
 
 
 enum MCoreProcessStatus {
