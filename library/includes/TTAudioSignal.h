@@ -89,6 +89,13 @@ public:
 	}
 	
 	// Note the capitalization -- this is not a normal getter, but rather a convenience method
+	TTErr setVectorSize(const TTUInt16 newVectorSize)
+	{
+		vectorSize = newVectorSize;
+		return kTTErrNone;
+	}
+	
+	// Note the capitalization -- this is not a normal getter, but rather a convenience method
 	TTUInt16 getVectorSize() const
 	{
 		return vectorSize;
