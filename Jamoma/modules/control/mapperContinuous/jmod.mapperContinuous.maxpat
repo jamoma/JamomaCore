@@ -670,7 +670,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-19",
-					"items" : [ "cosine", ",", "linear", ",", "lowpass", ",", "power", ",", "tanh", ",", "exponential", ",", "logarithm" ],
+					"items" : [ "cosine", ",", "exponential", ",", "linear", ",",  "logarithm", ",", "lowpass", ",", "power", ",", "tanh" ],
 					"labelclick" : 1,
 					"maxclass" : "umenu",
 					"numinlets" : 1,
