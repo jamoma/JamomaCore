@@ -10,7 +10,7 @@
 #define __TT_THREAD_H__
 
 #include "TTElement.h"
-#ifdef TT_PLATFORM_MAC
+#ifndef TT_PLATFORM_WIN
 	#include <pthread.h>
 	#include <unistd.h>
 #endif
@@ -28,11 +28,11 @@ typedef void*(*TTThreadCallbackType)(void* arg);
 */
 class TTEXPORT TTThread : public TTElement {
 private:
-#ifdef TT_PLATFORM_MAC
-	pthread_t				thread;
-#else
+#ifdef TT_PLATFORM_WIN
 	// FIXME: We need to implement this!  The following is a place holder
 	void*					thread;
+#else
+	pthread_t				thread;
 #endif
 	TTThreadCallbackType	callback;	///< method called in the new thread when it starts
 	void*					argument;	///< argument passed to the callback
@@ -54,11 +54,11 @@ public:
 	// make sure this is a friend so that it can access the private members of the other atom
 	friend bool operator == (const TTThread& thread1, const TTThread& thread2)
 	{
-#ifdef TT_PLATFORM_MAC
-		return pthread_equal(thread1.thread, thread2.thread);
-#else
+#ifdef TT_PLATFORM_WIN
 		// FIXME: We need to implement this!  The following is a place holder
 		return false;
+#else
+		return pthread_equal(thread1.thread, thread2.thread);
 #endif
 	}
 };

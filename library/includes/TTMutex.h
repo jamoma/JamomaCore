@@ -23,10 +23,10 @@
 */
 class TTEXPORT TTMutex : public TTElement {
 private:
-	#ifdef TT_PLATFORM_MAC
-	pthread_mutex_t			pMutex;
-	#else // TT_PLATFORM_WIN
+	#ifdef TT_PLATFORM_WIN
 	CRITICAL_SECTION		pMutex;
+	#else // TT_PLATFORM_MAC or TTPLATFORM_LINUX
+	pthread_mutex_t			pMutex;
 	#endif
 
 public:

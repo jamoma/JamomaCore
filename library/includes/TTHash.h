@@ -14,16 +14,19 @@
 #ifdef TT_PLATFORM_MAC
 #include <hash_map.h>
 #elif TT_PLATFORM_LINUX
-#include <ext/hash_map.h>
-#error am i here?
-#else
+#include <map>
+#else // TT_PLATFORM_WIN
 #include <hash_map>
 using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
 #endif
 
 /**	A type that contains a key and a value. */
 typedef pair<TTPtrSizedInt,TTValue>			TTKeyVal;
+#ifdef TT_PLATFORM_LINUX
+typedef map<TTPtrSizedInt,TTValue> TTHashMap;
+#else
 typedef hash_map<TTPtrSizedInt,TTValue>		TTHashMap;
+#endif
 typedef TTHashMap::const_iterator			TTHashMapIter;
 
 

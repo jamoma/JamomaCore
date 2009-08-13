@@ -28,6 +28,11 @@
 #include <string>
 using namespace std;
 
+#ifdef TT_PLATFORM_LINUX
+#include <stdarg.h>
+#include <string.h>
+#endif
+
 #ifdef TT_PLATFORM_WIN
 	#include "windows.h"
 	#ifndef _CRT_SECURE_NO_WARNINGS

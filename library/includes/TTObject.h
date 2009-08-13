@@ -53,7 +53,7 @@ typedef TTErr (TTObject::*TTSetterMethod)(const TTAttribute& attribute, const TT
 
 
 /** Flags that determine the behavior of messages. */
-typedef enum TTMessageFlags {
+enum TTMessageFlags {
 	kTTMessageDefaultFlags = 0,		///< The default set of flags will be used if this is specified.  At this time the default is #kTTMethodPassValue.
 	kTTMessagePassNone = 1,			///< Set this flag if the method you are binding to this message is prototyped to accept no arguments.
 	kTTMessagePassValue = 2,		///< Set this flag if the method you are binding to this message is prototyped with a single #TTValue& argument.
@@ -61,7 +61,7 @@ typedef enum TTMessageFlags {
 };
 	
 /** Flags that determine the behavior of messages. */
-typedef enum TTAttributeFlags {
+enum TTAttributeFlags {
 	kTTAttrDefaultFlags = 0,		///< The default set of flags will be used if this is specified. At this time the default is #kTTAttrPassValueOnly.
 	kTTAttrPassValueOnly = 1,		///< Attribute accessors will only be passed a reference to the attribute's value.
 	kTTAttrPassObject = 2			///< Attribute accessors will first be passed a reference to the #TTAttribute object, then it will be passed  a reference to the attribute's value.

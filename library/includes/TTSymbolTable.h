@@ -14,6 +14,8 @@
 
 #ifdef TT_PLATFORM_MAC
 #include <hash_map.h>
+#elif TT_PLATFORM_LINUX
+#include <map>
 #else
 #include <hash_map>
 using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
@@ -38,7 +40,7 @@ public:
 		return stdext::hash_value(s);
 	}
 };
-#else
+#elif TT_PLATFORM_MAC
 class TTStringCompare {
 public:
 	bool operator()(const char* s1, const char* s2) const
@@ -54,6 +56,8 @@ typedef pair<const char*, TTSymbolPtr>										TTSymbolTablePair;
 /** A hash_map type used by TTSymbolTable. */
 #ifdef TT_PLATFORM_WIN
 typedef hash_map<TTString, TTSymbolPtr>										TTSymbolTableHash;
+#elif TT_PLATFORM_LINUX
+typedef map<const char*, TTSymbolPtr>										TTSymbolTableHash;
 #else
 typedef hash_map<const char*, TTSymbolPtr, hash<char*>, TTStringCompare>	TTSymbolTableHash;
 #endif
