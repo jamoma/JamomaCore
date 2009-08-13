@@ -243,7 +243,9 @@ void TTLogMessage(TTImmutableCString message, ...)
 #ifdef TT_PLATFORM_WIN
 	OutputDebugString(str);
 #else
-	fprintf(stderr, str);
+	// we fail to compile on linux with the current settings if we use fprintf()
+	// fprintf(stderr, str);
+	cerr << str;
 #endif
 }
 
@@ -260,7 +262,9 @@ void TTLogWarning(TTImmutableCString message, ...)
 #ifdef TT_PLATFORM_WIN
 	OutputDebugString(str);
 #else
-	fprintf(stderr, str);
+	// we fail to compile on linux with the current settings if we use fprintf()
+	// fprintf(stderr, str);
+	cerr << str;
 #endif
 }
 
@@ -277,7 +281,9 @@ void TTLogError(TTImmutableCString message, ...)
 #ifdef TT_PLATFORM_WIN
 	OutputDebugString(str);
 #else
-	fprintf(stderr, str);
+	// we fail to compile on linux with the current settings if we use fprintf()
+	// fprintf(stderr, str);
+	cerr << str;
 #endif
 }
 
@@ -295,7 +301,9 @@ void TTLogDebug(TTImmutableCString message, ...)
 #ifdef TT_PLATFORM_WIN
 		OutputDebugString(str);
 #else
-		fprintf(stderr, str);
+	// we fail to compile on linux with the current settings if we use fprintf()
+	// fprintf(stderr, str);
+	cerr << str;
 #endif
 	}
 }
