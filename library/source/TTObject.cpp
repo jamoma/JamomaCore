@@ -431,7 +431,7 @@ TTErr TTObject::logError(TTImmutableCString fmtstring, ...)
 TTErr TTObject::logDebug(TTImmutableCString fmtstring, ...)
 {
 	if(ttEnvironment->debugBasic){
-		char	str[4000];
+		char	str[4096];
 		char	fullstr[4096];
 		va_list	ap;
 		
