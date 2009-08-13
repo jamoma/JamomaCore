@@ -54,7 +54,8 @@ SRC += source/TTValueCache.cpp
 #########################################
 
 all:
-	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o $(NAME).so $(LDFLAGS) 
+	mkdir build
+	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/$(NAME).so $(LDFLAGS) 
 
 clean:
 	rm -f *.o
