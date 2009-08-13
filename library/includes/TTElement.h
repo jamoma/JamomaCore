@@ -11,11 +11,13 @@
 
 // Platform Sniffing
 // Ideally the platform would already be set with a -D option to gcc...
-#ifndef TT_PLATFORM_WIN
-	#ifdef WIN_VERSION
-	 #define TT_PLATFORM_WIN
-	#else
-	 #define TT_PLATFORM_MAC
+#ifndef TT_PLATFORM_LINUX
+	#ifndef TT_PLATFORM_WIN
+		#ifdef WIN_VERSION
+			#define TT_PLATFORM_WIN
+		#else
+			#define TT_PLATFORM_MAC
+		#endif
 	#endif
 #endif
 

@@ -13,6 +13,9 @@
 #include "TTValue.h"
 #ifdef TT_PLATFORM_MAC
 #include <hash_map.h>
+#elif TT_PLATFORM_LINUX
+#include <ext/hash_map.h>
+#error am i here?
 #else
 #include <hash_map>
 using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
