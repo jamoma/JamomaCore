@@ -594,11 +594,11 @@ public:
 					break;
 				case kTypeObject:
 					temp = new char[16];
-					snprintf(temp, 16, "%x ", (unsigned int)data[i].object);
+					snprintf(temp, 16, "%ld ", (TTPtrSizedInt)data[i].object);
 					break;
 				case kTypePointer:
 					temp = new char[16];
-					snprintf(temp, 16, "%x ", (unsigned int)data[i].ptr);
+					snprintf(temp, 16, "%ld ", (TTPtrSizedInt)data[i].ptr);
 					break;
 				default:
 					str->append(" ");
