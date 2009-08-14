@@ -41,6 +41,13 @@ void TTDSPInit()
 	}
 }
 
+#ifdef TT_PLATFORM_LINUX
+int main(void)
+{
+	// TODO: should we call TTDSPInit() here?
+	return 0;
+}
+#endif
 
 // FIXME: this is never called right now!
 void TTDSPShutdown()
