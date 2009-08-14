@@ -7,4 +7,9 @@
 vstsdk-2.4
 logs
 *.so
+obj
+bin
+*.workspace
+*.depend
+*.layout
 
