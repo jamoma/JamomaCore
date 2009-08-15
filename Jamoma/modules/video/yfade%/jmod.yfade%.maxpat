@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 253.0, 134.0, 745.0, 491.0 ],
+		"rect" : [ 141.0, 213.0, 745.0, 491.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 253.0, 134.0, 745.0, 491.0 ],
+		"defrect" : [ 141.0, 213.0, 745.0, 491.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -17,12 +17,41 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 11.0,
+					"id" : "obj-5",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 281.0, 244.0, 79.0, 18.0 ],
+					"text" : "clickjump $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"hint" : "clickjump attribute for Y-fader",
+					"id" : "obj-8",
+					"maxclass" : "toggle",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 283.0, 218.0, 20.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 68.0, 1.0, 16.0, 16.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"clickjump" : 0,
 					"id" : "obj-9",
 					"maxclass" : "jcom.textslider",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 282.0, 271.0, 160.0, 20.0 ],
+					"patching_rect" : [ 280.0, 271.0, 160.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 6.0, 26.0, 81.0, 34.0 ],
 					"text" : "yfade",
@@ -389,6 +418,24 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-20", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 0 ]
 				}
 
 			}

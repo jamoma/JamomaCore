@@ -17,6 +17,36 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 11.0,
+					"id" : "obj-7",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 285.0, 228.0, 79.0, 18.0 ],
+					"text" : "clickjump $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"hint" : "clickjump attribute for X-fader",
+					"id" : "obj-8",
+					"maxclass" : "toggle",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 287.0, 202.0, 20.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 68.0, 2.0, 16.0, 16.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"clickjump" : 0,
+					"defaultvalue" : 0.5,
 					"id" : "obj-9",
 					"maxclass" : "jcom.textslider",
 					"numinlets" : 1,
@@ -380,6 +410,24 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-20", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-7", 0 ]
 				}
 
 			}
