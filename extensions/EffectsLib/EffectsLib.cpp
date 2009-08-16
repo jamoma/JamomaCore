@@ -1,6 +1,6 @@
 /* 
- * TTEffectsLib -- A library of effects units
- * Extension Class for TTBlue
+ * EffectsLib -- A library of effects units
+ * Extension Class for Jamoma DSP
  * Copyright © 2009, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
