@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22398BAE0E243E2D00A5F732 /* TTFilterLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22398BAD0E243E2D00A5F732 /* TTFilterLib.cpp */; };
+		22526AE610385DDD00CD634E /* FilterLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22526AE510385DDD00CD634E /* FilterLib.cpp */; };
 		22CC002F0FDEFC310024A915 /* TTAllpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CC00290FDEFC310024A915 /* TTAllpass.cpp */; };
 		22CC00300FDEFC310024A915 /* TTAllpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 22CC002A0FDEFC310024A915 /* TTAllpass.h */; };
 		22CC00310FDEFC310024A915 /* TTBandpassButterworth2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CC002B0FDEFC310024A915 /* TTBandpassButterworth2.cpp */; };
@@ -57,7 +57,7 @@
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		220D07340FF644A40032DAF9 /* TTBandpassButterworth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBandpassButterworth2.h; sourceTree = "<group>"; };
 		220D07350FF644B20032DAF9 /* TTBandrejectButterworth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBandrejectButterworth2.h; sourceTree = "<group>"; };
-		22398BAD0E243E2D00A5F732 /* TTFilterLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTFilterLib.cpp; sourceTree = "<group>"; };
+		22526AE510385DDD00CD634E /* FilterLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FilterLib.cpp; sourceTree = "<group>"; };
 		22CC00290FDEFC310024A915 /* TTAllpass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTAllpass.cpp; sourceTree = "<group>"; };
 		22CC002A0FDEFC310024A915 /* TTAllpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAllpass.h; sourceTree = "<group>"; };
 		22CC002B0FDEFC310024A915 /* TTBandpassButterworth2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTBandpassButterworth2.cpp; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 		22CC00570FDEFC3D0024A915 /* TTSvf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSvf.h; sourceTree = "<group>"; };
 		22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		22EB398B102E0F49006D027A /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
-		D2AAC09D05546B4700DB518D /* TTFilterLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = TTFilterLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2AAC09D05546B4700DB518D /* FilterLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = FilterLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +120,7 @@
 		034768DDFF38A45A11DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D2AAC09D05546B4700DB518D /* TTFilterLib.ttdylib */,
+				D2AAC09D05546B4700DB518D /* FilterLib.ttdylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,7 +148,7 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				22398BAD0E243E2D00A5F732 /* TTFilterLib.cpp */,
+				22526AE510385DDD00CD634E /* FilterLib.cpp */,
 				2217FAAA0E4F284D00806778 /* Filters */,
 			);
 			name = Source;
@@ -235,9 +235,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		D2AAC09C05546B4700DB518D /* TTFilterLib */ = {
+		D2AAC09C05546B4700DB518D /* FilterLib */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "TTFilterLib" */;
+			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "FilterLib" */;
 			buildPhases = (
 				D2AAC09905546B4700DB518D /* Headers */,
 				D2AAC09B05546B4700DB518D /* Frameworks */,
@@ -248,9 +248,9 @@
 			);
 			dependencies = (
 			);
-			name = TTFilterLib;
+			name = FilterLib;
 			productName = TTFilterLib;
-			productReference = D2AAC09D05546B4700DB518D /* TTFilterLib.ttdylib */;
+			productReference = D2AAC09D05546B4700DB518D /* FilterLib.ttdylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -258,7 +258,7 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "TTFilterLib" */;
+			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "FilterLib" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
 			mainGroup = 0867D691FE84028FC02AAC07 /* TTFilterLib */;
@@ -266,7 +266,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D2AAC09C05546B4700DB518D /* TTFilterLib */,
+				D2AAC09C05546B4700DB518D /* FilterLib */,
 			);
 		};
 /* End PBXProject section */
@@ -292,7 +292,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22398BAE0E243E2D00A5F732 /* TTFilterLib.cpp in Sources */,
 				22CC002F0FDEFC310024A915 /* TTAllpass.cpp in Sources */,
 				22CC00310FDEFC310024A915 /* TTBandpassButterworth2.cpp in Sources */,
 				22CC00320FDEFC310024A915 /* TTBandrejectButterworth2.cpp in Sources */,
@@ -314,6 +313,7 @@
 				22CC00740FDEFC3D0024A915 /* TTLowpassOnePole.cpp in Sources */,
 				22CC00760FDEFC3D0024A915 /* TTLowpassTwoPole.cpp in Sources */,
 				22CC00780FDEFC3D0024A915 /* TTSvf.cpp in Sources */,
+				22526AE610385DDD00CD634E /* FilterLib.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,7 +344,7 @@
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
-				PRODUCT_NAME = TTFilterLib;
+				PRODUCT_NAME = FilterLib;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Foundation/library/includes\" \"$(SRCROOT)/../../library/includes\"";
 			};
 			name = Development;
@@ -404,7 +404,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "TTFilterLib" */ = {
+		1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "FilterLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB916108733D950010E9CD /* Development */,
@@ -413,7 +413,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
 		};
-		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "TTFilterLib" */ = {
+		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "FilterLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB916508733D950010E9CD /* Development */,
