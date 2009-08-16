@@ -18,7 +18,7 @@
 		22C9F5A310325CED0062F7B8 /* JamomaMulticore.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F5A210325CED0062F7B8 /* JamomaMulticore.xcconfig */; };
 		22C9F5C110325E1F0062F7B8 /* portaudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5C010325E1F0062F7B8 /* portaudio.h */; };
 		22C9F5CC10325E650062F7B8 /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */; };
-		22C9F6011032607C0062F7B8 /* multicore.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F6001032607C0062F7B8 /* multicore.h */; };
+		22C9F6011032607C0062F7B8 /* TTMulticore.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F6001032607C0062F7B8 /* TTMulticore.h */; };
 		22DF22510F2441BD00DBBEE9 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,7 +34,7 @@
 		22C9F5A210325CED0062F7B8 /* JamomaMulticore.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaMulticore.xcconfig; sourceTree = "<group>"; };
 		22C9F5C010325E1F0062F7B8 /* portaudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = portaudio.h; path = ../../DSP/library/portaudio/include/portaudio.h; sourceTree = SOURCE_ROOT; };
 		22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
-		22C9F6001032607C0062F7B8 /* multicore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = multicore.h; path = includes/multicore.h; sourceTree = "<group>"; };
+		22C9F6001032607C0062F7B8 /* TTMulticore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMulticore.h; path = includes/TTMulticore.h; sourceTree = "<group>"; };
 		22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		8DC2EF5B0486A6940098B216 /* JamomaMulticore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JamomaMulticore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -67,7 +67,7 @@
 				22C9F5A210325CED0062F7B8 /* JamomaMulticore.xcconfig */,
 				22C9F59E10325CDB0062F7B8 /* TTFoundationAPI.h */,
 				22C9F5A010325CDF0062F7B8 /* TTDSP.h */,
-				22C9F6001032607C0062F7B8 /* multicore.h */,
+				22C9F6001032607C0062F7B8 /* TTMulticore.h */,
 				22C9F5C010325E1F0062F7B8 /* portaudio.h */,
 				223985E60E200FD500A5F732 /* Source */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
@@ -109,7 +109,7 @@
 				22C9F59F10325CDB0062F7B8 /* TTFoundationAPI.h in Headers */,
 				22C9F5A110325CDF0062F7B8 /* TTDSP.h in Headers */,
 				22C9F5C110325E1F0062F7B8 /* portaudio.h in Headers */,
-				22C9F6011032607C0062F7B8 /* multicore.h in Headers */,
+				22C9F6011032607C0062F7B8 /* TTMulticore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

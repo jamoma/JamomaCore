@@ -44,7 +44,7 @@ int main(void)
 {
 	t_class *c;
 	
-	MCoreInit();	
+	TTMulticoreInit();	
 	common_symbols_init();
 	
 	c = class_new("dac≈", (method)lydDacNew, (method)lydDacFree, sizeof(LydDac), (method)0L, A_GIMME, 0);

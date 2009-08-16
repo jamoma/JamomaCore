@@ -43,7 +43,7 @@ int main(void)
 {
 	t_class *c;
 	
-	MCoreInit();	
+	TTMulticoreInit();	
 	common_symbols_init();
 	
 	c = class_new("op≈", (method)lydOpNew, (method)lydOpFree, sizeof(LydOp), (method)0L, A_GIMME, 0);

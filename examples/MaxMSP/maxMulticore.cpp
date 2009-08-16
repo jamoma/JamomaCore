@@ -267,7 +267,7 @@ TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClas
 	WrappedClass*	wrappedMaxClass = NULL;
 
 	common_symbols_init();
-	MCoreInit();
+	TTMulticoreInit();
 	
 	if(!wrappedMaxClasses)
 		wrappedMaxClasses = hashtab_new(0);

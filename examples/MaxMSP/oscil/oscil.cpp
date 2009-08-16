@@ -47,7 +47,7 @@ int main(void)
 {
 	t_class *c;
 
-	MCoreInit();	
+	TTMulticoreInit();	
 	common_symbols_init();
 
 	c = class_new("oscil≈", (method)oscilBaerNew, (method)oscilBaerFree, sizeof(OscilBaer), (method)0L, A_GIMME, 0);

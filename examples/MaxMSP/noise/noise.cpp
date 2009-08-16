@@ -44,7 +44,7 @@ int main(void)
 {
 	t_class *c;
 
-	MCoreInit();	
+	TTMulticoreInit();	
 	common_symbols_init();
 
 	c = class_new("noise≈", (method)noiseBaerNew, (method)noiseBaerFree, sizeof(NoiseBaer), (method)0L, A_GIMME, 0);

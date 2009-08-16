@@ -42,7 +42,7 @@ int main(void)
 {
 	ClassPtr c;
 	
-	MCoreInit();	
+	TTMulticoreInit();	
 	common_symbols_init();
 	
 	c = class_new("dcblocker≈", (method)dcBlockerBaerNew, (method)dcBlockerBaerFree, sizeof(DCBlockerBaer), (method)0L, A_GIMME, 0);

@@ -44,7 +44,7 @@ int main(void)
 {
 	t_class *c;
 	
-	MCoreInit();	
+	TTMulticoreInit();	
 	common_symbols_init();
 	
 	c = class_new("in≈", (method)lydInNew, (method)lydInFree, sizeof(LydIn), (method)0L, A_GIMME, 0);

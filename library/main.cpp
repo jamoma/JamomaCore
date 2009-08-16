@@ -8,14 +8,14 @@
  */
 
 #include "TTDSP.h"
-#include "multicore.h"
+#include "TTMulticore.h"
 
 static bool initialized = false;
 
 
 /***********************************************************/
 
-void MCoreInit(void)
+void TTMulticoreInit(void)
 {
 	if(!initialized){
 		TTDSPInit();

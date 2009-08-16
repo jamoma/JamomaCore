@@ -67,7 +67,7 @@ int main(void)
 	WrappedClassOptionsPtr	options = new WrappedClassOptions;
 	TTValue					value;
 	
-	MCoreInit();
+	TTMulticoreInit();
 
 	value.clear();
 	value.append(1);	

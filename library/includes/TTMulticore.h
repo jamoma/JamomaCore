@@ -1,5 +1,5 @@
 /* 
- * MCore Extensions for TTBlue
+ * Multicore Audio Graph Layer for Jamoma DSP
  * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
  * Copyright © 2008, Timothy Place
  * 
@@ -222,7 +222,7 @@ public:
 typedef MCoreSource* MCoreSourcePtr;
 
 
-MULTICORE_EXPORT void MCoreInit(void);
+MULTICORE_EXPORT void TTMulticoreInit(void);
 
 
 #endif // __LYDBAER_H__

@@ -136,7 +136,7 @@ TTObjectPtr instantiateTTFilter(TTSymbolPtr className, TTValue& arguments)
 
 int main(void)
 {
-	MCoreInit();
+	TTMulticoreInit();
 
 	// First, we have to register our custom subclass with the TTBlue framework.
 	TTClassRegister(TT("filter"), "audio, processor, effect, lydbaer", &instantiateTTFilter);

@@ -11,7 +11,7 @@
 
 int main(void)
 {
-	MCoreInit();
+	TTMulticoreInit();
 	return wrapAsMaxbaer(TT("gain"), "gain≈", NULL);
 }
 

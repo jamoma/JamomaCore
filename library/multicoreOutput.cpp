@@ -1,5 +1,5 @@
 /* 
- * Lydbaer Extensions for TTBlue
+ * Multicore Audio Graph Layer for Jamoma DSP
  * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
  * Copyright © 2008, Timothy Place
  * 
@@ -7,7 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "multicore.h"
+#include "TTMulticore.h"
 #include "TTAudioEngine.h"
 
 #define thisTTClass			MCoreOutput

@@ -18,8 +18,8 @@
 #include "z_dsp.h"					// MSP Header
 #include "jpatcher_api.h"			// Required for patcher traversal code
 
-#include "TTDSP.h"				// TTBlue Interfaces
-#include "multicore.h"				// Definitions for Lydbaer Wrapping
+#include "TTDSP.h"					// TTBlue Interfaces
+#include "TTMulticore.h"			// Definitions for Lydbaer Wrapping
 
 
 

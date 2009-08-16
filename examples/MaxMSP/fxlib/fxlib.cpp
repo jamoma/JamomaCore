@@ -47,7 +47,7 @@ void fxlibObjectDefine(const char* name)
 
 int main(void)
 {
-	MCoreInit();
+	TTMulticoreInit();
 	
 	// classes that we wish to wrap for use in MSP
 	
