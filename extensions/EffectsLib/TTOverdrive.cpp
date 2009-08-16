@@ -165,9 +165,11 @@ TTErr TTOverdrive::processMode1(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 					*outSample;
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTUInt16		channel;
-	TTSampleValue	temp,
-					sign;
-
+	TTSampleValue	temp;
+#ifdef TT_PLATFORM_WIN
+	TTSampleValue	sign;
+#endif
+	
 	dcBlockerUnit->process(in, out);
 
 	for(channel=0; channel<numchannels; channel++){
