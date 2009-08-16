@@ -27,7 +27,7 @@ using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespac
 
 
 /** A simple helper class used by TTSymbolTable for comparing hash_map keys.  */
-#ifdef TT_PLATFORM_WIN
+#if defined( TT_PLATFORM_WIN )
 class TTStringCompare : public stdext::hash_compare<const TTCString> {
 public:
 	bool operator()(const TTCString s1, const TTCString s2) const
@@ -40,7 +40,7 @@ public:
 		return stdext::hash_value(s);
 	}
 };
-#elif TT_PLATFORM_MAC
+#elif defined ( TT_PLATFORM_MAC )
 class TTStringCompare {
 public:
 	bool operator()(const char* s1, const char* s2) const
