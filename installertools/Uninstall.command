@@ -7,23 +7,22 @@
 ################################
 function remove5 {
 	echo "Removing Jamoma";
-		
 	doRemove;
 }
 
 function doRemove {
 	if [ -e "$C74Folder" ] ; then
 		echo -ne "- Jamoma Modular Folder ($C74Folder/Jamoma/)"
-		rm -Rf "$C74Folder/Jamoma" && echo -ne "... done.\n"
+		sudo rm -Rf "$C74Folder/Jamoma" && echo -ne "... done.\n"
 		
 		echo -ne "- Default Settings Files ($C74Folder/default-settings/)"
-		rm -f "$C74Folder/default-settings/"Jamoma* && echo -ne "... done.\n"
+		sudo rm -f "$C74Folder/default-settings/"Jamoma* && echo -ne "... done.\n"
 		
 		echo -ne "- Default Definitions Files ($C74Folder/default-definitions/)"
-		rm -f "$C74Folder/default-definitions/"jcom* && echo -ne "... done.\n"
+		sudo rm -f "$C74Folder/default-definitions/"jcom* && echo -ne "... done.\n"
 		
 		echo -ne "- Extension File ($C74Folder/extensions/)"
-		rm -Rf "$C74Folder/extensions/"jcom* && echo -ne "... done.\n"    
+		sudo rm -Rf "$C74Folder/extensions/"jcom* && echo -ne "... done.\n"    
 		
 #		echo -ne "- Java Class Files ($C74Folder/java/classes/cueManager)"
 #		rm -Rf "$C74Folder/java/classes/cueManager" && echo -ne "... done.\n"
@@ -36,13 +35,13 @@ function doRemove {
 	if [ -e "$maxAppFolder" ] ; then
 		
 		echo -ne "- Extra Files ($maxAppFolder/patches/extras/)"
-		rm -f "$maxAppFolder/patches/extras/"jamoma* && echo -ne "... done.\n"
+		sudo rm -f "$maxAppFolder/patches/extras/"jamoma* && echo -ne "... done.\n"
 		
 		echo -ne "- Template Files ($maxAppFolder/patches/templates/)"
-		rm -f "$maxAppFolder/patches/templates/"jmod* && echo -ne "... done.\n"
-		rm -f "$maxAppFolder/patches/templates/"jalg* && echo -ne "... done.\n"
-		rm -f "$maxAppFolder/patches/templates/"_Jamoma_Patcher_.maxpat && echo -ne "... done.\n"
-		rm -f "$maxAppFolder/patches/templates/"layout.xml && echo -ne "... done.\n"
+		sudo rm -f "$maxAppFolder/patches/templates/"jmod* && echo -ne "... done.\n"
+		sudo rm -f "$maxAppFolder/patches/templates/"jalg* && echo -ne "... done.\n"
+		sudo rm -f "$maxAppFolder/patches/templates/"_Jamoma_Patcher_.maxpat && echo -ne "... done.\n"
+		sudo rm -f "$maxAppFolder/patches/templates/"layout.xml && echo -ne "... done.\n"
 		
 	else
 		echo -ne "Sorry, $maxAppFolder doesn't exist. Extra files can't be uninstalled.\n"
@@ -50,13 +49,14 @@ function doRemove {
 
    if [ -e "$FrameworkFolder" ] ; then
 		echo -ne "- Modular Framework ($FrameworkFolder/Jamoma.framework)"
-		rm -Rf "$FrameworkFolder/Jamoma.framework" && echo -ne "... done.\n"
+		sudo rm -Rf "$FrameworkFolder/Jamoma.framework" && echo -ne "... done.\n"
 		if [ -e "$TapTools" ]; then
 			echo -ne "It seems that Tap.Tools is installed. Therfore the files that are shared between Jamoma and Tap.Tools will remain.\n"
 		else    
 	    	echo -ne "- DSP Framework ($FrameworkFolder/JamomaDSP.framework)."
-			rm -Rf "$FrameworkFolder/JamomaDSP.framework" && echo -ne "... done.\n" 
-			rm -Rf "/Library/Application Support/TTBlue" && echo -ne "... done.\n" 
+			sudo rm -Rf "$FrameworkFolder/JamomaDSP.framework" && echo -ne "... done.\n"
+			echo -ne "- DSP Extensions (/Library/Application Support/TTBlue)." 
+			sudo rm -Rf "/Library/Application Support/TTBlue" && echo -ne "... done.\n" 
 		fi
 	else
 		echo -ne "Sorry, $FrameworkFolder doesn't exist. Frameworks can't be uninstalled.\n"

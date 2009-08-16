@@ -250,6 +250,7 @@ else
   cmd("rm -fv \"#{@c74}/Jamoma/library/externals/\"*.zip")
   cmd("rm -fv \"#{@c74}/Jamoma/library/externals/\"*.log")  
   cmd("rm -fv \"#{@c74}/Jamoma/library/externals/JamomaFramework.dll\"")
+  cmd("rm -fv \"#{@c74}/Jamoma/library/externals/JamomaDSP.dll\"") 
   cmd("rm -rfv \"#{@c74}/Jamoma/library/externals/TTBlueExtensions\"")
   cmd("rm -rfv \"#{@c74}/Jamoma/library/externals/windows\"")
   cmd("rm -rfv \"#{@c74}/Jamoma/library/externals/ramplib_windows\"")
