@@ -1,6 +1,6 @@
 /* 
- * TTFunctionLib
- * Extension Class for TTBlue
+ * FunctionLib
+ * Extension Class for Jamoma DSP
  * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
@@ -11,7 +11,7 @@
 #include "CosineFunction.h"
 #include "ExpFunction.h"
 #include "LinearFunction.h"
-#include "logFunction.h"
+#include "LogFunction.h"
 #include "LowpassFunction.h"
 #include "PowerFunction.h"
 #include "TanhFunction.h"
