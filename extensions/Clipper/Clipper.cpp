@@ -1,6 +1,6 @@
 /* 
- * TTClipper
- * Extension Class for TTBlue
+ * Clipper
+ * Extension Class for Jamoma DSP
  * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
