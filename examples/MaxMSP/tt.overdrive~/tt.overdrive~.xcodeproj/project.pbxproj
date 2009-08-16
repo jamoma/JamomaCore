@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */; };
-		22759F5A1003E0D5006BA4FB /* TTOverdrive.h in Headers */ = {isa = PBXBuildFile; fileRef = 22759F591003E0D5006BA4FB /* TTOverdrive.h */; };
+		22526B2710386E0500CD634E /* EffectsLib.ttdylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22526B2610386E0500CD634E /* EffectsLib.ttdylib */; };
+		22526B3010386E3800CD634E /* TTOverdrive.h in Headers */ = {isa = PBXBuildFile; fileRef = 22526B2F10386E3800CD634E /* TTOverdrive.h */; };
 		22D43CD40F1DA44C00C16BB0 /* tt.overdrive~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D43CD30F1DA44C00C16BB0 /* tt.overdrive~.cpp */; };
 		22E3881610288B4E002000A9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E3881510288B4E002000A9 /* MaxAPI.framework */; };
 		22E3881910288B55002000A9 /* commonsyms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3881810288B55002000A9 /* commonsyms.cpp */; };
-		22E3882210288B97002000A9 /* TTEffectsLib.ttdylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E3882110288B97002000A9 /* TTEffectsLib.ttdylib */; };
 		22E3882910288BEA002000A9 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E3882810288BEA002000A9 /* MaxAudioAPI.framework */; };
 		22EB3AD1102E6037006D027A /* tt-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22EB3AD0102E6037006D027A /* tt-max.xcconfig */; };
 		22EB3B04102E6108006D027A /* TTClassWrapperMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22EB3B02102E6108006D027A /* TTClassWrapperMax.cpp */; };
@@ -22,11 +22,11 @@
 
 /* Begin PBXFileReference section */
 		222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
-		22759F591003E0D5006BA4FB /* TTOverdrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTOverdrive.h; path = ../../../extensions/TTEffectsLib/TTOverdrive.h; sourceTree = SOURCE_ROOT; };
+		22526B2610386E0500CD634E /* EffectsLib.ttdylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = EffectsLib.ttdylib; path = "/Library/Application Support/Jamoma/Extensions/EffectsLib.ttdylib"; sourceTree = "<absolute>"; };
+		22526B2F10386E3800CD634E /* TTOverdrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTOverdrive.h; path = ../../../extensions/EffectsLib/TTOverdrive.h; sourceTree = SOURCE_ROOT; };
 		22D43CD30F1DA44C00C16BB0 /* tt.overdrive~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "tt.overdrive~.cpp"; sourceTree = "<group>"; };
 		22E3881510288B4E002000A9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../../../Tools/library/max-sdk/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
 		22E3881810288B55002000A9 /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../../../../../Tools/library/max-sdk/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
-		22E3882110288B97002000A9 /* TTEffectsLib.ttdylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = TTEffectsLib.ttdylib; path = ../../../extensions/TTEffectsLib/build/Development/TTEffectsLib.ttdylib; sourceTree = SOURCE_ROOT; };
 		22E3882810288BEA002000A9 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../../../Tools/library/max-sdk/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
 		22EB3AD0102E6037006D027A /* tt-max.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max.xcconfig"; path = "../../../../../Tools/library/common/tt-max.xcconfig"; sourceTree = SOURCE_ROOT; };
 		22EB3B02102E6108006D027A /* TTClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTClassWrapperMax.cpp; path = ../../../../Foundation/examples/MaxMSP/TTClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
@@ -42,9 +42,9 @@
 			files = (
 				222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */,
 				22E3881610288B4E002000A9 /* MaxAPI.framework in Frameworks */,
-				22E3882210288B97002000A9 /* TTEffectsLib.ttdylib in Frameworks */,
 				22E3882910288BEA002000A9 /* MaxAudioAPI.framework in Frameworks */,
 				22EB3B20102E6191006D027A /* JamomaFoundation.framework in Frameworks */,
+				22526B2710386E0500CD634E /* EffectsLib.ttdylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,7 +65,7 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				22E3882110288B97002000A9 /* TTEffectsLib.ttdylib */,
+				22526B2610386E0500CD634E /* EffectsLib.ttdylib */,
 				22E3882810288BEA002000A9 /* MaxAudioAPI.framework */,
 				22E3881510288B4E002000A9 /* MaxAPI.framework */,
 				22EB3B1F102E6191006D027A /* JamomaFoundation.framework */,
@@ -77,8 +77,8 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				22526B2F10386E3800CD634E /* TTOverdrive.h */,
 				22D43CD30F1DA44C00C16BB0 /* tt.overdrive~.cpp */,
-				22759F591003E0D5006BA4FB /* TTOverdrive.h */,
 				22E3881810288B55002000A9 /* commonsyms.cpp */,
 				22EB3B02102E6108006D027A /* TTClassWrapperMax.cpp */,
 				22EB3B03102E6108006D027A /* TTClassWrapperMax.h */,
@@ -101,8 +101,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22759F5A1003E0D5006BA4FB /* TTOverdrive.h in Headers */,
 				22EB3B05102E6108006D027A /* TTClassWrapperMax.h in Headers */,
+				22526B3010386E3800CD634E /* TTOverdrive.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +215,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../extensions/TTEffectsLib/build/Development\"",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Extensions\"",
 				);
 			};
 			name = Development;
@@ -245,6 +246,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../extensions/TTEffectsLib/build/Development\"",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Extensions\"",
 				);
 			};
 			name = Deployment;
