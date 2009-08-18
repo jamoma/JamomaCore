@@ -1,3 +1,6 @@
 logs
 build
 eclipse/Debug
+*.layout
+*.depends
+
