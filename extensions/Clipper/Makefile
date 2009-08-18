@@ -24,7 +24,7 @@ LIBS += -lJamomaDSP
 
 #########################################
 
-OPTIMIZATION_FLAGS = -O2
+OPTIMIZATION_FLAGS = -O3
 DEFINES = -DTT_PLATFORM_LINUX
 OPTIONS = -Wall -Wno-unknown-pragmas -Wno-conversion -shared
 
@@ -33,6 +33,16 @@ LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS)
 
 
 #########################################
+
+Debug:
+	# TODO: on Linux we can't do a mkdir if the dir already exists, so we need to check for it
+	#mkdir build
+	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/$(NAME).ttso $(LDFLAGS) 
+
+Release:
+	# TODO: on Linux we can't do a mkdir if the dir already exists, so we need to check for it
+	#mkdir build
+	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/$(NAME).ttso $(LDFLAGS) $(OPTIMIZATION_FLAGS)
 
 all:
 	# TODO: on Linux we can't do a mkdir if the dir already exists, so we need to check for it
