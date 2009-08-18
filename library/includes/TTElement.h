@@ -1,9 +1,9 @@
-/* 
+/*
  * TTBlue Base Class
  * Copyright © 2008, Timothy Place
- * 
+ *
  * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * http://www.gnu.org/licenses/lgpl.html
  */
 
 #ifndef __TT_ELEMENT_H__
@@ -53,7 +53,7 @@ using namespace std;
 	#ifdef _DLL_EXPORT
 		#define TTEXPORT __attribute__((visibility("default")))
 	#else
-		#define TTEXPORT  
+		#define TTEXPORT
 	#endif
 #endif
 
@@ -160,17 +160,17 @@ public:
 	TTSymbol*	name;			///< The name of the type as a symbol, e.g. float32, float64, etc.
 	TTBoolean	isNumerical;	///< Is this type numeric?
 	TTInt8		bitdepth;		///< Negative numbers indicate dynamic or unknown bitdepth.
-	
+
 	static TTDataInfoPtr getInfoForType(TTDataType type)
 	{
 		return ttDataTypeInfo[type];
 	}
-	
+
 	static TTBoolean getIsNumerical(TTDataType type)
 	{
 		return ttDataTypeInfo[type]->isNumerical;
 	}
-	
+
 	static void addDataInfoForType(TTDataType type);
 
 };
@@ -201,18 +201,18 @@ enum TTErr {
 
 /**	A TTBlue exception is thown with this object. */
 class TTEXPORT TTException {
-	TTCString	reason;
+	TTImmutableCString	reason;
 public:
-	TTException(TTCString aReason)
+	TTException(TTImmutableCString aReason)
 	: reason(aReason)
 	{}
 };
 
 
 /**	The required base-class from which all TTBlue objects must inherit.
- 	This object is the primary base-class for all TTBlue objects, including TTObject.  
- 	It does not define any real functionality.  
-	Instead it provides a way to group and work polymorphically with any class in TTBlue, 
+ 	This object is the primary base-class for all TTBlue objects, including TTObject.
+ 	It does not define any real functionality.
+	Instead it provides a way to group and work polymorphically with any class in TTBlue,
 	including both TTValue and TTObject.													*/
 class TTEXPORT TTElement {
 public:
@@ -282,10 +282,10 @@ static T TTLimitMax(T value, T high_bound)
 	#endif
 	value = T(value * 0.5);
 	value = high_bound - value;
-	return value; 
+	return value;
 }
 
-/** A fast routine for clipping a number on it's low range.  The high end of the range is not checked.  
+/** A fast routine for clipping a number on it's low range.  The high end of the range is not checked.
 	This routine does not use branching. */
 template<class T>
 static T TTLimitMin(T value, T low_bound)
@@ -298,7 +298,7 @@ static T TTLimitMin(T value, T low_bound)
 	#endif
 	value = T(value * 0.5);
 	value = T(value + low_bound);
-	return value; 
+	return value;
 }
 
 /** A fast routine for wrapping around the range once.  This is faster than doing an expensive module, where you know the range of the input
@@ -306,34 +306,34 @@ static T TTLimitMin(T value, T low_bound)
 template<class T>
 static T TTOneWrap(T value, T low_bound, T high_bound)
 {
-	if((value >= low_bound) && (value < high_bound)) 
+	if((value >= low_bound) && (value < high_bound))
 		return value;
 	else if(value >= high_bound)
-		return((low_bound - 1) + (value - high_bound));	
+		return((low_bound - 1) + (value - high_bound));
 	else
 		return((high_bound + 1) - (low_bound - value));
 }
 /** this routine wrapping around the range as much as necessary, Nils Peters, Nov. 2008 */
 template<class T>
 static T TTInfWrap(T value, T low_bound, T high_bound)
-{   
-	if((value >= low_bound) && (value < high_bound))  
+{
+	if((value >= low_bound) && (value < high_bound))
 		return value; //nothing to wrap
 	/* let's wrap it */
-	else if (value - low_bound >= 0) 
+	else if (value - low_bound >= 0)
 		return(fmod((double)value  - low_bound, fabs((double)low_bound - high_bound)) + low_bound);
-	else 
-		return(-1.0 * fmod(-1.0 * (value  - low_bound), fabs((double)low_bound - high_bound)) + high_bound);	
-}	
+	else
+		return(-1.0 * fmod(-1.0 * (value  - low_bound), fabs((double)low_bound - high_bound)) + high_bound);
+}
 
 /** this routine folds numbers into the data range, Nils Peters, Nov. 2008 */
 template<class T>
 static T TTFold(T value, T low_bound, T high_bound)
-{   
+{
 	double foldRange;
-	
-	if((value >= low_bound) && (value <= high_bound))  
-		return value; //nothing to fold 
+
+	if((value >= low_bound) && (value <= high_bound))
+		return value; //nothing to fold
 	else{
 		foldRange = 2 * fabs((double)low_bound - high_bound);
 #ifdef TT_PLATFORM_WIN
@@ -347,7 +347,7 @@ static T TTFold(T value, T low_bound, T high_bound)
 		return fabs(remainder(value - low_bound, foldRange)) + low_bound;
 #endif
 	}
-}	
+}
 
 
 
@@ -356,13 +356,13 @@ template<class T>
 static T TTScale(T value, T inlow, T inhigh, T outlow, T outhigh)
 {
 	double inscale, outdiff;
-	 
+
 	inscale = 1 / (inhigh - inlow);
 	outdiff = outhigh - outlow;
-	
+
 	value = (value - inlow) * inscale;
 	value = (value * outdiff) + outlow;
-	return(value);											
+	return(value);
 }
 
 /** Rounding utility. */
