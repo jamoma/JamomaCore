@@ -21,7 +21,7 @@ INCLUDES = -I./includes
 
 #########################################
 
-OPTIMIZATION_FLAGS = -O2
+OPTIMIZATION_FLAGS = -O3
 DEFINES = -DTT_PLATFORM_LINUX
 OPTIONS = -Wall -Wno-unknown-pragmas -Wno-conversion -shared
 
@@ -52,6 +52,15 @@ SRC += source/TTValueCache.cpp
 
 
 #########################################
+
+Debug:
+	#mkdir build
+	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/lib$(NAME).so $(LDFLAGS) 
+
+
+Release:
+	#mkdir build
+	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/lib$(NAME).so $(LDFLAGS) $(OPTIMIZATION_FLAGS)
 
 all:
 	mkdir build
