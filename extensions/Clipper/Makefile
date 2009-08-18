@@ -37,7 +37,7 @@ LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS)
 all:
 	# TODO: on Linux we can't do a mkdir if the dir already exists, so we need to check for it
 	#mkdir build
-	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/$(NAME).tt.so $(LDFLAGS) 
+	$(CC) $(CFLAGS) $(DEFINES) $(SRC) -o build/$(NAME).ttso $(LDFLAGS) 
 
 clean:
 	rm -f *.o
