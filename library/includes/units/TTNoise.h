@@ -1,9 +1,9 @@
-/* 
- * TTBlue Noise Generator 
+/*
+ * TTBlue Noise Generator
  * Copyright © 2003, Timothy Place
- * 
+ *
  * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * http://www.gnu.org/licenses/lgpl.html
  */
 
 #ifndef __TT_NOISE_H__
@@ -18,8 +18,8 @@ class TTNoise : TTAudioObject {
 
 	TTSymbol*		mode;	///< Attribute: what color is the noise?
 	TTUInt32		accum;	///< accumulator for the noise generation
-	TTSampleValue	b[6];	///< for the "pinking" filter
-	
+	TTSampleValue	b[7];	///< for the "pinking" filter
+
 	/**	Audio Processing Method	*/
 	TTErr processWhiteNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
