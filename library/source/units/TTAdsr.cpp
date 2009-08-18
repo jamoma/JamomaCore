@@ -1,9 +1,9 @@
-/* 
+/*
  * TTBlue Cycling Ramp Generator
  * Copyright © 2008, Timothy Place & Dave Watson
- * 
+ *
  * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * http://www.gnu.org/licenses/lgpl.html
  */
 
 #include "TTAdsr.h"
@@ -23,7 +23,7 @@ TT_AUDIO_CONSTRUCTOR
 	registerAttribute(TT("sustain"), kTypeFloat64, NULL, (TTGetterMethod)&TTAdsr::getSustainDb, (TTSetterMethod)&TTAdsr::setSustainDb);
 	registerAttributeSimple(trigger, kTypeBoolean);
 	registerAttribute(TT("mode"), kTypeSymbol, &attrMode, (TTSetterMethod)&TTAdsr::setMode);
-	
+
 	// register for notifications from the parent class so we can recalculate coefficients as required
 	registerMessageSimple(updateSr);
 
@@ -118,12 +118,12 @@ TTErr TTAdsr::setMode(const TTValue& newValue)
 	return kTTErrNone;
 }
 
-	
+
 TTErr TTAdsr::processAudioLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
-	TTSampleValue*	inSample;
+	TTSampleValue*	inSample = NULL;
 	TTSampleValue*	outSample;
 	TTUInt16		vs = out.getVectorSize();
 	bool			checkAudioTrigger = false;
@@ -134,11 +134,11 @@ TTErr TTAdsr::processAudioLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 		inSample = in.sampleVectors[0];
 	}
 	outSample = out.sampleVectors[0];
-	
+
 	while(vs--) {
 		if(checkAudioTrigger)
 			trigger = (TTBoolean)(*inSample++ > 0.5);
-		
+
 		if(trigger) {
 			if(eg_state == k_eg_inactive || eg_state == k_eg_release)
 				eg_state = k_eg_attack;
@@ -146,7 +146,7 @@ TTErr TTAdsr::processAudioLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 			if(eg_state != k_eg_inactive && eg_state != k_eg_release)
 				eg_state = k_eg_release;
 		}
-		
+
 		switch(eg_state) {
 			case k_eg_attack:
 				output += attack_step;
@@ -163,9 +163,9 @@ TTErr TTAdsr::processAudioLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 				}
 				break;
 			case k_eg_sustain:
-			
+
 				break;
-				
+
 			case k_eg_release:
 				output -= release_step;
 				if(output <= 0.) {
@@ -176,7 +176,7 @@ TTErr TTAdsr::processAudioLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 		}
 		*outSample++ = output;
 	}
-	
+
 	return kTTErrNone;
 }
 
@@ -185,7 +185,7 @@ TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSigna
 {
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
-	TTSampleValue*	inSample;
+	TTSampleValue*	inSample = NULL;
 	TTSampleValue*	outSample;
 	TTUInt16		vs = in.getVectorSize();
 	bool			checkAudioTrigger = false;
@@ -196,11 +196,11 @@ TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSigna
 		inSample = in.sampleVectors[0];
 	}
 	outSample = out.sampleVectors[0];
-	
+
 	while(vs--) {
 		if(checkAudioTrigger)
 			trigger = (TTBoolean)(*inSample++ > 0.5);
-		
+
 		if(trigger) {
 			if(eg_state == k_eg_inactive || eg_state == k_eg_release)
 				eg_state = k_eg_attack;
@@ -208,7 +208,7 @@ TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSigna
 			if(eg_state != k_eg_inactive && eg_state != k_eg_release)
 				eg_state = k_eg_release;
 		}
-		
+
 		switch(eg_state){
 			case k_eg_attack:						// ATTACK
 				output_db += attack_step_db;			// Increment the output
@@ -229,7 +229,7 @@ TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSigna
 				break;
 			case k_eg_sustain:						// SUSTAIN
 				break;									// leave it alone
-							
+
 			case k_eg_release:						// RELEASE
 				output_db -= release_step_db;
 				if (output_db <= NOISE_FLOOR){						// If we've hit the basement,
@@ -242,7 +242,7 @@ TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSigna
 		}
 		*outSample++ = output;
 	}
-	
+
 	return kTTErrNone;
 }
 

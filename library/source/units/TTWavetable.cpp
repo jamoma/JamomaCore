@@ -1,9 +1,9 @@
-/* 
+/*
  * TTBlue Wavetable Oscillator
  * Copyright © 2003, Timothy Place
- * 
+ *
  * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * http://www.gnu.org/licenses/lgpl.html
  */
 
 #include "TTWavetable.h"
@@ -14,17 +14,17 @@
 
 
 TT_AUDIO_CONSTRUCTOR,
-	index(0.0), 
+	index(0.0),
 	indexDelta(0.0)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
-	
+
 	registerAttribute(TT("frequency"),		kTypeFloat64,	&attrFrequency,		(TTSetterMethod)&TTWavetable::setFrequency);
 	registerAttribute(TT("mode"),			kTypeSymbol,	&attrMode,			(TTSetterMethod)&TTWavetable::setMode);
 	registerAttribute(TT("gain"),			kTypeFloat64,	&attrGain,			(TTSetterMethod)&TTWavetable::setGain);
 	registerAttribute(TT("interpolation"),	kTypeSymbol,	&attrInterpolation,	(TTSetterMethod)&TTWavetable::setInterpolation);
 	registerAttribute(TT("size"),			kTypeInt64,		&attrSize,			(TTSetterMethod)&TTWavetable::setSize);
-	
+
 	registerMessageSimple(updateSr);
 
 //	wavetable = new TTBuffer(*kTTValNONE);
@@ -50,7 +50,7 @@ TTWavetable::~TTWavetable()
 
 
 TTErr TTWavetable::updateSr()
-{	
+{
 	setAttributeValue(TT("frequency"), attrFrequency);
 	return kTTErrNone;
 }
@@ -59,7 +59,7 @@ TTErr TTWavetable::updateSr()
 TTErr TTWavetable::setFrequency(const TTValue& newValue)
 {
 	TTValue	v;
-	
+
 	attrFrequency = TTClip<TTFloat64>(newValue, 0.0, sr/2.0);
 	wavetable->getAttributeValue(TT("lengthInSamples"), v);
 	indexDelta = attrFrequency * TTFloat64(v) / sr;
@@ -70,7 +70,7 @@ TTErr TTWavetable::setFrequency(const TTValue& newValue)
 TTErr TTWavetable::setMode(const TTValue& newValue)
 {
 	attrMode = newValue;	// TODO: should be newValue[0]
-	
+
 	if(attrMode != TT("externalBuffer"))
 		return wavetable->fill(newValue);
 	else{
@@ -110,7 +110,7 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 {
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
-	TTSampleValue	*inSample;
+	TTSampleValue	*inSample = NULL;
 	TTSampleValue	tempSample;
 	TTUInt16		vs = in.getVectorSize();
 	TTUInt16		i=0;
@@ -119,29 +119,29 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 	TTBoolean		hasModulation = true;
 	TTUInt32		p1 = (TTUInt32)index;						// playback index
 	TTSampleVector	contents = wavetable->getContentsForChannel(0);
-	
+
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
 	if(&in == &out)
 		hasModulation = false;
 	else
 		inSample = in.sampleVectors[0];
-	
+
 	while(vs--){
 		// Move the play head
 		index += indexDelta;
-		
+
 		// Apply modulation to the play head
 		if(hasModulation)
 			index += *inSample++ * attrSize / sr;
-		
+
 		// Wrap the play head
-		if(index >= attrSize)	    		
+		if(index >= attrSize)
 			index -= attrSize;
-		else if(index < 0)	    		
+		else if(index < 0)
 			index += attrSize;
-		
-		// table lookup (no interpolation)	
+
+		// table lookup (no interpolation)
 		tempSample = contents[p1] * linearGain;
 		for(channel=0; channel<numChannels; channel++)
 			out.sampleVectors[channel][i] = tempSample;
@@ -155,7 +155,7 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 {
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
-	TTSampleValue	*inSample;
+	TTSampleValue	*inSample = NULL;
 	TTSampleValue	tempSample;
 	TTUInt16		vs = out.getVectorSize();
 	TTUInt16		i=0;
@@ -165,7 +165,7 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 	TTUInt32		p1, p2;									// two playback indices
 	TTFloat64		diff;
 	TTSampleVector	contents = wavetable->getContentsForChannel(0);
-	
+
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
 	if(inputs->numAudioSignals == 0)
@@ -176,23 +176,23 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 	while(vs--){
 		// Move the play head
 		index += indexDelta;
-		
+
 		// Apply modulation to the play head
 		if(hasModulation)
 			index += *inSample++ * attrSize / sr;
-		
+
 		// Wrap the play head
-		if(index >= attrSize)	    		
+		if(index >= attrSize)
 			index -= attrSize;
-		else if(index < 0)	    		
+		else if(index < 0)
 			index += attrSize;
-		
-		// table lookup (linear interpolation)	
+
+		// table lookup (linear interpolation)
 		p1 = (TTUInt32)index;
 		p2 = p1 + 1;
-		diff = index - p1;	
+		diff = index - p1;
 		p2 &= (attrSize - 1);	// fast modulo
-		
+
 		tempSample = ((contents[p2] * diff) + (contents[p1] * (1.0 - diff))) * linearGain;
 		for(channel=0; channel<numChannels; channel++)
 			out.sampleVectors[channel][i] = tempSample;

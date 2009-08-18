@@ -1,9 +1,9 @@
-/* 
- * TTBlue Audio Buffer Object 
+/*
+ * TTBlue Audio Buffer Object
  * Copyright © 2003, Timothy Place
- * 
+ *
  * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * http://www.gnu.org/licenses/lgpl.html
  */
 
 #include "TTBuffer.h"
@@ -25,13 +25,13 @@ TT_DATA_CONSTRUCTOR,
 
 	registerMessageSimple(clear);
 	registerMessageWithArgument(fill);
-	
+
 	registerMessageWithArgument(getValueAtIndex);
 	registerMessage(TT("peek"), (TTMethod)&TTBuffer::getValueAtIndex);
 
 	registerMessageWithArgument(setValueAtIndex);
 	registerMessage(TT("poke"), (TTMethod)&TTBuffer::setValueAtIndex);
-	
+
 	registerMessageSimple(updateSr);
 
 	// TODO: more messages to implement
@@ -73,7 +73,7 @@ TTErr TTBuffer::chuck()
 TTErr TTBuffer::setnumChannels(const TTValue& newNumChannels)
 {
 	TTUInt16 channels = newNumChannels;
-	
+
 	if(numChannels != channels){
 		chuck();
 		numChannels = channels;
@@ -144,7 +144,7 @@ TTErr TTBuffer::getValueAtIndex(TTValue& index)
 	index.get(i++, sampleIndex);
 	if(index.getSize() > 2)		// TODO: sure would be nice to change the name of this method to "size" or something...
 		index.get(i++, sampleChannel);
-	
+
 	err = peek(sampleIndex, sampleChannel, sampleValue);
 	if(!err)
 		index.set(i++, sampleValue);
@@ -177,8 +177,8 @@ TTErr TTBuffer::setValueAtIndex(const TTValue& index)
 	index.get(i++, sampleIndex);
 	if(index.getSize() > 2)
 		index.get(i++, sampleChannel);
-	index.get(i++, sampleValue);	
-	
+	index.get(i++, sampleValue);
+
 	return poke(sampleIndex, sampleChannel, sampleValue);
 }
 
@@ -199,7 +199,7 @@ TTErr TTBuffer::fill(const TTValue& value)
 //	TTSymbol*	fillAlgorithm = value[0];
 // FIXME: implement this once we get [] operators for TTValue;
 	TTSymbol*	fillAlgorithm = value;
-	
+
 	if(fillAlgorithm == kTTSym_sine){
 		for(TTUInt16 channel=0; channel<numChannels; channel++){
 			for(TTUInt64 i=0; i<lengthInSamples; i++)
@@ -245,22 +245,22 @@ TTErr TTBuffer::fill(const TTValue& value)
 	else if(fillAlgorithm == kTTSym_triangle){
 		for(TTUInt16 channel=0; channel<numChannels; channel++){
 			TTUInt64 i, j;
-			for(i=0; i < (lengthInSamples / 4); i++) 
+			for(i=0; i < (lengthInSamples / 4); i++)
 				contents[channel][i] = TTFloat64(i) / (lengthInSamples / 4);
-			for(j=i-1; i < (lengthInSamples / 2); i++, j--) 
+			for(j=i-1; i < (lengthInSamples / 2); i++, j--)
 				contents[channel][i] = contents[channel][j];
-			for(j=0; i < lengthInSamples; i++, j++)	
+			for(j=0; i < lengthInSamples; i++, j++)
 				contents[channel][i] = 0.0 - contents[channel][j];
 		}
 	}
 	else if(fillAlgorithm == kTTSym_triangleMod){
 		for(TTUInt16 channel=0; channel<numChannels; channel++){
 			TTUInt64 i, j;
-			for(i=0; i < (lengthInSamples / 4); i++) 
+			for(i=0; i < (lengthInSamples / 4); i++)
 				contents[channel][i] = 0.5 + TTFloat64(i) / (lengthInSamples / 4);
-			for(j=i-1; i < (lengthInSamples / 2); i++, j--) 
+			for(j=i-1; i < (lengthInSamples / 2); i++, j--)
 				contents[channel][i] = contents[channel][j];
-			for(j=0; i < lengthInSamples; i++, j++)	
+			for(j=0; i < lengthInSamples; i++, j++)
 				contents[channel][i] = 1.0 - contents[channel][j];
 		}
 	}
@@ -290,7 +290,7 @@ TTErr TTBuffer::fill(const TTValue& value)
 				contents[channel][j--] = float(i) / lengthInSamples;
 		}
 	}
-	
+
 	/*	TODO: This was in the old TTBlue -- is it legit?
 		 case k_padded_welch_512:				// FIXED 512 POINT WINDOW OF THE PADDED WELCH TYPE
 		 for(i=0; i < 256; i++)
@@ -298,12 +298,12 @@ TTErr TTBuffer::fill(const TTValue& value)
 		 for(j=i-1; i < 512;i++, j--){
 			contents[i] = tt_audio_base::lookup_half_paddedwelch[j];
 	*/
-	
+
 	// These algorithms also have parameters to set coefficients
 	else if(fillAlgorithm == TT("gaussian")){
-		TTFloat64	param1 = 1.0;	// TODO: find good defaults for this
-		TTFloat64	param2 = 1.0;	// TODO: find good defaults for this
-/*	FIXME: do this once Dave checks in the [] operator code for TTValue	
+//		TTFloat64	param1 = 1.0;	// TODO: find good defaults for this
+//		TTFloat64	param2 = 1.0;	// TODO: find good defaults for this
+/*	FIXME: do this once Dave checks in the [] operator code for TTValue
 		if(value.getSize() > 1)
 			param1 = value[1];
 		if(TTValue.getSize() > 2)
@@ -314,13 +314,13 @@ TTErr TTBuffer::fill(const TTValue& value)
 // TODO: implement (and make sure this algorithm is legit):
 //				temp = double(i) / (double(length_samples) - 1);
 //				contents[i] = ((-1.0 * (temp - param2) * (temp - param2)) / (2 * param1 * param1)) / (param1 * sqrt(twopi));
-//				contents[i] = contents[i] * 0.3133;	// scale it				
+//				contents[i] = contents[i] * 0.3133;	// scale it
 			}
 		}
 	}
-	
-	
-	
+
+
+
 	return kTTErrNone;
 }
 
