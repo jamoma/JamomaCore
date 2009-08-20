@@ -1,7 +1,7 @@
 /* 
- * jcom.node
+ * jcom.minuit
  * External for Jamoma:  ...
- * By Théo de la Hogue, Copyright 2009
+ * By ThÃˆo de la Hogue, Copyright 2009
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html
@@ -34,5 +34,9 @@ void			node_free(t_node *x);
 t_max_err		node_notify(t_node *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void			node_assist(t_node *x, void *b, long m, long a, char *s);
 
-// Private methods
+// methods for jcom.minuit
+void			node_namespace(t_node *x, t_symbol *address);
+void			node_get(t_node *x, t_symbol *address);
 
+// Private methods
+void node_goto(t_node *x, t_symbol *address);

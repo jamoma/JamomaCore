@@ -158,7 +158,6 @@ LinkedListPtr	jamoma_node_properties(NodePtr node)
 	TTValue *hk;
 	TTSymbolPtr key;
 	TTValue *c;
-	NodePtr n_c;
 	LinkedListPtr lk_properties;
 
 	// if there are properties
@@ -167,7 +166,7 @@ LinkedListPtr	jamoma_node_properties(NodePtr node)
 		hk = new TTValue();
 		c = new TTValue();
 		node->getProperties()->getKeys(*hk);
-		lk_properties = new t_linklist();
+		lk_properties = linklist_new();
 		
 		// for each propertie
 		for(i=0; i<node->getProperties()->getSize(); i++){

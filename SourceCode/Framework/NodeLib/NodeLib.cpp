@@ -347,7 +347,7 @@ TTErr Node::getChildren(TTSymbolPtr name, TTSymbolPtr instance, LinkedListPtr *l
 		hk = new TTValue();
 		c = new TTValue();
 		this->children->getKeys(*hk);
-		*lk_children = new t_linklist();
+		*lk_children = linklist_new();
 		
 		if(name == TT(S_WILDCARD)){
 			// for each children

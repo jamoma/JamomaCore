@@ -333,8 +333,12 @@ void ui_remote_callback(t_ui *x, t_symbol *s, long argc, t_atom* argv)
 {
 	t_symbol*	message = atom_getsym(argv);
 	
-	if(argc == 1)
-		outlet_anything(x->outlet, _sym_jit_matrix, argc, argv);
+	if(argc == 1){
+		if (s == _sym_jit_matrix)
+			outlet_anything(x->outlet, _sym_jit_matrix, argc, argv);
+		else if (s == _sym_jit_gl_texture)
+			outlet_anything(x->outlet, _sym_jit_gl_texture, argc, argv);
+	}
 	else if(message == gensym("module_name") && argc == 2)
 		object_attr_setvalueof(x, gensym("module_name"), 1, argv+1);
 	else if(message == gensym("module_class") && argc == 2)
@@ -404,11 +408,13 @@ void ui_paint(t_ui *x, t_object *view)
 	
 	// draw the menu icon
 	jgraphics_set_line_width(g, 1.5);
-	jgraphics_oval(g, 3.0, 3.0, 13.0, 13.0);
+	//jgraphics_oval(g, 3.0, 3.0, 13.0, 13.0);
+	jgraphics_arc(g, 9.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 	jgraphics_fill(g);
 
 	jgraphics_set_source_jrgba(g, &s_color_border_button);
-	jgraphics_oval(g, 3.0, 3.0, 13.0, 13.0);
+	//jgraphics_oval(g, 3.0, 3.0, 13.0, 13.0);
+	jgraphics_arc(g, 9.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 	jgraphics_stroke(g);
 
 	middle = 9.0;
@@ -443,11 +449,13 @@ void ui_paint(t_ui *x, t_object *view)
 		x->rect_gain.width = 13.0;
 		
 		jgraphics_set_line_width(g, 1.5);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 		
 		jgraphics_set_source_jrgba(g, &s_color_darkgreen);
@@ -489,11 +497,13 @@ void ui_paint(t_ui *x, t_object *view)
 		x->rect_mix.width = 13.0;
 		
 		jgraphics_set_line_width(g, 1.5);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_darkblue);
@@ -535,11 +545,13 @@ void ui_paint(t_ui *x, t_object *view)
 		x->rect_mute.width = 13.0;
 		
 		jgraphics_set_line_width(g, 1.5);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 				
 		// m
@@ -575,11 +587,13 @@ void ui_paint(t_ui *x, t_object *view)
 		x->rect_bypass.width = 13.0;
 		
 		jgraphics_set_line_width(g, 1.5);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 				
 		// b
@@ -612,11 +626,13 @@ void ui_paint(t_ui *x, t_object *view)
 		x->rect_freeze.width = 13.0;
 		
 		jgraphics_set_line_width(g, 1.5);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 				
 		// f
@@ -647,11 +663,13 @@ void ui_paint(t_ui *x, t_object *view)
 		x->rect_preview.width = 13.0;
 		
 		jgraphics_set_line_width(g, 1.5);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 				
 		// p
@@ -666,7 +684,7 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_show_text(g, "p");
 	}
 
-	// draw the info button
+	// draw the panel button
 	if(x->attr_hasinspector){
 		long right_side = rect.width - 16.0;
 		
@@ -675,20 +693,22 @@ void ui_paint(t_ui *x, t_object *view)
 
 		jgraphics_set_source_jrgba(g, &s_color_background_button);
 		jgraphics_set_line_width(g, 1.5);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
-		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
 		jgraphics_stroke(g);
 				
 		// i
 		jgraphics_set_source_jrgba(g, &s_color_text_button_off);
 		jgraphics_set_line_width(g, 2.0);
-		jgraphics_move_to(g, right_side + 5.0, 13.0);
+		jgraphics_move_to(g, right_side + 2.0, 13.0);
 		jgraphics_select_font_face(g, JAMOMA_BUTTON_FONT, JGRAPHICS_FONT_SLANT_NORMAL, JGRAPHICS_FONT_WEIGHT_BOLD);
-		jgraphics_set_font_size(g, 7.0);
-		jgraphics_show_text(g, "i");
+		jgraphics_set_font_size(g, 10.0);
+		jgraphics_show_text(g, "+");
 	}
 }
 
@@ -704,7 +724,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	if(px.y > 20.0)	// we only handle clicks in the title bar
 		return;
 	
-	if(px.x > (rect.width - 120)){
+	if(px.x > 18){//(rect.width - 112)){
 		// we check the gain and mix knobs first because they are continuous parameters and should run as fast as possible
 		if(x->attr_hasgain && px.x >= x->rect_gain.x && px.x <= (x->rect_gain.x + x->rect_gain.width)){
 			setGainDataspaceUnit(x, gensym("midi"));
@@ -720,7 +740,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			jbox_set_mousedragdelta((t_object *)x, 1);
 		}
 		else if(x->attr_hasinspector && px.x >= x->rect_inspector.x && px.x <= (x->rect_inspector.x + x->rect_inspector.width))
-			object_method_typed(x->obj_remote, gensym("/panel/open"), 0, NULL, NULL);
+			object_method_typed(x->obj_remote, gensym("/view/panel"), 0, NULL, NULL);
 		else if(x->attr_haspreview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width))
 			object_attr_setlong(x, gensym("is_previewing"), !x->attr_ispreviewing);
 		else if(x->attr_hasfreeze && px.x >= x->rect_freeze.x && px.x <= (x->rect_freeze.x + x->rect_freeze.width))
@@ -729,11 +749,12 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			object_attr_setlong(x, gensym("is_bypassed"), !x->attr_isbypassed);
 		else if(x->attr_hasmute && px.x >= x->rect_mute.x && px.x <= (x->rect_mute.x + x->rect_mute.width))
 			object_attr_setlong(x, gensym("is_muted"), !x->attr_ismuted);
+		else if(px.x < 100)
+			ui_refmenu_do(x, patcherview, px, modifiers);
 	}
-	else if(px.x < 25)
+	else //if(px.x < 18)
 		ui_menu_do(x, patcherview, px, modifiers);
-	else if(px.x < 150)
-		ui_refmenu_do(x, patcherview, px, modifiers);
+	
 }
 
 
@@ -746,14 +767,14 @@ void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 	
 	if(modifiers & eShiftKey)
-		factor = 50.0;
+		factor = 0.02;
 	
 	if(x->mixDragging){
-		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y / factor), 0.0, 100.0);
+		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y * factor), 0.0, 100.0);
 		object_attr_setfloat(x, gensym("mix"), x->anchorValue);
 	}
 	else if(x->gainDragging){
-		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y / factor), 0.0, 127.0);
+		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y * factor), 0.0, 127.0);
 		object_attr_setfloat(x, gensym("gain"), x->anchorValue);
 	}
 }
@@ -849,10 +870,10 @@ void ui_menu_qfn(t_ui *x)
 			object_attr_setlong(x, gensym("ui_is_frozen"), 0);
 		else
 			object_attr_setlong(x, gensym("ui_is_frozen"), 1);
-		object_method_long(x->obj_remote, gensym("/ui/freeze"), x->attr_ui_freeze, NULL);
+		object_method_long(x->obj_remote, gensym("/view/freeze"), x->attr_ui_freeze, NULL);
 	}
 	else if(item->sym == gensym("Refresh UI"))
-		object_method_sym(x->obj_remote, gensym("/ui/refresh"), item->sym, NULL);
+		object_method_sym(x->obj_remote, gensym("/view/refresh"), item->sym, NULL);
 	else if(item->sym == gensym("Load Settings..."))
 		object_method_sym(x->obj_remote, gensym("/preset/load"), item->sym, NULL);
 	else if(item->sym == gensym("Save Settings..."))
@@ -868,7 +889,7 @@ void ui_menu_qfn(t_ui *x)
 	else if(item->sym == gensym("Get Current State as Text"))
 		object_method_sym(x->obj_remote, gensym("/getstate"), item->sym, NULL);
 	else if(item->sym == gensym("View Internal Components"))
-		object_method_sym(x->obj_remote, gensym("/module/viewInternals"), item->sym, NULL);
+		object_method_sym(x->obj_remote, gensym("/view/internals"), item->sym, NULL);
 	else if(item->sym == gensym("Open Help Patch"))
 		object_method_sym(x->obj_remote, gensym("/module/help"), item->sym, NULL);
 	else if(item->sym == gensym("Open Reference Page"))

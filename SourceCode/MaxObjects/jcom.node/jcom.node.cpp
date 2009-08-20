@@ -242,14 +242,25 @@ long node_myobject_iterator(t_node *x, t_object *b)
 	NodePtr newNode;
 	bool newInstanceCreated;
 	char temp[256];
-	long i, attr_nb = 0;
-	t_symbol** attr_names = NULL;
     t_symbol *varname = object_attr_getsym(b, gensym("varname"));
+	uint i;
 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
 	if(varname){
 		if(varname->s_name[0] == S_SEPARATOR[0]){
 			newInstanceCreated = false;
+			
+			// search for illegal characters as specified by the OSC standard and replace them
+			for(i=0; i<strlen(varname->s_name); i++){
+				/*			TODO :This has to happen only when setting the OSC name from the module's file name
+				 if(name[i] == '.')
+				 name[i] = '_';
+				 else */
+				if(varname->s_name[i] == '[')
+					varname->s_name[i] = '.';
+				else if(varname->s_name[i] == ']')
+					varname->s_name[i] = 0;
+			}
 			
 			// put all scripting name in a /max node
 			snprintf(temp,256,"/max%s", varname->s_name);
@@ -277,7 +288,6 @@ void node_dowrite(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 	char 			fullpath[MAX_PATH_CHARS];		// for storing the absolute path of the file
 	short 			err;							// error number
 	long			outtype;						// the file type that is actually true
-	t_filehandle	fh;								// a reference to our file (for opening it, closing it, etc.)
 
 	// GET THE PATH
 	// check the args to see if there is a user_path
@@ -397,7 +407,7 @@ void node_dump_as_opml(t_node *x, short level)
 	// get info about the node
 	t_symbol *name = jamoma_node_name(x->p_node);
 	t_symbol *instance = jamoma_node_instance(x->p_node);
-	t_symbol *type = jamoma_node_type(x->p_node);
+	//t_symbol *type = jamoma_node_type(x->p_node);
 	t_linklist *lk_prp = jamoma_node_properties(x->p_node);
 	t_linklist *lk_chd = jamoma_node_children(x->p_node);
 
@@ -457,7 +467,6 @@ void node_dump_as_opml(t_node *x, short level)
 void node_write_atom(t_node *x, t_atom *src)
 {
 	char temp[512];
-	long len = 0;
 	t_symbol* sym;
 
 	switch(src->a_type) 

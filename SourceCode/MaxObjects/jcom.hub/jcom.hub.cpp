@@ -243,8 +243,9 @@ void hub_examine_context(t_hub *x)
 		x->osc_name = _sym_nothing;
 	
 	// Try to get OSC Name of module from scripting name
-	if(x->osc_name == _sym_nothing)
+	if(x->osc_name == _sym_nothing){
 		x->osc_name = jamoma_patcher_getvarname(x->container);
+	}
 
 	// In this case we overwrite whatever happened above
 	if(context == gensym("toplevel")){
@@ -1396,6 +1397,7 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		}
 		
 		strcpy(name, x->osc_name->s_name);
+		post("osc_name : %s", x->osc_name->s_name);
 		
 		// the name is autoprepended with a /
 		if(name[0] != '/'){
@@ -1425,6 +1427,7 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		
 		// Memorize the original name
 		nameOriginal = gensym(name);
+		post("name : %s", name);
 
 		// Register with the tree at the given address if possible
 		// if not, this will return a new instance

@@ -69,6 +69,8 @@
 		A7CA9C890D1F21FD0099D8CA /* PitchDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7CA9C970D1FD9960099D8CA /* GainDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CA9C950D1FD9960099D8CA /* GainDataspace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7CA9C980D1FD9960099D8CA /* GainDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */; };
+		D29112F5103AC32800DB9400 /* JamomaNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D29112F3103AC32800DB9400 /* JamomaNode.h */; };
+		D29112F6103AC32800DB9400 /* JamomaNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D29112F4103AC32800DB9400 /* JamomaNode.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -277,6 +279,8 @@
 		A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PitchDataspace.h; path = DataspaceLib/PitchDataspace.h; sourceTree = SOURCE_ROOT; };
 		A7CA9C950D1FD9960099D8CA /* GainDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GainDataspace.h; path = DataspaceLib/GainDataspace.h; sourceTree = SOURCE_ROOT; };
 		A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = GainDataspace.cpp; path = DataspaceLib/GainDataspace.cpp; sourceTree = SOURCE_ROOT; };
+		D29112F3103AC32800DB9400 /* JamomaNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaNode.h; path = NodeLib/JamomaNode.h; sourceTree = "<group>"; };
+		D29112F4103AC32800DB9400 /* JamomaNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaNode.cpp; path = NodeLib/JamomaNode.cpp; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -611,6 +615,8 @@
 		22DF21BD0F23AB6D00DBBEE9 /* NodeLib */ = {
 			isa = PBXGroup;
 			children = (
+				D29112F3103AC32800DB9400 /* JamomaNode.h */,
+				D29112F4103AC32800DB9400 /* JamomaNode.cpp */,
 				22DF21C40F23ABC600DBBEE9 /* NodeLib.h */,
 				22DF21C30F23ABC600DBBEE9 /* NodeLib.cpp */,
 			);
@@ -699,6 +705,7 @@
 				22E6C7600D4AB21B00DA75EE /* SchedulerRamp.h in Headers */,
 				22DF21C60F23ABC600DBBEE9 /* NodeLib.h in Headers */,
 				22DF21CA0F23ACDE00DBBEE9 /* JamomaMaxTypes.h in Headers */,
+				D29112F5103AC32800DB9400 /* JamomaNode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -800,6 +807,7 @@
 				226951DB0DEE665200911DE0 /* jcom.receive~.cpp in Sources */,
 				226951DC0DEE665200911DE0 /* jcom.send~.cpp in Sources */,
 				22DF21C50F23ABC600DBBEE9 /* NodeLib.cpp in Sources */,
+				D29112F6103AC32800DB9400 /* JamomaNode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
