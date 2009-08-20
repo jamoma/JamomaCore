@@ -1,0 +1,432 @@
+
+ 
+ KEYCUE "Init" 
+ 
+ 
+ 	 	 	 	 /CONFIG /sur.output~ 1 1 /zdbapout 2 1 /Zdbapin.1 4 1 
+ # 
+ ######################## 
+ # 
+ # Module /sur.output~ 
+ 	 	 	 	 /sur.output~/audio/active 0 
+ 	 	 	 	 /sur.output~/audio/mute 0 
+ 	 	 	 	 /sur.output~/limiter/active 1 
+ 	 	 	 	 /sur.output~/limiter/dcblocker/active 1 
+ 	 	 	 	 /sur.output~/limiter/lookahead 64 
+ 	 	 	 	 /sur.output~/limiter/mode exponential 
+ 	 	 	 	 /sur.output~/limiter/postamp 0.000000 
+ 	 	 	 	 /sur.output~/limiter/preamp 6.000000 
+ 	 	 	 	 /sur.output~/limiter/release 300.000000 
+ 	 	 	 	 /sur.output~/limiter/threshold 6.000000 
+ 	 	 	 	 /sur.output~/numSpeakers 8 
+ 	 	 	 	 /sur.output~/offset 0 
+ 	 	 	 	 /sur.output~/record/filetype default 
+ 	 	 	 	 /sur.output~/record/samptype default 
+ 	 	 	 	 /sur.output~/setup 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 
+ 	 	 	 	 /sur.output~/view/color/border 0 
+ 	 	 	 	 /sur.output~/view/color/contentBackground 0 
+ 	 	 	 	 /sur.output~/view/color/toolbarBackground 0 
+ 	 	 	 	 /sur.output~/view/color/toolbarText 0 
+ 	 	 	 	 /sur.output~/view/freeze 0 
+ 	 	 	 	 /sur.output~/view/size 300 70 
+ # 
+ # Module /zdbapout 
+ 	 	 	 	 /zdbapout/numSources 1 
+ 	 	 	 	 /zdbapout/rolloff 6.000000 
+ 	 	 	 	 /zdbapout/numAux 5 
+ 	 	 	 	 /zdbapout/numSpeakers 18 
+ 	 	 	 	 /zdbapout/speaker.1/position -9.062500 -9.062500 0.000000 
+ 	 	 	 	 /zdbapout/speaker.2/position 8.880208 -8.984375 0.000000 
+ 	 	 	 	 /zdbapout/speaker.3/position -6.015625 -7.031250 0.000000 
+ 	 	 	 	 /zdbapout/speaker.4/position 6.015625 -6.875000 0.000000 
+ 	 	 	 	 /zdbapout/speaker.5/position -7.959558 7.968750 0.000000 
+ 	 	 	 	 /zdbapout/speaker.6/position 7.941177 7.968750 0.000000 
+ 	 	 	 	 /zdbapout/speaker.7/position -9.829964 9.609375 0.000000 
+ 	 	 	 	 /zdbapout/speaker.8/position 9.898897 9.765625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.9/position -5.997242 3.593750 0.000000 
+ 	 	 	 	 /zdbapout/speaker.10/position 5.997243 3.515625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.11/position -5.992647 -3.515625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.12/position 6.001840 -3.515625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.13/position -0.050551 -9.843750 0.000000 
+ 	 	 	 	 /zdbapout/speaker.14/position -0.009191 -7.890625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.15/position -0.045956 10.000000 0.000000 
+ 	 	 	 	 /zdbapout/speaker.16/position -0.004595 7.109375 0.000000 
+ 	 	 	 	 /zdbapout/speaker.17/position -2.072610 0.078125 0.000000 
+ 	 	 	 	 /zdbapout/speaker.18/position 1.953125 0.078125 0.000000 
+ 	 	 	 	 /zdbapout/speaker.19/position 0 
+ 	 	 	 	 /zdbapout/speaker.20/position 0 
+ 	 	 	 	 /zdbapout/speaker.21/position 0 
+ 	 	 	 	 /zdbapout/speaker.22/position 0 
+ 	 	 	 	 /zdbapout/speaker.23/position 0 
+ 	 	 	 	 /zdbapout/speaker.24/position 0 
+ 	 	 	 	 /zdbapout/speaker.25/position 0 
+ 	 	 	 	 /zdbapout/speaker.26/position 0 
+ 	 	 	 	 /zdbapout/speaker.27/position 0 
+ 	 	 	 	 /zdbapout/speaker.28/position 0 
+ 	 	 	 	 /zdbapout/speaker.29/position 0 
+ 	 	 	 	 /zdbapout/speaker.30/position 0 
+ 	 	 	 	 /zdbapout/speaker.31/position 0 
+ 	 	 	 	 /zdbapout/speaker.32/position 0 
+ 	 	 	 	 /zdbapout/audio/gain 100.000000 
+ 	 	 	 	 /zdbapout/audio/mute 0 
+ 	 	 	 	 /zdbapout/view/color/border 0 
+ 	 	 	 	 /zdbapout/view/color/contentBackground 0 
+ 	 	 	 	 /zdbapout/view/color/toolbarBackground 0 
+ 	 	 	 	 /zdbapout/view/color/toolbarText 0 
+ 	 	 	 	 /zdbapout/view/freeze 0 
+ 	 	 	 	 /zdbapout/view/size 300 70 
+ # 
+ # Module /Zdbapin.1 
+ 	 	 	 	 /Zdbapin.1/aux.1/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/aux.2/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/aux.3/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/aux.4/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/aux.5/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/blur 0.000000 
+ 	 	 	 	 /Zdbapin.1/position.1/x -3.500000 
+ 	 	 	 	 /Zdbapin.1/position.1/y -1.666667 
+ 	 	 	 	 /Zdbapin.1/record/active 0 
+ 	 	 	 	 /Zdbapin.1/source 1 
+ 	 	 	 	 /Zdbapin.1/speakers/show 0 
+ 	 	 	 	 /Zdbapin.1/view/color/border 0 
+ 	 	 	 	 /Zdbapin.1/view/color/contentBackground 0 
+ 	 	 	 	 /Zdbapin.1/view/color/toolbarBackground 0 
+ 	 	 	 	 /Zdbapin.1/view/color/toolbarText 0 
+ 	 	 	 	 /Zdbapin.1/view/freeze 0 
+ 	 	 	 	 /Zdbapin.1/view/size 300 140 
+ 	 	 	 	 /Zdbapin.1/volume 0.000000 
+ 	 	 	 	 /Zdbapin.1/weight 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 
+ # 
+ ######################## 
+ 
+ 
+ 
+ KEYCUE "AllSpeakers" 
+ 
+ 
+ 	 	 	 	 /CONFIG /sur.output~ 1 1 /zdbapout 2 1 /Zdbapin.1 4 1 
+ # 
+ ######################## 
+ # 
+ # Module /sur.output~ 
+ 	 	 	 	 /sur.output~/audio/active 1 
+ 	 	 	 	 /sur.output~/audio/mute 0 
+ 	 	 	 	 /sur.output~/limiter/active 1 
+ 	 	 	 	 /sur.output~/limiter/dcblocker/active 1 
+ 	 	 	 	 /sur.output~/limiter/lookahead 64 
+ 	 	 	 	 /sur.output~/limiter/mode exponential 
+ 	 	 	 	 /sur.output~/limiter/postamp 0.000000 
+ 	 	 	 	 /sur.output~/limiter/preamp 6.000000 
+ 	 	 	 	 /sur.output~/limiter/release 300.000000 
+ 	 	 	 	 /sur.output~/limiter/threshold 6.000000 
+ 	 	 	 	 /sur.output~/numSpeakers 8 
+ 	 	 	 	 /sur.output~/offset 0 
+ 	 	 	 	 /sur.output~/record/filetype default 
+ 	 	 	 	 /sur.output~/record/samptype default 
+ 	 	 	 	 /sur.output~/setup 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 
+ 	 	 	 	 /sur.output~/view/color/border 0 
+ 	 	 	 	 /sur.output~/view/color/contentBackground 0 
+ 	 	 	 	 /sur.output~/view/color/toolbarBackground 0 
+ 	 	 	 	 /sur.output~/view/color/toolbarText 0 
+ 	 	 	 	 /sur.output~/view/freeze 0 
+ 	 	 	 	 /sur.output~/view/size 300 70 
+ # 
+ # Module /zdbapout 
+ 	 	 	 	 /zdbapout/numSources 1 
+ 	 	 	 	 /zdbapout/rolloff 6.000000 
+ 	 	 	 	 /zdbapout/numAux 5 
+ 	 	 	 	 /zdbapout/numSpeakers 18 
+ 	 	 	 	 /zdbapout/speaker.1/position -9.062500 -9.062500 0.000000 
+ 	 	 	 	 /zdbapout/speaker.2/position 8.880208 -8.984375 0.000000 
+ 	 	 	 	 /zdbapout/speaker.3/position -6.015625 -7.031250 0.000000 
+ 	 	 	 	 /zdbapout/speaker.4/position 6.015625 -6.875000 0.000000 
+ 	 	 	 	 /zdbapout/speaker.5/position -7.959558 7.968750 0.000000 
+ 	 	 	 	 /zdbapout/speaker.6/position 7.941177 7.968750 0.000000 
+ 	 	 	 	 /zdbapout/speaker.7/position -9.829964 9.609375 0.000000 
+ 	 	 	 	 /zdbapout/speaker.8/position 9.898897 9.765625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.9/position -5.997242 3.593750 0.000000 
+ 	 	 	 	 /zdbapout/speaker.10/position 5.997243 3.515625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.11/position -5.992647 -3.515625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.12/position 6.001840 -3.515625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.13/position -0.050551 -9.843750 0.000000 
+ 	 	 	 	 /zdbapout/speaker.14/position -0.009191 -7.890625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.15/position -0.045956 10.000000 0.000000 
+ 	 	 	 	 /zdbapout/speaker.16/position -0.004595 7.109375 0.000000 
+ 	 	 	 	 /zdbapout/speaker.17/position -2.072610 0.078125 0.000000 
+ 	 	 	 	 /zdbapout/speaker.18/position 1.953125 0.078125 0.000000 
+ 	 	 	 	 /zdbapout/speaker.19/position 0 
+ 	 	 	 	 /zdbapout/speaker.20/position 0 
+ 	 	 	 	 /zdbapout/speaker.21/position 0 
+ 	 	 	 	 /zdbapout/speaker.22/position 0 
+ 	 	 	 	 /zdbapout/speaker.23/position 0 
+ 	 	 	 	 /zdbapout/speaker.24/position 0 
+ 	 	 	 	 /zdbapout/speaker.25/position 0 
+ 	 	 	 	 /zdbapout/speaker.26/position 0 
+ 	 	 	 	 /zdbapout/speaker.27/position 0 
+ 	 	 	 	 /zdbapout/speaker.28/position 0 
+ 	 	 	 	 /zdbapout/speaker.29/position 0 
+ 	 	 	 	 /zdbapout/speaker.30/position 0 
+ 	 	 	 	 /zdbapout/speaker.31/position 0 
+ 	 	 	 	 /zdbapout/speaker.32/position 0 
+ 	 	 	 	 /zdbapout/audio/gain 100.000000 
+ 	 	 	 	 /zdbapout/audio/mute 0 
+ 	 	 	 	 /zdbapout/view/color/border 0 
+ 	 	 	 	 /zdbapout/view/color/contentBackground 0 
+ 	 	 	 	 /zdbapout/view/color/toolbarBackground 0 
+ 	 	 	 	 /zdbapout/view/color/toolbarText 0 
+ 	 	 	 	 /zdbapout/view/freeze 0 
+ 	 	 	 	 /zdbapout/view/size 300 70 
+ # 
+ # Module /Zdbapin.1 
+ 	 	 	 	 /Zdbapin.1/aux.1/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/aux.2/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/aux.3/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/aux.4/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/aux.5/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/blur 0.000000 
+ 	 	 	 	 /Zdbapin.1/position.1/x -0.875000 
+ 	 	 	 	 /Zdbapin.1/position.1/y 3.666667 
+ 	 	 	 	 /Zdbapin.1/record/active 0 
+ 	 	 	 	 /Zdbapin.1/source 1 
+ 	 	 	 	 /Zdbapin.1/speakers/show 0 
+ 	 	 	 	 /Zdbapin.1/trajectory/mode 0 
+ 	 	 	 	 /Zdbapin.1/trajectory/speed 0.000000 
+ 	 	 	 	 /Zdbapin.1/trajectory/speed/variation 0.000000 
+ 	 	 	 	 /Zdbapin.1/view/color/border 0 
+ 	 	 	 	 /Zdbapin.1/view/color/contentBackground 0 
+ 	 	 	 	 /Zdbapin.1/view/color/toolbarBackground 0 
+ 	 	 	 	 /Zdbapin.1/view/color/toolbarText 0 
+ 	 	 	 	 /Zdbapin.1/view/freeze 0 
+ 	 	 	 	 /Zdbapin.1/view/size 300 140 
+ 	 	 	 	 /Zdbapin.1/volume 1.000000 
+ 	 	 	 	 /Zdbapin.1/weight 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 
+ # 
+ ######################## 
+ 
+ 
+ 
+ KEYCUE "1-2-5-6-17-18" 
+ 
+ 
+ 	 	 	 	 /CONFIG /sur.output~ 1 1 /zdbapout 2 1 /Zdbapin.1 4 1 
+ # 
+ ######################## 
+ # 
+ # Module /sur.output~ 
+ 	 	 	 	 /sur.output~/audio/active 1 
+ 	 	 	 	 /sur.output~/audio/mute 0 
+ 	 	 	 	 /sur.output~/limiter/active 1 
+ 	 	 	 	 /sur.output~/limiter/dcblocker/active 1 
+ 	 	 	 	 /sur.output~/limiter/lookahead 64 
+ 	 	 	 	 /sur.output~/limiter/mode exponential 
+ 	 	 	 	 /sur.output~/limiter/postamp 0.000000 
+ 	 	 	 	 /sur.output~/limiter/preamp 6.000000 
+ 	 	 	 	 /sur.output~/limiter/release 300.000000 
+ 	 	 	 	 /sur.output~/limiter/threshold 6.000000 
+ 	 	 	 	 /sur.output~/numSpeakers 8 
+ 	 	 	 	 /sur.output~/offset 0 
+ 	 	 	 	 /sur.output~/record/filetype default 
+ 	 	 	 	 /sur.output~/record/samptype default 
+ 	 	 	 	 /sur.output~/setup 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 
+ 	 	 	 	 /sur.output~/view/color/border 0 
+ 	 	 	 	 /sur.output~/view/color/contentBackground 0 
+ 	 	 	 	 /sur.output~/view/color/toolbarBackground 0 
+ 	 	 	 	 /sur.output~/view/color/toolbarText 0 
+ 	 	 	 	 /sur.output~/view/freeze 0 
+ 	 	 	 	 /sur.output~/view/size 300 70 
+ # 
+ # Module /zdbapout 
+ 	 	 	 	 /zdbapout/numSources 1 
+ 	 	 	 	 /zdbapout/rolloff 6.000000 
+ 	 	 	 	 /zdbapout/numAux 5 
+ 	 	 	 	 /zdbapout/numSpeakers 18 
+ 	 	 	 	 /zdbapout/speaker.1/position -9.062500 -9.062500 0.000000 
+ 	 	 	 	 /zdbapout/speaker.2/position 8.880208 -8.984375 0.000000 
+ 	 	 	 	 /zdbapout/speaker.3/position -6.015625 -7.031250 0.000000 
+ 	 	 	 	 /zdbapout/speaker.4/position 6.015625 -6.875000 0.000000 
+ 	 	 	 	 /zdbapout/speaker.5/position -7.959558 7.968750 0.000000 
+ 	 	 	 	 /zdbapout/speaker.6/position 7.941177 7.968750 0.000000 
+ 	 	 	 	 /zdbapout/speaker.7/position -9.829964 9.609375 0.000000 
+ 	 	 	 	 /zdbapout/speaker.8/position 9.898897 9.765625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.9/position -5.997242 3.593750 0.000000 
+ 	 	 	 	 /zdbapout/speaker.10/position 5.997243 3.515625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.11/position -5.992647 -3.515625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.12/position 6.001840 -3.515625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.13/position -0.050551 -9.843750 0.000000 
+ 	 	 	 	 /zdbapout/speaker.14/position -0.009191 -7.890625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.15/position -0.045956 10.000000 0.000000 
+ 	 	 	 	 /zdbapout/speaker.16/position -0.004595 7.109375 0.000000 
+ 	 	 	 	 /zdbapout/speaker.17/position -2.072610 0.078125 0.000000 
+ 	 	 	 	 /zdbapout/speaker.18/position 1.953125 0.078125 0.000000 
+ 	 	 	 	 /zdbapout/speaker.19/position 0 
+ 	 	 	 	 /zdbapout/speaker.20/position 0 
+ 	 	 	 	 /zdbapout/speaker.21/position 0 
+ 	 	 	 	 /zdbapout/speaker.22/position 0 
+ 	 	 	 	 /zdbapout/speaker.23/position 0 
+ 	 	 	 	 /zdbapout/speaker.24/position 0 
+ 	 	 	 	 /zdbapout/speaker.25/position 0 
+ 	 	 	 	 /zdbapout/speaker.26/position 0 
+ 	 	 	 	 /zdbapout/speaker.27/position 0 
+ 	 	 	 	 /zdbapout/speaker.28/position 0 
+ 	 	 	 	 /zdbapout/speaker.29/position 0 
+ 	 	 	 	 /zdbapout/speaker.30/position 0 
+ 	 	 	 	 /zdbapout/speaker.31/position 0 
+ 	 	 	 	 /zdbapout/speaker.32/position 0 
+ 	 	 	 	 /zdbapout/audio/gain 100.000000 
+ 	 	 	 	 /zdbapout/audio/mute 0 
+ 	 	 	 	 /zdbapout/view/color/border 0 
+ 	 	 	 	 /zdbapout/view/color/contentBackground 0 
+ 	 	 	 	 /zdbapout/view/color/toolbarBackground 0 
+ 	 	 	 	 /zdbapout/view/color/toolbarText 0 
+ 	 	 	 	 /zdbapout/view/freeze 0 
+ 	 	 	 	 /zdbapout/view/size 300 70 
+ # 
+ # Module /Zdbapin.1 
+ 	 	 	 	 /Zdbapin.1/aux.1/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/aux.2/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/aux.3/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/aux.4/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/aux.5/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/blur 0.000000 
+ 	 	 	 	 /Zdbapin.1/position.1/x -4.500000 
+ 	 	 	 	 /Zdbapin.1/position.1/y -0.833333 
+ 	 	 	 	 /Zdbapin.1/record/active 0 
+ 	 	 	 	 /Zdbapin.1/source 1 
+ 	 	 	 	 /Zdbapin.1/speakers/show 0 
+ 	 	 	 	 /Zdbapin.1/trajectory/mode 0 
+ 	 	 	 	 /Zdbapin.1/trajectory/speed 0.000000 
+ 	 	 	 	 /Zdbapin.1/trajectory/speed/variation 0.000000 
+ 	 	 	 	 /Zdbapin.1/view/color/border 0 
+ 	 	 	 	 /Zdbapin.1/view/color/contentBackground 0 
+ 	 	 	 	 /Zdbapin.1/view/color/toolbarBackground 0 
+ 	 	 	 	 /Zdbapin.1/view/color/toolbarText 0 
+ 	 	 	 	 /Zdbapin.1/view/freeze 0 
+ 	 	 	 	 /Zdbapin.1/view/size 300 140 
+ 	 	 	 	 /Zdbapin.1/volume 1.000000 
+ 	 	 	 	 /Zdbapin.1/weight 1.000000 1.000000 0.000000 0.000000 1.000000 1.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.000000 
+ # 
+ ######################## 
+ 
+ 
+ 
+ KEYCUE "9-10-11-12-14-17-18" 
+ 
+ 
+ 	 	 	 	 /CONFIG /sur.output~ 1 1 /zdbapout 2 1 /Zdbapin.1 4 1 
+ # 
+ ######################## 
+ # 
+ # Module /sur.output~ 
+ 	 	 	 	 /sur.output~/audio/active 1 
+ 	 	 	 	 /sur.output~/audio/mute 0 
+ 	 	 	 	 /sur.output~/limiter/active 1 
+ 	 	 	 	 /sur.output~/limiter/dcblocker/active 1 
+ 	 	 	 	 /sur.output~/limiter/lookahead 64 
+ 	 	 	 	 /sur.output~/limiter/mode exponential 
+ 	 	 	 	 /sur.output~/limiter/postamp 0.000000 
+ 	 	 	 	 /sur.output~/limiter/preamp 6.000000 
+ 	 	 	 	 /sur.output~/limiter/release 300.000000 
+ 	 	 	 	 /sur.output~/limiter/threshold 6.000000 
+ 	 	 	 	 /sur.output~/numSpeakers 8 
+ 	 	 	 	 /sur.output~/offset 0 
+ 	 	 	 	 /sur.output~/record/filetype default 
+ 	 	 	 	 /sur.output~/record/samptype default 
+ 	 	 	 	 /sur.output~/setup 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 
+ 	 	 	 	 /sur.output~/view/color/border 0 
+ 	 	 	 	 /sur.output~/view/color/contentBackground 0 
+ 	 	 	 	 /sur.output~/view/color/toolbarBackground 0 
+ 	 	 	 	 /sur.output~/view/color/toolbarText 0 
+ 	 	 	 	 /sur.output~/view/freeze 0 
+ 	 	 	 	 /sur.output~/view/size 300 70 
+ # 
+ # Module /zdbapout 
+ 	 	 	 	 /zdbapout/numSources 1 
+ 	 	 	 	 /zdbapout/rolloff 6.000000 
+ 	 	 	 	 /zdbapout/numAux 5 
+ 	 	 	 	 /zdbapout/numSpeakers 18 
+ 	 	 	 	 /zdbapout/speaker.1/position -9.062500 -9.062500 0.000000 
+ 	 	 	 	 /zdbapout/speaker.2/position 8.880208 -8.984375 0.000000 
+ 	 	 	 	 /zdbapout/speaker.3/position -6.015625 -7.031250 0.000000 
+ 	 	 	 	 /zdbapout/speaker.4/position 6.015625 -6.875000 0.000000 
+ 	 	 	 	 /zdbapout/speaker.5/position -7.959558 7.968750 0.000000 
+ 	 	 	 	 /zdbapout/speaker.6/position 7.941177 7.968750 0.000000 
+ 	 	 	 	 /zdbapout/speaker.7/position -9.829964 9.609375 0.000000 
+ 	 	 	 	 /zdbapout/speaker.8/position 9.898897 9.765625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.9/position -5.997242 3.593750 0.000000 
+ 	 	 	 	 /zdbapout/speaker.10/position 5.997243 3.515625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.11/position -5.992647 -3.515625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.12/position 6.001840 -3.515625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.13/position -0.050551 -9.843750 0.000000 
+ 	 	 	 	 /zdbapout/speaker.14/position -0.009191 -7.890625 0.000000 
+ 	 	 	 	 /zdbapout/speaker.15/position -0.045956 10.000000 0.000000 
+ 	 	 	 	 /zdbapout/speaker.16/position -0.004595 7.109375 0.000000 
+ 	 	 	 	 /zdbapout/speaker.17/position -2.072610 0.078125 0.000000 
+ 	 	 	 	 /zdbapout/speaker.18/position 1.953125 0.078125 0.000000 
+ 	 	 	 	 /zdbapout/speaker.19/position 0 
+ 	 	 	 	 /zdbapout/speaker.20/position 0 
+ 	 	 	 	 /zdbapout/speaker.21/position 0 
+ 	 	 	 	 /zdbapout/speaker.22/position 0 
+ 	 	 	 	 /zdbapout/speaker.23/position 0 
+ 	 	 	 	 /zdbapout/speaker.24/position 0 
+ 	 	 	 	 /zdbapout/speaker.25/position 0 
+ 	 	 	 	 /zdbapout/speaker.26/position 0 
+ 	 	 	 	 /zdbapout/speaker.27/position 0 
+ 	 	 	 	 /zdbapout/speaker.28/position 0 
+ 	 	 	 	 /zdbapout/speaker.29/position 0 
+ 	 	 	 	 /zdbapout/speaker.30/position 0 
+ 	 	 	 	 /zdbapout/speaker.31/position 0 
+ 	 	 	 	 /zdbapout/speaker.32/position 0 
+ 	 	 	 	 /zdbapout/audio/gain 100.000000 
+ 	 	 	 	 /zdbapout/audio/mute 0 
+ 	 	 	 	 /zdbapout/view/color/border 0 
+ 	 	 	 	 /zdbapout/view/color/contentBackground 0 
+ 	 	 	 	 /zdbapout/view/color/toolbarBackground 0 
+ 	 	 	 	 /zdbapout/view/color/toolbarText 0 
+ 	 	 	 	 /zdbapout/view/freeze 0 
+ 	 	 	 	 /zdbapout/view/size 300 70 
+ # 
+ # Module /Zdbapin.1 
+ 	 	 	 	 /Zdbapin.1/aux.1/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/aux.2/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/aux.3/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/aux.4/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/aux.5/gain 0.000000 
+ 	 	 	 	 /Zdbapin.1/blur 0.000000 
+ 	 	 	 	 /Zdbapin.1/position.1/x -5.319149 
+ 	 	 	 	 /Zdbapin.1/position.1/y 1.727273 
+ 	 	 	 	 /Zdbapin.1/record/active 0 
+ 	 	 	 	 /Zdbapin.1/source 1 
+ 	 	 	 	 /Zdbapin.1/speakers/show 0 
+ 	 	 	 	 /Zdbapin.1/trajectory/mode 0 
+ 	 	 	 	 /Zdbapin.1/trajectory/speed 0.000000 
+ 	 	 	 	 /Zdbapin.1/trajectory/speed/variation 0.000000 
+ 	 	 	 	 /Zdbapin.1/view/color/border 0 
+ 	 	 	 	 /Zdbapin.1/view/color/contentBackground 0 
+ 	 	 	 	 /Zdbapin.1/view/color/toolbarBackground 0 
+ 	 	 	 	 /Zdbapin.1/view/color/toolbarText 0 
+ 	 	 	 	 /Zdbapin.1/view/freeze 0 
+ 	 	 	 	 /Zdbapin.1/view/size 300 140 
+ 	 	 	 	 /Zdbapin.1/volume 1.000000 
+ 	 	 	 	 /Zdbapin.1/weight 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.000000 1.000000 1.000000 0.000000 1.000000 0.000000 1.000000 1.000000 1.000000 
+ # 
+ ######################## 
+ 
+ 
+ 
+ CUE "1-2-5-6-11-12-16" ramp 10000 
+ 
+ 
+ # 
+ ######################## 
+ # 
+ # Module /sur.output~ 
+ # 
+ # Module /zdbapout 
+ # 
+ # Module /Zdbapin.1 
+ 	 	 	 	 /Zdbapin.1/position.1/x -6.125000 ramp global 
+ 	 	 	 	 /Zdbapin.1/weight 1.000000 1.000000 0.000000 0.000000 1.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 ramp global 
+ # 
+ ######################## 
+ 
+ 
