@@ -95,6 +95,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.folder", "MaxObjects\j
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTFilterLib", "..\..\DSP\extensions\TTFilterLib\TTFilterLib.vcproj", "{1A362FC1-3E54-4F49-8EB8-E6BA92572BEE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTEffectsLib", "..\..\DSP\extensions\TTEffectsLib\TTEffectsLib.vcproj", "{AEB61657-FC1E-4C4A-9304-BB461B380D94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -277,6 +279,10 @@ Global
 		{1A362FC1-3E54-4F49-8EB8-E6BA92572BEE}.Debug|Win32.Build.0 = Debug|Win32
 		{1A362FC1-3E54-4F49-8EB8-E6BA92572BEE}.Release|Win32.ActiveCfg = Release|Win32
 		{1A362FC1-3E54-4F49-8EB8-E6BA92572BEE}.Release|Win32.Build.0 = Release|Win32
+		{AEB61657-FC1E-4C4A-9304-BB461B380D94}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AEB61657-FC1E-4C4A-9304-BB461B380D94}.Debug|Win32.Build.0 = Debug|Win32
+		{AEB61657-FC1E-4C4A-9304-BB461B380D94}.Release|Win32.ActiveCfg = Release|Win32
+		{AEB61657-FC1E-4C4A-9304-BB461B380D94}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
