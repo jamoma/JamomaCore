@@ -396,6 +396,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 
 	// add the param in the tree as a node of the hub : /hub/param
 	if(x->osc_name != _sym_nothing){
+		
 		strcpy(fullAddress,x->osc_name->s_name);
 		strcat(fullAddress,"/");
 		strcat(fullAddress,name->s_name);
@@ -411,7 +412,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 				// What to do in that case ???
 			}
 		}
-
+		
 		// add each attributes of parameters as properties of the node
 		object_method(subscriber_object, gensym("getattrnames"),&attr_nb, &attr_names);
 
@@ -1376,8 +1377,6 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		t_max_err		err = MAX_ERR_NONE;
 		char*			nametest;
 		t_atom			a[2];
-		int				instance = 0;
-		TTBoolean		nameConflict = false;
 		bool			newInstanceCreated;
 		NodePtr			newNode;
 		t_symbol		*nameOriginal, *newInstance;
@@ -1397,7 +1396,6 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		}
 		
 		strcpy(name, x->osc_name->s_name);
-		post("osc_name : %s", x->osc_name->s_name);
 		
 		// the name is autoprepended with a /
 		if(name[0] != '/'){
@@ -1427,20 +1425,19 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		
 		// Memorize the original name
 		nameOriginal = gensym(name);
-		post("name : %s", name);
 
-		// Register with the tree at the given address if possible
-		// if not, this will return a new instance
+		// Register with the tree at the given address.
+		// if the address doesn't contain instance or the instance already
+		// exist, the register will generate a new instance to garantee unicity.
 		newInstanceCreated = false;
 		jamoma_node_register(nameOriginal, gensym("hub"), (t_object *)x, &newNode, &newInstanceCreated);
 
-		// if a new instance have been created 
-		// to guarantee the unicity. We have to
-		// add the instance to the name
+		// if a new instance have been created to guarantee the unicity,
+		// we have to create the osc_name from the node.
 		if(newInstanceCreated){
 			newInstance = jamoma_node_instance(newNode);
 			if(newInstance != gensym(""))
-				snprintf(name, 256, "%s.%s", name, newInstance->s_name);
+				snprintf(name, 256, "/%s.%s", jamoma_node_name(newNode)->s_name, newInstance->s_name);
 				object_post((t_object*)x, "Jamoma cannot create multiple modules with the same OSC identifier (%s).  Using %s instead.", nameOriginal->s_name, name);
 		}
 

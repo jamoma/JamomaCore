@@ -35,8 +35,8 @@ t_max_err		node_notify(t_node *x, t_symbol *s, t_symbol *msg, void *sender, void
 void			node_assist(t_node *x, void *b, long m, long a, char *s);
 
 // methods for jcom.minuit
-void			node_namespace(t_node *x, t_symbol *address);
-void			node_get(t_node *x, t_symbol *address);
+void			minuit_namespace(t_node *x, t_symbol *address);
+void			minuit_get(t_node *x, t_symbol *attraddress);
 
 // Private methods
 void node_goto(t_node *x, t_symbol *address);

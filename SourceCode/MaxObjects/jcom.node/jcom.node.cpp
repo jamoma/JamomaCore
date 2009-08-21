@@ -250,20 +250,16 @@ long node_myobject_iterator(t_node *x, t_object *b)
 		if(varname->s_name[0] == S_SEPARATOR[0]){
 			newInstanceCreated = false;
 			
-			// search for illegal characters as specified by the OSC standard and replace them
-			for(i=0; i<strlen(varname->s_name); i++){
-				/*			TODO :This has to happen only when setting the OSC name from the module's file name
-				 if(name[i] == '.')
-				 name[i] = '_';
-				 else */
-				if(varname->s_name[i] == '[')
-					varname->s_name[i] = '.';
-				else if(varname->s_name[i] == ']')
-					varname->s_name[i] = 0;
-			}
-			
 			// put all scripting name in a /max node
 			snprintf(temp,256,"/max%s", varname->s_name);
+			
+			// search for [ and ] cause this is how max declare instance. 
+			for(i=0; i<strlen(temp); i++){
+				if(temp[i] == '[')
+					temp[i] = '.';
+				else if(temp[i] == ']')
+					temp[i] = 0;
+			}
 
 			jamoma_node_register(gensym(temp), gensym("maxobject"), (t_object *)b, &newNode, &newInstanceCreated);
 

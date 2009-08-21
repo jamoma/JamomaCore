@@ -56,7 +56,7 @@ JamomaError	jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object 
 		return JAMOMA_ERR_NONE;
 	}
 	else{
-		post("jamoma_node_register : create the root before");
+		post("jamoma_node_register %s : create the root before", OSCaddress->s_name);
 		return JAMOMA_ERR_GENERIC;
 	}
 }
@@ -66,10 +66,10 @@ JamomaError jamoma_node_unregister(t_symbol *OSCaddress)
 	NodePtr node = NULL;
 
 	if(jamoma_node_root){
-		getNodeForOSC(jamoma_node_directory, OSCaddress->s_name,&node);
+		getNodeForOSC(jamoma_node_directory, OSCaddress->s_name, &node);
 	}
 	else{
-		post("jamoma_node_unregister : create the root before");
+		post("jamoma_node_unregister %s : create the root before", OSCaddress->s_name);
 		return JAMOMA_ERR_GENERIC;
 	}
 
@@ -78,7 +78,7 @@ JamomaError jamoma_node_unregister(t_symbol *OSCaddress)
 		return JAMOMA_ERR_NONE;
 	}
 	
-	post("jamoma_node_unregister : this address doesn't exist");
+	post("jamoma_node_unregister %s : this address doesn't exist", OSCaddress->s_name);
 	return JAMOMA_ERR_GENERIC;
 }
 

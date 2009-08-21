@@ -34,8 +34,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	//changement Stan
 	// this method posts the children (leaves or nodes) and the properties of the node which address is given
-	class_addmethod(c, (method)node_namespace,		"?namespace",	A_SYM, 0);
-	class_addmethod(c, (method)node_get,			"?get",			A_SYM, 0);
+	class_addmethod(c, (method)minuit_namespace,		"?namespace",	A_SYM, 0);
+	class_addmethod(c, (method)minuit_get,			"?get",			A_SYM, 0);
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -53,6 +53,7 @@ void *node_new(t_symbol *name, long argc, t_atom *argv)
 	t_node *x;
 
 	x = (t_node*)object_alloc(node_class);
+	x->p_out = outlet_new(x, 0);
 
 	if(x){
 
@@ -91,16 +92,20 @@ void node_assist(t_node *x, void *b, long msg, long arg, char *dst)
 	}		
 }
 
-void node_namespace(t_node *x, t_symbol *address) {
+void minuit_namespace(t_node *x, t_symbol *address) {
 
 	short i;
 	t_symbol *attr_sym;
-	t_node *temp;
-	bool isNode=FALSE;
+	NodePtr temp;
 	t_symbol *name;
 	t_symbol *instance;
-
-	post("?namespace %s", address->s_name);
+	t_atom atom;
+	char outletstring[1000]={'\0'};
+	
+	//temp = (char *)malloc(sizeof(char)*( strlen() question possible d'elargir au fure à mesure?
+	strcat(outletstring,":namespace ");
+	strcat(outletstring,address->s_name);
+	post(outletstring);
 	node_goto(x, address);
 
 	// Il nous faut avoir les noeuds inférieurs et les attributs du noeud à l'addresse données
@@ -108,85 +113,160 @@ void node_namespace(t_node *x, t_symbol *address) {
 	t_linklist *lk_prp = jamoma_node_properties(x->p_node);
 	t_linklist *lk_chd = jamoma_node_children(x->p_node);
 
+	// the two lists for the nodes and leaves
+	t_linklist *lk_leaves = linklist_new();
+	t_linklist *lk_nodes = linklist_new();
+
 	// if there are properties
 	if(lk_prp){
-		post("attributes={");
+		post(" attributes={");
+		strcat(outletstring," attributes={");
 
 		// write an outline for each attribut
 
 		for(i=0; i<linklist_getsize(lk_prp); i++){
 			attr_sym = (t_symbol *)linklist_getindex(lk_prp,i);
 
-			post("%s", attr_sym->s_name);
-
-		}
+			post(attr_sym->s_name); 
+			strcat(outletstring," ");
+			strcat(outletstring,attr_sym->s_name);  
+		} 
 		post("}\n");
+		strcat(outletstring,"}");
 	}
 
 	// if there are children
 	if(lk_chd){
 		
-		// notes : difference entre node et leave : 
-		// type = container pour node
-		// type = suscribe_parameter pour leave
-		
 		//a check if its leaves or nodes
 		for(i=0; i<linklist_getsize(lk_chd); i++){
-			temp->p_node = (NodePtr)linklist_getindex(lk_chd,i);
-			t_linklist *lk_grandchd = jamoma_node_children(x->p_node);
-			if (lk_grandchd)
-				isNode=TRUE;
+			temp = (NodePtr)linklist_getindex(lk_chd,i);
+			t_symbol *NodeType = jamoma_node_type(temp);
+			if (strcmp(NodeType->s_name,"container")==0)
+				linklist_append(lk_nodes, temp);
+			else
+				linklist_append(lk_leaves, temp);
 		}
-		if(isNode)
-			post("nodes={"); 
-		else
-			post("leaves={");
-
-
-		for(i=0; i<linklist_getsize(lk_chd); i++){
-
-			x->p_node = (NodePtr)linklist_getindex(lk_chd,i);
-			t_symbol *namech = jamoma_node_name(x->p_node);
-			post("%s", namech->s_name);
-
+		if(lk_nodes->head) {
+			post(" nodes={");
+			strcat(outletstring," nodes={");
+			for(i=0; i<linklist_getsize(lk_nodes); i++){
+				temp = (NodePtr)linklist_getindex(lk_nodes,i);
+				post(jamoma_node_name(temp)->s_name);
+				strcat(outletstring," ");
+				strcat(outletstring,jamoma_node_name(temp)->s_name);				
+			}
+			strcat(outletstring,"}");
 		}
-		post("}\n");
+		if(lk_leaves->head) {
+			post(" leaves={");
+			strcat(outletstring," leaves={");
+			for(i=0; i<linklist_getsize(lk_leaves); i++){
+				temp = (NodePtr)linklist_getindex(lk_leaves,i);
+				post(jamoma_node_name(temp)->s_name);
+				strcat(outletstring," ");
+				strcat(outletstring,jamoma_node_name(temp)->s_name);
+			}
+			strcat(outletstring,"}");
+		}
+		post(outletstring);
+		outlet_anything(x->p_out, gensym(outletstring), 0, &atom);
 	}
+	post(outletstring);
+	outlet_anything(x->p_out, gensym(outletstring), 0, &atom);
 }
 
-void node_get(t_node *x, t_symbol *address) {
 
-	short i;
-	TTSymbolPtr *returnedParentOscAdress, *returnedNodeName, *returnedNodeInstance, *returnedNodePropertie;
-	t_symbol *attr_sym;
+void minuit_get(t_node *x, t_symbol *attraddress) {
 
-	//goto ne retourne/split pas les properties, donc appel à nodelib? ou changer goto?
-	//splitOSCAddress(TT(address->s_name),returnedParentOscAdress, returnedNodeName, returnedNodeInstance, returnedNodePropertie);
+	short i=0, j;
+	char * address = {'\0'}, * attrname = {'\0'};
+	char outletstring[255]={'\0'};
+	t_atom atom;
+	char conlong[80], confloat[80];
 
-	post("?get %s", address->s_name);
-	node_goto(x, address);
 
-	// get all properties of the node
-	//object_attr_getvalueof(obj, "value", &value_nb, &attr_value);
-	t_linklist *lk_prp = jamoma_node_max_object(x->p_node);
+	//split address and ':'attribute
+	while (attraddress->s_name[i]!=':'&&attraddress->s_name[i]!='\0')
+		i++;
 	
-	post ("%s",name->s_name);
-	post(":%s ", (**returnedNodePropertie).getCString());
+	//we extract the address name
+	address = (char *)malloc(sizeof(char)* (i)); 
+	strncpy (address, attraddress->s_name, i);
+	address[i]='\0';
 
-	// if there are properties
-	if(lk_prp){
-
-		for(i=0; i<linklist_getsize(lk_prp); i++){
-			attr_sym=(t_symbol *)linklist_getindex(lk_prp,i);
-			if(attr_sym->s_name==(**returnedNodePropertie).getCString())
-				//comment poster le value?? et comment affucher les différent types  d'attributs!, post(attr_sym->
-				post(":%s ", (**returnedNodePropertie).getCString());
-
-		}
-		post("}\n");
+	//special case of missing attribute, in which the value attribute is requested (minuit protocol)
+	if(attraddress->s_name[i]=='\0') {
+		attrname = (char *)malloc(sizeof(char)* 6);
+		strcpy(attrname, "value");
+		attrname[5]='\0';
 	}
 
-}
+	//normal case, we extract the attribute name from the given attraddress 
+	else {
+		attrname = (char *)malloc(sizeof(char)*(strlen(attraddress->s_name)-i));
+		for(i,j=0; i<strlen(attraddress->s_name); i++, j++) {
+			attrname[j]=attraddress->s_name[i+1];
+		}
+		attrname[j+1]='\0';
+		//post(attrname);
+	}
+
+	node_goto(x, gensym(address));
+
+	// get value
+	t_object *obj = jamoma_node_max_object(x->p_node);
+
+	long value_nb;
+	t_atom  * attr_value = NULL; 	
+
+	t_max_err err = object_attr_getvalueof(obj, gensym(attrname), &value_nb, &attr_value); 
+	
+	//post pour debuggage
+	post(":get "); 
+	post(address);
+	post(":");
+	post(attrname); 
+	post(" ");
+
+	//outletstring
+	strcat(outletstring,":get ");
+	strcat(outletstring,address);
+	strcat(outletstring,":");
+	strcat(outletstring,attrname);
+	strcat(outletstring," ");
+
+	if(value_nb!=0) {
+		for(i=0;i<value_nb; i++) {
+			if(atom_gettype (*(&attr_value+ i))== A_SYM){
+				t_symbol * atomsymbol = atom_getsym(*(&attr_value+ i));
+				post(" ");
+				strcat(outletstring," ");
+				post(atomsymbol->s_name);
+				strcat(outletstring,atomsymbol->s_name);
+			} 
+			if(atom_gettype(*(&attr_value+ i))== A_FLOAT){
+				float atomfloat = atom_getfloat(*(&attr_value+ i));
+				post(" %f", atomfloat);
+				//sprintf ne veut pas fonctionner chez moi LINK 2006 problem, double utilisation de symboles
+				//sprintf(confloat, " %lf", atomfloat);
+				//strcat(outletstring,confloat);
+
+			}
+			if(atom_gettype(*(&attr_value+ i))== A_LONG){
+				long atomlong = atom_getlong(*(&attr_value+ i));
+				post(" %f", atomlong);
+				//sprintf(conlong, " %lf", atomlong);
+				//strcat(outletstring,conlong);
+			}
+		} 
+	}
+	else
+		post("there are no values attached to the requested attribute"); 
+	
+	if(!err) outlet_anything(x->p_out, gensym(outletstring),value_nb, attr_value);
+	
+} 
 
 void node_goto(t_node *x, t_symbol *address)
 {

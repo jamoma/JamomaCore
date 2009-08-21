@@ -194,7 +194,7 @@ TTErr Node::setName(TTSymbolPtr name, TTSymbolPtr *newInstance, TTBoolean *newIn
 				strcpy(temp, new_OSCaddress->getCString());
 				t = (char *)(old_key->getCString() + strlen(old_OSCaddress->getCString()));
 
-				if((TT(t) == TT(S_SEPARATOR)) || t[0] == NULL){
+				if((TT(t) == TT(S_SEPARATOR)) || t[0] == 0){
 					strcat(temp, t);
 
 					// remove the old key
@@ -271,7 +271,7 @@ TTErr Node::setInstance(TTSymbolPtr instance, TTSymbolPtr *newInstance, TTBoolea
 				strcpy(temp, new_OSCaddress->getCString());
 				t = (char *)(old_key->getCString() + strlen(old_OSCaddress->getCString()));
 
-				if((TT(t) == TT(S_SEPARATOR)) || t[0] == NULL){
+				if((TT(t) == TT(S_SEPARATOR)) || t[0] == 0){
 					strcat(temp, t);
 
 					// remove the old key
@@ -434,7 +434,7 @@ TTErr Node::getChildren(TTSymbolPtr name, TTSymbolPtr instance, LinkedListPtr *l
 
 TTErr Node::getOscAddress(TTSymbolPtr *returnedOscAddress)
 {
-	uint i, j, nb_ancestor, len;
+	uint i, nb_ancestor, len;
 	NodePtr ptr;
 	NodePtr *ancestor;
 	char *OscAddress;
@@ -517,7 +517,6 @@ TTErr Node::getOscAddress(TTSymbolPtr *returnedOscAddress)
 TTErr Node::setChild(NodePtr child)
 {
 	TTErr err;
-	uint i;
 	TTValue *c, *c_i;
 	TTHashPtr ht_i;
 
@@ -626,7 +625,7 @@ TTErr getNodeForOSC(TTHashPtr directory, TTSymbolPtr oscAddress, NodePtr* return
 	}
 }
 
-TTErr NodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, TTHashPtr directory, NodePtr *returnedNode, TTBoolean *nodeCreated)
+TTErr NodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, TTHashPtr directory, NodePtr *returnedNode, TTBoolean *newInstanceCreated)
 {
 	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie, newInstance, oscAddress_got;
 	TTBoolean parent_created;
@@ -666,24 +665,26 @@ TTErr NodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, T
 		err = directory->lookup(oscAddress, *found);
 
 		// if it's the first at this address
-		if(err == kTTErrValueNotFound)
+		if(err == kTTErrValueNotFound){
 			// keep the instance found in the OSC address
 			newInstance = oscAddress_instance;
-
+			*newInstanceCreated = false;
+		}
 		else{
 			// this address already exists
 			// get the JamomaNode at this address
 			found->get(0,(TTPtr*)&n_found);
 
 			// if there is no instance in the OSC address
-			if(oscAddress_instance == NO_INSTANCE)
+			if(oscAddress_instance == NO_INSTANCE){
 				// Autogenerate a new instance
 				n_found->getParent()->generateInstance(n_found->getName(), &newInstance);
-
+				*newInstanceCreated = true;
+			}
 			else{
 				// there is an instance in the OSC address
 				// returned the node found
-				*nodeCreated = false;
+				*newInstanceCreated = false;
 				*returnedNode = n_found;
 				return kTTErrNone;
 			}
@@ -714,7 +715,6 @@ TTErr NodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, T
 		directory->append(oscAddress_got,TTValue(newNode));
 
 		// 4. returned the new node
-		*nodeCreated = true;
 		*returnedNode = newNode;
 
 		return kTTErrNone;
@@ -804,10 +804,9 @@ void Node_linklist_merge(NodePtr toappend, LinkedListPtr result){linklist_append
 
 TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdress, TTSymbolPtr* returnedNodeName, TTSymbolPtr* returnedNodeInstance, TTSymbolPtr* returnedNodePropertie)
 {
-	int i, len, pos;
-	bool stop;
+	int len, pos;
 	char *last_colon, *last_slash, *last_dot;
-	char *propertie, *parent, *node, *instance;
+	char *propertie, *parent, *instance;
 	char *to_split;
 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
