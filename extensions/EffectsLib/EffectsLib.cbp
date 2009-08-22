@@ -39,6 +39,20 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="EffectsLib.cpp" />
+		<Unit filename="TTBalance.cpp" />
+		<Unit filename="TTBalance.h" />
+		<Unit filename="TTDegrade.cpp" />
+		<Unit filename="TTDegrade.h" />
+		<Unit filename="TTDelay.cpp" />
+		<Unit filename="TTDelay.h" />
+		<Unit filename="TTGain.cpp" />
+		<Unit filename="TTGain.h" />
+		<Unit filename="TTLimiter.cpp" />
+		<Unit filename="TTLimiter.h" />
+		<Unit filename="TTOverdrive.cpp" />
+		<Unit filename="TTOverdrive.h" />
+		<Unit filename="TTPulseSub.cpp" />
+		<Unit filename="TTPulseSub.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
