@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
 	<Workspace title="JamomaDSP">
-		<Project filename="extensions/Clipper/Clipper.cbp" />
-		<Project filename="library/JamomaDSP.cbp" active="1" />
+		<Project filename="extensions/Clipper/Clipper.cbp" active="1" />
+		<Project filename="library/JamomaDSP.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
