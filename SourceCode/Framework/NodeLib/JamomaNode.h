@@ -7,7 +7,7 @@
  */
 
 #include "NodeLib.h"
-#include "TTBlueAPI.h"
+#include "TTFoundationAPI.h"
 #include "JamomaMaxTypes.h"
 #include "JamomaTypes.h"
 

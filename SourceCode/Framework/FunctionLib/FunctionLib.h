@@ -9,7 +9,7 @@
 #ifndef __FUNCTIONLIB_H__
 #define __FUNCTIONLIB_H__
 
-#include ""TTFoundationAPI.h""
+#include "TTFoundationAPI.h"
 #include "JamomaTypes.h"
 
 
@@ -20,7 +20,7 @@
 class JAMOMA_EXPORT FunctionLib {
 public:
 	/** Instantiate a function by name */
-	static TTErr createUnit(const TTSymbolPtr unitName, TTAudioObject **unit);
+	static TTErr createUnit(const TTSymbolPtr unitName, TTObject **unit);
 
 	/**	Return a list of all available functions. */
 	static void getUnitNames(TTValue& unitNames);
