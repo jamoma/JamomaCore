@@ -14,7 +14,7 @@
 *
 ************************************************************************************/
 
-NodePtr	jamoma_node_init()
+TTNodePtr	jamoma_node_init()
 {
 	TTBoolean *nodeCreated = new TTBoolean(false);
 
@@ -49,7 +49,7 @@ JamomaError jamoma_node_dump(void)
 	}
 }
 
-JamomaError	jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, NodePtr *newNode, bool *newInstanceCreated)
+JamomaError	jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, TTNodePtr *newNode, bool *newInstanceCreated)
 {
 	if(jamoma_node_root){
 		NodeCreate(TT(OSCaddress->s_name), TT(type->s_name), obj, jamoma_node_directory, newNode, (TTBoolean *)newInstanceCreated);
@@ -63,7 +63,7 @@ JamomaError	jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object 
 
 JamomaError jamoma_node_unregister(t_symbol *OSCaddress)
 {
-	NodePtr node = NULL;
+	TTNodePtr node = NULL;
 
 	if(jamoma_node_root){
 		getNodeForOSC(jamoma_node_directory, OSCaddress->s_name, &node);
@@ -74,7 +74,7 @@ JamomaError jamoma_node_unregister(t_symbol *OSCaddress)
 	}
 
 	if(node){
-		node->~Node();
+		node->~TTNode();
 		return JAMOMA_ERR_NONE;
 	}
 	
@@ -82,7 +82,7 @@ JamomaError jamoma_node_unregister(t_symbol *OSCaddress)
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError jamoma_node_get(t_symbol *address, TTListPtr *returnedNodes, NodePtr *firstReturnedNode)
+JamomaError jamoma_node_get(t_symbol *address, TTListPtr *returnedNodes, TTNodePtr *firstReturnedNode)
 {
 	TTErr err;
 
@@ -94,12 +94,12 @@ JamomaError jamoma_node_get(t_symbol *address, TTListPtr *returnedNodes, NodePtr
 		return JAMOMA_ERR_GENERIC;
 }
 
-t_symbol * jamoma_node_name(NodePtr node)
+t_symbol * jamoma_node_name(TTNodePtr node)
 {
 	return gensym((char*)node->getName()->getCString());
 }
 
-t_symbol * jamoma_node_set_name(NodePtr node, t_symbol *name)
+t_symbol * jamoma_node_set_name(TTNodePtr node, t_symbol *name)
 {
 	TTSymbolPtr newInstance;
 	TTBoolean *newInstanceCreated = new TTBoolean(false);
@@ -111,12 +111,12 @@ t_symbol * jamoma_node_set_name(NodePtr node, t_symbol *name)
 	return NULL;
 }
 
-t_symbol * jamoma_node_instance(NodePtr node)
+t_symbol * jamoma_node_instance(TTNodePtr node)
 {
 	return gensym((char*)node->getInstance()->getCString());
 }
 
-t_symbol * jamoma_node_set_instance(NodePtr node, t_symbol *instance)
+t_symbol * jamoma_node_set_instance(TTNodePtr node, t_symbol *instance)
 {
 	TTSymbolPtr newInstance;
 	TTBoolean *newInstanceCreated = new TTBoolean(false);
@@ -129,12 +129,12 @@ t_symbol * jamoma_node_set_instance(NodePtr node, t_symbol *instance)
 	return NULL;
 }
 
-t_symbol * jamoma_node_type(NodePtr node)
+t_symbol * jamoma_node_type(TTNodePtr node)
 {
 	return gensym((char*)node->getType()->getCString());
 }
 
-TTListPtr jamoma_node_children(NodePtr node)
+TTListPtr jamoma_node_children(TTNodePtr node)
 {
 	TTListPtr lk_children;
 	TTErr err;
@@ -147,12 +147,12 @@ TTListPtr jamoma_node_children(NodePtr node)
 		return NULL;
 }
 
-t_object * jamoma_node_max_object(NodePtr node)
+t_object * jamoma_node_max_object(TTNodePtr node)
 {
 	return (t_object*)node->getObject();
 }
 
-TTListPtr	jamoma_node_properties(NodePtr node)
+TTListPtr	jamoma_node_properties(TTNodePtr node)
 {
 	uint i;
 	TTValue *hk;
@@ -180,7 +180,7 @@ TTListPtr	jamoma_node_properties(NodePtr node)
 	return NULL;
 }
 
-JamomaError	jamoma_node_set_properties(NodePtr node, t_symbol *propertie)
+JamomaError	jamoma_node_set_properties(TTNodePtr node, t_symbol *propertie)
 {
 	TTErr err;
 
@@ -195,7 +195,7 @@ JamomaError	jamoma_node_set_properties(NodePtr node, t_symbol *propertie)
 JamomaError jamoma_node_free(void)
 {
 	if(jamoma_node_root){
-		jamoma_node_root->~Node();
+		jamoma_node_root->~TTNode();
 		return JAMOMA_ERR_NONE;
 	}
 

@@ -15,20 +15,10 @@
 
 #include "TTFoundationAPI.h"
 
-class Node;
-typedef Node*	NodePtr;
+class TTNode;
+typedef TTNode*	TTNodePtr;
 typedef TTHash* TTHashPtr;
 typedef TTList* TTListPtr;
-
-// this a structure called as args 
-// in a linklist_funall process
-// in JamomaNodeLookup
-typedef struct _strwild
-{
-	TTSymbolPtr	name;
-	TTSymbolPtr	instance;
-	TTListPtr selectedNodes;
-}t_strwild;
 
 #define NO_NAME TT("")
 #define NO_INSTANCE TT("")
@@ -67,7 +57,7 @@ typedef struct _strwild
 	
 */
 
-class Node : public TTObject			///< we will subclass TTObject in order to gain some functionality -- like observers and notifications
+class TTNode : public TTObject			///< we will subclass TTObject in order to gain some functionality -- like observers and notifications
 {
 protected:
 
@@ -78,9 +68,9 @@ protected:
 	void			*object;				///< an object linked to the node (or even NULL for containters)
 	TTHashPtr		properties;				///< a hashtab of properties of the node (no data stored yet, just properties as keys)
 	
-	NodePtr	parent;							///< pointer to the parent node in the tree
+	TTNodePtr		parent;					///< pointer to the parent node in the tree
 	TTHashPtr		children;				///< a hashtab of hashtabs:
-	 										///< hashed on Node::name, and hashtabs because of Node::instanceName
+	 										///< hashed on TTNode::name, and hashtabs because of TTNode::instanceName
 
 	TTHashPtr		directory;				///< a pointer to a global hashtab which reference all osc address of the tree
 	
@@ -89,10 +79,10 @@ protected:
 	
 public:
 	/** constructor */
-	Node(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType, void *newObject, TTHashPtr directory);
+	TTNode(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType, void *newObject, TTHashPtr directory);
 
 	/** Destroy of the node. */
-	virtual ~Node();
+	virtual			~TTNode();
 
 	/** Get the name of the node */
 	TTSymbolPtr		getName();
@@ -103,7 +93,7 @@ public:
 		@param	newInstance				the returned instance if a new have been created
 		@param	newInstanceCreated		true if a new instance have been created
 		@return							a error code	*/
-	TTErr Node::setName(TTSymbolPtr name, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated);
+	TTErr			setName(TTSymbolPtr name, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated);
 
 	/** Get the instance of the node */
 	TTSymbolPtr		getInstance();
@@ -123,7 +113,7 @@ public:
 	void*			getObject();
 
 	/** Get a pointer to the parent node of the node */
-	NodePtr			getParent();
+	TTNodePtr		getParent();
 
 	/** Set the parent of the node 
 		This method ensure that the path to the node exist
@@ -133,14 +123,15 @@ public:
 		@return						An error code.	*/
 	TTErr			setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created);
 
-	/** Get a linklist of children of the node : select them by name and instance (use wilcards to select them all) */
+	/** Get a linklist of children of the node : select them by name and instance (use wilcards to select them all) 
+	 Note : if there are already nodes into the returned children list, the founded children will be append to the list */
 	TTErr			getChildren(TTSymbolPtr name, TTSymbolPtr instance, TTListPtr *returnedChildren);
 	
 	/** Add a node as a child of the node
-		@param child			a NodePtr to add as children of the node.
+		@param child			a TTNodePtr to add as children of the node.
 		@return					a kTTErrGeneric if the instance of the given child already exist.
 		*/
-	TTErr			setChild(NodePtr child);
+	TTErr			setChild(TTNodePtr child);
 
 	/** Get the hashtab of all the properties of the node */
 	TTHashPtr		getProperties();
@@ -176,22 +167,21 @@ public:
 	**/
 };
 
-/**	Given a string with an OSC address, return a pointer to a JamomaNode.
-	@param	oscAddress			The Open Sound Control string for which to find the JamomaNode.
+/**	Given a string with an OSC address, return a pointer to a TTNode.
+	@param	oscAddress			The Open Sound Control string for which to find a TTNode.
 	@param	returnedNode		The .
 	@return						An error code.		*/
-TTErr	getNodeForOSC(TTHashPtr directory, const char* oscAddress, NodePtr *returnedNode);
+TTErr	getNodeForOSC(TTHashPtr directory, const char* oscAddress, TTNodePtr *returnedNode);
 	
-TTErr	getNodeForOSC(TTHashPtr directory, TTSymbolPtr oscAddress, NodePtr *returnedNode);
+TTErr	getNodeForOSC(TTHashPtr directory, TTSymbolPtr oscAddress, TTNodePtr *returnedNode);
 
 /**	A factory method 
 	@param	oscAddress			The OSC address you wish to find, possibly including wildcards and instance names/numbers.
 	@param	returnedNodes		If non-null, a pointer will be set to the linked-list of nodes at the given OSC address pattern.
-	@param	firstReturnedNode	If non-null, the address of the first JamomaNode object pointer that is found for the given pattern is returned here.  
+	@param	firstReturnedNode	If non-null, the address of the first TTNode object pointer that is found for the given pattern is returned here.  
 								The value of the pointer will be set upon return.
 	@return						An error code.				*/
-TTErr	NodeLookup(TTHashPtr directory, TTSymbolPtr oscAddress, TTListPtr *returnedNodes, NodePtr *firstReturnedNode);
-void	NodeWilcard(NodePtr node, t_strwild *args);
+TTErr	NodeLookup(TTHashPtr directory, TTSymbolPtr oscAddress, TTListPtr *returnedNodes, TTNodePtr *firstReturnedNode);
 
 	/**	Create a new node, at the given location in the tree.
 		@param	oscAddress				The OSC address for which you wish to create a node.
@@ -210,7 +200,7 @@ void	NodeWilcard(NodePtr node, t_strwild *args);
 		
 		@param	nodeCreated				A boolean : true if a node have been created, else false	*/
 
-TTErr NodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, TTHashPtr directory, NodePtr *returnedNode, TTBoolean *nodeCreated);
+TTErr NodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, TTHashPtr directory, TTNodePtr *returnedNode, TTBoolean *nodeCreated);
 
 
 /**	An OSC parsing tool
