@@ -224,7 +224,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
-				LD_DYLIB_INSTALL_NAME = "/Library/Application Support/TTBlue/Extensions/$(EXECUTABLE_PATH)";
+				LD_DYLIB_INSTALL_NAME = "/Library/Application Support/Jamoma/Extensions/$(EXECUTABLE_PATH)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
@@ -251,7 +251,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
-				LD_DYLIB_INSTALL_NAME = "/Library/Application Support/TTBlue/Extensions/$(EXECUTABLE_PATH)";
+				LD_DYLIB_INSTALL_NAME = "/Library/Application Support/Jamoma/Extensions/$(EXECUTABLE_PATH)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
