@@ -13,3 +13,6 @@
 [submodule "Modules/Foundation"]
 	path = Modules/Foundation
 	url = git://github.com/tap/JamomaFoundation.git
+[submodule "Publications"]
+	path = Publications
+	url = git://github.com/tap/JamomaPublications.git
