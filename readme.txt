@@ -9,7 +9,7 @@ It is intended to contain sub-projects representing the various modules of the J
 
 
 
-
+--------------------------------------------------
 
 The Jamoma Tools folder contains scripts which perform various essential tasks for the development of Jamoma.
 
