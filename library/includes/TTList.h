@@ -65,6 +65,10 @@ public:
 	
 	void appendUnique(const TTValuePtr newValue);
 	
+	/** Appends a list to the list.  
+		@param	newList	The list to add to the list.  */
+	void merge(TTList& newList);
+	
 	/** Find a value in the list that is equal to a value passed-in. */
 	TTErr findEquals(const TTValue& valueToCompareAgainst, TTValue& foundValue);
 	
