@@ -8,6 +8,10 @@
 
 #include "NodeLib.h"
 
+#define thisTTClass			Node
+#define thisTTClassName		"Node"
+#define thisTTClassTags		"nodes"
+
 Node::Node(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType, void *newObject, TTHashPtr directory):TTObject(*kTTValNONE)
 {
 	// a new node have just a name, an instance, a type and an object
@@ -25,6 +29,8 @@ Node::Node(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType, vo
 
 	// a new node have no propertie
 	this->properties = new TTHash();
+	
+	registerMessageSimple(selectChildren);
 
 }
 
@@ -304,7 +310,7 @@ TTErr Node::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created)
 
 		// Is it a good test ?
 		if(*parent_created && (this->parent->instance != NO_INSTANCE)){
-			post("setParent : error : a new instance %s of %s have been created", this->parent->instance->getCString(), this->parent->name->getCString());
+			//post("setParent : error : a new instance %s of %s have been created", this->parent->instance->getCString(), this->parent->name->getCString());
 			return kTTErrGeneric;
 		}
 	}
@@ -331,7 +337,7 @@ TTErr Node::setProperties(TTSymbolPtr propertie)
 		return kTTErrGeneric;
 }
 
-TTErr Node::getChildren(TTSymbolPtr name, TTSymbolPtr instance, LinkedListPtr *lk_children)
+TTErr Node::getChildren(TTSymbolPtr name, TTSymbolPtr instance, TTListPtr *returnedChildren)
 {
 	uint i, j;
 	TTErr err;
@@ -347,7 +353,7 @@ TTErr Node::getChildren(TTSymbolPtr name, TTSymbolPtr instance, LinkedListPtr *l
 		hk = new TTValue();
 		c = new TTValue();
 		this->children->getKeys(*hk);
-		*lk_children = linklist_new();
+		*returnedChildren = new TTList();
 		
 		if(name == TT(S_WILDCARD)){
 			// for each children
@@ -371,7 +377,7 @@ TTErr Node::getChildren(TTSymbolPtr name, TTSymbolPtr instance, LinkedListPtr *l
 							ht_i->lookup(key_i,*c_i);
 							c_i->get(0,(TTPtr*)&n_c);
 
-							linklist_append(*lk_children,n_c);
+							(*returnedChildren)->append(n_c);
 						}
 					}
 					// there is an instance
@@ -379,7 +385,7 @@ TTErr Node::getChildren(TTSymbolPtr name, TTSymbolPtr instance, LinkedListPtr *l
 						err = ht_i->lookup(instance,*c_i);
 						if(err == kTTErrNone){
 							c_i->get(0,(TTPtr*)&n_c);
-							linklist_append(*lk_children,n_c);
+							(*returnedChildren)->append(n_c);
 						}
 						else
 							return err;
@@ -407,7 +413,7 @@ TTErr Node::getChildren(TTSymbolPtr name, TTSymbolPtr instance, LinkedListPtr *l
 							ht_i->lookup(key_i,*c_i);
 							c_i->get(0,(TTPtr*)&n_c);
 
-							linklist_append(*lk_children,n_c);
+							(*returnedChildren)->append(n_c);
 						}
 					}
 					// there is an instance
@@ -415,7 +421,7 @@ TTErr Node::getChildren(TTSymbolPtr name, TTSymbolPtr instance, LinkedListPtr *l
 						err = ht_i->lookup(instance,*c_i);
 						if(err == kTTErrNone){
 							c_i->get(0,(TTPtr*)&n_c);
-							linklist_append(*lk_children,n_c);
+							(*returnedChildren)->append(n_c);
 						}
 						else
 							return err;
@@ -596,6 +602,7 @@ TTErr	Node::generateInstance(TTSymbolPtr childName, TTSymbolPtr *newInstance)
 	}
 }
 
+
 /***********************************************************************************
 *
 *		GLOBAL METHODS
@@ -675,19 +682,9 @@ TTErr NodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, T
 			// get the JamomaNode at this address
 			found->get(0,(TTPtr*)&n_found);
 
-			// if there is no instance in the OSC address
-			if(oscAddress_instance == NO_INSTANCE){
-				// Autogenerate a new instance
-				n_found->getParent()->generateInstance(n_found->getName(), &newInstance);
-				*newInstanceCreated = true;
-			}
-			else{
-				// there is an instance in the OSC address
-				// returned the node found
-				*newInstanceCreated = false;
-				*returnedNode = n_found;
-				return kTTErrNone;
-			}
+			// Autogenerate a new instance
+			n_found->getParent()->generateInstance(n_found->getName(), &newInstance);
+			*newInstanceCreated = true;
 		}
 
 		// CREATION OF A NEW NODE
@@ -723,12 +720,13 @@ TTErr NodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, T
 }
 
 
-TTErr NodeLookup(TTHashPtr directory, TTSymbolPtr oscAddress, LinkedListPtr* returnedNodes, NodePtr* firstReturnedNode)
+TTErr NodeLookup(TTHashPtr directory, TTSymbolPtr oscAddress, TTListPtr *returnedNodes, NodePtr *firstReturnedNode)
 {
 	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie;
-	NodePtr n_found;
-	t_strwild *args;
-	TTErr err;
+	uint i;
+	TTListPtr lk_selection, lk_temp;
+	NodePtr n_found, *n_r;
+	TTErr err, err_get;
 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
 	if(oscAddress->getCString()[0]!= S_SEPARATOR[0])
@@ -744,28 +742,29 @@ TTErr NodeLookup(TTHashPtr directory, TTSymbolPtr oscAddress, LinkedListPtr* ret
 		err = NodeLookup(directory, oscAddress_parent, returnedNodes, firstReturnedNode);
 
 		if(err == kTTErrNone){
-			// for each found nodes at upper levels
-
-			// prepare args
-			args = (t_strwild *)malloc(sizeof(t_strwild));
-			args->name = oscAddress_name;
-			args->instance = oscAddress_instance;
-			args->selectedNodes = NULL;
-
-			// get a linkedlist of all
-			// selected nodes (by name and by instance)
-			linklist_funall(*returnedNodes,(method)NodeWilcard, args);
-
-			if(args->selectedNodes){
-				*returnedNodes = args->selectedNodes;
-				*firstReturnedNode = (NodePtr)linklist_getindex(args->selectedNodes,1);
-				free(args);
+			// for each returned nodes at upper levels
+			// select all corresponding "name.instance" nodes
+			// among their children.
+			lk_selection = new TTList();
+			
+			for(i=0; i<(*returnedNodes)->getSize(); i++){
+				
+				(*returnedNodes)->get(i, (TTObject**)n_r);
+				err_get = n_r->getChildren(oscAddress_name, oscAddress_instance, &lk_temp);
+				
+				// if there are children
+				// add it to the selection
+				if(err_get == kTTErrNone)
+						lk_selection->merge(*lk_temp);
+			}
+			
+			if(lk_selection->getSize()){
+				*returnedNodes = lk_selection;
+				lk_selection->getHead().get(0, (TTObject**)firstReturnedNode);
 				return kTTErrNone;
 			}
-			else{
-				free(args);
+			else
 				return kTTErrValueNotFound;
-			}
 		}
 
 		return err;
@@ -773,34 +772,13 @@ TTErr NodeLookup(TTHashPtr directory, TTSymbolPtr oscAddress, LinkedListPtr* ret
 	// no wild card : do a lookup in the global hashtab
 	else{
 		err = getNodeForOSC(directory, oscAddress, &n_found);
-		*returnedNodes = linklist_new();
-		linklist_append(*returnedNodes,n_found);
+		*returnedNodes = new TTList();
+		(*returnedNodes)->append(n_found);
 		*firstReturnedNode = n_found;
 		return err;
 	}
 }
 
-void NodeWilcard(NodePtr node, t_strwild *args)
-{
-	TTErr err;
-	LinkedListPtr lk_temp;
-
-	err = node->getChildren(args->name, args->instance,&lk_temp);
-
-	// if there are children
-	if(err == kTTErrNone){
-		
-		// if there are other selected nodes
-		if(args->selectedNodes)
-			// merge to other
-			// TODO : find a better way to do that !!!
-			linklist_funall(lk_temp,(method)Node_linklist_merge,args->selectedNodes);
-		else
-			args->selectedNodes = lk_temp;
-	}
-}
-
-void Node_linklist_merge(NodePtr toappend, LinkedListPtr result){linklist_append(result,toappend);}
 
 TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdress, TTSymbolPtr* returnedNodeName, TTSymbolPtr* returnedNodeInstance, TTSymbolPtr* returnedNodePropertie)
 {

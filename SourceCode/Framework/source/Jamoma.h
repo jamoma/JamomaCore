@@ -28,7 +28,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "TTBlueAPI.h"				// TTBlue Headers...
+#include "TTFoundationAPI.h"		// TTBlue Headers...
 
 #include "jcom.core.h"
 #include "jcom.list.h"

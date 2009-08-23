@@ -58,13 +58,13 @@ extern "C" {
 	t_symbol *		jamoma_node_type(NodePtr node);
 
 	/** Return all children of a node */
-	LinkedListPtr	jamoma_node_children(NodePtr node);
+	TTListPtr		jamoma_node_children(NodePtr node);
 
 	/** Return the Max object of a node */
 	t_object*		jamoma_node_max_object(NodePtr node);
 
 	/** Return all properties of a node */
-	LinkedListPtr	jamoma_node_properties(NodePtr node);
+	TTListPtr		jamoma_node_properties(NodePtr node);
 
 	/** Add a propertie to a node as a key in the hashtab (without value) */
 	JamomaError		jamoma_node_set_properties(NodePtr node, t_symbol *propertie);

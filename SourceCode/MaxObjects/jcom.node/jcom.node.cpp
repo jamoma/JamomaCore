@@ -394,7 +394,7 @@ void node_opml_header(t_node *x)
 
 void node_dump_as_opml(t_node *x, short level)
 {
-	short i;
+	uint i;
 	char temp[512];
 	long len, err;
 	t_symbol *attr_sym;
@@ -404,8 +404,8 @@ void node_dump_as_opml(t_node *x, short level)
 	t_symbol *name = jamoma_node_name(x->p_node);
 	t_symbol *instance = jamoma_node_instance(x->p_node);
 	//t_symbol *type = jamoma_node_type(x->p_node);
-	t_linklist *lk_prp = jamoma_node_properties(x->p_node);
-	t_linklist *lk_chd = jamoma_node_children(x->p_node);
+	TTListPtr lk_prp = jamoma_node_properties(x->p_node);
+	TTListPtr lk_chd = jamoma_node_children(x->p_node);
 
 	// make (2 + level) tabs
 	node_write_string(x, TAB);
@@ -433,8 +433,8 @@ void node_dump_as_opml(t_node *x, short level)
 		node_write_string(x, LB);
 
 		// write an outline for each attribute
-		for(i=0; i<linklist_getsize(lk_prp); i++){
-			attr_sym = (t_symbol *)linklist_getindex(lk_prp,i);
+		for(i=0; i<lk_prp->getSize(); i++){
+			lk_prp->get(i, attr_sym);
 			node_write_string(x, "<outline text=\"");
 			node_write_sym(x, attr_sym);
 			node_write_string(x,"\"/>");
@@ -448,7 +448,7 @@ void node_dump_as_opml(t_node *x, short level)
 
 	// if there are children : do the same for each child
 	if(lk_chd){
-		for(i=0; i<linklist_getsize(lk_chd); i++){
+		for(i=0; i<lk_chd->getSize(); i++){
 			x->p_node = (NodePtr)linklist_getindex(lk_chd,i);
 			node_dump_as_opml(x, level+1);
 		}

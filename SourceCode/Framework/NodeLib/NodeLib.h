@@ -13,9 +13,7 @@
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
 #endif // WIN_VERSION
 
-#include "TTBlueAPI.h"
-#include "JamomaMaxTypes.h"
-//#include "JamomaTypes.h"
+#include ""TTFoundationAPI.h""
 
 class Node;
 typedef Node*	NodePtr;
@@ -29,7 +27,7 @@ typedef struct _strwild
 {
 	TTSymbolPtr	name;
 	TTSymbolPtr	instance;
-	LinkedListPtr selectedNodes;
+	TTListPtr selectedNodes;
 }t_strwild;
 
 #define NO_NAME TT("")
@@ -136,7 +134,7 @@ public:
 	TTErr			setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created);
 
 	/** Get a linklist of children of the node : select them by name and instance (use wilcards to select them all) */
-	TTErr			getChildren(TTSymbolPtr name, TTSymbolPtr instance, LinkedListPtr *lk_children);
+	TTErr			getChildren(TTSymbolPtr name, TTSymbolPtr instance, TTListPtr *returnedChildren);
 	
 	/** Add a node as a child of the node
 		@param child			a NodePtr to add as children of the node.
@@ -162,7 +160,7 @@ public:
 		@param newInstance		a new instance created (or NULL if not)	.
 		@return					a kTTErrGeneric if the child doesn't exist.	*/
 	TTErr			generateInstance(TTSymbolPtr childName, TTSymbolPtr *newInstance);
-
+	
 	/** TODO :
 			:/catalog?
 			:/namespace?
@@ -182,9 +180,9 @@ public:
 	@param	oscAddress			The Open Sound Control string for which to find the JamomaNode.
 	@param	returnedNode		The .
 	@return						An error code.		*/
-TTErr getNodeForOSC(TTHashPtr directory, const char* oscAddress, NodePtr* returnedNode);
+TTErr	getNodeForOSC(TTHashPtr directory, const char* oscAddress, NodePtr *returnedNode);
 	
-TTErr getNodeForOSC(TTHashPtr directory, TTSymbolPtr oscAddress, NodePtr* returnedNode);
+TTErr	getNodeForOSC(TTHashPtr directory, TTSymbolPtr oscAddress, NodePtr *returnedNode);
 
 /**	A factory method 
 	@param	oscAddress			The OSC address you wish to find, possibly including wildcards and instance names/numbers.
@@ -192,9 +190,8 @@ TTErr getNodeForOSC(TTHashPtr directory, TTSymbolPtr oscAddress, NodePtr* return
 	@param	firstReturnedNode	If non-null, the address of the first JamomaNode object pointer that is found for the given pattern is returned here.  
 								The value of the pointer will be set upon return.
 	@return						An error code.				*/
-TTErr NodeLookup(TTHashPtr directory, TTSymbolPtr oscAddress, LinkedListPtr* returnedNodes, NodePtr* firstReturnedNode);
-void NodeWilcard(NodePtr node, t_strwild *args);
-void Node_linklist_merge(NodePtr toappend, LinkedListPtr result);
+TTErr	NodeLookup(TTHashPtr directory, TTSymbolPtr oscAddress, TTListPtr *returnedNodes, NodePtr *firstReturnedNode);
+void	NodeWilcard(NodePtr node, t_strwild *args);
 
 	/**	Create a new node, at the given location in the tree.
 		@param	oscAddress				The OSC address for which you wish to create a node.

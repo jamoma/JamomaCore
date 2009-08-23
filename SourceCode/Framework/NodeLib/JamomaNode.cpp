@@ -82,7 +82,7 @@ JamomaError jamoma_node_unregister(t_symbol *OSCaddress)
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError jamoma_node_get(t_symbol *address, LinkedListPtr *returnedNodes, NodePtr *firstReturnedNode)
+JamomaError jamoma_node_get(t_symbol *address, TTListPtr *returnedNodes, NodePtr *firstReturnedNode)
 {
 	TTErr err;
 
@@ -134,9 +134,9 @@ t_symbol * jamoma_node_type(NodePtr node)
 	return gensym((char*)node->getType()->getCString());
 }
 
-LinkedListPtr jamoma_node_children(NodePtr node)
+TTListPtr jamoma_node_children(NodePtr node)
 {
-	LinkedListPtr lk_children;
+	TTListPtr lk_children;
 	TTErr err;
 
 	err =  node->getChildren(TT(S_WILDCARD),TT(S_WILDCARD), &lk_children);
@@ -152,13 +152,13 @@ t_object * jamoma_node_max_object(NodePtr node)
 	return (t_object*)node->getObject();
 }
 
-LinkedListPtr	jamoma_node_properties(NodePtr node)
+TTListPtr	jamoma_node_properties(NodePtr node)
 {
 	uint i;
 	TTValue *hk;
 	TTSymbolPtr key;
 	TTValue *c;
-	LinkedListPtr lk_properties;
+	TTListPtr lk_properties;
 
 	// if there are properties
 	if(node->getProperties()->getSize()){
@@ -166,13 +166,13 @@ LinkedListPtr	jamoma_node_properties(NodePtr node)
 		hk = new TTValue();
 		c = new TTValue();
 		node->getProperties()->getKeys(*hk);
-		lk_properties = linklist_new();
+		lk_properties = new TTList();
 		
 		// for each propertie
 		for(i=0; i<node->getProperties()->getSize(); i++){
 			hk->get(i,(TTSymbol**)&key);
 			// add the propertie to the linklist
-			linklist_append(lk_properties,gensym((char *)key->getCString()));
+			lk_properties->append(gensym((char *)key->getCString()));
 		}
 
 		return lk_properties;

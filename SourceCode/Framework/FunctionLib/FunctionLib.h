@@ -9,7 +9,7 @@
 #ifndef __FUNCTIONLIB_H__
 #define __FUNCTIONLIB_H__
 
-#include "TTBlueAPI.h"
+#include ""TTFoundationAPI.h""
 #include "JamomaTypes.h"
 
 
