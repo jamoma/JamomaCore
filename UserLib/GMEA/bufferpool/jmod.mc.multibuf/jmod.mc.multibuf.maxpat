@@ -591,7 +591,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "hue_angle[4]",
-					"text" : "jcom.parameter mono @repetitions/allow 1 @type msg_toggle @description \"load only 1rst channel of each sound file\" @priority 1",
+					"text" : "jcom.parameter mono @repetitions/allow 1 @type boolean @description \"load only 1rst channel of each sound file\" @priority 1",
 					"linecount" : 2,
 					"patching_rect" : [ 662.0, 45.0, 525.0, 31.0 ],
 					"outlettype" : [ "", "", "" ],
@@ -12117,7 +12117,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.oscroute /panel/open",
+									"text" : "jcom.oscroute /view/panel",
 									"patching_rect" : [ 7.0, 32.0, 121.0, 17.0 ],
 									"outlettype" : [ "", "" ],
 									"id" : "obj-1",

@@ -6,7 +6,7 @@
 		"defrect" : [ 249.0, 84.0, 921.0, 687.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
-		"default_fontsize" : 10.970939,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -189,7 +189,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "mode",
-					"text" : "jcom.parameter mode @repetitions/allow 0 @type msg_symbol @description \"Set the function to be used for calculating the scaling. Possible values: exponential | linear\"",
+					"text" : "jcom.parameter mode @repetitions/allow 0 @type string @description \"Set the function to be used for calculating the scaling. Possible values: exponential | linear\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"patching_rect" : [ 70.0, 630.0, 446.0, 31.0 ],
@@ -205,7 +205,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "release",
-					"text" : "jcom.parameter release @type msg_float @range/bounds 0 500 @range/clipmode low @dataspace time @dataspace/unit/native ms @dataspace/unit/active ms @ramp/drive scheduler @description \"The release time (ms).\"",
+					"text" : "jcom.parameter release @type decimal @range/bounds 0 500 @range/clipmode low @dataspace time @dataspace/unit/native ms @dataspace/unit/active ms @ramp/drive scheduler @description \"The release time (ms).\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"patching_rect" : [ 70.0, 565.0, 610.0, 31.0 ],
@@ -221,7 +221,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "lookahead",
-					"text" : "jcom.parameter lookahead @type msg_int @range/bounds 0 256 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @dataspace time @dataspace/unit/native sample @dataspace/unit/active sample @description \"The number of samples (up to 256) to look ahead into the signal to see what is coming.\"",
+					"text" : "jcom.parameter lookahead @type integer @range/bounds 0 256 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @dataspace time @dataspace/unit/native sample @dataspace/unit/active sample @description \"The number of samples (up to 256) to look ahead into the signal to see what is coming.\"",
 					"linecount" : 3,
 					"numinlets" : 1,
 					"patching_rect" : [ 70.0, 485.0, 659.0, 43.0 ],
@@ -237,7 +237,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "threshold",
-					"text" : "jcom.parameter threshold @type msg_float @range/bounds -48 6 @range/clipmode none @ramp/drive scheduler @dataspace gain @dataspace/unit/native dB @dataspace/unit/active dB @description \"The limiter threshold (in dB below full scale). When the input signal level exceeds this threshold, it will be attenuated as necessary to keep the level below the threshold.\"",
+					"text" : "jcom.parameter threshold @type decimal @range/bounds -48 6 @range/clipmode none @ramp/drive scheduler @dataspace gain @dataspace/unit/native dB @dataspace/unit/active dB @description \"The limiter threshold (in dB below full scale). When the input signal level exceeds this threshold, it will be attenuated as necessary to keep the level below the threshold.\"",
 					"linecount" : 3,
 					"numinlets" : 1,
 					"patching_rect" : [ 70.0, 400.0, 656.0, 43.0 ],
@@ -253,7 +253,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "postamp",
-					"text" : "jcom.parameter postamp @type msg_float @range/bounds -6 48 @range/clipmode none @dataspace gain @dataspace/unit/native dB @dataspace/unit/active dB @ramp/drive scheduler @description \"The gain in dB applied to the signal after limiting. \"",
+					"text" : "jcom.parameter postamp @type decimal @range/bounds -6 48 @range/clipmode none @dataspace gain @dataspace/unit/native dB @dataspace/unit/active dB @ramp/drive scheduler @description \"The gain in dB applied to the signal after limiting. \"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"patching_rect" : [ 70.0, 340.0, 674.0, 31.0 ],
@@ -269,7 +269,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "preamp",
-					"text" : "jcom.parameter preamp @type msg_float @range/bounds -6 48 @range/clipmode none @ramp/drive scheduler @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @ramp/function linear @description \"The gain in dB applied to the signal before limiting.\"",
+					"text" : "jcom.parameter preamp @type decimal @range/bounds -6 48 @range/clipmode none @ramp/drive scheduler @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @ramp/function linear @description \"The gain in dB applied to the signal before limiting.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"patching_rect" : [ 70.0, 275.0, 739.0, 31.0 ],

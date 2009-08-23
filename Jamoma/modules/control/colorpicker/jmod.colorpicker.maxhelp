@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 20.0, 74.0, 451.0, 434.0 ],
+		"rect" : [ 239.0, 281.0, 453.0, 485.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 20.0, 74.0, 451.0, 434.0 ],
+		"defrect" : [ 239.0, 281.0, 453.0, 485.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -16,6 +16,36 @@
 		"boxanimatetime" : 200,
 		"imprint" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"hidden" : 1,
+					"id" : "obj-21",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 60.0, 276.0, 230.0, 19.0 ],
+					"text" : "loadmess view/color/border 0.62 0. 0.36 1."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "@name", "jmod.colorpicker", "@description", "a module for setting up to 12 RGB triplets as a parameter of type array" ],
+					"bgmode" : 1,
+					"id" : "obj-3",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 453.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -188,12 +218,12 @@
 ,
 					"patching_rect" : [ 60.0, 170.0, 56.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
-						"globalpatchername" : "",
 						"default_fontface" : 0
 					}
 ,
@@ -219,52 +249,14 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-4",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 25.0, 20.0, 277.0, 28.0 ],
-					"text" : "jmod.colorpicker.mod"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-5",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 25.0, 50.0, 384.0, 19.0 ],
-					"text" : "a module for setting up to 12 RGB triplets as a parameter of type msg_list"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-6",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 10.0, 410.0, 60.0 ],
-					"rounded" : 15
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-7",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 58.0, 400.0, 200.0, 17.0 ]
+					"patching_rect" : [ 58.0, 400.0, 200.0, 17.0 ],
+					"text" : "/view/color/border 0.62 0. 0.36 1."
 				}
 
 			}
@@ -317,27 +309,27 @@
 						"count" : 6,
 						"data" : [ 							{
 								"key" : "red",
-								"value" : [ 255, 0, 0 ]
+								"value" : [ 1.0, 0.0, 0.0 ]
 							}
 , 							{
 								"key" : "green",
-								"value" : [ 0, 255, 0 ]
+								"value" : [ 0, 1.0, 0 ]
 							}
 , 							{
 								"key" : "blue",
-								"value" : [ 0, 0, 255 ]
+								"value" : [ 0, 0, 1.0 ]
 							}
 , 							{
 								"key" : "red&green&blue",
-								"value" : [ 255, 0, 0, 0, 255, 0, 0, 0, 255 ]
+								"value" : [ 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 ]
 							}
 , 							{
 								"key" : "black&white",
-								"value" : [ 0, 0, 0, 255, 255, 255 ]
+								"value" : [ 0.0, 0.0, 0.0, 1.0, 1.0, 1.0 ]
 							}
 , 							{
 								"key" : "colorwheel",
-								"value" : [ 255, 0, 0, 255, 127, 0, 255, 255, 0, 127, 255, 0, 0, 255, 0, 0, 255, 127, 0, 255, 255, 0, 127, 255, 0, 0, 255, 127, 0, 255, 255, 0, 255, 255, 0, 127 ]
+								"value" : [ 1.0, 0.0, 0.0, 1.0, 0.5, 0.0, 1.0, 1.0, 0.0, 0.5, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.5, 0.0, 1.0, 1.0, 0.0, 0.5, 1.0, 0.0, 0.0, 1.0, 0.5, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 0.5 ]
 							}
  ]
 					}
@@ -376,6 +368,15 @@
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-14", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-21", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-11", 1 ],
 					"hidden" : 0,

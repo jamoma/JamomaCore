@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 575.0, 48.0, 687.0, 570.0 ],
+		"rect" : [ 245.0, 83.0, 586.0, 580.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 575.0, 48.0, 687.0, 570.0 ],
+		"defrect" : [ 245.0, 83.0, 586.0, 580.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,14 +17,29 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"args" : [  ],
+					"args" : [ "@name", "jmod.sur.speaker.distamp~", "@description", "Module for compensating loudspeaker gains in irregular loudspeaker setups" ],
+					"bgmode" : 1,
+					"id" : "obj-6",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 586.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "delay" ],
 					"id" : "obj-29",
 					"maxclass" : "bpatcher",
 					"name" : "jmod.sur.speaker.delay~.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 405.0, 309.0, 150.0, 70.0 ],
+					"patching_rect" : [ 405.0, 315.0, 150.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ]
 				}
 
@@ -49,7 +64,7 @@
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
-						"gridsize" : [ 15.0, 15.0 ],
+						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
@@ -295,12 +310,12 @@
 					"patching_rect" : [ 127.0, 436.0, 49.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
-						"default_fontsize" : 10.0,
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p adapt"
@@ -316,22 +331,22 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 495.0, 514.0, 130.0, 17.0 ],
-					"text" : "jmod.sur.speaker.setup"
+					"patching_rect" : [ 415.0, 561.0, 87.0, 17.0 ],
+					"text" : "jmod.sur.setup"
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-48",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 570.0, 443.0, 74.0, 18.0 ],
+					"patching_rect" : [ 490.0, 490.0, 74.0, 19.0 ],
 					"text" : "prepend help"
 				}
 
@@ -339,14 +354,14 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-49",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 570.0, 467.0, 49.0, 18.0 ],
+					"patching_rect" : [ 490.0, 514.0, 49.0, 19.0 ],
 					"text" : "pcontrol"
 				}
 
@@ -360,7 +375,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 495.0, 494.0, 137.0, 17.0 ],
+					"patching_rect" : [ 415.0, 541.0, 137.0, 17.0 ],
 					"text" : "jmod.sur.speaker.delay~"
 				}
 
@@ -374,7 +389,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 497.0, 474.0, 55.0, 19.0 ],
+					"patching_rect" : [ 415.0, 520.0, 55.0, 19.0 ],
 					"text" : "see also"
 				}
 
@@ -399,7 +414,7 @@
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
-						"gridsize" : [ 15.0, 15.0 ],
+						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
@@ -544,12 +559,12 @@
 					"patching_rect" : [ 35.0, 211.0, 55.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
-						"default_fontsize" : 10.0,
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p display"
@@ -590,11 +605,11 @@
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-2",
-					"linecount" : 3,
+					"linecount" : 4,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 255.0, 321.0, 310.0, 43.0 ],
+					"patching_rect" : [ 255.0, 395.0, 300.0, 55.0 ],
 					"text" : "This module adjust amplitude of speakers according to distance from central listening position, so that normalized amplitude correction is proportional to distance."
 				}
 
@@ -609,14 +624,14 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 256.0, 378.0, 300.0, 55.0 ],
+					"patching_rect" : [ 255.0, 455.0, 300.0, 55.0 ],
 					"text" : "Such amplitude correction is performed in the ambipan~ Max external for ambisonic panning made by A.Sedes, B.Courribet and J.B.Thiebaut at CICM Université Paris8, Maison des Sciences de l'Homme Paris Nord."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"args" : [  ],
+					"args" : [ "/speakerDistamp" ],
 					"id" : "obj-5",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
@@ -1086,32 +1101,18 @@
  ]
 					}
 ,
-					"patching_rect" : [ 35.0, 175.0, 82.0, 19.0 ],
+					"patching_rect" : [ 35.0, 175.0, 95.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
-						"default_fontsize" : 10.0,
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
-					"text" : "p equal_distro"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-9",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 15.0, 261.0, 28.0 ],
-					"text" : "jmod.sur.speaker.distamp~"
+					"text" : "p unequal_distro"
 				}
 
 			}
@@ -1119,33 +1120,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-10",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 45.0, 394.0, 19.0 ],
-					"text" : "Module for compensating loudspeaker gains in  irregular loudspeaker setups"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-11",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 10.0, 414.0, 55.0 ],
-					"rounded" : 15
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"bgcolor" : [ 0.866667, 0.866667, 0.866667, 1.0 ],
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
 					"id" : "obj-13",
 					"maxclass" : "number",
 					"maximum" : 32,
@@ -1205,15 +1179,6 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-29", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-5", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-29", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -1223,10 +1188,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-27", 0 ],
+					"destination" : [ "obj-29", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-4", 1 ]
+					"midpoints" : [ 264.5, 309.5, 414.5, 309.5 ],
+					"source" : [ "obj-5", 0 ]
 				}
 
 			}
@@ -1234,8 +1199,8 @@
 				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 136.5, 458.0, 247.0, 458.0, 247.0, 228.0, 264.5, 228.0 ],
-					"source" : [ "obj-27", 0 ]
+					"midpoints" : [ 44.5, 202.0, 264.5, 202.0 ],
+					"source" : [ "obj-8", 0 ]
 				}
 
 			}
@@ -1252,8 +1217,17 @@
 				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 44.5, 202.0, 264.5, 202.0 ],
-					"source" : [ "obj-8", 0 ]
+					"midpoints" : [ 136.5, 458.0, 247.0, 458.0, 247.0, 228.0, 264.5, 228.0 ],
+					"source" : [ "obj-27", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-27", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-4", 1 ]
 				}
 
 			}

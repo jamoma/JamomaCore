@@ -6,15 +6,15 @@
 >
 	
 	<preset number="1" name="default">
-		<item name="audio/gain" type="msg_int">0</item>
-		<item name="audio/meters/freeze" type="msg_int">0</item>
-		<item name="audio/mix" type="msg_float">100.</item>
-		<item name="audio/bypass" type="msg_int">0</item>
-		<item name="audio/mute" type="msg_int">1</item>
+		<item name="audio/gain" type="integer">0</item>
+		<item name="audio/meters/freeze" type="integer">0</item>
+		<item name="audio/mix" type="decimal">100.</item>
+		<item name="audio/bypass" type="integer">0</item>
+		<item name="audio/mute" type="integer">1</item>
 		
-		<item name="lookahead" type="msg_int">10</item>
-		<item name="attack" type="msg_int">10</item>
-		<item name="release" type="msg_int">300</item>
-		<item name="threshold" type="msg_int">-40</item>
+		<item name="lookahead" type="integer">10</item>
+		<item name="attack" type="integer">10</item>
+		<item name="release" type="integer">300</item>
+		<item name="threshold" type="integer">-40</item>
     </preset>
 </jamoma>

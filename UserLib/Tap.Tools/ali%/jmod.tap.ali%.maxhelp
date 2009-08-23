@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 369.0, 49.0, 831.0, 527.0 ],
+		"rect" : [ 119.0, 134.0, 831.0, 527.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 369.0, 49.0, 831.0, 527.0 ],
+		"defrect" : [ 119.0, 134.0, 831.0, 527.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -20,7 +20,7 @@
 					"args" : [  ],
 					"id" : "obj-7",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.cont_mapper.maxpat",
+					"name" : "jmod.mapperContinuous.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -62,7 +62,7 @@
 					"args" : [  ],
 					"id" : "obj-6",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.trig_mapper.maxpat",
+					"name" : "jmod.mapperDiscrete.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -450,13 +450,13 @@
 ,
 					"patching_rect" : [ 433.0, 266.0, 45.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p scale"

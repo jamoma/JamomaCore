@@ -41,7 +41,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 10.0, 331.0, 135.0, 48.0 ],
-					"text" : "jcom.message sample/buffername @type msg_symbol @description \"Name of buffer used\"",
+					"text" : "jcom.message sample/buffername @type string @description \"Name of buffer used\"",
 					"varname" : "sample/buffername"
 				}
 
@@ -100,7 +100,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 296.0, 390.0, 146.0, 52.0 ],
-					"text" : "jcom.return info/filename @type msg_symbol @description \"returns the name of the loaded file\""
+					"text" : "jcom.return info/filename @type string @description \"returns the name of the loaded file\""
 				}
 
 			}
@@ -115,7 +115,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 147.0, 390.0, 147.0, 52.0 ],
-					"text" : "jcom.return info/length @type msg_int @description \"returns the length in [ms] of the internal buffer\""
+					"text" : "jcom.return info/length @type integer @description \"returns the length in [ms] of the internal buffer\""
 				}
 
 			}
@@ -130,7 +130,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 9.0, 389.0, 135.0, 52.0 ],
-					"text" : "jcom.return info/playername @type msg_symbol @description \"returns the name of the internal buffer\""
+					"text" : "jcom.return info/playername @type string @description \"returns the name of the internal buffer\""
 				}
 
 			}

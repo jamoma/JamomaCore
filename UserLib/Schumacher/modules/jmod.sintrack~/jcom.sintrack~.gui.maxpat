@@ -319,7 +319,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 50.0, 133.0, 497.0, 19.0 ],
-									"text" : "jcom.parameter cutoff @repetitions/allow 0 @type msg_float @value/default 22050. @priority 3",
+									"text" : "jcom.parameter cutoff @repetitions/allow 0 @type decimal @value/default 22050. @priority 3",
 									"varname" : "parameter"
 								}
 
@@ -572,7 +572,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 50.0, 133.0, 471.0, 19.0 ],
-									"text" : "jcom.parameter average @repetitions/allow 0 @type msg_int @value/default 1 @priority 3",
+									"text" : "jcom.parameter average @repetitions/allow 0 @type integer @value/default 1 @priority 3",
 									"varname" : "parameter"
 								}
 

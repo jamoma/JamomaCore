@@ -17,10 +17,26 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [ "@name", "jmod.sur.multi.out~", "@description", "Put audio signals on a multicable" ],
+					"bgmode" : 1,
+					"id" : "obj-25",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 594.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-9",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 225.0, 380.0, 11.0, 75.0 ]
 				}
 
@@ -92,7 +108,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 220.0, 175.0, 63.0, 19.0 ],
+					"patching_rect" : [ 219.0, 175.0, 63.0, 19.0 ],
 					"text" : "phasor~ 1"
 				}
 
@@ -108,45 +124,6 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 155.0, 215.0, 416.0, 19.0 ],
 					"text" : "jcom.multi.in~"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-6",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 25.0, 20.0, 267.0, 28.0 ],
-					"text" : "jmod.sur.multi.out~"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-7",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 25.0, 45.0, 292.0, 19.0 ],
-					"text" : "Put audio signals on a multicable"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-8",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 15.0, 10.0, 400.0, 61.0 ],
-					"rounded" : 15
 				}
 
 			}
@@ -228,7 +205,8 @@
 					"id" : "obj-15",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 375.0, 380.0, 11.0, 75.0 ]
 				}
 
@@ -238,7 +216,8 @@
 					"id" : "obj-16",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 360.0, 380.0, 11.0, 75.0 ]
 				}
 
@@ -248,7 +227,8 @@
 					"id" : "obj-17",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 345.0, 380.0, 11.0, 75.0 ]
 				}
 
@@ -258,7 +238,8 @@
 					"id" : "obj-18",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 330.0, 380.0, 11.0, 75.0 ]
 				}
 
@@ -268,7 +249,8 @@
 					"id" : "obj-19",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 315.0, 380.0, 11.0, 75.0 ]
 				}
 
@@ -278,7 +260,8 @@
 					"id" : "obj-20",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 300.0, 380.0, 11.0, 75.0 ]
 				}
 
@@ -288,7 +271,8 @@
 					"id" : "obj-21",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 285.0, 380.0, 11.0, 75.0 ]
 				}
 
@@ -298,7 +282,8 @@
 					"id" : "obj-22",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 270.0, 380.0, 11.0, 75.0 ]
 				}
 
@@ -308,7 +293,8 @@
 					"id" : "obj-23",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 255.0, 380.0, 11.0, 75.0 ]
 				}
 
@@ -318,7 +304,8 @@
 					"id" : "obj-24",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 240.0, 380.0, 11.0, 75.0 ]
 				}
 
@@ -328,7 +315,8 @@
 					"id" : "obj-26",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 210.0, 380.0, 11.0, 75.0 ]
 				}
 
@@ -338,7 +326,8 @@
 					"id" : "obj-27",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 195.0, 380.0, 11.0, 75.0 ]
 				}
 
@@ -348,7 +337,8 @@
 					"id" : "obj-28",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 180.0, 380.0, 11.0, 75.0 ]
 				}
 
@@ -358,7 +348,8 @@
 					"id" : "obj-29",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 165.0, 380.0, 11.0, 75.0 ]
 				}
 
@@ -368,7 +359,8 @@
 					"id" : "obj-30",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 150.0, 380.0, 11.0, 75.0 ]
 				}
 
@@ -377,7 +369,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-31",
 					"linecount" : 2,
 					"maxclass" : "comment",

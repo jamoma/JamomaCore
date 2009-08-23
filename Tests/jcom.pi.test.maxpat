@@ -19,7 +19,7 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal TESTpi 3.141593",
+					"text" : "test.assert.equal TESTpi 3.141593",
 					"id" : "obj-10",
 					"numinlets" : 2,
 					"fontname" : "Verdana",
@@ -100,7 +100,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.finished",
+					"text" : "test.finished",
 					"id" : "obj-1",
 					"numinlets" : 1,
 					"fontname" : "Verdana",

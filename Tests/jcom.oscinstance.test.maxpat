@@ -48,7 +48,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.finished",
+					"text" : "test.finished",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"fontsize" : 10.0,
@@ -166,7 +166,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.test.assert.equal TEST1/jcom.oscinstance/osc_int_instance_no_subbranch:ARGUMENTS 1. 1. 2.",
+													"text" : "test.assert.equal TEST1/jcom.oscinstance/osc_int_instance_no_subbranch:ARGUMENTS 1. 1. 2.",
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"fontsize" : 10.0,
@@ -274,7 +274,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.test.assert.equal TEST3/jcom.oscinstance/osc_int_instance_no_subbranch:OSC /source",
+													"text" : "test.assert.equal TEST3/jcom.oscinstance/osc_int_instance_no_subbranch:OSC /source",
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"fontsize" : 10.0,
@@ -287,7 +287,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.test.assert.equal TEST2/jcom.oscinstance/osc_int_instance_no_subbranch:INSTANCE 47",
+													"text" : "test.assert.equal TEST2/jcom.oscinstance/osc_int_instance_no_subbranch:INSTANCE 47",
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"fontsize" : 10.0,
@@ -523,7 +523,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.test.assert.equal TEST1/jcom.oscinstance/osc_int_instance_and_subbranch:ARGUMENTS 1. 1. 2.",
+													"text" : "test.assert.equal TEST1/jcom.oscinstance/osc_int_instance_and_subbranch:ARGUMENTS 1. 1. 2.",
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"fontsize" : 10.0,
@@ -550,7 +550,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.test.assert.equal TEST2/jcom.oscinstance/osc_int_instance_and_subbranch:INSTANCE 72",
+													"text" : "test.assert.equal TEST2/jcom.oscinstance/osc_int_instance_and_subbranch:INSTANCE 72",
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"fontsize" : 10.0,
@@ -644,7 +644,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.test.assert.equal TEST3/jcom.oscinstance/osc_int_instance_and_subbranch:OSC /source/xyz",
+													"text" : "test.assert.equal TEST3/jcom.oscinstance/osc_int_instance_and_subbranch:OSC /source/xyz",
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"fontsize" : 10.0,
@@ -880,7 +880,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.test.assert.equal TEST1/jcom.oscinstance/osc_symbol_instance_no_subbranch:ARGUMENTS 1. 1. 2.",
+													"text" : "test.assert.equal TEST1/jcom.oscinstance/osc_symbol_instance_no_subbranch:ARGUMENTS 1. 1. 2.",
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"fontsize" : 10.0,
@@ -907,7 +907,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.test.assert.equal TEST2/jcom.oscinstance/osc_symbol_instance_no_subbranch:INSTANCE left",
+													"text" : "test.assert.equal TEST2/jcom.oscinstance/osc_symbol_instance_no_subbranch:INSTANCE left",
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"fontsize" : 10.0,
@@ -987,7 +987,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.test.assert.equal TEST3/jcom.oscinstance/osc_symbol_instance_no_subbranch:OSC /channel",
+													"text" : "test.assert.equal TEST3/jcom.oscinstance/osc_symbol_instance_no_subbranch:OSC /channel",
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"fontsize" : 10.0,
@@ -1214,7 +1214,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.test.assert.equal TEST1/jcom.oscinstance/osc_symbol_instance_and_subbranch:ARGUMENTS 1 2 3",
+													"text" : "test.assert.equal TEST1/jcom.oscinstance/osc_symbol_instance_and_subbranch:ARGUMENTS 1 2 3",
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"fontsize" : 10.0,
@@ -1241,7 +1241,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.test.assert.equal TEST2/jcom.oscinstance/osc_symbol_instance_and_subbranch:INSTANCE then",
+													"text" : "test.assert.equal TEST2/jcom.oscinstance/osc_symbol_instance_and_subbranch:INSTANCE then",
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"fontsize" : 10.0,
@@ -1321,7 +1321,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.test.assert.equal TEST3/jcom.oscinstance/osc_symbol_instance_and_subbranch:OSC /dot/slash",
+													"text" : "test.assert.equal TEST3/jcom.oscinstance/osc_symbol_instance_and_subbranch:OSC /dot/slash",
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"fontsize" : 10.0,
@@ -1601,7 +1601,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.test.assert.equal TEST/jcom.oscinstance/osc_subbranch_has_instance /slah/then.dot 1 2 3",
+													"text" : "test.assert.equal TEST/jcom.oscinstance/osc_subbranch_has_instance /slah/then.dot 1 2 3",
 													"numinlets" : 2,
 													"numoutlets" : 0,
 													"fontsize" : 10.0,
@@ -1872,7 +1872,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTbang 10",
+									"text" : "test.assert.equal TESTbang 10",
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
@@ -1955,7 +1955,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTnon_osc_symbol no_slash 1 2 3",
+									"text" : "test.assert.equal TESTnon_osc_symbol no_slash 1 2 3",
 									"linecount" : 2,
 									"numinlets" : 2,
 									"numoutlets" : 0,
@@ -2025,7 +2025,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTlist 1 2 3",
+									"text" : "test.assert.equal TESTlist 1 2 3",
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
@@ -2080,7 +2080,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTint 10",
+									"text" : "test.assert.equal TESTint 10",
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
@@ -2135,7 +2135,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTfloat 3.14",
+									"text" : "test.assert.equal TESTfloat 3.14",
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
@@ -2580,7 +2580,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTosc_several_branches_no_instance /two/branches 1 2 3",
+									"text" : "test.assert.equal TESTosc_several_branches_no_instance /two/branches 1 2 3",
 									"linecount" : 3,
 									"numinlets" : 2,
 									"numoutlets" : 0,
@@ -2650,7 +2650,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTosc_one_branch_no_instance /one_branch 1 2 3",
+									"text" : "test.assert.equal TESTosc_one_branch_no_instance /one_branch 1 2 3",
 									"linecount" : 3,
 									"numinlets" : 2,
 									"numoutlets" : 0,

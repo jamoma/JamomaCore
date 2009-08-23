@@ -8,16 +8,41 @@
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
-		"default_fontname" : "Arial",
+		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
-		"gridsize" : [ 15.0, 15.0 ],
+		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"id" : "obj-7",
+					"maxclass" : "ezdac~",
+					"numinlets" : 2,
+					"numoutlets" : 0,
+					"patching_rect" : [ 816.0, 160.0, 45.0, 45.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "@name", "jmod.sur.multi.aux~", "@description", "A module to distribute a multicable to three receivers" ],
+					"bgmode" : 1,
+					"id" : "obj-4",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 997.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-3",
@@ -36,7 +61,7 @@
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
-						"gridsize" : [ 15.0, 15.0 ],
+						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
@@ -110,13 +135,13 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"id" : "obj-15",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 230.0, 80.0, 143.0, 18.0 ],
+									"patching_rect" : [ 230.0, 80.0, 143.0, 19.0 ],
 									"text" : "route jmod.sur.multi.aux~"
 								}
 
@@ -124,13 +149,13 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"id" : "obj-13",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 230.0, 30.0, 188.0, 18.0 ],
+									"patching_rect" : [ 230.0, 30.0, 188.0, 19.0 ],
 									"text" : "jcom.receive notifications"
 								}
 
@@ -138,13 +163,13 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"id" : "obj-14",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 230.0, 55.0, 127.0, 18.0 ],
+									"patching_rect" : [ 230.0, 55.0, 127.0, 19.0 ],
 									"text" : "route module.initialized"
 								}
 
@@ -216,15 +241,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 515.0, 124.0, 44.0, 18.0 ],
+					"patching_rect" : [ 515.0, 115.0, 46.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
+						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontsize" : 10.0
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p demo"
@@ -236,22 +261,9 @@
 					"id" : "obj-2",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 30.0, 368.0, 8.0, 87.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-28",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 18.0, 15.0, 197.0, 28.0 ],
-					"text" : "jmod.sur.multi.aux~"
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 31.0, 368.0, 8.0, 87.0 ]
 				}
 
 			}
@@ -260,36 +272,11 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-29",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 19.0, 40.0, 282.0, 19.0 ],
-					"text" : "A module to distribute a multicable to three receivers"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-27",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 4.0, 3.0, 374.0, 68.0 ],
-					"rounded" : 15
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-1",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 12.0, 72.0, 441.0, 17.0 ],
+					"patching_rect" : [ 12.0, 72.0, 486.0, 19.0 ],
 					"text" : "NOTE: Changes in number of distributed voices only take effext the next time audio is started."
 				}
 
@@ -299,7 +286,8 @@
 					"id" : "obj-5",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 49.0, 368.0, 8.0, 87.0 ]
 				}
 
@@ -309,7 +297,8 @@
 					"id" : "obj-6",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 40.0, 368.0, 8.0, 87.0 ]
 				}
 
@@ -319,7 +308,8 @@
 					"id" : "obj-8",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 651.0, 368.0, 8.0, 87.0 ]
 				}
 
@@ -329,7 +319,8 @@
 					"id" : "obj-9",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 642.0, 368.0, 8.0, 87.0 ]
 				}
 
@@ -339,7 +330,8 @@
 					"id" : "obj-10",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 350.0, 368.0, 8.0, 87.0 ]
 				}
 
@@ -349,81 +341,66 @@
 					"id" : "obj-11",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 341.0, 368.0, 8.0, 87.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-12",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 544.0, 194.0, 127.0, 15.0 ],
+					"patching_rect" : [ 545.0, 200.0, 160.0, 17.0 ],
 					"text" : "/aux.3/description \"to mouse\""
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-13",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 544.0, 178.0, 115.0, 15.0 ],
+					"patching_rect" : [ 545.0, 180.0, 146.0, 17.0 ],
 					"text" : "/aux.2/description \"to dog\""
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-14",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 515.0, 215.0, 54.0, 17.0 ],
+					"patching_rect" : [ 515.0, 225.0, 57.0, 19.0 ],
 					"text" : "jcom.thru"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-15",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 70.0, 130.0, 47.0, 17.0 ],
+					"patching_rect" : [ 70.0, 130.0, 56.0, 19.0 ],
 					"text" : "saw~ 0.5"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "/control" ],
-					"id" : "obj-16",
-					"lockeddragscroll" : 1,
-					"maxclass" : "bpatcher",
-					"name" : "jmod.control.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 738.0, 151.0, 150.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
-					"varname" : "jmod.sur.multi.aux~[5]"
 				}
 
 			}
@@ -432,7 +409,8 @@
 					"id" : "obj-17",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 633.0, 368.0, 8.0, 87.0 ]
 				}
 
@@ -442,7 +420,8 @@
 					"id" : "obj-18",
 					"maxclass" : "jcom.meter~",
 					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 332.0, 368.0, 8.0, 87.0 ]
 				}
 
@@ -497,14 +476,14 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-22",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 30.0, 130.0, 39.0, 17.0 ],
+					"patching_rect" : [ 30.0, 130.0, 43.0, 19.0 ],
 					"text" : "noise~"
 				}
 
@@ -543,28 +522,28 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-25",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 543.0, 161.0, 108.0, 15.0 ],
+					"patching_rect" : [ 545.0, 160.0, 136.0, 17.0 ],
 					"text" : "/aux.1/description to_cat"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-26",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 542.0, 144.0, 157.0, 17.0 ],
+					"patching_rect" : [ 545.0, 140.0, 187.0, 19.0 ],
 					"text" : "you can also customize the buttons"
 				}
 
@@ -584,7 +563,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-8", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
+					"midpoints" : [ 653.84375, 347.5 ],
 					"source" : [ "obj-19", 3 ]
 				}
 

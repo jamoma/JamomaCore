@@ -485,7 +485,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.16 @type msg_toggle @description \"Digital sensor 16 from Interface-Z\"",
+					"text" : "jcom.return digital.16 @type boolean @description \"Digital sensor 16 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-10",
@@ -499,7 +499,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.15 @type msg_toggle @description \"Digital sensor 15 from Interface-Z\"",
+					"text" : "jcom.return digital.15 @type boolean @description \"Digital sensor 15 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-11",
@@ -513,7 +513,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.14 @type msg_toggle @description \"Digital sensor 14 from Interface-Z\"",
+					"text" : "jcom.return digital.14 @type boolean @description \"Digital sensor 14 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-12",
@@ -527,7 +527,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.13 @type msg_toggle @description \"Digital sensor 13 from Interface-Z\"",
+					"text" : "jcom.return digital.13 @type boolean @description \"Digital sensor 13 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-13",
@@ -541,7 +541,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.12 @type msg_toggle @description \"Digital sensor 12 from Interface-Z\"",
+					"text" : "jcom.return digital.12 @type boolean @description \"Digital sensor 12 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-14",
@@ -555,7 +555,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.11 @type msg_toggle @description \"Digital sensor 11 from Interface-Z\"",
+					"text" : "jcom.return digital.11 @type boolean @description \"Digital sensor 11 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-15",
@@ -569,7 +569,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.10 @type msg_toggle @description \"Digital sensor 10 from Interface-Z\"",
+					"text" : "jcom.return digital.10 @type boolean @description \"Digital sensor 10 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-16",
@@ -583,7 +583,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.9 @type msg_toggle @description \"Digital sensor 9 from Interface-Z\"",
+					"text" : "jcom.return digital.9 @type boolean @description \"Digital sensor 9 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-17",
@@ -597,7 +597,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.8 @type msg_toggle @description \"Digital sensor 8 from Interface-Z\"",
+					"text" : "jcom.return digital.8 @type boolean @description \"Digital sensor 8 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-6",
@@ -611,7 +611,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.7 @type msg_toggle @description \"Digital sensor 7 from Interface-Z\"",
+					"text" : "jcom.return digital.7 @type boolean @description \"Digital sensor 7 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-7",
@@ -625,7 +625,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.6 @type msg_toggle @description \"Digital sensor 6 from Interface-Z\"",
+					"text" : "jcom.return digital.6 @type boolean @description \"Digital sensor 6 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-8",
@@ -639,7 +639,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.5 @type msg_toggle @description \"Digital sensor 5 from Interface-Z\"",
+					"text" : "jcom.return digital.5 @type boolean @description \"Digital sensor 5 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-9",
@@ -653,7 +653,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.4 @type msg_toggle @description \"Digital sensor 4 from Interface-Z\"",
+					"text" : "jcom.return digital.4 @type boolean @description \"Digital sensor 4 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-5",
@@ -667,7 +667,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.3 @type msg_toggle @description \"Digital sensor 3 from Interface-Z\"",
+					"text" : "jcom.return digital.3 @type boolean @description \"Digital sensor 3 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-4",
@@ -681,7 +681,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.2 @type msg_toggle @description \"Digital sensor 2 from Interface-Z\"",
+					"text" : "jcom.return digital.2 @type boolean @description \"Digital sensor 2 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-3",
@@ -695,7 +695,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return digital.1 @type msg_toggle @description \"Digital sensor 1 from Interface-Z\"",
+					"text" : "jcom.return digital.1 @type boolean @description \"Digital sensor 1 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-105",
@@ -709,7 +709,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.12 @range/bounds 0. 1. @type msg_float @range/clipmode both @description \"Analog sensor 12 from Interface-Z\"",
+					"text" : "jcom.return analog.12 @range/bounds 0. 1. @type decimal @range/clipmode both @description \"Analog sensor 12 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-93",
@@ -1190,7 +1190,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.11 @range/bounds 0. 1. @type msg_float @range/clipmode both @description \"Analog sensor 11 from Interface-Z\"",
+					"text" : "jcom.return analog.11 @range/bounds 0. 1. @type decimal @range/clipmode both @description \"Analog sensor 11 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-95",
@@ -1671,7 +1671,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.10 @range/bounds 0. 1. @type msg_float @range/clipmode both @description \"Analog sensor 10 from Interface-Z\"",
+					"text" : "jcom.return analog.10 @range/bounds 0. 1. @type decimal @range/clipmode both @description \"Analog sensor 10 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-97",
@@ -2152,7 +2152,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.9 @range/bounds 0. 1. @type msg_float @range/clipmode both @description \"Analog sensor 9 from Interface-Z\"",
+					"text" : "jcom.return analog.9 @range/bounds 0. 1. @type decimal @range/clipmode both @description \"Analog sensor 9 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-99",
@@ -2633,7 +2633,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.8 @range/bounds 0. 1. @type msg_float @range/clipmode both @description \"Analog sensor 8 from Interface-Z\"",
+					"text" : "jcom.return analog.8 @range/bounds 0. 1. @type decimal @range/clipmode both @description \"Analog sensor 8 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-101",
@@ -3114,7 +3114,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.7 @range/bounds 0. 1. @type msg_float @range/clipmode both @description \"Analog sensor 7 from Interface-Z\"",
+					"text" : "jcom.return analog.7 @range/bounds 0. 1. @type decimal @range/clipmode both @description \"Analog sensor 7 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-103",
@@ -3659,7 +3659,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.6 @range/bounds 0. 1. @type msg_float @range/clipmode both @description \"Analog sensor 6 from Interface-Z\"",
+					"text" : "jcom.return analog.6 @range/bounds 0. 1. @type decimal @range/clipmode both @description \"Analog sensor 6 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-78",
@@ -4140,7 +4140,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.5 @range/bounds 0. 1. @type msg_float @range/clipmode both @description \"Analog sensor 5 from Interface-Z\"",
+					"text" : "jcom.return analog.5 @range/bounds 0. 1. @type decimal @range/clipmode both @description \"Analog sensor 5 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-76",
@@ -4621,7 +4621,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.4 @range/bounds 0. 1. @type msg_float @range/clipmode both @description \"Analog sensor 4 from Interface-Z\"",
+					"text" : "jcom.return analog.4 @range/bounds 0. 1. @type decimal @range/clipmode both @description \"Analog sensor 4 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-74",
@@ -5102,7 +5102,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.3 @range/bounds 0. 1. @type msg_float @range/clipmode both @description \"Analog sensor 3 from Interface-Z\"",
+					"text" : "jcom.return analog.3 @range/bounds 0. 1. @type decimal @range/clipmode both @description \"Analog sensor 3 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-72",
@@ -5583,7 +5583,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.2 @range/bounds 0. 1. @type msg_float @range/clipmode both @description \"Analog sensor 2 from Interface-Z\"",
+					"text" : "jcom.return analog.2 @range/bounds 0. 1. @type decimal @range/clipmode both @description \"Analog sensor 2 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-70",
@@ -6064,7 +6064,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return analog.1 @range/bounds 0. 1. @type msg_float @range/clipmode both @description \"Analog sensor 1 from Interface-Z\"",
+					"text" : "jcom.return analog.1 @range/bounds 0. 1. @type decimal @range/clipmode both @description \"Analog sensor 1 from Interface-Z\"",
 					"numoutlets" : 2,
 					"fontname" : "Arial",
 					"id" : "obj-69",

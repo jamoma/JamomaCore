@@ -101,7 +101,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 327.0, 81.0, 604.0, 31.0 ],
-					"text" : "jcom.parameter shape @type msg_symbol @repetitions/allow 0 @description \"The waveform used by the oscillator.  Choices are sine - square - triangle - ramp\"",
+					"text" : "jcom.parameter shape @type string @repetitions/allow 0 @description \"The waveform used by the oscillator.  Choices are sine - square - triangle - ramp\"",
 					"varname" : "shape"
 				}
 
@@ -134,7 +134,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 327.0, 4.0, 588.0, 31.0 ],
-					"text" : "jcom.parameter frequency @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 200. @range/clipmode both @description \"Frequency of the oscillator in cycles per second.\"",
+					"text" : "jcom.parameter frequency @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 200. @range/clipmode both @description \"Frequency of the oscillator in cycles per second.\"",
 					"varname" : "frequency"
 				}
 
@@ -151,7 +151,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 327.0, 43.0, 550.0, 31.0 ],
-					"text" : "jcom.parameter depth @type msg_float @ramp/drive scheduler @repetitions/allow 0 @description \"Depth (amplitude) of the oscillator.\"",
+					"text" : "jcom.parameter depth @type decimal @ramp/drive scheduler @repetitions/allow 0 @description \"Depth (amplitude) of the oscillator.\"",
 					"varname" : "depth"
 				}
 

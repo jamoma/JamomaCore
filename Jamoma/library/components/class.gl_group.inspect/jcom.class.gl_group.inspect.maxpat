@@ -1,16 +1,16 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 151.0, 44.0, 288.0, 711.0 ],
+		"rect" : [ 151.0, 44.0, 269.0, 762.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 151.0, 44.0, 288.0, 711.0 ],
+		"defrect" : [ 151.0, 44.0, 269.0, 762.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
-		"gridsize" : [ 15.0, 15.0 ],
+		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
@@ -35,7 +35,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-1",
 					"linecount" : 3,
 					"maxclass" : "newobj",
@@ -43,7 +43,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 879.0, 598.0, 349.0, 42.0 ],
-					"text" : "jcom.parameter render/layer @type msg_int @range/bounds 0 255 @range/clipmode none @ramp/drive none @description \"Object layer number. Only valid when /render/automatic is enabled.\"",
+					"text" : "jcom.parameter render/layer @type integer @range/bounds 0 255 @range/clipmode none @ramp/drive none @description \"Object layer number. Only valid when /render/automatic is enabled.\"",
 					"varname" : "render/layer"
 				}
 
@@ -85,7 +85,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-5",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -115,7 +115,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-7",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -129,7 +129,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-8",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -137,17 +137,15 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 879.0, 562.0, 313.0, 30.0 ],
-					"text" : "jcom.parameter render/context @type msg_symbol @description \"The named drawing context in which to draw.\"",
+					"text" : "jcom.parameter render/context @type string @description \"The named drawing context in which to draw.\"",
 					"varname" : "render/context"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"bordercolor" : [ 0.5, 0.5, 0.5, 1.0 ],
-					"fontname" : "Geneva",
-					"fontsize" : 8.998901,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-10",
 					"keymode" : 1,
@@ -156,11 +154,10 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "int", "", "" ],
-					"patching_rect" : [ 839.0, 570.0, 32.0, 18.0 ],
+					"patching_rect" : [ 839.0, 570.0, 37.0, 18.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 94.0, 656.0, 110.0, 18.0 ],
+					"presentation_rect" : [ 94.0, 657.0, 122.0, 18.0 ],
 					"text" : "none",
-					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"varname" : "Context"
 				}
 
@@ -168,7 +165,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-14",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -182,7 +179,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-15",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -196,7 +193,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-16",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -210,7 +207,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-17",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -224,7 +221,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-18",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -238,7 +235,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-19",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -252,7 +249,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-20",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -266,7 +263,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-21",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -280,7 +277,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-22",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -294,7 +291,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-23",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -308,7 +305,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-24",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -322,7 +319,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-25",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -336,7 +333,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-26",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -350,7 +347,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-27",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -364,7 +361,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-28",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -378,7 +375,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-29",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -392,7 +389,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-30",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -400,7 +397,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 266.0, 355.0, 302.0, 30.0 ],
-					"text" : "jcom.parameter blend/mode @type msg_list @description \"Blend modes for source and destination planes.\"",
+					"text" : "jcom.parameter blend/mode @type array @description \"Blend modes for source and destination planes.\"",
 					"varname" : "blend/mode"
 				}
 
@@ -408,7 +405,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-31",
 					"maxclass" : "newobj",
 					"numinlets" : 11,
@@ -422,7 +419,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-34",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
@@ -451,14 +448,8 @@
 			}
 , 			{
 				"box" : 				{
-					"arrowbgcolor" : [ 0.86, 0.86, 0.86, 1.0 ],
-					"arrowcolor" : [ 0.22, 0.22, 0.22, 1.0 ],
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"bgcolor2" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"discolor" : [ 0.43, 0.43, 0.43, 1.0 ],
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
-					"framecolor" : [ 0.5, 0.5, 0.5, 1.0 ],
+					"fontsize" : 10.0,
 					"id" : "obj-36",
 					"items" : [ "0:", "zero", ",", "1:", "one", ",", "2:", "destination", "color", ",", "3:", "source", "color", ",", "4:", "one", "minus", "destination", "color", ",", "5:", "one", "minus", "source", "color", ",", "6:", "source", "alpha", ",", "7:", "one", "minus", "source", "alpha", ",", "8:", "destination", "alpha", ",", "9:", "one", "minus", "destination", "alpha", ",", "10:", "source", "alpha", "saturate" ],
 					"labelclick" : 1,
@@ -469,7 +460,6 @@
 					"patching_rect" : [ 199.0, 329.0, 64.0, 18.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 111.0, 156.0, 146.0, 18.0 ],
-					"togcolor" : [ 0.55, 0.55, 0.55, 1.0 ],
 					"types" : [  ],
 					"varname" : "BlendModeDst"
 				}
@@ -478,7 +468,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-37",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -486,7 +476,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 384.0, 413.0, 30.0 ],
-					"text" : "jcom.parameter material/shininess @type msg_float @range/bounds 0. 255. @range/clipmode both @ramp/drive scheduler @description \"Material shininess.\"",
+					"text" : "jcom.parameter material/shininess @type decimal @range/bounds 0. 255. @range/clipmode both @ramp/drive scheduler @description \"Material shininess.\"",
 					"varname" : "material/shininess"
 				}
 
@@ -494,7 +484,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-39",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -502,7 +492,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 879.0, 726.0, 265.0, 30.0 ],
-					"text" : "jcom.parameter render/enable @type msg_toggle @description \"Enable drawing.\"",
+					"text" : "jcom.parameter render/enable @type boolean @description \"Enable drawing.\"",
 					"varname" : "render/enable"
 				}
 
@@ -510,7 +500,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-40",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -518,7 +508,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 879.0, 689.0, 273.0, 30.0 ],
-					"text" : "jcom.parameter render/automatic @type msg_toggle @description \"Automatic rendering flag.\"",
+					"text" : "jcom.parameter render/automatic @type boolean @description \"Automatic rendering flag.\"",
 					"varname" : "render/automatic"
 				}
 
@@ -526,7 +516,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-41",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -534,7 +524,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 879.0, 652.0, 270.0, 30.0 ],
-					"text" : "jcom.parameter render/antialias @type msg_toggle @description \"Aliasing flag.\"",
+					"text" : "jcom.parameter render/antialias @type boolean @description \"Aliasing flag.\"",
 					"varname" : "render/antialias"
 				}
 
@@ -542,7 +532,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-42",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -550,7 +540,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 507.0, 287.0, 30.0 ],
-					"text" : "jcom.parameter material/inherit @type msg_toggle @description \"Inherit material properties from context.\"",
+					"text" : "jcom.parameter material/inherit @type boolean @description \"Inherit material properties from context.\"",
 					"varname" : "material/inherit"
 				}
 
@@ -558,7 +548,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-43",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -566,7 +556,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 470.0, 286.0, 30.0 ],
-					"text" : "jcom.parameter material/automatic @type msg_toggle @description \"Automatic material attributes.\"",
+					"text" : "jcom.parameter material/automatic @type boolean @description \"Automatic material attributes.\"",
 					"varname" : "material/automatic"
 				}
 
@@ -574,7 +564,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-44",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -582,7 +572,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 433.0, 236.0, 30.0 ],
-					"text" : "jcom.parameter material/light/enable @type msg_toggle @description \"Calculate lighting.\"",
+					"text" : "jcom.parameter material/light/enable @type boolean @description \"Calculate lighting.\"",
 					"varname" : "material/light/enable"
 				}
 
@@ -590,7 +580,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-52",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -598,7 +588,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 310.0, 323.0, 30.0 ],
-					"text" : "jcom.parameter fog/amount @type msg_float @range/bounds 0. 1. @description \"The amount of fog effect.\"",
+					"text" : "jcom.parameter fog/amount @type decimal @range/bounds 0. 1. @description \"The amount of fog effect.\"",
 					"varname" : "fog/amount"
 				}
 
@@ -606,7 +596,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-53",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -614,7 +604,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 347.0, 261.0, 30.0 ],
-					"text" : "jcom.parameter fog/inherit @type msg_toggle @description \"inherit fog properties from context.\"",
+					"text" : "jcom.parameter fog/inherit @type boolean @description \"inherit fog properties from context.\"",
 					"varname" : "fog/inherit"
 				}
 
@@ -622,7 +612,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-55",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -630,7 +620,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 273.0, 275.0, 30.0 ],
-					"text" : "jcom.parameter depth/inherit @type msg_toggle @description \"Inherit depth properties from context.\"",
+					"text" : "jcom.parameter depth/inherit @type boolean @description \"Inherit depth properties from context.\"",
 					"varname" : "depth/inherit"
 				}
 
@@ -638,7 +628,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-57",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -646,7 +636,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 236.0, 281.0, 30.0 ],
-					"text" : "jcom.parameter depth/enable @type msg_toggle @description \"Enable depth buffering.\"",
+					"text" : "jcom.parameter depth/enable @type boolean @description \"Enable depth buffering.\"",
 					"varname" : "depth/enable"
 				}
 
@@ -654,7 +644,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-59",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -662,7 +652,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 199.0, 316.0, 30.0 ],
-					"text" : "jcom.parameter depth/clear @type msg_toggle @description \"Clear depth buffer before rendering the object.\"",
+					"text" : "jcom.parameter depth/clear @type boolean @description \"Clear depth buffer before rendering the object.\"",
 					"varname" : "depth/clear"
 				}
 
@@ -670,7 +660,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-61",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -678,7 +668,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 162.0, 270.0, 30.0 ],
-					"text" : "jcom.parameter color/inherit @type msg_toggle @description \"Inherit color properties from context.\"",
+					"text" : "jcom.parameter color/inherit @type boolean @description \"Inherit color properties from context.\"",
 					"varname" : "color/inherit"
 				}
 
@@ -686,7 +676,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-63",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -694,7 +684,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 125.0, 265.0, 30.0 ],
-					"text" : "jcom.parameter blend/enable @type msg_toggle @description \"Enable blending.\"",
+					"text" : "jcom.parameter blend/enable @type boolean @description \"Enable blending.\"",
 					"varname" : "blend/enable"
 				}
 
@@ -702,7 +692,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-66",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -710,7 +700,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 872.0, 436.0, 30.0 ],
-					"text" : "jcom.parameter material/light/specular @type msg_list @ramp/drive scheduler @description \"The specular light material property as red, green, blue, alpha (0.-1.).\"",
+					"text" : "jcom.parameter material/light/specular @type array @ramp/drive scheduler @description \"The specular light material property as red, green, blue, alpha (0.-1.).\"",
 					"varname" : "material/light/specular"
 				}
 
@@ -718,7 +708,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-67",
 					"maxclass" : "newobj",
 					"numinlets" : 11,
@@ -732,7 +722,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-72",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -740,7 +730,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 802.0, 412.0, 30.0 ],
-					"text" : "jcom.parameter material/light/emission @type msg_list @ramp/drive scheduler @description \"The material emission property as red, green, blue, alpha (0.-1.).\"",
+					"text" : "jcom.parameter material/light/emission @type array @ramp/drive scheduler @description \"The material emission property as red, green, blue, alpha (0.-1.).\"",
 					"varname" : "material/light/emission"
 				}
 
@@ -748,7 +738,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-73",
 					"maxclass" : "newobj",
 					"numinlets" : 11,
@@ -762,7 +752,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-78",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -770,7 +760,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 736.0, 427.0, 30.0 ],
-					"text" : "jcom.parameter material/light/diffuse @type msg_list @ramp/drive scheduler @description \"The diffuse light material property as red, green, blue, alpha (0.-1.).\"",
+					"text" : "jcom.parameter material/light/diffuse @type array @ramp/drive scheduler @description \"The diffuse light material property as red, green, blue, alpha (0.-1.).\"",
 					"varname" : "material/light/diffuse"
 				}
 
@@ -778,7 +768,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-79",
 					"maxclass" : "newobj",
 					"numinlets" : 11,
@@ -792,7 +782,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-84",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -800,7 +790,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 668.0, 435.0, 30.0 ],
-					"text" : "jcom.parameter material/light/ambient @type msg_list @ramp/drive scheduler @description \"The ambient light material property as red, green, blue, alpha (0.-1.).\"",
+					"text" : "jcom.parameter material/light/ambient @type array @ramp/drive scheduler @description \"The ambient light material property as red, green, blue, alpha (0.-1.).\"",
 					"varname" : "material/light/ambient"
 				}
 
@@ -808,7 +798,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-85",
 					"maxclass" : "newobj",
 					"numinlets" : 11,
@@ -822,7 +812,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-93",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -830,7 +820,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 566.0, 339.0, 30.0 ],
-					"text" : "jcom.parameter fog/params @type msg_list @ramp/drive scheduler @description \"Fog color (RGBA), density,start and end.\"",
+					"text" : "jcom.parameter fog/params @type array @ramp/drive scheduler @description \"Fog color (RGBA), density,start and end.\"",
 					"varname" : "fog/params"
 				}
 
@@ -838,7 +828,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-94",
 					"maxclass" : "newobj",
 					"numinlets" : 11,
@@ -852,7 +842,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-98",
 					"linecount" : 3,
 					"maxclass" : "newobj",
@@ -860,7 +850,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 322.0, 407.0, 352.0, 42.0 ],
-					"text" : "jcom.parameter color/alpha @type msg_float @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @description \"Object alpha transparency (0.-1.).\"",
+					"text" : "jcom.parameter color/alpha @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @description \"Object alpha transparency (0.-1.).\"",
 					"varname" : "color/alpha"
 				}
 
@@ -868,7 +858,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-100",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -876,7 +866,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 457.0, 334.0, 30.0 ],
-					"text" : "jcom.parameter color/rgb @type msg_list @ramp/drive scheduler @description \"Object color as red, green, blue (0.-1.).\"",
+					"text" : "jcom.parameter color/rgb @type array @ramp/drive scheduler @description \"Object color as red, green, blue (0.-1.).\"",
 					"varname" : "color/rgb"
 				}
 
@@ -884,7 +874,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-101",
 					"maxclass" : "newobj",
 					"numinlets" : 11,
@@ -898,7 +888,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-105",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -906,7 +896,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 266.0, 293.0, 313.0, 30.0 ],
-					"text" : "jcom.parameter 3D/scale @ramp/drive scheduler @type msg_list @description \"3D scaling factor as xyz coordinates.\"",
+					"text" : "jcom.parameter 3D/scale @ramp/drive scheduler @type array @description \"3D scaling factor as xyz coordinates.\"",
 					"varname" : "3D/scale"
 				}
 
@@ -914,7 +904,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-106",
 					"maxclass" : "newobj",
 					"numinlets" : 11,
@@ -928,7 +918,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-111",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -936,7 +926,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 266.0, 230.0, 358.0, 30.0 ],
-					"text" : "jcom.parameter 3D/rotate @type msg_list @ramp/drive scheduler @description \"3D rotation as angle and xyz rotation axis coordinates.\"",
+					"text" : "jcom.parameter 3D/rotate @type array @ramp/drive scheduler @description \"3D rotation as angle and xyz rotation axis coordinates.\"",
 					"varname" : "3D/rotate"
 				}
 
@@ -944,7 +934,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-112",
 					"maxclass" : "newobj",
 					"numinlets" : 11,
@@ -958,7 +948,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-116",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -966,7 +956,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 266.0, 158.0, 301.0, 30.0 ],
-					"text" : "jcom.parameter 3D/position @type msg_list @ramp/drive scheduler @description \"3D origin as xyz coordinates.\"",
+					"text" : "jcom.parameter 3D/position @type array @ramp/drive scheduler @description \"3D origin as xyz coordinates.\"",
 					"varname" : "3D/position"
 				}
 
@@ -974,7 +964,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-117",
 					"maxclass" : "newobj",
 					"numinlets" : 11,
@@ -2417,14 +2407,8 @@
 			}
 , 			{
 				"box" : 				{
-					"arrowbgcolor" : [ 0.86, 0.86, 0.86, 1.0 ],
-					"arrowcolor" : [ 0.22, 0.22, 0.22, 1.0 ],
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"bgcolor2" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"discolor" : [ 0.43, 0.43, 0.43, 1.0 ],
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
-					"framecolor" : [ 0.5, 0.5, 0.5, 1.0 ],
+					"fontsize" : 10.0,
 					"id" : "obj-202",
 					"items" : [ "0:", "zero", ",", "1:", "one", ",", "2:", "destination", "color", ",", "3:", "source", "color", ",", "4:", "one", "minus", "destination", "color", ",", "5:", "one", "minus", "source", "color", ",", "6:", "source", "alpha", ",", "7:", "one", "minus", "source", "alpha", ",", "8:", "destination", "alpha", ",", "9:", "one", "minus", "destination", "alpha", ",", "10:", "source", "alpha", "saturate" ],
 					"labelclick" : 1,
@@ -2435,7 +2419,6 @@
 					"patching_rect" : [ 128.0, 329.0, 64.0, 18.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 111.0, 128.0, 146.0, 18.0 ],
-					"togcolor" : [ 0.55, 0.55, 0.55, 1.0 ],
 					"types" : [  ],
 					"varname" : "BlendModeSrc"
 				}
@@ -2722,7 +2705,6 @@
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -2872,7 +2854,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-231",
 					"maxclass" : "comment",

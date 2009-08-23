@@ -5,80 +5,80 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='12' name='RacketBall'>
-    <item name='srcLow' type='msg_generic'>304.000000</item>
-    <item name='srcHigh' type='msg_generic'>226.000000</item>
-    <item name='destLow' type='msg_generic'>55.000000</item>
-    <item name='destHigh' type='msg_generic'>239.000000</item>
+    <item name='srcLow' type='generic'>304.000000</item>
+    <item name='srcHigh' type='generic'>226.000000</item>
+    <item name='destLow' type='generic'>55.000000</item>
+    <item name='destHigh' type='generic'>239.000000</item>
   </preset>
   <preset number='11' name='OnTheRoof'>
-    <item name='srcLow' type='msg_generic'>222.000000</item>
-    <item name='srcHigh' type='msg_generic'>226.000000</item>
-    <item name='destLow' type='msg_generic'>55.000000</item>
-    <item name='destHigh' type='msg_generic'>239.000000</item>
+    <item name='srcLow' type='generic'>222.000000</item>
+    <item name='srcHigh' type='generic'>226.000000</item>
+    <item name='destLow' type='generic'>55.000000</item>
+    <item name='destHigh' type='generic'>239.000000</item>
   </preset>
   <preset number='10' name='Spoof'>
-    <item name='srcLow' type='msg_generic'>184.000000</item>
-    <item name='srcHigh' type='msg_generic'>293.000000</item>
-    <item name='destLow' type='msg_generic'>9.000000</item>
-    <item name='destHigh' type='msg_generic'>10.000000</item>
+    <item name='srcLow' type='generic'>184.000000</item>
+    <item name='srcHigh' type='generic'>293.000000</item>
+    <item name='destLow' type='generic'>9.000000</item>
+    <item name='destHigh' type='generic'>10.000000</item>
   </preset>
   <preset number='9' name='Goof'>
-    <item name='srcLow' type='msg_generic'>184.000000</item>
-    <item name='srcHigh' type='msg_generic'>151.000000</item>
-    <item name='destLow' type='msg_generic'>11.040000</item>
-    <item name='destHigh' type='msg_generic'>11.580000</item>
+    <item name='srcLow' type='generic'>184.000000</item>
+    <item name='srcHigh' type='generic'>151.000000</item>
+    <item name='destLow' type='generic'>11.040000</item>
+    <item name='destHigh' type='generic'>11.580000</item>
   </preset>
   <preset number='8' name='Inversion'>
-    <item name='srcLow' type='msg_generic'>0.000000</item>
-    <item name='srcHigh' type='msg_generic'>512.000000</item>
-    <item name='destLow' type='msg_generic'>512.000000</item>
-    <item name='destHigh' type='msg_generic'>0.000000</item>
+    <item name='srcLow' type='generic'>0.000000</item>
+    <item name='srcHigh' type='generic'>512.000000</item>
+    <item name='destLow' type='generic'>512.000000</item>
+    <item name='destHigh' type='generic'>0.000000</item>
   </preset>
   <preset number='7' name='InvertedDownShift'>
-    <item name='srcLow' type='msg_generic'>0.000000</item>
-    <item name='srcHigh' type='msg_generic'>512.000000</item>
-    <item name='destLow' type='msg_generic'>256.000000</item>
-    <item name='destHigh' type='msg_generic'>-256.000000</item>
+    <item name='srcLow' type='generic'>0.000000</item>
+    <item name='srcHigh' type='generic'>512.000000</item>
+    <item name='destLow' type='generic'>256.000000</item>
+    <item name='destHigh' type='generic'>-256.000000</item>
   </preset>
   <preset number='6' name='Uncertainty'>
-    <item name='srcLow' type='msg_generic'>32.000000</item>
-    <item name='srcHigh' type='msg_generic'>0.000000</item>
-    <item name='destLow' type='msg_generic'>0.000000</item>
-    <item name='destHigh' type='msg_generic'>32.000000</item>
+    <item name='srcLow' type='generic'>32.000000</item>
+    <item name='srcHigh' type='generic'>0.000000</item>
+    <item name='destLow' type='generic'>0.000000</item>
+    <item name='destHigh' type='generic'>32.000000</item>
   </preset>
   <preset number='5' name='WayWayDown'>
-    <item name='srcLow' type='msg_generic'>0.000000</item>
-    <item name='srcHigh' type='msg_generic'>512.000000</item>
-    <item name='destLow' type='msg_generic'>12.000000</item>
-    <item name='destHigh' type='msg_generic'>-500.000000</item>
+    <item name='srcLow' type='generic'>0.000000</item>
+    <item name='srcHigh' type='generic'>512.000000</item>
+    <item name='destLow' type='generic'>12.000000</item>
+    <item name='destHigh' type='generic'>-500.000000</item>
   </preset>
   <preset number='4' name='UpShift'>
-    <item name='srcLow' type='msg_generic'>0.000000</item>
-    <item name='srcHigh' type='msg_generic'>512.000000</item>
-    <item name='destLow' type='msg_generic'>100.000000</item>
-    <item name='destHigh' type='msg_generic'>612.000000</item>
+    <item name='srcLow' type='generic'>0.000000</item>
+    <item name='srcHigh' type='generic'>512.000000</item>
+    <item name='destLow' type='generic'>100.000000</item>
+    <item name='destHigh' type='generic'>612.000000</item>
   </preset>
   <preset number='3' name='Expansion'>
-    <item name='srcLow' type='msg_generic'>0.000000</item>
-    <item name='srcHigh' type='msg_generic'>512.000000</item>
-    <item name='destLow' type='msg_generic'>0.000000</item>
-    <item name='destHigh' type='msg_generic'>8196.000000</item>
+    <item name='srcLow' type='generic'>0.000000</item>
+    <item name='srcHigh' type='generic'>512.000000</item>
+    <item name='destLow' type='generic'>0.000000</item>
+    <item name='destHigh' type='generic'>8196.000000</item>
   </preset>
   <preset number='2' name='Compression'>
-    <item name='srcLow' type='msg_generic'>0.000000</item>
-    <item name='srcHigh' type='msg_generic'>512.000000</item>
-    <item name='destLow' type='msg_generic'>0.000000</item>
-    <item name='destHigh' type='msg_generic'>108.000000</item>
+    <item name='srcLow' type='generic'>0.000000</item>
+    <item name='srcHigh' type='generic'>512.000000</item>
+    <item name='destLow' type='generic'>0.000000</item>
+    <item name='destHigh' type='generic'>108.000000</item>
   </preset>
   <preset number='1' name='default'>
-    <item name='srcLow' type='msg_generic'>0.000000</item>
-    <item name='srcHigh' type='msg_generic'>1024.000000</item>
-    <item name='destLow' type='msg_generic'>0.000000</item>
-    <item name='destHigh' type='msg_generic'>1024.000000</item>
-    <item name='audio/mute' type='msg_toggle'>1</item>
-    <item name='audio/mix' type='msg_float'>100.000000</item>
-    <item name='audio/meters/freeze' type='msg_toggle'>0</item>
-    <item name='audio/gain' type='msg_float'>0</item>
-    <item name='audio/bypass' type='msg_toggle'>0</item>
+    <item name='srcLow' type='generic'>0.000000</item>
+    <item name='srcHigh' type='generic'>1024.000000</item>
+    <item name='destLow' type='generic'>0.000000</item>
+    <item name='destHigh' type='generic'>1024.000000</item>
+    <item name='audio/mute' type='boolean'>1</item>
+    <item name='audio/mix' type='decimal'>100.000000</item>
+    <item name='audio/meters/freeze' type='boolean'>0</item>
+    <item name='audio/gain' type='decimal'>0</item>
+    <item name='audio/bypass' type='boolean'>0</item>
   </preset>
 </jamoma>

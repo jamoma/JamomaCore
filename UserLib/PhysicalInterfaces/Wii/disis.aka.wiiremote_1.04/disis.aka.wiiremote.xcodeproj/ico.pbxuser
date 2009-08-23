@@ -1,0 +1,627 @@
+// !$*UTF8*$!
+{
+	089C1669FE841209C02AAC07 /* Project object */ = {
+		activeArchitecture = i386;
+		activeBuildConfigurationName = Deployment;
+		activeTarget = 8D01CCC60486CAD60068D4B7 /* disis.aka.wiiremote */;
+		addToTargets = (
+			8D01CCC60486CAD60068D4B7 /* disis.aka.wiiremote */,
+		);
+		breakpoints = (
+		);
+		codeSenseManager = 70B7750E0EF0451A0040CC17 /* Code sense */;
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXErrorsWarningsDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXErrorsWarningsDataSource_LocationID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					987,
+					174,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXErrorsWarningsDataSource_TypeID,
+					PBXErrorsWarningsDataSource_MessageID,
+					PBXErrorsWarningsDataSource_LocationID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					859,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					699,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXSymbolsDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXSymbolsDataSource_SymbolNameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					16,
+					200,
+					50,
+					911,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXSymbolsDataSource_SymbolTypeIconID,
+					PBXSymbolsDataSource_SymbolNameID,
+					PBXSymbolsDataSource_SymbolTypeID,
+					PBXSymbolsDataSource_ReferenceNameID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.XCSCMDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					20,
+					947,
+					20,
+					48.16259765625,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_SCM_ColumnID,
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					931,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 253581748;
+			PBXWorkspaceStateSaveDate = 253581748;
+		};
+		perUserProjectItems = {
+			70144DA50EF06BF1009EA07A /* PBXTextBookmark */ = 70144DA50EF06BF1009EA07A /* PBXTextBookmark */;
+			70144DAA0EF06BF1009EA07A /* PBXTextBookmark */ = 70144DAA0EF06BF1009EA07A /* PBXTextBookmark */;
+			706AE7850EF066A6007FCB5D /* PBXTextBookmark */ = 706AE7850EF066A6007FCB5D /* PBXTextBookmark */;
+			708042F00EF6E74300CF6927 /* PBXTextBookmark */ = 708042F00EF6E74300CF6927 /* PBXTextBookmark */;
+			708059B10EF0785A0067326C /* PBXTextBookmark */ = 708059B10EF0785A0067326C /* PBXTextBookmark */;
+			708059B50EF0785A0067326C /* PBXTextBookmark */ = 708059B50EF0785A0067326C /* PBXTextBookmark */;
+			70805A820EF0801D0067326C /* PBXTextBookmark */ = 70805A820EF0801D0067326C /* PBXTextBookmark */;
+			70805A830EF0801D0067326C /* PBXTextBookmark */ = 70805A830EF0801D0067326C /* PBXTextBookmark */;
+			70805A850EF0801D0067326C /* PBXTextBookmark */ = 70805A850EF0801D0067326C /* PBXTextBookmark */;
+			70805A870EF0801D0067326C /* PBXTextBookmark */ = 70805A870EF0801D0067326C /* PBXTextBookmark */;
+			70805A890EF0801D0067326C /* PBXTextBookmark */ = 70805A890EF0801D0067326C /* PBXTextBookmark */;
+			70805A8B0EF0801D0067326C /* PBXTextBookmark */ = 70805A8B0EF0801D0067326C /* PBXTextBookmark */;
+			70805A8D0EF0801D0067326C /* PBXTextBookmark */ = 70805A8D0EF0801D0067326C /* PBXTextBookmark */;
+			70805A8F0EF0801D0067326C /* PBXTextBookmark */ = 70805A8F0EF0801D0067326C /* PBXTextBookmark */;
+			70805A930EF0801D0067326C /* PBXTextBookmark */ = 70805A930EF0801D0067326C /* PBXTextBookmark */;
+			70805A950EF0801D0067326C /* PBXTextBookmark */ = 70805A950EF0801D0067326C /* PBXTextBookmark */;
+			70805A970EF0801D0067326C /* PBXTextBookmark */ = 70805A970EF0801D0067326C /* PBXTextBookmark */;
+			70805A990EF0801D0067326C /* PBXTextBookmark */ = 70805A990EF0801D0067326C /* PBXTextBookmark */;
+			70805A9B0EF0801D0067326C /* PBXTextBookmark */ = 70805A9B0EF0801D0067326C /* PBXTextBookmark */;
+			70805A9D0EF0801D0067326C /* PBXTextBookmark */ = 70805A9D0EF0801D0067326C /* PBXTextBookmark */;
+			70805A9F0EF0801D0067326C /* PBXTextBookmark */ = 70805A9F0EF0801D0067326C /* PBXTextBookmark */;
+			7098F1780F1D57D100660854 /* PBXTextBookmark */ = 7098F1780F1D57D100660854 /* PBXTextBookmark */;
+			709D5B850F1D5A9900B658B5 /* PBXTextBookmark */ = 709D5B850F1D5A9900B658B5 /* PBXTextBookmark */;
+			709D5B860F1D5A9900B658B5 /* PBXTextBookmark */ = 709D5B860F1D5A9900B658B5 /* PBXTextBookmark */;
+			709D5B870F1D5A9900B658B5 /* PBXTextBookmark */ = 709D5B870F1D5A9900B658B5 /* PBXTextBookmark */;
+			709D5B880F1D5A9900B658B5 /* PBXTextBookmark */ = 709D5B880F1D5A9900B658B5 /* PBXTextBookmark */;
+			709D5B890F1D5A9900B658B5 /* PBXTextBookmark */ = 709D5B890F1D5A9900B658B5 /* PBXTextBookmark */;
+			709D5B8A0F1D5A9900B658B5 /* PBXTextBookmark */ = 709D5B8A0F1D5A9900B658B5 /* PBXTextBookmark */;
+			709D5B8B0F1D5A9900B658B5 /* PBXTextBookmark */ = 709D5B8B0F1D5A9900B658B5 /* PBXTextBookmark */;
+			70D15EC40F1D5819007B9D63 /* PBXTextBookmark */ = 70D15EC40F1D5819007B9D63 /* PBXTextBookmark */;
+		};
+		sourceControlManager = 70B7750D0EF0451A0040CC17 /* Source Control */;
+		userBookmarkGroup = 702C2D550EF081B1003BCAA1 /* PBXBookmarkGroup */;
+		userBuildSettings = {
+		};
+	};
+	4123BC930B2D8FEB00E6834C /* wiiremote.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {996, 11284}}";
+			sepNavSelRange = "{1138, 0}";
+			sepNavVisRange = "{767, 1216}";
+			sepNavWindowFrame = "{{138, 173}, {987, 983}}";
+		};
+	};
+	4123BC950B2D8FF500E6834C /* wiiremote.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {877, 2814}}";
+			sepNavSelRange = "{5119, 0}";
+			sepNavVisRange = "{3641, 1478}";
+			sepNavWindowFrame = "{{266, 28}, {975, 1129}}";
+		};
+	};
+	419815790B28442C0053E59F /* aka.wiiremote.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {955, 6790}}";
+			sepNavSelRange = "{3089, 0}";
+			sepNavVisRange = "{2131, 2458}";
+			sepNavWindowFrame = "{{656, 57}, {1014, 1019}}";
+		};
+	};
+	70144D850EF06A6B009EA07A /* IOBluetoothUserLib.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = IOBluetoothUserLib.h;
+		path = /Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/IOBluetooth.framework/Versions/A/Headers/IOBluetoothUserLib.h;
+		sourceTree = "<absolute>";
+	};
+	70144DA50EF06BF1009EA07A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 70144D850EF06A6B009EA07A /* IOBluetoothUserLib.h */;
+		name = "IOBluetoothUserLib.h: 2902";
+		rLen = 43;
+		rLoc = 159428;
+		rType = 0;
+		vrLen = 2212;
+		vrLoc = 158752;
+	};
+	70144DAA0EF06BF1009EA07A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4123BC950B2D8FF500E6834C /* wiiremote.h */;
+		name = "wiiremote.h: 9";
+		rLen = 0;
+		rLoc = 312;
+		rType = 0;
+		vrLen = 1046;
+		vrLoc = 0;
+	};
+	702C2D550EF081B1003BCAA1 /* PBXBookmarkGroup */ = {
+		isa = PBXBookmarkGroup;
+		children = (
+			702C2E170EF085F9003BCAA1 /* PBXBookmark */,
+		);
+		name = Root;
+	};
+	702C2E170EF085F9003BCAA1 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 4123BC930B2D8FEB00E6834C /* wiiremote.c */;
+	};
+	705DF0F50EF07491004A08CC /* Carbon.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = Carbon.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Carbon.framework/Headers/Carbon.h;
+		sourceTree = "<absolute>";
+	};
+	706AE7850EF066A6007FCB5D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 419815790B28442C0053E59F /* aka.wiiremote.c */;
+		name = "aka.wiiremote.c: 87";
+		rLen = 2;
+		rLoc = 2561;
+		rType = 0;
+		vrLen = 540;
+		vrLoc = 2195;
+	};
+	708042F00EF6E74300CF6927 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4123BC930B2D8FEB00E6834C /* wiiremote.c */;
+		name = "wiiremote.c: 689";
+		rLen = 0;
+		rLoc = 21925;
+		rType = 0;
+		vrLen = 739;
+		vrLoc = 0;
+	};
+	708059B10EF0785A0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 705DF0F50EF07491004A08CC /* Carbon.h */;
+		name = "Carbon.h: 17";
+		rLen = 0;
+		rLoc = 408;
+		rType = 0;
+		vrLen = 761;
+		vrLoc = 0;
+	};
+	708059B50EF0785A0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 705DF0F50EF07491004A08CC /* Carbon.h */;
+		name = "Carbon.h: 17";
+		rLen = 0;
+		rLoc = 408;
+		rType = 0;
+		vrLen = 761;
+		vrLoc = 0;
+	};
+	70805A820EF0801D0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 70144D850EF06A6B009EA07A /* IOBluetoothUserLib.h */;
+		name = "IOBluetoothUserLib.h: 88";
+		rLen = 25;
+		rLoc = 2624;
+		rType = 0;
+		vrLen = 1343;
+		vrLoc = 0;
+	};
+	70805A830EF0801D0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 70805A840EF0801D0067326C /* Bluetooth.h */;
+		name = "Bluetooth.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1001;
+		vrLoc = 0;
+	};
+	70805A840EF0801D0067326C /* Bluetooth.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = Bluetooth.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOBluetooth.framework/Headers/Bluetooth.h;
+		sourceTree = "<absolute>";
+	};
+	70805A850EF0801D0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 70805A860EF0801D0067326C /* BluetoothAssignedNumbers.h */;
+		name = "BluetoothAssignedNumbers.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1698;
+		vrLoc = 0;
+	};
+	70805A860EF0801D0067326C /* BluetoothAssignedNumbers.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = BluetoothAssignedNumbers.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOBluetooth.framework/Headers/BluetoothAssignedNumbers.h;
+		sourceTree = "<absolute>";
+	};
+	70805A870EF0801D0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 70805A880EF0801D0067326C /* IOBluetoothTypes.h */;
+		name = "IOBluetoothTypes.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 907;
+		vrLoc = 0;
+	};
+	70805A880EF0801D0067326C /* IOBluetoothTypes.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = IOBluetoothTypes.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOBluetooth.framework/Headers/IOBluetoothTypes.h;
+		sourceTree = "<absolute>";
+	};
+	70805A890EF0801D0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 70805A8A0EF0801D0067326C /* IOBluetoothUtilities.h */;
+		name = "IOBluetoothUtilities.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 2092;
+		vrLoc = 2501;
+	};
+	70805A8A0EF0801D0067326C /* IOBluetoothUtilities.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = IOBluetoothUtilities.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOBluetooth.framework/Headers/IOBluetoothUtilities.h;
+		sourceTree = "<absolute>";
+	};
+	70805A8B0EF0801D0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 70805A8C0EF0801D0067326C /* OBEX.h */;
+		name = "OBEX.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1246;
+		vrLoc = 0;
+	};
+	70805A8C0EF0801D0067326C /* OBEX.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = OBEX.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOBluetooth.framework/Headers/OBEX.h;
+		sourceTree = "<absolute>";
+	};
+	70805A8D0EF0801D0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 70805A8E0EF0801D0067326C /* OBEXBluetooth.h */;
+		name = "OBEXBluetooth.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1434;
+		vrLoc = 0;
+	};
+	70805A8E0EF0801D0067326C /* OBEXBluetooth.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = OBEXBluetooth.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOBluetooth.framework/Headers/OBEXBluetooth.h;
+		sourceTree = "<absolute>";
+	};
+	70805A8F0EF0801D0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 70805A900EF0801D0067326C /* IOBluetoothUserLib.h */;
+		name = "IOBluetoothUserLib.h: 41";
+		rLen = 18;
+		rLoc = 1354;
+		rType = 0;
+		vrLen = 1809;
+		vrLoc = 2053;
+	};
+	70805A900EF0801D0067326C /* IOBluetoothUserLib.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = IOBluetoothUserLib.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOBluetooth.framework/Headers/IOBluetoothUserLib.h;
+		sourceTree = "<absolute>";
+	};
+	70805A930EF0801D0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 70805A940EF0801D0067326C /* Bluetooth.h */;
+		name = "Bluetooth.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1001;
+		vrLoc = 0;
+	};
+	70805A940EF0801D0067326C /* Bluetooth.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = Bluetooth.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOBluetooth.framework/Headers/Bluetooth.h;
+		sourceTree = "<absolute>";
+	};
+	70805A950EF0801D0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 70805A960EF0801D0067326C /* BluetoothAssignedNumbers.h */;
+		name = "BluetoothAssignedNumbers.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1698;
+		vrLoc = 0;
+	};
+	70805A960EF0801D0067326C /* BluetoothAssignedNumbers.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = BluetoothAssignedNumbers.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOBluetooth.framework/Headers/BluetoothAssignedNumbers.h;
+		sourceTree = "<absolute>";
+	};
+	70805A970EF0801D0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 70805A980EF0801D0067326C /* IOBluetoothTypes.h */;
+		name = "IOBluetoothTypes.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 907;
+		vrLoc = 0;
+	};
+	70805A980EF0801D0067326C /* IOBluetoothTypes.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = IOBluetoothTypes.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOBluetooth.framework/Headers/IOBluetoothTypes.h;
+		sourceTree = "<absolute>";
+	};
+	70805A990EF0801D0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 70805A9A0EF0801D0067326C /* IOBluetoothUserLib.h */;
+		name = "IOBluetoothUserLib.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1343;
+		vrLoc = 0;
+	};
+	70805A9A0EF0801D0067326C /* IOBluetoothUserLib.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = IOBluetoothUserLib.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOBluetooth.framework/Headers/IOBluetoothUserLib.h;
+		sourceTree = "<absolute>";
+	};
+	70805A9B0EF0801D0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 70805A9C0EF0801D0067326C /* IOBluetoothUtilities.h */;
+		name = "IOBluetoothUtilities.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 2092;
+		vrLoc = 2501;
+	};
+	70805A9C0EF0801D0067326C /* IOBluetoothUtilities.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = IOBluetoothUtilities.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOBluetooth.framework/Headers/IOBluetoothUtilities.h;
+		sourceTree = "<absolute>";
+	};
+	70805A9D0EF0801D0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 70805A9E0EF0801D0067326C /* OBEX.h */;
+		name = "OBEX.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1246;
+		vrLoc = 0;
+	};
+	70805A9E0EF0801D0067326C /* OBEX.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = OBEX.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOBluetooth.framework/Headers/OBEX.h;
+		sourceTree = "<absolute>";
+	};
+	70805A9F0EF0801D0067326C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 70805AA00EF0801D0067326C /* OBEXBluetooth.h */;
+		name = "OBEXBluetooth.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1434;
+		vrLoc = 0;
+	};
+	70805AA00EF0801D0067326C /* OBEXBluetooth.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = OBEXBluetooth.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOBluetooth.framework/Headers/OBEXBluetooth.h;
+		sourceTree = "<absolute>";
+	};
+	7098F1780F1D57D100660854 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4123BC950B2D8FF500E6834C /* wiiremote.h */;
+		name = "wiiremote.h: 201";
+		rLen = 0;
+		rLoc = 5119;
+		rType = 0;
+		vrLen = 1478;
+		vrLoc = 3641;
+	};
+	709D5B850F1D5A9900B658B5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4123BC930B2D8FEB00E6834C /* wiiremote.c */;
+		name = "wiiremote.c: 44";
+		rLen = 0;
+		rLoc = 1138;
+		rType = 0;
+		vrLen = 1216;
+		vrLoc = 767;
+	};
+	709D5B860F1D5A9900B658B5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 419815790B28442C0053E59F /* aka.wiiremote.c */;
+		name = "aka.wiiremote.c: 808";
+		rLen = 11;
+		rLoc = 24963;
+		rType = 0;
+		vrLen = 1051;
+		vrLoc = 24039;
+	};
+	709D5B870F1D5A9900B658B5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4123BC930B2D8FEB00E6834C /* wiiremote.c */;
+		name = "wiiremote.c: 995";
+		rLen = 0;
+		rLoc = 30517;
+		rType = 0;
+		vrLen = 1216;
+		vrLoc = 767;
+	};
+	709D5B880F1D5A9900B658B5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 419815790B28442C0053E59F /* aka.wiiremote.c */;
+		name = "aka.wiiremote.c: 808";
+		rLen = 11;
+		rLoc = 24963;
+		rType = 0;
+		vrLen = 1051;
+		vrLoc = 24039;
+	};
+	709D5B890F1D5A9900B658B5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4123BC930B2D8FEB00E6834C /* wiiremote.c */;
+		name = "wiiremote.c: 44";
+		rLen = 0;
+		rLoc = 1138;
+		rType = 0;
+		vrLen = 1216;
+		vrLoc = 767;
+	};
+	709D5B8A0F1D5A9900B658B5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 419815790B28442C0053E59F /* aka.wiiremote.c */;
+		name = "aka.wiiremote.c: 474";
+		rLen = 0;
+		rLoc = 16309;
+		rType = 0;
+		vrLen = 887;
+		vrLoc = 15654;
+	};
+	709D5B8B0F1D5A9900B658B5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 419815790B28442C0053E59F /* aka.wiiremote.c */;
+		name = "aka.wiiremote.c: 107";
+		rLen = 0;
+		rLoc = 3089;
+		rType = 0;
+		vrLen = 2458;
+		vrLoc = 2131;
+	};
+	70B7750D0EF0451A0040CC17 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+	};
+	70B7750E0EF0451A0040CC17 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	70D15EC40F1D5819007B9D63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 419815790B28442C0053E59F /* aka.wiiremote.c */;
+		name = "aka.wiiremote.c: 107";
+		rLen = 0;
+		rLoc = 3089;
+		rType = 0;
+		vrLen = 2458;
+		vrLoc = 2131;
+	};
+	8D01CCC60486CAD60068D4B7 /* disis.aka.wiiremote */ = {
+		activeExec = 0;
+	};
+}

@@ -988,7 +988,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 409.0, 48.0, 591.0, 31.0 ],
-					"text" : "jcom.parameter numSintrackers @repetitions/allow 1 @type msg_int @range/bounds 0 32 @range/clipmode both @priority 1 @description \"Number of sintrackers\"",
+					"text" : "jcom.parameter numSintrackers @repetitions/allow 1 @type integer @range/bounds 0 32 @range/clipmode both @priority 1 @description \"Number of sintrackers\"",
 					"varname" : "voices"
 				}
 
@@ -1045,7 +1045,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 465.0, 153.0, 146.0, 19.0 ],
-					"text" : "jcom.oscroute /panel/open"
+					"text" : "jcom.oscroute /view/panel"
 				}
 
 			}

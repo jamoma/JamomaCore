@@ -6,7 +6,7 @@
 		"defrect" : [ 98.0, 108.0, 1122.0, 452.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
-		"default_fontsize" : 10.970939,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -18,7 +18,7 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -32,7 +32,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-2",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -47,7 +47,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-3",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -55,7 +55,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 194.0, 286.0, 599.0, 30.0 ],
-					"text" : "jcom.return receive @repetitions/allow 1 @type msg_generic @description \"Open Sound Control messages coming in from the network are reported here.\""
+					"text" : "jcom.return receive @repetitions/allow 1 @type generic @description \"Open Sound Control messages coming in from the network are reported here.\""
 				}
 
 			}
@@ -81,14 +81,14 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-6",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 490.0, 95.0, 525.0, 18.0 ],
-					"text" : "jcom.parameter mode @type msg_symbol @description \"Choose between single IP or multicast usage\"",
+					"text" : "jcom.parameter mode @type string @description \"Choose between single IP or multicast usage\"",
 					"varname" : "mode"
 				}
 
@@ -114,7 +114,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-11",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -128,7 +128,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-13",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -142,7 +142,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-14",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
@@ -156,7 +156,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-15",
 					"linecount" : 3,
 					"maxclass" : "newobj",

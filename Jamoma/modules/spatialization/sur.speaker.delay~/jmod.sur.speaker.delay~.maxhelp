@@ -1,16 +1,16 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 144.0, 66.0, 933.0, 539.0 ],
+		"rect" : [ 105.0, 126.0, 933.0, 539.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 144.0, 66.0, 933.0, 539.0 ],
+		"defrect" : [ 105.0, 126.0, 933.0, 539.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
-		"gridsize" : [ 15.0, 15.0 ],
+		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
@@ -19,12 +19,41 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 676.0, 510.0, 87.0, 17.0 ],
+					"text" : "jmod.sur.setup"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "@name", "jmod.sur.speaker.delay~", "@description", "Individual delay for up to 32 speakers in surround sound setups to correct for varying distances" ],
+					"bgmode" : 1,
+					"id" : "obj-5",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 933.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-24",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 675.0, 468.0, 59.0, 19.0 ],
+					"patching_rect" : [ 675.0, 450.0, 59.0, 19.0 ],
 					"text" : "see also:"
 				}
 
@@ -38,8 +67,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 676.0, 491.0, 144.0, 17.0 ],
-					"text" : "jmod.sur.speaker.distamp"
+					"patching_rect" : [ 676.0, 473.0, 151.0, 17.0 ],
+					"text" : "jmod.sur.speaker.distamp~"
 				}
 
 			}
@@ -52,37 +81,37 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 676.0, 510.0, 133.0, 17.0 ],
+					"patching_rect" : [ 676.0, 492.0, 133.0, 17.0 ],
 					"text" : "jmod.sur.ambi.decode~"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-20",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 602.0, 492.0, 64.0, 17.0 ],
+					"patching_rect" : [ 602.0, 474.0, 74.0, 19.0 ],
 					"text" : "prepend help"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-21",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 604.0, 512.0, 45.0, 17.0 ],
+					"patching_rect" : [ 604.0, 494.0, 49.0, 19.0 ],
 					"text" : "pcontrol"
 				}
 
@@ -106,7 +135,7 @@
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
-						"gridsize" : [ 15.0, 15.0 ],
+						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
@@ -129,12 +158,12 @@
 ,
 					"patching_rect" : [ 410.0, 406.0, 99.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"globalpatchername" : ""
 					}
 ,
@@ -162,7 +191,7 @@
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
-						"gridsize" : [ 15.0, 15.0 ],
+						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
@@ -184,12 +213,12 @@
 ,
 					"patching_rect" : [ 411.0, 124.0, 112.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"globalpatchername" : ""
 					}
 ,
@@ -223,46 +252,6 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 484.0, 338.0, 341.0, 31.0 ],
 					"text" : "consequently, in manual mode, this module can also be used to apply delays for other purposes, rather than distance correction. "
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-8",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 25.0, 13.0, 250.0, 28.0 ],
-					"text" : "jmod.sur.speaker.delay~"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-9",
-					"linecount" : 2,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 25.0, 41.0, 281.0, 31.0 ],
-					"text" : "Individual delay for up to 32 speakers in surround sound setups to correct for varying distances"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-3",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 23.0, 6.0, 349.0, 71.0 ],
-					"rounded" : 15
 				}
 
 			}
@@ -305,7 +294,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 471.0, 272.0, 332.0, 43.0 ],
-					"text" : "if manual mode is enabled (/autmatic 0) then the delays for each channel can me set manually in [ms] time values - either in the inspector, or by the OSC messages:"
+					"text" : "if manual mode is enabled (/autmatic 0), then the delays for each channel can me set manually in [ms] time values - either in the inspector, or by the OSC messages:"
 				}
 
 			}
@@ -320,7 +309,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 471.0, 203.0, 279.0, 43.0 ],
-					"text" : "if automiatic mode is enabled (default) then the delays for each channel are calculated according to the positions of the loudspeakers, provided through:"
+					"text" : "if automiatic mode is enabled (default), then the delays for each channel are calculated according to the positions of the loudspeakers, provided through:"
 				}
 
 			}
@@ -393,28 +382,42 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
+						"rect" : [ 637.0, 378.0, 615.0, 335.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 25.0, 69.0, 640.0, 480.0 ],
+						"defrect" : [ 637.0, 378.0, 615.0, 335.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
-						"gridsize" : [ 15.0, 15.0 ],
+						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
 						"imprint" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-5",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 5,
+									"outlettype" : [ "", "", "", "", "" ],
+									"patching_rect" : [ 50.0, 150.0, 111.0, 19.0 ],
+									"text" : "regexp .+(active).+"
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"comment" : "",
 									"id" : "obj-3",
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 178.0, 181.0, 25.0, 25.0 ]
+									"patching_rect" : [ 180.0, 225.0, 25.0, 25.0 ]
 								}
 
 							}
@@ -427,7 +430,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 179.0, 125.0, 299.0, 19.0 ],
+									"patching_rect" : [ 180.0, 150.0, 299.0, 19.0 ],
 									"text" : "jcom.route @searchstring /numSpeaker @partialmatch 1"
 								}
 
@@ -491,6 +494,15 @@
 									"destination" : [ "obj-3", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
+									"source" : [ "obj-5", 3 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-5", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-31", 0 ]
 								}
 
@@ -500,12 +512,12 @@
 ,
 					"patching_rect" : [ 279.0, 203.0, 49.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"globalpatchername" : ""
 					}
 ,
@@ -530,7 +542,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [  ],
+					"args" : [ "/setup" ],
 					"id" : "obj-27",
 					"maxclass" : "bpatcher",
 					"name" : "jmod.sur.setup.maxpat",
@@ -601,7 +613,7 @@
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
-										"gridsize" : [ 15.0, 15.0 ],
+										"gridsize" : [ 5.0, 5.0 ],
 										"gridsnaponopen" : 0,
 										"toolbarvisible" : 1,
 										"boxanimatetime" : 200,
@@ -743,13 +755,13 @@
 , 											{
 												"box" : 												{
 													"fontname" : "Verdana",
-													"fontsize" : 9.873845,
+													"fontsize" : 10.0,
 													"id" : "obj-15",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
-													"patching_rect" : [ 230.0, 80.0, 115.0, 18.0 ],
+													"patching_rect" : [ 230.0, 80.0, 115.0, 19.0 ],
 													"text" : "route jmod.sur.setup"
 												}
 
@@ -757,13 +769,13 @@
 , 											{
 												"box" : 												{
 													"fontname" : "Verdana",
-													"fontsize" : 9.873845,
+													"fontsize" : 10.0,
 													"id" : "obj-13",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
-													"patching_rect" : [ 230.0, 30.0, 188.0, 18.0 ],
+													"patching_rect" : [ 230.0, 30.0, 188.0, 19.0 ],
 													"text" : "jcom.receive notifications"
 												}
 
@@ -771,14 +783,25 @@
 , 											{
 												"box" : 												{
 													"fontname" : "Verdana",
-													"fontsize" : 9.873845,
+													"fontsize" : 10.0,
 													"id" : "obj-14",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
-													"patching_rect" : [ 230.0, 55.0, 127.0, 18.0 ],
+													"patching_rect" : [ 230.0, 55.0, 127.0, 19.0 ],
 													"text" : "route module.initialized"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"id" : "obj-1",
+													"maxclass" : "button",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "bang" ],
+													"patching_rect" : [ 348.0, 77.0, 20.0, 20.0 ]
 												}
 
 											}
@@ -900,17 +923,26 @@
 												}
 
 											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-2", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-1", 0 ]
+												}
+
+											}
  ]
 									}
 ,
 									"patching_rect" : [ 87.0, 409.0, 36.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"fontname" : "Verdana",
 										"globalpatchername" : ""
 									}
 ,
@@ -1377,12 +1409,12 @@
 ,
 					"patching_rect" : [ 47.0, 131.0, 111.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"globalpatchername" : ""
 					}
 ,
@@ -1392,10 +1424,8 @@
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 0.866667, 0.866667, 0.866667, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
 					"id" : "obj-14",
 					"maxclass" : "number",
 					"maximum" : 32,
@@ -1453,7 +1483,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [  ],
+					"args" : [ "/delay" ],
 					"id" : "obj-1",
 					"maxclass" : "bpatcher",
 					"name" : "jmod.sur.speaker.delay~.maxpat",
@@ -1467,6 +1497,60 @@
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-20", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-1", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-17", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 288.5, 218.5, 288.5, 218.5 ],
+					"source" : [ "obj-37", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-28", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-27", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-27", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-20", 0 ],
 					"hidden" : 1,
@@ -1495,37 +1579,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-18", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-1", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-17", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-14", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-28", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-27", 0 ]
 				}
 
 			}
@@ -1549,28 +1606,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-27", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 54.5, 487.0, 31.5, 487.0, 31.5, 152.0, 56.5, 152.0 ],
-					"source" : [ "obj-39", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-39", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
+					"midpoints" : [ 122.0, 449.5, 54.5, 449.5 ],
 					"source" : [ "obj-10", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-27", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-11", 0 ]
 				}
 
 			}
@@ -1596,17 +1635,8 @@
 				"patchline" : 				{
 					"destination" : [ "obj-37", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 56.5, 228.0, 274.5, 228.0, 274.5, 198.0, 288.5, 198.0 ],
+					"midpoints" : [ 56.5, 230.0, 273.5, 230.0, 273.5, 193.0, 288.5, 193.0 ],
 					"source" : [ "obj-27", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 288.5, 218.5, 288.5, 218.5 ],
-					"source" : [ "obj-37", 0 ]
 				}
 
 			}

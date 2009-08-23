@@ -6,7 +6,7 @@
 		"defrect" : [ -27.0, 77.0, 1282.0, 445.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
-		"default_fontsize" : 10.970939,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -17,8 +17,8 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 11.595187,
+					"fontname" : "Verdana",
+					"fontsize" : 12.0,
 					"id" : "obj-34",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -31,8 +31,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 11.595187,
+					"fontname" : "Verdana",
+					"fontsize" : 12.0,
 					"id" : "obj-33",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -46,7 +46,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-32",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -54,15 +54,15 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 936.0, 92.0, 341.0, 30.0 ],
-					"text" : "jcom.parameter view/color/display.2 @type msg_list @description \"to set background color of display.2 in the format RGBA\"",
+					"text" : "jcom.parameter view/color/display.2 @type array @description \"to set background color of display.2 in the format RGBA\"",
 					"varname" : "display/1[10]"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 11.595187,
+					"fontname" : "Verdana",
+					"fontsize" : 12.0,
 					"id" : "obj-30",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -76,7 +76,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-31",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -84,15 +84,15 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 842.0, 352.0, 341.0, 30.0 ],
-					"text" : "jcom.parameter view/color/display.5 @type msg_list @description \"to set background color of display.5 in the format RGBA\"",
+					"text" : "jcom.parameter view/color/display.5 @type array @description \"to set background color of display.5 in the format RGBA\"",
 					"varname" : "display/1[9]"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 11.595187,
+					"fontname" : "Verdana",
+					"fontsize" : 12.0,
 					"id" : "obj-28",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -106,7 +106,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-29",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -114,15 +114,15 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 838.0, 261.0, 341.0, 30.0 ],
-					"text" : "jcom.parameter view/color/display.4 @type msg_list @description \"to set background color of display.4 in the format RGBA\"",
+					"text" : "jcom.parameter view/color/display.4 @type array @description \"to set background color of display.4 in the format RGBA\"",
 					"varname" : "display/1[8]"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 11.595187,
+					"fontname" : "Verdana",
+					"fontsize" : 12.0,
 					"id" : "obj-27",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -136,7 +136,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-26",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -144,7 +144,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 839.0, 176.0, 341.0, 30.0 ],
-					"text" : "jcom.parameter view/color/display.3 @type msg_list @description \"to set background color of display.3 in the format RGBA\"",
+					"text" : "jcom.parameter view/color/display.3 @type array @description \"to set background color of display.3 in the format RGBA\"",
 					"varname" : "display/1[7]"
 				}
 
@@ -152,7 +152,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-25",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -160,7 +160,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 944.0, 15.0, 341.0, 30.0 ],
-					"text" : "jcom.parameter view/color/display.1 @type msg_list @description \"to set background color of display.1 in the format RGBA\"",
+					"text" : "jcom.parameter view/color/display.1 @type array @description \"to set background color of display.1 in the format RGBA\"",
 					"varname" : "display/1[5]"
 				}
 
@@ -168,7 +168,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-17",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -183,7 +183,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-23",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -191,7 +191,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 525.0, 353.0, 311.0, 30.0 ],
-					"text" : "jcom.parameter display.5 @type msg_symbol @ramp/drive none @description \"Lower-right display string\"",
+					"text" : "jcom.parameter display.5 @type string @ramp/drive none @description \"Lower-right display string\"",
 					"varname" : "display/4[1]"
 				}
 
@@ -199,7 +199,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 13.482065,
+					"fontsize" : 14.0,
 					"id" : "obj-24",
 					"items" : "...",
 					"maxclass" : "umenu",
@@ -217,7 +217,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -232,7 +232,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-2",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -240,7 +240,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 512.0, 261.0, 321.0, 30.0 ],
-					"text" : "jcom.parameter display.4 @type msg_symbol @ramp/drive none @description \"Lower-middle display string\"",
+					"text" : "jcom.parameter display.4 @type string @ramp/drive none @description \"Lower-middle display string\"",
 					"varname" : "display/4"
 				}
 
@@ -248,7 +248,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-3",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -263,7 +263,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-4",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -271,7 +271,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 525.0, 175.0, 309.0, 30.0 ],
-					"text" : "jcom.parameter display.3 @type msg_symbol @ramp/drive none @description \"Lower-left display string\"",
+					"text" : "jcom.parameter display.3 @type string @ramp/drive none @description \"Lower-left display string\"",
 					"varname" : "display/3"
 				}
 
@@ -279,7 +279,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-5",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -294,7 +294,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-6",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -302,7 +302,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 526.0, 80.0, 309.0, 30.0 ],
-					"text" : "jcom.parameter display.2 @type msg_symbol @ramp/drive none @description \"Secondary/Digest display string\"",
+					"text" : "jcom.parameter display.2 @type string @ramp/drive none @description \"Secondary/Digest display string\"",
 					"varname" : "display/2"
 				}
 
@@ -310,7 +310,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-7",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -324,7 +324,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-8",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -339,7 +339,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-9",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -347,7 +347,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 525.0, 13.0, 309.0, 30.0 ],
-					"text" : "jcom.parameter display.1 @type msg_symbol @ramp/drive none @description \"Main/Headline display string\"",
+					"text" : "jcom.parameter display.1 @type string @ramp/drive none @description \"Main/Headline display string\"",
 					"varname" : "display/1"
 				}
 
@@ -355,7 +355,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 34.668163,
+					"fontsize" : 34.0,
 					"id" : "obj-10",
 					"items" : "Jamoma",
 					"maxclass" : "umenu",
@@ -373,7 +373,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 13.482065,
+					"fontsize" : 14.0,
 					"id" : "obj-11",
 					"items" : "...",
 					"maxclass" : "umenu",
@@ -391,7 +391,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 13.482065,
+					"fontsize" : 14.0,
 					"id" : "obj-12",
 					"items" : "Message Display Module",
 					"maxclass" : "umenu",
@@ -409,7 +409,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 13.482065,
+					"fontsize" : 14.0,
 					"id" : "obj-13",
 					"items" : "Welcome...",
 					"maxclass" : "umenu",
@@ -427,7 +427,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-14",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -441,7 +441,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-15",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -455,7 +455,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-16",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -469,7 +469,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-18",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -483,7 +483,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-19",
 					"maxclass" : "newobj",
 					"numinlets" : 1,

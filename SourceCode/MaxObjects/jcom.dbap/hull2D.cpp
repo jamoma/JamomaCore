@@ -113,7 +113,8 @@ t_stack	Graham(t_H2D h2)
 	while(i < h2.nb_point){
 		//post("Stack at top of while loop, i = %d, vnum = %d :", i, P[i].vnum);
 		//PrintStack( top );
-		if(!top->next) exit(EXIT_FAILURE);
+		if(!top->next) 
+			return NULL;	// Failure
 		p1 = top->next->p;
 		p2 = top->p;
 		if(Left(p1->v , p2->v, h2.point[i].v)){

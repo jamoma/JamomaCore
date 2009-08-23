@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 27.0, 56.0, 399.0, 493.0 ],
+		"rect" : [ 802.0, 89.0, 382.0, 466.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 27.0, 56.0, 399.0, 493.0 ],
+		"defrect" : [ 802.0, 89.0, 382.0, 466.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,188 +17,195 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "prepend /channels",
-					"fontsize" : 10.0,
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"patching_rect" : [ 35.0, 200.0, 104.0, 19.0 ],
-					"outlettype" : [ "" ],
-					"id" : "obj-9",
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "route /info/channels",
-					"fontsize" : 10.0,
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"patching_rect" : [ 35.0, 175.0, 112.0, 19.0 ],
-					"outlettype" : [ "", "" ],
-					"id" : "obj-8",
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.pass /voices @strip 0",
-					"fontsize" : 10.0,
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"patching_rect" : [ 35.0, 375.0, 146.0, 19.0 ],
-					"outlettype" : [ "", "" ],
-					"id" : "obj-5",
-					"fontname" : "Verdana"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "bpatcher",
+					"id" : "obj-3",
+					"maxclass" : "ezdac~",
 					"numinlets" : 2,
-					"presentation_rect" : [ 15.0, 15.0, 300.0, 70.0 ],
-					"args" : [ "output" ],
-					"numoutlets" : 1,
-					"patching_rect" : [ 35.0, 400.0, 300.0, 70.0 ],
-					"outlettype" : [ "" ],
-					"id" : "obj-4",
-					"name" : "jmod.sur.output~.maxpat"
+					"numoutlets" : 0,
+					"patching_rect" : [ 296.0, 90.0, 36.0, 36.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "bpatcher",
-					"numinlets" : 2,
-					"presentation_rect" : [ 15.0, 15.0, 300.0, 140.0 ],
-					"args" : [ "meters" ],
-					"numoutlets" : 2,
-					"patching_rect" : [ 35.0, 225.0, 300.0, 140.0 ],
-					"outlettype" : [ "", "" ],
-					"id" : "obj-6",
-					"name" : "jmod.sur.meters~.maxpat"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "bpatcher",
-					"numinlets" : 2,
-					"presentation_rect" : [ 15.0, 15.0, 300.0, 70.0 ],
-					"args" : [ "input" ],
-					"numoutlets" : 2,
-					"patching_rect" : [ 35.0, 95.0, 300.0, 70.0 ],
-					"outlettype" : [ "", "" ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-7",
-					"name" : "jmod.sur.multi.input~.maxpat"
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 59.0, 370.0, 258.0, 19.0 ],
+					"text" : "multicable just runs through without modification"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "jmod.sur.meters~",
-					"fontsize" : 18.0,
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"patching_rect" : [ 20.0, 20.0, 228.0, 28.0 ],
+					"args" : [ "/multi.out" ],
 					"id" : "obj-1",
-					"fontname" : "Verdana"
+					"lockeddragscroll" : 1,
+					"maxclass" : "bpatcher",
+					"name" : "jmod.sur.multi.out~.maxpat",
+					"numinlets" : 2,
+					"numoutlets" : 33,
+					"outlettype" : [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
+					"patching_rect" : [ 35.0, 398.0, 300.0, 35.0 ],
+					"presentation_rect" : [ 30.0, 30.0, 300.0, 35.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "a multichannel meterbridge ",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"patching_rect" : [ 20.0, 50.0, 306.0, 19.0 ],
-					"id" : "obj-2",
-					"fontname" : "Verdana"
+					"id" : "obj-4",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 35.0, 203.0, 69.0, 17.0 ],
+					"text" : "/channels 3"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "panel",
-					"rounded" : 15,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-2",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 36.0, 181.0, 129.0, 19.0 ],
+					"text" : "jcom.initialized /meters"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-15",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "signal" ],
+					"patching_rect" : [ 87.0, 117.0, 56.0, 19.0 ],
+					"text" : "saw~ 0.5"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-22",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "signal" ],
+					"patching_rect" : [ 47.0, 117.0, 43.0, 19.0 ],
+					"text" : "noise~"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "/multi.in" ],
+					"id" : "obj-23",
+					"lockeddragscroll" : 1,
+					"maxclass" : "bpatcher",
+					"name" : "jmod.sur.multi.in~.maxpat",
+					"numinlets" : 33,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 35.0, 141.0, 300.0, 35.0 ],
+					"presentation_rect" : [ 15.0, 15.0, 300.0, 35.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "@name", "jmod.sur.meters~", "@description", "A multichannel meterbridge" ],
+					"bgmode" : 1,
+					"id" : "obj-10",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 10.0, 335.0, 60.0 ],
-					"id" : "obj-3"
+					"patching_rect" : [ 0.0, 0.0, 385.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "meters" ],
+					"id" : "obj-6",
+					"maxclass" : "bpatcher",
+					"name" : "jmod.sur.meters~.maxpat",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 35.0, 225.0, 300.0, 140.0 ],
+					"presentation_rect" : [ 15.0, 15.0, 300.0, 140.0 ]
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-9", 0 ],
-					"destination" : [ "obj-6", 0 ],
+					"destination" : [ "obj-23", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-22", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-8", 0 ],
-					"destination" : [ "obj-9", 0 ],
+					"destination" : [ "obj-23", 3 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-15", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-7", 0 ],
-					"destination" : [ "obj-8", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-5", 0 ],
-					"destination" : [ "obj-4", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-6", 1 ],
-					"destination" : [ "obj-4", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-7", 1 ],
 					"destination" : [ "obj-6", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-23", 1 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-6", 0 ],
-					"destination" : [ "obj-5", 0 ],
+					"destination" : [ "obj-4", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-2", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-4", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-6", 1 ]
 				}
 
 			}

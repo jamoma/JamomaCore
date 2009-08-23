@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 24.0, 44.0, 899.0, 556.0 ],
+		"rect" : [ 59.0, 55.0, 1050.0, 576.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 24.0, 44.0, 899.0, 556.0 ],
+		"defrect" : [ 59.0, 55.0, 1050.0, 576.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -17,80 +17,124 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 10.0,
+					"fontname" : "Verdana",
+					"fontsize" : 17.334082,
+					"id" : "obj-21",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 29.0, 20.0, 189.0, 28.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 30.0, 35.0, 189.0, 28.0 ],
+					"text" : "jmod.sdif.record"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 9.873845,
+					"id" : "obj-4",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 29.0, 50.0, 189.0, 18.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 30.0, 65.0, 189.0, 18.0 ],
+					"text" : "Recording multi-stream SDIF files"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-5",
+					"maxclass" : "panel",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 19.0, 5.0, 320.0, 70.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 20.0, 20.0, 320.0, 70.0 ],
+					"rounded" : 15
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 11.0,
 					"id" : "obj-66",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 314.0, 286.0, 191.0, 18.0 ],
+					"patching_rect" : [ 314.0, 286.0, 242.0, 20.0 ],
 					"text" : "Inlet 1: Control messages to the module"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-60",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 159.0, 196.0, 103.0, 18.0 ],
+					"patching_rect" : [ 159.0, 196.0, 116.0, 19.0 ],
 					"text" : "Or specify your own"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 12.0,
 					"id" : "obj-57",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 21.0, 83.0, 117.0, 20.0 ],
+					"patching_rect" : [ 21.0, 83.0, 133.0, 21.0 ],
 					"text" : "Provide a file name"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-56",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 162.0, 213.0, 153.0, 18.0 ],
+					"patching_rect" : [ 162.0, 213.0, 152.0, 17.0 ],
 					"text" : "/file /Documents/myfile.sdif"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-53",
+					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 592.0, 286.0, 299.0, 18.0 ],
+					"patching_rect" : [ 601.0, 275.0, 234.0, 31.0 ],
 					"text" : "Inlet 2: Data and name-value-tables to be stored in the SDIF-file"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-49",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 364.0, 212.0, 66.0, 18.0 ],
+					"patching_rect" : [ 364.0, 212.0, 77.0, 19.0 ],
 					"text" : "prepend /nvt"
 				}
 
@@ -101,7 +145,7 @@
 					"#loadbang" : 0,
 					"#triggerall" : 0,
 					"#untuple" : 0,
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"ftm_scope" : 1,
 					"id" : "obj-48",
@@ -109,8 +153,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 365.0, 194.0, 108.0, 16.0 ],
-					"presentation_rect" : [ 365.0, 194.0, 108.0, 16.0 ],
+					"patching_rect" : [ 365.0, 194.0, 124.623047, 17.0 ],
+					"presentation_rect" : [ 365.0, 194.0, 124.623047, 17.0 ],
 					"text" : [ "_nvt $name_value_table" ]
 				}
 
@@ -118,8 +162,8 @@
 , 			{
 				"box" : 				{
 					"description" : "dict",
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"ftm_scope" : 0,
 					"id" : "obj-46",
 					"maxclass" : "ftm.object",
@@ -127,174 +171,176 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 468.0, 211.0, 137.867188, 19.798828 ],
+					"patching_rect" : [ 447.0, 212.0, 133.776367, 18.0 ],
 					"persistence" : 1,
-					"presentation_rect" : [ 468.0, 211.0, 137.867188, 19.798828 ],
+					"presentation_rect" : [ 447.0, 212.0, 133.776367, 18.0 ],
 					"scope" : 0,
-					"serialized_objects" : [ [ "dict", 1 ], [ 1, "set", "sdif", "name value table" ], [ 1, "set", "help_patch", "table" ] ]
+					"serialized_objects" : [ [ "dict", 1 ], [ 1, "set", "help_patch", "table" ], [ 1, "set", "sdif", "name value table" ] ],
+					"text" : "dict"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 12.0,
 					"id" : "obj-45",
+					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 337.0, 83.0, 290.0, 20.0 ],
+					"patching_rect" : [ 337.0, 81.0, 284.0, 36.0 ],
 					"text" : "Add annotations to the sdif-file in name-value tables"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-44",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 362.0, 174.0, 238.0, 18.0 ],
+					"patching_rect" : [ 362.0, 174.0, 269.0, 19.0 ],
 					"text" : "Or by sending an FTM dictionary directly"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-42",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 44.0, 261.0, 236.0, 29.0 ],
+					"patching_rect" : [ 44.0, 253.0, 308.0, 31.0 ],
 					"text" : "You may choose to use your own stream-type declarations file:"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-20",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 45.0, 289.0, 205.0, 16.0 ],
-					"text" : "/type_declarations_file my_stream_types.txt"
+					"patching_rect" : [ 45.0, 286.0, 228.0, 17.0 ],
+					"text" : "/typeDeclarationsFile my_stream_types.txt"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-43",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 56.0, 306.0, 186.0, 16.0 ],
-					"text" : "/type_declarations_file stream_types.txt"
+					"patching_rect" : [ 56.0, 306.0, 206.0, 17.0 ],
+					"text" : "/typeDeclarationsFile stream_types.txt"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-40",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 22.0, 192.0, 114.0, 18.0 ],
+					"patching_rect" : [ 22.0, 192.0, 131.0, 19.0 ],
 					"text" : "jcom.pass /file @strip 0"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-8",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 344.0, 103.0, 249.0, 18.0 ],
+					"patching_rect" : [ 342.0, 115.0, 285.0, 19.0 ],
 					"text" : "By using the inspector of the sdif.record module"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-2",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 22.0, 103.0, 237.0, 18.0 ],
+					"patching_rect" : [ 22.0, 103.0, 267.0, 19.0 ],
 					"text" : "Generate indexed file-names"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-1",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 16.0, 496.0, 50.0, 18.0 ],
+					"patching_rect" : [ 638.0, 491.0, 57.0, 19.0 ],
 					"text" : "Note:"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-3",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 16.0, 509.0, 215.0, 29.0 ],
+					"patching_rect" : [ 638.0, 504.0, 243.0, 31.0 ],
 					"text" : "The SDIF record module is still lacking a good implemetation for standard SDIF streams"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-12",
-					"linecount" : 2,
+					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 649.0, 197.0, 232.0, 29.0 ],
+					"patching_rect" : [ 649.0, 197.0, 235.0, 43.0 ],
 					"text" : "for this testing data, use a 3DOF stream for streams 0 and 1 and a 2DOF stream for stream 2"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-13",
 					"maxclass" : "newobj",
 					"numinlets" : 8,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 638.0, 178.0, 233.0, 17.0 ],
-					"text" : "jcom.sdif.record.data 2 3 1 3 1 2"
+					"patching_rect" : [ 638.0, 178.0, 145.0, 19.0 ],
+					"text" : "jcom.sdif.pack 2 3 1 3 1 2"
 				}
 
 			}
@@ -311,13 +357,13 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-15",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 38.0, 371.0, 224.0, 18.0 ],
+					"patching_rect" : [ 38.0, 371.0, 259.0, 19.0 ],
 					"text" : "Bang to get information on the last recording"
 				}
 
@@ -328,30 +374,30 @@
 					"#loadbang" : 0,
 					"#triggerall" : 0,
 					"#untuple" : 0,
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"ftm_scope" : 0,
 					"id" : "obj-16",
 					"maxclass" : "ftm.mess",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 22.0, 412.0, 60.0, 14.349121 ],
-					"presentation_rect" : [ 22.0, 412.0, 60.0, 14.349121 ],
+					"patching_rect" : [ 22.0, 426.0, 68.001953, 17.0 ],
+					"presentation_rect" : [ 22.0, 426.0, 68.001953, 17.0 ],
 					"text" : [ "_set $1, print" ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-17",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 22.0, 432.0, 61.0, 17.0 ],
+					"patching_rect" : [ 22.0, 446.0, 77.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"ftm_scope" : 2
 					}
@@ -362,44 +408,43 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-18",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 22.0, 344.0, 86.0, 17.0 ],
+					"patching_rect" : [ 22.0, 344.0, 110.0, 19.0 ],
 					"text" : "jcom.oscroute /file"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "new_file_browser" ],
+					"args" : [  ],
 					"id" : "obj-19",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.new_file_browser.maxpat",
+					"name" : "jmod.fileNameGenerator.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 22.0, 118.0, 300.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"varname" : "new_file_browser"
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-22",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 627.0, 308.0, 254.0, 29.0 ],
+					"patching_rect" : [ 612.0, 331.0, 291.0, 31.0 ],
 					"text" : "Data to be recorded needs to follow the namespace:\n/data/<stream nmber> <data in fmat>"
 				}
 
@@ -411,14 +456,14 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 795.0, 115.0, 15.0, 15.0 ]
+					"patching_rect" : [ 834.0, 120.0, 20.0, 20.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-24",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -591,15 +636,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 795.0, 135.0, 69.0, 17.0 ],
+					"patching_rect" : [ 834.0, 145.0, 83.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"fontname" : "Arial",
-						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontsize" : 12.0
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p random_1XY"
@@ -608,27 +653,27 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-25",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 22.0, 392.0, 254.0, 16.0 ]
+					"patching_rect" : [ 22.0, 392.0, 271.0, 17.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 12.0,
 					"id" : "obj-28",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 622.0, 83.0, 263.0, 34.0 ],
+					"patching_rect" : [ 622.0, 83.0, 244.0, 36.0 ],
 					"text" : "Randomly generated testing data for testing a three-stream recording"
 				}
 
@@ -640,14 +685,14 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 716.0, 115.0, 15.0, 15.0 ]
+					"patching_rect" : [ 736.0, 120.0, 20.0, 20.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-30",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -675,67 +720,11 @@
 									"fontsize" : 9.0,
 									"id" : "obj-1",
 									"maxclass" : "newobj",
-									"numinlets" : 6,
+									"numinlets" : 3,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 115.0, 231.0, 163.0, 17.0 ],
-									"text" : "pack 0. 0. 0. 0. 0. 0."
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 9.0,
-									"id" : "obj-2",
-									"maxclass" : "newobj",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "float" ],
-									"patching_rect" : [ 293.0, 196.0, 29.0, 17.0 ],
-									"text" : "* 1."
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 9.0,
-									"id" : "obj-3",
-									"maxclass" : "newobj",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "float" ],
-									"patching_rect" : [ 293.0, 174.0, 35.0, 17.0 ],
-									"text" : "* 0.1"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 9.0,
-									"id" : "obj-4",
-									"maxclass" : "newobj",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "float" ],
-									"patching_rect" : [ 251.0, 174.0, 41.0, 17.0 ],
-									"text" : "* 0.01"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 9.0,
-									"id" : "obj-5",
-									"maxclass" : "newobj",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "float" ],
-									"patching_rect" : [ 217.0, 174.0, 33.0, 17.0 ],
-									"text" : "- 49."
+									"patching_rect" : [ 115.0, 231.0, 60.0, 17.0 ],
+									"text" : "pack 0. 0. 0."
 								}
 
 							}
@@ -835,6 +824,42 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
+									"destination" : [ "obj-1", 2 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-6", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 1 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-7", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-10", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-1", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 124.5, 197.0, 124.5, 197.0 ],
+									"source" : [ "obj-8", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-9", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -853,37 +878,10 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-1", 0 ],
-									"hidden" : 0,
-									"midpoints" : [ 124.5, 197.0, 124.5, 197.0 ],
-									"source" : [ "obj-8", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-10", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-1", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"destination" : [ "obj-7", 0 ],
 									"hidden" : 0,
 									"midpoints" : [ 124.5, 168.0, 154.5, 168.0 ],
 									"source" : [ "obj-8", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-1", 1 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-7", 0 ]
 								}
 
 							}
@@ -896,99 +894,18 @@
 								}
 
 							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-1", 2 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-6", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-1", 3 ],
-									"hidden" : 0,
-									"midpoints" : [ 226.5, 211.0, 210.899994, 211.0 ],
-									"source" : [ "obj-5", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-5", 0 ],
-									"hidden" : 0,
-									"midpoints" : [ 124.5, 168.0, 226.5, 168.0 ],
-									"source" : [ "obj-8", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-1", 4 ],
-									"hidden" : 0,
-									"midpoints" : [ 260.5, 211.0, 239.699997, 211.0 ],
-									"source" : [ "obj-4", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-4", 0 ],
-									"hidden" : 0,
-									"midpoints" : [ 124.5, 168.0, 260.5, 168.0 ],
-									"source" : [ "obj-8", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-1", 5 ],
-									"hidden" : 0,
-									"midpoints" : [ 302.5, 222.0, 268.5, 222.0 ],
-									"source" : [ "obj-2", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-3", 0 ],
-									"hidden" : 0,
-									"midpoints" : [ 124.5, 168.0, 302.5, 168.0 ],
-									"source" : [ "obj-8", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-2", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-3", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-2", 1 ],
-									"hidden" : 0,
-									"midpoints" : [ 302.5, 193.0, 312.5, 193.0 ],
-									"source" : [ "obj-3", 0 ]
-								}
-
-							}
  ]
 					}
 ,
-					"patching_rect" : [ 716.0, 135.0, 75.0, 17.0 ],
+					"patching_rect" : [ 736.0, 145.0, 92.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"fontname" : "Arial",
-						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontsize" : 12.0
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p random_1XYZ"
@@ -1002,14 +919,14 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 638.0, 116.0, 15.0, 15.0 ]
+					"patching_rect" : [ 638.0, 121.0, 20.0, 20.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-32",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -1342,15 +1259,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 638.0, 135.0, 75.0, 17.0 ],
+					"patching_rect" : [ 638.0, 145.0, 92.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"fontname" : "Arial",
-						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontsize" : 12.0
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p random_2XYZ"
@@ -1364,77 +1281,34 @@
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 621.0, 81.0, 256.0, 167.0 ],
+					"patching_rect" : [ 621.0, 81.0, 303.0, 166.0 ],
 					"rounded" : 0
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-34",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 16.0, 471.0, 191.0, 18.0 ],
+					"patching_rect" : [ 638.0, 466.0, 224.0, 19.0 ],
 					"text" : "FTM is avaliable at http://ftm.ircam.fr"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-35",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 16.0, 457.0, 190.0, 18.0 ],
+					"patching_rect" : [ 638.0, 452.0, 210.0, 19.0 ],
 					"text" : "This module requires FTM"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"id" : "obj-36",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 15.0, 34.0, 161.0, 17.0 ],
-					"text" : "Recording multi-stream SDIF files",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 18.0,
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"id" : "obj-37",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 15.0, 6.0, 313.0, 27.0 ],
-					"text" : "jmod.sdif.record",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"bgcolor" : [ 0.262745, 0.254902, 0.419608, 1.0 ],
-					"bordercolor" : [ 0.501961, 0.043137, 0.039216, 1.0 ],
-					"id" : "obj-38",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 6.0, 339.0, 65.0 ],
-					"rounded" : 0
 				}
 
 			}
@@ -1510,12 +1384,48 @@
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 14.0, 454.0, 216.0, 86.0 ]
+					"patching_rect" : [ 636.0, 450.0, 250.0, 84.0 ]
 				}
 
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-39", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 647.5, 261.5, 593.5, 261.5 ],
+					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-32", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 745.5, 166.0, 665.5, 166.0 ],
+					"source" : [ "obj-30", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 2 ],
+					"hidden" : 0,
+					"midpoints" : [ 843.5, 174.0, 683.5, 174.0 ],
+					"source" : [ "obj-24", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-39", 0 ],
 					"hidden" : 0,
@@ -1539,15 +1449,6 @@
 					"hidden" : 0,
 					"midpoints" : [ 31.5, 251.5, 312.5, 251.5 ],
 					"source" : [ "obj-40", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-40", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-19", 0 ]
 				}
 
 			}
@@ -1625,45 +1526,9 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-13", 2 ],
-					"hidden" : 0,
-					"midpoints" : [ 804.5, 170.0, 708.642883, 170.0 ],
-					"source" : [ "obj-24", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 725.5, 159.0, 678.071411, 159.0 ],
-					"source" : [ "obj-30", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-32", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-39", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 647.5, 261.5, 593.5, 261.5 ],
-					"source" : [ "obj-13", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-25", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 31.5, 368.5, 266.5, 368.5 ],
+					"midpoints" : [ 31.5, 368.5, 283.5, 368.5 ],
 					"source" : [ "obj-18", 0 ]
 				}
 
@@ -1683,6 +1548,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 373.5, 268.0, 593.5, 268.0 ],
 					"source" : [ "obj-49", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-40", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-19", 0 ]
 				}
 
 			}

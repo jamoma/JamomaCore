@@ -75,7 +75,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	jcom_core_subscriber_classinit_extended(c, attr);
 	
-	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle
+	// ATTRIBUTE: type - options are generic, integer, decimal, string, boolean
 	jamoma_class_attr_new(c, "type", _sym_symbol, (method)return_attr_settype, (method)return_attr_gettype);
 	
 	CLASS_ATTR_CHAR(c,	"enable",	0,	t_return,	attrEnable);

@@ -5,6 +5,6 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='foo' type='msg_generic' priority='0'>0</item>
+    <item name='foo' type='generic' priority='0'>0</item>
   </preset>
 </jamoma>

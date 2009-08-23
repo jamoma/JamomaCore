@@ -2040,7 +2040,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1329.0, 388.0, 553.0, 28.0 ],
-									"text" : "jcom.parameter color.4/size/active @type msg_toggle @description \"calculate the size of the recognized color area for colortracker 4\"",
+									"text" : "jcom.parameter color.4/size/active @type boolean @description \"calculate the size of the recognized color area for colortracker 4\"",
 									"varname" : "4/getsize"
 								}
 
@@ -2072,7 +2072,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1329.0, 355.0, 553.0, 28.0 ],
-									"text" : "jcom.parameter color.3/size/active @type msg_toggle @description \"calculate the size of the recognized color area for colortracker 3\"",
+									"text" : "jcom.parameter color.3/size/active @type boolean @description \"calculate the size of the recognized color area for colortracker 3\"",
 									"varname" : "3/getsize"
 								}
 
@@ -2104,7 +2104,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1327.0, 324.0, 553.0, 28.0 ],
-									"text" : "jcom.parameter color.2/size/active @type msg_toggle @description \"calculate the size of the recognized color area for colortracker 2\"",
+									"text" : "jcom.parameter color.2/size/active @type boolean @description \"calculate the size of the recognized color area for colortracker 2\"",
 									"varname" : "2/getsize"
 								}
 
@@ -2136,7 +2136,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1325.0, 290.0, 553.0, 28.0 ],
-									"text" : "jcom.parameter color.1/size/active @type msg_toggle @description \"calculate the size of the recognized color area for colortracker 1\"",
+									"text" : "jcom.parameter color.1/size/active @type boolean @description \"calculate the size of the recognized color area for colortracker 1\"",
 									"varname" : "1/getsize"
 								}
 
@@ -2168,7 +2168,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1052.0, 255.0, 575.0, 28.0 ],
-									"text" : "jcom.parameter color.4/center/active @type msg_toggle @description \"calculate the center of the recognized color area for colortracker 4\"",
+									"text" : "jcom.parameter color.4/center/active @type boolean @description \"calculate the center of the recognized color area for colortracker 4\"",
 									"varname" : "4/getcenter"
 								}
 
@@ -2200,7 +2200,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1052.0, 224.0, 575.0, 28.0 ],
-									"text" : "jcom.parameter color.3/center/active @type msg_toggle @description \"calculate the center of the recognized color area for colortracker 3\"",
+									"text" : "jcom.parameter color.3/center/active @type boolean @description \"calculate the center of the recognized color area for colortracker 3\"",
 									"varname" : "3/getcenter"
 								}
 
@@ -2232,7 +2232,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1052.0, 193.0, 575.0, 28.0 ],
-									"text" : "jcom.parameter color.2/center/active @type msg_toggle @description \"calculate the center of the recognized color area for colortracker 2\"",
+									"text" : "jcom.parameter color.2/center/active @type boolean @description \"calculate the center of the recognized color area for colortracker 2\"",
 									"varname" : "2/getcenter"
 								}
 
@@ -2264,7 +2264,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1052.0, 159.0, 575.0, 28.0 ],
-									"text" : "jcom.parameter color.1/center/active @type msg_toggle @description \"calculate the center of the recognized color area for colortracker 1\"",
+									"text" : "jcom.parameter color.1/center/active @type boolean @description \"calculate the center of the recognized color area for colortracker 1\"",
 									"varname" : "1/getcenter"
 								}
 
@@ -2295,7 +2295,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1064.0, 121.0, 538.0, 17.0 ],
-									"text" : "jcom.parameter color.4/bounds/active @type msg_toggle @description \"calculate the boundaries for colortracker 4\"",
+									"text" : "jcom.parameter color.4/bounds/active @type boolean @description \"calculate the boundaries for colortracker 4\"",
 									"varname" : "4/getbounds"
 								}
 
@@ -2326,7 +2326,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1063.0, 90.0, 538.0, 17.0 ],
-									"text" : "jcom.parameter color.3/bounds/active @type msg_toggle @description \"calculate the boundaries for colortracker 3\"",
+									"text" : "jcom.parameter color.3/bounds/active @type boolean @description \"calculate the boundaries for colortracker 3\"",
 									"varname" : "3/getbounds"
 								}
 
@@ -2357,7 +2357,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1062.0, 59.0, 538.0, 17.0 ],
-									"text" : "jcom.parameter color.2/bounds/active @type msg_toggle @description \"calculate the boundaries for colortracker 2\"",
+									"text" : "jcom.parameter color.2/bounds/active @type boolean @description \"calculate the boundaries for colortracker 2\"",
 									"varname" : "2/getbounds"
 								}
 
@@ -2388,7 +2388,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1061.0, 26.0, 538.0, 17.0 ],
-									"text" : "jcom.parameter color.1/bounds/active @type msg_toggle @description \"calculate the boundaries for colortracker 1\"",
+									"text" : "jcom.parameter color.1/bounds/active @type boolean @description \"calculate the boundaries for colortracker 1\"",
 									"varname" : "1/getbounds"
 								}
 
@@ -4727,7 +4727,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 391.0, 793.0, 601.0, 28.0 ],
-									"text" : "jcom.parameter color.4/brightness/variation @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Brightness toleranz for colortracker 4\"",
+									"text" : "jcom.parameter color.4/brightness/variation @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Brightness toleranz for colortracker 4\"",
 									"varname" : "4/brightness/variation"
 								}
 
@@ -4761,7 +4761,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 391.0, 760.0, 601.0, 28.0 ],
-									"text" : "jcom.parameter color.3/brightness/variation @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Brightness toleranz for colortracker 3\"",
+									"text" : "jcom.parameter color.3/brightness/variation @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Brightness toleranz for colortracker 3\"",
 									"varname" : "3/brightness/variation"
 								}
 
@@ -4795,7 +4795,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 390.0, 727.0, 601.0, 28.0 ],
-									"text" : "jcom.parameter color.2/brightness/variation @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Brightness toleranz for colortracker 2\"",
+									"text" : "jcom.parameter color.2/brightness/variation @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Brightness toleranz for colortracker 2\"",
 									"varname" : "2/brightness/variation"
 								}
 
@@ -4829,7 +4829,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1333.0, 845.0, 408.0, 28.0 ],
-									"text" : "jcom.parameter color.4/brightness @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Brightness value for colortracker 4\"",
+									"text" : "jcom.parameter color.4/brightness @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Brightness value for colortracker 4\"",
 									"varname" : "4/brightness"
 								}
 
@@ -4863,7 +4863,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1332.0, 723.0, 408.0, 28.0 ],
-									"text" : "jcom.parameter color.3/brightness @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Brightness value for colortracker 3\"",
+									"text" : "jcom.parameter color.3/brightness @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Brightness value for colortracker 3\"",
 									"varname" : "3/brightness"
 								}
 
@@ -4897,7 +4897,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1325.0, 507.0, 408.0, 28.0 ],
-									"text" : "jcom.parameter color.2/brightness @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Brightness value for colortracker 2\"",
+									"text" : "jcom.parameter color.2/brightness @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Brightness value for colortracker 2\"",
 									"varname" : "2/brightness"
 								}
 
@@ -4931,7 +4931,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1315.0, 611.0, 413.0, 28.0 ],
-									"text" : "jcom.parameter color.1/brightness @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode both @description \"Brightness value for colortracker 1\"",
+									"text" : "jcom.parameter color.1/brightness @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode both @description \"Brightness value for colortracker 1\"",
 									"varname" : "1/brightness"
 								}
 
@@ -4965,7 +4965,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 390.0, 694.0, 601.0, 28.0 ],
-									"text" : "jcom.parameter color.1/brightness/variation @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Brightness toleranz for colortracker 1\"",
+									"text" : "jcom.parameter color.1/brightness/variation @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Brightness toleranz for colortracker 1\"",
 									"varname" : "1/brightness/variation"
 								}
 
@@ -5051,7 +5051,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 387.0, 622.0, 600.0, 28.0 ],
-									"text" : "jcom.parameter color.4/saturation/variation @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Saturation toleranz for colortracker 4\"",
+									"text" : "jcom.parameter color.4/saturation/variation @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Saturation toleranz for colortracker 4\"",
 									"varname" : "4/saturation/variation"
 								}
 
@@ -5085,7 +5085,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 385.0, 586.0, 600.0, 28.0 ],
-									"text" : "jcom.parameter color.3/saturation/variation @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Saturation toleranz for colortracker 3\"",
+									"text" : "jcom.parameter color.3/saturation/variation @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Saturation toleranz for colortracker 3\"",
 									"varname" : "3/saturation/variation"
 								}
 
@@ -5119,7 +5119,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 387.0, 548.0, 600.0, 28.0 ],
-									"text" : "jcom.parameter color.2/saturation/variation @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Saturation toleranz for colortracker 2\"",
+									"text" : "jcom.parameter color.2/saturation/variation @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Saturation toleranz for colortracker 2\"",
 									"varname" : "2/saturation/variation"
 								}
 
@@ -5153,7 +5153,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1334.0, 808.0, 407.0, 28.0 ],
-									"text" : "jcom.parameter color.4/saturation @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Saturation value for colortracker 4\"",
+									"text" : "jcom.parameter color.4/saturation @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Saturation value for colortracker 4\"",
 									"varname" : "4/saturation"
 								}
 
@@ -5187,7 +5187,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1330.0, 688.0, 407.0, 28.0 ],
-									"text" : "jcom.parameter color.3/saturation @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Saturation value for colortracker 3\"",
+									"text" : "jcom.parameter color.3/saturation @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Saturation value for colortracker 3\"",
 									"varname" : "3/saturation"
 								}
 
@@ -5221,7 +5221,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1327.0, 475.0, 407.0, 28.0 ],
-									"text" : "jcom.parameter color.2/saturation @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Saturation value for colortracker 2\"",
+									"text" : "jcom.parameter color.2/saturation @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Saturation value for colortracker 2\"",
 									"varname" : "2/saturation"
 								}
 
@@ -5255,7 +5255,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1315.0, 576.0, 412.0, 28.0 ],
-									"text" : "jcom.parameter color.1/saturation @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode both @description \"Saturation value for colortracker 1\"",
+									"text" : "jcom.parameter color.1/saturation @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode both @description \"Saturation value for colortracker 1\"",
 									"varname" : "1/saturation"
 								}
 
@@ -5289,7 +5289,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 387.0, 511.0, 600.0, 28.0 ],
-									"text" : "jcom.parameter color.1/saturation/variation @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Saturation toleranz for colortracker 1\"",
+									"text" : "jcom.parameter color.1/saturation/variation @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Saturation toleranz for colortracker 1\"",
 									"varname" : "1/saturation/variation"
 								}
 
@@ -5339,7 +5339,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 386.0, 440.0, 571.0, 28.0 ],
-									"text" : "jcom.parameter color.4/hue/variation @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Hue toleranz for colortracker 4\"",
+									"text" : "jcom.parameter color.4/hue/variation @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Hue toleranz for colortracker 4\"",
 									"varname" : "4/hue/variation"
 								}
 
@@ -5373,7 +5373,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 386.0, 405.0, 571.0, 28.0 ],
-									"text" : "jcom.parameter color.3/hue/variation @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Hue toleranz for colortracker 3\"",
+									"text" : "jcom.parameter color.3/hue/variation @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Hue toleranz for colortracker 3\"",
 									"varname" : "3/hue/variation"
 								}
 
@@ -5407,7 +5407,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 386.0, 370.0, 571.0, 28.0 ],
-									"text" : "jcom.parameter color.2/hue/variation @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Hue toleranz for colortracker 2\"",
+									"text" : "jcom.parameter color.2/hue/variation @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Hue toleranz for colortracker 2\"",
 									"varname" : "2/hue/variation"
 								}
 
@@ -5441,7 +5441,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 383.0, 332.0, 571.0, 28.0 ],
-									"text" : "jcom.parameter color.1/hue/variation @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Hue toleranz for colortracker 1\"",
+									"text" : "jcom.parameter color.1/hue/variation @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Hue toleranz for colortracker 1\"",
 									"varname" : "1/hue/variation"
 								}
 
@@ -5508,7 +5508,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1341.0, 768.0, 439.0, 28.0 ],
-									"text" : "jcom.parameter color.4/hue @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Hue value for colortracker 4\"",
+									"text" : "jcom.parameter color.4/hue @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Hue value for colortracker 4\"",
 									"varname" : "4/hue"
 								}
 
@@ -5542,7 +5542,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1332.0, 651.0, 439.0, 28.0 ],
-									"text" : "jcom.parameter color.3/hue @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Hue value for colortracker 3\"",
+									"text" : "jcom.parameter color.3/hue @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Hue value for colortracker 3\"",
 									"varname" : "3/hue"
 								}
 
@@ -5576,7 +5576,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1322.0, 441.0, 439.0, 28.0 ],
-									"text" : "jcom.parameter color.2/hue @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Hue value for colortracker 2\"",
+									"text" : "jcom.parameter color.2/hue @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode low @description \"Hue value for colortracker 2\"",
 									"varname" : "2/hue"
 								}
 
@@ -5610,7 +5610,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1315.0, 542.0, 444.0, 28.0 ],
-									"text" : "jcom.parameter color.1/hue @type msg_int @range/bounds 0 255 @ramp/drive scheduler @range/clipmode both @description \"Hue value for colortracker 1\"",
+									"text" : "jcom.parameter color.1/hue @type integer @range/bounds 0 255 @ramp/drive scheduler @range/clipmode both @description \"Hue value for colortracker 1\"",
 									"varname" : "1/hue"
 								}
 

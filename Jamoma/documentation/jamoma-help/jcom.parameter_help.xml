@@ -5,11 +5,11 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='my_float' type='msg_float' priority='0'>7.000000</item>
-    <item name='my_int' type='msg_int' priority='0'>19</item>
-    <item name='my_menu' type='msg_symbol' priority='0'>0</item>
-    <item name='my_slider' type='msg_int' priority='0'>64</item>
-    <item name='my_toggle' type='msg_toggle' priority='0'>1</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='my_float' type='decimal' priority='0'>7.000000</item>
+    <item name='my_int' type='integer' priority='0'>19</item>
+    <item name='my_menu' type='string' priority='0'>0</item>
+    <item name='my_slider' type='integer' priority='0'>64</item>
+    <item name='my_toggle' type='boolean' priority='0'>1</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

@@ -8,7 +8,7 @@
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
-		"default_fontname" : "Arial",
+		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
 		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
@@ -39,7 +39,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 524.0, 199.0, 567.0, 43.0 ],
-					"text" : "jcom.message.array 32 speaker position @type msg_list @repetitions/allow 1 @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
+					"text" : "jcom.message.array 32 speaker position @type array @repetitions/allow 1 @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
 				}
 
 			}
@@ -54,7 +54,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 524.0, 245.0, 362.0, 31.0 ],
-					"text" : "jcom.message matrix/dump @type msg_none @description \"Post current matrix settings to the Max window .\""
+					"text" : "jcom.message matrix/dump @type none @description \"Post current matrix settings to the Max window .\""
 				}
 
 			}
@@ -69,7 +69,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 525.0, 154.0, 599.0, 43.0 ],
-					"text" : "jcom.message numSpeakers @type msg_int @repetitions/allow 0 @range/bounds 2 32 @range/clipmode both @description \"The number of loudspeaker channels that a soundscape is diffused to. Changes only take effect when audio is off.\"",
+					"text" : "jcom.message numSpeakers @type integer @repetitions/allow 0 @range/bounds 2 32 @range/clipmode both @description \"The number of loudspeaker channels that a soundscape is diffused to. Changes only take effect when audio is off.\"",
 					"varname" : "voices"
 				}
 

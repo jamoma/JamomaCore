@@ -41,18 +41,18 @@ CMYUnit::~CMYUnit()
 void CMYUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
 	*outputNumArgs = 3;
-	*(output+0) = 255 - atom_getfloat(inputAtoms+0);
-	*(output+1) = 255 - atom_getfloat(inputAtoms+1);
-	*(output+2) = 255 - atom_getfloat(inputAtoms+2);	
+	*(output+0) = (255 - atom_getfloat(inputAtoms+0)) * inv255;
+	*(output+1) = (255 - atom_getfloat(inputAtoms+1)) * inv255;
+	*(output+2) = (255 - atom_getfloat(inputAtoms+2)) * inv255;	
 }
 
 
 void CMYUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
 {
 	*outputNumArgs = 3;	
-	atom_setfloat(*outputAtoms+0, 255 - *(input+0));
-	atom_setfloat(*outputAtoms+1, 255 - *(input+1));
-	atom_setfloat(*outputAtoms+2, 255 - *(input+2));
+	atom_setfloat(*outputAtoms+0, 255 * (1 - *(input+0)));
+	atom_setfloat(*outputAtoms+1, 255 * (1 - *(input+1)));
+	atom_setfloat(*outputAtoms+2, 255 * (1 - *(input+2)));
 }
 
 
@@ -72,11 +72,10 @@ void HSLUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outp
 	double	s = atom_getfloat(inputAtoms+1);
 	double	l = atom_getfloat(inputAtoms+2);
 	double	red, green, blue;
-	double	m1, m2, tr, tg, tb, hue, lightness, saturation;
+	double	m1, m2, hue, lightness, saturation;
 
 	// scale to floating point... number range should be 360, 1, 1
 	hue = h;
-	//hue = ((hue/255.)*360.);
 	saturation = s/100.0;
 	lightness = l/100.0;
 
@@ -87,18 +86,15 @@ void HSLUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outp
 	
 	m1 = 2.0 * lightness-m2;
 	if(saturation == 0.0){
-		tr = lightness;
-		tg = lightness;
-		tb = lightness;
+		red = lightness;
+		green = lightness;
+		blue = lightness;
 	} 
 	else{
-		tr = hls_value(m1, m2, hue+120.0);
-		tg = hls_value(m1, m2, hue);
-		tb = hls_value(m1, m2, hue-120.0);
+		red = hls_value(m1, m2, hue+120.0);
+		green = hls_value(m1, m2, hue);
+		blue = hls_value(m1, m2, hue-120.0);
 	}
-	red = tr * 255.0;
-	green = tg * 255.0;
-	blue = tb * 255.0;
 	
 	*outputNumArgs = 3;
 	*(output+0) = red;
@@ -109,18 +105,12 @@ void HSLUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outp
 
 void HSLUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
 {
-	double	red = (*(input+0));
-	double	green = (*(input+1));
-	double	blue = (*(input+2));
+	double	r = (*(input+0));
+	double	g = (*(input+1));
+	double	b = (*(input+2));
 	double	hue, lightness, saturation;
 	double	max,min,delta;
-	double	r,g,b;
 	double	H,L,S;
-	
-	// first thing, convert them to 0-1
-	r = red/255.0;
-	g = green/255.0;
-	b = blue/255.0;
 	
 	max = r;
 	if(max<g)
@@ -168,7 +158,23 @@ void HSLUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 }
 
 
-/***********************************************************************************************/
+/***********************************************************************************************
+
+Code for RGB <-> HSV convertion is in part based on source code provided by Marcelo Gattass:
+http://www.tecgraf.puc-rio.br/~mgattass/color/ColorIndex.html
+Last retrieved 2009-07-30
+
+License:
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+*/
+
+
 HSVUnit::HSVUnit()
 	: DataspaceUnit("hsv")
 {;}
@@ -180,120 +186,93 @@ HSVUnit::~HSVUnit()
 		
 void HSVUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
-	long	hue = atom_getlong(inputAtoms+0);
-	long	saturation = atom_getlong(inputAtoms+1);
-	long	value = atom_getlong(inputAtoms+2);
-	long	red, green, blue;
-	double	h,s,v,h1, a[7], tr, tg, tb, q, f;                             
+	double	h = atom_getfloat(inputAtoms+0)/360.;
+	double	s = atom_getfloat(inputAtoms+1)/100.;
+	double	v = atom_getfloat(inputAtoms+2)/100.;
+	double	r, g, b;
+	//double	h1, a[7], q, f;                             
 
-	h = (float)hue;
-	s = saturation/100.0;
-	v = value/100.0;
-	h1 = h;
-	//q = trunc(h1);
-#ifdef MAC_VERSION
-	q = roundf(h1);
-#else
-	q = (long)(h1 + 0.5);
-#endif
-	//q = h1 + 0.49; // round
-	f = h1-q; 
-	a[1] = v;
-	a[2] = v;
-	a[3] = v*(1-(s*f));
-	a[4] = v*(1-s);
-	a[5] = a[4];
-	a[6] = v*(1-(s*(1-f)));
+	if ( s == 0 )
+	{
+		r = v;
+		g = v;
+		b = v;
+	}
+	else
+	{
+		double var_h = h * 6;
+		double var_i = floor( var_h );
+		double var_1 = v * ( 1 - s );
+		double var_2 = v * ( 1 - s * ( var_h - var_i ) );
+		double var_3 = v * ( 1 - s * ( 1 - ( var_h - var_i ) ) );
 
-	if (q > 4) q = q-4;
-	else q = q+2;
-	tr=a[(int)q];
-
-	if (q > 4) q = q-4;
-	else q = q+2;
-	tb=a[(int)q];
-
-	if (q > 4) q = q-4;
-	else q = q+2;
-	tg=a[(int)q];
+		if      ( var_i == 0 ) { r = v     ; g = var_3 ; b = var_1; }
+		else if ( var_i == 1 ) { r = var_2 ; g = v     ; b = var_1; }
+		else if ( var_i == 2 ) { r = var_1 ; g = v     ; b = var_3; }
+		else if ( var_i == 3 ) { r = var_1 ; g = var_2 ; b = v;     }
+		else if ( var_i == 4 ) { r = var_3 ; g = var_1 ; b = v;     }
+		else                   { r = v     ; g = var_1 ; b = var_2; }
+	}
 				
-	// output scaling
 	*outputNumArgs = 3;
-	*(output+0) = red = (int)(tr*255.);
-	*(output+1) = green = (int)(tg*255.);
-	*(output+2) = blue = (int)(tb*255.);	
+	*(output+0) = r;
+	*(output+1) = g;
+	*(output+2) = b;	
 }
 
 
 void HSVUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
 {
-    long    /*i, j, roubitez, pix, red, green, blue,*/ hue, saturation, value;
-    double	y,h,s,v, r,g,b, r1,g1,b1; 
-	long	red = long(*(input+0));
-	long	green = long(*(input+1));
-	long	blue = long(*(input+2));
+	double r = *(input+0);
+	double g = *(input+1);
+	double b = *(input+2);
 
-	// first thing, convert them to 0-1
-	r = red/255.0;
-	g = green/255.0;
-	b = blue/255.0;
-	v = r;
+	double h,s,v;
+
+	double min;
+	double max;
+	double delta;
+
+	//Min. value of RGB
+	min = r;
+	if (g<min) min = g;
+	if (b<min) min = b;
+		
+	//Max. value of RGB
+	max = r;
+	if (g>max) max = g;
+	if (b>max) max = b;
 	
-	if(v<g)
-		v=g;
-	if(v<b)
-		v=b;
-	y = r;
-	if(y>g)
-		y=g;
-	if(y>b)
-		y=b;
-	if(v != 0)
-		s = (v-y)/v;
+	//Delta RGB value
+	delta = max - min;
+
+	v = max;
+
+	if ( max == 0 )
+	{
+	   h = 0;
+	   s = 0;
+	}
 	else
-		s = 0;
-	if(s == 0){
-		hue = 0;
-		saturation = 0;
-		value = (int)(v*100);
-		goto setit;
-	}		
-	r1 = (v-r)/(v-y);
-	g1 = (v-g)/(v-y);
-	b1 = (v-b)/(v-y);
+	{
+		s = delta / max;
 
-	if (r == v){
-		if(g == y)
-			h = 5.+b1;
-		else
-			h = 1.-g1;
+		if(r == max)
+			h = (g-b)/delta;
+		else if(g == max)
+			h = 2.0+(b-r)/delta;
+		else if(b == max) 
+			h = 4.0+(r-g)/delta;
+		
+		h *= 60.0; 
+		if(h < 0) 
+			h += 360.0;
 	}
-	else if(g == v){
-		if(b == y)
-			h = r1+1.;
-		else
-			h = 3.-b1;
-	}
-	else{
-		if(r == y)
-			h = 3.+g1;
-		else
-			h = 5.-r1;
-	}
-	
-	// convert it all
-	h = h * 60.; 
-	if(h >= 360.)
-		h = h-360.;
-	hue = (int)h;					//hue = (int)((h/360.)*255.0);
-	saturation = (int)(s*100.);		// was 0-1 from the start
-	value = (int)(v*100.);			// it was 0-1 from the start
 
-setit:
 	*outputNumArgs = 3;	
-	atom_setfloat(*outputAtoms+0, hue);
-	atom_setfloat(*outputAtoms+1, saturation);
-	atom_setfloat(*outputAtoms+2, value);
+	atom_setfloat(*outputAtoms+0, h);
+	atom_setfloat(*outputAtoms+1, s*100);
+	atom_setfloat(*outputAtoms+2, v*100);
 }
 
 
@@ -326,14 +305,45 @@ void RGBUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 
 
 /***********************************************************************************************/
+RGB8Unit::RGB8Unit()
+	: DataspaceUnit("rgb8")
+{;}
+
+
+RGB8Unit::~RGB8Unit()
+{;}
+
+		
+void RGB8Unit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+{
+	*outputNumArgs = 3;
+	
+	*(output+0) = atom_getfloat(inputAtoms+0)*inv255;
+	*(output+1) = atom_getfloat(inputAtoms+1)*inv255;
+	*(output+2) = atom_getfloat(inputAtoms+2)*inv255;	
+}
+
+
+void RGB8Unit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+{
+	*outputNumArgs = 3;
+	
+	atom_setfloat(*outputAtoms+0, *(input+0)*255);
+	atom_setfloat(*outputAtoms+1, *(input+1)*255);
+	atom_setfloat(*outputAtoms+2, *(input+2)*255);
+}
+
+
+/***********************************************************************************************/
 ColorDataspace::ColorDataspace()
 	: DataspaceLib("color", "rgb")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new CMYUnit,		gensym("cmy"));
-	registerUnit(new HSLUnit,		gensym("hsl"));
-	registerUnit(new HSVUnit,		gensym("hsv"));
-	registerUnit(new RGBUnit,		gensym("rgb"));
+	registerUnit(new CMYUnit,		SymbolGen("cmy"));
+	registerUnit(new HSLUnit,		SymbolGen("hsl"));
+	registerUnit(new HSVUnit,		SymbolGen("hsv"));
+	registerUnit(new RGBUnit,		SymbolGen("rgb"));
+	registerUnit(new RGB8Unit,		SymbolGen("rgb8"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

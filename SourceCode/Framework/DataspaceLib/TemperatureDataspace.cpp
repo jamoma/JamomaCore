@@ -85,12 +85,12 @@ TemperatureDataspace::TemperatureDataspace()
 	: DataspaceLib("temperature", "Kelvin")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new CelsiusUnit,		gensym("C"));
-	registerUnit(new CelsiusUnit,		gensym("Celsius"));
-	registerUnit(new FahrenheitUnit,	gensym("F"));
-	registerUnit(new FahrenheitUnit,	gensym("Fahrenheit"));
-	registerUnit(new KelvinUnit,		gensym("K"));
-	registerUnit(new KelvinUnit,		gensym("Kelvin"));
+	registerUnit(new CelsiusUnit,		SymbolGen("C"));
+	registerUnit(new CelsiusUnit,		SymbolGen("Celsius"));
+	registerUnit(new FahrenheitUnit,	SymbolGen("F"));
+	registerUnit(new FahrenheitUnit,	SymbolGen("Fahrenheit"));
+	registerUnit(new KelvinUnit,		SymbolGen("K"));
+	registerUnit(new KelvinUnit,		SymbolGen("Kelvin"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

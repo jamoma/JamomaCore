@@ -19826,7 +19826,7 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.return fdn/overall_length @type msg_float",
+									"text" : "jcom.return fdn/overall_length @type decimal",
 									"numoutlets" : 2,
 									"fontsize" : 9.0,
 									"outlettype" : [ "", "" ],

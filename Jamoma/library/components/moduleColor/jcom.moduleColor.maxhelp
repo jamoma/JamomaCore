@@ -1,14 +1,14 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 459.0, 44.0, 687.0, 507.0 ],
+		"rect" : [ 89.0, 138.0, 743.0, 520.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 459.0, 44.0, 687.0, 507.0 ],
+		"defrect" : [ 89.0, 138.0, 743.0, 520.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
-		"default_fontname" : "Arial",
+		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
 		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
@@ -17,195 +17,163 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "colors are parameters, and then can be stored in cues",
-					"presentation_linecount" : 2,
-					"presentation_rect" : [ 377.0, 317.0, 189.0, 30.0 ],
-					"fontsize" : 9.873845,
-					"patching_rect" : [ 365.0, 355.0, 280.0, 18.0 ],
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"presentation" : 1,
-					"id" : "obj-2",
-					"numinlets" : 1,
-					"fontname" : "Verdana",
-					"numoutlets" : 0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "bpatcher",
-					"varname" : "/cueManager",
-					"presentation_rect" : [ 30.0, 145.0, 300.0, 105.0 ],
 					"args" : [ "/cueManager" ],
-					"patching_rect" : [ 355.0, 385.0, 300.0, 105.0 ],
-					"presentation" : 1,
-					"id" : "obj-36",
-					"numinlets" : 1,
+					"id" : "obj-4",
+					"maxclass" : "bpatcher",
 					"name" : "jmod.cueManager.maxpat",
-					"numoutlets" : 1,
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "bpatcher",
-					"args" : [  ],
-					"patching_rect" : [ 395.0, 135.0, 262.0, 128.0 ],
-					"id" : "obj-1",
-					"numinlets" : 0,
-					"name" : "jcom.moduleColor.maxpat",
-					"numoutlets" : 0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "choose the module and element of which you want to change the color",
-					"linecount" : 2,
-					"presentation_linecount" : 2,
-					"presentation_rect" : [ 396.0, 97.0, 189.0, 30.0 ],
-					"fontsize" : 9.873845,
-					"patching_rect" : [ 395.0, 95.0, 250.0, 30.0 ],
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"presentation" : 1,
-					"id" : "obj-3",
 					"numinlets" : 1,
-					"fontname" : "Verdana",
-					"numoutlets" : 0
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 386.0, 419.0, 300.0, 70.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"args" : [ "@name", "jcom.moduleColor", "@description", "Utility for managing module colors" ],
+					"bgmode" : 1,
+					"id" : "obj-19",
 					"maxclass" : "bpatcher",
-					"presentation_rect" : [ 60.0, 580.0, 300.0, 140.0 ],
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 743.0, 70.0 ],
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-2",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 389.0, 372.0, 300.0, 31.0 ],
+					"presentation" : 1,
+					"presentation_linecount" : 2,
+					"presentation_rect" : [ 377.0, 317.0, 189.0, 31.0 ],
+					"text" : "colors are parameters of modules and can be set also through cues:"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [  ],
+					"id" : "obj-1",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.moduleColor.maxpat",
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 393.0, 130.0, 262.0, 131.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-3",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 395.0, 95.0, 250.0, 31.0 ],
+					"presentation" : 1,
+					"presentation_linecount" : 2,
+					"presentation_rect" : [ 396.0, 97.0, 189.0, 31.0 ],
+					"text" : "choose the module and element of which you want to change the color"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"args" : [ "/output~" ],
+					"id" : "obj-43",
+					"maxclass" : "bpatcher",
+					"name" : "jmod.output~.maxpat",
+					"numinlets" : 3,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 25.0, 350.0, 300.0, 140.0 ],
 					"presentation" : 1,
-					"id" : "obj-43",
-					"numinlets" : 3,
-					"name" : "jmod.output~.maxpat",
-					"numoutlets" : 1,
-					"outlettype" : [ "" ]
+					"presentation_rect" : [ 60.0, 580.0, 300.0, 140.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "bpatcher",
-					"varname" : "/input~",
-					"presentation_rect" : [ 45.0, 345.0, 300.0, 140.0 ],
 					"args" : [ "/input~" ],
+					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
+					"id" : "obj-27",
+					"maxclass" : "bpatcher",
+					"name" : "jmod.input~.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "signal", "signal" ],
 					"patching_rect" : [ 25.0, 130.0, 300.0, 140.0 ],
 					"presentation" : 1,
-					"id" : "obj-27",
-					"numinlets" : 1,
-					"name" : "jmod.input~.maxpat",
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
-					"numoutlets" : 3,
-					"outlettype" : [ "", "signal", "signal" ]
+					"presentation_rect" : [ 45.0, 345.0, 300.0, 140.0 ],
+					"varname" : "/input~"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "bpatcher",
-					"varname" : "/degrade~",
-					"presentation_rect" : [ 45.0, 490.0, 300.0, 70.0 ],
 					"args" : [ "/degrade~" ],
+					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
+					"id" : "obj-28",
+					"maxclass" : "bpatcher",
+					"name" : "jmod.degrade~.maxpat",
+					"numinlets" : 3,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "signal", "signal" ],
 					"patching_rect" : [ 25.0, 275.0, 300.0, 70.0 ],
 					"presentation" : 1,
-					"id" : "obj-28",
-					"numinlets" : 3,
-					"name" : "jmod.degrade~.maxpat",
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
-					"numoutlets" : 3,
-					"outlettype" : [ "", "signal", "signal" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "jcom.moduleColor",
-					"presentation_rect" : [ 30.0, 35.0, 189.0, 28.0 ],
-					"fontsize" : 17.334082,
-					"patching_rect" : [ 30.0, 35.0, 189.0, 28.0 ],
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"presentation" : 1,
-					"id" : "obj-21",
-					"numinlets" : 1,
-					"fontname" : "Verdana",
-					"numoutlets" : 0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Utility for managing module colors",
-					"presentation_rect" : [ 30.0, 65.0, 189.0, 18.0 ],
-					"fontsize" : 9.873845,
-					"patching_rect" : [ 30.0, 65.0, 189.0, 18.0 ],
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"presentation" : 1,
-					"id" : "obj-22",
-					"numinlets" : 1,
-					"fontname" : "Verdana",
-					"numoutlets" : 0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "panel",
-					"presentation_rect" : [ 20.0, 20.0, 320.0, 70.0 ],
-					"patching_rect" : [ 20.0, 20.0, 304.0, 71.0 ],
-					"presentation" : 1,
-					"id" : "obj-23",
-					"rounded" : 15,
-					"numinlets" : 1,
-					"numoutlets" : 0
+					"presentation_rect" : [ 45.0, 490.0, 300.0, 70.0 ],
+					"varname" : "/degrade~"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-27", 2 ],
-					"destination" : [ "obj-28", 2 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-27", 1 ],
-					"destination" : [ "obj-28", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-28", 2 ],
-					"destination" : [ "obj-43", 2 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-28", 1 ],
 					"destination" : [ "obj-43", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-28", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-43", 2 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-28", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-28", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-27", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-28", 2 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-27", 2 ]
 				}
 
 			}

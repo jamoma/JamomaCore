@@ -201,7 +201,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 912.0, 687.0, 543.0, 31.0 ],
-					"text" : "jcom.parameter step @repetitions/allow 0 @type msg_float @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler",
+					"text" : "jcom.parameter step @repetitions/allow 0 @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler",
 					"varname" : "hue_angle[3]"
 				}
 
@@ -217,7 +217,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 793.0, 763.0, 551.0, 31.0 ],
-					"text" : "jcom.parameter range @repetitions/allow 0 @type msg_float @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler",
+					"text" : "jcom.parameter range @repetitions/allow 0 @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler",
 					"varname" : "hue_angle[2]"
 				}
 
@@ -431,7 +431,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 35.0, 562.0, 329.0, 31.0 ],
-					"text" : "jcom.message bang @type msg_generic @repetitions/allow 1 @description \"bang to generate next step of path\"",
+					"text" : "jcom.message bang @type generic @repetitions/allow 1 @description \"bang to generate next step of path\"",
 					"varname" : "hue_angle[1]"
 				}
 
@@ -447,7 +447,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 621.0, 815.0, 554.0, 31.0 ],
-					"text" : "jcom.parameter center @repetitions/allow 0 @type msg_float @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @description \"input a value to get a random number within range, and set center\"",
+					"text" : "jcom.parameter center @repetitions/allow 0 @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @description \"input a value to get a random number within range, and set center\"",
 					"varname" : "hue_angle"
 				}
 
@@ -1732,7 +1732,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1251.0, 365.0, 423.0, 31.0 ],
-					"text" : "jcom.parameter toggle @type msg_toggle @ramp/drive none @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Toggle qmetro on/off\"",
+					"text" : "jcom.parameter toggle @type boolean @ramp/drive none @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Toggle qmetro on/off\"",
 					"varname" : "toggle[1]"
 				}
 
@@ -1821,7 +1821,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1253.0, 272.0, 429.0, 43.0 ],
-					"text" : "jcom.parameter randomness @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 5000 @range/clipmode low @description \"Defines a range of randomness in milliseconds to be applied to the metro interval\"",
+					"text" : "jcom.parameter randomness @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 5000 @range/clipmode low @description \"Defines a range of randomness in milliseconds to be applied to the metro interval\"",
 					"varname" : "randomness[1]"
 				}
 
@@ -1917,7 +1917,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1272.0, 164.0, 601.0, 43.0 ],
-					"text" : "jcom.parameter period @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 5000 @range/clipmode low @dataspace time @dataspace/unit/native ms @dataspace/unit/active ms @description \"Metro interval (ms)\"",
+					"text" : "jcom.parameter period @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 5000 @range/clipmode low @dataspace time @dataspace/unit/native ms @dataspace/unit/active ms @description \"Metro interval (ms)\"",
 					"varname" : "time[1]"
 				}
 

@@ -1626,7 +1626,7 @@
 									"numoutlets" : 4,
 									"outlettype" : [ "bang", "bang", "bang", "" ],
 									"patching_rect" : [ 245.0, 355.0, 184.0, 19.0 ],
-									"text" : "sel msg_float msg_int msg_toggle"
+									"text" : "sel decimal integer boolean"
 								}
 
 							}

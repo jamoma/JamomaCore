@@ -168,7 +168,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 355.0, 210.0, 470.0, 31.0 ],
-					"text" : "jcom.parameter delay/right @type msg_int @ramp/drive scheduler @repetitions 0 @range 0 1000000 @clipmode both @description \"Delay time in samples for right channel.\"",
+					"text" : "jcom.parameter delay/right @type integer @ramp/drive scheduler @repetitions 0 @range 0 1000000 @clipmode both @description \"Delay time in samples for right channel.\"",
 					"varname" : "delay/right"
 				}
 
@@ -263,7 +263,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 355.0, 130.0, 463.0, 31.0 ],
-					"text" : "jcom.parameter delay/left @type msg_int @ramp/drive scheduler @repetitions 0 @range 0 1000000 @clipmode both @description \"Delay time in samples for left channel.\"",
+					"text" : "jcom.parameter delay/left @type integer @ramp/drive scheduler @repetitions 0 @range 0 1000000 @clipmode both @description \"Delay time in samples for left channel.\"",
 					"varname" : "delay/left"
 				}
 

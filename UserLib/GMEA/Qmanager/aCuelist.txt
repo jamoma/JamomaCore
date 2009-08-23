@@ -1,0 +1,602 @@
+
+
+KEY CUE Init
+
+
+##############################
+
+
+
+
+# Module /output~
+
+
+	/output~/audio/active 0
+
+
+	/output~/audio/gain 0.0
+
+
+	/output~/ch.1 1
+
+
+	/output~/ch.2 2
+
+
+	/output~/limiter/active 1
+
+
+	/output~/limiter/dcblocker/active 1
+
+
+	/output~/limiter/lookahead 64
+
+
+	/output~/limiter/mode exponential
+
+
+	/output~/limiter/postamp 0.0
+
+
+	/output~/limiter/preamp 6.0
+
+
+	/output~/limiter/release 300.0
+
+
+	/output~/limiter/threshold -6.0
+
+
+	/output~/record/filetype aiff
+
+
+	/output~/record/samptype int24
+
+
+	/output~/saturation/active 1
+
+
+	/output~/saturation/depth 10.0
+
+
+	/output~/view/freeze 0
+
+
+
+
+# Module /control
+
+
+	/control/audio 0
+
+
+	/control/view/freeze 0
+
+
+
+
+# Module /input~
+
+
+	/input~/audio/active 0
+
+
+	/input~/audio/gain 0.0
+
+
+	/input~/balance 0.0
+
+
+	/input~/ch.1 1
+
+
+	/input~/ch.2 2
+
+
+	/input~/soundfile/loop 1
+
+
+	/input~/soundfile/play 0
+
+
+	/input~/source soundfile
+
+
+	/input~/view/freeze 0
+
+
+
+
+# Module /degrade~
+
+
+	/degrade~/audio/bypass 0
+
+
+	/degrade~/audio/gain 0.0
+
+
+	/degrade~/audio/mix 100.0
+
+
+	/degrade~/audio/mute 1
+
+
+	/degrade~/bitdepth 24
+
+
+	/degrade~/sr_ratio 1.0
+
+
+	/degrade~/view/freeze 0
+
+
+##############################
+
+
+CUE Open
+
+
+##############################
+
+
+
+
+# Module /output~
+
+
+	/output~/audio/active 1
+
+
+	/output~/audio/gain 96.0 ramp 3000
+
+
+	/output~/limiter/active 0
+
+
+	/output~/saturation/active 0
+
+
+
+
+# Module /control
+
+
+	/control/audio 1
+
+
+
+
+# Module /input~
+
+
+	/input~/audio/active 1
+
+
+	/input~/audio/gain 92.0 ramp 3000
+
+
+	/input~/source pink
+
+
+
+
+# Module /degrade~
+
+
+	/degrade~/audio/gain 127.0 ramp 3000
+
+
+	/degrade~/audio/mute 0
+
+
+##############################
+
+
+CUE Close
+
+
+##############################
+
+
+
+
+# Module /output~
+
+
+	/output~/audio/gain 0.0 ramp 3000
+
+
+
+
+# Module /control
+
+
+
+
+# Module /input~
+
+
+	/input~/audio/gain 0.0 ramp 3000
+
+
+
+
+# Module /degrade~
+
+
+	/degrade~/audio/gain 0.0 ramp 3000
+
+
+##############################
+
+
+KEY CUE cue_4
+
+
+	/CONFIG /output~ 1 /control 1 /input~ 1 /degrade~ 1
+
+
+##############################
+
+
+
+
+# Module /output~
+
+
+	/output~/audio/active 0
+
+
+	/output~/audio/gain 0.0
+
+
+	/output~/ch.1 1
+
+
+	/output~/ch.2 2
+
+
+	/output~/limiter/active 1
+
+
+	/output~/limiter/dcblocker/active 1
+
+
+	/output~/limiter/lookahead 64
+
+
+	/output~/limiter/mode exponential
+
+
+	/output~/limiter/postamp 0.0
+
+
+	/output~/limiter/preamp 6.0
+
+
+	/output~/limiter/release 300.0
+
+
+	/output~/limiter/threshold -6.0
+
+
+	/output~/record/filetype aiff
+
+
+	/output~/record/samptype int24
+
+
+	/output~/saturation/active 1
+
+
+	/output~/saturation/depth 10.0
+
+
+	/output~/view/freeze 0
+
+
+	/output~/view/color/border 0
+
+
+	/output~/view/color/contentBackground 0
+
+
+	/output~/view/color/toolbarBackground 0
+
+
+	/output~/view/color/toolbarText 0
+
+
+
+
+# Module /control
+
+
+	/control/audio 0
+
+
+	/control/view/freeze 0
+
+
+	/control/view/color/border 0
+
+
+	/control/view/color/contentBackground 0
+
+
+	/control/view/color/toolbarBackground 0
+
+
+	/control/view/color/toolbarText 0
+
+
+
+
+# Module /input~
+
+
+	/input~/audio/active 0
+
+
+	/input~/audio/gain 0.0
+
+
+	/input~/balance 0.0
+
+
+	/input~/ch.1 1
+
+
+	/input~/ch.2 2
+
+
+	/input~/soundfile/loop 1
+
+
+	/input~/soundfile/play 0
+
+
+	/input~/source soundfile
+
+
+	/input~/view/freeze 0
+
+
+	/input~/view/color/border 0
+
+
+	/input~/view/color/contentBackground 0
+
+
+	/input~/view/color/toolbarBackground 0
+
+
+	/input~/view/color/toolbarText 0
+
+
+
+
+# Module /degrade~
+
+
+	/degrade~/audio/bypass 0
+
+
+	/degrade~/audio/gain 0.0
+
+
+	/degrade~/audio/mix 100.0
+
+
+	/degrade~/audio/mute 1
+
+
+	/degrade~/bitdepth 24
+
+
+	/degrade~/sr_ratio 1.0
+
+
+	/degrade~/view/freeze 0
+
+
+	/degrade~/view/color/border 0
+
+
+	/degrade~/view/color/contentBackground 0
+
+
+	/degrade~/view/color/toolbarBackground 0
+
+
+	/degrade~/view/color/toolbarText 0
+
+
+##############################
+
+
+KEY CUE cue_5
+
+
+	/CONFIG /output~ 1 /control 1 /input~ 1 /degrade~ 1
+
+
+##############################
+
+
+
+
+# Module /output~
+
+
+	/output~/audio/active 0
+
+
+	/output~/audio/gain 0.0
+
+
+	/output~/ch.1 1
+
+
+	/output~/ch.2 2
+
+
+	/output~/limiter/active 1
+
+
+	/output~/limiter/dcblocker/active 1
+
+
+	/output~/limiter/lookahead 64
+
+
+	/output~/limiter/mode exponential
+
+
+	/output~/limiter/postamp 0.0
+
+
+	/output~/limiter/preamp 6.0
+
+
+	/output~/limiter/release 300.0
+
+
+	/output~/limiter/threshold -6.0
+
+
+	/output~/record/filetype aiff
+
+
+	/output~/record/samptype int24
+
+
+	/output~/saturation/active 1
+
+
+	/output~/saturation/depth 10.0
+
+
+	/output~/view/freeze 0
+
+
+	/output~/view/color/border 0
+
+
+	/output~/view/color/contentBackground 0
+
+
+	/output~/view/color/toolbarBackground 0
+
+
+	/output~/view/color/toolbarText 0
+
+
+
+
+# Module /control
+
+
+	/control/audio 0
+
+
+	/control/view/freeze 0
+
+
+	/control/view/color/border 0
+
+
+	/control/view/color/contentBackground 0
+
+
+	/control/view/color/toolbarBackground 0
+
+
+	/control/view/color/toolbarText 0
+
+
+
+
+# Module /input~
+
+
+	/input~/audio/active 0
+
+
+	/input~/audio/gain 0.0
+
+
+	/input~/balance 0.0
+
+
+	/input~/ch.1 1
+
+
+	/input~/ch.2 2
+
+
+	/input~/soundfile/loop 1
+
+
+	/input~/soundfile/play 0
+
+
+	/input~/source soundfile
+
+
+	/input~/view/freeze 0
+
+
+	/input~/view/color/border 0
+
+
+	/input~/view/color/contentBackground 0
+
+
+	/input~/view/color/toolbarBackground 0
+
+
+	/input~/view/color/toolbarText 0
+
+
+
+
+# Module /degrade~
+
+
+	/degrade~/audio/bypass 0
+
+
+	/degrade~/audio/gain 0.0
+
+
+	/degrade~/audio/mix 100.0
+
+
+	/degrade~/audio/mute 1
+
+
+	/degrade~/bitdepth 24
+
+
+	/degrade~/sr_ratio 1.0
+
+
+	/degrade~/view/freeze 0
+
+
+	/degrade~/view/color/border 0
+
+
+	/degrade~/view/color/contentBackground 0
+
+
+	/degrade~/view/color/toolbarBackground 0
+
+
+	/degrade~/view/color/toolbarText 0
+
+
+##############################
+

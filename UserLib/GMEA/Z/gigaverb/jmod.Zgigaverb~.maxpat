@@ -26,7 +26,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 185.0, 420.0, 166.0, 19.0 ],
-					"text" : "jcom.oscroute /panel/open"
+					"text" : "jcom.oscroute /view/panel"
 				}
 
 			}
@@ -245,7 +245,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 568.0, 36.0, 602.0, 43.0 ],
-					"text" : "jcom.parameter roomsize @type msg_float @repetitions/allow 1 @range/bounds 1. 300. @description \"• The size of the room, in meters. Excessivly large, and excessivly small values will make it sound a bit unrealistic. Values of around 30 sound good. Values: 1 - 300 meters (or what ever was specified as maximum)\"",
+					"text" : "jcom.parameter roomsize @type decimal @repetitions/allow 1 @range/bounds 1. 300. @description \"• The size of the room, in meters. Excessivly large, and excessivly small values will make it sound a bit unrealistic. Values of around 30 sound good. Values: 1 - 300 meters (or what ever was specified as maximum)\"",
 					"varname" : "bands[1]"
 				}
 
@@ -410,7 +410,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 573.0, 116.0, 584.0, 43.0 ],
-					"text" : "jcom.parameter damping @type msg_float @repetitions/allow 1 @range/bounds 0. 1. @description \"The amount of damping of the room's surfaces. 0 means nearly no damping, resulting on a lot of refelction (long reverb), 1. means high damping of signals (short reverb).\"",
+					"text" : "jcom.parameter damping @type decimal @repetitions/allow 1 @range/bounds 0. 1. @description \"The amount of damping of the room's surfaces. 0 means nearly no damping, resulting on a lot of refelction (long reverb), 1. means high damping of signals (short reverb).\"",
 					"varname" : "bands[2]"
 				}
 
@@ -474,7 +474,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 569.0, 194.0, 590.0, 31.0 ],
-					"text" : "jcom.parameter revtime @type msg_float @repetitions/allow 1 @range/bounds 0.1 360. @description \"• Reverb time (s): Reverb decay time, in seconds. 7 is a good place to start. Values: 0.1 - 360 seconds!\"",
+					"text" : "jcom.parameter revtime @type decimal @repetitions/allow 1 @range/bounds 0.1 360. @description \"• Reverb time (s): Reverb decay time, in seconds. 7 is a good place to start. Values: 0.1 - 360 seconds!\"",
 					"varname" : "bands[3]"
 				}
 
@@ -545,7 +545,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 577.0, 510.0, 608.0, 31.0 ],
-					"text" : "jcom.parameter clear @type msg_none @repetitions/allow 1 @description \"• Clear the delay lines after a DSP overblow or to get rid of any remaining delay tailes.\"",
+					"text" : "jcom.parameter clear @type none @repetitions/allow 1 @description \"• Clear the delay lines after a DSP overblow or to get rid of any remaining delay tailes.\"",
 					"varname" : "bands[6]"
 				}
 
@@ -575,7 +575,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 572.0, 278.0, 589.0, 43.0 ],
-					"text" : "jcom.parameter bandwidth @type msg_float @repetitions/allow 1 @range/bounds 0. 1. @description \"• Input bandwidth: This is like a damping control for the input, it has a similar effect to the damping control, but is subtly different. Values: 0 - 1\"",
+					"text" : "jcom.parameter bandwidth @type decimal @repetitions/allow 1 @range/bounds 0. 1. @description \"• Input bandwidth: This is like a damping control for the input, it has a similar effect to the damping control, but is subtly different. Values: 0 - 1\"",
 					"varname" : "bands[4]"
 				}
 
@@ -650,7 +650,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 574.0, 355.0, 594.0, 43.0 ],
-					"text" : "jcom.parameter early @type msg_float @repetitions/allow 1 @range/bounds -90. 0. @description \"• Early reflection level (dB): The quantity of early reflections (scatter reflections directly from the source). Think of Lexicons ambiance patches. Values: -90 - 0 dB\"",
+					"text" : "jcom.parameter early @type decimal @repetitions/allow 1 @range/bounds -90. 0. @description \"• Early reflection level (dB): The quantity of early reflections (scatter reflections directly from the source). Think of Lexicons ambiance patches. Values: -90 - 0 dB\"",
 					"varname" : "bands[5]"
 				}
 
@@ -715,7 +715,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 579.0, 432.0, 594.0, 31.0 ],
-					"text" : "jcom.parameter tail @type msg_float @repetitions/allow 1 @range/bounds -90. 0. @description \"• Tail level (dB): The level of the classic reverb tail reflections. Values: -90 - 0 dB\"",
+					"text" : "jcom.parameter tail @type decimal @repetitions/allow 1 @range/bounds -90. 0. @description \"• Tail level (dB): The level of the classic reverb tail reflections. Values: -90 - 0 dB\"",
 					"varname" : "bands[7]"
 				}
 

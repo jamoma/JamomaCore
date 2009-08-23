@@ -1782,7 +1782,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 556.0, 337.0, 549.0, 17.0 ],
-					"text" : "jcom.parameter outputs @priority 2 @type msg_int @range/bounds 1 24 @range/clipmode both @description \"number of input signals\"",
+					"text" : "jcom.parameter outputs @priority 2 @type integer @range/bounds 1 24 @range/clipmode both @description \"number of input signals\"",
 					"varname" : "outputs[1]"
 				}
 
@@ -2013,7 +2013,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 549.0, 167.0, 543.0, 17.0 ],
-					"text" : "jcom.parameter inputs @priority 1 @type msg_int @range/bounds 1 16 @range/clipmode both @description \"number of input signals\"",
+					"text" : "jcom.parameter inputs @priority 1 @type integer @range/bounds 1 16 @range/clipmode both @description \"number of input signals\"",
 					"varname" : "inputs[1]"
 				}
 
@@ -2089,7 +2089,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 20.0, 225.0, 159.0, 17.0 ],
-					"text" : "jcom.oscroute /panel/open"
+					"text" : "jcom.oscroute /view/panel"
 				}
 
 			}
@@ -2423,7 +2423,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 531.299988, 221.199982, 358.0, 27.0 ],
-									"text" : "jcom.parameter modulation/active @type msg_int @range/bounds 0 1 @range/clipmode both @description \"activate modulation of the FDN delay path length\"",
+									"text" : "jcom.parameter modulation/active @type integer @range/bounds 0 1 @range/clipmode both @description \"activate modulation of the FDN delay path length\"",
 									"varname" : "modulation/active"
 								}
 
@@ -3098,7 +3098,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1012.299988, 460.199982, 306.0, 38.0 ],
-									"text" : "jcom.parameter input_eq/filtertype @type msg_symbol @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\"",
+									"text" : "jcom.parameter input_eq/filtertype @type string @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\"",
 									"varname" : "input_eq/filtertype"
 								}
 
@@ -3115,7 +3115,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1144.299927, 679.200012, 381.0, 27.0 ],
-									"text" : "jcom.parameter input_eq/filtergain @type msg_float @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Gain (dB)\"",
+									"text" : "jcom.parameter input_eq/filtergain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Gain (dB)\"",
 									"varname" : "input_eq/filtergain"
 								}
 
@@ -3132,7 +3132,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1144.299927, 603.200012, 364.0, 27.0 ],
-									"text" : "jcom.parameter input_eq/q @type msg_float @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 1 @description \"Resonance (Q)\"",
+									"text" : "jcom.parameter input_eq/q @type decimal @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 1 @description \"Resonance (Q)\"",
 									"varname" : "input_eq/q"
 								}
 
@@ -3149,7 +3149,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1144.299927, 759.200012, 387.0, 27.0 ],
-									"text" : "jcom.parameter input_eq/cf @type msg_float @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Center frequency (Hz)\"",
+									"text" : "jcom.parameter input_eq/cf @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Center frequency (Hz)\"",
 									"varname" : "input_eq/cf"
 								}
 
@@ -3910,7 +3910,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 495.299988, 462.199982, 306.0, 38.0 ],
-									"text" : "jcom.parameter fdn_eq/filtertype @type msg_symbol @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\"",
+									"text" : "jcom.parameter fdn_eq/filtertype @type string @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\"",
 									"varname" : "fdn_eq/filtertype"
 								}
 
@@ -3927,7 +3927,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 627.299988, 681.200012, 378.0, 27.0 ],
-									"text" : "jcom.parameter fdn_eq/filtergain @type msg_float @range/bounds -24. 0. @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Gain (dB)\"",
+									"text" : "jcom.parameter fdn_eq/filtergain @type decimal @range/bounds -24. 0. @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Gain (dB)\"",
 									"varname" : "fdn_eq/filtergain"
 								}
 
@@ -3944,7 +3944,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 627.299988, 605.200012, 356.0, 27.0 ],
-									"text" : "jcom.parameter fdn_eq/q @type msg_float @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 1 @description \"Resonance (Q)\"",
+									"text" : "jcom.parameter fdn_eq/q @type decimal @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 1 @description \"Resonance (Q)\"",
 									"varname" : "fdn_eq/q"
 								}
 
@@ -3961,7 +3961,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 627.299988, 761.200012, 377.0, 27.0 ],
-									"text" : "jcom.parameter fdn_eq/cf @type msg_float @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Center frequency (Hz)\"",
+									"text" : "jcom.parameter fdn_eq/cf @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Center frequency (Hz)\"",
 									"varname" : "fdn_eq/cf"
 								}
 
@@ -3977,7 +3977,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 627.299988, 326.199982, 338.0, 38.0 ],
-									"text" : "jcom.parameter interpolationtime @type msg_float @range/bounds 0. 1000. @range/clipmode low @ramp/drive scheduler @description \"Interpolationtime for changes of feedback path length and path modulation\"",
+									"text" : "jcom.parameter interpolationtime @type decimal @range/bounds 0. 1000. @range/clipmode low @ramp/drive scheduler @description \"Interpolationtime for changes of feedback path length and path modulation\"",
 									"varname" : "interpolationtime"
 								}
 
@@ -4023,7 +4023,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 624.299988, 285.199982, 469.0, 27.0 ],
-									"text" : "jcom.parameter modulation/amplitude @type msg_list @range/bounds 0. 10. @range/clipmode low @ramp/drive scheduler @description \"minimal and maximal amplitude of the feedback path's length modulation\"",
+									"text" : "jcom.parameter modulation/amplitude @type array @range/bounds 0. 10. @range/clipmode low @ramp/drive scheduler @description \"minimal and maximal amplitude of the feedback path's length modulation\"",
 									"varname" : "modulation/amplitude"
 								}
 
@@ -4099,7 +4099,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 622.299988, 172.199982, 386.0, 38.0 ],
-									"text" : "jcom.parameter modulation/frequency @type msg_list @range/bounds 0. 10. @range/clipmode low @ramp/drive scheduler @description \"minimal and maximal modulation frequency of the feedback path's length\"",
+									"text" : "jcom.parameter modulation/frequency @type array @range/bounds 0. 10. @range/clipmode low @ramp/drive scheduler @description \"minimal and maximal modulation frequency of the feedback path's length\"",
 									"varname" : "modulation/frequency"
 								}
 
@@ -4175,7 +4175,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 601.299988, 102.199997, 404.0, 27.0 ],
-									"text" : "jcom.parameter delaylength @type msg_list @range/bounds 0. 300. @range/clipmode both @ramp/drive scheduler @description \"minimal and maximal delaylength of the feedback paths\"",
+									"text" : "jcom.parameter delaylength @type array @range/bounds 0. 300. @range/clipmode both @ramp/drive scheduler @description \"minimal and maximal delaylength of the feedback paths\"",
 									"varname" : "delaylength"
 								}
 
@@ -5009,7 +5009,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 448.0, 67.0, 603.0, 27.0 ],
-					"text" : "jcom.parameter predelay @type msg_float @range/bounds 0. 1000. @range/clipmode both @ramp/drive scheduler @description \"Predelay for incomming signals\"",
+					"text" : "jcom.parameter predelay @type decimal @range/bounds 0. 1000. @range/clipmode both @ramp/drive scheduler @description \"Predelay for incomming signals\"",
 					"varname" : "predelay"
 				}
 
@@ -5040,7 +5040,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 449.0, 31.0, 561.0, 17.0 ],
-					"text" : "jcom.parameter t60 @type msg_float @range/bounds 0. 60. @range/clipmode both @ramp/drive scheduler @description \"t60 reverb time\"",
+					"text" : "jcom.parameter t60 @type decimal @range/bounds 0. 60. @range/clipmode both @ramp/drive scheduler @description \"t60 reverb time\"",
 					"varname" : "t60"
 				}
 

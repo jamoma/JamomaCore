@@ -76,20 +76,20 @@ bool jcom_core_atom_compare(t_symbol *type, t_atom *a1, t_atom *a2)
 	if(!a1 || !a2)
 		return 0;
 		
-	if(type == jps_msg_float){				// float is first so that it gets process the most quickly
+	if(type == jps_decimal){				// float is first so that it gets process the most quickly
 		if(atom_getfloat(a1) == atom_getfloat(a2))
 			return 1;
 	}
-	else if((type == jps_msg_int) || (type == jps_msg_toggle)){
+	else if((type == jps_integer) || (type == jps_boolean)){
 		if(atom_getlong(a1) == atom_getlong(a2))
 			return 1;
 	}
-	else if(type == jps_msg_symbol){
+	else if(type == jps_string){
 		if(atom_getsym(a1) == atom_getsym(a2))
 			return 1;
 	}
-	else if((type == jps_msg_generic) || (type == jps_msg_list)){
-		// type msg_list should be checked here as well.  If type == msg_list and this function is called
+	else if((type == jps_generic) || (type == jps_array)){
+		// type array should be checked here as well.  If type == array and this function is called
 		// it means we are dealing with a list of length 1, so we only need to compare one atom anyway.
 		
 		// note that if the two are of different types, then they are obviously not the same
@@ -276,7 +276,7 @@ void jcom_core_subscriber_new_extended(t_jcom_core_subscriber_extended *x, t_sym
 	x->attr_range[1] = 1.0;
 	x->attr_clipmode = jps_none;
 	x->attr_description = _sym_nothing;
-	x->attr_type = jps_msg_generic;
+	x->attr_type = jps_generic;
 	x->attr_repetitions = 0;	// this should default to the most efficient and common way of working, so repetitions are filtered [TAP]
 }
 
@@ -339,7 +339,7 @@ t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_c
 		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
 	}
 	// if the client understands 'update_name' then we call it
-	object_method(x, gensym("update_name"));
+	object_method(x, SymbolGen("update_name"));
 	
 	return MAX_ERR_NONE;
 }
@@ -444,7 +444,7 @@ t_max_err jcom_core_attr_setdescription(t_jcom_core_subscriber_extended *x, void
 	
 	atom_gettext(argc, argv, &textsize, &text, OBEX_UTIL_ATOM_GETTEXT_SYM_NO_QUOTE);
 	if(text && textsize){
-		x->attr_description = gensym(text);
+		x->attr_description = SymbolGen(text);
 		sysmem_freeptr(text);
 	}
 	return MAX_ERR_NONE;

@@ -6,7 +6,7 @@
 		"defrect" : [ 84.0, 44.0, 511.0, 491.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
-		"default_fontsize" : 10.970939,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -26,7 +26,7 @@
 					"id" : "obj-1",
 					"fontname" : "Verdana",
 					"numoutlets" : 0,
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -40,7 +40,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -54,7 +54,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -68,7 +68,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -82,7 +82,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "bang" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -107,7 +107,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}
@@ -121,7 +121,7 @@
 					"fontname" : "Verdana",
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ]
 				}
 
@@ -137,7 +137,7 @@
 					"id" : "obj-9",
 					"fontname" : "Verdana",
 					"numoutlets" : 0,
-					"fontsize" : 9.873845
+					"fontsize" : 10.0
 				}
 
 			}

@@ -35,7 +35,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/bypass </td>
-			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -44,7 +44,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/gain/midi </td>
-			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRange"> 0.000000 158.000000 </td>
 			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> linear </td>
@@ -53,7 +53,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/meters/freeze </td>
-			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -62,7 +62,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/mix </td>
-			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRange"> 0.000000 100.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> linear </td>
@@ -71,7 +71,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/mute </td>
-			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -80,7 +80,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> shift/left </td>
-			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRange"> -48.000000 48.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> linear </td>
@@ -89,7 +89,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> shift/right </td>
-			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRange"> -48.000000 48.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> linear </td>
@@ -97,8 +97,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> The amount of pitch shift in semitones. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> ui/freeze </td>
-			<td class ="instructionType"> msg_toggle </td>
+			<td class="instructionName"> view/freeze </td>
+			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -107,7 +107,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> window/left </td>
-			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRange"> 1 250 </td>
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> linear </td>
@@ -116,7 +116,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> window/right </td>
-			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRange"> 1 250 </td>
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> linear </td>
@@ -140,7 +140,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/gain </td>
-			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRange"> -144.000000 18.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> linear </td>
@@ -149,7 +149,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/meters/clear </td>
-			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionType"> generic </td>
 			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -158,7 +158,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> documentation/generate </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -167,7 +167,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> documentation/help </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -176,7 +176,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> documentation/html </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -185,7 +185,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> module/view_internals </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -194,7 +194,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/default </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -203,7 +203,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/post </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -212,7 +212,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/read </td>
-			<td class ="instructionType"> msg_symbol </td>
+			<td class ="instructionType"> string </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -221,7 +221,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/recall </td>
-			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -230,7 +230,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/store </td>
-			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -239,7 +239,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/write </td>
-			<td class ="instructionType"> msg_symbol </td>
+			<td class ="instructionType"> string </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -248,7 +248,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> shift </td>
-			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRange"> -48.000000 48.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> linear </td>
@@ -256,8 +256,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> The amount of pitch shift in semitones to apply tp both the left and right channels. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> ui/refresh </td>
-			<td class ="instructionType"> msg_none </td>
+			<td class="instructionName"> view/refresh </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -266,7 +266,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> window </td>
-			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionType"> integer </td>
 			<td class ="instructionRange"> 1 250 </td>
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> linear </td>

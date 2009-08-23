@@ -6,7 +6,7 @@
 		"defrect" : [ 279.0, 178.0, 897.0, 478.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
-		"default_fontsize" : 10.970939,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -18,30 +18,30 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-17",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 36.0, 107.0, 191.0, 15.0 ],
+					"patching_rect" : [ 36.0, 107.0, 196.0, 17.0 ],
 					"text" : "/preset/store 1 default, /preset/write"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-11",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 312.0, 220.0, 405.0, 17.0 ],
-					"text" : "jcom.message update @type msg_none @description \"get update messagefrom an external clock\"",
+					"patching_rect" : [ 312.0, 220.0, 479.0, 19.0 ],
+					"text" : "jcom.message update @type none @description \"get update messagefrom an external clock\"",
 					"varname" : "jcom.parameter[2]"
 				}
 
@@ -75,8 +75,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 323.0, 110.0, 452.0, 19.0 ],
-					"text" : "jcom.message initSerial @type msg_none @description \"Initialization of the serial port\"",
+					"patching_rect" : [ 323.0, 110.0, 456.0, 19.0 ],
+					"text" : "jcom.message initDevice @type none @description \"Initialization of the serial port\"",
 					"varname" : "jcom.parameter[1]"
 				}
 
@@ -104,15 +104,15 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-4",
 					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 170.0, 341.0, 318.0, 30.0 ],
-					"text" : "jcom.parameter menu @type msg_generic @description \"Define the Polhemus port\"",
+					"patching_rect" : [ 170.0, 341.0, 318.0, 31.0 ],
+					"text" : "jcom.parameter menu @type generic @description \"Define the Polhemus port\"",
 					"varname" : "menu"
 				}
 
@@ -120,13 +120,13 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-5",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 170.0, 255.0, 45.0, 18.0 ],
+					"patching_rect" : [ 170.0, 255.0, 46.0, 19.0 ],
 					"text" : "jcom.in"
 				}
 
@@ -134,15 +134,15 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-7",
 					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 312.0, 178.0, 569.0, 30.0 ],
-					"text" : "jcom.parameter updaterate @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 240 @range/clipmode low @description \"Sample rate in [Hz] by default\"",
+					"patching_rect" : [ 312.0, 178.0, 569.0, 31.0 ],
+					"text" : "jcom.parameter updaterate @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 240 @range/clipmode low @description \"Sample rate in [Hz] by default\"",
 					"varname" : "sample_rate[1]"
 				}
 
@@ -189,14 +189,14 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-13",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 328.0, 49.0, 374.0, 18.0 ],
-					"text" : "jcom.parameter active @type msg_toggle @description \"Turn polling on\"",
+					"patching_rect" : [ 328.0, 49.0, 374.0, 19.0 ],
+					"text" : "jcom.parameter active @type boolean @description \"Turn polling on\"",
 					"varname" : "status[1]"
 				}
 
@@ -204,13 +204,13 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-16",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 31.0, 136.0, 135.0, 16.0 ],
+					"patching_rect" : [ 31.0, 136.0, 137.0, 17.0 ],
 					"text" : "/documentation/generate"
 				}
 
@@ -218,13 +218,13 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-19",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 170.0, 287.0, 92.0, 18.0 ],
+					"patching_rect" : [ 170.0, 287.0, 92.0, 19.0 ],
 					"text" : "jalg.polhemus"
 				}
 
@@ -232,14 +232,14 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-20",
 					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 9.0, 161.0, 273.0, 30.0 ],
+					"patching_rect" : [ 9.0, 161.0, 273.0, 31.0 ],
 					"text" : "jcom.hub @module_type control @description \"Use polhemus.\"",
 					"varname" : "jcom.hub"
 				}
@@ -271,15 +271,15 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.0,
-					"frgb" : [ 0.333333, 0.333333, 0.333333, 1.0 ],
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-25",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 29.0, 21.0, 126.0, 17.0 ],
+					"patching_rect" : [ 29.0, 21.0, 126.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 37.0, 46.0, 89.0, 17.0 ],
+					"presentation_rect" : [ 37.0, 46.0, 94.0, 19.0 ],
 					"text" : "Updaterate [Hz]:"
 				}
 
@@ -301,24 +301,6 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-19", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-5", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-19", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-6", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -328,73 +310,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-20", 0 ],
+					"destination" : [ "obj-4", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-17", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-8", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 321.5, 210.0, 299.0, 210.0, 299.0, 153.0, 321.5, 153.0 ],
-					"source" : [ "obj-7", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-9", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-9", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 337.5, 73.0, 315.0, 73.0, 315.0, 19.0, 337.5, 19.0 ],
-					"source" : [ "obj-13", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-20", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-21", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-20", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 40.5, 155.0, 18.5, 155.0 ],
-					"source" : [ "obj-16", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-22", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-20", 0 ]
+					"source" : [ "obj-1", 0 ]
 				}
 
 			}
@@ -409,10 +328,91 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-4", 0 ],
+					"destination" : [ "obj-22", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-1", 0 ]
+					"source" : [ "obj-20", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-20", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 40.5, 155.0, 18.5, 155.0 ],
+					"source" : [ "obj-16", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-20", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-21", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 337.5, 73.0, 315.0, 73.0, 315.0, 19.0, 337.5, 19.0 ],
+					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-9", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 321.5, 210.0, 299.0, 210.0, 299.0, 153.0, 321.5, 153.0 ],
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-20", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-17", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-19", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-19", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 0 ]
 				}
 
 			}

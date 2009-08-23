@@ -52,7 +52,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 554.0, 596.0, 31.0 ],
-					"text" : "jcom.parameter delay @type msg_float @repetitions/allow 0 @description \"compensate for latency by delaying dry signal\"",
+					"text" : "jcom.parameter delay @type decimal @repetitions/allow 0 @description \"compensate for latency by delaying dry signal\"",
 					"varname" : "hue_angle[3]"
 				}
 
@@ -720,7 +720,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 781.0, 51.0, 347.0, 19.0 ],
-					"text" : "jcom.parameter SegmentSize @repetitions/allow 1 @type msg_int",
+					"text" : "jcom.parameter SegmentSize @repetitions/allow 1 @type integer",
 					"varname" : "module_in[1]"
 				}
 
@@ -3033,7 +3033,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 573.0, 477.0, 581.0, 31.0 ],
-					"text" : "jcom.message IR/buffer @type msg_generic @repetitions/allow 1 @description \"Open buffer window, displaying impulse response\"",
+					"text" : "jcom.message IR/buffer @type generic @repetitions/allow 1 @description \"Open buffer window, displaying impulse response\"",
 					"varname" : "hue_angle[2]"
 				}
 
@@ -3088,7 +3088,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 570.0, 404.0, 598.0, 31.0 ],
-					"text" : "jcom.message IR/open @type msg_generic @repetitions/allow 1 @description \"Open impulse response specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
+					"text" : "jcom.message IR/open @type generic @repetitions/allow 1 @description \"Open impulse response specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
 					"varname" : "hue_angle[1]"
 				}
 
@@ -6451,7 +6451,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 565.0, 571.0, 599.0, 31.0 ],
-									"text" : "jcom.parameter channels @repetitions/allow 1 @type msg_int @range/bounds 1 4 @range/clipmode both @priority 4 @value/default 4 @description \"Number of active processing channels\"",
+									"text" : "jcom.parameter channels @repetitions/allow 1 @type integer @range/bounds 1 4 @range/clipmode both @priority 4 @value/default 4 @description \"Number of active processing channels\"",
 									"varname" : "hue_angle[3]"
 								}
 
@@ -6527,7 +6527,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 50.0, 50.0, 144.0, 18.0 ],
-													"text" : "jcom.oscroute /panel/open"
+													"text" : "jcom.oscroute /view/panel"
 												}
 
 											}

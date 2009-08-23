@@ -1,12 +1,12 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 521.0, 130.0, 801.0, 465.0 ],
+		"rect" : [ 156.0, 162.0, 864.0, 459.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 521.0, 130.0, 801.0, 465.0 ],
+		"defrect" : [ 156.0, 162.0, 864.0, 459.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
-		"default_fontsize" : 10.970939,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -15,419 +15,392 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
-		"metadata" : [  ],
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "The name of the send and receive can be changed to accomodate for new routings.",
-					"linecount" : 2,
-					"fontsize" : 10.0,
+					"args" : [ "@name", "jcom.receive", "@description", "Receive messages from any Jamoma module" ],
+					"bgmode" : 1,
+					"id" : "obj-32",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
 					"numoutlets" : 0,
-					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
-					"id" : "obj-1",
-					"fontname" : "Verdana",
-					"patching_rect" : [ 553.0, 354.0, 240.0, 31.0 ],
-					"numinlets" : 1
+					"patching_rect" : [ 0.0, 0.0, 864.0, 70.0 ],
+					"varname" : "maxhelpui"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "/degrade~/audio/bypass 0",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-1",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 553.0, 354.0, 240.0, 31.0 ],
+					"text" : "The name of the send and receive can be changed to accomodate for new routings."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-2",
+					"maxclass" : "message",
+					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"id" : "obj-2",
-					"fontname" : "Verdana",
-					"patching_rect" : [ 232.0, 348.0, 244.0, 17.0 ],
-					"numinlets" : 2
+					"patching_rect" : [ 232.0, 348.0, 244.0, 17.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Here you can receive messages from all modules. Do something with the above module and watch what happens.",
-					"linecount" : 3,
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"numoutlets" : 0,
-					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
 					"id" : "obj-3",
-					"fontname" : "Verdana",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
 					"patching_rect" : [ 10.0, 296.0, 213.0, 43.0 ],
-					"numinlets" : 1
+					"text" : "Here you can receive messages from all modules. Do something with the above module and watch what happens."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "jcom.receive",
-					"fontsize" : 17.334082,
-					"numoutlets" : 0,
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"id" : "obj-4",
-					"fontname" : "Verdana",
-					"patching_rect" : [ 28.0, 16.0, 189.0, 28.0 ],
-					"numinlets" : 1,
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Send messages to any jamoma module",
-					"fontsize" : 10.0,
-					"numoutlets" : 0,
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"id" : "obj-5",
-					"fontname" : "Verdana",
-					"patching_rect" : [ 29.0, 42.0, 295.0, 19.0 ],
-					"numinlets" : 1,
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "panel",
-					"numoutlets" : 0,
-					"id" : "obj-6",
-					"bordercolor" : [ 0.501961, 0.043137, 0.039216, 1.0 ],
-					"patching_rect" : [ 0.0, 0.0, 273.0, 63.0 ],
-					"numinlets" : 1,
-					"bgcolor" : [ 0.262745, 0.254902, 0.419608, 1.0 ],
-					"rounded" : 0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "bpatcher",
-					"varname" : "/degrade~",
-					"numoutlets" : 3,
-					"outlettype" : [ "", "signal", "signal" ],
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"args" : [  ],
 					"id" : "obj-7",
-					"patching_rect" : [ 342.0, 31.0, 300.0, 70.0 ],
+					"maxclass" : "bpatcher",
+					"name" : "jmod.degrade~.maxpat",
 					"numinlets" : 3,
-					"name" : "jmod.degrade~.maxpat"
+					"numoutlets" : 3,
+					"outlettype" : [ "", "signal", "signal" ],
+					"patching_rect" : [ 474.0, 106.0, 300.0, 70.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
+					"varname" : "/degrade~"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "flonum",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-8",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"triscale" : 0.9,
-					"id" : "obj-8",
-					"fontname" : "Verdana",
-					"patching_rect" : [ 232.0, 126.0, 39.0, 19.0 ],
-					"numinlets" : 1
+					"patching_rect" : [ 232.0, 120.0, 39.0, 19.0 ],
+					"triscale" : 0.9
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "/degrade~/sr_ratio $1",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-9",
+					"maxclass" : "message",
+					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"id" : "obj-9",
-					"fontname" : "Verdana",
-					"patching_rect" : [ 232.0, 144.0, 146.0, 17.0 ],
-					"numinlets" : 2
+					"patching_rect" : [ 232.0, 144.0, 166.0, 17.0 ],
+					"text" : "/degrade~/samplerateRatio $1"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"id" : "obj-10",
 					"maxclass" : "toggle",
+					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"id" : "obj-10",
-					"patching_rect" : [ 247.0, 166.0, 15.0, 15.0 ],
-					"numinlets" : 1
+					"patching_rect" : [ 247.0, 166.0, 15.0, 15.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "/degrade~/audio/bypass $1",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
 					"id" : "obj-11",
-					"fontname" : "Verdana",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 247.0, 188.0, 172.0, 17.0 ],
-					"numinlets" : 2
+					"text" : "/degrade~/audio/bypass $1"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.send jcom.remote.module.to",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
 					"id" : "obj-12",
-					"fontname" : "Verdana",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 232.0, 218.0, 182.0, 19.0 ],
-					"numinlets" : 1
+					"text" : "jcom.send jcom.remote.module.to"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "name foo",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
 					"id" : "obj-13",
-					"fontname" : "Verdana",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 676.0, 265.0, 57.0, 17.0 ],
-					"numinlets" : 2
+					"text" : "name foo"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "name bar",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
 					"id" : "obj-14",
-					"fontname" : "Verdana",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 737.0, 265.0, 58.0, 17.0 ],
-					"numinlets" : 2
+					"text" : "name bar"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "name foo",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
 					"id" : "obj-15",
-					"fontname" : "Verdana",
-					"patching_rect" : [ 559.0, 265.0, 57.0, 17.0 ],
-					"numinlets" : 2
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "message",
-					"text" : "name bar",
-					"fontsize" : 10.0,
+					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
+					"patching_rect" : [ 559.0, 265.0, 57.0, 17.0 ],
+					"text" : "name foo"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-16",
-					"fontname" : "Verdana",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 617.0, 265.0, 58.0, 17.0 ],
-					"numinlets" : 2
+					"text" : "name bar"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "prepend set",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
 					"id" : "obj-17",
-					"fontname" : "Verdana",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 232.0, 323.0, 75.0, 19.0 ],
-					"numinlets" : 1
+					"text" : "prepend set"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.receive jcom.remote.module.from",
+					"color" : [ 0.619608, 0.0, 0.360784, 0.698039 ],
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
 					"id" : "obj-18",
-					"fontname" : "Verdana",
-					"patching_rect" : [ 232.0, 294.0, 208.0, 19.0 ],
-					"numinlets" : 1
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 232.0, 297.0, 208.0, 19.0 ],
+					"text" : "jcom.receive jcom.remote.module.from"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "button",
-					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
 					"id" : "obj-19",
-					"patching_rect" : [ 657.0, 190.0, 15.0, 15.0 ],
-					"numinlets" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.send bar",
-					"fontsize" : 10.0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"id" : "obj-20",
-					"fontname" : "Verdana",
-					"patching_rect" : [ 657.0, 218.0, 88.0, 19.0 ],
-					"numinlets" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "print 2",
-					"fontsize" : 10.0,
-					"numoutlets" : 0,
-					"id" : "obj-21",
-					"fontname" : "Verdana",
-					"patching_rect" : [ 676.0, 328.0, 50.0, 19.0 ],
-					"numinlets" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.receive foo",
-					"fontsize" : 10.0,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"id" : "obj-22",
-					"fontname" : "Verdana",
-					"patching_rect" : [ 676.0, 294.0, 93.0, 19.0 ],
-					"numinlets" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "button",
+					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"id" : "obj-23",
-					"patching_rect" : [ 559.0, 190.0, 15.0, 15.0 ],
-					"numinlets" : 1
+					"patching_rect" : [ 657.0, 190.0, 15.0, 15.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.send foo",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-20",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"id" : "obj-24",
-					"fontname" : "Verdana",
-					"patching_rect" : [ 559.0, 218.0, 87.0, 19.0 ],
-					"numinlets" : 1
+					"patching_rect" : [ 657.0, 218.0, 88.0, 19.0 ],
+					"text" : "jcom.send bar"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "print 1",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-21",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
 					"numoutlets" : 0,
-					"id" : "obj-25",
-					"fontname" : "Verdana",
-					"patching_rect" : [ 559.0, 328.0, 50.0, 19.0 ],
-					"numinlets" : 1
+					"patching_rect" : [ 676.0, 328.0, 50.0, 19.0 ],
+					"text" : "print 2"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.receive foo",
+					"color" : [ 0.619608, 0.0, 0.360784, 0.698039 ],
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-22",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"id" : "obj-26",
-					"fontname" : "Verdana",
-					"patching_rect" : [ 559.0, 294.0, 93.0, 19.0 ],
-					"numinlets" : 1
+					"patching_rect" : [ 676.0, 295.0, 93.0, 19.0 ],
+					"text" : "jcom.receive foo"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "This is a global send object. Remember to send messages to the correct address (/module_name/parameter...)",
-					"linecount" : 3,
+					"id" : "obj-23",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 559.0, 190.0, 15.0, 15.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"numoutlets" : 0,
-					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
-					"id" : "obj-27",
+					"id" : "obj-24",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 559.0, 218.0, 87.0, 19.0 ],
+					"text" : "jcom.send foo"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
-					"patching_rect" : [ 12.0, 192.0, 210.0, 43.0 ],
-					"numinlets" : 1
+					"fontsize" : 10.0,
+					"id" : "obj-25",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 559.0, 328.0, 50.0, 19.0 ],
+					"text" : "print 1"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "panel",
+					"color" : [ 0.619608, 0.0, 0.360784, 0.698039 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-26",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 559.0, 296.0, 93.0, 19.0 ],
+					"text" : "jcom.receive foo"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-27",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
 					"numoutlets" : 0,
+					"patching_rect" : [ 12.0, 192.0, 211.0, 43.0 ],
+					"text" : "This is a global send object. Remember to send messages to the correct address (/module_name/parameter...)"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.901961, 0.901961, 0.901961, 1.0 ],
 					"id" : "obj-28",
+					"maxclass" : "panel",
+					"numinlets" : 1,
+					"numoutlets" : 0,
 					"patching_rect" : [ 227.0, 210.0, 193.0, 35.0 ],
-					"numinlets" : 1,
 					"rounded" : 15
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "panel",
-					"numoutlets" : 0,
+					"bgcolor" : [ 0.901961, 0.901961, 0.901961, 1.0 ],
 					"id" : "obj-29",
+					"maxclass" : "panel",
+					"numinlets" : 1,
+					"numoutlets" : 0,
 					"patching_rect" : [ 225.0, 285.0, 222.0, 35.0 ],
-					"numinlets" : 1,
 					"rounded" : 15
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "panel",
-					"numoutlets" : 0,
+					"bgcolor" : [ 0.901961, 0.901961, 0.901961, 1.0 ],
 					"id" : "obj-30",
-					"patching_rect" : [ 554.0, 210.0, 201.0, 34.0 ],
+					"maxclass" : "panel",
 					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 554.0, 210.0, 201.0, 34.0 ],
 					"rounded" : 15
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "panel",
-					"numoutlets" : 0,
+					"bgcolor" : [ 0.901961, 0.901961, 0.901961, 1.0 ],
 					"id" : "obj-31",
-					"patching_rect" : [ 556.0, 283.0, 215.0, 34.0 ],
+					"maxclass" : "panel",
 					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 557.0, 287.0, 215.0, 34.0 ],
 					"rounded" : 15
 				}
 
@@ -435,127 +408,127 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-8", 0 ],
-					"destination" : [ "obj-9", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-9", 0 ],
-					"destination" : [ "obj-12", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-11", 0 ],
-					"destination" : [ "obj-12", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-18", 0 ],
-					"destination" : [ "obj-17", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-17", 0 ],
 					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-17", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-10", 0 ],
+					"destination" : [ "obj-9", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-9", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-17", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-18", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-10", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-23", 0 ],
 					"destination" : [ "obj-24", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-23", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-15", 0 ],
 					"destination" : [ "obj-26", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 568.5, 283.0, 568.5, 283.0 ]
+					"midpoints" : [ 568.5, 283.0, 568.5, 283.0 ],
+					"source" : [ "obj-15", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-16", 0 ],
 					"destination" : [ "obj-26", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 626.5, 288.0, 568.5, 288.0 ]
+					"midpoints" : [ 626.5, 288.0, 568.5, 288.0 ],
+					"source" : [ "obj-16", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-26", 0 ],
 					"destination" : [ "obj-25", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-26", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-19", 0 ],
 					"destination" : [ "obj-20", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-19", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-14", 0 ],
 					"destination" : [ "obj-22", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 746.5, 288.0, 685.5, 288.0 ]
+					"midpoints" : [ 746.5, 288.0, 685.5, 288.0 ],
+					"source" : [ "obj-14", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-13", 0 ],
 					"destination" : [ "obj-22", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-13", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-22", 0 ],
 					"destination" : [ "obj-21", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-22", 0 ]
 				}
 
 			}

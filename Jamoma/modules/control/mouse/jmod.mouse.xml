@@ -5,7 +5,7 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='reference' type='msg_generic'>screen</item>
-    <item name='active' type='msg_int'>0</item>
+    <item name='reference' type='generic'>screen</item>
+    <item name='active' type='integer'>0</item>
   </preset>
 </jamoma>

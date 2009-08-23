@@ -101,7 +101,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-15",
-					"items" : [ "acces", ",", "description", ",", "value", ",", "type", ",", "ramp/drive", ",", "ramp/function", ",", "range/bounds", ",", "range/clipmode", ",", "repetitions/allow", ",", "dataspace", ",", "dataspace/unit/native", ",", "dataspace/unit/active", ",", "ui/freeze", ",", "priority" ],
+					"items" : [ "acces", ",", "description", ",", "value", ",", "type", ",", "ramp/drive", ",", "ramp/function", ",", "range/bounds", ",", "range/clipmode", ",", "repetitions/allow", ",", "dataspace", ",", "dataspace/unit/native", ",", "dataspace/unit/active", ",", "view/freeze", ",", "priority" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,

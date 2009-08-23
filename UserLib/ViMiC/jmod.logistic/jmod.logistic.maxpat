@@ -293,7 +293,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 425.0, 315.0, 573.0, 29.0 ],
-					"text" : "jcom.parameter iterationdepth @type msg_int @range/bounds 1 13 @range/clipmode both @description \"index of the iteration sample , x[n-1] by default\""
+					"text" : "jcom.parameter iterationdepth @type integer @range/bounds 1 13 @range/clipmode both @description \"index of the iteration sample , x[n-1] by default\""
 				}
 
 			}
@@ -383,7 +383,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 439.0, 355.0, 493.0, 17.0 ],
-					"text" : "jcom.parameter a @type msg_float @range/bounds 0. 4. @range/clipmode both @description \"value of the a-parameter\"",
+					"text" : "jcom.parameter a @type decimal @range/bounds 0. 4. @range/clipmode both @description \"value of the a-parameter\"",
 					"varname" : "jcom.parameter[2]"
 				}
 
@@ -483,7 +483,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 374.0, 282.0, 356.0, 17.0 ],
-					"text" : "jcom.message update @type msg_none @description \"update from  an external clock\"",
+					"text" : "jcom.message update @type none @description \"update from  an external clock\"",
 					"varname" : "jcom.parameter[1]"
 				}
 
@@ -500,7 +500,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 375.0, 244.0, 584.0, 27.0 ],
-					"text" : "jcom.parameter updaterate @type msg_int @range/bounds 1 66 @range/clipmode both @description \"set the frequency how often the function computes data\"",
+					"text" : "jcom.parameter updaterate @type integer @range/bounds 1 66 @range/clipmode both @description \"set the frequency how often the function computes data\"",
 					"varname" : "updaterate"
 				}
 
@@ -516,7 +516,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 381.0, 223.0, 523.0, 17.0 ],
-					"text" : "jcom.parameter seed @type msg_float @range/bounds 0. 1. @priority 1 @range/clipmode both @description \"new x-parameter\"",
+					"text" : "jcom.parameter seed @type decimal @range/bounds 0. 1. @priority 1 @range/clipmode both @description \"new x-parameter\"",
 					"varname" : "jcom.parameter[3]"
 				}
 
@@ -532,7 +532,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 514.0, 141.0, 331.0, 17.0 ],
-					"text" : "jcom.parameter active @type msg_toggle @description \"Turns internal clock on\"",
+					"text" : "jcom.parameter active @type boolean @description \"Turns internal clock on\"",
 					"varname" : "on"
 				}
 

@@ -8,7 +8,7 @@
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
-		"default_fontname" : "Arial",
+		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
 		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
@@ -55,7 +55,7 @@
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
-						"gridsize" : [ 15.0, 15.0 ],
+						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
@@ -324,7 +324,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 485.0, 21.0, 601.0, 31.0 ],
-					"text" : "jcom.parameter channels/alias @repetitions/allow 0 @type msg_symbol @priority 2 @description \"select alternative OSC name for channels: \\\"numSpeakers\\\" or \\\" numSources\\\" .\"",
+					"text" : "jcom.parameter channels/alias @repetitions/allow 0 @type string @priority 2 @description \"select alternative OSC name for channels: \\\"numSpeakers\\\" or \\\" numSources\\\" .\"",
 					"varname" : "voices[1]"
 				}
 
@@ -340,7 +340,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 610.0, 58.0, 305.0, 43.0 ],
-					"text" : "jcom.message numSources @type msg_int @range/bounds 1 32 @range/clipmode both @description \"alternative description of channels in that multi~ cable..\""
+					"text" : "jcom.message numSources @type integer @range/bounds 1 32 @range/clipmode both @description \"alternative description of channels in that multi~ cable..\""
 				}
 
 			}
@@ -355,13 +355,13 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 798.0, 107.0, 312.0, 43.0 ],
-					"text" : "jcom.message numSpeakers @type msg_int @range/bounds 1 32 @range/clipmode both @description \"alternative description of channels in that multi~ cable.\""
+					"text" : "jcom.message numSpeakers @type integer @range/bounds 1 32 @range/clipmode both @description \"alternative description of channels in that multi~ cable.\""
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-6",
 					"maxclass" : "number",
@@ -380,7 +380,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-74",
 					"maxclass" : "newobj",
@@ -396,16 +396,16 @@
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
-						"gridsize" : [ 15.0, 15.0 ],
+						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
 						"imprint" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-6",
 									"maxclass" : "newobj",
@@ -419,7 +419,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-4",
 									"maxclass" : "newobj",
@@ -433,7 +433,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-5",
 									"maxclass" : "message",
@@ -458,7 +458,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-25",
 									"maxclass" : "newobj",
@@ -472,7 +472,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-24",
 									"maxclass" : "newobj",
@@ -486,7 +486,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-19",
 									"maxclass" : "newobj",
@@ -500,7 +500,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-18",
 									"maxclass" : "newobj",
@@ -514,7 +514,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-47",
 									"maxclass" : "message",
@@ -528,7 +528,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-46",
 									"maxclass" : "message",
@@ -681,8 +681,8 @@
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0
 					}
 ,
@@ -692,7 +692,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-73",
 					"maxclass" : "newobj",
@@ -708,16 +708,16 @@
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
-						"gridsize" : [ 15.0, 15.0 ],
+						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
 						"imprint" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-6",
 									"maxclass" : "newobj",
@@ -731,7 +731,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-4",
 									"maxclass" : "newobj",
@@ -745,7 +745,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-5",
 									"maxclass" : "message",
@@ -770,7 +770,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-25",
 									"maxclass" : "newobj",
@@ -784,7 +784,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-24",
 									"maxclass" : "newobj",
@@ -798,7 +798,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-19",
 									"maxclass" : "newobj",
@@ -812,7 +812,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-18",
 									"maxclass" : "newobj",
@@ -826,7 +826,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-47",
 									"maxclass" : "message",
@@ -840,7 +840,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-46",
 									"maxclass" : "message",
@@ -993,8 +993,8 @@
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0
 					}
 ,
@@ -1004,7 +1004,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-66",
 					"maxclass" : "newobj",
@@ -1020,16 +1020,16 @@
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
-						"gridsize" : [ 15.0, 15.0 ],
+						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
 						"imprint" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-6",
 									"maxclass" : "newobj",
@@ -1043,7 +1043,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-4",
 									"maxclass" : "newobj",
@@ -1057,7 +1057,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-5",
 									"maxclass" : "message",
@@ -1082,7 +1082,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-25",
 									"maxclass" : "newobj",
@@ -1096,7 +1096,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-24",
 									"maxclass" : "newobj",
@@ -1110,7 +1110,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-19",
 									"maxclass" : "newobj",
@@ -1124,7 +1124,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-18",
 									"maxclass" : "newobj",
@@ -1138,7 +1138,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-47",
 									"maxclass" : "message",
@@ -1152,7 +1152,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-46",
 									"maxclass" : "message",
@@ -1305,8 +1305,8 @@
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0
 					}
 ,
@@ -1376,90 +1376,90 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 21.0, 551.0, 380.0, 17.0 ],
-					"text" : "jcom.message aux.3/description @type msg_symbol @description \"descriptive text of Aux 3\"",
+					"text" : "jcom.message aux.3/description @type string @description \"descriptive text of Aux 3\"",
 					"varname" : "aux.3/description"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-2",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 21.0, 479.0, 380.0, 17.0 ],
-					"text" : "jcom.message aux.2/description @type msg_symbol @description \"descriptive text of Aux 2\"",
+					"text" : "jcom.message aux.2/description @type string @description \"descriptive text of Aux 2\"",
 					"varname" : "aux.2/description"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-3",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 21.0, 404.0, 380.0, 17.0 ],
-					"text" : "jcom.message aux.1/description @type msg_symbol @description \"descriptive text of Aux 1\"",
+					"text" : "jcom.message aux.1/description @type string @description \"descriptive text of Aux 1\"",
 					"varname" : "aux.1/description"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-11",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 108.0, 598.0, 390.0, 17.0 ],
-					"text" : "jcom.parameter aux.3/active @type msg_toggle @description \"switch Bus 3 on/off\"",
+					"text" : "jcom.parameter aux.3/active @type boolean @description \"switch Bus 3 on/off\"",
 					"varname" : "aux.3/active"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-13",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 108.0, 527.0, 390.0, 17.0 ],
-					"text" : "jcom.parameter aux.2/active @type msg_toggle @description \"switch Bus 2 on/off\"",
+					"text" : "jcom.parameter aux.2/active @type boolean @description \"switch Bus 2 on/off\"",
 					"varname" : "aux.2/active"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-16",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 108.0, 450.0, 390.0, 17.0 ],
-					"text" : "jcom.parameter aux.1/active @type msg_toggle @description \"switch Bus 1 on/off\"",
+					"text" : "jcom.parameter aux.1/active @type boolean @description \"switch Bus 1 on/off\"",
 					"varname" : "aux.1/active"
 				}
 
@@ -1482,8 +1482,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-21",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -1491,7 +1491,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 411.0, 567.0, 558.0, 27.0 ],
-					"text" : "jcom.parameter aux.3/gain @repetitions/allow 0 @type msg_float @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @description \"gain of the input cable applied to all aux bus 3\"",
+					"text" : "jcom.parameter aux.3/gain @repetitions/allow 0 @type decimal @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @description \"gain of the input cable applied to all aux bus 3\"",
 					"varname" : "aux.3/gain"
 				}
 
@@ -1514,8 +1514,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-23",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -1523,7 +1523,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 411.0, 499.0, 554.0, 27.0 ],
-					"text" : "jcom.parameter aux.2/gain @repetitions/allow 0 @type msg_float @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @description \"gain of the input cable applied to aux bus 2\"",
+					"text" : "jcom.parameter aux.2/gain @repetitions/allow 0 @type decimal @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @description \"gain of the input cable applied to aux bus 2\"",
 					"varname" : "aux.2/gain"
 				}
 
@@ -1546,8 +1546,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-25",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -1555,7 +1555,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 411.0, 419.0, 554.0, 27.0 ],
-					"text" : "jcom.parameter aux.1/gain @repetitions/allow 0 @type msg_float @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @description \"gain of the input cable applied to aux bus 1\"",
+					"text" : "jcom.parameter aux.1/gain @repetitions/allow 0 @type decimal @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @description \"gain of the input cable applied to aux bus 1\"",
 					"varname" : "aux.1/gain"
 				}
 
@@ -1573,8 +1573,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"frgb" : [ 0.003922, 0.003922, 0.003922, 1.0 ],
 					"id" : "obj-32",
 					"maxclass" : "comment",
@@ -1599,8 +1599,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"frgb" : [ 0.003922, 0.003922, 0.003922, 1.0 ],
 					"id" : "obj-34",
 					"maxclass" : "comment",
@@ -1615,8 +1615,8 @@
 , 			{
 				"box" : 				{
 					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-35",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -1630,8 +1630,8 @@
 , 			{
 				"box" : 				{
 					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-36",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -1644,8 +1644,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-37",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -1658,8 +1658,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-38",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -1672,8 +1672,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-39",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -1686,8 +1686,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"frgb" : [ 0.67451, 0.67451, 0.67451, 1.0 ],
 					"id" : "obj-45",
 					"maxclass" : "comment",
@@ -1724,8 +1724,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-54",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -1733,15 +1733,15 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 559.0, 180.0, 599.0, 27.0 ],
-					"text" : "jcom.parameter channels @type msg_int @repetitions/allow 0 @range/bounds 1 32 @range/clipmode both @description \"The number of audio channels in that multi~ cable. Changes only take effect when audio is off.\"",
+					"text" : "jcom.parameter channels @type integer @repetitions/allow 0 @range/bounds 1 32 @range/clipmode both @description \"The number of audio channels in that multi~ cable. Changes only take effect when audio is off.\"",
 					"varname" : "voices"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"frgb" : [ 0.003922, 0.003922, 0.003922, 1.0 ],
 					"id" : "obj-55",
 					"maxclass" : "comment",
@@ -1767,8 +1767,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-57",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
@@ -1781,8 +1781,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"frgb" : [ 0.003922, 0.003922, 0.003922, 1.0 ],
 					"id" : "obj-58",
 					"maxclass" : "comment",
@@ -1807,8 +1807,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"frgb" : [ 0.003922, 0.003922, 0.003922, 1.0 ],
 					"id" : "obj-60",
 					"maxclass" : "comment",
@@ -1822,8 +1822,8 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-61",
 					"maxclass" : "newobj",
 					"numinlets" : 1,

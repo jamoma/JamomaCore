@@ -94,6 +94,7 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 	
 	if(x){
     	object_obex_store(x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
+		x->outlet[2] = outlet_new(x, 0);				// Third outlet: Visualization data
 		x->outlet[1] = outlet_new(x, 0);				// Middle outlet: Distance from convex hull
 		x->outlet[0] = outlet_new(x, 0);				// Left outlet: Feed to matrix~
 		
@@ -565,6 +566,9 @@ void dbap_assist(t_dbap *x, void *b, long msg, long arg, char *dst)	// Display a
 				strcpy(dst, "(list) distance from convex hull");
 				break;
 			case 2: 
+				strcpy(dst, "(list) visualization data");
+				break;
+			case 3: 
 				strcpy(dst, "dumpout");
 				break;
 		}
@@ -943,10 +947,10 @@ void dbap_calculate_hull1D(t_dbap *x, long n)
 }
 
 // TODO : a way to select dst
-// TODO : put the algotithm in hull2.cpp (keep it here while isn't tested to use post())
+// TODO : put the algorithm in hull2.cpp (keep it here while isn't tested to use post())
 void dbap_calculate_hull2D(t_dbap *x, long n)
 {
-	t_H2D h2;			//the data strucuture to perform calculation
+	t_H2D h2;			// the data structure used to perform calculation
 	long i,j;
 	float dx,dy;		// to calculate the lenght of each border of the hull
 	long m;				// Index of lowest so far
@@ -1024,7 +1028,7 @@ void dbap_calculate_hull2D(t_dbap *x, long n)
 	// Debug
 	//post("h2D : %d points sorted by angle",h2.nb_point);
 	
-	h2.stack = Graham(h2);
+	h2.stack = Graham(h2);	// return NULL if it fails
 	
 	// Debug
 	//post("h2D : Hull");
@@ -1094,7 +1098,7 @@ void dbap_calculate_view(t_dbap *x, long dst, long src)
 /** If the attr_view_update is true : calculate the last view */
 void dbap_update_view(t_dbap *x){
 	if(x->attr_view_update)
-		defer(x,(method) dbap_view, gensym("view"), 2, x->last_view);
+		defer_low(x,(method) dbap_view, gensym("view"), 2, x->last_view);
 }
 
 void dbap_calculate_view1D(t_dbap *x, long dst, long src)
@@ -1168,9 +1172,11 @@ void dbap_output_view(t_dbap *x)
 			atom_setlong(&a[0], i);
 			atom_setlong(&a[1], j);
 			atom_setlong(&a[2], x->view_matrix[i][j]);
-			object_obex_dumpout(x, gensym("view"), 3, a);	// on info outlet (?)
+			//object_obex_dumpout(x, gensym("view"), 3, a);	// on info outlet (?)
+			outlet_anything(x->outlet[2], gensym("view"), 3, a);
 		}
 	}
 	atom_setsym(&e[0],gensym("bang"));
-	object_obex_dumpout(x, gensym("view"), 1, e);	// on info outlet (?)
+	//object_obex_dumpout(x, gensym("view"), 1, e);	// on info outlet (?)
+	outlet_anything(x->outlet[2], gensym("view"), 1, e);
 }

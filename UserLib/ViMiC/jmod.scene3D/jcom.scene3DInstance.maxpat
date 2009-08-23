@@ -39,7 +39,7 @@
 						"dataspace/unit/active" : "aed",
 						"dataspace" : "position",
 						"dataspace/unit/native" : "aed",
-						"type" : "msg_list",
+						"type" : "array",
 						"description" : "Position of the Nth source."
 					}
 ,
@@ -76,7 +76,7 @@
 						"dataspace/unit/active" : "xyz",
 						"dataspace" : "position",
 						"dataspace/unit/native" : "xyz",
-						"type" : "msg_list",
+						"type" : "array",
 						"description" : "Position of the Nth source."
 					}
 ,

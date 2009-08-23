@@ -72,7 +72,7 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal Wildcard/*/ /finger 0.2",
+									"text" : "test.assert.equal Wildcard/*/ /finger 0.2",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"numoutlets" : 0,
@@ -85,7 +85,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal Wildcard.n/ /param 0.1",
+									"text" : "test.assert.equal Wildcard.n/ /param 0.1",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"numoutlets" : 0,
@@ -98,7 +98,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal Wildcard. 0.5",
+									"text" : "test.assert.equal Wildcard. 0.5",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"numoutlets" : 0,
@@ -111,7 +111,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal Wildcard/ 0.5",
+									"text" : "test.assert.equal Wildcard/ 0.5",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"numoutlets" : 0,
@@ -345,7 +345,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal TESTdumpoutlet /meat/chicken roasted",
+					"text" : "test.assert.equal TESTdumpoutlet /meat/chicken roasted",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
 					"numoutlets" : 0,
@@ -358,7 +358,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal TEST/adress /beans",
+					"text" : "test.assert.equal TEST/adress /beans",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
 					"numoutlets" : 0,
@@ -371,7 +371,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal TESTlist 1 2 3",
+					"text" : "test.assert.equal TESTlist 1 2 3",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
 					"numoutlets" : 0,
@@ -384,7 +384,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal TESTfloat 7.8",
+					"text" : "test.assert.equal TESTfloat 7.8",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
 					"numoutlets" : 0,
@@ -397,7 +397,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal TEST/adress+int /banana 3",
+					"text" : "test.assert.equal TEST/adress+int /banana 3",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
 					"numoutlets" : 0,
@@ -410,7 +410,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal TESTbang bang",
+					"text" : "test.assert.equal TESTbang bang",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
 					"numoutlets" : 0,
@@ -654,7 +654,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.finished",
+					"text" : "test.finished",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"numoutlets" : 1,
@@ -668,7 +668,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.assert.equal TESTsymbol red",
+					"text" : "test.assert.equal TESTsymbol red",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
 					"numoutlets" : 0,

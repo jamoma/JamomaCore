@@ -150,7 +150,7 @@
 			</digest>
 			<description>
 				Update parameter value and trigger output locally and internally. If 2nd last member is the symbol <m>ramp</m>, 
-				the parameter vil ramp to new value(s) as described by the ramp attributes.
+				the parameter will ramp to new value(s) as described by the ramp attributes.
 			</description>
 		</method>
 		
@@ -162,7 +162,7 @@
 				TEXT_HERE
 			</digest>
 			<description>
-				Update parameter value and trigger output locally and internally if @type is msg_symbol or msg_generic.
+				Update parameter value and trigger output locally and internally if @type is string or generic.
 			</description>
 		</method>
 		
@@ -209,11 +209,11 @@
 				TEXT_HERE
 			</digest>
 			<description>
-				The <m>dispatched</m> message is used by the Jamoma system for intenal communication from the hub (<o>jcom.hub</o>) of the module to the parameter.
+				The <m>dispatched</m> message is used by the Jamoma system for internal communication from the hub (<o>jcom.hub</o>) of the module to the parameter.
 				One of the benefits of this is that the parameter can be accessed not only locally by direct communication with <o>jcom.parameter</o>,
 				but also from outside the module by passing OSC messages to the left inlet of the module with the OSC name of the module prepended to the OSC namespace:
 				<m>/parameter_name/parameter_namespace</m>.
-				In addition the parameter can be controlled by other modules such as <o>jmod.cuelist</o> and <o>jmod.cont_mapper</o> using OSC addresses with 
+				In addition the parameter can be controlled by other modules such as <o>jmod.cuelist</o> and <o>jmod.mapperContinuous</o> using OSC addresses with 
 				the name of the module and parameter prepended: <m>/module_name/parameter_name/parameter_namespace</m>.
 			</description>
 		</method>
@@ -237,7 +237,7 @@
 			</description>
 		</method>
 		
-		<method name="ui/refresh">
+		<method name="view/refresh">
 			<arglist />
 			<digest>
 				TEXT_HERE
@@ -367,7 +367,12 @@
 				Determines the mechanism used to drive ramping to new parameter values.
 			</digest>
 			<description>
-				Determines the mechanism used to drive ramping to new parameter values.
+				Determines the mechanism used to drive ramping to new parameter values.<br />
+				Possible balues are :<br />
+				• <m>none</m> : no ramp happens<br />
+				• <m>scheduler</m> : ramps are driven by Max's scheduler (similar to [line] object)<br />
+				• <m>queue</m> : ramps are drive at low priority<br />
+				• <m>async</m> : ramps are event-driven (similar to [bline] object)<br />
 			</description>
 		</attribute>
 		
@@ -391,10 +396,16 @@
 		
 		<attribute name="range/clipmode" get="1" set="1" type="symbol" size="1">
 			<digest>
-				Define clipping behaviour at the boundaries of the parameter range. Possible values are none 0 low 0 high and both.
+				Define clipping behaviour at the boundaries of the parameter range. Possible values are none,low, high and both.
 			</digest>
 			<description>
-				Define clipping behaviour at the boundaries of the parameter range. Possible values are none 0 low 0 high and both.
+				Define clipping behaviour at the boundaries of the parameter range. Possible values are :<br />
+				• <m>none</m> : no clipping occurs<br />
+				• <m>both</m> : clipping occurs on both bounds<br />
+				• <m>high</m> : clipping occurs on higher value only<br />
+				• <m>low</m> : clipping occurs on lower value only<br />
+				• <m>wrap</m> : if a value exceeds either bound range, the value reappears at the opposite range side<br />
+				• <m>fold</m> : if a value exceeds either bound range, the value bounces back at the same range side<br />
 			</description>
 		</attribute>
 		
@@ -409,22 +420,22 @@
 		
 		<attribute name="type" get="1" set="1" type="symbol" size="1">
 			<digest>
-				Set the type of data stored and handled by the parameter. Options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list and msg_none.
+				Set the type of data stored and handled by the parameter. Options are generic, integer, decimal, string, boolean, array and none.
 			</digest>
 			<description>
 				Set the type of data stored and handled by the parameter. Options are:<br />
-				• <m>msg_float</m>: The parameter is a container for a floating-point value.<br />
-				• <m>msg_generic</m>: The parameter can contain an array with one or more integers, floating-point numbers and/or symbols.<br />
-				• <m>msg_int</m>: The parameter is a container for an integer value.<br />
-				• <m>msg_list</m>: The parameter is a container for a list. Currently all list members are assumed to be of type <m>int</m> or <f>float</f>.<br />
-				• <m>msg_none</m>: The parameter does not conatin any value. In this case it makes more sense to use <o>jcom.message</o> with the <m>type</m> attribute
-				set to <m>msg_none</m>, as there's no state that can be queried, stored or recalled.<br />
-				• <m>msg_symbol</m>: The parameter is a container for a symbol.<br />
-				• <m>msg_toggle</m>: The parameter is a container for a boolean (1/0) value.<br />
+				• <m>decimal</m>: The parameter is a container for a floating-point value.<br />
+				• <m>generic</m>: The parameter can contain an array with one or more integers, floating-point numbers and/or symbols.<br />
+				• <m>integer</m>: The parameter is a container for an integer value.<br />
+				• <m>array</m>: The parameter is a container for a list. Currently all list members are assumed to be of type <m>int</m> or <f>float</f>.<br />
+				• <m>none</m>: The parameter does not contain any value. In this case it makes more sense to use <o>jcom.message</o> with the <m>type</m> attribute
+				set to <m>none</m>, as there's no state that can be queried, stored or recalled.<br />
+				• <m>string</m>: The parameter is a container for a symbol.<br />
+				• <m>boolean</m>: The parameter is a container for a boolean (1/0) value.<br />
 		</description>
 		</attribute>
 		
-		<attribute name="ui/freeze" get="1" set="1" type="1" size="1">
+		<attribute name="view/freeze" get="1" set="1" type="1" size="1">
 			<digest>
 				Toggles a frozen ui outlet so that you can save cpu
 			</digest>
@@ -568,9 +579,9 @@
 				All messages and attributes that can be accessed locally are therefore also accessible using the colon separator “:” as a separator 
 				between the OSC address of the node and the namespace for adressing the members of the node, e.g:<br />
 				<br />
-				• <m>/parameter_name:+</m><br />
-				• <m>/parameter_name:dataspace temperature</m><br />
-				• <m>/parameter_name:dataspace/unit/active Celsius</m><br />
+				• <m>/parameter_name:/+</m><br />
+				• <m>/parameter_name:/dataspace temperature</m><br />
+				• <m>/parameter_name:/dataspace/unit/active Celsius</m><br />
 			</description>
 		</entry>
 		<entry name="Remote communication to and from other modules">
@@ -579,15 +590,15 @@
 				The Jamoma framework also have a system for listening to and controlling parameters, messages and returns of modules remoetely.
 				This enables modules to control other modules using OSC messages with the name of the module and the name of the 
 				parameter prepended to the local namespace of the node. Some examples of modules using this feature are <o>jmod.cuelist</o>,
-				<o>jmod.mapper</o>, <o>jmod.cont_mapper</o> and <o>jmod.trig_mapper</o>.<br />
+				<o>jmod.mapper</o>, <o>jmod.mapperContinuous</o> and <o>jmod.mapperDiscrete</o>.<br />
 				<br />
 				Here are some examples illustrating the syntax used for addressing a parameter from e.g. the cuelist of <o>jmod.cuescript</o>:<br />
 				<br />
 				• <m>/module_name/parameter_name (value)</m> <br />
 				• <m>/module_name/parameter_name (value) ramp 3000</m> <br />
-				• <m>/module_name/parameter_name:+</m><br />
-				• <m>/module_name/parameter_name:dataspace temperature</m><br />
-				• <m>/module_name/parameter_name:dataspace/unit/active Celsius</m><br />
+				• <m>/module_name/parameter_name:/+</m><br />
+				• <m>/module_name/parameter_name:/dataspace temperature</m><br />
+				• <m>/module_name/parameter_name:/dataspace/unit/active Celsius</m><br />
 			</description>
 		</entry>
 	</misc>

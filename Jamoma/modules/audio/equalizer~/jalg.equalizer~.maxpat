@@ -6,7 +6,7 @@
 		"defrect" : [ 518.0, 58.0, 365.0, 266.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
-		"default_fontsize" : 10.970939,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -20,7 +20,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "deferlow",
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"patching_rect" : [ 270.0, 80.0, 58.0, 20.0 ],
 					"numinlets" : 1,
 					"numoutlets" : 1,
@@ -47,12 +47,12 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "t b l",
-					"fontsize" : 9.0,
+					"fontsize" : 10.0,
 					"patching_rect" : [ 270.0, 55.0, 27.0, 17.0 ],
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "" ],
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"id" : "obj-9"
 				}
 

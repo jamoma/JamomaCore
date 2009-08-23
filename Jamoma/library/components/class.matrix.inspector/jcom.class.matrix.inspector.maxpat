@@ -10,7 +10,7 @@
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
-		"gridsize" : [ 15.0, 15.0 ],
+		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 0,
 		"boxanimatetime" : 200,
@@ -32,7 +32,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"id" : "obj-1",
 					"maxclass" : "comment",
@@ -63,7 +63,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-3",
 					"maxclass" : "newobj",
@@ -89,7 +89,7 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"id" : "obj-1",
 									"maxclass" : "message",
 									"numinlets" : 2,
@@ -103,7 +103,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"id" : "obj-2",
 									"maxclass" : "message",
 									"numinlets" : 2,
@@ -117,7 +117,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"id" : "obj-3",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -131,7 +131,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"id" : "obj-4",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -312,7 +312,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-4",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -342,14 +342,14 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-6",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 270.0, 507.0, 421.0, 18.0 ],
-					"text" : "jcom.message #1/clear @type msg_generic @description \"Set all cell values to 0.\""
+					"text" : "jcom.message #1/clear @type generic @description \"Set all cell values to 0.\""
 				}
 
 			}
@@ -373,7 +373,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-9",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -381,7 +381,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 270.0, 439.0, 315.0, 30.0 ],
-					"text" : "jcom.parameter #1/type @type msg_generic @description \"The matrix data type (char, long, float32, or float64).\"",
+					"text" : "jcom.parameter #1/type @type generic @description \"The matrix data type (char, long, float32, or float64).\"",
 					"varname" : "#1/type"
 				}
 
@@ -408,7 +408,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-12",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -416,7 +416,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 270.0, 355.0, 445.0, 30.0 ],
-					"text" : "jcom.parameter #1/planecount @type msg_int @range/bounds 1 32 @range/clipmode both @repetitions/allow 1 @ramp/drive none @description \"The number of planes\"",
+					"text" : "jcom.parameter #1/planecount @type integer @range/bounds 1 32 @range/clipmode both @repetitions/allow 1 @ramp/drive none @description \"The number of planes\"",
 					"varname" : "#1/planecount"
 				}
 
@@ -460,7 +460,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-16",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -474,7 +474,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-17",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -482,7 +482,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 270.0, 274.0, 289.0, 30.0 ],
-					"text" : "jcom.parameter #1/name @type msg_list @description \"The input or output name (default = UID)\"",
+					"text" : "jcom.parameter #1/name @type array @description \"The input or output name (default = UID)\"",
 					"varname" : "#1/name"
 				}
 
@@ -546,7 +546,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-23",
 					"linecount" : 2,
 					"maxclass" : "newobj",
@@ -554,7 +554,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 270.0, 86.0, 324.0, 30.0 ],
-					"text" : "jcom.parameter #1/adapt @type msg_toggle @description \"Adapt to incoming matrix planecount, type, and dimensions\"",
+					"text" : "jcom.parameter #1/adapt @type boolean @description \"Adapt to incoming matrix planecount, type, and dimensions\"",
 					"varname" : "#1/adapt"
 				}
 
@@ -562,7 +562,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-24",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -599,14 +599,14 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-27",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 270.0, 191.0, 374.0, 18.0 ],
-					"text" : "jcom.parameter #1/dim @type msg_list @description \"Matrix dimension\"",
+					"text" : "jcom.parameter #1/dim @type array @description \"Matrix dimension\"",
 					"varname" : "#1/dim"
 				}
 
@@ -648,7 +648,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"id" : "obj-31",
 					"maxclass" : "comment",

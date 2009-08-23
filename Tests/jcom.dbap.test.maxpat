@@ -88,7 +88,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdbap_num_destinations 6",
+									"text" : "test.assert.equal TESTdbap_num_destinations 6",
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
@@ -115,7 +115,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdbap_unity_intensity 1",
+									"text" : "test.assert.equal TESTdbap_unity_intensity 1",
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
@@ -1104,7 +1104,7 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdbap_getnum_sources 7",
+									"text" : "test.assert.equal TESTdbap_getnum_sources 7",
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
@@ -1117,7 +1117,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdbap_getnum_sources 11",
+									"text" : "test.assert.equal TESTdbap_getnum_sources 11",
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
@@ -1130,7 +1130,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdbap_setrolloff 2.",
+									"text" : "test.assert.equal TESTdbap_setrolloff 2.",
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
@@ -1143,7 +1143,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdbap_setnum_destinations 4",
+									"text" : "test.assert.equal TESTdbap_setnum_destinations 4",
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
@@ -1156,7 +1156,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdbap_setdimensions 1",
+									"text" : "test.assert.equal TESTdbap_setdimensions 1",
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
@@ -1212,7 +1212,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdbap_getrolloff 4.2",
+									"text" : "test.assert.equal TESTdbap_getrolloff 4.2",
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
@@ -1225,7 +1225,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdbap_getnum_destinations 12",
+									"text" : "test.assert.equal TESTdbap_getnum_destinations 12",
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
@@ -1238,7 +1238,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTdbap_getdimensions 3",
+									"text" : "test.assert.equal TESTdbap_getdimensions 3",
 									"numinlets" : 2,
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
@@ -1524,7 +1524,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.finished",
+					"text" : "test.finished",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"fontsize" : 10.0,

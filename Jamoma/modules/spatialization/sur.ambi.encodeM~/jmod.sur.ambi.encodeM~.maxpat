@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 82.0, 128.0, 1092.0, 439.0 ],
+		"rect" : [ 183.0, 206.0, 1092.0, 439.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 82.0, 128.0, 1092.0, 439.0 ],
+		"defrect" : [ 183.0, 206.0, 1092.0, 439.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -17,29 +17,29 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-4",
 					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 0,
-					"patching_rect" : [ 502.0, 334.0, 567.0, 29.0 ],
-					"text" : "jcom.message.array 32 source active @type msg_toggle @value/default 1 @value 1 @description \"active 0 will mute the Nth source.\""
+					"patching_rect" : [ 502.0, 334.0, 567.0, 31.0 ],
+					"text" : "jcom.message.array 32 source active @type boolean @value/default 1 @value 1 @description \"active 0 will mute the Nth source.\""
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-7",
 					"linecount" : 3,
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 0,
-					"patching_rect" : [ 502.0, 289.0, 606.0, 41.0 ],
-					"text" : "jcom.message.array 32 source position @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth source. In cartesian coordinates (xyz) by default \""
+					"patching_rect" : [ 502.0, 289.0, 606.0, 43.0 ],
+					"text" : "jcom.message.array 32 source position @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth source. In cartesian coordinates (xyz) by default \""
 				}
 
 			}
@@ -54,7 +54,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 503.0, 252.0, 408.0, 31.0 ],
-					"text" : "jcom.message report @repetitions/allow 1 @type msg_generic @description \"reports the state of the ambiencode external in the max window\""
+					"text" : "jcom.message report @repetitions/allow 1 @type generic @description \"reports the state of the ambiencode external in the max window\""
 				}
 
 			}
@@ -75,64 +75,64 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-39",
 					"maxclass" : "flonum",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 505.0, 212.0, 50.0, 18.0 ],
+					"patching_rect" : [ 505.0, 212.0, 50.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 196.0, 41.0, 50.0, 18.0 ],
+					"presentation_rect" : [ 196.0, 45.0, 50.0, 19.0 ],
 					"triangle" : 0
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-38",
 					"maxclass" : "flonum",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 505.0, 149.0, 50.0, 18.0 ],
+					"patching_rect" : [ 505.0, 149.0, 50.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 196.0, 22.0, 50.0, 18.0 ],
+					"presentation_rect" : [ 196.0, 25.0, 50.0, 19.0 ],
 					"triangle" : 0
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-37",
 					"maxclass" : "number",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 505.0, 75.0, 22.0, 18.0 ],
+					"patching_rect" : [ 505.0, 75.0, 22.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 57.0, 41.0, 22.0, 18.0 ],
+					"presentation_rect" : [ 57.0, 45.0, 22.0, 19.0 ],
 					"triangle" : 0
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-36",
 					"maxclass" : "number",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 505.0, 36.0, 22.0, 18.0 ],
+					"patching_rect" : [ 505.0, 36.0, 22.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 57.0, 22.0, 22.0, 18.0 ],
+					"presentation_rect" : [ 57.0, 25.0, 22.0, 19.0 ],
 					"triangle" : 0
 				}
 
@@ -156,9 +156,9 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"dataspace/unit/native" : "meters",
+						"dataspace/unit/active" : "meters",
 						"dataspace" : "distance",
-						"dataspace/unit/active" : "meters"
+						"dataspace/unit/native" : "meters"
 					}
 ,
 					"id" : "obj-2",
@@ -168,7 +168,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 205.0, 461.0, 43.0 ],
-					"text" : "jcom.parameter centerRadius @repetitions/allow 0 @type msg_float @range/bounds 0.01 5. @range/clipmode low @description \"The radius (in meters) of the center circle where spatial information collapse to an omni signal as distance approaches zero.\"",
+					"text" : "jcom.parameter centerRadius @repetitions/allow 0 @type decimal @range/bounds 0.01 5. @range/clipmode low @description \"The radius (in meters) of the center circle where spatial information collapse to an omni signal as distance approaches zero.\"",
 					"varname" : "center_radius"
 				}
 
@@ -177,14 +177,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-5",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 123.0, 40.0, 74.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 123.0, 42.0, 74.0, 19.0 ],
+					"presentation_rect" : [ 123.0, 46.0, 74.0, 19.0 ],
 					"text" : "center radius"
 				}
 
@@ -206,9 +205,9 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"dataspace/unit/native" : "db",
+						"dataspace/unit/active" : "db",
 						"dataspace" : "gain",
-						"dataspace/unit/active" : "db"
+						"dataspace/unit/native" : "db"
 					}
 ,
 					"id" : "obj-10",
@@ -218,7 +217,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 145.0, 419.0, 31.0 ],
-					"text" : "jcom.parameter DropOff @repetitions/allow 0 @type msg_float @range/bounds 0 60 @range/clipmode both @description \"drop off gain per meter in [dB].\"",
+					"text" : "jcom.parameter DropOff @repetitions/allow 0 @type decimal @range/bounds 0 60 @range/clipmode both @description \"drop off gain per meter in [dB].\"",
 					"varname" : "db_drop_off"
 				}
 
@@ -234,7 +233,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 75.0, 433.0, 31.0 ],
-					"text" : "jcom.parameter order @repetitions/allow 0 @type msg_int @range/bounds 1 3 @range/clipmode both @description \"Order of encoding.\"",
+					"text" : "jcom.parameter order @repetitions/allow 0 @type integer @range/bounds 1 3 @range/clipmode both @description \"Order of encoding.\"",
 					"varname" : "order"
 				}
 
@@ -268,14 +267,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-21",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 4.0, 39.0, 37.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 4.0, 41.0, 37.0, 19.0 ],
+					"presentation_rect" : [ 4.0, 44.0, 37.0, 19.0 ],
 					"text" : "Order"
 				}
 
@@ -284,14 +282,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-23",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 123.0, 21.0, 67.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 123.0, 23.0, 67.0, 19.0 ],
+					"presentation_rect" : [ 123.0, 26.0, 67.0, 19.0 ],
 					"text" : "db drop off"
 				}
 
@@ -314,14 +311,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-27",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 4.0, 20.0, 50.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 4.0, 22.0, 50.0, 19.0 ],
+					"presentation_rect" : [ 4.0, 25.0, 50.0, 19.0 ],
 					"text" : "Sources"
 				}
 
@@ -375,7 +371,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 30.0, 432.0, 31.0 ],
-					"text" : "jcom.parameter numSources @repetitions/allow 0 @type msg_int @range/bounds 1 32 @range/clipmode both @description \"Number of mono sources to encode.\"",
+					"text" : "jcom.parameter numSources @repetitions/allow 0 @type integer @range/bounds 1 32 @range/clipmode both @description \"Number of mono sources to encode.\"",
 					"varname" : "voices"
 				}
 

@@ -285,7 +285,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 540.0, 346.0, 31.0 ],
-					"text" : "jcom.message vst/title @type msg_symbol @description \"Change the title displayed for the name of the plug-ins\" edit window."
+					"text" : "jcom.message vst/title @type string @description \"Change the title displayed for the name of the plug-ins\" edit window."
 				}
 
 			}
@@ -300,7 +300,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 495.0, 351.0, 31.0 ],
-					"text" : "jcom.message vst/write/program @type msg_generic @description \"Write current settings to an  individual effect program file.\""
+					"text" : "jcom.message vst/write/program @type generic @description \"Write current settings to an  individual effect program file.\""
 				}
 
 			}
@@ -315,7 +315,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 430.0, 333.0, 31.0 ],
-					"text" : "jcom.message vst/write/bank @type msg_generic @description \"Write current effect settings to a program bank file.\""
+					"text" : "jcom.message vst/write/bank @type generic @description \"Write current effect settings to a program bank file.\""
 				}
 
 			}
@@ -330,7 +330,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 366.0, 387.0, 31.0 ],
-					"text" : "jcom.message vst/read @type msg_generic @description \"Read a VS  file \rof effect programs, either in bank or individual program format.\""
+					"text" : "jcom.message vst/read @type generic @description \"Read a VS  file \rof effect programs, either in bank or individual program format.\""
 				}
 
 			}
@@ -1024,7 +1024,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 290.0, 405.0, 43.0 ],
-					"text" : "jcom.message vst/open @type msg_generic @description \"Open the plug-in's edit window. Two optional integer values specifying the left and top window \rcoordinates respectively.\""
+					"text" : "jcom.message vst/open @type generic @description \"Open the plug-in's edit window. Two optional integer values specifying the left and top window \rcoordinates respectively.\""
 				}
 
 			}
@@ -1764,7 +1764,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 700.0, 105.0, 146.0, 19.0 ],
-													"text" : "jcom.oscroute /panel/open"
+													"text" : "jcom.oscroute /view/panel"
 												}
 
 											}
@@ -2485,7 +2485,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 535.0, 280.0, 381.0, 55.0 ],
-																	"text" : "sprintf script newdefault parameter/%s %ld %ld jcom.parameter parameter/%s @type msg_float @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @priority 3 @description \"Nth parameter of the VST plugin.\""
+																	"text" : "sprintf script newdefault parameter/%s %ld %ld jcom.parameter parameter/%s @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @priority 3 @description \"Nth parameter of the VST plugin.\""
 																}
 
 															}
@@ -3585,7 +3585,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 600.0, 376.0, 43.0 ],
-					"text" : "jcom.parameter \"parameter/<parameter name>\" @type msg_float @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @priority 3 @description \"Address specific parameter of the VST plugin.\"",
+					"text" : "jcom.parameter \"parameter/<parameter name>\" @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @priority 3 @description \"Address specific parameter of the VST plugin.\"",
 					"varname" : "parameter/<parameter name>"
 				}
 
@@ -3615,7 +3615,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 190.0, 397.0, 43.0 ],
-					"text" : "jcom.parameter vst/plug @type msg_generic @priority 1 @repetitions/allow 0 @description \"Load a VST effect.  An optional argument define what VST plug-in to open. The plug-in has to be in the Max search path.\"",
+					"text" : "jcom.parameter vst/plug @type generic @priority 1 @repetitions/allow 0 @description \"Load a VST effect.  An optional argument define what VST plug-in to open. The plug-in has to be in the Max search path.\"",
 					"varname" : "vst/plug"
 				}
 

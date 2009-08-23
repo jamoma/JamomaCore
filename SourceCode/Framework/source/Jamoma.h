@@ -11,14 +11,13 @@
 #ifndef __JAMOMA_H__
 #define __JAMOMA_H__
 
-#define JAMOMA_VERSION "0.5 Beta"
+#define JAMOMA_VERSION "0.6.0.0 (Flailing Canard)"
 
 #ifdef WIN_VERSION
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
 #endif // WIN_VERSION
 
-#include "ext.h"
-#include "ext_obex.h"				// Max Object Extensions (attributes) Header
+#include "JamomaMaxTypes.h"
 #include "ext_common.h"
 #include "ext_strings.h"			// String Functions
 #include "ext_critical.h"

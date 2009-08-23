@@ -47,7 +47,8 @@ function dspstate(value)
     }
 }
 
-function numSources(value)
+// CamelCase don't work well with JavaScript functin names in Max.
+function numsources(value)
 {
     // Put change in number of voices on hold if audio is running
     if (DSP_running==1)

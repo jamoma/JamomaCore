@@ -1,12 +1,12 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 70.0, 70.0, 626.0, 820.0 ],
+		"rect" : [ 174.0, 44.0, 644.0, 819.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 70.0, 70.0, 626.0, 820.0 ],
+		"defrect" : [ 174.0, 44.0, 644.0, 819.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
-		"default_fontsize" : 10.970939,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -17,12 +17,71 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [ "@name", "jmod.vst~", "@description", "VST plug-ins hosting module" ],
+					"bgmode" : 1,
+					"id" : "obj-6",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 644.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-19",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 370.0, 346.023804, 200.0, 43.0 ],
+					"text" : "3) Substitute the OSC address in the message box above and test by toggling."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-11",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 370.0, 310.738098, 200.0, 31.0 ],
+					"text" : "2) Find the dynamically created OSC address of one of the parameters."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-10",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 370.0, 285.452393, 200.0, 19.0 ],
+					"text" : "1) Load a VST plugin."
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-22",
 					"maxclass" : "toggle",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 344.0, 195.0, 20.0, 20.0 ]
+					"patching_rect" : [ 345.0, 195.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -52,9 +111,9 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 639.0, 46.0, 558.0, 220.0 ],
+						"rect" : [ 596.0, 140.0, 574.0, 349.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 639.0, 46.0, 558.0, 220.0 ],
+						"defrect" : [ 596.0, 140.0, 574.0, 349.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -84,7 +143,7 @@
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Arial",
+										"default_fontname" : "Verdana",
 										"gridonopen" : 0,
 										"gridsize" : [ 5.0, 5.0 ],
 										"gridsnaponopen" : 0,
@@ -93,7 +152,7 @@
 										"imprint" : 0,
 										"boxes" : [ 											{
 												"box" : 												{
-													"fontname" : "Arial",
+													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 													"id" : "obj-2",
@@ -101,7 +160,7 @@
 													"maxclass" : "comment",
 													"numinlets" : 1,
 													"numoutlets" : 0,
-													"patching_rect" : [ 90.0, 55.0, 136.0, 64.0 ],
+													"patching_rect" : [ 90.0, 55.0, 157.0, 67.0 ],
 													"text" : "jmod.VST~'s internals won't work for the moment if MIDI messages are in the range [0.1.] -> it'll expect them to be in hte range [0 127]"
 												}
 
@@ -129,8 +188,8 @@
 													"numinlets" : 1,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 30.0, 25.0, 156.0, 19.0 ],
-													"text" : "loadmess /midi_normalize 0"
+													"patching_rect" : [ 30.0, 25.0, 145.0, 19.0 ],
+													"text" : "loadmess /normalizeMidi 0"
 												}
 
 											}
@@ -169,13 +228,13 @@
 ,
 									"patching_rect" : [ 175.0, 10.0, 84.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Arial",
-										"globalpatchername" : "",
-										"default_fontsize" : 10.0,
-										"fontname" : "Arial"
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p UnNormalize"
@@ -189,10 +248,10 @@
 									"id" : "obj-5",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 15.0, 85.0, 235.0, 19.0 ],
-									"text" : "jcom.pass /raw/voice.range /midi_normalize"
+									"numoutlets" : 4,
+									"outlettype" : [ "", "", "", "" ],
+									"patching_rect" : [ 15.0, 85.0, 267.0, 19.0 ],
+									"text" : "jcom.pass /raw/voice.range /normalizeMidi /device"
 								}
 
 							}
@@ -301,37 +360,10 @@
  ],
 										"lines" : [ 											{
 												"patchline" : 												{
-													"destination" : [ "obj-1", 1 ],
+													"destination" : [ "obj-3", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
-													"source" : [ "obj-3", 1 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-3", 1 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-5", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-6", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-2", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-2", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-1", 0 ]
+													"source" : [ "obj-4", 0 ]
 												}
 
 											}
@@ -346,10 +378,37 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-3", 0 ],
+													"destination" : [ "obj-2", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
-													"source" : [ "obj-4", 0 ]
+													"source" : [ "obj-1", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-6", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-2", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-3", 1 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-5", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-1", 1 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-3", 1 ]
 												}
 
 											}
@@ -358,13 +417,13 @@
 ,
 									"patching_rect" : [ 280.0, 60.0, 121.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
-										"globalpatchername" : "",
-										"default_fontsize" : 10.0,
-										"fontname" : "Verdana"
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p make_osc_message"
@@ -407,44 +466,17 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 15.0, 150.0, 25.0, 25.0 ]
+									"patching_rect" : [ 10.0, 215.0, 25.0, 25.0 ]
 								}
 
 							}
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"destination" : [ "obj-3", 0 ],
-									"hidden" : 1,
-									"midpoints" : [  ],
-									"source" : [ "obj-11", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"destination" : [ "obj-4", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 240.5, 111.0, 24.5, 111.0 ],
-									"source" : [ "obj-5", 2 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-5", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-3", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-1", 1 ],
-									"hidden" : 0,
-									"midpoints" : [ 466.5, 50.0, 391.5, 50.0 ],
-									"source" : [ "obj-2", 1 ]
+									"midpoints" : [ 289.5, 199.0, 19.5, 199.0 ],
+									"source" : [ "obj-1", 0 ]
 								}
 
 							}
@@ -459,10 +491,37 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-1", 1 ],
+									"hidden" : 0,
+									"midpoints" : [ 466.5, 50.0, 391.5, 50.0 ],
+									"source" : [ "obj-2", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-3", 0 ],
+									"hidden" : 1,
+									"midpoints" : [  ],
+									"source" : [ "obj-11", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-5", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-3", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-4", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 289.5, 116.0, 24.5, 116.0 ],
-									"source" : [ "obj-1", 0 ]
+									"midpoints" : [ 272.5, 184.0, 19.5, 184.0 ],
+									"source" : [ "obj-5", 3 ]
 								}
 
 							}
@@ -471,13 +530,13 @@
 ,
 					"patching_rect" : [ 25.0, 245.0, 57.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana"
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p midi_in",
@@ -488,7 +547,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 13.482065,
+					"fontsize" : 14.0,
 					"id" : "obj-3",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
@@ -709,7 +768,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 17.334082,
+									"fontsize" : 18.0,
 									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-16",
 									"maxclass" : "comment",
@@ -745,7 +804,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 15.0, 120.0, 365.0, 43.0 ],
+									"patching_rect" : [ 15.0, 120.0, 366.0, 43.0 ],
 									"text" : "When using jmod.vst~ with jmod.cuelist it is recommended to introduce a new vst plug-in thrugh a series of steps in a certain order, with a bit of time left in between for Max and Jamoma to catch up:"
 								}
 
@@ -768,15 +827,15 @@
 						"lines" : [  ]
 					}
 ,
-					"patching_rect" : [ 344.0, 573.0, 147.0, 23.0 ],
+					"patching_rect" : [ 345.0, 570.0, 152.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana"
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p \"Using jmod.vst~\""
@@ -793,8 +852,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 495.0, 500.0, 61.0, 19.0 ],
-					"text" : "loadmess"
+					"patching_rect" : [ 345.0, 500.0, 76.0, 19.0 ],
+					"text" : "loadmess set"
 				}
 
 			}
@@ -807,8 +866,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 344.0, 530.0, 226.0, 17.0 ],
-					"text" : "/raw/voice.1/cc.74 0"
+					"patching_rect" : [ 345.0, 530.0, 226.0, 17.0 ],
+					"text" : "/audio/mute 1"
 				}
 
 			}
@@ -818,7 +877,7 @@
 					"id" : "obj-7",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.cuelist.maxpat",
+					"name" : "jmod.cueScript.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -837,47 +896,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 344.0, 220.0, 194.0, 17.0 ],
-					"text" : "/parameter/DryLevel $1. ramp 2000"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"id" : "obj-12",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 20.0, 197.0, 28.0 ],
-					"text" : "jmod.vst~"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"id" : "obj-13",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 45.0, 302.0, 19.0 ],
-					"text" : "hosting vst plug-ins"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-14",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 10.0, 375.0, 63.0 ],
-					"rounded" : 15
+					"patching_rect" : [ 345.0, 220.0, 169.0, 17.0 ],
+					"text" : "/parameter/Freq $1 ramp 2000"
 				}
 
 			}
@@ -935,26 +955,12 @@
 					"fontsize" : 10.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-18",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 375.0, 195.0, 210.0, 19.0 ],
-					"text" : "All VST parameters can be ramped:"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"id" : "obj-19",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 375.0, 245.0, 210.0, 31.0 ],
-					"text" : "(This parameter is common to many of the Pluggo plug-ins.)"
+					"patching_rect" : [ 370.0, 245.0, 200.0, 31.0 ],
+					"text" : "All VST parameters can be ramped. Do the following to test:"
 				}
 
 			}
@@ -968,7 +974,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 344.0, 143.0, 241.0, 43.0 ],
+					"patching_rect" : [ 345.0, 145.44606, 225.0, 43.0 ],
 					"text" : "jmod.vst~ creates a dynamic namespace depending on the parameters of the VST plug-in loaded."
 				}
 
@@ -976,55 +982,19 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-15", 2 ],
-					"hidden" : 0,
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 1,
 					"midpoints" : [  ],
-					"source" : [ "obj-17", 2 ]
+					"source" : [ "obj-4", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-17", 2 ],
+					"destination" : [ "obj-5", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-16", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-15", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-17", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-17", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-16", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-17", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-2", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-17", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 353.5, 267.0, 34.5, 267.0 ],
-					"source" : [ "obj-9", 0 ]
+					"midpoints" : [ 34.5, 492.0, 561.5, 492.0 ],
+					"source" : [ "obj-17", 0 ]
 				}
 
 			}
@@ -1039,19 +1009,55 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-5", 1 ],
+					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 34.5, 492.0, 560.5, 492.0 ],
-					"source" : [ "obj-17", 0 ]
+					"midpoints" : [ 354.5, 268.5, 34.5, 268.5 ],
+					"source" : [ "obj-9", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-5", 1 ],
-					"hidden" : 1,
+					"destination" : [ "obj-17", 0 ],
+					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-4", 0 ]
+					"source" : [ "obj-2", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-17", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-16", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-15", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-17", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-17", 2 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-16", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-15", 2 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-17", 2 ]
 				}
 
 			}

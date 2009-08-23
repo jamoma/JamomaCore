@@ -1,14 +1,14 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 152.0, 44.0, 843.0, 578.0 ],
+		"rect" : [ 105.0, 86.0, 823.0, 593.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 152.0, 44.0, 843.0, 578.0 ],
+		"defrect" : [ 105.0, 86.0, 823.0, 593.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
-		"default_fontname" : "Arial",
+		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
 		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
@@ -17,110 +17,125 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"args" : [ "@name", "jmod.textwriter", "@description", "Write data to a text file, with timestamping for each line of values" ],
+					"bgmode" : 1,
+					"id" : "obj-7",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 823.0, 70.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-1",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 489.0, 511.0, 24.0, 15.0 ],
+					"patching_rect" : [ 760.0, 546.0, 25.0, 17.0 ],
 					"text" : "coll"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-2",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 406.0, 513.0, 102.0, 17.0 ],
+					"patching_rect" : [ 677.0, 548.0, 102.0, 19.0 ],
 					"text" : "see also:"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-3",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 455.0, 511.0, 29.0, 15.0 ],
+					"patching_rect" : [ 726.0, 546.0, 29.0, 17.0 ],
 					"text" : "text"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-4",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 455.0, 535.0, 64.0, 17.0 ],
+					"patching_rect" : [ 726.0, 570.0, 74.0, 19.0 ],
 					"text" : "prepend help"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-5",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 455.0, 555.0, 45.0, 17.0 ],
+					"patching_rect" : [ 726.0, 590.0, 49.0, 19.0 ],
 					"text" : "pcontrol"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-6",
 					"linecount" : 4,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 367.0, 448.0, 245.0, 48.0 ],
+					"patching_rect" : [ 362.0, 459.0, 286.0, 55.0 ],
 					"text" : "This module is storing data in memory before writing to a file. For long recordings of large amounts of data it may be better to use solutions for storing directly to file, e.g. using some of the FTM-tools."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-8",
 					"linecount" : 2,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 39.0, 274.0, 284.0, 25.0 ],
-					"text" : "0.659494 0.790869 0.291281 0.943438 0.298483 0.909004 0.498679 0.995812 0.734965 0.031268"
+					"patching_rect" : [ 34.0, 285.0, 284.0, 29.0 ],
+					"text" : "0.89368 0.323332 0.18279 0.261321 0.523491 0.161996 0.675016 0.950055 0.369374 0.383815"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-9",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
@@ -135,7 +150,7 @@
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
 						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
@@ -144,14 +159,14 @@
 						"imprint" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 9.0,
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
 									"id" : "obj-1",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 50.0, 70.0, 60.0, 17.0 ],
+									"patching_rect" : [ 50.0, 70.0, 66.0, 19.0 ],
 									"text" : "loadmess 1"
 								}
 
@@ -169,42 +184,42 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 9.0,
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
 									"id" : "obj-3",
 									"maxclass" : "newobj",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 50.0, 113.0, 63.0, 17.0 ],
+									"patching_rect" : [ 50.0, 113.0, 67.0, 19.0 ],
 									"text" : "qmetro 100"
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 9.0,
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
 									"id" : "obj-4",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 50.0, 155.0, 43.0, 17.0 ],
+									"patching_rect" : [ 50.0, 155.0, 43.0, 19.0 ],
 									"text" : "jit.spill"
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 9.0,
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
 									"id" : "obj-5",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "jit_matrix", "" ],
-									"patching_rect" : [ 50.0, 134.0, 116.0, 17.0 ],
+									"patching_rect" : [ 50.0, 134.0, 123.0, 19.0 ],
 									"text" : "jit.noise 1 float32 10 1"
 								}
 
@@ -222,15 +237,15 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 9.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-7",
 									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 49.0, 33.0, 150.0, 27.0 ],
+									"patching_rect" : [ 49.0, 33.0, 161.0, 31.0 ],
 									"text" : "Just outputting some random data: 10 values between 0.-1."
 								}
 
@@ -284,15 +299,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 39.0, 88.0, 80.0, 17.0 ],
+					"patching_rect" : [ 34.0, 99.0, 88.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"globalpatchername" : "",
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p simulate-data"
@@ -313,11 +328,12 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 363.0, 116.0, 444.0, 300.0 ],
+					"patching_rect" : [ 358.0, 127.0, 444.0, 300.0 ],
 					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
 					"setminmax" : [ 0.0, 1.0 ],
 					"setstyle" : 5,
-					"size" : 10
+					"size" : 10,
+					"slidercolor" : [ 0.619608, 0.0, 0.360784, 1.0 ]
 				}
 
 			}
@@ -335,52 +351,12 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 39.0, 128.0, 293.0, 81.0 ],
+					"patching_rect" : [ 34.0, 139.0, 293.0, 81.0 ],
 					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
 					"setminmax" : [ 0.0, 1.0 ],
 					"setstyle" : 1,
-					"size" : 10
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"id" : "obj-12",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 29.0, 24.0, 316.0, 28.0 ],
-					"text" : "jmod.textwriter",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 9.0,
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"id" : "obj-13",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 29.0, 51.0, 325.0, 17.0 ],
-					"text" : "Write data to a text file, with timestamping for each line of values.",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-14",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 24.0, 19.0, 343.0, 56.0 ],
-					"rounded" : 15
+					"size" : 10,
+					"slidercolor" : [ 0.619608, 0.0, 0.360784, 1.0 ]
 				}
 
 			}
@@ -394,22 +370,22 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 39.0, 348.0, 300.0, 70.0 ],
+					"patching_rect" : [ 34.0, 359.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-17",
 					"linecount" : 7,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 41.0, 423.0, 245.0, 79.0 ],
+					"patching_rect" : [ 36.0, 434.0, 277.0, 92.0 ],
 					"text" : "How to use: \r1. Send in some data (any type of text data)\r2. Turn on the recording when appropriate\r3. Write the data to a text file when done\r\rYou can check the status of the recording by looking at the recorded data with the 'open' message."
 				}
 
@@ -419,7 +395,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-16", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 48.5, 259.0, 329.5, 259.0 ],
+					"midpoints" : [ 43.5, 270.0, 324.5, 270.0 ],
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -437,7 +413,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 48.5, 109.0, 372.5, 109.0 ],
+					"midpoints" : [ 43.5, 120.0, 367.5, 120.0 ],
 					"source" : [ "obj-9", 0 ]
 				}
 
@@ -473,7 +449,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-8", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 48.5, 259.0, 313.5, 259.0 ],
+					"midpoints" : [ 43.5, 270.0, 308.5, 270.0 ],
 					"source" : [ "obj-11", 0 ]
 				}
 

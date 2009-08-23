@@ -58,7 +58,7 @@
 58 Only a part, not the whole
 59 Only one element of each kind
 60 Openly resist change
-61 Pae White's non-blank graphic metacard <span style='font-size:10px'>[This is not an aphorism]</span>
+61 Pae White's non-blank graphic metacard [This is not an aphorism]
 62 Question the heroic
 63 Remember quiet evenings
 64 Remove a restriction
@@ -98,12 +98,11 @@
 98 Would anyone want it?
 99 Your mistake was a hidden intention
 100 Abandon desire
-/* edition 3 */
 101 Abandon normal instruments
 102 Accept advice
 103 Accretion
 104 A line has two sides
-105 Allow an easement <span style='font-size:10px'>(an easement is the abandonment of a structure)</span>
+105 Allow an easement (an easement is the abandonment of a structure)
 106 Always first steps
 107 Are there sections?  Consider transitions
 108 Ask people to work against their better judgement
@@ -190,7 +189,7 @@
 189 Retrace your steps
 190 Revaluation (a warm feeling)
 191 Reverse
-192 Short circuit <span style='font-size:10px'>(eg: a man eating peas with the idea that they will improve his virility shovels them straight into his lap)</span>
+192 Short circuit (eg: a man eating peas with the idea that they will improve his virility shovels them straight into his lap)
 193 Simple subtraction
 194 Simply a matter of work
 195 State the problem in words as clearly as possible
@@ -221,12 +220,11 @@
 220 You are an engineer
 221 You can only make one dot at a time
 222 You don't have to be ashamed of using your own ideas
-/* edition 2 */
 223 Abandon normal instruments
 224 Accept advice
 225 Accretion
 226 A line has two sides
-227 Allow an easement <span style='font-size:10px'>(an easement is the abandonment of a structure)</span>
+227 Allow an easement (an easement is the abandonment of a structure)
 228 Always first steps
 229 Always give yourself credit for having more than personality
 230 Are there sections?  Consider transitions
@@ -316,7 +314,7 @@
 314 Repetition is a form of change
 315 Revaluation (a warm feeling)
 316 Reverse
-317 Short circuit <span style='font-size:10px'>(eg: a man eating peas with the idea that they will improve his virility shovels them straight into his lap)</span>
+317 Short circuit (eg: a man eating peas with the idea that they will improve his virility shovels them straight into his lap)
 318 Simple subtraction
 319 Simply a matter of work
 320 Spectrum analysis
@@ -350,12 +348,11 @@
 348 You are an engineer
 349 You can only make one dot at a time
 350 You don't have to be ashamed of using your own ideas
-/* edition 1 */
 351 Abandon normal instruments
 352 Accept advice
 353 Accretion
 354 A line has two sides
-355 Allow an easement <span style='font-size:10px'>(an easement is the abandonment of a structure)</span>
+355 Allow an easement (an easement is the abandonment of a structure)
 356 Are there sections?  Consider transitions
 357 Ask people to work against their better judgement
 358 Ask your body

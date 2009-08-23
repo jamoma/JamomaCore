@@ -1,14 +1,14 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 195.0, 193.0, 402.0, 497.0 ],
+		"rect" : [ 78.0, 100.0, 410.0, 475.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 195.0, 193.0, 402.0, 497.0 ],
+		"defrect" : [ 78.0, 100.0, 410.0, 475.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
-		"default_fontname" : "Arial",
+		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
 		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
@@ -17,241 +17,288 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "document ",
-					"patching_rect" : [ 136.0, 123.0, 64.0, 19.0 ],
-					"numoutlets" : 0,
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-10",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patcher" : 					{
+						"fileversion" : 1,
+						"rect" : [ 699.0, 84.0, 537.0, 93.0 ],
+						"bglocked" : 0,
+						"defrect" : [ 699.0, 84.0, 537.0, 93.0 ],
+						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
+						"openinpresentation" : 0,
+						"default_fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"gridonopen" : 0,
+						"gridsize" : [ 5.0, 5.0 ],
+						"gridsnaponopen" : 0,
+						"toolbarvisible" : 1,
+						"boxanimatetime" : 200,
+						"imprint" : 0,
+						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"id" : "obj-1",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 30.0, 50.0, 367.0, 19.0 ],
+									"presentation_rect" : [ 29.0, 51.0, 0.0, 0.0 ],
+									"text" : "this component will be depreciated by a new version in the near future"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"id" : "obj-3",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 30.0, 25.0, 480.0, 19.0 ],
+									"text" : "this component won't work with non-numerical instances, e.g. key.upper, as in jmod.bcf2000"
+								}
+
+							}
+ ],
+						"lines" : [  ]
+					}
+,
+					"patching_rect" : [ 293.0, 423.0, 78.0, 19.0 ],
+					"saved_object_attributes" : 					{
+						"fontname" : "Arial",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial"
+					}
+,
+					"text" : "p known_bug"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "@name", "jcom.osc2opml", "@description", "Make a .opml file describing a Jamoma patcher's namespace" ],
+					"bgmode" : 1,
+					"id" : "obj-19",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 565.0, 70.0 ],
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-9",
-					"numinlets" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "comment",
-					"text" : ".opml",
-					"patching_rect" : [ 102.0, 122.0, 56.0, 19.0 ],
+					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana",
-					"underline" : 1,
-					"id" : "obj-8",
-					"numinlets" : 1
+					"patching_rect" : [ 141.0, 113.0, 64.0, 19.0 ],
+					"text" : "document "
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "ubutton",
-					"patching_rect" : [ 101.122467, 124.69873, 42.0, 14.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-8",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 109.0, 113.0, 56.0, 19.0 ],
+					"text" : ".opml",
+					"underline" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"handoff" : "",
+					"id" : "obj-29",
+					"maxclass" : "ubutton",
+					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "bang", "bang", "", "int" ],
-					"id" : "obj-29",
-					"numinlets" : 1
+					"patching_rect" : [ 106.122467, 114.69873, 42.0, 14.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : ";\rmax launchbrowser http://en.wikipedia.org/wiki/Opml",
-					"linecount" : 3,
-					"patching_rect" : [ 180.122498, 119.69873, 176.0, 36.0 ],
-					"numoutlets" : 1,
-					"fontsize" : 9.0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"hidden" : 1,
-					"outlettype" : [ "" ],
-					"fontname" : "Arial",
 					"id" : "obj-30",
-					"numinlets" : 2
+					"linecount" : 3,
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 185.122498, 109.69873, 181.0, 41.0 ],
+					"text" : ";\rmax launchbrowser http://en.wikipedia.org/wiki/Opml"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Many thanks to Charles Bascou, GMEM, for his help !",
-					"patching_rect" : [ 90.0, 450.0, 277.0, 19.0 ],
-					"numoutlets" : 0,
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-7",
-					"numinlets" : 1
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 40.0, 395.0, 277.0, 19.0 ],
+					"text" : "Many thanks to Charles Bascou, GMEM, for his help !"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Attributes :",
-					"patching_rect" : [ 60.0, 270.0, 68.0, 19.0 ],
-					"numoutlets" : 0,
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-6",
-					"numinlets" : 1
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 40.0, 260.0, 68.0, 19.0 ],
+					"text" : "Attributes :"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "load a Jamoma patcher and press the bang below",
-					"patching_rect" : [ 35.0, 155.0, 322.0, 19.0 ],
-					"numoutlets" : 0,
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-5",
-					"numinlets" : 1
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 40.0, 145.0, 322.0, 19.0 ],
+					"text" : "load a Jamoma patcher and press the bang below"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "jmod.osc2opml",
-					"patching_rect" : [ 40.0, 35.0, 197.0, 28.0 ],
-					"numoutlets" : 0,
-					"fontsize" : 18.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontname" : "Verdana",
-					"id" : "obj-23",
-					"numinlets" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Utility to make a .opml file describing a Jamoma patcher's namespace",
-					"linecount" : 2,
-					"patching_rect" : [ 40.0, 70.0, 245.0, 31.0 ],
-					"numoutlets" : 0,
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana",
-					"id" : "obj-24",
-					"numinlets" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "panel",
-					"patching_rect" : [ 35.0, 30.0, 295.0, 72.0 ],
-					"numoutlets" : 0,
-					"rounded" : 15,
-					"id" : "obj-25",
-					"numinlets" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "This component analyzes the whole Jamoma namespace and generates an   ",
-					"linecount" : 2,
-					"patching_rect" : [ 35.0, 110.0, 322.0, 31.0 ],
-					"numoutlets" : 0,
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana",
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-26",
-					"numinlets" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "@attributes: 1 ...including all attributes / 0 : excluding them",
-					"patching_rect" : [ 39.0, 374.0, 333.0, 19.0 ],
-					"numoutlets" : 0,
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana",
-					"id" : "obj-1",
-					"numinlets" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "@sortmode: 0 ... sorted as a rigorous OSC namespace",
-					"patching_rect" : [ 40.0, 334.0, 333.0, 19.0 ],
-					"numoutlets" : 0,
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana",
-					"id" : "obj-4",
-					"numinlets" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "@sortmode: 1 ... sorted in parameter | messages | values : reflects the actual Jamoma implementation",
 					"linecount" : 2,
-					"patching_rect" : [ 40.0, 300.0, 333.0, 31.0 ],
+					"maxclass" : "comment",
+					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana",
-					"id" : "obj-3",
-					"numinlets" : 1
+					"patching_rect" : [ 40.0, 100.0, 322.0, 31.0 ],
+					"text" : "This component analyzes the whole Jamoma namespace and generates an   "
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-1",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 40.0, 350.0, 333.0, 19.0 ],
+					"text" : "@attributes: 1 ...including all attributes / 0 : excluding them"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-4",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 40.0, 325.0, 333.0, 19.0 ],
+					"text" : "@sortmode: 0 ... sorted as a rigorous OSC namespace"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-3",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 40.0, 290.0, 333.0, 31.0 ],
+					"text" : "@sortmode: 1 ... sorted in parameter | messages | values : reflects the actual Jamoma implementation"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-2",
 					"maxclass" : "button",
-					"patching_rect" : [ 41.0, 205.0, 20.0, 20.0 ],
+					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"id" : "obj-2",
-					"numinlets" : 1
+					"patching_rect" : [ 45.0, 195.0, 20.0, 20.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.osc2opml @name MyPatch @sortmode 0 @attributes 1",
-					"patching_rect" : [ 40.0, 230.0, 316.0, 18.0 ],
-					"numoutlets" : 0,
-					"fontsize" : 9.873845,
+					"color" : [ 0.619608, 0.0, 0.360784, 0.698039 ],
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-15",
-					"numinlets" : 1
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 45.0, 220.0, 316.0, 19.0 ],
+					"text" : "jcom.osc2opml @name MyPatch @sortmode 0 @attributes 1"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-2", 0 ],
 					"destination" : [ "obj-15", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-2", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-29", 0 ],
 					"destination" : [ "obj-30", 0 ],
 					"hidden" : 1,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-29", 0 ]
 				}
 
 			}

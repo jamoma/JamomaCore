@@ -101,7 +101,7 @@ t_max_err paramui_setUIFreeze(t_paramui *x, void *attr, long argc, t_atom *argv)
 	if(argc)
 		x->attr_uiFreeze = atom_getlong(argv);
 	
-	object_attr_setvalueof(x->obj_parameter, gensym("ui/freeze"), argc, argv);
+	object_attr_setvalueof(x->obj_parameter, gensym("view/freeze"), argc, argv);
 	return MAX_ERR_NONE;
 }
 

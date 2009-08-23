@@ -145,13 +145,13 @@ void audiosend_bang(t_audiosend *x)
 
 	jamoma_get_all_module_names(&numModules, &moduleNames);
 
-	atom_setsym(a+0, gensym("clear"));
-	outlet_anything(x->dumpout, gensym("menu"), 1, a);
+	atom_setsym(a+0, SymbolGen("clear"));
+	outlet_anything(x->dumpout, SymbolGen("menu"), 1, a);
 	
-	atom_setsym(a+0, gensym("append"));
+	atom_setsym(a+0, SymbolGen("append"));
 	for(i=0; i<numModules; i++){
 		atom_setsym(a+1, moduleNames[i]);
-		outlet_anything(x->dumpout, gensym("menu"), 2, a);
+		outlet_anything(x->dumpout, SymbolGen("menu"), 2, a);
 	}
 	if(moduleNames)
 		sysmem_freeptr(moduleNames);
@@ -162,7 +162,7 @@ t_int* audiosend_perform(t_int *w)
 {
 	t_audiosend	*x = (t_audiosend*)(w[1]);
 	
-	object_method(x->obj_direct_target, gensym("remoteaudio"), x->audio_in, (long)(w[2]));
+	object_method(x->obj_direct_target, SymbolGen("remoteaudio"), x->audio_in, (long)(w[2]));
 	return(w+3);
 }
 
@@ -180,7 +180,7 @@ void audiosend_dsp(t_audiosend *x, t_signal **sp, short *count)
 				x->obj_target = hub;
 				// we could attach to the hub here to listen for free notifications
 				// but freeing it will restart the dsp anyway, so I don't think there is any need [tap]
-				x->obj_direct_target = (t_object*)object_method(hub, gensym("getobj_audioin"));
+				x->obj_direct_target = (t_object*)object_method(hub, SymbolGen("getobj_audioin"));
 			}
 		}
 		if(x->obj_target){
@@ -207,7 +207,7 @@ t_max_err audiosend_attr_settarget(t_audiosend *x, void *attr, long argc, t_atom
 	hub = jamoma_get_hub_for_module_named(x->attr_target);
 	if(hub){
 		x->obj_target = hub;
-		x->obj_direct_target = (t_object*)object_method(hub, gensym("getobj_audioin"));
+		x->obj_direct_target = (t_object*)object_method(hub, SymbolGen("getobj_audioin"));
 	}
 	return MAX_ERR_NONE;
 }

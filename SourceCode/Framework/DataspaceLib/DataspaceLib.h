@@ -13,8 +13,7 @@
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
 #endif // WIN_VERSION
 
-#include "ext.h"
-#include "ext_obex.h"
+#include "JamomaMaxTypes.h"
 #include "JamomaTypes.h"
 
 // Constants used for trigonometric convertions:
@@ -25,6 +24,11 @@ static const double kDegreesToRadians = 3.14159265358979323846264338327950288419
 // so that MIDI=100 equals 0 dB and MIDI = 127 equals +10 dB
 static const double kGainMidiPower = log(pow(10.,10./20.))/log(127./100.);
 static const double kGainMidiPowerInv = 1./kGainMidiPower;
+
+// This coeff is used for some of the color convertions:
+static const double inv255 = 1./255.;
+
+
 
 
 /****************************************************************************************************/
@@ -39,7 +43,7 @@ class JAMOMA_EXPORT DataspaceUnit{
 		t_symbol *name;				/// < name of this unit
 
 		/** Constructor. Must be passed the name of this DataspaceUnit as a C-string. */
-		DataspaceUnit(char *cName);
+		DataspaceUnit(const char *cName);
 		
 		/** Destructor */
 		virtual ~DataspaceUnit();
@@ -75,7 +79,7 @@ class JAMOMA_EXPORT DataspaceLib{
 			@param cName		The name of the total Dataspace as a C-string
 			@param cNativeUnit	The name of the neutral unit that is used for translating
 								between units within this Dataspace. */
-		DataspaceLib(char *cName, char *cNeutralUnit);
+		DataspaceLib(const char *cName, const char *cNeutralUnit);
 		
 		/** Destructor. */
 		virtual ~DataspaceLib();

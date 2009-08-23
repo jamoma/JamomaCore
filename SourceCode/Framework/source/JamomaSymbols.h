@@ -1,6 +1,6 @@
 /* 
  * Jamoma Symbols
- * Symbols cached to avoid repeated calls to the expensive gensym() function
+ * Symbols cached to avoid repeated calls to the expensive SymbolGen() function
  * By Tim Place, Copyright © 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
@@ -32,7 +32,7 @@
  #endif // _DLL_EXPORT
 #endif
 
-extern "C" JAMOMA_EXPORT extern t_symbol *jps_none,
+extern "C" JAMOMA_EXPORT t_symbol *jps_none,
 				*jps_done,
 				*jps_linear,
 				*jps_linear_q,
@@ -43,13 +43,13 @@ extern "C" JAMOMA_EXPORT extern t_symbol *jps_none,
 				*jps_fold,
 				*jps_inc,							// increase, decrease
 				*jps_dec,
-				*jps_msg_generic,					// DATA TYPES FOR THE PARAMETER / MESSAGE
-				*jps_msg_int,						// 
-				*jps_msg_float,						// 
-				*jps_msg_symbol,					// 
-				*jps_msg_list,						//
-				*jps_msg_toggle,					// 
-				*jps_msg_none,						// this type only used by jcom.message
+				*jps_generic,					// DATA TYPES FOR THE PARAMETER / MESSAGE
+				*jps_integer,						// 
+				*jps_decimal,						// 
+				*jps_string,					// 
+				*jps_array,						//
+				*jps_boolean,					// 
+				*jps_none,						// this type only used by jcom.message
 				*jps_jcom_hub, 
 				*jps_feedback,
 				*jps_module_name_get,
@@ -174,10 +174,10 @@ extern "C" JAMOMA_EXPORT extern t_symbol *jps_none,
 				*jps_slash_preset_slash_write,		// /preset/save
 				*jps_slash_preset_slash_writeagain,	// /preset/save
 				*jps_slash_preset_slash_copy,		// /preset/save
-				*jps_ui_slash_freeze,				//	ui/freeze
-				*jps_slash_ui_slash_freeze,			// /ui/freeze
-				*jps_ui_slash_refresh,				//	ui/refresh
-				*jps_slash_ui_slash_refresh,		// /ui/refresh
+				*jps_ui_slash_freeze,				//	view/freeze
+				*jps_slash_ui_slash_freeze,			// /view/freeze
+				*jps_ui_slash_refresh,				//	view/refresh
+				*jps_slash_ui_slash_refresh,		// /view/refresh
 				*jps_register_meter,
 				*jps_register_preview,
 				*jps_voices,

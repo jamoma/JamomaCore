@@ -71,7 +71,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 480.0, 465.0, 518.0, 43.0 ],
-					"text" : "jcom.parameter filter.0/gain @type msg_float @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB"
+					"text" : "jcom.parameter filter.0/gain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB"
 				}
 
 			}
@@ -85,7 +85,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1015.0, 475.0, 149.0, 19.0 ],
-					"text" : "sprintf name filter.%ld/freq"
+					"text" : "sprintf name filter.%ld/frequency"
 				}
 
 			}
@@ -113,7 +113,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1015.0, 355.0, 137.0, 19.0 ],
-					"text" : "sprintf name filter.%ld/Q"
+					"text" : "sprintf name filter.%ld/q"
 				}
 
 			}
@@ -217,9 +217,9 @@
 						"defrect" : [ 564.0, 189.0, 537.0, 332.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
 						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
@@ -488,13 +488,13 @@
 ,
 					"patching_rect" : [ 267.0, 354.0, 121.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontname" : "Arial"
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p DecodeFilterGraph",
@@ -518,9 +518,9 @@
 						"defrect" : [ 91.0, 247.0, 866.0, 427.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
+						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
 						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
@@ -529,7 +529,7 @@
 						"imprint" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-24",
 									"maxclass" : "newobj",
@@ -543,7 +543,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-23",
 									"maxclass" : "newobj",
@@ -557,7 +557,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-22",
 									"maxclass" : "newobj",
@@ -571,7 +571,7 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
+									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-21",
 									"maxclass" : "newobj",
@@ -1072,13 +1072,13 @@
 ,
 					"patching_rect" : [ 265.0, 590.0, 153.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontname" : "Arial"
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p PrepareForFiltergraph~",
@@ -1221,7 +1221,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 480.0, 520.0, 594.0, 43.0 ],
-					"text" : "jcom.parameter filter.0/freq @type msg_float @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\" @dataspace pitch @dataspace/unit/active Hz @dataspace/unit/native Hz @dataspace/unit/display Hz"
+					"text" : "jcom.parameter filter.0/frequency @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\" @dataspace pitch @dataspace/unit/active Hz @dataspace/unit/native Hz @dataspace/unit/display Hz"
 				}
 
 			}
@@ -1236,7 +1236,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 480.0, 390.0, 525.0, 31.0 ],
-					"text" : "jcom.parameter filter.0/Q @type msg_float @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\""
+					"text" : "jcom.parameter filter.0/q @type decimal @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\""
 				}
 
 			}
@@ -1251,7 +1251,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 415.0, 230.0, 339.0, 43.0 ],
-					"text" : "jcom.parameter filter.0/type @type msg_symbol @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\""
+					"text" : "jcom.parameter filter.0/type @type string @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\""
 				}
 
 			}

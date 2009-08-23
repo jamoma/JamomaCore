@@ -6,17 +6,17 @@
 >
 	
 	<preset number="1" name="default">
-		<item name="audio/gain" type="msg_int">0</item>
-		<item name="audio/meters/freeze" type="msg_toggle">0</item>
-		<item name="audio/mix" type="msg_float">100.</item>
-		<item name="audio/bypass" type="msg_int">0</item>
-		<item name="audio/mute" type="msg_int">1</item>
+		<item name="audio/gain" type="integer">0</item>
+		<item name="audio/meters/freeze" type="boolean">0</item>
+		<item name="audio/mix" type="decimal">100.</item>
+		<item name="audio/bypass" type="integer">0</item>
+		<item name="audio/mute" type="integer">1</item>
 		
-		<item name="preamp" type="msg_float">6.</item>
-		<item name="postamp" type="msg_float">6.</item>
-		<item name="threshold" type="msg_float">-6.</item>
-		<item name="lookahead" type="msg_int">10</item>
-		<item name="release" type="msg_float">300.</item>
-		<item name="mode" type="msg_symbol">exponential</item>
+		<item name="preamp" type="decimal">6.</item>
+		<item name="postamp" type="decimal">6.</item>
+		<item name="threshold" type="decimal">-6.</item>
+		<item name="lookahead" type="integer">10</item>
+		<item name="release" type="decimal">300.</item>
+		<item name="mode" type="string">exponential</item>
     </preset>
 </jamoma>

@@ -1,12 +1,12 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 429.0, 99.0, 380.0, 216.0 ],
+		"rect" : [ 47.0, 424.0, 595.0, 355.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 429.0, 99.0, 380.0, 216.0 ],
+		"defrect" : [ 47.0, 424.0, 595.0, 355.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
-		"default_fontsize" : 10.970939,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -15,110 +15,85 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
-		"metadata" : [  ],
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.fullscreen% 32",
-					"id" : "obj-1",
-					"fontname" : "Verdana",
-					"numinlets" : 0,
-					"numoutlets" : 1,
-					"patching_rect" : [ 152.0, 143.0, 127.0, 19.0 ],
-					"fontsize" : 10.0,
-					"outlettype" : [ "" ]
+					"args" : [ "@name", "jcom.fullscreen%", "@description", "Make a jit.window fill the screen when hitting a escape" ],
+					"bgmode" : 1,
+					"id" : "obj-19",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 595.0, 60.0 ],
+					"varname" : "maxhelpui"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "optional argument sets which key code to trigger fullscreen (default = 27 = escape)",
-					"linecount" : 4,
-					"id" : "obj-2",
+					"color" : [ 0.619608, 0.0, 0.360784, 0.698039 ],
 					"fontname" : "Verdana",
-					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"fontsize" : 10.0,
+					"id" : "obj-1",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 152.0, 143.0, 127.0, 19.0 ],
+					"text" : "jcom.fullscreen% 32"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-2",
+					"linecount" : 4,
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 152.0, 87.0, 131.0, 55.0 ],
-					"fontsize" : 10.0
+					"text" : "optional argument sets which key code to trigger fullscreen (default = 27 = escape)"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jit.window",
-					"id" : "obj-3",
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
+					"outlettype" : [ "bang", "" ],
 					"patching_rect" : [ 25.0, 143.0, 73.0, 19.0 ],
-					"fontsize" : 10.0,
-					"outlettype" : [ "bang", "" ]
+					"text" : "jit.window"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.fullscreen%",
-					"id" : "obj-4",
+					"color" : [ 0.619608, 0.0, 0.360784, 0.698039 ],
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-4",
+					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 25.0, 99.0, 109.0, 19.0 ],
-					"fontsize" : 10.0,
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "jcom.fullscreen%",
-					"id" : "obj-5",
-					"fontname" : "Verdana",
-					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 15.0, 159.0, 28.0 ],
-					"fontsize" : 17.334082
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Makes a jit.window fill the screen when hitting escape",
-					"id" : "obj-6",
-					"fontname" : "Verdana",
-					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 40.0, 280.0, 19.0 ],
-					"fontsize" : 10.0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "panel",
-					"id" : "obj-7",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 5.0, 10.0, 292.0, 50.0 ],
-					"rounded" : 15
+					"text" : "jcom.fullscreen%"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-4", 0 ],
 					"destination" : [ "obj-3", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-4", 0 ]
 				}
 
 			}

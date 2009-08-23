@@ -245,7 +245,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "preamp[1]",
-					"text" : "jcom.parameter IR.2/gain @type msg_float @range/bounds -48 15 @range/clipmode both @ramp/drive scheduler @ramp/function linear @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @description \"Individual gain (dB) applied to each impulse response\"",
+					"text" : "jcom.parameter IR.2/gain @type decimal @range/bounds -48 15 @range/clipmode both @ramp/drive scheduler @ramp/function linear @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @description \"Individual gain (dB) applied to each impulse response\"",
 					"linecount" : 3,
 					"id" : "obj-28",
 					"fontname" : "Verdana",
@@ -295,7 +295,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "preamp",
-					"text" : "jcom.parameter IR.1/gain @type msg_float @range/bounds -48 15 @range/clipmode both @ramp/drive scheduler @ramp/function linear @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @description \"Individual gain (dB) applied to each impulse response\"",
+					"text" : "jcom.parameter IR.1/gain @type decimal @range/bounds -48 15 @range/clipmode both @ramp/drive scheduler @ramp/function linear @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @description \"Individual gain (dB) applied to each impulse response\"",
 					"linecount" : 3,
 					"id" : "obj-24",
 					"fontname" : "Verdana",
@@ -434,7 +434,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "hue_angle[6]",
-					"text" : "jcom.message IR.2/buffer @type msg_generic @repetitions/allow 1 @description \"Open buffer window, displaying impulse response\"",
+					"text" : "jcom.message IR.2/buffer @type generic @repetitions/allow 1 @description \"Open buffer window, displaying impulse response\"",
 					"linecount" : 2,
 					"id" : "obj-72",
 					"fontname" : "Verdana",
@@ -571,7 +571,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "hue_angle[5]",
-					"text" : "jcom.message IR.1/buffer @type msg_generic @repetitions/allow 1 @description \"Open buffer window, displaying impulse response\"",
+					"text" : "jcom.message IR.1/buffer @type generic @repetitions/allow 1 @description \"Open buffer window, displaying impulse response\"",
 					"linecount" : 2,
 					"id" : "obj-84",
 					"fontname" : "Verdana",
@@ -637,7 +637,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "hue_angle[4]",
-					"text" : "jcom.message IR.2/open @type msg_generic @repetitions/allow 1 @description \"Open impulse response specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
+					"text" : "jcom.message IR.2/open @type generic @repetitions/allow 1 @description \"Open impulse response specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
 					"linecount" : 2,
 					"id" : "obj-71",
 					"fontname" : "Verdana",
@@ -833,7 +833,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "saturation/active[4]",
-									"text" : "jcom.parameter normalize @type msg_toggle @description \"Automatically normalize IRs on load.\"",
+									"text" : "jcom.parameter normalize @type boolean @description \"Automatically normalize IRs on load.\"",
 									"id" : "obj-20",
 									"fontname" : "Verdana",
 									"numinlets" : 1,
@@ -2564,7 +2564,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "preamp[2]",
-									"text" : "jcom.parameter IR.4/gain @type msg_float @range/bounds -48 15 @range/clipmode both @ramp/drive scheduler @ramp/function linear @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @description \"Individual gain (dB) applied to each impulse response\"",
+									"text" : "jcom.parameter IR.4/gain @type decimal @range/bounds -48 15 @range/clipmode both @ramp/drive scheduler @ramp/function linear @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @description \"Individual gain (dB) applied to each impulse response\"",
 									"linecount" : 3,
 									"id" : "obj-57",
 									"fontname" : "Verdana",
@@ -2640,7 +2640,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "preamp[1]",
-									"text" : "jcom.parameter IR.3/gain @type msg_float @range/bounds -48 15 @range/clipmode both @ramp/drive scheduler @ramp/function linear @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @description \"Individual gain (dB) applied to each impulse response\"",
+									"text" : "jcom.parameter IR.3/gain @type decimal @range/bounds -48 15 @range/clipmode both @ramp/drive scheduler @ramp/function linear @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @description \"Individual gain (dB) applied to each impulse response\"",
 									"linecount" : 3,
 									"id" : "obj-45",
 									"fontname" : "Verdana",
@@ -3255,7 +3255,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "saturation/active[2]",
-									"text" : "jcom.parameter IR.4/reverse @type msg_toggle @description \"Reverse IR on/off\"",
+									"text" : "jcom.parameter IR.4/reverse @type boolean @description \"Reverse IR on/off\"",
 									"id" : "obj-11",
 									"fontname" : "Verdana",
 									"numinlets" : 1,
@@ -3288,7 +3288,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "saturation/active[3]",
-									"text" : "jcom.parameter IR.3/reverse @type msg_toggle @description \"Reverse IR on/off\"",
+									"text" : "jcom.parameter IR.3/reverse @type boolean @description \"Reverse IR on/off\"",
 									"id" : "obj-14",
 									"fontname" : "Verdana",
 									"numinlets" : 1,
@@ -3321,7 +3321,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "saturation/active[1]",
-									"text" : "jcom.parameter IR.2/reverse @type msg_toggle @description \"Reverse IR on/off\"",
+									"text" : "jcom.parameter IR.2/reverse @type boolean @description \"Reverse IR on/off\"",
 									"id" : "obj-5",
 									"fontname" : "Verdana",
 									"numinlets" : 1,
@@ -3430,7 +3430,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "hue_angle[9]",
-									"text" : "jcom.message IR.4/open @type msg_generic @repetitions/allow 1 @description \"Open impulse response specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
+									"text" : "jcom.message IR.4/open @type generic @repetitions/allow 1 @description \"Open impulse response specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
 									"linecount" : 2,
 									"id" : "obj-111",
 									"fontname" : "Verdana",
@@ -3474,7 +3474,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "hue_angle[10]",
-									"text" : "jcom.message IR.3/open @type msg_generic @repetitions/allow 1 @description \"Open impulse response specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
+									"text" : "jcom.message IR.3/open @type generic @repetitions/allow 1 @description \"Open impulse response specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
 									"linecount" : 2,
 									"id" : "obj-116",
 									"fontname" : "Verdana",
@@ -3515,7 +3515,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "hue_angle[7]",
-									"text" : "jcom.message IR.4/buffer @type msg_generic @repetitions/allow 1 @description \"Open buffer window, displaying impulse response\"",
+									"text" : "jcom.message IR.4/buffer @type generic @repetitions/allow 1 @description \"Open buffer window, displaying impulse response\"",
 									"linecount" : 2,
 									"id" : "obj-76",
 									"fontname" : "Verdana",
@@ -3556,7 +3556,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "hue_angle[8]",
-									"text" : "jcom.message IR.3/buffer @type msg_generic @repetitions/allow 1 @description \"Open buffer window, displaying impulse response\"",
+									"text" : "jcom.message IR.3/buffer @type generic @repetitions/allow 1 @description \"Open buffer window, displaying impulse response\"",
 									"linecount" : 2,
 									"id" : "obj-90",
 									"fontname" : "Verdana",
@@ -3764,7 +3764,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "hue_angle[3]",
-									"text" : "jcom.parameter channels @repetitions/allow 1 @type msg_int @range/bounds 1 4 @range/clipmode both @priority 4 @description \"Number of active processing channels\"",
+									"text" : "jcom.parameter channels @repetitions/allow 1 @type integer @range/bounds 1 4 @range/clipmode both @priority 4 @description \"Number of active processing channels\"",
 									"linecount" : 2,
 									"id" : "obj-31",
 									"fontname" : "Verdana",
@@ -3800,7 +3800,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "module_in[1]",
-									"text" : "jcom.parameter SegmentSize @repetitions/allow 1 @type msg_int",
+									"text" : "jcom.parameter SegmentSize @repetitions/allow 1 @type integer",
 									"id" : "obj-86",
 									"fontname" : "Verdana",
 									"numinlets" : 1,
@@ -3816,7 +3816,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "saturation/active",
-									"text" : "jcom.parameter IR.1/reverse @type msg_toggle @description \"Reverse IR on/off\"",
+									"text" : "jcom.parameter IR.1/reverse @type boolean @description \"Reverse IR on/off\"",
 									"id" : "obj-47",
 									"fontname" : "Verdana",
 									"numinlets" : 1,
@@ -3914,7 +3914,7 @@
 										"boxes" : [ 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.oscroute /panel/open",
+													"text" : "jcom.oscroute /view/panel",
 													"id" : "obj-2",
 													"fontname" : "Verdana",
 													"numinlets" : 1,
@@ -5365,7 +5365,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "comment",
-									"text" : "generic (default), msg_int, msg_float, menu, toggle",
+									"text" : "generic (default), integer, decimal, menu, toggle",
 									"id" : "obj-15",
 									"fontname" : "Verdana",
 									"numinlets" : 1,
@@ -5411,7 +5411,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "hue_angle",
-					"text" : "jcom.message IR.1/open @type msg_generic @repetitions/allow 1 @description \"Open impulse response specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
+					"text" : "jcom.message IR.1/open @type generic @repetitions/allow 1 @description \"Open impulse response specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
 					"linecount" : 2,
 					"id" : "obj-29",
 					"fontname" : "Verdana",

@@ -83,7 +83,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 540.0, 648.0, 510.0, 18.0 ],
-					"text" : "jcom.parameter loopsync/mode @type msg_symbol @description \" modes: normalized, loop_time, sample_time\""
+					"text" : "jcom.parameter loopsync/mode @type string @description \" modes: normalized, loop_time, sample_time\""
 				}
 
 			}
@@ -108,7 +108,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 540.0, 623.0, 315.0, 18.0 ],
-					"text" : "jcom.parameter loopsync/active @type msg_toggle @value/default 0"
+					"text" : "jcom.parameter loopsync/active @type boolean @value/default 0"
 				}
 
 			}
@@ -313,7 +313,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 539.0, 596.0, 418.0, 17.0 ],
-					"text" : "jcom.parameter speed/active @type msg_toggle @description \"turn on/off vari-speed.\"",
+					"text" : "jcom.parameter speed/active @type boolean @description \"turn on/off vari-speed.\"",
 					"varname" : "speed/active"
 				}
 
@@ -328,7 +328,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 539.0, 551.0, 493.0, 17.0 ],
-					"text" : "jcom.parameter speed/ratio @type msg_float @range/bounds 0. 2. @range/clipmode low @description \"playback speed\"",
+					"text" : "jcom.parameter speed/ratio @type decimal @range/bounds 0. 2. @range/clipmode low @description \"playback speed\"",
 					"varname" : "speed/ratio"
 				}
 
@@ -344,7 +344,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 619.0, 479.0, 267.0, 27.0 ],
-					"text" : "jcom.parameter reverse @type msg_toggle @description \"whether sample is played forward or backward\"",
+					"text" : "jcom.parameter reverse @type boolean @description \"whether sample is played forward or backward\"",
 					"varname" : "reverse"
 				}
 
@@ -473,7 +473,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 19.0, 70.0, 254.0, 17.0 ],
-					"text" : "jcom.message sample/buffername @type msg_symbol",
+					"text" : "jcom.message sample/buffername @type string",
 					"varname" : "sample/buffername"
 				}
 
@@ -536,7 +536,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 495.0, 367.0, 396.0, 17.0 ],
-					"text" : "jcom.message sample/size @type msg_int @description \"size of the loaded soundfile\"",
+					"text" : "jcom.message sample/size @type integer @description \"size of the loaded soundfile\"",
 					"varname" : "loop[2]"
 				}
 
@@ -569,7 +569,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 493.0, 315.0, 436.0, 17.0 ],
-					"text" : "jcom.message sample/name @type msg_symbol @description \"name of the loaded soundfile\"",
+					"text" : "jcom.message sample/name @type string @description \"name of the loaded soundfile\"",
 					"varname" : "sample/name"
 				}
 
@@ -586,7 +586,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 495.0, 210.0, 392.0, 17.0 ],
-					"text" : "jcom.message play @type msg_toggle @repetitions/allow 0 @description \"Play sound file.\"",
+					"text" : "jcom.message play @type boolean @repetitions/allow 0 @description \"Play sound file.\"",
 					"varname" : "play"
 				}
 
@@ -603,7 +603,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 535.0, 264.0, 335.0, 17.0 ],
-					"text" : "jcom.parameter loop @type msg_toggle @description \"Loop soundfile.\"",
+					"text" : "jcom.parameter loop @type boolean @description \"Loop soundfile.\"",
 					"varname" : "loop"
 				}
 
@@ -621,7 +621,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 493.0, 147.0, 394.0, 27.0 ],
-					"text" : "jcom.message sf_open @type msg_symbol @description \"Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
+					"text" : "jcom.message sf_open @type string @description \"Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
 					"varname" : "jcom.parameter.mxb[10]"
 				}
 
@@ -667,7 +667,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 65.0, 355.0, 116.0, 17.0 ],
-					"text" : "jcom.oscroute /panel/open"
+					"text" : "jcom.oscroute /view/panel"
 				}
 
 			}
@@ -1054,7 +1054,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 749.0, 415.0, 304.0, 27.0 ],
-									"text" : "jcom.parameter sample/vzoom @type msg_float @range/clipmode non @description @repetitions/allow 0 @ramp/drive none \"set vertical zoom\"",
+									"text" : "jcom.parameter sample/vzoom @type decimal @range/clipmode non @description @repetitions/allow 0 @ramp/drive none \"set vertical zoom\"",
 									"varname" : "sample/vzoom"
 								}
 
@@ -1168,7 +1168,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 749.0, 354.0, 324.0, 27.0 ],
-									"text" : "jcom.parameter sample/displaystart @type msg_list @range/clipmode non @description @repetitions/allow 0 @ramp/drive none \"display start  time in ms\"",
+									"text" : "jcom.parameter sample/displaystart @type array @range/clipmode non @description @repetitions/allow 0 @ramp/drive none \"display start  time in ms\"",
 									"varname" : "sample/displaystart[1]"
 								}
 
@@ -1340,7 +1340,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 742.0, 287.0, 413.0, 27.0 ],
-									"text" : "jcom.parameter sample/displaystart @type msg_float @range/bounds 0. 1000000. @range/clipmode low @description @repetitions/allow 0 @ramp/drive none \"display start  time in ms\"",
+									"text" : "jcom.parameter sample/displaystart @type decimal @range/bounds 0. 1000000. @range/clipmode low @description @repetitions/allow 0 @ramp/drive none \"display start  time in ms\"",
 									"varname" : "sample/displaystart"
 								}
 
@@ -1371,7 +1371,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 742.0, 220.0, 399.0, 27.0 ],
-									"text" : "jcom.parameter sample/displaylength @type msg_float @range/bounds 0. 1000000. @range/clipmode low @description @repetitions/allow 0 @ramp/drive none \"display length in ms\"",
+									"text" : "jcom.parameter sample/displaylength @type decimal @range/bounds 0. 1000000. @range/clipmode low @description @repetitions/allow 0 @ramp/drive none \"display length in ms\"",
 									"varname" : "sample/displaylength"
 								}
 
@@ -1882,7 +1882,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 741.0, 157.0, 385.0, 27.0 ],
-									"text" : "jcom.parameter sample/stop @type msg_float @range/bounds 0. 1000000. @range/clipmode low @description \"stoptime time in ms\" @repetitions/allow 0 @ramp/drive scheduler",
+									"text" : "jcom.parameter sample/stop @type decimal @range/bounds 0. 1000000. @range/clipmode low @description \"stoptime time in ms\" @repetitions/allow 0 @ramp/drive scheduler",
 									"varname" : "sample/stop"
 								}
 
@@ -1957,7 +1957,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 740.0, 94.0, 385.0, 27.0 ],
-									"text" : "jcom.parameter sample/start @type msg_float @range/bounds 0. 1000000. @range/clipmode low @description \"start time in ms\" @repetitions/allow 0 @ramp/drive scheduler",
+									"text" : "jcom.parameter sample/start @type decimal @range/bounds 0. 1000000. @range/clipmode low @description \"start time in ms\" @repetitions/allow 0 @ramp/drive scheduler",
 									"varname" : "sample/start"
 								}
 

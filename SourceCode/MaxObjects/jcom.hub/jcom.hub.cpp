@@ -60,7 +60,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)hub_private,				"private", 					A_GIMME, 0L);	// internal communications such as jcom.remote
 	class_addmethod(c, (method)hub_return,				"return",					A_GIMME, 0L);	// feedback from jcom.return
 	class_addmethod(c, (method)hub_return_extended,		"return_extended",			A_GIMME, 0L);	// feedback from jcom.return
-
+//	class_addmethod(c, (method)hub_autodoc,				"documentation/generate",	0);
+//	class_addmethod(c, (method)hub_autodoc,				"/documentation/generate",	0);
+//	class_addmethod(c, (method)hub_presets_post,		"preset/post",	0); 
+//	class_addmethod(c, (method)hub_presets_post,		"/preset/post",	0); 
 	class_addmethod(c, (method)hub_paramnames_get,		"parameter_names:/dump",		0L);
 	class_addmethod(c, (method)hub_paramnames_get,		"/parameter_names:/dump", 	0L);
 	class_addmethod(c, (method)hub_messagenames_get,	"message_names:/dump",		0L);
@@ -129,17 +132,21 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		t_object*	patcher = jamoma_object_getpatcher((t_object*)x);
 		t_symbol*	filepath = object_attr_getsym(patcher, _sym_filepath);
 		char		pathstr[MAX_PATH_CHARS];
-		char*		filename;
+		char*		filename = 0;
 		
 		strncpy_zero(pathstr, filepath->s_name, MAX_PATH_CHARS);
 		filename = strrchr(pathstr, '.');
 		if(filename) {
 			*filename = 0;	// strip the suffix by setting '.' to terminating NULL char
 			filename = strrchr(pathstr, '/');
-			// Our module name is the patchers name since the patcher is typically located
-			// at /some/where/nameToUseForModule.maxpat
-			filename++; // get rid of slash
-			name = gensym(filename);
+			if (filename) {
+				// Our module name is the patchers name since the patcher is typically located
+				// at /some/where/nameToUseForModule.maxpat
+				filename++; // get rid of slash
+				name = gensym(filename);
+			}
+			else
+				name = gensym(pathstr);
 		} else {
 			// We are an unnamed jcom.hub inserted into an unsaved max patcher which has
 			// no '.' in it's filename.  Just leave as untitled, at least until it is saved.
@@ -272,7 +279,7 @@ void hub_examine_context(t_hub *x)
 			t_rect	uiRect;
 			
 			if(context == gensym("bpatcher")){
-				object_attr_get_rect(ui, _sym_patching_rect, &uiRect);
+				object_attr_get_rect(ui, _sym_presentation_rect, &uiRect);
 				object_attr_get_rect(box, _sym_patching_rect, &boxRect);
 				boxRect.width = uiRect.width;
 				boxRect.height = uiRect.height;
@@ -284,7 +291,7 @@ void hub_examine_context(t_hub *x)
 				object_attr_set_rect(box, _sym_presentation_rect, &boxRect);
 			}
 			else if(context == gensym("subpatcher")){
-				object_attr_get_rect(ui, _sym_patching_rect, &uiRect);
+				object_attr_get_rect(ui, _sym_presentation_rect, &uiRect);
 				object_attr_get_rect(patcher, _sym_defrect, &boxRect);
 				boxRect.width = uiRect.width;
 				boxRect.height = uiRect.height;
@@ -601,10 +608,10 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 		else if(private_message == gensym("/getstate")){
 			hub_getstate(x);
 		}
-		else if (private_message == jps_slash_ui_slash_freeze) {			// 	/ui/freeze
+		else if (private_message == jps_slash_ui_slash_freeze) {			// 	/view/freeze
 			hub_symbol(x, jps_slash_ui_slash_freeze, argc, argv);
 		}
-		else if ( private_message == jps_slash_ui_slash_refresh )		//	/ui/refresh
+		else if ( private_message == jps_slash_ui_slash_refresh )		//	/view/refresh
 			hub_ui_refresh(x, NULL, 0, NULL);
 		else if(private_message == gensym("fetchParameterNamesInLinklist"))
 			hub_paramnames_linklist(x, (t_linklist*)atom_getobj(argv));
@@ -741,7 +748,7 @@ void hub_edclose(t_hub *x, char **text, long size)
 
 void hub_script(t_hub* x, SymbolPtr s, AtomCount ac, AtomPtr av)
 {
-	object_method_typed(x->container, s, ac, av, NULL);
+	object_method_typed(x->container, _sym_script, ac, av, NULL);
 }
 
 
@@ -837,7 +844,7 @@ void hub_init(t_hub *x, t_symbol*, long, t_atom*)
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 		if((*i)->type == jps_subscribe_init)
 			object_method((*i)->object, jps_go);		// TODO: This is an exceptionally bad thing to do inside of the critical region
-													// It could result in a deadlock
+														// It could result in a deadlock
 	}
 	
 	critical_exit(0);

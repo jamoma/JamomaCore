@@ -5,35 +5,35 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='numSintrackers' type='msg_int' priority='1'>1</item>
-    <item name='sintrack~.1/average' type='msg_int' priority='3'>1</item>
-    <item name='sintrack~.1/cutoff' type='msg_float' priority='3'>10.000000</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
-    <item name='view/size' type='msg_list' priority='0'>300 70 </item>
+    <item name='numSintrackers' type='integer' priority='1'>1</item>
+    <item name='sintrack~.1/average' type='integer' priority='3'>1</item>
+    <item name='sintrack~.1/cutoff' type='decimal' priority='3'>10.000000</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/color/border' type='array' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
+    <item name='view/size' type='array' priority='0'>300 70 </item>
   </preset>
   <preset number='2' name='6-sintrackers'>
-    <item name='numSintrackers' type='msg_int' priority='1'>6</item>
-    <item name='sintrack~.1/average' type='msg_int' priority='3'>1000</item>
-    <item name='sintrack~.1/cutoff' type='msg_float' priority='3'>5.000000</item>
-    <item name='sintrack~.2/average' type='msg_int' priority='3'>1000</item>
-    <item name='sintrack~.2/cutoff' type='msg_float' priority='3'>5.000000</item>
-    <item name='sintrack~.3/average' type='msg_int' priority='3'>1000</item>
-    <item name='sintrack~.3/cutoff' type='msg_float' priority='3'>5.000000</item>
-    <item name='sintrack~.4/average' type='msg_int' priority='3'>1000</item>
-    <item name='sintrack~.4/cutoff' type='msg_float' priority='3'>5.000000</item>
-    <item name='sintrack~.5/average' type='msg_int' priority='3'>1000</item>
-    <item name='sintrack~.5/cutoff' type='msg_float' priority='3'>5.000000</item>
-    <item name='sintrack~.6/average' type='msg_int' priority='3'>1000</item>
-    <item name='sintrack~.6/cutoff' type='msg_float' priority='3'>5.000000</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
-    <item name='view/size' type='msg_list' priority='0'>300 70 </item>
+    <item name='numSintrackers' type='integer' priority='1'>6</item>
+    <item name='sintrack~.1/average' type='integer' priority='3'>1000</item>
+    <item name='sintrack~.1/cutoff' type='decimal' priority='3'>5.000000</item>
+    <item name='sintrack~.2/average' type='integer' priority='3'>1000</item>
+    <item name='sintrack~.2/cutoff' type='decimal' priority='3'>5.000000</item>
+    <item name='sintrack~.3/average' type='integer' priority='3'>1000</item>
+    <item name='sintrack~.3/cutoff' type='decimal' priority='3'>5.000000</item>
+    <item name='sintrack~.4/average' type='integer' priority='3'>1000</item>
+    <item name='sintrack~.4/cutoff' type='decimal' priority='3'>5.000000</item>
+    <item name='sintrack~.5/average' type='integer' priority='3'>1000</item>
+    <item name='sintrack~.5/cutoff' type='decimal' priority='3'>5.000000</item>
+    <item name='sintrack~.6/average' type='integer' priority='3'>1000</item>
+    <item name='sintrack~.6/cutoff' type='decimal' priority='3'>5.000000</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/color/border' type='array' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
+    <item name='view/size' type='array' priority='0'>300 70 </item>
   </preset>
 </jamoma>

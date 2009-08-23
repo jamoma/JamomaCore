@@ -5,20 +5,20 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='codec' type='msg_symbol' priority='0'>0</item>
-    <item name='framerate' type='msg_float' priority='0'>0</item>
-    <item name='interp' type='msg_toggle' priority='0'>0</item>
-    <item name='matrix/adapt' type='msg_toggle' priority='0'>0</item>
-    <item name='matrix/dim' type='msg_list' priority='0'>0</item>
-    <item name='matrix/name' type='msg_list' priority='0'>0</item>
-    <item name='matrix/planecount' type='msg_int' priority='0'>0</item>
-    <item name='matrix/type' type='msg_generic' priority='0'>0</item>
-    <item name='quality' type='msg_symbol' priority='0'>0</item>
-    <item name='realtime' type='msg_toggle' priority='0'>0</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='video/bypass' type='msg_toggle' priority='0'>0</item>
-    <item name='video/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='video/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='video/preview' type='msg_toggle' priority='0'>0</item>
+    <item name='codec' type='string' priority='0'>0</item>
+    <item name='framerate' type='decimal' priority='0'>1.000000</item>
+    <item name='interp' type='boolean' priority='0'>0</item>
+    <item name='quality' type='string' priority='0'>0</item>
+    <item name='realtime' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
+    <item name='video/bypass' type='boolean' priority='0'>0</item>
+    <item name='video/freeze' type='boolean' priority='0'>0</item>
+    <item name='video/mute' type='boolean' priority='0'>0</item>
+    <item name='video/preview' type='boolean' priority='0'>0</item>
+    <item name='view/color/border' type='array' priority='0'>0.620000 0.000000 0.360000 1.000000 </item>
+    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
+    <item name='view/size' type='array' priority='0'>300 70 </item>
   </preset>
 </jamoma>

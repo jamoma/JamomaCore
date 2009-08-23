@@ -6,7 +6,7 @@
 		"defrect" : [ 285.0, 59.0, 988.0, 609.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
-		"default_fontsize" : 10.970939,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -46,14 +46,14 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"id" : "obj-15",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 390.0, 549.0, 469.0, 20.0 ],
-					"text" : "jcom.parameter send/active @type msg_toggle @description \"turn on/off sending\""
+					"text" : "jcom.parameter send/active @type boolean @description \"turn on/off sending\""
 				}
 
 			}
@@ -80,7 +80,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-1",
 					"maxclass" : "newobj",
@@ -95,7 +95,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-2",
 					"maxclass" : "newobj",
@@ -110,7 +110,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-3",
 					"maxclass" : "newobj",
@@ -125,7 +125,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-4",
 					"maxclass" : "newobj",
@@ -140,7 +140,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-5",
 					"maxclass" : "message",
@@ -155,7 +155,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-6",
 					"maxclass" : "newobj",
@@ -170,7 +170,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-7",
 					"maxclass" : "newobj",
@@ -210,7 +210,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"id" : "obj-1",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -224,7 +224,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"id" : "obj-2",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -238,7 +238,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"id" : "obj-3",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -252,7 +252,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"id" : "obj-4",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -266,7 +266,7 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Verdana",
-									"fontsize" : 9.873845,
+									"fontsize" : 10.0,
 									"id" : "obj-5",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -412,7 +412,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-8",
 					"linecount" : 3,
@@ -421,7 +421,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 4.0, 418.0, 380.0, 42.0 ],
-					"text" : "jcom.parameter osc_prefix @type msg_symbol @repetitions/allow 0 @description \"Define a string to concatenate to the beginning of all OpenSoundControl strings sent by this module.\"",
+					"text" : "jcom.parameter osc_prefix @type string @repetitions/allow 0 @description \"Define a string to concatenate to the beginning of all OpenSoundControl strings sent by this module.\"",
 					"varname" : "osc_prefix"
 				}
 
@@ -429,7 +429,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-9",
 					"maxclass" : "newobj",
@@ -444,7 +444,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-10",
 					"maxclass" : "newobj",
@@ -527,7 +527,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-16",
 					"linecount" : 2,
@@ -536,7 +536,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 408.0, 415.0, 590.0, 30.0 ],
-					"text" : "jcom.parameter multicast_port @range/bounds 1 9999 @range/clipmode low @type msg_int @description \"Set the network port number used for sending out multicast OpenSoundControl messages.\"",
+					"text" : "jcom.parameter multicast_port @range/bounds 1 9999 @range/clipmode low @type integer @description \"Set the network port number used for sending out multicast OpenSoundControl messages.\"",
 					"varname" : "multicast_port[1]"
 				}
 
@@ -578,7 +578,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-20",
 					"linecount" : 2,
@@ -587,7 +587,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 408.0, 496.0, 584.0, 30.0 ],
-					"text" : "jcom.parameter multicast_join @type msg_toggle @description \"Set the network port number on which to receive OpenSoundControl messages.\"",
+					"text" : "jcom.parameter multicast_join @type boolean @description \"Set the network port number on which to receive OpenSoundControl messages.\"",
 					"varname" : "multicast_join[1]"
 				}
 
@@ -595,7 +595,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-21",
 					"linecount" : 4,
@@ -604,7 +604,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 381.0, 316.0, 323.0, 54.0 ],
-					"text" : "jcom.parameter multicast_ip @type msg_symbol @repetitions/allow 0 @description \"Define the multicast host to for OpenSoundControl messages to which you would like to join.  This may be symbolic or an ip address.\"",
+					"text" : "jcom.parameter multicast_ip @type string @repetitions/allow 0 @description \"Define the multicast host to for OpenSoundControl messages to which you would like to join.  This may be symbolic or an ip address.\"",
 					"varname" : "multicast_ip"
 				}
 
@@ -612,7 +612,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-22",
 					"maxclass" : "newobj",
@@ -627,7 +627,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-23",
 					"maxclass" : "newobj",
@@ -677,7 +677,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-27",
 					"maxclass" : "newobj",
@@ -693,7 +693,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-28",
 					"maxclass" : "message",
@@ -708,7 +708,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-29",
 					"maxclass" : "message",
@@ -723,7 +723,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-30",
 					"maxclass" : "newobj",
@@ -751,7 +751,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-32",
 					"linecount" : 3,
@@ -760,7 +760,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 367.0, 41.0, 343.0, 42.0 ],
-					"text" : "jcom.parameter send_host @type msg_symbol @repetitions/allow 0 @description \"Set the host to which OpenSoundControl messages should be sent.  This may be symbolic or an ip address.\"",
+					"text" : "jcom.parameter send_host @type string @repetitions/allow 0 @description \"Set the host to which OpenSoundControl messages should be sent.  This may be symbolic or an ip address.\"",
 					"varname" : "send_host"
 				}
 
@@ -768,7 +768,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-33",
 					"maxclass" : "newobj",
@@ -783,7 +783,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-34",
 					"maxclass" : "newobj",
@@ -869,7 +869,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-40",
 					"linecount" : 2,
@@ -878,7 +878,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 381.0, 232.0, 568.0, 30.0 ],
-					"text" : "jcom.parameter send_port @type msg_int @range/bounds 1 9999 @range/clipmode low @description \"Set the network port number used for sending out OpenSoundControl messages.\"",
+					"text" : "jcom.parameter send_port @type integer @range/bounds 1 9999 @range/clipmode low @description \"Set the network port number used for sending out OpenSoundControl messages.\"",
 					"varname" : "send_port"
 				}
 
@@ -902,7 +902,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"hidden" : 1,
 					"id" : "obj-43",
 					"linecount" : 2,
@@ -911,7 +911,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 369.0, 147.0, 581.0, 30.0 ],
-					"text" : "jcom.parameter receive_port @type msg_int @range/bounds 1 9999 @range/clipmode low @description \"Set the network port number on which to receive OpenSoundControl messages.\"",
+					"text" : "jcom.parameter receive_port @type integer @range/bounds 1 9999 @range/clipmode low @description \"Set the network port number on which to receive OpenSoundControl messages.\"",
 					"varname" : "receive_port"
 				}
 

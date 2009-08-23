@@ -64,11 +64,11 @@ typedef struct _envExp {							///< Data structure for this object
 	t_object 	ob;									///< REQUIRED: Our object
 	void 		*outlet;							///< pointer to outlet. Need one for each outlet
 	Atom 		envelope[NUM_OF_POINTS * 2];		///< array of envelope points in line~ format
-	float 		attr_coeff;							///< exponential coeffisient. Depends on threshold, decay rate and number of points that envelope is made from
-	float 		attr_amplitude;						///< ATTRIBUTE: peak amplitude
-	float 		attr_attack;						///< ATTRIBUTE: attack time in ms
-	float 		attr_decayrate;						///< ATTRIBUTE: how many dB amplitude decrease per second during the decay
-	float		attr_threshold;						///< ATTRIBUTE: low threshold for forcing amplitude to zero
+	double 		attr_coeff;							///< exponential coeffisient. Depends on threshold, decay rate and number of points that envelope is made from
+	double 		attr_amplitude;						///< ATTRIBUTE: peak amplitude
+	double 		attr_attack;						///< ATTRIBUTE: attack time in ms
+	double 		attr_decayrate;						///< ATTRIBUTE: how many dB amplitude decrease per second during the decay
+	double		attr_threshold;						///< ATTRIBUTE: low threshold for forcing amplitude to zero
 	long		attr_steal;							///< ATTRIBUTE: note stealing enabled/disabled (boolean)
 }	t_envExp;
 
@@ -240,7 +240,7 @@ void envExp_float(t_envExp *x, double f)
 // Set attack
 void envExp_setattack(t_envExp *x, void *attr, long argc, t_atom *argv)
 {
-	float f;
+	double f;
 	
 	if (argc)
 	{
@@ -266,7 +266,7 @@ void envExp_setamplitude(t_envExp *x, void *attr, long argc, t_atom *argv)
 // Set decay rate
 void envExp_setdecayrate(t_envExp *x, void *attr, long argc, t_atom *argv)
 {
-	float f;
+	double f;
 	
 	if (argc)
 	{
@@ -283,7 +283,7 @@ void envExp_setdecayrate(t_envExp *x, void *attr, long argc, t_atom *argv)
 //	Set threshold
 void envExp_setthreshold(t_envExp *x, void *attr, long argc, t_atom *argv)
 {	
-	float f;
+	double f;
 	if (argc) {
 		f = atom_getfloat(argv);
 		if (f >= 0)
@@ -301,12 +301,12 @@ void envExp_assist(t_envExp *x, void *b, long msg, long arg, char *dst)
 {
 	if (msg==1) { 
 		switch(arg){
-			case 0: sprintf(dst, "(List) Max. ampl, attack time, decay time");
+			case 0: strcpy(dst, "(List) Max. ampl, attack time, decay time");
 			break;
 		}
 	}
 	else if (msg==2) {
-		sprintf(dst, "Envelope data in line~ format");
+		strcpy(dst, "Envelope data in line~ format");
 	}
 }
 
@@ -322,7 +322,7 @@ void envExp_assist(t_envExp *x, void *b, long msg, long arg, char *dst)
 void envExp_calculate(t_envExp *x)
 {
 	long i, j;
-	float timestep, k;
+	double timestep, k;
 	
 	// write delta time steps to array
 	j = 1;

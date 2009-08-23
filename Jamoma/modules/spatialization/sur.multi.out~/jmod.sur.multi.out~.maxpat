@@ -510,7 +510,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 365.0, 65.0, 557.0, 31.0 ],
-					"text" : "jcom.parameter channel_offset @type msg_int @repetitions/allow 1 @range/bounds 0 64 @range/clipmode low @description \"Set channel offset for signals. Only take effect the next time audio is started.\"",
+					"text" : "jcom.parameter channel_offset @type integer @repetitions/allow 1 @range/bounds 0 64 @range/clipmode low @description \"Set channel offset for signals. Only take effect the next time audio is started.\"",
 					"varname" : "channel_offset"
 				}
 

@@ -26,7 +26,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 429.0, 169.0, 292.0, 31.0 ],
-					"text" : "jcom.message buffer @type msg_generic @description \"communication with the internal buffer~ object\"",
+					"text" : "jcom.message buffer @type generic @description \"communication with the internal buffer~ object\"",
 					"varname" : "capture[1]"
 				}
 
@@ -161,7 +161,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 429.0, 129.0, 556.0, 19.0 ],
-					"text" : "jcom.parameter pan @type msg_float @ramp/drive scheduler @range/bounds -1. 1. @range/clipmode both",
+					"text" : "jcom.parameter pan @type decimal @ramp/drive scheduler @range/bounds -1. 1. @range/clipmode both",
 					"varname" : "pan"
 				}
 
@@ -188,7 +188,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 410.0, 22.0, 601.0, 31.0 ],
-					"text" : "jcom.parameter length @range/bounds 0. 4000. @range/clipmode low @type msg_float @description \"length of the buffer in [ms]\"",
+					"text" : "jcom.parameter length @range/bounds 0. 4000. @range/clipmode low @type decimal @description \"length of the buffer in [ms]\"",
 					"varname" : "length"
 				}
 
@@ -203,7 +203,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 347.0, 81.0, 229.0, 19.0 ],
-					"text" : "jcom.message normalize @type msg_none",
+					"text" : "jcom.message normalize @type none",
 					"varname" : "jmod.parameter.mxb[2]"
 				}
 
@@ -218,7 +218,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 131.0, 392.0, 490.0, 19.0 ],
-					"text" : "jcom.parameter capture @type msg_toggle @description \"send a 1 to start recording the loop\"",
+					"text" : "jcom.parameter capture @type boolean @description \"send a 1 to start recording the loop\"",
 					"varname" : "capture"
 				}
 

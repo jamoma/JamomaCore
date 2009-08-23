@@ -7,25 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		222B152C0F1D1123008B1A46 /* jamoma-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 222B152B0F1D1123008B1A46 /* jamoma-max.xcconfig */; };
-		222B15330F1D116F008B1A46 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B15320F1D116F008B1A46 /* MaxAPI.framework */; };
-		222B15350F1D1179008B1A46 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B15340F1D1179008B1A46 /* MaxAudioAPI.framework */; };
-		222B15370F1D1185008B1A46 /* JitterAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B15360F1D1185008B1A46 /* JitterAPI.framework */; };
-		222B15B10F1D1461008B1A46 /* commonsyms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222B15B00F1D1461008B1A46 /* commonsyms.cpp */; };
 		222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */; };
-		222B19FE0F1D8D70008B1A46 /* Jamoma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B19FD0F1D8D70008B1A46 /* Jamoma.framework */; };
-		222B1B090F1D9157008B1A46 /* jcom.map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222B1B080F1D9157008B1A46 /* jcom.map.cpp */; };
+		22C9F7D2103338310062F7B8 /* commonsyms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F7D1103338310062F7B8 /* commonsyms.cpp */; };
+		22C9F7D8103338390062F7B8 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F7D7103338390062F7B8 /* MaxAPI.framework */; };
+		22C9F7DC1033383F0062F7B8 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F7DB1033383F0062F7B8 /* MaxAudioAPI.framework */; };
+		22C9F7DE103338490062F7B8 /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F7DD103338490062F7B8 /* JamomaFoundation.framework */; };
+		22C9F7E01033384F0062F7B8 /* JamomaMulticore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F7DF1033384F0062F7B8 /* JamomaMulticore.framework */; };
+		22C9F7E2103338990062F7B8 /* tt-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F7E1103338990062F7B8 /* tt-max.xcconfig */; };
+		22C9F81910333A130062F7B8 /* JamomaMaxTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F81810333A130062F7B8 /* JamomaMaxTypes.h */; };
+		22C9F82510333A4C0062F7B8 /* JamomaModular.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F82410333A4C0062F7B8 /* JamomaModular.framework */; };
+		22C9F9C310336A500062F7B8 /* jcom.map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F9C210336A500062F7B8 /* jcom.map.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		222B152B0F1D1123008B1A46 /* jamoma-max.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "jamoma-max.xcconfig"; path = "../jamoma-max.xcconfig"; sourceTree = SOURCE_ROOT; };
-		222B15320F1D116F008B1A46 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../../Tools/library/max-sdk/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
-		222B15340F1D1179008B1A46 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../../Tools/library/max-sdk/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
-		222B15360F1D1185008B1A46 /* JitterAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JitterAPI.framework; path = "../../../../Tools/library/max-sdk/c74support/jit-includes/JitterAPI.framework"; sourceTree = SOURCE_ROOT; };
-		222B15B00F1D1461008B1A46 /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../../../../Tools/library/max-sdk/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
 		222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
-		222B19FD0F1D8D70008B1A46 /* Jamoma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jamoma.framework; path = ../../Framework/build/UninstalledProducts/Jamoma.framework; sourceTree = SOURCE_ROOT; };
-		222B1B080F1D9157008B1A46 /* jcom.map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.map.cpp; sourceTree = "<group>"; };
+		22C9F7D1103338310062F7B8 /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../../../../../Tools/library/max-sdk/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
+		22C9F7D7103338390062F7B8 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../../../Tools/library/max-sdk/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
+		22C9F7DB1033383F0062F7B8 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../../../Tools/library/max-sdk/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
+		22C9F7DD103338490062F7B8 /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
+		22C9F7DF1033384F0062F7B8 /* JamomaMulticore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaMulticore.framework; path = ../../../../Multicore/library/build/UninstalledProducts/JamomaMulticore.framework; sourceTree = SOURCE_ROOT; };
+		22C9F7E1103338990062F7B8 /* tt-max.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max.xcconfig"; path = "../../../../../Tools/library/common/tt-max.xcconfig"; sourceTree = SOURCE_ROOT; };
+		22C9F81810333A130062F7B8 /* JamomaMaxTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaMaxTypes.h; path = ../../../../../Tools/library/common/JamomaMaxTypes.h; sourceTree = SOURCE_ROOT; };
+		22C9F82410333A4C0062F7B8 /* JamomaModular.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaModular.framework; path = ../../Framework/build/UninstalledProducts/JamomaModular.framework; sourceTree = SOURCE_ROOT; };
+		22C9F9C210336A500062F7B8 /* jcom.map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.map.cpp; sourceTree = "<group>"; };
 		2FBBEAE508F335360078DB84 /* jcom.map.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.map.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -34,11 +38,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				222B15330F1D116F008B1A46 /* MaxAPI.framework in Frameworks */,
-				222B15350F1D1179008B1A46 /* MaxAudioAPI.framework in Frameworks */,
-				222B15370F1D1185008B1A46 /* JitterAPI.framework in Frameworks */,
 				222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */,
-				222B19FE0F1D8D70008B1A46 /* Jamoma.framework in Frameworks */,
+				22C9F7D8103338390062F7B8 /* MaxAPI.framework in Frameworks */,
+				22C9F7DC1033383F0062F7B8 /* MaxAudioAPI.framework in Frameworks */,
+				22C9F7DE103338490062F7B8 /* JamomaFoundation.framework in Frameworks */,
+				22C9F7E01033384F0062F7B8 /* JamomaMulticore.framework in Frameworks */,
+				22C9F82510333A4C0062F7B8 /* JamomaModular.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,7 +53,8 @@
 		089C166AFE841209C02AAC07 /* iterator */ = {
 			isa = PBXGroup;
 			children = (
-				222B152B0F1D1123008B1A46 /* jamoma-max.xcconfig */,
+				22C9F7E1103338990062F7B8 /* tt-max.xcconfig */,
+				22C9F81810333A130062F7B8 /* JamomaMaxTypes.h */,
 				08FB77ADFE841716C02AAC07 /* Source */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB4FE9D528D11CA2CBB /* Products */,
@@ -59,11 +65,12 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				222B19FD0F1D8D70008B1A46 /* Jamoma.framework */,
+				22C9F82410333A4C0062F7B8 /* JamomaModular.framework */,
+				22C9F7DD103338490062F7B8 /* JamomaFoundation.framework */,
+				22C9F7DF1033384F0062F7B8 /* JamomaMulticore.framework */,
 				222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */,
-				222B15360F1D1185008B1A46 /* JitterAPI.framework */,
-				222B15340F1D1179008B1A46 /* MaxAudioAPI.framework */,
-				222B15320F1D116F008B1A46 /* MaxAPI.framework */,
+				22C9F7D7103338390062F7B8 /* MaxAPI.framework */,
+				22C9F7DB1033383F0062F7B8 /* MaxAudioAPI.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -71,8 +78,8 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				222B1B080F1D9157008B1A46 /* jcom.map.cpp */,
-				222B15B00F1D1461008B1A46 /* commonsyms.cpp */,
+				22C9F9C210336A500062F7B8 /* jcom.map.cpp */,
+				22C9F7D1103338310062F7B8 /* commonsyms.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -92,6 +99,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22C9F81910333A130062F7B8 /* JamomaMaxTypes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,7 +147,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				222B152C0F1D1123008B1A46 /* jamoma-max.xcconfig in Resources */,
+				22C9F7E2103338990062F7B8 /* tt-max.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,8 +168,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				222B15B10F1D1461008B1A46 /* commonsyms.cpp in Sources */,
-				222B1B090F1D9157008B1A46 /* jcom.map.cpp in Sources */,
+				22C9F7D2103338310062F7B8 /* commonsyms.cpp in Sources */,
+				22C9F9C310336A500062F7B8 /* jcom.map.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,7 +190,7 @@
 		};
 		2FBBEAE108F335360078DB84 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 222B152B0F1D1123008B1A46 /* jamoma-max.xcconfig */;
+			baseConfigurationReference = 22C9F7E1103338990062F7B8 /* tt-max.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -195,6 +203,10 @@
 					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../Framework/build/Development\"",
 					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/max-includes\"",
+					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/msp-includes\"",
+					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../Multicore/library/build/UninstalledProducts\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 			};
@@ -202,7 +214,7 @@
 		};
 		2FBBEAE208F335360078DB84 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 222B152B0F1D1123008B1A46 /* jamoma-max.xcconfig */;
+			baseConfigurationReference = 22C9F7E1103338990062F7B8 /* tt-max.xcconfig */;
 			buildSettings = {
 				ARCHS = (
 					ppc,
@@ -219,6 +231,10 @@
 					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../Framework/build/Development\"",
 					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/max-includes\"",
+					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/msp-includes\"",
+					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../Multicore/library/build/UninstalledProducts\"",
 				);
 			};
 			name = Deployment;

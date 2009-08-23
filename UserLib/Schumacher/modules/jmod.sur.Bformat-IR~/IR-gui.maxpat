@@ -26,7 +26,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 38.0, 205.0, 601.0, 31.0 ],
-					"text" : "jcom.message #1/open @type msg_generic @repetitions/allow 0 @description \"Open impulse response specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
+					"text" : "jcom.message #1/open @type generic @repetitions/allow 0 @description \"Open impulse response specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
 					"varname" : "hue_angle[3]"
 				}
 
@@ -96,7 +96,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 250.0, 539.666687, 583.0, 31.0 ],
-					"text" : "jcom.parameter #1/predelay @repetitions/allow 0 @range/bounds 0 50 @range/clipmode both @type msg_float @description \"Individual predelay applied to each impulse response\"",
+					"text" : "jcom.parameter #1/predelay @repetitions/allow 0 @range/bounds 0 50 @range/clipmode both @type decimal @description \"Individual predelay applied to each impulse response\"",
 					"varname" : "preamp[1]"
 				}
 
@@ -123,7 +123,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 185.0, 444.666687, 526.0, 19.0 ],
-					"text" : "jcom.parameter #1/reverse @type msg_toggle @repetitions/allow 0 @description \"Reverse IR on/off\"",
+					"text" : "jcom.parameter #1/reverse @type boolean @repetitions/allow 0 @description \"Reverse IR on/off\"",
 					"varname" : "saturation/active"
 				}
 
@@ -139,7 +139,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 87.0, 300.666687, 578.0, 31.0 ],
-					"text" : "jcom.message #1/set-envelope @type msg_generic @repetitions/allow 1 @description \"Open impulse response envelope.\"",
+					"text" : "jcom.message #1/set-envelope @type generic @repetitions/allow 1 @description \"Open impulse response envelope.\"",
 					"varname" : "hue_angle[2]"
 				}
 
@@ -155,7 +155,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 218.0, 496.0, 599.0, 31.0 ],
-					"text" : "jcom.message #1/mute @type msg_int @repetitions/allow 0 @range/bounds 0 1 @description \"1 mutes processing of convolution for this IR\"",
+					"text" : "jcom.message #1/mute @type integer @repetitions/allow 0 @range/bounds 0 1 @description \"1 mutes processing of convolution for this IR\"",
 					"varname" : "hue_angle[1]"
 				}
 
@@ -171,7 +171,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 119.0, 341.666687, 601.0, 31.0 ],
-					"text" : "jcom.parameter #1/function @repetitions/allow 0 @type msg_list @description \"Individual envelope applied to each impulse response\"",
+					"text" : "jcom.parameter #1/function @repetitions/allow 0 @type array @description \"Individual envelope applied to each impulse response\"",
 					"varname" : "preamp[7]"
 				}
 
@@ -315,7 +315,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 152.0, 387.0, 595.0, 43.0 ],
-					"text" : "jcom.parameter #1/gain @type msg_float @repetitions/allow 0 @range/bounds -48 15 @range/clipmode both @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @description \"Individual gain (dB) applied to each impulse response\" ",
+					"text" : "jcom.parameter #1/gain @type decimal @repetitions/allow 0 @range/bounds -48 15 @range/clipmode both @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @description \"Individual gain (dB) applied to each impulse response\" ",
 					"varname" : "preamp"
 				}
 
@@ -331,7 +331,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 56.0, 256.0, 584.0, 31.0 ],
-					"text" : "jcom.message #1/buffer @type msg_generic @repetitions/allow 1 @description \"Open buffer window, displaying impulse response\"",
+					"text" : "jcom.message #1/buffer @type generic @repetitions/allow 1 @description \"Open buffer window, displaying impulse response\"",
 					"varname" : "hue_angle[5]"
 				}
 
@@ -361,7 +361,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 23.0, 165.0, 601.0, 31.0 ],
-					"text" : "jcom.message #1/open @type msg_generic @repetitions/allow 1 @description \"Open impulse response specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
+					"text" : "jcom.message #1/open @type generic @repetitions/allow 1 @description \"Open impulse response specified by filename. Without a filename a standard open file dialog allows you to choose a file.\"",
 					"varname" : "hue_angle"
 				}
 

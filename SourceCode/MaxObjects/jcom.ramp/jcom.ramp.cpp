@@ -1,7 +1,7 @@
 /* 
  * jcom.ramp
  * External for Jamoma: ramp values using Jamoma's RampLib library
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -331,10 +331,10 @@ void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 	short	ramp_keyword_index = -1;
 	double	*values;
 	
-	if(argc < 3){
+	/*if(argc < 3){
 		error("invalid syntax -- not enough args to ramp");
 		return;
-	}
+	}*/
 
 	values = (double *)malloc((argc-2) * sizeof(double));
 	
@@ -348,12 +348,20 @@ void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 		values[i] = atom_getfloat(argv+i);
 	}
 	
-	if(argc != (ramp_keyword_index + 2)){
-		error("invalid syntax -- missing 'ramp' keyword or wrong args following the 'ramp' keyword");
-		return;
+	if(ramp_keyword_index == -1){ // just a list w/o ramp information
+	x->rampUnit->set(argc, values);
+	outlet_anything(x->outlets[k_outlet_value], _sym_list, argc, argv);
 	}
-	
-	x->rampUnit->go(argc-2, values, atom_getfloat(argv+ramp_keyword_index+1));
+	else{
+		if(argc != (ramp_keyword_index + 2)){ // "ramp" is not the second last list member
+			error("invalid syntax -- wrong number of args following the 'ramp' keyword");
+			free(values);
+			return;
+		}
+	else{ // "ramp" is the second last list member, so we start ramping
+		x->rampUnit->go(argc-2, values, atom_getfloat(argv+ramp_keyword_index+1));
+		}
+	}
 	free(values);
 }
 

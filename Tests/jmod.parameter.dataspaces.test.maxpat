@@ -88,7 +88,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTparameter/dataspace/color/hsl2native 0. 255. 0.",
+									"text" : "test.assert.equal TESTparameter/dataspace/color/hsl2native 0. 255. 0.",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"fontsize" : 10.0,
@@ -143,7 +143,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.test.assert.equal TESTparameter/dataspace/color/rgb2native 120. 100. 80.",
+									"text" : "test.assert.equal TESTparameter/dataspace/color/rgb2native 120. 100. 80.",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"fontsize" : 10.0,
@@ -156,7 +156,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.parameter color/rgb2native @type msg_list @dataspace color @dataspace/unit/active rgb @dataspace/unit/native rgb @repetitions/allow 1",
+									"text" : "jcom.parameter color/rgb2native @type array @dataspace color @dataspace/unit/active rgb @dataspace/unit/native rgb @repetitions/allow 1",
 									"linecount" : 2,
 									"fontname" : "Verdana",
 									"numinlets" : 1,
@@ -171,7 +171,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.parameter color/hsl2native @type msg_list @dataspace color @dataspace/unit/active hsl @dataspace/unit/native rgb @repetitions/allow 1",
+									"text" : "jcom.parameter color/hsl2native @type array @dataspace color @dataspace/unit/active hsl @dataspace/unit/native rgb @repetitions/allow 1",
 									"linecount" : 2,
 									"fontname" : "Verdana",
 									"numinlets" : 1,
@@ -290,7 +290,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.test.finished",
+					"text" : "test.finished",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"fontsize" : 10.0,

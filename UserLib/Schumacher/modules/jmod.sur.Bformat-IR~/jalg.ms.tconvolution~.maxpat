@@ -1802,7 +1802,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 277.0, 329.0, 603.0, 31.0 ],
-									"text" : "jcom.parameter IR.4/mute @type msg_int @repetitions/allow 1 @description \"1 mutes processing of convolution for this IR\"",
+									"text" : "jcom.parameter IR.4/mute @type integer @repetitions/allow 1 @description \"1 mutes processing of convolution for this IR\"",
 									"varname" : "hue_angle[3]"
 								}
 
@@ -1818,7 +1818,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 205.0, 287.0, 603.0, 31.0 ],
-									"text" : "jcom.parameter IR.3/mute @type msg_int @repetitions/allow 1 @description \"1 mutes processing of convolution for this IR\"",
+									"text" : "jcom.parameter IR.3/mute @type integer @repetitions/allow 1 @description \"1 mutes processing of convolution for this IR\"",
 									"varname" : "hue_angle[2]"
 								}
 
@@ -1834,7 +1834,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 133.0, 247.0, 603.0, 31.0 ],
-									"text" : "jcom.parameter IR.2/mute @type msg_int @repetitions/allow 1 @description \"1 mutes processing of convolution for this IR\"",
+									"text" : "jcom.parameter IR.2/mute @type integer @repetitions/allow 1 @description \"1 mutes processing of convolution for this IR\"",
 									"varname" : "hue_angle[1]"
 								}
 
@@ -1850,7 +1850,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 60.0, 207.0, 603.0, 31.0 ],
-									"text" : "jcom.parameter IR.1/mute @type msg_int @repetitions/allow 1 @description \"1 mutes processing of convolution for this IR\"",
+									"text" : "jcom.parameter IR.1/mute @type integer @repetitions/allow 1 @description \"1 mutes processing of convolution for this IR\"",
 									"varname" : "hue_angle[6]"
 								}
 
@@ -2205,7 +2205,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 198.0, 330.0, 620.0, 19.0 ],
-													"text" : "jcom.message IR.4/envelope @type msg_generic @repetitions/allow 1 @description \"Open impulse response envelope.\"",
+													"text" : "jcom.message IR.4/envelope @type generic @repetitions/allow 1 @description \"Open impulse response envelope.\"",
 													"varname" : "hue_angle[6]"
 												}
 
@@ -2220,7 +2220,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 198.0, 308.0, 620.0, 19.0 ],
-													"text" : "jcom.message IR.3/envelope @type msg_generic @repetitions/allow 1 @description \"Open impulse response envelope.\"",
+													"text" : "jcom.message IR.3/envelope @type generic @repetitions/allow 1 @description \"Open impulse response envelope.\"",
 													"varname" : "hue_angle[5]"
 												}
 
@@ -2235,7 +2235,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 198.0, 286.0, 630.0, 19.0 ],
-													"text" : "jcom.message IR.2/envelope @type msg_generic @repetitions/allow 1 @description \"Open impulse response envelope.\"",
+													"text" : "jcom.message IR.2/envelope @type generic @repetitions/allow 1 @description \"Open impulse response envelope.\"",
 													"varname" : "hue_angle[4]"
 												}
 
@@ -2250,7 +2250,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 198.0, 264.666687, 626.0, 19.0 ],
-													"text" : "jcom.message IR.1/envelope @type msg_generic @repetitions/allow 1 @description \"Open impulse response envelope.\"",
+													"text" : "jcom.message IR.1/envelope @type generic @repetitions/allow 1 @description \"Open impulse response envelope.\"",
 													"varname" : "hue_angle[2]"
 												}
 

@@ -5,50 +5,50 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/gain' type='msg_float' priority='0'>100.000000</item>
-    <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='demodulator.1/cutoff' type='msg_float' priority='3'>300.000000</item>
-    <item name='demodulator.1/frequency' type='msg_float' priority='3'>10000.000000</item>
-    <item name='demodulator.1/phase' type='msg_float' priority='3'>0.000000</item>
-    <item name='numDemodulators' type='msg_int' priority='1'>1</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
-    <item name='view/size' type='msg_list' priority='0'>300 70 </item>
+    <item name='audio/bypass' type='boolean' priority='0'>0</item>
+    <item name='audio/freeze' type='boolean' priority='0'>0</item>
+    <item name='audio/gain' type='decimal' priority='0'>100.000000</item>
+    <item name='audio/mute' type='boolean' priority='0'>0</item>
+    <item name='demodulator.1/cutoff' type='decimal' priority='3'>300.000000</item>
+    <item name='demodulator.1/frequency' type='decimal' priority='3'>10000.000000</item>
+    <item name='demodulator.1/phase' type='decimal' priority='3'>0.000000</item>
+    <item name='numDemodulators' type='integer' priority='1'>1</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/color/border' type='array' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
+    <item name='view/size' type='array' priority='0'>300 70 </item>
   </preset>
   <preset number='2' name='6-demodulators'>
-    <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/gain' type='msg_float' priority='0'>100.000000</item>
-    <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='demodulator.1/cutoff' type='msg_float' priority='3'>300.000000</item>
-    <item name='demodulator.1/frequency' type='msg_float' priority='3'>2000.000000</item>
-    <item name='demodulator.1/phase' type='msg_float' priority='3'>0.000000</item>
-    <item name='demodulator.2/cutoff' type='msg_float' priority='3'>300.000000</item>
-    <item name='demodulator.2/frequency' type='msg_float' priority='3'>4000.000000</item>
-    <item name='demodulator.2/phase' type='msg_float' priority='3'>0.000000</item>
-    <item name='demodulator.3/cutoff' type='msg_float' priority='3'>300.000000</item>
-    <item name='demodulator.3/frequency' type='msg_float' priority='3'>6000.000000</item>
-    <item name='demodulator.3/phase' type='msg_float' priority='3'>0.000000</item>
-    <item name='demodulator.4/cutoff' type='msg_float' priority='3'>300.000000</item>
-    <item name='demodulator.4/frequency' type='msg_float' priority='3'>8000.000000</item>
-    <item name='demodulator.4/phase' type='msg_float' priority='3'>0.000000</item>
-    <item name='demodulator.5/cutoff' type='msg_float' priority='3'>300.000000</item>
-    <item name='demodulator.5/frequency' type='msg_float' priority='3'>10000.000000</item>
-    <item name='demodulator.5/phase' type='msg_float' priority='3'>0.000000</item>
-    <item name='demodulator.6/cutoff' type='msg_float' priority='3'>300.000000</item>
-    <item name='demodulator.6/frequency' type='msg_float' priority='3'>12000.000000</item>
-    <item name='demodulator.6/phase' type='msg_float' priority='3'>0.000000</item>
-    <item name='numDemodulators' type='msg_int' priority='1'>6</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
-    <item name='view/size' type='msg_list' priority='0'>300 70 </item>
+    <item name='audio/bypass' type='boolean' priority='0'>0</item>
+    <item name='audio/freeze' type='boolean' priority='0'>0</item>
+    <item name='audio/gain' type='decimal' priority='0'>100.000000</item>
+    <item name='audio/mute' type='boolean' priority='0'>0</item>
+    <item name='demodulator.1/cutoff' type='decimal' priority='3'>300.000000</item>
+    <item name='demodulator.1/frequency' type='decimal' priority='3'>2000.000000</item>
+    <item name='demodulator.1/phase' type='decimal' priority='3'>0.000000</item>
+    <item name='demodulator.2/cutoff' type='decimal' priority='3'>300.000000</item>
+    <item name='demodulator.2/frequency' type='decimal' priority='3'>4000.000000</item>
+    <item name='demodulator.2/phase' type='decimal' priority='3'>0.000000</item>
+    <item name='demodulator.3/cutoff' type='decimal' priority='3'>300.000000</item>
+    <item name='demodulator.3/frequency' type='decimal' priority='3'>6000.000000</item>
+    <item name='demodulator.3/phase' type='decimal' priority='3'>0.000000</item>
+    <item name='demodulator.4/cutoff' type='decimal' priority='3'>300.000000</item>
+    <item name='demodulator.4/frequency' type='decimal' priority='3'>8000.000000</item>
+    <item name='demodulator.4/phase' type='decimal' priority='3'>0.000000</item>
+    <item name='demodulator.5/cutoff' type='decimal' priority='3'>300.000000</item>
+    <item name='demodulator.5/frequency' type='decimal' priority='3'>10000.000000</item>
+    <item name='demodulator.5/phase' type='decimal' priority='3'>0.000000</item>
+    <item name='demodulator.6/cutoff' type='decimal' priority='3'>300.000000</item>
+    <item name='demodulator.6/frequency' type='decimal' priority='3'>12000.000000</item>
+    <item name='demodulator.6/phase' type='decimal' priority='3'>0.000000</item>
+    <item name='numDemodulators' type='integer' priority='1'>6</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/color/border' type='array' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
+    <item name='view/size' type='array' priority='0'>300 70 </item>
   </preset>
 </jamoma>

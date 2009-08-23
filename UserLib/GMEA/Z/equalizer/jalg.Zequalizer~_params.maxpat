@@ -36,7 +36,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.parameter filter.0/gain @type msg_float @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\" @priority 11",
+					"text" : "jcom.parameter filter.0/gain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\" @priority 11",
 					"linecount" : 2,
 					"fontsize" : 10.0,
 					"patching_rect" : [ 480.0, 465.0, 520.0, 31.0 ],
@@ -1202,7 +1202,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.parameter filter.0/freq @type msg_float @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\" @priority 12",
+					"text" : "jcom.parameter filter.0/freq @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\" @priority 12",
 					"linecount" : 2,
 					"fontsize" : 10.0,
 					"patching_rect" : [ 480.0, 520.0, 520.0, 31.0 ],
@@ -1217,7 +1217,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.parameter filter.0/Q @type msg_float @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\" @priority 10",
+					"text" : "jcom.parameter filter.0/Q @type decimal @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\" @priority 10",
 					"linecount" : 2,
 					"fontsize" : 10.0,
 					"patching_rect" : [ 480.0, 390.0, 525.0, 31.0 ],
@@ -1232,7 +1232,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.parameter filter.0/type @type msg_symbol @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\" @priority 9",
+					"text" : "jcom.parameter filter.0/type @type string @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\" @priority 9",
 					"linecount" : 3,
 					"fontsize" : 10.0,
 					"patching_rect" : [ 415.0, 230.0, 482.0, 43.0 ],

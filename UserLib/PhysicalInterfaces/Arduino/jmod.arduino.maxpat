@@ -17,424 +17,419 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Updaterate [Hz]:",
-					"presentation_rect" : [ 44.0, 46.0, 83.0, 18.0 ],
+					"fontname" : "Arial",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-21",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
 					"patching_rect" : [ 344.0, 104.0, 150.0, 18.0 ],
 					"presentation" : 1,
-					"numinlets" : 1,
-					"id" : "obj-21",
-					"fontname" : "Arial",
-					"numoutlets" : 0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ]
+					"presentation_rect" : [ 44.0, 46.0, 83.0, 18.0 ],
+					"text" : "Updaterate [Hz]:"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "textbutton",
-					"varname" : "audio[1]",
-					"outlettype" : [ "", "", "int" ],
-					"texton" : "Spacenavigator (On)",
-					"presentation_rect" : [ 2.0, 24.0, 34.0, 17.0 ],
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"text" : "Init",
+					"id" : "obj-12",
+					"maxclass" : "textbutton",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
 					"patching_rect" : [ 381.0, 190.0, 33.0, 20.0 ],
 					"presentation" : 1,
+					"presentation_rect" : [ 2.0, 24.0, 34.0, 17.0 ],
 					"rounded" : 8.0,
-					"numinlets" : 1,
-					"id" : "obj-12",
-					"fontname" : "Verdana",
-					"numoutlets" : 3
+					"text" : "Init",
+					"texton" : "Spacenavigator (On)",
+					"varname" : "audio[1]"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "textbutton",
-					"varname" : "audio",
-					"mode" : 1,
-					"outlettype" : [ "", "", "int" ],
-					"texton" : "On",
-					"presentation_rect" : [ 2.0, 47.0, 34.0, 17.0 ],
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"text" : "Off",
+					"id" : "obj-5",
+					"maxclass" : "textbutton",
+					"mode" : 1,
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
 					"patching_rect" : [ 426.0, 187.0, 33.0, 20.0 ],
 					"presentation" : 1,
+					"presentation_rect" : [ 2.0, 47.0, 34.0, 17.0 ],
 					"rounded" : 8.0,
-					"numinlets" : 1,
-					"id" : "obj-5",
-					"fontname" : "Verdana",
-					"numoutlets" : 3
+					"text" : "Off",
+					"texton" : "On",
+					"varname" : "audio"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "number",
-					"outlettype" : [ "int", "bang" ],
-					"presentation_rect" : [ 125.0, 45.0, 23.0, 19.0 ],
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-32",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "int", "bang" ],
 					"patching_rect" : [ 320.0, 251.0, 30.0, 19.0 ],
 					"presentation" : 1,
-					"numinlets" : 1,
-					"id" : "obj-32",
-					"fontname" : "Verdana",
-					"triangle" : 0,
-					"numoutlets" : 2
+					"presentation_rect" : [ 125.0, 45.0, 23.0, 19.0 ],
+					"triangle" : 0
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"varname" : "jcom.parameter[1]",
-					"text" : "jcom.message update @type msg_none @description \"get data due to an external clock\"",
-					"outlettype" : [ "", "", "" ],
+					"fontname" : "Arial",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 381.0, 313.0, 403.0, 17.0 ],
-					"numinlets" : 1,
 					"id" : "obj-1",
-					"fontname" : "Arial",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
 					"numoutlets" : 3,
-					"hidden" : 1
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 381.0, 313.0, 403.0, 17.0 ],
+					"text" : "jcom.message update @type none @description \"get data due to an external clock\"",
+					"varname" : "jcom.parameter[1]"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"varname" : "updaterate",
-					"text" : "jcom.parameter updaterate @type msg_int @range/bounds 10 66 @range/clipmode both @description \"set the internal clock frequency how often Arduino is asked for data\"",
-					"linecount" : 2,
-					"outlettype" : [ "", "", "" ],
+					"fontname" : "Arial",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 375.0, 244.0, 595.0, 27.0 ],
-					"numinlets" : 1,
 					"id" : "obj-6",
-					"fontname" : "Arial",
-					"numoutlets" : 3,
-					"hidden" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
+					"linecount" : 2,
 					"maxclass" : "newobj",
-					"varname" : "jcom.parameter[3]",
-					"text" : "jcom.message init_serial @type msg_none @description \"Initialization of the serial port\"",
-					"outlettype" : [ "", "", "" ],
-					"fontsize" : 9.0,
-					"patching_rect" : [ 382.0, 215.0, 360.0, 17.0 ],
 					"numinlets" : 1,
-					"id" : "obj-8",
-					"fontname" : "Arial",
 					"numoutlets" : 3,
-					"hidden" : 1
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 375.0, 244.0, 595.0, 27.0 ],
+					"text" : "jcom.parameter updaterate @type integer @range/bounds 10 66 @range/clipmode both @description \"set the internal clock frequency how often Arduino is asked for data\"",
+					"varname" : "updaterate"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "umenu",
-					"varname" : "port_menu",
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
+					"id" : "obj-8",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 382.0, 215.0, 364.0, 17.0 ],
+					"text" : "jcom.message initDevice @type none @description \"Initialization of the serial port\"",
+					"varname" : "jcom.parameter[3]"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"arrow" : 0,
-					"outlettype" : [ "int", "", "" ],
-					"presentation_rect" : [ 38.0, 23.0, 110.0, 19.0 ],
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"labelclick" : 1,
+					"id" : "obj-11",
 					"items" : [ "NilsPeters-1", ",", "Bluetooth-Modem", ",", "17thstar-Bluetooth-PDA--1", ",", "Bluetooth-PDA-Sync" ],
-					"types" : [  ],
+					"labelclick" : 1,
+					"maxclass" : "umenu",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 60.0, 283.0, 114.0, 19.0 ],
 					"presentation" : 1,
-					"numinlets" : 1,
-					"id" : "obj-11",
-					"fontname" : "Verdana",
-					"numoutlets" : 3
+					"presentation_rect" : [ 38.0, 23.0, 110.0, 19.0 ],
+					"types" : [  ],
+					"varname" : "port_menu"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"varname" : "on",
-					"text" : "jcom.parameter active @type msg_toggle @description \"Turns polling on\"",
-					"outlettype" : [ "", "", "" ],
+					"fontname" : "Arial",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 463.0, 190.0, 305.0, 17.0 ],
-					"numinlets" : 1,
 					"id" : "obj-14",
-					"fontname" : "Arial",
-					"numoutlets" : 3,
-					"hidden" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "menu",
-					"text" : "jcom.parameter menu @type msg_int @description \"Define the Arduino port\"",
+					"numinlets" : 1,
+					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 463.0, 190.0, 305.0, 17.0 ],
+					"text" : "jcom.parameter active @type boolean @description \"Turns polling on\"",
+					"varname" : "on"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 191.0, 282.0, 317.0, 17.0 ],
-					"numinlets" : 1,
 					"id" : "obj-16",
-					"fontname" : "Arial",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
 					"numoutlets" : 3,
-					"hidden" : 1
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 191.0, 282.0, 317.0, 17.0 ],
+					"text" : "jcom.parameter menu @type integer @description \"Define the Arduino port\"",
+					"varname" : "menu"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "/preset/store 1 default, /preset/write",
-					"outlettype" : [ "" ],
-					"fontsize" : 9.0,
 					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
-					"patching_rect" : [ 53.0, 107.0, 191.0, 15.0 ],
-					"numinlets" : 2,
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
 					"id" : "obj-17",
-					"fontname" : "Arial",
-					"numoutlets" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.in",
-					"outlettype" : [ "", "" ],
-					"fontsize" : 9.0,
-					"patching_rect" : [ 60.0, 221.0, 43.0, 17.0 ],
-					"numinlets" : 1,
-					"id" : "obj-18",
-					"fontname" : "Arial",
-					"numoutlets" : 2
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "message",
-					"text" : "/init",
-					"outlettype" : [ "" ],
-					"fontsize" : 9.0,
-					"patching_rect" : [ 189.0, 124.0, 31.0, 15.0 ],
 					"numinlets" : 2,
-					"id" : "obj-22",
-					"fontname" : "Arial",
-					"numoutlets" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jalg.arduino",
-					"outlettype" : [ "clear" ],
-					"fontsize" : 9.0,
-					"patching_rect" : [ 60.0, 245.0, 57.0, 17.0 ],
-					"numinlets" : 1,
-					"id" : "obj-23",
-					"fontname" : "Arial",
-					"numoutlets" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"varname" : "jcom.hub",
-					"text" : "jcom.hub jmod.arduino @description \"An interface module for the I/O board Arduino\"",
-					"outlettype" : [ "", "" ],
-					"fontsize" : 9.0,
-					"patching_rect" : [ 20.0, 149.0, 347.0, 17.0 ],
-					"numinlets" : 1,
-					"id" : "obj-24",
-					"fontname" : "Arial",
-					"numoutlets" : 2
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "inlet",
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 20.0, 125.0, 13.0, 13.0 ],
-					"numinlets" : 0,
-					"id" : "obj-25",
 					"numoutlets" : 1,
-					"comment" : ""
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "outlet",
-					"patching_rect" : [ 20.0, 182.0, 13.0, 13.0 ],
-					"numinlets" : 1,
-					"id" : "obj-26",
-					"numoutlets" : 0,
-					"comment" : ""
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "message",
-					"text" : "/documentation/generate",
 					"outlettype" : [ "" ],
-					"fontsize" : 9.0,
-					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
-					"patching_rect" : [ 60.0, 124.0, 125.0, 15.0 ],
-					"numinlets" : 2,
-					"id" : "obj-29",
+					"patching_rect" : [ 53.0, 107.0, 191.0, 15.0 ],
+					"text" : "/preset/store 1 default, /preset/write"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Arial",
-					"numoutlets" : 1
+					"fontsize" : 9.0,
+					"id" : "obj-18",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 60.0, 221.0, 43.0, 17.0 ],
+					"text" : "jcom.in"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "jcom.ui",
-					"text" : "/editing_this_module",
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
+					"id" : "obj-22",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
+					"patching_rect" : [ 189.0, 124.0, 31.0, 15.0 ],
+					"text" : "/init"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
+					"id" : "obj-23",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "clear" ],
+					"patching_rect" : [ 60.0, 245.0, 57.0, 17.0 ],
+					"text" : "jalg.arduino"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
+					"id" : "obj-24",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 20.0, 149.0, 347.0, 17.0 ],
+					"text" : "jcom.hub jmod.arduino @description \"An interface module for the I/O board Arduino\"",
+					"varname" : "jcom.hub"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "",
+					"id" : "obj-25",
+					"maxclass" : "inlet",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 20.0, 125.0, 13.0, 13.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "",
+					"id" : "obj-26",
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 20.0, 182.0, 13.0, 13.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
+					"id" : "obj-29",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 60.0, 124.0, 125.0, 15.0 ],
+					"text" : "/documentation/generate"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-31",
+					"maxclass" : "jcom.ui",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
 					"presentation" : 1,
-					"numinlets" : 1,
-					"id" : "obj-31",
-					"numoutlets" : 1
+					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
+					"text" : "/editing_this_module"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-6", 0 ],
-					"destination" : [ "obj-32", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-32", 0 ],
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-5", 0 ],
-					"destination" : [ "obj-14", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-14", 0 ],
-					"destination" : [ "obj-5", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-23", 0 ],
-					"destination" : [ "obj-11", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-18", 0 ],
-					"destination" : [ "obj-23", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-12", 0 ],
 					"destination" : [ "obj-8", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-12", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-24", 0 ],
-					"destination" : [ "obj-26", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-17", 0 ],
-					"destination" : [ "obj-24", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 62.5, 145.0, 29.5, 145.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-29", 0 ],
-					"destination" : [ "obj-24", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 69.5, 145.0, 29.5, 145.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-25", 0 ],
-					"destination" : [ "obj-24", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-22", 0 ],
-					"destination" : [ "obj-24", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 198.5, 145.0, 29.5, 145.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-11", 0 ],
-					"destination" : [ "obj-16", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-16", 0 ],
 					"destination" : [ "obj-11", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-16", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-24", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 198.5, 145.0, 29.5, 145.0 ],
+					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-24", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-25", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-24", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 69.5, 145.0, 29.5, 145.0 ],
+					"source" : [ "obj-29", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-24", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 62.5, 145.0, 29.5, 145.0 ],
+					"source" : [ "obj-17", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-26", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-24", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-23", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-18", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-23", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-14", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-32", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-32", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-6", 0 ]
 				}
 
 			}

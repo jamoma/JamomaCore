@@ -79,7 +79,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
  	class_addmethod(c, (method)param_list,			"list",			A_GIMME,	0);
 	class_addmethod(c, (method)param_symbol,		"symbol",		A_DEFSYM,	0);
  	class_addmethod(c, (method)param_anything,		"anything",		A_GIMME,	0);
-	class_addmethod(c, (method)param_ui_refresh,	"ui/refresh",				0);
+	class_addmethod(c, (method)param_ui_refresh,	"view/refresh",				0);
 	class_addmethod(c, (method)param_inc,			"value/inc",	A_GIMME,	0);
 	class_addmethod(c, (method)param_dec,			"value/dec",	A_GIMME,	0);
 	class_addmethod(c, (method)param_inc,			"+",			A_GIMME,	0);
@@ -102,17 +102,17 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_ENUM(c,				"ramp/function",			0, functions);
 	
 
-	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list, msg_none
+	// ATTRIBUTE: type - options are generic, integer, decimal, string, boolean, array, none
 	jamoma_class_attr_new(c,		"type",						_sym_symbol, (method)param_attr_settype, (method)param_attr_gettype);
 #ifdef JMOD_MESSAGE
-	CLASS_ATTR_ENUM(c,				"type",	0,					"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic msg_none");
+	CLASS_ATTR_ENUM(c,				"type",	0,					"integer decimal boolean string array generic none");
 #else
-	CLASS_ATTR_ENUM(c,				"type",	0,					"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic");
+	CLASS_ATTR_ENUM(c,				"type",	0,					"integer decimal boolean string array generic");
 #endif
 	CLASS_ATTR_STYLE(c,				"repetitions/allow",		0, "onoff");
-	// ATTRIBUTE: ui/freeze - toggles a "frozen" ui outlet so that you can save cpu
-	jamoma_class_attr_new(c,		"ui/freeze",				_sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
-	CLASS_ATTR_STYLE(c,				"ui/freeze",				0,	"onoff");
+	// ATTRIBUTE: view/freeze - toggles a "frozen" ui outlet so that you can save cpu
+	jamoma_class_attr_new(c,		"view/freeze",				_sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
+	CLASS_ATTR_STYLE(c,				"view/freeze",				0,	"onoff");
 	
 	// ATTRIBUTE: stepsize - how much increment or decrement by
 	jamoma_class_attr_new(c,		"value/stepsize",			_sym_float32, (method)param_attr_setstepsize, (method)param_attr_getstepsize);
@@ -154,7 +154,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_ORDER(c, "priority",					0, "12");
 	CLASS_ATTR_ORDER(c, "description",				0, "13");	
 	CLASS_ATTR_ORDER(c, "readonly",					0, "14");	
-	CLASS_ATTR_ORDER(c, "ui/freeze",				0, "15");
+	CLASS_ATTR_ORDER(c, "view/freeze",				0, "15");
 	CLASS_ATTR_ORDER(c, "value",					0, "16");
 	CLASS_ATTR_ORDER(c, "value/default",			0, "17");
 	CLASS_ATTR_ORDER(c, "value/stepsize",			0, "18");
@@ -212,10 +212,11 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_ui_freeze = 0;
 		x->attr_stepsize = 1.0;
 		x->attr_priority = 0;						// default is no priority
-		x->param_output = &param_output_generic;		// set function pointer to default
+		x->param_output = &param_output_generic;	// set function pointer to default
 		x->attr_dataspace = jps_none;
 		x->attr_unitActive = jps_none;
 		x->attr_unitNative = jps_none;
+		x->isInitialised = 0;						// the message/parameter has not yet been initialised
 
 #ifdef JMOD_MESSAGE
 		jcom_core_subscriber_new_extended(&x->common, name, jps_subscribe_message);
@@ -242,7 +243,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		// this is important because memory is configured - not just setting a default!
 		if(x->common.attr_type == NULL){
 			t_atom a;
-			atom_setsym(&a, jps_msg_generic);
+			atom_setsym(&a, jps_generic);
 			object_attr_setvalueof(x, jps_type, 1, &a);
 		}
 		if(x->attr_ramp == _sym_nothing){
@@ -320,6 +321,9 @@ t_max_err param_getvalueof(t_param *x, long *argc, t_atom **argv)
 // resets to default value
 void param_reset(t_param *x)
 {
+	// Set parameter to be uninitialised, to circumvent filtering of repetitions when outputing value from default preset
+	x->isInitialised = 0;
+	
 	if(x->listDefault_size){						// copy the default values to the current value
 		sysmem_copyptr(x->atom_listDefault, x->atom_list, sizeof(t_atom) * x->listDefault_size);
 		x->list_size = x->listDefault_size;
@@ -509,27 +513,27 @@ t_max_err param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv)
 	t_symbol *arg = atom_getsym(argv);
 	x->common.attr_type = arg;
 
-	if(arg == jps_msg_int){
+	if(arg == jps_integer){
 		x->param_output = &param_output_int;
 	}
-	else if(arg == jps_msg_float){
+	else if(arg == jps_decimal){
 		x->param_output = &param_output_float;
 	}
-	else if(arg == jps_msg_symbol){
+	else if(arg == jps_string){
 		x->param_output = &param_output_symbol;
 	}
-	else if(arg == jps_msg_toggle){
+	else if(arg == jps_boolean){
 		x->param_output = &param_output_int;
 	}
-	else if(arg == jps_msg_generic){
+	else if(arg == jps_generic){
 		x->param_output = &param_output_generic;
 	} 
-	else if(arg == jps_msg_list){
+	else if(arg == jps_array){
 		x->param_output = &param_output_list;
 	}
 
 #ifdef JMOD_MESSAGE
-	else if(arg == jps_msg_none){
+	else if(arg == jps_none){
 		x->param_output = &param_output_none;
 	}
 #endif // JMOD_MESSAGE
@@ -539,7 +543,7 @@ t_max_err param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv)
 #else
 		error("Jamoma - invalid type specified for %s jcom.parameter in the %s module.", x->common.attr_name->s_name, x->common.module_name->s_name);
 #endif
-		x->common.attr_type = jps_msg_generic;
+		x->common.attr_type = jps_generic;
 		x->param_output = &param_output_generic;
 	}
 
@@ -970,7 +974,7 @@ void param_dump(t_param *x)
 		atom_setsym(&a[1], x->attr_unitActive);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 		
-		snprintf(s, 256, "%s:/ui/freeze", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/view/freeze", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->attr_ui_freeze);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
@@ -1158,11 +1162,11 @@ void param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	if(x->ramper)
 		x->ramper->stop();
 		
-	if(x->common.attr_type == jps_msg_int)
+	if(x->common.attr_type == jps_integer)
 		atom_setlong(a, x->attr_value.a_w.w_long + (x->attr_stepsize * stepmult));
-	else if((x->common.attr_type == jps_msg_float) || (x->common.attr_type == jps_msg_generic))
+	else if((x->common.attr_type == jps_decimal) || (x->common.attr_type == jps_generic))
 		atom_setfloat(a, x->attr_value.a_w.w_float + (x->attr_stepsize * stepmult));
-	else if(x->common.attr_type == jps_msg_toggle){
+	else if(x->common.attr_type == jps_boolean){
 		if(x->attr_value.a_w.w_long == 1)
 			x->attr_value.a_w.w_long = 0;
 		else
@@ -1223,11 +1227,11 @@ void param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	if(x->ramper)
 		x->ramper->stop();
 		
-	if(x->common.attr_type == jps_msg_int)
+	if(x->common.attr_type == jps_integer)
 		atom_setlong(a, x->attr_value.a_w.w_long - (x->attr_stepsize * stepmult));
-	else if((x->common.attr_type == jps_msg_float) || (x->common.attr_type == jps_msg_generic))
+	else if((x->common.attr_type == jps_decimal) || (x->common.attr_type == jps_generic))
 		atom_setfloat(a, x->attr_value.a_w.w_float - (x->attr_stepsize * stepmult));
-	else if(x->common.attr_type == jps_msg_toggle){
+	else if(x->common.attr_type == jps_boolean){
 		if(x->attr_value.a_w.w_long == 1)
 			x->attr_value.a_w.w_long = 0;
 		else
@@ -1248,10 +1252,12 @@ void param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 void param_int(t_param *x, long value)
 {
 	x->list_size = 1;
-	if(x->common.attr_repetitions == 0){
+	if(x->common.attr_repetitions == 0 && x->isInitialised){
 		if(value == atom_getlong(&x->attr_value))
 			return;
 	}
+	// By the end of this function call the parameter has been set at least once.
+	x->isInitialised = 1;
 	// new input - halt any ramping...
 	if(x->ramper)
 		x->ramper->stop();
@@ -1264,10 +1270,12 @@ void param_int(t_param *x, long value)
 void param_float(t_param *x, double value)
 {
 	x->list_size = 1;
-	if(x->common.attr_repetitions == 0){
+	if(x->common.attr_repetitions == 0  && x->isInitialised){
 		if(value == atom_getfloat(&x->attr_value))
 			return;
 	}
+	// By the end of this function call the parameter has been set at least once.
+	x->isInitialised = 1;
 	// new input - halt any ramping...
 	if(x->ramper)
 		x->ramper->stop();
@@ -1293,10 +1301,12 @@ void param_float(t_param *x, double value)
 void param_symbol(t_param *x, t_symbol *value)
 {
 	x->list_size = 1;
-	if(x->common.attr_repetitions == 0){
+	if(x->common.attr_repetitions == 0 && x->isInitialised){
 		if(value == atom_getsym(&x->attr_value))
 			return;
 	}
+	// By the end of this function call the parameter has been set at least once.
+	x->isInitialised = 1;
 	// new input - halt any ramping...
 	if(x->ramper)
 		x->ramper->stop();
@@ -1380,10 +1390,11 @@ void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		if(argc == 1){
 			// If repetitions are disabled, we check for a repetition by treating
 			// this as a 1 element list
-			if(x->common.attr_repetitions == 0 && param_list_compare(x->atom_list, 
-				x->list_size, argv, argc)) 
+			if(x->common.attr_repetitions == 0 && x->isInitialised && param_list_compare(x->atom_list, x->list_size, argv, argc)) 
 				return;
-
+			// By the end of this function call the parameter has been set at least once.
+			x->isInitialised = 1;
+			
 			if(x->dataspace_active2native){
 				t_atom* r = (t_atom*)sysmem_newptr(sizeof(t_atom));
 				x->dataspace_active2native->convert(1, argv, &x->list_size, &r);
@@ -1399,9 +1410,9 @@ void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			param_list(x, msg, argc, argv);
 		else{ 	// no args
 			// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
-			//if(x->common.attr_type == jps_msg_generic)
+			//if(x->common.attr_type == jps_generic)
 			x->list_size = 0;
-			if (x->common.attr_type != jps_msg_list)	// zero length list parameters are not allowed
+			if (x->common.attr_type != jps_array)	// zero length list parameters are not allowed
 				x->param_output(x);
 		}
 	}
@@ -1546,8 +1557,8 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	if(hasRamp){
 		time = atom_getfloat(argv+(argc-1));
 
-		// Only one list member if @type is msg_int of msg_float
-		if( x->common.attr_type == jps_msg_int || x->common.attr_type == jps_msg_float)
+		// Only one list member if @type is integer of decimal
+		if( x->common.attr_type == jps_integer || x->common.attr_type == jps_decimal)
 			ac = 1;
 //		else
 //		argc = argc - 2;
@@ -1566,25 +1577,29 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			return;
 		}	
 
-		if(x->common.attr_repetitions == 0){
+		if(x->common.attr_repetitions == 0 && x->isInitialised){
 			if(param_list_compare(x->atom_list, x->list_size, av, ac))
 				return;	// nothing to do
 		}
-
+		// By the end of this function call the parameter has been set at least once.
+		x->isInitialised = 1;
+		
 		x->list_size = ac;
 		x->ramper->set(ac, start);
 		x->ramper->go(ac, values, time);
 	} 
 	else{
 		// Don't output if the input data is identical
-		if(!x->common.attr_repetitions){
+		if(!x->common.attr_repetitions && x->isInitialised){
 			if(param_list_compare(x->atom_list, x->list_size, av, ac))
 				return;	// nothing to do
 		}
+		// By the end of this function call the parameter has been set at least once.
+		x->isInitialised = 1;
 		
 		// Avoid copying more than one atom if the type only can have one argument
-		if(x->common.attr_type != jps_msg_list && x->common.attr_type != jps_msg_generic
-			&& x->common.attr_type != jps_msg_none && x->common.attr_type != jps_msg_symbol){
+		if(x->common.attr_type != jps_array && x->common.attr_type != jps_generic
+			&& x->common.attr_type != jps_none && x->common.attr_type != jps_string){
 			// If attr_type is != to anyone of the above values then we know 
 			// that it must be == to a scalar type.  This ensures it will behave
 			// as a scalar and not a list.
@@ -1624,7 +1639,7 @@ void param_ramp_callback_float(void *v, long, double *value)
 	t_param *x = (t_param *)v;
 	float	oldval = atom_getfloat(&x->attr_value);
 	
-	if(x->common.attr_repetitions || *value != oldval){
+	if(x->common.attr_repetitions || *value != oldval || !(x->isInitialised)){
 		atom_setfloat(&x->attr_value, *value);
 		param_output_float(x);
 	}
@@ -1638,7 +1653,7 @@ void param_ramp_callback_int(void *v, long, double *value)
 	long	oldval;
 
 	oldval = atom_getlong(&x->attr_value);
-	if (x->common.attr_repetitions || val != oldval){
+	if (x->common.attr_repetitions || val != oldval || !(x->isInitialised)){
 		atom_setlong(&x->attr_value, val);
 		param_output_int(x);
 	}
@@ -1668,13 +1683,13 @@ void param_ramp_setup(t_param *x)
 		
 	// 2. create the new rampunit
 	// For some types ramping doesn't make sense, so they will be set to none
-	if((x->common.attr_type == jps_msg_none) || (x->common.attr_type == jps_msg_symbol) || (x->common.attr_type == jps_msg_generic))
+	if((x->common.attr_type == jps_none) || (x->common.attr_type == jps_string) || (x->common.attr_type == jps_generic))
 		x->attr_ramp = gensym("none");
 		
 		
-	if((x->common.attr_type == jps_msg_int) || (x->common.attr_type == jps_msg_toggle))
+	if((x->common.attr_type == jps_integer) || (x->common.attr_type == jps_boolean))
 		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_int, (void *)x);
-	else if (x->common.attr_type == jps_msg_list)
+	else if (x->common.attr_type == jps_array)
 		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_list, (void *)x);
 	else
 		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_float, (void *)x);

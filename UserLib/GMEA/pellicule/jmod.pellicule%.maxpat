@@ -331,7 +331,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 270.0, 203.0, 347.0, 33.0 ],
-									"text" : "jcom.return loop/end @repetitions/allow 1 @type msg_none @description \"notify the end of a loop\""
+									"text" : "jcom.return loop/end @repetitions/allow 1 @type none @description \"notify the end of a loop\""
 								}
 
 							}
@@ -346,7 +346,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 205.0, 167.0, 359.0, 33.0 ],
-									"text" : "jcom.return timecode @type msg_list @repetitions/allow 1 @description \"play position [hour:min:second:frame frameid]\""
+									"text" : "jcom.return timecode @type array @repetitions/allow 1 @description \"play position [hour:min:second:frame frameid]\""
 								}
 
 							}
@@ -361,7 +361,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 137.0, 131.0, 312.0, 33.0 ],
-									"text" : "jcom.return fps @type msg_float @repetitions/allow 1 @description \"frame per second\""
+									"text" : "jcom.return fps @type decimal @repetitions/allow 1 @description \"frame per second\""
 								}
 
 							}
@@ -376,7 +376,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 74.0, 95.0, 349.0, 33.0 ],
-									"text" : "jcom.return framecount @type msg_int @repetitions/allow 1 @description \"movie length in frame\""
+									"text" : "jcom.return framecount @type integer @repetitions/allow 1 @description \"movie length in frame\""
 								}
 
 							}
@@ -391,7 +391,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 9.0, 59.0, 331.0, 33.0 ],
-									"text" : "jcom.return length @type msg_float @repetitions/allow 1 @description \"movie length in second\""
+									"text" : "jcom.return length @type decimal @repetitions/allow 1 @description \"movie length in second\""
 								}
 
 							}
@@ -646,7 +646,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 511.0, 306.0, 146.0, 20.0 ],
-					"text" : "jcom.oscroute /ui/freeze"
+					"text" : "jcom.oscroute /view/freeze"
 				}
 
 			}
@@ -1176,7 +1176,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 750.0, 160.679626, 478.0, 18.0 ],
-					"text" : "jcom.message pause @type msg_toggle @repetitions/allow 1 @description \"Playback control\""
+					"text" : "jcom.message pause @type boolean @repetitions/allow 1 @description \"Playback control\""
 				}
 
 			}
@@ -1305,7 +1305,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 180.5, 239.5, 502.0, 18.0 ],
-									"text" : "jcom.parameter interp @type msg_toggle @repetitions/allow 1 @description \"Image interpolation\"",
+									"text" : "jcom.parameter interp @type boolean @repetitions/allow 1 @description \"Image interpolation\"",
 									"varname" : "unique[1]"
 								}
 
@@ -1362,7 +1362,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 180.0, 96.0, 545.0, 18.0 ],
-									"text" : "jcom.message dim/native @type msg_none @ramp/drive none @description \"Use native movie dimension\"",
+									"text" : "jcom.message dim/native @type none @ramp/drive none @description \"Use native movie dimension\"",
 									"varname" : "dim[1]"
 								}
 
@@ -1563,7 +1563,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 37.5, 271.5, 305.0, 18.0 ],
-									"text" : "jcom.parameter colormode @type msg_symbol Colormode.",
+									"text" : "jcom.parameter colormode @type string Colormode.",
 									"varname" : "colormode"
 								}
 
@@ -1599,7 +1599,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 180.0, 190.0, 528.0, 18.0 ],
-									"text" : "jcom.parameter dim @type msg_list @ramp/drive none @repetitions/allow 1 @description \"Image size\"",
+									"text" : "jcom.parameter dim @type array @ramp/drive none @repetitions/allow 1 @description \"Image size\"",
 									"varname" : "dim"
 								}
 
@@ -1642,7 +1642,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 93.5, 412.5, 565.0, 18.0 ],
-									"text" : "jcom.parameter unique @type msg_toggle @repetitions/allow 1 @description \"Playback quality option.\"",
+									"text" : "jcom.parameter unique @type boolean @repetitions/allow 1 @description \"Playback quality option.\"",
 									"varname" : "unique"
 								}
 
@@ -1658,7 +1658,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 71.5, 432.5, 588.0, 42.0 ],
-									"text" : "jcom.parameter deinterlace @type msg_toggle @repetitions/allow 1 @description \"in the case of interlaced movies, decompresses both fields (at high quality), and then filters the image to reduce interlacing artifacts. REQUIRES highquality enabled\"",
+									"text" : "jcom.parameter deinterlace @type boolean @repetitions/allow 1 @description \"in the case of interlaced movies, decompresses both fields (at high quality), and then filters the image to reduce interlacing artifacts. REQUIRES highquality enabled\"",
 									"varname" : "deinterlace"
 								}
 
@@ -1674,7 +1674,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 49.5, 475.5, 608.0, 30.0 ],
-									"text" : "jcom.parameter singlefield @type msg_toggle @repetitions/allow 1 @description \"in the case of interlaced movies, decompresses only one field (at high quality), and then scales it to the full frame size. REQUIRES highquality enabled.\"",
+									"text" : "jcom.parameter singlefield @type boolean @repetitions/allow 1 @description \"in the case of interlaced movies, decompresses only one field (at high quality), and then scales it to the full frame size. REQUIRES highquality enabled.\"",
 									"varname" : "singlefield"
 								}
 
@@ -1710,7 +1710,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 28.5, 507.5, 627.0, 30.0 ],
-									"text" : "jcom.parameter highquality @type msg_toggle @repetitions/allow 1 @description \"specifies that the movie should render at the highest possible quality, at the expense of time and memory\"",
+									"text" : "jcom.parameter highquality @type boolean @repetitions/allow 1 @description \"specifies that the movie should render at the highest possible quality, at the expense of time and memory\"",
 									"varname" : "highquality"
 								}
 
@@ -2027,7 +2027,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 762.0, 391.679626, 310.0, 30.0 ],
-					"text" : "jcom.parameter rate @type msg_float @repetitions/allow 1 @priority 4 @description \"Set player rate\" @value/default 1."
+					"text" : "jcom.parameter rate @type decimal @repetitions/allow 1 @priority 4 @description \"Set player rate\" @value/default 1."
 				}
 
 			}
@@ -2042,7 +2042,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 763.0, 262.679626, 395.0, 30.0 ],
-					"text" : "jcom.parameter loop/points @type msg_list @repetitions/allow 1 @priority 3 @description \"Set player loop points in frame\""
+					"text" : "jcom.parameter loop/points @type array @repetitions/allow 1 @priority 3 @description \"Set player loop points in frame\""
 				}
 
 			}
@@ -2057,7 +2057,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 864.0, 609.679626, 231.0, 30.0 ],
-					"text" : "jcom.message frame @type msg_int @description \"Set player position in frame\""
+					"text" : "jcom.message frame @type integer @description \"Set player position in frame\""
 				}
 
 			}
@@ -2072,7 +2072,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 966.0, 559.679626, 233.0, 30.0 ],
-					"text" : "jcom.message time @type msg_float @description \"Set player position in second\""
+					"text" : "jcom.message time @type decimal @description \"Set player position in second\""
 				}
 
 			}
@@ -2246,7 +2246,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 790.0, 220.679626, 355.0, 30.0 ],
-					"text" : "jcom.parameter loop/mode @type msg_symbol @repetitions/allow 1 @priority 2 @description \"Set loop attribute.\" @value/default none",
+					"text" : "jcom.parameter loop/mode @type string @repetitions/allow 1 @priority 2 @description \"Set loop attribute.\" @value/default none",
 					"varname" : "loop"
 				}
 
@@ -2261,7 +2261,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 750.0, 25.679626, 463.0, 18.0 ],
-					"text" : "jcom.message eject @type msg_none @repetitions/allow 1 @description \"Eject the movie\""
+					"text" : "jcom.message eject @type none @repetitions/allow 1 @description \"Eject the movie\""
 				}
 
 			}
@@ -2275,7 +2275,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 750.0, 115.679626, 464.0, 18.0 ],
-					"text" : "jcom.message stop @type msg_none @repetitions/allow 1 @description \"Playback control\""
+					"text" : "jcom.message stop @type none @repetitions/allow 1 @description \"Playback control\""
 				}
 
 			}
@@ -2289,7 +2289,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 750.0, 70.679626, 463.0, 18.0 ],
-					"text" : "jcom.message play @type msg_none @repetitions/allow 1 @description \"Playback control\""
+					"text" : "jcom.message play @type none @repetitions/allow 1 @description \"Playback control\""
 				}
 
 			}
@@ -2304,7 +2304,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 310.0, 80.0, 311.0, 30.0 ],
-					"text" : "jcom.parameter movie @type msg_list @repetitions/allow 1 @priority 1 @description \"a path to a movie\""
+					"text" : "jcom.parameter movie @type array @repetitions/allow 1 @priority 1 @description \"a path to a movie\""
 				}
 
 			}

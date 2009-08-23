@@ -39,7 +39,7 @@ class JAMOMA_EXPORT RampUnit : public TTObject {
 		TTAudioObject		*functionUnit;		///< The actual functionUnit object defined by attrFunction
 
 		/** memory allocation -- sends a message "numValuesChanged" to subclasses after this has run */
-		void RampUnit::setNumValues(TTUInt32 newNumValues);
+		void setNumValues(TTUInt32 newNumValues);
 
 	public:
 		/** constructor */

@@ -63,7 +63,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 505.0, 31.0, 589.0, 28.0 ],
-					"text" : "jcom.parameter position @type msg_list @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1. 1. @range/clipmode both @description \"Current position in the space\"",
+					"text" : "jcom.parameter position @type array @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1. 1. @range/clipmode both @description \"Current position in the space\"",
 					"varname" : "position"
 				}
 
@@ -366,7 +366,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 502.0, 245.0, 589.0, 28.0 ],
-					"text" : "jcom.parameter widthclip @repetitions/allow 0 @type msg_int @range/bounds 0 25 @range/clipmode both @description \"This attribute will limit how wide the returned matrix/list of parameters.\"",
+					"text" : "jcom.parameter widthclip @repetitions/allow 0 @type integer @range/bounds 0 25 @range/clipmode both @description \"This attribute will limit how wide the returned matrix/list of parameters.\"",
 					"varname" : "widthclip"
 				}
 
@@ -415,7 +415,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 498.0, 183.0, 584.0, 28.0 ],
-					"text" : "jcom.parameter depthclip @repetitions/allow 0 @type msg_int @range/bounds 0 5 @range/clipmode both @description \"This attribute will limit how deep into the matrix to go with the interpolation.\"",
+					"text" : "jcom.parameter depthclip @repetitions/allow 0 @type integer @range/bounds 0 5 @range/clipmode both @description \"This attribute will limit how deep into the matrix to go with the interpolation.\"",
 					"varname" : "depthclip"
 				}
 
@@ -461,7 +461,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 118.0, 270.0, 133.0, 17.0 ],
-					"text" : "jcom.oscroute /panel/open"
+					"text" : "jcom.oscroute /view/panel"
 				}
 
 			}
@@ -2707,7 +2707,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1446.0, 179.0, 157.0, 72.0 ],
-									"text" : "jcom.parameter preset.1 @type msg_list @range/bounds 0. 1. @ramp/drive scheduler @range/clipmode both @description \"25 values for the preset associated with kernel 1\"",
+									"text" : "jcom.parameter preset.1 @type array @range/bounds 0. 1. @ramp/drive scheduler @range/clipmode both @description \"25 values for the preset associated with kernel 1\"",
 									"varname" : "kernel/1/center[1]"
 								}
 
@@ -2746,7 +2746,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 650.0, 221.0, 305.0, 39.0 ],
-									"text" : "jcom.parameter kernel.2/center @type msg_list @range/bounds -1. 1. @ramp/drive scheduler @range/clipmode both @description \"X/Y-Coordinate of Center Point of Kernel 2\"",
+									"text" : "jcom.parameter kernel.2/center @type array @range/bounds -1. 1. @ramp/drive scheduler @range/clipmode both @description \"X/Y-Coordinate of Center Point of Kernel 2\"",
 									"varname" : "kernel/2/center"
 								}
 
@@ -2908,7 +2908,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1125.0, 246.0, 304.0, 39.0 ],
-									"text" : "jcom.parameter kernel.1/weight @type msg_float @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode low @description \"Weight of the Kernel 1 in Y-Coordinate\"",
+									"text" : "jcom.parameter kernel.1/weight @type decimal @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode low @description \"Weight of the Kernel 1 in Y-Coordinate\"",
 									"varname" : "kernel/1/weight"
 								}
 
@@ -2957,7 +2957,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1128.0, 203.0, 300.0, 39.0 ],
-									"text" : "jcom.parameter kernel.1/size @type msg_list @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode both @description \"Size of the Kernel 1 in X/Y Coordinate\"",
+									"text" : "jcom.parameter kernel.1/size @type array @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode both @description \"Size of the Kernel 1 in X/Y Coordinate\"",
 									"varname" : "kernel/1/size"
 								}
 
@@ -3012,7 +3012,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 668.0, 133.0, 305.0, 39.0 ],
-									"text" : "jcom.parameter kernel.1/center @type msg_list @range/bounds -1. 1. @ramp/drive scheduler @range/clipmode both @description \"X/Y-Coordinate of Center Point of Kernel 1\"",
+									"text" : "jcom.parameter kernel.1/center @type array @range/bounds -1. 1. @ramp/drive scheduler @range/clipmode both @description \"X/Y-Coordinate of Center Point of Kernel 1\"",
 									"varname" : "kernel/1/center"
 								}
 
@@ -4894,7 +4894,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1053.0, 123.0, 233.0, 39.0 ],
-									"text" : "jcom.message matrix/store @type msg_none @repetitions/allow 1 @description \"open the file dialog to store a preset-matrix\"",
+									"text" : "jcom.message matrix/store @type none @repetitions/allow 1 @description \"open the file dialog to store a preset-matrix\"",
 									"varname" : "jcom.parameter.mxb[1]"
 								}
 
@@ -4912,7 +4912,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1053.0, 52.0, 244.0, 39.0 ],
-									"text" : "jcom.message matrix/open @type msg_symbol @repetitions/allow 1 @description \"open a specific preset-matrix; 0 or bang will open the file dialog\"",
+									"text" : "jcom.message matrix/open @type string @repetitions/allow 1 @description \"open a specific preset-matrix; 0 or bang will open the file dialog\"",
 									"varname" : "jcom.parameter.mxb[10]"
 								}
 
@@ -5723,7 +5723,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1446.0, 308.0, 157.0, 72.0 ],
-									"text" : "jcom.parameter preset.2 @type msg_list @range/bounds 0. 1. @ramp/drive scheduler @range/clipmode both @description \"25 values for the preset associated with kernel 2\"",
+									"text" : "jcom.parameter preset.2 @type array @range/bounds 0. 1. @ramp/drive scheduler @range/clipmode both @description \"25 values for the preset associated with kernel 2\"",
 									"varname" : "kernel/1/center[2]"
 								}
 
@@ -6094,7 +6094,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1446.0, 441.0, 157.0, 72.0 ],
-									"text" : "jcom.parameter preset.3 @type msg_list @range/bounds 0. 1. @ramp/drive scheduler @range/clipmode both @description \"25 values for the preset associated with kernel 3\"",
+									"text" : "jcom.parameter preset.3 @type array @range/bounds 0. 1. @ramp/drive scheduler @range/clipmode both @description \"25 values for the preset associated with kernel 3\"",
 									"varname" : "kernel/1/center[3]"
 								}
 
@@ -6491,7 +6491,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1446.0, 571.0, 157.0, 72.0 ],
-									"text" : "jcom.parameter preset.4 @type msg_list @range/bounds 0. 1. @ramp/drive scheduler @range/clipmode both @description \"25 values for the preset associated with kernel 4\"",
+									"text" : "jcom.parameter preset.4 @type array @range/bounds 0. 1. @ramp/drive scheduler @range/clipmode both @description \"25 values for the preset associated with kernel 4\"",
 									"varname" : "kernel/1/center[4]"
 								}
 
@@ -6862,7 +6862,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1446.0, 700.0, 159.0, 72.0 ],
-									"text" : "jcom.parameter preset.5 @type msg_list @range/bounds 0. 1. @ramp/drive scheduler @range/clipmode both @description \"25 values for the preset associated with kernel 5\"",
+									"text" : "jcom.parameter preset.5 @type array @range/bounds 0. 1. @ramp/drive scheduler @range/clipmode both @description \"25 values for the preset associated with kernel 5\"",
 									"varname" : "kernel/1/center[5]"
 								}
 
@@ -6941,7 +6941,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1137.0, 775.0, 302.0, 39.0 ],
-									"text" : "jcom.parameter kernel.5/weight @type msg_float @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode low @description \"Weight of the Kernel 5 in Y-Coordinate\"",
+									"text" : "jcom.parameter kernel.5/weight @type decimal @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode low @description \"Weight of the Kernel 5 in Y-Coordinate\"",
 									"varname" : "kernel/5/weight"
 								}
 
@@ -6990,7 +6990,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1136.0, 729.0, 298.0, 39.0 ],
-									"text" : "jcom.parameter kernel.5/size @type msg_list @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode both @description \"Size of the Kernel 1 in X/Y Coordinate\"",
+									"text" : "jcom.parameter kernel.5/size @type array @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode both @description \"Size of the Kernel 1 in X/Y Coordinate\"",
 									"varname" : "kernel/5/size"
 								}
 
@@ -7071,7 +7071,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 638.0, 584.0, 293.0, 50.0 ],
-									"text" : "jcom.parameter kernel.5/center @type msg_list @range/bounds -1. 1. @ramp/drive scheduler @range/clipmode both @description \"X/Y-Coordinate of Center Point of Kernel 5\"",
+									"text" : "jcom.parameter kernel.5/center @type array @range/bounds -1. 1. @ramp/drive scheduler @range/clipmode both @description \"X/Y-Coordinate of Center Point of Kernel 5\"",
 									"varname" : "kernel/5/center"
 								}
 
@@ -7134,7 +7134,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1131.0, 648.0, 304.0, 39.0 ],
-									"text" : "jcom.parameter kernel.4/weight @type msg_float @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode low @description \"Weight of the Kernel 4 in Y-Coordinate\"",
+									"text" : "jcom.parameter kernel.4/weight @type decimal @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode low @description \"Weight of the Kernel 4 in Y-Coordinate\"",
 									"varname" : "kernel/4/weight"
 								}
 
@@ -7183,7 +7183,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1134.0, 605.0, 300.0, 39.0 ],
-									"text" : "jcom.parameter kernel.4/size @type msg_list @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode both @description \"Size of the Kernel 4 in X/Y Coordinate\"",
+									"text" : "jcom.parameter kernel.4/size @type array @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode both @description \"Size of the Kernel 4 in X/Y Coordinate\"",
 									"varname" : "kernel/4/size"
 								}
 
@@ -7254,7 +7254,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 618.0, 458.0, 305.0, 39.0 ],
-									"text" : "jcom.parameter kernel.4/center @type msg_list @range/bounds -1. 1. @ramp/drive scheduler @range/clipmode both @description \"X/Y-Coordinate of Center Point of Kernel 4\"",
+									"text" : "jcom.parameter kernel.4/center @type array @range/bounds -1. 1. @ramp/drive scheduler @range/clipmode both @description \"X/Y-Coordinate of Center Point of Kernel 4\"",
 									"varname" : "kernel/4/center"
 								}
 
@@ -7317,7 +7317,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1129.0, 514.0, 304.0, 39.0 ],
-									"text" : "jcom.parameter kernel.3/weight @type msg_float @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode low @description \"Weight of the Kernel 3 in Y-Coordinate\"",
+									"text" : "jcom.parameter kernel.3/weight @type decimal @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode low @description \"Weight of the Kernel 3 in Y-Coordinate\"",
 									"varname" : "kernel/3/weight"
 								}
 
@@ -7366,7 +7366,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1132.0, 471.0, 300.0, 39.0 ],
-									"text" : "jcom.parameter kernel.3/size @type msg_list @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode both @description \"Size of the Kernel 3 in X/Y Coordinate\"",
+									"text" : "jcom.parameter kernel.3/size @type array @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode both @description \"Size of the Kernel 3 in X/Y Coordinate\"",
 									"varname" : "kernel/3/size"
 								}
 
@@ -7447,7 +7447,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 628.0, 327.0, 305.0, 39.0 ],
-									"text" : "jcom.parameter kernel.3/center @type msg_list @range/bounds -1. 1. @ramp/drive scheduler @range/clipmode both @description \"X/Y-Coordinate of Center Point of Kernel 3\"",
+									"text" : "jcom.parameter kernel.3/center @type array @range/bounds -1. 1. @ramp/drive scheduler @range/clipmode both @description \"X/Y-Coordinate of Center Point of Kernel 3\"",
 									"varname" : "kernel/3/center"
 								}
 
@@ -7510,7 +7510,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1127.0, 380.0, 304.0, 39.0 ],
-									"text" : "jcom.parameter kernel.2/weight @type msg_float @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode low @description \"Weight of the Kernel 2 in Y-Coordinate\"",
+									"text" : "jcom.parameter kernel.2/weight @type decimal @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode low @description \"Weight of the Kernel 2 in Y-Coordinate\"",
 									"varname" : "kernel/2/weight"
 								}
 
@@ -7599,7 +7599,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 1130.0, 337.0, 300.0, 39.0 ],
-									"text" : "jcom.parameter kernel.2/size @type msg_list @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode both @description \"Size of the Kernel 2 in X/Y Coordinate\"",
+									"text" : "jcom.parameter kernel.2/size @type array @range/bounds 0. 3. @ramp/drive scheduler @range/clipmode both @description \"Size of the Kernel 2 in X/Y Coordinate\"",
 									"varname" : "kernel/2/size"
 								}
 
@@ -9045,7 +9045,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 497.0, 125.0, 404.0, 28.0 ],
-					"text" : "jcom.parameter interpolation @repetitions/allow 0 @type msg_toggle @range/bounds 0 1 @range/clipmode both @description \"Turn on/off data_matrix interpolation\"",
+					"text" : "jcom.parameter interpolation @repetitions/allow 0 @type boolean @range/bounds 0 1 @range/clipmode both @description \"Turn on/off data_matrix interpolation\"",
 					"varname" : "interpolation"
 				}
 

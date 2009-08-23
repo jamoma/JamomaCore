@@ -5,23 +5,27 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='audio/active' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/gain' type='msg_float' priority='0'>0.000000</item>
-    <item name='ch.1' type='msg_int' priority='0'>1</item>
-    <item name='ch.2' type='msg_int' priority='0'>2</item>
-    <item name='limiter/active' type='msg_toggle' priority='0'>1</item>
-    <item name='limiter/dcblocker/active' type='msg_toggle' priority='0'>1</item>
-    <item name='limiter/lookahead' type='msg_int' priority='0'>64</item>
-    <item name='limiter/mode' type='msg_symbol' priority='0'>exponential</item>
-    <item name='limiter/postamp' type='msg_float' priority='0'>0.000000</item>
-    <item name='limiter/preamp' type='msg_float' priority='0'>6.000000</item>
-    <item name='limiter/release' type='msg_float' priority='0'>300.000000</item>
-    <item name='limiter/threshold' type='msg_float' priority='0'>-6.000000</item>
-    <item name='record/active' type='msg_toggle' priority='0'>0</item>
-    <item name='record/filetype' type='msg_symbol' priority='0'>aiff</item>
-    <item name='record/samptype' type='msg_symbol' priority='0'>int24</item>
-    <item name='saturation/active' type='msg_toggle' priority='0'>1</item>
-    <item name='saturation/depth' type='msg_float' priority='0'>10.000000</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/active' type='boolean' priority='0'>0</item>
+    <item name='audio/gain' type='decimal' priority='0'>0.000000</item>
+    <item name='ch.1' type='integer' priority='0'>1</item>
+    <item name='ch.2' type='integer' priority='0'>2</item>
+    <item name='limiter/active' type='boolean' priority='0'>1</item>
+    <item name='limiter/dcblocker/active' type='boolean' priority='0'>1</item>
+    <item name='limiter/lookahead' type='integer' priority='0'>64</item>
+    <item name='limiter/mode' type='string' priority='0'>exponential</item>
+    <item name='limiter/postamp' type='decimal' priority='0'>0.000000</item>
+    <item name='limiter/preamp' type='decimal' priority='0'>6.000000</item>
+    <item name='limiter/release' type='decimal' priority='0'>300.000000</item>
+    <item name='limiter/threshold' type='decimal' priority='0'>-6.000000</item>
+    <item name='record/filetype' type='string' priority='0'>aiff</item>
+    <item name='record/samptype' type='string' priority='0'>int24</item>
+    <item name='saturation/active' type='boolean' priority='0'>1</item>
+    <item name='saturation/depth' type='decimal' priority='0'>10.000000</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/color/border' type='array' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
+    <item name='view/size' type='array' priority='0'>300 140 </item>
   </preset>
 </jamoma>

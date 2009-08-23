@@ -5,17 +5,17 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='center' type='msg_float' priority='0'>0.551661</item>
-    <item name='freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='period' type='msg_int' priority='0'>398</item>
-    <item name='randomness' type='msg_int' priority='0'>643</item>
-    <item name='range' type='msg_float' priority='0'>0.232472</item>
-    <item name='step' type='msg_float' priority='0'>0</item>
-    <item name='toggle' type='msg_toggle' priority='0'>0</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
+    <item name='center' type='decimal' priority='0'>0.551661</item>
+    <item name='freeze' type='boolean' priority='0'>0</item>
+    <item name='period' type='integer' priority='0'>398</item>
+    <item name='randomness' type='integer' priority='0'>643</item>
+    <item name='range' type='decimal' priority='0'>0.232472</item>
+    <item name='step' type='decimal' priority='0'>0</item>
+    <item name='toggle' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
+    <item name='view/color/border' type='array' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='array' priority='0'>0</item>
   </preset>
 </jamoma>

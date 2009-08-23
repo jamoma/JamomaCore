@@ -73,7 +73,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	jcom_core_file_writeline(&file_handle, &myEof, "\t<div id=\"jmod_header\">");
 
 	// Top of page displaying name of module etc.
-	jcom_core_file_writeline(&file_handle, &myEof, "\t<img src=\"../../../documentation/graphics/jmod.icon.mod.png\" width=\"128\" height=\"128\">");	
+	jcom_core_file_writeline(&file_handle, &myEof, "\t<img src=\"../../../documentation/graphics/jmodular.icon.png\" width=\"128\" height=\"128\">");	
 	snprintf(tempstring, 1024, "\t<h1> %s </h1>", x->attr_name->s_name);
 	jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 	snprintf(tempstring, 1024, "\t<h2> %s </h2>", x->attr_description->s_name);
@@ -257,9 +257,9 @@ void hub_autodoc_node(t_filehandle *file_handle, long *myEof, t_subscriber* t)
 	object_attr_getvalueof(t->object, jps_range_bounds, &argc, &argv);
 	range[0] = atom_getfloat(argv);
 	range[1] = atom_getfloat(argv+1);
-	if( (msg_type==jps_msg_int) || (msg_type==jps_msg_toggle) )
+	if( (msg_type==jps_integer) || (msg_type==jps_boolean) )
 		snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionRangeBounds\"> %ld %ld </td>", (long)range[0], (long)range[1]);
-	else if ( (msg_type==jps_msg_float) || (msg_type==jps_msg_generic) )
+	else if ( (msg_type==jps_decimal) || (msg_type==jps_generic) )
 		snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionRangeBounds\"> %f %f </td>", range[0], range[1]);
 	else
 		snprintf(tempstring, 1024, "\t\t\t<th class = \"instructionRangeBounds\"> N/A </td>");

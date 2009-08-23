@@ -5,22 +5,22 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='source.1/blur' type='msg_float' priority='0'>0.000000</item>
-    <item name='source.1/position' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
-    <item name='source.2/blur' type='msg_float' priority='0'>0.000000</item>
-    <item name='source.2/position' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
-    <item name='source.3/blur' type='msg_float' priority='0'>0.000000</item>
-    <item name='source.3/position' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
-    <item name='source.4/blur' type='msg_float' priority='0'>0</item>
-    <item name='source.4/position' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
-    <item name='source.5/blur' type='msg_float' priority='0'>0</item>
-    <item name='source.5/position' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
-    <item name='source.6/blur' type='msg_float' priority='0'>0</item>
-    <item name='source.6/position' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
-    <item name='source.7/blur' type='msg_float' priority='0'>0</item>
-    <item name='source.7/position' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
-    <item name='source.8/blur' type='msg_float' priority='0'>0</item>
-    <item name='source.8/position' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='source.1/blur' type='decimal' priority='0'>0.000000</item>
+    <item name='source.1/position' type='array' priority='0'>0.000000 0.000000 0.000000 </item>
+    <item name='source.2/blur' type='decimal' priority='0'>0.000000</item>
+    <item name='source.2/position' type='array' priority='0'>0.000000 0.000000 0.000000 </item>
+    <item name='source.3/blur' type='decimal' priority='0'>0.000000</item>
+    <item name='source.3/position' type='array' priority='0'>0.000000 0.000000 0.000000 </item>
+    <item name='source.4/blur' type='decimal' priority='0'>0</item>
+    <item name='source.4/position' type='array' priority='0'>0.000000 0.000000 0.000000 </item>
+    <item name='source.5/blur' type='decimal' priority='0'>0</item>
+    <item name='source.5/position' type='array' priority='0'>0.000000 0.000000 0.000000 </item>
+    <item name='source.6/blur' type='decimal' priority='0'>0</item>
+    <item name='source.6/position' type='array' priority='0'>0.000000 0.000000 0.000000 </item>
+    <item name='source.7/blur' type='decimal' priority='0'>0</item>
+    <item name='source.7/position' type='array' priority='0'>0.000000 0.000000 0.000000 </item>
+    <item name='source.8/blur' type='decimal' priority='0'>0</item>
+    <item name='source.8/position' type='array' priority='0'>0.000000 0.000000 0.000000 </item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
   </preset>
 </jamoma>

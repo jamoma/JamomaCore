@@ -754,7 +754,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 410.0, 48.0, 604.0, 31.0 ],
-					"text" : "jcom.parameter numDemodulators @repetitions/allow 1 @type msg_int @range/bounds 1 32 @range/clipmode both @priority 0 @description \"Number of speaker channels in the arrangement.\"",
+					"text" : "jcom.parameter numDemodulators @repetitions/allow 1 @type integer @range/bounds 1 32 @range/clipmode both @priority 0 @description \"Number of speaker channels in the arrangement.\"",
 					"varname" : "voices"
 				}
 
@@ -811,7 +811,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 207.0, 212.0, 19.0 ],
-					"text" : "jcom.oscroute /panel/open /audio/mute"
+					"text" : "jcom.oscroute /view/panel /audio/mute"
 				}
 
 			}

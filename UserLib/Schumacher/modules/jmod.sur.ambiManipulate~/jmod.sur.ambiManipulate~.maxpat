@@ -277,7 +277,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 629.0, 160.0, 590.0, 31.0 ],
-					"text" : "jcom.parameter flip/x @type msg_toggle @repetitions/allow 0 @range/bounds 0 1 @value/default 0 @description \"Flip soundfield along the x axis\"",
+					"text" : "jcom.parameter flip/x @type boolean @repetitions/allow 0 @range/bounds 0 1 @value/default 0 @description \"Flip soundfield along the x axis\"",
 					"varname" : "voices[5]"
 				}
 
@@ -293,7 +293,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 629.0, 194.0, 590.0, 31.0 ],
-					"text" : "jcom.parameter flip/y @type msg_toggle @repetitions/allow 0 @range/bounds 0 1 @value/default 0 @description \"Flip soundfield along the y axis\"",
+					"text" : "jcom.parameter flip/y @type boolean @repetitions/allow 0 @range/bounds 0 1 @value/default 0 @description \"Flip soundfield along the y axis\"",
 					"varname" : "voices[4]"
 				}
 
@@ -309,7 +309,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 629.0, 228.0, 589.0, 31.0 ],
-					"text" : "jcom.parameter flip/z @type msg_toggle @repetitions/allow 0 @range/bounds 0 1 @value/default 0 @description \"Flip soundfield along the z axis\"",
+					"text" : "jcom.parameter flip/z @type boolean @repetitions/allow 0 @range/bounds 0 1 @value/default 0 @description \"Flip soundfield along the z axis\"",
 					"varname" : "voices[3]"
 				}
 
@@ -325,7 +325,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 629.0, 88.0, 570.0, 31.0 ],
-					"text" : "jcom.parameter rotate/z @type msg_float @repetitions/allow 0 @range/bounds 0 360 @range/clipmode wrap @value/default 0. @description \"The amount of rotation of the x-axis (pitch) in degrees\"",
+					"text" : "jcom.parameter rotate/z @type decimal @repetitions/allow 0 @range/bounds 0 360 @range/clipmode wrap @value/default 0. @description \"The amount of rotation of the x-axis (pitch) in degrees\"",
 					"varname" : "voices[2]"
 				}
 
@@ -341,7 +341,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 629.0, 55.0, 570.0, 31.0 ],
-					"text" : "jcom.parameter rotate/y @type msg_float @repetitions/allow 0 @range/bounds 0 360 @range/clipmode wrap @value/default 0. @description \"The amount of rotation of the y-axis (roll) in degrees\"",
+					"text" : "jcom.parameter rotate/y @type decimal @repetitions/allow 0 @range/bounds 0 360 @range/clipmode wrap @value/default 0. @description \"The amount of rotation of the y-axis (roll) in degrees\"",
 					"varname" : "voices[1]"
 				}
 
@@ -526,7 +526,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 629.0, 266.0, 596.0, 29.0 ],
-					"text" : "jcom.message report @repetitions/allow 1 @type msg_generic @description \"reports the state of the ambi.rotate~ and ambi.mirror~ externals in the max window\""
+					"text" : "jcom.message report @repetitions/allow 1 @type generic @description \"reports the state of the ambi.rotate~ and ambi.mirror~ externals in the max window\""
 				}
 
 			}
@@ -720,7 +720,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 629.0, 21.0, 570.0, 31.0 ],
-					"text" : "jcom.parameter rotate/x @type msg_float @repetitions/allow 0 @range/bounds 0 360 @range/clipmode wrap @value/default 0. @description \"The amount of rotation of the x-axis (yaw) in degrees\"",
+					"text" : "jcom.parameter rotate/x @type decimal @repetitions/allow 0 @range/bounds 0 360 @range/clipmode wrap @value/default 0. @description \"The amount of rotation of the x-axis (yaw) in degrees\"",
 					"varname" : "voices"
 				}
 

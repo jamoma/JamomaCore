@@ -6,17 +6,17 @@
 >
 	
 	<preset number="1" name="default">
-		<item name="video/preview" type="msg_int">0</item>
-		<item name="video/bypass" type="msg_int">0</item>
-		<item name="video/freeze" type="msg_int">0</item>
-		<item name="video/mute" type="msg_int">0</item>
-		<item name="x_range" type="msg_int">30</item>
-		<item name="y_range" type="msg_int">30</item>
-		<item name="y_step" type="msg_int">30</item>
-		<item name="x_step" type="msg_int">30</item>
-		<item name="gang" type="msg_int">1</item>
-		<item name="mode" type="msg_int">0</item>
-		<item name="scale" type="msg_int">8</item>
-		<item name="colormode" type="msg_int">0</item>
+		<item name="video/preview" type="integer">0</item>
+		<item name="video/bypass" type="integer">0</item>
+		<item name="video/freeze" type="integer">0</item>
+		<item name="video/mute" type="integer">0</item>
+		<item name="x_range" type="integer">30</item>
+		<item name="y_range" type="integer">30</item>
+		<item name="y_step" type="integer">30</item>
+		<item name="x_step" type="integer">30</item>
+		<item name="gang" type="integer">1</item>
+		<item name="mode" type="integer">0</item>
+		<item name="scale" type="integer">8</item>
+		<item name="colormode" type="integer">0</item>
     </preset>
 </jamoma>

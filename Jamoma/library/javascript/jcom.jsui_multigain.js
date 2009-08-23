@@ -54,6 +54,8 @@ sketch.default2d();
 inlets = 1;
 outlets = 2;
 
+isInitiated = 0;
+
 
 // INITIALIZATION
 function init()
@@ -75,7 +77,7 @@ function init()
 		mode(jsarguments[3]);
 	else
 		mode(0);
-		
+
 	if (jsarguments.length>4)
 		group(jsarguments[4]);
 	else
@@ -89,6 +91,7 @@ function init()
 	onresize();
 	draw();			// writes to the off-screen buffer
 	refresh();		// copies the buffer to the screen
+	isInitiated = 1;
 }
 init.local = 1;		// hide the init function
 init();				// run the init function
@@ -348,9 +351,10 @@ function mode(v)
 		for (var i=0; i<num_voices; i++)
 			gain_left[i] = 0.5;
 	}
-	draw();
-	refresh();
-	bang();
+	
+	// prevent output in the init method:
+	if (isInitiated)
+		bang();
 }
 
 

@@ -6,7 +6,7 @@
 		"defrect" : [ 63.0, 50.0, 925.0, 678.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
-		"default_fontsize" : 10.970939,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -214,7 +214,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "delay/right",
-					"text" : "jcom.parameter delay/right @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000000 @range/clipmode both @description \"Delay time in samples for right channel.\"",
+					"text" : "jcom.parameter delay/right @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000000 @range/clipmode both @description \"Delay time in samples for right channel.\"",
 					"linecount" : 3,
 					"patching_rect" : [ 555.0, 155.0, 365.0, 43.0 ],
 					"outlettype" : [ "", "", "" ],
@@ -308,7 +308,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "delay/left",
-					"text" : "jcom.parameter delay/left @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000000 @range/clipmode both @description \"Delay time in samples for left channel.\"",
+					"text" : "jcom.parameter delay/left @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000000 @range/clipmode both @description \"Delay time in samples for left channel.\"",
 					"linecount" : 3,
 					"patching_rect" : [ 555.0, 80.0, 364.0, 43.0 ],
 					"outlettype" : [ "", "", "" ],
@@ -355,7 +355,7 @@
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-24",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 0
 				}
 

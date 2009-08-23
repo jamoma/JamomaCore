@@ -1,11 +1,11 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 267.0, 75.0, 877.0, 531.0 ],
+		"rect" : [ 51.0, 54.0, 1137.0, 700.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 267.0, 75.0, 877.0, 531.0 ],
+		"defrect" : [ 51.0, 54.0, 1137.0, 700.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
-		"openinpresentation" : 0,
+		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
@@ -16,6 +16,60 @@
 		"boxanimatetime" : 200,
 		"imprint" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-51",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 430.0, 465.0, 141.0, 19.0 ],
+					"text" : "jcom.meter_receive 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-26",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 430.0, 420.0, 141.0, 19.0 ],
+					"text" : "jcom.meter_receive 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-36",
+					"maxclass" : "jcom.meter~",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 430.0, 490.0, 80.0, 4.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 151.0, 10.0, 80.0, 4.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-38",
+					"maxclass" : "jcom.meter~",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 430.0, 445.0, 80.0, 4.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 151.0, 5.0, 80.0, 4.0 ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -47,18 +101,16 @@
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
-					"bordercolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"hbgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"id" : "obj-3",
 					"maxclass" : "flonum",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 135.0, 35.0, 43.0, 19.0 ],
-					"textcolor" : [ 0.709804, 0.709804, 0.709804, 1.0 ],
+					"patching_rect" : [ 375.0, 310.0, 43.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 135.0, 25.0, 43.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "left.shift[7]"
@@ -75,8 +127,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 315.0, 255.0, 585.0, 43.0 ],
-					"text" : "jcom.parameter damping @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
+					"patching_rect" : [ 430.0, 310.0, 585.0, 43.0 ],
+					"text" : "jcom.parameter damping @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
 					"varname" : "damping"
 				}
 
@@ -85,31 +137,30 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-5",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 85.0, 35.0, 52.0, 19.0 ],
-					"text" : "damping",
-					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ]
+					"patching_rect" : [ 85.0, 25.0, 52.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 85.0, 25.0, 52.0, 19.0 ],
+					"text" : "damping"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
-					"bordercolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"hbgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"id" : "obj-6",
 					"maxclass" : "flonum",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 135.0, 20.0, 43.0, 19.0 ],
-					"textcolor" : [ 0.709804, 0.709804, 0.709804, 1.0 ],
+					"patching_rect" : [ 375.0, 258.0, 43.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 35.0, 45.0, 43.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "left.shift[6]"
@@ -118,38 +169,16 @@
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
-					"bordercolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"hbgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
-					"id" : "obj-7",
-					"maxclass" : "flonum",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 35.0, 25.0, 43.0, 19.0 ],
-					"textcolor" : [ 0.709804, 0.709804, 0.709804, 1.0 ],
-					"triangle" : 0,
-					"triscale" : 0.9,
-					"varname" : "left.shift[5]"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
-					"bordercolor" : [ 1.0, 1.0, 1.0, 0.0 ],
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"hbgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"id" : "obj-8",
 					"maxclass" : "flonum",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 35.0, 40.0, 43.0, 19.0 ],
-					"textcolor" : [ 0.709804, 0.709804, 0.709804, 1.0 ],
+					"patching_rect" : [ 375.0, 211.0, 43.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 35.0, 25.0, 43.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "left.shift[4]"
@@ -166,26 +195,24 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 315.0, 111.0, 582.0, 43.0 ],
-					"text" : "jcom.parameter lowpass @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
+					"patching_rect" : [ 430.0, 160.0, 582.0, 43.0 ],
+					"text" : "jcom.parameter lowpass @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
 					"varname" : "lowpass"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
-					"bordercolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"hbgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"id" : "obj-10",
 					"maxclass" : "flonum",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 135.0, 50.0, 43.0, 19.0 ],
-					"textcolor" : [ 0.709804, 0.709804, 0.709804, 1.0 ],
+					"patching_rect" : [ 375.0, 159.0, 43.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 135.0, 45.0, 43.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "left.shift[3]"
@@ -196,31 +223,30 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-11",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 90.0, 50.0, 48.0, 19.0 ],
-					"text" : "lowpass",
-					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ]
+					"patching_rect" : [ 90.0, 45.0, 48.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 90.0, 45.0, 48.0, 19.0 ],
+					"text" : "lowpass"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
-					"bordercolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"hbgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"id" : "obj-12",
 					"maxclass" : "flonum",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 250.0, 25.0, 43.0, 19.0 ],
-					"textcolor" : [ 0.709804, 0.709804, 0.709804, 1.0 ],
+					"patching_rect" : [ 375.0, 60.0, 43.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 250.0, 25.0, 43.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "left.shift[2]"
@@ -237,8 +263,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 315.0, 15.0, 584.0, 43.0 ],
-					"text" : "jcom.parameter modfreq @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
+					"patching_rect" : [ 430.0, 60.0, 584.0, 43.0 ],
+					"text" : "jcom.parameter modfreq @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
 					"varname" : "modfreq"
 				}
 
@@ -253,8 +279,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 315.0, 63.0, 593.0, 43.0 ],
-					"text" : "jcom.parameter moddepth @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
+					"patching_rect" : [ 430.0, 110.0, 593.0, 43.0 ],
+					"text" : "jcom.parameter moddepth @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
 					"varname" : "moddepth"
 				}
 
@@ -263,31 +289,30 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-15",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 190.0, 40.0, 59.0, 19.0 ],
-					"text" : "moddepth",
-					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ]
+					"patching_rect" : [ 190.0, 45.0, 59.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 190.0, 45.0, 59.0, 19.0 ],
+					"text" : "moddepth"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
-					"bordercolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"hbgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"id" : "obj-16",
 					"maxclass" : "flonum",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 250.0, 40.0, 43.0, 19.0 ],
-					"textcolor" : [ 0.709804, 0.709804, 0.709804, 1.0 ],
+					"patching_rect" : [ 375.0, 112.0, 43.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 250.0, 45.0, 43.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "left.shift[1]"
@@ -298,14 +323,15 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-17",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 200.0, 25.0, 50.0, 19.0 ],
-					"text" : "modfreq",
-					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ]
+					"presentation" : 1,
+					"presentation_rect" : [ 200.0, 25.0, 50.0, 19.0 ],
+					"text" : "modfreq"
 				}
 
 			}
@@ -319,8 +345,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 315.0, 207.0, 573.0, 43.0 ],
-					"text" : "jcom.parameter delay @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
+					"patching_rect" : [ 430.0, 260.0, 573.0, 43.0 ],
+					"text" : "jcom.parameter delay @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
 					"varname" : "delay"
 				}
 
@@ -329,30 +355,15 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-19",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 100.0, 20.0, 35.0, 19.0 ],
-					"text" : "delay",
-					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-20",
-					"linecount" : 3,
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 315.0, 304.0, 571.0, 43.0 ],
-					"text" : "jcom.parameter mix @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 100. @range/clipmode both @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
-					"varname" : "mix"
+					"patching_rect" : [ 0.0, 45.0, 35.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 0.0, 45.0, 35.0, 19.0 ],
+					"text" : "delay"
 				}
 
 			}
@@ -366,8 +377,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 315.0, 159.0, 573.0, 43.0 ],
-					"text" : "jcom.parameter decay @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
+					"patching_rect" : [ 430.0, 210.0, 573.0, 43.0 ],
+					"text" : "jcom.parameter decay @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -48. 48. @range/clipmode none @description \"The amount of pitch shift in semitones to apply tp both the left and right channels.\"",
 					"varname" : "decay"
 				}
 
@@ -376,29 +387,15 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-22",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 40.0, 38.0, 19.0 ],
-					"text" : "decay",
-					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
-					"id" : "obj-23",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 25.0, 27.0, 19.0 ],
-					"text" : "mix",
-					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ]
+					"patching_rect" : [ 0.0, 25.0, 38.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 0.0, 25.0, 38.0, 19.0 ],
+					"text" : "decay"
 				}
 
 			}
@@ -543,6 +540,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"prefix" : "audio",
+					"presentation" : 1,
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"text" : "/editing_this_module"
 				}
 
@@ -550,19 +549,19 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
-					"hidden" : 1,
+					"destination" : [ "obj-38", 0 ],
+					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-20", 0 ]
+					"source" : [ "obj-26", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-20", 0 ],
-					"hidden" : 1,
+					"destination" : [ "obj-36", 0 ],
+					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-7", 0 ]
+					"source" : [ "obj-51", 0 ]
 				}
 
 			}

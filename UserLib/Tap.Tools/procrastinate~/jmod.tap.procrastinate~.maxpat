@@ -324,7 +324,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 357.0, 531.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 4/pan/max @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 4/pan/max @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "4/pan/max"
 								}
 
@@ -341,7 +341,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 357.0, 498.0, 346.0, 28.0 ],
-									"text" : "jcom.parameter 4/pan/min @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 4/pan/min @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "4/pan/min"
 								}
 
@@ -358,7 +358,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 11.0, 531.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 4/gain/max @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 4/gain/max @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "4/gain/max"
 								}
 
@@ -375,7 +375,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 11.0, 498.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 4/gain/min @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 4/gain/min @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "4/gain/min"
 								}
 
@@ -392,7 +392,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 357.0, 466.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 4/shift/max @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 4/shift/max @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "4/shift/max"
 								}
 
@@ -409,7 +409,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 357.0, 433.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 4/shift/min @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 4/shift/min @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "4/shift/min"
 								}
 
@@ -426,7 +426,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 11.0, 466.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 4/delay/max @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 4/delay/max @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "4/delay/max"
 								}
 
@@ -443,7 +443,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 11.0, 433.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 4/delay/min @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 4/delay/min @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "4/delay/min"
 								}
 
@@ -699,7 +699,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 647.0, 390.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 3/pan/max @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 3/pan/max @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "3/pan/max"
 								}
 
@@ -716,7 +716,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 647.0, 357.0, 346.0, 28.0 ],
-									"text" : "jcom.parameter 3/pan/min @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 3/pan/min @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "3/pan/min"
 								}
 
@@ -733,7 +733,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 301.0, 390.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 3/gain/max @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 3/gain/max @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "3/gain/max"
 								}
 
@@ -750,7 +750,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 301.0, 357.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 3/gain/min @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 3/gain/min @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "3/gain/min"
 								}
 
@@ -767,7 +767,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 647.0, 325.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 3/shift/max @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 3/shift/max @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "3/shift/max"
 								}
 
@@ -784,7 +784,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 647.0, 292.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 3/shift/min @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 3/shift/min @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "3/shift/min"
 								}
 
@@ -801,7 +801,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 301.0, 325.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 3/delay/max @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 3/delay/max @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "3/delay/max"
 								}
 
@@ -818,7 +818,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 301.0, 292.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 3/delay/min @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 3/delay/min @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "3/delay/min"
 								}
 
@@ -1074,7 +1074,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 647.0, 249.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 2/pan/max @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 2/pan/max @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "2/pan/max"
 								}
 
@@ -1091,7 +1091,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 647.0, 216.0, 346.0, 28.0 ],
-									"text" : "jcom.parameter 2/pan/min @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 2/pan/min @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "2/pan/min"
 								}
 
@@ -1108,7 +1108,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 301.0, 249.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 2/gain/max @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 2/gain/max @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "2/gain/max"
 								}
 
@@ -1125,7 +1125,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 301.0, 216.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 2/gain/min @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 2/gain/min @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "2/gain/min"
 								}
 
@@ -1142,7 +1142,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 647.0, 184.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 2/shift/max @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 2/shift/max @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "2/shift/max"
 								}
 
@@ -1159,7 +1159,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 647.0, 151.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 2/shift/min @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 2/shift/min @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "2/shift/min"
 								}
 
@@ -1176,7 +1176,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 301.0, 184.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 2/delay/max @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 2/delay/max @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "2/delay/max"
 								}
 
@@ -1193,7 +1193,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 301.0, 151.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 2/delay/min @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 2/delay/min @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "2/delay/min"
 								}
 
@@ -1504,7 +1504,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 647.0, 109.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 1/pan/max @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 1/pan/max @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "1/pan/max"
 								}
 
@@ -1521,7 +1521,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 647.0, 76.0, 346.0, 28.0 ],
-									"text" : "jcom.parameter 1/pan/min @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 1/pan/min @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "1/pan/min"
 								}
 
@@ -1538,7 +1538,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 301.0, 109.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 1/gain/max @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 1/gain/max @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "1/gain/max"
 								}
 
@@ -1555,7 +1555,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 301.0, 76.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 1/gain/min @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 1/gain/min @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "1/gain/min"
 								}
 
@@ -1572,7 +1572,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 647.0, 44.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 1/shift/max @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 1/shift/max @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "1/shift/max"
 								}
 
@@ -1589,7 +1589,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 647.0, 11.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 1/shift/min @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 1/shift/min @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "1/shift/min"
 								}
 
@@ -1606,7 +1606,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 301.0, 44.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 1/delay/max @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 1/delay/max @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "1/delay/max"
 								}
 
@@ -1623,7 +1623,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 301.0, 11.0, 342.0, 28.0 ],
-									"text" : "jcom.parameter 1/delay/min @type msg_float @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
+									"text" : "jcom.parameter 1/delay/min @type decimal @description \"Set the range of the for the generated parameter values used by this delay unit.\"",
 									"varname" : "1/delay/min"
 								}
 
@@ -2331,7 +2331,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 181.0, 86.0, 334.0, 43.0 ],
-					"text" : "jcom.message generate_parameters @type msg_none @description \"Generates new, random, parameters for all delay settings based on the ranges specified in the rules below.\"",
+					"text" : "jcom.message generate_parameters @type none @description \"Generates new, random, parameters for all delay settings based on the ranges specified in the rules below.\"",
 					"varname" : "jmod.parameter.mxb"
 				}
 

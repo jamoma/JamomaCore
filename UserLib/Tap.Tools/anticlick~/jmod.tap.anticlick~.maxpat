@@ -119,7 +119,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 328.0, 405.0, 597.0, 43.0 ],
-					"text" : "jcom.parameter thresh @ramp/drive scheduler @type msg_float @repetitions/allow 0 @description \"Threshold that determines how large a jump in consecutive samples will be required before applying pop reduction.\" @range/bounds 0. 1000. @range/clipmode low",
+					"text" : "jcom.parameter thresh @ramp/drive scheduler @type decimal @repetitions/allow 0 @description \"Threshold that determines how large a jump in consecutive samples will be required before applying pop reduction.\" @range/bounds 0. 1000. @range/clipmode low",
 					"varname" : "thresh"
 				}
 
@@ -135,7 +135,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 328.0, 355.0, 597.0, 31.0 ],
-					"text" : "jcom.parameter response @ramp/drive scheduler @type msg_float @repetitions/allow 0 @description \"How quickly does the frequency content of the signal shift internal settings.\" @range/bounds 0. 1000. @range/clipmode low",
+					"text" : "jcom.parameter response @ramp/drive scheduler @type decimal @repetitions/allow 0 @description \"How quickly does the frequency content of the signal shift internal settings.\" @range/bounds 0. 1000. @range/clipmode low",
 					"varname" : "response"
 				}
 
@@ -151,7 +151,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 328.0, 310.0, 597.0, 31.0 ],
-					"text" : "jcom.parameter analysis_size @ramp/drive scheduler @type msg_float @repetitions/allow 0 @description \"Number of samples long each analysis block will be.\" @range/bounds 0. 1000. @range/clipmode low",
+					"text" : "jcom.parameter analysis_size @ramp/drive scheduler @type decimal @repetitions/allow 0 @description \"Number of samples long each analysis block will be.\" @range/bounds 0. 1000. @range/clipmode low",
 					"varname" : "analysis_size"
 				}
 

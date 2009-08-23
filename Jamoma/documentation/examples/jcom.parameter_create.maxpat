@@ -1154,7 +1154,7 @@
 					"maxclass" : "umenu",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"items" : [ ",", "msg_float", ",", "msg_generic", ",", "msg_int", ",", "msg_list", ",", "msg_none", ",", "msg_symbol" ],
+					"items" : [ ",", "decimal", ",", "generic", ",", "integer", ",", "array", ",", "none", ",", "string" ],
 					"fontsize" : 10.0,
 					"types" : [  ],
 					"numoutlets" : 3,

@@ -6,15 +6,15 @@
 >
 	
 	<preset number="1" name="default">
-		<item name="video/preview" type="msg_int">0</item>
-		<item name="video/bypass" type="msg_int">0</item>
-		<item name="video/freeze" type="msg_int">0</item>
-		<item name="video/mute" type="msg_int">0</item>
-		<item name="tint/green" type="msg_float">0.4</item>
-		<item name="tint/red" type="msg_float">0.4</item>
-		<item name="tint/blue" type="msg_float">0.4</item>
-		<item name="mask/green" type="msg_float">0.</item>
-		<item name="mask/red" type="msg_float">11.</item>
-		<item name="mask/blue" type="msg_float">0.</item>
+		<item name="video/preview" type="integer">0</item>
+		<item name="video/bypass" type="integer">0</item>
+		<item name="video/freeze" type="integer">0</item>
+		<item name="video/mute" type="integer">0</item>
+		<item name="tint/green" type="decimal">0.4</item>
+		<item name="tint/red" type="decimal">0.4</item>
+		<item name="tint/blue" type="decimal">0.4</item>
+		<item name="mask/green" type="decimal">0.</item>
+		<item name="mask/red" type="decimal">11.</item>
+		<item name="mask/blue" type="decimal">0.</item>
     </preset>
 </jamoma>

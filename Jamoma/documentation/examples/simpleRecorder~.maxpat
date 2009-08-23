@@ -6,7 +6,7 @@
 		"defrect" : [ 10.0, 59.0, 417.0, 353.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
-		"default_fontsize" : 10.970939,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -58,7 +58,7 @@
 					"id" : "obj-4",
 					"fontname" : "Verdana",
 					"numoutlets" : 0,
-					"fontsize" : 11.556055
+					"fontsize" : 12.0
 				}
 
 			}

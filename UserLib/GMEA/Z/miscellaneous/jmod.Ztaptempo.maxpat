@@ -127,7 +127,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "wait_time[5]",
-					"text" : "jcom.parameter subdivision @repetitions/allow 1 @type msg_int @description \"tap subdivision\"",
+					"text" : "jcom.parameter subdivision @repetitions/allow 1 @type integer @description \"tap subdivision\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"fontsize" : 9.873845,
@@ -174,7 +174,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "wait_time[4]",
-					"text" : "jcom.return bpm @type msg_float @description \"BPM calculated from input\"",
+					"text" : "jcom.return bpm @type decimal @description \"BPM calculated from input\"",
 					"numoutlets" : 2,
 					"fontsize" : 9.873845,
 					"outlettype" : [ "", "" ],

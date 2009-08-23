@@ -214,17 +214,17 @@ PositionDataspace::PositionDataspace()
 	: DataspaceLib("position", "xyz")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new Cartesian3DUnit,	gensym("cart3D"));
-	registerUnit(new Cartesian3DUnit,	gensym("xyz"));
-	registerUnit(new Cartesian2DUnit,	gensym("cart2D"));
-	registerUnit(new Cartesian2DUnit,	gensym("xy"));
-	registerUnit(new SphericalUnit,		gensym("spherical"));
-	registerUnit(new SphericalUnit,		gensym("aed"));
-	registerUnit(new PolarUnit,			gensym("polar"));
-	registerUnit(new PolarUnit,			gensym("ad"));
-	registerUnit(new OpenGlUnit,		gensym("openGL"));
-	registerUnit(new CylindricalUnit,	gensym("cylindrical"));
-	registerUnit(new CylindricalUnit,	gensym("daz"));
+	registerUnit(new Cartesian3DUnit,	SymbolGen("cart3D"));
+	registerUnit(new Cartesian3DUnit,	SymbolGen("xyz"));
+	registerUnit(new Cartesian2DUnit,	SymbolGen("cart2D"));
+	registerUnit(new Cartesian2DUnit,	SymbolGen("xy"));
+	registerUnit(new SphericalUnit,		SymbolGen("spherical"));
+	registerUnit(new SphericalUnit,		SymbolGen("aed"));
+	registerUnit(new PolarUnit,			SymbolGen("polar"));
+	registerUnit(new PolarUnit,			SymbolGen("ad"));
+	registerUnit(new OpenGlUnit,		SymbolGen("openGL"));
+	registerUnit(new CylindricalUnit,	SymbolGen("cylindrical"));
+	registerUnit(new CylindricalUnit,	SymbolGen("daz"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

@@ -2589,7 +2589,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 849.0, 307.0, 203.0, 50.0 ],
-					"text" : "jcom.return color.4/size @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"size of the recognized color area of tracker 4\""
+					"text" : "jcom.return color.4/size @type decimal @range/bounds 0. 1. @range/clipmode both @description \"size of the recognized color area of tracker 4\""
 				}
 
 			}
@@ -2604,7 +2604,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 795.0, 364.0, 183.0, 61.0 ],
-					"text" : "jcom.return color.4/center @type msg_list @range/bounds -1. 1. @range/clipmode both @description \"center (X/Y/Z) of the recognized color area of tracker 4\""
+					"text" : "jcom.return color.4/center @type array @range/bounds -1. 1. @range/clipmode both @description \"center (X/Y/Z) of the recognized color area of tracker 4\""
 				}
 
 			}
@@ -2619,7 +2619,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 770.0, 264.0, 226.0, 39.0 ],
-					"text" : "jcom.return color.4/bounds @type msg_list @range/bounds 0. 1. @description \"boundaries of the recognized color area of tracker 4\""
+					"text" : "jcom.return color.4/bounds @type array @range/bounds 0. 1. @description \"boundaries of the recognized color area of tracker 4\""
 				}
 
 			}
@@ -2648,7 +2648,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 573.0, 421.0, 203.0, 50.0 ],
-					"text" : "jcom.return color.3/size @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"size of the recognized color area of tracker 3\""
+					"text" : "jcom.return color.3/size @type decimal @range/bounds 0. 1. @range/clipmode both @description \"size of the recognized color area of tracker 3\""
 				}
 
 			}
@@ -2663,7 +2663,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 542.0, 355.0, 183.0, 61.0 ],
-					"text" : "jcom.return color.3/center @type msg_list @range/bounds -1. 1. @range/clipmode both @description \"center (X/Y/Z) of the recognized color area of tracker 3\""
+					"text" : "jcom.return color.3/center @type array @range/bounds -1. 1. @range/clipmode both @description \"center (X/Y/Z) of the recognized color area of tracker 3\""
 				}
 
 			}
@@ -2678,7 +2678,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 513.0, 265.0, 226.0, 39.0 ],
-					"text" : "jcom.return color.3/bounds @type msg_list @range/bounds 0. 1. @description \"boundaries of the recognized color area of tracker 3\""
+					"text" : "jcom.return color.3/bounds @type array @range/bounds 0. 1. @description \"boundaries of the recognized color area of tracker 3\""
 				}
 
 			}
@@ -2707,7 +2707,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 327.0, 417.0, 203.0, 50.0 ],
-					"text" : "jcom.return color.2/size @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"size of the recognized color area of tracker 2\""
+					"text" : "jcom.return color.2/size @type decimal @range/bounds 0. 1. @range/clipmode both @description \"size of the recognized color area of tracker 2\""
 				}
 
 			}
@@ -2722,7 +2722,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 288.0, 356.0, 205.0, 50.0 ],
-					"text" : "jcom.return color.2/center @type msg_list @range/bounds -1. 1. @range/clipmode both @description \"center (X/Y/Z) of the recognized color area of tracker 2\""
+					"text" : "jcom.return color.2/center @type array @range/bounds -1. 1. @range/clipmode both @description \"center (X/Y/Z) of the recognized color area of tracker 2\""
 				}
 
 			}
@@ -2737,7 +2737,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 259.0, 264.0, 226.0, 39.0 ],
-					"text" : "jcom.return color.2/bounds @type msg_list @range/bounds 0. 1. @description \"boundaries of the recognized color area of tracker 2\""
+					"text" : "jcom.return color.2/bounds @type array @range/bounds 0. 1. @description \"boundaries of the recognized color area of tracker 2\""
 				}
 
 			}
@@ -2766,7 +2766,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 56.0, 404.0, 201.0, 50.0 ],
-					"text" : "jcom.return color.1/size @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"size of the recognized color area of tracker 1\""
+					"text" : "jcom.return color.1/size @type decimal @range/bounds 0. 1. @range/clipmode both @description \"size of the recognized color area of tracker 1\""
 				}
 
 			}
@@ -2781,7 +2781,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 19.0, 346.0, 205.0, 50.0 ],
-					"text" : "jcom.return color.1/center @type msg_list @range/bounds -1. 1. @range/clipmode both @description \"center (X/Y/Z) of the recognized color area of tracker 1\""
+					"text" : "jcom.return color.1/center @type array @range/bounds -1. 1. @range/clipmode both @description \"center (X/Y/Z) of the recognized color area of tracker 1\""
 				}
 
 			}
@@ -2796,7 +2796,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 2.0, 270.0, 226.0, 39.0 ],
-					"text" : "jcom.return color.1/bounds @type msg_list @range/bounds 0. 1. @description \"boundaries of the recognized color area of tracker 1\""
+					"text" : "jcom.return color.1/bounds @type array @range/bounds 0. 1. @description \"boundaries of the recognized color area of tracker 1\""
 				}
 
 			}

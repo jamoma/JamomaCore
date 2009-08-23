@@ -40,10 +40,10 @@ typedef struct _param{
 	TTPtr 			outlets[num_outlets];		///< my outlet array
 	t_atom			atom_list[LISTSIZE];		///< was "t_atom attr_value;"	// ATTRIBUTE: The parameter's value
 	t_atom			atom_listDefault[LISTSIZE];
-	long			list_size;
+	long			list_size;					///< size of currently stored list
 	long			listDefault_size;
 	SymbolPtr		attr_ramp;					///< ATTRIBUTE: ramp mode 
-	long			attr_ui_freeze;
+	long			attr_ui_freeze;				///< ATTRIBUTE: freeze updating of graphical user interface
 	float			attr_stepsize;				///< ATTRIBUTE: amount to increment or decrement by
 	long			attr_priority;				///< ATTRIBUTE: does this parameter have a priority over other parameters when a preset is recalled?
 	long			attr_readonly;
@@ -65,6 +65,7 @@ typedef struct _param{
 	ObjectPtr		callbackArg;				///< The object for which the callback method should be applied
 	ObjectPtr		receive;					///< Direct receive
 	TTBoolean		isSending;					///< flag to tell us if we are currently sending out our value
+	TTBoolean		isInitialised;				///< The parameter or message has been initialised
 } t_param;
 
 
@@ -181,6 +182,13 @@ void		param_ramp_callback_float(void *v, float value);
 void		param_ramp_callback_int(void *v, float value);
 void		param_ramp_callback_list(void *v, long argc, double *value);
 void		atom_clip(t_param *x, t_atom *a);
+
+/** Messages received from jcom.hub
+	@param	x		Parameter or Message instance pointer.
+	@param	msg		The message received (bang, int, float, list or symbol).
+	@param	argc	The number of input atoms.
+	@param	argv	The address of the first of an array of input atoms.	
+*/
 void 		param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 
 void		param_getattrnames(t_param *x, long* count, t_symbol*** names);

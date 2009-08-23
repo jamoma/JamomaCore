@@ -6,7 +6,7 @@
 		"defrect" : [ 153.0, 355.0, 239.0, 317.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
-		"default_fontsize" : 10.970939,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -23,7 +23,7 @@
 					"id" : "obj-1",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 2,
 					"triscale" : 0.9,
 					"outlettype" : [ "int", "bang" ]
@@ -38,7 +38,7 @@
 					"id" : "obj-2",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ]
 				}
@@ -52,7 +52,7 @@
 					"id" : "obj-3",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ]
 				}
@@ -66,7 +66,7 @@
 					"id" : "obj-4",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "" ]
 				}
@@ -91,7 +91,7 @@
 					"id" : "obj-6",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ]
 				}
@@ -115,7 +115,7 @@
 					"id" : "obj-8",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 2,
 					"triscale" : 0.9,
 					"outlettype" : [ "int", "bang" ]
@@ -130,7 +130,7 @@
 					"id" : "obj-9",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "" ]
 				}
@@ -144,7 +144,7 @@
 					"id" : "obj-10",
 					"fontname" : "Verdana",
 					"numinlets" : 0,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 4,
 					"outlettype" : [ "int", "int", "int", "int" ]
 				}
@@ -159,7 +159,7 @@
 					"id" : "obj-11",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numoutlets" : 0
 				}
 

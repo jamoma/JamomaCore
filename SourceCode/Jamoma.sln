@@ -1,7 +1,7 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C++ Express 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.cubic_interpolate", "MaxObjects\jcom.cubic_interpolate\jcom.cubic_interpolate.vcproj", "{62D83C78-EA6D-49B0-AA38-F4DF8BB04D6C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.cubicInterpolate", "MaxObjects\jcom.cubicInterpolate\jcom.cubicInterpolate.vcproj", "{62D83C78-EA6D-49B0-AA38-F4DF8BB04D6C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{34630069-834D-46BA-83CF-3DB7F1A9665F} = {34630069-834D-46BA-83CF-3DB7F1A9665F}
 	EndProjectSection
@@ -24,8 +24,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.map", "MaxObjects\jcom.map\jcom.map.vcproj", "{2D5F0DF1-E26E-4459-820E-A16CEE736929}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.meter~", "MaxObjects\jcom.meter~\jcom.meter~.vcproj", "{7D575A8C-53E7-4A8C-9A7E-3BF6EA39610F}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.mkdir", "MaxObjects\jcom.mkdir\jcom.mkdir.vcproj", "{DD15BD3A-1750-4F92-A3D7-C39ABFEDEC84}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.oscroute", "MaxObjects\jcom.oscroute\jcom.oscroute.vcproj", "{8B8D8B57-13A7-4DA1-A6B6-549AB9642A4B}"
 EndProject
@@ -141,10 +139,6 @@ Global
 		{7D575A8C-53E7-4A8C-9A7E-3BF6EA39610F}.Debug|Win32.Build.0 = Debug|Win32
 		{7D575A8C-53E7-4A8C-9A7E-3BF6EA39610F}.Release|Win32.ActiveCfg = Release|Win32
 		{7D575A8C-53E7-4A8C-9A7E-3BF6EA39610F}.Release|Win32.Build.0 = Release|Win32
-		{DD15BD3A-1750-4F92-A3D7-C39ABFEDEC84}.Debug|Win32.ActiveCfg = Debug|Win32
-		{DD15BD3A-1750-4F92-A3D7-C39ABFEDEC84}.Debug|Win32.Build.0 = Debug|Win32
-		{DD15BD3A-1750-4F92-A3D7-C39ABFEDEC84}.Release|Win32.ActiveCfg = Release|Win32
-		{DD15BD3A-1750-4F92-A3D7-C39ABFEDEC84}.Release|Win32.Build.0 = Release|Win32
 		{8B8D8B57-13A7-4DA1-A6B6-549AB9642A4B}.Debug|Win32.ActiveCfg = Debug|Win32
 		{8B8D8B57-13A7-4DA1-A6B6-549AB9642A4B}.Debug|Win32.Build.0 = Debug|Win32
 		{8B8D8B57-13A7-4DA1-A6B6-549AB9642A4B}.Release|Win32.ActiveCfg = Release|Win32
@@ -277,18 +271,14 @@ Global
 		{D2D5BC83-CD62-4DC4-9C74-003BB9B69309}.Debug|Win32.Build.0 = Debug|Win32
 		{D2D5BC83-CD62-4DC4-9C74-003BB9B69309}.Release|Win32.ActiveCfg = Release|Win32
 		{D2D5BC83-CD62-4DC4-9C74-003BB9B69309}.Release|Win32.Build.0 = Release|Win32
-		{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}.Debug|Win32.ActiveCfg = Debug|Win32
-		{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}.Debug|Win32.Build.0 = Debug|Win32
-		{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}.Release|Win32.ActiveCfg = Release|Win32
-		{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}.Release|Win32.Build.0 = Release|Win32
+		{6A2E51A0-35E8-41D7-BA31-94B03CC78AEB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6A2E51A0-35E8-41D7-BA31-94B03CC78AEB}.Debug|Win32.Build.0 = Debug|Win32
+		{6A2E51A0-35E8-41D7-BA31-94B03CC78AEB}.Release|Win32.ActiveCfg = Release|Win32
+		{6A2E51A0-35E8-41D7-BA31-94B03CC78AEB}.Release|Win32.Build.0 = Release|Win32
 		{1A362FC1-3E54-4F49-8EB8-E6BA92572BEE}.Debug|Win32.ActiveCfg = Debug|Win32
 		{1A362FC1-3E54-4F49-8EB8-E6BA92572BEE}.Debug|Win32.Build.0 = Debug|Win32
 		{1A362FC1-3E54-4F49-8EB8-E6BA92572BEE}.Release|Win32.ActiveCfg = Release|Win32
 		{1A362FC1-3E54-4F49-8EB8-E6BA92572BEE}.Release|Win32.Build.0 = Release|Win32
-		{CFAA6929-1BEB-4C6F-AE89-FDCD6CADEEE6}.Debug|Win32.ActiveCfg = Debug|Win32
-		{CFAA6929-1BEB-4C6F-AE89-FDCD6CADEEE6}.Debug|Win32.Build.0 = Debug|Win32
-		{CFAA6929-1BEB-4C6F-AE89-FDCD6CADEEE6}.Release|Win32.ActiveCfg = Release|Win32
-		{CFAA6929-1BEB-4C6F-AE89-FDCD6CADEEE6}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

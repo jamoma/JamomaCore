@@ -194,7 +194,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 345.0, 215.0, 302.0, 31.0 ],
-					"text" : "jcom.return capture/done @type msg_none @description \"indicates that the capturing of sound has completed.\""
+					"text" : "jcom.return capture/done @type none @description \"indicates that the capturing of sound has completed.\""
 				}
 
 			}

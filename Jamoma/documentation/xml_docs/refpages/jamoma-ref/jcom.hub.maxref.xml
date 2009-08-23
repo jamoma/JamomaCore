@@ -515,7 +515,7 @@
 			<entry name = "documentation/generate">
 				<description>
 					<br />
-					<m>type</m> = <m>msg_generic</m> <br />
+					<m>type</m> = <m>generic</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Generate a documentation page for this module and save it to disk.
 				</description>
@@ -524,7 +524,7 @@
 			<entry name = "init">
 				<description>
 					<br />
-					<m>type</m> = <m>msg_none</m> <br />
+					<m>type</m> = <m>none</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Initialize a module completely to the original state.
 				</description>
@@ -533,7 +533,7 @@
 			<entry name = "module/view_internals">
 				<description>
 					<br />
-					<m>type</m> = <m>msg_none</m> <br />
+					<m>type</m> = <m>none</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning.
 				</description>
@@ -542,7 +542,7 @@
 			<entry name = "panel/open">
 				<description>
 					<br />
-					<m>type</m> = <m>msg_none</m> <br />
+					<m>type</m> = <m>none</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Open an a module's control panel (inspector) if one is present.
 				</description>
@@ -551,7 +551,7 @@
 			<entry name = "preset/clear">
 				<description>
 					<br />
-					<m>type</m> = <m>msg_none</m> <br />
+					<m>type</m> = <m>none</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Clears all presets, providing a blank slate for saving new presets.
 				</description>
@@ -560,7 +560,7 @@
 			<entry name = "preset/copy">
 				<description>
 					<br />
-					<m>"msg_list</m> <br />
+					<m>"array</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Create a new preset (2nd argument) by copying the contents of another preset (1st argument)
 				</description>
@@ -569,7 +569,7 @@
 			<entry name = "preset/default">
 				<description>
 					<br />
-					<m>type</m> = <m>msg_none</m> <br />
+					<m>type</m> = <m>none</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Open the default preset file and recall the first preset in that file.
 				</description>
@@ -578,7 +578,7 @@
 			<entry name = "preset/dump">
 				<description>
 					<br />
-					<m>type</m> = <m>msg_none</m> <br />
+					<m>type</m> = <m>none</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Dump all preset names.
 				</description>
@@ -587,7 +587,7 @@
 			<entry name = "preset/interpolate">
 				<description>
 					<br />
-					<m>type</m> = <m>msg_list</m> <br />
+					<m>type</m> = <m>array</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument.
 				</description>
@@ -596,7 +596,7 @@
 			<entry name = "preset/post">
 				<description>
 					<br />
-					<m>type</m> = <m>msg_none</m> <br />
+					<m>type</m> = <m>none</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Post all presets to the Max window.
 				</description>
@@ -605,7 +605,7 @@
 			<entry name = "preset/read">
 				<description>
 					<br />
-					<m>type</m> = <m>msg_symbol</m> <br />
+					<m>type</m> = <m>string</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open.
 				</description>
@@ -614,7 +614,7 @@
 			<entry name = "preset/recall">
 				<description>
 					<br />
-					<m>type</m> = <m>msg_generic</m> <br />
+					<m>type</m> = <m>generic</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Recall a preset by number - you can also choose presets from the module menu.
 				</description>
@@ -623,7 +623,7 @@
 			<entry name = "preset/store">
 				<description>
 					<br />
-					<m>type</m> = <m>msg_list</m> <br />
+					<m>type</m> = <m>array</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module.
 				</description>
@@ -632,7 +632,7 @@
 			<entry name = "preset/storenext">
 				<description>
 					<br />
-					<m>type</m> = <m>msg_list</m> <br />
+					<m>type</m> = <m>array</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Store a preset in the next preset slot.  Handy so that you do not need to specify a preset number manually.
 				</description>
@@ -641,16 +641,16 @@
 			<entry name = "preset/write">
 				<description>
 					<br />
-					<m>type</m> = <m>msg_symbol</m> <br />
+					<m>type</m> = <m>string</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Write an xml-preset file to disk.  An optional argument defines the file to open.
 				</description>
 			</entry>			
 
-			<entry name = "ui/refresh">
+			<entry name = "view/refresh">
 				<description>
 					<br />
-					<m>type</m> = <m>msg_none</m> <br />
+					<m>type</m> = <m>none</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Update displayed values for module to reflect current state.
 				</description>
@@ -659,10 +659,10 @@
 		</misc>
 
 		<misc name = "Embedded jcom.parameter instances">
-			<entry name = "ui/freeze">
+			<entry name = "view/freeze">
 				<description>
 					<br />
-					<m>type</m> = <m>msg_toggle</m> <br />
+					<m>type</m> = <m>boolean</m> <br />
 					<m>ramp/drive</m> = <m>none</m> <br />
 					<m>description</m> = Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources.
 				</description>

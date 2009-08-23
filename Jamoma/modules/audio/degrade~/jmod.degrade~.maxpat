@@ -6,7 +6,7 @@
 		"defrect" : [ 22.0, 127.0, 1200.0, 601.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
-		"default_fontsize" : 9.873845,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -102,8 +102,8 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "sr_ratio",
-					"text" : "jcom.parameter sr_ratio @type msg_float @range/bounds 0. 1. @repetitions/allow 1 @range/clipmode both @ramp/drive scheduler @description \"A ratio of the emulated sample-rate to the global sample-rate.\"",
+					"varname" : "samplerateRatio",
+					"text" : "jcom.parameter samplerateRatio @type decimal @range/bounds 0. 1. @repetitions/allow 1 @range/clipmode both @ramp/drive scheduler @description \"A ratio of the emulated sample-rate to the global sample-rate.\"",
 					"linecount" : 3,
 					"patching_rect" : [ 695.0, 35.0, 401.0, 43.0 ],
 					"id" : "obj-18",
@@ -119,7 +119,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "bitdepth",
-					"text" : "jcom.parameter bitdepth @type msg_int @range/bounds 1 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"The number of bits that will be retained in each sample - use this for bit crunching effects\"",
+					"text" : "jcom.parameter bitdepth @type integer @range/bounds 1 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"The number of bits that will be retained in each sample - use this for bit crunching effects\"",
 					"linecount" : 3,
 					"patching_rect" : [ 695.0, 85.0, 425.0, 43.0 ],
 					"id" : "obj-19",
@@ -253,7 +253,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "message",
-					"text" : "/sr_ratio:ramp/function cosine",
+					"text" : "/samplerateRatio:ramp/function cosine",
 					"patching_rect" : [ 345.0, 142.0, 170.0, 17.0 ],
 					"id" : "obj-45",
 					"fontsize" : 10.0,
@@ -267,7 +267,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "message",
-					"text" : "/sr_ratio 0.4",
+					"text" : "/samplerateRatio 0.4",
 					"patching_rect" : [ 331.0, 117.0, 79.0, 17.0 ],
 					"id" : "obj-44",
 					"fontsize" : 10.0,

@@ -6,7 +6,7 @@
 		"defrect" : [ 262.0, 97.0, 501.0, 472.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
-		"default_fontsize" : 10.970939,
+		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
@@ -20,7 +20,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "pack 0 0 0 0 0 0 0 0",
-					"fontsize" : 10.970939,
+					"fontsize" : 11.0,
 					"numinlets" : 8,
 					"numoutlets" : 1,
 					"patching_rect" : [ 87.0, 346.0, 292.0, 20.0 ],
@@ -34,7 +34,7 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "$3",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 87.0, 279.0, 32.5, 16.0 ],
@@ -72,7 +72,7 @@
 					"maxclass" : "comment",
 					"text" : "Routing values only when mouse is clicked.",
 					"linecount" : 3,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 13.0, 188.0, 93.0, 42.0 ],
@@ -85,7 +85,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "route 1",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"patching_rect" : [ 107.0, 227.0, 44.0, 18.0 ],
@@ -99,7 +99,7 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "$2 $1",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 107.0, 189.0, 37.0, 16.0 ],
@@ -113,7 +113,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "listfunnel",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"patching_rect" : [ 107.0, 163.0, 54.0, 18.0 ],
@@ -128,7 +128,7 @@
 					"maxclass" : "comment",
 					"text" : "mouse click, key click, start x/y position, end x/y position, difference in x/y position",
 					"linecount" : 2,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 148.0, 413.0, 243.0, 30.0 ],
@@ -141,7 +141,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "buddy 3",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"patching_rect" : [ 177.0, 135.0, 150.0, 18.0 ],
@@ -156,7 +156,7 @@
 					"maxclass" : "comment",
 					"text" : "The initial position of the cursor is selected on mouse-down, and subsequent positions are subtracted.",
 					"linecount" : 5,
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 354.0, 176.0, 118.0, 66.0 ],
@@ -169,7 +169,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "-",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 360.0, 300.0, 27.0, 18.0 ],
@@ -183,7 +183,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "-",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 321.0, 300.0, 27.0, 18.0 ],
@@ -197,7 +197,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "change",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"patching_rect" : [ 177.0, 163.0, 44.0, 18.0 ],
@@ -211,7 +211,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "sel 1 0",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"patching_rect" : [ 177.0, 189.0, 42.0, 18.0 ],
@@ -225,7 +225,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "int",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 206.0, 227.0, 27.0, 18.0 ],
@@ -239,7 +239,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "int",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 177.0, 227.0, 27.0, 18.0 ],
@@ -253,7 +253,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "unpack 0 0 0",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"patching_rect" : [ 176.0, 78.0, 98.0, 18.0 ],
@@ -267,7 +267,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "route mouse mouseidle",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"patching_rect" : [ 107.0, 47.0, 125.0, 18.0 ],

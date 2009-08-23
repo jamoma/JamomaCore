@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 303.0, 199.0, 1031.0, 524.0 ],
+		"rect" : [ 92.0, 49.0, 1261.0, 796.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 303.0, 199.0, 1031.0, 524.0 ],
+		"defrect" : [ 92.0, 49.0, 1261.0, 796.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -16,20 +16,6 @@
 		"boxanimatetime" : 200,
 		"imprint" : 0,
 		"boxes" : [ 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-15",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 185.0, 385.0, 112.0, 17.0 ],
-					"text" : "/w/gain 0."
-				}
-
-			}
-, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -51,21 +37,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-34",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 375.0, 310.0, 99.0, 19.0 ],
-					"text" : "jcom.oscroute /ui"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 					"id" : "obj-1",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -157,7 +129,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 467.0, 138.0, 282.0, 31.0 ],
-					"text" : "jcom.parameter meter @type msg_toggle @description \"Enable or disable monotoring of levels.\"",
+					"text" : "jcom.parameter meter @type boolean @description \"Enable or disable monotoring of levels.\"",
 					"varname" : "meter"
 				}
 
@@ -314,7 +286,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 													"id" : "obj-29",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -545,12 +517,12 @@
 ,
 									"patching_rect" : [ 750.0, 695.0, 90.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"globalpatchername" : "",
-										"fontface" : 0,
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"fontface" : 0,
 										"fontsize" : 10.0
 									}
 ,
@@ -641,7 +613,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 									"id" : "obj-24",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -662,7 +634,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 256.0, 221.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter r/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter r/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "r/gain"
 								}
 
@@ -678,7 +650,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 256.0, 89.0, 706.0, 31.0 ],
-									"text" : "jcom.parameter w/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter w/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "w/gain"
 								}
 
@@ -694,7 +666,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 256.0, 123.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter x/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter x/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "x/gain"
 								}
 
@@ -710,7 +682,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 256.0, 155.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter y/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter y/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "y/gain"
 								}
 
@@ -726,7 +698,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 256.0, 188.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter z/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter z/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "z/gain"
 								}
 
@@ -742,7 +714,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 256.0, 254.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter s/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter s/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "s/gain"
 								}
 
@@ -758,7 +730,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 256.0, 287.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter t/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter t/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "t/gain"
 								}
 
@@ -774,7 +746,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 256.0, 320.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter u/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter u/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "u/gain"
 								}
 
@@ -790,7 +762,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 255.0, 353.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter v/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter v/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "v/gain"
 								}
 
@@ -806,7 +778,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 255.0, 386.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter k/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter k/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "k/gain"
 								}
 
@@ -822,7 +794,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 255.0, 419.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter l/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter l/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "l/gain"
 								}
 
@@ -838,7 +810,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 255.0, 452.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter m/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter m/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "m/gain"
 								}
 
@@ -854,7 +826,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 255.0, 485.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter n/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter n/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "n/gain"
 								}
 
@@ -870,7 +842,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 255.0, 518.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter o/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter o/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "o/gain"
 								}
 
@@ -886,7 +858,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 255.0, 551.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter p/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter p/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "p/gain"
 								}
 
@@ -902,7 +874,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 255.0, 584.0, 705.0, 31.0 ],
-									"text" : "jcom.parameter q/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
+									"text" : "jcom.parameter q/gain @type decimal @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\" @value/default -24",
 									"varname" : "q/gain"
 								}
 
@@ -1285,33 +1257,19 @@
  ]
 					}
 ,
-					"patching_rect" : [ 305.0, 490.0, 45.0, 19.0 ],
+					"patching_rect" : [ 305.0, 605.0, 45.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
-						"fontface" : 0,
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"fontface" : 0,
 						"fontsize" : 10.0
 					}
 ,
 					"text" : "p gains",
 					"varname" : "gains"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-13",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 305.0, 465.0, 138.0, 19.0 ],
-					"text" : "pvar jsui_multigain"
 				}
 
 			}
@@ -1324,7 +1282,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 9.0, 21.0, 281.0, 86.0 ],
+					"patching_rect" : [ 305.0, 505.0, 281.0, 86.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 10.0, 21.0, 286.0, 90.0 ],
 					"varname" : "jsui_multigain"
@@ -1350,7 +1308,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 					"id" : "obj-21",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1383,7 +1341,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 467.0, 63.0, 361.0, 43.0 ],
-					"text" : "jcom.parameter order @type msg_int @range/bounds 1 3 @range/clipmode both @repetitions/allow 1 @description \"Ambisonic order. Note: Order is only updated when audio is not running.\"",
+					"text" : "jcom.parameter order @type integer @range/bounds 1 3 @range/clipmode both @repetitions/allow 1 @description \"Ambisonic order. Note: Order is only updated when audio is not running.\"",
 					"varname" : "order"
 				}
 
@@ -1428,7 +1386,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 					"id" : "obj-28",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1444,7 +1402,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 					"id" : "obj-30",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1478,7 +1436,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 					"id" : "obj-32",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1573,64 +1531,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-25", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 389.5, 419.0, 314.5, 419.0 ],
-					"source" : [ "obj-8", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 314.5, 443.0, 314.5, 443.0 ],
-					"source" : [ "obj-25", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 314.5, 515.0, 299.0, 515.0, 299.0, 457.0, 314.5, 457.0 ],
-					"source" : [ "obj-12", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-12", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-13", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-8", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-6", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-25", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-33", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-27", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-25", 1 ]
 				}
 
 			}
@@ -1654,24 +1558,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-25", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-3", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-15", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-3", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
 					"midpoints" : [ 314.5, 345.0, 375.0, 345.0, 375.0, 345.0, 389.5, 345.0 ],
@@ -1685,6 +1571,69 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-17", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-17", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 314.5, 632.0, 288.0, 632.0, 288.0, 489.0, 314.5, 489.0 ],
+					"source" : [ "obj-12", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-17", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-25", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-25", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-27", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-25", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-25", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-33", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-25", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 389.5, 419.0, 314.5, 419.0 ],
+					"source" : [ "obj-8", 0 ]
 				}
 
 			}
