@@ -1,7 +1,7 @@
 /* 
  * jcom.node
- * External for Jamoma:  ...
- * By Théo de la Hogue, Copyright 2009
+ * External for Jamoma:  experimental 
+ * By Theo de la Hogue, Copyright 2009
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html
@@ -18,21 +18,21 @@
 // Data Structure for this object
 typedef struct _node{
 
-	t_object				ob;
-	void					*p_out;		// the leftmost outlet
-	t_symbol				*address;	// memorized the current adress
-	NodePtr					p_node;		// a pointer to a node of the tree
-	t_linklist				*lk_nodes;	// a pointer to a selection of nodes of the tree
+	t_object		ob;
+	void			*p_out;					// the leftmost outlet
+	t_symbol		*address;				// memorized the current adress
+	NodePtr			p_node;					// a pointer to a node of the tree
+	t_linklist		*lk_nodes;				// a pointer to a selection of nodes of the tree
 
-	short		node_tree_path;			// a text file /path/name
-	t_symbol	*node_tree_file;		// the name of the node_tree
+	short			node_tree_path;			// a text file /path/name
+	t_symbol		*node_tree_file;		// the name of the node_tree
 
-	t_object	*m_editor;				// a textfile editor
-	t_object	*editorview;			// the textfile window
-	t_filehandle fh;					// a reference to a file (for opening it, closing it, etc.).
-	unsigned int eof;					// the number of written char in the file.
-	char		**buf;					// a text handler //(pointer to a text buffer)
-	long		eobuf;					// the number of written char in the text buffer
+	t_object		*m_editor;				// a textfile editor
+	t_object		*editorview;			// the textfile window
+	t_filehandle	fh;						// a reference to a file (for opening it, closing it, etc.).
+	unsigned int	eof;					// the number of written char in the file.
+	char			**buf;					// a text handler //(pointer to a text buffer)
+	long			eobuf;					// the number of written char in the text buffer
 
 } t_node;
 
