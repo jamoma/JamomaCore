@@ -28,3 +28,6 @@
 [submodule "UserLib/Z"]
 	path = UserLib/Z
 	url = git://github.com/bltzr/Z.git
+[submodule "UserLib/Jamoma.Ircam.Spat"]
+	path = UserLib/Jamoma.Ircam.Spat
+	url = git://github.com/lossius/Jamoma.Ircam.Spat.git
