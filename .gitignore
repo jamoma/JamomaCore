@@ -1,2 +1,7 @@
 Jamoma/library/externals/mac/
 logs
+*/*/build/
+*/*/*/build/
+*.orig
+*.mode1v3
+*.pbxuser
