@@ -16,3 +16,12 @@
 [submodule "Modules/Publications"]
 	path = Modules/Publications
 	url = git://github.com/tap/JamomaPublications.git
+[submodule "UserLib/Tap.Tools"]
+	path = UserLib/Tap.Tools
+	url = git://github.com/tap/TapToolsForJamoma.git
+[submodule "UserLib/ViMiC"]
+	path = UserLib/ViMiC
+	url = git://github.com/Nilson/ViMiC-and-friends.git
+[submodule "UserLib/Schumacher"]
+	path = UserLib/Schumacher
+	url = git://github.com/marlon/Schumacher.git
