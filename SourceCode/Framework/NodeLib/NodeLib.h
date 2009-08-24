@@ -138,8 +138,9 @@ public:
 	
 	/** Add a propertie to the node.
 		@param properties		a TTSymbolPtr to store as a key in the hashtable.
+		@param aValue			a TTValuePtr to store the value of the propertie.
 		@return					a kTTErrGeneric if the propertie already exists.	*/
-	TTErr			setProperties(TTSymbolPtr propertie);
+	TTErr			setProperties(TTSymbolPtr propertie, TTValuePtr aValue);
 
 	/** Get the OSC address of the node 
 		It is computed dynamicaly by asking to all the ancestor of the node	

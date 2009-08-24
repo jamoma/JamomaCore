@@ -152,7 +152,38 @@ t_object * jamoma_node_max_object(TTNodePtr node)
 	return (t_object*)node->getObject();
 }
 
-TTListPtr	jamoma_node_properties(TTNodePtr node)
+TTHashPtr	jamoma_node_properties(TTNodePtr node)
+{
+	return node->getProperties();
+	uint i;
+	TTValue *hk;
+	TTSymbolPtr key;
+	TTValue *c;
+	TTListPtr lk_properties;
+	
+	// if there are properties
+	if(node->getProperties()->getSize()){
+		
+		hk = new TTValue();
+		c = new TTValue();
+		node->getProperties()->getKeys(*hk);
+		lk_properties = new TTList();
+		
+		// for each propertie
+		for(i=0; i<node->getProperties()->getSize(); i++){
+			hk->get(i,(TTSymbol**)&key);
+			// add the propertie to the linklist
+			lk_properties->append(gensym((char *)key->getCString()));
+		}
+		
+		return lk_properties;
+	}
+	return NULL;
+}
+
+
+/*
+ TTListPtr	jamoma_node_properties(TTNodePtr node)
 {
 	uint i;
 	TTValue *hk;
@@ -179,6 +210,7 @@ TTListPtr	jamoma_node_properties(TTNodePtr node)
 	}
 	return NULL;
 }
+ */
 
 JamomaError	jamoma_node_set_properties(TTNodePtr node, t_symbol *propertie)
 {

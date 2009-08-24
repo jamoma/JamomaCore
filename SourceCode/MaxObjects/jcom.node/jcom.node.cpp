@@ -130,7 +130,7 @@ void node_writeagain(t_node *x)
 void node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_object *obj;
-	int i;
+	uint i;
 	t_symbol *type;
 	JamomaError err = JAMOMA_ERR_NONE;
 
@@ -145,9 +145,9 @@ void node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 
 			x->address = msg;
 
-			for(i=0; i<linklist_getsize(x->lk_nodes); i++){
+			for(i=0; i<x->lk_nodes->getSize(); i++){
 
-				x->p_node = (NodePtr)linklist_getindex(x->lk_nodes,i);
+				x->lk_nodes->get(i,&x->p_node);
 				obj = jamoma_node_max_object(x->p_node);
 				type = jamoma_node_type(x->p_node);
 
@@ -239,7 +239,7 @@ void node_add_max_tree(t_node *x)
 
 long node_myobject_iterator(t_node *x, t_object *b)
 {
-	NodePtr newNode;
+	TTNodePtr newNode;
 	bool newInstanceCreated;
 	char temp[256];
     t_symbol *varname = object_attr_getsym(b, gensym("varname"));
@@ -392,11 +392,12 @@ void node_opml_header(t_node *x)
 	node_write_string(x, LB);
 }
 
-void node_dump_as_opml(t_node *x, short level)
+void node_dump_as_opml(t_node *x, ushort level)
 {
 	uint i;
 	char temp[512];
 	long len, err;
+	TTValuePtr get_attr;
 	t_symbol *attr_sym;
 	len = err = 0;
 
@@ -434,7 +435,7 @@ void node_dump_as_opml(t_node *x, short level)
 
 		// write an outline for each attribute
 		for(i=0; i<lk_prp->getSize(); i++){
-			lk_prp->get(i, attr_sym);
+			lk_prp->getHead().get(i, (TTString&)get_attr);
 			node_write_string(x, "<outline text=\"");
 			node_write_sym(x, attr_sym);
 			node_write_string(x,"\"/>");
@@ -449,7 +450,7 @@ void node_dump_as_opml(t_node *x, short level)
 	// if there are children : do the same for each child
 	if(lk_chd){
 		for(i=0; i<lk_chd->getSize(); i++){
-			x->p_node = (NodePtr)linklist_getindex(lk_chd,i);
+			lk_chd->get(i,&x->p_node);
 			node_dump_as_opml(x, level+1);
 		}
 	}

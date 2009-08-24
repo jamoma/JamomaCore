@@ -21,8 +21,8 @@ typedef struct _node{
 	t_object		ob;
 	void			*p_out;					// the leftmost outlet
 	t_symbol		*address;				// memorized the current adress
-	NodePtr			p_node;					// a pointer to a node of the tree
-	t_linklist		*lk_nodes;				// a pointer to a selection of nodes of the tree
+	TTNodePtr		p_node;					// a pointer to a node of the tree
+	TTListPtr		lk_nodes;				// a pointer to a selection of nodes of the tree
 
 	short			node_tree_path;			// a text file /path/name
 	t_symbol		*node_tree_file;		// the name of the node_tree
@@ -56,7 +56,7 @@ void			node_add_max_tree(t_node *x);
 // Private methods
 void			node_dowrite(t_node *x, t_symbol *msg, long argc, t_atom *argv);
 void			node_opml_header(t_node *x);
-void			node_dump_as_opml(t_node *x, short level);
+void			node_dump_as_opml(t_node *x, ushort level);
 void			node_write_atom(t_node *x, t_atom *src);
 void			node_write_sym(t_node *x, t_symbol *src);
 void			node_write_string(t_node *x, char *src);

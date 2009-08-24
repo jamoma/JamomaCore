@@ -72,7 +72,7 @@ if  win32?
 	build_project("#{@svn_root}/SourceCode/Framework", "JamomaModular.vcproj", configuration, true)
 #	`cp #{@svn_root}/SourceCode/Framework/#{configuration}/JamomaModular.dll  #{@svn_root}../Modular/Jamoma/library/externals/JamomaModular.dll`
 else
-	build_project("#{@svn_root}/SourceCode/Framework", "Jamoma.xcodeproj", configuration, true)
+	build_project("#{@svn_root}/SourceCode/Framework", "JamomaModular.xcodeproj", configuration, true)
 #	copydir("#{@svn_root}/SourceCode/Framework/build/UninstalledProducts/Jamoma.framework", "/Library/Frameworks/Jamoma.framework")
 end
 

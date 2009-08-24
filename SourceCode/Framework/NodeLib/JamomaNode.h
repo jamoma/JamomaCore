@@ -64,7 +64,8 @@ extern "C" {
 	t_object*		jamoma_node_max_object(TTNodePtr node);
 
 	/** Return all properties of a node */
-	TTListPtr		jamoma_node_properties(TTNodePtr node);
+	//TTListPtr		jamoma_node_properties(TTNodePtr node);
+	TTHashPtr		jamoma_node_properties(TTNodePtr node);
 
 	/** Add a propertie to a node as a key in the hashtab (without value) */
 	JamomaError		jamoma_node_set_properties(TTNodePtr node, t_symbol *propertie);
