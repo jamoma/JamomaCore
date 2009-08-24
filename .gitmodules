@@ -25,3 +25,6 @@
 [submodule "UserLib/Schumacher"]
 	path = UserLib/Schumacher
 	url = git://github.com/marlon/Schumacher.git
+[submodule "UserLib/Z"]
+	path = UserLib/Z
+	url = git://github.com/bltzr/Z.git
