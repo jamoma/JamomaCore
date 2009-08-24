@@ -136,13 +136,13 @@ void audioreceive_bang(t_audioreceive *x)
 
 	jamoma_get_all_module_names(&numModules, &moduleNames);
 
-	atom_setsym(a+0, gensym("clear"));
-	outlet_anything(x->dumpout, gensym("menu"), 1, a);
+	atom_setsym(a+0, SymbolGen("clear"));
+	outlet_anything(x->dumpout, SymbolGen("menu"), 1, a);
 	
-	atom_setsym(a+0, gensym("append"));
+	atom_setsym(a+0, SymbolGen("append"));
 	for(i=0; i<numModules; i++){
 		atom_setsym(a+1, moduleNames[i]);
-		outlet_anything(x->dumpout, gensym("menu"), 2, a);
+		outlet_anything(x->dumpout, SymbolGen("menu"), 2, a);
 	}
 	if(moduleNames)
 		sysmem_freeptr(moduleNames);
@@ -157,10 +157,10 @@ t_int* audioreceive_perform(t_int *w)
 	float			*vector = NULL;
 	float			*out;
 	
-	//object_method(x->obj_direct_target, gensym("remoteaudio"), x->audio_out, (long)(w[2]));
+	//object_method(x->obj_direct_target, SymbolGen("remoteaudio"), x->audio_out, (long)(w[2]));
 	for(channel = 0; channel < x->num_outputs; channel++){
 		n = x->vs;
-		object_method(x->obj_direct_target, gensym("getAudioForChannel"), channel, &vector);
+		object_method(x->obj_direct_target, SymbolGen("getAudioForChannel"), channel, &vector);
 		out = x->audio_out[channel];
 		if(vector){
 			while(n--)
@@ -185,7 +185,7 @@ void audioreceive_dsp(t_audioreceive *x, t_signal **sp, short *count)
 				x->obj_target = hub;
 				// we could attach to the hub here to listen for free notifications
 				// but freeing it will restart the dsp anyway, so I don't think there is any need [tap]
-				x->obj_direct_target = (t_object*)object_method(hub, gensym("getobj_audioout"));
+				x->obj_direct_target = (t_object*)object_method(hub, SymbolGen("getobj_audioout"));
 			}
 		}
 		if(x->obj_target){
@@ -213,7 +213,7 @@ t_max_err audioreceive_attr_settarget(t_audioreceive *x, void *attr, long argc, 
 	hub = jamoma_get_hub_for_module_named(x->attr_target);
 	if(hub){
 		x->obj_target = hub;
-		x->obj_direct_target = (t_object*)object_method(hub, gensym("getobj_audioout"));
+		x->obj_direct_target = (t_object*)object_method(hub, SymbolGen("getobj_audioout"));
 	}
 	return MAX_ERR_NONE;
 }

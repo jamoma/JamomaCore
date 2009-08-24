@@ -61,10 +61,10 @@ AngleDataspace::AngleDataspace()
 	: DataspaceLib("angle", "radian") //would "<" be possible ??
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new RadianUnit,	gensym("radian"));
-	registerUnit(new RadianUnit,	gensym("rad"));
-	registerUnit(new DegreeUnit,	gensym("degree"));
-	registerUnit(new DegreeUnit,	gensym("deg"));
+	registerUnit(new RadianUnit,	SymbolGen("radian"));
+	registerUnit(new RadianUnit,	SymbolGen("rad"));
+	registerUnit(new DegreeUnit,	SymbolGen("degree"));
+	registerUnit(new DegreeUnit,	SymbolGen("deg"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

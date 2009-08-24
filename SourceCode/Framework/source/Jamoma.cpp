@@ -29,84 +29,87 @@ bool				max5 = false;
 void jamoma_init(void)
 {
 	if(!initialized){
-		t_object*	max = gensym("max")->s_thing;
-		t_symbol*	meth = gensym("objectfile");
+		t_object*	max = SymbolGen("max")->s_thing;
+		t_symbol*	meth = SymbolGen("objectfile");
 		t_atom		a[4];
 	
 		if(maxversion() >= 0x0500)
 			max5 = true;
 		
-		TTBlueInit();
+		TTDSPInit();
 		common_symbols_init();
 		jamomaSymbolsInit();
 
 		receivemaster_initclass();
 		receive_initclass();
-		object_method(max, meth, gensym("jcom.receive"), gensym("jcom.loader"), gensym("jcom.receive"));
-		object_method_sym(max, gensym("db.object_addinternal"), gensym("jcom.receive"), NULL);
+		object_method(max, meth, SymbolGen("jcom.receive"), SymbolGen("jcom.loader"), SymbolGen("jcom.receive"));
+		object_method_sym(max, SymbolGen("db.object_addinternal"), SymbolGen("jcom.receive"), NULL);
 		
 		send_initclass();
-		object_method(max, meth, gensym("jcom.send"), gensym("jcom.loader"), gensym("jcom.send"));
-		object_method_sym(max, gensym("db.object_addinternal"), gensym("jcom.send"), NULL);
+		object_method(max, meth, SymbolGen("jcom.send"), SymbolGen("jcom.loader"), SymbolGen("jcom.send"));
+		object_method_sym(max, SymbolGen("db.object_addinternal"), SymbolGen("jcom.send"), NULL);
 
 		receive_tilde_initclass();
-		object_method(max, meth, gensym("jcom.receive~"), gensym("jcom.loader"), gensym("jcom.receive~"));
-		object_method_sym(max, gensym("db.object_addinternal"), gensym("jcom.receive~"), NULL);
+		object_method(max, meth, SymbolGen("jcom.receive~"), SymbolGen("jcom.loader"), SymbolGen("jcom.receive~"));
+		object_method_sym(max, SymbolGen("db.object_addinternal"), SymbolGen("jcom.receive~"), NULL);
 
 		send_tilde_initclass();
-		object_method(max, meth, gensym("jcom.send~"), gensym("jcom.loader"), gensym("jcom.send~"));
-		object_method_sym(max, gensym("db.object_addinternal"), gensym("jcom.send~"), NULL);
+		object_method(max, meth, SymbolGen("jcom.send~"), SymbolGen("jcom.loader"), SymbolGen("jcom.send~"));
+		object_method_sym(max, SymbolGen("db.object_addinternal"), SymbolGen("jcom.send~"), NULL);
 		
 		// Setup Class Aliases for TTBlue
-		object_method(max, meth, gensym("jcom.limiter~"), gensym("tt.limiter~"), gensym("jcom.limiter~"));
-		object_method(max, meth, gensym("jcom.saturation~"), gensym("tt.overdrive~"), gensym("jcom.saturation~"));
+		object_method(max, meth, SymbolGen("jcom.limiter~"), SymbolGen("tt.limiter~"), SymbolGen("jcom.limiter~"));
+		object_method(max, meth, SymbolGen("jcom.saturation~"), SymbolGen("tt.overdrive~"), SymbolGen("jcom.saturation~"));
 		
 		// Create Required Global Instances
-		// obj_jamoma_clock = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.clock"), 0, NULL);
-		// obj_jamoma_scheduler = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.scheduler"), 0, NULL);
+		// obj_jamoma_clock = (t_object*)object_new_typed(CLASS_NOBOX, SymbolGen("jamoma.clock"), 0, NULL);
+		// obj_jamoma_scheduler = (t_object*)object_new_typed(CLASS_NOBOX, SymbolGen("jamoma.scheduler"), 0, NULL);
 		hash_modules = (t_hashtab*)hashtab_new(0);
 		// TODO: Use quittask_install() to set up a destructor for this to free it before Max exits
 
 		
 		// This tells Max 5.0.6 and higher that we want the patcher files to be saved such that they are sorted.
 		// Having the saved this way makes our SVN diffs much more meaningful.
-		object_method_long(max, gensym("sortpatcherdictonsave"), 1, NULL);
+		object_method_long(max, SymbolGen("sortpatcherdictonsave"), 1, NULL);
 	
 		// This tells Max 4.5.7 and higher to take any posts to the Max window and also make the
 		// post to the system console, which greatly aids in debugging problems and crashes
-		object_method_long(max, gensym("setmirrortoconsole"), 1, NULL);
+		object_method_long(max, SymbolGen("setmirrortoconsole"), 1, NULL);
 
 		
 		// Add Jamoma Key Commands:
 		
 		// J -- Jamoma: a new object box with "jcom." in it
-		atom_setsym(a+0, gensym("J"));
-		atom_setsym(a+1, gensym("patcher"));
-		atom_setsym(a+2, gensym("inserttextobj"));
-		atom_setsym(a+3, gensym("jcom."));
-		object_method_typed(max, gensym("definecommand"), 4, a, NULL);
+		atom_setsym(a+0, SymbolGen("J"));
+		atom_setsym(a+1, SymbolGen("patcher"));
+		atom_setsym(a+2, SymbolGen("inserttextobj"));
+		atom_setsym(a+3, SymbolGen("jcom."));
+		object_method_typed(max, SymbolGen("definecommand"), 4, a, NULL);
 		
 		// M -- Module: a new object box with "jmod." in it
-		atom_setsym(a+0, gensym("M"));
-		atom_setsym(a+1, gensym("patcher"));
-		atom_setsym(a+2, gensym("inserttextobj"));
-		atom_setsym(a+3, gensym("jmod."));
-		object_method_typed(max, gensym("definecommand"), 4, a, NULL);
+		atom_setsym(a+0, SymbolGen("M"));
+		atom_setsym(a+1, SymbolGen("patcher"));
+		atom_setsym(a+2, SymbolGen("inserttextobj"));
+		atom_setsym(a+3, SymbolGen("jmod."));
+		object_method_typed(max, SymbolGen("definecommand"), 4, a, NULL);
 
 		// I -- Input: a new audio input module
-		object_method_parse(max, gensym("definecommand"), "I patcher insertobj bpatcher @name jmod.input~.maxpat @args /input~", NULL);
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"I patcher insertobj bpatcher @name jmod.input~.maxpat @args /input~", NULL);
 		// O -- Output: a new audio output module	
-		object_method_parse(max, gensym("definecommand"), "O patcher insertobj bpatcher @name jmod.output~.maxpat @args /output~", NULL);
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"O patcher insertobj bpatcher @name jmod.output~.maxpat @args /output~", NULL);
 	
 		// B -- BPatcher: a new module in a bpatcher
-		object_method_parse(max, gensym("definecommand"), "B patcher inserttextobj \"bpatcher @name jmod. @args myModule\"", NULL);		
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"B patcher inserttextobj \"bpatcher @name jmod. @args myModule\"", NULL);		
 		// D -- Demo: a new module in a bpatcher, but with the args reverse which is handy for super-fast demos when you don't care about the OSC name
-		object_method_parse(max, gensym("definecommand"), "D patcher inserttextobj \"bpatcher @name jmod.\"", NULL);		
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"D patcher inserttextobj \"bpatcher @name jmod.\"", NULL);		
 
+		// X -- Continuous Mapper module
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"X patcher insertobj bpatcher @name jmod.mapperContinuous.maxpat @args /mapper", NULL);		
+		
 		
 		// Here bind the TTBlue environment object to the symbol "TTBlue"
 		{
-			t_symbol* TTBlueMaxSymbol = gensym("TTBlue");
+			t_symbol* TTBlueMaxSymbol = SymbolGen("TTBlue");
 			
 			TTBlueMaxSymbol->s_thing = 0;
 			// Before we can do this we have to have a ttblue max class to receive the messages, duh...
@@ -114,7 +117,7 @@ void jamoma_init(void)
 		
 		// now the jamoma object
 		{
-			t_symbol* jamomaSymbol = gensym("jamoma");
+			t_symbol* jamomaSymbol = SymbolGen("jamoma");
 		
 			jamoma_object_initclass();
 			jamomaSymbol->s_thing = jamoma_object_new();
@@ -165,7 +168,7 @@ t_object* jamoma_object_getpatcher(t_object *obj)
 {
 	t_object *patcher = NULL;
 	
-	object_obex_lookup(obj, gensym("#P"), &patcher);
+	object_obex_lookup(obj, SymbolGen("#P"), &patcher);
 	return patcher;
 }
 
@@ -178,12 +181,12 @@ t_symbol *jamoma_patcher_getcontext(t_object *patcher)
 	if(box)
 		objclass = object_classname(box);
 	
-	if(objclass == gensym("bpatcher"))
+	if(objclass == SymbolGen("bpatcher"))
 		return objclass;
-	else if(objclass == gensym("newobj"))
-		return gensym("subpatcher");
+	else if(objclass == SymbolGen("newobj"))
+		return SymbolGen("subpatcher");
 	else
-		return gensym("toplevel");
+		return SymbolGen("toplevel");
 }
 
 
@@ -197,11 +200,11 @@ void jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv)
 	char			*text = NULL;
 	unsigned long	textlen = 0;
 
-	if(context == gensym("bpatcher"))
-		object_attr_getvalueof(box, gensym("args"), argc, argv);
-	else if(context == gensym("subpatcher")){
-		textfield = object_attr_getobj(box, gensym("textfield"));
-		object_method(textfield, gensym("gettextptr"), &text, &textlen);
+	if(context == SymbolGen("bpatcher"))
+		object_attr_getvalueof(box, SymbolGen("args"), argc, argv);
+	else if(context == SymbolGen("subpatcher")){
+		textfield = object_attr_getobj(box, SymbolGen("textfield"));
+		object_method(textfield, SymbolGen("gettextptr"), &text, &textlen);
 		atom_setparse(argc, argv, text);
 	}
 	else{
@@ -280,7 +283,7 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 	temp = strrchr(cAttrName, '/');
 	if(temp)
 		*temp = 0;
-	sAttrName = gensym(cAttrName);
+	sAttrName = SymbolGen(cAttrName);
 
 	object_attr_getvalueof(o, sAttrName, &ac, &av);
 	object_obex_dumpout(o, sAttrName, ac, av);
@@ -289,7 +292,7 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 		t_atom		a[4];
 	
 		snprintf(s, 256, "%s:/%s", x->attr_name->s_name, attrName->s_name);
-		atom_setsym(a+0, gensym(s));
+		atom_setsym(a+0, SymbolGen(s));
 		sysmem_copyptr(av, a+1, sizeof(t_atom) * ac);
 		object_method_typed(x->hub, jps_feedback, ac + 1, a, NULL);
 	}
@@ -298,3 +301,9 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 		sysmem_freeptr(av);
 }
 
+
+// a wrapper for SymbolGen() because gensym() does not have a const argument, which causes zillions of warnings in GCC 4.2
+SymbolPtr SymbolGen(const char* string)
+{
+	return gensym((char*)string);
+}

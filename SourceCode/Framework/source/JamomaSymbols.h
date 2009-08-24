@@ -1,6 +1,6 @@
 /* 
  * Jamoma Symbols
- * Symbols cached to avoid repeated calls to the expensive gensym() function
+ * Symbols cached to avoid repeated calls to the expensive SymbolGen() function
  * By Tim Place, Copyright © 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
@@ -32,7 +32,7 @@
  #endif // _DLL_EXPORT
 #endif
 
-extern "C" JAMOMA_EXPORT extern t_symbol *jps_none,
+extern "C" JAMOMA_EXPORT t_symbol *jps_none,
 				*jps_done,
 				*jps_linear,
 				*jps_linear_q,

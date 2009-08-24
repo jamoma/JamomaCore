@@ -7,7 +7,7 @@
  */
 
 #include "TimeDataspace.h"
-#include "TTBlueAPI.h"
+#include "TTFoundationAPI.h"
 
 
 MillisecondUnit::MillisecondUnit()
@@ -140,14 +140,14 @@ TimeDataspace::TimeDataspace()
 	: DataspaceLib("time", "millisecond")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new BpmUnit,			gensym("bpm"));
-	registerUnit(new UpdaterateUnit,	gensym("fps"));
-	registerUnit(new UpdaterateUnit,	gensym("Hz"));
-	registerUnit(new MillisecondUnit,	gensym("ms"));
-	registerUnit(new MillisecondUnit,	gensym("millisecond"));
-	registerUnit(new SecondUnit,		gensym("s"));
-	registerUnit(new SecondUnit,		gensym("second"));
-	registerUnit(new SampleUnit,		gensym("sample"));
+	registerUnit(new BpmUnit,			SymbolGen("bpm"));
+	registerUnit(new UpdaterateUnit,	SymbolGen("fps"));
+	registerUnit(new UpdaterateUnit,	SymbolGen("Hz"));
+	registerUnit(new MillisecondUnit,	SymbolGen("ms"));
+	registerUnit(new MillisecondUnit,	SymbolGen("millisecond"));
+	registerUnit(new SecondUnit,		SymbolGen("s"));
+	registerUnit(new SecondUnit,		SymbolGen("second"));
+	registerUnit(new SampleUnit,		SymbolGen("sample"));
 	
 	
 	// Now that the cache is created, we can create a set of default units

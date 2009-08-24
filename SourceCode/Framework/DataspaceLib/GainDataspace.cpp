@@ -100,10 +100,10 @@ GainDataspace::GainDataspace()
 	: DataspaceLib("gain", "linear")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new LinearAmplitudeUnit,	gensym("linear"));
-	registerUnit(new MidiGainUnit,			gensym("midi"));
-	registerUnit(new DecibelUnit,			gensym("dB"));
-	registerUnit(new DecibelUnit,			gensym("db"));
+	registerUnit(new LinearAmplitudeUnit,	SymbolGen("linear"));
+	registerUnit(new MidiGainUnit,			SymbolGen("midi"));
+	registerUnit(new DecibelUnit,			SymbolGen("dB"));
+	registerUnit(new DecibelUnit,			SymbolGen("db"));
 
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

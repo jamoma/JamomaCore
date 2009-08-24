@@ -72,7 +72,7 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 		x->outlet = outlet_new(x, NULL);
 
 		if(!g_receivemaster_object)
-			g_receivemaster_object = (t_object *)object_new_typed(CLASS_NOBOX, gensym("jcom.receivemaster"), 0, NULL);
+			g_receivemaster_object = (t_object *)object_new_typed(CLASS_NOBOX, SymbolGen("jcom.receivemaster"), 0, NULL);
 
 		x->callback = NULL;
 		x->attr_name = NULL;
@@ -83,7 +83,7 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 			if(attrstart > 0)
 				x->attr_name = atom_getsym(argv);
 			else
-				x->attr_name = gensym("jcom.receive no arg specified");
+				x->attr_name = SymbolGen("jcom.receive no arg specified");
 			receive_bind(x);
 		}
 	}

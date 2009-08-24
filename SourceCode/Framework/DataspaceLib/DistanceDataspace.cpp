@@ -109,14 +109,14 @@ DistanceDataspace::DistanceDataspace()
 	: DataspaceLib("distance", "meters")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new CentimeterUnit,	gensym("cm"));
-	registerUnit(new CentimeterUnit,	gensym("centimeters"));
-	registerUnit(new FootUnit,			gensym("'"));
-	registerUnit(new FootUnit,			gensym("feet"));
-	registerUnit(new InchUnit,			gensym("\""));
-	registerUnit(new InchUnit,			gensym("inches"));
-	registerUnit(new MeterUnit,			gensym("m"));
-	registerUnit(new MeterUnit,			gensym("meters"));
+	registerUnit(new CentimeterUnit,	SymbolGen("cm"));
+	registerUnit(new CentimeterUnit,	SymbolGen("centimeters"));
+	registerUnit(new FootUnit,			SymbolGen("'"));
+	registerUnit(new FootUnit,			SymbolGen("feet"));
+	registerUnit(new InchUnit,			SymbolGen("\""));
+	registerUnit(new InchUnit,			SymbolGen("inches"));
+	registerUnit(new MeterUnit,			SymbolGen("m"));
+	registerUnit(new MeterUnit,			SymbolGen("meters"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
