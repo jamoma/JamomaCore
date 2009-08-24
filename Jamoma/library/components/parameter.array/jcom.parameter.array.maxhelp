@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 318.0, 67.0, 643.0, 650.0 ],
+		"rect" : [ 269.0, 72.0, 643.0, 650.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 318.0, 67.0, 643.0, 650.0 ],
+		"defrect" : [ 269.0, 72.0, 643.0, 650.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -18,6 +18,59 @@
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-37",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 311.0, 439.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-34",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 311.0, 463.0, 114.0, 17.0 ],
+					"presentation_rect" : [ 368.0, 513.0, 0.0, 0.0 ],
+					"text" : "refreshSubscriptions"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-33",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "int", "bang" ],
+					"patching_rect" : [ 432.0, 298.0, 50.0, 19.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-22",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 432.0, 322.0, 114.0, 17.0 ],
+					"text" : "instancesNumber $1"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -203,11 +256,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-9",
+					"linecount" : 2,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 40.0, 535.0, 140.0, 17.0 ]
+					"patching_rect" : [ 40.0, 535.0, 140.0, 29.0 ],
+					"text" : "/module_name /editing_this_module.1"
 				}
 
 			}
@@ -389,7 +444,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 40.0, 90.0, 425.0, 31.0 ],
-					"text" : "This comonent is a utility for creating an array of parameter instances in one go. Currently the number of instances can not be changed on the fly."
+					"text" : "This component is a utility for creating an array of parameter instances in one go. Currently the number of instances can not be changed on the fly."
 				}
 
 			}
@@ -470,7 +525,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 40.0, 565.0, 300.0, 70.0 ],
-					"text" : "/editing_this_module.3"
+					"text" : "/editing_this_module.1"
 				}
 
 			}
@@ -528,6 +583,24 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-1", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 441.5, 344.0, 381.5, 344.0 ],
+					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-37", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 441.5, 432.5, 320.5, 432.5 ],
+					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-9", 1 ],
 					"hidden" : 0,
 					"midpoints" : [ 49.5, 530.0, 170.5, 530.0 ],
@@ -537,10 +610,37 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-33", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 320.5, 492.0, 49.5, 492.0 ],
+					"source" : [ "obj-34", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-35", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-34", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-37", 0 ]
 				}
 
 			}
