@@ -113,7 +113,7 @@ void TTFoundationLoadExternalClasses()
 		fullpath = temppath;
 		fullpath += "\\Jamoma\\Extensions\\";
 		lRes = SHCreateDirectory(NULL, (LPCWSTR)fullpath.c_str());
-		TTBlueLoadExternalClassesFromFolder(fullpath);
+		TTFoundationLoadExternalClassesFromFolder(fullpath);
 	}
 
 	// TODO: Look in some user-level directory like we do on the Mac?
