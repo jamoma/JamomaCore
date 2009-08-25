@@ -1,4 +1,3 @@
-
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C++ Express 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.cubicInterpolate", "MaxObjects\jcom.cubicInterpolate\jcom.cubicInterpolate.vcproj", "{62D83C78-EA6D-49B0-AA38-F4DF8BB04D6C}"
@@ -59,10 +58,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.message", "MaxObjects\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JamomaDSP", "..\..\DSP\library\JamomaDSP.vcproj", "{34630069-834D-46BA-83CF-3DB7F1A9665F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTClipper", "..\..\DSP\extensions\TTClipper\TTClipper.vcproj", "{C73B580F-BC81-490A-A54C-C851BF03BE3C}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTFunctionLib", "..\..\DSP\extensions\TTFunctionLib\TTFunctionLib.vcproj", "{946C1578-B549-4F2C-820E-CC8E2E2B94DC}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.balance~", "..\..\DSP\examples\MaxMSP\tt.balance~\tt.balance~.vcproj", "{E3F6789F-D53D-458B-88CC-D5718E89B940}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.dcblock~", "..\..\DSP\examples\MaxMSP\tt.dcblock~\tt.dcblock~.vcproj", "{C23B6815-DCAE-46F3-B8C1-0F99821D4DB3}"
@@ -93,9 +88,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.savebang", "MaxObjects
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.node", "MaxObjects\jcom.node\jcom.node.vcproj", "{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTFilterLib", "..\..\DSP\extensions\TTFilterLib\TTFilterLib.vcproj", "{1A362FC1-3E54-4F49-8EB8-E6BA92572BEE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTClipper", "..\..\DSP\extensions\Clipper\Clipper.vcproj", "{C73B580F-BC81-490A-A54C-C851BF03BE3C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTEffectsLib", "..\..\DSP\extensions\TTEffectsLib\TTEffectsLib.vcproj", "{CFAA6929-1BEB-4C6F-AE89-FDCD6CADEEE6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTEffectsLib", "..\..\DSP\extensions\EffectsLib\EffectsLib.vcproj", "{946C1578-B549-4F2C-820E-CC8E2E2B94DC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTFilterLib", "..\..\DSP\extensions\FilterLib\FilterLib.vcproj", "{BF8E70E9-D5B6-4719-866F-C415F4673B64}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTFunctionLib", "..\..\DSP\extensions\FunctionLib\FunctionLib.vcproj", "{4A4AD94E-41D5-4DD4-8620-E6004026E103}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -207,14 +206,6 @@ Global
 		{34630069-834D-46BA-83CF-3DB7F1A9665F}.Debug|Win32.Build.0 = Debug|Win32
 		{34630069-834D-46BA-83CF-3DB7F1A9665F}.Release|Win32.ActiveCfg = Release|Win32
 		{34630069-834D-46BA-83CF-3DB7F1A9665F}.Release|Win32.Build.0 = Release|Win32
-		{C73B580F-BC81-490A-A54C-C851BF03BE3C}.Debug|Win32.ActiveCfg = Debug|Win32
-		{C73B580F-BC81-490A-A54C-C851BF03BE3C}.Debug|Win32.Build.0 = Debug|Win32
-		{C73B580F-BC81-490A-A54C-C851BF03BE3C}.Release|Win32.ActiveCfg = Release|Win32
-		{C73B580F-BC81-490A-A54C-C851BF03BE3C}.Release|Win32.Build.0 = Release|Win32
-		{946C1578-B549-4F2C-820E-CC8E2E2B94DC}.Debug|Win32.ActiveCfg = Debug|Win32
-		{946C1578-B549-4F2C-820E-CC8E2E2B94DC}.Debug|Win32.Build.0 = Debug|Win32
-		{946C1578-B549-4F2C-820E-CC8E2E2B94DC}.Release|Win32.ActiveCfg = Release|Win32
-		{946C1578-B549-4F2C-820E-CC8E2E2B94DC}.Release|Win32.Build.0 = Release|Win32
 		{E3F6789F-D53D-458B-88CC-D5718E89B940}.Debug|Win32.ActiveCfg = Debug|Win32
 		{E3F6789F-D53D-458B-88CC-D5718E89B940}.Debug|Win32.Build.0 = Debug|Win32
 		{E3F6789F-D53D-458B-88CC-D5718E89B940}.Release|Win32.ActiveCfg = Release|Win32
@@ -271,14 +262,24 @@ Global
 		{D2D5BC83-CD62-4DC4-9C74-003BB9B69309}.Debug|Win32.Build.0 = Debug|Win32
 		{D2D5BC83-CD62-4DC4-9C74-003BB9B69309}.Release|Win32.ActiveCfg = Release|Win32
 		{D2D5BC83-CD62-4DC4-9C74-003BB9B69309}.Release|Win32.Build.0 = Release|Win32
-		{6A2E51A0-35E8-41D7-BA31-94B03CC78AEB}.Debug|Win32.ActiveCfg = Debug|Win32
-		{6A2E51A0-35E8-41D7-BA31-94B03CC78AEB}.Debug|Win32.Build.0 = Debug|Win32
-		{6A2E51A0-35E8-41D7-BA31-94B03CC78AEB}.Release|Win32.ActiveCfg = Release|Win32
-		{6A2E51A0-35E8-41D7-BA31-94B03CC78AEB}.Release|Win32.Build.0 = Release|Win32
-		{1A362FC1-3E54-4F49-8EB8-E6BA92572BEE}.Debug|Win32.ActiveCfg = Debug|Win32
-		{1A362FC1-3E54-4F49-8EB8-E6BA92572BEE}.Debug|Win32.Build.0 = Debug|Win32
-		{1A362FC1-3E54-4F49-8EB8-E6BA92572BEE}.Release|Win32.ActiveCfg = Release|Win32
-		{1A362FC1-3E54-4F49-8EB8-E6BA92572BEE}.Release|Win32.Build.0 = Release|Win32
+		{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}.Release|Win32.ActiveCfg = Release|Win32
+		{C73B580F-BC81-490A-A54C-C851BF03BE3C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C73B580F-BC81-490A-A54C-C851BF03BE3C}.Debug|Win32.Build.0 = Debug|Win32
+		{C73B580F-BC81-490A-A54C-C851BF03BE3C}.Release|Win32.ActiveCfg = Release|Win32
+		{C73B580F-BC81-490A-A54C-C851BF03BE3C}.Release|Win32.Build.0 = Release|Win32
+		{946C1578-B549-4F2C-820E-CC8E2E2B94DC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{946C1578-B549-4F2C-820E-CC8E2E2B94DC}.Debug|Win32.Build.0 = Debug|Win32
+		{946C1578-B549-4F2C-820E-CC8E2E2B94DC}.Release|Win32.ActiveCfg = Release|Win32
+		{946C1578-B549-4F2C-820E-CC8E2E2B94DC}.Release|Win32.Build.0 = Release|Win32
+		{BF8E70E9-D5B6-4719-866F-C415F4673B64}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BF8E70E9-D5B6-4719-866F-C415F4673B64}.Debug|Win32.Build.0 = Debug|Win32
+		{BF8E70E9-D5B6-4719-866F-C415F4673B64}.Release|Win32.ActiveCfg = Release|Win32
+		{BF8E70E9-D5B6-4719-866F-C415F4673B64}.Release|Win32.Build.0 = Release|Win32
+		{4A4AD94E-41D5-4DD4-8620-E6004026E103}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4A4AD94E-41D5-4DD4-8620-E6004026E103}.Debug|Win32.Build.0 = Debug|Win32
+		{4A4AD94E-41D5-4DD4-8620-E6004026E103}.Release|Win32.ActiveCfg = Release|Win32
+		{4A4AD94E-41D5-4DD4-8620-E6004026E103}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

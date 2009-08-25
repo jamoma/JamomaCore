@@ -37,7 +37,7 @@ TTNode::TTNode(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType
 TTNode::~TTNode()
 {
 	TTErr err;
-	uint i, j, nb_c, nb_i;
+	int i, j, nb_c, nb_i;
 	TTValue *hk, *hk_i;
 	TTSymbolPtr OSCaddress, key, key_i;
 	TTValue *c, *c_i, *p_c;
@@ -135,7 +135,7 @@ TTHashPtr		TTNode::getProperties(){return this->properties;}
 TTErr TTNode::setName(TTSymbolPtr name, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
 {
 	TTErr err;
-	uint i;
+	int i;
 	TTValue *hk, *p_c, *c;
 	char *temp, *t;
 	TTSymbolPtr old_OSCaddress, new_OSCaddress, old_key;
@@ -219,7 +219,7 @@ TTErr TTNode::setName(TTSymbolPtr name, TTSymbolPtr *newInstance, TTBoolean *new
 TTErr TTNode::setInstance(TTSymbolPtr instance, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
 {
 	TTErr err;
-	uint i;
+	int i;
 	TTValue *hk, *p_c, *c;
 	char *temp, *t;
 	TTSymbolPtr old_OSCaddress, new_OSCaddress, old_key;
@@ -339,7 +339,7 @@ TTErr TTNode::setProperties(TTSymbolPtr propertie)
 
 TTErr TTNode::getChildren(TTSymbolPtr name, TTSymbolPtr instance, TTListPtr *returnedChildren)
 {
-	uint i, j;
+	int i, j;
 	bool new_list;
 	TTErr err;
 	TTValue *hk, *hk_i;
@@ -445,7 +445,7 @@ TTErr TTNode::getChildren(TTSymbolPtr name, TTSymbolPtr instance, TTListPtr *ret
 
 TTErr TTNode::getOscAddress(TTSymbolPtr *returnedOscAddress)
 {
-	uint i, nb_ancestor, len;
+	int i, nb_ancestor, len;
 	TTNodePtr ptr;
 	TTNodePtr *ancestor;
 	char *OscAddress;
@@ -573,7 +573,7 @@ TTErr TTNode::setChild(TTNodePtr child)
 TTErr	TTNode::generateInstance(TTSymbolPtr childName, TTSymbolPtr *newInstance)
 {
 	TTErr err;
-	uint i;
+	int i;
 	char instance[8];
 	TTValue *c, *c_i;
 	TTHashPtr ht_i;

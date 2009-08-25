@@ -140,13 +140,13 @@ EXPORTS
 		jps_message_return
 		jps_module_name_get
 		jps_module_type
-		jps_msg_float
-		jps_msg_generic
-		jps_msg_int
-		jps_msg_list
-		jps_msg_none
-		jps_msg_symbol
-		jps_msg_toggle
+		jps_decimal
+		jps_generic
+		jps_integer
+		jps_array
+		jps_none
+		jps_string
+		jps_boolean
 		jps_mute
 		jps_name
 		jps_none
