@@ -21,27 +21,20 @@ class TTClipper : TTAudioObject {
 	TTFloat64	lowBound;		///< Attribute: low bound for clipping
 	TTFloat64	highBound;		///< Attribute: high bound for clipping
 	
+	
+	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+	{
+		y = TTClip(x, lowBound, highBound);
+		return kTTErrNone;
+	}
+	
+	
 	/** Audio Processing Method */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
-		TTAudioSignal&	in = inputs->getSignal(0);
-		TTAudioSignal&	out = outputs->getSignal(0);
-		TTUInt16		vs;
-		TTSampleValue*	inSample;
-		TTSampleValue*	outSample;
-		TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-
-		for(TTUInt16 channel=0; channel<numchannels; channel++){
-			inSample = in.sampleVectors[channel];
-			outSample = out.sampleVectors[channel];
-			vs = in.getVectorSize();
-
-			while(vs--)
-				*outSample++ = TTClip(*inSample++, lowBound, highBound);
-		}
-		return kTTErrNone;
+		TT_WRAP_CALCULATE_METHOD(calculateValue);
 	}
-
+	
 };
 
 
@@ -58,4 +51,3 @@ TT_AUDIO_CONSTRUCTOR_EXPORT
 
 TTClipper::~TTClipper()
 {;}
-
