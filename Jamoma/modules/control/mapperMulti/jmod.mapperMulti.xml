@@ -4,7 +4,7 @@
 		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
-  <preset number='1' name='testMapping'>
+  <preset number='1' name='default'>
     <item name='edit' type='string' priority='0'>edit</item>
     <item name='mapping.1/clipmode' type='string' priority='0'>both</item>
     <item name='mapping.1/function/parameter1' type='decimal' priority='5'>1.000000</item>
