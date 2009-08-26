@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="TTFunctionLib"
-	ProjectGUID="{946C1578-B549-4F2C-820E-CC8E2E2B94DC}"
+	ProjectGUID="{4A4AD94E-41D5-4DD4-8620-E6004026E103}"
 	RootNamespace="tt.overdrive~"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
