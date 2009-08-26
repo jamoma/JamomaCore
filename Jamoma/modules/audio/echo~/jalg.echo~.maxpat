@@ -396,7 +396,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
 					"patching_rect" : [ 263.0, 309.0, 222.0, 19.0 ],
-					"text" : "tt.limiter~"
+					"text" : "jcom.limiter~"
 				}
 
 			}

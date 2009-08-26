@@ -5918,7 +5918,7 @@
 					"numoutlets" : 33,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "" ],
 					"patching_rect" : [ 510.0, 187.0, 520.0, 19.0 ],
-					"text" : "tt.limiter~ 32",
+					"text" : "jcom.limiter~ 32",
 					"varname" : "limiter"
 				}
 
