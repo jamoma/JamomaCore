@@ -5,35 +5,29 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='camera/active' type='boolean' priority='0'>0</item>
-    <item name='camera/camera' type='integer' priority='0'>0</item>
-    <item name='camera/device' type='integer' priority='0'>0</item>
+    <item name='active' type='boolean' priority='0'>0</item>
     <item name='camera/size' type='integer' priority='0'>1</item>
-    <item name='desktop/active' type='boolean' priority='0'>0</item>
+    <item name='camera/updaterate' type='integer' priority='0'>0</item>
     <item name='desktop/offset/x' type='integer' priority='0'>0</item>
     <item name='desktop/offset/y' type='integer' priority='0'>0</item>
-    <item name='desktop/rate' type='integer' priority='0'>20</item>
     <item name='desktop/size/x' type='integer' priority='0'>320</item>
     <item name='desktop/size/y' type='integer' priority='0'>240</item>
-    <item name='file/active' type='boolean' priority='0'>0</item>
-    <item name='video/gain' type='decimal' priority='0'>100</item>
-    <item name='file/counter' type='integer' priority='0'>0</item>
     <item name='file/framedump' type='boolean' priority='0'>0</item>
-    <item name='file/loop' type='boolean' priority='0'>1</item>
-    <item name='file/loop_points' type='array' priority='0'>0</item>
+    <item name='file/loop/mode' type='boolean' priority='0'>1</item>
     <item name='file/rate' type='decimal' priority='0'>1.000000</item>
     <item name='file/size' type='integer' priority='0'>2</item>
     <item name='source' type='string' priority='0'>camera</item>
     <item name='synth/color/active' type='boolean' priority='0'>0</item>
     <item name='synth/color' type='generic' priority='0'>set</item>
-    <item name='synth/noise/active' type='boolean' priority='0'>0</item>
     <item name='synth/noise/planes' type='integer' priority='0'>4</item>
-    <item name='synth/noise/rate' type='integer' priority='0'>100</item>
     <item name='synth/noise/size/x' type='integer' priority='0'>320</item>
     <item name='synth/noise/size/y' type='integer' priority='0'>240</item>
+    <item name='updaterate' type='integer' priority='0'>1</item>
     <item name='video/freeze' type='boolean' priority='0'>0</item>
+    <item name='video/gain' type='decimal' priority='0'>100.000000</item>
     <item name='video/mute' type='boolean' priority='0'>0</item>
     <item name='video/preview' type='boolean' priority='0'>0</item>
+    <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='view/size' type='array' priority='0'>300 70 </item>
   </preset>
 </jamoma>

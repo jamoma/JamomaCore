@@ -19,12 +19,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-12",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 159.0, 250.0, 109.0, 19.0 ],
-					"presentation_rect" : [ 159.0, 250.0, 0.0, 0.0 ],
 					"text" : "external bang input"
 				}
 
@@ -37,8 +37,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 132.0, 246.0, 25.0, 25.0 ],
-					"presentation_rect" : [ 152.0, 212.0, 0.0, 0.0 ]
+					"patching_rect" : [ 132.0, 246.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -205,6 +204,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-6",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -332,6 +332,7 @@
 			}
 , 			{
 				"box" : 				{
+					"background" : 1,
 					"has_freeze" : 1,
 					"has_gain" : 1,
 					"has_mute" : 1,
