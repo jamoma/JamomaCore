@@ -26,7 +26,7 @@
 	Where speed is less critical, the preferred method of work with audio signals is the same as for other objects:
 	use the dynamic message passing interface.
 */
-class TTEXPORT TTAudioSignal : public TTObject {
+class TTDSP_EXPORT TTAudioSignal : public TTObject {
 	TTCLASS_SETUP(TTAudioSignal)
 
 private:

@@ -67,7 +67,7 @@ return kTTErrNone;
  *	By default, this points to the built-in bypassProcess().  Subclasses then set it to point to their 
  *	own process() method(s) as needed.
  */
-class TTEXPORT TTAudioObject : public TTObject {
+class TTDSP_EXPORT TTAudioObject : public TTObject {
 protected:
 	TTUInt32				sr;							///< Current sample rate being used by this object
 	TTFloat64				srInv;						///< 1.0 over the current sample rate (inverse)

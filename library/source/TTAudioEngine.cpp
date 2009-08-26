@@ -7,7 +7,7 @@
  */
 
 #include "TTAudioEngine.h"
-#include "TTDSP.h"
+
 #define thisTTClass TTAudioEngine
 
 

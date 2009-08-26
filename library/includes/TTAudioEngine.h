@@ -9,7 +9,7 @@
 #ifndef __TT_AUDIOENGINE_H__
 #define __TT_AUDIOENGINE_H__
 
-#include "TTObject.h"
+#include "TTDSP.h"
 #include "TTAudioSignal.h"
 #include "portaudio.h"
 
@@ -29,7 +29,7 @@
  - the scheduler, and others like the Lydbaer output class, will subscribe to this class for notifications on each call from PortAudio.
  
  */
-class TTEXPORT TTAudioEngine : public TTObject {
+class TTDSP_EXPORT TTAudioEngine : public TTObject {
 	TTUInt16			numInputChannels;
 	TTUInt16			numOutputChannels;
 	TTUInt16			vectorSize;			///< framesPerBuffer
@@ -86,9 +86,9 @@ typedef TTAudioEngine* TTAudioEnginePtr;
 
 TTErr						TTAudioEngineCreate();
 TTErr						TTAudioEngineFree();
-TTEXPORT TTObjectPtr		TTAudioEngineReference();
-TTEXPORT TTAudioSignalPtr	TTAudioEngineGetInputSignalReference();
-TTEXPORT TTAudioSignalPtr	TTAudioEngineGetOutputSignalReference();
+TTDSP_EXPORT TTObjectPtr		TTAudioEngineReference();
+TTDSP_EXPORT TTAudioSignalPtr	TTAudioEngineGetInputSignalReference();
+TTDSP_EXPORT TTAudioSignalPtr	TTAudioEngineGetOutputSignalReference();
 TTErr						TTAudioEngineStart();
 TTErr						TTAudioEngineStop();
 

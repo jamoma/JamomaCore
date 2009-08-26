@@ -9,13 +9,33 @@
 #ifndef __TTDSP_H__
 #define __TTDSP_H__
 
+
+#define TTDSP_VERSION_STRING "0.6"
+
+
+#ifdef TT_PLATFORM_WIN
+	#ifdef TTDSP_EXPORTS
+	#define TTDSP_EXPORT __declspec(dllexport)
+	#else
+	#ifdef TTSTATIC
+	#define TTDSP_EXPORT
+	#else
+	#define TTDSP_EXPORT __declspec(dllimport)
+	#endif
+	#endif // _DLL_EXPORT
+
+#else // TT_PLATFORM_MAC
+	#ifdef TTDSP_EXPORTS
+	#define TTDSP_EXPORT __attribute__((visibility("default")))
+	#else
+	#define TTDSP_EXPORT
+	#endif
+#endif
+
 #include "TTFoundationAPI.h"
 #include "TTAudioObject.h"
 #include "TTAudioSignal.h"
 #include "TTAudioSignalArray.h"
-
-#define TTDSP_VERSION_STRING "0.6"
-
 
 
 // Macros
@@ -72,19 +92,19 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTAudioObject(arguments)
 // Prototypes
 
 // init the dsp lib, and the foundation if needed
-void TTEXPORT TTDSPInit();
+void TTDSP_EXPORT TTDSPInit();
 
 // Convenience methods so that casting is not a worry:
-TTErr TTEXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, TTValue& arguments);
-TTErr TTEXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, TTValue& arguments);
-TTErr TTEXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTValue& arguments);
-TTErr TTEXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTValue& arguments);
-TTErr TTEXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
-TTErr TTEXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTUInt16 arguments);
-TTAudioObjectPtr TTEXPORT TTObjectReference(TTAudioObjectPtr anObject);
-TTAudioSignalPtr TTEXPORT TTObjectReference(TTAudioSignalPtr anObject);
-TTErr TTEXPORT TTObjectRelease(TTAudioObjectPtr* anObject);
-TTErr TTEXPORT TTObjectRelease(TTAudioSignalPtr* anObject);
+TTErr TTDSP_EXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, TTValue& arguments);
+TTErr TTDSP_EXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, TTValue& arguments);
+TTErr TTDSP_EXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTValue& arguments);
+TTErr TTDSP_EXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTValue& arguments);
+TTErr TTDSP_EXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
+TTErr TTDSP_EXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTUInt16 arguments);
+TTAudioObjectPtr TTDSP_EXPORT TTObjectReference(TTAudioObjectPtr anObject);
+TTAudioSignalPtr TTDSP_EXPORT TTObjectReference(TTAudioSignalPtr anObject);
+TTErr TTDSP_EXPORT TTObjectRelease(TTAudioObjectPtr* anObject);
+TTErr TTDSP_EXPORT TTObjectRelease(TTAudioSignalPtr* anObject);
 
 
 #endif // __TTDSP_H__
