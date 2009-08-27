@@ -28,7 +28,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;"
 				Outputs="output"
 			/>
 			<Tool
@@ -43,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\Ramplib;.\Dataspacelib;.\Functionlib;&quot;$(ProjectDir)..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\DSP\includes\units&quot;;.\source;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\common&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)source&quot;;&quot;$(ProjectDir)Internals&quot;;&quot;$(ProjectDir)NodeLib&quot;;&quot;$(ProjectDir)Ramplib&quot;;&quot;$(ProjectDir)Dataspacelib&quot;;&quot;$(ProjectDir)Functionlib&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\..\DSP\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\common&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -65,9 +65,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaDSP.lib MaxAPI.lib MaxAudio.lib jitlib.lib"
+				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib MaxAPI.lib MaxAudio.lib jitlib.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile="jamoma.def"
 				GenerateDebugInformation="true"
@@ -108,7 +108,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;"
 				Outputs="output"
 			/>
 			<Tool
@@ -126,7 +126,7 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories=".\Ramplib;.\Dataspacelib;.\Functionlib;&quot;$(ProjectDir)..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\DSP\includes\units&quot;;.\source;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\common&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)source&quot;;&quot;$(ProjectDir)Internals&quot;;&quot;$(ProjectDir)NodeLib&quot;;&quot;$(ProjectDir)Ramplib&quot;;&quot;$(ProjectDir)Dataspacelib&quot;;&quot;$(ProjectDir)Functionlib&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\..\DSP\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\common&quot;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
@@ -149,9 +149,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaDSP.lib MaxAPI.lib MaxAudio.lib jitlib.lib"
+				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib MaxAPI.lib MaxAudio.lib jitlib.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile="jamoma.def"
 				GenerateDebugInformation="true"
@@ -185,36 +185,20 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Header Files"
+			Name="source"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\DataspaceLib\AngleDataspace.h"
+				RelativePath="..\..\..\..\Tools\library\max-sdk\c74support\max-includes\common\commonsyms.c"
 				>
 			</File>
 			<File
-				RelativePath=".\RampLib\AsyncRamp.h"
+				RelativePath=".\source\Jamoma.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DataspaceLib\ColorDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\DataspaceLib.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\DistanceDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\FunctionLib\FunctionLib.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\GainDataspace.h"
+				RelativePath=".\jamoma.def"
 				>
 			</File>
 			<File
@@ -222,7 +206,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\source\JamomaObject.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\JamomaObject.h"
+				>
+			</File>
+			<File
+				RelativePath=".\source\JamomaSymbols.cpp"
 				>
 			</File>
 			<File
@@ -235,6 +227,10 @@
 			</File>
 			<File
 				RelativePath=".\source\JamomaTypes.h"
+				>
+			</File>
+			<File
+				RelativePath=".\source\jcom.core.cpp"
 				>
 			</File>
 			<File
@@ -253,12 +249,60 @@
 				RelativePath=".\source\jcom.sendreceive.h"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="DataspaceLib"
+			>
+			<File
+				RelativePath=".\DataspaceLib\AngleDataspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DataspaceLib\AngleDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DataspaceLib\ColorDataspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DataspaceLib\ColorDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DataspaceLib\DataspaceLib.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DataspaceLib\DataspaceLib.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DataspaceLib\DistanceDataspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DataspaceLib\DistanceDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DataspaceLib\GainDataspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DataspaceLib\GainDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DataspaceLib\NoneDataspace.cpp"
+				>
+			</File>
 			<File
 				RelativePath=".\DataspaceLib\NoneDataspace.h"
 				>
 			</File>
 			<File
-				RelativePath=".\RampLib\NoneRamp.h"
+				RelativePath=".\DataspaceLib\PitchDataspace.cpp"
 				>
 			</File>
 			<File
@@ -266,23 +310,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DataspaceLib\PositionDataspace.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DataspaceLib\PositionDataspace.h"
 				>
 			</File>
 			<File
-				RelativePath=".\RampLib\QueueRamp.h"
-				>
-			</File>
-			<File
-				RelativePath=".\RampLib\RampLib.h"
-				>
-			</File>
-			<File
-				RelativePath=".\RampLib\SchedulerRamp.h"
+				RelativePath=".\DataspaceLib\TemperatureDataspace.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\DataspaceLib\TemperatureDataspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DataspaceLib\TimeDataspace.cpp"
 				>
 			</File>
 			<File
@@ -291,68 +335,84 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			Name="FunctionLib"
 			>
-		</Filter>
-		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-			>
-			<File
-				RelativePath=".\DataspaceLib\AngleDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\RampLib\AsyncRamp.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\ColorDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\Tools\library\max-sdk\c74support\max-includes\common\commonsyms.c"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\DataspaceLib.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\DistanceDataspace.cpp"
-				>
-			</File>
 			<File
 				RelativePath=".\FunctionLib\FunctionLib.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DataspaceLib\GainDataspace.cpp"
+				RelativePath=".\FunctionLib\FunctionLib.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="NodeLib"
+			>
+			<File
+				RelativePath=".\NodeLib\JamomaNode.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\Jamoma.cpp"
+				RelativePath=".\NodeLib\JamomaNode.h"
 				>
 			</File>
 			<File
-				RelativePath=".\jamoma.def"
+				RelativePath=".\NodeLib\NodeLib.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\JamomaObject.cpp"
+				RelativePath=".\NodeLib\NodeLib.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="RampLib"
+			>
+			<File
+				RelativePath=".\RampLib\AsyncRamp.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\JamomaSymbols.cpp"
+				RelativePath=".\RampLib\AsyncRamp.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\jcom.core.cpp"
+				RelativePath=".\RampLib\NoneRamp.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\RampLib\NoneRamp.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RampLib\QueueRamp.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RampLib\QueueRamp.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RampLib\RampLib.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RampLib\RampLib.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RampLib\SchedulerRamp.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RampLib\SchedulerRamp.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Internals"
+			>
 			<File
 				RelativePath=".\Internals\jcom.receive.cpp"
 				>
@@ -371,42 +431,6 @@
 			</File>
 			<File
 				RelativePath=".\Internals\jcom.send~.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\NoneDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\RampLib\NoneRamp.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PitchDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PositionDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\RampLib\QueueRamp.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\RampLib\RampLib.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\RampLib\SchedulerRamp.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TemperatureDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TimeDataspace.cpp"
 				>
 			</File>
 		</Filter>

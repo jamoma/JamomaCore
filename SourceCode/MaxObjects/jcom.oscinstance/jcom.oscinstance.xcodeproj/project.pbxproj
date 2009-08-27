@@ -87,7 +87,7 @@
 		19C28FB4FE9D528D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2FBBEAE508F335360078DB84 /* jcom.oscinstance.mxo */,
+				D225B887103AEDCA00C69C99 /* jcom.oscinstance.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -122,7 +122,7 @@
 			);
 			name = "max-external";
 			productName = iterator;
-			productReference = 2FBBEAE508F335360078DB84 /* jcom.oscinstance.mxo */;
+			productReference = D225B887103AEDCA00C69C99 /* jcom.oscinstance.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
