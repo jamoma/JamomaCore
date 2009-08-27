@@ -21,7 +21,7 @@
 	
 	@see TTAudioSignal
 */
-class TTBuffer : public TTDataObject {
+class TTDSP_EXPORT TTBuffer : public TTDataObject {
 	TTCLASS_SETUP(TTBuffer)
 
 	TTSampleVector*		contents;			///< An array of vectors (one vector per channel) to hold the samples.
