@@ -411,7 +411,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
 					"patching_rect" : [ 429.0, 225.0, 176.0, 31.0 ],
-					"text" : "tt.filter~ 2 @type lowpass.butterworth.2"
+					"text" : "jcom.filter~ 2 @type lowpass.butterworth.2"
 				}
 
 			}
@@ -426,7 +426,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
 					"patching_rect" : [ 429.0, 262.0, 179.0, 31.0 ],
-					"text" : "tt.filter~ 2 @type highpass.butterworth.2"
+					"text" : "jcom.filter~ 2 @type highpass.butterworth.2"
 				}
 
 			}
@@ -455,7 +455,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
 					"patching_rect" : [ 677.0, 227.0, 134.0, 31.0 ],
-					"text" : "tt.filter~ 2 @type lowpass.butterworth.2"
+					"text" : "jcom.filter~ 2 @type lowpass.butterworth.2"
 				}
 
 			}
@@ -484,7 +484,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
 					"patching_rect" : [ 821.0, 227.0, 131.0, 31.0 ],
-					"text" : "tt.filter~ 2 @type highpass.butterworth.2"
+					"text" : "jcom.filter~ 2 @type highpass.butterworth.2"
 				}
 
 			}
