@@ -257,7 +257,7 @@
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
-				PRODUCT_NAME = TTEffectsLib;
+				PRODUCT_NAME = EffectsLib;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../library/includes\"";
 			};
 			name = Deployment;
