@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="TTEffectsLib"
 	ProjectGUID="{946C1578-B549-4F2C-820E-CC8E2E2B94DC}"
 	RootNamespace="tt.overdrive~"
@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\includes\core&quot;;&quot;$(ProjectDir)..\..\includes\units&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST;TT_EFFECTS_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -122,7 +122,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\includes\core&quot;;&quot;$(ProjectDir)..\..\includes\units&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST;TT_EFFECTS_LIB"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
@@ -180,9 +180,7 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			Name="TTBalance"
 			>
 			<File
 				RelativePath=".\TTBalance.cpp"
@@ -192,6 +190,10 @@
 				RelativePath=".\TTBalance.h"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="TTDegrade"
+			>
 			<File
 				RelativePath=".\TTDegrade.cpp"
 				>
@@ -200,6 +202,10 @@
 				RelativePath=".\TTDegrade.h"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="TTDElay"
+			>
 			<File
 				RelativePath=".\TTDelay.cpp"
 				>
@@ -208,10 +214,10 @@
 				RelativePath=".\TTDelay.h"
 				>
 			</File>
-			<File
-				RelativePath=".\TTEffectsLib.cpp"
-				>
-			</File>
+		</Filter>
+		<Filter
+			Name="TTGain"
+			>
 			<File
 				RelativePath=".\TTGain.cpp"
 				>
@@ -220,6 +226,10 @@
 				RelativePath=".\TTGain.h"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="TTLimiter"
+			>
 			<File
 				RelativePath=".\TTLimiter.cpp"
 				>
@@ -228,6 +238,10 @@
 				RelativePath=".\TTLimiter.h"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="TTOverdrive"
+			>
 			<File
 				RelativePath=".\TTOverdrive.cpp"
 				>
@@ -236,6 +250,10 @@
 				RelativePath=".\TTOverdrive.h"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="TTPulseSub"
+			>
 			<File
 				RelativePath=".\TTPulseSub.cpp"
 				>
@@ -245,6 +263,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\EffectsLib.cpp"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
