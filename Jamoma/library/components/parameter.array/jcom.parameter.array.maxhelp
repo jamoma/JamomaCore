@@ -38,7 +38,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 311.0, 463.0, 114.0, 17.0 ],
-					"presentation_rect" : [ 368.0, 513.0, 0.0, 0.0 ],
 					"text" : "refreshSubscriptions"
 				}
 
@@ -147,7 +146,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 42.0, 322.0, 50.0, 19.0 ]
+					"patching_rect" : [ 42.0, 323.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -525,7 +524,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 40.0, 565.0, 300.0, 70.0 ],
-					"text" : "/editing_this_module.1"
+					"text" : "/editing_this_module"
 				}
 
 			}
@@ -576,33 +575,6 @@
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 441.5, 344.0, 381.5, 344.0 ],
-					"source" : [ "obj-22", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-37", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 441.5, 432.5, 320.5, 432.5 ],
-					"source" : [ "obj-22", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-9", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 49.5, 530.0, 170.5, 530.0 ],
-					"source" : [ "obj-3", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-22", 0 ],
-					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-15", 0 ]
 				}
@@ -623,6 +595,24 @@
 					"hidden" : 0,
 					"midpoints" : [ 441.5, 432.5, 320.5, 432.5 ],
 					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-37", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 441.5, 432.5, 320.5, 432.5 ],
+					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 49.5, 530.0, 170.5, 530.0 ],
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}
@@ -677,15 +667,6 @@
 					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-46", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-48", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-37", 0 ]
 				}
 
 			}
