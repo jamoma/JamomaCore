@@ -15,7 +15,8 @@
 		222B17FB0F1D4009008B1A46 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1C0EC276B200A5EC32 /* CoreServices.framework */; };
 		228505A2102CFE7E004D74BC /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228505A1102CFE7E004D74BC /* JamomaFoundation.framework */; };
 		228505CD102D001E004D74BC /* TTDSP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 228505CC102D001E004D74BC /* TTDSP.cpp */; };
-		22E385BD10286B72002000A9 /* TTBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385B310286B72002000A9 /* TTBuffer.cpp */; };
+		22BA7E291046EE2E009771BC /* TTBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BA7E281046EE2E009771BC /* TTBuffer.cpp */; };
+		22BA7E2B1046EE35009771BC /* TTBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BA7E2A1046EE35009771BC /* TTBuffer.h */; };
 		22E385BE10286B72002000A9 /* TTCrossfade.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385B410286B72002000A9 /* TTCrossfade.cpp */; };
 		22E385BF10286B72002000A9 /* TTMatrixMixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385B510286B72002000A9 /* TTMatrixMixer.cpp */; };
 		22E385C110286B72002000A9 /* TTOperator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385B710286B72002000A9 /* TTOperator.cpp */; };
@@ -43,12 +44,12 @@
 		228505CB102CFFFA004D74BC /* TTDSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDSP.h; path = includes/TTDSP.h; sourceTree = "<group>"; };
 		228505CC102D001E004D74BC /* TTDSP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDSP.cpp; path = source/TTDSP.cpp; sourceTree = "<group>"; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		22E385B310286B72002000A9 /* TTBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTBuffer.cpp; sourceTree = "<group>"; };
+		22BA7E281046EE2E009771BC /* TTBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTBuffer.cpp; path = source/TTBuffer.cpp; sourceTree = "<group>"; };
+		22BA7E2A1046EE35009771BC /* TTBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBuffer.h; path = includes/TTBuffer.h; sourceTree = "<group>"; };
 		22E385B410286B72002000A9 /* TTCrossfade.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTCrossfade.cpp; sourceTree = "<group>"; };
 		22E385B510286B72002000A9 /* TTMatrixMixer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMatrixMixer.cpp; sourceTree = "<group>"; };
 		22E385B710286B72002000A9 /* TTOperator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTOperator.cpp; sourceTree = "<group>"; };
 		22E385BB10286B72002000A9 /* TTZerocross.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTZerocross.cpp; sourceTree = "<group>"; };
-		22E385C710286B80002000A9 /* TTBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBuffer.h; path = includes/units/TTBuffer.h; sourceTree = SOURCE_ROOT; };
 		22E385C810286B80002000A9 /* TTCrossfade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTCrossfade.h; path = includes/units/TTCrossfade.h; sourceTree = SOURCE_ROOT; };
 		22E385C910286B80002000A9 /* TTMatrixMixer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMatrixMixer.h; path = includes/units/TTMatrixMixer.h; sourceTree = SOURCE_ROOT; };
 		22E385CB10286B80002000A9 /* TTOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTOperator.h; path = includes/units/TTOperator.h; sourceTree = SOURCE_ROOT; };
@@ -131,6 +132,8 @@
 				22E385F610286BBE002000A9 /* TTAudioSignalArray.cpp */,
 				22E385D210286BB0002000A9 /* TTAudioEngine.h */,
 				22E385F310286BBE002000A9 /* TTAudioEngine.cpp */,
+				22BA7E2A1046EE35009771BC /* TTBuffer.h */,
+				22BA7E281046EE2E009771BC /* TTBuffer.cpp */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -138,8 +141,6 @@
 		22E385B110286B72002000A9 /* units */ = {
 			isa = PBXGroup;
 			children = (
-				22E385C710286B80002000A9 /* TTBuffer.h */,
-				22E385B310286B72002000A9 /* TTBuffer.cpp */,
 				22E385C810286B80002000A9 /* TTCrossfade.h */,
 				22E385B410286B72002000A9 /* TTCrossfade.cpp */,
 				22E385C910286B80002000A9 /* TTMatrixMixer.h */,
@@ -164,6 +165,7 @@
 				22EB3C06102F0D0F006D027A /* TTAudioObject.h in Headers */,
 				22EB3C07102F0D0F006D027A /* TTAudioSignal.h in Headers */,
 				22EB3C08102F0D0F006D027A /* TTAudioSignalArray.h in Headers */,
+				22BA7E2B1046EE35009771BC /* TTBuffer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,7 +241,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22E385BD10286B72002000A9 /* TTBuffer.cpp in Sources */,
 				22E385BE10286B72002000A9 /* TTCrossfade.cpp in Sources */,
 				22E385BF10286B72002000A9 /* TTMatrixMixer.cpp in Sources */,
 				22E385C110286B72002000A9 /* TTOperator.cpp in Sources */,
@@ -249,6 +250,7 @@
 				22E3861610286BBE002000A9 /* TTAudioSignal.cpp in Sources */,
 				22E3861710286BBE002000A9 /* TTAudioSignalArray.cpp in Sources */,
 				228505CD102D001E004D74BC /* TTDSP.cpp in Sources */,
+				22BA7E291046EE2E009771BC /* TTBuffer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
