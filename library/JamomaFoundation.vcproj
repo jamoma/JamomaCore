@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="JamomaFoundation"
-	ProjectGUID="{34630069-834D-46BA-83CF-3DB7F1A9665F}"
+	ProjectGUID="{557C672F-6946-416C-B199-C7AB650A93C0}"
 	RootNamespace="TTBlue"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
