@@ -13,7 +13,7 @@
 
 // silly stuff to get symbols exported so we can subclass this class in external code
 #if defined( TT_PLATFORM_MAC ) or defined ( TT_PLATFORM_LINUX )
-#define TT_OVERDRIVE_EXPORT TTEXPORT
+#define TT_OVERDRIVE_EXPORT TTDSP_EXPORT
 #else
 #ifdef TT_EFFECTS_LIB
 #define TT_OVERDRIVE_EXPORT __declspec(dllexport)
