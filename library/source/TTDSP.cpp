@@ -64,13 +64,6 @@ void TTDSPShutdown()
 // Analysis
 #include "TTZerocross.h"
 
-// Generators
-#include "TTAdsr.h"
-#include "TTNoise.h"
-#include "TTPhasor.h"
-#include "TTRamp.h"
-#include "TTWavetable.h"
-
 // Misc
 #include "TTBuffer.h"
 #include "TTCrossfade.h"
@@ -86,13 +79,6 @@ void TTDSPRegisterInternalClasses()
 	
 	// Analysis
 	TTZerocross::registerClass();
-		
-	// Generators
-	TTAdsr::registerClass();
-	TTNoise::registerClass();
-	TTPhasor::registerClass();
-	TTRamp::registerClass();
-	TTWavetable::registerClass();
 		
 	// Misc
 	TTCrossfade::registerClass();
