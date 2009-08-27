@@ -1830,7 +1830,7 @@
 									"patching_rect" : [ 1026.0, 238.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 1040.0, 330.0, 132.0, 17.0 ],
-									"text" : "jcom.hmlshelf~"
+									"text" : "tt.hmlshelf~"
 								}
 
 							}
@@ -1862,7 +1862,7 @@
 									"patching_rect" : [ 1026.0, 478.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 1040.0, 510.0, 132.0, 17.0 ],
-									"text" : "jcom.zerox~"
+									"text" : "tt.zerox~"
 								}
 
 							}
@@ -1878,7 +1878,7 @@
 									"patching_rect" : [ 1026.0, 438.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 1040.0, 450.0, 132.0, 17.0 ],
-									"text" : "jcom.wavetable~"
+									"text" : "tt.wavetable~"
 								}
 
 							}
@@ -1894,7 +1894,7 @@
 									"patching_rect" : [ 1026.0, 418.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 1040.0, 430.0, 132.0, 17.0 ],
-									"text" : "jcom.ramp~"
+									"text" : "tt.ramp~"
 								}
 
 							}
@@ -1910,7 +1910,7 @@
 									"patching_rect" : [ 1026.0, 378.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 1040.0, 390.0, 132.0, 17.0 ],
-									"text" : "jcom.op~"
+									"text" : "tt.op~"
 								}
 
 							}
@@ -1926,7 +1926,7 @@
 									"patching_rect" : [ 1026.0, 338.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 1040.0, 310.0, 132.0, 17.0 ],
-									"text" : "jcom.gain~"
+									"text" : "tt.gain~"
 								}
 
 							}
@@ -1990,7 +1990,7 @@
 									"patching_rect" : [ 1026.0, 318.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 1040.0, 290.0, 133.0, 17.0 ],
-									"text" : "jcom.filter~"
+									"text" : "tt.filter~"
 								}
 
 							}
@@ -2022,7 +2022,7 @@
 									"patching_rect" : [ 1026.0, 398.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 1040.0, 410.0, 132.0, 17.0 ],
-									"text" : "jcom.overdrive~"
+									"text" : "tt.overdrive~"
 								}
 
 							}
@@ -2038,7 +2038,7 @@
 									"patching_rect" : [ 1026.0, 358.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 1040.0, 350.0, 132.0, 17.0 ],
-									"text" : "jcom.limiter~"
+									"text" : "tt.limiter~"
 								}
 
 							}
@@ -2054,7 +2054,7 @@
 									"patching_rect" : [ 1026.0, 278.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 1040.0, 230.0, 132.0, 17.0 ],
-									"text" : "jcom.dcblock~"
+									"text" : "tt.dcblock~"
 								}
 
 							}
@@ -2070,7 +2070,7 @@
 									"patching_rect" : [ 1026.0, 258.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 1040.0, 210.0, 132.0, 17.0 ],
-									"text" : "jcom.balance~"
+									"text" : "tt.balance~"
 								}
 
 							}
@@ -2279,7 +2279,7 @@
 									"patching_rect" : [ 1026.0, 298.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 1040.0, 250.0, 132.0, 17.0 ],
-									"text" : "jcom.degrade~"
+									"text" : "tt.degrade~"
 								}
 
 							}
@@ -2295,7 +2295,7 @@
 									"patching_rect" : [ 1026.0, 458.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 1040.0, 490.0, 131.0, 17.0 ],
-									"text" : "jcom.xfade~"
+									"text" : "tt.xfade~"
 								}
 
 							}
@@ -5453,7 +5453,7 @@
 									"patching_rect" : [ 320.0, 170.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 320.0, 240.0, 132.0, 17.0 ],
-									"text" : "jcom.hmlshelf~"
+									"text" : "tt.hmlshelf~"
 								}
 
 							}
@@ -5517,7 +5517,7 @@
 									"patching_rect" : [ 320.0, 410.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 320.0, 400.0, 132.0, 17.0 ],
-									"text" : "jcom.zerox~"
+									"text" : "tt.zerox~"
 								}
 
 							}
@@ -5533,7 +5533,7 @@
 									"patching_rect" : [ 320.0, 370.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 320.0, 360.0, 132.0, 17.0 ],
-									"text" : "jcom.wavetable~"
+									"text" : "tt.wavetable~"
 								}
 
 							}
@@ -5549,7 +5549,7 @@
 									"patching_rect" : [ 320.0, 350.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 320.0, 340.0, 132.0, 17.0 ],
-									"text" : "jcom.ramp~"
+									"text" : "tt.ramp~"
 								}
 
 							}
@@ -5565,7 +5565,7 @@
 									"patching_rect" : [ 320.0, 310.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 320.0, 300.0, 132.0, 17.0 ],
-									"text" : "jcom.op~"
+									"text" : "tt.op~"
 								}
 
 							}
@@ -5581,7 +5581,7 @@
 									"patching_rect" : [ 320.0, 270.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 320.0, 260.0, 132.0, 17.0 ],
-									"text" : "jcom.gain~"
+									"text" : "tt.gain~"
 								}
 
 							}
@@ -5693,7 +5693,7 @@
 									"patching_rect" : [ 320.0, 250.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 320.0, 220.0, 133.0, 17.0 ],
-									"text" : "jcom.filter~"
+									"text" : "tt.filter~"
 								}
 
 							}
@@ -5725,7 +5725,7 @@
 									"patching_rect" : [ 320.0, 330.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 320.0, 320.0, 132.0, 17.0 ],
-									"text" : "jcom.overdrive~"
+									"text" : "tt.overdrive~"
 								}
 
 							}
@@ -5741,7 +5741,7 @@
 									"patching_rect" : [ 320.0, 290.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 320.0, 280.0, 132.0, 17.0 ],
-									"text" : "jcom.limiter~"
+									"text" : "tt.limiter~"
 								}
 
 							}
@@ -5757,7 +5757,7 @@
 									"patching_rect" : [ 320.0, 210.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 320.0, 180.0, 132.0, 17.0 ],
-									"text" : "jcom.dcblock~"
+									"text" : "tt.dcblock~"
 								}
 
 							}
@@ -5773,7 +5773,7 @@
 									"patching_rect" : [ 320.0, 190.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 320.0, 160.0, 132.0, 17.0 ],
-									"text" : "jcom.balance~"
+									"text" : "tt.balance~"
 								}
 
 							}
@@ -6409,7 +6409,7 @@
 									"patching_rect" : [ 320.0, 230.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 320.0, 200.0, 132.0, 17.0 ],
-									"text" : "jcom.degrade~"
+									"text" : "tt.degrade~"
 								}
 
 							}
@@ -6425,7 +6425,7 @@
 									"patching_rect" : [ 320.0, 390.0, 140.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 320.0, 380.0, 131.0, 17.0 ],
-									"text" : "jcom.xfade~"
+									"text" : "tt.xfade~"
 								}
 
 							}
