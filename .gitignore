@@ -9,3 +9,5 @@ Release
 *.ncb
 *.suo
 *.user
+*.mode1v3
+*.pbxuser
