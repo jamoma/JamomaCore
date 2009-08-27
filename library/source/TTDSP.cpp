@@ -67,8 +67,6 @@ void TTDSPShutdown()
 // Misc
 #include "TTBuffer.h"
 #include "TTCrossfade.h"
-#include "TTOperator.h"
-#include "TTMatrixMixer.h"
 
 
 void TTDSPRegisterInternalClasses()
@@ -82,8 +80,6 @@ void TTDSPRegisterInternalClasses()
 		
 	// Misc
 	TTCrossfade::registerClass();
-	TTOperator::registerClass();
-	TTMatrixMixer::registerClass();
 }
 
 
