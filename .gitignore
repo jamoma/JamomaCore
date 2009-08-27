@@ -2,6 +2,7 @@
 .DS_Store
 
 Jamoma/library/externals/mac/
+Jamoma/library/externals/windows/
 logs
 build
 html
