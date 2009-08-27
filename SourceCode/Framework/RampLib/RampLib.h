@@ -10,7 +10,7 @@
 #define __RAMPLIB_H__
 
 #include "JamomaTypes.h"
-#include "TTObject.h"
+#include "TTDSP.h"
 #include "FunctionLib.h"
 
 typedef void (*RampUnitCallback)(void *, long, double *);

@@ -27,7 +27,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "TTDSP.h"					// TTBlue Headers...
+#include "TTFoundationAPI.h"		// TTBlue Headers...
 
 #include "jcom.core.h"
 #include "jcom.list.h"
@@ -40,6 +40,7 @@
 #include "DataspaceLib.h"
 #include "FunctionLib.h"
 #include "RampLib.h"
+#include "JamomaNode.h"
 
 
 #define JAMOMA_UNIT_HEIGHT 35.0

@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Framework\source;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\units&quot;;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib;&quot;$(ProjectDir)..\..\..\..\Tools\library\common&quot;"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\units&quot;;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib;..\..\Framework\NodeLib;&quot;$(ProjectDir)..\..\..\..\Tools\library\common&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION;JCOM_IN_TILDE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -125,7 +125,7 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..\..\Framework\source;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\units&quot;;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib;&quot;$(ProjectDir)..\..\..\..\Tools\library\common&quot;"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\units&quot;;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib;..\..\Framework\NodeLib;&quot;$(ProjectDir)..\..\..\..\Tools\library\common&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_VERSION;JCOM_IN_TILDE;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
@@ -183,32 +183,18 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+		<File
+			RelativePath="..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes\common\commonsyms.c"
 			>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+		</File>
+		<File
+			RelativePath="..\jcom.in\jcom.in.cpp"
 			>
-		</Filter>
-		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+		</File>
+		<File
+			RelativePath="..\jcom.in\jcom.in.h"
 			>
-			<File
-				RelativePath="$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes\common\commonsyms.c"
-				>
-			</File>
-			<File
-				RelativePath="..\jcom.in\jcom.in.cpp"
-				>
-			</File>
-		</Filter>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
