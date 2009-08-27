@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTCrossfade.h"
+#include "TTDSP.h"
 
 #define thisTTClass			TTCrossfade
 #define thisTTClassName		"crossfade"
@@ -19,15 +19,51 @@ static TTSampleValue zeroVector2[2048]; //TODO: make this dynamically sized
 static TTSampleValue zeroVector3[2048]; //TODO: make this dynamically sized
 
 
-TT_AUDIO_CONSTRUCTOR
+/**	TTCrossfade in an audio processor that crossfades between two input signals.	
+ 
+ In fact, this processor can work on a number of channels, provided that the number of input
+ channels is twice the number of output channels.  In this case the first N/2 input channels are
+ considered as the A source and the last N/2 input channels are considered the B source.
+ */
+class TTCrossfade : TTAudioObject {
+	TTCLASS_SETUP(TTCrossfade)
+	
+	TTFloat64		position;	///< Use a range of 0.0 to 1.0 to specify a ratio of the B source to the A source.
+	TTSymbol*		shape;		///< The shape attribute is set with a TTSymbol that is either "equalPower" (the default) or "linear"
+	TTSymbol*		mode;		///< The mode attribute is set with a TTSymbol that is either "lookup" (the default) or "calculate"
+	
+	/** Utility used by the setters for setting up the process routine. */
+	TTErr setProcessPointers();
+	
+	/**	The process method used when the shape attribute is set to "linear"	
+	 *	This method will return an error if the input and output channels are not matched properly.		*/
+	TTErr processLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	
+	/** The process method used when the shape attribute is set to "equalPower" and the mode is set to "lookup"
+	 *	This method will return an error if the input and output channels are not matched properly.		*/
+	TTErr processLookup(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	
+	/** The process method used when the shape attribute is set to "equalPower" and the mode is set to "calculate"
+	 *	This method will return an error if the input and output channels are not matched properly.		*/
+	TTErr processCalc(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	
+	/**	Setter for the shape attribute. */
+	TTErr setshape(const TTValue& value);
+	
+	/**	Setter for the mode attribute. */
+	TTErr setmode(const TTValue& value);
+};
+
+
+TT_AUDIO_CONSTRUCTOR_EXPORT
 {
 	registerAttributeSimple(position,	kTypeFloat64);
 	addAttributeProperty(position,		range,			TTValue(0.0, 1.0));
 	addAttributeProperty(position,		rangeChecking,	TT("clip"));
-
+	
 	registerAttributeWithSetter(shape,	kTypeSymbol);
 	registerAttributeWithSetter(mode,	kTypeSymbol);
-
+	
 	if(!zeroed){
 		memset(zeroVector1, 0, sizeof(TTSampleValue) * 2048);
 		memset(zeroVector2, 0, sizeof(TTSampleValue) * 2048);
@@ -42,9 +78,7 @@ TT_AUDIO_CONSTRUCTOR
 
 
 TTCrossfade::~TTCrossfade()
-{
-	;
-}
+{;}
 
 
 TTErr TTCrossfade::setshape(const TTValue& newValue)
@@ -89,8 +123,8 @@ TTErr TTCrossfade::processLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*inSampleA,
-					*inSampleB,
-					*outSample;
+	*inSampleB,
+	*outSample;
 	TTUInt16		numchannels = out.getNumChannels();
 	TTUInt16		channel;
 	
@@ -127,7 +161,7 @@ TTErr TTCrossfade::processLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	else{		
 		if(in.getNumChannels() != out.getNumChannels()*2)
 			return kTTErrBadChannelConfig;
-
+		
 		for(channel=0; channel<numchannels; channel++){
 			inSampleA = in.sampleVectors[channel];
 			inSampleB = in.sampleVectors[numchannels+channel];
@@ -148,15 +182,15 @@ TTErr TTCrossfade::processLookup(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*inSampleA,
-					*inSampleB,
-					*outSample;
+	*inSampleB,
+	*outSample;
 	TTUInt16		numchannels = out.getNumChannels();
 	TTUInt16		channel;
 	int				index;
 	
 	if(inputs->numAudioSignals > 1){
 		TTAudioSignal&	in2 = inputs->getSignal(1);
-
+		
 		numchannels = TTAudioSignal::getMaxChannelCount(in, in2, out);;
 		for(channel=0; channel<numchannels; channel++){
 			if(channel < in.getNumChannels())
@@ -186,7 +220,7 @@ TTErr TTCrossfade::processLookup(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	else{
 		if(in.getNumChannels() != out.getNumChannels()*2)
 			return kTTErrBadChannelConfig;
-
+		
 		for(channel=0; channel<numchannels; channel++){
 			inSampleA = in.sampleVectors[channel];
 			inSampleB = in.sampleVectors[numchannels+channel];
@@ -212,14 +246,14 @@ TTErr TTCrossfade::processCalc(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayP
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*inSampleA,
-					*inSampleB,
-					*outSample;
+	*inSampleB,
+	*outSample;
 	TTUInt16		numchannels = out.getNumChannels();
 	TTUInt16		channel;
 	
 	if(inputs->numAudioSignals > 1){
 		TTAudioSignal&	in2 = inputs->getSignal(1);
-
+		
 		numchannels = TTAudioSignal::getMinChannelCount(in, in2, out);
 		for(channel=0; channel<numchannels; channel++){
 			inSampleA = in.sampleVectors[channel];
@@ -235,7 +269,7 @@ TTErr TTCrossfade::processCalc(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayP
 	else{	
 		if(in.getNumChannels() != out.getNumChannels()*2)
 			return kTTErrBadChannelConfig;
-
+		
 		for(channel=0; channel<numchannels; channel++){
 			inSampleA = in.sampleVectors[channel];
 			inSampleB = in.sampleVectors[numchannels+channel];

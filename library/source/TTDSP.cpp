@@ -62,18 +62,12 @@ void TTDSPShutdown()
 #include "TTAudioSignal.h"
 #include "TTBuffer.h"
 
-// Misc
-#include "TTCrossfade.h"
-
 
 void TTDSPRegisterInternalClasses()
 {
 	TTAudioSignal::registerClass();
 	TTAudioSignalArray::registerClass();
 	TTBuffer::registerClass();
-	
-	// Misc
-	TTCrossfade::registerClass();
 }
 
 

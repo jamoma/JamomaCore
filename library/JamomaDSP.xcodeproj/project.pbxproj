@@ -17,7 +17,6 @@
 		228505CD102D001E004D74BC /* TTDSP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 228505CC102D001E004D74BC /* TTDSP.cpp */; };
 		22BA7E291046EE2E009771BC /* TTBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BA7E281046EE2E009771BC /* TTBuffer.cpp */; };
 		22BA7E2B1046EE35009771BC /* TTBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BA7E2A1046EE35009771BC /* TTBuffer.h */; };
-		22E385BE10286B72002000A9 /* TTCrossfade.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385B410286B72002000A9 /* TTCrossfade.cpp */; };
 		22E3861410286BBE002000A9 /* TTAudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F310286BBE002000A9 /* TTAudioEngine.cpp */; };
 		22E3861510286BBE002000A9 /* TTAudioObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F410286BBE002000A9 /* TTAudioObject.cpp */; };
 		22E3861610286BBE002000A9 /* TTAudioSignal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F510286BBE002000A9 /* TTAudioSignal.cpp */; };
@@ -43,8 +42,6 @@
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22BA7E281046EE2E009771BC /* TTBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTBuffer.cpp; path = source/TTBuffer.cpp; sourceTree = "<group>"; };
 		22BA7E2A1046EE35009771BC /* TTBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBuffer.h; path = includes/TTBuffer.h; sourceTree = "<group>"; };
-		22E385B410286B72002000A9 /* TTCrossfade.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTCrossfade.cpp; sourceTree = "<group>"; };
-		22E385C810286B80002000A9 /* TTCrossfade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTCrossfade.h; path = includes/units/TTCrossfade.h; sourceTree = SOURCE_ROOT; };
 		22E385D010286B97002000A9 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = ../../Foundation/library/includes/TTFoundationAPI.h; sourceTree = "<group>"; };
 		22E385D210286BB0002000A9 /* TTAudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioEngine.h; path = includes/TTAudioEngine.h; sourceTree = "<group>"; };
 		22E385D310286BB0002000A9 /* TTAudioObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = includes/TTAudioObject.h; sourceTree = "<group>"; };
@@ -90,7 +87,6 @@
 				228505CB102CFFFA004D74BC /* TTDSP.h */,
 				228505CC102D001E004D74BC /* TTDSP.cpp */,
 				08FB77AEFE84172EC02AAC07 /* Core */,
-				22E385B110286B72002000A9 /* units */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
@@ -127,16 +123,6 @@
 				22BA7E281046EE2E009771BC /* TTBuffer.cpp */,
 			);
 			name = Core;
-			sourceTree = "<group>";
-		};
-		22E385B110286B72002000A9 /* units */ = {
-			isa = PBXGroup;
-			children = (
-				22E385C810286B80002000A9 /* TTCrossfade.h */,
-				22E385B410286B72002000A9 /* TTCrossfade.cpp */,
-			);
-			name = units;
-			path = source/units;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,7 +212,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22E385BE10286B72002000A9 /* TTCrossfade.cpp in Sources */,
 				22E3861410286BBE002000A9 /* TTAudioEngine.cpp in Sources */,
 				22E3861510286BBE002000A9 /* TTAudioObject.cpp in Sources */,
 				22E3861610286BBE002000A9 /* TTAudioSignal.cpp in Sources */,
