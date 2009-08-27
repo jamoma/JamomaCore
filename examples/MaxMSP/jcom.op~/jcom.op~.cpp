@@ -9,6 +9,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
+#include "TTClassWrapperMax.h"
 #include "ext.h"					// Max Header
 #include "z_dsp.h"					// MSP Header
 #include "ext_strings.h"			// String Functions
