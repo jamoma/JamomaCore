@@ -60,12 +60,9 @@ void TTDSPShutdown()
 
 // Core
 #include "TTAudioSignal.h"
-
-// Analysis
-#include "TTZerocross.h"
+#include "TTBuffer.h"
 
 // Misc
-#include "TTBuffer.h"
 #include "TTCrossfade.h"
 
 
@@ -75,9 +72,6 @@ void TTDSPRegisterInternalClasses()
 	TTAudioSignalArray::registerClass();
 	TTBuffer::registerClass();
 	
-	// Analysis
-	TTZerocross::registerClass();
-		
 	// Misc
 	TTCrossfade::registerClass();
 }
