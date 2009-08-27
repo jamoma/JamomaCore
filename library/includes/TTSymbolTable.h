@@ -78,7 +78,7 @@ class TTValue;
 	commonly used strings in a table so that we can refer to them simply as a pointers for fast comparison.	
  */
 
-class TTEXPORT TTSymbolTable : public TTElement {
+class TTFOUNDATION_EXPORT TTSymbolTable : public TTElement {
 private:
 	TTSymbolTableHash*	symbolTable;	///< The symbol table, implemented internally as an STL hash_map.
 
@@ -99,7 +99,7 @@ public:
 };
 
 
-extern TTEXPORT TTSymbolTable* ttSymbolTable;		///< The global table of symbols
+extern TTFOUNDATION_EXPORT TTSymbolTable* ttSymbolTable;		///< The global table of symbols
 
 
 #endif // __TT_SYMBOLTABLE_H__

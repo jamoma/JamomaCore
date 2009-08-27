@@ -12,52 +12,52 @@
 #include "TTSymbol.h"
 
 // high-performance (these are defined first so that they are found fast)
-extern TTEXPORT TTSymbolPtr	kTTSymEmpty;
-extern TTEXPORT TTSymbolPtr kTTSym_setVector32;
-extern TTEXPORT TTSymbolPtr kTTSym_getVector32;
-extern TTEXPORT TTSymbolPtr kTTSym_setVector64;
-extern TTEXPORT TTSymbolPtr kTTSym_getVector64;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSymEmpty;
+extern TTFOUNDATION_EXPORT TTSymbolPtr kTTSym_setVector32;
+extern TTFOUNDATION_EXPORT TTSymbolPtr kTTSym_getVector32;
+extern TTFOUNDATION_EXPORT TTSymbolPtr kTTSym_setVector64;
+extern TTFOUNDATION_EXPORT TTSymbolPtr kTTSym_getVector64;
 
-extern TTEXPORT TTSymbolPtr	kTTSym_alloc;
-extern TTEXPORT TTSymbolPtr	kTTSym_audioEngineWillProcess;
-extern TTEXPORT TTSymbolPtr	kTTSym_both;
-extern TTEXPORT TTSymbolPtr	kTTSym_bypass;
-extern TTEXPORT TTSymbolPtr kTTSym_clear;
-extern TTEXPORT TTSymbolPtr	kTTSym_clipmode;
-extern TTEXPORT TTSymbolPtr	kTTSym_high;
-extern TTEXPORT TTSymbolPtr	kTTSym_low;
-extern TTEXPORT TTSymbolPtr	kTTSym_maxNumChannels;
-extern TTEXPORT TTSymbolPtr	kTTSym_numChannels;
-extern TTEXPORT TTSymbolPtr	kTTSym_processInPlace;
-extern TTEXPORT TTSymbolPtr	kTTSym_range;
-extern TTEXPORT TTSymbolPtr	kTTSym_resonance;
-extern TTEXPORT TTSymbolPtr	kTTSym_sr;
-extern TTEXPORT TTSymbolPtr	kTTSym_updateMaxNumChannels;
-extern TTEXPORT TTSymbolPtr	kTTSym_updateSr;
-extern TTEXPORT TTSymbolPtr	kTTSym_vectorSize;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_alloc;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_audioEngineWillProcess;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_both;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_bypass;
+extern TTFOUNDATION_EXPORT TTSymbolPtr kTTSym_clear;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clipmode;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_high;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_low;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_maxNumChannels;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_numChannels;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_processInPlace;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_range;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_resonance;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sr;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_updateMaxNumChannels;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_updateSr;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_vectorSize;
 
 // waveforms
-extern TTEXPORT TTSymbolPtr	kTTSym_sine;
-extern TTEXPORT TTSymbolPtr	kTTSym_sineMod;
-extern TTEXPORT TTSymbolPtr	kTTSym_cosine;
-extern TTEXPORT TTSymbolPtr	kTTSym_cosineMod;
-extern TTEXPORT TTSymbolPtr	kTTSym_square;
-extern TTEXPORT TTSymbolPtr	kTTSym_squareMod;
-extern TTEXPORT TTSymbolPtr	kTTSym_triangle;
-extern TTEXPORT TTSymbolPtr	kTTSym_triangleMod;
-extern TTEXPORT TTSymbolPtr	kTTSym_ramp;
-extern TTEXPORT TTSymbolPtr	kTTSym_rampMod;
-extern TTEXPORT TTSymbolPtr	kTTSym_sawtooth;
-extern TTEXPORT TTSymbolPtr	kTTSym_sawtoothMod;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sine;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sineMod;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_cosine;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_cosineMod;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_square;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_squareMod;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_triangle;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_triangleMod;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_ramp;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_rampMod;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sawtooth;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sawtoothMod;
 
 // object names
-extern TTEXPORT TTSymbolPtr	kTTSym_adsr;
-extern TTEXPORT TTSymbolPtr	kTTSym_audiosignal;
-extern TTEXPORT TTSymbolPtr kTTSym_audiosignalarray;
-extern TTEXPORT TTSymbolPtr	kTTSym_dcblock;
-extern TTEXPORT TTSymbolPtr	kTTSym_gain;
-extern TTEXPORT TTSymbolPtr	kTTSym_operator;
-extern TTEXPORT TTSymbolPtr	kTTSym_phasor;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_adsr;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_audiosignal;
+extern TTFOUNDATION_EXPORT TTSymbolPtr kTTSym_audiosignalarray;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_dcblock;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_gain;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_operator;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_phasor;
 
 void TTSymbolCacheInit();
 

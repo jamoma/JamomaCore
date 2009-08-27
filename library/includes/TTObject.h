@@ -74,7 +74,7 @@ enum TTAttributeFlags {
 /**
 	Base class for all first-class TTBlue objects.
 */
-class TTEXPORT TTObject : public TTElement {
+class TTFOUNDATION_EXPORT TTObject : public TTElement {
 private:
 	friend class TTEnvironment;
 

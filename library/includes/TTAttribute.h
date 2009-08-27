@@ -54,7 +54,7 @@
 	At the moment we define it in the same file because we are sharing the typedef
 	for TTMethod.
 */
-class TTEXPORT TTAttribute : public TTObject {
+class TTFOUNDATION_EXPORT TTAttribute : public TTObject {
 private:
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...

@@ -45,7 +45,7 @@ typedef TTHashMap::const_iterator			TTHashMapIter;
  
  
 */
-class TTEXPORT TTHash : TTElement {
+class TTFOUNDATION_EXPORT TTHash : TTElement {
 private:
 //	#ifdef TT_PLATFORM_WIN
 //	#pragma warning(disable:4251)
