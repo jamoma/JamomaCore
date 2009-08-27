@@ -30,7 +30,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\JamomaDSP.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaDSP.lib .\build&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\JamomaDSP.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaDSP.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;"
 				Outputs="none"
 			/>
 			<Tool
@@ -46,7 +46,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)includes\units&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)source\units&quot;;&quot;$(ProjectDir)portaudio\include&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTDSP_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -116,7 +116,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\JamomaDSP.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaDSP.lib .\build&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\JamomaDSP.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaDSP.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;"
 				Outputs="AAA"
 			/>
 			<Tool
@@ -132,7 +132,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)includes\units&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)source\units&quot;;&quot;$(ProjectDir)portaudio\include&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTDSP_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
