@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine=""
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;"
 				Outputs="output"
 			/>
 			<Tool
@@ -64,7 +64,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib JamomaDSP.lib JamomaModular.lib"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib JamomaFoundation.lib JamomaDSP.lib JamomaModular.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;..\..\Framework\$(ConfigurationName)&quot;"
@@ -107,7 +107,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\..\Jamoma\library\externals\windows&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;"
 				Outputs="output"
 			/>
 			<Tool
@@ -148,7 +148,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib JamomaDSP.lib JamomaModular.lib"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib JamomaFoundation.lib JamomaDSP.lib JamomaModular.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;..\..\Framework\$(ConfigurationName)&quot;"

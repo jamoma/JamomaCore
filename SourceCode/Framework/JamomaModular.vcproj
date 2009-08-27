@@ -28,7 +28,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;"
 				Outputs="output"
 			/>
 			<Tool
@@ -108,7 +108,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;"
 				Outputs="output"
 			/>
 			<Tool
