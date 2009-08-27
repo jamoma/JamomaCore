@@ -262,7 +262,7 @@
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
-				PRODUCT_NAME = TTFunctionLib;
+				PRODUCT_NAME = FunctionLib;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Foundation/library/includes\" \"$(SRCROOT)/../../library/includes\"";
 			};
 			name = Deployment;
