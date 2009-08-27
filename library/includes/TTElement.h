@@ -39,21 +39,21 @@ using namespace std;
 		#define _CRT_SECURE_NO_WARNINGS
 	#endif
 	#define snprintf _snprintf
-	#ifdef _DLL_EXPORT
-		#define TTEXPORT __declspec(dllexport)
+	#ifdef TTFOUNDATION_EXPORTS
+		#define TTFOUNDATION_EXPORT __declspec(dllexport)
 	#else
 		#ifdef TTSTATIC
-			#define TTEXPORT
+			#define TTFOUNDATION_EXPORT
 		#else
-			#define TTEXPORT __declspec(dllimport)
+			#define TTFOUNDATION_EXPORT __declspec(dllimport)
 		#endif
 	#endif // _DLL_EXPORT
 
 #else // TT_PLATFORM_MAC
-	#ifdef _DLL_EXPORT
-		#define TTEXPORT __attribute__((visibility("default")))
+	#ifdef TTFOUNDATION_EXPORTS
+		#define TTFOUNDATION_EXPORT __attribute__((visibility("default")))
 	#else
-		#define TTEXPORT
+		#define TTFOUNDATION_EXPORT
 	#endif
 #endif
 
@@ -155,7 +155,7 @@ typedef TTDataInfo* TTDataInfoPtr;
 extern TTDataInfoPtr	ttDataTypeInfo[kNumTTDataTypes];
 
 
-class TTDataInfo {
+class TTFOUNDATION_EXPORT TTDataInfo {
 public:
 	TTSymbol*	name;			///< The name of the type as a symbol, e.g. float32, float64, etc.
 	TTBoolean	isNumerical;	///< Is this type numeric?
@@ -200,7 +200,7 @@ enum TTErr {
 
 
 /**	A TTBlue exception is thown with this object. */
-class TTEXPORT TTException {
+class TTFOUNDATION_EXPORT TTException {
 	TTImmutableCString	reason;
 public:
 	TTException(TTImmutableCString aReason)
@@ -214,33 +214,33 @@ public:
  	It does not define any real functionality.
 	Instead it provides a way to group and work polymorphically with any class in TTBlue,
 	including both TTValue and TTObject.													*/
-class TTEXPORT TTElement {
+class TTFOUNDATION_EXPORT TTElement {
 public:
 	TTElement();			///< Constructor.
 	virtual ~TTElement();	///< Destructor.
 };
 
 
-TTEXPORT extern const TTFloat32 kTTLookupEqualPower[];			///< Equal Power lookup table
-TTEXPORT extern const TTFloat32 kTTLookupHalfPaddedwWelch[];		///< 256 point window table (the first half of it)
-TTEXPORT extern const TTFloat32 kTTLookupQuarterSine[];			///< Quarter Sine lookup table
-TTEXPORT extern const TTFloat64 kTTPi;							///< pre-calculated value of pi
-TTEXPORT extern const TTFloat64 kTTTwoPi;						///< pre-calculated value of pi * 2
-TTEXPORT extern const TTFloat64 kTTAntiDenormalValue;			///< constant used by the ttantidenormal function
-TTEXPORT extern const TTFloat64 kTTSqrt2;						///< pre-calculated square-root of 2
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupEqualPower[];			///< Equal Power lookup table
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupHalfPaddedwWelch[];		///< 256 point window table (the first half of it)
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupQuarterSine[];			///< Quarter Sine lookup table
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTPi;							///< pre-calculated value of pi
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoPi;						///< pre-calculated value of pi * 2
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTAntiDenormalValue;			///< constant used by the ttantidenormal function
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTSqrt2;						///< pre-calculated square-root of 2
 
 
 /** Platform and host independent method for posting messages. */
-void TTEXPORT TTLogMessage(TTImmutableCString message, ...);
+void TTFOUNDATION_EXPORT TTLogMessage(TTImmutableCString message, ...);
 
 /** Platform and host independent method for posting messages. */
-void TTEXPORT TTLogWarning(TTImmutableCString message, ...);
+void TTFOUNDATION_EXPORT TTLogWarning(TTImmutableCString message, ...);
 
 /** Platform and host independent method for posting errors. */
-void TTEXPORT TTLogError(TTImmutableCString message, ...);
+void TTFOUNDATION_EXPORT TTLogError(TTImmutableCString message, ...);
 
 /** Platform and host independent method for posting messages only when debugging is enabled in the environment. */
-void TTEXPORT TTLogDebug(TTImmutableCString message, ...);
+void TTFOUNDATION_EXPORT TTLogDebug(TTImmutableCString message, ...);
 
 
 /** Filter out denormaled values, which can make processing extremely slow when they are present. */

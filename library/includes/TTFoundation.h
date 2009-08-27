@@ -51,11 +51,14 @@
 		/** Constructor */														\
 		className (TTValue& arguments);											\
 		/** Destructor */														\
-		virtual ~ className ();													\
+		virtual ~className ();													\
+
+// ON WINDOWS THERE CAN BE NO SPACE BETWEEN ~ and CLASSNAME like
+//		virtual ~ className ();	
 
 
 
-void TTEXPORT TTFoundationInit();
+void TTFOUNDATION_EXPORT TTFoundationInit();
 
 
 #endif // __TT_BLUE_H__

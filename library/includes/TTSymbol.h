@@ -26,7 +26,7 @@
 	Also, if you don't need the fast lookup capabilities of the symbol table (such as for message or attribute lookup)
 	then consider passing a #TTString instead.
 */
-class TTEXPORT TTSymbol : public TTElement {
+class TTFOUNDATION_EXPORT TTSymbol : public TTElement {
 private:
 
 // Microsoft's compiler complains because TTString (std::string) does not have a DLL-Interface

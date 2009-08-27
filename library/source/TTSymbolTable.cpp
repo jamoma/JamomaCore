@@ -11,7 +11,7 @@
 #include "TTValue.h"
 
 static TTMutex*				sMutex = NULL;
-TTEXPORT TTSymbolTable*		ttSymbolTable = NULL;
+TTFOUNDATION_EXPORT TTSymbolTable*		ttSymbolTable = NULL;
 
 /****************************************************************************************************/
 

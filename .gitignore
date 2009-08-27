@@ -1,6 +1,11 @@
 logs
 build
-eclipse/Debug
+html
+Debug
+Release
 *.layout
 *.depends
-
+*.map
+*.ncb
+*.suo
+*.user

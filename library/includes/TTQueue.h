@@ -27,7 +27,7 @@
 	The implementation uses a set of related lists; one for the object, one for the message, and
 	one for the value argument to the message. 
 */
-class TTEXPORT TTQueue : public TTElement {
+class TTFOUNDATION_EXPORT TTQueue : public TTElement {
 private:
 	TTThread*	queueThread;
 	TTList*		queueEventObjects;
