@@ -1,6 +1,6 @@
 /* 
  * Jamoma DataspaceLib: GainDataspace
- * Copyright © 2007, Trond Lossius
+ * Copyright ï¿½ 2007, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -96,8 +96,14 @@ void DecibelUnit::convertFromNeutral(long inputNumArgs, double *input, long *out
 
 
 /***********************************************************************************************/
-GainDataspace::GainDataspace()
-	: DataspaceLib("gain", "linear")
+
+#define thisTTClass			GainDataspace
+#define thisTTClassName		"dataspace.gain"
+#define thisTTClassTags		"dataspace, gain"
+
+TT_DATASPACELIB_CONSTRUCTOR
+//GainDataspace::GainDataspace()
+//	: DataspaceLib("gain", "linear")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new LinearAmplitudeUnit,	SymbolGen("linear"));

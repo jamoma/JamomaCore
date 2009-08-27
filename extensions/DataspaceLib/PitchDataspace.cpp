@@ -1,6 +1,6 @@
 /* 
  * Jamoma DataspaceLib: PitchDataspace
- * Copyright © 2007, Trond Lossius
+ * Copyright ï¿½ 2007, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -120,8 +120,14 @@ void SpeedUnit::convertFromNeutral(long inputNumArgs, double *input, long *outpu
 
 
 /***********************************************************************************************/
-PitchDataspace::PitchDataspace()
-	: DataspaceLib("pitch", "Hz")
+
+#define thisTTClass			PitchDataspace
+#define thisTTClassName		"dataspace.pitch"
+#define thisTTClassTags		"dataspace, pitch"
+
+TT_DATASPACELIB_CONSTRUCTOR
+//PitchDataspace::PitchDataspace()
+//	: DataspaceLib("pitch", "Hz")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new CentUnit,			SymbolGen("cents"));

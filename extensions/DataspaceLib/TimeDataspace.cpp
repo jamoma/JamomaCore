@@ -136,8 +136,14 @@ void BpmUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 
 
 /***********************************************************************************************/
-TimeDataspace::TimeDataspace()
-	: DataspaceLib("time", "millisecond")
+
+#define thisTTClass			TimeDataspace
+#define thisTTClassName		"dataspace.time"
+#define thisTTClassTags		"dataspace, time"
+
+TT_DATASPACELIB_CONSTRUCTOR
+//TimeDataspace::TimeDataspace()
+//	: DataspaceLib("time", "millisecond")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new BpmUnit,			SymbolGen("bpm"));

@@ -16,6 +16,18 @@
 #include "TTFoundationAPI.h"
 
 
+// Macros used to export classes and methods so that we can use linking in performance-critical code
+#if defined( TT_PLATFORM_MAC ) or defined ( TT_PLATFORM_LINUX )
+	#define TT_DATASPACE_EXPORT TTFOUNDATION_EXPORT
+#else
+	#ifdef TT_DATASPACE_LIB
+		#define TT_DATASPACE_EXPORT __declspec(dllexport)
+	#else
+		#define TT_DATASPACE_EXPORT __declspec(dllimport)
+	#endif
+#endif
+
+
 // Constants used for trigonometric convertions:
 static const double kRadiansToDegrees = 180.0 / 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068;
 static const double kDegreesToRadians = 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068 / 180.0;
@@ -30,33 +42,52 @@ static const double inv255 = 1./255.;
 
 
 
+#define TT_DATASPACELIB_CONSTRUCTOR \
+	TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {return new thisTTClass (arguments);} \
+	\
+	extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
+	\
+	thisTTClass :: thisTTClass (TTValue& arguments) : DataspaceLib(arguments)
+
+
+#define TT_DATASPACEUNIT_CONSTRUCTOR \
+	TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {return new thisTTClass (arguments);} \
+	\
+	extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
+	\
+	thisTTClass :: thisTTClass (TTValue& arguments) : DataspaceUnit(arguments)
+
 
 /****************************************************************************************************/
 // Class Specification
+
+// THESE ARE BASE CLASSES AND NEVER DIRECTLY INSTANTIATED -- THEREFORE NOT DIRECTLY REGISTERED WITH THE TTENVIRONMENT
 
 
 // Specification for the base class of each DataspaceUnit
 // A DataspaceUnit converts from a specific unit to a neutral unit
 // and is used by a DataspaceLib to do a conversion
-class TT_EXTENSION_EXPORT DataspaceUnit {
-	public:
-		TTSymbolPtr name;				/// < name of this unit
+class TT_DATASPACE_EXPORT DataspaceUnit : public TTObject {
+public:
+	friend class TTEnvironment;	
 
-		/** Constructor. Must be passed the name of this DataspaceUnit as a C-string. */
-		DataspaceUnit(const TTSymbolPtr newName);
+	TTSymbolPtr name;				/// < name of this unit
 
-		/** Destructor */
-		virtual ~DataspaceUnit();
+	/** Constructor. Must be passed the name of this DataspaceUnit as a TTSymbolPtr. */
+	DataspaceUnit(TTValue& arguments);
 
-		/** Converts from an actual unit to a 'neutral' unit that can be interpreted by other units within this dataspace.
-			This must be defined by a sub-class.*/
-		//virtual void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output) = 0;
-        virtual void convertToNeutral(const TTValue& input, TTValue& output) = 0;
+	/** Destructor */
+	virtual ~DataspaceUnit();
 
-		/** Converts from a neutral unit back to an actual unit.
-			This must be defined by a sub-class.*/
-		//virtual void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms) = 0;
-		virtual void convertFromNeutral(const TTValue& input, TTValue& output) = 0;
+	/** Converts from an actual unit to a 'neutral' unit that can be interpreted by other units within this dataspace.
+		This must be defined by a sub-class.*/
+	//virtual void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output) = 0;
+	virtual void convertToNeutral(const TTValue& input, TTValue& output) = 0;
+
+	/** Converts from a neutral unit back to an actual unit.
+		This must be defined by a sub-class.*/
+	//virtual void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms) = 0;
+	virtual void convertFromNeutral(const TTValue& input, TTValue& output) = 0;
 };
 
 typedef DataspaceUnit* DataspaceUnitPtr;
@@ -64,7 +95,10 @@ typedef DataspaceUnit* DataspaceUnitPtr;
 
 
 // Specification of our base class
-class TT_EXTENSION_EXPORT DataspaceLib{
+class TT_DATASPACE_EXPORT DataspaceLib : public TTObject {
+public:
+	friend class TTEnvironment;	
+
 	private:
 		DataspaceUnitPtr  inUnit;
 		DataspaceUnitPtr  outUnit;
@@ -83,9 +117,9 @@ class TT_EXTENSION_EXPORT DataspaceLib{
 			@param cName		The name of the total Dataspace as a C-string
 			@param cNativeUnit	The name of the neutral unit that is used for translating
 								between units within this Dataspace. */
-		DataspaceLib(const TTSymbolPtr newName, const TTSymbolPtr newNeutralUnit);
-
-		/** Destructor. */
+		DataspaceLib(TTValue& arguments);
+	
+		/** Destructor */
 		virtual ~DataspaceLib();
 
 /*		JamomaError convert(long		inputNumArgs,
@@ -126,7 +160,7 @@ class TT_EXTENSION_EXPORT DataspaceLib{
 };
 
 
-extern "C" {
+//extern "C" {
 
 	/** Create a dataspace object by specifying the name of the dataspace you want as a symbol. */
 //	TTErr	jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspace);
@@ -139,6 +173,6 @@ extern "C" {
 // TODO: implement using tags when the object is registered
 
 
-}
+//}
 
 #endif // __DATASPACELIB_H__

@@ -105,8 +105,14 @@ void MeterUnit::convertFromNeutral(long inputNumArgs, double *input, long *outpu
 
 
 /***********************************************************************************************/
-DistanceDataspace::DistanceDataspace()
-	: DataspaceLib("distance", "meters")
+
+#define thisTTClass			DistanceDataspace
+#define thisTTClassName		"dataspace.distance"
+#define thisTTClassTags		"dataspace, distance"
+
+TT_DATASPACELIB_CONSTRUCTOR
+//DistanceDataspace::DistanceDataspace()
+//	: DataspaceLib("distance", "meters")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new CentimeterUnit,	SymbolGen("cm"));

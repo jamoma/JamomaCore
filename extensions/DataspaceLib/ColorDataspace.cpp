@@ -335,8 +335,14 @@ void RGB8Unit::convertFromNeutral(long inputNumArgs, double *input, long *output
 
 
 /***********************************************************************************************/
-ColorDataspace::ColorDataspace()
-	: DataspaceLib("color", "rgb")
+
+#define thisTTClass			ColorDataspace
+#define thisTTClassName		"dataspace.color"
+#define thisTTClassTags		"dataspace, color"
+
+TT_DATASPACELIB_CONSTRUCTOR
+//ColorDataspace::ColorDataspace()
+//	: DataspaceLib("color", "rgb")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new CMYUnit,		SymbolGen("cmy"));

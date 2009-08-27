@@ -81,8 +81,14 @@ void KelvinUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 
 
 /***********************************************************************************************/
-TemperatureDataspace::TemperatureDataspace()
-	: DataspaceLib("temperature", "Kelvin")
+
+#define thisTTClass			TemperatureDataspace
+#define thisTTClassName		"dataspace.temperature"
+#define thisTTClassTags		"dataspace, temperature"
+
+TT_DATASPACELIB_CONSTRUCTOR
+//TemperatureDataspace::TemperatureDataspace()
+//	: DataspaceLib("temperature", "Kelvin")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new CelsiusUnit,		SymbolGen("C"));

@@ -1,12 +1,12 @@
 /* 
  * Jamoma DataspaceLib: DistanceDataspace
- * Copyright © 2007, Nils Peters
+ * Copyright ï¿½ 2007, Nils Peters
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  
- * Based on code by Trond Lossius, © 2007 and
- *					Jan Schacher / ICST Zurich © 2006 
+ * Based on code by Trond Lossius, ï¿½ 2007 and
+ *					Jan Schacher / ICST Zurich ï¿½ 2006 
  *
  * 
  */
@@ -210,8 +210,14 @@ void CylindricalUnit::convertFromNeutral(long inputNumArgs, double *input, long 
 
 
 /***********************************************************************************************/
-PositionDataspace::PositionDataspace()
-	: DataspaceLib("position", "xyz")
+
+#define thisTTClass			PositionDataspace
+#define thisTTClassName		"dataspace.position"
+#define thisTTClassTags		"dataspace, position"
+
+TT_DATASPACELIB_CONSTRUCTOR
+//PositionDataspace::PositionDataspace()
+//	: DataspaceLib("position", "xyz")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new Cartesian3DUnit,	SymbolGen("cart3D"));

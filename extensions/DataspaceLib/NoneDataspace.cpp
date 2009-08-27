@@ -33,8 +33,14 @@ void NoneUnit::convertFromNeutral(long inputNumArgs, double *input, long *output
 
 
 /***********************************************************************************************/
-NoneDataspace::NoneDataspace()
-	: DataspaceLib("none", "none")
+
+#define thisTTClass			NoneDataspace
+#define thisTTClassName		"dataspace.none"
+#define thisTTClassTags		"dataspace, none"
+
+TT_DATASPACELIB_CONSTRUCTOR
+//NoneDataspace::NoneDataspace()
+//	: DataspaceLib("none", "none")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new NoneUnit,	SymbolGen("none"));

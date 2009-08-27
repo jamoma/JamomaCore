@@ -8,12 +8,11 @@
 
 #include "DataspaceLib.h"
 
-DataspaceUnit::DataspaceUnit(const TTSymbolPtr newName) :
-    name(newName)
-{
-	;
-}
 
+DataspaceUnit::DataspaceUnit(TTValue& arguments) : TTObject(arguments)
+{
+	arguments.get(0, &name);
+}
 
 DataspaceUnit::~DataspaceUnit()
 {
@@ -23,12 +22,13 @@ DataspaceUnit::~DataspaceUnit()
 
 /***********************************************************************************/
 
-DataspaceLib::DataspaceLib(const TTSymbolPtr newName, const TTSymbolPtr newNativeUnit) :
-    inUnit(NULL),
-    outUnit(NULL),
-    neutralUnit(newNativeUnit),
-    name(newName)
+DataspaceLib::DataspaceLib(TTValue& arguments) : TTObject(arguments),
+	inUnit(NULL),
+    outUnit(NULL)
 {
+	arguments.get(0, &name);
+	arguments.get(1, &neutralUnit);
+	
 	unitHash = new TTHash;
 }
 
@@ -66,7 +66,7 @@ DataspaceLib::~DataspaceLib()
 
 
 // remember, we are relying on memory passed in for the outputAtoms
-JamomaError DataspaceLib::convert(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, t_atom **outputAtoms)
+TTErr DataspaceLib::convert(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, t_atom **outputAtoms)
 {
 	double	value[3];	// right now we only handle a maximum of 3 values in the neutral unit passing
 	long	numvalues;
@@ -85,7 +85,7 @@ TTErr convert(const TTValue& input, TTValue& output);
 
 
 
-JamomaError DataspaceLib::setInputUnit(t_symbol *inUnitName)
+TTErr DataspaceLib::setInputUnit(t_symbol *inUnitName)
 {
 	t_object*	newUnit = NULL;
 	JamomaError	err;
@@ -103,7 +103,7 @@ TTErr setInputUnit(TTSymbolPtr inUnitName);
 
 
 
-JamomaError DataspaceLib::setOutputUnit(t_symbol *outUnitName)
+TTErr DataspaceLib::setOutputUnit(t_symbol *outUnitName)
 {
 	t_object*	newUnit = NULL;
 	JamomaError	err;
@@ -151,8 +151,6 @@ TTErr DataspaceLib::getAvailableUnits(TTValue& unitNames)
 extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 {
 	TTFoundationInit();
-
-    Dataspace::registerClass();
 
 	AngleDataspace::registerClass();
 	ColorDataspace::registerClass();
