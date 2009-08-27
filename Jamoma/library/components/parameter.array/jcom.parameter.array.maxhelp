@@ -522,7 +522,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 460.0, 241.0, 145.0, 19.0 ],
+					"patching_rect" : [ 456.0, 198.0, 145.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
