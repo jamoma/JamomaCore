@@ -149,6 +149,8 @@ public:
 	void setSize(const TTUInt16 arg);
 	
 	TTValue& operator = (const TTValue &newValue);
+
+// TODO: This stuff *really* all needs to be inlined!
 	
 	// FLOAT32
 	TTValue& operator = (TTFloat32 value);
@@ -265,8 +267,7 @@ public:
 	void append(const TTObject& newValue);
 	void append(const TTPtr newValue);
 	void append(const TTValue* newValue);
-
-
+		
 // TODO: implement this!	
 //	TTValue& operator [] (int)
 
