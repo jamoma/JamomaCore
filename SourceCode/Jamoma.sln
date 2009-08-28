@@ -58,8 +58,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.cuemanager", "MaxObjec
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.savebang", "MaxObjects\jcom.savebang\jcom.savebang.vcproj", "{D2D5BC83-CD62-4DC4-9C74-003BB9B69309}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.node", "MaxObjects\jcom.node\jcom.node.vcproj", "{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTClipper", "..\..\DSP\extensions\Clipper\Clipper.vcproj", "{C73B580F-BC81-490A-A54C-C851BF03BE3C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTEffectsLib", "..\..\DSP\extensions\EffectsLib\EffectsLib.vcproj", "{946C1578-B549-4F2C-820E-CC8E2E2B94DC}"
@@ -97,8 +95,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.folder", "MaxObjects\jcom.folder\jcom.folder.vcproj", "{6A2E51A0-35E8-41D7-BA31-94B03CC78AEB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.textslider", "MaxObjects\jcom.textslider\jcom.textslider.vcproj", "{C710B36E-ADC3-40D5-A59E-1C74FE325807}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.minuit", "MaxObjects\jcom.minuit\jcom.minuit.vcproj", "{5EE29274-86C5-436E-B6F7-7BA4BDE373B0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.out~", "MaxObjects\jcom.out~\jcom.out~.vcproj", "{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}"
 EndProject
@@ -226,8 +222,6 @@ Global
 		{D2D5BC83-CD62-4DC4-9C74-003BB9B69309}.Debug|Win32.Build.0 = Debug|Win32
 		{D2D5BC83-CD62-4DC4-9C74-003BB9B69309}.Release|Win32.ActiveCfg = Release|Win32
 		{D2D5BC83-CD62-4DC4-9C74-003BB9B69309}.Release|Win32.Build.0 = Release|Win32
-		{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}.Debug|Win32.ActiveCfg = Debug|Win32
-		{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}.Release|Win32.ActiveCfg = Release|Win32
 		{C73B580F-BC81-490A-A54C-C851BF03BE3C}.Debug|Win32.ActiveCfg = Debug|Win32
 		{C73B580F-BC81-490A-A54C-C851BF03BE3C}.Debug|Win32.Build.0 = Debug|Win32
 		{C73B580F-BC81-490A-A54C-C851BF03BE3C}.Release|Win32.ActiveCfg = Release|Win32
@@ -304,10 +298,6 @@ Global
 		{C710B36E-ADC3-40D5-A59E-1C74FE325807}.Debug|Win32.Build.0 = Debug|Win32
 		{C710B36E-ADC3-40D5-A59E-1C74FE325807}.Release|Win32.ActiveCfg = Release|Win32
 		{C710B36E-ADC3-40D5-A59E-1C74FE325807}.Release|Win32.Build.0 = Release|Win32
-		{5EE29274-86C5-436E-B6F7-7BA4BDE373B0}.Debug|Win32.ActiveCfg = Debug|Win32
-		{5EE29274-86C5-436E-B6F7-7BA4BDE373B0}.Debug|Win32.Build.0 = Debug|Win32
-		{5EE29274-86C5-436E-B6F7-7BA4BDE373B0}.Release|Win32.ActiveCfg = Release|Win32
-		{5EE29274-86C5-436E-B6F7-7BA4BDE373B0}.Release|Win32.Build.0 = Release|Win32
 		{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}.Debug|Win32.ActiveCfg = Debug|Win32
 		{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}.Debug|Win32.Build.0 = Debug|Win32
 		{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}.Release|Win32.ActiveCfg = Release|Win32
