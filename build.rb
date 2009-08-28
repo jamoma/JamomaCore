@@ -93,7 +93,7 @@ puts ""
 
 if  win32?
 else
-	copydir("#{@svn_root}/Jamoma/library/externals/mac/jcom.loader.mxo", "\"/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo\"")
+	copydir("#{@svn_root}/../../Builds/jcom.loader.mxo", "\"/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo\"")
 end
 puts ""
 
