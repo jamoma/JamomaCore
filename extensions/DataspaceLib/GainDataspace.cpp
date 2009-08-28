@@ -12,15 +12,12 @@
 #include <math.h>
 
 
+#define thisTTClass			LinearAmplitudeUnit
+#define thisTTClassName		"unit.linear"
+#define thisTTClassTags		"dataspace, gain"
 
-LinearAmplitudeUnit::LinearAmplitudeUnit()
-	: DataspaceUnit("linear")
-{;}
-
-
-LinearAmplitudeUnit::~LinearAmplitudeUnit()
-{;}
-
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+LinearAmplitudeUnit::~LinearAmplitudeUnit(){;}		
 
 void LinearAmplitudeUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
@@ -41,15 +38,18 @@ void LinearAmplitudeUnit::convertFromNeutral(long inputNumArgs, double *input, l
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
-MidiGainUnit::MidiGainUnit()
-	: DataspaceUnit("midi")
-{;}
 
+#define thisTTClass			MidiGainUnit
+#define thisTTClassName		"unit.midi.gain"
+#define thisTTClassTags		"dataspace, gain"
 
-MidiGainUnit::~MidiGainUnit()
-{;}
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+MidiGainUnit::~MidiGainUnit(){;}		
 
 void MidiGainUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
@@ -71,16 +71,19 @@ void MidiGainUnit::convertFromNeutral(long inputNumArgs, double *input, long *ou
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
-DecibelUnit::DecibelUnit()
-	: DataspaceUnit("dB")
-{;}
 
+#define thisTTClass			DecibelUnit
+#define thisTTClassName		"unit.db"
+#define thisTTClassTags		"dataspace, gain"
 
-DecibelUnit::~DecibelUnit()
-{;}
-		
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+DecibelUnit::~DecibelUnit(){;}		
+
 void DecibelUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
 	*outputNumArgs = 1;
@@ -94,6 +97,10 @@ void DecibelUnit::convertFromNeutral(long inputNumArgs, double *input, long *out
 	atom_setfloat(*outputAtoms, log10(*input)*20.);
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
 
@@ -121,3 +128,7 @@ GainDataspace::~GainDataspace()
 {
 	;
 }
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags

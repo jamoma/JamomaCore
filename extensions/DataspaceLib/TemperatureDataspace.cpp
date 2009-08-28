@@ -32,6 +32,10 @@ void CelsiusUnit::convertFromNeutral(long inputNumArgs, double *input, long *out
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
 FahrenheitUnit::FahrenheitUnit()
 	: DataspaceUnit("Fahrenheit")
@@ -56,6 +60,10 @@ void FahrenheitUnit::convertFromNeutral(long inputNumArgs, double *input, long *
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
 KelvinUnit::KelvinUnit()
 	: DataspaceUnit("Kelvin")
@@ -79,6 +87,10 @@ void KelvinUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 	atom_setfloat(*outputAtoms, *input);
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
 
@@ -108,3 +120,7 @@ TemperatureDataspace::~TemperatureDataspace()
 {
 	;
 }
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags

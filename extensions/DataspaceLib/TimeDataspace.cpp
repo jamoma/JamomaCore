@@ -33,6 +33,10 @@ void MillisecondUnit::convertFromNeutral(long inputNumArgs, double *input, long 
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
 SampleUnit::SampleUnit()
 	: DataspaceUnit("sample")
@@ -64,6 +68,10 @@ void SampleUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
 SecondUnit::SecondUnit()
 	: DataspaceUnit("second")
@@ -86,6 +94,11 @@ void SecondUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 	*outputNumArgs = 1;
 	atom_setfloat(*outputAtoms, *input * 0.001);
 }
+
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
 UpdaterateUnit::UpdaterateUnit()
@@ -110,6 +123,12 @@ void UpdaterateUnit::convertFromNeutral(long inputNumArgs, double *input, long *
 	atom_setfloat(*outputAtoms, 1000.0 / *input);
 }
 //TODO: prevent division with zero
+
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
 BpmUnit::BpmUnit()
 : DataspaceUnit("bpm") //beats per minute
@@ -134,6 +153,10 @@ void BpmUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 }
 //TODO: prevent division with zero
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
 
@@ -166,3 +189,8 @@ TimeDataspace::~TimeDataspace()
 {
 	;
 }
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+

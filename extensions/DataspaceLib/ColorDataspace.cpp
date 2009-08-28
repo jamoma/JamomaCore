@@ -29,14 +29,12 @@ double hls_value(double n1, double n2, double hue)
 
 // Actual Colorspace Units
 
-CMYUnit::CMYUnit()
-	: DataspaceUnit("cmy")
-{;}
+#define thisTTClass			CMYUnit
+#define thisTTClassName		"unit.cmy"
+#define thisTTClassTags		"dataspace, color"
 
-
-CMYUnit::~CMYUnit()
-{;}
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+CMYUnit::~CMYUnit(){;}		
 
 void CMYUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
@@ -56,15 +54,18 @@ void CMYUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
-HSLUnit::HSLUnit()
-	: DataspaceUnit("hsl")
-{;}
 
+#define thisTTClass			HSLUnit
+#define thisTTClassName		"unit.hsl"
+#define thisTTClassTags		"dataspace, color"
 
-HSLUnit::~HSLUnit()
-{;}
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+HSLUnit::~HSLUnit(){;}		
 		
 void HSLUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
@@ -158,6 +159,10 @@ void HSLUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************
 
 Code for RGB <-> HSV convertion is in part based on source code provided by Marcelo Gattass:
@@ -174,16 +179,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 */
 
+#define thisTTClass			HSVUnit
+#define thisTTClassName		"unit.hsv"
+#define thisTTClassTags		"dataspace, color"
 
-HSVUnit::HSVUnit()
-	: DataspaceUnit("hsv")
-{;}
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+HSVUnit::~HSVUnit(){;}		
 
-
-HSVUnit::~HSVUnit()
-{;}
-		
-		
 void HSVUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
 	double	h = atom_getfloat(inputAtoms+0)/360.;
@@ -276,16 +278,19 @@ void HSVUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
-RGBUnit::RGBUnit()
-	: DataspaceUnit("rgb")
-{;}
 
+#define thisTTClass			RGBUnit
+#define thisTTClassName		"unit.rgb"
+#define thisTTClassTags		"dataspace, color"
 
-RGBUnit::~RGBUnit()
-{;}
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+RGBUnit::~RGBUnit(){;}		
 
-		
 void RGBUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
 	*outputNumArgs = 3;
@@ -304,16 +309,19 @@ void RGBUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
-RGB8Unit::RGB8Unit()
-	: DataspaceUnit("rgb8")
-{;}
 
+#define thisTTClass			RGB8Unit
+#define thisTTClassName		"unit.rgb8"
+#define thisTTClassTags		"dataspace, color"
 
-RGB8Unit::~RGB8Unit()
-{;}
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+RGB8Unit::~RGB8Unit(){;}		
 
-		
 void RGB8Unit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
 	*outputNumArgs = 3;
@@ -333,6 +341,10 @@ void RGB8Unit::convertFromNeutral(long inputNumArgs, double *input, long *output
 	atom_setfloat(*outputAtoms+2, *(input+2)*255);
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
 
@@ -361,3 +373,7 @@ ColorDataspace::~ColorDataspace()
 {
 	;
 }
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags

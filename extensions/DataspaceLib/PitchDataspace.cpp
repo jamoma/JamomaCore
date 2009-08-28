@@ -12,14 +12,12 @@
 #include <math.h>
 
 
-MidiPitchUnit::MidiPitchUnit()
-	: DataspaceUnit("midi")
-{;}
+#define thisTTClass			MidiPitchUnit
+#define thisTTClassName		"unit.midi.pitch"
+#define thisTTClassTags		"dataspace, pitch"
 
-
-MidiPitchUnit::~MidiPitchUnit()
-{;}
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+MidiPitchUnit::~MidiPitchUnit(){;}		
 
 void MidiPitchUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
@@ -38,17 +36,18 @@ void MidiPitchUnit::convertFromNeutral(long inputNumArgs, double *input, long *o
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
 
+#define thisTTClass			CentUnit
+#define thisTTClassName		"unit.cent"
+#define thisTTClassTags		"dataspace, pitch"
 
-CentUnit::CentUnit()
-	: DataspaceUnit("cents")
-{;}
-
-
-CentUnit::~CentUnit()
-{;}
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+CentUnit::~CentUnit(){;}		
 
 void CentUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
@@ -67,15 +66,18 @@ void CentUnit::convertFromNeutral(long inputNumArgs, double *input, long *output
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
-FrequencyUnit::FrequencyUnit()
-	: DataspaceUnit("Hz")
-{;}
 
+#define thisTTClass			FrequencyUnit
+#define thisTTClassName		"unit.hz"
+#define thisTTClassTags		"dataspace, pitch"
 
-FrequencyUnit::~FrequencyUnit()
-{;}
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+FrequencyUnit::~FrequencyUnit(){;}		
 		
 void FrequencyUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
@@ -91,15 +93,18 @@ void FrequencyUnit::convertFromNeutral(long inputNumArgs, double *input, long *o
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
 
-SpeedUnit::SpeedUnit()
-	: DataspaceUnit("speed")
-{;}
+#define thisTTClass			SpeedUnit
+#define thisTTClassName		"unit.speed"
+#define thisTTClassTags		"dataspace, pitch"
 
-
-SpeedUnit::~SpeedUnit()
-{;}
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+SpeedUnit::~SpeedUnit(){;}		
 
 void SpeedUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
@@ -117,7 +122,9 @@ void SpeedUnit::convertFromNeutral(long inputNumArgs, double *input, long *outpu
 }
 
 
-
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
 
@@ -145,3 +152,7 @@ PitchDataspace::~PitchDataspace()
 {
 	;
 }
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags

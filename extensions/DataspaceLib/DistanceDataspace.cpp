@@ -9,14 +9,12 @@
 #include "DistanceDataspace.h"
 
 
-CentimeterUnit::CentimeterUnit()
-	: DataspaceUnit("centimeter")
-{;}
+#define thisTTClass			CentimeterUnit
+#define thisTTClassName		"unit.centimeter"
+#define thisTTClassTags		"dataspace, distance"
 
-
-CentimeterUnit::~CentimeterUnit()
-{;}
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+CentimeterUnit::~CentimeterUnit(){;}		
 
 void CentimeterUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
@@ -32,16 +30,19 @@ void CentimeterUnit::convertFromNeutral(long inputNumArgs, double *input, long *
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
-FootUnit::FootUnit()
-	: DataspaceUnit("foot")
-{;}
 
+#define thisTTClass			FootUnit
+#define thisTTClassName		"unit.foot"
+#define thisTTClassTags		"dataspace, distance"
 
-FootUnit::~FootUnit()
-{;}
-		
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+FootUnit::~FootUnit(){;}		
+
 void FootUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
 	*outputNumArgs = 1;
@@ -56,16 +57,19 @@ void FootUnit::convertFromNeutral(long inputNumArgs, double *input, long *output
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
-InchUnit::InchUnit()
-	: DataspaceUnit("inch")
-{;}
 
+#define thisTTClass			InchUnit
+#define thisTTClassName		"unit.inch"
+#define thisTTClassTags		"dataspace, distance"
 
-InchUnit::~InchUnit()
-{;}
-		
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+InchUnit::~InchUnit(){;}		
+
 void InchUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
 	*outputNumArgs = 1;
@@ -80,15 +84,18 @@ void InchUnit::convertFromNeutral(long inputNumArgs, double *input, long *output
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
-MeterUnit::MeterUnit()
-	: DataspaceUnit("meter")
-{;}
 
+#define thisTTClass			MeterUnit
+#define thisTTClassName		"unit.meter"
+#define thisTTClassTags		"dataspace, distance"
 
-MeterUnit::~MeterUnit()
-{;}
-
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+MeterUnit::~MeterUnit(){;}
 		
 void MeterUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
@@ -103,6 +110,10 @@ void MeterUnit::convertFromNeutral(long inputNumArgs, double *input, long *outpu
 	atom_setfloat(*outputAtoms, *input);
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
 
@@ -134,3 +145,7 @@ DistanceDataspace::~DistanceDataspace()
 {
 	;
 }
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags

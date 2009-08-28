@@ -9,14 +9,12 @@
 #include "NoneDataspace.h"
 
 
-NoneUnit::NoneUnit()
-	: DataspaceUnit("none")
-{;}
+#define thisTTClass			NoneUnit
+#define thisTTClassName		"unit.none"
+#define thisTTClassTags		"dataspace, none"
 
-
-NoneUnit::~NoneUnit()
-{;}
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+NoneUnit::~NoneUnit(){;}		
 
 void NoneUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
@@ -31,6 +29,10 @@ void NoneUnit::convertFromNeutral(long inputNumArgs, double *input, long *output
 	atom_setfloat(*outputAtoms, *input);
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
 
@@ -55,3 +57,7 @@ NoneDataspace::~NoneDataspace()
 {
 	;
 }
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags

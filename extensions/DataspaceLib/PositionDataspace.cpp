@@ -41,6 +41,10 @@ void Cartesian3DUnit::convertFromNeutral(long inputNumArgs, double *input, long 
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
 Cartesian2DUnit::Cartesian2DUnit()
 	: DataspaceUnit("cart2D")
@@ -62,6 +66,11 @@ void Cartesian2DUnit::convertFromNeutral(long inputNumArgs, double *input, long 
 	atom_setfloat(*outputAtoms+0, *(input+0));
 	atom_setfloat(*outputAtoms+1, *(input+1));
 }
+
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
 
@@ -102,6 +111,11 @@ void SphericalUnit::convertFromNeutral(long inputNumArgs, double *input, long *o
 	atom_setfloat(*outputAtoms+2, pow((temp + (zz * zz)), 0.5));
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
 
 PolarUnit::PolarUnit()
@@ -138,6 +152,11 @@ void PolarUnit::convertFromNeutral(long inputNumArgs, double *input, long *outpu
 	atom_setfloat(*outputAtoms+1, pow(((xx * xx) + (yy * yy)), 0.5)); //distance	
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
 
 OpenGlUnit::OpenGlUnit()
@@ -166,6 +185,10 @@ void OpenGlUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 	atom_setfloat(*outputAtoms+2, *(input+1) * -1.0);//z
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
 
@@ -209,6 +232,10 @@ void CylindricalUnit::convertFromNeutral(long inputNumArgs, double *input, long 
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
 
 #define thisTTClass			PositionDataspace
@@ -243,4 +270,6 @@ PositionDataspace::~PositionDataspace()
 	;
 }
 
-
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
