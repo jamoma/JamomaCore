@@ -50,7 +50,7 @@ t_class *s_op_class;
 /************************************************************************************/
 // Main() Function
 
-int main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	t_class *c;
 
