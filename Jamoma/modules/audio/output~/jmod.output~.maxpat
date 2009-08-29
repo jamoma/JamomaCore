@@ -2858,7 +2858,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "signal", "signal", "" ],
 													"patching_rect" : [ 72.0, 202.0, 122.0, 31.0 ],
-													"text" : "tt.limiter~ @bypass_dcblocker 0"
+													"text" : "jcom.limiter~ @bypass_dcblocker 0"
 												}
 
 											}
@@ -3222,7 +3222,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "signal", "signal", "" ],
 													"patching_rect" : [ 135.0, 270.0, 96.0, 19.0 ],
-													"text" : "tt.overdrive~"
+													"text" : "jcom.overdrive~"
 												}
 
 											}

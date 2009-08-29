@@ -58,8 +58,8 @@ void jamoma_init(void)
 		object_method_sym(max, SymbolGen("db.object_addinternal"), SymbolGen("jcom.send~"), NULL);
 		
 		// Setup Class Aliases for TTBlue
-		object_method(max, meth, SymbolGen("jcom.limiter~"), SymbolGen("tt.limiter~"), SymbolGen("jcom.limiter~"));
-		object_method(max, meth, SymbolGen("jcom.saturation~"), SymbolGen("tt.overdrive~"), SymbolGen("jcom.saturation~"));
+		// object_method(max, meth, SymbolGen("jcom.limiter~"), SymbolGen("tt.limiter~"), SymbolGen("jcom.limiter~"));
+		// object_method(max, meth, SymbolGen("jcom.saturation~"), SymbolGen("tt.overdrive~"), SymbolGen("jcom.saturation~"));
 		
 		// Create Required Global Instances
 		// obj_jamoma_clock = (t_object*)object_new_typed(CLASS_NOBOX, SymbolGen("jamoma.clock"), 0, NULL);

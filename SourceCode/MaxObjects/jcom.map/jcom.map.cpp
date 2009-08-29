@@ -324,7 +324,7 @@ void map_setParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 void map_doSetFunction(t_map *obj, t_symbol *newFunctionName)
 {
 	obj->attr_function = newFunctionName;
-	FunctionLib::createUnit(TT(obj->attr_function->s_name), &obj->functionUnit);
+	FunctionLib::createUnit(TT(obj->attr_function->s_name), (TTObject **)&obj->functionUnit);
 	obj->valid = true;
 }
 

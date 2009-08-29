@@ -71,7 +71,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "tt.limiter~",
+					"text" : "jcom.limiter~",
 					"numinlets" : 2,
 					"patching_rect" : [ 380.0, 120.0, 72.0, 19.0 ],
 					"numoutlets" : 3,

@@ -2,9 +2,17 @@
 .DS_Store
 
 Jamoma/library/externals/mac/
+Jamoma/library/externals/windows/
 logs
-*/*/build/
-*/*/*/build/
-*.orig
+build
+html
+Debug
+Release
 *.mode1v3
 *.pbxuser
+*.layout
+*.depends
+*.map
+*.ncb
+*.suo
+*.user

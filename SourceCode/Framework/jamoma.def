@@ -1,4 +1,3 @@
-
 LIBRARY "JamomaModular.dll"
 
 EXPORTS
@@ -222,4 +221,3 @@ EXPORTS
 		;commonsyms.c
 		common_symbols_init
 		_common_symbols
-		
