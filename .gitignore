@@ -7,3 +7,4 @@ Tools/installertools/Windows/root
 *.dll
 *.mxe
 *.ttdll
+*.log
