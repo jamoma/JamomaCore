@@ -30,7 +30,7 @@ class TTClass;
 	All attribute members of the environment are made public, since essentially every class is a friend.
 	They should, however, be treated as read-only.
 */
-class TTEXPORT TTEnvironment : public TTObject {
+class TTFOUNDATION_EXPORT TTEnvironment : public TTObject {
 private:
 	TTHash*		classes;			///< A hash keyed on classNames, and returning a TTClassPtr.
 	TTHash*		tags;				///< A hash keyed on tag names, which map to TTLists of all classes with that tag name.
@@ -139,7 +139,7 @@ public:
 
 
 /** The environment object has one instance, which is global in scope. */
-extern TTEXPORT TTEnvironment* ttEnvironment;
+extern TTFOUNDATION_EXPORT TTEnvironment* ttEnvironment;
 
 
 
@@ -147,28 +147,28 @@ extern TTEXPORT TTEnvironment* ttEnvironment;
 // Public Interface
 // Some of this looks a bit crazy due to duplication -- however the use of templates causes problems for linking on some Macs and PCs
 // (while not neccessarily on others)
-TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, TTValue& arguments);
-//TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, TTValue& arguments);
-//TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, TTValue& arguments);
+TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, TTValue& arguments);
+//TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, TTValue& arguments);
+//TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, TTValue& arguments);
 
-TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const TTValue& arguments);
-//TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTValue& arguments);
-//TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTValue& arguments);
+TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const TTValue& arguments);
+//TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTValue& arguments);
+//TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTValue& arguments);
 
-TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
-//TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
-//TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTUInt16 arguments);
+TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
+//TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
+//TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTUInt16 arguments);
 
-TTEXPORT TTObjectPtr TTObjectReference(TTObjectPtr anObject);
+TTFOUNDATION_EXPORT TTObjectPtr TTObjectReference(TTObjectPtr anObject);
 
-TTEXPORT TTErr TTObjectRelease(TTObjectPtr* anObject);
-//TTEXPORT TTErr TTObjectRelease(TTAudioObjectPtr* anObject);
-//TTEXPORT TTErr TTObjectRelease(TTAudioSignalPtr* anObject);
+TTFOUNDATION_EXPORT TTErr TTObjectRelease(TTObjectPtr* anObject);
+//TTFOUNDATION_EXPORT TTErr TTObjectRelease(TTAudioObjectPtr* anObject);
+//TTFOUNDATION_EXPORT TTErr TTObjectRelease(TTAudioSignalPtr* anObject);
 
-TTEXPORT TTErr TTClassRegister(const TTSymbolPtr className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod);
-TTEXPORT TTErr TTClassRegister(const TTSymbolPtr className, TTImmutableCString tagString, const TTObjectInstantiationMethod anInstantiationMethod);
-TTEXPORT TTErr TTGetRegisteredClassNames(TTValue& classNames);
-TTEXPORT TTErr TTGetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags);
+TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbolPtr className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod);
+TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbolPtr className, TTImmutableCString tagString, const TTObjectInstantiationMethod anInstantiationMethod);
+TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNames(TTValue& classNames);
+TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags);
 
 #endif // __TT_ENVIRONMENT_H__
 

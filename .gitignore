@@ -1,6 +1,15 @@
+# Mac OSX Finder stuff
+.DS_Store
+
+
 logs
 build
-eclipse/Debug
+html
+Debug
+Release
 *.layout
 *.depends
-html
+*.map
+*.ncb
+*.suo
+*.user

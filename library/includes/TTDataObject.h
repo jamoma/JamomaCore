@@ -28,7 +28,7 @@
 	NOTE [TAP] 2008/06/28 -- I'm not really sure what I had in mind by the above, and it doesn't seem to be implemented
 	Instead it seems like we should just declare a process() method that takes a TTValue& input and a TTValue& output.
 */
-class TTEXPORT TTDataObject : public TTObject {
+class TTFOUNDATION_EXPORT TTDataObject : public TTObject {
 protected:
 	TTUInt32			sr;					///< Current sample rate being used by this object
 	TTFloat64			srInv;				///< 1.0 over the current sample rate (inverse)

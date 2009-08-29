@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="JamomaFoundation"
-	ProjectGUID="{34630069-834D-46BA-83CF-3DB7F1A9665F}"
+	ProjectGUID="{557C672F-6946-416C-B199-C7AB650A93C0}"
 	RootNamespace="TTBlue"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
@@ -30,7 +30,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\JamomaFoundation.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaFoundation.lib .\build&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\JamomaFoundation.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaFoundation.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="none"
 			/>
 			<Tool
@@ -45,8 +45,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\includes\core&quot;;&quot;$(ProjectDir)..\includes\units&quot;;&quot;$(ProjectDir)portaudio\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)..\extensions\NodeLib&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTFOUNDATION_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -68,11 +68,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="PortAudio.lib"
 				ShowProgress="0"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)portaudio\Debug&quot;"
+				AdditionalLibraryDirectories=""
 				GenerateManifest="false"
-				DelayLoadDLLs="PortAudio.dll"
+				DelayLoadDLLs=""
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
 				MapFileName="JamomaFoundation.map"
@@ -116,8 +115,8 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\JamomaFoundation.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaFoundation.lib .\build&#x0D;&#x0A;"
-				Outputs="AAA"
+				CommandLine="copy $(OutDir)\JamomaFoundation.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaFoundation.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
+				Outputs="none"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -131,8 +130,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\includes\core&quot;;&quot;$(ProjectDir)..\includes\units&quot;;&quot;$(ProjectDir)portaudio\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)..\extensions\NodeLib&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTFOUNDATION_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
@@ -153,11 +152,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="PortAudio.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)portaudio\Release&quot;"
+				AdditionalLibraryDirectories=""
 				GenerateManifest="false"
-				DelayLoadDLLs="PortAudio.dll"
+				DelayLoadDLLs=""
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
 				MapFileName="JamomaFoundation.map"
@@ -186,8 +184,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy JamomaFoundation.dll and PortAudio.dll to the Max 5 install."
-				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\JamomaFoundation.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\JamomaFoundation.dll&quot;&#x0D;&#x0A;if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(ProjectDir)portaudio\Release\PortAudio.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\PortAudio.dll&quot;&#x0D;&#x0A;"
+				Description="Copy JamomaFoundation.dll to the Max 5 install."
+				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\JamomaFoundation.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\JamomaFoundation.dll&quot;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -195,246 +193,158 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Core"
+			Name="includes"
 			>
 			<File
-				RelativePath="..\source\core\TTAttribute.cpp"
+				RelativePath=".\includes\TTAttribute.h"
 				>
 			</File>
 			<File
-				RelativePath="..\includes\core\TTAttribute.h"
+				RelativePath=".\includes\TTClass.h"
 				>
 			</File>
 			<File
-				RelativePath="..\source\core\TTAudioEngine.cpp"
+				RelativePath=".\includes\TTDataObject.h"
 				>
 			</File>
 			<File
-				RelativePath="..\source\core\TTAudioObject.cpp"
+				RelativePath=".\includes\TTElement.h"
 				>
 			</File>
 			<File
-				RelativePath="..\includes\core\TTAudioObject.h"
+				RelativePath=".\includes\TTEnvironment.h"
 				>
 			</File>
 			<File
-				RelativePath="..\source\core\TTAudioSignal.cpp"
+				RelativePath=".\includes\TTFoundation.h"
 				>
 			</File>
 			<File
-				RelativePath="..\includes\core\TTAudioSignal.h"
+				RelativePath=".\includes\TTFoundationAPI.h"
 				>
 			</File>
 			<File
-				RelativePath="..\source\core\TTAudioSignalArray.cpp"
+				RelativePath=".\includes\TTHash.h"
 				>
 			</File>
 			<File
-				RelativePath="..\includes\core\TTAudioSignalArray.h"
+				RelativePath=".\includes\TTList.h"
 				>
 			</File>
 			<File
-				RelativePath="..\source\core\TTBlue.cpp"
+				RelativePath=".\includes\TTMessage.h"
 				>
 			</File>
 			<File
-				RelativePath="..\includes\core\TTBlue.h"
+				RelativePath=".\includes\TTMutex.h"
 				>
 			</File>
 			<File
-				RelativePath="..\source\core\TTClass.cpp"
+				RelativePath=".\includes\TTObject.h"
 				>
 			</File>
 			<File
-				RelativePath="..\source\core\TTDataObject.cpp"
+				RelativePath=".\includes\TTQueue.h"
 				>
 			</File>
 			<File
-				RelativePath="..\includes\core\TTDataObject.h"
+				RelativePath=".\includes\TTSymbol.h"
 				>
 			</File>
 			<File
-				RelativePath="..\source\core\TTElement.cpp"
+				RelativePath=".\includes\TTSymbolCache.h"
 				>
 			</File>
 			<File
-				RelativePath="..\includes\core\TTElement.h"
+				RelativePath=".\includes\TTSymbolTable.h"
 				>
 			</File>
 			<File
-				RelativePath="..\source\core\TTEnvironment.cpp"
+				RelativePath=".\includes\TTThread.h"
 				>
 			</File>
 			<File
-				RelativePath="..\includes\core\TTEnvironment.h"
+				RelativePath=".\includes\TTValue.h"
 				>
 			</File>
 			<File
-				RelativePath="..\source\core\TTHash.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\source\core\TTList.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\core\TTList.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\core\TTMessage.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\core\TTMessage.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\core\TTMutex.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\core\TTMutex.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\core\TTObject.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\core\TTObject.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\core\TTQueue.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\core\TTQueue.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\core\TTSymbol.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\core\TTSymbol.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\core\TTSymbolCache.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\core\TTSymbolCache.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\core\TTSymbolTable.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\core\TTSymbolTable.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\core\TTThread.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\core\TTThread.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\core\TTValue.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\core\TTValue.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\core\TTValueCache.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\core\TTValueCache.h"
+				RelativePath=".\includes\TTValueCache.h"
 				>
 			</File>
 		</Filter>
 		<Filter
-			Name="Units"
+			Name="source"
 			>
 			<File
-				RelativePath="..\source\units\TTAdsr.cpp"
+				RelativePath=".\source\TTAttribute.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\includes\units\TTAdsr.h"
+				RelativePath=".\source\TTClass.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\source\units\TTBuffer.cpp"
+				RelativePath=".\source\TTDataObject.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\includes\units\TTBuffer.h"
+				RelativePath=".\source\TTElement.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\source\units\TTCrossfade.cpp"
+				RelativePath=".\source\TTEnvironment.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\includes\units\TTCrossfade.h"
+				RelativePath=".\source\TTFoundation.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\source\units\TTMatrixMixer.cpp"
+				RelativePath=".\source\TTHash.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\source\units\TTNoise.cpp"
+				RelativePath=".\source\TTList.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\source\units\TTOperator.cpp"
+				RelativePath=".\source\TTMessage.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\includes\units\TTOperator.h"
+				RelativePath=".\source\TTMutex.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\source\units\TTPhasor.cpp"
+				RelativePath=".\source\TTObject.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\includes\units\TTPhasor.h"
+				RelativePath=".\source\TTQueue.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\source\units\TTRamp.cpp"
+				RelativePath=".\source\TTSymbol.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\includes\units\TTRamp.h"
+				RelativePath=".\source\TTSymbolCache.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\source\units\TTWavetable.cpp"
+				RelativePath=".\source\TTSymbolTable.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\includes\units\TTWavetable.h"
+				RelativePath=".\source\TTThread.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\source\units\TTZerocross.cpp"
+				RelativePath=".\source\TTValue.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\includes\units\TTZerocross.h"
+				RelativePath=".\source\TTValueCache.cpp"
 				>
 			</File>
 		</Filter>

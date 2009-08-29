@@ -11,50 +11,50 @@
 #include "TTSymbolCache.h"
 
 
-TTEXPORT TTSymbolPtr	kTTSymEmpty;
-TTEXPORT TTSymbolPtr	kTTSym_setVector32;
-TTEXPORT TTSymbolPtr	kTTSym_getVector32;
-TTEXPORT TTSymbolPtr	kTTSym_setVector64;
-TTEXPORT TTSymbolPtr	kTTSym_getVector64;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSymEmpty;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_setVector32;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_getVector32;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_setVector64;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_getVector64;
 
-TTEXPORT TTSymbolPtr	kTTSym_alloc;
-TTEXPORT TTSymbolPtr	kTTSym_audioEngineWillProcess;
-TTEXPORT TTSymbolPtr	kTTSym_both;
-TTEXPORT TTSymbolPtr	kTTSym_bypass;
-TTEXPORT TTSymbolPtr	kTTSym_clear;
-TTEXPORT TTSymbolPtr	kTTSym_clipmode;
-TTEXPORT TTSymbolPtr	kTTSym_high;
-TTEXPORT TTSymbolPtr	kTTSym_low;
-TTEXPORT TTSymbolPtr	kTTSym_maxNumChannels;
-TTEXPORT TTSymbolPtr	kTTSym_numChannels;
-TTEXPORT TTSymbolPtr	kTTSym_processInPlace;
-TTEXPORT TTSymbolPtr	kTTSym_range;
-TTEXPORT TTSymbolPtr	kTTSym_resonance;
-TTEXPORT TTSymbolPtr	kTTSym_sr;
-TTEXPORT TTSymbolPtr	kTTSym_updateMaxNumChannels;
-TTEXPORT TTSymbolPtr	kTTSym_updateSr;
-TTEXPORT TTSymbolPtr	kTTSym_vectorSize;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_alloc;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_audioEngineWillProcess;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_both;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_bypass;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clear;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clipmode;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_high;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_low;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_maxNumChannels;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_numChannels;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_processInPlace;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_range;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_resonance;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sr;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_updateMaxNumChannels;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_updateSr;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_vectorSize;
 
-TTEXPORT TTSymbolPtr	kTTSym_sine;
-TTEXPORT TTSymbolPtr	kTTSym_sineMod;
-TTEXPORT TTSymbolPtr	kTTSym_cosine;
-TTEXPORT TTSymbolPtr	kTTSym_cosineMod;
-TTEXPORT TTSymbolPtr	kTTSym_square;
-TTEXPORT TTSymbolPtr	kTTSym_squareMod;
-TTEXPORT TTSymbolPtr	kTTSym_triangle;
-TTEXPORT TTSymbolPtr	kTTSym_triangleMod;
-TTEXPORT TTSymbolPtr	kTTSym_ramp;
-TTEXPORT TTSymbolPtr	kTTSym_rampMod;
-TTEXPORT TTSymbolPtr	kTTSym_sawtooth;
-TTEXPORT TTSymbolPtr	kTTSym_sawtoothMod;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sine;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sineMod;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_cosine;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_cosineMod;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_square;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_squareMod;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_triangle;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_triangleMod;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_ramp;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_rampMod;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sawtooth;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sawtoothMod;
 
-TTEXPORT TTSymbolPtr	kTTSym_adsr;
-TTEXPORT TTSymbolPtr	kTTSym_audiosignal;
-TTEXPORT TTSymbolPtr	kTTSym_audiosignalarray;
-TTEXPORT TTSymbolPtr	kTTSym_dcblock;
-TTEXPORT TTSymbolPtr	kTTSym_gain;
-TTEXPORT TTSymbolPtr	kTTSym_operator;
-TTEXPORT TTSymbolPtr	kTTSym_phasor;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_adsr;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_audiosignal;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_audiosignalarray;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_dcblock;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_gain;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_operator;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_phasor;
 
 
 void TTSymbolCacheInit()
