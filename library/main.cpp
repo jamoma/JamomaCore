@@ -18,6 +18,7 @@ static bool initialized = false;
 void TTMulticoreInit(void)
 {
 	if(!initialized){
+		initialized = true;
 		TTDSPInit();
 		MCoreObject::registerClass();
 		MCoreSource::registerClass();

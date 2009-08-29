@@ -114,6 +114,7 @@
 				2FBBEADA08F335360078DB84 /* Sources */,
 				2FBBEADC08F335360078DB84 /* Frameworks */,
 				2FBBEADF08F335360078DB84 /* Rez */,
+				A78CCA6D1045CCC500FBBB8D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -161,6 +162,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXRezBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A78CCA6D1045CCC500FBBB8D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"/Applications/Max5/Cycling '74/extensions/fxlib≈.mxo\" ]\n\tthen /bin/rm -rf \"/Applications/Max5/Cycling '74/extensions/fxlib≈.mxo\"\nfi\n\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION\" \"/Applications/Max5/Cycling '74/extensions\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2FBBEADA08F335360078DB84 /* Sources */ = {
