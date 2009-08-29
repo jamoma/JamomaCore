@@ -250,9 +250,8 @@ void hub_examine_context(t_hub *x)
 		x->osc_name = _sym_nothing;
 	
 	// Try to get OSC Name of module from scripting name
-	if(x->osc_name == _sym_nothing){
+	if(x->osc_name == _sym_nothing)
 		x->osc_name = jamoma_patcher_getvarname(x->container);
-	}
 
 	// In this case we overwrite whatever happened above
 	if(context == gensym("toplevel")){
@@ -321,9 +320,6 @@ void hub_free(t_hub *x)
 	object_free(x->preset_interface);
 	jamoma_hub_remove(x->osc_name);
 
-	// remove the hub from the node tree (and all the sub-nodes too)
-	jamoma_node_unregister(x->osc_name);
-
 	atom_setsym(a, x->attr_name);
 	atom_setsym(a+1, x->osc_name);
 	object_method_typed(g_jcom_send_notifications, gensym("module.removed"), 2, a, NULL);
@@ -376,12 +372,6 @@ void hub_notify(t_hub *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t_symbol *type)
 {
 	t_subscriber	*new_subscriber;
-	bool			newInstanceCreated;
-	TTNodePtr			newNode;
-	t_symbol		*newInstance;
-	long i, attr_nb = 0;
-	t_symbol** attr_names = NULL;
-	char fullAddress[256];
 	
 	if(subscriber_object == NULL){
 		if (x->editing)
@@ -400,33 +390,6 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 	new_subscriber->object = subscriber_object;
 	new_subscriber->name = name;
 	new_subscriber->type = type;
-
-	// add the param in the tree as a node of the hub : /hub/param
-	if(x->osc_name != _sym_nothing){
-		
-		strcpy(fullAddress,x->osc_name->s_name);
-		strcat(fullAddress,"/");
-		strcat(fullAddress,name->s_name);
-		newInstanceCreated = false;
-		jamoma_node_register(gensym(fullAddress), type, subscriber_object, &newNode, &newInstanceCreated);
-
-		// if a new instance have been created 
-		// to guarantee the unicity. We have to
-		// add the instance to the name
-		if(newInstanceCreated){
-			newInstance = jamoma_node_instance(newNode);
-			if(newInstance != gensym("")){
-				// What to do in that case ???
-			}
-		}
-		
-		// add each attributes of parameters as properties of the node
-		object_method(subscriber_object, gensym("getattrnames"),&attr_nb, &attr_names);
-
-		for(i=0; i<attr_nb; i++){
-			jamoma_node_set_properties(newNode,attr_names[i]);
-		}
-	}
 
 	critical_enter(0);
 	// Merge new subscriber into subscriber list sorted alphabetically
@@ -547,11 +510,6 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 		object_method_typed(x->in_object, jps_algorithm_message, argc, argv, NULL);	// send to jcom.in
 	if(x->out_object != NULL)
 		object_method_typed(x->out_object, jps_algorithm_message, argc, argv, NULL);	// send to jcom.out
-
-	// send to the node
-	// 1. get the node with the OSC address
-	// 2. get the observers list of the node
-	// 3. send them data (?? the way to send data depends on who is the observers ??)
 
 	//hub_internals_dispatch(x, argv->a_w.w_sym, argc-1, argv+1);
 	hub_outlet_return(x, osc, argc-1, argv+1);
@@ -1384,9 +1342,9 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		t_max_err		err = MAX_ERR_NONE;
 		char*			nametest;
 		t_atom			a[2];
-		bool			newInstanceCreated;
-		TTNodePtr			newNode;
-		t_symbol		*nameOriginal, *newInstance;
+		int				instance = 0;
+		TTBoolean		nameConflict = false;
+		t_symbol*		nameOriginal;
 		
 		x->osc_name = atom_getsym(argv);
 
@@ -1429,25 +1387,8 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		nametest = name + 1;
 		if(strchr(nametest, '/'))
 			object_error((t_object*)x, "%s: OSC NAME GIVEN TO MODULES MAY NOT CONTAIN A SLASH OTHER THAN THE LEADING SLASH!", x->attr_name->s_name);
-		
-		// Memorize the original name
 		nameOriginal = gensym(name);
-
-		// Register with the tree at the given address.
-		// if the address doesn't contain instance or the instance already
-		// exist, the register will generate a new instance to garantee unicity.
-		newInstanceCreated = false;
-		jamoma_node_register(nameOriginal, gensym("hub"), (t_object *)x, &newNode, &newInstanceCreated);
-
-		// if a new instance have been created to guarantee the unicity,
-		// we have to create the osc_name from the node.
-		if(newInstanceCreated){
-			newInstance = jamoma_node_instance(newNode);
-			if(newInstance != gensym(""))
-				snprintf(name, 256, "/%s.%s", jamoma_node_name(newNode)->s_name, newInstance->s_name);
-				object_post((t_object*)x, "Jamoma cannot create multiple modules with the same OSC identifier (%s).  Using %s instead.", nameOriginal->s_name, name);
-		}
-
+	again:
 		x->osc_name = gensym(name);
 		
 		// update the ui object
@@ -1456,12 +1397,25 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 			atom_setsym(&a[1], x->osc_name);
 			object_method_typed(x->gui_object, jps_dispatched, 2, a, NULL);			
 		}
-
+		
 		// Register with the framework, and making sure this name hasn't already been used...
 		// TODO: is the framework making sure that this t_object is unique and hasn't already been registered?
 		err = jamoma_hub_register(x->osc_name, (t_object *)x);
-		if(err)
-			object_post((t_object*)x, "Error while registering the %s hub", x->osc_name->s_name);
+		if(err){
+			if(instance){
+				nametest = strrchr(name, '.');
+				if(nametest)
+					*nametest = 0;
+			}
+			instance++;
+			nametest = name;
+			snprintf(name, 256, "%s.%i", name, instance);
+			nameConflict = true;
+			err = MAX_ERR_NONE;
+			goto again;
+		}
+		if(nameConflict)
+			object_post((t_object*)x, "Jamoma cannot create multiple modules with the same OSC identifier (%s).  Using %s instead.", nameOriginal->s_name, name);
 		
 		// And send a notification to the environment
 		atom_setsym(a, x->attr_name);
