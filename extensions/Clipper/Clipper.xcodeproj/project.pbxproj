@@ -198,8 +198,8 @@
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
-				PRODUCT_NAME = TTClipper;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../library/includes\"";
+				PRODUCT_NAME = Clipper;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../library/includes\" \"$(SRCROOT)/../../../Foundation/library/includes\"";
 			};
 			name = Deployment;
 		};
