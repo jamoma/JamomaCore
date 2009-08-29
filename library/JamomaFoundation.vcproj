@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="JamomaFoundation"
-	ProjectGUID="{34630069-834D-46BA-83CF-3DB7F1A9665F}"
+	ProjectGUID="{557C672F-6946-416C-B199-C7AB650A93C0}"
 	RootNamespace="TTBlue"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
@@ -30,7 +30,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\JamomaFoundation.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaFoundation.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\JamomaFoundation.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaFoundation.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="none"
 			/>
 			<Tool
@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)source\&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)..\extensions\NodeLib&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTFOUNDATION_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
@@ -115,8 +115,8 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\JamomaFoundation.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaFoundation.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;"
-				Outputs="AAA"
+				CommandLine="copy $(OutDir)\JamomaFoundation.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaFoundation.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
+				Outputs="none"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -130,7 +130,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)source\&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)..\extensions\NodeLib&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTFOUNDATION_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
@@ -184,8 +184,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy JamomaFoundation.dll and PortAudio.dll to the Max 5 install."
-				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\JamomaFoundation.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\JamomaFoundation.dll&quot;&#x0D;&#x0A;if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(ProjectDir)portaudio\Release\PortAudio.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\PortAudio.dll&quot;&#x0D;&#x0A;"
+				Description="Copy JamomaFoundation.dll to the Max 5 install."
+				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\JamomaFoundation.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\JamomaFoundation.dll&quot;"
 			/>
 		</Configuration>
 	</Configurations>
