@@ -202,8 +202,8 @@
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
-				PRODUCT_NAME = TTAudioUnit;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../library/includes\"";
+				PRODUCT_NAME = AudioUnit;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Foundation/library/includes\" \"$(SRCROOT)/../../library/includes\"";
 			};
 			name = Deployment;
 		};
