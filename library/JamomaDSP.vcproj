@@ -30,7 +30,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\JamomaDSP.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaDSP.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;"
+				CommandLine="copy $(OutDir)\JamomaDSP.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaDSP.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="none"
 			/>
 			<Tool
@@ -116,7 +116,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\JamomaDSP.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaDSP.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;"
+				CommandLine="copy $(OutDir)\JamomaDSP.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaDSP.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="AAA"
 			/>
 			<Tool
