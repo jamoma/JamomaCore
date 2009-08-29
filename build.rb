@@ -50,7 +50,7 @@ puts "  "
 
 @svn_root = "./"
 @build_root = @svn_root + "/Jamoma/library/externals"
-@log_root = "../logs"
+@log_root = "./logs"
 @fail_array = Array.new
 @zerolink = false
 
