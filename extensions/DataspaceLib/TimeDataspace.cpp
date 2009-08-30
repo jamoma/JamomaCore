@@ -10,14 +10,13 @@
 #include "TTFoundationAPI.h"
 
 
-MillisecondUnit::MillisecondUnit()
-	: DataspaceUnit("millisecond")
-{;}
 
+#define thisTTClass			MillisecondUnit
+#define thisTTClassName		"unit.ms"
+#define thisTTClassTags		"dataspace, time"
 
-MillisecondUnit::~MillisecondUnit()
-{;}
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+MillisecondUnit::~MillisecondUnit(){;}		
 
 void MillisecondUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
@@ -36,8 +35,12 @@ void MillisecondUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #undef thisTTClassTags
 
 /***********************************************************************************************/
-SampleUnit::SampleUnit()
-	: DataspaceUnit("sample")
+
+#define thisTTClass			SampleUnit
+#define thisTTClassName		"unit.sample"
+#define thisTTClassTags		"dataspace, time"
+
+TT_DATASPACEUNIT_CONSTRUCTOR
 {   
 	TTValue globalSampleRate;	
 	
@@ -54,15 +57,17 @@ SampleUnit::~SampleUnit()
 		
 void SampleUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	*output = atom_getfloat(inputAtoms) * rmsr;
+//	output.setSize(1);
+//	*output = atom_getfloat(inputAtoms) * rmsr;
+	output = TTFloat64(input) * rmsr;
 }
 
 
 void SampleUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	atom_setfloat(*outputAtoms, (*input * msr));
+//	output.setSize(1);
+//	atom_setfloat(*outputAtoms, (*input * msr));
+	output = TTFloat64(input) * msr;
 }
 
 
@@ -71,26 +76,26 @@ void SampleUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #undef thisTTClassTags
 
 /***********************************************************************************************/
-SecondUnit::SecondUnit()
-	: DataspaceUnit("second")
-{;}
+#define thisTTClass			SecondUnit
+#define thisTTClassName		"unit.second"
+#define thisTTClassTags		"dataspace, time"
 
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+SecondUnit::~SecondUnit(){;}		
 
-SecondUnit::~SecondUnit()
-{;}
-
-		
 void SecondUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	*output = atom_getfloat(inputAtoms) * 1000.0;
+//	output.setSize(1);
+//	*output = atom_getfloat(inputAtoms) * 1000.0;
+	output = TTFloat64(input) * 1000.0;
 }
 
 
 void SecondUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	atom_setfloat(*outputAtoms, *input * 0.001);
+//	output.setSize(1);
+//	atom_setfloat(*outputAtoms, *input * 0.001);
+	output = TTFloat64(input) * 0.001;
 }
 
 
@@ -99,26 +104,26 @@ void SecondUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #undef thisTTClassTags
 
 /***********************************************************************************************/
-UpdaterateUnit::UpdaterateUnit()
-	: DataspaceUnit("fps") //frames per second; also update rate e.g. of gestural devices etc. 
-{;}
+#define thisTTClass			UpdaterateUnit
+#define thisTTClassName		"unit.rate"
+#define thisTTClassTags		"dataspace, time"
 
-
-UpdaterateUnit::~UpdaterateUnit()
-{;}
-
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+UpdaterateUnit::~UpdaterateUnit(){;}		
 
 void UpdaterateUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {   
-	output.setSize(1);
-	*output = 1000.0 / atom_getfloat(inputAtoms);
+//	output.setSize(1);
+//	*output = 1000.0 / atom_getfloat(inputAtoms);
+	output = 1000.0 / TTFloat64(input);
 }
 //TODO: prevent division with zero
 
 void UpdaterateUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	atom_setfloat(*outputAtoms, 1000.0 / *input);
+//	output.setSize(1);
+//	atom_setfloat(*outputAtoms, 1000.0 / *input);
+	output = 1000.0 / TTFloat64(input);
 }
 //TODO: prevent division with zero
 
@@ -128,26 +133,26 @@ void UpdaterateUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #undef thisTTClassTags
 
 /***********************************************************************************************/
-BpmUnit::BpmUnit()
-: DataspaceUnit("bpm") //beats per minute
-{;}
+#define thisTTClass			BpmUnit
+#define thisTTClassName		"unit.bpm"
+#define thisTTClassTags		"dataspace, time"
 
-
-BpmUnit::~BpmUnit()
-{;}
-
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+BpmUnit::~BpmUnit(){;}		
 
 void BpmUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	*output = 60000.0 / atom_getfloat(inputAtoms);
+//	output.setSize(1);
+//	*output = 60000.0 / atom_getfloat(inputAtoms);
+	output = 60000.0 / TTFloat64(input);
 }
 //TODO: prevent division with zero
 
 void BpmUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	atom_setfloat(*outputAtoms, 60000.0 / *input);
+//	output.setSize(1);
+//	atom_setfloat(*outputAtoms, 60000.0 / *input);
+	output = 60000.0 / TTFloat64(input);
 }
 //TODO: prevent division with zero
 

@@ -43,7 +43,7 @@ TT_DATASPACELIB_CONSTRUCTOR
 //	: DataspaceLib("none", "none")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new NoneUnit,	SymbolGen("none"));
+//	registerUnit(new NoneUnit,	SymbolGen("none"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

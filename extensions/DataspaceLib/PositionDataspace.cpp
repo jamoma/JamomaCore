@@ -14,14 +14,12 @@
 #include "PositionDataspace.h"
 
 
-Cartesian3DUnit::Cartesian3DUnit()
-	: DataspaceUnit("cart3D")
-{;}
+#define thisTTClass			Cartesian3DUnit
+#define thisTTClassName		"unit.cart3d"
+#define thisTTClassTags		"dataspace, position"
 
-
-Cartesian3DUnit::~Cartesian3DUnit()
-{;}
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+Cartesian3DUnit::~Cartesian3DUnit(){;}
 
 void Cartesian3DUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
@@ -46,12 +44,13 @@ void Cartesian3DUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #undef thisTTClassTags
 
 /***********************************************************************************************/
-Cartesian2DUnit::Cartesian2DUnit()
-	: DataspaceUnit("cart2D")
-{;}
 
-Cartesian2DUnit::~Cartesian2DUnit()
-{;}
+#define thisTTClass			Cartesian2DUnit
+#define thisTTClassName		"unit.cart2d"
+#define thisTTClassTags		"dataspace, position"
+
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+Cartesian2DUnit::~Cartesian2DUnit(){;}
 
 void Cartesian2DUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
@@ -74,16 +73,13 @@ void Cartesian2DUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 /***********************************************************************************************/
 
+#define thisTTClass			SphericalUnit
+#define thisTTClassName		"unit.spherical"
+#define thisTTClassTags		"dataspace, position"
 
-SphericalUnit::SphericalUnit()
-	: DataspaceUnit("spherical")
-{;}
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+SphericalUnit::~SphericalUnit(){;}
 
-
-SphericalUnit::~SphericalUnit()
-{;}
-		
-		
 void SphericalUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {   //double kDegreesToRadians = kDegreesToRadians;
 	double aa = (atom_getfloat(inputAtoms+0)) *  kDegreesToRadians; //a  
@@ -118,15 +114,13 @@ void SphericalUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 /***********************************************************************************************/
 
-PolarUnit::PolarUnit()
-	: DataspaceUnit("polar")
-{;}
+#define thisTTClass			PolarUnit
+#define thisTTClassName		"unit.polar"
+#define thisTTClassTags		"dataspace, position"
 
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+PolarUnit::~PolarUnit(){;}
 
-PolarUnit::~PolarUnit()
-{;}
-		
-		
 void PolarUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
     *outputNumArgs = 2;
@@ -159,14 +153,12 @@ void PolarUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 /***********************************************************************************************/
 
-OpenGlUnit::OpenGlUnit()
-	: DataspaceUnit("openGl")
-{;}
+#define thisTTClass			OpenGlUnit
+#define thisTTClassName		"unit.openGL"
+#define thisTTClassTags		"dataspace, position"
 
-
-OpenGlUnit::~OpenGlUnit()
-{;}
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+OpenGlUnit::~OpenGlUnit(){;}
 
 void OpenGlUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
@@ -192,15 +184,12 @@ void OpenGlUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 /***********************************************************************************************/
 
+#define thisTTClass			CylindricalUnit
+#define thisTTClassName		"unit.cylindrical"
+#define thisTTClassTags		"dataspace, position"
 
-CylindricalUnit::CylindricalUnit()
-	: DataspaceUnit("cylindrical")
-{;}
-
-
-CylindricalUnit::~CylindricalUnit()
-{;}
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+CylindricalUnit::~CylindricalUnit(){;}
 
 void CylindricalUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
@@ -219,7 +208,6 @@ void CylindricalUnit::convertToNeutral(const TTValue& input, TTValue& output)
 
 void CylindricalUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	 
 	 output.setSize(3);
 	 
 	 double xx = *(input+0);

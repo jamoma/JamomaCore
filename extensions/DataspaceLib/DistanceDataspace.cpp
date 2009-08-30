@@ -18,15 +18,17 @@ CentimeterUnit::~CentimeterUnit(){;}
 
 void CentimeterUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	*output = atom_getfloat(inputAtoms) * 0.01;
+//	output.setSize(1);
+//	*output = atom_getfloat(inputAtoms) * 0.01;
+	output = TTFloat64(input) * 0.01;
 }
 
 
 void CentimeterUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	atom_setfloat(*outputAtoms, *input * 100.0);
+//	output.setSize(1);
+//	atom_setfloat(*outputAtoms, *input * 100.0);
+	output = TTFloat64(input) * 100.0;
 }
 
 
@@ -45,15 +47,17 @@ FootUnit::~FootUnit(){;}
 
 void FootUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	*output = atom_getfloat(inputAtoms) / 3.281;
+//	output.setSize(1);
+//	*output = atom_getfloat(inputAtoms) / 3.281;
+	output = TTFloat64(input) / 3.281;
 }
 
 
 void FootUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	atom_setfloat(*outputAtoms, (*input * 3.281));
+//	output.setSize(1);
+//	atom_setfloat(*outputAtoms, (*input * 3.281));
+	output = TTFloat64(input) * 3.281;
 }
 
 
@@ -72,15 +76,17 @@ InchUnit::~InchUnit(){;}
 
 void InchUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	*output = atom_getfloat(inputAtoms) / 39.37;
+//	output.setSize(1);
+//	*output = atom_getfloat(inputAtoms) / 39.37;
+	output = TTFloat64(input) / 39.37;
 }
 
 
 void InchUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	atom_setfloat(*outputAtoms, (*input * 39.37));
+//	output.setSize(1);
+//	atom_setfloat(*outputAtoms, (*input * 39.37));
+	output = TTFloat64(input) * 39.37;
 }
 
 

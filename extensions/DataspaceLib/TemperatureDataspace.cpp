@@ -9,26 +9,26 @@
 #include "TemperatureDataspace.h"
 
 
-CelsiusUnit::CelsiusUnit()
-	: DataspaceUnit("Celsius")
-{;}
+#define thisTTClass			CelsiusUnit
+#define thisTTClassName		"unit.celsius"
+#define thisTTClassTags		"dataspace, temperature"
 
-
-CelsiusUnit::~CelsiusUnit()
-{;}
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+CelsiusUnit::~CelsiusUnit(){;}
 
 void CelsiusUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	*output = atom_getfloat(inputAtoms) + 273.15;
+//	output.setSize(1);
+//	*output = atom_getfloat(inputAtoms) + 273.15;
+	output = TTFloat64(input) + 273.15;
 }
 
 
 void CelsiusUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	atom_setfloat(*outputAtoms, *input - 273.15);
+//	output.setSize(1);
+//	atom_setfloat(*outputAtoms, *input - 273.15);
+	output = TTFloat64(input) - 273.15;
 }
 
 
@@ -37,26 +37,27 @@ void CelsiusUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #undef thisTTClassTags
 
 /***********************************************************************************************/
-FahrenheitUnit::FahrenheitUnit()
-	: DataspaceUnit("Fahrenheit")
-{;}
 
+#define thisTTClass			FahrenheitUnit
+#define thisTTClassName		"unit.fahrenheit"
+#define thisTTClassTags		"dataspace, temperature"
 
-FahrenheitUnit::~FahrenheitUnit()
-{;}
-		
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+FahrenheitUnit::~FahrenheitUnit(){;}
+
 void FahrenheitUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	*output = (atom_getfloat(inputAtoms) + 459.67) / 1.8;
+//	output.setSize(1);
+//	*output = (atom_getfloat(inputAtoms) + 459.67) / 1.8;
+	output = (TTFloat64(input) + 459.67) / 1.8;
 }
 
 
 void FahrenheitUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(1);
-	atom_setfloat(*outputAtoms, (*input * 1.8) - 459.67);
+//	output.setSize(1);
+//	atom_setfloat(*outputAtoms, (*input * 1.8) - 459.67);
+	output = TTFloat64(input) * 1.8 - 459.67;
 }
 
 
@@ -65,15 +66,14 @@ void FahrenheitUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #undef thisTTClassTags
 
 /***********************************************************************************************/
-KelvinUnit::KelvinUnit()
-	: DataspaceUnit("Kelvin")
-{;}
 
+#define thisTTClass			KelvinUnit
+#define thisTTClassName		"unit.kelvin"
+#define thisTTClassTags		"dataspace, temperature"
 
-KelvinUnit::~KelvinUnit()
-{;}
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+KelvinUnit::~KelvinUnit(){;}
 
-		
 void KelvinUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
 	output = input;
