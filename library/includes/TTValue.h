@@ -250,6 +250,17 @@ public:
 	void get(TTUInt16 index, TTObject** value) const;
 	void get(TTUInt16 index, TTPtr* value) const;
 
+	// inlined for speed (e.g. for use in the dataspace lib)
+	TTFloat64 getFloat64(TTUInt16 index = 0) const
+	{
+		if(type[index] == kTypeFloat64)
+			return (data+index)->float64;
+		else {
+			TTFloat64 value;
+			CONVERT(TTFloat64)
+			return value;
+		}
+	}
 
 	void append(const TTFloat32 newValue);
 	void append(const TTFloat64 newValue);
