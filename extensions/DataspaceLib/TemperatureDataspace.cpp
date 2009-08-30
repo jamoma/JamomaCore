@@ -97,16 +97,17 @@ void KelvinUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassTags		"dataspace, temperature"
 
 TT_DATASPACELIB_CONSTRUCTOR
-//TemperatureDataspace::TemperatureDataspace()
-//	: DataspaceLib("temperature", "Kelvin")
 {
 	// Create one of each kind of unit, and cache them in a hash
-//	registerUnit(new CelsiusUnit,		SymbolGen("C"));
-//	registerUnit(new CelsiusUnit,		SymbolGen("Celsius"));
-//	registerUnit(new FahrenheitUnit,	SymbolGen("F"));
-//	registerUnit(new FahrenheitUnit,	SymbolGen("Fahrenheit"));
-//	registerUnit(new KelvinUnit,		SymbolGen("K"));
-//	registerUnit(new KelvinUnit,		SymbolGen("Kelvin"));
+	registerUnit(TT("unit.celsius"),	TT("C"));
+	registerUnit(TT("unit.celsius"),	TT("Celsius"));
+	registerUnit(TT("unit.fahrenheit"),	TT("F"));
+	registerUnit(TT("unit.fahrenheit"),	TT("Fahrenheit"));
+	registerUnit(TT("unit.kelvin"),		TT("K"));
+	registerUnit(TT("unit.kelvin"),		TT("Kelvin"));
+	
+	// Set our neutral unit (the unit through which all conversions are made)
+	neutralUnit = TT("Kelvin");
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

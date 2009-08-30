@@ -135,14 +135,15 @@ void SpeedUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassTags		"dataspace, pitch"
 
 TT_DATASPACELIB_CONSTRUCTOR
-//PitchDataspace::PitchDataspace()
-//	: DataspaceLib("pitch", "Hz")
 {
 	// Create one of each kind of unit, and cache them in a hash
-//	registerUnit(new CentUnit,			SymbolGen("cents"));
-//	registerUnit(new FrequencyUnit,		SymbolGen("Hz"));
-//	registerUnit(new MidiPitchUnit,		SymbolGen("midi"));
-//	registerUnit(new SpeedUnit,			SymbolGen("speed"));	// Transposition playback speed of buffers or sound files 
+	registerUnit(TT("unit.cent"),		TT("cents"));
+	registerUnit(TT("unit.hz"),			TT("Hz"));
+	registerUnit(TT("unit.midi.pitch"),	TT("midi"));
+	registerUnit(TT("unit.speed"),		TT("speed"));	// Transposition playback speed of buffers or sound files 
+	
+	// Set our neutral unit (the unit through which all conversions are made)
+	neutralUnit = TT("Hz");
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

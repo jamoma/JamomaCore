@@ -93,15 +93,16 @@ void DecibelUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassTags		"dataspace, gain"
 
 TT_DATASPACELIB_CONSTRUCTOR
-//GainDataspace::GainDataspace()
-//	: DataspaceLib("gain", "linear")
 {
 	// Create one of each kind of unit, and cache them in a hash
-//	registerUnit(new LinearAmplitudeUnit,	SymbolGen("linear"));
-//	registerUnit(new MidiGainUnit,			SymbolGen("midi"));
-//	registerUnit(new DecibelUnit,			SymbolGen("dB"));
-//	registerUnit(new DecibelUnit,			SymbolGen("db"));
+	registerUnit(TT("unit.linear"),		TT("linear"));
+	registerUnit(TT("unit.midi.gain"),	TT("midi"));
+	registerUnit(TT("unit.db"),			TT("dB"));
+	registerUnit(TT("unit.db"),			TT("db"));
 
+	// Set our neutral unit (the unit through which all conversions are made)
+	neutralUnit = TT("linear");
+	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
 	setOutputUnit(neutralUnit);

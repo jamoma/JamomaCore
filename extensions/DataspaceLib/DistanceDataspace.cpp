@@ -126,18 +126,19 @@ void MeterUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassTags		"dataspace, distance"
 
 TT_DATASPACELIB_CONSTRUCTOR
-//DistanceDataspace::DistanceDataspace()
-//	: DataspaceLib("distance", "meters")
 {
 	// Create one of each kind of unit, and cache them in a hash
-//	registerUnit(new CentimeterUnit,	SymbolGen("cm"));
-//	registerUnit(new CentimeterUnit,	SymbolGen("centimeters"));
-//	registerUnit(new FootUnit,			SymbolGen("'"));
-//	registerUnit(new FootUnit,			SymbolGen("feet"));
-//	registerUnit(new InchUnit,			SymbolGen("\""));
-//	registerUnit(new InchUnit,			SymbolGen("inches"));
-//	registerUnit(new MeterUnit,			SymbolGen("m"));
-//	registerUnit(new MeterUnit,			SymbolGen("meters"));
+	registerUnit(TT("unit.centimeter"),		TT("cm"));
+	registerUnit(TT("unit.centimeter"),		TT("centimeters"));
+	registerUnit(TT("unit.foot"),			TT("'"));
+	registerUnit(TT("unit.foot"),			TT("feet"));
+	registerUnit(TT("unit.inch"),			TT("\""));
+	registerUnit(TT("unit.inch"),			TT("inches"));
+	registerUnit(TT("unit.meter"),			TT("m"));
+	registerUnit(TT("unit.meter"),			TT("meters"));
+	
+	// Set our neutral unit (the unit through which all conversions are made)
+	neutralUnit = TT("meters");
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

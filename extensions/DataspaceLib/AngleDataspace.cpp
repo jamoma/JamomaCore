@@ -66,15 +66,15 @@ void DegreeUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassTags		"dataspace, angle"
 
 TT_DATASPACELIB_CONSTRUCTOR
-
-//AngleDataspace::AngleDataspace()
-//	: DataspaceLib("angle", "radian") //would "<" be possible ??
 {	
 	// Create one of each kind of unit, and cache them in a hash
-//	registerUnit(new RadianUnit,	TT("radian"));
-//	registerUnit(new RadianUnit,	TT("rad"));
-//	registerUnit(new DegreeUnit,	TT("degree"));
-//	registerUnit(new DegreeUnit,	TT("deg"));
+	registerUnit(TT("unit.radian"),	TT("radian"));
+	registerUnit(TT("unit.radian"),	TT("rad"));
+	registerUnit(TT("unit.degree"),	TT("degree"));
+	registerUnit(TT("unit.degree"),	TT("deg"));
+	
+	// Set our neutral unit (the unit through which all conversions are made)
+	neutralUnit = TT("radian");
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

@@ -345,15 +345,16 @@ void RGB8Unit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassTags		"dataspace, color"
 
 TT_DATASPACELIB_CONSTRUCTOR
-//ColorDataspace::ColorDataspace()
-//	: DataspaceLib("color", "rgb")
 {
 	// Create one of each kind of unit, and cache them in a hash
-//	registerUnit(new CMYUnit,		SymbolGen("cmy"));
-//	registerUnit(new HSLUnit,		SymbolGen("hsl"));
-//	registerUnit(new HSVUnit,		SymbolGen("hsv"));
-//	registerUnit(new RGBUnit,		SymbolGen("rgb"));
-//	registerUnit(new RGB8Unit,		SymbolGen("rgb8"));
+	registerUnit(TT("unit.cmy"),	TT("cmy"));
+	registerUnit(TT("unit.hsl"),	TT("hsl"));
+	registerUnit(TT("unit.hsv"),	TT("hsv"));
+	registerUnit(TT("unit.rgb"),	TT("rgb"));
+	registerUnit(TT("unit.rgb8"),	TT("rgb8"));
+	
+	// Set our neutral unit (the unit through which all conversions are made)
+	neutralUnit = TT("rgb");
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

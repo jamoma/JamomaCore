@@ -39,11 +39,12 @@ void NoneUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassTags		"dataspace, none"
 
 TT_DATASPACELIB_CONSTRUCTOR
-//NoneDataspace::NoneDataspace()
-//	: DataspaceLib("none", "none")
 {
 	// Create one of each kind of unit, and cache them in a hash
-//	registerUnit(new NoneUnit,	SymbolGen("none"));
+	registerUnit(TT("unit.none"),	TT("none"));
+	
+	// Set our neutral unit (the unit through which all conversions are made)
+	neutralUnit = TT("none");
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

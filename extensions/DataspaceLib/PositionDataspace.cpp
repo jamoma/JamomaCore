@@ -265,21 +265,22 @@ void CylindricalUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #define thisTTClassTags		"dataspace, position"
 
 TT_DATASPACELIB_CONSTRUCTOR
-//PositionDataspace::PositionDataspace()
-//	: DataspaceLib("position", "xyz")
 {
 	// Create one of each kind of unit, and cache them in a hash
-//	registerUnit(new Cartesian3DUnit,	SymbolGen("cart3D"));
-//	registerUnit(new Cartesian3DUnit,	SymbolGen("xyz"));
-//	registerUnit(new Cartesian2DUnit,	SymbolGen("cart2D"));
-//	registerUnit(new Cartesian2DUnit,	SymbolGen("xy"));
-//	registerUnit(new SphericalUnit,		SymbolGen("spherical"));
-//	registerUnit(new SphericalUnit,		SymbolGen("aed"));
-//	registerUnit(new PolarUnit,			SymbolGen("polar"));
-//	registerUnit(new PolarUnit,			SymbolGen("ad"));
-//	registerUnit(new OpenGlUnit,		SymbolGen("openGL"));
-//	registerUnit(new CylindricalUnit,	SymbolGen("cylindrical"));
-//	registerUnit(new CylindricalUnit,	SymbolGen("daz"));
+	registerUnit(TT("unit.cart3d"),			TT("cart3D"));
+	registerUnit(TT("unit.cart3d"),			TT("xyz"));
+	registerUnit(TT("unit.cart2d"),			TT("cart2D"));
+	registerUnit(TT("unit.cart2d"),			TT("xy"));
+	registerUnit(TT("unit.spherical"),		TT("spherical"));
+	registerUnit(TT("unit.spherical"),		TT("aed"));
+	registerUnit(TT("unit.polar"),			TT("polar"));
+	registerUnit(TT("unit.polar"),			TT("ad"));
+	registerUnit(TT("unit.openGL"),			TT("openGL"));
+	registerUnit(TT("unit.cylindrical"),	TT("cylindrical"));
+	registerUnit(TT("unit.cylindrical"),	TT("daz"));
+	
+	// Set our neutral unit (the unit through which all conversions are made)
+	neutralUnit = TT("xyz");
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
