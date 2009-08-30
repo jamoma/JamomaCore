@@ -105,7 +105,7 @@ public:
 		TTHashPtr		  unitHash;
 
 	protected:
-		void registerUnit(void *unit, const TTSymbolPtr unitName);
+		void registerUnit(const TTSymbolPtr className, const TTSymbolPtr unitName);
 
 	public:
 		TTSymbolPtr	      neutralUnit;
@@ -122,31 +122,8 @@ public:
 		/** Destructor */
 		virtual ~DataspaceLib();
 
-/*		JamomaError convert(long		inputNumArgs,
-							t_atom		*inputAtoms,
-							t_symbol	*inputDataspace,
-							long		*outputNumArgs,
-							t_atom		**outputAtoms,
-							t_symbol	*outputDataspace,
-							);
-*/
-
-		/** converts input to output, possibly doing a unit conversion.
-			EXTREMELY IMPORTANT: We are expecting that **output atoms has its memory passed in already.
-			We are not allocating it due to performance considerations */
-//		TTErr convert(long		inputNumArgs,
-	//						t_atom		*inputAtoms,
-		//					long		*outputNumArgs,
-			//				t_atom		**outputAtoms
-				//			);
-
-
-        // NOTE: For now we are going to use TTValue as we port from JamomaModular to the foundation...
-        // TODO: evaluate performance once we have this working.
+		/** converts input to output, possibly doing a unit conversion.  */
         TTErr convert(const TTValue& input, TTValue& output);
-
-		// could also create a class that wraps a unit with it's dataspace information and args and whateverelse
-		// and then have an alternative (overridden) version of the convert method
 
 		/** set the input unit type for this dataspace object by it's name as a symbol */
 		TTErr setInputUnit(TTSymbolPtr inUnitName);
@@ -160,7 +137,6 @@ public:
 };
 
 
-//extern "C" {
 
 	/** Create a dataspace object by specifying the name of the dataspace you want as a symbol. */
 //	TTErr	jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspace);
@@ -173,6 +149,5 @@ public:
 // TODO: implement using tags when the object is registered
 
 
-//}
 
 #endif // __DATASPACELIB_H__

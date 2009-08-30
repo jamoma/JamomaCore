@@ -65,20 +65,13 @@ DataspaceLib::~DataspaceLib()
 }
 
 
-// remember, we are relying on memory passed in for the outputAtoms
-//TTErr DataspaceLib::convert(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, t_atom **outputAtoms)
 TTErr DataspaceLib::convert(const TTValue& input, TTValue& output)
 {
-//	double	value[3];	// right now we only handle a maximum of 3 values in the neutral unit passing
-//	long	numvalues;
-	TTValue value;
-
-	if (inUnit->name == outUnit->name) {
-//		*outputNumArgs = inputNumArgs;
-//		sysmem_copyptr(inputAtoms, *outputAtoms, sizeof(t_atom) * inputNumArgs);
+	if (inUnit->name == outUnit->name)
 		output = input;
-	}
 	else {
+		TTValue value;
+
 		inUnit->convertToNeutral(input, value);
 		outUnit->convertFromNeutral(value, output);
 	}
@@ -88,18 +81,21 @@ TTErr DataspaceLib::convert(const TTValue& input, TTValue& output)
 
 TTErr DataspaceLib::setInputUnit(TTSymbolPtr inUnitName)
 {
-	TTObjectPtr	newUnit = NULL;
+	TTSymbolPtr	newUnitClassName = NULL;
+	//TTObjectPtr	newUnit = NULL;
 	TTErr		err;
 	TTValue		v;
-
+	
 	if (inUnit && inUnitName == inUnit->name)	// already have this one loaded
 		return kTTErrNone;
 	else {
 		err = unitHash->lookup(inUnitName, v);
-		newUnit = TTObjectPtr(v);
-//		err = (TTErr)hashtab_lookup(unitHash, inUnitName, (t_object**)&newUnit);
-		if (!err && newUnit)
-			inUnit = DataspaceUnitPtr(newUnit);
+		newUnitClassName = TTSymbolPtr(v);
+		if (!err && newUnitClassName) {
+			v.clear();
+			err = TTObjectInstantiate(newUnitClassName, (TTObject**)&inUnit, v);	// this will free a pre-existing unit
+			//inUnit = DataspaceUnitPtr(newUnit);
+		}
 		return err;
 	}
 }
@@ -107,7 +103,8 @@ TTErr DataspaceLib::setInputUnit(TTSymbolPtr inUnitName)
 
 TTErr DataspaceLib::setOutputUnit(TTSymbolPtr outUnitName)
 {
-	TTObjectPtr	newUnit = NULL;
+	TTSymbolPtr	newUnitClassName = NULL;
+	//TTObjectPtr	newUnit = NULL;
 	TTErr		err;
 	TTValue		v;
 	
@@ -115,18 +112,23 @@ TTErr DataspaceLib::setOutputUnit(TTSymbolPtr outUnitName)
 		return kTTErrNone;
 	else {
 		err = unitHash->lookup(outUnitName, v);
-		newUnit = TTObjectPtr(v);
-		if (!err && newUnit)
-			outUnit = DataspaceUnitPtr(newUnit);
+		newUnitClassName = TTSymbolPtr(v);
+		if (!err && newUnitClassName) {
+			v.clear();
+			err = TTObjectInstantiate(newUnitClassName, (TTObject**)&outUnit, v);	// this will free a pre-existing unit
+			//outUnit = DataspaceUnitPtr(newUnit);
+		}
 		return err;
 	}
 }
 
 
-//void DataspaceLib::registerUnit(void *unit, const TTSymbolPtr unitName)
-//{
-//	hashtab_store(unitHash, unitName, (t_object*)unit);
-//}
+void DataspaceLib::registerUnit(const TTSymbolPtr className, const TTSymbolPtr unitName)
+{
+	TTValuePtr v = new TTValue(className);
+
+	unitHash->append(unitName, v);
+}
 
 
 TTErr DataspaceLib::getAvailableUnits(TTValue& unitNames)

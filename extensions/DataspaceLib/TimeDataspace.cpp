@@ -171,15 +171,16 @@ TT_DATASPACELIB_CONSTRUCTOR
 //TimeDataspace::TimeDataspace()
 //	: DataspaceLib("time", "millisecond")
 {
-	// Create one of each kind of unit, and cache them in a hash
-//	registerUnit(new BpmUnit,			SymbolGen("bpm"));
-//	registerUnit(new UpdaterateUnit,	SymbolGen("fps"));
-//	registerUnit(new UpdaterateUnit,	SymbolGen("Hz"));
-//	registerUnit(new MillisecondUnit,	SymbolGen("ms"));
-//	registerUnit(new MillisecondUnit,	SymbolGen("millisecond"));
-//	registerUnit(new SecondUnit,		SymbolGen("s"));
-//	registerUnit(new SecondUnit,		SymbolGen("second"));
-//	registerUnit(new SampleUnit,		SymbolGen("sample"));
+	// Register unit names for this dataspace, 
+	// and map them to the actual object names implementing the conversion.
+	registerUnit(TT("unit.bpm"),	TT("bpm"));
+	registerUnit(TT("unit.rate"),	TT("fps"));
+	registerUnit(TT("unit.rate"),	TT("Hz"));
+	registerUnit(TT("unit.ms"),		TT("ms"));
+	registerUnit(TT("unit.ms"),		TT("millisecond"));
+	registerUnit(TT("unit.second"),	TT("s"));
+	registerUnit(TT("unit.second"),	TT("second"));
+	registerUnit(TT("unit.sample"),	TT("sample"));
 	
 	
 	// Now that the cache is created, we can create a set of default units
