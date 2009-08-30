@@ -152,7 +152,7 @@ class TTDataInfo;
 typedef TTDataInfo* TTDataInfoPtr;
 
 /**	An array, indexed by values from TTDataType, containing information about those data types.	*/
-extern TTDataInfoPtr	ttDataTypeInfo[kNumTTDataTypes];
+extern TTFOUNDATION_EXPORT TTDataInfoPtr	ttDataTypeInfo[kNumTTDataTypes];
 
 
 class TTFOUNDATION_EXPORT TTDataInfo {
