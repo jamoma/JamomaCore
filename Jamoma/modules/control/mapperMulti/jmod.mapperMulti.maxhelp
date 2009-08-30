@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 14.0, 260.0, 963.0, 590.0 ],
+		"rect" : [ 253.0, 59.0, 963.0, 590.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 14.0, 260.0, 963.0, 590.0 ],
+		"defrect" : [ 253.0, 59.0, 963.0, 590.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -18,6 +18,21 @@
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
+				"box" : 				{
+					"args" : [ "/cueManager" ],
+					"id" : "obj-1",
+					"maxclass" : "bpatcher",
+					"name" : "jmod.cueManager.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 634.0, 281.0, 300.0, 70.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 35.0, 100.0, 300.0, 70.0 ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -105,7 +120,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 34.0, 544.0, 154.0, 17.0 ],
-					"text" : "/module_name /filter~"
+					"text" : "/audio/mix 26.597223"
 				}
 
 			}
