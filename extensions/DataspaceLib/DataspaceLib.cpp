@@ -26,42 +26,15 @@ DataspaceLib::DataspaceLib(TTValue& arguments) : TTObject(arguments),
 	inUnit(NULL),
     outUnit(NULL)
 {
-	arguments.get(0, &name);
-	arguments.get(1, &neutralUnit);
-	
 	unitHash = new TTHash;
 }
 
 
 DataspaceLib::~DataspaceLib()
 {
-//	t_symbol		**keys = NULL;
-    TTValue         keys;
-	long			numKeys = 0;
-	long			i;
-	DataspaceUnit	*unit;
-
-    unitHash->getKeys(keys);
-    numKeys = unitHash->getSize();
-
-//	hashtab_getkeys(unitHash, &numKeys, &keys);
-	for(i=0; i<numKeys; i++){
-//		hashtab_lookup(unitHash, keys[i], (t_object**)&unit);
-        TTSymbolPtr key;
-        TTValue     v;
-
-        keys.get(i, &key);
-        unitHash->lookup(key, v);
-        unit = DataspaceUnitPtr(TTObjectPtr(v));
-//		delete unit;
-        TTObjectRelease((TTObjectPtr*)&unit);
-	}
-
-//	if(keys)
-//		sysmem_freeptr(keys);
-
-//	hashtab_chuck(unitHash);
-    delete unitHash;
+    delete unitHash;	
+	TTObjectRelease((TTObjectPtr*)&inUnit);
+	TTObjectRelease((TTObjectPtr*)&outUnit);
 }
 
 

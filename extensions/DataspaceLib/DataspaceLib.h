@@ -105,11 +105,12 @@ public:
 		TTHashPtr		  unitHash;
 
 	protected:
+		TTSymbolPtr	      neutralUnit;
+	
+		/** Called by subclasses to register units with the dataspace */
 		void registerUnit(const TTSymbolPtr className, const TTSymbolPtr unitName);
 
 	public:
-		TTSymbolPtr	      neutralUnit;
-		TTSymbolPtr		  name;
 
 		/** Constructor.
 			This constructor maintains a cache of all DataspaceUnits that are associated with
