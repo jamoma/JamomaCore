@@ -17,20 +17,16 @@
 // Class Specifications
 
 class NoneUnit : DataspaceUnit{
-	public:
-		NoneUnit();
-		~NoneUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(NoneUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 
 // Specification of our base class
-class NoneDataspace : DataspaceLib{
-	public:
-		NoneDataspace();
-		~NoneDataspace();
+class NoneDataspace : DataspaceLib {
+	TTCLASS_SETUP(NoneDataspace)
 };
 
 

@@ -1,6 +1,6 @@
 /* 
  * Jamoma DataspaceLib: GainDataspace
- * Copyright © 2007, Trond Lossius
+ * Copyright ï¿½ 2007, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -16,40 +16,32 @@
 // Class Specifications
 
 class LinearAmplitudeUnit : DataspaceUnit{
-	public:
-		LinearAmplitudeUnit();
-		~LinearAmplitudeUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(LinearAmplitudeUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 
 class MidiGainUnit : DataspaceUnit{
-	public:
-		MidiGainUnit();
-		~MidiGainUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(MidiGainUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 
 class DecibelUnit : DataspaceUnit{
-	public:
-		DecibelUnit();
-		~DecibelUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(DecibelUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 
 // Specification of our base class
-class GainDataspace : DataspaceLib{
-	public:
-		GainDataspace();
-		~GainDataspace();
+class GainDataspace : DataspaceLib {
+	TTCLASS_SETUP(GainDataspace)
 };
 
 

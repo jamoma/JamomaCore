@@ -21,7 +21,7 @@ public:
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class DegreeUnit : public DataspaceUnit{
+class DegreeUnit : public DataspaceUnit {
 	TTCLASS_SETUP(DegreeUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -31,7 +31,7 @@ public:
 
 /****************************************************************************************************/
 
-class AngleDataspace : public DataspaceLib{
+class AngleDataspace : public DataspaceLib {
 	TTCLASS_SETUP(AngleDataspace)
 };
 

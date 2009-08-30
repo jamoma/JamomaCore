@@ -1,6 +1,6 @@
 /* 
  * Jamoma DataspaceLib: DistanceDataspace
- * Copyright © 2007, Nils Peters
+ * Copyright ï¿½ 2007, Nils Peters
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -16,68 +16,52 @@
 // Class Specifications
 
 class Cartesian3DUnit : DataspaceUnit{
-	public:
-		Cartesian3DUnit();
-		~Cartesian3DUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(Cartesian3DUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 class Cartesian2DUnit : DataspaceUnit{
-	public:
-		Cartesian2DUnit();
-		~Cartesian2DUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(Cartesian2DUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 class SphericalUnit : DataspaceUnit{
-	public:
-		SphericalUnit();
-		~SphericalUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(SphericalUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 class PolarUnit : DataspaceUnit{
-	public:
-		PolarUnit();
-		~PolarUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(PolarUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 		
 class OpenGlUnit : DataspaceUnit{
-	public:
-		OpenGlUnit();
-		~OpenGlUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
-
+	TTCLASS_SETUP(OpenGlUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 class CylindricalUnit : DataspaceUnit{
-	public:
-		CylindricalUnit();
-		~CylindricalUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
-
+	TTCLASS_SETUP(CylindricalUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 
 
 // Specification of our base class
-class PositionDataspace : DataspaceLib{
-	public:
-		PositionDataspace();
-		~PositionDataspace();
+class PositionDataspace : DataspaceLib {
+	TTCLASS_SETUP(PositionDataspace)
 };
 
 #endif // __POSITIONDATASPACE_H__

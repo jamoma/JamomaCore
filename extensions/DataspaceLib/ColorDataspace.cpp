@@ -36,18 +36,18 @@ double hls_value(double n1, double n2, double hue)
 TT_DATASPACEUNIT_CONSTRUCTOR{;}
 CMYUnit::~CMYUnit(){;}		
 
-void CMYUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void CMYUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 3;
+	output.setSize(3);
 	*(output+0) = (255 - atom_getfloat(inputAtoms+0)) * inv255;
 	*(output+1) = (255 - atom_getfloat(inputAtoms+1)) * inv255;
 	*(output+2) = (255 - atom_getfloat(inputAtoms+2)) * inv255;	
 }
 
 
-void CMYUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void CMYUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 3;	
+	output.setSize(3);	
 	atom_setfloat(*outputAtoms+0, 255 * (1 - *(input+0)));
 	atom_setfloat(*outputAtoms+1, 255 * (1 - *(input+1)));
 	atom_setfloat(*outputAtoms+2, 255 * (1 - *(input+2)));
@@ -67,7 +67,7 @@ void CMYUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 TT_DATASPACEUNIT_CONSTRUCTOR{;}
 HSLUnit::~HSLUnit(){;}		
 		
-void HSLUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void HSLUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
 	double	h = atom_getfloat(inputAtoms+0);
 	double	s = atom_getfloat(inputAtoms+1);
@@ -97,14 +97,14 @@ void HSLUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outp
 		blue = hls_value(m1, m2, hue-120.0);
 	}
 	
-	*outputNumArgs = 3;
+	output.setSize(3);
 	*(output+0) = red;
 	*(output+1) = green;
 	*(output+2) = blue;	
 }
 
 
-void HSLUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void HSLUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
 	double	r = (*(input+0));
 	double	g = (*(input+1));
@@ -152,7 +152,7 @@ void HSLUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 	saturation = S * 100.0;
 	lightness = L * 100.0;
 
-	*outputNumArgs = 3;	
+	output.setSize(3);	
 	atom_setfloat(*outputAtoms+0, hue);
 	atom_setfloat(*outputAtoms+1, saturation);
 	atom_setfloat(*outputAtoms+2, lightness);
@@ -186,7 +186,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 TT_DATASPACEUNIT_CONSTRUCTOR{;}
 HSVUnit::~HSVUnit(){;}		
 
-void HSVUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void HSVUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
 	double	h = atom_getfloat(inputAtoms+0)/360.;
 	double	s = atom_getfloat(inputAtoms+1)/100.;
@@ -216,14 +216,14 @@ void HSVUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outp
 		else                   { r = v     ; g = var_1 ; b = var_2; }
 	}
 				
-	*outputNumArgs = 3;
+	output.setSize(3);
 	*(output+0) = r;
 	*(output+1) = g;
 	*(output+2) = b;	
 }
 
 
-void HSVUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void HSVUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
 	double r = *(input+0);
 	double g = *(input+1);
@@ -271,7 +271,7 @@ void HSVUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 			h += 360.0;
 	}
 
-	*outputNumArgs = 3;	
+	output.setSize(3);	
 	atom_setfloat(*outputAtoms+0, h);
 	atom_setfloat(*outputAtoms+1, s*100);
 	atom_setfloat(*outputAtoms+2, v*100);
@@ -291,18 +291,18 @@ void HSVUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 TT_DATASPACEUNIT_CONSTRUCTOR{;}
 RGBUnit::~RGBUnit(){;}		
 
-void RGBUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void RGBUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 3;
+	output.setSize(3);
 	*(output+0) = atom_getfloat(inputAtoms+0);
 	*(output+1) = atom_getfloat(inputAtoms+1);
 	*(output+2) = atom_getfloat(inputAtoms+2);	
 }
 
 
-void RGBUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void RGBUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 3;
+	output.setSize(3);
 	atom_setfloat(*outputAtoms+0, *(input+0));
 	atom_setfloat(*outputAtoms+1, *(input+1));
 	atom_setfloat(*outputAtoms+2, *(input+2));
@@ -322,9 +322,9 @@ void RGBUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 TT_DATASPACEUNIT_CONSTRUCTOR{;}
 RGB8Unit::~RGB8Unit(){;}		
 
-void RGB8Unit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void RGB8Unit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 3;
+	output.setSize(3);
 	
 	*(output+0) = atom_getfloat(inputAtoms+0)*inv255;
 	*(output+1) = atom_getfloat(inputAtoms+1)*inv255;
@@ -332,9 +332,9 @@ void RGB8Unit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *out
 }
 
 
-void RGB8Unit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void RGB8Unit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 3;
+	output.setSize(3);
 	
 	atom_setfloat(*outputAtoms+0, *(input+0)*255);
 	atom_setfloat(*outputAtoms+1, *(input+1)*255);
@@ -357,11 +357,11 @@ TT_DATASPACELIB_CONSTRUCTOR
 //	: DataspaceLib("color", "rgb")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new CMYUnit,		SymbolGen("cmy"));
-	registerUnit(new HSLUnit,		SymbolGen("hsl"));
-	registerUnit(new HSVUnit,		SymbolGen("hsv"));
-	registerUnit(new RGBUnit,		SymbolGen("rgb"));
-	registerUnit(new RGB8Unit,		SymbolGen("rgb8"));
+//	registerUnit(new CMYUnit,		SymbolGen("cmy"));
+//	registerUnit(new HSLUnit,		SymbolGen("hsl"));
+//	registerUnit(new HSVUnit,		SymbolGen("hsv"));
+//	registerUnit(new RGBUnit,		SymbolGen("rgb"));
+//	registerUnit(new RGB8Unit,		SymbolGen("rgb8"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

@@ -1,6 +1,6 @@
 /* 
  * Jamoma DataspaceLib: PitchDataspace
- * Copyright © 2007, Trond Lossius
+ * Copyright ï¿½ 2007, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -17,46 +17,36 @@
 
 
 class SpeedUnit : DataspaceUnit{
-	public:
-		SpeedUnit();
-		~SpeedUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(SpeedUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 class MidiPitchUnit : DataspaceUnit{
-	public:
-		MidiPitchUnit();
-		~MidiPitchUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(MidiPitchUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 class FrequencyUnit : DataspaceUnit{
-	public:
-		FrequencyUnit();
-		~FrequencyUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(FrequencyUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 class CentUnit : DataspaceUnit{
-	public:
-		CentUnit();
-		~CentUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(CentUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 // Specification of our base class
-class PitchDataspace : DataspaceLib{
-	public:
-		PitchDataspace();
-		~PitchDataspace();
+class PitchDataspace : DataspaceLib {
+	TTCLASS_SETUP(PitchDataspace)
 };
 
 

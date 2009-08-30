@@ -16,17 +16,15 @@
 TT_DATASPACEUNIT_CONSTRUCTOR{;}
 NoneUnit::~NoneUnit(){;}		
 
-void NoneUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void NoneUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms);
+	output = input;
 }
 
 
-void NoneUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void NoneUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input);
+	output = input;
 }
 
 

@@ -1,5 +1,5 @@
 /*
- * Jamoma FunctionLib Base Class
+ * Jamoma DataspaceLib Base Class
  * Copyright © 2007
  *
  * License: This code is licensed under the terms of the GNU LGPL
@@ -51,10 +51,10 @@ DataspaceLib::~DataspaceLib()
         TTValue     v;
 
         keys.get(i, &key);
-        unitHash->lookup(key, value);
-        unit = value;
+        unitHash->lookup(key, v);
+        unit = DataspaceUnitPtr(TTObjectPtr(v));
 //		delete unit;
-        TTObjectRelease(&unit);
+        TTObjectRelease((TTObjectPtr*)&unit);
 	}
 
 //	if(keys)
@@ -66,65 +66,67 @@ DataspaceLib::~DataspaceLib()
 
 
 // remember, we are relying on memory passed in for the outputAtoms
-TTErr DataspaceLib::convert(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, t_atom **outputAtoms)
+//TTErr DataspaceLib::convert(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, t_atom **outputAtoms)
+TTErr DataspaceLib::convert(const TTValue& input, TTValue& output)
 {
-	double	value[3];	// right now we only handle a maximum of 3 values in the neutral unit passing
-	long	numvalues;
+//	double	value[3];	// right now we only handle a maximum of 3 values in the neutral unit passing
+//	long	numvalues;
+	TTValue value;
 
-	if(inUnit->name == outUnit->name){
-		*outputNumArgs = inputNumArgs;
-		sysmem_copyptr(inputAtoms, *outputAtoms, sizeof(t_atom) * inputNumArgs);
+	if (inUnit->name == outUnit->name) {
+//		*outputNumArgs = inputNumArgs;
+//		sysmem_copyptr(inputAtoms, *outputAtoms, sizeof(t_atom) * inputNumArgs);
+		output = input;
 	}
-	else{
-		inUnit->convertToNeutral(inputNumArgs, inputAtoms, &numvalues, value);
-		outUnit->convertFromNeutral(numvalues, value, outputNumArgs, outputAtoms);
+	else {
+		inUnit->convertToNeutral(input, value);
+		outUnit->convertFromNeutral(value, output);
 	}
-	return JAMOMA_ERR_NONE;
+	return kTTErrNone;
 }
-TTErr convert(const TTValue& input, TTValue& output);
 
 
-
-TTErr DataspaceLib::setInputUnit(t_symbol *inUnitName)
+TTErr DataspaceLib::setInputUnit(TTSymbolPtr inUnitName)
 {
-	t_object*	newUnit = NULL;
-	JamomaError	err;
+	TTObjectPtr	newUnit = NULL;
+	TTErr		err;
+	TTValue		v;
 
-	if(inUnit && inUnitName == inUnit->name)	// already have this one loaded
-		return JAMOMA_ERR_NONE;
-	else{
-		err = (JamomaError)hashtab_lookup(unitHash, inUnitName, (t_object**)&newUnit);
-		if(!err && newUnit)
-			inUnit = (DataspaceUnit*)newUnit;
+	if (inUnit && inUnitName == inUnit->name)	// already have this one loaded
+		return kTTErrNone;
+	else {
+		err = unitHash->lookup(inUnitName, v);
+		newUnit = TTObjectPtr(v);
+//		err = (TTErr)hashtab_lookup(unitHash, inUnitName, (t_object**)&newUnit);
+		if (!err && newUnit)
+			inUnit = DataspaceUnitPtr(newUnit);
 		return err;
 	}
 }
-TTErr setInputUnit(TTSymbolPtr inUnitName);
 
 
-
-TTErr DataspaceLib::setOutputUnit(t_symbol *outUnitName)
+TTErr DataspaceLib::setOutputUnit(TTSymbolPtr outUnitName)
 {
-	t_object*	newUnit = NULL;
-	JamomaError	err;
-
-	if(outUnit && outUnitName == outUnit->name)	// already have this one loaded
-		return JAMOMA_ERR_NONE;
-	else{
-		err = (JamomaError)hashtab_lookup(unitHash, outUnitName, (t_object**)&newUnit);
-		if(!err && newUnit)
-			outUnit = (DataspaceUnit*)newUnit;
+	TTObjectPtr	newUnit = NULL;
+	TTErr		err;
+	TTValue		v;
+	
+	if (outUnit && outUnitName == outUnit->name)	// already have this one loaded
+		return kTTErrNone;
+	else {
+		err = unitHash->lookup(outUnitName, v);
+		newUnit = TTObjectPtr(v);
+		if (!err && newUnit)
+			outUnit = DataspaceUnitPtr(newUnit);
 		return err;
 	}
 }
-TTErr setOutputUnit(TTSymbolPtr outUnitName);
 
 
-void DataspaceLib::registerUnit(void *unit, const TTSymbolPtr unitName)
-void DataspaceLib::registerUnit(void *unit, t_symbol *unitName)
-{
-	hashtab_store(unitHash, unitName, (t_object*)unit);
-}
+//void DataspaceLib::registerUnit(void *unit, const TTSymbolPtr unitName)
+//{
+//	hashtab_store(unitHash, unitName, (t_object*)unit);
+//}
 
 
 TTErr DataspaceLib::getAvailableUnits(TTValue& unitNames)
