@@ -39,18 +39,18 @@ CMYUnit::~CMYUnit(){;}
 void CMYUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
 	output.setSize(3);
-	*(output+0) = (255 - atom_getfloat(inputAtoms+0)) * inv255;
-	*(output+1) = (255 - atom_getfloat(inputAtoms+1)) * inv255;
-	*(output+2) = (255 - atom_getfloat(inputAtoms+2)) * inv255;	
+	output.set(0, (255 - input.getFloat64(0)) * inv255);
+	output.set(1, (255 - input.getFloat64(1)) * inv255);
+	output.set(2, (255 - input.getFloat64(2)) * inv255);	
 }
 
 
 void CMYUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
 	output.setSize(3);	
-	atom_setfloat(*outputAtoms+0, 255 * (1 - *(input+0)));
-	atom_setfloat(*outputAtoms+1, 255 * (1 - *(input+1)));
-	atom_setfloat(*outputAtoms+2, 255 * (1 - *(input+2)));
+	output.set(0, 255 * (1 - input.getFloat64(0)));
+	output.set(1, 255 * (1 - input.getFloat64(1)));
+	output.set(2, 255 * (1 - input.getFloat64(2)));
 }
 
 
@@ -69,9 +69,9 @@ HSLUnit::~HSLUnit(){;}
 		
 void HSLUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	double	h = atom_getfloat(inputAtoms+0);
-	double	s = atom_getfloat(inputAtoms+1);
-	double	l = atom_getfloat(inputAtoms+2);
+	double	h = input.getFloat64(0);// input.getFloat64(0);
+	double	s = input.getFloat64(1);// input.getFloat64(1);
+	double	l = input.getFloat64(2);// input.getFloat64(2);
 	double	red, green, blue;
 	double	m1, m2, hue, lightness, saturation;
 
@@ -98,17 +98,17 @@ void HSLUnit::convertToNeutral(const TTValue& input, TTValue& output)
 	}
 	
 	output.setSize(3);
-	*(output+0) = red;
-	*(output+1) = green;
-	*(output+2) = blue;	
+	output.set(0, red);
+	output.set(1, green);
+	output.set(2, blue);	
 }
 
 
 void HSLUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	double	r = (*(input+0));
-	double	g = (*(input+1));
-	double	b = (*(input+2));
+	double	r = (input.getFloat64(0));
+	double	g = (input.getFloat64(1));
+	double	b = (input.getFloat64(2));
 	double	hue, lightness, saturation;
 	double	max,min,delta;
 	double	H,L,S;
@@ -153,9 +153,9 @@ void HSLUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 	lightness = L * 100.0;
 
 	output.setSize(3);	
-	atom_setfloat(*outputAtoms+0, hue);
-	atom_setfloat(*outputAtoms+1, saturation);
-	atom_setfloat(*outputAtoms+2, lightness);
+	output.set(0, hue);
+	output.set(1, saturation);
+	output.set(2, lightness);
 }
 
 
@@ -188,9 +188,9 @@ HSVUnit::~HSVUnit(){;}
 
 void HSVUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	double	h = atom_getfloat(inputAtoms+0)/360.;
-	double	s = atom_getfloat(inputAtoms+1)/100.;
-	double	v = atom_getfloat(inputAtoms+2)/100.;
+	double	h = input.getFloat64(0)/360.;
+	double	s = input.getFloat64(1)/100.;
+	double	v = input.getFloat64(2)/100.;
 	double	r, g, b;
 	//double	h1, a[7], q, f;                             
 
@@ -217,17 +217,17 @@ void HSVUnit::convertToNeutral(const TTValue& input, TTValue& output)
 	}
 				
 	output.setSize(3);
-	*(output+0) = r;
-	*(output+1) = g;
-	*(output+2) = b;	
+	output.set(0, r);
+	output.set(1, g);
+	output.set(2, b);	
 }
 
 
 void HSVUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	double r = *(input+0);
-	double g = *(input+1);
-	double b = *(input+2);
+	double r = input.getFloat64(0);
+	double g = input.getFloat64(1);
+	double b = input.getFloat64(2);
 
 	double h,s,v;
 
@@ -272,9 +272,9 @@ void HSVUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 	}
 
 	output.setSize(3);	
-	atom_setfloat(*outputAtoms+0, h);
-	atom_setfloat(*outputAtoms+1, s*100);
-	atom_setfloat(*outputAtoms+2, v*100);
+	output.set(0, h);
+	output.set(1, s*100);
+	output.set(2, v*100);
 }
 
 
@@ -293,19 +293,13 @@ RGBUnit::~RGBUnit(){;}
 
 void RGBUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(3);
-	*(output+0) = atom_getfloat(inputAtoms+0);
-	*(output+1) = atom_getfloat(inputAtoms+1);
-	*(output+2) = atom_getfloat(inputAtoms+2);	
+	output = input;
 }
 
 
 void RGBUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(3);
-	atom_setfloat(*outputAtoms+0, *(input+0));
-	atom_setfloat(*outputAtoms+1, *(input+1));
-	atom_setfloat(*outputAtoms+2, *(input+2));
+	output = input;
 }
 
 
@@ -325,20 +319,18 @@ RGB8Unit::~RGB8Unit(){;}
 void RGB8Unit::convertToNeutral(const TTValue& input, TTValue& output)
 {
 	output.setSize(3);
-	
-	*(output+0) = atom_getfloat(inputAtoms+0)*inv255;
-	*(output+1) = atom_getfloat(inputAtoms+1)*inv255;
-	*(output+2) = atom_getfloat(inputAtoms+2)*inv255;	
+	output.set(0, input.getFloat64(0)*inv255);
+	output.set(1, input.getFloat64(1)*inv255);
+	output.set(2, input.getFloat64(2)*inv255);	
 }
 
 
 void RGB8Unit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
 	output.setSize(3);
-	
-	atom_setfloat(*outputAtoms+0, *(input+0)*255);
-	atom_setfloat(*outputAtoms+1, *(input+1)*255);
-	atom_setfloat(*outputAtoms+2, *(input+2)*255);
+	output.set(0, input.getFloat64(0)*255);
+	output.set(1, input.getFloat64(1)*255);
+	output.set(2, input.getFloat64(2)*255);
 }
 
 
