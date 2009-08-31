@@ -1,3 +1,6 @@
+# OSX Finder stuff:
+.DS_Store
+
 Builds/*.mxo
 logs
 Tools/installertools/Windows/root
