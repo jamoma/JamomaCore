@@ -7,7 +7,8 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "Jamoma.h"
+#include "TTClassWrapperMax.h"
+#include "DataspaceLib.h"
 
 
 // Data Structure for this object
@@ -15,8 +16,6 @@ typedef struct _dataspace{
 	t_object		ob;
 	void			*outlet_native;
 	DataspaceLib	*dataspace;
-	long			ac;						// for return values from the dataspace conversion
-	t_atom			*av;					//	...
 	t_symbol		*attr_dataspace;		// name of the dataspace -- e.g. "temperature"
 	t_symbol		*attr_dataspace_active;	// name of the current unit within the dataspace -- e.g. "celsius"
 	t_symbol		*attr_dataspace_native;	// name of the desired native unit within the dataspace -- e.g. "celsius"
@@ -44,11 +43,11 @@ t_class		*dataspace_class;
 /************************************************************************************/
 // Main() Function
 
-int JAMOMA_EXPORT_MAXOBJ main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	t_class *c;
 	
-	jamoma_init();
+	TTFoundationInit();
 	common_symbols_init();
 
 	// Define our class
@@ -98,8 +97,6 @@ void *dataspace_new(t_symbol *name, long argc, t_atom *argv)
 		attr_args_process(obj, argc, argv);
 		if(!obj->dataspace)
 			object_attr_setsym(obj, gensym("dataspace"), gensym("temperature"));
-
-		obj->av = (t_atom*)sysmem_newptr(sizeof(t_atom) * 3);	// just allocating three for now -- limited list support
 	}
 	return obj;													// Return pointer to our instance
 }
@@ -107,7 +104,6 @@ void *dataspace_new(t_symbol *name, long argc, t_atom *argv)
 
 void dataspace_free(t_dataspace *obj)
 {
-	sysmem_freeptr(obj->av);
 	if(obj->dataspace)
 		delete obj->dataspace;
 }
@@ -138,64 +134,74 @@ void dataspace_int(t_dataspace *obj, long x)
 
 void dataspace_float(t_dataspace *obj, double x)
 {
-	t_atom	a[1];
+	TTValue input(x);
+	TTValue output;
+	Atom	a[1];	
 	
-	atom_setfloat(a, x);
-	obj->dataspace->convert(1, a, &obj->ac, &obj->av);
-	outlet_anything(obj->outlet_native, _sym_float, obj->ac, obj->av);
+	obj->dataspace->convert(input, output);
+	atom_setfloat(a, TTFloat64(output));
+	outlet_anything(obj->outlet_native, _sym_float, 1, a);
 }
 
 
 void dataspace_list(t_dataspace *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	obj->dataspace->convert(argc, argv, &obj->ac, &obj->av);
-	outlet_anything(obj->outlet_native, _sym_list, obj->ac, obj->av);
+	TTValue		input;
+	TTValue		output;
+	AtomCount	ac = 0;
+	AtomPtr		av = NULL;
+	
+	TTValueFromAtoms(input, argc, argv);
+	obj->dataspace->convert(input, output);
+	TTAtomsFromValue(output, &ac, &av);
+	if (ac && av) {
+		outlet_anything(obj->outlet_native, _sym_list, ac, av);
+		sysmem_freeptr(av);
+	}
 }
 	
 
 void dataspace_getDataspaces(t_dataspace *obj)
 {
 	t_atom		a[2];
-	t_symbol	**dataspaceNames = NULL;
 	long		numDataspaces = 0;
 	long		i;
+	TTValue		v;
+	TTSymbolPtr	name;
 	
 	atom_setsym(a+0, gensym("clear"));
 	object_obex_dumpout(obj, gensym("DataspacesMenu"), 1, a);
 	
-	jamoma_getDataspaceList(&numDataspaces, &dataspaceNames);
-	
+	DataspaceLib::getNames(v);
+	numDataspaces = v.getSize();	
 	for(i=0; i<numDataspaces; i++){
+		v.get(i, &name);
 		atom_setsym(a+0, gensym("append"));
-		atom_setsym(a+1, dataspaceNames[i]);
+		atom_setsym(a+1, gensym((char*)name->getCString()));
 		object_obex_dumpout(obj, gensym("DataspacesMenu"), 2, a);
 	}
-	
-	if(numDataspaces)
-		sysmem_freeptr(dataspaceNames);
 }
 
 
 void dataspace_getUnits(t_dataspace *obj)
 {
 	t_atom		a[2];
-	t_symbol	**unitNames = NULL;
 	long		numUnits = 0;
 	long		i;
+	TTValue		v;
+	TTSymbolPtr	name;
 	
 	atom_setsym(a+0, gensym("clear"));
 	object_obex_dumpout(obj, gensym("UnitMenu"), 1, a);
 	
-	obj->dataspace->getAvailableUnits(&numUnits, &unitNames);
-	
+	obj->dataspace->getAvailableUnits(v);
+	numUnits = v.getSize();
 	for(i=0; i<numUnits; i++){
+		v.get(i, &name);
 		atom_setsym(a+0, gensym("append"));
-		atom_setsym(a+1, unitNames[i]);
+		atom_setsym(a+1, gensym((char*)name->getCString()));
 		object_obex_dumpout(obj, gensym("UnitMenu"), 2, a);
 	}
-	
-	if(numUnits)
-		sysmem_freeptr(unitNames);
 }
 
 
@@ -203,9 +209,9 @@ void dataspace_getUnits(t_dataspace *obj)
 t_max_err dataspace_setDataspace(t_dataspace *obj, void *attr, long argc, t_atom *argv)
 {
 	obj->attr_dataspace = atom_getsym(argv);
-	jamoma_getDataspace(obj->attr_dataspace, &obj->dataspace);
-	obj->attr_dataspace_active = obj->dataspace->neutralUnit;
-	obj->attr_dataspace_native = obj->dataspace->neutralUnit;
+	DataspaceLib::instantiate(TT(obj->attr_dataspace->s_name), &obj->dataspace);
+	obj->attr_dataspace_active = gensym((char*)obj->dataspace->neutralUnit->getCString());
+	obj->attr_dataspace_native = gensym((char*)obj->dataspace->neutralUnit->getCString());
 	return MAX_ERR_NONE;
 }
 
@@ -214,7 +220,7 @@ t_max_err dataspace_setDataspace(t_dataspace *obj, void *attr, long argc, t_atom
 t_max_err dataspace_setDataspaceActive(t_dataspace *obj, void *attr, long argc, t_atom *argv)
 {
 	obj->attr_dataspace_active = atom_getsym(argv);
-	obj->dataspace->setInputUnit(obj->attr_dataspace_active);
+	obj->dataspace->setInputUnit(TT(obj->attr_dataspace_active->s_name));
 	return MAX_ERR_NONE;
 }
 
@@ -223,7 +229,7 @@ t_max_err dataspace_setDataspaceActive(t_dataspace *obj, void *attr, long argc, 
 t_max_err dataspace_setDataspaceNative(t_dataspace *obj, void *attr, long argc, t_atom *argv)
 {
 	obj->attr_dataspace_native = atom_getsym(argv);
-	obj->dataspace->setOutputUnit(obj->attr_dataspace_native);
+	obj->dataspace->setOutputUnit(TT(obj->attr_dataspace_native->s_name));
 	return MAX_ERR_NONE;
 }
 

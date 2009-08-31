@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */; };
 		22E23379104ACF5C0026CA5A /* jcom.dataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E23378104ACF5C0026CA5A /* jcom.dataspace.cpp */; };
+		22E233F4104AD14C0026CA5A /* DataspaceLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E233B8104AD14C0026CA5A /* DataspaceLib.h */; };
+		22E2345F104B591A0026CA5A /* DataspaceLib.ttdylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E2345E104B591A0026CA5A /* DataspaceLib.ttdylib */; };
 		22E3871E102887A2002000A9 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E3871D102887A2002000A9 /* MaxAudioAPI.framework */; };
 		22E38720102887AB002000A9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E3871F102887AB002000A9 /* MaxAPI.framework */; };
 		22E38722102887B4002000A9 /* commonsyms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E38721102887B4002000A9 /* commonsyms.cpp */; };
@@ -21,6 +23,8 @@
 /* Begin PBXFileReference section */
 		222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		22E23378104ACF5C0026CA5A /* jcom.dataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.dataspace.cpp; sourceTree = "<group>"; };
+		22E233B8104AD14C0026CA5A /* DataspaceLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataspaceLib.h; sourceTree = "<group>"; };
+		22E2345E104B591A0026CA5A /* DataspaceLib.ttdylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = DataspaceLib.ttdylib; path = "/Library/Application Support/Jamoma/Extensions/DataspaceLib.ttdylib"; sourceTree = "<absolute>"; };
 		22E3871D102887A2002000A9 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../../../Tools/library/max-sdk/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
 		22E3871F102887AB002000A9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../../../Tools/library/max-sdk/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
 		22E38721102887B4002000A9 /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../../../../../Tools/library/max-sdk/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
@@ -40,6 +44,7 @@
 				22E3871E102887A2002000A9 /* MaxAudioAPI.framework in Frameworks */,
 				22E38720102887AB002000A9 /* MaxAPI.framework in Frameworks */,
 				22EB3B2F102E61DD006D027A /* JamomaFoundation.framework in Frameworks */,
+				22E2345F104B591A0026CA5A /* DataspaceLib.ttdylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +56,7 @@
 			children = (
 				22EB3ADE102E606C006D027A /* tt-max.xcconfig */,
 				08FB77ADFE841716C02AAC07 /* Source */,
+				22E23386104AD14C0026CA5A /* DataspaceLib */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB4FE9D528D11CA2CBB /* Products */,
 			);
@@ -60,6 +66,7 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				22E2345E104B591A0026CA5A /* DataspaceLib.ttdylib */,
 				22E3871F102887AB002000A9 /* MaxAPI.framework */,
 				22E3871D102887A2002000A9 /* MaxAudioAPI.framework */,
 				22EB3B2E102E61DD006D027A /* JamomaFoundation.framework */,
@@ -87,6 +94,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		22E23386104AD14C0026CA5A /* DataspaceLib */ = {
+			isa = PBXGroup;
+			children = (
+				22E233B8104AD14C0026CA5A /* DataspaceLib.h */,
+			);
+			name = DataspaceLib;
+			path = ../../../extensions/DataspaceLib;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -95,6 +111,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22EB3AE9102E60B1006D027A /* TTClassWrapperMax.h in Headers */,
+				22E233F4104AD14C0026CA5A /* DataspaceLib.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +221,11 @@
 					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../extensions/DataspaceLib/build/Development\"",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Extensions\"",
+				);
 			};
 			name = Development;
 		};
@@ -229,6 +251,11 @@
 					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/msp-includes\"",
 					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/max-includes\"",
 					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../extensions/DataspaceLib/build/Development\"",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Extensions\"",
 				);
 			};
 			name = Deployment;
