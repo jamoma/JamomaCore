@@ -1,5 +1,6 @@
 Builds/*.mxo
 logs
+Tools/installertools/Windows/root
 *.mode1v3
 *.pbxuser
 *.dll
