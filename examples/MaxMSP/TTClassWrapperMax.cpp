@@ -421,3 +421,26 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Wra
 	return err;
 }
 
+
+
+TTErr TTValueFromAtoms(TTValue& v, AtomCount ac, AtomPtr av)
+{
+	v.clear();
+	
+	// For now we assume floats for speed (e.g. in the performance sensitive jcom.dataspace object)
+	for (int i=0; i<ac; i++)
+		v.append((TTFloat64)atom_getfloat(av+i));
+	return kTTErrNone;
+}
+
+TTErr TTAtomsFromValue(const TTValue& v, AtomCount* ac, AtomPtr* av)
+{
+	int	size = v.getSize();
+	
+	*ac = size;
+	*av = (t_atom*)sysmem_newptr(sizeof(t_atom) * size);
+	for (int i=0; i<size; i++) {
+		atom_setfloat((*av)+i, v.getFloat64(i));
+	}
+	return kTTErrNone;
+}
