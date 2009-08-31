@@ -93,7 +93,6 @@ public:
 typedef DataspaceUnit* DataspaceUnitPtr;
 
 
-
 // Specification of our base class
 class TT_DATASPACE_EXPORT DataspaceLib : public TTObject {
 public:
@@ -105,13 +104,12 @@ public:
 		TTHashPtr		  unitHash;
 
 	protected:
-		TTSymbolPtr	      neutralUnit;
-	
 		/** Called by subclasses to register units with the dataspace */
 		void registerUnit(const TTSymbolPtr className, const TTSymbolPtr unitName);
 
 	public:
-
+		TTSymbolPtr	      neutralUnit;
+	
 		/** Constructor.
 			This constructor maintains a cache of all DataspaceUnits that are associated with
 			the given dataspace.  To maintain the cache, the subclasses must register each unit.
@@ -138,20 +136,10 @@ public:
 	
 		/**	return a list of all dataspaces */
 		static TTErr getNames(TTValue& dataspaceNames);
+	
+		/** instantiate a names dataspace */
+		static TTErr instantiate(TTSymbolPtr name, DataspaceLib** returnedDataspaceObject);
 };
-
-
-
-	/** Create a dataspace object by specifying the name of the dataspace you want as a symbol. */
-//	TTErr	jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspace);
-// TODO: obsolete -- see below
-
-	/** Get a list of names of all the available dataspaces.
-		The caller of this function is responsible for freeing memory allocated by this call. */
-//	void	jamoma_getDataspaceList(long *numDataspaces, t_symbol ***dataspaceNames);
-
-// TODO: implement using tags when the object is registered
-
 
 
 #endif // __DATASPACELIB_H__

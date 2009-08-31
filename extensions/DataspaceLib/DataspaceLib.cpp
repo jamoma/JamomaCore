@@ -55,7 +55,6 @@ TTErr DataspaceLib::convert(const TTValue& input, TTValue& output)
 TTErr DataspaceLib::setInputUnit(TTSymbolPtr inUnitName)
 {
 	TTSymbolPtr	newUnitClassName = NULL;
-	//TTObjectPtr	newUnit = NULL;
 	TTErr		err;
 	TTValue		v;
 	
@@ -67,7 +66,6 @@ TTErr DataspaceLib::setInputUnit(TTSymbolPtr inUnitName)
 		if (!err && newUnitClassName) {
 			v.clear();
 			err = TTObjectInstantiate(newUnitClassName, (TTObject**)&inUnit, v);	// this will free a pre-existing unit
-			//inUnit = DataspaceUnitPtr(newUnit);
 		}
 		return err;
 	}
@@ -77,7 +75,6 @@ TTErr DataspaceLib::setInputUnit(TTSymbolPtr inUnitName)
 TTErr DataspaceLib::setOutputUnit(TTSymbolPtr outUnitName)
 {
 	TTSymbolPtr	newUnitClassName = NULL;
-	//TTObjectPtr	newUnit = NULL;
 	TTErr		err;
 	TTValue		v;
 	
@@ -89,7 +86,6 @@ TTErr DataspaceLib::setOutputUnit(TTSymbolPtr outUnitName)
 		if (!err && newUnitClassName) {
 			v.clear();
 			err = TTObjectInstantiate(newUnitClassName, (TTObject**)&outUnit, v);	// this will free a pre-existing unit
-			//outUnit = DataspaceUnitPtr(newUnit);
 		}
 		return err;
 	}
@@ -113,6 +109,15 @@ TTErr DataspaceLib::getAvailableUnits(TTValue& unitNames)
 TTErr DataspaceLib::getNames(TTValue& dataspaceNames)
 {
 	return TTGetRegisteredClassNamesForTags(dataspaceNames, TT("dataspace"));
+}
+
+
+TTErr DataspaceLib::instantiate(TTSymbolPtr name, DataspaceLib** returnedDataspaceObject)
+{	
+	TTValue v;
+	
+	v.clear();
+	return TTObjectInstantiate(name, (TTObjectPtr*)returnedDataspaceObject, v);
 }
 
 
