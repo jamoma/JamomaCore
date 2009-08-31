@@ -110,6 +110,11 @@ TTErr DataspaceLib::getAvailableUnits(TTValue& unitNames)
 }
 
 
+TTErr DataspaceLib::getNames(TTValue& dataspaceNames)
+{
+	return TTGetRegisteredClassNamesForTags(dataspaceNames, TT("dataspace"));
+}
+
 
 /***************************************************************************
 	Interface for Instantiating any DataspaceLib

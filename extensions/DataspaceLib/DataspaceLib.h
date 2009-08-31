@@ -135,6 +135,9 @@ public:
 		/** return a list of all available units for this dataspace */
 		//void getAvailableUnits(long *numUnits, t_symbol ***unitNames);
 		TTErr getAvailableUnits(TTValue& unitNames);
+	
+		/**	return a list of all dataspaces */
+		static TTErr getNames(TTValue& dataspaceNames);
 };
 
 
