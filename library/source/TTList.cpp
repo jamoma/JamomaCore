@@ -62,6 +62,14 @@ void TTList::appendUnique(const TTValuePtr newValue)
 }
 
 
+void TTList::merge(TTList& newList)
+{
+	lock();
+	theList.merge(newList.theList);
+	unlock();
+}
+
+
 TTErr TTList::findEquals(const TTValue& valueToCompareAgainst, TTValue& foundValue)
 {
 	TTErr err = kTTErrValueNotFound;
