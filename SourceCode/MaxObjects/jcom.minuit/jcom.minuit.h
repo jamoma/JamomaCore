@@ -15,6 +15,13 @@
 
 #define TEXT_BUFFER_SIZE 4096
 
+/**
+	This Max external implements part of the Minuit Protocol, 
+	more specifically it implements a syntax for messages used 
+	for scrutinizing the namespace and obtaining/changing values 
+	of nodes or leaves (non containing nodes) in the Nodelib nodetree. */
+	
+
 // Data Structure for this object
 typedef struct _node{
 
@@ -35,8 +42,16 @@ t_max_err		node_notify(t_node *x, t_symbol *s, t_symbol *msg, void *sender, void
 void			node_assist(t_node *x, void *b, long m, long a, char *s);
 
 // methods for jcom.minuit
+
+/** this method parses a minuit protocol message and returns the children (leaves or nodes) and the properties of the node which address is given to the outlet */
 void			minuit_namespace(t_node *x, t_symbol *address);
+
+/** this method parses a minuit protocol message and returns the value(s) of an attribute of a certain node*/
 void			minuit_get(t_node *x, t_symbol *attraddress);
+
+/** this method parses a minuit protocol message and sets the value(s) of an attribute of a certain node */
+void			minuit_set(t_node *x, t_symbol *msg, long argc, t_atom *argv);
+
 
 // Private methods
 void node_goto(t_node *x, t_symbol *address);

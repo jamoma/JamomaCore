@@ -36,6 +36,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// this method posts the children (leaves or nodes) and the properties of the node which address is given
 	class_addmethod(c, (method)minuit_namespace,		"?namespace",	A_SYM, 0);
 	class_addmethod(c, (method)minuit_get,			"?get",			A_SYM, 0);
+	class_addmethod(c, (method)minuit_set,			"?set",			A_GIMME, 0);
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -100,12 +101,10 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 	t_symbol *name;
 	t_symbol *instance;
 	t_atom atom;
-	char outletstring[1000]={'\0'};
+	char outletstring[1000]={'\0'}; //à changer en allocation dynamique
 	
-	//temp = (char *)malloc(sizeof(char)*( strlen() question possible d'elargir au fure à mesure?
 	strcat(outletstring,":namespace ");
 	strcat(outletstring,address->s_name);
-	post(outletstring);
 	node_goto(x, address);
 
 	// Il nous faut avoir les noeuds inférieurs et les attributs du noeud à l'addresse données
@@ -119,20 +118,16 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 
 	// if there are properties
 	if(lk_prp){
-		post(" attributes={");
-		strcat(outletstring," attributes={");
+		strcat(outletstring," attributes= {");
 
 		// write an outline for each attribut
 
 		for(i=0; i<linklist_getsize(lk_prp); i++){
 			attr_sym = (t_symbol *)linklist_getindex(lk_prp,i);
-
-			post(attr_sym->s_name); 
 			strcat(outletstring," ");
 			strcat(outletstring,attr_sym->s_name);  
 		} 
-		post("}\n");
-		strcat(outletstring,"}");
+		strcat(outletstring," }");
 	}
 
 	// if there are children
@@ -148,38 +143,35 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 				linklist_append(lk_leaves, temp);
 		}
 		if(lk_nodes->head) {
-			post(" nodes={");
-			strcat(outletstring," nodes={");
+			post(" nodes = {");
+			strcat(outletstring," nodes = {");
 			for(i=0; i<linklist_getsize(lk_nodes); i++){
 				temp = (NodePtr)linklist_getindex(lk_nodes,i);
-				post(jamoma_node_name(temp)->s_name);
 				strcat(outletstring," ");
 				strcat(outletstring,jamoma_node_name(temp)->s_name);				
 			}
-			strcat(outletstring,"}");
+			strcat(outletstring," }");
 		}
 		if(lk_leaves->head) {
-			post(" leaves={");
-			strcat(outletstring," leaves={");
+			post(" leaves = {");
+			strcat(outletstring," leaves = {");
 			for(i=0; i<linklist_getsize(lk_leaves); i++){
 				temp = (NodePtr)linklist_getindex(lk_leaves,i);
-				post(jamoma_node_name(temp)->s_name);
 				strcat(outletstring," ");
 				strcat(outletstring,jamoma_node_name(temp)->s_name);
 			}
-			strcat(outletstring,"}");
+			strcat(outletstring," }");
 		}
-		post(outletstring);
 		outlet_anything(x->p_out, gensym(outletstring), 0, &atom);
 	}
-	post(outletstring);
+	post(outletstring); //for debugging
 	outlet_anything(x->p_out, gensym(outletstring), 0, &atom);
 }
 
 
 void minuit_get(t_node *x, t_symbol *attraddress) {
 
-	short i=0, j;
+	short i=0, j=0, k=0;
 	char * address = {'\0'}, * attrname = {'\0'};
 	char outletstring[255]={'\0'};
 	t_atom atom;
@@ -195,21 +187,26 @@ void minuit_get(t_node *x, t_symbol *attraddress) {
 	strncpy (address, attraddress->s_name, i);
 	address[i]='\0';
 
+	//outletstring
+	strcat(outletstring,":get ");
+	strcat(outletstring,address);
+
 	//special case of missing attribute, in which the value attribute is requested (minuit protocol)
 	if(attraddress->s_name[i]=='\0') {
 		attrname = (char *)malloc(sizeof(char)* 6);
+		//attrnames[0] = '\0';
 		strcpy(attrname, "value");
 		attrname[5]='\0';
 	}
 
-	//normal case, we extract the attribute name from the given attraddress 
+	//normal case, we extract the attribute names from the given attraddress (we drop the ':/' before the attribute)
+
 	else {
 		attrname = (char *)malloc(sizeof(char)*(strlen(attraddress->s_name)-i));
-		for(i,j=0; i<strlen(attraddress->s_name); i++, j++) {
-			attrname[j]=attraddress->s_name[i+1];
+		for(i,j=0; i<(strlen(attraddress->s_name)-1); i++, j++) {
+			attrname[j]=attraddress->s_name[i+2];
 		}
 		attrname[j+1]='\0';
-		//post(attrname);
 	}
 
 	node_goto(x, gensym(address));
@@ -218,54 +215,90 @@ void minuit_get(t_node *x, t_symbol *attraddress) {
 	t_object *obj = jamoma_node_max_object(x->p_node);
 
 	long value_nb;
-	t_atom  * attr_value = NULL; 	
-
-	t_max_err err = object_attr_getvalueof(obj, gensym(attrname), &value_nb, &attr_value); 
+	t_atom  * attr_value = NULL;
 	
-	//post pour debuggage
-	post(":get "); 
-	post(address);
-	post(":");
-	post(attrname); 
-	post(" ");
+	t_max_err err = object_attr_getvalueof(obj, gensym(attrname), &value_nb, &attr_value);
 
-	//outletstring
-	strcat(outletstring,":get ");
-	strcat(outletstring,address);
-	strcat(outletstring,":");
+	strcat(outletstring,":/");	
 	strcat(outletstring,attrname);
 	strcat(outletstring," ");
 
-	if(value_nb!=0) {
-		for(i=0;i<value_nb; i++) {
-			if(atom_gettype (*(&attr_value+ i))== A_SYM){
-				t_symbol * atomsymbol = atom_getsym(*(&attr_value+ i));
-				post(" ");
-				strcat(outletstring," ");
-				post(atomsymbol->s_name);
-				strcat(outletstring,atomsymbol->s_name);
-			} 
-			if(atom_gettype(*(&attr_value+ i))== A_FLOAT){
-				float atomfloat = atom_getfloat(*(&attr_value+ i));
-				post(" %f", atomfloat);
-				//sprintf ne veut pas fonctionner chez moi LINK 2006 problem, double utilisation de symboles
-				//sprintf(confloat, " %lf", atomfloat);
-				//strcat(outletstring,confloat);
+    t_atom *ap;
 
-			}
-			if(atom_gettype(*(&attr_value+ i))== A_LONG){
-				long atomlong = atom_getlong(*(&attr_value+ i));
-				post(" %f", atomlong);
-				//sprintf(conlong, " %lf", atomlong);
-				//strcat(outletstring,conlong);
-			}
-		} 
+    post("attr is %s",attrname);
+    post("there are %ld values",value_nb);
+    for (i = 0, ap = attr_value; i < value_nb; i++, ap++) {       // increment ap each time to get to the next value
+        switch (atom_gettype(ap)) {
+            case A_LONG:
+                post("%ld: %ld",i+1,atom_getlong(ap));
+			    snprintf(conlong, 256, " %f", atom_getlong(ap));
+				strcat(outletstring,conlong);
+                break;
+            case A_FLOAT:
+                post("%ld: %.2f",i+1,atom_getfloat(ap));
+				snprintf(confloat, 256, " %f", atom_getfloat(ap));
+				strcat(outletstring,confloat);
+                break;
+            case A_SYM:
+                post("%ld: %s",i+1, atom_getsym(ap)->s_name);
+				strcat(outletstring," ");
+				strcat(outletstring,atom_getsym(ap)->s_name);
+                break;
+            default:
+                post("%ld: unknown atom type (%ld)", i+1, atom_gettype(ap));
+                break;
+         }
+    }
+		
+	if(!err)
+		outlet_anything(x->p_out, gensym(outletstring), 0, &atom);
+ 
+}
+
+void minuit_set(t_node *x, t_symbol *msg, long argc, t_atom *argv) {
+
+	short i=0, j;
+	char * address = {'\0'}, * attrname = {'\0'};
+	char outletstring[255]={'\0'};
+	t_atom atom;
+	char conlong[80], confloat[80];
+	t_symbol * attraddr = atom_getsym(&argv[0]);
+	t_symbol * attraddr2 = atom_getsym(&argv[1]);
+
+
+	//split address and ':'attribute
+	while (attraddr->s_name[i]!=':'&&attraddr->s_name[i]!='\0')
+		i++;
+	
+	//we extract the address name
+	address = (char *)malloc(sizeof(char)* (i)); 
+	strncpy (address, attraddr->s_name, i);
+	address[i]='\0';
+
+	//special case of missing attribute, in which the value attribute is requested (minuit protocol)
+	if(attraddr->s_name[i]=='\0') {
+		attrname = (char *)malloc(sizeof(char)* 6);
+		strcpy(attrname, "value");
+		attrname[5]='\0';
 	}
-	else
-		post("there are no values attached to the requested attribute"); 
-	
-	if(!err) outlet_anything(x->p_out, gensym(outletstring),value_nb, attr_value);
-	
+
+	//normal case, we extract the attribute name from the given attraddress (we drop the ':/' before the attribute)
+	else {
+		attrname = (char *)malloc(sizeof(char)*(strlen(attraddr->s_name)-i));
+		for(i,j=0; i<(strlen(attraddr->s_name)-1); i++, j++) {
+			attrname[j]=attraddr->s_name[i+2];
+		}
+		attrname[j+1]='\0';
+	}
+
+	node_goto(x, gensym(address));
+
+	// set value
+	t_object *obj = jamoma_node_max_object(x->p_node);
+	long value_nb;
+	t_atom  * attr_value = NULL; 	
+	t_max_err err = object_attr_setvalueof(obj, gensym(attrname), argc-1, &argv[1]);
+
 } 
 
 void node_goto(t_node *x, t_symbol *address)
