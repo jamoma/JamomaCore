@@ -8,3 +8,15 @@ Tools/installertools/Windows/root
 *.mxe
 *.ttdll
 *.log
+
+/Tools/installertools/Windows/JamomaC74.wixobj
+/Tools/installertools/Windows/JamomaC74.wxs
+/Tools/installertools/Windows/JamomaExtensions.wixobj
+/Tools/installertools/Windows/JamomaExtensions.wxs
+/Tools/installertools/Windows/JamomaPatches.wixobj
+/Tools/installertools/Windows/JamomaPatches.wxs
+/Tools/installertools/Windows/JamomaSupport.wixobj
+/Tools/installertools/Windows/JamomaSupport.wxs
+/Tools/installertools/Windows/main.wixobj
+/Tools/installertools/Windows/ui.wixobj
+/Tools/installertools/Windows/Jamoma.msi
