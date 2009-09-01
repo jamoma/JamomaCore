@@ -5,15 +5,22 @@
 #include "TTFoundationAPI.h"
 #include "ruby.h"
 
+
 //
 class TTRubyInstance {
+public:
 	TTObjectPtr	obj;
 };
 
 
+typedef VALUE (*TTRubyMethod)(...);
+//#define TTRubyMethod
+
 // Prototypes
-VALUE TTRubyInitialize(VALUE self, VALUE className);
-VALUE TTRubySendMessage(VALUE self, VALUE messageName, VALUE args);
+extern "C" {
+	VALUE TTRubyInitialize(VALUE self, VALUE className);
+	VALUE TTRubySendMessage(VALUE self, VALUE messageName, VALUE args);
+}
 
 
 // Globals and Statics
@@ -32,8 +39,8 @@ void Init_TTRuby()
 	
 	c = rb_define_class("TTRuby", rb_cObject);
 	
-	rb_define_method(c, "initialize", TTRubyInitialize, 1);		// called to initialize a new object that has been created or cloned
-	rb_define_method(c, "sendMessage", TTRubySendMessage, 2);	// send a message to the wrapped object
+	rb_define_method(c, "initialize", TTRubyMethod(TTRubyInitialize), 1);		// called to initialize a new object that has been created or cloned
+	rb_define_method(c, "sendMessage", TTRubyMethod(TTRubySendMessage), 2);	// send a message to the wrapped object
 	
 	TTRuby_class = c;
 	
@@ -62,7 +69,7 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 		return self;
 	}
 	else
-		return NULL
+		return NULL;
 }
 
 // VALUE TTRubyInitializeCopy(VALUE self, VALUE orig)
@@ -82,11 +89,11 @@ VALUE TTRubySendMessage(VALUE self, VALUE messageName, VALUE args)
 	
 	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
-		instance = TTPtr(v);
+		instance = (TTRubyInstance*)TTPtr(v);
 		if (instance) {
 			v.clear();
 			//TODO: somehow wrap args in v here
-			err = instance->sendMessage(TT(RSTRING(classNameStr)->ptr), v);
+			err = instance->obj->sendMessage(TT(RSTRING(messageNameStr)->ptr), v);
 		}
 	}
 }
