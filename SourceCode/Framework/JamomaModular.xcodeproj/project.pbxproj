@@ -70,10 +70,10 @@
 		A7CA9C890D1F21FD0099D8CA /* PitchDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7CA9C970D1FD9960099D8CA /* GainDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CA9C950D1FD9960099D8CA /* GainDataspace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7CA9C980D1FD9960099D8CA /* GainDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */; };
-		D24E548B1041D5470000A9F5 /* JamomaNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D24E54871041D5470000A9F5 /* JamomaNode.cpp */; };
-		D24E548C1041D5470000A9F5 /* JamomaNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D24E54881041D5470000A9F5 /* JamomaNode.h */; };
-		D24E548D1041D5470000A9F5 /* NodeLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D24E54891041D5470000A9F5 /* NodeLib.cpp */; };
-		D24E548E1041D5470000A9F5 /* NodeLib.h in Headers */ = {isa = PBXBuildFile; fileRef = D24E548A1041D5470000A9F5 /* NodeLib.h */; };
+		D29C8AD7104D8BC70001DC79 /* JamomaNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D29C8AD3104D8BC70001DC79 /* JamomaNode.cpp */; };
+		D29C8AD8104D8BC70001DC79 /* JamomaNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D29C8AD4104D8BC70001DC79 /* JamomaNode.h */; };
+		D29C8AD9104D8BC70001DC79 /* NodeLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D29C8AD5104D8BC70001DC79 /* NodeLib.cpp */; };
+		D29C8ADA104D8BC70001DC79 /* NodeLib.h in Headers */ = {isa = PBXBuildFile; fileRef = D29C8AD6104D8BC70001DC79 /* NodeLib.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,10 +143,10 @@
 		A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PitchDataspace.h; path = DataspaceLib/PitchDataspace.h; sourceTree = SOURCE_ROOT; };
 		A7CA9C950D1FD9960099D8CA /* GainDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GainDataspace.h; path = DataspaceLib/GainDataspace.h; sourceTree = SOURCE_ROOT; };
 		A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = GainDataspace.cpp; path = DataspaceLib/GainDataspace.cpp; sourceTree = SOURCE_ROOT; };
-		D24E54871041D5470000A9F5 /* JamomaNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JamomaNode.cpp; sourceTree = "<group>"; };
-		D24E54881041D5470000A9F5 /* JamomaNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JamomaNode.h; sourceTree = "<group>"; };
-		D24E54891041D5470000A9F5 /* NodeLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NodeLib.cpp; sourceTree = "<group>"; };
-		D24E548A1041D5470000A9F5 /* NodeLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeLib.h; sourceTree = "<group>"; };
+		D29C8AD3104D8BC70001DC79 /* JamomaNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JamomaNode.cpp; sourceTree = "<group>"; };
+		D29C8AD4104D8BC70001DC79 /* JamomaNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JamomaNode.h; sourceTree = "<group>"; };
+		D29C8AD5104D8BC70001DC79 /* NodeLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NodeLib.cpp; sourceTree = "<group>"; };
+		D29C8AD6104D8BC70001DC79 /* NodeLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeLib.h; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -185,7 +185,7 @@
 				22FD2DCF0CEE5B770039C226 /* Headers */,
 				08FB77AEFE84172EC02AAC07 /* Sources */,
 				22D7F5EA0D10576E009E4AF4 /* DataspaceLib */,
-				D24E54861041D5470000A9F5 /* NodeLib */,
+				D29C8AD2104D8BC70001DC79 /* NodeLib */,
 				22AEF31F0D0DB77900F7762D /* FunctionLib */,
 				22FD31840CEE8EA80039C226 /* RampLib */,
 				2200FCAB0D3ECD3D0078B045 /* Internals */,
@@ -324,13 +324,13 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
-		D24E54861041D5470000A9F5 /* NodeLib */ = {
+		D29C8AD2104D8BC70001DC79 /* NodeLib */ = {
 			isa = PBXGroup;
 			children = (
-				D24E54871041D5470000A9F5 /* JamomaNode.cpp */,
-				D24E54881041D5470000A9F5 /* JamomaNode.h */,
-				D24E54891041D5470000A9F5 /* NodeLib.cpp */,
-				D24E548A1041D5470000A9F5 /* NodeLib.h */,
+				D29C8AD3104D8BC70001DC79 /* JamomaNode.cpp */,
+				D29C8AD4104D8BC70001DC79 /* JamomaNode.h */,
+				D29C8AD5104D8BC70001DC79 /* NodeLib.cpp */,
+				D29C8AD6104D8BC70001DC79 /* NodeLib.h */,
 			);
 			path = NodeLib;
 			sourceTree = "<group>";
@@ -370,8 +370,8 @@
 				22E6C75E0D4AB21B00DA75EE /* RampLib.h in Headers */,
 				22E6C7600D4AB21B00DA75EE /* SchedulerRamp.h in Headers */,
 				22C9F77410331C3E0062F7B8 /* JamomaMaxTypes.h in Headers */,
-				D24E548C1041D5470000A9F5 /* JamomaNode.h in Headers */,
-				D24E548E1041D5470000A9F5 /* NodeLib.h in Headers */,
+				D29C8AD8104D8BC70001DC79 /* JamomaNode.h in Headers */,
+				D29C8ADA104D8BC70001DC79 /* NodeLib.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,8 +474,8 @@
 				226951DB0DEE665200911DE0 /* jcom.receive~.cpp in Sources */,
 				226951DC0DEE665200911DE0 /* jcom.send~.cpp in Sources */,
 				22C9F75B103319E10062F7B8 /* commonsyms.cpp in Sources */,
-				D24E548B1041D5470000A9F5 /* JamomaNode.cpp in Sources */,
-				D24E548D1041D5470000A9F5 /* NodeLib.cpp in Sources */,
+				D29C8AD7104D8BC70001DC79 /* JamomaNode.cpp in Sources */,
+				D29C8AD9104D8BC70001DC79 /* NodeLib.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

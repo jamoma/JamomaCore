@@ -34,7 +34,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	//changement Stan
 	// this method posts the children (leaves or nodes) and the properties of the node which address is given
-	class_addmethod(c, (method)minuit_namespace,		"?namespace",	A_SYM, 0);
+	class_addmethod(c, (method)minuit_namespace,	"?namespace",	A_SYM, 0);
 	class_addmethod(c, (method)minuit_get,			"?get",			A_SYM, 0);
 	class_addmethod(c, (method)minuit_set,			"?set",			A_GIMME, 0);
 
@@ -120,8 +120,8 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 
 	// if there are properties
 	if(lk_prp){
-		post(" attributes= {");
-		strcat(outletstring," attributes= {");
+		post(" attributes={");
+		strcat(outletstring," attributes={");
 
 		// write an outline for each attribut
 
@@ -143,14 +143,14 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 		for(i=0; i<linklist_getsize(lk_chd); i++){
 			temp = (NodePtr)linklist_getindex(lk_chd,i);
 			t_symbol *NodeType = jamoma_node_type(temp);
-			if (strcmp(NodeType->s_name,"container")==0)
+			if (strcmp(NodeType->s_name,"container")==0 || strcmp(NodeType->s_name,"hub")==0)
 				linklist_append(lk_nodes, temp);
 			else
 				linklist_append(lk_leaves, temp);
 		}
 		if(lk_nodes->head) {
-			post(" nodes = {");
-			strcat(outletstring," nodes = {");
+			post(" nodes={");
+			strcat(outletstring," nodes={");
 			for(i=0; i<linklist_getsize(lk_nodes); i++){
 				temp = (NodePtr)linklist_getindex(lk_nodes,i);
 				post(jamoma_node_name(temp)->s_name);
@@ -160,8 +160,8 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 			strcat(outletstring," }");
 		}
 		if(lk_leaves->head) {
-			post(" leaves = {");
-			strcat(outletstring," leaves = {");
+			post(" leaves={");
+			strcat(outletstring," leaves={");
 			for(i=0; i<linklist_getsize(lk_leaves); i++){
 				temp = (NodePtr)linklist_getindex(lk_leaves,i);
 				post(jamoma_node_name(temp)->s_name);
