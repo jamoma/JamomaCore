@@ -1,6 +1,7 @@
 # OSX Finder stuff:
 .DS_Store
 
+Installers
 Builds/*.mxo
 logs
 Tools/installertools/Windows/root
@@ -9,3 +10,7 @@ Tools/installertools/Windows/root
 *.dll
 *.mxe
 *.ttdll
+*.log
+
+# temp files from git merges
+*.orig
