@@ -12,14 +12,14 @@
 #define thisTTClassName		"Node"
 #define thisTTClassTags		"nodes"
 
-Node::Node(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType, void *newObject, TTHashPtr directory):TTObject(*kTTValNONE)
+Node::Node(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType, void *newObject, TTHashPtr aDirectory):TTObject(*kTTValNONE)
 {
 	// a new node have just a name, an instance, a type and an object
 	this->name = newName;
 	this->instance = newInstance;
 	this->type = newType;
 	this->object = newObject;
-	this->directory = directory;
+	this->directory = aDirectory;
 
 	// a new node have no child
 	this->children = new TTHash();
@@ -132,7 +132,7 @@ void*			Node::getObject(){return this->object;}
 NodePtr			Node::getParent(){return this->parent;}
 TTHashPtr		Node::getProperties(){return this->properties;}
 
-TTErr Node::setName(TTSymbolPtr name, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
+TTErr Node::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
 {
 	TTErr err;
 	uint i;
@@ -162,7 +162,7 @@ TTErr Node::setName(TTSymbolPtr name, TTSymbolPtr *newInstance, TTBoolean *newIn
 	}
 
 	// change his name
-	this->name = name;
+	this->name = aName;
 
 	// add this node to his parent 
 	// and change his instance if already exists
@@ -216,7 +216,7 @@ TTErr Node::setName(TTSymbolPtr name, TTSymbolPtr *newInstance, TTBoolean *newIn
 	return kTTErrNone;
 }
 
-TTErr Node::setInstance(TTSymbolPtr instance, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
+TTErr Node::setInstance(TTSymbolPtr anInstance, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
 {
 	TTErr err;
 	uint i;
@@ -239,7 +239,7 @@ TTErr Node::setInstance(TTSymbolPtr instance, TTSymbolPtr *newInstance, TTBoolea
 	}
 
 	// change his instance
-	this->instance = instance;
+	this->instance = anInstance;
 
 	// add this node to his parent 
 	// and change his instance if already exists
@@ -337,7 +337,7 @@ TTErr Node::setProperties(TTSymbolPtr propertie)
 		return kTTErrGeneric;
 }
 
-TTErr Node::getChildren(TTSymbolPtr name, TTSymbolPtr instance, TTListPtr *returnedChildren)
+TTErr Node::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *returnedChildren)
 {
 	uint i, j;
 	TTErr err;
@@ -355,7 +355,7 @@ TTErr Node::getChildren(TTSymbolPtr name, TTSymbolPtr instance, TTListPtr *retur
 		this->children->getKeys(*hk);
 		*returnedChildren = new TTList();
 		
-		if(name == TT(S_WILDCARD)){
+		if(aName == TT(S_WILDCARD)){
 			// for each children
 			for(i=0; i<this->children->getSize(); i++){
 			
@@ -370,7 +370,7 @@ TTErr Node::getChildren(TTSymbolPtr name, TTSymbolPtr instance, TTListPtr *retur
 					c_i = new TTValue();
 					ht_i->getKeys(*hk_i);
 
-					if(instance == TT(S_WILDCARD)){
+					if(anInstance == TT(S_WILDCARD)){
 						// for each instance
 						for(j=0; j<ht_i->getSize(); j++){
 							hk_i->get(j,(TTSymbol**)&key_i);
@@ -382,7 +382,7 @@ TTErr Node::getChildren(TTSymbolPtr name, TTSymbolPtr instance, TTListPtr *retur
 					}
 					// there is an instance
 					else{
-						err = ht_i->lookup(instance,*c_i);
+						err = ht_i->lookup(anInstance,*c_i);
 						if(err == kTTErrNone){
 							c_i->get(0,(TTPtr*)&n_c);
 							(*returnedChildren)->append(n_c);
@@ -395,7 +395,7 @@ TTErr Node::getChildren(TTSymbolPtr name, TTSymbolPtr instance, TTListPtr *retur
 		}
 		// there is a name
 		else{
-			err = this->children->lookup(name,*c);
+			err = this->children->lookup(aName,*c);
 			if(err == kTTErrNone){
 				c->get(0,(TTPtr*)&ht_i);
 
@@ -406,7 +406,7 @@ TTErr Node::getChildren(TTSymbolPtr name, TTSymbolPtr instance, TTListPtr *retur
 					c_i = new TTValue();
 					ht_i->getKeys(*hk_i);
 
-					if(instance == TT(S_WILDCARD)){
+					if(anInstance == TT(S_WILDCARD)){
 						// for each instance
 						for(j=0; j<ht_i->getSize(); j++){
 							hk_i->get(j,(TTSymbol**)&key_i);
@@ -418,7 +418,7 @@ TTErr Node::getChildren(TTSymbolPtr name, TTSymbolPtr instance, TTListPtr *retur
 					}
 					// there is an instance
 					else{
-						err = ht_i->lookup(instance,*c_i);
+						err = ht_i->lookup(anInstance,*c_i);
 						if(err == kTTErrNone){
 							c_i->get(0,(TTPtr*)&n_c);
 							(*returnedChildren)->append(n_c);
@@ -569,7 +569,7 @@ TTErr	Node::generateInstance(TTSymbolPtr childName, TTSymbolPtr *newInstance)
 {
 	TTErr err;
 	uint i;
-	char instance[8];
+	char instances[8];
 	TTValue *c, *c_i;
 	TTHashPtr ht_i;
 
@@ -591,13 +591,13 @@ TTErr	Node::generateInstance(TTSymbolPtr childName, TTSymbolPtr *newInstance)
 		i = 1;
 		err = kTTErrNone;
 		while(err != kTTErrValueNotFound){
-			snprintf(instance,8,"%u",i);
-			err = ht_i->lookup(TT(instance), *c_i);
+			snprintf(instances,8,"%u",i);
+			err = ht_i->lookup(TT(instances), *c_i);
 			i++;
 		}
 		
 		// return the new instance created
-		*newInstance = TT(instance);
+		*newInstance = TT(instances);
 		return kTTErrNone;
 	}
 }
@@ -744,9 +744,9 @@ TTErr NodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, T
 TTErr NodeLookup(TTHashPtr directory, TTSymbolPtr oscAddress, TTListPtr *returnedNodes, NodePtr *firstReturnedNode)
 {
 	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie;
-	uint i;
 	TTListPtr lk_selection, lk_temp;
 	NodePtr n_found, *n_r;
+	TTValuePtr v_n;
 	TTErr err, err_get;
 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
@@ -767,15 +767,18 @@ TTErr NodeLookup(TTHashPtr directory, TTSymbolPtr oscAddress, TTListPtr *returne
 			// select all corresponding "name.instance" nodes
 			// among the node list.
 			lk_selection = new TTList();
-			for(i=0; i<(*returnedNodes)->getSize(); i++){
+			while(*v_n = (*returnedNodes)->getHead()){
 				
-				(*returnedNodes)->get(i, (TTObject**)n_r);
-				err_get = n_r->getChildren(oscAddress_name, oscAddress_instance, &lk_temp);
+				v_n->get(0,(TTObject **)n_r);
+				err_get = (*n_r)->getChildren(oscAddress_name, oscAddress_instance, &lk_temp);
 				
 				// if there are children
 				// add it to the selection
 				if(err_get == kTTErrNone)
 						lk_selection->merge(*lk_temp);
+				
+				// remove the value from the returnedNodes
+				(*returnedNodes)->remove(v_n);
 			}
 			
 			if(lk_selection->getSize()){

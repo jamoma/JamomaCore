@@ -13,12 +13,10 @@
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
 #endif // WIN_VERSION
 
-#include "TTBlueAPI.h"
+#include "TTFoundationAPI.h"
 
 class Node;
 typedef Node*	NodePtr;
-typedef TTHash* TTHashPtr;
-typedef TTList* TTListPtr;
 
 // this a structure called as args 
 // in a linklist_funall process
@@ -103,7 +101,7 @@ public:
 		@param	newInstance				the returned instance if a new have been created
 		@param	newInstanceCreated		true if a new instance have been created
 		@return							a error code	*/
-	TTErr Node::setName(TTSymbolPtr name, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated);
+	TTErr	setName(TTSymbolPtr name, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated);
 
 	/** Get the instance of the node */
 	TTSymbolPtr		getInstance();
