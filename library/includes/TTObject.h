@@ -123,12 +123,51 @@ public:
 	TTErr setAttributeValue(const TTSymbolPtr name, TTValue& value);
 	TTErr getAttributeValue(const TTSymbolPtr name, TTValue& value);
 
+/*	
+	// special case to work around "ambiguous overload" errors in GCC 4.2
+	TTErr setAttributeValue(const TTSymbolPtr name, const int& value)
+	{
+		TTValue v(value);
+		return setAttributeValue(name, v);
+	}
+	
 	template <class T>
 	TTErr setAttributeValue(const TTSymbolPtr name, const T& value)
 	{
 		TTValue	v(value);
 		return setAttributeValue(name, v);
 	}
+*/
+	// We do the following because templates cause us a lot of headaches in this case due to type ambiguity and linking
+#define TT_SETATTR_WRAP(type) \
+	TTErr setAttributeValue(const TTSymbolPtr name, const type & value)	\
+	{																	\
+		TTValue v(value);												\
+		return setAttributeValue(name, v);								\
+	}
+	
+	TT_SETATTR_WRAP(TTInt8)
+	TT_SETATTR_WRAP(TTInt16)
+#ifdef TT_PLATFORM_MAC	
+	//TT_SETATTR_WRAP(int)
+	TTErr setAttributeValue(const TTSymbolPtr name, const int value)	
+	{																	
+		TTValue v((TTInt32)value);												
+		return setAttributeValue(name, v);								
+	}	
+#else
+	TT_SETATTR_WRAP(TTInt32)
+#endif
+	TT_SETATTR_WRAP(TTInt64)
+	TT_SETATTR_WRAP(TTUInt8)
+	TT_SETATTR_WRAP(TTUInt16)
+	TT_SETATTR_WRAP(TTUInt32)
+	TT_SETATTR_WRAP(TTUInt64)
+	TT_SETATTR_WRAP(TTFloat32)
+	TT_SETATTR_WRAP(TTFloat64)
+	TT_SETATTR_WRAP(TTSymbolPtr)
+	
+#undef TT_SETATTR_WRAP
 	
 	template <class T>
 	TTErr getAttributeValue(const TTSymbolPtr name, T& value)
