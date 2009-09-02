@@ -31,7 +31,7 @@ TTEnvironment::TTEnvironment()
 
 	registerMessageWithArgument(getVersion);
 
-	setAttributeValue(TT("sr"), 44100);
+	setAttributeValue(TT("sr"), TTUInt32(44100));
 }
 
 

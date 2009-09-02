@@ -564,19 +564,27 @@ public:
 					break;
 				case kTypeInt32:
 					temp = new char[16];
-					snprintf(temp, 16, "%ld ", data[i].int32);
+					snprintf(temp, 16, "%i ", (int)data[i].int32);
 					break;
 				case kTypeUInt32:
 					temp = new char[16];
-					snprintf(temp, 16, "%lu ", data[i].uint32);
+					snprintf(temp, 16, "%iu ", (unsigned int)data[i].uint32);
 					break;
 				case kTypeInt64:
 					temp = new char[16];
+#ifdef __LP64__ // Mac 64-Bit
+					snprintf(temp, 16, "%ld ", data[i].int64);
+#else
 					snprintf(temp, 16, "%lld ", data[i].int64);
+#endif
 					break;
 				case kTypeUInt64:
 					temp = new char[16];
+#ifdef __LP64__ // Mac 64-Bit
+					snprintf(temp, 16, "%lu ", data[i].int64);
+#else
 					snprintf(temp, 16, "%llu ", data[i].uint64);
+#endif
 					break;
 				case kTypeBoolean:
 					if(data[i].boolean)
