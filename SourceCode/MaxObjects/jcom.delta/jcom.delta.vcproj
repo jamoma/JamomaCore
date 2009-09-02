@@ -186,6 +186,10 @@
 			RelativePath="..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes\common\commonsyms.c"
 			>
 		</File>
+		<File
+			RelativePath=".\jcom.delta.cpp"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

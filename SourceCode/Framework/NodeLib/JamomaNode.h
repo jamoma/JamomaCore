@@ -6,9 +6,12 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
+#ifndef __JAMOMANODE_H__
+#define __JAMOMANODE_H__
+
+#include "Jamoma.h"
 #include "NodeLib.h"
 #include "JamomaMaxTypes.h"
-#include "JamomaTypes.h"
 
 // statics and globals
 /**	The Jamoma node tree's root node - e.g. the container at the '/' address				*/

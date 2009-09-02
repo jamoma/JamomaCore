@@ -250,9 +250,8 @@ void hub_examine_context(t_hub *x)
 		x->osc_name = _sym_nothing;
 	
 	// Try to get OSC Name of module from scripting name
-	if(x->osc_name == _sym_nothing){
+	if(x->osc_name == _sym_nothing)
 		x->osc_name = jamoma_patcher_getvarname(x->container);
-	}
 
 	// In this case we overwrite whatever happened above
 	if(context == gensym("toplevel")){

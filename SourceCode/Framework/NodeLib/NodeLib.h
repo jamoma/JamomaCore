@@ -13,7 +13,7 @@
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
 #endif // WIN_VERSION
 
-#include "TTFoundation.h"
+#include "TTFoundationAPI.h"
 
 class Node;
 typedef Node*	NodePtr;
