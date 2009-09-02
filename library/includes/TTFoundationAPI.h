@@ -21,6 +21,7 @@
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"
 #include "TTValue.h"
+#include "TTNode.h"
 
 #ifdef TT_PLATFORM_WIN
 #define TT_EXTENSION_EXPORT __declspec(dllexport)
