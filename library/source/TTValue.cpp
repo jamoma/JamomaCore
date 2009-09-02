@@ -19,91 +19,91 @@ TTValue::TTValue()
 	clear();
 }
 
-TTValue::TTValue(TTFloat32 initialValue)
+TTValue::TTValue(const TTFloat32 initialValue)
 {
 	init();
 	data->float32 = initialValue;
 	*type = kTypeFloat32;
 }
 
-TTValue::TTValue(TTFloat64 initialValue)
+TTValue::TTValue(const TTFloat64 initialValue)
 {
 	init();
 	data->float64 = initialValue;
 	*type = kTypeFloat64;
 }
 
-TTValue::TTValue(TTInt8 initialValue)
+TTValue::TTValue(const TTInt8 initialValue)
 {
 	init();
 	data->int8 = initialValue;
 	*type = kTypeInt8;
 }
 
-TTValue::TTValue(TTUInt8 initialValue)
+TTValue::TTValue(const TTUInt8 initialValue)
 {
 	init();
 	data->uint8 = initialValue;
 	*type = kTypeUInt8;
 }
 
-TTValue::TTValue(TTInt16 initialValue)
+TTValue::TTValue(const TTInt16 initialValue)
 {
 	init();
 	data->int16 = initialValue;
 	*type = kTypeInt16;
 }
 
-TTValue::TTValue(TTUInt16 initialValue)
+TTValue::TTValue(const TTUInt16 initialValue)
 {
 	init();
 	data->uint16 = initialValue;
 	*type = kTypeUInt16;
 }
 
-TTValue::TTValue(TTInt32 initialValue)
+TTValue::TTValue(const TTInt32 initialValue)
 {
 	init();
 	data->int32 = initialValue;
 	*type = kTypeInt32;
 }
 
-TTValue::TTValue(TTUInt32 initialValue)
+TTValue::TTValue(const TTUInt32 initialValue)
 {
 	init();
 	data->uint32 = initialValue;
 	*type = kTypeUInt32;
 }
 
-TTValue::TTValue(TTInt64 initialValue)
+TTValue::TTValue(const TTInt64 initialValue)
 {
 	init();
 	data->int64 = initialValue;
 	*type = kTypeInt64;
 }
 
-TTValue::TTValue(TTUInt64 initialValue)
+TTValue::TTValue(const TTUInt64 initialValue)
 {
 	init();
 	data->uint64 = initialValue;
 	*type = kTypeUInt64;
 }
 
-TTValue::TTValue(TTBoolean initialValue)
+TTValue::TTValue(const TTBoolean initialValue)
 {
 	init();
 	data->boolean = initialValue;
 	*type = kTypeBoolean;
 }
 
-TTValue::TTValue(TTSymbolPtr initialValue)
+TTValue::TTValue(const TTSymbolPtr initialValue)
 {
 	init();
 	data->sym = initialValue;
 	*type = kTypeSymbol;
 }
 
-TTValue::TTValue(TTString& initialValue)
+TTValue::TTValue(const TTString& initialValue)
 {
 	init();
 	data->stringPtr = new TTString(initialValue);
@@ -127,14 +127,14 @@ TTValue::TTValue(const TTValue& obj)
 	memcpy(data, obj.data, sizeof(DataValue) * numValues);
 }
 
-TTValue::TTValue(TTPtr initialValue)
+TTValue::TTValue(const TTPtr initialValue)
 {
 	init();
 	data->ptr = initialValue;
 	*type = kTypePointer;
 }
 
-TTValue::TTValue(TTFloat64 initialValue1, TTFloat64 initialValue2)
+TTValue::TTValue(const TTFloat64 initialValue1, const TTFloat64 initialValue2)
 {
 	init();
 	setSize(2);

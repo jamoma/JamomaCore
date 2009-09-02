@@ -97,23 +97,23 @@ public:
 	//	Attempts at using C++ templates for the constructor works on Windows but provides
 	//	excessive amounts of grief when linking on the Mac.
 	TTValue();
-	TTValue(TTFloat32 initialValue);
-	TTValue(TTFloat64 initialValue);
-	TTValue(TTInt8 initialValue);
-	TTValue(TTUInt8 initialValue);
-	TTValue(TTInt16 initialValue);
-	TTValue(TTUInt16 initialValue);
-	TTValue(TTInt32 initialValue);
-	TTValue(TTUInt32 initialValue);
-	TTValue(TTInt64 initialValue);
-	TTValue(TTUInt64 initialValue);
-	TTValue(TTBoolean initialValue);
-	TTValue(TTSymbolPtr initialValue);
-	TTValue(TTString& initialValue);
+	TTValue(const TTFloat32 initialValue);
+	TTValue(const TTFloat64 initialValue);
+	TTValue(const TTInt8 initialValue);
+	TTValue(const TTUInt8 initialValue);
+	TTValue(const TTInt16 initialValue);
+	TTValue(const TTUInt16 initialValue);
+	TTValue(const TTInt32 initialValue);
+	TTValue(const TTUInt32 initialValue);
+	TTValue(const TTInt64 initialValue);
+	TTValue(const TTUInt64 initialValue);
+	TTValue(const TTBoolean initialValue);
+	TTValue(const TTSymbolPtr initialValue);
+	TTValue(const TTString& initialValue);
 	TTValue(const TTObject& initialValue);
-	TTValue(TTPtr initialValue);
+	TTValue(const TTPtr initialValue);
 	
-	TTValue(TTFloat64 initialValue1, TTFloat64 initialValue2);
+	TTValue(const TTFloat64 initialValue1, const TTFloat64 initialValue2);
 	
 	/** Copy constructor */
 	TTValue(const TTValue& obj);
