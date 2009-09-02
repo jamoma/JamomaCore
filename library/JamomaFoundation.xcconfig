@@ -28,10 +28,11 @@ INFOPLIST_FILE = $(SRCROOT)/Info.plist
 LIBRARY_SEARCH_PATHS = $(inherited)
 
 // Per architecture and deployment settings
-SDKROOT[arch=i386] = /Developer/SDKs/MacOSX10.4u.sdk
-SDKROOT[arch=ppc] = /Developer/SDKs/MacOSX10.4u.sdk
-GCC_VERSION = 4.0
-MACOSX_DEPLOYMENT_TARGET = 10.4
+//SDKROOT[arch=i386] = /Developer/SDKs/MacOSX10.4u.sdk
+//SDKROOT[arch=ppc] = /Developer/SDKs/MacOSX10.4u.sdk
+SDKROOT = /Developer/SDKs/MacOSX10.5.sdk
+GCC_VERSION = 4.2
+MACOSX_DEPLOYMENT_TARGET = 10.5
 
 
 // Static Configuration

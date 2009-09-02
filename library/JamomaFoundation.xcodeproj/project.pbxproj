@@ -362,6 +362,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2227748E0EF1BFF100CA7476 /* JamomaFoundation.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -381,10 +382,12 @@
 				GENERATE_PKGINFO_FILE = YES;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_GENERATE_MAP_FILE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
+				SDKROOT = macosx10.5;
 				SKIP_INSTALL = YES;
 			};
 			name = Development;
@@ -393,10 +396,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2227748E0EF1BFF100CA7476 /* JamomaFoundation.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DEPLOYMENT_LOCATION = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -417,6 +417,7 @@
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
+				SDKROOT = macosx10.5;
 				SKIP_INSTALL = YES;
 			};
 			name = Deployment;
