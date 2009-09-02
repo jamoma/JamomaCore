@@ -6,12 +6,9 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __JAMOMANODE_H__
-#define __JAMOMANODE_H__
-
-#include "Jamoma.h"
 #include "NodeLib.h"
 #include "JamomaMaxTypes.h"
+#include "JamomaTypes.h"
 
 // statics and globals
 /**	The Jamoma node tree's root node - e.g. the container at the '/' address				*/
@@ -40,7 +37,7 @@ extern "C" {
 	JamomaError		jamoma_node_unregister(t_symbol *OSCaddress);
 
 	/** Get the node(s) at the given address (with wildcard too) */
-	JamomaError jamoma_node_get(t_symbol *address, LinkedListPtr *returnedNodes, NodePtr *firstReturnedNode);
+	JamomaError		jamoma_node_get(t_symbol *address, TTListPtr *returnedNodes, NodePtr *firstReturnedNode);
 
 	/** Return the name of a node */
 	t_symbol *		jamoma_node_name(NodePtr node);

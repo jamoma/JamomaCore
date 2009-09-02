@@ -96,10 +96,10 @@ void node_assist(t_node *x, void *b, long msg, long arg, char *dst)
 void minuit_namespace(t_node *x, t_symbol *address) {
 
 	short i;
-	t_symbol *attr_sym;
-	NodePtr temp;
-	t_symbol *name;
-	t_symbol *instance;
+	t_symbol *n_type;
+	TTValuePtr v_n;
+	TTSymbolPtr attr;
+	
 	t_atom atom;
 	char outletstring[1000]={'\0'};
 	
@@ -110,8 +110,8 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 
 	// Il nous faut avoir les noeuds inférieurs et les attributs du noeud à l'addresse données
 
-	t_linklist *lk_prp = jamoma_node_properties(x->p_node);
-	t_linklist *lk_chd = jamoma_node_children(x->p_node);
+	TTListPtr lk_prp = jamoma_node_properties(x->p_node);
+	TTListPtr lk_chd = jamoma_node_children(x->p_node);
 	//t_symbol *inst = jamoma_node_instance(x->p_node);
 
 	// the two lists for the nodes and leaves
@@ -124,13 +124,12 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 		strcat(outletstring," attributes={");
 
 		// write an outline for each attribut
-
-		for(i=0; i<linklist_getsize(lk_prp); i++){
-			attr_sym = (t_symbol *)linklist_getindex(lk_prp,i);
-
-			post(attr_sym->s_name); 
+		while(*v_n = lk_prp->getHead()){
+			v_n->get(0,(TTSymbol**)attr);
+			post("%s",attr->getCString()); 
 			strcat(outletstring," ");
-			strcat(outletstring,attr_sym->s_name);  
+			strcat(outletstring,attr->getCString());  
+			lk_prp->remove(v_n);
 		} 
 		post("}\n");
 		strcat(outletstring," }");
@@ -140,22 +139,26 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 	if(lk_chd){
 		
 		//a check if its leaves or nodes
-		for(i=0; i<linklist_getsize(lk_chd); i++){
-			temp = (NodePtr)linklist_getindex(lk_chd,i);
-			t_symbol *NodeType = jamoma_node_type(temp);
-			if (strcmp(NodeType->s_name,"container")==0 || strcmp(NodeType->s_name,"hub")==0)
-				linklist_append(lk_nodes, temp);
+		while(*v_n = lk_chd->getHead()){
+			v_n->get(0,(TTObject **)&x->p_node);
+			n_type = jamoma_node_type(x->p_node);
+			
+			if (strcmp(n_type->s_name,"container")==0 || strcmp(n_type->s_name,"hub")==0)
+				linklist_append(lk_nodes, x->p_node);
 			else
-				linklist_append(lk_leaves, temp);
+				linklist_append(lk_leaves, x->p_node);
+			
+			lk_chd->remove(v_n);
 		}
+		
 		if(lk_nodes->head) {
 			post(" nodes={");
 			strcat(outletstring," nodes={");
 			for(i=0; i<linklist_getsize(lk_nodes); i++){
-				temp = (NodePtr)linklist_getindex(lk_nodes,i);
-				post(jamoma_node_name(temp)->s_name);
+				x->p_node = (NodePtr)linklist_getindex(lk_nodes,i);
+				post(jamoma_node_name(x->p_node)->s_name);
 				strcat(outletstring," ");
-				strcat(outletstring,jamoma_node_name(temp)->s_name);				
+				strcat(outletstring,jamoma_node_name(x->p_node)->s_name);				
 			}
 			strcat(outletstring," }");
 		}
@@ -163,10 +166,10 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 			post(" leaves={");
 			strcat(outletstring," leaves={");
 			for(i=0; i<linklist_getsize(lk_leaves); i++){
-				temp = (NodePtr)linklist_getindex(lk_leaves,i);
-				post(jamoma_node_name(temp)->s_name);
+				x->p_node = (NodePtr)linklist_getindex(lk_leaves,i);
+				post(jamoma_node_name(x->p_node)->s_name);
 				strcat(outletstring," ");
-				strcat(outletstring,jamoma_node_name(temp)->s_name);
+				strcat(outletstring,jamoma_node_name(x->p_node)->s_name);
 			}
 			strcat(outletstring," }");
 		}
@@ -180,12 +183,10 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 
 void minuit_get(t_node *x, t_symbol *attraddress) {
 
-	short i=0, j=0, k=0;
+	short i=0, j=0;
 	char * address = {'\0'}, * attrname = {'\0'};
 	char outletstring[255]={'\0'};
 	t_atom atom;
-	char conlong[80], confloat[80];
-
 
 	//split address and ':'attribute
 	while (attraddress->s_name[i]!=':'&&attraddress->s_name[i]!='\0')
@@ -283,12 +284,9 @@ void minuit_set(t_node *x, t_symbol *msg, long argc, t_atom *argv) {
 
 	short i=0, j;
 	char * address = {'\0'}, * attrname = {'\0'};
-	char outletstring[255]={'\0'};
-	t_atom atom;
-	char conlong[80], confloat[80];
 	t_symbol * attraddr = atom_getsym(&argv[0]);
-	t_symbol * attraddr2 = atom_getsym(&argv[1]);
-
+	t_object *obj;
+	
 	post(msg->s_name);
 	post(attraddr->s_name);
 
@@ -321,12 +319,9 @@ void minuit_set(t_node *x, t_symbol *msg, long argc, t_atom *argv) {
 	node_goto(x, gensym(address));
 
 	// set value
-	t_object *obj = jamoma_node_max_object(x->p_node);
+	obj = jamoma_node_max_object(x->p_node);
 
-	long value_nb;
-	t_atom  * attr_value = NULL; 	
-
-	t_max_err err = object_attr_setvalueof(obj, gensym(attrname), argc-1, &argv[1]);
+	object_attr_setvalueof(obj, gensym(attrname), argc-1, &argv[1]);
 	
 	//post pour debuggage
 	post(":set ok");	
