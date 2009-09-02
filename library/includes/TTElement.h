@@ -95,7 +95,7 @@ typedef std::string			TTString;
 
 typedef signed char			TTInt8;
 typedef unsigned char		TTUInt8;
-typedef signed				TTInt16;
+typedef signed short		TTInt16;
 typedef unsigned short		TTUInt16;
 
 #ifdef __LP64__		// Mac 64-bit
@@ -109,12 +109,14 @@ typedef unsigned short		TTUInt16;
 #if defined(_MSC_VER) || defined(__BORLANDC__)
 	typedef __int64				TTInt64;
 	typedef unsigned __int64	TTUInt64;
-#else if defined(__LP64__)	// Mac 64-bit
-	typedef signed long			TTInt64;
-	typedef unsigned long		TTUInt64;
-#else // Max 32-bit
-	typedef signed long long	TTInt64;
-	typedef unsigned long long	TTUInt64;
+#else
+	#if defined(__LP64__)	// Mac 64-bit
+		typedef signed long			TTInt64;
+		typedef unsigned long		TTUInt64;
+	#else // Max 32-bit
+		typedef signed long long	TTInt64;
+		typedef unsigned long long	TTUInt64;
+	#endif
 #endif
 
 typedef float				TTFloat32;
