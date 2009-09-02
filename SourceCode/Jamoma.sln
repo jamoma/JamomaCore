@@ -100,7 +100,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.out~", "MaxObjects\jco
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JamomaFoundation", "..\..\Foundation\library\JamomaFoundation.vcproj", "{557C672F-6946-416C-B199-C7AB650A93C0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.minuit", "MaxObjects\jcom.minuit\jcom.minuit.vcproj", "{5EE29274-86C5-436E-B6F7-7BA4BDE373B0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.minuit", "MaxObjects\jcom.minuit\jcom.minuit.vcproj", "{D5A14261-BD93-4271-B9BB-111970915B22}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.node", "MaxObjects\jcom.node\jcom.node.vcproj", "{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}"
 EndProject
@@ -310,10 +310,10 @@ Global
 		{557C672F-6946-416C-B199-C7AB650A93C0}.Debug|Win32.Build.0 = Debug|Win32
 		{557C672F-6946-416C-B199-C7AB650A93C0}.Release|Win32.ActiveCfg = Release|Win32
 		{557C672F-6946-416C-B199-C7AB650A93C0}.Release|Win32.Build.0 = Release|Win32
-		{5EE29274-86C5-436E-B6F7-7BA4BDE373B0}.Debug|Win32.ActiveCfg = Debug|Win32
-		{5EE29274-86C5-436E-B6F7-7BA4BDE373B0}.Debug|Win32.Build.0 = Debug|Win32
-		{5EE29274-86C5-436E-B6F7-7BA4BDE373B0}.Release|Win32.ActiveCfg = Release|Win32
-		{5EE29274-86C5-436E-B6F7-7BA4BDE373B0}.Release|Win32.Build.0 = Release|Win32
+		{D5A14261-BD93-4271-B9BB-111970915B22}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D5A14261-BD93-4271-B9BB-111970915B22}.Debug|Win32.Build.0 = Debug|Win32
+		{D5A14261-BD93-4271-B9BB-111970915B22}.Release|Win32.ActiveCfg = Release|Win32
+		{D5A14261-BD93-4271-B9BB-111970915B22}.Release|Win32.Build.0 = Release|Win32
 		{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}.Debug|Win32.ActiveCfg = Debug|Win32
 		{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}.Debug|Win32.Build.0 = Debug|Win32
 		{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}.Release|Win32.ActiveCfg = Release|Win32

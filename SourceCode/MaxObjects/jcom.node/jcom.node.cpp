@@ -131,7 +131,6 @@ void node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_object *obj;
 	t_symbol *type;
-	TTValuePtr v_n;
 	JamomaError err = JAMOMA_ERR_NONE;
 
 	// Are we dealing with an OSC message ?
@@ -145,9 +144,9 @@ void node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 
 			x->address = msg;
 
-			while(*v_n = x->lk_nodes->getHead()){
+			for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
 
-				v_n->get(0,(TTObject **)&x->p_node);
+				x->lk_nodes->current().get(0,(TTObject **)&x->p_node);
 				
 				obj = jamoma_node_max_object(x->p_node);
 				type = jamoma_node_type(x->p_node);
@@ -170,9 +169,6 @@ void node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 				}
 				else
 					object_error((t_object*)x,"send : %s have no object", jamoma_node_name(x->p_node)->s_name);
-				
-				// remove the value from the returnedNodes
-				x->lk_nodes->remove(v_n);
 			}
 		}
 		else
@@ -243,7 +239,7 @@ void node_add_max_tree(t_node *x)
 
 long node_myobject_iterator(t_node *x, t_object *b)
 {
-	NodePtr newNode;
+	TTNodePtr newNode;
 	bool newInstanceCreated;
 	char temp[256];
     t_symbol *varname = object_attr_getsym(b, gensym("varname"));
@@ -398,10 +394,9 @@ void node_opml_header(t_node *x)
 
 void node_dump_as_opml(t_node *x, ushort level)
 {
-	uint i;
+	unsigned int i;
 	char temp[512];
 	long len, err;
-	TTValuePtr v_n;
 	TTSymbolPtr attr;
 	len = err = 0;
 
@@ -438,13 +433,14 @@ void node_dump_as_opml(t_node *x, ushort level)
 		node_write_string(x, LB);
 
 		// write an outline for each attribute
-		while(*v_n = lk_prp->getHead()){
-			v_n->get(0,(TTSymbol**)attr);
+		attr = NULL;
+		for(lk_prp->begin(); lk_prp->end(); lk_prp->next()){
+
+			lk_prp->current().get(0,(TTSymbol**)attr);
 			node_write_string(x, "<outline text=\"");
 			node_write_string(x, (char*)attr->getCString());
 			node_write_string(x,"\"/>");
 			node_write_string(x, LB);
-			lk_prp->remove(v_n);
 		}
 
 		// close the outline of attributes
@@ -454,11 +450,10 @@ void node_dump_as_opml(t_node *x, ushort level)
 
 	// if there are children : do the same for each child
 	if(lk_chd){
-		while(*v_n = lk_chd->getHead()){
-			
-			v_n->get(0,(TTObject **)&x->p_node);
+		for(lk_chd->begin(); lk_chd->end(); lk_chd->next()){
+
+			lk_chd->current().get(0,(TTObject **)&x->p_node);
 			node_dump_as_opml(x, level+1);
-			lk_chd->remove(v_n);
 		}
 	}
 

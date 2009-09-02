@@ -21,8 +21,8 @@ typedef struct _node{
 	t_object		ob;
 	void			*p_out;					// the leftmost outlet
 	t_symbol		*address;				// memorized the current adress
-	NodePtr			p_node;					// a pointer to a node of the tree
-	TTListPtr		lk_nodes;				// a pointer to a selection of nodes of the tree
+	TTNodePtr		p_node;					// a pointer to a TTnode of the tree
+	TTListPtr		lk_nodes;				// a pointer to a selection of TTnodes of the tree
 
 	short			node_tree_path;			// a text file /path/name
 	t_symbol		*node_tree_file;		// the name of the node_tree

@@ -57,6 +57,23 @@ EXPORTS
 	; DataspaceLib
 		jamoma_getDataspace
 		jamoma_getDataspaceList
+		
+	; NodeLib
+		jamoma_node_init
+		jamoma_node_dump
+		jamoma_node_register
+		jamoma_node_unregister
+		jamoma_node_get
+		jamoma_node_name
+		jamoma_node_set_name
+		jamoma_node_instance
+		jamoma_node_set_instance
+		jamoma_node_type
+		jamoma_node_children
+		jamoma_node_max_object
+		jamoma_node_properties
+		jamoma_node_set_properties
+		jamoma_node_free
 
 	; JamomaSymbols
 		jps_1U

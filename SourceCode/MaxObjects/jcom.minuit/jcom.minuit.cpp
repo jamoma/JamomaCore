@@ -97,7 +97,6 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 
 	short i;
 	t_symbol *n_type;
-	TTValuePtr v_n;
 	TTSymbolPtr attr;
 	
 	t_atom atom;
@@ -124,12 +123,12 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 		strcat(outletstring," attributes={");
 
 		// write an outline for each attribut
-		while(*v_n = lk_prp->getHead()){
-			v_n->get(0,(TTSymbol**)attr);
+		attr = NULL;
+		for(lk_prp->begin(); lk_prp->end(); lk_prp->next()){
+			lk_prp->current().get(0,(TTSymbol**)attr);
 			post("%s",attr->getCString()); 
 			strcat(outletstring," ");
 			strcat(outletstring,attr->getCString());  
-			lk_prp->remove(v_n);
 		} 
 		post("}\n");
 		strcat(outletstring," }");
@@ -139,23 +138,21 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 	if(lk_chd){
 		
 		//a check if its leaves or nodes
-		while(*v_n = lk_chd->getHead()){
-			v_n->get(0,(TTObject **)&x->p_node);
+		for(lk_chd->begin(); lk_chd->end(); lk_chd->next()){
+			lk_chd->current().get(0,(TTObject **)&x->p_node);
 			n_type = jamoma_node_type(x->p_node);
 			
 			if (strcmp(n_type->s_name,"container")==0 || strcmp(n_type->s_name,"hub")==0)
 				linklist_append(lk_nodes, x->p_node);
 			else
 				linklist_append(lk_leaves, x->p_node);
-			
-			lk_chd->remove(v_n);
 		}
 		
 		if(lk_nodes->head) {
 			post(" nodes={");
 			strcat(outletstring," nodes={");
 			for(i=0; i<linklist_getsize(lk_nodes); i++){
-				x->p_node = (NodePtr)linklist_getindex(lk_nodes,i);
+				x->p_node = (TTNodePtr)linklist_getindex(lk_nodes,i);
 				post(jamoma_node_name(x->p_node)->s_name);
 				strcat(outletstring," ");
 				strcat(outletstring,jamoma_node_name(x->p_node)->s_name);				
@@ -166,7 +163,7 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 			post(" leaves={");
 			strcat(outletstring," leaves={");
 			for(i=0; i<linklist_getsize(lk_leaves); i++){
-				x->p_node = (NodePtr)linklist_getindex(lk_leaves,i);
+				x->p_node = (TTNodePtr)linklist_getindex(lk_leaves,i);
 				post(jamoma_node_name(x->p_node)->s_name);
 				strcat(outletstring," ");
 				strcat(outletstring,jamoma_node_name(x->p_node)->s_name);
@@ -183,7 +180,7 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 
 void minuit_get(t_node *x, t_symbol *attraddress) {
 
-	short i=0, j=0;
+	unsigned int i=0, j=0;
 	char * address = {'\0'}, * attrname = {'\0'};
 	char outletstring[255]={'\0'};
 	t_atom atom;
