@@ -387,7 +387,6 @@
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
-				SDKROOT = macosx10.5;
 				SKIP_INSTALL = YES;
 			};
 			name = Development;
@@ -417,7 +416,6 @@
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
-				SDKROOT = macosx10.5;
 				SKIP_INSTALL = YES;
 			};
 			name = Deployment;
