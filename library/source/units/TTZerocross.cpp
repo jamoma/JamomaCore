@@ -26,7 +26,7 @@ TT_AUDIO_CONSTRUCTOR
 	
 	// Set Defaults
 	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("size"), 2000);
+	setAttributeValue(TT("size"), TTUInt32(2000));
 	setProcessMethod(processAudio);
 	clear();
 }

@@ -31,11 +31,11 @@ TT_AUDIO_CONSTRUCTOR,
 	TTObjectInstantiate(TT("buffer"), (TTObjectPtr*)&wavetable, *kTTValNONE);
 	if(!wavetable)
 		throw TTException("Could not create internal buffer object");
-	wavetable->setnumChannels(1);
+	wavetable->setnumChannels(TTUInt32(1));
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("size"), 4096);
+	setAttributeValue(TT("size"), TTUInt32(4096));
 	setAttributeValue(TT("mode"), kTTSym_sine);
 	setAttributeValue(TT("frequency"), 440.0);
 	setAttributeValue(TT("gain"), 0.0);			// 0 dB
