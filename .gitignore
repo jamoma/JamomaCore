@@ -1,3 +1,7 @@
+# Mac OSX Finder stuff
+.DS_Store
+
+
 logs
 build
 html
