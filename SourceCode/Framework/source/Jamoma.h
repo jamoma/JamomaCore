@@ -24,8 +24,8 @@
 #include "z_dsp.h"
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 
-#include <math.h>
-#include <stdlib.h>
+#include "math.h"
+#include "stdlib.h"
 
 #include "TTFoundationAPI.h"		// TTBlue Headers...
 

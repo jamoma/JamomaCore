@@ -70,10 +70,8 @@
 		A7CA9C890D1F21FD0099D8CA /* PitchDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7CA9C970D1FD9960099D8CA /* GainDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CA9C950D1FD9960099D8CA /* GainDataspace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7CA9C980D1FD9960099D8CA /* GainDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */; };
-		D2BEF6FE104EE8BF0068DDA8 /* JamomaNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2BEF6FC104EE8BF0068DDA8 /* JamomaNode.cpp */; };
-		D2BEF6FF104EE8BF0068DDA8 /* JamomaNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D2BEF6FD104EE8BF0068DDA8 /* JamomaNode.h */; };
-		D2BEF719104EE9600068DDA8 /* NodeLib.h in Headers */ = {isa = PBXBuildFile; fileRef = D2BEF717104EE9600068DDA8 /* NodeLib.h */; };
-		D2BEF71A104EE9600068DDA8 /* NodeLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2BEF718104EE9600068DDA8 /* NodeLib.cpp */; };
+		D2730C5C104FBA70004513A7 /* NodeLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2730C5A104FBA70004513A7 /* NodeLib.cpp */; };
+		D2730C5D104FBA70004513A7 /* NodeLib.h in Headers */ = {isa = PBXBuildFile; fileRef = D2730C5B104FBA70004513A7 /* NodeLib.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,10 +141,8 @@
 		A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PitchDataspace.h; path = DataspaceLib/PitchDataspace.h; sourceTree = SOURCE_ROOT; };
 		A7CA9C950D1FD9960099D8CA /* GainDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GainDataspace.h; path = DataspaceLib/GainDataspace.h; sourceTree = SOURCE_ROOT; };
 		A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = GainDataspace.cpp; path = DataspaceLib/GainDataspace.cpp; sourceTree = SOURCE_ROOT; };
-		D2BEF6FC104EE8BF0068DDA8 /* JamomaNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JamomaNode.cpp; sourceTree = "<group>"; };
-		D2BEF6FD104EE8BF0068DDA8 /* JamomaNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JamomaNode.h; sourceTree = "<group>"; };
-		D2BEF717104EE9600068DDA8 /* NodeLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NodeLib.h; path = ../../../Foundation/extensions/NodeLib/NodeLib.h; sourceTree = SOURCE_ROOT; };
-		D2BEF718104EE9600068DDA8 /* NodeLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NodeLib.cpp; path = ../../../Foundation/extensions/NodeLib/NodeLib.cpp; sourceTree = SOURCE_ROOT; };
+		D2730C5A104FBA70004513A7 /* NodeLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NodeLib.cpp; sourceTree = "<group>"; };
+		D2730C5B104FBA70004513A7 /* NodeLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeLib.h; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -184,10 +180,10 @@
 				22C9F77310331C3E0062F7B8 /* JamomaMaxTypes.h */,
 				22FD2DCF0CEE5B770039C226 /* Headers */,
 				08FB77AEFE84172EC02AAC07 /* Sources */,
-				D2BEF6FB104EE8BF0068DDA8 /* JamomaNode */,
 				22D7F5EA0D10576E009E4AF4 /* DataspaceLib */,
 				22AEF31F0D0DB77900F7762D /* FunctionLib */,
 				22FD31840CEE8EA80039C226 /* RampLib */,
+				D2730C59104FBA70004513A7 /* NodeLib */,
 				2200FCAB0D3ECD3D0078B045 /* Internals */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
@@ -324,15 +320,13 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
-		D2BEF6FB104EE8BF0068DDA8 /* JamomaNode */ = {
+		D2730C59104FBA70004513A7 /* NodeLib */ = {
 			isa = PBXGroup;
 			children = (
-				D2BEF6FD104EE8BF0068DDA8 /* JamomaNode.h */,
-				D2BEF6FC104EE8BF0068DDA8 /* JamomaNode.cpp */,
-				D2BEF717104EE9600068DDA8 /* NodeLib.h */,
-				D2BEF718104EE9600068DDA8 /* NodeLib.cpp */,
+				D2730C5B104FBA70004513A7 /* NodeLib.h */,
+				D2730C5A104FBA70004513A7 /* NodeLib.cpp */,
 			);
-			path = JamomaNode;
+			path = NodeLib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -370,8 +364,7 @@
 				22E6C75E0D4AB21B00DA75EE /* RampLib.h in Headers */,
 				22E6C7600D4AB21B00DA75EE /* SchedulerRamp.h in Headers */,
 				22C9F77410331C3E0062F7B8 /* JamomaMaxTypes.h in Headers */,
-				D2BEF6FF104EE8BF0068DDA8 /* JamomaNode.h in Headers */,
-				D2BEF719104EE9600068DDA8 /* NodeLib.h in Headers */,
+				D2730C5D104FBA70004513A7 /* NodeLib.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,8 +467,7 @@
 				226951DB0DEE665200911DE0 /* jcom.receive~.cpp in Sources */,
 				226951DC0DEE665200911DE0 /* jcom.send~.cpp in Sources */,
 				22C9F75B103319E10062F7B8 /* commonsyms.cpp in Sources */,
-				D2BEF6FE104EE8BF0068DDA8 /* JamomaNode.cpp in Sources */,
-				D2BEF71A104EE9600068DDA8 /* NodeLib.cpp in Sources */,
+				D2730C5C104FBA70004513A7 /* NodeLib.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

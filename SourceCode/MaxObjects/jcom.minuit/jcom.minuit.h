@@ -10,10 +10,7 @@
 #include "Jamoma.h"
 
 // define default values
-#define TAB "	"
-#define LB "\n"
-
-#define TEXT_BUFFER_SIZE 4096
+#define REQUEST_SIZE 1024
 
 /**
 	This Max external implements part of the Minuit Protocol, 
