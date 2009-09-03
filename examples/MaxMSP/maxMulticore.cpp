@@ -68,7 +68,7 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 		x->wrappedClassDefinition = wrappedMaxClass;
 		v.setSize(2);
 		v.set(0, wrappedMaxClass->ttblueClassName);
-		v.set(1, 1);
+		v.set(1., 1.);
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaerObject, v);
 		
 		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("channelRatioInputToOutput"), v)){

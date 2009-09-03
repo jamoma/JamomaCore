@@ -13,10 +13,10 @@
 struct LydIn {
     t_pxobject			obj;
 	MCoreObjectPtr		lydbaer;
-	void*				lydbaerOutlet;
-	long				maxNumChannels;	// the number of inlets or outlets, which is an argument at instantiation
-	long				numChannels;	// the actual number of channels to use, set by the dsp method
-	long				vectorSize;		// cached by the DSP method
+	TTPtr				lydbaerOutlet;
+	TTUInt32			maxNumChannels;	// the number of inlets or outlets, which is an argument at instantiation
+	TTUInt32			numChannels;	// the actual number of channels to use, set by the dsp method
+	TTUInt32			vectorSize;		// cached by the DSP method
 };
 typedef LydIn* LydInPtr;
 
@@ -151,7 +151,7 @@ TTErr lydInSetup(LydInPtr x)
 t_int* lydInPerform(t_int* w)
 {
    	LydInPtr	x = (LydInPtr)(w[1]);
-	short		i;
+	TTUInt32	i;
 	
 	if(!x->obj.z_disabled){
 		for(i=0; i<x->numChannels; i++)

@@ -13,7 +13,7 @@
 // Data Structure for this object
 typedef struct NoiseBaer {
     t_object			obj;
-	MCoreObjectPtr	lydbaer;
+	MCoreObjectPtr		lydbaer;
 	TTPtr				lydbaerOutlet;
 	SymbolPtr			attrMode;
 };
@@ -75,7 +75,7 @@ NoiseBaerPtr noiseBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     if(x){
 		v.setSize(2);
 		v.set(0, TT("noise"));
-		v.set(1, 1);
+		v.set(1, TTUInt32(1));
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
 
 		x->lydbaer->addFlag(kMCoreGenerator);

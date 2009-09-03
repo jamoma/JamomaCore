@@ -82,7 +82,7 @@ DCBlockerBaerPtr dcBlockerBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		// Either that, or when we pull we just up the number of channels if when we need to ???
 		v.setSize(2);
 		v.set(0, TT("dcblock"));
-		v.set(1, 1);
+		v.set(1., 1.);
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
 
 		if(!x->lydbaer->audioObject){
@@ -157,7 +157,7 @@ MaxErr dcBlockerBaerSetBypass(DCBlockerBaerPtr x, void *attr, AtomCount argc, At
 {
 	if(argc){
 		x->attrBypass = atom_getlong(argv);
-		x->lydbaer->audioObject->setAttributeValue(kTTSym_bypass, x->attrBypass);
+		x->lydbaer->audioObject->setAttributeValue(kTTSym_bypass, (TTBoolean)x->attrBypass);
 	}
 	return MAX_ERR_NONE;
 }

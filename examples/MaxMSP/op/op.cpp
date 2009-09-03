@@ -82,7 +82,7 @@ LydOpPtr lydOpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		v.setSize(2);
 		v.set(0, TT("operator"));
-		v.set(1, 1);
+		v.set(1, TTUInt32(1));
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
 
 		if(!x->lydbaer->audioObject){

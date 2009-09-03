@@ -81,7 +81,7 @@ LydDacPtr lydDacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     if(x){
 		v.setSize(2);
 		v.set(0, TT("multicore.output"));
-		v.set(1, 2);
+		v.set(1, TTInt32(2));
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
 
 		v = TTPtr(x->lydbaer);
@@ -168,7 +168,7 @@ TTErr lydDacStop(LydDacPtr x)
 MaxErr lydDacSetSampleRate(LydDacPtr x, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if(argc){
-		long sr = atom_getlong(argv);
+		TTUInt32 sr = atom_getlong(argv);
 		x->lydbaer->audioObject->setAttributeValue(TT("sampleRate"), sr);
 	}
 	return MAX_ERR_NONE;
@@ -191,7 +191,7 @@ MaxErr lydDacGetSampleRate(LydDacPtr x, void* attr, AtomCount* argc, AtomPtr* ar
 MaxErr lydDacSetVectorSize(LydDacPtr x, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if(argc){
-		long vs = atom_getlong(argv);
+		TTUInt32 vs = atom_getlong(argv);
 		x->lydbaer->audioObject->setAttributeValue(TT("vectorSize"), vs);
 	}
 	return MAX_ERR_NONE;
