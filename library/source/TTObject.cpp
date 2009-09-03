@@ -115,7 +115,7 @@ TTErr TTObject::findAttribute(const TTSymbolPtr name, TTAttribute** attr)
 
 TTErr TTObject::getAttributeValue(const TTSymbolPtr name, TTValue& value)
 {
-	TTAttributePtr	attribute;
+	TTAttributePtr	attribute = NULL;
 	TTErr			err;
 	
 	err = findAttribute(name, &attribute);
@@ -133,7 +133,7 @@ TTErr TTObject::getAttributeValue(const TTSymbolPtr name, TTValue& value)
 
 TTErr TTObject::setAttributeValue(const TTSymbolPtr name, TTValue& value)
 {
-	TTAttributePtr	attribute;
+	TTAttributePtr	attribute = NULL;
 	TTErr			err;
 	
 	err = findAttribute(name, &attribute);
@@ -161,7 +161,7 @@ TTErr TTObject::setAttributeValue(const TTSymbolPtr name, TTValue& value)
 
 TTErr TTObject::getAttributeGetterFlags(const TTSymbolPtr name, TTAttributeFlags& value)
 {
-	TTAttributePtr	attribute;
+	TTAttributePtr	attribute = NULL;
 	TTErr			err;
 
 	err = findAttribute(name, &attribute);
@@ -173,7 +173,7 @@ TTErr TTObject::getAttributeGetterFlags(const TTSymbolPtr name, TTAttributeFlags
 
 TTErr TTObject::setAttributeGetterFlags(const TTSymbolPtr name, TTAttributeFlags& value)
 {
-	TTAttributePtr	attribute;
+	TTAttributePtr	attribute = NULL;
 	TTErr			err;
 
 	err = findAttribute(name, &attribute);
@@ -186,7 +186,7 @@ TTErr TTObject::setAttributeGetterFlags(const TTSymbolPtr name, TTAttributeFlags
 
 TTErr TTObject::getAttributeSetterFlags(const TTSymbolPtr name, TTAttributeFlags& value)
 {
-	TTAttributePtr	attribute;
+	TTAttributePtr	attribute = NULL;
 	TTErr			err;
 
 	err = findAttribute(name, &attribute);
@@ -198,7 +198,7 @@ TTErr TTObject::getAttributeSetterFlags(const TTSymbolPtr name, TTAttributeFlags
 
 TTErr TTObject::setAttributeSetterFlags(const TTSymbolPtr name, TTAttributeFlags& value)
 {
-	TTAttributePtr	attribute;
+	TTAttributePtr	attribute = NULL;
 	TTErr			err;
 
 	err = findAttribute(name, &attribute);
@@ -296,7 +296,7 @@ TTErr TTObject::sendMessage(const TTSymbolPtr name)
 
 TTErr TTObject::sendMessage(const TTSymbolPtr name, TTValue& value)
 {
-	TTMessagePtr	message;
+	TTMessagePtr	message = NULL;
 	TTErr			err;
 	
 	err = findMessage(name, &message);
