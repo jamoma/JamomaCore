@@ -97,23 +97,27 @@ public:
 	//	Attempts at using C++ templates for the constructor works on Windows but provides
 	//	excessive amounts of grief when linking on the Mac.
 	TTValue();
-	TTValue(TTFloat32 initialValue);
-	TTValue(TTFloat64 initialValue);
-	TTValue(TTInt8 initialValue);
-	TTValue(TTUInt8 initialValue);
-	TTValue(TTInt16 initialValue);
-	TTValue(TTUInt16 initialValue);
-	TTValue(TTInt32 initialValue);
-	TTValue(TTUInt32 initialValue);
-	TTValue(TTInt64 initialValue);
-	TTValue(TTUInt64 initialValue);
-	TTValue(TTBoolean initialValue);
-	TTValue(TTSymbolPtr initialValue);
-	TTValue(TTString& initialValue);
+	TTValue(const TTFloat32 initialValue);
+	TTValue(const TTFloat64 initialValue);
+	TTValue(const TTInt8 initialValue);
+	TTValue(const TTUInt8 initialValue);
+	TTValue(const TTInt16 initialValue);
+	TTValue(const TTUInt16 initialValue);
+# if 1
+	TTValue(const int initialValue);
+#else
+	TTValue(const TTInt32 initialValue);
+#endif	
+	TTValue(const TTUInt32 initialValue);
+	TTValue(const TTInt64 initialValue);
+	TTValue(const TTUInt64 initialValue);
+	TTValue(const TTBoolean initialValue);
+	TTValue(const TTSymbolPtr initialValue);
+	TTValue(const TTString& initialValue);
 	TTValue(const TTObject& initialValue);
-	TTValue(TTPtr initialValue);
+	TTValue(const TTPtr initialValue);
 	
-	TTValue(TTFloat64 initialValue1, TTFloat64 initialValue2);
+	TTValue(const TTFloat64 initialValue1, const TTFloat64 initialValue2);
 	
 	/** Copy constructor */
 	TTValue(const TTValue& obj);
@@ -129,14 +133,14 @@ public:
 	TTDataType getType() const;		// trailing const -- this method can be used on const variables
 
 	/** Return the type of a particular member of this value (assuming it is an array). */
-	TTDataType getType(TTUInt16 index) const;
+	TTDataType getType(const TTUInt16 index) const;
 
 private:
 	/** Internal method used by the constructors. */
 	void init();
 
 	/** Internal method for setting the type of a value. */
-	void setType(TTDataType arg);
+	void setType(const TTDataType arg);
 	
 	/** Performs a deep copy of the object */
 	inline void copy(const TTValue& obj);
@@ -212,41 +216,45 @@ public:
 	TTValue& operator = (TTPtr value);
 	operator TTPtr() const;
 	
-	void set(TTUInt16 index, const TTFloat32 newValue);
-	void set(TTUInt16 index, const TTFloat64 newValue);
-	void set(TTUInt16 index, const TTInt8 newValue);
-	void set(TTUInt16 index, const TTUInt8 newValue);
-	void set(TTUInt16 index, const TTInt16 newValue);
-	void set(TTUInt16 index, const TTUInt16 value);
-	void set(TTUInt16 index, const TTInt32 newValue);
-	void set(TTUInt16 index, const TTUInt32 newValue);
-	void set(TTUInt16 index, const TTInt64 newValue);
-	void set(TTUInt16 index, const TTUInt64 newValue);
-	void set(TTUInt16 index, const TTBoolean newValue);
-	void set(TTUInt16 index, const TTSymbol* newValue);
-	void set(TTUInt16 index, const TTString& newValue);
-	void set(TTUInt16 index, const TTObject& newValue);
-	void set(TTUInt16 index, const TTPtr newValue);
+	void set(const TTUInt16 index, const TTFloat32 newValue);
+	void set(const TTUInt16 index, const TTFloat64 newValue);
+	void set(const TTUInt16 index, const TTInt8 newValue);
+	void set(const TTUInt16 index, const TTUInt8 newValue);
+	void set(const TTUInt16 index, const TTInt16 newValue);
+	void set(const TTUInt16 index, const TTUInt16 value);
+# if 1
+	void set(const TTUInt16 index, const int newValue);
+#else
+	void set(const TTUInt16 index, const TTInt32 newValue);
+#endif
+	void set(const TTUInt16 index, const TTUInt32 newValue);
+	void set(const TTUInt16 index, const TTInt64 newValue);
+	void set(const TTUInt16 index, const TTUInt64 newValue);
+	void set(const TTUInt16 index, const TTBoolean newValue);
+	void set(const TTUInt16 index, const TTSymbol* newValue);
+	void set(const TTUInt16 index, const TTString& newValue);
+	void set(const TTUInt16 index, const TTObject& newValue);
+	void set(const TTUInt16 index, const TTPtr newValue);
 
 
 	// THESE FUNCTIONS CURRENTLY DO NO TYPE OR BOUNDS CHECKING !!!
 	// Should an error be returned on failure?
-	void get(TTUInt16 index, TTFloat32 &value) const;
-	void get(TTUInt16 index, TTFloat64 &value) const;
-	void get(TTUInt16 index, TTInt8 &value) const;
-	void get(TTUInt16 index, TTUInt8 &value) const;
-	void get(TTUInt16 index, TTInt16 &value) const;
-	void get(TTUInt16 index, TTUInt16 &value) const;
-	void get(TTUInt16 index, TTInt32 &value) const;
-	void get(TTUInt16 index, TTUInt32 &value) const;
-	void get(TTUInt16 index, TTInt64 &value) const;
-	void get(TTUInt16 index, TTUInt64 &value) const;
-	void get(TTUInt16 index, TTBoolean &value) const;
-	void get(TTUInt16 index, TTSymbol** value) const;
-	void get(TTUInt16 index, TTString& value) const;
-	void get(TTUInt16 index, TTObject& value) const;
-	void get(TTUInt16 index, TTObject** value) const;
-	void get(TTUInt16 index, TTPtr* value) const;
+	void get(const TTUInt16 index, TTFloat32 &value) const;
+	void get(const TTUInt16 index, TTFloat64 &value) const;
+	void get(const TTUInt16 index, TTInt8 &value) const;
+	void get(const TTUInt16 index, TTUInt8 &value) const;
+	void get(const TTUInt16 index, TTInt16 &value) const;
+	void get(const TTUInt16 index, TTUInt16 &value) const;
+	void get(const TTUInt16 index, TTInt32 &value) const;
+	void get(const TTUInt16 index, TTUInt32 &value) const;
+	void get(const TTUInt16 index, TTInt64 &value) const;
+	void get(const TTUInt16 index, TTUInt64 &value) const;
+	void get(const TTUInt16 index, TTBoolean &value) const;
+	void get(const TTUInt16 index, TTSymbol** value) const;
+	void get(const TTUInt16 index, TTString& value) const;
+	void get(const TTUInt16 index, TTObject& value) const;
+	void get(const TTUInt16 index, TTObject** value) const;
+	void get(const TTUInt16 index, TTPtr* value) const;
 
 
 	void append(const TTFloat32 newValue);
@@ -255,7 +263,8 @@ public:
 	void append(const TTUInt8 newValue);
 	void append(const TTInt16 newValue);
 	void append(const TTUInt16 value);
-	void append(const TTInt32 newValue);
+	//void append(const TTInt32 newValue);
+	void append(const int newValue);
 	void append(const TTUInt32 newValue);
 	void append(const TTInt64 newValue);
 	void append(const TTUInt64 newValue);
@@ -564,19 +573,27 @@ public:
 					break;
 				case kTypeInt32:
 					temp = new char[16];
-					snprintf(temp, 16, "%ld ", data[i].int32);
+					snprintf(temp, 16, "%i ", (int)data[i].int32);
 					break;
 				case kTypeUInt32:
 					temp = new char[16];
-					snprintf(temp, 16, "%lu ", data[i].uint32);
+					snprintf(temp, 16, "%iu ", (unsigned int)data[i].uint32);
 					break;
 				case kTypeInt64:
 					temp = new char[16];
+#ifdef __LP64__ // Mac 64-Bit
+					snprintf(temp, 16, "%ld ", data[i].int64);
+#else
 					snprintf(temp, 16, "%lld ", data[i].int64);
+#endif
 					break;
 				case kTypeUInt64:
 					temp = new char[16];
+#ifdef __LP64__ // Mac 64-Bit
+					snprintf(temp, 16, "%lu ", data[i].int64);
+#else
 					snprintf(temp, 16, "%llu ", data[i].uint64);
+#endif
 					break;
 				case kTypeBoolean:
 					if(data[i].boolean)

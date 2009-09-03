@@ -26,7 +26,7 @@ void TTValueCacheInit()
 	kTTValNONE = new TTValue;
 	kTTValNONE->clear();
 	
-	kTTVal0 = new TTValue(TTInt32(0));
-	kTTVal1 = new TTValue(TTInt32(1));
+	kTTVal0 = new TTValue(0);
+	kTTVal1 = new TTValue(1);
 	kTTVal0_pt_0 = new TTValue(double(0.0));
 }
