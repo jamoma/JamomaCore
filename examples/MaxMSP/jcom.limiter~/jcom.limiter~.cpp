@@ -362,7 +362,7 @@ t_max_err limiter_setBypass(t_limiter *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrBypass = atom_getlong(argv);
-		x->limiter->setAttributeValue(TT("bypass"), x->attrBypass);
+		x->limiter->setAttributeValue(TT("bypass"), (TTBoolean)x->attrBypass);
 	}
 	return MAX_ERR_NONE;
 }

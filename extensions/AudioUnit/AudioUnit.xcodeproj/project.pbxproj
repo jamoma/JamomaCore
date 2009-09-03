@@ -203,7 +203,7 @@
 					"-Wno-deprecated",
 				);
 				PRODUCT_NAME = AudioUnit;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../library/includes\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Foundation/library/includes\" \"$(SRCROOT)/../../library/includes\"";
 			};
 			name = Deployment;
 		};

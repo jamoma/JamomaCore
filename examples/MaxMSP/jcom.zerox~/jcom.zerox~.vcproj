@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="output"
 			/>
 			<Tool
@@ -64,10 +64,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib JamomaFoundation.lib"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib JamomaFoundation.lib TTEffectsLib.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\library\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\extensions\builds&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
@@ -107,7 +107,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -140,10 +140,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib JamomaFoundation.lib"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib JamomaFoundation.lib TTEffectsLib.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\library\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\extensions\builds&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"

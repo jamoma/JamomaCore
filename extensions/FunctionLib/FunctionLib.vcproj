@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;"
+				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;"
 				Outputs="foo"
 			/>
 			<Tool
@@ -107,7 +107,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;"
+				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;"
 				Outputs="foo"
 			/>
 			<Tool

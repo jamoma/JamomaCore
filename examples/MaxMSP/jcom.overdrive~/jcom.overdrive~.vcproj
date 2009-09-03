@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="output"
 			/>
 			<Tool
@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\examples\MaxMSP&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\..\..\Graphics\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes\units&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\examples\MaxMSP&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\..\..\Graphics\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\extensions\EffectsLib&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -64,10 +64,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib JamomaFoundation.lib"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib JamomaFoundation.lib TTEffectsLib.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\library\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\extensions\builds&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
@@ -107,7 +107,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -121,7 +121,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\examples\MaxMSP&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\..\..\Graphics\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes\units&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\examples\MaxMSP&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\..\..\Graphics\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\extensions\EffectsLib&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
@@ -140,10 +140,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib JamomaFoundation.lib"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib JamomaFoundation.lib TTEffectsLib.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\library\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\extensions\builds&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
@@ -183,11 +183,11 @@
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\..\Foundation\examples\MaxMSP\TTClassWrapperMax.cpp"
+			RelativePath=".\jcom.overdrive~.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\extensions\TTEffectsLib\TTOverdrive.h"
+			RelativePath="..\..\..\..\Foundation\examples\MaxMSP\TTClassWrapperMax.cpp"
 			>
 		</File>
 	</Files>

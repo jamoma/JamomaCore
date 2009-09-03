@@ -252,7 +252,7 @@ void gain_dsp(t_gain *x, t_signal **sp, short *count)
 		}
 	}
 	
-	x->signalIn->setnumChannels(numChannels*2);
+	x->signalIn->setnumChannels(TTUInt16(numChannels*2));
 	x->signalOut->setnumChannels(numChannels);
 	x->signalTemp->setnumChannels(numChannels);
 	

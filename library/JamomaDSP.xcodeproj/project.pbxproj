@@ -248,6 +248,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2227748E0EF1BFF100CA7476 /* JamomaDSP.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -271,6 +272,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_GENERATE_MAP_FILE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
@@ -283,10 +285,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2227748E0EF1BFF100CA7476 /* JamomaDSP.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DEPLOYMENT_LOCATION = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;

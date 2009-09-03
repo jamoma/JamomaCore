@@ -31,7 +31,7 @@ TT_AUDIO_CONSTRUCTOR,
 	TTObjectInstantiate(TT("buffer"), (TTObjectPtr*)&wavetable, *kTTValNONE);
 	if(!wavetable)
 		throw TTException("Could not create internal buffer object");
-	wavetable->setnumChannels(1);
+	wavetable->setnumChannels(TTUInt32(1));
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);

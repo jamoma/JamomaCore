@@ -63,7 +63,7 @@ TTErr TTDegrade::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 TTErr TTDegrade::setbitdepth(const TTValue& newValue)
 {
-	bitdepth = TTClip((int)newValue, 1, 24);
+	bitdepth = TTClip<TTInt32>(newValue, 1, 24);
 	bitShift = 24 - bitdepth;
 	return kTTErrNone;
 }

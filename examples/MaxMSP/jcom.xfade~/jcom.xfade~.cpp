@@ -9,6 +9,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
+#include "TTClassWrapperMax.h"
 #include "ext.h"					// Max Header
 #include "z_dsp.h"					// MSP Header
 #include "ext_strings.h"			// String Functions
@@ -54,7 +55,7 @@ static t_class	*s_fade_class;
 /************************************************************************************/
 // Main() Function
 
-int main(void)				// main recieves a copy of the Max function macros table
+int TTCLASSWRAPPERMAX_EXPORT main(void)				// main recieves a copy of the Max function macros table
 {
 	long attrflags = 0;
 	t_class *c;

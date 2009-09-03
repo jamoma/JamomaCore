@@ -220,7 +220,7 @@ t_max_err filter_setBypass(t_filter *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrBypass = atom_getlong(argv);
-		x->filter->setAttributeValue(TT("bypass"), x->attrBypass);
+		x->filter->setAttributeValue(TT("bypass"), (TTBoolean)x->attrBypass);
 	}
 	return MAX_ERR_NONE;
 }
@@ -262,8 +262,8 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 				err = x->filter->setAttributeValue(TT("q"), x->attrQ);
 				if(err == kTTErrInvalidAttribute)
 					err = x->filter->setAttributeValue(TT("resonance"), x->attrQ);
-				x->filter->setAttributeValue(TT("bypass"), x->attrBypass);
-				x->filter->setAttributeValue(TT("sr"), x->sr);
+				x->filter->setAttributeValue(TT("bypass"), (TTBoolean)x->attrBypass);
+				x->filter->setAttributeValue(TT("sr"), (TTUInt32)x->sr);
 			}
 		}
 	}
