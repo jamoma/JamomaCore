@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C++ Express 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "out≈", "out≈.vcproj", "{CEA34310-7BE9-45F6-B44D-C2CCD6DECE59}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "out≈", "out.vcproj", "{CEA34310-7BE9-45F6-B44D-C2CCD6DECE59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
