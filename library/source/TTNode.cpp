@@ -374,7 +374,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 							ht_i->lookup(key_i,*c_i);
 							c_i->get(0,(TTPtr*)&n_c);
 
-							(*returnedChildren)->append(n_c);
+							(*returnedChildren)->append(new TTValue((TTPtr)n_c));
 						}
 					}
 					// there is an instance
@@ -382,7 +382,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 						err = ht_i->lookup(anInstance,*c_i);
 						if(err == kTTErrNone){
 							c_i->get(0,(TTPtr*)&n_c);
-							(*returnedChildren)->append(n_c);
+							(*returnedChildren)->append(new TTValue((TTPtr)n_c));
 						}
 						else
 							return err;
@@ -410,7 +410,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 							ht_i->lookup(key_i,*c_i);
 							c_i->get(0,(TTPtr*)&n_c);
 
-							(*returnedChildren)->append(n_c);
+							(*returnedChildren)->append(new TTValue((TTPtr)n_c));
 						}
 					}
 					// there is an instance
@@ -418,7 +418,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 						err = ht_i->lookup(anInstance,*c_i);
 						if(err == kTTErrNone){
 							c_i->get(0,(TTPtr*)&n_c);
-							(*returnedChildren)->append(n_c);
+							(*returnedChildren)->append(new TTValue((TTPtr)n_c));
 						}
 						else
 							return err;
@@ -720,7 +720,7 @@ TTErr NodeLookup(TTHashPtr directory, TTSymbolPtr oscAddress, TTListPtr *returne
 {
 	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie;
 	TTListPtr lk_selection, lk_temp;
-	TTNodePtr n_found, *n_r;
+	TTNodePtr n_found, n_r;
 	TTErr err, err_get;
 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
@@ -741,11 +741,10 @@ TTErr NodeLookup(TTHashPtr directory, TTSymbolPtr oscAddress, TTListPtr *returne
 			// select all corresponding "name.instance" TTNodes
 			// among the TTNode list.
 			lk_selection = new TTList();
-			n_r = NULL;
 			for((*returnedNodes)->begin(); (*returnedNodes)->end(); (*returnedNodes)->next()){
 				
-				(*returnedNodes)->current().get(0,(TTObject **)n_r);
-				err_get = (*n_r)->getChildren(oscAddress_name, oscAddress_instance, &lk_temp);
+				(*returnedNodes)->current().get(0,(TTPtr *)&n_r);
+				err_get = n_r->getChildren(oscAddress_name, oscAddress_instance, &lk_temp);
 				
 				// if there are children
 				// add it to the selection
