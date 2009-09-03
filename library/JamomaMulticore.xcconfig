@@ -11,7 +11,7 @@
 
 // Name & Version
 PRODUCT_NAME = $(PROJECT_NAME)
-PRODUCT_VERSION = 0.1.1
+PRODUCT_VERSION = 0.1.2
 SVNREV = $Rev$
 
 
@@ -29,6 +29,7 @@ HEADER_SEARCH_PATHS = $(inherited) "$(SRCROOT)/../../Foundation/library/includes
 LIBRARY_SEARCH_PATHS = $(inherited)
 
 // Per architecture and deployment settings
+SDKROOT[arch=ppc] = /Developer/SDKs/MacOSX10.5.sdk
 SDKROOT[arch=i386] = /Developer/SDKs/MacOSX10.5.sdk
 SDKROOT[arch=x86_64] = /Developer/SDKs/MacOSX10.5.sdk
 GCC_VERSION = 4.2

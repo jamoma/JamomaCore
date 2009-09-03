@@ -76,7 +76,7 @@ TTErr MCoreOutput::setOwner(TTValue& newOwner)
 
 TTErr MCoreOutput::setsampleRate(const TTValue& newValue)
 {
-	return audioEngine->setAttributeValue(kTTSym_sr, newValue);
+	return audioEngine->setAttributeValue(kTTSym_sr, const_cast<TTValue&>(newValue));
 }
 
 TTErr MCoreOutput::getsampleRate(TTValue& returnedValue)
@@ -87,7 +87,7 @@ TTErr MCoreOutput::getsampleRate(TTValue& returnedValue)
 
 TTErr MCoreOutput::setvectorSize(const TTValue& newValue)
 {
-	return audioEngine->setAttributeValue(kTTSym_vectorSize, newValue);
+	return audioEngine->setAttributeValue(kTTSym_vectorSize, const_cast<TTValue&>(newValue));
 }
 
 TTErr MCoreOutput::getvectorSize(TTValue& returnedValue)
