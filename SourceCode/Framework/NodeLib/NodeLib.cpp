@@ -172,7 +172,7 @@ TTListPtr	jamoma_node_properties(TTNodePtr node)
 		for(i=0; i<node->getProperties()->getSize(); i++){
 			hk->get(i,(TTSymbol**)&key);
 			// add the propertie to the linklist
-			lk_properties->append(key);
+			lk_properties->append(new TTValue((TTSymbolPtr)key));
 		}
 
 		return lk_properties;

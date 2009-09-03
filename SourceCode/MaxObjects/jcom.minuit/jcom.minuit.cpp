@@ -97,14 +97,12 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 
 	short i;
 	char outletstring[REQUEST_SIZE];
-	TTSymbol *n_attr = NULL;
+	TTSymbolPtr n_attr;
 	t_symbol *n_type;
+	t_symbol *n_instance;
 	t_atom a;
 	
-	
-	strcat(outletstring,":namespace ");
-	strcat(outletstring,address->s_name);
-	
+	snprintf(outletstring, 1024, ":namespace %s ", address->s_name);
 	node_goto(x, address);
 
 	// Il nous faut avoir les noeuds inférieurs et les attributs du noeud à l'addresse données
@@ -125,7 +123,7 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 		// write an outline for each attribut
 		for(lk_prp->begin(); lk_prp->end(); lk_prp->next()){
 			
-			lk_prp->current().get(0,(TTSymbol**)n_attr);
+			lk_prp->current().get(0,(TTSymbolPtr*)&n_attr);
 			strcat(outletstring," ");
 			strcat(outletstring,n_attr->getCString());  
 		} 
@@ -138,7 +136,7 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 		//a check if its leaves or nodes
 		for(lk_chd->begin(); lk_chd->end(); lk_chd->next()){
 			
-			lk_chd->current().get(0,(TTObject **)&x->p_node);
+			lk_chd->current().get(0,(TTPtr*)&x->p_node);
 			n_type = jamoma_node_type(x->p_node);
 			
 			if((n_type == gensym("container")) || (n_type == gensym("hub")))
@@ -152,9 +150,17 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 			strcat(outletstring," nodes={");
 			for(i=0; i<linklist_getsize(lk_nodes); i++){
 				
+				// get the name
 				x->p_node = (TTNodePtr)linklist_getindex(lk_nodes,i);
 				strcat(outletstring," ");
-				strcat(outletstring,jamoma_node_name(x->p_node)->s_name);				
+				strcat(outletstring,jamoma_node_name(x->p_node)->s_name);
+
+				// get instance
+				n_instance = jamoma_node_instance(x->p_node);
+				if(n_instance != gensym("")){
+					strcat(outletstring,".");
+					strcat(outletstring,n_instance->s_name);
+				}
 			}
 			strcat(outletstring," }");
 		}
@@ -164,13 +170,20 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 			strcat(outletstring," leaves={");
 			for(i=0; i<linklist_getsize(lk_leaves); i++){
 				
+				// get the name
 				x->p_node = (TTNodePtr)linklist_getindex(lk_leaves,i);
 				strcat(outletstring," ");
 				strcat(outletstring,jamoma_node_name(x->p_node)->s_name);
+
+				// get instance
+				n_instance = jamoma_node_instance(x->p_node);
+				if(n_instance != gensym("")){
+					strcat(outletstring,".");
+					strcat(outletstring,n_instance->s_name);
+				}
 			}
 			strcat(outletstring," }");
 		}
-		outlet_anything(x->p_out, gensym(outletstring), 0, &a);
 	}
 	outlet_anything(x->p_out, gensym(outletstring), 0, &a);
 }
@@ -198,8 +211,7 @@ void minuit_get(t_node *x, t_symbol *request) {
 	address[i]='\0';
 
 	//outletstring
-	strcat(outletstring,":get ");
-	strcat(outletstring,address);
+	snprintf(outletstring, 1024, ":get %s ", address);
 
 	//special case of missing attribute, in which the value attribute is requested (minuit protocol)
 	if(request->s_name[i] == '\0') {
@@ -231,7 +243,6 @@ void minuit_get(t_node *x, t_symbol *request) {
 	}
 	else
 		post("there are no values attached to the requested attribute"); 
- 
 }
 
 void minuit_set(t_node *x, t_symbol *msg, long argc, t_atom *argv) {
@@ -242,6 +253,7 @@ void minuit_set(t_node *x, t_symbol *msg, long argc, t_atom *argv) {
 	t_object *obj;
 	
 	//split address and ':'attribute
+	i = 0;
 	while (attraddr->s_name[i]!=':'&&attraddr->s_name[i]!='\0')
 		i++;
 	
