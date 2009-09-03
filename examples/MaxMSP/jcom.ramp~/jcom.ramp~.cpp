@@ -180,7 +180,7 @@ void ramp_dsp(t_ramp *x, t_signal **sp, short *count)
 	x->vs = sp[0]->s_n;
 	
 	x->audioOut->setAttributeValue(TT("numChannels"), x->maxNumChannels);
-	x->audioOut->setAttributeValue(TT("vectorSize"), sp[0]->s_n);
+	x->audioOut->setAttributeValue(TT("vectorSize"), TTUInt16(sp[0]->s_n));
 	x->audioOut->sendMessage(TT("alloc"));
 
 	dsp_add(ramp_perform, 2, x, sp[0]->s_vec);

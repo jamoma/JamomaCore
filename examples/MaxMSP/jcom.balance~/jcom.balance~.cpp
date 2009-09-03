@@ -225,7 +225,7 @@ t_max_err balance_setBypass(t_balance *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrBypass = atom_getlong(argv);		
-		x->balance->setAttributeValue(kTTSym_bypass, x->attrBypass);
+		x->balance->setAttributeValue(kTTSym_bypass, (TTBoolean)x->attrBypass);
 	}
 	return MAX_ERR_NONE;
 }

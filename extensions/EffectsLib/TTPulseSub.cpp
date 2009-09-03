@@ -84,7 +84,7 @@ TTErr TTPulseSub::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 TTErr TTPulseSub::setAttack(const TTValue& newValue)
 {
 	attrAttack = newValue;
-	return env_gen->setAttributeValue(TT("attack"), newValue);
+	return env_gen->setAttributeValue(TT("attack"), const_cast<TTValue&>(newValue));
 }
 
 TTErr TTPulseSub::setDecay(const TTValue& newValue)
@@ -97,26 +97,26 @@ TTErr TTPulseSub::setDecay(const TTValue& newValue)
 TTErr TTPulseSub::setSustain(const TTValue& newValue)
 {
 	attrSustain = newValue;
-	return env_gen->setAttributeValue(TT("sustain"), newValue);
+	return env_gen->setAttributeValue(TT("sustain"), const_cast<TTValue&>(newValue));
 }
 
 TTErr TTPulseSub::setRelease(const TTValue& newValue)
 {
 	attrRelease = newValue;
-	return env_gen->setAttributeValue(TT("release"), newValue);
+	return env_gen->setAttributeValue(TT("release"), const_cast<TTValue&>(newValue));
 }
 
 
 TTErr TTPulseSub::setMode(const TTValue& newValue)
 {
 	attrMode = newValue;
-	return env_gen->setAttributeValue(TT("mode"), newValue);
+	return env_gen->setAttributeValue(TT("mode"), const_cast<TTValue&>(newValue));
 }
 
 TTErr TTPulseSub::setTrigger(const TTValue& newValue)
 {
 	attrTrigger = newValue;
-	return env_gen->setAttributeValue(TT("trigger"), newValue);
+	return env_gen->setAttributeValue(TT("trigger"), const_cast<TTValue&>(newValue));
 }
 
 

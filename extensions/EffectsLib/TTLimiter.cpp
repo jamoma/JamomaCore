@@ -103,7 +103,7 @@ TTErr TTLimiter::updateSr()
 
 TTErr TTLimiter::setPreamp(const TTValue& newValue)
 {
-	return preamp->setAttributeValue(TT("gain"), newValue);
+	return preamp->setAttributeValue(TT("gain"), const_cast<TTValue&>(newValue));
 }
 
 TTErr TTLimiter::getPreamp(TTValue& value)
