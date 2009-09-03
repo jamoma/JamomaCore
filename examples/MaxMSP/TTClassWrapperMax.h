@@ -102,9 +102,21 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Wra
 
 
 
+// UTILS
+
+#ifdef __LP64__
+TTInt64	AtomGetInt(AtomPtr a);
+#else
+int AtomGetInt(AtomPtr a);
+#endif
+
+
+
+
+
+
 TTErr TTValueFromAtoms(TTValue& v, AtomCount ac, AtomPtr av);
 TTErr TTAtomsFromValue(const TTValue& v, AtomCount* ac, AtomPtr* av); // NOTE: allocates memory
-
 
 
 #endif // __TT_CLASS_WRAPPER_MAX_H__
