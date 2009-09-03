@@ -263,7 +263,8 @@ public:
 	void append(const TTUInt8 newValue);
 	void append(const TTInt16 newValue);
 	void append(const TTUInt16 value);
-	void append(const TTInt32 newValue);
+	//void append(const TTInt32 newValue);
+	void append(const int newValue);
 	void append(const TTUInt32 newValue);
 	void append(const TTInt64 newValue);
 	void append(const TTUInt64 newValue);

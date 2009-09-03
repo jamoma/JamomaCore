@@ -149,12 +149,12 @@ public:
 	TT_SETATTR_WRAP(TTInt8)
 	TT_SETATTR_WRAP(TTInt16)
 #if 1 // defined(TT_PLATFORM_MAC)	// <-- seems to be we need it this way on Windows too
-	//TT_SETATTR_WRAP(int)
-	TTErr setAttributeValue(const TTSymbolPtr name, const int value)	
-	{																	
-		TTValue v((TTInt32)value);												
-		return setAttributeValue(name, v);								
-	}	
+	TT_SETATTR_WRAP(int)
+//	TTErr setAttributeValue(const TTSymbolPtr name, const int value)	
+//	{																	
+//		TTValue v((TTInt32)value);												
+//		return setAttributeValue(name, v);								
+//	}	
 #else
 	TT_SETATTR_WRAP(TTInt32)
 #endif
