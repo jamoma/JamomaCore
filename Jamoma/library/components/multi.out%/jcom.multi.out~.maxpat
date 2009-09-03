@@ -79,7 +79,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 50.0, 175.0, 60.0, 19.0 ],
+					"patching_rect" : [ 68.0, 184.0, 60.0, 19.0 ],
 					"text" : "zl slice 1"
 				}
 
@@ -93,7 +93,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 50.0, 145.0, 45.0, 19.0 ],
+					"patching_rect" : [ 68.0, 154.0, 45.0, 19.0 ],
 					"text" : "zl rev"
 				}
 
@@ -149,7 +149,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 50.0, 120.0, 139.0, 19.0 ],
+					"patching_rect" : [ 68.0, 129.0, 139.0, 19.0 ],
 					"text" : "jcom.oscroute /multicable"
 				}
 
@@ -557,10 +557,10 @@
 					"id" : "obj-42",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 34,
-					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "" ],
-					"patching_rect" : [ 100.0, 267.0, 1008.5, 19.0 ],
-					"text" : "out≈ 33"
+					"numoutlets" : 33,
+					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "" ],
+					"patching_rect" : [ 100.0, 267.0, 978.0, 19.0 ],
+					"text" : "out≈ 32"
 				}
 
 			}
@@ -596,7 +596,7 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-42", 0 ],
+					"destination" : [ "obj-47", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-1", 0 ]
@@ -938,18 +938,9 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-47", 0 ],
+					"destination" : [ "obj-42", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-9", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
+					"midpoints" : [ 59.5, 263.0, 109.5, 263.0 ],
 					"source" : [ "obj-9", 0 ]
 				}
 

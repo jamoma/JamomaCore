@@ -273,7 +273,7 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"destination" : [ "obj-18", 1 ],
+									"destination" : [ "obj-18", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-1", 0 ]
@@ -587,7 +587,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 25.0, 552.0, 213.0, 17.0 ],
-					"text" : "/source.1/position 0.51 -0.53 0."
+					"text" : "/source.1/position 0.12 -0.51 0."
 				}
 
 			}
