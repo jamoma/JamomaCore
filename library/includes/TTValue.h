@@ -103,7 +103,11 @@ public:
 	TTValue(const TTUInt8 initialValue);
 	TTValue(const TTInt16 initialValue);
 	TTValue(const TTUInt16 initialValue);
+# if 1
+	TTValue(const int initialValue);
+#else
 	TTValue(const TTInt32 initialValue);
+#endif	
 	TTValue(const TTUInt32 initialValue);
 	TTValue(const TTInt64 initialValue);
 	TTValue(const TTUInt64 initialValue);
@@ -218,7 +222,11 @@ public:
 	void set(const TTUInt16 index, const TTUInt8 newValue);
 	void set(const TTUInt16 index, const TTInt16 newValue);
 	void set(const TTUInt16 index, const TTUInt16 value);
+# if 1
+	void set(const TTUInt16 index, const int newValue);
+#else
 	void set(const TTUInt16 index, const TTInt32 newValue);
+#endif
 	void set(const TTUInt16 index, const TTUInt32 newValue);
 	void set(const TTUInt16 index, const TTInt64 newValue);
 	void set(const TTUInt16 index, const TTUInt64 newValue);

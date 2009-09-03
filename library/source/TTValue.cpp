@@ -61,7 +61,12 @@ TTValue::TTValue(const TTUInt16 initialValue)
 	*type = kTypeUInt16;
 }
 
-TTValue::TTValue(const TTInt32 initialValue)
+# if 1
+	TTValue::TTValue(const int initialValue)
+#else
+	TTValue::TTValue(const TTInt32 initialValue)
+#endif	
+//TTValue::TTValue(const TTInt32 initialValue)
 {
 	init();
 	data->int32 = initialValue;
@@ -639,7 +644,12 @@ void TTValue::set(const TTUInt16 index, const TTUInt16 newValue)
 	data[index].uint16 = newValue;
 }
 
-void TTValue::set(const TTUInt16 index, const TTInt32 newValue)
+# if 1
+	void TTValue::set(const TTUInt16 index, const int newValue)
+#else
+	void TTValue::set(const TTUInt16 index, const TTInt32 newValue)
+#endif
+//void TTValue::set(const TTUInt16 index, const TTInt32 newValue)
 {
 	type[index] = kTypeInt32;
 	data[index].int32 = newValue;
