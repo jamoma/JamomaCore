@@ -10,11 +10,11 @@
     <item name='video/freeze' type='boolean'>0</item>
     <item name='video/bypass' type='boolean'>0</item>
     <item name='tolerance' type='decimal'>0.200000</item>
-    <item name='minkey' type='decimal'>0</item>
-    <item name='maxkey' type='decimal'>0</item>
-    <item name='key/red' type='decimal'>0.000000</item>
-    <item name='key/green' type='decimal'>0.000000</item>
-    <item name='key/blue' type='decimal'>0.000000</item>
+    <item name='minkey' type='decimal'>0.0000</item>
+    <item name='maxkey' type='decimal'>1.0000</item>
+    <item name='key/red' type='decimal'>0.247059</item>
+    <item name='key/green' type='decimal'>0.419608</item>
+    <item name='key/blue' type='decimal'>0.996078</item>
     <item name='fade' type='decimal'>0.100000</item>
     <item name='alpha' type='boolean'>0</item>
   </preset>
