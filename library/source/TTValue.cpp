@@ -181,7 +181,7 @@ TTDataType TTValue::getType() const
 }
 
 
-TTDataType TTValue::getType(TTUInt16 index) const
+TTDataType TTValue::getType(const TTUInt16 index) const
 {
 	return type[index];
 }
@@ -202,7 +202,7 @@ void TTValue::init()
 }
 
 
-void TTValue::setType(TTDataType arg)
+void TTValue::setType(const TTDataType arg)
 {
 	*type = arg;
 	if(arg == kTypeString)
@@ -603,85 +603,85 @@ TTValue::operator TTPtr() const
 
 
 
-void TTValue::set(TTUInt16 index, const TTFloat32 newValue)
+void TTValue::set(const TTUInt16 index, const TTFloat32 newValue)
 {
 	type[index] = kTypeFloat32;
 	data[index].float32 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTFloat64 newValue)
+void TTValue::set(const TTUInt16 index, const TTFloat64 newValue)
 {
 	type[index] = kTypeFloat64;
 	data[index].float64 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTInt8 newValue)
+void TTValue::set(const TTUInt16 index, const TTInt8 newValue)
 {
 	type[index] = kTypeInt8;
 	data[index].int8 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTUInt8 newValue)
+void TTValue::set(const TTUInt16 index, const TTUInt8 newValue)
 {
 	type[index] = kTypeUInt8;
 	data[index].uint8 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTInt16 newValue)
+void TTValue::set(const TTUInt16 index, const TTInt16 newValue)
 {
 	type[index] = kTypeInt16;
 	data[index].int16 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTUInt16 newValue)
+void TTValue::set(const TTUInt16 index, const TTUInt16 newValue)
 {
 	type[index] = kTypeUInt16;
 	data[index].uint16 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTInt32 newValue)
+void TTValue::set(const TTUInt16 index, const TTInt32 newValue)
 {
 	type[index] = kTypeInt32;
 	data[index].int32 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTUInt32 newValue)
+void TTValue::set(const TTUInt16 index, const TTUInt32 newValue)
 {
 	type[index] = kTypeUInt32;
 	data[index].uint32 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTInt64 newValue)
+void TTValue::set(const TTUInt16 index, const TTInt64 newValue)
 {
 	type[index] = kTypeInt64;
 	data[index].int64 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTUInt64 newValue)
+void TTValue::set(const TTUInt16 index, const TTUInt64 newValue)
 {
 	type[index] = kTypeUInt64;
 	data[index].uint64 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTBoolean newValue)
+void TTValue::set(const TTUInt16 index, const TTBoolean newValue)
 {
 	type[index] = kTypeBoolean;
 	data[index].boolean = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTSymbol* newValue)
+void TTValue::set(const TTUInt16 index, const TTSymbol* newValue)
 {
 	type[index] = kTypeSymbol;
 	data[index].sym = (TTSymbol*)newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTObject& newValue)
+void TTValue::set(const TTUInt16 index, const TTObject& newValue)
 {
 	type[index] = kTypeObject;
 	data[index].object = (TTObject*)&newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTString& newValue)
+void TTValue::set(const TTUInt16 index, const TTString& newValue)
 {
 	if(!stringsPresent || type[index] != kTypeString){
 		type[index] = kTypeString;
@@ -692,7 +692,7 @@ void TTValue::set(TTUInt16 index, const TTString& newValue)
 		*data[index].stringPtr = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTPtr newValue)
+void TTValue::set(const TTUInt16 index, const TTPtr newValue)
 {
 	type[index] = kTypePointer;
 	data[index].ptr = newValue;
@@ -701,7 +701,7 @@ void TTValue::set(TTUInt16 index, const TTPtr newValue)
 
 // THESE FUNCTIONS CURRENTLY DO NO TYPE OR BOUNDS CHECKING !!!
 // Should an error be returned on failure?
-void TTValue::get(TTUInt16 index, TTFloat32 &value) const
+void TTValue::get(const TTUInt16 index, TTFloat32 &value) const
 {
 	if(type[index] == kTypeFloat32)
 		value = (data+index)->float32;
@@ -709,7 +709,7 @@ void TTValue::get(TTUInt16 index, TTFloat32 &value) const
 		CONVERT(TTFloat32)
 }
 
-void TTValue::get(TTUInt16 index, TTFloat64 &value) const
+void TTValue::get(const TTUInt16 index, TTFloat64 &value) const
 {
 	if(type[index] == kTypeFloat64)
 		value = (data+index)->float64;
@@ -717,7 +717,7 @@ void TTValue::get(TTUInt16 index, TTFloat64 &value) const
 		CONVERT(TTFloat64)
 }
 
-void TTValue::get(TTUInt16 index, TTInt8 &value) const
+void TTValue::get(const TTUInt16 index, TTInt8 &value) const
 {
 	if(type[index] == kTypeInt8)
 		value = (data+index)->int8;
@@ -725,7 +725,7 @@ void TTValue::get(TTUInt16 index, TTInt8 &value) const
 		CONVERT(TTInt8)
 }
 
-void TTValue::get(TTUInt16 index, TTUInt8 &value) const
+void TTValue::get(const TTUInt16 index, TTUInt8 &value) const
 {
 	if(type[index] == kTypeUInt8)
 		value = (data+index)->uint8;
@@ -733,7 +733,7 @@ void TTValue::get(TTUInt16 index, TTUInt8 &value) const
 		CONVERT(TTUInt8)
 }
 
-void TTValue::get(TTUInt16 index, TTInt16 &value) const
+void TTValue::get(const TTUInt16 index, TTInt16 &value) const
 {
 	if(type[index] == kTypeInt16)
 		value = (data+index)->int16;
@@ -741,7 +741,7 @@ void TTValue::get(TTUInt16 index, TTInt16 &value) const
 		CONVERT(TTInt16)
 }
 
-void TTValue::get(TTUInt16 index, TTUInt16 &value) const
+void TTValue::get(const TTUInt16 index, TTUInt16 &value) const
 {
 	if(type[index] == kTypeUInt16)
 		value = (data+index)->uint16;
@@ -749,7 +749,7 @@ void TTValue::get(TTUInt16 index, TTUInt16 &value) const
 		CONVERT(TTUInt16)
 }
 
-void TTValue::get(TTUInt16 index, TTInt32 &value) const
+void TTValue::get(const TTUInt16 index, TTInt32 &value) const
 {
 	if(type[index] == kTypeInt32)
 		value = (data+index)->int32;
@@ -757,7 +757,7 @@ void TTValue::get(TTUInt16 index, TTInt32 &value) const
 		CONVERT(TTInt32)
 }
 
-void TTValue::get(TTUInt16 index, TTUInt32 &value) const
+void TTValue::get(const TTUInt16 index, TTUInt32 &value) const
 {
 	if(type[index] == kTypeUInt32)
 		value = (data+index)->uint32;
@@ -765,7 +765,7 @@ void TTValue::get(TTUInt16 index, TTUInt32 &value) const
 		CONVERT(TTUInt32)
 }
 
-void TTValue::get(TTUInt16 index, TTInt64 &value) const
+void TTValue::get(const TTUInt16 index, TTInt64 &value) const
 {
 	if(type[index] == kTypeInt64)
 		value = (data+index)->int64;
@@ -773,7 +773,7 @@ void TTValue::get(TTUInt16 index, TTInt64 &value) const
 		CONVERT(TTInt64)
 }
 
-void TTValue::get(TTUInt16 index, TTUInt64 &value) const
+void TTValue::get(const TTUInt16 index, TTUInt64 &value) const
 {
 	if(type[index] == kTypeUInt64)
 		value = (data+index)->uint64;
@@ -781,7 +781,7 @@ void TTValue::get(TTUInt16 index, TTUInt64 &value) const
 		CONVERT(TTUInt64)
 }
 
-void TTValue::get(TTUInt16 index, TTBoolean &value) const
+void TTValue::get(const TTUInt16 index, TTBoolean &value) const
 {
 	if(type[index] == kTypeBoolean)
 		value = (data+index)->boolean;
@@ -789,31 +789,31 @@ void TTValue::get(TTUInt16 index, TTBoolean &value) const
 		CONVERT(TTBoolean)
 }
 
-void TTValue::get(TTUInt16 index, TTSymbol** value) const
+void TTValue::get(const TTUInt16 index, TTSymbol** value) const
 {
 	if(type[index] == kTypeSymbol)
 		*value = (data+index)->sym;
 }
 
-void TTValue::get(TTUInt16 index, TTString& value) const
+void TTValue::get(const TTUInt16 index, TTString& value) const
 {
 	if(type[index] == kTypeString)
 		value = *(data+index)->stringPtr;
 }
 
-void TTValue::get(TTUInt16 index, TTObject &value) const
+void TTValue::get(const TTUInt16 index, TTObject &value) const
 {
 	if(type[index] == kTypeObject)
 		value = *(data+index)->object;
 }
 
-void TTValue::get(TTUInt16 index, TTObject** value) const
+void TTValue::get(const TTUInt16 index, TTObject** value) const
 {
 	if(type[index] == kTypeObject)
 		*value = (data+index)->object;
 }
 
-void TTValue::get(TTUInt16 index, TTPtr* value) const
+void TTValue::get(const TTUInt16 index, TTPtr* value) const
 {
 	if(type[index] == kTypePointer)
 		*value = (data+index)->ptr;

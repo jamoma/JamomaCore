@@ -61,7 +61,7 @@ TTObject::~TTObject()
 #pragma mark Object Attributes
 #endif
 
-TTErr TTObject::registerAttribute(const TTSymbolPtr name, TTDataType type, void* address)
+TTErr TTObject::registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address)
 {
 	TTAttribute* newAttribute = new TTAttribute(name, type, address);
 
@@ -71,7 +71,7 @@ TTErr TTObject::registerAttribute(const TTSymbolPtr name, TTDataType type, void*
 	return kTTErrNone;
 }
 
-TTErr TTObject::registerAttribute(const TTSymbolPtr name, TTDataType type, void* address, TTGetterMethod getter)
+TTErr TTObject::registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTGetterMethod getter)
 {
 	TTAttribute* newAttribute = new TTAttribute(name, type, address, getter);
 
@@ -80,7 +80,7 @@ TTErr TTObject::registerAttribute(const TTSymbolPtr name, TTDataType type, void*
 	return kTTErrNone;
 }
 
-TTErr TTObject::registerAttribute(const TTSymbolPtr name, TTDataType type, void* address, TTSetterMethod setter)
+TTErr TTObject::registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTSetterMethod setter)
 {
 	TTAttribute* newAttribute = new TTAttribute(name, type, address, setter);
 	
@@ -89,7 +89,7 @@ TTErr TTObject::registerAttribute(const TTSymbolPtr name, TTDataType type, void*
 	return kTTErrNone;
 }
 
-TTErr TTObject::registerAttribute(const TTSymbolPtr name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
+TTErr TTObject::registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
 {
 	TTAttribute* newAttribute = new TTAttribute(name, type, address, getter, setter);
 

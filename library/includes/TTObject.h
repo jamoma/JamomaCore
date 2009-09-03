@@ -106,10 +106,10 @@ public:
 		The the end-user calls setAttribute() on the object (which is defined in 
 		the base class only) and it dispatches the message as appropriate.
 	*/
-	TTErr registerAttribute(const TTSymbolPtr name, TTDataType type, void* address);
-	TTErr registerAttribute(const TTSymbolPtr name, TTDataType type, void* address, TTGetterMethod getter);
-	TTErr registerAttribute(const TTSymbolPtr name, TTDataType type, void* address, TTSetterMethod setter);
-	TTErr registerAttribute(const TTSymbolPtr name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
+	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address);
+	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTGetterMethod getter);
+	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTSetterMethod setter);
+	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
 	
 	TTErr findAttribute(const TTSymbolPtr name, TTAttribute** attr);
 

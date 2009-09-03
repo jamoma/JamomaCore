@@ -129,14 +129,14 @@ public:
 	TTDataType getType() const;		// trailing const -- this method can be used on const variables
 
 	/** Return the type of a particular member of this value (assuming it is an array). */
-	TTDataType getType(TTUInt16 index) const;
+	TTDataType getType(const TTUInt16 index) const;
 
 private:
 	/** Internal method used by the constructors. */
 	void init();
 
 	/** Internal method for setting the type of a value. */
-	void setType(TTDataType arg);
+	void setType(const TTDataType arg);
 	
 	/** Performs a deep copy of the object */
 	inline void copy(const TTValue& obj);
@@ -212,41 +212,41 @@ public:
 	TTValue& operator = (TTPtr value);
 	operator TTPtr() const;
 	
-	void set(TTUInt16 index, const TTFloat32 newValue);
-	void set(TTUInt16 index, const TTFloat64 newValue);
-	void set(TTUInt16 index, const TTInt8 newValue);
-	void set(TTUInt16 index, const TTUInt8 newValue);
-	void set(TTUInt16 index, const TTInt16 newValue);
-	void set(TTUInt16 index, const TTUInt16 value);
-	void set(TTUInt16 index, const TTInt32 newValue);
-	void set(TTUInt16 index, const TTUInt32 newValue);
-	void set(TTUInt16 index, const TTInt64 newValue);
-	void set(TTUInt16 index, const TTUInt64 newValue);
-	void set(TTUInt16 index, const TTBoolean newValue);
-	void set(TTUInt16 index, const TTSymbol* newValue);
-	void set(TTUInt16 index, const TTString& newValue);
-	void set(TTUInt16 index, const TTObject& newValue);
-	void set(TTUInt16 index, const TTPtr newValue);
+	void set(const TTUInt16 index, const TTFloat32 newValue);
+	void set(const TTUInt16 index, const TTFloat64 newValue);
+	void set(const TTUInt16 index, const TTInt8 newValue);
+	void set(const TTUInt16 index, const TTUInt8 newValue);
+	void set(const TTUInt16 index, const TTInt16 newValue);
+	void set(const TTUInt16 index, const TTUInt16 value);
+	void set(const TTUInt16 index, const TTInt32 newValue);
+	void set(const TTUInt16 index, const TTUInt32 newValue);
+	void set(const TTUInt16 index, const TTInt64 newValue);
+	void set(const TTUInt16 index, const TTUInt64 newValue);
+	void set(const TTUInt16 index, const TTBoolean newValue);
+	void set(const TTUInt16 index, const TTSymbol* newValue);
+	void set(const TTUInt16 index, const TTString& newValue);
+	void set(const TTUInt16 index, const TTObject& newValue);
+	void set(const TTUInt16 index, const TTPtr newValue);
 
 
 	// THESE FUNCTIONS CURRENTLY DO NO TYPE OR BOUNDS CHECKING !!!
 	// Should an error be returned on failure?
-	void get(TTUInt16 index, TTFloat32 &value) const;
-	void get(TTUInt16 index, TTFloat64 &value) const;
-	void get(TTUInt16 index, TTInt8 &value) const;
-	void get(TTUInt16 index, TTUInt8 &value) const;
-	void get(TTUInt16 index, TTInt16 &value) const;
-	void get(TTUInt16 index, TTUInt16 &value) const;
-	void get(TTUInt16 index, TTInt32 &value) const;
-	void get(TTUInt16 index, TTUInt32 &value) const;
-	void get(TTUInt16 index, TTInt64 &value) const;
-	void get(TTUInt16 index, TTUInt64 &value) const;
-	void get(TTUInt16 index, TTBoolean &value) const;
-	void get(TTUInt16 index, TTSymbol** value) const;
-	void get(TTUInt16 index, TTString& value) const;
-	void get(TTUInt16 index, TTObject& value) const;
-	void get(TTUInt16 index, TTObject** value) const;
-	void get(TTUInt16 index, TTPtr* value) const;
+	void get(const TTUInt16 index, TTFloat32 &value) const;
+	void get(const TTUInt16 index, TTFloat64 &value) const;
+	void get(const TTUInt16 index, TTInt8 &value) const;
+	void get(const TTUInt16 index, TTUInt8 &value) const;
+	void get(const TTUInt16 index, TTInt16 &value) const;
+	void get(const TTUInt16 index, TTUInt16 &value) const;
+	void get(const TTUInt16 index, TTInt32 &value) const;
+	void get(const TTUInt16 index, TTUInt32 &value) const;
+	void get(const TTUInt16 index, TTInt64 &value) const;
+	void get(const TTUInt16 index, TTUInt64 &value) const;
+	void get(const TTUInt16 index, TTBoolean &value) const;
+	void get(const TTUInt16 index, TTSymbol** value) const;
+	void get(const TTUInt16 index, TTString& value) const;
+	void get(const TTUInt16 index, TTObject& value) const;
+	void get(const TTUInt16 index, TTObject** value) const;
+	void get(const TTUInt16 index, TTPtr* value) const;
 
 
 	void append(const TTFloat32 newValue);
