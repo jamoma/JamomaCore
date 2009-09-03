@@ -81,7 +81,7 @@ LydDacPtr lydDacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     if(x){
 		v.setSize(2);
 		v.set(0, TT("multicore.output"));
-		v.set(1, TTInt32(2));
+		v.set(1, 2);
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
 
 		v = TTPtr(x->lydbaer);

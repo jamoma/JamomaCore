@@ -99,6 +99,14 @@ TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClas
 TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, WrappedClassOptionsPtr options);
 
 
+// NOTE: DUPLICATIONS FROM THE MSP WRAPPER
+
+#ifdef __LP64__
+TTInt64	AtomGetInt(AtomPtr a);
+#else
+int AtomGetInt(AtomPtr a);
+#endif
+
 
 #endif // __MAXBAER_H__
 

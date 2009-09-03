@@ -15,10 +15,10 @@ struct LydOut {
     t_pxobject			obj;
 	MCoreObjectPtr		lydbaer;
 	TTAudioSignalPtr	audioSignal;
-	long				maxNumChannels;	// the number of inlets or outlets, which is an argument at instantiation
-	long				numChannels;	// the actual number of channels to use, set by the dsp method
-	long				vectorSize;		// cached by the DSP method
-	float				gain;			// gain multiplier
+	TTUInt16			maxNumChannels;	// the number of inlets or outlets, which is an argument at instantiation
+	TTUInt16			numChannels;	// the actual number of channels to use, set by the dsp method
+	TTUInt16			vectorSize;		// cached by the DSP method
+	TTFloat32			gain;			// gain multiplier
 };
 typedef LydOut* LydOutPtr;
 

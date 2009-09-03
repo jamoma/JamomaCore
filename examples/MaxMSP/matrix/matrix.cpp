@@ -77,7 +77,7 @@ MMatrixPtr mmatrixNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     MMatrixPtr	x;
 	TTValue		v;
 	TTErr		err;
-	long		i;
+	TTUInt16	i;
 	long		numInputs = 4;
 	long		numOutputs = 4;
 	long		attrstart = attr_args_offset(argc, argv);
@@ -98,7 +98,7 @@ MMatrixPtr mmatrixNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		v.setSize(2);
 		v.set(0, TT("matrixmixer"));
-		v.set(1, numInputs>numOutputs ? numInputs : numOutputs);
+		v.set(1, numInputs>numOutputs ? x->numInputs : x->numOutputs);
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->multicore, v);
 		
 		if(!x->multicore->audioObject){
@@ -181,8 +181,8 @@ void mmatrixSetGain(MMatrixPtr x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		TTValue v;
 		
 		v.setSize(3);
-		v.set(0, atom_getlong(argv+0));
-		v.set(1, atom_getlong(argv+1));
+		v.set(0, AtomGetInt(argv+0));
+		v.set(1, AtomGetInt(argv+1));
 		v.set(2, atom_getfloat(argv+2));
 		x->multicore->audioObject->sendMessage(TT("setGain"), v);
 	}
@@ -197,8 +197,8 @@ void mmatrixSetLinearGain(MMatrixPtr x, SymbolPtr msg, AtomCount argc, AtomPtr a
 		TTValue v;
 		
 		v.setSize(3);
-		v.set(0, atom_getlong(argv+0));
-		v.set(1, atom_getlong(argv+1));
+		v.set(0, AtomGetInt(argv+0));
+		v.set(1, AtomGetInt(argv+1));
 		v.set(2, atom_getfloat(argv+2));
 		x->multicore->audioObject->sendMessage(TT("setLinearGain"), v);
 	}
@@ -213,8 +213,8 @@ void mmatrixSetMidiGain(MMatrixPtr x, SymbolPtr msg, AtomCount argc, AtomPtr arg
 		TTValue v;
 		
 		v.setSize(3);
-		v.set(0, atom_getlong(argv+0));
-		v.set(1, atom_getlong(argv+1));
+		v.set(0, AtomGetInt(argv+0));
+		v.set(1, AtomGetInt(argv+1));
 		v.set(2, atom_getfloat(argv+2));
 		x->multicore->audioObject->sendMessage(TT("setMidiGain"), v);
 	}
