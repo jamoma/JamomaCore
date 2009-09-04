@@ -37,7 +37,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td> /description </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> alpha </td>
+			<td class="instructionName"> chromakey/alphaignore </td>
 			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -48,7 +48,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> alpha of the chromakey </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> fade </td>
+			<td class="instructionName"> chromakey/color </td>
+			<td class ="instructionType"> array </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Chroma keying color (RGB in the range 0-1). </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> chromakey/fade </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 10.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -59,40 +70,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> fade of the chromakey </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> key/blue </td>
-			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> blue level of the chromakey </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> key/green </td>
-			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> green level of the chromakey </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> key/red </td>
-			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> red level of the chromakey </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> maxkey </td>
+			<td class="instructionName"> chromakey/maxkey </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 10.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -103,7 +81,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> maxkey of the chromakey </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> minkey </td>
+			<td class="instructionName"> chromakey/minkey </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 10.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -114,7 +92,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> minkey of the chromakey </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> tolerance </td>
+			<td class="instructionName"> chromakey/tolerance </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
