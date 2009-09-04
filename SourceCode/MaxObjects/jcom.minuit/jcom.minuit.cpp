@@ -1,7 +1,7 @@
 /* 
  * jcom.minuit
  * External for Jamoma : ...
- * By Théo de la Hogue, Copyright 2009
+ * By Stan Bundervoet, Théo de la Hogue, Copyright 2009
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -31,8 +31,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)node_notify,			"notify",		A_CANT, 0);
 	class_addmethod(c, (method)node_assist,			"assist",		A_CANT, 0);
 
-
-	//changement Stan
 	// this method posts the children (leaves or nodes) and the properties of the node which address is given
 	class_addmethod(c, (method)minuit_namespace,	"?namespace",	A_SYM, 0);
 	class_addmethod(c, (method)minuit_get,			"?get",			A_SYM, 0);
@@ -142,7 +140,8 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 			if((n_type == gensym("container")) || (n_type == gensym("hub")))
 				linklist_append(lk_nodes, x->p_node);
 			else
-				linklist_append(lk_leaves, x->p_node);
+				if(n_type == gensym("subscribe_parameter"))
+					linklist_append(lk_leaves, x->p_node);
 		}
 		
 		if(lk_nodes->head) {
@@ -189,102 +188,109 @@ void minuit_namespace(t_node *x, t_symbol *address) {
 }
 
 
-void minuit_get(t_node *x, t_symbol *request) {
-
-	unsigned short i;
-	char *address = {'\0'}, * attrname = {'\0'};
+void minuit_get(t_node *x, t_symbol *oscAddress)
+{
+	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie;
 	char outletstring[REQUEST_SIZE];
+	char address[256];
+	char attribute[64];
 	t_object *obj;
-	long value_nb = NULL;
-	t_atom  * attr_value;
-	t_max_err err;
-	t_atom atom;
+	long nb_value = 0;
+	t_atom  *attr_value = NULL;
+	t_max_err m_err;
+	TTErr tt_err;
 
-	//split address and ':'attribute
-	i = 0;
-	while (request->s_name[i]!=':' && request->s_name[i]!='\0')
-		i++;
+	//split OSC the address
+	// TODO : make a split method to only get /address:attribut
+	tt_err = splitOSCAddress(TT(oscAddress->s_name),&oscAddress_parent,&oscAddress_name, &oscAddress_instance, &oscAddress_propertie);
 	
-	//we extract the address name
-	address = (char *)malloc(sizeof(char)*i); 
-	strncpy (address, request->s_name, i);
-	address[i]='\0';
+	// if no error in the parsing of the OSC address
+	if(tt_err == kTTErrNone){
 
-	//outletstring
-	snprintf(outletstring, 1024, ":get %s ", address);
+		// Making the address part /parent/name.instance
+		// TODO : make a split method to only get /address:attribut
+		if(oscAddress_instance == NO_INSTANCE)
+			snprintf(address, 256, "%s/%s", oscAddress_parent->getCString(), oscAddress_name->getCString());
+		else
+			snprintf(address, 256, "%s/%s.%s", oscAddress_parent->getCString(), oscAddress_name->getCString(), oscAddress_instance->getCString());
 
-	//special case of missing attribute, in which the value attribute is requested (minuit protocol)
-	if(request->s_name[i] == '\0') {
-		attrname = (char *)malloc(sizeof(char)* 6);
-		strcpy(attrname, "value");
-		attrname[5]='\0';
-	}
+		// goto the address
+		node_goto(x,gensym(address));
+		if(!x->address)
+			return;
 
-	//normal case, we extract the attribute names from the given request (we drop the ':/' before the attribute)
-	else {
-		attrname = (char *)malloc(sizeof(char)*(strlen(request->s_name)-i));
-		for(i = 0; i < (strlen(request->s_name)-1); i++) {
-			attrname[i] = request->s_name[i+2];
+		// check attribute
+		if(oscAddress_propertie == NO_PROPERTIE)
+			snprintf(attribute, 64, "value");
+		else
+			snprintf(attribute, 64, "%s", oscAddress_propertie->getCString()+1); // +1 to avoid the / before
+
+		// get the attribute value
+		obj = jamoma_node_max_object(x->p_node);
+		m_err = object_attr_getvalueof(obj, gensym(attribute), &nb_value, &attr_value);
+
+		if(!m_err){
+			//outletstring
+			snprintf(outletstring, 1024, ":get %s:/%s ", address, attribute);
+			outlet_anything(x->p_out, gensym(outletstring), nb_value, attr_value);
 		}
-		attrname[i+1]='\0';
+		else
+			object_post((t_object*)x,"there are no values attached to the requested attribute"); 
 	}
-
-	node_goto(x, gensym(address));
-
-	// get the attribute value
-	obj = jamoma_node_max_object(x->p_node);
-	err = object_attr_getvalueof(obj, gensym(attrname), &value_nb, &attr_value);
-
-	if(!err){
-		strcat(outletstring,":/");	
-		strcat(outletstring, attrname);
-		strcat(outletstring," ");
-		outlet_anything(x->p_out, gensym(outletstring), 0, &atom);
-	}
-	else
-		post("there are no values attached to the requested attribute"); 
 }
 
-void minuit_set(t_node *x, t_symbol *msg, long argc, t_atom *argv) {
-
-	unsigned short i;
-	char * address = {'\0'}, * attrname = {'\0'};
-	t_symbol * attraddr = atom_getsym(&argv[0]);
+void minuit_set(t_node *x, t_symbol *msg, long argc, t_atom *argv)
+{
+	t_symbol *oscAddress;
+	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie;
+	char outletstring[REQUEST_SIZE];
+	char address[256];
+	char attribute[64];
 	t_object *obj;
-	
-	//split address and ':'attribute
-	i = 0;
-	while (attraddr->s_name[i]!=':'&&attraddr->s_name[i]!='\0')
-		i++;
-	
-	//we extract the address name
-	address = (char *)malloc(sizeof(char)* (i)); 
-	strncpy (address, attraddr->s_name, i);
-	address[i]='\0';
+	long nb_value = 0;
+	t_atom  *attr_value = NULL;
+	t_max_err m_err;
+	TTErr tt_err;
 
-	//special case of missing attribute, in which the value attribute is requested (minuit protocol)
-	if(attraddr->s_name[i]=='\0') {
-		attrname = (char *)malloc(sizeof(char)* 6);
-		strcpy(attrname, "value");
-		attrname[5]='\0';
-	}
+	//split OSC the address
+	// TODO : make a split method to only get /address:attribut
+	if(argc && argv){
+		if(atom_gettype(&argv[0]) == A_SYM){
+			oscAddress = atom_getsym(&argv[0]);
+			tt_err = splitOSCAddress(TT(oscAddress->s_name),&oscAddress_parent,&oscAddress_name, &oscAddress_instance, &oscAddress_propertie);
+	
+			// if no error in the parsing of the OSC address
+			if(tt_err == kTTErrNone){
 
-	//normal case, we extract the attribute name from the given attraddress (we drop the ':/' before the attribute)
-	else {
-		attrname = (char *)malloc(sizeof(char)*(strlen(attraddr->s_name)-i));
-		for(i = 0; i < (strlen(attraddr->s_name)-1); i++) {
-			attrname[i] = attraddr->s_name[i+2];
+				// Making the address part /parent/name.instance
+				// TODO : make a split method to only get /address:attribut
+				if(oscAddress_instance == NO_INSTANCE)
+					snprintf(address, 256, "%s/%s", oscAddress_parent->getCString(), oscAddress_name->getCString());
+				else
+					snprintf(address, 256, "%s/%s.%s", oscAddress_parent->getCString(), oscAddress_name->getCString(), oscAddress_instance->getCString());
+
+				// goto the address
+				node_goto(x,gensym(address));
+				if(!x->address)
+					return;
+
+				// check attribute
+				if(oscAddress_propertie == NO_PROPERTIE)
+					snprintf(attribute, 64, "value");
+				else
+					snprintf(attribute, 64, "%s", oscAddress_propertie->getCString()+1); // +1 to avoid the / before
+
+				// set the attribut value
+				obj = jamoma_node_max_object(x->p_node);
+				if(!strcmp(attribute,"value"))
+					object_method_typed((t_object*)obj, jps_dispatched, argc-1, argv+1, NULL);
+				else
+					object_attr_setvalueof(obj, gensym(attribute), argc-1, argv+1);
+			}
 		}
-		attrname[i+1] = '\0';
-		
+		else
+			object_error((t_object*)x,"the first argument have to be an OSC address");
 	}
-
-	node_goto(x, gensym(address));
-
-	// set value
-	obj = jamoma_node_max_object(x->p_node);
-	object_attr_setvalueof(obj, gensym(attrname), argc-1, &argv[1]);
-	
 } 
 
 void node_goto(t_node *x, t_symbol *address)
@@ -299,7 +305,12 @@ void node_goto(t_node *x, t_symbol *address)
 
 			// if the address exists
 			if(err == JAMOMA_ERR_NONE)
-			x->address = address;
+				x->address = address;
+			else{
+				x->address = NULL;
+				x->p_node = NULL;
+				object_post((t_object*)x,"%s doesn't exist", address->s_name);
+			}
 		}
 	}
 }
