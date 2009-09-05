@@ -19,14 +19,18 @@
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 14.0,
-					"id" : "obj-51",
-					"maxclass" : "comment",
+					"args" : [ "@name", "jcom.filter~", "@description", "a audio filter swiss army knife" ],
+					"bgmode" : 1,
+					"id" : "obj-33",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 30.0, 30.0, 132.0, 24.0 ],
-					"text" : "jcom.filter~"
+					"patching_rect" : [ 0.0, 0.0, 1008.0, 70.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 15.0, 15.0, 1197.0, 68.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
 				}
 
 			}
@@ -34,30 +38,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-52",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 30.0, 55.0, 397.0, 19.0 ],
-					"text" : "a audio filter swiss army knife"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-11",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 15.0, 415.0, 65.0 ],
-					"rounded" : 15
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-30",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -72,6 +53,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-29",
 					"linecount" : 3,
 					"maxclass" : "comment",

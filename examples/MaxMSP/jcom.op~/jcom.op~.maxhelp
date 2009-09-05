@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 65.0, 47.0, 746.0, 635.0 ],
+		"rect" : [ 65.0, 47.0, 596.0, 417.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 65.0, 47.0, 746.0, 635.0 ],
+		"defrect" : [ 65.0, 47.0, 596.0, 417.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -18,6 +18,23 @@
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
+				"box" : 				{
+					"args" : [ "@name", "jcom.op~", "@description", "standard math operations on audio signals" ],
+					"bgmode" : 1,
+					"id" : "obj-33",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 596.0, 70.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 15.0, 15.0, 1197.0, 68.0 ],
+					"prototypename" : "bphelp",
+					"varname" : "maxhelpui"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -93,7 +110,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 435.0, 364.0, 56.0, 19.0 ],
+					"patching_rect" : [ 438.0, 364.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -108,7 +125,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 376.0, 364.0, 56.0, 19.0 ],
+					"patching_rect" : [ 378.0, 364.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -137,7 +154,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 493.0, 134.0, 55.0, 19.0 ],
+					"patching_rect" : [ 499.0, 134.0, 55.0, 19.0 ],
 					"text" : "sig~ 300"
 				}
 
@@ -151,7 +168,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 405.0, 134.0, 49.0, 19.0 ],
+					"patching_rect" : [ 408.0, 134.0, 49.0, 19.0 ],
 					"text" : "sig~ 20"
 				}
 
