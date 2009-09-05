@@ -266,8 +266,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 270.0, 410.0, 76.0, 19.0 ],
-					"text" : "print tt.zerox"
+					"patching_rect" : [ 270.0, 410.0, 93.0, 19.0 ],
+					"text" : "print jcom.zerox"
 				}
 
 			}
@@ -397,6 +397,7 @@
 			}
 , 			{
 				"box" : 				{
+					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-30",
@@ -404,7 +405,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 60.0, 380.0, 136.0, 19.0 ],
+					"patching_rect" : [ 60.0, 380.0, 229.0, 19.0 ],
 					"text" : "jcom.zerox~ @size 2000"
 				}
 

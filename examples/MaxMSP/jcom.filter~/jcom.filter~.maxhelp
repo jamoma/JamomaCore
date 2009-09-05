@@ -87,7 +87,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 565.0, 377.0, 69.0, 19.0 ],
+					"patching_rect" : [ 561.0, 377.0, 69.0, 19.0 ],
 					"text" : "route types"
 				}
 
@@ -235,6 +235,7 @@
 			}
 , 			{
 				"box" : 				{
+					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-1",

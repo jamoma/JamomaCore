@@ -192,6 +192,7 @@
 			}
 , 			{
 				"box" : 				{
+					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-26",
@@ -199,7 +200,7 @@
 					"numinlets" : 4,
 					"numoutlets" : 5,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "" ],
-					"patching_rect" : [ 180.0, 425.0, 489.0, 19.0 ],
+					"patching_rect" : [ 180.0, 425.0, 559.0, 19.0 ],
 					"text" : "jcom.dcblock~ 4"
 				}
 
@@ -295,6 +296,7 @@
 			}
 , 			{
 				"box" : 				{
+					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-1",
@@ -422,7 +424,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-26", 3 ],
 					"hidden" : 0,
-					"midpoints" : [ 54.5, 398.0, 659.5, 398.0 ],
+					"midpoints" : [ 54.5, 398.0, 729.5, 398.0 ],
 					"source" : [ "obj-24", 0 ]
 				}
 
@@ -431,7 +433,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-26", 2 ],
 					"hidden" : 0,
-					"midpoints" : [ 54.5, 404.0, 502.833344, 404.0 ],
+					"midpoints" : [ 54.5, 404.0, 549.5, 404.0 ],
 					"source" : [ "obj-24", 0 ]
 				}
 
@@ -440,7 +442,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-26", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 54.5, 410.0, 346.166656, 410.0 ],
+					"midpoints" : [ 54.5, 410.0, 369.5, 410.0 ],
 					"source" : [ "obj-24", 0 ]
 				}
 
