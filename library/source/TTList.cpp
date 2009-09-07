@@ -56,6 +56,7 @@ TTErr TTList::getIndex(TTUInt32 index, TTValue& returnedValue)
 			returnedValue = **iter;
 			break;
 		}
+		i++;
 	}
 	unlock();
 	
