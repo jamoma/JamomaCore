@@ -130,7 +130,7 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		
 		TTObjectInstantiate(TT("crossfade"), &x->xfade, x->numOutputs);
 		x->xfade->setAttributeValue(TT("position"), 1.0);
-		//TTObjectInstantiate(TT("gain"), &x->gain, x->numOutputs);
+		TTObjectInstantiate(TT("gain"), &x->gain, x->numOutputs);
 		TTObjectInstantiate(TT("limiter"), &x->gain, x->numOutputs);
 		TTObjectInstantiate(TT("ramp"), &x->ramp_gain, x->numOutputs);
 		TTObjectInstantiate(TT("ramp"), &x->ramp_xfade, x->numOutputs);
