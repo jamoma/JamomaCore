@@ -18,15 +18,17 @@
 typedef struct _paramarray{
 	t_object			ob;
 	t_object			*patcher;				///< the patcher
+	t_object			*hub;					///< the hub
 	void				*outlet;				///< outlet
 	t_hashtab			*hash_internals;		///< hash table of internal jcom.parameter and jcom.message instances
+	t_symbol			*attr_name;				///< the name of each parameter of the array
+	long				attr_argc;				///< attribute lenght (used to create more parameters with the same attributes)
+	t_atom				*attr_argv;				///< attribute atoms (used to create more parameters with the same attributes)
 } t_paramarray;
 
 // prototypes: general
 t_paramarray*	paramarray_new(t_symbol *s, long argc, t_atom *argv);
 void			paramarray_free(t_paramarray *x);
-
-//t_max_err		paramarray_notify(t_paramarray *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void			paramarray_subscribe(t_paramarray *x);
 
 void			paramarray_bang(t_paramarray *x);
@@ -34,12 +36,17 @@ void			paramarray_anything(t_paramarray *x, t_symbol *msg, long argc, t_atom* ar
 
 // prototypes: internal parameters
 void			paramarray_create_parameter(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv);
+void			paramarray_destroy_parameter(t_paramarray *x, t_symbol *msg);
 void			paramarray_callback(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv);
-void			paramarray_destroy(t_paramarray *x, t_symbol *msg);
+
+// prototypes: parsing (TODO : include this into the NodeLib)
+t_linklist*		paramarray_parseInstance(t_symbol *name, t_symbol *instance, bool *parsing);
+void			paramarray_splitNameInstance(t_symbol *name_instance, t_symbol **returnedName, t_symbol **returnedInstance);
 
 class InternalObject {
 public:
 	t_object	*theObject;
+	bool subscribe;
 	
 	InternalObject(ObjectPtr patcher, t_symbol *classname, t_symbol *subscribername, long argc, t_atom *argv)
 	{
@@ -53,6 +60,7 @@ public:
 			a[i] = argv[i-2];
 		}
 		theObject = NULL;
+		subscribe = true;
 		jcom_core_loadextern(classname, i, a, &theObject);
 	}
 	
