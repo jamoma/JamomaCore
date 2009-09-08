@@ -72,6 +72,7 @@ void*		textslider_new(t_symbol *s, long argc, t_atom *argv);
 void		textslider_free(t_textslider *x);
 t_max_err	textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void		textslider_assist(t_textslider *x, void *b, long m, long a, char *s);
+void		textslider_updatestringvalue(t_textslider *x);
 void		textslider_bang(t_textslider *x);
 void		textslider_int(t_textslider *x, long value);
 void		textslider_float(t_textslider *x, double value);
@@ -295,8 +296,6 @@ t_max_err textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *s
 {
 	t_object	*textfield;
 	t_symbol	*attrname;
-	char		str[7];
-	char		str2[15];
 	
 	if (msg == _sym_modified)
 		jbox_redraw(&x->box);	
@@ -313,11 +312,8 @@ t_max_err textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *s
 		if (attrname == gensym("textpos"))
 			textfield_set_textmargins(textfield, x->attrTextOffset[0], x->attrTextOffset[1], 2.0, 2.0);
 		
-		if((x->mouseDown) && (x->attrShowValue)) {
-			snprintf(str, sizeof(str), "%f", x->attrValueUnclipped);
-			snprintf(str2, sizeof(str2), "%s %s", str,x->attrUnit->s_name);
-			object_method(textfield, gensym("settext"), str2);
-		}
+		if((x->mouseDown) && (x->attrShowValue))
+			textslider_updatestringvalue(x);
 		
 		jbox_redraw(&x->box);
 	}
@@ -341,13 +337,16 @@ void textslider_assist(t_textslider *x, void *b, long msg, long arg, char *dst)
 void textslider_updatestringvalue(t_textslider *x)
 {      
 	//TODO: do we need to declate two strings? Can this be done better? 
-	char		str[7];
- 	char		str2[15];
+	char		str[16];
+ 	char		str2[16];
 	t_object*	textfield = jbox_get_textfield((t_object*) x);
 	
 	if (textfield) {
-		snprintf(str, sizeof(str), "%f", x->attrValueUnclipped);
-		snprintf(str2, sizeof(str2), "%s %s", str,x->attrUnit->s_name);
+		snprintf(str, 16, "%f", x->attrValueUnclipped);
+		if (x->attrUnit && x->attrUnit != _sym_nothing)
+			snprintf(str2, 16, "%s %s", str, x->attrUnit->s_name);
+		else
+			snprintf(str2, 16, "%s", str);
 		object_method(textfield, gensym("settext"), str2);
 	}
 		
