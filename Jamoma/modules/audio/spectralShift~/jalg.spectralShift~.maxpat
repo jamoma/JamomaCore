@@ -509,7 +509,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
 					"patching_rect" : [ 280.0, 235.0, 205.0, 19.0 ],
-					"text" : "tt.limiter~ @preamp 6. @release 250"
+					"text" : "jcom.limiter~ @preamp 6. @release 250"
 				}
 
 			}

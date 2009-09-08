@@ -50,7 +50,7 @@ puts "  "
 
 @svn_root = "./"
 @build_root = @svn_root + "/Jamoma/library/externals"
-@log_root = "../logs"
+@log_root = "./logs"
 @fail_array = Array.new
 @zerolink = false
 
@@ -93,7 +93,7 @@ puts ""
 
 if  win32?
 else
-	copydir("#{@svn_root}/Jamoma/library/externals/mac/jcom.loader.mxo", "\"/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo\"")
+	copydir("#{@svn_root}/../../Builds/jcom.loader.mxo", "\"/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo\"")
 end
 puts ""
 

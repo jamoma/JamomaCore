@@ -11,7 +11,7 @@
 #ifndef __JAMOMA_H__
 #define __JAMOMA_H__
 
-#define JAMOMA_VERSION "0.6.0.0 (Flailing Canard)"
+#define JAMOMA_VERSION "0.5 RC2"
 
 #ifdef WIN_VERSION
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
@@ -27,7 +27,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "TTDSP.h"					// TTBlue Headers...
+#include "TTFoundationAPI.h"		// TTBlue Headers...
 
 #include "jcom.core.h"
 #include "jcom.list.h"
@@ -40,7 +40,6 @@
 #include "DataspaceLib.h"
 #include "FunctionLib.h"
 #include "RampLib.h"
-
 
 #define JAMOMA_UNIT_HEIGHT 35.0
 #define JAMOMA_UNIT_WIDTH 150.0

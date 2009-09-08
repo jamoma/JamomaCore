@@ -24,7 +24,7 @@
     <item name='mapping.1/out/module/instance' type='integer' priority='4'>0</item>
     <item name='mapping.1/out/module/name' type='string' priority='3'>/filter~</item>
     <item name='mapping.1/out/module/parameter' type='string' priority='5'>/frequency</item>
-    <item name='mapping.1/ramp' type='integer' priority='0'>0</item>
+    <item name='mapping.1/ramp' type='integer' priority='10'>0</item>
     <item name='mapping.1/slide/down' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.1/slide/up' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.10/clipmode' type='string' priority='0'>0</item>

@@ -590,7 +590,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
 					"patching_rect" : [ 35.0, 175.0, 139.0, 19.0 ],
-					"text" : "tt.xfade~ 2"
+					"text" : "jcom.xfade~ 2"
 				}
 
 			}

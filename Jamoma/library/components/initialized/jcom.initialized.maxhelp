@@ -15,7 +15,24 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
+		"enablehscroll" : 1,
+		"enablevscroll" : 1,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-5",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 30.0, 317.0, 199.0, 29.0 ],
+					"text" : "2nd optional argument can be used to defer the output by a given time value [ms]"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"args" : [ "/setup" ],
 					"id" : "obj-7",
@@ -52,8 +69,8 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 30.0, 260.0, 121.0, 19.0 ],
-					"text" : "jcom.initialized /setup"
+					"patching_rect" : [ 30.0, 260.0, 151.0, 19.0 ],
+					"text" : "jcom.initialized /setup 2000"
 				}
 
 			}
