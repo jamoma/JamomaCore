@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 435.0, 73.0, 643.0, 650.0 ],
+		"rect" : [ 435.0, 73.0, 810.0, 651.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 435.0, 73.0, 643.0, 650.0 ],
+		"defrect" : [ 435.0, 73.0, 810.0, 651.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -18,6 +18,23 @@
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 1.0, 0.05098, 1.0 ],
+					"id" : "obj-20",
+					"linecount" : 4,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 497.0, 347.0, 259.0, 55.0 ],
+					"presentation_rect" : [ 444.0, 343.0, 0.0, 0.0 ],
+					"text" : "^ this message should be sent to the first inlet  in the final external: it is left here for backwards compatibility reasons with jmod.mapperMulti current prototype",
+					"textcolor" : [ 0.0, 1.0, 0.05098, 1.0 ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -341,13 +358,13 @@
 ,
 									"patching_rect" : [ 50.0, 170.0, 101.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontsize" : 10.0,
-										"fontname" : "Verdana",
+										"default_fontname" : "Verdana",
 										"globalpatchername" : "",
+										"default_fontsize" : 10.0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana"
+										"fontname" : "Verdana"
 									}
 ,
 									"text" : "p parameter.array"
@@ -524,13 +541,13 @@
 ,
 					"patching_rect" : [ 456.0, 198.0, 145.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
+						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p parameter.array.wrapper"
