@@ -4,7 +4,7 @@
 		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
-  <preset number='0' name='default'>
+  <preset number='0' name='defalt'>
     <item name='in/message' type='generic' priority='0'>0</item>
     <item name='in/value' type='decimal' priority='0'>0.200000</item>
     <item name='in/action' type='integer' priority='0'>0</item>

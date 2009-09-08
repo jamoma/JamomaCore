@@ -80,7 +80,8 @@
 \f1 \uc0\u8232 
 \f0 There is a guideline on how to port Jamoma 0.4 modules to Jamoma 0.5 {\field{\*\fldinst{HYPERLINK "http://redmine.jamoma.org/wiki/modular/Jamoma_05"}}{\fldrslt \cf2 \ul \ulc2 here}}\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\ql\qnatural
-\ls1\ilvl0\cf0 {\listtext	\'95	}All patches revamped to work with Max 5.\
+\ls1\ilvl0\cf0 {\listtext	\'95	}Jamoma development moved to Git, hosted at GitHub.\
+{\listtext	\'95	}All patches revamped to work with Max 5.\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\ql\qnatural
 \ls1\ilvl0
 \b \cf0 {\listtext	\'95	}Overview
@@ -215,25 +216,25 @@
 \pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\ql\qnatural
 \ls1\ilvl2\cf0 {\listtext	
 \f1 \uc0\u9642 
-\f0 	}tt.balance~\
+\f0 	}jcom.balance~\
 {\listtext	
 \f1 \uc0\u9642 
-\f0 	}tt.dcblock~.mxo\
+\f0 	}jcom.dcblock~.mxo\
 {\listtext	
 \f1 \uc0\u9642 
-\f0 	}tt.degrade~.mxo\
+\f0 	}jcom.degrade~.mxo\
 {\listtext	
 \f1 \uc0\u9642 
-\f0 	}tt.ramp~.mxo\
+\f0 	}jcom.ramp~.mxo\
 {\listtext	
 \f1 \uc0\u9642 
-\f0 	}tt.filter~.mxo\
+\f0 	}jcom.filter~.mxo\
 {\listtext	
 \f1 \uc0\u9642 
-\f0 	}tt.limiter~.mxo\
+\f0 	}jcom.limiter~.mxo\
 {\listtext	
 \f1 \uc0\u9642 
-\f0 	}tt.overdrive~.mxo\
+\f0 	}jcom.overdrive~.mxo\
 \pard\tx940\tx1440\pardeftab720\li1440\fi-1440\ql\qnatural
 \ls1\ilvl1\cf0 {\listtext	
 \f1 \uc0\u9702 
@@ -263,27 +264,21 @@
 \f1 \uc0\u9702 
 \f0 	}Now using Cygwin to compile on Windows. Please refer to {\field{\*\fldinst{HYPERLINK "http://redmine.jamoma.org/wiki/modular/Setting_up_a_development_environment"}}{\fldrslt \cf2 \ul \ulc2 this}} and {\field{\*\fldinst{HYPERLINK "http://redmine.jamoma.org/wiki/modular/Building_externals"}}{\fldrslt \cf2 \ul \ulc2 this}} pages for more information\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\ql\qnatural
-\ls1\ilvl0\cf0 {\listtext	\'95	}
-\b Spatialisation modules/help patches
-\b0  :\
-\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\ql\qnatural
-\ls1\ilvl1\cf0 {\listtext	
-\f1 \uc0\u9702 
-\f0 	}The ICST ui external ambimonitor is not yet available for Windows, and show up as bogus in some modules and help patches.\
-\pard\tx220\tx720\tx1120\pardeftab720\li720\fi-720\ql\qnatural
-\ls1\ilvl0\cf0 {\listtext	\'95	}
+\ls1\ilvl0\cf0 {\listtext	\'95	} 	\'95	
 \b Mac uninstaller : 
 \b0 \
 \pard\tx940\tx1440\pardeftab720\li1440\fi-1440\ql\qnatural
 \ls1\ilvl1\cf0 {\listtext	
 \f1 \uc0\u9702 
 \f0 	}There is now a uninstaller for Mac, which is in the installer dmg, next to the installation package.\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.4.6 (24 April 2008 - rev 3090)\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\ql\qnatural
 \ls2\ilvl0
 \b0\fs24 \cf0 {\listtext	\'95	}Mainly a bunch of bug fixes and further work on features introduced for Jamoma 0.4.5. This is the last version of Jamoma that will be compatible with Max 4.6.3.\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.4.5 (17 December 2007 - rev 2772)\
@@ -297,6 +292,7 @@
 {\listtext	\'95	}Implemented setting and getting parameters of attributes of parameters (for example: the power parameter of the ramp/function attribute of the bitdepth module-parameter).\
 {\listtext	\'95	}Lots of bug fixes (and probably the introduction of some new bugs too ;-)\
 {\listtext	\'95	}New 'Oblique Strategies' component to help with decision making when working on patches.\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.4.4 (10 December 2007 - rev 2562)\
@@ -427,6 +423,7 @@
 {\listtext	
 \f1 \uc0\u9702 
 \f0 	}ramping with lists now works\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.4.3 (not officially released)\
@@ -440,6 +437,7 @@
 {\listtext	
 \f1 \uc0\u9702 
 \f0 	}fixed multiple video modules so that they can work with any matrix size\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.4.2 (31 March 2007 - rev 1860)\
@@ -516,6 +514,7 @@
 {\listtext	
 \f1 \uc0\u9702 
 \f0 	}overview updated\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.4.1 (23 March 2007 - rev 1805)\
@@ -616,6 +615,7 @@
 {\listtext	
 \f1 \uc0\u9702 
 \f0 	}addition of standardizing the default colors used for most text in a module interface\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.4 (7 March 2007 - rev 1640)\
@@ -773,18 +773,21 @@
 {\listtext	
 \f1 \uc0\u9702 
 \f0 	}jcom.luma2rgb% : similar to jit.luma2rgb but with planechecking\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.3.4 (Not Released - branch @ rev 1382)\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\ql\qnatural
 \ls23\ilvl0
 \b0\fs24 \cf0 {\listtext	\'95	}n/a\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.3.3 (November 13 2006 - rev 1274)\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\ql\qnatural
 \ls24\ilvl0
 \b0\fs24 \cf0 {\listtext	\'95	}Miscellaneous fixes, additions, and updates\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.3.2 (28 July 2006 - rev 825)\
@@ -846,6 +849,7 @@
 \ls29\ilvl1\cf0 {\listtext	
 \f1 \uc0\u9702 
 \f0 	}misc updates to help patches, html docs, and the overview patch\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.3.1 (23 June 2006 - rev 764)\
@@ -973,6 +977,7 @@
 {\listtext	
 \f1 \uc0\u9702 
 \f0 	}skin graphics now handled as 'knob' type by pictslider so that the graphic sizes could be reduced by half.\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.3 (9 April 2006)\
@@ -1166,6 +1171,7 @@
 {\listtext	
 \f1 \uc0\u9702 
 \f0 	}Fixed bug in jmod.filter~.mod.\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.2.1\
@@ -1176,6 +1182,7 @@
 {\listtext	\'95	}batch building helpers for the externs on both platforms\
 {\listtext	\'95	}added jmod.cuelist module for automating modules and getting state information.\
 {\listtext	\'95	}added default presets to modules that were lacking them\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.2\
@@ -1191,6 +1198,7 @@
 {\listtext	\'95	}new template files added\
 {\listtext	\'95	}new tutorials added to html doc\
 {\listtext	\'95	}added many help patches, even if in rough form\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.1.9\
@@ -1200,6 +1208,7 @@
 {\listtext	\'95	}jmod.parameter.mxt: Changes to attributes (some new, some removed, some renamed)\
 {\listtext	\'95	}clean up of patch layout for jmod.hub.mxt\
 {\listtext	\'95	}introduced "autodoc" message to autogenerate html documentation of modules.\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.1.8\
@@ -1233,6 +1242,7 @@
 {\listtext	
 \f1 \uc0\u9702 
 \f0 	}jmod.control\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.1.7\
@@ -1323,6 +1333,7 @@
 {\listtext	
 \f1 \uc0\u9702 
 \f0 	}added some new help files for modules, and expanded existing ones.\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.1.5\
@@ -1331,6 +1342,7 @@
 \b0\fs24 \cf0 {\listtext	\'95	}Added externals folder\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\ql\qnatural
 \ls57\ilvl0\cf0 {\listtext	\'95	}Eliminated dependency on Tap.Tools\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.1.4\
@@ -1339,6 +1351,7 @@
 \b0\fs24 \cf0 {\listtext	\'95	}Misc bug fixes\
 {\listtext	\'95	}implemented the new gain mechanism in all audio module gui components\
 {\listtext	\'95	}changes param name "gain_m" to simply "gain"\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.1.3\
@@ -1377,6 +1390,7 @@
 \ls61\ilvl0\cf0 {\listtext	\'95	}major rewrite of jmod.parameter.mxt. Should be easier to read, but behave the same as before.\
 {\listtext	\'95	}added @autorestore 0 attribute to the pattr used in jmod.parameter.mxt\
 {\listtext	\'95	}did the same to the pattr used in jmod.parameter.gain.mxt pattr\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.1.2\
@@ -1385,7 +1399,8 @@
 \b0\fs24 \cf0 {\listtext	\'95	}Misc bug fixes\
 {\listtext	\'95	}changed tag for video modules to the % symbol\
 {\listtext	\'95	}added example patch for using pattrstorage to store and recall attributes\
-{\listtext	\'95	}added example patch for using qlist to automate modules\
+{\listtext	\'95	}added example patch for using qlist to automate module\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.1.1\
@@ -1398,6 +1413,7 @@
 {\listtext	\'95	}added edge@ module (video edge detection in Jitter)\
 {\listtext	\'95	}updated the example patch and formatted the file properly as text\
 {\listtext	\'95	}set pattrstorage attributes correctly in the existing modules\
+\
 \pard\pardeftab720\sa280\ql\qnatural
 
 \b\fs36 \cf0 Version 0.1\

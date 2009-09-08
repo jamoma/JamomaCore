@@ -62,7 +62,7 @@ TTErr RampUnit::setFunction(const TTValue& functionName)
 		return kTTErrNone;
 	
 	attrFunction = newFunctionName;
-	err = FunctionLib::createUnit(attrFunction, &functionUnit);
+	err = FunctionLib::createUnit(attrFunction, (TTObject**)&functionUnit);
 	if(err)
 		logError("Jamoma ramp unit failed to load the requested FunctionUnit from TTBlue.");
 	return err;
@@ -76,7 +76,7 @@ TTErr RampUnit::getFunctionParameterNames(TTSymbol* parameterName, TTValue& name
 }
 
 
-TTErr RampUnit::setFunctionParameterValue(TTSymbol* parameterName, const TTValue& newValue)
+TTErr RampUnit::setFunctionParameterValue(TTSymbol* parameterName, TTValue& newValue)
 {
 	functionUnit->setAttributeValue(parameterName, newValue);
 	return kTTErrNone;
