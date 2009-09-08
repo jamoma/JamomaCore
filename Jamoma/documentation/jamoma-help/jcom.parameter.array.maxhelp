@@ -21,6 +21,20 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-32",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "int", "bang" ],
+					"patching_rect" : [ 392.0, 350.0, 50.0, 19.0 ],
+					"presentation_rect" : [ 392.0, 350.0, 0.0, 0.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 1.0, 0.05098, 1.0 ],
 					"id" : "obj-20",
 					"linecount" : 4,
@@ -28,7 +42,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 497.0, 347.0, 259.0, 55.0 ],
-					"presentation_rect" : [ 444.0, 343.0, 0.0, 0.0 ],
 					"text" : "^ this message should be sent to the first inlet  in the final external: it is left here for backwards compatibility reasons with jmod.mapperMulti current prototype",
 					"textcolor" : [ 0.0, 1.0, 0.05098, 1.0 ]
 				}
@@ -724,7 +737,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 643.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 810.0, 70.0 ],
 					"varname" : "maxhelpui"
 				}
 
@@ -792,13 +805,12 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-9",
-					"linecount" : 2,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 40.0, 535.0, 140.0, 29.0 ],
-					"text" : "/module_name /editing_this_module.1"
+					"patching_rect" : [ 40.0, 535.0, 140.0, 17.0 ],
+					"text" : "/object.2 0.25"
 				}
 
 			}
@@ -1087,6 +1099,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-1", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-32", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-1", 2 ]
 				}
 
 			}
