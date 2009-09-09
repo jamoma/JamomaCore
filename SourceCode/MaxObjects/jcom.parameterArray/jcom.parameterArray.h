@@ -23,7 +23,7 @@ typedef struct _paramarray{
 	void				*val_outlet;			///< outlet to output the value
 	void				*info_outlet;			///< outlet to output the instance and info about the object
 	t_hashtab			*hash_internals;		///< hash table of internal jcom.parameter and jcom.message instances
-	t_symbol			*attr_name;				///< the name of each parameter of the array
+	char				*attr_format;			///< the format string to edit parameter's name ("node.%d/param")
 	long				attr_size;				///< the size of the hash table
 	t_symbol			*attr_selection;		///< selected parameter(s) to send data
 	long				attr_argc;				///< attribute lenght (used to create more parameters with the same attributes)
@@ -49,14 +49,14 @@ void			paramarray_set(t_paramarray* x, long n);
 void			paramarray_in1(t_paramarray *x, long n);
 
 // prototypes: internal parameters
-void			paramarray_create_array(t_paramarray* x, t_symbol *name, long size, long argc, t_atom* argv);
+void			paramarray_create_array(t_paramarray* x, long size, long argc, t_atom* argv);
 void			paramarray_destroy_parameter(t_paramarray *x, t_symbol *msg);
 void			paramarray_callback(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv);
 long			paramarray_count_subscription(t_paramarray *x);
 
 // prototypes: parsing (TODO : include this into the NodeLib)
-void			paramarray_splitNameInstance(t_symbol *name_instance, t_symbol **returnedName, t_symbol **returnedInstance);
-long			paramarray_parse_bracket(t_symbol *s);
+//void			paramarray_splitNameInstance(t_symbol *name_instance, t_symbol **returnedName, t_symbol **returnedInstance);
+long			paramarray_parse_bracket(t_symbol *s, char **s_format);
 
 
 class InternalObject {
