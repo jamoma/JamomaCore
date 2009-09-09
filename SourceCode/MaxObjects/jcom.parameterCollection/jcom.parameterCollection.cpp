@@ -1,5 +1,5 @@
 /* 
- * jcom.parameterArray
+ * jcom.paramCollection
  * External for Jamoma: a wrapper for jcom.parameter
  * By Théo de la Hogue, Copyright © 2007
  * 
@@ -7,7 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "jcom.parameterArray.h"
+#include "jcom.parameterCollection.h"
 
 // class variables
 static t_class		*s_paramarray_class = NULL;
@@ -22,7 +22,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	jamoma_init();
 	common_symbols_init();
 
-	c = class_new("jcom.parameterArray",
+	c = class_new("jcom.parameterCollection",
 				  (method)paramarray_new,
 				  (method)paramarray_free,
 				  sizeof(t_paramarray),
@@ -33,9 +33,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)paramarray_subscribe,			"subscribe",		A_CANT, 0);
 	
 	class_addmethod(c, (method)paramarray_anything,				"anything",			A_GIMME, 0);
-	class_addmethod(c, (method)paramarray_add,					"add",				A_GIMME, 0);
-	class_addmethod(c, (method)paramarray_remove,				"remove",			A_LONG, 0);
-	class_addmethod(c, (method)paramarray_size,					"size",				A_LONG, 0);
+	class_addmethod(c, (method)paramarray_create_parameter,		"create",			A_GIMME, 0);
+	class_addmethod(c, (method)paramarray_destroy,				"destroy",			A_SYM, 0);
 	
 	class_register(CLASS_BOX, c);
 	s_paramarray_class = c;
@@ -45,24 +44,17 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 t_paramarray* paramarray_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_paramarray	*x = NULL;
-	t_symbol *returnedInstance = NULL;
+
+
+	
 
 	if(x = (t_paramarray*)object_alloc(s_paramarray_class)){
 		
 		object_obex_lookup(x, gensym("#P"), &(x->patcher));
-		x->hub = NULL;
 		x->outlet = outlet_new(x, 0L);
 		x->hash_internals = hashtab_new(0);
 		
-		if(atom_gettype(&argv[0]) == A_SYM){
-			
-			x->attr_name = NULL;
-			paramarray_splitNameInstance(atom_getsym(&argv[0]), &x->attr_name, &returnedInstance);
-			x->attr_argc = argc-1;
-			x->attr_argv = argv+1;	// TODO : should we copy the array ?
-				
-			paramarray_create_parameter(x, NULL, argc, argv);
-		}
+		paramarray_create_parameter(x, NULL, argc, argv);
 	}
 	return x;
 }

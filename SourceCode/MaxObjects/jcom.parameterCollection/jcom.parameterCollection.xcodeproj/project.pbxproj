@@ -16,8 +16,8 @@
 		22C9F7E2103338990062F7B8 /* tt-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F7E1103338990062F7B8 /* tt-max.xcconfig */; };
 		22C9F81910333A130062F7B8 /* JamomaMaxTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F81810333A130062F7B8 /* JamomaMaxTypes.h */; };
 		22C9F82510333A4C0062F7B8 /* JamomaModular.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F82410333A4C0062F7B8 /* JamomaModular.framework */; };
-		D2959B6A104AF45E00250E3F /* jcom.parameterArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2959B67104AF45E00250E3F /* jcom.parameterArray.cpp */; };
-		D2959B6B104AF45E00250E3F /* jcom.parameterArray.h in Headers */ = {isa = PBXBuildFile; fileRef = D2959B68104AF45E00250E3F /* jcom.parameterArray.h */; };
+		B15AAB611056FB4100FFA03A /* jcom.parameterCollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B15AAB5F1056FB4100FFA03A /* jcom.parameterCollection.cpp */; };
+		B15AAB621056FB4100FFA03A /* jcom.parameterCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = B15AAB601056FB4100FFA03A /* jcom.parameterCollection.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,9 +30,9 @@
 		22C9F7E1103338990062F7B8 /* tt-max.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max.xcconfig"; path = "../../../../../Tools/library/common/tt-max.xcconfig"; sourceTree = SOURCE_ROOT; };
 		22C9F81810333A130062F7B8 /* JamomaMaxTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaMaxTypes.h; path = ../../../../../Tools/library/common/JamomaMaxTypes.h; sourceTree = SOURCE_ROOT; };
 		22C9F82410333A4C0062F7B8 /* JamomaModular.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaModular.framework; path = ../../Framework/build/UninstalledProducts/JamomaModular.framework; sourceTree = SOURCE_ROOT; };
-		2FBBEAE508F335360078DB84 /* jcom.parameterArray.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.parameterArray.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2959B67104AF45E00250E3F /* jcom.parameterArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.parameterArray.cpp; sourceTree = "<group>"; };
-		D2959B68104AF45E00250E3F /* jcom.parameterArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.parameterArray.h; sourceTree = "<group>"; };
+		2FBBEAE508F335360078DB84 /* jcom.parameterCollection.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.parameterCollection.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		B15AAB5F1056FB4100FFA03A /* jcom.parameterCollection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.parameterCollection.cpp; sourceTree = "<group>"; };
+		B15AAB601056FB4100FFA03A /* jcom.parameterCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.parameterCollection.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +80,8 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				D2959B67104AF45E00250E3F /* jcom.parameterArray.cpp */,
-				D2959B68104AF45E00250E3F /* jcom.parameterArray.h */,
+				B15AAB5F1056FB4100FFA03A /* jcom.parameterCollection.cpp */,
+				B15AAB601056FB4100FFA03A /* jcom.parameterCollection.h */,
 				22C9F7D1103338310062F7B8 /* commonsyms.cpp */,
 			);
 			name = Source;
@@ -90,7 +90,7 @@
 		19C28FB4FE9D528D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2FBBEAE508F335360078DB84 /* jcom.parameterArray.mxo */,
+				2FBBEAE508F335360078DB84 /* jcom.parameterCollection.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,7 +103,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C9F81910333A130062F7B8 /* JamomaMaxTypes.h in Headers */,
-				D2959B6B104AF45E00250E3F /* jcom.parameterArray.h in Headers */,
+				B15AAB621056FB4100FFA03A /* jcom.parameterCollection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +126,7 @@
 			);
 			name = "max-external";
 			productName = iterator;
-			productReference = 2FBBEAE508F335360078DB84 /* jcom.parameterArray.mxo */;
+			productReference = 2FBBEAE508F335360078DB84 /* jcom.parameterCollection.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -134,7 +134,7 @@
 /* Begin PBXProject section */
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.parameterArray" */;
+			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.parameterCollection" */;
 			compatibilityVersion = "Xcode 3.0";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* iterator */;
@@ -173,7 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C9F7D2103338310062F7B8 /* commonsyms.cpp in Sources */,
-				D2959B6A104AF45E00250E3F /* jcom.parameterArray.cpp in Sources */,
+				B15AAB611056FB4100FFA03A /* jcom.parameterCollection.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,7 +246,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.parameterArray" */ = {
+		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.parameterCollection" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2FBBEAD008F335010078DB84 /* Development */,

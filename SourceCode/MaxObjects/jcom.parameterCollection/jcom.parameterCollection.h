@@ -1,5 +1,5 @@
 /* 
- * jcom.parameterArray
+ * jcom.parameterCollection
  * External for Jamoma: a wrapper for jcom.parameter
  * By Théo de la Hogue, Copyright © 2009
  * 
