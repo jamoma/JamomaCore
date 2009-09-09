@@ -1005,8 +1005,11 @@ void param_bang(t_param *x)
 #else
 	x->param_output(x);
 #endif
-	if(x->callback)
-		x->callback(x, x->common.attr_name, x->list_size, x->atom_list);
+
+#ifdef JMOD_MESSAGE
+if(x->callback)
+	x->callback(x, x->common.attr_name, x->list_size, x->atom_list);
+#endif
 }
 
 
