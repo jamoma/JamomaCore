@@ -3689,7 +3689,7 @@
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 307.0, 228.0, 223.0, 55.0 ],
 					"text" : "jcom.parameter mappings/instanceEdited @repetitions/allow 0 @type integer @description \"Choose number of mappings\" @range/clipmode both",
-					"varname" : "jcom.parameter.array 10[2]"
+					"varname" : "jcom.parameterArray[2]"
 				}
 
 			}
@@ -3719,7 +3719,7 @@
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 52.0, 164.0, 338.0, 31.0 ],
 					"text" : "jcom.parameter mappings/instanceNumber @repetitions/allow 0 @type integer @description \"Choose number of mappings\"",
-					"varname" : "jcom.parameter.array 10[1]"
+					"varname" : "jcom.parameterArray[1]"
 				}
 
 			}
@@ -4115,7 +4115,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 607.0, 201.0, 328.0, 43.0 ],
-					"text" : "jcom.parameter.array 10 mapping in/direct @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"use this parameter to alternatively provide a source for mapping\""
+					"text" : "jcom.parameterArray mapping.[10]/in/direct @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"use this parameter to alternatively provide a source for mapping\""
 				}
 
 			}
@@ -4130,7 +4130,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 742.0, 802.0, 584.0, 31.0 ],
-					"text" : "jcom.parameter.array 10 mapping in/module/derivative @repetitions/allow 1 @type integer @range/bounds 0 2 @range/clipmode both @description \"mapping from the 0th, 1st, or 2nd derivative input value\" @value/default 0",
+					"text" : "jcom.parameterArray mapping.[10]/in/module/derivative @repetitions/allow 1 @type integer @range/bounds 0 2 @range/clipmode both @description \"mapping from the 0th, 1st, or 2nd derivative input value\" @value/default 0",
 					"varname" : "module_in_nr[2]"
 				}
 
@@ -4258,7 +4258,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 721.0, 742.0, 608.0, 31.0 ],
-					"text" : "jcom.parameter.array 10 mapping in/module/listindex @repetitions/allow 1 @type integer @range/bounds 1 32 @range/clipmode both @description \"If input parameter is a list, this option allows to pick the Nth value from that list\"",
+					"text" : "jcom.parameterArray mapping.[10]/in/module/listindex @repetitions/allow 1 @type integer @range/bounds 1 32 @range/clipmode both @description \"If input parameter is a list, this option allows to pick the Nth value from that list\"",
 					"varname" : "moduleListindex"
 				}
 
@@ -4410,7 +4410,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 174.0, 697.0, 534.0, 19.0 ],
-					"text" : "jcom.parameter.array 10 mapping function/parameter1 @type decimal @priority 5 @repetitions/allow 1"
+					"text" : "jcom.parameterArray mapping.[10]/function/parameter1 @type decimal @priority 5 @repetitions/allow 1"
 				}
 
 			}
@@ -4424,7 +4424,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 173.0, 802.0, 516.0, 19.0 ],
-					"text" : "jcom.parameter.array 10 mapping function/symmetry @type string @priority 3 @repetitions/allow 1"
+					"text" : "jcom.parameterArray mapping.[10]/function/symmetry @type string @priority 3 @repetitions/allow 1"
 				}
 
 			}
@@ -4438,7 +4438,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 172.0, 749.0, 534.0, 19.0 ],
-					"text" : "jcom.parameter.array 10 mapping function/parameter2 @type decimal @priority 4 @repetitions/allow 1"
+					"text" : "jcom.parameterArray mapping.[10]/function/parameter2 @type decimal @priority 4 @repetitions/allow 1"
 				}
 
 			}
@@ -4452,7 +4452,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 37.0, 630.0, 461.0, 19.0 ],
-					"text" : "jcom.parameter.array 10 mapping function @type string @priority 1 @repetitions/allow 1"
+					"text" : "jcom.parameterArray mapping.[10]/function @type string @priority 1 @repetitions/allow 1"
 				}
 
 			}
@@ -4621,7 +4621,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1153.0, 553.0, 280.0, 43.0 ],
-					"text" : "jcom.parameter.array 10 mapping out/module/name @repetitions/allow 1 @type string @description \"Destination module of the mapping\" @priority 3",
+					"text" : "jcom.parameterArray mapping.[10]/out/module/name @repetitions/allow 1 @type string @description \"Destination module of the mapping\" @priority 3",
 					"varname" : "module_out[1]"
 				}
 
@@ -4942,7 +4942,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 508.0, 160.0, 425.0, 31.0 ],
-					"text" : "jcom.parameter.array 10 mapping slide/down @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Smoothing coef when value decreases\"",
+					"text" : "jcom.parameterArray mapping.[10]/slide/down @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Smoothing coef when value decreases\"",
 					"varname" : "slide_down[1]"
 				}
 
@@ -4958,7 +4958,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 119.0, 406.0, 31.0 ],
-					"text" : "jcom.parameter.array 10 mapping slide/up @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Smoothing coef when value raises\"",
+					"text" : "jcom.parameterArray mapping.[10]/slide/up @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Smoothing coef when value raises\"",
 					"varname" : "slide_up[1]"
 				}
 
@@ -5080,8 +5080,8 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 601.0, 662.0, 377.0, 31.0 ],
-					"text" : "jcom.parameter.array 10 mapping clipmode @repetitions/allow 1 @type string @description \"Choose the clipping mode (none, low, high, both)\"",
-					"varname" : "jcom.parameter.array 10[12]"
+					"text" : "jcom.parameterArray mapping.[10]/clipmode @repetitions/allow 1 @type string @description \"Choose the clipping mode (none, low, high, both)\"",
+					"varname" : "jcom.parameterArray[12]"
 				}
 
 			}
@@ -5133,7 +5133,7 @@
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 640.0, 30.0, 333.0, 31.0 ],
 					"text" : "jcom.parameter edit @repetitions/allow 1 @type string @description \"Choose operation mode (active, edit, bypass)\"",
-					"varname" : "jcom.parameter.array 10[10]"
+					"varname" : "jcom.parameterArray[10]"
 				}
 
 			}
@@ -5148,7 +5148,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 462.0, 565.0, 272.0, 43.0 ],
-					"text" : "jcom.parameter.array 10 mapping out/max @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Maximum output value\"",
+					"text" : "jcom.parameterArray mapping.[10]/out/max @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Maximum output value\"",
 					"varname" : "out_max[1]"
 				}
 
@@ -5164,7 +5164,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 250.0, 438.0, 398.0, 31.0 ],
-					"text" : "jcom.parameter.array 10 mapping out/min @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Minimum output value\"",
+					"text" : "jcom.parameterArray mapping.[10]/out/min @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Minimum output value\"",
 					"varname" : "out_min[1]"
 				}
 
@@ -5180,7 +5180,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 845.0, 510.0, 155.0, 79.0 ],
-					"text" : "jcom.parameter.array 10 mapping in/max @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Maximum input value\"",
+					"text" : "jcom.parameterArray mapping.[10]/in/max @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Maximum input value\"",
 					"varname" : "in_max[1]"
 				}
 
@@ -5196,7 +5196,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 846.0, 382.0, 155.0, 79.0 ],
-					"text" : "jcom.parameter.array 10 mapping in/min @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Minimum input value\"",
+					"text" : "jcom.parameterArray mapping.[10]/in/min @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Minimum input value\"",
 					"varname" : "in_min[1]"
 				}
 
@@ -5330,7 +5330,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 743.0, 624.0, 441.0, 31.0 ],
-					"text" : "jcom.parameter.array 10 mapping in/module/parameter @repetitions/allow 1 @type string @description \"The parameter that will be the input to the mapping\" @priority 6",
+					"text" : "jcom.parameterArray mapping.[10]/in/module/parameter @repetitions/allow 1 @type string @description \"The parameter that will be the input to the mapping\" @priority 6",
 					"varname" : "module_in_function"
 				}
 
@@ -5346,7 +5346,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 62.0, 506.0, 496.0, 31.0 ],
-					"text" : "jcom.parameter.array 10 mapping out/module/parameter @repetitions/allow 1 @type string @description \"The parameter that the mapped or scaled value will be passed to.\" @priority 5",
+					"text" : "jcom.parameterArray mapping.[10]/out/module/parameter @repetitions/allow 1 @type string @description \"The parameter that the mapped or scaled value will be passed to.\" @priority 5",
 					"varname" : "module_out_function"
 				}
 
@@ -5416,7 +5416,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 971.0, 171.0, 423.0, 31.0 ],
-					"text" : "jcom.parameter.array 10 mapping in/module/instance @repetitions/allow 1 @type integer @description \"Source module instance of the mapping\" @priority 2",
+					"text" : "jcom.parameterArray mapping.[10]/in/module/instance @repetitions/allow 1 @type integer @description \"Source module instance of the mapping\" @priority 2",
 					"varname" : "module_in_nr"
 				}
 
@@ -5432,7 +5432,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1202.0, 450.0, 228.0, 55.0 ],
-					"text" : "jcom.parameter.array 10 mapping in/module/name @repetitions/allow 1 @type string @description \"Source module of the mapping\" @priority 1",
+					"text" : "jcom.parameterArray mapping.[10]/in/module/name @repetitions/allow 1 @type string @description \"Source module of the mapping\" @priority 1",
 					"varname" : "module_in[1]"
 				}
 
@@ -5448,7 +5448,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 653.0, 395.0, 186.0, 79.0 ],
-					"text" : "jcom.parameter.array 10 mapping out/module/instance @repetitions/allow 1 @type integer @description \"Destination module instance of the mapping\" @priority 4",
+					"text" : "jcom.parameterArray mapping.[10]/out/module/instance @repetitions/allow 1 @type integer @description \"Destination module instance of the mapping\" @priority 4",
 					"varname" : "module_out_nr"
 				}
 
@@ -19040,7 +19040,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 995.0, 40.0, 337.0, 31.0 ],
-					"text" : "jcom.parameter.array 10 mapping ramp @repetitions/allow 1 @ramp/drive scheduler @type integer @description \"Ramp time\"",
+					"text" : "jcom.parameterArray mapping.[10]/ramp @repetitions/allow 1 @ramp/drive scheduler @type integer @description \"Ramp time\"",
 					"varname" : "ramp[1]"
 				}
 
