@@ -177,7 +177,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 42.0, 258.0, 99.0, 18.0 ],
-					"text" : "/toto.1 76."
+					"text" : "/gege.1 45"
 				}
 
 			}
@@ -204,7 +204,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 327.0, 135.0, 57.0, 18.0 ],
-					"text" : "toto.1 $1"
+					"text" : "toto $1"
 				}
 
 			}
@@ -245,7 +245,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 274.0, 261.0, 147.0, 18.0 ],
-					"text" : "toto.1 76."
+					"text" : "gege.1 45"
 				}
 
 			}
@@ -288,7 +288,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 273.0, 217.0, 229.0, 34.0 ],
-					"text" : "jcom.parameterCollection toto.[4] @type decimal"
+					"text" : "jcom.parameterCollection toto @type decimal"
 				}
 
 			}
