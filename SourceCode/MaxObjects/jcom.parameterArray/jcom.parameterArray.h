@@ -40,6 +40,7 @@ void			paramarray_subscribe(t_paramarray *x);
 void			paramarray_bang(t_paramarray *x);
 void			paramarray_int(t_paramarray *x, long n);
 void			paramarray_flt(t_paramarray *x, double d);
+void			paramarray_list(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv);
 void			paramarray_anything(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv);
 void			paramarray_add(t_paramarray* x, long i_add);
 void			paramarray_remove(t_paramarray* x, long i_rm);

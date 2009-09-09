@@ -35,6 +35,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)paramarray_bang,					"bang",				0);
 	class_addmethod(c, (method)paramarray_int,					"int",				A_DEFLONG, 0);
 	class_addmethod(c, (method)paramarray_flt,					"float",			A_DEFFLOAT, 0);
+	class_addmethod(c, (method)paramarray_list,					"list",				A_GIMME, 0);
 	class_addmethod(c, (method)paramarray_anything,				"anything",			A_GIMME, 0);
 	class_addmethod(c, (method)paramarray_add,					"add",				A_LONG, 0);
 	class_addmethod(c, (method)paramarray_remove,				"remove",			A_LONG, 0);
@@ -221,6 +222,21 @@ void paramarray_flt(t_paramarray *x, double d)
 			atom_setfloat(a,d);
 			object_method_typed(anObject->theObject, _sym_float, 1, a, NULL);
 		}
+	}
+}
+
+void paramarray_list(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv)
+{
+	InternalObject		*anObject;
+	t_max_err			err;
+	
+	if(x->attr_selection == gensym("*")){
+		;
+	}
+	else{
+		err = hashtab_lookup(x->hash_internals, x->attr_selection, (t_object**)&anObject);
+		if(!err)
+			object_method_typed(anObject->theObject, jps_dispatched, argc, argv, NULL);
 	}
 }
 
