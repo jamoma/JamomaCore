@@ -16,6 +16,8 @@ html
 # Ignore VST SDK
 vstsdk-2.4
 
+# Git files leftover from an old conflict
+*.orig
 
 logs
 obj
