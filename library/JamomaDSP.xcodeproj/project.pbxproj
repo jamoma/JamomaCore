@@ -332,7 +332,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_GENERATE_MAP_FILE = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
@@ -365,6 +365,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_GENERATE_MAP_FILE = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
