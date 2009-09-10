@@ -38,7 +38,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 938.0, 195.0, 133.0, 48.0 ],
+					"patching_rect" : [ 937.0, 194.0, 133.0, 48.0 ],
 					"text" : "Currently you have to select instance to get his data on the ouputs",
 					"textcolor" : [ 0.682353, 0.156863, 0.156863, 1.0 ]
 				}
@@ -246,7 +246,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 857.0, 263.0, 20.0, 20.0 ]
+					"patching_rect" : [ 842.0, 263.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -295,7 +295,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 617.0, 263.0, 48.0, 20.0 ]
+					"patching_rect" : [ 627.0, 263.0, 48.0, 20.0 ]
 				}
 
 			}
@@ -425,7 +425,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 734.0, 308.0, 61.0, 20.0 ],
+					"patching_rect" : [ 755.0, 308.0, 61.0, 20.0 ],
 					"text" : "array size"
 				}
 
@@ -440,7 +440,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 839.0, 308.0, 103.0, 34.0 ],
+					"patching_rect" : [ 824.0, 308.0, 103.0, 34.0 ],
 					"text" : "number of the modified instance"
 				}
 
@@ -587,7 +587,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 734.0, 48.0, 95.0, 48.0 ],
+					"patching_rect" : [ 755.0, 49.0, 95.0, 48.0 ],
 					"text" : "select an instance before to send data"
 				}
 
@@ -601,7 +601,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 837.0, 286.0, 50.0, 20.0 ]
+					"patching_rect" : [ 822.0, 286.0, 50.0, 20.0 ]
 				}
 
 			}
@@ -614,7 +614,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 733.0, 286.0, 50.0, 20.0 ]
+					"patching_rect" : [ 754.0, 286.0, 50.0, 20.0 ]
 				}
 
 			}
@@ -627,7 +627,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 733.0, 263.0, 123.0, 20.0 ],
+					"patching_rect" : [ 754.0, 263.0, 87.0, 20.0 ],
 					"text" : "route size"
 				}
 
@@ -719,7 +719,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 225.0, 93.0, 50.0, 20.0 ]
+					"patching_rect" : [ 212.0, 97.0, 50.0, 20.0 ]
 				}
 
 			}
@@ -732,8 +732,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 225.0, 117.0, 110.0, 20.0 ],
-					"text" : "sprintf toto.%ld \\$1"
+					"patching_rect" : [ 212.0, 121.0, 132.0, 20.0 ],
+					"text" : "sprintf toto.%ld/lulu \\$1"
 				}
 
 			}
@@ -757,7 +757,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 183.0, 149.0, 50.0, 20.0 ]
+					"patching_rect" : [ 183.0, 156.0, 50.0, 20.0 ]
 				}
 
 			}
@@ -770,8 +770,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 183.0, 187.0, 61.0, 18.0 ],
-					"text" : "toto.2 $1"
+					"patching_rect" : [ 183.0, 187.0, 81.0, 18.0 ],
+					"text" : "toto.5/lulu $1"
 				}
 
 			}
@@ -915,7 +915,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 733.0, 99.0, 50.0, 20.0 ]
+					"patching_rect" : [ 754.0, 100.0, 50.0, 20.0 ]
 				}
 
 			}
@@ -955,7 +955,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 63.0, 485.0, 185.0, 184.0 ],
-					"text" : "/description ;\r/value 4;\r/type generic;\r/ramp/drive none;\r/ramp/function none;\r/range/bounds 0. 1.;\r/range/clipmode none;\r/repetitions/allow 0;\r/dataspace none;\r/dataspace/unit/native none;\r/dataspace/unit/active none;\r/view/freeze 0;\r/priority 0;\r"
+					"text" : "/description;\r/value 4;\r/type generic;\r/ramp/drive none;\r/ramp/function none;\r/range/bounds 0. 1.;\r/range/clipmode none;\r/repetitions/allow 0;\r/dataspace none;\r/dataspace/unit/native none;\r/dataspace/unit/active none;\r/view/freeze 0;\r/priority 0;\r"
 				}
 
 			}
@@ -1202,7 +1202,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 15.0, 264.0, 116.0, 18.0 ],
-					"text" : "/gege.4:/priority 0"
+					"text" : "/toto.5/lulu 17."
 				}
 
 			}
@@ -1263,8 +1263,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 500.0, 200.0, 252.0, 34.0 ],
-					"text" : "jcom.parameterArray toto.[6] @type decimal @repetitions/allow 1 @range/bounds -10. 10."
+					"patching_rect" : [ 500.0, 199.0, 273.0, 34.0 ],
+					"text" : "jcom.parameterArray toto.[6]/lulu @type decimal @repetitions/allow 1 @range/bounds -10. 10."
 				}
 
 			}
@@ -1273,7 +1273,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-27", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 626.0, 242.0, 609.5, 242.0 ],
+					"midpoints" : [ 636.5, 242.0, 609.5, 242.0 ],
 					"source" : [ "obj-1", 1 ]
 				}
 
@@ -1705,7 +1705,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-55", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
+					"midpoints" : [ 221.5, 149.5, 254.5, 149.5 ],
 					"source" : [ "obj-52", 0 ]
 				}
 

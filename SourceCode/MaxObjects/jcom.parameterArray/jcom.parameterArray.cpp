@@ -35,6 +35,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)paramarray_bang,					"bang",				0);
 	class_addmethod(c, (method)paramarray_int,					"int",				A_DEFLONG, 0);
 	class_addmethod(c, (method)paramarray_flt,					"float",			A_DEFFLOAT, 0);
+	class_addmethod(c, (method)paramarray_list,					"list",				A_GIMME, 0);
 	class_addmethod(c, (method)paramarray_anything,				"anything",			A_GIMME, 0);
 	class_addmethod(c, (method)paramarray_add,					"add",				A_LONG, 0);
 	class_addmethod(c, (method)paramarray_remove,				"remove",			A_LONG, 0);
@@ -51,7 +52,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 t_paramarray* paramarray_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_paramarray	*x = NULL;
-	t_symbol		*returnedInstance = NULL;
 	char			*s_num;
 	int				i;
 
@@ -71,27 +71,24 @@ t_paramarray* paramarray_new(t_symbol *s, long argc, t_atom *argv)
 		
 		if(atom_gettype(&argv[0]) == A_SYM){
 			
-			x->attr_name = NULL;
 			x->attr_size = 0;
 			x->attr_selection = _sym_nothing;
 			x->last_instance = 0;
 			
-			// get the instance part of the first argument
-			paramarray_splitNameInstance(atom_getsym(&argv[0]), &x->attr_name, &returnedInstance);
+			// edit the format string to create parameter's name
+			x->attr_size = paramarray_parse_bracket(atom_getsym(&argv[0]), &x->attr_format);
 			
-			// parse the N inside [N]
-			x->attr_size = paramarray_parse_bracket(returnedInstance);
 			x->attr_argc = argc-1;
 			x->attr_argv = (t_atom *)sysmem_newptr((long)sizeof(t_atom)*x->attr_argc);
 			for(i = 0; i < x->attr_argc; i++)
 				jcom_core_atom_copy(&x->attr_argv[i],&argv[i+1]);
 
 			if(x->attr_size){
-				paramarray_create_array(x, x->attr_name, x->attr_size, x->attr_argc, x->attr_argv);
+				paramarray_create_array(x, x->attr_size, x->attr_argc, x->attr_argv);
 				
 				// select the first parameter
 				s_num = (char *)malloc(sizeof(char)*256);
-				snprintf(s_num, 256, "%s.1", x->attr_name->s_name);
+				snprintf(s_num, 256, x->attr_format, 1);
 				x->attr_selection = gensym(s_num);
 				free(s_num);
 			}
@@ -222,7 +219,7 @@ void paramarray_flt(t_paramarray *x, double d)
 	}
 }
 
-void paramarray_anything(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv)
+void paramarray_list(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv)
 {
 	InternalObject		*anObject;
 	t_max_err			err;
@@ -237,6 +234,36 @@ void paramarray_anything(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv
 	}
 }
 
+void paramarray_anything(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv)
+{
+	InternalObject		*anObject;
+	t_atom				*margv;
+	t_max_err			err;
+	int i;
+	
+	if(x->attr_selection == gensym("*")){
+		;
+	}
+	else{
+		err = hashtab_lookup(x->hash_internals, x->attr_selection, (t_object**)&anObject);
+		if(!err){
+			if(msg == _sym_nothing)
+				object_method_typed(anObject->theObject, jps_dispatched, argc, argv, NULL);
+			else{
+				// prepend msg to argv
+				margv = (t_atom *)sysmem_newptr((long)sizeof(t_atom)*(argc+1));
+				atom_setsym(margv,msg);
+				for(i = 1; i < argc+1; i++)
+					jcom_core_atom_copy(&margv[i],&argv[i-1]);
+				
+				object_method_typed(anObject->theObject, jps_dispatched, argc+1, margv, NULL);
+				
+				free(margv);
+			}
+		}
+	}
+}
+
 void paramarray_add(t_paramarray* x, long i_add)
 {
 	long ht_size, new_size;
@@ -247,7 +274,7 @@ void paramarray_add(t_paramarray* x, long i_add)
 		new_size =  ht_size + i_add;
 		
 		if(new_size >= 0)
-			paramarray_create_array(x, x->attr_name, new_size, NULL, NULL);
+			paramarray_create_array(x, new_size, NULL, NULL);
 	}
 }
 
@@ -261,14 +288,14 @@ void paramarray_remove(t_paramarray* x, long i_rm)
 		new_size =  ht_size - i_rm;
 		
 		if(new_size >= 0)
-			paramarray_create_array(x, x->attr_name, new_size, NULL, NULL);
+			paramarray_create_array(x, new_size, NULL, NULL);
 	}
 }
 
 void paramarray_size(t_paramarray* x, long new_size)
 {	
 	if(new_size >= 0)
-		paramarray_create_array(x, x->attr_name, new_size, NULL, NULL);
+		paramarray_create_array(x, new_size, NULL, NULL);
 }
 
 void paramarray_set(t_paramarray* x, long n)
@@ -277,7 +304,7 @@ void paramarray_set(t_paramarray* x, long n)
 	
 	// edit selection
 	s_num = (char *)malloc(sizeof(char)*256);
-	snprintf(s_num, 256, "%s.%ld", x->attr_name->s_name, n);
+	snprintf(s_num, 256, x->attr_format, n);
 	x->attr_selection = gensym(s_num);
 	
 	free(s_num);
@@ -289,7 +316,7 @@ void paramarray_in1(t_paramarray *x, long n)
 	
 	// edit selection
 	s_num = (char *)malloc(sizeof(char)*256);
-	snprintf(s_num, 256, "%s.%ld", x->attr_name->s_name, n);
+	snprintf(s_num, 256, x->attr_format, n);
 	x->attr_selection = gensym(s_num);
 	
 	// bang selection
@@ -298,7 +325,7 @@ void paramarray_in1(t_paramarray *x, long n)
 	free(s_num);
 }
 
-void paramarray_create_array(t_paramarray* x, t_symbol *name, long size, long argc, t_atom* argv)
+void paramarray_create_array(t_paramarray* x, long size, long argc, t_atom* argv)
 {
 	InternalObject *anObject;
 	t_symbol *s_i;
@@ -312,7 +339,7 @@ void paramarray_create_array(t_paramarray* x, t_symbol *name, long size, long ar
 	lk_instances = linklist_new();
 	for(i = 1; i <= size; i++){
 		s_num = (char *)malloc(sizeof(char)*256);
-		snprintf(s_num, 256, "%s.%d", name->s_name, i);
+		snprintf(s_num, 256, x->attr_format, i);
 		linklist_append(lk_instances,gensym(s_num));
 		free(s_num);
 	}
@@ -362,7 +389,7 @@ void paramarray_create_array(t_paramarray* x, t_symbol *name, long size, long ar
 			for(j = size+1; j <= ht_size; j++){
 				s_num = (char *)malloc(sizeof(char)*256);
 				anObject = NULL;
-				snprintf(s_num, 256, "%s.%d", x->attr_name->s_name, j);
+				snprintf(s_num, 256, x->attr_format, j);
 				err = hashtab_lookup(x->hash_internals, gensym(s_num), (t_object**)&anObject);
 				if(!err && x->hub){
 					// TODO : object_method(x->hub, jps_unsubscribe, anObject->theObject);
@@ -443,6 +470,7 @@ long paramarray_count_subscription(t_paramarray *x)
 	return count;
 }
 
+/*
 void paramarray_splitNameInstance(t_symbol *name_instance, t_symbol **returnedName, t_symbol **returnedInstance)
 {
 	int len, pos;
@@ -468,13 +496,15 @@ void paramarray_splitNameInstance(t_symbol *name_instance, t_symbol **returnedNa
 	}
 	*returnedName = gensym(to_split);
 }
+ */
 
-// returned the N inside "xxxx[N]xxx"
-long	paramarray_parse_bracket(t_symbol *s)
+// returned the N inside "pp/xx[N]/yyy" and return a format string as "pp/xx.%d/yy"
+long	paramarray_parse_bracket(t_symbol *s, char **s_format)
 {
-	int len, pos, i_num = 1;
+	int len, flen, ablen, pos, i_num = 1;
 	char *start_bracket = NULL;
 	char *end_bracket = NULL;
+	char *after_bracket = NULL;
 	char *to_parse, *s_num;
 
 	if(s){
@@ -492,8 +522,22 @@ long	paramarray_parse_bracket(t_symbol *s)
 			len = (int)end_bracket - (int)start_bracket;
 			s_num = (char *)malloc(sizeof(char)*(len+1));
 			strcpy(s_num,to_parse + pos + 1);
-			
+			free(to_parse);
 			sscanf(s_num, "%d", &i_num);	// only for Mac ???
+			
+			// edit a format string
+			flen = strlen(to_parse) - len + 3; // +3 for \%d
+			ablen = strlen(to_parse) - pos - len; // lenght of after_bracket
+			*s_format = (char *)malloc(sizeof(char)*(flen+1));
+			after_bracket = (char *)malloc(sizeof(char)*(ablen+1));
+			
+			strncpy(*s_format,to_parse,pos);
+			strcpy(after_bracket, to_parse + pos + len + 1);
+			(*s_format)[pos] = '\%';
+			(*s_format)[pos+1] = 'd';
+			(*s_format)[pos+2] = '\0';
+			strcat(*s_format, after_bracket);
+			(*s_format)[flen] = '\0';
 			
 			return i_num;
 		}	
