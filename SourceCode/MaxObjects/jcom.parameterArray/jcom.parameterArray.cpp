@@ -75,14 +75,8 @@ t_paramarray* paramarray_new(t_symbol *s, long argc, t_atom *argv)
 			x->attr_selection = _sym_nothing;
 			x->last_instance = 0;
 			
-			// get the instance part of the first argument
-			//paramarray_splitNameInstance(atom_getsym(&argv[0]), &x->attr_name, &returnedInstance);
-			
 			// edit the format string to create parameter's name
 			x->attr_size = paramarray_parse_bracket(atom_getsym(&argv[0]), &x->attr_format);
-		
-			post("Format");
-			post(x->attr_format, x->attr_size);
 			
 			x->attr_argc = argc-1;
 			x->attr_argv = (t_atom *)sysmem_newptr((long)sizeof(t_atom)*x->attr_argc);
@@ -243,15 +237,30 @@ void paramarray_list(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv)
 void paramarray_anything(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv)
 {
 	InternalObject		*anObject;
+	t_atom				*margv;
 	t_max_err			err;
+	int i;
 	
 	if(x->attr_selection == gensym("*")){
 		;
 	}
 	else{
 		err = hashtab_lookup(x->hash_internals, x->attr_selection, (t_object**)&anObject);
-		if(!err)
-			object_method_typed(anObject->theObject, jps_dispatched, argc, argv, NULL);
+		if(!err){
+			if(msg == _sym_nothing)
+				object_method_typed(anObject->theObject, jps_dispatched, argc, argv, NULL);
+			else{
+				// prepend msg to argv
+				margv = (t_atom *)sysmem_newptr((long)sizeof(t_atom)*(argc+1));
+				atom_setsym(margv,msg);
+				for(i = 1; i < argc+1; i++)
+					jcom_core_atom_copy(&margv[i],&argv[i-1]);
+				
+				object_method_typed(anObject->theObject, jps_dispatched, argc+1, margv, NULL);
+				
+				free(margv);
+			}
+		}
 	}
 }
 
