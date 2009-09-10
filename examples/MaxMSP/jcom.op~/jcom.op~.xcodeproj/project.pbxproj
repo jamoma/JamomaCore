@@ -211,10 +211,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22EB3AD2102E603F006D027A /* tt-max.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
