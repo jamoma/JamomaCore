@@ -9,6 +9,8 @@ Tools/installertools/Windows/root
 *.ttdll
 *.log
 
+*.orig
+
 /Tools/installertools/Windows/JamomaC74.wixobj
 /Tools/installertools/Windows/JamomaC74.wxs
 /Tools/installertools/Windows/JamomaExtensions.wixobj
