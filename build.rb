@@ -30,22 +30,35 @@ clean = false;
 @debug = false;
 
 if(ARGV.length > 1)
-  if(ARGV[1] != "0" || ARGV[1] != "false")
+  if(ARGV[1] != "0" && ARGV[1] != "false" && ARGV[1] != false)
     clean = true;
   end
 end
 
 if(ARGV.length > 2)
-  if(ARGV[2] != "0" || ARGV[2] != "false")
+  if(ARGV[2] != "0" && ARGV[2] != "false" && ARGV[2] != false)
     @debug = true;
   end
 end
 
+version = nil
+revision = nil
+
+if(ARGV.length > 3)
+  version = ARGV[3]
+end
+if(ARGV.length > 4)
+  revision = ARGV[4]
+end
+
+
 puts "Building Jamoma Multicore"
 puts "==================================================="
 puts "  configuration: #{configuration}"
-puts "  clean: #{clean}"
+puts "  clean:   #{clean}"
 #puts "  debug the build script: #{debug}"
+puts "  version: #{version}"
+puts "  rev:     #{revision}"
 puts "  "
 
 
@@ -129,6 +142,3 @@ end
 ###################################################################
 close_logs
 puts ""
-exit 0;
-
-
