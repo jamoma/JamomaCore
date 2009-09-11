@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 116.0, 106.0, 1164.0, 708.0 ],
+		"rect" : [ 66.0, 44.0, 1164.0, 708.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 116.0, 106.0, 1164.0, 708.0 ],
+		"defrect" : [ 66.0, 44.0, 1164.0, 708.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -662,9 +662,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 44.0, 47.0, 276.0, 765.0 ],
+						"rect" : [ 346.0, 44.0, 276.0, 765.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 44.0, 47.0, 276.0, 765.0 ],
+						"defrect" : [ 346.0, 44.0, 276.0, 765.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -730,8 +730,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "bang", "" ],
-									"patching_rect" : [ 295.0, 65.0, 89.0, 19.0 ],
-									"text" : "sel /panel/open"
+									"patching_rect" : [ 295.0, 65.0, 87.0, 19.0 ],
+									"text" : "sel /view/panel"
 								}
 
 							}
@@ -784,13 +784,13 @@
 ,
 					"patching_rect" : [ 183.0, 366.0, 64.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"globalpatchername" : "",
 						"default_fontface" : 0,
+						"fontface" : 0,
+						"fontsize" : 10.0,
 						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p inspector",
