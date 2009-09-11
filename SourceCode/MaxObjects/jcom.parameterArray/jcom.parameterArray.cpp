@@ -106,6 +106,7 @@ t_paramarray* paramarray_new(t_symbol *s, long argc, t_atom *argv)
 void paramarray_free(t_paramarray *x)
 {	
 	free(x->attr_format);
+	free(x->attr_argv);
 	paramarray_destroy_array(x);
 }
 
