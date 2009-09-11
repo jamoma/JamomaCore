@@ -55,6 +55,7 @@ void			paramarray_create_array(t_paramarray* x, t_symbol *msg, long argc, t_atom
 void			paramarray_destroy_array(t_paramarray *x);
 void			paramarray_callback(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv);
 long			paramarray_count_subscription(t_paramarray *x);
+void			paramarray_parameter_name(char* format, t_symbol **returnedName, long i);
 
 // prototypes: parsing (TODO : include this into the NodeLib)
 //void			paramarray_splitNameInstance(t_symbol *name_instance, t_symbol **returnedName, t_symbol **returnedInstance);

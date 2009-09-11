@@ -52,7 +52,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 t_paramarray* paramarray_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_paramarray	*x = NULL;
-	char			*s_num;
 	int				i;
 
 	if(x = (t_paramarray*)object_alloc(s_paramarray_class)){
@@ -89,10 +88,7 @@ t_paramarray* paramarray_new(t_symbol *s, long argc, t_atom *argv)
 				defer((t_object*)x,(method)paramarray_create_array, NULL, x->attr_argc , x->attr_argv);
 				
 				// select the first parameter
-				s_num = (char *)malloc(sizeof(char)*256);
-				snprintf(s_num, 256, x->attr_format, 1);
-				x->attr_selection = gensym(s_num);
-				free(s_num);
+				paramarray_parameter_name(x->attr_format, &x->attr_selection, 1);
 			}
 			else
 				object_error((t_object*)x, "Error during the parsing of the name");
@@ -295,33 +291,21 @@ void paramarray_size(t_paramarray* x, long new_size)
 }
 
 void paramarray_set(t_paramarray* x, long n)
-{
-	char *s_num;
-	
+{	
 	// edit selection
-	if(x->attr_format){
-		s_num = (char *)malloc(sizeof(char)*256);
-		snprintf(s_num, 256, x->attr_format, n);
-		x->attr_selection = gensym(s_num);
-		
-		free(s_num);
-	}
+	if(x->attr_format)
+		paramarray_parameter_name(x->attr_format, &x->attr_selection, n);
+
 }
 
 void paramarray_in1(t_paramarray *x, long n)
 {
-	char *s_num;
-	
-	// edit selection
 	if(x->attr_format){
-		s_num = (char *)malloc(sizeof(char)*256);
-		snprintf(s_num, 256, x->attr_format, n);
-		x->attr_selection = gensym(s_num);
+		// edit selection
+		paramarray_parameter_name(x->attr_format, &x->attr_selection, n);
 		
 		// bang selection
 		defer((t_object*)x,(method)paramarray_bang,_sym_bang,NULL,NULL);
-		
-		free(s_num);
 	}
 }
 
@@ -329,12 +313,12 @@ void paramarray_create_array(t_paramarray* x, t_symbol *msg, long argc, t_atom* 
 {
 	InternalObject *anObject;
 	t_max_err err;
-	char *s_num;
+	t_symbol *s_param;
 	int i, j, ht_size;
 	t_atom a[1];
 	
 	if(x->attr_format){
-			
+		
 		// memorize how many parameters subscribe currently
 		ht_size = paramarray_count_subscription(x);
 		
@@ -342,24 +326,23 @@ void paramarray_create_array(t_paramarray* x, t_symbol *msg, long argc, t_atom* 
 		for(i = 1; i <= x->new_size; i++){
 			
 			// create a parameter name
-			s_num = (char *)malloc(sizeof(char)*256);
-			snprintf(s_num, 256, x->attr_format, i);
+			paramarray_parameter_name(x->attr_format, &s_param, i);
 			
 			// check if the parameter already exists in the hash tab
-			err = hashtab_lookup(x->hash_internals, gensym(s_num), (t_object**)&anObject);
+			err = hashtab_lookup(x->hash_internals, s_param, (t_object**)&anObject);
 			
 			// if it doesn't exist, create it
 			if(err){
 				
 				if(argc && argv)
 					// use the new attributes
-					anObject = new InternalObject(x->patcher, gensym("jcom.parameter"), gensym(s_num), argc, argv);
+					anObject = new InternalObject(x->patcher, gensym("jcom.parameter"), s_param, argc, argv);
 				else
 					// use the native attributes
-					anObject = new InternalObject(x->patcher, gensym("jcom.parameter"), gensym(s_num), x->attr_argc, x->attr_argv);
+					anObject = new InternalObject(x->patcher, gensym("jcom.parameter"), s_param, x->attr_argc, x->attr_argv);
 				
 				anObject->setAction((method)paramarray_callback, (t_object*)x);
-				hashtab_store(x->hash_internals, gensym(s_num), (t_object*)anObject);
+				hashtab_store(x->hash_internals, s_param, (t_object*)anObject);
 				anObject->index = i+1;	// store the instance to avoid a parse of the instance in the callback
 			}
 			// if it already exists 
@@ -369,38 +352,35 @@ void paramarray_create_array(t_paramarray* x, t_symbol *msg, long argc, t_atom* 
 					object_method(anObject->theObject, jps_subscribe);
 					anObject->subscribe = true;
 				}
-			}
-			free(s_num);
-		}// end for each parameter lk_instances
-		
-		// then, if it is a creation of a smaler array than the previous
-		// TODO : unsubscribe parameters witch are out of the array (no destruction to keep the value)
-		// CURRENTLY : destroy the parameter
-		if(x->new_size < ht_size){
-			for(j = x->new_size+1; j <= ht_size; j++){
-				s_num = (char *)malloc(sizeof(char)*256);
-				anObject = NULL;
-				snprintf(s_num, 256, x->attr_format, j);
-				err = hashtab_lookup(x->hash_internals, gensym(s_num), (t_object**)&anObject);
-				
-				// TODO : if(!err && x->hub){
+			}// end for each parameter lk_instances
+			
+			// then, if it is a creation of a smaler array than the previous
+			// TODO : unsubscribe parameters witch are out of the array (no destruction to keep the value)
+			// CURRENTLY : destroy the parameter
+			if(x->new_size < ht_size){
+				for(j = x->new_size+1; j <= ht_size; j++){
+					anObject = NULL;
+					paramarray_parameter_name(x->attr_format, &s_param, j);
+					err = hashtab_lookup(x->hash_internals, s_param, (t_object**)&anObject);
+					
+					// TODO : if(!err && x->hub){
 					// TODO : object_method(x->hub, jps_unsubscribe, anObject->theObject);
 					// TODO : anObject->subscribe = false;
-				
-				// CURRENTLY
-				if(!err){
+					
 					// CURRENTLY
-					hashtab_delete(x->hash_internals, gensym(s_num));
-					delete anObject;
+					if(!err){
+						// CURRENTLY
+						hashtab_delete(x->hash_internals,  s_param);
+						delete anObject;
+					}
 				}
-				free(s_num);
 			}
+			
+			// output the new array size
+			x->attr_size = x->new_size;
+			atom_setlong(a, x->attr_size); 
+			outlet_anything(x->info_outlet, _sym_size, 1, a);
 		}
-		
-		// output the new array size
-		x->attr_size = x->new_size;
-		atom_setlong(a, x->attr_size); 
-		outlet_anything(x->info_outlet, _sym_size, 1, a);
 	}
 }
 	
@@ -469,6 +449,18 @@ long paramarray_count_subscription(t_paramarray *x)
 		sysmem_freeptr(keys);
 	}
 	return count;
+}
+
+void paramarray_parameter_name(char* format, t_symbol **returnedName, long i)
+{
+	char *s_num;
+	long len;
+
+	len = strlen(format);
+	s_num = (char *)malloc(sizeof(char)*len);
+	snprintf(s_num, len, format, i);
+	*returnedName = gensym(s_num);
+	free(s_num);
 }
 
 /*
