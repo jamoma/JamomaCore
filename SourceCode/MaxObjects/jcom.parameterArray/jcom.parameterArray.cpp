@@ -74,17 +74,19 @@ t_paramarray* paramarray_new(t_symbol *s, long argc, t_atom *argv)
 			x->attr_size = 0;
 			x->attr_selection = _sym_nothing;
 			x->last_instance = 0;
+			x->attr_size = 0;
 			
 			// edit the format string to create parameter's name
-			x->attr_size = paramarray_parse_bracket(atom_getsym(&argv[0]), &x->attr_format);
+			x->new_size = paramarray_parse_bracket(atom_getsym(&argv[0]), &x->attr_format);
 			
 			x->attr_argc = argc-1;
 			x->attr_argv = (t_atom *)sysmem_newptr((long)sizeof(t_atom)*x->attr_argc);
 			for(i = 0; i < x->attr_argc; i++)
 				jcom_core_atom_copy(&x->attr_argv[i],&argv[i+1]);
 
-			if(x->attr_size){
-				paramarray_create_array(x, x->attr_size, x->attr_argc, x->attr_argv);
+			if(x->new_size && x->attr_argc){
+
+				defer((t_object*)x,(method)paramarray_create_array, NULL, x->attr_argc , x->attr_argv);
 				
 				// select the first parameter
 				s_num = (char *)malloc(sizeof(char)*256);
@@ -125,6 +127,7 @@ void paramarray_free(t_paramarray *x)
 		sysmem_freeptr(keys);
 	
 	hashtab_chuck(x->hash_internals);
+	free(x->attr_format);
 }
 
 // This method is called by the hub
@@ -273,8 +276,10 @@ void paramarray_add(t_paramarray* x, long i_add)
 		ht_size =  paramarray_count_subscription(x);
 		new_size =  ht_size + i_add;
 		
-		if(new_size >= 0)
-			paramarray_create_array(x, new_size, NULL, NULL);
+		if(new_size >= 0){
+			x->new_size = new_size;
+			defer((t_object*)x,(method)paramarray_create_array, NULL, NULL , NULL);
+		}
 	}
 }
 
@@ -287,15 +292,19 @@ void paramarray_remove(t_paramarray* x, long i_rm)
 		ht_size =  paramarray_count_subscription(x);
 		new_size =  ht_size - i_rm;
 		
-		if(new_size >= 0)
-			paramarray_create_array(x, new_size, NULL, NULL);
+		if(new_size >= 0){
+			x->new_size = new_size;
+			defer((t_object*)x,(method)paramarray_create_array, NULL, NULL , NULL);
+		}
 	}
 }
 
 void paramarray_size(t_paramarray* x, long new_size)
 {	
-	if(new_size >= 0)
-		paramarray_create_array(x, new_size, NULL, NULL);
+	if(new_size >= 0){
+		x->new_size = new_size;
+		defer((t_object*)x,(method)paramarray_create_array, NULL, NULL , NULL);
+	}
 }
 
 void paramarray_set(t_paramarray* x, long n)
@@ -303,11 +312,13 @@ void paramarray_set(t_paramarray* x, long n)
 	char *s_num;
 	
 	// edit selection
-	s_num = (char *)malloc(sizeof(char)*256);
-	snprintf(s_num, 256, x->attr_format, n);
-	x->attr_selection = gensym(s_num);
-	
-	free(s_num);
+	if(x->attr_format){
+		s_num = (char *)malloc(sizeof(char)*256);
+		snprintf(s_num, 256, x->attr_format, n);
+		x->attr_selection = gensym(s_num);
+		
+		free(s_num);
+	}
 }
 
 void paramarray_in1(t_paramarray *x, long n)
@@ -315,61 +326,53 @@ void paramarray_in1(t_paramarray *x, long n)
 	char *s_num;
 	
 	// edit selection
-	s_num = (char *)malloc(sizeof(char)*256);
-	snprintf(s_num, 256, x->attr_format, n);
-	x->attr_selection = gensym(s_num);
-	
-	// bang selection
-	defer((t_object*)x,(method)paramarray_bang,_sym_bang,NULL,NULL);
-	
-	free(s_num);
+	if(x->attr_format){
+		s_num = (char *)malloc(sizeof(char)*256);
+		snprintf(s_num, 256, x->attr_format, n);
+		x->attr_selection = gensym(s_num);
+		
+		// bang selection
+		defer((t_object*)x,(method)paramarray_bang,_sym_bang,NULL,NULL);
+		
+		free(s_num);
+	}
 }
 
-void paramarray_create_array(t_paramarray* x, long size, long argc, t_atom* argv)
+void paramarray_create_array(t_paramarray* x, t_symbol *msg, long argc, t_atom* argv)
 {
 	InternalObject *anObject;
-	t_symbol *s_i;
-	t_linklist *lk_instances;
 	t_max_err err;
 	char *s_num;
 	int i, j, ht_size;
 	t_atom a[1];
 	
-	// editing the list of name.1, name.2, ..., name.size
-	lk_instances = linklist_new();
-	for(i = 1; i <= size; i++){
-		s_num = (char *)malloc(sizeof(char)*256);
-		snprintf(s_num, 256, x->attr_format, i);
-		linklist_append(lk_instances,gensym(s_num));
-		free(s_num);
-	}
-	
-	if(lk_instances){
-		
+	if(x->attr_format){
+			
 		// memorize how many parameters subscribe currently
 		ht_size = paramarray_count_subscription(x);
 		
-		// for each new parameter of lk_instances
-		for(i = 0; i < size; i++){
+		// for each desired parameters
+		for(i = 1; i <= x->new_size; i++){
 			
-			s_i = (t_symbol*)linklist_getindex(lk_instances,i);
+			// create a parameter name
+			s_num = (char *)malloc(sizeof(char)*256);
+			snprintf(s_num, 256, x->attr_format, i);
 			
 			// check if the parameter already exists in the hash tab
-			err = hashtab_lookup(x->hash_internals, s_i, (t_object**)&anObject);
+			err = hashtab_lookup(x->hash_internals, gensym(s_num), (t_object**)&anObject);
 			
 			// if it doesn't exist, create it
 			if(err){
 				
 				if(argc && argv)
 					// use the new attributes
-					anObject = new InternalObject(x->patcher, gensym("jcom.parameter"), s_i, argc, argv);
+					anObject = new InternalObject(x->patcher, gensym("jcom.parameter"), gensym(s_num), argc, argv);
 				else
 					// use the native attributes
-					anObject = new InternalObject(x->patcher, gensym("jcom.parameter"), s_i, x->attr_argc, x->attr_argv);
-
+					anObject = new InternalObject(x->patcher, gensym("jcom.parameter"), gensym(s_num), x->attr_argc, x->attr_argv);
 				
 				anObject->setAction((method)paramarray_callback, (t_object*)x);
-				hashtab_store(x->hash_internals, s_i, (t_object*)anObject);
+				hashtab_store(x->hash_internals, gensym(s_num), (t_object*)anObject);
 				anObject->index = i+1;	// store the instance to avoid a parse of the instance in the callback
 			}
 			// if it already exists 
@@ -380,13 +383,15 @@ void paramarray_create_array(t_paramarray* x, long size, long argc, t_atom* argv
 					anObject->subscribe = true;
 				}
 			}
+			
+			free(s_num);
 		}// end for each parameter lk_instances
 		
 		// then, if it is a creation of a smaler array than the previous
 		// TODO : unsubscribe parameters witch are out of the array (no destruction to keep the value)
 		// CURRENTLY : destroy the parameter
-		if(size < ht_size){
-			for(j = size+1; j <= ht_size; j++){
+		if(x->new_size < ht_size){
+			for(j = x->new_size+1; j <= ht_size; j++){
 				s_num = (char *)malloc(sizeof(char)*256);
 				anObject = NULL;
 				snprintf(s_num, 256, x->attr_format, j);
@@ -404,11 +409,9 @@ void paramarray_create_array(t_paramarray* x, long size, long argc, t_atom* argv
 		}
 		
 		// output the new array size
-		x->attr_size = paramarray_count_subscription(x);
+		x->attr_size = x->new_size;
 		atom_setlong(a, x->attr_size); 
 		outlet_anything(x->info_outlet, _sym_size, 1, a);
-		
-		linklist_chuck(lk_instances);
 	}
 }
 	
@@ -501,15 +504,15 @@ void paramarray_splitNameInstance(t_symbol *name_instance, t_symbol **returnedNa
 // returned the N inside "pp/xx[N]/yyy" and return a format string as "pp/xx.%d/yy"
 long	paramarray_parse_bracket(t_symbol *s, char **s_format)
 {
-	int len, flen, ablen, pos, i_num = 1;
+	int len, flen, pos, i_num = 1;
 	char *start_bracket = NULL;
 	char *end_bracket = NULL;
-	char *after_bracket = NULL;
 	char *to_parse, *s_num;
-
+	
 	if(s){
 		
 		to_parse = (char *)malloc(sizeof(char)*(strlen(s->s_name)+1));
+		
 		strcpy(to_parse,s->s_name);
 		
 		// find '[' and ']' in the instance
@@ -522,25 +525,26 @@ long	paramarray_parse_bracket(t_symbol *s, char **s_format)
 			len = (int)end_bracket - (int)start_bracket;
 			s_num = (char *)malloc(sizeof(char)*(len+1));
 			strcpy(s_num,to_parse + pos + 1);
-			free(to_parse);
+			
 			sscanf(s_num, "%d", &i_num);	// only for Mac ???
 			
 			// edit a format string
-			flen = strlen(to_parse) - len + 3; // +3 for \%d
-			ablen = strlen(to_parse) - pos - len; // lenght of after_bracket
+			flen = strlen(to_parse) - len + 2; // +3 for \%d
 			*s_format = (char *)malloc(sizeof(char)*(flen+1));
-			after_bracket = (char *)malloc(sizeof(char)*(ablen+1));
 			
-			strncpy(*s_format,to_parse,pos);
-			strcpy(after_bracket, to_parse + pos + len + 1);
+			strncpy(*s_format, to_parse, pos);
 			(*s_format)[pos] = '\%';
 			(*s_format)[pos+1] = 'd';
 			(*s_format)[pos+2] = '\0';
-			strcat(*s_format, after_bracket);
-			(*s_format)[flen] = '\0';
+			strcat(*s_format, to_parse + pos + len + 1);
+			
+			free(to_parse);
+			free(s_num);
 			
 			return i_num;
 		}	
 	}
+	
+	*s_format = NULL;
 	return NULL;	
 }

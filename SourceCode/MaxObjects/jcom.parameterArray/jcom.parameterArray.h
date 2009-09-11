@@ -25,6 +25,7 @@ typedef struct _paramarray{
 	t_hashtab			*hash_internals;		///< hash table of internal jcom.parameter and jcom.message instances
 	char				*attr_format;			///< the format string to edit parameter's name ("node.%d/param")
 	long				attr_size;				///< the size of the hash table
+	long				new_size;				///< the size desired by the user
 	t_symbol			*attr_selection;		///< selected parameter(s) to send data
 	long				attr_argc;				///< attribute lenght (used to create more parameters with the same attributes)
 	t_atom				*attr_argv;				///< attribute atoms (used to create more parameters with the same attributes)
@@ -50,7 +51,7 @@ void			paramarray_set(t_paramarray* x, long n);
 void			paramarray_in1(t_paramarray *x, long n);
 
 // prototypes: internal parameters
-void			paramarray_create_array(t_paramarray* x, long size, long argc, t_atom* argv);
+void			paramarray_create_array(t_paramarray* x, t_symbol *msg, long argc, t_atom* argv);
 void			paramarray_destroy_parameter(t_paramarray *x, t_symbol *msg);
 void			paramarray_callback(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv);
 long			paramarray_count_subscription(t_paramarray *x);
@@ -68,7 +69,7 @@ public:
 	
 	InternalObject(ObjectPtr patcher, t_symbol *classname, t_symbol *subscribername, long argc, t_atom *argv)
 	{
-		t_atom	*a = (t_atom *)malloc(sizeof(t_atom)*(argc+2));
+		t_atom	*a = (t_atom *)sysmem_newptr(sizeof(t_atom)*(argc+2));
 		int		i;
 		
 		// Add the patcher and the subscriber name as argument
@@ -79,7 +80,8 @@ public:
 		}
 		theObject = NULL;
 		subscribe = true;
-		jcom_core_loadextern(classname, i, a, &theObject);
+		//theObject = (t_object *)object_new_typed(CLASS_BOX, classname, argc+2, a);
+		jcom_core_loadextern(classname, argc+2, a, &theObject);
 	}
 	
 	~InternalObject()
