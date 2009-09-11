@@ -1,0 +1,1112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>
+			Jamoma modules
+		</title>
+		<style type="text/css">
+		body {
+			margin: 0px;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		h1 {
+			font-size: 24px;
+			font-weight: 100;
+			padding-top: 1em;
+			margin: 0;
+		}
+		h2 {
+			font-size: 18px;
+			font-weight: 200;
+			margin: 0;
+			color: #555;
+			text-transform: lowercase;
+		}
+		h3 {
+			color: #888;
+			border-bottom: 1px solid #333;
+			font-size: 18px;
+			font-weight: 100;
+			margin-top: 20px;
+			margin-bottom: 10px;
+			margin-left: 2%;
+			margin-right: 2%;
+		}
+		h4 {
+			color: #333;
+			font-size: 14px;
+			font-weight: bold;
+			margin-bottom: 0px;
+			margin-left: 2%;
+			margin-right: 2%;
+		}
+		h6 {
+			font-size: 12px;
+			font-weight: 100;
+			line-height: 1.2;
+			margin-right: 2%;
+			margin-left: 2%;
+		}
+		p {
+			font-size: 12px;
+			font-weight: 100;
+			margin: 5px 2%;
+			padding-bottom: 1em;
+		}
+		ul {
+			margin-top: 0;
+			padding-top: 0;
+		}
+		li {
+			font-size: 12px;
+			font-weight: 100;
+			margin-top: 0;
+			margin-left: 10px;
+			padding: 0em 0em 0.3em;
+		}
+		img {
+			padding: 10px 10px 0px 0px;
+		}
+		#jmod_header {
+			display: block;
+			margin: 0 0 40px 0;
+		}
+		#jmod_header img {
+			float: left;
+		}
+		.objectname {
+			font-size: 24px;
+			font-weight: bold;
+		}
+		.moduleName {
+			font-size: 2em;
+			background-color: #c5c5c5;
+			text-align: right;
+			vertical-align: top;
+			font-weight: bold;
+		}
+		.moduleDescription {
+			font-size: 1em;
+			background-color: #000000;
+			color: #c5c5c5;
+			text-align: right;
+			vertical-align: top;
+		}
+		."tableHeading2" {
+			background-color: #eee;
+			text-align: left;
+			vertical-align: top;
+			font-weight: bold;
+			font-size: 12px;
+		}
+		table {
+			border: 0px;
+			width: 96%;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			margin-left: 2%;
+			font-size: 14px;
+		}
+		.instructionName {
+			font-family: 'Courier New', Courier, mono;
+			background-color: #edd;
+			vertical-align: top;
+		}
+		.instructionType {
+			font-family: 'Times New Roman', Times, serif;
+			background-color: #eee;
+			vertical-align: top;
+		}
+		.instructionDataspace {
+			font-family: 'Times New Roman', Times, serif;
+			background-color: #eed;
+			vertical-align: top;
+		}
+		.instructionRangeBounds {
+			font-family: 'Times New Roman', Times, serif;
+			background-color: #eee;
+			vertical-align: top;
+		}
+		.instructionRangeClipmode {
+			font-family: 'Times New Roman', Times, serif;
+			background-color: #eed;
+			vertical-align: top;
+		}
+		.instructionRampDrive {
+			font-family: 'Times New Roman', Times, serif;
+			background-color: #eee;
+			vertical-align: top;
+		}
+		.instructionRampFunction {
+			font-family: 'Times New Roman', Times, serif;
+			background-color: #eed;
+			vertical-align: top;
+		}
+		.instructionRepetitionsAllow {
+			font-family: 'Times New Roman', Times, serif;
+			background-color: #eee;
+			vertical-align: top;
+		}
+		.instructionDescription {
+			font-family: 'Times New Roman', Times, serif;
+			background-color: #eed;
+			vertical-align: top;
+		}
+		td {
+			padding-right: 5px;
+			padding-left: 5px;
+		}
+		ul {
+			list-style-type: disc;
+		}
+		.patchimage {
+			clear: both;
+		}
+		.comment {
+			color: #6666FF;
+		}
+		.smallTable {
+			width: 400px;
+			border: none;
+		}
+		caption {
+			font-size: 11px;
+			font-style: italic;
+		}
+		.filepath {
+			font-family: 'Courier New', Courier, mono;
+		}
+		.instruction {
+			font-family: 'Courier New', Courier, mono;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="jmod_header">
+			<img src="../../documentation/graphics/jmodular.icon.png" width="128" height="128">
+			<h1>
+				Index of modules
+			</h1>
+			<h2>
+				Modules provided with the Jamoma distribution
+			</h2>
+			<h6>
+				<a href="../../documentation/html/index.html">Table of Contents</a> | <a href="http://jamoma.org/">Jamoma.org</a>
+			</h6>
+		</div>
+		
+		<h3>
+			audio modules
+		</h3>
+		<table>
+			<tr class="tableHeading2">
+				<td>
+					Name
+				</td>
+				<td>
+					Description
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.10harmonics~
+				</td>
+				<td class="instructionDescription">
+					A module for additive synthesis
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.crossfade~
+				</td>
+				<td class="instructionDescription">
+					Module for crossfading between two sound sources
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.degrade~
+				</td>
+				<td class="instructionDescription">
+					Degrade audio signal
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.delay~
+				</td>
+				<td class="instructionDescription">
+					Sample-accurate delay module
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.echo~
+				</td>
+				<td class="instructionDescription">
+					Stereo echo module
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.equalizer~
+				</td>
+				<td class="instructionDescription">
+					Audio equalizer module (multi-band filter)
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.filter~
+				</td>
+				<td class="instructionDescription">
+					Audio filter module
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.fluidsynth~
+				</td>
+				<td class="instructionDescription">
+					Synth based on the fluidsynth using soundfonts
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.input~
+				</td>
+				<td class="instructionDescription">
+					Generic stereo audio input module
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.limiter~
+				</td>
+				<td class="instructionDescription">
+					Stereo limiter module
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.multidelay~
+				</td>
+				<td class="instructionDescription">
+					Sample-accurate delay module with 5 delay lines per channel and feedback
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.noisegate~
+				</td>
+				<td class="instructionDescription">
+					A noise gate module
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.noise~
+				</td>
+				<td class="instructionDescription">
+					Different noise functions
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.output~
+				</td>
+				<td class="instructionDescription">
+					Generic stereo output module with some master fx and recording
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.rissetGlissando~
+				</td>
+				<td class="instructionDescription">
+					Audio synthesis generating Shepard/Risset infinite glissandi
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sampleplayer2~
+				</td>
+				<td class="instructionDescription">
+					A sampleplayer with separate control for pitch and speed based on buffer~, groove~ and gizmo~ 
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.saturation~
+				</td>
+				<td class="instructionDescription">
+					Stereo saturation/distortion effect
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.scope~
+				</td>
+				<td class="instructionDescription">
+					Visualization of audio signal
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sine~
+				</td>
+				<td class="instructionDescription">
+					Playing simple waveforms
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.spectralShift~
+				</td>
+				<td class="instructionDescription">
+					4 in 1 kinderegg: Pitch shift, frequency shift, feedback delay and limiter
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.tremolo~
+				</td>
+				<td class="instructionDescription">
+					Stereo tremolo effect with channel phase offset
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.vst~
+				</td>
+				<td class="instructionDescription">
+					VST plug-ins hosting module
+				</td>
+			</tr>
+		</table>
+		<h3>
+			control modules
+		</h3>
+		<table>
+			<tr class="tableHeading2">
+				<td>
+					Name
+				</td>
+				<td>
+					Description
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.bcf2000
+				</td>
+				<td class="instructionDescription">
+					Module interfacing with the Behringer BCF2000 motorized controller
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.colorpicker
+				</td>
+				<td class="instructionDescription">
+					a module for setting up to 12 RGB triplets as a parameter of type array
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.continuum
+				</td>
+				<td class="instructionDescription">
+					Module interfacing with the Haken Continuum Fingerboard
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.cpuTest
+				</td>
+				<td class="instructionDescription">
+					A module to report time between two events
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.cueManager
+				</td>
+				<td class="instructionDescription">
+					Module for managing cuelists
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.cueScript
+				</td>
+				<td class="instructionDescription">
+					A module for remote communication to modules by means of a text format cue script
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.cueTrigger
+				</td>
+				<td class="instructionDescription">
+					Graphical interface triggering cues
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.fileBrowser
+				</td>
+				<td class="instructionDescription">
+					Choose files to play in your audio or video player
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.fileNameGenerator
+				</td>
+				<td class="instructionDescription">
+					Generate indexed file names
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.hi
+				</td>
+				<td class="instructionDescription">
+					Use any general human interface device (HID). Outputs OSC-messages.
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.layout
+				</td>
+				<td class="instructionDescription">
+					Store position of this patcher's modules into presets
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.mapper
+				</td>
+				<td class="instructionDescription">
+					Manage parameter mappings for jamoma modules
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.mapperContinuous
+				</td>
+				<td class="instructionDescription">
+					a one-to-one continuous mapper
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.mapperDiscrete
+				</td>
+				<td class="instructionDescription">
+					A one-to-one mapper for discrete events
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.mapperMulti
+				</td>
+				<td class="instructionDescription">
+					A one-to-one continuous mapper
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.messages
+				</td>
+				<td class="instructionDescription">
+					A performance message display
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.midiin
+				</td>
+				<td class="instructionDescription">
+					Receive and output messages from a MIDI device
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.mouse
+				</td>
+				<td class="instructionDescription">
+					Outputting mouse information
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.mouse.gdif
+				</td>
+				<td class="instructionDescription">
+					Outputting mouse information
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.multicast
+				</td>
+				<td class="instructionDescription">
+					Multicast bonjour core
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.oscnet
+				</td>
+				<td class="instructionDescription">
+					Send and receive Open Sound Control (OSC) on a network port
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.palette
+				</td>
+				<td class="instructionDescription">
+					Create various blends of the 1 to 12 colors on the palette.
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.polhemus
+				</td>
+				<td class="instructionDescription">
+					Get data from Polhemus electromagnetic trackers
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.qmetro
+				</td>
+				<td class="instructionDescription">
+					A qmetro module (like metro, but can drop frames)
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.spacenavigator
+				</td>
+				<td class="instructionDescription">
+					Use the Space Navigator from 3D Connexion
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.uc-33
+				</td>
+				<td class="instructionDescription">
+					Module interfacing with the Edirol UC-33 MIDI fader
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.wacom
+				</td>
+				<td class="instructionDescription">
+					Use Wacom graphic tablets
+				</td>
+			</tr>
+		</table>
+		<h3>
+			data modules
+		</h3>
+		<table>
+			<tr class="tableHeading2">
+				<td>
+					Name
+				</td>
+				<td>
+					Description
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.condition
+				</td>
+				<td class="instructionDescription">
+					Condition a control signal
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.textwriter
+				</td>
+				<td class="instructionDescription">
+					Write data to a text file, with timestamping for each line of values
+				</td>
+			</tr>
+		</table>
+		<h3>
+			openGL modules
+		</h3>
+		<table>
+			<tr class="tableHeading2">
+				<td>
+					Name
+				</td>
+				<td>
+					Description
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.gl.alphamixer%
+				</td>
+				<td class="instructionDescription">
+					A four layer slab-based video mixer using alpha channel for each layer
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.gl.chromakey%
+				</td>
+				<td class="instructionDescription">
+					Slab-based keying based on chromatic distance
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.gl.edgeblend%
+				</td>
+				<td class="instructionDescription">
+					Slab-based edge blending with alpha channel
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.gl.background%
+				</td>
+				<td class="instructionDescription">
+					Slab-based background extractor (foreground remover)
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.gl.td.rota%
+				</td>
+				<td class="instructionDescription">
+					Slab-based rotation and repositioning
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.gl.text2d%
+				</td>
+				<td class="instructionDescription">
+					Read text file and display as OpenGL bitmap text
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.gl.videoplane%
+				</td>
+				<td class="instructionDescription">
+					Map incoming video as texture to OpenGL videoplane
+				</td>
+			</tr>
+		</table>
+		<h3>
+			spatialization modules
+		</h3>
+		<table>
+			<tr class="tableHeading2">
+				<td>
+					Name
+				</td>
+				<td>
+					Description
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.ambi.adjust~
+				</td>
+				<td class="instructionDescription">
+					Display levels and adjust relative weight for ambisonic components
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.ambi.decode~
+				</td>
+				<td class="instructionDescription">
+					Decode ambisonic signal
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.ambi.encodeM~
+				</td>
+				<td class="instructionDescription">
+					Ambisonic encoding of up to 32 mono sources
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.ambipan~
+				</td>
+				<td class="instructionDescription">
+					ICST Ambipanning
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.dbap~
+				</td>
+				<td class="instructionDescription">
+					Distance based amplitude panning
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.doppler~
+				</td>
+				<td class="instructionDescription">
+					Doppler effect
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.meters~
+				</td>
+				<td class="instructionDescription">
+					A multichannel meterbridge
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.multi.aux~
+				</td>
+				<td class="instructionDescription">
+					A module to distribute a multicable to three receivers
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.multi.input~
+				</td>
+				<td class="instructionDescription">
+					Playback of multichannel audiofiles based on sfplay
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.multi.in~
+				</td>
+				<td class="instructionDescription">
+					Put audio signals on a multicable
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.multi.out~
+				</td>
+				<td class="instructionDescription">
+					Put audio signals on a multicable
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.output~
+				</td>
+				<td class="instructionDescription">
+					Distribute multicable signals directly to dac~ output channels
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.position
+				</td>
+				<td class="instructionDescription">
+					Describe position of one surround voice as xyz coordinate
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.race~
+				</td>
+				<td class="instructionDescription">
+					Ambiophonics RACE implementation
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.rolloff~
+				</td>
+				<td class="instructionDescription">
+					Free-field amplitude roll-off with distance
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.setup
+				</td>
+				<td class="instructionDescription">
+					Describing arrangements of instances as sets of XYZ coordinates
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.speaker.delay~
+				</td>
+				<td class="instructionDescription">
+					Individual delay for up to 32 speakers in surround sound setups to correct for varying distances
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.speaker.distamp~
+				</td>
+				<td class="instructionDescription">
+					Module for compensating loudspeaker gains in irregular loudspeaker setups
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.sur.vbap~
+				</td>
+				<td class="instructionDescription">
+					Vector based amplitude panning
+				</td>
+			</tr>
+		</table>
+		<h3>
+			video modules
+		</h3>
+		<table>
+			<tr class="tableHeading2">
+				<td>
+					Name
+				</td>
+				<td>
+					Description
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.avg4%
+				</td>
+				<td class="instructionDescription">
+					Average 4 pixels of input for each pixel of output
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.background%
+				</td>
+				<td class="instructionDescription">
+					Background video substraction
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.blur%
+				</td>
+				<td class="instructionDescription">
+					Video blur effect
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.box%
+				</td>
+				<td class="instructionDescription">
+					Add boxes around objects in the video
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.brcosa%
+				</td>
+				<td class="instructionDescription">
+					Control brightness, contrast and saturation
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.chromakey%
+				</td>
+				<td class="instructionDescription">
+					Choke chromakey 2 sources
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.edge%
+				</td>
+				<td class="instructionDescription">
+					Edge detection
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.emboss%
+				</td>
+				<td class="instructionDescription">
+					Cheesy embossing effect
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.fluoride%
+				</td>
+				<td class="instructionDescription">
+					Neon glow effect
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.input%
+				</td>
+				<td class="instructionDescription">
+					Generic video input module
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.keyscreen%
+				</td>
+				<td class="instructionDescription">
+					Choke chromakey 3 sources
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.mblur%
+				</td>
+				<td class="instructionDescription">
+					Motion blur effect
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.motion%
+				</td>
+				<td class="instructionDescription">
+					Display a motion image
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.motion2%
+				</td>
+				<td class="instructionDescription">
+					A simplified motion module
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.motiongram%
+				</td>
+				<td class="instructionDescription">
+					Create motiongrams from video stream
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.moviePlayer%
+				</td>
+				<td class="instructionDescription">
+					Playback of Quicktime movies
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.op%
+				</td>
+				<td class="instructionDescription">
+					Mathematical operations on one or two matrices
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.orsize%
+				</td>
+				<td class="instructionDescription">
+					Change orientation and size of video
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.output%
+				</td>
+				<td class="instructionDescription">
+					Output video to an OpenGl driven window
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.plur%
+				</td>
+				<td class="instructionDescription">
+					Video feedback/washout effet
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.record%
+				</td>
+				<td class="instructionDescription">
+					A module for recording video to disk
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.similarity%
+				</td>
+				<td class="instructionDescription">
+					Create a similarity matrix from a video stream
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.wake%
+				</td>
+				<td class="instructionDescription">
+					Video feedback/washout effect
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.xfade%
+				</td>
+				<td class="instructionDescription">
+					Crossfade between two incoming video matrices
+				</td>
+			</tr>
+			<tr>
+				<td class="instructionName">
+					jmod.yfade%
+				</td>
+				<td class="instructionDescription">
+					Crossfade (Pan) a source to two outputs
+				</td>
+			</tr>
+		</table>
+		<h3>
+			About Jamoma
+		</h3>
+		<p>
+			Jamoma is a system for creating and exchanging structured Max patches. It consists of both a set of guidelines and an implementation of those guidelines. For more information please visit <a href="http://jamoma.org/">jamoma.org</a>.
+		</p>
+	</body>
+</html>
