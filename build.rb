@@ -93,6 +93,7 @@ zero_count
 puts "Updating Version Information..."
 zero_count
 
+# ReadMe
 file_path = "#{@svn_root}/Jamoma/ReadMe.rtf"
 if FileTest.exist?(file_path)
   f = File.open("#{file_path}", "r+")
@@ -113,6 +114,42 @@ if FileTest.exist?(file_path)
   f.close
 end
 
+#XCConfig
+file_path = "#{@svn_root}/SourceCode/Framework/JamomaModular.xcconfig"
+if FileTest.exist?(file_path)
+  f = File.open("#{file_path}", "r+")
+  str = f.read
+
+  if (version_mod == '' || version_mod.match(/rc(.*)/))
+    str.sub!(/PRODUCT_VERSION = (.*)/, "PRODUCT_VERSION = #{version_maj}.#{version_min}.#{version_sub}")
+  else
+    str.sub!(/PRODUCT_VERSION = (.*)/, "PRODUCT_VERSION = #{version_maj}.#{version_min}.#{version_sub}#{version_mod}")
+  end
+  str.sub!(/SVNREV = (.*)/, "SVNREV = #{revision}")
+
+  f.rewind
+  f.write(str)
+  f.truncate(f.pos)
+  f.close
+end
+
+#Header
+file_path = "#{@svn_root}/SourceCode/Framework/source/Jamoma.h"
+if FileTest.exist?(file_path)
+  f = File.open("#{file_path}", "r+")
+  str = f.read
+
+  if (version_mod == '' || version_mod.match(/rc(.*)/))
+    str.sub!(/#define JAMOMA_VERSION "(.*)"/, "#define JAMOMA_VERSION \"#{version_maj}.#{version_min}.#{version_sub}\"")
+  else
+    str.sub!(/#define JAMOMA_VERSION "(.*)"/, "#define JAMOMA_VERSION \"#{version_maj}.#{version_min}.#{version_sub} #{version_mod}\"")
+  end
+
+  f.rewind
+  f.write(str)
+  f.truncate(f.pos)
+  f.close
+end
 
 ex_total, ex_count = get_count
 puts ""
