@@ -9,6 +9,23 @@ libdir = "."
 Dir.chdir libdir             # change to libdir so that requires work
 require "support/jamomalib"
 
+
+# This defines a wrapper that we use to call shell commands
+def cmd(commandString)
+  out = ""
+  err = ""
+  
+  Open3.popen3(commandString) do |stdin, stdout, stderr|
+    out = stdout.read
+    err = stderr.read
+  end
+  #log_error(out)
+  #log_error(err)
+end
+
+
+
+
 if(ARGV.length == 0)
   puts "usage: "
   puts "build.rb <required:configuration> <optional:clean>"
@@ -97,8 +114,8 @@ puts "Building Extensions..."
 zero_count
 build_dir("extensions", configuration, clean)  
 ex_total, ex_count = get_count
-puts ""
-
+puts ""    
+     
 
 ###################################################################
 # EXTERNALS
@@ -124,9 +141,14 @@ if win32?
 	dst_folder = "windows"
 end
 
+
+puts "Copying maxhelps into Modular/Jamoma/Documentation/Jamoma-help"   
+if win32?
+`cp -pv examples/MaxMSP/*/*.maxhelp  ../Modular/Jamoma/documentation/jamoma-help` 
+else
+cmd("cp -pv examples/MaxMSP/*/*.maxhelp  ../Modular/Jamoma/documentation/jamoma-help ")
+end  
 puts ""
-
-
 ###################################################################
 # FINISH UP
 ###################################################################
