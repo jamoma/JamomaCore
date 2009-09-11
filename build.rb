@@ -8,6 +8,7 @@
 libdir = "."
 Dir.chdir libdir        # change to libdir so that requires work
 require "support/jamomalib"   # C74 build library
+require "date"
 
 if(ARGV.length == 0)
   puts "usage: "
@@ -92,33 +93,20 @@ zero_count
 puts "Updating Version Information..."
 zero_count
 
-#if  win32?
-#	build_project("#{@svn_root}/SourceCode/Framework", "JamomaModular.vcproj", configuration, true)
-#else
-#	build_project("#{@svn_root}/SourceCode/Framework", "JamomaModular.xcodeproj", configuration, true)
-#end
-
-#\fs36 \cf2 Version 0.5. RC 2 (5956)
-#\f1 \uc0\u8232 August 26th 2009\
-
-
 file_path = "#{@svn_root}/Jamoma/ReadMe.rtf"
 if FileTest.exist?(file_path)
   f = File.open("#{file_path}", "r+")
   str = f.read
 
-#  if(str.match(/PRODUCT_VERSION = #{version}/))
-#    puts "version number is the same"
-#  else
-#    str.gsub!(/(PRODUCT_VERSION = \d?\.\d?.\d?)/, "PRODUCT_VERSION = #{version}")
-    # we provide the build number as an argument to xcodebuild rather than modifying this file under version control
-    #str.gsub!(/(PRODUCT_BUILD = \d*)/, "PRODUCT_BUILD = #{@buildnum}")
-    if (version_mod != '')
-      str.sub!(/\\cf2 Version (.*)\n/, "\\cf2 Version #{version_maj}.#{version_min}.#{version_sub} #{version_mod} (#{revision})\n")
-    else
-      str.sub!(/\\cf2 Version (.*)\n/, "\\cf2 Version #{version_maj}.#{version_min}.#{version_sub} (#{revision})\n")
-    end
-#  end
+  if (version_mod != '')
+    str.sub!(/\\cf2 Version (.*)\n/, "\\cf2 Version #{version_maj}.#{version_min}.#{version_sub} #{version_mod} (#{revision})\n")
+  else
+    str.sub!(/\\cf2 Version (.*)\n/, "\\cf2 Version #{version_maj}.#{version_min}.#{version_sub} (#{revision})\n")
+  end
+
+  date = Date.today
+  str.sub!(/\\u8232 (.*)\\/, "\\u8232 #{date.strftime("%d %B %Y")}\\")  
+
   f.rewind
   f.write(str)
   f.truncate(f.pos)
