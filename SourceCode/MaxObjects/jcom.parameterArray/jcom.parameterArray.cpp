@@ -80,7 +80,7 @@ t_paramarray* paramarray_new(t_symbol *s, long argc, t_atom *argv)
 			x->new_size = paramarray_parse_bracket(atom_getsym(&argv[0]), &x->attr_format);
 			
 			x->attr_argc = argc-1;
-			x->attr_argv = (t_atom *)sysmem_newptr((long)sizeof(t_atom)*x->attr_argc);
+			x->attr_argv = (t_atom *)malloc((long)sizeof(t_atom)*x->attr_argc);
 			for(i = 0; i < x->attr_argc; i++)
 				jcom_core_atom_copy(&x->attr_argv[i],&argv[i+1]);
 
@@ -240,7 +240,7 @@ void paramarray_anything(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv
 				object_method_typed(anObject->theObject, jps_dispatched, argc, argv, NULL);
 			else{
 				// prepend msg to argv
-				margv = (t_atom *)sysmem_newptr((long)sizeof(t_atom)*(argc+1));
+				margv = (t_atom *)malloc((long)sizeof(t_atom)*(argc+1));
 				atom_setsym(margv,msg);
 				for(i = 1; i < argc+1; i++)
 					jcom_core_atom_copy(&margv[i],&argv[i-1]);
