@@ -501,15 +501,15 @@ void paramarray_splitNameInstance(t_symbol *name_instance, t_symbol **returnedNa
 // returned the N inside "pp/xx[N]/yyy" and return a format string as "pp/xx.%d/yy"
 long	paramarray_parse_bracket(t_symbol *s, char **s_format)
 {
-	int len, flen, ablen, pos, i_num = 1;
+	int len, flen, pos, i_num = 1;
 	char *start_bracket = NULL;
 	char *end_bracket = NULL;
-	char *after_bracket = NULL;
 	char *to_parse, *s_num;
-
+	
 	if(s){
 		
-		to_parse = (char *)malloc(sizeof(char)*(strlen(s->s_name)+1));
+		to_parse = (char *)sysmem_newptr(sizeof(char)*(strlen(s->s_name)+1));
+		
 		strcpy(to_parse,s->s_name);
 		
 		// find '[' and ']' in the instance
@@ -520,27 +520,27 @@ long	paramarray_parse_bracket(t_symbol *s, char **s_format)
 		if(start_bracket && end_bracket){
 			pos = (int)start_bracket - (int)to_parse;
 			len = (int)end_bracket - (int)start_bracket;
-			s_num = (char *)malloc(sizeof(char)*(len+1));
+			s_num = (char *)sysmem_newptr(sizeof(char)*(len+1));
 			strcpy(s_num,to_parse + pos + 1);
-			free(to_parse);
+			
 			sscanf(s_num, "%d", &i_num);	// only for Mac ???
 			
 			// edit a format string
-			flen = strlen(to_parse) - len + 3; // +3 for \%d
-			ablen = strlen(to_parse) - pos - len; // lenght of after_bracket
-			*s_format = (char *)malloc(sizeof(char)*(flen+1));
-			after_bracket = (char *)malloc(sizeof(char)*(ablen+1));
+			flen = strlen(to_parse) - len + 2; // +3 for \%d
+			*s_format = (char *)sysmem_newptr(sizeof(char)*(flen+1));
 			
-			strncpy(*s_format,to_parse,pos);
-			strcpy(after_bracket, to_parse + pos + len + 1);
+			strncpy(*s_format, to_parse, pos);
 			(*s_format)[pos] = '\%';
 			(*s_format)[pos+1] = 'd';
 			(*s_format)[pos+2] = '\0';
-			strcat(*s_format, after_bracket);
-			(*s_format)[flen] = '\0';
+			strcat(*s_format, to_parse + pos + len + 1);
+			
+			free(to_parse);
 			
 			return i_num;
 		}	
 	}
+	
+	*s_format = NULL;
 	return NULL;	
 }

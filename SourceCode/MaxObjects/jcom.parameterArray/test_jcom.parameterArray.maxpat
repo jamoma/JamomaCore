@@ -19,6 +19,20 @@
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-71",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 250.0, 339.0, 544.0, 19.0 ],
+					"text" : "jcom.parameterArray map.[10]/0123456789a @type decimal @repetitions/allow 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-60",
 					"maxclass" : "button",
 					"numinlets" : 1,
@@ -1127,13 +1141,13 @@
 ,
 					"patching_rect" : [ 63.0, 459.0, 55.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
+						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
+						"globalpatchername" : "",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
-						"globalpatchername" : "",
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p format"
@@ -1212,13 +1226,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-4",
-					"linecount" : 3,
+					"linecount" : 4,
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 492.0, 527.0, 252.0, 48.0 ],
-					"text" : "jcom.parameterArray gege.[3] @type integer @repetitions/allow 0 @range/bounds 0 10 @range/clipmode both"
+					"patching_rect" : [ 492.0, 527.0, 258.0, 62.0 ],
+					"text" : "jcom.parameterArray gege.[3] @type integer @repetitions/allow 0 @range/bounds 0 10 @range/clipmode both @description \"titi est un toto\""
 				}
 
 			}
@@ -1570,7 +1584,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-68", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 618.0, 588.0, 601.5, 588.0 ],
+					"midpoints" : [ 621.0, 588.0, 601.5, 588.0 ],
 					"source" : [ "obj-4", 1 ]
 				}
 
