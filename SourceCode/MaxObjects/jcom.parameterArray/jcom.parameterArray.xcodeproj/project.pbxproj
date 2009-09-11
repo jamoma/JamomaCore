@@ -16,7 +16,7 @@
 		22C9F7E2103338990062F7B8 /* tt-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F7E1103338990062F7B8 /* tt-max.xcconfig */; };
 		22C9F81910333A130062F7B8 /* JamomaMaxTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F81810333A130062F7B8 /* JamomaMaxTypes.h */; };
 		22C9F82510333A4C0062F7B8 /* JamomaModular.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F82410333A4C0062F7B8 /* JamomaModular.framework */; };
-		D2959B6A104AF45E00250E3F /* jcom.parameterArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2959B67104AF45E00250E3F /* jcom.parameterArray.cpp */; };
+		B1A5E5251059B36F0054BA3E /* jcom.parameterArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1A5E5241059B36F0054BA3E /* jcom.parameterArray.cpp */; };
 		D2959B6B104AF45E00250E3F /* jcom.parameterArray.h in Headers */ = {isa = PBXBuildFile; fileRef = D2959B68104AF45E00250E3F /* jcom.parameterArray.h */; };
 /* End PBXBuildFile section */
 
@@ -31,7 +31,7 @@
 		22C9F81810333A130062F7B8 /* JamomaMaxTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaMaxTypes.h; path = ../../../../../Tools/library/common/JamomaMaxTypes.h; sourceTree = SOURCE_ROOT; };
 		22C9F82410333A4C0062F7B8 /* JamomaModular.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaModular.framework; path = ../../Framework/build/UninstalledProducts/JamomaModular.framework; sourceTree = SOURCE_ROOT; };
 		2FBBEAE508F335360078DB84 /* jcom.parameterArray.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.parameterArray.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2959B67104AF45E00250E3F /* jcom.parameterArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.parameterArray.cpp; sourceTree = "<group>"; };
+		B1A5E5241059B36F0054BA3E /* jcom.parameterArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.parameterArray.cpp; sourceTree = "<group>"; };
 		D2959B68104AF45E00250E3F /* jcom.parameterArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.parameterArray.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,7 +80,7 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				D2959B67104AF45E00250E3F /* jcom.parameterArray.cpp */,
+				B1A5E5241059B36F0054BA3E /* jcom.parameterArray.cpp */,
 				D2959B68104AF45E00250E3F /* jcom.parameterArray.h */,
 				22C9F7D1103338310062F7B8 /* commonsyms.cpp */,
 			);
@@ -173,7 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C9F7D2103338310062F7B8 /* commonsyms.cpp in Sources */,
-				D2959B6A104AF45E00250E3F /* jcom.parameterArray.cpp in Sources */,
+				B1A5E5251059B36F0054BA3E /* jcom.parameterArray.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
