@@ -9,114 +9,136 @@
 #include "DistanceDataspace.h"
 
 
-CentimeterUnit::CentimeterUnit()
-	: DataspaceUnit("centimeter")
-{;}
+#define thisTTClass			CentimeterUnit
+#define thisTTClassName		"unit.centimeter"
+#define thisTTClassTags		"dataspace, distance"
 
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+CentimeterUnit::~CentimeterUnit(){;}		
 
-CentimeterUnit::~CentimeterUnit()
-{;}
-		
-
-void CentimeterUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void CentimeterUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms) * 0.01;
+//	output.setSize(1);
+//	*output = atom_getfloat(inputAtoms) * 0.01;
+	output = TTFloat64(input) * 0.01;
 }
 
 
-void CentimeterUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void CentimeterUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input * 100.0);
+//	output.setSize(1);
+//	atom_setfloat(*outputAtoms, *input * 100.0);
+	output = TTFloat64(input) * 100.0;
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
-FootUnit::FootUnit()
-	: DataspaceUnit("foot")
-{;}
 
+#define thisTTClass			FootUnit
+#define thisTTClassName		"unit.foot"
+#define thisTTClassTags		"dataspace, distance"
 
-FootUnit::~FootUnit()
-{;}
-		
-		
-void FootUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+FootUnit::~FootUnit(){;}		
+
+void FootUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms) / 3.281;
+//	output.setSize(1);
+//	*output = atom_getfloat(inputAtoms) / 3.281;
+	output = TTFloat64(input) / 3.281;
 }
 
 
-void FootUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void FootUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, (*input * 3.281));
+//	output.setSize(1);
+//	atom_setfloat(*outputAtoms, (*input * 3.281));
+	output = TTFloat64(input) * 3.281;
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
-InchUnit::InchUnit()
-	: DataspaceUnit("inch")
-{;}
 
+#define thisTTClass			InchUnit
+#define thisTTClassName		"unit.inch"
+#define thisTTClassTags		"dataspace, distance"
 
-InchUnit::~InchUnit()
-{;}
-		
-		
-void InchUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+InchUnit::~InchUnit(){;}		
+
+void InchUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms) / 39.37;
+//	output.setSize(1);
+//	*output = atom_getfloat(inputAtoms) / 39.37;
+	output = TTFloat64(input) / 39.37;
 }
 
 
-void InchUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void InchUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, (*input * 39.37));
+//	output.setSize(1);
+//	atom_setfloat(*outputAtoms, (*input * 39.37));
+	output = TTFloat64(input) * 39.37;
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
-MeterUnit::MeterUnit()
-	: DataspaceUnit("meter")
-{;}
 
+#define thisTTClass			MeterUnit
+#define thisTTClassName		"unit.meter"
+#define thisTTClassTags		"dataspace, distance"
 
-MeterUnit::~MeterUnit()
-{;}
-
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+MeterUnit::~MeterUnit(){;}
 		
-void MeterUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void MeterUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms);
+	output = input;
 }
 
 
-void MeterUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void MeterUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input);
+	output = input;
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
-DistanceDataspace::DistanceDataspace()
-	: DataspaceLib("distance", "meters")
+
+#define thisTTClass			DistanceDataspace
+#define thisTTClassName		"dataspace.distance"
+#define thisTTClassTags		"dataspace, distance"
+
+TT_DATASPACELIB_CONSTRUCTOR
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new CentimeterUnit,	SymbolGen("cm"));
-	registerUnit(new CentimeterUnit,	SymbolGen("centimeters"));
-	registerUnit(new FootUnit,			SymbolGen("'"));
-	registerUnit(new FootUnit,			SymbolGen("feet"));
-	registerUnit(new InchUnit,			SymbolGen("\""));
-	registerUnit(new InchUnit,			SymbolGen("inches"));
-	registerUnit(new MeterUnit,			SymbolGen("m"));
-	registerUnit(new MeterUnit,			SymbolGen("meters"));
+	registerUnit(TT("unit.centimeter"),		TT("cm"));
+	registerUnit(TT("unit.centimeter"),		TT("centimeters"));
+	registerUnit(TT("unit.foot"),			TT("'"));
+	registerUnit(TT("unit.foot"),			TT("feet"));
+	registerUnit(TT("unit.inch"),			TT("\""));
+	registerUnit(TT("unit.inch"),			TT("inches"));
+	registerUnit(TT("unit.meter"),			TT("m"));
+	registerUnit(TT("unit.meter"),			TT("meters"));
+	
+	// Set our neutral unit (the unit through which all conversions are made)
+	neutralUnit = TT("meters");
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
@@ -128,3 +150,7 @@ DistanceDataspace::~DistanceDataspace()
 {
 	;
 }
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags

@@ -311,6 +311,9 @@ TTValue& TTValue::operator = (TTInt8 value)
 	return *this;
 }
 
+// TODO: Need to make "fast" variants of these which don't branch for cases where the user is already certain of the data type
+// (such as in the DataspaceLib)
+
 TTValue::operator TTInt8() const
 {
 	if(*type == kTypeInt8)

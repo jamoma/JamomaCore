@@ -10,32 +10,40 @@
 #include "TTFoundationAPI.h"
 
 
-MillisecondUnit::MillisecondUnit()
-	: DataspaceUnit("millisecond")
-{;}
+/***********************************************************************************************/
+
+#define thisTTClass			MillisecondUnit
+#define thisTTClassName		"unit.ms"
+#define thisTTClassTags		"dataspace, time"
 
 
-MillisecondUnit::~MillisecondUnit()
-{;}
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+MillisecondUnit::~MillisecondUnit(){;}		
 
-void MillisecondUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void MillisecondUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms);
+	output = input;
 }
 
 
-void MillisecondUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void MillisecondUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input);
+	output = input;
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
-SampleUnit::SampleUnit()
-	: DataspaceUnit("sample")
+
+#define thisTTClass			SampleUnit
+#define thisTTClassName		"unit.sample"
+#define thisTTClassTags		"dataspace, time"
+
+
+TT_DATASPACEUNIT_CONSTRUCTOR
 {   
 	TTValue globalSampleRate;	
 	
@@ -45,112 +53,128 @@ SampleUnit::SampleUnit()
 	rmsr = 1.0 / msr;
 }
 
-
 SampleUnit::~SampleUnit()
 {;}
-		
-		
-void SampleUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+
+void SampleUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms) * rmsr;
+	output = TTFloat64(input) * rmsr;
+}
+
+void SampleUnit::convertFromNeutral(const TTValue& input, TTValue& output)
+{
+	output = TTFloat64(input) * msr;
 }
 
 
-void SampleUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
-{
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, (*input * msr));
-}
-
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
-SecondUnit::SecondUnit()
-	: DataspaceUnit("second")
-{;}
+
+#define thisTTClass			SecondUnit
+#define thisTTClassName		"unit.second"
+#define thisTTClassTags		"dataspace, time"
 
 
-SecondUnit::~SecondUnit()
-{;}
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+SecondUnit::~SecondUnit(){;}		
 
-		
-void SecondUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void SecondUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms) * 1000.0;
+	output = TTFloat64(input) * 1000.0;
+}
+
+void SecondUnit::convertFromNeutral(const TTValue& input, TTValue& output)
+{
+	output = TTFloat64(input) * 0.001;
 }
 
 
-void SecondUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
-{
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input * 0.001);
-}
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
-UpdaterateUnit::UpdaterateUnit()
-	: DataspaceUnit("fps") //frames per second; also update rate e.g. of gestural devices etc. 
-{;}
+
+#define thisTTClass			UpdaterateUnit
+#define thisTTClassName		"unit.rate"
+#define thisTTClassTags		"dataspace, time"
 
 
-UpdaterateUnit::~UpdaterateUnit()
-{;}
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+UpdaterateUnit::~UpdaterateUnit(){;}		
 
-
-void UpdaterateUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void UpdaterateUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {   
-	*outputNumArgs = 1;
-	*output = 1000.0 / atom_getfloat(inputAtoms);
+	//TODO: prevent division with zero
+	output = 1000.0 / TTFloat64(input);
 }
-//TODO: prevent division with zero
 
-void UpdaterateUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void UpdaterateUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, 1000.0 / *input);
+	//TODO: prevent division with zero
+	output = 1000.0 / TTFloat64(input);
 }
-//TODO: prevent division with zero
-/***********************************************************************************************/
-BpmUnit::BpmUnit()
-: DataspaceUnit("bpm") //beats per minute
-{;}
 
 
-BpmUnit::~BpmUnit()
-{;}
-
-
-void BpmUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
-{
-	*outputNumArgs = 1;
-	*output = 60000.0 / atom_getfloat(inputAtoms);
-}
-//TODO: prevent division with zero
-
-void BpmUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
-{
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, 60000.0 / *input);
-}
-//TODO: prevent division with zero
-
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
-TimeDataspace::TimeDataspace()
-	: DataspaceLib("time", "millisecond")
+
+#define thisTTClass			BpmUnit
+#define thisTTClassName		"unit.bpm"
+#define thisTTClassTags		"dataspace, time"
+
+
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+BpmUnit::~BpmUnit(){;}		
+
+void BpmUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new BpmUnit,			SymbolGen("bpm"));
-	registerUnit(new UpdaterateUnit,	SymbolGen("fps"));
-	registerUnit(new UpdaterateUnit,	SymbolGen("Hz"));
-	registerUnit(new MillisecondUnit,	SymbolGen("ms"));
-	registerUnit(new MillisecondUnit,	SymbolGen("millisecond"));
-	registerUnit(new SecondUnit,		SymbolGen("s"));
-	registerUnit(new SecondUnit,		SymbolGen("second"));
-	registerUnit(new SampleUnit,		SymbolGen("sample"));
+	//TODO: prevent division with zero
+	output = 60000.0 / TTFloat64(input);
+}
+
+void BpmUnit::convertFromNeutral(const TTValue& input, TTValue& output)
+{
+	//TODO: prevent division with zero
+	output = 60000.0 / TTFloat64(input);
+}
+
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
+/***********************************************************************************************/
+
+#define thisTTClass			TimeDataspace
+#define thisTTClassName		"dataspace.time"
+#define thisTTClassTags		"dataspace, time"
+
+
+TT_DATASPACELIB_CONSTRUCTOR
+{	
+	// Register unit names for this dataspace, 
+	// and map them to the actual object names implementing the conversion.
+	registerUnit(TT("unit.bpm"),	TT("bpm"));
+	registerUnit(TT("unit.rate"),	TT("fps"));
+	registerUnit(TT("unit.rate"),	TT("Hz"));
+	registerUnit(TT("unit.ms"),		TT("ms"));
+	registerUnit(TT("unit.ms"),		TT("millisecond"));
+	registerUnit(TT("unit.second"),	TT("s"));
+	registerUnit(TT("unit.second"),	TT("second"));
+	registerUnit(TT("unit.sample"),	TT("sample"));
 	
+	// Set our neutral unit (the unit through which all conversions are made)
+	neutralUnit = TT("millisecond");
 	
 	// Now that the cache is created, we can create a set of default units
+	// Typically this should be the neutral unit
 	setInputUnit(neutralUnit);
 	setOutputUnit(neutralUnit);
 }
@@ -160,3 +184,8 @@ TimeDataspace::~TimeDataspace()
 {
 	;
 }
+
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
