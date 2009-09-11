@@ -456,7 +456,7 @@ void paramarray_parameter_name(char* format, t_symbol **returnedName, long i)
 	char *s_num;
 	long len;
 
-	len = strlen(format);
+	len = strlen(format); // TODO : Do we count how many character are in i (10, 100, 1000, ...) ?
 	s_num = (char *)malloc(sizeof(char)*len);
 	snprintf(s_num, len, format, i);
 	*returnedName = gensym(s_num);
@@ -511,14 +511,12 @@ long	paramarray_parse_bracket(t_symbol *s, char **s_format)
 		
 		// if both exist, keep only what there is beetween
 		if(start_bracket && end_bracket){
-			pos = (int)start_bracket - (int)to_parse;
-			len = (int)end_bracket - (int)start_bracket; // the lenght of the "[N]" part
-			s_num = (char *)malloc(sizeof(char)*(len+1));
-			strcpy(s_num,to_parse + pos + 1);
 			
-			sscanf(s_num, "%d", &i_num);	// only for Mac ???
+			sscanf(start_bracket+1, "%d", &i_num);
 			
 			// edit a format string
+			pos = (int)start_bracket - (int)to_parse;
+			len = (int)end_bracket - (int)start_bracket; // the lenght of the "[N]" part
 			flen = strlen(to_parse) - len + 2; // +3 for \%d
 			*s_format = (char *)malloc(sizeof(char)*(flen+1));
 			
@@ -526,7 +524,7 @@ long	paramarray_parse_bracket(t_symbol *s, char **s_format)
 			(*s_format)[pos] = '\%';
 			(*s_format)[pos+1] = 'd';
 			(*s_format)[pos+2] = '\0';
-			strcat(*s_format, end_bracket + 1);
+			strncat(*s_format, end_bracket+1, strlen(end_bracket));
 			(*s_format)[flen+1] = '\0';
 			
 			free(to_parse);
