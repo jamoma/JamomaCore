@@ -21,13 +21,28 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-60",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 810.0, 504.0, 95.0, 20.0 ],
+					"presentation_rect" : [ 810.0, 504.0, 0.0, 0.0 ],
+					"text" : "test"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
 					"id" : "obj-57",
 					"linecount" : 2,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 611.0, 599.0, 69.0, 32.0 ],
+					"patching_rect" : [ 611.0, 599.0, 71.0, 32.0 ],
 					"text" : "some thing else"
 				}
 
@@ -1100,12 +1115,12 @@
 ,
 					"patching_rect" : [ 63.0, 459.0, 55.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"fontface" : 0,
 						"globalpatchername" : "",
+						"fontface" : 0,
+						"default_fontsize" : 10.0,
 						"fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"default_fontface" : 0
 					}
 ,
@@ -1191,7 +1206,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 491.0, 527.0, 255.0, 48.0 ],
+					"patching_rect" : [ 491.0, 527.0, 259.0, 48.0 ],
 					"text" : "jcom.parameterArray gege.[3]/coco/bibi/param @type array @repetitions/allow 0 @range/bounds 0 10 @range/clipmode both"
 				}
 
@@ -1535,7 +1550,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-57", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 618.5, 587.0, 670.5, 587.0 ],
+					"midpoints" : [ 620.5, 587.0, 672.5, 587.0 ],
 					"source" : [ "obj-4", 1 ]
 				}
 
@@ -1553,7 +1568,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-68", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 618.5, 588.0, 601.5, 588.0 ],
+					"midpoints" : [ 620.5, 588.0, 601.5, 588.0 ],
 					"source" : [ "obj-4", 1 ]
 				}
 
