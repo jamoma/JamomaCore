@@ -59,7 +59,7 @@ t_paramarray* paramarray_new(t_symbol *s, long argc, t_atom *argv)
 		
 		object_obex_lookup(x, gensym("#P"), &(x->patcher));
 		
-		x->hub = NULL;
+		//x->hub = NULL;
 		
 		intin(x, 1); // creates an inlet (the right inlet) that will send your object the "in2" message
 		
@@ -105,29 +105,8 @@ t_paramarray* paramarray_new(t_symbol *s, long argc, t_atom *argv)
 
 void paramarray_free(t_paramarray *x)
 {	
-	long				i;
-	long				numKeys = 0;
-	t_symbol			**keys = NULL;
-	InternalObject		*anObject;
-	t_max_err			err;
-	
-	hashtab_getkeys(x->hash_internals, &numKeys, &keys);
-	for(i=0; i<numKeys; i++){
-		err = hashtab_lookup(x->hash_internals, keys[i], (t_object**)&anObject);
-		if(!err){
-			// if it's unsubscribed, subscribe it before.
-			//if(!anObject->subscribe)
-				//object_method(anObject->theObject, jps_subscribe);
-			
-			delete anObject;
-		}
-	}
-	
-	if(keys)
-		sysmem_freeptr(keys);
-	
-	hashtab_chuck(x->hash_internals);
 	free(x->attr_format);
+	paramarray_destroy_array(x);
 }
 
 // This method is called by the hub
@@ -136,23 +115,29 @@ void paramarray_subscribe(t_paramarray *x)
 {
 	SymbolPtr*			keys = NULL;
 	long				numkeys = 0;
-	InternalObject*	anObject = NULL;
+	InternalObject*		anObject = NULL;
+	//t_object			*box;
+	//t_symbol			*objclass = NULL;
 	
 	// Subcribe all parameters
 	hashtab_getkeys(x->hash_internals, &numkeys, &keys);
 	if(numkeys && keys){
 		for(int i=0; i<numkeys; i++){
 			hashtab_lookup(x->hash_internals, keys[i], (t_object**)&anObject);
-			object_method(anObject->theObject, jps_subscribe);
-			anObject->subscribe = true;
+			if(anObject->theObject){
+				object_method(anObject->theObject, jps_subscribe);
+				anObject->subscribe = true;
+			}
 		}
 		sysmem_freeptr(keys);
 	}
 	
 	// now the hub exists : we looking for it into the patcher
-	t_object	*box;
-	t_symbol	*objclass = NULL;
 	
+	// this is usefull in case we want unsbuscribe parameter
+	// instead of destroy them when we resize the array to a
+	// a smmaller size than before.
+/*	
 again:	 
 	box = object_attr_getobj(x->patcher, _sym_firstobject);
 	while(box){
@@ -166,6 +151,7 @@ again:
 	x->patcher = object_attr_getobj(x->patcher, _sym_parentpatcher);
 	if(x->patcher)
 		goto again;
+ */
 }
 
 #pragma mark -
@@ -383,7 +369,6 @@ void paramarray_create_array(t_paramarray* x, t_symbol *msg, long argc, t_atom* 
 					anObject->subscribe = true;
 				}
 			}
-			
 			free(s_num);
 		}// end for each parameter lk_instances
 		
@@ -396,10 +381,13 @@ void paramarray_create_array(t_paramarray* x, t_symbol *msg, long argc, t_atom* 
 				anObject = NULL;
 				snprintf(s_num, 256, x->attr_format, j);
 				err = hashtab_lookup(x->hash_internals, gensym(s_num), (t_object**)&anObject);
-				if(!err && x->hub){
+				
+				// TODO : if(!err && x->hub){
 					// TODO : object_method(x->hub, jps_unsubscribe, anObject->theObject);
 					// TODO : anObject->subscribe = false;
-					
+				
+				// CURRENTLY
+				if(!err){
 					// CURRENTLY
 					hashtab_delete(x->hash_internals, gensym(s_num));
 					delete anObject;
@@ -415,16 +403,25 @@ void paramarray_create_array(t_paramarray* x, t_symbol *msg, long argc, t_atom* 
 	}
 }
 	
-void paramarray_destroy_parameter(t_paramarray* x, t_symbol *msg)
+void paramarray_destroy_array(t_paramarray* x)
 {
-	InternalObject	*anObject;
-	t_max_err		err;
+	long				i;
+	long				numKeys = 0;
+	t_symbol			**keys = NULL;
+	InternalObject		*anObject;
+	t_max_err			err;
 	
-	err = hashtab_lookup(x->hash_internals, msg, (t_object**)&anObject);
-	if(!err){
-		hashtab_delete(x->hash_internals, msg);
-		delete anObject;
+	hashtab_getkeys(x->hash_internals, &numKeys, &keys);
+	for(i=0; i<numKeys; i++){
+		err = hashtab_lookup(x->hash_internals, keys[i], (t_object**)&anObject);
+		if(!err)
+			delete anObject;
 	}
+	
+	if(keys)
+		sysmem_freeptr(keys);
+	
+	hashtab_chuck(x->hash_internals);
 }
 
 void paramarray_callback(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv)
@@ -522,7 +519,7 @@ long	paramarray_parse_bracket(t_symbol *s, char **s_format)
 		// if both exist, keep only what there is beetween
 		if(start_bracket && end_bracket){
 			pos = (int)start_bracket - (int)to_parse;
-			len = (int)end_bracket - (int)start_bracket;
+			len = (int)end_bracket - (int)start_bracket; // the lenght of the "[N]" part
 			s_num = (char *)malloc(sizeof(char)*(len+1));
 			strcpy(s_num,to_parse + pos + 1);
 			
@@ -536,7 +533,8 @@ long	paramarray_parse_bracket(t_symbol *s, char **s_format)
 			(*s_format)[pos] = '\%';
 			(*s_format)[pos+1] = 'd';
 			(*s_format)[pos+2] = '\0';
-			strcat(*s_format, to_parse + pos + len + 1);
+			strcat(*s_format, end_bracket + 1);
+			(*s_format)[flen+1] = '\0';
 			
 			free(to_parse);
 			free(s_num);

@@ -18,7 +18,7 @@
 typedef struct _paramarray{
 	t_object			ob;
 	t_object			*patcher;				///< the patcher
-	t_object			*hub;					///< the hub
+	//t_object			*hub;					///< the hub
 	void				*ui_outlet;				///< outlet reserved for ui updating
 	void				*val_outlet;			///< outlet to output the value
 	void				*info_outlet;			///< outlet to output the instance and info about the object
@@ -52,7 +52,7 @@ void			paramarray_in1(t_paramarray *x, long n);
 
 // prototypes: internal parameters
 void			paramarray_create_array(t_paramarray* x, t_symbol *msg, long argc, t_atom* argv);
-void			paramarray_destroy_parameter(t_paramarray *x, t_symbol *msg);
+void			paramarray_destroy_array(t_paramarray *x);
 void			paramarray_callback(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv);
 long			paramarray_count_subscription(t_paramarray *x);
 
@@ -69,7 +69,7 @@ public:
 	
 	InternalObject(ObjectPtr patcher, t_symbol *classname, t_symbol *subscribername, long argc, t_atom *argv)
 	{
-		t_atom	*a = (t_atom *)sysmem_newptr(sizeof(t_atom)*(argc+2));
+		t_atom	*a = (t_atom *)malloc(sizeof(t_atom)*(argc+2));
 		int		i;
 		
 		// Add the patcher and the subscriber name as argument

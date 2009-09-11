@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 1.0, 44.0, 1181.0, 731.0 ],
+		"rect" : [ 56.0, 44.0, 1181.0, 731.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 1.0, 44.0, 1181.0, 731.0 ],
+		"defrect" : [ 56.0, 44.0, 1181.0, 731.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -18,21 +18,6 @@
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-72",
-					"linecount" : 3,
-					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 826.0, 369.0, 351.0, 48.0 ],
-					"text" : "jcom.parameterArray mapping.[10]/out/module/parameter @repetitions/allow 1 @type string @description \"The parameter that the mapped or scaled value will be passed to.\" @priority 5"
-				}
-
-			}
-, 			{
 				"box" : 				{
 					"id" : "obj-60",
 					"maxclass" : "button",
