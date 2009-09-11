@@ -191,10 +191,10 @@
 			isa = PBXGroup;
 			children = (
 				22E385DB10286BB0002000A9 /* TTHash.h */,
-				22E385DC10286BB0002000A9 /* TTList.h */,
-				22E385E510286BB0002000A9 /* TTValue.h */,
 				22E385FC10286BBE002000A9 /* TTHash.cpp */,
+				22E385DC10286BB0002000A9 /* TTList.h */,
 				22E385FD10286BBE002000A9 /* TTList.cpp */,
+				22E385E510286BB0002000A9 /* TTValue.h */,
 				22E3860610286BBE002000A9 /* TTValue.cpp */,
 			);
 			name = DataStorageClasses;
@@ -204,10 +204,10 @@
 			isa = PBXGroup;
 			children = (
 				22E385E110286BB0002000A9 /* TTSymbol.h */,
-				22E385E210286BB0002000A9 /* TTSymbolCache.h */,
-				22E385E310286BB0002000A9 /* TTSymbolTable.h */,
 				22E3860210286BBE002000A9 /* TTSymbol.cpp */,
+				22E385E210286BB0002000A9 /* TTSymbolCache.h */,
 				22E3860310286BBE002000A9 /* TTSymbolCache.cpp */,
+				22E385E310286BB0002000A9 /* TTSymbolTable.h */,
 				22E3860410286BBE002000A9 /* TTSymbolTable.cpp */,
 			);
 			name = SymbolTable;
@@ -362,7 +362,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2227748E0EF1BFF100CA7476 /* JamomaFoundation.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -382,7 +381,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_GENERATE_MAP_FILE = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
@@ -395,7 +394,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2227748E0EF1BFF100CA7476 /* JamomaFoundation.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DEPLOYMENT_LOCATION = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -412,6 +410,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_GENERATE_MAP_FILE = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",

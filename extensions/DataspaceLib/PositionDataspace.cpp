@@ -1,12 +1,12 @@
 /* 
  * Jamoma DataspaceLib: DistanceDataspace
- * Copyright © 2007, Nils Peters
+ * Copyright ï¿½ 2007, Nils Peters
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  
- * Based on code by Trond Lossius, © 2007 and
- *					Jan Schacher / ICST Zurich © 2006 
+ * Based on code by Trond Lossius, ï¿½ 2007 and
+ *					Jan Schacher / ICST Zurich ï¿½ 2006 
  *
  * 
  */
@@ -14,217 +14,273 @@
 #include "PositionDataspace.h"
 
 
-Cartesian3DUnit::Cartesian3DUnit()
-	: DataspaceUnit("cart3D")
-{;}
+#define thisTTClass			Cartesian3DUnit
+#define thisTTClassName		"unit.cart3d"
+#define thisTTClassTags		"dataspace, position"
 
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+Cartesian3DUnit::~Cartesian3DUnit(){;}
 
-Cartesian3DUnit::~Cartesian3DUnit()
-{;}
-		
-
-void Cartesian3DUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void Cartesian3DUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 3;
-	*(output+0) = atom_getfloat(inputAtoms+0); //x 
-	*(output+1) = atom_getfloat(inputAtoms+1); //y
-	*(output+2) = atom_getfloat(inputAtoms+2); //z
+	output = input;
+	output.setSize(3);
 }
 
 
-void Cartesian3DUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void Cartesian3DUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 3;
-	atom_setfloat(*outputAtoms+0, *(input+0));
-	atom_setfloat(*outputAtoms+1, *(input+1));
-	atom_setfloat(*outputAtoms+2, *(input+2));
+	output = input;
+	output.setSize(3);
 }
 
 
-/***********************************************************************************************/
-Cartesian2DUnit::Cartesian2DUnit()
-	: DataspaceUnit("cart2D")
-{;}
-
-Cartesian2DUnit::~Cartesian2DUnit()
-{;}
-
-void Cartesian2DUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
-{
-	*outputNumArgs = 2;
-	*(output+0) = atom_getfloat(inputAtoms+0); //x 
-	*(output+1) = atom_getfloat(inputAtoms+1); //y
-}
-
-void Cartesian2DUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
-{
-	*outputNumArgs = 2;
-	atom_setfloat(*outputAtoms+0, *(input+0));
-	atom_setfloat(*outputAtoms+1, *(input+1));
-}
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
 
+#define thisTTClass			Cartesian2DUnit
+#define thisTTClassName		"unit.cart2d"
+#define thisTTClassTags		"dataspace, position"
 
-SphericalUnit::SphericalUnit()
-	: DataspaceUnit("spherical")
-{;}
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+Cartesian2DUnit::~Cartesian2DUnit(){;}
+
+void Cartesian2DUnit::convertToNeutral(const TTValue& input, TTValue& output)
+{
+	output = input;
+	output.setSize(2);
+}
+
+void Cartesian2DUnit::convertFromNeutral(const TTValue& input, TTValue& output)
+{
+	output = input;
+	output.setSize(2);
+}
 
 
-SphericalUnit::~SphericalUnit()
-{;}
-		
-		
-void SphericalUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
-{   //double kDegreesToRadians = kDegreesToRadians;
-	double aa = (atom_getfloat(inputAtoms+0)) *  kDegreesToRadians; //a  
-	double ee = atom_getfloat(inputAtoms+1) *  kDegreesToRadians; //e
-	double dd = atom_getfloat(inputAtoms+2); //d
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
+/***********************************************************************************************/
+
+#define thisTTClass			SphericalUnit
+#define thisTTClassName		"unit.spherical"
+#define thisTTClassTags		"dataspace, position"
+
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+SphericalUnit::~SphericalUnit(){;}
+
+void SphericalUnit::convertToNeutral(const TTValue& input, TTValue& output)
+{
+	//TTFloat64 kDegreesToRadians = kDegreesToRadians;
+	TTFloat64 aa;// = (atom_getfloat(inputAtoms+0)) *  kDegreesToRadians; //a  
+	TTFloat64 ee;// = atom_getfloat(inputAtoms+1) *  kDegreesToRadians; //e
+	TTFloat64 dd;// = atom_getfloat(inputAtoms+2); //d
+	TTFloat64 temp;
 	
-	*outputNumArgs = 3;
-	double temp = cos(ee) * dd;		
-	*(output+0) = sin(aa) * temp; 
-	*(output+1) = cos(aa) * temp; 
-	*(output+2) = sin(ee) * dd;
+	input.get(0, aa);
+	input.get(1, ee);
+	input.get(2, dd);
+	
+	aa *= kDegreesToRadians;
+	ee *= kDegreesToRadians;
+	temp = cos(ee) * dd;
+	
+	output.setSize(3);
+	output.set(0, sin(aa) * temp); 
+	output.set(1, cos(aa) * temp); 
+	output.set(2, sin(ee) * dd);
 }
 
 
-void SphericalUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void SphericalUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {   
-    double xx = *(input+0);
-	double yy = *(input+1);
-	double zz = *(input+2);
-	double temp = (xx * xx) + (yy * yy);
+	TTFloat64 xx;// = *(input+0);
+	TTFloat64 yy;// = *(input+1);
+	TTFloat64 zz;// = *(input+2)
+	TTFloat64 temp;
+	
+	input.get(0, xx);
+	input.get(1, yy);
+	input.get(2, zz);
 
-	*outputNumArgs = 3;	
-	atom_setfloat(*outputAtoms+0, atan2(xx, yy) * kRadiansToDegrees); 
-	atom_setfloat(*outputAtoms+1, atan2(zz, (pow((temp), 0.5))) * kRadiansToDegrees);
-	atom_setfloat(*outputAtoms+2, pow((temp + (zz * zz)), 0.5));
+	temp = (xx * xx) + (yy * yy);
+
+	output.setSize(3);	
+	output.set(0, atan2(xx, yy) * kRadiansToDegrees); 
+	output.set(1, atan2(zz, (pow((temp), 0.5))) * kRadiansToDegrees);
+	output.set(2, pow((temp + (zz * zz)), 0.5));
 }
+
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
 
-PolarUnit::PolarUnit()
-	: DataspaceUnit("polar")
-{;}
+#define thisTTClass			PolarUnit
+#define thisTTClassName		"unit.polar"
+#define thisTTClassTags		"dataspace, position"
 
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+PolarUnit::~PolarUnit(){;}
 
-PolarUnit::~PolarUnit()
-{;}
-		
-		
-void PolarUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void PolarUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-    *outputNumArgs = 2;
+	TTFloat64 aa;
+	TTFloat64 dd;
 	
-	double aa = (atom_getfloat(inputAtoms+0)) * kDegreesToRadians; //a
-	double dd = atom_getfloat(inputAtoms+1); //d
-				
-	*(output+0) = sin(aa)  * dd; //x
-	*(output+1) = cos(aa) * dd; //y
-	
-		
+	input.get(0, aa);
+	input.get(1, dd);
+	aa *= kDegreesToRadians;
+
+    output.setSize(2);
+	output.set(0, sin(aa) * dd); //x
+	output.set(1, cos(aa) * dd); //y
 }
 
 
-void PolarUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void PolarUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {   
-    double xx = *(input+0);
-	double yy = *(input+1);
-
-	*outputNumArgs = 2;
+	TTFloat64 xx;
+	TTFloat64 yy;
 	
-	atom_setfloat(*outputAtoms+0, atan2(xx, yy) * kRadiansToDegrees); //a
-	atom_setfloat(*outputAtoms+1, pow(((xx * xx) + (yy * yy)), 0.5)); //distance	
+	input.get(0, xx);
+	input.get(1, yy);
+
+	output.setSize(2);	
+	output.set(0, atan2(xx, yy) * kRadiansToDegrees); //a
+	output.set(1, pow(((xx * xx) + (yy * yy)), 0.5)); //distance	
 }
+
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
 
-OpenGlUnit::OpenGlUnit()
-	: DataspaceUnit("openGl")
-{;}
+#define thisTTClass			OpenGlUnit
+#define thisTTClassName		"unit.openGL"
+#define thisTTClassTags		"dataspace, position"
 
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+OpenGlUnit::~OpenGlUnit(){;}
 
-OpenGlUnit::~OpenGlUnit()
-{;}
-		
-
-void OpenGlUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void OpenGlUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 3;
-	*(output+0) = atom_getfloat(inputAtoms+0); //x 
-	*(output+1) = -1.0 * atom_getfloat(inputAtoms+2); //y
-	*(output+2) = atom_getfloat(inputAtoms+1); //z
+	TTFloat64 x;
+	TTFloat64 y;
+	TTFloat64 z;
+	
+	input.get(0, x);
+	input.get(1, y);
+	input.get(2, z);
+	
+	output.setSize(3);
+	output.set(0, x);
+	output.set(1, -1.0 * z);
+	output.set(2, y);
 }
 
 
-void OpenGlUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void OpenGlUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 3;
-	atom_setfloat(*outputAtoms+0, *(input+0));//x
-	atom_setfloat(*outputAtoms+1, *(input+2));//y
-	atom_setfloat(*outputAtoms+2, *(input+1) * -1.0);//z
+	TTFloat64 x;
+	TTFloat64 y;
+	TTFloat64 z;
+	
+	input.get(0, x);
+	input.get(1, y);
+	input.get(2, z);
+	
+	output.setSize(3);
+	output.set(0, x);
+	output.set(1, z);
+	output.set(2, y * -1.0);
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
 
+#define thisTTClass			CylindricalUnit
+#define thisTTClassName		"unit.cylindrical"
+#define thisTTClassTags		"dataspace, position"
 
-CylindricalUnit::CylindricalUnit()
-	: DataspaceUnit("cylindrical")
-{;}
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+CylindricalUnit::~CylindricalUnit(){;}
 
+// Cylindrical coordinate System (according to ISO 31-11 http://en.wikipedia.org/wiki/ISO_31-11#Coordinate_systems )  = radius azimut hight
 
-CylindricalUnit::~CylindricalUnit()
-{;}
-		
-
-void CylindricalUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void CylindricalUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	// Cylindrical coordinate System (according to ISO 31-11 http://en.wikipedia.org/wiki/ISO_31-11#Coordinate_systems )  = radius azimut hight
+	TTFloat64 dd;// = *(input+0);
+	TTFloat64 aa;// = *(input+1);
+	TTFloat64 zz;// = *(input+2)
 	
-	*outputNumArgs = 3;
-	double dd = atom_getfloat(inputAtoms+0); //d
-	double aa = (atom_getfloat(inputAtoms+1)) * kDegreesToRadians; //a
-	
+	aa *= kDegreesToRadians;
 				
-	*(output+0) = sin(aa)  * dd; //x
-	*(output+1) = cos(aa) * dd; //y
-	*(output+2) = atom_getfloat(inputAtoms+2); //z
+	output.setSize(3);
+	output.set(0, sin(aa) * dd); //x
+	output.set(1, cos(aa) * dd); //y
+	output.set(2, zz); //z
 }
 
 
-void CylindricalUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void CylindricalUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	 
-	 *outputNumArgs = 3;
-	 
-	 double xx = *(input+0);
-     double yy = *(input+1);	
+	TTFloat64 xx;// = *(input+0);
+	TTFloat64 yy;// = *(input+1);
+	TTFloat64 zz;// = *(input+2)
+
+	input.get(0, xx);
+	input.get(1, yy);
+	input.get(2, zz);
 	
 	// d a z
-	atom_setfloat(*outputAtoms+0, pow(((xx * xx) + (yy * yy)), 0.5)); //distance
-	atom_setfloat(*outputAtoms+1, atan2(xx, yy) * kRadiansToDegrees); //a
-	atom_setfloat(*outputAtoms+2, *(input+2));//z
+	output.setSize(3);
+	output.set(0, pow(((xx * xx) + (yy * yy)), 0.5)); //distance
+	output.set(1, atan2(xx, yy) * kRadiansToDegrees); //a
+	output.set(2, zz);//z
 }
 
 
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
 /***********************************************************************************************/
-PositionDataspace::PositionDataspace()
-	: DataspaceLib("position", "xyz")
+
+#define thisTTClass			PositionDataspace
+#define thisTTClassName		"dataspace.position"
+#define thisTTClassTags		"dataspace, position"
+
+TT_DATASPACELIB_CONSTRUCTOR
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new Cartesian3DUnit,	SymbolGen("cart3D"));
-	registerUnit(new Cartesian3DUnit,	SymbolGen("xyz"));
-	registerUnit(new Cartesian2DUnit,	SymbolGen("cart2D"));
-	registerUnit(new Cartesian2DUnit,	SymbolGen("xy"));
-	registerUnit(new SphericalUnit,		SymbolGen("spherical"));
-	registerUnit(new SphericalUnit,		SymbolGen("aed"));
-	registerUnit(new PolarUnit,			SymbolGen("polar"));
-	registerUnit(new PolarUnit,			SymbolGen("ad"));
-	registerUnit(new OpenGlUnit,		SymbolGen("openGL"));
-	registerUnit(new CylindricalUnit,	SymbolGen("cylindrical"));
-	registerUnit(new CylindricalUnit,	SymbolGen("daz"));
+	registerUnit(TT("unit.cart3d"),			TT("cart3D"));
+	registerUnit(TT("unit.cart3d"),			TT("xyz"));
+	registerUnit(TT("unit.cart2d"),			TT("cart2D"));
+	registerUnit(TT("unit.cart2d"),			TT("xy"));
+	registerUnit(TT("unit.spherical"),		TT("spherical"));
+	registerUnit(TT("unit.spherical"),		TT("aed"));
+	registerUnit(TT("unit.polar"),			TT("polar"));
+	registerUnit(TT("unit.polar"),			TT("ad"));
+	registerUnit(TT("unit.openGL"),			TT("openGL"));
+	registerUnit(TT("unit.cylindrical"),	TT("cylindrical"));
+	registerUnit(TT("unit.cylindrical"),	TT("daz"));
+	
+	// Set our neutral unit (the unit through which all conversions are made)
+	neutralUnit = TT("xyz");
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
@@ -237,4 +293,6 @@ PositionDataspace::~PositionDataspace()
 	;
 }
 
-
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags

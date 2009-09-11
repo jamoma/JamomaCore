@@ -9,35 +9,42 @@
 #include "NoneDataspace.h"
 
 
-NoneUnit::NoneUnit()
-	: DataspaceUnit("none")
-{;}
+#define thisTTClass			NoneUnit
+#define thisTTClassName		"unit.none"
+#define thisTTClassTags		"dataspace, none"
 
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+NoneUnit::~NoneUnit(){;}		
 
-NoneUnit::~NoneUnit()
-{;}
-		
-
-void NoneUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void NoneUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms);
+	output = input;
 }
 
 
-void NoneUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void NoneUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input);
+	output = input;
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
-NoneDataspace::NoneDataspace()
-	: DataspaceLib("none", "none")
+
+#define thisTTClass			NoneDataspace
+#define thisTTClassName		"dataspace.none"
+#define thisTTClassTags		"dataspace, none"
+
+TT_DATASPACELIB_CONSTRUCTOR
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new NoneUnit,	SymbolGen("none"));
+	registerUnit(TT("unit.none"),	TT("none"));
+	
+	// Set our neutral unit (the unit through which all conversions are made)
+	neutralUnit = TT("none");
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
@@ -49,3 +56,7 @@ NoneDataspace::~NoneDataspace()
 {
 	;
 }
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags

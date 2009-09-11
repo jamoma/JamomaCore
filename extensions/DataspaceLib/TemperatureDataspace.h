@@ -16,38 +16,30 @@
 // Class Specifications
 
 class CelsiusUnit : DataspaceUnit{
-	public:
-		CelsiusUnit();
-		~CelsiusUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(CelsiusUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 class FahrenheitUnit : DataspaceUnit{
-	public:
-		FahrenheitUnit();
-		~FahrenheitUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(FahrenheitUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 class KelvinUnit : DataspaceUnit{
-	public:
-		KelvinUnit();
-		~KelvinUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(KelvinUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 
 // Specification of our base class
-class TemperatureDataspace : DataspaceLib{
-	public:
-		TemperatureDataspace();
-		~TemperatureDataspace();
+class TemperatureDataspace : DataspaceLib {
+	TTCLASS_SETUP(TemperatureDataspace)
 };
 
 
