@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 164.0, 106.0, 1164.0, 708.0 ],
+		"rect" : [ 66.0, 44.0, 1164.0, 708.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 164.0, 106.0, 1164.0, 708.0 ],
+		"defrect" : [ 66.0, 44.0, 1164.0, 708.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -388,6 +388,7 @@
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"disabled" : [ 0 ],
 					"id" : "obj-37",
 					"itemtype" : 1,
@@ -422,6 +423,7 @@
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"disabled" : [ 0 ],
 					"id" : "obj-39",
 					"itemtype" : 1,
@@ -492,6 +494,7 @@
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 					"disabled" : [ 0 ],
 					"id" : "obj-43",
 					"itemtype" : 1,
@@ -519,7 +522,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 103.0, 104.0, 82.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 240.0, 95.0, 65.0, 19.0 ],
+					"presentation_rect" : [ 240.0, 95.0, 56.0, 19.0 ],
 					"text" : "tex offset"
 				}
 
@@ -535,7 +538,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 103.0, 89.0, 79.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 240.0, 75.0, 62.0, 19.0 ],
+					"presentation_rect" : [ 240.0, 75.0, 55.0, 19.0 ],
 					"text" : "tex scale"
 				}
 
@@ -659,9 +662,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 44.0, 47.0, 276.0, 765.0 ],
+						"rect" : [ 346.0, 44.0, 276.0, 765.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 44.0, 47.0, 276.0, 765.0 ],
+						"defrect" : [ 346.0, 44.0, 276.0, 765.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -727,8 +730,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "bang", "" ],
-									"patching_rect" : [ 295.0, 65.0, 89.0, 19.0 ],
-									"text" : "sel /panel/open"
+									"patching_rect" : [ 295.0, 65.0, 87.0, 19.0 ],
+									"text" : "sel /view/panel"
 								}
 
 							}
@@ -781,13 +784,13 @@
 ,
 					"patching_rect" : [ 183.0, 366.0, 64.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p inspector",
@@ -889,6 +892,7 @@
 			}
 , 			{
 				"box" : 				{
+					"has_freeze" : 1,
 					"has_mute" : 1,
 					"has_panel" : 1,
 					"id" : "obj-66",

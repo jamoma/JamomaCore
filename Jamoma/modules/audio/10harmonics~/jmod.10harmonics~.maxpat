@@ -1503,7 +1503,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 200.0, 644.0, 658.0, 31.0 ],
-									"text" : "jcom.parameter harmonic.10/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 1st partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
+									"text" : "jcom.parameter harmonic.10/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 10th partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
 									"varname" : "harmonic_gains[9]"
 								}
 
@@ -1519,7 +1519,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 200.0, 589.0, 651.0, 31.0 ],
-									"text" : "jcom.parameter harmonic.9/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 1st partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
+									"text" : "jcom.parameter harmonic.9/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 9th partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
 									"varname" : "harmonic_gains[10]"
 								}
 
@@ -1535,7 +1535,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 200.0, 534.0, 651.0, 31.0 ],
-									"text" : "jcom.parameter harmonic.8/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 1st partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
+									"text" : "jcom.parameter harmonic.8/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 8th partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
 									"varname" : "harmonic_gains[8]"
 								}
 
@@ -1551,7 +1551,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 200.0, 477.0, 651.0, 31.0 ],
-									"text" : "jcom.parameter harmonic.7/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 1st partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
+									"text" : "jcom.parameter harmonic.7/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 7th partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
 									"varname" : "harmonic_gains[7]"
 								}
 
@@ -1567,7 +1567,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 200.0, 423.0, 651.0, 31.0 ],
-									"text" : "jcom.parameter harmonic.6/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 1st partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
+									"text" : "jcom.parameter harmonic.6/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 6th partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
 									"varname" : "harmonic_gains[6]"
 								}
 
@@ -1583,7 +1583,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 200.0, 362.0, 651.0, 31.0 ],
-									"text" : "jcom.parameter harmonic.5/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 1st partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
+									"text" : "jcom.parameter harmonic.5/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 5th partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
 									"varname" : "harmonic_gains[5]"
 								}
 
@@ -1599,7 +1599,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 200.0, 305.0, 651.0, 31.0 ],
-									"text" : "jcom.parameter harmonic.4/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 1st partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
+									"text" : "jcom.parameter harmonic.4/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 4th partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
 									"varname" : "harmonic_gains[4]"
 								}
 
@@ -1615,7 +1615,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 200.0, 252.0, 651.0, 31.0 ],
-									"text" : "jcom.parameter harmonic.3/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 1st partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
+									"text" : "jcom.parameter harmonic.3/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 3rd partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
 									"varname" : "harmonic_gains[3]"
 								}
 
@@ -1631,7 +1631,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 200.0, 193.0, 651.0, 31.0 ],
-									"text" : "jcom.parameter harmonic.2/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 1st partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
+									"text" : "jcom.parameter harmonic.2/gain @type decimal @ramp/drive scheduler @ramp/function linear @description \"Gain values (dB) for the 2nd partial\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
 									"varname" : "harmonic_gains[2]"
 								}
 
