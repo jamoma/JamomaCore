@@ -10,22 +10,22 @@ It is intended to contain sub-projects representing the various modules of the J
 
 --------------------------------------------------
 
-The Jamoma Tools folder contains scripts which perform various essential tasks for the development of Jamoma.
+The Tools folder contains scripts which perform various essential tasks for the development of Jamoma.
 
 
 BUILDING THE SOURCE CODE
-This "all.sh" script in the /buildtools folder builds all of the C/C++ code required for Jamoma's Framework and Externals.
+This "build.rb" script in the Tools folder builds all of the C/C++ code required for Jamoma's Framework and Externals.
 
 To use the script:
-sh all.sh <required:configuration> <optional:clean>
+./build.rb <required:configuration> <optional:clean>
 
 (close Max before doing that!)
 
 If you want a nice, clean release version, try this: 
-	sh all.sh Deployment clean (or Release clean)
+	./build.rb Deployment clean (or Release clean)
 
 or a developer release (without cleaning), try this: 
-	sh all.sh Development (or Debug)
+	./build.rb Development (or Debug)
 
 If you get an error such as:
 	./jamomalib.rb:12:in `require': no such file to load -- osc (LoadError)
@@ -47,7 +47,7 @@ you have to update rosc:
 --------------------------------------------------
 
 MAKING AN INSTALLER
-The installer.rb Ruby script collects all of the files it needs and then generates a standard Mac installer.
+The installer.rb Ruby script in Tools/installertools collects all of the files it needs and then generates a standard Mac installer.
 
 If you want to make an installer, then follow these instructions:
 1. do a clean deployment build (above)
