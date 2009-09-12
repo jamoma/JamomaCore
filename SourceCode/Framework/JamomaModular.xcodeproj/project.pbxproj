@@ -462,7 +462,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22C9F74E1033191A0062F7B8 /* JamomaModular.xcconfig */;
 			buildSettings = {
-				ARCHS = i386;
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /Library/Frameworks;
@@ -482,7 +481,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22C9F74E1033191A0062F7B8 /* JamomaModular.xcconfig */;
 			buildSettings = {
-				ARCHS = i386;
+				ARCHS = (
+					ppc,
+					i386,
+				);
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /Library/Frameworks;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;

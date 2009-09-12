@@ -238,6 +238,7 @@
 			baseConfigurationReference = 22C9F7E1103338990062F7B8 /* tt-max.xcconfig */;
 			buildSettings = {
 				ARCHS = (
+					ppc,
 					i386,
 				);
 				COPY_PHASE_STRIP = YES;

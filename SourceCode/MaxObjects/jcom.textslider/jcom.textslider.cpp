@@ -72,7 +72,6 @@ void*		textslider_new(t_symbol *s, long argc, t_atom *argv);
 void		textslider_free(t_textslider *x);
 t_max_err	textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void		textslider_assist(t_textslider *x, void *b, long m, long a, char *s);
-void		textslider_updatestringvalue(t_textslider *x);
 void		textslider_bang(t_textslider *x);
 void		textslider_int(t_textslider *x, long value);
 void		textslider_float(t_textslider *x, double value);
@@ -237,10 +236,12 @@ void *textslider_new(t_symbol *s, long argc, t_atom *argv)
 	t_dictionary	*d=NULL;
 	long			flags;
 
+	
 	if (!(d=object_dictionaryarg(argc,argv)))
 		return NULL;
 	
-	if (x = (t_textslider *)object_alloc(s_textslider_class)) {   
+	if (x = (t_textslider *)object_alloc(s_textslider_class))
+	{   
 		flags = 0 
 			| JBOX_DRAWFIRSTIN		// 0
 			| JBOX_NODRAWBOX		// 1
@@ -297,23 +298,29 @@ t_max_err textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *s
 	t_object	*textfield;
 	t_symbol	*attrname;
 	
-	if (msg == _sym_modified)
+	if(msg == _sym_modified)
 		jbox_redraw(&x->box);	
-	else if ((msg == _sym_attr_modified) && (sender == x)) {
+	else if ((msg == _sym_attr_modified) && (sender == x))
+	{
 		attrname = (t_symbol *)object_method((t_object *)data, gensym("getname"));
 		
 		textfield = jbox_get_textfield((t_object*) x);
-		if (textfield)
+		if(textfield)
 			textfield_set_textcolor(textfield, &x->attrTextColor);
 		
-		if (attrname == gensym("text"))
+		if(attrname == gensym("text"))
 			object_method(textfield, gensym("settext"), x->attrText->s_name);
 		
-		if (attrname == gensym("textpos"))
-			textfield_set_textmargins(textfield, x->attrTextOffset[0], x->attrTextOffset[1], 2.0, 2.0);
+		if(attrname == gensym("textpos"))
+		textfield_set_textmargins(textfield, x->attrTextOffset[0], x->attrTextOffset[1], 2.0, 2.0);
 		
-		if((x->mouseDown) && (x->attrShowValue))
-			textslider_updatestringvalue(x);
+		char str[7];
+		char str2[15];
+		if((x->mouseDown) && (x->attrShowValue)) {
+			snprintf(str, sizeof(str), "%f", x->attrValueUnclipped);
+			snprintf(str2, sizeof(str2), "%s %s", str,x->attrUnit->s_name);
+			object_method(textfield, gensym("settext"), str2);
+		}
 		
 		jbox_redraw(&x->box);
 	}
@@ -324,10 +331,10 @@ t_max_err textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *s
 // Method for Assistance Messages
 void textslider_assist(t_textslider *x, void *b, long msg, long arg, char *dst)
 {
-	if (msg==1) 						// Inlet
+	if(msg==1) 						// Inlet
 		strcpy(dst, "Input");
-	else if (msg==2) { 					// Outlets
-		switch (arg) {
+	else if(msg==2){ 				// Outlets
+		switch(arg){
 			case 0: strcpy(dst, "Output"); break;
 				//case 1: strcpy(dst, "Attribute Stuff"); break;
  		}
@@ -335,20 +342,16 @@ void textslider_assist(t_textslider *x, void *b, long msg, long arg, char *dst)
 }
 
 void textslider_updatestringvalue(t_textslider *x)
-{      
-	//TODO: do we need to declate two strings? Can this be done better? 
-	char		str[16];
- 	char		str2[16];
-	t_object*	textfield = jbox_get_textfield((t_object*) x);
-	
-	if (textfield) {
-		snprintf(str, 16, "%f", x->attrValueUnclipped);
-		if (x->attrUnit && x->attrUnit != _sym_nothing)
-			snprintf(str2, 16, "%s %s", str, x->attrUnit->s_name);
-		else
-			snprintf(str2, 16, "%s", str);
-		object_method(textfield, gensym("settext"), str2);
-	}
+{       //TODO: do we need to declate two strings? Can this be done better? 
+		char		str[7];
+     	char		str2[15];
+		t_object*	textfield = jbox_get_textfield((t_object*) x);
+		
+		if (textfield) {
+			snprintf(str, sizeof(str), "%f", x->attrValueUnclipped);
+			snprintf(str2, sizeof(str2), "%s %s", str,x->attrUnit->s_name);
+			object_method(textfield, gensym("settext"), str2);
+		}
 		
 	jbox_redraw(&x->box);
 }
@@ -374,10 +377,10 @@ void textslider_float(t_textslider *x, double value)
 	x->attrValueUnclipped = value;
 	outlet_float(x->outlet, x->attrValueUnclipped);
 	x->attrValue = TTClip<float>(value, x->attrRange[0], x->attrRange[1]);
-	if ((x->attrShowValue) && (x->mouseOver)) 
-		textslider_updatestringvalue(x);
-	else 
-		jbox_redraw((t_jbox*)x);
+	if ((x->attrShowValue) && (x->mouseOver)) textslider_updatestringvalue(x);
+	else jbox_redraw((t_jbox*)x);
+	
+
 }
 
 
@@ -386,10 +389,8 @@ void textslider_set(t_textslider *x, double value)
 {   
 	x->attrValueUnclipped = value;
 	x->attrValue = TTClip<float>(value, x->attrRange[0], x->attrRange[1]);
-	if ((x->attrShowValue) && (x->mouseOver)) 
-		textslider_updatestringvalue(x);
-	else
-		jbox_redraw((t_jbox*)x);
+	if ((x->attrShowValue) && (x->mouseOver)) textslider_updatestringvalue(x);
+	else jbox_redraw((t_jbox*)x);	
 }
 
 
@@ -398,8 +399,10 @@ void textslider_set(t_textslider *x, double value)
 #pragma mark Attributes
 #endif 0
 
+
 t_max_err textslider_getRange(t_textslider *x, void *attr, long *argc, t_atom **argv)
 {
+
 	*argc = 2;
 	
 	//sysmem_ptrsize(*argv)
@@ -416,22 +419,21 @@ t_max_err textslider_getRange(t_textslider *x, void *attr, long *argc, t_atom **
 
 t_max_err textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *argv)
 {
-	if (argc)
+	if(argc)
 		x->attrRange[0] = atom_getfloat(argv+0);
-	if (argc > 1){
+	if(argc > 1){
 		if (atom_getfloat(argv+1) >= atom_getfloat(argv+0))	
 			x->attrRange[1] = atom_getfloat(argv+1);
 		else {
 			x->attrRange[1] = atom_getfloat(argv+0);
 		    x->attrRange[0] = atom_getfloat(argv+1);
-		}
+			}
 		x->attrRangeDelta = x->attrRange[1] - x->attrRange[0];
 	}
 	jbox_redraw((t_jbox*)x);
 	
 	return MAX_ERR_NONE;
 }
-
 
 t_max_err textslider_getTextOffset(t_textslider *x, void *attr, long *argc, t_atom **argv)
 {
@@ -449,15 +451,15 @@ t_max_err textslider_getTextOffset(t_textslider *x, void *attr, long *argc, t_at
 	return MAX_ERR_NONE;
 }
 
-
 t_max_err textslider_setTextOffset(t_textslider *x, void *attr, long argc, t_atom *argv)
 {
-	if (argc)
+	if(argc)
 		 x->attrTextOffset[0] = atom_getfloat(argv+0);
-	if (argc > 1)
+	if(argc > 1)
 		 x->attrTextOffset[1] = atom_getfloat(argv+1);
 	
 	jbox_redraw((t_jbox*)x);
+	
 	return MAX_ERR_NONE;
 }
 
@@ -474,15 +476,15 @@ t_max_err textslider_get_text(t_textslider *x, void *attr, long *argc, t_atom **
 
 t_max_err textslider_set_text(t_textslider *x, void *attr, long argc, t_atom *argv)
 {	
-	if (argc && argv)
+	if(argc && argv)
 		x->attrText = atom_getsym(argv);
 	else
 		x->attrText = _sym_nothing;
 	
-	jbox_redraw((t_jbox*)x);	
+	jbox_redraw((t_jbox*)x);
+		
 	return MAX_ERR_NONE;
 }
-
 
 t_max_err textslider_get_unit(t_textslider *x, void *attr, long *argc, t_atom **argv)
 {
@@ -496,7 +498,7 @@ t_max_err textslider_get_unit(t_textslider *x, void *attr, long *argc, t_atom **
 
 t_max_err textslider_set_unit(t_textslider *x, void *attr, long argc, t_atom *argv)
 {	
-	if (argc && argv)
+	if(argc && argv)
 		x->attrUnit = atom_getsym(argv);
 	else
 		x->attrUnit = _sym_nothing;
@@ -512,6 +514,7 @@ t_max_err textslider_set_unit(t_textslider *x, void *attr, long argc, t_atom *ar
 #pragma mark User Interface
 #endif 0
 
+
 void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long modifiers)
 {
 	t_rect	rect;
@@ -522,22 +525,22 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 	x->mousePositionY = rect.y + px.y;	
 	
-    if (modifiers & eControlKey) {
-		textslider_float(x, x->attrDefaultValue);	// CTRL+mouseclick sets the slider to the default value
-		x->anchorValue = x->attrDefaultValue;	
+    if(modifiers & eControlKey) {
+	textslider_float(x, x->attrDefaultValue);	// CTRL+mouseclick sets the slider to the default value
+	x->anchorValue = x->attrDefaultValue;	
 	}
 	else{	
-		// Jump to new value on mouse down?
-		if (x->attrClickJump) {
-			delta = TTClip<float>(px.x-1., 0., rect.width-3.);	// substract for borders
-			delta = delta/(rect.width-2.)*(x->attrRangeDelta) + x->attrRange[0];
-			if (modifiers & eCommandKey) 
-				textslider_float(x, long(delta)); //when command-key pressed, jump to the nearest integer-value
-			else 
-				textslider_float(x, delta); 	// otherwise jump to a float value				
-		}
-		x->anchorValue = x->attrValue;			
-		jbox_set_mousedragdelta((t_object *)x, 1);
+	// Jump to new value on mouse down?
+	if (x->attrClickJump) {
+		delta = TTClip<float>(px.x-1., 0., rect.width-3.);	// substract for borders
+		delta = delta/(rect.width-2.)*(x->attrRangeDelta) + x->attrRange[0];
+		if(modifiers & eCommandKey) 
+			textslider_float(x, long(delta)); //when command-key pressed, jump to the nearest integer-value
+		else 
+			textslider_float(x, delta); 	// otherwise jump to a float value				
+	}
+	x->anchorValue = x->attrValue;			
+	jbox_set_mousedragdelta((t_object *)x, 1);
 	}
 }
 
@@ -547,12 +550,12 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 {
 	t_rect		rect;
 	float		delta;
-	double		factor;
 
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
-	factor = rect.width-2;	// factor determines how much precision (vs. immediacy) you have when dragging the knob
+
+	double	factor = rect.width-2;	// factor determines how much precision (vs. immediacy) you have when dragging the knob
 	
-	if (modifiers & eCommandKey)
+	if(modifiers & eCommandKey)
 		factor = factor*0.8;
 	else if (modifiers & eShiftKey)
 		factor = factor*50.;
@@ -563,7 +566,8 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 		delta = pt.x;
 	else if (x->attrTracking==gensym("vertical"))
 		delta = -pt.y;
-	else if (x->attrTracking==gensym("both")) {
+	else if (x->attrTracking==gensym("both"))
+	{
 		if (fabs(pt.x)>fabs(pt.y))
 			delta = pt.x;
 		else
@@ -573,19 +577,16 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 	
 	// TODO: Add numdecimalplaces attribute
 	
-	if (modifiers & eCommandKey) 
-		textslider_float(x, long(x->anchorValue)); //a change in integer-steps
-	else 
-		textslider_float(x, x->anchorValue);
+	if (modifiers & eCommandKey) textslider_float(x, long(x->anchorValue)); //a change in integer-steps
+	else textslider_float(x, x->anchorValue);
 	//textslider_updatestringvalue(x); this is done now in the flaot method 
 }
 
 
 void textslider_mouseup(t_textslider *x, t_object *patcherview)
 {
-	t_rect	rect;
-	
 	x->mouseDown = 0;
+	t_rect	rect;
 
 	// Mouse show up again at current slider value
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
@@ -600,8 +601,7 @@ void textslider_mouseup(t_textslider *x, t_object *patcherview)
 void textslider_mouseenter(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers)
 {   
 	x->mouseOver = 1; 
-	if (x->attrShowValue) 
-		textslider_updatestringvalue(x);	
+	if (x->attrShowValue) textslider_updatestringvalue(x);	
 }
 
 
@@ -675,3 +675,4 @@ void textslider_paint(t_textslider *x, t_object *view)
 		jgraphics_rectangle_fill_fast(g, 1.0,1.0, position, rect.height-2.0);	
 	}
 }
+

@@ -11,8 +11,8 @@
 
 // Name & Version
 PRODUCT_NAME = $(PROJECT_NAME)
-PRODUCT_VERSION = 0.5.0
-SVNREV = 53e8
+PRODUCT_VERSION = 0.5.0-rc3
+SVNREV = $Rev$
 
 
 // Paths
