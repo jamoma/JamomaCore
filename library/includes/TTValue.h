@@ -652,6 +652,8 @@ public:
 
 
 typedef TTValue* TTValuePtr;
+typedef TTValue& TTValueRef;
+typedef const TTValue& TTValueConstRef;
 
 
 #endif // __TT_VALUE_H__
