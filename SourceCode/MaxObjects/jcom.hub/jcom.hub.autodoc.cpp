@@ -80,7 +80,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 
 	// Menu
-	jcom_core_file_writeline(&file_handle, &myEof, "\t<h6><a href=\"../../../documentation/html/index.html\">Table of Contents</a> | <a href=\"../../../documentation/html/modules.html\">Index of Modules</a> | <a href=\"http://jamoma.org/\">Jamoma.org</a></h6>");
+	jcom_core_file_writeline(&file_handle, &myEof, "\t<h6><a href=\"../../../documentation/html/index.html\">Table of Contents</a> | <a href=\"../../../documentation/html/modules.html\">Index of Modules</a> | <a href=\"../../../documentation/html/credits.html\">Credits</a> | <a href=\"http://www.jamoma.org/\">Jamoma.org</a></h6>");
 	jcom_core_file_writeline(&file_handle, &myEof, "\t</div>");
 	jcom_core_file_writeline(&file_handle, &myEof, "");
 		
