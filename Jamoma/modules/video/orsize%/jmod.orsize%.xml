@@ -7,8 +7,8 @@
   <preset number='1' name='default'>
     <item name='angle' type='integer' priority='0'>0</item>
     <item name='mirror' type='boolean' priority='0'>1</item>
-    <item name='offset_x' type='integer' priority='0'>0</item>
-    <item name='offset_y' type='integer' priority='0'>0</item>
+    <item name='offset_x' type='decimal' priority='0'>0.00000</item>
+    <item name='offset_y' type='decimal' priority='0'>0.00000</item>
     <item name='rotate1' type='boolean' priority='0'>0</item>
     <item name='rotate2' type='boolean' priority='0'>0</item>
     <item name='view/freeze' type='boolean' priority='0'>0</item>
