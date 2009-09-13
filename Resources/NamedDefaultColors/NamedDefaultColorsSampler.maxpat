@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 104.0, 44.0, 1255.0, 812.0 ],
+		"rect" : [ 53.0, 44.0, 1255.0, 812.0 ],
 		"bglocked" : 1,
-		"defrect" : [ 104.0, 44.0, 1255.0, 812.0 ],
+		"defrect" : [ 53.0, 44.0, 1255.0, 812.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -1521,7 +1521,7 @@
 							}
 , 							{
 								"box" : 								{
-									"hint" : "x 101 y 101",
+									"hint" : "x 125 y 127",
 									"id" : "obj-20",
 									"maxclass" : "itable",
 									"name" : "",
@@ -1544,7 +1544,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 445.0, 610.0, 71.0, 19.0 ],
+									"patching_rect" : [ 445.0, 535.0, 71.0, 19.0 ],
 									"presentation_rect" : [ 86.0, 654.0, 0.0, 0.0 ],
 									"text" : "preset"
 								}
@@ -1559,24 +1559,8 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 445.0, 580.0, 71.0, 19.0 ],
-									"presentation_rect" : [ 87.0, 617.0, 0.0, 0.0 ],
+									"patching_rect" : [ 445.0, 505.0, 71.0, 19.0 ],
 									"text" : "playbar"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Verdana",
-									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-									"id" : "obj-12",
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 440.0, 500.0, 71.0, 19.0 ],
-									"presentation_rect" : [ 81.0, 545.0, 0.0, 0.0 ],
-									"text" : "matrixctrl"
 								}
 
 							}
@@ -1676,18 +1660,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "int" ],
-									"patching_rect" : [ 525.0, 580.0, 320.0, 16.0 ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-80",
-									"maxclass" : "matrixctrl",
-									"numinlets" : 1,
-									"numoutlets" : 2,
-									"outlettype" : [ "list", "list" ],
-									"patching_rect" : [ 525.0, 500.0, 130.0, 66.0 ]
+									"patching_rect" : [ 525.0, 505.0, 320.0, 16.0 ]
 								}
 
 							}
@@ -1768,7 +1741,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 4,
 									"outlettype" : [ "preset", "int", "preset", "int" ],
-									"patching_rect" : [ 525.0, 610.0, 100.0, 40.0 ]
+									"patching_rect" : [ 525.0, 535.0, 100.0, 40.0 ]
 								}
 
 							}
@@ -2119,6 +2092,7 @@
 					"annotation" : "panel",
 					"background" : 1,
 					"border" : 1,
+					"hidden" : 1,
 					"hint" : "panel",
 					"id" : "obj-73",
 					"maxclass" : "panel",
@@ -2142,7 +2116,6 @@
 					"has_mute" : 1,
 					"has_panel" : 1,
 					"has_preview" : 1,
-					"hidden" : 1,
 					"hint" : "jcom.ui",
 					"id" : "obj-28",
 					"maxclass" : "jcom.ui",
