@@ -133,6 +133,10 @@ typedef long				TTPtrSizedInt;				// this works for both 32 and 64 bit code on t
 /** A generic pointer. */
 typedef void*				TTPtr;
 
+/**	A simple/generic function pointer wit not args.	*/
+typedef void (*TTFunctionPtr)();
+
+
 /****************************************************************************************************/
 
 /**	TTBlue Data Types
