@@ -133,9 +133,12 @@ typedef long				TTPtrSizedInt;				// this works for both 32 and 64 bit code on t
 /** A generic pointer. */
 typedef void*				TTPtr;
 
-/**	A simple/generic function pointer wit not args.	*/
+
+/**	A simple/generic function pointer with no args.	*/
 typedef void (*TTFunctionPtr)();
 
+/**	A simple/generic function pointer with one arg.	*/
+typedef void (*TTFunctionWithArgPtr)(TTPtr);
 
 /****************************************************************************************************/
 
