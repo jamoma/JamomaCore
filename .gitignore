@@ -28,3 +28,6 @@ Tools/installertools/Windows/root
 /Tools/installertools/Windows/main.wixobj
 /Tools/installertools/Windows/ui.wixobj
 /Tools/installertools/Windows/Jamoma.msi
+
+# This ReadMe is generated from a Template -- only the template is under version control
+ReadMe.rtf
