@@ -48,6 +48,17 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Rotate image - in degrees </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> boundmode </td>
+			<td class ="instructionType"> string </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Boundary mode for values outside the range (0, width) (0, height). <br /> 0 = ignore: Values that exceed the limits are ignored.<br /> 1 = clear: Values that exceed the limits are set to 0.<br /> 2 = wrap: Values that exceed the limits are wrapped around to the opposite limit with a modulo operation.<br /> 3 = clip: Values are limited not to exceed width or height.<br /> 4 = fold: Values that exceed the limits are folded back in the opposite. </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> mirror </td>
 			<td class ="instructionType"> boolean </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
@@ -60,8 +71,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> offset_x </td>
-			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> -1000 1000 </td>
+			<td class ="instructionType"> decimal </td>
+			<td class ="instructionRangeBounds"> -1.000000 1.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -71,8 +82,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> offset_y </td>
-			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> -1000 1000 </td>
+			<td class ="instructionType"> decimal </td>
+			<td class ="instructionRangeBounds"> -1.000000 1.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
