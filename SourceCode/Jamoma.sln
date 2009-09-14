@@ -100,6 +100,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.out~", "MaxObjects\jco
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JamomaFoundation", "..\..\Foundation\library\JamomaFoundation.vcproj", "{557C672F-6946-416C-B199-C7AB650A93C0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.parameterArray", "MaxObjects\jcom.parameterArray\jcom.parameterArray.vcproj", "{DAA45B89-D34A-4A69-B9FF-08CDF206429F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.parameterCollection", "MaxObjects\jcom.parameterCollection\jcom.parameterCollection.vcproj", "{624E2767-FE93-482D-B867-AF19E9660B88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -306,6 +310,14 @@ Global
 		{557C672F-6946-416C-B199-C7AB650A93C0}.Debug|Win32.Build.0 = Debug|Win32
 		{557C672F-6946-416C-B199-C7AB650A93C0}.Release|Win32.ActiveCfg = Release|Win32
 		{557C672F-6946-416C-B199-C7AB650A93C0}.Release|Win32.Build.0 = Release|Win32
+		{DAA45B89-D34A-4A69-B9FF-08CDF206429F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DAA45B89-D34A-4A69-B9FF-08CDF206429F}.Debug|Win32.Build.0 = Debug|Win32
+		{DAA45B89-D34A-4A69-B9FF-08CDF206429F}.Release|Win32.ActiveCfg = Release|Win32
+		{DAA45B89-D34A-4A69-B9FF-08CDF206429F}.Release|Win32.Build.0 = Release|Win32
+		{624E2767-FE93-482D-B867-AF19E9660B88}.Debug|Win32.ActiveCfg = Debug|Win32
+		{624E2767-FE93-482D-B867-AF19E9660B88}.Debug|Win32.Build.0 = Debug|Win32
+		{624E2767-FE93-482D-B867-AF19E9660B88}.Release|Win32.ActiveCfg = Release|Win32
+		{624E2767-FE93-482D-B867-AF19E9660B88}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
