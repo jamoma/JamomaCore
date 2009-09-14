@@ -40,9 +40,6 @@
 [submodule "UserLib/support"]
 	path = UserLib/support
 	url = git://github.com/Nilson/JamomaUserLibSupport.git
-[submodule "UserLib/HoloEdit"]
-	path = UserLib/HoloEdit
-	url = git://github.com/Nilson/Holophone.git
 [submodule "UserLib/SDIF"]
 	path = UserLib/SDIF
 	url = git://github.com/krisny/SDIF.git
