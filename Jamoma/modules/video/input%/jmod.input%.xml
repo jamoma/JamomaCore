@@ -14,6 +14,7 @@
     <item name='desktop/size/y' type='integer' priority='0'>240</item>
     <item name='file/framedump' type='boolean' priority='0'>0</item>
     <item name='file/loop/mode' type='boolean' priority='0'>1</item>
+		<item name='file/play' type='boolean' priority='0'>0</item>
     <item name='file/rate' type='decimal' priority='0'>1.000000</item>
     <item name='file/size' type='integer' priority='0'>2</item>
     <item name='source' type='string' priority='0'>camera</item>
