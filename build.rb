@@ -93,27 +93,6 @@ zero_count
 puts "Updating Version Information..."
 zero_count
 
-# ReadMe
-file_path = "#{@svn_root}/Jamoma/ReadMe.rtf"
-if FileTest.exist?(file_path)
-  f = File.open("#{file_path}", "r+")
-  str = f.read
-
-  if (version_mod != '')
-    str.sub!(/\\cf2 Version (.*)\n/, "\\cf2 Version #{version_maj}.#{version_min}.#{version_sub} #{version_mod} (#{revision})\n")
-  else
-    str.sub!(/\\cf2 Version (.*)\n/, "\\cf2 Version #{version_maj}.#{version_min}.#{version_sub} (#{revision})\n")
-  end
-
-  date = Date.today
-  str.sub!(/\\u8232 (.*)\\/, "\\u8232 #{date.strftime("%d %B %Y")}\\")  
-
-  f.rewind
-  f.write(str)
-  f.truncate(f.pos)
-  f.close
-end
-
 #XCConfig
 file_path = "#{@svn_root}/SourceCode/Framework/JamomaModular.xcconfig"
 if FileTest.exist?(file_path)
