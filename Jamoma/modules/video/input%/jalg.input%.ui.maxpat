@@ -199,28 +199,15 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 266.0, 1036.20813, 338.0, 19.0 ],
-					"text" : "jcom.message file/stop @description \"Open the camera grabber\"",
+					"patching_rect" : [ 265.0, 1060.0, 391.0, 19.0 ],
+					"text" : "jcom.parameter file/play @type boolean @description \"Play the movie file.\"",
 					"varname" : "jcom.parameter[8]"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-106",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "bang", "bang", "" ],
-					"patching_rect" : [ 219.0, 1057.0, 46.0, 19.0 ],
-					"text" : "sel 1 0"
-				}
-
-			}
-, 			{
-				"box" : 				{
+					"bgoncolor" : [ 0.0, 0.54902, 0.0, 1.0 ],
 					"border" : 1,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -230,29 +217,14 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 219.0, 1036.20813, 39.287197, 15.000001 ],
+					"patching_rect" : [ 265.0, 1040.0, 39.287197, 15.000001 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 34.040649, 118.20813, 33.287197, 15.000001 ],
 					"prototypename" : "jamoma settings",
 					"rounded" : 8.0,
-					"text" : "start",
-					"texton" : "stop",
+					"text" : "Play",
+					"texton" : "Play",
 					"varname" : "open_grabber[1]"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-108",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 266.0, 1057.0, 340.0, 19.0 ],
-					"text" : "jcom.message file/start @description \"Open the camera grabber\"",
-					"varname" : "jcom.parameter[9]"
 				}
 
 			}
@@ -2143,25 +2115,16 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-107", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 274.5, 1088.0, 258.0, 1088.0, 258.0, 1028.0, 274.5, 1028.0 ],
+					"source" : [ "obj-105", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-105", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-106", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-108", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-106", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-106", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-107", 0 ]
