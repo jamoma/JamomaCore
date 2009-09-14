@@ -43,3 +43,6 @@
 [submodule "UserLib/SDIF"]
 	path = UserLib/SDIF
 	url = git://github.com/krisny/SDIF.git
+[submodule "UserLib/Holophon"]
+	path = UserLib/Holophon
+	url = git://github.com/Nilson/Holophon.git
