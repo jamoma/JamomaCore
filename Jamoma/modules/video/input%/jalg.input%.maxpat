@@ -639,13 +639,13 @@
 ,
 					"patching_rect" : [ 312.0, 401.0, 60.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"fontface" : 0
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p desktop"
@@ -987,13 +987,13 @@
 ,
 					"patching_rect" : [ 242.0, 401.0, 67.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"fontface" : 0
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p synthesis"
@@ -1028,6 +1028,58 @@
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-3",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 330.0, 330.0, 133.0, 19.0 ],
+									"text" : "print \"from Jit.qt.movie\""
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-1",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 230.0, 25.0, 103.0, 17.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-2",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 120.0, 25.0, 103.0, 17.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-79",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 280.0, 450.0, 155.0, 19.0 ],
+									"text" : "s #1xxx_filename_and_path"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -1231,7 +1283,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
-									"patching_rect" : [ 353.0, 368.0, 193.0, 19.0 ],
+									"patching_rect" : [ 508.0, 368.0, 193.0, 19.0 ],
 									"text" : "jcom.pass time duration moviename"
 								}
 
@@ -1299,15 +1351,15 @@
  ]
 									}
 ,
-									"patching_rect" : [ 353.0, 416.0, 39.0, 19.0 ],
+									"patching_rect" : [ 508.0, 416.0, 39.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"fontface" : 0
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"fontface" : 0,
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p thru"
@@ -1377,15 +1429,15 @@
  ]
 									}
 ,
-									"patching_rect" : [ 173.0, 453.0, 39.0, 19.0 ],
+									"patching_rect" : [ 175.0, 455.0, 39.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"fontface" : 0
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"fontface" : 0,
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p thru"
@@ -1397,13 +1449,13 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-26",
-									"linecount" : 3,
+									"linecount" : 4,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 173.0, 389.0, 97.0, 41.0 ],
-									"text" : "getduration, getmoviedim, getmoviename"
+									"patching_rect" : [ 175.0, 395.0, 102.0, 53.0 ],
+									"text" : "getmoviepath, getduration, getmoviedim, getmoviename"
 								}
 
 							}
@@ -1414,10 +1466,10 @@
 									"id" : "obj-27",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 4,
-									"outlettype" : [ "", "", "", "" ],
-									"patching_rect" : [ 173.0, 367.0, 175.0, 19.0 ],
-									"text" : "route read moviedim framedump"
+									"numoutlets" : 5,
+									"outlettype" : [ "", "", "", "", "" ],
+									"patching_rect" : [ 175.0, 365.0, 233.0, 19.0 ],
+									"text" : "route read moviedim moviepath framedump"
 								}
 
 							}
@@ -1626,7 +1678,7 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 353.0, 520.0, 25.0, 25.0 ]
+									"patching_rect" : [ 508.0, 520.0, 25.0, 25.0 ]
 								}
 
 							}
@@ -1725,7 +1777,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-24", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 478.5, 401.0, 362.5, 401.0 ],
+									"midpoints" : [ 633.5, 401.0, 517.5, 401.0 ],
 									"source" : [ "obj-23", 2 ]
 								}
 
@@ -1734,7 +1786,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-24", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 420.5, 401.0, 362.5, 401.0 ],
+									"midpoints" : [ 575.5, 401.0, 517.5, 401.0 ],
 									"source" : [ "obj-23", 1 ]
 								}
 
@@ -1761,7 +1813,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-44", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 182.5, 482.0, 119.0, 420.0, 119.0, 305.0 ],
+									"midpoints" : [ 184.5, 482.0, 119.0, 420.0, 119.0, 305.0 ],
 									"source" : [ "obj-25", 0 ]
 								}
 
@@ -1790,6 +1842,15 @@
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-27", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-79", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-27", 2 ]
 								}
 
 							}
@@ -1896,7 +1957,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-23", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 264.5, 356.0, 362.5, 356.0 ],
+									"midpoints" : [ 264.5, 356.0, 517.5, 356.0 ],
 									"source" : [ "obj-44", 1 ]
 								}
 
@@ -1905,7 +1966,16 @@
 								"patchline" : 								{
 									"destination" : [ "obj-27", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 264.5, 356.0, 182.5, 356.0 ],
+									"midpoints" : [ 264.5, 356.0, 184.5, 356.0 ],
+									"source" : [ "obj-44", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-3", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-44", 1 ]
 								}
 
@@ -2011,6 +2081,15 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-1", 1 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-52", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-44", 0 ],
 									"hidden" : 0,
 									"midpoints" : [ 85.5, 222.0, 147.5, 222.0 ],
@@ -2024,6 +2103,15 @@
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-7", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-2", 1 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-8", 0 ]
 								}
 
 							}
@@ -2077,13 +2165,13 @@
 ,
 					"patching_rect" : [ 102.0, 401.0, 35.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"fontface" : 0
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p file"
@@ -2328,13 +2416,13 @@
 ,
 									"patching_rect" : [ 213.0, 339.0, 47.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"fontface" : 0
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"fontface" : 0,
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p thru3",
@@ -2407,13 +2495,13 @@
 ,
 									"patching_rect" : [ 124.0, 343.0, 47.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"fontface" : 0
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"fontface" : 0,
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p thru2",
@@ -2585,7 +2673,7 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-24",
-									"items" : [ "DV Video", ",", "IIDC FireWire Video", ",", "USB Video Class Video" ],
+									"items" : [ "DVCPRO HD (1080i50)", ",", "DVCPRO HD (1080i60)", ",", "DVCPRO HD (720p60)", ",", "DVCPRO HD (720p25/50)", ",", "DV Video", ",", "IIDC FireWire Video", ",", "USB Video Class Video" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -2731,13 +2819,13 @@
 ,
 									"patching_rect" : [ 125.0, 204.0, 47.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"fontface" : 0
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"fontface" : 0,
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p thru1",
@@ -3021,13 +3109,13 @@
 ,
 									"patching_rect" : [ 20.0, 283.0, 93.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"fontface" : 0
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"fontface" : 0,
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p script-grabber"
@@ -3390,13 +3478,13 @@
 ,
 									"patching_rect" : [ 20.0, 257.0, 90.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"fontface" : 0
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"fontface" : 0,
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p check-system"
@@ -3880,13 +3968,13 @@
 ,
 					"patching_rect" : [ 32.0, 401.0, 57.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"fontface" : 0
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p camera"
