@@ -1,0 +1,93 @@
+
+----------------------------
+
+ICST Ambisonics Tools 1.2
+
+----------------------------
+
+Copyright (c) 2003 - 2007 ICST Institute for Computer Music and Sound Technology , Zurich School of Music, Drama and Dance
+
+The ICST Ambisonics Tools are a set of externals for Max/MSP for audio spatialisation and source placement control.
+
+The ICST Ambisonics Tools are free software distributed under GNU Lesser General Public License (LGPL). for more information see file COPYING or go to http://www.gnu.org
+
+This distribution of of the ICST Ambisonics Tools has been developed and tested on Mac OS X 10.4 (tiger) using Max/MSP 4.6.3 and compiled and tested on Windows XP SP2 using Max/MSP 4.6.3
+
+(known bug: under windows with certain specifications ambimonitor crashes for unknown reasons)
+
+For bugreports, feature-requests and success-stories please contact us here: http://www.icst.net
+
+These externals can be downloaded from www.icst.net 
+
+
+----------------------------
+
+Installation instructions:
+
+This distribution of the ICST Ambisonics Tools 1.2 is organized into folders for externals, help, inspectors, startup, init, source and examples respectively.
+
+     
+OS X (Max/MSP 4.6)
+   
+icst_ambisonics_externals: place folder into 
+    Applications/MaxMSP 4.6/Cycling '74/externals
+    or wherever in the searchpath you keep your 3rd party externals.
+
+icst_ambisonics_help: place folder into 
+    Applications/MaxMSP 4.6/max-help
+    or wherever you keep your 3rd party externals.    
+
+icst_ambisonics_inspectors: place folder into 
+    Applications/MaxMSP 4.6/patches/inspectors
+    or wherever in the searchpath you keep your 3rd party externals
+
+put_into_init: place content into 
+    Applications/MaxMSP 4.6/Cycling '74/init/ 
+    to access the icst ambisonics objects from the new object list
+
+put_into_max_startup: place content into 
+    Applications/MaxMSP 4.6/Cycling '74/max-startup/
+    to access GUI-object from the object-palette
+
+store remaining folders at your convenience
+
+----
+
+Windows XP (Max/MSP 4.5 or newer)
+    
+icst_ambisonics_externals: place folder into 
+    C:\Program Files\Common Files\Cycling '74\externals (Max/MSP 4.5)
+    C:\Program Files\Cycling '74\MaxMSP 4.6\Cycling '74\externals (Max/MSP 4.6)
+    or wherever in the searchpath you keep your 3rd party externals.
+   
+icst_ambisonics_help: place folder into 
+    C:\Program Files\Cycling '74\MaxMSP 4.x\max-help 
+    or wherever in the searchpath you keep your 3rd party externals.
+
+icst_ambisonics_inspectors: place folder into 
+    C:\Program Files\Cycling '74\Max 4.x\patches\inspectors
+    or wherever in the searchpath you keep your 3rd party externals
+  
+put_into_init: place content into 
+    C:\Program Files\Common Files\Cycling '74\init (Max/MSP 4.5)
+    C:\Program Files\Cycling '74\MaxMSP 4.6\Cycling '74\init (Max/MSP 4.6)
+    to access the icst ambisonics objects from the new object list
+
+put_into_max_startup: place content into 
+    C:\Program Files\Common Files\Cycling '74\max-startup (Max/MSP 4.5)
+    C:\Program Files\Cycling '74\MaxMSP 4.6\Cycling '74\max-startup (Max/MSP 4.6)
+   to access GUI-object from the object-palette
+
+            
+store remaining folders at your convenience
+
+
+----------------------------
+
+
+The ICST Ambisonics Tools have been developed at the Institute for Computer Music and Sound Technology of the Zurich School for Music, Drama and Dance by:
+- Jan Schacher
+- Philippe Kocher
+
+----------------------------
+
