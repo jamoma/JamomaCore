@@ -1,3 +1,6 @@
+# OSX Finder stuff:
+.DS_Store
+
 Installers
 Builds/*.mxo
 logs
@@ -9,7 +12,10 @@ Tools/installertools/Windows/root
 *.ttdll
 *.log
 
+# temp files from git merges
 *.orig
+
+# Windows Installer Temp files
 
 /Tools/installertools/Windows/JamomaC74.wixobj
 /Tools/installertools/Windows/JamomaC74.wxs

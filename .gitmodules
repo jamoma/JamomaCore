@@ -34,3 +34,15 @@
 [submodule "Tools/testlib/rosc"]
 	path = Tools/testlib/rosc
 	url = git://github.com/tap/rosc.git
+[submodule "UserLib/Jamoma.Ircam.IMTR"]
+	path = UserLib/Jamoma.Ircam.IMTR
+	url = git://github.com/lossius/Jamoma.Ircam.IMTR
+[submodule "UserLib/support"]
+	path = UserLib/support
+	url = git://github.com/Nilson/JamomaUserLibSupport.git
+[submodule "UserLib/SDIF"]
+	path = UserLib/SDIF
+	url = git://github.com/krisny/SDIF.git
+[submodule "UserLib/Holophon"]
+	path = UserLib/Holophon
+	url = git://github.com/Nilson/Holophon.git
