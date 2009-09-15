@@ -7,10 +7,10 @@
   <preset number='1' name='default'>
     <item name='edit' type='string' priority='0'>edit</item>
     <item name='mapping.1/clipmode' type='string' priority='0'>both</item>
+    <item name='mapping.1/function' type='string' priority='1'>exponential</item>
     <item name='mapping.1/function/parameter1' type='decimal' priority='5'>1.000000</item>
     <item name='mapping.1/function/parameter2' type='decimal' priority='4'>0.000000</item>
     <item name='mapping.1/function/symmetry' type='string' priority='3'>0</item>
-    <item name='mapping.1/function' type='string' priority='1'>exponential</item>
     <item name='mapping.1/in/direct' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.1/in/max' type='decimal' priority='0'>1.000000</item>
     <item name='mapping.1/in/min' type='decimal' priority='0'>0.000000</item>
@@ -24,35 +24,35 @@
     <item name='mapping.1/out/module/instance' type='integer' priority='4'>0</item>
     <item name='mapping.1/out/module/name' type='string' priority='3'>/filter~</item>
     <item name='mapping.1/out/module/parameter' type='string' priority='5'>/frequency</item>
-    <item name='mapping.1/ramp' type='integer' priority='10'>0</item>
+    <item name='mapping.1/ramp' type='integer' priority='0'>0</item>
     <item name='mapping.1/slide/down' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.1/slide/up' type='decimal' priority='0'>0.000000</item>
-    <item name='mapping.10/clipmode' type='string' priority='0'>0</item>
-    <item name='mapping.10/function/parameter1' type='decimal' priority='5'>0.000000</item>
-    <item name='mapping.10/function/parameter2' type='decimal' priority='4'>0.000000</item>
-    <item name='mapping.10/function/symmetry' type='string' priority='3'>0</item>
-    <item name='mapping.10/function' type='string' priority='1'>0</item>
-    <item name='mapping.10/in/direct' type='decimal' priority='0'>0.000000</item>
-    <item name='mapping.10/in/max' type='decimal' priority='0'>0.000000</item>
-    <item name='mapping.10/in/min' type='decimal' priority='0'>0.000000</item>
-    <item name='mapping.10/in/module/derivative' type='integer' priority='0'>0</item>
-    <item name='mapping.10/in/module/instance' type='integer' priority='2'>0</item>
-    <item name='mapping.10/in/module/listindex' type='integer' priority='0'>1</item>
-    <item name='mapping.10/in/module/name' type='string' priority='1'>0</item>
-    <item name='mapping.10/in/module/parameter' type='string' priority='6'>0</item>
-    <item name='mapping.10/out/max' type='decimal' priority='0'>0.000000</item>
-    <item name='mapping.10/out/min' type='decimal' priority='0'>0.000000</item>
-    <item name='mapping.10/out/module/instance' type='integer' priority='4'>0</item>
-    <item name='mapping.10/out/module/name' type='string' priority='3'>0</item>
-    <item name='mapping.10/out/module/parameter' type='string' priority='5'>0</item>
-    <item name='mapping.10/ramp' type='integer' priority='0'>0</item>
-    <item name='mapping.10/slide/down' type='decimal' priority='0'>0.000000</item>
-    <item name='mapping.10/slide/up' type='decimal' priority='0'>0.000000</item>
+    <item name='mapping.10/clipmod' type='string' priority='0'>0</item>
+    <item name='mapping.10/functio' type='string' priority='1'>0</item>
+    <item name='mapping.10/function/parameter' type='decimal' priority='4'>0.000000</item>
+    <item name='mapping.10/function/parameter' type='decimal' priority='5'>0.000000</item>
+    <item name='mapping.10/function/symmetr' type='string' priority='3'>0</item>
+    <item name='mapping.10/in/direc' type='decimal' priority='0'>0.000000</item>
+    <item name='mapping.10/in/ma' type='decimal' priority='0'>0.000000</item>
+    <item name='mapping.10/in/mi' type='decimal' priority='0'>0.000000</item>
+    <item name='mapping.10/in/module/derivativ' type='integer' priority='0'>0</item>
+    <item name='mapping.10/in/module/instanc' type='integer' priority='2'>0</item>
+    <item name='mapping.10/in/module/listinde' type='integer' priority='0'>1</item>
+    <item name='mapping.10/in/module/nam' type='string' priority='1'>0</item>
+    <item name='mapping.10/in/module/paramete' type='string' priority='6'>0</item>
+    <item name='mapping.10/out/ma' type='decimal' priority='0'>0.000000</item>
+    <item name='mapping.10/out/mi' type='decimal' priority='0'>0.000000</item>
+    <item name='mapping.10/out/module/instanc' type='integer' priority='4'>0</item>
+    <item name='mapping.10/out/module/nam' type='string' priority='3'>0</item>
+    <item name='mapping.10/out/module/paramete' type='string' priority='5'>0</item>
+    <item name='mapping.10/ram' type='integer' priority='0'>0</item>
+    <item name='mapping.10/slide/dow' type='decimal' priority='0'>0.000000</item>
+    <item name='mapping.10/slide/u' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.2/clipmode' type='string' priority='0'>both</item>
+    <item name='mapping.2/function' type='string' priority='1'>0</item>
     <item name='mapping.2/function/parameter1' type='decimal' priority='5'>0.000000</item>
     <item name='mapping.2/function/parameter2' type='decimal' priority='4'>0.000000</item>
     <item name='mapping.2/function/symmetry' type='string' priority='3'>0</item>
-    <item name='mapping.2/function' type='string' priority='1'>0</item>
     <item name='mapping.2/in/direct' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.2/in/max' type='decimal' priority='0'>1.000000</item>
     <item name='mapping.2/in/min' type='decimal' priority='0'>0.000000</item>
@@ -70,10 +70,10 @@
     <item name='mapping.2/slide/down' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.2/slide/up' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.3/clipmode' type='string' priority='0'>none</item>
+    <item name='mapping.3/function' type='string' priority='1'>0</item>
     <item name='mapping.3/function/parameter1' type='decimal' priority='5'>0.000000</item>
     <item name='mapping.3/function/parameter2' type='decimal' priority='4'>0.000000</item>
     <item name='mapping.3/function/symmetry' type='string' priority='3'>0</item>
-    <item name='mapping.3/function' type='string' priority='1'>0</item>
     <item name='mapping.3/in/direct' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.3/in/max' type='decimal' priority='0'>1.000000</item>
     <item name='mapping.3/in/min' type='decimal' priority='0'>0.000000</item>
@@ -91,10 +91,10 @@
     <item name='mapping.3/slide/down' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.3/slide/up' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.4/clipmode' type='string' priority='0'>both</item>
+    <item name='mapping.4/function' type='string' priority='1'>power</item>
     <item name='mapping.4/function/parameter1' type='decimal' priority='5'>0.000000</item>
     <item name='mapping.4/function/parameter2' type='decimal' priority='4'>0.000000</item>
     <item name='mapping.4/function/symmetry' type='string' priority='3'>0</item>
-    <item name='mapping.4/function' type='string' priority='1'>power</item>
     <item name='mapping.4/in/direct' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.4/in/max' type='decimal' priority='0'>1.000000</item>
     <item name='mapping.4/in/min' type='decimal' priority='0'>0.000000</item>
@@ -112,10 +112,10 @@
     <item name='mapping.4/slide/down' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.4/slide/up' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.5/clipmode' type='string' priority='0'>none</item>
+    <item name='mapping.5/function' type='string' priority='1'>0</item>
     <item name='mapping.5/function/parameter1' type='decimal' priority='5'>0.000000</item>
     <item name='mapping.5/function/parameter2' type='decimal' priority='4'>0.000000</item>
     <item name='mapping.5/function/symmetry' type='string' priority='3'>0</item>
-    <item name='mapping.5/function' type='string' priority='1'>0</item>
     <item name='mapping.5/in/direct' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.5/in/max' type='decimal' priority='0'>1.000000</item>
     <item name='mapping.5/in/min' type='decimal' priority='0'>0.000000</item>
@@ -133,10 +133,10 @@
     <item name='mapping.5/slide/down' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.5/slide/up' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.6/clipmode' type='string' priority='0'>0</item>
+    <item name='mapping.6/function' type='string' priority='1'>0</item>
     <item name='mapping.6/function/parameter1' type='decimal' priority='5'>0.000000</item>
     <item name='mapping.6/function/parameter2' type='decimal' priority='4'>0.000000</item>
     <item name='mapping.6/function/symmetry' type='string' priority='3'>0</item>
-    <item name='mapping.6/function' type='string' priority='1'>0</item>
     <item name='mapping.6/in/direct' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.6/in/max' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.6/in/min' type='decimal' priority='0'>0.000000</item>
@@ -154,10 +154,10 @@
     <item name='mapping.6/slide/down' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.6/slide/up' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.7/clipmode' type='string' priority='0'>0</item>
+    <item name='mapping.7/function' type='string' priority='1'>0</item>
     <item name='mapping.7/function/parameter1' type='decimal' priority='5'>0.000000</item>
     <item name='mapping.7/function/parameter2' type='decimal' priority='4'>0.000000</item>
     <item name='mapping.7/function/symmetry' type='string' priority='3'>0</item>
-    <item name='mapping.7/function' type='string' priority='1'>0</item>
     <item name='mapping.7/in/direct' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.7/in/max' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.7/in/min' type='decimal' priority='0'>0.000000</item>
@@ -175,10 +175,10 @@
     <item name='mapping.7/slide/down' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.7/slide/up' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.8/clipmode' type='string' priority='0'>0</item>
+    <item name='mapping.8/function' type='string' priority='1'>0</item>
     <item name='mapping.8/function/parameter1' type='decimal' priority='5'>0.000000</item>
     <item name='mapping.8/function/parameter2' type='decimal' priority='4'>0.000000</item>
     <item name='mapping.8/function/symmetry' type='string' priority='3'>0</item>
-    <item name='mapping.8/function' type='string' priority='1'>0</item>
     <item name='mapping.8/in/direct' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.8/in/max' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.8/in/min' type='decimal' priority='0'>0.000000</item>
@@ -196,10 +196,10 @@
     <item name='mapping.8/slide/down' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.8/slide/up' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.9/clipmode' type='string' priority='0'>0</item>
+    <item name='mapping.9/function' type='string' priority='1'>0</item>
     <item name='mapping.9/function/parameter1' type='decimal' priority='5'>0.000000</item>
     <item name='mapping.9/function/parameter2' type='decimal' priority='4'>0.000000</item>
     <item name='mapping.9/function/symmetry' type='string' priority='3'>0</item>
-    <item name='mapping.9/function' type='string' priority='1'>0</item>
     <item name='mapping.9/in/direct' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.9/in/max' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.9/in/min' type='decimal' priority='0'>0.000000</item>
@@ -216,8 +216,8 @@
     <item name='mapping.9/ramp' type='integer' priority='0'>0</item>
     <item name='mapping.9/slide/down' type='decimal' priority='0'>0.000000</item>
     <item name='mapping.9/slide/up' type='decimal' priority='0'>0.000000</item>
-    <item name='mappings/instanceEdited' type='integer' priority='0'>5</item>
-    <item name='mappings/instanceNumber' type='integer' priority='0'>10</item>
+    <item name='mappings/instanceEdited' type='integer' priority='1'>0</item>
+    <item name='mappings/instanceNumber' type='integer' priority='1'>0</item>
     <item name='view/color/border' type='array' priority='0'>0</item>
     <item name='view/color/contentBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
