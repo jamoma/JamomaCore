@@ -101,8 +101,6 @@ t_paramarray* paramarray_new(t_symbol *s, long argc, t_atom *argv)
 
 void paramarray_free(t_paramarray *x)
 {	
-	free(x->attr_format);
-	free(x->attr_argv);
 	paramarray_destroy_array(x);
 }
 
@@ -295,7 +293,6 @@ void paramarray_set(t_paramarray* x, long n)
 	// edit selection
 	if(x->attr_format)
 		paramarray_parameter_name(x->attr_format, &x->attr_selection, n);
-
 }
 
 void paramarray_in1(t_paramarray *x, long n)
@@ -343,7 +340,7 @@ void paramarray_create_array(t_paramarray* x, t_symbol *msg, long argc, t_atom* 
 				
 				anObject->setAction((method)paramarray_callback, (t_object*)x);
 				hashtab_store(x->hash_internals, s_param, (t_object*)anObject);
-				anObject->index = i+1;	// store the instance to avoid a parse of the instance in the callback
+				anObject->index = i;	// store the instance to avoid a parse of the instance in the callback
 			}
 			// if it already exists 
 			else{
@@ -497,7 +494,8 @@ long	paramarray_parse_bracket(t_symbol *s, char **s_format)
 	int len, flen, pos, i_num = 1;
 	char *start_bracket = NULL;
 	char *end_bracket = NULL;
-	char *to_parse, *s_num;
+	char *to_parse = NULL;
+	char *s_num = NULL;
 	
 	if(s){
 		
