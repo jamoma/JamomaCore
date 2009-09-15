@@ -258,13 +258,13 @@
 ,
 					"patching_rect" : [ 195.0, 425.0, 64.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"fontname" : "Verdana",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p inspector",
@@ -282,8 +282,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 761.0, 366.0, 404.0, 31.0 ],
-					"text" : "jcom.parameter layer_3 @type array @ramp/drive scheduler @description \"Blend coefficients for layer 3 (backmost layer) as list of rgba values.\"",
+					"patching_rect" : [ 761.0, 366.0, 596.0, 31.0 ],
+					"text" : "jcom.parameter layer.3 @type array @ramp/drive scheduler @description \"Blend coefficients for layer 3 (backmost layer) as list of rgba values.\"",
 					"varname" : "layer_3"
 				}
 
@@ -312,8 +312,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 760.0, 267.0, 346.0, 31.0 ],
-					"text" : "jcom.parameter layer_2 @type array @ramp/drive scheduler @description \"Blend coefficients for layer 2 as list of rgba values.\"",
+					"patching_rect" : [ 760.0, 267.0, 586.0, 31.0 ],
+					"text" : "jcom.parameter layer.2 @type array @ramp/drive scheduler @description \"Blend coefficients for layer 2 as list of rgba values.\"",
 					"varname" : "layer_2"
 				}
 
@@ -342,8 +342,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 760.0, 180.0, 346.0, 31.0 ],
-					"text" : "jcom.parameter layer_1 @type array @ramp/drive scheduler @description \"Blend coefficients for layer 1 as list of rgba values.\"",
+					"patching_rect" : [ 760.0, 180.0, 586.0, 31.0 ],
+					"text" : "jcom.parameter layer.1 @type array @ramp/drive scheduler @description \"Blend coefficients for layer 1 as list of rgba values.\"",
 					"varname" : "layer_1"
 				}
 
@@ -372,8 +372,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 760.0, 92.0, 404.0, 31.0 ],
-					"text" : "jcom.parameter layer_0 @type array @ramp/drive scheduler @description \"Blend coefficients for layer 0 (frontmost layer) as list of rgba values.\"",
+					"patching_rect" : [ 760.0, 92.0, 597.0, 31.0 ],
+					"text" : "jcom.parameter layer.0 @type array @ramp/drive scheduler @description \"Blend coefficients for layer 0 (frontmost layer) as list of rgba values.\"",
 					"varname" : "layer_0"
 				}
 
