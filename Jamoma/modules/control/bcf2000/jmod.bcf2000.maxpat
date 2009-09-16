@@ -2544,8 +2544,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 127.0, 425.0, 259.0, 31.0 ],
-					"text" : "jcom.parameter midiIn @priority 0 @description \"Port to receive MIDI messages on.\"",
+					"patching_rect" : [ 127.0, 425.0, 307.0, 31.0 ],
+					"text" : "jcom.parameter midiIn @priority 0 @repetitions/allow 1 @description \"Port to receive MIDI messages on.\"",
 					"varname" : "midi_in"
 				}
 
@@ -2589,8 +2589,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 462.0, 425.0, 256.0, 31.0 ],
-					"text" : "jcom.parameter midiOut @priority 0 @description \"Port to send MIDI messages to.\"",
+					"patching_rect" : [ 462.0, 425.0, 313.0, 31.0 ],
+					"text" : "jcom.parameter midiOut @priority 0 @repetitions/allow 1 @description \"Port to send MIDI messages to.\"",
 					"varname" : "midi_out"
 				}
 
