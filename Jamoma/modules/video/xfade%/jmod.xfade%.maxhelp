@@ -15,6 +15,8 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
+		"enablehscroll" : 1,
+		"enablevscroll" : 1,
 		"boxes" : [ 			{
 				"box" : 				{
 					"args" : [ "@name", "jmod.xfade%", "@description", "Crossfade between two incoming video matrices" ],
@@ -37,7 +39,7 @@
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
 					"name" : "jmod.input%.maxpat",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 588.0, 91.0, 300.0, 70.0 ],
@@ -53,7 +55,7 @@
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
 					"name" : "jmod.input%.maxpat",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 283.0, 91.0, 300.0, 70.0 ],
@@ -130,7 +132,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 283.0, 263.0, 112.0, 17.0 ],
-					"text" : "/xfade 0."
+					"text" : "/video/preview 0"
 				}
 
 			}
@@ -165,37 +167,10 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-11", 1 ],
+					"destination" : [ "obj-11", 2 ],
 					"hidden" : 0,
-					"midpoints" : [ 573.5, 172.0, 358.0, 172.0 ],
-					"source" : [ "obj-2", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
-					"hidden" : 1,
-					"midpoints" : [ 218.5, 260.0, 292.5, 260.0 ],
-					"source" : [ "obj-7", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-4", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-5", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-11", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-3", 0 ]
+					"midpoints" : [ 878.5, 180.5, 423.5, 180.5 ],
+					"source" : [ "obj-1", 1 ]
 				}
 
 			}
@@ -214,6 +189,42 @@
 					"hidden" : 0,
 					"midpoints" : [ 292.5, 260.5, 385.5, 260.5 ],
 					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 573.5, 172.0, 358.0, 172.0 ],
+					"source" : [ "obj-2", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"hidden" : 1,
+					"midpoints" : [ 218.5, 260.0, 292.5, 260.0 ],
+					"source" : [ "obj-7", 0 ]
 				}
 
 			}

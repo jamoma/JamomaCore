@@ -978,13 +978,13 @@
 ,
 									"patching_rect" : [ 231.0, 305.0, 75.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"globalpatchername" : "",
 										"default_fontface" : 0,
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontname" : "Verdana",
+										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"fontname" : "Verdana"
+										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p hide&show"
@@ -995,7 +995,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-56",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1011,7 +1011,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-44",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1027,7 +1027,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-38",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1240,6 +1240,7 @@
 									"patching_rect" : [ 167.0, 282.0, 100.0, 19.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 205.0, 290.0, 68.0, 19.0 ],
+									"rounded" : 15,
 									"types" : [  ]
 								}
 
@@ -1257,6 +1258,7 @@
 									"patching_rect" : [ 58.0, 188.0, 100.0, 19.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 101.0, 290.0, 59.0, 19.0 ],
+									"rounded" : 15,
 									"types" : [  ]
 								}
 
@@ -1307,7 +1309,7 @@
 									"presentation_rect" : [ 24.0, 136.0, 490.0, 93.0 ],
 									"ruler" : 0,
 									"selectioncolor" : [ 0.258824, 0.0, 0.007843, 0.5 ],
-									"setmode" : 3,
+									"setmode" : 1,
 									"snapto" : 2,
 									"textcolor" : [  ],
 									"tickmarkcolor" : [ 0.423529, 0.423529, 0.423529, 1.0 ],
@@ -1355,7 +1357,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-47",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1371,7 +1373,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-41",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1387,7 +1389,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-39",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1403,7 +1405,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-36",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1419,7 +1421,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-28",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1725,7 +1727,6 @@
 							}
 , 							{
 								"box" : 								{
-									"bgcolor" : [ 0.866667, 0.866667, 0.866667, 1.0 ],
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -1779,7 +1780,6 @@
 							}
 , 							{
 								"box" : 								{
-									"bgcolor" : [ 0.866667, 0.866667, 0.866667, 1.0 ],
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -1834,7 +1834,6 @@
 							}
 , 							{
 								"box" : 								{
-									"bgcolor" : [ 0.866667, 0.866667, 0.866667, 1.0 ],
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -1870,7 +1869,6 @@
 							}
 , 							{
 								"box" : 								{
-									"bgcolor" : [ 0.866667, 0.866667, 0.866667, 1.0 ],
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -1891,7 +1889,6 @@
 							}
 , 							{
 								"box" : 								{
-									"bgcolor" : [ 0.866667, 0.866667, 0.866667, 1.0 ],
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -1926,7 +1923,7 @@
 									"presentation" : 1,
 									"presentation_rect" : [ 24.0, 42.0, 490.0, 93.0 ],
 									"selectioncolor" : [ 0.258824, 0.0, 0.007843, 0.5 ],
-									"setmode" : 3,
+									"setmode" : 1,
 									"snapto" : 2,
 									"textcolor" : [  ],
 									"tickmarkcolor" : [ 0.423529, 0.423529, 0.423529, 1.0 ],
@@ -2257,13 +2254,13 @@
 ,
 									"patching_rect" : [ 40.0, 315.0, 50.0, 17.0 ],
 									"saved_object_attributes" : 									{
-										"globalpatchername" : "",
 										"default_fontface" : 0,
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontname" : "Arial",
+										"fontname" : "Arial",
 										"default_fontsize" : 10.0,
-										"fontname" : "Arial"
+										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 10.0
 									}
 ,
 									"text" : "p wfkeys"
@@ -3199,13 +3196,13 @@
 ,
 					"patching_rect" : [ 16.0, 529.0, 91.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"fontname" : "Verdana"
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p panel"
@@ -3352,7 +3349,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-59",
 					"maxclass" : "comment",
 					"numinlets" : 1,
