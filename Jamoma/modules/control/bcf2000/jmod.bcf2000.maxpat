@@ -95,7 +95,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 250.0, 465.0, 74.0, 19.0 ],
+					"patching_rect" : [ 223.0, 475.0, 74.0, 19.0 ],
 					"text" : "prepend port"
 				}
 
@@ -108,7 +108,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 250.0, 490.0, 91.0, 19.0 ],
+					"patching_rect" : [ 223.0, 500.0, 91.0, 19.0 ],
 					"text" : "s #1_inport"
 				}
 
@@ -132,13 +132,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-8",
-					"items" : [ "to MaxMSP 1", ",", "to MaxMSP 2", ",", "BCF2000 Port 1", ",", "BCF2000 Port 2" ],
+					"items" : [ "BCF2000 Port 1", ",", "BCF2000 Port 2", ",", "USB Axiom 25 Port 1", ",", "USB Axiom 25 Port 2", ",", "to MaxMSP 1", ",", "to MaxMSP 2" ],
 					"labelclick" : 1,
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 128.0, 400.0, 100.0, 19.0 ],
+					"patching_rect" : [ 81.0, 400.0, 100.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 70.0, 20.575001, 221.0, 19.0 ],
 					"types" : [  ],
@@ -151,7 +151,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-9",
-					"items" : [ "AU DLS Synth 1", ",", "from MaxMSP 1", ",", "from MaxMSP 2", ",", "BCF2000 Port 1", ",", "BCF2000 Port 2", ",", "BCF2000 Port 3" ],
+					"items" : [ "AU DLS Synth 1", ",", "BCF2000 Port 1", ",", "BCF2000 Port 2", ",", "BCF2000 Port 3", ",", "USB Axiom 25 Port 1", ",", "from MaxMSP 1", ",", "from MaxMSP 2" ],
 					"labelclick" : 1,
 					"maxclass" : "umenu",
 					"numinlets" : 1,
@@ -174,7 +174,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 127.0, 375.0, 49.0, 19.0 ],
+					"patching_rect" : [ 80.0, 375.0, 49.0, 19.0 ],
 					"text" : "midiinfo"
 				}
 
@@ -203,10 +203,10 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 100.0, 100.0, 544.0, 332.0 ],
+						"rect" : [ 46.0, 44.0, 1394.0, 856.0 ],
 						"bgcolor" : [ 0.188235, 0.188235, 0.188235, 1.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 100.0, 100.0, 544.0, 332.0 ],
+						"defrect" : [ 46.0, 44.0, 1394.0, 856.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 1,
 						"default_fontsize" : 10.0,
@@ -616,13 +616,13 @@
 ,
 									"patching_rect" : [ 652.0, 91.0, 80.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
 										"default_fontface" : 0,
 										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontsize" : 10.0,
-										"fontname" : "Verdana"
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p Foot_Switch",
@@ -857,13 +857,13 @@
 ,
 									"patching_rect" : [ 748.0, 217.0, 64.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
 										"default_fontface" : 0,
 										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontsize" : 10.0,
-										"fontname" : "Verdana"
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p Button_4",
@@ -1098,13 +1098,13 @@
 ,
 									"patching_rect" : [ 748.0, 162.0, 64.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
 										"default_fontface" : 0,
 										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontsize" : 10.0,
-										"fontname" : "Verdana"
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p Button_2",
@@ -1123,10 +1123,10 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 440.0, 51.0, 105.0, 29.0 ],
+									"patching_rect" : [ 440.0, 51.0, 109.0, 29.0 ],
 									"presentation" : 1,
 									"presentation_linecount" : 2,
-									"presentation_rect" : [ 440.0, 51.0, 105.0, 29.0 ],
+									"presentation_rect" : [ 440.0, 51.0, 109.0, 29.0 ],
 									"text" : "window flags grow, window exec"
 								}
 
@@ -1261,13 +1261,13 @@
 ,
 									"patching_rect" : [ 431.0, 31.0, 42.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
 										"default_fontface" : 0,
 										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontsize" : 10.0,
-										"fontname" : "Verdana"
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p front"
@@ -1558,13 +1558,13 @@
 ,
 									"patching_rect" : [ 748.0, 91.0, 83.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
 										"default_fontface" : 0,
 										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontsize" : 10.0,
-										"fontname" : "Verdana"
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p Foot_Control",
@@ -1816,13 +1816,13 @@
 ,
 									"patching_rect" : [ 652.0, 217.0, 64.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
 										"default_fontface" : 0,
 										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontsize" : 10.0,
-										"fontname" : "Verdana"
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p Button_3",
@@ -2057,13 +2057,13 @@
 ,
 									"patching_rect" : [ 652.0, 162.0, 64.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
 										"default_fontface" : 0,
 										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontsize" : 10.0,
-										"fontname" : "Verdana"
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p Button_1",
@@ -2081,7 +2081,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 431.0, 162.0, 65.0, 19.0 ],
-									"save" : [ "#N", "thispatcher", ";", "#Q", "savewindow", 1, ";", "#Q", "end", ";" ],
+									"save" : [ "#N", "thispatcher", ";", "#Q", "window", "flags", "grow", "close", "zoom", "nofloat", "menu", "minimize", ";", "#Q", "window", "constrain", 2, 2, 32768, 32768, ";", "#Q", "window", "size", 46, 44, 1440, 900, ";", "#Q", "window", "title", ";", "#Q", "window", "exec", ";", "#Q", "savewindow", 1, ";", "#Q", "end", ";" ],
 									"text" : "thispatcher"
 								}
 
@@ -2422,13 +2422,13 @@
 ,
 					"patching_rect" : [ 120.0, 275.0, 64.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
 						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana"
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p bcf2000",
@@ -2469,6 +2469,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-15",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -2484,6 +2485,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-21",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -2544,8 +2546,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 127.0, 425.0, 307.0, 31.0 ],
-					"text" : "jcom.parameter midiIn @priority 0 @repetitions/allow 1 @description \"Port to receive MIDI messages on.\"",
+					"patching_rect" : [ 80.0, 425.0, 357.0, 31.0 ],
+					"text" : "jcom.parameter midiIn @priority 0 @type string @repetitions/allow 1 @description \"Port to receive MIDI messages on.\"",
 					"varname" : "midi_in"
 				}
 
@@ -2589,8 +2591,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 462.0, 425.0, 313.0, 31.0 ],
-					"text" : "jcom.parameter midiOut @priority 0 @repetitions/allow 1 @description \"Port to send MIDI messages to.\"",
+					"patching_rect" : [ 462.0, 425.0, 368.0, 31.0 ],
+					"text" : "jcom.parameter midiOut @priority 0 @type string @repetitions/allow 1 @description \"Port to send MIDI messages to.\"",
 					"varname" : "midi_out"
 				}
 
@@ -2690,7 +2692,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-8", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 136.5, 469.0, 114.0, 469.0, 114.0, 396.0, 137.5, 396.0 ],
+					"midpoints" : [ 89.5, 461.0, 67.0, 461.0, 67.0, 396.0, 90.5, 396.0 ],
 					"source" : [ "obj-25", 0 ]
 				}
 
