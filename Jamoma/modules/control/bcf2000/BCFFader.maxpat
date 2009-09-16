@@ -192,7 +192,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 46.0, 127.0, 424.0, 30.0 ],
-					"text" : "jcom.parameter #2/fader @type integer @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @ramp/drive scheduler @priority 1 @description \"Fader.\"",
+					"text" : "jcom.parameter #2/fader @type integer @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @ramp/drive scheduler @priority 2 @description \"Fader.\"",
 					"varname" : "#2/fader"
 				}
 

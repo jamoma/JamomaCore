@@ -522,7 +522,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 46.0, 127.0, 352.0, 31.0 ],
-													"text" : "jcom.parameter foot/switch @type boolean @repetitions/allow 1 @ramp/drive none @priority 1 @description \"Foot Pedal: Switch.\"",
+													"text" : "jcom.parameter foot/switch @type boolean @repetitions/allow 1 @ramp/drive none @priority 2 @description \"Foot Pedal: Switch.\"",
 													"varname" : "foot/switch"
 												}
 
@@ -763,7 +763,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 46.0, 127.0, 337.0, 31.0 ],
-													"text" : "jcom.parameter button.4 @type boolean @repetitions/allow 1 @ramp/drive none @priority 1 @description \"Button 4.\"",
+													"text" : "jcom.parameter button.4 @type boolean @repetitions/allow 1 @ramp/drive none @priority 2 @description \"Button 4.\"",
 													"varname" : "button/4"
 												}
 
@@ -1455,7 +1455,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 46.0, 127.0, 355.0, 43.0 ],
-													"text" : "jcom.parameter foot/control @type integer @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @ramp/drive scheduler @priority 1 @description \"Foot Pedal: Continuous Controller.\"",
+													"text" : "jcom.parameter foot/control @type integer @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @ramp/drive scheduler @priority 2 @description \"Foot Pedal: Continuous Controller.\"",
 													"varname" : "foot/control"
 												}
 
@@ -1722,7 +1722,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 46.0, 127.0, 337.0, 31.0 ],
-													"text" : "jcom.parameter button.3 @type boolean @repetitions/allow 1 @ramp/drive none @priority 1 @description \"Button 3.\"",
+													"text" : "jcom.parameter button.3 @type boolean @repetitions/allow 1 @ramp/drive none @priority 2 @description \"Button 3.\"",
 													"varname" : "button/3"
 												}
 
@@ -1963,7 +1963,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 46.0, 127.0, 337.0, 31.0 ],
-													"text" : "jcom.parameter button.1 @type boolean @repetitions/allow 1 @ramp/drive none @priority 1 @description \"Button 1.\"",
+													"text" : "jcom.parameter button.1 @type boolean @repetitions/allow 1 @ramp/drive none @priority 2 @description \"Button 1.\"",
 													"varname" : "button/1"
 												}
 
@@ -2547,7 +2547,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 80.0, 425.0, 357.0, 31.0 ],
-					"text" : "jcom.parameter midiIn @priority 0 @type string @repetitions/allow 1 @description \"Port to receive MIDI messages on.\"",
+					"text" : "jcom.parameter midiIn @priority 1 @type string @repetitions/allow 1 @description \"Port to receive MIDI messages on.\"",
 					"varname" : "midi_in"
 				}
 
@@ -2592,7 +2592,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 462.0, 425.0, 368.0, 31.0 ],
-					"text" : "jcom.parameter midiOut @priority 0 @type string @repetitions/allow 1 @description \"Port to send MIDI messages to.\"",
+					"text" : "jcom.parameter midiOut @priority 1 @type string @repetitions/allow 1 @description \"Port to send MIDI messages to.\"",
 					"varname" : "midi_out"
 				}
 
