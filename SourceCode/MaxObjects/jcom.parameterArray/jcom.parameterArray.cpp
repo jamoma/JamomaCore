@@ -83,7 +83,7 @@ t_paramarray* paramarray_new(t_symbol *s, long argc, t_atom *argv)
 			for(i = 0; i < x->attr_argc; i++)
 				jcom_core_atom_copy(&x->attr_argv[i],&argv[i+1]);
 
-			if(x->new_size && x->attr_argc){
+			if(x->new_size){
 
 				defer((t_object*)x,(method)paramarray_create_array, NULL, x->attr_argc , x->attr_argv);
 				
@@ -452,12 +452,14 @@ void paramarray_parameter_name(char* format, t_symbol **returnedName, long i)
 {
 	char *s_num;
 	long len;
-
-	len = strlen(format); // TODO : Do we count how many character are in i (10, 100, 1000, ...) ?
-	s_num = (char *)malloc(sizeof(char)*len);
-	snprintf(s_num, len, format, i);
-	*returnedName = gensym(s_num);
-	free(s_num);
+	
+	if(i > 0){
+		len = strlen(format) + (long)trunc(log10(i)); // note : %d (lenght = 2) is replaced by 1 character (0::9), 2 charecters (10 :: 99), 3 char...
+		s_num = (char *)malloc(sizeof(char)*len);
+		snprintf(s_num, len, format, i);
+		*returnedName = gensym(s_num);
+		free(s_num);
+	}
 }
 
 /*

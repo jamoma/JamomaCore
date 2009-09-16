@@ -27,7 +27,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 810.0, 504.0, 95.0, 20.0 ],
-					"presentation_rect" : [ 810.0, 504.0, 0.0, 0.0 ],
 					"text" : "test"
 				}
 
@@ -1115,12 +1114,12 @@
 ,
 					"patching_rect" : [ 63.0, 459.0, 55.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"default_fontsize" : 10.0,
-						"fontsize" : 10.0,
 						"fontname" : "Verdana",
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
+						"globalpatchername" : "",
+						"fontsize" : 10.0,
 						"default_fontface" : 0
 					}
 ,
@@ -1252,8 +1251,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 500.0, 199.0, 273.0, 34.0 ],
-					"text" : "jcom.parameterArray toto.[6]/lulu @type decimal @repetitions/allow 1 @range/bounds -10. 10."
+					"patching_rect" : [ 500.0, 199.0, 275.0, 34.0 ],
+					"text" : "jcom.parameterArray toto.[10]/lulu @type decimal @repetitions/allow 1 @range/bounds -10. 10."
 				}
 
 			}
@@ -1262,7 +1261,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-27", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 636.5, 242.0, 609.5, 242.0 ],
+					"midpoints" : [ 637.5, 242.0, 609.5, 242.0 ],
 					"source" : [ "obj-1", 1 ]
 				}
 
