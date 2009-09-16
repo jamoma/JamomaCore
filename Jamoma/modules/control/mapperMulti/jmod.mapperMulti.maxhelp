@@ -39,9 +39,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 641.0, 380.0, 155.0, 19.0 ],
-					"text" : "jcom.initialized /cueManager__"
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 641.0, 380.0, 166.0, 19.0 ],
+					"text" : "jcom.initialized /cueManager"
 				}
 
 			}
@@ -82,7 +82,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 351.0, 383.0, 127.0, 19.0 ],
 					"text" : "jcom.initialized /mouse"
 				}
@@ -107,48 +107,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
-					"id" : "obj-34",
-					"linecount" : 2,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 75.0, 265.0, 228.0, 31.0 ],
-					"text" : "you can chan change the edit mode for all mappers in a row"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"arrow" : 0,
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-30",
-					"items" : [ "edit", ",", "active", ",", "bypass" ],
-					"maxclass" : "umenu",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 30.0, 268.0, 42.0, 19.0 ],
-					"pattrmode" : 1,
-					"presentation" : 1,
-					"presentation_rect" : [ 574.0, 19.0, 41.0, 19.0 ],
-					"types" : [  ],
-					"varname" : "edit"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
 					"id" : "obj-35",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 34.0, 544.0, 154.0, 17.0 ],
-					"text" : "/filtergain 2.346665"
+					"text" : "/filtergain 5.653333"
 				}
 
 			}
