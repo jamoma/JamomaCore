@@ -348,12 +348,6 @@ void ui_remote_callback(t_ui *x, t_symbol *s, long argc, t_atom* argv)
 }
 
 
-void ui_bang(t_ui *x)
-{
-	;
-}
-
-
 #pragma mark -
 #pragma mark drawing and appearance
 
