@@ -140,6 +140,11 @@ typedef void (*TTFunctionPtr)();
 /**	A simple/generic function pointer with one arg.	*/
 typedef void (*TTFunctionWithArgPtr)(TTPtr);
 
+/**	A simple/generic function pointer with one generic pointer (baton) and one TTValueRef.	*/
+class TTValue;
+typedef void (*TTFunctionWithBatonAndValue)(TTPtr, TTValue&);
+
+
 /****************************************************************************************************/
 
 /**	TTBlue Data Types
