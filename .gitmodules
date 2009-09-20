@@ -46,3 +46,6 @@
 [submodule "UserLib/Holophon"]
 	path = UserLib/Holophon
 	url = git://github.com/Nilson/Holophon.git
+[submodule "UserLib/Jamoma.Ircam.FTM"]
+	path = UserLib/Jamoma.Ircam.FTM
+	url = http://github.com/lossius/Jamoma.Ircam.FTM.git
