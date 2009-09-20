@@ -1,0 +1,3 @@
+link, /bcf2000/1/fader * 1.3 -> /output~/audio/gain;
+link-reversed, /output~/audio/gain / 1.3 -> /bcf2000/1/fader;
+link-sequencer, /midiin/raw/voice.1/cc.11 * 1.3 -> /output~/audio/gain;
