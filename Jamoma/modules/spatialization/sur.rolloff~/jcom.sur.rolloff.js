@@ -55,7 +55,7 @@ function numSources(value)
         hold_voices = value;
         hold_flag = 1;
         
-        post("jmod.sur.rollof~: Audio is currently running.");
+        post("jmod.sur.rolloff~: Audio is currently running.");
         post();
         post("Number of voices will be updated next time audio is turned off.");
         post();
