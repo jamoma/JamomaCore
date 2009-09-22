@@ -17,7 +17,42 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-33",
+					"linecount" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 395.0, 229.159088, 553.0, 31.0 ],
+					"text" : "jcom.parameter zoomY @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 10. @range/clipmode none @description \"Zoom image in Y-direction.\"",
+					"varname" : "zoom[4]"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-24",
+					"maxclass" : "flonum",
+					"minimum" : 0.0,
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 395.0, 205.0, 35.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 108.0, 43.0, 45.0, 19.0 ],
+					"triscale" : 0.9,
+					"varname" : "zoom[2]"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -42,7 +77,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 130.0, 83.0, 74.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 130.0, 83.0, 74.0, 19.0 ],
+					"presentation_rect" : [ 138.0, 83.0, 74.0, 19.0 ],
 					"text" : "Bound mode"
 				}
 
@@ -58,7 +93,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 130.0, 23.0, 53.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 130.0, 23.0, 53.0, 19.0 ],
+					"presentation_rect" : [ 163.0, 23.0, 53.0, 19.0 ],
 					"text" : "Rotate X"
 				}
 
@@ -73,7 +108,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 392.820862, 626.0, 600.0, 67.0 ],
+					"patching_rect" : [ 395.0, 696.0, 600.0, 67.0 ],
 					"text" : "jcom.parameter boundmode @type string @repetitions/allow 1 @description \"Boundary mode for values outside the range (0, width) (0, height). <br /> 0 = ignore: Values that exceed the limits are ignored.<br /> 1 = clear: Values that exceed the limits are set to 0.<br /> 2 = wrap: Values that exceed the limits are wrapped around to the opposite limit with a modulo operation.<br /> 3 = clip: Values are limited not to exceed width or height.<br /> 4 = fold: Values that exceed the limits are folded back in the opposite.\""
 				}
 
@@ -88,9 +123,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 392.820862, 596.0, 67.0, 19.0 ],
+					"patching_rect" : [ 395.0, 666.0, 67.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 210.0, 83.0, 75.0, 19.0 ],
+					"presentation_rect" : [ 213.0, 83.0, 75.0, 19.0 ],
 					"types" : [  ]
 				}
 
@@ -106,7 +141,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 130.0, 43.0, 53.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 130.0, 43.0, 53.0, 19.0 ],
+					"presentation_rect" : [ 163.0, 43.0, 53.0, 19.0 ],
 					"text" : "Rotate Y"
 				}
 
@@ -120,9 +155,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 392.820862, 271.0, 50.0, 19.0 ],
+					"patching_rect" : [ 395.0, 341.0, 50.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 65.0, 43.0, 45.0, 19.0 ]
+					"presentation_rect" : [ 108.0, 23.0, 45.0, 19.0 ]
 				}
 
 			}
@@ -135,9 +170,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 392.820862, 201.0, 50.0, 19.0 ],
+					"patching_rect" : [ 395.0, 276.0, 50.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 65.0, 23.0, 45.0, 19.0 ]
+					"presentation_rect" : [ 63.0, 23.0, 45.0, 19.0 ]
 				}
 
 			}
@@ -181,6 +216,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -301,8 +337,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 117.0, 247.0, 70.0, 17.0 ],
-									"text" : "/offset_y $1"
+									"patching_rect" : [ 117.0, 247.0, 66.0, 17.0 ],
+									"text" : "/offsetY $1"
 								}
 
 							}
@@ -315,8 +351,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 42.0, 247.0, 70.0, 17.0 ],
-									"text" : "/offset_x $1"
+									"patching_rect" : [ 42.0, 247.0, 66.0, 17.0 ],
+									"text" : "/offsetX $1"
 								}
 
 							}
@@ -505,13 +541,13 @@
 ,
 					"patching_rect" : [ 460.820862, 98.0, 79.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p mouse-stuff"
@@ -581,8 +617,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 460.820862, 128.0, 212.0, 19.0 ],
-					"text" : "jcom.oscroute /zoom /offset_x /offset_y"
+					"patching_rect" : [ 460.820862, 128.0, 202.0, 19.0 ],
+					"text" : "jcom.oscroute /zoom /offsetX /offsetY"
 				}
 
 			}
@@ -596,7 +632,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 395.0, 542.0, 446.0, 31.0 ],
+					"patching_rect" : [ 395.0, 612.0, 446.0, 31.0 ],
 					"text" : "jcom.parameter angle @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 90 @range/clipmode none @description \"Rotate image - in degrees\"",
 					"varname" : "angle[1]"
 				}
@@ -612,8 +648,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 392.820862, 296.0, 559.0, 31.0 ],
-					"text" : "jcom.parameter offset_y @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1. 1. @range/clipmode none @description \"Offset image in Y-direction\"",
+					"patching_rect" : [ 395.0, 366.0, 552.0, 31.0 ],
+					"text" : "jcom.parameter offsetY @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1. 1. @range/clipmode none @description \"Offset image in Y-direction\"",
 					"varname" : "offset_y"
 				}
 
@@ -627,7 +663,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 395.0, 428.0, 361.0, 19.0 ],
+					"patching_rect" : [ 395.0, 498.0, 361.0, 19.0 ],
 					"text" : "jcom.parameter rotate2 @type boolean @description \"Flip vertical\"",
 					"varname" : "rotate2[1]"
 				}
@@ -642,9 +678,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 395.0, 519.809937, 30.0, 19.0 ],
+					"patching_rect" : [ 395.0, 589.809937, 30.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 65.0, 63.0, 45.0, 19.0 ],
+					"presentation_rect" : [ 63.0, 63.0, 45.0, 19.0 ],
 					"triscale" : 0.9,
 					"varname" : "angle"
 				}
@@ -659,9 +695,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 63.0, 38.0, 19.0 ],
+					"patching_rect" : [ 3.0, 63.0, 38.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 10.0, 63.0, 38.0, 19.0 ],
+					"presentation_rect" : [ 3.0, 63.0, 38.0, 19.0 ],
 					"text" : "Angle"
 				}
 
@@ -673,9 +709,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 395.0, 463.412231, 20.0, 20.0 ],
+					"patching_rect" : [ 395.0, 533.412231, 20.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 185.0, 63.0, 20.0, 20.0 ]
+					"presentation_rect" : [ 213.0, 63.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -690,7 +726,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 130.0, 63.0, 42.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 130.0, 63.0, 42.0, 19.0 ],
+					"presentation_rect" : [ 163.0, 63.0, 42.0, 19.0 ],
 					"text" : "Mirror"
 				}
 
@@ -702,9 +738,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 395.0, 407.315674, 20.0, 20.0 ],
+					"patching_rect" : [ 395.0, 477.315674, 20.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 185.0, 43.0, 20.0, 20.0 ]
+					"presentation_rect" : [ 213.0, 43.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -715,9 +751,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 395.0, 347.967194, 20.0, 20.0 ],
+					"patching_rect" : [ 395.0, 417.967194, 20.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 185.0, 23.0, 20.0, 20.0 ]
+					"presentation_rect" : [ 213.0, 23.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -731,25 +767,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 392.820862, 231.0, 559.0, 31.0 ],
-					"text" : "jcom.parameter offset_x @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1. 1. @range/clipmode none @description \"Offset image in X-direction\"",
+					"patching_rect" : [ 395.0, 301.0, 553.0, 31.0 ],
+					"text" : "jcom.parameter offsetX @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1. 1. @range/clipmode none @description \"Offset image in X-direction\"",
 					"varname" : "offset_x"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-26",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 43.0, 52.0, 19.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 10.0, 43.0, 52.0, 19.0 ],
-					"text" : "Y offset "
 				}
 
 			}
@@ -762,7 +782,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 395.0, 484.0, 362.0, 19.0 ],
+					"patching_rect" : [ 395.0, 554.0, 362.0, 19.0 ],
 					"text" : "jcom.parameter mirror @type boolean @description \"Mirror image\"",
 					"varname" : "mirror[1]"
 				}
@@ -778,9 +798,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 395.0, 140.840912, 35.0, 19.0 ],
+					"patching_rect" : [ 395.0, 140.0, 35.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 65.0, 83.0, 45.0, 19.0 ],
+					"presentation_rect" : [ 63.0, 43.0, 45.0, 19.0 ],
 					"triscale" : 0.9,
 					"varname" : "zoom"
 				}
@@ -795,10 +815,10 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 23.0, 49.0, 19.0 ],
+					"patching_rect" : [ 3.0, 23.0, 65.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 10.0, 23.0, 49.0, 19.0 ],
-					"text" : "X offset"
+					"presentation_rect" : [ 3.0, 23.0, 65.0, 19.0 ],
+					"text" : "Offset (xy)"
 				}
 
 			}
@@ -811,10 +831,10 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 83.0, 38.0, 19.0 ],
+					"patching_rect" : [ 3.0, 43.0, 63.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 10.0, 83.0, 38.0, 19.0 ],
-					"text" : "Zoom"
+					"presentation_rect" : [ 3.0, 43.0, 63.0, 19.0 ],
+					"text" : "Zoom (xy)"
 				}
 
 			}
@@ -842,7 +862,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 395.0, 368.0, 374.0, 19.0 ],
+					"patching_rect" : [ 395.0, 438.0, 374.0, 19.0 ],
 					"text" : "jcom.parameter rotate1 @type boolean @description \"Flip horizontal\"",
 					"varname" : "rotate1[1]"
 				}
@@ -858,8 +878,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 395.0, 165.0, 428.0, 31.0 ],
-					"text" : "jcom.parameter zoom @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 10. @range/clipmode none @description \"Zoom in the image\"",
+					"patching_rect" : [ 395.0, 165.0, 554.0, 31.0 ],
+					"text" : "jcom.parameter zoomX @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 10. @range/clipmode none @description \"Zoom image in X-direction.\"",
 					"varname" : "zoom[1]"
 				}
 
@@ -989,7 +1009,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-16", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 404.5, 574.0, 379.820862, 574.0, 379.820862, 514.0, 404.5, 514.0 ],
+					"midpoints" : [ 404.5, 644.0, 379.820862, 644.0, 379.820862, 584.0, 404.5, 584.0 ],
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -998,7 +1018,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 426.320862, 618.0, 402.320862, 618.0 ],
+					"midpoints" : [ 428.5, 688.0, 404.5, 688.0 ],
 					"source" : [ "obj-12", 1 ]
 				}
 
@@ -1007,7 +1027,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-8", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 402.320862, 331.0, 377.820862, 331.0, 377.820862, 267.0, 402.320862, 267.0 ],
+					"midpoints" : [ 404.5, 401.0, 378.820862, 401.0, 378.820862, 337.0, 404.5, 337.0 ],
 					"source" : [ "obj-13", 0 ]
 				}
 
@@ -1016,7 +1036,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-20", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 404.5, 448.0, 379.820862, 448.0, 379.820862, 403.0, 404.5, 403.0 ],
+					"midpoints" : [ 404.5, 518.0, 379.820862, 518.0, 379.820862, 473.0, 404.5, 473.0 ],
 					"source" : [ "obj-15", 0 ]
 				}
 
@@ -1043,7 +1063,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-12", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 402.320862, 702.0, 381.320862, 702.0, 381.320862, 586.0, 402.320862, 586.0 ],
+					"midpoints" : [ 404.5, 772.0, 381.320862, 772.0, 381.320862, 656.0, 404.5, 656.0 ],
 					"source" : [ "obj-2", 0 ]
 				}
 
@@ -1077,9 +1097,18 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-33", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-24", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 402.320862, 264.0, 379.820862, 264.0, 379.820862, 198.0, 402.320862, 198.0 ],
+					"midpoints" : [ 404.5, 334.0, 379.820862, 334.0, 379.820862, 268.0, 404.5, 268.0 ],
 					"source" : [ "obj-25", 0 ]
 				}
 
@@ -1088,7 +1117,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-18", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 404.5, 502.0, 379.820862, 502.0, 379.820862, 460.0, 404.5, 460.0 ],
+					"midpoints" : [ 404.5, 572.0, 379.820862, 572.0, 379.820862, 530.0, 404.5, 530.0 ],
 					"source" : [ "obj-28", 0 ]
 				}
 
@@ -1113,6 +1142,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-24", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 404.5, 264.159088, 380.5, 264.159088, 380.5, 202.0, 404.5, 202.0 ],
+					"source" : [ "obj-33", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-42", 0 ],
 					"hidden" : 0,
 					"midpoints" : [ 140.5, 181.0, 19.5, 181.0 ],
@@ -1124,7 +1162,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-21", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 404.5, 388.0, 379.820862, 388.0, 379.820862, 343.0, 404.5, 343.0 ],
+					"midpoints" : [ 404.5, 458.0, 379.820862, 458.0, 379.820862, 413.0, 404.5, 413.0 ],
 					"source" : [ "obj-35", 0 ]
 				}
 
@@ -1133,7 +1171,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-30", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 404.5, 196.0, 379.820862, 196.0, 379.820862, 136.0, 404.5, 136.0 ],
+					"midpoints" : [ 404.5, 198.0, 379.820862, 198.0, 379.820862, 136.0, 404.5, 136.0 ],
 					"source" : [ "obj-36", 0 ]
 				}
 
@@ -1232,7 +1270,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-13", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 598.987549, 294.0, 402.320862, 294.0 ],
+					"midpoints" : [ 592.320862, 363.0, 404.5, 363.0 ],
 					"source" : [ "obj-9", 2 ]
 				}
 
@@ -1241,7 +1279,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-25", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 534.654175, 226.0, 402.320862, 226.0 ],
+					"midpoints" : [ 531.320862, 298.0, 404.5, 298.0 ],
 					"source" : [ "obj-9", 1 ]
 				}
 
