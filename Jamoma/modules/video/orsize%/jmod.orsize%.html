@@ -14,7 +14,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	<img src="../../../documentation/graphics/jmodular.icon.png" width="128" height="128">
 	<h1> jmod.orsize% </h1>
 	<h2> Orientation and size of video </h2>
-	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../../../documentation/html/modules.html">Index of Modules</a> | <a href="../../../documentation/html/credits.html">Credits</a> | <a href="http://pledgie.com/campaigns/5615">Donate</a> | <a href="http://www.jamoma.org/">Jamoma.org</a></h6>
+	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 	</div>
 
 	<h3> Configuration </h3>
@@ -70,7 +70,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Mirror image </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> offset_x </td>
+			<td class="instructionName"> offsetX </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> -1.000000 1.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -81,7 +81,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Offset image in X-direction </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> offset_y </td>
+			<td class="instructionName"> offsetY </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> -1.000000 1.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -224,7 +224,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> The size of the module's UI. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> zoom </td>
+			<td class="instructionName"> zoomX </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 10.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -232,7 +232,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Zoom in the image </td>
+			<td class ="instructionDescription"> Zoom image in X-direction. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> zoomY </td>
+			<td class ="instructionType"> decimal </td>
+			<td class ="instructionRangeBounds"> 0.000000 10.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Zoom image in Y-direction. </td>
 		<tr>
 	</table>
 
