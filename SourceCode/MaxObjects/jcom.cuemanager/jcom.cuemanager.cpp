@@ -1059,7 +1059,7 @@ void cuemng_set_name(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 		c = (t_cue *)linklist_getindex(x->cuelist,index);
 
 		if(c){
-			strcpy(c->index->s_name, new_name->s_name);
+			c->index = new_name;
 
 			// info operation
 			atom_setlong(&a[0],index+1); // index starts at 1 for user
@@ -2243,7 +2243,6 @@ void cuemng_write_line(t_line *l, t_cuemng *x)
 void cuemng_write_atom(t_cuemng *x, t_atom *src)
 {
 	char temp[512];
-	long len = 0;
 	t_symbol* sym;
 
 	switch(src->a_type) 
