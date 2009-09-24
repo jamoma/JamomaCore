@@ -165,6 +165,7 @@ void cuemng_saveas(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv);
 void cuemng_save(t_cuemng *x);
 void cuemng_open(t_cuemng *x);
 void cuemng_info(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
+void cuemng_info_list(t_cuemng *x);
 void cuemng_doramp(t_cuemng *x, long r);
 void cuemng_set_ramp(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_set_name(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);

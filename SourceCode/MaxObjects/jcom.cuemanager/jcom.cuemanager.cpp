@@ -809,10 +809,6 @@ void cuemng_open(t_cuemng *x)
 void cuemng_info(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 {
 	long ccid, memo, memoK;
-	t_cue *ccue;
-	t_cue *ckcue;
-	char filepath[256];
-	t_atom info_ccue[1];
 	void *found;
 	long exist;
 
@@ -881,56 +877,66 @@ void cuemng_info(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 
 		// we are asking for info about all the cuelist
 		x->info_cuelist = true;
-
-		// output information about cuelist file path
-		if(x->cuelist_path){
-			path_topathname(x->cuelist_path, x->cuelist_file->s_name, filepath);
-			atom_setsym(&info_ccue[0],gensym(filepath));
-			outlet_anything(x->info_out, gensym("/cuelist/path"), 1, info_ccue);
-		}
-
-		// output informations about size of the cuelist
-		atom_setlong(&info_ccue[0],linklist_getsize(x->cuelist));
-		outlet_anything(x->info_out, gensym("/cuelist/size"), 1, info_ccue);
-
-		if(linklist_getsize(x->cuelist)){
-
-			// output informations about all cues on the info outlet
-			ccid = x->current;
-			x->current = 0;
-			linklist_funall(x->cuelist,(method)cuemng_info_cue,x);
-			x->current = ccid;
-
-			// output informations about the current cue
-			ccue = cuemng_current_cue(x);
-
-			atom_setlong(&info_ccue[0],x->current+1);
-			outlet_anything(x->info_out, gensym("/current/id"), 1, info_ccue);
-
-			if(ccue->mode == DIFFERENTIAL_CUE) atom_setsym(&info_ccue[0],x->ps_cue);
-			else atom_setsym(&info_ccue[0],x->ps_keycue);
-			outlet_anything(x->info_out, gensym("/current/mode"), 1, info_ccue);
-
-			atom_setsym(&info_ccue[0],ccue->index);
-			outlet_anything(x->info_out, gensym("/current/name"), 1, info_ccue);
-
-			atom_setlong(&info_ccue[0],ccue->ramp);
-			outlet_anything(x->info_out, gensym("/current/ramp"), 1, info_ccue);
-
-			// output informations about the current key cue
-			ckcue = cuemng_current_key_cue(x);
-			
-			if(ckcue){
-				atom_setlong(&info_ccue[0],x->Kcurrent+1);
-				outlet_anything(x->info_out, gensym("/Kcurrent/id"), 1, info_ccue);
-
-				atom_setsym(&info_ccue[0],ckcue->index);
-				outlet_anything(x->info_out, gensym("/Kcurrent/name"), 1, info_ccue);
-			}
-		}
-		else
-			outlet_anything(x->info_out, gensym("/cuelist"), 0, 0);
+		defer_low(x,(method)cuemng_info_list,NULL,0,0);
 	}
+}
+
+void cuemng_info_list(t_cuemng *x)
+{
+	long ccid;
+	t_cue *ccue;
+	t_cue *ckcue;
+	char filepath[256];
+	t_atom info_ccue[1];
+
+	// output information about cuelist file path
+	if(x->cuelist_path){
+		path_topathname(x->cuelist_path, x->cuelist_file->s_name, filepath);
+		atom_setsym(&info_ccue[0],gensym(filepath));
+		outlet_anything(x->info_out, gensym("/cuelist/path"), 1, info_ccue);
+	}
+	
+	// output informations about size of the cuelist
+	atom_setlong(&info_ccue[0],linklist_getsize(x->cuelist));
+	outlet_anything(x->info_out, gensym("/cuelist/size"), 1, info_ccue);
+	
+	if(linklist_getsize(x->cuelist)){
+		
+		// output informations about all cues on the info outlet
+		ccid = x->current;
+		x->current = 0;
+		linklist_funall(x->cuelist,(method)cuemng_info_cue,x);
+		x->current = ccid;
+		
+		// output informations about the current cue
+		ccue = cuemng_current_cue(x);
+		
+		atom_setlong(&info_ccue[0],x->current+1);
+		outlet_anything(x->info_out, gensym("/current/id"), 1, info_ccue);
+		
+		if(ccue->mode == DIFFERENTIAL_CUE) atom_setsym(&info_ccue[0],x->ps_cue);
+		else atom_setsym(&info_ccue[0],x->ps_keycue);
+		outlet_anything(x->info_out, gensym("/current/mode"), 1, info_ccue);
+		
+		atom_setsym(&info_ccue[0],ccue->index);
+		outlet_anything(x->info_out, gensym("/current/name"), 1, info_ccue);
+		
+		atom_setlong(&info_ccue[0],ccue->ramp);
+		outlet_anything(x->info_out, gensym("/current/ramp"), 1, info_ccue);
+		
+		// output informations about the current key cue
+		ckcue = cuemng_current_key_cue(x);
+		
+		if(ckcue){
+			atom_setlong(&info_ccue[0],x->Kcurrent+1);
+			outlet_anything(x->info_out, gensym("/Kcurrent/id"), 1, info_ccue);
+			
+			atom_setsym(&info_ccue[0],ckcue->index);
+			outlet_anything(x->info_out, gensym("/Kcurrent/name"), 1, info_ccue);
+		}
+	}
+	else
+		outlet_anything(x->info_out, gensym("/cuelist"), 0, 0);
 }
 
 void cuemng_doramp(t_cuemng *x, long r){
