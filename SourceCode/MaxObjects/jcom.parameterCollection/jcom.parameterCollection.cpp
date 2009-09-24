@@ -39,6 +39,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)paramcoll_anything,				"anything",			A_GIMME, 0);
 	class_addmethod(c, (method)paramcoll_add,					"add",				A_GIMME, 0);
 	class_addmethod(c, (method)paramcoll_remove,				"remove",			A_SYM, 0);
+	class_addmethod(c, (method)paramcoll_clear,					"clear",			0);
 	class_addmethod(c, (method)paramcoll_set,					"set",				A_SYM, 0);
 	
 	class_register(CLASS_BOX, c);
@@ -76,7 +77,7 @@ t_paramcoll* paramcoll_new(t_symbol *s, long argc, t_atom *argv)
 
 			x->jps_wildcard = gensym("*");
 
-			paramcoll_output_list(x);
+			defer_low(x,(method)paramcoll_output_list,NULL,0,0);
 		}
 	}
 	return x;
@@ -255,7 +256,7 @@ void paramcoll_add(t_paramcoll* x, t_symbol *msg, long argc, t_atom* argv)
 		}
 	}
 	
-	paramcoll_output_list(x);
+	defer_low(x,(method)paramcoll_output_list,NULL,0,0);
 }
 
 void paramcoll_remove(t_paramcoll* x, t_symbol *msg)
@@ -269,7 +270,31 @@ void paramcoll_remove(t_paramcoll* x, t_symbol *msg)
 		hashtab_delete(x->hash_internals,  msg);
 	}
 	
-	paramcoll_output_list(x);
+	defer_low(x,(method)paramcoll_output_list,NULL,0,0);
+}
+
+void paramcoll_clear(t_paramcoll *x)
+{
+	long				i;
+	long				numKeys = 0;
+	t_symbol			**keys = NULL;
+	InternalObject		*anObject;
+	t_max_err			err;
+	
+	hashtab_getkeys(x->hash_internals, &numKeys, &keys);
+	for(i=0; i<numKeys; i++){
+	
+		err = hashtab_lookup(x->hash_internals, keys[i], (t_object**)&anObject);
+		
+		if(!err){
+			delete anObject;
+			hashtab_delete(x->hash_internals,  keys[i]);
+		}
+	}
+	if(keys)
+		sysmem_freeptr(keys);
+	
+	defer_low(x,(method)paramcoll_output_list,NULL,0,0);
 }
 
 void paramcoll_set(t_paramcoll* x, t_symbol *msg)

@@ -42,6 +42,7 @@ void			paramcoll_list(t_paramcoll *x, t_symbol *msg, long argc, t_atom* argv);
 void			paramcoll_anything(t_paramcoll *x, t_symbol *msg, long argc, t_atom* argv);
 void			paramcoll_add(t_paramcoll* x, t_symbol *msg, long argc, t_atom *argv);
 void			paramcoll_remove(t_paramcoll* x, t_symbol *msg);
+void			paramcoll_clear(t_paramcoll *x);
 void			paramcoll_set(t_paramcoll* x, t_symbol *msg);
 
 // prototypes: internal parameters
