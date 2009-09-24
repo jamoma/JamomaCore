@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 196.0, 139.0, 972.0, 571.0 ],
+		"rect" : [ 196.0, 139.0, 971.0, 524.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 196.0, 139.0, 972.0, 571.0 ],
+		"defrect" : [ 196.0, 139.0, 971.0, 524.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -19,6 +19,21 @@
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-9",
+					"linecount" : 4,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 334.0, 440.0, 603.0, 55.0 ],
+					"text" : "Note concerning the input parameter :\n• the little menu at the end of the line allows to use either the raw value, or the derivatives of 1st (') or 2(\\\") degree\n• when using parameters of type Array, the number box that appears allows one to select the nth element of the array as input value"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"args" : [ "/cueManager" ],
 					"id" : "obj-1",
 					"maxclass" : "bpatcher",
@@ -26,7 +41,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 377.0, 405.0, 300.0, 70.0 ],
+					"patching_rect" : [ 376.0, 353.0, 300.0, 70.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 50.0, 115.0, 300.0, 70.0 ]
 				}
@@ -42,7 +57,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 627.0, 278.0, 300.0, 70.0 ],
+					"patching_rect" : [ 624.0, 257.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 15.0, 15.0, 300.0, 70.0 ],
 					"varname" : "jmod.bcf2000"
 				}
@@ -58,7 +73,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 17.0, 181.0, 285.0, 19.0 ],
-					"presentation_rect" : [ 25.0, 153.0, 0.0, 0.0 ],
 					"text" : "or you could try to use "
 				}
 
@@ -558,13 +572,13 @@
 ,
 									"patching_rect" : [ 391.0, 224.0, 58.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"globalpatchername" : "",
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"default_fontsize" : 10.0
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p settings"
@@ -805,13 +819,13 @@
 ,
 					"patching_rect" : [ 144.0, 182.0, 87.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
-						"fontname" : "Arial",
-						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
+						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p some presets"
@@ -854,8 +868,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 56.0, 133.0, 300.0, 55.0 ],
-									"presentation_rect" : [ 30.0, 135.0, 0.0, 0.0 ],
+									"patching_rect" : [ 56.0, 133.0, 301.0, 55.0 ],
 									"text" : "(in order to experience this last mode while using the BCF2000, exclude jmod.bcf2000 module from the list of modules managed by the cueManager module by clicking on the (+) button and setting /bcf2000 to grey)"
 								}
 
@@ -956,13 +969,13 @@
 ,
 					"patching_rect" : [ 129.0, 216.0, 103.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
-						"fontname" : "Arial",
-						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
+						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p mapping_modes"
@@ -1098,13 +1111,13 @@
 ,
 					"patching_rect" : [ 18.0, 216.0, 79.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
-						"fontname" : "Arial",
-						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
+						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p edit_modes"
@@ -1120,7 +1133,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 963.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 972.0, 70.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
 				}
@@ -1136,7 +1149,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 15.0, 483.0, 154.0, 17.0 ],
-					"text" : "/audio/mix 35.486111"
+					"text" : "/module_name /filter~"
 				}
 
 			}
@@ -1241,7 +1254,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 378.0, 275.0, 150.0, 70.0 ],
+					"patching_rect" : [ 375.0, 254.0, 150.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
 					"varname" : "/mouse/1"
 				}
