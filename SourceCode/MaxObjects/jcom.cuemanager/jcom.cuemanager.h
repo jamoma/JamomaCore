@@ -151,6 +151,7 @@ t_max_err cuemng_notify(t_cuemng *x, t_symbol *s, t_symbol *msg, void *sender, v
 void cuemng_assist(t_cuemng *x, void *b, long m, long a, char *s);
 long cuemng_okclose(t_cuemng *x, char **ht, long size);
 void cuemng_edclose(t_cuemng *x, char **ht, long size);
+long cuemng_edsave(t_cuemng *x, char **ht, long size);
 
 // Public methods
 void cuemng_bang(t_cuemng *x);
