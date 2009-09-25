@@ -76,7 +76,7 @@ TTErr RampUnit::getFunctionParameterNames(TTSymbol* parameterName, TTValue& name
 }
 
 
-TTErr RampUnit::setFunctionParameterValue(TTSymbol* parameterName, const TTValue& newValue)
+TTErr RampUnit::setFunctionParameterValue(TTSymbol* parameterName, TTValue& newValue)
 {
 	functionUnit->setAttributeValue(parameterName, newValue);
 	return kTTErrNone;

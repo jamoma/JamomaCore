@@ -46,6 +46,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// What to do when the text editor window is closed
 	class_addmethod(c, (method)cuemng_okclose,			"okclose",		A_CANT, 0);
 	class_addmethod(c, (method)cuemng_edclose,			"edclose",		A_CANT, 0);
+	class_addmethod(c, (method)cuemng_edsave,			"edsave",		A_CANT, 0);
 
 	// this method select the given cue as the current and,
 	// in TRIGGER mode, trigger out the current cue
@@ -240,7 +241,7 @@ void cuemng_free(t_cuemng *x)
 
 t_max_err cuemng_notify(t_cuemng *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
-	object_post((t_object *)x, "notification : %s", msg->s_name);
+	object_post((t_object *)x, "notification : s = %s, msg = %s", s->s_name, msg->s_name);
 	return MAX_ERR_NONE;
 }
 
@@ -261,6 +262,8 @@ void cuemng_edclose(t_cuemng *x, char **handletext, long size)
 	t_atom argv[1];
 	t_atom a[1];
 	long stop_at = 0;
+	
+	object_post((t_object  *)x,"edclose");
 
 	if(size){
 		// if it's the text of the cuelist
@@ -337,8 +340,15 @@ void cuemng_edclose(t_cuemng *x, char **handletext, long size)
 
 long cuemng_okclose(t_cuemng *x, char **ht, long size)
 {
-	object_post((t_object  *)x,"Okclose");
-	return 1;
+	object_post((t_object  *)x,"okclose");
+	return -1;
+}
+
+long cuemng_edsave(t_cuemng *x, char **ht, long size)
+{
+	object_post((t_object  *)x,"edsave");
+	
+	return 1; // 1 tell editor don't save the text but Max open a window to select a file (and don't save the text) ... how to avoid the opening of this save window
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -346,7 +356,6 @@ long cuemng_okclose(t_cuemng *x, char **ht, long size)
 // PUBLIC METHODS
 //
 //////////////////////////////////////////////////////////////////////////////////////////
-
 void cuemng_bang(t_cuemng *x)
 {
 	t_atom a[1];
@@ -404,6 +413,9 @@ void cuemng_bang(t_cuemng *x)
 
 				// open the text window editor
 				object_attr_setchar(x->m_editor, gensym("visible"), 1);
+				
+				// to avoid the okclose windows if the text changes 
+				object_attr_setchar(x->m_editor, gensym("scratch"), 1); 
 			}
 			else
 				object_error((t_object*)x,"can't display the text in text editor : too much lines (%d).", nblines);
@@ -797,6 +809,9 @@ void cuemng_open(t_cuemng *x)
 
 			// open the text window editor
 			object_attr_setchar(x->m_editor, gensym("visible"), 1);
+			
+			// to avoid the okclose windows if the text changes 
+			object_attr_setchar(x->m_editor, gensym("scratch"), 1);
 
 		}
 		else
@@ -809,10 +824,6 @@ void cuemng_open(t_cuemng *x)
 void cuemng_info(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 {
 	long ccid, memo, memoK;
-	t_cue *ccue;
-	t_cue *ckcue;
-	char filepath[256];
-	t_atom info_ccue[1];
 	void *found;
 	long exist;
 
@@ -881,56 +892,66 @@ void cuemng_info(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 
 		// we are asking for info about all the cuelist
 		x->info_cuelist = true;
-
-		// output information about cuelist file path
-		if(x->cuelist_path){
-			path_topathname(x->cuelist_path, x->cuelist_file->s_name, filepath);
-			atom_setsym(&info_ccue[0],gensym(filepath));
-			outlet_anything(x->info_out, gensym("/cuelist/path"), 1, info_ccue);
-		}
-
-		// output informations about size of the cuelist
-		atom_setlong(&info_ccue[0],linklist_getsize(x->cuelist));
-		outlet_anything(x->info_out, gensym("/cuelist/size"), 1, info_ccue);
-
-		if(linklist_getsize(x->cuelist)){
-
-			// output informations about all cues on the info outlet
-			ccid = x->current;
-			x->current = 0;
-			linklist_funall(x->cuelist,(method)cuemng_info_cue,x);
-			x->current = ccid;
-
-			// output informations about the current cue
-			ccue = cuemng_current_cue(x);
-
-			atom_setlong(&info_ccue[0],x->current+1);
-			outlet_anything(x->info_out, gensym("/current/id"), 1, info_ccue);
-
-			if(ccue->mode == DIFFERENTIAL_CUE) atom_setsym(&info_ccue[0],x->ps_cue);
-			else atom_setsym(&info_ccue[0],x->ps_keycue);
-			outlet_anything(x->info_out, gensym("/current/mode"), 1, info_ccue);
-
-			atom_setsym(&info_ccue[0],ccue->index);
-			outlet_anything(x->info_out, gensym("/current/name"), 1, info_ccue);
-
-			atom_setlong(&info_ccue[0],ccue->ramp);
-			outlet_anything(x->info_out, gensym("/current/ramp"), 1, info_ccue);
-
-			// output informations about the current key cue
-			ckcue = cuemng_current_key_cue(x);
-			
-			if(ckcue){
-				atom_setlong(&info_ccue[0],x->Kcurrent+1);
-				outlet_anything(x->info_out, gensym("/Kcurrent/id"), 1, info_ccue);
-
-				atom_setsym(&info_ccue[0],ckcue->index);
-				outlet_anything(x->info_out, gensym("/Kcurrent/name"), 1, info_ccue);
-			}
-		}
-		else
-			outlet_anything(x->info_out, gensym("/cuelist"), 0, 0);
+		defer_low(x,(method)cuemng_info_list,NULL,0,0);
 	}
+}
+
+void cuemng_info_list(t_cuemng *x)
+{
+	long ccid;
+	t_cue *ccue;
+	t_cue *ckcue;
+	char filepath[256];
+	t_atom info_ccue[1];
+
+	// output information about cuelist file path
+	if(x->cuelist_path){
+		path_topathname(x->cuelist_path, x->cuelist_file->s_name, filepath);
+		atom_setsym(&info_ccue[0],gensym(filepath));
+		outlet_anything(x->info_out, gensym("/cuelist/path"), 1, info_ccue);
+	}
+	
+	// output informations about size of the cuelist
+	atom_setlong(&info_ccue[0],linklist_getsize(x->cuelist));
+	outlet_anything(x->info_out, gensym("/cuelist/size"), 1, info_ccue);
+	
+	if(linklist_getsize(x->cuelist)){
+		
+		// output informations about all cues on the info outlet
+		ccid = x->current;
+		x->current = 0;
+		linklist_funall(x->cuelist,(method)cuemng_info_cue,x);
+		x->current = ccid;
+		
+		// output informations about the current cue
+		ccue = cuemng_current_cue(x);
+		
+		atom_setlong(&info_ccue[0],x->current+1);
+		outlet_anything(x->info_out, gensym("/current/id"), 1, info_ccue);
+		
+		if(ccue->mode == DIFFERENTIAL_CUE) atom_setsym(&info_ccue[0],x->ps_cue);
+		else atom_setsym(&info_ccue[0],x->ps_keycue);
+		outlet_anything(x->info_out, gensym("/current/mode"), 1, info_ccue);
+		
+		atom_setsym(&info_ccue[0],ccue->index);
+		outlet_anything(x->info_out, gensym("/current/name"), 1, info_ccue);
+		
+		atom_setlong(&info_ccue[0],ccue->ramp);
+		outlet_anything(x->info_out, gensym("/current/ramp"), 1, info_ccue);
+		
+		// output informations about the current key cue
+		ckcue = cuemng_current_key_cue(x);
+		
+		if(ckcue){
+			atom_setlong(&info_ccue[0],x->Kcurrent+1);
+			outlet_anything(x->info_out, gensym("/Kcurrent/id"), 1, info_ccue);
+			
+			atom_setsym(&info_ccue[0],ckcue->index);
+			outlet_anything(x->info_out, gensym("/Kcurrent/name"), 1, info_ccue);
+		}
+	}
+	else
+		outlet_anything(x->info_out, gensym("/cuelist"), 0, 0);
 }
 
 void cuemng_doramp(t_cuemng *x, long r){
@@ -999,7 +1020,7 @@ void cuemng_set_ramp(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 
 void cuemng_set_name(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 {
-	long index, memo;
+	long index, memo = 0;
 	t_cue *c;
 	t_symbol *new_name;
 	t_atom a[2];
@@ -1059,7 +1080,7 @@ void cuemng_set_name(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 		c = (t_cue *)linklist_getindex(x->cuelist,index);
 
 		if(c){
-			strcpy(c->index->s_name, new_name->s_name);
+			c->index = new_name;
 
 			// info operation
 			atom_setlong(&a[0],index+1); // index starts at 1 for user
@@ -2243,7 +2264,6 @@ void cuemng_write_line(t_line *l, t_cuemng *x)
 void cuemng_write_atom(t_cuemng *x, t_atom *src)
 {
 	char temp[512];
-	long len = 0;
 	t_symbol* sym;
 
 	switch(src->a_type) 
@@ -2374,9 +2394,9 @@ long cuemng_check_temp(t_cuemng *x, long argc, t_atom *argv){
 // look at the incoming args to check the index
 // and change it if necessary.
 // if there is no index inside, it's return the current
-long cuemng_check_index(t_cuemng *x, long argc, t_atom *argv){
-
-	long index;
+long cuemng_check_index(t_cuemng *x, long argc, t_atom *argv)
+{
+	long index = 0;
 
 	if(argc && argv){
 		if(atom_gettype(&argv[0]) == A_LONG){

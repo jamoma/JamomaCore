@@ -106,7 +106,10 @@ void jamoma_init(void)
 
 		// X -- Continuous Mapper module
 		object_method_parse(max, SymbolGen("definecommand"), (char*)"X patcher insertobj bpatcher @name jmod.mapperContinuous.maxpat @args /mapper", NULL);		
-		
+
+		// !!!! --- x is defined here to work around a 'bug' in the Max Toolbox b13 ( http://code.google.com/p/maxtoolbox/downloads/list )
+		object_method_parse(max, SymbolGen("definecommand"), (char*)"x patcher nothing", NULL);		
+
 		
 		// Here bind the TTBlue environment object to the symbol "TTBlue"
 		{

@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 128.0, 85.0, 504.0, 458.0 ],
+		"rect" : [ 753.0, 129.0, 504.0, 458.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 128.0, 85.0, 504.0, 458.0 ],
+		"defrect" : [ 753.0, 129.0, 504.0, 458.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -15,7 +15,38 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
+		"enablehscroll" : 1,
+		"enablevscroll" : 1,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
+					"id" : "obj-14",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 135.0, 280.0, 303.0, 31.0 ],
+					"text" : "send the init message if you midi ports change after creating the module, and you want the menus updated."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-13",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 100.0, 280.0, 32.5, 17.0 ],
+					"text" : "/init"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"args" : [ "@name", "jmod.bcf2000", "@description", "Module interfacing with the Behringer BCF2000 motorized controller" ],
 					"bgmode" : 1,
@@ -34,7 +65,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
 					"id" : "obj-1",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -49,13 +80,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
 					"id" : "obj-2",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 86.0, 237.0, 303.0, 19.0 ],
-					"text" : "Check the inspector!"
+					"text" : "Check the panel (+ button) !"
 				}
 
 			}
@@ -63,7 +94,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
 					"id" : "obj-3",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -78,7 +109,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
 					"id" : "obj-4",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -99,7 +130,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 173.0, 352.0, 74.0, 19.0 ],
+					"patching_rect" : [ 167.0, 394.0, 74.0, 19.0 ],
 					"text" : "loadmess set"
 				}
 
@@ -113,8 +144,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 106.0, 375.0, 192.0, 17.0 ],
-					"text" : "/view/color/border 0.62 0. 0.36 1."
+					"patching_rect" : [ 100.0, 417.0, 192.0, 17.0 ],
+					"text" : "/module_name /bcf2000"
 				}
 
 			}
@@ -128,7 +159,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 106.0, 278.0, 300.0, 70.0 ],
+					"patching_rect" : [ 100.0, 320.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"varname" : "jmod.bcf2000"
 				}
@@ -138,7 +169,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
 					"id" : "obj-12",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -152,9 +183,18 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-6", 0 ],
 					"hidden" : 1,
-					"midpoints" : [ 182.5, 372.0, 115.5, 372.0 ],
+					"midpoints" : [ 176.5, 414.0, 109.5, 414.0 ],
 					"source" : [ "obj-5", 0 ]
 				}
 
@@ -163,7 +203,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-6", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 115.5, 350.0, 288.5, 350.0 ],
+					"midpoints" : [ 109.5, 392.0, 282.5, 392.0 ],
 					"source" : [ "obj-8", 0 ]
 				}
 

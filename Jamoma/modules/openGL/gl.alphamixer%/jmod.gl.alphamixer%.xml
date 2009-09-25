@@ -19,10 +19,10 @@
     <item name='fog/amount' type='decimal' priority='0'>0.000000</item>
     <item name='fog/inherit' type='boolean' priority='0'>0</item>
     <item name='fog/params' type='array' priority='0'>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 </item>
-    <item name='layer_0' type='array' priority='0'>1.000000 1.000000 1.000000 0.250000 </item>
-    <item name='layer_1' type='array' priority='0'>1.000000 1.000000 1.000000 0.250000 </item>
-    <item name='layer_2' type='array' priority='0'>1.000000 1.000000 1.000000 0.250000 </item>
-    <item name='layer_3' type='array' priority='0'>1.000000 1.000000 1.000000 0.250000 </item>
+    <item name='layer.0' type='array' priority='0'>1.000000 1.000000 1.000000 0.250000 </item>
+    <item name='layer.1' type='array' priority='0'>1.000000 1.000000 1.000000 0.250000 </item>
+    <item name='layer.2' type='array' priority='0'>1.000000 1.000000 1.000000 0.250000 </item>
+    <item name='layer.3' type='array' priority='0'>1.000000 1.000000 1.000000 0.250000 </item>
     <item name='material/automatic' type='boolean' priority='0'>1</item>
     <item name='material/inherit' type='boolean' priority='0'>0</item>
     <item name='material/light/ambient' type='array' priority='0'>0.000000 0.000000 0.000000 0.000000 </item>

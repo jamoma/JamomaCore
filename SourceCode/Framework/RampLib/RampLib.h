@@ -49,7 +49,7 @@ class JAMOMA_EXPORT RampUnit : public TTObject {
 		virtual ~RampUnit();
 		
 		TTErr getFunctionParameterNames(TTSymbol* parameterName, TTValue& names);
-		TTErr setFunctionParameterValue(TTSymbol* parameterName, const TTValue& newValue);
+		TTErr setFunctionParameterValue(TTSymbol* parameterName, TTValue& newValue);
 		TTErr getFunctionParameterValue(TTSymbol* parameterName, TTValue& value);
 		
 		/** start a ramp over time in milliseconds */
