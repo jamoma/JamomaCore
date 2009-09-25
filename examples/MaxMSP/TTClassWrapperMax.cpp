@@ -152,6 +152,17 @@ t_max_err wrappedClass_attrGet(WrappedInstancePtr x, ObjectPtr attr, AtomCount* 
 	return MAX_ERR_NONE;
 }
 
+#ifdef __LP64__
+TTInt64	AtomGetInt(AtomPtr a)
+{
+	return (TTInt64)atom_getlong(a);
+}
+#else
+int AtomGetInt(AtomPtr a)
+{
+	return (int)atom_getlong(a);
+}
+#endif
 
 t_max_err wrappedClass_attrSet(WrappedInstancePtr x, ObjectPtr attr, AtomCount argc, AtomPtr argv)
 {
@@ -162,7 +173,7 @@ t_max_err wrappedClass_attrSet(WrappedInstancePtr x, ObjectPtr attr, AtomCount a
 		
 		for(i=0; i<argc; i++){
 			if(atom_gettype(argv+i) == A_LONG)
-				v.set(i, atom_getlong(argv+i));
+				v.set(i, AtomGetInt(argv+i));
 			else if(atom_gettype(argv+i) == A_FLOAT)
 				v.set(i, atom_getfloat(argv+i));
 			else if(atom_gettype(argv+i) == A_SYM)
@@ -184,7 +195,7 @@ void wrappedClass_anything(WrappedInstancePtr x, SymbolPtr s, AtomCount argc, At
 		
 		for(AtomCount i=0; i<argc; i++){
 			if(atom_gettype(argv+i) == A_LONG)
-				v.set(i, atom_getlong(argv+i));
+				v.set(i, AtomGetInt(argv+i));
 			else if(atom_gettype(argv+i) == A_FLOAT)
 				v.set(i, atom_getfloat(argv+i));
 			else if(atom_gettype(argv+i) == A_SYM)
@@ -421,3 +432,26 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Wra
 	return err;
 }
 
+
+
+TTErr TTValueFromAtoms(TTValue& v, AtomCount ac, AtomPtr av)
+{
+	v.clear();
+	
+	// For now we assume floats for speed (e.g. in the performance sensitive jcom.dataspace object)
+	for (int i=0; i<ac; i++)
+		v.append((TTFloat64)atom_getfloat(av+i));
+	return kTTErrNone;
+}
+
+TTErr TTAtomsFromValue(const TTValue& v, AtomCount* ac, AtomPtr* av)
+{
+	int	size = v.getSize();
+	
+	*ac = size;
+	*av = (t_atom*)sysmem_newptr(sizeof(t_atom) * size);
+	for (int i=0; i<size; i++) {
+		atom_setfloat((*av)+i, v.getFloat64(i));
+	}
+	return kTTErrNone;
+}

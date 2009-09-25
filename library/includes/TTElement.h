@@ -86,6 +86,8 @@ using namespace std;
 /****************************************************************************************************/
 // Type Definitions
 
+// Note http://developer.apple.com/mac/library/documentation/Darwin/Conceptual/64bitPorting/MakingCode64-BitClean/MakingCode64-BitClean.html#//apple_ref/doc/uid/TP40001064-CH226-SW2
+
 typedef bool				TTBoolean;			// same as Boolean on the Mac
 typedef char*				TTCString;
 typedef const char*			TTImmutableCString;
@@ -93,17 +95,28 @@ typedef std::string			TTString;
 
 typedef signed char			TTInt8;
 typedef unsigned char		TTUInt8;
-typedef signed				TTInt16;
+typedef signed short		TTInt16;
 typedef unsigned short		TTUInt16;
-typedef signed long			TTInt32;
-typedef unsigned long		TTUInt32;
+
+#ifdef __LP64__		// Mac 64-bit
+	typedef signed int			TTInt32;
+	typedef unsigned int		TTUInt32;
+#else				// Mac 32-bit, Win32 32-bit
+	typedef signed long			TTInt32;
+	typedef unsigned long		TTUInt32;
+#endif
 
 #if defined(_MSC_VER) || defined(__BORLANDC__)
-typedef __int64				TTInt64;
-typedef unsigned __int64	TTUInt64;
+	typedef __int64				TTInt64;
+	typedef unsigned __int64	TTUInt64;
 #else
-typedef signed long long	TTInt64;
-typedef unsigned long long	TTUInt64;
+	#if defined(__LP64__)	// Mac 64-bit
+		typedef signed long			TTInt64;
+		typedef unsigned long		TTUInt64;
+	#else // Max 32-bit
+		typedef signed long long	TTInt64;
+		typedef unsigned long long	TTUInt64;
+	#endif
 #endif
 
 typedef float				TTFloat32;
@@ -114,11 +127,23 @@ typedef TTFloat64			TTSampleValue;
 /** A TTSampleVector is simply a pointer to the first of an array of TTSampleValues. */
 typedef TTSampleValue*		TTSampleVector;
 
-/** An integer that is the same size as a pointer. */
-typedef long				TTPtrSizedInt;
+/** An integer that is the same size as a pointer.	*/
+typedef long				TTPtrSizedInt;				// this works for both 32 and 64 bit code on the Mac
 
 /** A generic pointer. */
 typedef void*				TTPtr;
+
+
+/**	A simple/generic function pointer with no args.	*/
+typedef void (*TTFunctionPtr)();
+
+/**	A simple/generic function pointer with one arg.	*/
+typedef void (*TTFunctionWithArgPtr)(TTPtr);
+
+/**	A simple/generic function pointer with one generic pointer (baton) and one TTValueRef.	*/
+class TTValue;
+typedef void (*TTFunctionWithBatonAndValue)(TTPtr, TTValue&);
+
 
 /****************************************************************************************************/
 
@@ -152,7 +177,7 @@ class TTDataInfo;
 typedef TTDataInfo* TTDataInfoPtr;
 
 /**	An array, indexed by values from TTDataType, containing information about those data types.	*/
-extern TTDataInfoPtr	ttDataTypeInfo[kNumTTDataTypes];
+extern TTFOUNDATION_EXPORT TTDataInfoPtr	ttDataTypeInfo[kNumTTDataTypes];
 
 
 class TTFOUNDATION_EXPORT TTDataInfo {

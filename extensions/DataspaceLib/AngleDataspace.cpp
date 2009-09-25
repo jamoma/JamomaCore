@@ -10,61 +10,71 @@
 
 /***********************************************************************************************/
 // rad is also the neutral format
-RadianUnit::RadianUnit()
-	: DataspaceUnit("radian")
-{;}
+
+#define thisTTClass			RadianUnit
+#define thisTTClassName		"unit.radian"
+#define thisTTClassTags		"dataspace, angle"
+
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+RadianUnit::~RadianUnit(){;}
 
 
-RadianUnit::~RadianUnit()
-{;}
-		
-
-void RadianUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void RadianUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms);
+	output = input;
+}
+
+void RadianUnit::convertFromNeutral(const TTValue& input, TTValue& output)
+{
+	output = input;
 }
 
 
-void RadianUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
-{
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input);
-}
-
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
-DegreeUnit::DegreeUnit()
-	: DataspaceUnit("degree")
-{;}
+
+#define thisTTClass			DegreeUnit
+#define thisTTClassName		"unit.degree"
+#define thisTTClassTags		"dataspace, angle"
+
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+DegreeUnit::~DegreeUnit(){;}
 
 
-DegreeUnit::~DegreeUnit()
-{;}
-		
-		
-void DegreeUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void DegreeUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms) * kDegreesToRadians; //kDegreesToRadians defined in DataspaceLib.h
+	output = TTFloat64(input) * kDegreesToRadians;
+}
+
+void DegreeUnit::convertFromNeutral(const TTValue& input, TTValue& output)
+{
+	output = TTFloat64(input) * kRadiansToDegrees;
 }
 
 
-void DegreeUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
-{
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, (*input * kRadiansToDegrees));//kRadiansToDegrees defined in DataspaceLib.h
-}
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
-AngleDataspace::AngleDataspace()
-	: DataspaceLib("angle", "radian") //would "<" be possible ??
-{
+
+#define thisTTClass			AngleDataspace
+#define thisTTClassName		"dataspace.angle"
+#define thisTTClassTags		"dataspace, angle"
+
+TT_DATASPACELIB_CONSTRUCTOR
+{	
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new RadianUnit,	SymbolGen("radian"));
-	registerUnit(new RadianUnit,	SymbolGen("rad"));
-	registerUnit(new DegreeUnit,	SymbolGen("degree"));
-	registerUnit(new DegreeUnit,	SymbolGen("deg"));
+	registerUnit(TT("unit.radian"),	TT("radian"));
+	registerUnit(TT("unit.radian"),	TT("rad"));
+	registerUnit(TT("unit.degree"),	TT("degree"));
+	registerUnit(TT("unit.degree"),	TT("deg"));
+	
+	// Set our neutral unit (the unit through which all conversions are made)
+	neutralUnit = TT("radian");
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
@@ -76,3 +86,8 @@ AngleDataspace::~AngleDataspace()
 {
 	;
 }
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+

@@ -15,12 +15,10 @@
 // Class Specifications
 
 class MillisecondUnit : DataspaceUnit{
-	public:
-		MillisecondUnit();
-		~MillisecondUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(MillisecondUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 class SampleUnit : DataspaceUnit{
@@ -31,47 +29,37 @@ class SampleUnit : DataspaceUnit{
 		double	msr;			///< samples per millisecond
 		double	rmsr;			///< reciprocal of msr
 
-	public:
-		SampleUnit();
-		~SampleUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(SampleUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 class SecondUnit : DataspaceUnit{
-	public:
-		SecondUnit();
-		~SecondUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(SecondUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 class UpdaterateUnit : DataspaceUnit{
-	public:
-		UpdaterateUnit();
-		~UpdaterateUnit();
-	
-	void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-	void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(UpdaterateUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 class BpmUnit : DataspaceUnit{
-	public:
-	BpmUnit();
-	~BpmUnit();
-	
-	void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-	void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	TTCLASS_SETUP(BpmUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 
 // Specification of our base class
-class TimeDataspace : DataspaceLib{
-	public:
-		TimeDataspace();
-		~TimeDataspace();
+class TimeDataspace : DataspaceLib {
+	TTCLASS_SETUP(TimeDataspace)
 };
 
 

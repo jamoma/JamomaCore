@@ -69,6 +69,9 @@ public:
 		@return	The current value.						*/
 	TTValue& current();
 	
+	/**	Return a value by it's location in the list.	*/
+	TTErr getIndex(TTUInt32 index, TTValue& returnedValue);
+	
 	/** Appends a value to the list. 
 		@param	newValue	The value to add to the list.  */
 	void append(const TTValue& newValue);

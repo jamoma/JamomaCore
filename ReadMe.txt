@@ -22,16 +22,16 @@ Doxygen generated documentation is located in the "documentation" folder.
 
 
 License
-TTBlue is licensed as open source software under the terms of the GNU LPGL.
+Jamoma Foundation is licensed as open source software under the terms of the GNU LPGL.
 
 
 Known Issues & Wish List
-See the issue tracker at http://code.google.com/p/ttblue/issues/list
+See the issue tracker at http://redmine.jamoma.org
 
 
 More Information
-This project hosted is hosted at http://code.google.com/p/ttblue
+This project hosted is hosted at http://github.com/
 
 
 Change Log
-The change log can be found at http://code.google.com/p/ttblue/wiki/ChangeLog
+The change log can be found at http://redmine.jamoma.org

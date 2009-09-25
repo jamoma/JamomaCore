@@ -106,10 +106,10 @@ public:
 		The the end-user calls setAttribute() on the object (which is defined in 
 		the base class only) and it dispatches the message as appropriate.
 	*/
-	TTErr registerAttribute(const TTSymbolPtr name, TTDataType type, void* address);
-	TTErr registerAttribute(const TTSymbolPtr name, TTDataType type, void* address, TTGetterMethod getter);
-	TTErr registerAttribute(const TTSymbolPtr name, TTDataType type, void* address, TTSetterMethod setter);
-	TTErr registerAttribute(const TTSymbolPtr name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
+	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address);
+	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTGetterMethod getter);
+	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTSetterMethod setter);
+	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
 	
 	TTErr findAttribute(const TTSymbolPtr name, TTAttribute** attr);
 
@@ -123,12 +123,51 @@ public:
 	TTErr setAttributeValue(const TTSymbolPtr name, TTValue& value);
 	TTErr getAttributeValue(const TTSymbolPtr name, TTValue& value);
 
+/*	
+	// special case to work around "ambiguous overload" errors in GCC 4.2
+	TTErr setAttributeValue(const TTSymbolPtr name, const int& value)
+	{
+		TTValue v(value);
+		return setAttributeValue(name, v);
+	}
+	
 	template <class T>
 	TTErr setAttributeValue(const TTSymbolPtr name, const T& value)
 	{
 		TTValue	v(value);
 		return setAttributeValue(name, v);
 	}
+*/
+	// We do the following because templates cause us a lot of headaches in this case due to type ambiguity and linking
+#define TT_SETATTR_WRAP(type) \
+	TTErr setAttributeValue(const TTSymbolPtr name, const type & value)	\
+	{																	\
+		TTValue v(value);												\
+		return setAttributeValue(name, v);								\
+	}
+	
+	TT_SETATTR_WRAP(TTInt8)
+	TT_SETATTR_WRAP(TTInt16)
+#if 1 // defined(TT_PLATFORM_MAC)	// <-- seems to be we need it this way on Windows too
+	TT_SETATTR_WRAP(int)
+//	TTErr setAttributeValue(const TTSymbolPtr name, const int value)	
+//	{																	
+//		TTValue v((TTInt32)value);												
+//		return setAttributeValue(name, v);								
+//	}	
+#else
+	TT_SETATTR_WRAP(TTInt32)
+#endif
+	TT_SETATTR_WRAP(TTInt64)
+	TT_SETATTR_WRAP(TTUInt8)
+	TT_SETATTR_WRAP(TTUInt16)
+	TT_SETATTR_WRAP(TTUInt32)
+	TT_SETATTR_WRAP(TTUInt64)
+	TT_SETATTR_WRAP(TTFloat32)
+	TT_SETATTR_WRAP(TTFloat64)
+	TT_SETATTR_WRAP(TTSymbolPtr)
+	
+#undef TT_SETATTR_WRAP
 	
 	template <class T>
 	TTErr getAttributeValue(const TTSymbolPtr name, T& value)
