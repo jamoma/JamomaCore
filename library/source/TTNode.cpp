@@ -776,7 +776,7 @@ TTErr NodeLookup(TTHashPtr directory, TTSymbolPtr oscAddress, TTListPtr *returne
 
 TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdress, TTSymbolPtr* returnedNodeName, TTSymbolPtr* returnedNodeInstance, TTSymbolPtr* returnedNodePropertie)
 {
-	int len, pos;
+	long len, pos;
 	char *last_colon, *last_slash, *last_dot;
 	char *propertie, *parent, *instance;
 	char *to_split;
@@ -792,7 +792,7 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 	// if exists, split the OSC address in an address part (to split) and an propertie part
 	len = strlen(to_split);
 	last_colon = strrchr(to_split,S_PROPERTIE[0]);
-	pos = (int)last_colon - (int)to_split;
+	pos = (long)last_colon - (long)to_split;
 
 	if(last_colon){
 		propertie = (char *)malloc(sizeof(char)*(len - (pos+1)));
@@ -808,7 +808,7 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 	// if exists, split the address part in a TTNode part (to split) and a parent part
 	len = strlen(to_split);
 	last_slash = strrchr(to_split,S_SEPARATOR[0]);
-	pos = (int)last_slash - (int)to_split;
+	pos = (long)last_slash - (long)to_split;
 
 	if(last_slash){
 		if(pos){ // In the root case pos == 0
@@ -835,7 +835,7 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 	// if exists, split the TTNode part in a name part and an instance part
 	len = strlen(to_split);
 	last_dot = strrchr(to_split,S_INSTANCE[0]);
-	pos = (int)last_dot - (int)to_split;
+	pos = (long)last_dot - (long)to_split;
 
 	if(last_dot > 0){
 		instance = (char *)malloc(sizeof(char)*(len - (pos+1)));
