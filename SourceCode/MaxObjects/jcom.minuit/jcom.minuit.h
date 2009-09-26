@@ -42,14 +42,15 @@ void			node_assist(t_node *x, void *b, long m, long a, char *s);
 
 /** this method parses a minuit protocol message and returns the children (leaves or nodes) and the properties of the node which address is given to the outlet */
 void			minuit_namespace(t_node *x, t_symbol *address);
+void			minuit_donamespace(t_node *x, t_symbol *address);
 
 /** this method parses a minuit protocol message and returns the value(s) of an attribute of a certain node*/
 void			minuit_get(t_node *x, t_symbol *attraddress);
-void minuit_set(t_node *x, t_symbol *msg, long argc, t_atom *argv);
+void			minuit_doget(t_node *x, t_symbol *attraddress);
 
 /** this method parses a minuit protocol message and sets the value(s) of an attribute of a certain node */
 void			minuit_set(t_node *x, t_symbol *msg, long argc, t_atom *argv);
-
+void			minuit_doset(t_node *x, t_symbol *msg, long argc, t_atom *argv);
 
 // Private methods
 void node_goto(t_node *x, t_symbol *address);

@@ -91,112 +91,145 @@ void node_assist(t_node *x, void *b, long msg, long arg, char *dst)
 	}		
 }
 
-void minuit_namespace(t_node *x, t_symbol *address) {
+void minuit_namespace(t_node *x, t_symbol *address)
+{
+	defer(x, (method)minuit_donamespace, address, 0, 0);
+}
 
-	short i;
-	char outletstring[REQUEST_SIZE];
+void minuit_donamespace(t_node *x, t_symbol *address)
+{
+
+	short i, count;
+	char *temp = NULL;
+	TTListPtr lk_prp, lk_chd;
+	t_linklist *lk_leaves, *lk_nodes;
 	TTSymbolPtr n_attr;
 	t_symbol *n_type;
 	t_symbol *n_instance;
-	t_atom a;
+	t_atom a_answer[1024];
 	
-	snprintf(outletstring, 1024, ":namespace %s ", address->s_name);
+	// prepare answer
+	atom_setsym(a_answer, address);
+	count = 1;
+	
 	node_goto(x, address);
 
 	// Il nous faut avoir les noeuds inférieurs et les attributs du noeud à l'addresse données
-
-	TTListPtr lk_prp = jamoma_node_properties(x->p_node);
-	TTListPtr lk_chd = jamoma_node_children(x->p_node);
-	//t_symbol *inst = jamoma_node_instance(x->p_node);
-
-	// the two lists for the nodes and leaves
-	t_linklist *lk_leaves = linklist_new();
-	t_linklist *lk_nodes = linklist_new();
-
-	// if there are properties
-	if(lk_prp){
-
-		strcat(outletstring," attributes={");
-
-		// write an outline for each attribut
-		for(lk_prp->begin(); lk_prp->end(); lk_prp->next()){
-			
-			lk_prp->current().get(0,(TTSymbolPtr*)&n_attr);
-			strcat(outletstring," ");
-			strcat(outletstring,n_attr->getCString());  
-		} 
-		strcat(outletstring," }");
-	}
-
-	// if there are children
-	if(lk_chd){
+	if(x->p_node && x->address){
 		
-		//a check if its leaves or nodes
-		for(lk_chd->begin(); lk_chd->end(); lk_chd->next()){
-			
-			lk_chd->current().get(0,(TTPtr*)&x->p_node);
-			n_type = jamoma_node_type(x->p_node);
-			
-			if((n_type == gensym("container")) || (n_type == gensym("hub")))
-				linklist_append(lk_nodes, x->p_node);
-			else
-				if(n_type == gensym("subscribe_parameter"))
-					linklist_append(lk_leaves, x->p_node);
-		}
+		lk_prp = jamoma_node_properties(x->p_node);
+		lk_chd = jamoma_node_children(x->p_node);
 		
-		if(lk_nodes->head) {
+		// the two lists for the nodes and leaves
+		lk_leaves = linklist_new();
+		lk_nodes = linklist_new();
+		
+		// if there are properties
+		if(lk_prp){
 			
-			strcat(outletstring," nodes={");
-			for(i=0; i<linklist_getsize(lk_nodes); i++){
+			atom_setsym(a_answer+count, gensym("attributes={"));
+			count++;
+			
+			// write an outline for each attribut
+			for(lk_prp->begin(); lk_prp->end(); lk_prp->next()){
 				
-				// get the name
-				x->p_node = (TTNodePtr)linklist_getindex(lk_nodes,i);
-				strcat(outletstring," ");
-				strcat(outletstring,jamoma_node_name(x->p_node)->s_name);
-
-				// get instance
-				n_instance = jamoma_node_instance(x->p_node);
-				if(n_instance != gensym("")){
-					strcat(outletstring,".");
-					strcat(outletstring,n_instance->s_name);
-				}
-			}
-			strcat(outletstring," }");
+				lk_prp->current().get(0,(TTSymbolPtr*)&n_attr);
+				atom_setsym(a_answer+count, gensym((char*)n_attr->getCString()));
+				count++;
+			} 
+			atom_setsym(a_answer+count, gensym("}"));
+			count++;
 		}
 		
-		if(lk_leaves->head) {
+		// if there are children
+		if(lk_chd){
 			
-			strcat(outletstring," leaves={");
-			for(i=0; i<linklist_getsize(lk_leaves); i++){
+			//a check if its leaves or nodes
+			for(lk_chd->begin(); lk_chd->end(); lk_chd->next()){
 				
-				// get the name
-				x->p_node = (TTNodePtr)linklist_getindex(lk_leaves,i);
-				strcat(outletstring," ");
-				strcat(outletstring,jamoma_node_name(x->p_node)->s_name);
-
-				// get instance
-				n_instance = jamoma_node_instance(x->p_node);
-				if(n_instance != gensym("")){
-					strcat(outletstring,".");
-					strcat(outletstring,n_instance->s_name);
-				}
+				lk_chd->current().get(0,(TTPtr*)&x->p_node);
+				n_type = jamoma_node_type(x->p_node);
+				
+				if((n_type == gensym("container")) || (n_type == gensym("hub")))
+					linklist_append(lk_nodes, x->p_node);
+				else
+					if(n_type == gensym("subscribe_parameter"))
+						linklist_append(lk_leaves, x->p_node);
 			}
-			strcat(outletstring," }");
+			
+			if(linklist_getsize(lk_nodes)){
+				
+				atom_setsym(a_answer+count, gensym("nodes={"));
+				count++;
+				
+				for(i=0; i<linklist_getsize(lk_nodes); i++){
+					// get the name
+					x->p_node = (TTNodePtr)linklist_getindex(lk_nodes,i);
+					temp = (char*)malloc(sizeof(char)*256);
+					strcpy(temp,jamoma_node_name(x->p_node)->s_name);
+					
+					// get instance
+					n_instance = jamoma_node_instance(x->p_node);
+					if(n_instance != gensym("")){
+						strcat(temp,".");
+						strcat(temp,n_instance->s_name);
+					}
+					
+					atom_setsym(a_answer+count, gensym(temp));
+					count++;
+					free(temp);
+				}
+				atom_setsym(a_answer+count, gensym("}"));
+				count++;
+			}
+			
+			if(linklist_getsize(lk_leaves)) {
+				
+				atom_setsym(a_answer+count, gensym(" leaves={"));
+				count++;
+				
+				for(i=0; i<linklist_getsize(lk_leaves); i++){
+					
+					// get the name
+					x->p_node = (TTNodePtr)linklist_getindex(lk_leaves,i);
+					temp = (char*)malloc(sizeof(char)*256);
+					strcpy(temp,jamoma_node_name(x->p_node)->s_name);
+					
+					// get instance
+					n_instance = jamoma_node_instance(x->p_node);
+					if(n_instance != gensym("")){
+						strcat(temp,".");
+						strcat(temp,n_instance->s_name);
+					}
+					
+					atom_setsym(a_answer+count, gensym(temp));
+					count++;
+					free(temp);
+				}
+				atom_setsym(a_answer+count, gensym("}"));
+				count++;
+			}
+			// TODO : return !namespace address
 		}
+		outlet_anything(x->p_out, gensym(":namespace"), count, a_answer);
 	}
-	outlet_anything(x->p_out, gensym(outletstring), 0, &a);
 }
 
+void minuit_get(t_node *x, t_symbol *oscaddress)
+{
+	defer(x, (method)minuit_doget, oscaddress, 0, 0);
+}
 
-void minuit_get(t_node *x, t_symbol *oscAddress)
+void minuit_doget(t_node *x, t_symbol *oscAddress)
 {
 	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie;
-	char outletstring[REQUEST_SIZE];
+	char *temp = NULL;
 	char address[256];
 	char attribute[64];
 	t_object *obj;
-	long nb_value = 0;
+	long nb_value = 0, i;
 	t_atom  *attr_value = NULL;
+	t_atom *a_answer;
 	t_max_err m_err;
 	TTErr tt_err;
 
@@ -223,33 +256,50 @@ void minuit_get(t_node *x, t_symbol *oscAddress)
 		if(oscAddress_propertie == NO_PROPERTIE)
 			snprintf(attribute, 64, "value");
 		else
-			snprintf(attribute, 64, "%s", oscAddress_propertie->getCString()+1); // +1 to avoid the / before
+			//snprintf(attribute, 64, "%s", oscAddress_propertie->getCString()+1); // +1 to avoid the / before
+			snprintf(attribute, 64, "%s", oscAddress_propertie->getCString()); // Currently Virage doesn't send a / before attribute (maybe we could change the spec of Minuit) ?
 
 		// get the attribute value
 		obj = jamoma_node_max_object(x->p_node);
 		m_err = object_attr_getvalueof(obj, gensym(attribute), &nb_value, &attr_value);
 
 		if(!m_err){
-			//outletstring
-			snprintf(outletstring, 1024, ":get %s:/%s ", address, attribute);
-			outlet_anything(x->p_out, gensym(outletstring), nb_value, attr_value);
+			
+			//prepare answer
+			temp = (char*)malloc(sizeof(char)*256);
+			if(oscAddress_propertie == NO_PROPERTIE)
+				snprintf(temp, 256, "%s ", address);	// Virage seems to not understand when we answer :get /address:value X (?) Virage prefers :get /address X
+			else
+				snprintf(temp, 256, "%s:%s ", address, attribute);	// Currently Virage doesn't understand a / before attribute (maybe we could change the spec of Minuit) ?
+			
+			// prepend address:attribute to attr_value
+			a_answer = (t_atom *)malloc((long)sizeof(t_atom)*(nb_value+1));
+			atom_setsym(a_answer,gensym(temp));
+			for(i = 1; i < nb_value+1; i++)
+				jcom_core_atom_copy(&a_answer[i],&attr_value[i-1]);
+			
+			outlet_anything(x->p_out, gensym(":get"), nb_value+1, a_answer);
 		}
-		else
-			object_post((t_object*)x,"there are no values attached to the requested attribute"); 
+		else{
+			// TODO : return !get address
+			object_post((t_object*)x,"there are no values attached to the requested attribute");
+		}
 	}
+	free(temp);
 }
 
 void minuit_set(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 {
+	defer(x, (method)minuit_doset, msg, argc, argv);
+}
+
+void minuit_doset(t_node *x, t_symbol *msg, long argc, t_atom *argv)
+{
 	t_symbol *oscAddress;
 	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie;
-	char outletstring[REQUEST_SIZE];
 	char address[256];
 	char attribute[64];
 	t_object *obj;
-	long nb_value = 0;
-	t_atom  *attr_value = NULL;
-	t_max_err m_err;
 	TTErr tt_err;
 
 	//split OSC the address
@@ -271,22 +321,24 @@ void minuit_set(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 
 				// goto the address
 				node_goto(x,gensym(address));
-				if(!x->address)
-					return;
-
-				// check attribute
-				if(oscAddress_propertie == NO_PROPERTIE)
-					snprintf(attribute, 64, "value");
-				else
-					snprintf(attribute, 64, "%s", oscAddress_propertie->getCString()+1); // +1 to avoid the / before
-
-				// set the attribut value
-				obj = jamoma_node_max_object(x->p_node);
-				if(!strcmp(attribute,"value"))
-					object_method_typed((t_object*)obj, jps_dispatched, argc-1, argv+1, NULL);
-				else
-					object_attr_setvalueof(obj, gensym(attribute), argc-1, argv+1);
+				if(x->p_node && x->address){
+					
+					// check attribute
+					if(oscAddress_propertie == NO_PROPERTIE)
+						snprintf(attribute, 64, "value");
+					else
+						//snprintf(attribute, 64, "%s", oscAddress_propertie->getCString()+1); // +1 to avoid the / before
+						snprintf(attribute, 64, "%s", oscAddress_propertie->getCString());	// Currently Virage doesn't send a / before attribute (maybe we could change the spec of Minuit) ?
+					
+					// set the attribut value
+					obj = jamoma_node_max_object(x->p_node);
+					if(oscAddress_propertie == TT("value"))
+						object_method_typed((t_object*)obj, jps_dispatched, argc-1, argv+1, NULL);
+					else
+						object_attr_setvalueof(obj, gensym(attribute), argc-1, argv+1);
+				}
 			}
+			// TODO : return !set address
 		}
 		else
 			object_error((t_object*)x,"the first argument have to be an OSC address");
@@ -300,17 +352,15 @@ void node_goto(t_node *x, t_symbol *address)
 	// Are we dealing with an OSC message ?
 	if(address->s_name[0] == S_SEPARATOR[0]){
 
-		if(address != x->address){
-			err = jamoma_node_get(address, &(x->lk_nodes), &(x->p_node));
-
-			// if the address exists
-			if(err == JAMOMA_ERR_NONE)
-				x->address = address;
-			else{
-				x->address = NULL;
-				x->p_node = NULL;
-				object_post((t_object*)x,"%s doesn't exist", address->s_name);
-			}
+		err = jamoma_node_get(address, &(x->lk_nodes), &(x->p_node));
+		
+		// if the address exists
+		if(err == JAMOMA_ERR_NONE)
+			x->address = address;
+		else{
+			x->address = NULL;
+			x->p_node = NULL;
+			object_post((t_object*)x,"%s doesn't exist", address->s_name);
 		}
 	}
 }
