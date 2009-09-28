@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 272.0, 112.0, 675.0, 642.0 ],
+		"rect" : [ 424.0, 92.0, 675.0, 642.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 272.0, 112.0, 675.0, 642.0 ],
+		"defrect" : [ 424.0, 92.0, 675.0, 642.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -27,7 +27,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 122.0, 213.0, 164.0, 17.0 ],
-					"presentation_rect" : [ 135.0, 218.0, 0.0, 0.0 ],
 					"text" : "/audio/gain -18 dB ramp 2000"
 				}
 
@@ -42,7 +41,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 160.0, 235.0, 190.0, 17.0 ],
-					"presentation_rect" : [ 160.0, 235.0, 0.0, 0.0 ],
 					"text" : "/audio/gain 0.01 linear ramp 2000"
 				}
 
@@ -119,6 +117,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"color" : [ 0.4, 0.4, 0.8, 1.0 ],
@@ -232,13 +231,13 @@
 ,
 					"patching_rect" : [ 35.0, 185.0, 191.0, 24.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"fontname" : "Arial",
-						"default_fontname" : "Arial",
-						"globalpatchername" : "",
-						"default_fontsize" : 12.0,
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p cueTriggerCompatibility"
@@ -350,7 +349,7 @@
 					"presentation" : 1,
 					"presentation_linecount" : 3,
 					"presentation_rect" : [ 340.0, 92.0, 230.0, 43.0 ],
-					"text" : "< INSPECTOR : \n- to manage the cue list (copy, remove)\n- to select the module to store in the cuelist"
+					"text" : "+ INSPECTOR : \n- to manage the cue list (copy, remove)\n- to select the module to store in the cuelist"
 				}
 
 			}
@@ -557,7 +556,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"hidden" : 1,
-					"midpoints" : [ 439.5, 126.0, 420.0, 126.0, 420.0, 90.0, 44.5, 90.0 ],
+					"midpoints" : [ 439.5, 123.0, 420.0, 123.0, 420.0, 91.0, 44.5, 91.0 ],
 					"source" : [ "obj-6", 0 ]
 				}
 
