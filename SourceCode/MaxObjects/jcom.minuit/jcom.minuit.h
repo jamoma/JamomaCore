@@ -27,7 +27,6 @@ typedef struct _node{
 	t_symbol				*address;	// memorized the current adress
 	TTNodePtr				p_node;		// a pointer to a TTnode of the tree
 	TTListPtr				lk_nodes;	// a pointer to a selection of TTnodes of the tree
-
 } t_node;
 
 // Prototypes for methods
@@ -53,4 +52,6 @@ void			minuit_set(t_node *x, t_symbol *msg, long argc, t_atom *argv);
 void			minuit_doset(t_node *x, t_symbol *msg, long argc, t_atom *argv);
 
 // Private methods
-void node_goto(t_node *x, t_symbol *address);
+void			minuit_goto(t_node *x, t_symbol *address);
+t_symbol*		minuit_convert_attribut_jamoma2minuit(t_symbol *attribute);
+t_symbol*		minuit_convert_attribut_minuit2jamoma(t_symbol *attribute);

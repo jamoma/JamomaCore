@@ -217,6 +217,12 @@
 					"\"$(SRCROOT)/../../../../Multicore/library/build/UninstalledProducts\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../Tools/library/Controller/Controller(XCode)/build/Debug/Plugins\"",
+					"\"$(SRCROOT)/../../../../../Tools/library/Controller/Plugins\"",
+					"\"$(SRCROOT)/../../../../../Tools/library/Controller/tmp\"",
+				);
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};
 			name = Development;
@@ -241,6 +247,12 @@
 					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/msp-includes\"",
 					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../../Multicore/library/build/UninstalledProducts\"",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../Tools/library/Controller/Controller(XCode)/build/Debug/Plugins\"",
+					"\"$(SRCROOT)/../../../../../Tools/library/Controller/Plugins\"",
+					"\"$(SRCROOT)/../../../../../Tools/library/Controller/tmp\"",
 				);
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};

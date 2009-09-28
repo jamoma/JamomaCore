@@ -23,19 +23,19 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	
 	jamoma_init();
 	common_symbols_init();
-
+	
 	// Define our class
 	c = class_new("jcom.minuit",(method)node_new, (method)node_free, (long)sizeof(t_node), 0L, A_GIMME, 0);
-
+	
 	// add methods
 	class_addmethod(c, (method)node_notify,			"notify",		A_CANT, 0);
 	class_addmethod(c, (method)node_assist,			"assist",		A_CANT, 0);
-
+	
 	// this method posts the children (leaves or nodes) and the properties of the node which address is given
 	class_addmethod(c, (method)minuit_namespace,	"?namespace",	A_SYM, 0);
 	class_addmethod(c, (method)minuit_get,			"?get",			A_SYM, 0);
-	class_addmethod(c, (method)minuit_set,			"?set",			A_GIMME, 0);
-
+	class_addmethod(c, (method)minuit_set,			"anything",			A_GIMME, 0);
+	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	node_class = c;
@@ -50,15 +50,15 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 void *node_new(t_symbol *name, long argc, t_atom *argv)
 {
 	t_node *x;
-
+	
 	x = (t_node*)object_alloc(node_class);
 	x->p_out = outlet_new(x, 0);
-
+	
 	if(x){
-
+		
 		// default : get the root of the tree
 		x->p_node = jamoma_node_init();
-
+		
 	}
 	return x;
 }
@@ -98,13 +98,13 @@ void minuit_namespace(t_node *x, t_symbol *address)
 
 void minuit_donamespace(t_node *x, t_symbol *address)
 {
-
+	
 	short i, count;
 	char *temp = NULL;
 	TTListPtr lk_prp, lk_chd;
 	t_linklist *lk_leaves, *lk_nodes;
 	TTSymbolPtr n_attr;
-	t_symbol *n_type;
+	t_symbol *n_type, *s_attr;
 	t_symbol *n_instance;
 	t_atom a_answer[1024];
 	
@@ -112,8 +112,8 @@ void minuit_donamespace(t_node *x, t_symbol *address)
 	atom_setsym(a_answer, address);
 	count = 1;
 	
-	node_goto(x, address);
-
+	minuit_goto(x, address);
+	
 	// Il nous faut avoir les noeuds inférieurs et les attributs du noeud à l'addresse données
 	if(x->p_node && x->address){
 		
@@ -130,12 +130,19 @@ void minuit_donamespace(t_node *x, t_symbol *address)
 			atom_setsym(a_answer+count, gensym("attributes={"));
 			count++;
 			
+			atom_setsym(a_answer+count, gensym("access"));
+			count++;
+			
 			// write an outline for each attribut
 			for(lk_prp->begin(); lk_prp->end(); lk_prp->next()){
 				
 				lk_prp->current().get(0,(TTSymbolPtr*)&n_attr);
-				atom_setsym(a_answer+count, gensym((char*)n_attr->getCString()));
-				count++;
+				s_attr = minuit_convert_attribut_jamoma2minuit(gensym( (char*)n_attr->getCString()));
+				
+				if(s_attr){
+					atom_setsym(a_answer+count, s_attr);
+					count++;
+				}
 			} 
 			atom_setsym(a_answer+count, gensym("}"));
 			count++;
@@ -153,7 +160,7 @@ void minuit_donamespace(t_node *x, t_symbol *address)
 				if((n_type == gensym("container")) || (n_type == gensym("hub")))
 					linklist_append(lk_nodes, x->p_node);
 				else
-					if(n_type == gensym("subscribe_parameter"))
+					if((n_type == gensym("subscribe_parameter")) /*|| (n_type == gensym("subscribe_message")) || (n_type == gensym("subscribe_return"))*/)
 						linklist_append(lk_leaves, x->p_node);
 			}
 			
@@ -223,69 +230,123 @@ void minuit_get(t_node *x, t_symbol *oscaddress)
 void minuit_doget(t_node *x, t_symbol *oscAddress)
 {
 	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie;
+	t_symbol *s_attr, *n_type;
 	char *temp = NULL;
-	char address[256];
-	char attribute[64];
+	char *address = NULL;
+	char *attribute = NULL;
 	t_object *obj;
 	long nb_value = 0, i;
 	t_atom  *attr_value = NULL;
-	t_atom *a_answer;
+	t_atom *a_answer = NULL;
 	t_max_err m_err;
 	TTErr tt_err;
-
+	
 	//split OSC the address
 	// TODO : make a split method to only get /address:attribut
 	tt_err = splitOSCAddress(TT(oscAddress->s_name),&oscAddress_parent,&oscAddress_name, &oscAddress_instance, &oscAddress_propertie);
 	
 	// if no error in the parsing of the OSC address
 	if(tt_err == kTTErrNone){
-
+		
 		// Making the address part /parent/name.instance
 		// TODO : make a split method to only get /address:attribut
-		if(oscAddress_instance == NO_INSTANCE)
-			snprintf(address, 256, "%s/%s", oscAddress_parent->getCString(), oscAddress_name->getCString());
-		else
-			snprintf(address, 256, "%s/%s.%s", oscAddress_parent->getCString(), oscAddress_name->getCString(), oscAddress_instance->getCString());
-
-		// goto the address
-		node_goto(x,gensym(address));
-		if(!x->address)
-			return;
-
-		// check attribute
-		if(oscAddress_propertie == NO_PROPERTIE)
-			snprintf(attribute, 64, "value");
-		else
-			//snprintf(attribute, 64, "%s", oscAddress_propertie->getCString()+1); // +1 to avoid the / before
-			snprintf(attribute, 64, "%s", oscAddress_propertie->getCString()); // Currently Virage doesn't send a / before attribute (maybe we could change the spec of Minuit) ?
-
-		// get the attribute value
-		obj = jamoma_node_max_object(x->p_node);
-		m_err = object_attr_getvalueof(obj, gensym(attribute), &nb_value, &attr_value);
-
-		if(!m_err){
-			
-			//prepare answer
-			temp = (char*)malloc(sizeof(char)*256);
-			if(oscAddress_propertie == NO_PROPERTIE)
-				snprintf(temp, 256, "%s ", address);	// Virage seems to not understand when we answer :get /address:value X (?) Virage prefers :get /address X
-			else
-				snprintf(temp, 256, "%s:%s ", address, attribute);	// Currently Virage doesn't understand a / before attribute (maybe we could change the spec of Minuit) ?
-			
-			// prepend address:attribute to attr_value
-			a_answer = (t_atom *)malloc((long)sizeof(t_atom)*(nb_value+1));
-			atom_setsym(a_answer,gensym(temp));
-			for(i = 1; i < nb_value+1; i++)
-				jcom_core_atom_copy(&a_answer[i],&attr_value[i-1]);
-			
-			outlet_anything(x->p_out, gensym(":get"), nb_value+1, a_answer);
+		address = (char*)malloc(sizeof(char)*256);
+		if(oscAddress_instance == NO_INSTANCE){
+			strcpy(address, oscAddress_parent->getCString());
+			strcat(address,"/");
+			strcat(address, oscAddress_name->getCString());
+			//snprintf(address, 256, "%s/%s", oscAddress_parent->getCString(), oscAddress_name->getCString());
 		}
 		else{
-			// TODO : return !get address
-			object_post((t_object*)x,"there are no values attached to the requested attribute");
+			strcpy(address, oscAddress_parent->getCString());
+			strcat(address,"/");
+			strcat(address, oscAddress_name->getCString());
+			strcat(address,".");
+			strcat(address, oscAddress_instance->getCString());
+		}
+		// goto the address
+		minuit_goto(x,gensym(address));
+		
+		if(x->p_node && x->address){
+			
+			// get node type
+			n_type = jamoma_node_type(x->p_node);
+			
+			// check attribute
+			attribute = (char*)malloc(sizeof(char)*64);
+			if(oscAddress_propertie == NO_PROPERTIE){
+				strcpy(attribute, "value");
+			}
+			else
+				strcpy(attribute,oscAddress_propertie->getCString());
+			
+			// get the attribute value
+			s_attr = minuit_convert_attribut_minuit2jamoma(gensym(attribute));
+			if(s_attr){
+				
+				if(s_attr == gensym("access")){
+					nb_value = 1;
+					attr_value = (t_atom*)malloc((long)sizeof(t_atom));
+					m_err = 0;
+					
+					if(n_type == gensym("subscribe_parameter"))
+						atom_setsym(attr_value, gensym("getsetter"));
+					
+					if(n_type == gensym("subscribe_message"))
+						atom_setsym(attr_value, gensym("setter"));
+					
+					if(n_type == gensym("subscribe_return"))
+						atom_setsym(attr_value, gensym("getter"));
+				}
+				else{
+					if(s_attr == gensym("value")){
+						if((n_type == gensym("subscribe_parameter")) || (n_type == gensym("subscribe_return"))) {
+							obj = jamoma_node_max_object(x->p_node);
+							m_err = object_attr_getvalueof(obj, s_attr, &nb_value, &attr_value);
+						}
+						else
+							m_err = 1;
+					}
+					else{
+						obj = jamoma_node_max_object(x->p_node);
+						m_err = object_attr_getvalueof(obj, s_attr, &nb_value, &attr_value);
+					}
+				}
+				
+				if(!m_err){
+					
+					//prepare answer
+					temp = (char*)malloc(sizeof(char)*256);
+					if(oscAddress_propertie == NO_PROPERTIE)
+						strcpy(temp, address);
+					else{
+						strcpy(temp, address);
+						strcat(temp, ":");
+						strcat(temp, attribute);
+					}
+					// prepend address:attribute to attr_value if nb_value > 0
+					if(nb_value){
+						a_answer = (t_atom*)malloc((long)sizeof(t_atom)*(nb_value+1));
+						atom_setsym(&a_answer[0], gensym(temp));
+						for(i = 1; i < (nb_value+1); i++)
+							jcom_core_atom_copy(&a_answer[i], &attr_value[i-1]);
+						
+						outlet_anything(x->p_out, gensym(":get"), nb_value+1, a_answer);
+					}
+					else{
+						// TODO : return !get address
+						object_error((t_object*)x,"there are no values attached to the requested attribute");
+					}
+				}
+				else{
+					;// TODO : return !get address
+				}
+			}
+		}
+		else{
+			;// TODO : return !get address
 		}
 	}
-	free(temp);
 }
 
 void minuit_set(t_node *x, t_symbol *msg, long argc, t_atom *argv)
@@ -293,65 +354,76 @@ void minuit_set(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 	defer(x, (method)minuit_doset, msg, argc, argv);
 }
 
-void minuit_doset(t_node *x, t_symbol *msg, long argc, t_atom *argv)
+void minuit_doset(t_node *x, t_symbol *oscAddress, long argc, t_atom *argv)
 {
-	t_symbol *oscAddress;
+	t_symbol *s_attr, *n_type;
 	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie;
 	char address[256];
 	char attribute[64];
 	t_object *obj;
 	TTErr tt_err;
-
+	
 	//split OSC the address
 	// TODO : make a split method to only get /address:attribut
-	if(argc && argv){
-		if(atom_gettype(&argv[0]) == A_SYM){
-			oscAddress = atom_getsym(&argv[0]);
-			tt_err = splitOSCAddress(TT(oscAddress->s_name),&oscAddress_parent,&oscAddress_name, &oscAddress_instance, &oscAddress_propertie);
-	
-			// if no error in the parsing of the OSC address
-			if(tt_err == kTTErrNone){
-
-				// Making the address part /parent/name.instance
-				// TODO : make a split method to only get /address:attribut
-				if(oscAddress_instance == NO_INSTANCE)
-					snprintf(address, 256, "%s/%s", oscAddress_parent->getCString(), oscAddress_name->getCString());
+	if(oscAddress){
+		tt_err = splitOSCAddress(TT(oscAddress->s_name),&oscAddress_parent,&oscAddress_name, &oscAddress_instance, &oscAddress_propertie);
+		
+		// if no error in the parsing of the OSC address
+		if(tt_err == kTTErrNone){
+			
+			// Making the address part /parent/name.instance
+			// TODO : make a split method to only get /address:attribut
+			if(oscAddress_instance == NO_INSTANCE)
+				snprintf(address, 256, "%s/%s", oscAddress_parent->getCString(), oscAddress_name->getCString());
+			else
+				snprintf(address, 256, "%s/%s.%s", oscAddress_parent->getCString(), oscAddress_name->getCString(), oscAddress_instance->getCString());
+			
+			// goto the address
+			minuit_goto(x,gensym(address));
+			if(x->p_node && x->address){
+				
+				// check attribute
+				if(oscAddress_propertie == NO_PROPERTIE)
+					snprintf(attribute, 64, "value");
 				else
-					snprintf(address, 256, "%s/%s.%s", oscAddress_parent->getCString(), oscAddress_name->getCString(), oscAddress_instance->getCString());
-
-				// goto the address
-				node_goto(x,gensym(address));
-				if(x->p_node && x->address){
-					
-					// check attribute
-					if(oscAddress_propertie == NO_PROPERTIE)
-						snprintf(attribute, 64, "value");
-					else
-						//snprintf(attribute, 64, "%s", oscAddress_propertie->getCString()+1); // +1 to avoid the / before
-						snprintf(attribute, 64, "%s", oscAddress_propertie->getCString());	// Currently Virage doesn't send a / before attribute (maybe we could change the spec of Minuit) ?
-					
-					// set the attribut value
-					obj = jamoma_node_max_object(x->p_node);
-					if(oscAddress_propertie == TT("value"))
-						object_method_typed((t_object*)obj, jps_dispatched, argc-1, argv+1, NULL);
-					else
-						object_attr_setvalueof(obj, gensym(attribute), argc-1, argv+1);
+					//snprintf(attribute, 64, "%s", oscAddress_propertie->getCString()+1); // +1 to avoid the / before
+					snprintf(attribute, 64, "%s", oscAddress_propertie->getCString());	// Currently Virage doesn't send a / before attribute (maybe we could change the spec of Minuit) ?
+				
+				// set the attribut value
+				s_attr = minuit_convert_attribut_minuit2jamoma(gensym(attribute));
+				if(s_attr){
+					if(s_attr == gensym("access")){
+						;// TODO : return !set address
+					}
+					else{
+						obj = jamoma_node_max_object(x->p_node);
+						if(s_attr == gensym("value")){
+							// get type
+							n_type = jamoma_node_type(x->p_node);
+							if((n_type == gensym("subscribe_parameter")) || (n_type == gensym("subscribe_message")))
+								object_method_typed((t_object*)obj, jps_dispatched, argc, argv, NULL);
+							else
+								; // TODO : return !set address
+						}
+						else
+							object_attr_setvalueof(obj, s_attr, argc, argv);
+					}
 				}
 			}
-			// TODO : return !set address
 		}
 		else
+			// TODO : return !set address
 			object_error((t_object*)x,"the first argument have to be an OSC address");
 	}
 } 
 
-void node_goto(t_node *x, t_symbol *address)
+void minuit_goto(t_node *x, t_symbol *address)
 {
 	JamomaError err = JAMOMA_ERR_NONE;
-
+	
 	// Are we dealing with an OSC message ?
 	if(address->s_name[0] == S_SEPARATOR[0]){
-
+		
 		err = jamoma_node_get(address, &(x->lk_nodes), &(x->p_node));
 		
 		// if the address exists
@@ -363,4 +435,44 @@ void node_goto(t_node *x, t_symbol *address)
 			object_post((t_object*)x,"%s doesn't exist", address->s_name);
 		}
 	}
+}
+
+t_symbol* minuit_convert_attribut_jamoma2minuit(t_symbol *attribute)
+{
+	if(attribute == gensym("value"))
+		return gensym("value");
+	
+	if(attribute == gensym("type"))
+		return gensym("type");
+	
+	if(attribute == gensym("access"))
+		return gensym("access");
+	
+	if(attribute == gensym("description"))
+		return gensym("comment");
+	
+	if(attribute == gensym("range/bounds"))
+		return gensym("range");
+	
+	return NULL;
+}
+
+t_symbol* minuit_convert_attribut_minuit2jamoma(t_symbol *attribute)
+{
+	if(attribute == gensym("value"))
+		return gensym("value");
+	
+	if(attribute == gensym("type"))
+		return gensym("type");
+	
+	if(attribute == gensym("access"))
+		return gensym("access");
+	
+	if(attribute == gensym("comment"))
+		return gensym("description");
+	
+	if(attribute == gensym("range"))
+		return gensym("range/bounds");
+	
+	return NULL;
 }
