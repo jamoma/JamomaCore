@@ -415,15 +415,17 @@ void paramarray_callback(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv
 		// and know which parameter is using the callback
 		err = hashtab_lookup(x->hash_internals, msg, (t_object**)&anObject);
 		if(!err){
-			
-			// output the data
-			outlet_anything(x->ui_outlet, _sym_set, argc, argv);
-			outlet_atoms(x->val_outlet, argc, argv);
-			
+
 			// only if the instance have changed
 			if(anObject->index != x->last_instance){
 				outlet_int(x->info_outlet, anObject->index);
 				x->last_instance = anObject->index;
+				
+			// output the data
+			outlet_anything(x->ui_outlet, _sym_set, argc, argv);
+			outlet_atoms(x->val_outlet, argc, argv);
+			
+
 			}
 		}
 	}
