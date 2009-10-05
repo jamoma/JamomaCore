@@ -1,6 +1,6 @@
 /* 
  * Jamoma DataspaceLib: GainDataspace
- * Copyright © 2007, Trond Lossius
+ * Copyright ï¿½ 2007, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -12,99 +12,97 @@
 #include <math.h>
 
 
+#define thisTTClass			LinearAmplitudeUnit
+#define thisTTClassName		"unit.linear"
+#define thisTTClassTags		"dataspace, gain"
 
-LinearAmplitudeUnit::LinearAmplitudeUnit()
-	: DataspaceUnit("linear")
-{;}
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+LinearAmplitudeUnit::~LinearAmplitudeUnit(){;}		
 
-
-LinearAmplitudeUnit::~LinearAmplitudeUnit()
-{;}
-
-
-void LinearAmplitudeUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void LinearAmplitudeUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	
-	*output = atom_getfloat(inputAtoms);
-	// avoid negative valus that might blow up some convertions
-	if (*output<0)
-		*output = 0;
-
+	output = input;
+	output.cliplow(0.0);
 }
 
 
-void LinearAmplitudeUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void LinearAmplitudeUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input);
+	output = input;
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
-MidiGainUnit::MidiGainUnit()
-	: DataspaceUnit("midi")
-{;}
 
+#define thisTTClass			MidiGainUnit
+#define thisTTClassName		"unit.midi.gain"
+#define thisTTClassTags		"dataspace, gain"
 
-MidiGainUnit::~MidiGainUnit()
-{;}
-		
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+MidiGainUnit::~MidiGainUnit(){;}		
 
-void MidiGainUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void MidiGainUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	// This is the old formula behaving the same as the gain~ object:
-	// *output =  pow(10., (atom_getfloat(inputAtoms)-127.)*0.03);
-	// Now substituted for:
-	*output = pow(atom_getfloat(inputAtoms)*0.01,kGainMidiPower);
+	output = pow(TTFloat64(input)*0.01, kGainMidiPower);
 }
 
 
-void MidiGainUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void MidiGainUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	// This is the old formula behaving the same as the gain~ object:
-	// atom_setfloat(*outputAtoms, log10(*input)*33.333333333333+127.);
-	// Now substituted for:
-	atom_setfloat(*outputAtoms, 100.*pow((*input),kGainMidiPowerInv));
+	output = 100.0 * pow(TTFloat64(input), kGainMidiPowerInv);
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
-DecibelUnit::DecibelUnit()
-	: DataspaceUnit("dB")
-{;}
 
+#define thisTTClass			DecibelUnit
+#define thisTTClassName		"unit.db"
+#define thisTTClassTags		"dataspace, gain"
 
-DecibelUnit::~DecibelUnit()
-{;}
-		
-		
-void DecibelUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+TT_DATASPACEUNIT_CONSTRUCTOR{;}
+DecibelUnit::~DecibelUnit(){;}		
+
+void DecibelUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;
-	*output = pow(10., atom_getfloat(inputAtoms)*0.05);
+	output = pow(10.0, TTFloat64(input) * 0.05);
 }
 
 
-void DecibelUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void DecibelUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	*outputNumArgs = 1;	
-	atom_setfloat(*outputAtoms, log10(*input)*20.);
+	output = log10(TTFloat64(input)) * 20.0;
 }
 
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
 
 /***********************************************************************************************/
-GainDataspace::GainDataspace()
-	: DataspaceLib("gain", "linear")
+
+#define thisTTClass			GainDataspace
+#define thisTTClassName		"dataspace.gain"
+#define thisTTClassTags		"dataspace, gain"
+
+TT_DATASPACELIB_CONSTRUCTOR
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new LinearAmplitudeUnit,	SymbolGen("linear"));
-	registerUnit(new MidiGainUnit,			SymbolGen("midi"));
-	registerUnit(new DecibelUnit,			SymbolGen("dB"));
-	registerUnit(new DecibelUnit,			SymbolGen("db"));
+	registerUnit(TT("unit.linear"),		TT("linear"));
+	registerUnit(TT("unit.midi.gain"),	TT("midi"));
+	registerUnit(TT("unit.db"),			TT("dB"));
+	registerUnit(TT("unit.db"),			TT("db"));
 
+	// Set our neutral unit (the unit through which all conversions are made)
+	neutralUnit = TT("linear");
+	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
 	setOutputUnit(neutralUnit);
@@ -115,3 +113,7 @@ GainDataspace::~GainDataspace()
 {
 	;
 }
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags

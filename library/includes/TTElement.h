@@ -133,6 +133,18 @@ typedef long				TTPtrSizedInt;				// this works for both 32 and 64 bit code on t
 /** A generic pointer. */
 typedef void*				TTPtr;
 
+
+/**	A simple/generic function pointer with no args.	*/
+typedef void (*TTFunctionPtr)();
+
+/**	A simple/generic function pointer with one arg.	*/
+typedef void (*TTFunctionWithArgPtr)(TTPtr);
+
+/**	A simple/generic function pointer with one generic pointer (baton) and one TTValueRef.	*/
+class TTValue;
+typedef void (*TTFunctionWithBatonAndValue)(TTPtr, TTValue&);
+
+
 /****************************************************************************************************/
 
 /**	TTBlue Data Types
@@ -165,7 +177,7 @@ class TTDataInfo;
 typedef TTDataInfo* TTDataInfoPtr;
 
 /**	An array, indexed by values from TTDataType, containing information about those data types.	*/
-extern TTDataInfoPtr	ttDataTypeInfo[kNumTTDataTypes];
+extern TTFOUNDATION_EXPORT TTDataInfoPtr	ttDataTypeInfo[kNumTTDataTypes];
 
 
 class TTFOUNDATION_EXPORT TTDataInfo {

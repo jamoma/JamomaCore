@@ -153,6 +153,8 @@ public:
 	void setSize(const TTUInt16 arg);
 	
 	TTValue& operator = (const TTValue &newValue);
+
+// TODO: This stuff *really* all needs to be inlined!
 	
 	// FLOAT32
 	TTValue& operator = (TTFloat32 value);
@@ -256,6 +258,17 @@ public:
 	void get(const TTUInt16 index, TTObject** value) const;
 	void get(const TTUInt16 index, TTPtr* value) const;
 
+	// inlined for speed (e.g. for use in the dataspace lib)
+	TTFloat64 getFloat64(TTUInt16 index = 0) const
+	{
+		if(type[index] == kTypeFloat64)
+			return (data+index)->float64;
+		else {
+			TTFloat64 value;
+			CONVERT(TTFloat64)
+			return value;
+		}
+	}
 
 	void append(const TTFloat32 newValue);
 	void append(const TTFloat64 newValue);
@@ -274,8 +287,7 @@ public:
 	void append(const TTObject& newValue);
 	void append(const TTPtr newValue);
 	void append(const TTValue* newValue);
-
-
+		
 // TODO: implement this!	
 //	TTValue& operator [] (int)
 
@@ -640,6 +652,8 @@ public:
 
 
 typedef TTValue* TTValuePtr;
+typedef TTValue& TTValueRef;
+typedef const TTValue& TTValueConstRef;
 
 
 #endif // __TT_VALUE_H__

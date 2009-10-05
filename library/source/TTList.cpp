@@ -44,6 +44,26 @@ TTValue& TTList::getTail()
 }
 
 
+TTErr TTList::getIndex(TTUInt32 index, TTValue& returnedValue)
+{
+	TTErr		err = kTTErrValueNotFound;
+	TTUInt32	i=0;
+	
+	lock();
+	for(TTListIter iter = theList.begin(); iter != theList.end(); iter++){
+		if (i==index) {
+			err = kTTErrNone;
+			returnedValue = **iter;
+			break;
+		}
+		i++;
+	}
+	unlock();
+	
+	return err;
+}
+
+
 void TTList::append(const TTValue& newValue)
 {
 	lock();

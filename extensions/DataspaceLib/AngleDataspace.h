@@ -13,32 +13,26 @@
 
 
 /****************************************************************************************************/
-// Class Specifications
 
-class RadianUnit : DataspaceUnit{
-	public:
-		RadianUnit();
-		~RadianUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+class RadianUnit : public DataspaceUnit {
+	TTCLASS_SETUP(RadianUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class DegreeUnit : DataspaceUnit{
-	public:
-		DegreeUnit();
-		~DegreeUnit();
-		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+class DegreeUnit : public DataspaceUnit {
+	TTCLASS_SETUP(DegreeUnit)
+public:
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
 
-// Specification of our base class
-class AngleDataspace : DataspaceLib{
-	public:
-		AngleDataspace();
-		~AngleDataspace();
+/****************************************************************************************************/
+
+class AngleDataspace : public DataspaceLib {
+	TTCLASS_SETUP(AngleDataspace)
 };
 
 
