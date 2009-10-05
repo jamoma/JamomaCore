@@ -11,8 +11,8 @@
 
 // Name & Version
 PRODUCT_NAME = $(PROJECT_NAME)
-PRODUCT_VERSION = 0.0.0
-SVNREV = 
+PRODUCT_VERSION = 0.5.0
+SVNREV = f510
 
 
 // Paths
@@ -21,7 +21,7 @@ DSTROOT = /Library/Frameworks
 // (This next path is relative to DSTROOT)
 INSTALL_PATH = /
 
-VIRAGE_PATH = "$(SRCROOT)/../../../../../virage"
+VIRAGE_PATH = $(SRCROOT)/../../../../../virage
 
 
 // Special Files  

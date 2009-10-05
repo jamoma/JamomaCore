@@ -17,10 +17,9 @@ const double k_anti_denormal_value = 1e-18;
 
 // statics and globals
 static long			initialized = false;
-static t_hashtab	*hash_modules = NULL;			// a hashtab of all modules (jcom.hubs) currently instantiated
-static Controller	*controller = NULL;				// a manager for network communication plugins
-//t_object			*obj_jamoma_clock = NULL;		// there is only one master clock for the whole system
-//t_object			*obj_jamoma_scheduler = NULL;	// a shared global instance of the scheduler class (there may be others too)
+static t_hashtab	*hash_modules = NULL;				// a hashtab of all modules (jcom.hubs) currently instantiated
+//t_object			*obj_jamoma_clock = NULL;			// there is only one master clock for the whole system
+//t_object			*obj_jamoma_scheduler = NULL;		// a shared global instance of the scheduler class (there may be others too)
 bool				max5 = false;
 
 
@@ -41,9 +40,6 @@ void jamoma_init(void)
 		common_symbols_init();
 		jamomaSymbolsInit();
 		jamoma_node_init();
-		controller = new Controller();
-		controller->initPlugins("/Users/TO/Documents/jamoma/Tools/library/Controller/Plugins");
-		controller->setCurrentDevices();
 
 		receivemaster_initclass();
 		receive_initclass();

@@ -7,6 +7,9 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 #include "jcom.minuit.h"
+#include "Controller.h"
+
+using namespace std;
 
 // Globals
 t_class		*node_class;
@@ -34,7 +37,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// this method posts the children (leaves or nodes) and the properties of the node which address is given
 	class_addmethod(c, (method)minuit_namespace,	"?namespace",	A_SYM, 0);
 	class_addmethod(c, (method)minuit_get,			"?get",			A_SYM, 0);
-	class_addmethod(c, (method)minuit_set,			"anything",			A_GIMME, 0);
+	class_addmethod(c, (method)minuit_set,			"anything",		A_GIMME, 0);
+	
+	class_addmethod(c, (method)minuit_debug,		"debug",		A_LONG, 0);
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -50,22 +55,58 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 void *node_new(t_symbol *name, long argc, t_atom *argv)
 {
 	t_node *x;
+	vector<string> plugins;
+	vector<string>::iterator iter;
+	map<string, Device*>* devices;
+	map<string, Device*>::iterator it;
+	
 	
 	x = (t_node*)object_alloc(node_class);
-	x->p_out = outlet_new(x, 0);
+	x->p_info = outlet_new(x, 0);
 	
 	if(x){
 		
 		// default : get the root of the tree
 		x->p_node = jamoma_node_init();
+		x->b_debug = false;
 		
+		// Launch the plugin manager
+		x->c_control = new Controller();
+		x->c_control->initPlugins("/Users/TO/Documents/Plugins");
+		x->c_control->setCurrentDevices();
+		
+		// DEBUG : show loaded plugins
+		plugins = x->c_control->getLoadedPluginsName();
+		for( iter = plugins.begin(); iter != plugins.end(); iter++ ) {
+			post("plugin loaded >> %s", std::string(*iter).c_str());
+		}
+		
+		// add a callback to receive messages from the controller
+		x->c_control->addWaitedMessageAction(x, &minuit_callback);
+		
+		// TODO : throw a message over the network to declare /Jamoma
+		
+		// add Virage as a Minuit device to send message
+		x->c_control->addDevice("/Virage", "Minuit", "127.0.0.1", "7002"); // ce device envoie à 127.0.0.1 sur le 7002
+		x->device = gensym("/Virage");
+		
+		// DEBUG : show devices
+		devices = x->c_control->getCurrentDevices();
+		it  = devices->begin();
+		while (it != devices->end()){
+			post("device found >> %s", std::string(it->first).c_str());
+			++it;
+		}
+		
+		// send a namespace request to Virage
+		//x->c_control->sendMessage("/Virage ?namespace /");
 	}
 	return x;
 }
 
 void node_free(t_node *x)
 {
-	;
+	x->c_control->~Controller();
 }
 
 #if 0
@@ -86,9 +127,19 @@ void node_assist(t_node *x, void *b, long msg, long arg, char *dst)
 		//strcpy(dst, "I am inlet 0");
 	} 
 	else {	// outlet
-		//if(arg == 0)
-		//strcpy(dst, "I am outlet 0");
+		if(arg == 0)
+			strcpy(dst, "info outlet");
 	}		
+}
+
+void minuit_callback(void *arg, std::string message)
+{
+	t_node *x = (t_node*)arg;
+	
+	post("!!! RECEIVE !!!");
+	
+	if(x->b_debug)
+		object_post((t_object*)x,"RECEIVE %s", std::string(message).c_str());
 }
 
 void minuit_namespace(t_node *x, t_symbol *address)
@@ -96,23 +147,25 @@ void minuit_namespace(t_node *x, t_symbol *address)
 	defer(x, (method)minuit_donamespace, address, 0, 0);
 }
 
-void minuit_donamespace(t_node *x, t_symbol *address)
+void minuit_donamespace(t_node *x, t_symbol *oscAddress)
 {
-	
-	short i, count;
+	short i;
 	char *temp = NULL;
 	TTListPtr lk_prp, lk_chd;
 	t_linklist *lk_leaves, *lk_nodes;
 	TTSymbolPtr n_attr;
 	t_symbol *n_type, *s_attr;
 	t_symbol *n_instance;
-	t_atom a_answer[1024];
+	char *s_answer = NULL;
 	
-	// prepare answer
-	atom_setsym(a_answer, address);
-	count = 1;
-	
-	minuit_goto(x, address);
+	// prepare s_answer
+	s_answer = (char*)malloc(sizeof(char)*1024);
+	strcpy(s_answer, x->device->s_name);
+	strcat(s_answer, " ");
+	strcat(s_answer, ":namespace ");
+	strcat(s_answer, oscAddress->s_name);
+
+	minuit_goto(x, oscAddress);
 	
 	// Il nous faut avoir les noeuds inférieurs et les attributs du noeud à l'addresse données
 	if(x->p_node && x->address){
@@ -127,11 +180,8 @@ void minuit_donamespace(t_node *x, t_symbol *address)
 		// if there are properties
 		if(lk_prp){
 			
-			atom_setsym(a_answer+count, gensym("attributes={"));
-			count++;
-			
-			atom_setsym(a_answer+count, gensym("access"));
-			count++;
+			strcat(s_answer, " attributes={ ");
+			strcat(s_answer, "access ");
 			
 			// write an outline for each attribut
 			for(lk_prp->begin(); lk_prp->end(); lk_prp->next()){
@@ -140,12 +190,11 @@ void minuit_donamespace(t_node *x, t_symbol *address)
 				s_attr = minuit_convert_attribut_jamoma2minuit(gensym( (char*)n_attr->getCString()));
 				
 				if(s_attr){
-					atom_setsym(a_answer+count, s_attr);
-					count++;
+					strcat(s_answer, s_attr->s_name);
+					strcat(s_answer, " ");
 				}
-			} 
-			atom_setsym(a_answer+count, gensym("}"));
-			count++;
+			}
+			strcat(s_answer, "}");
 		}
 		
 		// if there are children
@@ -166,8 +215,7 @@ void minuit_donamespace(t_node *x, t_symbol *address)
 			
 			if(linklist_getsize(lk_nodes)){
 				
-				atom_setsym(a_answer+count, gensym("nodes={"));
-				count++;
+				strcat(s_answer, " nodes={ ");
 				
 				for(i=0; i<linklist_getsize(lk_nodes); i++){
 					// get the name
@@ -181,19 +229,18 @@ void minuit_donamespace(t_node *x, t_symbol *address)
 						strcat(temp,".");
 						strcat(temp,n_instance->s_name);
 					}
-					
-					atom_setsym(a_answer+count, gensym(temp));
-					count++;
+
+					strcat(s_answer, temp);
+					strcat(s_answer, " ");
 					free(temp);
 				}
-				atom_setsym(a_answer+count, gensym("}"));
-				count++;
+				
+				strcat(s_answer, "}");
 			}
 			
 			if(linklist_getsize(lk_leaves)) {
 				
-				atom_setsym(a_answer+count, gensym(" leaves={"));
-				count++;
+				strcat(s_answer, " leaves={ ");
 				
 				for(i=0; i<linklist_getsize(lk_leaves); i++){
 					
@@ -209,16 +256,20 @@ void minuit_donamespace(t_node *x, t_symbol *address)
 						strcat(temp,n_instance->s_name);
 					}
 					
-					atom_setsym(a_answer+count, gensym(temp));
-					count++;
+					strcat(s_answer, temp);
+					strcat(s_answer, " ");
 					free(temp);
 				}
-				atom_setsym(a_answer+count, gensym("}"));
-				count++;
+				
+				strcat(s_answer, "}");
 			}
 			// TODO : return !namespace address
 		}
-		outlet_anything(x->p_out, gensym(":namespace"), count, a_answer);
+		
+		// send answer
+		x->c_control->sendMessage(s_answer);
+		if(x->b_debug)
+			object_post((t_object*)x, "SEND %s", s_answer);
 	}
 }
 
@@ -231,15 +282,22 @@ void minuit_doget(t_node *x, t_symbol *oscAddress)
 {
 	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie;
 	t_symbol *s_attr, *n_type;
-	char *temp = NULL;
 	char *address = NULL;
 	char *attribute = NULL;
 	t_object *obj;
 	long nb_value = 0, i;
 	t_atom  *attr_value = NULL;
-	t_atom *a_answer = NULL;
+	char *s_value = NULL;
+	char *s_answer = NULL;
 	t_max_err m_err;
 	TTErr tt_err;
+
+	// prepare s_answer
+	s_answer = (char*)malloc(sizeof(char)*1024);
+	strcpy(s_answer, x->device->s_name);
+	strcat(s_answer, " ");
+	strcat(s_answer, ":get ");
+	strcat(s_answer, " ");
 	
 	//split OSC the address
 	// TODO : make a split method to only get /address:attribut
@@ -255,7 +313,6 @@ void minuit_doget(t_node *x, t_symbol *oscAddress)
 			strcpy(address, oscAddress_parent->getCString());
 			strcat(address,"/");
 			strcat(address, oscAddress_name->getCString());
-			//snprintf(address, 256, "%s/%s", oscAddress_parent->getCString(), oscAddress_name->getCString());
 		}
 		else{
 			strcpy(address, oscAddress_parent->getCString());
@@ -316,22 +373,43 @@ void minuit_doget(t_node *x, t_symbol *oscAddress)
 				if(!m_err){
 					
 					//prepare answer
-					temp = (char*)malloc(sizeof(char)*256);
 					if(oscAddress_propertie == NO_PROPERTIE)
-						strcpy(temp, address);
+						strcat(s_answer, address);
 					else{
-						strcpy(temp, address);
-						strcat(temp, ":");
-						strcat(temp, attribute);
+						strcat(s_answer, address);
+						strcat(s_answer, ":");
+						strcat(s_answer, attribute);
 					}
-					// prepend address:attribute to attr_value if nb_value > 0
+					strcat(s_answer, " ");
+					
+					// append the <value> to the s_answer
 					if(nb_value){
-						a_answer = (t_atom*)malloc((long)sizeof(t_atom)*(nb_value+1));
-						atom_setsym(&a_answer[0], gensym(temp));
-						for(i = 1; i < (nb_value+1); i++)
-							jcom_core_atom_copy(&a_answer[i], &attr_value[i-1]);
 						
-						outlet_anything(x->p_out, gensym(":get"), nb_value+1, a_answer);
+						i = 0;
+						while(i < nb_value){
+							
+							s_value = (char*)malloc((long)sizeof(char)*64);
+							
+							if(atom_gettype(&attr_value[i]) == A_SYM)
+								snprintf(s_value, 64, "%s", atom_getsym(&attr_value[i])->s_name);
+							else
+								if(atom_gettype(&attr_value[i]) == A_LONG)
+									snprintf(s_value, 64, "%ld", atom_getlong(&attr_value[i]));
+								else
+									if(atom_gettype(&attr_value[i]) == A_FLOAT)
+										snprintf(s_value, 64, "%f", atom_getfloat(&attr_value[i]));
+							i++;
+							strcat(s_answer, s_value);
+							free(s_value);
+							
+							if(i < nb_value)
+								strcat(s_answer, " ");
+						}
+						
+						// send answer
+						x->c_control->sendMessage(s_answer);
+						if(x->b_debug)
+							object_post((t_object*)x, "SEND %s", s_answer);
 					}
 					else{
 						// TODO : return !get address
@@ -415,7 +493,12 @@ void minuit_doset(t_node *x, t_symbol *oscAddress, long argc, t_atom *argv)
 			// TODO : return !set address
 			object_error((t_object*)x,"the first argument have to be an OSC address");
 	}
-} 
+}
+
+void minuit_debug(t_node *x, long n)
+{
+	x->b_debug = n > 0;
+}
 
 void minuit_goto(t_node *x, t_symbol *address)
 {

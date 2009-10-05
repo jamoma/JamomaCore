@@ -11,6 +11,7 @@
 #include "JamomaTypes.h"
 
 // statics and globals
+
 /**	The Jamoma node tree's root node - e.g. the container at the '/' address				*/
 static TTNodePtr			jamoma_node_root = NULL;
 /**	A fast lookup table that maps an entire address quickly and directly to a JamomaNode.	*/
