@@ -12,7 +12,7 @@
 // Name & Version
 PRODUCT_NAME = $(PROJECT_NAME)
 PRODUCT_VERSION = 0.5.0
-SVNREV = f510
+SVNREV = 9fb1
 
 
 // Paths
@@ -21,13 +21,11 @@ DSTROOT = /Library/Frameworks
 // (This next path is relative to DSTROOT)
 INSTALL_PATH = /
 
-VIRAGE_PATH = $(SRCROOT)/../../../../../virage
-
 
 // Special Files  
 INFOPLIST_FILE = $(SRCROOT)/Info.plist
 
-HEADER_SEARCH_PATHS = $(inherited) "$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/**" "$(VIRAGE_PATH)/sequenceur/trunk/sources/Engines/Controller/**" "$(SRCROOT)/../../../Foundation/library/includes" "$(SRCROOT)/../../../DSP/library/includes" "$(SRCROOT)/../../../Multicore/library/includes"
+HEADER_SEARCH_PATHS = $(inherited) "$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/**" "$(SRCROOT)/../../../Foundation/library/includes" "$(SRCROOT)/../../../DSP/library/includes" "$(SRCROOT)/../../../Multicore/library/includes"
 LIBRARY_SEARCH_PATHS = $(inherited) 
 FRAMEWORK_SEARCH_PATHS = $(inherited) "$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/**"
 
