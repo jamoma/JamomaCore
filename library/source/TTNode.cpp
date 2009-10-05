@@ -509,12 +509,15 @@ TTErr TTNode::getOscAddress(TTSymbolPtr *returnedOscAddress)
 		strcat(OscAddress,S_INSTANCE);
 		strcat(OscAddress,this->instance->getCString());
 	}
+	
+	if(len){
+		OscAddress[len] = NULL;
+		*returnedOscAddress = TT(OscAddress);
+		return kTTErrNone;
+	}
 
-	OscAddress[len] = NULL;
-
-	*returnedOscAddress = TT(OscAddress);
-
-	return kTTErrNone;
+	*returnedOscAddress = NULL;
+	return kTTErrGeneric;
 }
 
 TTErr TTNode::setChild(TTNodePtr child)
