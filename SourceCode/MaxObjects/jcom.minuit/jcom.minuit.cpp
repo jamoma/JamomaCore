@@ -7,7 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 #include "jcom.minuit.h"
-#include "Controller.h"
+//#include "Controller.h"
 
 using namespace std;
 
@@ -72,8 +72,7 @@ void *node_new(t_symbol *name, long argc, t_atom *argv)
 		
 		// Launch the plugin manager
 		x->c_control = new Controller();
-		x->c_control->initPlugins("/Users/TO/Documents/Plugins");
-		x->c_control->setCurrentDevices();
+		x->c_control->initPlugins("/Users/TO/Documents/virage/sequenceur/trunk/libController/Plugins");
 		
 		// DEBUG : show loaded plugins
 		plugins = x->c_control->getLoadedPluginsName();
@@ -132,14 +131,33 @@ void node_assist(t_node *x, void *b, long msg, long arg, char *dst)
 	}		
 }
 
+
+// TODO : muinuit_namespace_request_callback and muinuit_get_request_callback
 void minuit_callback(void *arg, std::string message)
 {
 	t_node *x = (t_node*)arg;
+	long argc = 0;
+	t_atom *argv = NULL;
 	
-	post("!!! RECEIVE !!!");
+	atom_setparse(&argc, &argv, (char*)std::string(message).c_str());
 	
+	if(argc > 1){
+		if(atom_gettype(&argv[0]) == A_SYM)
+			
+			if(atom_getsym(&argv[0]) == gensym("?namespace")){
+				
+				if(atom_gettype(&argv[1]) == A_SYM)
+					defer(x,(method)minuit_donamespace, atom_getsym(&argv[1]), 0, 0);
+			}
+			else
+				if(atom_getsym(&argv[0]) == gensym("?get"))
+					if(atom_gettype(&argv[1]) == A_SYM)
+						defer(x,(method)minuit_doget, atom_getsym(&argv[1]), 0, 0);
+	}
+					
 	if(x->b_debug)
 		object_post((t_object*)x,"RECEIVE %s", std::string(message).c_str());
+
 }
 
 void minuit_namespace(t_node *x, t_symbol *address)
