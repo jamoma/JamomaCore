@@ -247,5 +247,18 @@ public:
 #include "TTMessage.h"
 
 
+#define TT_OBJECT_CONSTRUCTOR_EXPORT \
+	\
+	extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\
+	TTErr loadTTExtension(void)\
+	{\
+		TTFoundationInit();\
+		thisTTClass :: registerClass(); \
+		return kTTErrNone;\
+	}\
+	\
+	TT_OBJECT_CONSTRUCTOR
+
+
 #endif // __TT_OBJECT_H__
 
