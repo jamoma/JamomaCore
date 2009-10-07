@@ -44,9 +44,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
     class_addmethod(c, (method)cuemng_bang,				"bang",			0);
 
 	// What to do when the text editor window is closed
-	class_addmethod(c, (method)cuemng_okclose,			"okclose",		A_CANT, 0);
 	class_addmethod(c, (method)cuemng_edclose,			"edclose",		A_CANT, 0);
-	class_addmethod(c, (method)cuemng_edsave,			"edsave",		A_CANT, 0);
 
 	// this method select the given cue as the current and,
 	// in TRIGGER mode, trigger out the current cue
@@ -146,10 +144,15 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// and all previous cue (from the previous keycue).
 	class_addmethod(c, (method)cuemng_optimize,			"optimize",		A_GIMME, 0);
 
-	// if there is an index, append the temp cue to 
-	// the cue which have the given index
+	// if there is an index, union the lines of the temp cue
+	// to the cue which have the given index
 	// else, append to the current
-	class_addmethod(c, (method)cuemng_join,				"join",			A_GIMME, 0);
+	class_addmethod(c, (method)cuemng_union,			"union",			A_GIMME, 0);
+	
+	// if there is an index, exclude lines of the temp cue 
+	//  to the cue which have the given index
+	// else, append to the current
+	class_addmethod(c, (method)cuemng_exclusion,		"exclusion",			A_GIMME, 0);
 
 	// if there is an index, compare each line of the cue 
 	// which have the given index to the temp cue :
@@ -262,8 +265,6 @@ void cuemng_edclose(t_cuemng *x, char **handletext, long size)
 	t_atom argv[1];
 	t_atom a[1];
 	long stop_at = 0;
-	
-	object_post((t_object  *)x,"edclose");
 
 	if(size){
 		// if it's the text of the cuelist
@@ -336,19 +337,6 @@ void cuemng_edclose(t_cuemng *x, char **handletext, long size)
 	}
 	sysmem_freehandle(x->buf);
     x->m_editor = NULL;
-}
-
-long cuemng_okclose(t_cuemng *x, char **ht, long size)
-{
-	object_post((t_object  *)x,"okclose");
-	return -1;
-}
-
-long cuemng_edsave(t_cuemng *x, char **ht, long size)
-{
-	object_post((t_object  *)x,"edsave");
-	
-	return 1; // 1 tell editor don't save the text but Max open a window to select a file (and don't save the text) ... how to avoid the opening of this save window
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -1502,7 +1490,7 @@ void cuemng_optimize(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 		object_error((t_object *)x, "optimize : this index doesn't exist");
 }
 
-void cuemng_join(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
+void cuemng_union(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 {
 	long index;
 	t_cue *c;
@@ -1511,7 +1499,7 @@ void cuemng_join(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 	// if there is the temp flag
 	// do nothing
 	if(cuemng_check_temp(x,argc,argv)){
-		object_error((t_object *)x, "append : bad index");
+		object_error((t_object *)x, "union : bad index");
 		return;
 	}
 
@@ -1531,7 +1519,39 @@ void cuemng_join(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 		cuemng_info_operation(x,s,1,a);
 	}
 	else
-		object_error((t_object *)x, "append : this index doesn't exist");
+		object_error((t_object *)x, "union : this index doesn't exist");
+}
+
+void cuemng_exclusion(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
+{
+	long index;
+	t_cue *c;
+	t_atom a[1];
+	
+	// if there is the temp flag
+	// do nothing
+	if(cuemng_check_temp(x,argc,argv)){
+		object_error((t_object *)x, "exclusion : bad index");
+		return;
+	}
+	
+	index = cuemng_check_index(x,argc,argv);
+	
+	c = (t_cue *)linklist_getindex(x->cuelist,index);
+	if(c){
+		// cut each line of the temp cue linelist
+		// into the selected cue linelist
+		linklist_funall(x->temp_cue->linelist, (method)cuemng_cut_linelist, c->linelist);
+		
+		x->current = index;
+		x->Kcurrent = cuemng_previous_key_index(x);
+		
+		// info operation
+		atom_setlong(&a[0],index+1); // index starts at 1 for user
+		cuemng_info_operation(x,s,1,a);
+	}
+	else
+		object_error((t_object *)x, "exclusion : this index doesn't exist");
 }
 
 void cuemng_difference(t_cuemng *x, t_symbol* s, long argc, t_atom *argv){
@@ -1819,6 +1839,23 @@ void cuemng_copy_line(t_line *src, t_line *dest){
 		dest->n = 0;
 		dest->data = (t_atom *)sysmem_newptr((long)sizeof(t_atom));
 		atom_setsym(dest->data, ps_no_data);
+	}
+}
+
+void cuemng_cut_linelist(t_line *l, t_linklist *comp)
+{
+	void *l_found;
+	long exist;
+	
+	if(l->type == _PARAM){
+		
+		// Is the line exists in the comp linelist ?
+		exist = linklist_findfirst(comp, &l_found, cuemng_search_line, l->index);
+		
+		// if exist
+		// remove the line from the comp linelist
+		if(exist != -1)
+				linklist_deleteindex(comp,exist);
 	}
 }
 

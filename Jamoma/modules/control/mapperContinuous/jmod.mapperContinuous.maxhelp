@@ -87,9 +87,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"rect" : [ 141.0, 200.0, 578.0, 217.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"defrect" : [ 141.0, 200.0, 578.0, 217.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -570,15 +570,15 @@
  ]
 									}
 ,
-									"patching_rect" : [ 391.0, 224.0, 58.0, 19.0 ],
+									"patching_rect" : [ 358.0, 139.0, 58.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 10.0,
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 10.0,
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p settings"
@@ -594,7 +594,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 79.0, 265.0, 325.0, 19.0 ],
+									"patching_rect" : [ 46.0, 180.0, 325.0, 19.0 ],
 									"text" : "and move your mouse horizontally to change the wet/dry level"
 								}
 
@@ -608,7 +608,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 79.0, 247.0, 183.0, 19.0 ],
+									"patching_rect" : [ 46.0, 162.0, 183.0, 19.0 ],
 									"text" : "turn on the audio, play any sound,"
 								}
 
@@ -622,7 +622,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 260.0, 245.0, 183.0, 19.0 ],
+									"patching_rect" : [ 227.0, 160.0, 183.0, 19.0 ],
 									"text" : "recall this preset :"
 								}
 
@@ -636,7 +636,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 361.0, 246.0, 180.0, 17.0 ],
+									"patching_rect" : [ 328.0, 161.0, 180.0, 17.0 ],
 									"text" : "/mapper.2/preset/recall audio"
 								}
 
@@ -651,7 +651,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 360.0, 284.0, 182.0, 19.0 ],
+									"patching_rect" : [ 327.0, 199.0, 182.0, 19.0 ],
 									"text" : "jcom.send jcom.remote.module.to"
 								}
 
@@ -665,7 +665,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 79.0, 225.0, 338.0, 19.0 ],
+									"patching_rect" : [ 46.0, 140.0, 338.0, 19.0 ],
 									"text" : "mess around with the other parameters, and see how it reacts...."
 								}
 
@@ -679,7 +679,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 79.0, 201.0, 505.0, 19.0 ],
+									"patching_rect" : [ 46.0, 116.0, 505.0, 19.0 ],
 									"text" : "you should see the wet/dry gain of the filter moving when you move your mouse from left to right"
 								}
 
@@ -693,7 +693,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 79.0, 175.0, 175.0, 19.0 ],
+									"patching_rect" : [ 46.0, 90.0, 175.0, 19.0 ],
 									"text" : "2_ turn on the mouse module ->"
 								}
 
@@ -707,7 +707,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 79.0, 149.0, 502.0, 19.0 ],
+									"patching_rect" : [ 46.0, 64.0, 502.0, 19.0 ],
 									"text" : "as you can see, it routes the x position from the mouse module to the wet/dry mix of the filter"
 								}
 
@@ -721,7 +721,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 79.0, 127.0, 191.0, 19.0 ],
+									"patching_rect" : [ 46.0, 42.0, 191.0, 19.0 ],
 									"text" : "1_ recall a ready-made mapping ->"
 								}
 
@@ -735,7 +735,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 50.0, 100.0, 91.0, 21.0 ],
+									"patching_rect" : [ 17.0, 15.0, 91.0, 21.0 ],
 									"text" : "to try it out :"
 								}
 
@@ -749,7 +749,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 361.0, 172.0, 93.0, 17.0 ],
+									"patching_rect" : [ 328.0, 87.0, 93.0, 17.0 ],
 									"text" : "/mouse/active 1"
 								}
 
@@ -763,7 +763,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 361.0, 129.0, 169.0, 17.0 ],
+									"patching_rect" : [ 328.0, 44.0, 169.0, 17.0 ],
 									"text" : "/mapper.1/preset/recall mouse"
 								}
 
@@ -773,7 +773,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-12", 0 ],
 									"hidden" : 1,
-									"midpoints" : [ 400.5, 278.0, 369.5, 278.0 ],
+									"midpoints" : [ 367.5, 193.0, 336.5, 193.0 ],
 									"source" : [ "obj-1", 0 ]
 								}
 
@@ -819,13 +819,13 @@
 ,
 					"patching_rect" : [ 144.0, 182.0, 87.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 12.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p some presets"
@@ -969,13 +969,13 @@
 ,
 					"patching_rect" : [ 129.0, 216.0, 103.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 12.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p mapping_modes"
@@ -1111,13 +1111,13 @@
 ,
 					"patching_rect" : [ 18.0, 216.0, 79.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 12.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p edit_modes"
@@ -1133,7 +1133,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 972.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 971.0, 70.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
 				}
@@ -1149,7 +1149,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 15.0, 483.0, 154.0, 17.0 ],
-					"text" : "/module_name /filter~"
+					"text" : "/audio/mix:/priority 0"
 				}
 
 			}
