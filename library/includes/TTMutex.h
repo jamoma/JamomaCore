@@ -37,5 +37,41 @@ public:
 	void unlock();
 };
 
+typedef TTMutex* TTMutexPtr;
+typedef TTMutex& TTMutexRef;
+
+
+/**	TTLock provides an exception-safe, scoped, mutex locking that cannot be left accidentally locked.
+	It uses the #TTMutex class internally.
+	
+	The idea for this comes from Effective STL #12, and uses the 'Resource Allocation is Initialization'
+	pattern popularized by Stroustrup.  http://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization
+*/
+
+class TTFOUNDATION_EXPORT TTLock {
+private:
+	TTMutexPtr		mMutex;
+	
+public:
+	TTLock(bool isRecursive)
+	{
+		mMutex = new TTMutex(isRecursive);
+		mMutex->lock();
+	}
+	
+	TTLock(TTMutexRef aMutex)
+	{
+		mMutex = &aMutex;
+		// TODO: can we increment a reference count or something on the mutex?
+		mMutex->lock();
+	}
+	
+	virtual ~TTLock()
+	{
+		mMutex->unlock();
+		delete mMutex;
+	}
+};
+
 
 #endif // __TT_MUTEX_H__
