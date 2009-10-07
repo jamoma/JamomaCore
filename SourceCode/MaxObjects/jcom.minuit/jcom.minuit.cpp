@@ -7,7 +7,6 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 #include "jcom.minuit.h"
-//#include "Controller.h"
 
 using namespace std;
 
@@ -28,11 +27,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	common_symbols_init();
 	
 	// Define our class
-	c = class_new("jcom.minuit",(method)node_new, (method)node_free, (long)sizeof(t_node), 0L, A_GIMME, 0);
+	c = class_new("jcom.minuit",(method)minuit_new, (method)minuit_free, (long)sizeof(t_node), 0L, A_GIMME, 0);
 	
 	// add methods
-	class_addmethod(c, (method)node_notify,			"notify",		A_CANT, 0);
-	class_addmethod(c, (method)node_assist,			"assist",		A_CANT, 0);
+	class_addmethod(c, (method)minuit_notify,		"notify",		A_CANT, 0);
+	class_addmethod(c, (method)minuit_assist,		"assist",		A_CANT, 0);
 	
 	// this method posts the children (leaves or nodes) and the properties of the node which address is given
 	class_addmethod(c, (method)minuit_namespace,	"?namespace",	A_SYM, 0);
@@ -52,7 +51,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 #pragma mark Life Cycle
 #endif 0
 
-void *node_new(t_symbol *name, long argc, t_atom *argv)
+void *minuit_new(t_symbol *name, long argc, t_atom *argv)
 {
 	t_node *x;
 	vector<string> plugins;
@@ -86,7 +85,7 @@ void *node_new(t_symbol *name, long argc, t_atom *argv)
 		// TODO : throw a message over the network to declare /Jamoma
 		
 		// add Virage as a Minuit device to send message
-		x->c_control->addDevice("/Virage", "Minuit", "127.0.0.1", "7002"); // ce device envoie à 127.0.0.1 sur le 7002
+		x->c_control->addDevice("/Virage", "Minuit", "127.0.0.1", "7002"); // ce device envoie à 127.0.0.1 sur 7002
 		x->device = gensym("/Virage");
 		
 		// DEBUG : show devices
@@ -103,7 +102,7 @@ void *node_new(t_symbol *name, long argc, t_atom *argv)
 	return x;
 }
 
-void node_free(t_node *x)
+void minuit_free(t_node *x)
 {
 	x->c_control->~Controller();
 }
@@ -113,13 +112,13 @@ void node_free(t_node *x)
 #pragma mark Methods
 #endif 0
 
-t_max_err node_notify(t_node *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+t_max_err minuit_notify(t_node *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
 	object_post((t_object *)x, "notification : %s", msg->s_name);
 	return MAX_ERR_NONE;
 }
 
-void node_assist(t_node *x, void *b, long msg, long arg, char *dst)
+void minuit_assist(t_node *x, void *b, long msg, long arg, char *dst)
 {
 	if (msg == ASSIST_INLET) { // inlet
 		//if(arg == 0)

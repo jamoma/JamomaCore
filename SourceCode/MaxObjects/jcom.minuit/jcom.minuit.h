@@ -34,10 +34,10 @@ typedef struct _node{
 // Prototypes for methods
 
 // Public methods
-void*			node_new(t_symbol *name, long argc, t_atom *argv);
-void			node_free(t_node *x);
-t_max_err		node_notify(t_node *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
-void			node_assist(t_node *x, void *b, long m, long a, char *s);
+void*			minuit_new(t_symbol *name, long argc, t_atom *argv);
+void			minuit_free(t_node *x);
+t_max_err		minuit_notify(t_node *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+void			minuit_assist(t_node *x, void *b, long m, long a, char *s);
 
 // methods for jcom.minuit
 /** this method receive data from the Minuit network */
