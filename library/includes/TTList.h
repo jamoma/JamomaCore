@@ -43,6 +43,10 @@ public:
 		@return	The count of the values in the list.	*/
 	TTUInt32 getSize();
 	
+	/** Determine whether the list has any items.
+		@return	True if the list is empty, otherwise false.	*/
+	TTBoolean isEmpty();
+	
 	/** Return the first value in the list. 
 		@return	The first value in the list.			*/
 	TTValue& getHead();

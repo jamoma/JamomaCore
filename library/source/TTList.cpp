@@ -44,6 +44,12 @@ TTValue& TTList::getTail()
 }
 
 
+TTBoolean TTList::isEmpty()
+{
+	return theList.empty();
+}
+
+
 TTErr TTList::getIndex(TTUInt32 index, TTValue& returnedValue)
 {
 	TTErr		err = kTTErrValueNotFound;

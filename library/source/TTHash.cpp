@@ -77,3 +77,9 @@ TTUInt32 TTHash::getSize()
 	return hashMap->size();
 }
 
+
+TTBoolean TTHash::isEmpty()
+{
+	return hashMap->empty();
+}
+

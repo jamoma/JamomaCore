@@ -74,6 +74,8 @@ public:
 	/** Return the number of keys in the hash table. */
 	TTUInt32 getSize();
 	
+	/** Return true if the hash has nothing stored in it. */
+	TTBoolean isEmpty();
 };
 
 
