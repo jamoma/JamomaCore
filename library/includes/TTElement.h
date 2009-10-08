@@ -124,8 +124,12 @@ typedef double				TTFloat64;
 
 /** A value representing a single audio sample.  TTSampleValue should be used any place a sample value is what the value represents.  This will enable us to change the type in the future if needed.  For example, to use 64-bit floats. */
 typedef TTFloat64			TTSampleValue;
+
 /** A TTSampleVector is simply a pointer to the first of an array of TTSampleValues. */
-typedef TTSampleValue*		TTSampleVector;
+//typedef TTSampleValue*			TTSampleVector;
+typedef std::vector<TTSampleValue>	TTSampleVector;
+typedef TTSampleVector::iterator	TTSampleIter;
+typedef TTSampleVector*				TTSampleVectorPtr;
 
 /** An integer that is the same size as a pointer.	*/
 typedef long				TTPtrSizedInt;				// this works for both 32 and 64 bit code on the Mac
