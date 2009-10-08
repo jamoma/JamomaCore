@@ -39,7 +39,7 @@ void jamoma_init(void)
 		TTDSPInit();
 		common_symbols_init();
 		jamomaSymbolsInit();
-		jamoma_node_init();
+		jamoma_tree_init();
 
 		receivemaster_initclass();
 		receive_initclass();

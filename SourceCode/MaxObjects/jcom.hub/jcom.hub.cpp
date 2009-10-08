@@ -321,7 +321,7 @@ void hub_free(t_hub *x)
 	jamoma_hub_remove(x->osc_name);
 
 	// remove the hub from the node tree (and all the sub-nodes too)
-	jamoma_node_unregister(x->osc_name);
+	jamoma_tree_unregister(x->osc_name);
 
 	atom_setsym(a, x->attr_name);
 	atom_setsym(a+1, x->osc_name);
@@ -407,7 +407,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 		strcat(fullAddress,"/");
 		strcat(fullAddress,name->s_name);
 		newInstanceCreated = false;
-		jamoma_node_register(gensym(fullAddress), type, subscriber_object, &newNode, &newInstanceCreated);
+		jamoma_tree_register(gensym(fullAddress), type, subscriber_object, &newNode, &newInstanceCreated);
 
 		// if a new instance have been created 
 		// to guarantee the unicity. We have to
@@ -536,12 +536,16 @@ void hub_unsubscribe(t_hub *x, t_object *subscriber_object)
 void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 {
 	char		namestring[256];
+	char		oscAddress[256];
+	TTListPtr	returnedNodes;
+	TTNodePtr	firstReturnedNode;
 	t_symbol	*osc;
+	JamomaError err;
 	
 	strcpy(namestring, "/");						// perhaps we could optimize this operation
 	strcat(namestring, argv->a_w.w_sym->s_name);	//	by creating a table when the param is bound
 	osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
-
+	
 	if(x->in_object != NULL)
 		object_method_typed(x->in_object, jps_algorithm_message, argc, argv, NULL);	// send to jcom.in
 	if(x->out_object != NULL)
@@ -549,8 +553,19 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 
 	// send to the node
 	// 1. get the node with the OSC address
-	// 2. get the observers list of the node
-	// 3. send them data (?? the way to send data depends on who is the observers ??)
+	strcpy(oscAddress, x->osc_name->s_name);
+	strcat(oscAddress, namestring);
+	
+	err = jamoma_tree_get_node(gensym(oscAddress), &returnedNodes, &firstReturnedNode);
+								  
+	if(err == JAMOMA_ERR_NONE){ post("%s", oscAddress);
+	
+		// 2. get the observers list of the node
+		//firstReturnedNode->
+		
+		// 3. send them data (?? the way to send data depends on who is the observers ??)
+		
+	}
 
 	//hub_internals_dispatch(x, argv->a_w.w_sym, argc-1, argv+1);
 	hub_outlet_return(x, osc, argc-1, argv+1);
@@ -1436,7 +1451,7 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		// if the address doesn't contain instance or the instance already
 		// exist, the register will generate a new instance to garantee unicity.
 		newInstanceCreated = false;
-		jamoma_node_register(nameOriginal, gensym("hub"), (t_object *)x, &newNode, &newInstanceCreated);
+		jamoma_tree_register(nameOriginal, gensym("hub"), (t_object *)x, &newNode, &newInstanceCreated);
 
 		// if a new instance have been created to guarantee the unicity,
 		// we have to create the osc_name from the node.

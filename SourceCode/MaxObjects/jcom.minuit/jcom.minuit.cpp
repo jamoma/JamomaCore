@@ -39,6 +39,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)minuit_set,			"anything",		A_GIMME, 0);
 	
 	class_addmethod(c, (method)minuit_debug,		"debug",		A_LONG, 0);
+	class_addmethod(c, (method)minuit_dump,			"dump",			0);
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -65,8 +66,9 @@ void *minuit_new(t_symbol *name, long argc, t_atom *argv)
 	
 	if(x){
 		
-		// default : get the root of the tree
-		x->p_node = jamoma_node_init();
+		// get the pointers to the jamoma tree and his root
+		x->p_tree = jamoma_tree_init();
+		x->p_node = x->p_tree->getRoot();
 		x->b_debug = false;
 		
 		// Launch the plugin manager
@@ -517,6 +519,12 @@ void minuit_debug(t_node *x, long n)
 	x->b_debug = n > 0;
 }
 
+void minuit_dump(t_node *x)
+{
+	// dump all the address of the tree in the Max window
+	jamoma_tree_dump();
+}
+
 void minuit_goto(t_node *x, t_symbol *address)
 {
 	JamomaError err = JAMOMA_ERR_NONE;
@@ -524,7 +532,7 @@ void minuit_goto(t_node *x, t_symbol *address)
 	// Are we dealing with an OSC message ?
 	if(address->s_name[0] == S_SEPARATOR[0]){
 		
-		err = jamoma_node_get(address, &(x->lk_nodes), &(x->p_node));
+		err = jamoma_tree_get_node(address, &(x->lk_nodes), &(x->p_node));
 		
 		// if the address exists
 		if(err == JAMOMA_ERR_NONE)

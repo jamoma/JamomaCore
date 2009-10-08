@@ -14,62 +14,71 @@
 *
 ************************************************************************************/
 
-TTNodePtr	jamoma_node_init()
+// Method to deal with the jamoma tree
+/////////////////////////////////////////
+
+TTTreePtr	jamoma_tree_init()
 {
-	TTBoolean *nodeCreated = new TTBoolean(false);
+	if(jamoma_tree)
+		return jamoma_tree;	// already have a tree, just return the pointer to the tree...
 
-	if(jamoma_node_root)
-		return jamoma_node_root;	// already have a root, just return the pointer to the root...
+	jamoma_tree = new TTTree(TT("Jamoma"));
 
-	jamoma_node_directory = new TTHash();
-	NodeCreate(TT(S_SEPARATOR), TT("container"), NULL, jamoma_node_directory, &jamoma_node_root, nodeCreated);
-
-	return jamoma_node_root;
+	return jamoma_tree;
 }
 
-JamomaError jamoma_node_dump(void)
+JamomaError jamoma_tree_free(void)
+{
+	if(jamoma_tree){
+		jamoma_tree->~TTTree();
+		return JAMOMA_ERR_NONE;
+	}
+	
+	post("jamoma_tree_free : create a tree before");	
+	return JAMOMA_ERR_GENERIC;
+}
+
+JamomaError jamoma_tree_dump(void)
 {
 	unsigned int i;
 	TTValue *hk;
 	TTSymbolPtr key;
 
-	if(jamoma_node_root){	
+	if(jamoma_tree){	
 		hk = new TTValue();
-		jamoma_node_directory->getKeys(*hk);
+		jamoma_tree->getDirectory()->getKeys(*hk);
 
-		for(i=0; i<jamoma_node_directory->getSize(); i++){
+		for(i=0; i<jamoma_tree->getDirectory()->getSize(); i++){
 			hk->get(i,(TTSymbol**)&key);
 			post("%s",key->getCString());
 		}
 		return JAMOMA_ERR_NONE;
 	}
-	else{
-		post("jamoma_node_dump : create the root before");
-		return JAMOMA_ERR_GENERIC;
-	}
+	
+	post("jamoma_tree_dump : create a tree before");
+	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError	jamoma_node_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, TTNodePtr *newNode, bool *newInstanceCreated)
+JamomaError	jamoma_tree_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, TTNodePtr *newNode, bool *newInstanceCreated)
 {
-	if(jamoma_node_root){
-		NodeCreate(TT(OSCaddress->s_name), TT(type->s_name), obj, jamoma_node_directory, newNode, (TTBoolean *)newInstanceCreated);
+	if(jamoma_tree){
+		jamoma_tree->NodeCreate(TT(OSCaddress->s_name), TT(type->s_name), obj, newNode, (TTBoolean *)newInstanceCreated);
 		return JAMOMA_ERR_NONE;
 	}
-	else{
-		post("jamoma_node_register %s : create the root before", OSCaddress->s_name);
-		return JAMOMA_ERR_GENERIC;
-	}
+
+	post("jamoma_tree_register %s : create a tree before", OSCaddress->s_name);
+	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError jamoma_node_unregister(t_symbol *OSCaddress)
+JamomaError jamoma_tree_unregister(t_symbol *OSCaddress)
 {
 	TTNodePtr node = NULL;
 
-	if(jamoma_node_root){
-		getNodeForOSC(jamoma_node_directory, OSCaddress->s_name, &node);
+	if(jamoma_tree){
+		jamoma_tree->getNodeForOSC(OSCaddress->s_name, &node);
 	}
 	else{
-		post("jamoma_node_unregister %s : create the root before", OSCaddress->s_name);
+		post("jamoma_tree_unregister %s : create a tree before", OSCaddress->s_name);
 		return JAMOMA_ERR_GENERIC;
 	}
 
@@ -78,21 +87,29 @@ JamomaError jamoma_node_unregister(t_symbol *OSCaddress)
 		return JAMOMA_ERR_NONE;
 	}
 	
-	post("jamoma_node_unregister %s : this address doesn't exist", OSCaddress->s_name);
+	post("jamoma_tree_unregister %s : this address doesn't exist", OSCaddress->s_name);
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError jamoma_node_get(t_symbol *address, TTListPtr *returnedNodes, TTNodePtr *firstReturnedNode)
+JamomaError jamoma_tree_get_node(t_symbol *address, TTListPtr *returnedNodes, TTNodePtr *firstReturnedNode)
 {
 	TTErr err;
 
-	err = NodeLookup(jamoma_node_directory, TT(address->s_name), returnedNodes, firstReturnedNode);
+	if(jamoma_tree){
+		err = jamoma_tree->Lookup(TT(address->s_name), returnedNodes, firstReturnedNode);
 
-	if(err == kTTErrNone)
-		return JAMOMA_ERR_NONE;
-	else
-		return JAMOMA_ERR_GENERIC;
+		if(err == kTTErrNone)
+			return JAMOMA_ERR_NONE;
+		else
+			return JAMOMA_ERR_GENERIC;
+	}
+	
+	post("jamoma_tree_get_node %s : create a tree before");
+	return JAMOMA_ERR_GENERIC;
 }
+
+// Method to deal with a node
+////////////////////////////////////
 
 t_symbol * jamoma_node_name(TTNodePtr node)
 {
@@ -189,18 +206,5 @@ JamomaError	jamoma_node_set_properties(TTNodePtr node, t_symbol *propertie)
 	if(err == kTTErrNone)
 		return JAMOMA_ERR_NONE;
 	
-	return JAMOMA_ERR_GENERIC;
-}
-
-JamomaError jamoma_node_free(void)
-{
-	if(jamoma_node_root){
-		jamoma_node_root->~TTNode();
-		return JAMOMA_ERR_NONE;
-	}
-
-	// TODO : delete the jamoma_node_directory
-
-	post("jamoma_node_free : create the root before");	
 	return JAMOMA_ERR_GENERIC;
 }

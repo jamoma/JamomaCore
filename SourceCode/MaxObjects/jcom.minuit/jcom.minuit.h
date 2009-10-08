@@ -24,6 +24,7 @@ typedef struct _node{
 	t_object				ob;
 	void					*p_info;	// the leftmost outlet
 	Controller				*c_control; // a pointer to the controller
+	TTTreePtr				p_tree;		// a pointer to the jamoma tree
 	t_symbol				*device;	// memorized the current device
 	t_symbol				*address;	// memorized the current adress
 	TTNodePtr				p_node;		// a pointer to a TTnode of the tree
@@ -57,6 +58,7 @@ void			minuit_doset(t_node *x, t_symbol *msg, long argc, t_atom *argv);
 
 /** this method allows the user to set the jcom.minuit in Debug mode */
 void			minuit_debug(t_node *x, long n);
+void			minuit_dump(t_node *x);
 
 // Private methods
 void			minuit_goto(t_node *x, t_symbol *address);
