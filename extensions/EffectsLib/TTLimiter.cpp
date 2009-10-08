@@ -81,7 +81,7 @@ TTErr TTLimiter::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	delete gain;
 
 	gain = new TTSampleValue[maxBufferSize];
-	lookaheadBuffer = new TTSampleVector[maxNumChannels];
+	lookaheadBuffer = new (TTSampleValue*)[maxNumChannels];
 	for(channel=0; channel<maxNumChannels; channel++)
 		lookaheadBuffer[channel] = new TTSampleValue[maxBufferSize];
 

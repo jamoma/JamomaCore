@@ -241,8 +241,8 @@ TTErr TTAudioObject::calculateProcess(TTAudioSignalArrayPtr inputs, TTAudioSigna
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
-	TTSampleVector	inSample;
-	TTSampleVector	outSample;
+	TTSampleValue*	inSample;
+	TTSampleValue*	outSample;
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTPtrSizedInt	channel;
 	
