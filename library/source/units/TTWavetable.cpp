@@ -118,7 +118,7 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 	TTUInt16		channel;
 	TTBoolean		hasModulation = true;
 	TTUInt32		p1 = (TTUInt32)index;						// playback index
-	TTSampleVector	contents = wavetable->getContentsForChannel(0);
+	TTSampleValue*	contents = wavetable->getContentsForChannel(0);
 
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
@@ -164,7 +164,7 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 	TTBoolean		hasModulation = true;
 	TTUInt32		p1, p2;									// two playback indices
 	TTFloat64		diff;
-	TTSampleVector	contents = wavetable->getContentsForChannel(0);
+	TTSampleValue*	contents = wavetable->getContentsForChannel(0);
 
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it

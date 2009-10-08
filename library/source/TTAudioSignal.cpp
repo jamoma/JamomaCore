@@ -75,7 +75,7 @@ TTErr TTAudioSignal::setmaxNumChannels(const TTValue& newMaxNumChannels)
 		chuck();
 		maxNumChannels = newMaxNumChannels;
 		if(maxNumChannels) {
-			sampleVectors = (TTSampleVector *)malloc(sizeof(TTSampleVector) * maxNumChannels);
+			sampleVectors = (TTSampleValue**)malloc(sizeof(TTSampleValue*) * maxNumChannels);
 			for(i=0; i<maxNumChannels; i++)
 				sampleVectors[i] = NULL;
 		}
@@ -90,7 +90,7 @@ TTUInt16 TTAudioSignal::getMaxNumChannels()
 }
 
 
-TTErr TTAudioSignal::setVector(const TTUInt16 channel, const TTUInt16 newVectorSize, const TTSampleVector newVector)
+TTErr TTAudioSignal::setVector(const TTUInt16 channel, const TTUInt16 newVectorSize, const TTSampleValue* newVector)
 {
 	TTUInt32	i;
 	
@@ -120,7 +120,7 @@ TTErr TTAudioSignal::setVector64(const TTValue& v)
 		v.get(0, channel);
 		v.get(1, newVectorSize);
 		v.get(2, &newVector);
-		return setVector(channel, newVectorSize, TTSampleVector(newVector));
+		return setVector(channel, newVectorSize, (TTSampleValue*)(newVector));
 	}
 	return kTTErrWrongNumValues;
 }
@@ -175,7 +175,7 @@ TTErr TTAudioSignal::setVector32(const TTValue& v)
 }
 
 
-TTErr TTAudioSignal::getVector(const TTUInt16 channel, const TTUInt16 returnedVectorSize, TTSampleVector returnedVector)
+TTErr TTAudioSignal::getVector(const TTUInt16 channel, const TTUInt16 returnedVectorSize, TTSampleValue* returnedVector)
 {
 	returnedVector = sampleVectors[channel];
 	return kTTErrNone;
@@ -191,7 +191,7 @@ TTErr TTAudioSignal::getVector64(TTValue& v)
 		v.get(0, channel);
 		v.get(1, theVectorSize);
 		v.get(2, &returnedVector);
-		return getVector(channel, theVectorSize, TTSampleVector(returnedVector));
+		return getVector(channel, theVectorSize, (TTSampleValue*)(returnedVector));
 	}
 	return kTTErrWrongNumValues;
 }
@@ -233,7 +233,7 @@ TTErr TTAudioSignal::alloc()
 	}
 
 	for(i=0; i<maxNumChannels; i++) {
-		sampleVectors[i] = (TTSampleVector)malloc(sizeof(TTSampleValue) * vectorSize);
+		sampleVectors[i] = (TTSampleValue*)malloc(sizeof(TTSampleValue) * vectorSize);
 	}
 	isLocallyOwned = maxNumChannels > 0 ? true : false;
 	// we can't do this here!  we are called by the setVector method for 32bit signals!
