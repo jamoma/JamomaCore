@@ -558,8 +558,10 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	
 	err = jamoma_tree_get_node(gensym(oscAddress), &returnedNodes, &firstReturnedNode);
 								  
-	if(err == JAMOMA_ERR_NONE){ post("%s", oscAddress);
-	
+	if(err == JAMOMA_ERR_NONE){ 
+		
+		//post("%s", oscAddress);
+		
 		// 2. get the observers list of the node
 		//firstReturnedNode->
 		
