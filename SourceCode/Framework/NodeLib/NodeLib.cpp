@@ -43,15 +43,14 @@ JamomaError jamoma_tree_free(void)
 JamomaError jamoma_tree_dump(void)
 {
 	unsigned int i;
-	TTValue *hk;
+	TTValue hk;
 	TTSymbolPtr key;
 
 	if(jamoma_tree){	
-		hk = new TTValue();
-		jamoma_tree->getDirectory()->getKeys(*hk);
+		jamoma_tree->getDirectory()->getKeys(hk);
 
 		for(i=0; i<jamoma_tree->getDirectory()->getSize(); i++){
-			hk->get(i,(TTSymbol**)&key);
+			hk.get(i,(TTSymbol**)&key);
 			post("%s",key->getCString());
 		}
 		return JAMOMA_ERR_NONE;
