@@ -13,7 +13,7 @@
 // statics and globals
 
 /**	The Jamoma node tree				*/
-static TTTreePtr	jamoma_tree = NULL;
+extern TTTreePtr jamoma_tree;
 
 #ifdef __cplusplus
 extern "C" {

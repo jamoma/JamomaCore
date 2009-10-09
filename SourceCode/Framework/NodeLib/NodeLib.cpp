@@ -8,6 +8,8 @@
 
 #include "NodeLib.h"
 
+TTTreePtr jamoma_tree = NULL;
+
 /***********************************************************************************
 *
 *		C EXTERN METHODS
