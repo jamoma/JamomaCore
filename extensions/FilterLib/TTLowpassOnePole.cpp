@@ -42,6 +42,7 @@ TTLowpassOnePole::~TTLowpassOnePole()
 }
 
 
+//TODO: we shouldn't really need to be passed the oldMaxNumChannels if we are using std::vector to manage sizes, right?
 TTErr TTLowpassOnePole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	feedback->size(maxNumChannels);
