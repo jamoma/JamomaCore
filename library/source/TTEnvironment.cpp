@@ -60,45 +60,53 @@ TTErr TTEnvironment::registerClass(const TTSymbolPtr className, const TTString& 
 	TTErr		err;
 	TTList*		classNamesForTag;			// The TTList contained by tagObjects
 	TTUInt16	size;
-	TTSymbolPtr	tag;	
+	TTSymbolPtr	tag;
+	TTValue		result;
 
-	// 1. Turn the string into an array of symbols
-	v.transformCSVStringToSymbolArray();
+	err = classes->lookup(className, result);
 	
-	// 2. Create the class and associate it with its name
-	theClass = new TTClass(className, v, anInstantiationMethod);
-	
-	// 3. For each symbol in the TTValue array...
-	size = v.getSize();
-	for(TTUInt16 i=0; i<size; i++){
-		v.get(i, &tag);
+	// If a class is already registered with this name, then we do not want to register another class with the same name!
+	if (err == kTTErrValueNotFound) {
 		
-		// 4. Look to see if this tag exists yet
-		err = tags->lookup(tag, tagObjects);
-		if(!err){
-			classNamesForTag = (TTList*)(TTPtr(tagObjects));
+		// 1. Turn the string into an array of symbols
+		v.transformCSVStringToSymbolArray();
+		
+		// 2. Create the class and associate it with its name
+		theClass = new TTClass(className, v, anInstantiationMethod);
+		
+		// 3. For each symbol in the TTValue array...
+		size = v.getSize();
+		for (TTUInt16 i=0; i<size; i++) {
+			v.get(i, &tag);
 			
-			// TODO: The following code demonstrates so extreme lameness that we need to evaluate.
-			//	First, we should probably just do this section of code with TTValue instead of TTList (but we needed code to test TTList)
-			//	Second, TTList is taking references but keeping things internally as pointers, which leads to lots of confusion
-			//	Third, we have to pass objects that are permanent - so no temporaries are allowed unless we make TTList do a copy
-			//	etc.
+			// 4. Look to see if this tag exists yet
+			err = tags->lookup(tag, tagObjects);
+			if (!err) {
+				classNamesForTag = (TTList*)(TTPtr(tagObjects));
+				
+				// TODO: The following code demonstrates so extreme lameness that we need to evaluate.
+				//	First, we should probably just do this section of code with TTValue instead of TTList (but we needed code to test TTList)
+				//	Second, TTList is taking references but keeping things internally as pointers, which leads to lots of confusion
+				//	Third, we have to pass objects that are permanent - so no temporaries are allowed unless we make TTList do a copy
+				//	etc.
 
-			// TODO: We need to factor out a function to add a tag for a named class (or a given class ptr)
-			
-			//classNamesForTag->append(className);
-			classNamesForTag->append(*new TTValue(className));
-		}
-		else{
-			classNamesForTag = new TTList;
-			tagObjects = TTPtr(classNamesForTag);
-			tags->append(tag ,tagObjects);
-			classNamesForTag->append(*new TTValue(className));
-		}
-	}	
-	
-	// 4. Register it
-	return registerClass(theClass);
+				// TODO: We need to factor out a function to add a tag for a named class (or a given class ptr)
+				
+				//classNamesForTag->append(className);
+				classNamesForTag->append(*new TTValue(className));
+			}
+			else {
+				classNamesForTag = new TTList;
+				tagObjects = TTPtr(classNamesForTag);
+				tags->append(tag ,tagObjects);
+				classNamesForTag->append(*new TTValue(className));
+			}
+		}	
+		
+		// 4. Register it
+		err = registerClass(theClass);
+	}
+	return err;
 }
 
 
