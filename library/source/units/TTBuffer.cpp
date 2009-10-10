@@ -50,7 +50,7 @@ TTBuffer::~TTBuffer()
 TTErr TTBuffer::init()
 {
 	if(numChannels && lengthInSamples){
-		contents = new (TTSampleValue*)[numChannels];
+		contents = new TTSampleValuePtr[numChannels];
 		for(TTUInt16 channel=0; channel<numChannels; channel++)
 			contents[channel] = new TTSampleValue[lengthInSamples];
 		clear();

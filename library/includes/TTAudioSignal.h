@@ -65,7 +65,7 @@ public:
 	 *	@param		vectorSize		The number of samples in the vector.
 	 *	@param		newVector		A pointer to the first sample in a vector of samples.
 	 *	@result		An error code.																 */
-	TTErr setVector(const TTUInt16 channel, const TTUInt16 vectorSize, const TTSampleValue* newVector);
+	TTErr setVector(const TTUInt16 channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector);
 	TTErr setVector64(const TTValue& v);	// A version of the above used by the message passing interface.
 
 	
