@@ -26,6 +26,7 @@
 #include <cstdio>
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 #ifdef TT_PLATFORM_LINUX
@@ -129,6 +130,8 @@ typedef TTFloat64			TTSampleValue;
 //typedef TTSampleValue*			TTSampleVector;
 typedef std::vector<TTSampleValue>	TTSampleVector;
 typedef TTSampleVector::iterator	TTSampleIter;
+
+typedef TTSampleValue*				TTSampleValuePtr;
 typedef TTSampleVector*				TTSampleVectorPtr;
 
 /** An integer that is the same size as a pointer.	*/
