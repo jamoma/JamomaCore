@@ -17,7 +17,7 @@ TTAUDIOCLASS(TTLowpassOnePole)
 
 	TTFloat64			frequency;			///< filter cutoff frequency
 	TTFloat64			coefficient;		///< filter coefficients
-	TTSampleVectorPtr	feedback;			///< previous output sample for each channel
+	TTSampleVector		feedback;			///< previous output sample for each channel
 
 	/**	Receives notifications when there are changes to the inherited 
 		maxNumChannels attribute.			*/
