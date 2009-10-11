@@ -42,7 +42,7 @@ private:
 	TTUInt8			bitdepth;			///< Currently supported bitdepths are 32 and 64. This is set by the setVector() method.
 
 public:
-	TTSampleValue**	sampleVectors;		///< An array of pointers to the first sample in each vector. Declared Public for fast access.
+	TTSampleVector	*sampleVectors;		///< An array of pointers to the first sample in each vector. Declared Public for fast access.
 
 private:
 	/**	Internal method for freeing the vectors. */
@@ -65,7 +65,7 @@ public:
 	 *	@param		vectorSize		The number of samples in the vector.
 	 *	@param		newVector		A pointer to the first sample in a vector of samples.
 	 *	@result		An error code.																 */
-	TTErr setVector(const TTUInt16 channel, const TTUInt16 vectorSize, const TTSampleValue* newVector);
+	TTErr setVector(const TTUInt16 channel, const TTUInt16 vectorSize, const TTSampleVector newVector);
 	TTErr setVector64(const TTValue& v);	// A version of the above used by the message passing interface.
 
 	
@@ -75,7 +75,7 @@ public:
 	TTErr setVector32(const TTValue& v);	// A version of the above used by the message passing interface.
 
 	
-	TTErr getVector(const TTUInt16 channel, const TTUInt16 vectorSize, TTSampleValue* returnedVector);
+	TTErr getVector(const TTUInt16 channel, const TTUInt16 vectorSize, TTSampleVector returnedVector);
 	TTErr getVector64(TTValue& v);	// A version of the above used by the message passing interface.
 
 	TTErr getVector(const TTUInt16 channel, const TTUInt16 vectorSize, TTFloat32* returnedVector);

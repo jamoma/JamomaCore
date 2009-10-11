@@ -37,8 +37,8 @@ typedef TTErr (TTAudioObject::*TTCalculateMethod)(const TTFloat64& x, TTFloat64&
 TTAudioSignal&	in = inputs->getSignal(0); \
 TTAudioSignal&	out = outputs->getSignal(0); \
 TTUInt16		vs; \
-TTSampleValue*	inSample; \
-TTSampleValue*	outSample; \
+TTSampleVector	inSample; \
+TTSampleVector	outSample; \
 TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out); \
 TTPtrSizedInt	channel; \
 \

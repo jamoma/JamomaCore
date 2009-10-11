@@ -24,10 +24,10 @@ TTAUDIOCLASS(TTDelay)
 	// alloc'd for each channel
 	TTSampleValue*		fractionalDelay;		///< used in interpolated dsp loops, if zero then the delay increment is precisely on a sample boundary
 	TTSampleValue* 		fractionalDelaySamples;	///< fractionalDelay expressed in samples rather than ms
-	TTSampleValue**		buffer;
-	TTSampleValue**		inPtr;					///< "write" pointer for buffer
-	TTSampleValue**		outPtr;					///< "read" pointer
-	TTSampleValue**		endPtr;					///< points to last sample in buffer (for speed)	
+	TTSampleVector*		buffer;
+	TTSampleVector*		inPtr;					///< "write" pointer for buffer
+	TTSampleVector*		outPtr;					///< "read" pointer
+	TTSampleVector*		endPtr;					///< points to last sample in buffer (for speed)	
 	
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);

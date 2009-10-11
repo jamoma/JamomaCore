@@ -24,7 +24,7 @@
 class TTBuffer : public TTDataObject {
 	TTCLASS_SETUP(TTBuffer)
 
-	TTSampleValue**		contents;			///< An array of vectors (one vector per channel) to hold the samples.
+	TTSampleVector*		contents;			///< An array of vectors (one vector per channel) to hold the samples.
 	TTUInt16			numChannels;		///< The number of channels in the buffer
 	TTFloat64			length;				///< The size of the buffer in milliseconds
 	TTUInt64			lengthInSamples;	///< The size of the buffer in samples
@@ -75,7 +75,7 @@ public:
 	/** Get a pointer to the buffer's memory.
 		WARNING: You need to be very careful about accessing the memory in case it goes away or is freed, etc. 
 		TODO: investigate some proper locks or notification systems for how we work with this...  */
-	TTSampleValue* getContentsForChannel(TTUInt16 channel);
+	TTSampleVector getContentsForChannel(TTUInt16 channel);
 };
 
 

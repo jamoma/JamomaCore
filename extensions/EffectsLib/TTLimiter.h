@@ -30,7 +30,7 @@ TTAUDIOCLASS(TTLimiter)
 	TTFloat64			recover;				///< 
 	TTFloat64			lookaheadInv;			///< reciprocal (inverse) of the lookahead attribute
 	TTUInt32			lookaheadBufferIndex;
-	TTSampleValue**		lookaheadBuffer;		///< keep a lookahead buffer for each channel
+	TTSampleVector*		lookaheadBuffer;		///< keep a lookahead buffer for each channel
 	TTSampleValue*		gain;
 	TTSampleValue		last;
 	TTBoolean			isLinear;				///< is attrMode set to linear?
