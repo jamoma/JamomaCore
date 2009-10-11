@@ -13,10 +13,9 @@
 #define thisTTClassTags		"audio, processor, filter, lowpass"
 
 
-TT_AUDIO_CONSTRUCTOR
+TT_AUDIO_CONSTRUCTOR,
+	feedback(NULL)
 {
-	feedback = new TTSampleVector;
-	
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);
 	addAttributeProperty(frequency,			range,			TTValue(2.0, sr*0.475));
@@ -38,15 +37,14 @@ TT_AUDIO_CONSTRUCTOR
 
 TTLowpassOnePole::~TTLowpassOnePole()
 {
-	delete feedback;
+	delete[] feedback;
 }
 
 
 TTErr TTLowpassOnePole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	feedback->size(maxNumChannels);
-	//delete[] feedback;
-	//feedback = new TTFloat64[maxNumChannels];
+	delete[] feedback;
+	feedback = new TTFloat64[maxNumChannels];
 	clear();
 	return kTTErrNone;
 }
@@ -61,10 +59,8 @@ TTErr TTLowpassOnePole::updateSr()
 
 TTErr TTLowpassOnePole::clear()
 {
-//	for(short i=0; i<maxNumChannels; i++)
-//		feedback[i] = 0.0;
-#error check reference to make sure this works as expected
-	feedback->assign(0.0);
+	for(short i=0; i<maxNumChannels; i++)
+		feedback[i] = 0.0;
 	return kTTErrNone;
 }
 
