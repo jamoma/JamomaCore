@@ -74,13 +74,13 @@ TTErr TTDelay::init(TTUInt64 newDelayMaxInSamples)
 		delete [] outPtr;
 		delete [] endPtr;
 		
-		buffer = new (TTSampleValue*)[maxNumChannels];
+		buffer = new TTSampleValuePtr[maxNumChannels];
 		for(channel=0; channel<maxNumChannels; channel++)
 			buffer[channel] = new TTSampleValue[delayMaxInSamples];
 
-		inPtr = new (TTSampleValue*)[maxNumChannels];
-		outPtr = new (TTSampleValue*)[maxNumChannels];
-		endPtr = new (TTSampleValue*)[maxNumChannels];
+		inPtr = new TTSampleValuePtr[maxNumChannels];
+		outPtr = new TTSampleValuePtr[maxNumChannels];
+		endPtr = new TTSampleValuePtr[maxNumChannels];
 		
 		for(channel=0; channel<maxNumChannels; channel++){
 			inPtr[channel] = buffer[channel];
