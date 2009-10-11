@@ -19,8 +19,8 @@
 TTAUDIOCLASS(TTDegrade)
 
 	TTUInt16		bitShift;		///< Amount of bits to shift away based on attrBitdepth.
-	TTSampleValue*	accumulator;	///< Holds values over from one vector to the next for each channel.
-	TTSampleValue*	output;			///< Holds values over from one vector to the next for each channel..
+	TTSampleVector	accumulator;	///< Holds values over from one vector to the next for each channel.
+	TTSampleVector	output;			///< Holds values over from one vector to the next for each channel..
 	TTUInt8			bitdepth;		///< Use a range of 1 to 24 to emulate the specified bitdepth.
 	TTFloat64		srRatio;		///< Use a range of 0.0 to 1.0 to specify a ratio of the current sample-rate to emulate in order to intentional aliasing artifacts.
 

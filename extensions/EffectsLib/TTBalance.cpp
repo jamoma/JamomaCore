@@ -1,6 +1,6 @@
 /* 
  * TTBlue Balance Signal Amplitude
- * Copyright © 2008, Trond Lossius
+ * Copyright ï¿½ 2008, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -14,7 +14,6 @@
 
 
 TT_AUDIO_CONSTRUCTOR
-, xm1A(NULL), xm2A(NULL), ym1A(NULL), ym2A(NULL), xm1B(NULL), xm2B(NULL), ym1B(NULL), ym2B(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	
@@ -36,40 +35,20 @@ TT_AUDIO_CONSTRUCTOR
 
 
 TTBalance::~TTBalance()
-{
-	delete[] xm1A;
-	delete[] xm2A;
-	delete[] ym1A;
-	delete[] ym2A;
-	delete[] xm1B;
-	delete[] xm2B;
-	delete[] ym1B;
-	delete[] ym2B;
-}
+{;}
 
 
 TTErr TTBalance::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	delete[] xm1A;
-	delete[] xm2A;
-	delete[] ym1A;
-	delete[] ym2A;
-	delete[] xm1B;
-	delete[] xm2B;
-	delete[] ym1B;
-	delete[] ym2B;
-		
-	xm1A = new TTFloat64[maxNumChannels];
-	xm2A = new TTFloat64[maxNumChannels];
-	ym1A = new TTFloat64[maxNumChannels];
-	ym2A = new TTFloat64[maxNumChannels];
-	xm1B = new TTFloat64[maxNumChannels];
-	xm2B = new TTFloat64[maxNumChannels];
-	ym1B = new TTFloat64[maxNumChannels];
-	ym2B = new TTFloat64[maxNumChannels];
-	
-	clear();
-	return kTTErrNone;
+	xm1A.resize(maxNumChannels);
+	xm2A.resize(maxNumChannels);
+	ym1A.resize(maxNumChannels);
+	ym2A.resize(maxNumChannels);
+	xm1B.resize(maxNumChannels);
+	xm2B.resize(maxNumChannels);
+	ym1B.resize(maxNumChannels);
+	ym2B.resize(maxNumChannels);	
+	return clear();
 }
 
 
@@ -82,18 +61,14 @@ TTErr TTBalance::updateSr()
 
 TTErr TTBalance::clear()
 {
-	short i;
-
-	for(i=0; i<maxNumChannels; i++){
-		xm1A[i] = 0.0;
-		xm2A[i] = 0.0;
-		ym1A[i] = 0.0;
-		ym2A[i] = 0.0;
-		xm1B[i] = 0.0;
-		xm2B[i] = 0.0;
-		ym1B[i] = 0.0;
-		ym2B[i] = 0.0;
-	}
+	xm1A.assign(maxNumChannels, 0.0);
+	xm2A.assign(maxNumChannels, 0.0);
+	ym1A.assign(maxNumChannels, 0.0);
+	ym2A.assign(maxNumChannels, 0.0);
+	xm1B.assign(maxNumChannels, 0.0);
+	xm2B.assign(maxNumChannels, 0.0);
+	ym1B.assign(maxNumChannels, 0.0);
+	ym2B.assign(maxNumChannels, 0.0);
 	return kTTErrNone;
 }
 
