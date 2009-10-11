@@ -90,7 +90,7 @@ TTUInt16 TTAudioSignal::getMaxNumChannels()
 }
 
 
-TTErr TTAudioSignal::setVector(const TTUInt16 channel, const TTUInt16 newVectorSize, const TTSampleValuePtr newVector)
+TTErr TTAudioSignal::setVector(const TTUInt16 channel, const TTUInt16 newVectorSize, const TTSampleValue* newVector)
 {
 	TTUInt32	i;
 	
