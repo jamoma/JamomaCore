@@ -49,10 +49,6 @@
 		22EB3BC7102F0BEB006D027A /* TTQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E010286BB0002000A9 /* TTQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22EB3BC8102F0BEB006D027A /* TTThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E410286BB0002000A9 /* TTThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22EB3BC9102F0BEB006D027A /* TTValueCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E610286BB0002000A9 /* TTValueCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D274443F1054F81D00A024D6 /* TTNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D274443E1054F81D00A024D6 /* TTNode.h */; };
-		D27444411054F82600A024D6 /* TTNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D27444401054F82600A024D6 /* TTNode.cpp */; };
-		D2806302107D493B00A8FA13 /* TTTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2806301107D493B00A8FA13 /* TTTree.cpp */; };
-		D2806304107D494A00A8FA13 /* TTTree.h in Headers */ = {isa = PBXBuildFile; fileRef = D2806303107D494A00A8FA13 /* TTTree.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,10 +96,6 @@
 		22E3860510286BBE002000A9 /* TTThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTThread.cpp; path = source/TTThread.cpp; sourceTree = "<group>"; };
 		22E3860610286BBE002000A9 /* TTValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValue.cpp; path = source/TTValue.cpp; sourceTree = "<group>"; };
 		22E3860710286BBE002000A9 /* TTValueCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValueCache.cpp; path = source/TTValueCache.cpp; sourceTree = "<group>"; };
-		D274443E1054F81D00A024D6 /* TTNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNode.h; path = includes/TTNode.h; sourceTree = "<group>"; };
-		D27444401054F82600A024D6 /* TTNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNode.cpp; path = source/TTNode.cpp; sourceTree = "<group>"; };
-		D2806301107D493B00A8FA13 /* TTTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTTree.cpp; path = source/TTTree.cpp; sourceTree = "<group>"; };
-		D2806303107D494A00A8FA13 /* TTTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTTree.h; path = includes/TTTree.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,10 +183,6 @@
 				22E385FE10286BBE002000A9 /* TTMessage.cpp */,
 				22E385DF10286BB0002000A9 /* TTObject.h */,
 				22E3860010286BBE002000A9 /* TTObject.cpp */,
-				D274443E1054F81D00A024D6 /* TTNode.h */,
-				D27444401054F82600A024D6 /* TTNode.cpp */,
-				D2806303107D494A00A8FA13 /* TTTree.h */,
-				D2806301107D493B00A8FA13 /* TTTree.cpp */,
 			);
 			name = BaseClasses;
 			sourceTree = "<group>";
@@ -251,8 +239,6 @@
 				22EB3BC7102F0BEB006D027A /* TTQueue.h in Headers */,
 				22EB3BC8102F0BEB006D027A /* TTThread.h in Headers */,
 				22EB3BC9102F0BEB006D027A /* TTValueCache.h in Headers */,
-				D274443F1054F81D00A024D6 /* TTNode.h in Headers */,
-				D2806304107D494A00A8FA13 /* TTTree.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,8 +332,6 @@
 				22E3862610286BBE002000A9 /* TTThread.cpp in Sources */,
 				22E3862710286BBE002000A9 /* TTValue.cpp in Sources */,
 				22E3862810286BBE002000A9 /* TTValueCache.cpp in Sources */,
-				D27444411054F82600A024D6 /* TTNode.cpp in Sources */,
-				D2806302107D493B00A8FA13 /* TTTree.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
