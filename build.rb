@@ -94,22 +94,24 @@ puts "Updating Version Information..."
 zero_count
 
 #XCConfig
-file_path = "#{@svn_root}/SourceCode/Framework/JamomaModular.xcconfig"
-if FileTest.exist?(file_path)
-  f = File.open("#{file_path}", "r+")
-  str = f.read
-
-  if (version_mod == '' || version_mod.match(/rc(.*)/))
-    str.sub!(/PRODUCT_VERSION = (.*)/, "PRODUCT_VERSION = #{version_maj}.#{version_min}.#{version_sub}")
-  else
-    str.sub!(/PRODUCT_VERSION = (.*)/, "PRODUCT_VERSION = #{version_maj}.#{version_min}.#{version_sub}#{version_mod}")
-  end
-  str.sub!(/SVNREV = (.*)/, "SVNREV = #{revision}")
-
-  f.rewind
-  f.write(str)
-  f.truncate(f.pos)
-  f.close
+if !win32?
+	file_path = "#{@svn_root}/SourceCode/Framework/JamomaModular.xcconfig"
+	if FileTest.exist?(file_path)
+	  f = File.open("#{file_path}", "r+")
+	  str = f.read
+	
+	  if (version_mod == '' || version_mod.match(/rc(.*)/))
+	    str.sub!(/PRODUCT_VERSION = (.*)/, "PRODUCT_VERSION = #{version_maj}.#{version_min}.#{version_sub}")
+	  else
+	    str.sub!(/PRODUCT_VERSION = (.*)/, "PRODUCT_VERSION = #{version_maj}.#{version_min}.#{version_sub}#{version_mod}")
+	  end
+	  str.sub!(/SVNREV = (.*)/, "SVNREV = #{revision}")
+	
+	  f.rewind
+	  f.write(str)
+	  f.truncate(f.pos)
+	  f.close
+	end
 end
 
 #Header
