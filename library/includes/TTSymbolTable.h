@@ -13,7 +13,8 @@
 #include "TTSymbol.h"
 
 #ifdef TT_PLATFORM_MAC
-#include <hash_map.h>
+#include <ext/hash_map>
+using namespace __gnu_cxx;
 #elif TT_PLATFORM_LINUX
 #include <map>
 #else
