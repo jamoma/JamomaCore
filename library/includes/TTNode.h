@@ -24,6 +24,8 @@ class TTNode;
 typedef TTNode*	TTNodePtr;
 class TTTree;
 typedef TTTree*	TTTreePtr;
+class Observer;
+typedef Observer* ObserverPtr;
 
 #define NO_NAME TT("")
 #define NO_INSTANCE TT("")
@@ -144,6 +146,15 @@ public:
 		@param properties		a TTSymbolPtr to store as a key in the hashtable.
 		@return					a kTTErrGeneric if the propertie already exists.	*/
 	TTErr			setProperties(TTSymbolPtr propertie);
+	
+	/** Get the Observers list */
+	TTListPtr		getObserver();
+	
+	/** Add an Observer to the TTnode */
+	void			addObserver(ObserverPtr observer);
+	
+	/** Remove an Observer to the TTnode */
+	void			removeObserver(ObserverPtr observer);
 
 	/** Get the OSC address of the TTNode 
 		It is computed dynamicaly by asking to all the ancestor of the TTNode	
@@ -157,4 +168,21 @@ public:
 	TTErr			generateInstance(TTSymbolPtr childName, TTSymbolPtr *newInstance);
 
 };
+
+/** This class is used to create a backward communication
+	to notify a client that something changed in the TTnode
+	TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject */
+
+class TTFOUNDATION_EXPORT Observer {
+public:	
+	void (*m_callBack)(void *, char *address, long argc, void *argv);
+	void *m_callBackArgument;
+	
+	void addCallback(void(*pt2Func)(void *, char *address, long argc, void *argv), void *arg){
+		m_callBack = pt2Func;
+		m_callBackArgument = arg;
+	};
+};
+	
+	
 #endif // __TT_NODE_H__

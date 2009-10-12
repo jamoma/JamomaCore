@@ -29,6 +29,8 @@ TTNode::TTNode(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType
 
 	// a new TTNode have no propertie
 	this->properties = new TTHash();
+	
+	this->observers = new TTList();
 }
 
 TTNode::~TTNode()
@@ -129,6 +131,7 @@ TTSymbolPtr		TTNode::getType(){return this->type;}
 void*			TTNode::getObject(){return this->object;}
 TTNodePtr		TTNode::getParent(){return this->parent;}
 TTHashPtr		TTNode::getProperties(){return this->properties;}
+TTListPtr		TTNode::getObserver(){return this->observers;}
 
 TTErr TTNode::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
 {
@@ -434,6 +437,18 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 		return kTTErrGeneric;
 
 	return kTTErrNone;
+}
+
+
+void TTNode::addObserver(ObserverPtr observer)
+{
+	this->observers->append(new TTValue((TTPtr)observer));
+}
+
+
+void TTNode::removeObserver(ObserverPtr observer)
+{
+	this->observers->remove(new TTValue((TTPtr)observer));
 }
 
 TTErr TTNode::getOscAddress(TTSymbolPtr *returnedOscAddress)

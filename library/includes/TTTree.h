@@ -24,6 +24,8 @@ class TTTree;
 typedef TTTree*	TTTreePtr;
 class TTNode;
 typedef TTNode*	TTNodePtr;
+class Observer;
+typedef Observer* ObserverPtr;
 
 /**
 	We build a tree of TTNodes, and you can request a pointer for any TTNode, or add an observer to any TTNode, etc.
@@ -131,7 +133,7 @@ public:
 };
 
 /**	An OSC parsing tool
-	@param	oscAddress					The OSC address to spilt in /parent/TTNode.instance:propertie
+	@param	oscAddress					The OSC address to spilt in /parent/node.instance:propertie
 
 	@param	returnedParentOscAdress		A pointer to TTNode parent symbol is returned in this parameter
 

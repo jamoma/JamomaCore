@@ -181,41 +181,45 @@ TTErr TTTree::Lookup(TTSymbolPtr oscAddress, TTListPtr *returnedNodes, TTNodePtr
 		// Split the address /parent/name.instance:propertie
 		splitOSCAddress(oscAddress, &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_propertie);
 
-		// Here is a recursive call to the TTNodeLookup to get all TTNodes at upper levels
+		// Here is a recursive call to the TTTree Lookup to get all TTNodes at upper levels
 		err = Lookup(oscAddress_parent, returnedNodes, firstReturnedNode);
 
-		if(err == kTTErrNone){
+		if((err == kTTErrNone) || (err == kTTErrValueNotFound)){
+			
 			// for each returned TTNodes at upper levels
 			// select all corresponding "name.instance" TTNodes
 			// among the TTNode list.
 			lk_selection = new TTList();
-			for((*returnedNodes)->begin(); (*returnedNodes)->end(); (*returnedNodes)->next()){
-				
-				(*returnedNodes)->current().get(0,(TTPtr *)&n_r);
-				err_get = n_r->getChildren(oscAddress_name, oscAddress_instance, &lk_temp);
-				
-				// if there are children
-				// add it to the selection
-				if(err_get == kTTErrNone)
-						lk_selection->merge(*lk_temp);
-			}
 			
-			if(lk_selection->getSize()){
-				*returnedNodes = lk_selection;
-				lk_selection->getHead().get(0, (TTObject**)firstReturnedNode);
-				return kTTErrNone;
+			if(!(*returnedNodes)->isEmpty()){
+				for((*returnedNodes)->begin(); (*returnedNodes)->end(); (*returnedNodes)->next()){
+					
+					(*returnedNodes)->current().get(0, (TTPtr*)&n_r);
+					err_get = n_r->getChildren(oscAddress_name, oscAddress_instance, &lk_temp);
+					
+					// if there are children
+					// add it to the selection
+					if(err_get == kTTErrNone)
+							lk_selection->merge(*lk_temp);
+				}
 			}
 			else
-				return kTTErrValueNotFound;
+				err_get = kTTErrValueNotFound;
+			
+			*returnedNodes = lk_selection;
+			lk_selection->getHead().get(0, (TTObjectPtr*)firstReturnedNode);
+			return err_get;
 		}
-
+		
+		*returnedNodes = NULL;
+		*firstReturnedNode = NULL;
 		return err;
 	}
 	// no wild card : do a lookup in the global hashtab
 	else{
 		err = getNodeForOSC(oscAddress, &n_found);
 		*returnedNodes = new TTList();
-		(*returnedNodes)->append(n_found);
+		(*returnedNodes)->append(new TTValue(n_found));
 		*firstReturnedNode = n_found;
 		return err;
 	}
