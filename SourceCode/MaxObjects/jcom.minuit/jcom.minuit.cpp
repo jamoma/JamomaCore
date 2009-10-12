@@ -187,6 +187,7 @@ void minuit_donamespace(t_node *x, t_symbol *oscAddress)
 	minuit_goto(x, oscAddress);
 	
 	// Il nous faut avoir les noeuds inférieurs et les attributs du noeud à l'addresse données
+	// auto-translation: It is necessary for us to have the nodes the lower and attributes of the node than the address given
 	if(x->p_node && x->address){
 		
 		lk_prp = jamoma_node_properties(x->p_node);
