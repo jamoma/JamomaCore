@@ -77,10 +77,10 @@
 		D24233CF107A594F00B3F7F1 /* Plugin.h in Headers */ = {isa = PBXBuildFile; fileRef = D242339D107A594F00B3F7F1 /* Plugin.h */; };
 		D24233D0107A594F00B3F7F1 /* PluginFactories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D242339E107A594F00B3F7F1 /* PluginFactories.cpp */; };
 		D24233D1107A594F00B3F7F1 /* PluginFactories.h in Headers */ = {isa = PBXBuildFile; fileRef = D242339F107A594F00B3F7F1 /* PluginFactories.h */; };
-		D24A1F8110835A7000EAEFDE /* TTTree.h in Headers */ = {isa = PBXBuildFile; fileRef = D24A1F7D10835A7000EAEFDE /* TTTree.h */; };
-		D24A1F8210835A7000EAEFDE /* TTTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D24A1F7E10835A7000EAEFDE /* TTTree.cpp */; };
-		D24A1F8310835A7000EAEFDE /* TTNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D24A1F7F10835A7000EAEFDE /* TTNode.h */; };
-		D24A1F8410835A7000EAEFDE /* TTNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D24A1F8010835A7000EAEFDE /* TTNode.cpp */; };
+		D24A1F8110835A7000EAEFDE /* NodeDirectory.h in Headers */ = {isa = PBXBuildFile; fileRef = D24A1F7D10835A7000EAEFDE /* NodeDirectory.h */; };
+		D24A1F8210835A7000EAEFDE /* NodeDirectory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D24A1F7E10835A7000EAEFDE /* NodeDirectory.cpp */; };
+		D24A1F8310835A7000EAEFDE /* Node.h in Headers */ = {isa = PBXBuildFile; fileRef = D24A1F7F10835A7000EAEFDE /* Node.h */; };
+		D24A1F8410835A7000EAEFDE /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D24A1F8010835A7000EAEFDE /* Node.cpp */; };
 		D2730C5C104FBA70004513A7 /* NodeLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2730C5A104FBA70004513A7 /* NodeLib.cpp */; };
 		D2730C5D104FBA70004513A7 /* NodeLib.h in Headers */ = {isa = PBXBuildFile; fileRef = D2730C5B104FBA70004513A7 /* NodeLib.h */; };
 /* End PBXBuildFile section */
@@ -159,10 +159,10 @@
 		D242339D107A594F00B3F7F1 /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plugin.h; sourceTree = "<group>"; };
 		D242339E107A594F00B3F7F1 /* PluginFactories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginFactories.cpp; sourceTree = "<group>"; };
 		D242339F107A594F00B3F7F1 /* PluginFactories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginFactories.h; sourceTree = "<group>"; };
-		D24A1F7D10835A7000EAEFDE /* TTTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTTree.h; path = ../../../Foundation/extensions/NodeLib/TTTree.h; sourceTree = SOURCE_ROOT; };
-		D24A1F7E10835A7000EAEFDE /* TTTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTTree.cpp; path = ../../../Foundation/extensions/NodeLib/TTTree.cpp; sourceTree = SOURCE_ROOT; };
-		D24A1F7F10835A7000EAEFDE /* TTNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNode.h; path = ../../../Foundation/extensions/NodeLib/TTNode.h; sourceTree = SOURCE_ROOT; };
-		D24A1F8010835A7000EAEFDE /* TTNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNode.cpp; path = ../../../Foundation/extensions/NodeLib/TTNode.cpp; sourceTree = SOURCE_ROOT; };
+		D24A1F7D10835A7000EAEFDE /* NodeDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NodeDirectory.h; path = ../../../Foundation/extensions/NodeLib/NodeDirectory.h; sourceTree = SOURCE_ROOT; };
+		D24A1F7E10835A7000EAEFDE /* NodeDirectory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NodeDirectory.cpp; path = ../../../Foundation/extensions/NodeLib/NodeDirectory.cpp; sourceTree = SOURCE_ROOT; };
+		D24A1F7F10835A7000EAEFDE /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Node.h; path = ../../../Foundation/extensions/NodeLib/Node.h; sourceTree = SOURCE_ROOT; };
+		D24A1F8010835A7000EAEFDE /* Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Node.cpp; path = ../../../Foundation/extensions/NodeLib/Node.cpp; sourceTree = SOURCE_ROOT; };
 		D2730C5A104FBA70004513A7 /* NodeLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NodeLib.cpp; sourceTree = "<group>"; };
 		D2730C5B104FBA70004513A7 /* NodeLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeLib.h; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -361,10 +361,10 @@
 		D2730C59104FBA70004513A7 /* NodeLib */ = {
 			isa = PBXGroup;
 			children = (
-				D24A1F7D10835A7000EAEFDE /* TTTree.h */,
-				D24A1F7E10835A7000EAEFDE /* TTTree.cpp */,
-				D24A1F7F10835A7000EAEFDE /* TTNode.h */,
-				D24A1F8010835A7000EAEFDE /* TTNode.cpp */,
+				D24A1F7D10835A7000EAEFDE /* NodeDirectory.h */,
+				D24A1F7E10835A7000EAEFDE /* NodeDirectory.cpp */,
+				D24A1F7F10835A7000EAEFDE /* Node.h */,
+				D24A1F8010835A7000EAEFDE /* Node.cpp */,
 				D2730C5B104FBA70004513A7 /* NodeLib.h */,
 				D2730C5A104FBA70004513A7 /* NodeLib.cpp */,
 			);
@@ -411,8 +411,8 @@
 				D24233A9107A594F00B3F7F1 /* Device.h in Headers */,
 				D24233CF107A594F00B3F7F1 /* Plugin.h in Headers */,
 				D24233D1107A594F00B3F7F1 /* PluginFactories.h in Headers */,
-				D24A1F8110835A7000EAEFDE /* TTTree.h in Headers */,
-				D24A1F8310835A7000EAEFDE /* TTNode.h in Headers */,
+				D24A1F8110835A7000EAEFDE /* NodeDirectory.h in Headers */,
+				D24A1F8310835A7000EAEFDE /* Node.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -519,8 +519,8 @@
 				D24233A5107A594F00B3F7F1 /* Controller.cpp in Sources */,
 				D24233A8107A594F00B3F7F1 /* Device.cpp in Sources */,
 				D24233D0107A594F00B3F7F1 /* PluginFactories.cpp in Sources */,
-				D24A1F8210835A7000EAEFDE /* TTTree.cpp in Sources */,
-				D24A1F8410835A7000EAEFDE /* TTNode.cpp in Sources */,
+				D24A1F8210835A7000EAEFDE /* NodeDirectory.cpp in Sources */,
+				D24A1F8410835A7000EAEFDE /* Node.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

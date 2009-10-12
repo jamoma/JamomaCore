@@ -51,12 +51,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// this method go to the given address
 	class_addmethod(c, (method)node_goto,			"goto",			A_SYM, 0);
 
-	// this method set the name of the actual node
-	class_addmethod(c, (method)node_set_name,		"set_name",		A_SYM, 0);
-
-	// this method set the instance of the actual node
-	class_addmethod(c, (method)node_set_instance,	"set_instance",	A_SYM, 0);
-
 	// this method add the tree of scripting name space of Max to the Jamoma tree
 	class_addmethod(c, (method)node_add_max_tree,	"add_max_tree",	0);
 
@@ -82,8 +76,7 @@ void *node_new(t_symbol *name, long argc, t_atom *argv)
 		x->p_out = outlet_new(x, 0);
 
 		// default : get the root of the tree
-		x->p_tree = jamoma_tree_init();
-		x->p_node = x->p_tree->getRoot();
+		x->p_directory = jamoma_directory_init();
 
 		x->node_tree_file = gensym("nodetree.opml");
 		x->node_tree_path = 0;
@@ -137,13 +130,14 @@ void node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_object *obj;
 	t_symbol *type;
+	NodePtr p_node;
 	JamomaError err = JAMOMA_ERR_NONE;
 
 	// Are we dealing with an OSC message ?
-	if(msg->s_name[0] == S_SEPARATOR[0]){
+	if(msg->s_name[0] == C_SEPARATOR){
 
 		if(msg != x->address)
-			err = jamoma_tree_get_node(msg, &(x->lk_nodes), &(x->p_node));
+			err = jamoma_directory_get_node(msg, &(x->lk_nodes), &p_node);
 
 		// if the address exists
 		if(err == JAMOMA_ERR_NONE){
@@ -152,10 +146,10 @@ void node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 
 			for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
 
-				x->lk_nodes->current().get(0,(TTPtr*)&x->p_node);
+				x->lk_nodes->current().get(0,(TTPtr*)&p_node);
 				
-				obj = jamoma_node_max_object(x->p_node);
-				type = jamoma_node_type(x->p_node);
+				obj = jamoma_node_max_object(p_node);
+				type = jamoma_node_type(p_node);
 
 				// if the node have an object
 				if(obj){
@@ -174,7 +168,7 @@ void node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 						object_method_typed((t_object*)obj, jps_dispatched, argc, argv, NULL);
 				}
 				else
-					object_error((t_object*)x,"send : %s have no object", jamoma_node_name(x->p_node)->s_name);
+					object_error((t_object*)x,"send : %s have no object", jamoma_node_name(p_node)->s_name);
 			}
 		}
 		else
@@ -184,13 +178,14 @@ void node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 
 void node_goto(t_node *x, t_symbol *address)
 {
+	NodePtr p_node = NULL;
 	JamomaError err = JAMOMA_ERR_NONE;
 
 	// Are we dealing with an OSC message ?
-	if(address->s_name[0] == S_SEPARATOR[0]){
+	if(address->s_name[0] == C_SEPARATOR){
 
 		if(address != x->address){
-			err = jamoma_tree_get_node(address, &(x->lk_nodes), &(x->p_node));
+			err = jamoma_directory_get_node(address, &(x->lk_nodes), &p_node);
 
 			// if the address exists
 			if(err == JAMOMA_ERR_NONE)
@@ -199,29 +194,22 @@ void node_goto(t_node *x, t_symbol *address)
 	}
 }
 
-void node_set_name(t_node *x, t_symbol *name)
-{
-	jamoma_node_set_name(x->p_node,name);
-}
 
-void node_set_instance(t_node *x, t_symbol *instance)
-{
-	jamoma_node_set_instance(x->p_node,instance);
-}
 
 void node_set_receive(t_node *x, t_symbol *address)
 {	
-	ObserverPtr obsv;
+	ObserverPtr p_obsv;
+	NodePtr p_node;
 	
-	jamoma_tree_get_node(address, &x->lk_nodes, &x->p_node);
+	jamoma_directory_get_node(address, &x->lk_nodes, &p_node);
 	
 	if(!x->lk_nodes->isEmpty()){
 		for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
 			
-			x->lk_nodes->current().get(0,(TTPtr*)&x->p_node);
-			obsv = new Observer();
-			obsv->addCallback(&node_receive_callback, x);
-			x->p_node->addObserver(obsv);
+			x->lk_nodes->current().get(0,(TTPtr*)&p_node);
+			p_obsv = new Observer();
+			p_obsv->addCallback(&node_receive_callback, x);
+			p_node->addObserver(p_obsv);
 		}
 	}
 }
@@ -238,7 +226,7 @@ void node_receive_callback(void *x, char *address, long argc, void *argv)
 void node_dump(t_node *x)
 {
 	// dump all the address of the tree
-	jamoma_tree_dump();
+	jamoma_directory_dump();
 
 	//for(i=0; i<attr_nb; i++){
 	//	
@@ -271,7 +259,7 @@ void node_add_max_tree(t_node *x)
 
 long node_myobject_iterator(t_node *x, t_object *b)
 {
-	TTNodePtr newNode;
+	NodePtr newNode;
 	bool newInstanceCreated;
 	char temp[256];
     t_symbol *varname = object_attr_getsym(b, gensym("varname"));
@@ -279,7 +267,7 @@ long node_myobject_iterator(t_node *x, t_object *b)
 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
 	if(varname){
-		if(varname->s_name[0] == S_SEPARATOR[0]){
+		if(varname->s_name[0] == C_SEPARATOR){
 			newInstanceCreated = false;
 			
 			// put all scripting name in a /max node
@@ -293,7 +281,7 @@ long node_myobject_iterator(t_node *x, t_object *b)
 					temp[i] = 0;
 			}
 
-			jamoma_tree_register(gensym(temp), gensym("maxobject"), (t_object *)b, &newNode, &newInstanceCreated);
+			jamoma_directory_register(gensym(temp), gensym("maxobject"), (t_object *)b, &newNode, &newInstanceCreated);
 
 			// add varname and maxclass as properties of the node
 			jamoma_node_set_properties(newNode,gensym("varname"));
@@ -371,7 +359,7 @@ void node_dowrite(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 	node_write_string(x, "	<body>");
 	node_write_string(x, LB);
 
-	x->p_tree = jamoma_tree_init();
+	x->p_directory = jamoma_directory_init();
 	node_dump_as_opml(x,0);	// dump the tree from the root
 
 	node_write_string(x, "		</body>");
@@ -430,14 +418,15 @@ void node_dump_as_opml(t_node *x, ushort level)
 	char temp[512];
 	long len, err;
 	TTSymbolPtr attr;
+	NodePtr p_node;
 	len = err = 0;
 
 	// get info about the node
-	t_symbol *name = jamoma_node_name(x->p_node);
-	t_symbol *instance = jamoma_node_instance(x->p_node);
-	//t_symbol *type = jamoma_node_type(x->p_node);
-	TTListPtr lk_prp = jamoma_node_properties(x->p_node);
-	TTListPtr lk_chd = jamoma_node_children(x->p_node);
+	t_symbol *name = jamoma_node_name(p_node);
+	t_symbol *instance = jamoma_node_instance(p_node);
+	//t_symbol *type = jamoma_node_type(p_node);
+	TTListPtr lk_prp = jamoma_node_properties(p_node);
+	TTListPtr lk_chd = jamoma_node_children(p_node);
 
 	// make (2 + level) tabs
 	node_write_string(x, TAB);
@@ -484,7 +473,7 @@ void node_dump_as_opml(t_node *x, ushort level)
 	if(lk_chd){
 		for(lk_chd->begin(); lk_chd->end(); lk_chd->next()){
 
-			lk_chd->current().get(0,(TTObject **)&x->p_node);
+			lk_chd->current().get(0,(TTObject **)&p_node);
 			node_dump_as_opml(x, level+1);
 		}
 	}

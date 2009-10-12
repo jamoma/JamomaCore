@@ -123,21 +123,21 @@ void send_float(t_send *x, double value)
 
 void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	TTNodePtr p_node;
+	NodePtr p_node;
 	TTListPtr selection;
 	t_object *obj;
 	t_symbol *type;
-	JamomaError err = JAMOMA_ERR_GENERIC;
+	TTErr err = kTTErrGeneric;
 	
 	// Is it still necessary to do that ?
 	//object_method(g_receivemaster_object, jps_dispatch, x->attr_name, msg, argc, argv);
 	
 	if(!x->lk_nodes){
-		// look for the node(s) into the tree
-		if(x->attr_name->s_name[0] == S_SEPARATOR[0]){
-			err = jamoma_tree_get_node(x->attr_name, &(x->lk_nodes), &p_node);
+		// look for the node(s) into the directory
+		if(x->attr_name->s_name[0] == C_SEPARATOR){
+			err = jamoma_directory->Lookup(TT(x->attr_name->s_name), &(x->lk_nodes), &p_node);
 		
-			if(err != JAMOMA_ERR_NONE)
+			if(err != kTTErrNone)
 				object_error((t_object*)x,"jcom.send : %s doesn't exist", x->attr_name->s_name);
 		}
 	}
@@ -147,12 +147,13 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 	
 	// To send to another address than x->attr_name,
 	// prepend the data with an OSC address
-	if(msg->s_name[0] == S_SEPARATOR[0]){
+	if(msg->s_name[0] == C_SEPARATOR){
 		if(msg != x->attr_name){
-			// look for the node(s) into the tree
-			err = jamoma_tree_get_node(msg, &selection, &p_node);
+			// look for the node(s) into the directory
+			err = jamoma_directory->Lookup(TT(msg->s_name), &selection, &p_node);
+		//	err = jamoma_directory_get_node(TT(msg->s_name), &selection, &p_node);
 	
-			if(err != JAMOMA_ERR_NONE){
+			if(err != kTTErrNone){
 				selection = NULL;
 				object_error((t_object*)x,"jcom.send : %s doesn't exist", x->attr_name->s_name);
 			}

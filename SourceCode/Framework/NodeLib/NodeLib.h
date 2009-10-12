@@ -7,69 +7,71 @@
  */
 
 #include "TTFoundationAPI.h"
+#include "Node.h"
+#include "NodeDirectory.h"
 #include "JamomaMaxTypes.h"
 #include "JamomaTypes.h"
 
 // statics and globals
 
-/**	The Jamoma node tree				*/
-extern TTTreePtr jamoma_tree;
+/**	The Jamoma node directory				*/
+extern NodeDirectoryPtr jamoma_directory;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-	/** Create and return the tree */
-	TTTreePtr		jamoma_tree_init(void);
+	/** Create and return the directory */
+	NodeDirectoryPtr jamoma_directory_init(void);
 	
 	
-	/** Free the tree */
-	JamomaError		jamoma_tree_free(void);
+	/** Free the directory */
+	JamomaError		jamoma_directory_free(void);
 
-	/** Dump all the OSC address of the tree in the max window */
-	JamomaError		jamoma_tree_dump(void);
+	/** Dump all the OSC address of the directory in the max window */
+	JamomaError		jamoma_directory_dump(void);
 
-	/** Register an osc address in the tree
+	/** Register an osc address in the directory
 
 		Note : this is called 
 				> in "hub_attr_setname" (in jcom.hub.cpp) to register the hub
 				> in "hub_subscribe" (in jcom.hub.cpp) to register a param	*/
-	JamomaError		jamoma_tree_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, TTNodePtr *newNode, bool *newInstanceCreated);
+	JamomaError		jamoma_directory_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, NodePtr *newNode, bool *newInstanceCreated);
 
-	/** Unregister an osc address in the tree */
-	JamomaError		jamoma_tree_unregister(t_symbol *OSCaddress);
+	/** Unregister an osc address in the directory */
+	JamomaError		jamoma_directory_unregister(t_symbol *OSCaddress);
 
 	/** Get the node(s) at the given address (with wildcard too) */
-	JamomaError		jamoma_tree_get_node(t_symbol *address, TTListPtr *returnedNodes, TTNodePtr *firstReturnedNode);
+	JamomaError		jamoma_directory_get_node(t_symbol *address, TTListPtr *returnedNodes, NodePtr *firstReturnedNode);
 
 	/** Return the name of a node */
-	t_symbol *		jamoma_node_name(TTNodePtr node);
+	t_symbol *		jamoma_node_name(NodePtr node);
 
 	/** Set the name of a node
 		@return		a new instance created (or NULL if not)	*/
-	t_symbol *		jamoma_node_set_name(TTNodePtr node, t_symbol *name);
+	t_symbol *		jamoma_node_set_name(NodePtr node, t_symbol *name);
 
 	/** Return the instance of a node*/
-	t_symbol *		jamoma_node_instance(TTNodePtr node);
+	t_symbol *		jamoma_node_instance(NodePtr node);
 
 	/** Set the instance of a node
 		@return		a new instance created (or NULL if not)	*/
-	t_symbol *		jamoma_node_set_instance(TTNodePtr node, t_symbol *instance);
+	t_symbol *		jamoma_node_set_instance(NodePtr node, t_symbol *instance);
 
 	/** Return the type of a node*/
-	t_symbol *		jamoma_node_type(TTNodePtr node);
+	t_symbol *		jamoma_node_type(NodePtr node);
 
 	/** Return all children of a node */
-	TTListPtr		jamoma_node_children(TTNodePtr node);
+	TTListPtr		jamoma_node_children(NodePtr node);
 
 	/** Return the Max object of a node */
-	t_object*		jamoma_node_max_object(TTNodePtr node);
+	t_object*		jamoma_node_max_object(NodePtr node);
 
 	/** Return all properties of a node */
-	TTListPtr		jamoma_node_properties(TTNodePtr node);
+	TTListPtr		jamoma_node_properties(NodePtr node);
 
 	/** Add a propertie to a node as a key in the hashtab (without value) */
-	JamomaError		jamoma_node_set_properties(TTNodePtr node, t_symbol *propertie);
+	JamomaError		jamoma_node_set_properties(NodePtr node, t_symbol *propertie);
 
 #ifdef __cplusplus
 }

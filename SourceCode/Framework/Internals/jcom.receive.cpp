@@ -136,8 +136,8 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 void receive_bind(t_receive *x)
 {
 	ObserverPtr p_obsv;
-	TTNodePtr p_node;
-	JamomaError err = JAMOMA_ERR_GENERIC;
+	NodePtr p_node;
+	TTErr err = kTTErrGeneric;
 	
 	if(!NOGOOD(g_receivemaster_object))
 		object_method(g_receivemaster_object, jps_add, x->attr_name, x);
@@ -145,11 +145,11 @@ void receive_bind(t_receive *x)
 	// if there isn't selection
 	if(!x->lk_nodes){
 		
-		// look for the node(s) into the tree
-		if(x->attr_name->s_name[0] == S_SEPARATOR[0]){
-			err = jamoma_tree_get_node(x->attr_name, &x->lk_nodes, &p_node);
+		// look for the node(s) into the directory
+		if(x->attr_name->s_name[0] == C_SEPARATOR){
+			err = jamoma_directory->Lookup(TT(x->attr_name->s_name), &x->lk_nodes, &p_node);
 		
-			if(err != JAMOMA_ERR_NONE){
+			if(err != kTTErrNone){
 				x->lk_nodes = NULL;
 				object_error((t_object*)x,"jcom.receive : %s doesn't exist", x->attr_name->s_name);
 			}
@@ -183,7 +183,7 @@ void receive_bind(t_receive *x)
 void receive_remove(t_receive *x)
 {
 	ObserverPtr p_obsv;
-	TTNodePtr p_node;
+	NodePtr p_node;
 	
 	// if there is a selection, remove Observers
 	if(x->lk_nodes){
@@ -232,7 +232,7 @@ void receive_setcallback(t_receive *x, void *callback, void *arg)
 }
 
 // This method his called by each observer attached to a node.
-// Read the TTNode file to get info about observers mecanism
+// Read the Node file to get info about observers mecanism
 void receive_node_callback(void *x, char *address, long argc, void *argv)
 {
 	t_receive* thisX = (t_receive*)x;
