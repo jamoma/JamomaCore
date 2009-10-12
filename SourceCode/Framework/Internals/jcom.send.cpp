@@ -61,10 +61,14 @@ void send_initclass()
 // Create
 void *send_new(t_symbol *s, long argc, t_atom *argv)
 {
-	long 	attrstart = attr_args_offset(argc, argv);		// support normal arguments
+	long attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	t_send 	*x = (t_send *)object_alloc(s_send_class);
+	
 	if(x){
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x, NULL));
+		
+		// the selection of nodes is made during the first send
+		x->lk_nodes = NULL;
 
 		if(attrstart > 0)
 			x->attr_name = atom_getsym(argv);
@@ -119,5 +123,70 @@ void send_float(t_send *x, double value)
 
 void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	object_method(g_receivemaster_object, jps_dispatch, x->attr_name, msg, argc, argv);
+	TTNodePtr p_node;
+	TTListPtr selection;
+	t_object *obj;
+	t_symbol *type;
+	JamomaError err = JAMOMA_ERR_NONE;
+	
+	// Is it still necessary to do that ?
+	//object_method(g_receivemaster_object, jps_dispatch, x->attr_name, msg, argc, argv);
+	
+	if(!x->lk_nodes){
+		// look for the node(s) into the tree
+		if(x->attr_name->s_name[0] == S_SEPARATOR[0])
+			err = jamoma_tree_get_node(x->attr_name, &(x->lk_nodes), &p_node);
+		
+		if(err != JAMOMA_ERR_NONE)
+			object_error((t_object*)x,"jcom.send : %s doesn't exist", x->attr_name->s_name);
+	}
+	
+	// default destination
+	selection = x->lk_nodes;
+	
+	// To send to another address than x->attr_name,
+	// prepend the data with an OSC address
+	if(msg->s_name[0] == S_SEPARATOR[0]){
+		if(msg != x->attr_name){
+			// look for the node(s) into the tree
+			err = jamoma_tree_get_node(msg, &selection, &p_node);
+	
+			if(err != JAMOMA_ERR_NONE){
+				selection = NULL;
+				object_error((t_object*)x,"jcom.send : %s doesn't exist", x->attr_name->s_name);
+			}
+		}
+	}
+	
+	// send data to the selection of nodes
+	// TODO : Maybe there are some problems to send data list beginning with a symbol
+	// when we want to send data to the destination in argument ...
+	if(selection){
+		for(selection->begin(); selection->end(); selection->next()){
+			
+			selection->current().get(0,(TTPtr*)&p_node);
+			
+			obj = jamoma_node_max_object(p_node);
+			type = jamoma_node_type(p_node);
+			
+			// if the node have an object
+			if(obj){
+				
+				// to send to a maxobject
+				if(type == gensym("maxobject")){
+					
+					if(atom_gettype(&argv[0]) == A_SYM)
+						if(object_getmethod(obj, atom_getsym(&argv[0])))
+							object_method_typed((t_object*)obj, atom_getsym(&argv[0]), argc-1, argv+1,NULL);
+						else
+							object_method_typed((t_object*)obj, NULL, argc, argv, NULL);
+				}
+				// to send to a jcom.parameter
+				else
+					object_method_typed((t_object*)obj, jps_dispatched, argc, argv, NULL);
+			}
+			else
+				object_error((t_object*)x,"send : %s have no object", jamoma_node_name(p_node)->s_name);
+		}
+	}
 }

@@ -21,6 +21,7 @@ typedef struct _node{
 	t_object		ob;
 	void			*p_out;					// the leftmost outlet
 	t_symbol		*address;				// memorized the current adress
+	TTTreePtr		p_tree;					// a pointer to the jamoma tree
 	TTNodePtr		p_node;					// a pointer to a TTnode of the tree
 	TTListPtr		lk_nodes;				// a pointer to a selection of TTnodes of the tree
 
@@ -50,6 +51,8 @@ void			node_goto(t_node *x, t_symbol *address);
 void			node_set_name(t_node *x, t_symbol *name);
 void			node_set_instance(t_node *x, t_symbol *instance);
 void			node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv);
+void			node_set_receive(t_node *x, t_symbol *address);
+void			node_receive_callback(void *x, char *address, long argc, void *argv);
 void			node_dump(t_node *x);
 void			node_add_max_tree(t_node *x);
 

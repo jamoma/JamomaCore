@@ -33,7 +33,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	// this method save the node tree in an opml file
 	// at selected path (if the path already exist)
-	class_addmethod(c, (method)node_writeagain,			"writeagain",			0);
+	class_addmethod(c, (method)node_writeagain,		"writeagain",			0);
 
 	// this method save the node tree in an opml file at the given path or,
 	// if there isn't path, open a dialog to select one.
@@ -44,6 +44,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	// send something to a param object registered in the tree
 	class_addmethod(c, (method)node_anything,		"anything",		A_GIMME, 0);
+	
+	// this method listen the given address
+	class_addmethod(c, (method)node_set_receive,	"receive",		A_SYM, 0);
 
 	// this method go to the given address
 	class_addmethod(c, (method)node_goto,			"goto",			A_SYM, 0);
@@ -75,9 +78,12 @@ void *node_new(t_symbol *name, long argc, t_atom *argv)
 	x = (t_node*)object_alloc(node_class);
 
 	if(x){
+		
+		x->p_out = outlet_new(x, 0);
 
 		// default : get the root of the tree
-		x->p_node = jamoma_node_init();
+		x->p_tree = jamoma_tree_init();
+		x->p_node = x->p_tree->getRoot();
 
 		x->node_tree_file = gensym("nodetree.opml");
 		x->node_tree_path = 0;
@@ -137,7 +143,7 @@ void node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 	if(msg->s_name[0] == S_SEPARATOR[0]){
 
 		if(msg != x->address)
-			err = jamoma_node_get(msg, &(x->lk_nodes), &(x->p_node));
+			err = jamoma_tree_get_node(msg, &(x->lk_nodes), &(x->p_node));
 
 		// if the address exists
 		if(err == JAMOMA_ERR_NONE){
@@ -146,7 +152,7 @@ void node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 
 			for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
 
-				x->lk_nodes->current().get(0,(TTObject **)&x->p_node);
+				x->lk_nodes->current().get(0,(TTPtr*)&x->p_node);
 				
 				obj = jamoma_node_max_object(x->p_node);
 				type = jamoma_node_type(x->p_node);
@@ -184,7 +190,7 @@ void node_goto(t_node *x, t_symbol *address)
 	if(address->s_name[0] == S_SEPARATOR[0]){
 
 		if(address != x->address){
-			err = jamoma_node_get(address, &(x->lk_nodes), &(x->p_node));
+			err = jamoma_tree_get_node(address, &(x->lk_nodes), &(x->p_node));
 
 			// if the address exists
 			if(err == JAMOMA_ERR_NONE)
@@ -203,10 +209,36 @@ void node_set_instance(t_node *x, t_symbol *instance)
 	jamoma_node_set_instance(x->p_node,instance);
 }
 
+void node_set_receive(t_node *x, t_symbol *address)
+{	
+	ObserverPtr obsv;
+	
+	jamoma_tree_get_node(address, &x->lk_nodes, &x->p_node);
+	
+	if(!x->lk_nodes->isEmpty()){
+		for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
+			
+			x->lk_nodes->current().get(0,(TTPtr*)&x->p_node);
+			obsv = new Observer();
+			obsv->addCallback(&node_receive_callback, x);
+			x->p_node->addObserver(obsv);
+		}
+	}
+}
+							   
+void node_receive_callback(void *x, char *address, long argc, void *argv)
+{
+	t_node* thisX = (t_node*)x;
+	t_atom *argument = (t_atom*)argv;
+	
+	//if(argc && argv)
+			outlet_anything(thisX->p_out, gensym(address), argc, argument);
+}
+
 void node_dump(t_node *x)
 {
 	// dump all the address of the tree
-	jamoma_node_dump();
+	jamoma_tree_dump();
 
 	//for(i=0; i<attr_nb; i++){
 	//	
@@ -261,7 +293,7 @@ long node_myobject_iterator(t_node *x, t_object *b)
 					temp[i] = 0;
 			}
 
-			jamoma_node_register(gensym(temp), gensym("maxobject"), (t_object *)b, &newNode, &newInstanceCreated);
+			jamoma_tree_register(gensym(temp), gensym("maxobject"), (t_object *)b, &newNode, &newInstanceCreated);
 
 			// add varname and maxclass as properties of the node
 			jamoma_node_set_properties(newNode,gensym("varname"));
@@ -339,7 +371,7 @@ void node_dowrite(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 	node_write_string(x, "	<body>");
 	node_write_string(x, LB);
 
-	x->p_node = jamoma_node_init();
+	x->p_tree = jamoma_tree_init();
 	node_dump_as_opml(x,0);	// dump the tree from the root
 
 	node_write_string(x, "		</body>");

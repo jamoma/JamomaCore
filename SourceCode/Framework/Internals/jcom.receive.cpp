@@ -161,3 +161,29 @@ void receive_setcallback(t_receive *x, void *callback, void *arg)
 	x->callback = (t_receive_obex_callback)callback;
 	x->baton = arg;
 }
+
+void node_set_receive(t_node *x, t_symbol *address)
+{	
+	ObserverPtr obsv;
+	
+	jamoma_tree_get_node(address, &x->lk_nodes, &x->p_node);
+	
+	if(!x->lk_nodes->isEmpty()){
+		for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
+			
+			x->lk_nodes->current().get(0,(TTPtr*)&x->p_node);
+			obsv = new Observer();
+			obsv->addCallback(&node_receive_callback, x);
+			x->p_node->addObserver(obsv);
+		}
+	}
+}
+
+void node_receive_callback(void *x, char *address, long argc, void *argv)
+{
+	t_node* thisX = (t_node*)x;
+	t_atom *argument = (t_atom*)argv;
+	
+	//if(argc && argv)
+	outlet_anything(thisX->p_out, gensym(address), argc, argument);
+}

@@ -539,6 +539,8 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	char		oscAddress[256];
 	TTListPtr	returnedNodes;
 	TTNodePtr	firstReturnedNode;
+	TTListPtr   observers;
+	ObserverPtr anObserver;
 	t_symbol	*osc;
 	JamomaError err;
 	
@@ -560,13 +562,18 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 								  
 	if(err == JAMOMA_ERR_NONE){ 
 		
-		//post("%s", oscAddress);
-		
-		// 2. get the observers list of the node
-		//firstReturnedNode->
-		
-		// 3. send them data (?? the way to send data depends on who is the observers ??)
-		
+		// 2. get each observer of the node
+		observers = firstReturnedNode->getObserver();
+		if(!observers->isEmpty()){
+			for(observers->begin(); observers->end(); observers->next()){
+				
+				observers->current().get(0,(void **)&anObserver);
+				
+				// 3. send them data
+				anObserver->m_callBack(anObserver->m_callBackArgument, oscAddress, argc-1, argv+1);
+				
+			}
+		}
 	}
 
 	//hub_internals_dispatch(x, argv->a_w.w_sym, argc-1, argv+1);
