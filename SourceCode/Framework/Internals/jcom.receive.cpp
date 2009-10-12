@@ -18,6 +18,7 @@ void 		receive_setcallback(t_receive *x, void *callback, void *arg);
 void 		receive_dispatch(t_receive *x, t_symbol *msg, long argc, t_atom *argv);
 void		receive_bind(t_receive *x);
 void 		receive_remove(t_receive *x);
+void		receive_node_callback(void *x, char *address, long argc, void *argv);
 
 // Globals
 static t_class		*s_receive_class;					// Required: Global pointer the jcom.receive class
@@ -76,6 +77,8 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 
 		x->callback = NULL;
 		x->attr_name = NULL;
+		x->lk_nodes = NULL;
+		x->lk_observer = NULL;
 		// attr_args_process(x, argc, argv);					// handle attribute args				
 
 		// If no name was specified as an attribute
@@ -122,6 +125,7 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 	if(x->attr_name != arg){
 		receive_remove(x);
 		x->attr_name = arg;
+		x->lk_nodes = NULL;
 		receive_bind(x);		
 	}
 	return MAX_ERR_NONE;
@@ -131,13 +135,78 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 // 
 void receive_bind(t_receive *x)
 {
+	ObserverPtr p_obsv;
+	TTNodePtr p_node;
+	JamomaError err = JAMOMA_ERR_GENERIC;
+	
 	if(!NOGOOD(g_receivemaster_object))
 		object_method(g_receivemaster_object, jps_add, x->attr_name, x);
+	
+	// if there isn't selection
+	if(!x->lk_nodes){
+		
+		// look for the node(s) into the tree
+		if(x->attr_name->s_name[0] == S_SEPARATOR[0]){
+			err = jamoma_tree_get_node(x->attr_name, &x->lk_nodes, &p_node);
+		
+			if(err != JAMOMA_ERR_NONE){
+				x->lk_nodes = NULL;
+				object_error((t_object*)x,"jcom.receive : %s doesn't exist", x->attr_name->s_name);
+			}
+		}
+	}
+	
+	if(x->lk_nodes){
+		
+		x->lk_observer = new TTList();
+		
+		// for each node of the selection
+		for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
+			
+			// get a node from the selection
+			x->lk_nodes->current().get(0,(TTPtr*)&p_node);
+			
+			// create an observer
+			p_obsv = new Observer();
+			
+			// prepare the callback mecanism between the node and the observer
+			p_obsv->addCallback(&receive_node_callback, x);
+			p_node->addObserver(p_obsv);
+			
+			// add the observer to the TTlist (to remove it correctly)
+			x->lk_observer->append(new TTValue((TTPtr)p_obsv));
+		}
+	}
 }
 
 
 void receive_remove(t_receive *x)
 {
+	ObserverPtr p_obsv;
+	TTNodePtr p_node;
+	
+	// if there is a selection, remove Observers
+	if(x->lk_nodes){
+		
+		x->lk_observer->begin();
+		for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
+			
+			// get a node of the selection
+			x->lk_nodes->current().get(0,(TTPtr*)&p_node);
+			
+			// get the observer relative to this node
+			x->lk_observer->current().get(0,(TTPtr*)&p_obsv);
+
+			// remove the observer
+			p_node->removeObserver(p_obsv);
+			delete p_obsv;
+			
+			x->lk_observer->next();
+		}
+	}
+	
+	delete x->lk_nodes;
+	delete x->lk_observer;
 	object_method(g_receivemaster_object, jps_remove, x->attr_name, x);
 }
 
@@ -162,28 +231,14 @@ void receive_setcallback(t_receive *x, void *callback, void *arg)
 	x->baton = arg;
 }
 
-void node_set_receive(t_node *x, t_symbol *address)
-{	
-	ObserverPtr obsv;
-	
-	jamoma_tree_get_node(address, &x->lk_nodes, &x->p_node);
-	
-	if(!x->lk_nodes->isEmpty()){
-		for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
-			
-			x->lk_nodes->current().get(0,(TTPtr*)&x->p_node);
-			obsv = new Observer();
-			obsv->addCallback(&node_receive_callback, x);
-			x->p_node->addObserver(obsv);
-		}
-	}
-}
-
-void node_receive_callback(void *x, char *address, long argc, void *argv)
+// This method his called by each observer attached to a node.
+// Read the TTNode file to get info about observers mecanism
+void receive_node_callback(void *x, char *address, long argc, void *argv)
 {
-	t_node* thisX = (t_node*)x;
+	t_receive* thisX = (t_receive*)x;
 	t_atom *argument = (t_atom*)argv;
 	
 	//if(argc && argv)
-	outlet_anything(thisX->p_out, gensym(address), argc, argument);
+	//defer(thisX, (method)receive_dispatch, gensym(address), argc, argument);
+	outlet_anything(thisX->outlet, gensym(address), argc, argument);
 }
