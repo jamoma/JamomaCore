@@ -143,8 +143,11 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
     SnapshotPtr snapshot = NULL;
     TTUInt32    snapshotIndex = 0;
 
+	// snapshot numbers are 1-based for the outside world
     if (argc && argv)
-        snapshotIndex = atom_getlong(argv);
+        snapshotIndex = atom_getlong(argv) - 1;
+	if (snapshotIndex < 0)
+		snapshotIndex = 0;
 
     if (snapshotIndex >= self->snapshots->size()) {
         if (snapshotIndex >= self->snapshots->capacity()) {
@@ -196,7 +199,6 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
 
                                 snapshot->push_back(spv);
                                 post("    parameter: %s -- value: %lf", parameter->getName()->getCString(), value);
-
                             }
                         }
                     }
@@ -204,31 +206,29 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
             }
         }
     }
-//    ((*self->snapshots)[snapshotIndex]).reserve(snapshot.size()+1);
-  (*self->snapshots)[snapshotIndex] = snapshot;
-
-//  ((*self->snapshots)[snapshotIndex]).assign(snapshot.begin(), snapshot.end());
-
-//  ((*self->snapshots)[snapshotIndex]).clear();
-//  ((*self->snapshots)[snapshotIndex]).insert(((*self->snapshots)[snapshotIndex]).begin(), snapshot.begin(), snapshot.end());
+    (*self->snapshots)[snapshotIndex] = snapshot;
 }
 
 
 void TTModSnapshotRecallOne(const SnapshotParameterValue& spv)
 {
-    //object_attr_setfloat(spv.parameter, _sym_value, spv.value);
     object_method(spv.parameter, _sym_float, spv.value);
 }
+
 
 void TTModSnapshotRecall(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
     if (!argc || !argv)
         return;
 
+    // straight recall
     if (argc == 1) {
         SnapshotPtr snapshot;
-        TTUInt32    snapshotIndex = atom_getlong(argv);
+        TTUInt32    snapshotIndex = atom_getlong(argv) - 1;
 
+		if (snapshotIndex < 0)
+			snapshotIndex = 0;
+		
         if (snapshotIndex >= self->snapshots->size()) {
             object_error(SELF, "preset recall out of range");
             return;
@@ -236,15 +236,22 @@ void TTModSnapshotRecall(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Ato
         snapshot = (*self->snapshots)[snapshotIndex];
         for_each((*snapshot).begin(), (*snapshot).end(), TTModSnapshotRecallOne);
     }
+
+    // interpolate between any two
     else if (argc == 3) {
         SnapshotPtr snapshotA;
         SnapshotPtr snapshotB;
-        TTUInt32    snapshotIndexA = atom_getlong(argv+0);
-        TTUInt32    snapshotIndexB = atom_getlong(argv+1);
+        TTUInt32    snapshotIndexA = atom_getlong(argv+0) - 1;
+        TTUInt32    snapshotIndexB = atom_getlong(argv+1) - 1;
         TTUInt32    snapshotSizeA = atom_getlong(argv+0);
         TTUInt32    snapshotSizeB = atom_getlong(argv+1);
         TTFloat32   position = atom_getfloat(argv+2);
 
+		if (snapshotIndexA < 0)
+			snapshotIndexA = 0;
+		if (snapshotIndexB < 0)
+			snapshotIndexB = 0;
+		
         if (snapshotIndexA >= self->snapshots->size() ||
             snapshotIndexB >= self->snapshots->size())
         {
@@ -268,6 +275,60 @@ void TTModSnapshotRecall(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Ato
                 object_method((*snapshotA)[i].parameter, _sym_float, f);
             }
         }
+    }
+
+    // wieghted interpolation
+    else if (argc > 3) {
+        TTUInt32    size;
+        TTUInt32    ac = argc;
+        bool        boundsCheckFailed = false;
+        SnapshotPtr snapshot;
+        Snapshot    interpolatedResult;
+		TTFloat32	weight;
+
+        // check bounds
+        if (ac > self->snapshots->size()) {
+            object_error(SELF, "recall can not interpolate -- not enough snapshots for provided weights");
+            return;
+        }
+
+        snapshot = (*self->snapshots)[0];
+		if (!snapshot) {
+            object_error(SELF, "recall can not interpolate -- bogus initial snapshot");
+            return;
+		}
+		
+        size = snapshot->size();
+        for (int i=1; i<argc; i++) {
+            if ((*self->snapshots)[i]->size() != size) {
+                boundsCheckFailed = true;
+                break;
+            }
+        }
+        if (boundsCheckFailed) {
+            object_error(SELF, "recall can not interpolate -- snapshots are of unequal size");
+            return;
+        }
+
+        interpolatedResult.reserve(size);
+        for (int i=0; i<argc; i++) {
+			snapshot = (*self->snapshots)[i];
+			weight = atom_getfloat(argv+i);
+            if (i==0) {
+                interpolatedResult.insert(interpolatedResult.begin(), snapshot->begin(), snapshot->end());
+                // TODO: There must be a better way than this nested loop using some variant for for_each() or something...
+                for (TTUInt32 j=0; j<size; j++) {
+                    interpolatedResult[j].value *= weight;
+                }
+            }
+            else {
+                // TODO: There must be a better way than this nested loop using some variant for for_each() or something...
+                for (TTUInt32 j=0; j<size; j++) {
+                    interpolatedResult[j].value += ((*snapshot)[j].value * weight);
+                }
+            }
+        }
+       for_each(interpolatedResult.begin(), interpolatedResult.end(), TTModSnapshotRecallOne);
     }
 }
 
