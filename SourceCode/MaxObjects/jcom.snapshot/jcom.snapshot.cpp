@@ -97,6 +97,7 @@ TTPtr TTModSnapshotNew(SymbolPtr name, AtomCount argc, AtomPtr argv)
 
 void TTModSnapshotFree(TTModSnapshotPtr self)
 {
+    // TODO: leaking memory! -- free of the actuall snapshots held by the pointers!
     delete self->snapshots;
 }
 
@@ -149,7 +150,7 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
         if (snapshotIndex >= self->snapshots->capacity()) {
             self->snapshots->reserve(snapshotIndex+1);
         }
-		self->snapshots->resize(snapshotIndex+1);
+        self->snapshots->resize(snapshotIndex+1);
     }
     else {
         snapshot = self->snapshots->at(snapshotIndex);
@@ -187,7 +188,7 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
                         childType = parameter->getType();
                         if (childType == TT("subscribe_parameter")) {   // FIXME: this name sucks for the type.
                             ObjectPtr maxObject = (ObjectPtr)parameter->getObject();
-							SymbolPtr maxType = object_attr_getsym(maxObject, SymbolGen("type"));
+                            SymbolPtr maxType = object_attr_getsym(maxObject, SymbolGen("type"));
 
                             if (maxType == SymbolGen("decimal") || maxType == SymbolGen("integer")) {
                                 TTFloat64               value = object_attr_getfloat(maxObject, SymbolGen("value"));
@@ -216,23 +217,57 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
 void TTModSnapshotRecallOne(const SnapshotParameterValue& spv)
 {
     //object_attr_setfloat(spv.parameter, _sym_value, spv.value);
-	object_method(spv.parameter, _sym_float, spv.value);
+    object_method(spv.parameter, _sym_float, spv.value);
 }
 
 void TTModSnapshotRecall(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
-    SnapshotPtr	snapshot;
-    TTUInt32    snapshotIndex = 0;
-
-    if (argc && argv)
-        snapshotIndex = atom_getlong(argv);
-
-    if (snapshotIndex >= self->snapshots->size()) {
-        object_error(SELF, "preset recall out of range");
+    if (!argc || !argv)
         return;
-    }
 
-    snapshot = (*self->snapshots)[snapshotIndex];
-    for_each((*snapshot).begin(), (*snapshot).end(), TTModSnapshotRecallOne);
+    if (argc == 1) {
+        SnapshotPtr snapshot;
+        TTUInt32    snapshotIndex = atom_getlong(argv);
+
+        if (snapshotIndex >= self->snapshots->size()) {
+            object_error(SELF, "preset recall out of range");
+            return;
+        }
+        snapshot = (*self->snapshots)[snapshotIndex];
+        for_each((*snapshot).begin(), (*snapshot).end(), TTModSnapshotRecallOne);
+    }
+    else if (argc == 3) {
+        SnapshotPtr snapshotA;
+        SnapshotPtr snapshotB;
+        TTUInt32    snapshotIndexA = atom_getlong(argv+0);
+        TTUInt32    snapshotIndexB = atom_getlong(argv+1);
+        TTUInt32    snapshotSizeA = atom_getlong(argv+0);
+        TTUInt32    snapshotSizeB = atom_getlong(argv+1);
+        TTFloat32   position = atom_getfloat(argv+2);
+
+        if (snapshotIndexA >= self->snapshots->size() ||
+            snapshotIndexB >= self->snapshots->size())
+        {
+            object_error(SELF, "preset recall out of range");
+            return;
+        }
+
+        snapshotA = (*self->snapshots)[snapshotIndexA];
+        snapshotB = (*self->snapshots)[snapshotIndexB];
+        snapshotSizeA = snapshotA->size();
+        snapshotSizeB = snapshotB->size();
+
+        if (snapshotSizeA != snapshotSizeB) {
+            object_error(SELF, "preset recall -- cannot interpolate between snapshots of unequal size");
+            return;
+        }
+
+        for (TTUInt32 i=0; i<snapshotSizeA; i++) {
+            if ( (*snapshotA)[i].parameter == (*snapshotB)[i].parameter ) {
+                TTFloat32 f = ((*snapshotA)[i].value * (1.0 - position)) + ((*snapshotB)[i].value * (position));
+                object_method((*snapshotA)[i].parameter, _sym_float, f);
+            }
+        }
+    }
 }
 
