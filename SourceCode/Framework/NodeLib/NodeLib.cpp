@@ -109,6 +109,37 @@ JamomaError jamoma_directory_get_node(t_symbol *address, TTListPtr *returnedNode
 	return JAMOMA_ERR_GENERIC;
 }
 
+JamomaError jamoma_directory_get_parameters(t_symbol *addressToStart, TTListPtr *returnedNodes, NodePtr *firstReturnedNode)
+{
+	TTListPtr whereToSearch;
+	
+	TTErr err;
+	
+	if(jamoma_directory){
+		err = jamoma_directory->Lookup(TT(address->s_name), &whereToSearch, firstReturnedNode);
+		
+		if(err == kTTErrNone){
+			
+			err = jamoma_directory->LookingFor(whereToSearch, onlyParameter, NULL, returnedNodes, firstReturnedNode);
+		
+			if(err == kTTErrNone)
+				return JAMOMA_ERR_NONE;
+			else
+				return JAMOMA_ERR_GENERIC;
+		}
+		else
+			return JAMOMA_ERR_GENERIC;
+	}
+	
+	post("jamoma_directory_get_parameters %s : create a directory before", address->s_name);
+	return JAMOMA_ERR_GENERIC;
+}
+
+bool onlyParameter(TTNodePtr n, void *args)
+{
+	return n->type == TT(jps_subscribe_parameter->s_name);	
+}
+
 // Method to deal with a node
 ////////////////////////////////////
 

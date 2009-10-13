@@ -226,7 +226,11 @@ void node_receive_callback(void *x, char *address, long argc, void *argv)
 void node_dump(t_node *x)
 {
 	// dump all the address of the tree
-	jamoma_directory_dump();
+	//jamoma_directory_dump();
+	
+	// dump all parameters of the tree
+
+	
 
 	//for(i=0; i<attr_nb; i++){
 	//	

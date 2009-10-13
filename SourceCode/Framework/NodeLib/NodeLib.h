@@ -43,6 +43,10 @@ extern "C" {
 
 	/** Get the node(s) at the given address (with wildcard too) */
 	JamomaError		jamoma_directory_get_node(t_symbol *address, TTListPtr *returnedNodes, NodePtr *firstReturnedNode);
+	
+	/** Get all parameters below the given address (with wildcard too) */
+	JamomaError jamoma_directory_get_parameters(t_symbol *addressToStart, TTListPtr *returnedNodes, NodePtr *firstReturnedNode);
+	bool onlyParameter(TTNodePtr n, void *args);
 
 	/** Return the name of a node */
 	t_symbol *		jamoma_node_name(NodePtr node);
