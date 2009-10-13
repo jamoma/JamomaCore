@@ -92,13 +92,24 @@ public:
 	
 	TTErr	getNodeForOSC(TTSymbolPtr oscAddress, NodePtr *returnedNode);
 	
-	/**	A factory method
+	/**	Find Nodes by address
 	 @param	oscAddress				The OSC address you wish to find, possibly including wildcards and instance names/numbers.
 	 @param	returnedNodes			If non-null, a pointer will be set to the linked-list of Nodes at the given OSC address pattern.
 	 @param	firstReturnedNode		If non-null, the address of the first Node object pointer that is found for the given pattern is returned here.  
-	 The value of the pointer will be set upon return.
+									The value of the pointer will be set upon return.
 	 @return						An error code.				*/
 	TTErr	Lookup(TTSymbolPtr oscAddress, TTListPtr *returnedNodes, NodePtr *firstReturnedNode);
+	
+	/**	Find Nodes by testing each Nodes below an address 
+	 @param	oscAddress				The OSC address from where the research begin, possibly including wildcards and instance names/numbers.
+	 @param	returnedNodes			If non-null, a pointer will be set to the linked-list of Nodes at the given OSC address pattern.
+	 @param testFunction			the test function have to take a Node as first argument, and a pointer to something as second argument (a structure for example) 
+									it have to return a boolean (true means that the node is ok).
+	 @param argument				argument for the testFunction
+	 @param	firstReturnedNode		If non-null, the address of the first Node object pointer that is found for the given pattern is returned here.
+									The value of the pointer will be set upon return.
+	 @return						An error code.				*/
+	TTErr	LookingFor(TTListPtr whereToSearch, bool(testFunction)(NodePtr node, void*args), void *argument, TTListPtr *returnedNodes, NodePtr *firstReturnedNode);
 	
 	/**	Create a new Node, at the given location in the tree.
 	 @param	oscAddress				The OSC address for which you wish to create a Node.

@@ -229,6 +229,58 @@ TTErr NodeDirectory::Lookup(TTSymbolPtr oscAddress, TTListPtr *returnedNodes, No
 	}
 }
 
+TTErr	NodeDirectory::LookingFor(TTListPtr whereToSearch, bool(testFunction)(NodePtr node, void*args), void *argument, TTListPtr *returnedNodes, NodePtr *firstReturnedNode)
+{
+	TTListPtr lk_children, lk_selection;
+	NodePtr n_r, n_child;
+	TTErr err, err_look;
+	
+	// if there are nodes from where to start
+	if(!whereToSearch->isEmpty()){
+		
+		// Launch a recursive research below each given nodes
+		for(whereToSearch->begin(); whereToSearch->end(); whereToSearch->next()){
+			
+			// get all children of the node
+			whereToSearch->current().get(0, (TTPtr*)&n_r);
+			err = n_r->getChildren(S_WILDCARD, S_WILDCARD, &lk_children);
+			lk_selection = new TTList();
+			
+			// if there are children
+			if(err == kTTErrNone){
+				
+				// test each of them and add those which are ok
+				for(lk_children->begin(); lk_children->end(); lk_children->next()){
+					
+					lk_children->current().get(0, (TTPtr*)&n_child);
+					
+					// test the child
+					if(testFunction(n_child, argument))
+						lk_selection->append(new TTValue((TTPtr)n_child));
+				}
+				
+				// continu the research from all children
+				err_look = LookingFor(lk_children, testFunction, argument, returnedNodes, firstReturnedNode);
+				
+				if(err_look == kTTErrNone){
+					// then fill the returnedNodes with the selection
+					(*returnedNodes)->merge(*lk_selection);
+					(*returnedNodes)->begin();
+					(*returnedNodes)->current().get(0, (TTPtr*)firstReturnedNode);
+				}
+				return err_look;
+			}
+			
+			//else, stop the recursive research
+			(*returnedNodes) = new TTList();
+			(*firstReturnedNode) = NULL;
+			return kTTErrNone;
+		}
+	}
+	
+	return kTTErrGeneric;
+}
+
 /***********************************************************************************
  *
  *		GLOBAL METHODS
