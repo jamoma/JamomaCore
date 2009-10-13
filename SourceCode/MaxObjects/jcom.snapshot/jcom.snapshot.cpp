@@ -37,8 +37,8 @@ typedef struct {
     Object                  ob;
     TTTreePtr               tree;
     SnapshotCollectionPtr   snapshots;
-	SymbolPtr				excludes[128];	// list of parameter and container names to exclude from snapshots
-	TTInt32					excludeSize;
+    SymbolPtr               excludes[128];  // list of parameter and container names to exclude from snapshots
+    TTInt32                 excludeSize;
 } TTModSnapshot;
 typedef TTModSnapshot* TTModSnapshotPtr;
 
@@ -74,8 +74,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
     class_addmethod(c, (method)TTModSnapshotDump,       "dump",         0);
     class_addmethod(c, (method)TTModSnapshotStore,      "store",        A_GIMME, 0);
     class_addmethod(c, (method)TTModSnapshotRecall,     "recall",       A_GIMME, 0);
-	
-	CLASS_ATTR_SYM_VARSIZE(c,	"excludes",	0,	TTModSnapshot,	excludes, excludeSize, 128);
+
+    CLASS_ATTR_SYM_VARSIZE(c,   "excludes", 0,  TTModSnapshot,  excludes, excludeSize, 128);
 
     class_register(_sym_box, c);
     sMaxClass = c;
@@ -93,17 +93,17 @@ TTPtr TTModSnapshotNew(SymbolPtr name, AtomCount argc, AtomPtr argv)
     TTModSnapshotPtr self = (TTModSnapshotPtr)object_alloc(sMaxClass);
 
     if (self) {
-		TTUInt32 i=0;
-		
+        TTUInt32 i=0;
+
         self->snapshots = new SnapshotCollection;
         self->tree = jamoma_tree_init();
-		
-		self->excludes[i++] = gensym("ch");
-		self->excludes[i++] = gensym("view");
-		self->excludes[i++] = gensym("documentation");
-		self->excludeSize = i;
-		
-		attr_args_process(self, argc, argv);
+
+        self->excludes[i++] = gensym("ch");
+        self->excludes[i++] = gensym("view");
+        self->excludes[i++] = gensym("documentation");
+        self->excludeSize = i;
+
+        attr_args_process(self, argc, argv);
     }
     return self;
 }
@@ -156,11 +156,11 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
     SnapshotPtr snapshot = NULL;
     TTUInt32    snapshotIndex = 0;
 
-	// snapshot numbers are 1-based for the outside world
+    // snapshot numbers are 1-based for the outside world
     if (argc && argv)
         snapshotIndex = atom_getlong(argv) - 1;
-	if (snapshotIndex < 0)
-		snapshotIndex = 0;
+    if (snapshotIndex < 0)
+        snapshotIndex = 0;
 
     if (snapshotIndex >= self->snapshots->size()) {
         if (snapshotIndex >= self->snapshots->capacity()) {
@@ -201,27 +201,27 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
 
                     parameterNodes.get(i, (TTPtr*)(&parameter));
                     if (parameter) {
-						bool exclude = false;
-						// first check for the name in the excludes list
-						for (TTInt32 e=0; e < self->excludeSize; e++) {
-							TTSymbolPtr s1 = parameter->getName();
-							TTSymbolPtr s2 = TT(self->excludes[e]->s_name);
+                        bool exclude = false;
+                        // first check for the name in the excludes list
+                        for (TTInt32 e=0; e < self->excludeSize; e++) {
+                            TTSymbolPtr s1 = parameter->getName();
+                            TTSymbolPtr s2 = TT(self->excludes[e]->s_name);
 
-							if (s1 == s2) {
-								exclude = true;
-								break;
-							}
-						}
-						if (exclude)
-							continue;
-						
-						// then make sure it is actually a parameter
+                            if (s1 == s2) {
+                                exclude = true;
+                                break;
+                            }
+                        }
+                        if (exclude)
+                            continue;
+
+                        // then make sure it is actually a parameter
                         childType = parameter->getType();
                         if (childType == TT("subscribe_parameter")) {   // FIXME: this name sucks for the type.
                             ObjectPtr maxObject = (ObjectPtr)parameter->getObject();
                             SymbolPtr maxType = object_attr_getsym(maxObject, SymbolGen("type"));
 
-							// we're ignoring non-int, non-float params for the time being
+                            // we're ignoring non-int, non-float params for the time being
                             if (maxType == SymbolGen("decimal") || maxType == SymbolGen("integer")) {
                                 TTFloat64               value = object_attr_getfloat(maxObject, SymbolGen("value"));
                                 SnapshotParameterValue  spv(value, maxObject);
@@ -229,6 +229,54 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
                                 snapshot->push_back(spv);
                                 post("    parameter: %s -- value: %lf", parameter->getName()->getCString(), value);
                             }
+                        }
+                        // FIXME: the code below sucks big-time -- need to redo as a recursive function
+                        else if (childType == TT("container")) {
+							TTValue     containerNodes;
+							TTUInt32    numParameters2;
+							TTListPtr	containerChildren = NULL;
+							
+							post("  Container: %s", parameter->getName()->getCString());
+							err = parameter->getChildren(TT("*"), TT("*"), &containerChildren);
+							containerChildren->assignToValue(containerNodes);
+							numParameters2 = containerNodes.getSize();
+							for (TTUInt32 i=0; i<numParameters2; i++) {
+								TTNodePtr   parameter2 = NULL;
+								TTSymbolPtr childType2;
+
+								containerNodes.get(i, (TTPtr*)(&parameter2));
+								if (parameter2) {
+									bool exclude = false;
+									// first check for the name in the excludes list
+									for (TTInt32 e=0; e < self->excludeSize; e++) {
+										TTSymbolPtr s1 = parameter2->getName();
+										TTSymbolPtr s2 = TT(self->excludes[e]->s_name);
+
+										if (s1 == s2) {
+											exclude = true;
+											break;
+										}
+									}
+									if (exclude)
+										continue;
+
+									// then make sure it is actually a parameter
+									childType2 = parameter2->getType();
+									if (childType2 == TT("subscribe_parameter")) {   // FIXME: this name sucks for the type.
+										ObjectPtr maxObject = (ObjectPtr)parameter2->getObject();
+										SymbolPtr maxType = object_attr_getsym(maxObject, SymbolGen("type"));
+
+										// we're ignoring non-int, non-float params for the time being
+										if (maxType == SymbolGen("decimal") || maxType == SymbolGen("integer")) {
+											TTFloat64               value = object_attr_getfloat(maxObject, SymbolGen("value"));
+											SnapshotParameterValue  spv(value, maxObject);
+
+											snapshot->push_back(spv);
+											post("    parameter: %s -- value: %lf", parameter2->getName()->getCString(), value);
+										}
+									}
+								}
+        }
                         }
                     }
                 }
@@ -255,9 +303,9 @@ void TTModSnapshotRecall(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Ato
         SnapshotPtr snapshot;
         TTUInt32    snapshotIndex = atom_getlong(argv) - 1;
 
-		if (snapshotIndex < 0)
-			snapshotIndex = 0;
-		
+        if (snapshotIndex < 0)
+            snapshotIndex = 0;
+
         if (snapshotIndex >= self->snapshots->size()) {
             object_error(SELF, "preset recall out of range");
             return;
@@ -276,11 +324,11 @@ void TTModSnapshotRecall(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Ato
         TTUInt32    snapshotSizeB = atom_getlong(argv+1);
         TTFloat32   position = atom_getfloat(argv+2);
 
-		if (snapshotIndexA < 0)
-			snapshotIndexA = 0;
-		if (snapshotIndexB < 0)
-			snapshotIndexB = 0;
-		
+        if (snapshotIndexA < 0)
+            snapshotIndexA = 0;
+        if (snapshotIndexB < 0)
+            snapshotIndexB = 0;
+
         if (snapshotIndexA >= self->snapshots->size() ||
             snapshotIndexB >= self->snapshots->size())
         {
@@ -313,7 +361,7 @@ void TTModSnapshotRecall(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Ato
         bool        boundsCheckFailed = false;
         SnapshotPtr snapshot;
         Snapshot    interpolatedResult;
-		TTFloat32	weight;
+        TTFloat32   weight;
 
         // check bounds
         if (ac > self->snapshots->size()) {
@@ -322,11 +370,11 @@ void TTModSnapshotRecall(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Ato
         }
 
         snapshot = (*self->snapshots)[0];
-		if (!snapshot) {
+        if (!snapshot) {
             object_error(SELF, "recall can not interpolate -- bogus initial snapshot");
             return;
-		}
-		
+        }
+
         size = snapshot->size();
         for (int i=1; i<argc; i++) {
             if (!(*self->snapshots)[i] || (*self->snapshots)[i]->size() != size) {
@@ -341,8 +389,8 @@ void TTModSnapshotRecall(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Ato
 
         interpolatedResult.reserve(size);
         for (int i=0; i<argc; i++) {
-			snapshot = (*self->snapshots)[i];
-			weight = atom_getfloat(argv+i);
+            snapshot = (*self->snapshots)[i];
+            weight = atom_getfloat(argv+i);
             if (i==0) {
                 interpolatedResult.insert(interpolatedResult.begin(), snapshot->begin(), snapshot->end());
                 // TODO: There must be a better way than this nested loop using some variant for for_each() or something...
