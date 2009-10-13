@@ -438,7 +438,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 
 TTErr TTNode::getOscAddress(TTSymbolPtr *returnedOscAddress)
 {
-	unsigned int i, nb_ancestor, len;
+	unsigned int i, nb_ancestor, len=0;
 	TTNodePtr ptr;
 	TTNodePtr *ancestor;
 	char *OscAddress;
@@ -512,7 +512,7 @@ TTErr TTNode::getOscAddress(TTSymbolPtr *returnedOscAddress)
 	}
 	
 	if(len){
-		OscAddress[len] = NULL;
+		OscAddress[len-1] = NULL;
 		*returnedOscAddress = TT(OscAddress);
 		return kTTErrNone;
 	}
