@@ -37,6 +37,8 @@ typedef struct {
     Object                  ob;
     TTTreePtr               tree;
     SnapshotCollectionPtr   snapshots;
+	SymbolPtr				excludes[128];	// list of parameter and container names to exclude from snapshots
+	TTInt32					excludeSize;
 } TTModSnapshot;
 typedef TTModSnapshot* TTModSnapshotPtr;
 
@@ -72,6 +74,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
     class_addmethod(c, (method)TTModSnapshotDump,       "dump",         0);
     class_addmethod(c, (method)TTModSnapshotStore,      "store",        A_GIMME, 0);
     class_addmethod(c, (method)TTModSnapshotRecall,     "recall",       A_GIMME, 0);
+	
+	CLASS_ATTR_SYM_VARSIZE(c,	"excludes",	0,	TTModSnapshot,	excludes, excludeSize, 128);
 
     class_register(_sym_box, c);
     sMaxClass = c;
@@ -89,8 +93,17 @@ TTPtr TTModSnapshotNew(SymbolPtr name, AtomCount argc, AtomPtr argv)
     TTModSnapshotPtr self = (TTModSnapshotPtr)object_alloc(sMaxClass);
 
     if (self) {
+		TTUInt32 i=0;
+		
         self->snapshots = new SnapshotCollection;
         self->tree = jamoma_tree_init();
+		
+		self->excludes[i++] = gensym("ch");
+		self->excludes[i++] = gensym("view");
+		self->excludes[i++] = gensym("documentation");
+		self->excludeSize = i;
+		
+		attr_args_process(self, argc, argv);
     }
     return self;
 }
@@ -188,11 +201,27 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
 
                     parameterNodes.get(i, (TTPtr*)(&parameter));
                     if (parameter) {
+						bool exclude = false;
+						// first check for the name in the excludes list
+						for (TTInt32 e=0; e < self->excludeSize; e++) {
+							TTSymbolPtr s1 = parameter->getName();
+							TTSymbolPtr s2 = TT(self->excludes[e]->s_name);
+
+							if (s1 == s2) {
+								exclude = true;
+								break;
+							}
+						}
+						if (exclude)
+							continue;
+						
+						// then make sure it is actually a parameter
                         childType = parameter->getType();
                         if (childType == TT("subscribe_parameter")) {   // FIXME: this name sucks for the type.
                             ObjectPtr maxObject = (ObjectPtr)parameter->getObject();
                             SymbolPtr maxType = object_attr_getsym(maxObject, SymbolGen("type"));
 
+							// we're ignoring non-int, non-float params for the time being
                             if (maxType == SymbolGen("decimal") || maxType == SymbolGen("integer")) {
                                 TTFloat64               value = object_attr_getfloat(maxObject, SymbolGen("value"));
                                 SnapshotParameterValue  spv(value, maxObject);
@@ -300,13 +329,13 @@ void TTModSnapshotRecall(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Ato
 		
         size = snapshot->size();
         for (int i=1; i<argc; i++) {
-            if ((*self->snapshots)[i]->size() != size) {
+            if (!(*self->snapshots)[i] || (*self->snapshots)[i]->size() != size) {
                 boundsCheckFailed = true;
                 break;
             }
         }
         if (boundsCheckFailed) {
-            object_error(SELF, "recall can not interpolate -- snapshots are of unequal size");
+            object_error(SELF, "recall can not interpolate -- snapshots are of unequal size, or there is a missing snapshot in the sequence");
             return;
         }
 
