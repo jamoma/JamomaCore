@@ -90,7 +90,7 @@ TTErr NodeDirectory::NodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, voi
 	// if no error in the parsing of the OSC address
 	if(err == kTTErrNone){
 
-		// If there is an attribute part
+		// If there is a propertie part
 		if(oscAddress_propertie != NO_PROPERTIE){
 
 			// get the Node
@@ -105,7 +105,7 @@ TTErr NodeDirectory::NodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, voi
 			else{
 				// get the Node at this address
 				found->get(0,(TTPtr*)&n_found);
-				n_found->setProperties(oscAddress_propertie);
+				n_found->addPropertie(oscAddress_propertie, NULL, NULL);  // TODO : advise the user that he is creating an attribut without any access (get and set) method
 
 				return kTTErrNone;
 			}
@@ -170,7 +170,7 @@ TTErr NodeDirectory::NodeRemove(TTSymbolPtr oscAddress)
 
 TTErr NodeDirectory::Lookup(TTSymbolPtr oscAddress, TTListPtr *returnedNodes, NodePtr *firstReturnedNode)
 {
-	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie;
+	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie, oscAddress_nopropertie;
 	TTListPtr lk_selection, lk_temp;
 	NodePtr n_found, n_r;
 	TTErr err, err_get;
@@ -178,12 +178,12 @@ TTErr NodeDirectory::Lookup(TTSymbolPtr oscAddress, TTListPtr *returnedNodes, No
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
 	if(oscAddress->getCString()[0]!= C_SEPARATOR)
 		return kTTErrGeneric;
+	
+	// Split the address /parent/name.instance:propertie
+	splitOSCAddress(oscAddress, &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_propertie);
 
 	// Is there a wild card ?
 	if(strrchr(oscAddress->getCString(), C_WILDCARD)){
-		
-		// Split the address /parent/name.instance:propertie
-		splitOSCAddress(oscAddress, &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_propertie);
 
 		// Here is a recursive call to the NodeDirectory Lookup to get all Nodes at upper levels
 		err = Lookup(oscAddress_parent, returnedNodes, firstReturnedNode);
@@ -211,7 +211,8 @@ TTErr NodeDirectory::Lookup(TTSymbolPtr oscAddress, TTListPtr *returnedNodes, No
 				err_get = kTTErrValueNotFound;
 			
 			*returnedNodes = lk_selection;
-			lk_selection->getHead().get(0, (TTObjectPtr*)firstReturnedNode);
+			if(!lk_selection->isEmpty())
+				lk_selection->getHead().get(0, (TTObjectPtr*)firstReturnedNode);
 			return err_get;
 		}
 		
@@ -219,9 +220,22 @@ TTErr NodeDirectory::Lookup(TTSymbolPtr oscAddress, TTListPtr *returnedNodes, No
 		*firstReturnedNode = NULL;
 		return err;
 	}
-	// no wild card : do a lookup in the global hashtab
+	// no wild card : do a lookup in the global hashtab 
+	// with the /parent/node.instance part (no propertie)
 	else{
-		err = getNodeForOSC(oscAddress, &n_found);
+		
+		// be sure there is no propertie part
+		if(oscAddress_propertie != NO_PROPERTIE)
+			mergeOSCAddress(&oscAddress_nopropertie, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_PROPERTIE);
+		else
+			oscAddress_nopropertie = oscAddress;
+		
+		// look into the hashtab
+		err = getNodeForOSC(oscAddress_nopropertie, &n_found);
+		
+		// is the propertie exists ?
+		
+		
 		*returnedNodes = new TTList();
 		(*returnedNodes)->append(new TTValue(n_found));
 		*firstReturnedNode = n_found;
@@ -267,6 +281,58 @@ TTErr	NodeDirectory::LookingFor(TTListPtr whereToSearch, bool(testFunction)(Node
 				if(err_look != kTTErrNone)
 					return err_look;
 			}
+		}
+		return kTTErrNone;
+	}
+	return kTTErrGeneric;
+}
+
+TTErr	NodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(NodePtr node, void*args), void *argument, bool *isThere, NodePtr *firstNode)
+{
+	TTListPtr lk_children;
+	NodePtr n_r, n_child;
+	TTErr err, err_look;
+	
+	// if there are nodes from where to start
+	if(!whereToSearch->isEmpty()){
+		
+		// Launch a recursive research below each given nodes
+		for(whereToSearch->begin(); whereToSearch->end(); whereToSearch->next()){
+			
+			// get all children of the node
+			whereToSearch->current().get(0, (TTPtr*)&n_r);
+			err = n_r->getChildren(S_WILDCARD, S_WILDCARD, &lk_children);
+			
+			// if there are children
+			if(err == kTTErrNone){
+				
+				// test each of them and add those which are ok
+				for(lk_children->begin(); lk_children->end(); lk_children->next()){
+					
+					lk_children->current().get(0, (TTPtr*)&n_child);
+					
+					// test the child and fill the returnedNodes
+					if(testFunction(n_child, argument)){
+						(*isThere) = true;
+						(*firstNode) = n_child;
+						return kTTErrNone;
+					}
+					else
+						(*isThere) = false;
+				}
+				
+				// continu the research from all children
+				err_look = IsThere(lk_children, testFunction, argument, isThere, firstNode);
+				
+				if(err_look != kTTErrNone)
+					return err_look;
+				
+				// if a node is found below, stop the research
+				if((*isThere))
+					return kTTErrNone;
+			}
+			else
+				(*isThere) = false;
 		}
 		return kTTErrNone;
 	}

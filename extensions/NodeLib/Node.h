@@ -80,7 +80,7 @@ protected:
 	void				*object;				///< an object linked to the Node (or even NULL for containters)
 	TTHashPtr			properties;				///< a hashtab of properties of the Node (no data stored yet, just properties as keys)
 	
-	NodePtr			parent;					///< pointer to the parent Node in the directory
+	NodePtr				parent;					///< pointer to the parent Node in the directory
 	TTHashPtr			children;				///< a hashtab of hashtabs:
 												///< hashed on Node::name, and hashtabs because of Node::instanceName
 
@@ -105,7 +105,7 @@ public:
 		@param	newInstance				the returned instance if a new have been created
 		@param	newInstanceCreated		true if a new instance have been created
 		@return							a error code	*/
-	TTErr	setName(TTSymbolPtr name, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated);
+	TTErr			setName(TTSymbolPtr name, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated);
 
 	/** Get the instance of the Node */
 	TTSymbolPtr		getInstance();
@@ -125,7 +125,7 @@ public:
 	void*			getObject();
 
 	/** Get a pointer to the parent Node of the Node */
-	NodePtr		getParent();
+	NodePtr			getParent();
 
 	/** Set the parent of the Node 
 		This method ensure that the path to the Node exist
@@ -148,9 +148,23 @@ public:
 	TTHashPtr		getProperties();
 	
 	/** Add a propertie to the Node.
-		@param properties		a TTSymbolPtr to store as a key in the hashtable.
-		@return					a kTTErrGeneric if the propertie already exists.	*/
-	TTErr			setProperties(TTSymbolPtr propertie);
+		@param propertie			a TTSymbolPtr to store as a key in the hashtable.
+		@param getPropertieMethod	a pointer to a specific method to get the propertie value.
+		@param setPropertieMethod	a pointer to a specific method to set the propertie value.
+		@return						a kTTErrGeneric if the propertie already exists.	*/
+	TTErr			addPropertie(TTSymbolPtr propertie, void(*getPropertieMethod)(NodePtr node, TTSymbolPtr propertie, TTValuePtr *returnedValue), void(*setPropertieMethod)(NodePtr node, TTSymbolPtr propertie, TTValuePtr value));
+
+	/** Get a propertie value of a Node (using a specific method to get the propertie : see addPropertie).
+	 @param propertie		a TTSymbolPtr to store as a key in the hashtable.
+	 @param returnedValue	a pointer to get the value.
+	 @return				a kTTErrGeneric if the propertie already exists.	*/
+	TTErr			getPropertie(TTSymbolPtr propertie, TTValuePtr *returnedValue);
+	
+	/** Set a propertie value of a Node (using a specific method to set the propertie : see addPropertie).
+	 @param propertie		a TTSymbolPtr to store as a key in the hashtable.
+	 @param value			a pointer on the value to set.
+	 @return				a kTTErrGeneric if the propertie already exists.	*/
+	TTErr			setPropertie(TTSymbolPtr propertie, TTValuePtr value);
 	
 	/** Get the Observers list */
 	TTListPtr		getObserver();

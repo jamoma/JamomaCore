@@ -111,6 +111,17 @@ public:
 	 @return						An error code.				*/
 	TTErr	LookingFor(TTListPtr whereToSearch, bool(testFunction)(NodePtr node, void*args), void *argument, TTListPtr *returnedNodes, NodePtr *firstReturnedNode);
 	
+	/**	Is there is one Node or more that respect a test below an address 
+	 @param	oscAddress				The OSC address from where the research begin, possibly including wildcards and instance names/numbers.
+	 @param testFunction			the test function have to take a Node as first argument, and a pointer to something as second argument (a structure for example) 
+	 it have to return a boolean (true means that the node is ok).
+	 @param argument				argument for the testFunction.
+	 @param	isThere					a pointer will be set to true if there is one node that respect the testFunction.
+	 @param	firstReturnedNode		If non-null, the address of the first Node object pointer that is found for the given pattern is returned here.
+									The value of the pointer will be set upon return.
+	 @return						An error code.				*/
+	TTErr	IsThere(TTListPtr whereToSearch, bool(testFunction)(NodePtr node, void*args), void *argument, bool *isThere, NodePtr *firstNode);
+	
 	/**	Create a new Node, at the given location in the tree.
 	 @param	oscAddress				The OSC address for which you wish to create a Node.
 									The address may (optionally) include an instance name or number in the address of the terminal Node.

@@ -320,23 +320,74 @@ TTErr Node::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created)
 	return kTTErrNone;
 }
 
-TTErr Node::setProperties(TTSymbolPtr propertie)
+TTErr Node::addPropertie(TTSymbolPtr propertie, void(*getPropertieMethod)(NodePtr node, TTSymbolPtr propertie, TTValuePtr *returnedValue), void(*setPropertieMethod)(NodePtr node, TTSymbolPtr propertie, TTValuePtr value))
 {
 	TTErr err;
-	TTValue* found = new TTValue();
+	TTValuePtr p_method;
 
 	// look into the hashtab to check if the propertie exists
-	err = this->properties->lookup(propertie,*found);
+	err = this->properties->lookup(propertie, *p_method);
 
 	// if this propertie doesn't exist
 	if(err == kTTErrValueNotFound){
-		this->properties->append(propertie,TTValue());	// TODO : add a value too
+		
+		// store the get and set propertie methods
+		p_method = new TTValue((TTPtr)getPropertieMethod);
+		p_method->append((TTPtr)setPropertieMethod);
+		
+		this->properties->append(propertie, p_method);
 		return kTTErrNone;
 	}
 	else
 		return kTTErrGeneric;
 }
 
+TTErr Node::getPropertie(TTSymbolPtr propertie, TTValuePtr *returnedValue)
+{
+	TTErr err;
+	TTValuePtr p_methods = NULL;
+	void (*g_method)(NodePtr n, TTSymbolPtr p, TTValuePtr *rv);
+	
+	// look into the hashtab to check if the propertie exists
+	err = this->properties->lookup(propertie, *p_methods);
+	
+	// if this propertie exists
+	if(err == kTTErrNone){
+		// get the set propertie method
+		// and use it
+		if(p_methods){
+			p_methods->get(0, (TTPtr*)&g_method);
+			g_method(this, propertie, returnedValue);
+		}
+		return kTTErrNone;
+	}
+	else
+		return kTTErrGeneric;
+}
+
+TTErr Node::setPropertie(TTSymbolPtr propertie, TTValuePtr value)
+{
+	TTErr err;
+	TTValuePtr p_methods = NULL;
+	void (*s_method)(NodePtr n, TTSymbolPtr p, TTValuePtr v);
+	
+	// look into the hashtab to check if the propertie exists
+	err = this->properties->lookup(propertie, *p_methods);
+	
+	// if this propertie exists
+	if(err == kTTErrNone){
+		// get the set propertie method
+		// and use it
+		if(p_methods){
+			p_methods->get(1, (TTPtr*)&s_method);
+			s_method(this, propertie, value);
+		}
+		return kTTErrNone;
+	}
+	else
+		return kTTErrGeneric;
+}
+								 
 TTErr Node::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *returnedChildren)
 {
 	unsigned int i, j;
