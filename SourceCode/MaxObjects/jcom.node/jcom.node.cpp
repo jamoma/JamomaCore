@@ -231,7 +231,6 @@ void node_dump(t_node *x)
 
 	TTListPtr returnedNodes;
 	NodePtr firstReturnedNode, n_r;
-	TTSymbolPtr adrs;
 	JamomaError err;
 	
 	// dump all parameters of the tree
@@ -244,8 +243,7 @@ void node_dump(t_node *x)
 			for(returnedNodes->begin(); returnedNodes->end(); returnedNodes->next()){
 			
 				returnedNodes->current().get(0,(TTPtr*)&n_r);
-				n_r->getOscAddress(&adrs);
-				post("parameter : %s", adrs->getCString());
+				post("parameter : %s", jamoma_node_OSC_address(n_r));
 			
 			}
 		}
@@ -265,8 +263,7 @@ void node_dump(t_node *x)
 			for(returnedNodes->begin(); returnedNodes->end(); returnedNodes->next()){
 				
 				returnedNodes->current().get(0,(TTPtr*)&n_r);
-				n_r->getOscAddress(&adrs);
-				post("message : %s", adrs->getCString());
+				post("message : %s", jamoma_node_OSC_address(n_r));
 				
 			}
 		}
@@ -286,8 +283,7 @@ void node_dump(t_node *x)
 			for(returnedNodes->begin(); returnedNodes->end(); returnedNodes->next()){
 				
 				returnedNodes->current().get(0,(TTPtr*)&n_r);
-				n_r->getOscAddress(&adrs);
-				post("return : %s", adrs->getCString());
+				post("return : %s", jamoma_node_OSC_address(n_r));
 				
 			}
 		}
@@ -353,8 +349,8 @@ long node_myobject_iterator(t_node *x, t_object *b)
 			jamoma_directory_register(gensym(temp), gensym("maxobject"), (t_object *)b, &newNode, &newInstanceCreated);
 
 			// add varname and maxclass as properties of the node
-			jamoma_node_set_properties(newNode,gensym("varname"));
-			jamoma_node_set_properties(newNode,gensym("maxclass"));
+			jamoma_node_add_propertie(newNode,gensym("varname"));
+			jamoma_node_add_propertie(newNode,gensym("maxclass"));
 
 			//if(newInstanceCreated)
 			//	object_warn((t_object *)x,"%s : this scripting name is already registered in the tree", varname->s_name);

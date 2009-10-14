@@ -423,7 +423,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 		object_method(subscriber_object, gensym("getattrnames"),&attr_nb, &attr_names);
 
 		for(i=0; i<attr_nb; i++){
-			jamoma_node_set_properties(newNode, attr_names[i]);
+			jamoma_node_add_propertie(newNode, attr_names[i]);
 		}
 	}
 

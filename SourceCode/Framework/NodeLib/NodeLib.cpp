@@ -144,6 +144,14 @@ bool testNodeType(NodePtr n, void *args)
 // Method to deal with a node
 ////////////////////////////////////
 
+t_symbol * jamoma_node_OSC_address(NodePtr node)
+{
+	TTSymbolPtr OSCaddress;
+	node->getOscAddress(&OSCaddress);
+	
+	return gensym((char*)OSCaddress->getCString());
+}
+
 t_symbol * jamoma_node_name(NodePtr node)
 {
 	return gensym((char*)node->getName()->getCString());
@@ -230,14 +238,34 @@ TTListPtr	jamoma_node_properties(NodePtr node)
 	return NULL;
 }
 
-JamomaError	jamoma_node_set_properties(NodePtr node, t_symbol *propertie)
+JamomaError	jamoma_node_add_propertie(NodePtr node, t_symbol *propertie)
 {
 	TTErr err;
 
-	err = node->setProperties(TT(propertie->s_name));
+	err = node->addPropertie(TT(propertie->s_name), &jamoma_node_get_propertie_method,  &jamoma_node_set_propertie_method);
 	
 	if(err == kTTErrNone)
 		return JAMOMA_ERR_NONE;
 	
 	return JAMOMA_ERR_GENERIC;
+}
+
+void jamoma_node_get_propertie_method(NodePtr node, TTSymbolPtr propertie, TTValuePtr *value)
+{
+	// Get the propertie of the object pointed by the node
+	
+	// For a hub :
+	
+	// For a jcom.parameter/message/return :
+	post("jamoma_node_get_propertie_method");
+}
+
+void jamoma_node_set_propertie_method(NodePtr node, TTSymbolPtr propertie, TTValuePtr value)
+{
+	// Set the propertie of the object pointed by the node
+	
+	// For a hub :
+	
+	// For a jcom.parameter/message/return :
+	post("jamoma_node_set_propertie_method");
 }
