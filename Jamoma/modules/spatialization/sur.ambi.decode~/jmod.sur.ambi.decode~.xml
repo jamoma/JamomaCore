@@ -12,8 +12,28 @@
     <item name='view/freeze' type='boolean' priority='0'>0</item>
     <item name='weights/first' type='decimal' priority='0'>1.000000</item>
     <item name='weights/omni' type='decimal' priority='0'>0.823242</item>
-    <item name='weights/preset' type='string' priority='0'>default</item>
     <item name='weights/second' type='decimal' priority='0'>0.442259</item>
     <item name='weights/third' type='decimal' priority='0'>0.079101</item>
+  </preset> 
+
+  <preset number='2' name='malham'>
+    <item name='weights/first' type='decimal' priority='0'>1.000000</item>
+    <item name='weights/omni' type='decimal' priority='0'>0.823242</item>
+    <item name='weights/second' type='decimal' priority='0'>0.442259</item>
+    <item name='weights/third' type='decimal' priority='0'>0.079101</item>
+  </preset>
+
+  <preset number='3' name='furse'>
+    <item name='weights/first' type='decimal' priority='0'>1.000000</item>
+    <item name='weights/omni' type='decimal' priority='0'>0.707017</item>
+    <item name='weights/second' type='decimal' priority='0'>1.0</item>
+    <item name='weights/third' type='decimal' priority='0'>1.0</item>
+  </preset> 
+
+  <preset number='4' name='inphase'>
+    <item name='weights/first' type='decimal' priority='0'>1.296</item>
+    <item name='weights/omni' type='decimal' priority='0'>1.944</item>
+    <item name='weights/second' type='decimal' priority='0'>0.324</item>
+    <item name='weights/third' type='decimal' priority='0'>0.0</item>
   </preset>
 </jamoma>

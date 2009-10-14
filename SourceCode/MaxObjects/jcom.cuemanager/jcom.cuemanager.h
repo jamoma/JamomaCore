@@ -149,7 +149,6 @@ void *cuemng_new(t_symbol *s, long argc, t_atom *argv);
 void cuemng_free(t_cuemng *x);
 t_max_err cuemng_notify(t_cuemng *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void cuemng_assist(t_cuemng *x, void *b, long m, long a, char *s);
-long cuemng_okclose(t_cuemng *x, char **ht, long size);
 void cuemng_edclose(t_cuemng *x, char **ht, long size);
 
 // Public methods
@@ -165,6 +164,7 @@ void cuemng_saveas(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv);
 void cuemng_save(t_cuemng *x);
 void cuemng_open(t_cuemng *x);
 void cuemng_info(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
+void cuemng_info_list(t_cuemng *x);
 void cuemng_doramp(t_cuemng *x, long r);
 void cuemng_set_ramp(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_set_name(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
@@ -176,7 +176,8 @@ void cuemng_delete(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_copy(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_recall(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_optimize(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
-void cuemng_join(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
+void cuemng_union(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
+void cuemng_exclusion(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_difference(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_modify(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 //void cuemng_shift(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
@@ -194,6 +195,7 @@ void cuemng_add_temp(t_cuemng *x,long type, t_symbol *index, long argc, t_atom *
 void cuemng_copy_cue(t_cuemng *x, t_cue *src, t_cue *dest);
 void cuemng_copy_linelist(t_line *src, t_linklist *dest);
 void cuemng_copy_line(t_line *src, t_line *dest);
+void cuemng_cut_linelist(t_line *src, t_linklist *dest);
 void cuemng_diff_linelist(t_line *l, t_linklist *comp);
 bool cuemng_diff_data(t_line *l1, t_line *l2);
 void cuemng_modify_linelist(t_line *src, t_linklist *dest);
