@@ -109,19 +109,20 @@ JamomaError jamoma_directory_get_node(t_symbol *address, TTListPtr *returnedNode
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError jamoma_directory_get_parameters(t_symbol *addressToStart, TTListPtr *returnedNodes, NodePtr *firstReturnedNode)
+JamomaError jamoma_directory_get_node_by_type(t_symbol *addressToStart, t_symbol *type, TTListPtr *returnedNodes, NodePtr *firstReturnedNode)
 {
 	TTListPtr whereToSearch;
 	
 	TTErr err;
 	
 	if(jamoma_directory){
-		err = jamoma_directory->Lookup(TT(address->s_name), &whereToSearch, firstReturnedNode);
+		
+		err = jamoma_directory->Lookup(TT(addressToStart->s_name), &whereToSearch, firstReturnedNode);
 		
 		if(err == kTTErrNone){
 			
-			err = jamoma_directory->LookingFor(whereToSearch, onlyParameter, NULL, returnedNodes, firstReturnedNode);
-		
+			err = jamoma_directory->LookingFor(whereToSearch, testNodeType, TT(type->s_name), returnedNodes, firstReturnedNode);
+			
 			if(err == kTTErrNone)
 				return JAMOMA_ERR_NONE;
 			else
@@ -131,13 +132,13 @@ JamomaError jamoma_directory_get_parameters(t_symbol *addressToStart, TTListPtr 
 			return JAMOMA_ERR_GENERIC;
 	}
 	
-	post("jamoma_directory_get_parameters %s : create a directory before", address->s_name);
+	post("jamoma_directory_get_parameters %s : create a directory before", addressToStart->s_name);
 	return JAMOMA_ERR_GENERIC;
 }
 
-bool onlyParameter(TTNodePtr n, void *args)
+bool testNodeType(NodePtr n, void *args)
 {
-	return n->type == TT(jps_subscribe_parameter->s_name);	
+	return n->getType() == (TTSymbolPtr)args;	
 }
 
 // Method to deal with a node

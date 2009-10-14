@@ -228,11 +228,76 @@ void node_dump(t_node *x)
 	// dump all the address of the tree
 	//jamoma_directory_dump();
 	
-	// dump all parameters of the tree
 
+	TTListPtr returnedNodes;
+	NodePtr firstReturnedNode, n_r;
+	TTSymbolPtr adrs;
+	JamomaError err;
 	
+	// dump all parameters of the tree
+	returnedNodes = new TTList();
+	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_parameter, &returnedNodes, &firstReturnedNode);
+	
+	if(err == JAMOMA_ERR_NONE){
+		
+		if(!returnedNodes->isEmpty()){
+			for(returnedNodes->begin(); returnedNodes->end(); returnedNodes->next()){
+			
+				returnedNodes->current().get(0,(TTPtr*)&n_r);
+				n_r->getOscAddress(&adrs);
+				post("parameter : %s", adrs->getCString());
+			
+			}
+		}
+		else
+			post("no parameter");
+	}
+	else
+		post("dump parameter error");
+	
+	// dump all messages of the tree
+	returnedNodes = new TTList();
+	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_message, &returnedNodes, &firstReturnedNode);
+	
+	if(err == JAMOMA_ERR_NONE){
+		
+		if(!returnedNodes->isEmpty()){
+			for(returnedNodes->begin(); returnedNodes->end(); returnedNodes->next()){
+				
+				returnedNodes->current().get(0,(TTPtr*)&n_r);
+				n_r->getOscAddress(&adrs);
+				post("message : %s", adrs->getCString());
+				
+			}
+		}
+		else
+			post("no message");
+	}
+	else
+		post("dump message error");
+	
+	// dump all returns of the tree
+	returnedNodes = new TTList();
+	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_return, &returnedNodes, &firstReturnedNode);
+	
+	if(err == JAMOMA_ERR_NONE){
+		
+		if(!returnedNodes->isEmpty()){
+			for(returnedNodes->begin(); returnedNodes->end(); returnedNodes->next()){
+				
+				returnedNodes->current().get(0,(TTPtr*)&n_r);
+				n_r->getOscAddress(&adrs);
+				post("return : %s", adrs->getCString());
+				
+			}
+		}
+		else
+			post("no return");
+	}
+	else
+		post("dump return error");
 
-	//for(i=0; i<attr_nb; i++){
+	//for(i=0; i<attr_b; i++){
 	//	
 	//	object_attr_getvalueof(obj, attr_names[i], &value_nb, &attr_value);
 

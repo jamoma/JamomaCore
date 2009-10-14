@@ -7,10 +7,9 @@
  */
 
 #include "TTFoundationAPI.h"
+#include "Jamoma.h"
 #include "Node.h"
 #include "NodeDirectory.h"
-#include "JamomaMaxTypes.h"
-#include "JamomaTypes.h"
 
 // statics and globals
 
@@ -45,8 +44,8 @@ extern "C" {
 	JamomaError		jamoma_directory_get_node(t_symbol *address, TTListPtr *returnedNodes, NodePtr *firstReturnedNode);
 	
 	/** Get all parameters below the given address (with wildcard too) */
-	JamomaError jamoma_directory_get_parameters(t_symbol *addressToStart, TTListPtr *returnedNodes, NodePtr *firstReturnedNode);
-	bool onlyParameter(TTNodePtr n, void *args);
+	JamomaError		jamoma_directory_get_node_by_type(t_symbol *addressToStart, t_symbol *type, TTListPtr *returnedNodes, NodePtr *firstReturnedNode);
+	bool			testNodeType(NodePtr n, void *args);
 
 	/** Return the name of a node */
 	t_symbol *		jamoma_node_name(NodePtr node);
