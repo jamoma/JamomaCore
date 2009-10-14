@@ -22,7 +22,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	jamoma_init();
 	common_symbols_init();
 
-	c = class_new("jcom.parameterArray",
+	c = class_new(ARRAY_CLASS_NAME,
 				  (method)paramarray_new,
 				  (method)paramarray_free,
 				  sizeof(t_paramarray),
@@ -333,10 +333,10 @@ void paramarray_create_array(t_paramarray* x, t_symbol *msg, long argc, t_atom* 
 				
 				if(argc && argv)
 					// use the new attributes
-					anObject = new InternalObject(x->patcher, gensym("jcom.parameter"), s_param, argc, argv);
+					anObject = new InternalObject(x->patcher, gensym(OBJECT_CLASS_NAME), s_param, argc, argv);
 				else
 					// use the native attributes
-					anObject = new InternalObject(x->patcher, gensym("jcom.parameter"), s_param, x->attr_argc, x->attr_argv);
+					anObject = new InternalObject(x->patcher, gensym(OBJECT_CLASS_NAME), s_param, x->attr_argc, x->attr_argv);
 				
 				anObject->setAction((method)paramarray_callback, (t_object*)x);
 				hashtab_store(x->hash_internals, s_param, (t_object*)anObject);

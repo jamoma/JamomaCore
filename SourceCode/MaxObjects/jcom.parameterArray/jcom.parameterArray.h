@@ -7,6 +7,22 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
+#ifndef __JCOM_PARAM_ARRAY_H__
+#define __JCOM_PARAM_ARRAY_H__
+
+#ifdef JCOM_MESSAGE_ARRAY
+#define ARRAY_CLASS_NAME "jcom.messageArray"
+#define OBJECT_CLASS_NAME "jcom.message"
+#else
+#ifdef JCOM_PARAMETER_ARRAY
+#define ARRAY_CLASS_NAME "jcom.parameterArray"
+#define OBJECT_CLASS_NAME "jcom.parameter"
+#else 
+#define ARRAY_CLASS_NAME "jcom.returnArray"
+#define OBJECT_CLASS_NAME "jcom.return"
+#endif
+#endif
+
 #include "ext.h"
 #include "ext_obex.h"
 #include "ext_user.h"
@@ -116,3 +132,4 @@ public:
 	}
 };
 
+#endif // #ifndef __JCOM_PARAM_ARRAY_H__
