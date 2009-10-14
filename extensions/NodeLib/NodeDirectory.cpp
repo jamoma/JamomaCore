@@ -62,7 +62,7 @@ TTErr NodeDirectory::getNodeForOSC(TTSymbolPtr oscAddress, NodePtr* returnedNode
 	
 	if(directory){
 		// look into the hashtab to check if the address exist in the tree
-		err = directory->lookup(oscAddress,*found);
+		err = this->directory->lookup(oscAddress,*found);
 
 		// if this address doesn't exist
 		if(err == kTTErrValueNotFound){
@@ -96,7 +96,7 @@ TTErr NodeDirectory::NodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, voi
 			// get the Node
 			mergeOSCAddress(&oscAddress_got,oscAddress_parent,oscAddress_name,oscAddress_instance,NO_PROPERTIE);
 			found = new TTValue();
-			err = directory->lookup(oscAddress_got, *found);
+			err = this->directory->lookup(oscAddress_got, *found);
 
 			// if the Node doesn't exist
 			if(err == kTTErrValueNotFound)
@@ -113,7 +113,7 @@ TTErr NodeDirectory::NodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, voi
 
 		// is there a Node with this address in the tree ?
 		found = new TTValue();
-		err = directory->lookup(oscAddress, *found);
+		err = this->directory->lookup(oscAddress, *found);
 
 		// if it's the first at this address
 		if(err == kTTErrValueNotFound){
@@ -153,7 +153,7 @@ TTErr NodeDirectory::NodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, voi
 
 		// 3. Add the effective address (with the generated instance) to the global hashtab
 		newNode->getOscAddress(&oscAddress_got);
-		directory->append(oscAddress_got,TTValue(newNode));
+		this->directory->append(oscAddress_got,TTValue(newNode));
 
 		// 4. returned the new Node
 		*returnedNode = newNode;
@@ -231,7 +231,7 @@ TTErr NodeDirectory::Lookup(TTSymbolPtr oscAddress, TTListPtr *returnedNodes, No
 
 TTErr	NodeDirectory::LookingFor(TTListPtr whereToSearch, bool(testFunction)(NodePtr node, void*args), void *argument, TTListPtr *returnedNodes, NodePtr *firstReturnedNode)
 {
-	TTListPtr lk_children, lk_selection;
+	TTListPtr lk_children;
 	NodePtr n_r, n_child;
 	TTErr err, err_look;
 	
@@ -244,7 +244,6 @@ TTErr	NodeDirectory::LookingFor(TTListPtr whereToSearch, bool(testFunction)(Node
 			// get all children of the node
 			whereToSearch->current().get(0, (TTPtr*)&n_r);
 			err = n_r->getChildren(S_WILDCARD, S_WILDCARD, &lk_children);
-			lk_selection = new TTList();
 			
 			// if there are children
 			if(err == kTTErrNone){
@@ -254,30 +253,23 @@ TTErr	NodeDirectory::LookingFor(TTListPtr whereToSearch, bool(testFunction)(Node
 					
 					lk_children->current().get(0, (TTPtr*)&n_child);
 					
-					// test the child
+					// test the child and fill the returnedNodes
 					if(testFunction(n_child, argument))
-						lk_selection->append(new TTValue((TTPtr)n_child));
+						(*returnedNodes)->append(new TTValue((TTPtr)n_child));
 				}
 				
 				// continu the research from all children
 				err_look = LookingFor(lk_children, testFunction, argument, returnedNodes, firstReturnedNode);
 				
-				if(err_look == kTTErrNone){
-					// then fill the returnedNodes with the selection
-					(*returnedNodes)->merge(*lk_selection);
-					(*returnedNodes)->begin();
-					(*returnedNodes)->current().get(0, (TTPtr*)firstReturnedNode);
-				}
-				return err_look;
+				(*returnedNodes)->begin();
+				(*returnedNodes)->current().get(0, (TTPtr*)firstReturnedNode);
+
+				if(err_look != kTTErrNone)
+					return err_look;
 			}
-			
-			//else, stop the recursive research
-			(*returnedNodes) = new TTList();
-			(*firstReturnedNode) = NULL;
-			return kTTErrNone;
 		}
+		return kTTErrNone;
 	}
-	
 	return kTTErrGeneric;
 }
 

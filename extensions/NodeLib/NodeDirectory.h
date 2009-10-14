@@ -57,7 +57,7 @@ class TTFOUNDATION_EXPORT NodeDirectory : public TTObject			///< we will subclas
 protected:
 
 	TTSymbolPtr		name;					///< the name of the tree
-	NodePtr		root;					///< the root of the tree
+	NodePtr			root;					///< the root of the tree
 
 	TTHashPtr		directory;				///< a pointer to a global hashtab which reference all osc address of the tree
 	
@@ -102,10 +102,10 @@ public:
 	
 	/**	Find Nodes by testing each Nodes below an address 
 	 @param	oscAddress				The OSC address from where the research begin, possibly including wildcards and instance names/numbers.
-	 @param	returnedNodes			If non-null, a pointer will be set to the linked-list of Nodes at the given OSC address pattern.
 	 @param testFunction			the test function have to take a Node as first argument, and a pointer to something as second argument (a structure for example) 
 									it have to return a boolean (true means that the node is ok).
 	 @param argument				argument for the testFunction
+	 @param	returnedNodes			If non-null, a pointer will be set to the linked-list of Nodes at the given OSC address pattern.
 	 @param	firstReturnedNode		If non-null, the address of the first Node object pointer that is found for the given pattern is returned here.
 									The value of the pointer will be set upon return.
 	 @return						An error code.				*/
