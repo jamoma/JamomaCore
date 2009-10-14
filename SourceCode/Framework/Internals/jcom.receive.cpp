@@ -147,7 +147,8 @@ void receive_bind(t_receive *x)
 		
 		// look for the node(s) into the directory
 		if(x->attr_name->s_name[0] == C_SEPARATOR){
-			err = jamoma_directory->Lookup(TT(x->attr_name->s_name), &x->lk_nodes, &p_node);
+			if(jamoma_directory)
+				err = jamoma_directory->Lookup(TT(x->attr_name->s_name), &x->lk_nodes, &p_node);
 		
 			if(err != kTTErrNone){
 				x->lk_nodes = NULL;

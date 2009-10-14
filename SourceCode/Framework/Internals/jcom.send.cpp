@@ -127,21 +127,28 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 	TTListPtr selection;
 	t_object *obj;
 	t_symbol *type;
-	TTErr err = kTTErrGeneric;
+	JamomaError err = JAMOMA_ERR_GENERIC;
 	
 	// Is it still necessary to do that ?
-	//object_method(g_receivemaster_object, jps_dispatch, x->attr_name, msg, argc, argv);
+	object_method(g_receivemaster_object, jps_dispatch, x->attr_name, msg, argc, argv);
 	
+	// here is the initialization of the lk_nodes 
+	// (to be sure that the jamoma directory is built)
 	if(!x->lk_nodes){
 		// look for the node(s) into the directory
 		if(x->attr_name->s_name[0] == C_SEPARATOR){
-			err = jamoma_directory->Lookup(TT(x->attr_name->s_name), &(x->lk_nodes), &p_node);
+			if(jamoma_directory)
+				err = jamoma_directory_get_node(x->attr_name, &(x->lk_nodes), &p_node);
 		
-			if(err != kTTErrNone)
-				object_error((t_object*)x,"jcom.send : %s doesn't exist", x->attr_name->s_name);
+			if(err != JAMOMA_ERR_NONE){
+				x->lk_nodes = new TTList();
+				object_error((t_object*)x,"%s doesn't exist", x->attr_name->s_name);
+			}
 		}
+		else
+			x->lk_nodes = new TTList();
 	}
-	
+		
 	// default destination
 	selection = x->lk_nodes;
 	
@@ -150,45 +157,48 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 	if(msg->s_name[0] == C_SEPARATOR){
 		if(msg != x->attr_name){
 			// look for the node(s) into the directory
-			err = jamoma_directory->Lookup(TT(msg->s_name), &selection, &p_node);
-		//	err = jamoma_directory_get_node(TT(msg->s_name), &selection, &p_node);
+			err = jamoma_directory_get_node(msg, &selection, &p_node);
 	
-			if(err != kTTErrNone){
-				selection = NULL;
-				object_error((t_object*)x,"jcom.send : %s doesn't exist", x->attr_name->s_name);
+			if(err != JAMOMA_ERR_NONE){
+				selection = new TTList();
+				object_error((t_object*)x,"%s doesn't exist", msg->s_name);
 			}
 		}
 	}
-	
-	// send data to the selection of nodes
-	// TODO : Maybe there are some problems to send data list beginning with a symbol
-	// when we want to send data to the destination in argument ...
-	if(selection){
-		for(selection->begin(); selection->end(); selection->next()){
-			
-			selection->current().get(0,(TTPtr*)&p_node);
-			
-			obj = jamoma_node_max_object(p_node);
-			type = jamoma_node_type(p_node);
-			
-			// if the node have an object
-			if(obj){
+		
+	// If there is a destination list
+	if(!selection->isEmpty()){
+		
+		// send data to the selection of nodes
+		// TODO : Maybe there are some problems to send data list beginning with a symbol
+		// when we want to send data to the destination in argument ...
+		if(selection){
+			for(selection->begin(); selection->end(); selection->next()){
 				
-				// to send to a maxobject
-				if(type == gensym("maxobject")){
+				selection->current().get(0,(TTPtr*)&p_node);
+				
+				obj = jamoma_node_max_object(p_node);
+				type = jamoma_node_type(p_node);
+				
+				// if the node have an object
+				if(obj){
 					
-					if(atom_gettype(&argv[0]) == A_SYM)
-						if(object_getmethod(obj, atom_getsym(&argv[0])))
-							object_method_typed((t_object*)obj, atom_getsym(&argv[0]), argc-1, argv+1,NULL);
-						else
-							object_method_typed((t_object*)obj, NULL, argc, argv, NULL);
+					// to send to a maxobject
+					if(type == gensym("maxobject")){
+						
+						if(atom_gettype(&argv[0]) == A_SYM)
+							if(object_getmethod(obj, atom_getsym(&argv[0])))
+								object_method_typed((t_object*)obj, atom_getsym(&argv[0]), argc-1, argv+1,NULL);
+							else
+								object_method_typed((t_object*)obj, NULL, argc, argv, NULL);
+					}
+					// to send to a jcom.parameter
+					else
+						object_method_typed((t_object*)obj, jps_dispatched, argc, argv, NULL);
 				}
-				// to send to a jcom.parameter
 				else
-					object_method_typed((t_object*)obj, jps_dispatched, argc, argv, NULL);
+					object_error((t_object*)x,"%s have no object", jamoma_node_OSC_address(p_node)->s_name);
 			}
-			else
-				object_error((t_object*)x,"send : %s have no object", jamoma_node_name(p_node)->s_name);
 		}
 	}
 }
