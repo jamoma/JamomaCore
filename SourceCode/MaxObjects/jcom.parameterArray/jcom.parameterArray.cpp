@@ -214,7 +214,7 @@ void paramarray_list(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv)
 	else{
 		err = hashtab_lookup(x->hash_internals, x->attr_selection, (t_object**)&anObject);
 		if(!err)
-			object_method_typed(anObject->theObject, jps_dispatched, argc, argv, NULL);
+			object_method_typed(anObject->theObject, _sym_list, argc, argv, NULL); // or jps_dispatched ?
 	}
 }
 
@@ -232,17 +232,27 @@ void paramarray_anything(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv
 		err = hashtab_lookup(x->hash_internals, x->attr_selection, (t_object**)&anObject);
 		if(!err){
 			if(msg == _sym_nothing)
-				object_method_typed(anObject->theObject, jps_dispatched, argc, argv, NULL);
+				object_method_typed(anObject->theObject, _sym_list, argc, argv, NULL);  // or jps_dispatched ?
 			else{
+				
 				// prepend msg to argv
 				margv = (t_atom *)malloc((long)sizeof(t_atom)*(argc+1));
 				atom_setsym(margv,msg);
 				for(i = 1; i < argc+1; i++)
 					jcom_core_atom_copy(&margv[i],&argv[i-1]);
 				
+#ifdef JCOM_PARAMETER_ARRAY || JCOM_MESSAGE_ARRAY
+				
 				object_method_typed(anObject->theObject, jps_dispatched, argc+1, margv, NULL);
 				
+#else // JCOM_RETURN_ARRAY
+				
+				object_method_typed(anObject->theObject, _sym_list, argc+1, margv, NULL);
+				
+#endif
+				
 				free(margv);
+				
 			}
 		}
 	}
@@ -408,8 +418,8 @@ void paramarray_callback(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv
 	t_max_err		err;
 	
 	// TODO : a way to select wich paramaters we want to output (via a 'solo' and 'mute' message)
-	// currently we output only the parameter selected with in1.
-	if(msg == x->attr_selection){
+	// currently we output all parameters
+	//if(msg == x->attr_selection){
 	
 		// A parameter sends his name using the symbol msg so we can retrieve it into the hashtab
 		// and know which parameter is using the callback
@@ -420,15 +430,14 @@ void paramarray_callback(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv
 			if(anObject->index != x->last_instance){
 				outlet_int(x->info_outlet, anObject->index);
 				x->last_instance = anObject->index;
+			}
 				
 			// output the data
 			outlet_anything(x->ui_outlet, _sym_set, argc, argv);
 			outlet_atoms(x->val_outlet, argc, argv);
 			
-
-			}
 		}
-	}
+	//}
 }
 
 long paramarray_count_subscription(t_paramarray *x)
