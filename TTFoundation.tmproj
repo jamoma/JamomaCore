@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>library/includes/TTElement.h</string>
+	<string>library/includes/TTValue.h</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -32,6 +32,8 @@
 				<dict>
 					<key>filename</key>
 					<string>library/source/TTFoundation.cpp</string>
+					<key>lastUsed</key>
+					<date>2009-10-15T16:14:49Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -53,9 +55,7 @@
 					<key>filename</key>
 					<string>library/includes/TTElement.h</string>
 					<key>lastUsed</key>
-					<date>2009-10-12T14:44:32Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2009-10-12T17:08:28Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -75,19 +75,25 @@
 					<key>filename</key>
 					<string>library/includes/TTHash.h</string>
 					<key>lastUsed</key>
-					<date>2009-10-12T02:28:54Z</date>
+					<date>2009-10-12T17:24:22Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>library/source/TTHash.cpp</string>
+					<key>lastUsed</key>
+					<date>2009-10-12T17:24:25Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>library/includes/TTList.h</string>
+					<key>lastUsed</key>
+					<date>2009-10-12T17:17:43Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>library/source/TTList.cpp</string>
+					<key>lastUsed</key>
+					<date>2009-10-12T17:23:38Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -136,14 +142,20 @@
 				<dict>
 					<key>filename</key>
 					<string>library/source/TTSymbolCache.cpp</string>
+					<key>lastUsed</key>
+					<date>2009-10-12T17:12:41Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>library/includes/TTSymbolTable.h</string>
+					<key>lastUsed</key>
+					<date>2009-10-13T22:37:23Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>library/source/TTSymbolTable.cpp</string>
+					<key>lastUsed</key>
+					<date>2009-10-12T17:16:33Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -156,6 +168,10 @@
 				<dict>
 					<key>filename</key>
 					<string>library/includes/TTValue.h</string>
+					<key>lastUsed</key>
+					<date>2009-10-15T16:14:49Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -216,6 +232,78 @@
 			<key>firstVisibleLine</key>
 			<integer>305</integer>
 		</dict>
+		<key>library/includes/TTHash.h</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>18</integer>
+				<key>line</key>
+				<integer>24</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>13</integer>
+				<key>line</key>
+				<integer>24</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>26</integer>
+				<key>line</key>
+				<integer>24</integer>
+			</dict>
+		</dict>
+		<key>library/includes/TTList.h</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>113</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>71</integer>
+		</dict>
+		<key>library/includes/TTSymbolTable.h</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>32</integer>
+				<key>line</key>
+				<integer>98</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>28</integer>
+		</dict>
+		<key>library/includes/TTValue.h</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>library/source/TTElement.cpp</key>
 		<dict>
 			<key>caret</key>
@@ -230,12 +318,91 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>library/source/TTFoundation.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>74</integer>
+		</dict>
+		<key>library/source/TTHash.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>library/source/TTList.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>37</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>145</integer>
+		</dict>
+		<key>library/source/TTSymbolCache.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>library/source/TTSymbolTable.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>78</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>21</integer>
+		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>library/includes/TTAttribute.h</string>
 		<string>library/source/TTElement.cpp</string>
 		<string>library/includes/TTElement.h</string>
+		<string>library/includes/TTList.h</string>
+		<string>library/source/TTSymbolTable.cpp</string>
+		<string>library/source/TTSymbolCache.cpp</string>
+		<string>library/includes/TTSymbolTable.h</string>
+		<string>library/source/TTFoundation.cpp</string>
+		<string>library/includes/TTValue.h</string>
+		<string>library/source/TTList.cpp</string>
+		<string>library/source/TTHash.cpp</string>
+		<string>library/includes/TTHash.h</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
