@@ -79,16 +79,16 @@ extern "C" {
 	/** Add a propertie to a node as a key in the hashtab (without value) */
 	JamomaError		jamoma_node_add_propertie(NodePtr node, t_symbol *propertie);
 	
-	/** Get the value of a propertie of a node */
+	/** TODO: Get the value of a propertie of a node */
 	JamomaError		jamoma_node_get_propertie(NodePtr node, t_symbol *propertie, long *argc, t_atom **argv);
 	
-	/** This method is called by the Node to get the propertie of the object (depending on the type of the object and the propertie) */
+	/** TODO : This method is called by the Node to get the propertie of the object (depending on the type of the object and the propertie) */
 	void			jamoma_node_get_propertie_method(NodePtr node, TTSymbolPtr propertie, TTValuePtr *value);
 	
-	/** Set the value of a propertie of a node */
+	/** TODO : Set the value of a propertie of a node */
 	JamomaError		jamoma_node_set_propertie(NodePtr node, t_symbol *propertie, long argc, t_atom *argv);
 	
-	/** This method is called by the Node to set the propertie of the object (depending on the type of the object and the propertie) */
+	/** TODO : This method is called by the Node to set the propertie of the object (depending on the type of the object and the propertie) */
 	void			jamoma_node_set_propertie_method(NodePtr node, TTSymbolPtr propertie, TTValuePtr value);
 
 #ifdef __cplusplus

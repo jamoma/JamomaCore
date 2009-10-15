@@ -212,30 +212,7 @@ t_object * jamoma_node_max_object(NodePtr node)
 
 TTListPtr	jamoma_node_properties(NodePtr node)
 {
-	uint i;
-	TTValue *hk;
-	TTSymbolPtr key;
-	TTValue *c;
-	TTListPtr lk_properties;
-
-	// if there are properties
-	if(node->getProperties()->getSize()){
-
-		hk = new TTValue();
-		c = new TTValue();
-		node->getProperties()->getKeys(*hk);
-		lk_properties = new TTList();
-		
-		// for each propertie
-		for(i=0; i<node->getProperties()->getSize(); i++){
-			hk->get(i,(TTSymbol**)&key);
-			// add the propertie to the linklist
-			lk_properties->append(new TTValue((TTSymbolPtr)key));
-		}
-
-		return lk_properties;
-	}
-	return NULL;
+	return node->getPropertiesList();
 }
 
 JamomaError	jamoma_node_add_propertie(NodePtr node, t_symbol *propertie)
@@ -250,14 +227,50 @@ JamomaError	jamoma_node_add_propertie(NodePtr node, t_symbol *propertie)
 	return JAMOMA_ERR_GENERIC;
 }
 
+JamomaError	jamoma_node_get_propertie(NodePtr node, t_symbol *propertie, long *argc, t_atom **argv)
+{
+	TTValuePtr returnedValue = NULL;
+	TTErr err;
+	t_atom *a;
+	long i;
+	
+	// get the value propertie
+	err = node->getPropertie(TT(propertie->s_name), &returnedValue);
+	
+	if(err == kTTErrNone){
+		// convert it to use in Max
+		if(returnedValue){
+			
+			(*argc) = returnedValue->getSize();
+			(*argv) = (t_atom*)malloc(sizeof(t_atom)*(*argc));
+			
+			for(i = 0; i < (*argc); i++){
+				returnedValue->get(i, (TTPtr*)&a);
+				jcom_core_atom_copy((*argv)+i, a);
+			}
+		}
+		return JAMOMA_ERR_NONE;
+	}
+	
+	return JAMOMA_ERR_GENERIC;
+}
+
 void jamoma_node_get_propertie_method(NodePtr node, TTSymbolPtr propertie, TTValuePtr *value)
 {
+	(*value) = NULL;
 	// Get the propertie of the object pointed by the node
 	
 	// For a hub :
 	
 	// For a jcom.parameter/message/return :
 	post("jamoma_node_get_propertie_method");
+}
+
+JamomaError	jamoma_node_set_propertie(NodePtr node, long argc, t_atom *argv)
+{
+	
+	
+	return JAMOMA_ERR_NONE;
 }
 
 void jamoma_node_set_propertie_method(NodePtr node, TTSymbolPtr propertie, TTValuePtr value)

@@ -41,6 +41,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	// this method dump all the address of the tree in the max window
 	class_addmethod(c, (method)node_dump,			"dump",			0);
+	
+	// this method is used to test jamoma_node_get_propertie
+	class_addmethod(c, (method)node_get,			"get",			A_GIMME, 0);
 
 	// send something to a param object registered in the tree
 	class_addmethod(c, (method)node_anything,		"anything",		A_GIMME, 0);

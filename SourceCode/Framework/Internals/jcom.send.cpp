@@ -183,6 +183,18 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 				// if the node have an object
 				if(obj){
 					
+					// to send to a jcom.parameter or jcom.message (don't send data to jcom.return)
+					if((type == jps_subscribe_parameter) || (type == jps_subscribe_message)){
+						object_method_typed((t_object*)obj, jps_dispatched, argc, argv, NULL);
+						continue;
+					}
+					
+					// to send to a jcom.hub
+					if(type == gensym("hub")){
+						object_method_typed((t_object*)obj, _sym_anything, argc, argv, NULL);
+						continue;
+					}
+					
 					// to send to a maxobject
 					if(type == gensym("maxobject")){
 						
@@ -191,10 +203,10 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 								object_method_typed((t_object*)obj, atom_getsym(&argv[0]), argc-1, argv+1,NULL);
 							else
 								object_method_typed((t_object*)obj, NULL, argc, argv, NULL);
+						
+						continue;
 					}
-					// to send to a jcom.parameter
-					else
-						object_method_typed((t_object*)obj, jps_dispatched, argc, argv, NULL);
+
 				}
 				else
 					object_error((t_object*)x,"%s have no object", jamoma_node_OSC_address(p_node)->s_name);
