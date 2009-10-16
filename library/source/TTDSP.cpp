@@ -60,22 +60,7 @@ void TTDSPShutdown()
 
 // Core
 #include "TTAudioSignal.h"
-
-// Analysis
-#include "TTZerocross.h"
-
-// Generators
-#include "TTAdsr.h"
-#include "TTNoise.h"
-#include "TTPhasor.h"
-#include "TTRamp.h"
-#include "TTWavetable.h"
-
-// Misc
 #include "TTBuffer.h"
-#include "TTCrossfade.h"
-#include "TTOperator.h"
-#include "TTMatrixMixer.h"
 
 
 void TTDSPRegisterInternalClasses()
@@ -83,21 +68,6 @@ void TTDSPRegisterInternalClasses()
 	TTAudioSignal::registerClass();
 	TTAudioSignalArray::registerClass();
 	TTBuffer::registerClass();
-	
-	// Analysis
-	TTZerocross::registerClass();
-		
-	// Generators
-	TTAdsr::registerClass();
-	TTNoise::registerClass();
-	TTPhasor::registerClass();
-	TTRamp::registerClass();
-	TTWavetable::registerClass();
-		
-	// Misc
-	TTCrossfade::registerClass();
-	TTOperator::registerClass();
-	TTMatrixMixer::registerClass();
 }
 
 
