@@ -202,6 +202,8 @@ TTErr TTEnvironment::releaseInstance(TTObjectPtr* anObject)
 {
 	TTValue v = **anObject;
 	
+	TT_ASSERT("can only release a valid instance", *anObject && (*anObject)->valid == 1 && (*anObject)->referenceCount);
+	
 	(*anObject)->valid = false;
 	(*anObject)->observers->iterateObjectsSendingMessage(TT("objectFreeing"), v);
 	
