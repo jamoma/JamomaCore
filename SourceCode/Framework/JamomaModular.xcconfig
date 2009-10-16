@@ -22,7 +22,7 @@ DSTROOT = /Library/Frameworks
 INSTALL_PATH = /
 
 
-// Special Files  
+// Special Files
 INFOPLIST_FILE = $(SRCROOT)/Info.plist
 
 HEADER_SEARCH_PATHS = $(inherited) "$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/**" "$(SRCROOT)/../../../Foundation/library/includes" "$(SRCROOT)/../../../DSP/library/includes" "$(SRCROOT)/../../../Multicore/library/includes"
