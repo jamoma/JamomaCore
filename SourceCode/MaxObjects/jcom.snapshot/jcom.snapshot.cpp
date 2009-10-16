@@ -311,7 +311,10 @@ void TTModSnapshotRecall(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Ato
             return;
         }
         snapshot = (*self->snapshots)[snapshotIndex];
-        for_each((*snapshot).begin(), (*snapshot).end(), TTModSnapshotRecallOne);
+		if (snapshot)
+        	for_each((*snapshot).begin(), (*snapshot).end(), TTModSnapshotRecallOne);
+		else
+			object_error(SELF, "invalid preset recall requested");
     }
 
     // interpolate between any two
