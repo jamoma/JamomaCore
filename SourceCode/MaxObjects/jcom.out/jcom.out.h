@@ -45,5 +45,6 @@ void out_register_meter(t_out *x, int meternum, void *meter_object);
 void out_remove_meters(t_out *x);
 void out_register_preview(t_out *x, void *preview_object);
 void update_meters(t_out *x);
+void out_meters_qfn(t_out *self);
 
 #endif //__JCOM_OUT_H_

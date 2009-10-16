@@ -123,6 +123,7 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 
 		x->clock = clock_new(x, (method)update_meters);
 		x->clock_is_set = 0;
+		x->qelem = qelem_new(x, (method)out_meters_qfn);
 		TTObjectInstantiate(kTTSym_audiosignal, &x->audioIn, x->numOutputs);
 		TTObjectInstantiate(kTTSym_audiosignal, &x->audioOut, x->numOutputs);
 		TTObjectInstantiate(kTTSym_audiosignal, &x->audioTemp, x->numOutputs);
@@ -185,6 +186,7 @@ void out_free(t_out *x)
 	TTObjectRelease(&x->ramp_xfade);
 #endif
 	jcom_core_subscriber_common_free(&x->common);
+	qelem_free(x->qelem);
 }
 
 
@@ -353,22 +355,26 @@ void out_anything(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 
 #ifdef JCOM_OUT_TILDE
 
-void update_meters(t_out *x)
+void out_meters_qfn(t_out *self)
 {
-	short	i;
-	t_atom	a[2];
-	
-	x->clock_is_set = 0;
-	for(i=0; i < x->num_meter_objects; i++){
-		if(x->meter_object[i] && x->peakamp[i] != x->lastPeakamp[i]){
+	for (int i=0; i < self->num_meter_objects; i++) {
+		if (self->meter_object[i] && self->peakamp[i] != self->lastPeakamp[i]) {
+			t_atom	a[2];
+			
 			atom_setsym(&a[0], _sym_float);
-			atom_setfloat(&a[1], x->peakamp[i]);
-			object_method_typed(x->meter_object[i], jps_dispatched, 2, a, NULL);
-			x->lastPeakamp[i] = x->peakamp[i];
-			x->peakamp[i] = 0;
+			atom_setfloat(&a[1], self->peakamp[i]);
+			object_method_typed(self->meter_object[i], jps_dispatched, 2, a, NULL);
+			self->lastPeakamp[i] = self->peakamp[i];
+			self->peakamp[i] = 0;
 		}
 	}
-	clock_delay(x->clock, kPollIntervalDefault); 			// restart the clock
+	self->lastMeterUpdateTime = self->currentMeterUpdateTime;
+	self->clock_is_set = 0;
+}
+
+void update_meters(t_out *x)
+{
+	qelem_set(x->qelem);
 }
 
 
@@ -422,17 +428,16 @@ t_int *out_perform(t_int *w)
 					peakvalue = currentvalue;
 				envelope++; 										// increment pointer in the vector
 			}
-//			if(peakvalue != x->peakamp[i]){					// filter out repetitions
-			if(peakvalue > x->peakamp[i])
+			if (peakvalue > x->peakamp[i])
 				x->peakamp[i] = peakvalue;
-//				if(x->clock_is_set == 0){
-//					clock_delay(x->clock, POLL_INTERVAL); 		// start the clock
-//					x->clock_is_set = 1;
-//				}
-//			}
 		}		
 	}
 
+	// update the meters if needed
+	if (!x->clock_is_set && x->currentMeterUpdateTime > (x->lastMeterUpdateTime + x->meterUpdateInterval))
+		clock_delay(x->clock, 0);
+	x->currentMeterUpdateTime += x->vectorSize;
+	
 	return w + ((x->numChannels*2)+2);
 }
 
@@ -498,7 +503,11 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 	if(x->num_meter_objects){
 		for(i=0; i<MAX_NUM_CHANNELS; i++)
 			x->peakamp[i] = 0;
-		clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
+		//clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
+		x->lastMeterUpdateTime = 0.0;
+		x->currentMeterUpdateTime = 0.0;
+		//x->meterUpdateInterval = (1.0 / sr) * 1000.0 * vs;			// in ms
+		x->meterUpdateInterval = kPollIntervalDefault * (sr/1000.0);	// in samples
 	}
 }
 
