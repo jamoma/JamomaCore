@@ -131,7 +131,7 @@ TTSymbolPtr		Node::getInstance(){return this->instance;}
 TTSymbolPtr		Node::getType(){return this->type;}
 void*			Node::getObject(){return this->object;}
 NodePtr		Node::getParent(){return this->parent;}
-TTHashPtr		Node::getProperties(){return this->properties;}
+
 TTListPtr		Node::getObserver(){return this->observers;}
 
 TTErr Node::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
@@ -340,6 +340,45 @@ TTErr Node::addPropertie(TTSymbolPtr propertie, void(*getPropertieMethod)(NodePt
 	}
 	else
 		return kTTErrGeneric;
+}
+
+TTListPtr Node::getPropertiesList()
+{
+	uint i;
+	TTValue *hk;
+	TTSymbolPtr key;
+	TTValue *c;
+	TTListPtr lk_prp;
+	
+	// if there are properties
+	if(!this->properties->isEmpty()){
+		
+		hk = new TTValue();
+		c = new TTValue();
+		this->properties->getKeys(*hk);
+		lk_prp = new TTList();
+		
+		// for each propertie
+		for(i = 0; i < this->properties->getSize(); i++){
+			hk->get(i,(TTSymbol**)&key);
+			// add the propertie to the linklist
+			lk_prp->append(new TTValue((TTSymbolPtr)key));
+		}
+		
+		return lk_prp;
+	}
+	return NULL;
+}
+
+bool Node::isPropertie(TTSymbolPtr propertie)
+{
+	TTErr err;
+	TTValuePtr p_methods = NULL;
+	
+	// look into the hashtab to check if the propertie exists
+	err = this->properties->lookup(propertie, *p_methods);
+	
+	return err == kTTErrNone;
 }
 
 TTErr Node::getPropertie(TTSymbolPtr propertie, TTValuePtr *returnedValue)

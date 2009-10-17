@@ -78,7 +78,9 @@ protected:
 
 	TTSymbolPtr			type;					///< a type symbol to organized the Node of the directory
 	void				*object;				///< an object linked to the Node (or even NULL for containters)
-	TTHashPtr			properties;				///< a hashtab of properties of the Node (no data stored yet, just properties as keys)
+	TTHashPtr			properties;				///< a hashtab of properties of the Node (no data stored, just properties as keys)
+												// TODO : use the TTObject class fonctionnality besause Node is also a TTObject
+												// and maybe properties could be a sub tree himself (NodeDirectoryPtr) ... ?
 	
 	NodePtr				parent;					///< pointer to the parent Node in the directory
 	TTHashPtr			children;				///< a hashtab of hashtabs:
@@ -143,36 +145,47 @@ public:
 		@return					a kTTErrGeneric if the instance of the given child already exist.
 		*/
 	TTErr			setChild(NodePtr child);
-
-	/** Get the hashtab of all the properties of the Node */
-	TTHashPtr		getProperties();
 	
 	/** Add a propertie to the Node.
+		TODO : use the TTObject class fonctionnality besause Node is also a TTObject
 		@param propertie			a TTSymbolPtr to store as a key in the hashtable.
 		@param getPropertieMethod	a pointer to a specific method to get the propertie value.
 		@param setPropertieMethod	a pointer to a specific method to set the propertie value.
 		@return						a kTTErrGeneric if the propertie already exists.	*/
 	TTErr			addPropertie(TTSymbolPtr propertie, void(*getPropertieMethod)(NodePtr node, TTSymbolPtr propertie, TTValuePtr *returnedValue), void(*setPropertieMethod)(NodePtr node, TTSymbolPtr propertie, TTValuePtr value));
 
+	/** Get the list of all the properties of the Node 
+		TODO : use the TTObject class fonctionnality besause Node is also a TTObject */
+	TTListPtr		getPropertiesList();
+	
+	/** Is it a propertie of the Node ?
+		TODO : use the TTObject class fonctionnality besause Node is also a TTObject */
+	bool			isPropertie(TTSymbolPtr propertie);
+	
 	/** Get a propertie value of a Node (using a specific method to get the propertie : see addPropertie).
+		TODO : use the TTObject class fonctionnality besause Node is also a TTObject
 	 @param propertie		a TTSymbolPtr to store as a key in the hashtable.
 	 @param returnedValue	a pointer to get the value.
 	 @return				a kTTErrGeneric if the propertie already exists.	*/
 	TTErr			getPropertie(TTSymbolPtr propertie, TTValuePtr *returnedValue);
 	
 	/** Set a propertie value of a Node (using a specific method to set the propertie : see addPropertie).
+		TODO : use the TTObject class fonctionnality besause Node is also a TTObject
 	 @param propertie		a TTSymbolPtr to store as a key in the hashtable.
 	 @param value			a pointer on the value to set.
 	 @return				a kTTErrGeneric if the propertie already exists.	*/
 	TTErr			setPropertie(TTSymbolPtr propertie, TTValuePtr value);
 	
-	/** Get the Observers list */
+	/** Get the Observers list 
+		TODO : use the TTObject class fonctionnality besause Node is also a TTObject */
 	TTListPtr		getObserver();
 	
-	/** Add an Observer to the TTnode */
+	/** Add an Observer to the TTnode 
+		TODO : use the TTObject class fonctionnality besause Node is also a TTObject */
 	void			addObserver(ObserverPtr observer);
 	
-	/** Remove an Observer to the TTnode */
+	/** Remove an Observer to the TTnode 
+		TODO : use the TTObject class fonctionnality besause Node is also a TTObject */
 	void			removeObserver(ObserverPtr observer);
 
 	/** Get the OSC address of the Node 

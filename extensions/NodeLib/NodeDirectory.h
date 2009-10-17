@@ -75,22 +75,22 @@ public:
 	TTSymbolPtr		getName();
 	
 	/** Get the root of the NodeDirectory */
-	NodePtr getRoot();
+	NodePtr			getRoot();
 	
 	/** Get the directory of the NodeDirectory */
-	TTHashPtr getDirectory();
+	TTHashPtr		getDirectory();
 
 	/** Set the name of the NodeDirectory. 
 		@param	newName				The name to set */
-	TTErr	setName(TTSymbolPtr name);
+	TTErr			setName(TTSymbolPtr name);
 	
 	/**	Given a string with an OSC address, return a pointer to a Node.
 	 @param	oscAddress				The Open Sound Control string for which to find the Node.
 	 @param	returnedNode			The .
 	 @return						An error code.		*/
-	TTErr	getNodeForOSC(const char* oscAddress, NodePtr *returnedNode);
+	TTErr			getNodeForOSC(const char* oscAddress, NodePtr *returnedNode);
 	
-	TTErr	getNodeForOSC(TTSymbolPtr oscAddress, NodePtr *returnedNode);
+	TTErr			getNodeForOSC(TTSymbolPtr oscAddress, NodePtr *returnedNode);
 	
 	/**	Find Nodes by address
 	 @param	oscAddress				The OSC address you wish to find, possibly including wildcards and instance names/numbers.
@@ -98,7 +98,7 @@ public:
 	 @param	firstReturnedNode		If non-null, the address of the first Node object pointer that is found for the given pattern is returned here.  
 									The value of the pointer will be set upon return.
 	 @return						An error code.				*/
-	TTErr	Lookup(TTSymbolPtr oscAddress, TTListPtr *returnedNodes, NodePtr *firstReturnedNode);
+	TTErr			Lookup(TTSymbolPtr oscAddress, TTListPtr *returnedNodes, NodePtr *firstReturnedNode);
 	
 	/**	Find Nodes by testing each Nodes below an address 
 	 @param	oscAddress				The OSC address from where the research begin, possibly including wildcards and instance names/numbers.
@@ -109,7 +109,7 @@ public:
 	 @param	firstReturnedNode		If non-null, the address of the first Node object pointer that is found for the given pattern is returned here.
 									The value of the pointer will be set upon return.
 	 @return						An error code.				*/
-	TTErr	LookingFor(TTListPtr whereToSearch, bool(testFunction)(NodePtr node, void*args), void *argument, TTListPtr *returnedNodes, NodePtr *firstReturnedNode);
+	TTErr			LookingFor(TTListPtr whereToSearch, bool(testFunction)(NodePtr node, void*args), void *argument, TTListPtr *returnedNodes, NodePtr *firstReturnedNode);
 	
 	/**	Is there is one Node or more that respect a test below an address 
 	 @param	oscAddress				The OSC address from where the research begin, possibly including wildcards and instance names/numbers.
@@ -120,7 +120,7 @@ public:
 	 @param	firstReturnedNode		If non-null, the address of the first Node object pointer that is found for the given pattern is returned here.
 									The value of the pointer will be set upon return.
 	 @return						An error code.				*/
-	TTErr	IsThere(TTListPtr whereToSearch, bool(testFunction)(NodePtr node, void*args), void *argument, bool *isThere, NodePtr *firstNode);
+	TTErr			IsThere(TTListPtr whereToSearch, bool(testFunction)(NodePtr node, void*args), void *argument, bool *isThere, NodePtr *firstNode);
 	
 	/**	Create a new Node, at the given location in the tree.
 	 @param	oscAddress				The OSC address for which you wish to create a Node.
@@ -140,14 +140,14 @@ public:
 	 @param	nodeCreated				A boolean : true if a Node have been created, else false
 	 
 	 @return						An error code.				*/
-	TTErr NodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, NodePtr *returnedNode, TTBoolean *nodeCreated);
+	TTErr			NodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, NodePtr *returnedNode, TTBoolean *nodeCreated);
 	
 	/**	Remove a Nodefrom the directory.
 	 @param	oscAddress				The OSC address for which you wish to remove the Node.
 									The address may (optionally) include an instance name or number in the address of the terminal Node.
 	 
 	 @return						An error code.				*/
-	TTErr NodeRemove(TTSymbolPtr oscAddress);
+	TTErr			NodeRemove(TTSymbolPtr oscAddress);
 	
 	/** TODO :
 			:/catalog?
