@@ -37,7 +37,16 @@ void TTDSPInit()
 #endif
 		
 		TTDSPRegisterInternalClasses();
-		TTAudioEngineCreate();
+		
+		// create audio engine and
+		// store the audio engine singleton instance as an attribute of the environment
+		{
+			TTObjectPtr engine = TTAudioEngine::create();
+			TTValue		v(engine);
+			
+			ttEnvironment->registerAttribute(TT("AudioEngine"), kTypeLocalValue, NULL);
+			ttEnvironment->setAttributeValue(TT("AudioEngine"), v);
+		}
 	}
 }
 
@@ -52,7 +61,7 @@ int main(void)
 // FIXME: this is never called right now!
 void TTDSPShutdown()
 {
-	TTAudioEngineFree();
+	TTAudioEngine::destroy();
 }
 
 
@@ -68,6 +77,8 @@ void TTDSPRegisterInternalClasses()
 	TTAudioSignal::registerClass();
 	TTAudioSignalArray::registerClass();
 	TTBuffer::registerClass();
+	
+	TTAudioEngine::registerClass();
 }
 
 

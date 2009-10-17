@@ -46,8 +46,8 @@ TT_AUDIO_CONSTRUCTOR
 	setAttributeValue(TT("lookahead"),		100);
 	setAttributeValue(TT("mode"),			TT("exponential"));
 	setAttributeValue(TT("release"),		1000.0);
-	setAttributeValue(TT("dcBlocker"),		*kTTBoolYes);
-	setAttributeValue(TT("bypass"),			*kTTBoolNo);
+	setAttributeValue(TT("dcBlocker"),		kTTBoolYes);
+	setAttributeValue(TT("bypass"),			kTTBoolNo);
 	TTValue v;
 	clear();
 	setProcessMethod(processAudio);

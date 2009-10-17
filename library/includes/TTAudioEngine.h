@@ -30,6 +30,8 @@
  
  */
 class TTDSP_EXPORT TTAudioEngine : public TTObject {
+	TTCLASS_SETUP(TTAudioEngine)
+	
 	TTUInt16			numInputChannels;
 	TTUInt16			numOutputChannels;
 	TTUInt16			vectorSize;			///< framesPerBuffer
@@ -47,10 +49,11 @@ public:
 	TTAudioSignalPtr	inputBuffer;
 	TTAudioSignalPtr	outputBuffer;
 
-	
-
-	TTAudioEngine(TTValue& arguments);
-	virtual ~TTAudioEngine();
+public:
+	// we are a singleton, so this is how we work with the lifecycle...
+	static TTObjectPtr	sSingletonInstance;
+	static TTObjectPtr create();
+	static TTErr destroy();	
 	
 	TTErr initStream();
 	
@@ -61,6 +64,8 @@ public:
 	
 	TTErr getAvailableInputDevices(TTValue& returnedDeviceNames);
 	TTErr getAvailableOutputDevices(TTValue& returnedDeviceNames);
+	TTAudioSignalPtr TTAudioEngineGetInputSignalReference();
+	TTAudioSignalPtr TTAudioEngineGetOutputSignalReference();
 
 	// Attribute Accessors
 	TTErr setinputDevice(TTValue& newDeviceName);
@@ -76,21 +81,12 @@ public:
 					 TTFloat32*							output, 
 					 TTUInt32							frameCount, 
 					 const PaStreamCallbackTimeInfo*	timeInfo, 
-					 PaStreamCallbackFlags				statusFlags);
-	
+					 PaStreamCallbackFlags				statusFlags);	
 };
 
 typedef TTAudioEngine* TTAudioEnginePtr;
 
 
-
-TTErr						TTAudioEngineCreate();
-TTErr						TTAudioEngineFree();
-TTDSP_EXPORT TTObjectPtr		TTAudioEngineReference();
-TTDSP_EXPORT TTAudioSignalPtr	TTAudioEngineGetInputSignalReference();
-TTDSP_EXPORT TTAudioSignalPtr	TTAudioEngineGetOutputSignalReference();
-TTErr						TTAudioEngineStart();
-TTErr						TTAudioEngineStop();
 
 
 /** A C-function used for the callback from PortAudio.  

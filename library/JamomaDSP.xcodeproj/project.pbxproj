@@ -42,7 +42,6 @@
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22BA7E281046EE2E009771BC /* TTBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTBuffer.cpp; path = source/TTBuffer.cpp; sourceTree = "<group>"; };
 		22BA7E2A1046EE35009771BC /* TTBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBuffer.h; path = includes/TTBuffer.h; sourceTree = "<group>"; };
-		22E385D010286B97002000A9 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = ../../Foundation/library/includes/TTFoundationAPI.h; sourceTree = "<group>"; };
 		22E385D210286BB0002000A9 /* TTAudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioEngine.h; path = includes/TTAudioEngine.h; sourceTree = "<group>"; };
 		22E385D310286BB0002000A9 /* TTAudioObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = includes/TTAudioObject.h; sourceTree = "<group>"; };
 		22E385D410286BB0002000A9 /* TTAudioSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioSignal.h; path = includes/TTAudioSignal.h; sourceTree = "<group>"; };
@@ -83,10 +82,9 @@
 			isa = PBXGroup;
 			children = (
 				2227748E0EF1BFF100CA7476 /* JamomaDSP.xcconfig */,
-				22E385D010286B97002000A9 /* TTFoundationAPI.h */,
 				228505CB102CFFFA004D74BC /* TTDSP.h */,
 				228505CC102D001E004D74BC /* TTDSP.cpp */,
-				08FB77AEFE84172EC02AAC07 /* Core */,
+				08FB77AEFE84172EC02AAC07 /* Source */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
@@ -108,7 +106,7 @@
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
 		};
-		08FB77AEFE84172EC02AAC07 /* Core */ = {
+		08FB77AEFE84172EC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				22E385D310286BB0002000A9 /* TTAudioObject.h */,
@@ -122,7 +120,7 @@
 				22BA7E2A1046EE35009771BC /* TTBuffer.h */,
 				22BA7E281046EE2E009771BC /* TTBuffer.cpp */,
 			);
-			name = Core;
+			name = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

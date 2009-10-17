@@ -30,3 +30,6 @@ bin
 *.ncb
 *.suo
 *.user
+
+#TextMate
+*.tm_build_errors

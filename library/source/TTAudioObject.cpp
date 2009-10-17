@@ -39,8 +39,8 @@ TTAudioObject::TTAudioObject(TTValue& arguments) :
 	setAttributeValue(TT("sr"),				ttEnvironment->sr);
 	setProcess(&TTAudioObject::bypassProcess);
     setCalculate(&TTAudioObject::defaultCalculateMethod);
-	setAttributeValue(TT("bypass"),			*kTTBoolNo);
-	setAttributeValue(TT("processInPlace"), *kTTBoolNo);
+	setAttributeValue(TT("bypass"),			kTTBoolNo);
+	setAttributeValue(TT("processInPlace"), kTTBoolNo);
 }
 
 
@@ -114,8 +114,8 @@ TTErr TTAudioObject::defaultCalculateMethod(const TTFloat64& x, TTFloat64& y, TT
 	TTAudioSignalPtr	out;
 	TTErr				err;
 	
-	TTObjectInstantiate(kTTSym_audiosignal, &in, *kTTVal1);
-	TTObjectInstantiate(kTTSym_audiosignal, &out, *kTTVal1);
+	TTObjectInstantiate(kTTSym_audiosignal, &in, kTTVal1);
+	TTObjectInstantiate(kTTSym_audiosignal, &out, kTTVal1);
 	
 	in->allocWithVectorSize(1);
 	out->allocWithVectorSize(1);
