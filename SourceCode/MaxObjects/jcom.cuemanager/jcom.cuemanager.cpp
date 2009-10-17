@@ -2096,7 +2096,7 @@ void cuemng_output_line(t_line *l, t_cuemng *x)
 	switch(l->type){
 		case  _PARAM : 
 			{
-				if((l->ramp != NO_RAMP) && x->do_ramp){
+				if((l->ramp != NO_RAMP) && x->do_ramp && (x->global_ramp != NO_RAMP)){
 
 					// create an array to send data + ramp
 					data_ramp = (t_atom *)sysmem_newptr((long)(2+l->n)*sizeof(t_atom));
