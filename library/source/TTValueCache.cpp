@@ -9,24 +9,24 @@
 #include "TTValueCache.h"
 #include "TTObject.h"
 
-TTFOUNDATION_EXPORT TTValuePtr	kTTBoolNo;
-TTFOUNDATION_EXPORT TTValuePtr	kTTBoolYes;
+TTFOUNDATION_EXPORT TTValue	kTTBoolNo;
+TTFOUNDATION_EXPORT TTValue	kTTBoolYes;
 
-TTFOUNDATION_EXPORT TTValuePtr kTTValNONE;
-TTFOUNDATION_EXPORT TTValuePtr	kTTVal0;
-TTFOUNDATION_EXPORT TTValuePtr	kTTVal1;
-TTFOUNDATION_EXPORT TTValuePtr	kTTVal0_pt_0;
+TTFOUNDATION_EXPORT TTValue	kTTValNONE;
+TTFOUNDATION_EXPORT TTValue	kTTVal0;
+TTFOUNDATION_EXPORT TTValue	kTTVal1;
+TTFOUNDATION_EXPORT TTValue	kTTVal0_pt_0;
 
 
 void TTValueCacheInit()
 {
-	kTTBoolNo = new TTValue(TTBoolean(NO));
-	kTTBoolYes = new TTValue(TTBoolean(YES));
+	kTTBoolNo = *new TTValue(TTBoolean(NO));
+	kTTBoolYes = *new TTValue(TTBoolean(YES));
 
-	kTTValNONE = new TTValue;
-	kTTValNONE->clear();
+	kTTValNONE = *new TTValue;
+	kTTValNONE.clear();
 	
-	kTTVal0 = new TTValue(0);
-	kTTVal1 = new TTValue(1);
-	kTTVal0_pt_0 = new TTValue(double(0.0));
+	kTTVal0 = *new TTValue(0);
+	kTTVal1 = *new TTValue(1);
+	kTTVal0_pt_0 = *new TTValue(double(0.0));
 }

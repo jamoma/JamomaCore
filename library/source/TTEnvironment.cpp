@@ -20,7 +20,7 @@ TTEnvironment*	ttEnvironment = NULL;
 /****************************************************************************************************/
 
 TTEnvironment::TTEnvironment()
-	: TTObject(*kTTValNONE), debugBasic(false), debugMessaging(false), sr(0)
+	: TTObject(kTTValNONE), debugBasic(false), debugMessaging(false), sr(0)
 {	
 	classes = new TTHash();
 	tags = new TTHash();
@@ -201,6 +201,8 @@ TTObjectPtr TTEnvironment::referenceInstance(TTObjectPtr anObject)
 TTErr TTEnvironment::releaseInstance(TTObjectPtr* anObject)
 {
 	TTValue v = **anObject;
+	
+	TT_ASSERT("can only release a valid instance", *anObject && (*anObject)->valid == 1 && (*anObject)->referenceCount);
 	
 	(*anObject)->valid = false;
 	(*anObject)->observers->iterateObjectsSendingMessage(TT("objectFreeing"), v);
