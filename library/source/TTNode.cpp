@@ -12,7 +12,7 @@
 #define thisTTClassName		"TTNode"
 #define thisTTClassTags		"nodes"
 
-TTNode::TTNode(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType, void *newObject, TTTreePtr atree):TTObject(*kTTValNONE)
+TTNode::TTNode(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType, void *newObject, TTTreePtr atree):TTObject(kTTValNONE)
 {
 	// a new TTNode have just a name, an instance, a type and an object
 	this->name = newName;

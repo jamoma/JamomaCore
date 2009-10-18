@@ -12,7 +12,7 @@
 #define thisTTClassName		"TTTree"
 #define thisTTClassTags		"tree"
 
-TTTree::TTTree(TTSymbolPtr newName):TTObject(*kTTValNONE)
+TTTree::TTTree(TTSymbolPtr newName):TTObject(kTTValNONE)
 {
 	TTBoolean *nodeCreated = new TTBoolean(false);
 	
