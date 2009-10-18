@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22039B861087816A008DFA4A /* TTLimits.h in Headers */ = {isa = PBXBuildFile; fileRef = 22039B851087816A008DFA4A /* TTLimits.h */; };
+		22039B861087816A008DFA4A /* TTLimits.h in Headers */ = {isa = PBXBuildFile; fileRef = 22039B851087816A008DFA4A /* TTLimits.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		222B17F60F1D4009008B1A46 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		222B17F80F1D4009008B1A46 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F190EC276B200A5EC32 /* CoreAudio.framework */; };
 		222B17F90F1D4009008B1A46 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */; };
