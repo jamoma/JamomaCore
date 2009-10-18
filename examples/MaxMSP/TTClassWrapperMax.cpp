@@ -120,12 +120,13 @@ void wrappedClass_free(WrappedInstancePtr x)
 }
 
 
-t_max_err wrappedClass_attrGet(WrappedInstancePtr x, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
+t_max_err wrappedClass_attrGet(TTPtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
 {
 	SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
 	TTValue		v;
 	AtomCount	i;
-	
+	WrappedInstancePtr x = (WrappedInstancePtr)self;
+		
 	x->wrappedObject->getAttributeValue(TT(attrName->s_name), v);
 
 	*argc = v.getSize();
@@ -164,8 +165,10 @@ int AtomGetInt(AtomPtr a)
 }
 #endif
 
-t_max_err wrappedClass_attrSet(WrappedInstancePtr x, ObjectPtr attr, AtomCount argc, AtomPtr argv)
+t_max_err wrappedClass_attrSet(TTPtr self, ObjectPtr attr, AtomCount argc, AtomPtr argv)
 {
+	WrappedInstancePtr x = (WrappedInstancePtr)self;
+	
 	if(argc && argv){
 		SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
 		TTValue		v;
@@ -188,8 +191,10 @@ t_max_err wrappedClass_attrSet(WrappedInstancePtr x, ObjectPtr attr, AtomCount a
 }
 
 
-void wrappedClass_anything(WrappedInstancePtr x, SymbolPtr s, AtomCount argc, AtomPtr argv)
+void wrappedClass_anything(TTPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
+	WrappedInstancePtr x = (WrappedInstancePtr)self;
+	
 	if(argc && argv){
 		TTValue	v;
 		
@@ -211,7 +216,7 @@ void wrappedClass_anything(WrappedInstancePtr x, SymbolPtr s, AtomCount argc, At
 
 
 // Method for Assistance Messages
-void wrappedClass_assist(WrappedInstancePtr x, void *b, long msg, long arg, char *dst)
+void wrappedClass_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 {
 	if(msg==1)			// Inlets
 		strcpy(dst, "signal input, control messages");		
