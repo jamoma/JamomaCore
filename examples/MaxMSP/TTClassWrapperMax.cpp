@@ -174,6 +174,7 @@ t_max_err wrappedClass_attrSet(TTPtr self, ObjectPtr attr, AtomCount argc, AtomP
 		TTValue		v;
 		AtomCount	i;
 		
+		v.setSize(argc);
 		for(i=0; i<argc; i++){
 			if(atom_gettype(argv+i) == A_LONG)
 				v.set(i, AtomGetInt(argv+i));
@@ -198,6 +199,7 @@ void wrappedClass_anything(TTPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv
 	if(argc && argv){
 		TTValue	v;
 		
+		v.setSize(argc);
 		for(AtomCount i=0; i<argc; i++){
 			if(atom_gettype(argv+i) == A_LONG)
 				v.set(i, AtomGetInt(argv+i));
