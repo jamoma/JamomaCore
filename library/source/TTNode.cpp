@@ -323,7 +323,7 @@ TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created
 TTErr TTNode::addPropertie(TTSymbolPtr propertie, void(*getPropertieMethod)(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr *returnedValue), void(*setPropertieMethod)(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr value))
 {
 	TTErr err;
-	TTValuePtr p_method;
+	TTValuePtr p_method = NULL;
 
 	// look into the hashtab to check if the propertie exists
 	err = this->properties->lookup(propertie, *p_method);
@@ -344,7 +344,7 @@ TTErr TTNode::addPropertie(TTSymbolPtr propertie, void(*getPropertieMethod)(TTNo
 
 TTListPtr TTNode::getPropertiesList()
 {
-	uint i;
+	unsigned int i;
 	TTValue *hk;
 	TTSymbolPtr key;
 	TTValue *c;
