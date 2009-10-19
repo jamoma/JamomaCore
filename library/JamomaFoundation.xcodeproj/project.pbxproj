@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22039B861087816A008DFA4A /* TTLimits.h in Headers */ = {isa = PBXBuildFile; fileRef = 22039B851087816A008DFA4A /* TTLimits.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		222B17F60F1D4009008B1A46 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		222B17F80F1D4009008B1A46 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F190EC276B200A5EC32 /* CoreAudio.framework */; };
 		222B17F90F1D4009008B1A46 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */; };
@@ -52,6 +53,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		22039B851087816A008DFA4A /* TTLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLimits.h; path = includes/TTLimits.h; sourceTree = "<group>"; };
 		2227748E0EF1BFF100CA7476 /* JamomaFoundation.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaFoundation.xcconfig; sourceTree = "<group>"; };
 		222B18000F1D4009008B1A46 /* JamomaFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JamomaFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22578F190EC276B200A5EC32 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
@@ -158,6 +160,7 @@
 				22E385F810286BBE002000A9 /* TTClass.cpp */,
 				22E385DA10286BB0002000A9 /* TTEnvironment.h */,
 				22E385FB10286BBE002000A9 /* TTEnvironment.cpp */,
+				22039B851087816A008DFA4A /* TTLimits.h */,
 				22E385DE10286BB0002000A9 /* TTMutex.h */,
 				22E385FF10286BBE002000A9 /* TTMutex.cpp */,
 				22E385E010286BB0002000A9 /* TTQueue.h */,
@@ -239,6 +242,7 @@
 				22EB3BC7102F0BEB006D027A /* TTQueue.h in Headers */,
 				22EB3BC8102F0BEB006D027A /* TTThread.h in Headers */,
 				22EB3BC9102F0BEB006D027A /* TTValueCache.h in Headers */,
+				22039B861087816A008DFA4A /* TTLimits.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

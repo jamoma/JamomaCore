@@ -10,6 +10,7 @@
 #define __TT_VALUE_H__
 
 #include "TTElement.h"
+#include "TTLimits.h"
 #include "TTSymbol.h"
 
 

@@ -84,6 +84,19 @@ typedef WrappedClassOptions* WrappedClassOptionsPtr;			///< A pointer to Wrapped
 
 // FUNCTIONS
 
+
+// private:
+// self has to be TTPtr because different wrappers (such as the ui wrapper) have different implementations.
+t_max_err wrappedClass_attrGet(TTPtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv);
+t_max_err wrappedClass_attrSet(TTPtr self, ObjectPtr attr, AtomCount argc, AtomPtr argv);
+void wrappedClass_anything(TTPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv);
+void wrappedClass_assist(TTPtr self, void *b, long msg, long arg, char *dst);
+
+
+
+
+// public:
+
 // Wrap a TTBlue class as a Max class.
 TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c);
 
