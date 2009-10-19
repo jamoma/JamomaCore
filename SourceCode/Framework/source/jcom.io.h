@@ -45,6 +45,7 @@ typedef struct _out{
 	void			*meter_object[MAX_NUM_CHANNELS]; ///< jcom.meter~ objects in the gui
 	short			num_meter_objects;
 	void			*clock;							///< clock for sending messages to the meters
+	void			*qelem;							///< qelem gets the clock message back to the low-priority main thread
 	short			clock_is_set;					///< is the clock currently scheduled to fire?
 	void			*inlet[MAX_NUM_CHANNELS];
 	void			*outlet[MAX_NUM_CHANNELS];
@@ -80,6 +81,10 @@ typedef struct _out{
 	t_symbol		*last_msg[MAX_NUM_CHANNELS];	///< used by /video/freeze...
 	short			last_argc[MAX_NUM_CHANNELS];
 	t_atom			last_argv[MAX_NUM_CHANNELS][10];
+	
+	TTFloat64		meterUpdateInterval;			///< how often to update meters, in samples
+	TTFloat64		currentMeterUpdateTime;
+	TTFloat64		lastMeterUpdateTime;
 } t_out;
 
 

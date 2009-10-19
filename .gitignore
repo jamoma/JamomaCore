@@ -16,6 +16,8 @@ Release
 *.ncb
 *.suo
 *.user
+tmtags
+*.tm_*
 Jamoma/documentation/jamoma-help/jcom.balance~.maxhelp
 Jamoma/documentation/jamoma-help/jcom.dcblock~.maxhelp
 Jamoma/documentation/jamoma-help/jcom.degrade~.maxhelp

@@ -5654,6 +5654,32 @@
 				}
 
 			}
+			, 			{
+							"box" : 				{
+								"id" : "obj-37",
+								"maxclass" : "jcom.meter~",
+								"numinlets" : 1,
+								"numoutlets" : 1,
+								"outlettype" : [ "" ],
+								"patching_rect" : [ 461.0, 258.0, 123.0, 12.0 ],
+								"presentation" : 1,
+								"presentation_rect" : [ 50.0, 30.0, 170.0, 15.0 ]
+							}
+
+						}
+			, 			{
+							"box" : 				{
+								"id" : "obj-3",
+								"maxclass" : "jcom.meter~",
+								"numinlets" : 1,
+								"numoutlets" : 1,
+								"outlettype" : [ "" ],
+								"patching_rect" : [ 461.0, 303.0, 123.0, 12.0 ],
+								"presentation" : 1,
+								"presentation_rect" : [ 50.0, 46.0, 170.0, 14.0 ]
+							}
+
+						}
 , 			{
 				"box" : 				{
 					"border" : 0.0,
@@ -5690,32 +5716,6 @@
 					"patching_rect" : [ 15.0, 70.0, 190.0, 30.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 4.0, 70.0, 226.0, 30.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-37",
-					"maxclass" : "jcom.meter~",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 461.0, 258.0, 123.0, 12.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 50.0, 30.0, 170.0, 15.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-3",
-					"maxclass" : "jcom.meter~",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 461.0, 303.0, 123.0, 12.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 50.0, 46.0, 170.0, 14.0 ]
 				}
 
 			}
