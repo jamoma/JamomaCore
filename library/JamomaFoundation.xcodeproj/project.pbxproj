@@ -154,6 +154,7 @@
 				22398CC00E25643800A5F732 /* BaseClasses */,
 				22B66A200E298A2F00CB474E /* DataStorageClasses */,
 				22B66A220E298A6D00CB474E /* SymbolTable */,
+				D2F68EBD108C9B2C0094260C /* NodeDirectory */,
 				22E385D610286BB0002000A9 /* TTFoundation.h */,
 				22E385F710286BBE002000A9 /* TTFoundation.cpp */,
 				22E385D710286BB0002000A9 /* TTClass.h */,
@@ -214,6 +215,13 @@
 				22E3860410286BBE002000A9 /* TTSymbolTable.cpp */,
 			);
 			name = SymbolTable;
+			sourceTree = "<group>";
+		};
+		D2F68EBD108C9B2C0094260C /* NodeDirectory */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = NodeDirectory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
