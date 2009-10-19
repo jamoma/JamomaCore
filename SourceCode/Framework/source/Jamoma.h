@@ -11,7 +11,7 @@
 #ifndef __JAMOMA_H__
 #define __JAMOMA_H__
 
-#define JAMOMA_VERSION "0.5.5 a1"
+#define JAMOMA_VERSION "0.0.0"
 
 #ifdef WIN_VERSION
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
@@ -24,8 +24,8 @@
 #include "z_dsp.h"
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 
-#include "math.h"
-#include "stdlib.h"
+#include <math.h>
+#include <stdlib.h>
 
 #include "TTFoundationAPI.h"		// TTBlue Headers...
 
