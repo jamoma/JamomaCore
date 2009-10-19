@@ -8,6 +8,7 @@
  */
 
 #include "Jamoma.h"
+#include "Controller.h"				// Plugin manager for network communication
 
 // define default values
 #define REQUEST_SIZE 1024
@@ -16,7 +17,7 @@
 	This Max external implements part of the Minuit Protocol, 
 	more specifically it implements a syntax for messages used 
 	for scrutinizing the namespace and obtaining/changing values 
-	of nodes or leaves (non containing nodes) in the Nodelib nodedirectory. */
+	of nodes or leaves (non containing nodes) in the TTNodelib nodedirectory. */
 	
 
 // Data Structure for this object
@@ -24,10 +25,10 @@ typedef struct _minuit{
 	t_object				ob;
 	void					*p_info;	// the leftmost outlet
 	Controller				*c_control; // a pointer to the controller
-	NodeDirectoryPtr				p_directory;		// a pointer to the jamoma directory
+	TTNodeDirectoryPtr				p_directory;		// a pointer to the jamoma directory
 	t_symbol				*device;	// memorized the current device
 	t_symbol				*address;	// memorized the current adress
-	NodePtr				p_node;		// a pointer to a TTnode of the directory
+	TTNodePtr				p_node;		// a pointer to a TTnode of the directory
 	TTListPtr				lk_nodes;	// a pointer to a selection of TTnodes of the directory
 	bool					b_debug;	// true : display bebug message in the console
 	

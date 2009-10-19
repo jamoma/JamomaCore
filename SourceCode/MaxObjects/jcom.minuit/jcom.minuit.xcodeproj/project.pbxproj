@@ -19,6 +19,13 @@
 		22C9FAF3103434B90062F7B8 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9FAF2103434B90062F7B8 /* libxml2.dylib */; };
 		D289E4EE106D61E6005D9BA3 /* jcom.minuit.h in Headers */ = {isa = PBXBuildFile; fileRef = D289E4ED106D61E6005D9BA3 /* jcom.minuit.h */; };
 		D289E4F0106D61EE005D9BA3 /* jcom.minuit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D289E4EF106D61EE005D9BA3 /* jcom.minuit.cpp */; };
+		D2F68F17108C9E8D0094260C /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F68F10108C9E8D0094260C /* Controller.cpp */; };
+		D2F68F18108C9E8D0094260C /* Controller.h in Headers */ = {isa = PBXBuildFile; fileRef = D2F68F11108C9E8D0094260C /* Controller.h */; };
+		D2F68F19108C9E8D0094260C /* Device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F68F12108C9E8D0094260C /* Device.cpp */; };
+		D2F68F1A108C9E8D0094260C /* Device.h in Headers */ = {isa = PBXBuildFile; fileRef = D2F68F13108C9E8D0094260C /* Device.h */; };
+		D2F68F1B108C9E8D0094260C /* Plugin.h in Headers */ = {isa = PBXBuildFile; fileRef = D2F68F14108C9E8D0094260C /* Plugin.h */; };
+		D2F68F1C108C9E8D0094260C /* PluginFactories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F68F15108C9E8D0094260C /* PluginFactories.cpp */; };
+		D2F68F1D108C9E8D0094260C /* PluginFactories.h in Headers */ = {isa = PBXBuildFile; fileRef = D2F68F16108C9E8D0094260C /* PluginFactories.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +42,13 @@
 		2FBBEAE508F335360078DB84 /* jcom.minuit.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.minuit.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		D289E4ED106D61E6005D9BA3 /* jcom.minuit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.minuit.h; sourceTree = "<group>"; };
 		D289E4EF106D61EE005D9BA3 /* jcom.minuit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.minuit.cpp; sourceTree = "<group>"; };
+		D2F68F10108C9E8D0094260C /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Controller.cpp; sourceTree = "<group>"; };
+		D2F68F11108C9E8D0094260C /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controller.h; sourceTree = "<group>"; };
+		D2F68F12108C9E8D0094260C /* Device.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Device.cpp; sourceTree = "<group>"; };
+		D2F68F13108C9E8D0094260C /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
+		D2F68F14108C9E8D0094260C /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plugin.h; sourceTree = "<group>"; };
+		D2F68F15108C9E8D0094260C /* PluginFactories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginFactories.cpp; sourceTree = "<group>"; };
+		D2F68F16108C9E8D0094260C /* PluginFactories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginFactories.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +98,7 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				D2F68F0F108C9E8D0094260C /* libController */,
 				D289E4ED106D61E6005D9BA3 /* jcom.minuit.h */,
 				D289E4EF106D61EE005D9BA3 /* jcom.minuit.cpp */,
 				22C9F7D1103338310062F7B8 /* commonsyms.cpp */,
@@ -99,6 +114,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		D2F68F0F108C9E8D0094260C /* libController */ = {
+			isa = PBXGroup;
+			children = (
+				D2F68F10108C9E8D0094260C /* Controller.cpp */,
+				D2F68F11108C9E8D0094260C /* Controller.h */,
+				D2F68F12108C9E8D0094260C /* Device.cpp */,
+				D2F68F13108C9E8D0094260C /* Device.h */,
+				D2F68F14108C9E8D0094260C /* Plugin.h */,
+				D2F68F15108C9E8D0094260C /* PluginFactories.cpp */,
+				D2F68F16108C9E8D0094260C /* PluginFactories.h */,
+			);
+			name = libController;
+			path = ../../../../../../virage/sequenceur/trunk/libController;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -108,6 +138,10 @@
 			files = (
 				22C9F81910333A130062F7B8 /* JamomaMaxTypes.h in Headers */,
 				D289E4EE106D61E6005D9BA3 /* jcom.minuit.h in Headers */,
+				D2F68F18108C9E8D0094260C /* Controller.h in Headers */,
+				D2F68F1A108C9E8D0094260C /* Device.h in Headers */,
+				D2F68F1B108C9E8D0094260C /* Plugin.h in Headers */,
+				D2F68F1D108C9E8D0094260C /* PluginFactories.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +212,9 @@
 			files = (
 				22C9F7D2103338310062F7B8 /* commonsyms.cpp in Sources */,
 				D289E4F0106D61EE005D9BA3 /* jcom.minuit.cpp in Sources */,
+				D2F68F17108C9E8D0094260C /* Controller.cpp in Sources */,
+				D2F68F19108C9E8D0094260C /* Device.cpp in Sources */,
+				D2F68F1C108C9E8D0094260C /* PluginFactories.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

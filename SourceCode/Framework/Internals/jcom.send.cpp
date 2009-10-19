@@ -123,7 +123,7 @@ void send_float(t_send *x, double value)
 
 void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	NodePtr p_node;
+	TTNodePtr p_node;
 	TTListPtr selection;
 	t_object *obj;
 	t_symbol *type;

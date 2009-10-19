@@ -136,7 +136,7 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 void receive_bind(t_receive *x)
 {
 	ObserverPtr p_obsv;
-	NodePtr p_node;
+	TTNodePtr p_node;
 	TTErr err = kTTErrGeneric;
 	
 	if(!NOGOOD(g_receivemaster_object))
@@ -184,7 +184,7 @@ void receive_bind(t_receive *x)
 void receive_remove(t_receive *x)
 {
 	ObserverPtr p_obsv;
-	NodePtr p_node;
+	TTNodePtr p_node;
 	
 	// if there is a selection, remove Observers
 	if(x->lk_nodes){
@@ -233,7 +233,7 @@ void receive_setcallback(t_receive *x, void *callback, void *arg)
 }
 
 // This method his called by each observer attached to a node.
-// Read the Node file to get info about observers mecanism
+// Read the TTNode file to get info about observers mecanism
 void receive_node_callback(void *x, char *address, long argc, void *argv)
 {
 	t_receive* thisX = (t_receive*)x;

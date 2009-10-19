@@ -21,7 +21,7 @@ typedef struct _node{
 	t_object		ob;
 	void			*p_out;					// the leftmost outlet
 	t_symbol		*address;				// memorized the current adress
-	NodeDirectoryPtr	p_directory;		// a pointer to the jamoma directory
+	TTNodeDirectoryPtr	p_directory;		// a pointer to the jamoma directory
 	TTListPtr		lk_nodes;				// a pointer to a selection of TTnodes of the tree
 
 	short			node_tree_path;			// a text file /path/name

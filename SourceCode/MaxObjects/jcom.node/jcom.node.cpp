@@ -133,7 +133,7 @@ void node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_object *obj;
 	t_symbol *type;
-	NodePtr p_node;
+	TTNodePtr p_node;
 	JamomaError err = JAMOMA_ERR_NONE;
 
 	// Are we dealing with an OSC message ?
@@ -181,7 +181,7 @@ void node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 
 void node_goto(t_node *x, t_symbol *address)
 {
-	NodePtr p_node = NULL;
+	TTNodePtr p_node = NULL;
 	JamomaError err = JAMOMA_ERR_NONE;
 
 	// Are we dealing with an OSC message ?
@@ -202,7 +202,7 @@ void node_goto(t_node *x, t_symbol *address)
 void node_set_receive(t_node *x, t_symbol *address)
 {	
 	ObserverPtr p_obsv;
-	NodePtr p_node;
+	TTNodePtr p_node;
 	
 	jamoma_directory_get_node(address, &x->lk_nodes, &p_node);
 	
@@ -232,20 +232,20 @@ void node_dump(t_node *x)
 	//jamoma_directory_dump();
 	
 
-	TTListPtr returnedNodes;
-	NodePtr firstReturnedNode, n_r;
+	TTListPtr returnedTTNodes;
+	TTNodePtr firstReturnedTTNode, n_r;
 	JamomaError err;
 	
 	// dump all parameters of the tree
-	returnedNodes = new TTList();
-	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_parameter, &returnedNodes, &firstReturnedNode);
+	returnedTTNodes = new TTList();
+	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_parameter, &returnedTTNodes, &firstReturnedTTNode);
 	
 	if(err == JAMOMA_ERR_NONE){
 		
-		if(!returnedNodes->isEmpty()){
-			for(returnedNodes->begin(); returnedNodes->end(); returnedNodes->next()){
+		if(!returnedTTNodes->isEmpty()){
+			for(returnedTTNodes->begin(); returnedTTNodes->end(); returnedTTNodes->next()){
 			
-				returnedNodes->current().get(0,(TTPtr*)&n_r);
+				returnedTTNodes->current().get(0,(TTPtr*)&n_r);
 				post("parameter : %s", jamoma_node_OSC_address(n_r));
 			
 			}
@@ -257,15 +257,15 @@ void node_dump(t_node *x)
 		post("dump parameter error");
 	
 	// dump all messages of the tree
-	returnedNodes = new TTList();
-	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_message, &returnedNodes, &firstReturnedNode);
+	returnedTTNodes = new TTList();
+	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_message, &returnedTTNodes, &firstReturnedTTNode);
 	
 	if(err == JAMOMA_ERR_NONE){
 		
-		if(!returnedNodes->isEmpty()){
-			for(returnedNodes->begin(); returnedNodes->end(); returnedNodes->next()){
+		if(!returnedTTNodes->isEmpty()){
+			for(returnedTTNodes->begin(); returnedTTNodes->end(); returnedTTNodes->next()){
 				
-				returnedNodes->current().get(0,(TTPtr*)&n_r);
+				returnedTTNodes->current().get(0,(TTPtr*)&n_r);
 				post("message : %s", jamoma_node_OSC_address(n_r));
 				
 			}
@@ -277,15 +277,15 @@ void node_dump(t_node *x)
 		post("dump message error");
 	
 	// dump all returns of the tree
-	returnedNodes = new TTList();
-	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_return, &returnedNodes, &firstReturnedNode);
+	returnedTTNodes = new TTList();
+	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_return, &returnedTTNodes, &firstReturnedTTNode);
 	
 	if(err == JAMOMA_ERR_NONE){
 		
-		if(!returnedNodes->isEmpty()){
-			for(returnedNodes->begin(); returnedNodes->end(); returnedNodes->next()){
+		if(!returnedTTNodes->isEmpty()){
+			for(returnedTTNodes->begin(); returnedTTNodes->end(); returnedTTNodes->next()){
 				
-				returnedNodes->current().get(0,(TTPtr*)&n_r);
+				returnedTTNodes->current().get(0,(TTPtr*)&n_r);
 				post("return : %s", jamoma_node_OSC_address(n_r));
 				
 			}
@@ -327,7 +327,7 @@ void node_add_max_tree(t_node *x)
 
 long node_myobject_iterator(t_node *x, t_object *b)
 {
-	NodePtr newNode;
+	TTNodePtr newTTNode;
 	bool newInstanceCreated;
 	char temp[256];
     t_symbol *varname = object_attr_getsym(b, gensym("varname"));
@@ -349,11 +349,11 @@ long node_myobject_iterator(t_node *x, t_object *b)
 					temp[i] = 0;
 			}
 
-			jamoma_directory_register(gensym(temp), gensym("maxobject"), (t_object *)b, &newNode, &newInstanceCreated);
+			jamoma_directory_register(gensym(temp), gensym("maxobject"), (t_object *)b, &newTTNode, &newInstanceCreated);
 
 			// add varname and maxclass as properties of the node
-			jamoma_node_add_propertie(newNode,gensym("varname"));
-			jamoma_node_add_propertie(newNode,gensym("maxclass"));
+			jamoma_node_add_propertie(newTTNode,gensym("varname"));
+			jamoma_node_add_propertie(newTTNode,gensym("maxclass"));
 
 			//if(newInstanceCreated)
 			//	object_warn((t_object *)x,"%s : this scripting name is already registered in the tree", varname->s_name);
@@ -486,7 +486,7 @@ void node_dump_as_opml(t_node *x, ushort level)
 	char temp[512];
 	long len, err;
 	TTSymbolPtr attr;
-	NodePtr p_node;
+	TTNodePtr p_node;
 	len = err = 0;
 
 	// get info about the node

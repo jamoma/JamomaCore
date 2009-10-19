@@ -266,7 +266,7 @@ void minuit_donamespace(t_minuit *x, t_symbol *oscAddress)
 				
 				for(i=0; i<linklist_getsize(lk_nodes); i++){
 					// get the name
-					x->p_node = (NodePtr)linklist_getindex(lk_nodes,i);
+					x->p_node = (TTNodePtr)linklist_getindex(lk_nodes,i);
 					temp = jamoma_node_name(x->p_node)->s_name;
 					
 					// get instance
@@ -292,7 +292,7 @@ void minuit_donamespace(t_minuit *x, t_symbol *oscAddress)
 				for(i=0; i<linklist_getsize(lk_leaves); i++){
 					
 					// get the name
-					x->p_node = (NodePtr)linklist_getindex(lk_leaves,i);
+					x->p_node = (TTNodePtr)linklist_getindex(lk_leaves,i);
 					
 					temp = jamoma_node_name(x->p_node)->s_name;
 					
