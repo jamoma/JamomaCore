@@ -376,7 +376,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 {
 	t_subscriber	*new_subscriber;
 	bool			newInstanceCreated;
-	NodePtr			newNode;
+	TTNodePtr			newTTNode;
 	t_symbol		*newInstance;
 	long i, attr_nb = 0;
 	t_symbol** attr_names = NULL;
@@ -407,13 +407,13 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 		strcat(fullAddress,"/");
 		strcat(fullAddress,name->s_name);
 		newInstanceCreated = false;
-		jamoma_directory_register(gensym(fullAddress), type, subscriber_object, &newNode, &newInstanceCreated);
+		jamoma_directory_register(gensym(fullAddress), type, subscriber_object, &newTTNode, &newInstanceCreated);
 
 		// if a new instance have been created 
 		// to guarantee the unicity. We have to
 		// add the instance to the name
 		if(newInstanceCreated){
-			newInstance = jamoma_node_instance(newNode);
+			newInstance = jamoma_node_instance(newTTNode);
 			if(newInstance != gensym("")){
 				// What to do in that case ???
 			}
@@ -423,7 +423,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 		object_method(subscriber_object, gensym("getattrnames"),&attr_nb, &attr_names);
 
 		for(i=0; i<attr_nb; i++){
-			jamoma_node_add_propertie(newNode, attr_names[i]);
+			jamoma_node_add_propertie(newTTNode, attr_names[i]);
 		}
 	}
 
@@ -537,8 +537,8 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 {
 	char		namestring[256];
 	char		oscAddress[256];
-	TTListPtr	returnedNodes;
-	NodePtr	firstReturnedNode;
+	TTListPtr	returnedTTNodes;
+	TTNodePtr	firstReturnedTTNode;
 	TTListPtr   observers;
 	ObserverPtr anObserver;
 	t_symbol	*osc;
@@ -558,12 +558,12 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	strcpy(oscAddress, x->osc_name->s_name);
 	strcat(oscAddress, namestring);
 	
-	err = jamoma_directory_get_node(gensym(oscAddress), &returnedNodes, &firstReturnedNode);
+	err = jamoma_directory_get_node(gensym(oscAddress), &returnedTTNodes, &firstReturnedTTNode);
 								  
 	if(err == JAMOMA_ERR_NONE){ 
 		
 		// 2. get each observer of the node
-		observers = firstReturnedNode->getObserver();
+		observers = firstReturnedTTNode->getObserver();
 		if(!observers->isEmpty()){
 			for(observers->begin(); observers->end(); observers->next()){
 				
@@ -1408,7 +1408,7 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		char*			nametest;
 		t_atom			a[2];
 		bool			newInstanceCreated;
-		NodePtr		newNode;
+		TTNodePtr		newTTNode;
 		t_symbol		*nameOriginal, *newInstance;
 		
 		x->osc_name = atom_getsym(argv);
@@ -1460,14 +1460,14 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		// if the address doesn't contain instance or the instance already
 		// exist, the register will generate a new instance to garantee unicity.
 		newInstanceCreated = false;
-		jamoma_directory_register(nameOriginal, gensym("hub"), (t_object *)x, &newNode, &newInstanceCreated);
+		jamoma_directory_register(nameOriginal, gensym("hub"), (t_object *)x, &newTTNode, &newInstanceCreated);
 
 		// if a new instance have been created to guarantee the unicity,
 		// we have to create the osc_name from the node.
 		if(newInstanceCreated){
-			newInstance = jamoma_node_instance(newNode);
+			newInstance = jamoma_node_instance(newTTNode);
 			if(newInstance != gensym(""))
-				snprintf(name, 256, "/%s.%s", jamoma_node_name(newNode)->s_name, newInstance->s_name);
+				snprintf(name, 256, "/%s.%s", jamoma_node_name(newTTNode)->s_name, newInstance->s_name);
 				object_post((t_object*)x, "Jamoma cannot create multiple modules with the same OSC identifier (%s).  Using %s instead.", nameOriginal->s_name, name);
 		}
 
