@@ -41,6 +41,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)paramarray_remove,				"remove",			A_LONG, 0);
 	class_addmethod(c, (method)paramarray_size,					"size",				A_LONG, 0);
 	class_addmethod(c, (method)paramarray_set,					"set",				A_LONG, 0);
+	class_addmethod(c, (method)paramarray_mute,					"mute",				A_LONG, A_LONG, 0);
+	class_addmethod(c, (method)paramarray_solo,					"solo",				A_LONG, 0);
+	class_addmethod(c, (method)paramarray_info,					"info",				0);
 	
 	class_addmethod(c, (method)paramarray_in1,					"in1",				A_LONG, 0);
 	
@@ -71,7 +74,7 @@ t_paramarray* paramarray_new(t_symbol *s, long argc, t_atom *argv)
 		if(atom_gettype(&argv[0]) == A_SYM){
 			
 			x->attr_size = 0;
-			x->attr_selection = _sym_nothing;
+			x->attr_send_selection = _sym_nothing;
 			x->last_instance = 0;
 			x->attr_size = 0;
 			
@@ -88,7 +91,7 @@ t_paramarray* paramarray_new(t_symbol *s, long argc, t_atom *argv)
 				defer((t_object*)x,(method)paramarray_create_array, NULL, x->attr_argc , x->attr_argv);
 				
 				// select the first parameter
-				paramarray_parameter_name(x->attr_format, &x->attr_selection, 1);
+				paramarray_parameter_name(x->attr_format, &x->attr_send_selection, 1);
 			}
 			else
 				object_error((t_object*)x, "Error during the parsing of the name");
@@ -157,11 +160,11 @@ void paramarray_bang(t_paramarray *x)
 	InternalObject		*anObject;
 	t_max_err			err;
 	
-	if(x->attr_selection == x->jps_wildcard){
+	if(x->attr_send_selection == x->jps_wildcard){
 		
 	}
 	else{
-		err = hashtab_lookup(x->hash_internals, x->attr_selection, (t_object**)&anObject);
+		err = hashtab_lookup(x->hash_internals, x->attr_send_selection, (t_object**)&anObject);
 		if(!err)
 			object_method(anObject->theObject, _sym_bang);
 	}
@@ -173,11 +176,11 @@ void paramarray_int(t_paramarray *x, long n)
 	t_max_err			err;
 	t_atom				a[1];
 	
-	if(x->attr_selection == x->jps_wildcard){
+	if(x->attr_send_selection == x->jps_wildcard){
 		
 	}
 	else{
-		err = hashtab_lookup(x->hash_internals, x->attr_selection, (t_object**)&anObject);
+		err = hashtab_lookup(x->hash_internals, x->attr_send_selection, (t_object**)&anObject);
 		if(!err){
 			atom_setlong(a,n);
 			object_method_typed(anObject->theObject, _sym_int, 1, a, NULL);
@@ -191,11 +194,11 @@ void paramarray_flt(t_paramarray *x, double d)
 	t_max_err			err;
 	t_atom				a[1];
 	
-	if(x->attr_selection == x->jps_wildcard){
+	if(x->attr_send_selection == x->jps_wildcard){
 		
 	}
 	else{
-		err = hashtab_lookup(x->hash_internals, x->attr_selection, (t_object**)&anObject);
+		err = hashtab_lookup(x->hash_internals, x->attr_send_selection, (t_object**)&anObject);
 		if(!err){
 			atom_setfloat(a,d);
 			object_method_typed(anObject->theObject, _sym_float, 1, a, NULL);
@@ -208,11 +211,11 @@ void paramarray_list(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv)
 	InternalObject		*anObject;
 	t_max_err			err;
 	
-	if(x->attr_selection == gensym("*")){
+	if(x->attr_send_selection == gensym("*")){
 		;
 	}
 	else{
-		err = hashtab_lookup(x->hash_internals, x->attr_selection, (t_object**)&anObject);
+		err = hashtab_lookup(x->hash_internals, x->attr_send_selection, (t_object**)&anObject);
 		if(!err)
 			object_method_typed(anObject->theObject, _sym_list, argc, argv, NULL); // or jps_dispatched ?
 	}
@@ -225,11 +228,11 @@ void paramarray_anything(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv
 	t_max_err			err;
 	int i;
 	
-	if(x->attr_selection == gensym("*")){
+	if(x->attr_send_selection == gensym("*")){
 		;
 	}
 	else{
-		err = hashtab_lookup(x->hash_internals, x->attr_selection, (t_object**)&anObject);
+		err = hashtab_lookup(x->hash_internals, x->attr_send_selection, (t_object**)&anObject);
 		if(!err){
 			if(msg == _sym_nothing)
 				object_method_typed(anObject->theObject, _sym_list, argc, argv, NULL);  // or jps_dispatched ?
@@ -300,16 +303,87 @@ void paramarray_size(t_paramarray* x, long new_size)
 
 void paramarray_set(t_paramarray* x, long n)
 {	
-	// edit selection
-	if(x->attr_format)
-		paramarray_parameter_name(x->attr_format, &x->attr_selection, n);
+	InternalObject *anObject;
+	t_max_err err;
+	
+	if(x->attr_format){
+		
+		// edit selection
+		paramarray_parameter_name(x->attr_format, &x->attr_send_selection, n);
+		
+		// check if the selection exists in the hash tab
+		err = hashtab_lookup(x->hash_internals, x->attr_send_selection, (t_object**)&anObject);
+		
+		// if it exists
+		if(!err)
+			// select the parameter to output data
+			anObject->setSelect(true);
+	}
+}
+
+void paramarray_mute(t_paramarray* x, long n, long io)
+{
+	InternalObject	*anObject;
+	t_symbol		*select;
+	t_max_err		err;
+	
+	if(x->attr_format){
+		
+		// edit selection
+		paramarray_parameter_name(x->attr_format, &select, n);
+		
+		// check if the selection exists in the hash tab
+		err = hashtab_lookup(x->hash_internals, select, (t_object**)&anObject);
+		
+		// if it exists
+		if(!err)
+			// select the parameter to output data
+			anObject->setSelect(io > 0);
+	}
+}
+
+void paramarray_solo(t_paramarray* x, long n)
+{
+	long			i;
+	long			numKeys = 0;
+	t_symbol		**keys = NULL;
+	t_symbol		*select;
+	InternalObject	*anObject;
+	t_max_err		err;
+	
+	if(x->attr_format){
+		
+		// edit selection
+		paramarray_parameter_name(x->attr_format, &select, n);
+		
+		// get all parameters internal object
+		hashtab_getkeys(x->hash_internals, &numKeys, &keys);
+		for(i=0; i<numKeys; i++){
+			err = hashtab_lookup(x->hash_internals, keys[i], (t_object**)&anObject);
+			if(!err)
+				anObject->setSelect(keys[i] == select); // mute each parameter except "select"
+		}
+	}
 }
 
 void paramarray_in1(t_paramarray *x, long n)
 {
+	InternalObject	*anObject;
+	t_max_err		err;
+	
 	if(x->attr_format){
+		
 		// edit selection
-		paramarray_parameter_name(x->attr_format, &x->attr_selection, n);
+		paramarray_parameter_name(x->attr_format, &x->attr_send_selection, n);
+		
+		// check if the selection exists in the hash tab
+		err = hashtab_lookup(x->hash_internals, x->attr_send_selection, (t_object**)&anObject);
+		
+		// if it exists
+		if(!err){
+			// select the parameter to output data
+			anObject->setSelect(true);
+		}
 		
 		// bang selection
 		defer((t_object*)x,(method)paramarray_bang,_sym_bang,NULL,NULL);
@@ -322,7 +396,6 @@ void paramarray_create_array(t_paramarray* x, t_symbol *msg, long argc, t_atom* 
 	t_max_err err;
 	t_symbol *s_param;
 	int i, j, ht_size;
-	t_atom a[1];
 	
 	if(x->attr_format){
 		
@@ -382,12 +455,9 @@ void paramarray_create_array(t_paramarray* x, t_symbol *msg, long argc, t_atom* 
 					}
 				}
 			}
-			
-			// output the new array size
-			x->attr_size = x->new_size;
-			atom_setlong(a, x->attr_size); 
-			outlet_anything(x->info_outlet, _sym_size, 1, a);
 		}
+		
+		x->attr_size = x->new_size;
 	}
 }
 	
@@ -417,16 +487,14 @@ void paramarray_callback(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv
 	InternalObject	*anObject;
 	t_max_err		err;
 	
-	// TODO : a way to select wich paramaters we want to output (via a 'solo' and 'mute' message)
-	// currently we output all parameters
-	//if(msg == x->attr_selection){
-	
-		// A parameter sends his name using the symbol msg so we can retrieve it into the hashtab
-		// and know which parameter is using the callback
-		err = hashtab_lookup(x->hash_internals, msg, (t_object**)&anObject);
-		if(!err){
+	// A parameter sends his name using the symbol msg so we can retrieve it into the hashtab
+	// and know which parameter is using the callback
+	err = hashtab_lookup(x->hash_internals, msg, (t_object**)&anObject);
+	if(!err){
+		
+		if(anObject->isSelected()){
 
-			// only if the instance have changed
+			// output the instance only if it have changed
 			if(anObject->index != x->last_instance){
 				outlet_int(x->info_outlet, anObject->index);
 				x->last_instance = anObject->index;
@@ -435,9 +503,52 @@ void paramarray_callback(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv
 			// output the data
 			outlet_anything(x->ui_outlet, _sym_set, argc, argv);
 			outlet_atoms(x->val_outlet, argc, argv);
-			
+		
 		}
-	//}
+	}
+}
+
+void paramarray_info(t_paramarray *x)
+{
+	t_atom a[1];
+	
+	atom_setlong(a, x->attr_size); 
+	outlet_anything(x->info_outlet, _sym_size, 1, a);
+	paramarray_info_mute(x);
+}
+
+void paramarray_info_mute(t_paramarray *x)
+{
+	long				i;
+	t_symbol			*select;
+	InternalObject		*anObject;
+	t_atom				*a;
+	t_max_err			err;
+	
+	if(x->attr_size){
+		
+		a = (t_atom *)malloc((long)sizeof(t_atom)*x->attr_size);
+		
+		for(i=1; i <= x->attr_size; i++){
+			
+			// edit selection
+			paramarray_parameter_name(x->attr_format, &select, i);
+			
+			err = hashtab_lookup(x->hash_internals, select, (t_object**)&anObject);
+			if(!err){
+				if(anObject->isSelected())
+					atom_setlong(&a[i-1],0);
+				else
+					atom_setlong(&a[i-1],1);
+			}
+			else{
+				object_error((t_object*)x, "info_mute : a parameter doesn't exist");
+				return;
+			}
+		}
+		
+		outlet_anything(x->info_outlet, _sym_mute, x->attr_size, a);
+	}
 }
 
 long paramarray_count_subscription(t_paramarray *x)

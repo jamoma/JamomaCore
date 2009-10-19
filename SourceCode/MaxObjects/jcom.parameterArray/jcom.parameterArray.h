@@ -42,7 +42,7 @@ typedef struct _paramarray{
 	char				*attr_format;			///< the format string to edit parameter's name ("node.%d/param")
 	long				attr_size;				///< the size of the hash table
 	long				new_size;				///< the size desired by the user
-	t_symbol			*attr_selection;		///< selected parameter(s) to send data
+	t_symbol			*attr_send_selection;	///< selected parameter(s) to send data
 	long				attr_argc;				///< attribute lenght (used to create more parameters with the same attributes)
 	t_atom				*attr_argv;				///< attribute atoms (used to create more parameters with the same attributes)
 	long				last_instance;			///< to memorize the last modified instance and don't output the number if it doesn't change
@@ -63,6 +63,9 @@ void			paramarray_add(t_paramarray* x, long i_add);
 void			paramarray_remove(t_paramarray* x, long i_rm);
 void			paramarray_size(t_paramarray* x, long new_size);
 void			paramarray_set(t_paramarray* x, long n);
+void			paramarray_mute(t_paramarray* x, long n, long io);
+void			paramarray_solo(t_paramarray* x, long n);
+void			paramarray_info(t_paramarray *x);
 
 void			paramarray_in1(t_paramarray *x, long n);
 
@@ -71,6 +74,7 @@ void			paramarray_create_array(t_paramarray* x, t_symbol *msg, long argc, t_atom
 void			paramarray_destroy_array(t_paramarray *x);
 void			paramarray_callback(t_paramarray *x, t_symbol *msg, long argc, t_atom* argv);
 long			paramarray_count_subscription(t_paramarray *x);
+void			paramarray_info_mute(t_paramarray *x);
 void			paramarray_parameter_name(char* format, t_symbol **returnedName, long i);
 
 // prototypes: parsing (TODO : include this into the NodeLib)
@@ -82,7 +86,9 @@ class InternalObject {
 public:
 	t_object *theObject;
 	bool subscribe;
+	bool selected;
 	long index;
+	
 	
 	InternalObject(ObjectPtr patcher, t_symbol *classname, t_symbol *subscribername, long argc, t_atom *argv)
 	{
@@ -97,6 +103,7 @@ public:
 		}
 		theObject = NULL;
 		subscribe = true;
+		selected = true;
 		//theObject = (t_object *)object_new_typed(CLASS_BOX, classname, argc+2, a);
 		jcom_core_loadextern(classname, argc+2, a, &theObject);
 	}
@@ -117,6 +124,20 @@ public:
 	{
 		if(theObject)
 			object_attr_setsym(theObject, _sym_name, gensym(newName));
+	}
+	
+	void setSelect(bool ez)
+	{
+		if(theObject)
+			this->selected = ez;
+	}
+	
+	bool isSelected()
+	{
+		if(theObject)
+			return this->selected;
+		else
+			return false;
 	}
 	
 	void setReadonly(bool value)
