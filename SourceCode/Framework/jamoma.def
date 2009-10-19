@@ -59,11 +59,14 @@ EXPORTS
 		jamoma_getDataspaceList
 		
 	; NodeLib
-		jamoma_node_init
-		jamoma_node_dump
-		jamoma_node_register
-		jamoma_node_unregister
-		jamoma_node_get
+		jamoma_directory_init
+		jamoma_directory_free
+		jamoma_directory_dump
+		jamoma_directory_register
+		jamoma_directory_unregister
+		jamoma_directory_get_node
+		jamoma_directory_get_node_by_type
+		jamoma_node_OSC_address
 		jamoma_node_name
 		jamoma_node_set_name
 		jamoma_node_instance
@@ -72,8 +75,11 @@ EXPORTS
 		jamoma_node_children
 		jamoma_node_max_object
 		jamoma_node_properties
-		jamoma_node_set_properties
-		jamoma_node_free
+		jamoma_node_add_propertie
+		jamoma_node_get_propertie
+		jamoma_node_get_propertie_method
+		jamoma_node_set_propertie
+		jamoma_node_set_propertie_method
 
 	; JamomaSymbols
 		jps_1U
