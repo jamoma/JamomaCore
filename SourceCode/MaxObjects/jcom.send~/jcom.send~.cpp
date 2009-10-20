@@ -110,15 +110,14 @@ void TTModSendTildeAssist(TTModSendTildePtr self, void* b, long msg, long arg, c
 
 void TTModSendTildeGetModuleNames(TTModSendTildePtr self)
 {
-//    jamoma_directory_dump(); // dump all the address of the tree in the Max window
 	JamomaError err;
 	TTListPtr	nodes = new TTList;
 	TTNodePtr	node = NULL;
-//	TTUInt32	size;
 	TTString	name;
 
-	err = jamoma_directory_get_node_by_type(SymbolGen("/"), SymbolGen("parameter"), &nodes, &node);
+	err = jamoma_directory_get_node_by_type(SymbolGen("/"), SymbolGen("hub"), &nodes, &node);
 	if (!err) {
+#if WHY_DOESNT_THIS_WORK___IT_GOES_INTO_AN_INFINITE_LOOP
 		nodes->begin();
 		while (const TTValue& v = nodes->current()) {
 			v.get(0, (TTPtr*)(node));
@@ -126,6 +125,35 @@ void TTModSendTildeGetModuleNames(TTModSendTildePtr self)
 			object_post(SELF, "node: %s", name.c_str());
 			nodes->next();
 		}
+#else
+		TTValue		v;
+		TTUInt32	size;
+		ObjectPtr	o;
+		
+		nodes->assignToValue(v);
+		size = v.getSize();
+		for (TTUInt32 i=0; i<size; i++) {
+			TTListPtr	inNodes = new TTList;
+			TTNodePtr	inNode = NULL;
+			
+			v.get(i, (TTPtr*)&node);
+			name = node->getName()->getCString();
+			node->getChildren(TT("__jcom_in__"), S_WILDCARD, &inNodes);
+			if (inNodes->getSize()) {
+				inNodes->getHead().get(0, (TTPtr*)&inNode);
+				TT_ASSERT("inNode has a valid Max object instance", inNode);
+				o = (ObjectPtr)inNode->getObject();
+				if (!NOGOOD(o)) {
+					ClassPtr c = object_class(o);
+					
+					if (c->c_sym == SymbolGen("jcom.in~")) {	// we don't want the non-audio jcom.in
+						object_post(SELF, "node: %s", name.c_str());
+					}
+				}
+			}
+			
+		}
+#endif
 	}	
 }
 
