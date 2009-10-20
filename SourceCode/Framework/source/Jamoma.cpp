@@ -18,8 +18,6 @@ const double k_anti_denormal_value = 1e-18;
 // statics and globals
 static long			initialized = false;
 static t_hashtab	*hash_modules = NULL;				// a hashtab of all modules (jcom.hubs) currently instantiated
-//t_object			*obj_jamoma_clock = NULL;			// there is only one master clock for the whole system
-//t_object			*obj_jamoma_scheduler = NULL;		// a shared global instance of the scheduler class (there may be others too)
 bool				max5 = false;
 
 
@@ -49,25 +47,10 @@ void jamoma_init(void)
 		send_initclass();
 		object_method(max, meth, SymbolGen("jcom.send"), SymbolGen("jcom.loader"), SymbolGen("jcom.send"));
 		object_method_sym(max, SymbolGen("db.object_addinternal"), SymbolGen("jcom.send"), NULL);
-
-		receive_tilde_initclass();
-		object_method(max, meth, SymbolGen("jcom.receive~"), SymbolGen("jcom.loader"), SymbolGen("jcom.receive~"));
-		object_method_sym(max, SymbolGen("db.object_addinternal"), SymbolGen("jcom.receive~"), NULL);
-
-		send_tilde_initclass();
-		object_method(max, meth, SymbolGen("jcom.send~"), SymbolGen("jcom.loader"), SymbolGen("jcom.send~"));
-		object_method_sym(max, SymbolGen("db.object_addinternal"), SymbolGen("jcom.send~"), NULL);
-		
-		// Setup Class Aliases for TTBlue
-		// object_method(max, meth, SymbolGen("jcom.limiter~"), SymbolGen("tt.limiter~"), SymbolGen("jcom.limiter~"));
-		// object_method(max, meth, SymbolGen("jcom.saturation~"), SymbolGen("tt.overdrive~"), SymbolGen("jcom.saturation~"));
 		
 		// Create Required Global Instances
-		// obj_jamoma_clock = (t_object*)object_new_typed(CLASS_NOBOX, SymbolGen("jamoma.clock"), 0, NULL);
-		// obj_jamoma_scheduler = (t_object*)object_new_typed(CLASS_NOBOX, SymbolGen("jamoma.scheduler"), 0, NULL);
 		hash_modules = (t_hashtab*)hashtab_new(0);
 		// TODO: Use quittask_install() to set up a destructor for this to free it before Max exits
-
 		
 		// This tells Max 5.0.6 and higher that we want the patcher files to be saved such that they are sorted.
 		// Having the saved this way makes our SVN diffs much more meaningful.
@@ -77,7 +60,6 @@ void jamoma_init(void)
 		// post to the system console, which greatly aids in debugging problems and crashes
 		object_method_long(max, SymbolGen("setmirrortoconsole"), 1, NULL);
 
-		
 		// Add Jamoma Key Commands:
 		
 		// J -- Jamoma: a new object box with "jcom." in it
@@ -110,15 +92,6 @@ void jamoma_init(void)
 		// !!!! --- x is defined here to work around a 'bug' in the Max Toolbox b13 ( http://code.google.com/p/maxtoolbox/downloads/list )
 		object_method_parse(max, SymbolGen("definecommand"), (char*)"x patcher nothing", NULL);		
 
-		
-		// Here bind the TTBlue environment object to the symbol "TTBlue"
-		{
-			t_symbol* TTBlueMaxSymbol = SymbolGen("TTBlue");
-			
-			TTBlueMaxSymbol->s_thing = 0;
-			// Before we can do this we have to have a ttblue max class to receive the messages, duh...
-		}
-		
 		// now the jamoma object
 		{
 			t_symbol* jamomaSymbol = SymbolGen("jamoma");

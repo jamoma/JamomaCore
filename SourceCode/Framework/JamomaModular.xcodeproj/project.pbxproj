@@ -23,8 +23,6 @@
 		225C92760D1BEFFF00BDA981 /* JamomaObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 225C92740D1BEFFF00BDA981 /* JamomaObject.h */; };
 		225C931C0D1C45CC00BDA981 /* TimeDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C931A0D1C45CC00BDA981 /* TimeDataspace.cpp */; };
 		225C931D0D1C45CC00BDA981 /* TimeDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 225C931B0D1C45CC00BDA981 /* TimeDataspace.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		226951DB0DEE665200911DE0 /* jcom.receive~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226951D90DEE665200911DE0 /* jcom.receive~.cpp */; };
-		226951DC0DEE665200911DE0 /* jcom.send~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226951DA0DEE665200911DE0 /* jcom.send~.cpp */; };
 		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22AEF3260D0DB77900F7762D /* FunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22AEF3200D0DB77900F7762D /* FunctionLib.cpp */; };
 		22AEF3270D0DB77900F7762D /* FunctionLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 22AEF3210D0DB77900F7762D /* FunctionLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -94,8 +92,6 @@
 		225C92740D1BEFFF00BDA981 /* JamomaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaObject.h; path = source/JamomaObject.h; sourceTree = "<group>"; };
 		225C931A0D1C45CC00BDA981 /* TimeDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TimeDataspace.cpp; path = DataspaceLib/TimeDataspace.cpp; sourceTree = "<group>"; };
 		225C931B0D1C45CC00BDA981 /* TimeDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeDataspace.h; path = DataspaceLib/TimeDataspace.h; sourceTree = "<group>"; };
-		226951D90DEE665200911DE0 /* jcom.receive~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.receive~.cpp"; sourceTree = "<group>"; };
-		226951DA0DEE665200911DE0 /* jcom.send~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.send~.cpp"; sourceTree = "<group>"; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22AEF3200D0DB77900F7762D /* FunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionLib.cpp; sourceTree = "<group>"; };
 		22AEF3210D0DB77900F7762D /* FunctionLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionLib.h; sourceTree = "<group>"; };
@@ -236,8 +232,6 @@
 				2200FCAD0D3ECD3D0078B045 /* jcom.receivemaster.cpp */,
 				2200FCAC0D3ECD3D0078B045 /* jcom.receive.cpp */,
 				2200FCAE0D3ECD3D0078B045 /* jcom.send.cpp */,
-				226951D90DEE665200911DE0 /* jcom.receive~.cpp */,
-				226951DA0DEE665200911DE0 /* jcom.send~.cpp */,
 			);
 			path = Internals;
 			sourceTree = "<group>";
@@ -464,8 +458,6 @@
 				22E6C75A0D4AB21B00DA75EE /* QueueRamp.cpp in Sources */,
 				22E6C75D0D4AB21B00DA75EE /* RampLib.cpp in Sources */,
 				22E6C75F0D4AB21B00DA75EE /* SchedulerRamp.cpp in Sources */,
-				226951DB0DEE665200911DE0 /* jcom.receive~.cpp in Sources */,
-				226951DC0DEE665200911DE0 /* jcom.send~.cpp in Sources */,
 				22C9F75B103319E10062F7B8 /* commonsyms.cpp in Sources */,
 				D2730C5C104FBA70004513A7 /* NodeLib.cpp in Sources */,
 			);
