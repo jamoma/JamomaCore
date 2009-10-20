@@ -85,6 +85,7 @@ typedef struct _out{
 	TTFloat64		meterUpdateInterval;			///< how often to update meters, in samples
 	TTFloat64		currentMeterUpdateTime;
 	TTFloat64		lastMeterUpdateTime;
+	TTBoolean		meterNeedsUpdate[MAX_NUM_CHANNELS];
 } t_out;
 
 

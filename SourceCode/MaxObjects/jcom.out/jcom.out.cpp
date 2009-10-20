@@ -358,7 +358,7 @@ void out_anything(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 void out_meters_qfn(t_out *self)
 {
 	for (int i=0; i < self->num_meter_objects; i++) {
-		if (self->meter_object[i] && self->peakamp[i] != self->lastPeakamp[i]) {
+		if (self->meter_object[i] && self->peakamp[i] != self->lastPeakamp[i] && self->meterNeedsUpdate[i]) {
 			t_atom	a[2];
 			
 			atom_setsym(&a[0], _sym_float);
@@ -367,6 +367,7 @@ void out_meters_qfn(t_out *self)
 			self->lastPeakamp[i] = self->peakamp[i];
 			self->peakamp[i] = 0;
 		}
+		self->meterNeedsUpdate[i] = false;
 	}
 	self->lastMeterUpdateTime = self->currentMeterUpdateTime;
 	self->clock_is_set = 0;
@@ -415,7 +416,7 @@ t_int *out_perform(t_int *w)
 		// since we are already looping through the channels here, we will also do the per-channel metering here
 		if(x->attr_defeat_meters == 0 && x->num_meter_objects && !x->attr_mute){
 			t_float* envelope = (t_float *)(w[j+2]);
-			peakvalue = 0.0;
+			peakvalue = x->peakamp[i];
 			
 			n = x->vectorSize;
 			while(n--){
@@ -428,8 +429,9 @@ t_int *out_perform(t_int *w)
 					peakvalue = currentvalue;
 				envelope++; 										// increment pointer in the vector
 			}
-			if (peakvalue > x->peakamp[i])
+//			if (peakvalue > x->peakamp[i])
 				x->peakamp[i] = peakvalue;
+			x->meterNeedsUpdate[i] = true;
 		}		
 	}
 
@@ -501,9 +503,11 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 
 	// start the meters
 	if(x->num_meter_objects){
-		for(i=0; i<MAX_NUM_CHANNELS; i++)
+		for (i=0; i<MAX_NUM_CHANNELS; i++) {
 			x->peakamp[i] = 0;
 		//clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
+			x->meterNeedsUpdate[i] = true;
+		}
 		x->lastMeterUpdateTime = 0.0;
 		x->currentMeterUpdateTime = 0.0;
 		//x->meterUpdateInterval = (1.0 / sr) * 1000.0 * vs;			// in ms
