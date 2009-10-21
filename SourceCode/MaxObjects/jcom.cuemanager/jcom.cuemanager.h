@@ -114,8 +114,8 @@ typedef struct _cuemng
 	t_object	*editorview;		// the textfile window
 	t_filehandle fh;				// a reference to a file (for opening it, closing it, etc.).
 	long		eof;				// the number of written char in the file.
-	char		**buf;				// a text handler //(pointer to a text buffer)
-	long		eobuf;				// the number of written char in the text buffer
+	TTString	*buf;				// a text buffer
+	long		nb_written_lines;	// the number of written lines in the text editor
 	bool		wtof;				// True : write into a file. 
 									// False : write into the editor.
 
