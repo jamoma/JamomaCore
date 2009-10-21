@@ -208,6 +208,7 @@ void *cuemng_new(t_symbol *s, long argc, t_atom *argv)
 		cuemng_clear_temp(x);
 
 		x->m_editor = NULL;
+		x->buf = new TTString();
 		x->Kcurrent = -1;
 		x->current = -1;
 		x->trigeditmode = EDIT_MODE;
@@ -234,7 +235,7 @@ void *cuemng_new(t_symbol *s, long argc, t_atom *argv)
 
 void cuemng_free(t_cuemng *x)
 {
-	;
+	delete x->buf;
 }
 
 #if 0
@@ -266,76 +267,86 @@ void cuemng_edclose(t_cuemng *x, char **handletext, long size)
 	t_atom a[1];
 	long stop_at = 0;
 
-	if(size){
-		// if it's the text of the cuelist
-		if(x->show == CUELIST_TEXT){
-
-			// clear the cuelist
-			if(linklist_getsize(x->cuelist)){
-				linklist_clear(x->cuelist);
-				x->current = -1;
-				x->Kcurrent = -1;
-			}
-
-			// send it to the text analyser
-			stop_at = 0;
-			do{
+	 // DON'T READ THE TEXT OF THE EDITOR IF SOME LINES MISS
+	if(x->nb_written_lines < TEXT_MAX_LINE){ 
+		
+		if(size){
+			// if it's the text of the cuelist
+			if(x->show == CUELIST_TEXT){
+				
+				// clear the cuelist
+				if(linklist_getsize(x->cuelist)){
+					linklist_clear(x->cuelist);
+					x->current = -1;
+					x->Kcurrent = -1;
+				}
+				
+				// send it to the text analyser
+				stop_at = 0;
+				do{
+					// clear the temp cue
+					cuemng_clear_temp(x);
+					
+					// read the text until it meets a cue or keycue flag
+					stop_at = cuemng_read_text(x, handletext, stop_at);
+					
+					// append the temp cue to the cuelist
+					defer((t_object*)x,(method)cuemng_append,gensym("append"),0,0);
+					
+				}while(stop_at != -1);
+				
 				// clear the temp cue
 				cuemng_clear_temp(x);
-
-				// read the text until it meets a cue or keycue flag
-				stop_at = cuemng_read_text(x, handletext, stop_at);
-
-				// append the temp cue to the cuelist
-				defer((t_object*)x,(method)cuemng_append,gensym("append"),0,0);
-
-			}while(stop_at != -1);
-
-			// clear the temp cue
-			cuemng_clear_temp(x);
-
-			x->current = 0;
-			x->Kcurrent = 0;
-			
-			// info operation /edit id
-			atom_setlong(&a[0],x->current+1); // index starts at 1 for user
-			defer(x,(method)cuemng_info_operation,gensym("edit"),1,a);
-		}
-		else{
-
-			// clear temp cue
-			cuemng_clear_temp(x);
-
-			// send the text to an analyser
-			stop_at = cuemng_read_text(x, handletext, stop_at);
-
-			// if it was not the text of the temp cue
-			if(x->show == CUE_TEXT){
-
-				// store the temp cue in the current (replace it)
-				atom_setlong(&argv[0],x->current+1);
-				defer((t_object*)x,(method)cuemng_replace,gensym("replace"),1,argv);
-
-				// clear temp cue
-				cuemng_clear_temp(x);
-			}
-
-			if(stop_at != -1)
-				object_post((t_object *)x,"cuemng_edclose : there is more than one cue in the text !");
-
-			if(x->show == CUE_TEXT){
+				
+				x->current = 0;
+				x->Kcurrent = 0;
+				
 				// info operation /edit id
 				atom_setlong(&a[0],x->current+1); // index starts at 1 for user
 				defer(x,(method)cuemng_info_operation,gensym("edit"),1,a);
 			}
 			else{
-				// info operation /edit temp
-				atom_setsym(&a[0],ps_tempindex);
-				defer(x,(method)cuemng_info_operation,gensym("edit"),1,a);
+				
+				// clear temp cue
+				cuemng_clear_temp(x);
+				
+				// send the text to an analyser
+				stop_at = cuemng_read_text(x, handletext, stop_at);
+				
+				// if it was not the text of the temp cue
+				if(x->show == CUE_TEXT){
+					
+					// store the temp cue in the current (replace it)
+					atom_setlong(&argv[0],x->current+1);
+					defer((t_object*)x,(method)cuemng_replace,gensym("replace"),1,argv);
+					
+					// clear temp cue
+					cuemng_clear_temp(x);
+				}
+				
+				if(stop_at != -1)
+					object_post((t_object *)x,"cuemng_edclose : there is more than one cue in the text !");
+				
+				if(x->show == CUE_TEXT){
+					// info operation /edit id
+					atom_setlong(&a[0],x->current+1); // index starts at 1 for user
+					defer(x,(method)cuemng_info_operation,gensym("edit"),1,a);
+				}
+				else{
+					// info operation /edit temp
+					atom_setsym(&a[0],ps_tempindex);
+					defer(x,(method)cuemng_info_operation,gensym("edit"),1,a);
+				}
 			}
 		}
 	}
-	sysmem_freehandle(x->buf);
+	// DON'T READ THE TEXT OF THE EDITOR IF SOME LINES MISS
+	else{
+		object_error((t_object *)x, "Too much lines : %d lines", x->nb_written_lines);
+		object_error((t_object *)x, "modifications done inside the text editor aren't stored in the cuelist");
+	}
+	
+	x->buf->clear();
     x->m_editor = NULL;
 }
 
@@ -347,7 +358,6 @@ void cuemng_edclose(t_cuemng *x, char **handletext, long size)
 void cuemng_bang(t_cuemng *x)
 {
 	t_atom a[1];
-	int nblines;
 
 	// return the temp cue if x->current == -1
 	t_cue *ccue = cuemng_current_cue(x);
@@ -370,43 +380,37 @@ void cuemng_bang(t_cuemng *x)
 		}
 		else{ // EDIT_MODE
 			
-			nblines = cuemng_count_lines(x, ccue);
-			if(nblines < TEXT_MAX_LINE){
+			if(x->current == -1) x->show = TEMP_TEXT;
+			else x->show = CUE_TEXT;
 
-				if(x->current == -1) x->show = TEMP_TEXT;
-				else x->show = CUE_TEXT;
+			// if the jed object doesn't exist, create it
+			if(!x->m_editor)
+				x->m_editor = (t_object *)object_new(CLASS_NOBOX, gensym("jed"), (t_object *)x , 0);
+			
+			x->wtof = false;	// we wan to write into the editor
 
-				// if the jed object doesn't exist, create it
-				if(!x->m_editor)
-					x->m_editor = (t_object *)object_new(CLASS_NOBOX, gensym("jed"), (t_object *)x , 0);
-				
-				x->wtof = false;	// we wan to write into the editor
+			// create a new buffer for text
+			x->buf->clear();
+			x->nb_written_lines = 0;
+			
+			critical_enter(0);
+			
+			// write the cue in the text buffer
+			cuemng_write_cue(ccue, x);
+			
+			// write buf into the editor
+			object_method(x->m_editor, gensym("settext"), x->buf->c_str(), gensym("utf-8"));
 
-				// create a new buffer for text
-				x->eobuf = 0;
-				x->buf = sysmem_newhandleclear(TEXT_BUFFER_SIZE);
-				
-				critical_enter(0);
-				
-				// write the cue in the text buffer
-				cuemng_write_cue(ccue, x);
-				
-				// write buf into the editor
-				object_method(x->m_editor, gensym("settext"), *(x->buf), gensym("utf-8"));
+			critical_exit(0);
 
-				critical_exit(0);
+			// give a title to the windows editor
+			object_attr_setsym(x->m_editor, gensym("title"), ccue->index);
 
-				// give a title to the windows editor
-				object_attr_setsym(x->m_editor, gensym("title"), ccue->index);
-
-				// open the text window editor
-				object_attr_setchar(x->m_editor, gensym("visible"), 1);
-				
-				// to avoid the okclose windows if the text changes 
-				object_attr_setchar(x->m_editor, gensym("scratch"), 1); 
-			}
-			else
-				object_error((t_object*)x,"can't display the text in text editor : too much lines (%d).", nblines);
+			// open the text window editor
+			object_attr_setchar(x->m_editor, gensym("visible"), 1);
+			
+			// to avoid the okclose windows if the text changes 
+			object_attr_setchar(x->m_editor, gensym("scratch"), 1); 
 		}
 	}else
 		object_error((t_object *)x, "bang : create a cue before");
@@ -738,8 +742,8 @@ void cuemng_dosave(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 	x->wtof = true;	// we wan to write on a file
 
 	// create a new buffer
-	x->eobuf = 0;
-	x->buf = sysmem_newhandleclear(TEXT_BUFFER_SIZE);
+	x->buf->clear();
+	x->nb_written_lines = 0;
 
 	// write all cues in the text file
 	critical_enter(0);
@@ -749,6 +753,8 @@ void cuemng_dosave(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 	cuemng_write_buffer(x);
 
 	critical_exit(0);
+	
+	post("nb_written_line : %d", x->nb_written_lines);
 
 	// close the file
 	err = sysfile_seteof(x->fh, x->eof);
@@ -763,47 +769,38 @@ void cuemng_dosave(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 
 void cuemng_open(t_cuemng *x)
 {
-	int nblines;
-
 	if(linklist_getsize(x->cuelist)){
 
-		nblines = cuemng_count_lines(x,NULL);
-		if(nblines < TEXT_MAX_LINE){
+		x->show = CUELIST_TEXT;
 
-			x->show = CUELIST_TEXT;
+		// if the jed object doesn't exist, create it
+		if(!x->m_editor)
+			x->m_editor = (t_object *)object_new(CLASS_NOBOX, gensym("jed"), (t_object *)x , 0);
+		
+		x->wtof = false;	// we wan to write into the editor
 
-			// if the jed object doesn't exist, create it
-			if(!x->m_editor)
-				x->m_editor = (t_object *)object_new(CLASS_NOBOX, gensym("jed"), (t_object *)x , 0);
-			
-			x->wtof = false;	// we wan to write into the editor
+		// create a new buffer for text
+		x->buf->clear();
+		x->nb_written_lines = 0;
 
-			// create a new buffer for text
-			x->eobuf = 0;
-			x->buf = sysmem_newhandleclear(TEXT_BUFFER_SIZE);
+		critical_enter(0);
 
-			critical_enter(0);
+		// write all cues in buf
+		linklist_funall(x->cuelist,(method)cuemng_write_cue,x);
+		
+		// write buf into the editor
+		object_method(x->m_editor, gensym("settext"), x->buf->c_str(), gensym("utf-8"));
 
-			// write all cues in buf
-			linklist_funall(x->cuelist,(method)cuemng_write_cue,x);
-			
-			// write buf into the editor
-			object_method(x->m_editor, gensym("settext"), *(x->buf), gensym("utf-8"));
+		critical_exit(0);
 
-			critical_exit(0);
+		// give a title to the windows editor
+		object_attr_setsym(x->m_editor, gensym("title"), gensym("TODO : write cue list file name here"));
 
-			// give a title to the windows editor
-			object_attr_setsym(x->m_editor, gensym("title"), gensym("TODO : write cue list file name here"));
-
-			// open the text window editor
-			object_attr_setchar(x->m_editor, gensym("visible"), 1);
-			
-			// to avoid the okclose windows if the text changes 
-			object_attr_setchar(x->m_editor, gensym("scratch"), 1);
-
-		}
-		else
-			object_error((t_object*)x,"can't display the text in text editor : too much lines (%d).", nblines);
+		// open the text window editor
+		object_attr_setchar(x->m_editor, gensym("visible"), 1);
+		
+		// to avoid the okclose windows if the text changes 
+		object_attr_setchar(x->m_editor, gensym("scratch"), 1);
 
 	}else
 		object_error((t_object *)x, "open : create a cue before");
@@ -2208,61 +2205,63 @@ void cuemng_write_cue(t_cue *c, t_cuemng *x)
 {
 	char name[64];
 
-	// write 3 new line
-	cuemng_write_sym(x,x->ps_lb);
-	cuemng_write_sym(x,x->ps_lb);
-
-	// store head info of the cue
-	// mode
-	if(c->mode == DIFFERENTIAL_CUE)cuemng_write_sym(x,x->ps_cue);
-	if(c->mode == ABSOLUTE_CUE) cuemng_write_sym(x,x->ps_keycue);
-	if(c->mode == TEMP_CUE) cuemng_write_sym(x,ps_tempcue);
-	if(c->mode == EMPTY_CUE) cuemng_write_sym(x,ps_emptycue);
-
-	// write name : wrap the name with " " to avoid the problem of SPACE
-	snprintf(name,64,"\"%s\"",c->index->s_name);
-	cuemng_write_sym(x,gensym(name));
-	
-	// write option(s)
-	if(c->ramp > NO_RAMP){
-		cuemng_write_sym(x,x->ps_ramp);
-		cuemng_write_long(x,c->ramp);
+	if(x->nb_written_lines < TEXT_MAX_LINE){ // this always true when writing into a file
+		
+		// write 3 new line
+		cuemng_write_sym(x,x->ps_lb);
+		cuemng_write_sym(x,x->ps_lb);
+		
+		// store head info of the cue
+		// mode
+		if(c->mode == DIFFERENTIAL_CUE)cuemng_write_sym(x,x->ps_cue);
+		if(c->mode == ABSOLUTE_CUE) cuemng_write_sym(x,x->ps_keycue);
+		if(c->mode == TEMP_CUE) cuemng_write_sym(x,ps_tempcue);
+		if(c->mode == EMPTY_CUE) cuemng_write_sym(x,ps_emptycue);
+		
+		// write name : wrap the name with " " to avoid the problem of SPACE
+		snprintf(name,64,"\"%s\"",c->index->s_name);
+		cuemng_write_sym(x,gensym(name));
+		
+		// write option(s)
+		if(c->ramp > NO_RAMP){
+			cuemng_write_sym(x,x->ps_ramp);
+			cuemng_write_long(x,c->ramp);
+		}
+		
+		// write 3 new line
+		cuemng_write_sym(x,x->ps_lb);
+		cuemng_write_sym(x,x->ps_lb);
+		cuemng_write_sym(x,x->ps_lb);
+		
+		// write each line of the cue
+		linklist_funall(c->linelist, (method)cuemng_write_line, x);
+		
+		// write a new line
+		cuemng_write_sym(x,x->ps_lb);
 	}
-	
-	// write 3 new line
-	cuemng_write_sym(x,x->ps_lb);
-	cuemng_write_sym(x,x->ps_lb);
-	cuemng_write_sym(x,x->ps_lb);
-	
-	// write each line of the cue
-	linklist_funall(c->linelist, (method)cuemng_write_line, x);
-
-	// write a new line
-	cuemng_write_sym(x,x->ps_lb);
 }
 
 void cuemng_write_line(t_line *l, t_cuemng *x)
 {
 	long i, nb_tab;
 
-	// if there is a buffer
-	if(*(x->buf)){
-
+	if(x->nb_written_lines < TEXT_MAX_LINE){ // this always true when writing into a file
+		
 		// l->type : number of newline before
 		if(l->type == _WAIT){
 			cuemng_write_sym(x,x->ps_lb);
 			cuemng_write_sym(x,x->ps_lb);
 		}
-
+		
 		// l->type : number of tabs
 		nb_tab = 0;
 		if(l->type == _PARAM) nb_tab = x->nb_tab_param;
 		if(l->type == _ATTR) nb_tab = x->nb_tab_attr;
 		if(l->type == _WAIT) nb_tab = x->nb_tab_wait;
 		if(l->type == _CMT) nb_tab = x->nb_tab_cmt;
-
+		
 		for(i=0; i<nb_tab; i++) cuemng_write_sym(x,x->ps_tab);
-
+		
 		// l->index
 		if(l->index != ps_no_id) cuemng_write_sym(x,l->index);
 		
@@ -2270,7 +2269,7 @@ void cuemng_write_line(t_line *l, t_cuemng *x)
 		for(i=0;i<l->n;i++){
 			cuemng_write_atom(x,&l->data[i]);
 		}
-
+		
 		// l->ramp
 		if(l->ramp > 0) {
 			cuemng_write_sym(x,x->ps_ramp);
@@ -2280,7 +2279,7 @@ void cuemng_write_line(t_line *l, t_cuemng *x)
 			cuemng_write_sym(x,x->ps_ramp);
 			cuemng_write_sym(x,ps_ramp_global);
 		}
-
+		
 		// l->type : number of newline after
 		if(l->type == _WAIT){
 			cuemng_write_sym(x,x->ps_lb);
@@ -2288,6 +2287,21 @@ void cuemng_write_line(t_line *l, t_cuemng *x)
 			return;
 		}
 		cuemng_write_sym(x,x->ps_lb);
+		
+		// don't take care to the number of 
+		// written lines when writting in a file
+		if(!x->wtof)
+			x->nb_written_lines++;
+	}
+	else{
+		if(x->nb_written_lines == TEXT_MAX_LINE){
+			cuemng_write_sym(x, x->ps_lb);
+			cuemng_write_sym(x, gensym("// This text contains more than "));
+			cuemng_write_long(x, TEXT_MAX_LINE);
+			cuemng_write_sym(x, gensym(" lines. Open it with a real text editor."));
+			cuemng_write_sym(x, x->ps_lb);
+		}
+		x->nb_written_lines++;
 	}
 }
 
@@ -2312,17 +2326,14 @@ void cuemng_write_atom(t_cuemng *x, t_atom *src)
 			break;
 	}
 
-	x->eobuf += strlen(temp);
-
 	// before buffer becomes full ...
-	if(x->eobuf >= TEXT_BUFFER_SIZE){
+	if(x->buf->length() >= TEXT_BUFFER_SIZE){
 		// ... write the buffer into the text file
 		cuemng_write_buffer(x);
 	}
 
 	// append the temp to the text buffer
-	if(*(x->buf))
-		strcat(*(x->buf),temp);
+	*x->buf += temp;
 }
 
 void cuemng_write_sym(t_cuemng *x, t_symbol *src)
@@ -2331,17 +2342,14 @@ void cuemng_write_sym(t_cuemng *x, t_symbol *src)
 
 	snprintf(temp, sizeof(temp), "%s ", src->s_name);
 
-	x->eobuf += strlen(temp);
-
 	// before buffer becomes full ...
-	if(x->eobuf >= TEXT_BUFFER_SIZE){
+	if(x->buf->length() >= TEXT_BUFFER_SIZE){
 		// ... write the buffer into the text file
 		cuemng_write_buffer(x);
 	}
 
 	// append the temp to the text buffer
-	if(*(x->buf))
-		strcat(*(x->buf),temp);
+	*x->buf += temp;
 }
 
 void cuemng_write_long(t_cuemng *x, long src)
@@ -2350,17 +2358,14 @@ void cuemng_write_long(t_cuemng *x, long src)
 
 	snprintf(temp, sizeof(temp), "%ld ", src);
 
-	x->eobuf += strlen(temp);
-
 	// before buffer becomes full ...
-	if(x->eobuf >= TEXT_BUFFER_SIZE){
+	if(x->buf->length() >= TEXT_BUFFER_SIZE){
 		// ... write the buffer into the text file
 		cuemng_write_buffer(x);
 	}
 
 	// append the temp to the text buffer
-	if(*(x->buf))
-		strcat(*(x->buf),temp);
+	*x->buf += temp;
 }
 
 void cuemng_write_float(t_cuemng *x, float src)
@@ -2369,30 +2374,27 @@ void cuemng_write_float(t_cuemng *x, float src)
 
 	snprintf(temp, sizeof(temp), "%f ", src);
 
-	x->eobuf += strlen(temp);
-
 	// before buffer becomes full ...
-	if(x->eobuf >= TEXT_BUFFER_SIZE){
+	if(x->buf->length() >= TEXT_BUFFER_SIZE){
 		// ... write the buffer into the text file
 		cuemng_write_buffer(x);
 	}
 
 	// append the temp to the text buffer
-	if(*(x->buf))
-		strcat(*(x->buf),temp);
+	*x->buf += temp;
 }
 
-// write the buffer into a text file or resize the buffer (depending on x->wtof)
+// write the buffer into a text file (if x->wtof is true)
 void cuemng_write_buffer(t_cuemng *x)
 {
 	short	err = 0;
 	long	len = 0;
-	
-	len = strlen(*(x->buf));
 
+	// if we are writing into a text file
 	if(x->wtof){
-		// write into a text file
-		err = sysfile_write(x->fh, &len, *(x->buf));
+		
+		len = x->buf->length();
+		err = sysfile_write(x->fh, &len, x->buf->c_str());
 
 		if(err){
 			error("cuemng_write_buffer : sysfile_write error (%d)", err);
@@ -2401,15 +2403,9 @@ void cuemng_write_buffer(t_cuemng *x)
 		x->eof += len;
 
 		// clear the buffer
-		x->eobuf = 0;
-		sysmem_freehandle(x->buf);
-		x->buf = sysmem_newhandleclear(TEXT_BUFFER_SIZE);
+		x->buf->clear();
 	}
-	else{
-		// resize the buffer
-		x->eobuf = 0;
-		sysmem_resizehandle(x->buf,len+TEXT_BUFFER_SIZE);
-	}
+	// else do nothing
 }
 
 // look at the incoming args to check the temp flag
