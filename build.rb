@@ -95,6 +95,8 @@ zero_count
 
 #XCConfig
 file_path = "#{@svn_root}/SourceCode/Framework/JamomaModular.xcconfig"
+`cp "#{@svn_root}/SourceCode/Framework/JamomaModular.template.xcconfig" "#{file_path}"`
+
 if FileTest.exist?(file_path)
   f = File.open("#{file_path}", "r+")
   str = f.read
