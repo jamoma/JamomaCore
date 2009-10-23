@@ -77,8 +77,8 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 
 		x->callback = NULL;
 		x->attr_name = NULL;
-		x->lk_nodes = NULL;
-		x->lk_observer = NULL;
+		x->lk_nodes = new TTList();
+		x->lk_observer = new TTList();
 		// attr_args_process(x, argc, argv);					// handle attribute args				
 
 		// If no name was specified as an attribute
@@ -125,7 +125,8 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 	if(x->attr_name != arg){
 		receive_remove(x);
 		x->attr_name = arg;
-		x->lk_nodes = NULL;
+		x->lk_nodes = new TTList();
+		x->lk_observer = new TTList();
 		receive_bind(x);		
 	}
 	return MAX_ERR_NONE;
@@ -136,6 +137,7 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 void receive_bind(t_receive *x)
 {
 	ObserverPtr p_obsv;
+	TTList lk_selection;
 	TTNodePtr p_node;
 	TTErr err = kTTErrGeneric;
 	
@@ -143,23 +145,21 @@ void receive_bind(t_receive *x)
 		object_method(g_receivemaster_object, jps_add, x->attr_name, x);
 	
 	// if there isn't selection
-	if(!x->lk_nodes){
+	if(x->lk_nodes->isEmpty()){
 		
 		// look for the node(s) into the directory
 		if(x->attr_name->s_name[0] == C_SEPARATOR){
-			if(jamoma_directory)
-				err = jamoma_directory->Lookup(TT(x->attr_name->s_name), &x->lk_nodes, &p_node);
-		
-			if(err != kTTErrNone){
-				x->lk_nodes = NULL;
-				object_error((t_object*)x,"jcom.receive : %s doesn't exist", x->attr_name->s_name);
+			if(jamoma_directory){
+				err = jamoma_directory->Lookup(TT(x->attr_name->s_name), lk_selection, &p_node);
+				x->lk_nodes->merge(lk_selection);
 			}
+		
+			if(err != kTTErrNone)
+				object_error((t_object*)x,"jcom.receive : %s doesn't exist", x->attr_name->s_name);
 		}
 	}
 	
-	if(x->lk_nodes){
-		
-		x->lk_observer = new TTList();
+	if(!x->lk_nodes->isEmpty()){
 		
 		// for each node of the selection
 		for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
@@ -179,7 +179,6 @@ void receive_bind(t_receive *x)
 		}
 	}
 }
-
 
 void receive_remove(t_receive *x)
 {
@@ -208,6 +207,7 @@ void receive_remove(t_receive *x)
 	
 	delete x->lk_nodes;
 	delete x->lk_observer;
+
 	object_method(g_receivemaster_object, jps_remove, x->attr_name, x);
 }
 

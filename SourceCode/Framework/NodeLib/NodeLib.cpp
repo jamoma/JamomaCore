@@ -92,7 +92,7 @@ JamomaError jamoma_directory_unregister(t_symbol *OSCaddress)
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError jamoma_directory_get_node(t_symbol *address, TTListPtr *returnedTTNodes, TTNodePtr *firstReturnedTTNode)
+JamomaError jamoma_directory_get_node(t_symbol *address, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
 {
 	TTErr err;
 
@@ -109,19 +109,19 @@ JamomaError jamoma_directory_get_node(t_symbol *address, TTListPtr *returnedTTNo
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError jamoma_directory_get_node_by_type(t_symbol *addressToStart, t_symbol *type, TTListPtr *returnedTTNodes, TTNodePtr *firstReturnedTTNode)
+JamomaError jamoma_directory_get_node_by_type(t_symbol *addressToStart, t_symbol *type, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
 {
-	TTListPtr whereToSearch;
+	TTList whereToSearch;
 	
 	TTErr err;
 	
 	if(jamoma_directory){
 		
-		err = jamoma_directory->Lookup(TT(addressToStart->s_name), &whereToSearch, firstReturnedTTNode);
+		err = jamoma_directory->Lookup(TT(addressToStart->s_name), whereToSearch, firstReturnedTTNode);
 		
 		if(err == kTTErrNone){
 			
-			err = jamoma_directory->LookingFor(whereToSearch, testTTNodeType, TT(type->s_name), returnedTTNodes, firstReturnedTTNode);
+			err = jamoma_directory->LookingFor(&whereToSearch, testTTNodeType, TT(type->s_name), returnedTTNodes, firstReturnedTTNode);
 			
 			if(err == kTTErrNone)
 				return JAMOMA_ERR_NONE;
@@ -132,7 +132,7 @@ JamomaError jamoma_directory_get_node_by_type(t_symbol *addressToStart, t_symbol
 			return JAMOMA_ERR_GENERIC;
 	}
 	
-	post("jamoma_directory_get_parameters %s : create a directory before", addressToStart->s_name);
+	post("jamoma_directory_get_node_by_type %s : create a directory before", addressToStart->s_name);
 	return JAMOMA_ERR_GENERIC;
 }
 
@@ -192,17 +192,16 @@ t_symbol * jamoma_node_type(TTNodePtr node)
 	return gensym((char*)node->getType()->getCString());
 }
 
-TTListPtr jamoma_node_children(TTNodePtr node)
+JamomaError jamoma_node_children(TTNodePtr node, TTList& lk_children)
 {
-	TTListPtr lk_children;
 	TTErr err;
 
-	err =  node->getChildren(S_WILDCARD,S_WILDCARD, &lk_children);
+	err =  node->getChildren(S_WILDCARD,S_WILDCARD, lk_children);
 
 	if(err == kTTErrNone)
-		return lk_children;
-	else
-		return NULL;
+		return JAMOMA_ERR_NONE;
+	
+	return JAMOMA_ERR_GENERIC;
 }
 
 t_object * jamoma_node_max_object(TTNodePtr node)
@@ -210,9 +209,15 @@ t_object * jamoma_node_max_object(TTNodePtr node)
 	return (t_object*)node->getObject();
 }
 
-TTListPtr	jamoma_node_properties(TTNodePtr node)
+JamomaError	jamoma_node_properties(TTNodePtr node, TTList& lk_prp)
 {
-	return node->getPropertiesList();
+	TTErr err;
+	
+	err = node->getPropertiesList(lk_prp);
+	if(err == kTTErrNone)
+		return JAMOMA_ERR_NONE;
+	
+	return JAMOMA_ERR_GENERIC;
 }
 
 JamomaError	jamoma_node_add_propertie(TTNodePtr node, t_symbol *propertie)
@@ -220,7 +225,6 @@ JamomaError	jamoma_node_add_propertie(TTNodePtr node, t_symbol *propertie)
 	TTErr err;
 
 	err = node->addPropertie(TT(propertie->s_name), &jamoma_node_get_propertie_method,  &jamoma_node_set_propertie_method);
-	
 	if(err == kTTErrNone)
 		return JAMOMA_ERR_NONE;
 	

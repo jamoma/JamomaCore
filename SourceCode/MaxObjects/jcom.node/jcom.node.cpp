@@ -137,7 +137,7 @@ void node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 	if(msg->s_name[0] == C_SEPARATOR){
 
 		if(msg != x->address)
-			err = jamoma_directory_get_node(msg, &(x->lk_nodes), &p_node);
+			err = jamoma_directory_get_node(msg, *x->lk_nodes, &p_node);
 
 		// if the address exists
 		if(err == JAMOMA_ERR_NONE){
@@ -178,14 +178,14 @@ void node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 
 void node_goto(t_node *x, t_symbol *address)
 {
-	TTNodePtr p_node = NULL;
+	TTNodePtr p_node;
 	JamomaError err = JAMOMA_ERR_NONE;
 
 	// Are we dealing with an OSC message ?
 	if(address->s_name[0] == C_SEPARATOR){
 
 		if(address != x->address){
-			err = jamoma_directory_get_node(address, &(x->lk_nodes), &p_node);
+			err = jamoma_directory_get_node(address, *x->lk_nodes, &p_node);
 
 			// if the address exists
 			if(err == JAMOMA_ERR_NONE)
@@ -201,7 +201,7 @@ void node_set_receive(t_node *x, t_symbol *address)
 	ObserverPtr p_obsv;
 	TTNodePtr p_node;
 	
-	jamoma_directory_get_node(address, &x->lk_nodes, &p_node);
+	jamoma_directory_get_node(address, *x->lk_nodes, &p_node);
 	
 	if(!x->lk_nodes->isEmpty()){
 		for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
@@ -228,43 +228,43 @@ void node_dump(t_node *x)
 	// dump all the address of the tree
 	//jamoma_directory_dump();
 	
-
-	TTListPtr returnedTTNodes;
+	TTList returnedTTNodes;
 	TTNodePtr firstReturnedTTNode, n_r;
+	t_symbol *osc_adrs;
 	JamomaError err;
 	
 	// dump all parameters of the tree
-	returnedTTNodes = new TTList();
-	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_parameter, &returnedTTNodes, &firstReturnedTTNode);
+	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_parameter, returnedTTNodes, &firstReturnedTTNode);
 	
 	if(err == JAMOMA_ERR_NONE){
 		
-		if(!returnedTTNodes->isEmpty()){
-			for(returnedTTNodes->begin(); returnedTTNodes->end(); returnedTTNodes->next()){
+		if(!returnedTTNodes.isEmpty()){
+			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
 			
-				returnedTTNodes->current().get(0,(TTPtr*)&n_r);
-				post("parameter : %s", jamoma_node_OSC_address(n_r));
-			
+				returnedTTNodes.current().get(0,(TTPtr*)&n_r);
+				osc_adrs = jamoma_node_OSC_address(n_r);
+				post("parameter : %s", osc_adrs->s_name);
 			}
+			post(" SIZE : %d", returnedTTNodes.getSize());
 		}
 		else
 			post("no parameter");
 	}
 	else
 		post("dump parameter error");
-	
+
 	// dump all messages of the tree
-	returnedTTNodes = new TTList();
-	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_message, &returnedTTNodes, &firstReturnedTTNode);
+	returnedTTNodes.clear();
+	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_message, returnedTTNodes, &firstReturnedTTNode);
 	
 	if(err == JAMOMA_ERR_NONE){
 		
-		if(!returnedTTNodes->isEmpty()){
-			for(returnedTTNodes->begin(); returnedTTNodes->end(); returnedTTNodes->next()){
+		if(!returnedTTNodes.isEmpty()){
+			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
 				
-				returnedTTNodes->current().get(0,(TTPtr*)&n_r);
-				post("message : %s", jamoma_node_OSC_address(n_r));
-				
+				returnedTTNodes.current().get(0,(TTPtr*)&n_r);
+				osc_adrs = jamoma_node_OSC_address(n_r);
+				post("message : %s", osc_adrs->s_name);	
 			}
 		}
 		else
@@ -274,17 +274,17 @@ void node_dump(t_node *x)
 		post("dump message error");
 	
 	// dump all returns of the tree
-	returnedTTNodes = new TTList();
-	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_return, &returnedTTNodes, &firstReturnedTTNode);
+	returnedTTNodes.clear();
+	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_return, returnedTTNodes, &firstReturnedTTNode);
 	
 	if(err == JAMOMA_ERR_NONE){
 		
-		if(!returnedTTNodes->isEmpty()){
-			for(returnedTTNodes->begin(); returnedTTNodes->end(); returnedTTNodes->next()){
+		if(!returnedTTNodes.isEmpty()){
+			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
 				
-				returnedTTNodes->current().get(0,(TTPtr*)&n_r);
-				post("return : %s", jamoma_node_OSC_address(n_r));
-				
+				returnedTTNodes.current().get(0,(TTPtr*)&n_r);
+				osc_adrs = jamoma_node_OSC_address(n_r);
+				post("return : %s", osc_adrs->s_name);	
 			}
 		}
 		else
@@ -481,17 +481,18 @@ void node_dump_as_opml(t_node *x, ushort level)
 {
 	unsigned int i;
 	char temp[512];
-	long len, err;
 	TTSymbolPtr attr;
-	TTNodePtr p_node;
-	len = err = 0;
+	TTNodePtr	p_node;
+	TTList		lk_prp;
+	TTList		lk_chd;
 
 	// get info about the node
 	t_symbol *name = jamoma_node_name(p_node);
 	t_symbol *instance = jamoma_node_instance(p_node);
 	//t_symbol *type = jamoma_node_type(p_node);
-	TTListPtr lk_prp = jamoma_node_properties(p_node);
-	TTListPtr lk_chd = jamoma_node_children(p_node);
+
+	jamoma_node_properties(p_node, lk_prp);
+	jamoma_node_children(p_node, lk_chd);
 
 	// make (2 + level) tabs
 	node_write_string(x, TAB);
@@ -513,16 +514,16 @@ void node_dump_as_opml(t_node *x, ushort level)
 	node_write_string(x, LB);
 
 	// if there are properties
-	if(lk_prp){
+	if(!lk_prp.isEmpty()){
 		// write an outline for the attributes
 		node_write_string(x, "<outline text=\":\">");
 		node_write_string(x, LB);
 
 		// write an outline for each attribute
 		attr = NULL;
-		for(lk_prp->begin(); lk_prp->end(); lk_prp->next()){
+		for(lk_prp.begin(); lk_prp.end(); lk_prp.next()){
 
-			lk_prp->current().get(0,(TTSymbol**)attr);
+			lk_prp.current().get(0,(TTSymbol**)attr);
 			node_write_string(x, "<outline text=\"");
 			node_write_string(x, (char*)attr->getCString());
 			node_write_string(x,"\"/>");
@@ -535,10 +536,10 @@ void node_dump_as_opml(t_node *x, ushort level)
 	}
 
 	// if there are children : do the same for each child
-	if(lk_chd){
-		for(lk_chd->begin(); lk_chd->end(); lk_chd->next()){
+	if(!lk_chd.isEmpty()){
+		for(lk_chd.begin(); lk_chd.end(); lk_chd.next()){
 
-			lk_chd->current().get(0,(TTObject **)&p_node);
+			lk_chd.current().get(0,(TTObject **)&p_node);
 			node_dump_as_opml(x, level+1);
 		}
 	}

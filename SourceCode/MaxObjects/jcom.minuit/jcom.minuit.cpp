@@ -192,7 +192,7 @@ void minuit_donamespace(t_minuit *x, t_symbol *oscAddress)
 {
 	short i;
 	TTString temp;
-	TTListPtr lk_prp, lk_chd;
+	TTList lk_prp, lk_chd;
 	t_linklist *lk_leaves, *lk_nodes;
 	TTSymbolPtr n_attr;
 	t_symbol *n_type, *s_attr;
@@ -212,15 +212,15 @@ void minuit_donamespace(t_minuit *x, t_symbol *oscAddress)
 	// auto-translation: It is necessary for us to have the nodes the lower and attributes of the node than the address given
 	if(x->p_node && x->address){
 		
-		lk_prp = jamoma_node_properties(x->p_node);
-		lk_chd = jamoma_node_children(x->p_node);
+		jamoma_node_properties(x->p_node, lk_prp);
+		jamoma_node_children(x->p_node, lk_chd);
 		
 		// the two lists for the nodes and leaves
 		lk_leaves = linklist_new();
 		lk_nodes = linklist_new();
 		
 		// if there are properties
-		if(lk_prp){
+		if(!lk_prp.isEmpty()){
 			
 			s_answer += " ";
 			s_answer += x->minuit_start_attributes->s_name;
@@ -229,9 +229,9 @@ void minuit_donamespace(t_minuit *x, t_symbol *oscAddress)
 			s_answer += " ";
 			
 			// write an outline for each attribut
-			for(lk_prp->begin(); lk_prp->end(); lk_prp->next()){
+			for(lk_prp.begin(); lk_prp.end(); lk_prp.next()){
 				
-				lk_prp->current().get(0,(TTSymbolPtr*)&n_attr);
+				lk_prp.current().get(0,(TTSymbolPtr*)&n_attr);
 				s_attr = minuit_convert_attribut_jamoma2minuit(x, gensym((char*)n_attr->getCString()));
 				
 				if(s_attr){
@@ -243,12 +243,12 @@ void minuit_donamespace(t_minuit *x, t_symbol *oscAddress)
 		}
 		
 		// if there are children
-		if(lk_chd){
+		if(!lk_chd.isEmpty()){
 			
 			//a check if its leaves or nodes
-			for(lk_chd->begin(); lk_chd->end(); lk_chd->next()){
+			for(lk_chd.begin(); lk_chd.end(); lk_chd.next()){
 				
-				lk_chd->current().get(0,(TTPtr*)&x->p_node);
+				lk_chd.current().get(0,(TTPtr*)&x->p_node);
 				n_type = jamoma_node_type(x->p_node);
 				
 				if((n_type == gensym("container")) || (n_type == gensym("hub")))
@@ -552,7 +552,7 @@ void minuit_goto(t_minuit *x, t_symbol *address)
 	// Are we dealing with an OSC message ?
 	if(address->s_name[0] == C_SEPARATOR){
 		
-		err = jamoma_directory_get_node(address, &(x->lk_nodes), &(x->p_node));
+		err = jamoma_directory_get_node(address, *x->lk_nodes, &x->p_node);
 		
 		// if the address exists
 		if(err == JAMOMA_ERR_NONE)

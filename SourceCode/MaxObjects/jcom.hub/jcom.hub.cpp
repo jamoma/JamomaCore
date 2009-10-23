@@ -537,9 +537,9 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 {
 	char		namestring[256];
 	char		oscAddress[256];
-	TTListPtr	returnedTTNodes;
+	TTList		returnedTTNodes;
 	TTNodePtr	firstReturnedTTNode;
-	TTListPtr   observers;
+	TTListPtr	observers;
 	ObserverPtr anObserver;
 	t_symbol	*osc;
 	JamomaError err;
@@ -558,7 +558,7 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	strcpy(oscAddress, x->osc_name->s_name);
 	strcat(oscAddress, namestring);
 	
-	err = jamoma_directory_get_node(gensym(oscAddress), &returnedTTNodes, &firstReturnedTTNode);
+	err = jamoma_directory_get_node(gensym(oscAddress), returnedTTNodes, &firstReturnedTTNode);
 								  
 	if(err == JAMOMA_ERR_NONE){ 
 		

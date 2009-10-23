@@ -41,10 +41,10 @@ extern "C" {
 	JamomaError		jamoma_directory_unregister(t_symbol *OSCaddress);
 
 	/** Get the node(s) at the given address (with wildcard too) */
-	JamomaError		jamoma_directory_get_node(t_symbol *address, TTListPtr *returnedTTNodes, TTNodePtr *firstReturnedTTNode);
+	JamomaError		jamoma_directory_get_node(t_symbol *address, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
 	
 	/** Get all parameters below the given address (with wildcard too) */
-	JamomaError		jamoma_directory_get_node_by_type(t_symbol *addressToStart, t_symbol *type, TTListPtr *returnedTTNodes, TTNodePtr *firstReturnedTTNode);
+	JamomaError		jamoma_directory_get_node_by_type(t_symbol *addressToStart, t_symbol *type, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
 	bool			testTTNodeType(TTNodePtr n, void *args);
 	
 	/** Return the OSC address of a node */
@@ -68,13 +68,13 @@ extern "C" {
 	t_symbol *		jamoma_node_type(TTNodePtr node);
 
 	/** Return all children of a node */
-	TTListPtr		jamoma_node_children(TTNodePtr node);
+	JamomaError		jamoma_node_children(TTNodePtr node, TTList& lk_children);
 
 	/** Return the Max object of a node */
 	t_object*		jamoma_node_max_object(TTNodePtr node);
 
 	/** Return all properties of a node */
-	TTListPtr		jamoma_node_properties(TTNodePtr node);
+	JamomaError		jamoma_node_properties(TTNodePtr node, TTList& lk_prp);
 
 	/** Add a propertie to a node as a key in the hashtab (without value) */
 	JamomaError		jamoma_node_add_propertie(TTNodePtr node, t_symbol *propertie);
