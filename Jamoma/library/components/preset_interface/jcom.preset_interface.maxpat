@@ -2512,7 +2512,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "sprintf %s/preset/interpolate %s %s %f",
+					"text" : "sprintf %s/preset/interpolate \\\"%s\\\" \\\"%s\\\" %f",
 					"fontsize" : 10.0,
 					"numinlets" : 4,
 					"numoutlets" : 1,
