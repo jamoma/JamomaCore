@@ -323,7 +323,7 @@ TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created
 TTErr TTNode::addPropertie(TTSymbolPtr propertie, void(*getPropertieMethod)(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr *returnedValue), void(*setPropertieMethod)(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr value))
 {
 	TTErr err;
-	TTValuePtr p_method = NULL;
+	TTValuePtr p_method;
 
 	// look into the hashtab to check if the propertie exists
 	err = this->properties->lookup(propertie, *p_method);
@@ -342,13 +342,12 @@ TTErr TTNode::addPropertie(TTSymbolPtr propertie, void(*getPropertieMethod)(TTNo
 		return kTTErrGeneric;
 }
 
-TTListPtr TTNode::getPropertiesList()
+TTErr TTNode::getPropertiesList(TTList& lk_prp)
 {
-	unsigned int i;
+	uint i;
 	TTValue *hk;
 	TTSymbolPtr key;
 	TTValue *c;
-	TTListPtr lk_prp;
 	
 	// if there are properties
 	if(!this->properties->isEmpty()){
@@ -356,18 +355,17 @@ TTListPtr TTNode::getPropertiesList()
 		hk = new TTValue();
 		c = new TTValue();
 		this->properties->getKeys(*hk);
-		lk_prp = new TTList();
 		
 		// for each propertie
 		for(i = 0; i < this->properties->getSize(); i++){
 			hk->get(i,(TTSymbol**)&key);
 			// add the propertie to the linklist
-			lk_prp->append(new TTValue((TTSymbolPtr)key));
+			 lk_prp.append(new TTValue((TTSymbolPtr)key));
 		}
 		
-		return lk_prp;
+		return kTTErrNone;
 	}
-	return NULL;
+	return kTTErrGeneric;
 }
 
 bool TTNode::isPropertie(TTSymbolPtr propertie)
@@ -427,7 +425,7 @@ TTErr TTNode::setPropertie(TTSymbolPtr propertie, TTValuePtr value)
 		return kTTErrGeneric;
 }
 								 
-TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *returnedChildren)
+TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTList& returnedChildren)
 {
 	unsigned int i, j;
 	TTErr err;
@@ -436,6 +434,9 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 	TTValue *c, *c_i;
 	TTHashPtr ht_i;
 	TTNodePtr n_c;
+	
+	// default : no child
+	returnedChildren.clear();
 
 	// if there are children
 	if(this->children->getSize()){
@@ -443,7 +444,6 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 		hk = new TTValue();
 		c = new TTValue();
 		this->children->getKeys(*hk);
-		*returnedChildren = new TTList();
 		
 		if(aName == S_WILDCARD){
 			// for each children
@@ -467,7 +467,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 							ht_i->lookup(key_i,*c_i);
 							c_i->get(0,(TTPtr*)&n_c);
 
-							(*returnedChildren)->append(new TTValue((TTPtr)n_c));
+							returnedChildren.append(new TTValue((TTPtr)n_c));
 						}
 					}
 					// there is an instance
@@ -475,7 +475,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 						err = ht_i->lookup(anInstance,*c_i);
 						if(err == kTTErrNone){
 							c_i->get(0,(TTPtr*)&n_c);
-							(*returnedChildren)->append(new TTValue((TTPtr)n_c));
+							returnedChildren.append(new TTValue((TTPtr)n_c));
 						}
 						else
 							return err;
@@ -503,7 +503,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 							ht_i->lookup(key_i,*c_i);
 							c_i->get(0,(TTPtr*)&n_c);
 
-							(*returnedChildren)->append(new TTValue((TTPtr)n_c));
+							returnedChildren.append(new TTValue((TTPtr)n_c));
 						}
 					}
 					// there is an instance
@@ -511,7 +511,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 						err = ht_i->lookup(anInstance,*c_i);
 						if(err == kTTErrNone){
 							c_i->get(0,(TTPtr*)&n_c);
-							(*returnedChildren)->append(new TTValue((TTPtr)n_c));
+							returnedChildren.append(new TTValue((TTPtr)n_c));
 						}
 						else
 							return err;

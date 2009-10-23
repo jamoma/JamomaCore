@@ -82,7 +82,7 @@ protected:
 												// TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject
 												// and maybe properties could be a sub tree himself (TTNodeDirectoryPtr) ... ?
 	
-	TTNodePtr				parent;					///< pointer to the parent TTNode in the directory
+	TTNodePtr			parent;					///< pointer to the parent TTNode in the directory
 	TTHashPtr			children;				///< a hashtab of hashtabs:
 												///< hashed on TTNode::name, and hashtabs because of TTNode::instanceName
 
@@ -127,7 +127,7 @@ public:
 	void*			getObject();
 
 	/** Get a pointer to the parent TTNode of the TTNode */
-	TTNodePtr			getParent();
+	TTNodePtr		getParent();
 
 	/** Set the parent of the TTNode 
 		This method ensure that the path to the TTNode exist
@@ -138,7 +138,7 @@ public:
 	TTErr			setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created);
 
 	/** Get a linklist of children of the TTNode : select them by name and instance (use wilcards to select them all) */
-	TTErr			getChildren(TTSymbolPtr name, TTSymbolPtr instance, TTListPtr *returnedChildren);
+	TTErr			getChildren(TTSymbolPtr name, TTSymbolPtr instance, TTList& returnedChildren);
 	
 	/** Add a TTNode as a child of the TTNode
 		@param child			a TTNodePtr to add as children of the TTNode.
@@ -156,7 +156,7 @@ public:
 
 	/** Get the list of all the properties of the TTNode 
 		TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject */
-	TTListPtr		getPropertiesList();
+	TTErr			getPropertiesList(TTList& lk_prp);
 	
 	/** Is it a propertie of the TTNode ?
 		TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject */

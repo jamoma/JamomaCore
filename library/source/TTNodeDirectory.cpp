@@ -168,12 +168,12 @@ TTErr TTNodeDirectory::TTNodeRemove(TTSymbolPtr oscAddress)
 	return this->directory->remove(oscAddress);
 }
 
-TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTListPtr *returnedTTNodes, TTNodePtr *firstReturnedTTNode)
+TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
 {
 	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie, oscAddress_nopropertie;
-	TTListPtr lk_selection, lk_temp;
-	TTNodePtr n_found, n_r;
-	TTErr err, err_get;
+	TTList lk_selection, lk_children;
+	TTNodePtr n_r;
+	TTErr err;
 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
 	if(oscAddress->getCString()[0]!= C_SEPARATOR)
@@ -187,37 +187,32 @@ TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTListPtr *returnedTTNodes
 
 		// Here is a recursive call to the TTNodeDirectory Lookup to get all TTNodes at upper levels
 		err = Lookup(oscAddress_parent, returnedTTNodes, firstReturnedTTNode);
-
-		if((err == kTTErrNone) || (err == kTTErrValueNotFound)){
 			
-			// for each returned TTNodes at upper levels
-			// select all corresponding "name.instance" TTNodes
-			// among the TTNode list.
-			lk_selection = new TTList();
+		// for each returned TTNodes at upper levels
+		// select all corresponding "name.instance" TTNodes
+		// among the TTNode list.
+		
+		if(!returnedTTNodes.isEmpty()){
 			
-			if(!(*returnedTTNodes)->isEmpty()){
-				for((*returnedTTNodes)->begin(); (*returnedTTNodes)->end(); (*returnedTTNodes)->next()){
-					
-					(*returnedTTNodes)->current().get(0, (TTPtr*)&n_r);
-					err_get = n_r->getChildren(oscAddress_name, oscAddress_instance, &lk_temp);
-					
-					// if there are children
-					// add it to the selection
-					if(err_get == kTTErrNone)
-							lk_selection->merge(*lk_temp);
-				}
+			// select all children of all parent nodes
+			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
+				
+				returnedTTNodes.current().get(0, (TTPtr*)&n_r);
+				n_r->getChildren(oscAddress_name, oscAddress_instance, lk_children);
+				
+				if(!lk_children.isEmpty())
+					lk_selection.merge(lk_children);
 			}
-			else
-				err_get = kTTErrValueNotFound;
 			
-			*returnedTTNodes = lk_selection;
-			if(!lk_selection->isEmpty())
-				lk_selection->getHead().get(0, (TTObjectPtr*)firstReturnedTTNode);
-			return err_get;
+			// return the slection
+			returnedTTNodes.clear();
+			
+			if(!lk_selection.isEmpty()){
+				returnedTTNodes.merge(lk_selection);
+				returnedTTNodes.getHead().get(0, (TTPtr*)&firstReturnedTTNode);
+			}
 		}
 		
-		*returnedTTNodes = NULL;
-		*firstReturnedTTNode = NULL;
 		return err;
 	}
 	// no wild card : do a lookup in the global hashtab 
@@ -231,23 +226,23 @@ TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTListPtr *returnedTTNodes
 			oscAddress_nopropertie = oscAddress;
 		
 		// look into the hashtab
-		err = getTTNodeForOSC(oscAddress_nopropertie, &n_found);
+		err = getTTNodeForOSC(oscAddress_nopropertie, &n_r);
 		
-		// is the propertie exists ?
+		// if the node exists
+		if(err == kTTErrNone){
+			returnedTTNodes.append(new TTValue((TTPtr)n_r));
+			*firstReturnedTTNode = n_r;
+		}
 		
-		
-		*returnedTTNodes = new TTList();
-		(*returnedTTNodes)->append(new TTValue(n_found));
-		*firstReturnedTTNode = n_found;
 		return err;
 	}
 }
 
-TTErr	TTNodeDirectory::LookingFor(TTListPtr whereToSearch, bool(testFunction)(TTNodePtr node, void*args), void *argument, TTListPtr *returnedTTNodes, TTNodePtr *firstReturnedTTNode)
+TTErr	TTNodeDirectory::LookingFor(TTListPtr whereToSearch, bool(testFunction)(TTNodePtr node, void*args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
 {
-	TTListPtr lk_children;
+	TTList lk_children;
 	TTNodePtr n_r, n_child;
-	TTErr err, err_look;
+	TTErr err;
 	
 	// if there are nodes from where to start
 	if(!whereToSearch->isEmpty()){
@@ -257,29 +252,28 @@ TTErr	TTNodeDirectory::LookingFor(TTListPtr whereToSearch, bool(testFunction)(TT
 			
 			// get all children of the node
 			whereToSearch->current().get(0, (TTPtr*)&n_r);
-			err = n_r->getChildren(S_WILDCARD, S_WILDCARD, &lk_children);
+			n_r->getChildren(S_WILDCARD, S_WILDCARD, lk_children);
 			
 			// if there are children
-			if(err == kTTErrNone){
+			if(!lk_children.isEmpty()){
 				
 				// test each of them and add those which are ok
-				for(lk_children->begin(); lk_children->end(); lk_children->next()){
+				for(lk_children.begin(); lk_children.end(); lk_children.next()){
 					
-					lk_children->current().get(0, (TTPtr*)&n_child);
+					lk_children.current().get(0, (TTPtr*)&n_child);
 					
 					// test the child and fill the returnedTTNodes
 					if(testFunction(n_child, argument))
-						(*returnedTTNodes)->append(new TTValue((TTPtr)n_child));
+						returnedTTNodes.append(new TTValue((TTPtr)n_child));
 				}
 				
-				// continu the research from all children
-				err_look = LookingFor(lk_children, testFunction, argument, returnedTTNodes, firstReturnedTTNode);
+				// continu the research below all children
+				err = LookingFor(&lk_children, testFunction, argument, returnedTTNodes, firstReturnedTTNode);
 				
-				(*returnedTTNodes)->begin();
-				(*returnedTTNodes)->current().get(0, (TTPtr*)firstReturnedTTNode);
-
-				if(err_look != kTTErrNone)
-					return err_look;
+				returnedTTNodes.getHead().get(0, (TTPtr*)&firstReturnedTTNode);
+				
+				if(err != kTTErrNone)
+					return err;
 			}
 		}
 		return kTTErrNone;
@@ -289,7 +283,7 @@ TTErr	TTNodeDirectory::LookingFor(TTListPtr whereToSearch, bool(testFunction)(TT
 
 TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(TTNodePtr node, void*args), void *argument, bool *isThere, TTNodePtr *firstTTNode)
 {
-	TTListPtr lk_children;
+	TTList lk_children;
 	TTNodePtr n_r, n_child;
 	TTErr err, err_look;
 	
@@ -301,15 +295,15 @@ TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(TTNod
 			
 			// get all children of the node
 			whereToSearch->current().get(0, (TTPtr*)&n_r);
-			err = n_r->getChildren(S_WILDCARD, S_WILDCARD, &lk_children);
+			err = n_r->getChildren(S_WILDCARD, S_WILDCARD, lk_children);
 			
 			// if there are children
 			if(err == kTTErrNone){
 				
 				// test each of them and add those which are ok
-				for(lk_children->begin(); lk_children->end(); lk_children->next()){
+				for(lk_children.begin(); lk_children.end(); lk_children.next()){
 					
-					lk_children->current().get(0, (TTPtr*)&n_child);
+					lk_children.current().get(0, (TTPtr*)&n_child);
 					
 					// test the child and fill the returnedTTNodes
 					if(testFunction(n_child, argument)){
@@ -322,7 +316,7 @@ TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(TTNod
 				}
 				
 				// continu the research from all children
-				err_look = IsThere(lk_children, testFunction, argument, isThere, firstTTNode);
+				err_look = IsThere(&lk_children, testFunction, argument, isThere, firstTTNode);
 				
 				if(err_look != kTTErrNone)
 					return err_look;

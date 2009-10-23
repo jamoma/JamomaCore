@@ -57,7 +57,7 @@ class TTFOUNDATION_EXPORT TTNodeDirectory : public TTObject			///< we will subcl
 protected:
 
 	TTSymbolPtr		name;					///< the name of the tree
-	TTNodePtr			root;					///< the root of the tree
+	TTNodePtr		root;					///< the root of the tree
 
 	TTHashPtr		directory;				///< a pointer to a global hashtab which reference all osc address of the tree
 	
@@ -75,7 +75,7 @@ public:
 	TTSymbolPtr		getName();
 	
 	/** Get the root of the TTNodeDirectory */
-	TTNodePtr			getRoot();
+	TTNodePtr		getRoot();
 	
 	/** Get the directory of the TTNodeDirectory */
 	TTHashPtr		getDirectory();
@@ -98,7 +98,7 @@ public:
 	 @param	firstReturnedTTNode		If non-null, the address of the first TTNode object pointer that is found for the given pattern is returned here.  
 									The value of the pointer will be set upon return.
 	 @return						An error code.				*/
-	TTErr			Lookup(TTSymbolPtr oscAddress, TTListPtr *returnedTTNodes, TTNodePtr *firstReturnedTTNode);
+	TTErr			Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
 	
 	/**	Find TTNodes by testing each TTNodes below an address 
 	 @param	oscAddress				The OSC address from where the research begin, possibly including wildcards and instance names/numbers.
@@ -109,7 +109,7 @@ public:
 	 @param	firstReturnedTTNode		If non-null, the address of the first TTNode object pointer that is found for the given pattern is returned here.
 									The value of the pointer will be set upon return.
 	 @return						An error code.				*/
-	TTErr			LookingFor(TTListPtr whereToSearch, bool(testFunction)(TTNodePtr node, void*args), void *argument, TTListPtr *returnedTTNodes, TTNodePtr *firstReturnedTTNode);
+	TTErr			LookingFor(TTListPtr whereToSearch, bool(testFunction)(TTNodePtr node, void*args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
 	
 	/**	Is there is one TTNode or more that respect a test below an address 
 	 @param	oscAddress				The OSC address from where the research begin, possibly including wildcards and instance names/numbers.
