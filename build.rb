@@ -127,7 +127,7 @@ if FileTest.exist?(file_path)
   else
     str.sub!(/#define TT_MODULAR_VERSION "(.*)"/, "#define TT_MODULAR_VERSION \"#{version_maj}.#{version_min}.#{version_sub} #{version_mod}\"")
   end
-  str.sub!(/TT_MODULAR_REV = (.*)/, "TT_MODULAR_REV = #{revision}")
+  str.sub!(/TT_MODULAR_REV "(.*)"/, "TT_MODULAR_REV \"#{revision}\"")
 
   f.rewind
   f.write(str)
