@@ -115,16 +115,19 @@ if FileTest.exist?(file_path)
 end
 
 #Header
-file_path = "#{@svn_root}/SourceCode/Framework/source/Jamoma.h"
+file_path = "#{@svn_root}/SourceCode/Framework/source/TTModularVersion.h"
+`cp "#{@svn_root}/SourceCode/Framework/source/TTModularVersion.template.h" "#{file_path}"`
+
 if FileTest.exist?(file_path)
   f = File.open("#{file_path}", "r+")
   str = f.read
 
   if (version_mod == '' || version_mod.match(/rc(.*)/))
-    str.sub!(/#define JAMOMA_VERSION "(.*)"/, "#define JAMOMA_VERSION \"#{version_maj}.#{version_min}.#{version_sub}\"")
+    str.sub!(/#define TT_MODULAR_VERSION "(.*)"/, "#define TT_MODULAR_VERSION \"#{version_maj}.#{version_min}.#{version_sub}\"")
   else
-    str.sub!(/#define JAMOMA_VERSION "(.*)"/, "#define JAMOMA_VERSION \"#{version_maj}.#{version_min}.#{version_sub} #{version_mod}\"")
+    str.sub!(/#define TT_MODULAR_VERSION "(.*)"/, "#define TT_MODULAR_VERSION \"#{version_maj}.#{version_min}.#{version_sub} #{version_mod}\"")
   end
+  str.sub!(/TT_MODULAR_REV = (.*)/, "TT_MODULAR_REV = #{revision}")
 
   f.rewind
   f.write(str)
