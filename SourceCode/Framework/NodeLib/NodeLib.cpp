@@ -71,7 +71,7 @@ JamomaError	jamoma_directory_register(t_symbol *OSCaddress, t_symbol *type, t_ob
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError jamoma_directory_unregister(t_symbol *OSCaddress)
+TTErr jamoma_directory_unregister(t_symbol *OSCaddress)
 {
 	TTNodePtr node = NULL;
 
@@ -80,16 +80,10 @@ JamomaError jamoma_directory_unregister(t_symbol *OSCaddress)
 	}
 	else{
 		post("jamoma_directory_unregister %s : create a directory before", OSCaddress->s_name);
-		return JAMOMA_ERR_GENERIC;
+		return kTTErrGeneric;
 	}
 
-	if(node){
-		node->~TTNode();
-		return JAMOMA_ERR_NONE;
-	}
-	
-	post("jamoma_directory_unregister %s : this address doesn't exist", OSCaddress->s_name);
-	return JAMOMA_ERR_GENERIC;
+	return TTObjectRelease(TTObjectHandle(&node));
 }
 
 JamomaError jamoma_directory_get_node(t_symbol *address, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)

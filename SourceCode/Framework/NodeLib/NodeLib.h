@@ -38,7 +38,7 @@ extern "C" {
 	JamomaError		jamoma_directory_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, TTNodePtr *newTTNode, bool *newInstanceCreated);
 
 	/** Unregister an osc address in the directory */
-	JamomaError		jamoma_directory_unregister(t_symbol *OSCaddress);
+	TTErr			jamoma_directory_unregister(t_symbol *OSCaddress);
 
 	/** Get the node(s) at the given address (with wildcard too) */
 	JamomaError		jamoma_directory_get_node(t_symbol *address, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
