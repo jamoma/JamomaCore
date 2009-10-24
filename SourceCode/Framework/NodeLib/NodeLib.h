@@ -25,7 +25,7 @@ extern "C" {
 	
 	
 	/** Free the directory */
-	JamomaError		jamoma_directory_free(void);
+	TTErr			jamoma_directory_free(void);
 
 	/** Dump all the OSC address of the directory in the max window */
 	JamomaError		jamoma_directory_dump(void);

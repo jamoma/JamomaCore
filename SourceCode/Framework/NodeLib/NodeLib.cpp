@@ -21,23 +21,20 @@ TTNodeDirectoryPtr jamoma_directory = NULL;
 
 TTNodeDirectoryPtr	jamoma_directory_init()
 {
+	TTErr err;
+	
 	if(jamoma_directory)
 		return jamoma_directory;	// already have a directory, just return the pointer to the directory...
 
-	jamoma_directory = new TTNodeDirectory(TT("Jamoma"));
+	err = TTObjectInstantiate(TT("NodeDirectory"), TTObjectHandle(&jamoma_directory), TT("Jamoma"));
+	TT_ASSERT("NodeDirectory created successfully", !err);
 
 	return jamoma_directory;
 }
 
-JamomaError jamoma_directory_free(void)
+TTErr jamoma_directory_free(void)
 {
-	if(jamoma_directory){
-		jamoma_directory->~TTNodeDirectory();
-		return JAMOMA_ERR_NONE;
-	}
-	
-	post("jamoma_directory_free : create a directory before");	
-	return JAMOMA_ERR_GENERIC;
+	return TTObjectRelease(TTObjectHandle(&jamoma_directory));
 }
 
 JamomaError jamoma_directory_dump(void)
