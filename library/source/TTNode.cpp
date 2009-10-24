@@ -19,10 +19,11 @@ TT_OBJECT_CONSTRUCTOR,
 	TT_ASSERT("Correct number of args to create TTNode", arguments.getSize() == 5);
 	
 	arguments.get(0, &name);
-	arguments.get(0, &instance);
-	arguments.get(0, &type);
-	arguments.get(0, &object);
-	arguments.get(0, TTHandle(&directory));
+	arguments.get(1, &instance);
+	arguments.get(2, &type);
+	arguments.get(3, &object);
+	arguments.get(4, TTObjectHandle(&directory));
+	TT_ASSERT("Directory passed to TTNode is not NULL", directory);
 	
 	// a new TTNode have no child
 	this->children = new TTHash();
@@ -314,7 +315,7 @@ TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created
 		}
 	}
 	else
-		found->get(0,(TTPtr*)&this->parent);
+		found.get(0,(TTPtr*)&this->parent);
 
 	return kTTErrNone;
 }

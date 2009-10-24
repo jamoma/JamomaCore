@@ -12,6 +12,7 @@
 #include "TTSymbolCache.h"
 #include "TTValueCache.h"
 #include "TTNode.h"
+#include "TTNodeDirectory.h"
 
 #ifdef TT_PLATFORM_MAC
 #include <dlfcn.h>
@@ -50,6 +51,7 @@ void TTFoundationInit()
 		
 		// register classes -- both internal and external
 		TTNode::registerClass();
+		TTNodeDirectory::registerClass();
 		TTFoundationLoadExternalClasses();
 	}
 }

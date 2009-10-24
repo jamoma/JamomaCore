@@ -9,17 +9,19 @@
 #include "TTNodeDirectory.h"
 
 #define thisTTClass			TTNodeDirectory
-#define thisTTClassName		"TTNodeDirectory"
-#define thisTTClassTags		"tree"
+#define thisTTClassName		"NodeDirectory"
+#define thisTTClassTags		"node, tree, directory"
 
-TTNodeDirectory::TTNodeDirectory(TTSymbolPtr newName):TTObject(kTTValNONE),
+
+TT_OBJECT_CONSTRUCTOR,
 	root(NULL),
 	observers(NULL)
 {
 	TTBoolean nodeCreated = NO;
 	
 	// Set the name of the tree
-	this->name = newName;
+	TT_ASSERT("Correct number of args to create TTNodeDirectory", arguments.getSize() == 1);
+	name = arguments;
 	
 	// create a new directory
 	this->directory = new TTHash();
@@ -84,7 +86,8 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie, newInstance, oscAddress_got;
 	TTBoolean parent_created;
 	TTValue* found;
-	TTNodePtr newTTNode, n_found;
+	TTNodePtr	newTTNode = NULL;
+	TTNodePtr	n_found = NULL;
 	TTErr err;
 	TTValue v;
 
@@ -144,7 +147,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 		v.set(1, newInstance);
 		v.set(2, newType);
 		v.set(3, newObject);
-		v.set(4, this);
+		v.set(4, TTObjectRef(*this));
 		//newTTNode = new TTNode(oscAddress_name, newInstance, newType, newObject, this);
 		err = TTObjectInstantiate(TT("Node"), TTObjectHandle(&newTTNode), v);
 		TT_ASSERT("new TTNode successful", !err);

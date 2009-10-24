@@ -54,7 +54,7 @@ typedef Observer* ObserverPtr;
 
 class TTFOUNDATION_EXPORT TTNodeDirectory : public TTObject			///< we will subclass TTObject in order to gain some functionality -- like observers and notifications
 {
-protected:
+	TTCLASS_SETUP(TTNodeDirectory)
 
 	TTSymbolPtr		name;					///< the name of the tree
 	TTNodePtr		root;					///< the root of the tree
@@ -65,12 +65,6 @@ protected:
 	TTListPtr		lifecycleObservers;		///< for objects that just need to know when we do something critical, like the free the object
 	
 public:
-	/** constructor */
-	TTNodeDirectory(TTSymbolPtr newName);
-
-	/** Destroy the TTNodeDirectory. */
-	virtual ~TTNodeDirectory();
-
 	/** Get the name of the TTNodeDirectory */
 	TTSymbolPtr		getName();
 	
