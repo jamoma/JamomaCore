@@ -151,7 +151,7 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
     TTNodePtr   rootNode = self->tree->getRoot();
     TTValue     moduleNodes;
     TTUInt32    numModules;
-    TTListPtr   returnedChildren = NULL;
+    TTList		returnedChildren;
     TTErr       err;
     SnapshotPtr snapshot = NULL;
     TTUInt32    snapshotIndex = 0;
@@ -176,9 +176,9 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
     snapshot = new Snapshot;
 
 
-    err = rootNode->getChildren(TT("*"), TT("*"), &returnedChildren);
+    err = rootNode->getChildren(TT("*"), TT("*"), returnedChildren);
 
-    returnedChildren->assignToValue(moduleNodes);
+    returnedChildren.assignToValue(moduleNodes);
     numModules = moduleNodes.getSize();
     for (TTUInt32 i=0; i<numModules; i++) {
         TTNodePtr   module = NULL;
@@ -192,8 +192,8 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
                 TTUInt32    numParameters;
 
                 post("  Module: %s", module->getName()->getCString());
-                err = module->getChildren(TT("*"), TT("*"), &returnedChildren);
-                returnedChildren->assignToValue(parameterNodes);
+                err = module->getChildren(TT("*"), TT("*"), returnedChildren);
+                returnedChildren.assignToValue(parameterNodes);
                 numParameters = parameterNodes.getSize();
                 for (TTUInt32 i=0; i<numParameters; i++) {
                     TTNodePtr   parameter = NULL;
@@ -234,11 +234,11 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
                         else if (childType == TT("container")) {
 							TTValue     containerNodes;
 							TTUInt32    numParameters2;
-							TTListPtr	containerChildren = NULL;
+							TTList		containerChildren;
 							
 							post("  Container: %s", parameter->getName()->getCString());
-							err = parameter->getChildren(TT("*"), TT("*"), &containerChildren);
-							containerChildren->assignToValue(containerNodes);
+							err = parameter->getChildren(TT("*"), TT("*"), containerChildren);
+							containerChildren.assignToValue(containerNodes);
 							numParameters2 = containerNodes.getSize();
 							for (TTUInt32 i=0; i<numParameters2; i++) {
 								TTNodePtr   parameter2 = NULL;
