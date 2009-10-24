@@ -12,22 +12,19 @@
 #define thisTTClassName		"TTNode"
 #define thisTTClassTags		"nodes"
 
-//TTNode::TTNode(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType, void *newObject, TTNodeDirectoryPtr aDirectory):TTObject(kTTValNONE)
-TTNode::TTNode(TTValue& arguments)
+TT_OBJECT_CONSTRUCTOR,
+	parent(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTNode", arguments.getSize() == 5);
 	
-	arguments.get(0, name);
-	arguments.get(0, instance);
-	arguments.get(0, type);
-	arguments.get(0, object);
-	arguments.get(0, directory);
+	arguments.get(0, &name);
+	arguments.get(0, &instance);
+	arguments.get(0, &type);
+	arguments.get(0, &object);
+	arguments.get(0, TTPtr(&directory));
 	
 	// a new TTNode have no child
 	this->children = new TTHash();
-
-	// a new TTNode have no parent
-	this->parent = NULL;
 
 	// a new TTNode have no propertie
 	this->properties = new TTHash();

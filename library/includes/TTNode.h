@@ -13,12 +13,14 @@
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
 #endif // WIN_VERSION
 
-#include "TTNodeDirectory.h"
-#include "TTObject.h"
-#include "TTSymbol.h"
-#include "TTValue.h"
-#include "TTHash.h"
-#include "TTList.h"
+#include "TTFoundationAPI.h"
+
+//#include "TTNodeDirectory.h"
+//#include "TTObject.h"
+//#include "TTSymbol.h"
+//#include "TTValue.h"
+//#include "TTHash.h"
+//#include "TTList.h"
 
 class TTNode;
 typedef TTNode*	TTNodePtr;
@@ -71,13 +73,13 @@ typedef Observer* ObserverPtr;
 
 class TTFOUNDATION_EXPORT TTNode : public TTObject			///< we will subclass TTObject in order to gain some functionality -- like observers and notifications
 {
-protected:
+	TTCLASS_SETUP(TTNode)
 
 	TTSymbolPtr			name;					///< the name of the TTNode
 	TTSymbolPtr			instance;				///< an instance symbol. default to ""
 
 	TTSymbolPtr			type;					///< a type symbol to organized the TTNode of the directory
-	void				*object;				///< an object linked to the TTNode (or even NULL for containters)
+	TTPtr				object;				///< an object linked to the TTNode (or even NULL for containters)
 	TTHashPtr			properties;				///< a hashtab of properties of the TTNode (no data stored, just properties as keys)
 												// TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject
 												// and maybe properties could be a sub tree himself (TTNodeDirectoryPtr) ... ?
@@ -92,11 +94,6 @@ protected:
 	TTListPtr			lifecycleObservers;		///< for objects that just need to know when we do something critical, like the free the object
 	
 public:
-	/** constructor */
-	TTNode(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType, void *newObject, TTNodeDirectoryPtr directory);
-
-	/** Destroy the TTNode. */
-	virtual ~TTNode();
 
 	/** Get the name of the TTNode */
 	TTSymbolPtr		getName();
