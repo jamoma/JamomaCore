@@ -16,7 +16,7 @@ TTNodeDirectory::TTNodeDirectory(TTSymbolPtr newName):TTObject(kTTValNONE),
 	root(NULL),
 	observers(NULL)
 {
-	TTBoolean *nodeCreated = new TTBoolean(false);
+	TTBoolean nodeCreated = NO;
 	
 	// Set the name of the tree
 	this->name = newName;
@@ -25,7 +25,7 @@ TTNodeDirectory::TTNodeDirectory(TTSymbolPtr newName):TTObject(kTTValNONE),
 	this->directory = new TTHash();
 
 	// create a root (OSC style)
-	TTNodeCreate(S_SEPARATOR, TT("container"), NULL, &this->root, nodeCreated);
+	TTNodeCreate(S_SEPARATOR, TT("container"), NULL, &this->root, &nodeCreated);
 }
 
 TTNodeDirectory::~TTNodeDirectory()
