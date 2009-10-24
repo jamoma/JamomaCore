@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>library/includes/TTValue.h</string>
+	<string>library/source/TTNode.cpp</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -75,13 +75,13 @@
 					<key>filename</key>
 					<string>library/includes/TTHash.h</string>
 					<key>lastUsed</key>
-					<date>2009-10-12T17:24:22Z</date>
+					<date>2009-10-24T14:11:12Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>library/source/TTHash.cpp</string>
 					<key>lastUsed</key>
-					<date>2009-10-12T17:24:25Z</date>
+					<date>2009-10-24T14:11:12Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -93,7 +93,7 @@
 					<key>filename</key>
 					<string>library/source/TTList.cpp</string>
 					<key>lastUsed</key>
-					<date>2009-10-12T17:23:38Z</date>
+					<date>2009-10-24T14:11:12Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -110,6 +110,30 @@
 				<dict>
 					<key>filename</key>
 					<string>library/source/TTMutex.cpp</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>library/includes/TTNode.h</string>
+					<key>lastUsed</key>
+					<date>2009-10-24T14:20:16Z</date>
+					<key>selected</key>
+					<true/>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>library/source/TTNode.cpp</string>
+					<key>lastUsed</key>
+					<date>2009-10-24T14:20:16Z</date>
+					<key>selected</key>
+					<true/>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>library/includes/TTNodeDirectory.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>library/source/TTNodeDirectory.cpp</string>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -169,9 +193,7 @@
 					<key>filename</key>
 					<string>library/includes/TTValue.h</string>
 					<key>lastUsed</key>
-					<date>2009-10-15T16:14:49Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2009-10-24T14:11:11Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -232,36 +254,6 @@
 			<key>firstVisibleLine</key>
 			<integer>305</integer>
 		</dict>
-		<key>library/includes/TTHash.h</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>18</integer>
-				<key>line</key>
-				<integer>24</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>13</integer>
-				<key>line</key>
-				<integer>24</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>26</integer>
-				<key>line</key>
-				<integer>24</integer>
-			</dict>
-		</dict>
 		<key>library/includes/TTList.h</key>
 		<dict>
 			<key>caret</key>
@@ -276,6 +268,20 @@
 			<key>firstVisibleLine</key>
 			<integer>71</integer>
 		</dict>
+		<key>library/includes/TTNode.h</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>10</integer>
+				<key>line</key>
+				<integer>81</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>47</integer>
+		</dict>
 		<key>library/includes/TTSymbolTable.h</key>
 		<dict>
 			<key>caret</key>
@@ -289,20 +295,6 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>28</integer>
-		</dict>
-		<key>library/includes/TTValue.h</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>12</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
 		</dict>
 		<key>library/source/TTElement.cpp</key>
 		<dict>
@@ -332,7 +324,7 @@
 			<key>firstVisibleLine</key>
 			<integer>74</integer>
 		</dict>
-		<key>library/source/TTHash.cpp</key>
+		<key>library/source/TTNode.cpp</key>
 		<dict>
 			<key>caret</key>
 			<dict>
@@ -345,20 +337,6 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-		</dict>
-		<key>library/source/TTList.cpp</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>1</integer>
-				<key>line</key>
-				<integer>37</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>145</integer>
 		</dict>
 		<key>library/source/TTSymbolCache.cpp</key>
 		<dict>
@@ -391,18 +369,8 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>library/includes/TTAttribute.h</string>
-		<string>library/source/TTElement.cpp</string>
-		<string>library/includes/TTElement.h</string>
-		<string>library/includes/TTList.h</string>
-		<string>library/source/TTSymbolTable.cpp</string>
-		<string>library/source/TTSymbolCache.cpp</string>
-		<string>library/includes/TTSymbolTable.h</string>
-		<string>library/source/TTFoundation.cpp</string>
-		<string>library/includes/TTValue.h</string>
-		<string>library/source/TTList.cpp</string>
-		<string>library/source/TTHash.cpp</string>
-		<string>library/includes/TTHash.h</string>
+		<string>library/includes/TTNode.h</string>
+		<string>library/source/TTNode.cpp</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>

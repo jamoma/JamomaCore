@@ -16,3 +16,4 @@ Release
 *.mode1v3
 *.pbxuser
 *.orig
+*.tm_build_errors

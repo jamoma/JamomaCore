@@ -10,7 +10,7 @@
 #include "TTNodeDirectory.h"
 
 #define thisTTClass			TTNode
-#define thisTTClassName		"TTNode"
+#define thisTTClassName		"Node"
 #define thisTTClassTags		"node"
 
 TT_OBJECT_CONSTRUCTOR,

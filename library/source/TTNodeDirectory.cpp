@@ -144,7 +144,8 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 		v.set(3, newObject);
 		v.set(4, this);
 		//newTTNode = new TTNode(oscAddress_name, newInstance, newType, newObject, this);
-		err = TTObjectInstantiate(TT("node"), TTObjectHandle(&newTTNode), v);
+		err = TTObjectInstantiate(TT("Node"), TTObjectHandle(&newTTNode), v);
+		TT_ASSERT("new TTNode successful", !err);
 
 		// 2. Ensure that the path to the new TTNode exists
 		if(oscAddress_parent != NO_PARENT){
