@@ -295,12 +295,11 @@ TTErr TTNode::setInstance(TTSymbolPtr anInstance, TTSymbolPtr *newInstance, TTBo
 
 TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created)
 {
-	TTValue* found;
-	TTErr err;
+	TTValue	found;
+	TTErr	err;
 
 	// look into the hashtab to check if the address exist in the directory
-	found = new TTValue();
-	err = this->directory->getDirectory()->lookup(oscAddress_parent,*found);
+	err = this->directory->getDirectory()->lookup(oscAddress_parent, found);
 
 	// if the address doesn't exist
 	if(err == kTTErrValueNotFound){

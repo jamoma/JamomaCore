@@ -12,7 +12,9 @@
 #define thisTTClassName		"TTNodeDirectory"
 #define thisTTClassTags		"tree"
 
-TTNodeDirectory::TTNodeDirectory(TTSymbolPtr newName):TTObject(kTTValNONE)
+TTNodeDirectory::TTNodeDirectory(TTSymbolPtr newName):TTObject(kTTValNONE),
+	root(NULL),
+	observers(NULL)
 {
 	TTBoolean *nodeCreated = new TTBoolean(false);
 	
