@@ -1,6 +1,6 @@
 /* 
  * TTNode
- * Copyright © 2008, Tim Place
+ * Copyright © 2008, Théo de la Hogue & Tim Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -12,14 +12,14 @@
 #define thisTTClassName		"TTNode"
 #define thisTTClassTags		"nodes"
 
-TTNode::TTNode(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType, void *newObject, TTTreePtr atree):TTObject(kTTValNONE)
+TTNode::TTNode(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType, void *newObject, TTNodeDirectoryPtr aDirectory):TTObject(kTTValNONE)
 {
 	// a new TTNode have just a name, an instance, a type and an object
 	this->name = newName;
 	this->instance = newInstance;
 	this->type = newType;
 	this->object = newObject;
-	this->tree = atree;
+	this->directory = aDirectory;
 
 	// a new TTNode have no child
 	this->children = new TTHash();
@@ -29,6 +29,8 @@ TTNode::TTNode(TTSymbolPtr newName, TTSymbolPtr newInstance, TTSymbolPtr newType
 
 	// a new TTNode have no propertie
 	this->properties = new TTHash();
+	
+	this->observers = new TTList();
 }
 
 TTNode::~TTNode()
@@ -41,7 +43,7 @@ TTNode::~TTNode()
 	TTHashPtr ht_i, p_ht_i;
 	TTNodePtr n_c;
 
-	// get the address of the TTNode in the tree 
+	// get the address of the TTNode in the directory 
 	this->getOscAddress(&OSCaddress);
 
 	// it is not a child of his parent anymore
@@ -112,10 +114,11 @@ TTNode::~TTNode()
 	this->type = NULL;
 	this->object = NULL;
 	this->instance = NULL;
+	this->observers->clear();
+	this->observers->~TTList();
 
-	// remove the OSCaddress from the directory of the tree
-	// TODO : add a NodeRemove method the tree class
-	this->tree->getDirectory()->remove(OSCaddress);
+	// remove the OSCaddress from the directory
+	this->directory->TTNodeRemove(OSCaddress);
 }
 
 #if 0
@@ -128,14 +131,15 @@ TTSymbolPtr		TTNode::getInstance(){return this->instance;}
 TTSymbolPtr		TTNode::getType(){return this->type;}
 void*			TTNode::getObject(){return this->object;}
 TTNodePtr		TTNode::getParent(){return this->parent;}
-TTHashPtr		TTNode::getProperties(){return this->properties;}
+
+TTListPtr		TTNode::getObserver(){return this->observers;}
 
 TTErr TTNode::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
 {
 	TTErr err;
 	unsigned int i;
 	TTValue *hk, *p_c, *c;
-	char *temp, *t;
+	TTString temp, t;
 	TTSymbolPtr old_OSCaddress, new_OSCaddress, old_key;
 	TTHashPtr p_ht_i;
 	TTNodePtr n_c;
@@ -178,10 +182,10 @@ TTErr TTNode::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *ne
 	// replace the beginning by the new_OSCaddress
 	hk = new TTValue();
 	c = new TTValue();
-	this->tree->getDirectory()->getKeys(*hk);
+	this->directory->getDirectory()->getKeys(*hk);
 
 	// for each key
-	for(i=0; i<this->tree->getDirectory()->getSize(); i++){
+	for(i=0; i<this->directory->getDirectory()->getSize(); i++){
 
 		hk->get(i,(TTSymbol**)&old_key);
 
@@ -189,23 +193,22 @@ TTErr TTNode::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *ne
 		if(strstr(old_key->getCString(), old_OSCaddress->getCString()) == old_key->getCString()){
 
 			// get the TTNode
-			err = this->tree->getDirectory()->lookup(old_key,*c);
+			err = this->directory->getDirectory()->lookup(old_key,*c);
 			if(err != kTTErrValueNotFound){
 				c->get(0,(TTPtr*)&n_c);
 
 				// create a new key : /new_OSCaddress/end_of_the_old_key
-				temp = (char *)malloc(sizeof(char)*( strlen(old_key->getCString()) - strlen(old_OSCaddress->getCString()) + strlen(new_OSCaddress->getCString()) ));
-				strcpy(temp, new_OSCaddress->getCString());
+				temp = new_OSCaddress->getCString();
 				t = (char *)(old_key->getCString() + strlen(old_OSCaddress->getCString()));
 
-				if((TT(t) == TT(S_SEPARATOR)) || t[0] == 0){
-					strcat(temp, t);
+				if((TT(t) == S_SEPARATOR) || t[0] == 0){
+					temp += t;
 
 					// remove the old key
-					this->tree->getDirectory()->remove(old_key);
+					this->directory->getDirectory()->remove(old_key);
 
 					// append the new key
-					this->tree->getDirectory()->append(TT(temp),TTValue(n_c));
+					this->directory->getDirectory()->append(TT(temp),TTValue(n_c));
 				}
 			}
 		}
@@ -219,7 +222,7 @@ TTErr TTNode::setInstance(TTSymbolPtr anInstance, TTSymbolPtr *newInstance, TTBo
 	TTErr err;
 	unsigned int i;
 	TTValue *hk, *p_c, *c;
-	char *temp, *t;
+	TTString temp, t;
 	TTSymbolPtr old_OSCaddress, new_OSCaddress, old_key;
 	TTHashPtr p_ht_i;
 	TTNodePtr n_c;
@@ -255,10 +258,10 @@ TTErr TTNode::setInstance(TTSymbolPtr anInstance, TTSymbolPtr *newInstance, TTBo
 	// replace the beginning by the new_OSCaddress
 	hk = new TTValue();
 	c = new TTValue();
-	this->tree->getDirectory()->getKeys(*hk);
+	this->directory->getDirectory()->getKeys(*hk);
 
 	// for each key
-	for(i=0; i<this->tree->getDirectory()->getSize(); i++){
+	for(i=0; i<this->directory->getDirectory()->getSize(); i++){
 
 		hk->get(i,(TTSymbol**)&old_key);
 
@@ -266,23 +269,22 @@ TTErr TTNode::setInstance(TTSymbolPtr anInstance, TTSymbolPtr *newInstance, TTBo
 		if(strstr(old_key->getCString(), old_OSCaddress->getCString()) == old_key->getCString()){
 
 			// get the TTNode
-			err = this->tree->getDirectory()->lookup(old_key,*c);
+			err = this->directory->getDirectory()->lookup(old_key,*c);
 			if(err != kTTErrValueNotFound){
 				c->get(0,(TTPtr*)&n_c);
 
 				// create a new key : /new_OSCaddress/end_of_the_old_key
-				temp = (char *)malloc(sizeof(char)*( strlen(old_key->getCString()) - strlen(old_OSCaddress->getCString()) + strlen(new_OSCaddress->getCString()) ));
-				strcpy(temp, new_OSCaddress->getCString());
+				temp = new_OSCaddress->getCString();
 				t = (char *)(old_key->getCString() + strlen(old_OSCaddress->getCString()));
 
-				if((TT(t) == TT(S_SEPARATOR)) || t[0] == 0){
-					strcat(temp, t);
+				if((TT(t) == S_SEPARATOR) || t[0] == 0){
+					temp += t;
 
 					// remove the old key
-					this->tree->getDirectory()->remove(old_key);
+					this->directory->getDirectory()->remove(old_key);
 
 					// append the new key
-					this->tree->getDirectory()->append(TT(temp),TTValue(n_c));
+					this->directory->getDirectory()->append(TT(temp),TTValue(n_c));
 				}
 			}
 		}
@@ -296,15 +298,15 @@ TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created
 	TTValue* found;
 	TTErr err;
 
-	// look into the hashtab to check if the address exist in the tree
+	// look into the hashtab to check if the address exist in the directory
 	found = new TTValue();
-	err = this->tree->getDirectory()->lookup(oscAddress_parent,*found);
+	err = this->directory->getDirectory()->lookup(oscAddress_parent,*found);
 
 	// if the address doesn't exist
 	if(err == kTTErrValueNotFound){
 
 		// we create a container TTNode
-		this->tree->NodeCreate(oscAddress_parent, TT("container"), NULL, &this->parent, parent_created);
+		this->directory->TTNodeCreate(oscAddress_parent, TT("container"), NULL, &this->parent, parent_created);
 
 		// Is it a good test ?
 		if(*parent_created && (this->parent->instance != NO_INSTANCE)){
@@ -318,24 +320,112 @@ TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created
 	return kTTErrNone;
 }
 
-TTErr TTNode::setProperties(TTSymbolPtr propertie)
+TTErr TTNode::addPropertie(TTSymbolPtr propertie, void(*getPropertieMethod)(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr *returnedValue), void(*setPropertieMethod)(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr value))
 {
 	TTErr err;
-	TTValue* found = new TTValue();
+	TTValuePtr p_method;
 
 	// look into the hashtab to check if the propertie exists
-	err = this->properties->lookup(propertie,*found);
+	err = this->properties->lookup(propertie, *p_method);
 
 	// if this propertie doesn't exist
 	if(err == kTTErrValueNotFound){
-		this->properties->append(propertie,TTValue());	// TODO : add a value too
+		
+		// store the get and set propertie methods
+		p_method = new TTValue((TTPtr)getPropertieMethod);
+		p_method->append((TTPtr)setPropertieMethod);
+		
+		this->properties->append(propertie, p_method);
 		return kTTErrNone;
 	}
 	else
 		return kTTErrGeneric;
 }
 
-TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *returnedChildren)
+TTErr TTNode::getPropertiesList(TTList& lk_prp)
+{
+	uint i;
+	TTValue *hk;
+	TTSymbolPtr key;
+	TTValue *c;
+	
+	// if there are properties
+	if(!this->properties->isEmpty()){
+		
+		hk = new TTValue();
+		c = new TTValue();
+		this->properties->getKeys(*hk);
+		
+		// for each propertie
+		for(i = 0; i < this->properties->getSize(); i++){
+			hk->get(i,(TTSymbol**)&key);
+			// add the propertie to the linklist
+			 lk_prp.append(new TTValue((TTSymbolPtr)key));
+		}
+		
+		return kTTErrNone;
+	}
+	return kTTErrGeneric;
+}
+
+bool TTNode::isPropertie(TTSymbolPtr propertie)
+{
+	TTErr err;
+	TTValuePtr p_methods = NULL;
+	
+	// look into the hashtab to check if the propertie exists
+	err = this->properties->lookup(propertie, *p_methods);
+	
+	return err == kTTErrNone;
+}
+
+TTErr TTNode::getPropertie(TTSymbolPtr propertie, TTValuePtr *returnedValue)
+{
+	TTErr err;
+	TTValuePtr p_methods = NULL;
+	void (*g_method)(TTNodePtr n, TTSymbolPtr p, TTValuePtr *rv);
+	
+	// look into the hashtab to check if the propertie exists
+	err = this->properties->lookup(propertie, *p_methods);
+	
+	// if this propertie exists
+	if(err == kTTErrNone){
+		// get the set propertie method
+		// and use it
+		if(p_methods){
+			p_methods->get(0, (TTPtr*)&g_method);
+			g_method(this, propertie, returnedValue);
+		}
+		return kTTErrNone;
+	}
+	else
+		return kTTErrGeneric;
+}
+
+TTErr TTNode::setPropertie(TTSymbolPtr propertie, TTValuePtr value)
+{
+	TTErr err;
+	TTValuePtr p_methods = NULL;
+	void (*s_method)(TTNodePtr n, TTSymbolPtr p, TTValuePtr v);
+	
+	// look into the hashtab to check if the propertie exists
+	err = this->properties->lookup(propertie, *p_methods);
+	
+	// if this propertie exists
+	if(err == kTTErrNone){
+		// get the set propertie method
+		// and use it
+		if(p_methods){
+			p_methods->get(1, (TTPtr*)&s_method);
+			s_method(this, propertie, value);
+		}
+		return kTTErrNone;
+	}
+	else
+		return kTTErrGeneric;
+}
+								 
+TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTList& returnedChildren)
 {
 	unsigned int i, j;
 	TTErr err;
@@ -344,6 +434,9 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 	TTValue *c, *c_i;
 	TTHashPtr ht_i;
 	TTNodePtr n_c;
+	
+	// default : no child
+	returnedChildren.clear();
 
 	// if there are children
 	if(this->children->getSize()){
@@ -351,9 +444,8 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 		hk = new TTValue();
 		c = new TTValue();
 		this->children->getKeys(*hk);
-		*returnedChildren = new TTList();
 		
-		if(aName == TT(S_WILDCARD)){
+		if(aName == S_WILDCARD){
 			// for each children
 			for(i=0; i<this->children->getSize(); i++){
 			
@@ -368,14 +460,14 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 					c_i = new TTValue();
 					ht_i->getKeys(*hk_i);
 
-					if(anInstance == TT(S_WILDCARD)){
+					if(anInstance == S_WILDCARD){
 						// for each instance
 						for(j=0; j<ht_i->getSize(); j++){
 							hk_i->get(j,(TTSymbol**)&key_i);
 							ht_i->lookup(key_i,*c_i);
 							c_i->get(0,(TTPtr*)&n_c);
 
-							(*returnedChildren)->append(new TTValue((TTPtr)n_c));
+							returnedChildren.append(new TTValue((TTPtr)n_c));
 						}
 					}
 					// there is an instance
@@ -383,7 +475,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 						err = ht_i->lookup(anInstance,*c_i);
 						if(err == kTTErrNone){
 							c_i->get(0,(TTPtr*)&n_c);
-							(*returnedChildren)->append(new TTValue((TTPtr)n_c));
+							returnedChildren.append(new TTValue((TTPtr)n_c));
 						}
 						else
 							return err;
@@ -404,14 +496,14 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 					c_i = new TTValue();
 					ht_i->getKeys(*hk_i);
 
-					if(anInstance == TT(S_WILDCARD)){
+					if(anInstance == S_WILDCARD){
 						// for each instance
 						for(j=0; j<ht_i->getSize(); j++){
 							hk_i->get(j,(TTSymbol**)&key_i);
 							ht_i->lookup(key_i,*c_i);
 							c_i->get(0,(TTPtr*)&n_c);
 
-							(*returnedChildren)->append(new TTValue((TTPtr)n_c));
+							returnedChildren.append(new TTValue((TTPtr)n_c));
 						}
 					}
 					// there is an instance
@@ -419,7 +511,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 						err = ht_i->lookup(anInstance,*c_i);
 						if(err == kTTErrNone){
 							c_i->get(0,(TTPtr*)&n_c);
-							(*returnedChildren)->append(new TTValue((TTPtr)n_c));
+							returnedChildren.append(new TTValue((TTPtr)n_c));
 						}
 						else
 							return err;
@@ -436,12 +528,24 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTListPtr *
 	return kTTErrNone;
 }
 
+
+void TTNode::addObserver(ObserverPtr observer)
+{
+	this->observers->append(new TTValue((TTPtr)observer));
+}
+
+
+void TTNode::removeObserver(ObserverPtr observer)
+{
+	this->observers->remove(new TTValue((TTPtr)observer));
+}
+
 TTErr TTNode::getOscAddress(TTSymbolPtr *returnedOscAddress)
 {
-	unsigned int i, nb_ancestor, len=0;
+	unsigned int i, nb_ancestor, len;
 	TTNodePtr ptr;
 	TTNodePtr *ancestor;
-	char *OscAddress;
+	TTString OscAddress;
 
 	// First, count the number of ancestor 
 	// and the length of the entire address (with slash and dot)
@@ -468,13 +572,12 @@ TTErr TTNode::getOscAddress(TTSymbolPtr *returnedOscAddress)
 	}
 
 	// Then, create an array to register all the ancestor and a string
-	if(nb_ancestor){
+	if(nb_ancestor)
 		ancestor = (TTNodePtr *)malloc(sizeof(TTNodePtr)*nb_ancestor);
-		OscAddress = (char *)malloc(sizeof(char)*len);
-	}
+	
 	// this is the root
 	else{
-		*returnedOscAddress = TT(S_SEPARATOR);
+		*returnedOscAddress = S_SEPARATOR;
 		return kTTErrNone;
 	}
 
@@ -489,30 +592,29 @@ TTErr TTNode::getOscAddress(TTSymbolPtr *returnedOscAddress)
 
 	// Finaly, copy the name of each ancestor
 	// copy the root before
-	strcpy(OscAddress,ancestor[0]->name->getCString());
+	OscAddress = ancestor[0]->name->getCString();
 	for(i=1; i<nb_ancestor; i++){
 
 		if(ancestor[i]->name != NO_NAME)
-			strcat(OscAddress,ancestor[i]->name->getCString());
+			OscAddress += ancestor[i]->name->getCString();
 
 		if(ancestor[i]->instance != NO_INSTANCE){
-			strcat(OscAddress,S_INSTANCE);
-			strcat(OscAddress,ancestor[i]->instance->getCString());
+			OscAddress += S_INSTANCE->getCString();
+			OscAddress += ancestor[i]->instance->getCString();
 		}
 
-		strcat(OscAddress,S_SEPARATOR);
+		OscAddress += S_SEPARATOR->getCString();
 	}
 
 	if(this->name != NO_NAME)
-		strcat(OscAddress,this->name->getCString());
+		OscAddress += this->name->getCString();
 
 	if(this->instance != NO_INSTANCE){
-		strcat(OscAddress,S_INSTANCE);
-		strcat(OscAddress,this->instance->getCString());
+		OscAddress += S_INSTANCE->getCString();
+		OscAddress += this->instance->getCString();
 	}
 	
 	if(len){
-		OscAddress[len-1] = NULL;
 		*returnedOscAddress = TT(OscAddress);
 		return kTTErrNone;
 	}

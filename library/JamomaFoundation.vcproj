@@ -244,6 +244,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\includes\TTNodeDirectory.h"
+				>
+			</File>
+			<File
 				RelativePath=".\includes\TTObject.h"
 				>
 			</File>
@@ -321,6 +325,10 @@
 			</File>
 			<File
 				RelativePath=".\source\TTNode.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTNodeDirectory.cpp"
 				>
 			</File>
 			<File
