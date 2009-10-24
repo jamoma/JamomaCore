@@ -31,7 +31,8 @@ TTNodeDirectory::~TTNodeDirectory()
 	// TODO : delete all the node of the directory then the directory
 	// WARNING : if you destroy all the directory, the root will be destroyed too
 	// so don't destroy it again !!!
-	this->root->~TTNode();
+//	this->root->~TTNode();
+	TTObjectRelease(TTObjectHandle(&root));
 }
 
 #if 0
@@ -83,6 +84,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 	TTValue* found;
 	TTNodePtr newTTNode, n_found;
 	TTErr err;
+	TTValue v;
 
 	// Split the OSC address in /parent/name.instance:/propertie
 	err = splitOSCAddress(oscAddress,&oscAddress_parent,&oscAddress_name, &oscAddress_instance, &oscAddress_propertie);
@@ -135,7 +137,14 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 		///////////////////////////
 
 		// 1. Create a new TTNode
-		newTTNode = new TTNode(oscAddress_name, newInstance, newType, newObject, this);
+		v.setSize(5);
+		v.set(0, oscAddress_name);
+		v.set(1, newInstance);
+		v.set(2, newType);
+		v.set(3, newObject);
+		v.set(4, this);
+		//newTTNode = new TTNode(oscAddress_name, newInstance, newType, newObject, this);
+		err = TTObjectInstantiate(TT("node"), TTObjectHandle(&newTTNode), v);
 
 		// 2. Ensure that the path to the new TTNode exists
 		if(oscAddress_parent != NO_PARENT){

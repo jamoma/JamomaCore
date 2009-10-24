@@ -7,10 +7,11 @@
  */
 
 #include "TTNode.h"
+#include "TTNodeDirectory.h"
 
 #define thisTTClass			TTNode
 #define thisTTClassName		"TTNode"
-#define thisTTClassTags		"nodes"
+#define thisTTClassTags		"node"
 
 TT_OBJECT_CONSTRUCTOR,
 	parent(NULL)
@@ -21,7 +22,7 @@ TT_OBJECT_CONSTRUCTOR,
 	arguments.get(0, &instance);
 	arguments.get(0, &type);
 	arguments.get(0, &object);
-	arguments.get(0, TTPtr(&directory));
+	arguments.get(0, TTHandle(&directory));
 	
 	// a new TTNode have no child
 	this->children = new TTHash();

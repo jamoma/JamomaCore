@@ -29,6 +29,8 @@ class TTClass;
 typedef TTAttribute*	TTAttributePtr;
 typedef TTMessage*		TTMessagePtr;
 typedef TTObject*		TTObjectPtr;
+typedef TTObject**		TTObjectHandle;
+typedef TTObject&		TTObjectRef;
 typedef TTClass*		TTClassPtr;
 	
 
