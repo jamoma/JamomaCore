@@ -13,6 +13,11 @@
 
 // high-performance (these are defined first so that they are found fast)
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSymEmpty;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSymSlash;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSymDot;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSymColon;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSymStar;
+
 extern TTFOUNDATION_EXPORT TTSymbolPtr kTTSym_setVector32;
 extern TTFOUNDATION_EXPORT TTSymbolPtr kTTSym_getVector32;
 extern TTFOUNDATION_EXPORT TTSymbolPtr kTTSym_setVector64;

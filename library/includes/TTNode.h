@@ -27,11 +27,11 @@ typedef TTNodeDirectory*	TTNodeDirectoryPtr;
 class Observer;
 typedef Observer* ObserverPtr;
 
-#define NO_NAME TT("")
-#define NO_INSTANCE TT("")
-#define NO_TYPE TT("")
-#define NO_PARENT TT("")
-#define NO_PROPERTIE TT("")
+#define NO_NAME			kTTSymEmpty
+#define NO_INSTANCE		kTTSymEmpty
+#define NO_TYPE			kTTSymEmpty
+#define NO_PARENT		kTTSymEmpty
+#define NO_PROPERTIE	kTTSymEmpty
 
 // OSC2 style address
 #define C_SEPARATOR '/'
@@ -39,10 +39,10 @@ typedef Observer* ObserverPtr;
 #define C_PROPERTIE ':'
 #define C_WILDCARD '*'
 
-#define S_SEPARATOR TT("/")
-#define S_INSTANCE TT(".")
-#define S_PROPERTIE TT(":")
-#define S_WILDCARD TT("*")
+#define S_SEPARATOR		kTTSymSlash
+#define S_INSTANCE		kTTSymDot
+#define S_PROPERTIE		kTTSymColon
+#define S_WILDCARD		kTTSymStar
 
 /**
 	We build a directory of TTNodes, and you can request a pointer for any TTNode, or add an observer to any TTNode, etc.

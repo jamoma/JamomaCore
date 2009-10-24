@@ -229,8 +229,8 @@
 			isa = PBXGroup;
 			children = (
 				D2F68EC5108C9BE10094260C /* TTNode.h */,
-				D2F68EC6108C9BE10094260C /* TTNodeDirectory.h */,
 				D2F68EC9108C9BEF0094260C /* TTNode.cpp */,
+				D2F68EC6108C9BE10094260C /* TTNodeDirectory.h */,
 				D2F68ECA108C9BEF0094260C /* TTNodeDirectory.cpp */,
 			);
 			name = NodeDirectory;
