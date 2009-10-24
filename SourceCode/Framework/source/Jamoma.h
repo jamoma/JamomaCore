@@ -24,8 +24,8 @@
 #include "z_dsp.h"
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 
-#include "math.h"
-#include "stdlib.h"
+#include <math.h>
+#include <stdlib.h>
 
 #include "TTFoundationAPI.h"		// TTBlue Headers...
 
@@ -41,8 +41,6 @@
 #include "FunctionLib.h"
 #include "RampLib.h"
 #include "NodeLib.h"
-
-//#include "Controller.h"				// Plugin manager for network communication
 
 #define JAMOMA_UNIT_HEIGHT 35.0
 #define JAMOMA_UNIT_WIDTH 150.0

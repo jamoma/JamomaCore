@@ -21,15 +21,18 @@ typedef struct _receive{
 	t_object					ob;				///< REQUIRED: Our object
 	void						*outlet;		///< Need one for each outlet
 	t_symbol					*attr_name;		///< ATTRIBUTE: name
-	t_receive_obex_callback		callback;		/// < Function pointer to call if we instantiated inside of another extern
-	void						*baton;			/// < Baton to hand back to the callee of the callback when it is called
+	TTListPtr					lk_nodes;		// a pointer to a selection of Nodes of the tree
+	TTListPtr					lk_observer;	// a pointer to the observer list that bind to the selection of Nodes.
+	t_receive_obex_callback		callback;		///< Function pointer to call if we instantiated inside of another extern
+	void						*baton;			///< Baton to hand back to the callee of the callback when it is called
 } t_receive;
 
 
 /** Send Object */
 typedef struct _send{
-	t_object		ob;			///< REQUIRED: Our object
-	t_symbol		*attr_name;	///< ATTRIBUTE: name
+	t_object					ob;				///< REQUIRED: Our object
+	t_symbol					*attr_name;		///< ATTRIBUTE: name
+	TTListPtr					lk_nodes;		///< a pointer to a selection of Nodes of the tree
 } t_send;
 
 
@@ -52,8 +55,6 @@ typedef struct _jcom_receivemaster{
 void receive_initclass();
 void receivemaster_initclass();
 void send_initclass();
-void receive_tilde_initclass();
-void send_tilde_initclass();
 
 
 #endif // #ifndef __JCOM_SENDRECEIVE_H__

@@ -35,7 +35,7 @@ typedef SnapshotCollection*             SnapshotCollectionPtr;
 // Data Structure for this object
 typedef struct {
     Object                  ob;
-    TTTreePtr               tree;
+    TTNodeDirectoryPtr		tree;
     SnapshotCollectionPtr   snapshots;
     SymbolPtr               excludes[128];  // list of parameter and container names to exclude from snapshots
     TTInt32                 excludeSize;
@@ -96,7 +96,7 @@ TTPtr TTModSnapshotNew(SymbolPtr name, AtomCount argc, AtomPtr argv)
         TTUInt32 i=0;
 
         self->snapshots = new SnapshotCollection;
-        self->tree = jamoma_tree_init();
+        self->tree = jamoma_directory_init();
 
         self->excludes[i++] = gensym("ch");
         self->excludes[i++] = gensym("view");
@@ -142,7 +142,7 @@ void TTModSnapshotAssist(TTModSnapshotPtr self, void* b, long msg, long arg, cha
 
 void TTModSnapshotDump(TTModSnapshotPtr self)
 {
-    jamoma_tree_dump(); // dump all the address of the tree in the Max window
+    jamoma_directory_dump(); // dump all the address of the tree in the Max window
 }
 
 
