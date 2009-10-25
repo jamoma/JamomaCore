@@ -16,3 +16,6 @@ Release
 *.mode1v3
 *.pbxuser
 *.orig
+*.o
+*.bundle
+*.log

@@ -37,24 +37,23 @@ datadir = $(datarootdir)
 localstatedir = $(prefix)/var
 sitelibdir = $(sitedir)/$(ruby_version)
 
-#CC = gcc
-CC = g++
+CC = gcc
 LIBRUBY = $(LIBRUBY_SO)
 LIBRUBY_A = lib$(RUBY_SO_NAME)-static.a
 LIBRUBYARG_SHARED = -l$(RUBY_SO_NAME)
 LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)
 
 RUBY_EXTCONF_H = 
-CFLAGS   =  -fno-common -arch i386 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common $(cflags)
-INCFLAGS = -I. -I$(topdir) -I$(hdrdir) -I$(srcdir) -I /Volumes/lime/code/Jamoma/Modules/Foundation/library/includes 
+CFLAGS   =  -fno-common -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common $(cflags)-I /code/Jamoma/Modules/Foundation/library/includes 
+INCFLAGS = -I. -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0 -I.
 DEFS     = 
-CPPFLAGS =   -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE $(DEFS) $(cppflags)
+CPPFLAGS =   -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I /code/Jamoma/Modules/Foundation/library/includes
 CXXFLAGS = $(CFLAGS) 
-ldflags  = -L. -arch i386 -framework JamomaFoundation
+ldflags  = -L. -arch i386 -arch x86_64  -framework JamomaFoundation
 dldflags = 
 archflag = 
 DLDFLAGS = $(ldflags) $(dldflags) $(archflag)
-LDSHARED = cc -arch i386 -pipe -bundle -undefined dynamic_lookup
+LDSHARED = cc -arch i386 -arch x86_64 -pipe -bundle -undefined dynamic_lookup
 AR = ar
 EXEEXT = 
 

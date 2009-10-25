@@ -18,6 +18,7 @@ typedef VALUE (*TTRubyMethod)(...);
 
 // Prototypes
 extern "C" {
+	void Init_TTRuby();
 	VALUE TTRubyInitialize(VALUE self, VALUE className);
 	VALUE TTRubySendMessage(VALUE self, VALUE messageName, VALUE args);
 }

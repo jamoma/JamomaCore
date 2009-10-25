@@ -1,10 +1,10 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby -wKU
 
 require 'TTRuby'
 
 puts "start"
 
-converter = new TTRuby("TTGraphicsWindow")
+converter = TTRuby.new("TTGraphicsWindow")
 
 puts "converter: #{converter}"
 
