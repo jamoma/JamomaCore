@@ -128,6 +128,17 @@ puts ""
 
 
 ###################################################################
+# LANGUAGE BINDINGS
+###################################################################
+puts "Building Ruby Language Extensions..."
+
+`cd examples/ruby; ruby extconf.rb; make clean; make`
+# TODO: need to do "sudo make install" to actually use it -- not sure how to do that in the script
+
+puts ""
+
+
+###################################################################
 # FINISH UP
 ###################################################################
 
