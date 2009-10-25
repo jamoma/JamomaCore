@@ -100,4 +100,25 @@ VALUE TTRubySendMessage(VALUE self, VALUE messageName, VALUE args)
 }
 
 
+VALUE TTRubyCalculateValue(VALUE self, VALUE messageName, VALUE args)
+{
+	TTRubyInstance* instance = NULL;
+	TTErr			err = kTTErrNone;
+	VALUE			messageNameStr = StringValue(messageName);
+	TTValue			v;
+	VALUE			returnValue;
+	
+	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
+	if (!err) {
+		instance = (TTRubyInstance*)TTPtr(v);
+		if (instance) {
+			v.clear();
+			//TODO: somehow wrap args in v here
+//			err = instance->obj->sendMessage(TT(RSTRING(messageNameStr)->ptr), v);
+			returnValue = 3.1415;
+		}
+	}
+}
+
+
 
