@@ -61,8 +61,8 @@ class TTFOUNDATION_EXPORT TTNodeDirectory : public TTObject			///< we will subcl
 
 	TTHashPtr		directory;				///< a pointer to a global hashtab which reference all osc address of the tree
 	
-	TTListPtr		observers;
-	TTListPtr		lifecycleObservers;		///< for objects that just need to know when we do something critical, like the free the object
+//	TTListPtr		observers;
+//	TTListPtr		lifecycleObservers;		///< for objects that just need to know when we do something critical, like the free the object
 	
 public:
 	/** Get the name of the TTNodeDirectory */
