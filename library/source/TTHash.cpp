@@ -65,6 +65,7 @@ TTErr TTHash::clear()
 
 TTErr TTHash::getKeys(TTValue& hashKeys)
 {
+// TODO: we need to have some thread protection for TTHash!
 	hashKeys.clear();
 	for(TTHashMapIter iter = hashMap->begin(); iter != hashMap->end(); iter++)	
 		hashKeys.append(TTSymbolPtr(iter->first));
@@ -75,5 +76,11 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 TTUInt32 TTHash::getSize()
 {
 	return hashMap->size();
+}
+
+
+TTBoolean TTHash::isEmpty()
+{
+	return hashMap->empty();
 }
 

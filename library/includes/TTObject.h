@@ -99,6 +99,9 @@ protected:
 public:
 	virtual ~TTObject();
 	
+	/**	Query an object to get its current reference count.	*/
+	TTUInt16 getReferenceCount(){return referenceCount;}
+	
 	/**
 		The theory on attributes is that the subclass calls registerAttribute()
 		and the base class manages a list of all registered attributes.
@@ -245,6 +248,19 @@ public:
 
 #include "TTAttribute.h"
 #include "TTMessage.h"
+
+
+#define TT_OBJECT_CONSTRUCTOR_EXPORT \
+	\
+	extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\
+	TTErr loadTTExtension(void)\
+	{\
+		TTFoundationInit();\
+		thisTTClass :: registerClass(); \
+		return kTTErrNone;\
+	}\
+	\
+	TT_OBJECT_CONSTRUCTOR
 
 
 #endif // __TT_OBJECT_H__

@@ -14,6 +14,7 @@
 #include "TTDataObject.h"
 #include "TTEnvironment.h"
 #include "TTHash.h"
+#include "TTLimits.h"
 #include "TTList.h"
 #include "TTMutex.h"
 #include "TTObject.h"

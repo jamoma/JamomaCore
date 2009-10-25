@@ -12,7 +12,8 @@
 #include "TTElement.h"
 #include "TTValue.h"
 #ifdef TT_PLATFORM_MAC
-#include <hash_map.h>
+#include <ext/hash_map>
+using namespace __gnu_cxx;
 #elif TT_PLATFORM_LINUX
 #include <map>
 #else // TT_PLATFORM_WIN
@@ -74,6 +75,8 @@ public:
 	/** Return the number of keys in the hash table. */
 	TTUInt32 getSize();
 	
+	/** Return true if the hash has nothing stored in it. */
+	TTBoolean isEmpty();
 };
 
 

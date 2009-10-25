@@ -15,13 +15,15 @@
 /**	A convenience macro to be used by subclasses for registering messages.
 	@param	name	The name of the message, and also the name of the classes' method to be called.
 */
-#define registerMessageSimple(name)    registerMessage(TT(#name), (TTMethod)& thisTTClass ::name , kTTMessagePassNone)
+#define addMessage(name)					registerMessage(TT(#name), (TTMethod)& thisTTClass ::name , kTTMessagePassNone )
+#define registerMessageSimple(name)			registerMessage(TT(#name), (TTMethod)& thisTTClass ::name , kTTMessagePassNone )
 
 
 /**	A convenience macro to be used by subclasses for registering messages.
 	@param	name	The name of the message, and also the name of the classes' method to be called.
 */
-#define registerMessageWithArgument(name)    registerMessage(TT(#name), (TTMethod)& thisTTClass ::name )
+#define addMessageWithArgument(name)		registerMessage(TT(#name), (TTMethod)& thisTTClass ::name )
+#define registerMessageWithArgument(name)	registerMessage(TT(#name), (TTMethod)& thisTTClass ::name )
 
 
 /****************************************************************************************************/
