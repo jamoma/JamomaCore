@@ -10,6 +10,11 @@
 class TTRubyInstance {
 public:
 	TTObjectPtr	obj;
+	
+	TTRubyInstance()
+	{
+		obj = NULL;
+	}
 };
 
 
