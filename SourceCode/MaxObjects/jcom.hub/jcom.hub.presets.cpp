@@ -511,16 +511,16 @@ t_max_err hub_preset_doread(t_hub *x, t_symbol *userpath)
 	char 			filename[MAX_FILENAME_CHARS];	// for storing the name of the file locally
 	char 			fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
 	short 			path;					// pathID#
-	long			outtype;				// the file type that is actually true
+    long			filetype = 'TEXT', outtype;  // the file type that is actually true    
 
 	// FIND THE FILE WE WANT TO READ
 	if(!userpath->s_name[0]){											// Empty string
-		if(open_dialog(filename, &path, &outtype ,NULL, -1))			// Returns 0 if successful
+		if(open_dialog(filename, &path, &outtype, &filetype, 1))			// Returns 0 if successful
 			return MAX_ERR_GENERIC;										// User Cancelled
 	}
 	else{
 		strcpy(filename, userpath->s_name);								// Copy symbol argument to a local string
-		if(locatefile_extended(filename, &path, &outtype, NULL, -1)){	// Returns 0 if successful
+		if(locatefile_extended(filename, &path, &outtype, &filetype, 1)){	// Returns 0 if successful
 			if(!x->editing)
 				object_error((t_object*)x, "%s module: preset file not found", x->attr_name->s_name);
 			return MAX_ERR_GENERIC;										// Not found
