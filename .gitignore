@@ -1,0 +1,21 @@
+# Mac OSX Finder stuff
+.DS_Store
+
+
+logs
+build
+html
+Debug
+Release
+*.layout
+*.depends
+*.map
+*.ncb
+*.suo
+*.user
+*.mode1v3
+*.pbxuser
+*.orig
+*.o
+*.bundle
+*.log
