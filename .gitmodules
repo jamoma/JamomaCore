@@ -55,3 +55,6 @@
 [submodule "Modules/TheGitter"]
 	path = Modules/TheGitter
 	url = git://github.com/bltzr/JamomaGitter.git
+[submodule "Modules/Ruby"]
+	path = Modules/Ruby
+	url = git://github.com/tap/JamomaRuby.git
