@@ -12,6 +12,6 @@ puts "converter: #{converter}"
 #converter.setAttributeValue("base" 2.8)
 
 #converter.sendMessage("front", 0)
-puts converter.calculateValue(0.5)
+puts converter.calculate(0.5)
 
 
