@@ -94,7 +94,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 265.0, 335.0, 397.0, 19.0 ],
-									"text" : "test.assert.equal TESTparameter/dataspace/color/hsl2native 0. 255. 0."
+									"text" : "test.assert.equal TESTparameter/dataspace/color/hsl2native 0. 1. 0."
 								}
 
 							}
@@ -261,13 +261,13 @@
 ,
 					"patching_rect" : [ 510.0, 80.0, 102.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"default_fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p dataspace_color"
@@ -410,6 +410,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-8",
 					"maxclass" : "comment",
 					"numinlets" : 1,
