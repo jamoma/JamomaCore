@@ -16,6 +16,7 @@ if(ARGV.length < 1)
   puts "newModule.rb <required:newModuleName(no jmod. prefix)> <optional:moduleType{control(default), audio, spatialization, video, openGL}> <optional:path/to/newModuleParentFolder> "
   puts "examples:"
   puts "  ./newModule.rb tap.specialEffect~ audio /Users/tim/code/Jamoma/UserLib/Tap.Tools"
+  puts "  ./newModule.rb foo~ audio"
   puts "  ./newModule.rb randomThing"
   exit 0;
 end
@@ -40,14 +41,15 @@ templateFolder = "#{glibdir}/../Modules/Modular/Jamoma/modules/#{moduleType}/#{t
 ###################################################################
 # COPY
 
-puts `mkdir -pv "#{moduleFolder}"`
-puts `cp -v "#{templateFolder}"/* "#{moduleFolder}"`
+`mkdir -pv "#{moduleFolder}"`
+`cp -v "#{templateFolder}"/* "#{moduleFolder}"`
 
-puts `mv "#{moduleFolder}"/jalg.#{templateName}.maxpat  "#{moduleFolder}"/jalg.#{moduleName}.maxpat`
-puts `mv "#{moduleFolder}"/jmod.#{templateName}.maxpat  "#{moduleFolder}"/jmod.#{moduleName}.maxpat`
-puts `mv "#{moduleFolder}"/jmod.#{templateName}.maxhelp "#{moduleFolder}"/jmod.#{moduleName}.maxhelp`
-puts `mv "#{moduleFolder}"/jmod.#{templateName}.xml     "#{moduleFolder}"/jmod.#{moduleName}.xml`
-puts `mv "#{moduleFolder}"/jmod.#{templateName}.html    "#{moduleFolder}"/jmod.#{moduleName}.html`
+`mv "#{moduleFolder}"/jalg.#{templateName}.maxpat        "#{moduleFolder}"/jalg.#{moduleName}.maxpat`
+`mv "#{moduleFolder}"/jmod.#{templateName}.maxpat        "#{moduleFolder}"/jmod.#{moduleName}.maxpat`
+`mv "#{moduleFolder}"/jmod.#{templateName}.test.maxpat   "#{moduleFolder}"/jmod.#{moduleName}.test.maxpat`
+`mv "#{moduleFolder}"/jmod.#{templateName}.maxhelp       "#{moduleFolder}"/jmod.#{moduleName}.maxhelp`
+`mv "#{moduleFolder}"/jmod.#{templateName}.xml           "#{moduleFolder}"/jmod.#{moduleName}.xml`
+`mv "#{moduleFolder}"/jmod.#{templateName}.html          "#{moduleFolder}"/jmod.#{moduleName}.html`
 
 
 ###################################################################
@@ -69,6 +71,7 @@ end
 
 substituteStringsOnFile("#{moduleFolder}/jalg.#{moduleName}.maxpat",  "#{templateName}", "#{moduleName}")
 substituteStringsOnFile("#{moduleFolder}/jmod.#{moduleName}.maxpat",  "#{templateName}", "#{moduleName}")
+substituteStringsOnFile("#{moduleFolder}/jmod.#{moduleName}.test.maxpat",  "#{templateName}", "#{moduleName}")
 substituteStringsOnFile("#{moduleFolder}/jmod.#{moduleName}.maxhelp", "#{templateName}", "#{moduleName}")
 substituteStringsOnFile("#{moduleFolder}/jmod.#{moduleName}.xml",     "#{templateName}", "#{moduleName}")
 substituteStringsOnFile("#{moduleFolder}/jmod.#{moduleName}.html",    "#{templateName}", "#{moduleName}")
