@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<device name = "/dummy_device" class = "device_def.xml" numInputs = "3" numOutputs = "4">
+	<inputs>
+		<parameter name = "/in.1">
+			<type>f</type>
+			<units>degrees</units>
+			<minimum>-90.</minimum>
+			<maximum>90.</maximum>
+		</parameter>
+		<parameter name = "/in.2">
+			<type>i</type>
+			<units>cm</units>
+			<minimum>0</minimum>
+		</parameter>
+		<parameter name = "/in.3">
+			<type>f</type>
+			<units>normalized</units>
+			<minimum>0</minimum>
+			<maximum>1</maximum>
+		</parameter>
+	</inputs>
+	<outputs>
+		<parameter name = "/descriptiveName.1">
+			<type>s</type>
+			<units>na</units>
+		</parameter>
+		<parameter name = "/out.2">
+			<type>f[48]</type>
+			<units>normalized</units>
+			<minimum>0</minimum>
+			<maximum>1</maximum>
+		</parameter>
+		<parameter name = "/out.3">
+			<type>f</type>
+			<units>degrees/sec</units>
+			<minimum>-90.</minimum>
+			<maximum>90.</maximum>
+		</parameter>
+		<parameter name = "/out.4">
+		</parameter>
+	</outputs>
+</device>
