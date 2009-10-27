@@ -20,6 +20,7 @@
 		"boxes" : [ 			{
 				"box" : 				{
 <<<<<<< HEAD
+<<<<<<< HEAD
 					"args" : [ "@name", "jcom.zerox~", "@description", "A zero-crossing counter. " ],
 					"bgmode" : 1,
 					"id" : "obj-33",
@@ -47,97 +48,102 @@
 					"maxclass" : "bpatcher",
 					"id" : "obj-2",
 >>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"numinlets" : 1,
-					"patching_rect" : [ 0.0, 0.0, 573.0, 70.0 ],
-					"numoutlets" : 0,
-					"name" : "jcom.maxhelpui.maxpat",
+=======
 					"args" : [ "@name", "jcom.zerox~", "@description", "A zero crossing counter" ],
-					"bgmode" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "audio rate trigger when zero crossing is detected",
-					"linecount" : 2,
-					"id" : "obj-6",
-					"fontname" : "Verdana",
+					"bgmode" : 1,
+					"id" : "obj-2",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"numinlets" : 1,
-					"patching_rect" : [ 255.0, 455.0, 161.0, 31.0 ],
 					"numoutlets" : 0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 10.0
+					"patching_rect" : [ 0.0, 0.0, 573.0, 70.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "number",
-					"id" : "obj-5",
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
-					"patching_rect" : [ 165.0, 475.0, 48.0, 19.0 ],
-					"numoutlets" : 2,
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-6",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 255.0, 455.0, 161.0, 31.0 ],
+					"text" : "audio rate trigger when zero crossing is detected"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
+					"id" : "obj-5",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
+					"patching_rect" : [ 165.0, 475.0, 48.0, 19.0 ],
 					"triscale" : 0.9
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "snapshot~ 30",
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-3",
-					"fontname" : "Verdana",
-					"numinlets" : 2,
-					"patching_rect" : [ 165.0, 450.0, 79.0, 19.0 ],
-					"numoutlets" : 1,
-					"fontsize" : 10.0,
-					"outlettype" : [ "float" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "change~",
-					"id" : "obj-1",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "float" ],
+					"patching_rect" : [ 165.0, 450.0, 79.0, 19.0 ],
+					"text" : "snapshot~ 30"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 165.0, 425.0, 54.0, 19.0 ],
-					"numoutlets" : 1,
 					"fontsize" : 10.0,
-					"outlettype" : [ "signal" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "meter~",
-					"id" : "obj-66",
+					"id" : "obj-1",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"patching_rect" : [ 85.0, 235.0, 80.0, 13.0 ],
 					"numoutlets" : 1,
-					"outlettype" : [ "float" ]
+					"outlettype" : [ "signal" ],
+					"patching_rect" : [ 165.0, 425.0, 54.0, 19.0 ],
+					"text" : "change~"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "ezadc~",
-					"id" : "obj-65",
+					"id" : "obj-66",
+					"maxclass" : "meter~",
 					"numinlets" : 1,
-					"patching_rect" : [ 60.0, 175.0, 45.0, 45.0 ],
-					"numoutlets" : 2,
-					"outlettype" : [ "signal", "signal" ]
+					"numoutlets" : 1,
+					"outlettype" : [ "float" ],
+					"patching_rect" : [ 85.0, 235.0, 80.0, 13.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"id" : "obj-65",
+					"maxclass" : "ezadc~",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "signal", "signal" ],
+					"patching_rect" : [ 60.0, 175.0, 45.0, 45.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -164,32 +170,46 @@
 					"text" : "The jcom.zerox~ object counts the number of zero crossings in a signal within a set number of samples. It can be useful as a CPU friendly frequency counter.",
 					"linecount" : 2,
 					"id" : "obj-61",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 30.0, 100.0, 429.0, 31.0 ],
-					"numoutlets" : 0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 10.0
+					"id" : "obj-61",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 30.0, 100.0, 429.0, 31.0 ],
+					"text" : "The jcom.zerox~ object counts the number of zero crossings in a signal within a set number of samples. It can be useful as a CPU friendly frequency counter.",
+					"varname" : "autohelp_top_description"
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
 					"maxclass" : "comment",
 					"text" : "convert to control rate",
 >>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"id" : "obj-11",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 150.0, 585.0, 174.0, 19.0 ],
-					"numoutlets" : 0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 10.0
+					"id" : "obj-11",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 150.0, 585.0, 174.0, 19.0 ],
+					"text" : "convert to control rate"
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -200,45 +220,51 @@
 					"maxclass" : "comment",
 					"text" : "smooth the data a bit",
 					"id" : "obj-12",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 220.0, 560.0, 174.0, 19.0 ],
-					"numoutlets" : 0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 10.0
+					"id" : "obj-12",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 220.0, 560.0, 174.0, 19.0 ],
+					"text" : "smooth the data a bit"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "rampsmooth~ 1000 1000",
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-13",
-					"fontname" : "Verdana",
-					"numinlets" : 3,
-					"patching_rect" : [ 60.0, 560.0, 153.0, 19.0 ],
-					"numoutlets" : 1,
-					"fontsize" : 10.0,
-					"outlettype" : [ "signal" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "* 0.5",
-					"id" : "obj-14",
-					"fontname" : "Verdana",
-					"numinlets" : 2,
-					"patching_rect" : [ 105.0, 450.0, 44.0, 19.0 ],
+					"numinlets" : 3,
 					"numoutlets" : 1,
-					"fontsize" : 10.0,
-					"outlettype" : [ "float" ]
+					"outlettype" : [ "signal" ],
+					"patching_rect" : [ 60.0, 560.0, 153.0, 19.0 ],
+					"text" : "rampsmooth~ 1000 1000"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-14",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "float" ],
+					"patching_rect" : [ 105.0, 450.0, 44.0, 19.0 ],
+					"text" : "* 0.5"
+				}
+
+			}
+, 			{
+				"box" : 				{
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -249,17 +275,23 @@
 					"maxclass" : "comment",
 					"text" : "set/get the length of the analysis in samples",
 					"id" : "obj-15",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 165.0, 305.0, 274.0, 19.0 ],
-					"numoutlets" : 0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 10.0
+					"id" : "obj-15",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 165.0, 305.0, 274.0, 19.0 ],
+					"text" : "set/get the length of the analysis in samples"
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -272,65 +304,72 @@
 					"text" : "Adding a little DC-offset will help to eliminate line noise from the analysis.",
 					"linecount" : 2,
 					"id" : "obj-16",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 130.0, 255.0, 226.0, 31.0 ],
-					"numoutlets" : 0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 10.0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "message",
-					"text" : "getsize",
-					"id" : "obj-18",
-					"fontname" : "Verdana",
-					"numinlets" : 2,
-					"patching_rect" : [ 165.0, 325.0, 47.0, 17.0 ],
-					"numoutlets" : 1,
-					"fontsize" : 10.0,
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "number",
-					"id" : "obj-19",
-					"fontname" : "Verdana",
+					"id" : "obj-16",
+					"linecount" : 2,
+					"maxclass" : "comment",
 					"numinlets" : 1,
-					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
-					"patching_rect" : [ 95.0, 304.0, 48.0, 19.0 ],
-					"numoutlets" : 2,
+					"numoutlets" : 0,
+					"patching_rect" : [ 130.0, 255.0, 226.0, 31.0 ],
+					"text" : "Adding a little DC-offset will help to eliminate line noise from the analysis."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-18",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 165.0, 325.0, 47.0, 17.0 ],
+					"text" : "getsize"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
+					"id" : "obj-19",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
+					"patching_rect" : [ 95.0, 304.0, 48.0, 19.0 ],
 					"triscale" : 0.9
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "size $1",
-					"id" : "obj-20",
 					"fontname" : "Verdana",
-					"numinlets" : 2,
-					"patching_rect" : [ 95.0, 325.0, 48.0, 17.0 ],
-					"numoutlets" : 1,
 					"fontsize" : 10.0,
-					"outlettype" : [ "" ]
+					"id" : "obj-20",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 95.0, 325.0, 48.0, 17.0 ],
+					"text" : "size $1"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "print tt.zerox",
-					"id" : "obj-21",
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-21",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"numoutlets" : 0,
 					"patching_rect" : [ 270.0, 410.0, 93.0, 19.0 ],
@@ -340,78 +379,84 @@
 					"numoutlets" : 0,
 					"fontsize" : 10.0
 >>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
+					"numoutlets" : 0,
+					"patching_rect" : [ 270.0, 410.0, 76.0, 19.0 ],
+					"text" : "print tt.zerox"
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "flonum",
-					"id" : "obj-22",
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
-					"patching_rect" : [ 60.0, 610.0, 63.0, 19.0 ],
-					"numoutlets" : 2,
 					"fontsize" : 10.0,
+					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
+					"id" : "obj-22",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 60.0, 610.0, 63.0, 19.0 ],
 					"triscale" : 0.9
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "multislider",
-					"id" : "obj-23",
-					"candicane6" : [ 0.733333, 0.035294, 0.788235, 1.0 ],
-					"numinlets" : 1,
-					"patching_rect" : [ 60.0, 635.0, 207.0, 77.0 ],
-					"candicane5" : [ 0.584314, 0.827451, 0.431373, 1.0 ],
-					"numoutlets" : 2,
-					"candicane4" : [ 0.439216, 0.619608, 0.070588, 1.0 ],
-					"setminmax" : [ 0.0, 22050.0 ],
-					"outlettype" : [ "", "" ],
-					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
-					"candicane3" : [ 0.290196, 0.411765, 0.713726, 1.0 ],
-					"candicane8" : [ 0.027451, 0.447059, 0.501961, 1.0 ],
-					"compatibility" : 1,
-					"setstyle" : 3,
-					"slidercolor" : [ 0.25098, 0.25098, 0.25098, 1.0 ],
 					"bgcolor" : [ 0.74902, 0.74902, 0.74902, 1.0 ],
 					"candicane2" : [ 0.145098, 0.203922, 0.356863, 1.0 ],
-					"candicane7" : [ 0.878431, 0.243137, 0.145098, 1.0 ]
+					"candicane3" : [ 0.290196, 0.411765, 0.713726, 1.0 ],
+					"candicane4" : [ 0.439216, 0.619608, 0.070588, 1.0 ],
+					"candicane5" : [ 0.584314, 0.827451, 0.431373, 1.0 ],
+					"candicane6" : [ 0.733333, 0.035294, 0.788235, 1.0 ],
+					"candicane7" : [ 0.878431, 0.243137, 0.145098, 1.0 ],
+					"candicane8" : [ 0.027451, 0.447059, 0.501961, 1.0 ],
+					"compatibility" : 1,
+					"id" : "obj-23",
+					"maxclass" : "multislider",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 60.0, 635.0, 207.0, 77.0 ],
+					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
+					"setminmax" : [ 0.0, 22050.0 ],
+					"setstyle" : 3,
+					"slidercolor" : [ 0.25098, 0.25098, 0.25098, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "snapshot~ 30",
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-24",
-					"fontname" : "Verdana",
-					"numinlets" : 2,
-					"patching_rect" : [ 60.0, 585.0, 83.0, 19.0 ],
-					"numoutlets" : 1,
-					"fontsize" : 10.0,
-					"outlettype" : [ "float" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "*~ 0.01",
-					"id" : "obj-25",
-					"fontname" : "Verdana",
 					"numinlets" : 2,
-					"patching_rect" : [ 60.0, 260.0, 60.0, 19.0 ],
 					"numoutlets" : 1,
-					"fontsize" : 10.0,
-					"outlettype" : [ "signal" ]
+					"outlettype" : [ "float" ],
+					"patching_rect" : [ 60.0, 585.0, 83.0, 19.0 ],
+					"text" : "snapshot~ 30"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-25",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "signal" ],
+					"patching_rect" : [ 60.0, 260.0, 60.0, 19.0 ],
+					"text" : "*~ 0.01"
+				}
+
+			}
+, 			{
+				"box" : 				{
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -422,60 +467,66 @@
 					"maxclass" : "comment",
 					"text" : "scale to frequency in hertz",
 					"id" : "obj-26",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 145.0, 500.0, 171.0, 19.0 ],
-					"numoutlets" : 0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 10.0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "*~",
-					"id" : "obj-27",
-					"fontname" : "Verdana",
-					"numinlets" : 2,
-					"patching_rect" : [ 60.0, 500.0, 64.0, 19.0 ],
-					"numoutlets" : 1,
-					"fontsize" : 10.0,
-					"outlettype" : [ "signal" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "number",
-					"id" : "obj-28",
-					"fontname" : "Verdana",
+					"id" : "obj-26",
+					"maxclass" : "comment",
 					"numinlets" : 1,
-					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
-					"patching_rect" : [ 105.0, 475.0, 51.0, 19.0 ],
-					"numoutlets" : 2,
+					"numoutlets" : 0,
+					"patching_rect" : [ 145.0, 500.0, 171.0, 19.0 ],
+					"text" : "scale to frequency in hertz"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-27",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "signal" ],
+					"patching_rect" : [ 60.0, 500.0, 64.0, 19.0 ],
+					"text" : "*~"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
+					"id" : "obj-28",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
+					"patching_rect" : [ 105.0, 475.0, 51.0, 19.0 ],
 					"triscale" : 0.9
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "dspstate~",
-					"id" : "obj-29",
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 85.0, 425.0, 66.0, 19.0 ],
-					"numoutlets" : 4,
 					"fontsize" : 10.0,
-					"outlettype" : [ "int", "float", "int", "int" ]
+					"id" : "obj-29",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 4,
+					"outlettype" : [ "int", "float", "int", "int" ],
+					"patching_rect" : [ 85.0, 425.0, 66.0, 19.0 ],
+					"text" : "dspstate~"
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"fontname" : "Verdana",
@@ -486,8 +537,15 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.zerox~ @size 2000",
 					"id" : "obj-30",
+=======
+					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-30",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
@@ -499,11 +557,18 @@
 					"fontsize" : 10.0,
 					"outlettype" : [ "", "", "" ]
 >>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
+					"numoutlets" : 3,
+					"outlettype" : [ "signal", "signal", "" ],
+					"patching_rect" : [ 60.0, 380.0, 229.0, 19.0 ],
+					"text" : "jcom.zerox~ @size 2000"
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -516,8 +581,16 @@
 					"text" : "\"dumpout\" outlet - should be familiar to all Jitter users...",
 					"linecount" : 2,
 					"id" : "obj-32",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-32",
+					"linecount" : 2,
+					"maxclass" : "comment",
 					"numinlets" : 1,
+<<<<<<< HEAD
 					"patching_rect" : [ 300.0, 370.0, 159.0, 31.0 ],
 <<<<<<< HEAD
 					"text" : "\"dumpout\" outlet - should be familiar to all Jitter users..."
@@ -526,169 +599,174 @@
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontsize" : 10.0
 >>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
+					"numoutlets" : 0,
+					"patching_rect" : [ 300.0, 370.0, 159.0, 31.0 ],
+					"text" : "\"dumpout\" outlet - should be familiar to all Jitter users..."
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-65", 0 ],
-					"destination" : [ "obj-66", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-65", 0 ],
-					"destination" : [ "obj-25", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-30", 0 ],
-					"destination" : [ "obj-27", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-30", 2 ],
-					"destination" : [ "obj-21", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-30", 1 ],
-					"destination" : [ "obj-1", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-3", 0 ],
-					"destination" : [ "obj-5", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-29", 1 ],
-					"destination" : [ "obj-14", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-28", 0 ],
-					"destination" : [ "obj-27", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-27", 0 ],
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-25", 0 ],
-					"destination" : [ "obj-30", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-24", 0 ],
-					"destination" : [ "obj-22", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-22", 0 ],
-					"destination" : [ "obj-23", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-20", 0 ],
-					"destination" : [ "obj-30", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 104.5, 351.0, 69.5, 351.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-19", 0 ],
-					"destination" : [ "obj-20", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-18", 0 ],
-					"destination" : [ "obj-30", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 174.5, 355.0, 69.5, 355.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-14", 0 ],
-					"destination" : [ "obj-28", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-13", 0 ],
-					"destination" : [ "obj-24", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-1", 0 ],
 					"destination" : [ "obj-3", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-24", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-28", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-30", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 174.5, 355.0, 69.5, 355.0 ],
+					"source" : [ "obj-18", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-20", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-19", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-30", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 104.5, 351.0, 69.5, 351.0 ],
+					"source" : [ "obj-20", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-23", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-24", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-30", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-25", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-27", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-27", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-28", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-14", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-29", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-30", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-21", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-30", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-27", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-30", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-25", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-65", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-66", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-65", 0 ]
 				}
 
 			}

@@ -20,6 +20,7 @@
 		"boxes" : [ 			{
 				"box" : 				{
 <<<<<<< HEAD
+<<<<<<< HEAD
 					"args" : [ "@name", "jcom.xfade~", "@description", "crossfade object for n channels" ],
 					"bgmode" : 1,
 					"id" : "obj-33",
@@ -45,44 +46,49 @@
 					"maxclass" : "bpatcher",
 					"id" : "obj-16",
 >>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"numinlets" : 1,
-					"patching_rect" : [ 0.0, 0.0, 800.0, 70.0 ],
-					"numoutlets" : 0,
-					"name" : "jcom.maxhelpui.maxpat",
+=======
 					"args" : [ "@name", "jcom.xfade~", "@description", "Crossfade object for n channels" ],
-					"bgmode" : 1
+					"bgmode" : 1,
+					"id" : "obj-16",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+>>>>>>> ee5f4f7... colorized objects in maxhelps
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 800.0, 70.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "sig~",
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-14",
-					"fontname" : "Verdana",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"patching_rect" : [ 245.0, 145.0, 33.0, 19.0 ],
 					"numoutlets" : 1,
-					"fontsize" : 10.0,
-					"outlettype" : [ "signal" ]
+					"outlettype" : [ "signal" ],
+					"patching_rect" : [ 245.0, 145.0, 33.0, 19.0 ],
+					"text" : "sig~"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "flonum",
-					"id" : "obj-17",
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 295.0, 350.0, 50.0, 19.0 ],
-					"numoutlets" : 2,
 					"fontsize" : 10.0,
-					"outlettype" : [ "float", "bang" ]
+					"id" : "obj-17",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 295.0, 350.0, 50.0, 19.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -95,17 +101,24 @@
 					"text" : "This attribute is overriden by a signal connected to the right inlet, if it is present.",
 					"linecount" : 2,
 					"id" : "obj-1",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 420.0, 355.0, 271.0, 31.0 ],
-					"numoutlets" : 0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 10.0
+					"id" : "obj-1",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 420.0, 355.0, 271.0, 31.0 ],
+					"text" : "This attribute is overriden by a signal connected to the right inlet, if it is present."
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"bgcolor" : [ 0.517647, 0.517647, 0.517647, 1.0 ],
 					"candicane2" : [ 0.145098, 0.203922, 0.356863, 1.0 ],
@@ -121,68 +134,79 @@
 					"maxclass" : "comment",
 					"text" : "tt.xfade~",
 					"id" : "obj-2",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 258.0, 413.0, 196.0, 28.0 ],
-					"numoutlets" : 0,
+					"fontsize" : 18.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 18.0
-				}
-
-			}
-, 			{
-				"box" : 				{
+					"id" : "obj-2",
 					"maxclass" : "comment",
-					"text" : "crossfade object for n channels",
-					"id" : "obj-3",
-					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"patching_rect" : [ 258.0, 438.0, 167.0, 19.0 ],
 					"numoutlets" : 0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 10.0
+					"patching_rect" : [ 258.0, 413.0, 196.0, 28.0 ],
+					"text" : "tt.xfade~"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "panel",
-					"id" : "obj-4",
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-3",
+					"maxclass" : "comment",
 					"numinlets" : 1,
-					"patching_rect" : [ 253.0, 403.0, 285.0, 55.0 ],
 					"numoutlets" : 0,
+					"patching_rect" : [ 258.0, 438.0, 167.0, 19.0 ],
+					"text" : "crossfade object for n channels"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-4",
+					"maxclass" : "panel",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 253.0, 403.0, 285.0, 55.0 ],
 					"rounded" : 15
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
 >>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "multislider",
 					"id" : "obj-5",
-					"candicane6" : [ 0.733333, 0.035294, 0.788235, 1.0 ],
-					"numinlets" : 1,
-					"contdata" : 1,
-					"patching_rect" : [ 295.0, 335.0, 102.0, 12.0 ],
-					"candicane5" : [ 0.584314, 0.827451, 0.431373, 1.0 ],
-					"numoutlets" : 2,
-					"candicane4" : [ 0.439216, 0.619608, 0.070588, 1.0 ],
-					"orientation" : 0,
-					"setminmax" : [ 0.0, 1.0 ],
-					"outlettype" : [ "", "" ],
-					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
-					"candicane3" : [ 0.290196, 0.411765, 0.713726, 1.0 ],
-					"candicane8" : [ 0.027451, 0.447059, 0.501961, 1.0 ],
-					"setstyle" : 1,
-					"slidercolor" : [ 1.0, 0.003922, 0.0, 1.0 ],
+=======
 					"bgcolor" : [ 0.517647, 0.517647, 0.517647, 1.0 ],
 					"candicane2" : [ 0.145098, 0.203922, 0.356863, 1.0 ],
-					"candicane7" : [ 0.878431, 0.243137, 0.145098, 1.0 ]
+					"candicane3" : [ 0.290196, 0.411765, 0.713726, 1.0 ],
+					"candicane4" : [ 0.439216, 0.619608, 0.070588, 1.0 ],
+					"candicane5" : [ 0.584314, 0.827451, 0.431373, 1.0 ],
+>>>>>>> ee5f4f7... colorized objects in maxhelps
+					"candicane6" : [ 0.733333, 0.035294, 0.788235, 1.0 ],
+					"candicane7" : [ 0.878431, 0.243137, 0.145098, 1.0 ],
+					"candicane8" : [ 0.027451, 0.447059, 0.501961, 1.0 ],
+					"contdata" : 1,
+					"id" : "obj-5",
+					"maxclass" : "multislider",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"orientation" : 0,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 295.0, 335.0, 102.0, 12.0 ],
+					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
+					"setminmax" : [ 0.0, 1.0 ],
+					"setstyle" : 1,
+					"slidercolor" : [ 1.0, 0.003922, 0.0, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -195,75 +219,82 @@
 					"text" : "Determines the algorithm to use. In most cases it is best to use the 512-point lookup table.",
 					"linecount" : 2,
 					"id" : "obj-6",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 370.0, 240.0, 275.0, 31.0 ],
-					"numoutlets" : 0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 10.0
+					"id" : "obj-6",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 370.0, 240.0, 275.0, 31.0 ],
+					"text" : "Determines the algorithm to use. In most cases it is best to use the 512-point lookup table."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "umenu",
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-7",
-					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 295.0, 215.0, 239.0, 19.0 ],
-					"numoutlets" : 3,
-					"types" : [  ],
-					"fontsize" : 10.0,
-					"outlettype" : [ "int", "", "" ],
-					"items" : [ "Fast", "Mode", "-", "table", "lookup", "crossfade", "[default]", ",", "Precision", "Mode", "-", "runs", "the", "algorithm", "on-the-fly" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "message",
-					"text" : "mode $1",
-					"id" : "obj-8",
-					"fontname" : "Verdana",
-					"numinlets" : 2,
-					"patching_rect" : [ 295.0, 240.0, 64.0, 17.0 ],
-					"numoutlets" : 1,
-					"fontsize" : 10.0,
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
+					"items" : [ "Fast", "Mode", "-", "table", "lookup", "crossfade", "[default]", ",", "Precision", "Mode", "-", "runs", "the", "algorithm", "on-the-fly" ],
 					"maxclass" : "umenu",
-					"id" : "obj-9",
-					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"patching_rect" : [ 295.0, 280.0, 159.0, 19.0 ],
 					"numoutlets" : 3,
-					"types" : [  ],
-					"fontsize" : 10.0,
 					"outlettype" : [ "int", "", "" ],
-					"items" : [ "Equal", "Power", "Fade", "[default]", ",", "Linear", "Fade" ]
+					"patching_rect" : [ 295.0, 215.0, 239.0, 19.0 ],
+					"types" : [  ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "shape $1",
-					"id" : "obj-10",
 					"fontname" : "Verdana",
-					"numinlets" : 2,
-					"patching_rect" : [ 295.0, 305.0, 56.0, 17.0 ],
-					"numoutlets" : 1,
 					"fontsize" : 10.0,
-					"outlettype" : [ "" ]
+					"id" : "obj-8",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 295.0, 240.0, 64.0, 17.0 ],
+					"text" : "mode $1"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-9",
+					"items" : [ "Equal", "Power", "Fade", "[default]", ",", "Linear", "Fade" ],
+					"maxclass" : "umenu",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "int", "", "" ],
+					"patching_rect" : [ 295.0, 280.0, 159.0, 19.0 ],
+					"types" : [  ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-10",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 295.0, 305.0, 56.0, 17.0 ],
+					"text" : "shape $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -274,17 +305,23 @@
 					"maxclass" : "comment",
 					"text" : "0. to 1. crossfades from input1 to input2.",
 					"id" : "obj-11",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 420.0, 330.0, 220.0, 19.0 ],
-					"numoutlets" : 0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 10.0
+					"id" : "obj-11",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 420.0, 330.0, 220.0, 19.0 ],
+					"text" : "0. to 1. crossfades from input1 to input2."
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -295,31 +332,37 @@
 					"maxclass" : "comment",
 					"text" : "Determines the shape of the of the crossfade function.",
 					"id" : "obj-12",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 370.0, 305.0, 287.0, 19.0 ],
-					"numoutlets" : 0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 10.0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "message",
-					"text" : "position $1",
-					"id" : "obj-13",
-					"fontname" : "Verdana",
-					"numinlets" : 2,
-					"patching_rect" : [ 295.0, 375.0, 64.0, 17.0 ],
-					"numoutlets" : 1,
 					"fontsize" : 10.0,
-					"outlettype" : [ "" ]
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-12",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 370.0, 305.0, 287.0, 19.0 ],
+					"text" : "Determines the shape of the of the crossfade function."
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-13",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 295.0, 375.0, 64.0, 17.0 ],
+					"text" : "position $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"fontname" : "Verdana",
 					"fontsize" : 14.0,
@@ -330,68 +373,71 @@
 					"maxclass" : "comment",
 					"text" : "Attributes",
 					"id" : "obj-15",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 295.0, 185.0, 212.0, 24.0 ],
-					"numoutlets" : 0,
+					"fontsize" : 14.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 14.0
+					"id" : "obj-15",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 295.0, 185.0, 212.0, 24.0 ],
+					"text" : "Attributes"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "set $1",
-					"id" : "obj-20",
 					"fontname" : "Verdana",
-					"numinlets" : 2,
-					"patching_rect" : [ 190.0, 270.0, 40.0, 17.0 ],
+					"fontsize" : 10.0,
 					"hidden" : 1,
+					"id" : "obj-20",
+					"maxclass" : "message",
+					"numinlets" : 2,
 					"numoutlets" : 1,
-					"fontsize" : 10.0,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 190.0, 270.0, 40.0, 17.0 ],
+					"text" : "set $1"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "stop",
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-21",
-					"fontname" : "Verdana",
-					"numinlets" : 2,
-					"patching_rect" : [ 85.0, 330.0, 30.0, 17.0 ],
-					"numoutlets" : 1,
-					"fontsize" : 10.0,
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "message",
-					"text" : "startwindow",
-					"id" : "obj-22",
-					"fontname" : "Verdana",
 					"numinlets" : 2,
-					"patching_rect" : [ 10.0, 330.0, 70.0, 17.0 ],
 					"numoutlets" : 1,
-					"fontsize" : 10.0,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 85.0, 330.0, 30.0, 17.0 ],
+					"text" : "stop"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "p white_light",
-					"id" : "obj-23",
 					"fontname" : "Verdana",
-					"numinlets" : 0,
-					"patching_rect" : [ 156.0, 120.0, 74.0, 19.0 ],
-					"numoutlets" : 2,
 					"fontsize" : 10.0,
+					"id" : "obj-22",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 10.0, 330.0, 70.0, 17.0 ],
+					"text" : "startwindow"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-23",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 2,
 					"outlettype" : [ "signal", "signal" ],
 					"patcher" : 					{
 						"fileversion" : 1,
@@ -413,123 +459,125 @@
 						"enablevscroll" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
-									"maxclass" : "outlet",
+									"comment" : "",
 									"id" : "obj-1",
-									"numinlets" : 1,
-									"patching_rect" : [ 165.0, 150.0, 30.0, 30.0 ],
-									"numoutlets" : 0,
-									"comment" : ""
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"maxclass" : "outlet",
-									"id" : "obj-2",
 									"numinlets" : 1,
-									"patching_rect" : [ 70.0, 150.0, 30.0, 30.0 ],
 									"numoutlets" : 0,
-									"comment" : ""
+									"patching_rect" : [ 165.0, 150.0, 30.0, 30.0 ]
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"maxclass" : "newobj",
-									"text" : "svf~ 800 0.05",
+									"comment" : "",
+									"id" : "obj-2",
+									"maxclass" : "outlet",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 70.0, 150.0, 30.0, 30.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
 									"id" : "obj-3",
-									"fontname" : "Verdana",
+									"maxclass" : "newobj",
 									"numinlets" : 3,
+									"numoutlets" : 4,
+									"outlettype" : [ "signal", "signal", "signal", "signal" ],
 									"patching_rect" : [ 145.0, 105.0, 80.0, 19.0 ],
-									"numoutlets" : 4,
-									"fontsize" : 10.0,
-									"outlettype" : [ "signal", "signal", "signal", "signal" ]
+									"text" : "svf~ 800 0.05"
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"maxclass" : "newobj",
-									"text" : "noise~",
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
 									"id" : "obj-4",
-									"fontname" : "Verdana",
+									"maxclass" : "newobj",
 									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "signal" ],
 									"patching_rect" : [ 145.0, 65.0, 43.0, 19.0 ],
-									"numoutlets" : 1,
-									"fontsize" : 10.0,
-									"outlettype" : [ "signal" ]
+									"text" : "noise~"
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"maxclass" : "newobj",
-									"text" : "svf~ 800 0.05",
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
 									"id" : "obj-5",
-									"fontname" : "Verdana",
+									"maxclass" : "newobj",
 									"numinlets" : 3,
-									"patching_rect" : [ 50.0, 105.0, 80.0, 19.0 ],
 									"numoutlets" : 4,
-									"fontsize" : 10.0,
-									"outlettype" : [ "signal", "signal", "signal", "signal" ]
+									"outlettype" : [ "signal", "signal", "signal", "signal" ],
+									"patching_rect" : [ 50.0, 105.0, 80.0, 19.0 ],
+									"text" : "svf~ 800 0.05"
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"maxclass" : "newobj",
-									"text" : "noise~",
-									"id" : "obj-6",
 									"fontname" : "Verdana",
-									"numinlets" : 1,
-									"patching_rect" : [ 50.0, 65.0, 43.0, 19.0 ],
-									"numoutlets" : 1,
 									"fontsize" : 10.0,
-									"outlettype" : [ "signal" ]
+									"id" : "obj-6",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "signal" ],
+									"patching_rect" : [ 50.0, 65.0, 43.0, 19.0 ],
+									"text" : "noise~"
 								}
 
 							}
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"source" : [ "obj-6", 0 ],
-									"destination" : [ "obj-5", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"source" : [ "obj-5", 1 ],
-									"destination" : [ "obj-2", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"source" : [ "obj-4", 0 ],
-									"destination" : [ "obj-3", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"source" : [ "obj-3", 1 ],
 									"destination" : [ "obj-1", 0 ],
 									"hidden" : 0,
-									"midpoints" : [  ]
+									"midpoints" : [  ],
+									"source" : [ "obj-3", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-3", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-4", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-2", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-5", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-5", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-6", 0 ]
 								}
 
 							}
  ]
 					}
 ,
+					"patching_rect" : [ 156.0, 120.0, 74.0, 19.0 ],
 					"saved_object_attributes" : 					{
+<<<<<<< HEAD
 <<<<<<< HEAD
 						"default_fontface" : 0,
 						"globalpatchername" : "",
@@ -540,28 +588,34 @@
 						"fontname" : "Verdana"
 =======
 						"fontname" : "Verdana",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
+<<<<<<< HEAD
 						"default_fontname" : "Verdana"
 >>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
+						"default_fontname" : "Verdana",
+						"globalpatchername" : "",
+						"fontname" : "Verdana"
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					}
-
+,
+					"text" : "p white_light"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "p black_verve",
-					"id" : "obj-24",
 					"fontname" : "Verdana",
-					"numinlets" : 0,
-					"patching_rect" : [ 75.0, 120.0, 79.0, 19.0 ],
-					"numoutlets" : 2,
 					"fontsize" : 10.0,
+					"id" : "obj-24",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 2,
 					"outlettype" : [ "signal", "signal" ],
 					"patcher" : 					{
 						"fileversion" : 1,
@@ -583,123 +637,125 @@
 						"enablevscroll" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
-									"maxclass" : "outlet",
+									"comment" : "",
 									"id" : "obj-1",
-									"numinlets" : 1,
-									"patching_rect" : [ 140.0, 150.0, 29.0, 29.0 ],
-									"numoutlets" : 0,
-									"comment" : ""
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"maxclass" : "outlet",
-									"id" : "obj-2",
 									"numinlets" : 1,
-									"patching_rect" : [ 55.0, 150.0, 29.0, 29.0 ],
 									"numoutlets" : 0,
-									"comment" : ""
+									"patching_rect" : [ 140.0, 150.0, 29.0, 29.0 ]
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"maxclass" : "newobj",
-									"text" : "svf~ 800 0.05",
+									"comment" : "",
+									"id" : "obj-2",
+									"maxclass" : "outlet",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 55.0, 150.0, 29.0, 29.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
 									"id" : "obj-3",
-									"fontname" : "Verdana",
+									"maxclass" : "newobj",
 									"numinlets" : 3,
+									"numoutlets" : 4,
+									"outlettype" : [ "signal", "signal", "signal", "signal" ],
 									"patching_rect" : [ 140.0, 110.0, 80.0, 19.0 ],
-									"numoutlets" : 4,
-									"fontsize" : 10.0,
-									"outlettype" : [ "signal", "signal", "signal", "signal" ]
+									"text" : "svf~ 800 0.05"
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"maxclass" : "newobj",
-									"text" : "noise~",
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
 									"id" : "obj-4",
-									"fontname" : "Verdana",
+									"maxclass" : "newobj",
 									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "signal" ],
 									"patching_rect" : [ 140.0, 70.0, 43.0, 19.0 ],
-									"numoutlets" : 1,
-									"fontsize" : 10.0,
-									"outlettype" : [ "signal" ]
+									"text" : "noise~"
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"maxclass" : "newobj",
-									"text" : "svf~ 800 0.05",
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
 									"id" : "obj-5",
-									"fontname" : "Verdana",
+									"maxclass" : "newobj",
 									"numinlets" : 3,
-									"patching_rect" : [ 55.0, 110.0, 80.0, 19.0 ],
 									"numoutlets" : 4,
-									"fontsize" : 10.0,
-									"outlettype" : [ "signal", "signal", "signal", "signal" ]
+									"outlettype" : [ "signal", "signal", "signal", "signal" ],
+									"patching_rect" : [ 55.0, 110.0, 80.0, 19.0 ],
+									"text" : "svf~ 800 0.05"
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"maxclass" : "newobj",
-									"text" : "noise~",
-									"id" : "obj-6",
 									"fontname" : "Verdana",
-									"numinlets" : 1,
-									"patching_rect" : [ 55.0, 70.0, 43.0, 19.0 ],
-									"numoutlets" : 1,
 									"fontsize" : 10.0,
-									"outlettype" : [ "signal" ]
+									"id" : "obj-6",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "signal" ],
+									"patching_rect" : [ 55.0, 70.0, 43.0, 19.0 ],
+									"text" : "noise~"
 								}
 
 							}
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"source" : [ "obj-6", 0 ],
-									"destination" : [ "obj-5", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"source" : [ "obj-5", 0 ],
-									"destination" : [ "obj-2", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"source" : [ "obj-4", 0 ],
-									"destination" : [ "obj-3", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"source" : [ "obj-3", 0 ],
 									"destination" : [ "obj-1", 0 ],
 									"hidden" : 0,
-									"midpoints" : [  ]
+									"midpoints" : [  ],
+									"source" : [ "obj-3", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-3", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-4", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-2", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-5", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-5", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-6", 0 ]
 								}
 
 							}
  ]
 					}
 ,
+					"patching_rect" : [ 75.0, 120.0, 79.0, 19.0 ],
 					"saved_object_attributes" : 					{
+<<<<<<< HEAD
 <<<<<<< HEAD
 						"default_fontface" : 0,
 						"globalpatchername" : "",
@@ -710,83 +766,92 @@
 						"fontname" : "Verdana"
 =======
 						"fontname" : "Verdana",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
+<<<<<<< HEAD
 						"default_fontname" : "Verdana"
 >>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
+						"default_fontname" : "Verdana",
+						"globalpatchername" : "",
+						"fontname" : "Verdana"
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					}
-
+,
+					"text" : "p black_verve"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "dac~",
-					"id" : "obj-25",
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-25",
+					"maxclass" : "newobj",
 					"numinlets" : 2,
-					"patching_rect" : [ 120.0, 365.0, 40.0, 19.0 ],
 					"numoutlets" : 0,
-					"fontsize" : 10.0
+					"patching_rect" : [ 120.0, 365.0, 40.0, 19.0 ],
+					"text" : "dac~"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "multislider",
-					"varname" : "multiSlider",
-					"id" : "obj-26",
-					"candicane6" : [ 0.733333, 0.035294, 0.788235, 1.0 ],
-					"numinlets" : 1,
-					"contdata" : 1,
-					"ghostbar" : 50,
-					"patching_rect" : [ 245.0, 120.0, 140.0, 16.0 ],
-					"candicane5" : [ 0.584314, 0.827451, 0.431373, 1.0 ],
-					"numoutlets" : 2,
-					"candicane4" : [ 0.439216, 0.619608, 0.070588, 1.0 ],
-					"orientation" : 0,
-					"setminmax" : [ 0.0, 1.0 ],
-					"outlettype" : [ "", "" ],
-					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
-					"candicane3" : [ 0.290196, 0.411765, 0.713726, 1.0 ],
-					"candicane8" : [ 0.027451, 0.447059, 0.501961, 1.0 ],
-					"slidercolor" : [ 1.0, 0.0, 0.0, 1.0 ],
 					"bgcolor" : [ 0.517647, 0.517647, 0.517647, 1.0 ],
 					"candicane2" : [ 0.145098, 0.203922, 0.356863, 1.0 ],
-					"candicane7" : [ 0.878431, 0.243137, 0.145098, 1.0 ]
+					"candicane3" : [ 0.290196, 0.411765, 0.713726, 1.0 ],
+					"candicane4" : [ 0.439216, 0.619608, 0.070588, 1.0 ],
+					"candicane5" : [ 0.584314, 0.827451, 0.431373, 1.0 ],
+					"candicane6" : [ 0.733333, 0.035294, 0.788235, 1.0 ],
+					"candicane7" : [ 0.878431, 0.243137, 0.145098, 1.0 ],
+					"candicane8" : [ 0.027451, 0.447059, 0.501961, 1.0 ],
+					"contdata" : 1,
+					"ghostbar" : 50,
+					"id" : "obj-26",
+					"maxclass" : "multislider",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"orientation" : 0,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 245.0, 120.0, 140.0, 16.0 ],
+					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
+					"setminmax" : [ 0.0, 1.0 ],
+					"slidercolor" : [ 1.0, 0.0, 0.0, 1.0 ],
+					"varname" : "multiSlider"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "gain~",
 					"id" : "obj-27",
-					"numinlets" : 2,
-					"patching_rect" : [ 150.0, 225.0, 22.0, 122.0 ],
-					"numoutlets" : 2,
-					"orientation" : 2,
-					"outlettype" : [ "signal", "int" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "gain~",
-					"id" : "obj-28",
 					"numinlets" : 2,
-					"patching_rect" : [ 120.0, 225.0, 22.0, 122.0 ],
 					"numoutlets" : 2,
 					"orientation" : 2,
-					"outlettype" : [ "signal", "int" ]
+					"outlettype" : [ "signal", "int" ],
+					"patching_rect" : [ 150.0, 225.0, 22.0, 122.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"id" : "obj-28",
+					"maxclass" : "gain~",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"orientation" : 2,
+					"outlettype" : [ "signal", "int" ],
+					"patching_rect" : [ 120.0, 225.0, 22.0, 122.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"fontname" : "Verdana",
@@ -797,17 +862,24 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.xfade~ 2",
 					"id" : "obj-29",
+=======
+					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
-					"numinlets" : 5,
-					"patching_rect" : [ 120.0, 185.0, 84.0, 19.0 ],
-					"numoutlets" : 2,
 					"fontsize" : 10.0,
-					"outlettype" : [ "", "" ]
+					"id" : "obj-29",
+					"maxclass" : "newobj",
+					"numinlets" : 5,
+					"numoutlets" : 3,
+					"outlettype" : [ "signal", "signal", "" ],
+					"patching_rect" : [ 120.0, 185.0, 84.0, 19.0 ],
+					"text" : "jcom.xfade~ 2"
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -818,8 +890,15 @@
 					"maxclass" : "comment",
 					"text" : "Argument: number of channels",
 					"id" : "obj-30",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-30",
+					"maxclass" : "comment",
 					"numinlets" : 1,
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"numoutlets" : 0,
 					"patching_rect" : [ 18.0, 81.0, 203.0, 19.0 ],
@@ -830,11 +909,17 @@
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontsize" : 10.0
 >>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
+					"numoutlets" : 0,
+					"patching_rect" : [ 16.0, 74.0, 203.0, 19.0 ],
+					"text" : "Argument: number of channels"
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
 <<<<<<< HEAD
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -847,211 +932,217 @@
 					"text" : "crossfade postion [0.0, 1.0] may be a float or an audio signal connected to the last inlet. This the same as setting the position attribute below.",
 					"linecount" : 3,
 					"id" : "obj-31",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"patching_rect" : [ 387.0, 108.0, 264.0, 43.0 ],
-					"numoutlets" : 0,
+					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 10.0
+					"id" : "obj-31",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 387.0, 108.0, 264.0, 43.0 ],
+					"text" : "crossfade postion [0.0, 1.0] may be a float or an audio signal connected to the last inlet. This the same as setting the position attribute below."
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-9", 0 ],
-					"destination" : [ "obj-10", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-8", 0 ],
 					"destination" : [ "obj-29", 0 ],
 					"hidden" : 1,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-10", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-7", 0 ],
-					"destination" : [ "obj-8", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-5", 0 ],
-					"destination" : [ "obj-17", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-29", 0 ],
-					"destination" : [ "obj-28", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-29", 1 ],
-					"destination" : [ "obj-27", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-28", 1 ],
-					"destination" : [ "obj-27", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-28", 0 ],
-					"destination" : [ "obj-25", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-27", 0 ],
-					"destination" : [ "obj-25", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-27", 1 ],
-					"destination" : [ "obj-20", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-26", 0 ],
-					"destination" : [ "obj-14", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-24", 0 ],
 					"destination" : [ "obj-29", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-24", 1 ],
-					"destination" : [ "obj-29", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-23", 0 ],
-					"destination" : [ "obj-29", 2 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-23", 1 ],
-					"destination" : [ "obj-29", 3 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-22", 0 ],
-					"destination" : [ "obj-25", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 19.5, 355.0, 129.5, 355.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-21", 0 ],
-					"destination" : [ "obj-25", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 94.5, 355.0, 129.5, 355.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-20", 0 ],
-					"destination" : [ "obj-28", 0 ],
 					"hidden" : 1,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-13", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-17", 0 ],
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-14", 0 ],
 					"destination" : [ "obj-29", 4 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-14", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-13", 0 ],
-					"destination" : [ "obj-29", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ]
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-17", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-10", 0 ],
+					"destination" : [ "obj-28", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-20", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-25", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 94.5, 355.0, 129.5, 355.0 ],
+					"source" : [ "obj-21", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-25", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 19.5, 355.0, 129.5, 355.0 ],
+					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-29", 3 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-23", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-29", 2 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-23", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-29", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-24", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-29", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-24", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-14", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-26", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-20", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-27", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-25", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-27", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-25", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-28", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-27", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-28", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-27", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-29", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-28", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-29", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-17", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-29", 0 ],
 					"hidden" : 1,
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-10", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-9", 0 ]
 				}
 
 			}
