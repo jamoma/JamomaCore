@@ -18,13 +18,13 @@
     <item name='in/module/instance' type='integer' priority='2'>0</item>
     <item name='in/module/listindex' type='integer' priority='0'>1</item>
     <item name='in/module/name' type='string' priority='1'>/input</item>
-    <item name='in/module/parameter' type='string' priority='6'>/audio/amplitude.1</item>
+    <item name='in/module/parameter' type='string' priority='6'></item>
     <item name='mode' type='string' priority='1'>0</item>
     <item name='out/max' type='decimal' priority='0'>127.000000</item>
     <item name='out/min' type='decimal' priority='0'>0.000000</item>
     <item name='out/module/instance' type='integer' priority='4'>0</item>
     <item name='out/module/name' type='string' priority='3'>/input</item>
-    <item name='out/module/parameter' type='string' priority='5'>/audio/gain</item>
+    <item name='out/module/parameter' type='string' priority='5'></item>
     <item name='ramp' type='integer' priority='0'>20</item>
     <item name='slide/down' type='decimal' priority='0'>0.000000</item>
     <item name='slide/up' type='decimal' priority='0'>0.000000</item>
