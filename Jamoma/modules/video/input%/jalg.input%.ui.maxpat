@@ -1,10 +1,10 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 0.0, 44.0, 1280.0, 726.0 ],
+		"rect" : [ -4.0, 44.0, 1280.0, 726.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 0.0, 44.0, 1280.0, 726.0 ],
+		"defrect" : [ -4.0, 44.0, 1280.0, 726.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -19,6 +19,48 @@
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-37",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 11.0, 457.0, 70.0, 19.0 ],
+					"text" : "prepend set"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-13",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 89.0, 472.0, 24.0, 19.0 ],
+					"text" : "t 0"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-8",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 89.0, 527.0, 24.0, 19.0 ],
+					"text" : "t 1"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"border" : 1,
 					"fontname" : "Verdana",
@@ -120,7 +162,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 164.0, 395.0, 93.0, 19.0 ],
+					"patching_rect" : [ 182.0, 334.0, 93.0, 19.0 ],
 					"text" : "Camera settings"
 				}
 
@@ -131,7 +173,7 @@
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 71.0, 387.0, 335.0, 33.0 ]
+					"patching_rect" : [ 89.0, 326.0, 335.0, 33.0 ]
 				}
 
 			}
@@ -224,7 +266,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 71.0, 503.20813, 364.0, 19.0 ],
+					"patching_rect" : [ 89.0, 449.20813, 364.0, 19.0 ],
 					"text" : "jcom.message camera/close @description \"Open the camera grabber\"",
 					"varname" : "jcom.parameter[7]"
 				}
@@ -239,7 +281,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "" ],
-					"patching_rect" : [ 15.040649, 524.0, 46.0, 19.0 ],
+					"patching_rect" : [ 11.040649, 512.0, 46.0, 19.0 ],
 					"text" : "sel 1 0"
 				}
 
@@ -255,7 +297,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 15.040649, 503.20813, 39.287197, 15.000001 ],
+					"patching_rect" : [ 11.040649, 491.20813, 39.287197, 15.000001 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 2.040649, 26.20813, 33.287197, 15.000001 ],
 					"prototypename" : "jamoma settings",
@@ -275,7 +317,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 71.0, 524.0, 363.0, 19.0 ],
+					"patching_rect" : [ 89.0, 503.0, 363.0, 19.0 ],
 					"text" : "jcom.message camera/open @description \"Open the camera grabber\"",
 					"varname" : "jcom.parameter[6]"
 				}
@@ -320,7 +362,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 28.0, 790.0, 32.0, 19.0 ],
+					"patching_rect" : [ 46.0, 790.0, 32.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "synth_noise_rate[2]"
@@ -337,7 +379,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 71.0, 790.0, 568.0, 31.0 ],
+					"patching_rect" : [ 89.0, 790.0, 568.0, 31.0 ],
 					"text" : "jcom.parameter camera/updaterate @type integer @range/bounds 1 100 @range/clipmode low @description \"Update rate of the camera, in milliseconds\"",
 					"varname" : "camera/camera[1]"
 				}
@@ -633,7 +675,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 71.0, 423.20813, 39.287197, 15.000001 ],
+					"patching_rect" : [ 89.0, 362.20813, 39.287197, 15.000001 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 36.0, 26.0, 49.287197, 15.000001 ],
 					"prototypename" : "jamoma settings",
@@ -1103,13 +1145,13 @@
 ,
 					"patching_rect" : [ 245.0, 51.0, 73.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
 						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"fontface" : 0
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p offsets_etc"
@@ -1146,7 +1188,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 71.0, 733.0, 409.0, 19.0 ],
+					"patching_rect" : [ 89.0, 733.0, 409.0, 19.0 ],
 					"text" : "jcom.parameter camera/camera @type integer @description \"Choose camera\"",
 					"varname" : "camera/camera"
 				}
@@ -1161,7 +1203,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 71.0, 664.0, 415.0, 19.0 ],
+					"patching_rect" : [ 89.0, 664.0, 415.0, 19.0 ],
 					"text" : "jcom.parameter camera/device @type integer @description \"Input device type\"",
 					"varname" : "camera/device"
 				}
@@ -1176,7 +1218,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 71.0, 689.0, 91.0, 19.0 ],
+					"patching_rect" : [ 89.0, 689.0, 91.0, 19.0 ],
 					"text" : "r #1_camera"
 				}
 
@@ -1190,7 +1232,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 71.0, 622.0, 86.0, 19.0 ],
+					"patching_rect" : [ 89.0, 622.0, 86.0, 19.0 ],
 					"text" : "r #1_device"
 				}
 
@@ -1383,13 +1425,13 @@
 ,
 					"patching_rect" : [ 913.0, 169.0, 43.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 10.0,
+						"fontname" : "Verdana",
 						"default_fontface" : 0,
 						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"fontface" : 0
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p scale"
@@ -1598,7 +1640,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 71.0, 443.0, 22.0, 19.0 ],
+					"patching_rect" : [ 89.0, 382.0, 22.0, 19.0 ],
 					"text" : "t b"
 				}
 
@@ -1754,7 +1796,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 71.0, 583.0, 236.0, 31.0 ],
+					"patching_rect" : [ 89.0, 583.0, 236.0, 31.0 ],
 					"text" : "jcom.parameter camera/size @type integer @description \"Resolution of captured image\"",
 					"varname" : "camera/size"
 				}
@@ -1771,7 +1813,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 71.0, 563.0, 96.0, 19.0 ],
+					"patching_rect" : [ 89.0, 563.0, 96.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 2.435526, 43.0, 75.0, 19.0 ],
 					"types" : [  ],
@@ -1788,7 +1830,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 71.0, 464.0, 408.0, 19.0 ],
+					"patching_rect" : [ 89.0, 403.0, 408.0, 19.0 ],
 					"text" : "jcom.message camera/settings @description \"Open dialog for camera settings\"",
 					"varname" : "jcom.parameter[1]"
 				}
@@ -1892,7 +1934,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 71.0, 714.0, 100.0, 19.0 ],
+					"patching_rect" : [ 89.0, 714.0, 100.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 85.0, 43.0, 149.0, 19.0 ],
 					"types" : [  ],
@@ -1911,7 +1953,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 71.0, 645.0, 100.0, 19.0 ],
+					"patching_rect" : [ 89.0, 645.0, 100.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 85.0, 25.0, 149.0, 19.0 ],
 					"types" : [  ],
@@ -2118,6 +2160,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-104", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-105", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -2149,6 +2200,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-37", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-13", 0 ]
 				}
 
 			}
@@ -2370,6 +2430,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-37", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-70", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -2507,7 +2576,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-61", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 80.5, 614.0, 61.0, 614.0, 61.0, 560.0, 80.5, 560.0 ],
+					"midpoints" : [ 98.5, 614.0, 79.0, 614.0, 79.0, 560.0, 98.5, 560.0 ],
 					"source" : [ "obj-60", 0 ]
 				}
 
@@ -2579,7 +2648,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-72", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 80.5, 752.0, 53.0, 752.0, 53.0, 710.0, 80.5, 710.0 ],
+					"midpoints" : [ 98.5, 752.0, 71.0, 752.0, 71.0, 710.0, 98.5, 710.0 ],
 					"source" : [ "obj-7", 0 ]
 				}
 
@@ -2667,6 +2736,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-37", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-34", 0 ],
 					"hidden" : 0,
 					"midpoints" : [ 254.5, 30.0, 328.5, 30.0 ],
@@ -2680,6 +2758,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-81", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-83", 0 ]
 				}
 
 			}
@@ -2732,7 +2819,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-73", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 80.5, 684.0, 53.0, 684.0, 53.0, 642.0, 80.5, 642.0 ],
+					"midpoints" : [ 98.5, 684.0, 71.0, 684.0, 71.0, 642.0, 98.5, 642.0 ],
 					"source" : [ "obj-9", 0 ]
 				}
 
