@@ -19,6 +19,8 @@
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
 				"box" : 				{
+<<<<<<< HEAD
+<<<<<<< HEAD
 					"args" : [ "@name", "tt.dcblock~", "@description", "block DC offset" ],
 					"bgmode" : 1,
 					"id" : "obj-33",
@@ -63,6 +65,61 @@
 				"box" : 				{
 					"id" : "obj-15",
 					"maxclass" : "toggle",
+=======
+					"maxclass" : "bpatcher",
+					"id" : "obj-14",
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
+					"args" : [ "@name", "jcom.dcblock~", "@description", "Block DC offset" ],
+					"bgmode" : 1,
+					"id" : "obj-14",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+>>>>>>> ee5f4f7... colorized objects in maxhelps
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 760.0, 70.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-10",
+					"maxclass" : "toggle",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 300.0, 320.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+<<<<<<< HEAD
+<<<<<<< HEAD
+					"id" : "obj-30",
+=======
+					"maxclass" : "message",
+					"text" : "mute $1",
+					"id" : "obj-12",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-12",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 300.0, 350.0, 53.0, 17.0 ],
+					"text" : "mute $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-15",
+					"maxclass" : "toggle",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
@@ -83,6 +140,11 @@
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+					"maxclass" : "scope~",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"id" : "obj-30",
 					"maxclass" : "scope~",
 					"numinlets" : 2,
@@ -192,16 +254,43 @@
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
+<<<<<<< HEAD
 					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-26",
+=======
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+					"maxclass" : "newobj",
+					"text" : "jcom.dcblock~ 4",
+					"id" : "obj-26",
+=======
+					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-26",
 					"maxclass" : "newobj",
 					"numinlets" : 4,
+<<<<<<< HEAD
+<<<<<<< HEAD
 					"numoutlets" : 5,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "" ],
 					"patching_rect" : [ 180.0, 425.0, 559.0, 19.0 ],
 					"text" : "jcom.dcblock~ 4"
+=======
+					"patching_rect" : [ 180.0, 425.0, 489.0, 19.0 ],
+					"numoutlets" : 4,
+					"fontsize" : 10.0,
+					"outlettype" : [ "", "", "", "" ]
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
+					"numoutlets" : 5,
+					"outlettype" : [ "signal", "signal", "signal", "signal", "" ],
+					"patching_rect" : [ 180.0, 425.0, 489.0, 19.0 ],
+					"text" : "jcom.dcblock~ 4"
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
@@ -296,7 +385,20 @@
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
+<<<<<<< HEAD
 					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-1",
+=======
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+					"maxclass" : "newobj",
+					"text" : "jcom.dcblock~",
+					"id" : "obj-1",
+=======
+					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-1",
@@ -424,8 +526,17 @@
 				"patchline" : 				{
 					"destination" : [ "obj-26", 3 ],
 					"hidden" : 0,
+<<<<<<< HEAD
+<<<<<<< HEAD
 					"midpoints" : [ 54.5, 398.0, 729.5, 398.0 ],
 					"source" : [ "obj-24", 0 ]
+=======
+					"midpoints" : [ 54.5, 416.0, 189.5, 416.0 ]
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
+					"midpoints" : [ 54.5, 398.0, 659.5, 398.0 ],
+					"source" : [ "obj-24", 0 ]
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
@@ -433,8 +544,17 @@
 				"patchline" : 				{
 					"destination" : [ "obj-26", 2 ],
 					"hidden" : 0,
+<<<<<<< HEAD
+<<<<<<< HEAD
 					"midpoints" : [ 54.5, 404.0, 549.5, 404.0 ],
 					"source" : [ "obj-24", 0 ]
+=======
+					"midpoints" : [ 54.5, 410.0, 346.166656, 410.0 ]
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
+					"midpoints" : [ 54.5, 404.0, 502.833344, 404.0 ],
+					"source" : [ "obj-24", 0 ]
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
@@ -442,8 +562,17 @@
 				"patchline" : 				{
 					"destination" : [ "obj-26", 1 ],
 					"hidden" : 0,
+<<<<<<< HEAD
+<<<<<<< HEAD
 					"midpoints" : [ 54.5, 410.0, 369.5, 410.0 ],
 					"source" : [ "obj-24", 0 ]
+=======
+					"midpoints" : [ 54.5, 404.0, 502.833344, 404.0 ]
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
+					"midpoints" : [ 54.5, 410.0, 346.166656, 410.0 ],
+					"source" : [ "obj-24", 0 ]
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}

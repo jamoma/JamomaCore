@@ -19,6 +19,8 @@
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
 				"box" : 				{
+<<<<<<< HEAD
+<<<<<<< HEAD
 					"args" : [ "@name", "jcom.overdrive~", "@description", "saturate audio signals" ],
 					"bgmode" : 1,
 					"id" : "obj-9",
@@ -31,11 +33,42 @@
 					"presentation_rect" : [ 15.0, 15.0, 1197.0, 68.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
+=======
+					"maxclass" : "bpatcher",
+=======
+					"args" : [ "@name", "jcom.overdrive~", "@description", "Saturate audio signal" ],
+					"bgmode" : 1,
+>>>>>>> ee5f4f7... colorized objects in maxhelps
+					"id" : "obj-21",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+<<<<<<< HEAD
+					"name" : "jcom.maxhelpui.maxpat",
+					"args" : [ "@name", "jcom.overdrive~", "@description", "Saturate audio signal" ],
+					"bgmode" : 1
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
+					"patching_rect" : [ 0.0, 0.0, 747.0, 70.0 ]
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
+<<<<<<< HEAD
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-34",
+=======
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+					"maxclass" : "newobj",
+					"text" : "-~ 1.",
+					"id" : "obj-34",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-34",
@@ -372,7 +405,19 @@
 							}
 , 							{
 								"box" : 								{
+<<<<<<< HEAD
+<<<<<<< HEAD
 									"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-13",
+=======
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+									"maxclass" : "newobj",
+									"text" : "jcom.overdrive~",
+									"id" : "obj-13",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-13",
@@ -470,6 +515,21 @@
 							}
 , 							{
 								"box" : 								{
+<<<<<<< HEAD
+<<<<<<< HEAD
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-20",
+									"linecount" : 3,
+=======
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+									"maxclass" : "comment",
+									"text" : "original sine wave",
+									"linecount" : 3,
+									"id" : "obj-20",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -536,6 +596,21 @@
 							}
 , 							{
 								"box" : 								{
+<<<<<<< HEAD
+<<<<<<< HEAD
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-25",
+									"linecount" : 3,
+=======
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+									"maxclass" : "comment",
+									"text" : "shaped sine waves",
+									"linecount" : 3,
+									"id" : "obj-25",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -751,6 +826,8 @@
  ]
 					}
 ,
+<<<<<<< HEAD
+<<<<<<< HEAD
 					"patching_rect" : [ 60.0, 545.0, 190.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
@@ -763,6 +840,26 @@
 					}
 ,
 					"text" : "p \"overdrive~ vs. jcom.overdrive~\""
+=======
+=======
+					"patching_rect" : [ 60.0, 545.0, 225.0, 19.0 ],
+>>>>>>> ee5f4f7... colorized objects in maxhelps
+					"saved_object_attributes" : 					{
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"globalpatchername" : "",
+						"fontname" : "Verdana"
+					}
+<<<<<<< HEAD
+
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
+,
+					"text" : "p \"overdrive~ vs. jcom.saturation~\""
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
@@ -851,7 +948,20 @@
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
+<<<<<<< HEAD
 					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-16",
+=======
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+					"maxclass" : "newobj",
+					"text" : "jcom.overdrive~ 8",
+					"id" : "obj-16",
+=======
+					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-16",
@@ -923,6 +1033,18 @@
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
+<<<<<<< HEAD
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+=======
+					"maxclass" : "comment",
+					"text" : "mono or stereo",
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+					"id" : "obj-25",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -978,6 +1100,19 @@
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
+<<<<<<< HEAD
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-29",
+=======
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+					"maxclass" : "comment",
+					"text" : "optional argument sets initial drive",
+					"id" : "obj-29",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],

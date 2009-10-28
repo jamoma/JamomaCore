@@ -19,6 +19,8 @@
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
 				"box" : 				{
+<<<<<<< HEAD
+<<<<<<< HEAD
 					"args" : [ "@name", "jcom.degrade~", "@description", "degrade audio fidelity" ],
 					"bgmode" : 1,
 					"id" : "obj-33",
@@ -41,6 +43,43 @@
 					"hidden" : 1,
 					"id" : "obj-17",
 					"maxclass" : "newobj",
+=======
+					"maxclass" : "bpatcher",
+					"id" : "obj-18",
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
+					"args" : [ "@name", "jcom.degrade~", "@description", "Degrade audio fidelity" ],
+					"bgmode" : 1,
+					"id" : "obj-18",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+>>>>>>> ee5f4f7... colorized objects in maxhelps
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 496.0, 70.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+<<<<<<< HEAD
+					"maxclass" : "newobj",
+<<<<<<< HEAD
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 320.0, 80.0, 56.0, 19.0 ],
+					"text" : "loadbang"
+=======
+					"text" : "t 24 1.",
+					"id" : "obj-17",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"hidden" : 1,
+					"id" : "obj-17",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "float" ],
@@ -58,25 +97,56 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
+<<<<<<< HEAD
+					"fontsize" : 10.0,
+					"outlettype" : [ "bang" ]
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 320.0, 80.0, 56.0, 19.0 ],
 					"text" : "loadbang"
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
+<<<<<<< HEAD
 					"id" : "obj-21",
 					"maxclass" : "meter~",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "float" ],
 					"patching_rect" : [ 140.0, 290.0, 15.0, 140.0 ]
+=======
+					"maxclass" : "meter~",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
+					"id" : "obj-21",
+					"maxclass" : "meter~",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+<<<<<<< HEAD
+					"outlettype" : [ "float" ]
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
+					"outlettype" : [ "float" ],
+					"patching_rect" : [ 140.0, 290.0, 15.0, 140.0 ]
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
+<<<<<<< HEAD
+					"id" : "obj-19",
+=======
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+					"maxclass" : "meter~",
+=======
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"id" : "obj-19",
 					"maxclass" : "meter~",
 					"numinlets" : 1,
@@ -168,9 +238,19 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "bang" ],
+<<<<<<< HEAD
+<<<<<<< HEAD
 					"patching_rect" : [ 90.0, 190.0, 155.0, 19.0 ],
 					"save" : [ "#N", "sfplay~", "", 2, 120960, 0, "", ";" ],
 					"text" : "sfplay~ 2"
+=======
+					"save" : [ "#N", "sfplay~", "", 2, 120960, 0, "", ";" ]
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+=======
+					"patching_rect" : [ 90.0, 190.0, 58.0, 19.0 ],
+					"save" : [ "#N", "sfplay~", "", 2, 120960, 0, "", ";" ],
+					"text" : "sfplay~ 2"
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
@@ -201,7 +281,20 @@
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD
+<<<<<<< HEAD
 					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-1",
+=======
+>>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
+					"maxclass" : "newobj",
+					"text" : "jcom.degrade~",
+					"id" : "obj-1",
+=======
+					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+>>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-1",
