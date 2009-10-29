@@ -19,3 +19,4 @@ Release
 *.o
 *.bundle
 *.log
+*.tm_build_errors
