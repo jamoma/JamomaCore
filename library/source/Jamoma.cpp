@@ -305,8 +305,3 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 }
 
 
-// a wrapper for SymbolGen() because gensym() does not have a const argument, which causes zillions of warnings in GCC 4.2
-SymbolPtr SymbolGen(const char* string)
-{
-	return gensym((char*)string);
-}

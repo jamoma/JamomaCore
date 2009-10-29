@@ -17,7 +17,7 @@
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
 #endif // WIN_VERSION
 
-#include "JamomaMaxTypes.h"
+#include "MaxObjectTypes.h"
 #include "ext_common.h"
 #include "ext_strings.h"			// String Functions
 #include "ext_critical.h"
@@ -33,7 +33,6 @@
 #include "jcom.list.h"
 #include "jcom.io.h"
 #include "jcom.sendreceive.h"
-#include "JamomaMaxTypes.h"
 #include "JamomaTypes.h"
 #include "JamomaSymbols.h"
 

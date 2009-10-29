@@ -13,7 +13,7 @@
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
 #endif // WIN_VERSION
 
-#include "JamomaMaxTypes.h"
+#include "MaxObjectTypes.h"
 #include "JamomaTypes.h"
 
 // Constants used for trigonometric convertions:
