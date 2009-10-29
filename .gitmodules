@@ -58,3 +58,6 @@
 [submodule "Modules/Ruby"]
 	path = Modules/Ruby
 	url = git://github.com/tap/JamomaRuby.git
+[submodule "Tools/supports"]
+	path = Tools/supports
+	url = git://github.com/tap/JamomaSupport.git
