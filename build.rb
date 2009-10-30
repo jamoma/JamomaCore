@@ -6,3 +6,13 @@ glibdir = Dir.pwd
 
 Dir.chdir "#{glibdir}/supports"
 load "build.rb"
+
+
+puts "post-build..."
+
+if  win32?
+else
+	copydir("../../Builds/jcom.loader.mxo", "\"/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo\"")
+end
+puts "done"
+puts
