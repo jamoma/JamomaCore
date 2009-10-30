@@ -94,7 +94,7 @@
 									"fontsize" : 10.0,
 									"numoutlets" : 0,
 									"patching_rect" : [ 265.0, 335.0, 397.0, 19.0 ],
-									"id" : "obj-30"
+									"text" : "test.assert.equal TESTparameter/dataspace/color/hsl2native 0. 1. 0."
 								}
 
 							}
@@ -260,13 +260,13 @@
 					}
 ,
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"fontsize" : 10.0
 					}
 
 				}
@@ -412,6 +412,10 @@
 					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-8",
+					"maxclass" : "comment",
+					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 145.0, 190.0, 295.0, 19.0 ],
 					"id" : "obj-8"
