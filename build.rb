@@ -3,8 +3,20 @@
 glibdir = "."
 Dir.chdir glibdir
 glibdir = Dir.pwd
-
+$modular = true
 Dir.chdir "#{glibdir}/supports"
+
+
+
+version = nil
+version_maj = 0
+version_min = 0
+version_sub = 0
+version_mod = ''
+revision = nil
+
+
+
 load "build.rb"
 
 
