@@ -1,6 +1,3 @@
-[submodule "examples/MaxMSP/ObjectiveMax"]
-	path = examples/MaxMSP/ObjectiveMax
-	url = git://github.com/tap/ObjectiveMax.git
 [submodule "supports"]
 	path = supports
 	url = git://github.com/tap/JamomaSupport.git
