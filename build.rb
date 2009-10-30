@@ -12,7 +12,7 @@ puts "post-build..."
 
 if  win32?
 else
-	copydir("../../Builds/jcom.loader.mxo", "\"/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo\"")
+	`cp -r "../../Builds/jcom.loader.mxo", "/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo"`
 end
 puts "done"
 puts
