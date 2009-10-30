@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */; };
+		22C6B2E7109A70A600AD8BBF /* jcom.out.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C6B2E5109A70A600AD8BBF /* jcom.out.h */; };
+		22C6B2E8109A70A600AD8BBF /* jcom.out.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C6B2E6109A70A600AD8BBF /* jcom.out.cpp */; };
 		22C9F7D2103338310062F7B8 /* commonsyms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F7D1103338310062F7B8 /* commonsyms.cpp */; };
 		22C9F7D8103338390062F7B8 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F7D7103338390062F7B8 /* MaxAPI.framework */; };
 		22C9F7DC1033383F0062F7B8 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F7DB1033383F0062F7B8 /* MaxAudioAPI.framework */; };
@@ -16,11 +18,12 @@
 		22C9F7E2103338990062F7B8 /* tt-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F7E1103338990062F7B8 /* tt-max.xcconfig */; };
 		22C9F81910333A130062F7B8 /* MaxObjectTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F81810333A130062F7B8 /* MaxObjectTypes.h */; };
 		22C9F82510333A4C0062F7B8 /* JamomaModular.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F82410333A4C0062F7B8 /* JamomaModular.framework */; };
-		22C9FA8F10336B850062F7B8 /* jcom.cubicInterpolate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9FA8E10336B850062F7B8 /* jcom.cubicInterpolate.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
+		22C6B2E5109A70A600AD8BBF /* jcom.out.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.out.h; sourceTree = "<group>"; };
+		22C6B2E6109A70A600AD8BBF /* jcom.out.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.out.cpp; sourceTree = "<group>"; };
 		22C9F7D1103338310062F7B8 /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
 		22C9F7D7103338390062F7B8 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
 		22C9F7DB1033383F0062F7B8 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
@@ -29,8 +32,7 @@
 		22C9F7E1103338990062F7B8 /* tt-max.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max.xcconfig"; path = "../../../supports/max/tt-max.xcconfig"; sourceTree = SOURCE_ROOT; };
 		22C9F81810333A130062F7B8 /* MaxObjectTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaxObjectTypes.h; path = ../../../supports/objectivemax/MaxObject/MaxObjectTypes.h; sourceTree = SOURCE_ROOT; };
 		22C9F82410333A4C0062F7B8 /* JamomaModular.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaModular.framework; path = ../../../library/build/UninstalledProducts/JamomaModular.framework; sourceTree = SOURCE_ROOT; };
-		22C9FA8E10336B850062F7B8 /* jcom.cubicInterpolate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.cubicInterpolate.cpp; sourceTree = "<group>"; };
-		2FBBEAE508F335360078DB84 /* jcom.cubicInterpolate.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.cubicInterpolate.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FBBEAE508F335360078DB84 /* jcom.out.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.out.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +80,8 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				22C9FA8E10336B850062F7B8 /* jcom.cubicInterpolate.cpp */,
+				22C6B2E5109A70A600AD8BBF /* jcom.out.h */,
+				22C6B2E6109A70A600AD8BBF /* jcom.out.cpp */,
 				22C9F7D1103338310062F7B8 /* commonsyms.cpp */,
 			);
 			name = Source;
@@ -87,7 +90,7 @@
 		19C28FB4FE9D528D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2FBBEAE508F335360078DB84 /* jcom.cubicInterpolate.mxo */,
+				2FBBEAE508F335360078DB84 /* jcom.out.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -100,6 +103,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C9F81910333A130062F7B8 /* MaxObjectTypes.h in Headers */,
+				22C6B2E7109A70A600AD8BBF /* jcom.out.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,7 +126,7 @@
 			);
 			name = "max-external";
 			productName = iterator;
-			productReference = 2FBBEAE508F335360078DB84 /* jcom.cubicInterpolate.mxo */;
+			productReference = 2FBBEAE508F335360078DB84 /* jcom.out.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -130,7 +134,7 @@
 /* Begin PBXProject section */
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.cubicInterpolate" */;
+			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.out" */;
 			compatibilityVersion = "Xcode 3.0";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* iterator */;
@@ -169,7 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C9F7D2103338310062F7B8 /* commonsyms.cpp in Sources */,
-				22C9FA8F10336B850062F7B8 /* jcom.cubicInterpolate.cpp in Sources */,
+				22C6B2E8109A70A600AD8BBF /* jcom.out.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,7 +243,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.cubicInterpolate" */ = {
+		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.out" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2FBBEAD008F335010078DB84 /* Development */,
