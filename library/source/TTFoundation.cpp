@@ -166,12 +166,14 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
                 if(status == OSStatus(noErr) || status == OSStatus(errFSNoMoreItems)){
                     for(UInt32 i=0; i < count; i += 1){
   						name = CFStringCreateWithCharacters(kCFAllocatorDefault, names[i].unicode, names[i].length);
+// TODO: filter on name.  We only want to try and load .ttdylib files						
 						CFStringGetCString(name, cname, 4096, kCFStringEncodingUTF8);
 						path = fullpath;
 						path += "/";
 						path += cname;
 						
 						handle = dlopen(path.c_str(), RTLD_LAZY);
+// TODO: assert -- or at least do a log post -- if handle is NULL
 						initializer = (TTExtensionInitializationMethod)dlsym(handle, "loadTTExtension");
 						if(initializer)
 							err = initializer();
