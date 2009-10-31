@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
-	Name="jcom.zerox~"
-	ProjectGUID="{0F6A844F-2A67-4B72-BA37-519CA51F3B13}"
-	RootNamespace="tt.zerox~"
+	Version="9.00"
+	Name="Max External"
+	ProjectGUID="{E3F6789F-D53D-458B-88CC-D5718E89B940}"
+	RootNamespace="tt.balance~"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\examples\MaxMSP&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\..\..\Graphics\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes\units&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\max&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\..\..\Graphics\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes\units&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -64,10 +64,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib JamomaFoundation.lib TTEffectsLib.lib"
-				OutputFile="$(OutDir)\$(ProjectName).mxe"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib JamomaFoundation.lib"
+				OutputFile="$(OutDir)\$(InputName).mxe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\extensions\builds&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
@@ -121,7 +121,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\examples\MaxMSP&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\..\..\Graphics\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes\units&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\max&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\..\..\Graphics\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes&quot;;&quot;$(ProjectDir)..\..\..\library\includes\units&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
@@ -140,10 +140,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib JamomaFoundation.lib TTEffectsLib.lib"
-				OutputFile="$(OutDir)\$(ProjectName).mxe"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib JamomaFoundation.lib"
+				OutputFile="$(OutDir)\$(InputName).mxe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\extensions\builds&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)\..\..\..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
@@ -179,15 +179,15 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\..\..\..\..\Tools\library\max-sdk\c74support\max-includes\common\commonsyms.c"
+			RelativePath="..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes\common\commonsyms.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\jcom.zerox~.cpp"
+			RelativePath=".\$(InputName).cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\..\Foundation\examples\MaxMSP\TTClassWrapperMax.cpp"
+			RelativePath="..\..\..\supports\max\TTClassWrapperMax.cpp"
 			>
 		</File>
 	</Files>
