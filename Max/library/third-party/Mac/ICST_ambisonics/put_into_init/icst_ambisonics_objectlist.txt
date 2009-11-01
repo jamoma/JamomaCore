@@ -1,4 +1,0 @@
-max oblist "ICST Ambisonics"    ambiencode~;
-max oblist "ICST Ambisonics"    ambidecode~;
-max oblist "ICST Ambisonics"	ambimonitor;
-max oblist "ICST Ambisonics"	ambicontrol;

@@ -16,20 +16,6 @@ Release
 *.ncb
 *.suo
 *.user
-tmtags
-*.tm_*
-Jamoma/documentation/jamoma-help/jcom.balance~.maxhelp
-Jamoma/documentation/jamoma-help/jcom.dcblock~.maxhelp
-Jamoma/documentation/jamoma-help/jcom.degrade~.maxhelp
-Jamoma/documentation/jamoma-help/jcom.filter~.maxhelp
-Jamoma/documentation/jamoma-help/jcom.gain~.maxhelp
-Jamoma/documentation/jamoma-help/jcom.hmlshelf~.maxhelp
-Jamoma/documentation/jamoma-help/jcom.limiter~.maxhelp
-Jamoma/documentation/jamoma-help/jcom.op~.maxhelp
-Jamoma/documentation/jamoma-help/jcom.overdrive~.maxhelp
-Jamoma/documentation/jamoma-help/jcom.ramp~.maxhelp
-Jamoma/documentation/jamoma-help/jcom.xfade~.maxhelp
-Jamoma/documentation/jamoma-help/jcom.zerox~.maxhelp
 
 # Files generated from templates by the build script
 JamomaModular.xcconfig
