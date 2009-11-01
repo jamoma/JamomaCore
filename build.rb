@@ -21,6 +21,7 @@ load "build.rb"
 
 
 puts "post-build..."
+Dir.chdir "#{glibdir}"
 
 if  win32?
 else
