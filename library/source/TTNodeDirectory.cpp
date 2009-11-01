@@ -14,7 +14,8 @@
 
 
 TT_OBJECT_CONSTRUCTOR,
-	root(NULL)
+	root(NULL),
+	observers(NULL)
 {
 	TTBoolean nodeCreated = NO;
 	

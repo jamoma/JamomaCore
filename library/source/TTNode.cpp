@@ -30,6 +30,8 @@ TT_OBJECT_CONSTRUCTOR,
 
 	// a new TTNode have no propertie
 	this->properties = new TTHash();
+	
+	this->observers = new TTList();
 }
 
 TTNode::~TTNode()
@@ -113,6 +115,8 @@ TTNode::~TTNode()
 	this->type = NULL;
 	this->object = NULL;
 	this->instance = NULL;
+	this->observers->clear();
+	this->observers->~TTList();
 
 	// remove the OSCaddress from the directory
 	this->directory->TTNodeRemove(OSCaddress);
@@ -129,7 +133,7 @@ TTSymbolPtr		TTNode::getType(){return this->type;}
 void*			TTNode::getObject(){return this->object;}
 TTNodePtr		TTNode::getParent(){return this->parent;}
 
-//TTListPtr		TTNode::getObserver(){return this->observers;}
+TTListPtr		TTNode::getObserver(){return this->observers;}
 
 TTErr TTNode::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
 {
@@ -525,16 +529,16 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTList& ret
 }
 
 
-//void TTNode::addObserver(ObserverPtr observer)
-//{
-//	this->observers->append(new TTValue((TTPtr)observer));
-//}
+void TTNode::addObserver(ObserverPtr observer)
+{
+	this->observers->append(new TTValue((TTPtr)observer));
+}
 
 
-//void TTNode::removeObserver(ObserverPtr observer)
-//{
-//	this->observers->remove(new TTValue((TTPtr)observer));
-//}
+void TTNode::removeObserver(ObserverPtr observer)
+{
+	this->observers->remove(new TTValue((TTPtr)observer));
+}
 
 TTErr TTNode::getOscAddress(TTSymbolPtr *returnedOscAddress)
 {
