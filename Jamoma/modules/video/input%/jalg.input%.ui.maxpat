@@ -1,10 +1,10 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 0.0, 45.0, 1280.0, 726.0 ],
+		"rect" : [ -4.0, 45.0, 1280.0, 726.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 0.0, 45.0, 1280.0, 726.0 ],
+		"defrect" : [ -4.0, 45.0, 1280.0, 726.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -19,21 +19,6 @@
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
-				"box" : 				{
-					"color" : [ 0.317647, 0.709804, 0.321569, 1.0 ],
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-47",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 495.0, 1192.0, 106.0, 19.0 ],
-					"text" : "value #1file/status"
-				}
-
-			}
-, 			{
 				"box" : 				{
 					"color" : [ 1.0, 0.952941, 0.211765, 1.0 ],
 					"fontname" : "Verdana",
@@ -302,8 +287,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 96.0, 1107.20813, 338.0, 19.0 ],
-					"text" : "jcom.message file/stop @description \"Open the camera grabber\"",
+					"patching_rect" : [ 96.0, 1107.20813, 355.0, 19.0 ],
+					"text" : "jcom.message file/stop @description \"Stop reading of the video file\"",
 					"varname" : "jcom.parameter[8]"
 				}
 
@@ -353,8 +338,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 96.0, 1155.0, 340.0, 19.0 ],
-					"text" : "jcom.message file/start @description \"Open the camera grabber\"",
+					"patching_rect" : [ 96.0, 1155.0, 358.0, 19.0 ],
+					"text" : "jcom.message file/start @description \"Start reading of the video file\"",
 					"varname" : "jcom.parameter[9]"
 				}
 
@@ -2424,15 +2409,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-47", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 265.5, 1151.25, 504.5, 1151.25 ],
-					"source" : [ "obj-20", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-28", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -2661,15 +2637,6 @@
 					"destination" : [ "obj-19", 0 ],
 					"hidden" : 0,
 					"midpoints" : [ 266.5, 1196.5, 87.0, 1196.5, 87.0, 1078.5, 22.5, 1078.5 ],
-					"source" : [ "obj-42", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-47", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-42", 0 ]
 				}
 
