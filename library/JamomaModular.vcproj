@@ -24,11 +24,11 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot;"
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaModular.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaJamomaModular.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="output"
 			/>
 			<Tool
@@ -43,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)source&quot;;&quot;$(ProjectDir)Internals&quot;;&quot;$(ProjectDir)Ramplib&quot;;&quot;$(ProjectDir)Dataspacelib&quot;;&quot;$(ProjectDir)Functionlib&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\..\DSP\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\common&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)source&quot;;&quot;$(ProjectDir)Internals&quot;;&quot;$(ProjectDir)Ramplib&quot;;&quot;$(ProjectDir)Dataspacelib&quot;;&quot;$(ProjectDir)Functionlib&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes\units&quot;;&quot;$(ProjectDir)..\supports\objectivemax\MaxObject&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -67,7 +67,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib MaxAPI.lib MaxAudio.lib jitlib.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile="jamoma.def"
 				GenerateDebugInformation="true"
@@ -104,11 +104,11 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot;"
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaModular.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaJamomaModular.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="output"
 			/>
 			<Tool
@@ -126,7 +126,7 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)source&quot;;&quot;$(ProjectDir)Internals&quot;;&quot;$(ProjectDir)Ramplib&quot;;&quot;$(ProjectDir)Dataspacelib&quot;;&quot;$(ProjectDir)Functionlib&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\..\DSP\library\includes\units&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\common&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)source&quot;;&quot;$(ProjectDir)Internals&quot;;&quot;$(ProjectDir)Ramplib&quot;;&quot;$(ProjectDir)Dataspacelib&quot;;&quot;$(ProjectDir)Functionlib&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes\units&quot;;&quot;$(ProjectDir)..\supports\objectivemax\MaxObject&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
@@ -151,7 +151,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib MaxAPI.lib MaxAudio.lib jitlib.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile="jamoma.def"
 				GenerateDebugInformation="true"
@@ -190,7 +190,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\..\Tools\library\max-sdk\c74support\max-includes\common\commonsyms.c"
+				RelativePath="..\supports\objectivemax\SDKs\Max5\c74support\max-includes\common\commonsyms.c"
 				>
 			</File>
 			<File
