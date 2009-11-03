@@ -230,24 +230,6 @@ Global
 		{C710B36E-ADC3-40D5-A59E-1C74FE325807}.Debug|Win32.Build.0 = Debug|Win32
 		{C710B36E-ADC3-40D5-A59E-1C74FE325807}.Release|Win32.ActiveCfg = Release|Win32
 		{C710B36E-ADC3-40D5-A59E-1C74FE325807}.Release|Win32.Build.0 = Release|Win32
-<<<<<<< HEAD:SourceCode/Jamoma.sln
-		{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}.Debug|Win32.ActiveCfg = Debug|Win32
-		{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}.Debug|Win32.Build.0 = Debug|Win32
-		{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}.Release|Win32.ActiveCfg = Release|Win32
-		{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}.Release|Win32.Build.0 = Release|Win32
-		{557C672F-6946-416C-B199-C7AB650A93C0}.Debug|Win32.ActiveCfg = Debug|Win32
-		{557C672F-6946-416C-B199-C7AB650A93C0}.Debug|Win32.Build.0 = Debug|Win32
-		{557C672F-6946-416C-B199-C7AB650A93C0}.Release|Win32.ActiveCfg = Release|Win32
-		{557C672F-6946-416C-B199-C7AB650A93C0}.Release|Win32.Build.0 = Release|Win32
-		{DAA45B89-D34A-4A69-B9FF-08CDF206429F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{DAA45B89-D34A-4A69-B9FF-08CDF206429F}.Debug|Win32.Build.0 = Debug|Win32
-		{DAA45B89-D34A-4A69-B9FF-08CDF206429F}.Release|Win32.ActiveCfg = Release|Win32
-		{DAA45B89-D34A-4A69-B9FF-08CDF206429F}.Release|Win32.Build.0 = Release|Win32
-		{624E2767-FE93-482D-B867-AF19E9660B88}.Debug|Win32.ActiveCfg = Debug|Win32
-		{624E2767-FE93-482D-B867-AF19E9660B88}.Debug|Win32.Build.0 = Debug|Win32
-		{624E2767-FE93-482D-B867-AF19E9660B88}.Release|Win32.ActiveCfg = Release|Win32
-		{624E2767-FE93-482D-B867-AF19E9660B88}.Release|Win32.Build.0 = Release|Win32
-=======
 		{E77085FA-7786-415B-9C54-E69C632FDB55}.Debug|Win32.ActiveCfg = Debug|Win32
 		{E77085FA-7786-415B-9C54-E69C632FDB55}.Debug|Win32.Build.0 = Debug|Win32
 		{E77085FA-7786-415B-9C54-E69C632FDB55}.Release|Win32.ActiveCfg = Release|Win32
@@ -256,7 +238,6 @@ Global
 		{2A326D97-5CBD-41CB-AED1-6F7FE69B7C37}.Debug|Win32.Build.0 = Debug|Win32
 		{2A326D97-5CBD-41CB-AED1-6F7FE69B7C37}.Release|Win32.ActiveCfg = Release|Win32
 		{2A326D97-5CBD-41CB-AED1-6F7FE69B7C37}.Release|Win32.Build.0 = Release|Win32
->>>>>>> master:library/Jamoma.sln
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
