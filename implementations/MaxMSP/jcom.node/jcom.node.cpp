@@ -198,7 +198,7 @@ void node_goto(t_node *x, t_symbol *address)
 
 void node_set_receive(t_node *x, t_symbol *address)
 {	
-	ObserverPtr p_obsv;
+	TTObjectPtr p_obsv;
 	TTNodePtr p_node;
 	
 	jamoma_directory_get_node(address, *x->lk_nodes, &p_node);
@@ -207,9 +207,10 @@ void node_set_receive(t_node *x, t_symbol *address)
 		for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
 			
 			x->lk_nodes->current().get(0,(TTPtr*)&p_node);
-			p_obsv = new Observer();
-			p_obsv->addCallback(&node_receive_callback, x);
-			p_node->addObserver(p_obsv);
+			p_obsv->setAttributeValue(TT("Function"), TTPtr(&node_receive_callback));
+			p_obsv->setAttributeValue(TT("Baton"), TTPtr(x));
+			p_node->registerObserverForNotifications(*p_obsv);
+			
 		}
 	}
 }

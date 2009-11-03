@@ -136,7 +136,8 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 // 
 void receive_bind(t_receive *x)
 {
-	ObserverPtr p_obsv;
+//	ObserverPtr p_obsv;
+	TTObjectPtr p_obsv;
 	TTList lk_selection;
 	TTNodePtr p_node;
 	TTErr err = kTTErrGeneric;
@@ -168,11 +169,15 @@ void receive_bind(t_receive *x)
 			x->lk_nodes->current().get(0,(TTPtr*)&p_node);
 			
 			// create an observer
-			p_obsv = new Observer();
+//			p_obsv = new Observer();
+			TTObjectInstantiate(TT("Callback"), &p_obsv, kTTValNONE);
 			
 			// prepare the callback mecanism between the node and the observer
-			p_obsv->addCallback(&receive_node_callback, x);
-			p_node->addObserver(p_obsv);
+//			p_obsv->addCallback(&receive_node_callback, x);
+			p_obsv->setAttributeValue(TT("Function"), TTPtr(&receive_node_callback));
+			p_obsv->setAttributeValue(TT("Baton"), TTPtr(x));
+//			p_node->addObserver(p_obsv);
+			p_node->registerObserverForNotifications(*p_obsv);
 			
 			// add the observer to the TTlist (to remove it correctly)
 			x->lk_observer->append(new TTValue((TTPtr)p_obsv));
@@ -182,7 +187,8 @@ void receive_bind(t_receive *x)
 
 void receive_remove(t_receive *x)
 {
-	ObserverPtr p_obsv;
+	//	ObserverPtr p_obsv;
+	TTObjectPtr p_obsv;
 	TTNodePtr p_node;
 	
 	// if there is a selection, remove Observers
@@ -198,9 +204,10 @@ void receive_remove(t_receive *x)
 			x->lk_observer->current().get(0,(TTPtr*)&p_obsv);
 
 			// remove the observer
-			p_node->removeObserver(p_obsv);
-			delete p_obsv;
-			
+//			p_node->removeObserver(p_obsv);
+			p_node->unregisterObserverForNotifications(*p_obsv);
+//			delete p_obsv;
+			TTObjectRelease(&p_obsv);
 			x->lk_observer->next();
 		}
 	}
