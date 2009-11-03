@@ -140,35 +140,35 @@ public:
 		*/
 	TTErr			setChild(TTNodePtr child);
 	
-	/** Add a propertie to the TTNode.
+	/** Add a property to the TTNode.
 		TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject
-		@param propertie			a TTSymbolPtr to store as a key in the hashtable.
-		@param getPropertieMethod	a pointer to a specific method to get the propertie value.
-		@param setPropertieMethod	a pointer to a specific method to set the propertie value.
-		@return						a kTTErrGeneric if the propertie already exists.	*/
-	TTErr			addPropertie(TTSymbolPtr propertie, void(*getPropertieMethod)(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr *returnedValue), void(*setPropertieMethod)(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr value));
+		@param property			a TTSymbolPtr to store as a key in the hashtable.
+		@param getPropertyMethod	a pointer to a specific method to get the property value.
+		@param setPropertyMethod	a pointer to a specific method to set the property value.
+		@return						a kTTErrGeneric if the property already exists.	*/
+	TTErr			addProperty(TTSymbolPtr property, void(*getPropertyMethod)(TTNodePtr node, TTSymbolPtr property, TTValuePtr *returnedValue), void(*setPropertyMethod)(TTNodePtr node, TTSymbolPtr property, TTValuePtr value));
 
 	/** Get the list of all the properties of the TTNode 
 		TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject */
-	TTErr			getPropertiesList(TTList& lk_prp);
+	TTErr			getPropertyList(TTList& lk_prp);
 	
-	/** Is it a propertie of the TTNode ?
+	/** Is it a property of the TTNode ?
 		TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject */
-	bool			isPropertie(TTSymbolPtr propertie);
+	bool			isProperty(TTSymbolPtr property);
 	
-	/** Get a propertie value of a TTNode (using a specific method to get the propertie : see addPropertie).
+	/** Get a property value of a TTNode (using a specific method to get the property : see addProperty).
 		TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject
-	 @param propertie		a TTSymbolPtr to store as a key in the hashtable.
+	 @param property		a TTSymbolPtr to store as a key in the hashtable.
 	 @param returnedValue	a pointer to get the value.
-	 @return				a kTTErrGeneric if the propertie already exists.	*/
-	TTErr			getPropertie(TTSymbolPtr propertie, TTValuePtr *returnedValue);
+	 @return				a kTTErrGeneric if the property already exists.	*/
+	TTErr			getProperty(TTSymbolPtr property, TTValuePtr *returnedValue);
 	
-	/** Set a propertie value of a TTNode (using a specific method to set the propertie : see addPropertie).
+	/** Set a property value of a TTNode (using a specific method to set the property : see addProperty).
 		TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject
-	 @param propertie		a TTSymbolPtr to store as a key in the hashtable.
+	 @param property		a TTSymbolPtr to store as a key in the hashtable.
 	 @param value			a pointer on the value to set.
-	 @return				a kTTErrGeneric if the propertie already exists.	*/
-	TTErr			setPropertie(TTSymbolPtr propertie, TTValuePtr value);
+	 @return				a kTTErrGeneric if the property already exists.	*/
+	TTErr			setProperty(TTSymbolPtr property, TTValuePtr value);
 	
 	/** Get the OSC address of the TTNode 
 		It is computed dynamicaly by asking to all the ancestor of the TTNode	

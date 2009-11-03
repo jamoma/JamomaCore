@@ -81,7 +81,7 @@ TTErr TTNodeDirectory::getTTNodeForOSC(TTSymbolPtr oscAddress, TTNodePtr* return
 
 TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
 {
-	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie, newInstance, oscAddress_got;
+	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_property, newInstance, oscAddress_got;
 	TTBoolean parent_created;
 	TTValue* found;
 	TTNodePtr	newTTNode = NULL;
@@ -89,14 +89,14 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 	TTErr err;
 	TTValue v;
 
-	// Split the OSC address in /parent/name.instance:/propertie
-	err = splitOSCAddress(oscAddress,&oscAddress_parent,&oscAddress_name, &oscAddress_instance, &oscAddress_propertie);
+	// Split the OSC address in /parent/name.instance:/property
+	err = splitOSCAddress(oscAddress,&oscAddress_parent,&oscAddress_name, &oscAddress_instance, &oscAddress_property);
 
 	// if no error in the parsing of the OSC address
 	if(err == kTTErrNone){
 
-		// If there is a propertie part
-		if(oscAddress_propertie != NO_PROPERTIE){
+		// If there is a property part
+		if(oscAddress_property != NO_PROPERTIE){
 
 			// get the TTNode
 			mergeOSCAddress(&oscAddress_got,oscAddress_parent,oscAddress_name,oscAddress_instance,NO_PROPERTIE);
@@ -110,7 +110,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 			else{
 				// get the TTNode at this address
 				found->get(0,(TTPtr*)&n_found);
-				n_found->addPropertie(oscAddress_propertie, NULL, NULL);  // TODO : advise the user that he is creating an attribut without any access (get and set) method
+				n_found->addProperty(oscAddress_property, NULL, NULL);  // TODO : advise the user that he is creating an attribut without any access (get and set) method
 
 				return kTTErrNone;
 			}
@@ -183,7 +183,7 @@ TTErr TTNodeDirectory::TTNodeRemove(TTSymbolPtr oscAddress)
 
 TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
 {
-	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie, oscAddress_nopropertie;
+	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_property, oscAddress_noproperty;
 	TTList lk_selection, lk_children;
 	TTNodePtr n_r;
 	TTErr err;
@@ -192,8 +192,8 @@ TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, T
 	if(oscAddress->getCString()[0]!= C_SEPARATOR)
 		return kTTErrGeneric;
 	
-	// Split the address /parent/name.instance:propertie
-	splitOSCAddress(oscAddress, &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_propertie);
+	// Split the address /parent/name.instance:property
+	splitOSCAddress(oscAddress, &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_property);
 
 	// Is there a wild card ?
 	if(strrchr(oscAddress->getCString(), C_WILDCARD)){
@@ -229,17 +229,17 @@ TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, T
 		return err;
 	}
 	// no wild card : do a lookup in the global hashtab 
-	// with the /parent/node.instance part (no propertie)
+	// with the /parent/node.instance part (no property)
 	else{
 		
-		// be sure there is no propertie part
-		if(oscAddress_propertie != NO_PROPERTIE)
-			mergeOSCAddress(&oscAddress_nopropertie, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_PROPERTIE);
+		// be sure there is no property part
+		if(oscAddress_property != NO_PROPERTIE)
+			mergeOSCAddress(&oscAddress_noproperty, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_PROPERTIE);
 		else
-			oscAddress_nopropertie = oscAddress;
+			oscAddress_noproperty = oscAddress;
 		
 		// look into the hashtab
-		err = getTTNodeForOSC(oscAddress_nopropertie, &n_r);
+		err = getTTNodeForOSC(oscAddress_noproperty, &n_r);
 		
 		// if the node exists
 		if(err == kTTErrNone){
@@ -352,11 +352,11 @@ TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(TTNod
  *
  ************************************************************************************/
 
-TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdress, TTSymbolPtr* returnedTTNodeName, TTSymbolPtr* returnedTTNodeInstance, TTSymbolPtr* returnedTTNodePropertie)
+TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdress, TTSymbolPtr* returnedTTNodeName, TTSymbolPtr* returnedTTNodeInstance, TTSymbolPtr* returnedTTNodeProperty)
 {
 	long len, pos;
 	char *last_colon, *last_slash, *last_dot;
-	char *propertie, *parent, *instance;
+	char *property, *parent, *instance;
 	char *to_split;
 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
@@ -367,20 +367,20 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 	strcpy(to_split,oscAddress->getCString());
 
 	// find the last ':' in the OSCaddress
-	// if exists, split the OSC address in an address part (to split) and an propertie part
+	// if exists, split the OSC address in an address part (to split) and an property part
 	len = strlen(to_split);
 	last_colon = strrchr(to_split, C_PROPERTIE);
 	pos = (long)last_colon - (long)to_split;
 
 	if(last_colon){
-		propertie = (char *)malloc(sizeof(char)*(len - (pos+1)));
-		strcpy(propertie,to_split + pos+1);
-		*returnedTTNodePropertie = TT(propertie);
+		property = (char *)malloc(sizeof(char)*(len - (pos+1)));
+		strcpy(property,to_split + pos+1);
+		*returnedTTNodeProperty = TT(property);
 
 		to_split[pos] = NULL;	// split to keep only the address part
 	}
 	else
-		*returnedTTNodePropertie = NO_PROPERTIE;
+		*returnedTTNodeProperty = NO_PROPERTIE;
 	
 	// find the last '/' in the address part
 	// if exists, split the address part in a TTNode part (to split) and a parent part
@@ -434,7 +434,7 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 	return kTTErrNone;
 }
 
-TTErr mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSymbolPtr name, TTSymbolPtr instance, TTSymbolPtr propertie)
+TTErr mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSymbolPtr name, TTSymbolPtr instance, TTSymbolPtr property)
 {
 	TTString address;
 
@@ -451,9 +451,9 @@ TTErr mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSym
 		address += instance->getCString();
 	}
 
-	if(propertie != NO_PROPERTIE){
+	if(property != NO_PROPERTIE){
 		address += S_PROPERTIE->getCString();
-		address += propertie->getCString();
+		address += property->getCString();
 	}
 
 	*returnedOscAddress = TT(address);

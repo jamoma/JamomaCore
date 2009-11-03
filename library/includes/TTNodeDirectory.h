@@ -152,7 +152,7 @@ public:
 };
 
 /**	An OSC parsing tool
-	@param	oscAddress					The OSC address to spilt in /parent/node.instance:propertie
+	@param	oscAddress					The OSC address to spilt in /parent/node.instance:property
 
 	@param	returnedParentOscAdress		A pointer to TTNode parent symbol is returned in this parameter
 
@@ -160,10 +160,10 @@ public:
 
 	@param	returnedTTNodeInstance		A pointer to the TTNode instance symbol is returned in this parameter
 
-	@param	returnedTTNodePropertie		A pointer to the TTNode propertie symbol is returned in this parameter
+	@param	returnedTTNodeProperty		A pointer to the TTNode property symbol is returned in this parameter
 						
 	@return								An error code.				*/
-TTErr TTFOUNDATION_EXPORT splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdress, TTSymbolPtr* returnedTTNodeName, TTSymbolPtr* returnedTTNodeInstance, TTSymbolPtr* returnedTTNodePropertie);
+TTErr TTFOUNDATION_EXPORT splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdress, TTSymbolPtr* returnedTTNodeName, TTSymbolPtr* returnedTTNodeInstance, TTSymbolPtr* returnedTTNodeProperty);
 
 /**	An OSC merging tool
 	@param	oscAddress					A pointer to osc address symbol is returned in this parameter
@@ -174,9 +174,9 @@ TTErr TTFOUNDATION_EXPORT splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* r
 
 	@param	instance					A TTNode instance symbol
 
-	@param	propertie					A pointer to the TTNode propertie symbol
+	@param	property					A pointer to the TTNode property symbol
 						
 	@return								An error code.				*/
-TTErr TTFOUNDATION_EXPORT mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSymbolPtr name, TTSymbolPtr instance, TTSymbolPtr propertie);
+TTErr TTFOUNDATION_EXPORT mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSymbolPtr name, TTSymbolPtr instance, TTSymbolPtr property);
 
 #endif // __TT_NODE_DIRECTORY_H__

@@ -315,29 +315,29 @@ TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created
 	return kTTErrNone;
 }
 
-TTErr TTNode::addPropertie(TTSymbolPtr propertie, void(*getPropertieMethod)(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr *returnedValue), void(*setPropertieMethod)(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr value))
+TTErr TTNode::addProperty(TTSymbolPtr property, void(*getPropertyMethod)(TTNodePtr node, TTSymbolPtr property, TTValuePtr *returnedValue), void(*setPropertyMethod)(TTNodePtr node, TTSymbolPtr property, TTValuePtr value))
 {
 	TTErr err;
 	TTValuePtr p_method;
 
-	// look into the hashtab to check if the propertie exists
-	err = this->properties->lookup(propertie, *p_method);
+	// look into the hashtab to check if the property exists
+	err = this->properties->lookup(property, *p_method);
 
-	// if this propertie doesn't exist
+	// if this property doesn't exist
 	if(err == kTTErrValueNotFound){
 		
-		// store the get and set propertie methods
-		p_method = new TTValue((TTPtr)getPropertieMethod);
-		p_method->append((TTPtr)setPropertieMethod);
+		// store the get and set property methods
+		p_method = new TTValue((TTPtr)getPropertyMethod);
+		p_method->append((TTPtr)setPropertyMethod);
 		
-		this->properties->append(propertie, p_method);
+		this->properties->append(property, p_method);
 		return kTTErrNone;
 	}
 	else
 		return kTTErrGeneric;
 }
 
-TTErr TTNode::getPropertiesList(TTList& lk_prp)
+TTErr TTNode::getPropertyList(TTList& lk_prp)
 {
 	uint i;
 	TTValue *hk;
@@ -351,10 +351,10 @@ TTErr TTNode::getPropertiesList(TTList& lk_prp)
 		c = new TTValue();
 		this->properties->getKeys(*hk);
 		
-		// for each propertie
+		// for each property
 		for(i = 0; i < this->properties->getSize(); i++){
 			hk->get(i,(TTSymbol**)&key);
-			// add the propertie to the linklist
+			// add the property to the linklist
 			 lk_prp.append(new TTValue((TTSymbolPtr)key));
 		}
 		
@@ -363,33 +363,33 @@ TTErr TTNode::getPropertiesList(TTList& lk_prp)
 	return kTTErrGeneric;
 }
 
-bool TTNode::isPropertie(TTSymbolPtr propertie)
+bool TTNode::isProperty(TTSymbolPtr property)
 {
 	TTErr err;
 	TTValuePtr p_methods = NULL;
 	
-	// look into the hashtab to check if the propertie exists
-	err = this->properties->lookup(propertie, *p_methods);
+	// look into the hashtab to check if the property exists
+	err = this->properties->lookup(property, *p_methods);
 	
 	return err == kTTErrNone;
 }
 
-TTErr TTNode::getPropertie(TTSymbolPtr propertie, TTValuePtr *returnedValue)
+TTErr TTNode::getProperty(TTSymbolPtr property, TTValuePtr *returnedValue)
 {
 	TTErr err;
 	TTValuePtr p_methods = NULL;
 	void (*g_method)(TTNodePtr n, TTSymbolPtr p, TTValuePtr *rv);
 	
-	// look into the hashtab to check if the propertie exists
-	err = this->properties->lookup(propertie, *p_methods);
+	// look into the hashtab to check if the property exists
+	err = this->properties->lookup(property, *p_methods);
 	
-	// if this propertie exists
+	// if this property exists
 	if(err == kTTErrNone){
-		// get the set propertie method
+		// get the set property method
 		// and use it
 		if(p_methods){
 			p_methods->get(0, (TTPtr*)&g_method);
-			g_method(this, propertie, returnedValue);
+			g_method(this, property, returnedValue);
 		}
 		return kTTErrNone;
 	}
@@ -397,22 +397,22 @@ TTErr TTNode::getPropertie(TTSymbolPtr propertie, TTValuePtr *returnedValue)
 		return kTTErrGeneric;
 }
 
-TTErr TTNode::setPropertie(TTSymbolPtr propertie, TTValuePtr value)
+TTErr TTNode::setProperty(TTSymbolPtr property, TTValuePtr value)
 {
 	TTErr err;
 	TTValuePtr p_methods = NULL;
 	void (*s_method)(TTNodePtr n, TTSymbolPtr p, TTValuePtr v);
 	
-	// look into the hashtab to check if the propertie exists
-	err = this->properties->lookup(propertie, *p_methods);
+	// look into the hashtab to check if the property exists
+	err = this->properties->lookup(property, *p_methods);
 	
-	// if this propertie exists
+	// if this property exists
 	if(err == kTTErrNone){
-		// get the set propertie method
+		// get the set property method
 		// and use it
 		if(p_methods){
 			p_methods->get(1, (TTPtr*)&s_method);
-			s_method(this, propertie, value);
+			s_method(this, property, value);
 		}
 		return kTTErrNone;
 	}
