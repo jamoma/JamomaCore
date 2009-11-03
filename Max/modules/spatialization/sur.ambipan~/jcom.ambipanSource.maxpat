@@ -107,13 +107,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-50",
-					"linecount" : 3,
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 284.0, 548.0, 596.0, 43.0 ],
-					"text" : "jcom.parameter source.1/distance/mode @repetitions/allow 0 @type integer @range/bounds 0 2 @range/clipmode both @description \"sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay\"",
+					"patching_rect" : [ 284.0, 548.0, 668.0, 31.0 ],
+					"text" : "jcom.message source.1/distance/mode @repetitions/allow 0 @type integer @range/bounds 0 2 @range/clipmode both @description \"sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay\"",
 					"varname" : "destination/voices[2]"
 				}
 
@@ -193,8 +193,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 313.0, 476.0, 553.0, 31.0 ],
-					"text" : "jcom.parameter source.1/attenuationFactor @type decimal @range/bounds 0. 100. @range/clipmode both @description \"Sets the distance unit for the exponential distance model.\""
+					"patching_rect" : [ 313.0, 476.0, 501.0, 31.0 ],
+					"text" : "jcom.message source.1/attenuationFactor @type decimal @range/bounds 0. 100. @range/clipmode both @description \"Sets the distance unit for the exponential distance model.\""
 				}
 
 			}
@@ -240,8 +240,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 309.0, 413.0, 544.0, 31.0 ],
-					"text" : "jcom.parameter source.1/distance/dBUnit @type decimal @range/bounds 0. 100. @range/clipmode both @description \"Sets the distance unit for the exponential distance model.\""
+					"patching_rect" : [ 309.0, 413.0, 502.0, 31.0 ],
+					"text" : "jcom.message source.1/distance/dBUnit @type decimal @range/bounds 0. 100. @range/clipmode both @description \"Sets the distance unit for the exponential distance model.\""
 				}
 
 			}
@@ -366,7 +366,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 346.0, 263.0, 572.0, 31.0 ],
+					"patching_rect" : [ 346.0, 263.0, 494.0, 31.0 ],
 					"text" : "jcom.message source.1/gain @type decimal @range/bounds 0. 127. @range/clipmode low @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\""
 				}
 
@@ -381,7 +381,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 370.0, 188.0, 601.0, 31.0 ],
+					"patching_rect" : [ 370.0, 188.0, 440.0, 31.0 ],
 					"text" : "jcom.parameter source.1/order @type decimal @range/bounds 0. 100. @range/clipmode both @description \"Sets the ambisonics order of the nth source.\""
 				}
 
@@ -552,7 +552,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 377.0, 124.0, 568.0, 31.0 ],
+					"patching_rect" : [ 377.0, 124.0, 440.0, 31.0 ],
 					"text" : "jcom.message source.1/position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
 				}
 
@@ -600,6 +600,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-50", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-14", 0 ]
 				}
 
 			}
@@ -920,15 +929,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-4", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-6", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-13", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -974,10 +974,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-50", 0 ],
+					"destination" : [ "obj-4", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-14", 0 ]
+					"source" : [ "obj-6", 0 ]
 				}
 
 			}
