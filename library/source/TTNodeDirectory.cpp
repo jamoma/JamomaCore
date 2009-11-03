@@ -23,27 +23,37 @@ TT_OBJECT_CONSTRUCTOR,
 	mName = arguments;
 	mDirectory = new TTHash();	// create a new directory
 
+	addAttribute(Name, kTypeSymbol);
+
 	// create a root (OSC style)
 	TTNodeCreate(S_SEPARATOR, TT("container"), NULL, &mRoot, &nodeCreated);
 }
 
 TTNodeDirectory::~TTNodeDirectory()
 {
-	// TODO : delete all the node of the directory then the directory
-	// WARNING : if you destroy all the directory, the root will be destroyed too
-	// so don't destroy it again !!!
+	// This handles the reference counting and null checking (no need to worry about double freeing)
 	TTObjectRelease(TTObjectHandle(&mRoot));
 }
+
 
 #if 0
 #pragma mark -
 #pragma mark Static Methods
 #endif
 
+
+#if THE_NON_TT_WAY_OF_DOING_THINGS
 TTSymbolPtr	TTNodeDirectory::getName()
 {
 	return mName;
 }
+
+TTErr TTNodeDirectory::setName(TTSymbolPtr aName)
+{
+	mName = aName;
+	return kTTErrNone;
+}
+#endif
 
 TTNodePtr	TTNodeDirectory::getRoot()
 {
@@ -53,12 +63,6 @@ TTNodePtr	TTNodeDirectory::getRoot()
 TTHashPtr	TTNodeDirectory::getDirectory()
 {
 	return mDirectory;
-}
-
-TTErr TTNodeDirectory::setName(TTSymbolPtr aName)
-{
-	mName = aName;
-	return kTTErrNone;
 }
 
 

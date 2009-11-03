@@ -57,10 +57,20 @@ class TTFOUNDATION_EXPORT TTNodeDirectory : public TTObject			///< we will subcl
 	TTSymbolPtr		mName;					///< the name of the tree
 	TTNodePtr		mRoot;					///< the root of the tree
 	TTHashPtr		mDirectory;				///< a pointer to a global hashtab which reference all osc address of the tree
-		
-public:
+
+#if THE_NON_TT_WAY_OF_DOING_THINGS
 	/** Get the name of the TTNodeDirectory */
 	TTSymbolPtr		getName();
+
+	/** Set the name of the TTNodeDirectory. 
+		@param	newName				The name to set */
+	TTErr			setName(TTSymbolPtr name);
+
+	// Notice that we don't need these at all with the TT way, because the accessors are provided for free
+	// via setAttributeValue() and getAttributeValue()
+#endif
+
+public:
 	
 	/** Get the root of the TTNodeDirectory */
 	TTNodePtr		getRoot();
@@ -68,9 +78,6 @@ public:
 	/** Get the directory of the TTNodeDirectory */
 	TTHashPtr		getDirectory();
 
-	/** Set the name of the TTNodeDirectory. 
-		@param	newName				The name to set */
-	TTErr			setName(TTSymbolPtr name);
 	
 	/**	Given a string with an OSC address, return a pointer to a TTNode.
 	 @param	oscAddress				The Open Sound Control string for which to find the TTNode.
