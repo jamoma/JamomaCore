@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="TTClipper"
+	Name="Clipper"
 	ProjectGUID="{C73B580F-BC81-490A-A54C-C851BF03BE3C}"
 	RootNamespace="tt.overdrive~"
 	Keyword="Win32Proj"

@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="TTFunctionLib"
+	Name="FunctionLib"
 	ProjectGUID="{4A4AD94E-41D5-4DD4-8620-E6004026E103}"
 	RootNamespace="tt.overdrive~"
 	Keyword="Win32Proj"

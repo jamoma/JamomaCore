@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="TTEffectsLib"
+	Name="EffectsLib"
 	ProjectGUID="{946C1578-B549-4F2C-820E-CC8E2E2B94DC}"
 	RootNamespace="tt.overdrive~"
 	Keyword="Win32Proj"
