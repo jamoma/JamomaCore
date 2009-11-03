@@ -11,6 +11,7 @@
 #include "TTEnvironment.h"
 #include "TTSymbolCache.h"
 #include "TTValueCache.h"
+#include "TTCallback.h"
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
 
@@ -50,8 +51,10 @@ void TTFoundationInit()
 #endif
 		
 		// register classes -- both internal and external
+		TTCallback::registerClass();
 		TTNode::registerClass();
 		TTNodeDirectory::registerClass();
+
 		TTFoundationLoadExternalClasses();
 	}
 }

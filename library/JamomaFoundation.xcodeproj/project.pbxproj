@@ -13,6 +13,8 @@
 		222B17F90F1D4009008B1A46 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */; };
 		222B17FA0F1D4009008B1A46 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1B0EC276B200A5EC32 /* AudioUnit.framework */; };
 		222B17FB0F1D4009008B1A46 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1C0EC276B200A5EC32 /* CoreServices.framework */; };
+		2251F061109F9C5400718C58 /* TTCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 2251F060109F9C5400718C58 /* TTCallback.h */; };
+		2251F063109F9C7C00718C58 /* TTCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2251F062109F9C7C00718C58 /* TTCallback.cpp */; };
 		22E3861310286BBE002000A9 /* TTAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F210286BBE002000A9 /* TTAttribute.cpp */; };
 		22E3861810286BBE002000A9 /* TTFoundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F710286BBE002000A9 /* TTFoundation.cpp */; };
 		22E3861910286BBE002000A9 /* TTClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F810286BBE002000A9 /* TTClass.cpp */; };
@@ -60,6 +62,8 @@
 		22039B851087816A008DFA4A /* TTLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLimits.h; path = includes/TTLimits.h; sourceTree = "<group>"; };
 		2227748E0EF1BFF100CA7476 /* JamomaFoundation.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaFoundation.xcconfig; sourceTree = "<group>"; };
 		222B18000F1D4009008B1A46 /* JamomaFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JamomaFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2251F060109F9C5400718C58 /* TTCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTCallback.h; path = includes/TTCallback.h; sourceTree = "<group>"; };
+		2251F062109F9C7C00718C58 /* TTCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCallback.cpp; path = source/TTCallback.cpp; sourceTree = "<group>"; };
 		22578F190EC276B200A5EC32 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
 		22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		22578F1B0EC276B200A5EC32 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
@@ -228,6 +232,8 @@
 		D2F68EBD108C9B2C0094260C /* NodeDirectory */ = {
 			isa = PBXGroup;
 			children = (
+				2251F060109F9C5400718C58 /* TTCallback.h */,
+				2251F062109F9C7C00718C58 /* TTCallback.cpp */,
 				D2F68EC5108C9BE10094260C /* TTNode.h */,
 				D2F68EC9108C9BEF0094260C /* TTNode.cpp */,
 				D2F68EC6108C9BE10094260C /* TTNodeDirectory.h */,
@@ -265,6 +271,7 @@
 				22039B861087816A008DFA4A /* TTLimits.h in Headers */,
 				D2F68EC7108C9BE10094260C /* TTNode.h in Headers */,
 				D2F68EC8108C9BE10094260C /* TTNodeDirectory.h in Headers */,
+				2251F061109F9C5400718C58 /* TTCallback.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +367,7 @@
 				22E3862810286BBE002000A9 /* TTValueCache.cpp in Sources */,
 				D2F68ECB108C9BEF0094260C /* TTNode.cpp in Sources */,
 				D2F68ECC108C9BEF0094260C /* TTNodeDirectory.cpp in Sources */,
+				2251F063109F9C7C00718C58 /* TTCallback.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

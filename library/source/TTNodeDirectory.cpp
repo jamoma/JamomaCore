@@ -14,8 +14,7 @@
 
 
 TT_OBJECT_CONSTRUCTOR,
-	root(NULL),
-	observers(NULL)
+	root(NULL)
 {
 	TTBoolean nodeCreated = NO;
 	
@@ -35,7 +34,6 @@ TTNodeDirectory::~TTNodeDirectory()
 	// TODO : delete all the node of the directory then the directory
 	// WARNING : if you destroy all the directory, the root will be destroyed too
 	// so don't destroy it again !!!
-//	this->root->~TTNode();
 	TTObjectRelease(TTObjectHandle(&root));
 }
 

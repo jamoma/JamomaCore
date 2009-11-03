@@ -90,9 +90,6 @@ class TTFOUNDATION_EXPORT TTNode : public TTObject			///< we will subclass TTObj
 
 	TTNodeDirectoryPtr	directory;				///< a pointer to the directory
 	
-	TTListPtr			observers;
-	TTListPtr			lifecycleObservers;		///< for objects that just need to know when we do something critical, like the free the object
-	
 public:
 
 	/** Get the name of the TTNode */
@@ -173,18 +170,6 @@ public:
 	 @return				a kTTErrGeneric if the propertie already exists.	*/
 	TTErr			setPropertie(TTSymbolPtr propertie, TTValuePtr value);
 	
-	/** Get the Observers list 
-		TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject */
-	TTListPtr		getObserver();
-	
-	/** Add an Observer to the TTnode 
-		TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject */
-	void			addObserver(ObserverPtr observer);
-	
-	/** Remove an Observer to the TTnode 
-		TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject */
-	void			removeObserver(ObserverPtr observer);
-
 	/** Get the OSC address of the TTNode 
 		It is computed dynamicaly by asking to all the ancestor of the TTNode	
 		@param	returnedOscAddress		A TTSymbolPtr with the OOSC address is returned in this parameter.	*/
@@ -198,20 +183,5 @@ public:
 
 };
 
-/** This class is used to create a backward communication
-	to notify a client that something changed in the TTnode
-	TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject */
-
-class TTFOUNDATION_EXPORT Observer {
-public:	
-	void (*m_callBack)(void *, char *address, long argc, void *argv);
-	void *m_callBackArgument;
-	
-	void addCallback(void(*pt2Func)(void *, char *address, long argc, void *argv), void *arg){
-		m_callBack = pt2Func;
-		m_callBackArgument = arg;
-	};
-};
-	
 	
 #endif // __TT_NODE_H__

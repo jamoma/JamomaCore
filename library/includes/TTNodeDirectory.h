@@ -24,8 +24,6 @@ class TTNodeDirectory;
 typedef TTNodeDirectory*	TTNodeDirectoryPtr;
 class TTNode;
 typedef TTNode*	TTNodePtr;
-class Observer;
-typedef Observer* ObserverPtr;
 
 /**
 	We build a tree of TTNodes, and you can request a pointer for any TTNode, or add an observer to any TTNode, etc.
@@ -60,10 +58,7 @@ class TTFOUNDATION_EXPORT TTNodeDirectory : public TTObject			///< we will subcl
 	TTNodePtr		root;					///< the root of the tree
 
 	TTHashPtr		directory;				///< a pointer to a global hashtab which reference all osc address of the tree
-	
-	TTListPtr		observers;
-	TTListPtr		lifecycleObservers;		///< for objects that just need to know when we do something critical, like the free the object
-	
+		
 public:
 	/** Get the name of the TTNodeDirectory */
 	TTSymbolPtr		getName();
