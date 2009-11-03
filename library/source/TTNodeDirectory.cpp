@@ -14,19 +14,17 @@
 
 
 TT_OBJECT_CONSTRUCTOR,
-	root(NULL)
+	mRoot(NULL)
 {
 	TTBoolean nodeCreated = NO;
 	
 	// Set the name of the tree
 	TT_ASSERT("Correct number of args to create TTNodeDirectory", arguments.getSize() == 1);
-	name = arguments;
-	
-	// create a new directory
-	this->directory = new TTHash();
+	mName = arguments;
+	mDirectory = new TTHash();	// create a new directory
 
 	// create a root (OSC style)
-	TTNodeCreate(S_SEPARATOR, TT("container"), NULL, &this->root, &nodeCreated);
+	TTNodeCreate(S_SEPARATOR, TT("container"), NULL, &mRoot, &nodeCreated);
 }
 
 TTNodeDirectory::~TTNodeDirectory()
@@ -34,7 +32,7 @@ TTNodeDirectory::~TTNodeDirectory()
 	// TODO : delete all the node of the directory then the directory
 	// WARNING : if you destroy all the directory, the root will be destroyed too
 	// so don't destroy it again !!!
-	TTObjectRelease(TTObjectHandle(&root));
+	TTObjectRelease(TTObjectHandle(&mRoot));
 }
 
 #if 0
@@ -42,13 +40,24 @@ TTNodeDirectory::~TTNodeDirectory()
 #pragma mark Static Methods
 #endif
 
-TTSymbolPtr	TTNodeDirectory::getName(){return this->name;}
-TTNodePtr	TTNodeDirectory::getRoot(){return this->root;}
-TTHashPtr	TTNodeDirectory::getDirectory(){return this->directory;}
+TTSymbolPtr	TTNodeDirectory::getName()
+{
+	return mName;
+}
+
+TTNodePtr	TTNodeDirectory::getRoot()
+{
+	return mRoot;
+}
+
+TTHashPtr	TTNodeDirectory::getDirectory()
+{
+	return mDirectory;
+}
 
 TTErr TTNodeDirectory::setName(TTSymbolPtr aName)
 {
-	this->name = aName;
+	mName = aName;
 	return kTTErrNone;
 }
 
@@ -63,9 +72,9 @@ TTErr TTNodeDirectory::getTTNodeForOSC(TTSymbolPtr oscAddress, TTNodePtr* return
 	TTErr err;
 	TTValue* found = new TTValue();
 	
-	if(directory){
+	if(mDirectory){
 		// look into the hashtab to check if the address exist in the tree
-		err = this->directory->lookup(oscAddress,*found);
+		err = mDirectory->lookup(oscAddress, *found);
 
 		// if this address doesn't exist
 		if(err == kTTErrValueNotFound){
@@ -101,7 +110,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 			// get the TTNode
 			mergeOSCAddress(&oscAddress_got,oscAddress_parent,oscAddress_name,oscAddress_instance,NO_PROPERTIE);
 			found = new TTValue();
-			err = this->directory->lookup(oscAddress_got, *found);
+			err = mDirectory->lookup(oscAddress_got, *found);
 
 			// if the TTNode doesn't exist
 			if(err == kTTErrValueNotFound)
@@ -118,7 +127,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 
 		// is there a TTNode with this address in the tree ?
 		found = new TTValue();
-		err = this->directory->lookup(oscAddress, *found);
+		err = mDirectory->lookup(oscAddress, *found);
 
 		// if it's the first at this address
 		if(err == kTTErrValueNotFound){
@@ -166,7 +175,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 
 		// 3. Add the effective address (with the generated instance) to the global hashtab
 		newTTNode->getOscAddress(&oscAddress_got);
-		this->directory->append(oscAddress_got,TTValue(newTTNode));
+		mDirectory->append(oscAddress_got,TTValue(newTTNode));
 
 		// 4. returned the new TTNode
 		*returnedTTNode = newTTNode;
@@ -178,7 +187,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 
 TTErr TTNodeDirectory::TTNodeRemove(TTSymbolPtr oscAddress)
 {
-	return this->directory->remove(oscAddress);
+	return mDirectory->remove(oscAddress);
 }
 
 TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)

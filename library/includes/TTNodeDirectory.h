@@ -54,10 +54,9 @@ class TTFOUNDATION_EXPORT TTNodeDirectory : public TTObject			///< we will subcl
 {
 	TTCLASS_SETUP(TTNodeDirectory)
 
-	TTSymbolPtr		name;					///< the name of the tree
-	TTNodePtr		root;					///< the root of the tree
-
-	TTHashPtr		directory;				///< a pointer to a global hashtab which reference all osc address of the tree
+	TTSymbolPtr		mName;					///< the name of the tree
+	TTNodePtr		mRoot;					///< the root of the tree
+	TTHashPtr		mDirectory;				///< a pointer to a global hashtab which reference all osc address of the tree
 		
 public:
 	/** Get the name of the TTNodeDirectory */
