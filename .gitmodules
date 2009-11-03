@@ -61,3 +61,6 @@
 [submodule "Tools/supports"]
 	path = Tools/supports
 	url = git://github.com/tap/JamomaSupport.git
+[submodule "UserLib/NavNav"]
+	path = UserLib/NavNav
+	url = git://github.com/navid/NavNav.git
