@@ -75,11 +75,11 @@ EXPORTS
 		jamoma_node_children
 		jamoma_node_max_object
 		jamoma_node_properties
-		jamoma_node_add_propertie
-		jamoma_node_get_propertie
-		jamoma_node_get_propertie_method
-		jamoma_node_set_propertie
-		jamoma_node_set_propertie_method
+		jamoma_node_add_property
+		jamoma_node_get_property
+		jamoma_node_get_property_method
+		jamoma_node_set_property
+		jamoma_node_set_property_method
 
 	; JamomaSymbols
 		jps_1U
