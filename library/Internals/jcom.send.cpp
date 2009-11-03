@@ -9,6 +9,16 @@
 
 #include "Jamoma.h"
 
+
+/** Send Object */
+typedef struct _send{
+	t_object					ob;				///< REQUIRED: Our object
+	t_symbol					*attr_name;		///< ATTRIBUTE: name
+	TTListPtr					lk_nodes;		///< a pointer to a selection of Nodes of the tree
+} t_send;
+
+
+
 // Prototypes
 void *send_new(t_symbol *s, long argc, t_atom *argv);
 void send_free(t_send *x);
@@ -20,7 +30,7 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv);
 
 // Globals
 static t_class		*s_send_class;				// Required: Global pointer for our class
-extern t_object		*g_receivemaster_object;	// An instance of the jcom.receivemaster class
+//extern t_object		*g_receivemaster_object;	// An instance of the jcom.receivemaster class
 
 
 /************************************************************************************/
@@ -77,8 +87,8 @@ void *send_new(t_symbol *s, long argc, t_atom *argv)
 			
 		attr_args_process(x, argc, argv);					// handle attribute args
 		
-		if(!g_receivemaster_object)
-			g_receivemaster_object = (t_object *)object_new(CLASS_NOBOX, SymbolGen("jcom.receivemaster"));
+//		if(!g_receivemaster_object)
+//			g_receivemaster_object = (t_object *)object_new(CLASS_NOBOX, SymbolGen("jcom.receivemaster"));
 	}
 	return x;
 }
@@ -130,7 +140,7 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 	JamomaError err = JAMOMA_ERR_GENERIC;
 	
 	// Is it still necessary to do that ?
-	object_method(g_receivemaster_object, jps_dispatch, x->attr_name, msg, argc, argv);
+//	object_method(g_receivemaster_object, jps_dispatch, x->attr_name, msg, argc, argv);
 	
 	// To send to another address than x->attr_name,
 	// prepend the data with an OSC address

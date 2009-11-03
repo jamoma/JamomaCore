@@ -39,7 +39,6 @@ void jamoma_init(void)
 		jamomaSymbolsInit();
 		jamoma_directory_init();
 
-		receivemaster_initclass();
 		receive_initclass();
 		object_method(max, meth, SymbolGen("jcom.receive"), SymbolGen("jcom.loader"), SymbolGen("jcom.receive"));
 		object_method_sym(max, SymbolGen("db.object_addinternal"), SymbolGen("jcom.receive"), NULL);
