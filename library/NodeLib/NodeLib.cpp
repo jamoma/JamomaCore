@@ -204,25 +204,25 @@ JamomaError	jamoma_node_properties(TTNodePtr node, TTList& lk_prp)
 {
 	TTErr err;
 	
-	err = node->getPropertiesList(lk_prp);
+	err = node->getPropertyList(lk_prp);
 	if(err == kTTErrNone)
 		return JAMOMA_ERR_NONE;
 	
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError	jamoma_node_add_propertie(TTNodePtr node, t_symbol *propertie)
+JamomaError	jamoma_node_add_propertie(TTNodePtr node, t_symbol *property)
 {
 	TTErr err;
 
-	err = node->addPropertie(TT(propertie->s_name), &jamoma_node_get_propertie_method,  &jamoma_node_set_propertie_method);
+	err = node->addProperty(TT(property->s_name), &jamoma_node_get_propertie_method,  &jamoma_node_set_propertie_method);
 	if(err == kTTErrNone)
 		return JAMOMA_ERR_NONE;
 	
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError	jamoma_node_get_propertie(TTNodePtr node, t_symbol *propertie, long *argc, t_atom **argv)
+JamomaError	jamoma_node_get_property(TTNodePtr node, t_symbol *property, long *argc, t_atom **argv)
 {
 	TTValuePtr returnedValue = NULL;
 	TTErr err;
@@ -230,7 +230,7 @@ JamomaError	jamoma_node_get_propertie(TTNodePtr node, t_symbol *propertie, long 
 	long i;
 	
 	// get the value propertie
-	err = node->getPropertie(TT(propertie->s_name), &returnedValue);
+	err = node->getProperty(TT(property->s_name), &returnedValue);
 	
 	if(err == kTTErrNone){
 		// convert it to use in Max
