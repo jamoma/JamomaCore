@@ -211,11 +211,11 @@ JamomaError	jamoma_node_properties(TTNodePtr node, TTList& lk_prp)
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError	jamoma_node_add_propertie(TTNodePtr node, t_symbol *property)
+JamomaError	jamoma_node_add_property(TTNodePtr node, t_symbol *property)
 {
 	TTErr err;
 
-	err = node->addProperty(TT(property->s_name), &jamoma_node_get_propertie_method,  &jamoma_node_set_propertie_method);
+	err = node->addProperty(TT(property->s_name), &jamoma_node_get_property_method,  &jamoma_node_set_property_method);
 	if(err == kTTErrNone)
 		return JAMOMA_ERR_NONE;
 	
@@ -250,7 +250,7 @@ JamomaError	jamoma_node_get_property(TTNodePtr node, t_symbol *property, long *a
 	return JAMOMA_ERR_GENERIC;
 }
 
-void jamoma_node_get_propertie_method(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr *value)
+void jamoma_node_get_property_method(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr *value)
 {
 	(*value) = NULL;
 	// Get the propertie of the object pointed by the node
@@ -261,14 +261,14 @@ void jamoma_node_get_propertie_method(TTNodePtr node, TTSymbolPtr propertie, TTV
 	post("jamoma_node_get_propertie_method");
 }
 
-JamomaError	jamoma_node_set_propertie(TTNodePtr node, long argc, t_atom *argv)
+JamomaError	jamoma_node_set_property(TTNodePtr node, long argc, t_atom *argv)
 {
 	
 	
 	return JAMOMA_ERR_NONE;
 }
 
-void jamoma_node_set_propertie_method(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr value)
+void jamoma_node_set_property_method(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr value)
 {
 	// Set the propertie of the object pointed by the node
 	

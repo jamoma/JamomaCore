@@ -80,16 +80,16 @@ extern "C" {
 	JamomaError		jamoma_node_add_propertie(TTNodePtr node, t_symbol *propertie);
 	
 	/** TODO: Get the value of a propertie of a node */
-	JamomaError		jamoma_node_get_propertie(TTNodePtr node, t_symbol *propertie, long *argc, t_atom **argv);
+	JamomaError		jamoma_node_get_property(TTNodePtr node, t_symbol *propertie, long *argc, t_atom **argv);
 	
 	/** TODO : This method is called by the TTNode to get the propertie of the object (depending on the type of the object and the propertie) */
-	void			jamoma_node_get_propertie_method(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr *value);
+	void			jamoma_node_get_property_method(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr *value);
 	
 	/** TODO : Set the value of a propertie of a node */
-	JamomaError		jamoma_node_set_propertie(TTNodePtr node, t_symbol *propertie, long argc, t_atom *argv);
+	JamomaError		jamoma_node_set_property(TTNodePtr node, t_symbol *propertie, long argc, t_atom *argv);
 	
 	/** TODO : This method is called by the TTNode to set the propertie of the object (depending on the type of the object and the propertie) */
-	void			jamoma_node_set_propertie_method(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr value);
+	void			jamoma_node_set_property_method(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr value);
 
 #ifdef __cplusplus
 }
