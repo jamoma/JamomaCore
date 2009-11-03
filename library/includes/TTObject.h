@@ -219,6 +219,8 @@ public:
 	TTErr unregisterObserverForAttribute(const TTObject& observingObject, const TTSymbolPtr attributeName);
 	TTErr unregisterObserverForNotifications(const TTObject& observingObject);
 	
+	TTErr sendNotification(const TTSymbolPtr name, const TTValue& arguments);
+	
 	
 	/**	Log messages scoped to this object instance. */
 	TTErr logMessage(TTImmutableCString fmtstring, ...);
