@@ -1,10 +1,10 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 0.0, 44.0, 1280.0, 726.0 ],
+		"rect" : [ -4.0, 45.0, 1280.0, 726.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 0.0, 44.0, 1280.0, 726.0 ],
+		"defrect" : [ -4.0, 45.0, 1280.0, 726.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -19,6 +19,135 @@
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
+				"box" : 				{
+					"color" : [ 1.0, 0.952941, 0.211765, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-46",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 13.0, 1053.0, 79.0, 19.0 ],
+					"text" : "r #1autostart"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-19",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 13.0, 1088.5, 70.0, 19.0 ],
+					"text" : "prepend set"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-20",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 256.0, 1128.5, 24.0, 19.0 ],
+					"text" : "t 0"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-42",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 257.0, 1174.5, 24.0, 19.0 ],
+					"text" : "t 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"color" : [ 0.317647, 0.709804, 0.321569, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-48",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 453.0, 557.0, 128.0, 19.0 ],
+					"text" : "value #1camera/status"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"color" : [ 1.0, 0.952941, 0.211765, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-2",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 11.0, 403.0, 102.0, 19.0 ],
+					"text" : "r #1cameraStatus"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-37",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 11.0, 457.0, 70.0, 19.0 ],
+					"text" : "prepend set"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-13",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 262.0, 474.0, 24.0, 19.0 ],
+					"text" : "t 0"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-8",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 261.0, 527.0, 24.0, 19.0 ],
+					"text" : "t 1"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"border" : 1,
 					"fontname" : "Verdana",
@@ -96,7 +225,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 165.0, 924.0, 93.0, 19.0 ],
+					"patching_rect" : [ 189.0, 924.0, 93.0, 19.0 ],
 					"text" : "File settings"
 				}
 
@@ -107,7 +236,7 @@
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 72.0, 916.0, 335.0, 33.0 ]
+					"patching_rect" : [ 96.0, 916.0, 335.0, 33.0 ]
 				}
 
 			}
@@ -120,7 +249,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 164.0, 395.0, 93.0, 19.0 ],
+					"patching_rect" : [ 182.0, 334.0, 93.0, 19.0 ],
 					"text" : "Camera settings"
 				}
 
@@ -131,7 +260,7 @@
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 71.0, 387.0, 335.0, 33.0 ]
+					"patching_rect" : [ 89.0, 326.0, 335.0, 33.0 ]
 				}
 
 			}
@@ -158,8 +287,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 72.0, 1121.20813, 338.0, 19.0 ],
-					"text" : "jcom.message file/stop @description \"Open the camera grabber\"",
+					"patching_rect" : [ 96.0, 1107.20813, 355.0, 19.0 ],
+					"text" : "jcom.message file/stop @description \"Stop reading of the video file\"",
 					"varname" : "jcom.parameter[8]"
 				}
 
@@ -173,7 +302,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "" ],
-					"patching_rect" : [ 25.0, 1142.0, 46.0, 19.0 ],
+					"patching_rect" : [ 13.0, 1142.0, 46.0, 19.0 ],
 					"text" : "sel 1 0"
 				}
 
@@ -189,7 +318,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 25.0, 1121.20813, 39.287197, 15.000001 ],
+					"patching_rect" : [ 13.0, 1121.20813, 39.287197, 15.000001 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 34.040649, 118.20813, 33.287197, 15.000001 ],
 					"prototypename" : "jamoma settings",
@@ -209,8 +338,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 72.0, 1142.0, 340.0, 19.0 ],
-					"text" : "jcom.message file/start @description \"Open the camera grabber\"",
+					"patching_rect" : [ 96.0, 1155.0, 358.0, 19.0 ],
+					"text" : "jcom.message file/start @description \"Start reading of the video file\"",
 					"varname" : "jcom.parameter[9]"
 				}
 
@@ -224,7 +353,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 71.0, 503.20813, 364.0, 19.0 ],
+					"patching_rect" : [ 89.0, 449.20813, 364.0, 19.0 ],
 					"text" : "jcom.message camera/close @description \"Open the camera grabber\"",
 					"varname" : "jcom.parameter[7]"
 				}
@@ -239,7 +368,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "" ],
-					"patching_rect" : [ 15.040649, 524.0, 46.0, 19.0 ],
+					"patching_rect" : [ 11.040649, 512.0, 46.0, 19.0 ],
 					"text" : "sel 1 0"
 				}
 
@@ -255,7 +384,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 15.040649, 503.20813, 39.287197, 15.000001 ],
+					"patching_rect" : [ 11.040649, 491.20813, 39.287197, 15.000001 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 2.040649, 26.20813, 33.287197, 15.000001 ],
 					"prototypename" : "jamoma settings",
@@ -275,7 +404,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 71.0, 524.0, 363.0, 19.0 ],
+					"patching_rect" : [ 89.0, 503.0, 363.0, 19.0 ],
 					"text" : "jcom.message camera/open @description \"Open the camera grabber\"",
 					"varname" : "jcom.parameter[6]"
 				}
@@ -290,7 +419,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 72.0, 979.0, 56.0, 19.0 ],
+					"patching_rect" : [ 96.0, 979.0, 56.0, 19.0 ],
 					"text" : "tosymbol"
 				}
 
@@ -320,7 +449,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 28.0, 790.0, 32.0, 19.0 ],
+					"patching_rect" : [ 46.0, 790.0, 32.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9,
 					"varname" : "synth_noise_rate[2]"
@@ -337,7 +466,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 71.0, 790.0, 568.0, 31.0 ],
+					"patching_rect" : [ 89.0, 790.0, 568.0, 31.0 ],
 					"text" : "jcom.parameter camera/updaterate @type integer @range/bounds 1 100 @range/clipmode low @description \"Update rate of the camera, in milliseconds\"",
 					"varname" : "camera/camera[1]"
 				}
@@ -380,7 +509,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 72.0, 1079.0, 572.0, 19.0 ],
+					"patching_rect" : [ 96.0, 1079.0, 572.0, 19.0 ],
 					"text" : "jcom.message file/direct @repetitions/allow 1 @description \"Direct access to the embedded jit.qt.movie object\"",
 					"varname" : "jcom.parameter[4]"
 				}
@@ -596,7 +725,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "int" ],
-					"patching_rect" : [ 72.0, 1002.0, 129.0, 19.0 ],
+					"patching_rect" : [ 96.0, 1002.0, 129.0, 19.0 ],
 					"text" : "conformpath slash boot"
 				}
 
@@ -633,7 +762,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 71.0, 423.20813, 39.287197, 15.000001 ],
+					"patching_rect" : [ 89.0, 362.20813, 39.287197, 15.000001 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 36.0, 26.0, 49.287197, 15.000001 ],
 					"prototypename" : "jamoma settings",
@@ -1103,13 +1232,13 @@
 ,
 					"patching_rect" : [ 245.0, 51.0, 73.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"fontface" : 0
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"fontname" : "Verdana",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p offsets_etc"
@@ -1146,7 +1275,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 71.0, 733.0, 409.0, 19.0 ],
+					"patching_rect" : [ 89.0, 733.0, 409.0, 19.0 ],
 					"text" : "jcom.parameter camera/camera @type integer @description \"Choose camera\"",
 					"varname" : "camera/camera"
 				}
@@ -1161,7 +1290,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 71.0, 664.0, 415.0, 19.0 ],
+					"patching_rect" : [ 89.0, 664.0, 415.0, 19.0 ],
 					"text" : "jcom.parameter camera/device @type integer @description \"Input device type\"",
 					"varname" : "camera/device"
 				}
@@ -1176,7 +1305,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 71.0, 689.0, 91.0, 19.0 ],
+					"patching_rect" : [ 89.0, 689.0, 91.0, 19.0 ],
 					"text" : "r #1_camera"
 				}
 
@@ -1190,7 +1319,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 71.0, 622.0, 86.0, 19.0 ],
+					"patching_rect" : [ 89.0, 622.0, 86.0, 19.0 ],
 					"text" : "r #1_device"
 				}
 
@@ -1205,7 +1334,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 72.0, 1189.0, 368.0, 31.0 ],
+					"patching_rect" : [ 96.0, 1205.0, 368.0, 31.0 ],
 					"text" : "jcom.parameter file/framedump @type boolean @repetitions/allow 0 @description \"Turn on or off framedump of the video\"",
 					"varname" : "file/framedump"
 				}
@@ -1383,13 +1512,13 @@
 ,
 					"patching_rect" : [ 913.0, 169.0, 43.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"fontface" : 0
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"fontname" : "Verdana",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p scale"
@@ -1598,7 +1727,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 71.0, 443.0, 22.0, 19.0 ],
+					"patching_rect" : [ 89.0, 382.0, 22.0, 19.0 ],
 					"text" : "t b"
 				}
 
@@ -1643,7 +1772,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 72.0, 1306.0, 452.0, 31.0 ],
+					"patching_rect" : [ 96.0, 1306.0, 452.0, 31.0 ],
 					"text" : "jcom.parameter file/rate @type decimal @repetitions/allow 0 @ramp/drive scheduler @range/bounds -2. 2. @range/clipmode none @description \"Playback rate of video file\"",
 					"varname" : "file/rate"
 				}
@@ -1659,7 +1788,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 72.0, 1261.0, 311.0, 31.0 ],
+					"patching_rect" : [ 96.0, 1261.0, 311.0, 31.0 ],
 					"text" : "jcom.parameter file/size @type integer @repetitions/allow 0 @description \"Select size of video playback\"",
 					"varname" : "file/size"
 				}
@@ -1691,7 +1820,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 72.0, 1028.0, 515.0, 31.0 ],
+					"patching_rect" : [ 96.0, 1028.0, 515.0, 31.0 ],
 					"text" : "jcom.parameter file/open @type generic @description \"Open dialog to select video file\" @repetitions/allow 1",
 					"varname" : "jcom.parameter[2]"
 				}
@@ -1754,7 +1883,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 71.0, 583.0, 236.0, 31.0 ],
+					"patching_rect" : [ 89.0, 583.0, 236.0, 31.0 ],
 					"text" : "jcom.parameter camera/size @type integer @description \"Resolution of captured image\"",
 					"varname" : "camera/size"
 				}
@@ -1771,7 +1900,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 71.0, 563.0, 96.0, 19.0 ],
+					"patching_rect" : [ 89.0, 563.0, 96.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 2.435526, 43.0, 75.0, 19.0 ],
 					"types" : [  ],
@@ -1788,7 +1917,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 71.0, 464.0, 408.0, 19.0 ],
+					"patching_rect" : [ 89.0, 403.0, 408.0, 19.0 ],
 					"text" : "jcom.message camera/settings @description \"Open dialog for camera settings\"",
 					"varname" : "jcom.parameter[1]"
 				}
@@ -1873,7 +2002,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 25.0, 1240.0, 99.0, 19.0 ],
+					"patching_rect" : [ 49.0, 1240.0, 99.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 67.0, 149.0, 89.0, 19.0 ],
 					"types" : [  ],
@@ -1892,7 +2021,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 71.0, 714.0, 100.0, 19.0 ],
+					"patching_rect" : [ 89.0, 714.0, 100.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 85.0, 43.0, 149.0, 19.0 ],
 					"types" : [  ],
@@ -1905,13 +2034,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-73",
-					"items" : [ "DVCPRO HD (1080i50)", ",", "DVCPRO HD (1080i60)", ",", "DVCPRO HD (720p60)", ",", "DVCPRO HD (720p25/50)", ",", "DV Video", ",", "IIDC FireWire Video", ",", "USB Video Class Video" ],
+					"items" : [ "DV Video", ",", "IIDC FireWire Video", ",", "USB Video Class Video" ],
 					"labelclick" : 1,
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 71.0, 645.0, 100.0, 19.0 ],
+					"patching_rect" : [ 89.0, 645.0, 100.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 85.0, 25.0, 149.0, 19.0 ],
 					"types" : [  ],
@@ -2071,7 +2200,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 72.0, 964.0, 131.0, 11.0 ],
+					"patching_rect" : [ 96.0, 964.0, 131.0, 11.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 3.0, 115.0, 234.0, 59.0 ],
 					"rounded" : 0.0,
@@ -2118,6 +2247,24 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-104", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-20", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-105", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-105", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -2145,10 +2292,37 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-42", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-108", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-73", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-37", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 271.5, 498.0, 87.0, 498.0, 87.0, 425.0, 20.5, 425.0 ],
+					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-48", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 271.5, 499.5, 462.5, 499.5 ],
+					"source" : [ "obj-13", 0 ]
 				}
 
 			}
@@ -2203,6 +2377,33 @@
 					"hidden" : 0,
 					"midpoints" : [ 988.5, 189.0, 1109.0, 189.0, 1109.0, 267.0, 989.5, 267.0 ],
 					"source" : [ "obj-18", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-107", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-19", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-2", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-19", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 265.5, 1150.5, 93.5, 1150.5, 93.5, 1078.5, 22.5, 1078.5 ],
+					"source" : [ "obj-20", 0 ]
 				}
 
 			}
@@ -2363,8 +2564,17 @@
 				"patchline" : 				{
 					"destination" : [ "obj-49", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
+					"midpoints" : [ 34.5, 1043.0, 70.0, 1043.0, 70.0, 1024.0, 105.5, 1024.0 ],
 					"source" : [ "obj-36", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-37", 0 ]
 				}
 
 			}
@@ -2424,6 +2634,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-19", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 266.5, 1196.5, 87.0, 1196.5, 87.0, 1078.5, 22.5, 1078.5 ],
+					"source" : [ "obj-42", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-71", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -2437,6 +2656,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 899.5, 389.0, 883.0, 389.0, 883.0, 300.0, 899.5, 300.0 ],
 					"source" : [ "obj-45", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-107", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-46", 0 ]
 				}
 
 			}
@@ -2507,7 +2735,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-61", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 80.5, 614.0, 61.0, 614.0, 61.0, 560.0, 80.5, 560.0 ],
+					"midpoints" : [ 98.5, 614.0, 79.0, 614.0, 79.0, 560.0, 98.5, 560.0 ],
 					"source" : [ "obj-60", 0 ]
 				}
 
@@ -2579,7 +2807,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-72", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 80.5, 752.0, 53.0, 752.0, 53.0, 710.0, 80.5, 710.0 ],
+					"midpoints" : [ 98.5, 752.0, 71.0, 752.0, 71.0, 710.0, 98.5, 710.0 ],
 					"source" : [ "obj-7", 0 ]
 				}
 
@@ -2667,6 +2895,24 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-37", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 270.5, 549.0, 84.5, 549.0, 84.5, 429.0, 20.5, 429.0 ],
+					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-48", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 270.5, 551.0, 462.5, 551.0 ],
+					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-34", 0 ],
 					"hidden" : 0,
 					"midpoints" : [ 254.5, 30.0, 328.5, 30.0 ],
@@ -2680,6 +2926,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-81", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-83", 1 ]
 				}
 
 			}
@@ -2732,7 +2987,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-73", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 80.5, 684.0, 53.0, 684.0, 53.0, 642.0, 80.5, 642.0 ],
+					"midpoints" : [ 98.5, 684.0, 71.0, 684.0, 71.0, 642.0, 98.5, 642.0 ],
 					"source" : [ "obj-9", 0 ]
 				}
 
