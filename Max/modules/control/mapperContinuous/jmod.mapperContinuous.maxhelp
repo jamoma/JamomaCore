@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 443.0, 252.0, 971.0, 524.0 ],
+		"rect" : [ 124.0, 44.0, 980.0, 660.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 443.0, 252.0, 971.0, 524.0 ],
+		"defrect" : [ 124.0, 44.0, 980.0, 660.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -19,15 +19,31 @@
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [ "/output~" ],
+					"id" : "obj-2",
+					"lockeddragscroll" : 1,
+					"maxclass" : "bpatcher",
+					"name" : "jmod.output~.maxpat",
+					"numinlets" : 3,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 18.0, 490.0, 300.0, 140.0 ],
+					"presentation_rect" : [ 22.0, 472.0, 300.0, 140.0 ],
+					"varname" : "/input~[1]"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 12.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-9",
-					"linecount" : 4,
+					"linecount" : 5,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 334.0, 440.0, 603.0, 55.0 ],
+					"patching_rect" : [ 375.0, 542.0, 465.0, 79.0 ],
 					"text" : "Note concerning the input parameter :\n• the little menu at the end of the line allows to use either the raw value, or the derivatives of 1st (') or 2(\\\") degree\n• when using parameters of type Array, the number box that appears allows one to select the nth element of the array as input value"
 				}
 
@@ -41,7 +57,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 376.0, 353.0, 300.0, 70.0 ],
+					"patching_rect" : [ 376.0, 364.0, 300.0, 70.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 50.0, 115.0, 300.0, 70.0 ]
 				}
@@ -72,7 +88,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 17.0, 181.0, 285.0, 19.0 ],
+					"patching_rect" : [ 17.0, 200.0, 285.0, 19.0 ],
 					"text" : "or you could try to use "
 				}
 
@@ -572,13 +588,13 @@
 ,
 									"patching_rect" : [ 358.0, 139.0, 58.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 10.0,
-										"globalpatchername" : "",
+										"fontname" : "Verdana",
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0
+										"fontface" : 0,
+										"fontsize" : 10.0,
+										"default_fontsize" : 10.0,
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p settings"
@@ -817,15 +833,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 144.0, 182.0, 87.0, 19.0 ],
+					"patching_rect" : [ 144.0, 201.0, 87.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 12.0,
-						"globalpatchername" : "",
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"fontface" : 0,
+						"fontsize" : 12.0,
+						"default_fontsize" : 12.0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p some presets"
@@ -835,7 +851,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 18.0,
 					"id" : "obj-38",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
@@ -967,15 +983,15 @@
 						"lines" : [  ]
 					}
 ,
-					"patching_rect" : [ 129.0, 216.0, 103.0, 19.0 ],
+					"patching_rect" : [ 528.0, 479.0, 180.0, 28.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 12.0,
-						"globalpatchername" : "",
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"fontface" : 0,
+						"fontsize" : 12.0,
+						"default_fontsize" : 12.0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p mapping_modes"
@@ -985,7 +1001,7 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 10.0,
+					"fontsize" : 18.0,
 					"id" : "obj-37",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
@@ -1109,15 +1125,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 18.0, 216.0, 79.0, 19.0 ],
+					"patching_rect" : [ 377.0, 479.0, 135.0, 28.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 12.0,
-						"globalpatchername" : "",
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"fontface" : 0,
+						"fontsize" : 12.0,
+						"default_fontsize" : 12.0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p edit_modes"
@@ -1133,36 +1149,9 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 971.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 980.0, 70.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-35",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 15.0, 483.0, 154.0, 17.0 ],
-					"text" : "/parameter_values_end"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-4",
-					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 0,
-					"patching_rect" : [ 183.0, 480.0, 135.0, 19.0 ],
-					"text" : "dac~ 1 2"
 				}
 
 			}
@@ -1224,7 +1213,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 17.0, 140.0, 285.0, 31.0 ],
+					"patching_rect" : [ 17.0, 159.0, 285.0, 31.0 ],
 					"text" : "Choose the source and destinations adresses, fine-tune the settings, and you're done."
 				}
 
@@ -1239,7 +1228,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 15.0, 86.0, 309.0, 43.0 ],
+					"patching_rect" : [ 15.0, 93.0, 309.0, 43.0 ],
 					"text" : "This module allows one to map data from a module's output (return or parameter) to another module's parameter (or message)"
 				}
 
@@ -1297,16 +1286,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-35", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 27.5, 479.0, 159.5, 479.0 ],
-					"source" : [ "obj-6", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-4", 1 ],
+					"destination" : [ "obj-2", 2 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-6", 2 ]
@@ -1315,7 +1295,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-4", 0 ],
+					"destination" : [ "obj-2", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-6", 1 ]
