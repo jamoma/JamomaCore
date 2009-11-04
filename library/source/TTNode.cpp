@@ -339,7 +339,7 @@ TTErr TTNode::addProperty(TTSymbolPtr property, void(*getPropertyMethod)(TTNodeP
 
 TTErr TTNode::getPropertyList(TTList& lk_prp)
 {
-	uint i;
+	unsigned int i;
 	TTValue *hk;
 	TTSymbolPtr key;
 	TTValue *c;
