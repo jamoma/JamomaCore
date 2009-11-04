@@ -76,6 +76,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.ui", "..\implementatio
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.unfocus", "..\implementations\MaxMSP\jcom.unfocus\jcom.unfocus.vcproj", "{2A326D97-5CBD-41CB-AED1-6F7FE69B7C37}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.minuit", "..\implementations\MaxMSP\jcom.minuit\jcom.minuit.vcproj", "{D5A14261-BD93-4271-B9BB-111970915B22}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.node", "..\implementations\MaxMSP\jcom.node\jcom.node.vcproj", "{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -234,6 +238,14 @@ Global
 		{2A326D97-5CBD-41CB-AED1-6F7FE69B7C37}.Debug|Win32.Build.0 = Debug|Win32
 		{2A326D97-5CBD-41CB-AED1-6F7FE69B7C37}.Release|Win32.ActiveCfg = Release|Win32
 		{2A326D97-5CBD-41CB-AED1-6F7FE69B7C37}.Release|Win32.Build.0 = Release|Win32
+		{D5A14261-BD93-4271-B9BB-111970915B22}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D5A14261-BD93-4271-B9BB-111970915B22}.Debug|Win32.Build.0 = Debug|Win32
+		{D5A14261-BD93-4271-B9BB-111970915B22}.Release|Win32.ActiveCfg = Release|Win32
+		{D5A14261-BD93-4271-B9BB-111970915B22}.Release|Win32.Build.0 = Release|Win32
+		{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}.Debug|Win32.Build.0 = Debug|Win32
+		{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}.Release|Win32.ActiveCfg = Release|Win32
+		{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

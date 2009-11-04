@@ -77,7 +77,7 @@ extern "C" {
 	JamomaError		jamoma_node_properties(TTNodePtr node, TTList& lk_prp);
 
 	/** Add a propertie to a node as a key in the hashtab (without value) */
-	JamomaError		jamoma_node_add_propertie(TTNodePtr node, t_symbol *propertie);
+	JamomaError		jamoma_node_add_property(TTNodePtr node, t_symbol *propertie);
 	
 	/** TODO: Get the value of a propertie of a node */
 	JamomaError		jamoma_node_get_property(TTNodePtr node, t_symbol *propertie, long *argc, t_atom **argv);
@@ -90,6 +90,10 @@ extern "C" {
 	
 	/** TODO : This method is called by the TTNode to set the propertie of the object (depending on the type of the object and the propertie) */
 	void			jamoma_node_set_property_method(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr value);
+
+	/** Add an t_object as an observer of a node */
+	void			jamoma_node_add_observer(TTNodePtr node, t_object *object, t_symbol *jps_method);
+	void			jamoma_node_callback(TTValuePtr baton, TTValue& data)
 
 #ifdef __cplusplus
 }

@@ -277,3 +277,41 @@ void jamoma_node_set_property_method(TTNodePtr node, TTSymbolPtr propertie, TTVa
 	// For a jcom.parameter/message/return :
 	post("jamoma_node_set_propertie_method");
 }
+
+void jamoma_node_add_observer(TTNodePtr node, t_object *object, t_symbol *jps_method)
+{
+	TTObjectPtr	newCallBack;
+	TTValuePtr	newBaton;
+
+	if(object && jps_method){
+		
+		TTObjectInstantiate(TT("Callback"), &newCallBack, kTTValNONE);
+
+		newBaton->append(TTPtr(object));
+		newBaton->append(TTPtr(jps_method));
+		newCallBack->setAttributeValue(TT("Baton"), newBaton);
+				
+		newCallBack->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_callback));
+
+		node->registerObserverForNotifications(*newCallBack);
+	}
+}
+
+void jamoma_node_callback(TTValuePtr baton, TTValue& data)
+{
+	t_object* x;
+	t_symbol* jps_method;
+	long argc;
+	t_atom* argv;
+
+	// unpack baton
+	baton->get(0,(TTPtr*)&x);
+	baton->get(1,(TTPtr*)&jps_method);
+
+	// unpack data
+	baton->get(0,(TTInt16*)&argc);
+	baton->get(1,(TTPtr*)&argv);
+	
+	// send data
+	object_method_typed(x, jps_method, argc, argv, NULL);
+}

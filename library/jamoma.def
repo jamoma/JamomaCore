@@ -80,6 +80,8 @@ EXPORTS
 		jamoma_node_get_property_method
 		jamoma_node_set_property
 		jamoma_node_set_property_method
+		jamoma_node_add_observer
+		jamoma_node_callback
 
 	; JamomaSymbols
 		jps_1U

@@ -14,7 +14,7 @@
 typedef struct _send{
 	t_object					ob;				///< REQUIRED: Our object
 	t_symbol					*attr_name;		///< ATTRIBUTE: name
-	TTListPtr					lk_nodes;		///< a pointer to a selection of Nodes of the tree
+	TTListPtr					lk_nodes;		///< a pointer to a selection of TTNodes
 } t_send;
 
 
@@ -140,7 +140,7 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 	JamomaError err = JAMOMA_ERR_GENERIC;
 	
 	// Is it still necessary to do that ?
-//	object_method(g_receivemaster_object, jps_dispatch, x->attr_name, msg, argc, argv);
+//object_method(g_receivemaster_object, jps_dispatch, x->attr_name, msg, argc, argv);
 	
 	// To send to another address than x->attr_name,
 	// prepend the data with an OSC address

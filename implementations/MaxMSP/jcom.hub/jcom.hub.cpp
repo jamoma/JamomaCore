@@ -400,7 +400,8 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 	new_subscriber->name = name;
 	new_subscriber->type = type;
 
-	// add the param in the directory as a node of the hub : /hub/param
+	// 1. add the parameter into the directory 
+	// as a node of the hub : /hub/param
 	if(x->osc_name != _sym_nothing){
 		
 		strcpy(fullAddress,x->osc_name->s_name);
@@ -409,7 +410,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 		newInstanceCreated = false;
 		jamoma_directory_register(gensym(fullAddress), type, subscriber_object, &newTTNode, &newInstanceCreated);
 
-		// if a new instance have been created 
+		// 2. if a new instance have been created 
 		// to guarantee the unicity. We have to
 		// add the instance to the name
 		if(newInstanceCreated){
@@ -419,12 +420,18 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 			}
 		}
 		
-		// add each attributes of parameters as properties of the node
+		// 3. add each attributes of the parameter 
+		// as properties of the node
 		object_method(subscriber_object, gensym("getattrnames"),&attr_nb, &attr_names);
 
 		for(i=0; i<attr_nb; i++){
-			jamoma_node_add_propertie(newTTNode, attr_names[i]);
+			jamoma_node_add_property(newTTNode, attr_names[i]);
 		}
+
+		// 4. add the subscriber object as 
+		// first observer of his node
+		jamoma_node_add_observer(newTTNode, subscriber_object);
+
 	}
 
 	critical_enter(0);
@@ -535,18 +542,17 @@ void hub_unsubscribe(t_hub *x, t_object *subscriber_object)
 // Receive parameter values from jcom.parameter
 void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 {
-	char		namestring[256];
-	char		oscAddress[256];
+	TTString	namestring;
+	TTString	oscAddress;
 	TTList		returnedTTNodes;
 	TTNodePtr	firstReturnedTTNode;
-	TTListPtr	observers;
-	ObserverPtr anObserver;
+	TTValue		data;
 	t_symbol	*osc;
 	JamomaError err;
 	
-	strcpy(namestring, "/");						// perhaps we could optimize this operation
-	strcat(namestring, argv->a_w.w_sym->s_name);	//	by creating a table when the param is bound
-	osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
+	namestring = "/";							// perhaps we could optimize this operation
+	namestring += argv->a_w.w_sym->s_name;		//	by creating a table when the param is bound
+	osc = gensym((char*)namestring.c_str());	//	then we could look-up the symbol instead of using gensym()
 	
 	if(x->in_object != NULL)
 		object_method_typed(x->in_object, jps_algorithm_message, argc, argv, NULL);	// send to jcom.in
@@ -555,25 +561,21 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 
 	// send to the node
 	// 1. get the node with the OSC address
-	strcpy(oscAddress, x->osc_name->s_name);
-	strcat(oscAddress, namestring);
+	oscAddress = x->osc_name->s_name;
+	oscAddress +=  namestring;
 	
-	err = jamoma_directory_get_node(gensym(oscAddress), returnedTTNodes, &firstReturnedTTNode);
+	err = jamoma_directory_get_node(gensym((char*)oscAddress.c_str()), returnedTTNodes, &firstReturnedTTNode);
 								  
-	if(err == JAMOMA_ERR_NONE){ 
+	if(err == JAMOMA_ERR_NONE){
+
+		// 2. prepare data to send (oscAddress, argc-1, argv+1)
+		data.append(oscAddress);
+		data.append(argc-1);
+		data.append(argv+1);
 		
-		// 2. get each observer of the node
-		observers = firstReturnedTTNode->getObserver();
-		if(!observers->isEmpty()){
-			for(observers->begin(); observers->end(); observers->next()){
-				
-				observers->current().get(0,(void **)&anObserver);
-				
-				// 3. send them data
-				anObserver->m_callBack(anObserver->m_callBackArgument, oscAddress, argc-1, argv+1);
-				
-			}
-		}
+		// 3. notify each observer of the node
+		firstReturnedTTNode->notifyObservers(data);
+
 	}
 
 	//hub_internals_dispatch(x, argv->a_w.w_sym, argc-1, argv+1);
