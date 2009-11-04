@@ -109,10 +109,10 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 	if(err == kTTErrNone){
 
 		// If there is a property part
-		if(oscAddress_property != NO_PROPERTIE){
+		if(oscAddress_property != NO_PROPERTY){
 
 			// get the TTNode
-			mergeOSCAddress(&oscAddress_got,oscAddress_parent,oscAddress_name,oscAddress_instance,NO_PROPERTIE);
+			mergeOSCAddress(&oscAddress_got,oscAddress_parent,oscAddress_name,oscAddress_instance,NO_PROPERTY);
 			found = new TTValue();
 			err = mDirectory->lookup(oscAddress_got, *found);
 
@@ -246,8 +246,8 @@ TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, T
 	else{
 		
 		// be sure there is no property part
-		if(oscAddress_property != NO_PROPERTIE)
-			mergeOSCAddress(&oscAddress_noproperty, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_PROPERTIE);
+		if(oscAddress_property != NO_PROPERTY)
+			mergeOSCAddress(&oscAddress_noproperty, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_PROPERTY);
 		else
 			oscAddress_noproperty = oscAddress;
 		
@@ -382,7 +382,7 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 	// find the last ':' in the OSCaddress
 	// if exists, split the OSC address in an address part (to split) and an property part
 	len = strlen(to_split);
-	last_colon = strrchr(to_split, C_PROPERTIE);
+	last_colon = strrchr(to_split, C_PROPERTY);
 	pos = (long)last_colon - (long)to_split;
 
 	if(last_colon){
@@ -393,7 +393,7 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 		to_split[pos] = NULL;	// split to keep only the address part
 	}
 	else
-		*returnedTTNodeProperty = NO_PROPERTIE;
+		*returnedTTNodeProperty = NO_PROPERTY;
 	
 	// find the last '/' in the address part
 	// if exists, split the address part in a TTNode part (to split) and a parent part
@@ -464,8 +464,8 @@ TTErr mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSym
 		address += instance->getCString();
 	}
 
-	if(property != NO_PROPERTIE){
-		address += S_PROPERTIE->getCString();
+	if(property != NO_PROPERTY){
+		address += S_PROPERTY->getCString();
 		address += property->getCString();
 	}
 

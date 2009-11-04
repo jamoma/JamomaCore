@@ -688,3 +688,22 @@ TTErr	TTNode::generateInstance(TTSymbolPtr childName, TTSymbolPtr *newInstance)
 		return kTTErrNone;
 	}
 }
+
+TTErr TTNode::notifyObservers(TTValue& data)
+{
+	TTCallbackPtr anObserver;
+
+	if(!this->observers->isEmpty()){
+
+		for(this->observers->begin(); this->observers->end(); this->observers->next()){
+				
+			this->observers->current().get(0,(TTPtr *)&anObserver);
+
+			anObserver->notify(data);
+				
+		}
+		return kTTErrNone;
+	}
+	else
+		return kTTErrGeneric;
+}

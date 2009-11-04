@@ -24,6 +24,8 @@ class TTNodeDirectory;
 typedef TTNodeDirectory*	TTNodeDirectoryPtr;
 class TTNode;
 typedef TTNode*	TTNodePtr;
+class TTCallback;
+typedef TTCallback* TTCallbackPtr;
 
 /**
 	We build a tree of TTNodes, and you can request a pointer for any TTNode, or add an observer to any TTNode, etc.

@@ -14,36 +14,30 @@
 #endif // WIN_VERSION
 
 #include "TTFoundationAPI.h"
-
-//#include "TTNodeDirectory.h"
-//#include "TTObject.h"
-//#include "TTSymbol.h"
-//#include "TTValue.h"
-//#include "TTHash.h"
-//#include "TTList.h"
+#include "TTCallback.h"
 
 class TTNode;
 typedef TTNode*	TTNodePtr;
 class TTNodeDirectory;
-typedef TTNodeDirectory*	TTNodeDirectoryPtr;
-class Observer;
-typedef Observer* ObserverPtr;
+typedef TTNodeDirectory* TTNodeDirectoryPtr;
+class TTCallback;
+typedef TTCallback* TTCallbackPtr;
 
 #define NO_NAME			kTTSymEmpty
 #define NO_INSTANCE		kTTSymEmpty
 #define NO_TYPE			kTTSymEmpty
 #define NO_PARENT		kTTSymEmpty
-#define NO_PROPERTIE	kTTSymEmpty
+#define NO_PROPERTY		kTTSymEmpty
 
 // OSC2 style address
-#define C_SEPARATOR '/'
-#define C_INSTANCE '.'
-#define C_PROPERTIE ':'
-#define C_WILDCARD '*'
+#define C_SEPARATOR		'/'
+#define C_INSTANCE		'.'
+#define C_PROPERTY		':'
+#define C_WILDCARD		'*'
 
 #define S_SEPARATOR		kTTSymSlash
 #define S_INSTANCE		kTTSymDot
-#define S_PROPERTIE		kTTSymColon
+#define S_PROPERTY		kTTSymColon
 #define S_WILDCARD		kTTSymStar
 
 /**
@@ -180,6 +174,11 @@ public:
 		@param newInstance		a new instance created (or NULL if not)	.
 		@return					a kTTErrGeneric if the child doesn't exist.	*/
 	TTErr			generateInstance(TTSymbolPtr childName, TTSymbolPtr *newInstance);
+
+	/** Notify observers of the TTNode object
+		@param data				a TTValue to send to obervers
+		@return					a kTTErrGeneric if there isn't observer	*/
+	TTErr			notifyObservers(TTValue& data);
 
 };
 
