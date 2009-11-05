@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"args" : [ "@name", "jcom.textslider", "@description", "Slider with value and text display" ],
@@ -456,8 +457,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 37.0, 445.0, 367.0, 19.0 ],
-					"text" : "CTRL-click to reset to default value (set with the default attribute)."
+					"patching_rect" : [ 37.0, 445.0, 388.0, 19.0 ],
+					"text" : "CTRL+doubleclick to reset to default value (set with the default attribute)."
 				}
 
 			}
