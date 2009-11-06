@@ -186,40 +186,11 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 		for(selection.begin(); selection.end(); selection.next()){
 			
 			selection.current().get(0,(TTPtr*)&p_node);
-			
-			obj = jamoma_node_max_object(p_node);
-			type = jamoma_node_type(p_node);
-			
-			// if the node have an object
-			if(obj){
-				
-				// to send to a jcom.parameter or jcom.message (don't send data to jcom.return)
-				if((type == jps_subscribe_parameter) || (type == jps_subscribe_message)){
-					object_method_typed((t_object*)obj, jps_dispatched, argc, argv, NULL);
-					continue;
-				}
-				
-				// to send to a jcom.hub
-				if(type == gensym("hub")){
-					object_method_typed((t_object*)obj, _sym_anything, argc, argv, NULL);
-					continue;
-				}
-				
-				// to send to a maxobject
-				if(type == gensym("maxobject")){
-					
-					if(atom_gettype(&argv[0]) == A_SYM)
-						if(object_getmethod(obj, atom_getsym(&argv[0])))
-							object_method_typed((t_object*)obj, atom_getsym(&argv[0]), argc-1, argv+1,NULL);
-						else
-							object_method_typed((t_object*)obj, NULL, argc, argv, NULL);
-					
-					continue;
-				}
-				
-			}
-			else
-				object_error((t_object*)x,"%s have no object", jamoma_node_OSC_address(p_node)->s_name);
+
+			// TODO : 1. set the property value of the node
+
+			// 2. notify observers
+			jamoma_node_notify_observers(p_node, argc, argv);
 		}
 	}
 }

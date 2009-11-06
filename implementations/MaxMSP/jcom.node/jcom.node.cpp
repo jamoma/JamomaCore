@@ -30,6 +30,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// add methods
 	class_addmethod(c, (method)node_notify,			"notify",		A_CANT, 0);
 	class_addmethod(c, (method)node_assist,			"assist",		A_CANT, 0);
+	class_addmethod(c, (method)node_receive_callback,"node_receive_callback",A_CANT, 0);
 
 	// this method save the node tree in an opml file
 	// at selected path (if the path already exist)
@@ -194,11 +195,9 @@ void node_goto(t_node *x, t_symbol *address)
 	}
 }
 
-
-
 void node_set_receive(t_node *x, t_symbol *address)
 {	
-	TTObjectPtr p_obsv;
+	TTObjectPtr newCallback;
 	TTNodePtr p_node;
 	
 	jamoma_directory_get_node(address, *x->lk_nodes, &p_node);
@@ -207,21 +206,28 @@ void node_set_receive(t_node *x, t_symbol *address)
 		for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
 			
 			x->lk_nodes->current().get(0,(TTPtr*)&p_node);
-			p_obsv->setAttributeValue(TT("Function"), TTPtr(&node_receive_callback));
-			p_obsv->setAttributeValue(TT("Baton"), TTPtr(x));
-			p_node->registerObserverForNotifications(*p_obsv);
-			
+
+			// prepare the callback mecanism to
+			// be notified about changing properties
+			// (only value for instant)
+			jamoma_node_add_observer(p_node, (t_object*)x, gensym("node_receive_callback"), &newCallback);
+
 		}
 	}
 }
 							   
-void node_receive_callback(void *x, char *address, long argc, void *argv)
+void node_receive_callback(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_node* thisX = (t_node*)x;
-	t_atom *argument = (t_atom*)argv;
+	t_symbol *oscAddress;
+
+	// first argument is the address of the node 
+	// where comes from the changing
+	if(atom_gettype(&argv[0]) == A_SYM)
+		oscAddress = atom_getsym(&argv[0]);
+	else
+		oscAddress = _sym_nothing;
 	
-	//if(argc && argv)
-			outlet_anything(thisX->p_out, gensym(address), argc, argument);
+	outlet_anything(x->p_out, oscAddress, argc-1, argv+1);
 }
 
 void node_dump(t_node *x)
@@ -350,8 +356,8 @@ long node_myobject_iterator(t_node *x, t_object *b)
 			jamoma_directory_register(gensym(temp), gensym("maxobject"), (t_object *)b, &newTTNode, &newInstanceCreated);
 
 			// add varname and maxclass as properties of the node
-			jamoma_node_add_propertie(newTTNode,gensym("varname"));
-			jamoma_node_add_propertie(newTTNode,gensym("maxclass"));
+			jamoma_node_add_property(newTTNode,gensym("varname"));
+			jamoma_node_add_property(newTTNode,gensym("maxclass"));
 
 			//if(newInstanceCreated)
 			//	object_warn((t_object *)x,"%s : this scripting name is already registered in the tree", varname->s_name);
@@ -426,7 +432,7 @@ void node_dowrite(t_node *x, t_symbol *msg, long argc, t_atom *argv)
 	node_write_string(x, LB);
 
 	x->p_directory = jamoma_directory_init();
-	node_dump_as_opml(x,0);	// dump the tree from the root
+	node_dump_as_opml(x, x->p_directory->getRoot(), 0);	// dump the tree from the root
 
 	node_write_string(x, "		</body>");
 	node_write_string(x, LB);
@@ -478,22 +484,21 @@ void node_opml_header(t_node *x)
 	node_write_string(x, LB);
 }
 
-void node_dump_as_opml(t_node *x, ushort level)
+void node_dump_as_opml(t_node *x, TTNodePtr parent, ushort level)
 {
 	unsigned int i;
-	char temp[512];
+	char		temp[512];
 	TTSymbolPtr attr;
-	TTNodePtr	p_node;
 	TTList		lk_prp;
 	TTList		lk_chd;
+	TTNodePtr	p_node;
 
 	// get info about the node
-	t_symbol *name = jamoma_node_name(p_node);
-	t_symbol *instance = jamoma_node_instance(p_node);
-	//t_symbol *type = jamoma_node_type(p_node);
+	t_symbol *name = jamoma_node_name(parent);
+	t_symbol *instance = jamoma_node_instance(parent);
 
-	jamoma_node_properties(p_node, lk_prp);
-	jamoma_node_children(p_node, lk_chd);
+	jamoma_node_properties(parent, lk_prp);
+	jamoma_node_children(parent, lk_chd);
 
 	// make (2 + level) tabs
 	node_write_string(x, TAB);
@@ -541,7 +546,7 @@ void node_dump_as_opml(t_node *x, ushort level)
 		for(lk_chd.begin(); lk_chd.end(); lk_chd.next()){
 
 			lk_chd.current().get(0,(TTObject **)&p_node);
-			node_dump_as_opml(x, level+1);
+			node_dump_as_opml(x, p_node, level+1);
 		}
 	}
 

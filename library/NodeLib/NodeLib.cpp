@@ -261,10 +261,10 @@ void jamoma_node_get_property_method(TTNodePtr node, TTSymbolPtr propertie, TTVa
 	post("jamoma_node_get_propertie_method");
 }
 
-JamomaError	jamoma_node_set_property(TTNodePtr node, long argc, t_atom *argv)
+JamomaError	jamoma_node_set_property(TTNodePtr node, t_symbol *property, long argc, t_atom *argv)
 {
-	
-	
+	// TODO
+
 	return JAMOMA_ERR_NONE;
 }
 
@@ -278,40 +278,59 @@ void jamoma_node_set_property_method(TTNodePtr node, TTSymbolPtr propertie, TTVa
 	post("jamoma_node_set_propertie_method");
 }
 
-void jamoma_node_add_observer(TTNodePtr node, t_object *object, t_symbol *jps_method)
+void jamoma_node_add_observer(TTNodePtr node, t_object *object, t_symbol *jps_method, TTObjectPtr *newCallBack)
 {
-	TTObjectPtr	newCallBack;
 	TTValuePtr	newBaton;
 
 	if(object && jps_method){
 		
-		TTObjectInstantiate(TT("Callback"), &newCallBack, kTTValNONE);
-
-		newBaton->append(TTPtr(object));
+		TTObjectInstantiate(TT("Callback"), newCallBack, kTTValNONE);
+		
+		newBaton = new TTValue(TTPtr(object));
 		newBaton->append(TTPtr(jps_method));
-		newCallBack->setAttributeValue(TT("Baton"), newBaton);
+		(*newCallBack)->setAttributeValue(TT("Baton"), newBaton);
 				
-		newCallBack->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_callback));
+		(*newCallBack)->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_callback));
 
-		node->registerObserverForNotifications(*newCallBack);
+		node->registerObserverForNotifications(**newCallBack);
 	}
+}
+
+void jamoma_node_notify_observers(TTNodePtr node, long argc, t_atom *argv)
+{
+	TTValue	data;
+
+	// prepare data to send (argc, argv)
+	data.append(argc);
+	data.append(argv);
+		
+	// notify each observer of the node
+	node->notifyObservers(data);
 }
 
 void jamoma_node_callback(TTValuePtr baton, TTValue& data)
 {
-	t_object* x;
-	t_symbol* jps_method;
-	long argc;
-	t_atom* argv;
+	TTNodePtr	node;
+	t_object*	x;
+	t_symbol*	jps_method;
+	t_symbol*	msg;
+	long		argc;
+	t_atom*		argv;
 
 	// unpack baton
 	baton->get(0,(TTPtr*)&x);
 	baton->get(1,(TTPtr*)&jps_method);
 
 	// unpack data
-	baton->get(0,(TTInt16*)&argc);
+	baton->get(0, argc);
 	baton->get(1,(TTPtr*)&argv);
 	
-	// send data
+	// send data using a class method of the object
 	object_method_typed(x, jps_method, argc, argv, NULL);
+}
+
+void jamoma_node_remove_observer(TTNodePtr node, TTObjectPtr oldCallback)
+{
+	node->unregisterObserverForNotifications(*oldCallback);
+	TTObjectRelease(&oldCallback);
 }

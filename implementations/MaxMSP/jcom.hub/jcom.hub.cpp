@@ -376,11 +376,11 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 {
 	t_subscriber	*new_subscriber;
 	bool			newInstanceCreated;
-	TTNodePtr			newTTNode;
+	TTNodePtr		newTTNode;
 	t_symbol		*newInstance;
 	long i, attr_nb = 0;
-	t_symbol** attr_names = NULL;
-	char fullAddress[256];
+	t_symbol**		attr_names = NULL;
+	char			fullAddress[256];
 	
 	if(subscriber_object == NULL){
 		if (x->editing)
@@ -427,11 +427,6 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 		for(i=0; i<attr_nb; i++){
 			jamoma_node_add_property(newTTNode, attr_names[i]);
 		}
-
-		// 4. add the subscriber object as 
-		// first observer of his node
-		jamoma_node_add_observer(newTTNode, subscriber_object);
-
 	}
 
 	critical_enter(0);
@@ -567,14 +562,11 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	err = jamoma_directory_get_node(gensym((char*)oscAddress.c_str()), returnedTTNodes, &firstReturnedTTNode);
 								  
 	if(err == JAMOMA_ERR_NONE){
-
-		// 2. prepare data to send (oscAddress, argc-1, argv+1)
-		data.append(oscAddress);
-		data.append(argc-1);
-		data.append(argv+1);
 		
-		// 3. notify each observer of the node
-		firstReturnedTTNode->notifyObservers(data);
+		// add oscAddress as first atom of argv
+		atom_setsym(argv, gensym((char*)oscAddress.c_str()));
+
+		jamoma_node_notify_observers(firstReturnedTTNode, argc, argv);
 
 	}
 

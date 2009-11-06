@@ -49,14 +49,14 @@ void			node_writeagain(t_node *x);
 void			node_goto(t_node *x, t_symbol *address);
 void			node_anything(t_node *x, t_symbol *msg, long argc, t_atom *argv);
 void			node_set_receive(t_node *x, t_symbol *address);
-void			node_receive_callback(void *x, char *address, long argc, void *argv);
+void			node_receive_callback(t_node *x, t_symbol *msg, long argc, t_atom *argv);
 void			node_dump(t_node *x);
 void			node_add_max_tree(t_node *x);
 
 // Private methods
 void			node_dowrite(t_node *x, t_symbol *msg, long argc, t_atom *argv);
 void			node_opml_header(t_node *x);
-void			node_dump_as_opml(t_node *x, ushort level);
+void			node_dump_as_opml(t_node *x, TTNodePtr n, ushort level);
 void			node_write_atom(t_node *x, t_atom *src);
 void			node_write_sym(t_node *x, t_symbol *src);
 void			node_write_string(t_node *x, char *src);

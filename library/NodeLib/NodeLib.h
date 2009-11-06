@@ -76,24 +76,32 @@ extern "C" {
 	/** Return all properties of a node */
 	JamomaError		jamoma_node_properties(TTNodePtr node, TTList& lk_prp);
 
-	/** Add a propertie to a node as a key in the hashtab (without value) */
-	JamomaError		jamoma_node_add_property(TTNodePtr node, t_symbol *propertie);
+	/** Add a property to a node as a key in the hashtab (without value) */
+	JamomaError		jamoma_node_add_property(TTNodePtr node, t_symbol *property);
 	
-	/** TODO: Get the value of a propertie of a node */
-	JamomaError		jamoma_node_get_property(TTNodePtr node, t_symbol *propertie, long *argc, t_atom **argv);
+	/** TODO: Get the value of a property of a node */
+	JamomaError		jamoma_node_get_property(TTNodePtr node, t_symbol *property, long *argc, t_atom **argv);
 	
-	/** TODO : This method is called by the TTNode to get the propertie of the object (depending on the type of the object and the propertie) */
+	/** TODO : This method is called by the TTNode to get the property of the object (depending on the type of the object and the propertie) */
 	void			jamoma_node_get_property_method(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr *value);
 	
-	/** TODO : Set the value of a propertie of a node */
-	JamomaError		jamoma_node_set_property(TTNodePtr node, t_symbol *propertie, long argc, t_atom *argv);
+	/** TODO : Set the value of a property of a node */
+	JamomaError		jamoma_node_set_property(TTNodePtr node, t_symbol *property, long argc, t_atom *argv);
 	
-	/** TODO : This method is called by the TTNode to set the propertie of the object (depending on the type of the object and the propertie) */
-	void			jamoma_node_set_property_method(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr value);
+	/** TODO : This method is called by the TTNode to set the property of the object (depending on the type of the object and the propertie) */
+	void			jamoma_node_set_property_method(TTNodePtr node, TTSymbolPtr property, TTValuePtr value);
 
 	/** Add an t_object as an observer of a node */
-	void			jamoma_node_add_observer(TTNodePtr node, t_object *object, t_symbol *jps_method);
-	void			jamoma_node_callback(TTValuePtr baton, TTValue& data)
+	void			jamoma_node_add_observer(TTNodePtr node, t_object *object, t_symbol *jps_method, TTObjectPtr *newCallBack);
+	void			jamoma_node_callback(TTValuePtr baton, TTValue& data);
+
+	/** Notify all observers of a node */
+	void			jamoma_node_notify_observers(TTNodePtr node, long argc, t_atom *argv);
+
+	/** Remove an observer of a node */
+	void			jamoma_node_remove_observer(TTNodePtr node, TTObjectPtr oldCallback);
+
+
 
 #ifdef __cplusplus
 }
