@@ -144,6 +144,7 @@ end
 
 puts "Copying maxhelps into Modular/Jamoma/Documentation/Jamoma-help"
 if win32?
+	`cp -v examples/MaxMSP/builds/*.mxe ../../Builds`
 `cp -pv examples/MaxMSP/*/*.maxhelp ../Modular/Jamoma/documentation/jamoma-help`
 else
 cmd("cp -pv examples/MaxMSP/*/*.maxhelp ../Modular/Jamoma/documentation/jamoma-help ")
