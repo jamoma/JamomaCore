@@ -1,5 +1,5 @@
 /* 
- *	tt.overdrive~
+ *	tt.op~
  *	External object for Max/MSP
  *	
  *	Example project for TTBlue
