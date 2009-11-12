@@ -10,6 +10,7 @@
 #define __TT_VALUE_H__
 
 #include "TTElement.h"
+#include "TTLimits.h"
 #include "TTSymbol.h"
 
 
@@ -268,6 +269,13 @@ public:
 			CONVERT(TTFloat64)
 			return value;
 		}
+	}
+	
+	template <typename T>
+	void getIfExists(const TTUInt16 index, T arg)
+	{
+		if (index < numValues)
+			get(index, arg);
 	}
 
 	void append(const TTFloat32 newValue);
@@ -652,6 +660,8 @@ public:
 
 
 typedef TTValue* TTValuePtr;
+typedef TTValue& TTValueRef;
+typedef const TTValue& TTValueConstRef;
 
 
 #endif // __TT_VALUE_H__

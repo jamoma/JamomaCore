@@ -12,13 +12,13 @@
 #include "TTValue.h"
 
 
-extern TTFOUNDATION_EXPORT TTValuePtr	kTTBoolNo;
-extern TTFOUNDATION_EXPORT TTValuePtr	kTTBoolYes;
+extern TTFOUNDATION_EXPORT TTValue	kTTBoolNo;
+extern TTFOUNDATION_EXPORT TTValue	kTTBoolYes;
 
-extern TTFOUNDATION_EXPORT TTValuePtr	kTTValNONE;
-extern TTFOUNDATION_EXPORT TTValuePtr	kTTVal0;
-extern TTFOUNDATION_EXPORT TTValuePtr	kTTVal1;
-extern TTFOUNDATION_EXPORT TTValuePtr	kTTVal0_pt_0;
+extern TTFOUNDATION_EXPORT TTValue	kTTValNONE;
+extern TTFOUNDATION_EXPORT TTValue	kTTVal0;
+extern TTFOUNDATION_EXPORT TTValue	kTTVal1;
+extern TTFOUNDATION_EXPORT TTValue	kTTVal0_pt_0;
 
 void TTValueCacheInit();
 

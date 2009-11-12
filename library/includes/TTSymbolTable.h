@@ -13,7 +13,8 @@
 #include "TTSymbol.h"
 
 #ifdef TT_PLATFORM_MAC
-#include <hash_map.h>
+#include <ext/hash_map>
+using namespace __gnu_cxx;
 #elif TT_PLATFORM_LINUX
 #include <map>
 #else
@@ -93,7 +94,12 @@ public:
 	/** Look in the symbol table for this string.  If it exists then return its id.  
 		If it does not exist then it is created, added to the symbol table and this new symbol's id is returned.	*/
 	TTSymbol* lookup(const TTString& aString);
-	
+
+	/** Look in the symbol table for a string with this number as its content.
+		If it exists then return its id.  
+		If it does not exist then it is created, added to the symbol table and this new symbol's id is returned.	*/
+	TTSymbol* lookup(const int& aNumberToBeConvertedToAString);
+
 	/**	Debugging tool to make it easy to examine everything that is in the symbol table. */
 	void dump(TTValue& allSymbols);
 };

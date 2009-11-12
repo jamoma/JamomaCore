@@ -24,8 +24,8 @@ typedef list<TTValue*>::iterator	TTListIter;
 
 class TTFOUNDATION_EXPORT TTList : TTElement {
 private:
-	TTBoolean	threadProtection;	///< Use thread safety mechanisms.  Only disable this if you are certain that you will be calling from a single thread.
-	TTMutex*	mutex;
+	TTBoolean	mThreadProtection;	///< Use thread safety mechanisms.  Only disable this if you are certain that you will be calling from a single thread.
+	TTMutexPtr	mMutex;
 
 	#ifdef TT_PLATFORM_WIN
 	#pragma warning(disable:4251)
@@ -43,6 +43,10 @@ public:
 		@return	The count of the values in the list.	*/
 	TTUInt32 getSize();
 	
+	/** Determine whether the list has any items.
+		@return	True if the list is empty, otherwise false.	*/
+	TTBoolean isEmpty();
+	
 	/** Return the first value in the list. 
 		@return	The first value in the list.			*/
 	TTValue& getHead();
@@ -50,6 +54,9 @@ public:
 	/** Return the last value in the list.
 		@return	The last value in the list.				*/
 	TTValue& getTail();
+	
+	/**	Return a value by it's location in the list.	*/
+	TTErr getIndex(TTUInt32 index, TTValue& returnedValue);
 	
 	/** Appends a value to the list. 
 		@param	newValue	The value to add to the list.  */
@@ -94,9 +101,9 @@ public:
 	TTErr iterateObjectsSendingMessage(const TTSymbolPtr messageName, TTValue& aValue);
 	
 	
-	void setThreadProtection(TTBoolean newThreadProtection)
+	void setThreadProtection(TTBoolean threadProtection)
 	{	
-		threadProtection = newThreadProtection;
+		mThreadProtection = threadProtection;
 	}
 };
 

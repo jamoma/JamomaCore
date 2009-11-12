@@ -14,15 +14,15 @@
 /****************************************************************************************************/
 
 TTList::TTList()
-	:threadProtection(YES)
+	:mThreadProtection(YES)
 {
-	mutex = new TTMutex(false);
+	mMutex = new TTMutex(false);
 }
 
 
 TTList::~TTList()
 {
-	delete mutex;
+	delete mMutex;
 }
 
 
@@ -41,6 +41,32 @@ TTValue& TTList::getHead()
 TTValue& TTList::getTail()
 {
 	return *theList.back();
+}
+
+
+TTBoolean TTList::isEmpty()
+{
+	return theList.empty();
+}
+
+
+TTErr TTList::getIndex(TTUInt32 index, TTValue& returnedValue)
+{
+	TTErr		err = kTTErrValueNotFound;
+	TTUInt32	i=0;
+	
+	lock();
+	for(TTListIter iter = theList.begin(); iter != theList.end(); iter++){
+		if (i==index) {
+			err = kTTErrNone;
+			returnedValue = **iter;
+			break;
+		}
+		i++;
+	}
+	unlock();
+	
+	return err;
 }
 
 
@@ -183,13 +209,13 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbolPtr messageName, TTValu
 
 void TTList::lock()
 {
-	if(threadProtection)
-		mutex->lock();
+	if (mThreadProtection)
+		mMutex->lock();
 }
 
 void TTList::unlock()
 {
-	if(threadProtection)
-		mutex->unlock();
+	if (mThreadProtection)
+		mMutex->unlock();
 }
 
