@@ -15,7 +15,8 @@
 
 TT_AUDIO_CONSTRUCTOR,
 	index(0.0),
-	indexDelta(0.0)
+	indexDelta(0.0),
+	wavetable(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 
@@ -27,8 +28,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 	registerMessageSimple(updateSr);
 
-//	wavetable = new TTBuffer(*kTTValNONE);
-	TTObjectInstantiate(TT("buffer"), (TTObjectPtr*)&wavetable, *kTTValNONE);
+	TTObjectInstantiate(TT("buffer"), (TTObjectPtr*)&wavetable, kTTValNONE);
 	if(!wavetable)
 		throw TTException("Could not create internal buffer object");
 	wavetable->setnumChannels(TTUInt32(1));
@@ -118,7 +118,7 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 	TTUInt16		channel;
 	TTBoolean		hasModulation = true;
 	TTUInt32		p1 = (TTUInt32)index;						// playback index
-	TTSampleVector	contents = wavetable->getContentsForChannel(0);
+	TTSampleValue*	contents = wavetable->getContentsForChannel(0);
 
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
@@ -164,7 +164,7 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 	TTBoolean		hasModulation = true;
 	TTUInt32		p1, p2;									// two playback indices
 	TTFloat64		diff;
-	TTSampleVector	contents = wavetable->getContentsForChannel(0);
+	TTSampleValue*	contents = wavetable->getContentsForChannel(0);
 
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it

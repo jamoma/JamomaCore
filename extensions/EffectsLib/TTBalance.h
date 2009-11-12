@@ -23,9 +23,9 @@
 TTAUDIOCLASS(TTBalance)
 
 	TTFloat64		frequency;					///< filter cutoff frequency of inherent lowpass filter
-	TTFloat64		c, a0, a1, a2, b1, b2;			///< filter coefficients
-	TTFloat64		*xm1A, *xm2A, *ym1A, *ym2A;		///< previous input and output values of signal to be balanced
-	TTFloat64		*xm1B, *xm2B, *ym1B, *ym2B;		///< previous input and output values of signal to be compared with
+	TTFloat64		c, a0, a1, a2, b1, b2;		///< filter coefficients
+	TTSampleVector	xm1A, xm2A, ym1A, ym2A;		///< previous input and output values of signal to be balanced
+	TTSampleVector	xm1B, xm2B, ym1B, ym2B;		///< previous input and output values of signal to be compared with
 	
 	/**	Receives notifications when there are changes to the inherited 
 		maxNumChannels attribute.  This allocates memory for xm1, xm2, ym1, and ym2 

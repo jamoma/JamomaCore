@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="EffectsLib"
 	ProjectGUID="{946C1578-B549-4F2C-820E-CC8E2E2B94DC}"
 	RootNamespace="tt.overdrive~"
@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;"
+				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="foo"
 			/>
 			<Tool
@@ -107,7 +107,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;"
+				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="foo"
 			/>
 			<Tool

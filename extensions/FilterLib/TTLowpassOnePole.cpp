@@ -13,8 +13,7 @@
 #define thisTTClassTags		"audio, processor, filter, lowpass"
 
 
-TT_AUDIO_CONSTRUCTOR,
-	feedback(NULL)
+TT_AUDIO_CONSTRUCTOR
 {
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);
@@ -36,15 +35,13 @@ TT_AUDIO_CONSTRUCTOR,
 
 
 TTLowpassOnePole::~TTLowpassOnePole()
-{
-	delete[] feedback;
-}
+{;}
 
 
+//TODO: we shouldn't really need to be passed the oldMaxNumChannels if we are using std::vector to manage sizes, right?
 TTErr TTLowpassOnePole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	delete[] feedback;
-	feedback = new TTFloat64[maxNumChannels];
+	feedback.resize(maxNumChannels);
 	clear();
 	return kTTErrNone;
 }
@@ -59,8 +56,7 @@ TTErr TTLowpassOnePole::updateSr()
 
 TTErr TTLowpassOnePole::clear()
 {
-	for(short i=0; i<maxNumChannels; i++)
-		feedback[i] = 0.0;
+	feedback.assign(maxNumChannels, 0.0);
 	return kTTErrNone;
 }
 

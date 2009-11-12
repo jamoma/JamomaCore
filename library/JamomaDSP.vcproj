@@ -214,53 +214,13 @@
 				>
 			</File>
 			<File
+				RelativePath=".\includes\TTBuffer.h"
+				>
+			</File>
+			<File
 				RelativePath=".\includes\TTDSP.h"
 				>
 			</File>
-			<Filter
-				Name="units"
-				>
-				<File
-					RelativePath=".\includes\units\TTAdsr.h"
-					>
-				</File>
-				<File
-					RelativePath=".\includes\units\TTBuffer.h"
-					>
-				</File>
-				<File
-					RelativePath=".\includes\units\TTCrossfade.h"
-					>
-				</File>
-				<File
-					RelativePath=".\includes\units\TTMatrixMixer.h"
-					>
-				</File>
-				<File
-					RelativePath=".\includes\units\TTNoise.h"
-					>
-				</File>
-				<File
-					RelativePath=".\includes\units\TTOperator.h"
-					>
-				</File>
-				<File
-					RelativePath=".\includes\units\TTPhasor.h"
-					>
-				</File>
-				<File
-					RelativePath=".\includes\units\TTRamp.h"
-					>
-				</File>
-				<File
-					RelativePath=".\includes\units\TTWavetable.h"
-					>
-				</File>
-				<File
-					RelativePath=".\includes\units\TTZerocross.h"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="source"
@@ -282,53 +242,13 @@
 				>
 			</File>
 			<File
+				RelativePath=".\source\TTBuffer.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\TTDSP.cpp"
 				>
 			</File>
-			<Filter
-				Name="units"
-				>
-				<File
-					RelativePath=".\source\units\TTAdsr.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\source\units\TTBuffer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\source\units\TTCrossfade.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\source\units\TTMatrixMixer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\source\units\TTNoise.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\source\units\TTOperator.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\source\units\TTPhasor.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\source\units\TTRamp.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\source\units\TTWavetable.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\source\units\TTZerocross.cpp"
-					>
-				</File>
-			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

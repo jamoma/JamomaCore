@@ -17,7 +17,6 @@
 
 
 TT_AUDIO_CONSTRUCTOR
-, accumulator(NULL), output(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	
@@ -37,26 +36,17 @@ TT_AUDIO_CONSTRUCTOR
 
 
 TTDegrade::~TTDegrade()
-{
-	delete[] accumulator;
-	delete[] output;
-}
+{;}
 
 
 TTErr TTDegrade::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	short i;
-	
-	delete[] accumulator;
-	delete[] output;
-	
-	accumulator	= new TTSampleValue[maxNumChannels];
-	output		= new TTSampleValue[maxNumChannels];
+	accumulator.resize(maxNumChannels);
+	accumulator.assign(maxNumChannels, 0.0);
 
-	for(i=0; i<maxNumChannels; i++){
-		accumulator[i] = 0.0;
-		output[i] = 0.0;				// clear the values
-	}
+	output.resize(maxNumChannels);
+	output.assign(maxNumChannels, 0.0);
+
 	return kTTErrNone;
 }
 

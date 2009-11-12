@@ -13,8 +13,14 @@
 #define thisTTClassTags		"audio, processor, dynamics, envelope"
 
 
-TT_AUDIO_CONSTRUCTOR
-, attrMode(TT("linear")), env_gen(NULL), phasor(NULL), offset(NULL), scaler(NULL), sig1(NULL), sig2(NULL)
+TT_AUDIO_CONSTRUCTOR, 
+	attrMode(TT("linear")), 
+	env_gen(NULL),
+	phasor(NULL), 
+	offset(NULL), 
+	scaler(NULL), 
+	sig1(NULL), 
+	sig2(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	
