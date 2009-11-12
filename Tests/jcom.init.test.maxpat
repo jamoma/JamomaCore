@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 160.0, 55.0, 1176.0, 773.0 ],
+		"rect" : [ 193.0, 54.0, 1176.0, 773.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 160.0, 55.0, 1176.0, 773.0 ],
+		"defrect" : [ 193.0, 54.0, 1176.0, 773.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
@@ -27,7 +28,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 905.0, 665.0, 105.0, 17.0 ],
-					"text" : "false"
+					"text" : "true"
 				}
 
 			}
@@ -55,7 +56,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 675.0, 665.0, 105.0, 17.0 ],
-					"text" : "false"
+					"text" : "true"
 				}
 
 			}
@@ -111,7 +112,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 595.0, 345.0, 105.0, 17.0 ],
-					"text" : "false"
+					"text" : "true"
 				}
 
 			}
@@ -258,6 +259,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-66",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -265,17 +267,6 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 150.0, 240.0, 123.0, 31.0 ],
 					"text" : "avoid running the test over and over again"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-50",
-					"maxclass" : "button",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 65.0, 245.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -464,6 +455,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-62",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -544,6 +536,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-21",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -557,6 +550,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-20",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -926,15 +920,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-28", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-50", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-3", 0 ]
 				}
 
 			}

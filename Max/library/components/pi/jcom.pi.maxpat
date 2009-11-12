@@ -26,7 +26,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 103.0, 54.0, 100.0, 19.0 ],
+					"patching_rect" : [ 134.0, 56.0, 100.0, 19.0 ],
 					"text" : "loadbang"
 				}
 
@@ -49,7 +49,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 71.0, 51.0, 25.0, 25.0 ]
 				}
 

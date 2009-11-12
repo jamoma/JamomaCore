@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
@@ -163,6 +164,7 @@
 			}
 , 			{
 				"box" : 				{
+					"bordercolor" : [ 0.6, 0.6, 0.6, 1.0 ],
 					"id" : "obj-14",
 					"maxclass" : "jit.pwindow",
 					"numinlets" : 1,
@@ -273,7 +275,7 @@
 					"name" : "jalg.input%.ui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"offset" : [ 0.0, -19.0 ],
+					"offset" : [ 0.0, -240.0 ],
 					"patching_rect" : [ 64.0, 424.0, 246.0, 46.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1.0, 21.0, 240.0, 47.0 ],

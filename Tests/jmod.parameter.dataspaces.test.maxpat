@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 81.0, 105.0, 1199.0, 648.0 ],
+		"rect" : [ 241.0, 105.0, 1199.0, 648.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 81.0, 105.0, 1199.0, 648.0 ],
+		"defrect" : [ 241.0, 105.0, 1199.0, 648.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
@@ -43,6 +44,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -89,9 +91,9 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"id" : "obj-30",
+									"id" : "obj-1",
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 265.0, 335.0, 397.0, 19.0 ],
 									"text" : "test.assert.equal TESTparameter/dataspace/color/hsl2native 0. 1. 0."
@@ -146,7 +148,7 @@
 									"fontsize" : 10.0,
 									"id" : "obj-10",
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 265.0, 175.0, 419.0, 19.0 ],
 									"text" : "test.assert.equal TESTparameter/dataspace/color/rgb2native 120. 100. 80."
@@ -190,6 +192,15 @@
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-11", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-29", 0 ]
 								}
 
 							}
@@ -249,7 +260,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-30", 0 ],
+									"destination" : [ "obj-1", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-29", 0 ]
@@ -261,13 +272,13 @@
 ,
 					"patching_rect" : [ 510.0, 80.0, 102.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
-						"globalpatchername" : "",
 						"fontface" : 0,
+						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"fontsize" : 10.0
+						"default_fontname" : "Verdana",
+						"globalpatchername" : "",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p dataspace_color"
@@ -283,7 +294,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 65.0, 370.0, 67.0, 19.0 ],
+					"patching_rect" : [ 35.0, 370.0, 67.0, 19.0 ],
 					"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ],
 					"text" : "thispatcher"
 				}
@@ -298,7 +309,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 65.0, 345.0, 100.0, 19.0 ],
+					"patching_rect" : [ 35.0, 345.0, 100.0, 19.0 ],
 					"text" : "test.finished"
 				}
 
@@ -312,7 +323,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 225.0, 480.0, 196.0, 17.0 ],
+					"patching_rect" : [ 270.0, 415.0, 196.0, 17.0 ],
 					"text" : "/preset/store 1 default, /preset/write"
 				}
 
@@ -336,7 +347,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 105.0, 280.0, 64.0, 19.0 ],
+					"patching_rect" : [ 130.0, 295.0, 64.0, 19.0 ],
 					"text" : "s #0_after"
 				}
 
@@ -349,7 +360,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 240.0, 300.0, 72.0, 19.0 ],
+					"patching_rect" : [ 325.0, 300.0, 72.0, 19.0 ],
 					"text" : "s #0_before"
 				}
 
@@ -361,10 +372,10 @@
 					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "bang", "bang", "nonsense" ],
-					"patching_rect" : [ 105.0, 250.0, 141.0, 19.0 ],
-					"text" : "t b b nonsense"
+					"numoutlets" : 4,
+					"outlettype" : [ "bang", "bang", "bang", "nonsense" ],
+					"patching_rect" : [ 105.0, 250.0, 95.0, 19.0 ],
+					"text" : "t b b b nonsense"
 				}
 
 			}
@@ -377,7 +388,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 200.0, 580.0, 50.0, 17.0 ]
+					"patching_rect" : [ 210.0, 570.0, 50.0, 17.0 ]
 				}
 
 			}
@@ -390,7 +401,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 235.0, 375.0, 170.0, 17.0 ],
+					"patching_rect" : [ 280.0, 375.0, 170.0, 17.0 ],
 					"text" : "/color/rgb2native 120. 100. 80."
 				}
 
@@ -410,7 +421,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-8",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -429,7 +440,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 105.0, 155.0, 192.0, 19.0 ],
+					"patching_rect" : [ 105.0, 160.0, 192.0, 19.0 ],
 					"text" : "jcom.oscroute /editing_this_module"
 				}
 
@@ -437,13 +448,13 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-15",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 105.0, 135.0, 200.0, 18.0 ],
+					"patching_rect" : [ 105.0, 135.0, 205.0, 19.0 ],
 					"text" : "route jmod.parameter.dataspaces.test"
 				}
 
@@ -451,13 +462,13 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-13",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 105.0, 95.0, 188.0, 18.0 ],
+					"patching_rect" : [ 105.0, 85.0, 140.0, 19.0 ],
 					"text" : "jcom.receive notifications"
 				}
 
@@ -465,13 +476,13 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
+					"fontsize" : 10.0,
 					"id" : "obj-14",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 105.0, 115.0, 127.0, 18.0 ],
+					"patching_rect" : [ 105.0, 110.0, 130.0, 19.0 ],
 					"text" : "route module.initialized"
 				}
 
@@ -485,7 +496,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 165.0, 535.0, 48.0, 19.0 ],
+					"patching_rect" : [ 210.0, 535.0, 48.0, 19.0 ],
 					"text" : "jcom.in"
 				}
 
@@ -499,7 +510,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 165.0, 305.0, 55.0, 19.0 ],
+					"patching_rect" : [ 210.0, 295.0, 55.0, 19.0 ],
 					"text" : "t b"
 				}
 
@@ -513,7 +524,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 165.0, 355.0, 168.0, 17.0 ],
+					"patching_rect" : [ 210.0, 355.0, 168.0, 17.0 ],
 					"text" : "/color/hsl2native 120. 100. 50."
 				}
 
@@ -527,7 +538,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 165.0, 480.0, 58.0, 19.0 ],
+					"patching_rect" : [ 210.0, 415.0, 58.0, 19.0 ],
 					"text" : "jcom.hub"
 				}
 
@@ -538,7 +549,7 @@
 					"destination" : [ "obj-16", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-1", 0 ]
+					"source" : [ "obj-1", 1 ]
 				}
 
 			}
@@ -547,7 +558,7 @@
 					"destination" : [ "obj-23", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-1", 1 ]
+					"source" : [ "obj-1", 2 ]
 				}
 
 			}
@@ -555,7 +566,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-31", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 114.5, 273.0, 74.5, 273.0 ],
+					"midpoints" : [ 114.5, 273.0, 44.5, 273.0 ],
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -565,7 +576,7 @@
 					"destination" : [ "obj-6", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-1", 2 ]
+					"source" : [ "obj-1", 3 ]
 				}
 
 			}

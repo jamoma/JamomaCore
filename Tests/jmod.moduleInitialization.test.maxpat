@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 50.0, 44.0, 1440.0, 826.0 ],
+		"rect" : [ 291.0, 45.0, 1440.0, 826.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 50.0, 44.0, 1440.0, 826.0 ],
+		"defrect" : [ 291.0, 45.0, 1440.0, 826.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,10 +17,12 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-64",
 					"linecount" : 3,
 					"maxclass" : "comment",
@@ -35,6 +37,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-19",
 					"linecount" : 3,
 					"maxclass" : "comment",
@@ -49,6 +52,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-14",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -472,7 +476,7 @@
 					"id" : "obj-43",
 					"linecount" : 3,
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 1110.0, 485.0, 249.0, 43.0 ],
 					"text" : "test.assert.equal TEST/moduleInitialization/ui/preview=nonZero 1"
@@ -486,7 +490,7 @@
 					"id" : "obj-42",
 					"linecount" : 3,
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 1055.0, 530.0, 217.0, 43.0 ],
 					"text" : "test.assert.equal TEST/moduleInitialization/ui/mute=zero 0"
@@ -500,7 +504,7 @@
 					"id" : "obj-41",
 					"linecount" : 3,
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 1000.0, 575.0, 228.0, 43.0 ],
 					"text" : "test.assert.equal TEST/moduleInitialization/ui/mix=nonZero 50."
@@ -514,7 +518,7 @@
 					"id" : "obj-40",
 					"linecount" : 3,
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 945.0, 620.0, 212.0, 43.0 ],
 					"text" : "test.assert.equal TEST/moduleInitialization/ui/gain=zero 0."
@@ -528,7 +532,7 @@
 					"id" : "obj-39",
 					"linecount" : 3,
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 895.0, 665.0, 220.0, 43.0 ],
 					"text" : "test.assert.equal TEST/moduleInitialization/view/freeze=zero 0"
@@ -542,7 +546,7 @@
 					"id" : "obj-38",
 					"linecount" : 3,
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 840.0, 715.0, 244.0, 43.0 ],
 					"text" : "test.assert.equal TEST/moduleInitialization/ui/bypass=nonZero 1"
@@ -570,7 +574,7 @@
 					"id" : "obj-36",
 					"linecount" : 3,
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 630.0, 485.0, 227.0, 43.0 ],
 					"text" : "test.assert.equal TEST/moduleInitialization/toggle=nonZero 1"
@@ -584,7 +588,7 @@
 					"id" : "obj-35",
 					"linecount" : 3,
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 565.0, 530.0, 207.0, 43.0 ],
 					"text" : "test.assert.equal TEST/moduleInitialization/toggle=zero 0"
@@ -598,7 +602,7 @@
 					"id" : "obj-34",
 					"linecount" : 3,
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 500.0, 575.0, 210.0, 43.0 ],
 					"text" : "test.assert.equal TEST/moduleInitialization/int=nonZero 1"
@@ -612,7 +616,7 @@
 					"id" : "obj-33",
 					"linecount" : 3,
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 435.0, 620.0, 191.0, 43.0 ],
 					"text" : "test.assert.equal TEST/moduleInitialization/int=zero 0"
@@ -626,7 +630,7 @@
 					"id" : "obj-32",
 					"linecount" : 3,
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 370.0, 665.0, 218.0, 43.0 ],
 					"text" : "test.assert.equal TEST/moduleInitialization/float=nonZero 1."
@@ -668,7 +672,7 @@
 					"id" : "obj-28",
 					"linecount" : 3,
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 0,
 					"patching_rect" : [ 305.0, 715.0, 200.0, 43.0 ],
 					"text" : "test.assert.equal TEST/moduleInitialization/float=zero 0."
@@ -938,6 +942,7 @@
 					"has_mix" : 1,
 					"has_mute" : 1,
 					"has_preview" : 1,
+					"headercolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-2",
 					"maxclass" : "jcom.ui",
 					"numinlets" : 1,
