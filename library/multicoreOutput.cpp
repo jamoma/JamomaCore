@@ -18,7 +18,7 @@ TT_AUDIO_CONSTRUCTOR,
 	placeHolder(NULL)
 {
 	TTObjectInstantiate(kTTSym_audiosignal, &placeHolder, 1);
-	audioEngine = TTAudioEngineReference();
+	audioEngine = TTAudioEngine::create();
 	
 	registerAttributeWithSetterAndGetter(sampleRate, kTypeUInt32);
 	registerAttributeWithSetterAndGetter(vectorSize, kTypeUInt16);
@@ -40,6 +40,7 @@ MCoreOutput::~MCoreOutput()
 {
 	audioEngine->sendMessage(TT("removeCallbackObserver"), *me);
 	delete me;
+	TTAudioEngine::destroy();
 	TTObjectRelease(&placeHolder);
 }
 
