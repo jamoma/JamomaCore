@@ -312,13 +312,13 @@
 ,
 									"patching_rect" : [ 66.0, 144.0, 103.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
-										"globalpatchername" : ""
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"default_fontname" : "Verdana",
+										"fontface" : 0
 									}
 ,
 									"text" : "p listOfParameters"
@@ -330,11 +330,13 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-29",
+									"linecount" : 17,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 66.0, 296.0, 342.0, 17.0 ]
+									"patching_rect" : [ 66.0, 296.0, 342.0, 211.0 ],
+									"text" : "/description \"wrapper of the AU parameter ' Compressor '\";\r/dataspace none;\r/dataspace/unit/active none;\r/dataspace/unit/display none;\r/dataspace/unit/native none;\r/priority 3;\r/ramp/drive scheduler;\r/ramp/function linear;\r/range/bounds 0. 1.;\r/range/clipmode both;\r/repetitions/allow 0;\r/readonly 0;\r/type boolean;\r/value 1;\r/value/default 1.;\r/value/stepsize 1.;\r/view/freeze 0;\r"
 								}
 
 							}
@@ -479,13 +481,13 @@
 ,
 									"patching_rect" : [ 66.0, 261.0, 55.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
-										"globalpatchername" : ""
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"default_fontname" : "Verdana",
+										"fontface" : 0
 									}
 ,
 									"text" : "p format"
@@ -525,7 +527,7 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-16",
-									"items" : [  ],
+									"items" : [ "/parameter/Attack", ",", "/parameter/Compressor", ",", "/parameter/Gate", ",", "/parameter/Output", ",", "/parameter/Ratio", ",", "/parameter/Release", ",", "/parameter/Threshold" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -622,13 +624,13 @@
 ,
 					"patching_rect" : [ 366.0, 450.0, 209.0, 24.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"default_fontsize" : 12.0,
 						"fontname" : "Arial",
-						"globalpatchername" : ""
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"default_fontname" : "Arial",
+						"fontface" : 0
 					}
 ,
 					"text" : "p \"AU parameter migration\""
@@ -886,13 +888,13 @@
 ,
 									"patching_rect" : [ 16.0, 9.0, 84.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
-										"globalpatchername" : ""
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"default_fontname" : "Verdana",
+										"fontface" : 0
 									}
 ,
 									"text" : "p UnNormalize"
@@ -1078,13 +1080,13 @@
 ,
 									"patching_rect" : [ 280.0, 60.0, 121.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
-										"globalpatchername" : ""
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"default_fontname" : "Verdana",
+										"fontface" : 0
 									}
 ,
 									"text" : "p make_osc_message"
@@ -1191,13 +1193,13 @@
 ,
 					"patching_rect" : [ 25.0, 245.0, 57.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
-						"globalpatchername" : ""
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"default_fontname" : "Verdana",
+						"fontface" : 0
 					}
 ,
 					"text" : "p midi_in",
@@ -1368,8 +1370,8 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 16.0, 29.0, 185.0, 28.0 ],
-									"text" : "Using jmod.au~:"
+									"patching_rect" : [ 16.0, 29.0, 240.0, 28.0 ],
+									"text" : "Using jmod.audiounit~:"
 								}
 
 							}
@@ -1384,7 +1386,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 15.0, 75.0, 360.0, 31.0 ],
-									"text" : "jmod.au~ creates a dynamic OSC namespace reflecting the parameters of the AU plug-in currently loaded."
+									"text" : "jmod.audiounit~ creates a dynamic OSC namespace reflecting the parameters of the AU plug-in currently loaded."
 								}
 
 							}
@@ -1423,13 +1425,13 @@
 ,
 					"patching_rect" : [ 366.0, 415.0, 198.0, 24.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
-						"globalpatchername" : ""
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"default_fontname" : "Verdana",
+						"fontface" : 0
 					}
 ,
 					"text" : "p \"Using jmod.audiounit~\""
@@ -1601,7 +1603,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 369.5, 265.0, 34.5, 265.0 ],
+					"midpoints" : [ 369.5, 270.0, 34.5, 270.0 ],
 					"source" : [ "obj-7", 0 ]
 				}
 
@@ -1610,7 +1612,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 354.5, 266.5, 34.5, 266.5 ],
+					"midpoints" : [ 354.5, 270.5, 34.5, 270.5 ],
 					"source" : [ "obj-9", 0 ]
 				}
 
