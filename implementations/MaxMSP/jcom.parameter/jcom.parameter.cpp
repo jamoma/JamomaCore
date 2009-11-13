@@ -216,6 +216,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_dataspace = jps_none;
 		x->attr_unitActive = jps_none;
 		x->attr_unitNative = jps_none;
+		x->attr_unitDisplay = jps_none;
 		x->isInitialised = 0;						// the message/parameter has not yet been initialised
 
 #ifdef JMOD_MESSAGE
@@ -919,30 +920,41 @@ void param_dump(t_param *x)
 		atom_setsym(&a[1], x->common.attr_description);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 		
-		snprintf(s, 256, "%s:/value", x->common.attr_name->s_name);
-		ac = x->list_size + 1;
-		av = (AtomPtr)malloc(sizeof(Atom) * ac);
-		atom_setsym(av+0, gensym(s));
-		memcpy(av+1, x->atom_list, sizeof(Atom) * x->list_size);
-		object_method_typed(x->common.hub, jps_feedback, ac, av, NULL);
-		if(ac && av)
-			free(av);
-		
-		snprintf(s, 256, "%s:/type", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/dataspace", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
-		atom_setsym(&a[1], x->common.attr_type);
+		atom_setsym(&a[1], x->attr_dataspace);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-
+				
+		snprintf(s, 256, "%s:/dataspace/unit/active", x->common.attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setsym(&a[1], x->attr_unitActive);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+		
+		snprintf(s, 256, "%s:/dataspace/unit/display", x->common.attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setsym(&a[1], x->attr_unitDisplay);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+		
+		snprintf(s, 256, "%s:/dataspace/unit/native", x->common.attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setsym(&a[1], x->attr_unitNative);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+		
+		snprintf(s, 256, "%s:/priority", x->common.attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setlong(&a[1], x->attr_priority);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+		
 		snprintf(s, 256, "%s:/ramp/drive", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_ramp);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-
+		
 		snprintf(s, 256, "%s:/ramp/function", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_rampfunction);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-
+		
 		snprintf(s, 256, "%s:/range/bounds", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setfloat(&a[1], x->common.attr_range[0]);
@@ -953,36 +965,50 @@ void param_dump(t_param *x)
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_clipmode);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-
+		
 		snprintf(s, 256, "%s:/repetitions/allow", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->common.attr_repetitions);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-				
-		snprintf(s, 256, "%s:/dataspace", x->common.attr_name->s_name);
+		
+		snprintf(s, 256, "%s:/readonly", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
-		atom_setsym(&a[1], x->attr_dataspace);
-		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-				
-		snprintf(s, 256, "%s:/dataspace/unit/native", x->common.attr_name->s_name);
-		atom_setsym(&a[0], gensym(s));
-		atom_setsym(&a[1], x->attr_unitNative);
+		atom_setlong(&a[1], x->attr_readonly);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 		
-		snprintf(s, 256, "%s:/dataspace/unit/active", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/type", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
-		atom_setsym(&a[1], x->attr_unitActive);
+		atom_setsym(&a[1], x->common.attr_type);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+		
+		snprintf(s, 256, "%s:/value", x->common.attr_name->s_name);
+		ac = x->list_size + 1;
+		av = (AtomPtr)malloc(sizeof(Atom) * ac);
+		atom_setsym(av+0, gensym(s));
+		memcpy(av+1, x->atom_list, sizeof(Atom) * x->list_size);
+		object_method_typed(x->common.hub, jps_feedback, ac, av, NULL);
+		if(ac && av)
+			free(av);
+		
+		snprintf(s, 256, "%s:/value/default", x->common.attr_name->s_name);
+		ac = x->listDefault_size + 1;
+		av = (AtomPtr)malloc(sizeof(Atom) * ac);
+		atom_setsym(av+0, gensym(s));
+		memcpy(av+1, x->atom_listDefault, sizeof(Atom) * x->listDefault_size);
+		object_method_typed(x->common.hub, jps_feedback, ac, av, NULL);
+		if(ac && av)
+			free(av); //FIXME: do we have a memory leack if there is no default value defined?		
+		
+		snprintf(s, 256, "%s:/value/stepsize", x->common.attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setfloat(&a[1], x->attr_stepsize);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 		
 		snprintf(s, 256, "%s:/view/freeze", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->attr_ui_freeze);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-		
-		snprintf(s, 256, "%s:/priority", x->common.attr_name->s_name);
-		atom_setsym(&a[0], gensym(s));
-		atom_setlong(&a[1], x->attr_priority);
-		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+				
 	}
 }
 
