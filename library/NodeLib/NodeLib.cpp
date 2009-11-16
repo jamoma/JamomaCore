@@ -301,7 +301,7 @@ void jamoma_node_notify_observers(TTNodePtr node, long argc, t_atom *argv)
 	TTValue	data;
 
 	// prepare data to send (argc, argv)
-	data.append(argc);
+	data.append((TTUInt8)argc);
 	data.append(argv);
 		
 	// notify each observer of the node
@@ -310,10 +310,8 @@ void jamoma_node_notify_observers(TTNodePtr node, long argc, t_atom *argv)
 
 void jamoma_node_callback(TTValuePtr baton, TTValue& data)
 {
-	TTNodePtr	node;
 	t_object*	x;
 	t_symbol*	jps_method;
-	t_symbol*	msg;
 	long		argc;
 	t_atom*		argv;
 
