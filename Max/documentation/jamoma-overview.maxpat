@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
@@ -56,6 +57,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -217,6 +219,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -320,6 +323,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -1120,6 +1124,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"args" : [ "@name", "jamoma javascripts", "@description", "Overview of javascripts used in Jamoma" ],
@@ -1383,6 +1388,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -5413,6 +5419,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"args" : [ "@name", "jamoma externals", "@description", "Overview of externals included in the Jamoma distribution" ],
@@ -6940,6 +6947,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -7452,7 +7460,56 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-137",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 300.0, 400.0, 123.0, 17.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 220.0, 450.0, 162.0, 17.0 ],
+									"text" : "jmod.sur.ambisonics~"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-111",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 880.0, 650.0, 118.0, 17.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 850.0, 600.0, 162.0, 17.0 ],
+									"text" : "jmod.globalTransport"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-110",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 40.0, 590.0, 124.0, 17.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 10.0, 290.0, 160.0, 17.0 ],
+									"text" : "jmod.audiounit~"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -7463,7 +7520,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 120.0, 150.0, 115.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 150.0, 160.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 170.0, 160.0, 17.0 ],
 									"text" : "jmod.samplePlayer~"
 								}
 
@@ -7495,7 +7552,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 40.0, 570.0, 121.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 560.0, 160.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 565.0, 160.0, 17.0 ],
 									"text" : "jmod.10harmonics~"
 								}
 
@@ -7543,7 +7600,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 460.0, 480.0, 195.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 430.0, 590.0, 183.0, 19.0 ],
+									"presentation_rect" : [ 430.0, 600.0, 183.0, 19.0 ],
 									"text" : "Colors"
 								}
 
@@ -7592,7 +7649,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 270.0, 470.0, 125.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 220.0, 510.0, 163.0, 17.0 ],
+									"presentation_rect" : [ 220.0, 530.0, 163.0, 17.0 ],
 									"text" : "jmod.sur.ambipan~"
 								}
 
@@ -7608,7 +7665,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 250.0, 620.0, 125.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 220.0, 630.0, 158.0, 17.0 ],
+									"presentation_rect" : [ 220.0, 650.0, 158.0, 17.0 ],
 									"text" : "jmod.sur.race~"
 								}
 
@@ -7624,7 +7681,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 250.0, 600.0, 195.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 220.0, 610.0, 183.0, 19.0 ],
+									"presentation_rect" : [ 220.0, 630.0, 183.0, 19.0 ],
 									"text" : "Ambiophonics"
 								}
 
@@ -7686,9 +7743,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 860.0, 630.0, 140.0, 17.0 ],
+									"patching_rect" : [ 880.0, 630.0, 140.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 850.0, 590.0, 162.0, 17.0 ],
+									"presentation_rect" : [ 850.0, 580.0, 162.0, 17.0 ],
 									"text" : "jmod.fileNameGenerator"
 								}
 
@@ -7704,7 +7761,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 110.0, 130.0, 121.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 170.0, 160.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 190.0, 160.0, 17.0 ],
 									"text" : "jmod.samplePlayer2~"
 								}
 
@@ -7736,7 +7793,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 40.0, 480.0, 144.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 620.0, 160.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 625.0, 160.0, 17.0 ],
 									"text" : "jmod.rissetGlissando~"
 								}
 
@@ -7832,7 +7889,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 253.0, 576.0, 125.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 220.0, 590.0, 162.0, 17.0 ],
+									"presentation_rect" : [ 220.0, 610.0, 162.0, 17.0 ],
 									"text" : "jmod.sur.vbap~"
 								}
 
@@ -7848,7 +7905,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 253.0, 556.0, 195.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 220.0, 570.0, 183.0, 19.0 ],
+									"presentation_rect" : [ 220.0, 590.0, 183.0, 19.0 ],
 									"text" : "VBAP"
 								}
 
@@ -7864,7 +7921,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 253.0, 506.0, 125.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 220.0, 550.0, 162.0, 17.0 ],
+									"presentation_rect" : [ 220.0, 570.0, 162.0, 17.0 ],
 									"text" : "jmod.sur.dbap~"
 								}
 
@@ -7880,7 +7937,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 243.0, 486.0, 195.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 220.0, 530.0, 183.0, 19.0 ],
+									"presentation_rect" : [ 220.0, 550.0, 183.0, 19.0 ],
 									"text" : "DBAP "
 								}
 
@@ -7896,7 +7953,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 880.0, 530.0, 74.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 850.0, 536.0, 163.0, 17.0 ],
+									"presentation_rect" : [ 850.0, 620.0, 163.0, 17.0 ],
 									"text" : "jmod.layout"
 								}
 
@@ -7912,7 +7969,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 880.0, 605.0, 90.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 850.0, 630.0, 162.0, 17.0 ],
+									"presentation_rect" : [ 850.0, 660.0, 162.0, 17.0 ],
 									"text" : "jmod.textwriter"
 								}
 
@@ -8004,7 +8061,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 38.0, 414.0, 85.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 470.0, 162.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 510.0, 162.0, 17.0 ],
 									"text" : "jmod.tremolo~"
 								}
 
@@ -8020,7 +8077,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 880.0, 587.0, 83.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 850.0, 610.0, 162.0, 17.0 ],
+									"presentation_rect" : [ 850.0, 540.0, 162.0, 17.0 ],
 									"text" : "jmod.condition"
 								}
 
@@ -8084,7 +8141,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 680.0, 237.0, 93.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 640.0, 260.0, 162.0, 17.0 ],
+									"presentation_rect" : [ 640.0, 240.0, 162.0, 17.0 ],
 									"text" : "jmod.gl.text2d%"
 								}
 
@@ -8100,7 +8157,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 472.0, 158.0, 116.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 430.0, 180.0, 165.0, 17.0 ],
+									"presentation_rect" : [ 430.0, 160.0, 165.0, 17.0 ],
 									"text" : "jmod.moviePlayer%"
 								}
 
@@ -8116,7 +8173,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 680.0, 220.0, 95.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 640.0, 240.0, 162.0, 17.0 ],
+									"presentation_rect" : [ 640.0, 220.0, 162.0, 17.0 ],
 									"text" : "jmod.gl.td.rota%"
 								}
 
@@ -8165,7 +8222,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 40.0, 551.0, 61.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 640.0, 160.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 665.0, 160.0, 17.0 ],
 									"text" : "jmod.vst~"
 								}
 
@@ -8181,7 +8238,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 38.0, 431.0, 61.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 510.0, 163.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 530.0, 163.0, 17.0 ],
 									"text" : "jmod.vst~"
 								}
 
@@ -8261,7 +8318,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 38.0, 363.0, 129.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 410.0, 162.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 430.0, 162.0, 17.0 ],
 									"text" : "jmod.multidelay~"
 								}
 
@@ -8341,7 +8398,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 880.0, 568.0, 99.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 850.0, 570.0, 163.0, 17.0 ],
+									"presentation_rect" : [ 850.0, 560.0, 163.0, 17.0 ],
 									"text" : "jmod.fileBrowser"
 								}
 
@@ -8357,7 +8414,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 40.0, 534.0, 72.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 600.0, 160.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 605.0, 160.0, 17.0 ],
 									"text" : "jmod.noise~"
 								}
 
@@ -8373,7 +8430,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 40.0, 517.0, 66.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 660.0, 160.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 645.0, 160.0, 17.0 ],
 									"text" : "jmod.sine~"
 								}
 
@@ -8389,7 +8446,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 40.0, 500.0, 95.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 580.0, 160.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 585.0, 160.0, 17.0 ],
 									"text" : "jmod.fluidsynth~"
 								}
 
@@ -8405,7 +8462,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 17.0, 463.0, 197.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 537.0, 185.0, 19.0 ],
+									"presentation_rect" : [ 10.0, 547.0, 185.0, 19.0 ],
 									"text" : "Synths"
 								}
 
@@ -8421,7 +8478,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 680.0, 186.0, 115.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 640.0, 220.0, 162.0, 17.0 ],
+									"presentation_rect" : [ 640.0, 260.0, 162.0, 17.0 ],
 									"text" : "jmod.gl.videoplane%"
 								}
 
@@ -8501,7 +8558,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 472.0, 141.0, 80.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 430.0, 160.0, 163.0, 17.0 ],
+									"presentation_rect" : [ 430.0, 180.0, 163.0, 17.0 ],
 									"text" : "jmod.record%"
 								}
 
@@ -8613,7 +8670,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 38.0, 295.0, 69.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 330.0, 160.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 350.0, 160.0, 17.0 ],
 									"text" : "jmod.echo~"
 								}
 
@@ -8723,7 +8780,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 255.0, 455.0, 125.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 220.0, 490.0, 162.0, 17.0 ],
+									"presentation_rect" : [ 220.0, 510.0, 162.0, 17.0 ],
 									"text" : "jmod.sur.ambi.adjust~"
 								}
 
@@ -8851,7 +8908,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 255.0, 438.0, 131.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 220.0, 470.0, 163.0, 17.0 ],
+									"presentation_rect" : [ 220.0, 490.0, 163.0, 17.0 ],
 									"text" : "jmod.sur.ambi.decode~"
 								}
 
@@ -8867,7 +8924,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 255.0, 421.0, 138.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 220.0, 450.0, 162.0, 17.0 ],
+									"presentation_rect" : [ 220.0, 470.0, 162.0, 17.0 ],
 									"text" : "jmod.sur.ambi.encodeM~"
 								}
 
@@ -8977,7 +9034,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 450.0, 378.0, 195.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 430.0, 430.0, 183.0, 19.0 ],
+									"presentation_rect" : [ 430.0, 440.0, 183.0, 19.0 ],
 									"text" : "Compositing"
 								}
 
@@ -9073,7 +9130,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 857.0, 507.0, 155.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 850.0, 511.0, 155.0, 19.0 ],
+									"presentation_rect" : [ 850.0, 521.0, 155.0, 19.0 ],
 									"text" : "Others"
 								}
 
@@ -9329,7 +9386,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 38.0, 346.0, 78.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 390.0, 163.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 410.0, 163.0, 17.0 ],
 									"text" : "jmod.limiter~"
 								}
 
@@ -9377,7 +9434,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 38.0, 397.0, 98.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 450.0, 162.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 470.0, 162.0, 17.0 ],
 									"text" : "jmod.saturation~"
 								}
 
@@ -9393,7 +9450,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 38.0, 261.0, 87.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 290.0, 160.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 310.0, 160.0, 17.0 ],
 									"text" : "jmod.degrade~"
 								}
 
@@ -9409,7 +9466,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 880.0, 550.0, 74.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 850.0, 553.0, 163.0, 17.0 ],
+									"presentation_rect" : [ 850.0, 640.0, 163.0, 17.0 ],
 									"text" : "jmod.qmetro"
 								}
 
@@ -9425,7 +9482,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 30.0, 150.0, 79.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 190.0, 160.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 150.0, 160.0, 17.0 ],
 									"text" : "jmod.output~"
 								}
 
@@ -9441,7 +9498,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 38.0, 278.0, 73.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 310.0, 160.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 330.0, 160.0, 17.0 ],
 									"text" : "jmod.delay~"
 								}
 
@@ -9457,7 +9514,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 38.0, 312.0, 69.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 350.0, 163.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 390.0, 163.0, 17.0 ],
 									"text" : "jmod.filter~"
 								}
 
@@ -9506,7 +9563,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 38.0, 380.0, 94.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 430.0, 162.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 450.0, 162.0, 17.0 ],
 									"text" : "jmod.noisegate~"
 								}
 
@@ -9695,6 +9752,24 @@
 									"hidden" : 1,
 									"midpoints" : [  ],
 									"source" : [ "obj-11", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-66", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-110", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-107", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-111", 0 ]
 								}
 
 							}
@@ -9893,6 +9968,15 @@
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-135", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-48", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-137", 0 ]
 								}
 
 							}
