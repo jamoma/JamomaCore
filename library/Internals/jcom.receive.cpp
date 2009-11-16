@@ -35,7 +35,7 @@ void		receive_node_callback(t_receive *x, t_symbol *msg, long argc, t_atom *argv
 
 // Globals
 static t_class		*s_receive_class;					// Required: Global pointer the jcom.receive class
-t_object			*g_receivemaster_object = NULL;		// An instance of the jcom.receivemaster class
+//t_object			*g_receivemaster_object = NULL;		// An instance of the jcom.receivemaster class
 
 
 /************************************************************************************/
@@ -86,8 +86,8 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x, NULL));
 		x->outlet = outlet_new(x, NULL);
 
-		if(!g_receivemaster_object)
-			g_receivemaster_object = (t_object *)object_new_typed(CLASS_NOBOX, SymbolGen("jcom.receivemaster"), 0, NULL);
+		//if(!g_receivemaster_object)
+		//	g_receivemaster_object = (t_object *)object_new_typed(CLASS_NOBOX, SymbolGen("jcom.receivemaster"), 0, NULL);
 
 		x->callback = NULL;
 		x->attr_name = NULL;
@@ -155,8 +155,8 @@ void receive_bind(t_receive *x)
 	TTNodePtr	p_node;
 	TTErr		err = kTTErrGeneric;
 	
-	if(!NOGOOD(g_receivemaster_object))
-		object_method(g_receivemaster_object, jps_add, x->attr_name, x);
+	//if(!NOGOOD(g_receivemaster_object))
+	//	object_method(g_receivemaster_object, jps_add, x->attr_name, x);
 	
 	// if there isn't selection
 	if(x->lk_nodes->isEmpty()){
@@ -235,7 +235,7 @@ void receive_remove(t_receive *x)
 	delete x->lk_nodes;
 	delete x->lk_observer;
 
-	object_method(g_receivemaster_object, jps_remove, x->attr_name, x);
+	//object_method(g_receivemaster_object, jps_remove, x->attr_name, x);
 }
 
 // This method is called by jcom.receivemaster

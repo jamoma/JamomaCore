@@ -135,12 +135,10 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	TTNodePtr p_node;
 	TTList selection;
-	t_object *obj;
-	t_symbol *type;
 	JamomaError err = JAMOMA_ERR_GENERIC;
 	
 	// Is it still necessary to do that ?
-//object_method(g_receivemaster_object, jps_dispatch, x->attr_name, msg, argc, argv);
+	//object_method(g_receivemaster_object, jps_dispatch, x->attr_name, msg, argc, argv);
 	
 	// To send to another address than x->attr_name,
 	// prepend the data with an OSC address

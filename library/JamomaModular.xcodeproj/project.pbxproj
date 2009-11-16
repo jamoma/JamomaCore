@@ -66,6 +66,9 @@
 		A7CA9C980D1FD9960099D8CA /* GainDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */; };
 		D2730C5C104FBA70004513A7 /* NodeLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2730C5A104FBA70004513A7 /* NodeLib.cpp */; };
 		D2730C5D104FBA70004513A7 /* NodeLib.h in Headers */ = {isa = PBXBuildFile; fileRef = D2730C5B104FBA70004513A7 /* NodeLib.h */; };
+		D2AD390210B17B5200EBE079 /* jcom.receive~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AD38FF10B17B5200EBE079 /* jcom.receive~.cpp */; };
+		D2AD390310B17B5200EBE079 /* jcom.receivemaster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AD390010B17B5200EBE079 /* jcom.receivemaster.cpp */; };
+		D2AD390410B17B5200EBE079 /* jcom.send~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AD390110B17B5200EBE079 /* jcom.send~.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +135,9 @@
 		A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = GainDataspace.cpp; path = DataspaceLib/GainDataspace.cpp; sourceTree = SOURCE_ROOT; };
 		D2730C5A104FBA70004513A7 /* NodeLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NodeLib.cpp; sourceTree = "<group>"; };
 		D2730C5B104FBA70004513A7 /* NodeLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeLib.h; sourceTree = "<group>"; };
+		D2AD38FF10B17B5200EBE079 /* jcom.receive~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.receive~.cpp"; sourceTree = "<group>"; };
+		D2AD390010B17B5200EBE079 /* jcom.receivemaster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receivemaster.cpp; sourceTree = "<group>"; };
+		D2AD390110B17B5200EBE079 /* jcom.send~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.send~.cpp"; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -220,6 +226,9 @@
 		2200FCAB0D3ECD3D0078B045 /* Internals */ = {
 			isa = PBXGroup;
 			children = (
+				D2AD38FF10B17B5200EBE079 /* jcom.receive~.cpp */,
+				D2AD390010B17B5200EBE079 /* jcom.receivemaster.cpp */,
+				D2AD390110B17B5200EBE079 /* jcom.send~.cpp */,
 				2200FCAC0D3ECD3D0078B045 /* jcom.receive.cpp */,
 				2200FCAE0D3ECD3D0078B045 /* jcom.send.cpp */,
 			);
@@ -446,6 +455,9 @@
 				22E6C75F0D4AB21B00DA75EE /* SchedulerRamp.cpp in Sources */,
 				227C7EE7109A374300D4D8EF /* commonsyms.cpp in Sources */,
 				D2730C5C104FBA70004513A7 /* NodeLib.cpp in Sources */,
+				D2AD390210B17B5200EBE079 /* jcom.receive~.cpp in Sources */,
+				D2AD390310B17B5200EBE079 /* jcom.receivemaster.cpp in Sources */,
+				D2AD390410B17B5200EBE079 /* jcom.send~.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
