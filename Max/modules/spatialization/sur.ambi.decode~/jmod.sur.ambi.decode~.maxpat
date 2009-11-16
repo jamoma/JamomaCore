@@ -104,6 +104,7 @@
 			}
 , 			{
 				"box" : 				{
+					"contdata" : 1,
 					"ghostbar" : 6,
 					"id" : "obj-7",
 					"maxclass" : "multislider",
@@ -115,7 +116,7 @@
 					"presentation_rect" : [ 88.0, 22.0, 208.0, 46.0 ],
 					"setminmax" : [ 0.0, 1.0 ],
 					"setstyle" : 1,
-					"size" : 4,
+					"size" : 2,
 					"spacing" : 1
 				}
 
