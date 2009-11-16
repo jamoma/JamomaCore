@@ -14,7 +14,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	<img src="../../../documentation/graphics/jmodular.icon.png" width="128" height="128">
 	<h1> jmod.input% </h1>
 	<h2> Input from either a camera - video file - noise synthesis - or a real time screen capture. </h2>
-	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
+	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../../../documentation/html/modules.html">Index of Modules</a> | <a href="../../../documentation/html/credits.html">Credits</a> | <a href="http://pledgie.com/campaigns/5615">Donate</a> | <a href="http://www.jamoma.org/">Jamoma.org</a></h6>
 	</div>
 
 	<h3> Configuration </h3>
@@ -134,6 +134,17 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> x size of desktop crop </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> file/autostart </td>
+			<td class ="instructionType"> integer </td>
+			<td class ="instructionRangeBounds"> 0 2 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Defines module's behavior when 'file/open' is received. When set to 0, reading of a video file is triggered with 'file/start'. When set to 1 (default), opening a video file automatically triggers 'file/start'. When set to 2, opening a video file automatically triggers 'file/start', only if a file was previously being read. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> file/framedump </td>
@@ -463,7 +474,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> file/counter </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 0 259138 </td>
+			<td class ="instructionRangeBounds"> 0 840 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
@@ -491,7 +502,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Open the camera grabber </td>
+			<td class ="instructionDescription"> Start reading of the video file </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> file/stop </td>
@@ -502,7 +513,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Open the camera grabber </td>
+			<td class ="instructionDescription"> Stop reading of the video file </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> init </td>

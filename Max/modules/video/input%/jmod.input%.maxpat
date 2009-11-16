@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 298.0, 70.0, 1142.0, 714.0 ],
+		"rect" : [ 121.0, 106.0, 1133.0, 535.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 298.0, 70.0, 1142.0, 714.0 ],
+		"defrect" : [ 121.0, 106.0, 1133.0, 535.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -17,17 +17,20 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-15",
+					"linecount" : 4,
 					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 135.0, 150.0, 99.0, 19.0 ],
-					"text" : "r #0_xxx_to_hub"
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 488.0, 328.0, 585.0, 55.0 ],
+					"text" : "jcom.parameter file/autostart @type integer @range/bounds 0 2 @range/clipmode both @description \"Defines module's behavior when 'file/open' is received. When set to 0, reading of a video file is triggered with 'file/start'. When set to 1 (default), opening a video file automatically triggers 'file/start'. When set to 2, opening a video file automatically triggers 'file/start', only if a file was previously being read.\"",
+					"varname" : "camera/camera[1]"
 				}
 
 			}
@@ -139,7 +142,7 @@
 					"maxclass" : "hint",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 442.0, 328.0, 100.0, 20.0 ],
+					"patching_rect" : [ 306.0, 280.0, 100.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 235.0, 2.0, 16.0, 17.0 ]
 				}
@@ -154,13 +157,14 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 105.0, 125.0, 198.0, 17.0 ],
+					"patching_rect" : [ 193.0, 139.0, 198.0, 17.0 ],
 					"text" : "/preset/store 1 default, /preset/write"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"bordercolor" : [ 0.6, 0.6, 0.6, 1.0 ],
 					"id" : "obj-14",
 					"maxclass" : "jit.pwindow",
 					"numinlets" : 1,
@@ -271,7 +275,7 @@
 					"name" : "jalg.input%.ui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"offset" : [ 0.0, -19.0 ],
+					"offset" : [ 0.0, -240.0 ],
 					"patching_rect" : [ 64.0, 424.0, 246.0, 46.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1.0, 21.0, 240.0, 47.0 ],
@@ -288,7 +292,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 80.0, 105.0, 137.0, 17.0 ],
+					"patching_rect" : [ 46.0, 139.0, 137.0, 17.0 ],
 					"text" : "/documentation/generate"
 				}
 
@@ -388,17 +392,8 @@
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 89.5, 170.0, 24.5, 170.0 ],
+					"midpoints" : [ 55.5, 170.0, 24.5, 170.0 ],
 					"source" : [ "obj-13", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-17", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 144.5, 180.0, 24.5, 180.0 ],
-					"source" : [ "obj-15", 0 ]
 				}
 
 			}
@@ -478,7 +473,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 114.5, 170.0, 24.5, 170.0 ],
+					"midpoints" : [ 202.5, 170.0, 24.5, 170.0 ],
 					"source" : [ "obj-4", 0 ]
 				}
 

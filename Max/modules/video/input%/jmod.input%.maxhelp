@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 162.0, 113.0, 1021.0, 493.0 ],
+		"rect" : [ 166.0, 180.0, 1021.0, 493.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 162.0, 113.0, 1021.0, 493.0 ],
+		"defrect" : [ 166.0, 180.0, 1021.0, 493.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -18,20 +18,6 @@
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-17",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 235.0, 85.0, 100.0, 17.0 ],
-					"text" : "/file/open oh.mov"
-				}
-
-			}
-, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -418,15 +404,6 @@
 					"hidden" : 0,
 					"midpoints" : [ 484.5, 134.5, 544.5, 134.5 ],
 					"source" : [ "obj-16", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-20", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-17", 0 ]
 				}
 
 			}
