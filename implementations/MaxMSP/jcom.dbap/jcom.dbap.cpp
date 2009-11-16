@@ -319,10 +319,10 @@ void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 	long i;
 	float f;
 	
-	if((argc == x->attr_num_destinations+1) && argv) {			// the first argument is the source number
+	if((argc <= x->attr_num_destinations+1) && argv) {			// the first argument is the source number
 		n = atom_getlong(argv)-1;								// we start counting from 1 for sources
 		if((n < 0)||(n >= x->attr_num_sources)) {
-			error("Invalid argument(s) for src_weight");
+			object_error((t_object*)x, "src_weight : the source n°%d doesn't exist", n);
 			return;
 		}
 		for(i=1;i<argc;i++){									// the rest is the list of weights for each destination
@@ -331,12 +331,17 @@ void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 				f = 0.0;	
 			x->src_weight[n][i-1] = f;
 		}
+		
+		for(i=argc;i<x->attr_num_destinations;i++){				// if the list is smaller than the src_weight array fill it with 0.0
+			x->src_weight[n][i] = 0.0;
+		}
+		
 		dbap_calculate(x, n);
 		dbap_calculate_hull(x, n);
 		dbap_update_view(x);
 	}
 	else
-		error("Invalid argument(s) for src_weight");
+		object_error((t_object*)x, "src_weight : too much weights (%d) compared to the number of destinations (%d)", argc-1, x->attr_num_destinations);
 }
 
 void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv)
@@ -703,7 +708,7 @@ void dbap_calculate1D(t_dbap *x, long n)
 	
 		atom_setlong(&a[0], n);
 		atom_setfloat(&a[1], dist);
-		(x->outlet[1], _sym_list, 2, a);
+		outlet_anything(x->outlet[1], _sym_list, 2, a);
 	}
 	
 	r2 = x->blur[n] * x->variance;
@@ -733,7 +738,6 @@ void dbap_calculate2D(t_dbap *x, long n)
 	float r2;							// Bluriness ratio 
 	float dia[MAX_NUM_DESTINATIONS];	// Distance to ith speaker to the power of x->a.
 	float sdia[MAX_NUM_DESTINATIONS];	// Squared Distance to ith speaker (without bluriness ratio)
-	long jC,jN;							// index of the the dest C and N dest in hull2->id_dst[]
 	long iC,iN;							// index of the the dest C and N dest in dst_position[]
 	float sSC,sSN,sCN;					// squared Distance of the Source to C and N and [CN]
 	t_xyz P;							// Projection point of Source on [CN], pointer to coord of S, C and N
