@@ -689,21 +689,23 @@ TTErr	TTNode::generateInstance(TTSymbolPtr childName, TTSymbolPtr *newInstance)
 	}
 }
 
+
+// TODO: not sure why we need this can't just use the built-in routine? --tap
 TTErr TTNode::notifyObservers(TTValue& data)
 {
-	TTCallbackPtr anObserver;
+	TTCallbackPtr	anObserver = NULL;
+	TTValue			v;
 
-	if(!this->observers->isEmpty()){
-
-		for(this->observers->begin(); this->observers->end(); this->observers->next()){
-				
-			this->observers->current().get(0,(TTPtr *)&anObserver);
-
+	if (!observers->isEmpty()) {
+		for (this->observers->begin(); this->observers->end(); this->observers->next()) {
+			v = observers->current();
+			v.get(0, TTObjectHandle(&anObserver));
+			TT_ASSERT("TTNode observer list member is not NULL", anObserver);
 			anObserver->notify(data);
-				
 		}
 		return kTTErrNone;
 	}
 	else
 		return kTTErrGeneric;
 }
+
