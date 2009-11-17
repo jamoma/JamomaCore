@@ -315,33 +315,48 @@ void dbap_mastergain(t_dbap *x, double f)
 
 void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	long n;
-	long i;
-	float f;
+	long source, i, ;
+	float weight;
 	
-	if((argc <= x->attr_num_destinations+1) && argv) {			// the first argument is the source number
-		n = atom_getlong(argv)-1;								// we start counting from 1 for sources
-		if((n < 0)||(n >= x->attr_num_sources)) {
-			object_error((t_object*)x, "src_weight : the source n°%d doesn't exist", n);
+	if(argc && argv) {			
+		
+		if(atom_gettype(argv) == A_LONG){						// the first argument is the source number
+			source = atom_getlong(argv)-1;						// we start counting from 1 for sources
+		
+			if((source < 0)||(source >= x->attr_num_sources)) {
+				object_error((t_object*)x, "src_weight : the source n°%d doesn't exist", source);
+				return;
+			}
+		}
+		else{
+			object_error((t_object*)x, "src_weight : no source id");
 			return;
 		}
-		for(i=1;i<argc;i++){									// the rest is the list of weights for each destination
-			f = atom_getfloat(argv+i);
-			if(f<0.0) 
-				f = 0.0;	
-			x->src_weight[n][i-1] = f;
+		
+		for(i=0; i<x->attr_num_destinations; i++){				// the rest is the list of weights for each destination
+			
+			if(i+1 < argc){
+				if(atom_gettype(&argv[i+1]) == A_LONG)
+					weight = (float)atom_getlong(&argv[i+1]);
+				
+				if(atom_gettype(&argv[i+1]) == A_FLOAT)
+					weight = atom_getfloat(&argv[i+1]);
+			}
+			else
+				weight = 0.0;									// if the list is smaller than the src_weight array, fill src_weight with 0.0
+			
+			if(weight < 0.0) 
+				weight = 0.0;
+			
+			x->src_weight[source][i] = weight;
 		}
 		
-		for(i=argc;i<x->attr_num_destinations;i++){				// if the list is smaller than the src_weight array fill it with 0.0
-			x->src_weight[n][i] = 0.0;
-		}
-		
-		dbap_calculate(x, n);
-		dbap_calculate_hull(x, n);
+		dbap_calculate(x, source);
+		dbap_calculate_hull(x, source);
 		dbap_update_view(x);
 	}
 	else
-		object_error((t_object*)x, "src_weight : too much weights (%d) compared to the number of destinations (%d)", argc-1, x->attr_num_destinations);
+		object_error((t_object*)x, "src_weight : needs arguments");
 }
 
 void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv)
