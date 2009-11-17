@@ -278,21 +278,25 @@ void jamoma_node_set_property_method(TTNodePtr node, TTSymbolPtr propertie, TTVa
 	post("jamoma_node_set_propertie_method");
 }
 
-void jamoma_node_add_observer(TTNodePtr node, t_object *object, t_symbol *jps_method, TTObjectPtr *newCallBack)
+void jamoma_node_add_observer(TTNodePtr node, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver)
 {
+	TTObjectPtr newObserver;
 	TTValuePtr	newBaton;
 
 	if(object && jps_method){
 		
-		TTObjectInstantiate(TT("Callback"), newCallBack, kTTValNONE);
+		newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... I guess this not good.
+		TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
 		
 		newBaton = new TTValue(TTPtr(object));
 		newBaton->append(TTPtr(jps_method));
-		(*newCallBack)->setAttributeValue(TT("Baton"), newBaton);
-				
-		(*newCallBack)->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_callback));
+		
+		newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
+		newObserver->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_callback));
 
-		node->registerObserverForNotifications(**newCallBack);
+		node->registerObserverForNotifications(*newObserver);
+		
+		(*returnedObserver) = newObserver;
 	}
 }
 
@@ -308,20 +312,22 @@ void jamoma_node_notify_observers(TTNodePtr node, long argc, t_atom *argv)
 	node->notifyObservers(data);
 }
 
-void jamoma_node_callback(TTValuePtr baton, TTValue& data)
+void jamoma_node_callback(TTPtr p_baton, TTValue& data)
 {
+	TTValuePtr	b;
 	t_object*	x;
 	t_symbol*	jps_method;
 	long		argc;
 	t_atom*		argv;
 
-	// unpack baton
-	baton->get(0,(TTPtr*)&x);
-	baton->get(1,(TTPtr*)&jps_method);
+	// unpack baton (a t_object* and the name of the method to call)
+	b = (TTValuePtr)p_baton;
+	b->get(0,(TTPtr*)&x);
+	b->get(1,(TTPtr*)&jps_method);
 
-	// unpack data
-	baton->get(0, argc);
-	baton->get(1,(TTPtr*)&argv);
+	// unpack data (argc and argv)
+	data.get(0, argc);
+	data.get(1,(TTPtr*)&argv);
 	
 	// send data using a class method of the object
 	object_method_typed(x, jps_method, argc, argv, NULL);

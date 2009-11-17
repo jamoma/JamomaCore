@@ -92,8 +92,8 @@ extern "C" {
 	void			jamoma_node_set_property_method(TTNodePtr node, TTSymbolPtr property, TTValuePtr value);
 
 	/** Add an t_object as an observer of a node */
-	void			jamoma_node_add_observer(TTNodePtr node, t_object *object, t_symbol *jps_method, TTObjectPtr *newCallBack);
-	void			jamoma_node_callback(TTValuePtr baton, TTValue& data);
+	void			jamoma_node_add_observer(TTNodePtr node, t_object *object, t_symbol *jps_method, TTObjectPtr *newObserver);
+	void			jamoma_node_callback(TTPtr p_baton, TTValue& data);
 
 	/** Notify all observers of a node */
 	void			jamoma_node_notify_observers(TTNodePtr node, long argc, t_atom *argv);
