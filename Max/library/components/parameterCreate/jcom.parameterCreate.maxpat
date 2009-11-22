@@ -2966,7 +2966,7 @@
 									"presentation" : 1,
 									"presentation_linecount" : 25,
 									"presentation_rect" : [ 85.0, 185.0, 173.0, 310.0 ],
-									"text" : "documentation/generate;\ninit;\nview/internals;\npanel/open;\npreset/clear;\npreset/copy;\npreset/default;\npreset/dump;\npreset/interpolate;\npreset/post;\npreset/read;\npreset/recall;\npreset/store;\npreset/storecurrent;\npreset/storenext;\npreset/write;\npreset/writeagain;\nscript;\nview/freeze;\nview/refresh;\nview/color/border;\nview/color/contentBackground;\nview/color/toolbarBackground;\nview/color/toolbarText;\nview/size;"
+									"text" : "documentation/generate;\ninit;\nview/internals;\nview/panel;\npreset/clear;\npreset/copy;\npreset/default;\npreset/dump;\npreset/interpolate;\npreset/post;\npreset/read;\npreset/recall;\npreset/store;\npreset/storecurrent;\npreset/storenext;\npreset/write;\npreset/writeagain;\nscript;\nview/freeze;\nview/refresh;\nview/color/border;\nview/color/contentBackground;\nview/color/toolbarBackground;\nview/color/toolbarText;\nview/size;"
 								}
 
 							}
