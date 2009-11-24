@@ -31,9 +31,6 @@
 [submodule "UserLib/Jamoma.Ircam.Spat"]
 	path = UserLib/Jamoma.Ircam.Spat
 	url = git://github.com/lossius/Jamoma.Ircam.Spat.git
-[submodule "Tools/testlib/rosc"]
-	path = Tools/testlib/rosc
-	url = git://github.com/tap/rosc.git
 [submodule "UserLib/Jamoma.Ircam.IMTR"]
 	path = UserLib/Jamoma.Ircam.IMTR
 	url = git://github.com/lossius/Jamoma.Ircam.IMTR
