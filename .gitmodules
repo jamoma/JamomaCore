@@ -48,7 +48,7 @@
 	url = git://github.com/jln-/JamomaDependencies.git
 [submodule "UserLib/Jamoma.Ircam.FTM"]
 	path = UserLib/Jamoma.Ircam.FTM
-	url = http://github.com/lossius/Jamoma.Ircam.FTM.git
+	url = git://github.com/lossius/Jamoma.Ircam.FTM.git
 [submodule "Modules/TheGitter"]
 	path = Modules/TheGitter
 	url = git://github.com/bltzr/JamomaGitter.git
