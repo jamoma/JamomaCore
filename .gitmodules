@@ -64,3 +64,6 @@
 [submodule "UserLib/NavNav"]
 	path = UserLib/NavNav
 	url = git://github.com/navid/NavNav.git
+[submodule "Modules/Test"]
+	path = Modules/Test
+	url = git://github.com/tap/JamomaTest.git
