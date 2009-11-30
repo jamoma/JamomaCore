@@ -109,10 +109,12 @@ TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
 		case kTypeObject:
 			value = *((TTObject*)attribute.address);
 			return kTTErrNone;
+		case kTypePointer:
+			value = *((TTPtr*)attribute.address);
+			return kTTErrNone;
 		case kTypeNone:
 			return kTTErrNone;
 			
-		case kTypePointer:
 		case kTypeString:
 		case kTypeLocalValue:
 		case kNumTTDataTypes:
@@ -164,10 +166,12 @@ TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& va
 		case kTypeObject:
 			*((TTObject*)attribute.address) = value;
 			return kTTErrNone;
+		case kTypePointer:
+			*((TTPtr*)attribute.address) = value;
+			return kTTErrNone;
 		case kTypeNone:
 			return kTTErrNone;
-			
-		case kTypePointer:
+
 		case kTypeString:
 		case kTypeLocalValue:
 		case kNumTTDataTypes:
