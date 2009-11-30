@@ -378,8 +378,6 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 	bool			newInstanceCreated;
 	TTNodePtr		newTTNode;
 	t_symbol		*newInstance;
-	long i, attr_nb = 0;
-	t_symbol**		attr_names = NULL;
 	char			fullAddress[256];
 	
 	if(subscriber_object == NULL){
@@ -422,11 +420,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 		
 		// 3. add each attributes of the parameter 
 		// as properties of the node
-		object_method(subscriber_object, gensym("getattrnames"),&attr_nb, &attr_names);
-
-		for(i=0; i<attr_nb; i++){
-			jamoma_node_add_property(newTTNode, attr_names[i]);
-		}
+		jamoma_node_add_properties(newTTNode, subscriber_object);
 	}
 
 	critical_enter(0);
@@ -540,10 +534,10 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	TTString	namestring;
 	TTString	oscAddress;
 	TTList		returnedTTNodes;
-	TTNodePtr	firstReturnedTTNode;
+	//TTNodePtr	firstReturnedTTNode;
 	TTValue		data;
 	t_symbol	*osc;
-	JamomaError err;
+	//JamomaError err;
 	
 	namestring = "/";							// perhaps we could optimize this operation
 	namestring += argv->a_w.w_sym->s_name;		//	by creating a table when the param is bound
@@ -554,6 +548,10 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	if(x->out_object != NULL)
 		object_method_typed(x->out_object, jps_algorithm_message, argc, argv, NULL);	// send to jcom.out
 
+	/* 
+	 !!! don't notify observers here because this is done with the internal jcom.send
+	 what is the best now we have the nodelib ?
+	 
 	// send to the node
 	// 1. get the node with the OSC address
 	oscAddress = x->osc_name->s_name;
@@ -562,13 +560,11 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	err = jamoma_directory_get_node(gensym((char*)oscAddress.c_str()), returnedTTNodes, &firstReturnedTTNode);
 								  
 	if(err == JAMOMA_ERR_NONE){
-		
-		// add oscAddress as first atom of argv
-		atom_setsym(argv, gensym((char*)oscAddress.c_str()));
 
-		jamoma_node_notify_observers(firstReturnedTTNode, argc, argv);
+		jamoma_node_notify_observers(firstReturnedTTNode, gensym((char*)oscAddress.c_str()), argc-1, argv+1);
 
 	}
+	 */
 
 	//hub_internals_dispatch(x, argv->a_w.w_sym, argc-1, argv+1);
 	hub_outlet_return(x, osc, argc-1, argv+1);

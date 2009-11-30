@@ -134,6 +134,7 @@ void send_float(t_send *x, double value)
 void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	TTNodePtr p_node;
+	t_symbol *destination;
 	TTList selection;
 	JamomaError err = JAMOMA_ERR_GENERIC;
 	
@@ -149,6 +150,8 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 			
 			if(err != JAMOMA_ERR_NONE)
 				object_error((t_object*)x,"%s doesn't exist", msg->s_name);
+			
+			destination = msg;
 		}
 	}
 	// here is the initialization of the lk_nodes 
@@ -173,22 +176,23 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 		// default destination
 		else
 			selection.merge(*x->lk_nodes);
+		
+		destination = x->attr_name;
 	}
 		
 	// If there is a destination list
 	if(!selection.isEmpty()){
 		
 		// send data to the selection of nodes
-		// TODO : Maybe there are some problems to send data list beginning with a symbol
-		// when we want to send data to the destination in argument ...
 		for(selection.begin(); selection.end(); selection.next()){
 			
 			selection.current().get(0,(TTPtr*)&p_node);
 
-			// TODO : 1. set the property value of the node
+			// 1. set the property value of the node
+			jamoma_node_set_property(p_node, jps_value, argc, argv);
 
 			// 2. notify observers
-			jamoma_node_notify_observers(p_node, argc, argv);
+			jamoma_node_notify_observers(p_node, destination, argc, argv);
 		}
 	}
 }

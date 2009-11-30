@@ -11,6 +11,12 @@
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
 
+
+/** Prototype of set and get methods
+ A Max external have to give acces to those methods (or just one of them) to register an attribute */
+typedef t_max_err	(*jamoma_node_get_property_method)(t_object *x, void *attr, long argc, t_atom *argv);
+typedef t_max_err	(*jamoma_node_set_property_method)(t_object *x, void *attr, long argc, t_atom *argv);
+
 // statics and globals
 
 /**	The Jamoma node directory				*/
@@ -72,36 +78,38 @@ extern "C" {
 
 	/** Return the Max object of a node */
 	t_object*		jamoma_node_max_object(TTNodePtr node);
+	
+	/** Add all attributes returned by the t_object as properties of the node 
+		and prepare callbacks mecanism to get and set them */
+	JamomaError		jamoma_node_add_properties(TTNodePtr node, t_object *object);
+	
+	/** Get the value of a property of a node */
+	JamomaError		jamoma_node_get_property(TTNodePtr node, t_symbol *property, long *argc, t_atom **argv);
+	
+	/** Set the value of a property of a node */
+	JamomaError		jamoma_node_set_property(TTNodePtr node, t_symbol *property, long argc, t_atom *argv);
 
 	/** Return all properties of a node */
 	JamomaError		jamoma_node_properties(TTNodePtr node, TTList& lk_prp);
 
-	/** Add a property to a node as a key in the hashtab (without value) */
-	JamomaError		jamoma_node_add_property(TTNodePtr node, t_symbol *property);
-	
-	/** TODO: Get the value of a property of a node */
-	JamomaError		jamoma_node_get_property(TTNodePtr node, t_symbol *property, long *argc, t_atom **argv);
-	
-	/** TODO : This method is called by the TTNode to get the property of the object (depending on the type of the object and the propertie) */
-	void			jamoma_node_get_property_method(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr *value);
-	
-	/** TODO : Set the value of a property of a node */
-	JamomaError		jamoma_node_set_property(TTNodePtr node, t_symbol *property, long argc, t_atom *argv);
-	
-	/** TODO : This method is called by the TTNode to set the property of the object (depending on the type of the object and the propertie) */
-	void			jamoma_node_set_property_method(TTNodePtr node, TTSymbolPtr property, TTValuePtr value);
-
 	/** Add an t_object as an observer of a node */
 	void			jamoma_node_add_observer(TTNodePtr node, t_object *object, t_symbol *jps_method, TTObjectPtr *newObserver);
-	void			jamoma_node_callback(TTPtr p_baton, TTValue& data);
 
 	/** Notify all observers of a node */
-	void			jamoma_node_notify_observers(TTNodePtr node, long argc, t_atom *argv);
+	void			jamoma_node_notify_observers(TTNodePtr node, t_symbol* mess, long argc, t_atom *argv);
 
 	/** Remove an observer of a node */
 	void			jamoma_node_remove_observer(TTNodePtr node, TTObjectPtr oldCallback);
 
-
+	/** Callback used to get data from a Max object external using public attr method */
+	void			jamoma_node_getter_callback(TTPtr p_baton, TTValue& data);
+	
+	/** Callback used to set data from a Max object external using public attr method */
+	void			jamoma_node_setter_callback(TTPtr p_baton, TTValue& data);
+	
+	/** Callback used to notify Max object external observer using private function
+		void function(t_object *x, t_symbol *msg, long argc, t_atom *argv) */
+	void			jamoma_node_observer_callback(TTPtr p_baton, TTValue& data);
 
 #ifdef __cplusplus
 }

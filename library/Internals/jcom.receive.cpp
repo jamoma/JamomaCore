@@ -31,7 +31,10 @@ void 		receive_setcallback(t_receive *x, void *callback, void *arg);
 void 		receive_dispatch(t_receive *x, t_symbol *msg, long argc, t_atom *argv);
 void		receive_bind(t_receive *x);
 void 		receive_remove(t_receive *x);
-void		receive_node_callback(t_receive *x, t_symbol *msg, long argc, t_atom *argv);
+void		receive_node_callback(t_receive *x, t_symbol *mess, long argc, t_atom *argv);
+
+// experimental method to test the getter mecanism on a node
+void		receive_get(t_receive *x);
 
 // Globals
 static t_class		*s_receive_class;					// Required: Global pointer the jcom.receive class
@@ -61,6 +64,9 @@ void receive_initclass()
 	class_addmethod(c, (method)receive_setcallback,		"setcallback",		A_CANT, 0);
     class_addmethod(c, (method)receive_assist,			"assist", 			A_CANT, 0);
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 			A_CANT, 0);
+	
+	// experimental method to test the getter mecanism on a node
+	class_addmethod(c, (method)receive_get,				"bang", 			0);
 	
 	// ATTRIBUTE: name
 	attr = attr_offset_new("name", _sym_symbol, attrflags,
@@ -146,8 +152,6 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 	return MAX_ERR_NONE;
 }
 
-
-// 
 void receive_bind(t_receive *x)
 {
 	TTObjectPtr newCallback;
@@ -192,25 +196,52 @@ void receive_bind(t_receive *x)
 	}
 }
 
+// experimental method to test the getter mecanism on a node
+void receive_get(t_receive *x)
+{
+	TTNodePtr	p_node;
+	long		argc;
+	t_atom		*argv;
+	
+	if(!x->lk_nodes->isEmpty()){
+		
+		// for each node of the selection
+		for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
+			
+			// get a node from the selection
+			x->lk_nodes->current().get(0,(TTPtr*)&p_node);
+			
+			// get the value of the node
+			jamoma_node_get_property(p_node, jps_value, &argc, &argv);
+			
+			// get the OSCAddress of the node (in case we use * inside the x->attrname)
+			// and output data
+			outlet_anything(x->outlet, jamoma_node_OSC_address(p_node), argc, argv);
+			
+			// free memory allocated inside the get property method
+			free(argv);
+		}
+	}
+}
+
 // This method his called by each observer attached to a node.
 // Read the TTNode file to get info about observers mecanism
-void receive_node_callback(t_receive *x, t_symbol *msg, long argc, t_atom *argv)
-{
-	t_symbol *oscAddress;
-
-	// first argument is the address of the node 
-	// where comes from the changing
-	if(atom_gettype(&argv[0]) == A_SYM)
-		oscAddress = atom_getsym(&argv[0]);
-	else
-		oscAddress = _sym_nothing;
+void receive_node_callback(t_receive *x, t_symbol *mess, long argc, t_atom *argv)
+{	
+	object_post((t_object *)x, "jcom.receive : %s", mess->s_name);
 	
-	outlet_anything(x, oscAddress, argc-1, argv+1);
+	if(!x->callback){
+		object_post((t_object *)x, "external : %d", x);
+		outlet_anything(x->outlet, (t_symbol *)mess, argc, argv);
+	}
+	else
+		object_post((t_object *)x, "internal : %d", x);
+		
 }
 
 void receive_remove(t_receive *x)
 {
-	TTObjectPtr oldCallback;
+	/*TTObjectPtr oldCallback;
 	TTNodePtr p_node;
 	
 	// if there is a selection, remove Observers
@@ -234,6 +265,7 @@ void receive_remove(t_receive *x)
 	
 	delete x->lk_nodes;
 	delete x->lk_observer;
+	 */
 
 	//object_method(g_receivemaster_object, jps_remove, x->attr_name, x);
 }
@@ -247,7 +279,6 @@ void receive_dispatch(t_receive *x, t_symbol *msg, long argc, t_atom *argv)
 	else
 		outlet_anything(x->outlet, msg, argc, argv);
 }
-
 
 //	When we are inside of another external, we need a way to transmit messages
 //	to it. This function sets up another callback, which can call a function 

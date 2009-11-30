@@ -211,127 +211,202 @@ JamomaError	jamoma_node_properties(TTNodePtr node, TTList& lk_prp)
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError	jamoma_node_add_property(TTNodePtr node, t_symbol *property)
+JamomaError	jamoma_node_add_properties(TTNodePtr node, t_object *object)
+{
+	long			count = 0;
+	t_symbol		**attrnames = NULL;
+	long			i;
+	
+	// !!!
+	// !!! get attributes names of the Max external (So the object have to set a getattrnames method)
+	// !!!
+	object_method(object, gensym("getattrnames"), &count, &attrnames);
+	
+	for(i = 0; i < count; i++){
+		
+		// Prepare a callback to get attribute
+		TTObjectPtr newGetter = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectInstantiate(TT("Callback"), &newGetter, kTTValNONE);
+		
+		TTValuePtr	newGetterBaton = new TTValue(TTPtr(object));
+		newGetterBaton->append(TTPtr(attrnames[i]));
+		
+		newGetter->setAttributeValue(TT("Baton"), TTPtr(newGetterBaton));
+		newGetter->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_getter_callback));
+		
+		// Prepare a callback to set attribute
+		TTObjectPtr newSetter = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectInstantiate(TT("Callback"), &newSetter, kTTValNONE);
+		
+		TTValuePtr newSetterBaton = new TTValue(TTPtr(object));
+		newSetterBaton->append(TTPtr(attrnames[i]));
+		
+		newSetter->setAttributeValue(TT("Baton"), TTPtr(newSetterBaton));
+		newSetter->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_setter_callback));
+		
+		// add the attribute as a property of the node
+		// TODO : use the fact that a TTNode is also a TTObject to use the TTAttribute mecanism
+		node->addProperty(TT(attrnames[i]->s_name), *newGetter, *newSetter);
+	}
+	
+	// free the memory allocated inside param_getattrnames
+	free(attrnames);
+	
+	return JAMOMA_ERR_NONE;
+}
+
+JamomaError jamoma_node_get_property(TTNodePtr node, t_symbol *property, long *argc, t_atom **argv)
+{
+	TTErr	err;
+	TTValue	data;
+	
+	// prepare data to send (argc, argv)
+	data.append((TTPtr)argc);
+	data.append((TTPtr)argv);
+	
+	// get the value of the property
+	err = node->getProperty(TT(property->s_name), data);
+	
+	if(err == kTTErrNone)
+		return JAMOMA_ERR_NONE;
+
+	return JAMOMA_ERR_GENERIC;
+}
+
+JamomaError jamoma_node_set_property(TTNodePtr node, t_symbol *property, long argc, t_atom *argv)
 {
 	TTErr err;
-
-	err = node->addProperty(TT(property->s_name), &jamoma_node_get_property_method,  &jamoma_node_set_property_method);
+	TTValue	data;
+	
+	// prepare data to send (argc, argv)
+	data.append((TTUInt8)argc);
+	data.append((TTPtr)argv);
+	
+	// get the value of the property
+	err = node->setProperty(TT(property->s_name), data);
+	
 	if(err == kTTErrNone)
 		return JAMOMA_ERR_NONE;
 	
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError	jamoma_node_get_property(TTNodePtr node, t_symbol *property, long *argc, t_atom **argv)
-{
-	TTValuePtr returnedValue = NULL;
-	TTErr err;
-	t_atom *a;
-	long i;
-	
-	// get the value propertie
-	err = node->getProperty(TT(property->s_name), &returnedValue);
-	
-	if(err == kTTErrNone){
-		// convert it to use in Max
-		if(returnedValue){
-			
-			(*argc) = returnedValue->getSize();
-			(*argv) = (t_atom*)malloc(sizeof(t_atom)*(*argc));
-			
-			for(i = 0; i < (*argc); i++){
-				returnedValue->get(i, (TTPtr*)&a);
-				jcom_core_atom_copy((*argv)+i, a);
-			}
-		}
-		return JAMOMA_ERR_NONE;
-	}
-	
-	return JAMOMA_ERR_GENERIC;
-}
-
-void jamoma_node_get_property_method(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr *value)
-{
-	(*value) = NULL;
-	// Get the propertie of the object pointed by the node
-	
-	// For a hub :
-	
-	// For a jcom.parameter/message/return :
-	post("jamoma_node_get_propertie_method");
-}
-
-JamomaError	jamoma_node_set_property(TTNodePtr node, t_symbol *property, long argc, t_atom *argv)
-{
-	// TODO
-
-	return JAMOMA_ERR_NONE;
-}
-
-void jamoma_node_set_property_method(TTNodePtr node, TTSymbolPtr propertie, TTValuePtr value)
-{
-	// Set the propertie of the object pointed by the node
-	
-	// For a hub :
-	
-	// For a jcom.parameter/message/return :
-	post("jamoma_node_set_propertie_method");
-}
-
 void jamoma_node_add_observer(TTNodePtr node, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver)
 {
 	TTObjectPtr newObserver;
 	TTValuePtr	newBaton;
-
+	
+	// Test
+	TTSymbolPtr returnedAddress;
+	TTSymbolPtr outputAudioGain = TT("/output~/audio/gain");
+	// test end
+	
 	if(object && jps_method){
 		
-		newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... I guess this not good.
+		// Test
+		if(jps_method == gensym("receive_node_callback")){
+			node->getOscAddress(&returnedAddress);
+			if(returnedAddress == outputAudioGain)
+				post("%d", object);
+		}
+		// test end
+		
+		newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
 		
 		newBaton = new TTValue(TTPtr(object));
 		newBaton->append(TTPtr(jps_method));
 		
 		newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-		newObserver->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_callback));
-
+		newObserver->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_observer_callback));
+		
 		node->registerObserverForNotifications(*newObserver);
 		
 		(*returnedObserver) = newObserver;
 	}
 }
 
-void jamoma_node_notify_observers(TTNodePtr node, long argc, t_atom *argv)
+void jamoma_node_notify_observers(TTNodePtr node, t_symbol* mess, long argc, t_atom *argv)
 {
 	TTValue	data;
 
-	// prepare data to send (argc, argv)
-	data.append((TTUInt8)argc);
-	data.append(argv);
+	// prepare data to send (mess, argc, argv)
+	data.append(TTPtr(mess));
+	data.append(TTUInt8(argc));
+	data.append(TTPtr(argv));
 		
 	// notify each observer of the node
 	node->notifyObservers(data);
 }
 
-void jamoma_node_callback(TTPtr p_baton, TTValue& data)
+void jamoma_node_getter_callback(TTPtr p_baton, TTValue& data)
 {
 	TTValuePtr	b;
-	t_object*	x;
-	t_symbol*	jps_method;
-	long		argc;
-	t_atom*		argv;
-
+	t_object	*x;
+	t_symbol	*attrname;
+	long		*p_argc;
+	t_atom		**p_argv;
+	t_max_err	err;
+	
 	// unpack baton (a t_object* and the name of the method to call)
 	b = (TTValuePtr)p_baton;
-	b->get(0,(TTPtr*)&x);
-	b->get(1,(TTPtr*)&jps_method);
+	b->get(0, (TTPtr*)&x);
+	b->get(1, (TTPtr*)&attrname);
+	
+	// unpack data (p_argc and p_argv)
+	data.get(0, (TTPtr*)&p_argc);
+	data.get(1, (TTPtr*)&p_argv);
+	
+	// get back data using a class method of the object : void function(t_object *x, long *argc, t_atom **argv)
+	*p_argc = 0;
+	*p_argv = NULL;
+	err = object_attr_getvalueof(x, attrname, p_argc, p_argv);
+}
 
+void jamoma_node_setter_callback(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr	b;
+	t_object	*x;
+	t_symbol	*attrname;
+	long		argc;
+	t_atom		*argv;
+	t_max_err	err;
+	
+	// unpack baton (a t_object* and the name of the method to call)
+	b = (TTValuePtr)p_baton;
+	b->get(0, (TTPtr*)&x);
+	b->get(1, (TTPtr*)&attrname);
+	
 	// unpack data (argc and argv)
 	data.get(0, argc);
-	data.get(1,(TTPtr*)&argv);
+	data.get(1, (TTPtr*)&argv);
 	
-	// send data using a class method of the object
-	object_method_typed(x, jps_method, argc, argv, NULL);
+	// send data using a class attr method of the object
+	err = object_attr_setvalueof(x, attrname, argc, argv);
 }
+
+void jamoma_node_observer_callback(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr	b;
+	t_object	*x;
+	t_symbol	*jps_method;
+	t_symbol	*mess;
+	long		argc;
+	t_atom		*argv;
+	// unpack baton (a t_object* and the name of the method to call)
+	b = (TTValuePtr)p_baton;
+	b->get(0, (TTPtr*)&x);
+	b->get(1, (TTPtr*)&jps_method);
+	
+	// unpack data (argc and argv)
+	data.get(0, (TTPtr*)&mess);
+	data.get(1, argc);
+	data.get(2, (TTPtr*)&argv);
+	
+	// send data using a class method of the object : void function(t_object *x, t_symbol *mess, long argc, t_atom *argv)
+	object_method(x, jps_method, mess, argc, argv);
+}
+
 
 void jamoma_node_remove_observer(TTNodePtr node, TTObjectPtr oldCallback)
 {
