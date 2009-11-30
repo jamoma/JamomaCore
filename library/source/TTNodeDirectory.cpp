@@ -123,7 +123,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 			else{
 				// get the TTNode at this address
 				found->get(0,(TTPtr*)&n_found);
-				n_found->addProperty(oscAddress_property, NULL, NULL);  // TODO : advise the user that he is creating an attribut without any access (get and set) method
+				//n_found->addProperty(oscAddress_property, NULL, NULL);  // TODO : what todo in that case ?
 
 				return kTTErrNone;
 			}

@@ -315,22 +315,24 @@ TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created
 	return kTTErrNone;
 }
 
-TTErr TTNode::addProperty(TTSymbolPtr property, void(*getPropertyMethod)(TTNodePtr node, TTSymbolPtr property, TTValuePtr *returnedValue), void(*setPropertyMethod)(TTNodePtr node, TTSymbolPtr property, TTValuePtr value))
+TTErr TTNode::addProperty(const TTSymbolPtr property, const TTObject& getterObject, const TTObject& setterObject)
 {
 	TTErr err;
-	TTValuePtr p_method;
+	TTValue p_found;
+	TTValuePtr p_callbacks;
 
 	// look into the hashtab to check if the property exists
-	err = this->properties->lookup(property, *p_method);
+	err = this->properties->lookup(property, p_found);
 
 	// if this property doesn't exist
 	if(err == kTTErrValueNotFound){
 		
-		// store the get and set property methods
-		p_method = new TTValue((TTPtr)getPropertyMethod);
-		p_method->append((TTPtr)setPropertyMethod);
+		// store the get and set property callbacks
+		p_callbacks = new TTValue(getterObject);
+		p_callbacks->append(setterObject);
 		
-		this->properties->append(property, p_method);
+		this->properties->append(property, *p_callbacks);
+		
 		return kTTErrNone;
 	}
 	else
@@ -340,20 +342,17 @@ TTErr TTNode::addProperty(TTSymbolPtr property, void(*getPropertyMethod)(TTNodeP
 TTErr TTNode::getPropertyList(TTList& lk_prp)
 {
 	unsigned int i;
-	TTValue *hk;
+	TTValue hk;
 	TTSymbolPtr key;
-	TTValue *c;
 	
 	// if there are properties
 	if(!this->properties->isEmpty()){
 		
-		hk = new TTValue();
-		c = new TTValue();
-		this->properties->getKeys(*hk);
+		this->properties->getKeys(hk);
 		
 		// for each property
 		for(i = 0; i < this->properties->getSize(); i++){
-			hk->get(i,(TTSymbol**)&key);
+			hk.get(i,(TTSymbol**)&key);
 			// add the property to the linklist
 			 lk_prp.append(new TTValue((TTSymbolPtr)key));
 		}
@@ -363,58 +362,60 @@ TTErr TTNode::getPropertyList(TTList& lk_prp)
 	return kTTErrGeneric;
 }
 
-bool TTNode::isProperty(TTSymbolPtr property)
+bool TTNode::isProperty(const TTSymbolPtr property)
 {
 	TTErr err;
-	TTValuePtr p_methods = NULL;
+	TTValue p_callbacks;
 	
 	// look into the hashtab to check if the property exists
-	err = this->properties->lookup(property, *p_methods);
+	err = this->properties->lookup(property, p_callbacks);
 	
 	return err == kTTErrNone;
 }
 
-TTErr TTNode::getProperty(TTSymbolPtr property, TTValuePtr *returnedValue)
+TTErr TTNode::getProperty(const TTSymbolPtr property, TTValue& returnedValue)
 {
-	TTErr err;
-	TTValuePtr p_methods = NULL;
-	void (*g_method)(TTNodePtr n, TTSymbolPtr p, TTValuePtr *rv);
+	TTErr			err;
+	TTValue			p_callbacks;
+	TTCallbackPtr	aGetter = NULL;
 	
 	// look into the hashtab to check if the property exists
-	err = this->properties->lookup(property, *p_methods);
+	err = this->properties->lookup(property, p_callbacks);
 	
 	// if this property exists
 	if(err == kTTErrNone){
-		// get the set property method
-		// and use it
-		if(p_methods){
-			p_methods->get(0, (TTPtr*)&g_method);
-			g_method(this, property, returnedValue);
+		p_callbacks.get(0, TTObjectHandle(&aGetter));
+		if(aGetter){
+			TT_ASSERT("TTNode property getter member is not NULL", aGetter);
+			aGetter->notify(returnedValue);
+			return kTTErrNone;
 		}
-		return kTTErrNone;
+		else
+			return kTTErrValueNotFound;
 	}
 	else
 		return kTTErrGeneric;
 }
 
-TTErr TTNode::setProperty(TTSymbolPtr property, TTValuePtr value)
+TTErr TTNode::setProperty(const TTSymbolPtr property, TTValue& value)
 {
-	TTErr err;
-	TTValuePtr p_methods = NULL;
-	void (*s_method)(TTNodePtr n, TTSymbolPtr p, TTValuePtr v);
+	TTErr			err;
+	TTValue			p_callbacks;
+	TTCallbackPtr	aSetter = NULL;
 	
 	// look into the hashtab to check if the property exists
-	err = this->properties->lookup(property, *p_methods);
+	err = this->properties->lookup(property, p_callbacks);
 	
 	// if this property exists
 	if(err == kTTErrNone){
-		// get the set property method
-		// and use it
-		if(p_methods){
-			p_methods->get(1, (TTPtr*)&s_method);
-			s_method(this, property, value);
+		p_callbacks.get(1, TTObjectHandle(&aSetter));
+		if(aSetter){
+			TT_ASSERT("TTNode property setter member is not NULL", aSetter);
+			aSetter->notify(value);
+			return kTTErrNone;
 		}
-		return kTTErrNone;
+		else
+			return kTTErrValueNotFound;
 	}
 	else
 		return kTTErrGeneric;
