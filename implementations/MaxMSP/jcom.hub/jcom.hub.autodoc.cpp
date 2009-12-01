@@ -98,7 +98,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 		argc = NULL;
 		argv = NULL;
 		object_attr_getvalueof(x->in_object, jps_num_inputs, &argc, &argv);	
-		snprintf(tempstring, 1024, "\t<p>Number of signal inlets: <code> %ld </ code> <br/>", atom_getlong(argv));
+		snprintf(tempstring, 1024, "\t<p>Number of signal inlets: <code> %ld </code> <br/>", atom_getlong(argv));
 		jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 	}
 	else

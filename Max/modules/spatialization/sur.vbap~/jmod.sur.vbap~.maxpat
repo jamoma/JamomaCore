@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 249.0, 86.0, 1111.0, 476.0 ],
+		"rect" : [ 169.0, 86.0, 1111.0, 476.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 249.0, 86.0, 1111.0, 476.0 ],
+		"defrect" : [ 169.0, 86.0, 1111.0, 476.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -17,16 +17,19 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-45",
+					"linecount" : 2,
 					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 0,
-					"patching_rect" : [ 430.0, 345.0, 538.0, 19.0 ],
-					"text" : "jcom.message.array 32 source active @type boolean @description \"Mute or unmute the nth source.\""
+					"numinlets" : 2,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 430.0, 345.0, 595.0, 31.0 ],
+					"text" : "jcom.message.array 32 source active @type boolean @description \"Mute ( /active 0) or unmute (/active 1) the nth source.\" @value/default 1"
 				}
 
 			}
@@ -37,10 +40,11 @@
 					"id" : "obj-43",
 					"linecount" : 2,
 					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 0,
-					"patching_rect" : [ 430.0, 310.0, 594.0, 31.0 ],
-					"text" : "jcom.message.array 32 source gain @type decimal @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\""
+					"numinlets" : 2,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 430.0, 310.0, 583.0, 31.0 ],
+					"text" : "jcom.message.array 32 source gain @type decimal @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\" @ramp/drive scheduler @ramp/function linear"
 				}
 
 			}
@@ -51,8 +55,9 @@
 					"id" : "obj-42",
 					"linecount" : 2,
 					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 0,
+					"numinlets" : 2,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 430.0, 275.0, 589.0, 31.0 ],
 					"text" : "jcom.message.array 32 source blur @type decimal @range/bounds 0. 100. @description \"Set spatial blur of the nth source.\""
 				}
@@ -62,7 +67,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-41",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -76,7 +81,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-37",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -95,7 +100,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 366.0, 160.0, 34.0, 19.0 ],
+					"patching_rect" : [ 366.0, 172.0, 34.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 255.0, 45.0, 40.0, 19.0 ],
 					"triangle" : 0
@@ -106,7 +111,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-27",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -122,7 +127,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-26",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -139,8 +144,9 @@
 					"id" : "obj-22",
 					"linecount" : 2,
 					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 0,
+					"numinlets" : 2,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 430.0, 415.0, 599.0, 31.0 ],
 					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
 				}
@@ -153,8 +159,9 @@
 					"id" : "obj-6",
 					"linecount" : 2,
 					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 0,
+					"numinlets" : 2,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 430.0, 240.0, 603.0, 31.0 ],
 					"text" : "jcom.message.array 32 source position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
 				}
@@ -181,13 +188,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-5",
-					"linecount" : 2,
+					"linecount" : 3,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 430.0, 160.0, 592.0, 31.0 ],
-					"text" : "jcom.parameter interpolationTime @repetitions/allow 0 @type integer @range/bounds 10 2000 @range/clipmode low @description \"Sets the interpolation time in [ms] for the maitrix~ object. default value is 10 ms\"",
+					"patching_rect" : [ 430.0, 160.0, 588.0, 43.0 ],
+					"text" : "jcom.parameter interpolationTime @repetitions/allow 0 @type integer @range/bounds 10 2000 @range/clipmode low @description \"Sets the interpolation time in [ms] for the maitrix~ object. default value is 10 ms\" @dataspace time @dataspace/unit/native ms @dataspace/unit/active ms @dataspace/unit/display ms",
 					"varname" : "destination/dimensions[1]"
 				}
 
@@ -196,7 +203,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-4",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -269,7 +276,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 366.0, 122.0, 34.0, 19.0 ],
+					"patching_rect" : [ 366.0, 132.0, 34.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 255.0, 25.0, 39.0, 19.0 ],
 					"triangle" : 0
@@ -310,7 +317,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-10",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -352,40 +359,12 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-18",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 186.0, 223.0, 150.0, 19.0 ],
-					"text" : "jcom.oscroute /audio/mute"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-19",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 186.0, 261.0, 49.0, 19.0 ],
-					"text" : "mute~"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"comment" : "W - omni",
 					"id" : "obj-20",
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 225.0, 355.0, 25.0, 25.0 ]
+					"patching_rect" : [ 225.0, 350.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -398,7 +377,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 130.0, 300.0, 83.0, 19.0 ],
+					"patching_rect" : [ 130.0, 300.0, 114.0, 19.0 ],
 					"text" : "jalg.sur.vbap~"
 				}
 
@@ -407,7 +386,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-23",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -452,7 +431,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 315.0, 25.0, 25.0 ]
+					"patching_rect" : [ 10.0, 350.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -474,6 +453,7 @@
 			}
 , 			{
 				"box" : 				{
+					"background" : 1,
 					"has_gain" : 1,
 					"has_mute" : 1,
 					"id" : "obj-36",
@@ -484,7 +464,7 @@
 					"prefix" : "audio",
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"text" : "/editing_this_module.1"
+					"text" : "/editing_this_module"
 				}
 
 			}
@@ -513,15 +493,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-14", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-19", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-18", 0 ]
 				}
 
 			}

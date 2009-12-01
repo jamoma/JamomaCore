@@ -1096,6 +1096,7 @@ void hub_preset_interface(t_hub* x)
 	char			filename[MAX_FILENAME_CHARS];
 	short			path;
 	long			type;
+	long			filetype = 'JSON';
 	t_dictionary*	d;
 	t_object*		p;
 	t_atom			a;
@@ -1108,7 +1109,7 @@ void hub_preset_interface(t_hub* x)
 	}
 	
 	strncpy_zero(filename, "jcom.preset_interface.maxpat", MAX_FILENAME_CHARS);
-	locatefile_extended(filename, &path, &type, NULL, 0);
+	locatefile_extended(filename, &path, &type, &filetype, 1);
 	dictionary_read(filename, path, &d);
 	
 	atom_setobj(&a, d);
