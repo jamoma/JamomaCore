@@ -242,7 +242,12 @@ JamomaError	jamoma_node_add_properties(TTNodePtr node, t_object *object)
 		newSetterBaton->append(TTPtr(attrnames[i]));
 		
 		newSetter->setAttributeValue(TT("Baton"), TTPtr(newSetterBaton));
-		newSetter->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_setter_callback));
+		
+		// Special case for 'value' attribute
+		if(attrnames[i] == jps_value)
+			newSetter->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_setter_value_callback));
+		else
+			newSetter->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_setter_callback));
 		
 		// add the attribute as a property of the node
 		// TODO : use the fact that a TTNode is also a TTObject to use the TTAttribute mecanism
@@ -282,7 +287,7 @@ JamomaError jamoma_node_set_property(TTNodePtr node, t_symbol *property, long ar
 	data.append((TTUInt8)argc);
 	data.append((TTPtr)argv);
 	
-	// get the value of the property
+	// set the value of the property
 	err = node->setProperty(TT(property->s_name), data);
 	
 	if(err == kTTErrNone)
@@ -296,20 +301,7 @@ void jamoma_node_add_observer(TTNodePtr node, t_object *object, t_symbol *jps_me
 	TTObjectPtr newObserver;
 	TTValuePtr	newBaton;
 	
-	// Test
-	TTSymbolPtr returnedAddress;
-	TTSymbolPtr outputAudioGain = TT("/output~/audio/gain");
-	// test end
-	
 	if(object && jps_method){
-		
-		// Test
-		if(jps_method == gensym("receive_node_callback")){
-			node->getOscAddress(&returnedAddress);
-			if(returnedAddress == outputAudioGain)
-				post("%d", object);
-		}
-		// test end
 		
 		newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
@@ -385,6 +377,26 @@ void jamoma_node_setter_callback(TTPtr p_baton, TTValue& data)
 	err = object_attr_setvalueof(x, attrname, argc, argv);
 }
 
+void jamoma_node_setter_value_callback(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr	b;
+	t_object	*x;
+	long		argc;
+	t_atom		*argv;
+	t_max_err	err;
+	
+	// unpack baton (a t_object* and the name of the method to call)
+	b = (TTValuePtr)p_baton;
+	b->get(0, (TTPtr*)&x);
+	
+	// unpack data (argc and argv)
+	data.get(0, argc);
+	data.get(1, (TTPtr*)&argv);
+	
+	// send data to a parameter using the dispatched method
+	err = object_method_typed(x, jps_dispatched, argc, argv, NULL);
+}
+
 void jamoma_node_observer_callback(TTPtr p_baton, TTValue& data)
 {
 	TTValuePtr	b;
@@ -407,9 +419,8 @@ void jamoma_node_observer_callback(TTPtr p_baton, TTValue& data)
 	object_method(x, jps_method, mess, argc, argv);
 }
 
-
 void jamoma_node_remove_observer(TTNodePtr node, TTObjectPtr oldCallback)
 {
-	node->unregisterObserverForNotifications(*oldCallback);
-	TTObjectRelease(&oldCallback);
+		node->unregisterObserverForNotifications(*oldCallback);
+		TTObjectRelease(&oldCallback);
 }

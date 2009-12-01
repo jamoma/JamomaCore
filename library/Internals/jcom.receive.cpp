@@ -187,7 +187,6 @@ void receive_bind(t_receive *x)
 			
 			// prepare the callback mecanism to
 			// be notified about changing properties
-			// (only value for instant)
 			jamoma_node_add_observer(p_node, (t_object*)x, gensym("receive_node_callback"), &newCallback);
 
 			// add the observer to the TTlist (to remove it correctly)
@@ -241,7 +240,7 @@ void receive_node_callback(t_receive *x, t_symbol *mess, long argc, t_atom *argv
 
 void receive_remove(t_receive *x)
 {
-	/*TTObjectPtr oldCallback;
+	TTObjectPtr oldCallback;
 	TTNodePtr p_node;
 	
 	// if there is a selection, remove Observers
@@ -257,7 +256,10 @@ void receive_remove(t_receive *x)
 			x->lk_observer->current().get(0,(TTPtr*)&oldCallback);
 
 			// remove the observer
-			jamoma_node_remove_observer(p_node, oldCallback);
+			
+			// TEST : to filter only external jcom.receive
+			//if(!x->callback)
+				jamoma_node_remove_observer(p_node, oldCallback);
 
 			x->lk_observer->next();
 		}
@@ -265,7 +267,6 @@ void receive_remove(t_receive *x)
 	
 	delete x->lk_nodes;
 	delete x->lk_observer;
-	 */
 
 	//object_method(g_receivemaster_object, jps_remove, x->attr_name, x);
 }

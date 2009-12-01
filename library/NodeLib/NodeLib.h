@@ -104,8 +104,11 @@ extern "C" {
 	/** Callback used to get data from a Max object external using public attr method */
 	void			jamoma_node_getter_callback(TTPtr p_baton, TTValue& data);
 	
-	/** Callback used to set data from a Max object external using public attr method */
+	/** Callback used to set data of a Max object external using public attr method */
 	void			jamoma_node_setter_callback(TTPtr p_baton, TTValue& data);
+	
+	/** Callback used to set value of a jcom.parameter external usng the dispatched method */
+	void			jamoma_node_setter_value_callback(TTPtr p_baton, TTValue& data);
 	
 	/** Callback used to notify Max object external observer using private function
 		void function(t_object *x, t_symbol *msg, long argc, t_atom *argv) */
