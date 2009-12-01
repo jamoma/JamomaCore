@@ -1207,7 +1207,7 @@ void param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		return;
 	}
 	else{
-		error("%s parameter (in the %s module) is an inappropriate type for the 'inc' message.");
+		error("%s parameter (in the %s module) is an inappropriate type for the 'inc' message.", x->common.attr_name->s_name, x->common.module_name->s_name);
 		return;
 	}
 
@@ -1272,7 +1272,7 @@ void param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		return;
 	}
 	else{
-		error("%s parameter (in the %s module) is an inappropriate type for the 'dec' message.");
+		error("%s parameter (in the %s module) is an inappropriate type for the 'dec' message.", x->common.attr_name->s_name, x->common.module_name->s_name);
 		return;
 	}
 
