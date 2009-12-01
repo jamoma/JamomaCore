@@ -23,6 +23,9 @@ typedef struct _return {
 	short							output_len;
 	short							input_len;				//used in return_lis, stores the length of a list w/o the OSC name 
 	char							attrEnable;
+	t_symbol						*attrDataspace;
+	t_symbol						*attrUnitNative;
+	//t_symbol						*native
 	t_object*						send;					// send object for direct sending
 } t_return;
 
@@ -56,9 +59,21 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	t_class 	*c;
 	t_object 	*attr = NULL;
+	long		numDataspaces = 0;
+	SymbolPtr*	dataspaceNames = NULL;
+	char		dataspaces[2048];
+	short		i;
 
 	jamoma_init();
 	common_symbols_init();
+	
+	jamoma_getDataspaceList(&numDataspaces, &dataspaceNames);
+	dataspaces[0] = 0;
+	for(i=0; i<numDataspaces; i++)
+	{
+		strcat(dataspaces, dataspaceNames[i]->s_name);
+		strcat(dataspaces, " ");
+	}
 
 	// Define our class
 	c = class_new("jcom.return",(method)return_new, (method)return_free, sizeof(t_return), (method)0L, A_GIMME, 0);
@@ -78,8 +93,17 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// ATTRIBUTE: type - options are generic, integer, decimal, string, boolean
 	jamoma_class_attr_new(c, "type", _sym_symbol, (method)return_attr_settype, (method)return_attr_gettype);
 	
-	CLASS_ATTR_CHAR(c,	"enable",	0,	t_return,	attrEnable);
-	CLASS_ATTR_STYLE(c,	"enable",	0,	"onoff");
+	// ATTRIBUTES: dataspace stuff
+	
+	CLASS_ATTR_SYM(c,						"dataspace",					0,	t_return, attrDataspace);
+	CLASS_ATTR_LABEL(c,						"dataspace",					0,	"dataspace");
+	CLASS_ATTR_ENUM(c,						"dataspace",					0, dataspaces);
+
+	CLASS_ATTR_SYM(c,						"dataspace/unit/native",		0,	t_return, attrUnitNative);
+	CLASS_ATTR_LABEL(c,						"dataspace/unit/native",		0,	"dataspace/unit/native");
+		
+	CLASS_ATTR_CHAR(c,						"enable",						0,	t_return,	attrEnable);
+	CLASS_ATTR_STYLE(c,						"enable",						0,	"onoff");
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -118,7 +142,9 @@ void *return_new(t_symbol *s, long argc, t_atom *argv)
 		atom_setsym(&x->output[0], name);
 		x->output_len = 1;
 		x->attrEnable = true;
-
+		x->attrDataspace = jps_none;
+		x->attrUnitNative = jps_none;
+		
 		if(patcher)
 			x->common.container = patcher;
 		
@@ -191,6 +217,22 @@ void return_dump(t_return *x)
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_description);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+		
+		snprintf(s, 256, "%s:/dataspace", x->common.attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setsym(&a[1], x->attrDataspace);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+		
+		snprintf(s, 256, "%s:/dataspace/unit/native", x->common.attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setsym(&a[1], x->attrUnitNative);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+		
+		snprintf(s, 256, "%s:/enable", x->common.attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setlong(&a[1], x->attrEnable);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+		
 /* TODO: Should we add ramping ability to this object?
 		snprintf(s, 256, "%s:ramp", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
@@ -216,12 +258,8 @@ void return_dump(t_return *x)
 		snprintf(s, 256, "%s:/type", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_type);
-		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-		
-		snprintf(s, 256, "%s:/enable", x->common.attr_name->s_name);
-		atom_setsym(&a[0], gensym(s));
-		atom_setlong(&a[1], x->attrEnable);
-		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);		
+
 	}
 }
 
@@ -242,7 +280,6 @@ t_max_err return_attr_settype(t_return *x, void *attr, long argc, t_atom *argv)
 		x->common.attr_type = atom_getsym(argv);
 	return MAX_ERR_NONE;
 }
-
 
 // Return values to the hub (so it can return them to the outside world)
 void return_send_feedback(t_return *x)
