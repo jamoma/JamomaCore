@@ -106,6 +106,7 @@
 				"box" : 				{
 					"contdata" : 1,
 					"ghostbar" : 6,
+					"hint" : "ambisonics order weights",
 					"id" : "obj-7",
 					"maxclass" : "multislider",
 					"numinlets" : 1,
@@ -116,7 +117,7 @@
 					"presentation_rect" : [ 88.0, 22.0, 208.0, 46.0 ],
 					"setminmax" : [ 0.0, 1.0 ],
 					"setstyle" : 1,
-					"size" : 2,
+					"size" : 3,
 					"spacing" : 1
 				}
 
