@@ -44,7 +44,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jmod.sur.ambipan~", "@description", "ICST Ambipanning" ],
+					"args" : [ "@name", "jmod.sur.ambipanning~", "@description", "ICST Ambipanning" ],
 					"bgmode" : 1,
 					"id" : "obj-18",
 					"maxclass" : "bpatcher",
@@ -149,7 +149,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 124.0, 77.0, 146.0, 19.0 ],
-									"text" : "jcom.initialized /ambipan~"
+									"text" : "jcom.initialized /ambipanning~"
 								}
 
 							}
@@ -940,11 +940,11 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "ambipan~" ],
+					"args" : [ "ambipanning~" ],
 					"id" : "obj-22",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.sur.ambipan~.maxpat",
+					"name" : "jmod.sur.ambipanning~.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
