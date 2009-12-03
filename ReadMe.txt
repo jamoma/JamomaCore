@@ -31,6 +31,7 @@ Install Locations are as follows:
 
 
 Documentation / API
+An introduction to writing DSP objects is online @ http://blog.74objects.com/2009/12/03/writing-dsp-objects/
 Doxygen generated documentation is located in the "documentation" folder.
 
 
