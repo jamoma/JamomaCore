@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
@@ -44,6 +45,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -416,13 +418,13 @@
 ,
 					"patching_rect" : [ 75.0, 110.0, 266.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"fontface" : 0,
-						"default_fontface" : 0,
-						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
-						"default_fontname" : "Verdana"
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p aka.spacenavigator"
@@ -455,6 +457,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -668,13 +671,13 @@
 ,
 					"patching_rect" : [ 25.0, 175.0, 60.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"fontface" : 0,
-						"default_fontface" : 0,
-						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
-						"default_fontname" : "Verdana"
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p motion"
@@ -707,6 +710,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -833,13 +837,13 @@
 ,
 					"patching_rect" : [ 295.0, 175.0, 63.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"fontface" : 0,
-						"default_fontface" : 0,
-						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
-						"default_fontname" : "Verdana"
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p buttons"
@@ -872,6 +876,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -1127,13 +1132,13 @@
 ,
 					"patching_rect" : [ 214.0, 175.0, 69.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"fontface" : 0,
-						"default_fontface" : 0,
-						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
-						"default_fontname" : "Verdana"
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p rotation"
@@ -1166,6 +1171,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -1191,7 +1197,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 258.0, 395.0, 563.0, 31.0 ],
-									"text" : "jcom.return cooked/position @range/bounds -1. 1. @type array @range/clipmode none @repetitions/allow 0 @description \"XYZ position\" @enable 0"
+									"text" : "jcom.return cooked/position @range/bounds -1. 1. @type array @range/clipmode none @repetitions/allow 0 @description \"XYZ position\" @enable 0 @dataspace position @dataspace/unit/native xyz"
 								}
 
 							}
@@ -1486,13 +1492,13 @@
 ,
 					"patching_rect" : [ 105.0, 175.0, 85.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
+						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"fontface" : 0,
-						"default_fontface" : 0,
-						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
-						"default_fontname" : "Verdana"
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p orientation"
