@@ -15,19 +15,19 @@
 /**	Delay a signal. */
 TTAUDIOCLASS(TTDelay)
 
-	TTFloat64			delay;
-	TTUInt64			delayInSamples;
-	TTFloat64			delayMax;
-	TTUInt64			delayMaxInSamples;
-	TTSymbol*			interpolation;
+	TTFloat64			mDelay;
+	TTUInt64			mDelayInSamples;
+	TTFloat64			mDelayMax;
+	TTUInt64			mDelayMaxInSamples;
+	TTSymbol*			mInterpolation;
 	
 	// alloc'd for each channel
-	TTSampleValue*		fractionalDelay;		///< used in interpolated dsp loops, if zero then the delay increment is precisely on a sample boundary
-	TTSampleValue* 		fractionalDelaySamples;	///< fractionalDelay expressed in samples rather than ms
-	TTSampleValue**		buffer;
-	TTSampleValue**		inPtr;					///< "write" pointer for buffer
-	TTSampleValue**		outPtr;					///< "read" pointer
-	TTSampleValue**		endPtr;					///< points to last sample in buffer (for speed)	
+	TTSampleValue*		mFractionalDelay;			///< used in interpolated dsp loops, if zero then the delay increment is precisely on a sample boundary
+	TTSampleValue* 		mFractionalDelaySamples;	///< fractionalDelay expressed in samples rather than ms
+	TTSampleValue**		mBuffer;
+	TTSampleValue**		mInPtr;						///< "write" pointer for buffer
+	TTSampleValue**		mOutPtr;					///< "read" pointer
+	TTSampleValue**		mEndPtr;					///< points to last sample in buffer (for speed)	
 	
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
@@ -52,21 +52,21 @@ TTAUDIOCLASS(TTDelay)
 	TTErr clear();
 	
 	/** Attribute Accessor */
-	TTErr setdelay(const TTValue& newValue);
+	TTErr setDelay(const TTValue& newValue);
 	
 	/** Attribute Accessor */
-	TTErr setdelayInSamples(const TTValue& newValue);
+	TTErr setDelayInSamples(const TTValue& newValue);
 	
 	/** Attribute Accessor */
-	TTErr setdelayMax(const TTValue& newValue);
+	TTErr setDelayMax(const TTValue& newValue);
 	
 	/** Attribute Accessor */
-	TTErr setdelayMaxInSamples(const TTValue& newValue);
+	TTErr setDelayMaxInSamples(const TTValue& newValue);
 	
 	/** Attribute Accessor */
-	TTErr setinterpolation(const TTValue& newValue);
+	TTErr setInterpolation(const TTValue& newValue);
 
 };
 
 
-#endif // __TT_DCBLOCK_H__
+#endif // __TT_DELAY_H__

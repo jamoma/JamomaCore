@@ -13,24 +13,31 @@
 #define thisTTClassTags		"audio, processor, delay"
 
 
-TT_AUDIO_CONSTRUCTOR
-, delay(0), delayInSamples(0), delayMax(0), delayMaxInSamples(0), buffer(NULL), inPtr(NULL), outPtr(NULL), endPtr(NULL)
+TT_AUDIO_CONSTRUCTOR, 
+	mDelay(0), 
+	mDelayInSamples(0), 
+	mDelayMax(0), 
+	mDelayMaxInSamples(0), 
+	mBuffer(NULL), 
+	mInPtr(NULL), 
+	mOutPtr(NULL), 
+	mEndPtr(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	
 	// declare attributes
-	registerAttributeWithSetter(delay,				kTypeFloat64);
-	registerAttributeWithSetter(delayInSamples,		kTypeInt64);
-	registerAttributeWithSetter(delayMax,			kTypeFloat64);
-	registerAttributeWithSetter(delayMaxInSamples,	kTypeInt64);
-	registerAttributeWithSetter(interpolation,		kTypeSymbol);
+	addAttributeWithSetter(Delay,				kTypeFloat64);
+	addAttributeWithSetter(DelayInSamples,		kTypeInt64);
+	addAttributeWithSetter(DelayMax,			kTypeFloat64);
+	addAttributeWithSetter(DelayMaxInSamples,	kTypeInt64);
+	addAttributeWithSetter(Interpolation,		kTypeSymbol);
 
 	// declare messages
-	registerMessageSimple(clear);
+	addMessage(clear);
 	
 	// notifications from the parent class
-	registerMessageSimple(updateSr);
-	registerMessageWithArgument(updateMaxNumChannels);
+	addMessage(updateSr);
+	addMessageWithArgument(updateMaxNumChannels);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
@@ -42,14 +49,14 @@ TT_AUDIO_CONSTRUCTOR
 
 TTDelay::~TTDelay()
 {
-	if(buffer){
-		for(TTUInt16 channel=0; channel<maxNumChannels; channel++)
-			delete [] buffer[channel];
-		delete [] buffer;
+	if (mBuffer) {
+		for (TTUInt16 channel=0; channel<maxNumChannels; channel++)
+			delete [] mBuffer[channel];
+		delete [] mBuffer;
 	}
-	delete [] inPtr;
-	delete [] outPtr;
-	delete [] endPtr;
+	delete [] mInPtr;
+	delete [] mOutPtr;
+	delete [] mEndPtr;
 }
 
 
@@ -62,28 +69,28 @@ TTErr TTDelay::init(TTUInt64 newDelayMaxInSamples)
 	TTUInt16 channel;
 
 	if(newDelayMaxInSamples){
-		delayMaxInSamples = newDelayMaxInSamples;
-		delayMax = delayMaxInSamples / srMill;
+		mDelayMaxInSamples = newDelayMaxInSamples;
+		mDelayMax = mDelayMaxInSamples / srMill;
 		
-		if(buffer){
-			for(channel=0; channel<maxNumChannels; channel++)
-				delete [] buffer[channel];
-			delete [] buffer;
+		if (mBuffer) {
+			for (channel=0; channel<maxNumChannels; channel++)
+				delete [] mBuffer[channel];
+			delete [] mBuffer;
 		}
-		delete [] inPtr;
-		delete [] outPtr;
-		delete [] endPtr;
+		delete [] mInPtr;
+		delete [] mOutPtr;
+		delete [] mEndPtr;
 		
-		buffer = new TTSampleValuePtr[maxNumChannels];
-		for(channel=0; channel<maxNumChannels; channel++)
-			buffer[channel] = new TTSampleValue[delayMaxInSamples];
+		mBuffer = new TTSampleValuePtr[maxNumChannels];
+		for (channel=0; channel<maxNumChannels; channel++)
+			mBuffer[channel] = new TTSampleValue[mDelayMaxInSamples];
 
-		inPtr = new TTSampleValuePtr[maxNumChannels];
-		outPtr = new TTSampleValuePtr[maxNumChannels];
-		endPtr = new TTSampleValuePtr[maxNumChannels];
+		mInPtr = new TTSampleValuePtr[maxNumChannels];
+		mOutPtr = new TTSampleValuePtr[maxNumChannels];
+		mEndPtr = new TTSampleValuePtr[maxNumChannels];
 		
-		for(channel=0; channel<maxNumChannels; channel++){
-			inPtr[channel] = buffer[channel];
+		for (channel=0; channel<maxNumChannels; channel++){
+			mInPtr[channel] = mBuffer[channel];
 		}
 
 		reset();
@@ -97,28 +104,28 @@ TTErr TTDelay::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	TTUInt16	numChans = oldMaxNumChannels;
 	TTUInt16	channel;
 	
-	if(buffer){
-		for(channel=0; channel<numChans; channel++)
-			delete [] buffer[channel];
-		delete [] buffer;
-		buffer = NULL;
+	if (mBuffer) {
+		for (channel=0; channel<numChans; channel++)
+			delete [] mBuffer[channel];
+		delete [] mBuffer;
+		mBuffer = NULL;
 	}
 
-	delete [] inPtr;
-	delete [] outPtr;
-	delete [] endPtr;
-	inPtr = NULL;
-	outPtr = NULL;
-	endPtr = NULL;
+	delete [] mInPtr;
+	delete [] mOutPtr;
+	delete [] mEndPtr;
+	mInPtr = NULL;
+	mOutPtr = NULL;
+	mEndPtr = NULL;
 	
-	return init(delayMaxInSamples);
+	return init(mDelayMaxInSamples);
 }
 
 
 TTErr TTDelay::updateSr()
 {
-	init(long(srMill * delay));		// allocate a larger delay buffer if neccessary	
-	return setdelay(delay);			// hold the delay time in ms constant, despite the change of sr
+	init(long(srMill * mDelay));		// allocate a larger delay buffer if neccessary	
+	return setDelay(mDelay);			// hold the delay time in ms constant, despite the change of sr
 }
 
 
@@ -128,9 +135,9 @@ TTErr TTDelay::clear()
 	TTSampleValue*	i;
 	TTUInt32		j;
 
-	for(channel=0; channel<maxNumChannels; channel++){	
-		for(i = buffer[channel], j=0; i< endPtr[channel]; i++, j++)
-			buffer[channel][j] = 0.0;
+	for (channel=0; channel<maxNumChannels; channel++) {	
+		for (i = mBuffer[channel], j=0; i< mEndPtr[channel]; i++, j++)
+			mBuffer[channel][j] = 0.0;
 	}
 	return kTTErrNone;
 }
@@ -140,22 +147,22 @@ TTErr TTDelay::clear()
 // Reset the pointers
 void TTDelay::reset()
 {
-	for(TTUInt16 channel=0; channel<maxNumChannels; channel++){
-		endPtr[channel] = buffer[channel] + delayInSamples;
-		outPtr[channel] = inPtr[channel] - delayInSamples;
-		if(outPtr[channel] < buffer[channel])
-			outPtr[channel] = endPtr[channel] + (outPtr[channel] - buffer[channel]) + 1;
-		else if(outPtr[channel] > endPtr[channel])
-			outPtr[channel] = buffer[channel] + (outPtr[channel] - endPtr[channel]);
+	for (TTUInt16 channel=0; channel<maxNumChannels; channel++) {
+		mEndPtr[channel] = mBuffer[channel] + mDelayInSamples;
+		mOutPtr[channel] = mInPtr[channel] - mDelayInSamples;
+		if (mOutPtr[channel] < mBuffer[channel])
+			mOutPtr[channel] = mEndPtr[channel] + (mOutPtr[channel] - mBuffer[channel]) + 1;
+		else if (mOutPtr[channel] > mEndPtr[channel])
+			mOutPtr[channel] = mBuffer[channel] + (mOutPtr[channel] - mEndPtr[channel]);
 	}
 	clear();
 }
 
 
-TTErr TTDelay::setdelay(const TTValue& newValue)
+TTErr TTDelay::setDelay(const TTValue& newValue)
 {
-	delay = TTClip<TTFloat64>(newValue, 0.0, delayMax);
-	delayInSamples = delay * srMill;
+	mDelay = TTClip<TTFloat64>(newValue, 0.0, mDelayMax);
+	mDelayInSamples = mDelay * srMill;
 
 // FIXME: NOT YET WORKING	
 //	fractionalDelaySamples = attrDelay * srMill;
@@ -167,52 +174,52 @@ TTErr TTDelay::setdelay(const TTValue& newValue)
 }
 
 
-TTErr TTDelay::setdelayInSamples(const TTValue& newValue)
+TTErr TTDelay::setDelayInSamples(const TTValue& newValue)
 {
-	delayInSamples = TTClip<TTUInt64>(newValue, 0, delayMaxInSamples);
-	delay = delayInSamples * 1000.0 * srInv;
+	mDelayInSamples = TTClip<TTUInt64>(newValue, 0, mDelayMaxInSamples);
+	mDelay = mDelayInSamples * 1000.0 * srInv;
 	// FIXME: NOT YET WORKING	
 	//	fractionalDelaySamples = attrDelayInSamples;
-	fractionalDelay = 0;
+	mFractionalDelay = 0;
 	
 	reset();
 	return kTTErrNone;
 }
 
 
-TTErr TTDelay::setdelayMax(const TTValue& newValue)
+TTErr TTDelay::setDelayMax(const TTValue& newValue)
 {
-	delayMax = newValue;
-	delayMaxInSamples = delayMax * srMill;
-	init(delayMaxInSamples);
+	mDelayMax = newValue;
+	mDelayMaxInSamples = mDelayMax * srMill;
+	init(mDelayMaxInSamples);
 	return kTTErrNone;
 }
 
 
-TTErr TTDelay::setdelayMaxInSamples(const TTValue& newValue)
+TTErr TTDelay::setDelayMaxInSamples(const TTValue& newValue)
 {
-	delayMaxInSamples = newValue;
-	delayMax = delayMaxInSamples * 1000.0 * srInv;
-	init(delayMaxInSamples);
+	mDelayMaxInSamples = newValue;
+	mDelayMax = mDelayMaxInSamples * 1000.0 * srInv;
+	init(mDelayMaxInSamples);
 	return kTTErrNone;
 }
 
 
 // TODO: Update these when the new interpolation routines are written
-TTErr TTDelay::setinterpolation(const TTValue& newValue)
+TTErr TTDelay::setInterpolation(const TTValue& newValue)
 {
-	interpolation = newValue;
+	mInterpolation = newValue;
 	
-	if(interpolation == TT("none")){
+	if (mInterpolation == TT("none")) {
 		setProcess((TTProcessMethod)&TTDelay::processAudioNoInterpolation);
 	}
-	else if(interpolation == TT("linear")){
+	else if (mInterpolation == TT("linear")) {
 		setProcess((TTProcessMethod)&TTDelay::processAudioNoInterpolation);
 	}
-	else if(interpolation == TT("cubic")){
+	else if (mInterpolation == TT("cubic")) {
 		setProcess((TTProcessMethod)&TTDelay::processAudioNoInterpolation);
 	}
-	else{
+	else {
 		setProcess((TTProcessMethod)&TTDelay::processAudioNoInterpolation);
 		return kTTErrInvalidValue;
 	}
@@ -241,14 +248,14 @@ TTErr TTDelay::processAudioNoInterpolation(TTAudioSignalArrayPtr inputs, TTAudio
 		outSample = out.sampleVectors[channel];
 		vs = in.getVectorSize();
 		
-		while(vs--){			
-			*inPtr[channel]++ = *inSample++;		// write the input into our buffer
-			*outSample++ = *outPtr[channel]++;		// fetch the output from our buffer
+		while (vs--) {			
+			*mInPtr[channel]++ = *inSample++;		// write the input into our buffer
+			*outSample++ = *mOutPtr[channel]++;		// fetch the output from our buffer
 			
-			if(inPtr[channel] > endPtr[channel])			// wrap the pointers in the buffer, if needed
-				inPtr[channel] = buffer[channel];
-			if(outPtr[channel] > endPtr[channel])
-				outPtr[channel] = buffer[channel];				
+			if (mInPtr[channel] > mEndPtr[channel])			// wrap the pointers in the buffer, if needed
+				mInPtr[channel] = mBuffer[channel];
+			if (mOutPtr[channel] > mEndPtr[channel])
+				mOutPtr[channel] = mBuffer[channel];				
 		}
 	}
 	return kTTErrNone;
