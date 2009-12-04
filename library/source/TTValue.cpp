@@ -973,7 +973,7 @@ TTErr TTValue::transformCSVStringToSymbolArray()
 #pragma mark Unit Testing
 #endif
 
-TTErr TTValue::test()
+void TTValue::test()
 {
 	// Test == operator (was broken prior to 2009-12-03)
 	// TODO: replace with test-assertions
@@ -982,6 +982,6 @@ TTErr TTValue::test()
     TTValue c = TTValue(2);
     TTValue b = TTValue(33);
 	
-	TT_ASSERT("== comparison for the same value", a == c);
-	TT_ASSERT("== comparison for different values", a != b);
+	TT_ASSERT("== comparison for the same value", bool(a == c));
+	TT_ASSERT("== comparison for different values", !bool(a == b));
 }
