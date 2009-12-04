@@ -967,3 +967,21 @@ TTErr TTValue::transformCSVStringToSymbolArray()
 	return kTTErrNone;
 }
 
+
+#if 0
+#pragma mark -
+#pragma mark Unit Testing
+#endif
+
+TTErr TTValue::test()
+{
+	// Test == operator (was broken prior to 2009-12-03)
+	// TODO: replace with test-assertions
+	
+	TTValue a = TTValue(2);
+    TTValue c = TTValue(2);
+    TTValue b = TTValue(33);
+	
+	TT_ASSERT("== comparison for the same value", a == c);
+	TT_ASSERT("== comparison for different values", a != b);
+}

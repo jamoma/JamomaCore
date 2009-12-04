@@ -656,6 +656,7 @@ public:
 		append(*str);	// CHANGED: If we pass a pointer then this is appended at a generic TTPtr [TAP]
 	}
 	
+	static void test();
 };
 
 
