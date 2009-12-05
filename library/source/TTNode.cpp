@@ -38,6 +38,7 @@ TTNode::~TTNode()
 	unsigned int i, j, nb_c, nb_i;
 	TTValue hk, hk_i;
 	TTSymbolPtr OSCaddress, key, key_i;
+	TTObjectPtr obsv;
 	TTValue c, c_i, p_c;
 	TTHashPtr ht_i, p_ht_i;
 	TTNodePtr n_c;

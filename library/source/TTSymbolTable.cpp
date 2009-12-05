@@ -65,15 +65,6 @@ TTSymbol* TTSymbolTable::lookup(const TTString& aString)
 }
 
 
-TTSymbol* TTSymbolTable::lookup(const int& aNumberToBeConvertedToAString)
-{
-	char	cString[16];
-	
-	snprintf(cString, 16, "%d", aNumberToBeConvertedToAString);
-	return lookup(cString);
-}
-
-
 void TTSymbolTable::dump(TTValue& allSymbols)
 {
 	TTSymbolTableIter	iter;

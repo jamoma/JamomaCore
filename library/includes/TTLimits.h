@@ -146,10 +146,9 @@ static TTInt32 TTRound(T value)
 
 
 
-#if 0
+
 #pragma mark -
 #pragma mark - new code from Tristan
-#endif
 
 //#include <cassert>
 //#include <cmath>
