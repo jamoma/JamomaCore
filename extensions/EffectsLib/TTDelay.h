@@ -37,11 +37,9 @@ class TTDelayBuffer {
 	
 	void resize(TTUInt32 newSize)
 	{
-		TTUInt32 oldSize = mBuffer.size();
-		
 		mBuffer.resize(newSize);
-		if (oldSize > newSize || mWritePointer == NULL || mReadPointer == NULL)
-			mReadPointer = mWritePointer = &mBuffer[0];
+		mReadPointer = mWritePointer = &mBuffer[0];
+		mEndPointer = (&mBuffer[0]) + size();
 	}
 	
 	void clear()
@@ -51,7 +49,6 @@ class TTDelayBuffer {
 	
 	void setDelay(TTUInt32 delayInSamples)
 	{
-		mEndPointer = (&mBuffer[0]) + delayInSamples;
 		mReadPointer = mWritePointer - delayInSamples;
 		if (mReadPointer < (&mBuffer[0]))
 			mReadPointer = mEndPointer + (mReadPointer - (&mBuffer[0])) + 1;

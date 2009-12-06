@@ -31,7 +31,7 @@ TT_AUDIO_CONSTRUCTOR,
 	// declare messages
 	addMessage(clear);
 	
-	// notifications from the parent class
+	// updates from the parent class
 	addMessage(updateSr);
 	addMessageWithArgument(updateMaxNumChannels);
 
@@ -90,7 +90,6 @@ TTErr TTDelay::clear()
 }
 
 
-// TODO: Do we really want this function called every time the delay is changed?  Won't it make a terrible sound?
 void TTDelay::reset()
 {
 	for (TTDelayBufferIter buffer = mBuffers.begin(); buffer != mBuffers.end(); ++buffer)
@@ -197,8 +196,6 @@ TTErr TTDelay::setInterpolation(const TTValue& newValue)
 	return kTTErrNone;
 
 
-
-
 inline TTErr TTDelay::calculateNoInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffer)
 {	
 	*buffer->mWritePointer++ = x;		// write the input into our buffer
@@ -217,32 +214,6 @@ inline TTErr TTDelay::calculateNoInterpolation(const TTFloat64& x, TTFloat64& y,
 TTErr TTDelay::processAudioNoInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTDELAY_WRAP_CALCULATE_METHOD(calculateNoInterpolation);
-/*
-	TTAudioSignal&	in = inputs->getSignal(0);
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		vs;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
-	TTSampleValue*	inSample;
-	TTSampleValue*	outSample;
-	
-	for(channel=0; channel<numchannels; channel++){
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
-		
-		while (vs--) {			
-			*mWritePointers[channel]++ = *inSample++;		// write the input into our buffer
-			*outSample++ = *mReadPointers[channel]++;		// fetch the output from our buffer
-			
-			if (mWritePointers[channel] > mEndPointers[channel])			// wrap the pointers in the buffer, if needed
-				mWritePointers[channel] = &mBuffer[channel][0];
-			if (mReadPointers[channel] > mEndPointers[channel])
-				mReadPointers[channel] = &mBuffer[channel][0];				
-		}
-	}
-	return kTTErrNone;
-*/
 }
 
 
