@@ -80,11 +80,8 @@ class TTDelay : public TTAudioObject {
 	TTFloat64			mDelayMax;
 	TTUInt64			mDelayMaxInSamples;
 	TTSymbolPtr			mInterpolation;
-	
-//	TTSampleValue*		mFractionalDelay;			///< used in interpolated dsp loops, if zero then the delay increment is precisely on a sample boundary
-//	TTSampleValue* 		mFractionalDelaySamples;	///< fractionalDelay expressed in samples rather than ms
-	TTSampleVector		mFractionalDelays;			///< one for each channel: used in interpolated dsp loops, if zero then the delay increment is precisely on a sample boundary
-	TTSampleVector		mFractionalDelaySamples;	///< one for each channel: fractionalDelay expressed in samples rather than ms
+	TTFloat64			mFractionalDelay;			///< used in interpolated dsp loops, if zero then the delay increment is precisely on a sample boundary
+	TTFloat64			mFractionalDelaySamples;	///< fractionalDelay expressed in samples rather than ms
 
 	TTDelayBufferVector	mBuffers;
 
@@ -104,7 +101,10 @@ class TTDelay : public TTAudioObject {
 	// Process with a constant delay time
 	TTErr calculateNoInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr data);
 	TTErr processAudioNoInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
+	TTErr calculateLinearInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr data);
 	TTErr processAudioLinearInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
 	TTErr processAudioCubicInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	// Process with a delay time set by a signal
@@ -113,7 +113,6 @@ class TTDelay : public TTAudioObject {
 //	TTErr processAudioCubicInterpolationWithDelaySignal(TTAudioSignal& in, TTAudioSignal& delayIn, TTAudioSignal& out, TTAudioSignal&);
 	
 	/** Zero out the delay's buffer. */
-//	void clearOne(TTSampleVectorPtr vec);
 	TTErr clear();
 	
 	/** Attribute Accessor */
