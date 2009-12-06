@@ -12,22 +12,85 @@
 #include "TTDSP.h"
 
 
+class TTDelayBuffer {
+	friend class TTDelay;
+	
+	TTSampleVector		mBuffer;
+	TTSampleValuePtr	mWritePointer;		///< "record" pointer for buffer
+	TTSampleValuePtr	mReadPointer;		///< "playback" pointer
+	TTSampleValuePtr	mEndPointer;		///< points to last sample in buffer (for speed)	
+	
+	public:
+	
+	TTDelayBuffer() : 
+		mWritePointer(NULL),
+		mReadPointer(NULL),
+		mEndPointer(NULL)
+	{
+		;
+	}
+	
+	TTUInt32 size()
+	{
+		return mBuffer.size();
+	}
+	
+	void resize(TTUInt32 newSize)
+	{
+		TTUInt32 oldSize = mBuffer.size();
+		
+		mBuffer.resize(newSize);
+		if (oldSize > newSize || mWritePointer == NULL || mReadPointer == NULL)
+			mReadPointer = mWritePointer = &mBuffer[0];
+	}
+	
+	void clear()
+	{
+		mBuffer.assign(size(), 0.0);
+	}
+	
+	void setDelay(TTUInt32 delayInSamples)
+	{
+		mEndPointer = (&mBuffer[0]) + delayInSamples;
+		mReadPointer = mWritePointer - delayInSamples;
+		if (mReadPointer < (&mBuffer[0]))
+			mReadPointer = mEndPointer + (mReadPointer - (&mBuffer[0])) + 1;
+		else if (mReadPointer > mEndPointer)
+			mReadPointer = (&mBuffer[0]) + (mReadPointer - mEndPointer);
+	}
+	
+	TTSampleValuePtr head()
+	{
+		return &mBuffer[0];
+	}
+	
+	TTSampleValuePtr tail()
+	{
+		return mEndPointer;
+	}
+};
+typedef TTDelayBuffer*					TTDelayBufferPtr;
+typedef vector<TTDelayBuffer>			TTDelayBufferVector;
+typedef TTDelayBufferVector::iterator	TTDelayBufferIter;
+
+
 /**	Delay a signal. */
-TTAUDIOCLASS(TTDelay)
+class TTDelay : public TTAudioObject {
+	TTCLASS_SETUP(TTDelay)
 
 	TTFloat64			mDelay;
 	TTUInt64			mDelayInSamples;
 	TTFloat64			mDelayMax;
 	TTUInt64			mDelayMaxInSamples;
-	TTSymbol*			mInterpolation;
+	TTSymbolPtr			mInterpolation;
 	
-	// alloc'd for each channel
-	TTSampleValue*		mFractionalDelay;			///< used in interpolated dsp loops, if zero then the delay increment is precisely on a sample boundary
-	TTSampleValue* 		mFractionalDelaySamples;	///< fractionalDelay expressed in samples rather than ms
-	TTSampleValue**		mBuffer;
-	TTSampleValue**		mInPtr;						///< "write" pointer for buffer
-	TTSampleValue**		mOutPtr;					///< "read" pointer
-	TTSampleValue**		mEndPtr;					///< points to last sample in buffer (for speed)	
+//	TTSampleValue*		mFractionalDelay;			///< used in interpolated dsp loops, if zero then the delay increment is precisely on a sample boundary
+//	TTSampleValue* 		mFractionalDelaySamples;	///< fractionalDelay expressed in samples rather than ms
+	TTSampleVector		mFractionalDelays;			///< one for each channel: used in interpolated dsp loops, if zero then the delay increment is precisely on a sample boundary
+	TTSampleVector		mFractionalDelaySamples;	///< one for each channel: fractionalDelay expressed in samples rather than ms
+
+	TTDelayBufferVector	mBuffers;
+
 	
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
@@ -35,10 +98,14 @@ TTAUDIOCLASS(TTDelay)
 	/** Receives notifications when there are changes to the inherited sr attribute. */
 	TTErr updateSr();
 	
+	// internal - set up the buffer memory
 	TTErr init(TTUInt64 newDelayMaxInSamples);
-	void reset();	// internal
+
+	// internal - position the buffer pointers
+	void reset();
 
 	// Process with a constant delay time
+	TTErr calculateNoInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr data);
 	TTErr processAudioNoInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processAudioLinearInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processAudioCubicInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
@@ -49,6 +116,7 @@ TTAUDIOCLASS(TTDelay)
 //	TTErr processAudioCubicInterpolationWithDelaySignal(TTAudioSignal& in, TTAudioSignal& delayIn, TTAudioSignal& out, TTAudioSignal&);
 	
 	/** Zero out the delay's buffer. */
+//	void clearOne(TTSampleVectorPtr vec);
 	TTErr clear();
 	
 	/** Attribute Accessor */
