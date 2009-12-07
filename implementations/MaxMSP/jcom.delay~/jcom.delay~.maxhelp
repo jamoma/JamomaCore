@@ -22,13 +22,27 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-23",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 550.0, 180.0, 103.0, 17.0 ],
+					"presentation_rect" : [ 552.0, 161.0, 0.0, 0.0 ],
+					"text" : "interpolation cubic"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-22",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 550.0, 200.0, 102.0, 17.0 ],
-					"presentation_rect" : [ 551.0, 201.0, 0.0, 0.0 ],
+					"patching_rect" : [ 550.0, 220.0, 102.0, 17.0 ],
 					"text" : "interpolation none"
 				}
 
@@ -42,7 +56,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 550.0, 180.0, 105.0, 17.0 ],
+					"patching_rect" : [ 550.0, 200.0, 105.0, 17.0 ],
 					"text" : "interpolation linear"
 				}
 
@@ -459,6 +473,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-23", 0 ]
 				}
 
 			}

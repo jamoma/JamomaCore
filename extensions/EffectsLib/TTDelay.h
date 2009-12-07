@@ -65,6 +65,15 @@ class TTDelayBuffer {
 	{
 		return mEndPointer;
 	}
+	
+	TTSampleValuePtr wrapPointer(TTSampleValuePtr ptr)
+	{
+		if (ptr > tail())
+			ptr = head() + (ptr - tail());
+		else if (ptr < head())
+			ptr = tail() + (ptr - head()) + 1;
+		return ptr;
+	}
 };
 typedef TTDelayBuffer*					TTDelayBufferPtr;
 typedef vector<TTDelayBuffer>			TTDelayBufferVector;
@@ -105,6 +114,7 @@ class TTDelay : public TTAudioObject {
 	TTErr calculateLinearInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr data);
 	TTErr processAudioLinearInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
+	TTErr calculateCubicInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr data);
 	TTErr processAudioCubicInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	// Process with a delay time set by a signal

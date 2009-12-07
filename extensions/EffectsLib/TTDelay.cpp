@@ -39,7 +39,7 @@ TT_AUDIO_CONSTRUCTOR,
 	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
 	setAttributeValue(TT("DelayMaxInSamples"), 256);
 	setAttributeValue(TT("DelayInSamples"), 100);
-	setAttributeValue(TT("Interpolation"), TT("linear"));
+	setAttributeValue(TT("Interpolation"), TT("cubic"));
 }
 
 
@@ -152,7 +152,7 @@ TTErr TTDelay::setInterpolation(const TTValue& newValue)
 		setProcess((TTProcessMethod)&TTDelay::processAudioLinearInterpolation);
 	}
 	else if (mInterpolation == TT("cubic")) {
-		setProcess((TTProcessMethod)&TTDelay::processAudioNoInterpolation);
+		setProcess((TTProcessMethod)&TTDelay::processAudioCubicInterpolation);
 	}
 	else {
 		setProcess((TTProcessMethod)&TTDelay::processAudioLinearInterpolation);
@@ -230,10 +230,7 @@ inline TTErr TTDelay::calculateLinearInterpolation(const TTFloat64& x, TTFloat64
 	
 	// store the value of the next sample in the buffer for interpolation
 	TTSampleValuePtr next = buffer->mReadPointer + 1;
-	if (next > buffer->tail())
-		next = buffer->head() + (next - buffer->tail());
-	else if (next < buffer->head())
-		next = buffer->tail() + (next - buffer->head()) + 1;
+	next = buffer->wrapPointer(next);
 	
 	y = ((*next) * (1.0 - mFractionalDelay)) + ((*buffer->mReadPointer) * mFractionalDelay);
 	return kTTErrNone;
@@ -242,19 +239,51 @@ inline TTErr TTDelay::calculateLinearInterpolation(const TTFloat64& x, TTFloat64
 
 TTErr TTDelay::processAudioLinearInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTDELAY_WRAP_CALCULATE_METHOD(calculateNoInterpolation);
+	TTDELAY_WRAP_CALCULATE_METHOD(calculateLinearInterpolation);
+}
+
+
+// Four-point interpolation as described @ http://crca.ucsd.edu/~msp/techniques/latest/book-html/node114.html
+// and http://crca.ucsd.edu/~msp/techniques/latest/book-html/node31.html#tab02.1
+// similar to what is implemented in Pd's vd~ object
+// note that in initial tests there appears to be slight signal boost
+inline TTErr TTDelay::calculateCubicInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffer)
+{	
+	TTSampleValue	a, b, c, d;
+	TTSampleValue	cMinusB;
+	
+	*buffer->mWritePointer = x;		// write the input into our buffer
+	
+	// move the record head
+	buffer->mWritePointer++;
+	if (buffer->mWritePointer > buffer->tail())
+		buffer->mWritePointer = buffer->head();
+	
+	// move the play head
+	buffer->mReadPointer++;
+	if (buffer->mReadPointer > buffer->tail())
+		buffer->mReadPointer = buffer->head();				
+	
+	// store the value of the next sample in the buffer for interpolation
+	a = *buffer->wrapPointer(buffer->mReadPointer + 1);
+	b = *buffer->wrapPointer(buffer->mReadPointer + 0);
+	c = *buffer->wrapPointer(buffer->mReadPointer - 1);
+	d = *buffer->wrapPointer(buffer->mReadPointer - 2);
+	cMinusB = c - b;
+		
+	y = b + mFractionalDelay * (cMinusB - 0.1666667 * (1.0 - mFractionalDelay) * ((d - a - (3.0 * cMinusB)) * mFractionalDelay + (d + (2.0 * a) - (3.0 * b))));
+	return kTTErrNone;
 }
 
 
 TTErr TTDelay::processAudioCubicInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-//	TTAudioSignal&	in = inputs->getSignal(0);
-//	TTAudioSignal&	out = outputs->getSignal(0);
-	// see http://crca.ucsd.edu/~msp/techniques/latest/book-html/node114.html
-	// see http://crca.ucsd.edu/~msp/techniques/latest/book-html/node31.html#tab02.1
-	
-	return kTTErrNone;
+	TTDELAY_WRAP_CALCULATE_METHOD(calculateCubicInterpolation);
 }
+
+
+
+
 
 
 
