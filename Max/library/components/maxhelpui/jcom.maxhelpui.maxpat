@@ -1558,7 +1558,7 @@
 					"button" : 1,
 					"clicktabcolor" : [ 0.501961, 0.85098, 0.619608, 0.0 ],
 					"clicktextcolor" : [ 0.619608, 0.0, 0.360784, 1.0 ],
-					"fontname" : "Century Gothic",
+					"fontname" : "Arial",
 					"fontsize" : 11.0,
 					"hovertextcolor" : [ 0.619608, 0.0, 0.360784, 1.0 ],
 					"htextcolor" : [ 0.619608, 0.0, 0.360784, 1.0 ],
@@ -2192,7 +2192,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 441.0, 205.0, 587.0, 29.0 ],
-					"text" : "script newobject comment @varname description @text $1 @fixwidth 1 @textcolor 0.62 0. 0.36 1. @orderfront 1 @fontsize 11 @fontname \"Century Gothic\", script offsetfrom description logo 1 -2 -20"
+					"text" : "script newobject comment @varname description @text $1 @fixwidth 1 @textcolor 0.62 0. 0.36 1. @orderfront 1 @fontsize 11 @fontname \"Arial\", script offsetfrom description logo 1 -2 -20"
 				}
 
 			}
@@ -2285,7 +2285,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 333.0, 261.0, 606.0, 29.0 ],
-					"text" : "script newobject comment @varname name @text $1 @fixwidth 1 @textcolor 0.4 0.4 0.4 1. @orderfront 1 @fontsize 20 @fontface regular @fontname \"Century Gothic\", script offsetfrom name logo 1 -2 -40"
+					"text" : "script newobject comment @varname name @text $1 @fixwidth 1 @textcolor 0.4 0.4 0.4 1. @orderfront 1 @fontsize 20 @fontface regular @fontname \"Arial\", script offsetfrom name logo 1 -2 -40"
 				}
 
 			}
