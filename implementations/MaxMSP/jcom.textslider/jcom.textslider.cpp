@@ -92,6 +92,9 @@ void		textslider_mouseenter(t_textslider *x, t_object *patcherview, t_pt pt, lon
 void		textslider_mouseleave(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers);
 void		textslider_paint(t_textslider *x, t_object *view);
 void*		textslider_oksize(t_textslider *x, t_rect *newrect);
+void		textslider_mousedoubleclick(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers);
+
+
 
 
 // globals
@@ -137,6 +140,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
     class_addmethod(c, (method)textslider_mouseleave,		"mouseleave",		A_CANT, 0);
 	class_addmethod(c, (method)textslider_notify,			"notify",			A_CANT, 0);
 	class_addmethod(c, (method)textslider_assist,			"assist",			A_CANT, 0);	
+	class_addmethod(c, (method) textslider_mousedoubleclick, "mousedoubleclick",A_CANT, 0);
 
 	CLASS_ATTR_DEFAULT(c,					"patching_rect",	0,	"0. 0. 160. 20.");
 	CLASS_ATTR_MIN(c,						"patching_size",	0,	"1. 1.");
@@ -512,6 +516,17 @@ t_max_err textslider_set_unit(t_textslider *x, void *attr, long argc, t_atom *ar
 #pragma mark User Interface
 #endif 0
 
+
+void textslider_mousedoubleclick(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers)
+{
+	if (modifiers & eControlKey) {
+		textslider_float(x, x->attrDefaultValue);	// CTRL+doubleclick sets the slider to the default value
+		x->anchorValue = x->attrDefaultValue;	
+	}
+}
+
+
+
 void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long modifiers)
 {
 	t_rect	rect;
@@ -522,12 +537,7 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 	x->mousePositionY = rect.y + px.y;	
 	
-    if (modifiers & eControlKey) {
-		textslider_float(x, x->attrDefaultValue);	// CTRL+mouseclick sets the slider to the default value
-		x->anchorValue = x->attrDefaultValue;	
-	}
-	else{	
-		// Jump to new value on mouse down?
+    // Jump to new value on mouse down?
 		if (x->attrClickJump) {
 			delta = TTClip<float>(px.x-1., 0., rect.width-3.);	// substract for borders
 			delta = delta/(rect.width-2.)*(x->attrRangeDelta) + x->attrRange[0];
@@ -538,7 +548,6 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 		}
 		x->anchorValue = x->attrValue;			
 		jbox_set_mousedragdelta((t_object *)x, 1);
-	}
 }
 
 

@@ -17,7 +17,36 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-17",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 42.0, 348.0, 46.0, 17.0 ],
+					"text" : "/report"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-16",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 321.0, 370.0, 279.0, 19.0 ],
+					"text" : "<-- set the parameter for each source independently "
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-1",
 					"maxclass" : "ezdac~",
@@ -29,7 +58,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jmod.sur.ambipan~", "@description", "ICST Ambipanning" ],
+					"args" : [ "@name", "jmod.sur.ambipanning~", "@description", "ICST Ambipanning" ],
 					"bgmode" : 1,
 					"id" : "obj-18",
 					"maxclass" : "bpatcher",
@@ -123,6 +152,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -132,8 +162,8 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 124.0, 77.0, 146.0, 19.0 ],
-									"text" : "jcom.initialized /ambipan~"
+									"patching_rect" : [ 124.0, 77.0, 165.0, 19.0 ],
+									"text" : "jcom.initialized /ambipanning~"
 								}
 
 							}
@@ -417,6 +447,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -520,6 +551,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"comment" : "",
@@ -856,7 +888,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 28.0, 485.0, 273.0, 17.0 ],
-					"text" : "/source.1/gain 84.070435"
+					"text" : "/report"
 				}
 
 			}
@@ -922,11 +954,11 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "ambipan~" ],
+					"args" : [ "ambipanning~" ],
 					"id" : "obj-22",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.sur.ambipan~.maxpat",
+					"name" : "jmod.sur.ambipanning~.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
@@ -951,6 +983,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 252.5, 339.0, 34.5, 339.0 ],
 					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-17", 0 ]
 				}
 
 			}

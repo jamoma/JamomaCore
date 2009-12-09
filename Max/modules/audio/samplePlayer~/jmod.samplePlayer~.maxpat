@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
@@ -68,13 +69,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-26",
-					"linecount" : 5,
+					"linecount" : 4,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 878.0, 506.0, 172.0, 67.0 ],
-					"text" : "jcom.return info/length @type integer @description \"returns the length in [ms] of the internal buffer\" @repetitions/allow 1"
+					"patching_rect" : [ 878.0, 506.0, 252.0, 55.0 ],
+					"text" : "jcom.return info/length @type integer @description \"returns the length in [ms] of the internal buffer\" @repetitions/allow 1 @dataspace time @dataspace/unit/native ms"
 				}
 
 			}
@@ -210,6 +211,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -296,11 +298,11 @@
 ,
 					"patching_rect" : [ 77.0, 309.0, 27.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana"
 					}
@@ -836,6 +838,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"title" : "loop editor",
 						"boxes" : [ 							{
 								"box" : 								{
@@ -920,6 +923,7 @@
 										"imprint" : 0,
 										"enablehscroll" : 1,
 										"enablevscroll" : 1,
+										"devicewidth" : 0.0,
 										"boxes" : [ 											{
 												"box" : 												{
 													"fontname" : "Verdana",
@@ -1036,11 +1040,11 @@
 ,
 									"patching_rect" : [ 231.0, 305.0, 75.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"globalpatchername" : "",
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana"
 									}
@@ -1351,7 +1355,6 @@
 								"box" : 								{
 									"bgcolor" : [ 0.129412, 0.129412, 0.129412, 1.0 ],
 									"buffername" : "3077_sample",
-									"chanoffset" : 2,
 									"clipdraw" : 1,
 									"grid" : 25.0,
 									"id" : "obj-19",
@@ -2045,6 +2048,7 @@
 										"imprint" : 0,
 										"enablehscroll" : 1,
 										"enablevscroll" : 1,
+										"devicewidth" : 0.0,
 										"boxes" : [ 											{
 												"box" : 												{
 													"fontname" : "Arial",
@@ -2316,11 +2320,11 @@
 ,
 									"patching_rect" : [ 40.0, 315.0, 50.0, 17.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Arial",
 										"default_fontsize" : 10.0,
+										"fontname" : "Arial",
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"globalpatchername" : "",
 										"default_fontface" : 0,
 										"default_fontname" : "Arial"
 									}
@@ -2385,7 +2389,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 233.0, 436.0, 61.0, 17.0 ],
-									"save" : [ "#N", "thispatcher", ";", "#Q", "window", "flags", "grow", "close", "zoom", "nofloat", "menu", "minimize", ";", "#Q", "window", "constrain", 2, 2, 32768, 32768, ";", "#Q", "window", "size", 622, 289, 1143, 613, ";", "#Q", "window", "title", ";", "#Q", "window", "exec", ";", "#Q", "savewindow", 1, ";", "#Q", "end", ";" ],
+									"save" : [ "#N", "thispatcher", ";", "#Q", "savewindow", 1, ";", "#Q", "end", ";" ],
 									"text" : "thispatcher"
 								}
 
@@ -3258,11 +3262,11 @@
 ,
 					"patching_rect" : [ 16.0, 532.0, 91.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana"
 					}

@@ -98,7 +98,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 		argc = NULL;
 		argv = NULL;
 		object_attr_getvalueof(x->in_object, jps_num_inputs, &argc, &argv);	
-		snprintf(tempstring, 1024, "\t<p>Number of signal inlets: <code> %ld </ code> <br/>", atom_getlong(argv));
+		snprintf(tempstring, 1024, "\t<p>Number of signal inlets: <code> %ld </code> <br/>", atom_getlong(argv));
 		jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 	}
 	else
@@ -297,6 +297,14 @@ void hub_autodoc_node(t_filehandle *file_handle, long *myEof, t_subscriber* t)
 	snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionDataspace\"> %s </td>", msg_type->s_name);
 	jcom_core_file_writeline(file_handle, myEof, tempstring);			
 	
+	 // dataspace/unit/native
+	argc = NULL;
+	argv = NULL;
+	object_attr_getvalueof(t->object ,jps_unit_native , &argc, &argv);
+	msg_type = atom_getsym(argv);
+	snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionDataspaceUnitNative\"> %s </td>", msg_type->s_name);
+	jcom_core_file_writeline(file_handle, myEof, tempstring);
+	
 	// repetitions/allow
 	argc = NULL;
 	argv = NULL;
@@ -326,7 +334,8 @@ void table_heading(t_filehandle *file_handle, long *myEof)
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /range/clipmode </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /ramp/drive </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /ramp/function </td>");
-	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /dataspace </td>");
+	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /dataspace </td>"); 
+	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /dataspace/unit/native </td>"); 
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /repetitions/allow </td>");	
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /description </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t<tr>");
@@ -481,34 +490,41 @@ table {\
 	background-color: #eed;\
 	vertical-align: top;\
 }\
+\
+.instructionDataspaceUnitNative {\
+font-family: 'Times New Roman', Times, serif;\
+background-color: #eee;\
+vertical-align: top;\
+ }\
+ \
 .instructionRangeBounds {\
 	font-family: 'Times New Roman', Times, serif;\
-	background-color: #eee;\
+	background-color: #eed;\
 	vertical-align: top;\
 }\
 .instructionRangeClipmode {\
 	font-family: 'Times New Roman', Times, serif;\
-	background-color: #eed;\
+	background-color: #eee;\
 	vertical-align: top;\
 }\
 .instructionRampDrive {\
 	font-family: 'Times New Roman', Times, serif;\
-	background-color: #eee;\
+	background-color: #eed;\
 	vertical-align: top;\
 }\
 .instructionRampFunction {\
 	font-family: 'Times New Roman', Times, serif;\
-	background-color: #eed;\
+	background-color: #eee;\
 	vertical-align: top;\
 }\
 .instructionRepetitionsAllow {\
 	font-family: 'Times New Roman', Times, serif;\
-	background-color: #eee;\
+	background-color: #eed;\
 	vertical-align: top;\
 }\
 .instructionDescription {\
 	font-family: 'Times New Roman', Times, serif;\
-	background-color: #eed;\
+	background-color: #eee;\
 	vertical-align: top;\
 }\
 td {\
