@@ -321,24 +321,25 @@ void paramarray_set(t_paramarray* x, long n)
 	}
 }
 
-void paramarray_mute(t_paramarray* x, long n, long io)
+void paramarray_mute(t_paramarray* x, long n, long mute)
 {
 	InternalObject	*anObject;
-	t_symbol		*select;
+	t_symbol		*selected;
 	t_max_err		err;
 	
 	if(x->attr_format){
 		
 		// edit selection
-		paramarray_parameter_name(x->attr_format, &select, n);
+		paramarray_parameter_name(x->attr_format, &selected, n);
 		
 		// check if the selection exists in the hash tab
-		err = hashtab_lookup(x->hash_internals, select, (t_object**)&anObject);
+		err = hashtab_lookup(x->hash_internals, selected, (t_object**)&anObject);
 		
 		// if it exists
-		if(!err)
-			// select the parameter to output data
-			anObject->setSelect(io > 0);
+		if(!err){
+			// select the parameter to output data if mute == 0
+			anObject->setSelect(mute == 0);
+		}
 	}
 }
 
@@ -347,21 +348,21 @@ void paramarray_solo(t_paramarray* x, long n)
 	long			i;
 	long			numKeys = 0;
 	t_symbol		**keys = NULL;
-	t_symbol		*select;
+	t_symbol		*selected;
 	InternalObject	*anObject;
 	t_max_err		err;
 	
 	if(x->attr_format){
 		
 		// edit selection
-		paramarray_parameter_name(x->attr_format, &select, n);
+		paramarray_parameter_name(x->attr_format, &selected, n);
 		
 		// get all parameters internal object
 		hashtab_getkeys(x->hash_internals, &numKeys, &keys);
 		for(i=0; i<numKeys; i++){
 			err = hashtab_lookup(x->hash_internals, keys[i], (t_object**)&anObject);
 			if(!err)
-				anObject->setSelect(keys[i] == select); // mute each parameter except "select"
+				anObject->setSelect(keys[i] == selected); // unselect each parameter except "selected" one
 		}
 	}
 }
@@ -537,9 +538,9 @@ void paramarray_info_mute(t_paramarray *x)
 			err = hashtab_lookup(x->hash_internals, select, (t_object**)&anObject);
 			if(!err){
 				if(anObject->isSelected())
-					atom_setlong(&a[i-1],0);
+					atom_setlong(&a[i-1],0); // unmuted
 				else
-					atom_setlong(&a[i-1],1);
+					atom_setlong(&a[i-1],1); // muted
 			}
 			else{
 				object_error((t_object*)x, "info_mute : a parameter doesn't exist");
