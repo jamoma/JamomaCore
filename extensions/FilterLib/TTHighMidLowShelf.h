@@ -11,7 +11,8 @@
 
 
 /**	High-Mid-Low shelf filter.	*/
-TTAUDIOCLASS(TTHighMidLowShelf)
+class TTHighMidLowShelf : public TTAudioObject {
+	TTCLASS_SETUP(TTHighMidLowShelf)
 
 	TTFloat64		frequencyLm, frequencyMh, gainL, gainM, gainH;///< filter parameter
 	TTFloat64		a0, a1, a2, b1, b2;		///< filter coefficients

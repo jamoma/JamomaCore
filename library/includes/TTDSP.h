@@ -62,12 +62,6 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTAudioObject(arguments)
 	TT_AUDIO_CONSTRUCTOR
 
 
-
-#define TTAUDIOCLASS(arg) \
-	class arg : TTAudioObject { \
-		TTCLASS_SETUP(arg)
-
-
 /** A macro for setting up the class binding to the library in extension classes. 
  @param strname A C-string that names the object as it should be listed in the environment. */
 #define TT_AUDIO_CLASS_SETUP(strname, tags, className)\

@@ -16,7 +16,8 @@
  	This class is a good example of a very simple audio filter that can process any 
  	number of parallel audio channels, with just a couple of attributes.
  */
-TTAUDIOCLASS(TTDegrade)
+class TTDegrade : public TTAudioObject {
+	TTCLASS_SETUP(TTDegrade)
 
 	TTUInt16		bitShift;		///< Amount of bits to shift away based on attrBitdepth.
 	TTSampleVector	accumulator;	///< Holds values over from one vector to the next for each channel.

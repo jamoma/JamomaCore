@@ -20,7 +20,8 @@
  	channels is twice the number of output channels.  In this case the first N/2 input channels are
  	considered as the A source and the last N/2 input channels are considered the B source.
  */
-TTAUDIOCLASS(TTBalance)
+class TTBalance : public TTAudioObject {
+	TTCLASS_SETUP(TTBalance)
 
 	TTFloat64		frequency;					///< filter cutoff frequency of inherent lowpass filter
 	TTFloat64		c, a0, a1, a2, b1, b2;		///< filter coefficients

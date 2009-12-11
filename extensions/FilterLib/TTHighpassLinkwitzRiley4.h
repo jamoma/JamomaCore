@@ -30,7 +30,8 @@
  * 5. All drivers are always wired the same (in phase).
  *
  */
-TTAUDIOCLASS(TTHighpassLinkwitzRiley4)
+class TTHighpassLinkwitzRiley4 : public TTAudioObject {
+	TTCLASS_SETUP(TTHighpassLinkwitzRiley4)
 
 	TTFloat64		frequency;				///< filter cutoff frequency
 	TTFloat64		k, wc;						///< filter coefficients

@@ -16,7 +16,8 @@
  *	Based on an algorithm from Dodge & Jerse (1997): Computer Music -
  * 	Synthesis, Composition, and Performance. 2nd edition. Schirmer.
  */
-TTAUDIOCLASS(TTHighpassButterworth2)
+class TTHighpassButterworth2 : public TTAudioObject {
+	TTCLASS_SETUP(TTHighpassButterworth2)
 
 	TTFloat64		frequency;				///< filter cutoff frequency
 	TTFloat64		c, a0, a1, a2, b1, b2;		///< filter coefficients
