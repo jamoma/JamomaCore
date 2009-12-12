@@ -15,12 +15,12 @@
 
 TT_AUDIO_CONSTRUCTOR
 {
-	registerAttribute(TT("linearGain"),	kTypeFloat64,	&gain);
-	registerAttribute(TT("gain"),		kTypeFloat64,	NULL,	(TTGetterMethod)&TTGain::getGain, (TTSetterMethod)&TTGain::setGain);
-	registerAttribute(TT("midiGain"),	kTypeFloat64,	NULL,	(TTGetterMethod)&TTGain::getMidiGain, (TTSetterMethod)&TTGain::setMidiGain);
+	registerAttribute(TT("LinearGain"),	kTypeFloat64,	&mGain);
+	registerAttribute(TT("Gain"),		kTypeFloat64,	NULL,	(TTGetterMethod)&TTGain::getGain, (TTSetterMethod)&TTGain::setGain);
+	registerAttribute(TT("MidiGain"),	kTypeFloat64,	NULL,	(TTGetterMethod)&TTGain::getMidiGain, (TTSetterMethod)&TTGain::setMidiGain);
 
 	// Set Defaults...
-	setAttributeValue(TT("linearGain"),	1.0);
+	setAttributeValue(TT("LinearGain"),	1.0);
 	setProcessMethod(processAudio);
 }
 
@@ -33,28 +33,28 @@ TTGain::~TTGain()
 
 TTErr TTGain::setGain(const TTValue& newValue)
 {
-	gain = dbToLinear(newValue);
+	mGain = dbToLinear(newValue);
 	return kTTErrNone;
 }
 
 
 TTErr TTGain::getGain(TTValue& value)
 {
-	value = linearToDb(gain);
+	value = linearToDb(mGain);
 	return kTTErrNone;
 }
 
 
 TTErr TTGain::setMidiGain(const TTValue& newValue)
 {
-	gain = midiToLinearGain(newValue);
+	mGain = midiToLinearGain(newValue);
 	return kTTErrNone;
 }
 
 
 TTErr TTGain::getMidiGain(TTValue& value)
 {
-	value = linearGainToMidi(gain);
+	value = linearGainToMidi(mGain);
 	return kTTErrNone;
 }
 
@@ -69,13 +69,13 @@ TTErr TTGain::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr o
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTUInt16		channel;
 
-	for(channel=0; channel<numchannels; channel++){
+	for (channel=0; channel<numchannels; channel++) {
 		inSample = in.sampleVectors[channel];
 		outSample = out.sampleVectors[channel];
 		vs = in.getVectorSize();
 		
-		while(vs--)
-			*outSample++ = (*inSample++) * gain;
+		while (vs--)
+			*outSample++ = (*inSample++) * mGain;
 	}
 	return kTTErrNone;
 }
