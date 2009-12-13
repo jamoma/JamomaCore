@@ -76,7 +76,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)				// main recieves a copy of the Max fu
 	// Add attributes to our class:
 	CLASS_ATTR_LONG(c,		"shape",		0,	t_fade, attr_shape);
 	CLASS_ATTR_ACCESSORS(c,	"shape",		NULL, attr_set_shape);
-	CLASS_ATTR_ENUMINDEX(c,	"shape",		0, "EqualPower Linear");
+	CLASS_ATTR_ENUMINDEX(c,	"shape",		0, "EqualPower Linear SquareRoot");
 
 	CLASS_ATTR_LONG(c,		"mode",			0,	t_fade, attr_mode);
 	CLASS_ATTR_ACCESSORS(c,	"mode",			NULL, attr_set_mode);
@@ -193,7 +193,9 @@ t_max_err attr_set_shape(t_fade *x, void *attr, long argc, t_atom *argv)
 	x->attr_shape = atom_getlong(argv);
 	if(x->attr_shape == 0) 
 		x->xfade->setAttributeValue(TT("shape"), TT("equalPower"));
-	else 
+	else if(x->attr_shape == 2)  
+	    x->xfade->setAttributeValue(TT("shape"), TT("SquareRoot"));
+	else
 		x->xfade->setAttributeValue(TT("shape"), TT("linear"));
 	
 	return MAX_ERR_NONE;
