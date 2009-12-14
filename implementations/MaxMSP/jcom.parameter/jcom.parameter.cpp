@@ -340,7 +340,7 @@ void param_setcallback(t_param *x, method newCallback, t_object *callbackArg)
 }
 
 
-bool param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
+void param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	char	osc[4096];
 	char*	property;
@@ -373,7 +373,6 @@ bool param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			// If the hub receives a bang, it's passed on to this method, 
 			// and used to update value if @ramp/drive is set to "async".
 			x->ramper->tick();
-			return true;
 		}
 		else if(get){	// get a property
 			TTSymbol*	parameterName = TT(property);
@@ -405,8 +404,7 @@ bool param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 				if(x->common.hub)
 					object_method_typed(x->common.hub, jps_return, numValues + 1, a, NULL);
 				sysmem_freeptr(a);
-			}
-			return true;
+			}				
 		}
 		else{			// set a property
 			if(argc && argv){
@@ -423,7 +421,6 @@ bool param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 				}
 				
 				x->ramper->setAttributeValue(parameterName, newValue);
-				return true;
 			}
 		}
 	}
@@ -458,8 +455,7 @@ bool param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 				if(x->common.hub)
 					object_method_typed(x->common.hub, jps_return, numValues + 1, a, NULL);
 				sysmem_freeptr(a);
-			}		
-			return true;
+			}				
 		}
 		else{			// set a property
 			if(argc && argv){
@@ -476,12 +472,9 @@ bool param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 				}
 				
 				x->ramper->setFunctionParameterValue(parameterName, newValue);	
-				return true;
 			}
 		}
 	}
-	
-	return false;
 }
 
 // This function allocates memory -- caller must free it!
@@ -1355,8 +1348,8 @@ void param_anything(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	t_atom*	av = NULL;
 
 	if(c){
-		if(param_handleProperty(x, msg, argc, argv))
-		   return;
+		param_handleProperty(x, msg, argc, argv);
+		return;
 	}
 
 	ac = argc+1;
