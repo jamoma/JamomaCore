@@ -194,7 +194,7 @@ t_max_err attr_set_shape(t_fade *x, void *attr, long argc, t_atom *argv)
 	if(x->attr_shape == 0) 
 		x->xfade->setAttributeValue(TT("shape"), TT("equalPower"));
 	else if(x->attr_shape == 2)  
-	    x->xfade->setAttributeValue(TT("shape"), TT("SquareRoot"));
+	    x->xfade->setAttributeValue(TT("shape"), TT("squareRoot"));
 	else
 		x->xfade->setAttributeValue(TT("shape"), TT("linear"));
 	
