@@ -89,8 +89,8 @@ TTErr TTHighpassLinkwitzRiley2::setfrequency(const TTValue& newValue)
 {
 	frequency = newValue;
 
-	wc = 2*kTTPi*frequency;
-	k = 2*kTTPi*frequency/tan(kTTPi*frequency/sr);
+	wc = kTTTwoPi*frequency;
+	k =  wc/tan(kTTPi*frequency/sr); // kTTTwoPi*frequency/tan(kTTPi*frequency/sr);
 
 	a0 = (k*k)/(k*k+wc*wc+2*wc*k); 
 	a1 = (-2*k*k)/(k*k+wc*wc+2*wc*k); 

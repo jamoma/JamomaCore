@@ -99,8 +99,8 @@ TTErr TTHighpassButterworth3::setfrequency(const TTValue& newValue)
 {	
 	frequency = newValue;
 
-	wc = 2*kTTPi*frequency;
-	k = 2*kTTPi*frequency/tan(kTTPi*frequency/sr);
+	wc = kTTTwoPi*frequency;
+	k = wc/tan(kTTPi*frequency/sr);//kTTTwoPi*frequency/tan(kTTPi*frequency/sr);
 
 	a0 = (k*k*k) / (wc*wc*wc + k*k*k + 2*wc*wc*k + 2*wc*k*k); 
 	a1 = (-3*k*k*k) / (wc*wc*wc + k*k*k + 2*wc*wc*k + 2*wc*k*k); 

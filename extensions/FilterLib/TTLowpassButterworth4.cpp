@@ -103,12 +103,12 @@ TTErr TTLowpassButterworth4::setfrequency(const TTValue& newValue)
 {
 	frequency = newValue;
 
-	wc = 2*kTTPi*frequency;
+	wc = kTTTwoPi*frequency;
 	wc2 = wc*wc;
 	wc3 = wc2*wc;
 	wc4 = wc3*wc;
 
-	k = 2*kTTPi*frequency/tan(kTTPi*frequency/sr);
+	k = wc/tan(kTTPi*frequency/sr);
 	k2 = k*k;
 	k3 = k2 * k;
 	k4 = k3 * k;

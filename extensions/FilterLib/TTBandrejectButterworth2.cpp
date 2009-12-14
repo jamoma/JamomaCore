@@ -111,7 +111,7 @@ TTErr TTBandRejectButterworth2::calculateCoefficients()
 	else
 		bw = frequency/q;
 	c = tan( kTTPi*(bw/sr) );
-	d = 2.0 * cos( 2.0*kTTPi*(frequency/sr) );
+	d = 2.0 * cos( kTTTwoPi*(frequency/sr) );
 	a0 = 1.0 / (1.0 + c);
 	a1 = -1.0 * a0 * d;
 	a2 = a0;
