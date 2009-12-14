@@ -188,11 +188,13 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 			
 			selection.current().get(0,(TTPtr*)&p_node);
 
-			// 1. set the property value of the node
-			jamoma_node_set_property(p_node, jps_value, argc, argv);
+			// 1. set the value attribute of the node
+			// TODO : set other attributes
+			jamoma_node_attribute_set(p_node, jps_value, argc, argv);
 
-			// 2. notify observers
-			jamoma_node_notify_observers(p_node, destination, argc, argv);
+			// 2. notify value attribute observers
+			// TODO : notify other attribute observers
+			jamoma_node_attribute_observer_notify(p_node, jps_value, destination, argc, argv);
 		}
 	}
 }

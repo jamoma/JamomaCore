@@ -12,13 +12,14 @@
 
 /** Receive Object */
 typedef struct _receive{
-	t_object					ob;				///< REQUIRED: Our object
-	void						*outlet;		///< Need one for each outlet
-	t_symbol					*attr_name;		///< ATTRIBUTE: name
-	TTListPtr					lk_nodes;		///< a pointer to a selection of Nodes of the tree
-	TTListPtr					lk_observer;	///< a pointer to the observer list that bind to the selection of Nodes.
-	t_receive_obex_callback		callback;		///< Function pointer to call if we instantiated inside of another extern
-	void						*baton;			///< Baton to hand back to the callee of the callback when it is called
+	t_object					ob;					///< REQUIRED: Our object
+	void						*outlet;			///< Need one for each outlet
+	t_symbol					*attr_name;			///< ATTRIBUTE: name
+	TTListPtr					lk_nodes;			///< a pointer to a selection of nodes of the tree
+	TTListPtr					lk_attr_observer;	///< a pointer to each created attribute observers
+	TTListPtr					lk_life_observer;	///< a pointer to each created life cycle observers
+	t_receive_obex_callback		callback;			///< Function pointer to call if we instantiated inside of another extern
+	void						*baton;				///< Baton to hand back to the callee of the callback when it is called
 } t_receive;
 
 
@@ -32,6 +33,7 @@ void 		receive_dispatch(t_receive *x, t_symbol *msg, long argc, t_atom *argv);
 void		receive_bind(t_receive *x);
 void 		receive_remove(t_receive *x);
 void		receive_node_callback(t_receive *x, t_symbol *mess, long argc, t_atom *argv);
+void		receive_node_attribute_callback(t_receive *x, t_symbol *mess, long argc, t_atom *argv);
 
 // experimental method to test the getter mecanism on a node
 void		receive_get(t_receive *x);
@@ -60,7 +62,8 @@ void receive_initclass()
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)receive_dispatch,		"dispatch",			A_CANT, 0);
-	class_addmethod(c, (method)receive_node_callback,	"receive_node_callback",	A_CANT, 0);
+	class_addmethod(c, (method)receive_node_callback,	"receive_node_attribute_callback",	A_CANT, 0);
+	class_addmethod(c, (method)receive_node_attribute_callback,	"receive_node_attribute_callback",	A_CANT, 0);
 	class_addmethod(c, (method)receive_setcallback,		"setcallback",		A_CANT, 0);
     class_addmethod(c, (method)receive_assist,			"assist", 			A_CANT, 0);
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 			A_CANT, 0);
@@ -98,7 +101,8 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 		x->callback = NULL;
 		x->attr_name = NULL;
 		x->lk_nodes = new TTList();
-		x->lk_observer = new TTList();
+		x->lk_attr_observer = new TTList();
+		x->lk_life_observer = new TTList();
 		// attr_args_process(x, argc, argv);					// handle attribute args				
 
 		// If no name was specified as an attribute
@@ -117,7 +121,7 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 // Destroy
 void receive_free(t_receive *x)
 {
-	receive_remove(x);
+	;
 }
 
 /************************************************************************************/
@@ -146,7 +150,8 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 		receive_remove(x);
 		x->attr_name = arg;
 		x->lk_nodes = new TTList();
-		x->lk_observer = new TTList();
+		x->lk_attr_observer = new TTList();
+		x->lk_life_observer = new TTList();
 		receive_bind(x);		
 	}
 	return MAX_ERR_NONE;
@@ -154,7 +159,8 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 
 void receive_bind(t_receive *x)
 {
-	TTObjectPtr newCallback;
+	TTObjectPtr newLifeCallback;
+	TTObjectPtr newAttrCallback;
 	TTList		lk_selection;
 	TTNodePtr	p_node;
 	TTErr		err = kTTErrGeneric;
@@ -186,11 +192,16 @@ void receive_bind(t_receive *x)
 			x->lk_nodes->current().get(0,(TTPtr*)&p_node);
 			
 			// prepare the callback mecanism to
-			// be notified about changing properties
-			jamoma_node_add_observer(p_node, (t_object*)x, gensym("receive_node_callback"), &newCallback);
-
-			// add the observer to the TTlist (to remove it correctly)
-			x->lk_observer->append(new TTValue((TTPtr)newCallback));
+			// be notified about changing value attribute
+			// TODO : observe other attribute (default value)
+			jamoma_node_attribute_observer_add(p_node, jps_value, (t_object*)x, gensym("receive_node_attribute_callback"), &newAttrCallback);
+			
+			// prepare the callback mecanism to
+			// be notified about the destruction of the node
+			jamoma_node_observer_add(p_node, (t_object*)x, gensym("receive_node_callback"), &newLifeCallback);
+			
+			x->lk_attr_observer->append(newAttrCallback);
+			x->lk_life_observer->append(newLifeCallback);
 		}
 	}
 }
@@ -211,7 +222,7 @@ void receive_get(t_receive *x)
 			x->lk_nodes->current().get(0,(TTPtr*)&p_node);
 			
 			// get the value of the node
-			jamoma_node_get_property(p_node, jps_value, &argc, &argv);
+			jamoma_node_attribute_get(p_node, jps_value, &argc, &argv);
 			
 			// get the OSCAddress of the node (in case we use * inside the x->attrname)
 			// and output data
@@ -224,49 +235,68 @@ void receive_get(t_receive *x)
 }
 
 // This method his called by each observer attached to a node.
-// Read the TTNode file to get info about observers mecanism
+// Read the TTNode file to get info about life cycle observers mecanism
 void receive_node_callback(t_receive *x, t_symbol *mess, long argc, t_atom *argv)
+{
+	long flag = atom_getlong(&argv[0]);
+	
+	post("node destruction : %s %d", mess->s_name, flag);
+	
+	/*TTValue	c(observingObject);
+	TTValue	v;
+	TTErr	err;
+	
+	err = x->lk_nodes->findEquals(c, v);
+	 */
+}
+
+// This method his called by each observer attached to an attibute of the node.
+// Read the TTNode file to get info about attribute observers mecanism
+void receive_node_attribute_callback(t_receive *x, t_symbol *mess, long argc, t_atom *argv)
 {	
-	object_post((t_object *)x, "jcom.receive : %s", mess->s_name);
+	//object_post((t_object *)x, "jcom.receive : %s", mess->s_name);
 	
 	if(!x->callback){
-		object_post((t_object *)x, "external : %d", x);
+		//object_post((t_object *)x, "external : %d", x);
 		outlet_anything(x->outlet, (t_symbol *)mess, argc, argv);
 	}
 	else
-		object_post((t_object *)x, "internal : %d", x);
-		
+		;//object_post((t_object *)x, "internal : %d", x);
 }
 
 void receive_remove(t_receive *x)
 {
-	TTObjectPtr oldCallback;
+	TTObjectPtr oldAttrCallback;
+	TTObjectPtr oldLifeCallback;
 	TTNodePtr p_node;
 	
 	// if there is a selection, remove Observers
 	if(x->lk_nodes){
 		
-		x->lk_observer->begin();
+		x->lk_attr_observer->begin();
+		x->lk_life_observer->begin();
 		for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
 			
 			// get a node of the selection
 			x->lk_nodes->current().get(0,(TTPtr*)&p_node);
 			
 			// get the observer relative to this node
-			x->lk_observer->current().get(0,(TTPtr*)&oldCallback);
+			x->lk_attr_observer->current().get(0,(TTPtr*)&oldAttrCallback);
+			x->lk_life_observer->current().get(0,(TTPtr*)&oldLifeCallback);
 
-			// remove the observer
-			
-			// TEST : to filter only external jcom.receive
-			//if(!x->callback)
-				jamoma_node_remove_observer(p_node, oldCallback);
+			// remove all the observers
+			// TODO : remove the other attribute observers
+			jamoma_node_attribute_observer_remove(p_node, jps_value, oldAttrCallback);
+			jamoma_node_observer_remove(p_node, oldLifeCallback);
 
-			x->lk_observer->next();
+			x->lk_attr_observer->next();
+			x->lk_life_observer->next();
 		}
 	}
 	
 	delete x->lk_nodes;
-	delete x->lk_observer;
+	delete x->lk_attr_observer;
+	delete x->lk_life_observer;
 
 	//object_method(g_receivemaster_object, jps_remove, x->attr_name, x);
 }

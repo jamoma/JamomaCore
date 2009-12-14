@@ -200,18 +200,23 @@ t_object * jamoma_node_max_object(TTNodePtr node)
 	return (t_object*)node->getObject();
 }
 
-JamomaError	jamoma_node_properties(TTNodePtr node, TTList& lk_prp)
+// Method to deal with the attributes of a node
+////////////////////////////////////////////////////
+
+JamomaError	jamoma_node_attribute_list(TTNodePtr node, TTList& lk_prp)
 {
 	TTErr err;
 	
-	err = node->getPropertyList(lk_prp);
+	// TODO : use the TTAtribute
+	return JAMOMA_ERR_GENERIC;
+	//err = node->getPropertyList(lk_prp);
 	if(err == kTTErrNone)
 		return JAMOMA_ERR_NONE;
 	
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError	jamoma_node_add_properties(TTNodePtr node, t_object *object)
+JamomaError	jamoma_node_attribute_add_all(TTNodePtr node, t_object *object)
 {
 	long			count = 0;
 	t_symbol		**attrnames = NULL;
@@ -222,37 +227,8 @@ JamomaError	jamoma_node_add_properties(TTNodePtr node, t_object *object)
 	// !!!
 	object_method(object, gensym("getattrnames"), &count, &attrnames);
 	
-	for(i = 0; i < count; i++){
-		
-		// Prepare a callback to get attribute
-		TTObjectPtr newGetter = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("Callback"), &newGetter, kTTValNONE);
-		
-		TTValuePtr	newGetterBaton = new TTValue(TTPtr(object));
-		newGetterBaton->append(TTPtr(attrnames[i]));
-		
-		newGetter->setAttributeValue(TT("Baton"), TTPtr(newGetterBaton));
-		newGetter->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_getter_callback));
-		
-		// Prepare a callback to set attribute
-		TTObjectPtr newSetter = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("Callback"), &newSetter, kTTValNONE);
-		
-		TTValuePtr newSetterBaton = new TTValue(TTPtr(object));
-		newSetterBaton->append(TTPtr(attrnames[i]));
-		
-		newSetter->setAttributeValue(TT("Baton"), TTPtr(newSetterBaton));
-		
-		// Special case for 'value' attribute
-		if(attrnames[i] == jps_value)
-			newSetter->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_setter_value_callback));
-		else
-			newSetter->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_setter_callback));
-		
-		// add the attribute as a property of the node
-		// TODO : use the fact that a TTNode is also a TTObject to use the TTAttribute mecanism
-		node->addProperty(TT(attrnames[i]->s_name), *newGetter, *newSetter);
-	}
+	for(i = 0; i < count; i++)
+		jamoma_node_attribute_add(node, attrnames[i], object);
 	
 	// free the memory allocated inside param_getattrnames
 	free(attrnames);
@@ -260,7 +236,40 @@ JamomaError	jamoma_node_add_properties(TTNodePtr node, t_object *object)
 	return JAMOMA_ERR_NONE;
 }
 
-JamomaError jamoma_node_get_property(TTNodePtr node, t_symbol *property, long *argc, t_atom **argv)
+JamomaError	jamoma_node_attribute_add(TTNodePtr node, t_symbol *attrname, t_object *object)
+{
+	// Prepare a callback to get attribute
+	TTObjectPtr newGetter = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &newGetter, kTTValNONE);
+	
+	TTValuePtr	newGetterBaton = new TTValue(TTPtr(object));
+	newGetterBaton->append(TTPtr(attrname));
+	
+	newGetter->setAttributeValue(TT("Baton"), TTPtr(newGetterBaton));
+	newGetter->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_getter_callback));
+	
+	// Prepare a callback to set attribute
+	TTObjectPtr newSetter = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &newSetter, kTTValNONE);
+	
+	TTValuePtr newSetterBaton = new TTValue(TTPtr(object));
+	newSetterBaton->append(TTPtr(attrname));
+	
+	newSetter->setAttributeValue(TT("Baton"), TTPtr(newSetterBaton));
+	
+	// Special case for 'value' attribute
+	if(attrname == jps_value)
+		newSetter->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_setter_value_callback));
+	else
+		newSetter->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_setter_callback));
+	
+	// add the attribute as an attribute of the node
+	node->registerAttribute(TT(attrname->s_name), newGetter, newSetter);
+	
+	return JAMOMA_ERR_NONE;
+}
+
+JamomaError jamoma_node_attribute_get(TTNodePtr node, t_symbol *attrname, long *argc, t_atom **argv)
 {
 	TTErr	err;
 	TTValue	data;
@@ -270,7 +279,7 @@ JamomaError jamoma_node_get_property(TTNodePtr node, t_symbol *property, long *a
 	data.append((TTPtr)argv);
 	
 	// get the value of the property
-	err = node->getProperty(TT(property->s_name), data);
+	err = node->getAttributeValue(TT(attrname->s_name), data);
 	
 	if(err == kTTErrNone)
 		return JAMOMA_ERR_NONE;
@@ -278,7 +287,7 @@ JamomaError jamoma_node_get_property(TTNodePtr node, t_symbol *property, long *a
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError jamoma_node_set_property(TTNodePtr node, t_symbol *property, long argc, t_atom *argv)
+JamomaError jamoma_node_attribute_set(TTNodePtr node, t_symbol *attrname, long argc, t_atom *argv)
 {
 	TTErr err;
 	TTValue	data;
@@ -288,7 +297,7 @@ JamomaError jamoma_node_set_property(TTNodePtr node, t_symbol *property, long ar
 	data.append((TTPtr)argv);
 	
 	// set the value of the property
-	err = node->setProperty(TT(property->s_name), data);
+	err = node->setAttributeValue(TT(attrname->s_name), data);
 	
 	if(err == kTTErrNone)
 		return JAMOMA_ERR_NONE;
@@ -296,7 +305,11 @@ JamomaError jamoma_node_set_property(TTNodePtr node, t_symbol *property, long ar
 	return JAMOMA_ERR_GENERIC;
 }
 
-void jamoma_node_add_observer(TTNodePtr node, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver)
+
+// Method to deal with observers
+////////////////////////////////////////////////////
+
+void jamoma_node_observer_add(TTNodePtr node, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver)
 {
 	TTObjectPtr newObserver;
 	TTValuePtr	newBaton;
@@ -318,18 +331,93 @@ void jamoma_node_add_observer(TTNodePtr node, t_object *object, t_symbol *jps_me
 	}
 }
 
-void jamoma_node_notify_observers(TTNodePtr node, t_symbol* mess, long argc, t_atom *argv)
+void jamoma_node_observer_notify(TTNodePtr node, t_symbol* mess, long flag)
 {
 	TTValue	data;
-
-	// prepare data to send (mess, argc, argv)
-	data.append(TTPtr(mess));
-	data.append(TTUInt8(argc));
-	data.append(TTPtr(argv));
-		
+	
+	// prepare data to send (mess, flag)
+	data.append(TT(mess->s_name));
+	data.append(TTUInt8(flag));			// TODO : create some flag type to notify node observers (0 : destruction, ... ???)
+	
 	// notify each observer of the node
-	node->notifyObservers(data);
+	node->sendNotification(TT("notify"), data);
 }
+
+void jamoma_node_observer_remove(TTNodePtr node, TTObjectPtr oldCallback)
+{
+	node->unregisterObserverForNotifications(*oldCallback);
+	TTObjectRelease(&oldCallback);
+}
+
+void jamoma_node_attribute_observer_add(TTNodePtr node, t_symbol *attrname, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver)
+{
+	TTAttributePtr anAttribute = NULL;
+	TTObjectPtr newObserver;
+	TTValuePtr	newBaton;
+	TTErr err;
+	
+	// if the attribute exist
+	err = node->findAttribute(TT(attrname->s_name), &anAttribute);
+	
+	if(!err){
+		
+		if(object && jps_method){
+			
+			newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+			TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
+			
+			newBaton = new TTValue(TTPtr(object));
+			newBaton->append(TTPtr(jps_method));
+			
+			newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
+			newObserver->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_attribute_observer_callback));
+			
+			anAttribute->registerObserverForNotifications(*newObserver);
+			
+			(*returnedObserver) = newObserver;
+		}
+	}
+}
+
+void jamoma_node_attribute_observer_notify(TTNodePtr node, t_symbol *attrname, t_symbol* mess, long argc, t_atom *argv)
+{
+	TTAttributePtr anAttribute = NULL;
+	TTValue	data;
+	TTErr err;
+	
+	// if the attribute exist
+	err = node->findAttribute(TT(attrname->s_name), &anAttribute);
+	
+	if(!err){
+
+		// prepare data to send (mess, argc, argv)
+		data.append(TTPtr(mess));
+		data.append(TTUInt8(argc));
+		data.append(TTPtr(argv));
+		
+		// notify each observer of the attribute
+		anAttribute->sendNotification(TT("notify"), data);
+	}
+}
+
+void jamoma_node_attribute_observer_remove(TTNodePtr node, t_symbol *attrname, TTObjectPtr oldCallback)
+{
+	TTAttributePtr anAttribute = NULL;
+	TTErr err;
+	
+	// if the attribute exist
+	err = node->findAttribute(TT(attrname->s_name), &anAttribute);
+	
+	if(!err){
+		anAttribute->unregisterObserverForNotifications(*oldCallback);
+		TTObjectRelease(&oldCallback);
+	}
+}
+
+
+// Callbacks called when a node or an attribute 
+// have to notify his observers (life cycle and attribute observers)
+///////////////////////////////////////////////////////////////////////
 
 void jamoma_node_getter_callback(TTPtr p_baton, TTValue& data)
 {
@@ -402,9 +490,33 @@ void jamoma_node_observer_callback(TTPtr p_baton, TTValue& data)
 	TTValuePtr	b;
 	t_object	*x;
 	t_symbol	*jps_method;
+	TTSymbolPtr	mess;
+	long		flag;
+	t_atom		a_flag[1];
+	
+	// unpack baton (a t_object* and the name of the method to call)
+	b = (TTValuePtr)p_baton;
+	b->get(0, (TTPtr*)&x);
+	b->get(1, (TTPtr*)&jps_method);
+	
+	// unpack data (flag)
+	data.get(0, (TTPtr*)&mess);
+	data.get(1, flag);
+	
+	// send data using a class method of the object : void function(t_object *x, t_symbol *mess, long argc, t_atom *argv)
+	atom_setlong(&a_flag[0], flag);
+	object_method(x, jps_method, gensym((char*)mess->getString().c_str()), 1, a_flag);
+}
+
+void jamoma_node_attribute_observer_callback(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr	b;
+	t_object	*x;
+	t_symbol	*jps_method;
 	t_symbol	*mess;
 	long		argc;
 	t_atom		*argv;
+	
 	// unpack baton (a t_object* and the name of the method to call)
 	b = (TTValuePtr)p_baton;
 	b->get(0, (TTPtr*)&x);
@@ -419,8 +531,3 @@ void jamoma_node_observer_callback(TTPtr p_baton, TTValue& data)
 	object_method(x, jps_method, mess, argc, argv);
 }
 
-void jamoma_node_remove_observer(TTNodePtr node, TTObjectPtr oldCallback)
-{
-		node->unregisterObserverForNotifications(*oldCallback);
-		TTObjectRelease(&oldCallback);
-}

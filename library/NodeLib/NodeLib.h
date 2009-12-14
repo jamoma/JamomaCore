@@ -11,12 +11,6 @@
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
 
-
-/** Prototype of set and get methods
- A Max external have to give acces to those methods (or just one of them) to register an attribute */
-typedef t_max_err	(*jamoma_node_get_property_method)(t_object *x, void *attr, long argc, t_atom *argv);
-typedef t_max_err	(*jamoma_node_set_property_method)(t_object *x, void *attr, long argc, t_atom *argv);
-
 // statics and globals
 
 /**	The Jamoma node directory				*/
@@ -26,6 +20,9 @@ extern TTNodeDirectoryPtr jamoma_directory;
 extern "C" {
 #endif
 
+	// Method to deal with the jamoma directory
+	/////////////////////////////////////////
+	
 	/** Create and return the directory */
 	TTNodeDirectoryPtr jamoma_directory_init(void);
 	
@@ -53,6 +50,10 @@ extern "C" {
 	JamomaError		jamoma_directory_get_node_by_type(t_symbol *addressToStart, t_symbol *type, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
 	bool			testTTNodeType(TTNodePtr n, void *args);
 	
+	
+	// Method to deal with a node
+	////////////////////////////////////
+	
 	/** Return the OSC address of a node */
 	t_symbol *		jamoma_node_OSC_address(TTNodePtr node);
 
@@ -79,28 +80,53 @@ extern "C" {
 	/** Return the Max object of a node */
 	t_object*		jamoma_node_max_object(TTNodePtr node);
 	
-	/** Add all attributes returned by the t_object as properties of the node 
-		and prepare callbacks mecanism to get and set them */
-	JamomaError		jamoma_node_add_properties(TTNodePtr node, t_object *object);
 	
-	/** Get the value of a property of a node */
-	JamomaError		jamoma_node_get_property(TTNodePtr node, t_symbol *property, long *argc, t_atom **argv);
+	// Method to deal with the attributes of a node
+	////////////////////////////////////////////////////
 	
-	/** Set the value of a property of a node */
-	JamomaError		jamoma_node_set_property(TTNodePtr node, t_symbol *property, long argc, t_atom *argv);
+	/** Return all attributes of a node */
+	JamomaError		jamoma_node_attribute_list(TTNodePtr node, TTList& lk_prp);
+	
+	/** Add all attributes returned by the t_object as attribute of the node */
+	JamomaError		jamoma_node_attribute_add_all(TTNodePtr node, t_object *object);
+	
+	/** Add an attribute of a t_object as attribute of the node 
+	 and prepare callback mecanism to get and set them */
+	JamomaError		jamoma_node_attribute_add(TTNodePtr node, t_symbol *attrname, t_object *object);
+	
+	/** Get the value of a attribute of a node */
+	JamomaError		jamoma_node_attribute_get(TTNodePtr node, t_symbol *attrname, long *argc, t_atom **argv);
+	
+	/** Set the value of a attribute of a node */
+	JamomaError		jamoma_node_attribute_set(TTNodePtr node, t_symbol *attrname, long argc, t_atom *argv);
 
-	/** Return all properties of a node */
-	JamomaError		jamoma_node_properties(TTNodePtr node, TTList& lk_prp);
+	
+	// Method to deal with observers
+	////////////////////////////////////////////////////
+	
+	/** Add an t_object as a life cycle observer of a node */
+	void			jamoma_node_observer_add(TTNodePtr node, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver);
+	
+	/** Notify all life cycle observers of a node */
+	void			jamoma_node_observer_notify(TTNodePtr node, t_symbol* mess, long flag);
+	
+	/** Remove a life cycle observer of a node */
+	void			jamoma_node_observer_remove(TTNodePtr node, TTObjectPtr oldCallback);
 
-	/** Add an t_object as an observer of a node */
-	void			jamoma_node_add_observer(TTNodePtr node, t_object *object, t_symbol *jps_method, TTObjectPtr *newObserver);
+	/** Add an t_object as an observer of an attribute of a node */
+	void			jamoma_node_attribute_observer_add(TTNodePtr node, t_symbol *attrname, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver);
 
-	/** Notify all observers of a node */
-	void			jamoma_node_notify_observers(TTNodePtr node, t_symbol* mess, long argc, t_atom *argv);
+	/** Notify all observers of an attribute of a node */
+	void			jamoma_node_attribute_observer_notify(TTNodePtr node, t_symbol *attrname, t_symbol* mess, long argc, t_atom *argv);
+	
+	/** Remove an observer of an attribute of a node */
+	void			jamoma_node_attribute_observer_remove(TTNodePtr node, t_symbol *attrname, TTObjectPtr oldCallback);
 
-	/** Remove an observer of a node */
-	void			jamoma_node_remove_observer(TTNodePtr node, TTObjectPtr oldCallback);
-
+	
+	// Callbacks called when a node or an attribute 
+	// have to notify his observers (life cycle and attribute observers)
+	///////////////////////////////////////////////////////////////////////
+	
 	/** Callback used to get data from a Max object external using public attr method */
 	void			jamoma_node_getter_callback(TTPtr p_baton, TTValue& data);
 	
@@ -110,9 +136,13 @@ extern "C" {
 	/** Callback used to set value of a jcom.parameter external usng the dispatched method */
 	void			jamoma_node_setter_value_callback(TTPtr p_baton, TTValue& data);
 	
-	/** Callback used to notify Max object external observer using private function
-		void function(t_object *x, t_symbol *msg, long argc, t_atom *argv) */
+	/** Callback used to notify Max object external life cycle observer using private function
+	 void function(t_object *x, t_symbol *msg, long argc, t_atom *argv) */
 	void			jamoma_node_observer_callback(TTPtr p_baton, TTValue& data);
+	
+	/** Callback used to notify Max object external attribute observer using private function
+		void function(t_object *x, t_symbol *msg, long argc, t_atom *argv) */
+	void			jamoma_node_attribute_observer_callback(TTPtr p_baton, TTValue& data);
 
 #ifdef __cplusplus
 }

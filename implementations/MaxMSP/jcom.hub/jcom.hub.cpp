@@ -420,7 +420,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 		
 		// 3. add each attributes of the parameter 
 		// as properties of the node
-		jamoma_node_add_properties(newTTNode, subscriber_object);
+		jamoma_node_attribute_add_all(newTTNode, subscriber_object);
 	}
 
 	critical_enter(0);
