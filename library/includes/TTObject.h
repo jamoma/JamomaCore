@@ -19,20 +19,21 @@
 #include "TTValueCache.h"
 #include "TTSymbolCache.h"
 
-
 // forward declarations needed by the compiler
+class TTCallback;
 class TTAttribute;
 class TTMessage;
 class TTObject;
 class TTClass;
 
+typedef TTCallback*		TTCallbackPtr;
 typedef TTAttribute*	TTAttributePtr;
 typedef TTMessage*		TTMessagePtr;
 typedef TTObject*		TTObjectPtr;
 typedef TTObject**		TTObjectHandle;
 typedef TTObject&		TTObjectRef;
 typedef TTClass*		TTClassPtr;
-	
+
 
 /** A type that can be used to store a pointer to a message for an object */
 typedef TTErr (TTObject::*TTMethod)(const TTSymbol* methodName, TTValue& value);
@@ -115,6 +116,7 @@ public:
 	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTGetterMethod getter);
 	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTSetterMethod setter);
 	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
+	TTErr registerAttribute(const TTSymbolPtr name, const TTCallbackPtr newGetterCallback, const TTCallbackPtr newSetterCallback);
 	
 	TTErr findAttribute(const TTSymbolPtr name, TTAttribute** attr);
 

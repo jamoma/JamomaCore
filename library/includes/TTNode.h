@@ -17,10 +17,11 @@
 #include "TTCallback.h"
 
 class TTNode;
-typedef TTNode*	TTNodePtr;
 class TTNodeDirectory;
-typedef TTNodeDirectory* TTNodeDirectoryPtr;
 class TTCallback;
+
+typedef TTNode*	TTNodePtr;
+typedef TTNodeDirectory* TTNodeDirectoryPtr;
 typedef TTCallback* TTCallbackPtr;
 
 #define NO_NAME			kTTSymEmpty

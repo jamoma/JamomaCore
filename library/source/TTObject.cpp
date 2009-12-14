@@ -97,6 +97,14 @@ TTErr TTObject::registerAttribute(const TTSymbolPtr name, const TTDataType type,
 	return kTTErrNone;
 }
 
+TTErr TTObject::registerAttribute(const TTSymbolPtr name, const TTCallbackPtr newGetterCallback, const TTCallbackPtr newSetterCallback)
+{
+	TTAttribute* newAttribute = new TTAttribute(name, newGetterCallback, newSetterCallback);
+	
+	attributes->append(name, TTPtr(newAttribute));
+	return kTTErrNone;
+}
+
 
 TTErr TTObject::findAttribute(const TTSymbolPtr name, TTAttribute** attr)
 {
@@ -120,6 +128,7 @@ TTErr TTObject::getAttributeValue(const TTSymbolPtr name, TTValue& value)
 	
 	err = findAttribute(name, &attribute);
 	if(!err){
+		
 		if(attribute->getterFlags & kTTAttrPassObject)
 			err = (this->*attribute->getter)(*attribute, value);
 		else{
@@ -127,7 +136,6 @@ TTErr TTObject::getAttributeValue(const TTSymbolPtr name, TTValue& value)
 			err = (this->*getter)(value);
 		}
 	}
-	
 	return err;
 }
 
