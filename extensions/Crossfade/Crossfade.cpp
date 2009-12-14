@@ -317,6 +317,7 @@ TTErr TTCrossfade::processEqualPowerCalc(TTAudioSignalArrayPtr inputs, TTAudioSi
 	*outSample;
 	TTUInt16		numchannels = out.getNumChannels();
 	TTUInt16		channel;
+	TTFloat64		radPosition;
 	
 	if(inputs->numAudioSignals > 1){
 		TTAudioSignal&	in2 = inputs->getSignal(1);
@@ -329,7 +330,10 @@ TTErr TTCrossfade::processEqualPowerCalc(TTAudioSignalArrayPtr inputs, TTAudioSi
 			vs = in.getVectorSize();
 			
 			while(vs--)
-				*outSample++ = (*inSampleB++ * (sin(position * kTTPi_2))) + (*inSampleA++ * (cos(position * kTTPi_2)));
+			{
+				radPosition = position * kTTPi_2;
+				*outSample++ = (*inSampleB++ * (sin(radPosition))) + (*inSampleA++ * (cos(radPosition)));
+			}
 		}
 		
 	}
@@ -344,7 +348,10 @@ TTErr TTCrossfade::processEqualPowerCalc(TTAudioSignalArrayPtr inputs, TTAudioSi
 			vs = in.getVectorSize();
 			
 			while(vs--)
-				*outSample++ = (*inSampleB++ * (sin(position * kTTPi_2))) + (*inSampleA++ * (cos(position * kTTPi_2)));
+			{
+				radPosition = position * kTTPi_2;
+				*outSample++ = (*inSampleB++ * (sin(radPosition))) + (*inSampleA++ * (cos(radPosition)));
+			}
 		}
 	}
 	return kTTErrNone;
