@@ -19,7 +19,7 @@ TT_OBJECT_CONSTRUCTOR,
 	addAttribute(Function, kTypePointer);
 	addAttribute(Baton, kTypePointer);
 	
-	addMessage(notify);
+	addMessageWithArgument(notify);
 }
 
 

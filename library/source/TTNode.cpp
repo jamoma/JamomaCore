@@ -38,12 +38,17 @@ TTNode::~TTNode()
 	unsigned int i, j, nb_c, nb_i;
 	TTValue hk, hk_i;
 	TTSymbolPtr OSCaddress, key, key_i;
-	TTValue c, c_i, p_c;
+	TTValue c, c_i, p_c, data;
 	TTHashPtr ht_i, p_ht_i;
 	TTNodePtr n_c;
 
 	// get the address of the TTNode in the directory 
 	this->getOscAddress(&OSCaddress);
+	
+	// notify his observers that it will be destroyed
+	data.append(OSCaddress);
+	data.append(TTUInt8(0));		// TODO : create some flag type to notify node observers (0 : destruction, ... ???)
+	this->sendMessage(TT("notify"), data);
 
 	// it is not a child of his parent anymore
 	err = this->parent->children->lookup(this->name, p_c);
@@ -306,112 +311,6 @@ TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created
 
 	return kTTErrNone;
 }
-
-TTErr TTNode::addProperty(const TTSymbolPtr property, const TTObject& getterObject, const TTObject& setterObject)
-{
-	TTErr err;
-	TTValue p_found;
-	TTValuePtr p_callbacks;
-
-	// look into the hashtab to check if the property exists
-	err = this->properties->lookup(property, p_found);
-
-	// if this property doesn't exist
-	if(err == kTTErrValueNotFound){
-		
-		// store the get and set property callbacks
-		p_callbacks = new TTValue(getterObject);
-		p_callbacks->append(setterObject);
-		
-		this->properties->append(property, *p_callbacks);
-		
-		return kTTErrNone;
-	}
-	else
-		return kTTErrGeneric;
-}
-
-TTErr TTNode::getPropertyList(TTList& lk_prp)
-{
-	unsigned int i;
-	TTValue hk;
-	TTSymbolPtr key;
-	
-	// if there are properties
-	if(!this->properties->isEmpty()){
-		
-		this->properties->getKeys(hk);
-		
-		// for each property
-		for(i = 0; i < this->properties->getSize(); i++){
-			hk.get(i,(TTSymbolPtr*)&key);
-			// add the property to the linklist
-			 lk_prp.append(new TTValue((TTSymbolPtr)key));
-		}
-		
-		return kTTErrNone;
-	}
-	return kTTErrGeneric;
-}
-
-bool TTNode::isProperty(const TTSymbolPtr property)
-{
-	TTErr err;
-	TTValue p_callbacks;
-	
-	// look into the hashtab to check if the property exists
-	err = this->properties->lookup(property, p_callbacks);
-	
-	return err == kTTErrNone;
-}
-
-TTErr TTNode::getProperty(const TTSymbolPtr property, TTValue& returnedValue)
-{
-	TTErr			err;
-	TTValue			p_callbacks;
-	TTCallbackPtr	aGetter = NULL;
-	
-	// look into the hashtab to check if the property exists
-	err = this->properties->lookup(property, p_callbacks);
-	
-	// if this property exists
-	if(err == kTTErrNone){
-		p_callbacks.get(0, TTObjectHandle(&aGetter));
-		if(aGetter){
-			TT_ASSERT("TTNode property getter member is not NULL", aGetter);
-			aGetter->notify(returnedValue);
-			return kTTErrNone;
-		}
-		else
-			return kTTErrValueNotFound;
-	}
-	else
-		return kTTErrGeneric;
-}
-
-TTErr TTNode::setProperty(const TTSymbolPtr property, TTValue& value)
-{
-	TTErr			err;
-	TTValue			p_callbacks;
-	TTCallbackPtr	aSetter = NULL;
-	
-	// look into the hashtab to check if the property exists
-	err = this->properties->lookup(property, p_callbacks);
-	
-	// if this property exists
-	if(err == kTTErrNone){
-		p_callbacks.get(1, TTObjectHandle(&aSetter));
-		if(aSetter){
-			TT_ASSERT("TTNode property setter member is not NULL", aSetter);
-			aSetter->notify(value);
-			return kTTErrNone;
-		}
-		else
-			return kTTErrValueNotFound;
-	}
-	else
-		return kTTErrGeneric;
-}
 								 
 TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTList& returnedChildren)
 {
@@ -672,7 +571,7 @@ TTErr	TTNode::generateInstance(TTSymbolPtr childName, TTSymbolPtr *newInstance)
 }
 
 
-// TODO: not sure why we need this can't just use the built-in routine? --tap
+/* TODO: not sure why we need this can't just use the built-in routine? --tap
 TTErr TTNode::notifyObservers(TTValue& data)
 {
 	TTCallbackPtr	anObserver = NULL;
@@ -690,4 +589,5 @@ TTErr TTNode::notifyObservers(TTValue& data)
 	else
 		return kTTErrGeneric;
 }
+ */
 

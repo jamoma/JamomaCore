@@ -20,13 +20,11 @@
 #include "TTSymbolCache.h"
 
 // forward declarations needed by the compiler
-class TTCallback;
 class TTAttribute;
 class TTMessage;
 class TTObject;
 class TTClass;
 
-typedef TTCallback*		TTCallbackPtr;
 typedef TTAttribute*	TTAttributePtr;
 typedef TTMessage*		TTMessagePtr;
 typedef TTObject*		TTObjectPtr;
@@ -116,7 +114,7 @@ public:
 	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTGetterMethod getter);
 	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTSetterMethod setter);
 	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
-	TTErr registerAttribute(const TTSymbolPtr name, const TTCallbackPtr newGetterCallback, const TTCallbackPtr newSetterCallback);
+	TTErr registerAttribute(const TTSymbolPtr name, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject);
 	
 	TTErr findAttribute(const TTSymbolPtr name, TTAttribute** attr);
 

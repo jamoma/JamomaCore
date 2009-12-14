@@ -8,10 +8,11 @@
 
 #include "TTObject.h"
 #include "TTEnvironment.h"
+#include "TTCallback.h"
 
 
 TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress)
-: TTObject(kTTValNONE), name(newName), type(newType), address(newAddress), getterCallback(NULL), setterCallback(NULL), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
+: TTObject(kTTValNONE), name(newName), type(newType), address(newAddress), getterObject(NULL), setterObject(NULL), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
   readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none"))
 {
 	getter = (TTGetterMethod)&TTAttribute::defaultGetter;
@@ -19,28 +20,28 @@ TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* ne
 }
 
 TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter)
-: TTObject(kTTValNONE), name(newName), type(newType), address(newAddress), getter(newGetter), getterCallback(NULL), setterCallback(NULL), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
+: TTObject(kTTValNONE), name(newName), type(newType), address(newAddress), getter(newGetter), getterObject(NULL), setterObject(NULL), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
   readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none"))
 {
 	setter = (TTSetterMethod)&TTAttribute::defaultSetter;
 }
 
 TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter)
-: TTObject(kTTValNONE), name(newName), type(newType), address(newAddress), setter(newSetter), getterCallback(NULL), setterCallback(NULL), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
+: TTObject(kTTValNONE), name(newName), type(newType), address(newAddress), setter(newSetter), getterObject(NULL), setterObject(NULL), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
   readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none"))
 {
 	getter = (TTGetterMethod)&TTAttribute::defaultGetter;
 }
 
 TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter)
-: TTObject(kTTValNONE), name(newName), type(newType), address(newAddress), getter(newGetter), setter(newSetter), getterCallback(NULL), setterCallback(NULL), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
+: TTObject(kTTValNONE), name(newName), type(newType), address(newAddress), getter(newGetter), setter(newSetter), getterObject(NULL), setterObject(NULL), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
   readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none"))
 {
 	;
 }
 
-TTAttribute::TTAttribute(const TTSymbolPtr newName, const TTCallbackPtr newGetterCallback, const TTCallbackPtr newSetterCallback)
-: TTObject(kTTValNONE), name(newName), type(kTypeNone), getterCallback(newGetterCallback), setterCallback(newSetterCallback), getterFlags(kTTAttrPassObject), setterFlags(kTTAttrPassObject),
+TTAttribute::TTAttribute(const TTSymbolPtr newName, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject)
+: TTObject(kTTValNONE), name(newName), type(kTypeNone), getterObject(newGetterObject), setterObject(newSetterObject), getterFlags(kTTAttrPassObject), setterFlags(kTTAttrPassObject),
   readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none"))
 {
 	getter = (TTGetterMethod)&TTAttribute::callbackGetter;
@@ -190,12 +191,16 @@ TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& va
 
 TTErr TTAttribute::callbackGetter(const TTAttribute& attribute, TTValue& value)
 {
-	return attribute.getterCallback->notify(value);
+	TTCallbackPtr aGetter = (TTCallbackPtr)attribute.getterObject;
+	
+	return aGetter->notify(value);
 }
 
 TTErr TTAttribute::callbackSetter(const TTAttribute& attribute, TTValue& value)
 {
-	return attribute.getterCallback->notify(value);
+	TTCallbackPtr aSetter = (TTCallbackPtr)attribute.setterObject;
+	
+	return aSetter->notify(value);
 }
 
 

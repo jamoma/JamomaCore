@@ -134,36 +134,6 @@ public:
 		*/
 	TTErr			setChild(TTNodePtr child);
 	
-	/** Add a property to the TTNode.
-		TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject
-		@param name				a TTSymbolPtr to register the attribute and to store as a key in the hashtable.
-		@param getter			a pointer to a specific callback method to get the property value.
-		@param setter			a pointer to a specific callback method to set the property value.
-		@return					a kTTErrGeneric if the property already exists.	*/
-	TTErr			addProperty(const TTSymbolPtr property, const TTObject& getterObject, const TTObject& setterObject);
-
-	/** Get the list of all the properties of the TTNode 
-		TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject */
-	TTErr			getPropertyList(TTList& lk_prp);
-	
-	/** Is it a property of the TTNode ?
-		TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject */
-	bool			isProperty(const TTSymbolPtr name);
-	
-	/** Get a property value of a TTNode (using a specific method to get the property : see addProperty).
-		TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject
-	 @param name				a TTSymbolPtr to store as a key in the hashtable.
-	 @param returnedValue		a pointer to get the value.
-	 @return					a kTTErrGeneric if the property already exists.	*/
-	TTErr			getProperty(const TTSymbolPtr name, TTValue& returnedValue);
-	
-	/** Set a property value of a TTNode (using a specific method to set the property : see addProperty).
-		TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject
-	 @param name				a TTSymbolPtr to store as a key in the hashtable.
-	 @param value				a pointer on the value to set.
-	 @return					a kTTErrGeneric if the property already exists.	*/
-	TTErr			setProperty(const TTSymbolPtr name, TTValue& value);
-	
 	/** Get the OSC address of the TTNode 
 		It is computed dynamicaly by asking to all the ancestor of the TTNode	
 		@param	returnedOscAddress		A TTSymbolPtr with the OOSC address is returned in this parameter.	*/
@@ -175,10 +145,10 @@ public:
 		@return					a kTTErrGeneric if the child doesn't exist.	*/
 	TTErr			generateInstance(TTSymbolPtr childName, TTSymbolPtr *newInstance);
 
-	/** Notify observers of the TTNode object
+	/** Notify life cycle observers of the TTNode object
 		@param data				a TTValue to send to obervers
 		@return					a kTTErrGeneric if there isn't observer	*/
-	TTErr			notifyObservers(TTValue& data);
+	//TTErr			notifyObservers(TTValue& data);
 
 };
 

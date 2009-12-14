@@ -97,9 +97,9 @@ TTErr TTObject::registerAttribute(const TTSymbolPtr name, const TTDataType type,
 	return kTTErrNone;
 }
 
-TTErr TTObject::registerAttribute(const TTSymbolPtr name, const TTCallbackPtr newGetterCallback, const TTCallbackPtr newSetterCallback)
+TTErr TTObject::registerAttribute(const TTSymbolPtr name, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject)
 {
-	TTAttribute* newAttribute = new TTAttribute(name, newGetterCallback, newSetterCallback);
+	TTAttribute* newAttribute = new TTAttribute(name, newGetterObject, newSetterObject);
 	
 	attributes->append(name, TTPtr(newAttribute));
 	return kTTErrNone;
