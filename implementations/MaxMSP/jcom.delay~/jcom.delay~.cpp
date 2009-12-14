@@ -1,9 +1,9 @@
 /* 
- *	tt.dcblock~
+ *	jcom.delay~
  *	External object for Max/MSP
- *	Remove DC Offsets from a signal
- *	Example project for TTBlue
- *	Copyright © 2008 by Timothy Place
+ *	Delays a signal using several interpolation methods
+ *	Example project for JamomaDSP
+ *	Copyright © 2009 by Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
