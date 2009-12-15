@@ -32,6 +32,7 @@ extern "C" {
 
 	/** Dump all the OSC address of the directory in the max window */
 	JamomaError		jamoma_directory_dump(void);
+	JamomaError		jamoma_directory_dump_by_type(void);
 
 	/** Register an osc address in the directory
 

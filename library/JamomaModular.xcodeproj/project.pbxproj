@@ -69,6 +69,15 @@
 		D2AD390210B17B5200EBE079 /* jcom.receive~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AD38FF10B17B5200EBE079 /* jcom.receive~.cpp */; };
 		D2AD390310B17B5200EBE079 /* jcom.receivemaster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AD390010B17B5200EBE079 /* jcom.receivemaster.cpp */; };
 		D2AD390410B17B5200EBE079 /* jcom.send~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AD390110B17B5200EBE079 /* jcom.send~.cpp */; };
+		D2B0F2EF10D79AA0002DF5AE /* ControllerLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2B0F2ED10D79AA0002DF5AE /* ControllerLib.cpp */; };
+		D2B0F2F010D79AA0002DF5AE /* ControllerLib.h in Headers */ = {isa = PBXBuildFile; fileRef = D2B0F2EE10D79AA0002DF5AE /* ControllerLib.h */; };
+		D2B0F2F810D79ACD002DF5AE /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2B0F2F110D79ACD002DF5AE /* Controller.cpp */; };
+		D2B0F2F910D79ACD002DF5AE /* Controller.h in Headers */ = {isa = PBXBuildFile; fileRef = D2B0F2F210D79ACD002DF5AE /* Controller.h */; };
+		D2B0F2FA10D79ACD002DF5AE /* Device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2B0F2F310D79ACD002DF5AE /* Device.cpp */; };
+		D2B0F2FB10D79ACD002DF5AE /* Device.h in Headers */ = {isa = PBXBuildFile; fileRef = D2B0F2F410D79ACD002DF5AE /* Device.h */; };
+		D2B0F2FC10D79ACD002DF5AE /* Plugin.h in Headers */ = {isa = PBXBuildFile; fileRef = D2B0F2F510D79ACD002DF5AE /* Plugin.h */; };
+		D2B0F2FD10D79ACD002DF5AE /* PluginFactories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2B0F2F610D79ACD002DF5AE /* PluginFactories.cpp */; };
+		D2B0F2FE10D79ACD002DF5AE /* PluginFactories.h in Headers */ = {isa = PBXBuildFile; fileRef = D2B0F2F710D79ACD002DF5AE /* PluginFactories.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -138,6 +147,15 @@
 		D2AD38FF10B17B5200EBE079 /* jcom.receive~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.receive~.cpp"; sourceTree = "<group>"; };
 		D2AD390010B17B5200EBE079 /* jcom.receivemaster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receivemaster.cpp; sourceTree = "<group>"; };
 		D2AD390110B17B5200EBE079 /* jcom.send~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.send~.cpp"; sourceTree = "<group>"; };
+		D2B0F2ED10D79AA0002DF5AE /* ControllerLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControllerLib.cpp; sourceTree = "<group>"; };
+		D2B0F2EE10D79AA0002DF5AE /* ControllerLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerLib.h; sourceTree = "<group>"; };
+		D2B0F2F110D79ACD002DF5AE /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Controller.cpp; path = ../../../../virage/sequenceur/trunk/libIscore/libController/Controller.cpp; sourceTree = SOURCE_ROOT; };
+		D2B0F2F210D79ACD002DF5AE /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = ../../../../virage/sequenceur/trunk/libIscore/libController/Controller.h; sourceTree = SOURCE_ROOT; };
+		D2B0F2F310D79ACD002DF5AE /* Device.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Device.cpp; path = ../../../../virage/sequenceur/trunk/libIscore/libController/Device.cpp; sourceTree = SOURCE_ROOT; };
+		D2B0F2F410D79ACD002DF5AE /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Device.h; path = ../../../../virage/sequenceur/trunk/libIscore/libController/Device.h; sourceTree = SOURCE_ROOT; };
+		D2B0F2F510D79ACD002DF5AE /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plugin.h; path = ../../../../virage/sequenceur/trunk/libIscore/libController/Plugin.h; sourceTree = SOURCE_ROOT; };
+		D2B0F2F610D79ACD002DF5AE /* PluginFactories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PluginFactories.cpp; path = ../../../../virage/sequenceur/trunk/libIscore/libController/PluginFactories.cpp; sourceTree = SOURCE_ROOT; };
+		D2B0F2F710D79ACD002DF5AE /* PluginFactories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PluginFactories.h; path = ../../../../virage/sequenceur/trunk/libIscore/libController/PluginFactories.h; sourceTree = SOURCE_ROOT; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -178,6 +196,7 @@
 				22AEF31F0D0DB77900F7762D /* FunctionLib */,
 				22FD31840CEE8EA80039C226 /* RampLib */,
 				D2730C59104FBA70004513A7 /* NodeLib */,
+				D2B0F2EC10D79AA0002DF5AE /* ControllerLib */,
 				2200FCAB0D3ECD3D0078B045 /* Internals */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
@@ -321,6 +340,22 @@
 			path = NodeLib;
 			sourceTree = "<group>";
 		};
+		D2B0F2EC10D79AA0002DF5AE /* ControllerLib */ = {
+			isa = PBXGroup;
+			children = (
+				D2B0F2EE10D79AA0002DF5AE /* ControllerLib.h */,
+				D2B0F2ED10D79AA0002DF5AE /* ControllerLib.cpp */,
+				D2B0F2F210D79ACD002DF5AE /* Controller.h */,
+				D2B0F2F110D79ACD002DF5AE /* Controller.cpp */,
+				D2B0F2F410D79ACD002DF5AE /* Device.h */,
+				D2B0F2F310D79ACD002DF5AE /* Device.cpp */,
+				D2B0F2F510D79ACD002DF5AE /* Plugin.h */,
+				D2B0F2F710D79ACD002DF5AE /* PluginFactories.h */,
+				D2B0F2F610D79ACD002DF5AE /* PluginFactories.cpp */,
+			);
+			path = ControllerLib;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -355,6 +390,11 @@
 				22E6C75E0D4AB21B00DA75EE /* RampLib.h in Headers */,
 				22E6C7600D4AB21B00DA75EE /* SchedulerRamp.h in Headers */,
 				D2730C5D104FBA70004513A7 /* NodeLib.h in Headers */,
+				D2B0F2F010D79AA0002DF5AE /* ControllerLib.h in Headers */,
+				D2B0F2F910D79ACD002DF5AE /* Controller.h in Headers */,
+				D2B0F2FB10D79ACD002DF5AE /* Device.h in Headers */,
+				D2B0F2FC10D79ACD002DF5AE /* Plugin.h in Headers */,
+				D2B0F2FE10D79ACD002DF5AE /* PluginFactories.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +498,10 @@
 				D2AD390210B17B5200EBE079 /* jcom.receive~.cpp in Sources */,
 				D2AD390310B17B5200EBE079 /* jcom.receivemaster.cpp in Sources */,
 				D2AD390410B17B5200EBE079 /* jcom.send~.cpp in Sources */,
+				D2B0F2EF10D79AA0002DF5AE /* ControllerLib.cpp in Sources */,
+				D2B0F2F810D79ACD002DF5AE /* Controller.cpp in Sources */,
+				D2B0F2FA10D79ACD002DF5AE /* Device.cpp in Sources */,
+				D2B0F2FD10D79ACD002DF5AE /* PluginFactories.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

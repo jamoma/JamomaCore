@@ -8,7 +8,7 @@
  */
 
 #include "Jamoma.h"
-#include "Controller.h"				// Plugin manager for network communication
+//#include "ControllerLib.h"				// Plugin manager for network communication
 
 // define default values
 #define REQUEST_SIZE 1024
@@ -24,12 +24,10 @@
 typedef struct _minuit{
 	t_object				ob;
 	void					*p_info;	// the leftmost outlet
-	Controller				*c_control; // a pointer to the controller
-	TTNodeDirectoryPtr				p_directory;		// a pointer to the jamoma directory
+	TTNodeDirectoryPtr		p_directory;// a pointer to the Jamoma Node Directory
 	t_symbol				*device;	// memorized the current device
-	t_symbol				*address;	// memorized the current adress
+	t_symbol				*address;	// memorized the current address
 	TTNodePtr				p_node;		// a pointer to a TTnode of the directory
-	TTListPtr				lk_nodes;	// a pointer to a selection of TTnodes of the directory
 	bool					b_debug;	// true : display bebug message in the console
 	
 	// Minuit standard symbol
@@ -66,6 +64,9 @@ void			minuit_assist(t_minuit *x, void *b, long m, long a, char *s);
 /** this method receive data from the Minuit network */
 void			minuit_callback(void *arg, std::string message);
 
+/** this method add a Minuit device to the Jamoma Controller : /device_name IP port */
+void			minuit_add_device(t_minuit *x, t_symbol *device_name, t_symbol *ip, long port);
+
 /** this method parses a minuit protocol message and returns the children (leaves or nodes) and the properties of the node which address is given to the outlet */
 void			minuit_namespace(t_minuit *x, t_symbol *address);
 void			minuit_donamespace(t_minuit *x, t_symbol *address);
@@ -75,6 +76,7 @@ void			minuit_get(t_minuit *x, t_symbol *attraddress);
 void			minuit_doget(t_minuit *x, t_symbol *attraddress);
 
 /** this method parses a minuit protocol message and sets the value(s) of an attribute of a certain node */
+void			minuit_anything(t_minuit *x, t_symbol *msg, long argc, t_atom *argv);
 void			minuit_set(t_minuit *x, t_symbol *msg, long argc, t_atom *argv);
 void			minuit_doset(t_minuit *x, t_symbol *msg, long argc, t_atom *argv);
 

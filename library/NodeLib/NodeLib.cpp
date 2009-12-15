@@ -57,6 +57,76 @@ JamomaError jamoma_directory_dump(void)
 	return JAMOMA_ERR_GENERIC;
 }
 
+JamomaError jamoma_directory_dump_by_type(void)
+{
+	TTList returnedTTNodes;
+	TTNodePtr firstReturnedTTNode, n_r;
+	t_symbol *osc_adrs;
+	JamomaError err;
+	
+	// dump all parameters of the tree
+	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_parameter, returnedTTNodes, &firstReturnedTTNode);
+	
+	if(err == JAMOMA_ERR_NONE){
+		
+		if(!returnedTTNodes.isEmpty()){
+			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
+				
+				returnedTTNodes.current().get(0,(TTPtr*)&n_r);
+				osc_adrs = jamoma_node_OSC_address(n_r);
+				post("parameter : %s", osc_adrs->s_name);
+			}
+			post(" SIZE : %d", returnedTTNodes.getSize());
+		}
+		else
+			post("no parameter");
+	}
+	else
+		post("dump parameter error");
+	
+	// dump all messages of the tree
+	returnedTTNodes.clear();
+	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_message, returnedTTNodes, &firstReturnedTTNode);
+	
+	if(err == JAMOMA_ERR_NONE){
+		
+		if(!returnedTTNodes.isEmpty()){
+			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
+				
+				returnedTTNodes.current().get(0,(TTPtr*)&n_r);
+				osc_adrs = jamoma_node_OSC_address(n_r);
+				post("message : %s", osc_adrs->s_name);	
+			}
+		}
+		else
+			post("no message");
+	}
+	else
+		post("dump message error");
+	
+	// dump all returns of the tree
+	returnedTTNodes.clear();
+	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_return, returnedTTNodes, &firstReturnedTTNode);
+	
+	if(err == JAMOMA_ERR_NONE){
+		
+		if(!returnedTTNodes.isEmpty()){
+			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
+				
+				returnedTTNodes.current().get(0,(TTPtr*)&n_r);
+				osc_adrs = jamoma_node_OSC_address(n_r);
+				post("return : %s", osc_adrs->s_name);	
+			}
+		}
+		else
+			post("no return");
+	}
+	else
+		post("dump return error");
+	
+	return err;
+}
+
 JamomaError	jamoma_directory_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, TTNodePtr *newTTNode, bool *newInstanceCreated)
 {
 	if(jamoma_directory){
