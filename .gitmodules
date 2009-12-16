@@ -31,9 +31,6 @@
 [submodule "UserLib/Jamoma.Ircam.Spat"]
 	path = UserLib/Jamoma.Ircam.Spat
 	url = git://github.com/lossius/Jamoma.Ircam.Spat.git
-[submodule "Tools/testlib/rosc"]
-	path = Tools/testlib/rosc
-	url = git://github.com/tap/rosc.git
 [submodule "UserLib/Jamoma.Ircam.IMTR"]
 	path = UserLib/Jamoma.Ircam.IMTR
 	url = git://github.com/lossius/Jamoma.Ircam.IMTR
@@ -51,7 +48,7 @@
 	url = git://github.com/jln-/JamomaDependencies.git
 [submodule "UserLib/Jamoma.Ircam.FTM"]
 	path = UserLib/Jamoma.Ircam.FTM
-	url = http://github.com/lossius/Jamoma.Ircam.FTM.git
+	url = git://github.com/lossius/Jamoma.Ircam.FTM.git
 [submodule "Modules/TheGitter"]
 	path = Modules/TheGitter
 	url = git://github.com/bltzr/JamomaGitter.git
@@ -64,3 +61,6 @@
 [submodule "UserLib/NavNav"]
 	path = UserLib/NavNav
 	url = git://github.com/navid/NavNav.git
+[submodule "Modules/Test"]
+	path = Modules/Test
+	url = git://github.com/tap/JamomaTest.git
