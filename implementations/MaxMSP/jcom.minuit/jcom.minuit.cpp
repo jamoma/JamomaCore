@@ -95,7 +95,13 @@ void *minuit_new(t_symbol *name, long argc, t_atom *argv)
 		jamoma_controller_init();
 		
 		// add a callback to receive messages from the Controller
-		jamoma_controller->addWaitedMessageAction(x, &minuit_callback);
+		jamoma_controller->addWaitedMessageAction(x, &minuit_message_callback);
+		
+		// add a callback to receive namespace request from the Controller
+		jamoma_controller->addWaitedNamespaceRequestAction(x, &minuit_namespace_request_callback);
+		
+		// add a callback to receive get request from the Controller
+		jamoma_controller->addWaitedGetRequestAction(x, &minuit_get_request_callback);
 		
 		// send a namespace request to Virage
 		//jamoma_controller->sendMessage("/Virage ?namespace /");
@@ -132,46 +138,70 @@ void minuit_assist(t_minuit *x, void *b, long msg, long arg, char *dst)
 	}		
 }
 
-
-// TODO : muinuit_namespace_request_callback and muinuit_get_request_callback
-void minuit_callback(void *arg, std::string message)
+void minuit_message_callback(void *arg, std::string message)
 {
 	t_minuit *x = (t_minuit*)arg;
 	long argc = 0;
 	t_atom *argv = NULL;
 	
+	if(x->b_debug)
+		object_post((t_object*)x,"RECEIVE MESSAGE : %s", std::string(message).c_str());
+	
 	atom_setparse(&argc, &argv, (char*)std::string(message).c_str());
 	
-	if(argc > 1){
-		if(atom_gettype(&argv[0]) == A_SYM)
-			
-			if(atom_getsym(&argv[0]) == x->minuit_namespace_request){
-				
-				if(atom_gettype(&argv[1]) == A_SYM)
-					defer(x,(method)minuit_donamespace, atom_getsym(&argv[1]), 0, 0);
-			}
-			else
-				if(atom_getsym(&argv[0]) == x->minuit_get_request)
-					if(atom_gettype(&argv[1]) == A_SYM)
-						defer(x,(method)minuit_doget, atom_getsym(&argv[1]), 0, 0);
-	}
-					
-	if(x->b_debug)
-		object_post((t_object*)x,"RECEIVE %s", std::string(message).c_str());
+	if(argc && argv)
+		if(atom_gettype(argv) == A_SYM)
+			defer(x,(method)minuit_doset, atom_getsym(argv), argc-1, argv+1);
+}
 
+void minuit_namespace_request_callback(void *arg, std::string message)
+{
+	t_minuit *x = (t_minuit*)arg;
+	long argc = 0;
+	t_atom *argv = NULL;
+	
+	if(x->b_debug)
+		object_post((t_object*)x,"RECEIVE NAMESPACE REQUEST : %s", std::string(message).c_str());
+	
+	atom_setparse(&argc, &argv, (char*)std::string(message).c_str());
+	
+	if(argc && argv)
+		if(atom_gettype(argv) == A_SYM)
+			defer(x,(method)minuit_donamespace, atom_getsym(argv), 0, NULL);
+}
+
+void minuit_get_request_callback(void *arg, std::string message)
+{
+	t_minuit *x = (t_minuit*)arg;
+	long argc = 0;
+	t_atom *argv = NULL;
+	
+	if(x->b_debug)
+		object_post((t_object*)x,"RECEIVE GET REQUEST : %s", std::string(message).c_str());
+	
+	atom_setparse(&argc, &argv, (char*)std::string(message).c_str());
+	
+	if(argc && argv)
+		if(atom_gettype(argv) == A_SYM)
+			defer(x,(method)minuit_doget, atom_getsym(argv), 0, NULL);
 }
 
 void minuit_add_device(t_minuit *x, t_symbol *device_name, t_symbol *ip, long port)
 {
+	std::map<std::string, std::string> commParameters;
 	char s_port[8];
+	
+	snprintf(s_port, 8, "%ld", port);
 	
 	// remove the actual Minuit device
 	if(x->device != _sym_nothing)
 		jamoma_controller->deviceRemove(x->device->s_name);
 	
 	// create a new one
-	snprintf(s_port, 8, "%ld", port);
-	jamoma_controller->addDevice(device_name->s_name, "Minuit", ip->s_name, s_port);
+	commParameters["ip"] = ip->s_name;
+	commParameters["port"] = s_port;
+	jamoma_controller->deviceAdd(device_name->s_name, "Minuit", &commParameters);
+	
 	x->device = device_name;
 	
 	if(x->b_debug)
@@ -187,13 +217,13 @@ void minuit_donamespace(t_minuit *x, t_symbol *oscAddress)
 {
 	short i;
 	TTString temp;
-	TTList lk_prp, lk_chd;
+	TTList lk_chd;
+	TTValue attrlist;
 	t_linklist *lk_leaves, *lk_nodes;
 	TTSymbolPtr n_attr;
 	t_symbol *n_type, *s_attr;
 	t_symbol *n_instance;
-	
-	
+
 	// prepare s_answer
 	TTString s_answer = x->device->s_name;
 	s_answer += " ";
@@ -207,7 +237,7 @@ void minuit_donamespace(t_minuit *x, t_symbol *oscAddress)
 	// auto-translation: It is necessary for us to have the nodes the lower and attributes of the node than the address given
 	if(x->p_node && x->address){
 		
-		jamoma_node_attribute_list(x->p_node, lk_prp);
+		jamoma_node_attribute_list(x->p_node, attrlist);
 		jamoma_node_children(x->p_node, lk_chd);
 		
 		// the two lists for the nodes and leaves
@@ -215,7 +245,7 @@ void minuit_donamespace(t_minuit *x, t_symbol *oscAddress)
 		lk_nodes = linklist_new();
 		
 		// if there are properties
-		if(!lk_prp.isEmpty()){
+		if(attrlist.getSize()){
 			
 			s_answer += " ";
 			s_answer += x->minuit_start_attributes->s_name;
@@ -224,9 +254,9 @@ void minuit_donamespace(t_minuit *x, t_symbol *oscAddress)
 			s_answer += " ";
 			
 			// write an outline for each attribut
-			for(lk_prp.begin(); lk_prp.end(); lk_prp.next()){
+			for(i=0; i<attrlist.getSize(); i++){
 				
-				lk_prp.current().get(0,(TTSymbolPtr*)&n_attr);
+				attrlist.get(i,(TTSymbolPtr*)&n_attr);
 				s_attr = minuit_convert_attribut_jamoma2minuit(x, gensym((char*)n_attr->getCString()));
 				
 				if(s_attr){
@@ -307,10 +337,11 @@ void minuit_donamespace(t_minuit *x, t_symbol *oscAddress)
 			// TODO : return !namespace address
 		}
 		
-		// send answer
-		jamoma_controller->sendMessage(s_answer);
 		if(x->b_debug)
 			object_post((t_object*)x, "SEND %s", s_answer.c_str());
+		
+		// send answer
+		jamoma_controller->deviceSendNamespaceAnswer(s_answer);
 	}
 }
 
@@ -430,7 +461,7 @@ void minuit_doget(t_minuit *x, t_symbol *oscAddress)
 						}
 						
 						// send answer
-						jamoma_controller->sendMessage(s_answer);
+						jamoma_controller->deviceSendGetAnswer(s_answer);
 						if(x->b_debug)
 							object_post((t_object*)x, "SEND %s", s_answer.c_str());
 					}

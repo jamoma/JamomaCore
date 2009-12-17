@@ -86,7 +86,7 @@ extern "C" {
 	////////////////////////////////////////////////////
 	
 	/** Return all attributes of a node */
-	JamomaError		jamoma_node_attribute_list(TTNodePtr node, TTList& lk_prp);
+	JamomaError		jamoma_node_attribute_list(TTNodePtr node, TTValue& attrlist);
 	
 	/** Add all attributes returned by the t_object as attribute of the node */
 	JamomaError		jamoma_node_attribute_add_all(TTNodePtr node, t_object *object);

@@ -273,17 +273,11 @@ t_object * jamoma_node_max_object(TTNodePtr node)
 // Method to deal with the attributes of a node
 ////////////////////////////////////////////////////
 
-JamomaError	jamoma_node_attribute_list(TTNodePtr node, TTList& lk_prp)
+JamomaError	jamoma_node_attribute_list(TTNodePtr node, TTValue& attrlist)
 {
-	TTErr err;
+	node->getAttributeNames(attrlist);
 	
-	// TODO : use the TTAtribute
-	return JAMOMA_ERR_GENERIC;
-	//err = node->getPropertyList(lk_prp);
-	if(err == kTTErrNone)
-		return JAMOMA_ERR_NONE;
-	
-	return JAMOMA_ERR_GENERIC;
+	return JAMOMA_ERR_NONE;
 }
 
 JamomaError	jamoma_node_attribute_add_all(TTNodePtr node, t_object *object)

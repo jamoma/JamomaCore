@@ -61,8 +61,10 @@ t_max_err		minuit_notify(t_minuit *x, t_symbol *s, t_symbol *msg, void *sender, 
 void			minuit_assist(t_minuit *x, void *b, long m, long a, char *s);
 
 // methods for jcom.minuit
-/** this method receive data from the Minuit network */
-void			minuit_callback(void *arg, std::string message);
+/** this method receive request from the Minuit network */
+void			minuit_message_callback(void *arg, std::string message);
+void			minuit_namespace_request_callback(void *arg, std::string message);
+void			minuit_get_request_callback(void *arg, std::string message);
 
 /** this method add a Minuit device to the Jamoma Controller : /device_name IP port */
 void			minuit_add_device(t_minuit *x, t_symbol *device_name, t_symbol *ip, long port);

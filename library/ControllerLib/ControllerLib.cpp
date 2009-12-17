@@ -29,7 +29,7 @@ ControllerPtr	jamoma_controller_init()
 	jamoma_controller = new Controller();
 	
 	// Launch plugins from a standard folder (TODO)
-	jamoma_controller->initPlugins("/Users/TO/Documents/virage/sequenceur/trunk/libIscore/libController/Plugins");
+	jamoma_controller->pluginLoad("/Users/TO/Documents/virage/sequenceur/trunk/libIscore/libController/Plugins");
 	
 	// TODO : throw a message over the network to declare /Jamoma
 	
@@ -53,14 +53,14 @@ JamomaError	jamoma_controller_dump()
 		
 		// show loaded plugins
 		post("<< Loaded Plugins >>");
-		plugins = jamoma_controller->getLoadedPluginsName();
+		plugins = jamoma_controller->pluginGetLoadedByName();
 		for(p_iter = plugins.begin(); p_iter != plugins.end(); p_iter++){
 			post(">> %s", std::string(*p_iter).c_str());
 		}
 
 		// show devices
 		post("<< Loaded Devices >>");
-		devices = jamoma_controller->getCurrentDevices();
+		devices = jamoma_controller->deviceGetCurrent();
 		d_iter = devices->begin();
 		while (d_iter != devices->end()){
 			post(">> %s", std::string(d_iter->first).c_str());
