@@ -22,6 +22,20 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-10",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 575.0, 685.0, 495.0, 19.0 ],
+					"text" : "jcom.message raw/midievent @type list @description \"Send raw midi messages to the plug-in.\""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-9",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -83,7 +97,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 575.0, 765.0, 141.0, 19.0 ],
+					"patching_rect" : [ 575.0, 795.0, 141.0, 19.0 ],
 					"text" : "jcom.meter_receive 2"
 				}
 
@@ -97,7 +111,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 575.0, 710.0, 141.0, 19.0 ],
+					"patching_rect" : [ 575.0, 740.0, 141.0, 19.0 ],
 					"text" : "jcom.meter_receive 1"
 				}
 
@@ -109,7 +123,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 575.0, 790.0, 80.0, 4.0 ],
+					"patching_rect" : [ 575.0, 820.0, 80.0, 4.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 136.0, 10.0, 80.0, 4.0 ]
 				}
@@ -122,7 +136,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 575.0, 735.0, 80.0, 4.0 ],
+					"patching_rect" : [ 575.0, 765.0, 80.0, 4.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 136.0, 5.0, 80.0, 4.0 ]
 				}
@@ -396,7 +410,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 0,
-					"patching_rect" : [ 575.0, 680.0, 201.0, 19.0 ],
+					"patching_rect" : [ 575.0, 710.0, 201.0, 19.0 ],
 					"text" : "jcom.midi.channel_messages_receive"
 				}
 
