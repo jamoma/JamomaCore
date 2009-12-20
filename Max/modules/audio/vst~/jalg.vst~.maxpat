@@ -113,9 +113,9 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 20.0, 74.0, 351.0, 345.0 ],
+						"rect" : [ 20.0, 74.0, 400.0, 491.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 20.0, 74.0, 351.0, 345.0 ],
+						"defrect" : [ 20.0, 74.0, 400.0, 491.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -134,12 +134,26 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"id" : "obj-3",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 25.0, 80.0, 119.0, 19.0 ],
+									"text" : "jcom.pass /midievent"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
 									"id" : "obj-29",
 									"maxclass" : "newobj",
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 25.0, 115.0, 76.0, 19.0 ],
+									"patching_rect" : [ 125.0, 180.0, 76.0, 19.0 ],
 									"text" : "zl join"
 								}
 
@@ -153,7 +167,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 25.0, 90.0, 47.0, 19.0 ],
+									"patching_rect" : [ 125.0, 155.0, 47.0, 19.0 ],
 									"text" : "zl join"
 								}
 
@@ -167,7 +181,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 25.0, 145.0, 116.0, 19.0 ],
+									"patching_rect" : [ 125.0, 210.0, 116.0, 19.0 ],
 									"text" : "jcom.oscroute /voice"
 								}
 
@@ -181,7 +195,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
-									"patching_rect" : [ 25.0, 65.0, 100.0, 19.0 ],
+									"patching_rect" : [ 125.0, 130.0, 100.0, 19.0 ],
 									"text" : "jcom.oscinstance"
 								}
 
@@ -205,7 +219,7 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 75.0, 285.0, 27.0, 27.0 ]
+									"patching_rect" : [ 25.0, 365.0, 27.0, 27.0 ]
 								}
 
 							}
@@ -218,7 +232,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 75.0, 255.0, 105.0, 19.0 ],
+									"patching_rect" : [ 175.0, 320.0, 105.0, 19.0 ],
 									"text" : "prepend midievent"
 								}
 
@@ -365,7 +379,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 237.0, 202.0, 63.0, 19.0 ],
+									"patching_rect" : [ 337.0, 267.0, 63.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
@@ -531,7 +545,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 184.0, 203.0, 41.0, 19.0 ],
+									"patching_rect" : [ 284.0, 268.0, 41.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
@@ -688,7 +702,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 25.0, 206.0, 45.0, 19.0 ],
+									"patching_rect" : [ 125.0, 271.0, 45.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
@@ -854,7 +868,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 131.0, 204.0, 43.0, 19.0 ],
+									"patching_rect" : [ 231.0, 269.0, 43.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
@@ -1020,7 +1034,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 78.0, 205.0, 31.0, 19.0 ],
+									"patching_rect" : [ 178.0, 270.0, 31.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
@@ -1044,7 +1058,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 6,
 									"outlettype" : [ "", "", "", "", "", "" ],
-									"patching_rect" : [ 25.0, 175.0, 282.0, 19.0 ],
+									"patching_rect" : [ 125.0, 240.0, 282.0, 19.0 ],
 									"text" : "jcom.oscroute /bend /cc /note /poly /program"
 								}
 
@@ -1052,7 +1066,7 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"destination" : [ "obj-28", 0 ],
+									"destination" : [ "obj-3", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-1", 0 ]
@@ -1146,6 +1160,24 @@
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-29", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-2", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-3", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-28", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-3", 1 ]
 								}
 
 							}
