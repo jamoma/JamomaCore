@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 174.0, 44.0, 674.0, 790.0 ],
+		"rect" : [ 174.0, 44.0, 607.0, 712.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 174.0, 44.0, 674.0, 790.0 ],
+		"defrect" : [ 174.0, 44.0, 607.0, 712.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -20,37 +20,6 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-12",
-					"linecount" : 2,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 330.0, 610.0, 322.0, 34.0 ],
-					"text" : "some VST plugins (e.g. mdsp Livecut) need some timing Info that can be provided in Max by the global transport"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "/globalTransport" ],
-					"id" : "obj-8",
-					"lockeddragscroll" : 1,
-					"maxclass" : "bpatcher",
-					"name" : "jmod.globalTransport.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 335.0, 650.0, 300.0, 70.0 ],
-					"presentation_rect" : [ 30.0, 30.0, 300.0, 70.0 ],
-					"varname" : "jmod.bcf2000"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"args" : [ "@name", "jmod.vst~", "@description", "VST plug-ins hosting module" ],
 					"bgmode" : 1,
 					"id" : "obj-6",
@@ -58,7 +27,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 644.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 607.0, 70.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
 				}
@@ -129,7 +98,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 30.0, 735.0, 545.0, 43.0 ],
+					"patching_rect" : [ 25.0, 660.0, 545.0, 43.0 ],
 					"text" : "Credits: The OSC namespace implementation of plug-in parameters is based on M. Zbyszynski and A. Freed: Control of VST Plug-ins using OSC. Proceedings of the ICMC 2005. The interface for the module was partly inspired by the brilliant Radial application."
 				}
 
@@ -145,9 +114,9 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 222.0, 66.0, 259.0, 306.0 ],
+						"rect" : [ 790.0, 46.0, 637.0, 493.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 222.0, 66.0, 259.0, 306.0 ],
+						"defrect" : [ 790.0, 46.0, 637.0, 493.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 1,
 						"default_fontsize" : 10.0,
@@ -162,7 +131,50 @@
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
+						"visible" : 1,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-9",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"patching_rect" : [ 905.0, 60.0, 24.0, 19.0 ],
+									"text" : "t 0"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-8",
+									"maxclass" : "newobj",
+									"numinlets" : 2,
+									"numoutlets" : 2,
+									"outlettype" : [ "bang", "" ],
+									"patching_rect" : [ 905.0, 35.0, 34.0, 19.0 ],
+									"text" : "sel 0"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-7",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 4,
+									"outlettype" : [ "int", "float", "int", "int" ],
+									"patching_rect" : [ 905.0, 10.0, 61.0, 19.0 ],
+									"text" : "dspstate~"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -221,7 +233,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "int" ],
-									"patching_rect" : [ 905.0, 65.0, 65.0, 20.0 ],
+									"patching_rect" : [ 905.0, 85.0, 65.0, 20.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 135.0, 265.0, 55.0, 19.0 ],
 									"rounded" : 15.0,
@@ -240,7 +252,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "int" ],
-									"patching_rect" : [ 800.0, 65.0, 100.0, 20.0 ],
+									"patching_rect" : [ 800.0, 85.0, 100.0, 20.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 30.0, 265.0, 100.0, 20.0 ],
 									"text" : "Read MIDI file",
@@ -787,15 +799,15 @@
  ]
 									}
 ,
-									"patching_rect" : [ 800.0, 115.0, 85.0, 19.0 ],
+									"patching_rect" : [ 800.0, 135.0, 85.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
+										"globalpatchername" : "",
 										"fontface" : 0,
-										"default_fontname" : "Verdana",
 										"fontsize" : 10.0,
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana",
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p midiSequene"
@@ -908,13 +920,13 @@
 ,
 									"patching_rect" : [ 310.0, 40.0, 84.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
+										"globalpatchername" : "",
 										"fontface" : 0,
-										"default_fontname" : "Verdana",
 										"fontsize" : 10.0,
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana",
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p UnNormalize"
@@ -1098,15 +1110,15 @@
  ]
 									}
 ,
-									"patching_rect" : [ 590.0, 115.0, 121.0, 19.0 ],
+									"patching_rect" : [ 590.0, 135.0, 121.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
+										"globalpatchername" : "",
 										"fontface" : 0,
-										"default_fontname" : "Verdana",
 										"fontsize" : 10.0,
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana",
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p make_osc_message"
@@ -1121,7 +1133,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "int", "int" ],
-									"patching_rect" : [ 590.0, 65.0, 196.0, 34.0 ],
+									"patching_rect" : [ 590.0, 85.0, 196.0, 34.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 30.0, 185.0, 196.0, 34.0 ]
 								}
@@ -1232,7 +1244,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-1", 1 ],
 									"hidden" : 0,
-									"midpoints" : [ 776.5, 105.0, 701.5, 105.0 ],
+									"midpoints" : [ 776.5, 125.0, 701.5, 125.0 ],
 									"source" : [ "obj-2", 1 ]
 								}
 
@@ -1275,10 +1287,37 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-8", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-7", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-9", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-8", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-12", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-84", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-84", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-9", 0 ]
 								}
 
 							}
@@ -1287,13 +1326,13 @@
 ,
 					"patching_rect" : [ 25.0, 245.0, 57.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"default_fontname" : "Verdana",
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p midi_in",
@@ -1589,13 +1628,13 @@
 ,
 					"patching_rect" : [ 345.0, 570.0, 152.0, 24.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
+						"globalpatchername" : "",
 						"fontface" : 0,
-						"default_fontname" : "Verdana",
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p \"Using jmod.vst~\""
@@ -1627,23 +1666,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 345.0, 530.0, 226.0, 17.0 ],
-					"text" : "/raw/midievent 176 67 0"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "/cuelist" ],
-					"id" : "obj-7",
-					"lockeddragscroll" : 1,
-					"maxclass" : "bpatcher",
-					"name" : "jmod.cueManager.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 26.0, 650.0, 300.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"varname" : "jmod.cuelist"
+					"text" : "/view/color/border 0.62 0. 0.36 1."
 				}
 
 			}
