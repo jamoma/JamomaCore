@@ -42,7 +42,7 @@ Room::Room(double newWidth, double newDepth, double newHeight, short numChannels
        According to the image Model the number of Reflections can be determined based on the Reflection Order
        that is how many times a ray is allowed to hit a wall.
      */
-    if (reflOrder_ < 0 or reflOrder_ > 3)
+    if (reflOrder_ < 0 || reflOrder_ > 3)
     {
         post("Invalid reflection order, defaulting to 2.");
         reflOrder_ = 2;
