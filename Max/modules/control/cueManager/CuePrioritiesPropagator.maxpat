@@ -21,12 +21,26 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"id" : "obj-22",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 673.0, 163.0, 50.0, 18.0 ],
+					"text" : "clear"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
 					"id" : "obj-36",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "clear" ],
-					"patching_rect" : [ 796.0, 629.0, 100.0, 20.0 ],
+					"patching_rect" : [ 788.0, 629.0, 100.0, 20.0 ],
 					"text" : "t clear"
 				}
 
@@ -224,13 +238,13 @@
 					"fontsize" : 12.0,
 					"frgb" : [ 0.694118, 0.694118, 0.694118, 1.0 ],
 					"id" : "obj-1",
-					"linecount" : 14,
+					"linecount" : 8,
 					"maxclass" : "textedit",
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "int", "", "" ],
 					"patching_rect" : [ 588.0, 198.0, 582.0, 363.0 ],
-					"text" : "/zdbapout 1 1 /bufferpool 2 1 /output 2 1 /trig_mapper.9 2 1 /trig_mapper.10 2 1 /bcf2000 3 1 /cont_mapper.18 3 1 /wacom 3 1 /trig_mapper.5 4 1 /trig_mapper.6 4 1 /trig_mapper.7 4 1 /trig_mapper.8 4 1 /cont_mapper.5 4 1 /cont_mapper.4 4 1 /cont_mapper.7 4 1 /cont_mapper.9 4 1 /cont_mapper.8 4 1 /cont_mapper.10 4 1 /cont_mapper.2 4 1 /cont_mapper.1 4 1 /cont_mapper.6 4 1 /cont_mapper.3 4 1 /cont_mapper.11 4 1 /cont_mapper.12 4 1 /cont_mapper.13 4 1 /cont_mapper.15 4 1 /cont_mapper.16 4 1 /cont_mapper.17 4 1 /cont_mapper.14 4 1 /trig_mapper.2 4 1 /trig_mapper.1 4 1 /trig_mapper.4 4 1 /trig_mapper.3 4 1 /ZDtD2.1 5 1 /equalizer~.1 5 1 /Zspat2.1 5 1 /ZmodDtD~.1 5 1 /ZDtD2.2 6 1 /equalizer~.2 6 1 /Zspat2.2 6 1 /ZmodDtD~.2 6 1 /ZDtD2.3 7 1 /equalizer~.3 7 1 /Zspat2.3 7 1 /ZmodDtD~.3 7 1 /ZDtD2.4 8 1 /equalizer~.4 8 1 /Zspat2.4 8 1 /ZmodDtD~.4 8 1 /Zspat.1 9 1 /Zlooper~.1 9 1 /Zequalizer~.1 9 1 /Zmodloop~.1 9 1 /Zspat.2 10 1 /Zequalizer~.2 10 1 /Zlooper~.2 10 1 /Zmodloop~.2 10 1 /Zspat.3 11 1 /Zequalizer~.3 11 1 /Zlooper~.3 11 1 /Zmodloop~.3 11 1 /Zspat.4 12 1 /Zequalizer~.4 12 1 /Zmodgran~.1 12 1 /Zgran~.1 12 1 /Zgran.1 12 1 /reverb~ 13 1 /ZVerbSpat2~.1 13 1 /ZVerbSpat2~.3 13 1 /gigaverb~ 13 1 /ZVerbSpat2~.2 13 1 /Zin~.1 14 1 /ZinSpat.1 14 1 /psy.1 14 1 /ZinSpat.2 14 1 /ZDtDpsy 14 1 /indegrade~ 14 1 /tremolo~ 14 1 /saturation~ 14 1 /inequalizer~ 14 1 /ZDtD6.1 16 1 /ZDtD6.2 16 1"
+					"text" : "/cont_mapper.8 88 1 /cont_mapper.9 89 1 /cont_mapper.10 90 1 /cont_mapper.11 91 1 /trig_mapper.1 101 1 /trig_mapper.2 102 1 /trig_mapper.3 103 1 /trig_mapper.4 104 1 /trig_mapper.5 105 1 /trig_mapper.6 106 1 /trig_mapper.7 107 1 /trig_mapper.8 108 1 /trig_mapper.9 109 1 /trig_mapper.10 110 1 /trig_mapper.11 111 1 /trig_mapper.12 112 1 /cont_mapper.12 112 1 /Zkroonde.12 131 1 /Zkroonde.13 132 1 /Zkroonde.14 133 1 /Zkroonde.15 134 1 /Zkroonde.16 135 1 /Zkroonde.1 140 1 /Zkroonde.2 141 1 /Zkroonde.3 142 1 /Zkroonde.4 143 1 /Zkroonde.5 144 1 /Zkroonde.6 145 1 /Zkroonde.7 146 1 /Zkroonde.8 147 1 /Zkroonde.9 148 1 /Zkroonde.10 149 1 /teteBras 150 1 /input% 150 1 /brcosa% 151 1 /colorTracker%.1 152 1 /colorTracker%.2 153 1 /colorTracker% 154 1 /background% 155 1 "
 				}
 
 			}
@@ -613,6 +627,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-36", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 682.5, 183.0, 683.0, 183.0, 683.0, 189.0, 1196.0, 189.0, 1196.0, 579.0, 797.5, 579.0 ],
+					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -641,15 +664,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-25", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-36", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-25", 0 ]
