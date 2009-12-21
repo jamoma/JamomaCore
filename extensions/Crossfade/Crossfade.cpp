@@ -41,11 +41,13 @@ class TTCrossfade : TTAudioObject {
 	
 	/** The process method used when the shape attribute is set to "equalPower" and the mode is set to "lookup"
 	 *	This method will return an error if the input and output channels are not matched properly.		*/
-	TTErr processLookup(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processEqualPowerLookup(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processEqualPowerCalc(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs); // calculate
 	
-	/** The process method used when the shape attribute is set to "equalPower" and the mode is set to "calculate"
+	/** The process method used when the shape attribute is set to "squareRoot""
 	 *	This method will return an error if the input and output channels are not matched properly.		*/
-	TTErr processCalc(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processSquareRootCalc(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processSquareRootLookup(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 	/**	Setter for the shape attribute. */
 	TTErr setshape(const TTValue& value);
@@ -100,10 +102,16 @@ TTErr TTCrossfade::setProcessPointers()
 	TTErr	err = kTTErrNone;
 	
 	if(shape == TT("equalPower") && mode == TT("lookup")){
-		err = setProcess((TTProcessMethod)&TTCrossfade::processLookup);
+		err = setProcess((TTProcessMethod)&TTCrossfade::processEqualPowerLookup);
 	}
 	else if(shape == TT("equalPower") && mode == TT("calculate")){
-		err = setProcess((TTProcessMethod)&TTCrossfade::processCalc);
+		err = setProcess((TTProcessMethod)&TTCrossfade::processEqualPowerCalc);
+	}
+	else if(shape == TT("squareRoot") && mode == TT("calculate")){
+		err = setProcess((TTProcessMethod)&TTCrossfade::processSquareRootCalc);
+	}
+	else if(shape == TT("squareRoot") && mode == TT("lookup")){
+		err = setProcess((TTProcessMethod)&TTCrossfade::processSquareRootLookup);
 	}
 	else{
 		err = setProcess((TTProcessMethod)&TTCrossfade::processLinear);
@@ -176,7 +184,7 @@ TTErr TTCrossfade::processLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 }
 
 
-TTErr TTCrossfade::processLookup(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTCrossfade::processEqualPowerLookup(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
@@ -236,11 +244,120 @@ TTErr TTCrossfade::processLookup(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	return kTTErrNone;
 }
 
+TTErr TTCrossfade::processSquareRootLookup(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
+	TTUInt16		vs;
+	TTSampleValue	*inSampleA,
+	*inSampleB,
+	*outSample;
+	TTUInt16		numchannels = out.getNumChannels();
+	TTUInt16		channel;
+	int				index;
+	
+	if(inputs->numAudioSignals > 1){
+		TTAudioSignal&	in2 = inputs->getSignal(1);
+		
+		numchannels = TTAudioSignal::getMaxChannelCount(in, in2, out);;
+		for(channel=0; channel<numchannels; channel++){
+			if(channel < in.getNumChannels())
+				inSampleA = in.sampleVectors[channel];
+			else
+				inSampleA = zeroVector1;
+			
+			if(channel < in2.getNumChannels())
+				inSampleB = in2.sampleVectors[channel];
+			else
+				inSampleB = zeroVector2;
+			
+			if(channel < out.getNumChannels())
+				outSample = out.sampleVectors[channel];
+			else
+				outSample = zeroVector3;
+			
+			vs = in.getVectorSize();
+			
+			while(vs--){
+				index = (int)(position * 511.0);
+				*outSample++ = (*inSampleB++ * kTTLookupSquareRoot[511 - index]) + (*inSampleA++ * kTTLookupSquareRoot[index]);
+			}
+		}
+		return kTTErrNone;
+	}
+	else{
+		if(in.getNumChannels() != out.getNumChannels()*2)
+			return kTTErrBadChannelConfig;
+		
+		for(channel=0; channel<numchannels; channel++){
+			inSampleA = in.sampleVectors[channel];
+			inSampleB = in.sampleVectors[numchannels+channel];
+			outSample = out.sampleVectors[channel];
+			vs = in.getVectorSize();
+			
+			while(vs--){
+				index = (int)(position * 511.0);
+				*outSample++ = (*inSampleB++ * kTTLookupSquareRoot[511 - index]) + (*inSampleA++ * kTTLookupSquareRoot[index]);
+			}
+		}
+	}
+	return kTTErrNone;
+}
 
 // TODO: Nils says that we should experiment here with (sin*sin) here so that we can sum to 1.0 in the center???
 // It's worth experimenting with it....
 
-TTErr TTCrossfade::processCalc(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTCrossfade::processEqualPowerCalc(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
+	TTUInt16		vs;
+	TTSampleValue	*inSampleA,
+	*inSampleB,
+	*outSample;
+	TTUInt16		numchannels = out.getNumChannels();
+	TTUInt16		channel;
+	TTFloat64		radPosition;
+	
+	if(inputs->numAudioSignals > 1){
+		TTAudioSignal&	in2 = inputs->getSignal(1);
+		
+		numchannels = TTAudioSignal::getMinChannelCount(in, in2, out);
+		for(channel=0; channel<numchannels; channel++){
+			inSampleA = in.sampleVectors[channel];
+			inSampleB = in2.sampleVectors[channel];
+			outSample = out.sampleVectors[channel];
+			vs = in.getVectorSize();
+			
+			while(vs--)
+			{
+				radPosition = position * kTTPi_2;
+				*outSample++ = (*inSampleB++ * (sin(radPosition))) + (*inSampleA++ * (cos(radPosition)));
+			}
+		}
+		
+	}
+	else{	
+		if(in.getNumChannels() != out.getNumChannels()*2)
+			return kTTErrBadChannelConfig;
+		
+		for(channel=0; channel<numchannels; channel++){
+			inSampleA = in.sampleVectors[channel];
+			inSampleB = in.sampleVectors[numchannels+channel];
+			outSample = out.sampleVectors[channel];
+			vs = in.getVectorSize();
+			
+			while(vs--)
+			{
+				radPosition = position * kTTPi_2;
+				*outSample++ = (*inSampleB++ * (sin(radPosition))) + (*inSampleA++ * (cos(radPosition)));
+			}
+		}
+	}
+	return kTTErrNone;
+}
+
+TTErr TTCrossfade::processSquareRootCalc(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
@@ -262,7 +379,7 @@ TTErr TTCrossfade::processCalc(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayP
 			vs = in.getVectorSize();
 			
 			while(vs--)
-				*outSample++ = (*inSampleB++ * (sin(position * 1.5707963))) + (*inSampleA++ * (sin((1 - position) * 1.5707963)));
+				*outSample++ = (*inSampleB++ * (sqrt(position))) + (*inSampleA++ * (sqrt(1 - position)));
 		}
 		
 	}
@@ -277,7 +394,7 @@ TTErr TTCrossfade::processCalc(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayP
 			vs = in.getVectorSize();
 			
 			while(vs--)
-				*outSample++ = (*inSampleB++ * (sin(position * 1.5707963))) + (*inSampleA++ * (sin((1 - position) * 1.5707963)));
+				*outSample++ = (*inSampleB++ * (sqrt(position))) + (*inSampleA++ * (sqrt(1 - position)));
 		}
 	}
 	return kTTErrNone;

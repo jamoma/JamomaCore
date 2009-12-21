@@ -112,7 +112,7 @@ TTErr TTBandpassButterworth2::calculateCoefficients()
 	else
 		bw = frequency/q;
 	c = 1. / tan( kTTPi*(bw/sr) );
-	d = 2. * cos( 2*kTTPi*(frequency/sr) );
+	d = 2. * cos( kTTTwoPi*(frequency/sr) );
 	a0 = 1. / (1. + c);
 	// a1 = 0.
 	a2 = -a0;

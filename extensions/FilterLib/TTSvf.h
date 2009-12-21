@@ -19,7 +19,8 @@
 	This implementation takes a different approach which requires the selection of one of the types.
 	At some point in the future we could add a mode to get all 4 signals out of the output...
  */
-TTAUDIOCLASS(TTSvf)
+class TTSvf : public TTAudioObject {
+	TTCLASS_SETUP(TTSvf)
 
 	TTFloat64		frequency;			///< filter cutoff frequency
 	TTFloat64		resonance;			///< filter resonance -- range is best between 1.0 and 16.0

@@ -70,7 +70,7 @@ TTErr TTOverdrive::setdrive(const TTValue& newValue)
 	nb = b * -1.;
 	i = int(f);
 	if((f-(TTFloat64)i) > 0.5) 
-		scale = sin(f * kTTPi);
+		scale = sin(z); // sin(f * kTTPi);
 	else 
 		scale = 1.0;
 

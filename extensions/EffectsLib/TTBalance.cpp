@@ -18,18 +18,18 @@ TT_AUDIO_CONSTRUCTOR
 	TTUInt16	initialMaxNumChannels = arguments;
 	
 	// register attributes
-	registerAttributeWithSetter(frequency,	kTypeFloat64);
+	addAttributeWithSetter(Frequency, kTypeFloat64);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessageWithArgument(updateMaxNumChannels);
+	addMessageWithArgument(updateMaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessageSimple(updateSr);
+	addMessage(updateSr);
 	// make the clear method available to the outside world
-	registerMessageSimple(clear);
+	addMessage(clear);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);			// This attribute is inherited
-	setAttributeValue(TT("frequency"),		10.0);						// Default frequency is 10 Hz
+	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);		// This attribute is inherited
+	setAttributeValue(TT("Frequency"),		10.0);						// Default frequency is 10 Hz
 	setProcessMethod(processAudio);
 }
 
@@ -54,8 +54,8 @@ TTErr TTBalance::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 TTErr TTBalance::updateSr()
 {
-	TTValue	v(frequency);
-	return setfrequency(v);
+	TTValue	v(mFrequency);
+	return setFrequency(v);
 }
 
 
@@ -73,11 +73,11 @@ TTErr TTBalance::clear()
 }
 
 
-TTErr TTBalance::setfrequency(const TTValue& newValue)
+TTErr TTBalance::setFrequency(const TTValue& newValue)
 {
-	frequency = TTClip((double)newValue, 1., (sr*0.45));
+	mFrequency = TTClip((double)newValue, 1., (sr*0.45));
 
-	c = 1 / ( tan( kTTPi*(frequency/sr) ) );
+	c = 1 / ( tan( kTTPi*(mFrequency/sr) ) );
 	a0 = 1 / (1 + kTTSqrt2*c + c*c);
 	a1 = 2*a0;
 	a2 = a0;
@@ -106,11 +106,11 @@ TTErr TTBalance::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 
 	// Twice as many input channels are expected as output channels
 	numChannels = TTAudioSignal::getNumChannels(in) / 2;
-	if ( TTAudioSignal::getNumChannels(out) < numChannels)
+	if (TTAudioSignal::getNumChannels(out) < numChannels)
 		numChannels = TTAudioSignal::getNumChannels(out);
 
 	// This outside loop works through each channel one at a time
-	for(channel=0; channel<numChannels; channel++){
+	for (channel=0; channel<numChannels; channel++) {
 		// We first expect all channels of inputSignalA, then all channels of inputSignalB
 		inSampleA = in.sampleVectors[channel];
 		inSampleB = in.sampleVectors[channel+numChannels];
@@ -118,7 +118,7 @@ TTErr TTBalance::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 		vs = in.getVectorSize();
 		
 		// This inner loop works through each sample within the channel one at a time
-		while(vs--){
+		while (vs--) {
 			tempxA = *inSampleA++;
 			absTempxA = fabs(tempxA);
 			tempxB = *inSampleB++;

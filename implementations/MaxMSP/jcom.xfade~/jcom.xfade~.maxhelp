@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 321.0, 174.0, 800.0, 486.0 ],
+		"rect" : [ 343.0, 64.0, 800.0, 486.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 321.0, 174.0, 800.0, 486.0 ],
+		"defrect" : [ 343.0, 64.0, 800.0, 486.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"args" : [ "@name", "jcom.xfade~", "@description", "Crossfade object for n channels" ],
@@ -53,7 +54,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 295.0, 350.0, 50.0, 19.0 ]
+					"patching_rect" : [ 295.0, 351.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -185,7 +186,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-9",
-					"items" : [ "Equal", "Power", "Fade", "[default]", ",", "Linear", "Fade" ],
+					"items" : [ "Equal", "Power", "Fade", "[default]", ",", "Linear", "Fade", ",", "Square", "Root", "Fade" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -335,6 +336,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"comment" : "",
@@ -455,13 +457,13 @@
 ,
 					"patching_rect" : [ 156.0, 120.0, 74.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
-						"fontname" : "Verdana"
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p white_light"
@@ -495,6 +497,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"comment" : "",
@@ -615,13 +618,13 @@
 ,
 					"patching_rect" : [ 75.0, 120.0, 79.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
-						"fontname" : "Verdana"
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p black_verve"
