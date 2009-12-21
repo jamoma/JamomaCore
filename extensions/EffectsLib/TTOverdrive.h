@@ -12,17 +12,17 @@
 #include "TTDSP.h"
 
 // silly stuff to get symbols exported so we can subclass this class in external code
-#if defined( TT_PLATFORM_MAC ) or defined ( TT_PLATFORM_LINUX )
-	#ifdef TT_EFFECTS_LIB
-		#define TT_OVERDRIVE_EXPORT TTDSP_EXPORT
-	#else
-		#define TT_OVERDRIVE_EXPORT
-	#endif
-#else
+#ifdef TT_PLATFORM_WIN
 	#ifdef TT_EFFECTS_LIB
 		#define TT_OVERDRIVE_EXPORT __declspec(dllexport)
 	#else
 		#define TT_OVERDRIVE_EXPORT __declspec(dllimport)
+	#endif
+#else
+	#ifdef TT_EFFECTS_LIB
+		#define TT_OVERDRIVE_EXPORT TTDSP_EXPORT
+	#else
+		#define TT_OVERDRIVE_EXPORT
 	#endif
 #endif
 
