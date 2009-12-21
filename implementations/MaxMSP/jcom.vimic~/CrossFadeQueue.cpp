@@ -15,6 +15,7 @@
 #include "CrossFadeQueue.h"
 #include "Properties.h"
 #include "ext_critical.h" //FIXME: this amy be added globally ?
+#include "TTElement.h"
 
 #include <cassert>
 #include <deque>
@@ -137,12 +138,22 @@ void CrossFadeQueue::computeFadeTbl()
     switch(fadeType_)
     {
         case Properties::COS: //cosine 
-            for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (M_PI_2 / (fadeLength_ - 1)), tableIdx++)
-                fadeTbl_[tableIdx] = (double) cos(i);	// read forward to fade out, backward to fade in
+#ifdef WIN_VERSION
+			// WARNING: This might be the wrong substitution, but M_PI_2 is not available on Windows
+			for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTTwoPi / (fadeLength_ - 1)), tableIdx++)
+#else
+			for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (M_PI_2 / (fadeLength_ - 1)), tableIdx++)
+#endif
+				fadeTbl_[tableIdx] = (double) cos(i);	// read forward to fade out, backward to fade in
             break;		
 
         case Properties::COS_SQUARED: //cosine squared
-            for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (M_PI_2 / (fadeLength_ - 1)), tableIdx++)
+#ifdef WIN_VERSION
+			// WARNING: This might be the wrong substitution, but M_PI_2 is not available on Windows
+			for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTTwoPi / (fadeLength_ - 1)), tableIdx++)
+#else
+			for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (M_PI_2 / (fadeLength_ - 1)), tableIdx++)
+#endif
                 fadeTbl_[tableIdx] = (double) pow(cos(i),2.0);	// read forward to fade out, backward to fade in
 
             break;

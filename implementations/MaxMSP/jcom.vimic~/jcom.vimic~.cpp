@@ -124,7 +124,7 @@ void *vimic_new(t_symbol *s, int argc, t_atom *argv)
        According to the image Model the number of Reflections can be determined based on the Reflection Order
        that is how many times a ray is allowed to hit a wall.
      */
-    if (x->reflOrder < 0 or x->reflOrder > 3)
+    if (x->reflOrder < 0 || x->reflOrder > 3)
     {
         post("Invalid reflection order, defaulting to 2.");
         x->reflOrder = 2;
@@ -2412,7 +2412,7 @@ void vimic_assist(t_vimic *x, Object *b, long msg, long arg, char *s)
         switch (arg) 
         { 
             case 0: 
-                sprintf(s, "%s", "Bang, anything, direct sound"); 
+                snprintf(s, 256, "%s", "Bang, anything, direct sound"); 
                 break; 
                 /*case 1: 
                   sprintf(s, "%s", "1st order refl.");
@@ -2426,5 +2426,5 @@ void vimic_assist(t_vimic *x, Object *b, long msg, long arg, char *s)
         }
     } 
     else if (msg == ASSIST_OUTLET)
-        sprintf(s, "%s %ld", "Output", arg + 1); 
+        snprintf(s, 256, "%s %ld", "Output", arg + 1); 
 }

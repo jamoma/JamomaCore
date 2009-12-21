@@ -23,8 +23,7 @@ class Room;
 class CrossFadeQueue;
 
 
-typedef struct
-{
+typedef struct _vimic {
     t_pxobject	x_obj;
     //TTAudioSignalPtr audioIn;
     //TTAudioSignalPtr audioOut;
@@ -68,7 +67,7 @@ typedef struct
 //static void *vimic_class = NULL;	 // TM: added static keyword to get it to link,
 static t_class *vimic_class; // changed [NP]	
 
-int	main();
+//int	main();	// declaring this proto causes linker errors with MSVC [TAP]
 void*	vimic_new(t_symbol *s, int argc, t_atom *argv);
 void	vimic_free(t_vimic *x);
 void	vimic_dsp(t_vimic *x, t_signal **p, short *count);
@@ -114,5 +113,5 @@ void	vimic_anything(t_vimic *x, t_symbol *message, short argc, t_atom *argv);
 t_int*	vimic_perform(t_int *w);
 
 
-#endif
+#endif // _JCOM_VIMIC_H_
 // vim:sw=4:et:cindent:
