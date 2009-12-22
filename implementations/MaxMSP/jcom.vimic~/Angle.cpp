@@ -12,16 +12,17 @@
 
 #include "Angle.h"
 #include "ext.h"
+#include "TTElement.h"
 
-const double Angle::PI_X_180 = M_PI / 180.0; 
+const double Angle::PI_X_180 = kTTPi / 180.0; 
 extern bool globWarningFlag;
 
 // default constructor
-Angle::Angle() : min_(-M_PI), max_(M_PI), max2_(2 * M_PI), coord_(0.0)
+Angle::Angle() : min_(-kTTPi), max_(kTTPi), max2_(kTTTwoPi), coord_(0.0)
 {}
 
 // constraints check maybe not ideal
-Angle::Angle(double nCoord, double min, double max, double max2) : min_(-M_PI), max_(M_PI), max2_(2 * M_PI), coord_(0.0)
+Angle::Angle(double nCoord, double min, double max, double max2) : min_(-kTTPi), max_(kTTPi), max2_(kTTTwoPi), coord_(0.0)
 {	
     nCoord *= PI_X_180;				
     min *= PI_X_180;
@@ -39,7 +40,7 @@ Angle::Angle(double nCoord, double min, double max, double max2) : min_(-M_PI), 
     if (nCoord >= min_ && nCoord <= max_)
         coord_ = nCoord;
     else if (nCoord >= max_ && nCoord <= max2_ && max_ != max2_)
-        coord_ = nCoord - 2 * M_PI;			// offset phase
+        coord_ = nCoord - kTTTwoPi;			// offset phase
     else if (globWarningFlag)
         post("Invalid angle, default to %f", coord_);
 }

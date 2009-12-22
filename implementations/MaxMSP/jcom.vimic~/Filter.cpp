@@ -15,6 +15,7 @@
 
 #include "Filter.h"
 #include "Properties.h"
+#include "TTElement.h"
 
 extern bool globWarningFlag;
 extern bool globReportFlag;
@@ -23,7 +24,7 @@ const double Filter::MAX_ = 1.0;
 const double Filter::MIN_ = 0.0000001;
 
 Filter::Filter() : 
-    sr_(M_PI / Properties::SAMPLERATE)
+    sr_(kTTPi / Properties::SAMPLERATE)
 {
     this->clear();              // initialize buffer to 0's
 }

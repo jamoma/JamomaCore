@@ -4,6 +4,7 @@
 #define _PROPERTIES_H_
 
 #include "ext.h"
+#include "TTElement.h"
 
 #define IEM_NAN(f) (f != f)
 
@@ -23,7 +24,7 @@ static const double MAX_ROOM_DIM = 40.0;
 static const int NUMSOURCES = 1;
 static const int DELAYSIZE = 12160; //190 * BLOCKSIZE(64); // 12160 samples
 static const int DELAYBYTES = 2 * DELAYSIZE;
-static const double RAD2DEG = 180.0 / M_PI;
+static const double RAD2DEG = 180.0 / kTTPi;
 static const double ONE_OVER_360 = 1.0 / 360.0; 
 static const int REFLECTIONS_PER_REFLECTION_ORDER[]  = {1, 7, 19, 5};
 static const int FADE_TABLE_SIZE = 3201;

@@ -6,6 +6,7 @@
 #include "Mic.h"
 #include "Properties.h"
 #include "Angle.h"
+#include "TTElement.h"
 #include <cassert>
 #include <vector>
 
@@ -119,7 +120,7 @@ const Mic& MicArray::operator [](const int index) const
 }
 
 void MicArray::print()
-{   double rad2deg_ = 180.0/M_PI;
+{   double rad2deg_ = 180.0/kTTPi;
     post("Number of Channels: %d", numChannels_);
     post("Mic Array Center: %f, %f, %f, Distance: %f", centerLR_, centerFB_, centerUD_, centerDistance_);
     int m = 0;
