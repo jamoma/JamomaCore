@@ -98,10 +98,10 @@ void *minuit_new(t_symbol *name, long argc, t_atom *argv)
 		jamoma_controller->addWaitedMessageAction(x, &minuit_message_callback);
 		
 		// add a callback to receive namespace request from the Controller
-		jamoma_controller->addWaitedNamespaceRequestAction(x, &minuit_namespace_request_callback);
+		//jamoma_controller->addWaitedNamespaceRequestAction(x, &minuit_namespace_request_callback);
 		
 		// add a callback to receive get request from the Controller
-		jamoma_controller->addWaitedGetRequestAction(x, &minuit_get_request_callback);
+		//jamoma_controller->addWaitedGetRequestAction(x, &minuit_get_request_callback);
 		
 		// send a namespace request to Virage
 		//jamoma_controller->sendMessage("/Virage ?namespace /");
@@ -341,7 +341,7 @@ void minuit_donamespace(t_minuit *x, t_symbol *oscAddress)
 			object_post((t_object*)x, "SEND %s", s_answer.c_str());
 		
 		// send answer
-		jamoma_controller->deviceSendNamespaceAnswer(s_answer);
+		//jamoma_controller->deviceSendNamespaceAnswer(s_answer);
 	}
 }
 
@@ -461,7 +461,7 @@ void minuit_doget(t_minuit *x, t_symbol *oscAddress)
 						}
 						
 						// send answer
-						jamoma_controller->deviceSendGetAnswer(s_answer);
+						//jamoma_controller->deviceSendGetAnswer(s_answer);
 						if(x->b_debug)
 							object_post((t_object*)x, "SEND %s", s_answer.c_str());
 					}

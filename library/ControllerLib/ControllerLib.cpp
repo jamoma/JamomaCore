@@ -8,7 +8,8 @@
 
 #include "ControllerLib.h"
 
-ControllerPtr jamoma_controller = NULL;
+ControllerPtr		jamoma_controller = NULL;
+//JamomaNamespacePtr	jamoma_namespace = NULL;
 
 /***********************************************************************************
 *
@@ -18,15 +19,19 @@ ControllerPtr jamoma_controller = NULL;
 
 
 // Method to deal with the Jamoma Controller
-/////////////////////////////////////////
+//////////////////////////////////////////////
 
 ControllerPtr	jamoma_controller_init()
-{
+{	
+	JamomaNamespace* jamoma_namespace;
+	
 	if(jamoma_controller)
 		return jamoma_controller;	// already have a directory, just return the pointer to the directory...
 	
-	// Launch the plugin manager
-	jamoma_controller = new Controller();
+	// Launch the plugin manager and create the JamomaNamespace
+	jamoma_namespace = new JamomaNamespace();
+	jamoma_namespace->directorySet(jamoma_directory);
+	jamoma_controller = new Controller((Namespace*)jamoma_namespace);
 	
 	// Launch plugins from a standard folder (TODO)
 	jamoma_controller->pluginLoad("/Users/TO/Documents/virage/sequenceur/trunk/libIscore/libController/Plugins");

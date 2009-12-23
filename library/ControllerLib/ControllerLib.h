@@ -9,17 +9,16 @@
 #include "TTFoundationAPI.h"
 #include "Jamoma.h"
 #include "Controller.h"
-#include "Device.h"
-#include "Plugin.h"
+#include "JamomaNamespace.h"
 
-#ifndef ControllerPtr
-#define ControllerPtr Controller*
-#endif
+typedef Controller* ControllerPtr;
+//typedef JamomaNamespace* JamomaNamespacePtr;
 
 // statics and globals
 
-/**	The Jamoma Controller : Plugin manager for network communication	*/
-extern ControllerPtr jamoma_controller;
+/**	The Jamoma Controller : Plugin manager for network communication */
+extern ControllerPtr		jamoma_controller;
+//extern JamomaNamespacePtr	jamoma_namespace;
 
 #ifdef __cplusplus
 extern "C" {
