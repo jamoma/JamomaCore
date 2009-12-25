@@ -9,7 +9,6 @@
 #include "ControllerLib.h"
 
 ControllerPtr		jamoma_controller = NULL;
-//JamomaNamespacePtr	jamoma_namespace = NULL;
 
 /***********************************************************************************
 *
@@ -23,20 +22,19 @@ ControllerPtr		jamoma_controller = NULL;
 
 ControllerPtr	jamoma_controller_init()
 {	
-	JamomaNamespace* jamoma_namespace;
-	
 	if(jamoma_controller)
 		return jamoma_controller;	// already have a directory, just return the pointer to the directory...
 	
 	// Launch the plugin manager and create the JamomaNamespace
-	jamoma_namespace = new JamomaNamespace();
-	jamoma_namespace->directorySet(jamoma_directory);
-	jamoma_controller = new Controller((Namespace*)jamoma_namespace);
+	jamoma_controller = new Controller();
 	
 	// Launch plugins from a standard folder (TODO)
 	jamoma_controller->pluginLoad("/Users/TO/Documents/virage/sequenceur/trunk/libIscore/libController/Plugins");
 	
 	// TODO : throw a message over the network to declare /Jamoma
+	
+	// Pass callbacks to the Controller Namespace
+	jamoma_controller->namespaceDiscoverAddCallback(jamoma_directory, &jamoma_namespace_discover_callback);
 	
 	return jamoma_controller;
 }
@@ -77,4 +75,56 @@ JamomaError	jamoma_controller_dump()
 	
 	post("jamoma_controller_dump : create the Controller before");
 	return JAMOMA_ERR_GENERIC;
+}
+
+
+
+// Callbacks to pass to the Namespace of the Controller
+/////////////////////////////////////////////////////////
+
+void jamoma_namespace_discover_callback(void* arg, Address whereToDiscover, std::vector<std::string>* returnedNodes, std::vector<std::string>* returnedAttributes)
+{
+	TTErr err;
+	TTNode nodeToDiscover, *aChild;
+	TTList allChildren;
+	TTString instanceName;
+	TTSymbolPtr attributeName;
+	TTValue attributeNameList;
+	int i;
+	
+	TTNodeDirectoryPtr m_directory = (TTNodeDirectoryPtr) arg;
+	
+	if(m_directory){
+		
+		// Get the Node at the given address
+		err = m_directory->getTTNodeForOSC(whereToDiscover.c_str(), &nodeToDiscover);
+		
+		if(!err){
+			
+			// Edit the vector with all name+instance of each children
+			nodeToDiscover.getChildren(S_WILDCARD, S_WILDCARD, &allChildren);
+			for(allChildren.begin(); allChildren.end(); allChildren.next())
+			{
+				allChildren.current().get(0,(TTPtr*)&aChild);
+				
+				instanceName = aChild->getName()->getString();
+				instanceName += aChild->getInstance()->getString();
+				
+				returnedNodes->push_back(instanceName->c_str());
+			}
+			
+			// Edit the vector with all attributes name
+			nodeToDiscover->getAttributeNames(&attributeNameList);
+			
+			// Add the acces attribute which is not a jamoma attribute
+			returnedAttributes->push_back(m_attr_access);
+			
+			// Add all other attributes
+			for(i = 0; i < attributeNameList.getSize(); i++)
+			{
+				attributeNameList.get(i,(TTSymbolPtr*)&attributeName);
+				returnedAttributes->push_back(convertAttributeFromJamoma(attributeName->getCString()));
+			}
+		}
+	}
 }

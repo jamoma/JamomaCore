@@ -9,16 +9,13 @@
 #include "TTFoundationAPI.h"
 #include "Jamoma.h"
 #include "Controller.h"
-#include "JamomaNamespace.h"
 
 typedef Controller* ControllerPtr;
-//typedef JamomaNamespace* JamomaNamespacePtr;
 
 // statics and globals
 
 /**	The Jamoma Controller : Plugin manager for network communication */
 extern ControllerPtr		jamoma_controller;
-//extern JamomaNamespacePtr	jamoma_namespace;
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,6 +32,12 @@ extern "C" {
 
 	/** Dump all Plugins and Devices of the Controller in the max window */
 	JamomaError		jamoma_controller_dump(void);
+	
+	
+	// Callback to pass to the Namespace of the Controller
+	/////////////////////////////////////////////////////////
+	
+	void jamoma_namespace_discover_callback(void* arg, Address whereToDiscover, std::vector<std::string>* returnedNodes, std::vector<std::string>* returnedAttributes);
 
 #ifdef __cplusplus
 }
