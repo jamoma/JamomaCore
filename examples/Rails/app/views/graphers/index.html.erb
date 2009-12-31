@@ -6,13 +6,54 @@
 <p>TODO: add menu to select an object here (for now we hard-code the exponential func)</p>
 <p>TODO: add things to display and control attributes of the selected object</p>
 
+
+<h2>FunctionLib: Exponential</h2>
+
+<% svg = MySVG.new(600, 150) %>
+
 <% f = TTRuby.new("exponential") %>
-<% for i in 0..100  %>
-	<% x = i/100.0 %>
+<% for i in 0..600  %>
+	<% x = i/600.0 %>
 	<% y = f.calculate(x) %>
-
-<p> <%= x %> --> <%= y %> </p>
-
+	<% svg.bar(i, 600, y) %>
+	<!-- <p> <%= x %> : <%= y %> </p> -->
 <% end %>
 
+<% svg.write("temp-exp.svg") %>
+<%= image_tag("temp-exp.svg") %>
 
+
+
+
+<h2>FunctionLib: Tanh</h2>
+
+<% svg = MySVG.new(600, 150) %>
+
+<% f = TTRuby.new("tanh") %>
+<% for i in 0..600  %>
+	<% x = i/600.0 %>
+	<% y = f.calculate(x) %>
+	<% svg.bar(i, 600, y) %>
+	<!-- <p> <%= x %> : <%= y %> </p> -->
+<% end %>
+
+<% svg.write("temp-tanh.svg") %>
+<%= image_tag("temp-tanh.svg") %>
+
+
+
+
+<h2>FunctionLib: Cosine</h2>
+
+<% svg = MySVG.new(600, 150) %>
+
+<% f = TTRuby.new("cosine") %>
+<% for i in 0..600  %>
+	<% x = i/600.0 %>
+	<% y = f.calculate(x) %>
+	<% svg.bar(i, 600, y) %>
+	<!-- <p> <%= x %> : <%= y %> </p> -->
+<% end %>
+
+<% svg.write("temp-cos.svg") %>
+<%= image_tag("temp-cos.svg") %>
