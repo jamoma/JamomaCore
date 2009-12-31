@@ -1,0 +1,18 @@
+<h1>Jamoma Grapher</h1>
+<p>Draw transfer function graphs for objects in Jamoma DSP</p>
+<br/><br/>
+
+
+<p>TODO: add menu to select an object here (for now we hard-code the exponential func)</p>
+<p>TODO: add things to display and control attributes of the selected object</p>
+
+<% f = TTRuby.new("exponential") %>
+<% for i in 0..100  %>
+	<% x = i/100.0 %>
+	<% y = f.calculate(x) %>
+
+<p> <%= x %> --> <%= y %> </p>
+
+<% end %>
+
+

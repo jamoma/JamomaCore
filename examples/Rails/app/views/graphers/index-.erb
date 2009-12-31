@@ -1,0 +1,18 @@
+<h1>Listing graphers</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% @graphers.each do |grapher| %>
+  <tr>
+    <td><%= link_to 'Show', grapher %></td>
+    <td><%= link_to 'Edit', edit_grapher_path(grapher) %></td>
+    <td><%= link_to 'Destroy', grapher, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New grapher', new_grapher_path %>
