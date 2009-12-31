@@ -26,7 +26,7 @@ typedef VALUE (*TTRubyMethod)(...);
 extern "C" {
 	void Init_TTRuby();
 	VALUE TTRubyInitialize(VALUE self, VALUE className);
-	VALUE TTRubySendMessage(VALUE self, VALUE messageName, VALUE args);
+	VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self);
 	VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue);
 	VALUE TTRubyCalculate(VALUE self, VALUE x);
 }
@@ -49,7 +49,7 @@ void Init_TTRuby()
 	c = rb_define_class("TTRuby", rb_cObject);
 	
 	rb_define_method(c, "initialize",		TTRubyMethod(TTRubyInitialize), 1);		// called to initialize a new object that has been created or cloned
-	rb_define_method(c, "send",				TTRubyMethod(TTRubySendMessage), 2);	// send a message to the wrapped object
+	rb_define_method(c, "send",				TTRubyMethod(TTRubySendMessage), -1);	// send a message to the wrapped object
 	rb_define_method(c, "set",				TTRubyMethod(TTRubySetAttribute), 2);	// set attribute value
 	rb_define_method(c, "calculate",		TTRubyMethod(TTRubyCalculate), 1);
 	
@@ -93,22 +93,72 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 /*****************************************************************************************************/
 // Methods
 
-VALUE TTRubySendMessage(VALUE self, VALUE messageName, VALUE args)
+VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 {
 	TTRubyInstance* instance = NULL;
 	TTErr			err = kTTErrNone;
-	VALUE			messageNameStr = StringValue(messageName);
+	VALUE			messageNameStr;
+	VALUE			messageArgStr;
 	TTValue			v;
 	
+	if (argc < 1) {
+		cout << "ERROR -- TTRuby.send requires at least 1 argument (the name of the message to send)" << endl;
+		goto bye;
+	}
+	
+	messageNameStr = StringValue(argv[0]);	
 	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
 		instance = (TTRubyInstance*)TTPtr(v);
 		if (instance) {
-			v.clear();
-			//TODO: somehow wrap args in v here
-			err = instance->obj->sendMessage(TT(RSTRING(messageNameStr)->ptr), v);
+			if (argc == 1) {		// no arguments...
+				err = instance->obj->sendMessage(TT(RSTRING(messageNameStr)->ptr));
+			}
+			else {					// we have arguments...
+				v.clear();
+				
+				for (int i=1; i<argc; i++) {
+					int t = TYPE(argv[i]);
+					
+					cout << "the type of the message arg is " << t << endl;
+					switch (t) {
+						case T_FLOAT:
+							v.append(NUM2DBL(argv[i]));
+							break;
+						case T_FIXNUM:
+							v.append((int)FIX2LONG(argv[i]));
+							break;
+						case T_BIGNUM:
+							v.append((TTInt64)NUM2LL(argv[i]));
+							break;
+						case T_STRING:
+							messageArgStr = StringValue(argv[i]);
+							v.append(TT(RSTRING(messageArgStr)->ptr));
+							break;
+						case T_ARRAY:
+							cout << "TTError: Array arguments for messages not yet supported in Ruby" << endl;
+							err = kTTErrGeneric;
+							break;
+						case T_OBJECT:
+							cout << "TTError: Object arguments for messages not yet supported in Ruby" << endl;
+							err = kTTErrGeneric;
+							break;
+						default:
+							// assume no arguments for now...
+							break;
+					}
+				}				
+
+				if (!err)
+					err = instance->obj->sendMessage(TT(RSTRING(messageNameStr)->ptr), v);				
+			}
+			
+			if (err)
+				cout << "TTRubySendMessage: Error " << err << endl;
 		}
 	}
+bye:
+	;
 }
 
 
