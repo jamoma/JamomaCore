@@ -1,5 +1,5 @@
-Jamoma Foundation
-Reflective C++ API and Runtime
+Jamoma Ruby
+Language Bindings for the Jamoma Platform
 _________________________________________________________________
 
 
@@ -14,11 +14,11 @@ Features
 
 
 Installing
-Place the folder containing this ReadMe somewhere on your hard-drive. Then Make sure your compiler has access to it in order to compile the code.
+Build by running "ruby build.rb" and install by running "ruby install.rb"
 
 
 Documentation / API
-Doxygen generated documentation is located in the "documentation" folder.
+Please check the examples folder until more formal documentation exists.
 
 
 License
