@@ -5,7 +5,7 @@
 require 'mkmf'
 
 wd = Dir.pwd
-Dir.chdir "../../library/includes"
+Dir.chdir "../../Foundation/library/includes"
 inc = Dir.pwd
 Dir.chdir "#{inc}/../../../DSP/library/includes"
 dsp = Dir.pwd
