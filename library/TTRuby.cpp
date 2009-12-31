@@ -21,11 +21,13 @@ public:
 typedef VALUE (*TTRubyMethod)(...);
 //#define TTRubyMethod
 
+
 // Prototypes
 extern "C" {
 	void Init_TTRuby();
 	VALUE TTRubyInitialize(VALUE self, VALUE className);
 	VALUE TTRubySendMessage(VALUE self, VALUE messageName, VALUE args);
+	VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue);
 	VALUE TTRubyCalculate(VALUE self, VALUE x);
 }
 
@@ -47,8 +49,9 @@ void Init_TTRuby()
 	c = rb_define_class("TTRuby", rb_cObject);
 	
 	rb_define_method(c, "initialize",		TTRubyMethod(TTRubyInitialize), 1);		// called to initialize a new object that has been created or cloned
-	rb_define_method(c, "sendMessage",		TTRubyMethod(TTRubySendMessage), 2);	// send a message to the wrapped object
-	rb_define_method(c, "calculate",		TTRubyMethod(TTRubyCalculate), 1);	// send a message to the wrapped object
+	rb_define_method(c, "send",				TTRubyMethod(TTRubySendMessage), 2);	// send a message to the wrapped object
+	rb_define_method(c, "set",				TTRubyMethod(TTRubySetAttribute), 2);	// set attribute value
+	rb_define_method(c, "calculate",		TTRubyMethod(TTRubyCalculate), 1);
 	
 	TTRuby_class = c;
 	
@@ -109,6 +112,58 @@ VALUE TTRubySendMessage(VALUE self, VALUE messageName, VALUE args)
 }
 
 
+VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
+{
+	TTRubyInstance* instance = NULL;
+	TTErr			err = kTTErrNone;
+	VALUE			attributeNameStr = StringValue(attributeName);
+	VALUE			attributeValueStr;
+	TTValue			v;
+	
+	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
+	if (!err) {
+		instance = (TTRubyInstance*)TTPtr(v);
+		if (instance) {
+			int t = TYPE(attributeValue);
+
+			v.clear();
+			//cout << "the type of the attr arg is " << t << endl;
+			switch (t) {
+				case T_FLOAT:
+					v.append(NUM2DBL(attributeValue));
+					break;
+				case T_FIXNUM:
+					v.append((int)FIX2LONG(attributeValue));
+					break;
+				case T_BIGNUM:
+					v.append((TTInt64)NUM2LL(attributeValue));
+					break;
+				case T_STRING:
+					attributeValueStr = StringValue(attributeValue);
+					v.append(TT(RSTRING(attributeValueStr)->ptr));
+					break;
+				case T_ARRAY:
+					cout << "TTError: Array arguments for attributes not yet supported in Ruby" << endl;
+					err = kTTErrGeneric;
+					break;
+				case T_OBJECT:
+					cout << "TTError: Object arguments for attributes not yet supported in Ruby" << endl;
+					err = kTTErrGeneric;
+					break;
+				default:
+					cout << "TTError: Unknown type for arguments to attribute" << endl;
+					err = kTTErrGeneric;
+					break;
+			}
+			if (!err)
+				err = instance->obj->setAttributeValue(TT(RSTRING(attributeNameStr)->ptr), v);
+			if (err)
+				cout << "TTRubySetAttribute: Error " << err << endl;
+		}
+	}
+}
+
+
 VALUE TTRubyCalculate(VALUE self, VALUE x)
 {
 	TTRubyInstance* instance = NULL;
@@ -123,9 +178,7 @@ VALUE TTRubyCalculate(VALUE self, VALUE x)
 			TTFloat64 fx = NUM2DBL(x);
 			TTFloat64 fy = 0.0;
 
-			//TODO: somehow wrap args in v here
-			err = instance->obj->calculate(fx, fy);
-			
+			err = instance->obj->calculate(fx, fy);			
 			returnValue = rb_float_new(fy);
 		}
 	}
