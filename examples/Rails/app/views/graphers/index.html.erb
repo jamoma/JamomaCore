@@ -43,7 +43,7 @@
 
 
 
-<h3>osine</h3>
+<h3>Cosine</h3>
 
 <% svg = MySVG.new(600, 150) %>
 
@@ -78,8 +78,7 @@
 <%= image_tag("temp-rect.svg") %>
 
 
-<br/><br/>
-<h2>Window Function Lib</h2>
+
 <h3>Bartlett</h3>
 
 <% svg = MySVG.new(600, 150) %>
@@ -94,6 +93,24 @@
 
 <% svg.write("temp-bartlett.svg") %>
 <%= image_tag("temp-bartlett.svg") %>
+
+
+
+
+<h3>Welch</h3>
+
+<% svg = MySVG.new(600, 150) %>
+
+<% f = TTRuby.new("welch") %>
+<% for i in 0..600  %>
+	<% x = i/600.0 %>
+	<% y = f.calculate(x) %>
+	<% svg.bar(i, 600, y) %>
+	<!-- <p> <%= x %> : <%= y %> </p> -->
+<% end %>
+
+<% svg.write("temp-welch.svg") %>
+<%= image_tag("temp-welch.svg") %>
 
 
 
