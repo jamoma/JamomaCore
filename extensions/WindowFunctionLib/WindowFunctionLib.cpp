@@ -10,6 +10,7 @@
 #include "TTDSP.h"
 #include "BartlettWindow.h"
 #include "RectangularWindow.h"
+#include "WelchWindow.h"
 
 
 extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
@@ -18,6 +19,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 
 	BartlettWindow::registerClass();
 	RectangularWindow::registerClass();
+	WelchWindow::registerClass();
 	
 	return kTTErrNone;
 }
