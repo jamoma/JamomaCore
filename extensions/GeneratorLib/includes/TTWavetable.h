@@ -32,6 +32,9 @@ class TTWavetable : TTAudioObject {
 	TTErr updateSr();
 	
 	/**	Process method 	*/
+	TTErr processAsLFO(TTAudioSignalArrayPtr, TTAudioSignalArrayPtr outputs);
+
+	/**	Process method 	*/
 	TTErr processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	/**	Process method 	*/

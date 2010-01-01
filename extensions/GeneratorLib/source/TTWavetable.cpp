@@ -71,9 +71,9 @@ TTErr TTWavetable::setMode(const TTValue& newValue)
 {
 	attrMode = newValue;	// TODO: should be newValue[0]
 
-	if(attrMode != TT("externalBuffer"))
+	if (attrMode != TT("externalBuffer"))
 		return wavetable->fill(newValue);
-	else{
+	else {
 		// TODO: implement the ability to use an externally defined buffer
 		return kTTErrInvalidValue;
 	}
@@ -83,8 +83,10 @@ TTErr TTWavetable::setMode(const TTValue& newValue)
 TTErr TTWavetable::setInterpolation(const TTValue& newValue)
 {
 	attrMode = newValue;
-	if(attrMode == TT("linear"))
+	if (attrMode == TT("linear"))
 		setProcessMethod(processWithLinearInterpolation);
+	else if (attrMode == TT("lfo"))
+		setProcessMethod(processAsLFO);
 	else
 		setProcessMethod(processWithNoInterpolation);
 	return kTTErrNone;
@@ -103,6 +105,41 @@ TTErr TTWavetable::setSize(const TTValue& newSize)
 {
 	attrSize = newSize;
 	return wavetable->setlengthInSamples(attrSize);
+}
+
+
+// LFO mode only updates values once per vector in order to be as fast as possible
+// LFO mode cannot be modulated
+TTErr TTWavetable::processAsLFO(TTAudioSignalArrayPtr, TTAudioSignalArrayPtr outputs)
+{
+	TTAudioSignal&	out = outputs->getSignal(0);
+	TTSampleValue	tempSample;
+	TTUInt16		vs = out.getVectorSize();
+	TTUInt16		i=0;
+	TTUInt16		numChannels = out.getNumChannels();
+	TTUInt16		channel;
+	TTUInt32		p1 = (TTUInt32)index;						// playback index
+	TTSampleValue*	contents = wavetable->getContentsForChannel(0);
+	
+	// Move the play head
+	index += (indexDelta * vs);
+	
+	// Wrap the play head
+	if (index >= attrSize)
+		index -= attrSize;
+	else if (index < 0)
+		index += attrSize;
+	
+	// table lookup (no interpolation)
+	tempSample = contents[p1] * linearGain;
+	
+	// TODO: in TTBlue 0.2.x this code only assigned the first sample value to save cpu -- should we bring this back as an option?
+	while (vs--) {
+		for (channel=0; channel<numChannels; channel++)
+			out.sampleVectors[channel][i] = tempSample;
+		i++;
+	}
+	return kTTErrNone;
 }
 
 
