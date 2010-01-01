@@ -13,6 +13,7 @@ myFunction = TTRuby.new("exponential")
 
 
 # Now we can use the object, whose reference we have in the 'myFunction' variable
+puts "Exponential function  with default attributes:"
 for i in 0..5 
     x = i/5.0
     y = myFunction.calculate(x)
@@ -25,6 +26,7 @@ puts
 # Setting the base to 1.0 should make it linear
 myFunction.set("base", 1.0)
 
+puts "Exponential function  with base attributes set to 1.0 (creates linear function):"
 for i in 0..5 
     x = i/5.0
     y = myFunction.calculate(x)
