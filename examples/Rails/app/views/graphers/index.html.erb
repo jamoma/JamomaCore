@@ -6,8 +6,8 @@
 <p>TODO: add menu to select an object here (for now we hard-code the exponential func)</p>
 <p>TODO: add things to display and control attributes of the selected object</p>
 
-
-<h2>FunctionLib: Exponential</h2>
+<h2>FunctionLib</h2>
+<h3>Exponential</h3>
 
 <% svg = MySVG.new(600, 150) %>
 
@@ -25,7 +25,7 @@
 
 
 
-<h2>FunctionLib: Tanh</h2>
+<h3>Tanh</h3>
 
 <% svg = MySVG.new(600, 150) %>
 
@@ -43,7 +43,7 @@
 
 
 
-<h2>FunctionLib: Cosine</h2>
+<h3>osine</h3>
 
 <% svg = MySVG.new(600, 150) %>
 
@@ -57,3 +57,44 @@
 
 <% svg.write("temp-cos.svg") %>
 <%= image_tag("temp-cos.svg") %>
+
+
+
+
+<h2>Window Function Lib</h2>
+<h3>Rectangular</h3>
+
+<% svg = MySVG.new(600, 150) %>
+
+<% f = TTRuby.new("rectangular") %>
+<% for i in 0..600  %>
+	<% x = i/600.0 %>
+	<% y = f.calculate(x) %>
+	<% svg.bar(i, 600, y) %>
+	<!-- <p> <%= x %> : <%= y %> </p> -->
+<% end %>
+
+<% svg.write("temp-rect.svg") %>
+<%= image_tag("temp-rect.svg") %>
+
+
+<br/><br/>
+<h2>Window Function Lib</h2>
+<h3>Bartlett</h3>
+
+<% svg = MySVG.new(600, 150) %>
+
+<% f = TTRuby.new("bartlett") %>
+<% for i in 0..600  %>
+	<% x = i/600.0 %>
+	<% y = f.calculate(x) %>
+	<% svg.bar(i, 600, y) %>
+	<!-- <p> <%= x %> : <%= y %> </p> -->
+<% end %>
+
+<% svg.write("temp-bartlett.svg") %>
+<%= image_tag("temp-bartlett.svg") %>
+
+
+
+
