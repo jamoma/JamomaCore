@@ -8,12 +8,15 @@
  */
 
 #include "TTDSP.h"
+#include "BartlettWindow.h"
 #include "RectangularWindow.h"
+
 
 extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 {
 	TTDSPInit();
 
+	BartlettWindow::registerClass();
 	RectangularWindow::registerClass();
 	
 	return kTTErrNone;
