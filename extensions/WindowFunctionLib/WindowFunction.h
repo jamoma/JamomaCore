@@ -28,6 +28,9 @@ class WindowFunction : TTAudioObject {
 	// TODO: create a process method that uses the lookup table
 	// TODO: switch the process method based on an attr
 	// TODO: create message to return the list of all available window functions
+	// TODO: add a padding attribute for generating the lookup table, for two purposes:
+	//		1. padded welch window used by tap.shift~ in tap.tools (which is padded by 16 zeros on both sides)
+	//		2. http://www.dsprelated.com/dspbooks/sasp/Sliding_FFT_Maximum_Overlap.html
 	
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
