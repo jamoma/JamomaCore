@@ -62,22 +62,6 @@
 
 
 <h2>Window Function Lib</h2>
-<h3>Rectangular</h3>
-
-<% svg = MySVG.new(600, 150) %>
-
-<% f = TTRuby.new("rectangular") %>
-<% for i in 0..600  %>
-	<% x = i/600.0 %>
-	<% y = f.calculate(x) %>
-	<% svg.bar(i, 600, y) %>
-	<!-- <p> <%= x %> : <%= y %> </p> -->
-<% end %>
-
-<% svg.write("temp-rect.svg") %>
-<%= image_tag("temp-rect.svg") %>
-
-
 
 <h3>Bartlett</h3>
 
@@ -94,6 +78,56 @@
 <% svg.write("temp-bartlett.svg") %>
 <%= image_tag("temp-bartlett.svg") %>
 
+
+
+<h3>Hamming</h3>
+
+<% svg = MySVG.new(600, 150) %>
+
+<% f = TTRuby.new("hamming") %>
+<% for i in 0..600  %>
+	<% x = i/600.0 %>
+	<% y = f.calculate(x) %>
+	<% svg.bar(i, 600, y) %>
+	<!-- <p> <%= x %> : <%= y %> </p> -->
+<% end %>
+
+<% svg.write("temp-hamming.svg") %>
+<%= image_tag("temp-hamming.svg") %>
+
+
+
+<h3>Hanning</h3>
+
+<% svg = MySVG.new(600, 150) %>
+
+<% f = TTRuby.new("hanning") %>
+<% for i in 0..600  %>
+	<% x = i/600.0 %>
+	<% y = f.calculate(x) %>
+	<% svg.bar(i, 600, y) %>
+	<!-- <p> <%= x %> : <%= y %> </p> -->
+<% end %>
+
+<% svg.write("temp-hanning.svg") %>
+<%= image_tag("temp-hanning.svg") %>
+
+
+
+<h3>Rectangular</h3>
+
+<% svg = MySVG.new(600, 150) %>
+
+<% f = TTRuby.new("rectangular") %>
+<% for i in 0..600  %>
+	<% x = i/600.0 %>
+	<% y = f.calculate(x) %>
+	<% svg.bar(i, 600, y) %>
+	<!-- <p> <%= x %> : <%= y %> </p> -->
+<% end %>
+
+<% svg.write("temp-rect.svg") %>
+<%= image_tag("temp-rect.svg") %>
 
 
 
