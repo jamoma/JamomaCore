@@ -12,6 +12,7 @@
 #include "HammingWindow.h"
 #include "HanningWindow.h"
 #include "RectangularWindow.h"
+#include "TrapezoidWindow.h"
 #include "WelchWindow.h"
 
 
@@ -23,6 +24,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	HammingWindow::registerClass();
 	HanningWindow::registerClass();
 	RectangularWindow::registerClass();
+	TrapezoidWindow::registerClass();
 	WelchWindow::registerClass();
 	
 	return kTTErrNone;
