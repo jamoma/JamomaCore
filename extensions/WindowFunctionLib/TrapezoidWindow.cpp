@@ -16,8 +16,10 @@
 TT_AUDIO_CONSTRUCTOR
 {
 	// Register Attributes...
-	addAttributeWithSetter(Fade, kTypeFloat64);
-
+	addAttribute(Fade, kTypeFloat64);
+	addAttributeProperty(Fade,	range,			TTValue(0.0, 0.5));
+	addAttributeProperty(Fade,	rangeChecking,	TT("clip"));
+	
 	// Set Defaults:
 	setAttributeValue(TT("Fade"), 0.1);
 	
@@ -29,14 +31,6 @@ TT_AUDIO_CONSTRUCTOR
 TrapezoidWindow::~TrapezoidWindow()
 {
 	;
-}
-
-
-TTErr TrapezoidWindow::setFade(const TTValue& newValue)
-{
-	mFade = newValue;
-	mFade = TTClip(mFade, 0. , 0.5);
-	return kTTErrNone;
 }
 
 
