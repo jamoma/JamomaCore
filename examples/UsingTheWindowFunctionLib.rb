@@ -6,13 +6,43 @@ require 'TTRuby'
 puts "start"
 puts
 
-
 # First, we need to create an object registered with the Jamoma Foundation
-# The 'rectangular' object is a member of Jamoma DSP's FunctionLib
-myFunction = TTRuby.new("rectangular")
-
+# The 'Bartlett' object is a member of Jamoma DSP's FunctionLib
+myFunction = TTRuby.new("bartlett")
 
 # Now we can use the object, whose reference we have in the 'myFunction' variable
+puts "Bartlett Window Function"
+for i in 0..10 
+    x = i/10.0
+    y = myFunction.calculate(x)
+    puts "  input: #{x}   --> Jamoma WindowFunctionLib -->   output: #{y}"
+end
+puts
+
+# Continue to explore all the others...
+
+myFunction = TTRuby.new("hamming")
+
+puts "Hamming Window Function"
+for i in 0..10 
+    x = i/10.0
+    y = myFunction.calculate(x)
+    puts "  input: #{x}   --> Jamoma WindowFunctionLib -->   output: #{y}"
+end
+puts
+
+myFunction = TTRuby.new("hanning")
+
+puts "Hanning Window Function"
+for i in 0..10 
+    x = i/10.0
+    y = myFunction.calculate(x)
+    puts "  input: #{x}   --> Jamoma WindowFunctionLib -->   output: #{y}"
+end
+puts
+
+myFunction = TTRuby.new("rectangular")
+
 puts "Rectangular Window Function"
 for i in 0..10 
     x = i/10.0
@@ -21,9 +51,9 @@ for i in 0..10
 end
 puts
 
-myFunction = TTRuby.new("bartlett")
+myFunction = TTRuby.new("welsh")
 
-puts "Bartlett Window Function"
+puts "Welsh Window Function"
 for i in 0..10 
     x = i/10.0
     y = myFunction.calculate(x)
