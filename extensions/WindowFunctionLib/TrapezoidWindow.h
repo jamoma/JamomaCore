@@ -18,6 +18,11 @@
 class TrapezoidWindow : TTAudioObject {
 	TTCLASS_SETUP(TrapezoidWindow)
 
+	TTFloat64	fade;			///< Fade in/out as ratio of window length. 0 <= fade <= 0.5
+	
+	/** Set attribute and clip range to [0.0, 0.5] */
+	TTErr setfade(const TTValue& value);
+
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	

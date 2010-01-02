@@ -15,6 +15,12 @@
 
 TT_AUDIO_CONSTRUCTOR
 {
+	// Register Attributes...
+	registerAttributeWithSetter(fade, kTypeFloat64);
+
+	// Set Defaults:
+	setAttributeValue(TT("fade"),	0.1);
+	
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);
 }
@@ -26,11 +32,23 @@ TrapezoidWindow::~TrapezoidWindow()
 }
 
 
+TTErr TrapezoidWindow::setfade(const TTValue& newValue)
+{
+	fade = newValue;
+	TTClip(fade, 0. , 0.5);
+	return kTTErrNone;
+}
+
+
 TTErr TrapezoidWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	// TODO: Add f attribute, easy to do based on similar stuff in Function Lib.
-	//y = TTClip( (0.5/f) * (1 - fabs(2x-1)), 0., 1 )
-	y = 1. - fabs(2.*x-1.);
+	// Avoid dividing by 0:
+	if (fade==0.)
+		y = 1.;
+	else {
+		y = (0.5/fade) * (1 - fabs(2. * x-1));
+		TTClip(y, 0.0, 1.0 );
+	}
 	return kTTErrNone;
 }
 
