@@ -29,7 +29,7 @@ HanningWindow::~HanningWindow()
 // hanning(x) = 0.5 + 0.5*cos(2*PI*(x-0.5))
 TTErr HanningWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = 0.5 + cos(2.0*kTTPi*(x-0.5));
+	y = 0.5 + 0.5*cos(2.0*kTTPi*(x-0.5));
 	return kTTErrNone;
 }
 
