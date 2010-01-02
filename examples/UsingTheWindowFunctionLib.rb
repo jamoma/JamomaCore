@@ -51,9 +51,9 @@ for i in 0..10
 end
 puts
 
-myFunction = TTRuby.new("welsh")
+myFunction = TTRuby.new("welch")
 
-puts "Welsh Window Function"
+puts "Welch Window Function"
 for i in 0..10 
     x = i/10.0
     y = myFunction.calculate(x)
