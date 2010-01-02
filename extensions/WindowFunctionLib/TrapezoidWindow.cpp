@@ -16,10 +16,10 @@
 TT_AUDIO_CONSTRUCTOR
 {
 	// Register Attributes...
-	registerAttributeWithSetter(fade, kTypeFloat64);
+	addAttributeWithSetter(Fade, kTypeFloat64);
 
 	// Set Defaults:
-	setAttributeValue(TT("fade"),	0.1);
+	setAttributeValue(TT("Fade"), 0.1);
 	
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);
@@ -32,10 +32,10 @@ TrapezoidWindow::~TrapezoidWindow()
 }
 
 
-TTErr TrapezoidWindow::setfade(const TTValue& newValue)
+TTErr TrapezoidWindow::setFade(const TTValue& newValue)
 {
-	fade = newValue;
-	TTClip(fade, 0. , 0.5);
+	mFade = newValue;
+	mFade = TTClip(mFade, 0. , 0.5);
 	return kTTErrNone;
 }
 
@@ -43,10 +43,10 @@ TTErr TrapezoidWindow::setfade(const TTValue& newValue)
 TTErr TrapezoidWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
 	// Avoid dividing by 0:
-	if (fade==0.)
+	if (mFade==0.)
 		y = 1.;
 	else {
-		y = (0.5/fade) * (1 - fabs(2. * x-1));
+		y = (0.5/mFade) * (1 - fabs(2. * x-1));
 		TTClip(y, 0.0, 1.0 );
 	}
 	return kTTErrNone;
