@@ -28,6 +28,7 @@ extern "C" {
 	VALUE TTRubyInitialize(VALUE self, VALUE className);
 	VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self);
 	VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue);
+	VALUE TTRubyGetAttribute(VALUE self, VALUE attributeName);
 	VALUE TTRubyCalculate(VALUE self, VALUE x);
 }
 
@@ -51,6 +52,7 @@ void Init_TTRuby()
 	rb_define_method(c, "initialize",		TTRubyMethod(TTRubyInitialize), 1);		// called to initialize a new object that has been created or cloned
 	rb_define_method(c, "send",				TTRubyMethod(TTRubySendMessage), -1);	// send a message to the wrapped object
 	rb_define_method(c, "set",				TTRubyMethod(TTRubySetAttribute), 2);	// set attribute value
+	rb_define_method(c, "get",				TTRubyMethod(TTRubyGetAttribute), 1);	// get attribute value
 	rb_define_method(c, "calculate",		TTRubyMethod(TTRubyCalculate), 1);
 	
 	TTRuby_class = c;
@@ -211,6 +213,62 @@ VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 				cout << "TTRubySetAttribute: Error " << err << endl;
 		}
 	}
+}
+
+
+VALUE TTRubyGetAttribute(VALUE self, VALUE attributeName)
+{
+	TTRubyInstance* instance = NULL;
+	TTErr			err = kTTErrNone;
+	VALUE			attributeNameStr = StringValue(attributeName);
+	VALUE			attributeValueStr;
+	TTValue			v;
+	VALUE			returnValue = rb_float_new(0.0);
+	TTSymbolPtr		s;
+	TTCString		c;
+	
+	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
+	if (!err) {
+		instance = (TTRubyInstance*)TTPtr(v);
+		if (instance) {
+			err = instance->obj->getAttributeValue(TT(RSTRING(attributeNameStr)->ptr), v);
+			if (err) {
+				cout << "TTRubyGetAttribute: Error " << err << endl;
+				goto out;
+			}
+
+			// TODO: not handling array attrs yet...
+			
+			switch (v.getType(0)) {
+				case kTypeFloat64:
+				case kTypeFloat32:
+					returnValue = rb_float_new(v);
+					break;
+				case kTypeInt8:
+				case kTypeUInt8:
+				case kTypeInt16:
+				case kTypeUInt16:
+				case kTypeInt32:
+				case kTypeUInt32:
+					returnValue = INT2NUM(v);
+					break;
+				case kTypeInt64:
+				case kTypeUInt64:
+					returnValue = LL2NUM((TTInt64)v);
+					break;
+				case kTypeBoolean:\
+					returnValue = TTBoolean(v);
+					break;
+				case kTypeSymbol:
+					s = v;
+					c = (TTCString)s->getCString();
+					returnValue = rb_str_new(c, strlen(c));
+					break;
+			}
+		}
+	}
+out:
+	return returnValue;
 }
 
 
