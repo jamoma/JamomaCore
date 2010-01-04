@@ -315,7 +315,7 @@ void dbap_mastergain(t_dbap *x, double f)
 
 void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	long source, i, ;
+	long source, i;
 	float weight;
 	
 	if(argc && argv) {			
