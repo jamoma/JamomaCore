@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
@@ -97,7 +98,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 284.0, 520.0, 213.0, 19.0 ],
+					"patching_rect" : [ 284.0, 527.0, 213.0, 19.0 ],
 					"text" : "sprintf name source.%ld/distance/mode"
 				}
 
@@ -107,13 +108,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-50",
-					"linecount" : 2,
+					"linecount" : 3,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 284.0, 548.0, 668.0, 31.0 ],
-					"text" : "jcom.message source.1/distance/mode @repetitions/allow 0 @type integer @range/bounds 0 2 @range/clipmode both @description \"sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay\"",
+					"patching_rect" : [ 284.0, 548.0, 588.0, 43.0 ],
+					"text" : "jcom.message source.1/distance/mode @repetitions/allow 0 @type integer @range/bounds 0 2 @range/clipmode both @description \"sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay\"",
 					"varname" : "destination/voices[2]"
 				}
 
@@ -160,7 +161,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 313.0, 452.0, 274.0, 19.0 ],
+					"patching_rect" : [ 309.0, 458.0, 274.0, 19.0 ],
 					"text" : "sprintf name source.%ld/distance/attenuationFactor"
 				}
 
@@ -175,7 +176,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 258.0, 481.0, 50.0, 19.0 ],
+					"patching_rect" : [ 254.0, 487.0, 50.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 324.0, 5.0, 30.0, 19.0 ],
 					"triangle" : 0,
@@ -188,13 +189,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-13",
-					"linecount" : 2,
+					"linecount" : 3,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 313.0, 476.0, 501.0, 31.0 ],
-					"text" : "jcom.message source.1/attenuationFactor @type decimal @range/bounds 0. 100. @range/clipmode both @description \"Sets the distance unit for the exponential distance model.\""
+					"patching_rect" : [ 309.0, 482.0, 430.0, 43.0 ],
+					"text" : "jcom.message source.1/attenuationFactor @type decimal @range/bounds 0. 100. @range/clipmode both @ramp/drive scheduler @ramp/function linear @description \"Sets the distance unit for the inverse proportional decrease distance model.\""
 				}
 
 			}
@@ -235,13 +236,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-6",
-					"linecount" : 2,
+					"linecount" : 3,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 309.0, 413.0, 502.0, 31.0 ],
-					"text" : "jcom.message source.1/distance/dBUnit @type decimal @range/bounds 0. 100. @range/clipmode both @description \"Sets the distance unit for the exponential distance model.\""
+					"patching_rect" : [ 308.0, 410.0, 584.0, 43.0 ],
+					"text" : "jcom.message source.1/distance/dBUnit @type decimal @range/bounds 0. 100. @range/clipmode both @ramp/drive scheduler @ramp/function linear @description \"Sets the distance unit for the exponential distance model.\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB"
 				}
 
 			}
@@ -254,7 +255,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 303.0, 305.0, 169.0, 19.0 ],
+					"patching_rect" : [ 303.0, 312.0, 169.0, 19.0 ],
 					"text" : "sprintf name source.%ld/active"
 				}
 
@@ -361,13 +362,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-43",
-					"linecount" : 2,
+					"linecount" : 3,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 346.0, 263.0, 494.0, 31.0 ],
-					"text" : "jcom.message source.1/gain @type decimal @range/bounds 0. 127. @range/clipmode low @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\""
+					"patching_rect" : [ 346.0, 263.0, 545.0, 43.0 ],
+					"text" : "jcom.message source.1/gain @type decimal @ramp/drive scheduler @ramp/function linear @range/bounds 0. 127. @range/clipmode low @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/display midi @description \"Input gain for the nth source.\""
 				}
 
 			}
@@ -381,8 +382,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 370.0, 188.0, 440.0, 31.0 ],
-					"text" : "jcom.parameter source.1/order @type decimal @range/bounds 0. 100. @range/clipmode both @description \"Sets the ambisonics order of the nth source.\""
+					"patching_rect" : [ 370.0, 188.0, 560.0, 31.0 ],
+					"text" : "jcom.parameter source.1/order @type decimal @range/bounds 0. 100. @range/clipmode both @ramp/drive scheduler @ramp/function linear @description \"Sets the ambisonics order of the nth source.\""
 				}
 
 			}
@@ -552,8 +553,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 377.0, 124.0, 440.0, 31.0 ],
-					"text" : "jcom.message source.1/position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
+					"patching_rect" : [ 377.0, 124.0, 573.0, 31.0 ],
+					"text" : "jcom.message source.1/position @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/display xyz @dataspace/unit/native xyz @priority 1 @description \"Position of the nth source.\""
 				}
 
 			}
@@ -600,15 +601,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-13", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-50", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-14", 0 ]
 				}
 
 			}
@@ -929,6 +921,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-6", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-13", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -974,10 +975,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-4", 0 ],
+					"destination" : [ "obj-50", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-6", 0 ]
+					"source" : [ "obj-14", 0 ]
 				}
 
 			}

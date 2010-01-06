@@ -136,7 +136,7 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		TTObjectInstantiate(TT("ramp"), &x->ramp_xfade, x->numOutputs);
 
 //		out_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
-		x->gain->setAttributeValue(TT("linearGain"), 1.0);
+		x->gain->setAttributeValue(TT("LinearGain"), 1.0);
 #else
 		for(i=x->numOutputs-1; i >= 1; i--)
 			x->inlet[i] = proxy_new(x, i, 0L);
@@ -234,16 +234,16 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 			// Should be that the gain change triggers a short tt_ramp to the new value
 			x->attr_gain = atom_getfloat(argv+1);	// store as midi values
 #ifdef JCOM_OUT_TILDE
-			x->gain->setAttributeValue(TT("midiGain"), x->attr_gain);
+			x->gain->setAttributeValue(TT("MidiGain"), x->attr_gain);
 #endif
 		}
 		else if((argv->a_w.w_sym == jps_audio_mute) || (argv->a_w.w_sym == jps_slash_audio_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute"))){
 			x->attr_mute = atom_getlong(argv+1);
 #ifdef JCOM_OUT_TILDE
 			if(x->attr_mute)
-				x->gain->setAttributeValue(TT("linearGain"), 0.0);
+				x->gain->setAttributeValue(TT("LinearGain"), 0.0);
 			else 
-				x->gain->setAttributeValue(TT("midiGain"), x->attr_gain);			
+				x->gain->setAttributeValue(TT("MidiGain"), x->attr_gain);			
 #endif
 		}
 		else if((argv->a_w.w_sym == jps_audio_bypass) || (argv->a_w.w_sym == jps_slash_audio_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass"))){

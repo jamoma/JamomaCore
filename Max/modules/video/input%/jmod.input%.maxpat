@@ -120,7 +120,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 489.0, 248.0, 604.0, 31.0 ],
-					"text" : "jcom.parameter updaterate @type integer @range/bounds 1 100 @range/clipmode low @description \"Update rate in milliseconds\"",
+					"text" : "jcom.parameter updaterate @type integer @range/bounds 1 100 @range/clipmode low @description \"Update rate in milliseconds\" @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @dataspace/unit/display ms",
 					"varname" : "camera/camera[2]"
 				}
 
@@ -209,13 +209,12 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-5",
-					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 362.0, 414.0, 330.0, 31.0 ],
-					"text" : "jcom.parameter source @type string @description \"Choose between camera - file or synthesis as input\"",
+					"patching_rect" : [ 362.0, 414.0, 602.0, 19.0 ],
+					"text" : "jcom.parameter source @type string @description \"Choose between 'camera', 'file' , 'synthesis' or 'desktop' as input\"",
 					"varname" : "source_mode[1]"
 				}
 
@@ -275,7 +274,7 @@
 					"name" : "jalg.input%.ui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"offset" : [ 0.0, -240.0 ],
+					"offset" : [ 0.0, -120.0 ],
 					"patching_rect" : [ 64.0, 424.0, 246.0, 46.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1.0, 21.0, 240.0, 47.0 ],
@@ -353,6 +352,7 @@
 , 			{
 				"box" : 				{
 					"background" : 1,
+					"bordercolor" : [ 0.6, 0.6, 0.6, 1.0 ],
 					"has_freeze" : 1,
 					"has_gain" : 1,
 					"has_mute" : 1,
@@ -491,7 +491,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-9", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 527.0, 460.0, 331.75, 460.0, 331.75, 412.0, 73.5, 412.0 ],
+					"midpoints" : [ 663.0, 460.0, 331.75, 460.0, 331.75, 412.0, 73.5, 412.0 ],
 					"source" : [ "obj-5", 1 ]
 				}
 

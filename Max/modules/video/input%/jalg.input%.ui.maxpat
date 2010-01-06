@@ -1,10 +1,10 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ -4.0, 45.0, 1280.0, 726.0 ],
+		"rect" : [ 0.0, 45.0, 1280.0, 726.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ -4.0, 45.0, 1280.0, 726.0 ],
+		"defrect" : [ 0.0, 45.0, 1280.0, 726.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -18,6 +18,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"color" : [ 1.0, 0.952941, 0.211765, 1.0 ],
@@ -800,6 +801,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -1232,13 +1234,13 @@
 ,
 					"patching_rect" : [ 245.0, 51.0, 73.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"fontname" : "Verdana",
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p offsets_etc"
@@ -1275,7 +1277,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 89.0, 733.0, 409.0, 19.0 ],
+					"patching_rect" : [ 89.0, 736.0, 409.0, 19.0 ],
 					"text" : "jcom.parameter camera/camera @type integer @description \"Choose camera\"",
 					"varname" : "camera/camera"
 				}
@@ -1290,7 +1292,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 89.0, 664.0, 415.0, 19.0 ],
+					"patching_rect" : [ 89.0, 666.0, 415.0, 19.0 ],
 					"text" : "jcom.parameter camera/device @type integer @description \"Input device type\"",
 					"varname" : "camera/device"
 				}
@@ -1382,6 +1384,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -1512,13 +1515,13 @@
 ,
 					"patching_rect" : [ 913.0, 169.0, 43.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"fontname" : "Verdana",
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p scale"
@@ -1804,8 +1807,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 890.0, 354.0, 601.0, 31.0 ],
-					"text" : "jcom.parameter file/loop/mode @type boolean @repetitions/allow 0 @description \"0: no looping | 1: looping on | 2: palindrom \"",
+					"patching_rect" : [ 890.0, 354.0, 574.0, 31.0 ],
+					"text" : "jcom.parameter file/loop/mode @type integer @range/bounds 0 2 @range/clipmode both @repetitions/allow 0 @description \"0: no looping | 1: looping on | 2: palindrom \"",
 					"varname" : "file/loop"
 				}
 
@@ -2735,7 +2738,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-61", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 98.5, 614.0, 79.0, 614.0, 79.0, 560.0, 98.5, 560.0 ],
+					"midpoints" : [ 98.5, 616.0, 79.0, 616.0, 79.0, 560.0, 98.5, 560.0 ],
 					"source" : [ "obj-60", 0 ]
 				}
 
@@ -2807,7 +2810,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-72", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 98.5, 752.0, 71.0, 752.0, 71.0, 710.0, 98.5, 710.0 ],
+					"midpoints" : [ 98.5, 760.0, 71.0, 760.0, 71.0, 710.0, 98.5, 710.0 ],
 					"source" : [ "obj-7", 0 ]
 				}
 
@@ -2987,7 +2990,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-73", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 98.5, 684.0, 71.0, 684.0, 71.0, 642.0, 98.5, 642.0 ],
+					"midpoints" : [ 98.5, 687.0, 71.0, 687.0, 71.0, 642.0, 98.5, 642.0 ],
 					"source" : [ "obj-9", 0 ]
 				}
 

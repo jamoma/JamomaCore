@@ -167,6 +167,7 @@ void cuemng_info(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_doramp(t_cuemng *x, long r);
 void cuemng_set_ramp(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_set_name(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
+void cuemng_set_mode(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_insert(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_append(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_replace(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);

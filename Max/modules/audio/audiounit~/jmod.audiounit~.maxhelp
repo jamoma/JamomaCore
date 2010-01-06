@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 545.0, 44.0, 662.0, 726.0 ],
+		"rect" : [ 552.0, 44.0, 662.0, 726.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 545.0, 44.0, 662.0, 726.0 ],
+		"defrect" : [ 552.0, 44.0, 662.0, 726.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -22,13 +22,41 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-21",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 465.0, 195.0, 32.5, 17.0 ],
+					"text" : "100"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-14",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 416.0, 188.0, 42.0, 17.0 ],
+					"text" : "10000"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-7",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 360.0, 239.0, 181.0, 17.0 ],
-					"text" : "/parameter/delay/time:/value/inc"
+					"patching_rect" : [ 360.0, 239.0, 178.0, 17.0 ],
+					"text" : "/parameter/resonance:/value/inc"
 				}
 
 			}
@@ -59,7 +87,22 @@
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
+						"visible" : 1,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-1",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 3,
+									"outlettype" : [ "", "", "" ],
+									"patching_rect" : [ 383.0, 221.0, 94.0, 20.0 ],
+									"text" : "jcom.parameter"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
@@ -174,6 +217,20 @@
 										"enablevscroll" : 1,
 										"devicewidth" : 0.0,
 										"boxes" : [ 											{
+												"box" : 												{
+													"fontname" : "Arial",
+													"fontsize" : 12.0,
+													"id" : "obj-8",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 160.0, 198.0, 91.0, 20.0 ],
+													"text" : "loadmess clear"
+												}
+
+											}
+, 											{
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
@@ -307,18 +364,27 @@
 												}
 
 											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-36", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-8", 0 ]
+												}
+
+											}
  ]
 									}
 ,
 									"patching_rect" : [ 66.0, 144.0, 103.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"fontface" : 0,
+										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"globalpatchername" : "",
-										"default_fontname" : "Verdana",
-										"fontface" : 0
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p listOfParameters"
@@ -336,7 +402,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 66.0, 296.0, 342.0, 211.0 ],
-									"text" : "/description \"wrapper of the AU parameter ' Compressor '\";\r/dataspace none;\r/dataspace/unit/active none;\r/dataspace/unit/display none;\r/dataspace/unit/native none;\r/priority 3;\r/ramp/drive scheduler;\r/ramp/function linear;\r/range/bounds 0. 1.;\r/range/clipmode both;\r/repetitions/allow 0;\r/readonly 0;\r/type boolean;\r/value 1;\r/value/default 1.;\r/value/stepsize 1.;\r/view/freeze 0;\r"
+									"text" : "/description \"wrapper of the AU parameter ' resonance '\";\r/dataspace gain;\r/dataspace/unit/active dB;\r/dataspace/unit/display dB;\r/dataspace/unit/native dB;\r/priority 3;\r/ramp/drive scheduler;\r/ramp/function linear;\r/range/bounds -20. 40.;\r/range/clipmode both;\r/repetitions/allow 0;\r/readonly 0;\r/type decimal;\r/value -9.442945;\r/value/default 0.;\r/value/stepsize 1.2;\r/view/freeze 0;\r"
 								}
 
 							}
@@ -481,13 +547,13 @@
 ,
 									"patching_rect" : [ 66.0, 261.0, 55.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"fontface" : 0,
+										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"globalpatchername" : "",
-										"default_fontname" : "Verdana",
-										"fontface" : 0
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p format"
@@ -527,7 +593,7 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-16",
-									"items" : [ "/parameter/Attack", ",", "/parameter/Compressor", ",", "/parameter/Gate", ",", "/parameter/Output", ",", "/parameter/Ratio", ",", "/parameter/Release", ",", "/parameter/Threshold" ],
+									"items" : [ "/parameter/cutoff/frequency", ",", "/parameter/resonance" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -624,13 +690,13 @@
 ,
 					"patching_rect" : [ 366.0, 450.0, 209.0, 24.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 12.0,
-						"default_fontsize" : 12.0,
 						"fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"fontface" : 0,
+						"fontsize" : 12.0,
 						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontname" : "Arial",
-						"fontface" : 0
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p \"AU parameter migration\""
@@ -888,13 +954,13 @@
 ,
 									"patching_rect" : [ 16.0, 9.0, 84.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"fontface" : 0,
+										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"globalpatchername" : "",
-										"default_fontname" : "Verdana",
-										"fontface" : 0
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p UnNormalize"
@@ -1080,13 +1146,13 @@
 ,
 									"patching_rect" : [ 280.0, 60.0, 121.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 10.0,
-										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"fontface" : 0,
+										"fontsize" : 10.0,
 										"default_fontface" : 0,
 										"globalpatchername" : "",
-										"default_fontname" : "Verdana",
-										"fontface" : 0
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p make_osc_message"
@@ -1193,13 +1259,13 @@
 ,
 					"patching_rect" : [ 25.0, 245.0, 57.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 10.0,
-						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
+						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontname" : "Verdana",
-						"fontface" : 0
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p midi_in",
@@ -1425,13 +1491,13 @@
 ,
 					"patching_rect" : [ 366.0, 415.0, 198.0, 24.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 10.0,
-						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
+						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontname" : "Verdana",
-						"fontface" : 0
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p \"Using jmod.audiounit~\""
@@ -1448,7 +1514,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1.0, 500.0, 308.0, 17.0 ],
-					"text" : "/parameter/feedback 50."
+					"text" : "/parameter/cutoff/frequency 100."
 				}
 
 			}
@@ -1461,8 +1527,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 345.0, 220.0, 201.0, 17.0 ],
-					"text" : "/parameter/delay/time $1 ramp 3000"
+					"patching_rect" : [ 345.0, 220.0, 230.0, 17.0 ],
+					"text" : "/parameter/cutoff/frequency $1 ramp 3000"
 				}
 
 			}
@@ -1547,6 +1613,15 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-17", 2 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -1583,10 +1658,28 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-5", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 34.5, 492.0, 299.5, 492.0 ],
+					"source" : [ "obj-17", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-2", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-21", 0 ]
 				}
 
 			}

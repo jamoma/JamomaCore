@@ -72,6 +72,9 @@ t_symbol	*jps_done,
 			*jps_algorithm_type,
 			*jps_name,
 			*jps_dataspace,
+			*jps_unit_native,	
+			*jps_unit_active,				
+			*jps_unit_display,
 			*jps_range,
 			*jps_range_bounds,
 			*jps_range_clipmode,
@@ -242,6 +245,9 @@ void jamomaSymbolsInit()
 	jps_inspector					= SymbolGen("inspector");
 	jps_type						= SymbolGen("type");
 	jps_dataspace					= SymbolGen("dataspace");
+	jps_unit_native					= SymbolGen("dataspace/unit/native");
+	jps_unit_active					= SymbolGen("dataspace/unit/active");
+	jps_unit_display				= SymbolGen("dataspace/unit/display");
 	// %TODO: jps_range should probably be removed
 	jps_range						= SymbolGen("range");
 	jps_range_bounds				= SymbolGen("range/bounds");
@@ -251,6 +257,7 @@ void jamomaSymbolsInit()
 	jps_ramp						= SymbolGen("ramp");
 	jps_ramp_drive					= SymbolGen("ramp/drive");
 	jps_ramp_function				= SymbolGen("ramp/function");
+	// %TODO: jps_repetitions should probably be removed
 	jps_repetitions					= SymbolGen("repetitions");
 	jps_repetitions_allow			= SymbolGen("repetitions/allow");
 	jps_description					= SymbolGen("description");

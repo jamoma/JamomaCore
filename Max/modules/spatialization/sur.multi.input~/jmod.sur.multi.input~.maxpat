@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 0.0, 44.0, 1280.0, 688.0 ],
+		"rect" : [ 132.0, 44.0, 1280.0, 688.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 0.0, 44.0, 1280.0, 688.0 ],
+		"defrect" : [ 132.0, 44.0, 1280.0, 688.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
@@ -28,9 +29,9 @@
 					"outlettype" : [ "", "", "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
+						"rect" : [ 25.0, 69.0, 1043.0, 537.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 25.0, 69.0, 640.0, 480.0 ],
+						"defrect" : [ 25.0, 69.0, 1043.0, 537.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -44,6 +45,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -78,12 +80,13 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-4",
+									"linecount" : 2,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 294.0, 178.0, 437.0, 19.0 ],
-									"text" : "jcom.return info/length @type integer @description \"length of the soundfile in [ms]\""
+									"patching_rect" : [ 294.0, 178.0, 356.0, 31.0 ],
+									"text" : "jcom.return info/length @type integer @description \"length of the soundfile in [ms]\" @dataspace time @dataspace/unit/native ms"
 								}
 
 							}
@@ -238,13 +241,13 @@
 ,
 					"patching_rect" : [ 671.0, 416.0, 191.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p osc-routing"
@@ -291,7 +294,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
+					"outlettype" : [ "refreshSubscriptions", "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
 						"rect" : [ 314.0, 80.0, 966.0, 550.0 ],
@@ -310,6 +313,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -448,6 +452,7 @@
 										"imprint" : 0,
 										"enablehscroll" : 1,
 										"enablevscroll" : 1,
+										"devicewidth" : 0.0,
 										"boxes" : [ 											{
 												"box" : 												{
 													"fontname" : "Verdana",
@@ -642,13 +647,13 @@
 ,
 									"patching_rect" : [ 635.0, 194.0, 158.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p delete_jcom.meter_receive"
@@ -682,6 +687,7 @@
 										"imprint" : 0,
 										"enablehscroll" : 1,
 										"enablevscroll" : 1,
+										"devicewidth" : 0.0,
 										"boxes" : [ 											{
 												"box" : 												{
 													"fontname" : "Verdana",
@@ -1013,13 +1019,13 @@
 ,
 									"patching_rect" : [ 337.0, 195.0, 158.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p create_jcom.meter_receive"
@@ -1092,6 +1098,7 @@
 										"imprint" : 0,
 										"enablehscroll" : 1,
 										"enablevscroll" : 1,
+										"devicewidth" : 0.0,
 										"boxes" : [ 											{
 												"box" : 												{
 													"fontname" : "Verdana",
@@ -1410,13 +1417,13 @@
 ,
 									"patching_rect" : [ 267.0, 196.0, 68.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p create_to"
@@ -1450,6 +1457,7 @@
 										"imprint" : 0,
 										"enablehscroll" : 1,
 										"enablevscroll" : 1,
+										"devicewidth" : 0.0,
 										"boxes" : [ 											{
 												"box" : 												{
 													"fontname" : "Verdana",
@@ -1580,13 +1588,13 @@
 ,
 									"patching_rect" : [ 500.0, 193.0, 132.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p create_new_jcom_out"
@@ -1889,13 +1897,13 @@
 ,
 					"patching_rect" : [ 169.0, 324.0, 54.0, 21.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p adapt"
@@ -1939,7 +1947,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "float" ],
-					"patching_rect" : [ 1119.0, 538.0, 49.0, 19.0 ],
+					"patching_rect" : [ 983.0, 568.0, 49.0, 19.0 ],
 					"text" : "* 1000."
 				}
 
@@ -1962,7 +1970,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
 					"id" : "obj-17",
 					"ignoreclick" : 1,
 					"maxclass" : "textedit",
@@ -2172,12 +2180,12 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-5",
-					"linecount" : 2,
+					"linecount" : 4,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 827.0, 504.0, 602.0, 31.0 ],
+					"patching_rect" : [ 826.0, 506.0, 337.0, 55.0 ],
 					"text" : "jcom.message start @type decimal @repetitions/allow 0 @dataspace time @dataspace/unit/active second @dataspace/unit/native second @dataspace/unit/native second @description \"start time in soundfile to play in [sec]\"",
 					"varname" : "start"
 				}
@@ -2210,6 +2218,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -2349,13 +2358,13 @@
 ,
 					"patching_rect" : [ 671.0, 438.0, 30.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p"
