@@ -115,6 +115,8 @@ public:
 	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTSetterMethod setter);
 	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
 	TTErr registerAttribute(const TTSymbolPtr name, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject);
+
+	TTErr removeAttribute(const TTSymbolPtr name);
 	
 	TTErr findAttribute(const TTSymbolPtr name, TTAttribute** attr);
 

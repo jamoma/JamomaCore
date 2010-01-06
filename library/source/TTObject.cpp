@@ -106,6 +106,19 @@ TTErr TTObject::registerAttribute(const TTSymbolPtr name, const TTObjectPtr newG
 }
 
 
+TTErr TTObject::removeAttribute(const TTSymbolPtr name)
+{
+	TTAttribute*	attribute = NULL;
+	TTErr			err = findAttribute(name, &attribute);
+
+	if (!err) {
+		err = attributes->remove(name);
+		delete attribute;
+	}
+	return err;
+}
+								
+
 TTErr TTObject::findAttribute(const TTSymbolPtr name, TTAttribute** attr)
 {
 	TTValue v;

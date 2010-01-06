@@ -270,6 +270,13 @@ public:
 			return value;
 		}
 	}
+	
+	template <typename T>
+	void getIfExists(const TTUInt16 index, T arg)
+	{
+		if (index < numValues)
+			get(index, arg);
+	}
 
 	void append(const TTFloat32 newValue);
 	void append(const TTFloat64 newValue);
@@ -649,6 +656,7 @@ public:
 		append(*str);	// CHANGED: If we pass a pointer then this is appended at a generic TTPtr [TAP]
 	}
 	
+	static void test();
 };
 
 

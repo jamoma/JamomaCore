@@ -231,6 +231,17 @@ enum TTErr {
 // Class Specifications
 
 
+class TTDeletePtr {
+public:
+	template<typename T>
+	void operator()(T ptr)
+	{
+		delete ptr;
+		ptr = NULL;
+	}
+};
+
+
 /**	A TTBlue exception is thown with this object. */
 class TTFOUNDATION_EXPORT TTException {
 	TTImmutableCString	reason;
@@ -254,9 +265,11 @@ public:
 
 
 TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupEqualPower[];			///< Equal Power lookup table
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupSquareRoot[];			///< Square Root lookup table
 TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupHalfPaddedwWelch[];		///< 256 point window table (the first half of it)
 TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupQuarterSine[];			///< Quarter Sine lookup table
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTPi;							///< pre-calculated value of pi
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTPi_2;							///< pre-calculated value of pi/2
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoPi;						///< pre-calculated value of pi * 2
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTAntiDenormalValue;			///< constant used by the ttantidenormal function
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTSqrt2;						///< pre-calculated square-root of 2
