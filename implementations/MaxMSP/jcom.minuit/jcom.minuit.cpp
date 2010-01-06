@@ -8,8 +8,6 @@
  */
 #include "jcom.minuit.h"
 
-using namespace std;
-
 // Globals
 t_class		*minuit_class;
 
@@ -63,49 +61,21 @@ void *minuit_new(t_symbol *name, long argc, t_atom *argv)
 	if(x){
 		
 		x->p_info = outlet_new(x, 0);
-		
-		// get the pointers to the jamoma directory and his root
-		x->p_directory = jamoma_directory_init();
-		x->p_node = x->p_directory->getRoot();
-		
 		x->device = _sym_nothing;
 		x->b_debug = false;
-		
-		// Initialize Minuit standard symbols
-		x->minuit_namespace_request = gensym("?namespace");
-		x->minuit_get_request = gensym("?get");
-		x->minuit_namespace_answer = gensym(":namespace");
-		x->minuit_get_answer = gensym(":get");
-		
-		x->minuit_start_nodes = gensym("nodes={");
-		x->minuit_start_leaves = gensym("leaves={");
-		x->minuit_start_attributes = gensym("attributes={");
-		
-		x->minuit_value = gensym("value");
-		x->minuit_type = gensym("type");
-		x->minuit_access = gensym("access");
-		x->minuit_range = gensym("range");
-		x->minuit_comment = gensym("comment");
-		
-		x->minuit_getsetter = gensym("getsetter");
-		x->minuit_getter = gensym("getter");
-		x->minuit_setter = gensym("setter");
 		
 		// Initialize the Jamoma Controller
 		jamoma_controller_init();
 		
-		// add a callback to receive messages from the Controller
-		jamoma_controller->addWaitedMessageAction(x, &minuit_message_callback);
+		// DEBUG
+		jamoma_controller_dump();
 		
-		// add a callback to receive namespace request from the Controller
-		//jamoma_controller->addWaitedNamespaceRequestAction(x, &minuit_namespace_request_callback);
-		
-		// add a callback to receive get request from the Controller
-		//jamoma_controller->addWaitedGetRequestAction(x, &minuit_get_request_callback);
-		
-		// send a namespace request to Virage
-		//jamoma_controller->sendMessage("/Virage ?namespace /");
-		
+		// Check if the Minuit plugin is installed
+		if(!jamoma_controller->pluginIsLoaded("Minuit"))
+		{
+			object_post((t_object *)x, "Can't find the Minuit.dylib plugin in the search patch (%s)", CONTROLLER_SEARCH_PATH);
+			return NULL;
+		}
 	}
 	return x;
 }
@@ -138,54 +108,6 @@ void minuit_assist(t_minuit *x, void *b, long msg, long arg, char *dst)
 	}		
 }
 
-void minuit_message_callback(void *arg, std::string message)
-{
-	t_minuit *x = (t_minuit*)arg;
-	long argc = 0;
-	t_atom *argv = NULL;
-	
-	if(x->b_debug)
-		object_post((t_object*)x,"RECEIVE MESSAGE : %s", std::string(message).c_str());
-	
-	atom_setparse(&argc, &argv, (char*)std::string(message).c_str());
-	
-	if(argc && argv)
-		if(atom_gettype(argv) == A_SYM)
-			defer(x,(method)minuit_doset, atom_getsym(argv), argc-1, argv+1);
-}
-
-void minuit_namespace_request_callback(void *arg, std::string message)
-{
-	t_minuit *x = (t_minuit*)arg;
-	long argc = 0;
-	t_atom *argv = NULL;
-	
-	if(x->b_debug)
-		object_post((t_object*)x,"RECEIVE NAMESPACE REQUEST : %s", std::string(message).c_str());
-	
-	atom_setparse(&argc, &argv, (char*)std::string(message).c_str());
-	
-	if(argc && argv)
-		if(atom_gettype(argv) == A_SYM)
-			defer(x,(method)minuit_donamespace, atom_getsym(argv), 0, NULL);
-}
-
-void minuit_get_request_callback(void *arg, std::string message)
-{
-	t_minuit *x = (t_minuit*)arg;
-	long argc = 0;
-	t_atom *argv = NULL;
-	
-	if(x->b_debug)
-		object_post((t_object*)x,"RECEIVE GET REQUEST : %s", std::string(message).c_str());
-	
-	atom_setparse(&argc, &argv, (char*)std::string(message).c_str());
-	
-	if(argc && argv)
-		if(atom_gettype(argv) == A_SYM)
-			defer(x,(method)minuit_doget, atom_getsym(argv), 0, NULL);
-}
-
 void minuit_add_device(t_minuit *x, t_symbol *device_name, t_symbol *ip, long port)
 {
 	std::map<std::string, std::string> commParameters;
@@ -210,344 +132,33 @@ void minuit_add_device(t_minuit *x, t_symbol *device_name, t_symbol *ip, long po
 
 void minuit_namespace(t_minuit *x, t_symbol *address)
 {
-	defer(x, (method)minuit_donamespace, address, 0, 0);
+	// TODO : add device name
+	//jamoma_controller->deviceSendNamespaceRequest(address->s_name);
+	// TODO get the answer
 }
 
-void minuit_donamespace(t_minuit *x, t_symbol *oscAddress)
+void minuit_get(t_minuit *x, t_symbol *address)
 {
-	short i;
-	TTString temp;
-	TTList lk_chd;
-	TTValue attrlist;
-	t_linklist *lk_leaves, *lk_nodes;
-	TTSymbolPtr n_attr;
-	t_symbol *n_type, *s_attr;
-	t_symbol *n_instance;
-
-	// prepare s_answer
-	TTString s_answer = x->device->s_name;
-	s_answer += " ";
-	s_answer += x->minuit_namespace_answer->s_name;
-	s_answer += " ";
-	s_answer += oscAddress->s_name;
-
-	minuit_goto(x, oscAddress);
-	
-	// Il nous faut avoir les noeuds inférieurs et les attributs du noeud à l'addresse données
-	// auto-translation: It is necessary for us to have the nodes the lower and attributes of the node than the address given
-	if(x->p_node && x->address){
-		
-		jamoma_node_attribute_list(x->p_node, attrlist);
-		jamoma_node_children(x->p_node, lk_chd);
-		
-		// the two lists for the nodes and leaves
-		lk_leaves = linklist_new();
-		lk_nodes = linklist_new();
-		
-		// if there are properties
-		if(attrlist.getSize()){
-			
-			s_answer += " ";
-			s_answer += x->minuit_start_attributes->s_name;
-			s_answer += " ";
-			s_answer += x->minuit_access->s_name;
-			s_answer += " ";
-			
-			// write an outline for each attribut
-			for(i=0; i<attrlist.getSize(); i++){
-				
-				attrlist.get(i,(TTSymbolPtr*)&n_attr);
-				s_attr = minuit_convert_attribut_jamoma2minuit(x, gensym((char*)n_attr->getCString()));
-				
-				if(s_attr){
-					s_answer += s_attr->s_name;
-					s_answer += " ";
-				}
-			}
-			s_answer += "}";
-		}
-		
-		// if there are children
-		if(!lk_chd.isEmpty()){
-			
-			//a check if its leaves or nodes
-			for(lk_chd.begin(); lk_chd.end(); lk_chd.next()){
-				
-				lk_chd.current().get(0,(TTPtr*)&x->p_node);
-				n_type = jamoma_node_type(x->p_node);
-				
-				if((n_type == gensym("container")) || (n_type == gensym("hub")))
-					linklist_append(lk_nodes, x->p_node);
-				else
-					if((n_type == jps_subscribe_parameter) /*|| (n_type == jps_subscribe_message) || (n_type == jps_subscribe_return)*/)
-						linklist_append(lk_leaves, x->p_node);
-			}
-			
-			if(linklist_getsize(lk_nodes)){
-				
-				s_answer += " ";
-				s_answer += x->minuit_start_nodes->s_name;
-				s_answer += " ";
-				
-				for(i=0; i<linklist_getsize(lk_nodes); i++){
-					// get the name
-					x->p_node = (TTNodePtr)linklist_getindex(lk_nodes,i);
-					temp = jamoma_node_name(x->p_node)->s_name;
-					
-					// get instance
-					n_instance = jamoma_node_instance(x->p_node);
-					if(n_instance != gensym("")){
-						temp += S_INSTANCE->getCString();
-						temp += n_instance->s_name;
-					}
-
-					s_answer += temp;
-					s_answer += " ";
-				}
-				
-				s_answer += "}";
-			}
-			
-			if(linklist_getsize(lk_leaves)) {
-				
-				s_answer += " ";
-				s_answer += x->minuit_start_leaves->s_name;
-				s_answer += " ";
-				
-				for(i=0; i<linklist_getsize(lk_leaves); i++){
-					
-					// get the name
-					x->p_node = (TTNodePtr)linklist_getindex(lk_leaves,i);
-					
-					temp = jamoma_node_name(x->p_node)->s_name;
-					
-					// get instance
-					n_instance = jamoma_node_instance(x->p_node);
-					if(n_instance != gensym("")){
-						temp += S_INSTANCE->getCString();
-						temp += n_instance->s_name;
-					}
-					
-					s_answer += temp;
-					s_answer += " ";
-				}
-				
-				s_answer += "}";
-			}
-			// TODO : return !namespace address
-		}
-		
-		if(x->b_debug)
-			object_post((t_object*)x, "SEND %s", s_answer.c_str());
-		
-		// send answer
-		//jamoma_controller->deviceSendNamespaceAnswer(s_answer);
-	}
-}
-
-void minuit_get(t_minuit *x, t_symbol *oscaddress)
-{
-	defer(x, (method)minuit_doget, oscaddress, 0, 0);
-}
-
-void minuit_doget(t_minuit *x, t_symbol *oscAddress)
-{
-	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie;
-	t_symbol *s_attr, *n_type;
-	TTString address;
-	TTString attribute;
-	long nb_value = 0, i;
-	t_atom  *attr_value = NULL;
-	char *s_value = NULL;
-	t_max_err m_err;
-	TTErr tt_err;
-
-	// prepare s_answer
-	TTString s_answer = x->device->s_name;
-	
-	s_answer += " ";
-	s_answer += x->minuit_get_answer->s_name;
-	s_answer += " ";
-	
-	//split OSC the address
-	// TODO : make a split method to only get /address:attribut
-	tt_err = splitOSCAddress(TT(oscAddress->s_name),&oscAddress_parent,&oscAddress_name, &oscAddress_instance, &oscAddress_propertie);
-	
-	// if no error in the parsing of the OSC address
-	if(tt_err == kTTErrNone){
-		
-		// Making the address part /parent/name.instance
-		// TODO : make a split method to only get /address:attribut
-		address = oscAddress_parent->getCString();
-		address += S_SEPARATOR->getCString();
-		address += oscAddress_name->getCString();
-		if(oscAddress_instance != NO_INSTANCE){
-			address += S_INSTANCE->getCString();
-			address += oscAddress_instance->getCString();
-		}
-		// goto the address
-		minuit_goto(x, gensym((char*)address.c_str()));
-		
-		if(x->p_node && x->address){
-			
-			// get node type
-			n_type = jamoma_node_type(x->p_node);
-			
-			// check attribute
-			if(oscAddress_propertie == NO_PROPERTY)
-				attribute += x->minuit_value->s_name;
-			else
-				attribute += oscAddress_propertie->getCString();
-			
-			// get the attribute value
-			s_attr = minuit_convert_attribut_minuit2jamoma(x, gensym((char*)attribute.c_str()));
-			if(s_attr){
-				
-				if(s_attr == x->minuit_access){
-					nb_value = 1;
-					attr_value = (t_atom*)malloc((long)sizeof(t_atom));
-					m_err = 0;
-					
-					if(n_type == jps_subscribe_parameter)
-						atom_setsym(attr_value, x->minuit_getsetter);
-					
-					if(n_type == jps_subscribe_message)
-						atom_setsym(attr_value, x->minuit_setter);
-					
-					if(n_type == jps_subscribe_return)
-						atom_setsym(attr_value, x->minuit_getter);
-				}
-				else{
-					if((n_type == jps_subscribe_parameter) || (n_type == jps_subscribe_return))
-						m_err = jamoma_node_attribute_get(x->p_node, s_attr, &nb_value, &attr_value);
-					else
-						m_err = 1;
-				}
-				
-				if(!m_err){
-					
-					//prepare answer
-					if(oscAddress_propertie == NO_PROPERTY)
-						s_answer += address;
-					else{
-						s_answer += address;
-						s_answer += S_PROPERTY->getCString();
-						s_answer += attribute;
-					}
-					s_answer += " ";
-					
-					// append the <value> to the s_answer
-					if(nb_value){
-						
-						i = 0;
-						while(i < nb_value){
-							
-							s_value = (char*)malloc((long)sizeof(char)*64);
-							
-							if(atom_gettype(&attr_value[i]) == A_SYM)
-								snprintf(s_value, 64, "%s", atom_getsym(&attr_value[i])->s_name);
-							else
-								if(atom_gettype(&attr_value[i]) == A_LONG)
-									snprintf(s_value, 64, "%ld", atom_getlong(&attr_value[i]));
-								else
-									if(atom_gettype(&attr_value[i]) == A_FLOAT)
-										snprintf(s_value, 64, "%f", atom_getfloat(&attr_value[i]));
-							i++;
-							s_answer += s_value;
-							free(s_value);
-							
-							if(i < nb_value)
-								s_answer += " ";
-						}
-						
-						// send answer
-						//jamoma_controller->deviceSendGetAnswer(s_answer);
-						if(x->b_debug)
-							object_post((t_object*)x, "SEND %s", s_answer.c_str());
-					}
-					else{
-						// TODO : return !get address
-						object_error((t_object*)x,"there are no values attached to the requested attribute");
-					}
-				}
-				else{
-					;// TODO : return !get address
-				}
-			}
-		}
-		else{
-			;// TODO : return !get address
-		}
-	}
-}
-
-void minuit_anything(t_minuit *x, t_symbol *msg, long argc, t_atom *argv)
-{
-	defer(x, (method)minuit_doset, msg, argc, argv);
+	// TODO : add device name
+	//jamoma_controller->deviceSendGetRequest(address->s_name);
+	// TODO get the answer
 }
 
 void minuit_set(t_minuit *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	if(atom_gettype(argv) == A_SYM)
-		defer(x, (method)minuit_doset, atom_getsym(argv), argc-1, argv+1);
+	// TODO : add device name
+	// TODO : make a string value
+	Address adr = msg->s_name;
+	Value val = "TODO";
+	
+	//jamoma_controller->deviceSendMessage(adr, val);
+	
+	// TODO get the answer
 }
 
-void minuit_doset(t_minuit *x, t_symbol *oscAddress, long argc, t_atom *argv)
+void minuit_anything(t_minuit *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_symbol *s_attr, *n_type;
-	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_propertie;
-	TTString address;
-	TTString attribute;
-	TTErr tt_err;
-	
-	//split OSC the address
-	// TODO : make a split method to only get /address:attribut
-	if(oscAddress){
-		tt_err = splitOSCAddress(TT(oscAddress->s_name),&oscAddress_parent,&oscAddress_name, &oscAddress_instance, &oscAddress_propertie);
-		
-		// if no error in the parsing of the OSC address
-		if(tt_err == kTTErrNone){
-			
-			// Making the address part /parent/name.instance
-			// TODO : make a split method to only get /address:attribut
-			address = oscAddress_parent->getCString();
-			address += C_SEPARATOR;
-			address += oscAddress_name->getCString();
-			if(oscAddress_instance != NO_INSTANCE){
-				address += C_PROPERTY;
-				address += oscAddress_instance->getCString();
-			}
-			
-			// goto the address
-			minuit_goto(x, gensym((char*)address.c_str()));
-			if(x->p_node && x->address){
-				
-				// check attribute
-				if(oscAddress_propertie == NO_PROPERTY)
-					attribute = x->minuit_value->s_name;
-				else
-					attribute = oscAddress_propertie->getCString();	// Currently Virage doesn't send a / before attribute (maybe we could change the spec of Minuit) ?
-				
-				// set the attribut value
-				s_attr = minuit_convert_attribut_minuit2jamoma(x, gensym((char*)attribute.c_str()));
-				if(s_attr){
-					if(s_attr == x->minuit_access){
-						;// TODO : return !set address
-					}
-					else{
-						n_type = jamoma_node_type(x->p_node);
-						if((n_type == jps_subscribe_parameter) || (n_type == jps_subscribe_message))
-							jamoma_node_attribute_set(x->p_node, s_attr, argc, argv);
-						else
-							; // TODO : return !set address
-					}
-				}
-			}
-		}
-		else
-			// TODO : return !set address
-			object_error((t_object*)x,"the first argument have to be an OSC address");
-	}
+	defer(x, (method)minuit_set, msg, argc, argv);
 }
 
 void minuit_debug(t_minuit *x, long n)
@@ -559,65 +170,4 @@ void minuit_dump(t_minuit *x)
 {
 	// dump all the address of the directory in the Max window
 	jamoma_directory_dump();
-}
-
-void minuit_goto(t_minuit *x, t_symbol *address)
-{
-	JamomaError err = JAMOMA_ERR_NONE;
-	TTList lk_nodes;
-	
-	// Are we dealing with an OSC message ?
-	if(address->s_name[0] == C_SEPARATOR){
-		
-		err = jamoma_directory_get_node(address, lk_nodes, &x->p_node);
-		
-		// if the address exists
-		if(err == JAMOMA_ERR_NONE)
-			x->address = address;
-		else{
-			x->address = NULL;
-			x->p_node = NULL;
-			object_post((t_object*)x,"%s doesn't exist", address->s_name);
-		}
-	}
-}
-
-t_symbol* minuit_convert_attribut_jamoma2minuit(t_minuit *x, t_symbol *attribute)
-{
-	if(attribute == jps_value)
-		return x->minuit_value;
-	
-	if(attribute == jps_type)
-		return x->minuit_type;
-	
-	if(attribute == x->minuit_access)
-		return x->minuit_access;
-	
-	if(attribute == jps_description)
-		return x->minuit_comment;
-	
-	if(attribute == jps_range_bounds)
-		return x->minuit_range;
-	
-	return NULL;
-}
-
-t_symbol* minuit_convert_attribut_minuit2jamoma(t_minuit *x, t_symbol *attribute)
-{
-	if(attribute == x->minuit_value)
-		return jps_value;
-	
-	if(attribute == x->minuit_type)
-		return jps_type;
-	
-	if(attribute == x->minuit_access)
-		return x->minuit_access;
-	
-	if(attribute == x->minuit_comment)
-		return jps_description;
-	
-	if(attribute == x->minuit_range)
-		return jps_range_bounds;
-	
-	return NULL;
 }

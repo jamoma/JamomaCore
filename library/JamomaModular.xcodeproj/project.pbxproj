@@ -71,13 +71,10 @@
 		D2AD390410B17B5200EBE079 /* jcom.send~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AD390110B17B5200EBE079 /* jcom.send~.cpp */; };
 		D2B0F2EF10D79AA0002DF5AE /* ControllerLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2B0F2ED10D79AA0002DF5AE /* ControllerLib.cpp */; };
 		D2B0F2F010D79AA0002DF5AE /* ControllerLib.h in Headers */ = {isa = PBXBuildFile; fileRef = D2B0F2EE10D79AA0002DF5AE /* ControllerLib.h */; };
-		D2B2C58B10E0D0370008A429 /* JamomaNamespace.cpp in Headers */ = {isa = PBXBuildFile; fileRef = D2B2C58A10E0D0370008A429 /* JamomaNamespace.cpp */; };
-		D2B2C5F910E0EE5D0008A429 /* JamomaNamespace.h in Headers */ = {isa = PBXBuildFile; fileRef = D2B2C5F810E0EE5D0008A429 /* JamomaNamespace.h */; };
 		D2B7209A10E236D2007EF310 /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2B7209210E236D2007EF310 /* Controller.cpp */; };
 		D2B7209B10E236D2007EF310 /* Controller.h in Headers */ = {isa = PBXBuildFile; fileRef = D2B7209310E236D2007EF310 /* Controller.h */; };
 		D2B7209C10E236D2007EF310 /* Device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2B7209410E236D2007EF310 /* Device.cpp */; };
 		D2B7209D10E236D2007EF310 /* Device.h in Headers */ = {isa = PBXBuildFile; fileRef = D2B7209510E236D2007EF310 /* Device.h */; };
-		D2B7209E10E236D2007EF310 /* Namespace.h in Headers */ = {isa = PBXBuildFile; fileRef = D2B7209610E236D2007EF310 /* Namespace.h */; };
 		D2B7209F10E236D2007EF310 /* Plugin.h in Headers */ = {isa = PBXBuildFile; fileRef = D2B7209710E236D2007EF310 /* Plugin.h */; };
 		D2B720A010E236D2007EF310 /* PluginFactories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2B7209810E236D2007EF310 /* PluginFactories.cpp */; };
 		D2B720A110E236D2007EF310 /* PluginFactories.h in Headers */ = {isa = PBXBuildFile; fileRef = D2B7209910E236D2007EF310 /* PluginFactories.h */; };
@@ -140,7 +137,7 @@
 		22FD2DC40CEE5B6F0039C226 /* jcom.prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.prefix.pch; path = source/jcom.prefix.pch; sourceTree = "<group>"; };
 		66D9A1F50D21F49300A16E9A /* PositionDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = PositionDataspace.cpp; path = DataspaceLib/PositionDataspace.cpp; sourceTree = "<group>"; };
 		66D9A1F60D21F49300A16E9A /* PositionDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PositionDataspace.h; path = DataspaceLib/PositionDataspace.h; sourceTree = "<group>"; };
-		8DC2EF5B0486A6940098B216 /* .framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = .framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DC2EF5B0486A6940098B216 /* JamomaModular.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JamomaModular.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7CA9C860D1F21FD0099D8CA /* PitchDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = PitchDataspace.cpp; path = DataspaceLib/PitchDataspace.cpp; sourceTree = SOURCE_ROOT; };
 		A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PitchDataspace.h; path = DataspaceLib/PitchDataspace.h; sourceTree = SOURCE_ROOT; };
 		A7CA9C950D1FD9960099D8CA /* GainDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GainDataspace.h; path = DataspaceLib/GainDataspace.h; sourceTree = SOURCE_ROOT; };
@@ -152,13 +149,10 @@
 		D2AD390110B17B5200EBE079 /* jcom.send~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.send~.cpp"; sourceTree = "<group>"; };
 		D2B0F2ED10D79AA0002DF5AE /* ControllerLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControllerLib.cpp; sourceTree = "<group>"; };
 		D2B0F2EE10D79AA0002DF5AE /* ControllerLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerLib.h; sourceTree = "<group>"; };
-		D2B2C58A10E0D0370008A429 /* JamomaNamespace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JamomaNamespace.cpp; sourceTree = "<group>"; };
-		D2B2C5F810E0EE5D0008A429 /* JamomaNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JamomaNamespace.h; sourceTree = "<group>"; };
 		D2B7209210E236D2007EF310 /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Controller.cpp; path = ../../../../virage/sequenceur/trunk/libIscore/libController/Controller.cpp; sourceTree = SOURCE_ROOT; };
 		D2B7209310E236D2007EF310 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = ../../../../virage/sequenceur/trunk/libIscore/libController/Controller.h; sourceTree = SOURCE_ROOT; };
 		D2B7209410E236D2007EF310 /* Device.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Device.cpp; path = ../../../../virage/sequenceur/trunk/libIscore/libController/Device.cpp; sourceTree = SOURCE_ROOT; };
 		D2B7209510E236D2007EF310 /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Device.h; path = ../../../../virage/sequenceur/trunk/libIscore/libController/Device.h; sourceTree = SOURCE_ROOT; };
-		D2B7209610E236D2007EF310 /* Namespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Namespace.h; path = ../../../../virage/sequenceur/trunk/libIscore/libController/Namespace.h; sourceTree = SOURCE_ROOT; };
 		D2B7209710E236D2007EF310 /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plugin.h; path = ../../../../virage/sequenceur/trunk/libIscore/libController/Plugin.h; sourceTree = SOURCE_ROOT; };
 		D2B7209810E236D2007EF310 /* PluginFactories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PluginFactories.cpp; path = ../../../../virage/sequenceur/trunk/libIscore/libController/PluginFactories.cpp; sourceTree = SOURCE_ROOT; };
 		D2B7209910E236D2007EF310 /* PluginFactories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PluginFactories.h; path = ../../../../virage/sequenceur/trunk/libIscore/libController/PluginFactories.h; sourceTree = SOURCE_ROOT; };
@@ -186,7 +180,7 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8DC2EF5B0486A6940098B216 /* .framework */,
+				8DC2EF5B0486A6940098B216 /* JamomaModular.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -351,11 +345,8 @@
 			children = (
 				D2B0F2EE10D79AA0002DF5AE /* ControllerLib.h */,
 				D2B0F2ED10D79AA0002DF5AE /* ControllerLib.cpp */,
-				D2B2C5F810E0EE5D0008A429 /* JamomaNamespace.h */,
-				D2B2C58A10E0D0370008A429 /* JamomaNamespace.cpp */,
 				D2B7209310E236D2007EF310 /* Controller.h */,
 				D2B7209210E236D2007EF310 /* Controller.cpp */,
-				D2B7209610E236D2007EF310 /* Namespace.h */,
 				D2B7209510E236D2007EF310 /* Device.h */,
 				D2B7209410E236D2007EF310 /* Device.cpp */,
 				D2B7209710E236D2007EF310 /* Plugin.h */,
@@ -400,11 +391,8 @@
 				22E6C7600D4AB21B00DA75EE /* SchedulerRamp.h in Headers */,
 				D2730C5D104FBA70004513A7 /* NodeLib.h in Headers */,
 				D2B0F2F010D79AA0002DF5AE /* ControllerLib.h in Headers */,
-				D2B2C58B10E0D0370008A429 /* JamomaNamespace.cpp in Headers */,
-				D2B2C5F910E0EE5D0008A429 /* JamomaNamespace.h in Headers */,
 				D2B7209B10E236D2007EF310 /* Controller.h in Headers */,
 				D2B7209D10E236D2007EF310 /* Device.h in Headers */,
-				D2B7209E10E236D2007EF310 /* Namespace.h in Headers */,
 				D2B7209F10E236D2007EF310 /* Plugin.h in Headers */,
 				D2B720A110E236D2007EF310 /* PluginFactories.h in Headers */,
 			);
@@ -430,7 +418,7 @@
 			name = Jamoma;
 			productInstallPath = "$(HOME)/Library/Frameworks";
 			productName = MaxObject;
-			productReference = 8DC2EF5B0486A6940098B216 /* .framework */;
+			productReference = 8DC2EF5B0486A6940098B216 /* JamomaModular.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
