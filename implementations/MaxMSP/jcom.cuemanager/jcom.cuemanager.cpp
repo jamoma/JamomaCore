@@ -105,6 +105,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	// rename the selected cue (or the current if no index)
 	class_addmethod(c, (method)cuemng_set_name,			"set_name",		A_GIMME, 0);
+	
+	// change the mode (KEYCUE or CUE) of the selected cue (or the current if no index)
+	class_addmethod(c, (method)cuemng_set_mode,			"set_mode",		A_GIMME, 0);
 
 	// if there is an index, insert the temp cue 
 	// at this index in the cue list
@@ -1069,6 +1072,102 @@ void cuemng_set_name(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 		else
 			object_error((t_object *)x, "set_name : this index doesn't exist");
 	}
+}
+
+void cuemng_set_mode(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
+{
+	long index, memo = 0;
+	t_cue *c;
+	t_symbol *new_mode;
+	t_atom a[2];
+	
+	if(argc >= 2){
+		if(atom_gettype(&argv[1]) == A_SYM)
+			new_mode = atom_getsym(&argv[1]);
+		else{
+			object_error((t_object *)x, "set_mode : the new mode have to be a symbol");
+			return;
+		}
+		
+		// if there is the temp flag
+		// change the mode of the temp cue
+		if(cuemng_check_temp(x,argc,argv)){
+			index = -1;
+			return;
+		}
+		else{
+			// else change mode of the cue at the given index
+			// do not force the current on the renamed cue
+			memo = x->current;
+			index = cuemng_check_index(x,argc,argv);
+		}
+		
+	}
+	else{
+		if(argc == 1){
+			index = cuemng_check_index(x,0,0);		// to get the current
+			if(atom_gettype(&argv[0]) == A_SYM)
+				new_mode = atom_getsym(&argv[0]);
+			else{
+				object_error((t_object *)x, "set_mode : the new mode have to be a symbol");
+				return;
+			}
+		}
+		else{
+			// if no args switch the mode of the current cue 
+			// from KEYCUE to CUE and from CUE to KEYCUE
+			index = cuemng_check_index(x,0,0);					// to get the current
+			c = (t_cue *)linklist_getindex(x->cuelist,index);
+			
+			if(c->mode == ABSOLUTE_CUE)
+				new_mode = x->ps_cue;
+			else 
+				new_mode = x->ps_keycue;
+		}
+	}
+	
+	// do not force the selected cue as current
+	x->current = memo;
+	
+	// change the mode of selected cue 
+	if(index == -1){
+		
+		if(new_mode == x->ps_keycue)
+		   x->temp_cue->mode = ABSOLUTE_CUE;
+		else if(new_mode == x->ps_cue)
+		   x->temp_cue->mode = DIFFERENTIAL_CUE;
+		else{
+		   object_error((t_object *)x, "set_mode : the new mode have to be %s or %s", x->ps_keycue->s_name, x->ps_cue->s_name);
+			return;
+		}
+		
+		// info operation
+		atom_setsym(&a[0],ps_tempindex);
+		atom_setsym(&a[1],new_mode);
+		cuemng_info_operation(x,s,2,a);
+	}
+	else{
+		c = (t_cue *)linklist_getindex(x->cuelist,index);
+		
+		if(c){
+			if(new_mode == x->ps_keycue)
+				c->mode = ABSOLUTE_CUE;
+			else if(new_mode == x->ps_cue)
+				c->mode = DIFFERENTIAL_CUE;
+			else{
+				object_error((t_object *)x, "set_mode : the new mode have to be %s or %s", x->ps_keycue->s_name, x->ps_cue->s_name);
+				return;
+			}
+			
+			// info operation
+			atom_setlong(&a[0],index+1); // index starts at 1 for user
+			atom_setsym(&a[1],new_mode);
+			cuemng_info_operation(x,s,2,a);
+		}
+		else
+			object_error((t_object *)x, "set_name : this index doesn't exist");
+	}
+	
 }
 
 void cuemng_insert(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
