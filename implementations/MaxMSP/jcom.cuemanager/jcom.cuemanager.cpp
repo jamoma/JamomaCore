@@ -108,6 +108,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	
 	// change the mode (KEYCUE or CUE) of the selected cue (or the current if no index)
 	class_addmethod(c, (method)cuemng_set_mode,			"set_mode",		A_GIMME, 0);
+	
+	// change the comment of the selected cue (or the current if no index)
+	class_addmethod(c, (method)cuemng_set_comment,		"set_comment",		A_GIMME, 0);
 
 	// if there is an index, insert the temp cue 
 	// at this index in the cue list
@@ -1169,9 +1172,82 @@ void cuemng_set_mode(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 			cuemng_info_operation(x,s,2,a);
 		}
 		else
-			object_error((t_object *)x, "set_name : this index doesn't exist");
+			object_error((t_object *)x, "set_mode : this index doesn't exist");
 	}
 	
+}
+
+void cuemng_set_comment(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
+{
+	long index, memo = 0;
+	t_cue *c;
+	t_symbol *new_comment;
+	t_atom a[2];
+	
+	if(argc >= 2){
+		if(atom_gettype(&argv[1]) == A_SYM)
+			new_comment = atom_getsym(&argv[1]);
+		else{
+			object_error((t_object *)x, "set_comment : the new comment have to be a symbol");
+			return;
+		}
+		
+		// if there is the temp flag
+		// change the mode of the temp cue
+		if(cuemng_check_temp(x,argc,argv)){
+			index = -1;
+			return;
+		}
+		else{
+			// else change mode of the cue at the given index
+			// do not force the current on the changed cue
+			memo = x->current;
+			index = cuemng_check_index(x,argc,argv);
+		}
+		
+	}
+	else{
+		if(argc == 1){
+			index = cuemng_check_index(x,0,0);		// to get the current
+			if(atom_gettype(&argv[0]) == A_SYM)
+				new_comment = atom_getsym(&argv[0]);
+			else{
+				object_error((t_object *)x, "set_comment : the new comment have to be a symbol");
+				return;
+			}
+		}
+		else
+			new_comment = _sym_nothing;
+	}
+	
+	// do not force the selected cue as current
+	x->current = memo;
+	
+	// change the mode of selected cue 
+	if(index == -1){
+		
+		x->temp_cue->comment = new_comment;
+		
+		// info operation
+		atom_setsym(&a[0],ps_tempindex);
+		atom_setsym(&a[1],new_comment);
+		cuemng_info_operation(x,s,2,a);
+	}
+	else{
+		c = (t_cue *)linklist_getindex(x->cuelist,index);
+		
+		if(c){
+			
+			c->comment = new_comment;
+			
+			// info operation
+			atom_setlong(&a[0],index+1); // index starts at 1 for user
+			atom_setsym(&a[1],new_comment);
+			cuemng_info_operation(x,s,2,a);
+		}
+		else
+			object_error((t_object *)x, "set_comment : this index doesn't exist");
+	}
 }
 
 void cuemng_insert(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)

@@ -113,9 +113,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 4.0, 50.0, 417.0, 427.0 ],
+						"rect" : [ 4.0, 50.0, 476.0, 475.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 4.0, 50.0, 417.0, 427.0 ],
+						"defrect" : [ 4.0, 50.0, 476.0, 475.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -129,7 +129,66 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"visible" : 1,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"id" : "obj-15",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 347.0, 330.0, 113.0, 36.0 ],
+									"text" : "set the comment of the current"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"id" : "obj-14",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 347.0, 295.0, 112.0, 36.0 ],
+									"text" : "set the comment of a cue"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 18.0,
+									"id" : "obj-13",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 10.0, 334.0, 316.0, 26.0 ],
+									"text" : "set_comment \"a new description\""
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 18.0,
+									"id" : "obj-11",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 10.0, 301.0, 333.0, 26.0 ],
+									"text" : "set_comment 1 \"a new description\""
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 12.0,
@@ -182,7 +241,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 189.0, 176.0, 140.0, 21.0 ],
+									"patching_rect" : [ 189.0, 185.0, 140.0, 21.0 ],
 									"text" : "set the mode of a cue"
 								}
 
@@ -337,7 +396,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 326.0, 373.0, 75.0, 19.0 ],
+									"patching_rect" : [ 326.0, 407.0, 75.0, 19.0 ],
 									"text" : "s to_cuemng"
 								}
 
@@ -349,6 +408,24 @@
 									"hidden" : 0,
 									"midpoints" : [ 19.5, 281.5, 335.5, 281.5 ],
 									"source" : [ "obj-10", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 19.5, 366.5, 335.5, 366.5 ],
+									"source" : [ "obj-11", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 19.5, 366.5, 335.5, 366.5 ],
+									"source" : [ "obj-13", 0 ]
 								}
 
 							}
@@ -607,9 +684,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 1245.0, 44.0, 1280.0, 694.0 ],
+						"rect" : [ 1212.0, 44.0, 1280.0, 694.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 1245.0, 44.0, 1280.0, 694.0 ],
+						"defrect" : [ 1212.0, 44.0, 1280.0, 694.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1949,7 +2026,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-71",
-					"items" : [ "init", ",", "cue_1" ],
+					"items" : [ "cue_1", ",", "cue_2" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
