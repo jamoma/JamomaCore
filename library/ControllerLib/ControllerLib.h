@@ -14,8 +14,6 @@
 
 typedef Controller* ControllerPtr;
 
-// statics and globals
-
 /**	The Jamoma Controller : Plugin manager for network communication */
 extern ControllerPtr		jamoma_controller;
 

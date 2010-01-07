@@ -8,7 +8,9 @@
 
 #include "ControllerLib.h"
 
+// statics and globals
 ControllerPtr		jamoma_controller = NULL;
+static TTHashPtr	jamoma_controller_hash_link = NULL;						// used to store all namespace listeners 
 
 /***********************************************************************************
 *
@@ -39,6 +41,9 @@ ControllerPtr	jamoma_controller_init()
 	jamoma_controller->namespaceSetAddCallback(jamoma_directory, &jamoma_namespace_set_callback);
 	jamoma_controller->namespaceLinkAddCallback(jamoma_directory, &jamoma_namespace_link_callback);
 	jamoma_controller->namespaceUnlinkAddCallback(jamoma_directory, &jamoma_namespace_unlink_callback);
+	
+	// create the hashtab for future network observers
+	jamoma_controller_hash_link = new TTHash();
 	
 	return jamoma_controller;
 }
@@ -272,6 +277,7 @@ void jamoma_namespace_link_callback(void* arg, std::string whereToSend, Address 
 	TTAttributePtr anAttribute = NULL;
 	TTObjectPtr newObserver;
 	TTValuePtr	newBaton;
+	TTString keyLink;
 	
 	TTNodeDirectoryPtr m_directory = (TTNodeDirectoryPtr) arg;
 	
@@ -300,8 +306,9 @@ void jamoma_namespace_link_callback(void* arg, std::string whereToSend, Address 
 					
 					anAttribute->registerObserverForNotifications(*newObserver);
 					
-					// TODO : a hash tab to memorized each link in order to remove them later
-					//(*returnedObserver) = newObserver;
+					// memorize the link in order to remove it with the unlink operation
+					keyLink = whereToSend + "<>" + whereToObserve + ":" + attributeToObserve;
+					jamoma_controller_hash_link->append(TT(keyLink), (TTPtr)newObserver);
 			}
 		}
 	}
@@ -309,7 +316,34 @@ void jamoma_namespace_link_callback(void* arg, std::string whereToSend, Address 
 
 void jamoma_namespace_unlink_callback(void* arg, std::string whereToSend, Address whereToObserve, std::string attributeToObserve)
 {
+	TTErr err;
+	TTNodePtr nodeObserved;
+	TTObjectPtr oldObserver;
+	TTValue	temp;
+	TTString keyLink;
+	
+	TTNodeDirectoryPtr m_directory = (TTNodeDirectoryPtr) arg;
+
 	post("jamoma_namespace_unlink_callback : %s %s %s", whereToSend.c_str(), whereToObserve.c_str(), attributeToObserve.c_str());
+	
+	if(m_directory){
+		
+		// Get the Node at the given address
+		err = m_directory->getTTNodeForOSC(whereToObserve.c_str(), &nodeObserved);
+		
+		if(!err){
+			
+			// looking for an observer
+			keyLink = whereToSend + "<>" + whereToObserve + ":" + attributeToObserve;
+			err = jamoma_controller_hash_link->lookup(TT(keyLink), temp);
+			temp.get(0, (TTPtr*)&oldObserver);
+	
+			// remove it
+			if(!err)
+				jamoma_node_attribute_observer_remove(nodeObserved, SymbolGen(convertAttributeToJamoma(attributeToObserve)->getCString()), oldObserver);
+
+		}
+	}
 }
 
 void jamoma_link_method(TTPtr p_baton, TTValue& data)
