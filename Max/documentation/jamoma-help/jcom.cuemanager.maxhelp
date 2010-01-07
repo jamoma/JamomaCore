@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 42.0, 49.0, 1243.0, 702.0 ],
+		"rect" : [ 1.0, 44.0, 1243.0, 702.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 42.0, 49.0, 1243.0, 702.0 ],
+		"defrect" : [ 1.0, 44.0, 1243.0, 702.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 18.0,
@@ -607,9 +607,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 4.0, 50.0, 1280.0, 694.0 ],
+						"rect" : [ 1245.0, 44.0, 1280.0, 694.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 4.0, 50.0, 1280.0, 694.0 ],
+						"defrect" : [ 1245.0, 44.0, 1280.0, 694.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -623,6 +623,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -1948,7 +1949,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-71",
-					"items" : [ "init", ",", "cue_2" ],
+					"items" : [ "init", ",", "cue_1" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -3083,8 +3084,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 7.0, 280.0, 124.0, 17.0 ],
-					"text" : "CUE cue_2 ramp 2000"
+					"patching_rect" : [ 7.0, 280.0, 408.0, 17.0 ],
+					"text" : "CUE cue_2 ramp 2000 comment \"this cue ramp some parameters in 2 second\""
 				}
 
 			}
@@ -3139,8 +3140,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 7.0, 251.0, 84.0, 17.0 ],
-					"text" : "KEYCUE cue_1"
+					"patching_rect" : [ 7.0, 251.0, 310.0, 17.0 ],
+					"text" : "KEYCUE cue_1 comment \"a description of what do the cue\""
 				}
 
 			}

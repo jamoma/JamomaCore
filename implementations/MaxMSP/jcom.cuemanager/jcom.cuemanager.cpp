@@ -224,6 +224,7 @@ void *cuemng_new(t_symbol *s, long argc, t_atom *argv)
 		x->ps_cmt = gensym((char *)CMT);
 		x->ps_wait = gensym((char *)WAIT);
 		x->ps_ramp = gensym((char *)RAMP);
+		x->ps_comment = gensym((char *)COMMENT);
 
 		x->ps_lb = gensym((char *)LB);
 		x->ps_tab = gensym((char *)TAB);
@@ -919,6 +920,9 @@ void cuemng_info(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 
 			atom_setlong(&info_ccue[0],ccue->ramp);
 			outlet_anything(x->info_out, gensym("/current/ramp"), 1, info_ccue);
+			
+			atom_setsym(&info_ccue[0],ccue->comment);
+			outlet_anything(x->info_out, gensym("/current/comment"), 1, info_ccue);
 
 			// output informations about the current key cue
 			ckcue = cuemng_current_key_cue(x);
@@ -1825,17 +1829,22 @@ void cuemng_clear_temp(t_cuemng *x)
 // set head informations of the temp cue (mode, index, options)
 void cuemng_set_temp(t_cuemng *x,long mode, long argc, t_atom *argv)
 {
-	long r, r_pos;
+	long r, r_pos, c_pos;
 
 	x->temp_cue->mode = mode;
 
 	x->temp_cue->index = atom_getsym(&argv[0]);
 	
+	// looking for a ramp flag
 	r = cuemng_check_ramp(x,&r_pos,argc-1,argv+1);
 	if(r != GLOBAL_RAMP)
 		x->temp_cue->ramp = r;
 	else 
 		object_error((t_object *)x, "cuemng_set_temp : wrong flag for the head info ramp option");
+	
+	// looking for a comment flag
+	x->temp_cue->comment = cuemng_check_comment(x,&c_pos,argc-1,argv+1);
+	
 }
 
 // append a line to the temp cue
@@ -1890,6 +1899,7 @@ void cuemng_copy_cue(t_cuemng *x, t_cue *src, t_cue *dest)
 	dest->index = src->index;
 	dest->mode = src->mode;
 	dest->ramp = src->ramp;
+	dest->comment = src->comment;
 	
 	// clear the linklist
 	if(linklist_getsize(dest->linelist))
@@ -2233,44 +2243,57 @@ void cuemng_output_line(t_line *l, t_cuemng *x)
 
 void cuemng_info_cue(t_cue *cue, t_cuemng *x)
 {
-	t_atom info_cue[7];
-	long memoK;
+	t_atom info_cue[9];
+	long memoK, nb_item = 0;
 
 	// position of the cue in the cuelist
-	atom_setlong(&info_cue[0],x->current+1);
-
+	atom_setlong(&info_cue[nb_item],x->current+1);
+	nb_item++;
+	
 	// mode
-	if(cue->mode == DIFFERENTIAL_CUE) atom_setsym(&info_cue[1],x->ps_cue);
-	if(cue->mode == ABSOLUTE_CUE) atom_setsym(&info_cue[1],x->ps_keycue);
-	if(cue->mode == EMPTY_CUE) atom_setsym(&info_cue[1],ps_emptycue);
+	if(cue->mode == DIFFERENTIAL_CUE) atom_setsym(&info_cue[nb_item],x->ps_cue);
+	if(cue->mode == ABSOLUTE_CUE) atom_setsym(&info_cue[nb_item],x->ps_keycue);
+	if(cue->mode == EMPTY_CUE) atom_setsym(&info_cue[nb_item],ps_emptycue);
+	nb_item++;
 
 	// name
-	atom_setsym(&info_cue[2],cue->index);
+	atom_setsym(&info_cue[nb_item],cue->index);
+	nb_item++;
 
 	if(cue->mode == DIFFERENTIAL_CUE){
 
 		// ramp
-		atom_setsym(&info_cue[3],x->ps_ramp);
-		atom_setlong(&info_cue[4],cue->ramp);
+		atom_setsym(&info_cue[nb_item],x->ps_ramp);
+		nb_item++;
+		atom_setlong(&info_cue[nb_item],cue->ramp);
+		nb_item++;
 
 		// his relative KEYCUE
-		atom_setsym(&info_cue[5],x->ps_keycue);
+		atom_setsym(&info_cue[nb_item],x->ps_keycue);
+		nb_item++;
+		
 		memoK = x->Kcurrent;
 		x->Kcurrent = cuemng_previous_key_index(x);
-		atom_setlong(&info_cue[6],x->Kcurrent+1);
+		atom_setlong(&info_cue[nb_item],x->Kcurrent+1);
+		nb_item++;
+		
 		x->Kcurrent = memoK;
-
-		if(x->info_cuelist)
-			outlet_anything(x->info_out, gensym("/cuelist"), 7, info_cue);
-		else
-			outlet_anything(x->info_out, gensym("/cue"), 7, info_cue);
 	}
-	else{
-		if(x->info_cuelist)
-			outlet_anything(x->info_out, gensym("/cuelist"), 3, info_cue);
-		else
-			outlet_anything(x->info_out, gensym("/cue"), 3, info_cue);
+	
+	// comment
+	if(cue->comment != _sym_nothing){
+		atom_setsym(&info_cue[nb_item],x->ps_comment);
+		nb_item++;
+	
+		atom_setsym(&info_cue[nb_item],cue->comment);
+		nb_item++;
 	}
+	
+	// outlet info
+	if(x->info_cuelist)
+		outlet_anything(x->info_out, gensym("/cuelist"), nb_item, info_cue);
+	else
+		outlet_anything(x->info_out, gensym("/cue"), nb_item, info_cue);
 
 	x->current++;
 }
@@ -2303,6 +2326,7 @@ void cuemng_info_operation(t_cuemng *x, t_symbol *s, long argc, t_atom *argv){
 void cuemng_write_cue(t_cue *c, t_cuemng *x)
 {
 	char name[64];
+	char comment[512];
 
 	if(x->nb_written_lines < TEXT_MAX_LINE){ // this always true when writing into a file
 		
@@ -2325,6 +2349,13 @@ void cuemng_write_cue(t_cue *c, t_cuemng *x)
 		if(c->ramp > NO_RAMP){
 			cuemng_write_sym(x,x->ps_ramp);
 			cuemng_write_long(x,c->ramp);
+		}
+		
+		if(c->comment != _sym_nothing){
+			cuemng_write_sym(x,x->ps_comment);
+			// write comment : wrap the comment with " " to avoid the problem of SPACE
+			snprintf(comment,512,"\"%s\"",c->comment->s_name);
+			cuemng_write_sym(x,gensym(comment));
 		}
 		
 		// write 3 new line
@@ -2577,6 +2608,38 @@ long cuemng_check_ramp(t_cuemng *x, long *pos, long argc, t_atom *argv)
 	}
 	*pos = -1;
 	return NO_RAMP;
+}
+
+// if there is a "#" flag in the args,
+// return the descrition of the cue as one t_symbol
+// else return _sym_nothing
+t_symbol *cuemng_check_comment(t_cuemng *x, long *pos, long argc, t_atom *argv)
+{
+	long i = 0;
+	
+	if(argc && argv){
+		do{
+			if(atom_gettype(&argv[i]) == A_SYM){
+				
+				// there is a "comment" flag
+				if((atom_getsym(&argv[i]) == x->ps_comment) && (i+1 <= argc)){
+					
+					// there is a comment
+					if(atom_gettype(&argv[i+1]) == A_SYM){
+						*pos = i;
+						return atom_getsym(&argv[i+1]);
+					}
+					
+					// there is a "comment" flag but no comment
+					*pos = i;
+					return _sym_nothing;
+				}
+			}
+			i++;
+		}while(i <= argc);
+	}
+	*pos = -1;
+	return _sym_nothing;
 }
 
 int cuemng_count_lines(t_cuemng *x, t_cue *cue)
