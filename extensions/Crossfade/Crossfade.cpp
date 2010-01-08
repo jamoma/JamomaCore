@@ -244,8 +244,10 @@ TTErr TTCrossfade::processEqualPowerLookup(TTAudioSignalArrayPtr inputs, TTAudio
 	return kTTErrNone;
 }
 
+
 TTErr TTCrossfade::processSquareRootLookup(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+#ifdef SQRT_PROCESS // taking this out only on the 0.5-maintenance branch -- it doesn't compile because it relies on code only in the master branch [tap]
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
@@ -301,6 +303,7 @@ TTErr TTCrossfade::processSquareRootLookup(TTAudioSignalArrayPtr inputs, TTAudio
 			}
 		}
 	}
+#endif SQRT_PROCESS
 	return kTTErrNone;
 }
 
@@ -331,7 +334,7 @@ TTErr TTCrossfade::processEqualPowerCalc(TTAudioSignalArrayPtr inputs, TTAudioSi
 			
 			while(vs--)
 			{
-				radPosition = position * kTTPi_2;
+				radPosition = position * kTTPi/2;
 				*outSample++ = (*inSampleB++ * (sin(radPosition))) + (*inSampleA++ * (cos(radPosition)));
 			}
 		}
@@ -349,7 +352,7 @@ TTErr TTCrossfade::processEqualPowerCalc(TTAudioSignalArrayPtr inputs, TTAudioSi
 			
 			while(vs--)
 			{
-				radPosition = position * kTTPi_2;
+				radPosition = position * kTTPi/2;
 				*outSample++ = (*inSampleB++ * (sin(radPosition))) + (*inSampleA++ * (cos(radPosition)));
 			}
 		}
