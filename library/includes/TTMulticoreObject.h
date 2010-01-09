@@ -41,7 +41,7 @@ public:
 
 	/**	Rather than use the internal audio output signal, it is possible to set your own.
 		One example for why you might want this is for creating generator objects.	*/
-	TTErr setAudioOutputPtr(TTAudioSignalPtr newOutputPtr);
+//	TTErr setAudioOutputPtr(TTAudioSignalPtr newOutputPtr);
 
 	
 	TTUInt16 getSampleRate()
@@ -81,7 +81,7 @@ public:
 		@param	audioOutput		This method is passed a reference to an audio signal pointer.
 								We then set this audio signal pointer to point to the TTAudioSignal containing our calculated samples.
 	 	@return					An error code.	*/
-	virtual TTErr process(TTAudioSignalPtr& returnedSignal, TTBoolean getSidechain=false);
+	virtual TTErr process(TTAudioSignalPtr& returnedSignal, TTUInt16 forOutletNumber=0);
 	
 };
 

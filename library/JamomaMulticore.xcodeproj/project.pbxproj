@@ -10,6 +10,7 @@
 		222018D010F8C8C30010D781 /* TTMulticoreGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 222018CF10F8C8C30010D781 /* TTMulticoreGenerator.h */; };
 		222018D210F8C8CB0010D781 /* TTMulticoreGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222018D110F8C8CB0010D781 /* TTMulticoreGenerator.cpp */; };
 		2220192C10F8E7760010D781 /* TTMulticoreOutlet.h in Headers */ = {isa = PBXBuildFile; fileRef = 2220192B10F8E7760010D781 /* TTMulticoreOutlet.h */; };
+		222019D810F90A2D0010D781 /* TTMulticoreInlet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222019D710F90A2D0010D781 /* TTMulticoreInlet.cpp */; };
 		226AAF7F10F80EDE002C6057 /* TTMulticore.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7310F80EDE002C6057 /* TTMulticore.h */; };
 		226AAF8010F80EDE002C6057 /* TTMulticoreAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7410F80EDE002C6057 /* TTMulticoreAPI.h */; };
 		226AAF8110F80EDE002C6057 /* TTMulticoreInlet.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7510F80EDE002C6057 /* TTMulticoreInlet.h */; };
@@ -31,6 +32,7 @@
 		222018CF10F8C8C30010D781 /* TTMulticoreGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMulticoreGenerator.h; sourceTree = "<group>"; };
 		222018D110F8C8CB0010D781 /* TTMulticoreGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMulticoreGenerator.cpp; path = ../source/TTMulticoreGenerator.cpp; sourceTree = "<group>"; };
 		2220192B10F8E7760010D781 /* TTMulticoreOutlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMulticoreOutlet.h; path = includes/TTMulticoreOutlet.h; sourceTree = "<group>"; };
+		222019D710F90A2D0010D781 /* TTMulticoreInlet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMulticoreInlet.cpp; path = source/TTMulticoreInlet.cpp; sourceTree = "<group>"; };
 		226AAF7310F80EDE002C6057 /* TTMulticore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMulticore.h; path = includes/TTMulticore.h; sourceTree = "<group>"; };
 		226AAF7410F80EDE002C6057 /* TTMulticoreAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMulticoreAPI.h; path = includes/TTMulticoreAPI.h; sourceTree = "<group>"; };
 		226AAF7510F80EDE002C6057 /* TTMulticoreInlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMulticoreInlet.h; path = includes/TTMulticoreInlet.h; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				226AAF7510F80EDE002C6057 /* TTMulticoreInlet.h */,
+				222019D710F90A2D0010D781 /* TTMulticoreInlet.cpp */,
 				2220192B10F8E7760010D781 /* TTMulticoreOutlet.h */,
 				226AAF7610F80EDE002C6057 /* TTMulticoreObject.h */,
 				226AAF7C10F80EDE002C6057 /* TTMulticoreObject.cpp */,
@@ -227,6 +230,7 @@
 				226AAF8710F80EDE002C6057 /* TTMulticoreObject.cpp in Sources */,
 				226AAF8810F80EDE002C6057 /* TTMulticoreOutput.cpp in Sources */,
 				222018D210F8C8CB0010D781 /* TTMulticoreGenerator.cpp in Sources */,
+				222019D810F90A2D0010D781 /* TTMulticoreInlet.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

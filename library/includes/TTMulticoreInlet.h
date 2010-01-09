@@ -18,30 +18,31 @@
 
 // NOTE: we don't need to keep a buffer of our own, be we just mirror the buffer of mSourceObject
 
-class TTMulticoreSource {
+class TTMulticoreSource : TTObject {
+//	TTCLASS_SETUP(TTMulticoreSource)
+
+//	friend class TTEnvironment;												\
+//public:																		\
+//	static void registerClass();											\
+//protected:																	\
+//	static TTObjectPtr instantiate (TTSymbolPtr name, TTValue& arguments);	\
+
+	// NOTE: yes, I'm breaking the rules for a TTObject here...
+public:
+	/** Constructor */						
+//	TTMulticoreSource (TTSymbolPtr&,TTValue&);	
+	TTMulticoreSource ();	
+	/** Destructor */						
+	virtual ~TTMulticoreSource ();			
+
+protected:	
+	
 	TTMulticoreObjectPtr	mSourceObject;	// the object from which we pull samples
 	TTUInt16				mOutletNumber;	// zero-based
 	
 public:
 	
-	
-	TTMulticoreSource()
-	{;}
-	
-	~TTMulticoreSource()
-	{
-		// TODO: inorder to listen for notifications, I have to be a real object!
-		mSourceObject->unregisterObserverForNotifications(*this);
-	}
-
-	void connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber)
-	{
-		mSourceObject = anObject;
-		mOutletNumber = fromOutletNumber;
-		
-		// tell the source that is passed in that we want to watch it
-		mSourceObject->registerObserverForNotifications(*this);
-	}	
+	void connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber);
 	
 	void init()
 	{
@@ -101,7 +102,7 @@ public:
 	// init the chain from which we will pull
 	void init()
 	{
-		for_each(mSourceObjects.begin(), mSourceObjects.end(), mem_fun(&TTMulticoreSource::init));
+		for_each(mSourceObjects.begin(), mSourceObjects.end(), mem_fun_ref(&TTMulticoreSource::init));
 		// TODO: we need to allocate memory for our audio signal here!
 		// mUnitGenerator->setMaxNumChannels(weDeliverNumChannels);
 
@@ -143,12 +144,12 @@ public:
 	void preprocess()
 	{
 		mBufferedInput->clear();
-		for_each(mSourceObjects.begin(), mSourceObjects.end(), mem_fun(&TTMulticoreSource::preprocess));
+		for_each(mSourceObjects.begin(), mSourceObjects.end(), mem_fun_ref(&TTMulticoreSource::preprocess));
 	}
 
 		
 	// collect and sum the sources
-	TTErr process(TTAudioSignalPtr& returnedSummedSignal)
+	TTErr process()
 	{
 		int					err;
 		TTAudioSignalPtr	foo;
@@ -157,9 +158,13 @@ public:
 			err |= (*i).process(foo);
 			(*mBufferedInput) += (*foo);
 		}
-
-		returnedSummedSignal = mBufferedInput;
 		return (TTErr)err;
+	}
+	
+	
+	TTAudioSignalPtr getBuffer()
+	{
+		return mBufferedInput;
 	}
 	
 };

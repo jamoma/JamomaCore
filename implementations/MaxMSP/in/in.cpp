@@ -1,6 +1,6 @@
 /* 
  *	in≈
- *	External object for Max/MSP to Provide a source for TTAudioSignals usable by a lydbær dsp chain.
+ *	External object for Max/MSP to Provide a source for TTAudioSignals usable by a Jamoma Multicore dsp chain.
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
@@ -10,31 +10,31 @@
 #include "maxMulticore.h"
 
 // Data Structure for this object
-struct LydIn {
-    t_pxobject			obj;
-	MCoreObjectPtr		lydbaer;
-	TTPtr				lydbaerOutlet;
-	TTUInt32			maxNumChannels;	// the number of inlets or outlets, which is an argument at instantiation
-	TTUInt32			numChannels;	// the actual number of channels to use, set by the dsp method
-	TTUInt32			vectorSize;		// cached by the DSP method
+struct In {
+    t_pxobject				obj;
+	TTMulticoreObjectPtr	multicoreObject;
+	TTPtr					multicoreObjectOutlet;
+	TTUInt32				maxNumChannels;	// the number of inlets or outlets, which is an argument at instantiation
+	TTUInt32				numChannels;	// the actual number of channels to use, set by the dsp method
+	TTUInt32				vectorSize;		// cached by the DSP method
 };
-typedef LydIn* LydInPtr;
+typedef In* InPtr;
 
 
 // Prototypes for methods
-LydInPtr	lydInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		lydInFree(LydInPtr x);
-void		lydInAssist(LydInPtr x, void* b, long msg, long arg, char* dst);
-TTErr		lydInReset(LydInPtr x, long vectorSize);
-TTErr		lydInSetup(LydInPtr x);
-TTErr		lydInObject(LydInPtr x, MCoreObjectPtr audioSourceObject);
-t_int*		lydInPerform(t_int* w);
-void		lydInDsp(LydInPtr x, t_signal** sp, short* count);
-MaxErr		lydInSetGain(LydInPtr x, void *attr, AtomCount argc, AtomPtr argv);
+InPtr	InNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void	InFree(InPtr self);
+void	InAssist(InPtr self, void* b, long msg, long arg, char* dst);
+TTErr	InReset(InPtr self, long vectorSize);
+TTErr	InSetup(InPtr self);
+TTErr	InObject(InPtr self, TTMulticoreObjectPtr audioSourceObject);
+t_int*	InPerform(t_int* w);
+void	InDsp(InPtr self, t_signal** sp, short* count);
+MaxErr	InSetGain(InPtr self, void *attr, AtomCount argc, AtomPtr argv);
 
 
 // Globals
-static ClassPtr sLydInClass;
+static ClassPtr sInClass;
 
 
 /************************************************************************************/
@@ -47,17 +47,17 @@ int main(void)
 	TTMulticoreInit();	
 	common_symbols_init();
 	
-	c = class_new("in≈", (method)lydInNew, (method)lydInFree, sizeof(LydIn), (method)0L, A_GIMME, 0);
+	c = class_new("in≈", (method)InNew, (method)InFree, sizeof(In), (method)0L, A_GIMME, 0);
 	
-	class_addmethod(c, (method)lydInReset,				"multicore.reset",		A_CANT, 0);
-	class_addmethod(c, (method)lydInSetup,				"multicore.setup",		A_CANT, 0);
- 	class_addmethod(c, (method)lydInDsp,				"dsp",				A_CANT, 0);		
-	class_addmethod(c, (method)lydInAssist,				"assist",			A_CANT, 0); 
+	class_addmethod(c, (method)InReset,					"multicore.reset",	A_CANT, 0);
+	class_addmethod(c, (method)InSetup,					"multicore.setup",	A_CANT, 0);
+ 	class_addmethod(c, (method)InDsp,					"dsp",				A_CANT, 0);		
+	class_addmethod(c, (method)InAssist,				"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
 		
 	class_dspinit(c);
 	class_register(_sym_box, c);
-	sLydInClass = c;
+	sInClass = c;
 	return 0;
 }
 
@@ -65,51 +65,51 @@ int main(void)
 /************************************************************************************/
 // Object Creation Method
 
-LydInPtr lydInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
+InPtr InNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-    LydInPtr	x;
-	TTValue		sr(sys_getsr());
- 	long		attrstart = attr_args_offset(argc, argv);
-	TTValue		v;
-	TTErr		err;
+    InPtr	self;
+	TTValue	sr(sys_getsr());
+ 	long	attrstart = attr_args_offset(argc, argv);
+	TTValue	v;
+	TTErr	err;
 	
-    x = LydInPtr(object_alloc(sLydInClass));
-    if(x){
-		x->maxNumChannels = 2;
-		if(attrstart && argv)
-			x->maxNumChannels = atom_getlong(argv);
+    self = InPtr(object_alloc(sInClass));
+    if (self) {
+		self->maxNumChannels = 2;
+		if (attrstart && argv)
+			self->maxNumChannels = atom_getlong(argv);
 		
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 
 		v.setSize(2);
 		v.set(0, TT("multicore.source"));
-		v.set(1, x->maxNumChannels);
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
-		x->lydbaer->addFlag(kMCoreGenerator);
+		v.set(1, self->maxNumChannels);
+		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
+		self->multicoreObject->addFlag(kMCoreGenerator);
 
-		if(x->lydbaer->audioObject)
-			x->lydbaer->setAudioOutputPtr(MCoreSourcePtr(x->lydbaer->audioObject)->buffer);
-		else{
-			object_error(ObjectPtr(x), "cannot load multicore.source");
+		if (self->multicoreObject->mUnitGenerator)
+			self->multicoreObject->setAudioOutputPtr(MCoreSourcePtr(self->multicoreObject->mUnitGenerator)->buffer);
+		else {
+			object_error(SELF, "cannot load multicore.source");
 			return NULL;
 		}
 
-		attr_args_process(x,argc,argv);
+		attr_args_process(self, argc, argv);
 		
-    	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));
-		x->lydbaerOutlet = outlet_new((t_pxobject *)x, "multicore.signal");
-	    dsp_setup((t_pxobject *)x, x->maxNumChannels);
+    	object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self,NULL));
+		self->multicoreObjectOutlet = outlet_new((t_pxobject*)self, "multicore.connect");
+	    dsp_setup((t_pxobject*)self, self->maxNumChannels);
 		
-		x->obj.z_misc = Z_NO_INPLACE | Z_PUT_FIRST;
+		self->obj.z_misc = Z_NO_INPLACE | Z_PUT_FIRST;
 	}
-	return x;
+	return self;
 }
 
 // Memory Deallocation
-void lydInFree(LydInPtr x)
+void InFree(InPtr self)
 {
-	dsp_free((t_pxobject *)x);
-	TTObjectRelease((TTObjectPtr*)&x->lydbaer);
+	dsp_free((t_pxobject*)self);
+	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
 }
 
 
@@ -117,12 +117,12 @@ void lydInFree(LydInPtr x)
 // Methods bound to input/inlets
 
 // Method for Assistance Messages
-void lydInAssist(LydInPtr x, void* b, long msg, long arg, char* dst)
+void InAssist(InPtr self, void* b, long msg, long arg, char* dst)
 {
-	if(msg==1)			// Inlets
+	if (msg==1)			// Inlets
 		strcpy(dst, "(signal) single-channel input and control messages");		
-	else if(msg==2){	// Outlets
-		if(arg == 0)
+	else if (msg==2) {	// Outlets
+		if (arg == 0)
 			strcpy(dst, "multichannel output");
 		else
 			strcpy(dst, "dumpout");
@@ -130,63 +130,63 @@ void lydInAssist(LydInPtr x, void* b, long msg, long arg, char* dst)
 }
 
 
-TTErr lydInReset(LydInPtr x, long vectorSize)
+TTErr InReset(InPtr self, long vectorSize)
 {
-	return x->lydbaer->resetSources(vectorSize);
+	return self->multicoreObject->reset();
 }
 
 
-TTErr lydInSetup(LydInPtr x)
+TTErr InSetup(InPtr self)
 {
 	Atom a[2];
 	
-	atom_setobj(a+0, ObjectPtr(x->lydbaer));
+	atom_setobj(a+0, ObjectPtr(self->multicoreObject));
 	atom_setlong(a+1, 0);
-	outlet_anything(x->lydbaerOutlet, gensym("multicore.signal"), 2, a);
+	outlet_anything(self->multicoreObjectOutlet, gensym("multicore.connect"), 2, a);
 	return kTTErrNone;
 }
 
 
 // Perform (signal) Method
-t_int* lydInPerform(t_int* w)
+t_int* InPerform(t_int* w)
 {
-   	LydInPtr	x = (LydInPtr)(w[1]);
+   	InPtr		self = (InPtr)(w[1]);
 	TTUInt32	i;
 	
-	if(!x->obj.z_disabled){
-		for(i=0; i<x->numChannels; i++)
-			MCoreSourcePtr(x->lydbaer->audioObject)->buffer->setVector(i, x->vectorSize, (TTFloat32*)w[i+2]);
+	if (!self->obj.z_disabled) {
+		for (i=0; i < self->numChannels; i++)
+			TTMulticoreObjectPtr(self->multicoreObject->mUnitGenerator)->buffer->setVector(i, self->vectorSize, (TTFloat32*)w[i+2]);
 	}	
-	return w + (x->numChannels+2);
+	return w + (self->numChannels+2);
 }
 
 
 // DSP Method
-void lydInDsp(LydInPtr x, t_signal** sp, short* count)
+void InDsp(InPtr self, t_signal** sp, short* count)
 {
 	TTUInt16	i, k=0;
 	void		**audioVectors = NULL;
 	
-	x->vectorSize = sp[0]->s_n;
+	self->vectorSize = sp[0]->s_n;
 			
 	// Setup the perform method
-	audioVectors = (void**)sysmem_newptr(sizeof(void*) * (x->maxNumChannels + 1));
-	audioVectors[k] = x;
+	audioVectors = (void**)sysmem_newptr(sizeof(void*) * (self->maxNumChannels + 1));
+	audioVectors[k] = self;
 	k++;
 	
-	x->numChannels = 0;
-	for(i=0; i < x->maxNumChannels; i++){
-		x->numChannels++;				
+	self->numChannels = 0;
+	for(i=0; i < self->maxNumChannels; i++){
+		self->numChannels++;				
 		audioVectors[k] = sp[i]->s_vec;
 		k++;
 	}
 	
-	MCoreSourcePtr(x->lydbaer->audioObject)->buffer->setAttributeValue(TT("numChannels"), x->maxNumChannels);
-	MCoreSourcePtr(x->lydbaer->audioObject)->buffer->setAttributeValue(TT("vectorSize"), x->vectorSize);
-	MCoreSourcePtr(x->lydbaer->audioObject)->buffer->sendMessage(TT("alloc"));
-	MCoreSourcePtr(x->lydbaer->audioObject)->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->buffer->setAttributeValue(TT("numChannels"), self->maxNumChannels);
+	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->buffer->setAttributeValue(TT("vectorSize"), self->vectorSize);
+	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->buffer->sendMessage(TT("alloc"));
+	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	
-	dsp_addv(lydInPerform, k, audioVectors);
+	dsp_addv(InPerform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
 }
 

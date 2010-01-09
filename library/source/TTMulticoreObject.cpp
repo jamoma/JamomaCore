@@ -101,6 +101,7 @@ TTErr TTMulticoreObject::objectFreeing(const TTValue& theObjectBeingDeleted)
 }
 
 
+/*
 TTErr TTMulticoreObject::setAudioOutputPtr(TTAudioSignalPtr newOutputPtr)
 {
 	TTObjectPtr oldAudioOutput = mOutputSignal;
@@ -111,11 +112,12 @@ TTErr TTMulticoreObject::setAudioOutputPtr(TTAudioSignalPtr newOutputPtr)
 		TTObjectRelease(&oldAudioOutput);
 	return kTTErrNone;
 }
+ */
 
 
 TTErr TTMulticoreObject::reset()
 {
-	for_each(mInlets.begin(), mInlets.end(), mem_fun(&TTMulticoreInlet::reset));
+	for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::reset));
 		
 	// Generators will not receive an 'addSource' call, 
 	// so we set them with the 'default' vector size provided by the global reset/	// if (mFlags & kTTMulticoreGenerator)
@@ -140,7 +142,7 @@ TTErr TTMulticoreObject::init()
 	lock();
 	
 	// init objects higher up in the chain first
-	for_each(mInlets.begin(), mInlets.end(), mem_fun(&TTMulticoreInlet::init));
+	for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::init));
 	
 	
 	// What follows is a bit ugly (including code duplication) and should be reviewed:
@@ -187,7 +189,7 @@ TTErr TTMulticoreObject::preprocess()
 	lock();
 	if (valid) {
 		mStatus = kTTMulticoreProcessNotStarted;		
-		for_each(mInlets.begin(), mInlets.end(), mem_fun(&TTMulticoreInlet::preprocess));
+		for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::preprocess));
 
 		// TODO: Critical -- come back to this!
 		//		for (TTUInt16 i=0; i<numSources; i++)
@@ -202,7 +204,7 @@ TTErr TTMulticoreObject::preprocess()
 
 
 // was TTErr TTMulticoreObject::getAudioOutput(TTAudioSignalPtr& returnedSignal, TTBoolean getSidechain)
-TTErr TTMulticoreObject::process(TTAudioSignalPtr& returnedSignal, TTBoolean getSidechain)
+TTErr TTMulticoreObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 forOutletNumber)
 {
 //	TTAudioSignalPtr	pulledInput = NULL;
 //	TTErr				err;
@@ -215,11 +217,18 @@ TTErr TTMulticoreObject::process(TTAudioSignalPtr& returnedSignal, TTBoolean get
 			mStatus = kTTMulticoreProcessingCurrently;
 			
 			// zero the samples
-			mInputSignals->clear();
+			mInputSignals->clearAll();
 
 			// sum the sources
-			for_each(mInlets.begin(), mInlets.end(), mem_fun(&TTMulticoreInlet::process));
-						
+			for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::process));
+			
+			for (TTMulticoreInletIter i = mInlets.begin(); i != mInlets.end(); i++) {
+				TTAudioSignalPtr s = (*i).getBuffer();
+				
+				// FIXME: now use s to fill the mInputSignals appropriately
+				
+			}
+			
 //			for (TTUInt16 i=0; i<numSources; i++) {
 //				// if there is a non-zero source outlet index, that means we are supposed to request the sidechain signal
 //				err = audioSources[i]->getAudioOutput(pulledInput, audioSourceOutletIndices[i]);
@@ -227,25 +236,25 @@ TTErr TTMulticoreObject::process(TTAudioSignalPtr& returnedSignal, TTBoolean get
 //					(*audioInput) += (*pulledInput);
 //			}			
 			
-			if (mFlags & kTTMulticoreGenerator)
-				mUnitGenerator->process(mOutputSignals);					// a generator (or no input)
-			else
+//			if (mFlags & kTTMulticoreGenerator)
+//				mUnitGenerator->process(mOutputSignals);					// a generator (or no input)
+//			else
 				mUnitGenerator->process(mInputSignals, mOutputSignals);	// a processor
 			
-			returnedSignal = mOutputSignal;
+			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
 			mStatus = kTTMulticoreProcessComplete;
 			break;
 		
 		
 		// we already processed everything that needs to be processed, so just set the pointer
 		case kTTMulticoreProcessComplete:
-			returnedSignal = mOutputSignal;
+			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
 			break;
 			
 		
 		// to prevent feedback / infinite loops, we just hand back the last calculated output here
 		case kTTMulticoreProcessingCurrently:
-			returnedSignal = mOutputSignal;
+			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
 			break;
 			
 		
