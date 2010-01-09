@@ -22,9 +22,12 @@ class TTMulticoreOutlet {
 	TTAudioSignalPtr		mBufferedOutput;	
 	
 public:
-	TTMulticoreOutlet();
-	~TTMulticoreOutlet();
-
+	TTMulticoreOutlet()
+	{;}
+	
+	~TTMulticoreOutlet()
+	{;}
+	
 
 	TTUInt16 getNumOutputChannels()
 	{
@@ -39,10 +42,6 @@ public:
 	
 };
 
-
-typedef TTMulticoreOutlet*					TTMulticoreOutletPtr;
-typedef vector<TTMulticoreOutlet>			TTMulticoreOutletVector;
-typedef TTMulticoreOutletVector::iterator	TTMulticoreOutletIter;
 
 
 

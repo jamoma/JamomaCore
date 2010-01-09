@@ -63,8 +63,8 @@ TTErr TTMulticoreOutput::stop()
 
 TTErr TTMulticoreOutput::audioEngineWillProcess()
 {
-	owner->prepareToProcess();
-	owner->getAudioOutput(placeHolder);
+	owner->preprocess();
+	owner->process(placeHolder);
 	return kTTErrNone;
 }
 

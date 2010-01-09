@@ -77,29 +77,29 @@ OpPtr OpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
     self = OpPtr(object_alloc(sOpClass));
     if (self) {
-    	object_obex_store((void*)self, _sym_dumpout, (ObjectPtr)outlet_new(x,NULL));	// dumpout	
-		x->outlet = outlet_new(x, "multicore.connect");
+    	object_obex_store((void*)self, _sym_dumpout, (ObjectPtr)outlet_new(self,NULL));	// dumpout	
+		self->outlet = outlet_new(self, "multicore.connect");
 		
 		v.setSize(2);
 		v.set(0, TT("operator"));
 		v.set(1, TTUInt32(1));
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->multicoreObject, v);
+		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 
-		if (!x->multicoreObject->audioObject) {
+		if (!self->multicoreObject->mUnitGenerator) {
 			object_error(SELF, "cannot load Jamoma DSP object");
 			return NULL;
 		}
 		
-		attr_args_process(x, argc, argv);
+		attr_args_process(self, argc, argv);
 	}
-	return x;
+	return self;
 }
 
 
 // Memory Deallocation
 void OpFree(OpPtr self)
 {
-	TTObjectRelease((TTObjectPtr*)&x->multicoreObject);
+	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
 }
 
 
@@ -124,7 +124,8 @@ void OpAssist(OpPtr self, void* b, long msg, long arg, char* dst)
 
 TTErr OpReset(OpPtr self, long vectorSize)
 {
-	return x->multicoreObject->resetSources(vectorSize);
+//	return self->multicoreObject->reset(vectorSize);
+	return self->multicoreObject->reset();
 }
 
 
@@ -132,16 +133,16 @@ TTErr OpSetup(OpPtr self)
 {
 	Atom a[2];
 	
-	atom_setobj(a+0, ObjectPtr(x->multicoreObject));
+	atom_setobj(a+0, ObjectPtr(self->multicoreObject));
 	atom_setlong(a+1, 0);
-	outlet_anything(x->outlet, gensym("multicore.connect"), 2, a);
+	outlet_anything(self->outlet, gensym("multicore.connect"), 2, a);
 	return kTTErrNone;
 }
 
 
-TTErr OpConnect(OpPtr self, MCoreObjectPtr audioSourceObject, long sourceOutletNumber)
+TTErr OpConnect(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return x->multicoreObject->addSource(audioSourceObject, sourceOutletNumber);
+	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
 }
 
 
@@ -150,8 +151,8 @@ TTErr OpConnect(OpPtr self, MCoreObjectPtr audioSourceObject, long sourceOutletN
 MaxErr OpSetOperator(OpPtr self, void *attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
-		x->attrOperator = atom_getsym(argv);
-		x->multicoreObject->audioObject->setAttributeValue(TT("operator"), TT(x->attrOperator->s_name));
+		self->attrOperator = atom_getsym(argv);
+		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("operator"), TT(self->attrOperator->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -160,8 +161,8 @@ MaxErr OpSetOperator(OpPtr self, void *attr, AtomCount argc, AtomPtr argv)
 MaxErr OpSetOperand(OpPtr self, void *attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
-		x->attrOperand = atom_getfloat(argv);
-		x->multicoreObject->audioObject->setAttributeValue(TT("operand"), x->attrOperand);
+		self->attrOperand = atom_getfloat(argv);
+		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("operand"), self->attrOperand);
 	}
 	return MAX_ERR_NONE;
 }

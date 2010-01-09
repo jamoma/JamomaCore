@@ -11,6 +11,7 @@
 #define __TTMULTICORE_INLET_H__
 
 #include "TTMulticore.h"
+#include "TTMulticoreObject.h"
 
 
 /******************************************************************************************/
@@ -22,7 +23,40 @@ class TTMulticoreSource {
 	TTUInt16				mOutletNumber;	// zero-based
 	
 public:
-	inline TTErr pull(TTAudioSignalPtr& returnedSignal);
+	
+	
+	TTMulticoreSource()
+	{;}
+	
+	~TTMulticoreSource()
+	{
+		// TODO: inorder to listen for notifications, I have to be a real object!
+		mSourceObject->unregisterObserverForNotifications(*this);
+	}
+
+	void connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber)
+	{
+		mSourceObject = anObject;
+		mOutletNumber = fromOutletNumber;
+		
+		// tell the source that is passed in that we want to watch it
+		mSourceObject->registerObserverForNotifications(*this);
+	}	
+	
+	void init()
+	{
+		mSourceObject->init();
+	}
+	
+	void preprocess()
+	{
+		mSourceObject->preprocess();
+	}
+	
+	TTErr process(TTAudioSignalPtr& returnedSignal) 
+	{
+		return mSourceObject->process(returnedSignal, mOutletNumber);
+	}
 	
 };
 
@@ -45,30 +79,60 @@ typedef TTMulticoreSourceVector::iterator	TTMulticoreSourceIter;
 		A signal may have many channels.
 */
 class TTMulticoreInlet {
-	
 	//TTMulticoreObjectPtr		mOwner;
 	TTMulticoreSourceVector		mSourceObjects;		///< A vector of object pointers from which we pull our source samples using the ::getAudioOutput() method.
 	TTAudioSignalPtr			mBufferedInput;		///< summed samples from all sources
-
-	// TODO: on preprocess, clear mBufferedInput
-	// TODO: on process, pull from, and sum, all of the sources	
 	
 public:
-	TTMulticoreInlet();
-	~TTMulticoreInlet();
+	TTMulticoreInlet()
+	{;}
+	
+	~TTMulticoreInlet()
+	{;}
 	
 //	void setOwner(MCoreObjectPtr newOwner, TTAudioSignalArray* newInputs, TTUInt16 newIndex);
 	
 	// reset
-//	void reset();
-	
+	void reset()
+	{
+		mSourceObjects.resize(0);
+	}
+		
 	// init the chain from which we will pull
-//	void init();
+	void init()
+	{
+		for_each(mSourceObjects.begin(), mSourceObjects.end(), mem_fun(&TTMulticoreSource::init));
+		// TODO: we need to allocate memory for our audio signal here!
+		// mUnitGenerator->setMaxNumChannels(weDeliverNumChannels);
+
+		/*
+		 TTUInt16 TTMulticoreObject::initAudioSignal(TTAudioSignalPtr aSignal, TTMulticoreObjectPtr aSource)
+		 {
+		 TTUInt16	numChannels;
+		 TTUInt16	sourceProducesNumChannels;
+		 
+		 numChannels = aSignal->getNumChannels();
+		 sourceProducesNumChannels = aSource->audioOutput->getNumChannels();
+		 
+		 // currently we only up-size a signal, but perhaps we should also down-size them as appropriate?
+		 if (sourceProducesNumChannels > numChannels)
+		 aSignal->setmaxNumChannels(sourceProducesNumChannels);
+		 
+		 aSignal->setnumChannels(sourceProducesNumChannels);
+		 return sourceProducesNumChannels;
+		 }
+		*/
+	}
 	
 	// when we receive a notification than an object is going away...
 //	void drop(TTObjectPtr theObjectBeingDeleted);
 	
-//	TTErr addSource(TTObjectPtr anObject, TTUInt16 sourceOutletNumber);
+	TTErr connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber)
+	{
+		mSourceObjects.resize(mSourceObjects.size()+1);
+		mSourceObjects[mSourceObjects.size()-1].connect(anObject, fromOutletNumber);
+		return kTTErrNone;
+	}
 
 //	TTUInt16 getMaxNumSourceChannels(TTUInt16 weDeliverNumChannels);
 	
@@ -76,33 +140,12 @@ public:
 //	TTUInt16 initAudioSignal(TTAudioSignalPtr aSignal, MCoreObjectPtr aSource);
 
 	
-	void prepareToProcess()
+	void preprocess()
 	{
 		mBufferedInput->clear();
+		for_each(mSourceObjects.begin(), mSourceObjects.end(), mem_fun(&TTMulticoreSource::preprocess));
 	}
-	
-	
-	
-	
-	/*
-	class TTAudioSignalSum : public binary_function< ? > {
-	
-	private:
-		TTAudioSignalPtr	mAudioSignal;
-		
-		
-	public:
-		TTAudioSignalSum()
-		{}
-		
-		const TTAudioSignalPtr operator()( ? )
-		{
-			;
-		}
-		
-	}
-	*/
-	
+
 		
 	// collect and sum the sources
 	TTErr process(TTAudioSignalPtr& returnedSummedSignal)
@@ -111,7 +154,7 @@ public:
 		TTAudioSignalPtr	foo;
 		
 		for (TTMulticoreSourceIter i = mSourceObjects.begin(); i != mSourceObjects.end(); i++) {
-			err |= (*i).pull(foo);
+			err |= (*i).process(foo);
 			(*mBufferedInput) += (*foo);
 		}
 
@@ -120,12 +163,6 @@ public:
 	}
 	
 };
-
-
-typedef TTMulticoreInlet*					TTMulticoreInletPtr;
-typedef vector<TTMulticoreInlet>			TTMulticoreInletVector;		// TODO: should this be a vector of pointers?
-typedef TTMulticoreInletVector::iterator	TTMulticoreInletIter;
-
 
 
 #endif // __TTMULTICORE_INLET_H__

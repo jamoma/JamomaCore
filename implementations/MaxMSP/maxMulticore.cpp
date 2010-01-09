@@ -14,11 +14,11 @@
 
 // Data Structure for this object
 typedef struct _wrappedInstance {
-    t_object			obj;						///< Max audio object header
-	WrappedClassPtr		wrappedClassDefinition;		///< A pointer to the class definition
-	MCoreObjectPtr		lydbaerObject;				///< The instance of the TTBlue object we are wrapping
-	TTPtr				lydbaerOutlets[16];			///< Array of outlets, may eventually want this to be more dynamic
-	TTPtr				inlets[16];					///< Array of proxy inlets beyond the first inlet
+    t_object				obj;						///< Max audio object header
+	WrappedClassPtr			wrappedClassDefinition;		///< A pointer to the class definition
+	TTMulticoreObjectPtr	multicoreObject;				///< The instance of the TTBlue object we are wrapping
+	TTPtr					multicoreOutlets[16];			///< Array of outlets, may eventually want this to be more dynamic
+	TTPtr					inlets[16];					///< Array of proxy inlets beyond the first inlet
 } WrappedInstance;
 
 typedef WrappedInstance* WrappedInstancePtr;		///< Pointer to a wrapped instance of our object.
@@ -54,35 +54,35 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 	if(!err)
 		x = (WrappedInstancePtr)object_alloc(wrappedMaxClass->maxClass);
     if(x){
-		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalInputs"), v))
-			numInputs += TTUInt8(v);
+//		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalInputs"), v))
+//			numInputs += TTUInt8(v);
 		for(TTUInt8 i=0; i<numInputs-1; i++)
 			x->inlets[i] = proxy_new(x, i+1, NULL);
 		
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
-		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalOutputs"), v))
-			numOutputs += TTUInt8(v);
+//		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalOutputs"), v))
+//			numOutputs += TTUInt8(v);
 		for(TTInt8 i=numOutputs-1; i>=0; i--)
-			x->lydbaerOutlets[i] = outlet_new(x, "multicore.signal");
+			x->multicoreOutlets[i] = outlet_new(x, "multicore.signal");
 
 		x->wrappedClassDefinition = wrappedMaxClass;
 		v.setSize(2);
 		v.set(0, wrappedMaxClass->ttblueClassName);
 		v.set(1., 1.);
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaerObject, v);
+		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->multicoreObject, v);
 		
-		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("channelRatioInputToOutput"), v)){
-			TTUInt16 numInChans = 1;
-			TTUInt16 numOutChans = 1;
-			
-			v.get(0, numInChans);
-			v.get(1, numOutChans);
-			x->lydbaerObject->setInChansToOutChansRatio(numInChans, numOutChans);
-		}
-		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("alwaysUseSidechain"), v)){
-			TTBoolean alwaysUseSidechain = v;
-			x->lydbaerObject->setAlwaysProcessSidechain(alwaysUseSidechain);
-		}
+//		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("channelRatioInputToOutput"), v)){
+//			TTUInt16 numInChans = 1;
+//			TTUInt16 numOutChans = 1;
+//			
+//			v.get(0, numInChans);
+//			v.get(1, numOutChans);
+//			x->lydbaerObject->setInChansToOutChansRatio(numInChans, numOutChans);
+//		}
+//		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("alwaysUseSidechain"), v)){
+//			TTBoolean alwaysUseSidechain = v;
+//			x->lydbaerObject->setAlwaysProcessSidechain(alwaysUseSidechain);
+//		}
 		
 		attr_args_process(x, argc, argv);
 	}
@@ -92,8 +92,8 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 
 void wrappedClass_free(WrappedInstancePtr x)
 {
-	if(x->lydbaerObject)
-		TTObjectRelease((TTObjectPtr*)&x->lydbaerObject);
+	if (x->multicoreObject)
+		TTObjectRelease((TTObjectPtr*)&x->multicoreObject);
 	// FIXME: leaking proxy inlets!
 }
 
@@ -103,7 +103,7 @@ void wrappedClass_free(WrappedInstancePtr x)
 
 TTErr maxbaerReset(WrappedInstancePtr x, long vectorSize)
 {
-	return x->lydbaerObject->resetSources(vectorSize);
+	return x->multicoreObject->reset();
 }
 
 
@@ -112,20 +112,20 @@ TTErr maxbaerSetup(WrappedInstancePtr x)
 	Atom		a[2];
 	TTUInt16	i=0;
 	
-	atom_setobj(a+0, ObjectPtr(x->lydbaerObject));
-	while(x->lydbaerOutlets[i]){
+	atom_setobj(a+0, ObjectPtr(x->multicoreObject));
+	while(x->multicoreOutlets[i]){
 		atom_setlong(a+1, i);
-		outlet_anything(x->lydbaerOutlets[i], gensym("multicore.signal"), 2, a);
+		outlet_anything(x->multicoreOutlets[i], gensym("multicore.signal"), 2, a);
 		i++;
 	}
 	return kTTErrNone;
 }
 
 
-TTErr maxbaerObject(WrappedInstancePtr x, MCoreObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
+TTErr maxbaerObject(WrappedInstancePtr x, TTMulticoreObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
 {
 	long inletNumber = proxy_getinlet(ObjectPtr(x));
-	return x->lydbaerObject->addSource(audioSourceObject, sourceOutletNumber, inletNumber);
+	return x->multicoreObject->connect(audioSourceObject, sourceOutletNumber, inletNumber);
 }
 
 
@@ -135,7 +135,7 @@ t_max_err wrappedClass_attrGet(WrappedInstancePtr x, ObjectPtr attr, AtomCount* 
 	TTValue		v;
 	AtomCount	i;
 	
-	x->lydbaerObject->audioObject->getAttributeValue(TT(attrName->s_name), v);
+	x->multicoreObject->mUnitGenerator->getAttributeValue(TT(attrName->s_name), v);
 
 	*argc = v.getSize();
 	if (!(*argv)) // otherwise use memory passed in
@@ -179,7 +179,7 @@ t_max_err wrappedClass_attrSet(WrappedInstancePtr x, ObjectPtr attr, AtomCount a
 			else
 				object_error(ObjectPtr(x), "bad type for attribute setter");
 		}
-		x->lydbaerObject->audioObject->setAttributeValue(TT(attrName->s_name), v);
+		x->multicoreObject->mUnitGenerator->setAttributeValue(TT(attrName->s_name), v);
 		return MAX_ERR_NONE;
 	}
 	return MAX_ERR_GENERIC;
@@ -201,7 +201,7 @@ void wrappedClass_anything(WrappedInstancePtr x, SymbolPtr s, AtomCount argc, At
 			else
 				object_error(ObjectPtr(x), "bad type for message arg");
 		}
-		x->lydbaerObject->audioObject->sendMessage(TT(s->s_name), v);
+		x->multicoreObject->mUnitGenerator->sendMessage(TT(s->s_name), v);
 		
 		// process the returned value for the dumpout outlet
 		{
@@ -232,7 +232,7 @@ void wrappedClass_anything(WrappedInstancePtr x, SymbolPtr s, AtomCount argc, At
 		}
 	}
 	else
-		x->lydbaerObject->audioObject->sendMessage(TT(s->s_name));
+		x->multicoreObject->mUnitGenerator->sendMessage(TT(s->s_name));
 }
 
 

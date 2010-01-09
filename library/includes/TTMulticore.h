@@ -46,10 +46,20 @@ enum TTMulticoreFlags {
 	kTTMulticoreGenerator = 0x02
 };
 
-class TTMulticoreObject;
+class	TTMulticoreObject;
 typedef TTMulticoreObject*					TTMulticoreObjectPtr;
 typedef vector<TTMulticoreObjectPtr>		TTMulticoreObjectVector;
 typedef TTMulticoreObjectVector::iterator	TTMulticoreObjectIter;
+
+class	TTMulticoreInlet;
+typedef TTMulticoreInlet*					TTMulticoreInletPtr;
+typedef vector<TTMulticoreInlet>			TTMulticoreInletVector;		// TODO: should this be a vector of pointers?
+typedef TTMulticoreInletVector::iterator	TTMulticoreInletIter;
+
+class	TTMulticoreOutlet;
+typedef TTMulticoreOutlet*					TTMulticoreOutletPtr;
+typedef vector<TTMulticoreOutlet>			TTMulticoreOutletVector;
+typedef TTMulticoreOutletVector::iterator	TTMulticoreOutletIter;
 
 
 /******************************************************************************************/
