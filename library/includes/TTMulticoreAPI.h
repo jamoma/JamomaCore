@@ -13,6 +13,6 @@
 #include "TTMulticore.h"
 #include "TTMulticoreObject.h"
 #include "TTMulticoreOutput.h"
-#include "TTMulticoreSource.h"
+#include "TTMulticoreGenerator.h"
 
 #endif // __TTMULTICORE_API_H__

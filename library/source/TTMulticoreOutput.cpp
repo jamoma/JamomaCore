@@ -7,6 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
+#include "TTMulticoreObject.h"
 #include "TTMulticoreOutput.h"
 #include "TTAudioEngine.h"
 
@@ -20,13 +21,13 @@ TT_AUDIO_CONSTRUCTOR,
 	TTObjectInstantiate(kTTSym_audiosignal, &placeHolder, 1);
 	audioEngine = TTAudioEngine::create();
 	
-	registerAttributeWithSetterAndGetter(sampleRate, kTypeUInt32);
-	registerAttributeWithSetterAndGetter(vectorSize, kTypeUInt16);
+	addAttributeWithGetterAndSetter(SampleRate, kTypeUInt32);
+	addAttributeWithGetterAndSetter(VectorSize, kTypeUInt16);
 	
-	registerMessageSimple(start);
-	registerMessageSimple(stop);
-	registerMessageSimple(audioEngineWillProcess);
-	registerMessageWithArgument(setOwner);
+	addMessage(start);
+	addMessage(stop);
+	addMessage(audioEngineWillProcess);
+	addMessageWithArgument(setOwner);
 	
 	setProcessMethod(processAudio);
 	
@@ -75,23 +76,23 @@ TTErr TTMulticoreOutput::setOwner(TTValue& newOwner)
 }
 
 
-TTErr TTMulticoreOutput::setsampleRate(const TTValue& newValue)
+TTErr TTMulticoreOutput::setSampleRate(const TTValue& newValue)
 {
 	return audioEngine->setAttributeValue(kTTSym_sr, const_cast<TTValue&>(newValue));
 }
 
-TTErr TTMulticoreOutput::getsampleRate(TTValue& returnedValue)
+TTErr TTMulticoreOutput::getSampleRate(TTValue& returnedValue)
 {
 	return audioEngine->getAttributeValue(kTTSym_sr, returnedValue);
 }
 
 
-TTErr TTMulticoreOutput::setvectorSize(const TTValue& newValue)
+TTErr TTMulticoreOutput::setVectorSize(const TTValue& newValue)
 {
 	return audioEngine->setAttributeValue(kTTSym_vectorSize, const_cast<TTValue&>(newValue));
 }
 
-TTErr TTMulticoreOutput::getvectorSize(TTValue& returnedValue)
+TTErr TTMulticoreOutput::getVectorSize(TTValue& returnedValue)
 {
 	return audioEngine->getAttributeValue(kTTSym_vectorSize, returnedValue);
 }

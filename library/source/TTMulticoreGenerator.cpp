@@ -23,7 +23,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTMulticoreGenerator::~TTMulticoreGenerator()
 {
-	TTObjectRelease(&buffer) ;
+	TTObjectRelease(&buffer);
 }
 
 

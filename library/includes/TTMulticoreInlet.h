@@ -22,10 +22,8 @@ class TTMulticoreSource {
 	TTUInt16				mOutletNumber;	// zero-based
 	
 public:
-	TTErr pull(TTAudioSignalPtr& returnedSignal)
-	{
-		return mSourceObject->getAudioOutput(returnedSignal, mOutletNumber);
-	}
+	inline TTErr pull(TTAudioSignalPtr& returnedSignal);
+	
 };
 
 typedef TTMulticoreSource*					TTMulticoreSourcePtr;
@@ -83,19 +81,42 @@ public:
 		mBufferedInput->clear();
 	}
 	
+	
+	
+	
+	/*
+	class TTAudioSignalSum : public binary_function< ? > {
+	
+	private:
+		TTAudioSignalPtr	mAudioSignal;
+		
+		
+	public:
+		TTAudioSignalSum()
+		{}
+		
+		const TTAudioSignalPtr operator()( ? )
+		{
+			;
+		}
+		
+	}
+	*/
+	
 		
 	// collect and sum the sources
 	TTErr process(TTAudioSignalPtr& returnedSummedSignal)
 	{
-		TTErr				err;
+		int					err;
 		TTAudioSignalPtr	foo;
 		
-		for (TTMulticoreSourceIter i = mSourceObjects.begin(); i = mSourceObjects.end(); i++) {
-			err |= i.pull(foo);
-			mBufferedInput += foo;
+		for (TTMulticoreSourceIter i = mSourceObjects.begin(); i != mSourceObjects.end(); i++) {
+			err |= (*i).pull(foo);
+			(*mBufferedInput) += (*foo);
 		}
+
 		returnedSummedSignal = mBufferedInput;
-		return err;
+		return (TTErr)err;
 	}
 	
 };

@@ -18,9 +18,7 @@
 #include "z_dsp.h"					// MSP Header
 #include "jpatcher_api.h"			// Required for patcher traversal code
 
-#include "TTDSP.h"					// TTBlue Interfaces
-#include "TTMulticore.h"			// Definitions for Lydbaer Wrapping
-
+#include "TTMulticoreAPI.h"			// Definitions for Jamoma Multicore
 
 
 

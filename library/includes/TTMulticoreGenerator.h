@@ -30,7 +30,7 @@ public:
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	
 };
 
-typedef TTMulticoreGenerator*TTMulticoreGeneratorPtr;
+typedef TTMulticoreGenerator*	TTMulticoreGeneratorPtr;
 
 
 #endif // __TTMULTICORE_GENERATOR_H__

@@ -29,34 +29,13 @@ class TTMULTICORE_EXPORT TTMulticoreObject : public TTObject {
 protected:
 	TTMulticoreProcessStatus	mStatus;			///< Used to enable correct processing of feedback loops, multiple destinations, etc.
 	TTUInt32					mFlags;				///< A bitmask of values defined in #TTMulticoreFlags
-
 	TTMulticoreInletVector		mInlets;			///< The inlets through which we pull audio from sources
-
-//	TTMulticoreObjectPtr*	audioSources;			///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
-//	TTUInt16*				audioSourceOutletIndices;
-
-public:
-//	TTUInt16				numSources;				///< The number of getSamples callback functions (sources) from which we pull.
-
-protected:
-	// TODO: we can have multiple inputs and multiple outputs, so these need to be vectors, yes?
-	TTAudioSignalPtr			mInputSignal;		///< The buffered input for processing audio with our object.
-	TTAudioSignalPtr			mOutputSignal;		///< The results of processing audio with our object, buffered for objects requesting it
+	TTAudioSignalArrayPtr		mInputSignals;		///< The buffered input for processing audio with our object.
+	TTAudioSignalArrayPtr		mOutputSignals;		///< The results of processing audio with our object, buffered for objects requesting it
 public:	
 	TTAudioObjectPtr			mUnitGenerator;		///< The actual Jamoma DSP object doing the processing.
 	
 	
-	// Methods
-
-	/**	Constructor.	
-		@param	arguments		There should be two arguments: 
-								1. The name of the TTBlue object you want to wrap, and
-								2. The initial number of channel. */
-//	TTMulticoreObject(const TTValue& arguments);
-	
-	/**	Destructor.		*/
-//	virtual ~TTMulticoreObject();
-
 	/**	A notification that the specified object is being deleted -- so we should drop it from our list of input sources.  */
 	TTErr objectFreeing(const TTValue& theObjectBeingDeleted);
 
@@ -66,33 +45,12 @@ public:
 
 	TTErr setInChansToOutChansRatio(TTUInt16 numInputChannels, TTUInt16 numOutputChannels);
 	TTErr setAlwaysProcessSidechain(TTBoolean newValue);
-	
-	TTUInt16 getNumOutputChannels()
-	{
-		return audioOutput->getNumChannels();
-	}
-	
-	TTUInt16 getNumSidechainOutputChannels()
-	{
-		return sidechainOutput->getNumChannels();
-	}
-	
+
 	TTUInt16 getSampleRate()
 	{
 		TTUInt16 sr;
-		audioObject->getAttributeValue(kTTSym_sr, sr);
+		mUnitGenerator->getAttributeValue(kTTSym_sr, sr);
 		return sr;
-	}
-	
-	TTUInt16 getOutputVectorSize()
-	{
-		return audioOutput->getVectorSize();
-	}
-	
-	TTErr addFlag(TTMulticoreFlags newFlag)
-	{
-		flags = newFlag;
-		return kTTErrNone;
 	}
 	
 	
