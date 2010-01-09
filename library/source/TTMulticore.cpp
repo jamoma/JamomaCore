@@ -9,9 +9,9 @@
 
 #include "TTDSP.h"
 #include "TTMulticore.h"
+#include "TTMulticoreGenerator.h"
 #include "TTMulticoreObject.h"
 #include "TTMulticoreOutput.h"
-#include "TTMulticoreSource.h"
 
 static bool initialized = false;
 
@@ -24,8 +24,8 @@ void TTMulticoreInit(void)
 		initialized = true;
 		TTDSPInit();
 		
+		TTMulticoreGenerator::registerClass();
 		TTMulticoreObject::registerClass();
-		TTMulticoreSource::registerClass();
 		TTMulticoreOutput::registerClass();
 	}
 }

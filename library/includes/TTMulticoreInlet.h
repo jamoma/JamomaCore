@@ -15,6 +15,27 @@
 
 /******************************************************************************************/
 
+// NOTE: we don't need to keep a buffer of our own, be we just mirror the buffer of mSourceObject
+
+class TTMulticoreSource {
+	TTMulticoreObjectPtr	mSourceObject;	// the object from which we pull samples
+	TTUInt16				mOutletNumber;	// zero-based
+	
+public:
+	TTErr pull(TTAudioSignalPtr& returnedSignal)
+	{
+		return mSourceObject->getAudioOutput(returnedSignal, mOutletNumber);
+	}
+};
+
+typedef TTMulticoreSource*					TTMulticoreSourcePtr;
+typedef vector<TTMulticoreSource>			TTMulticoreSourceVector;		// TODO: should this be a vector of pointers?
+typedef TTMulticoreSourceVector::iterator	TTMulticoreSourceIter;
+
+
+
+/******************************************************************************************/
+
 /**	This object represents a single 'inlet' to a TTMulticoreObject.
 	TTMulticoreObject maintains a vector of these inlets.
 	
@@ -26,17 +47,13 @@
 		A signal may have many channels.
 */
 class TTMulticoreInlet {
-	TTUInt16				numSources;					///< The number of getSamples callback functions (sources) for each inlet from which we pull.
-	TTUInt16*				audioSourceOutletIndices;
 	
-	// TODO: should the connection itself be a separate class?
-	
-//	MCoreObject*			owner;
-//	TTAudioSignal*			audioInput;					///< The buffered input for processing audio with our object.  Provided to the "inputs" array.
-//	TTUInt16				index;						///< What inlet am I?
-public:
-//	MCoreObjectPtr*			audioSources;				///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
-//	TTAudioSignalArray*		inputs;
+	//TTMulticoreObjectPtr		mOwner;
+	TTMulticoreSourceVector		mSourceObjects;		///< A vector of object pointers from which we pull our source samples using the ::getAudioOutput() method.
+	TTAudioSignalPtr			mBufferedInput;		///< summed samples from all sources
+
+	// TODO: on preprocess, clear mBufferedInput
+	// TODO: on process, pull from, and sum, all of the sources	
 	
 public:
 	TTMulticoreInlet();
@@ -50,11 +67,6 @@ public:
 	// init the chain from which we will pull
 //	void init();
 	
-//	void prepareToProcess();
-	
-	// collect and sum the sources
-//	void pull();
-	
 	// when we receive a notification than an object is going away...
 //	void drop(TTObjectPtr theObjectBeingDeleted);
 	
@@ -65,6 +77,27 @@ public:
 //private:
 //	TTUInt16 initAudioSignal(TTAudioSignalPtr aSignal, MCoreObjectPtr aSource);
 
+	
+	void prepareToProcess()
+	{
+		mBufferedInput->clear();
+	}
+	
+		
+	// collect and sum the sources
+	TTErr process(TTAudioSignalPtr& returnedSummedSignal)
+	{
+		TTErr				err;
+		TTAudioSignalPtr	foo;
+		
+		for (TTMulticoreSourceIter i = mSourceObjects.begin(); i = mSourceObjects.end(); i++) {
+			err |= i.pull(foo);
+			mBufferedInput += foo;
+		}
+		returnedSummedSignal = mBufferedInput;
+		return err;
+	}
+	
 };
 
 

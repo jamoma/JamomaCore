@@ -7,8 +7,8 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TTMULTICORE_SOURCE_H__
-#define __TTMULTICORE_SOURCE_H__
+#ifndef __TTMULTICORE_GENERATOR_H__
+#define __TTMULTICORE_GENERATOR_H__
 
 #include "TTMulticore.h"
 
@@ -17,9 +17,9 @@
 
 /**	TTMulticoreSource is a very simple audio object that holds a signal from TTBlue
  that can be used by a TTMulticore graph.		*/
-class TTMULTICORE_EXPORT TTMulticoreSource : public TTAudioObject
+class TTMULTICORE_EXPORT TTMulticoreGenerator : public TTAudioObject
 {
-	TTCLASS_SETUP(TTMulticoreSource)
+	TTCLASS_SETUP(TTMulticoreGenerator)
 
 public:
 	TTAudioSignalPtr	buffer;		///< storage for the audioSignal that we provide
@@ -30,7 +30,7 @@ public:
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	
 };
 
-typedef TTMulticoreSource* TTMulticoreSourcePtr;
+typedef TTMulticoreGenerator*TTMulticoreGeneratorPtr;
 
 
-#endif // __TTMULTICORE_SOURCE_H__
+#endif // __TTMULTICORE_GENERATOR_H__

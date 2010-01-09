@@ -48,6 +48,8 @@ enum TTMulticoreFlags {
 
 class TTMulticoreObject;
 typedef TTMulticoreObject*					TTMulticoreObjectPtr;
+typedef vector<TTMulticoreObjectPtr>		TTMulticoreObjectVector;
+typedef TTMulticoreObjectVector::iterator	TTMulticoreObjectIter;
 
 
 /******************************************************************************************/
