@@ -7,10 +7,10 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTMulticore.h"
+#include "TTMulticoreOutput.h"
 #include "TTAudioEngine.h"
 
-#define thisTTClass			MCoreOutput
+#define thisTTClass			TTMulticoreOutput
 #define thisTTClassName		"multicore.output"
 #define thisTTClassTags		"audio, multicore, output"
 
@@ -36,7 +36,7 @@ TT_AUDIO_CONSTRUCTOR,
 }
 
 
-MCoreOutput::~MCoreOutput()
+TTMulticoreOutput::~TTMulticoreOutput()
 {
 	audioEngine->sendMessage(TT("removeCallbackObserver"), *me);
 	delete me;
@@ -45,7 +45,7 @@ MCoreOutput::~MCoreOutput()
 }
 
 
-TTErr MCoreOutput::start()
+TTErr TTMulticoreOutput::start()
 {
 	owner->init();
 	audioEngine->sendMessage(TT("start"));
@@ -53,14 +53,14 @@ TTErr MCoreOutput::start()
 }
 
 
-TTErr MCoreOutput::stop()
+TTErr TTMulticoreOutput::stop()
 {
 	audioEngine->sendMessage(TT("stop"));
 	return kTTErrNone;
 }
 
 
-TTErr MCoreOutput::audioEngineWillProcess()
+TTErr TTMulticoreOutput::audioEngineWillProcess()
 {
 	owner->prepareToProcess();
 	owner->getAudioOutput(placeHolder);
@@ -68,36 +68,36 @@ TTErr MCoreOutput::audioEngineWillProcess()
 }
 
 
-TTErr MCoreOutput::setOwner(TTValue& newOwner)
+TTErr TTMulticoreOutput::setOwner(TTValue& newOwner)
 {
-	owner = MCoreObjectPtr(TTPtr(newOwner));
+	owner = TTMulticoreObjectPtr(TTPtr(newOwner));
 	return kTTErrNone;
 }
 
 
-TTErr MCoreOutput::setsampleRate(const TTValue& newValue)
+TTErr TTMulticoreOutput::setsampleRate(const TTValue& newValue)
 {
 	return audioEngine->setAttributeValue(kTTSym_sr, const_cast<TTValue&>(newValue));
 }
 
-TTErr MCoreOutput::getsampleRate(TTValue& returnedValue)
+TTErr TTMulticoreOutput::getsampleRate(TTValue& returnedValue)
 {
 	return audioEngine->getAttributeValue(kTTSym_sr, returnedValue);
 }
 
 
-TTErr MCoreOutput::setvectorSize(const TTValue& newValue)
+TTErr TTMulticoreOutput::setvectorSize(const TTValue& newValue)
 {
 	return audioEngine->setAttributeValue(kTTSym_vectorSize, const_cast<TTValue&>(newValue));
 }
 
-TTErr MCoreOutput::getvectorSize(TTValue& returnedValue)
+TTErr TTMulticoreOutput::getvectorSize(TTValue& returnedValue)
 {
 	return audioEngine->getAttributeValue(kTTSym_vectorSize, returnedValue);
 }
 
 
-TTErr MCoreOutput::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTMulticoreOutput::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	if(inputs->numAudioSignals){
 		TTAudioSignal&	in = inputs->getSignal(0);

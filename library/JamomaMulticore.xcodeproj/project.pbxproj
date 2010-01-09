@@ -7,34 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		220BD2CD0ECE640A00F7D618 /* multicore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 220BD2C80ECE640A00F7D618 /* multicore.cpp */; };
-		220BD2CF0ECE640B00F7D618 /* multicore.pch in Headers */ = {isa = PBXBuildFile; fileRef = 220BD2CA0ECE640A00F7D618 /* multicore.pch */; };
-		220BD2D00ECE640B00F7D618 /* multicoreOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 220BD2CB0ECE640A00F7D618 /* multicoreOutput.cpp */; };
-		220BD2D10ECE640B00F7D618 /* multicoreSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 220BD2CC0ECE640A00F7D618 /* multicoreSource.cpp */; };
-		220BD41E0ECE658F00F7D618 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 220BD41C0ECE658F00F7D618 /* main.cpp */; };
+		226AAF7F10F80EDE002C6057 /* TTMulticore.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7310F80EDE002C6057 /* TTMulticore.h */; };
+		226AAF8010F80EDE002C6057 /* TTMulticoreAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7410F80EDE002C6057 /* TTMulticoreAPI.h */; };
+		226AAF8110F80EDE002C6057 /* TTMulticoreInlet.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7510F80EDE002C6057 /* TTMulticoreInlet.h */; };
+		226AAF8210F80EDE002C6057 /* TTMulticoreObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7610F80EDE002C6057 /* TTMulticoreObject.h */; };
+		226AAF8310F80EDE002C6057 /* TTMulticoreOutput.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7710F80EDE002C6057 /* TTMulticoreOutput.h */; };
+		226AAF8410F80EDE002C6057 /* TTMulticoreSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7810F80EDE002C6057 /* TTMulticoreSource.h */; };
+		226AAF8510F80EDE002C6057 /* TTMulticore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7A10F80EDE002C6057 /* TTMulticore.cpp */; };
+		226AAF8610F80EDE002C6057 /* TTMulticoreInlet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7B10F80EDE002C6057 /* TTMulticoreInlet.cpp */; };
+		226AAF8710F80EDE002C6057 /* TTMulticoreObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7C10F80EDE002C6057 /* TTMulticoreObject.cpp */; };
+		226AAF8810F80EDE002C6057 /* TTMulticoreOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7D10F80EDE002C6057 /* TTMulticoreOutput.cpp */; };
+		226AAF8910F80EDE002C6057 /* TTMulticoreSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7E10F80EDE002C6057 /* TTMulticoreSource.cpp */; };
 		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22C9F59F10325CDB0062F7B8 /* TTFoundationAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F59E10325CDB0062F7B8 /* TTFoundationAPI.h */; };
 		22C9F5A110325CDF0062F7B8 /* TTDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5A010325CDF0062F7B8 /* TTDSP.h */; };
 		22C9F5A310325CED0062F7B8 /* JamomaMulticore.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F5A210325CED0062F7B8 /* JamomaMulticore.xcconfig */; };
 		22C9F5C110325E1F0062F7B8 /* portaudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5C010325E1F0062F7B8 /* portaudio.h */; };
 		22C9F5CC10325E650062F7B8 /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */; };
-		22C9F6011032607C0062F7B8 /* TTMulticore.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F6001032607C0062F7B8 /* TTMulticore.h */; };
 		22DF22510F2441BD00DBBEE9 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		220BD2C80ECE640A00F7D618 /* multicore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = multicore.cpp; sourceTree = "<group>"; };
-		220BD2CA0ECE640A00F7D618 /* multicore.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multicore.pch; sourceTree = "<group>"; };
-		220BD2CB0ECE640A00F7D618 /* multicoreOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = multicoreOutput.cpp; sourceTree = "<group>"; };
-		220BD2CC0ECE640A00F7D618 /* multicoreSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = multicoreSource.cpp; sourceTree = "<group>"; };
-		220BD41C0ECE658F00F7D618 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		226AAF7310F80EDE002C6057 /* TTMulticore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMulticore.h; sourceTree = "<group>"; };
+		226AAF7410F80EDE002C6057 /* TTMulticoreAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMulticoreAPI.h; sourceTree = "<group>"; };
+		226AAF7510F80EDE002C6057 /* TTMulticoreInlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMulticoreInlet.h; sourceTree = "<group>"; };
+		226AAF7610F80EDE002C6057 /* TTMulticoreObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMulticoreObject.h; sourceTree = "<group>"; };
+		226AAF7710F80EDE002C6057 /* TTMulticoreOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMulticoreOutput.h; sourceTree = "<group>"; };
+		226AAF7810F80EDE002C6057 /* TTMulticoreSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMulticoreSource.h; sourceTree = "<group>"; };
+		226AAF7A10F80EDE002C6057 /* TTMulticore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMulticore.cpp; sourceTree = "<group>"; };
+		226AAF7B10F80EDE002C6057 /* TTMulticoreInlet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMulticoreInlet.cpp; sourceTree = "<group>"; };
+		226AAF7C10F80EDE002C6057 /* TTMulticoreObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMulticoreObject.cpp; sourceTree = "<group>"; };
+		226AAF7D10F80EDE002C6057 /* TTMulticoreOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMulticoreOutput.cpp; sourceTree = "<group>"; };
+		226AAF7E10F80EDE002C6057 /* TTMulticoreSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMulticoreSource.cpp; sourceTree = "<group>"; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22C9F59E10325CDB0062F7B8 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = ../../Foundation/library/includes/TTFoundationAPI.h; sourceTree = SOURCE_ROOT; };
 		22C9F5A010325CDF0062F7B8 /* TTDSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDSP.h; path = ../../DSP/library/includes/TTDSP.h; sourceTree = SOURCE_ROOT; };
 		22C9F5A210325CED0062F7B8 /* JamomaMulticore.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaMulticore.xcconfig; sourceTree = "<group>"; };
 		22C9F5C010325E1F0062F7B8 /* portaudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = portaudio.h; path = ../../DSP/library/portaudio/include/portaudio.h; sourceTree = SOURCE_ROOT; };
 		22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
-		22C9F6001032607C0062F7B8 /* TTMulticore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMulticore.h; path = includes/TTMulticore.h; sourceTree = "<group>"; };
 		22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		8DC2EF5B0486A6940098B216 /* JamomaMulticore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JamomaMulticore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -67,9 +77,9 @@
 				22C9F5A210325CED0062F7B8 /* JamomaMulticore.xcconfig */,
 				22C9F59E10325CDB0062F7B8 /* TTFoundationAPI.h */,
 				22C9F5A010325CDF0062F7B8 /* TTDSP.h */,
-				22C9F6001032607C0062F7B8 /* TTMulticore.h */,
 				22C9F5C010325E1F0062F7B8 /* portaudio.h */,
-				223985E60E200FD500A5F732 /* Source */,
+				226AAF7210F80EDE002C6057 /* includes */,
+				226AAF7910F80EDE002C6057 /* source */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
@@ -86,16 +96,29 @@
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
 		};
-		223985E60E200FD500A5F732 /* Source */ = {
+		226AAF7210F80EDE002C6057 /* includes */ = {
 			isa = PBXGroup;
 			children = (
-				220BD41C0ECE658F00F7D618 /* main.cpp */,
-				220BD2C80ECE640A00F7D618 /* multicore.cpp */,
-				220BD2CA0ECE640A00F7D618 /* multicore.pch */,
-				220BD2CB0ECE640A00F7D618 /* multicoreOutput.cpp */,
-				220BD2CC0ECE640A00F7D618 /* multicoreSource.cpp */,
+				226AAF7310F80EDE002C6057 /* TTMulticore.h */,
+				226AAF7410F80EDE002C6057 /* TTMulticoreAPI.h */,
+				226AAF7510F80EDE002C6057 /* TTMulticoreInlet.h */,
+				226AAF7610F80EDE002C6057 /* TTMulticoreObject.h */,
+				226AAF7710F80EDE002C6057 /* TTMulticoreOutput.h */,
+				226AAF7810F80EDE002C6057 /* TTMulticoreSource.h */,
 			);
-			name = Source;
+			path = includes;
+			sourceTree = "<group>";
+		};
+		226AAF7910F80EDE002C6057 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				226AAF7A10F80EDE002C6057 /* TTMulticore.cpp */,
+				226AAF7B10F80EDE002C6057 /* TTMulticoreInlet.cpp */,
+				226AAF7C10F80EDE002C6057 /* TTMulticoreObject.cpp */,
+				226AAF7D10F80EDE002C6057 /* TTMulticoreOutput.cpp */,
+				226AAF7E10F80EDE002C6057 /* TTMulticoreSource.cpp */,
+			);
+			path = source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -105,11 +128,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				220BD2CF0ECE640B00F7D618 /* multicore.pch in Headers */,
 				22C9F59F10325CDB0062F7B8 /* TTFoundationAPI.h in Headers */,
 				22C9F5A110325CDF0062F7B8 /* TTDSP.h in Headers */,
 				22C9F5C110325E1F0062F7B8 /* portaudio.h in Headers */,
-				22C9F6011032607C0062F7B8 /* TTMulticore.h in Headers */,
+				226AAF7F10F80EDE002C6057 /* TTMulticore.h in Headers */,
+				226AAF8010F80EDE002C6057 /* TTMulticoreAPI.h in Headers */,
+				226AAF8110F80EDE002C6057 /* TTMulticoreInlet.h in Headers */,
+				226AAF8210F80EDE002C6057 /* TTMulticoreObject.h in Headers */,
+				226AAF8310F80EDE002C6057 /* TTMulticoreOutput.h in Headers */,
+				226AAF8410F80EDE002C6057 /* TTMulticoreSource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,10 +213,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				220BD2CD0ECE640A00F7D618 /* multicore.cpp in Sources */,
-				220BD2D00ECE640B00F7D618 /* multicoreOutput.cpp in Sources */,
-				220BD2D10ECE640B00F7D618 /* multicoreSource.cpp in Sources */,
-				220BD41E0ECE658F00F7D618 /* main.cpp in Sources */,
+				226AAF8510F80EDE002C6057 /* TTMulticore.cpp in Sources */,
+				226AAF8610F80EDE002C6057 /* TTMulticoreInlet.cpp in Sources */,
+				226AAF8710F80EDE002C6057 /* TTMulticoreObject.cpp in Sources */,
+				226AAF8810F80EDE002C6057 /* TTMulticoreOutput.cpp in Sources */,
+				226AAF8910F80EDE002C6057 /* TTMulticoreSource.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

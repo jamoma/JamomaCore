@@ -7,14 +7,14 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTMulticore.h"
+#include "TTMulticoreObject.h"
 
-#define thisTTClass			MCoreObject
+#define thisTTClass			TTMulticoreObject
 #define thisTTClassName		"multicore.object"
 #define thisTTClassTags		"audio, multicore, wrapper"
 
 TT_OBJECT_CONSTRUCTOR,
-	flags(kMCoreProcessor), 
+	flags(kTTMulticoreProcessor), 
 	alwaysProcessSidechain(false), 
 	audioSources(NULL), 
 	sidechainSources(NULL), 
@@ -45,7 +45,7 @@ TT_OBJECT_CONSTRUCTOR,
 }
 
 
-MCoreObject::~MCoreObject()
+TTMulticoreObject::~TTMulticoreObject()
 {
 	for(TTUInt16 i=0; i<numSources; i++){
 		if(audioSources[i]->valid)
@@ -59,7 +59,7 @@ MCoreObject::~MCoreObject()
 }
 
 
-TTErr MCoreObject::objectFreeing(const TTValue& theObjectBeingDeleted)
+TTErr TTMulticoreObject::objectFreeing(const TTValue& theObjectBeingDeleted)
 {
 	TTObjectPtr o = theObjectBeingDeleted;
 	TTBoolean	found = NO;
@@ -86,7 +86,7 @@ TTErr MCoreObject::objectFreeing(const TTValue& theObjectBeingDeleted)
 }
 
 
-TTErr MCoreObject::setAudioOutputPtr(TTAudioSignalPtr newOutputPtr)
+TTErr TTMulticoreObject::setAudioOutputPtr(TTAudioSignalPtr newOutputPtr)
 {
 	TTObjectPtr oldAudioOutput = audioOutput;
 	
@@ -98,7 +98,7 @@ TTErr MCoreObject::setAudioOutputPtr(TTAudioSignalPtr newOutputPtr)
 }
 
 
-TTErr MCoreObject::setInChansToOutChansRatio(TTUInt16 numInputChannels, TTUInt16 numOutputChannels)
+TTErr TTMulticoreObject::setInChansToOutChansRatio(TTUInt16 numInputChannels, TTUInt16 numOutputChannels)
 {
 	inChansToOutChansRatio[0] = numInputChannels;
 	inChansToOutChansRatio[1] = numOutputChannels;
@@ -106,14 +106,14 @@ TTErr MCoreObject::setInChansToOutChansRatio(TTUInt16 numInputChannels, TTUInt16
 }
 
 
-TTErr MCoreObject::setAlwaysProcessSidechain(TTBoolean newValue)
+TTErr TTMulticoreObject::setAlwaysProcessSidechain(TTBoolean newValue)
 {
 	alwaysProcessSidechain = newValue;
 	return kTTErrNone;
 }
 
 
-TTErr MCoreObject::prepareToProcess()
+TTErr TTMulticoreObject::prepareToProcess()
 {
 	lock();
 	if(valid){
@@ -130,7 +130,7 @@ TTErr MCoreObject::prepareToProcess()
 }
 
 
-TTErr MCoreObject::resetSources(TTUInt16 vs)
+TTErr TTMulticoreObject::resetSources(TTUInt16 vs)
 {
 	// go through all of the sources and tell them we don't want to watch them any more
 	for(TTUInt16 i=0; i<numSources; i++)
@@ -148,7 +148,7 @@ TTErr MCoreObject::resetSources(TTUInt16 vs)
 	
 	// Generators will not receive an 'addSource' call, 
 	// so we set them with the 'default' vector size provided by the global reset
-	if(flags & kMCoreGenerator){
+	if(flags & kTTMulticoreGenerator){
 		audioOutput->allocWithVectorSize(vs);
 	}
 	
@@ -156,16 +156,16 @@ TTErr MCoreObject::resetSources(TTUInt16 vs)
 }
 
 
-TTErr MCoreObject::addSource(MCoreObjectPtr anObject, TTUInt16 sourceOutletNumber, TTUInt16 anInletNumber)
+TTErr TTMulticoreObject::addSource(TTMulticoreObjectPtr anObject, TTUInt16 sourceOutletNumber, TTUInt16 anInletNumber)
 {	
 	if(anInletNumber){		// A sidechain source
 		numSidechainSources++;
 		if(numSidechainSources == 1){
-			sidechainSources = (MCoreObjectPtr*)malloc(sizeof(MCoreObjectPtr) * numSidechainSources);
+			sidechainSources = (TTMulticoreObjectPtr*)malloc(sizeof(TTMulticoreObjectPtr) * numSidechainSources);
 			sidechainOutletIndices = (TTUInt16*)malloc(sizeof(TTUInt16) * numSources);
 		}
 		else{
-			sidechainSources = (MCoreObjectPtr*)realloc(sidechainSources, sizeof(MCoreObjectPtr) * numSidechainSources);
+			sidechainSources = (TTMulticoreObjectPtr*)realloc(sidechainSources, sizeof(TTMulticoreObjectPtr) * numSidechainSources);
 			sidechainOutletIndices = (TTUInt16*)realloc(sidechainOutletIndices, sizeof(TTUInt16) * numSources);
 		}
 		sidechainSources[numSidechainSources-1] = anObject;
@@ -179,11 +179,11 @@ TTErr MCoreObject::addSource(MCoreObjectPtr anObject, TTUInt16 sourceOutletNumbe
 	else{					// A normal audio source
 		numSources++;
 		if(numSources == 1){
-			audioSources = (MCoreObjectPtr*)malloc(sizeof(MCoreObjectPtr) * numSources);
+			audioSources = (TTMulticoreObjectPtr*)malloc(sizeof(TTMulticoreObjectPtr) * numSources);
 			audioSourceOutletIndices = (TTUInt16*)malloc(sizeof(TTUInt16) * numSources);
 		}
 		else{
-			audioSources = (MCoreObjectPtr*)realloc(audioSources, sizeof(MCoreObjectPtr) * numSources);
+			audioSources = (TTMulticoreObjectPtr*)realloc(audioSources, sizeof(TTMulticoreObjectPtr) * numSources);
 			audioSourceOutletIndices = (TTUInt16*)realloc(audioSourceOutletIndices, sizeof(TTUInt16) * numSources);
 		}
 		audioSources[numSources-1] = anObject;
@@ -197,7 +197,7 @@ TTErr MCoreObject::addSource(MCoreObjectPtr anObject, TTUInt16 sourceOutletNumbe
 }
 
 
-TTUInt16 MCoreObject::initAudioSignal(TTAudioSignalPtr aSignal, MCoreObjectPtr aSource)
+TTUInt16 TTMulticoreObject::initAudioSignal(TTAudioSignalPtr aSignal, TTMulticoreObjectPtr aSource)
 {
 	TTUInt16	numChannels;
 	TTUInt16	sourceProducesNumChannels;
@@ -214,7 +214,7 @@ TTUInt16 MCoreObject::initAudioSignal(TTAudioSignalPtr aSignal, MCoreObjectPtr a
 }
 
 
-TTErr MCoreObject::init()
+TTErr TTMulticoreObject::init()
 {
 	TTUInt16	sourceProducesNumChannels;
 	TTUInt16	sidechainSourceProducesNumChannels;
@@ -276,7 +276,7 @@ TTErr MCoreObject::init()
 }
 
 
-TTErr MCoreObject::getAudioOutput(TTAudioSignalPtr& returnedSignal, TTBoolean getSidechain)
+TTErr TTMulticoreObject::getAudioOutput(TTAudioSignalPtr& returnedSignal, TTBoolean getSidechain)
 {
 	TTAudioSignalPtr	pulledInput = NULL;
 	TTAudioSignalPtr	pulledSidechainInput = NULL;

@@ -7,9 +7,9 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTMulticore.h"
+#include "TTMulticoreSource.h"
 
-#define thisTTClass			MCoreSource
+#define thisTTClass			TTMulticoreSource
 #define thisTTClassName		"multicore.source"
 #define thisTTClassTags		"audio, multicore, source"
 
@@ -21,13 +21,13 @@ TT_AUDIO_CONSTRUCTOR,
 }
 
 
-MCoreSource::~MCoreSource()
+TTMulticoreSource::~TTMulticoreSource()
 {
 	TTObjectRelease(&buffer) ;
 }
 
 
-TTErr MCoreSource::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTMulticoreSource::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	return TTAudioSignal::copy(*buffer, out);
