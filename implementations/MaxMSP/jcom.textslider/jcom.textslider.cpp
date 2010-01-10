@@ -666,21 +666,24 @@ void textslider_paint(t_textslider *x, t_object *view)
 	jbox_get_rect_for_view((t_object *)x, view, &rect);		// this is the box rectangle -- but we draw relative to 0 0, and thus only care about width & height
 	position = ((rect.width-3)*value)+1;					// -3: one pixel for each border and -1 for counting to N-1 
 
-	// Draw frame
-	c = x->attrBorderColor;
-	jgraphics_set_source_jrgba(g, &c);
-	jgraphics_rectangle_fill_fast(g, 0., 0., rect.width, rect.height);	
-
 	// Draw passive part of slider
-	c = x->attrBgColor;
-	jgraphics_set_source_jrgba(g, &c);
-	jgraphics_rectangle_fill_fast(g, position, 1.0, rect.width-position-2.0, rect.height-2.0);
+	 
+	// Draw Background
+	jgraphics_set_source_jrgba(g,&x->attrBgColor);
+	jgraphics_rectangle(g, 0., 0., rect.width, rect.height);
+	jgraphics_fill(g);
+	// Draw frame
+	jgraphics_rectangle(g, 0., 0., rect.width, rect.height);
+	jgraphics_set_source_jrgba(g, &x->attrBorderColor); 
+	jgraphics_set_line_width(g, 1.0);
+	jgraphics_stroke(g);
+	
 	
 	if (value > 0.)
 	{
 		// Draw active part of slider
 		c = x->attrFgColor;
 		jgraphics_set_source_jrgba(g, &c);
-		jgraphics_rectangle_fill_fast(g, 1.0,1.0, position, rect.height-2.0);	
+		jgraphics_rectangle_fill_fast(g, 1.0 ,1.0, position, rect.height-2.0);	
 	}
 }
