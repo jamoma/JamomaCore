@@ -10,7 +10,7 @@
 
 // statics and globals
 ControllerPtr		jamoma_controller = NULL;
-static TTHashPtr	jamoma_controller_hash_link = NULL;						// used to store all namespace listeners 
+static TTHashPtr	jamoma_controller_hash_listener = NULL;						// used to store all namespace listeners 
 
 /***********************************************************************************
 *
@@ -39,11 +39,10 @@ ControllerPtr	jamoma_controller_init()
 	jamoma_controller->namespaceDiscoverAddCallback(jamoma_directory, &jamoma_namespace_discover_callback);
 	jamoma_controller->namespaceGetAddCallback(jamoma_directory, &jamoma_namespace_get_callback);
 	jamoma_controller->namespaceSetAddCallback(jamoma_directory, &jamoma_namespace_set_callback);
-	jamoma_controller->namespaceLinkAddCallback(jamoma_directory, &jamoma_namespace_link_callback);
-	jamoma_controller->namespaceUnlinkAddCallback(jamoma_directory, &jamoma_namespace_unlink_callback);
+	jamoma_controller->namespaceListenAddCallback(jamoma_directory, &jamoma_namespace_listen_callback);
 	
 	// create the hashtab for future network observers
-	jamoma_controller_hash_link = new TTHash();
+	jamoma_controller_hash_listener = new TTHash();
 	
 	return jamoma_controller;
 }
@@ -270,77 +269,85 @@ void jamoma_namespace_set_callback(void* arg, Address whereToSet, std::string at
 	}
 }
 
-void jamoma_namespace_link_callback(void* arg, std::string whereToSend, Address whereToObserve, std::string attributeToObserve)
+void jamoma_namespace_listen_callback(void* arg, std::string whereToSend, Address whereToListen, std::string attributeToListen, bool enableListening)
+{
+	if(enableListening)
+		jamoma_namespace_enable_listening(arg, whereToSend, whereToListen, attributeToListen);
+	else
+		jamoma_namespace_disable_listening(arg, whereToSend, whereToListen, attributeToListen);
+}
+
+void jamoma_namespace_enable_listening(void* arg, std::string whereToSend, Address whereToListen, std::string attributeToListen)
 {
 	TTErr err;
-	TTNodePtr nodeToObserve;
+	TTNodePtr nodeToListen;
 	TTAttributePtr anAttribute = NULL;
-	TTObjectPtr newObserver;
+	TTObjectPtr newListener;
 	TTValuePtr	newBaton;
 	TTString keyLink;
 	
 	TTNodeDirectoryPtr m_directory = (TTNodeDirectoryPtr) arg;
 	
-	post("jamoma_namespace_link_callback : %s %s %s", whereToSend.c_str(), whereToObserve.c_str(), attributeToObserve.c_str());
+	post("jamoma_namespace_listen_callback : %s %s %s", whereToSend.c_str(), whereToListen.c_str(), attributeToListen.c_str());
 	
 	if(m_directory){
 		
 		// Get the Node at the given address
-		err = m_directory->getTTNodeForOSC(whereToObserve.c_str(), &nodeToObserve);
+		err = m_directory->getTTNodeForOSC(whereToListen.c_str(), &nodeToListen);
 		
 		if(!err){
 			
 			// if the attribute exist
-			err = nodeToObserve->findAttribute(TT(attributeToObserve.c_str()), &anAttribute);
+			err = nodeToListen->findAttribute(TT(attributeToListen.c_str()), &anAttribute);
 			
 			if(!err){
 				
-					newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-					TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
+					newListener = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+					TTObjectInstantiate(TT("Callback"), &newListener, kTTValNONE);
 					
 					newBaton = new TTValue((TTString)whereToSend);
-					newBaton->append((TTString)whereToObserve);
+					newBaton->append((TTString)whereToListen);
 					
-					newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-					newObserver->setAttributeValue(TT("Function"), TTPtr(&jamoma_link_method));
+					newListener->setAttributeValue(TT("Baton"), TTPtr(newBaton));
+					newListener->setAttributeValue(TT("Function"), TTPtr(&jamoma_link_method));
 					
-					anAttribute->registerObserverForNotifications(*newObserver);
+					anAttribute->registerObserverForNotifications(*newListener);
 					
 					// memorize the link in order to remove it with the unlink operation
-					keyLink = whereToSend + "<>" + whereToObserve + ":" + attributeToObserve;
-					jamoma_controller_hash_link->append(TT(keyLink), (TTPtr)newObserver);
+					keyLink = whereToSend + "<>" + whereToListen + ":" + attributeToListen;
+					jamoma_controller_hash_listener->append(TT(keyLink), (TTPtr)newListener);
 			}
 		}
 	}
 }
 
-void jamoma_namespace_unlink_callback(void* arg, std::string whereToSend, Address whereToObserve, std::string attributeToObserve)
+void jamoma_namespace_disable_listening(void* arg, std::string whereToSend, Address whereToListen, std::string attributeToListen)
 {
 	TTErr err;
-	TTNodePtr nodeObserved;
-	TTObjectPtr oldObserver;
+	TTNodePtr nodeListened;
+	TTObjectPtr oldListener;
 	TTValue	temp;
 	TTString keyLink;
 	
 	TTNodeDirectoryPtr m_directory = (TTNodeDirectoryPtr) arg;
 
-	post("jamoma_namespace_unlink_callback : %s %s %s", whereToSend.c_str(), whereToObserve.c_str(), attributeToObserve.c_str());
+	post("jamoma_namespace_unlink_callback : %s %s %s", whereToSend.c_str(), whereToListen.c_str(), attributeToListen.c_str());
 	
 	if(m_directory){
 		
 		// Get the Node at the given address
-		err = m_directory->getTTNodeForOSC(whereToObserve.c_str(), &nodeObserved);
+		err = m_directory->getTTNodeForOSC(whereToListen.c_str(), &nodeListened);
 		
 		if(!err){
 			
 			// looking for an observer
-			keyLink = whereToSend + "<>" + whereToObserve + ":" + attributeToObserve;
-			err = jamoma_controller_hash_link->lookup(TT(keyLink), temp);
-			temp.get(0, (TTPtr*)&oldObserver);
+			keyLink = whereToSend + "<>" + whereToListen + ":" + attributeToListen;
+			err = jamoma_controller_hash_listener->lookup(TT(keyLink), temp);
+			temp.get(0, (TTPtr*)&oldListener);
 	
 			// remove it
 			if(!err)
-				jamoma_node_attribute_observer_remove(nodeObserved, SymbolGen(convertAttributeToJamoma(attributeToObserve)->getCString()), oldObserver);
+				jamoma_node_attribute_observer_remove(nodeListened, SymbolGen(convertAttributeToJamoma(attributeToListen)->getCString()), oldListener);
 
 		}
 	}
@@ -350,7 +357,7 @@ void jamoma_link_method(TTPtr p_baton, TTValue& data)
 {
 	TTValuePtr	b;
 	TTString	whereToSend;
-	TTString	whereToObserve;
+	TTString	whereToListen;
 	TTString	returnedValue;
 	t_symbol	*mess, *sym;
 	long		argc, i;
@@ -359,7 +366,7 @@ void jamoma_link_method(TTPtr p_baton, TTValue& data)
 	// unpack baton (a t_object* and the name of the method to call)
 	b = (TTValuePtr)p_baton;
 	b->get(0, whereToSend);
-	b->get(1, whereToObserve);
+	b->get(1, whereToListen);
 	
 	// unpack data (argc and argv)
 	data.get(0, (TTPtr*)&mess);
@@ -391,10 +398,10 @@ void jamoma_link_method(TTPtr p_baton, TTValue& data)
 		free(temp);
 	}
 	
-	// send a link answer using the controller
-	// TODO deviceSendLinkAnswer
-	post("jamoma_link_method : %s %s %s", whereToSend.c_str(), whereToObserve.c_str(), returnedValue.c_str());
-	//jamoma_controller->deviceSendMessage(whereToSend, whereToObserve, returnedValue);
+	// send a listen answer using the controller
+	// TODO deviceSendListenAnswer
+	post("jamoma_listen_method : %s %s %s", whereToSend.c_str(), whereToListen.c_str(), returnedValue.c_str());
+
 }
 
 // Convert Jamoma attributes into / from Controller attributes

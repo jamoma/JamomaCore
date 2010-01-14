@@ -10,7 +10,7 @@
 #include "Jamoma.h"
 #include "Controller.h"
 
-#define CONTROLLER_SEARCH_PATH "/Users/TO/Documents/virage/sequenceur/trunk/libIscore/libController/Plugins"
+#define CONTROLLER_SEARCH_PATH "/Users/TO/Documents/virage/sequenceur/trunk/libIscore/newLibController/Plugins"
 
 typedef Controller* ControllerPtr;
 
@@ -43,10 +43,10 @@ extern "C" {
 	
 	void jamoma_namespace_set_callback(void* arg, Address whereToSet, std::string attribute, Value& newValue);
 	
-	void jamoma_namespace_link_callback(void* arg, std::string whereToSend, Address whereToObserve, std::string attributeToObserve);
+	void jamoma_namespace_listen_callback(void* arg, std::string whereToSend, Address whereToListen, std::string attributeToListen, bool enable);
+	void jamoma_namespace_enable_listening(void* arg, std::string whereToSend, Address whereToListen, std::string attributeToListen);
+	void jamoma_namespace_disable_listening(void* arg, std::string whereToSend, Address whereToListen, std::string attributeToListen);
 	void jamoma_link_method(TTPtr p_baton, TTValue& data);
-	
-	void jamoma_namespace_unlink_callback(void* arg, std::string whereToSend, Address whereToObserve, std::string attributeToObserve);
 	
 	
 	// Convert Jamoma attributes into / from Controller attributes

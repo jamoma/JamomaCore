@@ -92,17 +92,12 @@ private:
 						   Value&);									//< a callback used when a device wants to set a value of the namespace
 	void* m_set_arguments;											//< arguments for the set callback method
 	
-	void(*m_link_callback)(void*,
-						   std::string,
-						   Address,
-						   std::string);							//< a callback used when a device wants to be notified when something changed in the namespace
-	void* m_link_arguments;											//< arguments for the link callback method
-	
-	void (*m_unlink_callback)(void*,
-							  std::string,
-							  Address,
-							  std::string);							//< a callback used when a device wants to stop the notification
-	void* m_unlink_arguments;										//< arguments for the unlink callback method
+	void(*m_listen_callback)(void*,
+							 std::string,
+							 Address,
+							 std::string,
+							 bool);									//< a callback used when a device wants to be notified when something changed in the namespace
+	void* m_listen_arguments;										//< arguments for the listen callback method
 	
 public:
 	
@@ -198,7 +193,7 @@ public:
 	/*!
 	 * Add one device manually according to the genericity of the different plugins parameters
 	 *
-	 * \param deviceName : the device name to add like this : /<deviceName> .
+	 * \param deviceName : the device name to add
 	 * \param pluginToUse : the plugin name to use which has to be the same string of the plugin name given by his developper. ("OSC", "Minuit", ...)
 	 * \param commParameters : a map containing couples <parameterName, parameterValue> to communicate according to the plugin 
 	 *
@@ -207,48 +202,66 @@ public:
 	int deviceAdd(std::string deviceName, std::string pluginToUse, std::map<std::string, std::string> *commParameters);
 	
 	/*!
-	 * Remove a device in the netDevices map using the device name 
+	 * Remove a device in the netDevices map using the device name
+	 *
+	 * \param deviceName : the device name to remove
 	 */
 	void deviceRemove(std::string deviceName);
 	
 	/*!
-	 * Let to know if the specific plugin used by the device is able to answer to a namespace request
+	 * Let to know if the specific plugin used by the device is able to answer to a discover request
 	 *
+	 * \param deviceName : the device name to
 	 * \return true if the plugin need or false if not
 	 */
-	bool deviceUnderstandNamespaceRequest(std::string deviceName);
+	bool deviceUnderstandDiscoverRequest(std::string deviceName);
 	
 	/*!
-	 * Send a message to the specific device
+	 * Send a discover request to explore a part of the namespace at the given address
 	 *
-	 * \param address : the address where to send the value (send nothing would be like an event)
-	 * \param value : an optionnal value to send
-	 */
-	void deviceSendMessage(std::string deviceName, Address address, Value& value);
-	
-	/*!
-	 * Send a namespace request to get a part of the namespace at the address
-	 *
-	 * \param address : the address where to get the snapshot.
+	 * \param deviceName : the device name to discover
+	 * \param address : the address where to get the snapshot
 	 * \param nodes : the vector which is going to be full with the node names of the namespace
 	 * \param attributs : the vector which is going to be full with the attributs names of the namespace
 	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
 	 */
-	int deviceSendNamespaceRequest(std::string deviceName, Address address, vector<string>* returnedNodes, vector<string>* returnedAttributes);
+	int deviceSendDiscoverRequest(std::string deviceName, Address address, vector<string>* returnedNodes, vector<string>* returnedAttributes);
 	
 	/*!
 	 * Send a get request to a device to get values at the given address
 	 *
-	 * \param address : the address where to get the value.
+	 * \param deviceName : the device name where to get the value
+	 * \param address : the address where to get the value
 	 * \param attributs : the Value which is going to be full
 	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
 	 */
 	int deviceSendGetRequest(std::string deviceName, Address address, Value* returnedValue);
 	
 	/*!
-	 * Get a snapshot (total namespace) of a device using the given address 
+	 * Send a set request to set a value of a specific device
 	 *
-	 * \param address : the address to get the snapshot.
+	 * \param deviceName : the device name where to set the value
+	 * \param address : the address where to set the value
+	 * \param value : anything to send
+	 */
+	void deviceSendSetRequest(std::string deviceName, Address address, Value& newvalue);
+	
+	/*!
+	 * Send a listen request to a specific device
+	 *
+	 * \param deviceName : the device to listen
+	 * \param address : the address to listen
+	 * \param attribute : the attribute to listen
+	 * \param enable : enable/disable the listening
+	 */
+	void deviceSendListenRequest(std::string deviceName, Address address, string attribute, bool enable);
+	
+	/*!
+	 * Get a current snapshot  of a device using the address (a get request on each node with a 'value' attribute)
+	 * This method doesn't have to be implemented by the plugin child if it doesn't need
+	 *
+ 	 * \param deviceName : the device name where to get the snapshot
+	 * \param address : the address where to get the snapshot
 	 * \return a vector containing the snapshot
 	 */
 	// TODO : return a map of <Address, Value>
@@ -258,8 +271,8 @@ public:
 	 * Let to know if a device has to be visible in the UI. 
 	 * In other words if it could be used by the user or only for an internal communication.
 	 *
-	 * \param deviceName : the device name.
-	 * \return true if the device is visible in the UI.
+	 * \param deviceName : the device name
+	 * \return true if the device is visible in the UI
 	 */
 	bool deviceIsVisible(std::string deviceName);
 
@@ -330,39 +343,22 @@ public:
 	void namespaceSet(Address whereToSet, std::string attribute, Value& newValue);
 	
 	/*!
-	 * Add a link callback method
+	 * Add a listen callback method
 	 * 
 	 * \param arg : anything needs by the application to create a new listener
-	 * \param pt2Func : a callback method given by the application to create a listener (returns a pointer to the new listener to remove it later)
+	 * \param pt2Func : a callback method given by the application to create a listener
 	 */
-	void namespaceLinkAddCallback(void* arg, void(*pt2Func)(void*, std::string, Address, std::string));
+	void namespaceListenAddCallback(void* arg, void(*pt2Func)(void*, std::string, Address, std::string, bool));
 	
 	/*!
-	 * Observe for notification when something changes at the address.
-	 * Notifications will be sent to a device
+	 * Enable/disable a listener of the namespace.
+	 * A listener will send answers to a device when something changes.
 	 *
-	 * \param whereToSend : device where to send notification
-	 * \param whereToObserve : address where to observe 
-	 * \param attributeToObserve : the attribute to observe
+	 * \param whereToSend : device where to send answer
+	 * \param whereToListen : address where to listen 
+	 * \param attributeToListen : the attribute to listen
 	 */
-	void namespaceLink(Device* whereToSend, Address whereToObserve, std::string attributeToObserve);
-	
-	/*!
-	 * Add a link callback method
-	 *
-	 * \param arg : anything needs by the application to remove a listener
-	 * \param pt2Func : a callback method given by the application to remove a listener
-	 */
-	void namespaceUnlinkAddCallback(void* arg, void(*pt2Func)(void*, std::string, Address, std::string));
-	
-	/*!
-	 * Stop sending notifications from an address to a device
-	 *
-	 * \param whereToSend : device where to send notification
-	 * \param whereToObserve : address where to observe 
-	 * \param attributeToObserve : the attribute to observe 
-	 */
-	void namespaceUnlink(Device* whereToSend, Address whereToObserve, std::string attributeToObserve);
+	void namespaceListen(Device* whereToSend, Address whereToListen, std::string attributeToListen, bool);
 
 };
 
