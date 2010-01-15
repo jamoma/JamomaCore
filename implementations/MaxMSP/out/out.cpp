@@ -150,7 +150,7 @@ t_int* OutPerform(t_int* w)
    	OutPtr		self = (OutPtr)(w[1]);
 	TTUInt16	numChannels;
 	
-	if (!self->obj.z_disabled && self->multicoreObject->numSources) {
+	if (!self->obj.z_disabled) {// && self->multicoreObject->numSources) {
 		self->multicoreObject->preprocess();
 		self->multicoreObject->process(self->audioSignal);
 		

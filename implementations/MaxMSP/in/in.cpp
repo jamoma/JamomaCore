@@ -82,13 +82,13 @@ InPtr InNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 
 		v.setSize(2);
-		v.set(0, TT("multicore.source"));
+		v.set(0, TT("multicore.generator"));
 		v.set(1, self->maxNumChannels);
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
-		self->multicoreObject->addFlag(kMCoreGenerator);
+		self->multicoreObject->addFlag(kTTMulticoreGenerator);
 
 		if (self->multicoreObject->mUnitGenerator)
-			self->multicoreObject->setAudioOutputPtr(MCoreSourcePtr(self->multicoreObject->mUnitGenerator)->buffer);
+			self->multicoreObject->setAudioOutputPtr(TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->mBufferArray);
 		else {
 			object_error(SELF, "cannot load multicore.source");
 			return NULL;
@@ -155,7 +155,7 @@ t_int* InPerform(t_int* w)
 	
 	if (!self->obj.z_disabled) {
 		for (i=0; i < self->numChannels; i++)
-			TTMulticoreObjectPtr(self->multicoreObject->mUnitGenerator)->buffer->setVector(i, self->vectorSize, (TTFloat32*)w[i+2]);
+			TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->mBuffer->setVector(i, self->vectorSize, (TTFloat32*)w[i+2]);
 	}	
 	return w + (self->numChannels+2);
 }
@@ -181,9 +181,9 @@ void InDsp(InPtr self, t_signal** sp, short* count)
 		k++;
 	}
 	
-	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->buffer->setAttributeValue(TT("numChannels"), self->maxNumChannels);
-	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->buffer->setAttributeValue(TT("vectorSize"), self->vectorSize);
-	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->buffer->sendMessage(TT("alloc"));
+	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->mBuffer->setAttributeValue(TT("numChannels"), self->maxNumChannels);
+	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->mBuffer->setAttributeValue(TT("vectorSize"), self->vectorSize);
+	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->mBuffer->sendMessage(TT("alloc"));
 	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	
 	dsp_addv(InPerform, k, audioVectors);

@@ -41,8 +41,14 @@ public:
 
 	/**	Rather than use the internal audio output signal, it is possible to set your own.
 		One example for why you might want this is for creating generator objects.	*/
-//	TTErr setAudioOutputPtr(TTAudioSignalPtr newOutputPtr);
+	TTErr setAudioOutputPtr(TTAudioSignalArrayPtr newOutputPtr);
 
+	
+	void addFlag(TTMulticoreFlags flag)
+	{
+		mFlags |= flag;
+	}
+	
 	
 	TTUInt16 getSampleRate()
 	{

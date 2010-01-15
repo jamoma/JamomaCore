@@ -14,21 +14,26 @@
 #define thisTTClassTags		"audio, multicore, generator"
 
 TT_AUDIO_CONSTRUCTOR,
-	buffer(NULL)
+	mBuffer(NULL),
+	mBufferArray(NULL)
 {
-	TTObjectInstantiate(kTTSym_audiosignal, &buffer, arguments);
+	TTObjectInstantiate(kTTSym_audiosignal, &mBuffer, arguments);
+	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mBufferArray, arguments);
+	mBufferArray->setSignal(0, mBuffer);
+
 	setProcessMethod(processAudio);
 }
 
 
 TTMulticoreGenerator::~TTMulticoreGenerator()
 {
-	TTObjectRelease(&buffer);
+	TTObjectRelease((TTObjectPtr*)&mBufferArray);
+	TTObjectRelease(&mBuffer);
 }
 
 
 TTErr TTMulticoreGenerator::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
-	return TTAudioSignal::copy(*buffer, out);
+	return TTAudioSignal::copy(*mBuffer, out);
 }

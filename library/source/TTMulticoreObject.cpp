@@ -101,18 +101,18 @@ TTErr TTMulticoreObject::objectFreeing(const TTValue& theObjectBeingDeleted)
 }
 
 
-/*
-TTErr TTMulticoreObject::setAudioOutputPtr(TTAudioSignalPtr newOutputPtr)
+
+TTErr TTMulticoreObject::setAudioOutputPtr(TTAudioSignalArrayPtr newOutputPtr)
 {
-	TTObjectPtr oldAudioOutput = mOutputSignal;
+	TTObjectPtr	oldAudioOutput = mOutputSignals;
+	TTErr		err = kTTErrNone;
 	
-	mOutputSignal = (TTAudioSignalPtr)TTObjectReference(newOutputPtr);
+	mOutputSignals = (TTAudioSignalArrayPtr)TTObjectReference(newOutputPtr);
 
 	if (oldAudioOutput)
-		TTObjectRelease(&oldAudioOutput);
-	return kTTErrNone;
+		err = TTObjectRelease(&oldAudioOutput);
+	return err;
 }
- */
 
 
 TTErr TTMulticoreObject::reset()
