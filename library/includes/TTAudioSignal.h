@@ -199,12 +199,12 @@ public:
 		for(channel=0; channel<channelCount; channel++){
 			inSample = rightHandValue.sampleVectors[channel];
 			outSample = sampleVectors[channel];
-
+			
 			if(vectorSize > rightHandValue.vectorSize)
 				vs = rightHandValue.vectorSize;
 			else
 				vs = vectorSize;
-
+			
 			while(vs--){
 				(*outSample) = (*outSample) + (*inSample);
 				outSample++;
@@ -213,6 +213,45 @@ public:
 		}
 		return *this;
 	}
+	
+	
+	/**	Assign another audio signal's samples and channel/vector configuration with this audio signal's samples. */
+	TTAudioSignal& operator = (const TTAudioSignal& rightHandValue)
+	{
+//		short			vs;
+//		TTSampleValue*	inSample;
+//		TTSampleValue*	outSample;
+	
+		if (rightHandValue.maxNumChannels > maxNumChannels)
+			setmaxNumChannels(rightHandValue.maxNumChannels);
+		numChannels = rightHandValue.numChannels;
+		
+		setVectorSize(rightHandValue.vectorSize);
+		if (isLocallyOwned)
+			alloc();
+
+		TTAudioSignal::copy(rightHandValue, *this);
+/*		
+		for(channel=0; channel<channelCount; channel++){
+			inSample = rightHandValue.sampleVectors[channel];
+			outSample = sampleVectors[channel];
+			
+			if(vectorSize > rightHandValue.vectorSize)
+				vs = rightHandValue.vectorSize;
+			else
+				vs = vectorSize;
+			
+			while(vs--){
+				(*outSample) = (*outSample) + (*inSample);
+				outSample++;
+				inSample++;
+			}
+		}
+ */
+		return *this;
+	}
+	
+	
 };
 
 
