@@ -27,7 +27,8 @@ TTMulticoreSource::TTMulticoreSource() :
 TTMulticoreSource::~TTMulticoreSource()
 {
 	// TODO: inorder to listen for notifications, I have to be a real object!
-	mSourceObject->unregisterObserverForNotifications(*this);
+// TODO: just commenting out to solve a crash when trying to get initially running...
+//	mSourceObject->unregisterObserverForNotifications(*this);
 }
 
 

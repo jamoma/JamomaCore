@@ -85,11 +85,16 @@ class TTMulticoreInlet {
 	TTAudioSignalPtr			mBufferedInput;		///< summed samples from all sources
 	
 public:
-	TTMulticoreInlet()
-	{;}
+	TTMulticoreInlet() : 
+		mBufferedInput(NULL)
+	{
+		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedInput, 1);
+	}
 	
 	~TTMulticoreInlet()
-	{;}
+	{
+		TTObjectRelease(&mBufferedInput);
+	}
 	
 //	void setOwner(MCoreObjectPtr newOwner, TTAudioSignalArray* newInputs, TTUInt16 newIndex);
 	
@@ -132,6 +137,10 @@ public:
 	{
 		mSourceObjects.resize(mSourceObjects.size()+1);
 		mSourceObjects[mSourceObjects.size()-1].connect(anObject, fromOutletNumber);
+
+// TODO: we have to set the number of channels here somehow?
+//		mBufferedInput->setmaxNumChannels(mSourceObjects.size())
+		
 		return kTTErrNone;
 	}
 

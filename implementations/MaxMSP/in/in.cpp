@@ -81,9 +81,12 @@ InPtr InNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 
-		v.setSize(2);
+//		v.setSize(2);
+		v.setSize(1);
 		v.set(0, TT("multicore.generator"));
-		v.set(1, self->maxNumChannels);
+//		v.set(1, self->maxNumChannels);
+//		v.set(1, self->maxNumChannels);
+// CHANGED: the above changed because we specify the number of inlets and outlets, not the number of channels
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 		self->multicoreObject->addFlag(kTTMulticoreGenerator);
 
@@ -181,7 +184,10 @@ void InDsp(InPtr self, t_signal** sp, short* count)
 		k++;
 	}
 	
-	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->mBuffer->setAttributeValue(TT("numChannels"), self->maxNumChannels);
+//	self->multicoreObject->setMaxNumChannels(self->maxNumChannels);
+	
+	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->setAttributeValue(TT("maxNumChannels"), self->maxNumChannels);
+	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->setAttributeValue(TT("numChannels"), self->maxNumChannels);
 	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->mBuffer->setAttributeValue(TT("vectorSize"), self->vectorSize);
 	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->mBuffer->sendMessage(TT("alloc"));
 	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->setAttributeValue(TT("sr"), sp[0]->s_sr);

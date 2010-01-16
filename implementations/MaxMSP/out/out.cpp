@@ -92,7 +92,7 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 
 		v.setSize(2);
 		v.set(0, TT("gain"));
-		v.set(1, self->maxNumChannels);
+		v.set(1, 1); // arg is the number of inlets
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 		
 		attr_args_process(self, argc, argv);				// handle attribute args	

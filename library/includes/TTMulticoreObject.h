@@ -44,6 +44,13 @@ public:
 	TTErr setAudioOutputPtr(TTAudioSignalArrayPtr newOutputPtr);
 
 	
+//	void setMaxNumChannels(TTUInt16 maxNumChannels)
+//	{
+//		mInputSignals->setAllMaxNumChannels(maxNumChannels);
+//		mOutputSignals->setAllMaxNumChannels(maxNumChannels);
+//	}
+	
+	
 	void addFlag(TTMulticoreFlags flag)
 	{
 		mFlags |= flag;

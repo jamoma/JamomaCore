@@ -17,10 +17,14 @@ TT_AUDIO_CONSTRUCTOR,
 	mBuffer(NULL),
 	mBufferArray(NULL)
 {
+	// arguments is the number of inlets (not the number of channels)
+
 	TTObjectInstantiate(kTTSym_audiosignal, &mBuffer, arguments);
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mBufferArray, arguments);
 	mBufferArray->setSignal(0, mBuffer);
 
+	addMessageWithArgument(updateMaxNumChannels);
+	
 	setProcessMethod(processAudio);
 }
 
@@ -29,6 +33,14 @@ TTMulticoreGenerator::~TTMulticoreGenerator()
 {
 	TTObjectRelease((TTObjectPtr*)&mBufferArray);
 	TTObjectRelease(&mBuffer);
+}
+
+
+TTErr TTMulticoreGenerator::updateMaxNumChannels(const TTValue&)
+{
+	mBuffer->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mBuffer->setAttributeValue(kTTSym_numChannels, maxNumChannels);
+	return kTTErrNone;
 }
 
 

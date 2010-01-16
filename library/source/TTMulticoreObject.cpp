@@ -189,8 +189,14 @@ TTErr TTMulticoreObject::preprocess()
 	lock();
 	if (valid) {
 		mStatus = kTTMulticoreProcessNotStarted;		
-		for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::preprocess));
 
+		//for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::preprocess));
+
+		for (TTMulticoreInletIter i = mInlets.begin(); i != mInlets.end(); i++) {
+			i->preprocess();
+# error here we need to stuff the audiosignal into mInputSignals
+		}
+		
 		// TODO: Critical -- come back to this!
 		//		for (TTUInt16 i=0; i<numSources; i++)
 		//			audioSources[i]->prepareToProcess();
