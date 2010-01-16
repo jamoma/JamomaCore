@@ -70,8 +70,9 @@ void TTAudioSignal::chuck()
 TTErr TTAudioSignal::setmaxNumChannels(const TTValue& newMaxNumChannels)
 {
 	TTUInt32	i;
+	TTBoolean	wasLocallyOwned = isLocallyOwned;
 
-	if(TTUInt16(newMaxNumChannels) != maxNumChannels){
+	if (TTUInt16(newMaxNumChannels) != maxNumChannels) {
 		chuck();
 		maxNumChannels = newMaxNumChannels;
 		if(maxNumChannels) {
@@ -79,6 +80,8 @@ TTErr TTAudioSignal::setmaxNumChannels(const TTValue& newMaxNumChannels)
 			for(i=0; i<maxNumChannels; i++)
 				sampleVectors[i] = NULL;
 		}
+		if (wasLocallyOwned)
+			alloc();
 	}
 	return kTTErrNone;
 }
