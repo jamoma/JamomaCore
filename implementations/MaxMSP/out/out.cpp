@@ -232,7 +232,9 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 	dsp_addv(OutPerform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
 	
-	self->multicoreObject->init();
+	TTMulticoreInitData	initData;
+	initData.vectorSize = self->vectorSize;
+	self->multicoreObject->init(initData);
 }
 
 

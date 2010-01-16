@@ -22,12 +22,34 @@ class TTMulticoreOutlet {
 	TTAudioSignalPtr		mBufferedOutput;	
 	
 public:
-	TTMulticoreOutlet()
-	{;}
+	TTMulticoreOutlet() : 
+		mBufferedOutput(NULL)
+	{
+		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedOutput, 1);
+	}
 	
 	~TTMulticoreOutlet()
-	{;}
+	{
+		TTObjectRelease(&mBufferedOutput);
+	}
 	
+	
+	// Copying Functions are critical due to use by std::vector 
+	
+	TTMulticoreOutlet(const TTMulticoreOutlet& original)
+	{
+		mBufferedOutput = TTObjectReference(original.mBufferedOutput);
+	}
+	
+	TTMulticoreOutlet& operator=(const TTMulticoreOutlet& source)
+	{
+		TTObjectRelease(&mBufferedOutput);
+		mBufferedOutput = TTObjectReference(source.mBufferedOutput);
+		return *this;
+	}
+	
+
+	// Audio Signal Access Methods
 
 	TTUInt16 getNumOutputChannels()
 	{
@@ -38,6 +60,12 @@ public:
 	TTUInt16 getOutputVectorSize()
 	{
 		return mBufferedOutput->getVectorSize();
+	}
+
+	
+	TTAudioSignalPtr getBuffer()
+	{
+		return mBufferedOutput;
 	}
 	
 };

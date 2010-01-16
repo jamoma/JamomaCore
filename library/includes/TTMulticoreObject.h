@@ -81,7 +81,7 @@ private:
 public:
 	
 	/**	Allocate buffers and prepare for processing.	*/
-	TTErr init();
+	TTErr init(const TTMulticoreInitData& initData);
 	
 	
 	/**	This method is called by an object about to process audio, prior to calling getAudioOutput().

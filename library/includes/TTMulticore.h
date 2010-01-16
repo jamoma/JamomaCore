@@ -31,6 +31,7 @@
 
 /******************************************************************************************/
 
+// the state of each node in the graph
 enum TTMulticoreProcessStatus {
 	kTTMulticoreProcessUnknown = 0,
 	kTTMulticoreProcessNotStarted,
@@ -46,6 +47,14 @@ enum TTMulticoreFlags {
 	kTTMulticoreGenerator = 0x02
 };
 
+
+// data passed to all nodes in the graph when the graph is initialized
+class TTMulticoreInitData {
+public:
+	TTUInt16 vectorSize;	// the global/recommended/initial vectorSize (which can be overriden during process)
+};
+
+
 class	TTMulticoreObject;
 typedef TTMulticoreObject*					TTMulticoreObjectPtr;
 typedef vector<TTMulticoreObjectPtr>		TTMulticoreObjectVector;
@@ -53,7 +62,7 @@ typedef TTMulticoreObjectVector::iterator	TTMulticoreObjectIter;
 
 class	TTMulticoreInlet;
 typedef TTMulticoreInlet*					TTMulticoreInletPtr;
-typedef vector<TTMulticoreInlet>			TTMulticoreInletVector;		// TODO: should this be a vector of pointers?
+typedef vector<TTMulticoreInlet>			TTMulticoreInletVector;
 typedef TTMulticoreInletVector::iterator	TTMulticoreInletIter;
 
 class	TTMulticoreOutlet;

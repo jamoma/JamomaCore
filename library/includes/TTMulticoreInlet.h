@@ -27,6 +27,12 @@ class TTMulticoreSource : TTObject {
 //protected:																	\
 //	static TTObjectPtr instantiate (TTSymbolPtr name, TTValue& arguments);	\
 
+	
+	// TODO: Other options:
+	// - use TTCallback for observering
+	// - create a template class whose new and free methods simply call TTObjectInstantiate and TTObjectRelease
+	
+	
 	// NOTE: yes, I'm breaking the rules for a TTObject here...
 public:
 	/** Constructor */						
@@ -44,9 +50,9 @@ public:
 	
 	void connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber);
 	
-	void init()
+	void init(const TTMulticoreInitData& initData)
 	{
-		mSourceObject->init();
+		mSourceObject->init(initData);
 	}
 	
 	void preprocess()
@@ -80,21 +86,42 @@ typedef TTMulticoreSourceVector::iterator	TTMulticoreSourceIter;
 		A signal may have many channels.
 */
 class TTMulticoreInlet {
-	//TTMulticoreObjectPtr		mOwner;
-	TTMulticoreSourceVector		mSourceObjects;		///< A vector of object pointers from which we pull our source samples using the ::getAudioOutput() method.
-	TTAudioSignalPtr			mBufferedInput;		///< summed samples from all sources
+	TTMulticoreSourceVector	mSourceObjects;		///< A vector of object pointers from which we pull our source samples using the ::getAudioOutput() method.
+	TTAudioSignalPtr		mBufferedInput;		///< summed samples from all sources
+	TTBoolean				mClean;
 	
 public:
 	TTMulticoreInlet() : 
-		mBufferedInput(NULL)
+		mBufferedInput(NULL),
+		mClean(NO)
 	{
 		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedInput, 1);
+		// alloc to set up a default buffer
+		mBufferedInput->setAttributeValue(kTTSym_maxNumChannels, 1);
+		mBufferedInput->setAttributeValue(kTTSym_numChannels, 1);
+		mBufferedInput->allocWithVectorSize(64);
 	}
-	
+
 	~TTMulticoreInlet()
 	{
 		TTObjectRelease(&mBufferedInput);
 	}
+	
+	
+	// Copying Functions are critical due to use by std::vector 
+	
+	TTMulticoreInlet(const TTMulticoreInlet& original)
+	{
+		mBufferedInput = TTObjectReference(original.mBufferedInput);
+	}
+	
+	TTMulticoreInlet& operator=(const TTMulticoreInlet& source)
+	{
+		TTObjectRelease(&mBufferedInput);
+		mBufferedInput = TTObjectReference(source.mBufferedInput);
+		return *this;
+	}
+	
 	
 //	void setOwner(MCoreObjectPtr newOwner, TTAudioSignalArray* newInputs, TTUInt16 newIndex);
 	
@@ -105,9 +132,13 @@ public:
 	}
 		
 	// init the chain from which we will pull
-	void init()
+	void init(const TTMulticoreInitData& initData)
 	{
-		for_each(mSourceObjects.begin(), mSourceObjects.end(), mem_fun_ref(&TTMulticoreSource::init));
+		// for_each(mSourceObjects.begin(), mSourceObjects.end(), bind2nd(mem_fun_ref(&TTMulticoreSource::init), initData));
+		// CHANGED: don't know how to make for_each work with an argument like this...
+		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++)
+			source->init(initData);
+
 		// TODO: we need to allocate memory for our audio signal here!
 		// mUnitGenerator->setMaxNumChannels(weDeliverNumChannels);
 
@@ -154,6 +185,7 @@ public:
 	{
 		mBufferedInput->clear();
 		for_each(mSourceObjects.begin(), mSourceObjects.end(), mem_fun_ref(&TTMulticoreSource::preprocess));
+		mClean = YES;
 	}
 
 		
@@ -163,9 +195,12 @@ public:
 		int					err;
 		TTAudioSignalPtr	foo;
 		
-		for (TTMulticoreSourceIter i = mSourceObjects.begin(); i != mSourceObjects.end(); i++) {
-			err |= (*i).process(foo);
-			(*mBufferedInput) += (*foo);
+		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
+			err |= (*source).process(foo);
+			if (mClean)
+				(*mBufferedInput) = (*foo);
+			else
+				(*mBufferedInput) += (*foo);
 		}
 		return (TTErr)err;
 	}
