@@ -36,8 +36,10 @@ public:
 	/**	Note: calling this function will invalidate all audioSignal pointers contained within the array. */
 	void setMaxNumAudioSignals(TTUInt16 newMaxNumAudioSignals)
 	{
-		maxNumAudioSignals = newMaxNumAudioSignals;
-		init();
+		if (newMaxNumAudioSignals != maxNumAudioSignals) {
+			maxNumAudioSignals = newMaxNumAudioSignals;
+			init();
+		}
 	}
 	
 	TTUInt16 getMaxNumAudioSignals()
