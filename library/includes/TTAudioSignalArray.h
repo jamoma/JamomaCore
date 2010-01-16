@@ -58,6 +58,19 @@ public:
 	}
 	
 	
+	void matchNumChannels(TTAudioSignalArray* anotherArray)
+	{
+		matchNumChannels(*anotherArray);
+	}
+
+	void matchNumChannels(TTAudioSignalArray& anotherArray)
+	{
+		TTUInt16 maxNumChannels = TTClip<TTUInt16>(maxNumAudioSignals, 0, anotherArray.maxNumAudioSignals);
+		
+		setAllMaxNumChannels(maxNumChannels);
+		setAllNumChannels(maxNumChannels);
+	}
+	
 };
 
 
