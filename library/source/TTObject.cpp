@@ -377,6 +377,11 @@ TTErr TTObject::unregisterObserverForNotifications(const TTObject& observingObje
 }
 
 
+TTErr TTObject::sendNotification(const TTSymbolPtr name, const TTValue& arguments)
+{
+	return observers->iterateObjectsSendingMessage(name, TTValueRef(arguments));
+}
+
 
 #if 0
 #pragma mark -

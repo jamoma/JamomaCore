@@ -13,6 +13,8 @@
 		222B17F90F1D4009008B1A46 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */; };
 		222B17FA0F1D4009008B1A46 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1B0EC276B200A5EC32 /* AudioUnit.framework */; };
 		222B17FB0F1D4009008B1A46 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1C0EC276B200A5EC32 /* CoreServices.framework */; };
+		22A05DA0110149C300695770 /* TTCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A05D9F110149C300695770 /* TTCallback.h */; };
+		22A05DA2110149CE00695770 /* TTCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A05DA1110149CE00695770 /* TTCallback.cpp */; };
 		22E3861310286BBE002000A9 /* TTAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F210286BBE002000A9 /* TTAttribute.cpp */; };
 		22E3861810286BBE002000A9 /* TTFoundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F710286BBE002000A9 /* TTFoundation.cpp */; };
 		22E3861910286BBE002000A9 /* TTClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F810286BBE002000A9 /* TTClass.cpp */; };
@@ -60,6 +62,8 @@
 		22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		22578F1B0EC276B200A5EC32 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
 		22578F1C0EC276B200A5EC32 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
+		22A05D9F110149C300695770 /* TTCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTCallback.h; path = includes/TTCallback.h; sourceTree = "<group>"; };
+		22A05DA1110149CE00695770 /* TTCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCallback.cpp; path = source/TTCallback.cpp; sourceTree = "<group>"; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22E385D010286B97002000A9 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = includes/TTFoundationAPI.h; sourceTree = "<group>"; };
 		22E385D110286BB0002000A9 /* TTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAttribute.h; path = includes/TTAttribute.h; sourceTree = "<group>"; };
@@ -156,6 +160,8 @@
 				22B66A220E298A6D00CB474E /* SymbolTable */,
 				22E385D610286BB0002000A9 /* TTFoundation.h */,
 				22E385F710286BBE002000A9 /* TTFoundation.cpp */,
+				22A05D9F110149C300695770 /* TTCallback.h */,
+				22A05DA1110149CE00695770 /* TTCallback.cpp */,
 				22E385D710286BB0002000A9 /* TTClass.h */,
 				22E385F810286BBE002000A9 /* TTClass.cpp */,
 				22E385DA10286BB0002000A9 /* TTEnvironment.h */,
@@ -243,6 +249,7 @@
 				22EB3BC8102F0BEB006D027A /* TTThread.h in Headers */,
 				22EB3BC9102F0BEB006D027A /* TTValueCache.h in Headers */,
 				22039B861087816A008DFA4A /* TTLimits.h in Headers */,
+				22A05DA0110149C300695770 /* TTCallback.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +343,7 @@
 				22E3862610286BBE002000A9 /* TTThread.cpp in Sources */,
 				22E3862710286BBE002000A9 /* TTValue.cpp in Sources */,
 				22E3862810286BBE002000A9 /* TTValueCache.cpp in Sources */,
+				22A05DA2110149CE00695770 /* TTCallback.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

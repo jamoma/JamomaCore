@@ -171,6 +171,7 @@ public:
 	TT_SETATTR_WRAP(TTFloat32)
 	TT_SETATTR_WRAP(TTFloat64)
 	TT_SETATTR_WRAP(TTSymbolPtr)
+	TT_SETATTR_WRAP(TTPtr)
 	
 #undef TT_SETATTR_WRAP
 	
@@ -217,6 +218,8 @@ public:
 	TTErr unregisterObserverForMessage(const TTObject& observingObject, const TTSymbolPtr messageName);
 	TTErr unregisterObserverForAttribute(const TTObject& observingObject, const TTSymbolPtr attributeName);
 	TTErr unregisterObserverForNotifications(const TTObject& observingObject);
+	
+	TTErr sendNotification(const TTSymbolPtr name, const TTValue& arguments);
 	
 	
 	/**	Log messages scoped to this object instance. */
