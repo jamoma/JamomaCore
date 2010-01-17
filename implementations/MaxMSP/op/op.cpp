@@ -41,7 +41,7 @@ static ClassPtr sOpClass;
 
 int main(void)
 {
-	t_class *c;
+	ClassPtr c;
 	
 	TTMulticoreInit();	
 	common_symbols_init();

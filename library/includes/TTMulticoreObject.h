@@ -44,19 +44,37 @@ public:
 	TTErr setAudioOutputPtr(TTAudioSignalArrayPtr newOutputPtr);
 
 	
-//	void setMaxNumChannels(TTUInt16 maxNumChannels)
-//	{
-//		mInputSignals->setAllMaxNumChannels(maxNumChannels);
-//		mOutputSignals->setAllMaxNumChannels(maxNumChannels);
-//	}
-	
-	
 	void addFlag(TTMulticoreFlags flag)
 	{
 		mFlags |= flag;
 	}
 	
 	
+	//	void setMaxNumChannels(TTUInt16 maxNumChannels)
+//	{
+//		mInputSignals->setAllMaxNumChannels(maxNumChannels);
+//		mOutputSignals->setAllMaxNumChannels(maxNumChannels);
+//	}
+	TTUInt16 getOutputNumChannels(TTUInt16 forOutletNumber)
+	{
+		if (forOutletNumber < mOutputSignals->numAudioSignals) {
+			TTAudioSignalPtr audioSignal = &mOutputSignals->getSignal(forOutletNumber);
+			return audioSignal->getNumChannels();
+		}
+		else
+			return 0;
+	}
+	
+	TTUInt16 getOutputVectorSize(TTUInt16 forOutletNumber)
+	{
+		if (forOutletNumber < mOutputSignals->numAudioSignals) {
+			TTAudioSignalPtr audioSignal = &mOutputSignals->getSignal(forOutletNumber);
+			return audioSignal->getNumChannels();
+		}
+		else
+			return 0;
+	}
+		
 	TTUInt16 getSampleRate()
 	{
 		TTUInt16 sr;
