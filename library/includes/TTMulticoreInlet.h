@@ -1,7 +1,7 @@
 /* 
  * Multicore Audio Graph Layer for Jamoma DSP
  * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
- * Copyright © 2008, Timothy Place
+ * Copyright © 2010, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -18,35 +18,41 @@
 
 // NOTE: we don't need to keep a buffer of our own, be we just mirror the buffer of mSourceObject
 
-class TTMulticoreSource : TTObject {
-//	TTCLASS_SETUP(TTMulticoreSource)
-
-//	friend class TTEnvironment;												\
-//public:																		\
-//	static void registerClass();											\
-//protected:																	\
-//	static TTObjectPtr instantiate (TTSymbolPtr name, TTValue& arguments);	\
-
-	
-	// TODO: Other options:
-	// - use TTCallback for observering
-	// - create a template class whose new and free methods simply call TTObjectInstantiate and TTObjectRelease
-	
-	
-	// NOTE: yes, I'm breaking the rules for a TTObject here...
-public:
-	/** Constructor */						
-//	TTMulticoreSource (TTSymbolPtr&,TTValue&);	
-	TTMulticoreSource ();	
-	/** Destructor */						
-	virtual ~TTMulticoreSource ();			
-
-protected:	
-	
+class TTMulticoreSource {	
 	TTMulticoreObjectPtr	mSourceObject;	// the object from which we pull samples
 	TTUInt16				mOutletNumber;	// zero-based
+	TTObjectPtr				mCallbackHandler;
 	
 public:
+	TTMulticoreSource();	
+	~TTMulticoreSource();			
+
+	
+	// Copying Functions -- critical due to use by std::vector 
+	
+	TTMulticoreSource(const TTMulticoreSource& original)
+	{
+		// When vector of sources is resized, it is possible for an object to be created and immediately copied -- prior to a 'connect' method call
+		if (original.mSourceObject)
+			mSourceObject	= (TTMulticoreObjectPtr)TTObjectReference(original.mSourceObject);
+		mOutletNumber		= original.mOutletNumber;
+		mCallbackHandler	= TTObjectReference(original.mCallbackHandler);
+	}
+	
+	TTMulticoreSource& operator=(const TTMulticoreSource& source)
+	{
+		TTObjectRelease((TTObjectPtr*)&mSourceObject);
+		TTObjectRelease(&mCallbackHandler);
+
+		mSourceObject		= (TTMulticoreObjectPtr)TTObjectReference(source.mSourceObject);
+		mOutletNumber		= source.mOutletNumber;
+		mCallbackHandler	= TTObjectReference(source.mCallbackHandler);
+
+		return *this;
+	}
+	
+	
+	// Graph Methods
 	
 	void connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber);
 	
@@ -112,23 +118,30 @@ public:
 	
 	TTMulticoreInlet(const TTMulticoreInlet& original)
 	{
-		mBufferedInput = TTObjectReference(original.mBufferedInput);
+		mSourceObjects	= original.mSourceObjects;
+		mBufferedInput	= TTObjectReference(original.mBufferedInput);
+		mClean			= original.mClean;
 	}
 	
 	TTMulticoreInlet& operator=(const TTMulticoreInlet& source)
 	{
 		TTObjectRelease(&mBufferedInput);
-		mBufferedInput = TTObjectReference(source.mBufferedInput);
+		
+		mSourceObjects	= source.mSourceObjects;
+		mBufferedInput	= TTObjectReference(source.mBufferedInput);
+		mClean			= source.mClean;
+		
 		return *this;
 	}
 	
 	
-//	void setOwner(MCoreObjectPtr newOwner, TTAudioSignalArray* newInputs, TTUInt16 newIndex);
+	// Graph Methods
 	
 	// reset
 	void reset()
 	{
-		mSourceObjects.resize(0);
+//		mSourceObjects.resize(0);
+		mSourceObjects.clear();
 	}
 		
 	// init the chain from which we will pull
@@ -166,20 +179,13 @@ public:
 	
 	TTErr connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber)
 	{
-		mSourceObjects.resize(mSourceObjects.size()+1);
-		mSourceObjects[mSourceObjects.size()-1].connect(anObject, fromOutletNumber);
-
-// TODO: we have to set the number of channels here somehow?
-//		mBufferedInput->setmaxNumChannels(mSourceObjects.size())
+		TTMulticoreSource aSourceObject;
 		
+		aSourceObject.connect(anObject, fromOutletNumber);
+		mSourceObjects.push_back(aSourceObject);		
 		return kTTErrNone;
 	}
-
-//	TTUInt16 getMaxNumSourceChannels(TTUInt16 weDeliverNumChannels);
 	
-//private:
-//	TTUInt16 initAudioSignal(TTAudioSignalPtr aSignal, MCoreObjectPtr aSource);
-
 	
 	void preprocess()
 	{
