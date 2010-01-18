@@ -1,5 +1,5 @@
 /* 
- *	Maxbaer
+ *	MaxMulticore
  *	A thin wrapper of the Lydbaer audio system for use in the Cycling '74 Max/MSP environment.
  *	Includes an automated class wrapper to make TTBlue object's available as objects for Max/MSP.
  *	Copyright © 2008 by Timothy Place
@@ -39,12 +39,12 @@ typedef TTErr (*TTValidityCheckFunction)(const TTPtr data);		///< A type that ca
 class WrappedClassOptions;
 
 typedef struct _wrappedClass {
-	ClassPtr				maxClass;							///< The Max class pointer.
-	SymbolPtr				maxClassName;						///< The name to give the Max class.
-	TTSymbolPtr				ttblueClassName;					///< The name of the class as registered with the TTBlue framework.
-	TTValidityCheckFunction validityCheck;						///< A function to call to validate the context for an object before it is instantiated.
-	TTPtr					validityCheckArgument;				///< An argument to pass to the validityCheck function when it is called.
-	WrappedClassOptions*	options;							///< Additional configuration options specified for the class.
+	ClassPtr				maxClass;				///< The Max class pointer.
+	SymbolPtr				maxClassName;			///< The name to give the Max class.
+	TTSymbolPtr				ttClassName;			///< The name of the class as registered with the TTBlue framework.
+	TTValidityCheckFunction validityCheck;			///< A function to call to validate the context for an object before it is instantiated.
+	TTPtr					validityCheckArgument;	///< An argument to pass to the validityCheck function when it is called.
+	WrappedClassOptions*	options;				///< Additional configuration options specified for the class.
 } WrappedClass;
 
 
@@ -85,19 +85,19 @@ typedef WrappedClassOptions* WrappedClassOptionsPtr;			///< A pointer to Wrapped
 // FUNCTIONS
 
 // Wrap a TTBlue class as a Max class.
-TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c);
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c);
 
 // This version can be passed a method that is called to make sure it is legit to instantiate the class.
-TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck);
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck);
 
 // This version can be passed a method that is called to make sure it is legit to instantiate the class.
-TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument);
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument);
 
 
 // These are versions of the above, but for which additional options can be specified.
-TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, WrappedClassOptionsPtr options);
-TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, WrappedClassOptionsPtr options);
-TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, WrappedClassOptionsPtr options);
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, WrappedClassOptionsPtr options);
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, WrappedClassOptionsPtr options);
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, WrappedClassOptionsPtr options);
 
 
 // NOTE: DUPLICATIONS FROM THE MSP WRAPPER

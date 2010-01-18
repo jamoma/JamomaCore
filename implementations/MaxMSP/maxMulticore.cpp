@@ -1,5 +1,5 @@
 /* 
- *	Maxbaer
+ *	MaxMulticore
  *	A thin wrapper of the Lydbaer audio system for use in the Cycling '74 Max/MSP environment.
  *	Includes an automated class wrapper to make TTBlue object's available as objects for Max/MSP.
  *	Copyright © 2008 by Timothy Place
@@ -31,7 +31,7 @@ static t_hashtab*	wrappedMaxClasses = NULL;
 ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 {	
 	WrappedClass*		wrappedMaxClass = NULL;
-    WrappedInstancePtr	x = NULL;
+    WrappedInstancePtr	self = NULL;
 	TTValue				v;
 	TTErr				err = kTTErrNone;
 	TTUInt8				numInputs = 1;
@@ -42,8 +42,8 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 	
 	// If the WrappedClass has a validity check defined, then call the validity check function.
 	// If it returns an error, then we won't instantiate the object.
-	if(wrappedMaxClass){
-		if(wrappedMaxClass->validityCheck)
+	if (wrappedMaxClass) {
+		if (wrappedMaxClass->validityCheck)
 			err = wrappedMaxClass->validityCheck(wrappedMaxClass->validityCheckArgument);
 		else
 			err = kTTErrNone;
@@ -51,25 +51,25 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 	else
 		err = kTTErrGeneric;
 	
-	if(!err)
-		x = (WrappedInstancePtr)object_alloc(wrappedMaxClass->maxClass);
-    if(x){
+	if (!err)
+		self = (WrappedInstancePtr)object_alloc(wrappedMaxClass->maxClass);
+    if (self){
 //		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalInputs"), v))
 //			numInputs += TTUInt8(v);
-		for(TTUInt8 i=0; i<numInputs-1; i++)
-			x->inlets[i] = proxy_new(x, i+1, NULL);
+		for (TTUInt8 i=0; i<numInputs-1; i++)
+			self->inlets[i] = proxy_new(self, i+1, NULL);
 		
-    	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
+    	object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));	// dumpout
 //		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalOutputs"), v))
 //			numOutputs += TTUInt8(v);
-		for(TTInt8 i=numOutputs-1; i>=0; i--)
-			x->multicoreOutlets[i] = outlet_new(x, "multicore.signal");
+		for (TTInt8 i=numOutputs-1; i>=0; i--)
+			self->multicoreOutlets[i] = outlet_new(self, "multicore.connect");
 
-		x->wrappedClassDefinition = wrappedMaxClass;
+		self->wrappedClassDefinition = wrappedMaxClass;
 		v.setSize(2);
-		v.set(0, wrappedMaxClass->ttblueClassName);
+		v.set(0, wrappedMaxClass->ttClassName);
 		v.set(1., 1.);
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->multicoreObject, v);
+		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 		
 //		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("channelRatioInputToOutput"), v)){
 //			TTUInt16 numInChans = 1;
@@ -84,64 +84,64 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 //			x->lydbaerObject->setAlwaysProcessSidechain(alwaysUseSidechain);
 //		}
 		
-		attr_args_process(x, argc, argv);
+		attr_args_process(self, argc, argv);
 	}
-	return ObjectPtr(x);
+	return ObjectPtr(self);
 }
 
 
-void wrappedClass_free(WrappedInstancePtr x)
+void wrappedClass_free(WrappedInstancePtr self)
 {
-	if (x->multicoreObject)
-		TTObjectRelease((TTObjectPtr*)&x->multicoreObject);
+	if (self->multicoreObject)
+		TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
 	// FIXME: leaking proxy inlets!
 }
 
 
 
-// METHODS SPECIFIC TO LYDBAER EXTERNALS
+// METHODS SPECIFIC TO MULTICORE EXTERNALS
 
-TTErr maxbaerReset(WrappedInstancePtr x, long vectorSize)
+TTErr MaxMulticoreReset(WrappedInstancePtr self, long vectorSize)
 {
-	return x->multicoreObject->reset();
+	return self->multicoreObject->reset();
 }
 
 
-TTErr maxbaerSetup(WrappedInstancePtr x)
+TTErr MaxMulticoreSetup(WrappedInstancePtr self)
 {
 	Atom		a[2];
 	TTUInt16	i=0;
 	
-	atom_setobj(a+0, ObjectPtr(x->multicoreObject));
-	while(x->multicoreOutlets[i]){
+	atom_setobj(a+0, ObjectPtr(self->multicoreObject));
+	while (self->multicoreOutlets[i]) {
 		atom_setlong(a+1, i);
-		outlet_anything(x->multicoreOutlets[i], gensym("multicore.signal"), 2, a);
+		outlet_anything(self->multicoreOutlets[i], gensym("multicore.connect"), 2, a);
 		i++;
 	}
 	return kTTErrNone;
 }
 
 
-TTErr maxbaerObject(WrappedInstancePtr x, TTMulticoreObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
+TTErr MaxMulticoreConnect(WrappedInstancePtr self, TTMulticoreObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
 {
-	long inletNumber = proxy_getinlet(ObjectPtr(x));
-	return x->multicoreObject->connect(audioSourceObject, sourceOutletNumber, inletNumber);
+	long inletNumber = proxy_getinlet(SELF);
+	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber, inletNumber);
 }
 
 
-t_max_err wrappedClass_attrGet(WrappedInstancePtr x, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
+t_max_err wrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
 {
 	SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
 	TTValue		v;
 	AtomCount	i;
 	
-	x->multicoreObject->mUnitGenerator->getAttributeValue(TT(attrName->s_name), v);
+	self->multicoreObject->mUnitGenerator->getAttributeValue(TT(attrName->s_name), v);
 
 	*argc = v.getSize();
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * v.getSize());
 
-	for(i=0; i<v.getSize(); i++){
+	for (i=0; i<v.getSize(); i++) {
 		if(v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
 			TTFloat64	value;
 			v.get(i, value);
@@ -162,14 +162,14 @@ t_max_err wrappedClass_attrGet(WrappedInstancePtr x, ObjectPtr attr, AtomCount* 
 }
 
 
-t_max_err wrappedClass_attrSet(WrappedInstancePtr x, ObjectPtr attr, AtomCount argc, AtomPtr argv)
+t_max_err wrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr attr, AtomCount argc, AtomPtr argv)
 {
 	if(argc && argv){
 		SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
 		TTValue		v;
 		AtomCount	i;
 		
-		for(i=0; i<argc; i++){
+		for (i=0; i<argc; i++) {
 			if(atom_gettype(argv+i) == A_LONG)
 				v.set(i, AtomGetInt(argv+i));
 			else if(atom_gettype(argv+i) == A_FLOAT)
@@ -177,72 +177,72 @@ t_max_err wrappedClass_attrSet(WrappedInstancePtr x, ObjectPtr attr, AtomCount a
 			else if(atom_gettype(argv+i) == A_SYM)
 				v.set(i, TT(atom_getsym(argv+i)->s_name));
 			else
-				object_error(ObjectPtr(x), "bad type for attribute setter");
+				object_error(SELF, "bad type for attribute setter");
 		}
-		x->multicoreObject->mUnitGenerator->setAttributeValue(TT(attrName->s_name), v);
+		self->multicoreObject->mUnitGenerator->setAttributeValue(TT(attrName->s_name), v);
 		return MAX_ERR_NONE;
 	}
 	return MAX_ERR_GENERIC;
 }
 
 
-void wrappedClass_anything(WrappedInstancePtr x, SymbolPtr s, AtomCount argc, AtomPtr argv)
+void wrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
-	if(argc && argv){
+	if (argc && argv) {
 		TTValue	v;
 		
-		for(AtomCount i=0; i<argc; i++){
-			if(atom_gettype(argv+i) == A_LONG)
+		for (AtomCount i=0; i<argc; i++) {
+			if (atom_gettype(argv+i) == A_LONG)
 				v.set(i, AtomGetInt(argv+i));
-			else if(atom_gettype(argv+i) == A_FLOAT)
+			else if (atom_gettype(argv+i) == A_FLOAT)
 				v.set(i, atom_getfloat(argv+i));
-			else if(atom_gettype(argv+i) == A_SYM)
+			else if (atom_gettype(argv+i) == A_SYM)
 				v.set(i, TT(atom_getsym(argv+i)->s_name));
 			else
-				object_error(ObjectPtr(x), "bad type for message arg");
+				object_error(SELF, "bad type for message arg");
 		}
-		x->multicoreObject->mUnitGenerator->sendMessage(TT(s->s_name), v);
+		self->multicoreObject->mUnitGenerator->sendMessage(TT(s->s_name), v);
 		
 		// process the returned value for the dumpout outlet
 		{
 			AtomCount	ac = v.getSize();
 
-			if(ac){
+			if (ac) {
 				AtomPtr		av = (AtomPtr)malloc(sizeof(Atom) * ac);
 				
-				for(AtomCount i=0; i<ac; i++){
-					if(v.getType() == kTypeSymbol){
+				for (AtomCount i=0; i<ac; i++) {
+					if (v.getType() == kTypeSymbol){
 						TTSymbolPtr ttSym = NULL;
 						v.get(i, &ttSym);
 						atom_setsym(av+i, gensym((char*)ttSym->getCString()));
 					}
-					else if(v.getType() == kTypeFloat32 || v.getType() == kTypeFloat64){
+					else if (v.getType() == kTypeFloat32 || v.getType() == kTypeFloat64) {
 						TTFloat64 f = 0.0;
 						v.get(i, f);
 						atom_setfloat(av+i, f);
 					}
-					else{
+					else {
 						TTInt32 l = 0;
 						v.get(i, l);
 						atom_setfloat(av+i, l);
 					}
 				}
-				object_obex_dumpout(x, s, ac, av);
+				object_obex_dumpout(self, s, ac, av);
 			}
 		}
 	}
 	else
-		x->multicoreObject->mUnitGenerator->sendMessage(TT(s->s_name));
+		self->multicoreObject->mUnitGenerator->sendMessage(TT(s->s_name));
 }
 
 
 // Method for Assistance Messages
-void wrappedClass_assist(WrappedInstancePtr x, void *b, long msg, long arg, char *dst)
+void wrappedClass_assist(WrappedInstancePtr self, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1)			// Inlets
+	if (msg==1)			// Inlets
 		strcpy(dst, "multichannel input and control messages");		
-	else if(msg==2){	// Outlets
-		if(arg == 0)
+	else if (msg==2) {	// Outlets
+		if (arg == 0)
 			strcpy(dst, "multichannel output");
 		else
 			strcpy(dst, "dumpout");
@@ -254,12 +254,12 @@ void wrappedClass_assist(WrappedInstancePtr x, void *b, long msg, long arg, char
 
 
 
-TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c)
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c)
 {
-	return wrapAsMaxbaer(ttblueClassName, maxClassName, c, (WrappedClassOptionsPtr)NULL);
+	return wrapAsMaxMulticore(ttClassName, maxClassName, c, (WrappedClassOptionsPtr)NULL);
 }
 
-TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, WrappedClassOptionsPtr options)
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, WrappedClassOptionsPtr options)
 {
 	TTObject*		o = NULL;
 	TTValue			v;
@@ -281,13 +281,13 @@ TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClas
 											(method)0L, 
 											A_GIMME, 
 											0);
-	wrappedMaxClass->ttblueClassName = ttblueClassName;
+	wrappedMaxClass->ttClassName = ttClassName;
 	wrappedMaxClass->validityCheck = NULL;
 	wrappedMaxClass->validityCheckArgument = NULL;
 	wrappedMaxClass->options = options;
 	
 	// Create a temporary instance of the class so that we can query it.
-	TTObjectInstantiate(ttblueClassName, &o, numChannels);
+	TTObjectInstantiate(ttClassName, &o, numChannels);
 
 	o->getMessageNames(v);
 	for(TTUInt16 i=0; i<v.getSize(); i++){
@@ -328,15 +328,15 @@ TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClas
 	
 	TTObjectRelease(&o);
 	
-	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerReset,			"multicore.reset",	A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerSetup,			"multicore.setup",	A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerObject,			"multicore.signal",	A_OBJ, A_LONG, 0);
-    class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",			A_CANT, 0); 
-	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_assist, 	"assist",			A_CANT, 0L);
-	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,			"inletinfo",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreReset,			"multicore.reset",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreSetup,			"multicore.setup",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
+    class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",				A_CANT, 0); 
+	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_assist, 	"assist",				A_CANT, 0L);
+	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,			"inletinfo",			A_CANT, 0);
 	
 	class_register(_sym_box, wrappedMaxClass->maxClass);
-	if(c)
+	if (c)
 		*c = wrappedMaxClass;
 	
 	hashtab_store(wrappedMaxClasses, wrappedMaxClass->maxClassName, ObjectPtr(wrappedMaxClass));
@@ -344,22 +344,22 @@ TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClas
 }
 
 
-TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck)
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck)
 {
-	TTErr err = wrapAsMaxbaer(ttblueClassName, maxClassName, c);
+	TTErr err = wrapAsMaxMulticore(ttClassName, maxClassName, c);
 	
-	if(!err){
+	if (!err) {
 		(*c)->validityCheck = validityCheck;
 		(*c)->validityCheckArgument = (*c)->maxClass;
 	}
 	return err;
 }
 
-TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, WrappedClassOptionsPtr options)
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, WrappedClassOptionsPtr options)
 {
-	TTErr err = wrapAsMaxbaer(ttblueClassName, maxClassName, c, options);
+	TTErr err = wrapAsMaxMulticore(ttClassName, maxClassName, c, options);
 	
-	if(!err){
+	if (!err) {
 		(*c)->validityCheck = validityCheck;
 		(*c)->validityCheckArgument = (*c)->maxClass;
 	}
@@ -367,22 +367,22 @@ TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClas
 }
 
 
-TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument)
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument)
 {
-	TTErr err = wrapAsMaxbaer(ttblueClassName, maxClassName, c);
+	TTErr err = wrapAsMaxMulticore(ttClassName, maxClassName, c);
 	
-	if(!err){
+	if (!err) {
 		(*c)->validityCheck = validityCheck;
 		(*c)->validityCheckArgument = validityCheckArgument;
 	}
 	return err;
 }
 
-TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, WrappedClassOptionsPtr options)
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, WrappedClassOptionsPtr options)
 {
-	TTErr err = wrapAsMaxbaer(ttblueClassName, maxClassName, c, options);
+	TTErr err = wrapAsMaxMulticore(ttClassName, maxClassName, c, options);
 	
-	if(!err){
+	if (!err) {
 		(*c)->validityCheck = validityCheck;
 		(*c)->validityCheckArgument = validityCheckArgument;
 	}

@@ -1,6 +1,6 @@
 /* 
  *	gain≈
- *	External object for Max/MSP
+ *	Jamoma Multicore external object for Max
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
@@ -12,6 +12,6 @@
 int main(void)
 {
 	TTMulticoreInit();
-	return wrapAsMaxbaer(TT("gain"), "gain≈", NULL);
+	return wrapAsMaxMulticore(TT("gain"), "gain≈", NULL);
 }
 
