@@ -140,7 +140,6 @@ public:
 	// reset
 	void reset()
 	{
-//		mSourceObjects.resize(0);
 		mSourceObjects.clear();
 	}
 		
@@ -151,27 +150,6 @@ public:
 		// CHANGED: don't know how to make for_each work with an argument like this...
 		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++)
 			source->init(initData);
-
-		// TODO: we need to allocate memory for our audio signal here!
-		// mUnitGenerator->setMaxNumChannels(weDeliverNumChannels);
-
-		/*
-		 TTUInt16 TTMulticoreObject::initAudioSignal(TTAudioSignalPtr aSignal, TTMulticoreObjectPtr aSource)
-		 {
-		 TTUInt16	numChannels;
-		 TTUInt16	sourceProducesNumChannels;
-		 
-		 numChannels = aSignal->getNumChannels();
-		 sourceProducesNumChannels = aSource->audioOutput->getNumChannels();
-		 
-		 // currently we only up-size a signal, but perhaps we should also down-size them as appropriate?
-		 if (sourceProducesNumChannels > numChannels)
-		 aSignal->setmaxNumChannels(sourceProducesNumChannels);
-		 
-		 aSignal->setnumChannels(sourceProducesNumChannels);
-		 return sourceProducesNumChannels;
-		 }
-		*/
 	}
 	
 	// when we receive a notification than an object is going away...
