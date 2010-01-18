@@ -239,7 +239,7 @@ MaxErr OutSetGain(OutPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->gain = atom_getfloat(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("linearGain"), self->gain);
+		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("LinearGain"), self->gain);
 	}
 	return MAX_ERR_NONE;
 }
