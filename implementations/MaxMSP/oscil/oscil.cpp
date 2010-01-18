@@ -1,6 +1,6 @@
 /* 
  *	oscil≈
- *	Oscillator object for Max/Lydbær
+ *	Oscillator object for Jamoma Multicore
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
@@ -11,33 +11,32 @@
 
 
 // Data Structure for this object
-typedef struct OscilBaer {
-    t_object			obj;
-	MCoreObjectPtr		lydbaer;
-	TTPtr				lydbaerOutlet;
-	SymbolPtr			attrWaveform;
-	SymbolPtr			attrInterpolation;
-	float				attrFrequency;
-	float				attrGain;
+typedef struct Oscil {
+    t_object				obj;
+	TTMulticoreObjectPtr	multicoreObject;
+	TTPtr					multicoreOutlet;
+	SymbolPtr				attrWaveform;
+	SymbolPtr				attrInterpolation;
+	float					attrFrequency;
+	float					attrGain;
 };
-typedef OscilBaer* OscilBaerPtr;
+typedef Oscil* OscilPtr;
 
 
 // Prototypes for methods
-OscilBaerPtr	oscilBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void			oscilBaerFree(OscilBaerPtr x);
-void			oscilBaerAssist(OscilBaerPtr x, void* b, long msg, long arg, char* dst);
-TTErr			oscilBaerReset(OscilBaerPtr x, long vectorSize);
-TTErr			oscilBaerSetup(OscilBaerPtr x);
-
-MaxErr oscilBaerSetMode(OscilBaerPtr x, void *attr, AtomCount argc, AtomPtr argv);
-MaxErr oscilBaerSetInterpolation(OscilBaerPtr x, void *attr, AtomCount argc, AtomPtr argv);
-MaxErr oscilBaerSetFrequency(OscilBaerPtr x, void *attr, AtomCount argc, AtomPtr argv);
-MaxErr oscilBaerSetGain(OscilBaerPtr x, void *attr, AtomCount argc, AtomPtr argv);
+OscilPtr	OscilNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		OscilFree(OscilPtr self);
+void		OscilAssist(OscilPtr self, void* b, long msg, long arg, char* dst);
+TTErr		OscilReset(OscilPtr self);
+TTErr		OscilSetup(OscilPtr self);
+MaxErr		OscilSetMode(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv);
+MaxErr		OscilSetInterpolation(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv);
+MaxErr		OscilSetFrequency(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv);
+MaxErr		OscilSetGain(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv);
 
 
 // Globals
-static ClassPtr sOscilBaerClass;
+static ClassPtr sOscilClass;
 
 
 /************************************************************************************/
@@ -45,32 +44,32 @@ static ClassPtr sOscilBaerClass;
 
 int main(void)
 {
-	t_class *c;
+	ClassPtr c;
 
 	TTMulticoreInit();	
 	common_symbols_init();
 
-	c = class_new("oscil≈", (method)oscilBaerNew, (method)oscilBaerFree, sizeof(OscilBaer), (method)0L, A_GIMME, 0);
+	c = class_new("oscil≈", (method)OscilNew, (method)OscilFree, sizeof(Oscil), (method)0L, A_GIMME, 0);
 	
-	class_addmethod(c, (method)oscilBaerReset,			"multicore.reset",		A_CANT, 0);
-	class_addmethod(c, (method)oscilBaerSetup,			"multicore.setup",		A_CANT,	0);
-	class_addmethod(c, (method)oscilBaerAssist,			"assist",			A_CANT, 0); 
-    class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
+	class_addmethod(c, (method)OscilReset,			"multicore.reset",	A_CANT, 0);
+	class_addmethod(c, (method)OscilSetup,			"multicore.setup",	A_CANT,	0);
+	class_addmethod(c, (method)OscilAssist,			"assist",			A_CANT, 0); 
+    class_addmethod(c, (method)object_obex_dumpout,	"dumpout",			A_CANT, 0);  
 	
-	CLASS_ATTR_SYM(c,		"waveform",			0,		OscilBaer,	attrWaveform);
-	CLASS_ATTR_ACCESSORS(c,	"waveform",			NULL,	oscilBaerSetMode);
+	CLASS_ATTR_SYM(c,		"waveform",			0,		Oscil,	attrWaveform);
+	CLASS_ATTR_ACCESSORS(c,	"waveform",			NULL,	OscilSetMode);
 	
-	CLASS_ATTR_SYM(c,		"interpolation",	0,		OscilBaer,	attrInterpolation);
-	CLASS_ATTR_ACCESSORS(c,	"interpolation",	NULL,	oscilBaerSetInterpolation);
+	CLASS_ATTR_SYM(c,		"interpolation",	0,		Oscil,	attrInterpolation);
+	CLASS_ATTR_ACCESSORS(c,	"interpolation",	NULL,	OscilSetInterpolation);
 	
-	CLASS_ATTR_FLOAT(c,		"frequency",		0,		OscilBaer,	attrFrequency);
-	CLASS_ATTR_ACCESSORS(c,	"frequency",		NULL,	oscilBaerSetFrequency);
+	CLASS_ATTR_FLOAT(c,		"frequency",		0,		Oscil,	attrFrequency);
+	CLASS_ATTR_ACCESSORS(c,	"frequency",		NULL,	OscilSetFrequency);
 	
-	CLASS_ATTR_FLOAT(c,		"gain",				0,		OscilBaer,	attrGain);
-	CLASS_ATTR_ACCESSORS(c,	"gain",				NULL,	oscilBaerSetGain);
+	CLASS_ATTR_FLOAT(c,		"gain",				0,		Oscil,	attrGain);
+	CLASS_ATTR_ACCESSORS(c,	"gain",				NULL,	OscilSetGain);
 
 	class_register(_sym_box, c);
-	sOscilBaerClass = c;
+	sOscilClass = c;
 	return 0;
 }
 
@@ -78,32 +77,31 @@ int main(void)
 /************************************************************************************/
 // Object Creation Method
 
-OscilBaerPtr oscilBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
+OscilPtr OscilNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-    OscilBaerPtr x = OscilBaerPtr(object_alloc(sOscilBaerClass));
+    OscilPtr	self = OscilPtr(object_alloc(sOscilClass));
 	TTValue		v;
 	TTErr		err;
 
-    if(x){
+    if (self) {
 		v.setSize(2);
 		v.set(0, TT("wavetable"));
-		v.set(1, TTUInt32(1));
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
+		v.set(1, TTUInt32(0));
+		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 
-		x->lydbaer->addFlag(kMCoreGenerator);
+		self->multicoreObject->addFlag(kTTMulticoreGenerator);
 
-		attr_args_process(x, argc, argv);
-
-    	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));
-		x->lydbaerOutlet = outlet_new((t_pxobject *)x, "multicore.signal");
+		attr_args_process(self, argc, argv);
+    	object_obex_store((TTPtr)self, _sym_dumpout, (ObjectPtr)outlet_new(self, NULL));
+		self->multicoreOutlet = outlet_new((t_pxobject*)self, "multicore.connect");
 	}
-	return x;
+	return self;
 }
 
 // Memory Deallocation
-void oscilBaerFree(OscilBaerPtr x)
+void OscilFree(OscilPtr self)
 {
-	TTObjectRelease((TTObjectPtr*)&x->lydbaer);
+	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
 }
 
 
@@ -111,12 +109,12 @@ void oscilBaerFree(OscilBaerPtr x)
 // Methods bound to input/inlets
 
 // Method for Assistance Messages
-void oscilBaerAssist(OscilBaerPtr x, void* b, long msg, long arg, char* dst)
+void OscilAssist(OscilPtr self, void* b, long msg, long arg, char* dst)
 {
-	if(msg==1)			// Inlets
+	if (msg==1)			// Inlets
 		strcpy(dst, "multichannel audio connection and control messages");		
-	else if(msg==2){	// Outlets
-		if(arg == 0)
+	else if (msg==2) {	// Outlets
+		if (arg == 0)
 			strcpy(dst, "multichannel audio connection");
 		else
 			strcpy(dst, "dumpout");
@@ -124,59 +122,59 @@ void oscilBaerAssist(OscilBaerPtr x, void* b, long msg, long arg, char* dst)
 }
 
 
-TTErr oscilBaerReset(OscilBaerPtr x, long vectorSize)
+TTErr OscilReset(OscilPtr self)
 {
-	return x->lydbaer->resetSources(vectorSize);
+	return self->multicoreObject->reset();
 }
 
 
-TTErr oscilBaerSetup(OscilBaerPtr x)
+TTErr OscilSetup(OscilPtr self)
 {
 	Atom a[2];
 	
-	atom_setobj(a+0, ObjectPtr(x->lydbaer));
+	atom_setobj(a+0, ObjectPtr(self->multicoreObject));
 	atom_setlong(a+1, 0);
-	outlet_anything(x->lydbaerOutlet, gensym("multicore.signal"), 2, a);
+	outlet_anything(self->multicoreOutlet, gensym("multicore.connect"), 2, a);
 	return kTTErrNone;
 }
 
 
 
-MaxErr oscilBaerSetMode(OscilBaerPtr x, void *attr, AtomCount argc, AtomPtr argv)
+MaxErr OscilSetMode(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
-	if(argc){
-		x->attrWaveform = atom_getsym(argv);
-		x->lydbaer->audioObject->setAttributeValue(TT("mode"), TT(x->attrWaveform->s_name));
+	if (argc) {
+		self->attrWaveform = atom_getsym(argv);
+		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("mode"), TT(self->attrWaveform->s_name));
 	}
 	return MAX_ERR_NONE;
 }
 
 
-MaxErr oscilBaerSetInterpolation(OscilBaerPtr x, void *attr, AtomCount argc, AtomPtr argv)
+MaxErr OscilSetInterpolation(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
-	if(argc){
-		x->attrInterpolation = atom_getsym(argv);
-		x->lydbaer->audioObject->setAttributeValue(TT("interpolation"), TT(x->attrInterpolation->s_name));
+	if (argc) {
+		self->attrInterpolation = atom_getsym(argv);
+		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("interpolation"), TT(self->attrInterpolation->s_name));
 	}
 	return MAX_ERR_NONE;
 }
 
 
-MaxErr oscilBaerSetFrequency(OscilBaerPtr x, void *attr, AtomCount argc, AtomPtr argv)
+MaxErr OscilSetFrequency(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
-	if(argc){
-		x->attrFrequency = atom_getfloat(argv);
-		x->lydbaer->audioObject->setAttributeValue(TT("frequency"), x->attrFrequency);
+	if (argc) {
+		self->attrFrequency = atom_getfloat(argv);
+		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("frequency"), self->attrFrequency);
 	}
 	return MAX_ERR_NONE;
 }
 
 
-MaxErr oscilBaerSetGain(OscilBaerPtr x, void *attr, AtomCount argc, AtomPtr argv)
+MaxErr OscilSetGain(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
-	if(argc){
-		x->attrGain	= atom_getfloat(argv);
-		x->lydbaer->audioObject->setAttributeValue(TT("gain"), x->attrGain);
+	if (argc) {
+		self->attrGain	= atom_getfloat(argv);
+		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("gain"), self->attrGain);
 	}
 	return MAX_ERR_NONE;
 }
