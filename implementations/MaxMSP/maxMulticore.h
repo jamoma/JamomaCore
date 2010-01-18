@@ -39,12 +39,13 @@ typedef TTErr (*TTValidityCheckFunction)(const TTPtr data);		///< A type that ca
 class WrappedClassOptions;
 
 typedef struct _wrappedClass {
-	ClassPtr				maxClass;				///< The Max class pointer.
-	SymbolPtr				maxClassName;			///< The name to give the Max class.
-	TTSymbolPtr				ttClassName;			///< The name of the class as registered with the TTBlue framework.
-	TTValidityCheckFunction validityCheck;			///< A function to call to validate the context for an object before it is instantiated.
-	TTPtr					validityCheckArgument;	///< An argument to pass to the validityCheck function when it is called.
-	WrappedClassOptions*	options;				///< Additional configuration options specified for the class.
+	ClassPtr				maxClass;							///< The Max class pointer.
+	SymbolPtr				maxClassName;						///< The name to give the Max class.
+	TTSymbolPtr				ttClassName;						///< The name of the class as registered with the TTBlue framework.
+	TTValidityCheckFunction validityCheck;						///< A function to call to validate the context for an object before it is instantiated.
+	TTPtr					validityCheckArgument;				///< An argument to pass to the validityCheck function when it is called.
+	WrappedClassOptions*	options;							///< Additional configuration options specified for the class.
+	t_hashtab*				maxAttrNamesToTTAttrNames;			///< names may not be direct mappings, as we downcase the first letter.
 } WrappedClass;
 
 

@@ -134,8 +134,14 @@ t_max_err wrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr attr, AtomCoun
 	SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
 	TTValue		v;
 	AtomCount	i;
+	TTSymbolPtr	ttAttrName = NULL;
+	MaxErr		err;
 	
-	self->multicoreObject->mUnitGenerator->getAttributeValue(TT(attrName->s_name), v);
+	err = hashtab_lookup(self->wrappedClassDefinition->maxAttrNamesToTTAttrNames, attrName, (ObjectPtr*)&ttAttrName);
+	if (err)
+		return err;
+
+	self->multicoreObject->mUnitGenerator->getAttributeValue(ttAttrName, v);
 
 	*argc = v.getSize();
 	if (!(*argv)) // otherwise use memory passed in
@@ -164,11 +170,18 @@ t_max_err wrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr attr, AtomCoun
 
 t_max_err wrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr attr, AtomCount argc, AtomPtr argv)
 {
-	if(argc && argv){
+	if (argc && argv) {
 		SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
 		TTValue		v;
 		AtomCount	i;
+		TTSymbolPtr	ttAttrName = NULL;
+		MaxErr		err;
 		
+		err = hashtab_lookup(self->wrappedClassDefinition->maxAttrNamesToTTAttrNames, attrName, (ObjectPtr*)&ttAttrName);
+		if (err)
+			return err;
+		
+		v.setSize(argc);
 		for (i=0; i<argc; i++) {
 			if(atom_gettype(argv+i) == A_LONG)
 				v.set(i, AtomGetInt(argv+i));
@@ -179,7 +192,7 @@ t_max_err wrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr attr, AtomCoun
 			else
 				object_error(SELF, "bad type for attribute setter");
 		}
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT(attrName->s_name), v);
+		self->multicoreObject->mUnitGenerator->setAttributeValue(ttAttrName, v);
 		return MAX_ERR_NONE;
 	}
 	return MAX_ERR_GENERIC;
@@ -285,6 +298,7 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 	wrappedMaxClass->validityCheck = NULL;
 	wrappedMaxClass->validityCheckArgument = NULL;
 	wrappedMaxClass->options = options;
+	wrappedMaxClass->maxAttrNamesToTTAttrNames = hashtab_new(0);
 	
 	// Create a temporary instance of the class so that we can query it.
 	TTObjectInstantiate(ttClassName, &o, numChannels);
@@ -301,36 +315,50 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 	}
 	
 	o->getAttributeNames(v);
-	for(TTUInt16 i=0; i<v.getSize(); i++){
+	for (TTUInt16 i=0; i<v.getSize(); i++) {
 		TTSymbolPtr		name = NULL;
 		TTAttributePtr	attr = NULL;
-		t_symbol*		maxType = _sym_long;
+		SymbolPtr		maxType = _sym_long;
+		TTCString		nameCString = NULL;
+		SymbolPtr		nameMaxSymbol = NULL;
+		TTUInt32		nameSize = 0;
 		
 		v.get(i, &name);
 		if(name == TT("maxNumChannels") || name == TT("processInPlace"))
 			continue;	// don't expose these attributes to Max users
 		
 		o->findAttribute(name, &attr);
-
-		if(attr->type == kTypeFloat32)
+		
+		if (attr->type == kTypeFloat32)
 			maxType = _sym_float32;
-		else if(attr->type == kTypeFloat64)
+		else if (attr->type == kTypeFloat64)
 			maxType = _sym_float64;
-		else if(attr->type == kTypeSymbol || attr->type == kTypeString)
+		else if (attr->type == kTypeSymbol || attr->type == kTypeString)
 			maxType = _sym_symbol;
 		
-		class_addattr(wrappedMaxClass->maxClass, attr_offset_new((char*)name->getCString(), maxType, 0, (method)wrappedClass_attrGet, (method)wrappedClass_attrSet, NULL));
-
+		// convert first letter to lower-case if it isn't already
+		nameSize = name->getString().length();
+		nameCString = new char[nameSize+1];
+		strncpy_zero(nameCString, name->getCString(), nameSize+1);
+		if (nameCString[0]>64 && nameCString[0]<91)
+			nameCString[0] += 32;
+		nameMaxSymbol = gensym(nameCString);
+		
+		hashtab_store(wrappedMaxClass->maxAttrNamesToTTAttrNames, nameMaxSymbol, ObjectPtr(name));
+		class_addattr(wrappedMaxClass->maxClass, attr_offset_new(nameCString, maxType, 0, (method)wrappedClass_attrGet, (method)wrappedClass_attrSet, NULL));
+		
 		// Add display styles for the Max 5 inspector
-		if(attr->type == kTypeBoolean)
+		if (attr->type == kTypeBoolean)
 			CLASS_ATTR_STYLE(wrappedMaxClass->maxClass, (char*)name->getCString(), 0, "onoff");
+		if (name == TT("fontFace"))
+			CLASS_ATTR_STYLE(wrappedMaxClass->maxClass,	"fontFace", 0, "font");
 	}
 	
 	TTObjectRelease(&o);
 	
-	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreReset,			"multicore.reset",		A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreSetup,			"multicore.setup",		A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreReset,		"multicore.reset",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreSetup,		"multicore.setup",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreConnect,		"multicore.connect",	A_OBJ, A_LONG, 0);
     class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",				A_CANT, 0); 
 	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_assist, 	"assist",				A_CANT, 0L);
 	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,			"inletinfo",			A_CANT, 0);
