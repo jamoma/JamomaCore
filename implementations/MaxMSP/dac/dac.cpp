@@ -1,6 +1,6 @@
 /* 
  *	dac≈
- *	External object for Max/Lydbær
+ *	Jamoma Multicore external object for Max
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
@@ -11,30 +11,30 @@
 
 
 // Data Structure for this object
-struct LydDac {
-    t_object			obj;
-	MCoreObjectPtr	lydbaer;
+struct Dac {
+    t_object				obj;
+	TTMulticoreObjectPtr	multicoreObject;
 };
-typedef LydDac* LydDacPtr;
+typedef Dac* DacPtr;
 
 
 // Prototypes for methods
-LydDacPtr	lydDacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		lydDacFree(LydDacPtr x);
-void		lydDacAssist(LydDacPtr x, void* b, long msg, long arg, char* dst);
-TTErr		lydDacReset(LydDacPtr x, long vectorSize);
-TTErr		lydDacObject(LydDacPtr x, MCoreObjectPtr audioSourceObject, long sourceOutletNumber);
-TTErr		lydDacStart(LydDacPtr x);
-TTErr		lydDacStop(LydDacPtr x);
+DacPtr	DacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void	DacFree(DacPtr self);
+void	DacAssist(DacPtr self, void* b, long msg, long arg, char* dst);
+TTErr	DacReset(DacPtr self);
+TTErr	DacConnect(DacPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr	DacStart(DacPtr self);
+TTErr	DacStop(DacPtr self);
 // Prototypes for attribute accessors
-MaxErr		lydDacSetSampleRate(LydDacPtr x, void* attr, AtomCount argc, AtomPtr argv);
-MaxErr		lydDacGetSampleRate(LydDacPtr x, void* attr, AtomCount* argc, AtomPtr* argv);
-MaxErr		lydDacSetVectorSize(LydDacPtr x, void* attr, AtomCount argc, AtomPtr argv);
-MaxErr		lydDacGetVectorSize(LydDacPtr x, void* attr, AtomCount* argc, AtomPtr* argv);
+MaxErr	DacSetSampleRate(DacPtr self, void* attr, AtomCount argc, AtomPtr argv);
+MaxErr	DacGetSampleRate(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv);
+MaxErr	DacSetVectorSize(DacPtr self, void* attr, AtomCount argc, AtomPtr argv);
+MaxErr	DacGetVectorSize(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv);
 
 
 // Globals
-static ClassPtr sLydDacClass;
+static ClassPtr sDacClass;
 
 
 /************************************************************************************/
@@ -42,29 +42,29 @@ static ClassPtr sLydDacClass;
 
 int main(void)
 {
-	t_class *c;
+	ClassPtr c;
 	
 	TTMulticoreInit();	
 	common_symbols_init();
 	
-	c = class_new("dac≈", (method)lydDacNew, (method)lydDacFree, sizeof(LydDac), (method)0L, A_GIMME, 0);
+	c = class_new("dac≈", (method)DacNew, (method)DacFree, sizeof(Dac), (method)0L, A_GIMME, 0);
 	
-	class_addmethod(c, (method)lydDacStart,				"start",			0);
-	class_addmethod(c, (method)lydDacStop,				"stop",				0);
-	//class_addmethod(c, (method)lydDacNotify,			"notify",			A_CANT, 0);
-	class_addmethod(c, (method)lydDacReset,				"multicore.reset",	A_CANT, 0);
-	class_addmethod(c, (method)lydDacObject,			"multicore.signal",	A_OBJ, A_LONG, 0);
-	class_addmethod(c, (method)lydDacAssist,			"assist",			A_CANT, 0); 
-    class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
+	class_addmethod(c, (method)DacStart,			"start",				0);
+	class_addmethod(c, (method)DacStop,				"stop",					0);
+	//class_addmethod(c, (method)DacNotify,			"notify",				A_CANT, 0);
+	class_addmethod(c, (method)DacReset,			"multicore.reset",		A_CANT, 0);
+	class_addmethod(c, (method)DacConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)DacAssist,			"assist",				A_CANT, 0); 
+    class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
 	
-	CLASS_ATTR_LONG(c,		"sampleRate",	0,		LydDac,	obj);
-	CLASS_ATTR_ACCESSORS(c,	"sampleRate",	lydDacGetSampleRate,	lydDacSetSampleRate);
+	CLASS_ATTR_LONG(c,		"sampleRate",	0,		Dac,	obj);
+	CLASS_ATTR_ACCESSORS(c,	"sampleRate",	DacGetSampleRate,	DacSetSampleRate);
 	
-	CLASS_ATTR_LONG(c,		"vectorSize",	0,		LydDac,	obj);
-	CLASS_ATTR_ACCESSORS(c,	"vectorSize",	lydDacGetVectorSize,	lydDacSetVectorSize);
+	CLASS_ATTR_LONG(c,		"vectorSize",	0,		Dac,	obj);
+	CLASS_ATTR_ACCESSORS(c,	"vectorSize",	DacGetVectorSize,	DacSetVectorSize);
 	
 	class_register(_sym_box, c);
-	sLydDacClass = c;
+	sDacClass = c;
 	return 0;
 }
 
@@ -72,31 +72,31 @@ int main(void)
 /************************************************************************************/
 // Life Cycle
 
-LydDacPtr lydDacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
+DacPtr DacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-    LydDacPtr	x = LydDacPtr(object_alloc(sLydDacClass));
+    DacPtr		self = DacPtr(object_alloc(sDacClass));
 	TTValue		v;
 	TTErr		err;
 	
-    if(x){
+    if (self) {
 		v.setSize(2);
 		v.set(0, TT("multicore.output"));
 		v.set(1, 2);
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
+		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 
-		v = TTPtr(x->lydbaer);
-		x->lydbaer->audioObject->sendMessage(TT("setOwner"), v);
+		v = TTPtr(self->multicoreObject);
+		self->multicoreObject->mUnitGenerator->sendMessage(TT("setOwner"), v);
 
-		attr_args_process(x,argc,argv);
-		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));
+		attr_args_process(self, argc, argv);
+		object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));
 	}
-	return x;
+	return self;
 }
 
 
-void lydDacFree(LydDacPtr x)
+void DacFree(DacPtr self)
 {
-	TTObjectRelease((TTObjectPtr*)&x->lydbaer);
+	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
 }
 
 
@@ -104,28 +104,28 @@ void lydDacFree(LydDacPtr x)
 // Methods bound to input/inlets
 
 // Method for Assistance Messages
-void lydDacAssist(LydDacPtr x, void* b, long msg, long arg, char* dst)
+void DacAssist(DacPtr self, void* b, long msg, long arg, char* dst)
 {
-	if(msg==1)			// Inlets
+	if (msg==1)				// Inlets
 		strcpy(dst, "multichannel audio connection and control messages");		
-	else if(msg==2)		// Outlets
+	else if (msg==2)		// Outlets
 		strcpy(dst, "dumpout");
 }
 
 
-TTErr lydDacReset(LydDacPtr x, long vectorSize)
+TTErr DacReset(DacPtr self)
 {
-	return x->lydbaer->resetSources(vectorSize);
+	return self->multicoreObject->reset();
 }
 
 
-TTErr lydDacObject(LydDacPtr x, MCoreObjectPtr audioSourceObject, long sourceOutletNumber)
+TTErr DacConnect(DacPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return x->lydbaer->addSource(audioSourceObject, sourceOutletNumber);
+	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
 }
 
 
-TTErr lydDacStart(LydDacPtr x)
+TTErr DacStart(DacPtr self)
 {
 	MaxErr		err;
 	ObjectPtr	patcher = NULL;
@@ -134,51 +134,55 @@ TTErr lydDacStart(LydDacPtr x)
 	method		multicoreSetupMethod = NULL;
 	long		vectorSize;
 	
-	x->lydbaer->audioObject->getAttributeValue(TT("vectorSize"), vectorSize);
+	self->multicoreObject->mUnitGenerator->getAttributeValue(TT("vectorSize"), vectorSize);
 	
-	err = object_obex_lookup(x, gensym("#P"), &patcher);
+	err = object_obex_lookup(self, gensym("#P"), &patcher);
 	box = jpatcher_get_firstobject(patcher);
-	while(box) {
+	while (box) {
 		o = jbox_get_object(box);
 		multicoreSetupMethod = zgetfn(o, gensym("multicore.reset"));
-		if(multicoreSetupMethod)
+		if (multicoreSetupMethod)
 			err = (MaxErr)multicoreSetupMethod(o, vectorSize);
 		box = jbox_get_nextobject(box);
 	}
 	box = jpatcher_get_firstobject(patcher);
-	while(box) {
+	while (box) {
 		o = jbox_get_object(box);
 		multicoreSetupMethod = zgetfn(o, gensym("multicore.setup"));
-		if(multicoreSetupMethod)
+		if (multicoreSetupMethod)
 			err = (MaxErr)multicoreSetupMethod(o);
 		box = jbox_get_nextobject(box);
 	}
-		
-	return x->lydbaer->audioObject->sendMessage(TT("start"));
+	
+	TTMulticoreInitData	initData;
+	initData.vectorSize = vectorSize;
+	self->multicoreObject->init(initData);
+	
+	return self->multicoreObject->mUnitGenerator->sendMessage(TT("start"));
 }
 
 
-TTErr lydDacStop(LydDacPtr x)
+TTErr DacStop(DacPtr self)
 {	
-	return x->lydbaer->audioObject->sendMessage(TT("stop"));
+	return self->multicoreObject->mUnitGenerator->sendMessage(TT("stop"));
 }
 
 
 
-MaxErr lydDacSetSampleRate(LydDacPtr x, void* attr, AtomCount argc, AtomPtr argv)
+MaxErr DacSetSampleRate(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
-	if(argc){
+	if (argc) {
 		TTUInt32 sr = atom_getlong(argv);
-		x->lydbaer->audioObject->setAttributeValue(TT("sampleRate"), sr);
+		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("sampleRate"), sr);
 	}
 	return MAX_ERR_NONE;
 }
 
-MaxErr lydDacGetSampleRate(LydDacPtr x, void* attr, AtomCount* argc, AtomPtr* argv)
+MaxErr DacGetSampleRate(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long sr;
 	
-	x->lydbaer->audioObject->getAttributeValue(TT("sampleRate"), sr);
+	self->multicoreObject->mUnitGenerator->getAttributeValue(TT("sampleRate"), sr);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
@@ -188,20 +192,20 @@ MaxErr lydDacGetSampleRate(LydDacPtr x, void* attr, AtomCount* argc, AtomPtr* ar
 }
 
 
-MaxErr lydDacSetVectorSize(LydDacPtr x, void* attr, AtomCount argc, AtomPtr argv)
+MaxErr DacSetVectorSize(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
-	if(argc){
+	if (argc) {
 		TTUInt32 vs = atom_getlong(argv);
-		x->lydbaer->audioObject->setAttributeValue(TT("vectorSize"), vs);
+		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("vectorSize"), vs);
 	}
 	return MAX_ERR_NONE;
 }
 
-MaxErr lydDacGetVectorSize(LydDacPtr x, void* attr, AtomCount* argc, AtomPtr* argv)
+MaxErr DacGetVectorSize(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long vs;
 	
-	x->lydbaer->audioObject->getAttributeValue(TT("vectorSize"), vs);
+	self->multicoreObject->mUnitGenerator->getAttributeValue(TT("vectorSize"), vs);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
