@@ -1,6 +1,6 @@
 /* 
  *	filter≈
- *	External object for Max/Lydbaer
+ *	Filter object for Jamoma Multicore
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
@@ -9,8 +9,8 @@
 
 #include "maxMulticore.h"
 
-#define thisTTClass			TTFilter
-#define thisTTClassName		"filter"
+#define thisTTClass			TTMulticoreFilter
+#define thisTTClassName		"multicore.filter"
 #define thisTTClassTags		"audio, processor, filter, multicore"
 
 
@@ -18,47 +18,48 @@
 // For the filter≈ object, we wish to create our own class, 
 // which then encapsulates the various filters available in TTBlue.
 
-TTAUDIOCLASS(TTFilter)
+class TTMulticoreFilter : TTAudioObject {
+	TTCLASS_SETUP(TTMulticoreFilter)
 
 protected:
-	TTAudioObjectPtr	actualFilterObject;		///< The actual filter object that this object is currently wrapping
-	TTFloat64			frequency;				///< The center or cutoff frequency of the filter
-	TTFloat64			q;						///< The width of the filter
-	TTSymbolPtr			type;					///< The name of the current filter type
+	TTAudioObjectPtr	mActualFilterObject;	///< The actual filter object that this object is currently wrapping
+	TTFloat64			mFrequency;				///< The center or cutoff frequency of the filter
+	TTFloat64			mQ;						///< The width of the filter
+	TTSymbolPtr			mType;					///< The name of the current filter type
 	
 public:
 		
-	TTErr setfrequency(const TTValue& newValue)
+	TTErr setFrequency(const TTValue& newValue)
 	{	
-		frequency = newValue;
-		return actualFilterObject->setAttributeValue(TT("frequency"), frequency);
+		mFrequency = newValue;
+		return mActualFilterObject->setAttributeValue(TT("Frequency"), mFrequency);
 	}
 		
-	TTErr setq(const TTValue& newValue)
+	TTErr setQ(const TTValue& newValue)
 	{	
-		q = newValue;
-		return actualFilterObject->setAttributeValue(TT("q"), q);
+		mQ = newValue;
+		return mActualFilterObject->setAttributeValue(TT("Q"), mQ);
 	}
 		
-	TTErr settype(const TTValue& newValue)
+	TTErr setType(const TTValue& newValue)
 	{	
 		TTSymbolPtr newType = newValue;
 		TTErr		err = kTTErrNone;
 		
 		// if the type didn't change, then don't change the filter
-		if(newType == type)
+		if (newType == mType)
 			return kTTErrNone;
 		
-		type = newType;
-		err = TTObjectInstantiate(type, &actualFilterObject, maxNumChannels);			
-		if(!err){
+		mType = newType;
+		err = TTObjectInstantiate(mType, &mActualFilterObject, maxNumChannels);			
+		if (!err) {
 			// Now that we have our new filter, update it with the current state of the wrapper:
-			actualFilterObject->setAttributeValue(TT("frequency"), frequency);
-			err = actualFilterObject->setAttributeValue(TT("q"), q);
-			if(err == kTTErrInvalidAttribute)
-				err = actualFilterObject->setAttributeValue(TT("resonance"), q);
-			actualFilterObject->setAttributeValue(TT("bypass"), this->attrBypass);
-			actualFilterObject->setAttributeValue(TT("sr"), sr);
+			mActualFilterObject->setAttributeValue(TT("Frequency"), mFrequency);
+			err = mActualFilterObject->setAttributeValue(TT("Q"), mQ);
+			if (err == kTTErrInvalidAttribute)
+				err = mActualFilterObject->setAttributeValue(TT("Resonance"), mQ);
+			mActualFilterObject->setAttributeValue(TT("bypass"), this->attrBypass);
+			mActualFilterObject->setAttributeValue(TT("sr"), sr);
 		}
 		return err;
 	}
@@ -72,14 +73,14 @@ public:
 	
 	TTErr clear()
 	{
-		return actualFilterObject->sendMessage(TT("clear"));
+		return mActualFilterObject->sendMessage(TT("clear"));
 	}
 	
 	
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	{
-		if(actualFilterObject)
-			return actualFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+		if (mActualFilterObject)
+			return mActualFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
 		else
 			return kTTErrNone;
 	}
@@ -87,41 +88,44 @@ public:
 	
 	TTErr updateSr()
 	{
-		return actualFilterObject->setAttributeValue(kTTSym_sr, sr);
+		return mActualFilterObject->setAttributeValue(kTTSym_sr, sr);
 	}
 
 	
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
-		return actualFilterObject->process(inputs, outputs);
+		return mActualFilterObject->process(inputs, outputs);
 	}
 	
 };
 
 
 TT_AUDIO_CONSTRUCTOR_EXPORT,
-	actualFilterObject(NULL)
+	mActualFilterObject(NULL),
+	mFrequency(0),
+	mQ(0),
+	mType(NULL)
 {
-	registerAttributeWithSetter(frequency, kTypeFloat64);
-	registerAttributeWithSetter(q, kTypeFloat64);
-	registerAttributeWithSetter(type, kTypeSymbol);
+	addAttributeWithSetter(Frequency, kTypeFloat64);
+	addAttributeWithSetter(Q, kTypeFloat64);
+	addAttributeWithSetter(Type, kTypeSymbol);
 	
-	registerMessageWithArgument(getTypes);
-	registerMessageSimple(clear);
+	addMessageWithArgument(getTypes);
+	addMessage(clear);
 	
-	registerMessageWithArgument(updateMaxNumChannels);
-	registerMessageSimple(updateSr);
+	addMessageWithArgument(updateMaxNumChannels);
+	addMessage(updateSr);
 	
 	setAttributeValue(TT("maxNumChannels"), arguments);
-	setAttributeValue(TT("type"), TT("lowpass.1"));
-	setAttributeValue(TT("frequency"), 1000.0);
-	setAttributeValue(TT("q"), 1.0);
+	setAttributeValue(TT("Type"), TT("lowpass.1"));
+	setAttributeValue(TT("Frequency"), 1000.0);
+	setAttributeValue(TT("Q"), 1.0);
 	setProcessMethod(processAudio);
 }
 
 
 // Destructor
-TTFilter::~TTFilter()
+TTMulticoreFilter::~TTMulticoreFilter()
 {
 	;
 }
@@ -134,8 +138,8 @@ int main(void)
 	TTMulticoreInit();
 
 	// First, we have to register our custom subclass with the Jamoma Foundation runtime.
-	TTFilter::registerClass();
+	TTMulticoreFilter::registerClass();
 	
 	// Then we are able to wrap it as a Max class.
-	return wrapAsMaxbaer(TT("filter"), "filter≈", NULL);
+	return wrapAsMaxMulticore(TT("multicore.filter"), "filter≈", NULL);
 }
