@@ -31,7 +31,7 @@ TTErr	OutReset(OutPtr self, long vectorSize);
 TTErr	OutConnect(OutPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
 t_int*	OutPerform(t_int* w);
 void	OutDsp(OutPtr self, t_signal** sp, short* count);
-MaxErr	OutSetGain(OutPtr self, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr	OutSetGain(OutPtr self, void* attr, AtomCount argc, AtomPtr argv);
 
 
 // Globals
@@ -43,7 +43,7 @@ static ClassPtr sOutClass;
 
 int main(void)
 {
-	t_class *c;
+	ClassPtr c;
 
 	TTMulticoreInit();	
 	common_symbols_init();
@@ -87,15 +87,12 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 		
-//		We don't create this -- it is provided for us when we call getAudioSignal()
-//		TTObjectInstantiate(TT("audiosignal"), &self->audioSignal, self->maxNumChannels);
-
 		v.setSize(2);
 		v.set(0, TT("gain"));
 		v.set(1, 1); // arg is the number of inlets
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 		
-		attr_args_process(self, argc, argv);				// handle attribute args	
+		attr_args_process(self, argc, argv);
 		
     	object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));	// dumpout	
 	    dsp_setup((t_pxobject*)self, 1);
@@ -112,7 +109,6 @@ void OutFree(OutPtr self)
 {
 	dsp_free((t_pxobject*)self);
 	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
-//	TTObjectRelease((TTObjectPtr*)&self->audioSignal);
 }
 
 
@@ -150,7 +146,7 @@ t_int* OutPerform(t_int* w)
    	OutPtr		self = (OutPtr)(w[1]);
 	TTUInt16	numChannels;
 	
-	if (!self->obj.z_disabled) {// && self->multicoreObject->numSources) {
+	if (!self->obj.z_disabled) {
 		self->multicoreObject->preprocess();
 		self->multicoreObject->process(self->audioSignal);
 		
@@ -175,20 +171,24 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 	
 	self->vectorSize = sp[0]->s_n;
 	
-	/*	We need to figure out what objects are connected to what inlets to build the graph.
-		This is tricky, as there is no way to simply ask our inlets what are connected to them.
-		So here is what we do:
+	/*	We need to figure out what objects are connected to what inlets to build the graph:
 		
-		1. Broadcast a message to every object in the patcher.  Something like 'multicore.setup'.
-		2. This message is then handled by all objects that understand it by passing a 'multicoreObjectObject'
-			message down to the next object(s) below them.
+		1. Broadcast 'multicore.reset' to every object in the patcher, to remove all existing connections.
+		2. Broadcast 'multicore.setup' to every object in the patcher, to tell objects to then send
+			'multicore.connect' messages to any objects below them.
+		3. When an object received 'multicore.connect', then it makes the connection.
 		
-		Thus, after this has happened every object will know about the object above it in the graph,
-		and we will then be able to pull audio from them.
+		4. Crawl the graph from bottom to top, call the multicore init method
+
+		At this point, the graph is configured and we just need to execute it.
+		We execute the graph from our perform method, which MSP calls once per signal vector.
 	 
+		5. Crawl the graph from bottom to top, calling the multicore preprocess method (prepare for process)
+		6. Crawl the graph from bottom to top, calling the multicore process method (calculate the samples)
+		7. (Maybe) crawl the graph from bottom to top, calling a multicore postprocess method
 	 
-		***
-		We have to traverse twice, because we have to clear all connections first, then add connections.
+		For steps 1 & 2, we have to traverse thge patcher twice, 
+		because we have to clear all connections first, then add connections.
 		It won't work to do them both during the same traversal because situations arise
 		Where we setup the chain and then it gets reset again by another object 
 		(since the order in which we traverse objects is undefined).
@@ -224,9 +224,6 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 		k++;
 	}
 	
-//	self->audioSignal->setAttributeValue(TT("numChannels"), self->maxNumChannels);
-//	self->audioSignal->setAttributeValue(TT("vectorSize"), self->vectorSize);
-//	self->audioSignal->sendMessage(TT("alloc"));
 	self->multicoreObject->mUnitGenerator->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	
 	dsp_addv(OutPerform, k, audioVectors);
@@ -238,7 +235,7 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 }
 
 
-MaxErr OutSetGain(OutPtr self, void *attr, AtomCount argc, AtomPtr argv)
+MaxErr OutSetGain(OutPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->gain = atom_getfloat(argv);

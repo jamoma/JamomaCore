@@ -28,8 +28,8 @@ void   	OpAssist		(OpPtr self, void* b, long msg, long arg, char* dst);
 TTErr  	OpReset			(OpPtr self, long vectorSize);
 TTErr  	OpSetup			(OpPtr self);
 TTErr  	OpConnect		(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
-MaxErr 	OpSetOperator	(OpPtr self, void *attr, AtomCount argc, AtomPtr argv);
-MaxErr 	OpSetOperand	(OpPtr self, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr 	OpSetOperator	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
+MaxErr 	OpSetOperand	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
 
 
 // Globals
@@ -77,7 +77,7 @@ OpPtr OpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
     self = OpPtr(object_alloc(sOpClass));
     if (self) {
-    	object_obex_store((void*)self, _sym_dumpout, (ObjectPtr)outlet_new(self,NULL));	// dumpout	
+    	object_obex_store((void*)self, _sym_dumpout, (ObjectPtr)outlet_new(self, NULL));	// dumpout	
 		self->outlet = outlet_new(self, "multicore.connect");
 		
 		v.setSize(2);
@@ -124,7 +124,6 @@ void OpAssist(OpPtr self, void* b, long msg, long arg, char* dst)
 
 TTErr OpReset(OpPtr self, long vectorSize)
 {
-//	return self->multicoreObject->reset(vectorSize);
 	return self->multicoreObject->reset();
 }
 
@@ -148,7 +147,7 @@ TTErr OpConnect(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceO
 
 // ATTRIBUTE SETTERS
 
-MaxErr OpSetOperator(OpPtr self, void *attr, AtomCount argc, AtomPtr argv)
+MaxErr OpSetOperator(OpPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrOperator = atom_getsym(argv);
@@ -158,7 +157,7 @@ MaxErr OpSetOperator(OpPtr self, void *attr, AtomCount argc, AtomPtr argv)
 }
 
 
-MaxErr OpSetOperand(OpPtr self, void *attr, AtomCount argc, AtomPtr argv)
+MaxErr OpSetOperand(OpPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrOperand = atom_getfloat(argv);

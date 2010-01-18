@@ -14,9 +14,9 @@ struct In {
     t_pxobject				obj;
 	TTMulticoreObjectPtr	multicoreObject;
 	TTPtr					multicoreObjectOutlet;
-	TTUInt32				maxNumChannels;	// the number of inlets or outlets, which is an argument at instantiation
-	TTUInt32				numChannels;	// the actual number of channels to use, set by the dsp method
-	TTUInt32				vectorSize;		// cached by the DSP method
+	TTUInt32				maxNumChannels;			// the number of inlets or outlets, which is an argument at instantiation
+	TTUInt32				numChannels;			// the actual number of channels to use, set by the dsp method
+	TTUInt32				vectorSize;				// cached by the DSP method
 };
 typedef In* InPtr;
 
@@ -30,7 +30,7 @@ TTErr	InSetup(InPtr self);
 TTErr	InObject(InPtr self, TTMulticoreObjectPtr audioSourceObject);
 t_int*	InPerform(t_int* w);
 void	InDsp(InPtr self, t_signal** sp, short* count);
-MaxErr	InSetGain(InPtr self, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr	InSetGain(InPtr self, void* attr, AtomCount argc, AtomPtr argv);
 
 
 // Globals
@@ -42,7 +42,7 @@ static ClassPtr sInClass;
 
 int main(void)
 {
-	t_class *c;
+	ClassPtr c;
 	
 	TTMulticoreInit();	
 	common_symbols_init();
@@ -81,12 +81,8 @@ InPtr InNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 
-//		v.setSize(2);
 		v.setSize(1);
 		v.set(0, TT("multicore.generator"));
-//		v.set(1, self->maxNumChannels);
-//		v.set(1, self->maxNumChannels);
-// CHANGED: the above changed because we specify the number of inlets and outlets, not the number of channels
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 		self->multicoreObject->addFlag(kTTMulticoreGenerator);
 
@@ -178,13 +174,11 @@ void InDsp(InPtr self, t_signal** sp, short* count)
 	k++;
 	
 	self->numChannels = 0;
-	for(i=0; i < self->maxNumChannels; i++){
+	for (i=0; i < self->maxNumChannels; i++) {
 		self->numChannels++;				
 		audioVectors[k] = sp[i]->s_vec;
 		k++;
 	}
-	
-//	self->multicoreObject->setMaxNumChannels(self->maxNumChannels);
 	
 	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->setAttributeValue(TT("maxNumChannels"), self->maxNumChannels);
 	TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->setAttributeValue(TT("numChannels"), self->maxNumChannels);

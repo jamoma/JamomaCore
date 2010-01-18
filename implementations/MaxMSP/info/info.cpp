@@ -21,7 +21,6 @@ typedef struct Info {
 	long					maxNumChannels;		// the number of inlets or outlets, which is an argument at instantiation
 	long					numChannels;		// the actual number of channels to use, set by the dsp method
 	long					vectorSize;			// cached by the DSP method
-	float					gain;				// gain multiplier
 	TTPtr					qelem;				// a queue for deferring 'bang' calls
 };
 typedef Info* InfoPtr;
@@ -74,20 +73,18 @@ InfoPtr InfoNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
    
     self = InfoPtr(object_alloc(sInfoClass));
     if (self) {
-    	object_obex_store((TTPtr)self, _sym_dumpout, (ObjectPtr)outlet_new(self, NULL));	// dumpout	
-		self->outletNumChannels = outlet_new((t_pxobject*)self, 0L);;
-		self->outletVectorSize = outlet_new((t_pxobject*)self, 0L);;
-		self->outletSampleRate = outlet_new((t_pxobject*)self, 0L);;
+    	object_obex_store((TTPtr)self, _sym_dumpout, (ObjectPtr)outlet_new(self, NULL));
+		self->outletNumChannels = outlet_new((t_pxobject*)self, 0);
+		self->outletVectorSize = outlet_new((t_pxobject*)self, 0);
+		self->outletSampleRate = outlet_new((t_pxobject*)self, 0);
 
 		self->qelem = qelem_new(self, (method)InfoQfn);
-		
-		attr_args_process(self, argc, argv);				// handle attribute args	
-				
+		attr_args_process(self, argc, argv);
 	}
 	return self;
 }
 
-// Memory Deallocation
+
 void InfoFree(InfoPtr self)
 {
 	qelem_free(self->qelem);
