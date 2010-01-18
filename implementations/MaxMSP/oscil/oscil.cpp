@@ -19,6 +19,7 @@ typedef struct Oscil {
 	SymbolPtr				attrInterpolation;
 	float					attrFrequency;
 	float					attrGain;
+	long					attrNumChannels;
 };
 typedef Oscil* OscilPtr;
 
@@ -33,6 +34,7 @@ MaxErr		OscilSetMode(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr		OscilSetInterpolation(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr		OscilSetFrequency(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr		OscilSetGain(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv);
+MaxErr		OscilSetNumChannels(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv);
 
 
 // Globals
@@ -67,6 +69,9 @@ int main(void)
 	
 	CLASS_ATTR_FLOAT(c,		"gain",				0,		Oscil,	attrGain);
 	CLASS_ATTR_ACCESSORS(c,	"gain",				NULL,	OscilSetGain);
+	
+	CLASS_ATTR_LONG(c,		"numchannels",		0,		Oscil,	attrNumChannels);
+	CLASS_ATTR_ACCESSORS(c,	"numchannels",		NULL,	OscilSetNumChannels);
 
 	class_register(_sym_box, c);
 	sOscilClass = c;
@@ -179,4 +184,13 @@ MaxErr OscilSetGain(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv)
 	return MAX_ERR_NONE;
 }
 
+
+MaxErr OscilSetNumChannels(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv)
+{
+	if (argc) {
+		self->attrNumChannels = atom_getlong(argv);
+		self->multicoreObject->setOutputNumChannels(0, self->attrNumChannels);
+	}
+	return MAX_ERR_NONE;
+}
 

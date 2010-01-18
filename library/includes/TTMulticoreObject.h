@@ -50,11 +50,6 @@ public:
 	}
 	
 	
-	//	void setMaxNumChannels(TTUInt16 maxNumChannels)
-//	{
-//		mInputSignals->setAllMaxNumChannels(maxNumChannels);
-//		mOutputSignals->setAllMaxNumChannels(maxNumChannels);
-//	}
 	TTUInt16 getOutputNumChannels(TTUInt16 forOutletNumber)
 	{
 		if (forOutletNumber < mOutputSignals->numAudioSignals) {
@@ -64,6 +59,19 @@ public:
 		else
 			return 0;
 	}
+	
+	void setOutputNumChannels(TTUInt16 forOutletNumber, TTUInt16 numChannels)
+	{
+		if (forOutletNumber < mOutputSignals->numAudioSignals) {
+			TTAudioSignalPtr	audioSignal = &mOutputSignals->getSignal(forOutletNumber);
+			TTValue				v(numChannels);
+			
+			// TODO: should not update MaxNumChannels unless we are growing it larger...
+			audioSignal->setmaxNumChannels(v);
+			audioSignal->setnumChannels(v);
+		}
+	}
+	
 	
 	TTUInt16 getOutputVectorSize(TTUInt16 forOutletNumber)
 	{

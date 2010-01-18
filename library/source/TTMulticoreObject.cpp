@@ -42,8 +42,6 @@ TT_OBJECT_CONSTRUCTOR,
 		arguments.get(2, numOutlets);
 	
 	err = TTObjectInstantiate(wrappedObjectName, &mUnitGenerator, initialNumChannels);
-//	err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mInputSignals, initialNumChannels);
-//	err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mOutputSignals, initialNumChannels);
 	err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mInputSignals, numInlets);
 	err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mOutputSignals, numOutlets);
 	
