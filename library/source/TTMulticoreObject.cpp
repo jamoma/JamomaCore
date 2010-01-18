@@ -42,8 +42,10 @@ TT_OBJECT_CONSTRUCTOR,
 		arguments.get(2, numOutlets);
 	
 	err = TTObjectInstantiate(wrappedObjectName, &mUnitGenerator, initialNumChannels);
-	err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mInputSignals, initialNumChannels);
-	err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mOutputSignals, initialNumChannels);
+//	err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mInputSignals, initialNumChannels);
+//	err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mOutputSignals, initialNumChannels);
+	err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mInputSignals, numInlets);
+	err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mOutputSignals, numOutlets);
 	
 	mInlets.resize(numInlets);
 	mOutlets.resize(numOutlets);
@@ -147,10 +149,20 @@ TTErr TTMulticoreObject::init(const TTMulticoreInitData& initData)
 	for (TTMulticoreInletIter inlet = mInlets.begin(); inlet != mInlets.end(); inlet++)
 		inlet->init(initData);
 	
-	if (mFlags & kTTMulticoreGenerator)
+	if (mFlags & kTTMulticoreGenerator) {
+		for (int i=0; i < mOutputSignals->getMaxNumAudioSignals(); i++) {
+			if (!(&mOutputSignals->getSignal(i))) {
+				TTAudioSignalPtr aSignal = NULL;
+
+				// TODO: why always generate just 1 channel?
+				TTObjectInstantiate(kTTSym_audiosignal, &aSignal, kTTVal1);
+				mOutputSignals->setSignal(i, aSignal);
+			}
+		}
 		mOutputSignals->allocAllWithVectorSize(initData.vectorSize);
 // TODO: do we need to set num channels here too?
-		
+	}
+	
 	// What follows is a bit ugly (including code duplication) and should be reviewed:
 	// The sidechain situation makes this even more complex...
 	// For now we make the dubious assumption that sidechains are going to follow along
@@ -238,7 +250,6 @@ TTErr TTMulticoreObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 forO
 			mStatus = kTTMulticoreProcessingCurrently;
 			
 			if (mFlags & kTTMulticoreGenerator) {			// a generator (or no input)
-//				mUnitGenerator->process(mOutputSignals);
 				mUnitGenerator->process(mInputSignals, mOutputSignals);
 			}
 			else {											// a processor
