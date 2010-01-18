@@ -120,7 +120,7 @@ void OpAssist(OpPtr self, void* b, long msg, long arg, char* dst)
 }
 
 
-// METHODS SPECIFIC TO LYDBAER EXTERNALS
+// METHODS SPECIFIC TO MULTICORE EXTERNALS
 
 TTErr OpReset(OpPtr self, long vectorSize)
 {

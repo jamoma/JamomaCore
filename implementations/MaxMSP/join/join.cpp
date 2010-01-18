@@ -1,6 +1,6 @@
 /* 
  *	join≈
- *	External object for Max/Lydbaer
+ *	External object for Jamoma Multicore
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
@@ -8,6 +8,7 @@
  */
 
 #include "maxMulticore.h"
+
 #define thisTTClass TTJoin
 
 
@@ -32,7 +33,6 @@ public:
 		;
 	}
 	
-	
 	// If only one signal is provided, then duplicate it onto a second set of channels
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
@@ -40,29 +40,25 @@ public:
 		TTAudioSignal&	out = outputs->getSignal(0);
 		TTUInt16		numChannels = in1.getNumChannels();
 
-		if(inputs->numAudioSignals == 1){
-			
+		if (inputs->numAudioSignals == 1) {	
 			TTAudioSignal::copy(in1, out, 0);
 			TTAudioSignal::copy(in1, out, numChannels);
 		}
-		else if(inputs->numAudioSignals == 2){ // can't assume 2 input signals -- what if there are zero for example?	
+		else if (inputs->numAudioSignals == 2) { // can't assume 2 input signals -- what if there are zero for example?	
 			TTAudioSignal&	in2 = inputs->getSignal(1);
 			
 			TTAudioSignal::copy(in1, out, 0);
 			TTAudioSignal::copy(in2, out, numChannels);
 		}
-		
 		return kTTErrNone;
 	}
 };
-
 
 
 TTObjectPtr instantiateTTJoin(TTSymbolPtr className, TTValue& arguments)
 {
 	return new TTJoin(arguments);
 }
-
 
 
 int main(void)
@@ -81,7 +77,7 @@ int main(void)
 	value.append(2);
 	options->append(TT("channelRatioInputToOutput"), value);
 	
-	TTClassRegister(TT("join"), "audio, lydbaer", &instantiateTTJoin);
+	TTClassRegister(TT("join"), "audio, multicore", &instantiateTTJoin);
 	return wrapAsMaxbaer(TT("join"), "join≈", NULL, options);
 }
 

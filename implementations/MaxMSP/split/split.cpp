@@ -1,6 +1,6 @@
 /* 
  *	split≈
- *	External object for Max/Lydbaer
+ *	External object for Jamoma Multicore
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
@@ -8,6 +8,7 @@
  */
 
 #include "maxMulticore.h"
+
 #define thisTTClass TTSplit
 
 
@@ -50,16 +51,13 @@ public:
 		out2.setnumChannels(in.getNumChannels() - splitChannel);
 		return kTTErrNone;
 	}
-	
 };
-
 
 
 TTObjectPtr instantiateTTSplit(TTSymbolPtr className, TTValue& arguments)
 {
 	return new TTSplit(arguments);
 }
-
 
 
 int main(void)
@@ -74,7 +72,7 @@ int main(void)
 	options->append(TT("additionalSignalOutputs"), value);
 	options->append(TT("alwaysUseSidechain"), value);
 
-	TTClassRegister(TT("split"), "audio, lydbaer", &instantiateTTSplit);
+	TTClassRegister(TT("split"), "audio, multicore", &instantiateTTSplit);
 	return wrapAsMaxbaer(TT("split"), "split≈", NULL, options);
 }
 
