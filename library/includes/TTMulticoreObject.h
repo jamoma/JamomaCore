@@ -69,7 +69,7 @@ public:
 	{
 		if (forOutletNumber < mOutputSignals->numAudioSignals) {
 			TTAudioSignalPtr audioSignal = &mOutputSignals->getSignal(forOutletNumber);
-			return audioSignal->getNumChannels();
+			return audioSignal->getVectorSize();
 		}
 		else
 			return 0;
