@@ -203,8 +203,10 @@ public:
 		
 		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
 			err |= (*source).process(foo);
-			if (mClean)
+			if (mClean) {
 				(*mBufferedInput) = (*foo);
+				mClean = NO;
+			}
 			else
 				(*mBufferedInput) += (*foo);
 		}
