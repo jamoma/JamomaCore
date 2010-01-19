@@ -36,6 +36,7 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 	TTErr				err = kTTErrNone;
 	TTUInt8				numInputs = 1;
 	TTUInt8				numOutputs = 1;
+ 	long				attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	
 	// Find the WrappedClass
 	hashtab_lookup(wrappedMaxClasses, name, (ObjectPtr*)&wrappedMaxClass);
@@ -54,8 +55,13 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 	if (!err)
 		self = (WrappedInstancePtr)object_alloc(wrappedMaxClass->maxClass);
     if (self){
-//		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalInputs"), v))
-//			numInputs += TTUInt8(v);
+
+		if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("argumentDefinesNumInlets"), v)) {
+			long argumentOffsetToDefineTheNumberOfInlets = v;
+			if ((attrstart-argumentOffsetToDefineTheNumberOfInlets > 0) && argv+argumentOffsetToDefineTheNumberOfInlets)
+				numInputs = atom_getlong(argv+argumentOffsetToDefineTheNumberOfInlets);
+		}
+
 		for (TTUInt8 i=0; i<numInputs-1; i++)
 			self->inlets[i] = proxy_new(self, i+1, NULL);
 		
@@ -66,9 +72,10 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 			self->multicoreOutlets[i] = outlet_new(self, "multicore.connect");
 
 		self->wrappedClassDefinition = wrappedMaxClass;
-		v.setSize(2);
+		v.setSize(3);
 		v.set(0, wrappedMaxClass->ttClassName);
-		v.set(1., 1.);
+		v.set(1, numInputs);
+		v.set(2, numOutputs);
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 		
 //		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("channelRatioInputToOutput"), v)){

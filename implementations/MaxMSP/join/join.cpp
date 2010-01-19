@@ -9,75 +9,68 @@
 
 #include "maxMulticore.h"
 
-#define thisTTClass TTJoin
+#define thisTTClass			TTMulticoreJoin
+#define thisTTClassName		"multicore.join"
+#define thisTTClassTags		"audio, multicore"
 
 
-
-/**	The join≈ object takes two input signals and combines them
+/**	The join≈ object takes N input signals and combines them
 	into a single signal with all of the channels present.
 */
-class TTJoin : public TTAudioObject {	
+class TTMulticoreJoin : public TTAudioObject {
+	TTCLASS_SETUP(TTMulticoreJoin)
+	
 public:
 	
-	// Constructor
-	TTJoin(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("join", newMaxNumChannels)
-	{		
-		setAttributeValue(TT("maxNumChannels"), newMaxNumChannels);		
-		setProcessMethod(processAudio);
-	}
-	
-	// Destructor
-	virtual ~TTJoin()
-	{
-		;
-	}
-	
-	// If only one signal is provided, then duplicate it onto a second set of channels
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
-		TTAudioSignal&	in1 = inputs->getSignal(0);
+		TTUInt16		numSignals = inputs->numAudioSignals;
+		TTUInt16		numAccumulatedChannels = 0;
 		TTAudioSignal&	out = outputs->getSignal(0);
-		TTUInt16		numChannels = in1.getNumChannels();
-
-		if (inputs->numAudioSignals == 1) {	
-			TTAudioSignal::copy(in1, out, 0);
-			TTAudioSignal::copy(in1, out, numChannels);
-		}
-		else if (inputs->numAudioSignals == 2) { // can't assume 2 input signals -- what if there are zero for example?	
-			TTAudioSignal&	in2 = inputs->getSignal(1);
+		
+		for (TTUInt16 i=0; i<numSignals; i++) {
+			TTAudioSignal&	in = inputs->getSignal(i);
 			
-			TTAudioSignal::copy(in1, out, 0);
-			TTAudioSignal::copy(in2, out, numChannels);
+			if (numAccumulatedChannels + in.getNumChannels() > out.getMaxNumChannels())
+				out.setAttributeValue(kTTSym_maxNumChannels, numAccumulatedChannels + in.getNumChannels() + 2); 
+				// The + 2 above is for padding so that if we come through again then we potentially won't have to alloc memory yet again...
+
+			if (numAccumulatedChannels + in.getNumChannels() > out.getNumChannels())
+				out.setAttributeValue(kTTSym_numChannels, numAccumulatedChannels + in.getNumChannels());
+			
+			TTAudioSignal::copy(in, out, numAccumulatedChannels);
+			numAccumulatedChannels += in.getNumChannels();
 		}
 		return kTTErrNone;
 	}
+	
 };
 
 
-TTObjectPtr instantiateTTJoin(TTSymbolPtr className, TTValue& arguments)
+TT_AUDIO_CONSTRUCTOR_EXPORT
 {
-	return new TTJoin(arguments);
+	setAttributeValue(TT("maxNumChannels"), arguments);		
+	setProcessMethod(processAudio);
 }
 
+
+// Destructor
+TTMulticoreJoin::~TTMulticoreJoin()
+{
+	;
+}
+
+
+/*******************************************************************************/
 
 int main(void)
 {
 	WrappedClassOptionsPtr	options = new WrappedClassOptions;
-	TTValue					value;
+	TTValue					value(0);
 
 	TTMulticoreInit();
+	TTMulticoreJoin::registerClass();
 	
-	value.clear();
-	value.append(1);	
-	options->append(TT("additionalSignalInputs"), value);
-
-	value.clear();
-	value.append(1);
-	value.append(2);
-	options->append(TT("channelRatioInputToOutput"), value);
-	
-	TTClassRegister(TT("join"), "audio, multicore", &instantiateTTJoin);
-	return wrapAsMaxbaer(TT("join"), "join≈", NULL, options);
+	options->append(TT("argumentDefinesNumInlets"), value);
+	return wrapAsMaxMulticore(TT("multicore.join"), "join≈", NULL, options);
 }
-

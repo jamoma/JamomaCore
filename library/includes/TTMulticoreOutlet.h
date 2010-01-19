@@ -19,6 +19,7 @@
 	TTMulticoreObject maintains a vector of these outlets.
 */
 class TTMulticoreOutlet {
+	friend class TTMulticoreObject;
 	TTAudioSignalPtr		mBufferedOutput;	
 	
 public:

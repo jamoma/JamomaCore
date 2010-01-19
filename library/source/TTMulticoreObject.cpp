@@ -18,8 +18,8 @@
 
 //	Arguments
 //	1. (required) The name of the Jamoma DSP object you want to wrap
-//	2. (optional) Number of inlets, default = 1 */
-//	3. (optional) Number of outlets, default = 1 */
+//	2. (optional) Number of inlets, default = 1
+//	3. (optional) Number of outlets, default = 1
 
 TT_OBJECT_CONSTRUCTOR,
 	mFlags(kTTMulticoreProcessor), 
@@ -46,27 +46,19 @@ TT_OBJECT_CONSTRUCTOR,
 	err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mOutputSignals, numOutlets);
 	
 	mInlets.resize(numInlets);
+	mInputSignals->setMaxNumAudioSignals(mInlets.size());
+	mInputSignals->numAudioSignals = mInlets.size();		// TODO: this array num signals access is kind of clumsy and inconsistent [tap]
+
 	mOutlets.resize(numOutlets);
-	
-	// Graph Configuration
-	// addMessage(reset);						// zero the state of the graph, forget all connections
-	// addMessage(setup);						// send 'connect' messages to any objects below us in the graph
-	// addMessageWithArgument(connect);		// add a connection from a source provided in the argument
-	// addMessage(init);						// knowing the graph, do preparations
+	mOutputSignals->setMaxNumAudioSignals(mOutlets.size());
+	mOutputSignals->numAudioSignals = mOutlets.size();
+
 	addMessageWithArgument(objectFreeing);	// called when one of our input source objects is deleted
-	
-	// Graph Processing
-	// addMessage(preprocess);
-	// addMessage(process);
 }
 
 
 TTMulticoreObject::~TTMulticoreObject()
 {
-//	for (TTUInt16 i=0; i<numSources; i++) {
-//		if (audioSources[i]->valid)
-//			audioSources[i]->unregisterObserverForNotifications(*this);
-//	}
 	TTObjectRelease(&mUnitGenerator);
 	TTObjectRelease((TTObjectPtr*)&mInputSignals);
 	TTObjectRelease((TTObjectPtr*)&mOutputSignals);
@@ -75,9 +67,10 @@ TTMulticoreObject::~TTMulticoreObject()
 
 TTErr TTMulticoreObject::objectFreeing(const TTValue& theObjectBeingDeleted)
 {
-	TTObjectPtr o = theObjectBeingDeleted;
-	TTBoolean	found = NO;
+	//TTObjectPtr o = theObjectBeingDeleted;
+	//TTBoolean	found = NO;
 	TTBoolean	oldValid = valid;
+	
 	// This is an ugly operation
 	// the problem is that we don't want to traverse a linked-list in the processing chain
 	
@@ -85,21 +78,11 @@ TTErr TTMulticoreObject::objectFreeing(const TTValue& theObjectBeingDeleted)
 	while(getlock())
 		;
 
-// TODO: come back to this...
-//	for (TTUInt16 i=0; i<(numSources-1); i++) {
-//		if (audioSources[i] == o)
-//			found = YES;
-//		if (found)
-//			audioSources[i] = audioSources[i+1];
-//	}
-//	
-//	audioSources[numSources-1] = 0;
-//	numSources--;
+	// TODO: handle the graph update/change here...
 	
 	valid = oldValid;
 	return kTTErrNone;
 }
-
 
 
 TTErr TTMulticoreObject::setAudioOutputPtr(TTAudioSignalArrayPtr newOutputPtr)
@@ -117,13 +100,7 @@ TTErr TTMulticoreObject::setAudioOutputPtr(TTAudioSignalArrayPtr newOutputPtr)
 
 TTErr TTMulticoreObject::reset()
 {
-	for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::reset));
-		
-	// Generators will not receive a 'connect' call, 
-	// so we set them with the 'default' vector size provided by the global reset/	// if (mFlags & kTTMulticoreGenerator)
-	//	audioOutput->allocWithVectorSize(vs);
-	// CHANGED: moving the vector size thing to 'init' so it can be better scoped
-	
+	for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::reset));		
 	return kTTErrNone;
 }
 
@@ -136,64 +113,37 @@ TTErr TTMulticoreObject::connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOut
 
 TTErr TTMulticoreObject::init(const TTMulticoreInitData& initData)
 {
-//	TTUInt16	sourceProducesNumChannels;
-//	TTUInt16	weDeliverNumChannels;
+	int i;
 	
 	lock();
 	
 	// init objects higher up in the chain first
-	// for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::init));
-	// CHANGED: don't know how to pass the argument with for_each...
 	for (TTMulticoreInletIter inlet = mInlets.begin(); inlet != mInlets.end(); inlet++)
 		inlet->init(initData);
 	
+	// FIXME: THIS IS REALLY MESSED UP!
+	// output signals are instantiated by the outlets -- so we should not be instantiating them here!
+	
 	if (mFlags & kTTMulticoreGenerator) {
-		for (int i=0; i < mOutputSignals->getMaxNumAudioSignals(); i++) {
-			if (!(&mOutputSignals->getSignal(i))) {
-				TTAudioSignalPtr aSignal = NULL;
-
-				// TODO: why always generate just 1 channel?
-				TTObjectInstantiate(kTTSym_audiosignal, &aSignal, kTTVal1);
-				mOutputSignals->setSignal(i, aSignal);
-			}
+		i = 0;
+		for (TTMulticoreOutletIter outlet = mOutlets.begin(); outlet != mOutlets.end(); outlet++) {
+			mOutputSignals->setSignal(i, outlet->mBufferedOutput);
+			i++;
 		}
+		
+//		for (int i=0; i < mOutputSignals->getMaxNumAudioSignals(); i++) {
+//			if (!(&mOutputSignals->getSignal(i))) {
+//				TTAudioSignalPtr aSignal = NULL;
+//
+//				// TODO: why always generate just 1 channel?
+//				TTObjectInstantiate(kTTSym_audiosignal, &aSignal, kTTVal1);
+//				mOutputSignals->setSignal(i, aSignal);
+//			}
+//		}
 		mOutputSignals->allocAllWithVectorSize(initData.vectorSize);
 // TODO: do we need to set num channels here too?
 	}
 	
-	// What follows is a bit ugly (including code duplication) and should be reviewed:
-	// The sidechain situation makes this even more complex...
-	// For now we make the dubious assumption that sidechains are going to follow along
-	// and be set up just like the normal audio inputs.
-	
-//	if (numSources && audioSources) {
-		// match our source's vector size and number of channels
-//		sourceProducesNumChannels = initAudioSignal(mInputSignal, audioSources[0]);
-		
-		// while it make sense to always match the input of this object to the output of the previous object (as above)
-		// we might want to have a different number of outputs here -- how should we handle that?
-		// for now we are just matching them more or less...		
-//		weDeliverNumChannels = sourceProducesNumChannels * TTLimitMin<TTFloat32>(inChansToOutChansRatio[1] / inChansToOutChansRatio[0], 1);
-//		mOutputSignal->setmaxNumChannels(weDeliverNumChannels);
-//		mOutputSignal->setnumChannels(weDeliverNumChannels);
-
-		// for generators, these are already alloc'd in the reset method
-//		mInputSignal->allocWithVectorSize(audioSources[0]->audioOutput->getVectorSize());
-//		mOutputSignal->allocWithVectorSize(audioSources[0]->audioOutput->getVectorSize());		
-//	}
-//	else {
-//		sourceProducesNumChannels = 0;
-//		weDeliverNumChannels = getNumOutputChannels();
-//	}
-	
-	// Even more ambiguous, what do we do for the acual audio object?  
-	// For now we are setting it to the higher of the two options to be safe.
-	// (and we are not taking sidechains into account at all
-//	if (weDeliverNumChannels > sourceProducesNumChannels)
-//		mUnitGenerator->setMaxNumChannels(weDeliverNumChannels);
-//	else
-//		mUnitGenerator->setMaxNumChannels(sourceProducesNumChannels);
-
 	unlock();
 	return kTTErrNone;
 }
@@ -207,12 +157,7 @@ TTErr TTMulticoreObject::preprocess()
 		TTUInt16			index = 0;
 		
 		mStatus = kTTMulticoreProcessNotStarted;		
-		mInputSignals->setMaxNumAudioSignals(mInlets.size());
-		mInputSignals->numAudioSignals = mInlets.size();		// TODO: this array num signals access is kind of clumsy and inconsistent [tap]
 
-		// for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::preprocess));
-		// CHANGED: I changed the above to use a simple for loop -- maybe there is a way to still do it with an STL algorithm? [tap]
-		
 		for (TTMulticoreInletIter inlet = mInlets.begin(); inlet != mInlets.end(); inlet++) {
 			inlet->preprocess();
 			audioSignal = inlet->getBuffer(); // TODO: It seems like we can just cache this once when we init the graph, because the number of inlets cannot change on-the-fly
@@ -220,10 +165,6 @@ TTErr TTMulticoreObject::preprocess()
 			index++;
 		}
 		
-		// TODO: it also silly to do this every vector... We should just set this once, possibly in the constructor.
-		mOutputSignals->setMaxNumAudioSignals(mOutlets.size());
-		mOutputSignals->numAudioSignals = mOutlets.size();
-
 		if (!(mFlags & kTTMulticoreGenerator)) { // For now, we will just assume that generators have set this up manually, hopefully that's actually true...
 			index = 0;
 			for (TTMulticoreOutletIter outlet = mOutlets.begin(); outlet != mOutlets.end(); outlet++) {
@@ -262,7 +203,8 @@ TTErr TTMulticoreObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 forO
 				mOutputSignals->allocAllWithVectorSize(mInputSignals->getVectorSize());
 				mUnitGenerator->process(mInputSignals, mOutputSignals);
 			}
-			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+//			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+			returnedSignal = mOutlets[forOutletNumber].mBufferedOutput;
 			mStatus = kTTMulticoreProcessComplete;
 			break;
 		
@@ -284,4 +226,3 @@ TTErr TTMulticoreObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 forO
 	unlock();
 	return kTTErrNone;
 }
-

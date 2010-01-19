@@ -11,6 +11,7 @@
 #define __TTMULTICORE_OBJECT_H__
 
 #include "TTMulticore.h"
+#include "TTMulticoreOutlet.h"
 
 
 /******************************************************************************************/
@@ -52,35 +53,53 @@ public:
 	
 	TTUInt16 getOutputNumChannels(TTUInt16 forOutletNumber)
 	{
-		if (forOutletNumber < mOutputSignals->numAudioSignals) {
-			TTAudioSignalPtr audioSignal = &mOutputSignals->getSignal(forOutletNumber);
-			return audioSignal->getNumChannels();
-		}
-		else
-			return 0;
+//		if (forOutletNumber < mOutputSignals->numAudioSignals && (&(mOutputSignals->getSignal(forOutletNumber)))) {
+//			TTAudioSignalPtr audioSignal = &mOutputSignals->getSignal(forOutletNumber);
+//			return audioSignal->getNumChannels();
+//		}
+//		else
+//			return 0;
+		TTUInt16 numChannels = 0;
+		
+		if (forOutletNumber < mOutlets.size())
+			numChannels = mOutlets[forOutletNumber].mBufferedOutput->getNumChannels();
+		return numChannels;
 	}
 	
 	void setOutputNumChannels(TTUInt16 forOutletNumber, TTUInt16 numChannels)
 	{
-		if (forOutletNumber < mOutputSignals->numAudioSignals) {
-			TTAudioSignalPtr	audioSignal = &mOutputSignals->getSignal(forOutletNumber);
-			TTValue				v(numChannels);
+//		if (forOutletNumber < mOutputSignals->numAudioSignals) {
+//			TTAudioSignalPtr	audioSignal = &mOutputSignals->getSignal(forOutletNumber);
+//			TTValue				v(numChannels);
+//			
+//			// TODO: should not update MaxNumChannels unless we are growing it larger...
+//			audioSignal->setmaxNumChannels(v);
+//			audioSignal->setnumChannels(v);
+//		}
+		
+		if (forOutletNumber < mOutlets.size()) {
+			TTValue	v(numChannels);
 			
 			// TODO: should not update MaxNumChannels unless we are growing it larger...
-			audioSignal->setmaxNumChannels(v);
-			audioSignal->setnumChannels(v);
+			mOutlets[forOutletNumber].mBufferedOutput->setmaxNumChannels(v);
+			mOutlets[forOutletNumber].mBufferedOutput->setnumChannels(v);
 		}
 	}
 	
 	
 	TTUInt16 getOutputVectorSize(TTUInt16 forOutletNumber)
 	{
-		if (forOutletNumber < mOutputSignals->numAudioSignals) {
-			TTAudioSignalPtr audioSignal = &mOutputSignals->getSignal(forOutletNumber);
-			return audioSignal->getVectorSize();
-		}
-		else
-			return 0;
+//		if (forOutletNumber < mOutputSignals->numAudioSignals && (&(mOutputSignals->getSignal(forOutletNumber)))) {
+//			TTAudioSignalPtr audioSignal = &mOutputSignals->getSignal(forOutletNumber);
+//			return audioSignal->getVectorSize();
+//		}
+//		else
+//			return 0;
+		TTUInt16 numChannels = 0;
+		
+		if (forOutletNumber < mOutlets.size())
+			numChannels = mOutlets[forOutletNumber].mBufferedOutput->getVectorSize();
+		return numChannels;
 	}
 		
 	TTUInt16 getSampleRate()
