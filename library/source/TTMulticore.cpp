@@ -11,6 +11,7 @@
 #include "TTMulticore.h"
 #include "TTMulticoreGenerator.h"
 #include "TTMulticoreObject.h"
+#include "TTMulticoreInlet.h"		// required for windows build
 #include "TTMulticoreOutput.h"
 
 static bool initialized = false;

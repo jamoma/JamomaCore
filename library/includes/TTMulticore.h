@@ -20,6 +20,9 @@
 	#else
 		#define TTMULTICORE_EXPORT __declspec(dllimport)
 	#endif
+
+	#include <algorithm>
+	using namespace std;
 #else // TT_PLATFORM_MAC
 	#ifdef _DLL_EXPORT
 		#define TTMULTICORE_EXPORT __attribute__((visibility("default")))

@@ -8,6 +8,7 @@
  */
 
 #include "TTMulticoreObject.h"
+#include "TTMulticoreInlet.h"		// required for windows build
 #include "TTMulticoreOutput.h"
 #include "TTAudioEngine.h"
 

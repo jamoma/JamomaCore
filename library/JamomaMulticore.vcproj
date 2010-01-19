@@ -201,24 +201,52 @@
 				RelativePath=".\includes\TTMulticore.h"
 				>
 			</File>
+			<File
+				RelativePath=".\includes\TTMulticoreAPI.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTMulticoreGenerator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTMulticoreInlet.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTMulticoreObject.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTMulticoreOutlet.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTMulticoreOutput.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="source"
 			>
 			<File
-				RelativePath=".\main.cpp"
+				RelativePath=".\source\TTMulticore.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\multicore.cpp"
+				RelativePath=".\source\TTMulticoreGenerator.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\multicoreOutput.cpp"
+				RelativePath=".\source\TTMulticoreInlet.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\multicoreSource.cpp"
+				RelativePath=".\source\TTMulticoreObject.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTMulticoreOutput.cpp"
 				>
 			</File>
 		</Filter>
