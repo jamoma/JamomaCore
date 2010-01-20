@@ -175,9 +175,12 @@ TTErr TTMulticoreObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 forO
 
 				// TODO: evaluate this -- we are setting output vector size and num channels in process -- this is a potential performance bottle-neck...
 				mOutputSignals->matchNumChannels(mInputSignals);
+				// TODO: the above is a problem -- for example, consider the join≈ object.  How do we avoid this unnesseccary junk from occurring?
+				
 				mOutputSignals->allocAllWithVectorSize(mInputSignals->getVectorSize());
 				mUnitGenerator->process(mInputSignals, mOutputSignals);
 			}
+			// TODO: we're doing a copy below -- is that what we really want?  Or can we just return the pointer?
 			returnedSignal = mOutlets[forOutletNumber].mBufferedOutput;
 			mStatus = kTTMulticoreProcessComplete;
 			break;
