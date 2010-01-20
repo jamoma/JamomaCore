@@ -200,6 +200,7 @@ void wrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc,
 	if (argc && argv) {
 		TTValue	v;
 		
+		v.setSize(argc);
 		for (AtomCount i=0; i<argc; i++) {
 			if (atom_gettype(argv+i) == A_LONG)
 				v.set(i, AtomGetInt(argv+i));
