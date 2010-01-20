@@ -30,11 +30,19 @@ public:
 	
 	// Copying Functions -- critical due to use by std::vector 
 	
-	TTMulticoreSource(const TTMulticoreSource& original)
+	TTMulticoreSource(const TTMulticoreSource& original) :
+		mSourceObject(NULL),
+		mOutletNumber(0),
+		mCallbackHandler(NULL)	
 	{
 		// When vector of sources is resized, it is possible for an object to be created and immediately copied -- prior to a 'connect' method call
-		if (original.mSourceObject)
-			mSourceObject	= (TTMulticoreObjectPtr)TTObjectReference(original.mSourceObject);
+		//if (original.mSourceObject)
+
+		// NOTE: See notes below in TTMulticoreInlet copy constructor...
+		
+		//	mSourceObject	= (TTMulticoreObjectPtr)TTObjectReference(original.mSourceObject);
+		mSourceObject = original.mSourceObject;
+
 		mOutletNumber		= original.mOutletNumber;
 		mCallbackHandler	= TTObjectReference(original.mCallbackHandler);
 	}
@@ -44,7 +52,8 @@ public:
 		TTObjectRelease((TTObjectPtr*)&mSourceObject);
 		TTObjectRelease(&mCallbackHandler);
 
-		mSourceObject		= (TTMulticoreObjectPtr)TTObjectReference(source.mSourceObject);
+		//mSourceObject		= (TTMulticoreObjectPtr)TTObjectReference(source.mSourceObject);
+		mSourceObject		= source.mSourceObject;
 		mOutletNumber		= source.mOutletNumber;
 		mCallbackHandler	= TTObjectReference(source.mCallbackHandler);
 
