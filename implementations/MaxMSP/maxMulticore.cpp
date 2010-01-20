@@ -62,13 +62,13 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 				numInputs = atom_getlong(argv+argumentOffsetToDefineTheNumberOfInlets);
 		}
 
-		for (TTUInt8 i=0; i<numInputs-1; i++)
-			self->inlets[i] = proxy_new(self, i+1, NULL);
+		for (TTUInt16 i=numInputs-1; i>0; i--)
+			self->inlets[i-1] = proxy_new(self, i, NULL);
 		
     	object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));	// dumpout
 //		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalOutputs"), v))
 //			numOutputs += TTUInt8(v);
-		for (TTInt8 i=numOutputs-1; i>=0; i--)
+		for (TTInt16 i=numOutputs-1; i>=0; i--)
 			self->multicoreOutlets[i] = outlet_new(self, "multicore.connect");
 
 		self->wrappedClassDefinition = wrappedMaxClass;
