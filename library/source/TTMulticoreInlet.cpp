@@ -33,8 +33,10 @@ TTMulticoreSource::TTMulticoreSource() :
 
 TTMulticoreSource::~TTMulticoreSource()
 {
-	if (mSourceObject)
-		mSourceObject->unregisterObserverForNotifications(*mCallbackHandler);
+// FIXME: commenting out temporarily to avoid crashes
+//	if (mSourceObject)
+//		mSourceObject->unregisterObserverForNotifications(*mCallbackHandler);
+
 	TTObjectRelease(&mCallbackHandler);
 	
 	mSourceObject = NULL;
