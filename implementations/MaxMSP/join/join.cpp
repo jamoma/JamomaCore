@@ -28,16 +28,20 @@ public:
 		TTUInt16		numAccumulatedChannels = 0;
 		TTAudioSignal&	out = outputs->getSignal(0);
 		
+		// 1. figure out our total number of channels
 		for (TTUInt16 i=0; i<numSignals; i++) {
 			TTAudioSignal&	in = inputs->getSignal(i);
-			
-			if (numAccumulatedChannels + in.getNumChannels() > out.getMaxNumChannels())
-				out.setAttributeValue(kTTSym_maxNumChannels, numAccumulatedChannels + in.getNumChannels() + 2); 
-				// The + 2 above is for padding so that if we come through again then we potentially won't have to alloc memory yet again...
-
-			if (numAccumulatedChannels + in.getNumChannels() > out.getNumChannels())
-				out.setAttributeValue(kTTSym_numChannels, numAccumulatedChannels + in.getNumChannels());
-			
+			numAccumulatedChannels += in.getNumChannels(); 
+		}
+		
+		// 2. setup our output buffer for the correct number of channels
+		out.setAttributeValue(kTTSym_maxNumChannels, numAccumulatedChannels); 
+		out.setAttributeValue(kTTSym_numChannels, numAccumulatedChannels);
+		
+		// 3. copy the data to the output buffer
+		numAccumulatedChannels = 0;
+		for (TTUInt16 i=0; i<numSignals; i++) {
+			TTAudioSignal&	in = inputs->getSignal(i);
 			TTAudioSignal::copy(in, out, numAccumulatedChannels);
 			numAccumulatedChannels += in.getNumChannels();
 		}
