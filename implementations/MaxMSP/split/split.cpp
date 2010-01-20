@@ -9,70 +9,81 @@
 
 #include "maxMulticore.h"
 
-#define thisTTClass TTSplit
+#define thisTTClass			TTMulticoreSplit
+#define thisTTClassName		"multicore.split"
+#define thisTTClassTags		"audio, multicore"
 
 
+/**	The split≈ object takes a single input signal and splits it out	into N output signals */
+class TTMulticoreSplit : public TTAudioObject {
+	TTCLASS_SETUP(TTMulticoreSplit)
 
-// For the split≈ object takes an input signal of N channels
-// and returns 2 inputs signals, whose number of channels sum to the N channels of the input signal
+	vector<TTUInt16>	mSplitChannels;	///< The number of channels in each of N groups of signals
 
-class TTSplit : public TTAudioObject {
-protected:
-	TTUInt16	splitChannel;		///< The number of channels to group together on the first output
-
-public:
-	
-	// Constructor
-	TTSplit(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("split", newMaxNumChannels), splitChannel(1)
+	TTErr setGroups(const TTValueRef args)
 	{
-		registerAttributeSimple(splitChannel, kTypeUInt16);
+		TTUInt16 numArgs = args.getSize();
+	
+		mSplitChannels.resize(numArgs);
+		for (TTUInt16 i=0; i<numArgs; i++) 
+			args.get(i, mSplitChannels[i]);
+		return kTTErrNone;
+	}
+	
+	TTErr getGroups(TTValueRef args)
+	{
+		TTUInt16 numArgs = mSplitChannels.size();
 		
-		setAttributeValue(TT("maxNumChannels"), newMaxNumChannels);
-		setProcessMethod(processAudio);
+		args.setSize(numArgs);
+		for (TTUInt16 i=0; i<numArgs; i++)
+			args.set(i, mSplitChannels[i]);
+		return kTTErrNone;
 	}
-	
-	// Destructor
-	virtual ~TTSplit()
-	{
-		;
-	}
-
-	// Process Method	
+		
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
 		TTAudioSignal&	in = inputs->getSignal(0);
-		TTAudioSignal&	out1 = outputs->getSignal(0);
-		TTAudioSignal&	out2 = outputs->getSignal(1);
+		TTUInt16		channelOffset = 0;
 		
-		TTAudioSignal::copy(in, out1, 0);
-		TTAudioSignal::copySubset(in, out2, splitChannel, in.getNumChannels()-1);
-		out1.setnumChannels(splitChannel);
-		out2.setnumChannels(in.getNumChannels() - splitChannel);
+		for (TTUInt16 i=0; i < outputs->numAudioSignals; i++) {
+			TTAudioSignal&	out = outputs->getSignal(i);
+			TTUInt16		numChannels = mSplitChannels[i];
+			
+			out.setnumChannels(numChannels);
+			TTAudioSignal::copySubset(in, out, channelOffset, channelOffset+numChannels-1);
+			channelOffset += numChannels;
+		}
 		return kTTErrNone;
 	}
+	
 };
 
 
-TTObjectPtr instantiateTTSplit(TTSymbolPtr className, TTValue& arguments)
+TT_AUDIO_CONSTRUCTOR_EXPORT
 {
-	return new TTSplit(arguments);
+	addAttributeWithGetterAndSetter(Groups, kTypeUInt16);
+
+	setAttributeValue(TT("maxNumChannels"), arguments);		
+	setProcessMethod(processAudio);
+}
+
+
+// Destructor
+TTMulticoreSplit::~TTMulticoreSplit()
+{
+	;
 }
 
 
 int main(void)
 {
 	WrappedClassOptionsPtr	options = new WrappedClassOptions;
-	TTValue					value;
-	
+	TTValue					value(0);
+
 	TTMulticoreInit();
-
-	value.clear();
-	value.append(1);	
-	options->append(TT("additionalSignalOutputs"), value);
-	options->append(TT("alwaysUseSidechain"), value);
-
-	TTClassRegister(TT("split"), "audio, multicore", &instantiateTTSplit);
-	return wrapAsMaxbaer(TT("split"), "split≈", NULL, options);
+	TTMulticoreSplit::registerClass();
+	
+	options->append(TT("argumentDefinesNumOutlets"), value);
+	return wrapAsMaxMulticore(TT("multicore.split"), "split≈", NULL, options);
 }
 

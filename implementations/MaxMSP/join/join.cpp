@@ -19,9 +19,7 @@
 */
 class TTMulticoreJoin : public TTAudioObject {
 	TTCLASS_SETUP(TTMulticoreJoin)
-	
-public:
-	
+		
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
 		TTUInt16		numSignals = inputs->numAudioSignals;

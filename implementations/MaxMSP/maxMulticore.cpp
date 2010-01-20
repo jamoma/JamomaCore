@@ -61,13 +61,15 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 			if ((attrstart-argumentOffsetToDefineTheNumberOfInlets > 0) && argv+argumentOffsetToDefineTheNumberOfInlets)
 				numInputs = atom_getlong(argv+argumentOffsetToDefineTheNumberOfInlets);
 		}
-
 		for (TTUInt16 i=numInputs-1; i>0; i--)
 			self->inlets[i-1] = proxy_new(self, i, NULL);
 		
     	object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));	// dumpout
-//		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalOutputs"), v))
-//			numOutputs += TTUInt8(v);
+		if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("argumentDefinesNumOutlets"), v)) {
+			long argumentOffsetToDefineTheNumberOfOutlets = v;
+			if ((attrstart-argumentOffsetToDefineTheNumberOfOutlets > 0) && argv+argumentOffsetToDefineTheNumberOfOutlets)
+				numOutputs = atom_getlong(argv+argumentOffsetToDefineTheNumberOfOutlets);
+		}
 		for (TTInt16 i=numOutputs-1; i>=0; i--)
 			self->multicoreOutlets[i] = outlet_new(self, "multicore.connect");
 
@@ -77,20 +79,7 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 		v.set(1, numInputs);
 		v.set(2, numOutputs);
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
-		
-//		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("channelRatioInputToOutput"), v)){
-//			TTUInt16 numInChans = 1;
-//			TTUInt16 numOutChans = 1;
-//			
-//			v.get(0, numInChans);
-//			v.get(1, numOutChans);
-//			x->lydbaerObject->setInChansToOutChansRatio(numInChans, numOutChans);
-//		}
-//		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("alwaysUseSidechain"), v)){
-//			TTBoolean alwaysUseSidechain = v;
-//			x->lydbaerObject->setAlwaysProcessSidechain(alwaysUseSidechain);
-//		}
-		
+				
 		attr_args_process(self, argc, argv);
 	}
 	return ObjectPtr(self);
