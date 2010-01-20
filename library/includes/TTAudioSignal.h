@@ -145,6 +145,9 @@ public:
 	/**	Copy the audio from one signal into another.	*/
 	static TTErr copy(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 channelOffset=0);
 	
+	/**	Copy the audio from one signal into another, but not taking care to zero channels that aren't used.	*/
+	static TTErr copyDirty(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 channelOffset=0);
+
 	/**	Copy the audio from one signal into another.	*/
 	static TTErr copySubset(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 startingChannel=0, TTUInt16 endingChannel=0);
 	
