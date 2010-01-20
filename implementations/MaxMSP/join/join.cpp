@@ -42,7 +42,7 @@ public:
 		numAccumulatedChannels = 0;
 		for (TTUInt16 i=0; i<numSignals; i++) {
 			TTAudioSignal&	in = inputs->getSignal(i);
-			TTAudioSignal::copy(in, out, numAccumulatedChannels);
+			TTAudioSignal::copyDirty(in, out, numAccumulatedChannels);
 			numAccumulatedChannels += in.getNumChannels();
 		}
 		return kTTErrNone;
