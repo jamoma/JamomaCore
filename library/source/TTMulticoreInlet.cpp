@@ -33,9 +33,9 @@ TTMulticoreSource::TTMulticoreSource() :
 
 TTMulticoreSource::~TTMulticoreSource()
 {
-// FIXME: commenting out temporarily to avoid crashes
-//	if (mSourceObject)
-//		mSourceObject->unregisterObserverForNotifications(*mCallbackHandler);
+// FIXME: we can crash right now when recompiling the graph, due to ambiguity caused by copy constructors and the std::vector
+	if (mSourceObject)
+		mSourceObject->unregisterObserverForNotifications(*mCallbackHandler);
 
 	TTObjectRelease(&mCallbackHandler);
 	
