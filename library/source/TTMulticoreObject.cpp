@@ -46,14 +46,14 @@ TT_OBJECT_CONSTRUCTOR,
 	err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mOutputSignals, numOutlets);
 	
 	mInlets.resize(numInlets);
-	mInputSignals->setMaxNumAudioSignals(mInlets.size());
-	mInputSignals->numAudioSignals = mInlets.size();		// TODO: this array num signals access is kind of clumsy and inconsistent [tap]
+	mInputSignals->setMaxNumAudioSignals(numInlets);
+	mInputSignals->numAudioSignals = numInlets;			// TODO: this array num signals access is kind of clumsy and inconsistent [tap]
 
 	mOutlets.resize(numOutlets);
-	mOutputSignals->setMaxNumAudioSignals(mOutlets.size());
-	mOutputSignals->numAudioSignals = mOutlets.size();
+	mOutputSignals->setMaxNumAudioSignals(numOutlets);
+	mOutputSignals->numAudioSignals = numOutlets;
 
-	addMessageWithArgument(objectFreeing);	// called when one of our input source objects is deleted
+	addMessageWithArgument(objectFreeing);				// called when one of our input source objects is deleted
 }
 
 
@@ -85,19 +85,6 @@ TTErr TTMulticoreObject::objectFreeing(const TTValue& theObjectBeingDeleted)
 }
 
 
-TTErr TTMulticoreObject::setAudioOutputPtr(TTAudioSignalArrayPtr newOutputPtr)
-{
-	TTObjectPtr	oldAudioOutput = mOutputSignals;
-	TTErr		err = kTTErrNone;
-	
-	mOutputSignals = (TTAudioSignalArrayPtr)TTObjectReference(newOutputPtr);
-
-	if (oldAudioOutput)
-		err = TTObjectRelease(&oldAudioOutput);
-	return err;
-}
-
-
 TTErr TTMulticoreObject::reset()
 {
 	for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::reset));		
@@ -121,9 +108,6 @@ TTErr TTMulticoreObject::init(const TTMulticoreInitData& initData)
 	for (TTMulticoreInletIter inlet = mInlets.begin(); inlet != mInlets.end(); inlet++)
 		inlet->init(initData);
 	
-	// FIXME: THIS IS REALLY MESSED UP!
-	// output signals are instantiated by the outlets -- so we should not be instantiating them here!
-	
 	if (mFlags & kTTMulticoreGenerator) {
 		i = 0;
 		for (TTMulticoreOutletIter outlet = mOutlets.begin(); outlet != mOutlets.end(); outlet++) {
@@ -131,17 +115,8 @@ TTErr TTMulticoreObject::init(const TTMulticoreInitData& initData)
 			i++;
 		}
 		
-//		for (int i=0; i < mOutputSignals->getMaxNumAudioSignals(); i++) {
-//			if (!(&mOutputSignals->getSignal(i))) {
-//				TTAudioSignalPtr aSignal = NULL;
-//
-//				// TODO: why always generate just 1 channel?
-//				TTObjectInstantiate(kTTSym_audiosignal, &aSignal, kTTVal1);
-//				mOutputSignals->setSignal(i, aSignal);
-//			}
-//		}
 		mOutputSignals->allocAllWithVectorSize(initData.vectorSize);
-// TODO: do we need to set num channels here too?
+		// TODO: do we need to set num channels here too?
 	}
 	
 	unlock();
@@ -203,19 +178,18 @@ TTErr TTMulticoreObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 forO
 				mOutputSignals->allocAllWithVectorSize(mInputSignals->getVectorSize());
 				mUnitGenerator->process(mInputSignals, mOutputSignals);
 			}
-//			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
 			returnedSignal = mOutlets[forOutletNumber].mBufferedOutput;
 			mStatus = kTTMulticoreProcessComplete;
 			break;
 		
 		// we already processed everything that needs to be processed, so just set the pointer
 		case kTTMulticoreProcessComplete:
-			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+			returnedSignal = mOutlets[forOutletNumber].mBufferedOutput;
 			break;
 		
 		// to prevent feedback / infinite loops, we just hand back the last calculated output here
 		case kTTMulticoreProcessingCurrently:
-			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+			returnedSignal = mOutlets[forOutletNumber].mBufferedOutput;
 			break;
 		
 		// we should never get here

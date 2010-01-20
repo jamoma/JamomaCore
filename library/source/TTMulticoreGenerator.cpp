@@ -14,25 +14,31 @@
 #define thisTTClassTags		"audio, multicore, generator"
 
 TT_AUDIO_CONSTRUCTOR,
-	mBuffer(NULL),
-	mBufferArray(NULL)
+	mBuffer(NULL)
 {
 	// arguments is the number of inlets (not the number of channels)
-
 	TTObjectInstantiate(kTTSym_audiosignal, &mBuffer, arguments);
-	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mBufferArray, arguments);
-	mBufferArray->setSignal(0, mBuffer);
 
+	addAttributeWithSetter(VectorSize, kTypeUInt16);
 	addMessageWithArgument(updateMaxNumChannels);
-	
+	addMessageWithArgument(updateSr);
+
+	setAttributeValue(TT("VectorSize"), 64);
+	setAttributeValue(kTTSym_maxNumChannels, 1);
 	setProcessMethod(processAudio);
 }
 
 
 TTMulticoreGenerator::~TTMulticoreGenerator()
 {
-	TTObjectRelease((TTObjectPtr*)&mBufferArray);
 	TTObjectRelease(&mBuffer);
+}
+
+
+TTErr TTMulticoreGenerator::setVectorSize(const TTValue& newVectorSize)
+{
+	mVectorSize = newVectorSize;
+	return mBuffer->setAttributeValue(TT("vectorSize"), mVectorSize);
 }
 
 
@@ -40,6 +46,12 @@ TTErr TTMulticoreGenerator::updateMaxNumChannels(const TTValue&)
 {
 	mBuffer->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
 	mBuffer->setAttributeValue(kTTSym_numChannels, maxNumChannels);
+	return mBuffer->sendMessage(TT("alloc"));
+}
+
+
+TTErr TTMulticoreGenerator::updateSr(const TTValue&)
+{
 	return kTTErrNone;
 }
 

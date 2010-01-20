@@ -21,11 +21,14 @@ class TTMULTICORE_EXPORT TTMulticoreGenerator : public TTAudioObject
 {
 	TTCLASS_SETUP(TTMulticoreGenerator)
 
+	TTUInt16	mVectorSize;
+	
+	TTErr setVectorSize(const TTValue& newVectorSize);
 	TTErr updateMaxNumChannels(const TTValue&);
-
+	TTErr updateSr(const TTValue&);
+	
 public:
 	TTAudioSignalPtr		mBuffer;		///< storage for the audioSignal that we provide
-	TTAudioSignalArrayPtr	mBufferArray;	///< wrapper for buffer than can be used to pass to other objects when they pull from us	
 
 	/**	A standard audio processing method as used by TTBlue objects.
 		@param	inputs	unused.				*/

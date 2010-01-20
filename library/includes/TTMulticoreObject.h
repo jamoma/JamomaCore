@@ -40,11 +40,7 @@ public:
 	/**	A notification that the specified object is being deleted -- so we should drop it from our list of input sources.  */
 	TTErr objectFreeing(const TTValue& theObjectBeingDeleted);
 
-	/**	Rather than use the internal audio output signal, it is possible to set your own.
-		One example for why you might want this is for creating generator objects.	*/
-	TTErr setAudioOutputPtr(TTAudioSignalArrayPtr newOutputPtr);
 
-	
 	void addFlag(TTMulticoreFlags flag)
 	{
 		mFlags |= flag;
@@ -53,30 +49,14 @@ public:
 	
 	TTUInt16 getOutputNumChannels(TTUInt16 forOutletNumber)
 	{
-//		if (forOutletNumber < mOutputSignals->numAudioSignals && (&(mOutputSignals->getSignal(forOutletNumber)))) {
-//			TTAudioSignalPtr audioSignal = &mOutputSignals->getSignal(forOutletNumber);
-//			return audioSignal->getNumChannels();
-//		}
-//		else
-//			return 0;
-		TTUInt16 numChannels = 0;
-		
 		if (forOutletNumber < mOutlets.size())
-			numChannels = mOutlets[forOutletNumber].mBufferedOutput->getNumChannels();
-		return numChannels;
+			return mOutlets[forOutletNumber].mBufferedOutput->getNumChannels();
+		else
+			return 0;
 	}
 	
 	void setOutputNumChannels(TTUInt16 forOutletNumber, TTUInt16 numChannels)
 	{
-//		if (forOutletNumber < mOutputSignals->numAudioSignals) {
-//			TTAudioSignalPtr	audioSignal = &mOutputSignals->getSignal(forOutletNumber);
-//			TTValue				v(numChannels);
-//			
-//			// TODO: should not update MaxNumChannels unless we are growing it larger...
-//			audioSignal->setmaxNumChannels(v);
-//			audioSignal->setnumChannels(v);
-//		}
-		
 		if (forOutletNumber < mOutlets.size()) {
 			TTValue	v(numChannels);
 			
@@ -89,17 +69,10 @@ public:
 	
 	TTUInt16 getOutputVectorSize(TTUInt16 forOutletNumber)
 	{
-//		if (forOutletNumber < mOutputSignals->numAudioSignals && (&(mOutputSignals->getSignal(forOutletNumber)))) {
-//			TTAudioSignalPtr audioSignal = &mOutputSignals->getSignal(forOutletNumber);
-//			return audioSignal->getVectorSize();
-//		}
-//		else
-//			return 0;
-		TTUInt16 numChannels = 0;
-		
 		if (forOutletNumber < mOutlets.size())
-			numChannels = mOutlets[forOutletNumber].mBufferedOutput->getVectorSize();
-		return numChannels;
+			return mOutlets[forOutletNumber].mBufferedOutput->getVectorSize();
+		else
+			return 0;
 	}
 		
 	TTUInt16 getSampleRate()
@@ -121,9 +94,6 @@ public:
 		@return					An error code.	*/
 	TTErr connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 
-private:
-	TTUInt16 initAudioSignal(TTAudioSignalPtr aSignal, TTMulticoreObjectPtr aSource);
-public:
 	
 	/**	Allocate buffers and prepare for processing.	*/
 	TTErr init(const TTMulticoreInitData& initData);
