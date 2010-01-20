@@ -49,6 +49,8 @@ class TTMulticoreSplit : public TTAudioObject {
 			TTAudioSignal&	out = outputs->getSignal(i);
 			TTUInt16		numChannels = mSplitChannels[i];
 			
+			// TODO: we don't really want to alloc this memory every time!
+			out.setmaxNumChannels(numChannels);
 			out.setnumChannels(numChannels);
 			TTAudioSignal::copySubset(in, out, channelOffset, channelOffset+numChannels-1);
 			channelOffset += numChannels;

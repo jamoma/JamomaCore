@@ -37,9 +37,11 @@ public:
 	
 	// Copying Functions are critical due to use by std::vector 
 	
-	TTMulticoreOutlet(const TTMulticoreOutlet& original)
+	TTMulticoreOutlet(const TTMulticoreOutlet& original) : 
+		mBufferedOutput(NULL)
 	{
-		mBufferedOutput = TTObjectReference(original.mBufferedOutput);
+//		mBufferedOutput = TTObjectReference(original.mBufferedOutput);
+		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedOutput, 1);
 	}
 	
 	TTMulticoreOutlet& operator=(const TTMulticoreOutlet& source)
