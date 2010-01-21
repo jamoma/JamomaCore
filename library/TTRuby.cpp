@@ -150,7 +150,7 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 	messageNameStr = StringValue(argv[0]);	
 	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
-		instance = (TTRubyInstance*)TTPtr(v);
+		v.get(0, (TTPtr*)&instance);
 		if (instance) {
 			if (argc == 1) {		// no arguments...
 				err = instance->obj->sendMessage(TT(RSTRING(messageNameStr)->ptr));
@@ -213,7 +213,7 @@ VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 	
 	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
-		instance = (TTRubyInstance*)TTPtr(v);
+		v.get(0, (TTPtr*)&instance);
 		if (instance) {
 			int t = TYPE(attributeValue);
 
@@ -268,7 +268,7 @@ VALUE TTRubyGetAttribute(VALUE self, VALUE attributeName)
 	
 	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
-		instance = (TTRubyInstance*)TTPtr(v);
+		v.get(0, (TTPtr*)&instance);
 		if (instance) {
 			err = instance->obj->getAttributeValue(TT(RSTRING(attributeNameStr)->ptr), v);
 			if (err) {
@@ -358,7 +358,7 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 	for (int i=0; i<argc; i++) {
 		int t = TYPE(argv[i]);
 
-		cout << "the type of the message arg is " << t << endl;
+		//cout << "the type of the message arg is " << t << endl;
 		switch (t) {
 			case T_FLOAT:
 				args.append(NUM2DBL(argv[i]));
@@ -417,10 +417,10 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 	messageNameStr = StringValue(argv[0]);	
 	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
-		instance = (TTAudioInstance*)TTPtr(v);
+		v.get(0, (TTPtr*)&instance);
 		if (instance) {
 			if (argc == 1) {		// no arguments...
-				err = instance->obj->sendMessage(TT(RSTRING(messageNameStr)->ptr));
+				err = instance->obj->mUnitGenerator->sendMessage(TT(RSTRING(messageNameStr)->ptr));
 			}
 			else {					// we have arguments...
 				v.clear();
@@ -462,7 +462,7 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 			}
 
 			if (err)
-				cout << "TTAudioSendMessage: Error " << err << endl;
+				cout << "TTAudioSendMessage ('" << RSTRING(messageNameStr)->ptr << "'): Error " << err << endl;
 		}
 	}
 bye:
@@ -480,7 +480,7 @@ VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 
 	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
-		instance = (TTAudioInstance*)TTPtr(v);
+		v.get(0, (TTPtr*)&instance);
 		if (instance) {
 			int t = TYPE(attributeValue);
 
@@ -535,7 +535,7 @@ VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName)
 
 	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
-		instance = (TTAudioInstance*)TTPtr(v);
+		v.get(0, (TTPtr*)&instance);
 		if (instance) {
 			err = instance->obj->mUnitGenerator->getAttributeValue(TT(RSTRING(attributeNameStr)->ptr), v);
 			if (err) {

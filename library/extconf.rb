@@ -21,8 +21,8 @@ puts "multicore: #{multicore}"
 #find_header('TTFoundationAPI.h', "../../library/includes")
 have_func("Init_TTRuby", "TTRuby.cpp")
 
-$CFLAGS = $CFLAGS + "-I #{inc} -I #{dsp} -I #{multicore}"
-$CPPFLAGS = $CPPFLAGS + "-I #{inc} -I #{dsp} -I #{multicore}"
+$CFLAGS = $CFLAGS + "-I #{inc} -I #{dsp} -I #{multicore} -g -O1"
+$CPPFLAGS = $CPPFLAGS + "-I #{inc} -I #{dsp} -I #{multicore} -g -O1"
 $LDFLAGS = $LDFLAGS + " -framework JamomaFoundation -framework JamomaDSP -framework JamomaMulticore"
 #$ARCHFLAGS = $ARCHFLAGS + "-arch i386"
 
