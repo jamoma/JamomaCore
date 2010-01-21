@@ -41,6 +41,7 @@ extern "C" {
 	VALUE TTRubyInitialize(VALUE self, VALUE className);
 	VALUE TTRubyGetMessages(VALUE self);
 	VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self);
+	VALUE TTRubyGetAttributes(VALUE self);
 	VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue);
 	VALUE TTRubyGetAttribute(VALUE self, VALUE attributeName);
 	VALUE TTRubyCalculate(VALUE self, VALUE x);
@@ -48,6 +49,7 @@ extern "C" {
 	VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self);
 	VALUE TTAudioGetMessages(VALUE self);
 	VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self);
+	VALUE TTAudioGetAttributes(VALUE self);
 	VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue);
 	VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName);
 	VALUE TTAudioReset(VALUE self);
@@ -77,6 +79,7 @@ void Init_TTRuby()
 	rb_define_method(c, "initialize",		TTRubyMethod(TTRubyInitialize), 1);		// called to initialize a new object that has been created or cloned	
 	rb_define_method(c, "messages?",		TTRubyMethod(TTRubyGetMessages), 0);
 	rb_define_method(c, "send",				TTRubyMethod(TTRubySendMessage), -1);	// send a message to the wrapped object
+	rb_define_method(c, "attributes?",		TTRubyMethod(TTRubyGetAttributes), 0);
 	rb_define_method(c, "set",				TTRubyMethod(TTRubySetAttribute), 2);	// set attribute value
 	rb_define_method(c, "get",				TTRubyMethod(TTRubyGetAttribute), 1);	// get attribute value
 	rb_define_method(c, "calculate",		TTRubyMethod(TTRubyCalculate), 1);
@@ -94,6 +97,7 @@ void Init_TTRuby()
 	rb_define_method(c, "initialize",		TTRubyMethod(TTAudioInitialize),	-1);	// called to initialize a new object that has been created or cloned
 	rb_define_method(c, "messages?",		TTRubyMethod(TTAudioGetMessages),	0);
 	rb_define_method(c, "send",				TTRubyMethod(TTAudioSendMessage),	-1);	// send a message to the wrapped object
+	rb_define_method(c, "attributes?",		TTRubyMethod(TTAudioGetAttributes), 0);
 	rb_define_method(c, "set",				TTRubyMethod(TTAudioSetAttribute),	2);		// set attribute value
 	rb_define_method(c, "get",				TTRubyMethod(TTAudioGetAttribute),	1);		// get attribute value
 	rb_define_method(c, "reset",			TTRubyMethod(TTAudioReset),			0);		// reset multicore connections
@@ -231,6 +235,34 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 	}
 bye:
 	;
+}
+
+
+VALUE TTRubyGetAttributes(VALUE self)
+{
+	TTRubyInstance*	instance = NULL;
+	TTErr			err = kTTErrNone;
+	TTValue			v;
+	VALUE			returnValue = rb_float_new(0.0);
+	TTSymbolPtr		s;
+	TTCString		c;
+	TTUInt16		size;
+
+	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
+	if (!err) {
+		v.get(0, (TTPtr*)(&instance));
+		if (instance) {			
+			instance->obj->getAttributeNames(v);			
+			size = v.getSize();
+			returnValue = rb_ary_new2(size);
+			for (TTUInt16 i=0; i<size; i++) {				
+				v.get(i, &s);
+				c = (TTCString)s->getCString();
+				rb_ary_store(returnValue, i, rb_str_new(c, strlen(c)));
+			}
+		}
+	}
+	return returnValue;
 }
 
 
@@ -526,6 +558,34 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 	}
 bye:
 	;
+}
+
+
+VALUE TTAudioGetAttributes(VALUE self)
+{
+	TTAudioInstance*	instance = NULL;
+	TTErr				err = kTTErrNone;
+	TTValue				v;
+	VALUE				returnValue = rb_float_new(0.0);
+	TTSymbolPtr			s;
+	TTCString			c;
+	TTUInt16			size;
+
+	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
+	if (!err) {
+		v.get(0, (TTPtr*)(&instance));
+		if (instance) {			
+			instance->obj->mUnitGenerator->getAttributeNames(v);			
+			size = v.getSize();
+			returnValue = rb_ary_new2(size);
+			for (TTUInt16 i=0; i<size; i++) {				
+				v.get(i, &s);
+				c = (TTCString)s->getCString();
+				rb_ary_store(returnValue, i, rb_str_new(c, strlen(c)));
+			}
+		}
+	}
+	return returnValue;
 }
 
 
