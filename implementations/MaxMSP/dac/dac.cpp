@@ -85,7 +85,7 @@ DacPtr DacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 
 		v = TTPtr(self->multicoreObject);
-		self->multicoreObject->mUnitGenerator->sendMessage(TT("setOwner"), v);
+		//self->multicoreObject->mUnitGenerator->sendMessage(TT("setOwner"), v);
 
 		attr_args_process(self, argc, argv);
 		object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));

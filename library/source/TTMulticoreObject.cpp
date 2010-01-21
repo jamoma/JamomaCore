@@ -54,6 +54,11 @@ TT_OBJECT_CONSTRUCTOR,
 	mOutputSignals->numAudioSignals = numOutlets;
 
 	addMessageWithArgument(objectFreeing);				// called when one of our input source objects is deleted
+
+	// if an object supports the 'setOwner' message, then we tell it that we want to become the owner
+	// this is particularly important for the multicore.output object
+	TTValue v = TTPtr(this);
+	mUnitGenerator->sendMessage(TT("setOwner"), v);
 }
 
 
