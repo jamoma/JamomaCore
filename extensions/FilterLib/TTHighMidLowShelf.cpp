@@ -43,11 +43,11 @@ TT_AUDIO_CONSTRUCTOR
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),		arguments);			// This attribute is inherited
-	setAttributeValue(TT("frequencyMh"),		3000.0);
-	setAttributeValue(TT("frequencyLm"),		300.0);
-	setAttributeValue(TT("gainL"),				1.0);
-	setAttributeValue(TT("gainM"),				1.0);
-	setAttributeValue(TT("gainH"),				1.0);
+	setAttributeValue(TT("FrequencyMh"),		3000.0);
+	setAttributeValue(TT("FrequencyLm"),		300.0);
+	setAttributeValue(TT("GainL"),				1.0);
+	setAttributeValue(TT("GainM"),				1.0);
+	setAttributeValue(TT("GainH"),				1.0);
 	setCalculateMethod(calculateValue);
 	setProcessMethod(processAudio);
 }
