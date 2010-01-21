@@ -44,12 +44,12 @@ LIBRUBYARG_SHARED = -l$(RUBY_SO_NAME)
 LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)
 
 RUBY_EXTCONF_H = 
-CFLAGS   =  -fno-common -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common $(cflags)-I /code/Jamoma/Modules/Foundation/library/includes -I /code/Jamoma/Modules/DSP/library/includes 
+CFLAGS   =  -fno-common -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common $(cflags)-I /code/Jamoma/Modules/Foundation/library/includes -I /code/Jamoma/Modules/DSP/library/includes -I /code/Jamoma/Modules/Multicore/library/includes 
 INCFLAGS = -I. -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0 -I.
 DEFS     = 
-CPPFLAGS =   -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I /code/Jamoma/Modules/Foundation/library/includes -I /code/Jamoma/Modules/DSP/library/includes
+CPPFLAGS =   -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I /code/Jamoma/Modules/Foundation/library/includes -I /code/Jamoma/Modules/DSP/library/includes -I /code/Jamoma/Modules/Multicore/library/includes
 CXXFLAGS = $(CFLAGS) 
-ldflags  = -L. -arch i386 -arch x86_64  -framework JamomaFoundation
+ldflags  = -L. -arch i386 -arch x86_64  -framework JamomaFoundation -framework JamomaDSP -framework JamomaMulticore
 dldflags = 
 archflag = 
 DLDFLAGS = $(ldflags) $(dldflags) $(archflag)
