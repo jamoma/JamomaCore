@@ -45,10 +45,11 @@ extern "C" {
 	VALUE TTRubyCalculate(VALUE self, VALUE x);
 
 	VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self);
-	//VALUE TTAudioInitialize(VALUE self, VALUE className);
 	VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self);
 	VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue);
 	VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName);
+	VALUE TTAudioReset(VALUE self);
+	VALUE TTAudioConnect(int argc, VALUE* argv, VALUE self);
 }
 
 
@@ -87,11 +88,12 @@ void Init_TTRuby()
 
 	c = rb_define_class("TTAudio", rb_cObject);
 	
-	rb_define_method(c, "initialize",		TTRubyMethod(TTAudioInitialize), -1);	// called to initialize a new object that has been created or cloned
-	rb_define_method(c, "send",				TTRubyMethod(TTAudioSendMessage), -1);	// send a message to the wrapped object
-	rb_define_method(c, "set",				TTRubyMethod(TTAudioSetAttribute), 2);	// set attribute value
-	rb_define_method(c, "get",				TTRubyMethod(TTAudioGetAttribute), 1);	// get attribute value
-	//rb_define_method(c, "calculate",		TTRubyMethod(TTRubyCalculate), 1);
+	rb_define_method(c, "initialize",		TTRubyMethod(TTAudioInitialize),	-1);	// called to initialize a new object that has been created or cloned
+	rb_define_method(c, "send",				TTRubyMethod(TTAudioSendMessage),	-1);	// send a message to the wrapped object
+	rb_define_method(c, "set",				TTRubyMethod(TTAudioSetAttribute),	2);		// set attribute value
+	rb_define_method(c, "get",				TTRubyMethod(TTAudioGetAttribute),	1);		// get attribute value
+	rb_define_method(c, "reset",			TTRubyMethod(TTAudioReset),			0);		// reset multicore connections
+	rb_define_method(c, "connect",			TTRubyMethod(TTAudioConnect),		-1);	// connect an output of another object to our input
 	
 	TTAudio_class = c;
 	gTTAudioInstances = new TTHash;
@@ -576,5 +578,63 @@ out:
 }
 
 
+VALUE TTAudioReset(VALUE self)
+{
+	TTAudioInstance*	instance = NULL;
+	TTErr				err = kTTErrNone;
+	TTValue				v;
 
+	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
+	if (!err) {
+		v.get(0, (TTPtr*)(&instance));
+		if (instance) {			
+			instance->obj->reset();			
+		}
+	}
+	return self;
+}
+
+
+VALUE TTAudioConnect(int argc, VALUE* argv, VALUE self)
+{
+	TTAudioInstance*	instance = NULL;
+	TTAudioInstance*	instanceToConnect = NULL;
+	TTErr				err = kTTErrNone;
+	TTValue				v;
+	TTUInt16			inletNumberToWhichToConnect = 0;
+	TTUInt16			outletNumberFromWhichToConnect = 0;
+
+	if (argc < 1) {
+		cout << "ERROR -- TTAudioConnect requires at least 1 argument (the object whose output should be connected to our input)" << endl;
+		goto bye;
+	}
+
+	if (TYPE(argv[0]) == T_OBJECT) {
+		err = gTTAudioInstances->lookup(TTSymbolPtr(argv[0]), v);
+		if (!err) {
+			v.get(0, (TTPtr*)(&instanceToConnect));
+		}		
+	}
+
+	if (!instanceToConnect) {
+		cout << "ERROR -- TTAudioConnect cannot verify the object you would like to connect" << endl;
+		goto bye;
+	}
+	
+	if (argc > 1) {
+		inletNumberToWhichToConnect = FIX2LONG(argv[1]);
+		if (argc > 2)
+			outletNumberFromWhichToConnect = FIX2LONG(argv[2]);
+	}
+
+	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
+	if (!err) {
+		v.get(0, (TTPtr*)(&instance));
+		if (instance) {			
+			instance->obj->connect(instanceToConnect->obj, outletNumberFromWhichToConnect, inletNumberToWhichToConnect);			
+		}
+	}
+bye:
+	return self;
+}
 
