@@ -47,7 +47,7 @@ void Init_TTRuby()
 	
 	TTFoundationInit();
 	
-	c = rb_define_class("TTRuby", rb_cObject);
+	c = rb_define_class("TTObject", rb_cObject);
 	
 	rb_define_method(c, "initialize",		TTRubyMethod(TTRubyInitialize), 1);		// called to initialize a new object that has been created or cloned
 	rb_define_method(c, "send",				TTRubyMethod(TTRubySendMessage), -1);	// send a message to the wrapped object

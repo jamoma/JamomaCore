@@ -6,7 +6,7 @@ puts "start"
 puts
 
 
-f = TTRuby.new("lowpass")
+f = TTObject.new("lowpass")
 
 
 for i in 0..10 

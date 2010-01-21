@@ -11,7 +11,7 @@
 
 <% svg = MySVG.new(600, 150) %>
 
-<% f = TTRuby.new("exponential") %>
+<% f = TTObject.new("exponential") %>
 <% for i in 0..600  %>
 	<% x = i/600.0 %>
 	<% y = f.calculate(x) %>
@@ -29,7 +29,7 @@
 
 <% svg = MySVG.new(600, 150) %>
 
-<% f = TTRuby.new("tanh") %>
+<% f = TTObject.new("tanh") %>
 <% for i in 0..600  %>
 	<% x = i/600.0 %>
 	<% y = f.calculate(x) %>
@@ -47,7 +47,7 @@
 
 <% svg = MySVG.new(600, 150) %>
 
-<% f = TTRuby.new("cosine") %>
+<% f = TTObject.new("cosine") %>
 <% for i in 0..600  %>
 	<% x = i/600.0 %>
 	<% y = f.calculate(x) %>
@@ -67,7 +67,7 @@
 
 <% svg = MySVG.new(600, 150) %>
 
-<% f = TTRuby.new("bartlett") %>
+<% f = TTObject.new("bartlett") %>
 <% for i in 0..600  %>
 	<% x = i/600.0 %>
 	<% y = f.calculate(x) %>
@@ -84,7 +84,7 @@
 
 <% svg = MySVG.new(600, 150) %>
 
-<% f = TTRuby.new("hamming") %>
+<% f = TTObject.new("hamming") %>
 <% for i in 0..600  %>
 	<% x = i/600.0 %>
 	<% y = f.calculate(x) %>
@@ -101,7 +101,7 @@
 
 <% svg = MySVG.new(600, 150) %>
 
-<% f = TTRuby.new("hanning") %>
+<% f = TTObject.new("hanning") %>
 <% for i in 0..600  %>
 	<% x = i/600.0 %>
 	<% y = f.calculate(x) %>
@@ -118,7 +118,7 @@
 
 <% svg = MySVG.new(600, 150) %>
 
-<% f = TTRuby.new("rectangular") %>
+<% f = TTObject.new("rectangular") %>
 <% for i in 0..600  %>
 	<% x = i/600.0 %>
 	<% y = f.calculate(x) %>
@@ -135,7 +135,7 @@
 
 <% svg = MySVG.new(600, 150) %>
 
-<% f = TTRuby.new("welch") %>
+<% f = TTObject.new("welch") %>
 <% for i in 0..600  %>
 	<% x = i/600.0 %>
 	<% y = f.calculate(x) %>

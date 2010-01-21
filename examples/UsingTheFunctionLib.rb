@@ -9,7 +9,7 @@ puts
 
 # First, we need to create an object registered with the Jamoma Foundation
 # The 'exponential' object is a member of Jamoma DSP's FunctionLib
-myFunction = TTRuby.new("exponential")
+myFunction = TTObject.new("exponential")
 
 
 # Now we can use the object, whose reference we have in the 'myFunction' variable

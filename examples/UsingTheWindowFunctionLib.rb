@@ -8,7 +8,7 @@ puts
 
 
 def postTableFromWindowFunction functionName
-  myFunction = TTRuby.new(functionName)
+  myFunction = TTObject.new(functionName)
 
   puts "#{functionName} Window Function"
   for i in 0..10 

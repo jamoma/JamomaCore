@@ -4,8 +4,8 @@ require 'TTRuby'
 
 puts "start"
 
-#converter = TTRuby.new("dataspace.gain") # dataspace lib
-converter = TTRuby.new("exponential") # function lib
+#converter = TTObject.new("dataspace.gain") # dataspace lib
+converter = TTObject.new("exponential") # function lib
 
 puts "converter: #{converter}"
 
