@@ -18,6 +18,18 @@ public:
 };
 
 
+//
+class TTAudioInstance {
+public:
+	TTMulticoreObjectPtr	obj;
+	
+	TTAudioInstance()
+	{
+		obj = NULL;
+	}
+};
+
+
 typedef VALUE (*TTRubyMethod)(...);
 //#define TTRubyMethod
 
@@ -32,7 +44,8 @@ extern "C" {
 	VALUE TTRubyGetAttribute(VALUE self, VALUE attributeName);
 	VALUE TTRubyCalculate(VALUE self, VALUE x);
 
-	VALUE TTAudioInitialize(VALUE self, VALUE className);
+	VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self);
+	//VALUE TTAudioInitialize(VALUE self, VALUE className);
 	VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self);
 	VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue);
 	VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName);
@@ -74,7 +87,7 @@ void Init_TTRuby()
 
 	c = rb_define_class("TTAudio", rb_cObject);
 	
-	rb_define_method(c, "initialize",		TTRubyMethod(TTAudioInitialize), 1);	// called to initialize a new object that has been created or cloned
+	rb_define_method(c, "initialize",		TTRubyMethod(TTAudioInitialize), -1);	// called to initialize a new object that has been created or cloned
 	rb_define_method(c, "send",				TTRubyMethod(TTAudioSendMessage), -1);	// send a message to the wrapped object
 	rb_define_method(c, "set",				TTRubyMethod(TTAudioSetAttribute), 2);	// set attribute value
 	rb_define_method(c, "get",				TTRubyMethod(TTAudioGetAttribute), 1);	// get attribute value
@@ -118,27 +131,6 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 
 /*****************************************************************************************************/
 // Methods
-
-VALUE TTAudioInitialize(VALUE self, VALUE className)
-{	
-	TTRubyInstance* instance = new TTRubyInstance;
-	TTValue*		v = new TTValue;
-	TTValue			args;
-	TTErr			err = kTTErrNone;
-	VALUE			classNameStr = StringValue(className);
-	
-	args.clear();
-	err = TTObjectInstantiate(TT(RSTRING(classNameStr)->ptr), &instance->obj, args);
-	if (!err) {
-		v->setSize(1);
-		v->set(0, TTPtr(instance));
-		gTTRubyInstances->append(TTSymbolPtr(self), *v);
-		return self;
-	}
-	else
-		return NULL;
-}
-
 
 VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 {
@@ -345,13 +337,75 @@ VALUE TTRubyCalculate(VALUE self, VALUE x)
  **************************************************************************************/
 
 
+//VALUE TTAudioInitialize(VALUE self, VALUE className)
+VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
+{	
+	TTAudioInstance*	instance = new TTAudioInstance;
+	TTValue*			v = new TTValue;
+	TTValue				args;
+	TTErr				err = kTTErrNone;
+	//VALUE				classNameStr = StringValue(className);
+	VALUE				messageArgStr;
+
+	if (argc < 1) {
+		cout << "ERROR -- TTAudio requires at least 1 argument (the name of the object class to create)" << endl;
+		return NULL;
+	}
+
+	args.clear();
+	for (int i=0; i<argc; i++) {
+		int t = TYPE(argv[i]);
+
+		cout << "the type of the message arg is " << t << endl;
+		switch (t) {
+			case T_FLOAT:
+				args.append(NUM2DBL(argv[i]));
+				break;
+			case T_FIXNUM:
+				args.append((int)FIX2LONG(argv[i]));
+				break;
+			case T_BIGNUM:
+				args.append((TTInt64)NUM2LL(argv[i]));
+				break;
+			case T_STRING:
+				messageArgStr = StringValue(argv[i]);
+				args.append(TT(RSTRING(messageArgStr)->ptr));
+				break;
+			case T_ARRAY:
+				cout << "TTError: Array arguments for messages not yet supported in Ruby" << endl;
+				err = kTTErrGeneric;
+				break;
+			case T_OBJECT:
+				cout << "TTError: Object arguments for messages not yet supported in Ruby" << endl;
+				err = kTTErrGeneric;
+				break;
+			default:
+				// assume no arguments for now...
+				break;
+		}
+	}				
+	
+	//err = TTObjectInstantiate(TT(RSTRING(classNameStr)->ptr), &instance->obj, args);
+	err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&instance->obj, args);
+	
+	if (!err) {
+		v->setSize(1);
+		v->set(0, TTPtr(instance));
+		gTTAudioInstances->append(TTSymbolPtr(self), *v);
+		return self;
+	}
+	else
+		return NULL;
+}
+
+
 VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 {
-	TTRubyInstance* instance = NULL;
-	TTErr			err = kTTErrNone;
-	VALUE			messageNameStr;
-	VALUE			messageArgStr;
-	TTValue			v;
+	TTAudioInstance*	instance = NULL;
+	TTErr				err = kTTErrNone;
+	VALUE				messageNameStr;
+	VALUE				messageArgStr;
+	TTValue				v;
 
 	if (argc < 1) {
 		cout << "ERROR -- TTRuby.send requires at least 1 argument (the name of the message to send)" << endl;
@@ -359,9 +413,9 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 	}
 
 	messageNameStr = StringValue(argv[0]);	
-	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
-		instance = (TTRubyInstance*)TTPtr(v);
+		instance = (TTAudioInstance*)TTPtr(v);
 		if (instance) {
 			if (argc == 1) {		// no arguments...
 				err = instance->obj->sendMessage(TT(RSTRING(messageNameStr)->ptr));
@@ -402,11 +456,11 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 				}				
 
 				if (!err)
-					err = instance->obj->sendMessage(TT(RSTRING(messageNameStr)->ptr), v);				
+					err = instance->obj->mUnitGenerator->sendMessage(TT(RSTRING(messageNameStr)->ptr), v);				
 			}
 
 			if (err)
-				cout << "TTRubySendMessage: Error " << err << endl;
+				cout << "TTAudioSendMessage: Error " << err << endl;
 		}
 	}
 bye:
@@ -416,15 +470,15 @@ bye:
 
 VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 {
-	TTRubyInstance* instance = NULL;
-	TTErr			err = kTTErrNone;
-	VALUE			attributeNameStr = StringValue(attributeName);
-	VALUE			attributeValueStr;
-	TTValue			v;
+	TTAudioInstance*	instance = NULL;
+	TTErr				err = kTTErrNone;
+	VALUE				attributeNameStr = StringValue(attributeName);
+	VALUE				attributeValueStr;
+	TTValue				v;
 
-	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
-		instance = (TTRubyInstance*)TTPtr(v);
+		instance = (TTAudioInstance*)TTPtr(v);
 		if (instance) {
 			int t = TYPE(attributeValue);
 
@@ -458,9 +512,9 @@ VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 					break;
 			}
 			if (!err)
-				err = instance->obj->setAttributeValue(TT(RSTRING(attributeNameStr)->ptr), v);
+				err = instance->obj->mUnitGenerator->setAttributeValue(TT(RSTRING(attributeNameStr)->ptr), v);
 			if (err)
-				cout << "TTRubySetAttribute: Error " << err << endl;
+				cout << "TTAudioSetAttribute: Error " << err << endl;
 		}
 	}
 }
@@ -468,22 +522,22 @@ VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 
 VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName)
 {
-	TTRubyInstance* instance = NULL;
-	TTErr			err = kTTErrNone;
-	VALUE			attributeNameStr = StringValue(attributeName);
-	VALUE			attributeValueStr;
-	TTValue			v;
-	VALUE			returnValue = rb_float_new(0.0);
-	TTSymbolPtr		s;
-	TTCString		c;
+	TTAudioInstance*	instance = NULL;
+	TTErr				err = kTTErrNone;
+	VALUE				attributeNameStr = StringValue(attributeName);
+	VALUE				attributeValueStr;
+	TTValue				v;
+	VALUE				returnValue = rb_float_new(0.0);
+	TTSymbolPtr			s;
+	TTCString			c;
 
-	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
-		instance = (TTRubyInstance*)TTPtr(v);
+		instance = (TTAudioInstance*)TTPtr(v);
 		if (instance) {
-			err = instance->obj->getAttributeValue(TT(RSTRING(attributeNameStr)->ptr), v);
+			err = instance->obj->mUnitGenerator->getAttributeValue(TT(RSTRING(attributeNameStr)->ptr), v);
 			if (err) {
-				cout << "TTRubyGetAttribute: Error " << err << endl;
+				cout << "TTAudioGetAttribute: Error " << err << endl;
 				goto out;
 			}
 
