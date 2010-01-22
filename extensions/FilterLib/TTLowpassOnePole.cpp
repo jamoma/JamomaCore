@@ -29,7 +29,7 @@ TT_AUDIO_CONSTRUCTOR
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	arguments);			// This attribute is inherited
-	setAttributeValue(TT("frequency"),		1000.0);
+	setAttributeValue(TT("Frequency"),		1000.0);
 	setProcessMethod(processAudio);
 }
 
@@ -69,13 +69,14 @@ TTErr TTLowpassOnePole::setFrequency(const TTValue& newValue)
 	mFrequency = newValue;
 	radians = hertzToRadians(mFrequency);
 	mCoefficient = TTClip(radians / kTTPi, 0.0, 1.0);
+	mOneMinusCoefficient = 1.0 - mCoefficient;
 	return kTTErrNone;
 }
 
 
 inline TTErr TTLowpassOnePole::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
-	y = mFeedback[channel] = TTAntiDenormal((x * mCoefficient) + (mFeedback[channel] * (1.0 - mCoefficient)));
+	y = mFeedback[channel] = TTAntiDenormal((x * mCoefficient) + (mFeedback[channel] * mOneMinusCoefficient));
 	return kTTErrNone;
 }
 
