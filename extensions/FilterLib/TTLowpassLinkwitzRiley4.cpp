@@ -31,6 +31,8 @@ TT_AUDIO_CONSTRUCTOR
 	setAttributeValue(TT("maxNumChannels"),	arguments);			// This attribute is inherited
 	setAttributeValue(TT("Frequency"),		1000.0);
 	setProcessMethod(processAudio);
+	setCalculateMethod(calculateValue);
+
 }
 
 
