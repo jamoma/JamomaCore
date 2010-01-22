@@ -22,7 +22,7 @@ typedef Op* OpPtr;
 
 
 // Prototypes for methods
-extern "C" void jamulop_setup(void);
+extern "C" void setup_op0x3d(void);
 OpPtr	OpNew			(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void   	OpFree			(OpPtr self);
 TTErr  	OpReset			(OpPtr self, long vectorSize);
@@ -39,11 +39,11 @@ static ClassPtr sOpClass;
 /************************************************************************************/
 // Main() Function
 
-void jamulop_setup(void)
+void setup_op0x3d(void)
 {
 	TTMulticoreInit();	
 	
-	sOpClass = class_new(gensym("jamulop"), (t_newmethod)OpNew, (t_method)OpFree, sizeof(Op), 0, A_GIMME, 0);
+	sOpClass = class_new(gensym("op="), (t_newmethod)OpNew, (t_method)OpFree, sizeof(Op), 0, A_GIMME, 0);
 	
 	class_addmethod(sOpClass, (t_method)OpReset,		gensym("multicore.reset"),		A_CANT, 0);
 	class_addmethod(sOpClass, (t_method)OpSetup,		gensym("multicore.setup"),		A_CANT, 0);
@@ -51,7 +51,7 @@ void jamulop_setup(void)
 	class_addmethod(sOpClass, (t_method)OpSetOperator,	gensym("operator"),				A_SYMBOL, 0);
 	class_addmethod(sOpClass, (t_method)OpSetOperand,	gensym("operand"),				A_FLOAT, 0);
 		
-	class_sethelpsymbol(sOpClass, gensym("help-jamulop.pd"));
+	class_sethelpsymbol(sOpClass, gensym("help-op=.pd"));
 }
 
 

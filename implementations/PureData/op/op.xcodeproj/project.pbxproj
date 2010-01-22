@@ -21,7 +21,7 @@
 		2237363311091F54004950CF /* PureMulticore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PureMulticore.h; path = ../PureMulticore.h; sourceTree = SOURCE_ROOT; };
 		22C9F4F1103256A80062F7B8 /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
 		22DEC1BE0E1C8A0600F4ADDF /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
-		D2AAC09D05546B4700DB518D /* jamulop.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = jamulop.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2AAC09D05546B4700DB518D /* op=.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "op=.pd_darwin"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +42,7 @@
 		034768DDFF38A45A11DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D2AAC09D05546B4700DB518D /* jamulop.pd_darwin */,
+				D2AAC09D05546B4700DB518D /* op=.pd_darwin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -104,7 +104,7 @@
 			);
 			name = "pd-external";
 			productName = "ttlimiter~";
-			productReference = D2AAC09D05546B4700DB518D /* jamulop.pd_darwin */;
+			productReference = D2AAC09D05546B4700DB518D /* op=.pd_darwin */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -177,7 +177,7 @@
 					"-undefined",
 					suppress,
 				);
-				PRODUCT_NAME = "jamul$(PROJECT_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)=";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../../DSP/library/includes\" \"$(SRCROOT)/../../../../Foundation/library/includes\" \"$(SRCROOT)/..\" \"$(SRCROOT)/../../../library/includes\"";
 			};
 			name = Debug;
@@ -219,7 +219,7 @@
 					"-undefined",
 					suppress,
 				);
-				PRODUCT_NAME = "jamul$(PROJECT_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)=";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../../DSP/library/includes\" \"$(SRCROOT)/../../../../Foundation/library/includes\" \"$(SRCROOT)/..\" \"$(SRCROOT)/../../../library/includes\"";
 			};
 			name = Release;
