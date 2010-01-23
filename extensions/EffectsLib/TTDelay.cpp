@@ -12,6 +12,9 @@
 #define thisTTClassName		"delay"
 #define thisTTClassTags		"audio, processor, delay"
 
+#ifdef TT_PLATFORM_WIN
+#include <Algorithm>
+#endif
 
 TT_AUDIO_CONSTRUCTOR, 
 	mDelay(0), 
