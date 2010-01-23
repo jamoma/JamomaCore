@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
@@ -183,59 +183,59 @@
 			Name="WindowFunction Units"
 			>
 			<File
-				RelativePath=".\CosineFunction.cpp"
+				RelativePath=".\BartlettWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\CosineFunction.h"
+				RelativePath=".\BartlettWindow.h"
 				>
 			</File>
 			<File
-				RelativePath=".\ExpFunction.cpp"
+				RelativePath=".\HammingWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ExpFunction.h"
+				RelativePath=".\HammingWindow.h"
 				>
 			</File>
 			<File
-				RelativePath=".\LinearFunction.cpp"
+				RelativePath=".\HanningWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\LinearFunction.h"
+				RelativePath=".\HanningWindow.h"
 				>
 			</File>
 			<File
-				RelativePath=".\LogFunction.cpp"
+				RelativePath=".\RectangularWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\LogFunction.h"
+				RelativePath=".\RectangularWindow.h"
 				>
 			</File>
 			<File
-				RelativePath=".\LowpassFunction.cpp"
+				RelativePath=".\TrapezoidWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\LowpassFunction.h"
+				RelativePath=".\TrapezoidWindow.h"
 				>
 			</File>
 			<File
-				RelativePath=".\PowerFunction.cpp"
+				RelativePath=".\WelchWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\PowerFunction.h"
+				RelativePath=".\WelchWindow.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TanhFunction.cpp"
+				RelativePath=".\WindowFunction.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TanhFunction.h"
+				RelativePath=".\WindowFunction.h"
 				>
 			</File>
 		</Filter>
