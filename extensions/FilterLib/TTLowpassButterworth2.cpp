@@ -16,12 +16,12 @@
 TT_AUDIO_CONSTRUCTOR
 {
 	// register attributes
-	addAttributeWithSetter(Frequency,	kTypeFloat64);
+	addAttributeWithSetter(Frequency,		kTypeFloat64);
 	addAttributeProperty(Frequency,			range,			TTValue(10.0, sr*0.475));
 	addAttributeProperty(Frequency,			rangeChecking,	TT("clip"));
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessageWithArgument(updateMaxNumChannels);
+	addMessageWithArgument(updateMaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
 	addMessage(updateSr);
 	// make the clear method available to the outside world
@@ -73,7 +73,7 @@ TTErr TTLowpassButterworth2::setFrequency(const TTValue& newValue)
 {
 	mFrequency = newValue;
 
-	mC = 1 / ( tan( kTTPi*(mFrequency/sr) ) );
+	mC = 1.0 / ( tan( kTTPi*(mFrequency/sr) ) );
 	mCSquared = mC * mC;
 	calculateCoefficients();
 	return kTTErrNone;
@@ -82,14 +82,11 @@ TTErr TTLowpassButterworth2::setFrequency(const TTValue& newValue)
 
 void TTLowpassButterworth2::calculateCoefficients()
 {	
-	TTFloat64 temp;
-	temp = kTTSqrt2*mC + mCSquared;
-
-	mA0 = 1 / (1 + temp);
-	mA1 = 2*mA0;
+	mA0 = 1.0 / (1.0 + kTTSqrt2*mC + mCSquared);
+	mA1 = 2.0*mA0;
 	//mA2 = mA0;
-	mB1 = 2*mA0*( 1 - mCSquared );
-	mB2 = mA0 * (1 - temp);
+	mB1 = mA1*( 1.0 - mCSquared ); //2*mA0*( 1 - mCSquared );
+	mB2 = mA0 * (1.0 - kTTSqrt2*mC + mCSquared);
 }
 
 

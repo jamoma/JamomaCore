@@ -82,14 +82,11 @@ TTErr TTHighpassButterworth2::setFrequency(const TTValue& newValue)
 
 void TTHighpassButterworth2::calculateCoefficients()
 {   
-	TTFloat64 temp;
-	temp = kTTSqrt2*mC + mCSquared;
-	
-	mA0 = 1 / (1 + temp);
+	mA0 = 1 / (1 + kTTSqrt2*mC + mCSquared);
 	mA1 = -2*mA0;
 	//mA2 = mA0;
 	mB1 = 2*mA0*( mCSquared - 1 );
-	mB2 = mA0 * (1 - temp);
+	mB2 = mA0 * (1 - kTTSqrt2*mC + mCSquared);
 }
 
 
