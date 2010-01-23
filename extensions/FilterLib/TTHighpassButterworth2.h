@@ -19,35 +19,38 @@
 class TTHighpassButterworth2 : public TTAudioObject {
 	TTCLASS_SETUP(TTHighpassButterworth2)
 
-	TTFloat64		frequency;				///< filter cutoff frequency
-	TTFloat64		c, a0, a1, a2, b1, b2;		///< filter coefficients
-	TTFloat64		*xm1;
-	TTFloat64		*xm2;
-	TTFloat64		*ym1;
-	TTFloat64		*ym2;						// previous input and output samples
-
+	TTFloat64			mFrequency;				///< filter cutoff frequency
+	TTFloat64			mC, mCSquared, mA0, mA1, mB1, mB2;	///< filter coefficients. 
+	TTSampleVector		mX1;						///< Input sample n-1
+	TTSampleVector		mX2;						///< Input sample n-2
+	TTSampleVector		mY1;						///< Output sample n-1
+	TTSampleVector		mY2;						///< Output sample n-2
+	
 	/**	Receives notifications when there are changes to the inherited 
-		maxNumChannels attribute.  This allocates memory for xm1, xm2, ym1, and ym2 
-		so that each channel's previous values are remembered.		*/
+	 maxNumChannels attribute.  This allocates memory for xm1, xm2, ym1, and ym2 
+	 so that each channel's previous values are remembered.		*/
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
-
-	/** Receives notifications when there are changes to the inherited 
-		sr attribute.						*/
 	TTErr updateSr();
-
+	TTErr clear();
+	
+	void calculateCoefficients();
+	
+    /**	Standard single value calculate method as used by DSP objects. */
+	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
+	
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-	/**	Setter for the frequency attribute. */
-	TTErr setfrequency(const TTValue& value);
 	
+	/**	Setter for the frequency attribute. */
+	TTErr setFrequency(const TTValue& value);
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
 	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the
 	 *	feedback has become corrupted (such as might happen if a NaN is fed in) then it may be 
 	 *	neccesary to clear the filter by calling this method.
 	 *	@return Returns a TTErr error code.												*/
-	TTErr clear();
+	
 };
+
 
 
 #endif // __TT_HIGHPASS_BUTTERWORTH_2_H__
