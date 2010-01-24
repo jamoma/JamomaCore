@@ -13,74 +13,55 @@
 #define thisTTClassTags		"audio, processor, filter"
 
 
-TT_AUDIO_CONSTRUCTOR,
-	lastInput(NULL),
-	lastOutput(NULL)
+TT_AUDIO_CONSTRUCTOR
 {
 	// make the clear method available to be called:
 	registerMessageSimple(clear);
 	
 	// this next one is called by the parent class so we can allocate memory as required
-	registerMessageWithArgument(updateMaxNumChannels);
+	addMessageWithArgument(updateMaxNumChannels);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	arguments);
 	setProcessMethod(processAudio);
+	setCalculateMethod(calculateValue);
+
 }
 
 
 TTDCBlock::~TTDCBlock()
 {
-	delete[] lastInput;
-	delete[] lastOutput;
+	;
 }
 
 
 TTErr TTDCBlock::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	delete[] lastInput;
-	delete[] lastOutput;
-	lastInput = new TTSampleValue[maxNumChannels];
-	lastOutput = new TTSampleValue[maxNumChannels];
-
+	mLastInput.resize(maxNumChannels);
+	mLastOutput.resize(maxNumChannels);
 	clear();
 	return kTTErrNone;
 }
 
 
 TTErr TTDCBlock::clear()
-{
-	for(TTUInt16 i=0; i<maxNumChannels; i++){
-		lastInput[i] = 0;
-		lastOutput[i] = 0;
-	}
+{   
+	mLastInput.assign(maxNumChannels, 0.0);
+	mLastOutput.assign(maxNumChannels, 0.0);
 	return kTTErrNone;
 }
 
 
-// DSP LOOP
+inline TTErr TTDCBlock::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+{
+	y = mLastOutput[channel] = TTAntiDenormal(x - mLastInput[channel] + (mLastOutput[channel] * 0.9997));
+	mLastInput[channel] = x;
+	return kTTErrNone;
+}
+
+
 TTErr TTDCBlock::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTAudioSignal&	in = inputs->getSignal(0);
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		vs;
-	TTSampleValue	*inSample,
-					*outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
-	TTSampleValue	temp;
-
-	for(channel=0; channel<numchannels; channel++){
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
-		
-		while(vs--){
-			temp = *inSample++;
-			*outSample++ = lastOutput[channel] = TTAntiDenormal(temp - lastInput[channel] + (lastOutput[channel] * 0.9997));
-			lastInput[channel] = temp;
-		}
-	}
-	return kTTErrNone;
+	TT_WRAP_CALCULATE_METHOD(calculateValue);
 }
 

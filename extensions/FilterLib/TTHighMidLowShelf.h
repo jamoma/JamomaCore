@@ -14,13 +14,13 @@
 class TTHighMidLowShelf : public TTAudioObject {
 	TTCLASS_SETUP(TTHighMidLowShelf)
 
-	TTFloat64		frequencyLm, frequencyMh, gainL, gainM, gainH;///< filter parameter
-	TTFloat64		a0, a1, a2, b1, b2;		///< filter coefficients
-	TTFloat64		*xm1;
-	TTFloat64		*xm2;
-	TTFloat64		*xm0;
-	TTFloat64		mf_;//, hf_, lg_, mg_, hg_,lf_;
-	//TTFloat64		*ym2;						// previous input and output samples
+	TTFloat64		mFrequencyLm, mFrequencyMh, mGainL, mGainM, mGainH;///< filter parameter
+	TTFloat64		mA0, mA1, mA2, mB1, mB2;		///< filter coefficients
+	TTSampleVector		mX1;
+	TTSampleVector		mX2;
+	TTSampleVector		mX0;
+	TTFloat64		mFmid;
+	
 
 	/**	Receives notifications when there are changes to the inherited 
 		maxNumChannels attribute.  This allocates memory for xm1, xm2, ym1, and ym2 
@@ -30,7 +30,7 @@ class TTHighMidLowShelf : public TTAudioObject {
 	/** Receives notifications when there are changes to the inherited 
 		sr attribute.						*/
 	TTErr updateSr();
-	
+	TTErr clear();
 	TTErr calculateCoefficients();
 
 	/**	Standard audio processing method as used by TTBlue objects. */
@@ -40,12 +40,12 @@ class TTHighMidLowShelf : public TTAudioObject {
     TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
 	
 	/**	Setter for the filter attribute. */
-	TTErr setgainL(const TTValue& value);
-	TTErr setgainM(const TTValue& value);
-	TTErr setgainH(const TTValue& value);
-	TTErr setfrequencyLm(const TTValue& value);
-	TTErr setfrequencyMh(const TTValue& value);
-	TTErr clear();
+	TTErr setGainL(const TTValue& value);
+	TTErr setGainM(const TTValue& value);
+	TTErr setGainH(const TTValue& value);
+	TTErr setFrequencyLm(const TTValue& value);
+	TTErr setFrequencyMh(const TTValue& value);
+	
 };
 
 #endif //  _HIMIDLOW_H_

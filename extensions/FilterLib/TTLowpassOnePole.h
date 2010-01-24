@@ -16,9 +16,10 @@
 class TTLowpassOnePole : public TTAudioObject {
 	TTCLASS_SETUP(TTLowpassOnePole)
 
-	TTFloat64			mFrequency;			///< filter cutoff frequency
-	TTFloat64			mCoefficient;		///< filter coefficients
-	TTSampleVector		mFeedback;			///< previous output sample for each channel
+	TTFloat64			mFrequency;					///< filter cutoff frequency
+	TTFloat64			mCoefficient;				///< filter coefficients
+	TTFloat64			mOneMinusCoefficient;		///< filter coefficients
+	TTSampleVector		mFeedback;					///< previous output sample for each channel
 
 	/**	Receives notifications when there are changes to the inherited 
 		maxNumChannels attribute.			*/

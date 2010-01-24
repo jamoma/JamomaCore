@@ -71,7 +71,7 @@ void TTAudioSignalArray::setAllMaxNumChannels(TTUInt16 newMaxNumChannels)
 
 void TTAudioSignalArray::setAllNumChannels(TTUInt16 newNumChannels)
 {
-	for(TTUInt16 i=0; i<maxNumAudioSignals; i++)
+	for (TTUInt16 i=0; i<maxNumAudioSignals; i++)
 		audioSignals[i]->setnumChannels(newNumChannels);
 }
 
