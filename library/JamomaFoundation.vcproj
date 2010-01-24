@@ -200,6 +200,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\includes\TTCallback.h"
+				>
+			</File>
+			<File
 				RelativePath=".\includes\TTClass.h"
 				>
 			</File>
@@ -277,6 +281,10 @@
 			>
 			<File
 				RelativePath=".\source\TTAttribute.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTCallback.cpp"
 				>
 			</File>
 			<File
