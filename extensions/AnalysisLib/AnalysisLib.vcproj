@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="AnalysisLib"
-	ProjectGUID="{4A4AD94E-41D5-4DD4-8620-E6004026E103}"
+	ProjectGUID="{BF8E70E9-D5B6-4719-866F-C415F4673B64}"
 	RootNamespace="tt.overdrive~"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="foo"
 			/>
 			<Tool
@@ -107,7 +107,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\Jamoma\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="foo"
 			/>
 			<Tool

@@ -13,52 +13,40 @@
 #define thisTTClassTags		"audio, processor, filter, highpass, butterworth"
 
 
-TT_AUDIO_CONSTRUCTOR,
-	xm1(NULL), 
-	xm2(NULL), 
-	ym1(NULL), 
-	ym2(NULL)
+TT_AUDIO_CONSTRUCTOR
 {
 	// register attributes
-	registerAttributeWithSetter(frequency,	kTypeFloat64);
-	addAttributeProperty(frequency,			range,			TTValue(10.0, sr*0.475));
-	addAttributeProperty(frequency,			rangeChecking,	TT("clip"));
+	addAttributeWithSetter(Frequency,	kTypeFloat64);
+	addAttributeProperty(Frequency,			range,			TTValue(10.0, sr*0.475));
+	addAttributeProperty(Frequency,			rangeChecking,	TT("clip"));
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessageWithArgument(updateMaxNumChannels);
+	addMessageWithArgument(updateMaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessageSimple(updateSr);
+	addMessage(updateSr);
 	// make the clear method available to the outside world
-	registerMessageSimple(clear);
+	addMessage(clear);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	arguments);			// This attribute is inherited
-	setAttributeValue(TT("frequency"),		1000.0);
+	setAttributeValue(TT("Frequency"),		1000.0);
 	setProcessMethod(processAudio);
+	setCalculateMethod(calculateValue);
 }
 
 
 TTHighpassButterworth2::~TTHighpassButterworth2()
 {
-	delete[] xm1;
-	delete[] xm2;
-	delete[] ym1;
-	delete[] ym2;
+	;
 }
 
 
 TTErr TTHighpassButterworth2::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	delete[] xm1;
-	delete[] xm2;
-	delete[] ym1;
-	delete[] ym2;
-	
-	xm1 = new TTFloat64[maxNumChannels];
-	xm2 = new TTFloat64[maxNumChannels];
-	ym1 = new TTFloat64[maxNumChannels];
-	ym2 = new TTFloat64[maxNumChannels];
-	
+	mX1.resize(maxNumChannels);
+	mX2.resize(maxNumChannels);
+	mY1.resize(maxNumChannels);
+	mY2.resize(maxNumChannels);		
 	clear();
 	return kTTErrNone;
 }
@@ -66,67 +54,56 @@ TTErr TTHighpassButterworth2::updateMaxNumChannels(const TTValue& oldMaxNumChann
 
 TTErr TTHighpassButterworth2::updateSr()
 {
-	TTValue	v(frequency);
-	return setfrequency(v);
+	TTValue	v(mFrequency);
+	return setFrequency(v);
 }
 
 
 TTErr TTHighpassButterworth2::clear()
 {
-	short i;
-
-	for(i=0; i<maxNumChannels; i++){
-		xm1[i] = 0.0;
-		xm2[i] = 0.0;
-		ym1[i] = 0.0;
-		ym2[i] = 0.0;
-	}
+	mX1.assign(maxNumChannels, 0.0);
+	mX2.assign(maxNumChannels, 0.0);
+	mY1.assign(maxNumChannels, 0.0);
+	mY2.assign(maxNumChannels, 0.0);
 	return kTTErrNone;
 }
 
 
-TTErr TTHighpassButterworth2::setfrequency(const TTValue& newValue)
+TTErr TTHighpassButterworth2::setFrequency(const TTValue& newValue)
 {	
-	frequency = newValue;
+	mFrequency = newValue;
 
-	c = tan( kTTPi*(frequency/sr ) );
-	a0 = 1 / (1 + kTTSqrt2*c + c*c);
-	a1 = -2*a0;
-	a2 = a0;
-	b1 = 2*a0*( c*c - 1 );
-	b2 = a0 * (1 - kTTSqrt2*c + c*c);
+	mC = tan( kTTPi*(mFrequency/sr ) );
+	mCSquared = mC * mC;
+	calculateCoefficients();	
+	return kTTErrNone;
+}
+
+
+void TTHighpassButterworth2::calculateCoefficients()
+{   
+	mA0 = 1 / (1 + kTTSqrt2*mC + mCSquared);
+	mA1 = -2*mA0;
+	//mA2 = mA0;
+	mB1 = 2*mA0*( mCSquared - 1 );
+	mB2 = mA0 * (1 - kTTSqrt2*mC + mCSquared);
+}
+
+
+inline TTErr TTHighpassButterworth2::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+{
+	//y = TTAntiDenormal(mA0*x + mA1*mX1[channel] + mA2*mX2[channel] - mB1*mY1[channel] - mB2*mY2[channel]);
+	// since mA0 = mA2, one can optimize to:
+	y = TTAntiDenormal(mA0*(x + mX2[channel])+ mA1*mX1[channel] - mB1*mY1[channel] - mB2*mY2[channel]);
+	mX2[channel] = mX1[channel];
+	mX1[channel] = x;
+	mY2[channel] = mY1[channel];
+	mY1[channel] = y;
 	return kTTErrNone;
 }
 
 
 TTErr TTHighpassButterworth2::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTAudioSignal&	in = inputs->getSignal(0);
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		vs;
-	TTSampleValue	*inSample,
-					*outSample;
-	TTFloat64		tempx,
-					tempy;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
-
-	// This outside loop works through each channel one at a time
-	for(channel=0; channel<numchannels; channel++){
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
-		
-		// This inner loop works through each sample within the channel one at a time
-		while(vs--){
-			tempx = *inSample++;
-			tempy = TTAntiDenormal(a0*tempx + a1*xm1[channel] + a2*xm2[channel] - b1*ym1[channel] - b2*ym2[channel]);
-			xm2[channel] = xm1[channel];
-			xm1[channel] = tempx;
-			ym2[channel] = ym1[channel];
-			ym1[channel] = tempy;
-			*outSample++ = tempy;
-		}
-	}
-	return kTTErrNone;
+	TT_WRAP_CALCULATE_METHOD(calculateValue);
 }

@@ -1,0 +1,330 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		22282A4B10EE629600E48152 /* WelchWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22282A4710EE629600E48152 /* WelchWindow.cpp */; };
+		22282A4C10EE629600E48152 /* WelchWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 22282A4810EE629600E48152 /* WelchWindow.h */; };
+		22282A4D10EE629600E48152 /* WindowFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22282A4910EE629600E48152 /* WindowFunction.cpp */; };
+		22282A4E10EE629600E48152 /* WindowFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 22282A4A10EE629600E48152 /* WindowFunction.h */; };
+		22526B0010385E3600CD634E /* WindowFunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22526AFF10385E3600CD634E /* WindowFunctionLib.cpp */; };
+		22D43C4C0F1DA02200C16BB0 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */; };
+		22EB398A102E0F41006D027A /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EB3989102E0F41006D027A /* JamomaFoundation.framework */; };
+		A75C75CB10ED143A00A97CD5 /* RectangularWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A75C75C910ED143A00A97CD5 /* RectangularWindow.cpp */; };
+		A75C75CC10ED143A00A97CD5 /* RectangularWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = A75C75CA10ED143A00A97CD5 /* RectangularWindow.h */; };
+		A75C75E710EE09A000A97CD5 /* BartlettWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A75C75E510EE09A000A97CD5 /* BartlettWindow.cpp */; };
+		A75C75E810EE09A000A97CD5 /* BartlettWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = A75C75E610EE09A000A97CD5 /* BartlettWindow.h */; };
+		A790A91710EF5807001F0CF0 /* HanningWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A790A91510EF5807001F0CF0 /* HanningWindow.cpp */; };
+		A790A91810EF5807001F0CF0 /* HanningWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = A790A91610EF5807001F0CF0 /* HanningWindow.h */; };
+		A790A91F10EF5916001F0CF0 /* HammingWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = A790A91D10EF5916001F0CF0 /* HammingWindow.h */; };
+		A790A92310EF5966001F0CF0 /* HammingWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A790A92210EF5966001F0CF0 /* HammingWindow.cpp */; };
+		A790A93010EF6362001F0CF0 /* TrapezoidWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A790A92E10EF6362001F0CF0 /* TrapezoidWindow.cpp */; };
+		A790A93110EF6362001F0CF0 /* TrapezoidWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = A790A92F10EF6362001F0CF0 /* TrapezoidWindow.h */; };
+		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		22282A4710EE629600E48152 /* WelchWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WelchWindow.cpp; sourceTree = "<group>"; };
+		22282A4810EE629600E48152 /* WelchWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelchWindow.h; sourceTree = "<group>"; };
+		22282A4910EE629600E48152 /* WindowFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WindowFunction.cpp; sourceTree = "<group>"; };
+		22282A4A10EE629600E48152 /* WindowFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowFunction.h; sourceTree = "<group>"; };
+		22526AFF10385E3600CD634E /* WindowFunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WindowFunctionLib.cpp; sourceTree = SOURCE_ROOT; };
+		22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
+		22EB3989102E0F41006D027A /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
+		A75C75C910ED143A00A97CD5 /* RectangularWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RectangularWindow.cpp; sourceTree = "<group>"; };
+		A75C75CA10ED143A00A97CD5 /* RectangularWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RectangularWindow.h; sourceTree = "<group>"; };
+		A75C75E510EE09A000A97CD5 /* BartlettWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BartlettWindow.cpp; sourceTree = "<group>"; };
+		A75C75E610EE09A000A97CD5 /* BartlettWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BartlettWindow.h; sourceTree = "<group>"; };
+		A790A91510EF5807001F0CF0 /* HanningWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HanningWindow.cpp; sourceTree = SOURCE_ROOT; };
+		A790A91610EF5807001F0CF0 /* HanningWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HanningWindow.h; sourceTree = SOURCE_ROOT; };
+		A790A91D10EF5916001F0CF0 /* HammingWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HammingWindow.h; sourceTree = SOURCE_ROOT; };
+		A790A92210EF5966001F0CF0 /* HammingWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HammingWindow.cpp; sourceTree = SOURCE_ROOT; };
+		A790A92E10EF6362001F0CF0 /* TrapezoidWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrapezoidWindow.cpp; sourceTree = SOURCE_ROOT; };
+		A790A92F10EF6362001F0CF0 /* TrapezoidWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrapezoidWindow.h; sourceTree = SOURCE_ROOT; };
+		D2AAC09D05546B4700DB518D /* WindowFunctionLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = WindowFunctionLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D2AAC09B05546B4700DB518D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
+				22D43C4C0F1DA02200C16BB0 /* JamomaDSP.framework in Frameworks */,
+				22EB398A102E0F41006D027A /* JamomaFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DDFF38A45A11DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2AAC09D05546B4700DB518D /* WindowFunctionLib.ttdylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* TTWindowFunctionLib */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77ACFE841707C02AAC07 /* Source */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DDFF38A45A11DB9C8B /* Products */,
+			);
+			name = TTWindowFunctionLib;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				22EB3989102E0F41006D027A /* JamomaFoundation.framework */,
+				22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */,
+				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		08FB77ACFE841707C02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				22526AFF10385E3600CD634E /* WindowFunctionLib.cpp */,
+				22282A4A10EE629600E48152 /* WindowFunction.h */,
+				22282A4910EE629600E48152 /* WindowFunction.cpp */,
+				2217FAAA0E4F284D00806778 /* WindowFunctions */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		2217FAAA0E4F284D00806778 /* WindowFunctions */ = {
+			isa = PBXGroup;
+			children = (
+				A75C75E610EE09A000A97CD5 /* BartlettWindow.h */,
+				A75C75E510EE09A000A97CD5 /* BartlettWindow.cpp */,
+				A790A91D10EF5916001F0CF0 /* HammingWindow.h */,
+				A790A92210EF5966001F0CF0 /* HammingWindow.cpp */,
+				A790A91610EF5807001F0CF0 /* HanningWindow.h */,
+				A790A91510EF5807001F0CF0 /* HanningWindow.cpp */,
+				A75C75CA10ED143A00A97CD5 /* RectangularWindow.h */,
+				A75C75C910ED143A00A97CD5 /* RectangularWindow.cpp */,
+				A790A92F10EF6362001F0CF0 /* TrapezoidWindow.h */,
+				A790A92E10EF6362001F0CF0 /* TrapezoidWindow.cpp */,
+				22282A4810EE629600E48152 /* WelchWindow.h */,
+				22282A4710EE629600E48152 /* WelchWindow.cpp */,
+			);
+			name = WindowFunctions;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D2AAC09905546B4700DB518D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A75C75CC10ED143A00A97CD5 /* RectangularWindow.h in Headers */,
+				A75C75E810EE09A000A97CD5 /* BartlettWindow.h in Headers */,
+				22282A4C10EE629600E48152 /* WelchWindow.h in Headers */,
+				22282A4E10EE629600E48152 /* WindowFunction.h in Headers */,
+				A790A91810EF5807001F0CF0 /* HanningWindow.h in Headers */,
+				A790A91F10EF5916001F0CF0 /* HammingWindow.h in Headers */,
+				A790A93110EF6362001F0CF0 /* TrapezoidWindow.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D2AAC09C05546B4700DB518D /* WindowFunctionLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "WindowFunctionLib" */;
+			buildPhases = (
+				D2AAC09905546B4700DB518D /* Headers */,
+				D2AAC09B05546B4700DB518D /* Frameworks */,
+				D2AAC09A05546B4700DB518D /* Sources */,
+				2217F9FF0E4E194400806778 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WindowFunctionLib;
+			productName = TTWindowFunctionLib;
+			productReference = D2AAC09D05546B4700DB518D /* WindowFunctionLib.ttdylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "WindowFunctionLib" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 0867D691FE84028FC02AAC07 /* TTWindowFunctionLib */;
+			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2AAC09C05546B4700DB518D /* WindowFunctionLib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2217F9FF0E4E194400806778 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/mkdir -p -m 775 \"/Library/Application Support/Jamoma/Extensions\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"/Library/Application Support/Jamoma/Extensions\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2AAC09A05546B4700DB518D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22526B0010385E3600CD634E /* WindowFunctionLib.cpp in Sources */,
+				A75C75CB10ED143A00A97CD5 /* RectangularWindow.cpp in Sources */,
+				A75C75E710EE09A000A97CD5 /* BartlettWindow.cpp in Sources */,
+				22282A4B10EE629600E48152 /* WelchWindow.cpp in Sources */,
+				22282A4D10EE629600E48152 /* WindowFunction.cpp in Sources */,
+				A790A91710EF5807001F0CF0 /* HanningWindow.cpp in Sources */,
+				A790A92310EF5966001F0CF0 /* HammingWindow.cpp in Sources */,
+				A790A93010EF6362001F0CF0 /* TrapezoidWindow.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB916108733D950010E9CD /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					i386,
+					x86_64,
+				);
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_EXTENSION = ttdylib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = prefix.pch;
+				INSTALL_PATH = /usr/local/lib;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
+				PRODUCT_NAME = WindowFunctionLib;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Foundation/library/includes\" \"$(SRCROOT)/../../library/includes\"";
+			};
+			name = Development;
+		};
+		1DEB916208733D950010E9CD /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					i386,
+					x86_64,
+				);
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_EXTENSION = ttdylib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
+				);
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = prefix.pch;
+				INSTALL_PATH = /usr/local/lib;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
+				PRODUCT_NAME = WindowFunctionLib;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Foundation/library/includes\" \"$(SRCROOT)/../../library/includes\"";
+			};
+			name = Deployment;
+		};
+		1DEB916508733D950010E9CD /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Development;
+		};
+		1DEB916608733D950010E9CD /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "WindowFunctionLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB916108733D950010E9CD /* Development */,
+				1DEB916208733D950010E9CD /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "WindowFunctionLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB916508733D950010E9CD /* Development */,
+				1DEB916608733D950010E9CD /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}

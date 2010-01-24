@@ -19,42 +19,11 @@
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"args" : [ "@name", "jcom.zerox~", "@description", "A zero-crossing counter. " ],
-					"bgmode" : 1,
-					"id" : "obj-33",
-					"maxclass" : "bpatcher",
-					"name" : "jcom.maxhelpui.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 573.0, 70.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 15.0, 15.0, 1197.0, 68.0 ],
-					"prototypename" : "bphelp",
-					"varname" : "maxhelpui"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-6",
-					"linecount" : 2,
-					"maxclass" : "comment",
-=======
-					"maxclass" : "bpatcher",
-					"id" : "obj-2",
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-=======
 					"args" : [ "@name", "jcom.zerox~", "@description", "A zero crossing counter" ],
 					"bgmode" : 1,
 					"id" : "obj-2",
 					"maxclass" : "bpatcher",
 					"name" : "jcom.maxhelpui.maxpat",
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 0.0, 0.0, 573.0, 70.0 ]
@@ -143,8 +112,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -161,40 +128,6 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-=======
-					"maxclass" : "comment",
-					"varname" : "autohelp_top_description",
-					"text" : "The jcom.zerox~ object counts the number of zero crossings in a signal within a set number of samples. It can be useful as a CPU friendly frequency counter.",
-					"linecount" : 2,
-					"id" : "obj-61",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-61",
-					"linecount" : 2,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 30.0, 100.0, 429.0, 31.0 ],
-					"text" : "The jcom.zerox~ object counts the number of zero crossings in a signal within a set number of samples. It can be useful as a CPU friendly frequency counter.",
-					"varname" : "autohelp_top_description"
-				}
-
-			}
-, 			{
-				"box" : 				{
-<<<<<<< HEAD
-					"maxclass" : "comment",
-					"text" : "convert to control rate",
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"id" : "obj-11",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -209,19 +142,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-12",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "smooth the data a bit",
-					"id" : "obj-12",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -264,19 +184,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-15",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "set/get the length of the analysis in samples",
-					"id" : "obj-15",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -291,21 +198,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-16",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "Adding a little DC-offset will help to eliminate line noise from the analysis.",
-					"linecount" : 2,
-					"id" : "obj-16",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -369,21 +261,9 @@
 					"id" : "obj-21",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"numoutlets" : 0,
-					"patching_rect" : [ 270.0, 410.0, 93.0, 19.0 ],
-					"text" : "print jcom.zerox"
-=======
-					"patching_rect" : [ 270.0, 410.0, 76.0, 19.0 ],
-					"numoutlets" : 0,
-					"fontsize" : 10.0
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-=======
 					"numoutlets" : 0,
 					"patching_rect" : [ 270.0, 410.0, 76.0, 19.0 ],
 					"text" : "print tt.zerox"
->>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
@@ -456,19 +336,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-26",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "scale to frequency in hertz",
-					"id" : "obj-26",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -526,63 +393,21 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
 					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-30",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "newobj",
-					"text" : "jcom.zerox~ @size 2000",
-					"id" : "obj-30",
-=======
-					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-30",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-<<<<<<< HEAD
-<<<<<<< HEAD
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
 					"patching_rect" : [ 60.0, 380.0, 229.0, 19.0 ],
 					"text" : "jcom.zerox~ @size 2000"
-=======
-					"patching_rect" : [ 60.0, 380.0, 136.0, 19.0 ],
-					"numoutlets" : 3,
-					"fontsize" : 10.0,
-					"outlettype" : [ "", "", "" ]
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-=======
-					"numoutlets" : 3,
-					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 60.0, 380.0, 229.0, 19.0 ],
-					"text" : "jcom.zerox~ @size 2000"
->>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-32",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "\"dumpout\" outlet - should be familiar to all Jitter users...",
-					"linecount" : 2,
-					"id" : "obj-32",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -590,20 +415,9 @@
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
-<<<<<<< HEAD
-					"patching_rect" : [ 300.0, 370.0, 159.0, 31.0 ],
-<<<<<<< HEAD
-					"text" : "\"dumpout\" outlet - should be familiar to all Jitter users..."
-=======
-					"numoutlets" : 0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"fontsize" : 10.0
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-=======
 					"numoutlets" : 0,
 					"patching_rect" : [ 300.0, 370.0, 159.0, 31.0 ],
 					"text" : "\"dumpout\" outlet - should be familiar to all Jitter users..."
->>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}

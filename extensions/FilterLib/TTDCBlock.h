@@ -21,23 +21,19 @@
  *	"biquad~ 1.0 -1.0 -0.9997 0.0"
  */
  
-TTAUDIOCLASS(TTDCBlock)
+class TTDCBlock : public TTAudioObject {
+	TTCLASS_SETUP(TTDCBlock)
 
-	TTSampleValue*		lastInput;		///< Feedback values used for the audio filter			
-	TTSampleValue*		lastOutput;		///< Feedback values used for the audio filter
+	TTSampleVector		mLastInput;		///< Feedback values used for the audio filter			
+	TTSampleVector		mLastOutput;		///< Feedback values used for the audio filter
 
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
-	/**	Standard audio processing method as used by TTBlue objects.
-	 *	This object can process N parallel channels of audio.  It is assumed that the number
-	 *	of inputs and outputs are the same, as are the vector sizes of those inputs and outputs.
-	 *	@param	in		A pointer to a TTAudioSignal object that may contain any number of channels.
-	 *					This signal is considered the master, and thus it provides the vectorsize
-	 *					and number of channels should the two signals not be matched.
-	 *	@param	out		A pointer to a TTAudioSignal object that has the output sample vectors.
-	 *	@return	Returns a TTBlue Error Code.  TODO: Perhaps we should check if the signals are matched and then
-	 *			return an error if they aren't?  Currently we are just returning TT_ERR_NONE all the time.	*/
+	/**	Standard single value calculate method as used by DSP objects. */
+	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
+	
+	/**	Standard audio processing method as used by DSP objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	/**	Resets the DC-Blocking filter.

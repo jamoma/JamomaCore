@@ -19,20 +19,6 @@
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"args" : [ "@name", "jcom.limiter~", "@description", "Look-ahead limiter with built-in DC blocking and Overdrive" ],
-					"bgmode" : 1,
-					"id" : "obj-2",
-					"maxclass" : "bpatcher",
-					"name" : "jcom.maxhelpui.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 867.0, 70.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 15.0, 15.0, 1197.0, 68.0 ],
-					"prototypename" : "bphelp",
-					"varname" : "maxhelpui"
-=======
 					"maxclass" : "bpatcher",
 					"id" : "obj-2",
 					"numinlets" : 1,
@@ -41,16 +27,11 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"args" : [ "@name", "jcom.limiter~", "@description", "Look-ahead limiter with built-in DC blocking and overdrive" ],
 					"bgmode" : 1
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 				}
 
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"id" : "obj-13",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "ezdac~",
 					"id" : "obj-13",
 					"numinlets" : 2,
@@ -112,13 +93,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-4",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "comment",
 					"text" : "bypass the limiter",
 					"id" : "obj-4",
@@ -159,42 +133,21 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-10",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "comment",
 					"text" : "This object was initially an off-shoot from jhno's limi~ object for MaxMSP. This variant supports attributes, gain-related values specified in decibels, and a built in DC Blocker.",
 					"linecount" : 3,
 					"id" : "obj-10",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-<<<<<<< HEAD
-					"numoutlets" : 0,
-					"patching_rect" : [ 55.0, 675.0, 780.0, 31.0 ],
-					"text" : "This object was initially an off-shoot from jhno's limi~ object for MaxMSP. This variant supports attributes, gain-related values specified in decibels, and a built in DC Blocker."
-=======
 					"patching_rect" : [ 55.0, 675.0, 431.0, 43.0 ],
 					"numoutlets" : 0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontsize" : 10.0
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 				}
 
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 14.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-11",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "comment",
 					"text" : "Description",
 					"id" : "obj-11",
@@ -209,14 +162,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-14",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "comment",
 					"text" : "reset the history kept by the object internally",
 					"linecount" : 2,
@@ -246,14 +191,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-16",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "comment",
 					"text" : "the threshold, preamp, and postamp attributes are specified in decibels (0 dB = full scale).",
 					"linecount" : 2,
@@ -269,14 +206,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-17",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "comment",
 					"text" : "the release attribute is specified in milliseconds.",
 					"linecount" : 2,
@@ -381,14 +310,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-25",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "comment",
 					"text" : "The number of samples (up to 256) to look ahead into the signal to see what is coming.",
 					"linecount" : 2,
@@ -404,13 +325,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-26",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "comment",
 					"text" : "gain",
 					"id" : "obj-26",
@@ -674,15 +588,6 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-<<<<<<< HEAD
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontsize" : 10.0,
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana"
-=======
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
@@ -690,7 +595,6 @@
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana"
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					}
 
 				}
@@ -932,23 +836,11 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-43",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "newobj",
 					"text" : "jcom.limiter~ @preamp 0. @postamp 0.",
 					"id" : "obj-43",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
-<<<<<<< HEAD
-					"numoutlets" : 3,
-					"outlettype" : [ "signal", "signal", "" ],
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"patching_rect" : [ 520.0, 315.0, 215.0, 19.0 ],
 					"numoutlets" : 3,
 					"fontsize" : 10.0,
@@ -970,13 +862,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-45",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "comment",
 					"text" : "Demo Presets",
 					"id" : "obj-45",
@@ -991,13 +876,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-46",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "comment",
 					"text" : "playback speed",
 					"id" : "obj-46",
@@ -1012,13 +890,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 14.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-47",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "comment",
 					"text" : "Messages",
 					"id" : "obj-47",
@@ -1063,14 +934,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-53",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "comment",
 					"text" : "A gain control that is applied (in decibels) after the limiting process is complete.",
 					"linecount" : 2,
@@ -1086,14 +949,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-54",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "comment",
 					"text" : "A gain control that is applied (in decibels) prior to the signal being limited.",
 					"linecount" : 2,
@@ -1138,14 +993,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-57",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "comment",
 					"text" : "Set the function to be used for calculating the scaling.",
 					"linecount" : 2,
@@ -1207,22 +1054,10 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 14.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-61",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"maxclass" : "comment",
 					"text" : "Attributes",
 					"id" : "obj-61",
 					"fontname" : "Verdana",
-<<<<<<< HEAD
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-69",
-=======
 					"numinlets" : 1,
 					"patching_rect" : [ 25.0, 95.0, 231.0, 24.0 ],
 					"numoutlets" : 0,
@@ -1235,19 +1070,14 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "bypass the internal DC Blocking component",
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 					"linecount" : 2,
 					"id" : "obj-69",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"patching_rect" : [ 225.0, 510.0, 129.0, 31.0 ],
-<<<<<<< HEAD
-					"text" : "bypass the internal DC Blocking component"
-=======
 					"numoutlets" : 0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontsize" : 10.0
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 				}
 
 			}
@@ -1491,12 +1321,7 @@
 					"source" : [ "obj-33", 0 ],
 					"destination" : [ "obj-27", 0 ],
 					"hidden" : 0,
-<<<<<<< HEAD
-					"midpoints" : [ 627.5, 340.0, 593.5, 340.0 ],
-					"source" : [ "obj-43", 1 ]
-=======
 					"midpoints" : [  ]
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 				}
 
 			}

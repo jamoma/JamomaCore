@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 167.0, 127.0, 617.0, 485.0 ],
+		"rect" : [ 367.0, 142.0, 617.0, 485.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 167.0, 127.0, 617.0, 485.0 ],
+		"defrect" : [ 367.0, 142.0, 617.0, 485.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -19,41 +19,11 @@
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
 					"args" : [ "@name", "jcom.gain~", "@description", "Control level as well as dry/wet mix" ],
 					"bgmode" : 1,
 					"id" : "obj-44",
 					"maxclass" : "bpatcher",
 					"name" : "jcom.maxhelpui.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 617.0, 70.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 15.0, 15.0, 1197.0, 68.0 ],
-					"prototypename" : "bphelp",
-					"varname" : "maxhelpui"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"hidden" : 1,
-					"id" : "obj-1",
-					"maxclass" : "newobj",
-=======
-					"maxclass" : "bpatcher",
-					"id" : "obj-44",
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-=======
-					"args" : [ "@name", "jcom.gain~", "@description", "Control level as well as dry/wet mix" ],
-					"bgmode" : 1,
-					"id" : "obj-44",
-					"maxclass" : "bpatcher",
-					"name" : "jcom.maxhelpui.maxpat",
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 0.0, 0.0, 617.0, 70.0 ]
@@ -106,21 +76,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-4",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "mixed and gained output",
-					"linecount" : 2,
-					"id" : "obj-4",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -136,19 +91,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-5",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "wet input",
-					"id" : "obj-5",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -174,19 +116,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-7",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "dumpout",
-					"id" : "obj-7",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -201,19 +130,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-8",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "dry input",
-					"id" : "obj-8",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -228,24 +144,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-9",
-					"maxclass" : "newobj",
-					"numinlets" : 8,
-					"numoutlets" : 5,
-					"outlettype" : [ "signal", "signal", "signal", "signal", "" ],
-					"patching_rect" : [ 326.0, 152.0, 165.5, 19.0 ],
-					"text" : "jcom.gain~ 4"
-=======
-					"maxclass" : "newobj",
-					"text" : "jcom.gain~ 4",
-					"id" : "obj-9",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-9",
@@ -254,13 +152,7 @@
 					"numoutlets" : 5,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "" ],
 					"patching_rect" : [ 326.0, 152.0, 113.5, 19.0 ],
-<<<<<<< HEAD
-					"numoutlets" : 0,
-					"fontsize" : 10.0
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-=======
 					"text" : "jcom.gain~ 4"
->>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
@@ -277,19 +169,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-11",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "N channels of processed (mixed and gained) signal",
-					"id" : "obj-11",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -304,19 +183,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-12",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "Outlets:",
-					"id" : "obj-12",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -331,19 +197,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-13",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "the number of channels (default 1)",
-					"id" : "obj-13",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -358,21 +211,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-14",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "If number of channels is N, the first N inlets are raw input, and the next N inlets are for wet signal",
-					"linecount" : 2,
-					"id" : "obj-14",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -388,19 +226,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-15",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "wet",
-					"id" : "obj-15",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -810,55 +635,21 @@
 ,
 					"patching_rect" : [ 175.0, 325.0, 53.0, 19.0 ],
 					"saved_object_attributes" : 					{
-<<<<<<< HEAD
-<<<<<<< HEAD
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontsize" : 10.0,
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana"
-=======
-						"fontname" : "Verdana",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-<<<<<<< HEAD
-						"default_fontname" : "Verdana"
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					}
-
-<<<<<<< HEAD
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-23",
-=======
-=======
 						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
 						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p vertigo"
->>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "flonum",
-					"id" : "obj-23",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-23",
@@ -979,19 +770,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-32",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "processed",
-					"id" : "obj-32",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -1043,20 +821,7 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
 					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-36",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "newobj",
-					"text" : "jcom.gain~ 2",
-					"id" : "obj-36",
-=======
-					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-36",
@@ -1071,19 +836,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-37",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "raw",
-					"id" : "obj-37",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -1098,19 +850,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-38",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "Argument:",
-					"id" : "obj-38",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -1125,19 +864,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-39",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "dry",
-					"id" : "obj-39",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -1163,19 +889,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-41",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "Inlets:",
-					"id" : "obj-41",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],

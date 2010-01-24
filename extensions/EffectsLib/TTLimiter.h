@@ -25,7 +25,8 @@
 	The release attribute (specified in seconds) determines how long it takes for a gain reduction to "wear off"
 	once the amplitude level of the input has been reduced.
 */
-TTAUDIOCLASS(TTLimiter)
+class TTLimiter : public TTAudioObject {
+	TTCLASS_SETUP(TTLimiter)
 
 	TTFloat64			recover;				///< 
 	TTFloat64			lookaheadInv;			///< reciprocal (inverse) of the lookahead attribute

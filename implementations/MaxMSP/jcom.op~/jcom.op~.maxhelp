@@ -1,15 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-<<<<<<< HEAD
-		"rect" : [ 65.0, 47.0, 596.0, 417.0 ],
-		"bglocked" : 0,
-		"defrect" : [ 65.0, 47.0, 596.0, 417.0 ],
-=======
 		"rect" : [ 98.0, 96.0, 671.0, 489.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 98.0, 96.0, 671.0, 489.0 ],
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -25,56 +19,19 @@
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"args" : [ "@name", "jcom.op~", "@description", "standard math operations on audio signals" ],
-					"bgmode" : 1,
-					"id" : "obj-33",
-					"maxclass" : "bpatcher",
-					"name" : "jcom.maxhelpui.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 596.0, 70.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 15.0, 15.0, 1197.0, 68.0 ],
-					"prototypename" : "bphelp",
-					"varname" : "maxhelpui"
-=======
-					"maxclass" : "bpatcher",
-=======
 					"args" : [ "@name", "jcom.op~", "@description", "A multi-operator DSP object" ],
 					"bgmode" : 1,
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"id" : "obj-21",
 					"maxclass" : "bpatcher",
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-<<<<<<< HEAD
-					"name" : "jcom.maxhelpui.maxpat",
-					"args" : [ "@name", "jcom.op~", "@description", "A multi-operator DSP object" ],
-					"bgmode" : 1
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-=======
 					"patching_rect" : [ 0.0, 0.0, 671.0, 70.0 ]
->>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-1",
-					"items" : [ "+", ",", "-", " ", ",", "*", ",", "/", ",", "%" ],
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "umenu",
-					"id" : "obj-1",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-1",
@@ -148,22 +105,9 @@
 					"mode" : 2,
 					"numinlets" : 2,
 					"numoutlets" : 2,
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 438.0, 364.0, 56.0, 19.0 ],
-					"sig" : 0.0
-=======
-					"sig" : 0.0,
-					"mode" : 2,
-					"fontsize" : 10.0,
-					"outlettype" : [ "signal", "float" ]
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-=======
 					"outlettype" : [ "signal", "float" ],
 					"patching_rect" : [ 365.0, 353.0, 56.0, 19.0 ],
 					"sig" : 0.0
->>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
@@ -176,22 +120,9 @@
 					"mode" : 2,
 					"numinlets" : 2,
 					"numoutlets" : 2,
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 378.0, 364.0, 56.0, 19.0 ],
-					"sig" : 0.0
-=======
-					"sig" : 0.0,
-					"mode" : 2,
-					"fontsize" : 10.0,
-					"outlettype" : [ "signal", "float" ]
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-=======
 					"outlettype" : [ "signal", "float" ],
 					"patching_rect" : [ 306.0, 353.0, 56.0, 19.0 ],
 					"sig" : 0.0
->>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
@@ -218,20 +149,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 499.0, 134.0, 55.0, 19.0 ],
-					"text" : "sig~ 300"
-=======
-					"fontsize" : 10.0,
-					"outlettype" : [ "signal" ]
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-=======
 					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 423.0, 123.0, 55.0, 19.0 ],
 					"text" : "sig~ 300"
->>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
@@ -243,20 +163,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 408.0, 134.0, 49.0, 19.0 ],
-					"text" : "sig~ 20"
-=======
-					"fontsize" : 10.0,
-					"outlettype" : [ "signal" ]
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-=======
 					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 335.0, 123.0, 49.0, 19.0 ],
 					"text" : "sig~ 20"
->>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
@@ -276,20 +185,7 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
 					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-2",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "newobj",
-					"text" : "jcom.op~ 3 @operator + @operand 5",
-					"id" : "obj-2",
-=======
-					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-2",

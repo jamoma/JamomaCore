@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 139.0, 95.0, 688.0, 594.0 ],
+		"rect" : [ 274.0, 44.0, 984.0, 607.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 139.0, 95.0, 688.0, 594.0 ],
+		"defrect" : [ 274.0, 44.0, 984.0, 607.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -19,52 +19,19 @@
 		"enablevscroll" : 1,
 		"boxes" : [ 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"args" : [ "@name", "jcom.hmlshelf~", "@description", "high mid low shelf-filter implementation using one biquad-filter" ],
+					"args" : [ "@name", "jcom.hmlshelf~", "@description", "High mid low shelf-filter implementation using one biquad filter" ],
 					"bgmode" : 1,
 					"id" : "obj-3",
 					"maxclass" : "bpatcher",
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 688.0, 70.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 15.0, 15.0, 1197.0, 68.0 ],
-					"prototypename" : "bphelp",
-					"varname" : "maxhelpui"
-=======
-					"maxclass" : "bpatcher",
-=======
-					"args" : [ "@name", "jcom.hmlshelf~", "@description", "High mid low shelf-filter implementation using one biquad filter" ],
-					"bgmode" : 1,
->>>>>>> ee5f4f7... colorized objects in maxhelps
-					"id" : "obj-3",
-					"maxclass" : "bpatcher",
-					"name" : "jcom.maxhelpui.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-<<<<<<< HEAD
-					"name" : "jcom.maxhelpui.maxpat",
-					"args" : [ "@name", "jcom.hmlshelf~", "@description", "High mid low shelf-filter implementation using one biquad filter" ],
-					"bgmode" : 1
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-=======
 					"patching_rect" : [ 0.0, 0.0, 984.0, 70.0 ]
->>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"id" : "obj-32",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "ezdac~",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"id" : "obj-32",
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
@@ -91,24 +58,10 @@
 					"id" : "obj-25",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"numoutlets" : 1,
-					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 564.0, 299.0, 85.0, 19.0 ],
-					"text" : "phasor~ 1000."
-=======
-					"patching_rect" : [ 548.0, 299.0, 85.0, 19.0 ],
-					"numoutlets" : 1,
-					"fontsize" : 10.0,
-					"outlettype" : [ "signal" ]
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-=======
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 548.0, 299.0, 85.0, 19.0 ],
 					"text" : "phasor~ 1000."
->>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
@@ -151,21 +104,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-31",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "X-over frequency",
-					"linecount" : 2,
-					"id" : "obj-31",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -181,21 +119,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-30",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "X-over frequency",
-					"linecount" : 2,
-					"id" : "obj-30",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -211,21 +134,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-29",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "gain HighBand",
-					"linecount" : 2,
-					"id" : "obj-29",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -241,21 +149,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-28",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "gain MidBand",
-					"linecount" : 2,
-					"id" : "obj-28",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -271,21 +164,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-23",
-					"linecount" : 2,
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "gain LowBand",
-					"linecount" : 2,
-					"id" : "obj-23",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -301,19 +179,6 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-19",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "comment",
-					"text" : "frequencyLm < frequencyMh",
-					"id" : "obj-19",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -562,18 +427,9 @@
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"outlettype" : [ "int" ],
-					"patching_rect" : [ 51.0, 212.0, 20.0, 20.0 ]
-=======
-					"fontsize" : 10.0,
-					"outlettype" : [ "" ]
-=======
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 126.0, 242.0, 53.0, 17.0 ],
 					"text" : "mute $1"
->>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
@@ -583,30 +439,13 @@
 					"maxclass" : "toggle",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-<<<<<<< HEAD
-					"outlettype" : [ "int" ]
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-=======
 					"outlettype" : [ "int" ],
 					"patching_rect" : [ 51.0, 212.0, 20.0, 20.0 ]
->>>>>>> ee5f4f7... colorized objects in maxhelps
 				}
 
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-20",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "message",
-					"text" : "bypass $1",
-					"id" : "obj-20",
-=======
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-20",
@@ -649,20 +488,7 @@
 			}
 , 			{
 				"box" : 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
 					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-26",
-=======
->>>>>>> 24589e7... Updated help patch with maxhelpui. Still have to colorize objects.
-					"maxclass" : "newobj",
-					"text" : "jcom.hmlshelf~ 2",
-					"id" : "obj-26",
-=======
-					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
->>>>>>> ee5f4f7... colorized objects in maxhelps
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-26",
