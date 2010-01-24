@@ -1,77 +1,31 @@
 /* 
- * TTBlue Operator Object
- * Copyright © 2008, Timothy Place
+ * Jamoma DSP FFT Object
+ * Copyright © 2010, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTOperator.h"
+#include "TTFFT.h"
 
-#define thisTTClass			TTFFT
-#define thisTTClassName		"FFT"
+#define thisTTClass			TTfft
+#define thisTTClassName		"fft"
 #define thisTTClassTags		"audio, processor, math"
 
 
 TT_AUDIO_CONSTRUCTOR
 {
-//	registerAttribute(TT("operator"), kTypeSymbol, &operatorAttribute, (TTSetterMethod)&TTOperator::setoperator);
-//	registerAttributeWithSetter(operand, kTypeFloat64);
-	
-	// Set Defaults...
-//	setAttributeValue(TT("operator"),	TT("+"));
-//	setAttributeValue(TT("operand"),	1.0);
+	;
 }
 
 
-TTFFT::~TTFFT()
+TTfft::~TTfft()
 {
 	;
 }
 
-/*
-TTErr TTFFT::setoperator(const TTValue& newValue)
-{
-	operatorAttribute = newValue;
-	if(operatorAttribute == TT("+"))
-		setProcessMethod(processAdd);
-	else if(operatorAttribute == TT("-"))
-		setProcessMethod(processSubtract);
-	else if(operatorAttribute == TT("*"))
-		setProcessMethod(processMultiply);
-	else if(operatorAttribute == TT("/"))
-		setProcessMethod(processDivide);
-	else if(operatorAttribute == TT("%"))
-		setProcessMethod(processModulo);
-	else
-		return kTTErrInvalidValue;
-	
-	return kTTErrNone;
-}
-*/
 
-
-TTErr TTOperator::processAddConstant(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
-{
-	TTAudioSignal&	in = inputs->getSignal(0);
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		vs;
-	TTSampleValue	*inSample,
-	*outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
-	
-	for(channel=0; channel<numchannels; channel++){
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
-		while(vs--)
-			*outSample++ = *inSample++ + operand;
-	}
-	return kTTErrNone;
-}
-
-TTErr TTOperator::processAddSignal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTfft::process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&	in1 = inputs->getSignal(0);
 	TTAudioSignal&	in2 = inputs->getSignal(1);

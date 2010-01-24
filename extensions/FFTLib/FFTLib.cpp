@@ -7,16 +7,14 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTDSP.h"
-#include "TTOperator.h"
-#include "TTMatrixMixer.h"
+#include "TTFFT.h"
 
 
 extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 {
 	TTDSPInit();
 
-	TTFFT::registerClass();
+	TTfft::registerClass();
 	
 	return kTTErrNone;
 }
