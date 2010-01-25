@@ -22,19 +22,20 @@
 class TTSvf : public TTAudioObject {
 	TTCLASS_SETUP(TTSvf)
 
-	TTFloat64		frequency;			///< filter cutoff frequency
-	TTFloat64		resonance;			///< filter resonance -- range is best between 1.0 and 16.0
-	TTSymbolPtr		mode;				///< lowpass, highpass, bandpass, notch, or peak
-	TTFloat64		freq, res, damp;	// coefficients
-	TTFloat64*		lowpass_output;		// feedback storage...
-	TTFloat64* 		highpass_output;
-	TTFloat64*		bandpass_output;
-	TTFloat64* 		notch_output;
-	TTFloat64*		peak_output;
+	TTFloat64			mFrequency;			///< filter cutoff frequency
+	TTFloat64			mResonance;			///< filter resonance -- range is best between 1.0 and 16.0
+	TTSymbolPtr			mMode;				///< lowpass, highpass, bandpass, notch, or peak
+	TTFloat64			mF, mR, mDamp;		// coefficients
+	TTSampleVector		mLowpass_output;		// feedback storage...
+	TTSampleVector 		mHighpass_output;
+	TTSampleVector		mBandpass_output;
+	TTSampleVector		mNotch_output;
+	TTSampleVector		mPeak_output;
 	
 	// Notifications
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	TTErr updateSr();
+	TTErr clear();	
 
 	void calculateCoefficients();
 	
@@ -45,17 +46,23 @@ class TTSvf : public TTAudioObject {
 	TTErr processNotch(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processPeak(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
+	inline TTErr calculateLowpass(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
+	inline TTErr calculateHighpass(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
+	inline TTErr calculateBandpass(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
+	inline TTErr calculateNotch(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
+	inline TTErr calculatePeak(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
+
 	// Attributes
-	TTErr setmode(const TTValue& newValue);
-	TTErr setfrequency(const TTValue& newValue);
-	TTErr setresonance(const TTValue& newValue);
+	TTErr setMode(const TTValue& newValue);
+	TTErr setFrequency(const TTValue& newValue);
+	TTErr setResonance(const TTValue& newValue);
 
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
 	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the
 	 *	feedback has become corrupted (such as might happen if a NaN is fed in) then it may be 
 	 *	neccesary to clear the filter by calling this method.
 	 *	@return Returns a TTErr error code.												*/
-	TTErr clear();	
+
 	
 	/**	Performs the actual SVF calculations. */
 	void tick(TTSampleValue value, TTUInt16 channel);
