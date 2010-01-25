@@ -78,14 +78,17 @@ TTErr TTLowpassButterworth1::setFrequency(const TTValue& newValue)
 void TTLowpassButterworth1::calculateCoefficients()
 {
 	mA0 = mK/(mK+mRadians); 
-	mA1 = mA0; 
+	//mA1 = mA0; 
 	mB1 = (mRadians-mK)/(mK+mRadians);
 }	
 
 
 inline TTErr TTLowpassButterworth1::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
-	y = TTAntiDenormal(mA0*x + mA1*mX1[channel] - mB1*mY1[channel]);
+	//y = TTAntiDenormal(mA0*x + mA1*mX1[channel] - mB1*mY1[channel]);
+	//since mA0 = mA1, we can simplyfy to
+	y = TTAntiDenormal(mA0*(x + mX1[channel]) - mB1*mY1[channel]);
+	
 	mX1[channel] = x;
 	mY1[channel] = y;
 	return kTTErrNone;
