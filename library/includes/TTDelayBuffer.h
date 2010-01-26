@@ -16,8 +16,8 @@
 	with accessors for using it as a circular delay line.	
 */
 class TTDSP_EXPORT TTDelayBuffer {
-	friend class TTDelay;
-	
+
+public:
 	TTSampleVector		mBuffer;
 	TTSampleValuePtr	mWritePointer;		///< "record" pointer for buffer
 	TTSampleValuePtr	mReadPointer;		///< "playback" pointer
