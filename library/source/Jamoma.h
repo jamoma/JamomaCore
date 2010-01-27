@@ -39,7 +39,7 @@
 #include "FunctionLib.h"
 #include "RampLib.h"
 #include "NodeLib.h"
-#include "ControllerLib.h"
+#include "DeviceManagerLib.h"
 
 #define JAMOMA_UNIT_HEIGHT 35.0
 #define JAMOMA_UNIT_WIDTH 150.0

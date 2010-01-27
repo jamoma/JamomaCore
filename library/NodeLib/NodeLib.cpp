@@ -295,7 +295,7 @@ JamomaError	jamoma_node_attribute_add_all(TTNodePtr node, t_object *object)
 		jamoma_node_attribute_add(node, attrnames[i], object);
 	
 	// free the memory allocated inside param_getattrnames
-	free(attrnames);
+	sysmem_freeptr(attrnames);
 	
 	return JAMOMA_ERR_NONE;
 }

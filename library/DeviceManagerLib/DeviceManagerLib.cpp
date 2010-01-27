@@ -6,11 +6,11 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "ControllerLib.h"
+#include "DeviceManagerLib.h"
 
 // statics and globals
-ControllerPtr		jamoma_controller = NULL;
-static TTHashPtr	jamoma_controller_hash_listener = NULL;						// used to store all namespace listeners 
+DevManagerPtr		jamoma_devmanager = NULL;
+static TTHashPtr	jamoma_devmanager_hash_listener = NULL;						// used to store all namespace listeners 
 
 /***********************************************************************************
 *
@@ -19,52 +19,52 @@ static TTHashPtr	jamoma_controller_hash_listener = NULL;						// used to store a
 ************************************************************************************/
 
 
-// Method to deal with the Jamoma Controller
+// Method to deal with the Jamoma Device Manager
 //////////////////////////////////////////////
 
-ControllerPtr	jamoma_controller_init(t_symbol *applicationName)
+DevManagerPtr	jamoma_devmanager_init(t_symbol *applicationName)
 {	
-	if(jamoma_controller)
-		return jamoma_controller;	// already have a directory, just return the pointer to the directory...
+	if(jamoma_devmanager)
+		return jamoma_devmanager;	// already have a directory, just return the pointer to the directory...
 	
 	// Launch the plugin manager
-	jamoma_controller = new Controller(string(applicationName->s_name));
+	jamoma_devmanager = new Controller(string(applicationName->s_name));
 	
 	// Pass callbacks to the Controller Namespace
-	jamoma_controller->namespaceDiscoverAddCallback(jamoma_directory, &jamoma_namespace_discover_callback);
-	jamoma_controller->namespaceGetAddCallback(jamoma_directory, &jamoma_namespace_get_callback);
-	jamoma_controller->namespaceSetAddCallback(jamoma_directory, &jamoma_namespace_set_callback);
-	jamoma_controller->namespaceListenAddCallback(jamoma_directory, &jamoma_namespace_listen_callback);
+	jamoma_devmanager->namespaceDiscoverAddCallback(jamoma_directory, &jamoma_namespace_discover_callback);
+	jamoma_devmanager->namespaceGetAddCallback(jamoma_directory, &jamoma_namespace_get_callback);
+	jamoma_devmanager->namespaceSetAddCallback(jamoma_directory, &jamoma_namespace_set_callback);
+	jamoma_devmanager->namespaceListenAddCallback(jamoma_directory, &jamoma_namespace_listen_callback);
 	
 	// create the hashtab for future network observers
-	jamoma_controller_hash_listener = new TTHash();
+	jamoma_devmanager_hash_listener = new TTHash();
 	
-	return jamoma_controller;
+	return jamoma_devmanager;
 }
 
-JamomaError jamoma_controller_load_plugins(t_symbol *path)
+JamomaError jamoma_devmanager_load_plugins(t_symbol *path)
 {
-	jamoma_controller->pluginLoad(path->s_name);
+	jamoma_devmanager->pluginLoad(path->s_name);
 	return JAMOMA_ERR_NONE;
 }
 
-JamomaError jamoma_controller_scan()
+JamomaError jamoma_devmanager_scan()
 {
 	std::string deviceName;
 	bool understandDiscover;
 	
 	// scan the network
-	jamoma_controller->deviceSetCurrent();
+	jamoma_devmanager->deviceSetCurrent();
 	
 	// get all Devices
-	std::map<std::string, Device*>* mapDevices = jamoma_controller->deviceGetCurrent();
+	std::map<std::string, Device*>* mapDevices = jamoma_devmanager->deviceGetCurrent();
 	
 	map<string, Device*>::iterator it = mapDevices->begin();
 	
 	while(it != mapDevices->end())
 	{
 		deviceName = it->first;
-		understandDiscover = jamoma_controller->deviceUnderstandDiscoverRequest(deviceName);
+		understandDiscover = jamoma_devmanager->deviceUnderstandDiscoverRequest(deviceName);
 		
 		if(understandDiscover)
 			post("Device \"%s\" understands discover request", deviceName.data());
@@ -80,23 +80,23 @@ JamomaError jamoma_controller_scan()
 
 
 
-JamomaError jamoma_controller_free()
+JamomaError jamoma_devmanager_free()
 {
-	jamoma_controller->~Controller();
-	jamoma_controller = NULL;
+	jamoma_devmanager->~Controller();
+	jamoma_devmanager = NULL;
 	return JAMOMA_ERR_NONE;
 }
 
-JamomaError	jamoma_controller_dump_plugins()
+JamomaError	jamoma_devmanager_dump_plugins()
 {
 	vector<string> plugins;
 	vector<string>::iterator p_iter;
 
-	if(jamoma_controller)
+	if(jamoma_devmanager)
 	{
 		// show loaded plugins
 		post("<< Loaded Plugins >>");
-		plugins = jamoma_controller->pluginGetLoadedByName();
+		plugins = jamoma_devmanager->pluginGetLoadedByName();
 		for(p_iter = plugins.begin(); p_iter != plugins.end(); p_iter++){
 			post(">> %s", std::string(*p_iter).c_str());
 		}
@@ -104,20 +104,20 @@ JamomaError	jamoma_controller_dump_plugins()
 		return JAMOMA_ERR_NONE;
 	}
 	
-	post("jamoma_controller_dump_plugins : create the Controller before");
+	post("jamoma_devmanager_dump_plugins : create the Device Manager before");
 	return JAMOMA_ERR_GENERIC;
 }
 
-JamomaError	jamoma_controller_dump_devices()
+JamomaError	jamoma_devmanager_dump_devices()
 {
 	map<string, Device*>* devices;
 	map<string, Device*>::iterator d_iter;
 	
-	if(jamoma_controller)
+	if(jamoma_devmanager)
 	{
 		// show devices
 		post("<< Loaded Devices >>");
-		devices = jamoma_controller->deviceGetCurrent();
+		devices = jamoma_devmanager->deviceGetCurrent();
 		d_iter = devices->begin();
 		while (d_iter != devices->end()){
 			post(">> %s", std::string(d_iter->first).c_str());
@@ -127,12 +127,12 @@ JamomaError	jamoma_controller_dump_devices()
 		return JAMOMA_ERR_NONE;
 	}
 	
-	post("jamoma_controller_dump_devices : create the Controller before");
+	post("jamoma_devmanager_dump_devices : create the Device Manager before");
 	return JAMOMA_ERR_GENERIC;
 }
 
 
-// Callbacks to pass to the Namespace of the Controller
+// Callbacks to pass to the Namespace of the Device Manager
 /////////////////////////////////////////////////////////
 
 void jamoma_namespace_discover_callback(void* arg, Address whereToDiscover, std::vector<std::string>& returnedNodes, std::vector<std::string>& returnedLeaves, std::vector<std::string>& returnedAttributes)
@@ -342,8 +342,6 @@ void jamoma_namespace_enable_listening(void* arg, std::string whereToSend, Addre
 	
 	TTNodeDirectoryPtr m_directory = (TTNodeDirectoryPtr) arg;
 	
-	post("jamoma_namespace_listen_callback : %s %s %s", whereToSend.c_str(), whereToListen.c_str(), attributeToListen.c_str());
-	
 	if(m_directory){
 		
 		// Get the Node at the given address
@@ -352,7 +350,7 @@ void jamoma_namespace_enable_listening(void* arg, std::string whereToSend, Addre
 		if(!err){
 			
 			// if the attribute exist
-			err = nodeToListen->findAttribute(TT(attributeToListen.c_str()), &anAttribute);
+			err = nodeToListen->findAttribute(convertAttributeToJamoma(attributeToListen.c_str()), &anAttribute);
 			
 			if(!err){
 				
@@ -361,15 +359,16 @@ void jamoma_namespace_enable_listening(void* arg, std::string whereToSend, Addre
 					
 					newBaton = new TTValue((TTString)whereToSend);
 					newBaton->append((TTString)whereToListen);
+					newBaton->append((TTString)attributeToListen);
 					
 					newListener->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-					newListener->setAttributeValue(TT("Function"), TTPtr(&jamoma_link_method));
+					newListener->setAttributeValue(TT("Function"), TTPtr(&jamoma_listen_method));
 					
 					anAttribute->registerObserverForNotifications(*newListener);
 					
 					// memorize the link in order to remove it with the unlink operation
 					keyLink = whereToSend + "<>" + whereToListen + ":" + attributeToListen;
-					jamoma_controller_hash_listener->append(TT(keyLink), (TTPtr)newListener);
+					jamoma_devmanager_hash_listener->append(TT(keyLink), (TTPtr)newListener);
 			}
 		}
 	}
@@ -384,8 +383,6 @@ void jamoma_namespace_disable_listening(void* arg, std::string whereToSend, Addr
 	TTString keyLink;
 	
 	TTNodeDirectoryPtr m_directory = (TTNodeDirectoryPtr) arg;
-
-	post("jamoma_namespace_unlink_callback : %s %s %s", whereToSend.c_str(), whereToListen.c_str(), attributeToListen.c_str());
 	
 	if(m_directory){
 		
@@ -396,7 +393,7 @@ void jamoma_namespace_disable_listening(void* arg, std::string whereToSend, Addr
 			
 			// looking for an observer
 			keyLink = whereToSend + "<>" + whereToListen + ":" + attributeToListen;
-			err = jamoma_controller_hash_listener->lookup(TT(keyLink), temp);
+			err = jamoma_devmanager_hash_listener->lookup(TT(keyLink), temp);
 			temp.get(0, (TTPtr*)&oldListener);
 	
 			// remove it
@@ -407,11 +404,12 @@ void jamoma_namespace_disable_listening(void* arg, std::string whereToSend, Addr
 	}
 }
 
-void jamoma_link_method(TTPtr p_baton, TTValue& data)
+void jamoma_listen_method(TTPtr p_baton, TTValue& data)
 {
 	TTValuePtr	b;
 	TTString	whereToSend;
 	TTString	whereToListen;
+	TTString	attributeToListen;
 	TTString	returnedValue;
 	t_symbol	*mess, *sym;
 	long		argc, i;
@@ -421,6 +419,7 @@ void jamoma_link_method(TTPtr p_baton, TTValue& data)
 	b = (TTValuePtr)p_baton;
 	b->get(0, whereToSend);
 	b->get(1, whereToListen);
+	b->get(2, attributeToListen);
 	
 	// unpack data (argc and argv)
 	data.get(0, (TTPtr*)&mess);
@@ -448,17 +447,13 @@ void jamoma_link_method(TTPtr p_baton, TTValue& data)
 		returnedValue.append(temp);
 		if(i+1 < argc)
 			returnedValue.append(" ");
-		
-		free(temp);
 	}
 	
-	// send a listen answer using the controller
-	// TODO deviceSendListenAnswer
-	post("jamoma_listen_method : %s %s %s", whereToSend.c_str(), whereToListen.c_str(), returnedValue.c_str());
-
+	// send a listen answer using the devmanager
+	jamoma_devmanager->deviceSendListenAnswer(whereToSend, whereToListen, attributeToListen, returnedValue);
 }
 
-// Convert Jamoma attributes into / from Controller attributes
+// Convert Jamoma attributes into / from Device Manager attributes
 ////////////////////////////////////////////////////////////////
 
 std::string convertAttributeFromJamoma(std::string attribute)

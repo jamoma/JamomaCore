@@ -1,5 +1,5 @@
 /* 
- * Jamoma Tree
+ * Jamoma Device Manager
  * Copyright © 2008, Théo de la Hogue & Tim Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
@@ -10,35 +10,35 @@
 #include "Jamoma.h"
 #include "Controller.h"
 
-typedef Controller* ControllerPtr;
+typedef Controller* DevManagerPtr;		// to -- the old name of Device Manager was Controller (the source files have to be renamed but they are used in an other project and they would be renamed later)
 
-/**	The Jamoma Controller : Plugin manager for network communication */
-extern ControllerPtr		jamoma_controller;
+/**	The Jamoma Device Manager : Plugin manager for network communication */
+extern DevManagerPtr		jamoma_devmanager;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-	// Method to deal with the Jamoma Controller
+	// Method to deal with the Jamoma Device Manager
 	/////////////////////////////////////////
 	
-	/** Initialize the Controller */
-	ControllerPtr	jamoma_controller_init(t_symbol *applicationName);
+	/** Initialize the Device Manager */
+	DevManagerPtr	jamoma_devmanager_init(t_symbol *applicationName);
 	
 	/** Load plugins */
-	JamomaError		jamoma_controller_load_plugins(t_symbol *path);
+	JamomaError		jamoma_devmanager_load_plugins(t_symbol *path);
 	
 	/** Scan the network to find Devices */
-	JamomaError		jamoma_controller_scan();
+	JamomaError		jamoma_devmanager_scan();
 	
 	/** Free the Controller */
-	JamomaError		jamoma_controller_free(void);
+	JamomaError		jamoma_devmanager_free(void);
 
 	/** Dump all Plugins of the Controller in the max window */
-	JamomaError		jamoma_controller_dump_plugins(void);
+	JamomaError		jamoma_devmanager_dump_plugins(void);
 	
 	/** Dump all Devices of the Controller in the max window */
-	JamomaError		jamoma_controller_dump_devices(void);
+	JamomaError		jamoma_devmanager_dump_devices(void);
 	
 	
 	// Callback to pass to the Namespace of the Controller
@@ -53,10 +53,10 @@ extern "C" {
 	void jamoma_namespace_listen_callback(void* arg, std::string whereToSend, Address whereToListen, std::string attributeToListen, bool enable);
 	void jamoma_namespace_enable_listening(void* arg, std::string whereToSend, Address whereToListen, std::string attributeToListen);
 	void jamoma_namespace_disable_listening(void* arg, std::string whereToSend, Address whereToListen, std::string attributeToListen);
-	void jamoma_link_method(TTPtr p_baton, TTValue& data);
+	void jamoma_listen_method(TTPtr p_baton, TTValue& data);
 	
 	
-	// Convert Jamoma attributes into / from Controller attributes
+	// Convert Jamoma attributes into / from Device Manager attributes
 	////////////////////////////////////////////////////////////////
 	
 	std::string convertAttributeFromJamoma(std::string attribute);

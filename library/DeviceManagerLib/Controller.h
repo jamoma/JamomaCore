@@ -256,6 +256,17 @@ public:
 	void deviceSendSetRequest(std::string deviceAndAddressAndValue);
 	
 	/*!
+	 * Send a listen answer to a device which ask for
+	 *
+	 * \param deviceName : the device which waits for answer
+	 * \param address : the listened address
+	 * \param attribute : the listened attribute
+	 * \param changedValue : the value which have changed
+	 */
+	void deviceSendListenAnswer(std::string deviceName, Address address, std::string attribute, Value& newValue);
+	void deviceSendListenAnswer(std::string deviceAndAddress, std::string attribute, Value& newValue);
+	
+	/*!
 	 * Send a listen request to a specific device
 	 *
 	 * \param deviceName : the device to listen
