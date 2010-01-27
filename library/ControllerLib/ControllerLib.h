@@ -10,8 +10,6 @@
 #include "Jamoma.h"
 #include "Controller.h"
 
-#define CONTROLLER_SEARCH_PATH "/Users/TO/Documents/virage/sequenceur/trunk/libIscore/newLibController/Plugins"
-
 typedef Controller* ControllerPtr;
 
 /**	The Jamoma Controller : Plugin manager for network communication */
@@ -24,20 +22,29 @@ extern "C" {
 	// Method to deal with the Jamoma Controller
 	/////////////////////////////////////////
 	
-	/** Initialize the Controller and load plugins */
-	ControllerPtr	jamoma_controller_init(void);
+	/** Initialize the Controller */
+	ControllerPtr	jamoma_controller_init(t_symbol *applicationName);
+	
+	/** Load plugins */
+	JamomaError		jamoma_controller_load_plugins(t_symbol *path);
+	
+	/** Scan the network to find Devices */
+	JamomaError		jamoma_controller_scan();
 	
 	/** Free the Controller */
 	JamomaError		jamoma_controller_free(void);
 
-	/** Dump all Plugins and Devices of the Controller in the max window */
-	JamomaError		jamoma_controller_dump(void);
+	/** Dump all Plugins of the Controller in the max window */
+	JamomaError		jamoma_controller_dump_plugins(void);
+	
+	/** Dump all Devices of the Controller in the max window */
+	JamomaError		jamoma_controller_dump_devices(void);
 	
 	
 	// Callback to pass to the Namespace of the Controller
 	/////////////////////////////////////////////////////////
 	
-	void jamoma_namespace_discover_callback(void* arg, Address whereToDiscover, std::vector<std::string>& returnedNodes, std::vector<std::string>& returnedAttributes);
+	void jamoma_namespace_discover_callback(void* arg, Address whereToDiscover, std::vector<std::string>& returnedNodes, std::vector<std::string>& returnedLeaves, std::vector<std::string>& returnedAttributes);
 	
 	void jamoma_namespace_get_callback(void* arg, Address whereToGet, std::string attribute, Value& returnedValue);
 	

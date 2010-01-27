@@ -22,18 +22,13 @@ static TTHashPtr	jamoma_controller_hash_listener = NULL;						// used to store a
 // Method to deal with the Jamoma Controller
 //////////////////////////////////////////////
 
-ControllerPtr	jamoma_controller_init()
+ControllerPtr	jamoma_controller_init(t_symbol *applicationName)
 {	
 	if(jamoma_controller)
 		return jamoma_controller;	// already have a directory, just return the pointer to the directory...
 	
 	// Launch the plugin manager
-	jamoma_controller = new Controller(string("Jamoma"));
-	
-	// Launch plugins from a standard folder (TODO)
-	jamoma_controller->pluginLoad(CONTROLLER_SEARCH_PATH);
-	
-	// TODO : throw a message over the network to declare /Jamoma
+	jamoma_controller = new Controller(string(applicationName->s_name));
 	
 	// Pass callbacks to the Controller Namespace
 	jamoma_controller->namespaceDiscoverAddCallback(jamoma_directory, &jamoma_namespace_discover_callback);
@@ -47,29 +42,79 @@ ControllerPtr	jamoma_controller_init()
 	return jamoma_controller;
 }
 
-JamomaError jamoma_controller_free()
+JamomaError jamoma_controller_load_plugins(t_symbol *path)
 {
-	jamoma_controller->~Controller();
+	jamoma_controller->pluginLoad(path->s_name);
 	return JAMOMA_ERR_NONE;
 }
 
-JamomaError	jamoma_controller_dump()
+JamomaError jamoma_controller_scan()
+{
+	std::string deviceName;
+	bool understandDiscover;
+	
+	// scan the network
+	jamoma_controller->deviceSetCurrent();
+	
+	// get all Devices
+	std::map<std::string, Device*>* mapDevices = jamoma_controller->deviceGetCurrent();
+	
+	map<string, Device*>::iterator it = mapDevices->begin();
+	
+	while(it != mapDevices->end())
+	{
+		deviceName = it->first;
+		understandDiscover = jamoma_controller->deviceUnderstandDiscoverRequest(deviceName);
+		
+		if(understandDiscover)
+			post("Device \"%s\" understands discover request", deviceName.data());
+		else
+			post("Device \"%s\" doesn't understand discover request", deviceName.data());
+		
+		++it;
+	}
+	
+	return JAMOMA_ERR_NONE;
+}
+
+
+
+
+JamomaError jamoma_controller_free()
+{
+	jamoma_controller->~Controller();
+	jamoma_controller = NULL;
+	return JAMOMA_ERR_NONE;
+}
+
+JamomaError	jamoma_controller_dump_plugins()
 {
 	vector<string> plugins;
-	map<string, Device*>* devices;
 	vector<string>::iterator p_iter;
-	map<string, Device*>::iterator d_iter;
 
 	if(jamoma_controller)
 	{
-		
 		// show loaded plugins
 		post("<< Loaded Plugins >>");
 		plugins = jamoma_controller->pluginGetLoadedByName();
 		for(p_iter = plugins.begin(); p_iter != plugins.end(); p_iter++){
 			post(">> %s", std::string(*p_iter).c_str());
 		}
+		
+		return JAMOMA_ERR_NONE;
+	}
+	
+	post("jamoma_controller_dump_plugins : create the Controller before");
+	return JAMOMA_ERR_GENERIC;
+}
 
+JamomaError	jamoma_controller_dump_devices()
+{
+	map<string, Device*>* devices;
+	map<string, Device*>::iterator d_iter;
+	
+	if(jamoma_controller)
+	{
 		// show devices
 		post("<< Loaded Devices >>");
 		devices = jamoma_controller->deviceGetCurrent();
@@ -82,22 +127,21 @@ JamomaError	jamoma_controller_dump()
 		return JAMOMA_ERR_NONE;
 	}
 	
-	post("jamoma_controller_dump : create the Controller before");
+	post("jamoma_controller_dump_devices : create the Controller before");
 	return JAMOMA_ERR_GENERIC;
 }
-
 
 
 // Callbacks to pass to the Namespace of the Controller
 /////////////////////////////////////////////////////////
 
-void jamoma_namespace_discover_callback(void* arg, Address whereToDiscover, std::vector<std::string>& returnedNodes, std::vector<std::string>& returnedAttributes)
+void jamoma_namespace_discover_callback(void* arg, Address whereToDiscover, std::vector<std::string>& returnedNodes, std::vector<std::string>& returnedLeaves, std::vector<std::string>& returnedAttributes)
 {
 	TTErr err;
 	TTNodePtr nodeToDiscover, aChild;
 	TTList allChildren;
 	TTString instanceName, sAttribute;
-	TTSymbolPtr attributeName;
+	TTSymbolPtr attributeName, type;
 	TTValue attributeNameList;
 	int i;
 	
@@ -123,14 +167,24 @@ void jamoma_namespace_discover_callback(void* arg, Address whereToDiscover, std:
 					instanceName += aChild->getInstance()->getString();
 				}
 				
-				returnedNodes.push_back(instanceName.c_str());
+				// if the node is a parameter : add it as a leaf
+				// else : add it as a node
+				type = aChild->getType();
+				if((type == TT(jps_subscribe_parameter->s_name)) || (type == TT(jps_subscribe_message->s_name)))
+				   returnedLeaves.push_back(instanceName.c_str());
+				else if(type != TT(jps_subscribe_return->s_name))
+				   returnedNodes.push_back(instanceName.c_str());
+				else ; // don't return the jcom.return
 			}
 			
 			// Edit the vector with all attributes name
 			nodeToDiscover->getAttributeNames(attributeNameList);
 			
 			// Add the acces attribute which is not a jamoma attribute
-			returnedAttributes.push_back(NAMESPACE_ATTR_ACCESS);
+			// only for the parameter, message or return
+			type = nodeToDiscover->getType();
+			if((type == TT(jps_subscribe_parameter->s_name)) || (type == TT(jps_subscribe_message->s_name)) || (type == TT(jps_subscribe_return->s_name)))
+				returnedAttributes.push_back(NAMESPACE_ATTR_ACCESS);
 			
 			// Add all other attributes
 			for(i = 0; i < attributeNameList.getSize(); i++)
@@ -157,25 +211,29 @@ void jamoma_namespace_get_callback(void* arg, Address whereToGet, std::string at
 	TTSymbolPtr nodeType, attributeName;
 	long argc, i;
 	t_atom *argv;
-	//char *temp;
 	t_symbol* sym;
 	
 	TTNodeDirectoryPtr m_directory = (TTNodeDirectoryPtr) arg;
 	
 	if(m_directory){
-		
+
 		// Get the Node at the given address
 		err = m_directory->getTTNodeForOSC(whereToGet.c_str(), &nodeToGet);
 		
 		if(!err){
 			
+			// test node type to get the access status
+			nodeType = nodeToGet->getType();
+			
 			// Convert attribute into Jamoma style
 			attributeName = convertAttributeToJamoma(attribute);
 			
+			// only return the attribute 'value' if this is a parameter or a return
+			if(attributeName == TT("value"))
+				if((nodeType != TT("subscribe_parameter")) && (nodeType != TT("subscribe_return")))
+					return;
+			
 			if(attributeName == TT("access")){
-				
-				// test node type to get the access status
-				nodeType = nodeToGet->getType();
 				
 				if(nodeType == TT("subscribe_parameter")){
 					
@@ -192,7 +250,6 @@ void jamoma_namespace_get_callback(void* arg, Address whereToGet, std::string at
 				
 			}
 			else{
-				
 				// get the value of the node
 				jerr =jamoma_node_attribute_get(nodeToGet, SymbolGen(convertAttributeToJamoma(attribute)->getCString()), &argc, &argv);
 				
@@ -200,7 +257,6 @@ void jamoma_namespace_get_callback(void* arg, Address whereToGet, std::string at
 					
 					// edit a string from the t_atom array
 					for(i = 0; i < argc; i++){
-						
 						char temp[512];
 						switch(atom_gettype(&argv[i])) 
 						{
@@ -219,8 +275,6 @@ void jamoma_namespace_get_callback(void* arg, Address whereToGet, std::string at
 						returnedValue.append(temp);
 						if(i+1 < argc)
 							returnedValue.append(" ");
-						
-						free(temp);
 					}
 				}
 			}

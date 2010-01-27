@@ -32,10 +32,13 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ctrl_assist,					"assist",				A_CANT, 0);
 	
 	// this method posts the children (leaves or nodes) and the properties of the node which address is given
+	class_addmethod(c, (method)ctrl_load_plugins,			"load_plugins",			A_SYM, 0);
+	class_addmethod(c, (method)ctrl_add_scan,				"scan",					0);
 	class_addmethod(c, (method)ctrl_add_minuit_device,		"add_minuit_device",	A_SYM, A_SYM, A_LONG, 0);
 	class_addmethod(c, (method)ctrl_discover,				"discover",				A_SYM, A_SYM, 0);
-	class_addmethod(c, (method)ctrl_get,					"get",					A_SYM, A_SYM, A_SYM, 0);
+	class_addmethod(c, (method)ctrl_get,					"get",					A_SYM, A_SYM, 0);
 	class_addmethod(c, (method)ctrl_set,					"set",					A_GIMME, 0);
+	class_addmethod(c, (method)ctrl_add_snapshot,			"snapshot",				A_SYM, A_SYM, 0);
 	
 	class_addmethod(c, (method)ctrl_debug,					"debug",				A_LONG, 0);
 	class_addmethod(c, (method)ctrl_dump,					"dump",					0);
@@ -64,10 +67,11 @@ void *ctrl_new(t_symbol *name, long argc, t_atom *argv)
 		x->b_debug = false;
 		
 		// Initialize the Jamoma Controller
-		jamoma_controller_init();
+		if(argc && argv)
+			if(atom_gettype(&argv[0]) == A_SYM)
+				jamoma_controller_init(atom_getsym(&argv[0]));
 		
-		// DEBUG
-		jamoma_controller_dump();
+		jamoma_controller_init(gensym("Jamoma"));	// if the controller have already been initialized, this line would do nothing
 	}
 	
 	return x;
@@ -75,7 +79,7 @@ void *ctrl_new(t_symbol *name, long argc, t_atom *argv)
 
 void ctrl_free(t_ctrl *x)
 {
-	;
+	jamoma_controller_free();
 }
 
 #if 0
@@ -101,6 +105,21 @@ void ctrl_assist(t_ctrl *x, void *b, long msg, long arg, char *dst)
 	}		
 }
 
+void ctrl_load_plugins(t_ctrl *x, t_symbol *path)
+{
+	jamoma_controller_load_plugins(path);
+	
+	// TODO : throw a message over the network to declare /Jamoma
+	
+	// DEBUG
+	jamoma_controller_dump_plugins();
+}
+
+void ctrl_add_scan(t_ctrl *x)
+{
+	jamoma_controller_scan();	// TODO get a TTList with all devices name
+}
+
 void ctrl_add_minuit_device(t_ctrl *x, t_symbol *device_name, t_symbol *ip, long port)
 {
 	std::map<std::string, std::string> commParameters;
@@ -120,15 +139,20 @@ void ctrl_add_minuit_device(t_ctrl *x, t_symbol *device_name, t_symbol *ip, long
 	x->device = device_name;
 	
 	if(x->b_debug)
-		jamoma_controller_dump();
+		jamoma_controller_dump_devices();
 }
 
 void ctrl_discover(t_ctrl *x, t_symbol *device, t_symbol *address)
 {
 	vector<string> returnedNodes;
+	vector<string> returnedLeaves;
 	vector<string> returnedAttributes;
+	vector<Value> returnedValues;
+	unsigned int i;
+	TTString deviceAndAddress = device->s_name;
+	deviceAndAddress += address->s_name;
 	
-	int result = jamoma_controller->deviceSendDiscoverRequest(device->s_name, address->s_name, &returnedNodes, &returnedAttributes);
+	int result = jamoma_controller->deviceSendDiscoverRequest(deviceAndAddress, &returnedNodes, &returnedLeaves, &returnedAttributes, &returnedValues);
 	
 	switch(result){
 		case REQUEST_NOT_SENT :{
@@ -145,6 +169,22 @@ void ctrl_discover(t_ctrl *x, t_symbol *device, t_symbol *address)
 		}
 		case ANSWER_RECEIVED :{
 			post("ctrl_discover %s %s : ANSWER_RECEIVED", device->s_name, address->s_name);
+			
+			post("		+ Nodes");
+			for(i = 0; i < returnedNodes.size(); i++){
+				post("		+ %s", returnedNodes.at(i).data());
+			}
+			
+			post("		<> Leaves");
+			for(i = 0; i < returnedLeaves.size(); i++){
+				post("		<> %s", returnedLeaves.at(i).data());
+			}
+			
+			post("		: Attributes");
+			for(i = 0; i < returnedAttributes.size(); i++){
+				post("		: %s", returnedAttributes.at(i).data());
+			}
+			
 			break;
 		}
 		default :{
@@ -154,19 +194,91 @@ void ctrl_discover(t_ctrl *x, t_symbol *device, t_symbol *address)
 	}
 }
 
-void ctrl_get(t_ctrl *x,  t_symbol *device, t_symbol *address, t_symbol *attribute)
+void ctrl_get(t_ctrl *x,  t_symbol *device, t_symbol *address)
 {
-	;
+	Value returnedValue;
+	
+	int result = jamoma_controller->deviceSendGetRequest(device->s_name, address->s_name, NAMESPACE_ATTR_VALUE, &returnedValue); // TODO : deal with any attribute
+	
+	switch(result){
+		case REQUEST_NOT_SENT :{
+			post("ctrl_get %s %s : REQUEST_NOT_SENT", device->s_name, address->s_name);
+			break;
+		}
+		case TIMEOUT_EXCEEDED :{
+			post("ctrl_get %s %s : TIMEOUT_EXCEEDED", device->s_name, address->s_name);
+			break;
+		}
+		case NO_ANSWER :{
+			post("ctrl_get %s %s : NO_ANSWER", device->s_name, address->s_name);
+			break;
+		}
+		case ANSWER_RECEIVED :{
+			post("ctrl_get %s %s : ANSWER_RECEIVED", device->s_name, address->s_name);
+			post("		<Value = %s", returnedValue.data());
+			
+			break;
+		}
+		default :{
+			post("ctrl_get %s %s : NO_ANSWER", device->s_name, address->s_name);
+			break;
+		}
+	}
 }
 
 void ctrl_set(t_ctrl *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	;
+	char *temp;
+	TTString s_value = "";
+	t_symbol *device, *address;
+	int i;
+	
+	if((atom_gettype(&argv[0]) == A_SYM) && atom_gettype(&argv[1]) == A_SYM){
+		
+		device = atom_getsym(&argv[0]);				// first argument is the name of the device
+		address = atom_getsym(&argv[1]);			// second argument is the address where to set
+	
+		for(i = 2; i < argc; i++){					// then the others are values to send
+			
+			temp = (char*)malloc(sizeof(char)*512);
+			switch((argv+i)->a_type) 
+			{
+				case A_SYM:
+					temp = atom_getsym(&argv[i])->s_name;
+					break;
+				case A_FLOAT:
+					snprintf(temp, 512, "%f", atom_getfloat(&argv[i]));
+					break;
+				case A_LONG:
+					snprintf(temp, 512, "%ld", atom_getlong(&argv[i]));
+					break;
+			}
+			
+			s_value += temp;
+			if(i < argc-1)
+				s_value += " ";
+			
+			free(temp);
+		}
+		jamoma_controller->deviceSendSetRequest(device->s_name, address->s_name, s_value);
+	}
 }
 
 void ctrl_listen(t_ctrl *x,  t_symbol *device, t_symbol *address, t_symbol *attribute, long enable)
 {
 	;
+}
+
+void ctrl_add_snapshot(t_ctrl *x,  t_symbol *device, t_symbol *address)
+{
+	unsigned int i;
+	vector<std::string> snapshot = jamoma_controller->deviceSnapshot(x->device->s_name, address->s_name);
+	
+	post("Snapshot on the device %s at %s", device->s_name, address->s_name);
+	for(i = 0; i < snapshot.size(); i++)
+	{
+		post("%s", snapshot.at(i).data());
+	}
 }
 
 void ctrl_debug(t_ctrl *x, long n)
@@ -177,5 +289,6 @@ void ctrl_debug(t_ctrl *x, long n)
 void ctrl_dump(t_ctrl *x)
 {
 	// dump all plugins and devices
-	jamoma_controller_dump();
+	jamoma_controller_dump_plugins();
+	jamoma_controller_dump_devices();
 }

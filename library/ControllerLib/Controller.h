@@ -41,8 +41,15 @@
 #define NAMESPACE_ATTR_PRIORITY "priority"		//<
 #define NAMESPACE_ATTR_RANGE "range"			//< 
 #define NAMESPACE_ATTR_COMMENT "comment"		//< 
+#define NAMESPACE_NO_VALUE "NO VALUE"			//<
 
-using namespace std;
+/*********************************************************************
+ TEMPORARY DEFINE USED TO ALLOW THE TIPITOUCH TO SPEAK WITH THE CONTROLLER
+ *********************************************************************/
+static const unsigned int TRIGGER_READY = 0;
+static const unsigned int TRIGGER_WAITED = 1;
+static const unsigned int TRIGGER_PUSHED = 2;
+/********************************************************************/
 
 class Namespace;
 class Device;
@@ -68,15 +75,17 @@ private:
 	std::map<std::string, Device*> *netDevices;						//< a map between a device name and an instance of this Device
 	unsigned int deviceId;											//< the device id witch is incremented automatically 
 	
-	Namespace* m_namespace;											//< a pointer on the local namespace
-	
-	void (*m_waitedMessageAction)(void*, 
-								  std::string);						//< a callback used when a message is received
-	void* m_waitedMessageActionArgument;							//< argument for the callback method
+	/*********************************************************************
+	 TEMPORARY MEMBER USED TO ALLOW THE TIPITOUCH TO SPEAK WITH THE CONTROLLER
+	 *********************************************************************/
+	std::map<unsigned int, std::string> *m_namespace;				//TriggerId , TriggerAddress
+	std::map<unsigned int, unsigned int> *m_values;					//TriggerId , TriggerValue
+	/********************************************************************/
 	
 	void (*m_discover_callback)(void*, 
 								Address, 
-								std::vector<std::string>&, 
+								std::vector<std::string>&,
+								std::vector<std::string>&,
 								std::vector<std::string>&);			//< a callback used when a device wants to dicover the namespace
 	void* m_discover_arguments;										//< arguments for the discover callback method
 	
@@ -115,12 +124,6 @@ public:
 	 * Destructor.
 	 */
 	~Controller();
-	
-	/*!
-	 * Add a message reception callback method
-	 *
-	 */
-	void addWaitedMessageAction(void* arg, void(*pt2Func)(void*, std::string));
 	
 	/*!
 	 * The message callback method
@@ -221,21 +224,25 @@ public:
 	 *
 	 * \param deviceName : the device name to discover
 	 * \param address : the address where to get the snapshot
-	 * \param nodes : the vector which is going to be full with the node names of the namespace
-	 * \param attributs : the vector which is going to be full with the attributs names of the namespace
+	 * \param returnedNodes : the vector which is going to be full with the node names of the namespace
+	 * \param returnedLeaves : the vector which is going to be full with the leaves names of the namespace (a leave is a node withe a 'value' attribute)
+	 * \param returnedAttributes : the vector which is going to be full with the attributs names of the namespace
 	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
 	 */
-	int deviceSendDiscoverRequest(std::string deviceName, Address address, vector<string>* returnedNodes, vector<string>* returnedAttributes);
+	int deviceSendDiscoverRequest(std::string deviceName, Address address, std::vector<std::string>* returnedNodes, std::vector<std::string>* returnedLeaves, std::vector<std::string>* returnedAttributes);
+	int deviceSendDiscoverRequest(std::string deviceAndAddress, std::vector<std::string>* returnedNodes, std::vector<std::string>* returnedLeaves, std::vector<std::string>* returnedAttributes, std::vector<Value>* returnedValues);
 	
 	/*!
 	 * Send a get request to a device to get values at the given address
 	 *
 	 * \param deviceName : the device name where to get the value
 	 * \param address : the address where to get the value
-	 * \param attributs : the Value which is going to be full
+	 * \param attribute : the attribute where to get the value
+	 * \param returnedValue : the Value which is going to be full
 	 * \return the reception state : TIMEOUT_EXCEEDED ; NO_ANSWER ; ANSWER_RECEIVED
 	 */
-	int deviceSendGetRequest(std::string deviceName, Address address, Value* returnedValue);
+	int deviceSendGetRequest(std::string deviceName, Address address, std::string attribute, Value* returnedValue);
+	int deviceSendGetRequest(std::string deviceAndAddress, Value* returnedValue);	// TODO : deal with any attribute. For this ask the 'value' attribute by default
 	
 	/*!
 	 * Send a set request to set a value of a specific device
@@ -244,7 +251,9 @@ public:
 	 * \param address : the address where to set the value
 	 * \param value : anything to send
 	 */
-	void deviceSendSetRequest(std::string deviceName, Address address, Value& newvalue);
+	void deviceSendSetRequest(std::string deviceName, Address address, Value& newValue);
+	void deviceSendSetRequest(std::string deviceAndAddress, Value& newValue);
+	void deviceSendSetRequest(std::string deviceAndAddressAndValue);
 	
 	/*!
 	 * Send a listen request to a specific device
@@ -254,7 +263,8 @@ public:
 	 * \param attribute : the attribute to listen
 	 * \param enable : enable/disable the listening
 	 */
-	void deviceSendListenRequest(std::string deviceName, Address address, string attribute, bool enable);
+	void deviceSendListenRequest(std::string deviceName, Address address, std::string attribute, bool enable);
+	void deviceSendListenRequest(std::string deviceAndAddress, std::string attribute, bool enable);
 	
 	/*!
 	 * Get a current snapshot  of a device using the address (a get request on each node with a 'value' attribute)
@@ -266,6 +276,7 @@ public:
 	 */
 	// TODO : return a map of <Address, Value>
 	std::vector<std::string> deviceSnapshot(std::string deviceName, Address address);
+	std::vector<std::string> deviceSnapshot(std::string deviceAndAddress);
 	
 	/*!
 	 * Let to know if a device has to be visible in the UI. 
@@ -297,16 +308,17 @@ public:
 	 * \param arg : anything needs by the application to discover his namespace
 	 * \param pt2Func : a callback method given by the application to discover his namespace
 	 */
-	void namespaceDiscoverAddCallback(void* arg, void(*pt2Func)(void*, Address, std::vector<std::string>&, std::vector<std::string>&));
+	void namespaceDiscoverAddCallback(void* arg, void(*pt2Func)(void*, Address, std::vector<std::string>&, std::vector<std::string>&, std::vector<std::string>&));
 	
 	/*!
 	 * Discover the namespace at an address.
 	 *
 	 * \param whereToDiscover : address where to discover the namespace below
 	 * \param returnedNodes : nodes below the address
+	* \param returnedLeaves : leaves below the address (a leaf is a node with a 'value' attribute)
 	 * \param returnedAttributes : attribute of the address
 	 */
-	void namespaceDiscover(Address whereToDiscover, std::vector<std::string>& returnedNodes, std::vector<std::string>& returnedAttributes);
+	void namespaceDiscover(Address whereToDiscover, std::vector<std::string>& returnedNodes, std::vector<std::string>& returnedLeaves, std::vector<std::string>& returnedAttributes);
 	
 	/*!
 	 * Add a get callback method
@@ -359,7 +371,36 @@ public:
 	 * \param attributeToListen : the attribute to listen
 	 */
 	void namespaceListen(Device* whereToSend, Address whereToListen, std::string attributeToListen, bool);
+	
+	/************************************************
+	 
+	 PRIVATE METHODS
+	 used for internal and specific purposes
+	 
+	 ************************************************/
+private:
+	void parseDeviceAndAddress(std::string deviceAndAddress, std::string& device, std::string& address);
+	std::vector<std::string> snapshotProcess(Plugin *plugin, Device *device, Address address);
+	
+	
+	
+	
+	/*********************************************************************
+	 TEMPORARY METHOD TO ALLOW THE TPITOUCH TO SPEAK WITH THE CONTROLLER
+	 *********************************************************************/
+public:
+	void addTriggerPointLeave(unsigned int triggerId, std::string triggerMessage);
+	void removeTriggerPointLeave(unsigned int triggerId);
+	void setNamespaceValue(std::string address, int value, std::map<std::string, std::string> optionalArguments);
+	void resetTriggerPointStates();
+	std::map<unsigned int, std::string> *getControllerNamespace();
+	void getWaitedTriggerPoints(std::vector<std::string> *waitedTP);
+	
+	void askControllerNamespaceFor(std::string address, std::vector<std::string>* namespaceVectorToFill);
+	int askControllerValueFor(std::string address);
 
 };
+
+
 
 #endif //_CONTROLLER_H_

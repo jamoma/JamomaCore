@@ -31,6 +31,12 @@ void			ctrl_assist(t_ctrl *x, void *b, long m, long a, char *s);
 
 // methods for jcom.controller
 
+/** to load the plugins from a folder that the user can choose */
+void			ctrl_load_plugins(t_ctrl *x, t_symbol *path);
+
+/** scan the network in order to add devices automatically */
+void			ctrl_add_scan(t_ctrl *x);
+
 /** to add a Minuit device to the Jamoma Controller : /device_name IP port */
 void			ctrl_add_minuit_device(t_ctrl *x, t_symbol *device_name, t_symbol *ip, long port);
 
@@ -38,13 +44,16 @@ void			ctrl_add_minuit_device(t_ctrl *x, t_symbol *device_name, t_symbol *ip, lo
 void			ctrl_discover(t_ctrl *x, t_symbol *device, t_symbol *address);
 
 /** to get a value from a remote device on the network */
-void			ctrl_get(t_ctrl *x,  t_symbol *device, t_symbol *address, t_symbol *attribute);
+void			ctrl_get(t_ctrl *x,  t_symbol *device, t_symbol *address);
 
 /** to set a value into a remote device on the network */
 void			ctrl_set(t_ctrl *x, t_symbol *msg, long argc, t_atom *argv);
 
 /** to listen an attribute of a remote device on the network */
 void			ctrl_listen(t_ctrl *x,  t_symbol *device, t_symbol *address, t_symbol *attribute, long enable);
+
+/** to get a snapshot from a remote device on the network at an address */
+void			ctrl_add_snapshot(t_ctrl *x,  t_symbol *device, t_symbol *address);
 
 /** to set the jcom.controller in Debug mode */
 void			ctrl_debug(t_ctrl *x, long n);
