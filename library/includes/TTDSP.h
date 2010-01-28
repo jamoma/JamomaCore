@@ -101,4 +101,11 @@ TTErr TTDSP_EXPORT TTObjectRelease(TTAudioObjectPtr* anObject);
 TTErr TTDSP_EXPORT TTObjectRelease(TTAudioSignalPtr* anObject);
 
 
+/**	Allocate memory with 16-byte alignment.  This memory must be freed using TTFree16()	*/
+TTPtr TTMalloc16(size_t numBytes);
+
+/**	Free 16-byte aligned memory alloc'd by TTMalloc16()	*/
+void TTFree16(TTPtr ptr);
+
+
 #endif // __TTDSP_H__

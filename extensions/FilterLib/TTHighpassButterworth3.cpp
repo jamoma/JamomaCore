@@ -97,8 +97,8 @@ void TTHighpassButterworth3::calculateCoefficients() //TODO: with a little bit o
 	
 	mA0 = mKCubic / temp1; 
 	mA1 = (-3*mKCubic) / temp1; 
-	mA2 = (3*mKCubic)  / temp1; 
-	mA3 =  (-mKCubic)  / temp1; 
+	//mA2 = -mA1; //mA2 = (3*mKCubic)  / temp1; 
+	//mA3 = -mA0; //mA3 =  (-mKCubic)  / temp1; 
 
 	mB1 = (3*mRadiansCubic - 3*mKCubic + 2*mRadiansSquared*mK - 2*mRadians*mKSquared) / (temp1); 
 	mB2 = (3*mRadiansCubic + 3*mKCubic - 2*mRadiansSquared*mK - 2*mRadians*mKSquared) / (temp1); 
@@ -109,8 +109,9 @@ void TTHighpassButterworth3::calculateCoefficients() //TODO: with a little bit o
 
 inline TTErr TTHighpassButterworth3::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
-	y = TTAntiDenormal(mA0*x + mA1*mX1[channel] + mA2*mX2[channel] + mA3*mX3[channel] - mB1*mY1[channel] - mB2*mY2[channel] -mB3*mY3[channel]);
-	
+	//y = TTAntiDenormal(mA0*x + mA1*mX1[channel] + mA2*mX2[channel] + mA3*mX3[channel] - mB1*mY1[channel] - mB2*mY2[channel] -mB3*mY3[channel]);
+	// since mA2 = -mA1, an mA3 = -mA0, we can simplyfy to
+	y = TTAntiDenormal(mA0*(x- mX3[channel]) + mA1*(mX1[channel] - mX2[channel]) - mB1*mY1[channel] - mB2*mY2[channel] -mB3*mY3[channel]);
 	mX3[channel] = mX2[channel];
 	mX2[channel] = mX1[channel];
 	mX1[channel] = x;

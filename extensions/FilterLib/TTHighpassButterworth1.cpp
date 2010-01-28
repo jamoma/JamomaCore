@@ -85,7 +85,9 @@ void TTHighpassButterworth1::calculateCoefficients()
 
 inline TTErr TTHighpassButterworth1::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
-	y = TTAntiDenormal(mA0*x + mA1*mX1[channel] - mB1*mY1[channel]);
+	//y = TTAntiDenormal(mA0*x + mA1*mX1[channel] - mB1*mY1[channel]);
+    //since mA1 = -mA0, we can simplyfiy to
+	y = TTAntiDenormal(mA0*(x - mX1[channel]) - mB1*mY1[channel]);
 	mX1[channel] = x;
 	mY1[channel] = y;
 	return kTTErrNone;

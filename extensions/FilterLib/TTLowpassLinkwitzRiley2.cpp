@@ -89,7 +89,7 @@ void TTLowpassLinkwitzRiley2::calculateCoefficients()
 	
 	mA0 = (mRadiansSquared)/(mKSquared+mRadiansSquared+temp); 
 	mA1 = (2*mRadiansSquared)/(mKSquared+mRadiansSquared+temp); 
-	mA2 = (mRadiansSquared)/(mKSquared+mRadiansSquared+temp); 
+	//mA2 = mA0; //mA2 = (mRadiansSquared)/(mKSquared+mRadiansSquared+temp); 
 
 	mB1 = (-2*mKSquared+2*mRadiansSquared)/(mKSquared+mRadiansSquared+temp); 
 	mB2 = (-temp+mKSquared+mRadiansSquared)/(mKSquared+mRadiansSquared+temp);	
@@ -98,7 +98,9 @@ void TTLowpassLinkwitzRiley2::calculateCoefficients()
 
 inline TTErr TTLowpassLinkwitzRiley2::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
-	y = TTAntiDenormal(mA0*x + mA1*mX1[channel] + mA2*mX2[channel] - mB1*mY1[channel] - mB2*mY2[channel]);
+	//y = TTAntiDenormal(mA0*x + mA1*mX1[channel] + mA2*mX2[channel] - mB1*mY1[channel] - mB2*mY2[channel]);
+	//since mA2 = mA0, we write
+	y = TTAntiDenormal(mA0* (x + mX2[channel]) + mA1*mX1[channel] - mB1*mY1[channel] - mB2*mY2[channel]);
 	mX2[channel] = mX1[channel];
 	mX1[channel] = x;
 	mY2[channel] = mY1[channel];
