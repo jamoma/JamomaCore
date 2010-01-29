@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 317.0, 58.0, 675.0, 642.0 ],
+		"rect" : [ 80.0, 173.0, 675.0, 642.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 317.0, 58.0, 675.0, 642.0 ],
+		"defrect" : [ 80.0, 173.0, 675.0, 642.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -22,11 +22,11 @@
 					"args" : [ "/onDeck" ],
 					"id" : "obj-7",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.cueOnDeck.maxpat",
+					"name" : "jmod.cueComment.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 362.0, 107.0, 300.0, 70.0 ],
+					"patching_rect" : [ 350.0, 107.0, 300.0, 70.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 253.0, 104.0, 300.0, 70.0 ]
 				}
@@ -146,13 +146,13 @@
 ,
 					"patching_rect" : [ 35.0, 75.0, 65.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"default_fontface" : 0,
-						"fontname" : "Arial",
-						"default_fontname" : "Arial",
-						"globalpatchername" : ""
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p spacebar"
@@ -330,13 +330,13 @@
 ,
 					"patching_rect" : [ 36.0, 185.0, 191.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"default_fontface" : 0,
-						"fontname" : "Arial",
-						"default_fontname" : "Arial",
-						"globalpatchername" : ""
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p cueTriggerCompatibility"
@@ -582,8 +582,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-7", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 44.5, 186.0, 348.0, 186.0, 348.0, 97.0, 371.5, 97.0 ],
+					"hidden" : 1,
+					"midpoints" : [ 44.5, 186.0, 348.0, 186.0, 348.0, 97.0, 359.5, 97.0 ],
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -654,8 +654,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 371.5, 186.0, 348.0, 186.0, 348.0, 97.0, 44.5, 97.0 ],
+					"hidden" : 1,
+					"midpoints" : [ 359.5, 186.0, 348.0, 186.0, 348.0, 97.0, 44.5, 97.0 ],
 					"source" : [ "obj-7", 0 ]
 				}
 
