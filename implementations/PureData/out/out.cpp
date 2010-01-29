@@ -36,7 +36,8 @@ void	OutSetGain(OutPtr self, t_floatarg value);
 
 
 // Globals
-static ClassPtr sOutClass;
+static ClassPtr		sOutClass;
+static t_linklist*	sInstances;		// TODO: use this information to run each graph from which we pull in its own thread
 
 
 /************************************************************************************/
@@ -88,6 +89,7 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			outlet_new(SELF, gensym("signal"));
 		
 		//self->obj.z_misc = Z_NO_INPLACE | Z_PUT_LAST;
+		sInstances->append(self);
 	}
 	return self;
 }
@@ -95,6 +97,7 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void OutFree(OutPtr self)
 {
+	sInstances->pop(self);
 	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
 }
 
@@ -119,14 +122,15 @@ t_int* OutPerform(t_int* w)
 {
    	OutPtr		self = (OutPtr)(w[1]);
 	TTUInt16	numChannels;
-	
+
+// TODO: wrap all of this in a new function that will be called in our instance's worker thread -- maybe want an attribute to turn threading on/off
 	self->multicoreObject->preprocess();
 	self->multicoreObject->process(self->audioSignal);
-		
+// TODO: end of worker thread, now copy the buffers as usual	
+// We need to thread-sync here though, yes?		
 	numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannels());
 	for(TTUInt16 channel=0; channel<numChannels; channel++)
 		self->audioSignal->getVector(channel, self->vectorSize, (TTFloat32*)w[channel+2]);
-	
 	return w + (self->numChannels+2);
 }
 
