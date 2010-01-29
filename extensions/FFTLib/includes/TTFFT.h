@@ -16,11 +16,22 @@
 class TTfft : TTAudioObject {
 	TTCLASS_SETUP(TTfft)
 
+	static const int kTTFFTPerformFFT;
+	static const int kTTFFTPerformIFFT;
+	
 	TTSampleVector		mBuffer;		// the samples we pass to the fft routine for processing
 	std::vector<int>	mWorkArea;		// work area for bit reversal
 	std::vector<double>	mCosSinTable;	// cos/sin table
 	TTUInt16			mVectorSize;	// cached vector size
+	TTFloat64			mRVectorSize;	// reciprocal of vector size
+	TTBoolean			mInverse;		// true = IFFT, false = FFT
+	TTInt16				mInverseValue;	// -1 means IFFT, +1 means FFT
+	
 
+	/** Attribute accessor.	*/
+	TTErr setInverse(const TTValue& newValue);
+
+	
 	/**	FFT Audio Process Routine.  
 		Some important notes:
 		* The vector size of the inputs determines the frame size of the FFT.

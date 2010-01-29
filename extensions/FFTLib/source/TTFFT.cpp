@@ -12,10 +12,20 @@
 #define thisTTClassName		"fft"
 #define thisTTClassTags		"audio, processor, math"
 
+const int TTfft::kTTFFTPerformFFT = 1;
+const int TTfft::kTTFFTPerformIFFT = -1;
+
+// prototype of function from fftsg.c
+extern "C" void rdft(int n, int isgn, double *a, int *ip, double *w);
+
 
 TT_AUDIO_CONSTRUCTOR,
-	mVectorSize(0)
+	mVectorSize(0),
+	mInverse(false),
+	mInverseValue(1)
 {
+	addAttributeWithSetter(Inverse, kTypeBoolean);
+	
 	setProcessMethod(process);
 }
 
@@ -25,10 +35,16 @@ TTfft::~TTfft()
 	;
 }
 
-// prototype of function from fftsg.c
-extern "C" void rdft(int n, int isgn, double *a, int *ip, double *w);
-const int kTTFFTPerformFFT = 1;
-const int kTTFFTPerformIFFT = -1;
+
+TTErr TTfft::setInverse(const TTValue& newValue)
+{
+	mInverse = newValue;
+	if (mInverse)
+		mInverseValue = kTTFFTPerformIFFT;
+	else
+		mInverseValue = kTTFFTPerformFFT;
+	return kTTErrNone;
+}
 
 
 TTErr TTfft::process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
@@ -40,7 +56,8 @@ TTErr TTfft::process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs
 	TTUInt16			channel;
 	
 	numChannels = in.getNumChannels();
-	if (out.getNumChannels() != numChannels*2) {
+	// if we're doing an IFFT, then we assume the out channels is <= in channels already
+	if (out.getNumChannels() != numChannels*2 && !mInverse) {
 		TTValue v = numChannels*2;
 		out.setmaxNumChannels(v);
 		out.setnumChannels(v);
@@ -57,21 +74,41 @@ TTErr TTfft::process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs
 		mBuffer.assign(vs, 0.0);
 		
 		mVectorSize = vs;
+		mRVectorSize = 1.0/(mVectorSize/2.0);
 	}
 	
-	for (channel=0; channel<numChannels; channel++) {
-		TTSampleValuePtr	inSample			= in.sampleVectors[channel];
-		TTSampleValuePtr	outSampleReal		= out.sampleVectors[channel*2];
-		TTSampleValuePtr	outSampleImaginary	= out.sampleVectors[channel*2+1];
+	if (mInverse) {
+		for (channel=0; channel<numChannels/2; channel++) {
+			TTSampleValuePtr	inSampleReal		= in.sampleVectors[channel];
+			TTSampleValuePtr	inSampleImaginary	= in.sampleVectors[channel*2+1];
+			TTSampleValuePtr	outSample			= out.sampleVectors[channel];
+			
+			for (int i=0; i<vs; i++) {
+				// mult by mRVectorSize to normalize the FFT
+				mBuffer[i] = *inSampleReal++ * mRVectorSize;
+				mBuffer[i+vs] = *inSampleImaginary++ * mRVectorSize;
+			}
+			rdft(mVectorSize, mInverseValue, &mBuffer[0], &mWorkArea[0], &mCosSinTable[0]);
+			
+			for (int i=0; i<vs; i++)
+				*outSample++ = mBuffer[i];
+		}
+	}
+	else {
+		for (channel=0; channel<numChannels; channel++) {
+			TTSampleValuePtr	inSample			= in.sampleVectors[channel];
+			TTSampleValuePtr	outSampleReal		= out.sampleVectors[channel*2];
+			TTSampleValuePtr	outSampleImaginary	= out.sampleVectors[channel*2+1];
 
-		for (int i=0; i<vs; i++)
-			mBuffer[i] = *inSample++;
-		
-		rdft(mVectorSize, kTTFFTPerformFFT, &mBuffer[0], &mWorkArea[0], &mCosSinTable[0]);
+			for (int i=0; i<vs; i++)
+				mBuffer[i] = *inSample++;
+			
+			rdft(mVectorSize, mInverseValue, &mBuffer[0], &mWorkArea[0], &mCosSinTable[0]);
 
-		for (int i=0; i<vs; i++) {
-			*outSampleReal++ = mBuffer[i];
-			*outSampleImaginary++ = mBuffer[i+vs];
+			for (int i=0; i<vs; i++) {
+				*outSampleReal++ = mBuffer[i];
+				*outSampleImaginary++ = mBuffer[i+vs];
+			}
 		}
 	}
 
