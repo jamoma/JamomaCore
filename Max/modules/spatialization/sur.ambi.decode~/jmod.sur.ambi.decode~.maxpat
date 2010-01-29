@@ -175,8 +175,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 936.0, 163.0, 106.0, 17.0 ],
-					"text" : "range/bounds 1 11"
+					"patching_rect" : [ 936.0, 163.0, 100.0, 17.0 ],
+					"text" : "range/bounds 1 4"
 				}
 
 			}
