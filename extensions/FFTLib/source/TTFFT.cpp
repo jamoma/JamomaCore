@@ -13,9 +13,10 @@
 #define thisTTClassTags		"audio, processor, math"
 
 
-TT_AUDIO_CONSTRUCTOR
+TT_AUDIO_CONSTRUCTOR,
+	mVectorSize(0)
 {
-	;
+	setProcessMethod(process);
 }
 
 
@@ -24,41 +25,56 @@ TTfft::~TTfft()
 	;
 }
 
+// prototype of function from fftsg.c
+extern "C" void rdft(int n, int isgn, double *a, int *ip, double *w);
+const int kTTFFTPerformFFT = 1;
+const int kTTFFTPerformIFFT = -1;
+
 
 TTErr TTfft::process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTAudioSignal&	in1 = inputs->getSignal(0);
-	TTAudioSignal&	in2 = inputs->getSignal(1);
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		vs;
-	TTSampleValue	*in1Sample,
-					*in2Sample,
-					*outSample;
-	TTUInt16		numChannels;
-	TTUInt16		channel;
+	TTAudioSignal&		in = inputs->getSignal(0);
+	TTAudioSignal&		out = outputs->getSignal(0);
+	TTUInt16			vs = in.getVectorSize();;
+	TTUInt16			numChannels;
+	TTUInt16			channel;
 	
-	if(in2.getNumChannels() == 1){				// If the operand signal is one only channel, then we apply that to all channels of in1
-		numChannels = in2.getNumChannels();
-		for(channel=0; channel<numChannels; channel++){
-			in1Sample = in1.sampleVectors[channel];
-			in2Sample = in2.sampleVectors[0];
-			outSample = out.sampleVectors[channel];
-			vs = in1.getVectorSize();
-			while(vs--)
-				*outSample++ = *in1Sample++ + *in2Sample++;
-		}		
+	numChannels = in.getNumChannels();
+	if (out.getNumChannels() != numChannels*2) {
+		TTValue v = numChannels*2;
+		out.setmaxNumChannels(v);
+		out.setnumChannels(v);
 	}
-	else{										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
-		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
-		for(channel=0; channel<numChannels; channel++){
-			in1Sample = in1.sampleVectors[channel];
-			in2Sample = in2.sampleVectors[channel];
-			outSample = out.sampleVectors[channel];
-			vs = in1.getVectorSize();
-			while(vs--)
-				*outSample++ = *in1Sample++ + *in2Sample++;
+	
+	if (vs != mVectorSize) {	
+		mWorkArea.resize(vs);
+		mWorkArea.assign(vs, 0);
+		
+		mCosSinTable.resize(vs);
+		mCosSinTable.assign(vs, 0.0);
+		
+		mBuffer.resize(vs*2);
+		mBuffer.assign(vs, 0.0);
+		
+		mVectorSize = vs;
+	}
+	
+	for (channel=0; channel<numChannels; channel++) {
+		TTSampleValuePtr	inSample			= in.sampleVectors[channel];
+		TTSampleValuePtr	outSampleReal		= out.sampleVectors[channel*2];
+		TTSampleValuePtr	outSampleImaginary	= out.sampleVectors[channel*2+1];
+
+		for (int i=0; i<vs; i++)
+			mBuffer[i] = *inSample++;
+		
+		rdft(mVectorSize, kTTFFTPerformFFT, &mBuffer[0], &mWorkArea[0], &mCosSinTable[0]);
+
+		for (int i=0; i<vs; i++) {
+			*outSampleReal++ = mBuffer[i];
+			*outSampleImaginary++ = mBuffer[i+vs];
 		}
 	}
+
 	return kTTErrNone;
 }
 

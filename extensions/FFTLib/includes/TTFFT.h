@@ -16,7 +16,17 @@
 class TTfft : TTAudioObject {
 	TTCLASS_SETUP(TTfft)
 
-	/**	A standard audio processing method as used by Jamoma DSP objects. */
+	TTSampleVector		mBuffer;		// the samples we pass to the fft routine for processing
+	std::vector<int>	mWorkArea;		// work area for bit reversal
+	std::vector<double>	mCosSinTable;	// cos/sin table
+	TTUInt16			mVectorSize;	// cached vector size
+
+	/**	FFT Audio Process Routine.  
+		Some important notes:
+		* The vector size of the inputs determines the frame size of the FFT.
+		* The input currently assumes that we treat each channel as the input for a Real FFT (not complex).
+		* The output is currently adapts the output to twice the number of channels as is present at the input.
+	 */
 	TTErr process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 };
