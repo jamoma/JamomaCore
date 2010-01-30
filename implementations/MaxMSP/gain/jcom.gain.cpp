@@ -12,6 +12,6 @@
 int main(void)
 {
 	TTMulticoreInit();
-	return wrapAsMaxMulticore(TT("gain"), "gain≈", NULL);
+	return wrapAsMaxMulticore(TT("gain"), "jcom.gain≈", NULL);
 }
 
