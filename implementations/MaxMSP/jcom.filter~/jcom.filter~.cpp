@@ -56,7 +56,7 @@ t_int*		filter_perform(t_int *w);
 /** This method is called on each audio vector: Frequency set at signal rate. */
 t_int*		filter_perform_freq(t_int *w);
 
-/** This method is called on each audio vector: Rresonance set at signal rate. */
+/** This method is called on each audio vector: Resonance set at signal rate. */
 t_int*		filter_perform_q(t_int *w);
 
 /** This method is called on each audio vector: Frequency and resonance set at signal rate. */
@@ -229,7 +229,7 @@ t_max_err filter_setFrequency(t_filter *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrFrequency = atom_getfloat(argv);
-		x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);
+		x->filter->setAttributeValue(TT("Frequency"), x->attrFrequency);
 	}
 	return MAX_ERR_NONE;
 }
@@ -240,9 +240,9 @@ t_max_err filter_setQ(t_filter *x, void *attr, long argc, t_atom *argv)
 	
 	if(argc){
 		x->attrQ = atom_getfloat(argv);
-		err = x->filter->setAttributeValue(TT("q"), x->attrQ);
+		err = x->filter->setAttributeValue(TT("Q"), x->attrQ);
 		if(err == kTTErrInvalidAttribute)
-			err = x->filter->setAttributeValue(TT("resonance"), x->attrQ);
+			err = x->filter->setAttributeValue(TT("Resonance"), x->attrQ);
 	}
 	return MAX_ERR_NONE;
 }
@@ -258,10 +258,10 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 			TTObjectInstantiate(TT(x->attrType->s_name), &x->filter, x->maxNumChannels);			
 			if(x->filter){
 				// Now that we have our new filter, update it with the current state of the external:
-				x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);
-				err = x->filter->setAttributeValue(TT("q"), x->attrQ);
+				x->filter->setAttributeValue(TT("Frequency"), x->attrFrequency);
+				err = x->filter->setAttributeValue(TT("Q"), x->attrQ);
 				if(err == kTTErrInvalidAttribute)
-					err = x->filter->setAttributeValue(TT("resonance"), x->attrQ);
+					err = x->filter->setAttributeValue(TT("Resonance"), x->attrQ);
 				x->filter->setAttributeValue(TT("bypass"), (TTBoolean)x->attrBypass);
 				x->filter->setAttributeValue(TT("sr"), (TTUInt32)x->sr);
 			}
@@ -313,7 +313,7 @@ t_int *filter_perform_freq(t_int *w)
 
 	if(!x->obj.z_disabled){
 		x->attrFrequency = *freq;
-		x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);
+		x->filter->setAttributeValue(TT("Frequency"), x->attrFrequency);
 		x->filter->process(x->audioIn, x->audioOut);
 	}
 
@@ -341,7 +341,7 @@ t_int *filter_perform_q(t_int *w)
 
 	if(!x->obj.z_disabled){
 		x->attrQ = *q;
-		x->filter->setAttributeValue(TT("q"), x->attrQ);
+		x->filter->setAttributeValue(TT("Q"), x->attrQ);
 		x->filter->process(x->audioIn, x->audioOut);
 	}
 
@@ -372,8 +372,8 @@ t_int *filter_perform_freq_q(t_int *w)
 	if(!x->obj.z_disabled){
 		x->attrFrequency = *freq;
 		x->attrQ = *q;
-		x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);
-		x->filter->setAttributeValue(TT("q"), x->attrQ);
+		x->filter->setAttributeValue(TT("Frequency"), x->attrFrequency);
+		x->filter->setAttributeValue(TT("Q"), x->attrQ);
 		x->filter->process(x->audioIn, x->audioOut);
 	}
 
