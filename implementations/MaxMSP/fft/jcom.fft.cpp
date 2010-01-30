@@ -11,5 +11,5 @@
 
 int main(void)
 {
-	return wrapAsMaxMulticore(TT("fft"), "fft≈", NULL);
+	return wrapAsMaxMulticore(TT("fft"), "jcom.fft≈", NULL);
 }

@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 10.0, 44.0, 1351.0, 521.0 ],
+		"rect" : [ -49.0, 44.0, 1351.0, 521.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 10.0, 44.0, 1351.0, 521.0 ],
+		"defrect" : [ -49.0, 44.0, 1351.0, 521.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -66,8 +66,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 1140.0, 295.0, 169.5, 19.0 ],
-					"text" : "info≈"
+					"patching_rect" : [ 1140.0, 295.0, 162.0, 19.0 ],
+					"text" : "jcom.info≈ \b"
 				}
 
 			}
@@ -119,8 +119,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 1140.0, 240.0, 169.5, 19.0 ],
-					"text" : "info≈"
+					"patching_rect" : [ 1140.0, 240.0, 162.0, 19.0 ],
+					"text" : "jcom.info≈ \b"
 				}
 
 			}
@@ -183,8 +183,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 1140.0, 185.0, 169.5, 19.0 ],
-					"text" : "info≈"
+					"patching_rect" : [ 1140.0, 185.0, 167.0, 19.0 ],
+					"text" : "jcom.info≈ \b"
 				}
 
 			}
@@ -251,8 +251,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 1010.0, 290.0, 89.0, 19.0 ],
-					"text" : "fft≈ @inverse 1"
+					"patching_rect" : [ 1010.0, 290.0, 117.0, 19.0 ],
+					"text" : "jcom.fft≈ @inverse 1"
 				}
 
 			}
@@ -265,8 +265,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 1010.0, 265.0, 32.5, 19.0 ],
-					"text" : "fft≈"
+					"patching_rect" : [ 1010.0, 265.0, 61.0, 19.0 ],
+					"text" : "jcom.fft≈ \b"
 				}
 
 			}
@@ -307,8 +307,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 45.0, 230.0, 32.5, 19.0 ],
-					"text" : "fft≈"
+					"patching_rect" : [ 45.0, 230.0, 61.0, 19.0 ],
+					"text" : "jcom.fft≈ \b"
 				}
 
 			}
@@ -357,7 +357,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-3",
 					"linecount" : 3,
 					"maxclass" : "comment",
@@ -372,12 +372,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-11",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 80.0, 230.0, 219.0, 19.0 ],
+					"patching_rect" : [ 106.0, 230.0, 219.0, 19.0 ],
 					"text" : "size of the fft is your signal vector size"
 				}
 
@@ -386,7 +386,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 11.595187,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-4",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -400,7 +400,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 11.595187,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-5",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -458,7 +458,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 11.595187,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-9",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -483,7 +483,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 11.595187,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-18",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -541,7 +541,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 11.595187,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-43",
 					"maxclass" : "comment",
 					"numinlets" : 1,
