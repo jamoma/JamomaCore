@@ -145,11 +145,11 @@ TTErr TTWavetable::processAsLFO(TTAudioSignalArrayPtr, TTAudioSignalArrayPtr out
 
 TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignalPtr	in; // can't call getSignal if there is no signal! = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*inSample = NULL;
 	TTSampleValue	tempSample;
-	TTUInt16		vs = in.getVectorSize();
+	TTUInt16		vs = out.getVectorSize();
 	TTUInt16		i=0;
 	TTUInt16		numChannels = out.getNumChannels();
 	TTUInt16		channel;
@@ -159,11 +159,12 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
-	if(&in == &out)
+	if(in == &out)
 		hasModulation = false;
-	else
-		inSample = in.sampleVectors[0];
-
+	else {
+		in = &inputs->getSignal(0);
+		inSample = in->sampleVectors[0];
+	}
 	while(vs--){
 		// Move the play head
 		index += indexDelta;
@@ -190,7 +191,7 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 
 TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignalPtr	in; // can't call getSignal if there is no signal! = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*inSample = NULL;
 	TTSampleValue	tempSample;
@@ -207,9 +208,10 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 	// In that case we don't modulate the oscillator with it
 	if(inputs->numAudioSignals == 0)
 		hasModulation = false;
-	else
-		inSample = in.sampleVectors[0];
-
+	else {
+		in = &inputs->getSignal(0);
+		inSample = in->sampleVectors[0];
+	}
 	while(vs--){
 		// Move the play head
 		index += indexDelta;
