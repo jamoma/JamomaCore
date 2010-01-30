@@ -86,6 +86,6 @@ int main(void)
 	TTMulticoreSplit::registerClass();
 	
 	options->append(TT("argumentDefinesNumOutlets"), value);
-	return wrapAsMaxMulticore(TT("multicore.split"), "split≈", NULL, options);
+	return wrapAsMaxMulticore(TT("multicore.split"), "jcom.split≈", NULL, options);
 }
 
