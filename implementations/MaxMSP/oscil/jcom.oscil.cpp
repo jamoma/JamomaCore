@@ -51,7 +51,7 @@ int main(void)
 	TTMulticoreInit();	
 	common_symbols_init();
 
-	c = class_new("oscil≈", (method)OscilNew, (method)OscilFree, sizeof(Oscil), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.oscil≈", (method)OscilNew, (method)OscilFree, sizeof(Oscil), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)OscilReset,			"multicore.reset",	A_CANT, 0);
 	class_addmethod(c, (method)OscilSetup,			"multicore.setup",	A_CANT,	0);
