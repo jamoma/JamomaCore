@@ -20,57 +20,28 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"bufsize" : 64,
-					"calccount" : 6,
-					"id" : "obj-8",
-					"maxclass" : "scope~",
-					"numinlets" : 2,
-					"numoutlets" : 0,
-					"patching_rect" : [ 350.0, 345.0, 158.0, 160.0 ],
-					"trigger" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"bufsize" : 64,
-					"calccount" : 6,
-					"id" : "obj-6",
-					"maxclass" : "scope~",
-					"numinlets" : 2,
-					"numoutlets" : 0,
-					"patching_rect" : [ 190.0, 345.0, 158.0, 160.0 ],
-					"trigger" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-10",
-					"maxclass" : "number",
-					"maximum" : 24,
-					"minimum" : 1,
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 75.0, 195.0, 50.0, 19.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-7",
 					"maxclass" : "flonum",
-					"maximum" : 1.0,
-					"minimum" : 0.0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 145.0, 195.0, 50.0, 19.0 ]
+					"patching_rect" : [ 355.0, 325.0, 50.0, 19.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-5",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 325.0, 280.0, 58.0, 17.0 ],
+					"text" : "length $1"
 				}
 
 			}
@@ -83,8 +54,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 50.0, 250.0, 59.0, 19.0 ],
-					"text" : "degrade≈"
+					"patching_rect" : [ 135.0, 285.0, 168.0, 19.0 ],
+					"text" : "jcom.pulsesub≈ @frequency 2."
 				}
 
 			}
@@ -97,8 +68,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 50.0, 280.0, 88.0, 19.0 ],
-					"text" : "out≈ 2"
+					"patching_rect" : [ 135.0, 315.0, 73.0, 19.0 ],
+					"text" : "jcom.out≈ 2"
 				}
 
 			}
@@ -111,8 +82,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 50.0, 150.0, 433.0, 19.0 ],
-					"text" : "oscil≈ @frequency 220. @waveform triangle @interpolation linear @numchannels 2"
+					"patching_rect" : [ 135.0, 215.0, 371.0, 19.0 ],
+					"text" : "jcom.oscil≈ @frequency 220. @waveform triangle @interpolation linear"
 				}
 
 			}
@@ -125,7 +96,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 95.0, 385.0, 70.0, 17.0 ],
+					"patching_rect" : [ 180.0, 420.0, 70.0, 17.0 ],
 					"text" : "startwindow"
 				}
 
@@ -138,7 +109,7 @@
 					"numoutlets" : 2,
 					"orientation" : 2,
 					"outlettype" : [ "signal", "int" ],
-					"patching_rect" : [ 85.0, 310.0, 28.0, 52.0 ]
+					"patching_rect" : [ 170.0, 345.0, 28.0, 52.0 ]
 				}
 
 			}
@@ -149,7 +120,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 51.0, 373.0, 43.0, 43.0 ]
+					"patching_rect" : [ 136.0, 408.0, 43.0, 43.0 ]
 				}
 
 			}
@@ -164,7 +135,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 50.0, 440.0, 62.0, 19.0 ],
+					"patching_rect" : [ 135.0, 475.0, 62.0, 19.0 ],
 					"triangle" : 0,
 					"triscale" : 0.9
 				}
@@ -181,7 +152,7 @@
 					"numleds" : 20,
 					"numoutlets" : 1,
 					"outlettype" : [ "float" ],
-					"patching_rect" : [ 50.0, 425.0, 80.0, 13.0 ],
+					"patching_rect" : [ 135.0, 460.0, 80.0, 13.0 ],
 					"tepidcolor" : [ 0.6, 0.729412, 0.0, 1.0 ],
 					"warmcolor" : [ 0.85098, 0.85098, 0.0, 1.0 ]
 				}
@@ -195,58 +166,12 @@
 					"numoutlets" : 2,
 					"orientation" : 2,
 					"outlettype" : [ "signal", "int" ],
-					"patching_rect" : [ 50.0, 310.0, 28.0, 52.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-1",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 75.0, 220.0, 66.0, 17.0 ],
-					"text" : "bitdepth $1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-5",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 145.0, 220.0, 60.0, 17.0 ],
-					"text" : "srRatio $1"
+					"patching_rect" : [ 135.0, 345.0, 28.0, 52.0 ]
 				}
 
 			}
  ],
 		"lines" : [ 			{
-				"patchline" : 				{
-					"destination" : [ "obj-4", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-1", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-10", 0 ]
-				}
-
-			}
-, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-4", 0 ],
 					"hidden" : 0,
@@ -268,7 +193,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-24", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 94.5, 368.0, 84.5, 368.0 ],
+					"midpoints" : [ 179.5, 403.0, 169.5, 403.0 ],
 					"source" : [ "obj-23", 0 ]
 				}
 
@@ -295,7 +220,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-29", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 59.5, 304.0, 45.0, 304.0, 45.0, 421.0, 59.5, 421.0 ],
+					"midpoints" : [ 144.5, 339.0, 130.0, 339.0, 130.0, 456.0, 144.5, 456.0 ],
 					"source" : [ "obj-3", 0 ]
 				}
 
@@ -306,24 +231,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-3", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-3", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-3", 1 ]
 				}
 
 			}

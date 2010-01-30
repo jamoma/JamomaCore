@@ -27,7 +27,8 @@ void fxlibObjectDefine(const char* name)
 	SymbolPtr	s;
 	Atom		a;
 	
-	strncpy_zero(multicoreObjectName, name, 256);
+	strncpy_zero(multicoreObjectName, "jcom.", 256); 
+	strncat_zero(multicoreObjectName, name, 256);
 	strncat_zero(multicoreObjectName, "≈", 256);
 	s = gensym(multicoreObjectName);
 	
