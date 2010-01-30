@@ -25,6 +25,7 @@ class TTFOUNDATION_EXPORT TTCallback : public TTObject			///< we will subclass T
 	TTFunctionWithBatonAndValue	mFunction;	///< Function called when the notify message is engaged
 	TTPtr						mBaton;		///< User data to be passed back when the callback is triggered
 	
+public:
 	/**	message called because we are registered as an observer to some other object, and then 
 		calls our external function. */
 	TTErr notify(TTValue& arguments);
