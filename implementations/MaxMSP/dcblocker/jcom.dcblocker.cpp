@@ -45,7 +45,7 @@ int main(void)
 	TTMulticoreInit();	
 	common_symbols_init();
 	
-	c = class_new("dcblocker≈", (method)DCBlockerNew, (method)DCBlockerFree, sizeof(DCBlocker), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.dcblocker≈", (method)DCBlockerNew, (method)DCBlockerFree, sizeof(DCBlocker), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)DCBlockerClear,		"clear",				0);
 	class_addmethod(c, (method)DCBlockerReset,		"multicore.reset",		A_CANT, 0);
