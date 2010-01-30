@@ -19,5 +19,5 @@ int main(void)
 	options->append(TT("argumentDefinesNumInlets"), value);
 	value = 1L;
 	options->append(TT("argumentDefinesNumOutlets"), value);
-	return wrapAsMaxMulticore(TT("matrixmixer"), "matrix≈", NULL, options);
+	return wrapAsMaxMulticore(TT("matrixmixer"), "jcom.matrix≈", NULL, options);
 }
