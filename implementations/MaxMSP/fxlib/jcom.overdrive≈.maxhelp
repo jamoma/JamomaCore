@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 201.0, 82.0, 478.0, 444.0 ],
+		"rect" : [ 388.0, 297.0, 504.0, 450.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 201.0, 82.0, 478.0, 444.0 ],
+		"defrect" : [ 388.0, 297.0, 504.0, 450.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -20,6 +20,33 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [ "@name", "jcom.overdrive≈", "@description", "Saturate audio signal" ],
+					"bgmode" : 1,
+					"id" : "obj-18",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 504.0, 70.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-6",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 3,
+					"outlettype" : [ "signal", "signal", "" ],
+					"patching_rect" : [ 309.0, 304.0, 94.0, 19.0 ],
+					"text" : "jcom.overdrive~"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-10",
@@ -27,7 +54,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 275.0, 190.0, 48.0, 17.0 ],
+					"patching_rect" : [ 274.0, 220.0, 48.0, 17.0 ],
 					"text" : "mode 1"
 				}
 
@@ -41,7 +68,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 225.0, 190.0, 48.0, 17.0 ],
+					"patching_rect" : [ 224.0, 220.0, 48.0, 17.0 ],
 					"text" : "mode 0"
 				}
 
@@ -55,7 +82,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 110.0, 140.0, 145.0, 22.0 ],
+					"patching_rect" : [ 109.0, 170.0, 145.0, 22.0 ],
 					"size" : 9.0
 				}
 
@@ -69,7 +96,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 110.0, 165.0, 50.0, 19.0 ]
+					"patching_rect" : [ 109.0, 195.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -79,7 +106,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 30.0, 315.0, 45.0, 45.0 ]
+					"patching_rect" : [ 29.0, 345.0, 45.0, 45.0 ]
 				}
 
 			}
@@ -91,7 +118,7 @@
 					"maxclass" : "scope~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 90.0, 270.0, 130.0, 130.0 ],
+					"patching_rect" : [ 89.0, 300.0, 130.0, 130.0 ],
 					"trigger" : 1
 				}
 
@@ -105,7 +132,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "" ],
-					"patching_rect" : [ 90.0, 245.0, 73.0, 19.0 ],
+					"patching_rect" : [ 89.0, 275.0, 73.0, 19.0 ],
 					"text" : "jcom.out≈ 1"
 				}
 
@@ -119,7 +146,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 90.0, 220.0, 94.0, 19.0 ],
+					"patching_rect" : [ 89.0, 250.0, 94.0, 19.0 ],
 					"text" : "jcom.overdrive≈"
 				}
 
@@ -133,7 +160,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 90.0, 50.0, 379.0, 19.0 ],
+					"patching_rect" : [ 89.0, 80.0, 379.0, 19.0 ],
 					"text" : "jcom.oscil≈ @waveform sawtooth @interpolation linear @frequency 220."
 				}
 
@@ -147,7 +174,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 110.0, 190.0, 50.0, 17.0 ],
+					"patching_rect" : [ 109.0, 220.0, 50.0, 17.0 ],
 					"text" : "drive $1"
 				}
 
