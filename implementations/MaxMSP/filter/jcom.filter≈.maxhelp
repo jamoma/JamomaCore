@@ -327,7 +327,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 30.0, 290.0, 73.0, 19.0 ],
+					"patching_rect" : [ 30.0, 290.0, 81.0, 19.0 ],
 					"text" : "jcom.filter≈ \b"
 				}
 
@@ -387,8 +387,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "" ],
-					"patching_rect" : [ 30.0, 440.0, 45.0, 19.0 ],
-					"text" : "out≈ 1"
+					"patching_rect" : [ 30.0, 440.0, 73.0, 19.0 ],
+					"text" : "jcom.out≈ 1"
 				}
 
 			}
@@ -412,9 +412,9 @@
 					"fontsize" : 10.0,
 					"id" : "obj-3",
 					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 30.0, 115.0, 73.0, 19.0 ],
 					"text" : "jcom.noise≈"
 				}
@@ -705,7 +705,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 93.5, 316.0, 299.5, 316.0 ],
+					"midpoints" : [ 101.5, 316.0, 299.5, 316.0 ],
 					"source" : [ "obj-6", 1 ]
 				}
 
