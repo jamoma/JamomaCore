@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ -49.0, 44.0, 1351.0, 521.0 ],
+		"rect" : [ 0.0, 44.0, 1351.0, 521.0 ],
 		"bglocked" : 0,
-		"defrect" : [ -49.0, 44.0, 1351.0, 521.0 ],
+		"defrect" : [ 0.0, 44.0, 1351.0, 521.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -265,7 +265,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 1010.0, 265.0, 61.0, 19.0 ],
+					"patching_rect" : [ 1010.0, 265.0, 69.0, 19.0 ],
 					"text" : "jcom.fft≈ \b"
 				}
 
@@ -279,8 +279,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "" ],
-					"patching_rect" : [ 1010.0, 315.0, 45.0, 19.0 ],
-					"text" : "out≈ 1"
+					"patching_rect" : [ 1010.0, 315.0, 73.0, 19.0 ],
+					"text" : "jcom.out≈ 1"
 				}
 
 			}
@@ -293,8 +293,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 1010.0, 240.0, 38.0, 19.0 ],
-					"text" : "in≈ 1"
+					"patching_rect" : [ 1010.0, 240.0, 66.0, 19.0 ],
+					"text" : "jcom.in≈ 1"
 				}
 
 			}
@@ -307,7 +307,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 45.0, 230.0, 61.0, 19.0 ],
+					"patching_rect" : [ 45.0, 230.0, 69.0, 19.0 ],
 					"text" : "jcom.fft≈ \b"
 				}
 
@@ -321,8 +321,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 45.0, 255.0, 134.0, 19.0 ],
-					"text" : "out≈ 2"
+					"patching_rect" : [ 45.0, 255.0, 135.0, 19.0 ],
+					"text" : "jcom.out≈ 2"
 				}
 
 			}
@@ -335,8 +335,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 45.0, 205.0, 38.0, 19.0 ],
-					"text" : "in≈ 1"
+					"patching_rect" : [ 45.0, 205.0, 66.0, 19.0 ],
+					"text" : "jcom.in≈ 1"
 				}
 
 			}
