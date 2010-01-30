@@ -18,7 +18,9 @@
 
 // NOTE: we don't need to keep a buffer of our own, be we just mirror the buffer of mSourceObject
 
-class TTMulticoreSource {	
+class TTMulticoreSource {
+	friend void TTMulticoreSourceObserverCallback(TTMulticoreSource* self, TTValue& arg);
+	
 	TTMulticoreObjectPtr	mSourceObject;	// the object from which we pull samples
 	TTUInt16				mOutletNumber;	// zero-based
 	TTObjectPtr				mCallbackHandler;
@@ -27,6 +29,8 @@ public:
 	TTMulticoreSource();	
 	~TTMulticoreSource();			
 
+	// Internal method shared/called by constructors.
+	void create();
 	
 	// Copying Functions -- critical due to use by std::vector 
 	
@@ -35,28 +39,20 @@ public:
 		mOutletNumber(0),
 		mCallbackHandler(NULL)	
 	{
-		// When vector of sources is resized, it is possible for an object to be created and immediately copied -- prior to a 'connect' method call
-		//if (original.mSourceObject)
-
-		// NOTE: See notes below in TTMulticoreInlet copy constructor...
+		create();
 		
-		//	mSourceObject	= (TTMulticoreObjectPtr)TTObjectReference(original.mSourceObject);
-		mSourceObject = original.mSourceObject;
-
-		mOutletNumber		= original.mOutletNumber;
-		mCallbackHandler	= TTObjectReference(original.mCallbackHandler);
+		// NOTE: See notes below in TTMulticoreInlet copy constructor...
+		// NOTE: When vector of sources is resized, it is possible for an object to be created and immediately copied -- prior to a 'connect' method call
+		// NOTE: Are we ever called after connecting?  If so, then we need to set up the connection...
+		
+		if (original.mSourceObject)
+			connect(original.mSourceObject, original.mOutletNumber);
 	}
 	
 	TTMulticoreSource& operator=(const TTMulticoreSource& source)
 	{
-		TTObjectRelease((TTObjectPtr*)&mSourceObject);
-		TTObjectRelease(&mCallbackHandler);
-
-		//mSourceObject		= (TTMulticoreObjectPtr)TTObjectReference(source.mSourceObject);
-		mSourceObject		= source.mSourceObject;
-		mOutletNumber		= source.mOutletNumber;
-		mCallbackHandler	= TTObjectReference(source.mCallbackHandler);
-
+		// Not expecting to call this method...
+		TT_ASSERT("we shouldn't be here", false);				
 		return *this;
 	}
 	
@@ -83,7 +79,7 @@ public:
 };
 
 typedef TTMulticoreSource*					TTMulticoreSourcePtr;
-typedef vector<TTMulticoreSource>			TTMulticoreSourceVector;		// TODO: should this be a vector of pointers?
+typedef vector<TTMulticoreSource>			TTMulticoreSourceVector;
 typedef TTMulticoreSourceVector::iterator	TTMulticoreSourceIter;
 
 
@@ -187,10 +183,10 @@ public:
 	
 	TTErr connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber)
 	{
-		TTMulticoreSource aSourceObject;
+		TTUInt16 size = mSourceObjects.size();
 		
-		aSourceObject.connect(anObject, fromOutletNumber);
-		mSourceObjects.push_back(aSourceObject);		
+		mSourceObjects.resize(size+1);
+		mSourceObjects[size].connect(anObject, fromOutletNumber);		
 		return kTTErrNone;
 	}
 	
