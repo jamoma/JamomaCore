@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 688.0, 44.0, 510.0, 524.0 ],
+		"rect" : [ 830.0, 86.0, 510.0, 524.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 688.0, 44.0, 510.0, 524.0 ],
+		"defrect" : [ 830.0, 86.0, 510.0, 524.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -99,8 +99,8 @@
 					"id" : "obj-4",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "signal", "" ],
 					"patching_rect" : [ 90.0, 291.0, 73.0, 19.0 ],
 					"text" : "jcom.out≈ 1"
 				}
@@ -115,7 +115,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 90.0, 266.0, 98.0, 19.0 ],
+					"patching_rect" : [ 90.0, 266.0, 128.0, 19.0 ],
 					"text" : "jcom.dcblocker≈ \b"
 				}
 
@@ -127,8 +127,8 @@
 					"id" : "obj-8",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 90.0, 161.0, 195.0, 19.0 ],
 					"text" : "jcom.op≈ @operator + @operand 1."
 				}
@@ -139,13 +139,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-3",
-					"linecount" : 3,
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 90.0, 111.0, 141.0, 43.0 ],
-					"text" : "oscil≈ @waveform sine @interpolation linear @frequency 220."
+					"patching_rect" : [ 90.0, 111.0, 204.0, 31.0 ],
+					"text" : "jcom.oscil≈ @waveform sine @interpolation linear @frequency 220."
 				}
 
 			}
