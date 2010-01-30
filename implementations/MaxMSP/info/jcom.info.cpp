@@ -50,7 +50,7 @@ int main(void)
 	TTMulticoreInit();	
 	common_symbols_init();
 
-	c = class_new("info≈", (method)InfoNew, (method)InfoFree, sizeof(Info), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.info≈", (method)InfoNew, (method)InfoFree, sizeof(Info), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)InfoBang,			"bang",					0);
 	class_addmethod(c, (method)InfoReset,			"multicore.reset",		A_CANT, 0);

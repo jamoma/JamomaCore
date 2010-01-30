@@ -20,6 +20,19 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [ "@name", "jcom.info≈", "@description", "get information about multichannel signals" ],
+					"bgmode" : 1,
+					"id" : "obj-44",
+					"maxclass" : "bpatcher",
+					"name" : "jcom.maxhelpui.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 0.0, 0.0, 1140.0, 70.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-38",
@@ -28,8 +41,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 235.0, 395.0, 56.0, 19.0 ],
-					"presentation_rect" : [ 237.0, 396.0, 0.0, 0.0 ],
+					"patching_rect" : [ 235.0, 450.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -44,8 +56,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 175.0, 395.0, 56.0, 19.0 ],
-					"presentation_rect" : [ 177.0, 396.0, 0.0, 0.0 ],
+					"patching_rect" : [ 175.0, 450.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -60,8 +71,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 115.0, 395.0, 56.0, 19.0 ],
-					"presentation_rect" : [ 117.0, 396.0, 0.0, 0.0 ],
+					"patching_rect" : [ 115.0, 450.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -76,8 +86,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 55.0, 395.0, 56.0, 19.0 ],
-					"presentation_rect" : [ 57.0, 396.0, 0.0, 0.0 ],
+					"patching_rect" : [ 55.0, 450.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -91,9 +100,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "" ],
-					"patching_rect" : [ 55.0, 345.0, 259.0, 19.0 ],
-					"presentation_rect" : [ 57.0, 346.0, 0.0, 0.0 ],
-					"text" : "out≈ 4"
+					"patching_rect" : [ 55.0, 400.0, 259.0, 19.0 ],
+					"text" : "jcom.out≈ 4"
 				}
 
 			}
@@ -106,7 +114,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 245.0, 40.0, 43.0, 19.0 ],
+					"patching_rect" : [ 245.0, 95.0, 43.0, 19.0 ],
 					"text" : "sig~ 4"
 				}
 
@@ -120,7 +128,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 175.0, 40.0, 43.0, 19.0 ],
+					"patching_rect" : [ 175.0, 95.0, 43.0, 19.0 ],
 					"text" : "sig~ 3"
 				}
 
@@ -134,7 +142,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 105.0, 40.0, 43.0, 19.0 ],
+					"patching_rect" : [ 105.0, 95.0, 43.0, 19.0 ],
 					"text" : "sig~ 2"
 				}
 
@@ -148,7 +156,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 35.0, 40.0, 43.0, 19.0 ],
+					"patching_rect" : [ 35.0, 95.0, 43.0, 19.0 ],
 					"text" : "sig~ 1"
 				}
 
@@ -162,8 +170,8 @@
 					"numinlets" : 4,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 35.0, 95.0, 229.5, 19.0 ],
-					"text" : "in≈ 4"
+					"patching_rect" : [ 35.0, 150.0, 229.5, 19.0 ],
+					"text" : "jcom.in≈ 4"
 				}
 
 			}
@@ -171,13 +179,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-15",
 					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 685.0, 60.0, 150.0, 43.0 ],
+					"patching_rect" : [ 685.0, 115.0, 150.0, 43.0 ],
 					"text" : "get information about the multichannel signal coming from an object"
 				}
 
@@ -186,12 +194,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-24",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 820.0, 170.0, 150.0, 19.0 ],
+					"patching_rect" : [ 820.0, 225.0, 150.0, 19.0 ],
 					"text" : "number of channels"
 				}
 
@@ -200,12 +208,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-26",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 765.0, 195.0, 150.0, 19.0 ],
+					"patching_rect" : [ 765.0, 250.0, 150.0, 19.0 ],
 					"text" : "vector size"
 				}
 
@@ -214,12 +222,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-27",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 710.0, 220.0, 150.0, 19.0 ],
+					"patching_rect" : [ 710.0, 275.0, 150.0, 19.0 ],
 					"text" : "sample rate"
 				}
 
@@ -233,7 +241,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 770.0, 170.0, 50.0, 19.0 ]
+					"patching_rect" : [ 770.0, 225.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -246,7 +254,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 715.0, 195.0, 50.0, 19.0 ]
+					"patching_rect" : [ 715.0, 250.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -259,7 +267,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 660.0, 220.0, 50.0, 19.0 ]
+					"patching_rect" : [ 660.0, 275.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -270,7 +278,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 660.0, 70.0, 20.0, 20.0 ]
+					"patching_rect" : [ 660.0, 125.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -283,8 +291,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 660.0, 140.0, 184.0, 21.0 ],
-					"text" : "info≈"
+					"patching_rect" : [ 660.0, 195.0, 184.0, 21.0 ],
+					"text" : "jcom.info≈"
 				}
 
 			}
@@ -292,13 +300,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-22",
 					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 682.0, 265.0, 150.0, 43.0 ],
+					"patching_rect" : [ 682.0, 320.0, 150.0, 43.0 ],
 					"text" : "get information about the multichannel signal coming from an object"
 				}
 
@@ -307,12 +315,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-20",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 817.0, 375.0, 150.0, 19.0 ],
+					"patching_rect" : [ 817.0, 430.0, 150.0, 19.0 ],
 					"text" : "number of channels"
 				}
 
@@ -321,12 +329,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-18",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 762.0, 400.0, 150.0, 19.0 ],
+					"patching_rect" : [ 762.0, 455.0, 150.0, 19.0 ],
 					"text" : "vector size"
 				}
 
@@ -335,12 +343,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-16",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 707.0, 425.0, 150.0, 19.0 ],
+					"patching_rect" : [ 707.0, 480.0, 150.0, 19.0 ],
 					"text" : "sample rate"
 				}
 
@@ -354,7 +362,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 767.0, 375.0, 50.0, 19.0 ]
+					"patching_rect" : [ 767.0, 430.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -367,7 +375,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 712.0, 400.0, 50.0, 19.0 ]
+					"patching_rect" : [ 712.0, 455.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -380,7 +388,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 657.0, 425.0, 50.0, 19.0 ]
+					"patching_rect" : [ 657.0, 480.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -391,7 +399,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 657.0, 275.0, 20.0, 20.0 ]
+					"patching_rect" : [ 657.0, 330.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -404,8 +412,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 657.0, 345.0, 184.0, 21.0 ],
-					"text" : "info≈"
+					"patching_rect" : [ 657.0, 400.0, 184.0, 21.0 ],
+					"text" : "jcom.info≈"
 				}
 
 			}
@@ -415,7 +423,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 95.0, 230.0, 45.0, 45.0 ]
+					"patching_rect" : [ 95.0, 285.0, 45.0, 45.0 ]
 				}
 
 			}
@@ -428,7 +436,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 377.0, 245.0, 65.0, 17.0 ],
+					"patching_rect" : [ 377.0, 300.0, 65.0, 17.0 ],
 					"text" : "operator +"
 				}
 
@@ -443,7 +451,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 525.0, 395.0, 56.0, 19.0 ],
+					"patching_rect" : [ 525.0, 450.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -458,7 +466,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 465.0, 395.0, 56.0, 19.0 ],
+					"patching_rect" : [ 465.0, 450.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -473,7 +481,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 405.0, 395.0, 56.0, 19.0 ],
+					"patching_rect" : [ 405.0, 450.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -488,7 +496,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 345.0, 395.0, 56.0, 19.0 ],
+					"patching_rect" : [ 345.0, 450.0, 56.0, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -502,7 +510,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 555.0, 40.0, 60.0, 19.0 ],
+					"patching_rect" : [ 555.0, 95.0, 60.0, 19.0 ],
 					"text" : "sig~ -200"
 				}
 
@@ -516,7 +524,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 485.0, 40.0, 55.0, 19.0 ],
+					"patching_rect" : [ 485.0, 95.0, 55.0, 19.0 ],
 					"text" : "sig~ 200"
 				}
 
@@ -530,7 +538,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 415.0, 40.0, 60.0, 19.0 ],
+					"patching_rect" : [ 415.0, 95.0, 60.0, 19.0 ],
 					"text" : "sig~ -100"
 				}
 
@@ -544,7 +552,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 345.0, 40.0, 55.0, 19.0 ],
+					"patching_rect" : [ 345.0, 95.0, 55.0, 19.0 ],
 					"text" : "sig~ 100"
 				}
 
@@ -558,8 +566,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "" ],
-					"patching_rect" : [ 345.0, 345.0, 259.0, 19.0 ],
-					"text" : "out≈ 4"
+					"patching_rect" : [ 345.0, 400.0, 259.0, 19.0 ],
+					"text" : "jcom.out≈ 4"
 				}
 
 			}
@@ -572,8 +580,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 345.0, 275.0, 163.0, 19.0 ],
-					"text" : "op≈ @operator + @operand 5"
+					"patching_rect" : [ 345.0, 330.0, 191.0, 19.0 ],
+					"text" : "jcom.op≈ @operator + @operand 5"
 				}
 
 			}
@@ -586,8 +594,8 @@
 					"numinlets" : 4,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 345.0, 95.0, 229.5, 19.0 ],
-					"text" : "in≈ 4"
+					"patching_rect" : [ 345.0, 150.0, 229.5, 19.0 ],
+					"text" : "jcom.in≈ 4"
 				}
 
 			}
@@ -600,7 +608,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 445.0, 245.0, 61.0, 17.0 ],
+					"patching_rect" : [ 445.0, 300.0, 61.0, 17.0 ],
 					"text" : "operator /"
 				}
 
@@ -619,7 +627,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-32", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 354.5, 131.0, 669.5, 131.0 ],
+					"midpoints" : [ 354.5, 186.0, 669.5, 186.0 ],
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -682,7 +690,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 354.5, 314.0, 666.5, 314.0 ],
+					"midpoints" : [ 354.5, 369.0, 666.5, 369.0 ],
 					"source" : [ "obj-2", 0 ]
 				}
 
