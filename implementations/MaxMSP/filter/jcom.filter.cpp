@@ -141,5 +141,5 @@ int main(void)
 	TTMulticoreFilter::registerClass();
 	
 	// Then we are able to wrap it as a Max class.
-	return wrapAsMaxMulticore(TT("multicore.filter"), "filter≈", NULL);
+	return wrapAsMaxMulticore(TT("multicore.filter"), "jcom.filter≈", NULL);
 }
