@@ -74,5 +74,5 @@ int main(void)
 	TTMulticoreJoin::registerClass();
 	
 	options->append(TT("argumentDefinesNumInlets"), value);
-	return wrapAsMaxMulticore(TT("multicore.join"), "join≈", NULL, options);
+	return wrapAsMaxMulticore(TT("multicore.join"), "jcom.join≈", NULL, options);
 }
