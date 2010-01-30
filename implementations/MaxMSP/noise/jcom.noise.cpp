@@ -43,7 +43,7 @@ int main(void)
 	TTMulticoreInit();	
 	common_symbols_init();
 
-	c = class_new("noise≈", (method)NoiseNew, (method)NoiseFree, sizeof(Noise), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.noise≈", (method)NoiseNew, (method)NoiseFree, sizeof(Noise), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)NoiseReset,			"multicore.reset",	A_CANT, 0);
 	class_addmethod(c, (method)NoiseSetup,			"multicore.setup",	A_CANT,	0);
