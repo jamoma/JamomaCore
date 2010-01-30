@@ -47,7 +47,7 @@ int main(void)
 	TTMulticoreInit();	
 	common_symbols_init();
 	
-	c = class_new("dac≈", (method)DacNew, (method)DacFree, sizeof(Dac), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.dac≈", (method)DacNew, (method)DacFree, sizeof(Dac), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)DacStart,			"start",				0);
 	class_addmethod(c, (method)DacStop,				"stop",					0);
