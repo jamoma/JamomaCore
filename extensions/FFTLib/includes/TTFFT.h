@@ -26,11 +26,13 @@ class TTfft : TTAudioObject {
 	TTFloat64			mRVectorSize;	// reciprocal of vector size
 	TTBoolean			mInverse;		// true = IFFT, false = FFT
 	TTInt16				mInverseValue;	// -1 means IFFT, +1 means FFT
-	
+	TTSymbolPtr			mMode;			// 'real' or 'complex'
 
 	/** Attribute accessor.	*/
 	TTErr setInverse(const TTValue& newValue);
-
+	
+	/** Attribute accessor.	*/
+	TTErr setMode(const TTValue& newValue);
 	
 	/**	FFT Audio Process Routine.  
 		Some important notes:
@@ -38,7 +40,8 @@ class TTfft : TTAudioObject {
 		* The input currently assumes that we treat each channel as the input for a Real FFT (not complex).
 		* The output is currently adapts the output to twice the number of channels as is present at the input.
 	 */
-	TTErr process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processComplex(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processReal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 };
 
