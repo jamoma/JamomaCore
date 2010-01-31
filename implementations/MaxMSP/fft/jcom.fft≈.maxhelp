@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 4.0, 44.0, 1351.0, 521.0 ],
+		"rect" : [ 4.0, 44.0, 1336.0, 637.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 4.0, 44.0, 1351.0, 521.0 ],
+		"defrect" : [ 4.0, 44.0, 1336.0, 637.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -27,8 +27,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 245.0, 200.0, 84.0, 17.0 ],
-					"presentation_rect" : [ 277.0, 281.0, 0.0, 0.0 ],
+					"patching_rect" : [ 85.0, 255.0, 84.0, 17.0 ],
 					"text" : "mode complex"
 				}
 
@@ -42,7 +41,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 180.0, 200.0, 61.0, 17.0 ],
+					"patching_rect" : [ 70.0, 235.0, 61.0, 17.0 ],
 					"text" : "mode real"
 				}
 
@@ -336,7 +335,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 45.0, 230.0, 145.0, 19.0 ],
+					"patching_rect" : [ 45.0, 325.0, 145.0, 19.0 ],
 					"text" : "jcom.fft≈ @mode complex"
 				}
 
@@ -350,7 +349,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 45.0, 255.0, 135.0, 19.0 ],
+					"patching_rect" : [ 45.0, 350.0, 135.0, 19.0 ],
 					"text" : "jcom.out≈ 2"
 				}
 
@@ -391,7 +390,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 195.0, 230.0, 219.0, 19.0 ],
+					"patching_rect" : [ 195.0, 325.0, 219.0, 19.0 ],
 					"text" : "size of the fft is your signal vector size"
 				}
 
@@ -419,7 +418,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 738.0, 431.0, 34.0, 20.0 ],
+					"patching_rect" : [ 738.0, 526.0, 34.0, 20.0 ],
 					"text" : "SR/2"
 				}
 
@@ -434,7 +433,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 546.0, 332.0, 92.0, 31.0 ],
+					"patching_rect" : [ 546.0, 427.0, 92.0, 31.0 ],
 					"text" : "4 128, range 0 10, drawstyle 1"
 				}
 
@@ -448,7 +447,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "signal" ],
-					"patching_rect" : [ 530.0, 290.0, 77.0, 20.0 ],
+					"patching_rect" : [ 530.0, 385.0, 77.0, 20.0 ],
 					"text" : "cartopol~"
 				}
 
@@ -462,7 +461,7 @@
 					"maxclass" : "scope~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 530.0, 371.0, 447.0, 59.0 ],
+					"patching_rect" : [ 530.0, 466.0, 447.0, 59.0 ],
 					"range" : [ 0.0, 10.0 ],
 					"rounded" : 0
 				}
@@ -477,7 +476,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 529.0, 431.0, 32.0, 20.0 ],
+					"patching_rect" : [ 529.0, 526.0, 32.0, 20.0 ],
 					"text" : "0 Hz"
 				}
 
@@ -489,7 +488,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 490.0, 460.0, 45.0, 45.0 ]
+					"patching_rect" : [ 490.0, 555.0, 45.0, 45.0 ]
 				}
 
 			}
@@ -502,7 +501,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 475.0, 430.0, 34.0, 20.0 ],
+					"patching_rect" : [ 475.0, 525.0, 34.0, 20.0 ],
 					"text" : "SR/2"
 				}
 
@@ -517,7 +516,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 61.0, 331.0, 92.0, 31.0 ],
+					"patching_rect" : [ 61.0, 426.0, 92.0, 31.0 ],
 					"text" : "4 128, range 0 10, drawstyle 1"
 				}
 
@@ -531,7 +530,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "signal" ],
-					"patching_rect" : [ 45.0, 289.0, 77.0, 20.0 ],
+					"patching_rect" : [ 45.0, 384.0, 77.0, 20.0 ],
 					"text" : "cartopol~"
 				}
 
@@ -545,7 +544,7 @@
 					"maxclass" : "scope~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 45.0, 370.0, 447.0, 59.0 ],
+					"patching_rect" : [ 45.0, 465.0, 447.0, 59.0 ],
 					"range" : [ 0.0, 10.0 ],
 					"rounded" : 0
 				}
@@ -560,7 +559,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 44.0, 430.0, 32.0, 20.0 ],
+					"patching_rect" : [ 44.0, 525.0, 32.0, 20.0 ],
 					"text" : "0 Hz"
 				}
 
@@ -588,7 +587,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "signal" ],
-					"patching_rect" : [ 530.0, 225.0, 85.0, 19.0 ],
+					"patching_rect" : [ 530.0, 320.0, 85.0, 19.0 ],
 					"text" : "fft~ 512 512 0"
 				}
 
@@ -602,7 +601,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 1351.0, 70.0 ]
+					"patching_rect" : [ 0.0, 0.0, 1336.0, 70.0 ]
 				}
 
 			}
@@ -611,7 +610,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-7", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 572.5, 258.0, 597.5, 258.0 ],
+					"midpoints" : [ 572.5, 353.0, 597.5, 353.0 ],
 					"source" : [ "obj-1", 1 ]
 				}
 
