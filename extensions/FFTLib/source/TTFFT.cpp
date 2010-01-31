@@ -33,6 +33,9 @@ TT_AUDIO_CONSTRUCTOR,
 	
 	setAttributeValue(TT("Mode"), TT("real"));
 	setAttributeValue(TT("Algorithm"), TT("ooura"));
+	
+	// TODO: add the ooura-radix4 -- maybe it should even be the should be the default?
+	// (based on benchmarks @ fftw's site and powers-of-two?) or maybe the split-radix is fine... 
 }
 
 
