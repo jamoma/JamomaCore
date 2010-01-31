@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		226352DE10A1117700CAAE3F /* FFTLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226352DD10A1117700CAAE3F /* FFTLib.cpp */; };
 		22A932571112459C0013A142 /* fftsg.c in Sources */ = {isa = PBXBuildFile; fileRef = 22A932561112459C0013A142 /* fftsg.c */; };
+		22AF8F16111506D3004E72B9 /* mayer_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 22AF8F14111506D3004E72B9 /* mayer_fft.c */; };
+		22AF8F17111506D3004E72B9 /* mayer_fft.h in Headers */ = {isa = PBXBuildFile; fileRef = 22AF8F15111506D3004E72B9 /* mayer_fft.h */; };
 		22BA7E5C1046F0A2009771BC /* TTFFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BA7E5A1046F0A2009771BC /* TTFFT.cpp */; };
 		22BA7E5F1046F0B0009771BC /* TTFFT.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BA7E5D1046F0B0009771BC /* TTFFT.h */; };
 		22D43C4C0F1DA02200C16BB0 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */; };
@@ -20,6 +22,8 @@
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		226352DD10A1117700CAAE3F /* FFTLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FFTLib.cpp; sourceTree = "<group>"; };
 		22A932561112459C0013A142 /* fftsg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = fftsg.c; path = fft/fftsg.c; sourceTree = "<group>"; };
+		22AF8F14111506D3004E72B9 /* mayer_fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mayer_fft.c; path = mayer/mayer_fft.c; sourceTree = "<group>"; };
+		22AF8F15111506D3004E72B9 /* mayer_fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mayer_fft.h; path = mayer/mayer_fft.h; sourceTree = "<group>"; };
 		22BA7E5A1046F0A2009771BC /* TTFFT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTFFT.cpp; path = source/TTFFT.cpp; sourceTree = "<group>"; };
 		22BA7E5D1046F0B0009771BC /* TTFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFFT.h; path = includes/TTFFT.h; sourceTree = "<group>"; };
 		22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
@@ -75,6 +79,8 @@
 				226352DD10A1117700CAAE3F /* FFTLib.cpp */,
 				2217FAAA0E4F284D00806778 /* Classes */,
 				22A932561112459C0013A142 /* fftsg.c */,
+				22AF8F14111506D3004E72B9 /* mayer_fft.c */,
+				22AF8F15111506D3004E72B9 /* mayer_fft.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -96,6 +102,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22BA7E5F1046F0B0009771BC /* TTFFT.h in Headers */,
+				22AF8F17111506D3004E72B9 /* mayer_fft.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,6 +169,7 @@
 				22BA7E5C1046F0A2009771BC /* TTFFT.cpp in Sources */,
 				226352DE10A1117700CAAE3F /* FFTLib.cpp in Sources */,
 				22A932571112459C0013A142 /* fftsg.c in Sources */,
+				22AF8F16111506D3004E72B9 /* mayer_fft.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
