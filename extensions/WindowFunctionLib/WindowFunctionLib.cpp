@@ -8,12 +8,15 @@
  */
 
 #include "TTDSP.h"
+
 #include "BartlettWindow.h"
 #include "HammingWindow.h"
 #include "HanningWindow.h"
 #include "RectangularWindow.h"
 #include "TrapezoidWindow.h"
 #include "WelchWindow.h"
+
+#include "WindowFunction.h"
 
 
 extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
@@ -26,7 +29,8 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	RectangularWindow::registerClass();
 	TrapezoidWindow::registerClass();
 	WelchWindow::registerClass();
-	
+
+	WindowFunction::registerClass();
 	return kTTErrNone;
 }
 
