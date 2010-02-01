@@ -154,7 +154,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-29",
 					"linecount" : 5,
 					"maxclass" : "comment",
@@ -327,8 +327,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 30.0, 290.0, 81.0, 19.0 ],
-					"text" : "jcom.filter≈ \b"
+					"patching_rect" : [ 30.0, 290.0, 70.0, 19.0 ],
+					"text" : "jcom.filter≈"
 				}
 
 			}
@@ -705,7 +705,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 101.5, 316.0, 299.5, 316.0 ],
+					"midpoints" : [ 90.5, 316.0, 299.5, 316.0 ],
 					"source" : [ "obj-6", 1 ]
 				}
 

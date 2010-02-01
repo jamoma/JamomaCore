@@ -140,6 +140,26 @@ TTErr OutConnect(OutPtr self, TTMulticoreObjectPtr audioSourceObject, long sourc
 }
 
 
+void OutIterateResetCallback(OutPtr self, ObjectPtr obj)
+{
+	MaxErr err = MAX_ERR_NONE;
+	method multicoreResetMethod = zgetfn(obj, gensym("multicore.reset"));
+	
+	if (multicoreResetMethod)
+		err = (MaxErr)multicoreResetMethod(obj, self->vectorSize);
+}
+
+
+void OutIterateSetupCallback(OutPtr self, ObjectPtr obj)
+{
+	MaxErr err = MAX_ERR_NONE;
+	method multicoreSetupMethod = zgetfn(obj, gensym("multicore.setup"));
+	
+	if (multicoreSetupMethod)
+		err = (MaxErr)multicoreSetupMethod(obj);
+}
+
+
 // Perform (signal) Method
 t_int* OutPerform(t_int* w)
 {
@@ -165,9 +185,10 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 	void		**audioVectors = NULL;
 	MaxErr		err;
 	ObjectPtr	patcher = NULL;
-	ObjectPtr	box = NULL;
-	ObjectPtr	o = NULL;
-	method		multicoreSetupMethod = NULL;
+	//ObjectPtr	box = NULL;
+	//ObjectPtr	o = NULL;
+	//method		multicoreSetupMethod = NULL;
+	long		result = 0;
 	
 	self->vectorSize = sp[0]->s_n;
 	
@@ -195,22 +216,25 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 	 */ 
 
 	err = object_obex_lookup(self, gensym("#P"), &patcher);
-	box = jpatcher_get_firstobject(patcher);
-	while (box) {
-		o = jbox_get_object(box);
-		multicoreSetupMethod = zgetfn(o, gensym("multicore.reset"));
-		if(multicoreSetupMethod)
-			err = (MaxErr)multicoreSetupMethod(o, self->vectorSize);
-		box = jbox_get_nextobject(box);
-	}
-	box = jpatcher_get_firstobject(patcher);
-	while (box) {
-		o = jbox_get_object(box);
-		multicoreSetupMethod = zgetfn(o, gensym("multicore.setup"));
-		if(multicoreSetupMethod)
-			err = (MaxErr)multicoreSetupMethod(o);
-		box = jbox_get_nextobject(box);
-	}
+	object_method(patcher, gensym("iterate"), (method)OutIterateResetCallback, self, PI_DEEP, &result);
+	object_method(patcher, gensym("iterate"), (method)OutIterateSetupCallback, self, PI_DEEP, &result);
+	
+//	box = jpatcher_get_firstobject(patcher);
+//	while (box) {
+//		o = jbox_get_object(box);
+//		multicoreSetupMethod = zgetfn(o, gensym("multicore.reset"));
+//		if(multicoreSetupMethod)
+//			err = (MaxErr)multicoreSetupMethod(o, self->vectorSize);
+//		box = jbox_get_nextobject(box);
+//	}
+//	box = jpatcher_get_firstobject(patcher);
+//	while (box) {
+//		o = jbox_get_object(box);
+//		multicoreSetupMethod = zgetfn(o, gensym("multicore.setup"));
+//		if(multicoreSetupMethod)
+//			err = (MaxErr)multicoreSetupMethod(o);
+//		box = jbox_get_nextobject(box);
+//	}
 	
 	// Setup the perform method
 	audioVectors = (void**)sysmem_newptr(sizeof(void*) * (self->maxNumChannels + 1));

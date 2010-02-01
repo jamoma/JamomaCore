@@ -115,8 +115,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 90.0, 266.0, 128.0, 19.0 ],
-					"text" : "jcom.dcblocker≈ \b"
+					"patching_rect" : [ 90.0, 266.0, 95.0, 19.0 ],
+					"text" : "jcom.dcblocker≈"
 				}
 
 			}

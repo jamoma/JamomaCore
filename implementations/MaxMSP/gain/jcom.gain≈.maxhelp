@@ -135,8 +135,8 @@
 					"id" : "obj-4",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "signal", "" ],
 					"patching_rect" : [ 90.0, 300.0, 73.0, 19.0 ],
 					"text" : "jcom.out≈ 1"
 				}
@@ -151,8 +151,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 90.0, 275.0, 72.0, 19.0 ],
-					"text" : "jcom.gain≈ \b"
+					"patching_rect" : [ 90.0, 275.0, 68.0, 19.0 ],
+					"text" : "jcom.gain≈"
 				}
 
 			}
