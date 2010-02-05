@@ -49,13 +49,13 @@ int main(void)
 	
 	c = class_new("jcom.dac≈", (method)DacNew, (method)DacFree, sizeof(Dac), (method)0L, A_GIMME, 0);
 	
-	class_addmethod(c, (method)DacStart,			"start",				0);
-	class_addmethod(c, (method)DacStop,				"stop",					0);
-	//class_addmethod(c, (method)DacNotify,			"notify",				A_CANT, 0);
-	class_addmethod(c, (method)DacReset,			"multicore.reset",		A_CANT, 0);
-	class_addmethod(c, (method)DacConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
-	class_addmethod(c, (method)DacAssist,			"assist",				A_CANT, 0); 
-    class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
+	class_addmethod(c, (method)DacStart,		"start",		0);
+	class_addmethod(c, (method)DacStop,		"stop",			0);
+	//class_addmethod(c, (method)DacNotify,		"notify",		A_CANT, 0);
+	class_addmethod(c, (method)DacReset,		"multicore.reset",	A_CANT, 0);
+	class_addmethod(c, (method)DacConnect,		"multicore.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)DacAssist,		"assist",		A_CANT, 0); 
+	class_addmethod(c, (method)object_obex_dumpout,	"dumpout",		A_CANT, 0);  
 	
 	CLASS_ATTR_LONG(c,		"sampleRate",	0,		Dac,	obj);
 	CLASS_ATTR_ACCESSORS(c,	"sampleRate",	DacGetSampleRate,	DacSetSampleRate);
