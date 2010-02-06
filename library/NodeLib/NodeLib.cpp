@@ -395,6 +395,8 @@ void jamoma_node_observer_add(TTNodePtr node, t_object *object, t_symbol *jps_me
 	}
 }
 
+
+// called, for example, by hub_receive()
 void jamoma_node_observer_notify(TTNodePtr node, t_symbol* mess, long flag)
 {
 	TTValue	data;
