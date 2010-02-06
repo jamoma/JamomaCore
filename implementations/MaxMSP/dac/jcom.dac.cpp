@@ -125,34 +125,39 @@ TTErr DacConnect(DacPtr self, TTMulticoreObjectPtr audioSourceObject, long sourc
 }
 
 
+void DacIterateResetCallback(DacPtr self, ObjectPtr obj)
+{
+	TTUInt32	vectorSize;
+	method		multicoreResetMethod = zgetfn(obj, gensym("multicore.reset"));
+	
+	if (multicoreResetMethod) {
+		self->multicoreObject->mUnitGenerator->getAttributeValue(TT("vectorSize"), vectorSize);
+		multicoreResetMethod(obj, vectorSize);
+	}
+}
+
+
+void DacIterateSetupCallback(DacPtr self, ObjectPtr obj)
+{
+	method multicoreSetupMethod = zgetfn(obj, gensym("multicore.setup"));
+	
+	if (multicoreSetupMethod)
+		multicoreSetupMethod(obj);
+}
+
+
 TTErr DacStart(DacPtr self)
 {
 	MaxErr		err;
 	ObjectPtr	patcher = NULL;
-	ObjectPtr	box = NULL;
-	ObjectPtr	o = NULL;
-	method		multicoreSetupMethod = NULL;
 	long		vectorSize;
+	long		result = 0;
 	
 	self->multicoreObject->mUnitGenerator->getAttributeValue(TT("vectorSize"), vectorSize);
 	
 	err = object_obex_lookup(self, gensym("#P"), &patcher);
-	box = jpatcher_get_firstobject(patcher);
-	while (box) {
-		o = jbox_get_object(box);
-		multicoreSetupMethod = zgetfn(o, gensym("multicore.reset"));
-		if (multicoreSetupMethod)
-			err = (MaxErr)multicoreSetupMethod(o, vectorSize);
-		box = jbox_get_nextobject(box);
-	}
-	box = jpatcher_get_firstobject(patcher);
-	while (box) {
-		o = jbox_get_object(box);
-		multicoreSetupMethod = zgetfn(o, gensym("multicore.setup"));
-		if (multicoreSetupMethod)
-			err = (MaxErr)multicoreSetupMethod(o);
-		box = jbox_get_nextobject(box);
-	}
+	object_method(patcher, gensym("iterate"), (method)DacIterateResetCallback, self, PI_DEEP, &result);
+	object_method(patcher, gensym("iterate"), (method)DacIterateSetupCallback, self, PI_DEEP, &result);
 	
 	TTMulticoreInitData	initData;
 	initData.vectorSize = vectorSize;
