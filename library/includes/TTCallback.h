@@ -11,18 +11,17 @@
 
 #include "TTFoundationAPI.h"
 
+
 /** 
 	This class is used to create a backward communication
 	to notify a client that something changed in the TTnode
 	TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject 
  */
 
-
-
 class TTFOUNDATION_EXPORT TTCallback : public TTObject			///< we will subclass TTObject in order to gain some functionality -- like observers and notifications
 {
 	TTCLASS_SETUP(TTCallback)
-protected:
+
 	TTFunctionWithBatonAndValue	mFunction;	///< Function called when the notify message is engaged
 	TTPtr						mBaton;		///< User data to be passed back when the callback is triggered
 	
