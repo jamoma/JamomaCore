@@ -31,7 +31,8 @@ TTErr WelchWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedIn
 {
 	TTFloat64	w;
 	
-	w = ((x-1.0/2.0)/(1.0/2.0));
+	//w = ((x-1.0/2.0)/(1.0/2.0)); 
+	w = (x-0.5)/0.5; 
 	y = 1.0 - (w * w);
 	return kTTErrNone;
 }
