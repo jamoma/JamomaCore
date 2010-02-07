@@ -26,6 +26,7 @@
 		22C9F5C110325E1F0062F7B8 /* portaudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5C010325E1F0062F7B8 /* portaudio.h */; };
 		22C9F5CC10325E650062F7B8 /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */; };
 		22DF22510F2441BD00DBBEE9 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */; };
+		22F25DD9111E0B6F00A67D8D /* TTMulticoreDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F25DD8111E0B6F00A67D8D /* TTMulticoreDescription.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		22C9F5C010325E1F0062F7B8 /* portaudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = portaudio.h; path = ../../DSP/library/portaudio/include/portaudio.h; sourceTree = SOURCE_ROOT; };
 		22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
 		22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
+		22F25DD8111E0B6F00A67D8D /* TTMulticoreDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMulticoreDescription.h; path = includes/TTMulticoreDescription.h; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* JamomaMulticore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JamomaMulticore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -104,6 +106,7 @@
 		2220193010F8E77F0010D781 /* Core Classes */ = {
 			isa = PBXGroup;
 			children = (
+				22F25DD8111E0B6F00A67D8D /* TTMulticoreDescription.h */,
 				226AAF7510F80EDE002C6057 /* TTMulticoreInlet.h */,
 				222019D710F90A2D0010D781 /* TTMulticoreInlet.cpp */,
 				2220192B10F8E7760010D781 /* TTMulticoreOutlet.h */,
@@ -160,6 +163,7 @@
 				226AAF8310F80EDE002C6057 /* TTMulticoreOutput.h in Headers */,
 				222018D010F8C8C30010D781 /* TTMulticoreGenerator.h in Headers */,
 				2220192C10F8E7760010D781 /* TTMulticoreOutlet.h in Headers */,
+				22F25DD9111E0B6F00A67D8D /* TTMulticoreDescription.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

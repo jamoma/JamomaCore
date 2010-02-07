@@ -12,6 +12,7 @@
 
 #include "TTMulticore.h"
 #include "TTMulticoreOutlet.h"
+#include "TTMulticoreDescription.h"
 
 
 /******************************************************************************************/
@@ -81,6 +82,9 @@ public:
 		mUnitGenerator->getAttributeValue(kTTSym_sr, sr);
 		return sr;
 	}
+	
+	
+	void getDescription(TTMulticoreDescription& desc);
 	
 	
 	/**	Clear the list of source objects from which this object will try to pull audio.	*/

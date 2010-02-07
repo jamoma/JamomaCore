@@ -73,6 +73,7 @@ typedef TTMulticoreOutlet*					TTMulticoreOutletPtr;
 typedef vector<TTMulticoreOutlet>			TTMulticoreOutletVector;
 typedef TTMulticoreOutletVector::iterator	TTMulticoreOutletIter;
 
+#include "TTMulticoreDescription.h"
 
 /******************************************************************************************/
 

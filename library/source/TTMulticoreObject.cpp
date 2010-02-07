@@ -68,6 +68,7 @@ TTMulticoreObject::~TTMulticoreObject()
 }
 
 
+#ifdef OLD_AND_UNUSED
 TTErr TTMulticoreObject::objectFreeing(const TTValue& theObjectBeingDeleted)
 {
 	//TTObjectPtr o = theObjectBeingDeleted;
@@ -85,6 +86,16 @@ TTErr TTMulticoreObject::objectFreeing(const TTValue& theObjectBeingDeleted)
 	
 	valid = oldValid;
 	return kTTErrNone;
+}
+#endif
+
+
+void TTMulticoreObject::getDescription(TTMulticoreDescription& desc)
+{
+	desc.mClassName = mUnitGenerator->getName();
+	desc.mInputDescriptions.clear();
+	for (TTMulticoreInletIter inlet = mInlets.begin(); inlet != mInlets.end(); inlet++)
+		inlet->getDescriptions(desc.mInputDescriptions);
 }
 
 

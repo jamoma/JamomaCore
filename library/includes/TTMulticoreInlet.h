@@ -56,6 +56,12 @@ public:
 		return *this;
 	}
 	
+	// Info Methods
+	
+	void getDescription(TTMulticoreDescription& desc)
+	{
+		mSourceObject->getDescription(desc);
+	}
 	
 	// Graph Methods
 	
@@ -221,6 +227,17 @@ public:
 	TTAudioSignalPtr getBuffer()
 	{
 		return mBufferedInput;
+	}
+	
+	
+	void getDescriptions(TTMulticoreDescriptionVector& descs)
+	{
+		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
+			TTMulticoreDescription	desc;
+			
+			source->getDescription(desc);
+			descs.push_back(desc);
+		}
 	}
 	
 };
