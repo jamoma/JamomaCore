@@ -60,19 +60,26 @@ int main(void)
 	
 	CLASS_ATTR_SYM(c,		"waveform",			0,		Oscil,	attrWaveform);
 	CLASS_ATTR_ACCESSORS(c,	"waveform",			NULL,	OscilSetMode);
+	CLASS_ATTR_ENUM(c,		"waveform",			0,		"cosine ramp sawtooth sine square triangle");
+	CLASS_ATTR_DEFAULTNAME(c,"waveform",		0,		"sine");
 	
 	CLASS_ATTR_SYM(c,		"interpolation",	0,		Oscil,	attrInterpolation);
 	CLASS_ATTR_ACCESSORS(c,	"interpolation",	NULL,	OscilSetInterpolation);
+	CLASS_ATTR_ENUM(c,		"interpolation",	0,		"none linear lfo");
+	CLASS_ATTR_DEFAULTNAME(c,"interpolation",	0,		"linear");
 	
 	CLASS_ATTR_FLOAT(c,		"frequency",		0,		Oscil,	attrFrequency);
 	CLASS_ATTR_ACCESSORS(c,	"frequency",		NULL,	OscilSetFrequency);
+	CLASS_ATTR_DEFAULT(c,	"frequency",		0,		"1000");
 	
 	CLASS_ATTR_FLOAT(c,		"gain",				0,		Oscil,	attrGain);
+	CLASS_ATTR_DEFAULT(c,	"gain",				0,		"1.0");
 	CLASS_ATTR_ACCESSORS(c,	"gain",				NULL,	OscilSetGain);
-	
+		
 	CLASS_ATTR_LONG(c,		"numchannels",		0,		Oscil,	attrNumChannels);
 	CLASS_ATTR_ACCESSORS(c,	"numchannels",		NULL,	OscilSetNumChannels);
-
+	CLASS_ATTR_DEFAULT(c,	"numchannels",		0,		"1");
+	
 	class_register(_sym_box, c);
 	sOscilClass = c;
 	return 0;
