@@ -37,7 +37,9 @@ public:
 	void exportCpp(const TTString& fullpathToFile);
 	int exportCppNode(TTString& content, int& index, TTStringVector& nodeNames);
 	
-	// TODO: export a Max patcher
+	void exportMax(const TTString& fullpathToFile);
+	int exportMaxNode(TTString& content, int& index, TTStringVector& nodeNames);
+	
 	
 };
 

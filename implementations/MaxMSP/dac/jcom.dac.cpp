@@ -28,6 +28,7 @@ TTErr	DacStart(DacPtr self);
 TTErr	DacStop(DacPtr self);
 MaxErr	DacExportRuby(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv);
 MaxErr	DacExportCpp(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv);
+MaxErr	DacExportMax(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv);
 // Prototypes for attribute accessors
 MaxErr	DacSetSampleRate(DacPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr	DacGetSampleRate(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv);
@@ -58,6 +59,7 @@ int main(void)
 	class_addmethod(c, (method)DacConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
 	class_addmethod(c, (method)DacExportRuby,		"exportRuby",			A_GIMME, 0);
 	class_addmethod(c, (method)DacExportCpp,		"exportC++",			A_GIMME, 0);
+	class_addmethod(c, (method)DacExportMax,		"exportMax",			A_GIMME, 0);
 	class_addmethod(c, (method)DacAssist,			"assist",				A_CANT, 0); 
 	class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
 	
@@ -225,6 +227,32 @@ MaxErr DacDoExportCpp(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 MaxErr DacExportCpp(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
 	defer(self, (method)DacDoExportCpp, s, argc, argv);
+	return MAX_ERR_NONE;
+}
+
+
+MaxErr DacDoExportMax(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
+{
+	TTMulticoreDescription	desc;
+	TTString				fullpathToFile = "/multicore-export.maxpat";
+	
+	if (argc && argv)
+		fullpathToFile = atom_getsym(argv)->s_name;
+	else {
+		object_error(SELF, "full path required for exportC++ message");
+		return MAX_ERR_GENERIC;
+	}
+	
+	self->multicoreObject->getDescription(desc);
+	desc.exportMax(fullpathToFile);
+	
+	return MAX_ERR_NONE;
+}
+
+
+MaxErr DacExportMax(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
+{
+	defer(self, (method)DacDoExportMax, s, argc, argv);
 	return MAX_ERR_NONE;
 }
 

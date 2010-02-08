@@ -107,3 +107,75 @@ int TTMulticoreDescription::exportCppNode(TTString& content, int& index, TTStrin
 	}
 	return localIndex;
 }
+
+
+void TTMulticoreDescription::exportMax(const TTString& fullpathToFile)
+{
+	TTString		content;
+	int				index = -1;
+	TTStringVector	nodeNames;
+	ofstream		aFile(fullpathToFile.c_str());
+	
+	content += "{\n";
+	content += "	\"patcher\" : {\n";
+	content += "		\"boxes\" : [\n";
+	
+	exportMaxNode(content, index, nodeNames);
+	
+	content += "		]\n";
+	content += "	}\n";
+	content += "}\n";
+	aFile.write(content.c_str(), content.size());
+	aFile.close();
+}
+
+int TTMulticoreDescription::exportMaxNode(TTString& content, int& index, TTStringVector& nodeNames)
+{
+	char	objName[16];
+	char	location[16];
+	int		localIndex;
+	
+	index++;
+	localIndex = index;
+	snprintf(objName, 16, "obj%i", index);
+	nodeNames.push_back(TTString(objName));
+	
+	if (index > 0)
+		content += ",\n";
+	
+	content += "			{\n";
+	content += "				\"box\" : {\n";
+	content += "					\"id\" : \"";
+	content += objName;
+	content += "\",\n";
+	content += "					\"maxclass\" : \"newobj\",\n";
+	content += "					\"text\" : \"jcom.";
+	
+	// TODO: is there a better way to know about object name mappings?
+	if (mClassName == TT("multicore.output"))
+		content += "dac";
+	else
+		content += mClassName->getString();
+	
+	content += "≈\",\n";
+	content += "					\"patching_rect\" : [ 50.0, ";
+	snprintf(location, 16, "%f", 400.0 - (index * 40.0));
+	content += location;
+	content += ", 100.0, 20.0]\n";
+	content += "				}\n";
+	content += "			}\n";
+		
+	for (TTMulticoreDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
+		int inputIndex;
+		
+		inputIndex = input->exportMaxNode(content, index, nodeNames);
+//		
+//		content += "	";
+//		content += objName;
+//		content += "->connect(";
+//		//snprintf(inputName, 16, "obj%i", index);
+//		content += nodeNames[inputIndex];
+//		content += ");\n";
+	}
+	return localIndex;
+}

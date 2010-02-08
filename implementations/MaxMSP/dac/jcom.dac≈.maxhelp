@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 402.0, 44.0, 687.0, 781.0 ],
+		"rect" : [ 402.0, 44.0, 680.0, 817.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 402.0, 44.0, 687.0, 781.0 ],
+		"defrect" : [ 402.0, 44.0, 680.0, 817.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -22,13 +22,27 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-30",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 255.0, 725.0, 244.0, 17.0 ],
+					"presentation_rect" : [ 255.0, 725.0, 0.0, 0.0 ],
+					"text" : "exportMax /example-multicore-export.maxpat"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-20",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 255.0, 705.0, 227.0, 17.0 ],
-					"presentation_rect" : [ 255.0, 706.0, 0.0, 0.0 ],
 					"text" : "exportC++ /example-multicore-export.cpp"
 				}
 
@@ -455,7 +469,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 180.0, 725.0, 64.0, 19.0 ],
+					"patching_rect" : [ 180.0, 750.0, 64.0, 19.0 ],
 					"text" : "jcom.dac≈"
 				}
 
@@ -599,7 +613,7 @@
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 165.0, 565.0, 360.0, 190.0 ]
+					"patching_rect" : [ 165.0, 565.0, 360.0, 215.0 ]
 				}
 
 			}
@@ -736,6 +750,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-29", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-30", 0 ]
 				}
 
 			}
