@@ -27,6 +27,7 @@
 		22C9F5CC10325E650062F7B8 /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */; };
 		22DF22510F2441BD00DBBEE9 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */; };
 		22F25DD9111E0B6F00A67D8D /* TTMulticoreDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F25DD8111E0B6F00A67D8D /* TTMulticoreDescription.h */; };
+		22F25F18111FC59900A67D8D /* TTMulticoreDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F25F17111FC59900A67D8D /* TTMulticoreDescription.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
 		22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		22F25DD8111E0B6F00A67D8D /* TTMulticoreDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMulticoreDescription.h; path = includes/TTMulticoreDescription.h; sourceTree = "<group>"; };
+		22F25F17111FC59900A67D8D /* TTMulticoreDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMulticoreDescription.cpp; path = source/TTMulticoreDescription.cpp; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* JamomaMulticore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JamomaMulticore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				22F25DD8111E0B6F00A67D8D /* TTMulticoreDescription.h */,
+				22F25F17111FC59900A67D8D /* TTMulticoreDescription.cpp */,
 				226AAF7510F80EDE002C6057 /* TTMulticoreInlet.h */,
 				222019D710F90A2D0010D781 /* TTMulticoreInlet.cpp */,
 				2220192B10F8E7760010D781 /* TTMulticoreOutlet.h */,
@@ -245,6 +248,7 @@
 				226AAF8810F80EDE002C6057 /* TTMulticoreOutput.cpp in Sources */,
 				222018D210F8C8CB0010D781 /* TTMulticoreGenerator.cpp in Sources */,
 				222019D810F90A2D0010D781 /* TTMulticoreInlet.cpp in Sources */,
+				22F25F18111FC59900A67D8D /* TTMulticoreDescription.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
