@@ -50,7 +50,6 @@ public:
 	int exportRubyNode(TTString& rubyContent, int& index, TTStringVector& nodeNames)
 	{
 		char	objName[16];
-		char	inputName[16];
 		int		localIndex;
 		
 		index++;
@@ -77,8 +76,58 @@ public:
 	}
 	
 	
-	// TODO: export C++ source code snippet
-
+	void exportCpp(const TTString& fullpathToFile)
+	{
+		TTString		content;
+		int				index = -1;
+		TTStringVector	nodeNames;
+		ofstream		aFile(fullpathToFile.c_str());
+		
+		content += "#include \"TTMulticoreAPI.h\"\n\n";
+		content += "int main()\n{\n";
+		content += "	TTMulticoreInit();\n\n";
+				
+		exportCppNode(content, index, nodeNames);
+		
+		content += "	return 0;\n";
+		content += "}\n";
+		aFile.write(content.c_str(), content.size());
+		aFile.close();
+	}
+	
+	int exportCppNode(TTString& content, int& index, TTStringVector& nodeNames)
+	{
+		char	objName[16];
+		int		localIndex;
+		
+		index++;
+		localIndex = index;
+		snprintf(objName, 16, "obj%i", index);
+		nodeNames.push_back(TTString(objName));
+		
+		content += "	TTMulticoreObjectPtr ";
+		content += objName;
+		content += ";\n";
+		content += "	TTObjectInstantiate(TT(\"multicore.object\"), (TTObjectPtr*)&";
+		content += objName;
+		content += ", TTValue(TT(\"";
+		content += mClassName->getString();
+		content += "\")))\n\n";
+		
+		for (TTMulticoreDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
+			int inputIndex;
+			
+			inputIndex = input->exportCppNode(content, index, nodeNames);
+			content += "	";
+			content += objName;
+			content += "->connect(";
+			//snprintf(inputName, 16, "obj%i", index);
+			content += nodeNames[inputIndex];
+			content += ");\n";
+		}
+		return localIndex;
+	}
+	
 	
 	// TODO: export a Max patcher
 	

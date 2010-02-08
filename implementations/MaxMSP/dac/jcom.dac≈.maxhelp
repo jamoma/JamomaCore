@@ -22,13 +22,27 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-20",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 255.0, 705.0, 227.0, 17.0 ],
+					"presentation_rect" : [ 255.0, 706.0, 0.0, 0.0 ],
+					"text" : "exportC++ /example-multicore-export.cpp"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-18",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 255.0, 600.0, 239.0, 19.0 ],
-					"presentation_rect" : [ 255.0, 600.0, 0.0, 0.0 ],
 					"text" : "turn off audio processing"
 				}
 
@@ -43,7 +57,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 255.0, 580.0, 239.0, 19.0 ],
-					"presentation_rect" : [ 257.0, 580.0, 0.0, 0.0 ],
 					"text" : "tell the audio driver to start processing audio"
 				}
 
@@ -57,7 +70,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 630.0, 70.0 ]
+					"patching_rect" : [ 0.0, 0.0, 687.0, 70.0 ]
 				}
 
 			}
@@ -576,7 +589,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 255.0, 625.0, 246.0, 55.0 ],
-					"presentation_rect" : [ 255.0, 626.0, 0.0, 0.0 ],
 					"text" : "after you've started audio at least once, then you can export the audio graph to a Ruby source fiule that will run the same audio graph."
 				}
 
@@ -587,8 +599,7 @@
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 165.0, 565.0, 360.0, 190.0 ],
-					"presentation_rect" : [ 167.0, 618.0, 0.0, 0.0 ]
+					"patching_rect" : [ 165.0, 565.0, 360.0, 190.0 ]
 				}
 
 			}
@@ -653,6 +664,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-2", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-20", 0 ]
 				}
 
 			}
