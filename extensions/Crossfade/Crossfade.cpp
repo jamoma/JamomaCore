@@ -331,7 +331,7 @@ TTErr TTCrossfade::processEqualPowerCalc(TTAudioSignalArrayPtr inputs, TTAudioSi
 			
 			while(vs--)
 			{
-				radPosition = position * kTTPi_2;
+				radPosition = position * kTTHalfPi;
 				*outSample++ = (*inSampleB++ * (sin(radPosition))) + (*inSampleA++ * (cos(radPosition)));
 			}
 		}
@@ -349,7 +349,7 @@ TTErr TTCrossfade::processEqualPowerCalc(TTAudioSignalArrayPtr inputs, TTAudioSi
 			
 			while(vs--)
 			{
-				radPosition = position * kTTPi_2;
+				radPosition = position * kTTHalfPi;
 				*outSample++ = (*inSampleB++ * (sin(radPosition))) + (*inSampleA++ * (cos(radPosition)));
 			}
 		}

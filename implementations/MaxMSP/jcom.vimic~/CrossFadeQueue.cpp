@@ -139,13 +139,13 @@ void CrossFadeQueue::computeFadeTbl()
     {
         case Properties::COS: //cosine 
 			
-				for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTPi_2 / (fadeLength_ - 1)), tableIdx++) //kTTPi_2 was M_PI_2
+				for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTHalfPi / (fadeLength_ - 1)), tableIdx++) //kTTHalfPi was M_PI_2
 				fadeTbl_[tableIdx] = (double) cos(i);  // read forward to fade out, backward to fade in			
             break;		
 
         case Properties::COS_SQUARED: //cosine squared
 			
-			for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTPi_2 / (fadeLength_ - 1)), tableIdx++)	//kTTPi_2 was M_PI_2		
+			for (i = 0.0, tableIdx = 0; tableIdx < fadeLength_; i += (double) (kTTHalfPi / (fadeLength_ - 1)), tableIdx++)	//kTTHalfPi was M_PI_2		
                 fadeTbl_[tableIdx] = (double) pow(cos(i),2.0);	// read forward to fade out, backward to fade in
             break;
 
