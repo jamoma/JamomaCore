@@ -169,13 +169,24 @@ int TTMulticoreDescription::exportMaxNode(TTString& content, int& index, TTStrin
 		int inputIndex;
 		
 		inputIndex = input->exportMaxNode(content, index, nodeNames);
-//		
-//		content += "	";
-//		content += objName;
-//		content += "->connect(";
-//		//snprintf(inputName, 16, "obj%i", index);
-//		content += nodeNames[inputIndex];
-//		content += ");\n";
+
+		if (index == inputIndex) { // I think this means that we are processing the top of the chain?)
+			content += "		],";
+			content += "		\"lines\" : [";
+		}
+		else
+			content += ",\n";
+		
+		content += "			{\n";
+		content += "				\"patchline\" : {\n";
+		content += "					\"destination\" : [ \"";
+		content += objName;
+		content += "\", 0],\n";
+		content += "					\"source\" : [ \"";
+		content += nodeNames[inputIndex];
+		content += "\", 0]\n";
+		content += "				}\n";
+		content += "			}\n";
 	}
 	return localIndex;
 }
