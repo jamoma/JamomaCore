@@ -54,6 +54,8 @@ extern "C" {
 	VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName);
 	VALUE TTAudioReset(VALUE self);
 	VALUE TTAudioConnect(int argc, VALUE* argv, VALUE self);
+	VALUE TTAudioExportMax(VALUE self, VALUE pathToExportFile);
+	VALUE TTAudioExportCpp(VALUE self, VALUE pathToExportFile);
 }
 
 
@@ -102,6 +104,8 @@ void Init_TTRuby()
 	rb_define_method(c, "get",				TTRubyMethod(TTAudioGetAttribute),	1);		// get attribute value
 	rb_define_method(c, "reset",			TTRubyMethod(TTAudioReset),			0);		// reset multicore connections
 	rb_define_method(c, "connect",			TTRubyMethod(TTAudioConnect),		-1);	// connect an output of another object to our input
+	rb_define_method(c, "export_max",		TTRubyMethod(TTAudioExportMax),		1);		// reset multicore connections
+	rb_define_method(c, "export_cpp",		TTRubyMethod(TTAudioExportCpp),		1);		// reset multicore connections
 	
 	TTAudio_class = c;
 	gTTAudioInstances = new TTHash;
@@ -754,6 +758,47 @@ VALUE TTAudioConnect(int argc, VALUE* argv, VALUE self)
 		}
 	}
 bye:
+	return self;
+}
+
+
+VALUE TTAudioExportMax(VALUE self, VALUE pathToExportFile)
+{
+	TTAudioInstance*		instance = NULL;
+	TTErr					err = kTTErrNone;
+	TTValue					v;
+	TTMulticoreDescription	desc;
+	VALUE					pathToExportStr = StringValue(pathToExportFile);
+	TTString				path = RSTRING(pathToExportStr)->ptr;
+
+	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
+	if (!err) {
+		v.get(0, (TTPtr*)(&instance));
+		if (instance) {
+			instance->obj->getDescription(desc);
+			desc.exportMax(path);
+		}
+	}
+	return self;
+}
+
+VALUE TTAudioExportCpp(VALUE self, VALUE pathToExportFile)
+{
+	TTAudioInstance*		instance = NULL;
+	TTErr					err = kTTErrNone;
+	TTValue					v;
+	TTMulticoreDescription	desc;
+	VALUE					pathToExportStr = StringValue(pathToExportFile);
+	TTString				path = RSTRING(pathToExportStr)->ptr;
+
+	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
+	if (!err) {
+		v.get(0, (TTPtr*)(&instance));
+		if (instance) {
+			instance->obj->getDescription(desc);
+			desc.exportCpp(path);
+		}
+	}
 	return self;
 }
 
