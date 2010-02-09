@@ -411,6 +411,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 		// 2. if a new instance have been created 
 		// to guarantee the unicity. We have to
 		// add the instance to the name
+		// For example, so that we can replace the name if the name already exists (e.g. a "parameter.2")
 		if(newInstanceCreated){
 			newInstance = jamoma_node_instance(newTTNode);
 			if(newInstance != gensym("")){
