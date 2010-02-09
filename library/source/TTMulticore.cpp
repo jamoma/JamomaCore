@@ -12,6 +12,7 @@
 #include "TTMulticoreGenerator.h"
 #include "TTMulticoreObject.h"
 #include "TTMulticoreInlet.h"		// required for windows build
+#include "TTMulticoreInput.h"
 #include "TTMulticoreOutput.h"
 
 static bool initialized = false;
@@ -27,6 +28,7 @@ void TTMulticoreInit(void)
 		
 		TTMulticoreGenerator::registerClass();
 		TTMulticoreObject::registerClass();
+		TTMulticoreInput::registerClass();
 		TTMulticoreOutput::registerClass();
 	}
 }
