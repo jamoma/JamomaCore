@@ -21,9 +21,12 @@ TT_OBJECT_CONSTRUCTOR,
 	// Set the name of the tree
 	TT_ASSERT("Correct number of args to create TTNodeDirectory", arguments.getSize() == 1);
 	mName = arguments;
-	mDirectory = new TTHash();	// create a new directory
+	mDirectory = new TTHash();						// create a new directory
 
 	addAttribute(Name, kTypeSymbol);
+	
+	// a new TTNodeDirectory have no lifeCycleObservers
+	this->mObservers = new TTHash();
 
 	// create a root (OSC style)
 	TTNodeCreate(S_SEPARATOR, TT("container"), NULL, &mRoot, &nodeCreated);
@@ -109,10 +112,10 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 	if(err == kTTErrNone){
 
 		// If there is a property part
-		if(oscAddress_property != NO_PROPERTY){
+		if(oscAddress_property != NO_ATTRIBUTE){
 
 			// get the TTNode
-			mergeOSCAddress(&oscAddress_got,oscAddress_parent,oscAddress_name,oscAddress_instance,NO_PROPERTY);
+			mergeOSCAddress(&oscAddress_got,oscAddress_parent,oscAddress_name,oscAddress_instance,NO_ATTRIBUTE);
 			found = new TTValue();
 			err = mDirectory->lookup(oscAddress_got, *found);
 
@@ -191,7 +194,12 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 
 TTErr TTNodeDirectory::TTNodeRemove(TTSymbolPtr oscAddress)
 {
-	return mDirectory->remove(oscAddress);
+	TTErr err;
+	TTValue data;
+
+	err = mDirectory->remove(oscAddress);
+	notifyObservers(oscAddress, kAddressDestroyed);
+	return err;
 }
 
 TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
@@ -230,13 +238,15 @@ TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, T
 					lk_selection.merge(lk_children);
 			}
 			
-			// return the slection
+			// return the selection
 			returnedTTNodes.clear();
 			
 			if(!lk_selection.isEmpty()){
 				returnedTTNodes.merge(lk_selection);
 				returnedTTNodes.getHead().get(0, (TTPtr*)&firstReturnedTTNode);
 			}
+			else
+				err = kTTErrGeneric;
 		}
 		
 		return err;
@@ -246,8 +256,8 @@ TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, T
 	else{
 		
 		// be sure there is no property part
-		if(oscAddress_property != NO_PROPERTY)
-			mergeOSCAddress(&oscAddress_noproperty, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_PROPERTY);
+		if(oscAddress_property != NO_ATTRIBUTE)
+			mergeOSCAddress(&oscAddress_noproperty, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
 		else
 			oscAddress_noproperty = oscAddress;
 		
@@ -359,11 +369,151 @@ TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(TTNod
 	return kTTErrGeneric;
 }
 
+TTErr TTNodeDirectory::addObserverForNotifications(TTSymbolPtr oscAddress, const TTObject&  observer)
+{
+	TTErr err;
+	TTValue lk;
+	TTValuePtr o = new TTValue(observer);
+	TTListPtr lk_o;
+	
+	// is the key already exists ?
+	err = this->mObservers->lookup(oscAddress, lk);
+	
+	// create a new observers list for this address
+	if(err == kTTErrValueNotFound){
+		lk_o = new TTList();
+		lk_o->appendUnique(o);
+		
+		this->mObservers->append(oscAddress, TTValue(lk_o));
+	}
+	// add it to the existing list
+	else{
+		lk.get(0,(TTPtr*)&lk_o);
+		lk_o->appendUnique(o);
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTNodeDirectory::removeObserverForNotifications(TTSymbolPtr oscAddress, const TTObject&  observer)
+{
+	TTErr err;
+	TTValue lk, o, v;
+	TTListPtr lk_o;
+	
+	// is the key exists ?
+	err = this->mObservers->lookup(oscAddress, lk);
+	
+	if(err != kTTErrValueNotFound){
+		// get the observers list
+		lk.get(0,(TTPtr*)&lk_o);
+		
+		// is observer exists ?
+		o = TTValue(observer);
+		err = observers->findEquals(o, v);
+		if(!err)
+			observers->remove(v);
+	}
+
+	return err;
+}
+
+TTErr TTNodeDirectory::notifyObservers(TTSymbolPtr oscAddress, TTAddressNotificationFlag flag)
+{
+	unsigned int i;
+	TTValue hk, lk, o, f, data;
+	TTSymbolPtr key;
+	TTAddressComparisonFlag comp;
+	TTListPtr lk_o;
+	TTCallbackPtr anObserver = NULL;
+	bool foundObsv = false;
+	
+	// if there are observers in mObservers tab
+	if(this->mObservers->getSize()){
+		
+		this->mObservers->getKeys(hk);
+
+		// for each key of mObserver tab
+		for(i=0; i<this->mObservers->getSize(); i++){
+			
+			hk.get(i,(TTSymbolPtr*)&key);
+			
+			// compare the key with the oscAddress
+			comp = compareOSCAddress(oscAddress, key);
+			
+			if((comp == kAddressEqual) || (comp == kAddressLower)){
+				
+				// get the Observers list
+				this->mObservers->lookup(key, lk);
+				lk.get(0,(TTPtr*)&lk_o);
+				
+				if(!lk_o->isEmpty()) {
+					for (lk_o->begin(); lk_o->end(); lk_o->next()) 
+					{
+						//o = lk_o->current();
+						lk_o->current().get(0, TTObjectHandle(&anObserver));
+						TT_ASSERT("TTNode observer list member is not NULL", anObserver);
+						data.append((TTPtr)oscAddress);
+						data.append((TTInt8)flag);
+						anObserver->notify(data);
+					}
+					
+					foundObsv = true;
+				}
+			}
+		}
+		
+		if(foundObsv)
+			return kTTErrNone;
+		else
+			return kTTErrGeneric;
+	}
+	else
+		return kTTErrGeneric;
+}
+
 /***********************************************************************************
  *
  *		GLOBAL METHODS
  *
  ************************************************************************************/
+
+TTErr splitAtOSCAddress(TTSymbolPtr oscAddress, int whereToSplit, TTSymbolPtr* returnedPart1, TTSymbolPtr* returnedPart2)
+{
+	TTErr err = kTTErrNone;
+	long nb, pos, i;
+	TTString part1, part2;
+	
+	i = 0;
+	part1 = "";
+	part2 = oscAddress->getCString();
+
+	while(i <= whereToSplit)
+	{
+		nb = count(part2.begin(), part2.end(), C_SEPARATOR);
+		
+		if(nb)
+		{
+			pos = part2.find_first_of(C_SEPARATOR);
+			part1 += part2.substr(0, pos+1);
+			part2 = part2.substr(pos+1, part2.size());
+		}
+		else
+		{
+			part1 += part2;
+			part2 = "";
+			err = kTTErrGeneric;
+			break;
+		}
+		
+		i++;
+	}
+	
+	*returnedPart1 = TT(part1);
+	*returnedPart2 = TT(part2);
+	
+	return err;
+}
 
 TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdress, TTSymbolPtr* returnedTTNodeName, TTSymbolPtr* returnedTTNodeInstance, TTSymbolPtr* returnedTTNodeProperty)
 {
@@ -373,8 +523,8 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 	char *to_split;
 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
-	if(oscAddress->getCString()[0]!= C_SEPARATOR)
-		return kTTErrGeneric;
+	//if(oscAddress->getCString()[0]!= C_SEPARATOR)
+	//	return kTTErrGeneric;
 
 	to_split = (char *)malloc(sizeof(char)*(strlen(oscAddress->getCString())+1));
 	strcpy(to_split,oscAddress->getCString());
@@ -393,7 +543,7 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 		to_split[pos] = NULL;	// split to keep only the address part
 	}
 	else
-		*returnedTTNodeProperty = NO_PROPERTY;
+		*returnedTTNodeProperty = NO_ATTRIBUTE;
 	
 	// find the last '/' in the address part
 	// if exists, split the address part in a TTNode part (to split) and a parent part
@@ -455,7 +605,8 @@ TTErr mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSym
 		address = parent->getCString();
 
 	if(name != NO_NAME){
-		address += S_SEPARATOR->getCString();
+		if((name != S_SEPARATOR) && (parent != S_SEPARATOR))
+			address += S_SEPARATOR->getCString();
 		address += name->getCString();
 	}
 
@@ -464,7 +615,7 @@ TTErr mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSym
 		address += instance->getCString();
 	}
 
-	if(property != NO_PROPERTY){
+	if(property != NO_ATTRIBUTE){
 		address += S_PROPERTY->getCString();
 		address += property->getCString();
 	}
@@ -472,4 +623,78 @@ TTErr mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSym
 	*returnedOscAddress = TT(address);
 
 	return kTTErrNone;
+}
+
+TTAddressComparisonFlag compareOSCAddress(TTSymbolPtr oscAddress1, TTSymbolPtr oscAddress2)
+{
+	TTErr err1 = kTTErrNone;
+	TTErr err2 = kTTErrNone;
+	TTSymbolPtr top1, rest1, name1, instance1, attribute1;
+	TTSymbolPtr top2, rest2, name2, instance2, attribute2;
+	TTSymbolPtr p;
+	TTString level1, level2;
+	bool cName, cInstance, cAttribute;
+	unsigned int pos1, pos2;
+	
+	if(oscAddress1 == oscAddress2)
+		return kAddressEqual;
+	else if(oscAddress1 == S_SEPARATOR)
+		return kAddressUpper;
+	else if(oscAddress2 == S_SEPARATOR)
+		return kAddressLower;
+	else{
+		
+		err1 = splitAtOSCAddress(oscAddress1, 0, &top1, &rest1);
+		err2 = splitAtOSCAddress(oscAddress2, 0, &top2, &rest2);
+		
+		// compare each level until there is a difference
+		while((top1 == top2) && (err1 == 0) && (err2 == 0))
+		{
+			err1 = splitAtOSCAddress(rest1, 0, &top1, &rest1);
+			err2 = splitAtOSCAddress(rest2, 0, &top2, &rest2);
+		}
+		
+		// what is the difference at this level ?
+		
+		// get each level part without any slash at the end
+		// because a top part could ends with a slash (ex: "footop/")
+		level1 = top1->getCString();
+		level2 = top2->getCString();
+
+		pos1 = level1.find_first_of(C_SEPARATOR);
+		pos2 = level2.find_first_of(C_SEPARATOR);
+		
+		if((pos1 + 1) == level1.size())
+			level1 = level1.substr(0, pos1);
+		if((pos2 + 1) == level2.size())
+			level2 = level2.substr(0, pos2);
+		
+		// split to know more about level : name.instance:attribute (it would have no parent)
+		splitOSCAddress(TT(level1), &p, &name1, &instance1, &attribute1);			// name1.instance1:attribute1
+		splitOSCAddress(TT(level2), &p, &name2, &instance2, &attribute2);			// name2.instance2:attribute2
+		
+		// compare names
+		cName = (name1 == name2) || (name1 == S_WILDCARD) || (name2 == S_WILDCARD);
+		
+		// compare instances
+		cInstance = (instance1 == instance2) || (instance1 == S_WILDCARD) || (instance2 == S_WILDCARD);
+		
+		// compare attributes
+		cAttribute = attribute1 == attribute2;
+		
+		// if levels are equal
+		// compare the rest of the address
+		if(cName && cInstance && cAttribute){
+			
+				// look at returned error to know if there is a rest
+				if(err1 && !err2)																// oscAddress1 is shorter than oscAddress2
+					return kAddressUpper;
+				else if(!err1 && err2)															// oscAddress2 is shorter than oscAddress1
+					return kAddressLower;
+				else																			// oscAddress1 ? oscAddress2
+					return compareOSCAddress(rest1, rest2);
+		}
+	}
+	
+	return kAddressDifferent;
 }
