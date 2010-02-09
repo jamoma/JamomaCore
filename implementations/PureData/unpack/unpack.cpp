@@ -25,7 +25,7 @@ typedef Out* OutPtr;
 
 
 // Prototypes for methods
-extern "C" void setup_out0x3d(void);
+extern "C" void setup_jcom_unpack0x3d(void);
 OutPtr	OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void	OutFree(OutPtr self);
 TTErr	OutReset(OutPtr self, long vectorSize);
@@ -43,11 +43,11 @@ static t_linklist*	sInstances;		// TODO: use this information to run each graph 
 /************************************************************************************/
 // Main() Function
 
-void setup_out0x3d(void)
+void setup_jcom_unpack0x3d(void)
 {
 	TTMulticoreInit();	
 
-	sOutClass = class_new(gensym("jcom.unpack="), (t_newmethod)OutNew, (t_method)OutFree, sizeof(Out), 0, A_GIMME, 0);
+	sOutClass = class_new(gensym("jcom_unpack="), (t_newmethod)OutNew, (t_method)OutFree, sizeof(Out), 0, A_GIMME, 0);
 	
 	CLASS_MAINSIGNALIN(sOutClass, Out, f);
 	class_addmethod(sOutClass, (t_method)OutReset,		gensym("multicore.reset"),		A_CANT, 0);
@@ -55,7 +55,7 @@ void setup_out0x3d(void)
  	class_addmethod(sOutClass, (t_method)OutDsp,		gensym("dsp"),					A_CANT, 0);		
  	class_addmethod(sOutClass, (t_method)OutSetGain,	gensym("gain"),					A_FLOAT, 0);		
 
-	class_sethelpsymbol(sOutClass, gensym("help-jcom.unpack=.pd"));
+	class_sethelpsymbol(sOutClass, gensym("help-jcom_unpack=.pd"));
 }
 
 

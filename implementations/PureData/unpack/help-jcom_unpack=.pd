@@ -1,5 +1,5 @@
 #N canvas 448 282 655 400 10;
-#X obj 121 158 jcom.op=;
+#X obj 121 158 jcom_op=;
 #X msg 168 111 operator /;
 #X msg 246 111 operator +;
 #X msg 360 111 operand \$1;
