@@ -26,7 +26,6 @@ extern "C" {
 	/** Create and return the directory */
 	TTNodeDirectoryPtr jamoma_directory_init(void);
 	
-	
 	/** Free the directory */
 	TTErr			jamoma_directory_free(void);
 
@@ -36,13 +35,19 @@ extern "C" {
 
 	/** Register an osc address in the directory
 
-		Note : this is called 
-				> in "hub_attr_setname" (in jcom.hub.cpp) to register the hub
-				> in "hub_subscribe" (in jcom.hub.cpp) to register a param	*/
+		Note : this is called in
+				> "hub_attr_setname" (in jcom.hub.cpp) to register the hub
+				> "hub_subscribe" (in jcom.hub.cpp) to register a param	*/
 	JamomaError		jamoma_directory_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, TTNodePtr *newTTNode, bool *newInstanceCreated);
 
 	/** Unregister an osc address in the directory */
 	TTErr			jamoma_directory_unregister(t_symbol *OSCaddress);
+	
+	/** Add an t_object as a life cycle observer */
+	void			jamoma_directory_observer_add(t_symbol *OSCaddress, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver);
+	
+	/** Remove a life cycle observer */
+	void			jamoma_directory_observer_remove(t_symbol *OSCaddress, TTObjectPtr oldObserver);
 
 	/** Get the node(s) at the given address (with wildcard too) */
 	JamomaError		jamoma_directory_get_node(t_symbol *address, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
@@ -87,10 +92,7 @@ extern "C" {
 	
 	/** Return all attributes of a node */
 	JamomaError		jamoma_node_attribute_list(TTNodePtr node, TTValue& attrlist);
-	
-	/** Add all attributes returned by the t_object as attribute of the node */
-	JamomaError		jamoma_node_attribute_add_all(TTNodePtr node, t_object *object);
-	
+		
 	/** Add an attribute of a t_object as attribute of the node 
 	 and prepare callback mecanism to get and set them */
 	JamomaError		jamoma_node_attribute_add(TTNodePtr node, t_symbol *attrname, t_object *object);
@@ -100,19 +102,6 @@ extern "C" {
 	
 	/** Set the value of a attribute of a node */
 	JamomaError		jamoma_node_attribute_set(TTNodePtr node, t_symbol *attrname, long argc, t_atom *argv);
-
-	
-	// Method to deal with observers
-	////////////////////////////////////////////////////
-	
-	/** Add an t_object as a life cycle observer of a node */
-	void			jamoma_node_observer_add(TTNodePtr node, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver);
-	
-	/** Notify all life cycle observers of a node */
-	void			jamoma_node_observer_notify(TTNodePtr node, t_symbol* mess, long flag);
-	
-	/** Remove a life cycle observer of a node */
-	void			jamoma_node_observer_remove(TTNodePtr node, TTObjectPtr oldCallback);
 
 	/** Add an t_object as an observer of an attribute of a node */
 	void			jamoma_node_attribute_observer_add(TTNodePtr node, t_symbol *attrname, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver);
@@ -124,9 +113,13 @@ extern "C" {
 	void			jamoma_node_attribute_observer_remove(TTNodePtr node, t_symbol *attrname, TTObjectPtr oldCallback);
 
 	
-	// Callbacks called when a node or an attribute 
+	// Callbacks called when the directory or a node 
 	// have to notify his observers (life cycle and attribute observers)
 	///////////////////////////////////////////////////////////////////////
+	
+	/** Callback used to notify Max object external life cycle observer using private function
+	 void function(t_object *x, t_symbol *msg, long argc, t_atom *argv) */
+	void			jamoma_directory_observer_callback(TTPtr p_baton, TTValue& data);
 	
 	/** Callback used to get data from a Max object external using public attr method */
 	void			jamoma_node_getter_callback(TTPtr p_baton, TTValue& data);
@@ -136,10 +129,6 @@ extern "C" {
 	
 	/** Callback used to set value of a jcom.parameter external usng the dispatched method */
 	void			jamoma_node_setter_value_callback(TTPtr p_baton, TTValue& data);
-	
-	/** Callback used to notify Max object external life cycle observer using private function
-	 void function(t_object *x, t_symbol *msg, long argc, t_atom *argv) */
-	void			jamoma_node_observer_callback(TTPtr p_baton, TTValue& data);
 	
 	/** Callback used to notify Max object external attribute observer using private function
 		void function(t_object *x, t_symbol *msg, long argc, t_atom *argv) */

@@ -129,8 +129,29 @@ JamomaError jamoma_directory_dump_by_type(void)
 
 JamomaError	jamoma_directory_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, TTNodePtr *newTTNode, bool *newInstanceCreated)
 {
+	long			count = 0;
+	t_symbol		**attrnames = NULL;
+	long			i;
+	
 	if(jamoma_directory){
+		
+		// create a TTNode
 		jamoma_directory->TTNodeCreate(TT(OSCaddress->s_name), TT(type->s_name), obj, newTTNode, (TTBoolean *)newInstanceCreated);
+	
+		// !!!
+		// !!! get attributes names of the Max external (So the object have to set a getattrnames method)
+		// !!!
+		object_method(obj, gensym("getattrnames"), &count, &attrnames);
+		
+		for(i = 0; i < count; i++)
+			jamoma_node_attribute_add(*newTTNode, attrnames[i], obj);
+		
+		// free the memory allocated inside param_getattrnames
+		sysmem_freeptr(attrnames);
+		
+		// notify observers that the new have been created
+		jamoma_directory->notifyObservers(TT(OSCaddress->s_name), kAddressCreated);
+		
 		return JAMOMA_ERR_NONE;
 	}
 
@@ -140,6 +161,7 @@ JamomaError	jamoma_directory_register(t_symbol *OSCaddress, t_symbol *type, t_ob
 
 TTErr jamoma_directory_unregister(t_symbol *OSCaddress)
 {
+	TTErr err;
 	TTNodePtr node = NULL;
 
 	if(jamoma_directory){
@@ -149,8 +171,53 @@ TTErr jamoma_directory_unregister(t_symbol *OSCaddress)
 		post("jamoma_directory_unregister %s : create a directory before", OSCaddress->s_name);
 		return kTTErrGeneric;
 	}
+	
+	// Destroy the TTNode
+	err = TTObjectRelease(TTObjectHandle(&node));
+	
+	// note : No need to notify the destruction. It's done automatically
+	
+	return err;
+}
 
-	return TTObjectRelease(TTObjectHandle(&node));
+
+void jamoma_directory_observer_add(t_symbol *OSCaddress, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver)
+{
+	TTObjectPtr newObserver;
+	TTValuePtr	newBaton;
+	
+	if(jamoma_directory){
+		if(object && jps_method){
+			
+			newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+			TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
+			
+			newBaton = new TTValue(TTPtr(object));
+			newBaton->append(TTPtr(jps_method));
+			
+			newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
+			newObserver->setAttributeValue(TT("Function"), TTPtr(&jamoma_directory_observer_callback));
+			
+			jamoma_directory->addObserverForNotifications(TT(OSCaddress->s_name), *newObserver);
+			
+			(*returnedObserver) = newObserver;
+		}
+	}
+}
+
+void jamoma_directory_observer_remove(t_symbol *OSCaddress, TTObjectPtr oldObserver)
+{
+	if(jamoma_directory){
+		jamoma_directory->removeObserverForNotifications(TT(OSCaddress->s_name), *oldObserver);
+		TTObjectRelease(&oldObserver);
+	}
+}
+
+void jamoma_directory_observer_notify(t_symbol *OSCaddress, TTAddressNotificationFlag flag)
+{
+	if(jamoma_directory){
+		jamoma_directory->notifyObservers(TT(OSCaddress->s_name), flag);
+	}
 }
 
 JamomaError jamoma_directory_get_node(t_symbol *address, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
@@ -280,26 +347,6 @@ JamomaError	jamoma_node_attribute_list(TTNodePtr node, TTValue& attrlist)
 	return JAMOMA_ERR_NONE;
 }
 
-JamomaError	jamoma_node_attribute_add_all(TTNodePtr node, t_object *object)
-{
-	long			count = 0;
-	t_symbol		**attrnames = NULL;
-	long			i;
-	
-	// !!!
-	// !!! get attributes names of the Max external (So the object have to set a getattrnames method)
-	// !!!
-	object_method(object, gensym("getattrnames"), &count, &attrnames);
-	
-	for(i = 0; i < count; i++)
-		jamoma_node_attribute_add(node, attrnames[i], object);
-	
-	// free the memory allocated inside param_getattrnames
-	sysmem_freeptr(attrnames);
-	
-	return JAMOMA_ERR_NONE;
-}
-
 JamomaError	jamoma_node_attribute_add(TTNodePtr node, t_symbol *attrname, t_object *object)
 {
 	// Prepare a callback to get attribute
@@ -369,50 +416,6 @@ JamomaError jamoma_node_attribute_set(TTNodePtr node, t_symbol *attrname, long a
 	return JAMOMA_ERR_GENERIC;
 }
 
-
-// Method to deal with observers
-////////////////////////////////////////////////////
-
-void jamoma_node_observer_add(TTNodePtr node, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver)
-{
-	TTObjectPtr newObserver;
-	TTValuePtr	newBaton;
-	
-	if(object && jps_method){
-		
-		newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
-		
-		newBaton = new TTValue(TTPtr(object));
-		newBaton->append(TTPtr(jps_method));
-		
-		newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-		newObserver->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_observer_callback));
-		
-		node->registerObserverForNotifications(*newObserver);
-		
-		(*returnedObserver) = newObserver;
-	}
-}
-
-void jamoma_node_observer_notify(TTNodePtr node, t_symbol* mess, long flag)
-{
-	TTValue	data;
-	
-	// prepare data to send (mess, flag)
-	data.append(TT(mess->s_name));
-	data.append(TTUInt8(flag));			// TODO : create some flag type to notify node observers (0 : destruction, ... ???)
-	
-	// notify each observer of the node
-	node->sendNotification(TT("notify"), data);
-}
-
-void jamoma_node_observer_remove(TTNodePtr node, TTObjectPtr oldCallback)
-{
-	node->unregisterObserverForNotifications(*oldCallback);
-	TTObjectRelease(&oldCallback);
-}
-
 void jamoma_node_attribute_observer_add(TTNodePtr node, t_symbol *attrname, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver)
 {
 	TTAttributePtr anAttribute = NULL;
@@ -479,9 +482,32 @@ void jamoma_node_attribute_observer_remove(TTNodePtr node, t_symbol *attrname, T
 }
 
 
-// Callbacks called when a node or an attribute 
+// Callbacks called when the directory or a node 
 // have to notify his observers (life cycle and attribute observers)
 ///////////////////////////////////////////////////////////////////////
+
+void jamoma_directory_observer_callback(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr	b;
+	t_object	*x;
+	t_symbol	*jps_method;
+	TTSymbolPtr	oscAddress;
+	long		flag;
+	t_atom		a_flag[1];
+	
+	// unpack baton (a t_object* and the name of the method to call)
+	b = (TTValuePtr)p_baton;
+	b->get(0, (TTPtr*)&x);
+	b->get(1, (TTPtr*)&jps_method);
+	
+	// unpack data (flag)
+	data.get(0, (TTPtr*)&oscAddress);
+	data.get(1, flag);
+	
+	// send data using a class method of the object : void function(t_object *x, t_symbol *mess, long argc, t_atom *argv)
+	atom_setlong(&a_flag[0], flag);
+	object_method(x, jps_method, gensym((char*)oscAddress->getString().c_str()), 1, a_flag);
+}
 
 void jamoma_node_getter_callback(TTPtr p_baton, TTValue& data)
 {
@@ -547,29 +573,6 @@ void jamoma_node_setter_value_callback(TTPtr p_baton, TTValue& data)
 	
 	// send data to a parameter using the dispatched method
 	err = object_method_typed(x, jps_dispatched, argc, argv, NULL);
-}
-
-void jamoma_node_observer_callback(TTPtr p_baton, TTValue& data)
-{
-	TTValuePtr	b;
-	t_object	*x;
-	t_symbol	*jps_method;
-	TTSymbolPtr	mess;
-	long		flag;
-	t_atom		a_flag[1];
-	
-	// unpack baton (a t_object* and the name of the method to call)
-	b = (TTValuePtr)p_baton;
-	b->get(0, (TTPtr*)&x);
-	b->get(1, (TTPtr*)&jps_method);
-	
-	// unpack data (flag)
-	data.get(0, (TTPtr*)&mess);
-	data.get(1, flag);
-	
-	// send data using a class method of the object : void function(t_object *x, t_symbol *mess, long argc, t_atom *argv)
-	atom_setlong(&a_flag[0], flag);
-	object_method(x, jps_method, gensym((char*)mess->getString().c_str()), 1, a_flag);
 }
 
 void jamoma_node_attribute_observer_callback(TTPtr p_baton, TTValue& data)
