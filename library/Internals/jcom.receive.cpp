@@ -13,34 +13,37 @@
 /** Receive Object */
 typedef struct _receive{
 	t_object					ob;					///< REQUIRED: Our object
-	void						*outlet;			///< Need one for each outlet
-	t_symbol					*attr_name;			///< ATTRIBUTE: name
+	void						*address_out;		///< outlet used to output address of received data
+	void						*data_out;			///< outlet used to output received data
+	t_symbol					*attr_name;			///< ATTRIBUTE: the name of the jcom.receive (/address:attribute)
+	t_symbol					*_address;			///< the address to bind
+	t_symbol					*_attribute;			///< the attribute to bind (default : value)
+	bool						enable;				///< if false, received data won't be output without unregistered attribute observers (default true).
 	TTListPtr					lk_nodes;			///< a pointer to a selection of nodes of the tree
 	TTListPtr					lk_attr_observer;	///< a pointer to each created attribute observers
-	TTListPtr					lk_life_observer;	///< a pointer to each created life cycle observers
-	t_receive_obex_callback		callback;			///< Function pointer to call if we instantiated inside of another extern
-	void						*baton;				///< Baton to hand back to the callee of the callback when it is called
+	TTObjectPtr					life_observer;		///< a pointer to a life cycle observer
 } t_receive;
-
 
 // Prototypes
 void		*receive_new(t_symbol *s, long argc, t_atom *argv);
 void		receive_free(t_receive *x);
 void		receive_assist(t_receive *x, void *b, long msg, long arg, char *dst);
+
 t_max_err 	receive_setname(t_receive *x, void *attr, long argc, t_atom *argv);
-void 		receive_setcallback(t_receive *x, void *callback, void *arg);
-void 		receive_dispatch(t_receive *x, t_symbol *msg, long argc, t_atom *argv);
+
 void		receive_bind(t_receive *x);
 void 		receive_remove(t_receive *x);
-void		receive_node_callback(t_receive *x, t_symbol *mess, long argc, t_atom *argv);
+void		receive_directory_callback(t_receive *x, t_symbol *mess, long argc, t_atom *argv);
 void		receive_node_attribute_callback(t_receive *x, t_symbol *mess, long argc, t_atom *argv);
 
-// experimental method to test the getter mecanism on a node
+// ask the value to the node
 void		receive_get(t_receive *x);
+
+// enable/disable outputs without unregistered attributes observers
+void		receive_enable(t_receive *x, long e);
 
 // Globals
 static t_class		*s_receive_class;					// Required: Global pointer the jcom.receive class
-//t_object			*g_receivemaster_object = NULL;		// An instance of the jcom.receivemaster class
 
 
 /************************************************************************************/
@@ -61,15 +64,16 @@ void receive_initclass()
 					0);
 
 	// Make methods accessible for our class: 
-	class_addmethod(c, (method)receive_dispatch,		"dispatch",			A_CANT, 0);
-	class_addmethod(c, (method)receive_node_callback,	"receive_node_attribute_callback",	A_CANT, 0);
+	class_addmethod(c, (method)receive_directory_callback,		"receive_directory_callback",		A_CANT, 0);
 	class_addmethod(c, (method)receive_node_attribute_callback,	"receive_node_attribute_callback",	A_CANT, 0);
-	class_addmethod(c, (method)receive_setcallback,		"setcallback",		A_CANT, 0);
-    class_addmethod(c, (method)receive_assist,			"assist", 			A_CANT, 0);
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 			A_CANT, 0);
+    class_addmethod(c, (method)receive_assist,					"assist",							A_CANT, 0);
+    class_addmethod(c, (method)object_obex_dumpout,				"dumpout",							A_CANT, 0);
 	
-	// experimental method to test the getter mecanism on a node
-	class_addmethod(c, (method)receive_get,				"bang", 			0);
+	// ask the value to the node
+	class_addmethod(c, (method)receive_get,						"bang",								0);
+	
+	// enable/disable outputs without unregistered attributes observers
+	class_addmethod(c, (method)receive_enable,					"int",								A_LONG,	0);
 	
 	// ATTRIBUTE: name
 	attr = attr_offset_new("name", _sym_symbol, attrflags,
@@ -92,18 +96,18 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 	t_receive	*x = (t_receive *)object_alloc(s_receive_class);
 
 	if(x){
-		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x, NULL));
-		x->outlet = outlet_new(x, NULL);
-
-		//if(!g_receivemaster_object)
-		//	g_receivemaster_object = (t_object *)object_new_typed(CLASS_NOBOX, SymbolGen("jcom.receivemaster"), 0, NULL);
-
-		x->callback = NULL;
+		x->address_out = outlet_new(x,NULL);		// anything outlet
+		x->data_out = outlet_new(x, NULL);			// anything outlet
+		
 		x->attr_name = NULL;
-		x->lk_nodes = new TTList();
-		x->lk_attr_observer = new TTList();
-		x->lk_life_observer = new TTList();
-		// attr_args_process(x, argc, argv);					// handle attribute args				
+		x->_address = NULL;
+		x->_attribute = NULL;
+		x->enable = true;
+		
+		x->lk_nodes = NULL;
+		x->lk_attr_observer = NULL;
+		
+		//attr_args_process(x, argc, argv);			// handle attribute args				
 
 		// If no name was specified as an attribute
 		if(x->attr_name == NULL){
@@ -111,6 +115,7 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 				x->attr_name = atom_getsym(argv);
 			else
 				x->attr_name = SymbolGen("jcom.receive no arg specified");
+			
 			receive_bind(x);
 		}
 	}
@@ -140,7 +145,6 @@ void receive_assist(t_receive *x, void *b, long msg, long arg, char *dst)
 	}
 }
 
-
 // ATTRIBUTE: name
 t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 {
@@ -149,67 +153,75 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 	if(x->attr_name != arg){
 		receive_remove(x);
 		x->attr_name = arg;
-		x->lk_nodes = new TTList();
-		x->lk_attr_observer = new TTList();
-		x->lk_life_observer = new TTList();
-		receive_bind(x);		
+		receive_bind(x);
 	}
 	return MAX_ERR_NONE;
 }
 
 void receive_bind(t_receive *x)
 {
-	TTObjectPtr newLifeCallback;
+	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_attribute, oscAddress_noAttribute;
 	TTObjectPtr newAttrCallback;
 	TTList		lk_selection;
 	TTNodePtr	p_node;
 	TTErr		err = kTTErrGeneric;
 	
-	//if(!NOGOOD(g_receivemaster_object))
-	//	object_method(g_receivemaster_object, jps_add, x->attr_name, x);
+	x->lk_nodes = new TTList();
+	x->lk_attr_observer = new TTList();
 	
-	// if there isn't selection
-	if(x->lk_nodes->isEmpty()){
-		
-		// look for the node(s) into the directory
-		if(x->attr_name->s_name[0] == C_SEPARATOR){
-			if(jamoma_directory){
-				err = jamoma_directory->Lookup(TT(x->attr_name->s_name), lk_selection, &p_node);
-				x->lk_nodes->merge(lk_selection);
+	if(x->attr_name->s_name[0] == C_SEPARATOR){
+		if(jamoma_directory){
+			
+			// 0. split the name in address part and attribute
+			splitOSCAddress(TT(x->attr_name->s_name), &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_attribute);
+			mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
+			x->_address = SymbolGen((char*)oscAddress_noAttribute->getCString());
+			
+			if(oscAddress_attribute != NO_ATTRIBUTE)
+				x->_attribute = SymbolGen((char*)oscAddress_attribute->getCString());
+			else
+				x->_attribute = jps_value;
+			
+			// observe for node creation or destruction
+			if((x->_attribute == gensym("created")) || (x->_attribute == gensym("destroyed")))
+			{
+				jamoma_directory_observer_add(x->_address, (t_object*)x, gensym("receive_directory_callback"), &x->life_observer);
 			}
-		
-			if(err != kTTErrNone)
-				object_error((t_object*)x,"jcom.receive : %s doesn't exist", x->attr_name->s_name);
-		}
-	}
-	
-	if(!x->lk_nodes->isEmpty()){
-		
-		// for each node of the selection
-		for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
-			
-			// get a node from the selection
-			x->lk_nodes->current().get(0,(TTPtr*)&p_node);
-			
-			// prepare the callback mecanism to
-			// be notified about changing value attribute
-			// TODO : observe other attribute (default value)
-			jamoma_node_attribute_observer_add(p_node, jps_value, (t_object*)x, gensym("receive_node_attribute_callback"), &newAttrCallback);
-			
-			// prepare the callback mecanism to
-			// be notified about the destruction of the node
-			jamoma_node_observer_add(p_node, (t_object*)x, gensym("receive_node_callback"), &newLifeCallback);
-			
-			x->lk_attr_observer->append(newAttrCallback);
-			x->lk_life_observer->append(newLifeCallback);
+			// observe for node attribute changes
+			else
+			{
+				// 1. look for node(s) into the directory
+				err = jamoma_directory->Lookup(TT(x->_address->s_name), lk_selection, &p_node);
+				
+				// 2. start attribute observation on each existing node of the selection
+				if(!err){
+					
+					x->lk_nodes->merge(lk_selection);
+					
+					for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next())
+					{
+						// get a node from the selection
+						x->lk_nodes->current().get(0,(TTPtr*)&p_node);
+						
+						// prepare the callback mecanism to
+						// be notified about changing value attribute
+						jamoma_node_attribute_observer_add(p_node, x->_attribute, (t_object*)x, gensym("receive_node_attribute_callback"), &newAttrCallback);
+						x->lk_attr_observer->append(new TTValue((TTPtr)newAttrCallback));
+					}
+				}
+				
+				// 3. observe any creation or destruction below the attr_name address
+				jamoma_directory_observer_add(x->_address, (t_object*)x, gensym("receive_directory_callback"), &x->life_observer);
+			}
 		}
 	}
 }
 
-// experimental method to test the getter mecanism on a node
+// ask the value to the node
 void receive_get(t_receive *x)
 {
 	TTNodePtr	p_node;
+	TTString	fullAddress;
 	long		argc;
 	t_atom		*argv;
 	
@@ -222,59 +234,107 @@ void receive_get(t_receive *x)
 			x->lk_nodes->current().get(0,(TTPtr*)&p_node);
 			
 			// get the value of the node
-			jamoma_node_attribute_get(p_node, jps_value, &argc, &argv);
+			jamoma_node_attribute_get(p_node, x->_attribute, &argc, &argv);
 			
-			// get the OSCAddress of the node (in case we use * inside the x->attrname)
-			// and output data
-			outlet_anything(x->outlet, jamoma_node_OSC_address(p_node), argc, argv);
+			// output the OSCAddress of the node (in case we use * inside the x->attrname)
+			fullAddress = jamoma_node_OSC_address(p_node)->s_name;
+			if(x->_attribute != jps_value){
+				fullAddress += C_PROPERTY;
+				fullAddress += x->_attribute->s_name;
+			}
+			outlet_anything(x->address_out, gensym((char*)fullAddress.data()), 0, NULL);
+			
+			// then output data
+			outlet_anything(x->data_out, _sym_nothing, argc, argv);
 			
 			// free memory allocated inside the get property method
-			free(argv);
+			sysmem_freeptr(argv);
 		}
 	}
 }
 
-// This method his called by each observer attached to a node.
-// Read the TTNode file to get info about life cycle observers mecanism
-void receive_node_callback(t_receive *x, t_symbol *mess, long argc, t_atom *argv)
+// enable/disable outputs without unregistered attributes observers
+void receive_enable(t_receive *x, long e)
 {
-	long flag = atom_getlong(&argv[0]);
-	
-	post("node destruction : %s %d", mess->s_name, flag);
-	
-	/*TTValue	c(observingObject);
-	TTValue	v;
-	TTErr	err;
-	
-	err = x->lk_nodes->findEquals(c, v);
-	 */
+	x->enable = e > 0;
 }
 
-// This method his called by each observer attached to an attibute of the node.
+// This method his called the jcom.receive observer attached to the directory.
+// Read the TTNodeDirectory file to get info about life cycle observers mecanism
+void receive_directory_callback(t_receive *x, t_symbol *oscAddress, long argc, t_atom *argv)
+{
+	TTObjectPtr newAttrCallback;
+	TTList		lk_selection;
+	TTNodePtr	p_node;
+	TTErr		err = kTTErrGeneric;
+	long		flag = atom_getlong(&argv[0]);
+	
+	if(flag == kAddressCreated){
+		
+		//post("jcom.receive %s observe a node creation at %s", x->attr_name->s_name, oscAddress->s_name);
+		
+		// check the oscAddress into the directory to be sure that this node exist
+		if(oscAddress->s_name[0] == C_SEPARATOR)
+			if(jamoma_directory)
+				err = jamoma_directory->getTTNodeForOSC(TT(oscAddress->s_name), &p_node);
+		
+		if(!err){
+			
+			if(x->_attribute == gensym("created"))
+			{
+				// output the OSCAddress of the new node
+				outlet_anything(x->address_out, oscAddress, 0, NULL);
+			}
+			else
+			{
+				// add the node to the selection
+				x->lk_nodes->append(new TTValue((TTPtr)p_node));
+				
+				// start attribute observation on the node
+				jamoma_node_attribute_observer_add(p_node, x->_attribute, (t_object*)x, gensym("receive_node_attribute_callback"), &newAttrCallback);
+				x->lk_attr_observer->append(new TTValue((TTPtr)newAttrCallback));
+			}
+		}
+	}
+	else{
+		
+		//post("jcom.receive %s observe a node destruction at %s", x->attr_name->s_name, oscAddress->s_name);
+		
+		if(x->_attribute == gensym("destroyed"))
+		{
+			// output the OSCAddress of the old node
+			outlet_anything(x->address_out, oscAddress, 0, NULL);
+		}
+		else
+		{
+			// remove the node from the selection
+			x->lk_nodes->remove(p_node);
+		}
+	}
+}
+
+// This method his called by each observer attached to an attribute of the node.
 // Read the TTNode file to get info about attribute observers mecanism
 void receive_node_attribute_callback(t_receive *x, t_symbol *mess, long argc, t_atom *argv)
 {	
-	//object_post((t_object *)x, "jcom.receive : %s", mess->s_name);
-	
-	if(!x->callback){
-		//object_post((t_object *)x, "external : %d", x);
-		outlet_anything(x->outlet, (t_symbol *)mess, argc, argv);
+	if(x->enable){
+		// output the OSCAddress of the node (in case we use * inside the x->attrname)
+		outlet_anything(x->address_out, (t_symbol *)mess, 0, NULL);
+		
+		// then output data
+		outlet_anything(x->data_out, _sym_nothing, argc, argv);
 	}
-	else
-		;//object_post((t_object *)x, "internal : %d", x);
 }
 
 void receive_remove(t_receive *x)
 {
 	TTObjectPtr oldAttrCallback;
-	TTObjectPtr oldLifeCallback;
 	TTNodePtr p_node;
 	
 	// if there is a selection, remove Observers
 	if(x->lk_nodes){
 		
 		x->lk_attr_observer->begin();
-		x->lk_life_observer->begin();
 		for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
 			
 			// get a node of the selection
@@ -282,40 +342,16 @@ void receive_remove(t_receive *x)
 			
 			// get the observer relative to this node
 			x->lk_attr_observer->current().get(0,(TTPtr*)&oldAttrCallback);
-			x->lk_life_observer->current().get(0,(TTPtr*)&oldLifeCallback);
 
 			// remove all the observers
-			// TODO : remove the other attribute observers
-			jamoma_node_attribute_observer_remove(p_node, jps_value, oldAttrCallback);
-			jamoma_node_observer_remove(p_node, oldLifeCallback);
+			jamoma_node_attribute_observer_remove(p_node, x->_attribute, oldAttrCallback);
 
 			x->lk_attr_observer->next();
-			x->lk_life_observer->next();
 		}
 	}
 	
 	delete x->lk_nodes;
 	delete x->lk_attr_observer;
-	delete x->lk_life_observer;
-
-	//object_method(g_receivemaster_object, jps_remove, x->attr_name, x);
-}
-
-// This method is called by jcom.receivemaster
-// In reponse, we figure out if we should send the data to our outlet
-void receive_dispatch(t_receive *x, t_symbol *msg, long argc, t_atom *argv)
-{
-	if(x->callback)
-		x->callback(x->baton,  msg, argc, argv);	// call the registered callback on the object that we're instantiated inside of
-	else
-		outlet_anything(x->outlet, msg, argc, argv);
-}
-
-//	When we are inside of another external, we need a way to transmit messages
-//	to it. This function sets up another callback, which can call a function 
-//	in that external to transmit the message.
-void receive_setcallback(t_receive *x, void *callback, void *arg)
-{
-	x->callback = (t_receive_obex_callback)callback;
-	x->baton = arg;
+	
+	jamoma_directory_observer_remove(x->attr_name, x->life_observer);
 }
