@@ -43,7 +43,7 @@ void setup_op0x3d(void)
 {
 	TTMulticoreInit();	
 	
-	sOpClass = class_new(gensym("op="), (t_newmethod)OpNew, (t_method)OpFree, sizeof(Op), 0, A_GIMME, 0);
+	sOpClass = class_new(gensym("jcom.op="), (t_newmethod)OpNew, (t_method)OpFree, sizeof(Op), 0, A_GIMME, 0);
 	
 	class_addmethod(sOpClass, (t_method)OpReset,		gensym("multicore.reset"),		A_CANT, 0);
 	class_addmethod(sOpClass, (t_method)OpSetup,		gensym("multicore.setup"),		A_CANT, 0);
@@ -51,7 +51,7 @@ void setup_op0x3d(void)
 	class_addmethod(sOpClass, (t_method)OpSetOperator,	gensym("operator"),				A_SYMBOL, 0);
 	class_addmethod(sOpClass, (t_method)OpSetOperand,	gensym("operand"),				A_FLOAT, 0);
 		
-	class_sethelpsymbol(sOpClass, gensym("help-op=.pd"));
+	class_sethelpsymbol(sOpClass, gensym("help-jcom.op=.pd"));
 }
 
 

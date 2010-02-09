@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2237363011091F38004950CF /* JamomaMulticore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2237362F11091F38004950CF /* JamomaMulticore.framework */; };
-		2237363211091F4A004950CF /* op.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2237363111091F4A004950CF /* op.cpp */; };
+		2275F7921109309F00222301 /* pack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2275F7911109309F00222301 /* pack.cpp */; };
 		22C9F4F2103256A80062F7B8 /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F4F1103256A80062F7B8 /* JamomaFoundation.framework */; };
 		22DEC1BF0E1C8A0600F4ADDF /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DEC1BE0E1C8A0600F4ADDF /* JamomaDSP.framework */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
@@ -17,11 +17,11 @@
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		2237362F11091F38004950CF /* JamomaMulticore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaMulticore.framework; path = ../../../library/build/UninstalledProducts/JamomaMulticore.framework; sourceTree = SOURCE_ROOT; };
-		2237363111091F4A004950CF /* op.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = op.cpp; sourceTree = "<group>"; };
 		2237363311091F54004950CF /* PureMulticore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PureMulticore.h; path = ../PureMulticore.h; sourceTree = SOURCE_ROOT; };
+		2275F7911109309F00222301 /* pack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pack.cpp; sourceTree = "<group>"; };
 		22C9F4F1103256A80062F7B8 /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
 		22DEC1BE0E1C8A0600F4ADDF /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
-		D2AAC09D05546B4700DB518D /* op=.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "op=.pd_darwin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2AAC09D05546B4700DB518D /* jcom.pack=.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "jcom.pack=.pd_darwin"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +42,7 @@
 		034768DDFF38A45A11DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D2AAC09D05546B4700DB518D /* op=.pd_darwin */,
+				D2AAC09D05546B4700DB518D /* jcom.pack=.pd_darwin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -71,7 +71,7 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				2237363111091F4A004950CF /* op.cpp */,
+				2275F7911109309F00222301 /* pack.cpp */,
 				2237363311091F54004950CF /* PureMulticore.h */,
 			);
 			name = Source;
@@ -104,7 +104,7 @@
 			);
 			name = "pd-external";
 			productName = "ttlimiter~";
-			productReference = D2AAC09D05546B4700DB518D /* op=.pd_darwin */;
+			productReference = D2AAC09D05546B4700DB518D /* jcom.pack=.pd_darwin */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -112,7 +112,7 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "op" */;
+			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "pack" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
 			mainGroup = 0867D691FE84028FC02AAC07 /* ttlimiter~ */;
@@ -130,7 +130,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2237363211091F4A004950CF /* op.cpp in Sources */,
+				2275F7921109309F00222301 /* pack.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,7 +177,7 @@
 					"-undefined",
 					suppress,
 				);
-				PRODUCT_NAME = "$(PROJECT_NAME)=";
+				PRODUCT_NAME = "jcom.pack=";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../../DSP/library/includes\" \"$(SRCROOT)/../../../../Foundation/library/includes\" \"$(SRCROOT)/..\" \"$(SRCROOT)/../../../library/includes\"";
 			};
 			name = Debug;
@@ -219,7 +219,7 @@
 					"-undefined",
 					suppress,
 				);
-				PRODUCT_NAME = "$(PROJECT_NAME)=";
+				PRODUCT_NAME = "jcom.pack=";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../../DSP/library/includes\" \"$(SRCROOT)/../../../../Foundation/library/includes\" \"$(SRCROOT)/..\" \"$(SRCROOT)/../../../library/includes\"";
 			};
 			name = Release;
@@ -262,7 +262,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "op" */ = {
+		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "pack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB916508733D950010E9CD /* Debug */,
