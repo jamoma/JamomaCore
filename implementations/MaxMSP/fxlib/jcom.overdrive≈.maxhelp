@@ -161,7 +161,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 89.0, 80.0, 379.0, 19.0 ],
-					"text" : "jcom.oscil≈ @waveform sawtooth @interpolation linear @frequency 220."
+					"text" : "jcom.wavetable≈ @waveform sawtooth @interpolation linear @frequency 220."
 				}
 
 			}

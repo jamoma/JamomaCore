@@ -96,7 +96,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 135.0, 215.0, 371.0, 19.0 ],
-					"text" : "jcom.oscil≈ @frequency 220. @waveform triangle @interpolation linear"
+					"text" : "jcom.wavetable≈ @frequency 220. @waveform triangle @interpolation linear"
 				}
 
 			}

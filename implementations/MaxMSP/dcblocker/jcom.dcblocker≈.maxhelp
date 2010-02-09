@@ -145,7 +145,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 90.0, 111.0, 204.0, 31.0 ],
-					"text" : "jcom.oscil≈ @waveform sine @interpolation linear @frequency 220."
+					"text" : "jcom.wavetable≈ @waveform sine @interpolation linear @frequency 220."
 				}
 
 			}

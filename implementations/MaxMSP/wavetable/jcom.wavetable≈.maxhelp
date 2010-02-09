@@ -20,7 +20,7 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.oscil≈", "@description", "oscillator with multicore output" ],
+					"args" : [ "@name", "jcom.wavetable≈", "@description", "wavetablelator with multicore output" ],
 					"bgmode" : 1,
 					"id" : "obj-3",
 					"maxclass" : "bpatcher",
@@ -248,7 +248,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 120.0, 215.0, 150.0, 31.0 ],
-					"text" : "oscil≈ produces a single-channel signal."
+					"text" : "wavetable≈ produces a single-channel signal."
 				}
 
 			}
@@ -305,7 +305,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 110.0, 170.0, 208.0, 31.0 ],
-					"text" : "jcom.oscil≈ @waveform sine @interpolation linear @frequency 220."
+					"text" : "jcom.wavetable≈ @waveform sine @interpolation linear @frequency 220."
 				}
 
 			}
