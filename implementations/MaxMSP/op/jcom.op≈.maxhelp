@@ -181,7 +181,7 @@
 					"numoutlets" : 5,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "" ],
 					"patching_rect" : [ 255.0, 330.0, 258.0, 19.0 ],
-					"text" : "jcom.out≈ 4"
+					"text" : "jcom.unpack≈ 4"
 				}
 
 			}
@@ -209,7 +209,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 255.0, 205.0, 229.0, 19.0 ],
-					"text" : "jcom.in≈ 4"
+					"text" : "jcom.pack≈ 4"
 				}
 
 			}

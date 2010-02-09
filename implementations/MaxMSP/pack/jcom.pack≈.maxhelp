@@ -20,7 +20,7 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.in≈", "@description", "MSP signals to multicore" ],
+					"args" : [ "@name", "jcom.pack≈", "@description", "MSP signals to multicore" ],
 					"bgmode" : 1,
 					"id" : "obj-44",
 					"maxclass" : "bpatcher",
@@ -167,7 +167,7 @@
 					"numoutlets" : 5,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "" ],
 					"patching_rect" : [ 255.0, 340.0, 259.0, 19.0 ],
-					"text" : "jcom.out≈ 4"
+					"text" : "jcom.unpack≈ 4"
 				}
 
 			}
@@ -181,7 +181,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 255.0, 215.0, 229.5, 19.0 ],
-					"text" : "jcom.in≈ 4"
+					"text" : "jcom.pack≈ 4"
 				}
 
 			}

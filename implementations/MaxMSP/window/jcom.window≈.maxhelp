@@ -200,7 +200,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "" ],
 					"patching_rect" : [ 85.0, 250.0, 73.0, 19.0 ],
-					"text" : "jcom.out≈ 1"
+					"text" : "jcom.unpack≈ 1"
 				}
 
 			}
@@ -229,7 +229,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 85.0, 130.0, 66.0, 19.0 ],
-					"text" : "jcom.in≈ 1"
+					"text" : "jcom.pack≈ 1"
 				}
 
 			}

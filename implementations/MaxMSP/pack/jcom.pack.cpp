@@ -47,7 +47,7 @@ int main(void)
 	TTMulticoreInit();	
 	common_symbols_init();
 	
-	c = class_new("jcom.in≈", (method)InNew, (method)InFree, sizeof(In), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.pack≈", (method)InNew, (method)InFree, sizeof(In), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)InReset,					"multicore.reset",	A_CANT, 0);
 	class_addmethod(c, (method)InSetup,					"multicore.setup",	A_CANT, 0);

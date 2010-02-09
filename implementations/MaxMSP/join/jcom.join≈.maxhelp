@@ -41,7 +41,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 120.0, 495.0, 64.0, 19.0 ],
-					"text" : "jcom.in≈ 2"
+					"text" : "jcom.pack≈ 2"
 				}
 
 			}
@@ -55,7 +55,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 300.0, 495.0, 64.0, 19.0 ],
-					"text" : "jcom.in≈ 2"
+					"text" : "jcom.pack≈ 2"
 				}
 
 			}
@@ -237,7 +237,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 210.0, 495.0, 64.0, 19.0 ],
-					"text" : "jcom.in≈ 2"
+					"text" : "jcom.pack≈ 2"
 				}
 
 			}
@@ -367,7 +367,7 @@
 					"numoutlets" : 9,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "" ],
 					"patching_rect" : [ 30.0, 585.0, 499.0, 19.0 ],
-					"text" : "jcom.out≈ 8"
+					"text" : "jcom.unpack≈ 8"
 				}
 
 			}
@@ -381,7 +381,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 30.0, 495.0, 64.0, 19.0 ],
-					"text" : "jcom.in≈ 2"
+					"text" : "jcom.pack≈ 2"
 				}
 
 			}
@@ -436,7 +436,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 1115.0, 475.0, 156.0, 19.0 ],
-					"text" : "jcom.in≈ 3"
+					"text" : "jcom.pack≈ 3"
 				}
 
 			}
@@ -687,7 +687,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 875.0, 475.0, 64.0, 19.0 ],
-					"text" : "jcom.in≈ 2"
+					"text" : "jcom.pack≈ 2"
 				}
 
 			}
@@ -817,7 +817,7 @@
 					"numoutlets" : 10,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "" ],
 					"patching_rect" : [ 580.0, 600.0, 559.5, 19.0 ],
-					"text" : "jcom.out≈ 9"
+					"text" : "jcom.unpack≈ 9"
 				}
 
 			}
@@ -831,7 +831,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 580.0, 475.0, 229.5, 19.0 ],
-					"text" : "jcom.in≈ 4"
+					"text" : "jcom.pack≈ 4"
 				}
 
 			}
@@ -1097,7 +1097,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 593.0, 200.0, 64.0, 19.0 ],
-					"text" : "jcom.in≈ 2"
+					"text" : "jcom.pack≈ 2"
 				}
 
 			}
@@ -1237,7 +1237,7 @@
 					"numoutlets" : 9,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "" ],
 					"patching_rect" : [ 298.0, 325.0, 499.0, 19.0 ],
-					"text" : "jcom.out≈ 8"
+					"text" : "jcom.unpack≈ 8"
 				}
 
 			}
@@ -1251,7 +1251,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 298.0, 200.0, 229.5, 19.0 ],
-					"text" : "jcom.in≈ 4"
+					"text" : "jcom.pack≈ 4"
 				}
 
 			}

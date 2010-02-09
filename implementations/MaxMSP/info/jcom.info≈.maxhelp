@@ -101,7 +101,7 @@
 					"numoutlets" : 5,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "" ],
 					"patching_rect" : [ 55.0, 400.0, 259.0, 19.0 ],
-					"text" : "jcom.out≈ 4"
+					"text" : "jcom.unpack≈ 4"
 				}
 
 			}
@@ -171,7 +171,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 35.0, 150.0, 229.5, 19.0 ],
-					"text" : "jcom.in≈ 4"
+					"text" : "jcom.pack≈ 4"
 				}
 
 			}
@@ -567,7 +567,7 @@
 					"numoutlets" : 5,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "" ],
 					"patching_rect" : [ 345.0, 400.0, 259.0, 19.0 ],
-					"text" : "jcom.out≈ 4"
+					"text" : "jcom.unpack≈ 4"
 				}
 
 			}
@@ -595,7 +595,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 345.0, 150.0, 229.5, 19.0 ],
-					"text" : "jcom.in≈ 4"
+					"text" : "jcom.pack≈ 4"
 				}
 
 			}

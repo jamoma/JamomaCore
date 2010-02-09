@@ -150,7 +150,7 @@
 									"patching_rect" : [ 50.0, 100.0, 451.0, 19.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 32.0, 341.0, 451.0, 19.0 ],
-									"text" : "jcom.out≈ 32"
+									"text" : "jcom.unpack≈ 32"
 								}
 
 							}
@@ -372,7 +372,7 @@
 									"patching_rect" : [ 50.0, 100.0, 549.0, 19.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 32.0, 341.0, 451.0, 19.0 ],
-									"text" : "jcom.out≈ 32"
+									"text" : "jcom.unpack≈ 32"
 								}
 
 							}
@@ -584,7 +584,7 @@
 					"numoutlets" : 33,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "" ],
 					"patching_rect" : [ 126.0, 152.0, 451.0, 19.0 ],
-					"text" : "jcom.out≈ 32"
+					"text" : "jcom.unpack≈ 32"
 				}
 
 			}
@@ -598,7 +598,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 126.0, 94.0, 437.5, 19.0 ],
-					"text" : "jcom.in≈ 32"
+					"text" : "jcom.pack≈ 32"
 				}
 
 			}
