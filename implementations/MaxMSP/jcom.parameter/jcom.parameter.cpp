@@ -903,8 +903,13 @@ void param_makereceive(void* z)
 		strcat(osc, x->common.attr_name->s_name);
 		
 		atom_setsym(&a, gensym(osc));
-		x->receive = (t_object*)object_new_typed(_sym_box, jps_jcom_receive, 1, &a);
-		object_method(x->receive, jps_setcallback, &param_receive_callback, x);
+		
+		// !!!
+		// to -- With the NodeLib we don't need to build a receive anymore
+		// !!!
+		
+		//x->receive = (t_object*)object_new_typed(_sym_box, jps_jcom_receive, 1, &a);
+		//object_method(x->receive, jps_setcallback, &param_receive_callback, x);
 	}
 	else
 		defer_low(x, (method)param_makereceive, 0, 0, 0);
