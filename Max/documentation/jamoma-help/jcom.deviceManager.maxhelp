@@ -1121,7 +1121,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 217.0, 553.0, 229.0, 75.0 ],
+					"patching_rect" : [ 165.0, 552.0, 229.0, 75.0 ],
 					"text" : "\"Jamoma\" is the name of the application over the network. This name is used for example with the Minuit plugin to sign any requests or answers coming from Jamoma"
 				}
 
@@ -1250,8 +1250,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 17.0, 579.0, 197.0, 23.0 ],
-					"text" : "jcom.deviceManager Jamoma"
+					"patching_rect" : [ 17.0, 579.0, 140.0, 23.0 ],
+					"text" : "jcom.deviceManager"
 				}
 
 			}

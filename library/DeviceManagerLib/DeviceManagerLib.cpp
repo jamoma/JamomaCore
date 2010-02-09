@@ -82,8 +82,10 @@ JamomaError jamoma_devmanager_scan()
 
 JamomaError jamoma_devmanager_free()
 {
-	jamoma_devmanager->~Controller();
-	jamoma_devmanager = NULL;
+	if(jamoma_devmanager){
+		jamoma_devmanager->~Controller();
+		jamoma_devmanager = NULL;
+	}
 	return JAMOMA_ERR_NONE;
 }
 
