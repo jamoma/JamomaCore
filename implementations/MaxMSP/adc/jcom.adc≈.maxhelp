@@ -29,7 +29,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 15.0, 175.0, 95.0, 104.0 ],
-					"presentation_rect" : [ 17.0, 174.0, 0.0, 0.0 ],
 					"text" : "It might also be important to make sure you are using the same vector sizes for MSP and adc≈ in this case too..."
 				}
 
@@ -44,8 +43,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 15.0, 100.0, 88.0, 67.0 ],
-					"presentation_rect" : [ 17.0, 98.0, 0.0, 0.0 ],
+					"patching_rect" : [ 15.0, 100.0, 91.0, 67.0 ],
 					"text" : "It might be important to start the adc≈ prior to starting the dac... "
 				}
 
@@ -181,8 +179,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "" ],
-					"patching_rect" : [ 110.0, 230.0, 121.0, 19.0 ],
-					"text" : "jcom.out≈ 1 @gain 0."
+					"patching_rect" : [ 110.0, 230.0, 141.0, 19.0 ],
+					"text" : "jcom.unpack≈ 1 @gain 0."
 				}
 
 			}
