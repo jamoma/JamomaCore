@@ -80,6 +80,49 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"id" : "obj-4",
+									"linecount" : 3,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 273.0, 331.0, 247.0, 48.0 ],
+									"text" : "or to observe the life cycle of any node below an address (here we observe all the Jamoma namespace)"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-2",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 21.0, 356.0, 147.0, 18.0 ],
+									"text" : "Virage?listen /:life disable"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-1",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 22.0, 335.0, 145.0, 18.0 ],
+									"text" : "Virage?listen /:life enable"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
 									"id" : "obj-22",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -143,7 +186,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 276.0, 327.0, 247.0, 34.0 ],
+									"patching_rect" : [ 274.0, 285.0, 247.0, 34.0 ],
 									"text" : "The ?listen request ask a parameter to send his value attribute each it changed to Virage"
 								}
 
@@ -202,7 +245,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 22.0, 347.0, 247.0, 18.0 ],
+									"patching_rect" : [ 22.0, 309.0, 247.0, 18.0 ],
 									"text" : "Virage?listen /out.B/audio/gain:value disable"
 								}
 
@@ -230,7 +273,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 22.0, 321.0, 245.0, 18.0 ],
+									"patching_rect" : [ 22.0, 288.0, 245.0, 18.0 ],
 									"text" : "Virage?listen /out.B/audio/gain:value enable"
 								}
 
@@ -410,7 +453,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 6.0, 383.0, 140.0, 20.0 ],
+									"patching_rect" : [ 6.0, 395.0, 140.0, 20.0 ],
 									"text" : "udpsend 127.0.0.1 9998"
 								}
 
@@ -461,6 +504,24 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
+									"destination" : [ "obj-14", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 31.5, 354.0, 15.5, 354.0 ],
+									"source" : [ "obj-1", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-14", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 30.5, 376.5, 15.5, 376.5 ],
+									"source" : [ "obj-2", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-21", 1 ],
 									"hidden" : 0,
 									"midpoints" : [ 440.5, 462.0, 410.5, 462.0 ],
@@ -508,7 +569,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-14", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 31.5, 369.0, 15.5, 369.0 ],
+									"midpoints" : [ 31.5, 329.0, 15.5, 329.0 ],
 									"source" : [ "obj-35", 0 ]
 								}
 
@@ -625,7 +686,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-14", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 31.5, 342.0, 15.5, 342.0 ],
+									"midpoints" : [ 31.5, 307.0, 15.5, 307.0 ],
 									"source" : [ "obj-50", 0 ]
 								}
 

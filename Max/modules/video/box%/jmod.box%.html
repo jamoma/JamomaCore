@@ -14,7 +14,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	<img src="../../../documentation/graphics/jmodular.icon.png" width="128" height="128">
 	<h1> jmod.box% </h1>
 	<h2> Display of various types of bounding boxes based on filtered image or motion image. </h2>
-	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
+	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../../../documentation/html/modules.html">Index of Modules</a> | <a href="../../../documentation/html/credits.html">Credits</a> | <a href="http://pledgie.com/campaigns/5615">Donate</a> | <a href="http://www.jamoma.org/">Jamoma.org</a></h6>
 	</div>
 
 	<h3> Configuration </h3>
@@ -35,39 +35,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td> /dataspace </td>
 			<td> /repetitions/allow </td>
 			<td> /description </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> /centroid/size </td>
-			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 20 </td>
-			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Size of the centre of mass. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> /contraction/window/on </td>
-			<td class ="instructionType"> boolean </td>
-			<td class ="instructionRangeBounds"> 0 1 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Turn display of contraction box on or off. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> /contraction/window/size </td>
-			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 0 20 </td>
-			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Size of the contraction window border. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> centroid/color </td>
@@ -101,6 +68,17 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Turn on automatic size adjustment of centre of mass - based on quantity of motion. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> centroid/size </td>
+			<td class ="instructionType"> integer </td>
+			<td class ="instructionRangeBounds"> 1 20 </td>
+			<td class ="instructionRangeClipmode"> low </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Size of the centre of mass. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> contraction/color </td>
@@ -156,6 +134,28 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> The level of smoothing for contraction box. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> contraction/window/on </td>
+			<td class ="instructionType"> boolean </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Turn display of contraction box on or off. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> contraction/window/size </td>
+			<td class ="instructionType"> integer </td>
+			<td class ="instructionRangeBounds"> 0 20 </td>
+			<td class ="instructionRangeClipmode"> low </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Size of the contraction window border. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> data/smoothing </td>
@@ -297,8 +297,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> contraction/max/reset </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>

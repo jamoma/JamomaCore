@@ -43,6 +43,8 @@
 #define NAMESPACE_ATTR_COMMENT "comment"		//< 
 #define NAMESPACE_NO_VALUE "NO VALUE"			//<
 
+#define NAMESPACE_ATTR_LIFE "life"				//< used to observe the creation or the destruction of node below an address
+
 /*********************************************************************
  TEMPORARY DEFINE USED TO ALLOW THE TIPITOUCH TO SPEAK WITH THE CONTROLLER
  *********************************************************************/
@@ -62,6 +64,13 @@ typedef Address* AddressPtr;										// !!! DO NOT INCLUDE THE DEVICE NAME AS A
 
 typedef std::string Value;											// any kind of data : bool, int, float, array, list, enum, ...
 typedef Value* ValuePtr;											// TODO : a class like TTValue
+
+// Flags used to notify the Controller 
+// about life cycle events in the local namespace
+enum NamespaceLifeFlag{
+	nodeDestroyed = 0,												// this flag means that a node have been destroyed in the local namespace
+	nodeCreated = 1													// this flag means that a node have been created in the local namespace
+};
 
 class Controller{
 	

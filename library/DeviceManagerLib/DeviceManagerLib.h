@@ -53,7 +53,9 @@ extern "C" {
 	void jamoma_namespace_listen_callback(void* arg, std::string whereToSend, Address whereToListen, std::string attributeToListen, bool enable);
 	void jamoma_namespace_enable_listening(void* arg, std::string whereToSend, Address whereToListen, std::string attributeToListen);
 	void jamoma_namespace_disable_listening(void* arg, std::string whereToSend, Address whereToListen, std::string attributeToListen);
-	void jamoma_listen_method(TTPtr p_baton, TTValue& data);
+	
+	void jamoma_namespace_listen_method(TTPtr p_baton, TTValue& data);
+	void jamoma_namespace_notify_method(TTPtr p_baton, TTValue& data);
 	
 	
 	// Convert Jamoma attributes into / from Device Manager attributes

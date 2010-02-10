@@ -351,26 +351,52 @@ void jamoma_namespace_enable_listening(void* arg, std::string whereToSend, Addre
 		
 		if(!err){
 			
-			// if the attribute exist
-			err = nodeToListen->findAttribute(convertAttributeToJamoma(attributeToListen.c_str()), &anAttribute);
+			// DEBUG
+			post("enable %s listening at %s", attributeToListen.data(), whereToListen.data());
+			
+			// enable life cycle observing
+			if(attributeToListen.c_str() == NAMESPACE_ATTR_LIFE)
+			{
+				// create an observer of the root in order to notify the device manager
+				// for creation and destruction of node
+				newListener = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+				TTObjectInstantiate(TT("Callback"), &newListener, kTTValNONE);
+				
+				newBaton = new TTValue((TTString)whereToSend);
+				newBaton->append((TTString)whereToListen);
+				newBaton->append((TTString)attributeToListen);
+				
+				newListener->setAttributeValue(TT("Baton"), TTPtr(newBaton));
+				newListener->setAttributeValue(TT("Function"), TTPtr(&jamoma_namespace_notify_method));
+				
+				m_directory->addObserverForNotifications(S_SEPARATOR, *newListener);
+			}
+			// enable attribute listening
+			else{
+				
+				// if the attribute exist
+				err = nodeToListen->findAttribute(convertAttributeToJamoma(attributeToListen.c_str()), &anAttribute);
+				
+				if(!err){
+					
+						newListener = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+						TTObjectInstantiate(TT("Callback"), &newListener, kTTValNONE);
+						
+						newBaton = new TTValue((TTString)whereToSend);
+						newBaton->append((TTString)whereToListen);
+						newBaton->append((TTString)attributeToListen);
+						
+						newListener->setAttributeValue(TT("Baton"), TTPtr(newBaton));
+						newListener->setAttributeValue(TT("Function"), TTPtr(&jamoma_namespace_listen_method));
+						
+						anAttribute->registerObserverForNotifications(*newListener);
+				}
+			}
 			
 			if(!err){
-				
-					newListener = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-					TTObjectInstantiate(TT("Callback"), &newListener, kTTValNONE);
-					
-					newBaton = new TTValue((TTString)whereToSend);
-					newBaton->append((TTString)whereToListen);
-					newBaton->append((TTString)attributeToListen);
-					
-					newListener->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-					newListener->setAttributeValue(TT("Function"), TTPtr(&jamoma_listen_method));
-					
-					anAttribute->registerObserverForNotifications(*newListener);
-					
-					// memorize the link in order to remove it with the unlink operation
-					keyLink = whereToSend + "<>" + whereToListen + ":" + attributeToListen;
-					jamoma_devmanager_hash_listener->append(TT(keyLink), (TTPtr)newListener);
+				// memorize the link in order to remove it with the unlink operation
+				keyLink = whereToSend + "<>" + whereToListen + ":" + attributeToListen;
+				jamoma_devmanager_hash_listener->append(TT(keyLink), (TTPtr)newListener);
 			}
 		}
 	}
@@ -393,20 +419,31 @@ void jamoma_namespace_disable_listening(void* arg, std::string whereToSend, Addr
 		
 		if(!err){
 			
+			// DEBUG
+			post("disable %s listening at %s", attributeToListen.data(), whereToListen.data());
+			
 			// looking for an observer
 			keyLink = whereToSend + "<>" + whereToListen + ":" + attributeToListen;
 			err = jamoma_devmanager_hash_listener->lookup(TT(keyLink), temp);
 			temp.get(0, (TTPtr*)&oldListener);
-	
-			// remove it
-			if(!err)
-				jamoma_node_attribute_observer_remove(nodeListened, SymbolGen(convertAttributeToJamoma(attributeToListen)->getCString()), oldListener);
+			
+			// disable life cycle observing
+			if(attributeToListen.c_str() == NAMESPACE_ATTR_LIFE)
+			{
+				if(!err)
+					jamoma_directory_observer_remove(SymbolGen(whereToListen.c_str()), oldListener);
+			}
+			// disable attribute listening
+			else{
 
+				if(!err)
+					jamoma_node_attribute_observer_remove(nodeListened, SymbolGen(convertAttributeToJamoma(attributeToListen)->getCString()), oldListener);
+			}
 		}
 	}
 }
 
-void jamoma_listen_method(TTPtr p_baton, TTValue& data)
+void jamoma_namespace_listen_method(TTPtr p_baton, TTValue& data)
 {
 	TTValuePtr	b;
 	TTString	whereToSend;
@@ -452,6 +489,37 @@ void jamoma_listen_method(TTPtr p_baton, TTValue& data)
 	}
 	
 	// send a listen answer using the devmanager
+	jamoma_devmanager->deviceSendListenAnswer(whereToSend, whereToListen, attributeToListen, returnedValue);
+}
+
+void jamoma_namespace_notify_method(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr	b;
+	TTString	whereToSend;
+	TTString	whereToListen;
+	TTString	attributeToListen;
+	TTString	returnedValue;
+	TTSymbolPtr	oscAddress;
+	long		flag;
+	
+	// unpack baton (a t_object* and the name of the method to call)
+	b = (TTValuePtr)p_baton;
+	b->get(0, whereToSend);
+	b->get(1, whereToListen);
+	b->get(2, attributeToListen);
+	
+	// unpack data (flag)
+	data.get(0, (TTPtr*)&oscAddress);
+	data.get(1, flag);
+	
+	returnedValue = "" + flag;
+	
+	// DEBUG
+	if(flag)
+		post("Notify %s about %s creation", whereToSend.data(), whereToListen.data());
+	else
+		post("Notify %s about %s destruction", whereToSend.data(), whereToListen.data());
+	
 	jamoma_devmanager->deviceSendListenAnswer(whereToSend, whereToListen, attributeToListen, returnedValue);
 }
 

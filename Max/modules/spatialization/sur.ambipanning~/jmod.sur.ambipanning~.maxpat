@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 113.0, 101.0, 1123.0, 562.0 ],
+		"rect" : [ 157.0, 44.0, 1123.0, 562.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 113.0, 101.0, 1123.0, 562.0 ],
+		"defrect" : [ 157.0, 44.0, 1123.0, 562.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -15,9 +15,12 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
+=======
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
@@ -89,14 +92,28 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-50",
+					"id" : "obj-19",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 574.0, 491.0, 300.0, 19.0 ],
+					"patching_rect" : [ 170.0, 224.0, 150.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 5.0, 67.0, 295.0, 19.0 ],
-					"text" : "_____________________________________________"
+					"presentation_rect" : [ 10.0, 54.0, 127.0, 19.0 ],
+					"text" : "settings for all sources:"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-16",
+					"linecount" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 428.0, 58.0, 549.0, 31.0 ],
+					"text" : "jcom.message.array 32 speaker active @type boolean @priority 2 @description \"enables or disables a loudspeaker.\" @value 1"
 				}
 
 			}
@@ -105,14 +122,14 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-35",
+					"id" : "obj-58",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 767.0, 513.0, 54.0, 19.0 ],
+					"patching_rect" : [ 835.0, 290.0, 150.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 5.0, 85.0, 50.0, 19.0 ],
-					"text" : "Center:"
+					"presentation_rect" : [ 130.0, 84.0, 38.0, 19.0 ],
+					"text" : "decay"
 				}
 
 			}
@@ -120,9 +137,11 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-55",
-					"maxclass" : "newobj",
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-59",
+					"maxclass" : "comment",
 					"numinlets" : 1,
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patcher" : 					{
@@ -267,25 +286,48 @@
 									"midpoints" : [  ],
 									"source" : [ "obj-52", 1 ]
 								}
+=======
+					"numoutlets" : 0,
+					"patching_rect" : [ 670.0, 290.0, 150.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 62.0, 84.0, 37.0, 19.0 ],
+					"text" : "curve"
+				}
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-50", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-52", 0 ]
-								}
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-60",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 505.0, 290.0, 150.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 4.0, 84.0, 28.0, 19.0 ],
+					"text" : "size"
+				}
 
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-52", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-53", 0 ]
-								}
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-50",
+					"linecount" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 476.0, 434.0, 571.0, 31.0 ],
+					"text" : "jcom.parameter distModel @repetitions/allow 0 @type boolean @range/bounds 0 1 @range/clipmode both @description \"sets one of the two distance attenuation models\"",
+					"varname" : "destination/voices[2]"
+				}
 
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 							}
  ]
 					}
@@ -302,21 +344,22 @@
 					}
 ,
 					"text" : "p hide&how"
-				}
-
+=======
 			}
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-51",
-					"maxclass" : "newobj",
+					"id" : "obj-47",
+					"maxclass" : "flonum",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 345.0, 161.0, 67.0, 19.0 ],
-					"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ],
-					"text" : "thispatcher"
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 370.0, 395.0, 50.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 165.0, 84.0, 35.0, 19.0 ],
+					"triangle" : 0
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 				}
 
 			}
@@ -324,13 +367,15 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-27",
+					"id" : "obj-48",
+					"linecount" : 3,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "open" ],
-					"patching_rect" : [ 61.0, 270.0, 43.0, 19.0 ],
-					"text" : "t open"
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 425.0, 382.0, 501.0, 43.0 ],
+					"text" : "jcom.parameter center/decay @repetitions/allow 0 @type decimal @range/bounds 0 1 @range/clipmode both @description \"max. attenuation inside the center area in dB\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @dataspace/unit/display dB",
+					"varname" : "destination/voices[4]"
 				}
 
 			}
@@ -338,13 +383,15 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-25",
-					"maxclass" : "newobj",
+					"id" : "obj-45",
+					"maxclass" : "flonum",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 61.0, 293.0, 51.0, 19.0 ],
-					"text" : "pcontrol"
+					"numoutlets" : 2,
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 371.0, 352.0, 50.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 98.0, 84.0, 32.0, 19.0 ],
+					"triangle" : 0
 				}
 
 			}
@@ -352,9 +399,43 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-23",
+					"id" : "obj-46",
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 426.0, 346.0, 579.0, 31.0 ],
+					"text" : "jcom.parameter center/curve @repetitions/allow 0 @type decimal @range/bounds 0 1 @range/clipmode both @description \"curvature of the distance function inside the center area\"",
+					"varname" : "destination/voices[3]"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-44",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 370.0, 319.0, 50.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 31.0, 84.0, 33.0, 19.0 ],
+					"triangle" : 0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-34",
+					"linecount" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patcher" : 					{
@@ -3050,11 +3131,14 @@
 					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
+=======
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 425.0, 313.0, 583.0, 31.0 ],
 					"text" : "jcom.parameter center/size @repetitions/allow 0 @type decimal @range/bounds 0 128 @range/clipmode both @description \"Size of the center (in model units)\"",
 					"varname" : "destination/voices[1]"
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 				}
 
 			}
@@ -3117,11 +3201,14 @@
 					"presentation_rect" : [ 226.0, 43.0, 34.0, 19.0 ],
 					"triangle" : 0,
 					"varname" : "dBunit"
+=======
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-49",
@@ -3378,16 +3465,43 @@
 													"midpoints" : [ 194.5, 145.0, 19.5, 145.0 ],
 													"source" : [ "obj-7", 0 ]
 												}
+=======
+					"arrow" : 0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-29",
+					"items" : [ "exponential", "decrease", ",", "inverse", "proportional", "decrease" ],
+					"maxclass" : "umenu",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "int", "", "" ],
+					"patching_rect" : [ 373.0, 438.0, 100.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 203.0, 83.0, 93.0, 19.0 ],
+					"types" : [  ]
+				}
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-4", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-8", 0 ]
-												}
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"hint" : "daFact",
+					"id" : "obj-8",
+					"maxclass" : "flonum",
+					"maximum" : 100.0,
+					"minimum" : 0.0,
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 274.0, 112.0, 50.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 220.0, 55.0, 34.0, 19.0 ],
+					"triangle" : 0
+				}
 
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 											}
  ]
 									}
@@ -3405,9 +3519,54 @@
 ,
 									"text" : "p distMode"
 								}
+=======
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"hint" : "dBUnit",
+					"id" : "obj-7",
+					"maxclass" : "flonum",
+					"maximum" : 100.0,
+					"minimum" : 0.0,
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 220.0, 113.0, 50.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 183.0, 55.0, 34.0, 19.0 ],
+					"triangle" : 0
+				}
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 
-							}
-, 							{
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-49",
+					"maxclass" : "newobj",
+					"numinlets" : 5,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patcher" : 					{
+						"fileversion" : 1,
+						"rect" : [ 410.0, 236.0, 346.0, 269.0 ],
+						"bglocked" : 0,
+						"defrect" : [ 410.0, 236.0, 346.0, 269.0 ],
+						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
+						"openinpresentation" : 0,
+						"default_fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"gridonopen" : 0,
+						"gridsize" : [ 5.0, 5.0 ],
+						"gridsnaponopen" : 0,
+						"toolbarvisible" : 1,
+						"boxanimatetime" : 200,
+						"imprint" : 0,
+						"boxes" : [ 							{
 								"box" : 								{
 									"comment" : "",
 									"id" : "obj-3",
@@ -3415,7 +3574,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 482.0, 39.0, 25.0, 25.0 ]
+									"patching_rect" : [ 312.0, 39.0, 25.0, 25.0 ]
 								}
 
 							}
@@ -3456,9 +3615,12 @@
 										"toolbarvisible" : 1,
 										"boxanimatetime" : 200,
 										"imprint" : 0,
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 										"enablehscroll" : 1,
 										"enablevscroll" : 1,
 										"devicewidth" : 0.0,
+=======
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 										"boxes" : [ 											{
 												"box" : 												{
 													"comment" : "",
@@ -3581,28 +3743,19 @@
  ],
 										"lines" : [ 											{
 												"patchline" : 												{
-													"destination" : [ "obj-3", 0 ],
+													"destination" : [ "obj-8", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
-													"source" : [ "obj-1", 0 ]
+													"source" : [ "obj-6", 0 ]
 												}
 
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-28", 1 ],
+													"destination" : [ "obj-4", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
-													"source" : [ "obj-10", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-6", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-28", 2 ]
+													"source" : [ "obj-8", 0 ]
 												}
 
 											}
@@ -3617,10 +3770,19 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-7", 0 ],
+													"destination" : [ "obj-6", 0 ],
 													"hidden" : 0,
-													"midpoints" : [ 33.0, 68.5, 171.5, 68.5 ],
-													"source" : [ "obj-3", 1 ]
+													"midpoints" : [  ],
+													"source" : [ "obj-28", 2 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-28", 1 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-10", 0 ]
 												}
 
 											}
@@ -3635,15 +3797,6 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-8", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-6", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
 													"destination" : [ "obj-4", 0 ],
 													"hidden" : 0,
 													"midpoints" : [ 171.5, 145.0, 19.5, 145.0 ],
@@ -3653,10 +3806,19 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-4", 0 ],
+													"destination" : [ "obj-7", 0 ],
+													"hidden" : 0,
+													"midpoints" : [ 33.0, 68.5, 171.5, 68.5 ],
+													"source" : [ "obj-3", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-3", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
-													"source" : [ "obj-8", 0 ]
+													"source" : [ "obj-1", 0 ]
 												}
 
 											}
@@ -3665,6 +3827,7 @@
 ,
 									"patching_rect" : [ 100.0, 100.0, 47.0, 19.0 ],
 									"saved_object_attributes" : 									{
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
@@ -3672,6 +3835,15 @@
 										"fontname" : "Arial",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : ""
+=======
+										"default_fontsize" : 10.0,
+										"fontname" : "Arial",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"fontface" : 0,
+										"fontsize" : 10.0,
+										"default_fontname" : "Arial"
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 									}
 ,
 									"text" : "p order"
@@ -3727,9 +3899,12 @@
 										"toolbarvisible" : 1,
 										"boxanimatetime" : 200,
 										"imprint" : 0,
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 										"enablehscroll" : 1,
 										"enablevscroll" : 1,
 										"devicewidth" : 0.0,
+=======
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 										"boxes" : [ 											{
 												"box" : 												{
 													"comment" : "",
@@ -3779,8 +3954,8 @@
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 37.0, 98.0, 215.0, 18.0 ],
-													"text" : "source. $1 /distance/attenuationFactor"
+													"patching_rect" : [ 37.0, 98.0, 110.0, 18.0 ],
+													"text" : "source. $1 /daFact"
 												}
 
 											}
@@ -3861,6 +4036,33 @@
 											}
 , 											{
 												"patchline" : 												{
+													"destination" : [ "obj-7", 0 ],
+													"hidden" : 0,
+													"midpoints" : [ 33.0, 68.5, 171.5, 68.5 ],
+													"source" : [ "obj-3", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-4", 0 ],
+													"hidden" : 0,
+													"midpoints" : [ 171.5, 145.0, 19.5, 145.0 ],
+													"source" : [ "obj-7", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-9", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-4", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
 													"destination" : [ "obj-28", 1 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
@@ -3888,19 +4090,10 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-7", 0 ],
-													"hidden" : 0,
-													"midpoints" : [ 33.0, 68.5, 171.5, 68.5 ],
-													"source" : [ "obj-3", 1 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-9", 0 ],
+													"destination" : [ "obj-4", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
-													"source" : [ "obj-4", 0 ]
+													"source" : [ "obj-8", 0 ]
 												}
 
 											}
@@ -3913,29 +4106,12 @@
 												}
 
 											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-4", 0 ],
-													"hidden" : 0,
-													"midpoints" : [ 171.5, 145.0, 19.5, 145.0 ],
-													"source" : [ "obj-7", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-4", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-8", 0 ]
-												}
-
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 225.0, 100.0, 53.0, 19.0 ],
 									"saved_object_attributes" : 									{
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
@@ -3943,6 +4119,15 @@
 										"fontname" : "Arial",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : ""
+=======
+										"default_fontsize" : 10.0,
+										"fontname" : "Arial",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"fontface" : 0,
+										"fontsize" : 10.0,
+										"default_fontname" : "Arial"
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 									}
 ,
 									"text" : "p daFact"
@@ -3974,9 +4159,12 @@
 										"toolbarvisible" : 1,
 										"boxanimatetime" : 200,
 										"imprint" : 0,
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 										"enablehscroll" : 1,
 										"enablevscroll" : 1,
 										"devicewidth" : 0.0,
+=======
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 										"boxes" : [ 											{
 												"box" : 												{
 													"comment" : "",
@@ -4026,8 +4214,8 @@
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 37.0, 98.0, 156.0, 18.0 ],
-													"text" : "source. $1 /distance/dbUnit"
+													"patching_rect" : [ 37.0, 98.0, 108.0, 18.0 ],
+													"text" : "source. $1 /dbUnit"
 												}
 
 											}
@@ -4108,6 +4296,33 @@
 											}
 , 											{
 												"patchline" : 												{
+													"destination" : [ "obj-7", 0 ],
+													"hidden" : 0,
+													"midpoints" : [ 33.0, 68.5, 171.5, 68.5 ],
+													"source" : [ "obj-3", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-4", 0 ],
+													"hidden" : 0,
+													"midpoints" : [ 171.5, 145.0, 19.5, 145.0 ],
+													"source" : [ "obj-7", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-9", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-4", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
 													"destination" : [ "obj-28", 1 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
@@ -4135,19 +4350,10 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-7", 0 ],
-													"hidden" : 0,
-													"midpoints" : [ 33.0, 68.5, 171.5, 68.5 ],
-													"source" : [ "obj-3", 1 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-9", 0 ],
+													"destination" : [ "obj-4", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
-													"source" : [ "obj-4", 0 ]
+													"source" : [ "obj-8", 0 ]
 												}
 
 											}
@@ -4160,29 +4366,12 @@
 												}
 
 											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-4", 0 ],
-													"hidden" : 0,
-													"midpoints" : [ 171.5, 145.0, 19.5, 145.0 ],
-													"source" : [ "obj-7", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-4", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-8", 0 ]
-												}
-
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 158.0, 100.0, 53.0, 19.0 ],
 									"saved_object_attributes" : 									{
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
@@ -4190,6 +4379,15 @@
 										"fontname" : "Arial",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : ""
+=======
+										"default_fontsize" : 10.0,
+										"fontname" : "Arial",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"fontface" : 0,
+										"fontsize" : 10.0,
+										"default_fontname" : "Arial"
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 									}
 ,
 									"text" : "p dbUnit"
@@ -4221,9 +4419,12 @@
 										"toolbarvisible" : 1,
 										"boxanimatetime" : 200,
 										"imprint" : 0,
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 										"enablehscroll" : 1,
 										"enablevscroll" : 1,
 										"devicewidth" : 0.0,
+=======
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 										"boxes" : [ 											{
 												"box" : 												{
 													"comment" : "",
@@ -4355,6 +4556,33 @@
 											}
 , 											{
 												"patchline" : 												{
+													"destination" : [ "obj-7", 0 ],
+													"hidden" : 0,
+													"midpoints" : [ 33.0, 68.5, 171.5, 68.5 ],
+													"source" : [ "obj-3", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-4", 0 ],
+													"hidden" : 0,
+													"midpoints" : [ 171.5, 145.0, 19.5, 145.0 ],
+													"source" : [ "obj-7", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-9", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-4", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
 													"destination" : [ "obj-28", 1 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
@@ -4382,19 +4610,10 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-7", 0 ],
-													"hidden" : 0,
-													"midpoints" : [ 33.0, 68.5, 171.5, 68.5 ],
-													"source" : [ "obj-3", 1 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-9", 0 ],
+													"destination" : [ "obj-4", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
-													"source" : [ "obj-4", 0 ]
+													"source" : [ "obj-8", 0 ]
 												}
 
 											}
@@ -4407,29 +4626,12 @@
 												}
 
 											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-4", 0 ],
-													"hidden" : 0,
-													"midpoints" : [ 171.5, 145.0, 19.5, 145.0 ],
-													"source" : [ "obj-7", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-4", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-8", 0 ]
-												}
-
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 50.0, 100.0, 42.0, 19.0 ],
 									"saved_object_attributes" : 									{
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
@@ -4437,6 +4639,15 @@
 										"fontname" : "Arial",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : ""
+=======
+										"default_fontsize" : 10.0,
+										"fontname" : "Arial",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"fontface" : 0,
+										"fontsize" : 10.0,
+										"default_fontname" : "Arial"
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 									}
 ,
 									"text" : "p gain"
@@ -4469,19 +4680,10 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"destination" : [ "obj-43", 0 ],
+									"destination" : [ "obj-29", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
-									"source" : [ "obj-1", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-44", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-2", 0 ]
+									"source" : [ "obj-46", 0 ]
 								}
 
 							}
@@ -4505,7 +4707,70 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-47", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-4", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-4", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-5", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-4", 1 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-3", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-47", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-43", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-43", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-1", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-47", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-44", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-44", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-2", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-44", 1 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-3", 0 ]
@@ -4521,92 +4786,12 @@
 								}
 
 							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-44", 1 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-3", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-7", 1 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-3", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-47", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-4", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-47", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-43", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-47", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-44", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-29", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-46", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-4", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-5", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-7", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-6", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-47", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-7", 0 ]
-								}
-
-							}
  ]
 					}
 ,
-					"patching_rect" : [ 246.0, 198.0, 73.0, 19.0 ],
+					"patching_rect" : [ 85.0, 162.0, 73.0, 19.0 ],
 					"saved_object_attributes" : 					{
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
@@ -4614,6 +4799,15 @@
 						"fontname" : "Arial",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : ""
+=======
+						"default_fontsize" : 10.0,
+						"fontname" : "Arial",
+						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontname" : "Arial"
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 					}
 ,
 					"text" : "p one-for-all"
@@ -4632,9 +4826,13 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 263.0, 110.0, 50.0, 19.0 ],
+					"patching_rect" : [ 205.0, 98.0, 50.0, 19.0 ],
 					"presentation" : 1,
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 					"presentation_rect" : [ 152.0, 43.0, 34.0, 19.0 ],
+=======
+					"presentation_rect" : [ 146.0, 55.0, 34.0, 19.0 ],
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 					"triangle" : 0
 				}
 
@@ -4650,9 +4848,13 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 211.0, 110.0, 50.0, 19.0 ],
+					"patching_rect" : [ 149.0, 98.0, 50.0, 19.0 ],
 					"presentation" : 1,
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 					"presentation_rect" : [ 261.0, 43.0, 35.0, 19.0 ],
+=======
+					"presentation_rect" : [ 257.0, 55.0, 35.0, 19.0 ],
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 					"triangle" : 0
 				}
 
@@ -4710,11 +4912,30 @@
 						"toolbarvisible" : 0,
 						"boxanimatetime" : 200,
 						"imprint" : 0,
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
+=======
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 						"title" : "Speaker setup",
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-26",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 667.0, 338.0, 150.0, 19.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 334.0, 4.0, 42.0, 19.0 ],
+									"text" : "daFact"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -4725,8 +4946,8 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 652.0, 323.0, 150.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 298.0, 4.0, 82.0, 19.0 ],
-									"text" : "distance Mode"
+									"presentation_rect" : [ 298.0, 4.0, 42.0, 19.0 ],
+									"text" : "dbUnit"
 								}
 
 							}
@@ -4924,9 +5145,12 @@
 										"toolbarvisible" : 1,
 										"boxanimatetime" : 200,
 										"imprint" : 0,
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 										"enablehscroll" : 1,
 										"enablevscroll" : 1,
 										"devicewidth" : 0.0,
+=======
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 										"boxes" : [ 											{
 												"box" : 												{
 													"fontname" : "Verdana",
@@ -5264,15 +5488,6 @@
 											}
 , 											{
 												"patchline" : 												{
-													"destination" : [ "obj-18", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-11", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
 													"destination" : [ "obj-20", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
@@ -5496,11 +5711,21 @@
 												}
 
 											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-18", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-11", 0 ]
+												}
+
+											}
  ]
 									}
 ,
 									"patching_rect" : [ 782.0, 50.0, 94.0, 20.0 ],
 									"saved_object_attributes" : 									{
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
@@ -5508,6 +5733,15 @@
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : ""
+=======
+										"default_fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
+										"fontface" : 0,
+										"fontsize" : 10.0,
+										"default_fontname" : "Verdana"
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 									}
 ,
 									"text" : "p hideChannels"
@@ -6150,6 +6384,7 @@
 ,
 					"patching_rect" : [ 271.0, 304.0, 68.0, 19.0 ],
 					"saved_object_attributes" : 					{
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
@@ -6157,6 +6392,15 @@
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : ""
+=======
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontname" : "Verdana"
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 					}
 ,
 					"text" : "p Inspector"
@@ -6240,11 +6484,18 @@
 					"id" : "obj-22",
 					"linecount" : 2,
 					"maxclass" : "newobj",
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 428.0, 24.0, 573.0, 31.0 ],
 					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @priority 1 @description \"Position of the nth source.\""
+=======
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 428.0, 24.0, 599.0, 31.0 ],
+					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 				}
 
 			}
@@ -6258,7 +6509,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 10.0, 187.0, 234.0, 31.0 ],
+					"patching_rect" : [ 10.0, 187.0, 238.0, 31.0 ],
 					"text" : "jcom.hub @description \"ICST Ambipanning for multiple sources for multiple speakers.\"",
 					"varname" : "jcom.hub"
 				}
@@ -6268,6 +6519,25 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
+=======
+					"id" : "obj-5",
+					"linecount" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 429.0, 160.0, 587.0, 31.0 ],
+					"text" : "jcom.parameter interpolation @repetitions/allow 0 @type boolean @range/bounds 0 1 @range/clipmode both @description \"switch blockwise interpolation of all coefficient changes on/off\"",
+					"varname" : "destination/dimensions[1]"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-4",
 					"maxclass" : "comment",
@@ -6306,7 +6576,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 438.0, 199.0, 34.0, 19.0 ],
+					"patching_rect" : [ 366.0, 199.0, 34.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 105.0, 22.0, 33.0, 19.0 ],
 					"triangle" : 0
@@ -6325,7 +6595,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 438.0, 129.0, 34.0, 19.0 ],
+					"patching_rect" : [ 366.0, 129.0, 34.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 263.0, 22.0, 33.0, 19.0 ],
 					"triangle" : 0
@@ -6356,7 +6626,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 477.0, 125.0, 580.0, 31.0 ],
+					"patching_rect" : [ 430.0, 125.0, 580.0, 31.0 ],
 					"text" : "jcom.parameter numSpeakers @repetitions/allow 0 @type integer @range/bounds 2 32 @range/clipmode both @description \"Number of speakers that signals are distributed to.\" @priority 3",
 					"varname" : "destination/voices"
 				}
@@ -6397,7 +6667,11 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 					"patching_rect" : [ 236.0, 372.0, 25.0, 25.0 ]
+=======
+					"patching_rect" : [ 223.0, 373.0, 25.0, 25.0 ]
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 				}
 
 			}
@@ -6448,7 +6722,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 372.0, 25.0, 25.0 ]
+					"patching_rect" : [ 10.0, 352.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -6462,7 +6736,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 477.0, 194.0, 574.0, 31.0 ],
+					"patching_rect" : [ 430.0, 194.0, 574.0, 31.0 ],
 					"text" : "jcom.parameter numSources @repetitions/allow 0 @type integer @range/bounds 1 32 @range/clipmode both @description \"Number of incomming mono sources to pan.\" @priority 1",
 					"varname" : "source/voices"
 				}
@@ -6489,181 +6763,10 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-30", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 79.5, 169.5, 19.5, 169.5 ],
-					"source" : [ "obj-1", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-21", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-11", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-9", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-12", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-12", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-13", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-23", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-13", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-14", 0 ],
 					"hidden" : 0,
 					"midpoints" : [ 435.5, 302.5, 280.5, 302.5 ],
 					"source" : [ "obj-15", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-15", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-17", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-27", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-18", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 139.5, 255.0, 269.5, 255.0, 269.5, 223.0, 281.5, 223.0 ],
-					"source" : [ "obj-2", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-21", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-2", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-20", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-21", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-30", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 70.5, 345.0, 5.0, 345.0, 5.0, 177.0, 19.5, 177.0 ],
-					"source" : [ "obj-23", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-30", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 59.5, 166.0, 19.5, 166.0 ],
-					"source" : [ "obj-24", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-23", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-25", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-25", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-27", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-49", 4 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-29", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-55", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-29", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-39", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-3", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-32", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-30", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-30", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-31", 0 ]
 				}
 
 			}
@@ -6678,37 +6781,19 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-40", 0 ],
+					"destination" : [ "obj-15", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-33", 0 ]
+					"source" : [ "obj-17", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-49", 5 ],
+					"destination" : [ "obj-13", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-33", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-44", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-34", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-3", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-39", 0 ]
+					"midpoints" : [ 139.5, 255.0, 269.5, 255.0, 269.5, 223.0, 281.5, 223.0 ],
+					"source" : [ "obj-2", 0 ]
 				}
 
 			}
@@ -6723,10 +6808,154 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-40", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-33", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-39", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-39", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-30", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 79.5, 169.5, 19.5, 169.5 ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-30", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 59.5, 166.0, 19.5, 166.0 ],
+					"source" : [ "obj-24", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-30", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-31", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-32", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-30", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-12", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-14", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-9", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-30", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-49", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-49", 4 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-33", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-49", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-6", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-49", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-42", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-49", 2 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-49", 3 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-44", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-34", 0 ]
 				}
 
 			}
@@ -6777,6 +7006,7 @@
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 					"destination" : [ "obj-30", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -6796,32 +7026,36 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-51", 0 ],
+=======
+					"destination" : [ "obj-50", 0 ],
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-55", 0 ]
+					"source" : [ "obj-29", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-49", 0 ],
+					"destination" : [ "obj-29", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-6", 0 ]
+					"source" : [ "obj-50", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-49", 2 ],
+					"destination" : [ "obj-21", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-7", 0 ]
+					"source" : [ "obj-11", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< HEAD:Max/modules/spatialization/sur.ambipanning~/jmod.sur.ambipanning~.maxpat
 					"destination" : [ "obj-5", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -6832,18 +7066,21 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-49", 3 ],
+=======
+					"destination" : [ "obj-20", 0 ],
+>>>>>>> d0b6736485b08f6190810960ef020c98fc10678f:Max/modules/spatialization/sur.ambipan~/jmod.sur.ambipan~.maxpat
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-8", 0 ]
+					"source" : [ "obj-21", 1 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-14", 0 ],
+					"destination" : [ "obj-21", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-9", 0 ]
+					"source" : [ "obj-2", 0 ]
 				}
 
 			}
