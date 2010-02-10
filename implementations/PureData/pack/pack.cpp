@@ -23,7 +23,7 @@ typedef In* InPtr;
 
 
 // Prototypes for methods
-extern "C" void setup_in0x3d(void);
+extern "C" void setup_jcom_pack0x3d(void);
 InPtr	InNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void	InFree(InPtr self);
 TTErr	InReset(InPtr self, long vectorSize);
@@ -40,18 +40,18 @@ static ClassPtr sInClass;
 /************************************************************************************/
 // Main() Function
 
-void setup_in0x3d(void)
+void setup_jcom_pack0x3d(void)
 {
 	TTMulticoreInit();	
 	
-	sInClass = class_new(gensym("jcom.pack="), (t_newmethod)InNew, (t_method)InFree, sizeof(In), 0, A_GIMME, 0);
+	sInClass = class_new(gensym("jcom_pack="), (t_newmethod)InNew, (t_method)InFree, sizeof(In), 0, A_GIMME, 0);
 	
 	CLASS_MAINSIGNALIN(sInClass, In, f);
 	class_addmethod(sInClass, (t_method)InReset,	gensym("multicore.reset"),	A_CANT, 0);
 	class_addmethod(sInClass, (t_method)InSetup,	gensym("multicore.setup"),	A_CANT, 0);
  	class_addmethod(sInClass, (t_method)InDsp,		gensym("dsp"),				A_CANT, 0);		
 		
-	class_sethelpsymbol(sInClass, gensym("help-jcom.pack=.pd"));
+	class_sethelpsymbol(sInClass, gensym("help-jcom_pack=.pd"));
 }
 
 
