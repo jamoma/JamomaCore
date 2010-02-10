@@ -66,7 +66,7 @@ public:
 	/**	Destructor. */
 	~TTAudioUnit()
 	{
-		if(audioUnit){
+		if (audioUnit) {
 			AudioUnitUninitialize(audioUnit);
 			CloseComponent(audioUnit);
 			audioUnit = NULL;
@@ -79,9 +79,9 @@ public:
 	
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	{
-		if(inputBufferList)
+		if (inputBufferList)
 			free(inputBufferList);
-		if(outputBufferList)
+		if (outputBufferList)
 			free(outputBufferList);
 		
 		// inputBufferList = (AudioBufferList*)malloc(offsetof(AudioBufferList, mBuffers[maxNumChannels]));
@@ -89,7 +89,7 @@ public:
 		inputBufferList = (AudioBufferList*)malloc(offsetof(AudioBufferList, mBuffers) + (maxNumChannels * sizeof(AudioBuffer)));
 		outputBufferList = (AudioBufferList*)malloc(offsetof(AudioBufferList, mBuffers) + (maxNumChannels * sizeof(AudioBuffer)));
 
-		for(TTUInt16 channel=0; channel<maxNumChannels; channel++){
+		for (TTUInt16 channel=0; channel<maxNumChannels; channel++) {
 			inputBufferList->mBuffers[channel].mNumberChannels = 1; 
 			inputBufferList->mBuffers[channel].mData = NULL;			// We will set this pointer in the process method
 			outputBufferList->mBuffers[channel].mNumberChannels = 1; 
@@ -116,7 +116,7 @@ public:
 		searchDesc.componentFlags = 0;
 		searchDesc.componentFlagsMask = 0;
 		
-		while(comp = FindNextComponent(comp, &searchDesc)){
+		while (comp = FindNextComponent(comp, &searchDesc)) {
 			compName = NewHandle(0);
 			GetComponentInfo(comp, &compDesc, compName, NULL, NULL);
 			HLock(compName);
@@ -146,7 +146,7 @@ public:
 		int						compNameLen;
 		TTSymbolPtr				pluginName = newPluginName;
 		
-		if(audioUnit){
+		if (audioUnit) {
 			AudioUnitUninitialize(audioUnit);
 			CloseComponent(audioUnit);
 			audioUnit = NULL;
@@ -158,7 +158,7 @@ public:
 		searchDesc.componentFlags = 0;
 		searchDesc.componentFlagsMask = 0;
 		
-		while(comp = FindNextComponent(comp, &searchDesc)){
+		while (comp = FindNextComponent(comp, &searchDesc)) {
 			compName = NewHandle(0);
 			GetComponentInfo(comp, &compDesc, compName, NULL, NULL);
 			HLock(compName);
@@ -169,7 +169,7 @@ public:
 			compNameStr++;
 			compNameStr++;
 			
-			if(!strcmp(compNameStr, pluginName->getCString())){	
+			if (!strcmp(compNameStr, pluginName->getCString())) {	
 				AURenderCallbackStruct callbackStruct;
 
 				audioUnit = OpenComponent(comp);
@@ -207,21 +207,21 @@ public:
 		parameterNames->clear();
 				
 		err = AudioUnitGetPropertyInfo(audioUnit, kAudioUnitProperty_ParameterList, kAudioUnitScope_Global, 0, &size, &writable);
-		if(err || size == 0)
+		if (err || size == 0)
 			return;
 		
 		parameterArray = (AudioUnitParameterID*)malloc(size);
 		err = AudioUnitGetProperty(audioUnit, kAudioUnitProperty_ParameterList, kAudioUnitScope_Global, 0, parameterArray, &size);
-		if(err)
+		if (err)
 			goto out;
 		
-		for(UInt32 paramNumber = 0; paramNumber < size/sizeof(AudioUnitParameterID); paramNumber++){
+		for (UInt32 paramNumber = 0; paramNumber < size/sizeof(AudioUnitParameterID); paramNumber++) {
 			AudioUnitParameterInfo		info;
 			UInt32						infoSize = sizeof(AudioUnitParameterInfo);
 			char						parameterName[256];
 			
 			err = AudioUnitGetProperty(audioUnit, kAudioUnitProperty_ParameterInfo, kAudioUnitScope_Global, parameterArray[paramNumber], &info, &infoSize);
-			if(!err){
+			if (!err) {
 				CFStringGetCString(info.cfNameString, parameterName, 256, kCFStringEncodingUTF8);
 				parameterNames->append(TT(parameterName), paramNumber);
 			}
@@ -245,7 +245,7 @@ public:
 		TTValue		v;
 		TTErr		err;
 
-		if(nameAndValue.getSize() != 2){
+		if (nameAndValue.getSize() != 2) {
 			logError("Bad arguments for setParameter()");
 			return kTTErrGeneric;
 		}
@@ -268,7 +268,7 @@ public:
 		Float32		parameterValue = 0.0;
 		
 		err = parameterNames->lookup(parameterName, v);
-		if(!err){
+		if (!err) {
 			parameterID = v;
 			AudioUnitGetParameter(audioUnit, parameterID, kAudioUnitScope_Global, 0, &parameterValue);
 			nameInAndValueOut = parameterValue;
@@ -287,11 +287,11 @@ public:
 		returnedPresetNames.clear();
 		
 		err = AudioUnitGetProperty(audioUnit, kAudioUnitProperty_FactoryPresets, kAudioUnitScope_Global, 0, &factoryPresets, &size);
-		if(err)
+		if (err)
 			return kTTErrGeneric;
 		
 		count = CFArrayGetCount(factoryPresets);
-		for(int i=0; i<count; i++){
+		for (int i=0; i<count; i++) {
 			const AUPreset* preset = (const AUPreset*)CFArrayGetValueAtIndex(factoryPresets, i);
 			char			presetName[256];
 			
@@ -329,7 +329,7 @@ public:
 		AudioUnitRenderActionFlags	ioActionFlags = 0;
 		
 		// prepare the input
-		for(TTUInt16 channel=0; channel<numInputChannels; channel++){
+		for (TTUInt16 channel=0; channel<numInputChannels; channel++) {
 			in.getVector(channel, vs, auInput[channel]);
 			inputBufferList->mBuffers[channel].mData = auInput[channel];
 			inputBufferList->mBuffers[channel].mDataByteSize = sizeof(TTFloat32) * vs;
@@ -343,7 +343,7 @@ public:
 
 		// handle the output
 		numOutputChannels = outputBufferList->mNumberBuffers;
-		for(TTUInt16 channel=0; channel<numOutputChannels; channel++){
+		for (TTUInt16 channel=0; channel<numOutputChannels; channel++) {
 			auOutput[channel] = (TTFloat32*)outputBufferList->mBuffers[channel].mData;
 			out.setVector(channel, vs, auOutput[channel]);
 		}
@@ -366,7 +366,7 @@ OSStatus TTAudioUnitGetInputSamples(void*						inRefCon,
 {
 	TTAudioUnit* ttAudioUnit = (TTAudioUnit*)inRefCon;
 	
-	for(TTUInt16 channel=0; channel < ioData->mNumberBuffers; channel++)
+	for (TTUInt16 channel=0; channel < ioData->mNumberBuffers; channel++)
 		memcpy(ioData->mBuffers[channel].mData, ttAudioUnit->inputBufferList->mBuffers[channel].mData, sizeof(TTFloat32) * inNumberFrames);
 	return noErr;
 }
