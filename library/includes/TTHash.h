@@ -11,7 +11,7 @@
 
 #include "TTElement.h"
 #include "TTValue.h"
-#ifdef TT_PLATFORM_MAC
+#if defined( TT_PLATFORM_MAC ) || defined ( TT_PLATFORM_IPHONE )
 #include <ext/hash_map>
 using namespace __gnu_cxx;
 #elif TT_PLATFORM_LINUX

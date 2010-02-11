@@ -11,9 +11,19 @@
 #include "TTCallback.h"
 
 
-TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress)
-: TTObject(kTTValNONE), name(newName), type(newType), address(newAddress), getterObject(NULL), setterObject(NULL), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
-  readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(TT("none"))
+TTAttribute::TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress) : 
+	TTObject(kTTValNONE), 
+	name(newName), 
+	type(newType), 
+	address(newAddress), 
+	getterObject(NULL), 
+	setterObject(NULL), 
+	getterFlags(kTTAttrDefaultFlags), 
+	setterFlags(kTTAttrDefaultFlags),
+  	readOnly(NO), 
+	rangeLowBound(0.0), 
+	rangeHighBound(1.0), 
+	rangeChecking(TT("none"))
 {
 	getter = (TTGetterMethod)&TTAttribute::defaultGetter;
 	setter = (TTSetterMethod)&TTAttribute::defaultSetter;
@@ -176,7 +186,7 @@ TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& va
 			*((TTObject*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypePointer:
-			*((TTPtr*)attribute.address) = value;
+			*((TTPtr*)attribute.address) = (TTPtr)value;
 			return kTTErrNone;
 		case kTypeNone:
 			return kTTErrNone;
