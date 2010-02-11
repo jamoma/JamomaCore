@@ -112,7 +112,7 @@ else if(newMode == TT("peak")){
 TTErr TTSvf::setFrequency(const TTValue& newValue)
 {	
     mFrequency = newValue;
-	mF = 2.0 * sin(kTTPi_2 * mFrequency / sr ); // equivalent to mF = 2.0 * sin(kTTPi * mFrequency / double(sr * 2)); 
+	mF = 2.0 * sin(kTTHalfPi * mFrequency / sr ); // equivalent to mF = 2.0 * sin(kTTPi * mFrequency / double(sr * 2)); 
 	if(mF > 0.25)
 		mF = 0.25;
 	calculateCoefficients();
