@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 97.0, 44.0, 818.0, 422.0 ],
+		"rect" : [ 43.0, 371.0, 995.0, 424.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 97.0, 44.0, 818.0, 422.0 ],
+		"defrect" : [ 43.0, 371.0, 995.0, 424.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -17,7 +17,41 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-5",
+					"linecount" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 420.0, 75.0, 306.0, 31.0 ],
+					"text" : "jcom.parameter model @type string @repetitions/allow 1 @description \"What SpaceNavigator model to use\"",
+					"varname" : "on[2]"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"items" : [ "SpaceNavigator", ",", "SpaceNavigator for Notebooks" ],
+					"maxclass" : "umenu",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "int", "", "" ],
+					"patching_rect" : [ 260.0, 75.0, 149.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 10.0, 35.0, 190.0, 19.0 ],
+					"types" : [  ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -26,7 +60,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 225.0, 100.0, 251.0, 17.0 ],
+					"patching_rect" : [ 230.0, 135.0, 251.0, 17.0 ],
 					"text" : "/preset/store 1 default, /preset/write"
 				}
 
@@ -43,9 +77,9 @@
 					"outlettype" : [ "", "", "int" ],
 					"patching_rect" : [ 260.0, 35.0, 124.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 10.0, 30.0, 124.0, 20.0 ],
-					"text" : "Spacenavigator (Off)",
-					"texton" : "Spacenavigator (On)",
+					"presentation_rect" : [ 212.0, 35.0, 74.0, 20.0 ],
+					"text" : "Off",
+					"texton" : "On",
 					"varname" : "audio"
 				}
 
@@ -59,7 +93,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 170.0, 185.0, 56.0, 19.0 ],
+					"patching_rect" : [ 175.0, 220.0, 56.0, 19.0 ],
 					"text" : "jcom.in"
 				}
 
@@ -74,7 +108,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 390.0, 30.0, 283.0, 31.0 ],
+					"patching_rect" : [ 420.0, 30.0, 283.0, 31.0 ],
 					"text" : "jcom.parameter active @type boolean @range/clipmode none @description \"Turn polling on\"",
 					"varname" : "on[1]"
 				}
@@ -89,7 +123,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 55.0, 100.0, 159.0, 17.0 ],
+					"patching_rect" : [ 60.0, 135.0, 159.0, 17.0 ],
 					"text" : "/documentation/generate"
 				}
 
@@ -103,7 +137,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 170.0, 215.0, 149.0, 19.0 ],
+					"patching_rect" : [ 175.0, 250.0, 149.0, 19.0 ],
 					"text" : "jalg.spacenavigator"
 				}
 
@@ -117,7 +151,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 15.0, 130.0, 473.0, 19.0 ],
+					"patching_rect" : [ 20.0, 165.0, 473.0, 19.0 ],
 					"text" : "jcom.hub @description \"Use the Space Navigator from 3D Connexion\"",
 					"varname" : "jcom.hub"
 				}
@@ -131,7 +165,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 15.0, 90.0, 25.0, 25.0 ]
+					"patching_rect" : [ 20.0, 125.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -142,7 +176,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 15.0, 170.0, 25.0, 25.0 ]
+					"patching_rect" : [ 20.0, 205.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -155,7 +189,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"text" : "/editing_this_module"
 				}
 
@@ -192,7 +226,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 234.5, 123.0, 24.5, 123.0 ],
+					"midpoints" : [ 239.5, 158.0, 29.5, 158.0 ],
 					"source" : [ "obj-2", 0 ]
 				}
 
@@ -208,6 +242,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-26", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -217,9 +260,18 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 64.5, 123.0, 24.5, 123.0 ],
+					"midpoints" : [ 69.5, 158.0, 29.5, 158.0 ],
 					"source" : [ "obj-7", 0 ]
 				}
 
