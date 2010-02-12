@@ -56,7 +56,7 @@
     <item name='out/module/parameter' type='string' priority='6'>/audio/gain</item>
     <item name='out/module/name' type='string' priority='3'>/limiter~</item>
     <item name='out/module/instance' type='integer' priority='4'>0</item>
-    <item name='out/ramp' type='decimal' priority='0'>1.000000</item>
+    <item name='out/ramp' type='decimal' priority='0'>100.000000</item>
     <item name='out/value' type='decimal' priority='0'>0.000000</item>
     <item name='time/repeat' type='decimal' priority='0'>2.000000</item>
     <item name='time/wait' type='decimal' priority='0'>0.000000</item>
