@@ -19,7 +19,6 @@
 #include "TTValueCache.h"
 #include "TTSymbolCache.h"
 
-
 // forward declarations needed by the compiler
 class TTAttribute;
 class TTMessage;
@@ -29,8 +28,10 @@ class TTClass;
 typedef TTAttribute*	TTAttributePtr;
 typedef TTMessage*		TTMessagePtr;
 typedef TTObject*		TTObjectPtr;
+typedef TTObject**		TTObjectHandle;
+typedef TTObject&		TTObjectRef;
 typedef TTClass*		TTClassPtr;
-	
+
 
 /** A type that can be used to store a pointer to a message for an object */
 typedef TTErr (TTObject::*TTMethod)(const TTSymbol* methodName, TTValue& value);
@@ -113,6 +114,7 @@ public:
 	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTGetterMethod getter);
 	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTSetterMethod setter);
 	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
+	TTErr registerAttribute(const TTSymbolPtr name, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject);
 
 	TTErr removeAttribute(const TTSymbolPtr name);
 	
@@ -171,6 +173,7 @@ public:
 	TT_SETATTR_WRAP(TTFloat32)
 	TT_SETATTR_WRAP(TTFloat64)
 	TT_SETATTR_WRAP(TTSymbolPtr)
+	TT_SETATTR_WRAP(TTPtr)
 	
 #undef TT_SETATTR_WRAP
 	
@@ -217,6 +220,8 @@ public:
 	TTErr unregisterObserverForMessage(const TTObject& observingObject, const TTSymbolPtr messageName);
 	TTErr unregisterObserverForAttribute(const TTObject& observingObject, const TTSymbolPtr attributeName);
 	TTErr unregisterObserverForNotifications(const TTObject& observingObject);
+	
+	TTErr sendNotification(const TTSymbolPtr name, const TTValue& arguments);
 	
 	
 	/**	Log messages scoped to this object instance. */

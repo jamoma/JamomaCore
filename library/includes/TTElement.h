@@ -12,11 +12,13 @@
 // Platform Sniffing
 // Ideally the platform would already be set with a -D option to gcc...
 #ifndef TT_PLATFORM_LINUX
-	#ifndef TT_PLATFORM_WIN
-		#ifdef WIN_VERSION
-			#define TT_PLATFORM_WIN
-		#else
-			#define TT_PLATFORM_MAC
+	#ifndef TT_PLATFORM_IPHONE
+		#ifndef TT_PLATFORM_WIN
+			#ifdef WIN_VERSION
+				#define TT_PLATFORM_WIN
+			#else
+				#define TT_PLATFORM_MAC
+			#endif
 		#endif
 	#endif
 #endif
@@ -139,7 +141,7 @@ typedef long				TTPtrSizedInt;				// this works for both 32 and 64 bit code on t
 
 /** A generic pointer. */
 typedef void*				TTPtr;
-
+typedef TTPtr*				TTHandle;
 
 /**	A simple/generic function pointer with no args.	*/
 typedef void (*TTFunctionPtr)();
@@ -265,9 +267,11 @@ public:
 
 
 TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupEqualPower[];			///< Equal Power lookup table
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupSquareRoot[];			///< Square Root lookup table
 TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupHalfPaddedwWelch[];		///< 256 point window table (the first half of it)
 TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupQuarterSine[];			///< Quarter Sine lookup table
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTPi;							///< pre-calculated value of pi
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfPi;						///< pre-calculated value of pi/2
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoPi;						///< pre-calculated value of pi * 2
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTAntiDenormalValue;			///< constant used by the ttantidenormal function
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTSqrt2;						///< pre-calculated square-root of 2

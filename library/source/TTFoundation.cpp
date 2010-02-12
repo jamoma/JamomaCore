@@ -11,7 +11,10 @@
 #include "TTEnvironment.h"
 #include "TTSymbolCache.h"
 #include "TTValueCache.h"
-//#include "TTAudioEngine.h"
+#include "TTCallback.h"
+#include "TTNode.h"
+#include "TTNodeDirectory.h"
+
 
 #ifdef TT_PLATFORM_MAC
 #include <dlfcn.h>
@@ -48,6 +51,11 @@ void TTFoundationInit()
 		TTLogMessage("JamomaFoundation -- Version %s\n", TTFOUNDATION_VERSION_STRING);
 #endif
 		
+		// register classes -- both internal and external
+		TTCallback::registerClass();
+		TTNode::registerClass();
+		TTNodeDirectory::registerClass();
+
 		TTFoundationLoadExternalClasses();
 	}
 }
@@ -102,10 +110,12 @@ void TTFoundationLoadExternalClasses()
 #elif TT_PLATFORM_WIN
 	TTString	fullpath;
 	char		temppath[4096];
+//	WCHAR		wc[4096];
 	HKEY		hKey = 0;
 	LONG		lRes;
 	DWORD		dwSize = sizeof(temppath);
 	HRESULT		hr;
+	HINSTANCE	hInstance = GetModuleHandle(NULL);
 
 	// Look in C:\Program Files\Common Files\TTBlue\Extensions
 	hr = SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES_COMMON, NULL, SHGFP_TYPE_CURRENT, (LPSTR)temppath);
@@ -118,6 +128,19 @@ void TTFoundationLoadExternalClasses()
 
 	// TODO: Look in some user-level directory like we do on the Mac?
 
+	// Look in the support folder of the host application
+	if (hInstance) {
+		GetModuleFileName(hInstance, (LPSTR)temppath, 4096);
+		if (temppath[0]) {
+			char *s = strrchr(temppath, '\\');
+			if (s)
+				*s = 0;
+			fullpath = temppath;
+			fullpath += "\\Jamoma\\Extensions\\";
+			lRes = SHCreateDirectory(NULL, (LPCWSTR)fullpath.c_str());
+			TTFoundationLoadExternalClassesFromFolder(fullpath);
+		}
+	}
 #else // Some other platform, like Linux
 	
 #endif

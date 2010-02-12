@@ -29,8 +29,8 @@
 
 
 // Constants used for trigonometric convertions:
-static const double kRadiansToDegrees = 180.0 / 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068;
-static const double kDegreesToRadians = 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068 / 180.0;
+static const double kRadiansToDegrees = 180.0 / kTTPi; 
+static const double kDegreesToRadians = kTTPi / 180.0;
 
 // This coeff is used in GainDataspace mapping MIDI to and from linear gain
 // so that MIDI=100 equals 0 dB and MIDI = 127 equals +10 dB
