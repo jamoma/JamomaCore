@@ -1,22 +1,23 @@
 /* 
- *	MaxMulticore
- *	A thin wrapper of the Lydbaer audio system for use in the Cycling '74 Max/MSP environment.
- *	Includes an automated class wrapper to make TTBlue object's available as objects for Max/MSP.
- *	Copyright © 2008 by Timothy Place
+ *	PureMulticore
+ *	A thin wrapper of Jamoma Multicore for use in the PureData environment.
+ *	Includes an automated class wrapper to make Jamoma DSP objects available as objects for Pd.
+ *	Copyright © 2010 by Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __MAXBAER_H__
-#define __MAXBAER_H__
+#ifndef __PURE_MULTICORE_H__
+#define __PURE_MULTICORE_H__
 
-#include "ext.h"					// Max Header
-#include "ext_obex.h"				// Max Object Extensions (attributes) Header
-#include "ext_strings.h"			// String Functions
-#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
-#include "z_dsp.h"					// MSP Header
-#include "jpatcher_api.h"			// Required for patcher traversal code
+#include "m_pd.h"
+//#include "ext.h"					// Max Header
+//#include "ext_obex.h"				// Max Object Extensions (attributes) Header
+//#include "ext_strings.h"			// String Functions
+//#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
+//#include "z_dsp.h"					// MSP Header
+//#include "jpatcher_api.h"			// Required for patcher traversal code
 
 #include "TTMulticoreAPI.h"			// Definitions for Jamoma Multicore
 
@@ -25,11 +26,13 @@
 // TYPE DEFINITIONS
 
 typedef t_class*	ClassPtr;
+typedef t_object	Object;
 typedef t_object*	ObjectPtr;
 typedef t_symbol*	SymbolPtr;
+typedef	t_atom		Atom;
 typedef t_atom*		AtomPtr;
 typedef long		AtomCount;
-typedef t_max_err	MaxErr;
+typedef int			MaxErr;
 #ifndef SELF
 #define SELF ObjectPtr(self)
 #endif
@@ -45,7 +48,8 @@ typedef struct _wrappedClass {
 	TTValidityCheckFunction validityCheck;						///< A function to call to validate the context for an object before it is instantiated.
 	TTPtr					validityCheckArgument;				///< An argument to pass to the validityCheck function when it is called.
 	WrappedClassOptions*	options;							///< Additional configuration options specified for the class.
-	t_hashtab*				maxAttrNamesToTTAttrNames;			///< names may not be direct mappings, as we downcase the first letter.
+//	t_hashtab*				maxAttrNamesToTTAttrNames;			///< names may not be direct mappings, as we downcase the first letter.
+	TTHashPtr				pdAttrNamesToTTAttrNames;
 } WrappedClass;
 
 
@@ -110,5 +114,5 @@ int AtomGetInt(AtomPtr a);
 #endif
 
 
-#endif // __MAXBAER_H__
+#endif // __PURE_MULTICORE_H__
 
