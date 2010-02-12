@@ -31,7 +31,7 @@ TT_AUDIO_CONSTRUCTOR
 	setAttributeValue(TT("decay"), 100.);
 	setAttributeValue(TT("sustain"), -6.);
 	setAttributeValue(TT("release"), 500.);
-	setAttributeValue(TT("mode"), TT("linear"));	// <-- sets the process method
+	setAttributeValue(TT("mode"), TT("hybrid"));	// <-- sets the process method
 }
 
 TTAdsr::~TTAdsr()
@@ -111,10 +111,14 @@ TTErr TTAdsr::getSustainDb(TTValue& value)
 TTErr TTAdsr::setMode(const TTValue& newValue)
 {
 	attrMode = newValue;
-	if(attrMode == TT("exponential"))
+	
+	if (attrMode == TT("exponential"))
 		setProcessMethod(processAudioExponential);
+	else if (attrMode == TT("hybrid"))
+		setProcessMethod(processAudioHybrid);
 	else
 		setProcessMethod(processAudioLinear);
+		
 	return kTTErrNone;
 }
 
@@ -233,6 +237,76 @@ TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSigna
 			case k_eg_release:						// RELEASE
 				output_db -= release_step_db;
 				if (output_db <= NOISE_FLOOR){						// If we've hit the basement,
+					eg_state = k_eg_inactive;			// deactivate the eg
+					output = 0.0;						// Make sure we didn't dip too low
+				}
+				else
+					output = dbToLinear(output_db);		// Decrement the output
+				break;
+		}
+		*outSample++ = output;
+	}
+
+	return kTTErrNone;
+}
+
+
+// 'hybrid' is linear attack (especially for short times) and a exponential release
+
+TTErr TTAdsr::processAudioHybrid(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
+	TTSampleValue*	inSample = NULL;
+	TTSampleValue*	outSample;
+	TTUInt16		vs = in.getVectorSize();
+	bool			checkAudioTrigger = false;
+
+	// TODO: Is there a decent way to do this without having to check this every single vector?
+	if (inputs->numAudioSignals) {
+		checkAudioTrigger = true;
+		inSample = in.sampleVectors[0];
+	}
+	outSample = out.sampleVectors[0];
+
+	while (vs--) {
+		if (checkAudioTrigger)
+			trigger = (TTBoolean)(*inSample++ > 0.5);
+
+		if (trigger) {
+			if(eg_state == k_eg_inactive || eg_state == k_eg_release)
+				eg_state = k_eg_attack;
+		} 
+		else {
+			if (eg_state != k_eg_inactive && eg_state != k_eg_release)
+				eg_state = k_eg_release;
+		}
+
+		switch (eg_state) {
+			case k_eg_attack:						// ATTACK
+				output += attack_step;
+				if (output >= 1.0) {
+					output = 1.0;
+					output_db = 0.0;
+					eg_state = k_eg_decay;
+				}
+				else
+					output_db = linearToDb(output);
+				break;
+			case k_eg_decay:						// DECAY
+				output_db -= decay_step_db;
+				output = dbToLinear(output_db);	// Decrement the output
+				if (output <= sustain_amp) {				// If we've hit the bottom of the decay,
+					eg_state = k_eg_sustain;			// start the sustain stage
+					output = sustain_amp;				// Lock in the sustain value
+				}
+				break;
+			case k_eg_sustain:						// SUSTAIN
+				break;									// leave it alone
+
+			case k_eg_release:						// RELEASE
+				output_db -= release_step_db;
+				if (output_db <= NOISE_FLOOR) {						// If we've hit the basement,
 					eg_state = k_eg_inactive;			// deactivate the eg
 					output = 0.0;						// Make sure we didn't dip too low
 				}

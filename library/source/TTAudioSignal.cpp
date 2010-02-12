@@ -56,12 +56,12 @@ void TTAudioSignal::chuck()
 	
 	if(isLocallyOwned){
 		for(i=0; i<maxNumChannels; i++){
-			free(sampleVectors[i]);
+			TTFree16(sampleVectors[i]);
 			sampleVectors[i] = NULL;
 		}
 		isLocallyOwned = false;
 	}
-	free(sampleVectors);
+	TTFree16(sampleVectors);
 	maxNumChannels = 0;
 	sampleVectors = NULL;
 }
@@ -70,15 +70,18 @@ void TTAudioSignal::chuck()
 TTErr TTAudioSignal::setmaxNumChannels(const TTValue& newMaxNumChannels)
 {
 	TTUInt32	i;
+	TTBoolean	wasLocallyOwned = isLocallyOwned;
 
-	if(TTUInt16(newMaxNumChannels) != maxNumChannels){
+	if (TTUInt16(newMaxNumChannels) != maxNumChannels) {
 		chuck();
 		maxNumChannels = newMaxNumChannels;
-		if(maxNumChannels) {
-			sampleVectors = (TTSampleValue**)malloc(sizeof(TTSampleValue*) * maxNumChannels);
+		if (maxNumChannels) {
+			sampleVectors = (TTSampleValue**)TTMalloc16(sizeof(TTSampleValue*) * maxNumChannels);
 			for(i=0; i<maxNumChannels; i++)
 				sampleVectors[i] = NULL;
 		}
+		if (wasLocallyOwned)
+			alloc();
 	}
 	return kTTErrNone;
 }
@@ -101,7 +104,7 @@ TTErr TTAudioSignal::setVector(const TTUInt16 channel, const TTUInt16 newVectorS
 	
 	if(isLocallyOwned){
 		for(i=0; i<maxNumChannels; i++){
-			free(sampleVectors[i]);
+			TTFree16(sampleVectors[i]);
 			sampleVectors[i] = NULL;
 		}
 		isLocallyOwned = false;
@@ -227,13 +230,13 @@ TTErr TTAudioSignal::alloc()
 	TTUInt32	i;
 	if(isLocallyOwned){
 		for(i=0; i<maxNumChannels; i++){
-			free(sampleVectors[i]);
+			TTFree16(sampleVectors[i]);
 			sampleVectors[i] = NULL;
 		}
 	}
 
 	for(i=0; i<maxNumChannels; i++) {
-		sampleVectors[i] = (TTSampleValue*)malloc(sizeof(TTSampleValue) * vectorSize);
+		sampleVectors[i] = (TTSampleValue*)TTMalloc16(sizeof(TTSampleValue) * vectorSize);
 	}
 	isLocallyOwned = maxNumChannels > 0 ? true : false;
 	// we can't do this here!  we are called by the setVector method for 32bit signals!
@@ -280,6 +283,27 @@ TTErr TTAudioSignal::copy(const TTAudioSignal& source, TTAudioSignal& dest, TTUI
 		vs = dest.getVectorSize();
 		while(vs--)
 			*outSample++ = 0.0;
+	}
+	return kTTErrNone;
+}
+
+
+TTErr TTAudioSignal::copyDirty(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 channelOffset)
+{
+	TTUInt16		vs;
+	TTSampleValue*	inSample;
+	TTSampleValue*	outSample;
+	TTUInt16		maxDestChannels = dest.maxNumChannels;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(source, dest);
+	TTUInt16		additionalOutputChannels = dest.numChannels - numchannels;
+	TTUInt16		channel;
+	
+	for (channel=0; channel<numchannels; channel++) {
+		inSample = source.sampleVectors[channel];
+		outSample = dest.sampleVectors[ TTClip(channel+channelOffset, 0, maxDestChannels-1)  ];
+		vs = source.getVectorSize();
+		while (vs--)
+			*outSample++ = *inSample++;
 	}
 	return kTTErrNone;
 }

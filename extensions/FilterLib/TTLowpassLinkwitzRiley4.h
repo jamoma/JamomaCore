@@ -35,40 +35,43 @@
 class TTLowpassLinkwitzRiley4 : TTAudioObject {
 	TTCLASS_SETUP(TTLowpassLinkwitzRiley4)
 
-	TTFloat64		frequency;				///< filter cutoff frequency
-	TTFloat64		k, wc;						///< filter coefficients
-	TTFloat64		a0, a1, a2, a3, a4;			///< filter coefficients for input samples
-	TTFloat64		b1, b2, b3, b4;				///< filter coefficients for output samples
-	TTFloat64		*xm1;						///< Input sample n-1
-	TTFloat64		*xm2;						///< Input sample n-2
-	TTFloat64		*xm3;						///< Input sample n-3
-	TTFloat64		*xm4;						///< Input sample n-4
-	TTFloat64		*ym1;						///< Output sample n-1
-	TTFloat64		*ym2;						///< Output sample n-2
-	TTFloat64		*ym3;						///< Output sample n-3
-	TTFloat64		*ym4;						///< Output sample n-4
-
+	TTFloat64			mFrequency;				///< filter cutoff frequency
+	TTFloat64			mK, mRadians;						///< filter coefficients
+	TTFloat64			mA0, mA1, mA2, mA3, mA4;			///< filter coefficients for input samples
+	TTFloat64			mB1, mB2, mB3, mB4;				///< filter coefficients for output samples
+	TTSampleVector		mX1;						///< Input sample n-1
+	TTSampleVector		mX2;						///< Input sample n-2
+	TTSampleVector		mX3;						///< Input sample n-3
+	TTSampleVector		mX4;						///< Input sample n-4
+	TTSampleVector		mY1;						///< Output sample n-1
+	TTSampleVector		mY2;						///< Output sample n-2
+	TTSampleVector		mY3;						///< Output sample n-3
+	TTSampleVector		mY4;						///< Output sample n-4
+	
 	/**	Receives notifications when there are changes to the inherited 
-		maxNumChannels attribute.  This allocates memory for xm1, xm2, ym1, and ym2 
-		so that each channel's previous values are remembered.		*/
+	 maxNumChannels attribute.  This allocates memory for xm1, xm2, ym1, and ym2 
+	 so that each channel's previous values are remembered.		*/
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
-
-	/** Receives notifications when there are changes to the inherited 
-		sr attribute.						*/
 	TTErr updateSr();
-
+	TTErr clear();
+	
+	void calculateCoefficients();
+	
+    /**	Standard single value calculate method as used by DSP objects. */
+	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);
+	
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	
+	/**	Setter for the frequency attribute. */
+	TTErr setFrequency(const TTValue& value);
 	
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
 	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the
 	 *	feedback has become corrupted (such as might happen if a NaN is fed in) then it may be 
 	 *	neccesary to clear the filter by calling this method.
 	 *	@return Returns a TTErr error code.												*/
-	TTErr clear();
 	
-	/**	Setter for the frequency attribute. */
-	TTErr setfrequency(const TTValue& value);
 };
 
 

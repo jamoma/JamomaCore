@@ -12,21 +12,24 @@
 #include "TTDSP.h"
 
 
+typedef std::vector<TTSampleVector>	TTSampleMatrix;
+typedef TTSampleMatrix::iterator	TTSampleMatrixIter;
+
+
 /**	TTGain is an exceptionally simple audio processor scales an input audio signal */
 class TTMatrixMixer : TTAudioObject {
 	TTCLASS_SETUP(TTMatrixMixer)
 
-	TTUInt16		numInputs;
-	TTUInt16		numOutputs;
-	TTFloat64**		gainMatrix;
+	TTUInt16		mNumInputs;
+	TTUInt16		mNumOutputs;
+	TTSampleMatrix	mGainMatrix;
+
 
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-	
-	TTErr allocGainMatrix();
-	TTErr freeGainMatrix();
-	TTErr setnumInputs(const TTValue& newValue);
-	TTErr setnumOutputs(const TTValue& newValue);
+
+	TTErr setNumInputs(const TTUInt16 newValue);
+	TTErr setNumOutputs(const TTUInt16 newValue);
 	
 	TTErr clear();
 
@@ -39,8 +42,7 @@ class TTMatrixMixer : TTAudioObject {
 		@return			An error code.				*/
 	TTErr setGain(const TTValue& newValue);
 	TTErr setLinearGain(const TTValue& newValue);
-	TTErr setMidiGain(const TTValue& newValue);
-	
+	TTErr setMidiGain(const TTValue& newValue);	
 	
 	void processOne(TTAudioSignal& in, TTAudioSignal& out, TTFloat64 gain);
 

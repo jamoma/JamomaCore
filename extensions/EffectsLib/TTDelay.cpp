@@ -1,5 +1,5 @@
 /*
- * TTBlue Delay Unit
+ * Delay Unit for Jamoma DSP
  * Copyright © 2003, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
@@ -12,6 +12,9 @@
 #define thisTTClassName		"delay"
 #define thisTTClassTags		"audio, processor, delay"
 
+#ifdef TT_PLATFORM_WIN
+#include <Algorithm>
+#endif
 
 TT_AUDIO_CONSTRUCTOR, 
 	mDelay(0), 

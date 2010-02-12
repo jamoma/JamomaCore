@@ -13,30 +13,28 @@
 #define thisTTClassTags		"audio, processor, filter, lowpass"
 
 
-TT_AUDIO_CONSTRUCTOR,
-	x1(NULL), x2(NULL), x3(NULL), x4(NULL), 
-	y1(NULL), y2(NULL), y3(NULL), y4(NULL)
+TT_AUDIO_CONSTRUCTOR
 {
 	// register attributes
-	registerAttributeWithSetter(frequency,	kTypeFloat64);
-	addAttributeProperty(frequency,			range,			TTValue(2.0, sr*0.475));
-	addAttributeProperty(frequency,			rangeChecking,	TT("clip"));
+	addAttributeWithSetter(Frequency,	kTypeFloat64);
+	addAttributeProperty(Frequency,			range,			TTValue(2.0, sr*0.475));
+	addAttributeProperty(Frequency,			rangeChecking,	TT("clip"));
 
-	registerAttributeWithSetter(resonance,	kTypeFloat64);
-	addAttributeProperty(resonance,			range,			TTValue(0.01, 100.0));
-	addAttributeProperty(resonance,			rangeChecking,	TT("cliplow"));
+	addAttributeWithSetter(Resonance,	kTypeFloat64);
+	addAttributeProperty(Resonance,			range,			TTValue(0.01, 100.0));
+	addAttributeProperty(Resonance,			rangeChecking,	TT("cliplow"));
 
 	// register methods
-	registerMessageSimple(clear);
+	addMessage(clear);
 
 	// register for notifications
-	registerMessageWithArgument(updateMaxNumChannels);
-	registerMessageSimple(updateSr);
+	addMessageWithArgument(updateMaxNumChannels);
+	addMessage(updateSr);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	arguments);			// This attribute is inherited
-	setAttributeValue(TT("frequency"),		1000.0);
-	setAttributeValue(TT("resonance"),		1.0);
+	setAttributeValue(TT("Frequency"),		1000.0);
+	setAttributeValue(TT("Resonance"),		1.0);
 	
 	setCalculateMethod(calculateValue);
 	setProcessMethod(processAudio);
@@ -45,37 +43,20 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTLowpassFourPole::~TTLowpassFourPole()
 {
-	delete[] x1;
-	delete[] x2;
-	delete[] x3;
-	delete[] x4;
-	delete[] y1;
-	delete[] y2;
-	delete[] y3;
-	delete[] y4;
+	;
 }
 
 
 TTErr TTLowpassFourPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	delete[] x1;
-	delete[] x2;
-	delete[] x3;
-	delete[] x4;
-	delete[] y1;
-	delete[] y2;
-	delete[] y3;
-	delete[] y4;
-
-	x1 = new TTFloat64[maxNumChannels];
-	x2 = new TTFloat64[maxNumChannels];
-	x3 = new TTFloat64[maxNumChannels];
-	x4 = new TTFloat64[maxNumChannels];
-	y1 = new TTFloat64[maxNumChannels];
-	y2 = new TTFloat64[maxNumChannels];
-	y3 = new TTFloat64[maxNumChannels];
-	y4 = new TTFloat64[maxNumChannels];
-
+	mX1.resize(maxNumChannels);
+	mX2.resize(maxNumChannels);
+	mX3.resize(maxNumChannels);
+	mX4.resize(maxNumChannels);
+	mY1.resize(maxNumChannels);
+	mY2.resize(maxNumChannels);
+	mY3.resize(maxNumChannels);
+	mY4.resize(maxNumChannels);
 	clear();
 	return kTTErrNone;
 }
@@ -83,41 +64,43 @@ TTErr TTLowpassFourPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 TTErr TTLowpassFourPole::updateSr()
 {
-	TTValue	v(frequency);
-	return setfrequency(v);
+	TTValue	v(mFrequency);
+	return setFrequency(v);
 }
 
 
 TTErr TTLowpassFourPole::clear()
 {
-	memset(x1, 0, sizeof(TTFloat64) * maxNumChannels);
-	memset(x2, 0, sizeof(TTFloat64) * maxNumChannels);
-	memset(x3, 0, sizeof(TTFloat64) * maxNumChannels);
-	memset(x4, 0, sizeof(TTFloat64) * maxNumChannels);
-	memset(y1, 0, sizeof(TTFloat64) * maxNumChannels);
-	memset(y2, 0, sizeof(TTFloat64) * maxNumChannels);
-	memset(y3, 0, sizeof(TTFloat64) * maxNumChannels);
-	memset(y4, 0, sizeof(TTFloat64) * maxNumChannels);
+	mX1.assign(maxNumChannels, 0.0);
+	mX2.assign(maxNumChannels, 0.0);
+	mX3.assign(maxNumChannels, 0.0);
+	mX4.assign(maxNumChannels, 0.0);
+	mY1.assign(maxNumChannels, 0.0);
+	mY2.assign(maxNumChannels, 0.0);
+	mY3.assign(maxNumChannels, 0.0);
+	mY4.assign(maxNumChannels, 0.0);
 	return kTTErrNone;
 }
 
 
-TTErr TTLowpassFourPole::setfrequency(const TTValue& newValue)
+TTErr TTLowpassFourPole::setFrequency(const TTValue& newValue)
 {	
 	TTFloat64	radians;
 
-	frequency = newValue;
-	radians = hertzToRadians(frequency);
-	coefficientF = radians * 1.16;
+	mFrequency = newValue;
+	radians = hertzToRadians(mFrequency);
+	mCoefficientF = radians * 1.16;
+	mCoefficientSquaredF = mCoefficientF * mCoefficientF;
+	mOneMinusCoefficientF = 1.0 - mCoefficientF;
 	calculateCoefficients();
 	return kTTErrNone;
 }
 
 
-TTErr TTLowpassFourPole::setresonance(const TTValue& newValue)
+TTErr TTLowpassFourPole::setResonance(const TTValue& newValue)
 {
-	resonance = newValue;
-	deciResonance = resonance * 0.1;
+	mResonance = newValue;
+	mDeciResonance = mResonance * 0.1;
 	calculateCoefficients();
 	return kTTErrNone;
 }
@@ -125,8 +108,8 @@ TTErr TTLowpassFourPole::setresonance(const TTValue& newValue)
 
 void TTLowpassFourPole::calculateCoefficients()
 {
-	coefficientFB = deciResonance * (1.0 - 0.15 * (coefficientF * coefficientF));
-	coefficientG = TTAntiDenormal(0.35013 * ((coefficientF * coefficientF) * (coefficientF * coefficientF))); 
+	mCoefficientFB = mDeciResonance * (1.0 - 0.15 * mCoefficientSquaredF);
+	mCoefficientG = TTAntiDenormal(0.35013 * (mCoefficientSquaredF * mCoefficientSquaredF)); 
 }
 
 
@@ -134,18 +117,18 @@ inline TTErr TTLowpassFourPole::calculateValue(const TTFloat64& x, TTFloat64& y,
 {
 	TTSampleValue tempSample = x;
 
-	tempSample -= TTAntiDenormal(y4[channel] * coefficientFB);
-	tempSample *= coefficientG;
+	tempSample -= TTAntiDenormal(mY4[channel] * mCoefficientFB);
+	tempSample *= mCoefficientG;
 	
-	y1[channel] = TTAntiDenormal(tempSample + 0.3 * x1[channel] + (1 - coefficientF) * y1[channel]);
-	x1[channel] = tempSample;
-	y2[channel] = TTAntiDenormal(y1[channel] + 0.3 * x2[channel] + (1 - coefficientF) * y2[channel]);
-	x2[channel] = y1[channel];
-	y3[channel] = TTAntiDenormal(y2[channel] + 0.3 * x3[channel] + (1 - coefficientF) * y3[channel]);
-	x3[channel] = y2[channel];
-	y4[channel] = TTAntiDenormal(y3[channel] + 0.3 * x4[channel] + (1 - coefficientF) * y4[channel]);
-	x4[channel] = y3[channel];
-	tempSample = y4[channel];
+	mY1[channel] = TTAntiDenormal(tempSample + 0.3 * mX1[channel] + mOneMinusCoefficientF * mY1[channel]);
+	mX1[channel] = tempSample;
+	mY2[channel] = TTAntiDenormal(mY1[channel] + 0.3 * mX2[channel] + mOneMinusCoefficientF * mY2[channel]);
+	mX2[channel] = mY1[channel];
+	mY3[channel] = TTAntiDenormal(mY2[channel] + 0.3 * mX3[channel] + mOneMinusCoefficientF * mY3[channel]);
+	mX3[channel] = mY2[channel];
+	mY4[channel] = TTAntiDenormal(mY3[channel] + 0.3 * mX4[channel] + mOneMinusCoefficientF * mY4[channel]);
+	mX4[channel] = mY3[channel];
+	tempSample = mY4[channel];
 	
 	y = tempSample;
 	return kTTErrNone;

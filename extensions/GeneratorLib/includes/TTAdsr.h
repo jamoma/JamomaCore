@@ -46,6 +46,7 @@ class TTAdsr : TTAudioObject {
 
 	TTErr processAudioLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processAudioHybrid(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 	enum constants {
 		NOISE_FLOOR = -120
