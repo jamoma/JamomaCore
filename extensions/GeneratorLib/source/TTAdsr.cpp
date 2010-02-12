@@ -191,7 +191,7 @@ TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSigna
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue*	inSample = NULL;
 	TTSampleValue*	outSample;
-	TTUInt16		vs = in.getVectorSize();
+	TTUInt16		vs = out.getVectorSize();
 	bool			checkAudioTrigger = false;
 
 	// TODO: Is there a decent way to do this without having to check this every single vector?
@@ -259,7 +259,7 @@ TTErr TTAdsr::processAudioHybrid(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue*	inSample = NULL;
 	TTSampleValue*	outSample;
-	TTUInt16		vs = in.getVectorSize();
+	TTUInt16		vs = out.getVectorSize();
 	bool			checkAudioTrigger = false;
 
 	// TODO: Is there a decent way to do this without having to check this every single vector?
