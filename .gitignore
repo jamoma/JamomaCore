@@ -17,5 +17,6 @@ html
 *.suo
 *.user
 *.ncb
+*.map
 Release
 Debug
