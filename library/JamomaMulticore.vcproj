@@ -206,11 +206,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\includes\TTMulticoreDescription.h"
+				>
+			</File>
+			<File
 				RelativePath=".\includes\TTMulticoreGenerator.h"
 				>
 			</File>
 			<File
 				RelativePath=".\includes\TTMulticoreInlet.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTMulticoreInput.h"
 				>
 			</File>
 			<File
@@ -234,11 +242,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\source\TTMulticoreDescription.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\TTMulticoreGenerator.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\source\TTMulticoreInlet.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTMulticoreInput.cpp"
 				>
 			</File>
 			<File
