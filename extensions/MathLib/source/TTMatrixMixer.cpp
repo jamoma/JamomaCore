@@ -7,6 +7,9 @@
  */
 
 #include "TTMatrixMixer.h"
+#ifdef TT_PLATFORM_WIN
+#include <algorithm>
+#endif
 
 #define thisTTClass			TTMatrixMixer
 #define thisTTClassName		"matrixmixer"
