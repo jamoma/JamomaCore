@@ -15,8 +15,11 @@
 /**	TTDelayBuffer is a container object that holds some audio in a chunk of memory,
 	with accessors for using it as a circular delay line.	
 */
-class TTDSP_EXPORT TTDelayBuffer {
 
+
+// class TTDSP_EXPORT TTDelayBuffer {
+// This class is designed to inlined, so there is nothing to export
+class TTDelayBuffer {
 public:
 	TTSampleVector		mBuffer;
 	TTSampleValuePtr	mWritePointer;		///< "record" pointer for buffer

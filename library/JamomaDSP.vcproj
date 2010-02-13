@@ -218,6 +218,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\includes\TTDelayBuffer.h"
+				>
+			</File>
+			<File
 				RelativePath=".\includes\TTDSP.h"
 				>
 			</File>
