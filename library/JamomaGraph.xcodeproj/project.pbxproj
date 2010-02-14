@@ -1,0 +1,383 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		222018D010F8C8C30010D781 /* TTMulticoreGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 222018CF10F8C8C30010D781 /* TTMulticoreGenerator.h */; };
+		222018D210F8C8CB0010D781 /* TTMulticoreGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222018D110F8C8CB0010D781 /* TTMulticoreGenerator.cpp */; };
+		2220192C10F8E7760010D781 /* TTMulticoreOutlet.h in Headers */ = {isa = PBXBuildFile; fileRef = 2220192B10F8E7760010D781 /* TTMulticoreOutlet.h */; };
+		222019D810F90A2D0010D781 /* TTMulticoreInlet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222019D710F90A2D0010D781 /* TTMulticoreInlet.cpp */; };
+		226AAF7F10F80EDE002C6057 /* TTMulticore.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7310F80EDE002C6057 /* TTMulticore.h */; };
+		226AAF8010F80EDE002C6057 /* TTMulticoreAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7410F80EDE002C6057 /* TTMulticoreAPI.h */; };
+		226AAF8110F80EDE002C6057 /* TTMulticoreInlet.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7510F80EDE002C6057 /* TTMulticoreInlet.h */; };
+		226AAF8210F80EDE002C6057 /* TTMulticoreObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7610F80EDE002C6057 /* TTMulticoreObject.h */; };
+		226AAF8310F80EDE002C6057 /* TTMulticoreOutput.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7710F80EDE002C6057 /* TTMulticoreOutput.h */; };
+		226AAF8510F80EDE002C6057 /* TTMulticore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7A10F80EDE002C6057 /* TTMulticore.cpp */; };
+		226AAF8710F80EDE002C6057 /* TTMulticoreObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7C10F80EDE002C6057 /* TTMulticoreObject.cpp */; };
+		226AAF8810F80EDE002C6057 /* TTMulticoreOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7D10F80EDE002C6057 /* TTMulticoreOutput.cpp */; };
+		229D14F8112107B100D45E1B /* TTMulticoreInput.h in Headers */ = {isa = PBXBuildFile; fileRef = 229D14F7112107B100D45E1B /* TTMulticoreInput.h */; };
+		229D14FA11210ADF00D45E1B /* TTMulticoreInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 229D14F911210ADF00D45E1B /* TTMulticoreInput.cpp */; };
+		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
+		22C9F59F10325CDB0062F7B8 /* TTFoundationAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F59E10325CDB0062F7B8 /* TTFoundationAPI.h */; };
+		22C9F5A110325CDF0062F7B8 /* TTDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5A010325CDF0062F7B8 /* TTDSP.h */; };
+		22C9F5A310325CED0062F7B8 /* JamomaMulticore.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F5A210325CED0062F7B8 /* JamomaMulticore.xcconfig */; };
+		22C9F5C110325E1F0062F7B8 /* portaudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5C010325E1F0062F7B8 /* portaudio.h */; };
+		22C9F5CC10325E650062F7B8 /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */; };
+		22DF22510F2441BD00DBBEE9 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */; };
+		22F25DD9111E0B6F00A67D8D /* TTMulticoreDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F25DD8111E0B6F00A67D8D /* TTMulticoreDescription.h */; };
+		22F25F18111FC59900A67D8D /* TTMulticoreDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F25F17111FC59900A67D8D /* TTMulticoreDescription.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		222018CF10F8C8C30010D781 /* TTMulticoreGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMulticoreGenerator.h; sourceTree = "<group>"; };
+		222018D110F8C8CB0010D781 /* TTMulticoreGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMulticoreGenerator.cpp; path = ../source/TTMulticoreGenerator.cpp; sourceTree = "<group>"; };
+		2220192B10F8E7760010D781 /* TTMulticoreOutlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMulticoreOutlet.h; path = includes/TTMulticoreOutlet.h; sourceTree = "<group>"; };
+		222019D710F90A2D0010D781 /* TTMulticoreInlet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMulticoreInlet.cpp; path = source/TTMulticoreInlet.cpp; sourceTree = "<group>"; };
+		2238134B1108C23A0031E8B6 /* TTRuby.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTRuby.cpp; path = ../../Ruby/library/TTRuby.cpp; sourceTree = SOURCE_ROOT; };
+		226AAF7310F80EDE002C6057 /* TTMulticore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMulticore.h; path = includes/TTMulticore.h; sourceTree = "<group>"; };
+		226AAF7410F80EDE002C6057 /* TTMulticoreAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMulticoreAPI.h; path = includes/TTMulticoreAPI.h; sourceTree = "<group>"; };
+		226AAF7510F80EDE002C6057 /* TTMulticoreInlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMulticoreInlet.h; path = includes/TTMulticoreInlet.h; sourceTree = "<group>"; };
+		226AAF7610F80EDE002C6057 /* TTMulticoreObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMulticoreObject.h; path = includes/TTMulticoreObject.h; sourceTree = "<group>"; };
+		226AAF7710F80EDE002C6057 /* TTMulticoreOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMulticoreOutput.h; sourceTree = "<group>"; };
+		226AAF7A10F80EDE002C6057 /* TTMulticore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMulticore.cpp; path = source/TTMulticore.cpp; sourceTree = "<group>"; };
+		226AAF7C10F80EDE002C6057 /* TTMulticoreObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMulticoreObject.cpp; path = source/TTMulticoreObject.cpp; sourceTree = "<group>"; };
+		226AAF7D10F80EDE002C6057 /* TTMulticoreOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMulticoreOutput.cpp; path = ../source/TTMulticoreOutput.cpp; sourceTree = "<group>"; };
+		229D14F7112107B100D45E1B /* TTMulticoreInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMulticoreInput.h; sourceTree = "<group>"; };
+		229D14F911210ADF00D45E1B /* TTMulticoreInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMulticoreInput.cpp; path = ../source/TTMulticoreInput.cpp; sourceTree = "<group>"; };
+		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		22C9F59E10325CDB0062F7B8 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = ../../Foundation/library/includes/TTFoundationAPI.h; sourceTree = SOURCE_ROOT; };
+		22C9F5A010325CDF0062F7B8 /* TTDSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDSP.h; path = ../../DSP/library/includes/TTDSP.h; sourceTree = SOURCE_ROOT; };
+		22C9F5A210325CED0062F7B8 /* JamomaMulticore.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaMulticore.xcconfig; sourceTree = "<group>"; };
+		22C9F5C010325E1F0062F7B8 /* portaudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = portaudio.h; path = ../../DSP/library/portaudio/include/portaudio.h; sourceTree = SOURCE_ROOT; };
+		22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
+		22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
+		22F25DD8111E0B6F00A67D8D /* TTMulticoreDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMulticoreDescription.h; path = includes/TTMulticoreDescription.h; sourceTree = "<group>"; };
+		22F25F17111FC59900A67D8D /* TTMulticoreDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMulticoreDescription.cpp; path = source/TTMulticoreDescription.cpp; sourceTree = "<group>"; };
+		8DC2EF5B0486A6940098B216 /* JamomaMulticore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JamomaMulticore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DC2EF560486A6940098B216 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */,
+				22DF22510F2441BD00DBBEE9 /* JamomaDSP.framework in Frameworks */,
+				22C9F5CC10325E650062F7B8 /* JamomaFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5B0486A6940098B216 /* JamomaMulticore.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* MaxObject */ = {
+			isa = PBXGroup;
+			children = (
+				22C9F5A210325CED0062F7B8 /* JamomaMulticore.xcconfig */,
+				22C9F59E10325CDB0062F7B8 /* TTFoundationAPI.h */,
+				22C9F5A010325CDF0062F7B8 /* TTDSP.h */,
+				22C9F5C010325E1F0062F7B8 /* portaudio.h */,
+				2220193110F8E7B40010D781 /* API */,
+				2220193010F8E77F0010D781 /* Core Classes */,
+				226AAF7210F80EDE002C6057 /* Multicore Objects */,
+				223813541108C2410031E8B6 /* Debugging */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DFFF38A50411DB9C8B /* Products */,
+			);
+			name = MaxObject;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */,
+				22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */,
+				22A403830CAD7B9400E5299E /* Carbon.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		2220193010F8E77F0010D781 /* Core Classes */ = {
+			isa = PBXGroup;
+			children = (
+				22F25DD8111E0B6F00A67D8D /* TTMulticoreDescription.h */,
+				22F25F17111FC59900A67D8D /* TTMulticoreDescription.cpp */,
+				226AAF7510F80EDE002C6057 /* TTMulticoreInlet.h */,
+				222019D710F90A2D0010D781 /* TTMulticoreInlet.cpp */,
+				2220192B10F8E7760010D781 /* TTMulticoreOutlet.h */,
+				226AAF7610F80EDE002C6057 /* TTMulticoreObject.h */,
+				226AAF7C10F80EDE002C6057 /* TTMulticoreObject.cpp */,
+			);
+			name = "Core Classes";
+			sourceTree = "<group>";
+		};
+		2220193110F8E7B40010D781 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				226AAF7410F80EDE002C6057 /* TTMulticoreAPI.h */,
+				226AAF7310F80EDE002C6057 /* TTMulticore.h */,
+				226AAF7A10F80EDE002C6057 /* TTMulticore.cpp */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		223813541108C2410031E8B6 /* Debugging */ = {
+			isa = PBXGroup;
+			children = (
+				2238134B1108C23A0031E8B6 /* TTRuby.cpp */,
+			);
+			name = Debugging;
+			sourceTree = "<group>";
+		};
+		226AAF7210F80EDE002C6057 /* Multicore Objects */ = {
+			isa = PBXGroup;
+			children = (
+				222018CF10F8C8C30010D781 /* TTMulticoreGenerator.h */,
+				222018D110F8C8CB0010D781 /* TTMulticoreGenerator.cpp */,
+				229D14F7112107B100D45E1B /* TTMulticoreInput.h */,
+				229D14F911210ADF00D45E1B /* TTMulticoreInput.cpp */,
+				226AAF7710F80EDE002C6057 /* TTMulticoreOutput.h */,
+				226AAF7D10F80EDE002C6057 /* TTMulticoreOutput.cpp */,
+			);
+			name = "Multicore Objects";
+			path = includes;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8DC2EF500486A6940098B216 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22C9F59F10325CDB0062F7B8 /* TTFoundationAPI.h in Headers */,
+				22C9F5A110325CDF0062F7B8 /* TTDSP.h in Headers */,
+				22C9F5C110325E1F0062F7B8 /* portaudio.h in Headers */,
+				226AAF7F10F80EDE002C6057 /* TTMulticore.h in Headers */,
+				226AAF8010F80EDE002C6057 /* TTMulticoreAPI.h in Headers */,
+				226AAF8110F80EDE002C6057 /* TTMulticoreInlet.h in Headers */,
+				226AAF8210F80EDE002C6057 /* TTMulticoreObject.h in Headers */,
+				226AAF8310F80EDE002C6057 /* TTMulticoreOutput.h in Headers */,
+				222018D010F8C8C30010D781 /* TTMulticoreGenerator.h in Headers */,
+				2220192C10F8E7760010D781 /* TTMulticoreOutlet.h in Headers */,
+				22F25DD9111E0B6F00A67D8D /* TTMulticoreDescription.h in Headers */,
+				229D14F8112107B100D45E1B /* TTMulticoreInput.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8DC2EF4F0486A6940098B216 /* Multicore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "Multicore" */;
+			buildPhases = (
+				8DC2EF500486A6940098B216 /* Headers */,
+				8DC2EF520486A6940098B216 /* Resources */,
+				8DC2EF540486A6940098B216 /* Sources */,
+				8DC2EF560486A6940098B216 /* Frameworks */,
+				22C8C0650CB31E500094575E /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Multicore;
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = MaxObject;
+			productReference = 8DC2EF5B0486A6940098B216 /* JamomaMulticore.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "JamomaMulticore" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 0867D691FE84028FC02AAC07 /* MaxObject */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DC2EF4F0486A6940098B216 /* Multicore */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8DC2EF520486A6940098B216 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22C9F5A310325CED0062F7B8 /* JamomaMulticore.xcconfig in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		22C8C0650CB31E500094575E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\" ]\n\tthen /bin/rm -rf \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\"\nfi\n\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION\" /Library/Frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DC2EF540486A6940098B216 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				226AAF8510F80EDE002C6057 /* TTMulticore.cpp in Sources */,
+				226AAF8710F80EDE002C6057 /* TTMulticoreObject.cpp in Sources */,
+				226AAF8810F80EDE002C6057 /* TTMulticoreOutput.cpp in Sources */,
+				222018D210F8C8CB0010D781 /* TTMulticoreGenerator.cpp in Sources */,
+				222019D810F90A2D0010D781 /* TTMulticoreInlet.cpp in Sources */,
+				22F25F18111FC59900A67D8D /* TTMulticoreDescription.cpp in Sources */,
+				229D14FA11210ADF00D45E1B /* TTMulticoreInput.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91AE08733DA50010E9CD /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22C9F5A210325CED0062F7B8 /* JamomaMulticore.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /Library/Frameworks;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../Foundation/library/build/UninstalledProducts\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = multicore.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TT_DEBUG,
+					_DLL_EXPORT,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_SHADOW = YES;
+				GENERATE_PKGINFO_FILE = YES;
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LD_GENERATE_MAP_FILE = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
+				SKIP_INSTALL = YES;
+			};
+			name = Development;
+		};
+		1DEB91AF08733DA50010E9CD /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22C9F5A210325CED0062F7B8 /* JamomaMulticore.xcconfig */;
+			buildSettings = {
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /Library/Frameworks;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../Foundation/library/build/UninstalledProducts\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = multicore.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = _DLL_EXPORT;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_SHADOW = YES;
+				GENERATE_PKGINFO_FILE = YES;
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LD_GENERATE_MAP_FILE = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
+				SKIP_INSTALL = YES;
+			};
+			name = Deployment;
+		};
+		1DEB91B208733DA50010E9CD /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.4;
+			};
+			name = Development;
+		};
+		1DEB91B308733DA50010E9CD /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.4;
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "Multicore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91AE08733DA50010E9CD /* Development */,
+				1DEB91AF08733DA50010E9CD /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "JamomaMulticore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91B208733DA50010E9CD /* Development */,
+				1DEB91B308733DA50010E9CD /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}
