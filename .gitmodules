@@ -64,3 +64,6 @@
 [submodule "Modules/Test"]
 	path = Modules/Test
 	url = git://github.com/tap/JamomaTest.git
+[submodule "Modules/Graph"]
+	path = Modules/Graph
+	url = git://github.com/tap/JamomaGraph.git
