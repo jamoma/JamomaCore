@@ -21,9 +21,10 @@
 class TTMulticoreSource {
 	friend void TTMulticoreSourceObserverCallback(TTMulticoreSource* self, TTValue& arg);
 	
-	TTMulticoreObjectPtr	mSourceObject;	// the object from which we pull samples
-	TTUInt16				mOutletNumber;	// zero-based
+	TTMulticoreObjectPtr	mSourceObject;		// the object from which we pull samples
+	TTUInt16				mOutletNumber;		// zero-based
 	TTObjectPtr				mCallbackHandler;
+	TTMulticoreInletPtr		mOwner;				// the owning inlet
 	
 public:
 	TTMulticoreSource();	
@@ -32,14 +33,21 @@ public:
 	// Internal method shared/called by constructors.
 	void create();
 	
+	void setOwner(TTMulticoreInletPtr theOwningInlet)
+	{
+		mOwner = theOwningInlet;
+	}
+	
 	// Copying Functions -- critical due to use by std::vector 
 	
 	TTMulticoreSource(const TTMulticoreSource& original) :
 		mSourceObject(NULL),
 		mOutletNumber(0),
-		mCallbackHandler(NULL)	
+		mCallbackHandler(NULL),
+		mOwner(NULL)
 	{
 		create();
+		mOwner = original.mOwner;
 		
 		// NOTE: See notes below in TTMulticoreInlet copy constructor...
 		// NOTE: When vector of sources is resized, it is possible for an object to be created and immediately copied -- prior to a 'connect' method call
@@ -55,6 +63,16 @@ public:
 		TT_ASSERT("we shouldn't be here", false);				
 		return *this;
 	}
+	
+	/** Compare two sources for equality. */
+	inline friend bool operator == (const TTMulticoreSource& source1, const TTMulticoreSource& source2)
+	{
+		if (source1.mSourceObject == source2.mSourceObject && source1.mOutletNumber == source2.mOutletNumber)
+			return true;
+		else
+			return false;
+	}
+	
 	
 	// Info Methods
 	
@@ -184,19 +202,26 @@ public:
 			source->init(initData);
 	}
 	
-	// when we receive a notification than an object is going away...
-//	void drop(TTObjectPtr theObjectBeingDeleted);
 	
 	TTErr connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber)
 	{
 		TTUInt16 size = mSourceObjects.size();
 		
 		mSourceObjects.resize(size+1);
-		mSourceObjects[size].connect(anObject, fromOutletNumber);		
+		mSourceObjects[size].connect(anObject, fromOutletNumber);
+		mSourceObjects[size].setOwner(this);
 		return kTTErrNone;
 	}
 	
+	void drop(TTMulticoreSource& aSource)
+	{
+		TTMulticoreSourceIter iter = find(mSourceObjects.begin(), mSourceObjects.end(), aSource);
+		
+		if (iter != mSourceObjects.end())
+			mSourceObjects.erase(iter);
+	}
 	
+
 	void preprocess()
 	{
 		mBufferedInput->clear();

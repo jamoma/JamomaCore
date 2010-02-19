@@ -18,6 +18,7 @@ void TTMulticoreSourceObserverCallback(TTMulticoreSourcePtr self, TTValue& arg)
 	// at the moment we only receive one callback, which is for the object being deleted
 	self->mSourceObject = NULL;
 	self->mOutletNumber = 0;
+	self->mOwner->drop(*self);
 }
 
 
@@ -26,7 +27,8 @@ void TTMulticoreSourceObserverCallback(TTMulticoreSourcePtr self, TTValue& arg)
 TTMulticoreSource::TTMulticoreSource() :
 	mSourceObject(NULL),
 	mOutletNumber(0),
-	mCallbackHandler(NULL)
+	mCallbackHandler(NULL),
+	mOwner(NULL)
 {
 	create();
 }
