@@ -22,6 +22,7 @@
 		229D14F8112107B100D45E1B /* TTMulticoreInput.h in Headers */ = {isa = PBXBuildFile; fileRef = 229D14F7112107B100D45E1B /* TTMulticoreInput.h */; };
 		229D14FA11210ADF00D45E1B /* TTMulticoreInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 229D14F911210ADF00D45E1B /* TTMulticoreInput.cpp */; };
 		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
+		22B04659112F5A6E001D29FD /* TTMulticoreSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B04658112F5A6E001D29FD /* TTMulticoreSource.h */; };
 		22C9F59F10325CDB0062F7B8 /* TTFoundationAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F59E10325CDB0062F7B8 /* TTFoundationAPI.h */; };
 		22C9F5A110325CDF0062F7B8 /* TTDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5A010325CDF0062F7B8 /* TTDSP.h */; };
 		22C9F5A310325CED0062F7B8 /* JamomaMulticore.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F5A210325CED0062F7B8 /* JamomaMulticore.xcconfig */; };
@@ -49,6 +50,7 @@
 		229D14F7112107B100D45E1B /* TTMulticoreInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMulticoreInput.h; sourceTree = "<group>"; };
 		229D14F911210ADF00D45E1B /* TTMulticoreInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMulticoreInput.cpp; path = ../source/TTMulticoreInput.cpp; sourceTree = "<group>"; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		22B04658112F5A6E001D29FD /* TTMulticoreSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMulticoreSource.h; path = includes/TTMulticoreSource.h; sourceTree = "<group>"; };
 		22C9F59E10325CDB0062F7B8 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = ../../Foundation/library/includes/TTFoundationAPI.h; sourceTree = SOURCE_ROOT; };
 		22C9F5A010325CDF0062F7B8 /* TTDSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDSP.h; path = ../../DSP/library/includes/TTDSP.h; sourceTree = SOURCE_ROOT; };
 		22C9F5A210325CED0062F7B8 /* JamomaMulticore.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaMulticore.xcconfig; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				22F25DD8111E0B6F00A67D8D /* TTMulticoreDescription.h */,
 				22F25F17111FC59900A67D8D /* TTMulticoreDescription.cpp */,
 				226AAF7510F80EDE002C6057 /* TTMulticoreInlet.h */,
+				22B04658112F5A6E001D29FD /* TTMulticoreSource.h */,
 				222019D710F90A2D0010D781 /* TTMulticoreSource.cpp */,
 				2220192B10F8E7760010D781 /* TTMulticoreOutlet.h */,
 				226AAF7610F80EDE002C6057 /* TTMulticoreObject.h */,
@@ -174,6 +177,7 @@
 				2220192C10F8E7760010D781 /* TTMulticoreOutlet.h in Headers */,
 				22F25DD9111E0B6F00A67D8D /* TTMulticoreDescription.h in Headers */,
 				229D14F8112107B100D45E1B /* TTMulticoreInput.h in Headers */,
+				22B04659112F5A6E001D29FD /* TTMulticoreSource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
