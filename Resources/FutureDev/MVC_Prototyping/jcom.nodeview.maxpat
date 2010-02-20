@@ -15,66 +15,78 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
-		"metadata" : [  ],
+		"enablehscroll" : 1,
+		"enablevscroll" : 1,
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "this is just a dummy object until the real one can be written",
-					"linecount" : 3,
-					"patching_rect" : [ 255.0, 160.0, 150.0, 43.0 ],
-					"id" : "obj-7",
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"fontsize" : 10.0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "outlet",
-					"patching_rect" : [ 215.0, 215.0, 20.0, 20.0 ],
-					"id" : "obj-5",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"presentation_rect" : [ 215.0, 216.0, 0.0, 0.0 ],
-					"comment" : ""
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "outlet",
-					"patching_rect" : [ 185.0, 215.0, 20.0, 20.0 ],
-					"id" : "obj-4",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"presentation_rect" : [ 184.0, 216.0, 0.0, 0.0 ],
-					"comment" : ""
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "outlet",
-					"patching_rect" : [ 155.0, 215.0, 20.0, 20.0 ],
-					"id" : "obj-3",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"comment" : ""
-				}
-
-			}
-, 			{
-				"box" : 				{
+					"comment" : "",
+					"id" : "obj-1",
 					"maxclass" : "inlet",
-					"patching_rect" : [ 155.0, 180.0, 20.0, 20.0 ],
-					"id" : "obj-2",
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"comment" : ""
+					"patching_rect" : [ 183.0, 180.0, 20.0, 20.0 ],
+					"presentation_rect" : [ 183.0, 180.0, 0.0, 0.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-7",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 255.0, 160.0, 150.0, 43.0 ],
+					"text" : "this is just a dummy object until the real one can be written"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "",
+					"id" : "obj-5",
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 215.0, 215.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "",
+					"id" : "obj-4",
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 185.0, 215.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "",
+					"id" : "obj-3",
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 155.0, 215.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "",
+					"id" : "obj-2",
+					"maxclass" : "inlet",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "float" ],
+					"patching_rect" : [ 155.0, 180.0, 20.0, 20.0 ]
 				}
 
 			}
