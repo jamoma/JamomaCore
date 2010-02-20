@@ -79,7 +79,9 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 		v.set(1, numInputs);
 		v.set(2, numOutputs);
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
-				
+		if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("generator"), v))
+			self->multicoreObject->addFlag(kTTMulticoreGenerator);
+			
 		attr_args_process(self, argc, argv);
 	}
 	return ObjectPtr(self);
