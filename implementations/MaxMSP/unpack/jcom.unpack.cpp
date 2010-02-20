@@ -19,6 +19,8 @@ struct Out {
 	TTUInt16				numChannels;	// the actual number of channels to use, set by the dsp method
 	TTUInt16				vectorSize;		// cached by the DSP method
 	TTFloat32				gain;			// gain multiplier
+	TTBoolean				hasReset;		// flag indicating that reset has been called already, so we don't need to reset again
+	TTBoolean				hasConnections;	// flag indicating that we have connections so we can mute MSP output
 };
 typedef Out* OutPtr;
 
@@ -130,12 +132,15 @@ void OutAssist(OutPtr self, void* b, long msg, long arg, char* dst)
 
 TTErr OutReset(OutPtr self, long vectorSize)
 {
+	self->hasReset = true;
+	self->hasConnections = false;
 	return self->multicoreObject->reset();
 }
 
 
 TTErr OutConnect(OutPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
 {
+	self->hasConnections = true;
 	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
 }
 
@@ -167,13 +172,23 @@ t_int* OutPerform(t_int* w)
 	TTUInt16	numChannels;
 	
 	if (!self->obj.z_disabled) {
-		self->multicoreObject->preprocess();
-		self->multicoreObject->process(self->audioSignal);
-		
-		numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannels());
-		for(TTUInt16 channel=0; channel<numChannels; channel++)
-			self->audioSignal->getVector(channel, self->vectorSize, (TTFloat32*)w[channel+2]);
-	}	
+		if (self->hasConnections) {		
+			self->multicoreObject->preprocess();
+			self->multicoreObject->process(self->audioSignal);
+			
+			numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannels());			
+			for(TTUInt16 channel=0; channel<numChannels; channel++)
+				self->audioSignal->getVector(channel, self->vectorSize, (TTFloat32*)w[channel+2]);
+		}
+		else {
+			for (TTUInt16 channel=0; channel < self->numChannels; channel++) {
+				for (int i=0 ; i < self->vectorSize; i++)
+					((TTFloat32*)(w[channel+2]))[i] = 0.0;
+			}
+		}
+	}
+	
+	self->hasReset = false;
 	return w + (self->numChannels+2);
 }
 
@@ -215,10 +230,11 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 		(since the order in which we traverse objects is undefined).
 	 */ 
 
-	err = object_obex_lookup(self, gensym("#P"), &patcher);
-	object_method(patcher, gensym("iterate"), (method)OutIterateResetCallback, self, PI_DEEP, &result);
-	object_method(patcher, gensym("iterate"), (method)OutIterateSetupCallback, self, PI_DEEP, &result);
-	
+	if (!self->hasReset) {
+		err = object_obex_lookup(self, gensym("#P"), &patcher);
+		object_method(patcher, gensym("iterate"), (method)OutIterateResetCallback, self, PI_DEEP, &result);
+		object_method(patcher, gensym("iterate"), (method)OutIterateSetupCallback, self, PI_DEEP, &result);
+	}
 //	box = jpatcher_get_firstobject(patcher);
 //	while (box) {
 //		o = jbox_get_object(box);
