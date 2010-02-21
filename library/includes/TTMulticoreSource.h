@@ -33,6 +33,14 @@ public:
 	// Internal method shared/called by constructors.
 	void create();
 	
+	TTBoolean match(TTMulticoreObjectPtr anObject, TTUInt16 anOutletNumber)
+	{
+		if (anObject == mSourceObject && anOutletNumber == mOutletNumber)
+			return YES;
+		else
+			return NO;
+	}
+	
 	void setOwner(TTMulticoreInletPtr theOwningInlet)
 	{
 		mOwner = theOwningInlet;

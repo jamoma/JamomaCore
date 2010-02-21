@@ -103,7 +103,14 @@ public:
 	TTErr connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber)
 	{
 		TTUInt16 size = mSourceObjects.size();
+
+		// make sure the connection doesn't already exist
+		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
+			if (source->match(anObject, fromOutletNumber))
+				return kTTErrNone;
+		}
 		
+		// create the connection
 		mSourceObjects.resize(size+1);
 		mSourceObjects[size].connect(anObject, fromOutletNumber);
 		mSourceObjects[size].setOwner(this);
