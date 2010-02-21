@@ -16,7 +16,8 @@
 class TTNoise : TTAudioObject {
 	TTCLASS_SETUP(TTNoise)
 
-	TTSymbol*		mode;	///< Attribute: what color is the noise?
+	TTSymbol*		mMode;	///< Attribute: what color is the noise?
+	TTFloat64		mGain;  // gain stage
 	TTUInt32		accum;	///< accumulator for the noise generation
 	TTSampleValue	b[7];	///< for the "pinking" filter
 
@@ -33,8 +34,8 @@ class TTNoise : TTAudioObject {
 	TTErr processBlueNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	/**	Attribute Setter. */
-	TTErr setmode(const TTValue& newMode);
-
+	TTErr setMode(const TTValue& newMode);
+    TTErr setGain(const TTValue& newValue); 
 };
 
 
