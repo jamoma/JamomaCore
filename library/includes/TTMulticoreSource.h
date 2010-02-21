@@ -57,10 +57,16 @@ public:
 			connect(original.mSourceObject, original.mOutletNumber);
 	}
 	
-	TTMulticoreSource& operator=(const TTMulticoreSource& source)
+	// This one is called, for example, on the Mac when dropping a source and the vector has to be re-arranged.	
+	TTMulticoreSource& operator=(const TTMulticoreSource& original)
 	{
-		// Not expecting to call this method...
-		TT_ASSERT("we shouldn't be here", false);				
+		mSourceObject = original.mSourceObject;
+		mOutletNumber = original.mOutletNumber;
+		mCallbackHandler = original.mCallbackHandler;
+		mOwner = original.mOwner;
+		
+		// TODO: evaluate if this is doing the correct thing -- we can copy the owner ptr for sure, but the callback might now point to a bogus object
+		
 		return *this;
 	}
 	
@@ -84,15 +90,10 @@ public:
 	// Graph Methods
 	
 	void connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber);
-	
-	void init(const TTMulticoreInitData& initData)
+		
+	void preprocess(const TTMulticorePreprocessData& initData)
 	{
-		mSourceObject->init(initData);
-	}
-	
-	void preprocess()
-	{
-		mSourceObject->preprocess();
+		mSourceObject->preprocess(initData);
 	}
 	
 	TTErr process(TTAudioSignalPtr& returnedSignal) 

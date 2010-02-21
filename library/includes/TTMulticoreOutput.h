@@ -21,10 +21,11 @@ class TTMULTICORE_EXPORT TTMulticoreOutput : public TTAudioObject
 	TTCLASS_SETUP(TTMulticoreOutput)
 
 public:
-	TTObjectPtr				audioEngine;
-	TTAudioSignalPtr		placeHolder;	///< an unused audio signal that we pass
-	TTMulticoreObjectPtr	owner;			///< the owning lydbaer instance
-	TTValuePtr				me;
+	TTObjectPtr					audioEngine;
+	TTAudioSignalPtr			placeHolder;	///< an unused audio signal that we pass
+	TTMulticoreObjectPtr		owner;			///< the owning lydbaer instance
+	TTValuePtr					me;
+	TTMulticorePreprocessData	mInitData;
 	
 	
 	TTErr start();

@@ -34,6 +34,7 @@ protected:
 	TTMulticoreOutletVector		mOutlets;			///< The inlets through which we pull audio from sources
 	TTAudioSignalArrayPtr		mInputSignals;		///< The buffered input for processing audio with our object.
 	TTAudioSignalArrayPtr		mOutputSignals;		///< The results of processing audio with our object, buffered for objects requesting it
+	TTUInt16					mVectorSize;		///< The most recent vector size info passed from the terminal object during a preprocess
 public:	
 	TTAudioObjectPtr			mUnitGenerator;		///< The actual Jamoma DSP object doing the processing.
 	
@@ -75,7 +76,7 @@ public:
 		else
 			return 0;
 	}
-		
+	
 	TTUInt16 getSampleRate()
 	{
 		TTUInt16 sr;
@@ -99,14 +100,11 @@ public:
 	TTErr connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 
 	
-	/**	Allocate buffers and prepare for processing.	*/
-	TTErr init(const TTMulticoreInitData& initData);
-	
-	
 	/**	This method is called by an object about to process audio, prior to calling getAudioOutput().
 		As with the getAudioOutput() method, this is driven by the destination object and working up through the chains.
-		@return 		An error code.		*/
-	virtual TTErr preprocess();
+		@param	initData		Data provided by the terminal object so that the graph will be able to adapt to it.
+		@return					An error code.		*/
+	virtual TTErr preprocess(const TTMulticorePreprocessData& initData);
 	
 	
 	/**	This method is required to be implemented by all objects except for those existing solely as a destination.

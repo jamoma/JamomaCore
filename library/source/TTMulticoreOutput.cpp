@@ -49,12 +49,10 @@ TTMulticoreOutput::~TTMulticoreOutput()
 
 TTErr TTMulticoreOutput::start()
 {
-	TTValue				v;
-	TTMulticoreInitData	initData;
+	TTValue						v;
 
 	getVectorSize(v);
-	initData.vectorSize = v;
-	owner->init(initData);
+	mInitData.vectorSize = v;
 	
 	audioEngine->sendMessage(TT("start"));
 	return kTTErrNone;
@@ -70,7 +68,7 @@ TTErr TTMulticoreOutput::stop()
 
 TTErr TTMulticoreOutput::audioEngineWillProcess()
 {
-	owner->preprocess();
+	owner->preprocess(mInitData);
 	owner->process(placeHolder);
 	return kTTErrNone;
 }

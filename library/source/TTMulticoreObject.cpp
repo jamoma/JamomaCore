@@ -25,6 +25,7 @@ TT_OBJECT_CONSTRUCTOR,
 	mFlags(kTTMulticoreProcessor), 
 	mInputSignals(NULL), 
 	mOutputSignals(NULL), 
+	mVectorSize(0),
 	mUnitGenerator(NULL)
 {
 	TTErr		err = kTTErrNone;
@@ -112,33 +113,7 @@ TTErr TTMulticoreObject::connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOut
 }
 
 
-TTErr TTMulticoreObject::init(const TTMulticoreInitData& initData)
-{
-	int i;
-	
-	lock();
-	
-	// init objects higher up in the chain first
-	for (TTMulticoreInletIter inlet = mInlets.begin(); inlet != mInlets.end(); inlet++)
-		inlet->init(initData);
-	
-	if (mFlags & kTTMulticoreGenerator) {
-		i = 0;
-		for (TTMulticoreOutletIter outlet = mOutlets.begin(); outlet != mOutlets.end(); outlet++) {
-			mOutputSignals->setSignal(i, outlet->mBufferedOutput);
-			i++;
-		}
-		
-		mOutputSignals->allocAllWithVectorSize(initData.vectorSize);
-		// TODO: do we need to set num channels here too?
-	}
-	
-	unlock();
-	return kTTErrNone;
-}
-
-
-TTErr TTMulticoreObject::preprocess()
+TTErr TTMulticoreObject::preprocess(const TTMulticorePreprocessData& initData)
 {
 	lock();
 	if (valid) {
@@ -148,19 +123,25 @@ TTErr TTMulticoreObject::preprocess()
 		mStatus = kTTMulticoreProcessNotStarted;		
 
 		for (TTMulticoreInletIter inlet = mInlets.begin(); inlet != mInlets.end(); inlet++) {
-			inlet->preprocess();
+			inlet->preprocess(initData);
 			audioSignal = inlet->getBuffer(); // TODO: It seems like we can just cache this once when we init the graph, because the number of inlets cannot change on-the-fly
 			mInputSignals->setSignal(index, audioSignal);
 			index++;
 		}
 		
-		if (!(mFlags & kTTMulticoreGenerator)) { // For now, we will just assume that generators have set this up manually, hopefully that's actually true...
+//		if (!(mFlags & kTTMulticoreGenerator)) { // For now, we will just assume that generators have set this up manually, hopefully that's actually true...
 			index = 0;
 			for (TTMulticoreOutletIter outlet = mOutlets.begin(); outlet != mOutlets.end(); outlet++) {
 				audioSignal = outlet->getBuffer();
 				mOutputSignals->setSignal(index, audioSignal);
 				index++;
 			}
+
+		if (mFlags & kTTMulticoreGenerator) {
+			if (mVectorSize != initData.vectorSize) {
+				mVectorSize = initData.vectorSize;					
+				mOutputSignals->allocAllWithVectorSize(initData.vectorSize);
+			}			
 		}
 	}
 	unlock();

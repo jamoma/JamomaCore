@@ -100,16 +100,6 @@ public:
 		mSourceObjects.clear();
 	}
 		
-	// init the chain from which we will pull
-	void init(const TTMulticoreInitData& initData)
-	{
-		// for_each(mSourceObjects.begin(), mSourceObjects.end(), bind2nd(mem_fun_ref(&TTMulticoreSource::init), initData));
-		// CHANGED: don't know how to make for_each work with an argument like this...
-		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++)
-			source->init(initData);
-	}
-	
-	
 	TTErr connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber)
 	{
 		TTUInt16 size = mSourceObjects.size();
@@ -129,10 +119,11 @@ public:
 	}
 	
 
-	void preprocess()
+	void preprocess(const TTMulticorePreprocessData& initData)
 	{
 		mBufferedInput->clear();
-		for_each(mSourceObjects.begin(), mSourceObjects.end(), mem_fun_ref(&TTMulticoreSource::preprocess));
+		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++)
+			source->preprocess(initData);
 		mClean = YES;
 	}
 

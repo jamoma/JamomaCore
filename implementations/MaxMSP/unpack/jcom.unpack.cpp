@@ -12,15 +12,16 @@
 
 // Data Structure for this object
 struct Out {
-    t_pxobject				obj;
-	TTMulticoreObjectPtr	multicoreObject;
-	TTAudioSignalPtr		audioSignal;
-	TTUInt16				maxNumChannels;	// the number of inlets or outlets, which is an argument at instantiation
-	TTUInt16				numChannels;	// the actual number of channels to use, set by the dsp method
-	TTUInt16				vectorSize;		// cached by the DSP method
-	TTFloat32				gain;			// gain multiplier
-	TTBoolean				hasReset;		// flag indicating that reset has been called already, so we don't need to reset again
-	TTBoolean				hasConnections;	// flag indicating that we have connections so we can mute MSP output
+    t_pxobject					obj;
+	TTMulticoreObjectPtr		multicoreObject;
+	TTAudioSignalPtr			audioSignal;
+	TTUInt16					maxNumChannels;	// the number of inlets or outlets, which is an argument at instantiation
+	TTUInt16					numChannels;	// the actual number of channels to use, set by the dsp method
+	TTUInt16					vectorSize;		// cached by the DSP method
+	TTFloat32					gain;			// gain multiplier
+	TTBoolean					hasReset;		// flag indicating that reset has been called already, so we don't need to reset again
+	TTBoolean					hasConnections;	// flag indicating that we have connections so we can mute MSP output
+	TTMulticorePreprocessData	initData;		// for the preprocess method
 };
 typedef Out* OutPtr;
 
@@ -172,8 +173,8 @@ t_int* OutPerform(t_int* w)
 	TTUInt16	numChannels;
 	
 	if (!self->obj.z_disabled) {
-		if (self->hasConnections) {		
-			self->multicoreObject->preprocess();
+		if (self->hasConnections) {
+			self->multicoreObject->preprocess(self->initData);
 			self->multicoreObject->process(self->audioSignal);
 			
 			numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannels());			
@@ -263,9 +264,7 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 	dsp_addv(OutPerform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
 	
-	TTMulticoreInitData	initData;
-	initData.vectorSize = self->vectorSize;
-	self->multicoreObject->init(initData);
+	self->initData.vectorSize = self->vectorSize;
 }
 
 

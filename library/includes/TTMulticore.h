@@ -51,8 +51,8 @@ enum TTMulticoreFlags {
 };
 
 
-// data passed to all nodes in the graph when the graph is initialized
-class TTMulticoreInitData {
+// data passed to all nodes in the graph when the graph is performing it's pre-process
+class TTMulticorePreprocessData {
 public:
 	TTUInt16 vectorSize;	// the global/recommended/initial vectorSize (which can be overriden during process)
 };

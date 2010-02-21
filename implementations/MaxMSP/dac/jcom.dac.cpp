@@ -154,22 +154,20 @@ void DacIterateSetupCallback(DacPtr self, ObjectPtr obj)
 
 TTErr DacStart(DacPtr self)
 {
-	MaxErr		err;
-	ObjectPtr	patcher = NULL;
-	long		vectorSize;
-	long		result = 0;
+	MaxErr					err;
+	ObjectPtr				patcher = NULL;
+	long					vectorSize;
+	long					result = 0;
+	TTMulticoreOutputPtr	outputObject = TTMulticoreOutputPtr(self->multicoreObject->mUnitGenerator);
 	
-	self->multicoreObject->mUnitGenerator->getAttributeValue(TT("vectorSize"), vectorSize);
+	outputObject->getAttributeValue(TT("vectorSize"), vectorSize);
 	
 	err = object_obex_lookup(self, gensym("#P"), &patcher);
 	object_method(patcher, gensym("iterate"), (method)DacIterateResetCallback, self, PI_DEEP, &result);
 	object_method(patcher, gensym("iterate"), (method)DacIterateSetupCallback, self, PI_DEEP, &result);
 	
-	TTMulticoreInitData	initData;
-	initData.vectorSize = vectorSize;
-	self->multicoreObject->init(initData);
-	
-	return self->multicoreObject->mUnitGenerator->sendMessage(TT("start"));
+	outputObject->mInitData.vectorSize = vectorSize;
+	return outputObject->sendMessage(TT("start"));
 }
 
 
