@@ -35,7 +35,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-5",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -58,43 +58,15 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"id" : "obj-16",
-					"linecount" : 3,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 350.0, 120.0, 150.0, 43.0 ],
-					"text" : "Did you know?\nThe out≈ object has a master gain control built-in."
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"floatoutput" : 1,
 					"id" : "obj-14",
-					"maxclass" : "slider",
-					"mult" : 0.01,
+					"maxclass" : "jcom.textslider",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 350.0, 165.0, 114.0, 17.0 ],
-					"size" : 101.0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-13",
-					"maxclass" : "flonum",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 350.0, 185.0, 50.0, 19.0 ]
+					"patching_rect" : [ 218.0, 95.0, 160.0, 18.0 ],
+					"range" : [ -60.0, 3.0 ],
+					"text" : "gain",
+					"unit" : "dB"
 				}
 
 			}
@@ -107,7 +79,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 350.0, 205.0, 48.0, 17.0 ],
+					"patching_rect" : [ 218.0, 117.0, 48.0, 17.0 ],
 					"text" : "gain $1"
 				}
 
@@ -146,7 +118,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-6",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -166,8 +138,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "" ],
-					"patching_rect" : [ 110.0, 230.0, 121.0, 19.0 ],
-					"text" : "jcom.unpack≈ 1 @gain 0."
+					"patching_rect" : [ 110.0, 230.0, 141.0, 19.0 ],
+					"text" : "jcom.unpack≈ 1 @gain 1."
 				}
 
 			}
@@ -207,9 +179,9 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-4", 0 ],
+					"destination" : [ "obj-1", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 359.5, 225.0, 119.5, 225.0 ],
+					"midpoints" : [ 227.5, 144.0, 119.5, 144.0 ],
 					"source" : [ "obj-10", 0 ]
 				}
 
@@ -217,15 +189,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-13", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-14", 0 ]
