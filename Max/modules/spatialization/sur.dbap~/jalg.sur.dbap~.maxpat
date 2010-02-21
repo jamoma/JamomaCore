@@ -2918,7 +2918,7 @@
 					"numoutlets" : 33,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "" ],
 					"patching_rect" : [ 275.0, 115.0, 451.0, 19.0 ],
-					"text" : "out≈ 32",
+					"text" : "jcom.unpack≈ 32",
 					"varname" : "multiout"
 				}
 
@@ -2933,7 +2933,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.signal", "" ],
 					"patching_rect" : [ 275.0, 405.0, 437.5, 19.0 ],
-					"text" : "in≈ 32",
+					"text" : "jcom.pack≈ 32",
 					"varname" : "multiin"
 				}
 

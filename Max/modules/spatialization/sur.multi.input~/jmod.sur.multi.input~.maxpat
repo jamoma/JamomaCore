@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 132.0, 44.0, 1280.0, 688.0 ],
+		"rect" : [ 0.0, 44.0, 1280.0, 688.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 132.0, 44.0, 1280.0, 688.0 ],
+		"defrect" : [ 0.0, 44.0, 1280.0, 688.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -241,13 +241,13 @@
 ,
 					"patching_rect" : [ 671.0, 416.0, 191.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p osc-routing"
@@ -647,13 +647,13 @@
 ,
 									"patching_rect" : [ 635.0, 194.0, 158.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p delete_jcom.meter_receive"
@@ -1019,13 +1019,13 @@
 ,
 									"patching_rect" : [ 337.0, 195.0, 158.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p create_jcom.meter_receive"
@@ -1417,13 +1417,13 @@
 ,
 									"patching_rect" : [ 267.0, 196.0, 68.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p create_to"
@@ -1588,13 +1588,13 @@
 ,
 									"patching_rect" : [ 500.0, 193.0, 132.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
 										"fontface" : 0,
 										"fontsize" : 10.0,
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p create_new_jcom_out"
@@ -1897,13 +1897,13 @@
 ,
 					"patching_rect" : [ 169.0, 324.0, 54.0, 21.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p adapt"
@@ -1970,7 +1970,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.2, 0.2, 0.2, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-17",
 					"ignoreclick" : 1,
 					"maxclass" : "textedit",
@@ -2358,13 +2358,13 @@
 ,
 					"patching_rect" : [ 671.0, 438.0, 30.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p"
@@ -2486,10 +2486,10 @@
 					"id" : "obj-31",
 					"maxclass" : "newobj",
 					"numinlets" : 32,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 275.0, 540.0, 459.0, 19.0 ],
-					"text" : "jcom.multi.in~",
+					"numoutlets" : 2,
+					"outlettype" : [ "multicore.connect", "" ],
+					"patching_rect" : [ 275.0, 540.0, 437.5, 19.0 ],
+					"text" : "jcom.pack≈ 32",
 					"varname" : "multi"
 				}
 

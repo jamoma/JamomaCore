@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 15.0, 55.0, 898.0, 248.0 ],
+		"rect" : [ 187.0, 157.0, 898.0, 248.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 15.0, 55.0, 898.0, 248.0 ],
+		"defrect" : [ 187.0, 157.0, 898.0, 248.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"comment" : "",
@@ -452,9 +453,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 32,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.signal", "" ],
+					"outlettype" : [ "multicore.connect", "" ],
 					"patching_rect" : [ 50.0, 120.0, 794.5, 19.0 ],
-					"text" : "in≈ 32"
+					"text" : "jcom.pack≈ 32"
 				}
 
 			}

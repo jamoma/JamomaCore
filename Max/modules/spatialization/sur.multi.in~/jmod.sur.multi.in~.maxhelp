@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"args" : [ "@name", "jmod.sur.multi.in~", "@description", "Put audio signals on a multicable" ],
@@ -43,9 +44,9 @@
 					"outlettype" : [ "startwindow" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 20.0, 74.0, 600.0, 426.0 ],
+						"rect" : [ 595.0, 98.0, 600.0, 426.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 20.0, 74.0, 600.0, 426.0 ],
+						"defrect" : [ 595.0, 98.0, 600.0, 426.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -59,6 +60,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -245,13 +247,13 @@
 ,
 					"patching_rect" : [ 120.0, 315.0, 81.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"default_fontsize" : 10.0
+						"default_fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
+						"fontface" : 0,
+						"fontsize" : 10.0
 					}
 ,
 					"text" : "p startwindow"
@@ -281,8 +283,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 170.0, 200.0, 59.0, 19.0 ],
-					"text" : "sig~ 0.75"
+					"patching_rect" : [ 170.0, 200.0, 53.0, 19.0 ],
+					"text" : "sig~ 0.4"
 				}
 
 			}
@@ -316,17 +318,16 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "/multi_input" ],
+					"args" : [ "/multiInput" ],
 					"id" : "obj-14",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
 					"name" : "jmod.sur.multi.in~.maxpat",
 					"numinlets" : 33,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "multicore.signal" ],
+					"outlettype" : [ "", "multicore.connect" ],
 					"patching_rect" : [ 120.0, 275.0, 300.0, 35.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 35.0 ],
-					"varname" : "jmod.surround.multi.in~"
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 35.0 ]
 				}
 
 			}
@@ -720,7 +721,7 @@
 					"numoutlets" : 33,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "" ],
 					"patching_rect" : [ 25.0, 395.0, 659.0, 19.0 ],
-					"text" : "out≈ 32"
+					"text" : "jcom.unpack≈ 32"
 				}
 
 			}
