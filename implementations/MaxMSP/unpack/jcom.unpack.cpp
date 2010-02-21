@@ -199,7 +199,6 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 	TTUInt16	i, k=0;
 	void		**audioVectors = NULL;
 	MaxErr		err;
-	ObjectPtr	patcher = NULL;
 	//ObjectPtr	box = NULL;
 	//ObjectPtr	o = NULL;
 	//method		multicoreSetupMethod = NULL;
@@ -231,27 +230,22 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 	 */ 
 
 	if (!self->hasReset) {
+		ObjectPtr	patcher = NULL;
+		ObjectPtr	parent = NULL;
+
+		// first find the top-level patcher
 		err = object_obex_lookup(self, gensym("#P"), &patcher);
+		parent = patcher;
+		while (parent) {
+			patcher = parent;
+			parent = object_attr_getobj(patcher, _sym_parentpatcher);
+		}
+
+		// now iterate recursively from the top-level patcher down through all of the subpatchers
 		object_method(patcher, gensym("iterate"), (method)OutIterateResetCallback, self, PI_DEEP, &result);
 		object_method(patcher, gensym("iterate"), (method)OutIterateSetupCallback, self, PI_DEEP, &result);
 	}
-//	box = jpatcher_get_firstobject(patcher);
-//	while (box) {
-//		o = jbox_get_object(box);
-//		multicoreSetupMethod = zgetfn(o, gensym("multicore.reset"));
-//		if(multicoreSetupMethod)
-//			err = (MaxErr)multicoreSetupMethod(o, self->vectorSize);
-//		box = jbox_get_nextobject(box);
-//	}
-//	box = jpatcher_get_firstobject(patcher);
-//	while (box) {
-//		o = jbox_get_object(box);
-//		multicoreSetupMethod = zgetfn(o, gensym("multicore.setup"));
-//		if(multicoreSetupMethod)
-//			err = (MaxErr)multicoreSetupMethod(o);
-//		box = jbox_get_nextobject(box);
-//	}
-	
+
 	// Setup the perform method
 	audioVectors = (void**)sysmem_newptr(sizeof(void*) * (self->maxNumChannels + 1));
 	audioVectors[k] = self;
