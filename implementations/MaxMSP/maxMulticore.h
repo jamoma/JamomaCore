@@ -110,5 +110,9 @@ int AtomGetInt(AtomPtr a);
 #endif
 
 
+TTErr MaxMulticoreDrop(ObjectPtr self, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber);
+TTErr MaxMulticoreObject(ObjectPtr self, TTMulticoreObjectPtr* returnedMulticoreObject);
+
+
 #endif // __MAXBAER_H__
 

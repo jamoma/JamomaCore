@@ -53,8 +53,10 @@ int main(void)
 	
 	class_addmethod(c, (method)AdcReset,			"multicore.reset",	A_CANT, 0);
 	class_addmethod(c, (method)AdcSetup,			"multicore.setup",	A_CANT,	0);
-	class_addmethod(c, (method)AdcStart,			"start",				0);
-	class_addmethod(c, (method)AdcStop,				"stop",					0);
+	class_addmethod(c, (method)MaxMulticoreDrop,	"multicore.drop",	A_CANT, 0);
+	class_addmethod(c, (method)MaxMulticoreObject,	"multicore.object",	A_CANT, 0);
+	class_addmethod(c, (method)AdcStart,			"start",			0);
+	class_addmethod(c, (method)AdcStop,				"stop",				0);
 	class_addmethod(c, (method)AdcAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",			A_CANT, 0);  
 

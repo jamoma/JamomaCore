@@ -51,7 +51,9 @@ int main(void)
 	class_addmethod(c, (method)DCBlockerReset,		"multicore.reset",		A_CANT, 0);
 	class_addmethod(c, (method)DCBlockerSetup,		"multicore.setup",		A_CANT, 0);
 	class_addmethod(c, (method)DCBlockerConnect,	"multicore.connect",	A_OBJ, A_LONG, 0);
- 	class_addmethod(c, (method)DCBlockerAssist,		"assist",				A_CANT, 0); 
+ 	class_addmethod(c, (method)MaxMulticoreDrop,	"multicore.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxMulticoreObject,	"multicore.object",		A_CANT, 0);
+	class_addmethod(c, (method)DCBlockerAssist,		"assist",				A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
 	
 	CLASS_ATTR_LONG(c,		"bypass",	0,		DCBlocker,	attrBypass);

@@ -28,7 +28,7 @@ void   	OpAssist		(OpPtr self, void* b, long msg, long arg, char* dst);
 TTErr  	OpReset			(OpPtr self, long vectorSize);
 TTErr  	OpSetup			(OpPtr self);
 TTErr  	OpConnect		(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
-TTErr  	OpDrop			(OpPtr self, long inletNumber, ObjectPtr sourceObject, long sourceOutletNumber);
+TTErr	OpDrop			(OpPtr self, long inletNumber, ObjectPtr sourceObject, long sourceOutletNumber);
 TTErr	OpObject		(OpPtr self, TTMulticoreObjectPtr* returnedMulticoreObject);
 MaxErr 	OpSetOperator	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr 	OpSetOperand	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);

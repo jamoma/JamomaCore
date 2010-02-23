@@ -14,11 +14,11 @@
 
 // Data Structure for this object
 typedef struct _wrappedInstance {
-    t_object				obj;						///< Max audio object header
-	WrappedClassPtr			wrappedClassDefinition;		///< A pointer to the class definition
-	TTMulticoreObjectPtr	multicoreObject;				///< The instance of the TTBlue object we are wrapping
-	TTPtr					multicoreOutlets[16];			///< Array of outlets, may eventually want this to be more dynamic
-	TTPtr					inlets[16];					///< Array of proxy inlets beyond the first inlet
+    t_object				obj;					///< Max audio object header
+	TTMulticoreObjectPtr	multicoreObject;		///< The DSP instance we are wrapping -- MUST BE 2nd!
+	TTPtr					multicoreOutlets[16];	///< Array of outlets, may eventually want this to be more dynamic
+	TTPtr					inlets[16];				///< Array of proxy inlets beyond the first inlet
+	WrappedClassPtr			wrappedClassDefinition;	///< A pointer to the class definition
 } WrappedInstance;
 
 typedef WrappedInstance* WrappedInstancePtr;		///< Pointer to a wrapped instance of our object.
@@ -120,15 +120,18 @@ TTErr MaxMulticoreSetup(WrappedInstancePtr self)
 }
 
 
-TTErr MaxMulticoreConnect(WrappedInstancePtr self, TTMulticoreObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
+TTErr MaxMulticoreConnect(ObjectPtr x, TTMulticoreObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
 {
-	long inletNumber = proxy_getinlet(SELF);
+	WrappedInstancePtr	self = WrappedInstancePtr(x);
+	long				inletNumber = proxy_getinlet(SELF);
+	
 	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber, inletNumber);
 }
 
 
-TTErr MaxMulticoreDrop(WrappedInstancePtr self, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber)
+TTErr MaxMulticoreDrop(ObjectPtr x, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber)
 {
+	WrappedInstancePtr		self = WrappedInstancePtr(x);
 	TTMulticoreObjectPtr	sourceObject = NULL;
 	TTErr 					err;
 	
@@ -139,8 +142,10 @@ TTErr MaxMulticoreDrop(WrappedInstancePtr self, long inletNumber, ObjectPtr sour
 }
 
 
-TTErr MaxMulticoreObject(WrappedInstancePtr self, TTMulticoreObjectPtr* returnedMulticoreObject)
+TTErr MaxMulticoreObject(ObjectPtr x, TTMulticoreObjectPtr* returnedMulticoreObject)
 {
+	WrappedInstancePtr	self = WrappedInstancePtr(x);
+
 	*returnedMulticoreObject = self->multicoreObject;
 	return kTTErrNone;
 }
@@ -451,3 +456,4 @@ int AtomGetInt(AtomPtr a)
 	return (int)atom_getlong(a);
 }
 #endif
+

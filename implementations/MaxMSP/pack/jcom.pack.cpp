@@ -51,6 +51,8 @@ int main(void)
 	
 	class_addmethod(c, (method)InReset,					"multicore.reset",	A_CANT, 0);
 	class_addmethod(c, (method)InSetup,					"multicore.setup",	A_CANT, 0);
+	class_addmethod(c, (method)MaxMulticoreDrop,		"multicore.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxMulticoreObject,		"multicore.object",		A_CANT, 0);
  	class_addmethod(c, (method)InDsp,					"dsp",				A_CANT, 0);		
 	class_addmethod(c, (method)InAssist,				"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
