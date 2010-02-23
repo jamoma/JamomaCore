@@ -9,142 +9,17 @@
 
 #include "maxMulticore.h"
 
-
-// Data Structure for this object
-typedef struct Noise {
-    t_object				obj;
-	TTMulticoreObjectPtr	multicoreObject;
-	TTPtr					multicoreOutlet;
-	float					mGain;
-	SymbolPtr				attrMode;
-};
-typedef Noise* NoisePtr;
-
-
-// Prototypes for methods
-NoisePtr	NoiseNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		NoiseFree(NoisePtr self);
-void		NoiseAssist(NoisePtr self, void* b, long msg, long arg, char* dst);
-TTErr		NoiseReset(NoisePtr self);
-TTErr		NoiseSetup(NoisePtr self);
-MaxErr		NoiseSetMode(NoisePtr self, void* attr, AtomCount argc, AtomPtr argv);
-MaxErr		NoiseSetGain(NoisePtr self, void* attr, AtomCount argc, AtomPtr argv);
-
-
-// Globals
-static ClassPtr sNoiseClass;
-
-
-/************************************************************************************/
-// Main() Function
-
 int main(void)
 {
-	ClassPtr c;
+	WrappedClassOptionsPtr	options = new WrappedClassOptions;
+	TTValue					value(0);
+	WrappedClassPtr			c = NULL;
 
-	TTMulticoreInit();	
-	common_symbols_init();
+	TTMulticoreInit();
 
-	c = class_new("jcom.noise≈", (method)NoiseNew, (method)NoiseFree, sizeof(Noise), (method)0L, A_GIMME, 0);
-	
-	class_addmethod(c, (method)NoiseReset,			"multicore.reset",	A_CANT, 0);
-	class_addmethod(c, (method)NoiseSetup,			"multicore.setup",	A_CANT,	0);
-	class_addmethod(c, (method)NoiseAssist,			"assist",			A_CANT, 0); 
-    class_addmethod(c, (method)object_obex_dumpout,	"dumpout",			A_CANT, 0);  
-	
-	CLASS_ATTR_SYM(c,		"mode",			0,		Noise,	attrMode);
-	CLASS_ATTR_ACCESSORS(c,	"mode",			NULL,	NoiseSetMode);
-	CLASS_ATTR_ENUM(c,		"mode",			0,		"white pink brown blue");
-	
-	CLASS_ATTR_FLOAT(c,		"gain",			0,		Noise,	mGain);
-	CLASS_ATTR_ACCESSORS(c,	"gain",			NULL,	NoiseSetGain);
-	
-	class_register(_sym_box, c);
-	sNoiseClass = c;
+	options->append(TT("generator"), value);
+	wrapAsMaxMulticore(TT("noise"), "jcom.noise≈", &c, options);
+
+	CLASS_ATTR_ENUM(c->maxClass, "mode", 0, "white pink brown blue");
 	return 0;
 }
-
-
-/************************************************************************************/
-// Object Creation Method
-
-NoisePtr NoiseNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-    NoisePtr self = NoisePtr(object_alloc(sNoiseClass));
-	TTValue		v;
-	TTErr		err;
-
-    if (self) {
-		v.setSize(2);
-		v.set(0, TT("noise"));
-		v.set(1, TTUInt32(1));
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
-
-		self->multicoreObject->addFlag(kTTMulticoreGenerator);
-
-		attr_args_process(self, argc, argv);
-    	object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));
-		self->multicoreOutlet = outlet_new((t_pxobject*)self, "multicore.connect");
-	}
-	return self;
-}
-
-// Memory Deallocation
-void NoiseFree(NoisePtr self)
-{
-	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
-}
-
-
-/************************************************************************************/
-// Methods bound to input/inlets
-
-// Method for Assistance Messages
-void NoiseAssist(NoisePtr self, void* b, long msg, long arg, char* dst)
-{
-	if (msg==1)			// Inlets
-		strcpy(dst, "multichannel audio connection and control messages");		
-	else if (msg==2) {	// Outlets
-		if (arg == 0)
-			strcpy(dst, "multichannel audio connection");
-		else
-			strcpy(dst, "dumpout");
-	}
-}
-
-
-TTErr NoiseReset(NoisePtr self)
-{
-	return self->multicoreObject->reset();
-}
-
-
-TTErr NoiseSetup(NoisePtr self)
-{
-	Atom a[2];
-	
-	atom_setobj(a+0, ObjectPtr(self->multicoreObject));
-	atom_setlong(a+1, 0);
-	outlet_anything(self->multicoreOutlet, gensym("multicore.connect"), 2, a);
-	return kTTErrNone;
-}
-
-
-MaxErr NoiseSetGain(NoisePtr self, void* attr, AtomCount argc, AtomPtr argv)
-{
-	if (argc) {
-		self->mGain	= atom_getfloat(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("Gain"), self->mGain);
-	}
-	return MAX_ERR_NONE;
-}
-
-MaxErr NoiseSetMode(NoisePtr self, void* attr, AtomCount argc, AtomPtr argv)
-{
-	if (argc) {
-		self->attrMode = atom_getsym(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("Mode"), TT(self->attrMode->s_name));
-	}
-	return MAX_ERR_NONE;
-}
-
