@@ -127,6 +127,25 @@ TTErr MaxMulticoreConnect(WrappedInstancePtr self, TTMulticoreObjectPtr audioSou
 }
 
 
+TTErr MaxMulticoreDrop(WrappedInstancePtr self, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber)
+{
+	TTMulticoreObjectPtr	sourceObject = NULL;
+	TTErr 					err;
+	
+	err = (TTErr)int(object_method(sourceMaxObject, gensym("multicore.object"), &sourceObject));
+	if (sourceObject && !err)
+		err = self->multicoreObject->drop(sourceObject, sourceOutletNumber, inletNumber);	
+	return err;
+}
+
+
+TTErr MaxMulticoreObject(WrappedInstancePtr self, TTMulticoreObjectPtr* returnedMulticoreObject)
+{
+	*returnedMulticoreObject = self->multicoreObject;
+	return kTTErrNone;
+}
+
+
 t_max_err wrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
 {
 	SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
@@ -358,6 +377,8 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreReset,		"multicore.reset",		A_CANT, 0);
 	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreSetup,		"multicore.setup",		A_CANT, 0);
 	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreConnect,		"multicore.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreDrop,		"multicore.drop",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreObject,		"multicore.object",		A_CANT, 0);
     class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",				A_CANT, 0); 
 	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_assist, 	"assist",				A_CANT, 0L);
 	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,			"inletinfo",			A_CANT, 0);
