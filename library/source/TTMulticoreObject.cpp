@@ -102,6 +102,9 @@ void TTMulticoreObject::getDescription(TTMulticoreDescription& desc)
 
 TTErr TTMulticoreObject::reset()
 {
+	while (getlock())
+		;	// wait for lock to free-up (we're probably processing audio in another thread and don't want to change sources until its done)
+
 	for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::reset));		
 	return kTTErrNone;
 }
@@ -109,12 +112,18 @@ TTErr TTMulticoreObject::reset()
 
 TTErr TTMulticoreObject::connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
 {	
-	return mInlets[toInletNumber].connect(anObject, fromOutletNumber);	
+	while (getlock())
+		;	// wait for lock to free-up (we're probably processing audio in another thread and don't want to change sources until its done)
+	
+	return mInlets[toInletNumber].connect(anObject, fromOutletNumber);
 }
 
 
 TTErr TTMulticoreObject::drop(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
 {
+	while (getlock())
+		;	// wait for lock to free-up (we're probably processing audio in another thread and don't want to change sources until its done)
+
 	return mInlets[toInletNumber].drop(anObject, fromOutletNumber);	
 }
 
