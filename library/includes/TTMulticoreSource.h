@@ -68,12 +68,25 @@ public:
 	// This one is called, for example, on the Mac when dropping a source and the vector has to be re-arranged.	
 	TTMulticoreSource& operator=(const TTMulticoreSource& original)
 	{
-		mSourceObject = original.mSourceObject;
-		mOutletNumber = original.mOutletNumber;
-		mCallbackHandler = original.mCallbackHandler;
-		mOwner = original.mOwner;
+		mSourceObject = NULL;
+		mOutletNumber = 0;
+		mCallbackHandler = NULL;
+		mOwner = NULL;
+	
+		// TODO: We're probably leaking memory here, because mCallbackHandler is potentially never freed...
+		// However, if we don't NULL the mCallbackHandler 
+		// then we end up with crashes when we do something like close a Max patcher after editing connections while running. 
 		
-		// TODO: evaluate if this is doing the correct thing -- we can copy the owner ptr for sure, but the callback might now point to a bogus object
+		create();
+		mOwner = original.mOwner;
+
+		// TODO: evaluate if this is doing the correct thing:
+		// - we can copy the owner ptr for sure
+		// - we definitely can not copy the mCallbackHandler pointer
+		// - not certain about the mSourceObject
+
+		if (original.mSourceObject)
+			connect(original.mSourceObject, original.mOutletNumber);
 		
 		return *this;
 	}
