@@ -14,6 +14,9 @@
 struct Dac {
     Object					obj;
 	TTMulticoreObjectPtr	multicoreObject;
+	ObjectPtr				patcher;		// the patcher -- cached for iterating to make connections
+	ObjectPtr				patcherview;	// first view of the top-level patcher (for dirty notifications)
+	TTPtr					qelem;			// for clumping patcher dirty notifications
 };
 typedef Dac* DacPtr;
 
@@ -21,8 +24,13 @@ typedef Dac* DacPtr;
 // Prototypes for methods
 DacPtr	DacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void	DacFree(DacPtr self);
+MaxErr	DacNotify(DacPtr self, SymbolPtr s, SymbolPtr msg, ObjectPtr sender, TTPtr data);
+void	DacQFn(DacPtr self);
+void	DacAttachToPatchlinesForPatcher(DacPtr self, ObjectPtr patcher);
 void	DacAssist(DacPtr self, void* b, long msg, long arg, char* dst);
 TTErr	DacReset(DacPtr self);
+void	DacIterateResetCallback(DacPtr self, ObjectPtr obj);
+void	DacIterateSetupCallback(DacPtr self, ObjectPtr obj);
 TTErr	DacConnect(DacPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
 TTErr	DacStart(DacPtr self);
 TTErr	DacStop(DacPtr self);
@@ -54,9 +62,11 @@ int main(void)
 	
 	class_addmethod(c, (method)DacStart,			"start",				0);
 	class_addmethod(c, (method)DacStop,				"stop",					0);
-	//class_addmethod(c, (method)DacNotify,			"notify",				A_CANT, 0);
+	class_addmethod(c, (method)DacNotify,			"notify",				A_CANT, 0);
 	class_addmethod(c, (method)DacReset,			"multicore.reset",		A_CANT, 0);
 	class_addmethod(c, (method)DacConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)MaxMulticoreDrop,	"multicore.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxMulticoreObject,	"multicore.object",		A_CANT, 0);
 	class_addmethod(c, (method)DacExportRuby,		"exportRuby",			A_GIMME, 0);
 	class_addmethod(c, (method)DacExportCpp,		"exportC++",			A_GIMME, 0);
 	class_addmethod(c, (method)DacExportMax,		"exportMax",			A_GIMME, 0);
@@ -95,6 +105,7 @@ DacPtr DacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 
 		attr_args_process(self, argc, argv);
 		object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));
+		self->qelem = qelem_new(self, (method)DacQFn);
 	}
 	return self;
 }
@@ -103,11 +114,98 @@ DacPtr DacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void DacFree(DacPtr self)
 {
 	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
+	qelem_free(self->qelem);
 }
 
 
 /************************************************************************************/
 // Methods bound to input/inlets
+
+MaxErr DacNotify(DacPtr self, SymbolPtr s, SymbolPtr msg, ObjectPtr sender, TTPtr data)
+{
+	if (sender == self->patcherview) {
+		if (msg == _sym_attr_modified) {
+			SymbolPtr name = (SymbolPtr)object_method((ObjectPtr)data, _sym_getname);
+			if (name == _sym_dirty) {
+				qelem_set(self->qelem);
+			}
+		}
+		else if (msg == _sym_free)
+			self->patcherview = NULL;
+	}
+	else {
+		if (msg == _sym_free) {
+			#ifdef DEBUG_NOTIFICATIONS
+			object_post(SELF, "patch line deleted");
+			#endif // DEBUG_NOTIFICATIONS
+			
+			// get boxes and inlets
+			ObjectPtr	sourceBox = jpatchline_get_box1(sender);
+			if (!sourceBox)
+				goto out;
+			ObjectPtr	sourceObject = jbox_get_object(sourceBox);
+			long		sourceOutlet = jpatchline_get_outletnum(sender);
+			ObjectPtr	destBox = jpatchline_get_box2(sender);
+			if (!destBox)
+				goto out;
+			ObjectPtr	destObject = jbox_get_object(destBox);
+			long		destInlet = jpatchline_get_inletnum(sender);
+			
+			// if both boxes are multicore objects 
+			if ( zgetfn(sourceObject, gensym("multicore.object")) && zgetfn(destObject, gensym("multicore.object")) ) {
+				#ifdef DEBUG_NOTIFICATIONS
+				object_post(SELF, "deleting multicore patchline!");
+				#endif // DEBUG_NOTIFICATIONS
+				
+				object_method(destObject, gensym("multicore.drop"), destInlet, sourceObject, sourceOutlet);
+			}
+		out:		
+			;
+		}
+	}
+	return MAX_ERR_NONE;
+}
+
+
+// Qelem function, which clumps together dirty notifications before making the new connections
+void DacQFn(DacPtr self)
+{
+	t_atom result;
+	
+	#ifdef DEBUG_NOTIFICATIONS
+	object_post(SELF, "patcher dirtied");
+	#endif // DEBUG_NOTIFICATIONS
+	
+	object_method(self->patcher, gensym("iterate"), (method)DacIterateSetupCallback, self, PI_DEEP, &result);
+	
+	// attach to all of the patch cords so we will know if one is deleted
+	// we are not trying to detach first -- hopefully this is okay and multiple attachments will be filtered (?)
+	DacAttachToPatchlinesForPatcher(self, self->patcher);
+}
+
+
+void DacAttachToPatchlinesForPatcher(DacPtr self, ObjectPtr patcher)
+{
+	ObjectPtr	patchline = object_attr_getobj(patcher, _sym_firstline);
+	ObjectPtr	box = jpatcher_get_firstobject(patcher);
+	
+	while (patchline) {
+		object_attach_byptr_register(self, patchline, _sym_nobox);
+		patchline = object_attr_getobj(patchline, _sym_nextline);
+	}
+	
+	while (box) {
+		SymbolPtr	classname = jbox_get_maxclass(box);
+		
+		if (classname == _sym_jpatcher) {
+			ObjectPtr	subpatcher = jbox_get_object(box);
+			
+			DacAttachToPatchlinesForPatcher(self, subpatcher);
+		}
+		box = jbox_get_nextobject(box);
+	}
+}
+
 
 // Method for Assistance Messages
 void DacAssist(DacPtr self, void* b, long msg, long arg, char* dst)
@@ -156,6 +254,8 @@ TTErr DacStart(DacPtr self)
 {
 	MaxErr					err;
 	ObjectPtr				patcher = NULL;
+	ObjectPtr				parent = NULL;
+	ObjectPtr				patcherview = NULL;
 	long					vectorSize;
 	long					result = 0;
 	TTMulticoreOutputPtr	outputObject = TTMulticoreOutputPtr(self->multicoreObject->mUnitGenerator);
@@ -163,8 +263,31 @@ TTErr DacStart(DacPtr self)
 	outputObject->getAttributeValue(TT("vectorSize"), vectorSize);
 	
 	err = object_obex_lookup(self, gensym("#P"), &patcher);
-	object_method(patcher, gensym("iterate"), (method)DacIterateResetCallback, self, PI_DEEP, &result);
+	
+	// first find the top-level patcher
+	err = object_obex_lookup(self, gensym("#P"), &patcher);
+	parent = patcher;
+	while (parent) {
+		patcher = parent;
+		parent = object_attr_getobj(patcher, _sym_parentpatcher);
+	}
+	
+	// Do we really want to reset any more?  It's not clear that it's needed or desired.
+	//object_method(patcher, gensym("iterate"), (method)DacIterateResetCallback, self, PI_DEEP, &result);
 	object_method(patcher, gensym("iterate"), (method)DacIterateSetupCallback, self, PI_DEEP, &result);
+	
+	// now let's attach to the patcherview to get notifications about any further changes to the patch cords
+	// the patcher 'dirty' attribute is not modified for each change, but the patcherview 'dirty' attribute is
+	if (!self->patcherview) {
+		patcherview = jpatcher_get_firstview(patcher);
+		self->patcherview = patcherview;
+		self->patcher = patcher;
+		object_attach_byptr_register(self, patcherview, _sym_nobox);			
+	}
+	
+	// now we want to go a step further and attach to all of the patch cords 
+	// this is how we will know if one is deleted
+	DacAttachToPatchlinesForPatcher(self, self->patcher);
 	
 	outputObject->mInitData.vectorSize = vectorSize;
 	return outputObject->sendMessage(TT("start"));
