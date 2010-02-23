@@ -117,6 +117,17 @@ public:
 		return kTTErrNone;
 	}
 	
+	TTErr drop(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber)
+	{
+		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
+			if (source->match(anObject, fromOutletNumber)) {
+				drop(*source);
+				break;
+			}
+		}
+		return kTTErrNone;
+	}
+	
 	void drop(TTMulticoreSource& aSource)
 	{
 		TTMulticoreSourceIter iter = find(mSourceObjects.begin(), mSourceObjects.end(), aSource);

@@ -113,6 +113,12 @@ TTErr TTMulticoreObject::connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOut
 }
 
 
+TTErr TTMulticoreObject::drop(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
+{
+	return mInlets[toInletNumber].drop(anObject, fromOutletNumber);	
+}
+
+
 TTErr TTMulticoreObject::preprocess(const TTMulticorePreprocessData& initData)
 {
 	lock();

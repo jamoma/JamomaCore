@@ -98,6 +98,14 @@ public:
 								Typically the value passed here will be 0, indicating the normal audio input.
 		@return					An error code.	*/
 	TTErr connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
+	
+	
+	/**	Drop a source from the list of objects from which to request audio.  In other words, disconnect.
+		@param	anObject		The lydbaer object which is supplying us with input.
+		@param	anInletNumber	If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.
+								Typically the value passed here will be 0, indicating the normal audio input.
+		@return					An error code.	*/
+	TTErr drop(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 
 	
 	/**	This method is called by an object about to process audio, prior to calling getAudioOutput().
