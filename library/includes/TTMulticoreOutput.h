@@ -36,6 +36,7 @@ public:
 	
 	TTErr setOwner(TTValue& newOwner);
 
+	TTErr getCpuLoad(TTValue& returnedValue);
 	
 	// Attribute Accessors
 	TTErr setSampleRate(const TTValue& newValue);

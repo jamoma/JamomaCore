@@ -17,6 +17,7 @@ struct Dac {
 	ObjectPtr				patcher;		// the patcher -- cached for iterating to make connections
 	ObjectPtr				patcherview;	// first view of the top-level patcher (for dirty notifications)
 	TTPtr					qelem;			// for clumping patcher dirty notifications
+	TTPtr					outlet;			// for sending cpu load
 };
 typedef Dac* DacPtr;
 
@@ -34,6 +35,7 @@ void	DacIterateSetupCallback(DacPtr self, ObjectPtr obj);
 TTErr	DacConnect(DacPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
 TTErr	DacStart(DacPtr self);
 TTErr	DacStop(DacPtr self);
+TTErr	DacGetCpuLoad(DacPtr self);
 MaxErr	DacExportRuby(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv);
 MaxErr	DacExportCpp(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv);
 MaxErr	DacExportMax(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv);
@@ -62,6 +64,7 @@ int main(void)
 	
 	class_addmethod(c, (method)DacStart,			"start",				0);
 	class_addmethod(c, (method)DacStop,				"stop",					0);
+	class_addmethod(c, (method)DacGetCpuLoad,		"getCpuLoad",			0);
 	class_addmethod(c, (method)DacNotify,			"notify",				A_CANT, 0);
 	class_addmethod(c, (method)DacReset,			"multicore.reset",		A_CANT, 0);
 	class_addmethod(c, (method)DacConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
@@ -101,10 +104,10 @@ DacPtr DacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 
 		v = TTPtr(self->multicoreObject);
-		//self->multicoreObject->mUnitGenerator->sendMessage(TT("setOwner"), v);
 
 		attr_args_process(self, argc, argv);
 		object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));
+		self->outlet = outlet_new(self, NULL);
 		self->qelem = qelem_new(self, (method)DacQFn);
 	}
 	return self;
@@ -297,6 +300,16 @@ TTErr DacStart(DacPtr self)
 TTErr DacStop(DacPtr self)
 {	
 	return self->multicoreObject->mUnitGenerator->sendMessage(TT("stop"));
+}
+
+
+TTErr DacGetCpuLoad(DacPtr self)
+{
+	TTValue cpuload = -1.0;
+	
+	self->multicoreObject->mUnitGenerator->sendMessage(TT("getCpuLoad"), cpuload);
+	outlet_float(self->outlet, TTFloat64(cpuload));
+	return kTTErrNone;
 }
 
 

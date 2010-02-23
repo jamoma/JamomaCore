@@ -29,6 +29,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessage(stop);
 	addMessage(audioEngineWillProcess);
 	addMessageWithArgument(setOwner);
+	addMessageWithArgument(getCpuLoad);
 	
 	setProcessMethod(processAudio);
 	
@@ -78,6 +79,12 @@ TTErr TTMulticoreOutput::setOwner(TTValue& newOwner)
 {
 	owner = TTMulticoreObjectPtr(TTPtr(newOwner));
 	return kTTErrNone;
+}
+
+
+TTErr TTMulticoreOutput::getCpuLoad(TTValue& returnedValue)
+{
+	return audioEngine->sendMessage(TT("getCpuLoad"), returnedValue);
 }
 
 

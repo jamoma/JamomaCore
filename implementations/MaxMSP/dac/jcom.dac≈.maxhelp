@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 402.0, 44.0, 680.0, 817.0 ],
+		"rect" : [ 402.0, 44.0, 656.0, 785.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 402.0, 44.0, 680.0, 817.0 ],
+		"defrect" : [ 402.0, 44.0, 656.0, 785.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -22,13 +22,93 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-55",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 235.0, 720.0, 77.0, 19.0 ],
+					"text" : "% CPU load"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-53",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "float" ],
+					"patching_rect" : [ 180.0, 695.0, 43.0, 19.0 ],
+					"text" : "* 100."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-51",
+					"maxclass" : "toggle",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 80.0, 580.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-49",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 80.0, 605.0, 63.0, 19.0 ],
+					"text" : "metro 100"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-39",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 80.0, 630.0, 70.0, 17.0 ],
+					"presentation_rect" : [ 85.0, 720.0, 0.0, 0.0 ],
+					"text" : "getCpuLoad"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-38",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 180.0, 720.0, 55.0, 19.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-30",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 255.0, 725.0, 244.0, 17.0 ],
-					"presentation_rect" : [ 255.0, 725.0, 0.0, 0.0 ],
+					"patching_rect" : [ 255.0, 645.0, 244.0, 17.0 ],
 					"text" : "exportMax /example-multicore-export.maxpat"
 				}
 
@@ -42,7 +122,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 255.0, 705.0, 227.0, 17.0 ],
+					"patching_rect" : [ 255.0, 625.0, 227.0, 17.0 ],
 					"text" : "exportC++ /example-multicore-export.cpp"
 				}
 
@@ -56,7 +136,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 255.0, 600.0, 239.0, 19.0 ],
+					"patching_rect" : [ 255.0, 545.0, 239.0, 19.0 ],
 					"text" : "turn off audio processing"
 				}
 
@@ -70,7 +150,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 255.0, 580.0, 239.0, 19.0 ],
+					"patching_rect" : [ 255.0, 525.0, 239.0, 19.0 ],
 					"text" : "tell the audio driver to start processing audio"
 				}
 
@@ -84,7 +164,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 687.0, 70.0 ]
+					"patching_rect" : [ 0.0, 0.0, 680.0, 70.0 ]
 				}
 
 			}
@@ -120,7 +200,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 315.0, 395.0, 20.0, 20.0 ]
+					"patching_rect" : [ 325.0, 390.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -175,7 +255,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 415.0, 475.0, 64.0, 19.0 ],
+					"patching_rect" : [ 425.0, 470.0, 64.0, 19.0 ],
 					"text" : "numChans"
 				}
 
@@ -189,7 +269,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 375.0, 475.0, 22.0, 19.0 ],
+					"patching_rect" : [ 385.0, 470.0, 22.0, 19.0 ],
 					"text" : "vs"
 				}
 
@@ -203,7 +283,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 330.0, 475.0, 20.0, 19.0 ],
+					"patching_rect" : [ 340.0, 470.0, 20.0, 19.0 ],
 					"text" : "sr"
 				}
 
@@ -294,7 +374,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 60.0, 465.0, 112.0, 19.0 ]
+					"patching_rect" : [ 60.0, 425.0, 112.0, 19.0 ]
 				}
 
 			}
@@ -307,7 +387,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 215.0, 600.0, 32.5, 17.0 ],
+					"patching_rect" : [ 215.0, 545.0, 32.5, 17.0 ],
 					"text" : "stop"
 				}
 
@@ -321,7 +401,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 415.0, 455.0, 50.0, 19.0 ]
+					"patching_rect" : [ 425.0, 450.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -334,7 +414,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 315.0, 455.0, 50.0, 19.0 ]
+					"patching_rect" : [ 325.0, 450.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -347,7 +427,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 315.0, 430.0, 169.0, 19.0 ],
+					"patching_rect" : [ 325.0, 425.0, 169.0, 19.0 ],
 					"text" : "jcom.info≈"
 				}
 
@@ -361,7 +441,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 365.0, 455.0, 50.0, 19.0 ]
+					"patching_rect" : [ 375.0, 450.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -374,7 +454,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 180.0, 510.0, 68.0, 19.0 ],
+					"patching_rect" : [ 180.0, 470.0, 68.0, 19.0 ],
 					"text" : "jcom.gain≈"
 				}
 
@@ -441,7 +521,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 180.0, 140.0, 443.0, 19.0 ],
+					"patching_rect" : [ 180.0, 140.0, 470.0, 19.0 ],
 					"text" : "jcom.wavetable≈ @waveform sine @interpolation linear @frequency 220. @numchannels 2"
 				}
 
@@ -467,9 +547,9 @@
 					"id" : "obj-3",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 180.0, 750.0, 64.0, 19.0 ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 180.0, 670.0, 64.0, 19.0 ],
 					"text" : "jcom.dac≈"
 				}
 
@@ -483,7 +563,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 200.0, 580.0, 50.0, 17.0 ],
+					"patching_rect" : [ 200.0, 525.0, 50.0, 17.0 ],
 					"text" : "start"
 				}
 
@@ -497,7 +577,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 60.0, 490.0, 69.0, 17.0 ],
+					"patching_rect" : [ 60.0, 450.0, 69.0, 17.0 ],
 					"text" : "midiGain $1"
 				}
 
@@ -564,7 +644,7 @@
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 55.0, 455.0, 240.0, 80.0 ]
+					"patching_rect" : [ 55.0, 415.0, 240.0, 80.0 ]
 				}
 
 			}
@@ -574,7 +654,7 @@
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 245.0, 285.0, 190.0 ]
+					"patching_rect" : [ 10.0, 245.0, 425.0, 136.0 ]
 				}
 
 			}
@@ -587,7 +667,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 255.0, 685.0, 221.0, 17.0 ],
+					"patching_rect" : [ 255.0, 605.0, 221.0, 17.0 ],
 					"text" : "exportRuby /example-multicore-export.rb"
 				}
 
@@ -598,11 +678,11 @@
 					"fontsize" : 10.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-19",
-					"linecount" : 4,
+					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 255.0, 625.0, 246.0, 55.0 ],
+					"patching_rect" : [ 255.0, 570.0, 363.0, 31.0 ],
 					"text" : "after you've started audio at least once, then you can export the audio graph to a Ruby source fiule that will run the same audio graph."
 				}
 
@@ -613,7 +693,7 @@
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 165.0, 565.0, 360.0, 215.0 ]
+					"patching_rect" : [ 165.0, 510.0, 462.0, 238.0 ]
 				}
 
 			}
@@ -755,6 +835,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-53", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-3", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -809,6 +898,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-39", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-24", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -845,6 +943,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-39", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-49", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -858,6 +965,24 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-49", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-51", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-38", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-53", 0 ]
 				}
 
 			}
