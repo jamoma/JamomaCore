@@ -15,6 +15,7 @@ typedef struct Noise {
     t_object				obj;
 	TTMulticoreObjectPtr	multicoreObject;
 	TTPtr					multicoreOutlet;
+	float					mGain;
 	SymbolPtr				attrMode;
 };
 typedef Noise* NoisePtr;
@@ -27,6 +28,7 @@ void		NoiseAssist(NoisePtr self, void* b, long msg, long arg, char* dst);
 TTErr		NoiseReset(NoisePtr self);
 TTErr		NoiseSetup(NoisePtr self);
 MaxErr		NoiseSetMode(NoisePtr self, void* attr, AtomCount argc, AtomPtr argv);
+MaxErr		NoiseSetGain(NoisePtr self, void* attr, AtomCount argc, AtomPtr argv);
 
 
 // Globals
@@ -52,6 +54,10 @@ int main(void)
 	
 	CLASS_ATTR_SYM(c,		"mode",			0,		Noise,	attrMode);
 	CLASS_ATTR_ACCESSORS(c,	"mode",			NULL,	NoiseSetMode);
+	CLASS_ATTR_ENUM(c,		"mode",			0,		"white pink brown blue");
+	
+	CLASS_ATTR_FLOAT(c,		"gain",			0,		Noise,	mGain);
+	CLASS_ATTR_ACCESSORS(c,	"gain",			NULL,	NoiseSetGain);
 	
 	class_register(_sym_box, c);
 	sNoiseClass = c;
@@ -124,12 +130,20 @@ TTErr NoiseSetup(NoisePtr self)
 }
 
 
+MaxErr NoiseSetGain(NoisePtr self, void* attr, AtomCount argc, AtomPtr argv)
+{
+	if (argc) {
+		self->mGain	= atom_getfloat(argv);
+		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("Gain"), self->mGain);
+	}
+	return MAX_ERR_NONE;
+}
 
 MaxErr NoiseSetMode(NoisePtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrMode = atom_getsym(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("mode"), TT(self->attrMode->s_name));
+		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("Mode"), TT(self->attrMode->s_name));
 	}
 	return MAX_ERR_NONE;
 }
