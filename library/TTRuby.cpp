@@ -54,6 +54,7 @@ extern "C" {
 	VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName);
 	VALUE TTAudioReset(VALUE self);
 	VALUE TTAudioConnect(int argc, VALUE* argv, VALUE self);
+	VALUE TTAudioDrop(int argc, VALUE* argv, VALUE self);
 	VALUE TTAudioExportMax(VALUE self, VALUE pathToExportFile);
 	VALUE TTAudioExportCpp(VALUE self, VALUE pathToExportFile);
 }
@@ -104,6 +105,7 @@ void Init_TTRuby()
 	rb_define_method(c, "get",				TTRubyMethod(TTAudioGetAttribute),	1);		// get attribute value
 	rb_define_method(c, "reset",			TTRubyMethod(TTAudioReset),			0);		// reset multicore connections
 	rb_define_method(c, "connect",			TTRubyMethod(TTAudioConnect),		-1);	// connect an output of another object to our input
+	rb_define_method(c, "drop",				TTRubyMethod(TTAudioDrop),			-1);	// disconnect an output of another object from our input
 	rb_define_method(c, "export_max",		TTRubyMethod(TTAudioExportMax),		1);		// reset multicore connections
 	rb_define_method(c, "export_cpp",		TTRubyMethod(TTAudioExportCpp),		1);		// reset multicore connections
 	
@@ -755,6 +757,50 @@ VALUE TTAudioConnect(int argc, VALUE* argv, VALUE self)
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {			
 			instance->obj->connect(instanceToConnect->obj, outletNumberFromWhichToConnect, inletNumberToWhichToConnect);			
+		}
+	}
+bye:
+	return self;
+}
+
+
+VALUE TTAudioDrop(int argc, VALUE* argv, VALUE self)
+{
+	TTAudioInstance*	instance = NULL;
+	TTAudioInstance*	instanceToConnect = NULL;
+	TTErr				err = kTTErrNone;
+	TTValue				v;
+	TTUInt16			inletNumberToWhichToConnect = 0;
+	TTUInt16			outletNumberFromWhichToConnect = 0;
+
+	if (argc < 1) {
+		cout << "ERROR -- TTAudioConnect requires at least 1 argument (the object whose output should be connected to our input)" << endl;
+		goto bye;
+	}
+
+	if (TYPE(argv[0]) == T_OBJECT) {
+		err = gTTAudioInstances->lookup(TTSymbolPtr(argv[0]), v);
+		if (!err) {
+			v.get(0, (TTPtr*)(&instanceToConnect));
+		}		
+	}
+
+	if (!instanceToConnect) {
+		cout << "ERROR -- TTAudioConnect cannot verify the object you would like to connect" << endl;
+		goto bye;
+	}
+	
+	if (argc > 1) {
+		inletNumberToWhichToConnect = FIX2LONG(argv[1]);
+		if (argc > 2)
+			outletNumberFromWhichToConnect = FIX2LONG(argv[2]);
+	}
+
+	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
+	if (!err) {
+		v.get(0, (TTPtr*)(&instance));
+		if (instance) {
+			instance->obj->drop(instanceToConnect->obj, outletNumberFromWhichToConnect, inletNumberToWhichToConnect);			
 		}
 	}
 bye:
