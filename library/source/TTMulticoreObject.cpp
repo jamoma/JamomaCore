@@ -129,13 +129,12 @@ TTErr TTMulticoreObject::preprocess(const TTMulticorePreprocessData& initData)
 			index++;
 		}
 		
-//		if (!(mFlags & kTTMulticoreGenerator)) { // For now, we will just assume that generators have set this up manually, hopefully that's actually true...
-			index = 0;
-			for (TTMulticoreOutletIter outlet = mOutlets.begin(); outlet != mOutlets.end(); outlet++) {
-				audioSignal = outlet->getBuffer();
-				mOutputSignals->setSignal(index, audioSignal);
-				index++;
-			}
+		index = 0;
+		for (TTMulticoreOutletIter outlet = mOutlets.begin(); outlet != mOutlets.end(); outlet++) {
+			audioSignal = outlet->getBuffer();
+			mOutputSignals->setSignal(index, audioSignal);
+			index++;
+		}
 
 		if (mFlags & kTTMulticoreGenerator) {
 			if (mVectorSize != initData.vectorSize) {
