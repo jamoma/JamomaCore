@@ -9,7 +9,7 @@
 
 #include "maxMulticore.h"
 #include "jpatcher_api.h"
-#define DEBUG_NOTIFICATIONS
+//#define DEBUG_NOTIFICATIONS
 
 // Data Structure for this object
 struct Out {
