@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"args" : [ "@name", "jmod.sur.multi.out~", "@description", "Unpack up to 32 mono signals from a multicable" ],
@@ -110,7 +111,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 219.0, 175.0, 63.0, 19.0 ],
+					"patching_rect" : [ 223.0, 175.0, 63.0, 19.0 ],
 					"text" : "phasor~ 1"
 				}
 
@@ -122,10 +123,10 @@
 					"id" : "obj-5",
 					"maxclass" : "newobj",
 					"numinlets" : 32,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 155.0, 215.0, 416.0, 19.0 ],
-					"text" : "jcom.multi.in~"
+					"numoutlets" : 2,
+					"outlettype" : [ "multicore.connect", "" ],
+					"patching_rect" : [ 155.0, 215.0, 437.5, 19.0 ],
+					"text" : "jcom.pack≈ 32"
 				}
 
 			}
@@ -182,7 +183,7 @@
 					"name" : "jmod.sur.multi.out~.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 33,
-					"outlettype" : [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
+					"outlettype" : [ "", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal" ],
 					"patching_rect" : [ 138.0, 255.0, 300.0, 35.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 35.0 ],
 					"varname" : "jmod.surround.multi.out~"
