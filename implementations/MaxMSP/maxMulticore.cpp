@@ -136,7 +136,7 @@ TTErr MaxMulticoreDrop(ObjectPtr x, long inletNumber, ObjectPtr sourceMaxObject,
 	TTErr 					err;
 	
 	err = (TTErr)int(object_method(sourceMaxObject, gensym("multicore.object"), &sourceObject));
-	if (sourceObject && !err)
+	if (self->multicoreObject && sourceObject && !err)
 		err = self->multicoreObject->drop(sourceObject, sourceOutletNumber, inletNumber);	
 	return err;
 }

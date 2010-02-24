@@ -117,6 +117,10 @@ DacPtr DacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void DacFree(DacPtr self)
 {
 	DacStop(self);
+	if (self->patcherview) {
+		object_detach_byptr(self, self->patcherview);
+		self->patcherview = NULL;
+	}
 	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
 	qelem_free(self->qelem);
 }

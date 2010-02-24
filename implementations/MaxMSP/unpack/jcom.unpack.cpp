@@ -38,8 +38,6 @@ void	OutQFn(OutPtr self);
 void	OutAssist(OutPtr self, void* b, long msg, long arg, char* dst);
 TTErr	OutReset(OutPtr self, long vectorSize);
 TTErr	OutConnect(OutPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
-TTErr  	OutDrop(OutPtr self, long inletNumber, ObjectPtr sourceObject, long sourceOutletNumber);
-TTErr	OutObject(OutPtr self, TTMulticoreObjectPtr* returnedMulticoreObject);
 void	OutIterateResetCallback(OutPtr self, ObjectPtr obj);
 void	OutIterateSetupCallback(OutPtr self, ObjectPtr obj);
 void	OutAttachToPatchlinesForPatcher(OutPtr self, ObjectPtr patcher);
@@ -67,8 +65,8 @@ int main(void)
 	class_addmethod(c, (method)OutNotify,			"notify",				A_CANT, 0);
 	class_addmethod(c, (method)OutReset,			"multicore.reset",		A_CANT, 0);
 	class_addmethod(c, (method)OutConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
-	class_addmethod(c, (method)OutDrop,				"multicore.drop",		A_CANT, 0);
-	class_addmethod(c, (method)OutObject,			"multicore.object",		A_CANT, 0);
+	class_addmethod(c, (method)MaxMulticoreDrop,	"multicore.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxMulticoreObject,	"multicore.object",		A_CANT, 0);
  	class_addmethod(c, (method)OutDsp,				"dsp",					A_CANT, 0);		
 	class_addmethod(c, (method)OutAssist,			"assist",				A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
@@ -125,8 +123,10 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void OutFree(OutPtr self)
 {
 	dsp_free((t_pxobject*)self);
-	if (self->patcherview)
+	if (self->patcherview) {
 		object_detach_byptr(self, self->patcherview);
+		self->patcherview = NULL;
+	}
 	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
 	qelem_free(self->qelem);
 }
@@ -223,25 +223,6 @@ TTErr OutConnect(OutPtr self, TTMulticoreObjectPtr audioSourceObject, long sourc
 {
 	self->hasConnections = true;
 	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
-}
-
-
-TTErr OutDrop(OutPtr self, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber)
-{
-	TTMulticoreObjectPtr	sourceObject = NULL;
-	TTErr 					err;
-	
-	err = (TTErr)int(object_method(sourceMaxObject, gensym("multicore.object"), &sourceObject));
-	if (sourceObject && !err)
-		err = self->multicoreObject->drop(sourceObject, sourceOutletNumber, inletNumber);	
-	return err;
-}
-
-
-TTErr OutObject(OutPtr self, TTMulticoreObjectPtr* returnedMulticoreObject)
-{
-	*returnedMulticoreObject = self->multicoreObject;
-	return kTTErrNone;
 }
 
 

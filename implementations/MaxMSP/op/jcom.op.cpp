@@ -28,8 +28,6 @@ void   	OpAssist		(OpPtr self, void* b, long msg, long arg, char* dst);
 TTErr  	OpReset			(OpPtr self, long vectorSize);
 TTErr  	OpSetup			(OpPtr self);
 TTErr  	OpConnect		(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
-TTErr	OpDrop			(OpPtr self, long inletNumber, ObjectPtr sourceObject, long sourceOutletNumber);
-TTErr	OpObject		(OpPtr self, TTMulticoreObjectPtr* returnedMulticoreObject);
 MaxErr 	OpSetOperator	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr 	OpSetOperand	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
 
@@ -53,8 +51,8 @@ int main(void)
 	class_addmethod(c, (method)OpReset,				"multicore.reset",		A_CANT, 0);
 	class_addmethod(c, (method)OpSetup,				"multicore.setup",		A_CANT, 0);
 	class_addmethod(c, (method)OpConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
-	class_addmethod(c, (method)OpDrop,				"multicore.drop",		A_CANT, 0);
-	class_addmethod(c, (method)OpObject,			"multicore.object",		A_CANT, 0);
+	class_addmethod(c, (method)MaxMulticoreDrop,	"multicore.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxMulticoreObject,	"multicore.object",		A_CANT, 0);
  	class_addmethod(c, (method)OpAssist,			"assist",				A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
 	
@@ -146,25 +144,6 @@ TTErr OpSetup(OpPtr self)
 TTErr OpConnect(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
 {
 	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
-}
-
-
-TTErr OpDrop(OpPtr self, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber)
-{
-	TTMulticoreObjectPtr	sourceObject = NULL;
-	TTErr 					err;
-	
-	err = (TTErr)int(object_method(sourceMaxObject, gensym("multicore.object"), &sourceObject));
-	if (sourceObject && !err)
-		err = self->multicoreObject->drop(sourceObject, sourceOutletNumber, inletNumber);	
-	return err;
-}
-
-
-TTErr OpObject(OpPtr self, TTMulticoreObjectPtr* returnedMulticoreObject)
-{
-	*returnedMulticoreObject = self->multicoreObject;
-	return kTTErrNone;
 }
 
 
