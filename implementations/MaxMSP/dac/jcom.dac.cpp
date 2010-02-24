@@ -219,8 +219,13 @@ void DacAssist(DacPtr self, void* b, long msg, long arg, char* dst)
 {
 	if (msg==1)				// Inlets
 		strcpy(dst, "multichannel audio connection and control messages");		
-	else if (msg==2)		// Outlets
-		strcpy(dst, "dumpout");
+	else if (msg==2){		// Outlets
+		if(arg == 0)
+			strcpy(dst, "stats on DSP graph");
+		else
+			strcpy(dst, "dumpout");	
+		
+	}		
 }
 
 
