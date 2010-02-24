@@ -296,8 +296,10 @@ t_int* OutPerform(t_int* w)
 	
 	if (!self->obj.z_disabled) {
 		if (self->hasConnections) {
+			self->multicoreObject->lockProcessing();
 			self->multicoreObject->preprocess(self->initData);
 			self->multicoreObject->process(self->audioSignal);
+			self->multicoreObject->unlockProcessing();
 			
 			numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannels());			
 			for(TTUInt16 channel=0; channel<numChannels; channel++)
