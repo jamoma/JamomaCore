@@ -47,7 +47,7 @@ void setup_jcom_op0x3d(void)
 	
 	class_addmethod(sOpClass, (t_method)OpReset,		gensym("multicore.reset"),		A_CANT, 0);
 	class_addmethod(sOpClass, (t_method)OpSetup,		gensym("multicore.setup"),		A_CANT, 0);
-	class_addmethod(sOpClass, (t_method)OpConnect,		gensym("multicore.connect"),	A_CANT, 0);
+	class_addmethod(sOpClass, (t_method)OpConnect,		gensym("multicore.connect"),	A_POINTER, A_POINTER, 0);
 	class_addmethod(sOpClass, (t_method)OpSetOperator,	gensym("operator"),				A_SYMBOL, 0);
 	class_addmethod(sOpClass, (t_method)OpSetOperand,	gensym("operand"),				A_FLOAT, 0);
 		
@@ -66,8 +66,7 @@ OpPtr OpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
     self = OpPtr(pd_new(sOpClass));
     if (self) {
-    	//object_obex_store((void*)self, _sym_dumpout, (ObjectPtr)outlet_new(self, NULL));	// dumpout	
-		self->outlet = outlet_new(SELF, gensym("multicore.connect"));
+ 		self->outlet = outlet_new(SELF, gensym("multicore.connect"));
 		
 		v.setSize(2);
 		v.set(0, TT("operator"));

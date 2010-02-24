@@ -87,8 +87,8 @@ InPtr InNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		self->multicoreObjectOutlet = outlet_new(SELF, gensym("multicore.connect"));
 	
-		// TODO: how do we get N inlets?
-		//dsp_setup(SELF, self->maxNumChannels);
+		for (int i=1; i<self->maxNumChannels; i++)
+			inlet_new(&self->obj, &self->obj.ob_pd, &s_signal, &s_signal);
 		
 		//self->obj.z_misc = Z_NO_INPLACE | Z_PUT_FIRST;
 	}
@@ -121,7 +121,7 @@ TTErr InSetup(InPtr self)
 	a[1].a_type = A_POINTER;
 	a[0].a_w.w_symbol = SymbolPtr(self->multicoreObject);
 	a[1].a_w.w_symbol = 0;
-
+	
 	outlet_anything(self->multicoreObjectOutlet, gensym("multicore.connect"), 2, a);
 	return kTTErrNone;
 }
