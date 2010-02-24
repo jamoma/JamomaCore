@@ -35,7 +35,8 @@ protected:
 	TTAudioSignalArrayPtr		mInputSignals;		///< The buffered input for processing audio with our object.
 	TTAudioSignalArrayPtr		mOutputSignals;		///< The results of processing audio with our object, buffered for objects requesting it
 	TTUInt16					mVectorSize;		///< The most recent vector size info passed from the terminal object during a preprocess
-public:	
+	static TTMutexPtr			sSharedMutex;		///< A critical region shared by all TTMulticoreObjects to prevent changes to the graph while processing.
+public:
 	TTAudioObjectPtr			mUnitGenerator;		///< The actual Jamoma DSP object doing the processing.
 	
 	
@@ -107,6 +108,22 @@ public:
 		@return					An error code.	*/
 	TTErr drop(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 
+	
+	/**	The thread protection for processing is important: we cannot have the graph nodes being deleted or re-arranged while we are pulling. 
+		Further more, this is true for the entire process cycle: preprocess, process, and postprocess.
+		Thus, this lock must be thrown by the code the is calling the methods from outside of this class. */
+	void lockProcessing()
+	{
+		sSharedMutex->lock();
+	}
+	
+	/**	The thread protection for processing is important: we cannot have the graph nodes being deleted or re-arranged while we are pulling. 
+	 Further more, this is true for the entire process cycle: preprocess, process, and postprocess.
+	 Thus, this lock must be thrown by the code the is calling the methods from outside of this class. */
+	void unlockProcessing()
+	{
+		sSharedMutex->unlock();
+	}
 	
 	/**	This method is called by an object about to process audio, prior to calling getAudioOutput().
 		As with the getAudioOutput() method, this is driven by the destination object and working up through the chains.

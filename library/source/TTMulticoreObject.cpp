@@ -15,6 +15,8 @@
 #define thisTTClassName		"multicore.object"
 #define thisTTClassTags		"audio, multicore, wrapper"
 
+TTMutexPtr TTMulticoreObject::sSharedMutex = NULL;
+
 
 //	Arguments
 //	1. (required) The name of the Jamoma DSP object you want to wrap
@@ -58,6 +60,9 @@ TT_OBJECT_CONSTRUCTOR,
 	// this is particularly important for the multicore.output object
 	TTValue v = TTPtr(this);
 	mUnitGenerator->sendMessage(TT("setOwner"), v);
+	
+	if (!sSharedMutex)
+		sSharedMutex = new TTMutex(false);
 }
 
 
@@ -67,28 +72,6 @@ TTMulticoreObject::~TTMulticoreObject()
 	TTObjectRelease((TTObjectPtr*)&mInputSignals);
 	TTObjectRelease((TTObjectPtr*)&mOutputSignals);
 }
-
-
-#ifdef OLD_AND_UNUSED
-TTErr TTMulticoreObject::objectFreeing(const TTValue& theObjectBeingDeleted)
-{
-	//TTObjectPtr o = theObjectBeingDeleted;
-	//TTBoolean	found = NO;
-	TTBoolean	oldValid = valid;
-	
-	// This is an ugly operation
-	// the problem is that we don't want to traverse a linked-list in the processing chain
-	
-	valid = false;
-	while(getlock())
-		;
-
-	// TODO: handle the graph update/change here...
-	
-	valid = oldValid;
-	return kTTErrNone;
-}
-#endif
 
 
 void TTMulticoreObject::getDescription(TTMulticoreDescription& desc)
@@ -102,29 +85,39 @@ void TTMulticoreObject::getDescription(TTMulticoreDescription& desc)
 
 TTErr TTMulticoreObject::reset()
 {
-	while (getlock())
-		;	// wait for lock to free-up (we're probably processing audio in another thread and don't want to change sources until its done)
-
+	sSharedMutex->lock();
 	for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::reset));		
+	sSharedMutex->unlock();
 	return kTTErrNone;
 }
 
 
 TTErr TTMulticoreObject::connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
 {	
-	while (getlock())
-		;	// wait for lock to free-up (we're probably processing audio in another thread and don't want to change sources until its done)
-	
-	return mInlets[toInletNumber].connect(anObject, fromOutletNumber);
+	TTErr err;
+
+	// it might seem like connections should not need the critical region: 
+	// the vector gets a little longer and the new items might be ignored the first time
+	// it doesn't change the order or delete things or copy them around in the vector like a drop() does
+	// but:
+	// if the resize of the vector can't happen in-place, then the whole thing gets copied and the old one destroyed
+
+	sSharedMutex->lock();
+	err = mInlets[toInletNumber].connect(anObject, fromOutletNumber);
+	sSharedMutex->unlock();
+	return err;
 }
 
 
 TTErr TTMulticoreObject::drop(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
 {
-	while (getlock())
-		;	// wait for lock to free-up (we're probably processing audio in another thread and don't want to change sources until its done)
+	TTErr err = kTTErrInvalidValue;
 
-	return mInlets[toInletNumber].drop(anObject, fromOutletNumber);	
+	sSharedMutex->lock();
+	if (toInletNumber < mInlets.size())
+		err = mInlets[toInletNumber].drop(anObject, fromOutletNumber);	
+	sSharedMutex->unlock();
+	return err;
 }
 
 

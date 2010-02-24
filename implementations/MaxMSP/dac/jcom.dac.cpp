@@ -116,6 +116,7 @@ DacPtr DacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 
 void DacFree(DacPtr self)
 {
+	DacStop(self);
 	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
 	qelem_free(self->qelem);
 }
@@ -138,6 +139,9 @@ MaxErr DacNotify(DacPtr self, SymbolPtr s, SymbolPtr msg, ObjectPtr sender, TTPt
 	}
 	else {
 		if (msg == _sym_free) {
+			if (self->patcherview)
+				goto out; // if there is no patcherview, then we are freeing the whole thing and can skip this
+			
 			#ifdef DEBUG_NOTIFICATIONS
 			object_post(SELF, "patch line deleted");
 			#endif // DEBUG_NOTIFICATIONS
