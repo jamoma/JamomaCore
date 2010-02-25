@@ -1,0 +1,36 @@
+/* 
+ * DSP Matrix Object
+ * Copyright © 2010, Timothy Place
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
+
+#ifndef __TT_MATRIX_H__
+#define __TT_MATRIX_H__
+
+#include "TTDSP.h"
+
+
+/**	TTGain is an exceptionally simple audio processor scales an input audio signal */
+class TTMatrix : TTAudioObject {
+	TTCLASS_SETUP(TTMatrix)
+
+	TTUInt16		mNumInputs;
+	TTUInt16		mNumOutputs;
+	TTSampleMatrix	mGainMatrix;
+
+	TTErr setNumInputs(const TTValue& newValue);
+	TTErr setNumOutputs(const TTValue& newValue);
+	
+	TTErr clear();
+	
+	TTErr setGain(const TTValue& newValue);
+	TTErr setLinearGain(const TTValue& newValue);
+	TTErr setMidiGain(const TTValue& newValue);	
+	
+	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	
+};
+
+
+#endif // __TT_MATRIX_H__

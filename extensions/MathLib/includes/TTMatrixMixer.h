@@ -12,10 +12,6 @@
 #include "TTDSP.h"
 
 
-typedef std::vector<TTSampleVector>	TTSampleMatrix;
-typedef TTSampleMatrix::iterator	TTSampleMatrixIter;
-
-
 /**	TTGain is an exceptionally simple audio processor scales an input audio signal */
 class TTMatrixMixer : TTAudioObject {
 	TTCLASS_SETUP(TTMatrixMixer)

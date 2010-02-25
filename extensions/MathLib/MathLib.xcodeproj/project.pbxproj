@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2201CF411137165600392292 /* TTMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 2201CF401137165600392292 /* TTMatrix.h */; };
+		2201CF431137165D00392292 /* TTMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2201CF421137165D00392292 /* TTMatrix.cpp */; };
 		22BA7E581046F098009771BC /* MathLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BA7E571046F098009771BC /* MathLib.cpp */; };
 		22BA7E5B1046F0A2009771BC /* TTMatrixMixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BA7E591046F0A2009771BC /* TTMatrixMixer.cpp */; };
 		22BA7E5C1046F0A2009771BC /* TTOperator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BA7E5A1046F0A2009771BC /* TTOperator.cpp */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		2201CF401137165600392292 /* TTMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMatrix.h; path = includes/TTMatrix.h; sourceTree = "<group>"; };
+		2201CF421137165D00392292 /* TTMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMatrix.cpp; path = source/TTMatrix.cpp; sourceTree = "<group>"; };
 		22BA7E571046F098009771BC /* MathLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MathLib.cpp; sourceTree = "<group>"; };
 		22BA7E591046F0A2009771BC /* TTMatrixMixer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMatrixMixer.cpp; path = source/TTMatrixMixer.cpp; sourceTree = "<group>"; };
 		22BA7E5A1046F0A2009771BC /* TTOperator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTOperator.cpp; path = source/TTOperator.cpp; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 			children = (
 				22BA7E5D1046F0B0009771BC /* TTOperator.h */,
 				22BA7E5A1046F0A2009771BC /* TTOperator.cpp */,
+				2201CF401137165600392292 /* TTMatrix.h */,
+				2201CF421137165D00392292 /* TTMatrix.cpp */,
 				22BA7E5E1046F0B0009771BC /* TTMatrixMixer.h */,
 				22BA7E591046F0A2009771BC /* TTMatrixMixer.cpp */,
 			);
@@ -100,6 +106,7 @@
 			files = (
 				22BA7E5F1046F0B0009771BC /* TTOperator.h in Headers */,
 				22BA7E601046F0B0009771BC /* TTMatrixMixer.h in Headers */,
+				2201CF411137165600392292 /* TTMatrix.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +173,7 @@
 				22BA7E581046F098009771BC /* MathLib.cpp in Sources */,
 				22BA7E5B1046F0A2009771BC /* TTMatrixMixer.cpp in Sources */,
 				22BA7E5C1046F0A2009771BC /* TTOperator.cpp in Sources */,
+				2201CF431137165D00392292 /* TTMatrix.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
