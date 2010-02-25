@@ -60,6 +60,8 @@ public:
 	
 	void setOutputNumChannels(TTUInt16 forOutletNumber, TTUInt16 numChannels)
 	{
+		sSharedMutex->lock();
+
 		if (forOutletNumber < mOutlets.size()) {
 			TTValue	v(numChannels);
 			
@@ -67,6 +69,7 @@ public:
 			mOutlets[forOutletNumber].mBufferedOutput->setmaxNumChannels(v);
 			mOutlets[forOutletNumber].mBufferedOutput->setnumChannels(v);
 		}
+		sSharedMutex->unlock();
 	}
 	
 	
