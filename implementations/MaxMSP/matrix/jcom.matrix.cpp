@@ -12,12 +12,6 @@
 
 int main(void)
 {
-	WrappedClassOptionsPtr	options = new WrappedClassOptions;
-	TTValue					value(0);
-
 	TTMulticoreInit();
-	options->append(TT("argumentDefinesNumInlets"), value);
-	value = 1L;
-	options->append(TT("argumentDefinesNumOutlets"), value);
-	return wrapAsMaxMulticore(TT("matrixmixer"), "jcom.matrix≈", NULL, options);
+	return wrapAsMaxMulticore(TT("matrix"), "jcom.matrix≈", NULL);
 }
