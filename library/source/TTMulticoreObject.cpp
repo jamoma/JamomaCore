@@ -175,13 +175,15 @@ TTErr TTMulticoreObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 forO
 				// pull (process, sum, and collect) all of our source audio
 				for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::process));
 
-				// TODO: evaluate this -- we are setting output vector size and num channels in process -- this is a potential performance bottle-neck...
-				mOutputSignals->matchNumChannels(mInputSignals);
-				// TODO: the above is a problem -- for example, consider the join≈ object.  How do we avoid this unnesseccary junk from occurring?
-				
+				if (!(mFlags & kTTMulticoreNonAdapting)) {
+					// examples of non-adapting objects are join≈ and matrix≈
+					// non-adapting in this case means channel numbers -- vector sizes still adapt
+					mOutputSignals->matchNumChannels(mInputSignals);
+				}
 				mOutputSignals->allocAllWithVectorSize(mInputSignals->getVectorSize());
 				mUnitGenerator->process(mInputSignals, mOutputSignals);
 			}
+			
 			// TODO: we're doing a copy below -- is that what we really want?  Or can we just return the pointer?
 			returnedSignal = mOutlets[forOutletNumber].mBufferedOutput;
 			mStatus = kTTMulticoreProcessComplete;

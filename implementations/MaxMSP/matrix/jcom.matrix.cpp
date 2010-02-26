@@ -12,6 +12,11 @@
 
 int main(void)
 {
+	WrappedClassOptionsPtr	options = new WrappedClassOptions;
+	TTValue					value(0);
+	
 	TTMulticoreInit();
-	return wrapAsMaxMulticore(TT("matrix"), "jcom.matrix≈", NULL);
+
+	options->append(TT("nonadapting"), value); // don't change the number of out-channels in response to changes in the number of in-channels
+	return wrapAsMaxMulticore(TT("matrix"), "jcom.matrix≈", NULL, options);
 }

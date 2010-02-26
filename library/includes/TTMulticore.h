@@ -47,7 +47,8 @@ enum TTMulticoreProcessStatus {
 enum TTMulticoreFlags {
 	kTTMulticoreFlagsNone = 0x00,
 	kTTMulticoreProcessor = 0x01,
-	kTTMulticoreGenerator = 0x02
+	kTTMulticoreGenerator = 0x02,		///< This object generates signals, it has no inputs
+	kTTMulticoreNonAdapting = 0x04,		///< This object does not adapt its number of output channels to the number of input channels
 };
 
 
