@@ -349,8 +349,12 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 		TTUInt32		nameSize = 0;
 		
 		v.get(i, &name);
-		if(name == TT("maxNumChannels") || name == TT("processInPlace"))
+		if (name == TT("maxNumChannels") || name == TT("processInPlace"))
 			continue;	// don't expose these attributes to Max users
+		if (name == TT("bypass")) {
+			if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("generator"), v))
+				continue;	// generators don't have inputs, and so don't really provide a bypass
+		}
 		
 		o->findAttribute(name, &attr);
 		
