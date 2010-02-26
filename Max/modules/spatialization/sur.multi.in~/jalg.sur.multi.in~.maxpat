@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 221.0, 392.0, 1091.0, 371.0 ],
+		"rect" : [ 203.0, 331.0, 1091.0, 371.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 221.0, 392.0, 1091.0, 371.0 ],
+		"defrect" : [ 203.0, 331.0, 1091.0, 371.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -26,9 +26,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-					"outlettype" : [ "desn't work yet" ],
-					"patching_rect" : [ 15.0, 123.0, 105.0, 19.0 ],
-					"text" : "t \"desn't work yet\""
+					"outlettype" : [ "/channel_offset desn't work yet" ],
+					"patching_rect" : [ 15.0, 123.0, 186.0, 19.0 ],
+					"text" : "t \"/channel_offset desn't work yet\""
 				}
 
 			}
@@ -40,8 +40,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 14.0, 146.0, 88.0, 19.0 ],
-					"text" : "print WARNING"
+					"patching_rect" : [ 14.0, 146.0, 136.0, 19.0 ],
+					"text" : "print jmod.sur.multi.in~:"
 				}
 
 			}

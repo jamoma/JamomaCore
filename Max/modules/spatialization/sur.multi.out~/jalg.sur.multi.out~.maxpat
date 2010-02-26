@@ -26,9 +26,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-					"outlettype" : [ "desn't work yet" ],
-					"patching_rect" : [ 26.0, 101.0, 105.0, 19.0 ],
-					"text" : "t \"desn't work yet\""
+					"outlettype" : [ "/channel_offset doesn't work yet" ],
+					"patching_rect" : [ 26.0, 101.0, 192.0, 19.0 ],
+					"text" : "t \"/channel_offset doesn't work yet\""
 				}
 
 			}
@@ -40,8 +40,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 25.0, 124.0, 88.0, 19.0 ],
-					"text" : "print WARNING"
+					"patching_rect" : [ 25.0, 124.0, 143.0, 19.0 ],
+					"text" : "print jmod.sur.multi.out~:"
 				}
 
 			}

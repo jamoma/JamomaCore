@@ -376,7 +376,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
+					"outlettype" : [ "", "multicore.connect" ],
 					"patching_rect" : [ 130.0, 300.0, 114.0, 19.0 ],
 					"text" : "jalg.sur.vbap~"
 				}

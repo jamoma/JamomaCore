@@ -6,7 +6,6 @@
 >
   <preset number='1' name='default'>
     <item name='channels' type='integer' priority='1'>8</item>
-    <item name='channels/alias' type='string' priority='2'>channels</item>
     <item name='freeze' type='boolean' priority='0'>0</item>
     <item name='view/color/border' type='array' priority='0'>0</item>
     <item name='view/color/contentBackground' type='array' priority='0'>0</item>
