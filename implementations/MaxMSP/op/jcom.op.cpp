@@ -1,5 +1,5 @@
 /* 
- *	op≈
+ *	op>
  *	External object for Max/MSP to perform basic mathematical operations on objects in a Jamoma Graph.
  *	Copyright © 2010 by Timothy Place
  * 
