@@ -67,11 +67,13 @@ void TTAudioSignal::chuck()
 }
 
 
-TTErr TTAudioSignal::setmaxNumChannels(const TTValue& newMaxNumChannels)
+TTErr TTAudioSignal::setmaxNumChannels(const TTValue& newValue)
 {
 	TTUInt32	i;
 	TTBoolean	wasLocallyOwned = isLocallyOwned;
+	TTUInt16	newMaxNumChannels = newValue;
 
+	newMaxNumChannels = TTLimitMin<TTUInt16>(newMaxNumChannels, 1);
 	if (TTUInt16(newMaxNumChannels) != maxNumChannels) {
 		chuck();
 		maxNumChannels = newMaxNumChannels;
@@ -295,7 +297,6 @@ TTErr TTAudioSignal::copyDirty(const TTAudioSignal& source, TTAudioSignal& dest,
 	TTSampleValue*	outSample;
 	TTUInt16		maxDestChannels = dest.maxNumChannels;
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(source, dest);
-	TTUInt16		additionalOutputChannels = dest.numChannels - numchannels;
 	TTUInt16		channel;
 	
 	for (channel=0; channel<numchannels; channel++) {
