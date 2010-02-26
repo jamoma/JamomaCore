@@ -1,0 +1,289 @@
+// !$*UTF8*$!
+{
+	0867D690FE84028FC02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Development;
+		activeTarget = 8DC2EF4F0486A6940098B216 /* Graph */;
+		addToTargets = (
+		);
+		codeSenseManager = 22D4365C113883600044357E /* Code sense */;
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					724,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					243,
+					60,
+					20,
+					48.16259765625,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 288916301;
+			PBXWorkspaceStateSaveDate = 288916301;
+		};
+		perUserProjectItems = {
+			22D4365D1138851A0044357E /* PBXTextBookmark */ = 22D4365D1138851A0044357E /* PBXTextBookmark */;
+			22D4365E1138851A0044357E /* PBXTextBookmark */ = 22D4365E1138851A0044357E /* PBXTextBookmark */;
+			22D4365F1138851A0044357E /* PBXTextBookmark */ = 22D4365F1138851A0044357E /* PBXTextBookmark */;
+			22D436601138851A0044357E /* PBXTextBookmark */ = 22D436601138851A0044357E /* PBXTextBookmark */;
+			22D436611138851A0044357E /* PBXTextBookmark */ = 22D436611138851A0044357E /* PBXTextBookmark */;
+			22D436621138851A0044357E /* PBXTextBookmark */ = 22D436621138851A0044357E /* PBXTextBookmark */;
+			22D436631138851A0044357E /* PBXTextBookmark */ = 22D436631138851A0044357E /* PBXTextBookmark */;
+			22D436641138851A0044357E /* PBXTextBookmark */ = 22D436641138851A0044357E /* PBXTextBookmark */;
+			22D436651138851A0044357E /* PBXTextBookmark */ = 22D436651138851A0044357E /* PBXTextBookmark */;
+			22D436661138851A0044357E /* PBXTextBookmark */ = 22D436661138851A0044357E /* PBXTextBookmark */;
+			22D436671138851A0044357E /* PBXTextBookmark */ = 22D436671138851A0044357E /* PBXTextBookmark */;
+			22D436681138851A0044357E /* PBXTextBookmark */ = 22D436681138851A0044357E /* PBXTextBookmark */;
+		};
+		sourceControlManager = 22D4365B113883600044357E /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	2220192B10F8E7760010D781 /* TTGraphOutlet.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {902, 884}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1358}";
+		};
+	};
+	222019D710F90A2D0010D781 /* TTGraphInlet.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {902, 962}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1195}";
+		};
+	};
+	226AAF7310F80EDE002C6057 /* TTGraph.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {902, 1157}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1213}";
+		};
+	};
+	226AAF7410F80EDE002C6057 /* TTGraphAPI.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {902, 640}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 510}";
+		};
+	};
+	226AAF7510F80EDE002C6057 /* TTGraphInlet.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1083, 3133}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1623}";
+		};
+	};
+	226AAF7610F80EDE002C6057 /* TTGraphObject.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {992, 1573}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1901}";
+		};
+	};
+	226AAF7A10F80EDE002C6057 /* TTGraph.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {902, 640}}";
+			sepNavSelRange = "{327, 0}";
+			sepNavVisRange = "{0, 905}";
+		};
+	};
+	226AAF7C10F80EDE002C6057 /* TTGraphObject.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {957, 2808}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1705}";
+		};
+	};
+	22D4365A113883600044357E /* JamomaGraph.xcconfig */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {902, 640}}";
+			sepNavSelRange = "{1105, 0}";
+			sepNavVisRange = "{0, 1257}";
+		};
+	};
+	22D4365B113883600044357E /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	22D4365C113883600044357E /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	22D4365D1138851A0044357E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 22D4365A113883600044357E /* JamomaGraph.xcconfig */;
+		name = "JamomaGraph.xcconfig: 40";
+		rLen = 0;
+		rLoc = 1105;
+		rType = 0;
+		vrLen = 1257;
+		vrLoc = 0;
+	};
+	22D4365E1138851A0044357E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 226AAF7410F80EDE002C6057 /* TTGraphAPI.h */;
+		name = "TTGraphAPI.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 510;
+		vrLoc = 0;
+	};
+	22D4365F1138851A0044357E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 226AAF7310F80EDE002C6057 /* TTGraph.h */;
+		name = "TTGraph.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1213;
+		vrLoc = 0;
+	};
+	22D436601138851A0044357E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 226AAF7A10F80EDE002C6057 /* TTGraph.cpp */;
+		name = "TTGraph.cpp: 10";
+		rLen = 0;
+		rLoc = 327;
+		rType = 0;
+		vrLen = 905;
+		vrLoc = 0;
+	};
+	22D436611138851A0044357E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 22F25F17111FC59900A67D8D /* TTGraphDescription.cpp */;
+		name = "TTGraphDescription.cpp: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1361;
+		vrLoc = 0;
+	};
+	22D436621138851A0044357E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 226AAF7510F80EDE002C6057 /* TTGraphInlet.h */;
+		name = "TTGraphInlet.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1623;
+		vrLoc = 0;
+	};
+	22D436631138851A0044357E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 222019D710F90A2D0010D781 /* TTGraphInlet.cpp */;
+		name = "TTGraphInlet.cpp: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1195;
+		vrLoc = 0;
+	};
+	22D436641138851A0044357E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2220192B10F8E7760010D781 /* TTGraphOutlet.h */;
+		name = "TTGraphOutlet.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1358;
+		vrLoc = 0;
+	};
+	22D436651138851A0044357E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 226AAF7610F80EDE002C6057 /* TTGraphObject.h */;
+		name = "TTGraphObject.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1901;
+		vrLoc = 0;
+	};
+	22D436661138851A0044357E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 226AAF7C10F80EDE002C6057 /* TTGraphObject.cpp */;
+		name = "TTGraphObject.cpp: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1705;
+		vrLoc = 0;
+	};
+	22D436671138851A0044357E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 22F25DD8111E0B6F00A67D8D /* TTGraphDescription.h */;
+		name = "TTMulticoreDescription.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1389;
+		vrLoc = 0;
+	};
+	22D436681138851A0044357E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 22F25DD8111E0B6F00A67D8D /* TTGraphDescription.h */;
+		name = "TTGraphDescription.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1389;
+		vrLoc = 0;
+	};
+	22F25DD8111E0B6F00A67D8D /* TTGraphDescription.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {902, 640}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1389}";
+		};
+	};
+	22F25F17111FC59900A67D8D /* TTGraphDescription.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {902, 2457}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1361}";
+		};
+	};
+	8DC2EF4F0486A6940098B216 /* Graph */ = {
+		activeExec = 0;
+	};
+}
