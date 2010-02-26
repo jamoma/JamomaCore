@@ -1,18 +1,18 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
- * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
- * Copyright © 2008, Timothy Place
+ * Jamoma Asynchronous Object Graph Layer
+ * Creates a wrapper for TTObjects that can be used to build a control graph for asynchronous message passing.
+ * Copyright © 2010, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TTMULTICORE_API_H__
-#define __TTMULTICORE_API_H__
+#ifndef __TTGRAPH_API_H__
+#define __TTGRAPH_API_H__
 
-#include "TTMulticore.h"
-#include "TTMulticoreObject.h"
-#include "TTMulticoreOutput.h"
-#include "TTMulticoreGenerator.h"
+#include "TTGraph.h"
+#include "TTGraphObject.h"
+//#include "TTGraphOutput.h"
+//#include "TTGraphGenerator.h"
 
-#endif // __TTMULTICORE_API_H__
+#endif // __TTGRAPH_API_H__

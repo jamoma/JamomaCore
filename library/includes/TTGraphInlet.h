@@ -1,47 +1,47 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
- * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
+ * Jamoma Asynchronous Object Graph Layer
+ * Creates a wrapper for TTObjects that can be used to build a control graph for asynchronous message passing.
  * Copyright © 2010, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TTMULTICORE_INLET_H__
-#define __TTMULTICORE_INLET_H__
+#ifndef __TTGRAPH_INLET_H__
+#define __TTGRAPH_INLET_H__
 
-#include "TTMulticore.h"
-#include "TTMulticoreObject.h"
+#include "TTGraph.h"
+#include "TTGraphObject.h"
 
 
 /******************************************************************************************/
 
 // NOTE: we don't need to keep a buffer of our own, be we just mirror the buffer of mSourceObject
 
-class TTMulticoreSource {
-	friend void TTMulticoreSourceObserverCallback(TTMulticoreSource* self, TTValue& arg);
+class TTGraphSource {
+	friend void TTGraphSourceObserverCallback(TTGraphSource* self, TTValue& arg);
 	
-	TTMulticoreObjectPtr	mSourceObject;	// the object from which we pull samples
+	TTGraphObjectPtr	mSourceObject;	// the object from which we pull samples
 	TTUInt16				mOutletNumber;	// zero-based
 	TTObjectPtr				mCallbackHandler;
 	
 public:
-	TTMulticoreSource();	
-	~TTMulticoreSource();			
+	TTGraphSource();	
+	~TTGraphSource();			
 
 	// Internal method shared/called by constructors.
 	void create();
 	
 	// Copying Functions -- critical due to use by std::vector 
 	
-	TTMulticoreSource(const TTMulticoreSource& original) :
+	TTGraphSource(const TTGraphSource& original) :
 		mSourceObject(NULL),
 		mOutletNumber(0),
 		mCallbackHandler(NULL)	
 	{
 		create();
 		
-		// NOTE: See notes below in TTMulticoreInlet copy constructor...
+		// NOTE: See notes below in TTGraphInlet copy constructor...
 		// NOTE: When vector of sources is resized, it is possible for an object to be created and immediately copied -- prior to a 'connect' method call
 		// NOTE: Are we ever called after connecting?  If so, then we need to set up the connection...
 		
@@ -49,7 +49,7 @@ public:
 			connect(original.mSourceObject, original.mOutletNumber);
 	}
 	
-	TTMulticoreSource& operator=(const TTMulticoreSource& source)
+	TTGraphSource& operator=(const TTGraphSource& source)
 	{
 		// Not expecting to call this method...
 		TT_ASSERT("we shouldn't be here", false);				
@@ -58,16 +58,16 @@ public:
 	
 	// Info Methods
 	
-	void getDescription(TTMulticoreDescription& desc)
+	void getDescription(TTGraphDescription& desc)
 	{
 		mSourceObject->getDescription(desc);
 	}
 	
 	// Graph Methods
 	
-	void connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber);
+	void connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber);
 	
-	void init(const TTMulticoreInitData& initData)
+	void init(const TTGraphInitData& initData)
 	{
 		mSourceObject->init(initData);
 	}
@@ -84,16 +84,16 @@ public:
 	
 };
 
-typedef TTMulticoreSource*					TTMulticoreSourcePtr;
-typedef vector<TTMulticoreSource>			TTMulticoreSourceVector;
-typedef TTMulticoreSourceVector::iterator	TTMulticoreSourceIter;
+typedef TTGraphSource*					TTGraphSourcePtr;
+typedef vector<TTGraphSource>			TTGraphSourceVector;
+typedef TTGraphSourceVector::iterator	TTGraphSourceIter;
 
 
 
 /******************************************************************************************/
 
-/**	This object represents a single 'inlet' to a TTMulticoreObject.
-	TTMulticoreObject maintains a vector of these inlets.
+/**	This object represents a single 'inlet' to a TTGraphObject.
+	TTGraphObject maintains a vector of these inlets.
 	
 	The relationship of an inlet to other parts of the multicore heirarchy is as follows:
 
@@ -102,20 +102,20 @@ typedef TTMulticoreSourceVector::iterator	TTMulticoreSourceIter;
 		An inlet may have many signals connected.
 		A signal may have many channels.
 */
-class TTMulticoreInlet {
-	TTMulticoreSourceVector	mSourceObjects;		///< A vector of object pointers from which we pull our source samples using the ::getAudioOutput() method.
+class TTGraphInlet {
+	TTGraphSourceVector	mSourceObjects;		///< A vector of object pointers from which we pull our source samples using the ::getAudioOutput() method.
 	TTAudioSignalPtr		mBufferedInput;		///< summed samples from all sources
 	TTBoolean				mClean;
 	
 public:
-	TTMulticoreInlet() : 
+	TTGraphInlet() : 
 		mBufferedInput(NULL),
 		mClean(NO)
 	{
 		createBuffer();
 	}
 
-	~TTMulticoreInlet()
+	~TTGraphInlet()
 	{
 		TTObjectRelease(&mBufferedInput);
 	}
@@ -123,7 +123,7 @@ public:
 	
 	// Copying Functions are critical due to use by std::vector 
 	// At least on the Mac, a call to std::vector::resize() does not simply construct N objects.
-	// For example, mInlets.resize(2) in TTMulticoreObject() will construct 1 object, 
+	// For example, mInlets.resize(2) in TTGraphObject() will construct 1 object, 
 	// and then copy it to get the second object rather than constructing the second object!
 	// Because of that, we have to be super careful!
 	//
@@ -133,7 +133,7 @@ public:
 	// We need to be on the alert for strange behaviors caused by this situation.
 	// At some point perhaps we should switch to just using a vector of pointers, though there are sensitive issues there too...
 	
-	TTMulticoreInlet(const TTMulticoreInlet& original) : 
+	TTGraphInlet(const TTGraphInlet& original) : 
 		mBufferedInput(NULL),
 		mClean(NO)
 	{
@@ -145,7 +145,7 @@ public:
 	}
 	
 	// The copy assignment constructor doesn't appear to be involved, at least with resizes, on the Mac...
-	TTMulticoreInlet& operator=(const TTMulticoreInlet& source)
+	TTGraphInlet& operator=(const TTGraphInlet& source)
 	{
 		TTObjectRelease(&mBufferedInput);
 		
@@ -176,18 +176,18 @@ public:
 	}
 		
 	// init the chain from which we will pull
-	void init(const TTMulticoreInitData& initData)
+	void init(const TTGraphInitData& initData)
 	{
-		// for_each(mSourceObjects.begin(), mSourceObjects.end(), bind2nd(mem_fun_ref(&TTMulticoreSource::init), initData));
+		// for_each(mSourceObjects.begin(), mSourceObjects.end(), bind2nd(mem_fun_ref(&TTGraphSource::init), initData));
 		// CHANGED: don't know how to make for_each work with an argument like this...
-		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++)
+		for (TTGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++)
 			source->init(initData);
 	}
 	
 	// when we receive a notification than an object is going away...
 //	void drop(TTObjectPtr theObjectBeingDeleted);
 	
-	TTErr connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber)
+	TTErr connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
 	{
 		TTUInt16 size = mSourceObjects.size();
 		
@@ -200,7 +200,7 @@ public:
 	void preprocess()
 	{
 		mBufferedInput->clear();
-		for_each(mSourceObjects.begin(), mSourceObjects.end(), mem_fun_ref(&TTMulticoreSource::preprocess));
+		for_each(mSourceObjects.begin(), mSourceObjects.end(), mem_fun_ref(&TTGraphSource::preprocess));
 		mClean = YES;
 	}
 
@@ -211,7 +211,7 @@ public:
 		int					err;
 		TTAudioSignalPtr	foo;
 		
-		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
+		for (TTGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
 			err |= (*source).process(foo);
 			if (mClean) {
 				(*mBufferedInput) = (*foo);
@@ -230,10 +230,10 @@ public:
 	}
 	
 	
-	void getDescriptions(TTMulticoreDescriptionVector& descs)
+	void getDescriptions(TTGraphDescriptionVector& descs)
 	{
-		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
-			TTMulticoreDescription	desc;
+		for (TTGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
+			TTGraphDescription	desc;
 			
 			source->getDescription(desc);
 			descs.push_back(desc);
@@ -243,4 +243,4 @@ public:
 };
 
 
-#endif // __TTMULTICORE_INLET_H__
+#endif // __TTGRAPH_INLET_H__

@@ -1,19 +1,19 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
- * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
+ * Jamoma Asynchronous Object Graph Layer
+ * Creates a wrapper for TTObjects that can be used to build a control graph for asynchronous message passing.
  * Copyright © 2010, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTMulticoreObject.h"
-#include "TTMulticoreInlet.h"
+#include "TTGraphObject.h"
+#include "TTGraphInlet.h"
 #include "TTCallback.h"
 
 
 // C Callback from any Multicore Source objects we are observing
-void TTMulticoreSourceObserverCallback(TTMulticoreSourcePtr self, TTValue& arg)
+void TTGraphSourceObserverCallback(TTGraphSourcePtr self, TTValue& arg)
 {
 	// at the moment we only receive one callback, which is for the object being deleted
 	self->mSourceObject = NULL;
@@ -23,7 +23,7 @@ void TTMulticoreSourceObserverCallback(TTMulticoreSourcePtr self, TTValue& arg)
 
 // Implementation for Multicore Source class
 
-TTMulticoreSource::TTMulticoreSource() :
+TTGraphSource::TTGraphSource() :
 	mSourceObject(NULL),
 	mOutletNumber(0),
 	mCallbackHandler(NULL)
@@ -32,7 +32,7 @@ TTMulticoreSource::TTMulticoreSource() :
 }
 
 
-TTMulticoreSource::~TTMulticoreSource()
+TTGraphSource::~TTGraphSource()
 {
 	if (mSourceObject)
 		mSourceObject->unregisterObserverForNotifications(*mCallbackHandler);
@@ -45,16 +45,16 @@ TTMulticoreSource::~TTMulticoreSource()
 }
 
 
-void TTMulticoreSource::create()
+void TTGraphSource::create()
 {
 	TTObjectInstantiate(TT("Callback"), &mCallbackHandler, kTTValNONE);
 	
-	mCallbackHandler->setAttributeValue(TT("Function"), TTPtr(&TTMulticoreSourceObserverCallback));
+	mCallbackHandler->setAttributeValue(TT("Function"), TTPtr(&TTGraphSourceObserverCallback));
 	mCallbackHandler->setAttributeValue(TT("Baton"), TTPtr(this));	
 }
 
 
-void TTMulticoreSource::connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber)
+void TTGraphSource::connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
 {
 	mSourceObject = anObject;
 	mOutletNumber = fromOutletNumber;

@@ -1,14 +1,14 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
- * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
- * Copyright © 2008, Timothy Place
+ * Jamoma Asynchronous Object Graph Layer
+ * Creates a wrapper for TTObjects that can be used to build a control graph for asynchronous message passing.
+ * Copyright © 2010, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TTMULTICORE_H__
-#define __TTMULTICORE_H__
+#ifndef __TTGRAPH_H__
+#define __TTGRAPH_H__
 
 #include "TTDSP.h"
 
@@ -16,18 +16,18 @@
 #ifdef TT_PLATFORM_WIN
 	#include "windows.h"
 	#ifdef _DLL_EXPORT
-		#define TTMULTICORE_EXPORT __declspec(dllexport)
+		#define TTGRAPH_EXPORT __declspec(dllexport)
 	#else
-		#define TTMULTICORE_EXPORT __declspec(dllimport)
+		#define TTGRAPH_EXPORT __declspec(dllimport)
 	#endif
 
 	#include <algorithm>
 	using namespace std;
 #else // TT_PLATFORM_MAC
 	#ifdef _DLL_EXPORT
-		#define TTMULTICORE_EXPORT __attribute__((visibility("default")))
+		#define TTGRAPH_EXPORT __attribute__((visibility("default")))
 	#else
-		#define TTMULTICORE_EXPORT  
+		#define TTGRAPH_EXPORT  
 	#endif
 #endif
 
@@ -35,49 +35,49 @@
 /******************************************************************************************/
 
 // the state of each node in the graph
-enum TTMulticoreProcessStatus {
-	kTTMulticoreProcessUnknown = 0,
-	kTTMulticoreProcessNotStarted,
-	kTTMulticoreProcessingCurrently,	
-	kTTMulticoreProcessComplete
+enum TTGraphProcessStatus {
+	kTTGraphProcessUnknown = 0,
+	kTTGraphProcessNotStarted,
+	kTTGraphProcessingCurrently,	
+	kTTGraphProcessComplete
 };
 
 
 // values to be used as a bitmask
-enum TTMulticoreFlags {
-	kTTMulticoreFlagsNone = 0x00,
-	kTTMulticoreProcessor = 0x01,
-	kTTMulticoreGenerator = 0x02
+enum TTGraphFlags {
+	kTTGraphFlagsNone = 0x00,
+	kTTGraphProcessor = 0x01,
+	kTTGraphGenerator = 0x02
 };
 
 
 // data passed to all nodes in the graph when the graph is initialized
-class TTMulticoreInitData {
+class TTGraphInitData {
 public:
 	TTUInt16 vectorSize;	// the global/recommended/initial vectorSize (which can be overriden during process)
 };
 
 
-class	TTMulticoreObject;
-typedef TTMulticoreObject*					TTMulticoreObjectPtr;
-typedef vector<TTMulticoreObjectPtr>		TTMulticoreObjectVector;
-typedef TTMulticoreObjectVector::iterator	TTMulticoreObjectIter;
+class	TTGraphObject;
+typedef TTGraphObject*					TTGraphObjectPtr;
+typedef vector<TTGraphObjectPtr>		TTGraphObjectVector;
+typedef TTGraphObjectVector::iterator	TTGraphObjectIter;
 
-class	TTMulticoreInlet;
-typedef TTMulticoreInlet*					TTMulticoreInletPtr;
-typedef vector<TTMulticoreInlet>			TTMulticoreInletVector;
-typedef TTMulticoreInletVector::iterator	TTMulticoreInletIter;
+class	TTGraphInlet;
+typedef TTGraphInlet*					TTGraphInletPtr;
+typedef vector<TTGraphInlet>			TTGraphInletVector;
+typedef TTGraphInletVector::iterator	TTGraphInletIter;
 
-class	TTMulticoreOutlet;
-typedef TTMulticoreOutlet*					TTMulticoreOutletPtr;
-typedef vector<TTMulticoreOutlet>			TTMulticoreOutletVector;
-typedef TTMulticoreOutletVector::iterator	TTMulticoreOutletIter;
+class	TTGraphOutlet;
+typedef TTGraphOutlet*					TTGraphOutletPtr;
+typedef vector<TTGraphOutlet>			TTGraphOutletVector;
+typedef TTGraphOutletVector::iterator	TTGraphOutletIter;
 
-#include "TTMulticoreDescription.h"
+#include "TTGraphDescription.h"
 
 /******************************************************************************************/
 
-TTMULTICORE_EXPORT void TTMulticoreInit(void);
+TTGRAPH_EXPORT void TTGraphInit(void);
 
 
-#endif // __TTMULTICORE_H__
+#endif // __TTGRAPH_H__

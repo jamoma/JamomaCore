@@ -1,35 +1,35 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
- * Describe a node in an audio processing graph.
+ * Jamoma Asynchronous Object Graph Layer
+ * Creates a wrapper for TTObjects that can be used to build a control graph for asynchronous message passing.
  * Copyright © 2010, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TTMULTICORE_DESCRIPTION_H__
-#define __TTMULTICORE_DESCRIPTION_H__
+#ifndef __TTGRAPH_DESCRIPTION_H__
+#define __TTGRAPH_DESCRIPTION_H__
 
-#include "TTMulticore.h"
+#include "TTGraph.h"
 
 
 /******************************************************************************************/
 
-class TTMulticoreDescription;
-typedef std::vector<TTMulticoreDescription>		TTMulticoreDescriptionVector;
-typedef TTMulticoreDescriptionVector::iterator	TTMulticoreDescriptionIter;
+class TTGraphDescription;
+typedef std::vector<TTGraphDescription>		TTGraphDescriptionVector;
+typedef TTGraphDescriptionVector::iterator	TTGraphDescriptionIter;
 
 typedef std::vector<TTString>	TTStringVector;
 
 
-/**	This object represents a single 'outlet' from a TTMulticoreObject.
-	TTMulticoreObject maintains a vector of these outlets.
+/**	This object represents a single 'outlet' from a TTGraphObject.
+	TTGraphObject maintains a vector of these outlets.
 */
 
-class TTMULTICORE_EXPORT TTMulticoreDescription {
+class TTGRAPH_EXPORT TTGraphDescription {
 public:
 	TTSymbolPtr						mClassName;
-	TTMulticoreDescriptionVector	mInputDescriptions;
+	TTGraphDescriptionVector	mInputDescriptions;
 	
 	void exportRuby(const TTString& fullpathToFile);
 	int exportRubyNode(TTString& rubyContent, int& index, TTStringVector& nodeNames);
@@ -44,4 +44,4 @@ public:
 };
 
 
-#endif // __TTMULTICORE_DESCRIPTION_H__
+#endif // __TTGRAPH_DESCRIPTION_H__

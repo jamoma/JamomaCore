@@ -1,35 +1,35 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
- * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
+ * Jamoma Asynchronous Object Graph Layer
+ * Creates a wrapper for TTObjects that can be used to build a control graph for asynchronous message passing.
  * Copyright © 2010, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TTMULTICORE_OUTLET_H__
-#define __TTMULTICORE_OUTLET_H__
+#ifndef __TTGRAPH_OUTLET_H__
+#define __TTGRAPH_OUTLET_H__
 
-#include "TTMulticore.h"
+#include "TTGraph.h"
 
 
 /******************************************************************************************/
 
-/**	This object represents a single 'outlet' from a TTMulticoreObject.
-	TTMulticoreObject maintains a vector of these outlets.
+/**	This object represents a single 'outlet' from a TTGraphObject.
+	TTGraphObject maintains a vector of these outlets.
 */
-class TTMulticoreOutlet {
-	friend class TTMulticoreObject;
+class TTGraphOutlet {
+	friend class TTGraphObject;
 	TTAudioSignalPtr		mBufferedOutput;	
 	
 public:
-	TTMulticoreOutlet() : 
+	TTGraphOutlet() : 
 		mBufferedOutput(NULL)
 	{
 		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedOutput, 1);
 	}
 	
-	~TTMulticoreOutlet()
+	~TTGraphOutlet()
 	{
 		TTObjectRelease(&mBufferedOutput);
 	}
@@ -37,14 +37,14 @@ public:
 	
 	// Copying Functions are critical due to use by std::vector 
 	
-	TTMulticoreOutlet(const TTMulticoreOutlet& original) : 
+	TTGraphOutlet(const TTGraphOutlet& original) : 
 		mBufferedOutput(NULL)
 	{
 //		mBufferedOutput = TTObjectReference(original.mBufferedOutput);
 		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedOutput, 1);
 	}
 	
-	TTMulticoreOutlet& operator=(const TTMulticoreOutlet& source)
+	TTGraphOutlet& operator=(const TTGraphOutlet& source)
 	{
 		TTObjectRelease(&mBufferedOutput);
 		mBufferedOutput = TTObjectReference(source.mBufferedOutput);
@@ -76,4 +76,4 @@ public:
 
 
 
-#endif // __TTMULTICORE_OUTLET_H__
+#endif // __TTGRAPH_OUTLET_H__

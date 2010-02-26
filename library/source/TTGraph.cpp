@@ -9,11 +9,11 @@
 
 #include "TTDSP.h"
 #include "TTGraph.h"
-//#include "TTMulticoreGenerator.h"
+//#include "TTGraphGenerator.h"
 #include "TTGraphObject.h"
 #include "TTGraphInlet.h"		// required for windows build
-//#include "TTMulticoreInput.h"
-//#include "TTMulticoreOutput.h"
+//#include "TTGraphInput.h"
+//#include "TTGraphOutput.h"
 
 static bool initialized = false;
 
@@ -27,10 +27,10 @@ void TTGraphInit(void)
 		//TTDSPInit();
 		TTFoundationInit();
 		
-		//TTMulticoreGenerator::registerClass();
+		//TTGraphGenerator::registerClass();
 		TTGraphObject::registerClass();
-		//TTMulticoreInput::registerClass();
-		//TTMulticoreOutput::registerClass();
+		//TTGraphInput::registerClass();
+		//TTGraphOutput::registerClass();
 	}
 }
 

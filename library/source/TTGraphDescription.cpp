@@ -1,20 +1,20 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
- * Describe a node in an audio processing graph.
+ * Jamoma Asynchronous Object Graph Layer
+ * Creates a wrapper for TTObjects that can be used to build a control graph for asynchronous message passing.
  * Copyright © 2010, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTMulticoreDescription.h"
+#include "TTGraphDescription.h"
 #include <fstream>
 #include <iostream>
 
 using namespace std;
 
 
-void TTMulticoreDescription::exportRuby(const TTString& fullpathToFile)
+void TTGraphDescription::exportRuby(const TTString& fullpathToFile)
 {
 	TTString		rubyContent;
 	int				index = -1;
@@ -27,7 +27,7 @@ void TTMulticoreDescription::exportRuby(const TTString& fullpathToFile)
 	rubyFile.close();
 }
 
-int TTMulticoreDescription::exportRubyNode(TTString& rubyContent, int& index, TTStringVector& nodeNames)
+int TTGraphDescription::exportRubyNode(TTString& rubyContent, int& index, TTStringVector& nodeNames)
 {
 	char	objName[16];
 	int		localIndex;
@@ -42,7 +42,7 @@ int TTMulticoreDescription::exportRubyNode(TTString& rubyContent, int& index, TT
 	rubyContent += mClassName->getString();
 	rubyContent += "\"\n";
 
-	for (TTMulticoreDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
+	for (TTGraphDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
 		int inputIndex;
 		
 		inputIndex = input->exportRubyNode(rubyContent, index, nodeNames);
@@ -56,16 +56,16 @@ int TTMulticoreDescription::exportRubyNode(TTString& rubyContent, int& index, TT
 }
 
 
-void TTMulticoreDescription::exportCpp(const TTString& fullpathToFile)
+void TTGraphDescription::exportCpp(const TTString& fullpathToFile)
 {
 	TTString		content;
 	int				index = -1;
 	TTStringVector	nodeNames;
 	ofstream		aFile(fullpathToFile.c_str());
 	
-	content += "#include \"TTMulticoreAPI.h\"\n\n";
+	content += "#include \"TTGraphAPI.h\"\n\n";
 	content += "int main()\n{\n";
-	content += "	TTMulticoreInit();\n\n";
+	content += "	TTGraphInit();\n\n";
 			
 	exportCppNode(content, index, nodeNames);
 	
@@ -75,7 +75,7 @@ void TTMulticoreDescription::exportCpp(const TTString& fullpathToFile)
 	aFile.close();
 }
 
-int TTMulticoreDescription::exportCppNode(TTString& content, int& index, TTStringVector& nodeNames)
+int TTGraphDescription::exportCppNode(TTString& content, int& index, TTStringVector& nodeNames)
 {
 	char	objName[16];
 	int		localIndex;
@@ -85,7 +85,7 @@ int TTMulticoreDescription::exportCppNode(TTString& content, int& index, TTStrin
 	snprintf(objName, 16, "obj%i", index);
 	nodeNames.push_back(TTString(objName));
 	
-	content += "	TTMulticoreObjectPtr ";
+	content += "	TTGraphObjectPtr ";
 	content += objName;
 	content += ";\n";
 	content += "	TTObjectInstantiate(TT(\"multicore.object\"), (TTObjectPtr*)&";
@@ -94,7 +94,7 @@ int TTMulticoreDescription::exportCppNode(TTString& content, int& index, TTStrin
 	content += mClassName->getString();
 	content += "\")))\n\n";
 	
-	for (TTMulticoreDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
+	for (TTGraphDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
 		int inputIndex;
 		
 		inputIndex = input->exportCppNode(content, index, nodeNames);
@@ -109,7 +109,7 @@ int TTMulticoreDescription::exportCppNode(TTString& content, int& index, TTStrin
 }
 
 
-void TTMulticoreDescription::exportMax(const TTString& fullpathToFile)
+void TTGraphDescription::exportMax(const TTString& fullpathToFile)
 {
 	TTString		content;
 	int				index = -1;
@@ -129,7 +129,7 @@ void TTMulticoreDescription::exportMax(const TTString& fullpathToFile)
 	aFile.close();
 }
 
-int TTMulticoreDescription::exportMaxNode(TTString& content, int& index, TTStringVector& nodeNames)
+int TTGraphDescription::exportMaxNode(TTString& content, int& index, TTStringVector& nodeNames)
 {
 	char	objName[16];
 	char	location[16];
@@ -165,7 +165,7 @@ int TTMulticoreDescription::exportMaxNode(TTString& content, int& index, TTStrin
 	content += "				}\n";
 	content += "			}\n";
 		
-	for (TTMulticoreDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
+	for (TTGraphDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
 		int inputIndex;
 		
 		inputIndex = input->exportMaxNode(content, index, nodeNames);
