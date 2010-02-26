@@ -1,14 +1,14 @@
 /* 
- *	MaxMulticore
- *	A thin wrapper of the Lydbaer audio system for use in the Cycling '74 Max/MSP environment.
- *	Includes an automated class wrapper to make TTBlue object's available as objects for Max/MSP.
- *	Copyright © 2008 by Timothy Place
+ *	MaxGraph
+ *	A thin wrapper of the Jamoma Graph system for use in the Cycling '74 Max/MSP environment.
+ *	Includes an automated class wrapper to make TTFoundation objects available as objects for Max/MSP.
+ *	Copyright © 2010 by Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxGraph.h"
 #include "ext_hashtab.h"
 
 
@@ -16,7 +16,7 @@
 typedef struct _wrappedInstance {
     t_object				obj;						///< Max audio object header
 	WrappedClassPtr			wrappedClassDefinition;		///< A pointer to the class definition
-	TTMulticoreObjectPtr	multicoreObject;				///< The instance of the TTBlue object we are wrapping
+	TTGraphObjectPtr		multicoreObject;				///< The instance of the TTBlue object we are wrapping
 	TTPtr					multicoreOutlets[16];			///< Array of outlets, may eventually want this to be more dynamic
 	TTPtr					inlets[16];					///< Array of proxy inlets beyond the first inlet
 } WrappedInstance;
@@ -118,7 +118,7 @@ TTErr MaxMulticoreSetup(WrappedInstancePtr self)
 }
 
 
-TTErr MaxMulticoreConnect(WrappedInstancePtr self, TTMulticoreObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
+TTErr MaxMulticoreConnect(WrappedInstancePtr self, TTGraphObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
 {
 	long inletNumber = proxy_getinlet(SELF);
 	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber, inletNumber);
@@ -277,7 +277,7 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 	WrappedClass*	wrappedMaxClass = NULL;
 
 	common_symbols_init();
-	TTMulticoreInit();
+	TTGraphInit();
 	
 	if(!wrappedMaxClasses)
 		wrappedMaxClasses = hashtab_new(0);

@@ -1,7 +1,7 @@
 /* 
  *	op≈
- *	External object for Max/MSP to perform basic mathematical operations on objects in a Jamoma Multicore dsp chain.
- *	Copyright © 2008 by Timothy Place
+ *	External object for Max/MSP to perform basic mathematical operations on objects in a Jamoma Graph.
+ *	Copyright © 2010 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
@@ -27,7 +27,7 @@ void   	OpFree			(OpPtr self);
 void   	OpAssist		(OpPtr self, void* b, long msg, long arg, char* dst);
 TTErr  	OpReset			(OpPtr self, long vectorSize);
 TTErr  	OpSetup			(OpPtr self);
-TTErr  	OpConnect		(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr  	OpConnect		(OpPtr self, TTGraphObjectPtr audioSourceObject, long sourceOutletNumber);
 MaxErr 	OpSetOperator	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr 	OpSetOperand	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
 
@@ -43,7 +43,7 @@ int main(void)
 {
 	ClassPtr c;
 	
-	TTMulticoreInit();	
+	TTGraphInit();	
 	common_symbols_init();
 	
 	c = class_new("jcom.op>", (method)OpNew, (method)OpFree, sizeof(Op), (method)0L, A_GIMME, 0);
@@ -139,7 +139,7 @@ TTErr OpSetup(OpPtr self)
 }
 
 
-TTErr OpConnect(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
+TTErr OpConnect(OpPtr self, TTGraphObjectPtr audioSourceObject, long sourceOutletNumber)
 {
 	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
 }

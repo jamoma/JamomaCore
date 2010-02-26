@@ -1,8 +1,8 @@
 /* 
- *	MaxMulticore
- *	A thin wrapper of the Lydbaer audio system for use in the Cycling '74 Max/MSP environment.
- *	Includes an automated class wrapper to make TTBlue object's available as objects for Max/MSP.
- *	Copyright © 2008 by Timothy Place
+ *	MaxGraph
+ *	A thin wrapper of the Jamoma Graph system for use in the Cycling '74 Max/MSP environment.
+ *	Includes an automated class wrapper to make TTFoundation objects available as objects for Max/MSP.
+ *	Copyright © 2010 by Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -18,7 +18,7 @@
 #include "z_dsp.h"					// MSP Header
 #include "jpatcher_api.h"			// Required for patcher traversal code
 
-#include "TTMulticoreAPI.h"			// Definitions for Jamoma Multicore
+#include "TTGraphAPI.h"				// Definitions for Jamoma Graph
 
 
 
