@@ -20,6 +20,7 @@ TT_OBJECT_CONSTRUCTOR,
 	maxNumChannels(0),
 	vectorSize(0),
 	numChannels(0),
+	bitdepth(0),
 	sampleVectors(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
@@ -36,8 +37,7 @@ TT_OBJECT_CONSTRUCTOR,
 	registerMessageWithArgument(setVector32);
 	registerMessageWithArgument(getVector32);
 	registerMessageWithArgument(setVector64);
-	registerMessageWithArgument(getVector64);
-	
+	registerMessageWithArgument(getVector64);	
 	
 	setAttributeValue(TT("maxNumChannels"), initialMaxNumChannels);
 	setAttributeValue(TT("numChannels"), initialMaxNumChannels);
@@ -228,14 +228,14 @@ TTErr TTAudioSignal::getVector32(TTValue& v)
 TTErr TTAudioSignal::alloc()
 {
 	TTUInt32	i;
-	if(isLocallyOwned){
-		for(i=0; i<maxNumChannels; i++){
+	if (isLocallyOwned) {
+		for (i=0; i<maxNumChannels; i++) {
 			TTFree16(sampleVectors[i]);
 			sampleVectors[i] = NULL;
 		}
 	}
 
-	for(i=0; i<maxNumChannels; i++) {
+	for (i=0; i<maxNumChannels; i++) {
 		sampleVectors[i] = (TTSampleValue*)TTMalloc16(sizeof(TTSampleValue) * vectorSize);
 	}
 	isLocallyOwned = maxNumChannels > 0 ? true : false;
@@ -247,7 +247,7 @@ TTErr TTAudioSignal::alloc()
 
 TTErr TTAudioSignal::allocWithVectorSize(const TTUInt16 newVectorSize)
 {
-	if(newVectorSize != vectorSize){
+	if ((newVectorSize != vectorSize) || !isLocallyOwned) {
 		vectorSize = newVectorSize;
 		return alloc();
 	}
