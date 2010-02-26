@@ -849,13 +849,13 @@
 ,
 													"patching_rect" : [ 75.0, 95.0, 74.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontname" : "Verdana",
-														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
+														"default_fontface" : 0,
 														"fontsize" : 10.0,
-														"default_fontface" : 0
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0,
+														"fontname" : "Verdana"
 													}
 ,
 													"text" : "p set_matrix"
@@ -1047,13 +1047,13 @@
 ,
 													"patching_rect" : [ 95.0, 290.0, 37.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontname" : "Verdana",
-														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
+														"default_fontface" : 0,
 														"fontsize" : 10.0,
-														"default_fontface" : 0
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0,
+														"fontname" : "Verdana"
 													}
 ,
 													"text" : "p init"
@@ -1883,13 +1883,13 @@
 ,
 									"patching_rect" : [ 25.0, 213.0, 457.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
+										"default_fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"fontname" : "Verdana"
 									}
 ,
 									"text" : "p source_position"
@@ -2256,13 +2256,13 @@
 ,
 													"patching_rect" : [ 290.0, 535.0, 81.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontname" : "Verdana",
-														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
+														"default_fontface" : 0,
 														"fontsize" : 10.0,
-														"default_fontface" : 0
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0,
+														"fontname" : "Verdana"
 													}
 ,
 													"text" : "p list_round"
@@ -2837,13 +2837,13 @@
 ,
 									"patching_rect" : [ 171.0, 185.0, 149.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
+										"default_fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"fontname" : "Verdana"
 									}
 ,
 									"text" : "p loudspeaker_setup"
@@ -3109,13 +3109,13 @@
 ,
 					"patching_rect" : [ 40.0, 114.0, 74.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
+						"default_fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p messages",
@@ -3169,8 +3169,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multicore.connect", "" ],
-					"patching_rect" : [ 275.0, 187.0, 241.0, 19.0 ],
-					"text" : "jcom.matrix≈ @numInputs 1 @numOutputs 0",
+					"patching_rect" : [ 275.0, 187.0, 79.0, 19.0 ],
+					"text" : "jcom.matrix≈",
 					"varname" : "matrix"
 				}
 
