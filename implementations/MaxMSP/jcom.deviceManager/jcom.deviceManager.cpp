@@ -57,7 +57,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 void *dvmg_new(t_symbol *name, long argc, t_atom *argv)
 {
 	t_dvmg *x;
-	long attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	
 	x = (t_dvmg*)object_alloc(dvmg_class);
 
@@ -67,14 +66,15 @@ void *dvmg_new(t_symbol *name, long argc, t_atom *argv)
 		x->device = _sym_nothing;
 		x->b_debug = false;
 		
-		if(attrstart > 0)
-			if(atom_gettype(argv) == A_SYM){
-				jamoma_devmanager_init(atom_getsym(argv));
-				return x;
-			}
+		if(argc && argv){
+			if(atom_gettype(argv) == A_SYM)
+				x->name = atom_getsym(argv);
+		}
+		else
+			x->name = gensym("MinuitDevice1");
 				
-		// Initialize the Jamoma Controller		
-		jamoma_devmanager_init(gensym("Jamoma"));	// if the controller have already been initialized, this line would do nothing
+		// Initialize the Jamoma device Manager
+		jamoma_devmanager_init(x->name);
 	}
 	
 	return x;

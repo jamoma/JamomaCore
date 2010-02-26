@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Arial",
@@ -60,9 +61,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 60.0, 157.0, 1239.0, 499.0 ],
+						"rect" : [ 60.0, 157.0, 1313.0, 619.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 60.0, 157.0, 1239.0, 499.0 ],
+						"defrect" : [ 60.0, 157.0, 1313.0, 619.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -76,6 +77,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Arial",
@@ -136,14 +138,14 @@
 , 							{
 								"box" : 								{
 									"fontname" : "Arial",
-									"fontsize" : 12.0,
+									"fontsize" : 30.0,
 									"id" : "obj-21",
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 8.0, 472.0, 412.0, 18.0 ],
-									"text" : "bang"
+									"patching_rect" : [ 8.0, 472.0, 1293.0, 39.0 ],
+									"text" : "Jamoma:namespace /out.B/audio/gain attributes={ access type range comment priority value }"
 								}
 
 							}
@@ -524,7 +526,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-21", 1 ],
 									"hidden" : 0,
-									"midpoints" : [ 440.5, 462.0, 410.5, 462.0 ],
+									"midpoints" : [ 440.5, 462.0, 1291.5, 462.0 ],
 									"source" : [ "obj-22", 0 ]
 								}
 
@@ -587,7 +589,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-21", 1 ],
 									"hidden" : 0,
-									"midpoints" : [ 15.5, 462.75, 410.5, 462.75 ],
+									"midpoints" : [ 15.5, 462.75, 1291.5, 462.75 ],
 									"source" : [ "obj-37", 0 ]
 								}
 
@@ -696,13 +698,13 @@
 ,
 					"patching_rect" : [ 541.0, 503.0, 471.0, 29.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
 						"default_fontsize" : 12.0,
 						"fontname" : "Arial",
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p TEST_MINUIT_CONTROL_AND_DISCOVERING"
@@ -736,6 +738,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"id" : "obj-15",
@@ -1007,13 +1010,13 @@
 ,
 					"patching_rect" : [ 541.0, 469.0, 244.0, 29.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
 						"default_fontsize" : 12.0,
 						"fontname" : "Arial",
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p TEST_OSC_CONTROL"

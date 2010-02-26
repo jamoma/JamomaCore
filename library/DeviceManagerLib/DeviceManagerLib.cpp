@@ -28,7 +28,7 @@ DevManagerPtr	jamoma_devmanager_init(t_symbol *applicationName)
 		return jamoma_devmanager;	// already have a directory, just return the pointer to the directory...
 	
 	// Launch the plugin manager
-	jamoma_devmanager = new Controller(string(applicationName->s_name));
+	jamoma_devmanager = new Controller(applicationName->s_name);
 	
 	// Pass callbacks to the Controller Namespace
 	jamoma_devmanager->namespaceDiscoverAddCallback(jamoma_directory, &jamoma_namespace_discover_callback);

@@ -16,6 +16,7 @@ typedef struct _dvmg{
 	
 	t_object				ob;
 	void					*p_info;	// the leftmost outlet
+	t_symbol				*name;		// the application name (default : Jamoma)
 	t_symbol				*device;	// the current device name
 	bool					b_debug;	// true : display bebug message in the console
 	
