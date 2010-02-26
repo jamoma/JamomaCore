@@ -7,16 +7,16 @@
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxGraph.h"
 
 
 // Data Structure for this object
 struct Op {
-   	Object					obj;
-	TTMulticoreObjectPtr	multicoreObject;
-	TTPtr					outlet;
-	SymbolPtr				attrOperator;
-	TTFloat32				attrOperand;
+   	Object				obj;
+	TTGraphObjectPtr	multicoreObject;
+	TTPtr				outlet;
+	SymbolPtr			attrOperator;
+	TTFloat32			attrOperand;
 };
 typedef Op* OpPtr;
 
@@ -46,7 +46,7 @@ int main(void)
 	TTMulticoreInit();	
 	common_symbols_init();
 	
-	c = class_new("jcom.op≈", (method)OpNew, (method)OpFree, sizeof(Op), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.op>", (method)OpNew, (method)OpFree, sizeof(Op), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)OpReset,				"multicore.reset",		A_CANT, 0);
 	class_addmethod(c, (method)OpSetup,				"multicore.setup",		A_CANT, 0);
