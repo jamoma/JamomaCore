@@ -167,6 +167,7 @@ void InDsp(InPtr self, t_signal** sp, short* count)
 {
 	TTUInt16	i, k=0;
 	void		**audioVectors = NULL;
+	TTUInt16	highestIndexForConnectedSignal = 0;
 	
 	self->vectorSize = sp[0]->s_n;
 			
@@ -177,12 +178,14 @@ void InDsp(InPtr self, t_signal** sp, short* count)
 	
 	self->numChannels = 0;
 	for (i=0; i < self->maxNumChannels; i++) {
-		self->numChannels++;				
+		self->numChannels++;
 		audioVectors[k] = sp[i]->s_vec;
 		k++;
+		if (count[i])
+			highestIndexForConnectedSignal = i;
 	}
 	
-	self->multicoreObject->setOutputNumChannels(0, self->maxNumChannels);
+	self->multicoreObject->setOutputNumChannels(0, highestIndexForConnectedSignal+1);
 	self->multicoreObject->mUnitGenerator->setAttributeValue(TT("VectorSize"), self->vectorSize);
 	self->multicoreObject->mUnitGenerator->setAttributeValue(kTTSym_maxNumChannels, self->maxNumChannels);
 	self->multicoreObject->mUnitGenerator->setAttributeValue(TT("sr"), sp[0]->s_sr);
