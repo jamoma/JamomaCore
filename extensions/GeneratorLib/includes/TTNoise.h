@@ -36,6 +36,7 @@ class TTNoise : TTAudioObject {
 	/**	Attribute Setter. */
 	TTErr setMode(const TTValue& newMode);
     TTErr setGain(const TTValue& newValue); 
+	TTErr getGain(TTValue& returnedValue);
 };
 
 

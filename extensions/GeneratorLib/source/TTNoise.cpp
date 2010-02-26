@@ -13,12 +13,14 @@
 #define thisTTClassTags		"audio, generator, noise"
 
 
-TT_AUDIO_CONSTRUCTOR
-, accum(0)
+TT_AUDIO_CONSTRUCTOR, 
+	accum(0)
 {
-	addAttributeWithSetter(Mode,	kTypeSymbol); 
-	addAttributeWithSetter(Gain,	kTypeFloat64);
+	addAttributeWithSetter(Mode,			kTypeSymbol); 
+	addAttributeWithGetterAndSetter(Gain,	kTypeFloat64);
+	
 	b[0] = b[1] = b[2] = b[3] = b[4] = b[5] = b[6] = 0.0;
+	
 	setAttributeValue(TT("Mode"), TT("white"));       
 	setAttributeValue(TT("Gain"), 0.0);			// 0 dB 
 }
@@ -46,6 +48,12 @@ TTErr TTNoise::setMode(const TTValue& newMode)
 TTErr TTNoise::setGain(const TTValue& newValue)
 {
 	mGain = dbToLinear(newValue);
+	return kTTErrNone;
+}
+
+TTErr TTNoise::getGain(TTValue& returnedValue)
+{
+	returnedValue = linearToDb(mGain);
 	return kTTErrNone;
 }
 
