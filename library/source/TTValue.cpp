@@ -238,8 +238,10 @@ void TTValue::setSize(const TTUInt16 arg)
 void TTValue::copy(const TTValue& obj)
 {
 	numValues = obj.numValues;
-	TTDataType* t = new TTDataType[numValues];
-	DataValue* d = new DataValue[numValues];		
+
+	TTDataType*	t = new TTDataType[numValues];
+	DataValue*	d = new DataValue[numValues];
+	
 	memcpy(t, obj.type, sizeof(TTDataType) * numValues);
 	memcpy(d, obj.data, sizeof(DataValue) * numValues);
 	delete [] type;

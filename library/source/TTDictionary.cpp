@@ -32,6 +32,7 @@ TTDictionary::~TTDictionary()
 
 TTErr TTDictionary::setSchema(const TTSymbolPtr schemaName)
 {
+	mHashTable->remove(TT("schema"));
 	return append(TT("schema"), schemaName);
 }
 
