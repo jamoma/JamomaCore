@@ -34,20 +34,12 @@
 
 /******************************************************************************************/
 
-// the state of each node in the graph
-enum TTGraphProcessStatus {
-	kTTGraphProcessUnknown = 0,
-	kTTGraphProcessNotStarted,
-	kTTGraphProcessingCurrently,	
-	kTTGraphProcessComplete
-};
-
 
 // values to be used as a bitmask
 enum TTGraphFlags {
 	kTTGraphFlagsNone = 0x00,
-	kTTGraphProcessor = 0x01,
-	kTTGraphGenerator = 0x02
+	//kTTGraphProcessor = 0x01,
+	//kTTGraphGenerator = 0x02
 };
 
 

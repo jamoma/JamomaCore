@@ -12,7 +12,7 @@
 #include "TTGraphOutlet.h"
 
 #define thisTTClass			TTGraphObject
-#define thisTTClassName		"multicore.object"
+#define thisTTClassName		"graph.object"
 #define thisTTClassTags		"audio, multicore, wrapper"
 
 
@@ -22,10 +22,8 @@
 //	3. (optional) Number of outlets, default = 1
 
 TT_OBJECT_CONSTRUCTOR,
-	mFlags(kTTGraphProcessor), 
-	mInputSignals(NULL), 
-	mOutputSignals(NULL), 
-	mUnitGenerator(NULL)
+//	mFlags(kTTGraphProcessor), 
+	mKernel(NULL)
 {
 	TTErr		err = kTTErrNone;
 	TTSymbolPtr	wrappedObjectName = NULL;
@@ -33,7 +31,7 @@ TT_OBJECT_CONSTRUCTOR,
 	TTUInt16	numInlets = 1;
 	TTUInt16	numOutlets = 1;
 	
-	TT_ASSERT(multicore_correct_instantiation_args, arguments.getSize() > 0);
+	TT_ASSERT(graph_correct_instantiation_args, arguments.getSize() > 0);
 	
 	arguments.get(0, &wrappedObjectName);
 	if (arguments.getSize() > 1)
@@ -41,58 +39,22 @@ TT_OBJECT_CONSTRUCTOR,
 	if (arguments.getSize() > 2)
 		arguments.get(2, numOutlets);
 	
-	err = TTObjectInstantiate(wrappedObjectName, &mUnitGenerator, initialNumChannels);
-	err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mInputSignals, numInlets);
-	err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mOutputSignals, numOutlets);
+	err = TTObjectInstantiate(wrappedObjectName, &mKernel, initialNumChannels);
 	
 	mInlets.resize(numInlets);
-	mInputSignals->setMaxNumAudioSignals(numInlets);
-	mInputSignals->numAudioSignals = numInlets;			// TODO: this array num signals access is kind of clumsy and inconsistent [tap]
-
 	mOutlets.resize(numOutlets);
-	mOutputSignals->setMaxNumAudioSignals(numOutlets);
-	mOutputSignals->numAudioSignals = numOutlets;
-
-	// if an object supports the 'setOwner' message, then we tell it that we want to become the owner
-	// this is particularly important for the multicore.output object
-	TTValue v = TTPtr(this);
-	mUnitGenerator->sendMessage(TT("setOwner"), v);
 }
 
 
 TTGraphObject::~TTGraphObject()
 {
-	TTObjectRelease(&mUnitGenerator);
-	TTObjectRelease((TTObjectPtr*)&mInputSignals);
-	TTObjectRelease((TTObjectPtr*)&mOutputSignals);
+	TTObjectRelease(&mKernel);
 }
-
-
-#ifdef OLD_AND_UNUSED
-TTErr TTGraphObject::objectFreeing(const TTValue& theObjectBeingDeleted)
-{
-	//TTObjectPtr o = theObjectBeingDeleted;
-	//TTBoolean	found = NO;
-	TTBoolean	oldValid = valid;
-	
-	// This is an ugly operation
-	// the problem is that we don't want to traverse a linked-list in the processing chain
-	
-	valid = false;
-	while(getlock())
-		;
-
-	// TODO: handle the graph update/change here...
-	
-	valid = oldValid;
-	return kTTErrNone;
-}
-#endif
 
 
 void TTGraphObject::getDescription(TTGraphDescription& desc)
 {
-	desc.mClassName = mUnitGenerator->getName();
+	desc.mClassName = mKernel->getName();
 	desc.mInputDescriptions.clear();
 	for (TTGraphInletIter inlet = mInlets.begin(); inlet != mInlets.end(); inlet++)
 		inlet->getDescriptions(desc.mInputDescriptions);
@@ -107,7 +69,20 @@ TTErr TTGraphObject::reset()
 
 
 TTErr TTGraphObject::connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
-{	
-	return mInlets[toInletNumber].connect(anObject, fromOutletNumber);	
+{
+	TTErr err;
+	
+	err = mInlets[toInletNumber].connect(anObject, fromOutletNumber);
+	return err;
+}
+
+
+TTErr TTGraphObject::drop(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
+{
+	TTErr err = kTTErrInvalidValue;
+	
+	if (toInletNumber < mInlets.size())
+		err = mInlets[toInletNumber].drop(anObject, fromOutletNumber);	
+	return err;
 }
 

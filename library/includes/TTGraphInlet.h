@@ -12,77 +12,7 @@
 
 #include "TTGraph.h"
 #include "TTGraphObject.h"
-
-
-/******************************************************************************************/
-
-// NOTE: we don't need to keep a buffer of our own, be we just mirror the buffer of mSourceObject
-
-class TTGraphSource {
-	friend void TTGraphSourceObserverCallback(TTGraphSource* self, TTValue& arg);
-	
-	TTGraphObjectPtr	mSourceObject;	// the object from which we pull samples
-	TTUInt16				mOutletNumber;	// zero-based
-	TTObjectPtr				mCallbackHandler;
-	
-public:
-	TTGraphSource();	
-	~TTGraphSource();			
-
-	// Internal method shared/called by constructors.
-	void create();
-	
-	// Copying Functions -- critical due to use by std::vector 
-	
-	TTGraphSource(const TTGraphSource& original) :
-		mSourceObject(NULL),
-		mOutletNumber(0),
-		mCallbackHandler(NULL)	
-	{
-		create();
-		
-		// NOTE: See notes below in TTGraphInlet copy constructor...
-		// NOTE: When vector of sources is resized, it is possible for an object to be created and immediately copied -- prior to a 'connect' method call
-		// NOTE: Are we ever called after connecting?  If so, then we need to set up the connection...
-		
-		if (original.mSourceObject)
-			connect(original.mSourceObject, original.mOutletNumber);
-	}
-	
-	TTGraphSource& operator=(const TTGraphSource& source)
-	{
-		// Not expecting to call this method...
-		TT_ASSERT("we shouldn't be here", false);				
-		return *this;
-	}
-	
-	// Info Methods
-	
-	void getDescription(TTGraphDescription& desc)
-	{
-		mSourceObject->getDescription(desc);
-	}
-	
-	// Graph Methods
-	
-	void connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber);
-		
-	//void preprocess()
-	//{
-	//	mSourceObject->preprocess();
-	//}
-	
-	//TTErr process(TTAudioSignalPtr& returnedSignal) 
-	//{
-	//	return mSourceObject->process(returnedSignal, mOutletNumber);
-	//}
-	
-};
-
-typedef TTGraphSource*					TTGraphSourcePtr;
-typedef vector<TTGraphSource>			TTGraphSourceVector;
-typedef TTGraphSourceVector::iterator	TTGraphSourceIter;
-
+#include "TTGraphSource.h"
 
 
 /******************************************************************************************/
@@ -98,7 +28,7 @@ typedef TTGraphSourceVector::iterator	TTGraphSourceIter;
 		A signal may have many channels.
 */
 class TTGraphInlet {
-	TTGraphSourceVector	mSourceObjects;		///< A vector of object pointers from which we pull our source samples using the ::getAudioOutput() method.
+	TTGraphSourceVector		mSourceObjects;		///< A vector of object pointers from which we pull our source samples using the ::getAudioOutput() method.
 	TTAudioSignalPtr		mBufferedInput;		///< summed samples from all sources
 	TTBoolean				mClean;
 	
@@ -171,45 +101,44 @@ public:
 	}
 		
 	
-	// when we receive a notification than an object is going away...
-//	void drop(TTObjectPtr theObjectBeingDeleted);
-	
 	TTErr connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
 	{
 		TTUInt16 size = mSourceObjects.size();
 		
+		// make sure the connection doesn't already exist
+		for (TTGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
+			if (source->match(anObject, fromOutletNumber))
+				return kTTErrNone;
+		}
+		
+		// create the connection
 		mSourceObjects.resize(size+1);
-		mSourceObjects[size].connect(anObject, fromOutletNumber);		
+		mSourceObjects[size].connect(anObject, fromOutletNumber);
+		mSourceObjects[size].setOwner(this);
 		return kTTErrNone;
 	}
 	
 	
-//	void preprocess()
-//	{
-//		mBufferedInput->clear();
-//		for_each(mSourceObjects.begin(), mSourceObjects.end(), mem_fun_ref(&TTGraphSource::preprocess));
-//		mClean = YES;
-//	}
-
-		
-	// collect and sum the sources
-//	TTErr process()
-//	{
-//		int					err;
-//		TTAudioSignalPtr	foo;
-//		
-//		for (TTGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
-//			err |= (*source).process(foo);
-//			if (mClean) {
-//				(*mBufferedInput) = (*foo);
-//				mClean = NO;
-//			}
-//			else
-//				(*mBufferedInput) += (*foo);
-//		}
-//		return (TTErr)err;
-//	}
+	TTErr drop(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
+	{
+		for (TTGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
+			if (source->match(anObject, fromOutletNumber)) {
+				drop(*source);
+				break;
+			}
+		}
+		return kTTErrNone;
+	}
 	
+	
+	void drop(TTGraphSource& aSource)
+	{
+		TTGraphSourceIter iter = find(mSourceObjects.begin(), mSourceObjects.end(), aSource);
+		
+		if (iter != mSourceObjects.end())
+			mSourceObjects.erase(iter);
+	}
+		
 	
 	void getDescriptions(TTGraphDescriptionVector& descs)
 	{

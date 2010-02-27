@@ -28,24 +28,17 @@ class TTGRAPH_EXPORT TTGraphObject : public TTObject {
 	TTCLASS_SETUP(TTGraphObject)
 	
 protected:
-	TTGraphProcessStatus	mStatus;			///< Used to enable correct processing of feedback loops, multiple destinations, etc.
-	TTUInt32					mFlags;				///< A bitmask of values defined in #TTGraphFlags
-	TTGraphInletVector		mInlets;			///< The inlets through which we pull audio from sources
-	TTGraphOutletVector		mOutlets;			///< The inlets through which we pull audio from sources
-	TTAudioSignalArrayPtr		mInputSignals;		///< The buffered input for processing audio with our object.
-	TTAudioSignalArrayPtr		mOutputSignals;		///< The results of processing audio with our object, buffered for objects requesting it
+	//TTUInt32				mFlags;			///< A bitmask of values defined in #TTGraphFlags
+	TTGraphInletVector		mInlets;		///< The inlets through which we pull audio from sources
+	TTGraphOutletVector		mOutlets;		///< The inlets through which we pull audio from sources
 public:	
-	TTAudioObjectPtr			mUnitGenerator;		///< The actual Jamoma DSP object doing the processing.
+	TTAudioObjectPtr		mKernel;		///< The actual Jamoma DSP object doing the processing.
 	
 	
-	/**	A notification that the specified object is being deleted -- so we should drop it from our list of input sources.  */
-	TTErr objectFreeing(const TTValue& theObjectBeingDeleted);
-
-
-	void addFlag(TTGraphFlags flag)
-	{
-		mFlags |= flag;
-	}
+	//void addFlag(TTGraphFlags flag)
+	//{
+	//	mFlags |= flag;
+	//}
 		
 	
 	TTErr push(const TTDictionary& aDictionary)
@@ -58,22 +51,25 @@ public:
 	void getDescription(TTGraphDescription& desc);
 	
 	
-	/**	Clear the list of source objects from which this object will try to pull audio.	*/
+	/**	Clear the lists of connected objects.	*/
 	TTErr reset();
 	
 	
 	/**	Add a source to the list of objects from which to request audio.
-		@param	anObject		The lydbaer object which is supplying us with input.
-		@param	anInletNumber	If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.
-								Typically the value passed here will be 0, indicating the normal audio input.
-		@return					An error code.	*/
+	 @param	anObject		The lydbaer object which is supplying us with input.
+	 @param	anInletNumber	If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.
+	 Typically the value passed here will be 0, indicating the normal audio input.
+	 @return					An error code.	*/
 	TTErr connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
-
-	TTErr drop(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0)
-	{
-		;
-	}
-
+	
+	
+	/**	Drop a source from the list of objects from which to request audio.  In other words, disconnect.
+	 @param	anObject		The lydbaer object which is supplying us with input.
+	 @param	anInletNumber	If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.
+	 Typically the value passed here will be 0, indicating the normal audio input.
+	 @return					An error code.	*/
+	TTErr drop(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
+	
 };
 
 
