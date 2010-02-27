@@ -36,7 +36,7 @@ TTErr TTDictionary::setSchema(const TTSymbolPtr schemaName)
 }
 
 
-TTSymbolPtr TTDictionary::getSchema()
+TTSymbolPtr TTDictionary::getSchema() const
 {
 	TTValue v;
 	TTErr	err;
@@ -52,7 +52,7 @@ TTErr TTDictionary::append(const TTSymbolPtr key, const TTValue& value)
 }
 
 
-TTErr TTDictionary::lookup(const TTSymbolPtr key, TTValue& value)
+TTErr TTDictionary::lookup(const TTSymbolPtr key, TTValue& value) const
 {
 	return mHashTable->lookup(key, value);
 }

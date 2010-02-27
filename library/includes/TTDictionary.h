@@ -27,13 +27,13 @@ public:
 	virtual ~TTDictionary();
 	
 	TTErr setSchema(const TTSymbolPtr schemaName);
-	TTSymbolPtr getSchema();
+	TTSymbolPtr getSchema() const;
 	
 	/** Insert an item into the hash table. */
 	TTErr append(const TTSymbolPtr key, const TTValue& value);
 	
 	/** Find the value for the given key. */
-	TTErr lookup(const TTSymbolPtr key, TTValue& value);
+	TTErr lookup(const TTSymbolPtr key, TTValue& value) const;
 	
 	/** Remove an item from the hash table. */
 	TTErr remove(const TTSymbolPtr key);
