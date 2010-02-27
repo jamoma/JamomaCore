@@ -13,23 +13,26 @@
 // Data Structure for this object
 struct Pack {
    	Object				obj;
-	TTGraphObjectPtr	multicoreObject;
+	ObjectPtr			patcher;
+	ObjectPtr			patcherview;
+	TTGraphObjectPtr	graphObject;
+	TTDictionaryPtr		graphDictionary;
 	TTPtr				outlet;
-	SymbolPtr			attrPackerator;
-	TTFloat32			attrPackerand;
 };
 typedef Pack* PackPtr;
 
 
 // Prototypes for methods
 PackPtr	PackNew			(SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void   	PackFree			(PackPtr self);
+void   	PackFree		(PackPtr self);
+void	PackStartTracking(PackPtr self);
 void   	PackAssist		(PackPtr self, void* b, long msg, long arg, char* dst);
-TTErr  	PackReset			(PackPtr self, long vectorSize);
-TTErr  	PackSetup			(PackPtr self);
-TTErr  	PackConnect		(PackPtr self, TTGraphObjectPtr audioSourceObject, long sourceOutletNumber);
-MaxErr 	PackSetPackerator	(PackPtr self, void* attr, AtomCount argc, AtomPtr argv);
-MaxErr 	PackSetPackerand	(PackPtr self, void* attr, AtomCount argc, AtomPtr argv);
+void	PackInt			(PackPtr self, long value);
+void	PackFloat		(PackPtr self, double value);
+void	PackList		(PackPtr self, SymbolPtr s, AtomCount ac, AtomPtr ap);
+void	PackAnything	(PackPtr self, SymbolPtr s, AtomCount ac, AtomPtr ap);
+TTErr  	PackReset		(PackPtr self, long vectorSize);
+TTErr  	PackSetup		(PackPtr self);
 
 
 // Globals
@@ -48,18 +51,17 @@ int main(void)
 	
 	c = class_new("jcom.pack>", (method)PackNew, (method)PackFree, sizeof(Pack), (method)0L, A_GIMME, 0);
 	
-	class_addmethod(c, (method)PackReset,				"multicore.reset",		A_CANT, 0);
-	class_addmethod(c, (method)PackSetup,				"multicore.setup",		A_CANT, 0);
-	class_addmethod(c, (method)PackConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
- 	class_addmethod(c, (method)PackAssist,			"assist",				A_CANT, 0); 
-    class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
+	class_addmethod(c, (method)PackInt,				"int",				A_LONG, 0);
+	class_addmethod(c, (method)PackFloat,			"float",			A_LONG, 0);
+	class_addmethod(c, (method)PackList,			"list",				A_GIMME, 0);
+	class_addmethod(c, (method)PackAnything,		"anything",			A_GIMME, 0);
 	
-	CLASS_ATTR_SYM(c,		"operator",	0,		Pack,	attrPackerator);
-	CLASS_ATTR_ACCESSORS(c,	"operator",	NULL,	PackSetPackerator);
-	
-	CLASS_ATTR_FLOAT(c,		"operand",	0,		Pack,	attrPackerand);
-	CLASS_ATTR_ACCESSORS(c,	"operand",	NULL,	PackSetPackerand);
-	
+	class_addmethod(c, (method)MaxGraphReset,		"graph.reset",		A_CANT, 0);
+	class_addmethod(c, (method)MaxGraphSetup,		"graph.setup",		A_CANT, 0);
+
+ 	class_addmethod(c, (method)PackAssist,			"assist",			A_CANT, 0); 
+    class_addmethod(c, (method)object_obex_dumpout,	"dumpout",			A_CANT, 0);  
+		
 	class_register(_sym_box, c);
 	sPackClass = c;
 	return 0;
@@ -77,18 +79,22 @@ PackPtr PackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
     self = PackPtr(object_alloc(sPackClass));
     if (self) {
-    	object_obex_store((void*)self, _sym_dumpout, (ObjectPtr)outlet_new(self, NULL));	// dumpout	
-		self->outlet = outlet_new(self, "multicore.connect");
+    	object_obex_store((void*)self, _sym_dumpout, (ObjectPtr)outlet_new(self, NULL));
+		self->outlet = outlet_new(self, "graph.connect");
 		
 		v.setSize(2);
 		v.set(0, TT("operator"));
 		v.set(1, TTUInt32(1));
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
+		err = TTObjectInstantiate(TT("graph.object"), (TTObjectPtr*)&self->graphObject, v);
 
-		if (!self->multicoreObject->mUnitGenerator) {
-			object_error(SELF, "cannot load Jamoma DSP object");
+		if (!self->graphObject->mUnitGenerator) {
+			object_error(SELF, "cannot load Jamoma object");
 			return NULL;
 		}
+		
+		self->graphDictionary = new TTDictionary;
+		self->graphDictionary->setSchema(TT("graph.none"));
+		self->graphDictionary->append(TT("outlet"), 0);
 		
 		attr_args_process(self, argc, argv);
 	}
@@ -99,7 +105,91 @@ PackPtr PackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void PackFree(PackPtr self)
 {
-	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
+	TTObjectRelease((TTObjectPtr*)&self->graphObject);
+}
+
+
+/************************************************************************************/
+
+
+void PackIterateResetCallback(PackPtr self, ObjectPtr obj)
+{
+	MaxErr err = MAX_ERR_NONE;
+	method graphResetMethod = zgetfn(obj, gensym("graph.reset"));
+	
+	if (graphResetMethod)
+		err = (MaxErr)graphResetMethod(obj);
+}
+
+
+void PackIterateSetupCallback(PackPtr self, ObjectPtr obj)
+{
+	MaxErr err = MAX_ERR_NONE;
+	method multicoreSetupMethod = zgetfn(obj, gensym("graph.setup"));
+	
+	if (multicoreSetupMethod)
+		err = (MaxErr)multicoreSetupMethod(obj);
+}
+
+
+void PackAttachToPatchlinesForPatcher(PackPtr self, ObjectPtr patcher)
+{
+	ObjectPtr	patchline = object_attr_getobj(patcher, _sym_firstline);
+	ObjectPtr	box = jpatcher_get_firstobject(patcher);
+	
+	while (patchline) {
+		object_attach_byptr_register(self, patchline, _sym_nobox);
+		patchline = object_attr_getobj(patchline, _sym_nextline);
+	}
+	
+	while (box) {
+		SymbolPtr	classname = jbox_get_maxclass(box);
+		
+		if (classname == _sym_jpatcher) {
+			ObjectPtr	subpatcher = jbox_get_object(box);
+			
+			PackAttachToPatchlinesForPatcher(self, subpatcher);
+		}
+		box = jbox_get_nextobject(box);
+	}
+}
+
+
+
+// Start keeping track of edits and connections in the patcher
+void PackStartTracking(PackPtr self)
+{
+	ObjectPtr	patcher = NULL;
+	ObjectPtr	parent = NULL;
+	ObjectPtr	patcherview = NULL;
+	MaxErr		err;
+	Atom		result;
+	
+	// first find the top-level patcher
+	err = object_obex_lookup(self, gensym("#P"), &patcher);
+	parent = patcher;
+	while (parent) {
+		patcher = parent;
+		parent = object_attr_getobj(patcher, _sym_parentpatcher);
+	}
+	
+	// now iterate recursively from the top-level patcher down through all of the subpatchers
+	object_method(patcher, gensym("iterate"), (method)PackIterateResetCallback, self, PI_DEEP, &result);
+	object_method(patcher, gensym("iterate"), (method)PackIterateSetupCallback, self, PI_DEEP, &result);
+	
+	
+	// now let's attach to the patcherview to get notifications about any further changes to the patch cords
+	// the patcher 'dirty' attribute is not modified for each change, but the patcherview 'dirty' attribute is
+	if (!self->patcherview) {
+		patcherview = jpatcher_get_firstview(patcher);
+		self->patcherview = patcherview;
+		self->patcher = patcher;
+		object_attach_byptr_register(self, patcherview, _sym_nobox);			
+	}
+
+	// now we want to go a step further and attach to all of the patch cords 
+	// this is how we will know if one is deleted
+	PackAttachToPatchlinesForPatcher(self, self->patcher);
 }
 
 
@@ -120,49 +210,83 @@ void PackAssist(PackPtr self, void* b, long msg, long arg, char* dst)
 }
 
 
-// METHODS SPECIFIC TO MULTICORE EXTERNALS
-
-TTErr PackReset(PackPtr self, long vectorSize)
+void PackInt(PackPtr self, long value)
 {
-	return self->multicoreObject->reset();
+	TTValue v = int(value);
+
+	self->graphDictionary->setSchema(TT("number"));
+	self->graphDictionary->append(TT("value"), v);
+	self->graphObject->push(*self->graphDictionary);
 }
 
 
-TTErr PackSetup(PackPtr self)
+void PackFloat(PackPtr self, double value)
 {
-	Atom a[2];
+	TTValue v = value;
 	
-	atom_setobj(a+0, ObjectPtr(self->multicoreObject));
-	atom_setlong(a+1, 0);
-	outlet_anything(self->outlet, gensym("multicore.connect"), 2, a);
-	return kTTErrNone;
+	self->graphDictionary->setSchema(TT("number"));
+	self->graphDictionary->append(TT("value"), v);
+	self->graphObject->push(*self->graphDictionary);
 }
 
 
-TTErr PackConnect(PackPtr self, TTGraphObjectPtr audioSourceObject, long sourceOutletNumber)
+void PackList(PackPtr self, SymbolPtr s, AtomCount ac, AtomPtr ap)
 {
-	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
-}
-
-
-// ATTRIBUTE SETTERS
-
-MaxErr PackSetPackerator(PackPtr self, void* attr, AtomCount argc, AtomPtr argv)
-{
-	if (argc) {
-		self->attrPackerator = atom_getsym(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("operator"), TT(self->attrPackerator->s_name));
+	TTValue v;
+	
+	v.setSize(ac);
+	for (int i=0; i<ac; i++) {
+		switch (atom_gettype(ap+i)) {
+			case A_LONG:
+				v.set(i, (int)atom_getlong(ap+i));
+				break;
+			case A_FLOAT:
+				v.set(i, atom_getfloat(ap+i));
+				break;
+			case A_SYM:
+				v.set(i, TT(atom_getsym(ap+i)->s_name));
+				break;
+			default:
+				break;
+		}
 	}
-	return MAX_ERR_NONE;
+	self->graphDictionary->setSchema(TT("array"));
+	self->graphDictionary->append(TT("value"), v);
+	self->graphObject->push(*self->graphDictionary);
 }
 
 
-MaxErr PackSetPackerand(PackPtr self, void* attr, AtomCount argc, AtomPtr argv)
+void PackAnything(PackPtr self, SymbolPtr s, AtomCount ac, AtomPtr ap)
 {
-	if (argc) {
-		self->attrPackerand = atom_getfloat(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("operand"), self->attrPackerand);
+	TTValue v;
+	
+	v.setSize(ac+1);
+	if (ac > 0) {
+		self->graphDictionary->setSchema(TT("array"));
+		v.set(0, TT(s->s_name));
+		for (int i=0; i<ac; i++) {
+			switch (atom_gettype(ap+i)) {
+				case A_LONG:
+					v.set(i+1, (int)atom_getlong(ap+i));
+					break;
+				case A_FLOAT:
+					v.set(i+1, atom_getfloat(ap+i));
+					break;
+				case A_SYM:
+					v.set(i+1, TT(atom_getsym(ap+i)->s_name));
+					break;
+				default:
+					break;
+			}
+		}
 	}
-	return MAX_ERR_NONE;
+	else {
+		self->graphDictionary->setSchema(TT("symbol"));
+		v.set(0, TT(s->s_name));
+	}
+
+	self->graphDictionary->append(TT("value"), v);
+	self->graphObject->push(*self->graphDictionary);
 }
+
 

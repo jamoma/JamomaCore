@@ -66,21 +66,16 @@ public:
 	// Graph Methods
 	
 	void connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber);
+		
+	//void preprocess()
+	//{
+	//	mSourceObject->preprocess();
+	//}
 	
-	void init(const TTGraphInitData& initData)
-	{
-		mSourceObject->init(initData);
-	}
-	
-	void preprocess()
-	{
-		mSourceObject->preprocess();
-	}
-	
-	TTErr process(TTAudioSignalPtr& returnedSignal) 
-	{
-		return mSourceObject->process(returnedSignal, mOutletNumber);
-	}
+	//TTErr process(TTAudioSignalPtr& returnedSignal) 
+	//{
+	//	return mSourceObject->process(returnedSignal, mOutletNumber);
+	//}
 	
 };
 
@@ -175,14 +170,6 @@ public:
 		mSourceObjects.clear();
 	}
 		
-	// init the chain from which we will pull
-	void init(const TTGraphInitData& initData)
-	{
-		// for_each(mSourceObjects.begin(), mSourceObjects.end(), bind2nd(mem_fun_ref(&TTGraphSource::init), initData));
-		// CHANGED: don't know how to make for_each work with an argument like this...
-		for (TTGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++)
-			source->init(initData);
-	}
 	
 	// when we receive a notification than an object is going away...
 //	void drop(TTObjectPtr theObjectBeingDeleted);
@@ -197,37 +184,31 @@ public:
 	}
 	
 	
-	void preprocess()
-	{
-		mBufferedInput->clear();
-		for_each(mSourceObjects.begin(), mSourceObjects.end(), mem_fun_ref(&TTGraphSource::preprocess));
-		mClean = YES;
-	}
+//	void preprocess()
+//	{
+//		mBufferedInput->clear();
+//		for_each(mSourceObjects.begin(), mSourceObjects.end(), mem_fun_ref(&TTGraphSource::preprocess));
+//		mClean = YES;
+//	}
 
 		
 	// collect and sum the sources
-	TTErr process()
-	{
-		int					err;
-		TTAudioSignalPtr	foo;
-		
-		for (TTGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
-			err |= (*source).process(foo);
-			if (mClean) {
-				(*mBufferedInput) = (*foo);
-				mClean = NO;
-			}
-			else
-				(*mBufferedInput) += (*foo);
-		}
-		return (TTErr)err;
-	}
-	
-	
-	TTAudioSignalPtr getBuffer()
-	{
-		return mBufferedInput;
-	}
+//	TTErr process()
+//	{
+//		int					err;
+//		TTAudioSignalPtr	foo;
+//		
+//		for (TTGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
+//			err |= (*source).process(foo);
+//			if (mClean) {
+//				(*mBufferedInput) = (*foo);
+//				mClean = NO;
+//			}
+//			else
+//				(*mBufferedInput) += (*foo);
+//		}
+//		return (TTErr)err;
+//	}
 	
 	
 	void getDescriptions(TTGraphDescriptionVector& descs)

@@ -86,19 +86,19 @@ typedef WrappedClassOptions* WrappedClassOptionsPtr;			///< A pointer to Wrapped
 // FUNCTIONS
 
 // Wrap a TTBlue class as a Max class.
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c);
+TTErr wrapAsMaxGraph(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c);
 
 // This version can be passed a method that is called to make sure it is legit to instantiate the class.
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck);
+TTErr wrapAsMaxGraph(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck);
 
 // This version can be passed a method that is called to make sure it is legit to instantiate the class.
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument);
+TTErr wrapAsMaxGraph(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument);
 
 
 // These are versions of the above, but for which additional options can be specified.
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, WrappedClassOptionsPtr options);
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, WrappedClassOptionsPtr options);
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, WrappedClassOptionsPtr options);
+TTErr wrapAsMaxGraph(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, WrappedClassOptionsPtr options);
+TTErr wrapAsMaxGraph(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, WrappedClassOptionsPtr options);
+TTErr wrapAsMaxGraph(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, WrappedClassOptionsPtr options);
 
 
 // NOTE: DUPLICATIONS FROM THE MSP WRAPPER
@@ -109,6 +109,9 @@ TTInt64	AtomGetInt(AtomPtr a);
 int AtomGetInt(AtomPtr a);
 #endif
 
+
+TTErr MaxGraphReset(ObjectPtr self);
+TTErr MaxGraphSetup(ObjectPtr self);
 
 #endif // __MAXBAER_H__
 

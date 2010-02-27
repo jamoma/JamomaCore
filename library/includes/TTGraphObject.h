@@ -46,41 +46,12 @@ public:
 	{
 		mFlags |= flag;
 	}
-	
-	
-	TTUInt16 getOutputNumChannels(TTUInt16 forOutletNumber)
-	{
-		if (forOutletNumber < mOutlets.size())
-			return mOutlets[forOutletNumber].mBufferedOutput->getNumChannels();
-		else
-			return 0;
-	}
-	
-	void setOutputNumChannels(TTUInt16 forOutletNumber, TTUInt16 numChannels)
-	{
-		if (forOutletNumber < mOutlets.size()) {
-			TTValue	v(numChannels);
-			
-			// TODO: should not update MaxNumChannels unless we are growing it larger...
-			mOutlets[forOutletNumber].mBufferedOutput->setmaxNumChannels(v);
-			mOutlets[forOutletNumber].mBufferedOutput->setnumChannels(v);
-		}
-	}
-	
-	
-	TTUInt16 getOutputVectorSize(TTUInt16 forOutletNumber)
-	{
-		if (forOutletNumber < mOutlets.size())
-			return mOutlets[forOutletNumber].mBufferedOutput->getVectorSize();
-		else
-			return 0;
-	}
 		
-	TTUInt16 getSampleRate()
+	
+	TTErr push(const TTDictionary& aDictionary)
 	{
-		TTUInt16 sr;
-		mUnitGenerator->getAttributeValue(kTTSym_sr, sr);
-		return sr;
+		; // TODO: implement!
+		return kTTErrNone;
 	}
 	
 	
@@ -98,23 +69,6 @@ public:
 		@return					An error code.	*/
 	TTErr connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 
-	
-	/**	Allocate buffers and prepare for processing.	*/
-	TTErr init(const TTGraphInitData& initData);
-	
-	
-	/**	This method is called by an object about to process audio, prior to calling getAudioOutput().
-		As with the getAudioOutput() method, this is driven by the destination object and working up through the chains.
-		@return 		An error code.		*/
-	virtual TTErr preprocess();
-	
-	
-	/**	This method is required to be implemented by all objects except for those existing solely as a destination.
-		@param	audioOutput		This method is passed a reference to an audio signal pointer.
-								We then set this audio signal pointer to point to the TTAudioSignal containing our calculated samples.
-	 	@return					An error code.	*/
-	virtual TTErr process(TTAudioSignalPtr& returnedSignal, TTUInt16 forOutletNumber=0);
-	
 };
 
 

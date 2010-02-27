@@ -16,8 +16,8 @@
 typedef struct _wrappedInstance {
     t_object				obj;						///< Max audio object header
 	WrappedClassPtr			wrappedClassDefinition;		///< A pointer to the class definition
-	TTGraphObjectPtr		multicoreObject;				///< The instance of the TTBlue object we are wrapping
-	TTPtr					multicoreOutlets[16];			///< Array of outlets, may eventually want this to be more dynamic
+	TTGraphObjectPtr		graphObject;				///< The instance of the TTBlue object we are wrapping
+	TTPtr					graphOutlets[16];			///< Array of outlets, may eventually want this to be more dynamic
 	TTPtr					inlets[16];					///< Array of proxy inlets beyond the first inlet
 } WrappedInstance;
 
@@ -71,14 +71,14 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 				numOutputs = atom_getlong(argv+argumentOffsetToDefineTheNumberOfOutlets);
 		}
 		for (TTInt16 i=numOutputs-1; i>=0; i--)
-			self->multicoreOutlets[i] = outlet_new(self, "multicore.connect");
+			self->graphOutlets[i] = outlet_new(self, "multicore.connect");
 
 		self->wrappedClassDefinition = wrappedMaxClass;
 		v.setSize(3);
 		v.set(0, wrappedMaxClass->ttClassName);
 		v.set(1, numInputs);
 		v.set(2, numOutputs);
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
+		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->graphObject, v);
 				
 		attr_args_process(self, argc, argv);
 	}
@@ -88,8 +88,8 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 
 void wrappedClass_free(WrappedInstancePtr self)
 {
-	if (self->multicoreObject)
-		TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
+	if (self->graphObject)
+		TTObjectRelease((TTObjectPtr*)&self->graphObject);
 	// FIXME: leaking proxy inlets!
 }
 
@@ -97,31 +97,34 @@ void wrappedClass_free(WrappedInstancePtr self)
 
 // METHODS SPECIFIC TO MULTICORE EXTERNALS
 
-TTErr MaxMulticoreReset(WrappedInstancePtr self, long vectorSize)
+
+TTErr MaxGraphReset(ObjectPtr x)
 {
-	return self->multicoreObject->reset();
+	WrappedInstancePtr self = WrappedInstancePtr(x);
+	return self->graphObject->reset();
 }
 
 
-TTErr MaxMulticoreSetup(WrappedInstancePtr self)
+TTErr MaxGraphSetup(ObjectPtr x)
 {
-	Atom		a[2];
-	TTUInt16	i=0;
+	WrappedInstancePtr	self = WrappedInstancePtr(x);
+	Atom				a[2];
+	TTUInt16			i=0;
 	
-	atom_setobj(a+0, ObjectPtr(self->multicoreObject));
-	while (self->multicoreOutlets[i]) {
+	atom_setobj(a+0, ObjectPtr(self->graphObject));
+	while (self->graphOutlets[i]) {
 		atom_setlong(a+1, i);
-		outlet_anything(self->multicoreOutlets[i], gensym("multicore.connect"), 2, a);
+		outlet_anything(self->graphOutlets[i], gensym("graph.connect"), 2, a);
 		i++;
 	}
 	return kTTErrNone;
 }
 
 
-TTErr MaxMulticoreConnect(WrappedInstancePtr self, TTGraphObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
+TTErr MaxGraphConnect(WrappedInstancePtr self, TTGraphObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
 {
 	long inletNumber = proxy_getinlet(SELF);
-	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber, inletNumber);
+	return self->graphObject->connect(audioSourceObject, sourceOutletNumber, inletNumber);
 }
 
 
@@ -137,7 +140,7 @@ t_max_err wrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr attr, AtomCoun
 	if (err)
 		return err;
 
-	self->multicoreObject->mUnitGenerator->getAttributeValue(ttAttrName, v);
+	self->graphObject->mUnitGenerator->getAttributeValue(ttAttrName, v);
 
 	*argc = v.getSize();
 	if (!(*argv)) // otherwise use memory passed in
@@ -188,7 +191,7 @@ t_max_err wrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr attr, AtomCoun
 			else
 				object_error(SELF, "bad type for attribute setter");
 		}
-		self->multicoreObject->mUnitGenerator->setAttributeValue(ttAttrName, v);
+		self->graphObject->mUnitGenerator->setAttributeValue(ttAttrName, v);
 		return MAX_ERR_NONE;
 	}
 	return MAX_ERR_GENERIC;
@@ -211,7 +214,7 @@ void wrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc,
 			else
 				object_error(SELF, "bad type for message arg");
 		}
-		self->multicoreObject->mUnitGenerator->sendMessage(TT(s->s_name), v);
+		self->graphObject->mUnitGenerator->sendMessage(TT(s->s_name), v);
 		
 		// process the returned value for the dumpout outlet
 		{
@@ -242,7 +245,7 @@ void wrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc,
 		}
 	}
 	else
-		self->multicoreObject->mUnitGenerator->sendMessage(TT(s->s_name));
+		self->graphObject->mUnitGenerator->sendMessage(TT(s->s_name));
 }
 
 
@@ -264,12 +267,12 @@ void wrappedClass_assist(WrappedInstancePtr self, void *b, long msg, long arg, c
 
 
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c)
+TTErr wrapAsMaxGraph(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c)
 {
-	return wrapAsMaxMulticore(ttClassName, maxClassName, c, (WrappedClassOptionsPtr)NULL);
+	return wrapAsMaxGraph(ttClassName, maxClassName, c, (WrappedClassOptionsPtr)NULL);
 }
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, WrappedClassOptionsPtr options)
+TTErr wrapAsMaxGraph(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, WrappedClassOptionsPtr options)
 {
 	TTObject*		o = NULL;
 	TTValue			v;
@@ -353,12 +356,12 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 	
 	TTObjectRelease(&o);
 	
-	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreReset,		"multicore.reset",		A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreSetup,		"multicore.setup",		A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreConnect,		"multicore.connect",	A_OBJ, A_LONG, 0);
-    class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",				A_CANT, 0); 
-	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_assist, 	"assist",				A_CANT, 0L);
-	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,			"inletinfo",			A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxGraphReset,		"graph.reset",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxGraphSetup,		"graph.setup",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxGraphConnect,		"graph.connect",	A_OBJ, A_LONG, 0);
+    class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, "dumpout",			A_CANT, 0); 
+	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_assist, "assist",			A_CANT, 0L);
+	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,		"inletinfo",		A_CANT, 0);
 	
 	class_register(_sym_box, wrappedMaxClass->maxClass);
 	if (c)
@@ -369,9 +372,9 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 }
 
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck)
+TTErr wrapAsMaxGraph(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck)
 {
-	TTErr err = wrapAsMaxMulticore(ttClassName, maxClassName, c);
+	TTErr err = wrapAsMaxGraph(ttClassName, maxClassName, c);
 	
 	if (!err) {
 		(*c)->validityCheck = validityCheck;
@@ -380,9 +383,9 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 	return err;
 }
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, WrappedClassOptionsPtr options)
+TTErr wrapAsMaxGraph(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, WrappedClassOptionsPtr options)
 {
-	TTErr err = wrapAsMaxMulticore(ttClassName, maxClassName, c, options);
+	TTErr err = wrapAsMaxGraph(ttClassName, maxClassName, c, options);
 	
 	if (!err) {
 		(*c)->validityCheck = validityCheck;
@@ -392,9 +395,9 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 }
 
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument)
+TTErr wrapAsMaxGraph(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument)
 {
-	TTErr err = wrapAsMaxMulticore(ttClassName, maxClassName, c);
+	TTErr err = wrapAsMaxGraph(ttClassName, maxClassName, c);
 	
 	if (!err) {
 		(*c)->validityCheck = validityCheck;
@@ -403,9 +406,9 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 	return err;
 }
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, WrappedClassOptionsPtr options)
+TTErr wrapAsMaxGraph(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, WrappedClassOptionsPtr options)
 {
-	TTErr err = wrapAsMaxMulticore(ttClassName, maxClassName, c, options);
+	TTErr err = wrapAsMaxGraph(ttClassName, maxClassName, c, options);
 	
 	if (!err) {
 		(*c)->validityCheck = validityCheck;
