@@ -21,6 +21,14 @@ class TTOperator : TTAudioObject {
 	TTBoolean		operandIsInteger;		///< Set to true if there is no fractional part.
 	TTBoolean		operandIsPowerOfTwo;	///< Set to true is the operand is a power of two to optimize some operations.
 
+	
+	TTErr calculateAdd(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
+	TTErr calculateSubtract(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
+	TTErr calculateMultiply(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
+	TTErr calculateDivide(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
+	TTErr calculateModulo(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
+	
+	
 	/**	A standard audio processing method as used by TTBlue objects. */
 	TTErr processAdd				(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processAddConstant		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);

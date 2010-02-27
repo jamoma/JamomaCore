@@ -33,16 +33,26 @@ TTOperator::~TTOperator()
 TTErr TTOperator::setoperator(const TTValue& newValue)
 {
 	operatorAttribute = newValue;
-	if(operatorAttribute == TT("+"))
+	if (operatorAttribute == TT("+")) {
+		setCalculateMethod(calculateAdd);
 		setProcessMethod(processAdd);
-	else if(operatorAttribute == TT("-"))
+	}
+	else if (operatorAttribute == TT("-")) {
+		setCalculateMethod(calculateSubtract);
 		setProcessMethod(processSubtract);
-	else if(operatorAttribute == TT("*"))
+	}
+	else if (operatorAttribute == TT("*")) {
+		setCalculateMethod(calculateMultiply);
 		setProcessMethod(processMultiply);
-	else if(operatorAttribute == TT("/"))
+	}
+	else if (operatorAttribute == TT("/")) {
+		setCalculateMethod(calculateDivide);
 		setProcessMethod(processDivide);
-	else if(operatorAttribute == TT("%"))
+	}
+	else if (operatorAttribute == TT("%")) {
+		setCalculateMethod(calculateModulo);
 		setProcessMethod(processModulo);
+	}
 	else
 		return kTTErrInvalidValue;
 	
@@ -70,6 +80,39 @@ TTErr TTOperator::setoperand(const TTValue& newValue)
 		if(count == 1)
 			operandIsPowerOfTwo = true;		
 	}
+	return kTTErrNone;
+}
+
+
+TTErr TTOperator::calculateAdd(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
+{
+	y = x + operand;
+	return kTTErrNone;
+}
+
+TTErr TTOperator::calculateSubtract(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
+{
+	y = x - operand;
+	return kTTErrNone;
+}
+
+TTErr TTOperator::calculateMultiply(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
+{
+	y = x * operand;
+	return kTTErrNone;
+}
+
+TTErr TTOperator::calculateDivide(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
+{
+	y = x / operand;
+	return kTTErrNone;
+}
+
+TTErr TTOperator::calculateModulo(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
+{
+	TTUInt64 operander = (TTUInt64)operand;
+	
+	y = fmod(x, operander);	
 	return kTTErrNone;
 }
 
