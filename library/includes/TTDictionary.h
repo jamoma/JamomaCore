@@ -26,6 +26,14 @@ public:
 	TTDictionary();
 	virtual ~TTDictionary();
 	
+	// The copy assignment constructor doesn't appear to be involved, at least with resizes, on the Mac...
+	TTDictionary& operator=(const TTDictionary& source)
+	{
+		*mHashTable	= *source.mHashTable;		
+		return *this;
+	}
+		
+	
 	TTErr setSchema(const TTSymbolPtr schemaName);
 	TTSymbolPtr getSchema() const;
 	
@@ -49,6 +57,7 @@ public:
 	
 	/** Return true if the hash has nothing stored in it. */
 	TTBoolean isEmpty();
+	
 };
 
 
