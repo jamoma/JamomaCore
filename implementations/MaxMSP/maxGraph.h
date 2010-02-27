@@ -112,6 +112,8 @@ int AtomGetInt(AtomPtr a);
 
 TTErr MaxGraphReset(ObjectPtr self);
 TTErr MaxGraphSetup(ObjectPtr self);
+TTErr MaxGraphDrop(ObjectPtr x, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber);
+TTErr MaxGraphObject(ObjectPtr x, TTGraphObjectPtr* returnedGraphObject);
 
 #endif // __MAXBAER_H__
 

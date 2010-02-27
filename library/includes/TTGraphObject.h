@@ -69,6 +69,11 @@ public:
 		@return					An error code.	*/
 	TTErr connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 
+	TTErr drop(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0)
+	{
+		;
+	}
+
 };
 
 

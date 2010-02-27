@@ -13,11 +13,12 @@
 // Data Structure for this object
 struct Pack {
    	Object				obj;
-	ObjectPtr			patcher;
-	ObjectPtr			patcherview;
-	TTGraphObjectPtr	graphObject;
+	TTGraphObjectPtr	graphObject;		// this _must_ be second
 	TTDictionaryPtr		graphDictionary;
 	TTPtr				outlet;
+	ObjectPtr			patcher;
+	ObjectPtr			patcherview;
+	TTPtr				qelem;				// for clumping dirty events together
 };
 typedef Pack* PackPtr;
 
@@ -26,6 +27,8 @@ typedef Pack* PackPtr;
 PackPtr	PackNew			(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void   	PackFree		(PackPtr self);
 void	PackStartTracking(PackPtr self);
+MaxErr	PackNotify		(PackPtr self, SymbolPtr s, SymbolPtr msg, ObjectPtr sender, TTPtr data);
+void	PackQFn			(PackPtr self);
 void   	PackAssist		(PackPtr self, void* b, long msg, long arg, char* dst);
 void	PackInt			(PackPtr self, long value);
 void	PackFloat		(PackPtr self, double value);
@@ -58,6 +61,8 @@ int main(void)
 	
 	class_addmethod(c, (method)MaxGraphReset,		"graph.reset",		A_CANT, 0);
 	class_addmethod(c, (method)MaxGraphSetup,		"graph.setup",		A_CANT, 0);
+	class_addmethod(c, (method)MaxGraphDrop,		"graph.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxGraphObject,		"graph.object",		A_CANT, 0);
 
  	class_addmethod(c, (method)PackAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",			A_CANT, 0);  
@@ -97,6 +102,9 @@ PackPtr PackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		self->graphDictionary->append(TT("outlet"), 0);
 		
 		attr_args_process(self, argc, argv);
+		
+		self->qelem = qelem_new(self, (method)PackQFn);
+		PackStartTracking(self);
 	}
 	return self;
 }
@@ -106,10 +114,56 @@ PackPtr PackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void PackFree(PackPtr self)
 {
 	TTObjectRelease((TTObjectPtr*)&self->graphObject);
+	qelem_free(self->qelem);
 }
 
 
 /************************************************************************************/
+
+MaxErr PackNotify(PackPtr self, SymbolPtr s, SymbolPtr msg, ObjectPtr sender, TTPtr data)
+{
+	if (sender == self->patcherview) {
+		if (msg == _sym_attr_modified) {
+			SymbolPtr name = (SymbolPtr)object_method((ObjectPtr)data, _sym_getname);
+			if (name == _sym_dirty) {
+				qelem_set(self->qelem);
+			}
+		}
+		else if (msg == _sym_free)
+			self->patcherview = NULL;
+	}
+	else {
+		if (msg == _sym_free) {
+			#ifdef DEBUG_NOTIFICATIONS
+			object_post(SELF, "patch line deleted");
+			#endif // DEBUG_NOTIFICATIONS
+			
+			// get boxes and inlets
+			ObjectPtr	sourceBox = jpatchline_get_box1(sender);
+			if (!sourceBox)
+				goto out;
+			ObjectPtr	sourceObject = jbox_get_object(sourceBox);
+			long		sourceOutlet = jpatchline_get_outletnum(sender);
+			ObjectPtr	destBox = jpatchline_get_box2(sender);
+			if (!destBox)
+				goto out;
+			ObjectPtr	destObject = jbox_get_object(destBox);
+			long		destInlet = jpatchline_get_inletnum(sender);
+			
+			// if both boxes are multicore objects 
+			if ( zgetfn(sourceObject, gensym("graph.object")) && zgetfn(destObject, gensym("graph.object")) ) {
+				#ifdef DEBUG_NOTIFICATIONS
+				object_post(SELF, "deleting graph patchline!");
+				#endif // DEBUG_NOTIFICATIONS
+				
+				object_method(destObject, gensym("graph.drop"), destInlet, sourceObject, sourceOutlet);
+			}
+		out:
+			;
+		}
+	}
+	return MAX_ERR_NONE;
+}
 
 
 void PackIterateResetCallback(PackPtr self, ObjectPtr obj)
@@ -154,6 +208,22 @@ void PackAttachToPatchlinesForPatcher(PackPtr self, ObjectPtr patcher)
 	}
 }
 
+
+// Qelem function, which clumps together dirty notifications before making the new connections
+void PackQFn(PackPtr self)
+{
+	t_atom result;
+	
+#ifdef DEBUG_NOTIFICATIONS
+	object_post(SELF, "patcher dirtied");
+#endif // DEBUG_NOTIFICATIONS
+	
+	object_method(self->patcher, gensym("iterate"), (method)PackIterateSetupCallback, self, PI_DEEP, &result);
+	
+	// attach to all of the patch cords so we will know if one is deleted
+	// we are not trying to detach first -- hopefully this is okay and multiple attachments will be filtered (?)
+	PackAttachToPatchlinesForPatcher(self, self->patcher);
+}
 
 
 // Start keeping track of edits and connections in the patcher

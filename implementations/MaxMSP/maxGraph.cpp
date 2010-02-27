@@ -128,6 +128,28 @@ TTErr MaxGraphConnect(WrappedInstancePtr self, TTGraphObjectPtr audioSourceObjec
 }
 
 
+TTErr MaxGraphDrop(ObjectPtr x, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber)
+{
+	WrappedInstancePtr	self = WrappedInstancePtr(x);
+	TTGraphObjectPtr	sourceObject = NULL;
+	TTErr 				err;
+	
+	err = (TTErr)int(object_method(sourceMaxObject, gensym("graph.object"), &sourceObject));
+	if (self->graphObject && sourceObject && !err)
+		err = self->graphObject->drop(sourceObject, sourceOutletNumber, inletNumber);	
+	return err;
+}
+
+
+TTErr MaxGraphObject(ObjectPtr x, TTGraphObjectPtr* returnedGraphObject)
+{
+	WrappedInstancePtr	self = WrappedInstancePtr(x);
+	
+	*returnedGraphObject = self->graphObject;
+	return kTTErrNone;
+}
+
+
 t_max_err wrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
 {
 	SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
