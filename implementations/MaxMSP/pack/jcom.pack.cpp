@@ -8,6 +8,7 @@
  */
 
 #include "maxGraph.h"
+#include "TTGraphInput.h"
 
 
 // Data Structure for this object
@@ -91,8 +92,9 @@ PackPtr PackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.set(0, TT("graph.input"));
 		v.set(1, TTUInt32(1));
 		err = TTObjectInstantiate(TT("graph.object"), (TTObjectPtr*)&self->graphObject, v);
+		((TTGraphInput*)self->graphObject->mKernel)->setOwner(self->graphObject);
 
-		if (!self->graphObject->mUnitGenerator) {
+		if (!self->graphObject->mKernel) {
 			object_error(SELF, "cannot load Jamoma object");
 			return NULL;
 		}
@@ -286,7 +288,7 @@ void PackInt(PackPtr self, long value)
 
 	self->graphDictionary->setSchema(TT("number"));
 	self->graphDictionary->append(TT("value"), v);
-	self->graphObject->push(*self->graphDictionary);
+	((TTGraphInput*)self->graphObject->mKernel)->push(*self->graphDictionary);
 }
 
 
@@ -296,7 +298,7 @@ void PackFloat(PackPtr self, double value)
 	
 	self->graphDictionary->setSchema(TT("number"));
 	self->graphDictionary->append(TT("value"), v);
-	self->graphObject->push(*self->graphDictionary);
+	((TTGraphInput*)self->graphObject->mKernel)->push(*self->graphDictionary);
 }
 
 
@@ -322,7 +324,7 @@ void PackList(PackPtr self, SymbolPtr s, AtomCount ac, AtomPtr ap)
 	}
 	self->graphDictionary->setSchema(TT("array"));
 	self->graphDictionary->append(TT("value"), v);
-	self->graphObject->push(*self->graphDictionary);
+	((TTGraphInput*)self->graphObject->mKernel)->push(*self->graphDictionary);
 }
 
 
@@ -356,7 +358,7 @@ void PackAnything(PackPtr self, SymbolPtr s, AtomCount ac, AtomPtr ap)
 	}
 
 	self->graphDictionary->append(TT("value"), v);
-	self->graphObject->push(*self->graphDictionary);
+	((TTGraphInput*)self->graphObject->mKernel)->push(*self->graphDictionary);
 }
 
 
