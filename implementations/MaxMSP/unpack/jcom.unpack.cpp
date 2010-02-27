@@ -45,7 +45,6 @@ int main(void)
 	c = class_new("jcom.unpack>", (method)UnpackNew, (method)UnpackFree, sizeof(Unpack), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)MaxGraphReset,		"graph.reset",		A_CANT, 0);
-	class_addmethod(c, (method)MaxGraphSetup,		"graph.setup",		A_CANT, 0);
 	class_addmethod(c, (method)MaxGraphConnect,		"graph.connect",	A_OBJ, A_LONG, 0);
 	class_addmethod(c, (method)MaxGraphDrop,		"graph.drop",		A_CANT, 0);
  	class_addmethod(c, (method)MaxGraphObject,		"graph.object",		A_CANT, 0);
