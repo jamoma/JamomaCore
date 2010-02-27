@@ -55,6 +55,11 @@ public:
 	TTErr reset();
 	
 	
+	// Magic sauce used by the connect method to setup outlets
+private:
+	TTErr handshake(TTGraphObjectPtr objectWhichIsBeingConnected, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber);
+public:
+	
 	/**	Add a source to the list of objects from which to request audio.
 	 @param	anObject		The lydbaer object which is supplying us with input.
 	 @param	anInletNumber	If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.

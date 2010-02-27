@@ -17,6 +17,8 @@
 		226AAF8710F80EDE002C6057 /* TTGraphObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7C10F80EDE002C6057 /* TTGraphObject.cpp */; };
 		22A084911138C0F600D6D843 /* TTGraphSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A084901138C0F600D6D843 /* TTGraphSource.cpp */; };
 		22A084931138C10C00D6D843 /* TTGraphSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A084921138C10C00D6D843 /* TTGraphSource.h */; };
+		22A084DB1138D24A00D6D843 /* TTGraphDestination.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A084DA1138D24A00D6D843 /* TTGraphDestination.h */; };
+		22A084DD1138D26100D6D843 /* TTGraphDestination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A084DC1138D26100D6D843 /* TTGraphDestination.cpp */; };
 		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22C9F59F10325CDB0062F7B8 /* TTFoundationAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F59E10325CDB0062F7B8 /* TTFoundationAPI.h */; };
 		22C9F5A110325CDF0062F7B8 /* TTDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5A010325CDF0062F7B8 /* TTDSP.h */; };
@@ -39,6 +41,8 @@
 		226AAF7C10F80EDE002C6057 /* TTGraphObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTGraphObject.cpp; path = source/TTGraphObject.cpp; sourceTree = "<group>"; };
 		22A084901138C0F600D6D843 /* TTGraphSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTGraphSource.cpp; path = source/TTGraphSource.cpp; sourceTree = "<group>"; };
 		22A084921138C10C00D6D843 /* TTGraphSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphSource.h; path = includes/TTGraphSource.h; sourceTree = "<group>"; };
+		22A084DA1138D24A00D6D843 /* TTGraphDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphDestination.h; path = includes/TTGraphDestination.h; sourceTree = "<group>"; };
+		22A084DC1138D26100D6D843 /* TTGraphDestination.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTGraphDestination.cpp; path = source/TTGraphDestination.cpp; sourceTree = "<group>"; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22C9F59E10325CDB0062F7B8 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = ../../Foundation/library/includes/TTFoundationAPI.h; sourceTree = SOURCE_ROOT; };
 		22C9F5A010325CDF0062F7B8 /* TTDSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDSP.h; path = ../../DSP/library/includes/TTDSP.h; sourceTree = SOURCE_ROOT; };
@@ -112,6 +116,8 @@
 				226AAF7C10F80EDE002C6057 /* TTGraphObject.cpp */,
 				22A084921138C10C00D6D843 /* TTGraphSource.h */,
 				22A084901138C0F600D6D843 /* TTGraphSource.cpp */,
+				22A084DA1138D24A00D6D843 /* TTGraphDestination.h */,
+				22A084DC1138D26100D6D843 /* TTGraphDestination.cpp */,
 			);
 			name = "Core Classes";
 			sourceTree = "<group>";
@@ -159,6 +165,7 @@
 				2220192C10F8E7760010D781 /* TTGraphOutlet.h in Headers */,
 				22F25DD9111E0B6F00A67D8D /* TTGraphDescription.h in Headers */,
 				22A084931138C10C00D6D843 /* TTGraphSource.h in Headers */,
+				22A084DB1138D24A00D6D843 /* TTGraphDestination.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +246,7 @@
 				222019D810F90A2D0010D781 /* TTGraphInlet.cpp in Sources */,
 				22F25F18111FC59900A67D8D /* TTGraphDescription.cpp in Sources */,
 				22A084911138C0F600D6D843 /* TTGraphSource.cpp in Sources */,
+				22A084DD1138D26100D6D843 /* TTGraphDestination.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

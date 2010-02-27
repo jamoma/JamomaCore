@@ -38,8 +38,6 @@
 // values to be used as a bitmask
 enum TTGraphFlags {
 	kTTGraphFlagsNone = 0x00,
-	//kTTGraphProcessor = 0x01,
-	//kTTGraphGenerator = 0x02
 };
 
 

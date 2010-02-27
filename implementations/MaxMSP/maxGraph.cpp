@@ -164,7 +164,7 @@ t_max_err wrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr attr, AtomCoun
 	if (err)
 		return err;
 
-	self->graphObject->mUnitGenerator->getAttributeValue(ttAttrName, v);
+	self->graphObject->mKernel->getAttributeValue(ttAttrName, v);
 
 	*argc = v.getSize();
 	if (!(*argv)) // otherwise use memory passed in
@@ -215,7 +215,7 @@ t_max_err wrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr attr, AtomCoun
 			else
 				object_error(SELF, "bad type for attribute setter");
 		}
-		self->graphObject->mUnitGenerator->setAttributeValue(ttAttrName, v);
+		self->graphObject->mKernel->setAttributeValue(ttAttrName, v);
 		return MAX_ERR_NONE;
 	}
 	return MAX_ERR_GENERIC;
@@ -238,7 +238,7 @@ void wrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc,
 			else
 				object_error(SELF, "bad type for message arg");
 		}
-		self->graphObject->mUnitGenerator->sendMessage(TT(s->s_name), v);
+		self->graphObject->mKernel->sendMessage(TT(s->s_name), v);
 		
 		// process the returned value for the dumpout outlet
 		{
@@ -269,7 +269,7 @@ void wrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc,
 		}
 	}
 	else
-		self->graphObject->mUnitGenerator->sendMessage(TT(s->s_name));
+		self->graphObject->mKernel->sendMessage(TT(s->s_name));
 }
 
 

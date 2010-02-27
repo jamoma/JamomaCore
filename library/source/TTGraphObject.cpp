@@ -68,11 +68,22 @@ TTErr TTGraphObject::reset()
 }
 
 
+TTErr TTGraphObject::handshake(TTGraphObjectPtr objectWhichIsBeingConnected, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
+{
+	TTErr err;
+	
+	err = mOutlets[fromOutletNumber].connect(objectWhichIsBeingConnected, toInletNumber);
+	return err;
+}
+
+
 TTErr TTGraphObject::connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
 {
 	TTErr err;
 	
 	err = mInlets[toInletNumber].connect(anObject, fromOutletNumber);
+	anObject->handshake(this, fromOutletNumber, toInletNumber);
+
 	return err;
 }
 

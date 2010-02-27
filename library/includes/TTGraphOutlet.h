@@ -11,6 +11,8 @@
 #define __TTGRAPH_OUTLET_H__
 
 #include "TTGraph.h"
+#include "TTGraphObject.h"
+#include "TTGraphDestination.h"
 
 
 /******************************************************************************************/
@@ -19,61 +21,67 @@
 	TTGraphObject maintains a vector of these outlets.
 */
 class TTGraphOutlet {
-	friend class TTGraphObject;
-	TTAudioSignalPtr		mBufferedOutput;	
+	TTGraphDestinationVector	mDestinationObjects;
 	
 public:
-	TTGraphOutlet() : 
-		mBufferedOutput(NULL)
+	TTGraphOutlet()
 	{
-		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedOutput, 1);
+		;
 	}
 	
 	~TTGraphOutlet()
 	{
-		TTObjectRelease(&mBufferedOutput);
+		;
 	}
 	
 	
 	// Copying Functions are critical due to use by std::vector 
 	
-	TTGraphOutlet(const TTGraphOutlet& original) : 
-		mBufferedOutput(NULL)
+	TTGraphOutlet(const TTGraphOutlet& original)
 	{
-//		mBufferedOutput = TTObjectReference(original.mBufferedOutput);
-		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedOutput, 1);
+		mDestinationObjects = original.mDestinationObjects;
 	}
 	
-	TTGraphOutlet& operator=(const TTGraphOutlet& source)
+	TTGraphOutlet& operator=(const TTGraphOutlet& original)
 	{
-		TTObjectRelease(&mBufferedOutput);
-		mBufferedOutput = TTObjectReference(source.mBufferedOutput);
+		mDestinationObjects = original.mDestinationObjects;
 		return *this;
 	}
 	
-
-	// Audio Signal Access Methods
-
-	TTUInt16 getNumOutputChannels()
+	
+	// Graph Methods
+	
+	void reset()
 	{
-		return mBufferedOutput->getNumChannels();
+		mDestinationObjects.clear();
 	}
 	
-	
-	TTUInt16 getOutputVectorSize()
+	void drop(TTGraphDestination& aDestination)
 	{
-		return mBufferedOutput->getVectorSize();
+		TTGraphDestinationIter iter = find(mDestinationObjects.begin(), mDestinationObjects.end(), aDestination);
+		
+		if (iter != mDestinationObjects.end())
+			mDestinationObjects.erase(iter);
 	}
-
 	
-	TTAudioSignalPtr getBuffer()
+	TTErr connect(TTGraphObjectPtr anObject, TTUInt16 toInletNumber)
 	{
-		return mBufferedOutput;
+		TTUInt16 size = mDestinationObjects.size();
+		
+		// make sure the connection doesn't already exist
+		for (TTGraphDestinationIter destination = mDestinationObjects.begin(); destination != mDestinationObjects.end(); destination++) {
+			if (destination->match(anObject, toInletNumber))
+				return kTTErrNone;
+		}
+		
+		// create the connection
+		mDestinationObjects.resize(size+1);
+		mDestinationObjects[size].connect(anObject, toInletNumber);
+		mDestinationObjects[size].setOwner(this);
+		return kTTErrNone;
 	}
 	
 };
-
-
 
 
 #endif // __TTGRAPH_OUTLET_H__

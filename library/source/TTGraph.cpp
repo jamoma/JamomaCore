@@ -9,9 +9,9 @@
 
 #include "TTDSP.h"
 #include "TTGraph.h"
-//#include "TTGraphGenerator.h"
 #include "TTGraphObject.h"
 #include "TTGraphInlet.h"		// required for windows build
+#include "TTGraphOutlet.h"
 //#include "TTGraphInput.h"
 //#include "TTGraphOutput.h"
 
@@ -27,7 +27,6 @@ void TTGraphInit(void)
 		//TTDSPInit();
 		TTFoundationInit();
 		
-		//TTGraphGenerator::registerClass();
 		TTGraphObject::registerClass();
 		//TTGraphInput::registerClass();
 		//TTGraphOutput::registerClass();

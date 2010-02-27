@@ -1,0 +1,69 @@
+/* 
+ * Jamoma Asynchronous Object Graph Layer
+ * Creates a wrapper for TTObjects that can be used to build a control graph for asynchronous message passing.
+ * Copyright © 2010, Timothy Place
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
+
+#include "TTGraphOutlet.h"
+#include "TTCallback.h"
+#include "TTGraphDestination.h"
+
+
+// C Callback from any Multicore Source objects we are observing
+void TTGraphDestinationObserverCallback(TTGraphDestinationPtr self, TTValue& arg)
+{
+	// at the moment we only receive one callback, which is for the object being deleted
+	self->mDestinationObject = NULL;
+	self->mInletNumber = 0;
+	self->mOwner->drop(*self);
+}
+
+
+// Implementation for Multicore Source class
+
+TTGraphDestination::TTGraphDestination() :
+	mDestinationObject(NULL),
+	mInletNumber(0),
+	mCallbackHandler(NULL),
+	mOwner(NULL)
+{
+	create();
+}
+
+
+TTGraphDestination::~TTGraphDestination()
+{
+	if (mDestinationObject)
+		mDestinationObject->unregisterObserverForNotifications(*mCallbackHandler);
+
+	TTObjectRelease(&mCallbackHandler);
+	
+	mDestinationObject = NULL;
+	mInletNumber = 0;
+	mCallbackHandler = NULL;	
+}
+
+
+void TTGraphDestination::create()
+{
+	TTObjectInstantiate(TT("Callback"), &mCallbackHandler, kTTValNONE);
+	
+	mCallbackHandler->setAttributeValue(TT("Function"), TTPtr(&TTGraphDestinationObserverCallback));
+	mCallbackHandler->setAttributeValue(TT("Baton"), TTPtr(this));	
+}
+
+
+void TTGraphDestination::connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
+{
+	mDestinationObject = anObject;
+	mInletNumber = fromOutletNumber;
+
+	// dynamically add a message to the callback object so that it can handle the 'objectFreeing' notification
+	mCallbackHandler->registerMessage(TT("objectFreeing"), (TTMethod)&TTCallback::notify, kTTMessagePassValue);
+	
+	// tell the source that is passed in that we want to watch it
+	mDestinationObject->registerObserverForNotifications(*mCallbackHandler);
+}	
