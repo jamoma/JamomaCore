@@ -12,6 +12,7 @@
 // CORE
 #include "TTFoundation.h"
 #include "TTDataObject.h"
+#include "TTDictionary.h"
 #include "TTEnvironment.h"
 #include "TTHash.h"
 #include "TTLimits.h"

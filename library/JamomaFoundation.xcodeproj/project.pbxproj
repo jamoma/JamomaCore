@@ -11,6 +11,8 @@
 		222B17F60F1D4009008B1A46 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		222B17FB0F1D4009008B1A46 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1C0EC276B200A5EC32 /* CoreServices.framework */; };
 		228AFDF0111E095100BB900B /* TTCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A05DA1110149CE00695770 /* TTCallback.cpp */; };
+		22A083C211389A6800D6D843 /* TTDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A083C111389A6800D6D843 /* TTDictionary.h */; };
+		22A083C411389A7A00D6D843 /* TTDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A083C311389A7A00D6D843 /* TTDictionary.cpp */; };
 		22A35A23110CB20200A55F17 /* TTAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F210286BBE002000A9 /* TTAttribute.cpp */; };
 		22A35A24110CB20400A55F17 /* TTCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A05DA1110149CE00695770 /* TTCallback.cpp */; };
 		22A35A25110CB20A00A55F17 /* TTClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F810286BBE002000A9 /* TTClass.cpp */; };
@@ -80,6 +82,8 @@
 		22578F1C0EC276B200A5EC32 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		22A05D9F110149C300695770 /* TTCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTCallback.h; path = includes/TTCallback.h; sourceTree = "<group>"; };
 		22A05DA1110149CE00695770 /* TTCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCallback.cpp; path = source/TTCallback.cpp; sourceTree = "<group>"; };
+		22A083C111389A6800D6D843 /* TTDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDictionary.h; path = includes/TTDictionary.h; sourceTree = "<group>"; };
+		22A083C311389A7A00D6D843 /* TTDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDictionary.cpp; path = source/TTDictionary.cpp; sourceTree = "<group>"; };
 		22A35A19110CB15B00A55F17 /* libJamomaFoundation-iPhone.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libJamomaFoundation-iPhone.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22E385D010286B97002000A9 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = includes/TTFoundationAPI.h; sourceTree = "<group>"; };
@@ -223,6 +227,8 @@
 		22B66A200E298A2F00CB474E /* DataStorageClasses */ = {
 			isa = PBXGroup;
 			children = (
+				22A083C111389A6800D6D843 /* TTDictionary.h */,
+				22A083C311389A7A00D6D843 /* TTDictionary.cpp */,
 				22E385DB10286BB0002000A9 /* TTHash.h */,
 				22E385FC10286BBE002000A9 /* TTHash.cpp */,
 				22E385DC10286BB0002000A9 /* TTList.h */,
@@ -293,6 +299,7 @@
 				22039B861087816A008DFA4A /* TTLimits.h in Headers */,
 				D2F68EC7108C9BE10094260C /* TTNode.h in Headers */,
 				D2F68EC8108C9BE10094260C /* TTNodeDirectory.h in Headers */,
+				22A083C211389A6800D6D843 /* TTDictionary.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +414,7 @@
 				D2F68ECB108C9BEF0094260C /* TTNode.cpp in Sources */,
 				D2F68ECC108C9BEF0094260C /* TTNodeDirectory.cpp in Sources */,
 				228AFDF0111E095100BB900B /* TTCallback.cpp in Sources */,
+				22A083C411389A7A00D6D843 /* TTDictionary.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
