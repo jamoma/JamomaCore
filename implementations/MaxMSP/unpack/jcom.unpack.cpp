@@ -132,7 +132,7 @@ void UnpackGraphCallback(UnpackPtr self, TTValue& arg)
 	TTSymbolPtr		firstItem = NULL;
 	
 	arg.get(0, (TTPtr*)(&aDictionary));
-	aDictionary->lookup(TT("value"), v);
+	aDictionary->getValue(v);
 	ac = v.getSize();
 	if (ac) {
 		ap = new Atom[ac];

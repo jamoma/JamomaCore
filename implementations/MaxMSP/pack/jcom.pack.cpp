@@ -288,7 +288,7 @@ void PackInt(PackPtr self, long value)
 	TTValue v = int(value);
 
 	self->graphDictionary->setSchema(TT("number"));
-	self->graphDictionary->append(TT("value"), v);
+	self->graphDictionary->setValue(v);
 	((TTGraphInput*)self->graphObject->mKernel)->push(*self->graphDictionary);
 }
 
@@ -298,7 +298,7 @@ void PackFloat(PackPtr self, double value)
 	TTValue v = value;
 	
 	self->graphDictionary->setSchema(TT("number"));
-	self->graphDictionary->append(TT("value"), v);
+	self->graphDictionary->setValue(v);
 	((TTGraphInput*)self->graphObject->mKernel)->push(*self->graphDictionary);
 }
 
@@ -324,7 +324,7 @@ void PackList(PackPtr self, SymbolPtr s, AtomCount ac, AtomPtr ap)
 		}
 	}
 	self->graphDictionary->setSchema(TT("array"));
-	self->graphDictionary->append(TT("value"), v);
+	self->graphDictionary->setValue(v);
 	((TTGraphInput*)self->graphObject->mKernel)->push(*self->graphDictionary);
 }
 
@@ -358,7 +358,7 @@ void PackAnything(PackPtr self, SymbolPtr s, AtomCount ac, AtomPtr ap)
 		v.set(0, TT(s->s_name));
 	}
 
-	self->graphDictionary->append(TT("value"), v);
+	self->graphDictionary->setValue(v);
 	((TTGraphInput*)self->graphObject->mKernel)->push(*self->graphDictionary);
 }
 

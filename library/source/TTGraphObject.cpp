@@ -116,12 +116,12 @@ TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 		err = mKernel->sendMessage(TT("dictionary"), v);
 	}
 	else if (schema == TT("number")) {
-		aDictionary.lookup(TT("value"), v);
+		aDictionary.getValue(v);
 		// TODO: maybe try seeing if there is a "number" message first and then prefer that if it exists?
 		err = mKernel->sendMessage(TT("calculate"), v);
 		
 		mDictionary->setSchema(TT("number"));
-		mDictionary->append(TT("value"), v);
+		mDictionary->setValue(v);
 		// NOTE: doesn't have inlet/outlet info at this point
 	}
 	else {
