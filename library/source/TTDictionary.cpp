@@ -25,7 +25,7 @@ TTDictionary::TTDictionary()
 
 TTDictionary::~TTDictionary()
 {
-	clear();
+	//clear();
 	delete mHashTable;
 }
 
