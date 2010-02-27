@@ -8,6 +8,7 @@
  */
 
 #include "maxGraph.h"
+#include "TTCallback.h"
 
 
 // Data Structure for this object
@@ -24,6 +25,7 @@ typedef Unpack* UnpackPtr;
 UnpackPtr	UnpackNew			(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void   		UnpackFree			(UnpackPtr self);
 void   		UnpackAssist		(UnpackPtr self, void* b, long msg, long arg, char* dst);
+void		UnpackGraphCallback	(UnpackPtr self, TTValue& arg);
 
 
 // Globals
@@ -76,14 +78,18 @@ UnpackPtr UnpackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.set(1, TTUInt32(1));
 		err = TTObjectInstantiate(TT("graph.object"), (TTObjectPtr*)&self->graphObject, v);
 		
-		if (!self->graphObject->mUnitGenerator) {
+		if (!self->graphObject->mKernel) {
 			object_error(SELF, "cannot load Jamoma object");
 			return NULL;
 		}
 		
-		err = TTObjectInstantiate(TT("TTCallback"), (TTObjectPtr*)&self->callback, v);
-		#error register our callback function here
-		#error make the graph.output object, and make sure if gives notifications
+		err = TTObjectInstantiate(TT("Callback"), (TTObjectPtr*)&self->callback, kTTValNONE);
+		self->callback->setAttributeValue(TT("Function"), TTPtr(&UnpackGraphCallback));
+		self->callback->setAttributeValue(TT("Baton"), TTPtr(self));	
+		// dynamically add a message to the callback object so that it can handle the 'dictionaryReceived' notification
+		self->callback->registerMessage(TT("dictionaryReceived"), (TTMethod)&TTCallback::notify, kTTMessagePassValue);
+		// tell the graph object that we want to watch it
+		self->graphObject->registerObserverForNotifications(*self->callback);
 		
 		attr_args_process(self, argc, argv);
 	}
@@ -113,4 +119,12 @@ void UnpackAssist(UnpackPtr self, void* b, long msg, long arg, char* dst)
 			strcpy(dst, "dumpout");
 	}
 }
+
+
+// C Callback from any Multicore Source objects we are observing
+void UnpackGraphCallback(UnpackPtr self, TTValue& arg)
+{
+	post("hooray!");
+}
+
 

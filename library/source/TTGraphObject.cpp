@@ -104,8 +104,16 @@ TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 	TTValue			v;
 	TTErr			err = kTTErrMethodNotFound;
 	TTDictionary	newDictionary; // perhaps this should just be kept cached in the object state?
+	TTMessagePtr	message = NULL;
 	
-	if (schema == TT("number")) {
+	// If an object defines a 'dictionary' message then this trumps all the others
+	err = mKernel->findMessage(TT("dictionary"), &message);
+	if (!err && message) {
+		newDictionary = aDictionary;
+		v.set(0, TTPtr(&newDictionary));
+		err = mKernel->sendMessage(TT("dictionary"), v);
+	}
+	else if (schema == TT("number")) {
 		aDictionary.lookup(TT("value"), v);
 		// TODO: maybe try seeing if there is a "number" message first and then prefer that if it exists?
 		err = mKernel->sendMessage(TT("calculate"), v);

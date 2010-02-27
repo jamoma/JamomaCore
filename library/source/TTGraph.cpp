@@ -12,8 +12,8 @@
 #include "TTGraphObject.h"
 #include "TTGraphInlet.h"		// required for windows build
 #include "TTGraphOutlet.h"
-//#include "TTGraphInput.h"
-//#include "TTGraphOutput.h"
+#include "TTGraphInput.h"
+#include "TTGraphOutput.h"
 
 static bool initialized = false;
 
@@ -24,12 +24,11 @@ void TTGraphInit(void)
 {
 	if (!initialized) {
 		initialized = true;
-		//TTDSPInit();
 		TTFoundationInit();
 		
 		TTGraphObject::registerClass();
-		//TTGraphInput::registerClass();
-		//TTGraphOutput::registerClass();
+		TTGraphInput::registerClass();
+		TTGraphOutput::registerClass();
 	}
 }
 
