@@ -13,7 +13,7 @@
 // Data Structure for this object
 struct Op {
    	Object				obj;
-	TTGraphObjectPtr	multicoreObject;
+	TTGraphObjectPtr	graphObject;
 	TTPtr				outlet;
 	SymbolPtr			attrOperator;
 	TTFloat32			attrOperand;
@@ -25,9 +25,6 @@ typedef Op* OpPtr;
 OpPtr	OpNew			(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void   	OpFree			(OpPtr self);
 void   	OpAssist		(OpPtr self, void* b, long msg, long arg, char* dst);
-TTErr  	OpReset			(OpPtr self, long vectorSize);
-TTErr  	OpSetup			(OpPtr self);
-TTErr  	OpConnect		(OpPtr self, TTGraphObjectPtr audioSourceObject, long sourceOutletNumber);
 MaxErr 	OpSetOperator	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr 	OpSetOperand	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
 
@@ -48,11 +45,14 @@ int main(void)
 	
 	c = class_new("jcom.op>", (method)OpNew, (method)OpFree, sizeof(Op), (method)0L, A_GIMME, 0);
 	
-	class_addmethod(c, (method)OpReset,				"multicore.reset",		A_CANT, 0);
-	class_addmethod(c, (method)OpSetup,				"multicore.setup",		A_CANT, 0);
-	class_addmethod(c, (method)OpConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
- 	class_addmethod(c, (method)OpAssist,			"assist",				A_CANT, 0); 
-    class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
+	class_addmethod(c, (method)MaxGraphReset,		"graph.reset",		A_CANT, 0);
+	class_addmethod(c, (method)MaxGraphSetup,		"graph.setup",		A_CANT, 0);
+	class_addmethod(c, (method)MaxGraphConnect,		"graph.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)MaxGraphDrop,		"graph.drop",		A_CANT, 0);
+ 	class_addmethod(c, (method)MaxGraphObject,		"graph.object",		A_CANT, 0);
+
+	class_addmethod(c, (method)OpAssist,			"assist",			A_CANT, 0); 
+    class_addmethod(c, (method)object_obex_dumpout,	"dumpout",			A_CANT, 0);  
 	
 	CLASS_ATTR_SYM(c,		"operator",	0,		Op,	attrOperator);
 	CLASS_ATTR_ACCESSORS(c,	"operator",	NULL,	OpSetOperator);
@@ -83,9 +83,9 @@ OpPtr OpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.setSize(2);
 		v.set(0, TT("operator"));
 		v.set(1, TTUInt32(1));
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
+		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->graphObject, v);
 
-		if (!self->multicoreObject->mUnitGenerator) {
+		if (!self->graphObject->mUnitGenerator) {
 			object_error(SELF, "cannot load Jamoma DSP object");
 			return NULL;
 		}
@@ -99,7 +99,7 @@ OpPtr OpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void OpFree(OpPtr self)
 {
-	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
+	TTObjectRelease((TTObjectPtr*)&self->graphObject);
 }
 
 
@@ -120,38 +120,13 @@ void OpAssist(OpPtr self, void* b, long msg, long arg, char* dst)
 }
 
 
-// METHODS SPECIFIC TO MULTICORE EXTERNALS
-
-TTErr OpReset(OpPtr self, long vectorSize)
-{
-	return self->multicoreObject->reset();
-}
-
-
-TTErr OpSetup(OpPtr self)
-{
-	Atom a[2];
-	
-	atom_setobj(a+0, ObjectPtr(self->multicoreObject));
-	atom_setlong(a+1, 0);
-	outlet_anything(self->outlet, gensym("multicore.connect"), 2, a);
-	return kTTErrNone;
-}
-
-
-TTErr OpConnect(OpPtr self, TTGraphObjectPtr audioSourceObject, long sourceOutletNumber)
-{
-	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
-}
-
-
 // ATTRIBUTE SETTERS
 
 MaxErr OpSetOperator(OpPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrOperator = atom_getsym(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("operator"), TT(self->attrOperator->s_name));
+		self->graphObject->mUnitGenerator->setAttributeValue(TT("operator"), TT(self->attrOperator->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -161,7 +136,7 @@ MaxErr OpSetOperand(OpPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrOperand = atom_getfloat(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("operand"), self->attrOperand);
+		self->graphObject->mUnitGenerator->setAttributeValue(TT("operand"), self->attrOperand);
 	}
 	return MAX_ERR_NONE;
 }

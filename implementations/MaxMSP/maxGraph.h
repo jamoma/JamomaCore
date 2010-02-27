@@ -112,6 +112,7 @@ int AtomGetInt(AtomPtr a);
 
 TTErr MaxGraphReset(ObjectPtr self);
 TTErr MaxGraphSetup(ObjectPtr self);
+TTErr MaxGraphConnect(ObjectPtr self, TTGraphObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber);
 TTErr MaxGraphDrop(ObjectPtr x, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber);
 TTErr MaxGraphObject(ObjectPtr x, TTGraphObjectPtr* returnedGraphObject);
 

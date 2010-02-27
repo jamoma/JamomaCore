@@ -121,9 +121,11 @@ TTErr MaxGraphSetup(ObjectPtr x)
 }
 
 
-TTErr MaxGraphConnect(WrappedInstancePtr self, TTGraphObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
+TTErr MaxGraphConnect(ObjectPtr x, TTGraphObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
 {
-	long inletNumber = proxy_getinlet(SELF);
+	WrappedInstancePtr	self = WrappedInstancePtr(x);
+	long				inletNumber = proxy_getinlet(SELF);
+	
 	return self->graphObject->connect(audioSourceObject, sourceOutletNumber, inletNumber);
 }
 
