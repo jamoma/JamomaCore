@@ -66,4 +66,17 @@ void TTGraphDestination::connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletN
 	
 	// tell the source that is passed in that we want to watch it
 	mDestinationObject->registerObserverForNotifications(*mCallbackHandler);
-}	
+}
+
+
+/*************************************************************/
+
+
+TTErr TTGraphDestination::push(const TTDictionary& aDictionary)
+{
+	// TODO: We need to append the inlet number into the dictionary before sending it
+	return mDestinationObject->push(aDictionary);
+}
+
+
+

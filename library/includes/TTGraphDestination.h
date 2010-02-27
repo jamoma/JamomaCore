@@ -105,6 +105,9 @@ public:
 	
 	void connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber);
 			
+	
+	TTErr push(const TTDictionary& aDictionary);
+	
 };
 
 typedef TTGraphDestination*					TTGraphDestinationPtr;

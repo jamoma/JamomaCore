@@ -97,3 +97,30 @@ TTErr TTGraphObject::drop(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber, 
 	return err;
 }
 
+
+TTErr TTGraphObject::push(const TTDictionary& aDictionary)
+{
+	TTSymbolPtr		schema = aDictionary.getSchema();
+	TTValue			v;
+	TTErr			err = kTTErrMethodNotFound;
+	TTDictionary	newDictionary; // perhaps this should just be kept cached in the object state?
+	
+	if (schema == TT("number")) {
+		aDictionary.lookup(TT("value"), v);
+		// TODO: maybe try seeing if there is a "number" message first and then prefer that if it exists?
+		err = mKernel->sendMessage(TT("calculate"), v);
+		
+		newDictionary.setSchema(TT("number"));
+		newDictionary.append(TT("value"), v);
+		// NOTE: doesn't have inlet/outlet info at this point
+	}
+	else {
+		// not sure what to do with other dictionary schemas yet...
+	}
+	
+	for (TTGraphOutletIter outlet = mOutlets.begin(); outlet != mOutlets.end(); outlet++)
+		outlet->push(newDictionary);
+
+	return err;
+}
+

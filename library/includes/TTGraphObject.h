@@ -32,7 +32,7 @@ protected:
 	TTGraphInletVector		mInlets;		///< The inlets through which we pull audio from sources
 	TTGraphOutletVector		mOutlets;		///< The inlets through which we pull audio from sources
 public:	
-	TTAudioObjectPtr		mKernel;		///< The actual Jamoma DSP object doing the processing.
+	TTObjectPtr				mKernel;		///< The actual TT object doing the processing.
 	
 	
 	//void addFlag(TTGraphFlags flag)
@@ -41,12 +41,7 @@ public:
 	//}
 		
 	
-	TTErr push(const TTDictionary& aDictionary)
-	{
-		; // TODO: implement!
-		return kTTErrNone;
-	}
-	
+	TTErr push(const TTDictionary& aDictionary);
 	
 	void getDescription(TTGraphDescription& desc);
 	

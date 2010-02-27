@@ -81,6 +81,14 @@ public:
 		return kTTErrNone;
 	}
 	
+	
+	TTErr push(const TTDictionary& aDictionary)
+	{
+		for (TTGraphDestinationIter destination = mDestinationObjects.begin(); destination != mDestinationObjects.end(); destination++)
+			destination->push(aDictionary);
+		return kTTErrNone;
+	}
+	
 };
 
 
