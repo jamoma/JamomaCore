@@ -37,6 +37,10 @@ public:
 	TTErr setSchema(const TTSymbolPtr schemaName);
 	TTSymbolPtr getSchema() const;
 	
+	TTErr setValue(const TTValue& newValue);
+	TTErr getValue(TTValue& returnedValue) const;
+	
+	
 	/** Insert an item into the hash table. */
 	TTErr append(const TTSymbolPtr key, const TTValue& value);
 	

@@ -47,6 +47,21 @@ TTSymbolPtr TTDictionary::getSchema() const
 }
 
 
+TTErr TTDictionary::setValue(const TTValue& newValue)
+{
+	mHashTable->remove(TT("value"));
+	return append(TT("value"), newValue);
+}
+
+TTErr TTDictionary::getValue(TTValue& returnedValue) const
+{
+	return lookup(TT("value"), returnedValue);
+}
+
+
+
+
+
 TTErr TTDictionary::append(const TTSymbolPtr key, const TTValue& value)
 {
 	return mHashTable->append(key, value);
