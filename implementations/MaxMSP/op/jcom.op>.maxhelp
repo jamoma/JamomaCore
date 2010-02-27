@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 369.0, 204.0, 640.0, 506.0 ],
+		"rect" : [ 369.0, 204.0, 463.0, 328.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 369.0, 204.0, 640.0, 506.0 ],
+		"defrect" : [ 369.0, 204.0, 463.0, 328.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -27,8 +27,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 55.0, 145.0, 50.0, 19.0 ],
-					"presentation_rect" : [ 253.0, 174.0, 0.0, 0.0 ]
+					"patching_rect" : [ 60.0, 85.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -41,7 +40,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 55.0, 330.0, 50.0, 19.0 ]
+					"patching_rect" : [ 60.0, 270.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -67,7 +66,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 85.0, 225.0, 65.0, 17.0 ],
+					"patching_rect" : [ 90.0, 165.0, 65.0, 17.0 ],
 					"text" : "operator +"
 				}
 
@@ -79,9 +78,9 @@
 					"id" : "obj-3",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 55.0, 300.0, 83.0, 19.0 ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 60.0, 240.0, 83.0, 19.0 ],
 					"text" : "jcom.unpack>"
 				}
 
@@ -93,9 +92,9 @@
 					"id" : "obj-2",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 55.0, 255.0, 192.0, 19.0 ],
+					"numoutlets" : 2,
+					"outlettype" : [ "graph.connect", "" ],
+					"patching_rect" : [ 60.0, 195.0, 192.0, 19.0 ],
 					"text" : "jcom.op> @operator + @operand 5"
 				}
 
@@ -106,10 +105,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-1",
 					"maxclass" : "newobj",
-					"numinlets" : 4,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 55.0, 175.0, 70.0, 19.0 ],
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "graph.connect", "" ],
+					"patching_rect" : [ 60.0, 115.0, 70.0, 19.0 ],
 					"text" : "jcom.pack>"
 				}
 
@@ -123,7 +122,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 153.0, 225.0, 61.0, 17.0 ],
+					"patching_rect" : [ 158.0, 165.0, 61.0, 17.0 ],
 					"text" : "operator /"
 				}
 

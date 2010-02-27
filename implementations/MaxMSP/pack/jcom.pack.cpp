@@ -15,8 +15,8 @@
 struct Pack {
    	Object				obj;
 	TTGraphObjectPtr	graphObject;		// this _must_ be second
+	TTPtr				graphOutlets[16];	// this _must_ be third (for the setup call)
 	TTDictionaryPtr		graphDictionary;
-	TTPtr				outlet;
 	ObjectPtr			patcher;
 	ObjectPtr			patcherview;
 	TTPtr				qelem;				// for clumping dirty events together
@@ -86,7 +86,7 @@ PackPtr PackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     self = PackPtr(object_alloc(sPackClass));
     if (self) {
     	object_obex_store((void*)self, _sym_dumpout, (ObjectPtr)outlet_new(self, NULL));
-		self->outlet = outlet_new(self, "graph.connect");
+		self->graphOutlets[0] = outlet_new(self, "graph.connect");
 		
 		v.setSize(2);
 		v.set(0, TT("graph.input"));
@@ -100,13 +100,14 @@ PackPtr PackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		}
 		
 		self->graphDictionary = new TTDictionary;
-		self->graphDictionary->setSchema(TT("graph.none"));
+		self->graphDictionary->setSchema(TT("none"));
 		self->graphDictionary->append(TT("outlet"), 0);
 		
 		attr_args_process(self, argc, argv);
 		
 		self->qelem = qelem_new(self, (method)PackQFn);
-		PackStartTracking(self);
+//		PackStartTracking(self);
+		defer_low(self, (method)PackStartTracking, NULL, 0, NULL);
 	}
 	return self;
 }

@@ -31,6 +31,8 @@ protected:
 	//TTUInt32				mFlags;			///< A bitmask of values defined in #TTGraphFlags
 	TTGraphInletVector		mInlets;		///< The inlets through which we pull audio from sources
 	TTGraphOutletVector		mOutlets;		///< The inlets through which we pull audio from sources
+	TTDictionaryPtr			mDictionary;	/// our copy of the data, from which we pass out references to the outlets 
+
 public:	
 	TTObjectPtr				mKernel;		///< The actual TT object doing the processing.
 	

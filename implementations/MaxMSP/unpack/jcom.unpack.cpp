@@ -15,7 +15,7 @@
 struct Unpack {
    	Object				obj;
 	TTGraphObjectPtr	graphObject;
-	TTPtr				outlet;
+	TTPtr				graphOutlets[16];	// this _must_ be third (for the setup call)
 	TTObjectPtr			callback;		// TTCallback object that attaches to the graphObject to be notified when there is new data to output.
 };
 typedef Unpack* UnpackPtr;
@@ -42,7 +42,7 @@ int main(void)
 	TTGraphInit();	
 	common_symbols_init();
 	
-	c = class_new("jcom.op>", (method)UnpackNew, (method)UnpackFree, sizeof(Unpack), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.unpack>", (method)UnpackNew, (method)UnpackFree, sizeof(Unpack), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)MaxGraphReset,		"graph.reset",		A_CANT, 0);
 	class_addmethod(c, (method)MaxGraphSetup,		"graph.setup",		A_CANT, 0);
@@ -71,7 +71,7 @@ UnpackPtr UnpackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     self = UnpackPtr(object_alloc(sUnpackClass));
     if (self) {
     	object_obex_store((void*)self, _sym_dumpout, (ObjectPtr)outlet_new(self, NULL));	// dumpout	
-		self->outlet = outlet_new(self, "graph.connect");
+		self->graphOutlets[0] = outlet_new(self, NULL);
 		
 		v.setSize(2);
 		v.set(0, TT("graph.output"));
@@ -89,7 +89,7 @@ UnpackPtr UnpackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		// dynamically add a message to the callback object so that it can handle the 'dictionaryReceived' notification
 		self->callback->registerMessage(TT("dictionaryReceived"), (TTMethod)&TTCallback::notify, kTTMessagePassValue);
 		// tell the graph object that we want to watch it
-		self->graphObject->registerObserverForNotifications(*self->callback);
+		self->graphObject->mKernel->registerObserverForNotifications(*self->callback);
 		
 		attr_args_process(self, argc, argv);
 	}
@@ -124,7 +124,59 @@ void UnpackAssist(UnpackPtr self, void* b, long msg, long arg, char* dst)
 // C Callback from any Multicore Source objects we are observing
 void UnpackGraphCallback(UnpackPtr self, TTValue& arg)
 {
-	post("hooray!");
+	TTDictionaryPtr aDictionary = NULL;
+	TTValue			v;
+	AtomCount		ac;
+	AtomPtr			ap;
+	TTBoolean		firstItemASymbol = NO;
+	TTSymbolPtr		firstItem = NULL;
+	
+	arg.get(0, (TTPtr*)(&aDictionary));
+	aDictionary->lookup(TT("value"), v);
+	ac = v.getSize();
+	if (ac) {
+		ap = new Atom[ac];
+		for (int i=0; i<ac; i++) {
+			if (v.getType() == kTypeInt8   ||
+				v.getType() == kTypeUInt8  ||
+				v.getType() == kTypeInt16  ||
+				v.getType() == kTypeUInt16 ||
+				v.getType() == kTypeInt32  ||
+				v.getType() == kTypeUInt32 ||
+				v.getType() == kTypeInt64  ||
+				v.getType() == kTypeUInt64)
+			{
+				TTInt32 ival;
+				
+				v.get(i, ival);
+				atom_setlong(ap+i, ival);
+			}
+			else if (v.getType() == kTypeFloat32 || v.getType() == kTypeFloat64)
+			{
+				atom_setfloat(ap+i, v.getFloat64(i));
+			}
+			else if (v.getType() == kTypeSymbol)
+			{
+				TTSymbolPtr s;
+				
+				v.get(i, &s);
+				atom_setsym(ap+i, gensym((char*)s->getCString()));
+				if (i==0) {
+					firstItemASymbol = YES;
+					firstItem = s;
+				}
+			}
+		}
+		
+		if (firstItemASymbol)
+			outlet_anything(self->graphOutlets[0], gensym((char*)firstItem->getCString()), ac-1, ap+1);
+		else if (ac == 1)
+			outlet_float(self->graphOutlets[0], atom_getfloat(ap));
+		else
+			outlet_anything(self->graphOutlets[0], _sym_list, ac, ap);
+
+		delete ap;
+	}
 }
 
 

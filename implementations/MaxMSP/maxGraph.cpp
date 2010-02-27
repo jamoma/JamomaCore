@@ -15,10 +15,10 @@
 // Data Structure for this object
 typedef struct _wrappedInstance {
     t_object				obj;						///< Max audio object header
-	WrappedClassPtr			wrappedClassDefinition;		///< A pointer to the class definition
-	TTGraphObjectPtr		graphObject;				///< The instance of the TTBlue object we are wrapping
+	TTGraphObjectPtr		graphObject;				///< ** must be second **
 	TTPtr					graphOutlets[16];			///< Array of outlets, may eventually want this to be more dynamic
 	TTPtr					inlets[16];					///< Array of proxy inlets beyond the first inlet
+	WrappedClassPtr			wrappedClassDefinition;		///< A pointer to the class definition
 } WrappedInstance;
 
 typedef WrappedInstance* WrappedInstancePtr;		///< Pointer to a wrapped instance of our object.

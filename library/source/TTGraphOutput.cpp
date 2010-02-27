@@ -27,12 +27,9 @@ TTGraphOutput::~TTGraphOutput()
 }
 
 
-TTErr TTGraphOutput::dictionary(const TTValue& aDictionary)
+TTErr TTGraphOutput::dictionary(const TTValue& aDictionaryValue)
 {
-	TTValue v;
-	
-	v.set(0, TTPtr(aDictionary));
-	this->sendNotification(TT("dictionaryReceived"), v);
+	this->sendNotification(TT("dictionaryReceived"), aDictionaryValue);
 	return kTTErrNone;
 }
 

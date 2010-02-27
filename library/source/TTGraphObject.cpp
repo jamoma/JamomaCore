@@ -40,6 +40,7 @@ TT_OBJECT_CONSTRUCTOR,
 		arguments.get(2, numOutlets);
 	
 	err = TTObjectInstantiate(wrappedObjectName, &mKernel, initialNumChannels);
+	mDictionary = new TTDictionary;
 	
 	mInlets.resize(numInlets);
 	mOutlets.resize(numOutlets);
@@ -49,6 +50,7 @@ TT_OBJECT_CONSTRUCTOR,
 TTGraphObject::~TTGraphObject()
 {
 	TTObjectRelease(&mKernel);
+	delete mDictionary;
 }
 
 
@@ -64,6 +66,7 @@ void TTGraphObject::getDescription(TTGraphDescription& desc)
 TTErr TTGraphObject::reset()
 {
 	for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTGraphInlet::reset));		
+	for_each(mOutlets.begin(), mOutlets.end(), mem_fun_ref(&TTGraphOutlet::reset));		
 	return kTTErrNone;
 }
 
@@ -103,14 +106,13 @@ TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 	TTSymbolPtr		schema = aDictionary.getSchema();
 	TTValue			v;
 	TTErr			err = kTTErrMethodNotFound;
-	TTDictionary	newDictionary; // perhaps this should just be kept cached in the object state?
 	TTMessagePtr	message = NULL;
 	
 	// If an object defines a 'dictionary' message then this trumps all the others
 	err = mKernel->findMessage(TT("dictionary"), &message);
 	if (!err && message) {
-		newDictionary = aDictionary;
-		v.set(0, TTPtr(&newDictionary));
+		(*mDictionary) = aDictionary;
+		v.set(0, TTPtr(mDictionary));
 		err = mKernel->sendMessage(TT("dictionary"), v);
 	}
 	else if (schema == TT("number")) {
@@ -118,8 +120,8 @@ TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 		// TODO: maybe try seeing if there is a "number" message first and then prefer that if it exists?
 		err = mKernel->sendMessage(TT("calculate"), v);
 		
-		newDictionary.setSchema(TT("number"));
-		newDictionary.append(TT("value"), v);
+		mDictionary->setSchema(TT("number"));
+		mDictionary->append(TT("value"), v);
 		// NOTE: doesn't have inlet/outlet info at this point
 	}
 	else {
@@ -127,7 +129,7 @@ TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 	}
 	
 	for (TTGraphOutletIter outlet = mOutlets.begin(); outlet != mOutlets.end(); outlet++)
-		outlet->push(newDictionary);
+		outlet->push(*mDictionary);
 
 	return err;
 }

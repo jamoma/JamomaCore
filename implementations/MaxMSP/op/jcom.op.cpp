@@ -14,7 +14,7 @@
 struct Op {
    	Object				obj;
 	TTGraphObjectPtr	graphObject;
-	TTPtr				outlet;
+	TTPtr				graphOutlets[16];	// this _must_ be third (for the setup call)
 	SymbolPtr			attrOperator;
 	TTFloat32			attrOperand;
 };
@@ -78,7 +78,7 @@ OpPtr OpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     self = OpPtr(object_alloc(sOpClass));
     if (self) {
     	object_obex_store((void*)self, _sym_dumpout, (ObjectPtr)outlet_new(self, NULL));	// dumpout	
-		self->outlet = outlet_new(self, "graph.connect");
+		self->graphOutlets[0] = outlet_new(self, "graph.connect");
 		
 		v.setSize(2);
 		v.set(0, TT("operator"));
