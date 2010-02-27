@@ -105,6 +105,7 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.set(0, TT("gain"));
 		v.set(1, 1); // arg is the number of inlets
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
+		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("LinearGain"), 1.0);
 		
 		attr_args_process(self, argc, argv);
 		
