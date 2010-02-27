@@ -119,6 +119,7 @@ public:
 	 */
 	TTErr calculate(const TTFloat64& x, TTFloat64& y);
 	TTErr calculate(const TTValue& x, TTValue& y);
+	TTErr calculateMessage(TTValue& v);
 
 	
 	/**	A process method that may be used by subclasses to wrap a calculate method in a semi-standard way.

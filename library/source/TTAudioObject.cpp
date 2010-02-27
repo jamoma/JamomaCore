@@ -31,6 +31,8 @@ TTAudioObject::TTAudioObject(TTValue& arguments) :
 	registerAttribute(TT("mute"),			kTypeBoolean,	&attrMute,			(TTSetterMethod)&TTAudioObject::setMute);
 	registerAttribute(TT("processInPlace"), kTypeBoolean,	&attrProcessInPlace);
 
+	registerMessage(TT("calculate"), (TTMethod)&TTAudioObject::calculateMessage);
+	
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&inputArray, 2);
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&outputArray, 2);
 
@@ -188,6 +190,18 @@ TTErr TTAudioObject::setMute(const TTValue& value)
 		currentProcessMethod = processMethod;
 	}
 	return kTTErrNone;
+}
+
+
+TTErr TTAudioObject::calculateMessage(TTValue& v)
+{
+	TTFloat64	x = v;
+	TTFloat64	y;
+	TTErr		err;
+	
+	err = calculate(x, y);
+	v = y;
+	return err;
 }
 
 
