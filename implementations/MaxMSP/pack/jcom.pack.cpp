@@ -88,7 +88,7 @@ PackPtr PackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		self->outlet = outlet_new(self, "graph.connect");
 		
 		v.setSize(2);
-		v.set(0, TT("operator"));
+		v.set(0, TT("graph.input"));
 		v.set(1, TTUInt32(1));
 		err = TTObjectInstantiate(TT("graph.object"), (TTObjectPtr*)&self->graphObject, v);
 
