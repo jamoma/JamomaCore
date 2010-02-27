@@ -20,7 +20,7 @@ TT_AUDIO_CONSTRUCTOR
 	registerAttribute(TT("MidiGain"),	kTypeFloat64,	NULL,	(TTGetterMethod)&TTGain::getMidiGain, (TTSetterMethod)&TTGain::setMidiGain);
 
 	// Set Defaults...
-	setAttributeValue(TT("LinearGain"),	1.0);
+	setAttributeValue(TT("LinearGain"),	0.0);
 	setProcessMethod(processAudio);
 }
 
