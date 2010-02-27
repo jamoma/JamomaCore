@@ -27,7 +27,7 @@ public:
 	virtual ~TTDictionary();
 	
 	TTErr setSchema(const TTSymbolPtr schemaName);
-	
+	TTSymbolPtr getSchema();
 	
 	/** Insert an item into the hash table. */
 	TTErr append(const TTSymbolPtr key, const TTValue& value);

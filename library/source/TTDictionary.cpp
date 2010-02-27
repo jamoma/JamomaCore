@@ -36,6 +36,16 @@ TTErr TTDictionary::setSchema(const TTSymbolPtr schemaName)
 }
 
 
+TTSymbolPtr TTDictionary::getSchema()
+{
+	TTValue v;
+	TTErr	err;
+	
+	err = lookup(TT("schema"), v);
+	return v;
+}
+
+
 TTErr TTDictionary::append(const TTSymbolPtr key, const TTValue& value)
 {
 	return mHashTable->append(key, value);
