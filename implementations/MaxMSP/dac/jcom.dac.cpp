@@ -33,7 +33,7 @@ TTErr	DacReset(DacPtr self);
 void	DacIterateResetCallback(DacPtr self, ObjectPtr obj);
 void	DacIterateSetupCallback(DacPtr self, ObjectPtr obj);
 TTErr	DacConnect(DacPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
-TTErr	DacInt(DacPtr self);
+TTErr	DacInt(DacPtr self, long value);
 TTErr	DacStart(DacPtr self);
 TTErr	DacStop(DacPtr self);
 TTErr	DacGetCpuLoad(DacPtr self);
