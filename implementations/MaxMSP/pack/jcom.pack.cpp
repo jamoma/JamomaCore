@@ -65,6 +65,7 @@ int main(void)
 	class_addmethod(c, (method)MaxGraphDrop,		"graph.drop",		A_CANT, 0);
 	class_addmethod(c, (method)MaxGraphObject,		"graph.object",		A_CANT, 0);
 
+ 	class_addmethod(c, (method)PackNotify,			"notify",			A_CANT, 0); 
  	class_addmethod(c, (method)PackAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",			A_CANT, 0);  
 		
@@ -106,7 +107,8 @@ PackPtr PackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		attr_args_process(self, argc, argv);
 		
 		self->qelem = qelem_new(self, (method)PackQFn);
-//		PackStartTracking(self);
+
+		// PackStartTracking(self);
 		defer_low(self, (method)PackStartTracking, NULL, 0, NULL);
 	}
 	return self;
@@ -217,9 +219,9 @@ void PackQFn(PackPtr self)
 {
 	t_atom result;
 	
-#ifdef DEBUG_NOTIFICATIONS
+	#ifdef DEBUG_NOTIFICATIONS
 	object_post(SELF, "patcher dirtied");
-#endif // DEBUG_NOTIFICATIONS
+	#endif // DEBUG_NOTIFICATIONS
 	
 	object_method(self->patcher, gensym("iterate"), (method)PackIterateSetupCallback, self, PI_DEEP, &result);
 	
