@@ -16,7 +16,7 @@ osc = TTAudio.new "wavetable"
 puts "connect objects into a graph"
 puts
 
-dac.connect osc
+dac.connect_audio osc
 
 
 puts "exporting Max patcher with this graph to /ruby-export-to-max.maxpat"

@@ -103,9 +103,9 @@ void Init_TTRuby()
 	rb_define_method(c, "attributes?",		TTRubyMethod(TTAudioGetAttributes), 0);
 	rb_define_method(c, "set",				TTRubyMethod(TTAudioSetAttribute),	2);		// set attribute value
 	rb_define_method(c, "get",				TTRubyMethod(TTAudioGetAttribute),	1);		// get attribute value
-	rb_define_method(c, "reset",			TTRubyMethod(TTAudioReset),			0);		// reset multicore connections
-	rb_define_method(c, "connect",			TTRubyMethod(TTAudioConnect),		-1);	// connect an output of another object to our input
-	rb_define_method(c, "drop",				TTRubyMethod(TTAudioDrop),			-1);	// disconnect an output of another object from our input
+	rb_define_method(c, "reset_audio",		TTRubyMethod(TTAudioReset),			0);		// reset multicore connections
+	rb_define_method(c, "connect_audio",	TTRubyMethod(TTAudioConnect),		-1);	// connect an output of another object to our input
+	rb_define_method(c, "drop_audio",		TTRubyMethod(TTAudioDrop),			-1);	// disconnect an output of another object from our input
 	rb_define_method(c, "export_max",		TTRubyMethod(TTAudioExportMax),		1);		// reset multicore connections
 	rb_define_method(c, "export_cpp",		TTRubyMethod(TTAudioExportCpp),		1);		// reset multicore connections
 	
@@ -465,8 +465,10 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 		gTTAudioInstances->append(TTSymbolPtr(self), *v);
 		return self;
 	}
-	else
+	else {
+		cout << "TTObjectInstantiate failed to create object" << endl;
 		return NULL;
+	}
 }
 
 
@@ -484,7 +486,7 @@ VALUE TTAudioGetMessages(VALUE self)
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {			
-			instance->obj->mUnitGenerator->getMessageNames(v);			
+			instance->obj->getUnitGenerator()->getMessageNames(v);			
 			size = v.getSize();
 			returnValue = rb_ary_new2(size);
 			for (TTUInt16 i=0; i<size; i++) {				
@@ -517,7 +519,7 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 		v.get(0, (TTPtr*)&instance);
 		if (instance) {
 			if (argc == 1) {		// no arguments...
-				err = instance->obj->mUnitGenerator->sendMessage(TT(RSTRING(messageNameStr)->ptr));
+				err = instance->obj->getUnitGenerator()->sendMessage(TT(RSTRING(messageNameStr)->ptr));
 			}
 			else {					// we have arguments...
 				v.clear();
@@ -555,7 +557,7 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 				}				
 
 				if (!err)
-					err = instance->obj->mUnitGenerator->sendMessage(TT(RSTRING(messageNameStr)->ptr), v);				
+					err = instance->obj->getUnitGenerator()->sendMessage(TT(RSTRING(messageNameStr)->ptr), v);				
 			}
 
 			if (err)
@@ -581,7 +583,7 @@ VALUE TTAudioGetAttributes(VALUE self)
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {			
-			instance->obj->mUnitGenerator->getAttributeNames(v);			
+			instance->obj->getUnitGenerator()->getAttributeNames(v);			
 			size = v.getSize();
 			returnValue = rb_ary_new2(size);
 			for (TTUInt16 i=0; i<size; i++) {				
@@ -639,7 +641,7 @@ VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 					break;
 			}
 			if (!err)
-				err = instance->obj->mUnitGenerator->setAttributeValue(TT(RSTRING(attributeNameStr)->ptr), v);
+				err = instance->obj->getUnitGenerator()->setAttributeValue(TT(RSTRING(attributeNameStr)->ptr), v);
 			if (err)
 				cout << "TTAudioSetAttribute: Error " << err << endl;
 		}
@@ -662,7 +664,7 @@ VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName)
 	if (!err) {
 		v.get(0, (TTPtr*)&instance);
 		if (instance) {
-			err = instance->obj->mUnitGenerator->getAttributeValue(TT(RSTRING(attributeNameStr)->ptr), v);
+			err = instance->obj->getUnitGenerator()->getAttributeValue(TT(RSTRING(attributeNameStr)->ptr), v);
 			if (err) {
 				cout << "TTAudioGetAttribute: Error " << err << endl;
 				goto out;
@@ -713,7 +715,7 @@ VALUE TTAudioReset(VALUE self)
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {			
-			instance->obj->reset();			
+			instance->obj->resetAudio();			
 		}
 	}
 	return self;
@@ -756,7 +758,7 @@ VALUE TTAudioConnect(int argc, VALUE* argv, VALUE self)
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {			
-			instance->obj->connect(instanceToConnect->obj, outletNumberFromWhichToConnect, inletNumberToWhichToConnect);			
+			instance->obj->connectAudio(instanceToConnect->obj, outletNumberFromWhichToConnect, inletNumberToWhichToConnect);			
 		}
 	}
 bye:
@@ -800,7 +802,7 @@ VALUE TTAudioDrop(int argc, VALUE* argv, VALUE self)
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {
-			instance->obj->drop(instanceToConnect->obj, outletNumberFromWhichToConnect, inletNumberToWhichToConnect);			
+			instance->obj->dropAudio(instanceToConnect->obj, outletNumberFromWhichToConnect, inletNumberToWhichToConnect);			
 		}
 	}
 bye:
@@ -821,7 +823,7 @@ VALUE TTAudioExportMax(VALUE self, VALUE pathToExportFile)
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {
-			instance->obj->getDescription(desc);
+			instance->obj->getAudioDescription(desc);
 			desc.exportMax(path);
 		}
 	}
@@ -841,7 +843,7 @@ VALUE TTAudioExportCpp(VALUE self, VALUE pathToExportFile)
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {
-			instance->obj->getDescription(desc);
+			instance->obj->getAudioDescription(desc);
 			desc.exportCpp(path);
 		}
 	}
