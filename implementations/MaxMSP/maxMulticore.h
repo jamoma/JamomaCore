@@ -8,8 +8,8 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __MAXBAER_H__
-#define __MAXBAER_H__
+#ifndef __TT_MAX_MULTICORE_H__
+#define __TT_MAX_MULTICORE_H__
 
 #include "ext.h"					// Max Header
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
@@ -114,5 +114,5 @@ TTErr MaxMulticoreDrop(ObjectPtr self, long inletNumber, ObjectPtr sourceMaxObje
 TTErr MaxMulticoreObject(ObjectPtr self, TTMulticoreObjectPtr* returnedMulticoreObject);
 
 
-#endif // __MAXBAER_H__
+#endif // __TT_MAX_MULTICORE_H__
 
