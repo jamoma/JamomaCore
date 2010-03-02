@@ -1307,7 +1307,7 @@ void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 		object_method_typed(x, osc, argc, argv, NULL);		// call the method on this hub object
 		x->using_wildcard = false;
 	}
-	else if(x->osc_name && !strcmp(mess, x->osc_name->s_name)){		// check if we are the correct module...
+	else if(x->osc_name && x->osc_name->s_name[0] && !strcmp(mess, x->osc_name->s_name)){		// check if we are the correct module...
 		split++;
 		osc = gensym(split);
 		object_method_typed(x, osc, argc, argv, NULL);		// call the method on this hub object
