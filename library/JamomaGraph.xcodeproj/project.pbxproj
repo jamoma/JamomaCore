@@ -279,6 +279,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../Foundation/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/build/UninstalledProducts\"",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -312,6 +313,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../Foundation/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/build/UninstalledProducts\"",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
