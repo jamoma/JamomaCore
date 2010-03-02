@@ -29,7 +29,8 @@ typedef std::vector<TTString>	TTStringVector;
 class TTMULTICORE_EXPORT TTMulticoreDescription {
 public:
 	TTSymbolPtr						mClassName;
-	TTMulticoreDescriptionVector	mInputDescriptions;
+	TTMulticoreDescriptionVector	mAudioDescriptions;
+	TTGraphDescriptionVector		mControlDescriptions;
 	
 	void exportRuby(const TTString& fullpathToFile);
 	int exportRubyNode(TTString& rubyContent, int& index, TTStringVector& nodeNames);
@@ -39,8 +40,6 @@ public:
 	
 	void exportMax(const TTString& fullpathToFile);
 	int exportMaxNode(TTString& content, int& index, TTStringVector& nodeNames);
-	
-	
 };
 
 

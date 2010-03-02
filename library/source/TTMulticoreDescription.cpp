@@ -42,7 +42,7 @@ int TTMulticoreDescription::exportRubyNode(TTString& rubyContent, int& index, TT
 	rubyContent += mClassName->getString();
 	rubyContent += "\"\n";
 
-	for (TTMulticoreDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
+	for (TTMulticoreDescriptionIter input = mAudioDescriptions.begin(); input != mAudioDescriptions.end(); input++) {
 		int inputIndex;
 		
 		inputIndex = input->exportRubyNode(rubyContent, index, nodeNames);
@@ -94,7 +94,7 @@ int TTMulticoreDescription::exportCppNode(TTString& content, int& index, TTStrin
 	content += mClassName->getString();
 	content += "\")))\n\n";
 	
-	for (TTMulticoreDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
+	for (TTMulticoreDescriptionIter input = mAudioDescriptions.begin(); input != mAudioDescriptions.end(); input++) {
 		int inputIndex;
 		
 		inputIndex = input->exportCppNode(content, index, nodeNames);
@@ -165,7 +165,7 @@ int TTMulticoreDescription::exportMaxNode(TTString& content, int& index, TTStrin
 	content += "				}\n";
 	content += "			}\n";
 		
-	for (TTMulticoreDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
+	for (TTMulticoreDescriptionIter input = mAudioDescriptions.begin(); input != mAudioDescriptions.end(); input++) {
 		int inputIndex;
 		
 		inputIndex = input->exportMaxNode(content, index, nodeNames);

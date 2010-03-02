@@ -12,8 +12,6 @@
 #include "TTMulticoreOutlet.h"
 
 #define thisTTClass			TTMulticoreObject
-#define thisTTClassName		"multicore.object"
-#define thisTTClassTags		"audio, multicore, wrapper"
 
 TTMutexPtr TTMulticoreObject::sSharedMutex = NULL;
 
@@ -24,14 +22,14 @@ TTMutexPtr TTMulticoreObject::sSharedMutex = NULL;
 //	3. (optional) Number of outlets, default = 1
 
 
-TTObjectPtr TTMulticoreObject :: instantiate (TTSymbolPtr name, TTValue& arguments) 
+TTObjectPtr TTMulticoreObject::instantiate (TTSymbolPtr name, TTValue& arguments) 
 {
-	return new TTMulticoreObject (arguments);
+	return new TTMulticoreObject(arguments);
 }
 
-extern "C" void TTMulticoreObject :: registerClass () 
+extern "C" void TTMulticoreObject::registerClass() 
 {
-	TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );
+	TTClassRegister(TT("multicore.object"), "audio, multicore, wrapper", TTMulticoreObject::instantiate );
 }
 
 
@@ -88,9 +86,9 @@ TTMulticoreObject::~TTMulticoreObject()
 void TTMulticoreObject::getAudioDescription(TTMulticoreDescription& desc)
 {
 	desc.mClassName = mKernel->getName();
-	desc.mInputDescriptions.clear();
+	desc.mAudioDescriptions.clear();
 	for (TTMulticoreInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++)
-		inlet->getDescriptions(desc.mInputDescriptions);
+		inlet->getDescriptions(desc.mAudioDescriptions);
 }
 
 
