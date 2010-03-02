@@ -8,6 +8,7 @@
  */
 
 #include "maxMulticore.h"
+#include "maxGraph.h"
 
 
 // Data Structure for this object
@@ -25,9 +26,10 @@ typedef Op* OpPtr;
 OpPtr	OpNew			(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void   	OpFree			(OpPtr self);
 void   	OpAssist		(OpPtr self, void* b, long msg, long arg, char* dst);
-TTErr  	OpReset			(OpPtr self, long vectorSize);
-TTErr  	OpSetup			(OpPtr self);
-TTErr  	OpConnect		(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr  	OpResetAudio	(OpPtr self, long vectorSize);
+TTErr  	OpSetupAudio	(OpPtr self);
+//TTErr	OpSetup			(OpPtr self);
+TTErr  	OpConnectAudio	(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
 MaxErr 	OpSetOperator	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr 	OpSetOperand	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
 
@@ -48,12 +50,17 @@ int main(void)
 	
 	c = class_new("jcom.op≈", (method)OpNew, (method)OpFree, sizeof(Op), (method)0L, A_GIMME, 0);
 	
-	class_addmethod(c, (method)OpReset,				"multicore.reset",		A_CANT, 0);
-	class_addmethod(c, (method)OpSetup,				"multicore.setup",		A_CANT, 0);
-	class_addmethod(c, (method)OpConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)OpResetAudio,		"multicore.reset",		A_CANT, 0);
+	class_addmethod(c, (method)OpSetupAudio,		"multicore.setup",		A_CANT, 0);
+	class_addmethod(c, (method)OpConnectAudio,		"multicore.connect",	A_OBJ, A_LONG, 0);
 	class_addmethod(c, (method)MaxMulticoreDrop,	"multicore.drop",		A_CANT, 0);
 	class_addmethod(c, (method)MaxMulticoreObject,	"multicore.object",		A_CANT, 0);
- 	class_addmethod(c, (method)OpAssist,			"assist",				A_CANT, 0); 
+	class_addmethod(c, (method)MaxGraphReset,		"graph.reset",			A_CANT, 0);
+	//class_addmethod(c, (method)OpSetup,			"graph.setup",			A_CANT, 0); // no setup -- no graph outlets
+	class_addmethod(c, (method)MaxGraphConnect,		"graph.connect",		A_OBJ, A_LONG, 0);
+ 	class_addmethod(c, (method)MaxMulticoreDrop,	"graph.drop",			A_CANT, 0);
+	class_addmethod(c, (method)MaxMulticoreObject,	"graph.object",			A_CANT, 0);
+	class_addmethod(c, (method)OpAssist,			"assist",				A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
 	
 	CLASS_ATTR_SYM(c,		"operator",	0,		Op,	attrOperator);
@@ -124,13 +131,13 @@ void OpAssist(OpPtr self, void* b, long msg, long arg, char* dst)
 
 // METHODS SPECIFIC TO MULTICORE EXTERNALS
 
-TTErr OpReset(OpPtr self, long vectorSize)
+TTErr OpResetAudio(OpPtr self, long vectorSize)
 {
 	return self->multicoreObject->resetAudio();
 }
 
 
-TTErr OpSetup(OpPtr self)
+TTErr OpSetupAudio(OpPtr self)
 {
 	Atom a[2];
 	
@@ -141,7 +148,24 @@ TTErr OpSetup(OpPtr self)
 }
 
 
-TTErr OpConnect(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
+/*
+TTErr OpSetup(OpPtr self)
+{
+	Atom				a[2];
+	TTUInt16			i=0;
+	
+	atom_setobj(a+0, ObjectPtr(self->graphObject));
+	while (self->graphOutlets[i]) {
+		atom_setlong(a+1, i);
+		outlet_anything(self->graphOutlets[i], gensym("graph.connect"), 2, a);
+		i++;
+	}
+	return kTTErrNone;
+}
+ */
+
+
+TTErr OpConnectAudio(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
 {
 	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }

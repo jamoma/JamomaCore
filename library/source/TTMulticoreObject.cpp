@@ -89,6 +89,7 @@ void TTMulticoreObject::getAudioDescription(TTMulticoreDescription& desc)
 	desc.mAudioDescriptions.clear();
 	for (TTMulticoreInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++)
 		inlet->getDescriptions(desc.mAudioDescriptions);
+	getDescription(desc.mControlDescription);
 }
 
 

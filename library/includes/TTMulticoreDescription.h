@@ -30,7 +30,7 @@ class TTMULTICORE_EXPORT TTMulticoreDescription {
 public:
 	TTSymbolPtr						mClassName;
 	TTMulticoreDescriptionVector	mAudioDescriptions;
-	TTGraphDescriptionVector		mControlDescriptions;
+	TTGraphDescription				mControlDescription;
 	
 	void exportRuby(const TTString& fullpathToFile);
 	int exportRubyNode(TTString& rubyContent, int& index, TTStringVector& nodeNames);

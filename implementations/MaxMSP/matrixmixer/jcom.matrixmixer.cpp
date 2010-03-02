@@ -12,8 +12,8 @@
 
 int main(void)
 {
-	WrappedClassOptionsPtr	options = new WrappedClassOptions;
-	TTValue					value(0);
+	MaxMulticoreWrappedClassOptionsPtr	options = new MaxMulticoreWrappedClassOptions;
+	TTValue								value(0);
 
 	TTMulticoreInit();
 	options->append(TT("argumentDefinesNumInlets"), value);

@@ -14,11 +14,11 @@
 
 // Data Structure for this object
 typedef struct _wrappedInstance {
-    t_object				obj;					///< Max audio object header
-	TTMulticoreObjectPtr	multicoreObject;		///< The DSP instance we are wrapping -- MUST BE 2nd!
-	TTPtr					multicoreOutlets[16];	///< Array of outlets, may eventually want this to be more dynamic
-	TTPtr					inlets[16];				///< Array of proxy inlets beyond the first inlet
-	WrappedClassPtr			wrappedClassDefinition;	///< A pointer to the class definition
+    t_object					obj;					///< Max audio object header
+	TTMulticoreObjectPtr		multicoreObject;		///< The DSP instance we are wrapping -- MUST BE 2nd!
+	TTPtr						multicoreOutlets[16];	///< Array of outlets, may eventually want this to be more dynamic
+	TTPtr						inlets[16];				///< Array of proxy inlets beyond the first inlet
+	MaxMulticoreWrappedClassPtr	wrappedClassDefinition;	///< A pointer to the class definition
 } WrappedInstance;
 
 typedef WrappedInstance* WrappedInstancePtr;		///< Pointer to a wrapped instance of our object.
@@ -28,15 +28,15 @@ typedef WrappedInstance* WrappedInstancePtr;		///< Pointer to a wrapped instance
 static t_hashtab*	wrappedMaxClasses = NULL;
 
 
-ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
+ObjectPtr MaxMulticoreWrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 {	
-	WrappedClass*		wrappedMaxClass = NULL;
-    WrappedInstancePtr	self = NULL;
-	TTValue				v;
-	TTErr				err = kTTErrNone;
-	TTUInt8				numInputs = 1;
-	TTUInt8				numOutputs = 1;
- 	long				attrstart = attr_args_offset(argc, argv);		// support normal arguments
+	MaxMulticoreWrappedClassPtr	wrappedMaxClass = NULL;
+    WrappedInstancePtr			self = NULL;
+	TTValue						v;
+	TTErr						err = kTTErrNone;
+	TTUInt8						numInputs = 1;
+	TTUInt8						numOutputs = 1;
+ 	long						attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	
 	// Find the WrappedClass
 	hashtab_lookup(wrappedMaxClasses, name, (ObjectPtr*)&wrappedMaxClass);
@@ -90,7 +90,7 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 }
 
 
-void wrappedClass_free(WrappedInstancePtr self)
+void MaxMulticoreWrappedClass_free(WrappedInstancePtr self)
 {
 	if (self->multicoreObject)
 		TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
@@ -153,7 +153,7 @@ TTErr MaxMulticoreObject(ObjectPtr x, TTMulticoreObjectPtr* returnedMulticoreObj
 }
 
 
-t_max_err wrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
+t_max_err MaxMulticoreWrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
 {
 	SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
 	TTValue		v;
@@ -192,7 +192,7 @@ t_max_err wrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr attr, AtomCoun
 }
 
 
-t_max_err wrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr attr, AtomCount argc, AtomPtr argv)
+t_max_err MaxMulticoreWrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc && argv) {
 		SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
@@ -223,7 +223,7 @@ t_max_err wrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr attr, AtomCoun
 }
 
 
-void wrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
+void MaxMulticoreWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
 	if (argc && argv) {
 		TTValue	v;
@@ -275,7 +275,7 @@ void wrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc,
 
 
 // Method for Assistance Messages
-void wrappedClass_assist(WrappedInstancePtr self, void *b, long msg, long arg, char *dst)
+void MaxMulticoreWrappedClass_assist(WrappedInstancePtr self, void *b, long msg, long arg, char *dst)
 {
 	if (msg==1)			// Inlets
 		strcpy(dst, "multichannel input and control messages");		
@@ -292,17 +292,17 @@ void wrappedClass_assist(WrappedInstancePtr self, void *b, long msg, long arg, c
 
 
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c)
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c)
 {
-	return wrapAsMaxMulticore(ttClassName, maxClassName, c, (WrappedClassOptionsPtr)NULL);
+	return wrapAsMaxMulticore(ttClassName, maxClassName, c, (MaxMulticoreWrappedClassOptionsPtr)NULL);
 }
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, WrappedClassOptionsPtr options)
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c, MaxMulticoreWrappedClassOptionsPtr options)
 {
-	TTObject*		o = NULL;
-	TTValue			v;
-	TTUInt16		numChannels = 1;
-	WrappedClass*	wrappedMaxClass = NULL;
+	TTObject*					o = NULL;
+	TTValue						v;
+	TTUInt16					numChannels = 1;
+	MaxMulticoreWrappedClassPtr	wrappedMaxClass = NULL;
 
 	common_symbols_init();
 	TTMulticoreInit();
@@ -310,11 +310,11 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 	if(!wrappedMaxClasses)
 		wrappedMaxClasses = hashtab_new(0);
 	
-	wrappedMaxClass = new WrappedClass;
+	wrappedMaxClass = new MaxMulticoreWrappedClass;
 	wrappedMaxClass->maxClassName = gensym(maxClassName);
 	wrappedMaxClass->maxClass = class_new(	maxClassName, 
-											(method)wrappedClass_new, 
-											(method)wrappedClass_free, 
+											(method)MaxMulticoreWrappedClass_new, 
+											(method)MaxMulticoreWrappedClass_free, 
 											sizeof(WrappedInstance), 
 											(method)0L, 
 											A_GIMME, 
@@ -336,7 +336,7 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 		if(name == TT("updateMaxNumChannels") || name == TT("updateSr"))
 			continue;	// don't expose these attributes to Max users
 
-		class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_anything, (char*)name->getCString(), A_GIMME, 0);
+		class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreWrappedClass_anything, (char*)name->getCString(), A_GIMME, 0);
 	}
 	
 	o->getAttributeNames(v);
@@ -374,7 +374,7 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 		nameMaxSymbol = gensym(nameCString);
 		
 		hashtab_store(wrappedMaxClass->maxAttrNamesToTTAttrNames, nameMaxSymbol, ObjectPtr(name));
-		class_addattr(wrappedMaxClass->maxClass, attr_offset_new(nameCString, maxType, 0, (method)wrappedClass_attrGet, (method)wrappedClass_attrSet, NULL));
+		class_addattr(wrappedMaxClass->maxClass, attr_offset_new(nameCString, maxType, 0, (method)MaxMulticoreWrappedClass_attrGet, (method)MaxMulticoreWrappedClass_attrSet, NULL));
 		
 		// Add display styles for the Max 5 inspector
 		if (attr->type == kTypeBoolean)
@@ -391,7 +391,7 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreDrop,		"multicore.drop",		A_CANT, 0);
 	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreObject,		"multicore.object",		A_CANT, 0);
     class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",				A_CANT, 0); 
-	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_assist, 	"assist",				A_CANT, 0L);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreWrappedClass_assist, 	"assist",				A_CANT, 0L);
 	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,			"inletinfo",			A_CANT, 0);
 	
 	class_register(_sym_box, wrappedMaxClass->maxClass);
@@ -403,7 +403,7 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 }
 
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck)
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c, TTValidityCheckFunction validityCheck)
 {
 	TTErr err = wrapAsMaxMulticore(ttClassName, maxClassName, c);
 	
@@ -414,7 +414,7 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 	return err;
 }
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, WrappedClassOptionsPtr options)
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c, TTValidityCheckFunction validityCheck, MaxMulticoreWrappedClassOptionsPtr options)
 {
 	TTErr err = wrapAsMaxMulticore(ttClassName, maxClassName, c, options);
 	
@@ -426,7 +426,7 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 }
 
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument)
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument)
 {
 	TTErr err = wrapAsMaxMulticore(ttClassName, maxClassName, c);
 	
@@ -437,7 +437,7 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 	return err;
 }
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, WrappedClassOptionsPtr options)
+TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, MaxMulticoreWrappedClassOptionsPtr options)
 {
 	TTErr err = wrapAsMaxMulticore(ttClassName, maxClassName, c, options);
 	
@@ -447,19 +447,3 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedCla
 	}
 	return err;
 }
-
-
-// NOTE: DUPLICATIONS FROM THE MSP WRAPPER
-
-#ifdef __LP64__
-TTInt64	AtomGetInt(AtomPtr a)
-{
-	return (TTInt64)atom_getlong(a);
-}
-#else
-int AtomGetInt(AtomPtr a)
-{
-	return (int)atom_getlong(a);
-}
-#endif
-
