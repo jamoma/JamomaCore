@@ -187,6 +187,11 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->jcom_send = (t_object*)object_new_typed(_sym_box, jps_jcom_send, 1, a);
 		
 		atom_setsym(a, jps_jcom_remote_toModule);
+		
+		// 2010-03-01: Marlon has had some crashes, with overdrive on, which look like they may be caused by 
+		// this jcom.receive object having been created prior to the jcom.hub being fully set-up via the
+		// deferred hub_examine_context() call at the end of this method.  
+		// This results in this hub receiving messages before it is really ready for them... [TAP]
 		x->jcom_receive = (t_object*)object_new_typed(_sym_box, jps_jcom_receive, 1, a);
 		object_method(x->jcom_receive, jps_setcallback, &hub_receive_callback, x);
 					
