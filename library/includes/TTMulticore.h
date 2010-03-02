@@ -11,7 +11,7 @@
 #define __TTMULTICORE_H__
 
 #include "TTDSP.h"
-
+#include "TTGraph.h"
 
 #ifdef TT_PLATFORM_WIN
 	#include "windows.h"

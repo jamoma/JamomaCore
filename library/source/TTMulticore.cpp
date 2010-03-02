@@ -7,7 +7,6 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTDSP.h"
 #include "TTMulticore.h"
 #include "TTMulticoreGenerator.h"
 #include "TTMulticoreObject.h"
@@ -25,6 +24,7 @@ void TTMulticoreInit(void)
 	if (!initialized) {
 		initialized = true;
 		TTDSPInit();
+		TTGraphInit();
 		
 		TTMulticoreGenerator::registerClass();
 		TTMulticoreObject::registerClass();
