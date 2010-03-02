@@ -87,8 +87,8 @@ DCBlockerPtr DCBlockerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.set(1, 1.);
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 
-		if (!self->multicoreObject->mUnitGenerator) {
-			object_error(SELF, "cannot load TTBlue object");
+		if (!self->multicoreObject->getUnitGenerator()) {
+			object_error(SELF, "cannot load JamomaDSP object");
 			return NULL;
 		}
 		
@@ -124,7 +124,7 @@ void DCBlockerAssist(DCBlockerPtr self, void* b, long msg, long arg, char* dst)
 
 void DCBlockerClear(DCBlockerPtr self)
 {
-	self->multicoreObject->mUnitGenerator->sendMessage(TT("clear"));
+	self->multicoreObject->getUnitGenerator()->sendMessage(TT("clear"));
 }
 
 
@@ -159,7 +159,7 @@ MaxErr DCBlockerSetBypass(DCBlockerPtr self, void* attr, AtomCount argc, AtomPtr
 {
 	if (argc) {
 		self->attrBypass = atom_getlong(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(kTTSym_bypass, (TTBoolean)self->attrBypass);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(kTTSym_bypass, (TTBoolean)self->attrBypass);
 	}
 	return MAX_ERR_NONE;
 }

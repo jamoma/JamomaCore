@@ -88,9 +88,9 @@ InPtr InNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.set(1, 0); // no multicore inlets (only msp inlets)
 		v.set(2, 1); // one multicore outlet
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
-		self->multicoreObject->addFlag(kTTMulticoreGenerator);
+		self->multicoreObject->addAudioFlag(kTTMulticoreGenerator);
 
-		if (!self->multicoreObject->mUnitGenerator) {
+		if (!self->multicoreObject->getUnitGenerator()) {
 			object_error(SELF, "cannot load multicore.source");
 			return NULL;
 		}
@@ -156,7 +156,7 @@ t_int* InPerform(t_int* w)
 	
 	if (!self->obj.z_disabled) {
 		for (i=0; i < self->numChannels; i++)
-			TTMulticoreGeneratorPtr(self->multicoreObject->mUnitGenerator)->mBuffer->setVector(i, self->vectorSize, (TTFloat32*)w[i+2]);
+			TTMulticoreGeneratorPtr(self->multicoreObject->getUnitGenerator())->mBuffer->setVector(i, self->vectorSize, (TTFloat32*)w[i+2]);
 	}	
 	return w + (self->numChannels+2);
 }
@@ -186,9 +186,9 @@ void InDsp(InPtr self, t_signal** sp, short* count)
 	}
 	
 	self->multicoreObject->setOutputNumChannels(0, highestIndexForConnectedSignal+1);
-	self->multicoreObject->mUnitGenerator->setAttributeValue(TT("VectorSize"), self->vectorSize);
-	self->multicoreObject->mUnitGenerator->setAttributeValue(kTTSym_maxNumChannels, self->maxNumChannels);
-	self->multicoreObject->mUnitGenerator->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("VectorSize"), self->vectorSize);
+	self->multicoreObject->getUnitGenerator()->setAttributeValue(kTTSym_maxNumChannels, self->maxNumChannels);
+	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	
 	dsp_addv(InPerform, k, audioVectors);
 	sysmem_freeptr(audioVectors);

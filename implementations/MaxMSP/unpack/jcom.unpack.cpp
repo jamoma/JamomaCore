@@ -105,7 +105,7 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.set(0, TT("gain"));
 		v.set(1, 1); // arg is the number of inlets
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("LinearGain"), 1.0);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("LinearGain"), 1.0);
 		
 		attr_args_process(self, argc, argv);
 		
@@ -378,7 +378,7 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 		k++;
 	}
 	
-	self->multicoreObject->mUnitGenerator->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	
 	dsp_addv(OutPerform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
@@ -391,7 +391,7 @@ MaxErr OutSetGain(OutPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->gain = atom_getfloat(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("LinearGain"), self->gain);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("LinearGain"), self->gain);
 	}
 	return MAX_ERR_NONE;
 }

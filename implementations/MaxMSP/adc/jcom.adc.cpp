@@ -87,7 +87,7 @@ AdcPtr AdcNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.set(1, TTUInt32(1));
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 
-		self->multicoreObject->addFlag(kTTMulticoreGenerator);
+		self->multicoreObject->addAudioFlag(kTTMulticoreGenerator);
 
 		attr_args_process(self, argc, argv);
     	object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));
@@ -139,13 +139,13 @@ TTErr AdcSetup(AdcPtr self)
 
 TTErr AdcStart(AdcPtr self)
 {
-	return self->multicoreObject->mUnitGenerator->sendMessage(TT("start"));
+	return self->multicoreObject->getUnitGenerator()->sendMessage(TT("start"));
 }
 
 
 TTErr AdcStop(AdcPtr self)
 {	
-	return self->multicoreObject->mUnitGenerator->sendMessage(TT("stop"));
+	return self->multicoreObject->getUnitGenerator()->sendMessage(TT("stop"));
 }
 
 
@@ -153,7 +153,7 @@ MaxErr AdcSetSampleRate(AdcPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 sr = atom_getlong(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("sampleRate"), sr);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("sampleRate"), sr);
 	}
 	return MAX_ERR_NONE;
 }
@@ -162,7 +162,7 @@ MaxErr AdcGetSampleRate(AdcPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long sr;
 	
-	self->multicoreObject->mUnitGenerator->getAttributeValue(TT("sampleRate"), sr);
+	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("sampleRate"), sr);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
@@ -176,7 +176,7 @@ MaxErr AdcSetVectorSize(AdcPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 vs = atom_getlong(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("vectorSize"), vs);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("vectorSize"), vs);
 	}
 	return MAX_ERR_NONE;
 }
@@ -185,7 +185,7 @@ MaxErr AdcGetVectorSize(AdcPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long vs;
 	
-	self->multicoreObject->mUnitGenerator->getAttributeValue(TT("vectorSize"), vs);
+	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("vectorSize"), vs);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in

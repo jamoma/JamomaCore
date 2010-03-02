@@ -80,9 +80,9 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 		v.set(2, numOutputs);
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 		if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("generator"), v))
-			self->multicoreObject->addFlag(kTTMulticoreGenerator);
+			self->multicoreObject->addAudioFlag(kTTMulticoreGenerator);
 		if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("nonadapting"), v))
-			self->multicoreObject->addFlag(kTTMulticoreNonAdapting);
+			self->multicoreObject->addAudioFlag(kTTMulticoreNonAdapting);
 			
 		attr_args_process(self, argc, argv);
 	}
@@ -165,7 +165,7 @@ t_max_err wrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr attr, AtomCoun
 	if (err)
 		return err;
 
-	self->multicoreObject->mUnitGenerator->getAttributeValue(ttAttrName, v);
+	self->multicoreObject->getUnitGenerator()->getAttributeValue(ttAttrName, v);
 
 	*argc = v.getSize();
 	if (!(*argv)) // otherwise use memory passed in
@@ -216,7 +216,7 @@ t_max_err wrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr attr, AtomCoun
 			else
 				object_error(SELF, "bad type for attribute setter");
 		}
-		self->multicoreObject->mUnitGenerator->setAttributeValue(ttAttrName, v);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(ttAttrName, v);
 		return MAX_ERR_NONE;
 	}
 	return MAX_ERR_GENERIC;
@@ -239,7 +239,7 @@ void wrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc,
 			else
 				object_error(SELF, "bad type for message arg");
 		}
-		self->multicoreObject->mUnitGenerator->sendMessage(TT(s->s_name), v);
+		self->multicoreObject->getUnitGenerator()->sendMessage(TT(s->s_name), v);
 		
 		// process the returned value for the dumpout outlet
 		{
@@ -270,7 +270,7 @@ void wrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc,
 		}
 	}
 	else
-		self->multicoreObject->mUnitGenerator->sendMessage(TT(s->s_name));
+		self->multicoreObject->getUnitGenerator()->sendMessage(TT(s->s_name));
 }
 
 

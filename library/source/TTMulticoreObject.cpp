@@ -23,16 +23,27 @@ TTMutexPtr TTMulticoreObject::sSharedMutex = NULL;
 //	2. (optional) Number of inlets, default = 1
 //	3. (optional) Number of outlets, default = 1
 
-TT_OBJECT_CONSTRUCTOR,
-	mFlags(kTTMulticoreProcessor), 
+
+TTObjectPtr TTMulticoreObject :: instantiate (TTSymbolPtr name, TTValue& arguments) 
+{
+	return new TTMulticoreObject (arguments);
+}
+
+extern "C" void TTMulticoreObject :: registerClass () 
+{
+	TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );
+}
+
+
+TTMulticoreObject :: TTMulticoreObject (TTValue& arguments) : TTGraphObject(arguments),
+	mAudioFlags(kTTMulticoreProcessor), 
 	mInputSignals(NULL), 
 	mOutputSignals(NULL), 
-	mVectorSize(0),
-	mUnitGenerator(NULL)
+	mVectorSize(0)
 {
 	TTErr		err = kTTErrNone;
 	TTSymbolPtr	wrappedObjectName = NULL;
-	TTUInt16	initialNumChannels = 1;
+	//TTUInt16	initialNumChannels = 1;
 	TTUInt16	numInlets = 1;
 	TTUInt16	numOutlets = 1;
 	
@@ -44,22 +55,23 @@ TT_OBJECT_CONSTRUCTOR,
 	if (arguments.getSize() > 2)
 		arguments.get(2, numOutlets);
 	
-	err = TTObjectInstantiate(wrappedObjectName, &mUnitGenerator, initialNumChannels);
+	// instantiated by the TTGraph super-class
+	//err = TTObjectInstantiate(wrappedObjectName, &mUnitGenerator, initialNumChannels);
 	err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mInputSignals, numInlets);
 	err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mOutputSignals, numOutlets);
 	
-	mInlets.resize(numInlets);
+	mAudioInlets.resize(numInlets);
 	mInputSignals->setMaxNumAudioSignals(numInlets);
 	mInputSignals->numAudioSignals = numInlets;			// TODO: this array num signals access is kind of clumsy and inconsistent [tap]
 
-	mOutlets.resize(numOutlets);
+	mAudioOutlets.resize(numOutlets);
 	mOutputSignals->setMaxNumAudioSignals(numOutlets);
 	mOutputSignals->numAudioSignals = numOutlets;
 
 	// if an object supports the 'setOwner' message, then we tell it that we want to become the owner
 	// this is particularly important for the multicore.output object
 	TTValue v = TTPtr(this);
-	mUnitGenerator->sendMessage(TT("setOwner"), v);
+	mKernel->sendMessage(TT("setOwner"), v);
 	
 	if (!sSharedMutex)
 		sSharedMutex = new TTMutex(false);
@@ -68,7 +80,6 @@ TT_OBJECT_CONSTRUCTOR,
 
 TTMulticoreObject::~TTMulticoreObject()
 {
-	TTObjectRelease(&mUnitGenerator);
 	TTObjectRelease((TTObjectPtr*)&mInputSignals);
 	TTObjectRelease((TTObjectPtr*)&mOutputSignals);
 }
@@ -76,9 +87,9 @@ TTMulticoreObject::~TTMulticoreObject()
 
 void TTMulticoreObject::getAudioDescription(TTMulticoreDescription& desc)
 {
-	desc.mClassName = mUnitGenerator->getName();
+	desc.mClassName = mKernel->getName();
 	desc.mInputDescriptions.clear();
-	for (TTMulticoreInletIter inlet = mInlets.begin(); inlet != mInlets.end(); inlet++)
+	for (TTMulticoreInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++)
 		inlet->getDescriptions(desc.mInputDescriptions);
 }
 
@@ -86,7 +97,7 @@ void TTMulticoreObject::getAudioDescription(TTMulticoreDescription& desc)
 TTErr TTMulticoreObject::resetAudio()
 {
 	sSharedMutex->lock();
-	for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::reset));		
+	for_each(mAudioInlets.begin(), mAudioInlets.end(), mem_fun_ref(&TTMulticoreInlet::reset));		
 	sSharedMutex->unlock();
 	return kTTErrNone;
 }
@@ -103,7 +114,7 @@ TTErr TTMulticoreObject::connectAudio(TTMulticoreObjectPtr anObject, TTUInt16 fr
 	// if the resize of the vector can't happen in-place, then the whole thing gets copied and the old one destroyed
 
 	sSharedMutex->lock();
-	err = mInlets[toInletNumber].connect(anObject, fromOutletNumber);
+	err = mAudioInlets[toInletNumber].connect(anObject, fromOutletNumber);
 	sSharedMutex->unlock();
 	return err;
 }
@@ -114,8 +125,8 @@ TTErr TTMulticoreObject::dropAudio(TTMulticoreObjectPtr anObject, TTUInt16 fromO
 	TTErr err = kTTErrInvalidValue;
 
 	sSharedMutex->lock();
-	if (toInletNumber < mInlets.size())
-		err = mInlets[toInletNumber].drop(anObject, fromOutletNumber);	
+	if (toInletNumber < mAudioInlets.size())
+		err = mAudioInlets[toInletNumber].drop(anObject, fromOutletNumber);	
 	sSharedMutex->unlock();
 	return err;
 }
@@ -130,7 +141,7 @@ TTErr TTMulticoreObject::preprocess(const TTMulticorePreprocessData& initData)
 		
 		mStatus = kTTMulticoreProcessNotStarted;		
 
-		for (TTMulticoreInletIter inlet = mInlets.begin(); inlet != mInlets.end(); inlet++) {
+		for (TTMulticoreInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++) {
 			inlet->preprocess(initData);
 			audioSignal = inlet->getBuffer(); // TODO: It seems like we can just cache this once when we init the graph, because the number of inlets cannot change on-the-fly
 			mInputSignals->setSignal(index, audioSignal);
@@ -138,13 +149,13 @@ TTErr TTMulticoreObject::preprocess(const TTMulticorePreprocessData& initData)
 		}
 		
 		index = 0;
-		for (TTMulticoreOutletIter outlet = mOutlets.begin(); outlet != mOutlets.end(); outlet++) {
+		for (TTMulticoreOutletIter outlet = mAudioOutlets.begin(); outlet != mAudioOutlets.end(); outlet++) {
 			audioSignal = outlet->getBuffer();
 			mOutputSignals->setSignal(index, audioSignal);
 			index++;
 		}
 
-		if (mFlags & kTTMulticoreGenerator) {
+		if (mAudioFlags & kTTMulticoreGenerator) {
 			if (mVectorSize != initData.vectorSize) {
 				mVectorSize = initData.vectorSize;					
 				mOutputSignals->allocAllWithVectorSize(initData.vectorSize);
@@ -165,38 +176,38 @@ TTErr TTMulticoreObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 forO
 		case kTTMulticoreProcessNotStarted:
 			mStatus = kTTMulticoreProcessingCurrently;
 			
-			if (mFlags & kTTMulticoreGenerator) {			// a generator (or no input)
-				mUnitGenerator->process(mInputSignals, mOutputSignals);
+			if (mAudioFlags & kTTMulticoreGenerator) {			// a generator (or no input)
+				getUnitGenerator()->process(mInputSignals, mOutputSignals);
 			}
-			else {											// a processor
+			else {												// a processor
 				// zero our collected input samples
 				mInputSignals->clearAll();
 
 				// pull (process, sum, and collect) all of our source audio
-				for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::process));
+				for_each(mAudioInlets.begin(), mAudioInlets.end(), mem_fun_ref(&TTMulticoreInlet::process));
 
-				if (!(mFlags & kTTMulticoreNonAdapting)) {
+				if (!(mAudioFlags & kTTMulticoreNonAdapting)) {
 					// examples of non-adapting objects are join≈ and matrix≈
 					// non-adapting in this case means channel numbers -- vector sizes still adapt
 					mOutputSignals->matchNumChannels(mInputSignals);
 				}
 				mOutputSignals->allocAllWithVectorSize(mInputSignals->getVectorSize());
-				mUnitGenerator->process(mInputSignals, mOutputSignals);
+				getUnitGenerator()->process(mInputSignals, mOutputSignals);
 			}
 			
 			// TODO: we're doing a copy below -- is that what we really want?  Or can we just return the pointer?
-			returnedSignal = mOutlets[forOutletNumber].mBufferedOutput;
+			returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
 			mStatus = kTTMulticoreProcessComplete;
 			break;
 		
 		// we already processed everything that needs to be processed, so just set the pointer
 		case kTTMulticoreProcessComplete:
-			returnedSignal = mOutlets[forOutletNumber].mBufferedOutput;
+			returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
 			break;
 		
 		// to prevent feedback / infinite loops, we just hand back the last calculated output here
 		case kTTMulticoreProcessingCurrently:
-			returnedSignal = mOutlets[forOutletNumber].mBufferedOutput;
+			returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
 			break;
 		
 		// we should never get here

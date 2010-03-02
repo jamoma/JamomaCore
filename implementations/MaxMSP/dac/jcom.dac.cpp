@@ -253,7 +253,7 @@ void DacIterateResetCallback(DacPtr self, ObjectPtr obj)
 	method		multicoreResetMethod = zgetfn(obj, gensym("multicore.reset"));
 	
 	if (multicoreResetMethod) {
-		self->multicoreObject->mUnitGenerator->getAttributeValue(TT("vectorSize"), vectorSize);
+		self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("vectorSize"), vectorSize);
 		multicoreResetMethod(obj, vectorSize);
 	}
 }
@@ -287,7 +287,7 @@ TTErr DacStart(DacPtr self)
 	ObjectPtr				patcherview = NULL;
 	long					vectorSize;
 	long					result = 0;
-	TTMulticoreOutputPtr	outputObject = TTMulticoreOutputPtr(self->multicoreObject->mUnitGenerator);
+	TTMulticoreOutputPtr	outputObject = TTMulticoreOutputPtr(self->multicoreObject->getUnitGenerator());
 	
 	outputObject->getAttributeValue(TT("vectorSize"), vectorSize);
 	
@@ -325,7 +325,7 @@ TTErr DacStart(DacPtr self)
 
 TTErr DacStop(DacPtr self)
 {	
-	return self->multicoreObject->mUnitGenerator->sendMessage(TT("stop"));
+	return self->multicoreObject->getUnitGenerator()->sendMessage(TT("stop"));
 }
 
 
@@ -333,7 +333,7 @@ TTErr DacGetCpuLoad(DacPtr self)
 {
 	TTValue cpuload = -1.0;
 	
-	self->multicoreObject->mUnitGenerator->sendMessage(TT("getCpuLoad"), cpuload);
+	self->multicoreObject->getUnitGenerator()->sendMessage(TT("getCpuLoad"), cpuload);
 	outlet_float(self->outlet, TTFloat64(cpuload));
 	return kTTErrNone;
 }
@@ -421,7 +421,7 @@ MaxErr DacSetSampleRate(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 sr = atom_getlong(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("sampleRate"), sr);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("sampleRate"), sr);
 	}
 	return MAX_ERR_NONE;
 }
@@ -430,7 +430,7 @@ MaxErr DacGetSampleRate(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long sr;
 	
-	self->multicoreObject->mUnitGenerator->getAttributeValue(TT("sampleRate"), sr);
+	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("sampleRate"), sr);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
@@ -444,7 +444,7 @@ MaxErr DacSetVectorSize(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 vs = atom_getlong(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("vectorSize"), vs);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("vectorSize"), vs);
 	}
 	return MAX_ERR_NONE;
 }
@@ -453,7 +453,7 @@ MaxErr DacGetVectorSize(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long vs;
 	
-	self->multicoreObject->mUnitGenerator->getAttributeValue(TT("vectorSize"), vs);
+	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("vectorSize"), vs);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in

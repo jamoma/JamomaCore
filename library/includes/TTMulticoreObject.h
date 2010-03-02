@@ -11,6 +11,7 @@
 #define __TTMULTICORE_OBJECT_H__
 
 #include "TTMulticore.h"
+#include "TTGraphObject.h"
 #include "TTMulticoreOutlet.h"
 #include "TTMulticoreDescription.h"
 
@@ -24,32 +25,37 @@
 	It is implemented as a TTObject so that it can receive dynamically bound messages, 
 	incliding notifications from other objects.
 */
-class TTMULTICORE_EXPORT TTMulticoreObject : public TTObject {	
+class TTMULTICORE_EXPORT TTMulticoreObject : public TTGraphObject {	
 	TTCLASS_SETUP(TTMulticoreObject)
 	
 protected:
 	TTMulticoreProcessStatus	mStatus;			///< Used to enable correct processing of feedback loops, multiple destinations, etc.
-	TTUInt32					mFlags;				///< A bitmask of values defined in #TTMulticoreFlags
-	TTMulticoreInletVector		mInlets;			///< The inlets through which we pull audio from sources
-	TTMulticoreOutletVector		mOutlets;			///< The inlets through which we pull audio from sources
+	TTUInt32					mAudioFlags;		///< A bitmask of values defined in #TTMulticoreFlags
+	TTMulticoreInletVector		mAudioInlets;			///< The inlets through which we pull audio from sources
+	TTMulticoreOutletVector		mAudioOutlets;			///< The inlets through which we pull audio from sources
 	TTAudioSignalArrayPtr		mInputSignals;		///< The buffered input for processing audio with our object.
 	TTAudioSignalArrayPtr		mOutputSignals;		///< The results of processing audio with our object, buffered for objects requesting it
 	TTUInt16					mVectorSize;		///< The most recent vector size info passed from the terminal object during a preprocess
 	static TTMutexPtr			sSharedMutex;		///< A critical region shared by all TTMulticoreObjects to prevent changes to the graph while processing.
+
 public:
-	TTAudioObjectPtr			mUnitGenerator;		///< The actual Jamoma DSP object doing the processing.
+
+	TTAudioObjectPtr getUnitGenerator()
+	{
+		return TTAudioObjectPtr(mKernel);
+	}
 	
 
-	void addFlag(TTMulticoreFlags flag)
+	void addAudioFlag(TTMulticoreFlags flag)
 	{
-		mFlags |= flag;
+		mAudioFlags |= flag;
 	}
 	
 	
 	TTUInt16 getOutputNumChannels(TTUInt16 forOutletNumber)
 	{
-		if (forOutletNumber < mOutlets.size())
-			return mOutlets[forOutletNumber].mBufferedOutput->getNumChannels();
+		if (forOutletNumber < mAudioOutlets.size())
+			return mAudioOutlets[forOutletNumber].mBufferedOutput->getNumChannels();
 		else
 			return 0;
 	}
@@ -58,12 +64,12 @@ public:
 	{
 		sSharedMutex->lock();
 
-		if (forOutletNumber < mOutlets.size()) {
+		if (forOutletNumber < mAudioOutlets.size()) {
 			TTValue	v(numChannels);
 			
 			// TODO: should not update MaxNumChannels unless we are growing it larger...
-			mOutlets[forOutletNumber].mBufferedOutput->setmaxNumChannels(v);
-			mOutlets[forOutletNumber].mBufferedOutput->setnumChannels(v);
+			mAudioOutlets[forOutletNumber].mBufferedOutput->setmaxNumChannels(v);
+			mAudioOutlets[forOutletNumber].mBufferedOutput->setnumChannels(v);
 		}
 		sSharedMutex->unlock();
 	}
@@ -71,8 +77,8 @@ public:
 	
 	TTUInt16 getOutputVectorSize(TTUInt16 forOutletNumber)
 	{
-		if (forOutletNumber < mOutlets.size())
-			return mOutlets[forOutletNumber].mBufferedOutput->getVectorSize();
+		if (forOutletNumber < mAudioOutlets.size())
+			return mAudioOutlets[forOutletNumber].mBufferedOutput->getVectorSize();
 		else
 			return 0;
 	}
@@ -80,7 +86,7 @@ public:
 	TTUInt16 getSampleRate()
 	{
 		TTUInt16 sr;
-		mUnitGenerator->getAttributeValue(kTTSym_sr, sr);
+		mKernel->getAttributeValue(kTTSym_sr, sr);
 		return sr;
 	}
 	
