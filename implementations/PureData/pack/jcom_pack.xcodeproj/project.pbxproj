@@ -178,7 +178,7 @@
 					suppress,
 				);
 				PRODUCT_NAME = "jcom_pack=";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../../DSP/library/includes\" \"$(SRCROOT)/../../../../Foundation/library/includes\" \"$(SRCROOT)/..\" \"$(SRCROOT)/../../../library/includes\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../../Graph/library/includes\" \"$(SRCROOT)/../../../../DSP/library/includes\" \"$(SRCROOT)/../../../../Foundation/library/includes\" \"$(SRCROOT)/..\" \"$(SRCROOT)/../../../library/includes\"";
 			};
 			name = Debug;
 		};
@@ -220,7 +220,7 @@
 					suppress,
 				);
 				PRODUCT_NAME = "jcom_pack=";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../../DSP/library/includes\" \"$(SRCROOT)/../../../../Foundation/library/includes\" \"$(SRCROOT)/..\" \"$(SRCROOT)/../../../library/includes\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../../Graph/library/includes\" \"$(SRCROOT)/../../../../DSP/library/includes\" \"$(SRCROOT)/../../../../Foundation/library/includes\" \"$(SRCROOT)/..\" \"$(SRCROOT)/../../../library/includes\"";
 			};
 			name = Release;
 		};

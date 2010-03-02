@@ -106,13 +106,13 @@ void OutFree(OutPtr self)
 
 TTErr OutReset(OutPtr self, long vectorSize)
 {
-	return self->multicoreObject->reset();
+	return self->multicoreObject->resetAudio();
 }
 
 
 TTErr OutConnect(OutPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
+	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }
 
 
@@ -216,7 +216,7 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 		k++;
 	}
 	
-	self->multicoreObject->mUnitGenerator->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	
 	dsp_addv(OutPerform, k, (t_int*)audioVectors);
 	free(audioVectors);
@@ -228,6 +228,6 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 void OutSetGain(OutPtr self, t_floatarg value)
 {
 	self->gain = value;
-	self->multicoreObject->mUnitGenerator->setAttributeValue(TT("LinearGain"), self->gain);
+	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("LinearGain"), self->gain);
 }
 
