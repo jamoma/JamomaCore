@@ -187,6 +187,11 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->jcom_send = (t_object*)object_new_typed(_sym_box, jps_jcom_send, 1, a);
 		
 		atom_setsym(a, jps_jcom_remote_toModule);
+		
+		// 2010-03-01: Marlon has had some crashes, with overdrive on, which look like they may be caused by 
+		// this jcom.receive object having been created prior to the jcom.hub being fully set-up via the
+		// deferred hub_examine_context() call at the end of this method.  
+		// This results in this hub receiving messages before it is really ready for them... [TAP]
 		x->jcom_receive = (t_object*)object_new_typed(_sym_box, jps_jcom_receive, 1, a);
 		object_method(x->jcom_receive, jps_setcallback, &hub_receive_callback, x);
 					
@@ -1281,7 +1286,7 @@ void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 	char		*split;
 	t_symbol	*osc;
 	
-	strcpy(mess, msg->s_name);
+	strncpy_zero(mess, msg->s_name, 256);
 	if(*in == '/')					// remove leading slash...
 		in++;
 		
@@ -1307,7 +1312,7 @@ void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 		object_method_typed(x, osc, argc, argv, NULL);		// call the method on this hub object
 		x->using_wildcard = false;
 	}
-	else if(!strcmp(mess, x->osc_name->s_name)){		// check if we are the correct module...
+	else if(x->osc_name && x->osc_name->s_name[0] && !strcmp(mess, x->osc_name->s_name)){		// check if we are the correct module...
 		split++;
 		osc = gensym(split);
 		object_method_typed(x, osc, argc, argv, NULL);		// call the method on this hub object
