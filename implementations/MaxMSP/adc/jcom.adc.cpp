@@ -122,7 +122,7 @@ void AdcAssist(AdcPtr self, void* b, long msg, long arg, char* dst)
 
 TTErr AdcReset(AdcPtr self)
 {
-	return self->multicoreObject->reset();
+	return self->multicoreObject->resetAudio();
 }
 
 

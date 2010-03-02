@@ -216,14 +216,14 @@ TTErr OutReset(OutPtr self, long vectorSize)
 {
 	self->hasReset = true;
 	self->hasConnections = false;
-	return self->multicoreObject->reset();
+	return self->multicoreObject->resetAudio();
 }
 
 
 TTErr OutConnect(OutPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
 {
 	self->hasConnections = true;
-	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
+	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }
 
 

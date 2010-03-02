@@ -103,7 +103,7 @@ void wrappedClass_free(WrappedInstancePtr self)
 
 TTErr MaxMulticoreReset(WrappedInstancePtr self, long vectorSize)
 {
-	return self->multicoreObject->reset();
+	return self->multicoreObject->resetAudio();
 }
 
 
@@ -127,7 +127,7 @@ TTErr MaxMulticoreConnect(ObjectPtr x, TTMulticoreObjectPtr audioSourceObject, T
 	WrappedInstancePtr	self = WrappedInstancePtr(x);
 	long				inletNumber = proxy_getinlet(SELF);
 	
-	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber, inletNumber);
+	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber, inletNumber);
 }
 
 
@@ -139,7 +139,7 @@ TTErr MaxMulticoreDrop(ObjectPtr x, long inletNumber, ObjectPtr sourceMaxObject,
 	
 	err = (TTErr)int(object_method(sourceMaxObject, gensym("multicore.object"), &sourceObject));
 	if (self->multicoreObject && sourceObject && !err)
-		err = self->multicoreObject->drop(sourceObject, sourceOutletNumber, inletNumber);	
+		err = self->multicoreObject->dropAudio(sourceObject, sourceOutletNumber, inletNumber);	
 	return err;
 }
 

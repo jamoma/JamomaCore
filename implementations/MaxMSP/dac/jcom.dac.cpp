@@ -237,13 +237,13 @@ void DacAssist(DacPtr self, void* b, long msg, long arg, char* dst)
 
 TTErr DacReset(DacPtr self)
 {
-	return self->multicoreObject->reset();
+	return self->multicoreObject->resetAudio();
 }
 
 
 TTErr DacConnect(DacPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
+	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }
 
 
@@ -351,7 +351,7 @@ MaxErr DacDoExportRuby(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 		return MAX_ERR_GENERIC;
 	}
 	
-	self->multicoreObject->getDescription(desc);
+	self->multicoreObject->getAudioDescription(desc);
 	desc.exportRuby(fullpathToFile);
 	
 	return MAX_ERR_NONE;
@@ -377,7 +377,7 @@ MaxErr DacDoExportCpp(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 		return MAX_ERR_GENERIC;
 	}
 	
-	self->multicoreObject->getDescription(desc);
+	self->multicoreObject->getAudioDescription(desc);
 	desc.exportCpp(fullpathToFile);
 	
 	return MAX_ERR_NONE;
@@ -403,7 +403,7 @@ MaxErr DacDoExportMax(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 		return MAX_ERR_GENERIC;
 	}
 	
-	self->multicoreObject->getDescription(desc);
+	self->multicoreObject->getAudioDescription(desc);
 	desc.exportMax(fullpathToFile);
 	
 	return MAX_ERR_NONE;

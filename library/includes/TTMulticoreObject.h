@@ -39,10 +39,6 @@ protected:
 public:
 	TTAudioObjectPtr			mUnitGenerator;		///< The actual Jamoma DSP object doing the processing.
 	
-	
-	/**	A notification that the specified object is being deleted -- so we should drop it from our list of input sources.  */
-	TTErr objectFreeing(const TTValue& theObjectBeingDeleted);
-
 
 	void addFlag(TTMulticoreFlags flag)
 	{
@@ -89,11 +85,11 @@ public:
 	}
 	
 	
-	void getDescription(TTMulticoreDescription& desc);
+	void getAudioDescription(TTMulticoreDescription& desc);
 	
 	
 	/**	Clear the list of source objects from which this object will try to pull audio.	*/
-	TTErr reset();
+	TTErr resetAudio();
 	
 	
 	/**	Add a source to the list of objects from which to request audio.
@@ -101,7 +97,7 @@ public:
 		@param	anInletNumber	If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.
 								Typically the value passed here will be 0, indicating the normal audio input.
 		@return					An error code.	*/
-	TTErr connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
+	TTErr connectAudio(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 	
 	
 	/**	Drop a source from the list of objects from which to request audio.  In other words, disconnect.
@@ -109,7 +105,7 @@ public:
 		@param	anInletNumber	If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.
 								Typically the value passed here will be 0, indicating the normal audio input.
 		@return					An error code.	*/
-	TTErr drop(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
+	TTErr dropAudio(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 
 	
 	/**	The thread protection for processing is important: we cannot have the graph nodes being deleted or re-arranged while we are pulling. 

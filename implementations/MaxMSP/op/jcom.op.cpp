@@ -126,7 +126,7 @@ void OpAssist(OpPtr self, void* b, long msg, long arg, char* dst)
 
 TTErr OpReset(OpPtr self, long vectorSize)
 {
-	return self->multicoreObject->reset();
+	return self->multicoreObject->resetAudio();
 }
 
 
@@ -143,7 +143,7 @@ TTErr OpSetup(OpPtr self)
 
 TTErr OpConnect(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
+	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }
 
 

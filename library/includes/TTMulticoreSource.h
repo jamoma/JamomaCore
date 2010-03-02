@@ -105,7 +105,7 @@ public:
 	
 	void getDescription(TTMulticoreDescription& desc)
 	{
-		mSourceObject->getDescription(desc);
+		mSourceObject->getAudioDescription(desc);
 	}
 	
 	// Graph Methods

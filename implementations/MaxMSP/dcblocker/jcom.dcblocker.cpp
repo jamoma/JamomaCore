@@ -132,7 +132,7 @@ void DCBlockerClear(DCBlockerPtr self)
 
 TTErr DCBlockerReset(DCBlockerPtr self)
 {
-	return self->multicoreObject->reset();
+	return self->multicoreObject->resetAudio();
 }
 
 
@@ -149,7 +149,7 @@ TTErr DCBlockerSetup(DCBlockerPtr self)
 
 TTErr DCBlockerConnect(DCBlockerPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
+	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }
 
 

@@ -74,7 +74,7 @@ TTMulticoreObject::~TTMulticoreObject()
 }
 
 
-void TTMulticoreObject::getDescription(TTMulticoreDescription& desc)
+void TTMulticoreObject::getAudioDescription(TTMulticoreDescription& desc)
 {
 	desc.mClassName = mUnitGenerator->getName();
 	desc.mInputDescriptions.clear();
@@ -83,7 +83,7 @@ void TTMulticoreObject::getDescription(TTMulticoreDescription& desc)
 }
 
 
-TTErr TTMulticoreObject::reset()
+TTErr TTMulticoreObject::resetAudio()
 {
 	sSharedMutex->lock();
 	for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTMulticoreInlet::reset));		
@@ -92,7 +92,7 @@ TTErr TTMulticoreObject::reset()
 }
 
 
-TTErr TTMulticoreObject::connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
+TTErr TTMulticoreObject::connectAudio(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
 {	
 	TTErr err;
 
@@ -109,7 +109,7 @@ TTErr TTMulticoreObject::connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOut
 }
 
 
-TTErr TTMulticoreObject::drop(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
+TTErr TTMulticoreObject::dropAudio(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
 {
 	TTErr err = kTTErrInvalidValue;
 

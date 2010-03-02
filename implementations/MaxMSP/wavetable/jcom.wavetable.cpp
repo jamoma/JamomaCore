@@ -138,7 +138,7 @@ void OscilAssist(OscilPtr self, void* b, long msg, long arg, char* dst)
 
 TTErr OscilReset(OscilPtr self)
 {
-	return self->multicoreObject->reset();
+	return self->multicoreObject->resetAudio();
 }
 
 

@@ -133,7 +133,7 @@ void InAssist(InPtr self, void* b, long msg, long arg, char* dst)
 
 TTErr InReset(InPtr self, long vectorSize)
 {
-	return self->multicoreObject->reset();
+	return self->multicoreObject->resetAudio();
 }
 
 
