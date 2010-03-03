@@ -134,7 +134,7 @@ TTErr TTMulticoreObject::dropAudio(TTMulticoreObjectPtr anObject, TTUInt16 fromO
 TTErr TTMulticoreObject::preprocess(const TTMulticorePreprocessData& initData)
 {
 	lock();
-	if (valid) {
+	if (valid && mStatus != kTTMulticoreProcessNotStarted) {
 		TTAudioSignalPtr	audioSignal;
 		TTUInt16			index = 0;
 		
