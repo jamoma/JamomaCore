@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
-	Name="JamomaMulticore"
+	Version="9,00"
+	Name="JamomaGraph"
 	ProjectGUID="{34630069-834D-46BA-83CF-3DB7F1A9665F}"
 	RootNamespace="TTBlue"
 	Keyword="Win32Proj"
@@ -198,39 +198,43 @@
 			Name="includes"
 			>
 			<File
-				RelativePath=".\includes\TTMulticore.h"
+				RelativePath=".\includes\TTGraph.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTMulticoreAPI.h"
+				RelativePath=".\includes\TTGraphAPI.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTMulticoreDescription.h"
+				RelativePath=".\includes\TTGraphDescription.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTMulticoreGenerator.h"
+				RelativePath=".\includes\TTGraphDestination.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTMulticoreInlet.h"
+				RelativePath=".\includes\TTGraphInlet.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTMulticoreInput.h"
+				RelativePath=".\includes\TTGraphInput.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTMulticoreObject.h"
+				RelativePath=".\includes\TTGraphObject.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTMulticoreOutlet.h"
+				RelativePath=".\includes\TTGraphOutlet.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTMulticoreOutput.h"
+				RelativePath=".\includes\TTGraphOutput.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTGraphSource.h"
 				>
 			</File>
 		</Filter>
@@ -238,31 +242,35 @@
 			Name="source"
 			>
 			<File
-				RelativePath=".\source\TTMulticore.cpp"
+				RelativePath=".\source\TTGraph.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\TTMulticoreDescription.cpp"
+				RelativePath=".\source\TTGraphDescription.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\TTMulticoreGenerator.cpp"
+				RelativePath=".\source\TTGraphDestination.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\TTMulticoreInlet.cpp"
+				RelativePath=".\source\TTGraphInlet.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\TTMulticoreInput.cpp"
+				RelativePath=".\source\TTGraphInput.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\TTMulticoreObject.cpp"
+				RelativePath=".\source\TTGraphObject.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\TTMulticoreOutput.cpp"
+				RelativePath=".\source\TTGraphOutput.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTGraphSource.cpp"
 				>
 			</File>
 		</Filter>
