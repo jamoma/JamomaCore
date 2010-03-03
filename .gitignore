@@ -1,4 +1,25 @@
+#Ignore DS_Store files
+.DS_Store
+
+Jamoma/library/externals/mac/
+Jamoma/library/externals/windows/
+logs
 build
-*.pbxuser
+html
+Debug
+Release
 *.mode1v3
+*.pbxuser
+*.layout
+*.depends
+*.map
+*.ncb
+*.suo
+*.user
 *.tm_build_errors
+
+
+
+
+
+
