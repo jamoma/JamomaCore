@@ -218,7 +218,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 656.0, 70.0 ]
+					"patching_rect" : [ 0.0, 0.0, 684.0, 70.0 ]
 				}
 
 			}
@@ -757,8 +757,7 @@
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 65.0, 170.0, 243.0, 136.0 ],
-					"presentation_rect" : [ 63.0, 171.0, 0.0, 0.0 ]
+					"patching_rect" : [ 65.0, 170.0, 243.0, 136.0 ]
 				}
 
 			}
@@ -1075,6 +1074,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-54", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-54", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-56", 0 ]
 				}
 
 			}
