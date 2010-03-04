@@ -29,7 +29,7 @@ void TTMulticoreDescription::exportRuby(const TTString& fullpathToFile)
 
 
 // WARNING: this code has been largely duplicated to TTGraphDescription.h
-int TTMulticoreDescription::exportRubyNode(TTString& rubyContent, int& index, TTStringVector& nodeNames)
+int TTMulticoreDescription::exportRubyNode(TTString& content, int& index, TTStringVector& nodeNames)
 {
 	char	objName[16];
 	int		localIndex;
@@ -39,24 +39,24 @@ int TTMulticoreDescription::exportRubyNode(TTString& rubyContent, int& index, TT
 	snprintf(objName, 16, "obj%i", index);
 	nodeNames.push_back(TTString(objName));
 	
-	rubyContent += objName;
-	rubyContent += " = TTAudio.new \"";
-	rubyContent += mClassName->getString();
-	rubyContent += "\"\n";
+	content += objName;
+	content += " = TTAudio.new \"";
+	content += mClassName->getString();
+	content += "\"\n";
 
 	for (TTMulticoreDescriptionIter input = mAudioDescriptions.begin(); input != mAudioDescriptions.end(); input++) {
-		int inputIndex = input->exportRubyNode(rubyContent, index, nodeNames);
-		rubyContent += objName;
-		rubyContent += ".connect_audio ";
-		rubyContent += nodeNames[inputIndex];
-		rubyContent += "\n";
+		int inputIndex = input->exportRubyNode(content, index, nodeNames);
+		content += objName;
+		content += ".connect_audio ";
+		content += nodeNames[inputIndex];
+		content += "\n";
 	}
 	for (TTGraphDescriptionIter input = mControlDescription.mInputDescriptions.begin(); input != mControlDescription.mInputDescriptions.end(); input++) {
-		int inputIndex = input->exportRubyNode(rubyContent, index, nodeNames); // note: calls into TTGraph's exportRubyNode
-		rubyContent += objName;
-		rubyContent += ".connect";
-		rubyContent += nodeNames[inputIndex];
-		rubyContent += "\n";
+		int inputIndex = input->exportRubyNode(content, index, nodeNames); // note: calls into TTGraph's exportRubyNode
+		content += objName;
+		content += ".connect";
+		content += nodeNames[inputIndex];
+		content += "\n";
 	}
 	return localIndex;
 }
