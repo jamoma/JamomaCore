@@ -82,10 +82,10 @@ int TTGraphDescription::exportCppNode(TTString& content, int& index, TTStringVec
 	snprintf(objName, 16, "obj%i", index);
 	nodeNames.push_back(TTString(objName));
 	
-	content += "	TTMulticoreObjectPtr ";
+	content += "	TTGraphObjectPtr ";
 	content += objName;
 	content += ";\n";
-	content += "	TTObjectInstantiate(TT(\"multicore.object\"), (TTObjectPtr*)&";
+	content += "	TTObjectInstantiate(TT(\"graph.object\"), (TTObjectPtr*)&";
 	content += objName;
 	content += ", TTValue(TT(\"";
 	content += mClassName->getString();
