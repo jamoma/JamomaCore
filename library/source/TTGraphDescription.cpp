@@ -82,7 +82,7 @@ int TTGraphDescription::exportCppNode(TTString& content, int& index, TTStringVec
 	snprintf(objName, 16, "obj%i", index);
 	nodeNames.push_back(TTString(objName));
 	
-	content += "	TTGraphObjectPtr ";
+	content += "	TTMulticoreObjectPtr ";
 	content += objName;
 	content += ";\n";
 	content += "	TTObjectInstantiate(TT(\"multicore.object\"), (TTObjectPtr*)&";
@@ -92,16 +92,13 @@ int TTGraphDescription::exportCppNode(TTString& content, int& index, TTStringVec
 	content += "\")))\n\n";
 	
 	for (TTGraphDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
-		int inputIndex;
-		
-		inputIndex = input->exportCppNode(content, index, nodeNames);
+		int inputIndex = input->exportCppNode(content, index, nodeNames); // note: calls into TTGraph's exportRubyNode
 		content += "	";
 		content += objName;
 		content += "->connect(";
-		//snprintf(inputName, 16, "obj%i", index);
 		content += nodeNames[inputIndex];
 		content += ");\n";
-	}
+	}	
 	return localIndex;
 }
 
