@@ -121,7 +121,8 @@ void InFree(InPtr self)
 void InAssist(InPtr self, void* b, long msg, long arg, char* dst)
 {
 	if (msg==1)			// Inlets
-		strcpy(dst, "(signal) single-channel input and control messages");		
+		if (arg > 0) { snprintf(dst, 256, "(signal) single-channel input Nr. %ld", arg + 1); }
+		else { strcpy(dst, "control messages and (signal) single-channel input Nr. 1");}
 	else if (msg==2) {	// Outlets
 		if (arg == 0)
 			strcpy(dst, "multichannel output");

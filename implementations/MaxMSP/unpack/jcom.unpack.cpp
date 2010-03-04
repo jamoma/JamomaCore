@@ -208,7 +208,7 @@ void OutAssist(OutPtr self, void* b, long msg, long arg, char* dst)
 		if (arg == self->maxNumChannels)
 			strcpy(dst, "dumpout");
 		else
-			strcpy(dst, "(signal) single-channel output");
+			snprintf(dst, 256, "(signal) single-channel output Nr. %ld", arg + 1); 
 	}
 }
 
