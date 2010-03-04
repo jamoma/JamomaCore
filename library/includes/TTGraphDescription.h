@@ -32,35 +32,7 @@ public:
 	TTGraphDescriptionVector	mInputDescriptions;
 	
 	void exportRuby(const TTString& fullpathToFile);
-
-	
-	//	int exportRubyNode(TTString& rubyContent, int& index, TTStringVector& nodeNames);
-	// WARNING: This code is largely duplicated from TTMulticoreDescription.cpp
-	int exportRubyNode(TTString& rubyContent, int& index, TTStringVector& nodeNames/*, TTBoolean isAudio*/)
-	{
-		char	objName[16];
-		int		localIndex;
-		
-		index++;
-		localIndex = index;
-		snprintf(objName, 16, "obj%i", index);
-		nodeNames.push_back(TTString(objName));
-		
-		rubyContent += objName;
-		rubyContent += " = TTControl.new \"";
-		rubyContent += mClassName->getString();
-		rubyContent += "\"\n";
-		
-		for (TTGraphDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
-			int inputIndex = input->exportRubyNode(rubyContent, index, nodeNames);
-			rubyContent += objName;
-			rubyContent += ".connect ";
-			rubyContent += nodeNames[inputIndex];
-			rubyContent += "\n";
-		}
-		return localIndex;
-	}
-
+	int exportRubyNode(TTString& rubyContent, int& index, TTStringVector& nodeNames);
 	
 	void exportCpp(const TTString& fullpathToFile);
 	int exportCppNode(TTString& content, int& index, TTStringVector& nodeNames);

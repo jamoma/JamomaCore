@@ -27,7 +27,7 @@ void TTGraphDescription::exportRuby(const TTString& fullpathToFile)
 	rubyFile.close();
 }
 
-int TTGraphDescription::exportRubyNode(TTString& rubyContent, int& index, TTStringVector& nodeNames)
+int TTGraphDescription::exportRubyNode(TTString& content, int& index, TTStringVector& nodeNames)
 {
 	char	objName[16];
 	int		localIndex;
@@ -37,20 +37,17 @@ int TTGraphDescription::exportRubyNode(TTString& rubyContent, int& index, TTStri
 	snprintf(objName, 16, "obj%i", index);
 	nodeNames.push_back(TTString(objName));
 	
-	rubyContent += objName;
-	rubyContent += " = TTAudio.new \"";
-	rubyContent += mClassName->getString();
-	rubyContent += "\"\n";
-
+	content += objName;
+	content += " = TTControl.new \"";
+	content += mClassName->getString();
+	content += "\"\n";
+	
 	for (TTGraphDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
-		int inputIndex;
-		
-		inputIndex = input->exportRubyNode(rubyContent, index, nodeNames);
-		rubyContent += objName;
-		rubyContent += ".connect ";
-		//snprintf(inputName, 16, "obj%i", index);
-		rubyContent += nodeNames[inputIndex];
-		rubyContent += "\n";
+		int inputIndex = input->exportRubyNode(content, index, nodeNames);
+		content += objName;
+		content += ".connect ";
+		content += nodeNames[inputIndex];
+		content += "\n";
 	}
 	return localIndex;
 }
