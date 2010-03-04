@@ -146,12 +146,16 @@ int TTGraphDescription::exportMaxNode(TTString& content, int& index, TTStringVec
 	content += "					\"text\" : \"jcom.";
 	
 	// TODO: is there a better way to know about object name mappings?
-	if (mClassName == TT("multicore.output"))
-		content += "dac";
+	if (mClassName == TT("operator"))
+		content += "op";
+	else if (mClassName == TT("graph.input"))
+		content += "pack";
+	else if (mClassName == TT("graph.output"))
+		content += "unpack";
 	else
 		content += mClassName->getString();
 	
-	content += "≈\",\n";
+	content += ">\",\n";
 	content += "					\"patching_rect\" : [ 50.0, ";
 	snprintf(location, 16, "%f", 400.0 - (index * 40.0));
 	content += location;
@@ -160,9 +164,7 @@ int TTGraphDescription::exportMaxNode(TTString& content, int& index, TTStringVec
 	content += "			}\n";
 		
 	for (TTGraphDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
-		int inputIndex;
-		
-		inputIndex = input->exportMaxNode(content, index, nodeNames);
+		int inputIndex = input->exportMaxNode(content, index, nodeNames);
 
 		if (index == inputIndex) { // I think this means that we are processing the top of the chain?)
 			content += "		],";
