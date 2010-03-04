@@ -109,7 +109,7 @@ int TTMulticoreDescription::exportCppNode(TTString& content, int& index, TTStrin
 		content += ");\n";
 	}
 	for (TTGraphDescriptionIter input = mControlDescription.mInputDescriptions.begin(); input != mControlDescription.mInputDescriptions.end(); input++) {
-		int inputIndex = input->exportCppNode(content, index, nodeNames); // note: calls into TTGraph's exportRubyNode
+		int inputIndex = input->exportCppNode(content, index, nodeNames); // note: calls into TTGraph's exportCppNode
 		content += "	";
 		content += objName;
 		content += "->connect(";
@@ -165,6 +165,10 @@ int TTMulticoreDescription::exportMaxNode(TTString& content, int& index, TTStrin
 	// TODO: is there a better way to know about object name mappings?
 	if (mClassName == TT("multicore.output"))
 		content += "dac";
+	else if (mClassName == TT("multicore.input"))
+		content += "adc";
+	else if (mClassName == TT("operator"))
+		content += "op";
 	else
 		content += mClassName->getString();
 	
@@ -181,6 +185,30 @@ int TTMulticoreDescription::exportMaxNode(TTString& content, int& index, TTStrin
 		
 		inputIndex = input->exportMaxNode(content, index, nodeNames);
 
+		if (input == mAudioDescriptions.begin()) {
+			for (TTGraphDescriptionIter graphInput = mControlDescription.mInputDescriptions.begin(); graphInput != mControlDescription.mInputDescriptions.end(); graphInput++) {
+				int graphInputIndex = graphInput->exportMaxNode(content, index, nodeNames); // note: calls into TTGraph's exportMaxNode
+				
+				if (index == graphInputIndex) { // I think this means that we are processing the top of the chain?)
+					content += "		],";
+					content += "		\"lines\" : [";
+				}
+				else
+					content += ",\n";
+				
+				content += "			{\n";
+				content += "				\"patchline\" : {\n";
+				content += "					\"destination\" : [ \"";
+				content += objName;
+				content += "\", 0],\n";
+				content += "					\"source\" : [ \"";
+				content += nodeNames[graphInputIndex];
+				content += "\", 0]\n";
+				content += "				}\n";
+				content += "			}\n";
+			}
+		}
+		
 		if (index == inputIndex) { // I think this means that we are processing the top of the chain?)
 			content += "		],";
 			content += "		\"lines\" : [";
@@ -199,5 +227,7 @@ int TTMulticoreDescription::exportMaxNode(TTString& content, int& index, TTStrin
 		content += "				}\n";
 		content += "			}\n";
 	}
+		
+	
 	return localIndex;
 }
