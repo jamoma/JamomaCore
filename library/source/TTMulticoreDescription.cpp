@@ -101,16 +101,21 @@ int TTMulticoreDescription::exportCppNode(TTString& content, int& index, TTStrin
 	content += "\")))\n\n";
 	
 	for (TTMulticoreDescriptionIter input = mAudioDescriptions.begin(); input != mAudioDescriptions.end(); input++) {
-		int inputIndex;
-		
-		inputIndex = input->exportCppNode(content, index, nodeNames);
+		int inputIndex = input->exportCppNode(content, index, nodeNames);
 		content += "	";
 		content += objName;
 		content += "->connectAudio(";
-		//snprintf(inputName, 16, "obj%i", index);
 		content += nodeNames[inputIndex];
 		content += ");\n";
 	}
+	for (TTGraphDescriptionIter input = mControlDescription.mInputDescriptions.begin(); input != mControlDescription.mInputDescriptions.end(); input++) {
+		int inputIndex = input->exportCppNode(content, index, nodeNames); // note: calls into TTGraph's exportRubyNode
+		content += "	";
+		content += objName;
+		content += "->connect(";
+		content += nodeNames[inputIndex];
+		content += ");\n";
+	}	
 	return localIndex;
 }
 
