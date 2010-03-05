@@ -1,23 +1,12 @@
 class BasicsController < ApplicationController
-  require "TTRuby"
 
-  # build the multicore graph here
-  # TODO: need to clear all of this up when we are done!
+
   def initialize
     @master_gain = -96.0
-	  @waveform = "sine"
-	  @frequency = "220.0"
-	  @amplitude = "1.0"
-	  
-    @dac = TTAudio.new "multicore.output"
-    @gain = TTAudio.new "gain"
-    @op = TTAudio.new "operator"
-    @oscil = TTAudio.new "wavetable"
-    @op.connect_audio @oscil
-    @gain.connect_audio @op
-    @dac.connect_audio @gain
+    @waveform = "sine"
+    @frequency = "220.0"
+    @amplitude = "1.0"
   end
-
 
 
   # GET /basics
@@ -62,19 +51,19 @@ class BasicsController < ApplicationController
   def oscil_frequency
     frequency = params[:frequency_value]
     puts "my oscil frequency #{frequency}"
-    @oscil.set "frequency", frequency
+    $tt_oscil.set "frequency", frequency.to_f
   end
   
   def oscil_amplitude
     amplitude = params[:amplitude_value]
     puts "my oscil amplitude #{amplitude}"
-    @oscil.set "linearGain", amplitude
+    $tt_oscil.set "linearGain", amplitude.to_f
   end
   
   def oscil_waveform
     waveform = params[:value]
     puts "my oscil waveform #{waveform}"
-    @oscil.set "mode", waveform
+    $tt_oscil.set "mode", waveform
   end
   
   
@@ -82,11 +71,11 @@ class BasicsController < ApplicationController
   
   def dac_start
      puts "START!"
-     @dac.send "start"
+     $tt_dac.send "start"
   end
   def dac_stop
     puts "STOP!"
-    @dac.send "stop"
+    $tt_dac.send "stop"
   end
   
 
@@ -104,7 +93,7 @@ class BasicsController < ApplicationController
     
     render :text => slider_value
     
-    @gain.set "Gain", slider_value
+    $tt_gain.set "Gain", slider_value.to_f
     
   end
 

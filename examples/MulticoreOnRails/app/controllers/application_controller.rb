@@ -12,6 +12,25 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+  
+
+    # build the multicore graph here
+    # TODO: need to clear all of this up when we are done!
+ # def initialize
+      
+  	  puts "creating objects"
+      $tt_dac = TTAudio.new "multicore.output"
+      $tt_gain = TTAudio.new "gain"
+      $tt_op = TTAudio.new "operator"
+      $tt_oscil = TTAudio.new "wavetable"
+      $tt_op.connect_audio $tt_oscil
+      $tt_gain.connect_audio $tt_op
+      $tt_dac.connect_audio $tt_gain
+ # end
+
+
+
+  
 end
 
 
