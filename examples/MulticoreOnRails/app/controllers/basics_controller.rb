@@ -9,44 +9,15 @@ class BasicsController < ApplicationController
   end
 
 
-  # GET /basics
-  # GET /basics.xml
-  def index
-    #@basics = Basic.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @basics }
-    end
-  end
-
-  # GET /basics/1
-  # GET /basics/1.xml
-  def show
-    @basic = Basic.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @basic }
-    end
-  end
-
-  # GET /basics/new
-  # GET /basics/new.xml
-  def new
-    @basic = Basic.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @basic }
-    end
-  end
-  
-
-  
+ 
   def ui
-    # hi
+     # This is the action that will show our interface
+     # We aren't providing it with anything because it is statically generated
   end
+  
+  
+  
+  # Actions for controlling the Oscillator
   
   def oscil_frequency
     frequency = params[:frequency_value]
@@ -68,19 +39,8 @@ class BasicsController < ApplicationController
   
   
   
-  
-  def dac_start
-     puts "START!"
-     $tt_dac.send "start"
-  end
-  def dac_stop
-    puts "STOP!"
-    $tt_dac.send "stop"
-  end
-  
+  # Actions for controlling the Gain
 
-  
-  
   def slider_value
     slider_value = params[:slider_value]
     
@@ -98,62 +58,16 @@ class BasicsController < ApplicationController
   end
 
 
-
-
-
-# NOTE: Just ignoring the CRUD for now because we are operating as a stateless app...
-
-
-
-
-  # GET /basics/1/edit
-  def edit
-    @basic = Basic.find(params[:id])
+  # Actions for controlling the DAC
+  
+  def dac_start
+     puts "START!"
+     $tt_dac.send "start"
   end
 
-  # POST /basics
-  # POST /basics.xml
-  def create
-    @basic = Basic.new(params[:basic])
-
-    respond_to do |format|
-      if @basic.save
-        flash[:notice] = 'Basic was successfully created.'
-        format.html { redirect_to(@basic) }
-        format.xml  { render :xml => @basic, :status => :created, :location => @basic }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @basic.errors, :status => :unprocessable_entity }
-      end
-    end
+  def dac_stop
+    puts "STOP!"
+    $tt_dac.send "stop"
   end
 
-  # PUT /basics/1
-  # PUT /basics/1.xml
-  def update
-    @basic = Basic.find(params[:id])
-
-    respond_to do |format|
-      if @basic.update_attributes(params[:basic])
-        flash[:notice] = 'Basic was successfully updated.'
-        format.html { redirect_to(@basic) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @basic.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /basics/1
-  # DELETE /basics/1.xml
-  def destroy
-    @basic = Basic.find(params[:id])
-    @basic.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(basics_url) }
-      format.xml  { head :ok }
-    end
-  end
 end
