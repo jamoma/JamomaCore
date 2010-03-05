@@ -4,7 +4,7 @@ class BasicsController < ApplicationController
   def initialize
     @master_gain = -96.0
     @waveform = "sine"
-    @frequency = "220.0"
+    @frequency = "440.0"
     @amplitude = "1.0"
   end
 
