@@ -69,6 +69,8 @@ TTErr TTMulticoreOutput::stop()
 
 TTErr TTMulticoreOutput::audioEngineWillProcess()
 {
+	TT_ASSERT("There must be an owner", owner);
+	
 	owner->lockProcessing();
 	owner->preprocess(mInitData);
 	owner->process(placeHolder);
