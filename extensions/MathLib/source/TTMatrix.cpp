@@ -89,8 +89,11 @@ TTErr TTMatrix::setGain(const TTValue& newValue)
 	newValue.get(0, x);
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
-	mGainMatrix[x][y] = dbToLinear(gainValue);
-	return kTTErrNone;
+	if ((x < mNumInputs) && (y < mNumOutputs)){  
+		mGainMatrix[x][y] = dbToLinear(gainValue);
+		return kTTErrNone;}
+	else 
+		return kTTErrInvalidValue;
 }
 
 
@@ -106,8 +109,11 @@ TTErr TTMatrix::setLinearGain(const TTValue& newValue)
 	newValue.get(0, x);
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
-	mGainMatrix[x][y] = gainValue;
-	return kTTErrNone;
+	if ((x < mNumInputs) && (y < mNumOutputs)){ 
+		mGainMatrix[x][y] = gainValue;
+		return kTTErrNone;}
+	else 
+		return kTTErrInvalidValue;
 }
 
 
@@ -123,8 +129,12 @@ TTErr TTMatrix::setMidiGain(const TTValue& newValue)
 	newValue.get(0, x);
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
-	mGainMatrix[x][y] = midiToLinearGain(gainValue);
-	return kTTErrNone;
+	if ((x < mNumInputs) && (y < mNumOutputs)) {
+		mGainMatrix[x][y] = midiToLinearGain(gainValue);
+		return kTTErrNone;}
+	else 
+		return kTTErrInvalidValue;
+
 }
 
 
