@@ -212,6 +212,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\includes\TTDictionary.h"
+				>
+			</File>
+			<File
 				RelativePath=".\includes\TTElement.h"
 				>
 			</File>
@@ -301,6 +305,10 @@
 			</File>
 			<File
 				RelativePath=".\source\TTDataObject.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTDictionary.cpp"
 				>
 			</File>
 			<File

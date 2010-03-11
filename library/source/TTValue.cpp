@@ -123,13 +123,13 @@ TTValue::TTValue(const TTObject& initialValue)
 	*type = kTypeObject;
 }
 
-TTValue::TTValue(const TTValue& obj)
+TTValue::TTValue(const TTValue& obj) : 
+	type(NULL), 
+	data(NULL), 
+	numValues(0)
 {
-	numValues = obj.numValues;
- 	type = new TTDataType[numValues];
-	data = new DataValue[numValues];
-	memcpy(type, obj.type, sizeof(TTDataType) * numValues);
-	memcpy(data, obj.data, sizeof(DataValue) * numValues);
+	init();
+	copy(obj);
 }
 
 TTValue::TTValue(const TTPtr initialValue)
@@ -237,23 +237,19 @@ void TTValue::setSize(const TTUInt16 arg)
 
 void TTValue::copy(const TTValue& obj)
 {
-	numValues = obj.numValues;
-	TTDataType* t = new TTDataType[numValues];
-	DataValue* d = new DataValue[numValues];		
-	memcpy(t, obj.type, sizeof(TTDataType) * numValues);
-	memcpy(d, obj.data, sizeof(DataValue) * numValues);
-	delete [] type;
-	delete [] data;
-	type = t;
-	data = d;
+	setSize(obj.getSize());
+	
+	memcpy(type, obj.type, sizeof(TTDataType) * numValues);
+	memcpy(data, obj.data, sizeof(DataValue) * numValues);
+	
+	numerical = obj.numerical;
+	stringsPresent = obj.stringsPresent;
 }
 
 
 TTValue& TTValue::operator = (const TTValue &newValue)
 {
-	if(this != &newValue)
-		copy(newValue);
-	
+	copy(newValue);
 	return *this;
 }	
 
