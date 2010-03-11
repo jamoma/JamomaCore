@@ -16,45 +16,48 @@ TTObjectPtr	TTAudioEngine::sSingletonInstance = NULL;
 
 
 TT_OBJECT_CONSTRUCTOR,
-	 numInputChannels(2),
-	 numOutputChannels(2),
-	 vectorSize(64),
-	 sampleRate(44100),
-	 stream(NULL),
-	 inputDevice(NULL),
-	 outputDevice(NULL),
-	 isRunning(false),
-	 inputBuffer(NULL),
-	 outputBuffer(NULL)
+	 mNumInputChannels(2),
+	 mNumOutputChannels(2),
+	 mVectorSize(64),
+	 mSampleRate(44100),
+	 mStream(NULL),
+	 mInputDevice(NULL),
+	 mOutputDevice(NULL),
+	 mIsRunning(false),
+	 mInputBuffer(NULL),
+	 mOutputBuffer(NULL)
 {
 	if (sSingletonInstance)
 		throw TTException("cannot instantiate multiple copies of a singleton class");
 	
-	callbackObservers = new TTList;
-	callbackObservers->setThreadProtection(NO);	// ... because we make calls into this at every audio vector calculation ...
+	mCallbackObservers = new TTList;
+	mCallbackObservers->setThreadProtection(NO);	// ... because we make calls into this at every audio vector calculation ...
 
-	TTObjectInstantiate(kTTSym_audiosignal, &inputBuffer, 1);
-	TTObjectInstantiate(kTTSym_audiosignal, &outputBuffer, 1);
+	TTObjectInstantiate(kTTSym_audiosignal, &mInputBuffer, 1);
+	TTObjectInstantiate(kTTSym_audiosignal, &mOutputBuffer, 1);
 	
 	// numChannels should be readonly -- how do we do that?
-	registerAttributeSimple(numInputChannels,	kTypeUInt16);
-	registerAttributeSimple(numOutputChannels,	kTypeUInt16);
+	addAttribute(NumInputChannels,	kTypeUInt16);
+	addAttribute(NumOutputChannels,	kTypeUInt16);
 	
-	registerAttributeWithSetter(vectorSize,		kTypeUInt16);
-	registerAttributeWithSetter(sampleRate,		kTypeUInt32);
-	registerAttributeWithSetter(inputDevice,	kTypeSymbol);
-	registerAttributeWithSetter(outputDevice,	kTypeSymbol);
+	addAttributeWithSetter(VectorSize,		kTypeUInt16);
+	addAttributeWithSetter(SampleRate,		kTypeUInt32);
+	addAttributeWithSetter(InputDevice,		kTypeSymbol);
+	addAttributeWithSetter(OutputDevice,	kTypeSymbol);
 	
-	registerMessageSimple(start);
-	registerMessageSimple(stop);
-	registerMessageWithArgument(getCpuLoad);
+	addMessage(start);
+	addMessage(stop);
+	addMessageWithArgument(getCpuLoad);
+
+	addMessageWithArgument(getAvailableInputDeviceNames);
+	addMessageWithArgument(getAvailableOutputDeviceNames);
 	
-	registerMessageWithArgument(addCallbackObserver);
-	registerMessageWithArgument(removeCallbackObserver);
+	addMessageWithArgument(addCallbackObserver);
+	addMessageWithArgument(removeCallbackObserver);
 
 	// Set defaults
-	setAttributeValue(TT("inputDevice"), TT("default"));
-	setAttributeValue(TT("outputDevice"), TT("default"));
+	setAttributeValue(TT("InputDevice"), TT("default"));
+	setAttributeValue(TT("OutputDevice"), TT("default"));
 }
 
 
@@ -62,87 +65,87 @@ TTAudioEngine::~TTAudioEngine()
 {
 	PaError err;
 
-	if(stream){
-		if(isRunning)
+	if (mStream) {
+		if (mIsRunning)
 			stop();
 				
-		err = Pa_CloseStream(stream);
-		if(err != paNoError)
+		err = Pa_CloseStream(mStream);
+		if (err != paNoError)
 			TTLogError("PortAudio error freeing engine: %s", Pa_GetErrorText(err));
 	}
-	delete callbackObservers;
-	TTObjectRelease(&inputBuffer);
-	TTObjectRelease(&outputBuffer);
+	delete mCallbackObservers;
+	TTObjectRelease(&mInputBuffer);
+	TTObjectRelease(&mOutputBuffer);
 }
 
 
 TTErr TTAudioEngine::initStream()
 {
 	PaError		err;
-	TTBoolean	shouldRun = isRunning;
+	TTBoolean	shouldRun = mIsRunning;
 		
-	if(isRunning)
+	if (mIsRunning)
 		stop();
 		
-	if(stream){
-		Pa_CloseStream(stream);
-		stream = NULL;
+	if (mStream) {
+		Pa_CloseStream(mStream);
+		mStream = NULL;
 	}
 
-	if((inputDevice == TT("default") || inputDevice == NULL) && (outputDevice == TT("default") || outputDevice == NULL)){
-		err = Pa_OpenDefaultStream(&stream,
-								   numInputChannels,
-								   numOutputChannels,
+	if ((mInputDevice == TT("default") || mInputDevice == NULL) && (mOutputDevice == TT("default") || mOutputDevice == NULL)) {
+		err = Pa_OpenDefaultStream(&mStream,
+								   mNumInputChannels,
+								   mNumOutputChannels,
 								   paFloat32,
-								   sampleRate,
-								   vectorSize,
+								   mSampleRate,
+								   mVectorSize,
 								   TTAudioEngineStreamCallback,
 								   this);
 	}
-	else{
+	else {
 		PaStreamParameters	outputParameters;
 		PaStreamParameters	inputParameters;
 
-		inputParameters.channelCount = numInputChannels;
-		inputParameters.device = inputDeviceIndex;
+		inputParameters.channelCount = mNumInputChannels;
+		inputParameters.device = mInputDeviceIndex;
 		inputParameters.hostApiSpecificStreamInfo = NULL;
 		inputParameters.sampleFormat = paFloat32;
-		inputParameters.suggestedLatency = Pa_GetDeviceInfo(inputDeviceIndex)->defaultLowInputLatency;
+		inputParameters.suggestedLatency = Pa_GetDeviceInfo(mInputDeviceIndex)->defaultLowInputLatency;
 		
-		outputParameters.channelCount = numOutputChannels;
-		outputParameters.device = outputDeviceIndex;
+		outputParameters.channelCount = mNumOutputChannels;
+		outputParameters.device = mOutputDeviceIndex;
 		outputParameters.hostApiSpecificStreamInfo = NULL;
 		outputParameters.sampleFormat = paFloat32;
-		outputParameters.suggestedLatency = Pa_GetDeviceInfo(outputDeviceIndex)->defaultLowOutputLatency;
+		outputParameters.suggestedLatency = Pa_GetDeviceInfo(mOutputDeviceIndex)->defaultLowOutputLatency;
 		
 		err = Pa_OpenStream(
-							&stream,
+							&mStream,
 							&inputParameters,
 							&outputParameters,
-							sampleRate,
-							vectorSize,
+							mSampleRate,
+							mVectorSize,
 							paNoFlag,						//flags that can be used to define dither, clip settings and more
 							TTAudioEngineStreamCallback,	//your callback function
 							this);
 
 	}
 	
-	if(err != paNoError )
+	if (err != paNoError )
 		TTLogError("PortAudio error creating TTAudioEngine: %s", Pa_GetErrorText(err));
 	
 	
 	// Now that the stream is initialized, we need to setup our own buffers for reading and writing.
-	inputBuffer->setmaxNumChannels(numInputChannels);
-	inputBuffer->setnumChannels(numInputChannels);
-	inputBuffer->setvectorSize(vectorSize);
-	inputBuffer->alloc();
+	mInputBuffer->setmaxNumChannels(mNumInputChannels);
+	mInputBuffer->setnumChannels(mNumInputChannels);
+	mInputBuffer->setvectorSize(mVectorSize);
+	mInputBuffer->alloc();
 
-	outputBuffer->setmaxNumChannels(numInputChannels);
-	outputBuffer->setnumChannels(numInputChannels);
-	outputBuffer->setvectorSize(vectorSize);
-	outputBuffer->alloc();	
+	mOutputBuffer->setmaxNumChannels(mNumOutputChannels);
+	mOutputBuffer->setnumChannels(mNumOutputChannels);
+	mOutputBuffer->setvectorSize(mVectorSize);
+	mOutputBuffer->alloc();
 	
-	if(shouldRun)
+	if (shouldRun)
 		start();
 	
 	return (TTErr)err;
@@ -153,15 +156,15 @@ TTErr TTAudioEngine::start()
 {
 	PaError err = paNoError;
 	
-	if(!isRunning){
-		if(!stream)
+	if (!mIsRunning) {
+		if (!mStream)
 			initStream();
 		
-		err = Pa_StartStream(stream);
-		if(err != paNoError) 
+		err = Pa_StartStream(mStream);
+		if (err != paNoError) 
 			TTLogError("PortAudio error starting engine: %s", Pa_GetErrorText(err));
 		
-		isRunning = true;
+		mIsRunning = true;
 	}
 	return (TTErr)err;
 }
@@ -171,25 +174,26 @@ TTErr TTAudioEngine::stop()
 {
 	PaError err = paNoError;
 	
-	if(stream){
-		err = Pa_StopStream(stream);
-		if(err != paNoError) 
+	if (mStream) {
+		err = Pa_StopStream(mStream);
+		if (err != paNoError) 
 			TTLogError("PortAudio error stopping engine: %s", Pa_GetErrorText(err));
 	}
-	isRunning = false;
+	mIsRunning = false;
 	return (TTErr)err;
 }
 
 
 TTErr TTAudioEngine::getCpuLoad(TTValue& returnedValue)
 {
-	TTFloat64 cpuLoad = Pa_GetStreamCpuLoad(stream);
+	TTFloat64 cpuLoad = Pa_GetStreamCpuLoad(mStream);
+	
 	returnedValue = cpuLoad;
 	return kTTErrNone;
 }
 
 
-TTErr TTAudioEngine::getAvailableInputDevices(TTValue& returnedDeviceNames)
+TTErr TTAudioEngine::getAvailableInputDeviceNames(TTValue& returnedDeviceNames)
 {
 	const PaDeviceInfo*	deviceInfo;
     int					numDevices;
@@ -211,7 +215,7 @@ TTErr TTAudioEngine::getAvailableInputDevices(TTValue& returnedDeviceNames)
 }
 
 
-TTErr TTAudioEngine::getAvailableOutputDevices(TTValue& returnedDeviceNames)
+TTErr TTAudioEngine::getAvailableOutputDeviceNames(TTValue& returnedDeviceNames)
 {
 	const PaDeviceInfo*	deviceInfo;
     int					numDevices;
@@ -233,23 +237,23 @@ TTErr TTAudioEngine::getAvailableOutputDevices(TTValue& returnedDeviceNames)
 }
 
 
-TTErr TTAudioEngine::setinputDevice(TTValue& newDeviceName)
+TTErr TTAudioEngine::setInputDevice(TTValue& newDeviceName)
 {
 	TTSymbolPtr			newDevice = newDeviceName;
 	const PaDeviceInfo*	deviceInfo;
     int					numDevices;
 	
-	if(newDevice != inputDevice){
+	if (newDevice != mInputDevice) {
 		numDevices = Pa_GetDeviceCount();
 		for(int i=0; i<numDevices; i++){
 			deviceInfo = Pa_GetDeviceInfo(i);
 			if(newDevice == TT(deviceInfo->name)){
-				inputDeviceInfo = deviceInfo;
-				inputDeviceIndex = i;
-				numInputChannels = inputDeviceInfo->maxInputChannels;
+				mInputDeviceInfo = deviceInfo;
+				mInputDeviceIndex = i;
+				mNumInputChannels = mInputDeviceInfo->maxInputChannels;
 
-				inputDevice = newDevice;
-				if(isRunning)
+				mInputDevice = newDevice;
+				if (mIsRunning)
 					return initStream();
 				return kTTErrNone;
 			}
@@ -260,23 +264,23 @@ TTErr TTAudioEngine::setinputDevice(TTValue& newDeviceName)
 }
 
 
-TTErr TTAudioEngine::setoutputDevice(TTValue& newDeviceName)
+TTErr TTAudioEngine::setOutputDevice(TTValue& newDeviceName)
 {
 	TTSymbolPtr			newDevice = newDeviceName;
 	const PaDeviceInfo*	deviceInfo;
     int					numDevices;
 
-	if(newDevice != outputDevice){
+	if (newDevice != mOutputDevice) {
 		numDevices = Pa_GetDeviceCount();
 		for(int i=0; i<numDevices; i++){
 			deviceInfo = Pa_GetDeviceInfo(i);
 			if(newDevice == TT(deviceInfo->name)){
-				outputDeviceInfo = deviceInfo;
-				outputDeviceIndex = i;
-				numOutputChannels = outputDeviceInfo->maxOutputChannels;
+				mOutputDeviceInfo = deviceInfo;
+				mOutputDeviceIndex = i;
+				mNumOutputChannels = mOutputDeviceInfo->maxOutputChannels;
 
-				outputDevice = newDevice;
-				if(isRunning)
+				mOutputDevice = newDevice;
+				if (mIsRunning)
 					return initStream();
 				return kTTErrNone;
 			}
@@ -287,22 +291,22 @@ TTErr TTAudioEngine::setoutputDevice(TTValue& newDeviceName)
 }
 
 
-TTErr TTAudioEngine::setvectorSize(TTValue& newVectorSize)
+TTErr TTAudioEngine::setVectorSize(TTValue& newVectorSize)
 {
-	if(TTUInt16(newVectorSize) != vectorSize){
-		vectorSize = newVectorSize;
-		if(isRunning)
+	if (TTUInt16(newVectorSize) != mVectorSize) {
+		mVectorSize = newVectorSize;
+		if (mIsRunning)
 			return initStream();
 	}
 	return kTTErrNone;
 }
 
 
-TTErr TTAudioEngine::setsampleRate(TTValue& newSampleRate)
+TTErr TTAudioEngine::setSampleRate(TTValue& newSampleRate)
 {
-	if(TTUInt32(newSampleRate) != sampleRate){
-		sampleRate = newSampleRate;
-		if(isRunning)
+	if (TTUInt32(newSampleRate) != mSampleRate) {
+		mSampleRate = newSampleRate;
+		if (mIsRunning)
 			return initStream();
 	}
 	return kTTErrNone;
@@ -311,14 +315,14 @@ TTErr TTAudioEngine::setsampleRate(TTValue& newSampleRate)
 
 TTErr TTAudioEngine::addCallbackObserver(const TTValue& objectToReceiveNotifications)
 {
-	callbackObservers->append(objectToReceiveNotifications);
+	mCallbackObservers->append(objectToReceiveNotifications);
 	return kTTErrNone;
 }
 
 
 TTErr TTAudioEngine::removeCallbackObserver(const TTValue& objectCurrentlyReceivingNotifications)
 {
-	callbackObservers->remove(objectCurrentlyReceivingNotifications);
+	mCallbackObservers->remove(objectCurrentlyReceivingNotifications);
 	return kTTErrNone;
 }
 
@@ -329,21 +333,21 @@ TTInt32 TTAudioEngine::callback(const TTFloat32*		input,
 						const PaStreamCallbackTimeInfo*	timeInfo, 
 						PaStreamCallbackFlags			statusFlags)
 {
-	inputBuffer->clear();
-	outputBuffer->clear();
+	mInputBuffer->clear();
+	mOutputBuffer->clear();
 
 	// notify any observers that we are about to process a vector
 	// for example, a lydbaer graph will do all of its processing in response to this
 	// also, the scheduler will be serviced as a result of this
-	callbackObservers->iterateObjectsSendingMessage(kTTSym_audioEngineWillProcess);
+	mCallbackObservers->iterateObjectsSendingMessage(kTTSym_audioEngineWillProcess);
 	
 	// right now we copy all of the channels, regardless of whether or not they are actually being used
 	// TODO: only copy the channels that actually contain new audio samples
-	for(unsigned int i=0; i<frameCount; i++){		
-		for(TTUInt16 channel=0; channel<numInputChannels; channel++)
-			inputBuffer->sampleVectors[channel][i] = *input++;
-		for(TTUInt16 channel=0; channel<numOutputChannels; channel++)
-			*output++ = outputBuffer->sampleVectors[channel][i];
+	for (unsigned int i=0; i<frameCount; i++) {		
+		for (TTUInt16 channel=0; channel<mNumInputChannels; channel++)
+			mInputBuffer->sampleVectors[channel][i] = *input++;
+		for (TTUInt16 channel=0; channel<mNumOutputChannels; channel++)
+			*output++ = mOutputBuffer->sampleVectors[channel][i];
     }
     return 0;
 }
@@ -351,13 +355,13 @@ TTInt32 TTAudioEngine::callback(const TTFloat32*		input,
 
 TTAudioSignalPtr TTAudioEngine::TTAudioEngineGetInputSignalReference()
 {
-	return (TTAudioSignalPtr)TTObjectReference(inputBuffer);
+	return (TTAudioSignalPtr)TTObjectReference(mInputBuffer);
 }
 
 
 TTAudioSignalPtr TTAudioEngine::TTAudioEngineGetOutputSignalReference()
 {
-	return (TTAudioSignalPtr)TTObjectReference(outputBuffer);
+	return (TTAudioSignalPtr)TTObjectReference(mOutputBuffer);
 }
 
 

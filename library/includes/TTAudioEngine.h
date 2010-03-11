@@ -32,22 +32,22 @@
 class TTDSP_EXPORT TTAudioEngine : public TTObject {
 	TTCLASS_SETUP(TTAudioEngine)
 	
-	TTUInt16			numInputChannels;
-	TTUInt16			numOutputChannels;
-	TTUInt16			vectorSize;			///< framesPerBuffer
-	TTUInt32			sampleRate;
-    PaStream*			stream;
-	TTListPtr			callbackObservers;
-	TTSymbolPtr			inputDevice;
-	TTSymbolPtr			outputDevice;
-	const PaDeviceInfo*	inputDeviceInfo;
-	const PaDeviceInfo*	outputDeviceInfo;
-	TTInt16				inputDeviceIndex;
-	TTInt16				outputDeviceIndex;
-	TTBoolean			isRunning;
+	TTUInt16			mNumInputChannels;
+	TTUInt16			mNumOutputChannels;
+	TTUInt16			mVectorSize;			///< framesPerBuffer
+	TTUInt32			mSampleRate;
+    PaStream*			mStream;
+	TTListPtr			mCallbackObservers;
+	TTSymbolPtr			mInputDevice;
+	TTSymbolPtr			mOutputDevice;
+	const PaDeviceInfo*	mInputDeviceInfo;
+	const PaDeviceInfo*	mOutputDeviceInfo;
+	TTInt16				mInputDeviceIndex;
+	TTInt16				mOutputDeviceIndex;
+	TTBoolean			mIsRunning;
 public:
-	TTAudioSignalPtr	inputBuffer;
-	TTAudioSignalPtr	outputBuffer;
+	TTAudioSignalPtr	mInputBuffer;
+	TTAudioSignalPtr	mOutputBuffer;
 
 public:
 	// we are a singleton, so this is how we work with the lifecycle...
@@ -62,16 +62,16 @@ public:
 	
 	TTErr getCpuLoad(TTValue& returnedValue);
 	
-	TTErr getAvailableInputDevices(TTValue& returnedDeviceNames);
-	TTErr getAvailableOutputDevices(TTValue& returnedDeviceNames);
+	TTErr getAvailableInputDeviceNames(TTValue& returnedDeviceNames);
+	TTErr getAvailableOutputDeviceNames(TTValue& returnedDeviceNames);
 	TTAudioSignalPtr TTAudioEngineGetInputSignalReference();
 	TTAudioSignalPtr TTAudioEngineGetOutputSignalReference();
 
 	// Attribute Accessors
-	TTErr setinputDevice(TTValue& newDeviceName);
-	TTErr setoutputDevice(TTValue& newDeviceName);
-	TTErr setvectorSize(TTValue& newVectorSize);
-	TTErr setsampleRate(TTValue& newSampleRate);
+	TTErr setInputDevice(TTValue& newDeviceName);
+	TTErr setOutputDevice(TTValue& newDeviceName);
+	TTErr setVectorSize(TTValue& newVectorSize);
+	TTErr setSampleRate(TTValue& newSampleRate);
 	
 	TTErr addCallbackObserver(const TTValue& objectToReceiveNotifications);
 	TTErr removeCallbackObserver(const TTValue& objectCurrentlyReceivingNotifications);
