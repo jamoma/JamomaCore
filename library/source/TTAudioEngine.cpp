@@ -259,6 +259,10 @@ TTErr TTAudioEngine::setInputDevice(TTValue& newDeviceName)
 				mInputDevice = newDevice;
 				if (mIsRunning)
 					return initStream();
+				else if (mStream) {
+					Pa_CloseStream(mStream);
+					mStream = NULL;
+				}
 				return kTTErrNone;
 			}
 		}
@@ -286,6 +290,10 @@ TTErr TTAudioEngine::setOutputDevice(TTValue& newDeviceName)
 				mOutputDevice = newDevice;
 				if (mIsRunning)
 					return initStream();
+				else if (mStream) {
+					Pa_CloseStream(mStream);
+					mStream = NULL;
+				}
 				return kTTErrNone;
 			}
 		}
