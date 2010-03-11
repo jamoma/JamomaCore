@@ -36,6 +36,7 @@ TTErr	DacConnect(DacPtr self, TTMulticoreObjectPtr audioSourceObject, long sourc
 TTErr	DacInt(DacPtr self, long value);
 TTErr	DacStart(DacPtr self);
 TTErr	DacStop(DacPtr self);
+void	DacGetDeviceNames(DacPtr self);
 TTErr	DacGetCpuLoad(DacPtr self);
 MaxErr	DacExportRuby(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv);
 MaxErr	DacExportCpp(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv);
@@ -332,12 +333,23 @@ TTErr DacStop(DacPtr self)
 
 void DacGetDeviceNames(DacPtr self)
 {
-	TTValue	v;
-	TTErr	err;
-
-	err = self->multicoreObject->mUnitGenerator->sendMessage(TT("getAvailableDeviceNames"), v);
+	TTValue		v;
+	TTErr		err;
+	AtomCount	ac;
+	AtomPtr		ap;
+	TTSymbolPtr	name;
+	
+	err = self->multicoreObject->getUnitGenerator()->sendMessage(TT("getAvailableDeviceNames"), v);
 	if (!err) {
-		;
+		ac = v.getSize();
+		ap = new Atom[ac];
+		
+		for (AtomCount i=0; i<ac; i++) {
+			v.get(i, &name);
+			atom_setsym(ap+i, gensym((char*)name->getCString()));
+		}
+		object_obex_dumpout(self, gensym("getAvailableDeviceNames"), ac, ap);
+		delete ap;
 	}
 }
 

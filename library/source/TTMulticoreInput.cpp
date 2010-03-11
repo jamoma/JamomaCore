@@ -26,43 +26,30 @@ TT_AUDIO_CONSTRUCTOR
 
 	addMessage(start);
 	addMessage(stop);
-//	addMessage(audioEngineWillProcess);
-//	addMessageWithArgument(setOwner);	
+	addMessageWithArgument(getAvailableDeviceNames);
+	
 	setProcessMethod(processAudio);
 	
 	setAttributeValue(TT("SampleRate"), 44100);
 	setAttributeValue(TT("VectorSize"), 512);
-	
-//	me = new TTValue;
-//	(*me) = (TTObjectPtr)this;
-//	audioEngine->sendMessage(TT("addCallbackObserver"), *me);
 }
 
 
 TTMulticoreInput::~TTMulticoreInput()
 {
-//	audioEngine->sendMessage(TT("removeCallbackObserver"), *me);
-//	delete me;
 	TTAudioEngine::destroy();
 	TTObjectRelease(&mBuffer);
 }
 
 
-//TTErr TTMulticoreInput::setOwner(TTValue& newOwner)
-//{
-//	owner = TTMulticoreObjectPtr(TTPtr(newOwner));
-//	return kTTErrNone;
-//}
+TTErr TTMulticoreInput::getAvailableDeviceNames(TTValue& returnedDeviceNames)
+{
+	return mAudioEngine->sendMessage(TT("getAvailableInputDeviceNames"), returnedDeviceNames);
+}
+
 
 TTErr TTMulticoreInput::start()
 {
-//	TTValue				v;
-//	TTMulticoreInitData	initData;
-	
-//	getVectorSize(v);
-//	initData.vectorSize = v;
-//	owner->init(initData);
-	
 	mAudioEngine->sendMessage(TT("start"));
 	return kTTErrNone;
 }
@@ -96,19 +83,14 @@ TTErr TTMulticoreInput::getVectorSize(TTValue& returnedValue)
 }
 
 
-
-
 TTErr TTMulticoreInput::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	if (outputs->numAudioSignals){
 		TTAudioSignal&	out = outputs->getSignal(0);
 
 		out = *mBuffer;
-		
-//		(*((TTAudioEnginePtr)audioEngine)->outputBuffer) += in;
 		return kTTErrNone;
 	}
 	else
 		return kTTErrBadChannelConfig;
 }
-

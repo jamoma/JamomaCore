@@ -89,17 +89,7 @@ TTErr TTMulticoreOutput::setOwner(TTValue& newOwner)
 
 TTErr TTMulticoreOutput::getAvailableDeviceNames(TTValue& returnedDeviceNames)
 {
-	int		numDevices = Pa_GetDeviceCount();
-	const   PaDeviceInfo *deviceInfo;
-	
-	returnedDeviceNames.clear();
-	returnedDeviceNames.setSize(numDevices);
-	
-	for (int i=0; i<numDevices; i++) {		
-        deviceInfo = Pa_GetDeviceInfo(i);
-		returnedDeviceNames.set(i, TT(deviceInfo->name));
-    }
-	return kTTErrNone;
+	return audioEngine->sendMessage(TT("getAvailableOutputDeviceNames"), returnedDeviceNames);
 }
 
 
@@ -136,7 +126,7 @@ TTErr TTMulticoreOutput::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSigna
 	if(inputs->numAudioSignals){
 		TTAudioSignal&	in = inputs->getSignal(0);
 
-		(*((TTAudioEnginePtr)audioEngine)->outputBuffer) += in;
+		(*((TTAudioEnginePtr)audioEngine)->mOutputBuffer) += in;
 		return kTTErrNone;
 	}
 	else

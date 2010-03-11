@@ -28,6 +28,7 @@ TTErr	AdcReset(AdcPtr self);
 TTErr	AdcSetup(AdcPtr self);
 TTErr	AdcStart(AdcPtr self);
 TTErr	AdcStop(AdcPtr self);
+void	AdcGetDeviceNames(AdcPtr self);
 // Prototypes for attribute accessors
 MaxErr	AdcSetSampleRate(AdcPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr	AdcGetSampleRate(AdcPtr self, void* attr, AtomCount* argc, AtomPtr* argv);
@@ -57,6 +58,7 @@ int main(void)
 	class_addmethod(c, (method)MaxMulticoreObject,	"multicore.object",	A_CANT, 0);
 	class_addmethod(c, (method)AdcStart,			"start",			0);
 	class_addmethod(c, (method)AdcStop,				"stop",				0);
+	class_addmethod(c, (method)AdcGetDeviceNames,	"getAvailableDeviceNames",	0);
 	class_addmethod(c, (method)AdcAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",			A_CANT, 0);  
 
@@ -146,6 +148,29 @@ TTErr AdcStart(AdcPtr self)
 TTErr AdcStop(AdcPtr self)
 {	
 	return self->multicoreObject->getUnitGenerator()->sendMessage(TT("stop"));
+}
+
+
+void AdcGetDeviceNames(AdcPtr self)
+{
+	TTValue		v;
+	TTErr		err;
+	AtomCount	ac;
+	AtomPtr		ap;
+	TTSymbolPtr	name;
+	
+	err = self->multicoreObject->getUnitGenerator()->sendMessage(TT("getAvailableDeviceNames"), v);
+	if (!err) {
+		ac = v.getSize();
+		ap = new Atom[ac];
+		
+		for (AtomCount i=0; i<ac; i++) {
+			v.get(i, &name);
+			atom_setsym(ap+i, gensym((char*)name->getCString()));
+		}
+		object_obex_dumpout(self, gensym("getAvailableDeviceNames"), ac, ap);
+		delete ap;
+	}
 }
 
 

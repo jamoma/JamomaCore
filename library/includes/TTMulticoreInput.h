@@ -23,22 +23,17 @@ class TTMULTICORE_EXPORT TTMulticoreInput : public TTAudioObject
 public:
 	TTObjectPtr				mAudioEngine;
 	TTAudioSignalPtr		mBuffer;			///< an unused audio signal that we pass
-	//TTMulticoreObjectPtr	owner;			///< the owning lydbaer instance
-	//TTValuePtr			me;
 	
 	TTErr start();
 	TTErr stop();
 	
-	/** Called by the audio engine every time a new vector of output is required. */
-	//TTErr audioEngineWillProcess();
-	//TTErr setOwner(TTValue& newOwner);
+	TTErr getAvailableDeviceNames(TTValue& returnedDeviceNames);
 	
 	// Attribute Accessors
 	TTErr setSampleRate(const TTValue& newValue);
 	TTErr getSampleRate(TTValue& returnedValue);
 	TTErr setVectorSize(const TTValue& newValue);
-	TTErr getVectorSize(TTValue& returnedValue);
-	
+	TTErr getVectorSize(TTValue& returnedValue);	
 	
 	/**	A standard audio processing method as used by TTBlue objects.
 		@param	outputs	unused.		*/
