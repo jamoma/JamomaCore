@@ -64,11 +64,16 @@
 		A7CA9C890D1F21FD0099D8CA /* PitchDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7CA9C970D1FD9960099D8CA /* GainDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CA9C950D1FD9960099D8CA /* GainDataspace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7CA9C980D1FD9960099D8CA /* GainDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */; };
+		D219A85711493D9400F7C9D2 /* PluginFactories.h in Headers */ = {isa = PBXBuildFile; fileRef = D219A84F11493D9400F7C9D2 /* PluginFactories.h */; };
+		D219A85811493D9400F7C9D2 /* PluginFactories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D219A85011493D9400F7C9D2 /* PluginFactories.cpp */; };
+		D219A85911493D9400F7C9D2 /* Plugin.h in Headers */ = {isa = PBXBuildFile; fileRef = D219A85111493D9400F7C9D2 /* Plugin.h */; };
+		D219A85A11493D9400F7C9D2 /* DeviceManagerLib.h in Headers */ = {isa = PBXBuildFile; fileRef = D219A85211493D9400F7C9D2 /* DeviceManagerLib.h */; };
+		D219A85B11493D9400F7C9D2 /* DeviceManagerLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D219A85311493D9400F7C9D2 /* DeviceManagerLib.cpp */; };
+		D219A85C11493D9400F7C9D2 /* Device.h in Headers */ = {isa = PBXBuildFile; fileRef = D219A85411493D9400F7C9D2 /* Device.h */; };
+		D219A85D11493D9400F7C9D2 /* Device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D219A85511493D9400F7C9D2 /* Device.cpp */; };
+		D219A85E11493D9400F7C9D2 /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D219A85611493D9400F7C9D2 /* Controller.cpp */; };
 		D2730C5C104FBA70004513A7 /* NodeLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2730C5A104FBA70004513A7 /* NodeLib.cpp */; };
 		D2730C5D104FBA70004513A7 /* NodeLib.h in Headers */ = {isa = PBXBuildFile; fileRef = D2730C5B104FBA70004513A7 /* NodeLib.h */; };
-		D28AF79C1110843D0072C7FC /* DeviceManagerLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D28AF7991110843D0072C7FC /* DeviceManagerLib.cpp */; };
-		D28AF79D1110843D0072C7FC /* DeviceManagerLib.h in Headers */ = {isa = PBXBuildFile; fileRef = D28AF79A1110843D0072C7FC /* DeviceManagerLib.h */; };
-		D28AF82F1110A37F0072C7FC /* libController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D28AF82E1110A37F0072C7FC /* libController.a */; };
 		D28AF8311110A3AF0072C7FC /* Controller.h in Headers */ = {isa = PBXBuildFile; fileRef = D28AF8301110A3AF0072C7FC /* Controller.h */; };
 		D2AD390210B17B5200EBE079 /* jcom.receive~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AD38FF10B17B5200EBE079 /* jcom.receive~.cpp */; };
 		D2AD390310B17B5200EBE079 /* jcom.receivemaster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AD390010B17B5200EBE079 /* jcom.receivemaster.cpp */; };
@@ -137,11 +142,16 @@
 		A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PitchDataspace.h; path = DataspaceLib/PitchDataspace.h; sourceTree = SOURCE_ROOT; };
 		A7CA9C950D1FD9960099D8CA /* GainDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GainDataspace.h; path = DataspaceLib/GainDataspace.h; sourceTree = SOURCE_ROOT; };
 		A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = GainDataspace.cpp; path = DataspaceLib/GainDataspace.cpp; sourceTree = SOURCE_ROOT; };
+		D219A84F11493D9400F7C9D2 /* PluginFactories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginFactories.h; sourceTree = "<group>"; };
+		D219A85011493D9400F7C9D2 /* PluginFactories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginFactories.cpp; sourceTree = "<group>"; };
+		D219A85111493D9400F7C9D2 /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plugin.h; sourceTree = "<group>"; };
+		D219A85211493D9400F7C9D2 /* DeviceManagerLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceManagerLib.h; sourceTree = "<group>"; };
+		D219A85311493D9400F7C9D2 /* DeviceManagerLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DeviceManagerLib.cpp; sourceTree = "<group>"; };
+		D219A85411493D9400F7C9D2 /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
+		D219A85511493D9400F7C9D2 /* Device.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Device.cpp; sourceTree = "<group>"; };
+		D219A85611493D9400F7C9D2 /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Controller.cpp; sourceTree = "<group>"; };
 		D2730C5A104FBA70004513A7 /* NodeLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NodeLib.cpp; sourceTree = "<group>"; };
 		D2730C5B104FBA70004513A7 /* NodeLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeLib.h; sourceTree = "<group>"; };
-		D28AF7991110843D0072C7FC /* DeviceManagerLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DeviceManagerLib.cpp; sourceTree = "<group>"; };
-		D28AF79A1110843D0072C7FC /* DeviceManagerLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceManagerLib.h; sourceTree = "<group>"; };
-		D28AF82E1110A37F0072C7FC /* libController.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libController.a; path = DeviceManagerLib/libController.a; sourceTree = "<group>"; };
 		D28AF8301110A3AF0072C7FC /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controller.h; sourceTree = "<group>"; };
 		D2AD38FF10B17B5200EBE079 /* jcom.receive~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.receive~.cpp"; sourceTree = "<group>"; };
 		D2AD390010B17B5200EBE079 /* jcom.receivemaster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receivemaster.cpp; sourceTree = "<group>"; };
@@ -161,7 +171,6 @@
 				227C7EDD109A373000D4D8EF /* MaxAudioAPI.framework in Frameworks */,
 				227C7EE9109A376600D4D8EF /* JamomaFoundation.framework in Frameworks */,
 				227C7F02109A378700D4D8EF /* JamomaDSP.framework in Frameworks */,
-				D28AF82F1110A37F0072C7FC /* libController.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,7 +208,6 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				D28AF82E1110A37F0072C7FC /* libController.a */,
 				227C7F01109A378700D4D8EF /* JamomaDSP.framework */,
 				227C7EE8109A376600D4D8EF /* JamomaFoundation.framework */,
 				227C7ED9109A372800D4D8EF /* MaxAPI.framework */,
@@ -335,9 +343,15 @@
 		D28AF7971110843D0072C7FC /* DeviceManagerLib */ = {
 			isa = PBXGroup;
 			children = (
-				D28AF79A1110843D0072C7FC /* DeviceManagerLib.h */,
-				D28AF7991110843D0072C7FC /* DeviceManagerLib.cpp */,
+				D219A85211493D9400F7C9D2 /* DeviceManagerLib.h */,
+				D219A85311493D9400F7C9D2 /* DeviceManagerLib.cpp */,
 				D28AF8301110A3AF0072C7FC /* Controller.h */,
+				D219A85611493D9400F7C9D2 /* Controller.cpp */,
+				D219A85411493D9400F7C9D2 /* Device.h */,
+				D219A85511493D9400F7C9D2 /* Device.cpp */,
+				D219A85111493D9400F7C9D2 /* Plugin.h */,
+				D219A84F11493D9400F7C9D2 /* PluginFactories.h */,
+				D219A85011493D9400F7C9D2 /* PluginFactories.cpp */,
 			);
 			path = DeviceManagerLib;
 			sourceTree = "<group>";
@@ -376,8 +390,11 @@
 				22E6C75E0D4AB21B00DA75EE /* RampLib.h in Headers */,
 				22E6C7600D4AB21B00DA75EE /* SchedulerRamp.h in Headers */,
 				D2730C5D104FBA70004513A7 /* NodeLib.h in Headers */,
-				D28AF79D1110843D0072C7FC /* DeviceManagerLib.h in Headers */,
 				D28AF8311110A3AF0072C7FC /* Controller.h in Headers */,
+				D219A85711493D9400F7C9D2 /* PluginFactories.h in Headers */,
+				D219A85911493D9400F7C9D2 /* Plugin.h in Headers */,
+				D219A85A11493D9400F7C9D2 /* DeviceManagerLib.h in Headers */,
+				D219A85C11493D9400F7C9D2 /* Device.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,7 +498,10 @@
 				D2AD390210B17B5200EBE079 /* jcom.receive~.cpp in Sources */,
 				D2AD390310B17B5200EBE079 /* jcom.receivemaster.cpp in Sources */,
 				D2AD390410B17B5200EBE079 /* jcom.send~.cpp in Sources */,
-				D28AF79C1110843D0072C7FC /* DeviceManagerLib.cpp in Sources */,
+				D219A85811493D9400F7C9D2 /* PluginFactories.cpp in Sources */,
+				D219A85B11493D9400F7C9D2 /* DeviceManagerLib.cpp in Sources */,
+				D219A85D11493D9400F7C9D2 /* Device.cpp in Sources */,
+				D219A85E11493D9400F7C9D2 /* Controller.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

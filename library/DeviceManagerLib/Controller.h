@@ -45,14 +45,6 @@
 
 #define NAMESPACE_ATTR_LIFE "life"				//< used to observe the creation or the destruction of node below an address
 
-/*********************************************************************
- TEMPORARY DEFINE USED TO ALLOW THE TIPITOUCH TO SPEAK WITH THE CONTROLLER
- *********************************************************************/
-static const unsigned int TRIGGER_READY = 0;
-static const unsigned int TRIGGER_WAITED = 1;
-static const unsigned int TRIGGER_PUSHED = 2;
-/********************************************************************/
-
 class Namespace;
 class Device;
 class Plugin;
@@ -65,13 +57,6 @@ typedef Address* AddressPtr;										// !!! DO NOT INCLUDE THE DEVICE NAME AS A
 typedef std::string Value;											// any kind of data : bool, int, float, array, list, enum, ...
 typedef Value* ValuePtr;											// TODO : a class like TTValue
 
-// Flags used to notify the Controller 
-// about life cycle events in the local namespace
-enum NamespaceLifeFlag{
-	nodeDestroyed = 0,												// this flag means that a node have been destroyed in the local namespace
-	nodeCreated = 1													// this flag means that a node have been created in the local namespace
-};
-
 class Controller{
 	
 private:
@@ -83,13 +68,6 @@ private:
 	std::map<std::string, Plugin*> *netPlugins;						//< a map between a plugin name and an instance of this Plugin
 	std::map<std::string, Device*> *netDevices;						//< a map between a device name and an instance of this Device
 	unsigned int deviceId;											//< the device id witch is incremented automatically 
-	
-	/*********************************************************************
-	 TEMPORARY MEMBER USED TO ALLOW THE TIPITOUCH TO SPEAK WITH THE CONTROLLER
-	 *********************************************************************/
-	std::map<unsigned int, std::string> *m_namespace;				//TriggerId , TriggerAddress
-	std::map<unsigned int, unsigned int> *m_values;					//TriggerId , TriggerValue
-	/********************************************************************/
 	
 	void (*m_discover_callback)(void*, 
 								Address, 
@@ -401,23 +379,6 @@ public:
 private:
 	void parseDeviceAndAddress(std::string deviceAndAddress, std::string& device, std::string& address);
 	std::vector<std::string> snapshotProcess(Plugin *plugin, Device *device, Address address);
-	
-	
-	
-	
-	/*********************************************************************
-	 TEMPORARY METHOD TO ALLOW THE TPITOUCH TO SPEAK WITH THE CONTROLLER
-	 *********************************************************************/
-public:
-	void addTriggerPointLeave(unsigned int triggerId, std::string triggerMessage);
-	void removeTriggerPointLeave(unsigned int triggerId);
-	void setNamespaceValue(std::string address, int value, std::map<std::string, std::string> optionalArguments);
-	void resetTriggerPointStates();
-	std::map<unsigned int, std::string> *getControllerNamespace();
-	void getWaitedTriggerPoints(std::vector<std::string> *waitedTP);
-	
-	void askControllerNamespaceFor(std::string address, std::vector<std::string>* namespaceVectorToFill);
-	int askControllerValueFor(std::string address);
 
 };
 

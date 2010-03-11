@@ -61,9 +61,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 60.0, 157.0, 1313.0, 619.0 ],
+						"rect" : [ 14.0, 144.0, 1313.0, 619.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 60.0, 157.0, 1313.0, 619.0 ],
+						"defrect" : [ 14.0, 144.0, 1313.0, 619.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -125,6 +125,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
+									"hidden" : 1,
 									"id" : "obj-22",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -140,12 +141,13 @@
 									"fontname" : "Arial",
 									"fontsize" : 30.0,
 									"id" : "obj-21",
+									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 8.0, 472.0, 1293.0, 39.0 ],
-									"text" : "Jamoma:namespace /out.B/audio/gain attributes={ access type range comment priority value }"
+									"patching_rect" : [ 8.0, 472.0, 1293.0, 73.0 ],
+									"text" : "MinuitDevice1:namespace /out.B nodes={ documentation record audio __GUI__ saturation limiter preset __jcom_in__ u142000065 view } leaves={ init dspStatus balance ch.2 ch.1 }"
 								}
 
 							}
@@ -159,8 +161,8 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 151.0, 422.0, 259.0, 34.0 ],
-									"text" : "Here you can see what Jamoma Minuit plugin would answer to the remote application Virage"
+									"patching_rect" : [ 151.0, 422.0, 264.0, 34.0 ],
+									"text" : "Here you can see what Jamoma Minuit plugin would answer to the remote application Virage."
 								}
 
 							}
@@ -184,12 +186,12 @@
 									"fontsize" : 12.0,
 									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-18",
-									"linecount" : 2,
+									"linecount" : 3,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 274.0, 285.0, 247.0, 34.0 ],
-									"text" : "The ?listen request ask a parameter to send his value attribute each it changed to Virage"
+									"patching_rect" : [ 274.0, 285.0, 246.0, 48.0 ],
+									"text" : "The ?listen request ask to a parameter to send his attribute value each time it changed to Virage"
 								}
 
 							}
@@ -525,7 +527,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-21", 1 ],
-									"hidden" : 0,
+									"hidden" : 1,
 									"midpoints" : [ 440.5, 462.0, 1291.5, 462.0 ],
 									"source" : [ "obj-22", 0 ]
 								}
@@ -698,13 +700,13 @@
 ,
 					"patching_rect" : [ 541.0, 503.0, 471.0, 29.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"fontface" : 0,
+						"fontsize" : 12.0,
 						"default_fontsize" : 12.0,
 						"fontname" : "Arial",
+						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 12.0
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p TEST_MINUIT_CONTROL_AND_DISCOVERING"
@@ -1010,13 +1012,13 @@
 ,
 					"patching_rect" : [ 541.0, 469.0, 244.0, 29.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
+						"fontface" : 0,
+						"fontsize" : 12.0,
 						"default_fontsize" : 12.0,
 						"fontname" : "Arial",
+						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 12.0
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p TEST_OSC_CONTROL"
@@ -1050,7 +1052,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 540.0, 288.0, 239.0, 62.0 ],
-					"text" : "TODO : a 'add_device' message to add any from device using any plugin. It shoudl be like 'add_device #name #PluginToUse #any parameters",
+					"text" : "TODO : a 'add_device' message to add any device using any plugin. It should be like 'add_device #name #PluginToUse #any parameters",
 					"textcolor" : [ 0.811765, 0.372549, 0.372549, 1.0 ]
 				}
 
