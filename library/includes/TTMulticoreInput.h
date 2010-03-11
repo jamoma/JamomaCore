@@ -34,6 +34,8 @@ public:
 	TTErr getSampleRate(TTValue& returnedValue);
 	TTErr setVectorSize(const TTValue& newValue);
 	TTErr getVectorSize(TTValue& returnedValue);	
+	TTErr setDevice(const TTValue& newValue);
+	TTErr getDevice(TTValue& returnedValue);
 	
 	/**	A standard audio processing method as used by TTBlue objects.
 		@param	outputs	unused.		*/

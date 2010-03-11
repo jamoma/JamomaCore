@@ -28,7 +28,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 610.0, 320.0, 35.0, 17.0 ],
-					"presentation_rect" : [ 608.0, 321.0, 0.0, 0.0 ],
 					"text" : "clear"
 				}
 
@@ -38,7 +37,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-64",
-					"items" : [  ],
+					"items" : [ "Duet (3280)", ",", "Built-in Microphone", ",", "Built-in Input", ",", "PLT   510", ",", "Soundflower (2ch)", ",", "Soundflower (16ch)" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -185,7 +184,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 553.0, 70.0 ]
+					"patching_rect" : [ 0.0, 0.0, 797.0, 70.0 ]
 				}
 
 			}
@@ -336,6 +335,20 @@
 				}
 
 			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-18",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 560.0, 375.0, 57.0, 17.0 ],
+					"text" : "device $1"
+				}
+
+			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
@@ -397,6 +410,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-17", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-18", 0 ]
 				}
 
 			}
@@ -487,6 +509,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-63", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-64", 1 ]
 				}
 
 			}

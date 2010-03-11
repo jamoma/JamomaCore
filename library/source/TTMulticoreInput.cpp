@@ -23,6 +23,7 @@ TT_AUDIO_CONSTRUCTOR
 	
 	addAttributeWithGetterAndSetter(SampleRate, kTypeUInt32);
 	addAttributeWithGetterAndSetter(VectorSize, kTypeUInt16);
+	addAttributeWithGetterAndSetter(Device,		kTypeSymbol);
 
 	addMessage(start);
 	addMessage(stop);
@@ -63,23 +64,34 @@ TTErr TTMulticoreInput::stop()
 
 TTErr TTMulticoreInput::setSampleRate(const TTValue& newValue)
 {
-	return mAudioEngine->setAttributeValue(kTTSym_sr, const_cast<TTValue&>(newValue));
+	return mAudioEngine->setAttributeValue(kTTSym_SampleRate, const_cast<TTValue&>(newValue));
 }
 
 TTErr TTMulticoreInput::getSampleRate(TTValue& returnedValue)
 {
-	return mAudioEngine->getAttributeValue(kTTSym_sr, returnedValue);
+	return mAudioEngine->getAttributeValue(kTTSym_SampleRate, returnedValue);
 }
 
 
 TTErr TTMulticoreInput::setVectorSize(const TTValue& newValue)
 {
-	return mAudioEngine->setAttributeValue(kTTSym_vectorSize, const_cast<TTValue&>(newValue));
+	return mAudioEngine->setAttributeValue(kTTSym_VectorSize, const_cast<TTValue&>(newValue));
 }
 
 TTErr TTMulticoreInput::getVectorSize(TTValue& returnedValue)
 {
-	return mAudioEngine->getAttributeValue(kTTSym_vectorSize, returnedValue);
+	return mAudioEngine->getAttributeValue(kTTSym_VectorSize, returnedValue);
+}
+
+
+TTErr TTMulticoreInput::setDevice(const TTValue& newValue)
+{
+	return mAudioEngine->setAttributeValue(TT("InputDevice"), const_cast<TTValue&>(newValue));
+}
+
+TTErr TTMulticoreInput::getDevice(TTValue& returnedValue)
+{
+	return mAudioEngine->getAttributeValue(TT("InputDevice"), returnedValue);
 }
 
 

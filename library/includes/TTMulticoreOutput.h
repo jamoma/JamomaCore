@@ -26,7 +26,7 @@ public:
 	TTMulticoreObjectPtr		owner;			///< the owning lydbaer instance
 	TTValuePtr					me;
 	TTMulticorePreprocessData	mInitData;
-	
+	TTSymbolPtr					mDevice;		///< name of the audio interface
 	
 	TTErr start();
 	TTErr stop();
@@ -45,8 +45,9 @@ public:
 	TTErr getSampleRate(TTValue& returnedValue);
 	TTErr setVectorSize(const TTValue& newValue);
 	TTErr getVectorSize(TTValue& returnedValue);
-	
-	
+	TTErr setDevice(const TTValue& newValue);
+	TTErr getDevice(TTValue& returnedValue);
+		
 	/**	A standard audio processing method as used by TTBlue objects.
 		@param	outputs	unused.		*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	

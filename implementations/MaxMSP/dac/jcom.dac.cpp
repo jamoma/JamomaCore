@@ -46,6 +46,8 @@ MaxErr	DacSetSampleRate(DacPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr	DacGetSampleRate(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv);
 MaxErr	DacSetVectorSize(DacPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr	DacGetVectorSize(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv);
+MaxErr	DacSetDevice(DacPtr self, void* attr, AtomCount argc, AtomPtr argv);
+MaxErr	DacGetDevice(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv);
 
 
 // Globals
@@ -85,6 +87,9 @@ int main(void)
 	
 	CLASS_ATTR_LONG(c,		"vectorSize",	0,		Dac,	obj);
 	CLASS_ATTR_ACCESSORS(c,	"vectorSize",	DacGetVectorSize,	DacSetVectorSize);
+	
+	CLASS_ATTR_SYM(c,		"device",		0,		Dac,	obj);
+	CLASS_ATTR_ACCESSORS(c,	"device",		DacGetDevice,		DacSetDevice);
 	
 	class_register(_sym_box, c);
 	sDacClass = c;
@@ -446,7 +451,7 @@ MaxErr DacSetSampleRate(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 sr = atom_getlong(argv);
-		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("sampleRate"), sr);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sr);
 	}
 	return MAX_ERR_NONE;
 }
@@ -455,7 +460,7 @@ MaxErr DacGetSampleRate(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long sr;
 	
-	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("sampleRate"), sr);
+	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("SampleRate"), sr);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
@@ -469,7 +474,7 @@ MaxErr DacSetVectorSize(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 vs = atom_getlong(argv);
-		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("vectorSize"), vs);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("VectorSize"), vs);
 	}
 	return MAX_ERR_NONE;
 }
@@ -478,7 +483,7 @@ MaxErr DacGetVectorSize(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long vs;
 	
-	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("vectorSize"), vs);
+	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("VectorSize"), vs);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
@@ -488,3 +493,28 @@ MaxErr DacGetVectorSize(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 }
 
 
+MaxErr DacSetDevice(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
+{
+	if (argc) {
+		SymbolPtr s = atom_getsym(argv);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Device"), TT(s->s_name));
+	}
+	return MAX_ERR_NONE;
+}
+
+MaxErr DacGetDevice(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
+{
+	TTValue		v;
+	TTSymbolPtr	s;
+	
+	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("Device"), v);
+	v.get(0, &s);
+	if (!s)
+		return MAX_ERR_GENERIC;
+	
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, gensym((char*)s->getCString()));
+	return MAX_ERR_NONE;
+}
