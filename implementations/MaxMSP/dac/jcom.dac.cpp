@@ -65,6 +65,7 @@ int main(void)
 	
 	class_addmethod(c, (method)DacStart,			"start",				0);
 	class_addmethod(c, (method)DacStop,				"stop",					0);
+	class_addmethod(c, (method)DacGetDeviceNames,	"getAvailableDeviceNames",	0);
 	class_addmethod(c, (method)DacInt,				"int",					A_LONG, 0);
 	class_addmethod(c, (method)DacGetCpuLoad,		"getCpuLoad",			0);
 	class_addmethod(c, (method)DacNotify,			"notify",				A_CANT, 0);
@@ -326,6 +327,18 @@ TTErr DacStart(DacPtr self)
 TTErr DacStop(DacPtr self)
 {	
 	return self->multicoreObject->getUnitGenerator()->sendMessage(TT("stop"));
+}
+
+
+void DacGetDeviceNames(DacPtr self)
+{
+	TTValue	v;
+	TTErr	err;
+
+	err = self->multicoreObject->mUnitGenerator->sendMessage(TT("getAvailableDeviceNames"), v);
+	if (!err) {
+		;
+	}
 }
 
 

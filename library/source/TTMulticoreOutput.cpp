@@ -29,6 +29,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessage(stop);
 	addMessage(audioEngineWillProcess);
 	addMessageWithArgument(setOwner);
+	addMessageWithArgument(getAvailableDeviceNames);
 	addMessageWithArgument(getCpuLoad);
 	
 	setProcessMethod(processAudio);
@@ -82,6 +83,22 @@ TTErr TTMulticoreOutput::audioEngineWillProcess()
 TTErr TTMulticoreOutput::setOwner(TTValue& newOwner)
 {
 	owner = TTMulticoreObjectPtr(TTPtr(newOwner));
+	return kTTErrNone;
+}
+
+
+TTErr TTMulticoreOutput::getAvailableDeviceNames(TTValue& returnedDeviceNames)
+{
+	int		numDevices = Pa_GetDeviceCount();
+	const   PaDeviceInfo *deviceInfo;
+	
+	returnedDeviceNames.clear();
+	returnedDeviceNames.setSize(numDevices);
+	
+	for (int i=0; i<numDevices; i++) {		
+        deviceInfo = Pa_GetDeviceInfo(i);
+		returnedDeviceNames.set(i, TT(deviceInfo->name));
+    }
 	return kTTErrNone;
 }
 

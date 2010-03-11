@@ -36,6 +36,8 @@ public:
 	
 	TTErr setOwner(TTValue& newOwner);
 
+	TTErr getAvailableDeviceNames(TTValue& returnedDeviceNames);
+
 	TTErr getCpuLoad(TTValue& returnedValue);
 	
 	// Attribute Accessors
