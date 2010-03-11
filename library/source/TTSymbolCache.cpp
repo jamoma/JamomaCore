@@ -39,6 +39,8 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sr;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_updateMaxNumChannels;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_updateSr;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_vectorSize;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_VectorSize;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_SampleRate;
 
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sine;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sineMod;
@@ -92,6 +94,8 @@ void TTSymbolCacheInit()
 	kTTSym_updateMaxNumChannels		= TT("updateMaxNumChannels");
 	kTTSym_updateSr					= TT("updateSr");
 	kTTSym_vectorSize				= TT("vectorSize");
+	kTTSym_VectorSize				= TT("VectorSize");
+	kTTSym_SampleRate				= TT("SampleRate");
 	
 	kTTSym_sine						= TT("sine");
 	kTTSym_sineMod					= TT("sineMod");
