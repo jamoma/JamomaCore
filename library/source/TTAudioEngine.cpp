@@ -16,16 +16,20 @@ TTObjectPtr	TTAudioEngine::sSingletonInstance = NULL;
 
 
 TT_OBJECT_CONSTRUCTOR,
-	 mNumInputChannels(2),
-	 mNumOutputChannels(2),
-	 mVectorSize(64),
-	 mSampleRate(44100),
-	 mStream(NULL),
-	 mInputDevice(NULL),
-	 mOutputDevice(NULL),
-	 mIsRunning(false),
-	 mInputBuffer(NULL),
-	 mOutputBuffer(NULL)
+	mNumInputChannels(2),
+	mNumOutputChannels(2),
+	mVectorSize(64),
+	mSampleRate(44100),
+	mStream(NULL),
+	mInputDevice(NULL),
+	mOutputDevice(NULL),
+	mInputDeviceInfo(NULL),
+	mOutputDeviceInfo(NULL),
+	mInputDeviceIndex(0),
+	mOutputDeviceIndex(0),
+	mIsRunning(false),
+	mInputBuffer(NULL),
+	mOutputBuffer(NULL)
 {
 	if (sSingletonInstance)
 		throw TTException("cannot instantiate multiple copies of a singleton class");
@@ -55,9 +59,9 @@ TT_OBJECT_CONSTRUCTOR,
 	addMessageWithArgument(addCallbackObserver);
 	addMessageWithArgument(removeCallbackObserver);
 
-	// Set defaults
-	setAttributeValue(TT("InputDevice"), TT("default"));
-	setAttributeValue(TT("OutputDevice"), TT("default"));
+	// Set defaults -- there are no devices actually named 'default', so we set the values directly
+	mInputDevice = TT("default");
+	mOutputDevice = TT("default");
 }
 
 
@@ -245,9 +249,9 @@ TTErr TTAudioEngine::setInputDevice(TTValue& newDeviceName)
 	
 	if (newDevice != mInputDevice) {
 		numDevices = Pa_GetDeviceCount();
-		for(int i=0; i<numDevices; i++){
+		for (int i=0; i<numDevices; i++) {
 			deviceInfo = Pa_GetDeviceInfo(i);
-			if(newDevice == TT(deviceInfo->name)){
+			if (newDevice == TT(deviceInfo->name)) {
 				mInputDeviceInfo = deviceInfo;
 				mInputDeviceIndex = i;
 				mNumInputChannels = mInputDeviceInfo->maxInputChannels;
@@ -272,9 +276,9 @@ TTErr TTAudioEngine::setOutputDevice(TTValue& newDeviceName)
 
 	if (newDevice != mOutputDevice) {
 		numDevices = Pa_GetDeviceCount();
-		for(int i=0; i<numDevices; i++){
+		for (int i=0; i<numDevices; i++) {
 			deviceInfo = Pa_GetDeviceInfo(i);
-			if(newDevice == TT(deviceInfo->name)){
+			if (newDevice == TT(deviceInfo->name)) {
 				mOutputDeviceInfo = deviceInfo;
 				mOutputDeviceIndex = i;
 				mNumOutputChannels = mOutputDeviceInfo->maxOutputChannels;
