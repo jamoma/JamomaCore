@@ -244,8 +244,8 @@ void receive_get(t_receive *x)
 			}
 			outlet_anything(x->address_out, gensym((char*)fullAddress.data()), 0, NULL);
 			
-			// then output data
-			outlet_anything(x->data_out, _sym_nothing, argc, argv);
+			// then output data as a list
+			outlet_list(x->data_out, 0L, argc, argv);
 			
 			// free memory allocated inside the get property method
 			sysmem_freeptr(argv);
@@ -321,8 +321,8 @@ void receive_node_attribute_callback(t_receive *x, t_symbol *mess, long argc, t_
 		// output the OSCAddress of the node (in case we use * inside the x->attrname)
 		outlet_anything(x->address_out, (t_symbol *)mess, 0, NULL);
 		
-		// then output data
-		outlet_anything(x->data_out, _sym_nothing, argc, argv);
+		// then output data as a list
+		outlet_list(x->data_out, 0L, argc, argv);
 	}
 }
 
