@@ -71,7 +71,7 @@ void *dvmg_new(t_symbol *name, long argc, t_atom *argv)
 				x->name = atom_getsym(argv);
 		}
 		else
-			x->name = gensym("MinuitDevice1");
+			x->name = gensym("Jamoma");
 				
 		// Initialize the Jamoma device Manager
 		jamoma_devmanager_init(x->name);

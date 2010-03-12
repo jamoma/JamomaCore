@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 5.0, 47.0, 1138.0, 644.0 ],
+		"rect" : [ 5.0, 47.0, 1142.0, 744.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 5.0, 47.0, 1138.0, 644.0 ],
+		"defrect" : [ 5.0, 47.0, 1142.0, 744.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -21,14 +21,348 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"frgb" : [ 0.811765, 0.372549, 0.372549, 1.0 ],
-					"id" : "obj-10",
+					"fontsize" : 14.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-18",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 837.0, 329.0, 215.0, 34.0 ],
+					"patching_rect" : [ 539.0, 606.0, 260.0, 39.0 ],
+					"text" : "Control Jamoma (do not need to create any device, just need to load plugins)"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"frgb" : [ 0.811765, 0.372549, 0.372549, 1.0 ],
+					"id" : "obj-17",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 539.0, 526.0, 238.0, 34.0 ],
+					"text" : "All this operation are not working properly. Work in progess... ",
+					"textcolor" : [ 0.811765, 0.372549, 0.372549, 1.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-15",
+					"linecount" : 4,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 539.0, 463.0, 238.0, 62.0 ],
+					"text" : "3/ Use basic operations in order to get, set, discover or listen a device. Those basic operation are only availble if they have been implemented in the plugin."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"color" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 20.0,
+					"id" : "obj-14",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patcher" : 					{
+						"fileversion" : 1,
+						"rect" : [ 775.0, 75.0, 552.0, 372.0 ],
+						"bglocked" : 0,
+						"defrect" : [ 775.0, 75.0, 552.0, 372.0 ],
+						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
+						"openinpresentation" : 0,
+						"default_fontsize" : 12.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"gridonopen" : 0,
+						"gridsize" : [ 15.0, 15.0 ],
+						"gridsnaponopen" : 0,
+						"toolbarvisible" : 1,
+						"boxanimatetime" : 200,
+						"imprint" : 0,
+						"enablehscroll" : 1,
+						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
+						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.811765, 0.372549, 0.372549, 1.0 ],
+									"id" : "obj-14",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 10.0, 10.0, 236.0, 34.0 ],
+									"text" : "All this operation are not working properly. Work in progess... ",
+									"textcolor" : [ 0.811765, 0.372549, 0.372549, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.811765, 0.372549, 0.372549, 1.0 ],
+									"id" : "obj-13",
+									"linecount" : 3,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 247.0, 264.0, 295.0, 48.0 ],
+									"text" : "TODO : Get a snapshot below an address in order to store it\n(if the plugin allow this operation)",
+									"textcolor" : [ 0.811765, 0.372549, 0.372549, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.811765, 0.372549, 0.372549, 1.0 ],
+									"id" : "obj-12",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 247.0, 222.0, 281.0, 34.0 ],
+									"text" : "TODO : Listen the value of an attribute\n(if the plugin allow this operation)",
+									"textcolor" : [ 0.811765, 0.372549, 0.372549, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"id" : "obj-11",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 248.0, 71.0, 232.0, 34.0 ],
+									"text" : "Control the value of an attribute\n(available for any plugins)"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"id" : "obj-10",
+									"linecount" : 3,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 248.0, 162.0, 286.0, 48.0 ],
+									"text" : "Ask the value of an attribute.\nAttributes are : value, type, acces, range, comment\n(if the plugin allow this operation)"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"id" : "obj-9",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 248.0, 115.0, 230.0, 34.0 ],
+									"text" : "Explore the namespace of an application (if the plugin allow this operation)"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-8",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 38.0, 273.0, 104.0, 18.0 ],
+									"text" : "snapshot Virage /"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-6",
+									"maxclass" : "number",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "int", "bang" ],
+									"patching_rect" : [ 35.0, 55.0, 50.0, 20.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-5",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 36.0, 227.0, 199.0, 18.0 ],
+									"text" : "listen Virage /Transport/play enable"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-4",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 35.0, 79.0, 175.0, 18.0 ],
+									"text" : "set Virage /Transport/speed $1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-3",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 35.0, 170.0, 191.0, 18.0 ],
+									"text" : "get Virage /Transport/speed:value"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-2",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 35.0, 122.0, 165.0, 18.0 ],
+									"text" : "discover Virage /TriggerPoint"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"comment" : "",
+									"id" : "obj-1",
+									"maxclass" : "outlet",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 15.0, 309.0, 25.0, 25.0 ]
+								}
+
+							}
+ ],
+						"lines" : [ 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 44.5, 151.5, 24.5, 151.5 ],
+									"source" : [ "obj-2", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 44.5, 197.0, 24.5, 197.0 ],
+									"source" : [ "obj-3", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 44.5, 107.0, 24.5, 107.0 ],
+									"source" : [ "obj-4", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 45.5, 253.0, 24.5, 253.0 ],
+									"source" : [ "obj-5", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-4", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-6", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 47.5, 301.0, 24.5, 301.0 ],
+									"source" : [ "obj-8", 0 ]
+								}
+
+							}
+ ]
+					}
+,
+					"patching_rect" : [ 156.0, 464.0, 377.0, 29.0 ],
+					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"fontsize" : 12.0,
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"default_fontname" : "Arial"
+					}
+,
+					"text" : "p DeviceManager_operation"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"frgb" : [ 0.811765, 0.372549, 0.372549, 1.0 ],
+					"id" : "obj-10",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 837.0, 429.0, 286.0, 20.0 ],
 					"text" : "TODO : include plugins in the installer package",
 					"textcolor" : [ 0.811765, 0.372549, 0.372549, 1.0 ]
 				}
@@ -40,12 +374,12 @@
 					"fontsize" : 12.0,
 					"frgb" : [ 0.317647, 0.709804, 0.321569, 1.0 ],
 					"id" : "obj-8",
-					"linecount" : 5,
+					"linecount" : 12,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 837.0, 255.0, 215.0, 75.0 ],
-					"text" : "For now the plugins are in the git repository in : /Modular/implementations/MaxMSP/jcom.deviceManager. There are only OSC and Minuit plugins",
+					"patching_rect" : [ 837.0, 255.0, 286.0, 172.0 ],
+					"text" : "For now the plugins are in the git repository in : /Modular/library/DeviceManagerLib/plugins. \n\nThere are automatically copied into the Application Support folder when you build Modular.\n\nThere are OSC, Minuit and CopperLan plugins.\n\nThe CopperLan plugins is only available if you run the CPVNM. For now Jamoma is not declared on the CopperLan Network... but it should possible to control CopperLan devices.",
 					"textcolor" : [ 0.317647, 0.709804, 0.321569, 1.0 ]
 				}
 
@@ -79,6 +413,37 @@
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"id" : "obj-7",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 151.0, 387.0, 152.0, 34.0 ],
+									"text" : "The Minuit plugin received on the 9998 port"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.811765, 0.372549, 0.372549, 1.0 ],
+									"id" : "obj-13",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 303.0, 387.0, 201.0, 34.0 ],
+									"text" : "TODO : the MINUIT reception port should be choosen by the user",
+									"textcolor" : [ 0.811765, 0.372549, 0.372549, 1.0 ]
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
@@ -141,13 +506,12 @@
 									"fontname" : "Arial",
 									"fontsize" : 30.0,
 									"id" : "obj-21",
-									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 8.0, 472.0, 1293.0, 73.0 ],
-									"text" : "MinuitDevice1:namespace /out.B nodes={ documentation record audio __GUI__ saturation limiter preset __jcom_in__ u142000065 view } leaves={ init dspStatus balance ch.2 ch.1 }"
+									"patching_rect" : [ 8.0, 472.0, 1293.0, 39.0 ],
+									"text" : "bang"
 								}
 
 							}
@@ -190,7 +554,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 274.0, 285.0, 246.0, 48.0 ],
+									"patching_rect" : [ 274.0, 285.0, 249.0, 48.0 ],
 									"text" : "The ?listen request ask to a parameter to send his attribute value each time it changed to Virage"
 								}
 
@@ -698,7 +1062,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 541.0, 503.0, 471.0, 29.0 ],
+					"patching_rect" : [ 540.0, 683.0, 448.0, 29.0 ],
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 12.0,
@@ -709,7 +1073,7 @@
 						"default_fontname" : "Arial"
 					}
 ,
-					"text" : "p TEST_MINUIT_CONTROL_AND_DISCOVERING"
+					"text" : "p Control_and_discover_Jamoma_using_MINUIT"
 				}
 
 			}
@@ -741,7 +1105,39 @@
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
+						"visible" : 1,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.811765, 0.372549, 0.372549, 1.0 ],
+									"id" : "obj-14",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 35.0, 221.0, 131.0, 20.0 ],
+									"text" : "TODO : use wilcard ...",
+									"textcolor" : [ 0.811765, 0.372549, 0.372549, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.811765, 0.372549, 0.372549, 1.0 ],
+									"id" : "obj-13",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 145.0, 269.0, 176.0, 34.0 ],
+									"text" : "TODO : the OSC reception port should be choosen by the user",
+									"textcolor" : [ 0.811765, 0.372549, 0.372549, 1.0 ]
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"id" : "obj-15",
 									"maxclass" : "toggle",
@@ -828,7 +1224,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 21.0, 269.0, 146.0, 34.0 ],
+									"patching_rect" : [ 0.0, 269.0, 146.0, 34.0 ],
 									"text" : "The OSC plugin received on the 9999 port"
 								}
 
@@ -1010,7 +1406,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 541.0, 469.0, 244.0, 29.0 ],
+					"patching_rect" : [ 539.0, 649.0, 293.0, 29.0 ],
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 12.0,
@@ -1021,7 +1417,7 @@
 						"default_fontname" : "Arial"
 					}
 ,
-					"text" : "p TEST_OSC_CONTROL"
+					"text" : "p Control_Jamoma_using_OSC"
 				}
 
 			}
@@ -1183,11 +1579,11 @@
 					"fontsize" : 12.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-1",
-					"linecount" : 5,
+					"linecount" : 4,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 165.0, 552.0, 229.0, 75.0 ],
+					"patching_rect" : [ 223.0, 561.0, 247.0, 62.0 ],
 					"text" : "\"Jamoma\" is the name of the application over the network. This name is used for example with the Minuit plugin to sign any requests or answers coming from Jamoma"
 				}
 
@@ -1204,22 +1600,6 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 540.0, 410.0, 237.0, 34.0 ],
 					"text" : "TODO : create multiple device. For now you can create only one Minuit device.",
-					"textcolor" : [ 0.811765, 0.372549, 0.372549, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"frgb" : [ 0.811765, 0.372549, 0.372549, 1.0 ],
-					"id" : "obj-9",
-					"linecount" : 3,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 540.0, 568.0, 256.0, 48.0 ],
-					"text" : "TODO : Allow Jamoma to discover, get or set data from an application namespace over the network",
 					"textcolor" : [ 0.811765, 0.372549, 0.372549, 1.0 ]
 				}
 
@@ -1302,8 +1682,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 17.0, 606.0, 38.0, 23.0 ],
-					"text" : "print"
+					"patching_rect" : [ 17.0, 606.0, 140.0, 23.0 ],
+					"text" : "print DeviceManager"
 				}
 
 			}
@@ -1316,8 +1696,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 17.0, 579.0, 140.0, 23.0 ],
-					"text" : "jcom.deviceManager"
+					"patching_rect" : [ 17.0, 579.0, 197.0, 23.0 ],
+					"text" : "jcom.deviceManager Jamoma"
 				}
 
 			}
@@ -1340,7 +1720,16 @@
 				"patchline" : 				{
 					"destination" : [ "obj-32", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 161.5, 352.5, 26.5, 352.5 ],
+					"midpoints" : [ 165.5, 505.0, 26.5, 505.0 ],
+					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-32", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 161.5, 286.5, 26.5, 286.5 ],
 					"source" : [ "obj-16", 0 ]
 				}
 
