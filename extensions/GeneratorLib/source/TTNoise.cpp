@@ -61,16 +61,16 @@ TTErr TTNoise::processWhiteNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	tempSample;
-	TTUInt16		numChannels = out.getNumChannels();
+	TTUInt16		numChannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;
-	TTUInt16		vs = out.getVectorSize();
+	TTUInt16		vs = out.getVectorSizeAsInt();
 	TTUInt16		i = 0;
 
 	while(vs--){
 		accum = (accum * 3877 + 29573) % 139968;			// Random number generator
 		tempSample = (1.0 - (2.0 * float(accum) / 139968)) * mGain;	// Scale to audio range
 		for(channel=0; channel<numChannels; channel++)
-			out.sampleVectors[channel][i] = tempSample;
+			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
 	return kTTErrNone;
@@ -81,9 +81,9 @@ TTErr TTNoise::processPinkNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	tempSample;
-	TTUInt16		numChannels = out.getNumChannels();
+	TTUInt16		numChannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;
-	TTUInt16		vs = out.getVectorSize();
+	TTUInt16		vs = out.getVectorSizeAsInt();
 	TTUInt16		i = 0;
 
 	while(vs--){
@@ -103,7 +103,7 @@ TTErr TTNoise::processPinkNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 
 		// Copy the Output to All Channels
 		for(channel=0; channel<numChannels; channel++)
-			out.sampleVectors[channel][i] = tempSample;
+			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
 	return kTTErrNone;
@@ -114,9 +114,9 @@ TTErr TTNoise::processBrownNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	tempSample;
-	TTUInt16		numChannels = out.getNumChannels();
+	TTUInt16		numChannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;
-	TTUInt16		vs = out.getVectorSize();
+	TTUInt16		vs = out.getVectorSizeAsInt();
 	TTUInt16		i = 0;
 
 	while(vs--){
@@ -132,7 +132,7 @@ TTErr TTNoise::processBrownNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 
 		// Copy the Output to All Channels
 		for(channel=0; channel<numChannels; channel++)
-			out.sampleVectors[channel][i] = tempSample;
+			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
 	return kTTErrNone;
@@ -143,9 +143,9 @@ TTErr TTNoise::processBlueNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	tempSample;
-	TTUInt16		numChannels = out.getNumChannels();
+	TTUInt16		numChannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;
-	TTUInt16		vs = out.getVectorSize();
+	TTUInt16		vs = out.getVectorSizeAsInt();
 	TTUInt16		i = 0;
 
 	while(vs--){
@@ -161,7 +161,7 @@ TTErr TTNoise::processBlueNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 		
 		// Copy the Output to All Channels
 		for(channel=0; channel<numChannels; channel++)
-			out.sampleVectors[channel][i] = tempSample;
+			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
 	return kTTErrNone;

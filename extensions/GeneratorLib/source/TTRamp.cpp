@@ -107,13 +107,13 @@ TTErr TTRamp::processVectorAccurateDown(TTAudioSignalArrayPtr inputs, TTAudioSig
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*outSample;
-	TTUInt16		numchannels = out.getNumChannels();
+	TTUInt16		numchannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;
 
 	for(channel=0; channel<numchannels; channel++){
-		outSample = out.sampleVectors[channel];
+		outSample = out.mSampleVectors[channel];
 		if(step){
-			attrCurrentValue += (step * out.getVectorSize());
+			attrCurrentValue += (step * out.getVectorSizeAsInt());
 			if(attrCurrentValue <= attrDestinationValue){
 				step = 0;
 				attrCurrentValue = attrDestinationValue;	// clamp
@@ -129,13 +129,13 @@ TTErr TTRamp::processVectorAccurateUp(TTAudioSignalArrayPtr inputs, TTAudioSigna
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*outSample;
-	TTUInt16		numchannels = out.getNumChannels();
+	TTUInt16		numchannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;
 
 	for(channel=0; channel<numchannels; channel++){
-		outSample = out.sampleVectors[channel];
+		outSample = out.mSampleVectors[channel];
 		if(step){
-			attrCurrentValue += (step * out.getVectorSize());
+			attrCurrentValue += (step * out.getVectorSizeAsInt());
 			if(attrCurrentValue >= attrDestinationValue){
 				step = 0;
 				attrCurrentValue = attrDestinationValue;	// clamp
@@ -151,13 +151,13 @@ TTErr TTRamp::processSampleAccurateDown(TTAudioSignalArrayPtr inputs, TTAudioSig
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*outSample;
-	TTUInt16		numchannels = out.getNumChannels();
+	TTUInt16		numchannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;
 	TTUInt16		vs;
 
 	for(channel=0; channel<numchannels; channel++){
-		vs = out.getVectorSize();
-		outSample = out.sampleVectors[channel];
+		vs = out.getVectorSizeAsInt();
+		outSample = out.mSampleVectors[channel];
 		while(vs--){
 			if(step){
 				attrCurrentValue += step;
@@ -177,13 +177,13 @@ TTErr TTRamp::processSampleAccurateUp(TTAudioSignalArrayPtr inputs, TTAudioSigna
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*outSample;
-	TTUInt16		numchannels = out.getNumChannels();
+	TTUInt16		numchannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;
 	TTUInt16		vs;
 
 	for(channel=0; channel<numchannels; channel++){
-		vs = out.getVectorSize();
-		outSample = out.sampleVectors[channel];
+		vs = out.getVectorSizeAsInt();
+		outSample = out.mSampleVectors[channel];
 		while(vs--){
 			if(step){
 				attrCurrentValue += step;

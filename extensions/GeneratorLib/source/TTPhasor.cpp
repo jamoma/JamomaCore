@@ -85,13 +85,13 @@ TTErr TTPhasor::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*outSample;
-	TTUInt16		numchannels = out.getNumChannels();
+	TTUInt16		numchannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;
 	TTUInt16		vs;
 
 	for(channel=0; channel<numchannels; channel++){
-		outSample = out.sampleVectors[channel];
-		vs = out.getVectorSize();
+		outSample = out.mSampleVectors[channel];
+		vs = out.getVectorSizeAsInt();
 
 		while(vs--){
 			phase += step;
