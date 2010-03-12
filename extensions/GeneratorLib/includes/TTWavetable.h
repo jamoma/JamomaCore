@@ -18,15 +18,15 @@
 class TTWavetable : TTAudioObject {
 	TTCLASS_SETUP(TTWavetable)
 
-	TTSymbol*			attrMode;
-	TTFloat64			attrFrequency;
-	TTFloat64			attrGain;
-	TTFloat64			linearGain;
-	TTSymbol*			attrInterpolation;	///< should be none, linear, or eventually something better...
-	TTUInt64			attrSize;			///< how many samples in the wave table
-	TTFloat64			index;
-	TTFloat64			indexDelta;
-	TTBuffer*			wavetable;
+	TTSymbol*			mMode;
+	TTFloat64			mFrequency;
+	TTFloat64			mGain;
+	TTFloat64			mLinearGain;
+	TTSymbol*			mInterpolation;	///< should be none, linear, or eventually something better...
+	TTUInt64			mSize;			///< how many samples in the wave table
+	TTFloat64			mIndex;
+	TTFloat64			mIndexDelta;
+	TTBuffer*			mWavetable;
 	
 	/**	This method gets called when the inherited sample-rate attribute is changed. */
 	TTErr updateSr();
