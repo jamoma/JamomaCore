@@ -25,10 +25,11 @@ TTAudioObject::TTAudioObject(TTValue& arguments) :
 	inputArray(NULL), 
 	outputArray(NULL) 
 {
-	registerAttribute(TT("maxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
-	registerAttribute(TT("sr"),				kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObject::setSr);
-	registerAttribute(TT("bypass"),			kTypeBoolean,	&attrBypass,		(TTSetterMethod)&TTAudioObject::setBypass);
-	registerAttribute(TT("mute"),			kTypeBoolean,	&attrMute,			(TTSetterMethod)&TTAudioObject::setMute);
+	// Convention: 'Public' attribute names begin with a capital letter, 'Private' attribute names begin with a lower case letter
+	registerAttribute(TT("MaxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
+	registerAttribute(kTTSym_SampleRate,	kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObject::setSr);
+	registerAttribute(TT("Bypass"),			kTypeBoolean,	&attrBypass,		(TTSetterMethod)&TTAudioObject::setBypass);
+	registerAttribute(TT("Mute"),			kTypeBoolean,	&attrMute,			(TTSetterMethod)&TTAudioObject::setMute);
 	registerAttribute(TT("processInPlace"), kTypeBoolean,	&attrProcessInPlace);
 
 	registerMessage(TT("calculate"), (TTMethod)&TTAudioObject::calculateMessage);
@@ -38,7 +39,7 @@ TTAudioObject::TTAudioObject(TTValue& arguments) :
 
 	// Set Defaults...
 		
-	setAttributeValue(TT("sr"),				ttEnvironment->sr);
+	setAttributeValue(kTTSym_SampleRate,	ttEnvironment->sr);
 	setProcess(&TTAudioObject::bypassProcess);
     setCalculate(&TTAudioObject::defaultCalculateMethod);
 	setAttributeValue(TT("bypass"),			kTTBoolNo);
@@ -122,9 +123,9 @@ TTErr TTAudioObject::defaultCalculateMethod(const TTFloat64& x, TTFloat64& y, TT
 	in->allocWithVectorSize(1);
 	out->allocWithVectorSize(1);
 	
-	in->sampleVectors[0][0] = x;
+	in->mSampleVectors[0][0] = x;
 	err = process(in, out);
-	y = out->sampleVectors[0][0];
+	y = out->mSampleVectors[0][0];
 	
 	TTObjectRelease(&in);
 	TTObjectRelease(&out);
@@ -261,9 +262,9 @@ TTErr TTAudioObject::calculateProcess(TTAudioSignalArrayPtr inputs, TTAudioSigna
 	TTPtrSizedInt	channel;
 	
 	for(channel=0; channel<numchannels; channel++){
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
+		inSample = in.mSampleVectors[channel];
+		outSample = out.mSampleVectors[channel];
+		vs = in.getVectorSizeAsInt();
 		
 		while(vs--){
 			calculate(*inSample, *outSample);

@@ -16,10 +16,12 @@
 /****************************************************************************************************/
 
 TT_OBJECT_CONSTRUCTOR, 
-	audioSignals(NULL)
+	audioSignals(NULL),
+	numAudioSignals(0)
 {
 	TTUInt16 initialMaxNumAudioSignals = arguments;
 	
+	TT_ASSERT(audio_signal_array_has_valid arg, initialMaxNumAudioSignals > 0);
 	setMaxNumAudioSignals(initialMaxNumAudioSignals);
 }
 
@@ -60,18 +62,18 @@ void TTAudioSignalArray::allocAllWithVectorSize(TTUInt16 vs)
 
 TTUInt16 TTAudioSignalArray::getVectorSize()
 {
-	return audioSignals[0]->getVectorSize();
+	return audioSignals[0]->getVectorSizeAsInt();
 }
 
 void TTAudioSignalArray::setAllMaxNumChannels(TTUInt16 newMaxNumChannels)
 {
 	for(TTUInt16 i=0; i<maxNumAudioSignals; i++)
-		audioSignals[i]->setmaxNumChannels(newMaxNumChannels);
+		audioSignals[i]->setMaxNumChannels(newMaxNumChannels);
 }
 
 void TTAudioSignalArray::setAllNumChannels(TTUInt16 newNumChannels)
 {
 	for (TTUInt16 i=0; i<maxNumAudioSignals; i++)
-		audioSignals[i]->setnumChannels(newNumChannels);
+		audioSignals[i]->setNumChannels(newNumChannels);
 }
 

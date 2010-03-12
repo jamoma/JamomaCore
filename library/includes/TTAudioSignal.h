@@ -35,14 +35,14 @@ private:
 		kLocallyOwned = 1
 	};
 
-	TTBoolean		isLocallyOwned;
-	TTUInt16		maxNumChannels;		///< The number of audio channels for which memory has been allocated.
-	TTUInt16		vectorSize;			///< Vector Size for this signal.  Every channel in a signal must have the same vector-size.
-	TTUInt16		numChannels;		///< The number of audio channels that have valid sample values stored in them.
-	TTUInt8			bitdepth;			///< Currently supported bitdepths are 32 and 64. This is set by the setVector() method.
+	TTBoolean		mIsLocallyOwned;
+	TTUInt16		mMaxNumChannels;	///< The number of audio channels for which memory has been allocated.
+	TTUInt16		mVectorSize;		///< Vector Size for this signal.  Every channel in a signal must have the same vector-size.
+	TTUInt16		mNumChannels;		///< The number of audio channels that have valid sample values stored in them.
+	TTUInt8			mBitdepth;			///< Currently supported bitdepths are 32 and 64. This is set by the setVector() method.
 
 public:
-	TTSampleValue**	sampleVectors;		///< An array of pointers to the first sample in each vector. Declared Public for fast access.
+	TTSampleValue**	mSampleVectors;		///< An array of pointers to the first sample in each vector. Declared Public for fast access.
 
 private:
 	/**	Internal method for freeing the vectors. */
@@ -50,7 +50,7 @@ private:
 	
 public:
 	/**	Attribute accessor. */
-	TTErr setmaxNumChannels(const TTValue& newMaxNumChannels);
+	TTErr setMaxNumChannels(const TTValue& newMaxNumChannels);
 	
 	
 	/** Assigns a vector of sample values to a channel in this signal.
@@ -81,45 +81,44 @@ public:
 	TTErr getVector(const TTUInt16 channel, const TTUInt16 vectorSize, TTFloat32* returnedVector);
 	TTErr getVector32(TTValue& v);	// A version of the above used by the message passing interface.
 
-	
-	TTErr setvectorSize(const TTValue& newVectorSize)
+protected:	
+	TTErr setVectorSize(const TTValue& newVectorSize)
 	{
-		vectorSize = newVectorSize;
+		mVectorSize = newVectorSize;
 		return kTTErrNone;
-	}
-	
-	// Note the capitalization -- this is not a normal getter, but rather a convenience method
-	TTErr setVectorSize(const TTUInt16 newVectorSize)
-	{
-		vectorSize = newVectorSize;
-		return kTTErrNone;
-	}
-	
-	// Note the capitalization -- this is not a normal getter, but rather a convenience method
-	TTUInt16 getVectorSize() const
-	{
-		return vectorSize;
-	}
-	
-	TTErr setnumChannels(const TTValue& newNumChannels)
-	{
-		numChannels = TTClip<TTUInt16>(newNumChannels, 0, maxNumChannels);
-		return kTTErrNone;
-	}
-	
-	// Note the capitalization -- this is not a normal getter, but rather a convenience method
-	TTUInt16 getNumChannels() const
-	{
-		return numChannels;
 	}
 
+public:
+	TTErr setVectorSizeWithInt(const TTUInt16 newVectorSize)
+	{
+		mVectorSize = newVectorSize;
+		return kTTErrNone;
+	}
 	
-	TTUInt16 getMaxNumChannels();
+	TTUInt16 getVectorSizeAsInt() const
+	{
+		return mVectorSize;
+	}
+	
+
+	TTErr setNumChannels(const TTValue& newNumChannels)
+	{
+		mNumChannels = TTClip<TTUInt16>(newNumChannels, 0, mMaxNumChannels);
+		return kTTErrNone;
+	}
+	
+
+	TTUInt16 getNumChannelsAsInt() const
+	{
+		return mNumChannels;
+	}
+	
+	TTUInt16 getMaxNumChannelsAsInt();
 
 	
 	TTBoolean getIsLocallyOwned()
 	{
-		return isLocallyOwned;
+		return mIsLocallyOwned;
 	}
 	
 	/**	Allocate memory for all channels at the current vectorsize.
@@ -194,19 +193,19 @@ public:
 		short			channelCount = getMaxChannelCount(*this, rightHandValue);
 		short			channel;
 		
-		if(channelCount > maxNumChannels)
-			channelCount = maxNumChannels;
-		if(channelCount > rightHandValue.maxNumChannels)
-			channelCount = rightHandValue.maxNumChannels;
+		if (channelCount > mMaxNumChannels)
+			channelCount = mMaxNumChannels;
+		if (channelCount > rightHandValue.mMaxNumChannels)
+			channelCount = rightHandValue.mMaxNumChannels;
 		
-		for(channel=0; channel<channelCount; channel++){
-			inSample = rightHandValue.sampleVectors[channel];
-			outSample = sampleVectors[channel];
+		for (channel=0; channel<channelCount; channel++) {
+			inSample = rightHandValue.mSampleVectors[channel];
+			outSample = mSampleVectors[channel];
 			
-			if(vectorSize > rightHandValue.vectorSize)
-				vs = rightHandValue.vectorSize;
+			if (mVectorSize > rightHandValue.mVectorSize)
+				vs = rightHandValue.mVectorSize;
 			else
-				vs = vectorSize;
+				vs = mVectorSize;
 			
 			while(vs--){
 				(*outSample) = (*outSample) + (*inSample);
@@ -220,41 +219,19 @@ public:
 	
 	/**	Assign another audio signal's samples and channel/vector configuration with this audio signal's samples. */
 	TTAudioSignal& operator = (const TTAudioSignal& rightHandValue)
-	{
-//		short			vs;
-//		TTSampleValue*	inSample;
-//		TTSampleValue*	outSample;
-	
-		if (rightHandValue.maxNumChannels > maxNumChannels)
-			setmaxNumChannels(rightHandValue.maxNumChannels);
-		numChannels = rightHandValue.numChannels;
+	{	
+		if (rightHandValue.mMaxNumChannels > mMaxNumChannels)
+			setMaxNumChannels(rightHandValue.mMaxNumChannels);
+		mNumChannels = rightHandValue.mNumChannels;
 		
-		setVectorSize(rightHandValue.vectorSize);
-		if (isLocallyOwned)
+		setVectorSizeWithInt(rightHandValue.mVectorSize);
+		if (mIsLocallyOwned)
 			alloc();
 
 		TTAudioSignal::copy(rightHandValue, *this);
-/*		
-		for(channel=0; channel<channelCount; channel++){
-			inSample = rightHandValue.sampleVectors[channel];
-			outSample = sampleVectors[channel];
-			
-			if(vectorSize > rightHandValue.vectorSize)
-				vs = rightHandValue.vectorSize;
-			else
-				vs = vectorSize;
-			
-			while(vs--){
-				(*outSample) = (*outSample) + (*inSample);
-				outSample++;
-				inSample++;
-			}
-		}
- */
 		return *this;
 	}
-	
-	
+
 };
 
 

@@ -14,25 +14,25 @@
 
 
 TT_DATA_CONSTRUCTOR,
-	contents(NULL),
-	numChannels(0),
-	length(0),
-	lengthInSamples(0)
+	mContents(NULL),
+	mNumChannels(0),
+	mLength(0),
+	mLengthInSamples(0)
 {
-	registerAttributeWithSetter(numChannels,		kTypeUInt16);
-	registerAttributeWithSetter(length,				kTypeFloat64);
-	registerAttributeWithSetter(lengthInSamples,	kTypeUInt64);
+	addAttributeWithSetter(NumChannels,		kTypeUInt16);
+	addAttributeWithSetter(Length,			kTypeFloat64);
+	addAttributeWithSetter(LengthInSamples,	kTypeUInt64);
 
-	registerMessageSimple(clear);
-	registerMessageWithArgument(fill);
+	addMessage(clear);
+	addMessageWithArgument(fill);
 
-	registerMessageWithArgument(getValueAtIndex);
+	addMessageWithArgument(getValueAtIndex);
 	registerMessage(TT("peek"), (TTMethod)&TTBuffer::getValueAtIndex);
 
-	registerMessageWithArgument(setValueAtIndex);
+	addMessageWithArgument(setValueAtIndex);
 	registerMessage(TT("poke"), (TTMethod)&TTBuffer::setValueAtIndex);
 
-	registerMessageSimple(updateSr);
+	addMessage(updateSr);
 
 	// TODO: more messages to implement
 	//	"readFile"
@@ -49,10 +49,10 @@ TTBuffer::~TTBuffer()
 
 TTErr TTBuffer::init()
 {
-	if(numChannels && lengthInSamples){
-		contents = new TTSampleValuePtr[numChannels];
-		for(TTUInt16 channel=0; channel<numChannels; channel++)
-			contents[channel] = new TTSampleValue[lengthInSamples];
+	if (mNumChannels && mLengthInSamples) {
+		mContents = new TTSampleValuePtr[mNumChannels];
+		for(TTUInt16 channel=0; channel<mNumChannels; channel++)
+			mContents[channel] = new TTSampleValue[mLengthInSamples];
 		clear();
 	}
 	return kTTErrNone;
@@ -61,50 +61,50 @@ TTErr TTBuffer::init()
 
 TTErr TTBuffer::chuck()
 {
-	if(contents){
-		for(TTUInt16 channel=0; channel<numChannels; channel++)
-			delete [] contents[channel];
-		delete [] contents;
+	if (mContents) {
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++)
+			delete [] mContents[channel];
+		delete [] mContents;
 	}
 	return kTTErrNone;
 }
 
 
-TTErr TTBuffer::setnumChannels(const TTValue& newNumChannels)
+TTErr TTBuffer::setNumChannels(const TTValue& newNumChannels)
 {
 	TTUInt16 channels = newNumChannels;
 
-	if(numChannels != channels){
+	if (mNumChannels != channels) {
 		chuck();
-		numChannels = channels;
+		mNumChannels = channels;
 		return init();
 	}
 	return kTTErrNone;
 }
 
 
-TTErr TTBuffer::setlength(const TTValue& newLength)
+TTErr TTBuffer::setLength(const TTValue& newLength)
 {
 	TTFloat64 len = newLength;
 
-	if(length != len){
+	if (mLength != len) {
 		chuck();
-		length = len;
-		lengthInSamples = length * srMill;
+		mLength = len;
+		mLengthInSamples = mLength * srMill;
 		return init();
 	}
 	return kTTErrNone;
 }
 
 
-TTErr TTBuffer::setlengthInSamples(const TTValue& newLengthInSamples)
+TTErr TTBuffer::setLengthInSamples(const TTValue& newLengthInSamples)
 {
 	TTUInt64 len = newLengthInSamples;
 
-	if(lengthInSamples != len){
+	if (mLengthInSamples != len){
 		chuck();
-		lengthInSamples = len;
-		length = len * srInv * 1000.0;
+		mLengthInSamples = len;
+		mLength = len * srInv * 1000.0;
 		return init();
 	}
 	return kTTErrNone;
@@ -113,7 +113,7 @@ TTErr TTBuffer::setlengthInSamples(const TTValue& newLengthInSamples)
 
 TTSampleValue* TTBuffer::getContentsForChannel(TTUInt16 channel)
 {
-	return contents[channel];
+	return mContents[channel];
 }
 
 
@@ -126,8 +126,8 @@ TTErr TTBuffer::updateSr()
 
 TTErr TTBuffer::clear()
 {
-	for(TTUInt16 channel=0; channel<numChannels; channel++)
-		memset(contents[channel], 0, sizeof(TTSampleValue) * lengthInSamples);
+	for (TTUInt16 channel=0; channel<mNumChannels; channel++)
+		memset(mContents[channel], 0, sizeof(TTSampleValue) * mLengthInSamples);
 	return kTTErrNone;
 }
 
@@ -142,20 +142,20 @@ TTErr TTBuffer::getValueAtIndex(TTValue& index)
 	TTErr			err;
 
 	index.get(i++, sampleIndex);
-	if(index.getSize() > 2)		// TODO: sure would be nice to change the name of this method to "size" or something...
+	if (index.getSize() > 2)		// TODO: sure would be nice to change the name of this method to "size" or something...
 		index.get(i++, sampleChannel);
 
 	err = peek(sampleIndex, sampleChannel, sampleValue);
-	if(!err)
+	if (!err)
 		index.set(i++, sampleValue);
 	return err;
 }
 
 TTErr TTBuffer::peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value)
 {
-	if(contents){
+	if (mContents) {
 		// TODO: perhaps we should range check the input here first...
-		value = contents[channel][index];
+		value = mContents[channel][index];
 		return kTTErrNone;
 	}
 	return kTTErrGeneric;
@@ -184,9 +184,9 @@ TTErr TTBuffer::setValueAtIndex(const TTValue& index)
 
 TTErr TTBuffer::poke(const TTUInt64 index, const TTUInt16 channel, const TTSampleValue value)
 {
-	if(contents){
+	if (mContents) {
 		// TODO: perhaps we should range check the input here first...
-		contents[channel][index] = value;
+		mContents[channel][index] = value;
 		return kTTErrNone;
 	}
 	return kTTErrGeneric;
@@ -200,94 +200,94 @@ TTErr TTBuffer::fill(const TTValue& value)
 // FIXME: implement this once we get [] operators for TTValue;
 	TTSymbol*	fillAlgorithm = value;
 
-	if(fillAlgorithm == kTTSym_sine){
-		for(TTUInt16 channel=0; channel<numChannels; channel++){
-			for(TTUInt64 i=0; i<lengthInSamples; i++)
-				contents[channel][i] = sin(kTTTwoPi * (i / (TTFloat64(lengthInSamples) - 1.0)));
+	if (fillAlgorithm == kTTSym_sine) {
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
+			for (TTUInt64 i=0; i<mLengthInSamples; i++)
+				mContents[channel][i] = sin(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0)));
 		}
 	}
-	else if(fillAlgorithm == kTTSym_sineMod){							// (modulator version: ranges from 0.0 to 1.0, rather than -1.0 to 1.0)
-		for(TTUInt16 channel=0; channel<numChannels; channel++){
-			for(TTUInt64 i=0; i<lengthInSamples; i++)
-				contents[channel][i] = 0.5 + (0.5 * sin(kTTTwoPi * (i / (TTFloat64(lengthInSamples) - 1.0))));
+	else if (fillAlgorithm == kTTSym_sineMod) {							// (modulator version: ranges from 0.0 to 1.0, rather than -1.0 to 1.0)
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
+			for (TTUInt64 i=0; i<mLengthInSamples; i++)
+				mContents[channel][i] = 0.5 + (0.5 * sin(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0))));
 		}
 	}
-	else if(fillAlgorithm == kTTSym_cosine){
-		for(TTUInt16 channel=0; channel<numChannels; channel++){
-			for(TTUInt64 i=0; i<lengthInSamples; i++)
-				contents[channel][i] = cos(kTTTwoPi * (i / (TTFloat64(lengthInSamples) - 1.0)));
+	else if (fillAlgorithm == kTTSym_cosine) {
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
+			for (TTUInt64 i=0; i<mLengthInSamples; i++)
+				mContents[channel][i] = cos(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0)));
 		}
 	}
-	else if(fillAlgorithm == kTTSym_cosineMod){
-		for(TTUInt16 channel=0; channel<numChannels; channel++){
-			for(TTUInt64 i=0; i<lengthInSamples; i++)
-				contents[channel][i] = 0.5 + (0.5 * cos(kTTTwoPi * (i / (TTFloat64(lengthInSamples) - 1.0))));
+	else if (fillAlgorithm == kTTSym_cosineMod){
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++){
+			for (TTUInt64 i=0; i<mLengthInSamples; i++)
+				mContents[channel][i] = 0.5 + (0.5 * cos(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0))));
 		}
 	}
-	else if(fillAlgorithm == kTTSym_square){
-		for(TTUInt16 channel=0; channel<numChannels; channel++){
+	else if (fillAlgorithm == kTTSym_square){
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++){
 			TTUInt64 i;
-			for(i=0; i < (lengthInSamples/2); i++)
-				contents[channel][i] = 1.0;
-			for(i=i; i < lengthInSamples; i++)
-				contents[channel][i] = -1.0;
+			for (i=0; i < (mLengthInSamples/2); i++)
+				mContents[channel][i] = 1.0;
+			for (i=i; i < mLengthInSamples; i++)
+				mContents[channel][i] = -1.0;
 		}
 	}
 	else if(fillAlgorithm == kTTSym_squareMod){
-		for(TTUInt16 channel=0; channel<numChannels; channel++){
+		for(TTUInt16 channel=0; channel<mNumChannels; channel++){
 			TTUInt64 i;
-			for(i=0; i < (lengthInSamples/2); i++)
-				contents[channel][i] = 1.0;
-			for(i=i; i < lengthInSamples; i++)
-				contents[channel][i] = 0.0;
+			for(i=0; i < (mLengthInSamples/2); i++)
+				mContents[channel][i] = 1.0;
+			for(i=i; i < mLengthInSamples; i++)
+				mContents[channel][i] = 0.0;
 		}
 	}
-	else if(fillAlgorithm == kTTSym_triangle){
-		for(TTUInt16 channel=0; channel<numChannels; channel++){
+	else if (fillAlgorithm == kTTSym_triangle) {
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			TTUInt64 i, j;
-			for(i=0; i < (lengthInSamples / 4); i++)
-				contents[channel][i] = TTFloat64(i) / (lengthInSamples / 4);
-			for(j=i-1; i < (lengthInSamples / 2); i++, j--)
-				contents[channel][i] = contents[channel][j];
-			for(j=0; i < lengthInSamples; i++, j++)
-				contents[channel][i] = 0.0 - contents[channel][j];
+			for (i=0; i < (mLengthInSamples / 4); i++)
+				mContents[channel][i] = TTFloat64(i) / (mLengthInSamples / 4);
+			for (j=i-1; i < (mLengthInSamples / 2); i++, j--)
+				mContents[channel][i] = mContents[channel][j];
+			for (j=0; i < mLengthInSamples; i++, j++)
+				mContents[channel][i] = 0.0 - mContents[channel][j];
 		}
 	}
-	else if(fillAlgorithm == kTTSym_triangleMod){
-		for(TTUInt16 channel=0; channel<numChannels; channel++){
+	else if (fillAlgorithm == kTTSym_triangleMod) {
+		for(TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			TTUInt64 i, j;
-			for(i=0; i < (lengthInSamples / 4); i++)
-				contents[channel][i] = 0.5 + TTFloat64(i) / (lengthInSamples / 4);
-			for(j=i-1; i < (lengthInSamples / 2); i++, j--)
-				contents[channel][i] = contents[channel][j];
-			for(j=0; i < lengthInSamples; i++, j++)
-				contents[channel][i] = 1.0 - contents[channel][j];
+			for (i=0; i < (mLengthInSamples / 4); i++)
+				mContents[channel][i] = 0.5 + TTFloat64(i) / (mLengthInSamples / 4);
+			for (j=i-1; i < (mLengthInSamples / 2); i++, j--)
+				mContents[channel][i] = mContents[channel][j];
+			for (j=0; i < mLengthInSamples; i++, j++)
+				mContents[channel][i] = 1.0 - mContents[channel][j];
 		}
 	}
-	else if(fillAlgorithm == kTTSym_ramp){
-		for(TTUInt16 channel=0; channel<numChannels; channel++){
-			for(TTUInt64 i=0; i<lengthInSamples; i++)
-				contents[channel][i] = -1.0 + (2.0 * (float(i) / lengthInSamples));
+	else if (fillAlgorithm == kTTSym_ramp) {
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
+			for (TTUInt64 i=0; i<mLengthInSamples; i++)
+				mContents[channel][i] = -1.0 + (2.0 * (float(i) / mLengthInSamples));
 		}
 	}
-	else if(fillAlgorithm == kTTSym_rampMod){
-		for(TTUInt16 channel=0; channel<numChannels; channel++){
-			for(TTUInt64 i=0; i<lengthInSamples; i++)
-				contents[channel][i] = float(i) / lengthInSamples;
+	else if (fillAlgorithm == kTTSym_rampMod) {
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
+			for (TTUInt64 i=0; i<mLengthInSamples; i++)
+				mContents[channel][i] = float(i) / mLengthInSamples;
 		}
 	}
-	else if(fillAlgorithm == kTTSym_sawtooth){
-		for(TTUInt16 channel=0; channel<numChannels; channel++){
+	else if (fillAlgorithm == kTTSym_sawtooth) {
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			TTUInt64 i, j;
-			for(i=0, j=lengthInSamples-1; i<lengthInSamples; i++)
-				contents[channel][j--] = -1.0 + (2.0 * (float(i) / lengthInSamples));
+			for(i=0, j=mLengthInSamples-1; i<mLengthInSamples; i++)
+				mContents[channel][j--] = -1.0 + (2.0 * (float(i) / mLengthInSamples));
 		}
 	}
-	else if(fillAlgorithm == kTTSym_sawtoothMod){
-		for(TTUInt16 channel=0; channel<numChannels; channel++){
+	else if (fillAlgorithm == kTTSym_sawtoothMod) {
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			TTUInt64 i, j;
-			for(i=0, j=lengthInSamples-1; i<lengthInSamples; i++)
-				contents[channel][j--] = float(i) / lengthInSamples;
+			for (i=0, j=mLengthInSamples-1; i<mLengthInSamples; i++)
+				mContents[channel][j--] = float(i) / mLengthInSamples;
 		}
 	}
 
@@ -309,8 +309,8 @@ TTErr TTBuffer::fill(const TTValue& value)
 		if(TTValue.getSize() > 2)
 			param2 = value[2];
 */
-		for(TTUInt16 channel=0; channel<numChannels; channel++){
-			for(TTUInt64 i=0; i<lengthInSamples; i++){
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
+			for (TTUInt64 i=0; i<mLengthInSamples; i++) {
 // TODO: implement (and make sure this algorithm is legit):
 //				temp = double(i) / (double(length_samples) - 1);
 //				contents[i] = ((-1.0 * (temp - param2) * (temp - param2)) / (2 * param1 * param1)) / (param1 * sqrt(twopi));

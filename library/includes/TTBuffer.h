@@ -24,10 +24,10 @@
 class TTDSP_EXPORT TTBuffer : public TTDataObject {
 	TTCLASS_SETUP(TTBuffer)
 
-	TTSampleValue**		contents;			///< An array of vectors (one vector per channel) to hold the samples.
-	TTUInt16			numChannels;		///< The number of channels in the buffer
-	TTFloat64			length;				///< The size of the buffer in milliseconds
-	TTUInt64			lengthInSamples;	///< The size of the buffer in samples
+	TTSampleValue**		mContents;			///< An array of vectors (one vector per channel) to hold the samples.
+	TTUInt16			mNumChannels;		///< The number of channels in the buffer
+	TTFloat64			mLength;			///< The size of the buffer in milliseconds
+	TTUInt64			mLengthInSamples;	///< The size of the buffer in samples
 
 	/** Internally used method for allocating the contents of the buffer. */
 	TTErr init();
@@ -41,15 +41,15 @@ class TTDSP_EXPORT TTBuffer : public TTDataObject {
 public:
 	/**	Attribute accessor: set the number of channels for this buffer.
 		@return Returns a TTErr error code.	*/
-	TTErr setnumChannels(const TTValue& newNumChannels);
+	TTErr setNumChannels(const TTValue& newNumChannels);
 
 	/**	Attribute accessor: set the buffer length specified in milliseconds.
 		@return Returns a TTErr error code.	*/
-	TTErr setlength(const TTValue& newLength);
+	TTErr setLength(const TTValue& newLength);
           
 	/**	Attribute accessor: set the buffer length specified as a number of samples.
 		@return Returns a TTErr error code.	*/
-	TTErr setlengthInSamples(const TTValue& newLengthInSamples);
+	TTErr setLengthInSamples(const TTValue& newLengthInSamples);
           
 	/**	Set all values to zero.
 	 	@return Returns a TTErr error code.	*/

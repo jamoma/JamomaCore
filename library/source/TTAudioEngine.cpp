@@ -139,14 +139,14 @@ TTErr TTAudioEngine::initStream()
 	
 	
 	// Now that the stream is initialized, we need to setup our own buffers for reading and writing.
-	mInputBuffer->setmaxNumChannels(mNumInputChannels);
-	mInputBuffer->setnumChannels(mNumInputChannels);
-	mInputBuffer->setvectorSize(mVectorSize);
+	mInputBuffer->setMaxNumChannels(mNumInputChannels);
+	mInputBuffer->setNumChannels(mNumInputChannels);
+	mInputBuffer->setVectorSizeWithInt(mVectorSize);
 	mInputBuffer->alloc();
 
-	mOutputBuffer->setmaxNumChannels(mNumOutputChannels);
-	mOutputBuffer->setnumChannels(mNumOutputChannels);
-	mOutputBuffer->setvectorSize(mVectorSize);
+	mOutputBuffer->setMaxNumChannels(mNumOutputChannels);
+	mOutputBuffer->setNumChannels(mNumOutputChannels);
+	mOutputBuffer->setVectorSizeWithInt(mVectorSize);
 	mOutputBuffer->alloc();
 	
 	if (shouldRun)
@@ -348,18 +348,23 @@ TTInt32 TTAudioEngine::callback(const TTFloat32*		input,
 	mInputBuffer->clear();
 	mOutputBuffer->clear();
 
+	// right now we copy all of the channels, regardless of whether or not they are actually being used
+	// TODO: only copy the channels that actually contain new audio samples
+	for (unsigned int i=0; i<frameCount; i++) {		
+		for (TTUInt16 channel=0; channel<mNumInputChannels; channel++)
+			mInputBuffer->mSampleVectors[channel][i] = *input++;
+    }
+	
 	// notify any observers that we are about to process a vector
-	// for example, a lydbaer graph will do all of its processing in response to this
+	// for example, a multicore graph will do all of its processing in response to this
 	// also, the scheduler will be serviced as a result of this
 	mCallbackObservers->iterateObjectsSendingMessage(kTTSym_audioEngineWillProcess);
 	
 	// right now we copy all of the channels, regardless of whether or not they are actually being used
 	// TODO: only copy the channels that actually contain new audio samples
 	for (unsigned int i=0; i<frameCount; i++) {		
-		for (TTUInt16 channel=0; channel<mNumInputChannels; channel++)
-			mInputBuffer->sampleVectors[channel][i] = *input++;
 		for (TTUInt16 channel=0; channel<mNumOutputChannels; channel++)
-			*output++ = mOutputBuffer->sampleVectors[channel][i];
+			*output++ = mOutputBuffer->mSampleVectors[channel][i];
     }
     return 0;
 }
