@@ -51,7 +51,7 @@ TTErr TTBuffer::init()
 {
 	if (mNumChannels && mLengthInSamples) {
 		mContents = new TTSampleValuePtr[mNumChannels];
-		for(TTUInt16 channel=0; channel<mNumChannels; channel++)
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++)
 			mContents[channel] = new TTSampleValue[mLengthInSamples];
 		clear();
 	}
@@ -101,7 +101,7 @@ TTErr TTBuffer::setLengthInSamples(const TTValue& newLengthInSamples)
 {
 	TTUInt64 len = newLengthInSamples;
 
-	if (mLengthInSamples != len){
+	if (mLengthInSamples != len) {
 		chuck();
 		mLengthInSamples = len;
 		mLength = len * srInv * 1000.0;
@@ -175,7 +175,7 @@ TTErr TTBuffer::setValueAtIndex(const TTValue& index)
 	TTUInt8			i = 0;
 
 	index.get(i++, sampleIndex);
-	if(index.getSize() > 2)
+	if (index.getSize() > 2)
 		index.get(i++, sampleChannel);
 	index.get(i++, sampleValue);
 
@@ -218,14 +218,14 @@ TTErr TTBuffer::fill(const TTValue& value)
 				mContents[channel][i] = cos(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0)));
 		}
 	}
-	else if (fillAlgorithm == kTTSym_cosineMod){
-		for (TTUInt16 channel=0; channel<mNumChannels; channel++){
+	else if (fillAlgorithm == kTTSym_cosineMod) {
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			for (TTUInt64 i=0; i<mLengthInSamples; i++)
 				mContents[channel][i] = 0.5 + (0.5 * cos(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0))));
 		}
 	}
-	else if (fillAlgorithm == kTTSym_square){
-		for (TTUInt16 channel=0; channel<mNumChannels; channel++){
+	else if (fillAlgorithm == kTTSym_square) {
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			TTUInt64 i;
 			for (i=0; i < (mLengthInSamples/2); i++)
 				mContents[channel][i] = 1.0;
@@ -233,12 +233,12 @@ TTErr TTBuffer::fill(const TTValue& value)
 				mContents[channel][i] = -1.0;
 		}
 	}
-	else if(fillAlgorithm == kTTSym_squareMod){
-		for(TTUInt16 channel=0; channel<mNumChannels; channel++){
+	else if (fillAlgorithm == kTTSym_squareMod) {
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			TTUInt64 i;
-			for(i=0; i < (mLengthInSamples/2); i++)
+			for (i=0; i < (mLengthInSamples/2); i++)
 				mContents[channel][i] = 1.0;
-			for(i=i; i < mLengthInSamples; i++)
+			for (i=i; i < mLengthInSamples; i++)
 				mContents[channel][i] = 0.0;
 		}
 	}
@@ -254,7 +254,7 @@ TTErr TTBuffer::fill(const TTValue& value)
 		}
 	}
 	else if (fillAlgorithm == kTTSym_triangleMod) {
-		for(TTUInt16 channel=0; channel<mNumChannels; channel++) {
+		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			TTUInt64 i, j;
 			for (i=0; i < (mLengthInSamples / 4); i++)
 				mContents[channel][i] = 0.5 + TTFloat64(i) / (mLengthInSamples / 4);
@@ -279,7 +279,7 @@ TTErr TTBuffer::fill(const TTValue& value)
 	else if (fillAlgorithm == kTTSym_sawtooth) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			TTUInt64 i, j;
-			for(i=0, j=mLengthInSamples-1; i<mLengthInSamples; i++)
+			for (i=0, j=mLengthInSamples-1; i<mLengthInSamples; i++)
 				mContents[channel][j--] = -1.0 + (2.0 * (float(i) / mLengthInSamples));
 		}
 	}
@@ -293,20 +293,20 @@ TTErr TTBuffer::fill(const TTValue& value)
 
 	/*	TODO: This was in the old TTBlue -- is it legit?
 		 case k_padded_welch_512:				// FIXED 512 POINT WINDOW OF THE PADDED WELCH TYPE
-		 for(i=0; i < 256; i++)
+		 for (i=0; i < 256; i++)
 			contents[i] = tt_audio_base::lookup_half_paddedwelch[i];
-		 for(j=i-1; i < 512;i++, j--){
+		 for (j=i-1; i < 512;i++, j--) {
 			contents[i] = tt_audio_base::lookup_half_paddedwelch[j];
 	*/
 
 	// These algorithms also have parameters to set coefficients
-	else if(fillAlgorithm == TT("gaussian")){
+	else if (fillAlgorithm == TT("gaussian")) {
 //		TTFloat64	param1 = 1.0;	// TODO: find good defaults for this
 //		TTFloat64	param2 = 1.0;	// TODO: find good defaults for this
 /*	FIXME: do this once Dave checks in the [] operator code for TTValue
-		if(value.getSize() > 1)
+		if (value.getSize() > 1)
 			param1 = value[1];
-		if(TTValue.getSize() > 2)
+		if (TTValue.getSize() > 2)
 			param2 = value[2];
 */
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {

@@ -207,7 +207,7 @@ public:
 			else
 				vs = mVectorSize;
 			
-			while(vs--){
+			while (vs--) {
 				(*outSample) = (*outSample) + (*inSample);
 				outSample++;
 				inSample++;

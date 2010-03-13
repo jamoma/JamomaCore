@@ -36,7 +36,7 @@ void TTAudioSignalArray::init()
 {
 	delete[] audioSignals;
 	audioSignals = new TTAudioSignalPtr[maxNumAudioSignals];
-	for(TTUInt16 i=0; i<maxNumAudioSignals ;i++)
+	for (TTUInt16 i=0; i<maxNumAudioSignals ;i++)
 		audioSignals[i] = NULL;
 	numAudioSignals = 0;
 }
@@ -44,19 +44,19 @@ void TTAudioSignalArray::init()
 
 void TTAudioSignalArray::releaseAll()
 {
-	for(TTUInt16 i=0; i<maxNumAudioSignals; i++)
+	for (TTUInt16 i=0; i<maxNumAudioSignals; i++)
 		TTObjectRelease(&audioSignals[i]);
 }
 
 void TTAudioSignalArray::clearAll()
 {
-	for(TTUInt16 i=0; i<maxNumAudioSignals; i++)
+	for (TTUInt16 i=0; i<maxNumAudioSignals; i++)
 		audioSignals[i]->clear();
 }
 
 void TTAudioSignalArray::allocAllWithVectorSize(TTUInt16 vs)
 {
-	for(TTUInt16 i=0; i<maxNumAudioSignals; i++)
+	for (TTUInt16 i=0; i<maxNumAudioSignals; i++)
 		audioSignals[i]->allocWithVectorSize(vs);
 }
 
@@ -67,7 +67,7 @@ TTUInt16 TTAudioSignalArray::getVectorSize()
 
 void TTAudioSignalArray::setAllMaxNumChannels(TTUInt16 newMaxNumChannels)
 {
-	for(TTUInt16 i=0; i<maxNumAudioSignals; i++)
+	for (TTUInt16 i=0; i<maxNumAudioSignals; i++)
 		audioSignals[i]->setMaxNumChannels(newMaxNumChannels);
 }
 

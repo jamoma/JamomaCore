@@ -205,14 +205,14 @@ TTErr TTAudioEngine::getAvailableInputDeviceNames(TTValue& returnedDeviceNames)
 	returnedDeviceNames.clear();
 	
     numDevices = Pa_GetDeviceCount();
-    if(numDevices < 0){
+    if (numDevices < 0) {
         printf("ERROR: Pa_CountDevices returned 0x%x\n", numDevices);
         return kTTErrGeneric;
     }
 	
-    for(int i=0; i<numDevices; i++){
+    for (int i=0; i<numDevices; i++) {
         deviceInfo = Pa_GetDeviceInfo(i);
-		if(deviceInfo->maxInputChannels)
+		if (deviceInfo->maxInputChannels)
 			returnedDeviceNames.append(TT(deviceInfo->name));
     }
 	return kTTErrNone;
@@ -227,14 +227,14 @@ TTErr TTAudioEngine::getAvailableOutputDeviceNames(TTValue& returnedDeviceNames)
 	returnedDeviceNames.clear();
 	
     numDevices = Pa_GetDeviceCount();
-    if(numDevices < 0){
+    if (numDevices < 0) {
         printf("ERROR: Pa_CountDevices returned 0x%x\n", numDevices);
         return kTTErrGeneric;
     }
 	
-    for(int i=0; i<numDevices; i++){
+    for (int i=0; i<numDevices; i++) {
         deviceInfo = Pa_GetDeviceInfo(i);
-		if(deviceInfo->maxOutputChannels)
+		if (deviceInfo->maxOutputChannels)
 			returnedDeviceNames.append(TT(deviceInfo->name));
     }
 	return kTTErrNone;
