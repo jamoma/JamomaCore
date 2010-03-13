@@ -88,7 +88,7 @@ void TTAttribute::getSetterFlags(TTAttributeFlags& currentFlags)
 
 TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
 {	
-	switch(attribute.type){
+	switch(attribute.type) {
 		case kTypeFloat32:
 			value = *((TTFloat32*)attribute.address);
 			return kTTErrNone;
@@ -145,7 +145,7 @@ TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
 
 TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& value)
 {
-	switch(attribute.type){
+	switch(attribute.type) {
 		case kTypeFloat32:
 			*((TTFloat32*)attribute.address) = value;
 			return kTTErrNone;
@@ -229,7 +229,7 @@ TTErr TTAttribute::getreadOnly(TTValue& currentReadOnlyValue)
 
 TTErr TTAttribute::setrange(const TTValue& newRange)
 {
-	if(newRange.getSize() == 2){
+	if (newRange.getSize() == 2) {
 		newRange.get(0, rangeLowBound);
 		newRange.get(1, rangeHighBound);
 		return kTTErrNone;

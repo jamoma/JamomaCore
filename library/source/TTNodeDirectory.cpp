@@ -76,15 +76,15 @@ TTErr TTNodeDirectory::getTTNodeForOSC(TTSymbolPtr oscAddress, TTNodePtr* return
 	TTErr err;
 	TTValue* found = new TTValue();
 	
-	if(mDirectory){
+	if (mDirectory) {
 		// look into the hashtab to check if the address exist in the tree
 		err = mDirectory->lookup(oscAddress, *found);
 
 		// if this address doesn't exist
-		if(err == kTTErrValueNotFound){
+		if (err == kTTErrValueNotFound) {
 			return kTTErrGeneric;
 		}
-		else{
+		else {
 			found->get(0,(TTPtr*)returnedTTNode);
 			return kTTErrNone;
 		}
@@ -106,10 +106,10 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 	err = splitOSCAddress(oscAddress,&oscAddress_parent,&oscAddress_name, &oscAddress_instance, &oscAddress_property);
 
 	// if no error in the parsing of the OSC address
-	if(err == kTTErrNone){
+	if (err == kTTErrNone) {
 
 		// If there is a property part
-		if(oscAddress_property != NO_PROPERTY){
+		if (oscAddress_property != NO_PROPERTY) {
 
 			// get the TTNode
 			mergeOSCAddress(&oscAddress_got,oscAddress_parent,oscAddress_name,oscAddress_instance,NO_PROPERTY);
@@ -117,10 +117,10 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 			err = mDirectory->lookup(oscAddress_got, *found);
 
 			// if the TTNode doesn't exist
-			if(err == kTTErrValueNotFound)
+			if (err == kTTErrValueNotFound)
 				return kTTErrGeneric;
 
-			else{
+			else {
 				// get the TTNode at this address
 				found->get(0,(TTPtr*)&n_found);
 				//n_found->addProperty(oscAddress_property, NULL, NULL);  // TODO : what todo in that case ?
@@ -134,12 +134,12 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 		err = mDirectory->lookup(oscAddress, *found);
 
 		// if it's the first at this address
-		if(err == kTTErrValueNotFound){
+		if (err == kTTErrValueNotFound) {
 			// keep the instance found in the OSC address
 			newInstance = oscAddress_instance;
 			*newInstanceCreated = false;
 		}
-		else{
+		else {
 			// this address already exists
 			// get the TTNode at this address
 			found->get(0,(TTPtr*)&n_found);
@@ -164,7 +164,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 		TT_ASSERT("new TTNode successful", !err);
 
 		// 2. Ensure that the path to the new TTNode exists
-		if(oscAddress_parent != NO_PARENT){
+		if (oscAddress_parent != NO_PARENT) {
 
 			// set his parent
 			parent_created = false;
@@ -202,14 +202,14 @@ TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, T
 	TTErr err;
 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
-	if(oscAddress->getCString()[0]!= C_SEPARATOR)
+	if (oscAddress->getCString()[0]!= C_SEPARATOR)
 		return kTTErrGeneric;
 	
 	// Split the address /parent/name.instance:property
 	splitOSCAddress(oscAddress, &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_property);
 
 	// Is there a wild card ?
-	if(strrchr(oscAddress->getCString(), C_WILDCARD)){
+	if (strrchr(oscAddress->getCString(), C_WILDCARD)) {
 
 		// Here is a recursive call to the TTNodeDirectory Lookup to get all TTNodes at upper levels
 		err = Lookup(oscAddress_parent, returnedTTNodes, firstReturnedTTNode);
@@ -218,22 +218,22 @@ TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, T
 		// select all corresponding "name.instance" TTNodes
 		// among the TTNode list.
 		
-		if(!returnedTTNodes.isEmpty()){
+		if (!returnedTTNodes.isEmpty()) {
 			
 			// select all children of all parent nodes
-			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
+			for (returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()) {
 				
 				returnedTTNodes.current().get(0, (TTPtr*)&n_r);
 				n_r->getChildren(oscAddress_name, oscAddress_instance, lk_children);
 				
-				if(!lk_children.isEmpty())
+				if (!lk_children.isEmpty())
 					lk_selection.merge(lk_children);
 			}
 			
 			// return the slection
 			returnedTTNodes.clear();
 			
-			if(!lk_selection.isEmpty()){
+			if (!lk_selection.isEmpty()) {
 				returnedTTNodes.merge(lk_selection);
 				returnedTTNodes.getHead().get(0, (TTPtr*)&firstReturnedTTNode);
 			}
@@ -243,10 +243,10 @@ TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, T
 	}
 	// no wild card : do a lookup in the global hashtab 
 	// with the /parent/node.instance part (no property)
-	else{
+	else {
 		
 		// be sure there is no property part
-		if(oscAddress_property != NO_PROPERTY)
+		if (oscAddress_property != NO_PROPERTY)
 			mergeOSCAddress(&oscAddress_noproperty, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_PROPERTY);
 		else
 			oscAddress_noproperty = oscAddress;
@@ -255,7 +255,7 @@ TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, T
 		err = getTTNodeForOSC(oscAddress_noproperty, &n_r);
 		
 		// if the node exists
-		if(err == kTTErrNone){
+		if (err == kTTErrNone) {
 			returnedTTNodes.append(new TTValue((TTPtr)n_r));
 			*firstReturnedTTNode = n_r;
 		}
@@ -271,25 +271,25 @@ TTErr	TTNodeDirectory::LookingFor(TTListPtr whereToSearch, bool(testFunction)(TT
 	TTErr err;
 	
 	// if there are nodes from where to start
-	if(!whereToSearch->isEmpty()){
+	if (!whereToSearch->isEmpty()) {
 		
 		// Launch a recursive research below each given nodes
-		for(whereToSearch->begin(); whereToSearch->end(); whereToSearch->next()){
+		for (whereToSearch->begin(); whereToSearch->end(); whereToSearch->next()) {
 			
 			// get all children of the node
 			whereToSearch->current().get(0, (TTPtr*)&n_r);
 			n_r->getChildren(S_WILDCARD, S_WILDCARD, lk_children);
 			
 			// if there are children
-			if(!lk_children.isEmpty()){
+			if (!lk_children.isEmpty()) {
 				
 				// test each of them and add those which are ok
-				for(lk_children.begin(); lk_children.end(); lk_children.next()){
+				for (lk_children.begin(); lk_children.end(); lk_children.next()) {
 					
 					lk_children.current().get(0, (TTPtr*)&n_child);
 					
 					// test the child and fill the returnedTTNodes
-					if(testFunction(n_child, argument))
+					if (testFunction(n_child, argument))
 						returnedTTNodes.append(new TTValue((TTPtr)n_child));
 				}
 				
@@ -298,7 +298,7 @@ TTErr	TTNodeDirectory::LookingFor(TTListPtr whereToSearch, bool(testFunction)(TT
 				
 				returnedTTNodes.getHead().get(0, (TTPtr*)&firstReturnedTTNode);
 				
-				if(err != kTTErrNone)
+				if (err != kTTErrNone)
 					return err;
 			}
 		}
@@ -314,25 +314,25 @@ TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(TTNod
 	TTErr err, err_look;
 	
 	// if there are nodes from where to start
-	if(!whereToSearch->isEmpty()){
+	if (!whereToSearch->isEmpty()) {
 		
 		// Launch a recursive research below each given nodes
-		for(whereToSearch->begin(); whereToSearch->end(); whereToSearch->next()){
+		for (whereToSearch->begin(); whereToSearch->end(); whereToSearch->next()) {
 			
 			// get all children of the node
 			whereToSearch->current().get(0, (TTPtr*)&n_r);
 			err = n_r->getChildren(S_WILDCARD, S_WILDCARD, lk_children);
 			
 			// if there are children
-			if(err == kTTErrNone){
+			if (err == kTTErrNone) {
 				
 				// test each of them and add those which are ok
-				for(lk_children.begin(); lk_children.end(); lk_children.next()){
+				for (lk_children.begin(); lk_children.end(); lk_children.next()) {
 					
 					lk_children.current().get(0, (TTPtr*)&n_child);
 					
 					// test the child and fill the returnedTTNodes
-					if(testFunction(n_child, argument)){
+					if (testFunction(n_child, argument)) {
 						(*isThere) = true;
 						(*firstTTNode) = n_child;
 						return kTTErrNone;
@@ -344,11 +344,11 @@ TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(TTNod
 				// continu the research from all children
 				err_look = IsThere(&lk_children, testFunction, argument, isThere, firstTTNode);
 				
-				if(err_look != kTTErrNone)
+				if (err_look != kTTErrNone)
 					return err_look;
 				
 				// if a node is found below, stop the research
-				if((*isThere))
+				if ((*isThere))
 					return kTTErrNone;
 			}
 			else
@@ -373,7 +373,7 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 	char *to_split;
 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
-	if(oscAddress->getCString()[0]!= C_SEPARATOR)
+	if (oscAddress->getCString()[0]!= C_SEPARATOR)
 		return kTTErrGeneric;
 
 	to_split = (char *)malloc(sizeof(char)*(strlen(oscAddress->getCString())+1));
@@ -385,7 +385,7 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 	last_colon = strrchr(to_split, C_PROPERTY);
 	pos = (long)last_colon - (long)to_split;
 
-	if(last_colon){
+	if (last_colon) {
 		property = (char *)malloc(sizeof(char)*(len - (pos+1)));
 		strcpy(property,to_split + pos+1);
 		*returnedTTNodeProperty = TT(property);
@@ -401,17 +401,17 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 	last_slash = strrchr(to_split, C_SEPARATOR);
 	pos = (long)last_slash - (long)to_split;
 
-	if(last_slash){
-		if(pos){ // In the root case pos == 0
+	if (last_slash) {
+		if (pos) { // In the root case pos == 0
 			parent = (char *)malloc(sizeof(char)*(pos+1));
 			strncpy(parent,to_split,pos);
 			parent[pos] = NULL;
 			*returnedParentOscAdress = TT(parent);
 			to_split = last_slash+1;	// split to keep only the TTNode part
 		}
-		else{
+		else {
 			// Is it the root or a child of the root ?
-			if(strlen(to_split) > 1){
+			if (strlen(to_split) > 1) {
 				*returnedParentOscAdress = S_SEPARATOR;
 				to_split = last_slash+1;	// split to keep only the TTNode part
 			}
@@ -428,7 +428,7 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 	last_dot = strrchr(to_split,C_INSTANCE);
 	pos = (long)last_dot - (long)to_split;
 
-	if(last_dot > 0){
+	if (last_dot > 0) {
 		instance = (char *)malloc(sizeof(char)*(len - (pos+1)));
 		strcpy(instance,to_split + pos+1);
 		*returnedTTNodeInstance = TT(instance);
@@ -439,7 +439,7 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 		*returnedTTNodeInstance = NO_INSTANCE;
 
 	// TODO : ??? (detect unusual characters in a TTNode name)
-	if(strlen(to_split) > 0)
+	if (strlen(to_split) > 0)
 		*returnedTTNodeName = TT(to_split);
 	else
 		*returnedTTNodeName = NO_NAME;
@@ -451,20 +451,20 @@ TTErr mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSym
 {
 	TTString address;
 
-	if(parent != NO_PARENT)
+	if (parent != NO_PARENT)
 		address = parent->getCString();
 
-	if(name != NO_NAME){
+	if (name != NO_NAME) {
 		address += S_SEPARATOR->getCString();
 		address += name->getCString();
 	}
 
-	if(instance != NO_INSTANCE){
+	if (instance != NO_INSTANCE) {
 		address += S_INSTANCE->getCString();
 		address += instance->getCString();
 	}
 
-	if(property != NO_PROPERTY){
+	if (property != NO_PROPERTY) {
 		address += S_PROPERTY->getCString();
 		address += property->getCString();
 	}

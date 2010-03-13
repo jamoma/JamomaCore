@@ -133,11 +133,11 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 	TTErr		err = kTTErrGeneric;
 	TTList*		classNamesForTag;
 	
-	for(TTUInt16 i=0; i<size; i++){
+	for (TTUInt16 i=0; i<size; i++) {
 		searchTags.get(i, &tag);
 		
 		err = tags->lookup(tag, tagObjects);
-		if(!err){
+		if (!err) {
 			classNamesForTag = (TTList*)(TTPtr(tagObjects));
 			classNamesForTag->assignToValue(classNames);
 		}
@@ -161,19 +161,19 @@ TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObjectPtr* an
 	TTObjectPtr	oldObject = NULL;
 
 	err = classes->lookup(className, v);
-	if(!err){
+	if (!err) {
 		theClass = TTClassPtr(TTPtr(v));
-		if(theClass)
+		if (theClass)
 			err = theClass->createInstance(&newObject, anArgument);
 		else
 			err = kTTErrGeneric;
 	}
 	
-	if(!err && newObject){
-		if(*anObject)
+	if (!err && newObject) {
+		if (*anObject)
 			oldObject = *anObject;
 		*anObject = newObject;
-		if(oldObject)
+		if (oldObject)
 			releaseInstance(&oldObject);
 
 		(*anObject)->classPtr = theClass;
@@ -210,11 +210,11 @@ TTErr TTEnvironment::releaseInstance(TTObjectPtr* anObject)
 	// If the object is locked (e.g. in the middle of processing a vector in another thread) 
 	//	then we spin until the lock is released
 	//	TODO: we should also be able to time-out in the event that we have a dead lock.
-	while((*anObject)->getlock())
+	while ((*anObject)->getlock())
 		;
 
 	(*anObject)->referenceCount--;
-	if((*anObject)->referenceCount < 1){
+	if ((*anObject)->referenceCount < 1) {
 		delete *anObject;
 		*anObject = NULL;
 	}
@@ -254,7 +254,7 @@ TTObjectPtr TTObjectReference(TTObjectPtr anObject)
 
 TTErr TTObjectRelease(TTObjectPtr* anObject)
 {
-	if(*anObject)
+	if (*anObject)
 		return ttEnvironment->releaseInstance(anObject);
 	else
 		return kTTErrNone;

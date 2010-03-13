@@ -76,7 +76,7 @@ using namespace std;
 
 #ifdef TT_ENABLE_ASSERTIONS
 #define TT_ASSERT(name, result) \
-				if(!result){\
+				if (!result) {\
 					char* nullPtr = 0;\
 					TTLogError("%s:%ld ASSERTION %s FAILED\n", __FILE__, __LINE__, #name );\
 					*nullPtr = 1;\

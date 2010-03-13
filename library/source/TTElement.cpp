@@ -239,89 +239,89 @@ void TTDataInfo::addDataInfoForType(TTDataType type)
 {
 	ttDataTypeInfo[type] = new TTDataInfo;
 	
-	if(type == kTypeNone){
+	if (type == kTypeNone) {
 		ttDataTypeInfo[type]->name = TT("none");
 		ttDataTypeInfo[type]->isNumerical = NO;
 		ttDataTypeInfo[type]->bitdepth = 0;
 	}
 	
-	else if(type == kTypeFloat32){
+	else if (type == kTypeFloat32) {
 		ttDataTypeInfo[type]->name = TT("float32");
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 32;
 	}
-	else if(type == kTypeFloat64){
+	else if (type == kTypeFloat64) {
 		ttDataTypeInfo[type]->name = TT("float64");
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 64;
 	}
-	else if(type == kTypeInt8){
+	else if (type == kTypeInt8) {
 		ttDataTypeInfo[type]->name = TT("int8");
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 8;
 	}
-	else if(type == kTypeUInt8){
+	else if (type == kTypeUInt8) {
 		ttDataTypeInfo[type]->name = TT("uint8");
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 8;
 	}
-	else if(type == kTypeInt16){
+	else if (type == kTypeInt16) {
 		ttDataTypeInfo[type]->name = TT("int16");
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 16;
 	}
-	else if(type == kTypeUInt16){
+	else if (type == kTypeUInt16) {
 		ttDataTypeInfo[type]->name = TT("uint16");
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 16;
 	}
-	else if(type == kTypeInt32){
+	else if (type == kTypeInt32) {
 		ttDataTypeInfo[type]->name = TT("int32");
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 32;
 	}
-	else if(type == kTypeUInt32){
+	else if (type == kTypeUInt32) {
 		ttDataTypeInfo[type]->name = TT("uint32");
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 32;
 	}
-	else if(type == kTypeInt64){
+	else if (type == kTypeInt64) {
 		ttDataTypeInfo[type]->name = TT("int64");
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 64;
 	}
-	else if(type == kTypeUInt64){
+	else if (type == kTypeUInt64) {
 		ttDataTypeInfo[type]->name = TT("uint64");
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 64;
 	}
 	
-	else if(type == kTypeBoolean){
+	else if (type == kTypeBoolean) {
 		ttDataTypeInfo[type]->name = TT("boolean");
 		ttDataTypeInfo[type]->isNumerical = NO;
 		ttDataTypeInfo[type]->bitdepth = 1;
 	}
-	else if(type == kTypeSymbol){
+	else if (type == kTypeSymbol) {
 		ttDataTypeInfo[type]->name = TT("symbol");
 		ttDataTypeInfo[type]->isNumerical = NO;
 		ttDataTypeInfo[type]->bitdepth = -1;
 	}
-	else if(type == kTypeObject){
+	else if (type == kTypeObject) {
 		ttDataTypeInfo[type]->name = TT("object");
 		ttDataTypeInfo[type]->isNumerical = NO;
 		ttDataTypeInfo[type]->bitdepth = -1;
 	}
-	else if(type == kTypePointer){
+	else if (type == kTypePointer) {
 		ttDataTypeInfo[type]->name = TT("pointer");
 		ttDataTypeInfo[type]->isNumerical = NO;
 		ttDataTypeInfo[type]->bitdepth = sizeof(void*);
 	}
-	else if(type == kTypeString){
+	else if (type == kTypeString) {
 		ttDataTypeInfo[type]->name = TT("string");
 		ttDataTypeInfo[type]->isNumerical = NO;
 		ttDataTypeInfo[type]->bitdepth = -1;
 	}
-	else if(type == kTypeLocalValue){
+	else if (type == kTypeLocalValue) {
 		ttDataTypeInfo[type]->name = TT("value");
 		ttDataTypeInfo[type]->isNumerical = NO;
 		ttDataTypeInfo[type]->bitdepth = -1;
@@ -389,7 +389,7 @@ void TTLogError(TTImmutableCString message, ...)
 
 void TTLogDebug(TTImmutableCString message, ...)
 {
-	if(ttEnvironment->mDebugBasic){
+	if (ttEnvironment->mDebugBasic) {
 		char	str[4096];
 		va_list	ap;
 		

@@ -30,7 +30,7 @@ TTObject::~TTObject()
 	
 	// Delete message objects, then delete the hash that maintains them.
 	messages->getKeys(v);
-	for(TTUInt16 i=0; i<v.getSize(); i++){
+	for (TTUInt16 i=0; i<v.getSize(); i++) {
 		TTSymbol*	name = NULL;
 		TTMessage*	message = NULL;
 		
@@ -43,7 +43,7 @@ TTObject::~TTObject()
 	
 	// Delete attribute objects, then delete the hash that maintains them.
 	attributes->getKeys(v);
-	for(TTUInt16 i=0; i<v.getSize(); i++){
+	for (TTUInt16 i=0; i<v.getSize(); i++) {
 		TTSymbol*		name = NULL;
 		TTAttribute*	attribute = NULL;
 		
@@ -125,7 +125,7 @@ TTErr TTObject::findAttribute(const TTSymbolPtr name, TTAttribute** attr)
 	TTErr	err = kTTErrNone;
 	
 	err = attributes->lookup(TTSymbolPtr(name), v);
-	if(!err){
+	if (!err) {
 		*attr = TTAttributePtr(TTPtr(v));
 		return kTTErrNone;
 	}
@@ -140,11 +140,11 @@ TTErr TTObject::getAttributeValue(const TTSymbolPtr name, TTValue& value)
 	TTErr			err;
 	
 	err = findAttribute(name, &attribute);
-	if(!err){
+	if (!err) {
 		
-		if(attribute->getterFlags & kTTAttrPassObject)
+		if (attribute->getterFlags & kTTAttrPassObject)
 			err = (this->*attribute->getter)(*attribute, value);
-		else{
+		else {
 			TTMethodValue getter = (TTMethodValue)attribute->getter;
 			err = (this->*getter)(value);
 		}
@@ -158,20 +158,20 @@ TTErr TTObject::setAttributeValue(const TTSymbolPtr name, TTValue& value)
 	TTErr			err;
 	
 	err = findAttribute(name, &attribute);
-	if(!err){
-		if(attribute->readOnly)
+	if (!err) {
+		if (attribute->readOnly)
 			err = kTTErrReadOnly;
-		else{
-			if(attribute->rangeChecking == TT("clip"))
+		else {
+			if (attribute->rangeChecking == TT("clip"))
 				value.clip(attribute->rangeLowBound, attribute->rangeHighBound);
-			else if(attribute->rangeChecking == TT("cliplow"))
+			else if (attribute->rangeChecking == TT("cliplow"))
 				value.cliplow(attribute->rangeLowBound);
-			else if(attribute->rangeChecking == TT("cliphigh"))
+			else if (attribute->rangeChecking == TT("cliphigh"))
 				value.cliphigh(attribute->rangeHighBound);
 
-			if(attribute->setterFlags & kTTAttrPassObject)
+			if (attribute->setterFlags & kTTAttrPassObject)
 				err = (this->*attribute->setter)(*attribute, value);
-			else{
+			else {
 				TTMethodConstValue setter = (TTMethodConstValue)attribute->setter;
 				err = (this->*setter)(value);
 			}
@@ -186,7 +186,7 @@ TTErr TTObject::getAttributeGetterFlags(const TTSymbolPtr name, TTAttributeFlags
 	TTErr			err;
 
 	err = findAttribute(name, &attribute);
-	if(!err)
+	if (!err)
 		attribute->getGetterFlags(value);
 	
 	return err;
@@ -198,7 +198,7 @@ TTErr TTObject::setAttributeGetterFlags(const TTSymbolPtr name, TTAttributeFlags
 	TTErr			err;
 
 	err = findAttribute(name, &attribute);
-	if(!err)
+	if (!err)
 		attribute->setGetterFlags(value);
 	
 	return err;
@@ -211,7 +211,7 @@ TTErr TTObject::getAttributeSetterFlags(const TTSymbolPtr name, TTAttributeFlags
 	TTErr			err;
 
 	err = findAttribute(name, &attribute);
-	if(!err)
+	if (!err)
 		attribute->getSetterFlags(value);
 	
 	return err;
@@ -223,7 +223,7 @@ TTErr TTObject::setAttributeSetterFlags(const TTSymbolPtr name, TTAttributeFlags
 	TTErr			err;
 
 	err = findAttribute(name, &attribute);
-	if(!err)
+	if (!err)
 		attribute->setSetterFlags(value);
 	
 	return err;
@@ -243,7 +243,7 @@ TTErr TTObject::registerAttributeProperty(const TTSymbolPtr attributeName, const
 	TTErr			err;
 	
 	err = attributes->lookup(attributeName, v);
-	if(!err){
+	if (!err) {
 		theAttr = TTAttributePtr(TTPtr(v));
 		err = theAttr->registerAttribute(propertyName, kTypeLocalValue, NULL, getter, setter);
 		theAttr->setAttributeValue(propertyName, (TTValue&)initialValue);
@@ -273,7 +273,7 @@ TTErr TTObject::registerMessage(const TTSymbolPtr name, TTMethod method)
 {
 	TTMessagePtr newMessage = new TTMessage(name, method, kTTMessageDefaultFlags);
 	
-	if(ttEnvironment && ttEnvironment->mDebugMessaging)
+	if (ttEnvironment && ttEnvironment->mDebugMessaging)
 		logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld\n", name->getCString(), kTTMessageDefaultFlags, messages->getSize());
 	
 	messages->append(name, TTPtr(newMessage));
@@ -285,7 +285,7 @@ TTErr TTObject::registerMessage(const TTSymbolPtr name, TTMethod method, TTMessa
 {
 	TTMessagePtr newMessage = new TTMessage(name, method, flags);
 	
-	if(ttEnvironment->mDebugMessaging)
+	if (ttEnvironment->mDebugMessaging)
 		logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld\n", name->getCString(), kTTMessageDefaultFlags, messages->getSize());
 	
 	messages->append(name, TTPtr(newMessage));
@@ -299,7 +299,7 @@ TTErr TTObject::findMessage(const TTSymbolPtr name, TTMessage** message)
 	TTErr	err = kTTErrNone;
 	
 	err = messages->lookup(TTSymbolPtr(name), v);
-	if(!err){
+	if (!err) {
 		*message = TTMessagePtr(TTPtr(v));
 		return kTTErrNone;
 	}
@@ -321,15 +321,15 @@ TTErr TTObject::sendMessage(const TTSymbolPtr name, TTValue& value)
 	TTErr			err;
 	
 	err = findMessage(name, &message);
-	if(!err){
-		if(message->flags & kTTMessagePassNone){
+	if (!err) {
+		if (message->flags & kTTMessagePassNone) {
 			TTMethodNone method = (TTMethodNone)message->method;
 			return (this->*method)();
 		}
-		else if(message->flags & kTTMessagePassNameAndValue){
+		else if (message->flags & kTTMessagePassNameAndValue) {
 			return (this->*message->method)(name, value);			
 		}
-		else{	// default is kTTMessagePassValue
+		else {	// default is kTTMessagePassValue
 			TTMethodValue method = (TTMethodValue)message->method;
 			return (this->*method)(value);
 		}
@@ -379,7 +379,7 @@ TTErr TTObject::unregisterObserverForNotifications(const TTObject& observingObje
 	TTErr	err;
 	
 	err = observers->findEquals(c, v);
-	if(!err)
+	if (!err)
 		observers->remove(v);
 	return err;
 }
@@ -456,7 +456,7 @@ TTErr TTObject::logError(TTImmutableCString fmtstring, ...)
 
 TTErr TTObject::logDebug(TTImmutableCString fmtstring, ...)
 {
-	if(ttEnvironment->mDebugBasic){
+	if (ttEnvironment->mDebugBasic) {
 		char	str[4096];
 		char	fullstr[4096];
 		va_list	ap;

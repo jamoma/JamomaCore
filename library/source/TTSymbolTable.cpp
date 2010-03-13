@@ -17,7 +17,7 @@ TTFOUNDATION_EXPORT TTSymbolTable*		ttSymbolTable = NULL;
 
 TTSymbolTable::TTSymbolTable()
 {
-	if(!sMutex)
+	if (!sMutex)
 		sMutex = new TTMutex(true);
 	symbolTable = new TTSymbolTableHash;
 	symbolTable->insert(TTSymbolTablePair("", new TTSymbol("", 0))); 
@@ -28,7 +28,7 @@ TTSymbolTable::~TTSymbolTable()
 {
 	TTSymbolTableIter	iter;
 
-	for(iter = symbolTable->begin(); iter != symbolTable->end(); iter++)
+	for (iter = symbolTable->begin(); iter != symbolTable->end(); iter++)
 		delete TTSymbolPtr(iter->second);
 	symbolTable->clear();
 	delete symbolTable;
@@ -43,7 +43,7 @@ TTSymbol* TTSymbolTable::lookup(const char* aString)
 	sMutex->lock();
 	
 	iter = symbolTable->find(aString);
-	if(iter == symbolTable->end()){
+	if (iter == symbolTable->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
 		TTSymbolPtr	newSymbol = new TTSymbol(aString, symbolTable->size());
@@ -51,7 +51,7 @@ TTSymbol* TTSymbolTable::lookup(const char* aString)
 		sMutex->unlock();
 		return newSymbol; 
 	}
-	else{
+	else {
 		// The symbol was found, so we return it.
 		sMutex->unlock();
 		return iter->second;
@@ -80,7 +80,7 @@ void TTSymbolTable::dump(TTValue& allSymbols)
 	
 	TTLogMessage("---- DUMPING SYMBOL TABLE -- BEGIN ----\n");
 	allSymbols.clear();
-	for(iter = symbolTable->begin(); iter != symbolTable->end(); iter++){
+	for (iter = symbolTable->begin(); iter != symbolTable->end(); iter++) {
 		allSymbols.append(TTSymbolPtr(iter->second));
 		TTLogMessage("KEY:%s   VALUE:%s\n", iter->first, TTSymbolPtr(iter->second)->getCString());
 	}
