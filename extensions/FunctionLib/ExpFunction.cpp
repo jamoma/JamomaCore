@@ -18,13 +18,13 @@
 TT_AUDIO_CONSTRUCTOR
 {
 	// Register Attributes...
-	registerAttributeWithSetter(base,	kTypeFloat64);
+	addAttributeWithSetter(Base,	kTypeFloat64);
 	
 	// Set Defaults (should be sufficient resolution for a while):
 #ifdef TT_PLATFORM_MAC
-	setAttributeValue(TT("base"),	2.718281828459045235360287471352662497757247093699959574966967627724076630353547594571382178525166427427466391932003059921817413596629043572900334295260595630738132328627943490763);
+	setAttributeValue(TT("Base"),	2.718281828459045235360287471352662497757247093699959574966967627724076630353547594571382178525166427427466391932003059921817413596629043572900334295260595630738132328627943490763);
 #else
-	setAttributeValue(TT("base"),	2.718281828459045235360287471352662497757247093699959574);
+	setAttributeValue(TT("Base"),	2.718281828459045235360287471352662497757247093699959574);
 #endif
 
 	setProcessMethod(processAudio);
@@ -38,11 +38,11 @@ ExpFunction::~ExpFunction()
 }
 
 
-TTErr ExpFunction::setbase(const TTValue& newValue)
+TTErr ExpFunction::setBase(const TTValue& newValue)
 {
 	// TODO: Add test to ensure that base > 0;
-	base = newValue;
-	k = log(base);
+	mBase = newValue;
+	k = log(mBase);
 	return kTTErrNone;
 }
 
@@ -50,10 +50,10 @@ TTErr ExpFunction::setbase(const TTValue& newValue)
 TTErr ExpFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
 	// Avoid division by zero
-	if (base==1.)
+	if (mBase == 1.0)
 		y = x;
 	else
-		y = (exp(k*x) - 1.) / (base - 1.);
+		y = (exp(k*x) - 1.) / (mBase - 1.);
 	
 	return kTTErrNone;
 }

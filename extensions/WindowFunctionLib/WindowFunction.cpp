@@ -144,7 +144,7 @@ TTErr WindowFunction::processApply(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 {
 	TTAudioSignal&		in = inputs->getSignal(0);
 	TTAudioSignal&		out = outputs->getSignal(0);
-	TTUInt16			vs = in.getVectorSize();
+	TTUInt16			vs = in.getVectorSizeAsInt();
 	TTSampleValuePtr	inSample;
 	TTSampleValuePtr	outSample;
 	TTUInt16			numChannels = TTAudioSignal::getMinChannelCount(in, out);
@@ -156,8 +156,8 @@ TTErr WindowFunction::processApply(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 		doSetNumPoints(vs);
 	
 	for (channel=0; channel<numChannels; channel++) {
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
+		inSample = in.mSampleVectors[channel];
+		outSample = out.mSampleVectors[channel];
 		
 		for (TTUInt32 i=0; i<vs; i++)
 			*outSample++ = (*inSample++) * mLookupTable[i];

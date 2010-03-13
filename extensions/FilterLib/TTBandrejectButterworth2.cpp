@@ -92,7 +92,7 @@ TTErr TTBandRejectButterworth2::setQ(const TTValue& newValue)
 void TTBandRejectButterworth2::calculateCoefficients()
 {
 	// Avoid dividing by zero
-	if(mQ > 0.1)
+	if (mQ > 0.1)
 		mBw = mFrequency/mQ;
 	else
 		mBw = mFrequency/0.1;

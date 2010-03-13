@@ -48,11 +48,11 @@ TTErr TTPhasor::updateSr()
 TTErr TTPhasor::setfrequency(const TTValue& newValue)
 {
 	frequency = newValue;
-	if(frequency == 0){
+	if (frequency == 0) {
 		rampSamples = 0xFFFFFFFF;
 		rampMilliseconds = 0;
 	}
-	else{
+	else {
 		rampSamples = TTUInt32((1.0 / frequency) * sr);
 		rampMilliseconds = 1000.0 * (rampSamples / TTFloat64(sr));
 	}
@@ -89,15 +89,15 @@ TTErr TTPhasor::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 	TTUInt16		channel;
 	TTUInt16		vs;
 
-	for(channel=0; channel<numchannels; channel++){
+	for (channel=0; channel<numchannels; channel++) {
 		outSample = out.mSampleVectors[channel];
 		vs = out.getVectorSizeAsInt();
 
-		while(vs--){
+		while (vs--) {
 			phase += step;
-			if(phase >= 1.0)
+			if (phase >= 1.0)
 				phase -= 1.0;
-			else if(phase < 0.0)
+			else if (phase < 0.0)
 				phase += 1.0;
 			*outSample++ = phase * linearGain;	
 		}

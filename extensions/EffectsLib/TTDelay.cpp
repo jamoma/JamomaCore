@@ -181,13 +181,13 @@ TTErr TTDelay::setInterpolation(const TTValue& newValue)
 	TTPtrSizedInt		channel; \
 	TTDelayBufferPtr	buffer; \
 	\
-	for(channel=0; channel<numchannels; channel++){ \
-		inSample = in.sampleVectors[channel]; \
-		outSample = out.sampleVectors[channel]; \
-		vs = in.getVectorSize(); \
+	for (channel=0; channel<numchannels; channel++) { \
+		inSample = in.mSampleVectors[channel]; \
+		outSample = out.mSampleVectors[channel]; \
+		vs = in.getVectorSizeAsInt(); \
 		buffer = &mBuffers[channel]; \
 		\
-		while(vs--){ \
+		while (vs--) { \
 			methodName (*inSample, *outSample, buffer); \
 			outSample++; \
 			inSample++; \
@@ -301,13 +301,13 @@ TTErr TTDelay::processAudioCubicInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 	 delay_samples = (tt_attribute_value_discrete)fdelay_samples;
 	 fractional_delay = fdelay_samples - delay_samples;
 	 
-	 while(temp_vs--){
+	 while (temp_vs--) {
 	 *in_ptr++ = *in->vector++;		// Store Input
 	 *out->vector++ = *out_ptr++;	// Find Output
 	 
-	 if(in_ptr > end_ptr)	// Buffer Managment...
+	 if (in_ptr > end_ptr)	// Buffer Managment...
 	 in_ptr = buffer;
-	 if(out_ptr > end_ptr)
+	 if (out_ptr > end_ptr)
 	 out_ptr = buffer;	
 	 }
 	 in->reset(); in2->reset(); out->reset();
@@ -322,11 +322,11 @@ TTErr TTDelay::processAudioCubicInterpolation(TTAudioSignalArrayPtr inputs, TTAu
  tt_sample_value	temp;
  tt_sample_value	*next;
  
- if(buffer == NULL)
+ if (buffer == NULL)
  return;
  
  temp_vs = in1->vectorsize;
- while(temp_vs--){
+ while (temp_vs--) {
  *in_ptr = *in1->vector++;		// Store the audio input @ the record head
  delay_ms = *in2->vector++;		// Store the delay time input
  //		delay_ms = clip(*in2->vector++, 0.f, delay_ms_max);		// Store the delay time input
@@ -342,22 +342,22 @@ TTErr TTDelay::processAudioCubicInterpolation(TTAudioSignalArrayPtr inputs, TTAu
  
  // MOVE THE RECORD HEAD
  in_ptr++;
- if(in_ptr > end_ptr)
+ if (in_ptr > end_ptr)
  in_ptr = buffer;
  //		*in_ptr = *in1->vector++;		// Store the audio input @ the record head
  
  // MOVE THE PLAY HEAD
  out_ptr = in_ptr - delay_samples;
- if(out_ptr > end_ptr)
+ if (out_ptr > end_ptr)
  out_ptr = buffer + (out_ptr - end_ptr);
- else if(out_ptr < buffer)
+ else if (out_ptr < buffer)
  out_ptr = end_ptr + (out_ptr - buffer) + 1;
  
  // STORE THE VALUE OF THE NEXT SAMPLE IN THE BUFFER FOR INTERPOLATION
  next = out_ptr + 1;
- if(next > end_ptr)
+ if (next > end_ptr)
  next = buffer + (next - end_ptr);
- else if(next < buffer)
+ else if (next < buffer)
  next = end_ptr + (next - buffer) + 1;
  temp = *next;
  

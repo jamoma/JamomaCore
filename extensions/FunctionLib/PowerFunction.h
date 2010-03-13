@@ -19,15 +19,15 @@
 class PowerFunction : TTAudioObject {
 	TTCLASS_SETUP(PowerFunction)
 
-	TTSymbolPtr	symmetry;		///< Mode: none, point or axis
-	double		powerValue;		///< Parameter for function: y pow(x,pow(2,powerValue))	
-	double		k;				///< k = pow(2,powerValue)
+	TTSymbolPtr	mSymmetry;		///< Mode: none, point or axis
+	double		mPowerValue;	///< Parameter for function: y pow(x,pow(2,powerValue))	
+	double		mK;				///< k = pow(2,powerValue)
 
 	/** Attribute setter. */
-	TTErr setsymmetry(const TTValue& newValue);
+	TTErr setSymmetry(const TTValue& newValue);
 	
 	/** Attribute setter. */
-	TTErr setpowerValue(const TTValue& newValue);
+	TTErr setPowerValue(const TTValue& newValue);
 	
 	/** y = f(x) for a single value */
 	inline TTErr calculatePoint(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);

@@ -147,7 +147,7 @@ void balance_assist(t_balance *x, void *b, long msg, long arg, char *dst)
 
 void balance_clear(t_balance *x)
 {
-	x->balance->sendMessage(TT("clear"));
+	x->balance->sendMessage(TT("Clear"));
 }
 
 
@@ -207,14 +207,14 @@ void balance_dsp(t_balance *x, t_signal **sp, short *count)
 		}
 	}
 	
-	x->audioOut->setAttributeValue(TT("numChannels"), x->numChannels*2);
-	x->audioOut->setAttributeValue(TT("numChannels"), x->numChannels);
-	x->audioIn->setAttributeValue(TT("vectorSize"), x->vs);
-	x->audioOut->setAttributeValue(TT("vectorSize"), x->vs);
+	x->audioOut->setAttributeValue(TT("NumChannels"), x->numChannels*2);
+	x->audioOut->setAttributeValue(TT("NumChannels"), x->numChannels);
+	x->audioIn->setAttributeValue(TT("VectorSize"), x->vs);
+	x->audioOut->setAttributeValue(TT("VectorSize"), x->vs);
 	//audioIn will be set in the perform method
 	x->audioOut->sendMessage(TT("alloc"));
 	
-	x->balance->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	x->balance->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
 	
 	dsp_addv(balance_perform, l, audioVectors);
 	sysmem_freeptr(audioVectors);
@@ -225,7 +225,7 @@ t_max_err balance_setBypass(t_balance *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrBypass = atom_getlong(argv);		
-		x->balance->setAttributeValue(kTTSym_bypass, (TTBoolean)x->attrBypass);
+		x->balance->setAttributeValue(TT("Bypass"), (TTBoolean)x->attrBypass);
 	}
 	return MAX_ERR_NONE;
 }
@@ -235,7 +235,7 @@ t_max_err balance_setFrequency(t_balance *x, void *attr, long argc, t_atom *argv
 {
 	if(argc){
 		x->attrFrequency = atom_getfloat(argv);
-		x->balance->setAttributeValue(TT("frequency"), x->attrFrequency);
+		x->balance->setAttributeValue(TT("Frequency"), x->attrFrequency);
 	}
 	return MAX_ERR_NONE;
 }

@@ -58,7 +58,7 @@ TTErr TTAverage::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 // FIXME: There is a problem here -- has the maxNumChannels changed?  If so, then we can't iterate like this because we will be freeing the wrong number
 // of channels, given that a different number was allocated the last time through !!!
-	for(TTUInt8 i=0; i<maxNumChannels; i++)
+	for (TTUInt8 i=0; i<maxNumChannels; i++)
 		delete[] bins[i];
 
 	delete[] accumulator;
@@ -73,7 +73,7 @@ TTErr TTAverage::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	binsOut = new TTSampleVector[maxNumChannels];
 	binsEnd = new TTSampleVector[maxNumChannels];
 
-	for(TTUInt8 i=0; i<maxNumChannels; i++)
+	for (TTUInt8 i=0; i<maxNumChannels; i++)
 		bins[i] = new TTSampleValue[attrMaxInterval];
 
 	clear();
@@ -111,11 +111,11 @@ TTErr TTAverage::setmode(const TTValue& newValue)
 {
 	mode = newValue;
 	
-	if(mode == TT("absolute"))
+	if (mode == TT("absolute"))
 		return setProcessMethod(processAbsolute);
-	else if(mode == TT("bipolar"))
+	else if (mode == TT("bipolar"))
 		return setProcessMethod(processBipolar);
-	else if(mode == TT("rms"))
+	else if (mode == TT("rms"))
 		return setProcessMethod(processRms);
 	
 	return kTTErrInvalidValue;
@@ -141,16 +141,16 @@ TTErr TTAverage::processBipolar(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	short			channel;
 
 	// This outside loop works through each channel one at a time
-	for(channel=0; channel<numchannels; channel++){
+	for (channel=0; channel<numchannels; channel++) {
 		inSample = in.sampleVectors[channel];
 		outSample = out.sampleVectors[channel];
 		vs = in.getVectorSize();
 		
 		// This inner loop works through each sample within the channel one at a time
-		while(vs--){
-			if(binsOut[channel] > binsEnd[channel])
+		while (vs--) {
+			if (binsOut[channel] > binsEnd[channel])
 				binsOut[channel] = bins[channel];
-			if(binsIn[channel] > binsEnd[channel])
+			if (binsIn[channel] > binsEnd[channel])
 				binsIn[channel] = bins[channel];
 			accumulator[channel] -= *binsOut[channel]++;
 			

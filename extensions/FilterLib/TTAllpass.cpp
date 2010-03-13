@@ -125,7 +125,7 @@ TTErr TTAllpass::setDelay(const TTValue& newValue)
 	/*
 	delay = TTClip<TTFloat64>(newValue, 0.0, delayMax);
 	delayInSamples = long(delay * (sr / 1000.0));
-	for(TTUInt16 channel=0; channel<maxNumChannels; channel++){
+	for (TTUInt16 channel=0; channel<maxNumChannels; channel++) {
 		ffEndPtr[channel] = feedforward[channel] + delayInSamples;
 		fbEndPtr[channel] = feedback[channel] + delayInSamples;	
 	}
@@ -190,13 +190,13 @@ TTErr TTAllpass::setDelayMaxInSamples(const TTValue& newValue)
 	TTPtrSizedInt		channel; \
 	TTDelayBufferPtr	buffer; \
 	\
-	for(channel=0; channel<numchannels; channel++){ \
-		inSample = in.sampleVectors[channel]; \
-		outSample = out.sampleVectors[channel]; \
-		vs = in.getVectorSize(); \
+	for (channel=0; channel<numchannels; channel++) { \
+		inSample = in.mSampleVectors[channel]; \
+		outSample = out.mSampleVectors[channel]; \
+		vs = in.getVectorSizeAsInt(); \
 		buffer = &mFeedforward[channel]; \
 		\
-		while(vs--){ \
+		while (vs--) { \
 			methodName (*inSample, *outSample, buffer); \
 			outSample++; \
 			inSample++; \
@@ -251,7 +251,7 @@ TT_INLINE void tt_allpass::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal 
 	tt_sample_value temp;
 	temp_vs = in->vectorsize;
 	
-	while(temp_vs--){
+	while (temp_vs--) {
 		temp = anti_denormal(*in->vector++);	// Input	
 		*ff_in_ptr = temp;		// Store the input in the feedforward buffer
 		
@@ -268,13 +268,13 @@ TT_INLINE void tt_allpass::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal 
 		fb_out_ptr++;
 		
 		// Wrap the heads
-		if(ff_in_ptr > ff_end_ptr)
+		if (ff_in_ptr > ff_end_ptr)
 			ff_in_ptr = ff_buffer;
-		if(ff_out_ptr > ff_end_ptr)
+		if (ff_out_ptr > ff_end_ptr)
 			ff_out_ptr = ff_buffer;	
-		if(fb_in_ptr > fb_end_ptr)
+		if (fb_in_ptr > fb_end_ptr)
 			fb_in_ptr = fb_buffer;
-		if(fb_out_ptr > fb_end_ptr)
+		if (fb_out_ptr > fb_end_ptr)
 			fb_out_ptr = fb_buffer;	
 	}
 }

@@ -127,16 +127,16 @@ TTErr TTMatrixMixer::setMidiGain(const TTValue& newValue)
 
 void TTMatrixMixer::processOne(TTAudioSignal& in, TTAudioSignal& out, TTFloat64 gain)
 {
-	TTUInt16		vs;
-	TTSampleValue*	inSample;
-	TTSampleValue*	outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
+	TTUInt16			vs;
+	TTSampleValuePtr	inSample;
+	TTSampleValuePtr	outSample;
+	TTUInt16			numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16			channel;
 	
 	for (channel=0; channel<numchannels; channel++) {
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
+		inSample = in.mSampleVectors[channel];
+		outSample = out.mSampleVectors[channel];
+		vs = in.getVectorSizeAsInt();
 		
 		while (vs--)
 			*outSample++ += (*inSample++) * gain;

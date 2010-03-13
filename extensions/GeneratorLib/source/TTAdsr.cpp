@@ -133,35 +133,35 @@ TTErr TTAdsr::processAudioLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	bool			checkAudioTrigger = false;
 
 	// TODO: Is there a decent way to do this without having to check this every single vector?
-	if(inputs->numAudioSignals){
+	if (inputs->numAudioSignals) {
 		checkAudioTrigger = true;
 		inSample = in.mSampleVectors[0];
 	}
 	outSample = out.mSampleVectors[0];
 
-	while(vs--) {
-		if(checkAudioTrigger)
+	while (vs--) {
+		if (checkAudioTrigger)
 			trigger = (TTBoolean)(*inSample++ > 0.5);
 
-		if(trigger) {
-			if(eg_state == k_eg_inactive || eg_state == k_eg_release)
+		if (trigger) {
+			if (eg_state == k_eg_inactive || eg_state == k_eg_release)
 				eg_state = k_eg_attack;
 		} else {
-			if(eg_state != k_eg_inactive && eg_state != k_eg_release)
+			if (eg_state != k_eg_inactive && eg_state != k_eg_release)
 				eg_state = k_eg_release;
 		}
 
 		switch(eg_state) {
 			case k_eg_attack:
 				output += attack_step;
-				if(output >= 1.) {
+				if (output >= 1.) {
 					output = 1.;
 					eg_state = k_eg_decay;
 				}
 				break;
 			case k_eg_decay:
 				output -= decay_step;
-				if(output <= sustain_amp) {
+				if (output <= sustain_amp) {
 					eg_state = k_eg_sustain;
 					output = sustain_amp;
 				}
@@ -172,7 +172,7 @@ TTErr TTAdsr::processAudioLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 
 			case k_eg_release:
 				output -= release_step;
-				if(output <= 0.) {
+				if (output <= 0.) {
 					eg_state = k_eg_inactive;
 					output = 0.;
 				}
@@ -195,28 +195,28 @@ TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSigna
 	bool			checkAudioTrigger = false;
 
 	// TODO: Is there a decent way to do this without having to check this every single vector?
-	if(inputs->numAudioSignals){
+	if (inputs->numAudioSignals) {
 		checkAudioTrigger = true;
 		inSample = in.mSampleVectors[0];
 	}
 	outSample = out.mSampleVectors[0];
 
-	while(vs--) {
-		if(checkAudioTrigger)
+	while (vs--) {
+		if (checkAudioTrigger)
 			trigger = (TTBoolean)(*inSample++ > 0.5);
 
-		if(trigger) {
-			if(eg_state == k_eg_inactive || eg_state == k_eg_release)
+		if (trigger) {
+			if (eg_state == k_eg_inactive || eg_state == k_eg_release)
 				eg_state = k_eg_attack;
 		} else {
-			if(eg_state != k_eg_inactive && eg_state != k_eg_release)
+			if (eg_state != k_eg_inactive && eg_state != k_eg_release)
 				eg_state = k_eg_release;
 		}
 
-		switch(eg_state){
+		switch(eg_state) {
 			case k_eg_attack:						// ATTACK
 				output_db += attack_step_db;			// Increment the output
-				if (output_db >= 0.0){						// If we've hit the top of the attack,
+				if (output_db >= 0.0) {						// If we've hit the top of the attack,
 					eg_state = k_eg_decay;				// start the decay stage
 					output = 1.0;						// Make sure we didn't go over 1.0
 				}
@@ -226,7 +226,7 @@ TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSigna
 			case k_eg_decay:						// DECAY
 				output_db -= decay_step_db;
 				output = dbToLinear(output_db);	// Decrement the output
-				if (output <= sustain_amp){				// If we've hit the bottom of the decay,
+				if (output <= sustain_amp) {				// If we've hit the bottom of the decay,
 					eg_state = k_eg_sustain;			// start the sustain stage
 					output = sustain_amp;				// Lock in the sustain value
 				}
@@ -236,7 +236,7 @@ TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSigna
 
 			case k_eg_release:						// RELEASE
 				output_db -= release_step_db;
-				if (output_db <= NOISE_FLOOR){						// If we've hit the basement,
+				if (output_db <= NOISE_FLOOR) {						// If we've hit the basement,
 					eg_state = k_eg_inactive;			// deactivate the eg
 					output = 0.0;						// Make sure we didn't dip too low
 				}
@@ -274,7 +274,7 @@ TTErr TTAdsr::processAudioHybrid(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 			trigger = (TTBoolean)(*inSample++ > 0.5);
 
 		if (trigger) {
-			if(eg_state == k_eg_inactive || eg_state == k_eg_release)
+			if (eg_state == k_eg_inactive || eg_state == k_eg_release)
 				eg_state = k_eg_attack;
 		} 
 		else {

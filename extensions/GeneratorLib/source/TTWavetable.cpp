@@ -159,13 +159,13 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
-	if(in == &out)
+	if (in == &out)
 		hasModulation = false;
 	else {
 		in = &inputs->getSignal(0);
 		inSample = in->mSampleVectors[0];
 	}
-	while(vs--){
+	while (vs--) {
 		// Move the play head
 		mIndex += mIndexDelta;
 
@@ -233,7 +233,7 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 		p2 &= (mSize - 1);	// fast modulo
 
 		tempSample = ((contents[p2] * diff) + (contents[p1] * (1.0 - diff))) * mLinearGain;
-		for(channel=0; channel<numChannels; channel++)
+		for (channel=0; channel<numChannels; channel++)
 			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}

@@ -145,10 +145,10 @@ TTErr TTPulseSub::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayP
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
-	TTUInt16		vs = in.getVectorSize();
+	TTUInt16		vs = in.getVectorSizeAsInt();
 
-	inSample = in.sampleVectors[0];
-	outSample = out.sampleVectors[0];
+	inSample = in.mSampleVectors[0];
+	outSample = out.mSampleVectors[0];
 	
 	sig1->allocWithVectorSize(vs);
 	sig2->allocWithVectorSize(vs);

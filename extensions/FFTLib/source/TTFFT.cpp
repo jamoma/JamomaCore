@@ -90,12 +90,12 @@ TTErr TTfft::updateProcessPointers()
 #endif
 
 #define TTFFT_PROCESS_UPDATE_CHANNELCOUNT \
-	numChannels = in.getNumChannels(); \
+	numChannels = in.getNumChannelsAsInt(); \
 	/* if we're doing an IFFT, then we assume the out channels is <= in channels already*/ \
-	if (out.getNumChannels() != numChannels*2 && !mInverse) { \
+	if (out.getNumChannelsAsInt() != numChannels*2 && !mInverse) { \
 		TTValue v = numChannels*2; \
-		out.setmaxNumChannels(v); \
-		out.setnumChannels(v); \
+		out.setMaxNumChannels(v); \
+		out.setNumChannels(v); \
 	}
 
 #define TTFFT_PROCESS_UPDATE_VECTORSIZE \
@@ -139,7 +139,7 @@ TTErr TTfft::processComplexOoura(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 {
 	TTAudioSignal&		in = inputs->getSignal(0);
 	TTAudioSignal&		out = outputs->getSignal(0);
-	TTUInt16			vs = in.getVectorSize();;
+	TTUInt16			vs = in.getVectorSizeAsInt();
 	TTUInt16			numChannels;
 	TTUInt16			channel;
 	
@@ -148,9 +148,9 @@ TTErr TTfft::processComplexOoura(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	
 	if (mInverse) {
 		for (channel=0; channel<numChannels/2; channel++) {
-			TTSampleValuePtr	inSampleReal		= in.sampleVectors[channel];
-			TTSampleValuePtr	inSampleImaginary	= in.sampleVectors[channel*2+1];
-			TTSampleValuePtr	outSample			= out.sampleVectors[channel];
+			TTSampleValuePtr	inSampleReal		= in.mSampleVectors[channel];
+			TTSampleValuePtr	inSampleImaginary	= in.mSampleVectors[channel*2+1];
+			TTSampleValuePtr	outSample			= out.mSampleVectors[channel];
 			
 			TTFFT_PROCESS_IFFT_PREP_INPUT_BUFFER
 			cdft(mVectorSize, mInverseValue, &mBuffer[0], &mWorkArea[0], &mCosSinTable[0]);
@@ -159,9 +159,9 @@ TTErr TTfft::processComplexOoura(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	}
 	else {
 		for (channel=0; channel<numChannels; channel++) {
-			TTSampleValuePtr	inSample			= in.sampleVectors[channel];
-			TTSampleValuePtr	outSampleReal		= out.sampleVectors[channel*2];
-			TTSampleValuePtr	outSampleImaginary	= out.sampleVectors[channel*2+1];
+			TTSampleValuePtr	inSample			= in.mSampleVectors[channel];
+			TTSampleValuePtr	outSampleReal		= out.mSampleVectors[channel*2];
+			TTSampleValuePtr	outSampleImaginary	= out.mSampleVectors[channel*2+1];
 
 			TTFFT_PROCESS_FFT_PREP_INPUT_BUFFER
 			cdft(mVectorSize, mInverseValue, &mBuffer[0], &mWorkArea[0], &mCosSinTable[0]);
@@ -177,7 +177,7 @@ TTErr TTfft::processRealOoura(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 {
 	TTAudioSignal&		in = inputs->getSignal(0);
 	TTAudioSignal&		out = outputs->getSignal(0);
-	TTUInt16			vs = in.getVectorSize();;
+	TTUInt16			vs = in.getVectorSizeAsInt();
 	TTUInt16			numChannels;
 	TTUInt16			channel;
 	
@@ -186,9 +186,9 @@ TTErr TTfft::processRealOoura(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	
 	if (mInverse) {
 		for (channel=0; channel<numChannels/2; channel++) {
-			TTSampleValuePtr	inSampleReal		= in.sampleVectors[channel];
-			TTSampleValuePtr	inSampleImaginary	= in.sampleVectors[channel*2+1];
-			TTSampleValuePtr	outSample			= out.sampleVectors[channel];
+			TTSampleValuePtr	inSampleReal		= in.mSampleVectors[channel];
+			TTSampleValuePtr	inSampleImaginary	= in.mSampleVectors[channel*2+1];
+			TTSampleValuePtr	outSample			= out.mSampleVectors[channel];
 			
 			TTFFT_PROCESS_IFFT_PREP_INPUT_BUFFER
 			rdft(mVectorSize, mInverseValue, &mBuffer[0], &mWorkArea[0], &mCosSinTable[0]);
@@ -197,9 +197,9 @@ TTErr TTfft::processRealOoura(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	}
 	else {
 		for (channel=0; channel<numChannels; channel++) {
-			TTSampleValuePtr	inSample			= in.sampleVectors[channel];
-			TTSampleValuePtr	outSampleReal		= out.sampleVectors[channel*2];
-			TTSampleValuePtr	outSampleImaginary	= out.sampleVectors[channel*2+1];
+			TTSampleValuePtr	inSample			= in.mSampleVectors[channel];
+			TTSampleValuePtr	outSampleReal		= out.mSampleVectors[channel*2];
+			TTSampleValuePtr	outSampleImaginary	= out.mSampleVectors[channel*2+1];
 			
 			TTFFT_PROCESS_FFT_PREP_INPUT_BUFFER
 			rdft(mVectorSize, mInverseValue, &mBuffer[0], &mWorkArea[0], &mCosSinTable[0]);
@@ -215,7 +215,7 @@ TTErr TTfft::processComplexMayer(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 {
 	TTAudioSignal&		in = inputs->getSignal(0);
 	TTAudioSignal&		out = outputs->getSignal(0);
-	TTUInt16			vs = in.getVectorSize();;
+	TTUInt16			vs = in.getVectorSizeAsInt();
 	TTUInt16			numChannels;
 	TTUInt16			channel;
 	
@@ -224,9 +224,9 @@ TTErr TTfft::processComplexMayer(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 
 	if (mInverse) {
 		for (channel=0; channel<numChannels/2; channel++) {
-			TTSampleValuePtr	inSampleReal		= in.sampleVectors[channel];
-			TTSampleValuePtr	inSampleImaginary	= in.sampleVectors[channel*2+1];
-			TTSampleValuePtr	outSample			= out.sampleVectors[channel];
+			TTSampleValuePtr	inSampleReal		= in.mSampleVectors[channel];
+			TTSampleValuePtr	inSampleImaginary	= in.mSampleVectors[channel*2+1];
+			TTSampleValuePtr	outSample			= out.mSampleVectors[channel];
 			
 			TTFFT_PROCESS_IFFT_PREP_INPUT_BUFFER
 			mayer_ifft(mVectorSize, &mBuffer[0], &mBuffer[vs]);
@@ -235,9 +235,9 @@ TTErr TTfft::processComplexMayer(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	}
 	else {
 		for (channel=0; channel<numChannels; channel++) {
-			TTSampleValuePtr	inSample			= in.sampleVectors[channel];
-			TTSampleValuePtr	outSampleReal		= out.sampleVectors[channel*2];
-			TTSampleValuePtr	outSampleImaginary	= out.sampleVectors[channel*2+1];
+			TTSampleValuePtr	inSample			= in.mSampleVectors[channel];
+			TTSampleValuePtr	outSampleReal		= out.mSampleVectors[channel*2];
+			TTSampleValuePtr	outSampleImaginary	= out.mSampleVectors[channel*2+1];
 			
 			TTFFT_PROCESS_FFT_PREP_INPUT_BUFFER
 			mayer_fft(mVectorSize, &mBuffer[0], &mBuffer[vs]);
@@ -253,7 +253,7 @@ TTErr TTfft::processRealMayer(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 {
 	TTAudioSignal&		in = inputs->getSignal(0);
 	TTAudioSignal&		out = outputs->getSignal(0);
-	TTUInt16			vs = in.getVectorSize();;
+	TTUInt16			vs = in.getVectorSizeAsInt();
 	TTUInt16			numChannels;
 	TTUInt16			channel;
 	
@@ -262,9 +262,9 @@ TTErr TTfft::processRealMayer(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	
 	if (mInverse) {
 		for (channel=0; channel<numChannels/2; channel++) {
-			TTSampleValuePtr	inSampleReal		= in.sampleVectors[channel];
-			TTSampleValuePtr	inSampleImaginary	= in.sampleVectors[channel*2+1];
-			TTSampleValuePtr	outSample			= out.sampleVectors[channel];
+			TTSampleValuePtr	inSampleReal		= in.mSampleVectors[channel];
+			TTSampleValuePtr	inSampleImaginary	= in.mSampleVectors[channel*2+1];
+			TTSampleValuePtr	outSample			= out.mSampleVectors[channel];
 			
 			TTFFT_PROCESS_IFFT_PREP_INPUT_BUFFER
 			mayer_realifft(mVectorSize, &mBuffer[0]);
@@ -273,9 +273,9 @@ TTErr TTfft::processRealMayer(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	}
 	else {
 		for (channel=0; channel<numChannels; channel++) {
-			TTSampleValuePtr	inSample			= in.sampleVectors[channel];
-			TTSampleValuePtr	outSampleReal		= out.sampleVectors[channel*2];
-			TTSampleValuePtr	outSampleImaginary	= out.sampleVectors[channel*2+1];
+			TTSampleValuePtr	inSample			= in.mSampleVectors[channel];
+			TTSampleValuePtr	outSampleReal		= out.mSampleVectors[channel*2];
+			TTSampleValuePtr	outSampleImaginary	= out.mSampleVectors[channel*2+1];
 			
 			TTFFT_PROCESS_FFT_PREP_INPUT_BUFFER
 			mayer_realfft(mVectorSize, &mBuffer[0]);

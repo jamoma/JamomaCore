@@ -93,7 +93,7 @@ void TTBandpassButterworth2::calculateCoefficients()
 {	
 	 
 	// Avoid dividing by 0
-	if(mQ > 0.1)
+	if (mQ > 0.1)
 		mBw = mFrequency/mQ;
 	else
 		mBw = mFrequency;

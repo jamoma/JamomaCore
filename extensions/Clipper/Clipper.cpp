@@ -18,13 +18,13 @@
 class TTClipper : TTAudioObject {
 	TTCLASS_SETUP(TTClipper)
 
-	TTFloat64	lowBound;		///< Attribute: low bound for clipping
-	TTFloat64	highBound;		///< Attribute: high bound for clipping
+	TTFloat64	mLowBound;		///< Attribute: low bound for clipping
+	TTFloat64	mHighBound;		///< Attribute: high bound for clipping
 	
 	
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 	{
-		y = TTClip(x, lowBound, highBound);
+		y = TTClip(x, mLowBound, mHighBound);
 		return kTTErrNone;
 	}
 	
@@ -40,11 +40,11 @@ class TTClipper : TTAudioObject {
 
 TT_AUDIO_CONSTRUCTOR_EXPORT
 {
-	registerAttributeSimple(lowBound,	kTypeFloat64);
-	registerAttributeSimple(highBound,	kTypeFloat64);
+	addAttribute(LowBound,	kTypeFloat64);
+	addAttribute(HighBound,	kTypeFloat64);
 	
-	setAttributeValue(TT("lowBound"), -1.0);
-	setAttributeValue(TT("highBound"), -1.0);
+	setAttributeValue(TT("LowBound"), -1.0);
+	setAttributeValue(TT("HighBound"), -1.0);
 	setProcessMethod(processAudio);	
 }
 

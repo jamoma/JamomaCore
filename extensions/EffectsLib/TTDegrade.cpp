@@ -71,9 +71,9 @@ TTErr TTDegrade::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	long			l;
 
 	for (channel=0; channel<numchannels; channel++) {
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
+		inSample = in.mSampleVectors[channel];
+		outSample = out.mSampleVectors[channel];
+		vs = in.getVectorSizeAsInt();
 		
 		while (vs--) {
 			// SampeRate Reduction

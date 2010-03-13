@@ -42,12 +42,12 @@ TTSampleValue*	outSample; \
 TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out); \
 TTPtrSizedInt	channel; \
 \
-for(channel=0; channel<numchannels; channel++){ \
-	inSample = in.sampleVectors[channel]; \
-	outSample = out.sampleVectors[channel]; \
-	vs = in.getVectorSize(); \
+for (channel=0; channel<numchannels; channel++) { \
+	inSample = in.mSampleVectors[channel]; \
+	outSample = out.mSampleVectors[channel]; \
+	vs = in.getVectorSizeAsInt(); \
 	\
-	while(vs--){ \
+	while (vs--) { \
 		methodName (*inSample, *outSample, channel); \
 		outSample++; \
 		inSample++; \

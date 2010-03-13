@@ -35,11 +35,11 @@ TTNoise::~TTNoise()
 TTErr TTNoise::setMode(const TTValue& newMode)
 {
 	mMode = newMode;
-	if(mMode == TT("pink"))
+	if (mMode == TT("pink"))
 		return setProcessMethod(processPinkNoise);
-	if(mMode == TT("brown"))
+	if (mMode == TT("brown"))
 		return setProcessMethod(processBrownNoise);
-	if(mMode == TT("blue"))
+	if (mMode == TT("blue"))
 		return setProcessMethod(processBlueNoise);
 	else
 		return setProcessMethod(processWhiteNoise);
@@ -66,10 +66,10 @@ TTErr TTNoise::processWhiteNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	TTUInt16		vs = out.getVectorSizeAsInt();
 	TTUInt16		i = 0;
 
-	while(vs--){
+	while (vs--) {
 		accum = (accum * 3877 + 29573) % 139968;			// Random number generator
 		tempSample = (1.0 - (2.0 * float(accum) / 139968)) * mGain;	// Scale to audio range
-		for(channel=0; channel<numChannels; channel++)
+		for (channel=0; channel<numChannels; channel++)
 			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
@@ -86,7 +86,7 @@ TTErr TTNoise::processPinkNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	TTUInt16		vs = out.getVectorSizeAsInt();
 	TTUInt16		i = 0;
 
-	while(vs--){
+	while (vs--) {
 		// Generate White Noise
 		accum = (accum * 3877 + 29573) % 139968;			// Random number generator
 		tempSample = 1.0 - (2.0 * float(accum) / 139968);	// Scale to audio range
@@ -102,7 +102,7 @@ TTErr TTNoise::processPinkNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 		tempSample = (b[0] + b[1] + b[2] + b[3] + b[4] + b[5] + b[6] + tempSample * 0.5362) * mGain;
 
 		// Copy the Output to All Channels
-		for(channel=0; channel<numChannels; channel++)
+		for (channel=0; channel<numChannels; channel++)
 			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
@@ -119,7 +119,7 @@ TTErr TTNoise::processBrownNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	TTUInt16		vs = out.getVectorSizeAsInt();
 	TTUInt16		i = 0;
 
-	while(vs--){
+	while (vs--) {
 		// Generate White Noise
 		accum = (accum * 3877 + 29573) % 139968;			// Random number generator
 		tempSample = 1.0 - (2.0 * float(accum) / 139968);	// Scale to audio range
@@ -131,7 +131,7 @@ TTErr TTNoise::processBrownNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 		tempSample *= 0.25 * mGain;					// output
 
 		// Copy the Output to All Channels
-		for(channel=0; channel<numChannels; channel++)
+		for (channel=0; channel<numChannels; channel++)
 			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
@@ -148,7 +148,7 @@ TTErr TTNoise::processBlueNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	TTUInt16		vs = out.getVectorSizeAsInt();
 	TTUInt16		i = 0;
 
-	while(vs--){
+	while (vs--) {
 		// Generate White Noise
 		accum = (accum * 3877 + 29573) % 139968;			// Random number generator
 		tempSample = 1.0 - (2.0 * float(accum) / 139968);	// Scale to audio range
@@ -160,7 +160,7 @@ TTErr TTNoise::processBlueNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 		tempSample *= mGain;
 		
 		// Copy the Output to All Channels
-		for(channel=0; channel<numChannels; channel++)
+		for (channel=0; channel<numChannels; channel++)
 			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}

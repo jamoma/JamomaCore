@@ -89,7 +89,7 @@ TTErr TTMatrix::setGain(const TTValue& newValue)
 	newValue.get(0, x);
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
-	if ((x < mNumInputs) && (y < mNumOutputs)){  
+	if ((x < mNumInputs) && (y < mNumOutputs)) {  
 		mGainMatrix[x][y] = dbToLinear(gainValue);
 		return kTTErrNone;}
 	else 
@@ -109,7 +109,7 @@ TTErr TTMatrix::setLinearGain(const TTValue& newValue)
 	newValue.get(0, x);
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
-	if ((x < mNumInputs) && (y < mNumOutputs)){ 
+	if ((x < mNumInputs) && (y < mNumOutputs)) { 
 		mGainMatrix[x][y] = gainValue;
 		return kTTErrNone;}
 	else 
@@ -144,11 +144,11 @@ TTErr TTMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 	
 	TTAudioSignal&		in = inputs->getSignal(0);
 	TTAudioSignal&		out = outputs->getSignal(0);
-	TTUInt16			vs = in.getVectorSize();
+	TTUInt16			vs = in.getVectorSizeAsInt();
 	TTSampleValuePtr	inSample;
 	TTSampleValuePtr	outSample;
-	TTUInt16			numInputChannels = in.getNumChannels();
-	TTUInt16			numOutputChannels = out.getNumChannels();
+	TTUInt16			numInputChannels = in.getNumChannelsAsInt();
+	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
 	TTUInt16			outChannel;
 	TTUInt16			inChannel;
 
@@ -158,8 +158,8 @@ TTErr TTMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 	if (numOutputChannels != mNumOutputs) {
 		TTValue v = mNumOutputs;
 
-		out.setmaxNumChannels(v);
-		out.setnumChannels(v);
+		out.setMaxNumChannels(v);
+		out.setNumChannels(v);
 		numOutputChannels = mNumOutputs;
 	}
 	
@@ -169,8 +169,8 @@ TTErr TTMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 	for (int i=0; i<vs; i++) {
 		for (outChannel=0; outChannel<numOutputChannels; outChannel++) {
 			for (inChannel=0; inChannel<numInputChannels; inChannel++) {
-				inSample = in.sampleVectors[inChannel];
-				outSample = out.sampleVectors[outChannel];
+				inSample = in.mSampleVectors[inChannel];
+				outSample = out.mSampleVectors[outChannel];
 				outSample[i] += inSample[i] * mGainMatrix[inChannel][outChannel];
 			}
 		}

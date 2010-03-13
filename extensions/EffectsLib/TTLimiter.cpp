@@ -20,36 +20,37 @@ TT_AUDIO_CONSTRUCTOR
 	TTUInt16	initialMaxNumChannels = arguments;
 	
 	// register our attributes
-	registerAttribute(TT("preamp"),		kTypeFloat64,	NULL,			(TTGetterMethod)&TTLimiter::getPreamp,		(TTSetterMethod)&TTLimiter::setPreamp);
-	registerAttribute(TT("postamp"),	kTypeFloat64,	&attrPostamp,	(TTGetterMethod)&TTLimiter::getPostamp,		(TTSetterMethod)&TTLimiter::setPostamp);
-	registerAttribute(TT("threshold"),	kTypeFloat64,	&attrThreshold,	(TTGetterMethod)&TTLimiter::getThreshold,	(TTSetterMethod)&TTLimiter::setThreshold);
-	registerAttribute(TT("lookahead"),	kTypeUInt32,	&attrLookahead, (TTSetterMethod)&TTLimiter::setLookahead);
-	registerAttribute(TT("release"),	kTypeFloat64,	&attrRelease,	(TTSetterMethod)&TTLimiter::setRelease);
-	registerAttribute(TT("mode"),		kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTLimiter::setMode);
-	registerAttribute(TT("dcBlocker"),	kTypeBoolean,	&attrDCBlocker,	(TTSetterMethod)&TTLimiter::setDCBlocker);
+	registerAttribute(TT("Preamp"),		kTypeFloat64,	NULL,			(TTGetterMethod)&TTLimiter::getPreamp,		(TTSetterMethod)&TTLimiter::setPreamp);
+	registerAttribute(TT("Postamp"),	kTypeFloat64,	&attrPostamp,	(TTGetterMethod)&TTLimiter::getPostamp,		(TTSetterMethod)&TTLimiter::setPostamp);
+	registerAttribute(TT("Threshold"),	kTypeFloat64,	&attrThreshold,	(TTGetterMethod)&TTLimiter::getThreshold,	(TTSetterMethod)&TTLimiter::setThreshold);
+	registerAttribute(TT("Lookahead"),	kTypeUInt32,	&attrLookahead, (TTSetterMethod)&TTLimiter::setLookahead);
+	registerAttribute(TT("Release"),	kTypeFloat64,	&attrRelease,	(TTSetterMethod)&TTLimiter::setRelease);
+	registerAttribute(TT("Mode"),		kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTLimiter::setMode);
+	registerAttribute(TT("DcBlocker"),	kTypeBoolean,	&attrDCBlocker,	(TTSetterMethod)&TTLimiter::setDCBlocker);
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessageWithArgument(updateMaxNumChannels);
 	// register for notifications from the parent class so we can update the release/recover values
 	registerMessageSimple(updateSr);
+
 	// clear the history
-	registerMessageSimple(clear);
+	addMessage(Clear);
 
 	TTObjectInstantiate(kTTSym_dcblock, &dcBlocker, initialMaxNumChannels);
 	TTObjectInstantiate(kTTSym_gain, &preamp, initialMaxNumChannels);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("threshold"),		0.0);
-	setAttributeValue(TT("preamp"),			0.0);
-	setAttributeValue(TT("postamp"),		0.0);
-	setAttributeValue(TT("lookahead"),		100);
-	setAttributeValue(TT("mode"),			TT("exponential"));
-	setAttributeValue(TT("release"),		1000.0);
-	setAttributeValue(TT("dcBlocker"),		kTTBoolYes);
-	setAttributeValue(TT("bypass"),			kTTBoolNo);
-	TTValue v;
-	clear();
+	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
+	setAttributeValue(TT("Threshold"),		0.0);
+	setAttributeValue(TT("Preamp"),			0.0);
+	setAttributeValue(TT("Postamp"),		0.0);
+	setAttributeValue(TT("Lookahead"),		100);
+	setAttributeValue(TT("Mode"),			TT("exponential"));
+	setAttributeValue(TT("Release"),		1000.0);
+	setAttributeValue(TT("DcBlocker"),		kTTBoolYes);
+	setAttributeValue(TT("Bypass"),			kTTBoolNo);
+
+	Clear();
 	setProcessMethod(processAudio);
 }
 
@@ -58,7 +59,7 @@ TTLimiter::~TTLimiter()
 {
 	short i;
 	
-	for(i=0; i<maxNumChannels; i++)
+	for (i=0; i<maxNumChannels; i++)
 		delete [] lookaheadBuffer[i];
 	delete [] lookaheadBuffer;
 	delete [] gain;
@@ -73,8 +74,8 @@ TTErr TTLimiter::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	TTUInt16	channel;
 	TTUInt16	numChannels = oldMaxNumChannels;
 
-	if(lookaheadBuffer){
-		for(channel=0; channel<numChannels; channel++)
+	if (lookaheadBuffer) {
+		for (channel=0; channel<numChannels; channel++)
 			delete [] lookaheadBuffer[channel];
 		delete [] lookaheadBuffer;
 	}
@@ -82,10 +83,10 @@ TTErr TTLimiter::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 	gain = new TTSampleValue[maxBufferSize];
 	lookaheadBuffer = new TTSampleValuePtr[maxNumChannels];
-	for(channel=0; channel<maxNumChannels; channel++)
+	for (channel=0; channel<maxNumChannels; channel++)
 		lookaheadBuffer[channel] = new TTSampleValue[maxBufferSize];
 
-	clear();
+	Clear();
 	
 	dcBlocker->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
 	preamp->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
@@ -157,7 +158,7 @@ TTErr TTLimiter::setRelease(TTValue& newValue)
 TTErr TTLimiter::setMode(TTValue& newValue)
 {
 	attrMode = newValue;
-	if(attrMode == TT("linear"))
+	if (attrMode == TT("linear"))
 		isLinear = true;
 	else
 		isLinear = false;
@@ -169,17 +170,17 @@ TTErr TTLimiter::setMode(TTValue& newValue)
 TTErr TTLimiter::setDCBlocker(TTValue& newValue)
 {
 	attrDCBlocker = newValue;
-	return dcBlocker->setAttributeValue(TT("bypass"), !attrDCBlocker);
+	return dcBlocker->setAttributeValue(TT("Bypass"), !attrDCBlocker);
 }
 
 
-TTErr TTLimiter::clear()
+TTErr TTLimiter::Clear()
 {
 	TTUInt32	i;
 	TTUInt32	channel;
 	
-	for(i=0; i<maxBufferSize; i++){
-		for(channel=0; channel < maxNumChannels; channel++)
+	for (i=0; i<maxBufferSize; i++) {
+		for (channel=0; channel < maxNumChannels; channel++)
     		lookaheadBuffer[channel][i] = 0.0;
     	gain[i] = 1.0;		// gain is shared across channels
     }
@@ -198,7 +199,7 @@ TTErr TTLimiter::clear()
 void TTLimiter::setRecover()
 {
 	recover = 1000.0 / (attrRelease * sr);		
-	if(attrMode == TT("linear"))
+	if (attrMode == TT("linear"))
 		recover = recover * 0.5;
 	else 
 		recover = recover * 0.707;
@@ -209,7 +210,7 @@ TTErr TTLimiter::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 {
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		vs = in.getVectorSize();
+	TTUInt16		vs = in.getVectorSizeAsInt();
 	TTUInt16		i, j;
 	TTSampleValue	tempSample;
 	TTSampleValue	hotSample;
@@ -228,56 +229,56 @@ TTErr TTLimiter::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	dcBlocker->process(in, out);	// filter out DC-Offsets (unless it is bypassed)
 	preamp->process(out, in);		// copy output back to input for the rest of this process
 
-	for(i=0; i<vs; i++){
+	for (i=0; i<vs; i++) {
 		hotSample = 0.0;
 
 	
 		// Analysis Stage ...
-		for(channel=0; channel<numchannels; channel++){
-			tempSample = in.sampleVectors[channel][i];
+		for (channel=0; channel<numchannels; channel++) {
+			tempSample = in.mSampleVectors[channel][i];
 			lookaheadBuffer[channel][lookaheadBufferIndex] = tempSample * attrPostamp;
 			tempSample = fabs(tempSample);
-			if(tempSample > hotSample)
+			if (tempSample > hotSample)
 				hotSample = tempSample;
 		}
 			
-		if(isLinear)
+		if (isLinear)
 			tempSample = last + recover;
-		else{
-			if(last > 0.01)
+		else {
+			if (last > 0.01)
 				tempSample = last + recover * last;
 			else
 				tempSample = last + recover;
 		}
 
-		if(tempSample > attrThreshold)
+		if (tempSample > attrThreshold)
 			maybe = attrThreshold;
 		else
 			maybe = tempSample;
 		gain[lookaheadBufferIndex] = maybe;
 	
 		lookaheadBufferPlayback = lookaheadBufferIndex - attrLookahead;
-		if(lookaheadBufferPlayback < 0)
+		if (lookaheadBufferPlayback < 0)
 			lookaheadBufferPlayback += attrLookahead;		
 		
 		// Process Stage ...
-		for(channel=0; channel<numchannels; channel++){
-			if(hotSample * maybe > attrThreshold){
+		for (channel=0; channel<numchannels; channel++) {
+			if (hotSample * maybe > attrThreshold) {
 				curgain = attrThreshold / hotSample;
 				inc = (attrThreshold - curgain);
 				acc = 0;
 				flag = 0;
-				for(j=0; flag==0 && j<attrLookahead; j++){
+				for (j=0; flag==0 && j<attrLookahead; j++) {
 					ind = lookaheadBufferIndex - j;
-					if(ind<0)
+					if (ind<0)
 						ind += maxBufferSize;
 						
-					if(isLinear)
+					if (isLinear)
 						newgain = curgain + inc * acc;
 					else
 						newgain = curgain + inc * (acc * acc);
 						
-					if(newgain < gain[ind])
+					if (newgain < gain[ind])
 						gain[ind] = newgain;
 					else
 						flag = 1;
@@ -285,10 +286,10 @@ TTErr TTLimiter::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 				}
 			}
 
-			out.sampleVectors[channel][i] = lookaheadBuffer[channel][lookaheadBufferPlayback] * gain[lookaheadBufferPlayback];
+			out.mSampleVectors[channel][i] = lookaheadBuffer[channel][lookaheadBufferPlayback] * gain[lookaheadBufferPlayback];
 			last = gain[lookaheadBufferIndex];
 			lookaheadBufferIndex++;
-			if(lookaheadBufferIndex >= attrLookahead)
+			if (lookaheadBufferIndex >= attrLookahead)
 				lookaheadBufferIndex = 0;
 		}
 	}

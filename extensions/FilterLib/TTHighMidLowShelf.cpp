@@ -159,11 +159,11 @@ TTErr TTHighMidLowShelf::calculateCoefficients()
 	TTClip<double>(tempb1, -1.9999996, 1.9999996);
 	TTClip<double>(tempb2, -0.9999998, 0.9999998);
    	
-    if(discriminant >= 0.0)
+    if (discriminant >= 0.0)
     {
-        if(0.9999998 - tempb1 - tempb2 < 0.0)
+        if (0.9999998 - tempb1 - tempb2 < 0.0)
             tempb2 = 0.9999998 - tempb1;
-        if(0.9999998 + tempb1 - tempb2 < 0.0)
+        if (0.9999998 + tempb1 - tempb2 < 0.0)
             tempb2 = 0.9999998 + tempb1;
     }
 	//TTClip<double>(tempb2, 0.9999998 - tempb1, 0.9999998 + tempb1);  //[NP] is that what the loop above means ?
@@ -186,11 +186,11 @@ TTErr TTHighMidLowShelf::calculateCoefficients()
 	TTClip<double>(mB1, -1.9999996, 1.9999996);
 	TTClip<double>(mB2, -0.9999998, 0.9999998);
    	
-    if(discriminant >= 0.0)
+    if (discriminant >= 0.0)
     {
-        if(0.9999998 - mB1 - mB2 < 0.0)
+        if (0.9999998 - mB1 - mB2 < 0.0)
             mB2 = 0.9999998 - mB1;
-        if(0.9999998 + mB1 - mB2 < 0.0)
+        if (0.9999998 + mB1 - mB2 < 0.0)
             mB2 = 0.9999998 + mB1;
     }
 	

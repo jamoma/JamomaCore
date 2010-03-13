@@ -16,11 +16,11 @@
 
 TT_AUDIO_CONSTRUCTOR
 {
-	registerAttributeWithSetter(symmetry,	kTypeSymbol);
-	registerAttributeWithSetter(powerValue,	kTypeFloat64);
+	addAttributeWithSetter(Symmetry,	kTypeSymbol);
+	addAttributeWithSetter(PowerValue,	kTypeFloat64);
 	
-	setAttributeValue(TT("powerValue"), 1.0);
-	setAttributeValue(TT("symmetry"), TT("none"));
+	setAttributeValue(TT("PowerValue"), 1.0);
+	setAttributeValue(TT("Symmetry"), TT("none"));
 	
 	setProcessMethod(processAudio);
 }
@@ -32,12 +32,13 @@ PowerFunction::~PowerFunction()
 }
 
 
-TTErr PowerFunction::setsymmetry(const TTValue& newValue)
+TTErr PowerFunction::setSymmetry(const TTValue& newValue)
 {
-	symmetry = newValue;
-	if(symmetry == TT("point"))
+	mSymmetry = newValue;
+	
+	if (mSymmetry == TT("point"))
 		setCalculateMethod(calculatePoint);
-	else if(symmetry == TT("axis"))
+	else if (mSymmetry == TT("axis"))
 		setCalculateMethod(calculateAxis);
 	else // none
 		setCalculateMethod(calculateNoSymmetry);
@@ -45,10 +46,10 @@ TTErr PowerFunction::setsymmetry(const TTValue& newValue)
 }
 
 
-TTErr PowerFunction::setpowerValue(const TTValue& newValue)
+TTErr PowerFunction::setPowerValue(const TTValue& newValue)
 {
-	powerValue = newValue;
-	k = pow(2, powerValue);
+	mPowerValue = newValue;
+	mK = pow(2, mPowerValue);
 	return kTTErrNone;
 }
 
@@ -58,11 +59,11 @@ TTErr PowerFunction::calculatePoint(const TTFloat64& x, TTFloat64& y, TTPtrSized
 	TTFloat64	sign;	
 	
 	y = 2*x-1;
-	if(y<0)
+	if (y<0)
 		sign = -1;
 	else
 		sign = 1;
-	y = 0.5 * (sign * pow(fabs(y), k) + 1);
+	y = 0.5 * (sign * pow(fabs(y), mK) + 1);
 
 	return kTTErrNone;
 }
@@ -70,14 +71,14 @@ TTErr PowerFunction::calculatePoint(const TTFloat64& x, TTFloat64& y, TTPtrSized
 
 TTErr PowerFunction::calculateAxis(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = pow(fabs(2*x-1), k);
+	y = pow(fabs(2*x-1), mK);
 	return kTTErrNone;
 }
 
 
 TTErr PowerFunction::calculateNoSymmetry(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = pow(x, k);
+	y = pow(x, mK);
 	return kTTErrNone;
 }
 
@@ -92,12 +93,12 @@ TTErr PowerFunction::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTPtrSizedInt	channel;
 	
-	for(channel=0; channel<numchannels; channel++){
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
+	for (channel=0; channel<numchannels; channel++) {
+		inSample = in.mSampleVectors[channel];
+		outSample = out.mSampleVectors[channel];
+		vs = in.getVectorSizeAsInt();
 		
-		while(vs--){
+		while (vs--) {
 			(this->*calculateMethod)(*outSample, *inSample, TTPtr(channel));
 			outSample++;
 			inSample++;

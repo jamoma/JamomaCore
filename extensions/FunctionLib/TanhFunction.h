@@ -20,8 +20,8 @@
 class TanhFunction : TTAudioObject {
 	TTCLASS_SETUP(TanhFunction)
 
-	TTFloat64	width;			///< Parameter for function: y pow(x,pow(2,powerValue))	
-	TTFloat64	offset;			///< k = pow(2,powerValue)
+	TTFloat64	mWidth;			///< Parameter for function: y pow(x,pow(2,powerValue))	
+	TTFloat64	mOffset;		///< k = pow(2,powerValue)
 	double		a;				///< Internal coefficient
 	double		b;				///< Internal coefficient
 	double		alpha;			///< Internal coefficient
@@ -31,10 +31,10 @@ class TanhFunction : TTAudioObject {
 	void calculateOutputScaling(void);
 	
 	/** Calculate coefficients when this attr is set */
-	TTErr setwidth(const TTValue& value);
+	TTErr setWidth(const TTValue& value);
 	
 	/** Calculate coefficients when this attr is set */
-	TTErr setoffset(const TTValue& value);
+	TTErr setOffset(const TTValue& value);
 	
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);

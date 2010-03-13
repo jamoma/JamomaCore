@@ -18,17 +18,17 @@ TT_AUDIO_CONSTRUCTOR
 	TTUInt16	initialMaxNumChannels = arguments;
 	
 	// Attributes
-	registerAttributeWithSetter(size, kTypeUInt32);
+	addAttributeWithSetter(Size, kTypeUInt32);
 	
 	// Messages
-	registerMessageSimple(clear);
-	registerMessageWithArgument(updateMaxNumChannels);
+	addMessage(Clear);
+	addMessageWithArgument(updateMaxNumChannels);
 	
 	// Set Defaults
-	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("size"), TTUInt32(2000));
+	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
+	setAttributeValue(TT("Size"), TTUInt32(2000));
 	setProcessMethod(processAudio);
-	clear();
+	Clear();
 }
 
 
@@ -40,11 +40,11 @@ TTZerocross::~TTZerocross()
 
 TTErr TTZerocross::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	return clear();
+	return Clear();
 }
 
 
-TTErr TTZerocross::clear()
+TTErr TTZerocross::Clear()
 {
 	lastSampleWasOverZero = false;
 	counter = 0;
@@ -54,10 +54,10 @@ TTErr TTZerocross::clear()
 }
 
 
-TTErr TTZerocross::setsize(const TTValue& value)
+TTErr TTZerocross::setSize(const TTValue& value)
 {
-	size = value;
-	rSize = 1.0 / size;
+	mSize = value;
+	rSize = 1.0 / mSize;
 	return kTTErrNone;
 }
 
@@ -67,18 +67,18 @@ TTErr TTZerocross::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 {
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		vs = in.getVectorSize();
+	TTUInt16		vs = in.getVectorSizeAsInt();
 	TTSampleValue*	inSample;
 	TTSampleValue*	out1Sample;
 	TTSampleValue*	out2Sample;
 	TTBoolean		thisSampleIsOverZero;
 	TTBoolean		zeroxOccured;
 
-	inSample = in.sampleVectors[0];
-	out1Sample = out.sampleVectors[0];
-	out2Sample = out.sampleVectors[1];
-		
-	while(vs--){
+	inSample = in.mSampleVectors[0];
+	out1Sample = out.mSampleVectors[0];
+	out2Sample = out.mSampleVectors[1];
+
+	while (vs--) {
 		thisSampleIsOverZero = (0 < (*inSample++));
 		zeroxOccured = lastSampleWasOverZero != thisSampleIsOverZero;
 		lastSampleWasOverZero = thisSampleIsOverZero;
@@ -86,7 +86,7 @@ TTErr TTZerocross::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 		counter += zeroxOccured;
 		analysisLocation++;
 		
-		if(analysisLocation >= size){
+		if (analysisLocation >= mSize) {
 			finalCount = ((sr * counter) * rSize) * srInv;
 			analysisLocation = 0;
 			counter = 0;

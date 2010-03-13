@@ -19,7 +19,7 @@
 class TTZerocross : TTAudioObject {
 	TTCLASS_SETUP(TTZerocross)
 
-	TTUInt32	size;					///< Attribute: size of the analysis buffer
+	TTUInt32	mSize;					///< Attribute: size of the analysis buffer
 	TTFloat64	rSize;					///< reciprocal of the size attribute
 	TTBoolean	lastSampleWasOverZero;	///< was the last sample over zero?
 	TTUInt32	counter;				///< counts zero-crossings
@@ -44,10 +44,10 @@ class TTZerocross : TTAudioObject {
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	/**	Attribute Setter. */
-	TTErr setsize(const TTValue& value);
+	TTErr setSize(const TTValue& value);
 
 	/**	Resets the history used in the analysis.	*/
-	TTErr clear();
+	TTErr Clear();
 };
 
 
