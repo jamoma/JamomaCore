@@ -389,7 +389,7 @@ void TTLogError(TTImmutableCString message, ...)
 
 void TTLogDebug(TTImmutableCString message, ...)
 {
-	if(ttEnvironment->debugBasic){
+	if(ttEnvironment->mDebugBasic){
 		char	str[4096];
 		va_list	ap;
 		

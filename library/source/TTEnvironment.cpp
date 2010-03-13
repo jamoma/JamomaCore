@@ -20,18 +20,18 @@ TTEnvironment*	ttEnvironment = NULL;
 /****************************************************************************************************/
 
 TTEnvironment::TTEnvironment()
-	: TTObject(kTTValNONE), debugBasic(false), debugMessaging(false), sr(0)
+	: TTObject(kTTValNONE), mDebugBasic(false), mDebugMessaging(false), mSampleRate(0)
 {	
 	classes = new TTHash();
 	tags = new TTHash();
 
-	registerAttributeSimple(debugBasic,		kTypeBoolean);
-	registerAttributeSimple(debugMessaging,	kTypeBoolean);
-	registerAttributeSimple(sr,				kTypeUInt32);
+	addAttribute(DebugBasic,		kTypeBoolean);
+	addAttribute(DebugMessaging,	kTypeBoolean);
+	addAttribute(SampleRate,		kTypeUInt32);
 
-	registerMessageWithArgument(getVersion);
+	addMessageWithArgument(GetVersion);
 
-	setAttributeValue(TT("sr"), TTUInt32(44100));
+	setAttributeValue(kTTSym_SampleRate, TTUInt32(44100));
 }
 
 
@@ -45,7 +45,7 @@ TTEnvironment::~TTEnvironment()
 }
 
 
-TTErr TTEnvironment::getVersion(TTValue &value)
+TTErr TTEnvironment::GetVersion(TTValue &value)
 {
 	value = TTFOUNDATION_VERSION_STRING;
 	return kTTErrNone;
