@@ -49,16 +49,16 @@ protected:
 TTOverdriveExtended::TTOverdriveExtended(TTValue& arguments)
 : TTOverdrive(arguments)
 {
-	registerAttribute(TT("overdrive"), kTypeFloat64, &drive, (TTSetterMethod)&TTOverdrive::setdrive);
-	registerAttribute(TT("/saturation"), kTypeFloat64, &drive, (TTSetterMethod)&TTOverdrive::setdrive);
-	registerAttribute(TT("/depth"), kTypeFloat64, &drive, (TTSetterMethod)&TTOverdrive::setdrive);
+	registerAttribute(TT("overdrive"), kTypeFloat64, &mDrive, (TTSetterMethod)&TTOverdrive::setDrive);
+	registerAttribute(TT("/saturation"), kTypeFloat64, &mDrive, (TTSetterMethod)&TTOverdrive::setDrive);
+	registerAttribute(TT("/depth"), kTypeFloat64, &mDrive, (TTSetterMethod)&TTOverdrive::setDrive);
 	
-	registerAttribute(TT("bypass_dcblocker"), kTypeBoolean, &dcBlocker, (TTSetterMethod)&TTOverdrive::setdcBlocker);
-	registerAttribute(TT("/dcblocker/bypass"), kTypeBoolean, &dcBlocker, (TTSetterMethod)&TTOverdrive::setdcBlocker);
+	registerAttribute(TT("bypass_dcblocker"), kTypeBoolean, &mDcBlocker, (TTSetterMethod)&TTOverdrive::setDcBlocker);
+	registerAttribute(TT("/dcblocker/bypass"), kTypeBoolean, &mDcBlocker, (TTSetterMethod)&TTOverdrive::setDcBlocker);
 	
-	registerAttribute(TT("/preamp"), kTypeFloat64, &preamp, (TTGetterMethod)&TTOverdrive::getpreamp, (TTSetterMethod)&TTOverdrive::setpreamp);
+	registerAttribute(TT("/preamp"), kTypeFloat64, &mPreamp, (TTGetterMethod)&TTOverdrive::getPreamp, (TTSetterMethod)&TTOverdrive::setPreamp);
 	
-	registerAttribute(TT("/mode"), kTypeUInt8, &mode, (TTSetterMethod)&TTOverdrive::setmode);
+	registerAttribute(TT("/mode"), kTypeUInt8, &mMode, (TTSetterMethod)&TTOverdrive::setMode);
 	
 	registerAttribute(TT("/audio/mute"), kTypeBoolean, &attrMute, (TTSetterMethod)&TTAudioObject::setMute);
 	

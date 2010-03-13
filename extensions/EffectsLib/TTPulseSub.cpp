@@ -24,14 +24,14 @@ TT_AUDIO_CONSTRUCTOR,
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	
-	registerAttribute(TT("attack"),		kTypeFloat64,	&attrAttack,	(TTSetterMethod)&TTPulseSub::setAttack);
-	registerAttribute(TT("decay"),		kTypeFloat64,	&attrDecay,		(TTSetterMethod)&TTPulseSub::setDecay);
-	registerAttribute(TT("release"),	kTypeFloat64,	&attrRelease,	(TTSetterMethod)&TTPulseSub::setRelease);
-	registerAttribute(TT("sustain"),	kTypeFloat64,	&attrSustain,	(TTSetterMethod)&TTPulseSub::setSustain);
-	registerAttribute(TT("trigger"),	kTypeBoolean,	&attrTrigger,	(TTSetterMethod)&TTPulseSub::setTrigger);
-	registerAttribute(TT("mode"),		kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTPulseSub::setMode);
-	registerAttribute(TT("frequency"),	kTypeFloat64,	&attrFrequency,	(TTSetterMethod)&TTPulseSub::setFrequency);
-	registerAttribute(TT("length"),		kTypeFloat64,	&attrLength,	(TTSetterMethod)&TTPulseSub::setLength);
+	registerAttribute(TT("Attack"),		kTypeFloat64,	&attrAttack,	(TTSetterMethod)&TTPulseSub::setAttack);
+	registerAttribute(TT("Decay"),		kTypeFloat64,	&attrDecay,		(TTSetterMethod)&TTPulseSub::setDecay);
+	registerAttribute(TT("Release"),	kTypeFloat64,	&attrRelease,	(TTSetterMethod)&TTPulseSub::setRelease);
+	registerAttribute(TT("Sustain"),	kTypeFloat64,	&attrSustain,	(TTSetterMethod)&TTPulseSub::setSustain);
+	registerAttribute(TT("Trigger"),	kTypeBoolean,	&attrTrigger,	(TTSetterMethod)&TTPulseSub::setTrigger);
+	registerAttribute(TT("Mode"),		kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTPulseSub::setMode);
+	registerAttribute(TT("Frequency"),	kTypeFloat64,	&attrFrequency,	(TTSetterMethod)&TTPulseSub::setFrequency);
+	registerAttribute(TT("Length"),		kTypeFloat64,	&attrLength,	(TTSetterMethod)&TTPulseSub::setLength);
 
 	// register for notifications
 	registerMessageWithArgument(updateMaxNumChannels);
@@ -43,15 +43,15 @@ TT_AUDIO_CONSTRUCTOR,
 	TTObjectInstantiate(kTTSym_operator, &scaler, initialMaxNumChannels);	
 	TTObjectInstantiate(kTTSym_audiosignal, &sig1, 1);	
 	TTObjectInstantiate(kTTSym_audiosignal, &sig2, 1);	
-	offset->setAttributeValue(TT("operator"), TT("+"));
-	scaler->setAttributeValue(TT("operator"), TT("*"));
+	offset->setAttributeValue(TT("Operator"), TT("+"));
+	scaler->setAttributeValue(TT("Operator"), TT("*"));
 
-	setAttributeValue(TT("attack"), 50.);
-	setAttributeValue(TT("decay"), 100.);
-	setAttributeValue(TT("sustain"), -6.);
-	setAttributeValue(TT("release"), 500.);
-	setAttributeValue(TT("mode"), TT("linear"));	// <-- sets the process method
-	setAttributeValue(TT("length"), 0.25);
+	setAttributeValue(TT("Attack"), 50.);
+	setAttributeValue(TT("Decay"), 100.);
+	setAttributeValue(TT("Sustain"), -6.);
+	setAttributeValue(TT("Release"), 500.);
+	setAttributeValue(TT("Mode"), TT("linear"));	// <-- sets the process method
+	setAttributeValue(TT("Length"), 0.25);
 	
 	setProcessMethod(processAudio);
 }

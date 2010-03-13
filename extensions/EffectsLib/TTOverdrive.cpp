@@ -20,10 +20,10 @@ TT_AUDIO_CONSTRUCTOR
 	TTUInt16	initialMaxNumChannels = arguments;
 	
 	// Register Attributes
-	registerAttributeWithSetter(drive,				kTypeFloat64);
-	registerAttributeWithSetter(dcBlocker,			kTypeBoolean);
-	registerAttributeWithSetter(mode,				kTypeUInt8);
-	registerAttributeWithSetterAndGetter(preamp,	kTypeFloat64);
+	addAttributeWithSetter(Drive,				kTypeFloat64);
+	addAttributeWithSetter(DcBlocker,			kTypeBoolean);
+	addAttributeWithSetter(Mode,				kTypeUInt8);
+	addAttributeWithGetterAndSetter(Preamp,		kTypeFloat64);
 	
 	// Register Messages
 	addMessage(Clear);
@@ -34,10 +34,10 @@ TT_AUDIO_CONSTRUCTOR
 
 	// Set Defaults
 	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("mode"), 1);
-	setAttributeValue(TT("preamp"), 0.0);
-	setAttributeValue(TT("drive"), 3.0);
-	setAttributeValue(TT("dcBlocker"), kTTBoolYes);
+	setAttributeValue(TT("Mode"), 1);
+	setAttributeValue(TT("Preamp"), 0.0);
+	setAttributeValue(TT("Drive"), 3.0);
+	setAttributeValue(TT("DcBlocker"), kTTBoolYes);
 }
 
 
@@ -53,15 +53,15 @@ TTErr TTOverdrive::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 }
 
 
-TTErr TTOverdrive::setdrive(const TTValue& newValue)
+TTErr TTOverdrive::setDrive(const TTValue& newValue)
 {
 	TTFloat64 	f;
 	int			i;
 		
-	drive = TTClip(TTFloat32(newValue), TTFloat32(1.0), TTFloat32(10.0));
+	mDrive = TTClip(TTFloat32(newValue), TTFloat32(1.0), TTFloat32(10.0));
 	
 	// These calculations really only apply to mode 1...
-	f = (drive - 0.999) * 0.111;	// range is roughly [0.001 to 0.999]
+	f = (mDrive - 0.999) * 0.111;	// range is roughly [0.001 to 0.999]
 	
 	z = kTTPi * f;
 	s = 1.0 / sin(z);
@@ -78,17 +78,17 @@ TTErr TTOverdrive::setdrive(const TTValue& newValue)
 }
 
 
-TTErr TTOverdrive::setdcBlocker(const TTValue& newValue)
+TTErr TTOverdrive::setDcBlocker(const TTValue& newValue)
 {
-	dcBlocker = newValue;
-	return dcBlockerUnit->setAttributeValue(TT("bypass"), !dcBlocker);
+	mDcBlocker = newValue;
+	return dcBlockerUnit->setAttributeValue(TT("Bypass"), !mDcBlocker);
 }
 
 
-TTErr TTOverdrive::setmode(const TTValue& newValue)
+TTErr TTOverdrive::setMode(const TTValue& newValue)
 {
-	mode = newValue;
-	if (mode == 0)
+	mMode = newValue;
+	if (mMode == 0)
 		setProcessMethod(processMode0);
 	else
 		setProcessMethod(processMode1);	// sine
@@ -96,15 +96,15 @@ TTErr TTOverdrive::setmode(const TTValue& newValue)
 }
 
 
-TTErr TTOverdrive::getpreamp(TTValue& value)
+TTErr TTOverdrive::getPreamp(TTValue& value)
 {
-	value = linearToDb(preamp);
+	value = linearToDb(mPreamp);
 	return kTTErrNone;
 }
 
-TTErr TTOverdrive::setpreamp(const TTValue& newValue)
+TTErr TTOverdrive::setPreamp(const TTValue& newValue)
 {
-	preamp = dbToLinear(newValue);
+	mPreamp = dbToLinear(newValue);
 	return kTTErrNone;
 }
 
@@ -135,7 +135,7 @@ TTErr TTOverdrive::processMode0(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 		vs = in.getVectorSizeAsInt();
 		
 		while (vs--) {
-			temp = *inSample++ * preamp;
+			temp = *inSample++ * mPreamp;
 			
 			// the equation only works in the positive quadrant...
 			// so we strip off the sign, apply the equation, and reapply the sign
@@ -149,7 +149,7 @@ TTErr TTOverdrive::processMode0(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 			if (temp > 1.0)		// clip signal if it's out of range
 				*outSample++ = TTClip(temp * sign, TTSampleValue(-1.0), TTSampleValue(1.0));
 			else
-				*outSample++ = sign * (1.0 - exp(drive * log(1.0 - temp)));
+				*outSample++ = sign * (1.0 - exp(mDrive * log(1.0 - temp)));
 		}
 	}
 	return kTTErrNone;
@@ -178,7 +178,7 @@ TTErr TTOverdrive::processMode1(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 		vs = in.getVectorSizeAsInt();
 		
 		while (vs--) {
-			temp = *inSample++ * preamp;			
+			temp = *inSample++ * mPreamp;			
 			if (temp > b) 
 				temp = 1.0;
 			else if (temp < nb) 
