@@ -32,17 +32,17 @@ TTAudioObject::TTAudioObject(TTValue& arguments) :
 	registerAttribute(TT("Mute"),			kTypeBoolean,	&attrMute,			(TTSetterMethod)&TTAudioObject::setMute);
 	registerAttribute(TT("processInPlace"), kTypeBoolean,	&attrProcessInPlace);
 
-	registerMessage(TT("calculate"), (TTMethod)&TTAudioObject::calculateMessage);
+	registerMessage(TT("Calculate"), (TTMethod)&TTAudioObject::calculateMessage);
 	
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&inputArray, 2);
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&outputArray, 2);
 
 	// Set Defaults...
 		
-	setAttributeValue(kTTSym_SampleRate,	ttEnvironment->sr);
+	setAttributeValue(kTTSym_SampleRate,	ttEnvironment->mSampleRate);
 	setProcess(&TTAudioObject::bypassProcess);
     setCalculate(&TTAudioObject::defaultCalculateMethod);
-	setAttributeValue(TT("bypass"),			kTTBoolNo);
+	setAttributeValue(TT("Bypass"),			kTTBoolNo);
 	setAttributeValue(TT("processInPlace"), kTTBoolNo);
 }
 

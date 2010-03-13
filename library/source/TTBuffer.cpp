@@ -27,10 +27,10 @@ TT_DATA_CONSTRUCTOR,
 	addMessageWithArgument(fill);
 
 	addMessageWithArgument(getValueAtIndex);
-	registerMessage(TT("peek"), (TTMethod)&TTBuffer::getValueAtIndex);
+	registerMessage(TT("Peek"), (TTMethod)&TTBuffer::getValueAtIndex);
 
 	addMessageWithArgument(setValueAtIndex);
-	registerMessage(TT("poke"), (TTMethod)&TTBuffer::setValueAtIndex);
+	registerMessage(TT("Poke"), (TTMethod)&TTBuffer::setValueAtIndex);
 
 	addMessage(updateSr);
 
