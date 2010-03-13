@@ -23,14 +23,14 @@ TT_DATA_CONSTRUCTOR,
 	addAttributeWithSetter(Length,			kTypeFloat64);
 	addAttributeWithSetter(LengthInSamples,	kTypeUInt64);
 
-	addMessage(clear);
-	addMessageWithArgument(fill);
+	addMessage(Clear);
+	addMessageWithArgument(Fill);
 
-	addMessageWithArgument(getValueAtIndex);
-	registerMessage(TT("Peek"), (TTMethod)&TTBuffer::getValueAtIndex);
+	addMessageWithArgument(GetValueAtIndex);
+	registerMessage(TT("Peek"), (TTMethod)&TTBuffer::GetValueAtIndex);
 
-	addMessageWithArgument(setValueAtIndex);
-	registerMessage(TT("Poke"), (TTMethod)&TTBuffer::setValueAtIndex);
+	addMessageWithArgument(SetValueAtIndex);
+	registerMessage(TT("Poke"), (TTMethod)&TTBuffer::SetValueAtIndex);
 
 	addMessage(updateSr);
 
@@ -53,7 +53,7 @@ TTErr TTBuffer::init()
 		mContents = new TTSampleValuePtr[mNumChannels];
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++)
 			mContents[channel] = new TTSampleValue[mLengthInSamples];
-		clear();
+		Clear();
 	}
 	return kTTErrNone;
 }
@@ -124,7 +124,7 @@ TTErr TTBuffer::updateSr()
 }
 
 
-TTErr TTBuffer::clear()
+TTErr TTBuffer::Clear()
 {
 	for (TTUInt16 channel=0; channel<mNumChannels; channel++)
 		memset(mContents[channel], 0, sizeof(TTSampleValue) * mLengthInSamples);
@@ -133,7 +133,7 @@ TTErr TTBuffer::clear()
 
 
 
-TTErr TTBuffer::getValueAtIndex(TTValue& index)
+TTErr TTBuffer::GetValueAtIndex(TTValue& index)
 {
 	TTUInt32		sampleIndex;
 	TTUInt16		sampleChannel = 0;
@@ -167,7 +167,7 @@ TTErr TTBuffer::peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue
 	If there are three numbers passed, then the second number, if passed, will designate the channel index (defaults to zero).
 	The final value will be used as the sample value that will be copied to the designated index.
 */
-TTErr TTBuffer::setValueAtIndex(const TTValue& index)
+TTErr TTBuffer::SetValueAtIndex(const TTValue& index)
 {
 	TTUInt32		sampleIndex;
 	TTUInt16		sampleChannel = 0;
@@ -194,7 +194,7 @@ TTErr TTBuffer::poke(const TTUInt64 index, const TTUInt16 channel, const TTSampl
 
 
 // TODO: At some point it would be nice to add band-limited waveforms here...
-TTErr TTBuffer::fill(const TTValue& value)
+TTErr TTBuffer::Fill(const TTValue& value)
 {
 //	TTSymbol*	fillAlgorithm = value[0];
 // FIXME: implement this once we get [] operators for TTValue;

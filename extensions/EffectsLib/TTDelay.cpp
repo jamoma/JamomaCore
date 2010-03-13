@@ -32,7 +32,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(Interpolation,		kTypeSymbol);
 
 	// declare messages
-	addMessage(clear);
+	addMessage(Clear);
 	
 	// updates from the parent class
 	addMessage(updateSr);
@@ -86,7 +86,7 @@ TTErr TTDelay::updateSr()
 }
 
 
-TTErr TTDelay::clear()
+TTErr TTDelay::Clear()
 {
 	for_each(mBuffers.begin(), mBuffers.end(), mem_fun_ref(&TTDelayBuffer::clear));
 	return kTTErrNone;

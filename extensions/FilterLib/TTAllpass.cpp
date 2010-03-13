@@ -31,7 +31,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(LinearGain,			kTypeFloat64);
 	addAttributeWithSetter(Gain,				kTypeFloat64);
 	
-	addMessage(clear);
+	addMessage(Clear);
 	addMessage(updateSr);
 	addMessageWithArgument(updateMaxNumChannels);
 
@@ -96,7 +96,7 @@ TTErr TTAllpass::updateSr()
 }
 
 
-TTErr TTAllpass::clear()
+TTErr TTAllpass::Clear()
 {
 	for_each(mFeedforward.begin(), mFeedforward.end(), mem_fun_ref(&TTDelayBuffer::clear));
 	for_each(mFeedback.begin(), mFeedback.end(), mem_fun_ref(&TTDelayBuffer::clear));

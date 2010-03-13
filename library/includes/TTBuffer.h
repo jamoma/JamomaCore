@@ -53,12 +53,12 @@ public:
           
 	/**	Set all values to zero.
 	 	@return Returns a TTErr error code.	*/
-	TTErr clear();
+	TTErr Clear();
 
 	// METHOD: SET_BUFFER
 	//	void set_buffer(tt_buffer *newbuffer);
 
-	TTErr	getValueAtIndex(TTValue& index);
+	TTErr	GetValueAtIndex(TTValue& index);
 	TTErr	peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value);
 	
 	/**	Set the sample value for a given index.
@@ -66,11 +66,11 @@ public:
 		If there are three numbers passed, then the second number, if passed, will designate the channel index (defaults to zero).
 		The final value will be used as the sample value that will be copied to the designated index.
 	*/
-	TTErr	setValueAtIndex(const TTValue& index);
+	TTErr	SetValueAtIndex(const TTValue& index);
 	TTErr	poke(const TTUInt64 index, const TTUInt16 channel, const TTSampleValue value);
 	
 	/** Set the contents of the buffer using a specified algorithm and, if appropriate, coefficients for that algorithm. */
-	TTErr	fill(const TTValue& value);
+	TTErr	Fill(const TTValue& value);
 
 	/** Get a pointer to the buffer's memory.
 		WARNING: You need to be very careful about accessing the memory in case it goes away or is freed, etc. 

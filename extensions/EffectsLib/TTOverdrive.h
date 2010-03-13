@@ -68,7 +68,7 @@ public:
 	TTErr setpreamp(const TTValue& value);
 
 	/**	Reset the DC Blocker.			*/
-	TTErr clear();
+	TTErr Clear();
 };
 
 

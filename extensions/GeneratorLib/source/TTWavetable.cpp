@@ -72,7 +72,7 @@ TTErr TTWavetable::setMode(const TTValue& newValue)
 	mMode = newValue;	// TODO: should be newValue[0]
 
 	if (mMode != TT("externalBuffer"))
-		return mWavetable->fill(newValue);
+		return mWavetable->Fill(newValue);
 	else {
 		// TODO: implement the ability to use an externally defined buffer
 		return kTTErrInvalidValue;

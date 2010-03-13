@@ -86,7 +86,7 @@ TTErr TTAudioObject::bypassProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 			TTAudioSignal::copy(in, out);
 		}
 		else
-			out.clear();
+			out.Clear();
 	}
 	return kTTErrNone;
 }
@@ -103,9 +103,9 @@ TTErr TTAudioObject::bypassCalculate(const TTFloat64& x, TTFloat64& y, TTPtr dat
 TTErr TTAudioObject::muteProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	for (TTUInt16 i=0; i<inputs->numAudioSignals; i++)
-		(inputs->getSignal(i)).clear();
+		(inputs->getSignal(i)).Clear();
 	for (TTUInt16 i=0; i<outputs->numAudioSignals; i++)
-		(outputs->getSignal(i)).clear();
+		(outputs->getSignal(i)).Clear();
 	return kTTErrNone;
 }
 

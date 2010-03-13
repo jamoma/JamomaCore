@@ -25,7 +25,7 @@ TT_AUDIO_CONSTRUCTOR
 	// register for notifications from the parent class so we can recalculate coefficients as required
 	addMessage(updateSr);
 	// make the clear method available to the outside world
-	addMessage(clear);
+	addMessage(Clear);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	arguments);			// This attribute is inherited
@@ -49,7 +49,7 @@ TTErr TTLowpassButterworth3::updateMaxNumChannels(const TTValue& oldMaxNumChanne
 	mY1.resize(maxNumChannels);
 	mY2.resize(maxNumChannels);
 	mY3.resize(maxNumChannels);	
-	clear();
+	Clear();
 	return kTTErrNone;
 }
 
@@ -61,7 +61,7 @@ TTErr TTLowpassButterworth3::updateSr()
 }
 
 
-TTErr TTLowpassButterworth3::clear()
+TTErr TTLowpassButterworth3::Clear()
 {
 	mX1.assign(maxNumChannels, 0.0);
 	mX2.assign(maxNumChannels, 0.0);

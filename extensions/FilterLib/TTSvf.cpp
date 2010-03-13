@@ -27,7 +27,7 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithSetter(Mode,		kTypeSymbol);
 
 	// register methods
-	addMessage(clear);
+	addMessage(Clear);
 	addMessageWithArgument(updateMaxNumChannels);
 	addMessage(updateSr);
 
@@ -52,7 +52,7 @@ TTErr TTSvf::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	mBandpass_output.resize(maxNumChannels);
 	mNotch_output.resize(maxNumChannels);
 	mPeak_output.resize(maxNumChannels);
-	clear();
+	Clear();
 	return kTTErrNone;
 }
 
@@ -64,7 +64,7 @@ TTErr TTSvf::updateSr()
 }
 
 
-TTErr TTSvf::clear()
+TTErr TTSvf::Clear()
 {
 	mLowpass_output.assign(maxNumChannels, 0.0);
 	mHighpass_output.assign(maxNumChannels, 0.0);

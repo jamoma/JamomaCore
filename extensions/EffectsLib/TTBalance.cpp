@@ -25,7 +25,7 @@ TT_AUDIO_CONSTRUCTOR
 	// register for notifications from the parent class so we can recalculate coefficients as required
 	addMessage(updateSr);
 	// make the clear method available to the outside world
-	addMessage(clear);
+	addMessage(Clear);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);		// This attribute is inherited
@@ -48,7 +48,7 @@ TTErr TTBalance::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	xm2B.resize(maxNumChannels);
 	ym1B.resize(maxNumChannels);
 	ym2B.resize(maxNumChannels);	
-	return clear();
+	return Clear();
 }
 
 
@@ -59,7 +59,7 @@ TTErr TTBalance::updateSr()
 }
 
 
-TTErr TTBalance::clear()
+TTErr TTBalance::Clear()
 {
 	xm1A.assign(maxNumChannels, 0.0);
 	xm2A.assign(maxNumChannels, 0.0);

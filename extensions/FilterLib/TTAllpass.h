@@ -71,7 +71,7 @@ class TTAllpass : TTAudioObject {
 	 *	feedback has become corrupted (such as might happen if a NaN is fed in) then it may be 
 	 *	neccesary to clear the filter by calling this method.
 	 *	@return Returns a TTErr error code.												*/
-	TTErr clear();
+	TTErr Clear();
 	
 
 	TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr data);

@@ -11,6 +11,7 @@ SRC = ttclip~.cpp
 
 INCLUDES = -I../../../library/includes
 INCLUDES += -I../../../../Foundation/library/includes
+INCLUDES += -I../
 
 
 #########################################

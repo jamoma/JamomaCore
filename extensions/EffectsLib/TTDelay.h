@@ -56,7 +56,7 @@ class TTDelay : public TTAudioObject {
 //	TTErr processAudioCubicInterpolationWithDelaySignal(TTAudioSignal& in, TTAudioSignal& delayIn, TTAudioSignal& out, TTAudioSignal&);
 	
 	/** Zero out the delay's buffer. */
-	TTErr clear();
+	TTErr Clear();
 	
 	/** Attribute Accessor */
 	TTErr setDelay(const TTValue& newValue);

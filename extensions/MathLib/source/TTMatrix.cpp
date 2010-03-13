@@ -23,11 +23,11 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(NumInputs, kTypeUInt16);
 	addAttributeWithSetter(NumOutputs, kTypeUInt16);
 	
-	addMessageWithArgument(setGain);
-	addMessageWithArgument(setLinearGain);
-	addMessageWithArgument(setMidiGain);
+	addMessageWithArgument(SetGain);
+	addMessageWithArgument(SetLinearGain);
+	addMessageWithArgument(SetMidiGain);
 	//registerMessageWithArgument(updateMaxNumChannels);
-	addMessage(clear);	
+	addMessage(Clear);	
 
 	setProcessMethod(processAudio);
 }
@@ -69,7 +69,7 @@ TTErr TTMatrix::setNumOutputs(const TTValue& newValue)
 }
 
 
-TTErr TTMatrix::clear()
+TTErr TTMatrix::Clear()
 {
 	for (TTSampleMatrixIter column = mGainMatrix.begin(); column != mGainMatrix.end(); column++)
 		column->assign(mNumOutputs, 0.0);
@@ -77,7 +77,7 @@ TTErr TTMatrix::clear()
 }
 
 
-TTErr TTMatrix::setGain(const TTValue& newValue)
+TTErr TTMatrix::SetGain(const TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -97,7 +97,7 @@ TTErr TTMatrix::setGain(const TTValue& newValue)
 }
 
 
-TTErr TTMatrix::setLinearGain(const TTValue& newValue)
+TTErr TTMatrix::SetLinearGain(const TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -117,7 +117,7 @@ TTErr TTMatrix::setLinearGain(const TTValue& newValue)
 }
 
 
-TTErr TTMatrix::setMidiGain(const TTValue& newValue)
+TTErr TTMatrix::SetMidiGain(const TTValue& newValue)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -163,7 +163,7 @@ TTErr TTMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 		numOutputChannels = mNumOutputs;
 	}
 	
-	out.clear();
+	out.Clear();
 	
 	// TODO: this multiply-nested for-loop has got to be horrendously slow, there should be a much faster way to do this?
 	for (int i=0; i<vs; i++) {

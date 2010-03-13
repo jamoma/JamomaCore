@@ -26,8 +26,8 @@ TT_AUDIO_CONSTRUCTOR
 	registerAttributeWithSetterAndGetter(preamp,	kTypeFloat64);
 	
 	// Register Messages
-	registerMessageSimple(clear);
-	registerMessageWithArgument(updateMaxNumChannels);
+	addMessage(Clear);
+	addMessageWithArgument(updateMaxNumChannels);
 	
 	// Additional Initialization
 	TTObjectInstantiate(kTTSym_dcblock, &dcBlockerUnit, initialMaxNumChannels);
@@ -109,9 +109,9 @@ TTErr TTOverdrive::setpreamp(const TTValue& newValue)
 }
 
 
-TTErr TTOverdrive::clear()
+TTErr TTOverdrive::Clear()
 {
-	return dcBlockerUnit->sendMessage(TT("clear"));
+	return dcBlockerUnit->sendMessage(TT("Clear"));
 }
 
 

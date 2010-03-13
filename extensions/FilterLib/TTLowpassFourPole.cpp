@@ -25,7 +25,7 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeProperty(Resonance,			rangeChecking,	TT("cliplow"));
 
 	// register methods
-	addMessage(clear);
+	addMessage(Clear);
 
 	// register for notifications
 	addMessageWithArgument(updateMaxNumChannels);
@@ -57,7 +57,7 @@ TTErr TTLowpassFourPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	mY2.resize(maxNumChannels);
 	mY3.resize(maxNumChannels);
 	mY4.resize(maxNumChannels);
-	clear();
+	Clear();
 	return kTTErrNone;
 }
 
@@ -69,7 +69,7 @@ TTErr TTLowpassFourPole::updateSr()
 }
 
 
-TTErr TTLowpassFourPole::clear()
+TTErr TTLowpassFourPole::Clear()
 {
 	mX1.assign(maxNumChannels, 0.0);
 	mX2.assign(maxNumChannels, 0.0);

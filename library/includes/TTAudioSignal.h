@@ -135,7 +135,7 @@ public:
 	
 	/**	Zero out all of the sample values in the audio signal.
 		@return An error code.	*/
-	TTErr clear();
+	TTErr Clear();
 	
 	
 	/**	Copy the audio from one signal into another.	*/

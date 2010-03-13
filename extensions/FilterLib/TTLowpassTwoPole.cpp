@@ -23,7 +23,7 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithSetter(Resonance,	kTypeFloat64);
 
 	// register methods
-	addMessage(clear);
+	addMessage(Clear);
 
 	// register for notifications
 	addMessageWithArgument(updateMaxNumChannels);
@@ -49,7 +49,7 @@ TTErr TTLowpassTwoPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	mFeedback1.resize(maxNumChannels);
 	mFeedback2.resize(maxNumChannels);
-	clear();
+	Clear();
 	return kTTErrNone;
 }
 
@@ -61,7 +61,7 @@ TTErr TTLowpassTwoPole::updateSr()
 }
 
 
-TTErr TTLowpassTwoPole::clear()
+TTErr TTLowpassTwoPole::Clear()
 {   
 	mFeedback1.assign(maxNumChannels, 0.0);
 	mFeedback2.assign(maxNumChannels, 0.0);

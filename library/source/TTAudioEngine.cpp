@@ -49,12 +49,12 @@ TT_OBJECT_CONSTRUCTOR,
 	addAttributeWithSetter(InputDevice,		kTypeSymbol);
 	addAttributeWithSetter(OutputDevice,	kTypeSymbol);
 	
-	addMessage(start);
-	addMessage(stop);
-	addMessageWithArgument(getCpuLoad);
+	addMessage(Start);
+	addMessage(Stop);
+	addMessageWithArgument(GetCpuLoad);
 
-	addMessageWithArgument(getAvailableInputDeviceNames);
-	addMessageWithArgument(getAvailableOutputDeviceNames);
+	addMessageWithArgument(GetAvailableInputDeviceNames);
+	addMessageWithArgument(GetAvailableOutputDeviceNames);
 	
 	addMessageWithArgument(addCallbackObserver);
 	addMessageWithArgument(removeCallbackObserver);
@@ -71,7 +71,7 @@ TTAudioEngine::~TTAudioEngine()
 
 	if (mStream) {
 		if (mIsRunning)
-			stop();
+			Stop();
 				
 		err = Pa_CloseStream(mStream);
 		if (err != paNoError)
@@ -89,7 +89,7 @@ TTErr TTAudioEngine::initStream()
 	TTBoolean	shouldRun = mIsRunning;
 		
 	if (mIsRunning)
-		stop();
+		Stop();
 		
 	if (mStream) {
 		Pa_CloseStream(mStream);
@@ -150,13 +150,13 @@ TTErr TTAudioEngine::initStream()
 	mOutputBuffer->alloc();
 	
 	if (shouldRun)
-		start();
+		Start();
 	
 	return (TTErr)err;
 }
 
 
-TTErr TTAudioEngine::start()
+TTErr TTAudioEngine::Start()
 {
 	PaError err = paNoError;
 	
@@ -174,7 +174,7 @@ TTErr TTAudioEngine::start()
 }
 
 
-TTErr TTAudioEngine::stop()
+TTErr TTAudioEngine::Stop()
 {
 	PaError err = paNoError;
 	
@@ -188,7 +188,7 @@ TTErr TTAudioEngine::stop()
 }
 
 
-TTErr TTAudioEngine::getCpuLoad(TTValue& returnedValue)
+TTErr TTAudioEngine::GetCpuLoad(TTValue& returnedValue)
 {
 	TTFloat64 cpuLoad = Pa_GetStreamCpuLoad(mStream);
 	
@@ -197,7 +197,7 @@ TTErr TTAudioEngine::getCpuLoad(TTValue& returnedValue)
 }
 
 
-TTErr TTAudioEngine::getAvailableInputDeviceNames(TTValue& returnedDeviceNames)
+TTErr TTAudioEngine::GetAvailableInputDeviceNames(TTValue& returnedDeviceNames)
 {
 	const PaDeviceInfo*	deviceInfo;
     int					numDevices;
@@ -219,7 +219,7 @@ TTErr TTAudioEngine::getAvailableInputDeviceNames(TTValue& returnedDeviceNames)
 }
 
 
-TTErr TTAudioEngine::getAvailableOutputDeviceNames(TTValue& returnedDeviceNames)
+TTErr TTAudioEngine::GetAvailableOutputDeviceNames(TTValue& returnedDeviceNames)
 {
 	const PaDeviceInfo*	deviceInfo;
     int					numDevices;
@@ -345,8 +345,8 @@ TTInt32 TTAudioEngine::callback(const TTFloat32*		input,
 						const PaStreamCallbackTimeInfo*	timeInfo, 
 						PaStreamCallbackFlags			statusFlags)
 {
-	mInputBuffer->clear();
-	mOutputBuffer->clear();
+	mInputBuffer->Clear();
+	mOutputBuffer->Clear();
 
 	// right now we copy all of the channels, regardless of whether or not they are actually being used
 	// TODO: only copy the channels that actually contain new audio samples

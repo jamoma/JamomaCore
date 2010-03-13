@@ -25,7 +25,7 @@ TT_AUDIO_CONSTRUCTOR
 	// register for notifications from the parent class so we can recalculate coefficients as required
 	addMessage(updateSr);
 	// make the clear method available to the outside world
-	addMessage(clear);
+	addMessage(Clear);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	arguments);			// This attribute is inherited
@@ -45,7 +45,7 @@ TTLowpassOnePole::~TTLowpassOnePole()
 TTErr TTLowpassOnePole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	mFeedback.resize(maxNumChannels);
-	clear();
+	Clear();
 	return kTTErrNone;
 }
 
@@ -57,7 +57,7 @@ TTErr TTLowpassOnePole::updateSr()
 }
 
 
-TTErr TTLowpassOnePole::clear()
+TTErr TTLowpassOnePole::Clear()
 {
 	mFeedback.assign(maxNumChannels, 0.0);
 	return kTTErrNone;

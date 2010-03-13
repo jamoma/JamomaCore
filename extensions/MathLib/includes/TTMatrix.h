@@ -20,15 +20,17 @@ class TTMatrix : TTAudioObject {
 	TTUInt16		mNumOutputs;
 	TTSampleMatrix	mGainMatrix;
 
+	// Attributes
 	TTErr setNumInputs(const TTValue& newValue);
 	TTErr setNumOutputs(const TTValue& newValue);
 	
-	TTErr clear();
+	// Messages
+	TTErr Clear();
+	TTErr SetGain(const TTValue& newValue);
+	TTErr SetLinearGain(const TTValue& newValue);
+	TTErr SetMidiGain(const TTValue& newValue);	
 	
-	TTErr setGain(const TTValue& newValue);
-	TTErr setLinearGain(const TTValue& newValue);
-	TTErr setMidiGain(const TTValue& newValue);	
-	
+	// Audio
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	
 };
 

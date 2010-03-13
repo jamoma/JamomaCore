@@ -57,13 +57,13 @@ public:
 	
 	TTErr initStream();
 	
-	TTErr start();
-	TTErr stop();
+	TTErr Start();
+	TTErr Stop();
 	
-	TTErr getCpuLoad(TTValue& returnedValue);
+	TTErr GetCpuLoad(TTValue& returnedValue);
 	
-	TTErr getAvailableInputDeviceNames(TTValue& returnedDeviceNames);
-	TTErr getAvailableOutputDeviceNames(TTValue& returnedDeviceNames);
+	TTErr GetAvailableInputDeviceNames(TTValue& returnedDeviceNames);
+	TTErr GetAvailableOutputDeviceNames(TTValue& returnedDeviceNames);
 	TTAudioSignalPtr TTAudioEngineGetInputSignalReference();
 	TTAudioSignalPtr TTAudioEngineGetOutputSignalReference();
 
