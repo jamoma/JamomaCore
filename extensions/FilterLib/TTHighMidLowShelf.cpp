@@ -42,7 +42,7 @@ TT_AUDIO_CONSTRUCTOR
 	addMessage(Clear);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),		arguments);			// This attribute is inherited
+	setAttributeValue(TT("MaxNumChannels"),		arguments);			// This attribute is inherited
 	setAttributeValue(TT("FrequencyMh"),		3000.0);
 	setAttributeValue(TT("FrequencyLm"),		300.0);
 	setAttributeValue(TT("GainL"),				1.0);

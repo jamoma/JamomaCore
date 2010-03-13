@@ -39,7 +39,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessageWithArgument(updateMaxNumChannels);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
+	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
 	setAttributeValue(TT("DelayMaxInSamples"), 256);
 	setAttributeValue(TT("DelayInSamples"), 100);
 	setAttributeValue(TT("Interpolation"), TT("cubic"));

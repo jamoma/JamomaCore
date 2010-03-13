@@ -35,7 +35,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessage(updateSr);
 	addMessageWithArgument(updateMaxNumChannels);
 
-	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
+	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
 	setAttributeValue(TT("LinearGain"), 1.0);
 	setAttributeValue(TT("Delay"), 0.0);
 	setProcessMethod(processAudio);

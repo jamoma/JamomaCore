@@ -88,8 +88,8 @@ TTErr TTLimiter::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 	Clear();
 	
-	dcBlocker->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
-	preamp->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
+	dcBlocker->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
+	preamp->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
 	
 	return kTTErrNone;
 }
@@ -189,7 +189,7 @@ TTErr TTLimiter::Clear()
 	last = 1.0;
 	setRecover();
 
-	dcBlocker->sendMessage(TT("clear"));
+	dcBlocker->sendMessage(TT("Clear"));
 	return kTTErrNone;
 }
 

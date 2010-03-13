@@ -22,7 +22,7 @@ TT_AUDIO_CONSTRUCTOR
 	addMessageWithArgument(updateMaxNumChannels);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	arguments);
+	setAttributeValue(TT("MaxNumChannels"),	arguments);
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);
 

@@ -28,7 +28,7 @@ TT_AUDIO_CONSTRUCTOR
 	addMessageWithArgument(updateMaxNumChannels);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
+	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
 	setAttributeValue(TT("Bitdepth"),		24);
 	setAttributeValue(TT("SrRatio"),		1.0);
 	setProcessMethod(processAudio);

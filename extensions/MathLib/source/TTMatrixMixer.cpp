@@ -29,7 +29,7 @@ TT_AUDIO_CONSTRUCTOR,
 	//registerMessageWithArgument(updateMaxNumChannels);
 	addMessage(Clear);
 
-	//setAttributeValue(kTTSym_maxNumChannels, newMaxNumChannels);
+	//setAttributeValue(TT("MaxNumChannels"), newMaxNumChannels);
 	setProcessMethod(processAudio);
 }
 

@@ -33,7 +33,7 @@ TT_AUDIO_CONSTRUCTOR
 	TTObjectInstantiate(kTTSym_dcblock, &dcBlockerUnit, initialMaxNumChannels);
 
 	// Set Defaults
-	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
+	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
 	setAttributeValue(TT("mode"), 1);
 	setAttributeValue(TT("preamp"), 0.0);
 	setAttributeValue(TT("drive"), 3.0);
@@ -49,7 +49,7 @@ TTOverdrive::~TTOverdrive()
 
 TTErr TTOverdrive::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {	
-	return dcBlockerUnit->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
+	return dcBlockerUnit->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
 }
 
 
