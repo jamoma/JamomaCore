@@ -381,6 +381,9 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMultico
 			CLASS_ATTR_STYLE(wrappedMaxClass->maxClass, (char*)name->getCString(), 0, "onoff");
 		if (name == TT("fontFace"))
 			CLASS_ATTR_STYLE(wrappedMaxClass->maxClass,	"fontFace", 0, "font");
+		
+		delete nameCString;
+		nameCString = NULL;
 	}
 	
 	TTObjectRelease(&o);
