@@ -50,8 +50,8 @@ class TTMulticoreSplit : public TTAudioObject {
 			TTUInt16		numChannels = mSplitChannels[i];
 			
 			// TODO: we don't really want to alloc this memory every time!
-			out.setmaxNumChannels(numChannels);
-			out.setnumChannels(numChannels);
+			out.setMaxNumChannels(numChannels);
+			out.setNumChannels(numChannels);
 			TTAudioSignal::copySubset(in, out, channelOffset, channelOffset+numChannels-1);
 			channelOffset += numChannels;
 		}
@@ -65,7 +65,7 @@ TT_AUDIO_CONSTRUCTOR_EXPORT
 {
 	addAttributeWithGetterAndSetter(Groups, kTypeUInt16);
 
-	setAttributeValue(TT("maxNumChannels"), arguments);		
+	setAttributeValue(TT("MaxNumChannels"), arguments);		
 	setProcessMethod(processAudio);
 }
 

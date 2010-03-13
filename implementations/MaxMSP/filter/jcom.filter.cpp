@@ -58,8 +58,8 @@ public:
 			err = mActualFilterObject->setAttributeValue(TT("Q"), mQ);
 			if (err == kTTErrInvalidAttribute)
 				err = mActualFilterObject->setAttributeValue(TT("Resonance"), mQ);
-			mActualFilterObject->setAttributeValue(TT("bypass"), this->attrBypass);
-			mActualFilterObject->setAttributeValue(TT("sr"), sr);
+			mActualFilterObject->setAttributeValue(TT("Bypass"), this->attrBypass);
+			mActualFilterObject->setAttributeValue(TT("SampleRate"), sr);
 		}
 		return err;
 	}
@@ -73,14 +73,14 @@ public:
 	
 	TTErr clear()
 	{
-		return mActualFilterObject->sendMessage(TT("clear"));
+		return mActualFilterObject->sendMessage(TT("Clear"));
 	}
 	
 	
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	{
 		if (mActualFilterObject)
-			return mActualFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+			return mActualFilterObject->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
 		else
 			return kTTErrNone;
 	}
@@ -88,7 +88,7 @@ public:
 	
 	TTErr updateSr()
 	{
-		return mActualFilterObject->setAttributeValue(kTTSym_sr, sr);
+		return mActualFilterObject->setAttributeValue(kTTSym_SampleRate, sr);
 	}
 
 	
@@ -116,7 +116,7 @@ TT_AUDIO_CONSTRUCTOR_EXPORT,
 	addMessageWithArgument(updateMaxNumChannels);
 	addMessage(updateSr);
 	
-	setAttributeValue(TT("maxNumChannels"), arguments);
+	setAttributeValue(TT("MaxNumChannels"), arguments);
 	setAttributeValue(TT("Type"), TT("lowpass.1"));
 	setAttributeValue(TT("Frequency"), 1000.0);
 	setAttributeValue(TT("Q"), 1.0);

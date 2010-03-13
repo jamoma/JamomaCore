@@ -124,7 +124,7 @@ void DCBlockerAssist(DCBlockerPtr self, void* b, long msg, long arg, char* dst)
 
 void DCBlockerClear(DCBlockerPtr self)
 {
-	self->multicoreObject->getUnitGenerator()->sendMessage(TT("clear"));
+	self->multicoreObject->getUnitGenerator()->sendMessage(TT("Clear"));
 }
 
 
@@ -159,7 +159,7 @@ MaxErr DCBlockerSetBypass(DCBlockerPtr self, void* attr, AtomCount argc, AtomPtr
 {
 	if (argc) {
 		self->attrBypass = atom_getlong(argv);
-		self->multicoreObject->getUnitGenerator()->setAttributeValue(kTTSym_bypass, (TTBoolean)self->attrBypass);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Bypass"), (TTBoolean)self->attrBypass);
 	}
 	return MAX_ERR_NONE;
 }

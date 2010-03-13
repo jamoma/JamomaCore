@@ -177,7 +177,7 @@ MaxErr OpSetOperator(OpPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrOperator = atom_getsym(argv);
-		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("operator"), TT(self->attrOperator->s_name));
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Operator"), TT(self->attrOperator->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -187,7 +187,7 @@ MaxErr OpSetOperand(OpPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrOperand = atom_getfloat(argv);
-		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("operand"), self->attrOperand);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Operand"), self->attrOperand);
 	}
 	return MAX_ERR_NONE;
 }

@@ -56,13 +56,13 @@ public:
 
 	TTUInt16 getNumOutputChannels()
 	{
-		return mBufferedOutput->getNumChannels();
+		return mBufferedOutput->getNumChannelsAsInt();
 	}
 	
 	
 	TTUInt16 getOutputVectorSize()
 	{
-		return mBufferedOutput->getVectorSize();
+		return mBufferedOutput->getVectorSizeAsInt();
 	}
 
 	

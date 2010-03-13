@@ -81,7 +81,7 @@ InPtr InNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		if (attrstart && argv)
 			self->maxNumChannels = atom_getlong(argv);
 		
-		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
+		ttEnvironment->setAttributeValue(kTTSym_SampleRate, sr);
 
 		v.setSize(3);
 		v.set(0, TT("multicore.generator"));
@@ -188,7 +188,7 @@ void InDsp(InPtr self, t_signal** sp, short* count)
 	
 	self->multicoreObject->setOutputNumChannels(0, highestIndexForConnectedSignal+1);
 	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("VectorSize"), self->vectorSize);
-	self->multicoreObject->getUnitGenerator()->setAttributeValue(kTTSym_maxNumChannels, self->maxNumChannels);
+	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("MaxNumChannels"), self->maxNumChannels);
 	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	
 	dsp_addv(InPerform, k, audioVectors);

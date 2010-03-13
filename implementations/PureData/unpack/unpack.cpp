@@ -77,7 +77,7 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		if(argc && argv)
 			self->maxNumChannels = atom_getfloat(argv)+0.1;
 
-		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
+		ttEnvironment->setAttributeValue(kTTSym_SampleRate, sr);
 		
 		v.setSize(2);
 		v.set(0, TT("gain"));
@@ -216,7 +216,7 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 		k++;
 	}
 	
-	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
 	
 	dsp_addv(OutPerform, k, (t_int*)audioVectors);
 	free(audioVectors);

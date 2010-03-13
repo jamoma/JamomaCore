@@ -12,6 +12,6 @@
 int main(void)
 {
 	TTMulticoreInit();
-	return wrapAsMaxMulticore(TT("overdrive"), "jcom.overdrive≈", NULL);
+	return wrapAsMaxMulticore(TT("Overdrive"), "jcom.overdrive≈", NULL);
 }
 

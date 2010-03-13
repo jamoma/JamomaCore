@@ -124,13 +124,13 @@ TTErr OpConnect(OpPtr self, TTMulticoreObjectPtr audioSourceObject, TTPtrSizedIn
 void OpSetOperator(OpPtr self, SymbolPtr value)
 {
 	self->attrOperator = value;
-	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("operator"), TT(self->attrOperator->s_name));
+	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Operator"), TT(self->attrOperator->s_name));
 }
 
 
 void OpSetOperand(OpPtr self, t_floatarg value)
 {
 	self->attrOperand = value;
-	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("operand"), self->attrOperand);
+	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Operand"), self->attrOperand);
 }
 

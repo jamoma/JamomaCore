@@ -29,19 +29,19 @@ class TTMulticoreJoin : public TTAudioObject {
 		// 1. figure out our total number of channels
 		for (TTUInt16 i=0; i<numSignals; i++) {
 			TTAudioSignal&	in = inputs->getSignal(i);
-			numAccumulatedChannels += in.getNumChannels(); 
+			numAccumulatedChannels += in.getNumChannelsAsInt(); 
 		}
 		
 		// 2. setup our output buffer for the correct number of channels
-		out.setAttributeValue(kTTSym_maxNumChannels, numAccumulatedChannels); 
-		out.setAttributeValue(kTTSym_numChannels, numAccumulatedChannels);
+		out.setAttributeValue(TT("maxNumChannels"), numAccumulatedChannels); 
+		out.setAttributeValue(TT("numChannels"), numAccumulatedChannels);
 		
 		// 3. copy the data to the output buffer
 		numAccumulatedChannels = 0;
 		for (TTUInt16 i=0; i<numSignals; i++) {
 			TTAudioSignal&	in = inputs->getSignal(i);
 			TTAudioSignal::copyDirty(in, out, numAccumulatedChannels);
-			numAccumulatedChannels += in.getNumChannels();
+			numAccumulatedChannels += in.getNumChannelsAsInt();
 		}
 		return kTTErrNone;
 	}

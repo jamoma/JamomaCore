@@ -24,7 +24,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessageWithArgument(updateSr);
 
 	setAttributeValue(TT("VectorSize"), 64);
-	setAttributeValue(kTTSym_maxNumChannels, 1);
+	setAttributeValue(TT("MaxNumChannels"), 1);
 	setProcessMethod(processAudio);
 }
 
@@ -38,14 +38,14 @@ TTMulticoreGenerator::~TTMulticoreGenerator()
 TTErr TTMulticoreGenerator::setVectorSize(const TTValue& newVectorSize)
 {
 	mVectorSize = newVectorSize;
-	return mBuffer->setAttributeValue(TT("vectorSize"), mVectorSize);
+	return mBuffer->setAttributeValue(TT("VectorSize"), mVectorSize);
 }
 
 
 TTErr TTMulticoreGenerator::updateMaxNumChannels(const TTValue&)
 {
-	mBuffer->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	mBuffer->setAttributeValue(kTTSym_numChannels, maxNumChannels);
+	mBuffer->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
+	mBuffer->setAttributeValue(TT("NumChannels"), maxNumChannels);
 	return mBuffer->sendMessage(TT("alloc"));
 }
 

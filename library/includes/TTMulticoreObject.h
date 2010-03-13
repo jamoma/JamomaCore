@@ -55,7 +55,7 @@ public:
 	TTUInt16 getOutputNumChannels(TTUInt16 forOutletNumber)
 	{
 		if (forOutletNumber < mAudioOutlets.size())
-			return mAudioOutlets[forOutletNumber].mBufferedOutput->getNumChannels();
+			return mAudioOutlets[forOutletNumber].mBufferedOutput->getNumChannelsAsInt();
 		else
 			return 0;
 	}
@@ -68,8 +68,8 @@ public:
 			TTValue	v(numChannels);
 			
 			// TODO: should not update MaxNumChannels unless we are growing it larger...
-			mAudioOutlets[forOutletNumber].mBufferedOutput->setmaxNumChannels(v);
-			mAudioOutlets[forOutletNumber].mBufferedOutput->setnumChannels(v);
+			mAudioOutlets[forOutletNumber].mBufferedOutput->setMaxNumChannels(v);
+			mAudioOutlets[forOutletNumber].mBufferedOutput->setNumChannels(v);
 		}
 		sSharedMutex->unlock();
 	}
@@ -78,7 +78,7 @@ public:
 	TTUInt16 getOutputVectorSize(TTUInt16 forOutletNumber)
 	{
 		if (forOutletNumber < mAudioOutlets.size())
-			return mAudioOutlets[forOutletNumber].mBufferedOutput->getVectorSize();
+			return mAudioOutlets[forOutletNumber].mBufferedOutput->getVectorSizeAsInt();
 		else
 			return 0;
 	}

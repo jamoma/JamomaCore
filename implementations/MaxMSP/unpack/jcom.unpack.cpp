@@ -99,7 +99,7 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		if(attrstart && argv)
 			self->maxNumChannels = atom_getlong(argv);
 
-		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
+		ttEnvironment->setAttributeValue(kTTSym_SampleRate, sr);
 		
 		v.setSize(2);
 		v.set(0, TT("gain"));
@@ -283,7 +283,7 @@ t_int* OutPerform(t_int* w)
 			self->multicoreObject->process(self->audioSignal);
 			self->multicoreObject->unlockProcessing();
 			
-			numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannels());			
+			numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannelsAsInt());			
 			for(TTUInt16 channel=0; channel<numChannels; channel++)
 				self->audioSignal->getVector(channel, self->vectorSize, (TTFloat32*)w[channel+2]);
 		}
@@ -378,7 +378,7 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 		k++;
 	}
 	
-	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
 	
 	dsp_addv(OutPerform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
