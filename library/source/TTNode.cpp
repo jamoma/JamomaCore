@@ -45,11 +45,6 @@ TTNode::~TTNode()
 	// get the address of the TTNode in the directory 
 	this->getOscAddress(&OSCaddress);
 	
-	// notify his observers that it will be destroyed
-	data.append(OSCaddress);
-	data.append(TTUInt8(0));		// TODO : create some flag type to notify node observers (0 : destruction, ... ???)
-	this->sendMessage(TT("notify"), data);
-
 	// it is not a child of his parent anymore
 	err = this->parent->children->lookup(this->name, p_c);
 
@@ -359,8 +354,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTList& ret
 							c_i.get(0,(TTPtr*)&n_c);
 							returnedChildren.append(new TTValue((TTPtr)n_c));
 						}
-						else
-							return err;
+						// don't stop because there are maybe other names
 					}
 				}
 			}
@@ -569,25 +563,3 @@ TTErr	TTNode::generateInstance(TTSymbolPtr childName, TTSymbolPtr *newInstance)
 		return kTTErrNone;
 	}
 }
-
-
-/* TODO: not sure why we need this can't just use the built-in routine? --tap
-TTErr TTNode::notifyObservers(TTValue& data)
-{
-	TTCallbackPtr	anObserver = NULL;
-	TTValue			v;
-
-	if (!observers->isEmpty()) {
-		for (this->observers->begin(); this->observers->end(); this->observers->next()) {
-			v = observers->current();
-			v.get(0, TTObjectHandle(&anObserver));
-			TT_ASSERT("TTNode observer list member is not NULL", anObserver);
-			anObserver->notify(data);
-		}
-		return kTTErrNone;
-	}
-	else
-		return kTTErrGeneric;
-}
- */
-
