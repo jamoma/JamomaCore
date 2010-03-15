@@ -224,6 +224,7 @@ void receive_get(t_receive *x)
 	TTString	fullAddress;
 	long		argc;
 	t_atom		*argv;
+	JamomaError err;
 	
 	if(!x->lk_nodes->isEmpty()){
 		
@@ -234,18 +235,22 @@ void receive_get(t_receive *x)
 			x->lk_nodes->current().get(0,(TTPtr*)&p_node);
 			
 			// get the value of the node
-			jamoma_node_attribute_get(p_node, x->_attribute, &argc, &argv);
+			err = jamoma_node_attribute_get(p_node, x->_attribute, &argc, &argv);
 			
-			// output the OSCAddress of the node (in case we use * inside the x->attrname)
-			fullAddress = jamoma_node_OSC_address(p_node)->s_name;
-			if(x->_attribute != jps_value){
-				fullAddress += C_PROPERTY;
-				fullAddress += x->_attribute->s_name;
+			if(!err){
+				// output the OSCAddress of the node (in case we use * inside the x->attrname)
+				fullAddress = jamoma_node_OSC_address(p_node)->s_name;
+				if(x->_attribute != jps_value){
+					fullAddress += C_PROPERTY;
+					fullAddress += x->_attribute->s_name;
+				}
+				outlet_anything(x->address_out, gensym((char*)fullAddress.data()), 0, NULL);
+				
+				// then output data as a list
+				outlet_list(x->data_out, 0L, argc, argv);
 			}
-			outlet_anything(x->address_out, gensym((char*)fullAddress.data()), 0, NULL);
-			
-			// then output data as a list
-			outlet_list(x->data_out, 0L, argc, argv);
+			else
+				object_error((t_object*)x,"%s doesn't exist", x->attr_name->s_name);
 			
 			// free memory allocated inside the get property method
 			sysmem_freeptr(argv);
