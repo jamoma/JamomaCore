@@ -129,7 +129,7 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		TTObjectInstantiate(kTTSym_audiosignal, &x->zeroSignal, x->numOutputs);
 		
 		TTObjectInstantiate(TT("crossfade"), &x->xfade, x->numOutputs);
-		x->xfade->setAttributeValue(TT("position"), 1.0);
+		x->xfade->setAttributeValue(TT("Position"), 1.0);
 		TTObjectInstantiate(TT("gain"), &x->gain, x->numOutputs);
 		//TTObjectInstantiate(TT("limiter"), &x->gain, x->numOutputs);
 		TTObjectInstantiate(TT("ramp"), &x->ramp_gain, x->numOutputs);
@@ -250,16 +250,16 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 			x->attr_bypass = atom_getlong(argv+1);
 #ifdef JCOM_OUT_TILDE
 			if(x->attr_bypass == 0)
-				x->xfade->setAttributeValue(TT("position"), x->attr_mix * 0.01);
+				x->xfade->setAttributeValue(TT("Position"), x->attr_mix * 0.01);
 			else
-				x->xfade->setAttributeValue(TT("position"), 0.0);
+				x->xfade->setAttributeValue(TT("Position"), 0.0);
 #endif
 		}
 		else if((argv->a_w.w_sym == jps_audio_mix) || (argv->a_w.w_sym == jps_slash_audio_mix) || (argv->a_w.w_sym == gensym("mix")) || (argv->a_w.w_sym == gensym("/mix"))){
 			x->attr_mix = atom_getfloat(argv+1);
 #ifdef JCOM_OUT_TILDE
 			if(x->attr_bypass == 0)
-				x->xfade->setAttributeValue(TT("position"), x->attr_mix * 0.01);		
+				x->xfade->setAttributeValue(TT("Position"), x->attr_mix * 0.01);		
 #endif
 		}
 		else if((argv->a_w.w_sym == jps_audio_meters_freeze) || (argv->a_w.w_sym == jps_slash_audio_meters_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze"))){
@@ -452,8 +452,8 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 	TTUInt16	vs = sp[0]->s_n;
 	int			sr = sp[0]->s_sr;
 
-	x->ramp_gain->setAttributeValue(TT("sr"), sr);	// convert midi to db for tap_gain
-	x->ramp_xfade->setAttributeValue(TT("sr"), sr);	// convert midi to db for tap_gain
+	x->ramp_gain->setAttributeValue(TT("SampleRate"), sr);	// convert midi to db for tap_gain
+	x->ramp_xfade->setAttributeValue(TT("SampleRate"), sr);	// convert midi to db for tap_gain
 
 	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->numOutputs * 2) + 1));
 	audioVectors[k] = x;
@@ -474,22 +474,22 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 	}
 	
 	x->numChannels = numChannels;
-	x->audioIn->setAttributeValue(TT("numChannels"), numChannels);
-	x->audioOut->setAttributeValue(TT("numChannels"), numChannels);
-	x->audioTemp->setAttributeValue(TT("numChannels"), numChannels);
-	x->zeroSignal->setAttributeValue(TT("numChannels"), numChannels);
+	x->audioIn->setAttributeValue(TT("NumChannels"), numChannels);
+	x->audioOut->setAttributeValue(TT("NumChannels"), numChannels);
+	x->audioTemp->setAttributeValue(TT("NumChannels"), numChannels);
+	x->zeroSignal->setAttributeValue(TT("NumChannels"), numChannels);
 	
 	x->vectorSize = vs;
-	x->audioIn->setAttributeValue(TT("vectorSize"), vs);
-	x->audioOut->setAttributeValue(TT("vectorSize"), vs);
-	x->audioTemp->setAttributeValue(TT("vectorSize"), vs);
-	x->zeroSignal->setAttributeValue(TT("vectorSize"), vs);
+	x->audioIn->setAttributeValue(TT("VectorSize"), vs);
+	x->audioOut->setAttributeValue(TT("VectorSize"), vs);
+	x->audioTemp->setAttributeValue(TT("VectorSize"), vs);
+	x->zeroSignal->setAttributeValue(TT("VectorSize"), vs);
 	
 	//audioIn will be set in the perform method
 	x->audioOut->sendMessage(TT("alloc"));
 	x->audioTemp->sendMessage(TT("alloc"));
 	x->zeroSignal->sendMessage(TT("alloc"));
-	x->zeroSignal->sendMessage(TT("clear"));
+	x->zeroSignal->sendMessage(TT("Clear"));
 		
 	dsp_addv(out_perform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
