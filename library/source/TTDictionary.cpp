@@ -16,7 +16,7 @@
 
 TTDictionary::TTDictionary()
 {
-//	if(!sListMutex)
+//	if (!sListMutex)
 //		sListMutex = new TTMutex(false);
 //	hashMap = new TTHashMap;
 	mHashTable = new TTHash;

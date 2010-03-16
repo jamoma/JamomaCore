@@ -101,7 +101,7 @@ public:
 	virtual ~TTObject();
 	
 	/**	Query an object to get its current reference count.	*/
-	TTUInt16 getReferenceCount(){return referenceCount;}
+	TTUInt16 getReferenceCount() {return referenceCount;}
 	
 	/**
 		The theory on attributes is that the subclass calls registerAttribute()

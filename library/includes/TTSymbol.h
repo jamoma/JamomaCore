@@ -70,7 +70,7 @@ public:
 	/** Compare two symbols for equality. */
 	inline friend bool operator == (const TTSymbol& symbol1, const TTSymbol& symbol2)
 	{
-		if(symbol1.id == symbol2.id)
+		if (symbol1.id == symbol2.id)
 			return true;
 		else
 			return false;

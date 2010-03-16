@@ -15,8 +15,8 @@
 TTDataObject::TTDataObject(TTValue& arguments)
 	: TTObject(arguments)
 {
-	registerAttribute(TT("sr"),	kTypeUInt32, &sr, (TTSetterMethod)&TTDataObject::setSr);
-	setAttributeValue(TT("sr"),	ttEnvironment->sr);
+	registerAttribute(kTTSym_SampleRate, kTypeUInt32, &sr, (TTSetterMethod)&TTDataObject::setSr);
+	setAttributeValue(kTTSym_SampleRate, ttEnvironment->mSampleRate);
 }
 
 
