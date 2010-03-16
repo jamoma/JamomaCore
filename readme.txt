@@ -1,62 +1,95 @@
 This project is the master project for the Jamoma platform.
 
 It is intended to contain sub-projects representing the various modules of the Jamoma platform.
-- Foundation
-- Graphics
-- DSP
-- Multicore
-- Modular
 
-
---------------------------------------------------
+- Dependencies- DSP- Foundation- Graph- Graphics- Modular- Multicore- Publications- Ruby- Test- TheGitter
 
 The Tools folder contains scripts which perform various essential tasks for the development of Jamoma.
 
+These tools assume you have Git (http://redmine.jamoma.org/wiki/jamoma/Installing_and_setting_up_GIT) and Ruby (http://ruby.about.com/od/tutorials/a/installruby.htm) already installed and running on your computer.
 
+--------------------------------------------------
+UPDATE MODULES
+--------------------------------------------------
+All sources needed to build Jamoma can be updated to last version following these steps:
+
+1) From Terminal or the cygwin window, go to "Tools" folder in the main Jamoma directory by running the following command :
+
+'cd Jamoma/Tools'
+
+2) Run the Ruby update.rb script using the following command:
+
+'ruby update.rb'
+
+3) Wait until it is done…
+
+4) When the update process is finished, you have the latest version Jamoma repository
+--------------------------------------------------
+
+
+--------------------------------------------------
 BUILDING THE SOURCE CODE
-This "build.rb" script in the Tools folder builds all of the C/C++ code required for Jamoma's Framework and Externals.
+--------------------------------------------------
+Jamoma framework can be easily compiled using a single Ruby script. To do so, please follow these steps:
 
-To use the script:
-./build.rb <required:configuration> <optional:clean>
+1) From Terminal or the cygwin window, go to "Tools" folder in the main Jamoma directory by running the following command :
 
-(close Max before doing that!)
+'cd Jamoma/Tools'
 
-If you want a nice, clean release version, try this: 
-	./build.rb Deployment clean (or Release clean)
+2) Run the Ruby "build.rb" script running the following command:
 
-or a developer release (without cleaning), try this: 
-	./build.rb Development (or Debug)
+'ruby build.rb Deployment clean'
 
-If you get an error such as:
-	./jamomalib.rb:12:in `require': no such file to load -- osc (LoadError)
-	from ./jamomalib.rb:12
-	from ./build.rb:10:in `require'
-	from ./build.rb:10
+Alternatively, if you want a developer release rather than a nice, clean release version, you may do it so with the following command:
 
-you have to update rosc:
+'ruby build.rb Development'
 
-1. just go to the rosc folder which is inside the Tools/library folder
-	cd rosc
-2. execute:
-	sudo ruby setup.rb
-3. go back to the previous folder:
-	cd ..
-4. try now to make the build
+3) Assuming no error, you now have Jamoma framework compiled, installed and running. Welcome to the Jamoma development!
+--------------------------------------------------
 
 
 --------------------------------------------------
+AUTOMATICALLY UPDATE MODULES & BUILD SOURCES
+--------------------------------------------------
+Both operations can be automated following these steps:
 
+1) From Terminal or the cygwin window, go to "Tools" folder in the main Jamoma directory by running the following command :
+
+'cd Jamoma/Tools'
+
+2) Run the Ruby all.rb script using the following command:
+
+'ruby all.rb master Deployment clean install'
+
+Again, if you want a developer release rather than a nice, clean release version, you may do it so with the following command:
+
+'ruby all.rb master Development clean'
+
+3) Wait until it is done…
+
+4) When the update process is finished, you have the latest version Jamoma repository
+--------------------------------------------------
+
+
+--------------------------------------------------
 MAKING AN INSTALLER
-The installer.rb Ruby script in Tools/installertools collects all of the files it needs and then generates a standard Mac installer.
-
-If you want to make an installer, then follow these instructions:
-1. do a clean deployment build (above)
-2. all zips should be unzipped (3rd-party externs) too
-3. go to /installertools folder
-4. ./installer.rb
-
-
 --------------------------------------------------
+
+The installer.rb Ruby script situated in the "Tools" folder collects all of the files it needs and then generates a standard Mac installer. You can do so by following these steps:
+
+1) do a clean deployment build as explained above
+
+2) all zips should be unzipped (3rd-party externs) too
+
+3) From the Jamoma/Tools folder, run the Ruby installer.rb script using the following command from the terminal window:
+
+'ruby installer.rb'
+
+4) You should find the Jamoma installer in the "Jamoma/Installers" folder.
+--------------------------------------------------
+
+
+
 
 
 SETTING UP AUTOMATED TESTS
