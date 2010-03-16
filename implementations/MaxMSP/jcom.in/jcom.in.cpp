@@ -472,10 +472,10 @@ void in_dsp(t_in *x, t_signal **sp, short *count)
 	x->numChannels = numChannels;
 	x->vectorSize = vs;
 	
-	x->audioIn->setAttributeValue(TT("numChannels"), numChannels);
-	x->audioOut->setAttributeValue(TT("numChannels"), numChannels);
-	x->audioIn->setAttributeValue(TT("vectorSize"), vs);
-	x->audioOut->setAttributeValue(TT("vectorSize"), vs);
+	x->audioIn->setAttributeValue(TT("NumChannels"), numChannels);
+	x->audioOut->setAttributeValue(TT("NumChannels"), numChannels);
+	x->audioIn->setAttributeValue(TT("VectorSize"), vs);
+	x->audioOut->setAttributeValue(TT("VectorSize"), vs);
 	//audioIn will be set in the perform method
 	x->audioOut->sendMessage(TT("alloc"));
 	
