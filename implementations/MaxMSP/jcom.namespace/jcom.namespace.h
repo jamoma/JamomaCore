@@ -15,15 +15,20 @@
 
 #define TEXT_BUFFER_SIZE 4096
 
+typedef void (*pf_sym)(void *x, t_symbol *adr);			// pointer to a function with the struct pointer given and a symbol for the address
+
 // Data Structure for this object
 typedef struct _nmspc{
 
 	t_object		ob;
 	void			*_out;					// outlet for value or extra info (the leftmost outlet)
 	
-	t_symbol		*address;				// memorized the current address
-	TTListPtr		lk_nodes;				// a pointer to a selection of TTnodes of the tree
-
+	t_symbol		*attr_operation;		///< ATTRIBUTE: an operation to perform
+	t_symbol		*attr_address;			///< ATTRIBUTE: the address to discover or observe
+	long			attr_observe;			///< ATTRIBUTE: to observe or not the address in order to update the content of umenu
+	
+	method			operation;				///< pointer on the a method
+	
 	short			nmspc_file_path;		// a text file /path/name
 	t_symbol		*nmspc_file_name;		// the name of the namespace file
 
@@ -43,6 +48,13 @@ void*			nmspc_new(t_symbol *name, long argc, t_atom *argv);
 void			nmspc_free(t_nmspc *x);
 t_max_err		nmspc_notify(t_nmspc *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void			nmspc_assist(t_nmspc *x, void *b, long m, long a, char *s);
+
+t_max_err		nmspc_attr_set_operation(t_nmspc *x, void *attr, long argc, t_atom *argv);
+t_max_err		nmspc_attr_set_address(t_nmspc *x, void *attr, long argc, t_atom *argv);
+t_max_err		nmspc_attr_set_observe(t_nmspc *x, void *attr, long argc, t_atom *argv);
+
+void			nmspc_bang(t_nmspc *x);
+void			nmspc_symbol(t_nmspc *x, t_symbol *msg, long argc, t_atom *argv);
 
 void			nmspc_write(t_nmspc *x, t_symbol *msg, long argc, t_atom *argv);
 void			nmspc_writeagain(t_nmspc *x);

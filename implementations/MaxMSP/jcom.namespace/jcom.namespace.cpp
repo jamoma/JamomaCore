@@ -30,6 +30,12 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// add methods
 	class_addmethod(c, (method)nmspc_notify,			"notify",				A_CANT, 0);
 	class_addmethod(c, (method)nmspc_assist,			"assist",				A_CANT, 0);
+	
+	// this method perform the current operation
+	class_addmethod(c, (method)nmspc_bang,				"bang",					0);
+	
+	// this method expect one symbol to use as an address to perform the current operation
+	class_addmethod(c, (method)nmspc_symbol,			"anything",				A_GIMME, 0);
 
 	// this method save the namespace in an opml file
 	// at selected path (if the path already exist)
@@ -65,6 +71,21 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	// this method add the scripting name space of Max to the Jamoma namespace
 	class_addmethod(c, (method)nmspc_add_max_namespace,	"add_max_namespace",	0);
+	
+	// ATTRIBUTE: operation
+	CLASS_ATTR_SYM(c,		"operation",		0,		t_nmspc,	attr_operation);
+	CLASS_ATTR_ACCESSORS(c,	"operation",		0,		nmspc_attr_set_operation);
+	CLASS_ATTR_ENUM(c,		"operation",		0,		"getChildren getInstances getAttributes getHubs getParameters getMessages getReturns");
+	
+	// ATTRIBUTE: address
+	CLASS_ATTR_SYM(c,		"address",			0,		t_nmspc,	attr_address);
+	CLASS_ATTR_ACCESSORS(c,	"address",			0,		nmspc_attr_set_address);
+	
+	// ATTRIBUTE: observe
+	CLASS_ATTR_LONG(c,		"observe",			0,		t_nmspc,	attr_observe);
+	CLASS_ATTR_ACCESSORS(c,	"observe",			0,		nmspc_attr_set_observe);
+	CLASS_ATTR_ENUM(c,		"observe",			0,		"0 1");
+	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	nmspc_class = c;
@@ -87,11 +108,15 @@ void *nmspc_new(t_symbol *name, long argc, t_atom *argv)
 		jamoma_directory_init();
 		
 		x->_out = outlet_new(x, 0);
+		
+		x->attr_operation = _sym_none;
+		x->attr_address = gensym("/");
+		x->attr_observe = 0;
 
 		x->nmspc_file_name = gensym("namespace.opml");
 		x->nmspc_file_path = 0;
 		
-		x->lk_nodes = new TTList();
+		attr_args_process(x, argc, argv);			// handle attribute args
 	}
 	return x;
 }
@@ -124,6 +149,100 @@ void nmspc_assist(t_nmspc *x, void *b, long msg, long arg, char *dst)
 	}		
 }
 
+t_max_err nmspc_attr_set_operation(t_nmspc *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv){
+		
+		x->attr_operation = atom_getsym(argv);
+		
+		// select method
+		if(x->attr_operation == gensym("getChildren")){
+			x->operation = (method)nmspc_get_children;
+			return MAX_ERR_NONE;
+		}
+		
+		if(x->attr_operation == gensym("getInstances")){
+			x->operation = (method)nmspc_get_instances;
+			return MAX_ERR_NONE;
+		}
+		
+		if(x->attr_operation == gensym("getAttributes")){
+			x->operation = (method)nmspc_get_attributes;
+			return MAX_ERR_NONE;
+		}
+		
+		if(x->attr_operation == gensym("getHubs")){
+			x->operation = (method)nmspc_get_hubs;
+			return MAX_ERR_NONE;
+		}
+		
+		if(x->attr_operation == gensym("getParameters")){
+			x->operation = (method)nmspc_get_parameters;
+			return MAX_ERR_NONE;
+		}
+		
+		if(x->attr_operation == gensym("getMessages")){
+			x->operation = (method)nmspc_get_messages;
+			return MAX_ERR_NONE;
+		}
+		
+		if(x->attr_operation == gensym("getReturns")){
+			x->operation = (method)nmspc_get_returns;
+			return MAX_ERR_NONE;
+		}
+	}
+	else
+		return MAX_ERR_GENERIC;
+	
+	return MAX_ERR_NONE;
+}
+
+t_max_err nmspc_attr_set_address(t_nmspc *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv)
+		x->attr_address = atom_getsym(argv);
+	else
+		return MAX_ERR_GENERIC;
+	
+	return MAX_ERR_NONE;
+}
+
+t_max_err nmspc_attr_set_observe(t_nmspc *x, void *attr, long argc, t_atom *argv)
+{
+	long o;
+	
+	if(argc && argv)
+	{
+		o = atom_getlong(argv);
+		if (o >= 0)
+			x->attr_observe = o;
+		else
+			return MAX_ERR_GENERIC;
+	}
+	else
+		return MAX_ERR_GENERIC;
+	
+	return MAX_ERR_NONE;
+}
+
+void nmspc_bang(t_nmspc *x)
+{
+	if(x->attr_operation != _sym_none)
+			defer(x, (method)x->operation, x->attr_address, 0, NULL);
+	else
+		object_error((t_object*)x, "there is no operation to perform");
+}
+
+void nmspc_symbol(t_nmspc *x, t_symbol *msg, long argc, t_atom *argv)
+{
+	x->attr_address = msg;
+	
+	if(x->attr_operation != _sym_none)
+		defer(x, (method)x->operation, x->attr_address, 0, NULL);
+	else
+		object_error((t_object*)x, "there is no operation to perform");
+}
+
 void nmspc_write(t_nmspc *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	if(argc && argv)
@@ -154,6 +273,8 @@ void nmspc_get_children(t_nmspc *x, t_symbol *address)
 		
 	// if the address exists
 	if(err == JAMOMA_ERR_NONE){
+		
+		x->attr_address = address;
 			
 		// Get the name list
 		p_node->getChildrenName(nameList);
@@ -197,6 +318,8 @@ void nmspc_get_instances(t_nmspc *x, t_symbol *address)
 	
 	// if the address exists
 	if(err == kTTErrNone){
+		
+		x->attr_address = address;
 
 		// Get the instance list
 		p_node->getChildrenInstance(name, instanceList);
@@ -247,6 +370,8 @@ void nmspc_get_attributes(t_nmspc *x, t_symbol *address)
 	// if the address exists
 	if(err == JAMOMA_ERR_NONE){
 		
+		x->attr_address = address;
+		
 		// Get all attributes
 		p_node->getAttributeNames(attributeList);
 		
@@ -282,6 +407,8 @@ void nmspc_get_hubs(t_nmspc *x)
 	
 	if(err == JAMOMA_ERR_NONE){
 		
+		x->attr_address = gensym("/");
+		
 		if(!returnedTTNodes.isEmpty()){
 			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
 				
@@ -312,6 +439,8 @@ void nmspc_get_parameters(t_nmspc *x, t_symbol *address)
 	err = jamoma_directory_get_node_by_type(address, jps_subscribe_parameter, returnedTTNodes, &firstReturnedTTNode);
 	
 	if(err == JAMOMA_ERR_NONE){
+		
+		x->attr_address = address;
 		
 		if(!returnedTTNodes.isEmpty()){
 			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
@@ -349,6 +478,8 @@ void nmspc_get_messages(t_nmspc *x, t_symbol *address)
 	
 	if(err == JAMOMA_ERR_NONE){
 		
+		x->attr_address = address;
+		
 		if(!returnedTTNodes.isEmpty()){
 			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
 				
@@ -384,6 +515,8 @@ void nmspc_get_returns(t_nmspc *x, t_symbol *address)
 	err = jamoma_directory_get_node_by_type(address, jps_subscribe_return, returnedTTNodes, &firstReturnedTTNode);
 	
 	if(err == JAMOMA_ERR_NONE){
+		
+		x->attr_address = address;
 		
 		if(!returnedTTNodes.isEmpty()){
 			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
