@@ -181,7 +181,7 @@ void ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst)
 
 void ramp_setFunction(t_ramp *x, t_symbol *functionName)
 {
-	x->rampUnit->setAttributeValue(TT("function"), TT(functionName->s_name));  
+	x->rampUnit->setAttributeValue(TT("Function"), TT(functionName->s_name));  
 }
 
 
@@ -260,7 +260,7 @@ t_max_err ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv)
 
 void ramp_clock(t_ramp *x, t_symbol *clockName)
 {
-	x->rampUnit->setAttributeValue(TT("clock"), TT(clockName->s_name));
+	x->rampUnit->setAttributeValue(TT("Clock"), TT(clockName->s_name));
 }
 
 
