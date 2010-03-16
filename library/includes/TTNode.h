@@ -128,6 +128,12 @@ public:
 	/** Get a linklist of children of the TTNode : select them by name and instance (use wilcards to select them all) */
 	TTErr			getChildren(TTSymbolPtr name, TTSymbolPtr instance, TTList& returnedChildren);
 	
+	/** Get a linklist of children name */
+	TTErr			getChildrenName(TTList& returnedChildrenName);
+	
+	/** Get a linklist of children instance for a given name */
+	TTErr			getChildrenInstance(TTSymbolPtr aName, TTList& returnedChildrenInstance);
+	
 	/** Add a TTNode as a child of the TTNode
 		@param child			a TTNodePtr to add as children of the TTNode.
 		@return					a kTTErrGeneric if the instance of the given child already exist. */

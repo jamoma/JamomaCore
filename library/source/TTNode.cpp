@@ -402,6 +402,76 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTList& ret
 	return kTTErrNone;
 }
 
+TTErr TTNode::getChildrenName(TTList& returnedChildrenName)
+{
+	unsigned int i;
+	TTValue hk;
+	TTSymbolPtr key;
+	
+	// default : no child
+	returnedChildrenName.clear();
+	
+	// if there are children
+	if(this->children->getSize()){
+		
+		this->children->getKeys(hk);
+		
+		// for each children
+		for(i=0; i<this->children->getSize(); i++){
+			
+			hk.get(i,(TTSymbolPtr*)&key);
+			returnedChildrenName.append(new TTValue(key));
+		}
+	}
+	else
+		return kTTErrGeneric;
+
+	return kTTErrNone;
+}
+
+TTErr TTNode::getChildrenInstance(TTSymbolPtr aName, TTList& returnedChildrenInstance)
+{
+	unsigned int j;
+	TTErr err;
+	TTValue hk, hk_i, c;
+	TTSymbolPtr key_i;
+	TTHashPtr ht_i;
+	
+	// default : no child
+	returnedChildrenInstance.clear();
+	
+	// if there are children
+	if(this->children->getSize()){
+		
+		this->children->getKeys(hk);
+		
+		err = this->children->lookup(aName, c);
+		if(err == kTTErrNone){
+			c.get(0,(TTPtr*)&ht_i);
+			
+			// if there are instances
+			if(ht_i->getSize()){
+				
+				ht_i->getKeys(hk_i);
+				
+				// for each instance
+				for(j=0; j<ht_i->getSize(); j++){
+					
+					hk_i.get(j,(TTSymbolPtr*)&key_i);
+					returnedChildrenInstance.append(new TTValue(key_i));
+				}
+			}
+			else
+				return kTTErrGeneric;
+		}
+		else
+			return kTTErrGeneric;
+	}
+	else
+		return kTTErrGeneric;
+	
+	return kTTErrNone;
+}
 
 TTErr TTNode::getOscAddress(TTSymbolPtr *returnedOscAddress)
 {

@@ -217,5 +217,10 @@ TTErr TTFOUNDATION_EXPORT mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSym
 	@return								An comparison flag */
 TTAddressComparisonFlag TTFOUNDATION_EXPORT compareOSCAddress(TTSymbolPtr oscAddress1, TTSymbolPtr oscAddress2);
 
+/**	An OSC parsing tool : count how many C_SEPARATOR there is in the address
+ @param	oscAddress					An OSC address
+ @return							The number of C_SEPARATOR */
+unsigned int TTFOUNDATION_EXPORT countSeparator(TTSymbolPtr oscAddress);
+
 
 #endif // __TT_NODE_DIRECTORY_H__

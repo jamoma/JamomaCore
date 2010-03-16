@@ -306,7 +306,8 @@ TTErr	TTNodeDirectory::LookingFor(TTListPtr whereToSearch, bool(testFunction)(TT
 				// continu the research below all children
 				err = LookingFor(&lk_children, testFunction, argument, returnedTTNodes, firstReturnedTTNode);
 				
-				returnedTTNodes.getHead().get(0, (TTPtr*)&firstReturnedTTNode);
+				if(!returnedTTNodes.isEmpty())
+					returnedTTNodes.getHead().get(0, (TTPtr*)&firstReturnedTTNode);
 				
 				if(err != kTTErrNone)
 					return err;
@@ -455,7 +456,8 @@ TTErr TTNodeDirectory::notifyObservers(TTSymbolPtr oscAddress, TTAddressNotifica
 						TT_ASSERT("TTNode observer list member is not NULL", anObserver);
 						data.append((TTPtr)oscAddress);
 						data.append((TTInt8)flag);
-						anObserver->notify(data);
+						anObserver->notify(data);			// TODO : sometimes there is none TTCallback that are observing the node so 'notify' crashes !!!
+															// How to be sure the 'anObserver' points on a TTCallback ?
 					}
 					
 					foundObsv = true;
@@ -697,4 +699,11 @@ TTAddressComparisonFlag compareOSCAddress(TTSymbolPtr oscAddress1, TTSymbolPtr o
 	}
 	
 	return kAddressDifferent;
+}
+
+unsigned int countSeparator(TTSymbolPtr oscAddress)
+{
+	TTString toCount = oscAddress->getCString();
+
+	return count(toCount.begin(), toCount.end(), C_SEPARATOR);
 }
