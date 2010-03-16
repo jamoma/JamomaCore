@@ -26,7 +26,7 @@ have_func("Init_TTRuby", "TTRuby.cpp")
 $CFLAGS = $CFLAGS + " -I #{inc} -I #{dsp} -I #{multicore} -I #{graph} -g -O1"
 $CPPFLAGS = $CPPFLAGS + " -I #{inc} -I #{dsp} -I #{multicore} -I #{graph} -g -O1"
 $LDFLAGS = $LDFLAGS + " -framework JamomaFoundation -framework JamomaDSP -framework JamomaMulticore -framework JamomaGraph"
-$ARCHFLAGS = "-arch i386"
+#$ARCHFLAGS = "-arch i386"
 
 create_makefile("TTRuby")
 
