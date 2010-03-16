@@ -587,7 +587,7 @@ t_max_err param_attr_setrampfunction(t_param *x, void *attr, long argc, t_atom *
 	x->attr_rampfunction = arg;
 
 	if(x->ramper)
-		x->ramper->setAttributeValue(TT("function"), TT(x->attr_rampfunction->s_name));
+		x->ramper->setAttributeValue(TT("Function"), TT(x->attr_rampfunction->s_name));
 	return MAX_ERR_NONE;
 }
 
