@@ -23,7 +23,7 @@ typedef void (*RampUnitCallback)(void *, long, double *);
 // Specification of our base class
 class JAMOMA_EXPORT RampUnit : public TTObject {
 	private:
-		TTSymbolPtr			attrFunction;		///< The name of the functionUnit
+		TTSymbolPtr			mFunction;			///< The name of the functionUnit
 
 		/** Attribute setter. */
 		TTErr setFunction(const TTValue& functionName);

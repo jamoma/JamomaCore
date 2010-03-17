@@ -13,6 +13,8 @@
 #include "RampLib.h"
 #include "ext.h"
 
+#define thisTTClass RampUnit
+
 RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void *aBaton)
 	: TTObject(kTTValNONE), startValue(NULL), targetValue(NULL), currentValue(NULL), normalizedValue(0.0), numValues(0), functionUnit(NULL)
 {
@@ -23,8 +25,8 @@ RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void 
 	targetValue[0] = 0.0;
 	startValue[0] = 0.0;
 
-	registerAttribute(TT("function"),	kTypeSymbol,	&attrFunction,	(TTSetterMethod)&RampUnit::setFunction);
-	setAttributeValue(TT("function"), TT("linear"));
+	addAttributeWithSetter(Function, kTypeSymbol);
+	setAttributeValue(TT("Function"), TT("linear"));
 }
 
 
@@ -58,11 +60,11 @@ TTErr RampUnit::setFunction(const TTValue& functionName)
 	if(newFunctionName == TT("none"))
 		newFunctionName = TT("linear");
 	
-	if(newFunctionName == attrFunction)
+	if(newFunctionName == mFunction)
 		return kTTErrNone;
 	
-	attrFunction = newFunctionName;
-	err = FunctionLib::createUnit(attrFunction, (TTObject**)&functionUnit);
+	mFunction = newFunctionName;
+	err = FunctionLib::createUnit(mFunction, (TTObject**)&functionUnit);
 	if(err)
 		logError("Jamoma ramp unit failed to load the requested FunctionUnit from TTBlue.");
 	return err;
