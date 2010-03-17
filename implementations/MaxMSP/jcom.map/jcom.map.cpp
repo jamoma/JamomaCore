@@ -356,7 +356,6 @@ void map_doSetFunction(t_map *obj, t_symbol *newFunctionName)
 				nameString[0] += 32;							// convert first letter to lower-case for Max
 
 				TTValuePtr v = new TTValue(aName);
-				//v->set(0, aName);
 				obj->parameterNames->append(TT(nameString.c_str()), *v);
 			}
 		}
