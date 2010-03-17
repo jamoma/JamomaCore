@@ -95,17 +95,17 @@ void *audiosend_new(t_symbol *s, long argc, t_atom *argv)
 	t_audiosend 	*x = (t_audiosend *)object_alloc(s_audiosend_class);
 	short			i;
 	
-	if(x){
+	if (x) {
 		x->dumpout = outlet_new(x, NULL);
 		object_obex_store(x, _sym_dumpout, (t_object *)x->dumpout);
 
 		x->attr_target = _sym_nothing;
 		x->num_inputs = 2;		// TODO: make this dynamic from args
 
-		for(i=0; i<attrstart; i++){
-			if(argv[i].a_type == A_LONG)
+		for (i=0; i<attrstart; i++) {
+			if (argv[i].a_type == A_LONG)
 				x->num_inputs = atom_getlong(argv+i);
-			else if(argv[i].a_type == A_SYM)
+			else if (argv[i].a_type == A_SYM)
 				x->attr_target = atom_getsym(argv+i);
 		}
 		
@@ -129,9 +129,9 @@ void audiosend_free(t_audiosend *x)
 // Method for Assistance Messages
 void audiosend_assist(t_audiosend *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 			// Inlets
+	if (msg==1) 			// Inlets
 		strcpy(dst, "input to send to a named module");
-	else if(msg==2)		// Outlets
+	else if (msg==2)		// Outlets
 		strcpy(dst, "dumpout");
 }
 
@@ -149,11 +149,11 @@ void audiosend_bang(t_audiosend *x)
 	outlet_anything(x->dumpout, SymbolGen("menu"), 1, a);
 	
 	atom_setsym(a+0, SymbolGen("append"));
-	for(i=0; i<numModules; i++){
+	for (i=0; i<numModules; i++) {
 		atom_setsym(a+1, moduleNames[i]);
 		outlet_anything(x->dumpout, SymbolGen("menu"), 2, a);
 	}
-	if(moduleNames)
+	if (moduleNames)
 		sysmem_freeptr(moduleNames);
 }
 
@@ -173,19 +173,19 @@ void audiosend_dsp(t_audiosend *x, t_signal **sp, short *count)
 	short		i, j;
 	t_object	*hub;
 	
-	if(x->attr_target && x->attr_target != _sym_nothing){
+	if (x->attr_target && x->attr_target != _sym_nothing) {
 		hub = jamoma_get_hub_for_module_named(x->attr_target);
-		if(hub != x->obj_target){
-			if(hub){
+		if (hub != x->obj_target) {
+			if (hub) {
 				x->obj_target = hub;
 				// we could attach to the hub here to listen for free notifications
 				// but freeing it will restart the dsp anyway, so I don't think there is any need [tap]
 				x->obj_direct_target = (t_object*)object_method(hub, SymbolGen("getobj_audioin"));
 			}
 		}
-		if(x->obj_target){
-			for(i=0, j=0; i<numInputs; i++){
-				if(count[i])
+		if (x->obj_target) {
+			for (i=0, j=0; i<numInputs; i++) {
+				if (count[i])
 					j=i;
 				x->audio_in[i] = sp[i]->s_vec;
 			}
@@ -205,7 +205,7 @@ t_max_err audiosend_attr_settarget(t_audiosend *x, void *attr, long argc, t_atom
 
 	x->attr_target = atom_getsym(argv);
 	hub = jamoma_get_hub_for_module_named(x->attr_target);
-	if(hub){
+	if (hub) {
 		x->obj_target = hub;
 		x->obj_direct_target = (t_object*)object_method(hub, SymbolGen("getobj_audioin"));
 	}

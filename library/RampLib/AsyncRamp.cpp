@@ -35,7 +35,7 @@ void AsyncRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time)
 	targetTime	= startTime + time;
 
 	setNumValues(inNumValues);
-	for(i=0; i<numValues; i++){
+	for (i=0; i<numValues; i++) {
 		targetValue[i] = inValues[i];
 		startValue[i] = currentValue[i];
 	}
@@ -60,16 +60,16 @@ void AsyncRamp::tick()
 	double			*start = startValue;
 	float			ratio;
 	
-	if(active && functionUnit){
-		if(currentTime > targetTime){
+	if (active && functionUnit) {
+		if (currentTime > targetTime) {
 			active = 0;
-			for(i=0; i < numValues; i++)
+			for (i=0; i < numValues; i++)
 				currentValue[i] = targetValue[i];
 		}
-		else{
+		else {
 			ratio = (currentTime - startTime) / (float)ramptime;
 			functionUnit->calculate(ratio, mapped);
-			for(i=0; i < numValues; i++)
+			for (i=0; i < numValues; i++)
 				current[i] = (target[i] * mapped) + (start[i] * (1 - mapped));
 		}
 		(callback)(baton, numValues, currentValue);		// send the value to the host

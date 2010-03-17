@@ -39,12 +39,12 @@ DataspaceLib::~DataspaceLib()
 	DataspaceUnit	*unit;
 
 	hashtab_getkeys(unitHash, &numKeys, &keys);
-	for(i=0; i<numKeys; i++){
+	for (i=0; i<numKeys; i++) {
 		hashtab_lookup(unitHash, keys[i], (t_object**)&unit);
 		delete unit;
 	}
 	
-	if(keys)
+	if (keys)
 		sysmem_freeptr(keys);
 		
 	hashtab_chuck(unitHash);
@@ -57,11 +57,11 @@ JamomaError DataspaceLib::convert(long inputNumArgs, t_atom *inputAtoms, long *o
 	double	value[3];	// right now we only handle a maximum of 3 values in the neutral unit passing
 	long	numvalues;
 	
-	if(inUnit->name == outUnit->name){
+	if (inUnit->name == outUnit->name) {
 		*outputNumArgs = inputNumArgs;
 		sysmem_copyptr(inputAtoms, *outputAtoms, sizeof(t_atom) * inputNumArgs);
 	}
-	else{
+	else {
 		inUnit->convertToNeutral(inputNumArgs, inputAtoms, &numvalues, value);
 		outUnit->convertFromNeutral(numvalues, value, outputNumArgs, outputAtoms);
 	}
@@ -74,11 +74,11 @@ JamomaError DataspaceLib::setInputUnit(t_symbol *inUnitName)
 	t_object*	newUnit = NULL;
 	JamomaError	err;
 	
-	if(inUnit && inUnitName == inUnit->name)	// already have this one loaded
+	if (inUnit && inUnitName == inUnit->name)	// already have this one loaded
 		return JAMOMA_ERR_NONE;
-	else{
+	else {
 		err = (JamomaError)hashtab_lookup(unitHash, inUnitName, (t_object**)&newUnit);
-		if(!err && newUnit)
+		if (!err && newUnit)
 			inUnit = (DataspaceUnit*)newUnit;
 		return err;
 	}
@@ -90,11 +90,11 @@ JamomaError DataspaceLib::setOutputUnit(t_symbol *outUnitName)
 	t_object*	newUnit = NULL;
 	JamomaError	err;
 	
-	if(outUnit && outUnitName == outUnit->name)	// already have this one loaded
+	if (outUnit && outUnitName == outUnit->name)	// already have this one loaded
 		return JAMOMA_ERR_NONE;
-	else{
+	else {
 		err = (JamomaError)hashtab_lookup(unitHash, outUnitName, (t_object**)&newUnit);
-		if(!err && newUnit)
+		if (!err && newUnit)
 			outUnit = (DataspaceUnit*)newUnit;
 		return err;
 	}
@@ -131,33 +131,33 @@ void DataspaceLib::getAvailableUnits(long *numUnits, t_symbol ***unitNames)
 
 JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspace)
 {	
-	if(*dataspace){
-		if(dataspaceName == (*dataspace)->name)
+	if (*dataspace) {
+		if (dataspaceName == (*dataspace)->name)
 			return JAMOMA_ERR_NONE;	// already have this one, do nothing...
-		else{
+		else {
 			delete *dataspace;
 			*dataspace = NULL;
 		}
 	}
 
 	// These should be alphabetized
-	if(dataspaceName == SymbolGen("angle"))
+	if (dataspaceName == SymbolGen("angle"))
 		*dataspace = (DataspaceLib*) new AngleDataspace;
-	else if(dataspaceName == SymbolGen("color"))
+	else if (dataspaceName == SymbolGen("color"))
 		*dataspace = (DataspaceLib*) new ColorDataspace;
-	else if(dataspaceName == SymbolGen("distance"))
+	else if (dataspaceName == SymbolGen("distance"))
 		*dataspace = (DataspaceLib*) new DistanceDataspace;
-	else if(dataspaceName == SymbolGen("gain"))
+	else if (dataspaceName == SymbolGen("gain"))
 		*dataspace = (DataspaceLib*) new GainDataspace;
-	else if(dataspaceName == SymbolGen("none"))
+	else if (dataspaceName == SymbolGen("none"))
 		*dataspace = (DataspaceLib*) new NoneDataspace;
-	else if(dataspaceName == SymbolGen("pitch"))
+	else if (dataspaceName == SymbolGen("pitch"))
 		*dataspace = (DataspaceLib*) new PitchDataspace;
-	else if(dataspaceName == SymbolGen("position")) 
+	else if (dataspaceName == SymbolGen("position")) 
 		*dataspace = (DataspaceLib*) new PositionDataspace;
-	else if(dataspaceName == SymbolGen("temperature"))
+	else if (dataspaceName == SymbolGen("temperature"))
 		*dataspace = (DataspaceLib*) new TemperatureDataspace;
-	else if(dataspaceName == SymbolGen("time"))
+	else if (dataspaceName == SymbolGen("time"))
 		*dataspace = (DataspaceLib*) new TimeDataspace;
 	else 
 		// Invalid -- default to temperature
@@ -174,7 +174,7 @@ void jamoma_getDataspaceList(long *numDataspaces, t_symbol ***dataspaceNames)
 	*dataspaceNames = (t_symbol**)sysmem_newptr(sizeof(t_symbol*) * *numDataspaces);
 	
 	// These should be alphabetized
-	if(*numDataspaces){
+	if (*numDataspaces) {
 		*(*dataspaceNames+0) = SymbolGen("angle");
 		*(*dataspaceNames+1) = SymbolGen("color");
 		*(*dataspaceNames+2) = SymbolGen("distance");

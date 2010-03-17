@@ -67,11 +67,11 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 	long		attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	t_receive	*x = (t_receive *)object_alloc(s_receive_class);
 
-	if(x){
+	if (x) {
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x, NULL));
 		x->outlet = outlet_new(x, NULL);
 
-		if(!g_receivemaster_object)
+		if (!g_receivemaster_object)
 			g_receivemaster_object = (t_object *)object_new_typed(CLASS_NOBOX, SymbolGen("jcom.receivemaster"), 0, NULL);
 
 		x->callback = NULL;
@@ -79,8 +79,8 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 		// attr_args_process(x, argc, argv);					// handle attribute args				
 
 		// If no name was specified as an attribute
-		if(x->attr_name == NULL){
-			if(attrstart > 0)
+		if (x->attr_name == NULL) {
+			if (attrstart > 0)
 				x->attr_name = atom_getsym(argv);
 			else
 				x->attr_name = SymbolGen("jcom.receive no arg specified");
@@ -103,10 +103,10 @@ void receive_free(t_receive *x)
 // Method for Assistance Messages
 void receive_assist(t_receive *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 	// Inlets
+	if (msg==1) 	// Inlets
 		strcpy(dst, "(signal) input to the module");
-	else if(msg==2){ // Outlets
-		if(arg == 0) 
+	else if (msg==2) { // Outlets
+		if (arg == 0) 
 			strcpy(dst, "output from remote");
 		else 
 			strcpy(dst, "dumpout");
@@ -119,7 +119,7 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 {
 	t_symbol *arg = atom_getsym(argv);
 	
-	if(x->attr_name != arg){
+	if (x->attr_name != arg) {
 		receive_remove(x);
 		x->attr_name = arg;
 		receive_bind(x);		
@@ -131,7 +131,7 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 // 
 void receive_bind(t_receive *x)
 {
-	if(!NOGOOD(g_receivemaster_object))
+	if (!NOGOOD(g_receivemaster_object))
 		object_method(g_receivemaster_object, jps_add, x->attr_name, x);
 }
 
@@ -146,7 +146,7 @@ void receive_remove(t_receive *x)
 // In reponse, we figure out if we should send the data to our outlet
 void receive_dispatch(t_receive *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	if(x->callback)
+	if (x->callback)
 		x->callback(x->baton,  msg, argc, argv);	// call the registered callback on the object that we're instantiated inside of
 	else
 		outlet_anything(x->outlet, msg, argc, argv);
