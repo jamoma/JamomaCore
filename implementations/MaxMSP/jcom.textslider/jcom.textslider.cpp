@@ -316,7 +316,7 @@ t_max_err textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *s
 		if (attrname == gensym("textpos"))
 			textfield_set_textmargins(textfield, x->attrTextOffset[0], x->attrTextOffset[1], 2.0, 2.0);
 		
-		if((x->mouseDown) && (x->attrShowValue))
+		if ((x->mouseDown) && (x->attrShowValue))
 			textslider_updatestringvalue(x);
 		
 		jbox_redraw(&x->box);
@@ -422,7 +422,7 @@ t_max_err textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *ar
 {
 	if (argc)
 		x->attrRange[0] = atom_getfloat(argv+0);
-	if (argc > 1){
+	if (argc > 1) {
 		if (atom_getfloat(argv+1) >= atom_getfloat(argv+0))	
 			x->attrRange[1] = atom_getfloat(argv+1);
 		else {

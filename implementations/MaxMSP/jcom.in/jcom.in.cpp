@@ -103,7 +103,7 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 	t_in 		*x = (t_in *)object_alloc(in_class);
 	short 		i;
 		
-	if(x){
+	if (x) {
 		x->dumpout = outlet_new(x, NULL);
 		x->algout = outlet_new(x, NULL);
 		
@@ -115,7 +115,7 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_freeze = 0;
 		x->attr_algorithm_type = _sym_patcher;
 
-		if(attrstart > 0){
+		if (attrstart > 0) {
 			int argument = atom_getlong(argv);
 			x->numInputs = TTClip(argument, 0, MAX_NUM_CHANNELS);
 		} 
@@ -123,22 +123,22 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 			x->outlet[0] = x->algout;  // no arguments send any input out the first outlet
 
 #ifdef JCOM_IN_TILDE
-		if(x->numInputs > 0)
+		if (x->numInputs > 0)
 			dsp_setup((t_pxobject *)x, x->numInputs);		// Create Object and Inlets
 		else
 			dsp_setup((t_pxobject *)x, 1);					// Create Object and Inlet
 
 		x->common.ob.z_misc = Z_NO_INPLACE | Z_PUT_FIRST;
 		
-		for(i=0; i < (x->numInputs); i++)
+		for (i=0; i < (x->numInputs); i++)
 			outlet_new((t_pxobject *)x, "signal");			// Create a signal outlet
 		
 		TTObjectInstantiate(kTTSym_audiosignal, &x->audioIn, x->numInputs);
 		TTObjectInstantiate(kTTSym_audiosignal, &x->audioOut, x->numInputs);
 #else
-		for(i = x->numInputs-1; i >= 1; i--)
+		for (i = x->numInputs-1; i >= 1; i--)
 			x->inlet[i] = proxy_new(x, i, 0L);
-		for(i = x->numInputs-1; i >= 0; i--)
+		for (i = x->numInputs-1; i >= 0; i--)
 			x->outlet[i] = outlet_new(x, 0L);
 #endif
 
@@ -184,12 +184,12 @@ void in_release(t_in *x)
 // Method for Assistance Messages
 void in_assist(t_in *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 	// Inlets
+	if (msg==1) 	// Inlets
 		strcpy(dst, "(signal) input to the module");
-	else if(msg==2){ // Outlets
-		if(arg < x->numInputs) 
+	else if (msg==2) { // Outlets
+		if (arg < x->numInputs) 
 			strcpy(dst, "(signal) connect to the algorithm");
-		else if(arg == x->numInputs) 
+		else if (arg == x->numInputs) 
 			strcpy(dst, "connect to algorithm");
 		else 
 			strcpy(dst, "dumpout");
@@ -228,9 +228,9 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 	char		namestring[256];
 	t_symbol	*osc;
 
-	if((argv->a_w.w_sym == jps_audio_mute) || (argv->a_w.w_sym == jps_slash_audio_mute)){
+	if ((argv->a_w.w_sym == jps_audio_mute) || (argv->a_w.w_sym == jps_slash_audio_mute)) {
 		x->attr_mute = atom_getlong(argv+1);
-		if(x->attr_algorithm_type == _sym_patcher){
+		if (x->attr_algorithm_type == _sym_patcher) {
 			t_atom		a[2];
 			t_dll*		connecteds = NULL;
 			t_object*	o;
@@ -243,17 +243,17 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 
 			object_obex_lookup(x, _sym_pound_B, &box);
 			myoutlet = (t_outlet*)jbox_getoutlet((t_jbox*)box, x->numInputs);
-			if(myoutlet)
+			if (myoutlet)
 				connecteds = (t_dll*)myoutlet->o_dll;
 			
 			// search through all connected objects for an inlet object (which indicates that we found a patcher to mute)
-			while(connecteds){
+			while (connecteds) {
 				o = (t_object*)connecteds->d_x1;
 				name = object_classname(o);
-				if(name == _sym_inlet){
+				if (name == _sym_inlet) {
 					o = ((t_inlet *)connecteds->d_x1)->i_owner;
 					name = object_classname(o);
-					if(name == _sym_jpatcher)
+					if (name == _sym_jpatcher)
 						// 'setrock' is the message that is used for pcontrol sends to the patcher of enabling
 						object_method(o, gensym("setrock"), 2, a);
 				}
@@ -263,14 +263,14 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 			}
 		}
 	}
-	else if((argv->a_w.w_sym == jps_video_mute) || (argv->a_w.w_sym == jps_slash_video_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute")))
+	else if ((argv->a_w.w_sym == jps_video_mute) || (argv->a_w.w_sym == jps_slash_video_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute")))
 		x->attr_mute = atom_getlong(argv+1);
-	else if((argv->a_w.w_sym == jps_video_bypass) || (argv->a_w.w_sym == jps_slash_video_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass")))
+	else if ((argv->a_w.w_sym == jps_video_bypass) || (argv->a_w.w_sym == jps_slash_video_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass")))
 		x->attr_bypass = atom_getlong(argv+1);
-	else if((argv->a_w.w_sym == jps_video_freeze) || (argv->a_w.w_sym == jps_slash_video_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze")))
+	else if ((argv->a_w.w_sym == jps_video_freeze) || (argv->a_w.w_sym == jps_slash_video_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze")))
 		x->attr_freeze = atom_getlong(argv+1);
 
-	if(argv->a_w.w_sym->s_name[0] != '/')
+	if (argv->a_w.w_sym->s_name[0] != '/')
 		strcpy(namestring, "/");						// perhaps we could optimize this operation
 	else
 		namestring[0] = 0;
@@ -284,7 +284,7 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 
 void in_view_internals(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	if(x->attr_algorithm_type == _sym_patcher){
+	if (x->attr_algorithm_type == _sym_patcher) {
 		t_atom		a[2];
 		t_dll*		connecteds = NULL;
 		t_object*	o;
@@ -297,17 +297,17 @@ void in_view_internals(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 		
 		object_obex_lookup(x, _sym_pound_B, &box);
 		myoutlet = (t_outlet*)jbox_getoutlet((t_jbox*)box, x->numInputs);
-		if(myoutlet)
+		if (myoutlet)
 			connecteds = (t_dll*)myoutlet->o_dll;
 		
 		// search through all connected objects for an inlet object (which indicates that we found a patcher to mute)
-		while(connecteds){
+		while (connecteds) {
 			o = (t_object*)connecteds->d_x1;
 			name = object_classname(o);
-			if(name == _sym_inlet){
+			if (name == _sym_inlet) {
 				o = ((t_inlet *)connecteds->d_x1)->i_owner;
 				name = object_classname(o);
-				if(name == _sym_jpatcher)
+				if (name == _sym_jpatcher)
 					object_method(o, gensym("vis"));
 			}
 			o = NULL;
@@ -341,11 +341,11 @@ void in_unlink(t_in *x)
 
 void in_bang(t_in *x)
 {
-	if(x->attr_mute)
+	if (x->attr_mute)
 		;
-	else if(x->attr_freeze)
+	else if (x->attr_freeze)
 		object_method(x->out_object, jps_sendlastvalue);
-	else if(x->attr_bypass)
+	else if (x->attr_bypass)
 		object_method(x->out_object, jps_sendbypassedvalue, proxy_getinlet((t_object *)x), _sym_bang, 0, NULL);
 	else
 		outlet_bang(x->outlet[proxy_getinlet((t_object *)x)]);
@@ -354,11 +354,11 @@ void in_bang(t_in *x)
 
 void in_int(t_in *x, long value)
 {
-	if(x->attr_mute)
+	if (x->attr_mute)
 		;
-	else if(x->attr_freeze)
+	else if (x->attr_freeze)
 		object_method(x->out_object, jps_sendlastvalue);
-	else if(x->attr_bypass){
+	else if (x->attr_bypass) {
 		t_atom a;
 		atom_setlong(&a, value);
 		object_method(x->out_object, jps_sendbypassedvalue, proxy_getinlet((t_object *)x), _sym_int, 1, &a);
@@ -370,11 +370,11 @@ void in_int(t_in *x, long value)
 
 void in_float(t_in *x, double value)
 {
-	if(x->attr_mute)
+	if (x->attr_mute)
 		;
-	else if(x->attr_freeze)
+	else if (x->attr_freeze)
 		object_method(x->out_object, jps_sendlastvalue);
-	else if(x->attr_bypass){
+	else if (x->attr_bypass) {
 		t_atom a;
 		atom_setfloat(&a, value);
 		object_method(x->out_object, jps_sendbypassedvalue, proxy_getinlet((t_object *)x), _sym_float, 1, &a);
@@ -386,11 +386,11 @@ void in_float(t_in *x, double value)
 
 void in_anything(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	if(x->attr_mute)
+	if (x->attr_mute)
 		;
-	else if(x->attr_freeze)
+	else if (x->attr_freeze)
 		object_method(x->out_object, jps_sendlastvalue);
-	else if(x->attr_bypass)
+	else if (x->attr_bypass)
 		object_method(x->out_object, jps_sendbypassedvalue, proxy_getinlet((t_object *)x), msg, argc, argv);
 	else
 		outlet_anything(x->outlet[proxy_getinlet((t_object *)x)], msg, argc, argv);
@@ -405,7 +405,7 @@ t_int *in_perform(t_int *w)
 	short		i, j;
 	
 	// Store the input from the inlets
-	for(i=0; i < x->numChannels; i++){
+	for (i=0; i < x->numChannels; i++) {
 		j = (i*2) + 1;
 		x->audioIn->setVector(i, x->vectorSize, (TTFloat32*)w[j+1]);
 	}
@@ -414,7 +414,7 @@ t_int *in_perform(t_int *w)
 	TTAudioSignal::copy(*x->audioIn, *x->audioOut);
 	
 	// Send the input on to the outlets for the algorithm
-	for(i=0; i < x->numChannels; i++){
+	for (i=0; i < x->numChannels; i++) {
 		j = (i*2) + 1;
 		x->audioOut->getVector(i, x->vectorSize, (TTFloat32*)w[j+2]);
 	}
@@ -431,11 +431,11 @@ void in_remoteaudio(t_in *x, float *audioVectors[], long numAudioVectors)
 //	float	*vector, *out;
 //	long	n;
 //	
-//	for(i=0; i<numAudioVectors; i++){
+//	for (i=0; i<numAudioVectors; i++) {
 //		vector = audioVectors[i];
 //		n = x->vectorSize;
 //		out = x->remote_vectors[i];
-//		while(n--)
+//		while (n--)
 //			*out++ += *vector++;
 //	}
 }
@@ -456,11 +456,11 @@ void in_dsp(t_in *x, t_signal **sp, short *count)
 	audioVectors[k] = x;
 	k++;
 	
-	for(i=0; i < x->numInputs; i++){
+	for (i=0; i < x->numInputs; i++) {
 		j = x->numInputs + i;
-		if(count[i] || count[j]){
+		if (count[i] || count[j]) {
 			numChannels++;
-			if(sp[i]->s_n > vs)
+			if (sp[i]->s_n > vs)
 				vs = sp[i]->s_n;
 				
 			audioVectors[k] = sp[i]->s_vec;
@@ -490,14 +490,14 @@ void in_alloc(t_in *x, int vector_size)
 /*
 	short i;
 	
-	if(vector_size != x->vector_size) {
+	if (vector_size != x->vector_size) {
 		x->vector_size = vector_size;
 		x->signal_in->setNumChannels(MAX_NUM_CHANNELS);
 		x->signal_in->setVectorSize(vector_size);
 		x->signal_in->alloc();
 
-		for(i=0; i < MAX_NUM_CHANNELS; i++){
-			if(x->remote_vectors[i])
+		for (i=0; i < MAX_NUM_CHANNELS; i++) {
+			if (x->remote_vectors[i])
 				sysmem_freeptr(x->remote_vectors[i]);
 			x->remote_vectors[i] = (float*)sysmem_newptr(sizeof(float) * x->vector_size);
 		}

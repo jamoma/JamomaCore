@@ -216,17 +216,17 @@ t_max_err meter_notify(t_meter *x, t_symbol *s, t_symbol *msg, void *sender, voi
 {
 	t_symbol*	name;
 	
-	if(msg == _sym_attr_modified){
+	if (msg == _sym_attr_modified) {
 		
 		name = (t_symbol *)object_method((t_object *)data, _sym_getname);
 
-		if(name == _sym_bgcolor)
+		if (name == _sym_bgcolor)
 			jbox_redraw((t_jbox*)x);
-		if(name == _sym_patching_rect || name == gensym("orientation"))
+		if (name == _sym_patching_rect || name == gensym("orientation"))
 			meterEffectOrientation(x);
-		if(name == gensym("defeat")){
-			if(sys_getdspstate())		{							// if dsp is on & defeat is off then we schedule another tick
-				if(x->attrDefeat == 0)
+		if (name == gensym("defeat")) {
+			if (sys_getdspstate())		{							// if dsp is on & defeat is off then we schedule another tick
+				if (x->attrDefeat == 0)
 					clock_delay(x->clock, kPollIntervalDefault);
 										}
 									 }
@@ -238,10 +238,10 @@ t_max_err meter_notify(t_meter *x, t_symbol *s, t_symbol *msg, void *sender, voi
 // Method for Assistance Messages
 void meter_assist(t_meter *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 						// Inlet
+	if (msg==1) 						// Inlet
 		strcpy(dst, "Input");
-	else if(msg==2){ 				// Outlets
-		switch(arg){
+	else if (msg==2) { 				// Outlets
+		switch(arg) {
 			case 0: strcpy(dst, "Output"); break;
 				//case 1: strcpy(dst, "Attribute Stuff"); break;
  		}
@@ -285,7 +285,7 @@ void meter_clock(t_meter *x)
 	double delta = fabs(x->newEnvelope - x->envelope);
 	
 	// Only re-draw if there was a change of some significance
-	if(delta > kMinimumChangeForRedraw){	
+	if (delta > kMinimumChangeForRedraw) {	
 		x->envelope = x->newEnvelope;
 		jbox_redraw((t_jbox *)x);
 	}
@@ -294,8 +294,8 @@ void meter_clock(t_meter *x)
    
 	x->newEnvelope = 0;
     outlet_float(x->outlet, x->envelope); 
-	if(sys_getdspstate()) {							// if dsp is on then we schedule another tick
-		if(x->attrDefeat == 0)
+	if (sys_getdspstate()) {							// if dsp is on then we schedule another tick
+		if (x->attrDefeat == 0)
 			clock_delay(x->clock, kPollIntervalDefault);
 	}
 }
@@ -313,12 +313,12 @@ t_int *meter_perform(t_int *w)
 	long 		n = (long)(w[3]);
 	float 		currentvalue;
 	
-	if(x->obj.z_disabled)
+	if (x->obj.z_disabled)
 		goto out;
 
-	while(n--){
+	while (n--) {
 		currentvalue = ((*input) < 0)?-(*input):*input; // get the current sample's absolute value
-		if(currentvalue > x->newEnvelope) 				// if it's a new peak amplitude...
+		if (currentvalue > x->newEnvelope) 				// if it's a new peak amplitude...
 			x->newEnvelope = currentvalue;
 		input++; 										// increment pointer in the vector
 	}
@@ -329,7 +329,7 @@ out:
 
 void meter_dsp(t_meter *x, t_signal **sp, short *count)
 {
-	if(count[0]){
+	if (count[0]) {
 		dsp_add(meter_perform, 3, x, sp[0]->s_vec, sp[0]->s_n);
 		clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
 		x->peak = 0;
@@ -351,12 +351,12 @@ void *meter_oksize(t_meter *x, t_rect *newrect)
 }
 
 // To set the effective orientation
-void meterEffectOrientation(t_meter* x){
+void meterEffectOrientation(t_meter* x) {
 
 	t_jbox*	box = (t_jbox*)x;
 	long lastEffectOrientation = x->effectOrientation;
 	
-	switch(x->attrOrientation){
+	switch(x->attrOrientation) {
 		case 0 :	// automatic mode
 			x->effectOrientation = box->b_patching_rect.width > box->b_patching_rect.height;
 			break;
@@ -386,17 +386,17 @@ void meterCacheSurface(t_meter* x)
 	x->gradientRect.x = 0;
 	x->gradientRect.y = 0;
 	// horizontal mode
-	if(x->effectOrientation){
+	if (x->effectOrientation) {
 		x->gradientRect.width = box->b_patching_rect.width * 0.96;
 		x->gradientRect.height = box->b_patching_rect.height;
 	}
 	// vertical mode
-	else{
+	else {
 		x->gradientRect.width = box->b_patching_rect.width;
 		x->gradientRect.height = box->b_patching_rect.height * 0.96;
 	}
 
-	if(x->gradientSurface)
+	if (x->gradientSurface)
 		jgraphics_surface_destroy(x->gradientSurface);
 	
 	x->gradientSurface = jgraphics_image_surface_create(JGRAPHICS_FORMAT_ARGB32, x->gradientRect.width, x->gradientRect.height);
@@ -407,16 +407,16 @@ void meterCacheSurface(t_meter* x)
 	color.alpha = 1.0;
 
 	// horizontal mode
-	if (x->effectOrientation){
-		for(i=0; i < x->gradientRect.width; i++){
+	if (x->effectOrientation) {
+		for (i=0; i < x->gradientRect.width; i++) {
 			color.red = i / x->gradientRect.width;	
-			for(j=0; j < x->gradientRect.height; j++)
+			for (j=0; j < x->gradientRect.height; j++)
 				jgraphics_image_surface_set_pixel(x->gradientSurface, i, j, color);
 		}
-	}else{
-		for(j=0; j < x->gradientRect.height; j++){
+	}else {
+		for (j=0; j < x->gradientRect.height; j++) {
 			color.red = 1. - (j / x->gradientRect.height);	
-			for(i=0; i < x->gradientRect.width; i++)
+			for (i=0; i < x->gradientRect.width; i++)
 				jgraphics_image_surface_set_pixel(x->gradientSurface, i, j, color);
 		}
 	}
@@ -431,7 +431,7 @@ void meter_paint(t_meter *x, t_object *view)
 		meter_dopaint_vertical(x,view);
 }
 
-void meter_dopaint_horizontal(t_meter *x, t_object *view){
+void meter_dopaint_horizontal(t_meter *x, t_object *view) {
 
 	t_rect			rect;
 	t_jgraphics*	g;
@@ -440,7 +440,7 @@ void meter_dopaint_horizontal(t_meter *x, t_object *view){
 	double			peakPosition;
 	t_jrgba			c;
 	
-	if(level > 0.0)
+	if (level > 0.0)
 		level = pow(level, kGainMidiPowerInv);	// this is taken from the midi conversion in the Gain Dataspace
 	
 	g = (t_jgraphics*) patcherview_get_jgraphics(view);		// obtain graphics context
@@ -450,7 +450,7 @@ void meter_dopaint_horizontal(t_meter *x, t_object *view){
 	position = rect.width * level * 0.96;
 	peakPosition = rect.width * x->peak * 0.96;
 
-	if(level > x->peak)
+	if (level > x->peak)
 		x->peak = level;
 						
 	// TODO: Can we export this from the kernel???	
@@ -463,14 +463,14 @@ void meter_dopaint_horizontal(t_meter *x, t_object *view){
 
 	jgraphics_rectangle_fill_fast(g, position, 0, rect.width-position, rect.height);
 
-	if(x->envelope > 1.0 || x->peak > 1.0){
+	if (x->envelope > 1.0 || x->peak > 1.0) {
 		c.red = 1.0;
 		c.green = c.blue = 0.0;
 		c.alpha = 1.0;
 		jgraphics_set_source_jrgba(g, &c);
 		jgraphics_rectangle_fill_fast(g, rect.width - (rect.width * .04), 0, rect.width * .04, rect.height);
 	}
-	else{
+	else {
 		c.red = peakPosition / x->gradientRect.width;
 		c.green = 1.0;
 		c.blue = 0.0;
@@ -484,7 +484,7 @@ void meter_dopaint_horizontal(t_meter *x, t_object *view){
 	}
 }
 
-void meter_dopaint_vertical(t_meter *x, t_object *view){
+void meter_dopaint_vertical(t_meter *x, t_object *view) {
 
 	t_rect			rect;
 	t_jgraphics*	g;
@@ -493,7 +493,7 @@ void meter_dopaint_vertical(t_meter *x, t_object *view){
 	double			peakPosition;
 	t_jrgba			c;
 	
-	if(level > 0.0)
+	if (level > 0.0)
 		level = pow(level, kGainMidiPowerInv);	// this is taken from the midi conversion in the Gain Dataspace
 	
 	g = (t_jgraphics*) patcherview_get_jgraphics(view);		// obtain graphics context
@@ -503,7 +503,7 @@ void meter_dopaint_vertical(t_meter *x, t_object *view){
 	position = rect.height * level * 0.96;
 	peakPosition = rect.height * x->peak * 0.96;
 
-	if(level > x->peak)
+	if (level > x->peak)
 		x->peak = level;
 						
 	// TODO: Can we export this from the kernel???	
@@ -516,14 +516,14 @@ void meter_dopaint_vertical(t_meter *x, t_object *view){
 
 	jgraphics_rectangle_fill_fast(g, 0, 0, rect.width, rect.height-position);
 
-	if(x->envelope > 1.0 || x->peak > 1.0){
+	if (x->envelope > 1.0 || x->peak > 1.0) {
 		c.red = 1.0;
 		c.green = c.blue = 0.0;
 		c.alpha = 1.0;
 		jgraphics_set_source_jrgba(g, &c);
 		jgraphics_rectangle_fill_fast(g, 0, 0, rect.width, rect.height * .04);
 	}
-	else{
+	else {
 		c.red = peakPosition / x->gradientRect.height;
 		c.green = 1.0;
 		c.blue = 0.0;

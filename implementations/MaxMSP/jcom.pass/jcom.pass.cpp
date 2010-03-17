@@ -84,15 +84,15 @@ void *pass_new(t_symbol *s, long argc, t_atom *argv)
 	t_pass	*x = (t_pass *)object_alloc(pass_class);
 	long attrstart = attr_args_offset(argc, argv);
 	
-	if(x){
+	if (x) {
 		x->outlet_overflow = outlet_new(x, 0);		// overflow outlet
 		object_obex_store((void *)x, _sym_dumpout, (object *)x->outlet_overflow);	// dumpout
 //		x->num_args = argc;
 		x->num_args = attrstart;
 
-		for(i=x->num_args-1; i >= 0; i--){				
+		for (i=x->num_args-1; i >= 0; i--) {				
 			x->outlets[i] = outlet_new(x, 0);		// Create Outlet
-			switch(argv[i].a_type){
+			switch(argv[i].a_type) {
 				case A_LONG:
 					atom_setlong(&(x->arguments[i]), atom_getlong(argv+i));
 					break;
@@ -101,9 +101,9 @@ void *pass_new(t_symbol *s, long argc, t_atom *argv)
 					break;
 				case A_SYM:
 					strcpy(argument, atom_getsym(argv+i)->s_name);
-					if(argument[0] == '/')
+					if (argument[0] == '/')
 						atom_setsym(&(x->arguments[i]), gensym(argument+1));
-//					else if(argument[0] == '@')		// This is the start of our attributes
+//					else if (argument[0] == '@')		// This is the start of our attributes
 //						goto out;
 					else
 						atom_setsym(&(x->arguments[i]), gensym(argument));
@@ -125,13 +125,13 @@ void *pass_new(t_symbol *s, long argc, t_atom *argv)
 // Method for Assistance Messages
 void pass_assist(t_pass *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 						// Inlet
+	if (msg==1) 						// Inlet
 		strcpy(dst, "Input");
-	else if(msg==2){ 				// Outlets
-		if(arg < x->num_args){
+	else if (msg==2) { 				// Outlets
+		if (arg < x->num_args) {
 			t_symbol	*argname;
 			char		tempstring[200];
-			switch(x->arguments[arg].a_type){
+			switch(x->arguments[arg].a_type) {
 				case A_LONG:
 					snprintf(tempstring, 200, "%ld", atom_getlong(&x->arguments[arg]));
 					strcpy(dst, tempstring);
@@ -157,9 +157,9 @@ void pass_int(t_pass *x, long n)
 {
 	short i;
 	
-	for(i=0; i< x->num_args; i++){
-		if(x->arguments[i].a_type == A_LONG){
-			if(n == atom_getlong(&x->arguments[i])){
+	for (i=0; i< x->num_args; i++) {
+		if (x->arguments[i].a_type == A_LONG) {
+			if (n == atom_getlong(&x->arguments[i])) {
 				outlet_int(x->outlets[i], n);
 				return;
 			}
@@ -174,9 +174,9 @@ void pass_float(t_pass *x, double f)
 {
 	short i;
 	
-	for(i=0; i< x->num_args; i++){
-		if(x->arguments[i].a_type == A_FLOAT){
-			if(f == atom_getfloat(&x->arguments[i])){
+	for (i=0; i< x->num_args; i++) {
+		if (x->arguments[i].a_type == A_FLOAT) {
+			if (f == atom_getfloat(&x->arguments[i])) {
 				outlet_float(x->outlets[i], f);
 				return;
 			}
@@ -194,21 +194,21 @@ void pass_symbol(t_pass *x, t_symbol *msg, long argc, t_atom *argv)
 	char *input = msg->s_name;
 
 	// strip any leading slashes
-	if(*input == '/')
+	if (*input == '/')
 		input++;
 	message = gensym(input);
 
 	// parse and send
-	for(i=0; i< x->num_args; i++){
-		if(message == atom_getsym(&x->arguments[i])){
-			if(x->attr_strip != 0)
+	for (i=0; i< x->num_args; i++) {
+		if (message == atom_getsym(&x->arguments[i])) {
+			if (x->attr_strip != 0)
 				outlet_anything(x->outlets[i], message, argc , argv);
 			else
 				outlet_anything(x->outlets[i], msg, argc , argv);
 			return;
 		}
 	}
-	if(x->attr_stripnonmatches !=0)
+	if (x->attr_stripnonmatches !=0)
 		outlet_anything(x->outlet_overflow, message, argc , argv);
 	else
 		outlet_anything(x->outlet_overflow, msg, argc , argv);
@@ -222,19 +222,19 @@ void pass_list(t_pass *x, t_symbol *msg, long argc, t_atom *argv)
 	t_symbol	*message;
 	
 	// strip any leading slashes
-	if(x->attr_strip != 0){
+	if (x->attr_strip != 0) {
 		char *input = msg->s_name;
-		if(*input == '/')
+		if (*input == '/')
 			input++;
 		message = gensym(input);
 	}
 		
 	// parse and send
-	switch(argv[0].a_type){
+	switch(argv[0].a_type) {
 		case A_LONG:
-			for(i=0; i< x->num_args; i++){
-				if(x->arguments[i].a_type == A_LONG){
-					if(atom_getlong(argv) == atom_getlong(&x->arguments[i])){
+			for (i=0; i< x->num_args; i++) {
+				if (x->arguments[i].a_type == A_LONG) {
+					if (atom_getlong(argv) == atom_getlong(&x->arguments[i])) {
 						outlet_list(x->outlets[i], 0L, argc , argv);
 						return;
 					}
@@ -243,9 +243,9 @@ void pass_list(t_pass *x, t_symbol *msg, long argc, t_atom *argv)
 			outlet_list(x->outlet_overflow, 0L, argc , argv);
 			break;
 		case A_FLOAT:
-			for(i=0; i< x->num_args; i++){
-				if(x->arguments[i].a_type == A_FLOAT){
-					if(atom_getfloat(argv) == atom_getfloat(&x->arguments[i])){
+			for (i=0; i< x->num_args; i++) {
+				if (x->arguments[i].a_type == A_FLOAT) {
+					if (atom_getfloat(argv) == atom_getfloat(&x->arguments[i])) {
 						outlet_list(x->outlets[i], 0L, argc , argv);
 						return;
 					}
@@ -254,8 +254,8 @@ void pass_list(t_pass *x, t_symbol *msg, long argc, t_atom *argv)
 			outlet_list(x->outlet_overflow, 0L, argc , argv);
 			break;
 		case A_SYM:
-			for(i=0; i< x->num_args; i++){
-				if(atom_getsym(argv) == atom_getsym(&x->arguments[i])){
+			for (i=0; i< x->num_args; i++) {
+				if (atom_getsym(argv) == atom_getsym(&x->arguments[i])) {
 					outlet_anything(x->outlets[i], message, argc , argv);
 					return;
 				}

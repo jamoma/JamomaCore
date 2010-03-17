@@ -11,7 +11,7 @@
 
 
 // Data Structure for this object
-typedef struct _map{
+typedef struct _map {
 	t_object		ob;
 	void			*outlet;
 	t_symbol		*attr_function;
@@ -147,10 +147,10 @@ void map_free(t_map *obj)
 // Method for Assistance Messages
 void map_assist(t_map *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 							// Inlets
+	if (msg==1) 							// Inlets
 		strcpy(dst, "x");
-	else if(msg==2){ 					// Outlets
-		switch(arg){
+	else if (msg==2) { 					// Outlets
+		switch(arg) {
 			case 0: strcpy(dst, "y=f(x)"); break;
 			default: strcpy(dst, "dumpout"); break;
  		}
@@ -168,7 +168,7 @@ void map_float(t_map *obj, double x)
 {
 	double y;
 	
-	if(obj->valid){
+	if (obj->valid) {
 		//y = obj->c * obj->functionUnit->map(obj->a * x + obj->b) + obj->d;
 		obj->functionUnit->calculate(obj->a * x + obj->b, y);
 		y = obj->c * y + obj->d;
@@ -179,7 +179,7 @@ void map_float(t_map *obj, double x)
 
 void map_list(t_map* obj, SymbolPtr message, AtomCount argc, AtomPtr argv)
 {	
-	if(obj->valid){
+	if (obj->valid) {
 		TTValue		v;
 		TTValue		ret;
 		double		x, y;
@@ -187,7 +187,7 @@ void map_list(t_map* obj, SymbolPtr message, AtomCount argc, AtomPtr argv)
 		AtomPtr		av = NULL;
 
 		v.clear();
-		for(int i=0; i<argc; i++){
+		for (int i=0; i<argc; i++) {
 			x = atom_getfloat(argv+i);
 			v.append(obj->a * x + obj->b);
 		}
@@ -196,7 +196,7 @@ void map_list(t_map* obj, SymbolPtr message, AtomCount argc, AtomPtr argv)
 		
 		ac = ret.getSize();
 		av = new Atom[ac];
-		for(int i=0; i<ac; i++){
+		for (int i=0; i<ac; i++) {
 			ret.get(i, y);
 			y = obj->c * y + obj->d;
 			atom_setfloat(av+i, y);
@@ -223,7 +223,7 @@ void map_getFunctions(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	numFunctions = functionNames.getSize();
 
 	atom_setsym(a+0, gensym("append"));
-	for(i=0; i<numFunctions; i++){
+	for (i=0; i<numFunctions; i++) {
 		functionNames.get(i, &aName);
 		atom_setsym(a+1, gensym((char*)aName->getCString()));
 		object_obex_dumpout(obj, gensym("functions"), 2, a);
@@ -289,7 +289,7 @@ void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *arg
 	obj->parameterNames->getKeys(names);
 	n = names.getSize();
 	if (n) {
-		for(int i=0; i<n; i++){
+		for (int i=0; i<n; i++) {
 			atom_setsym(a+0, gensym("append"));
 			names.get(i, &aName);
 			atom_setsym(a+1, gensym((char*)aName->getCString()));

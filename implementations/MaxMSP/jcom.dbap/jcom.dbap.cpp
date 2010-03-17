@@ -92,7 +92,7 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 	
 	x = (t_dbap *)object_alloc(this_class);	// create the new instance and return a pointer to it
 	
-	if(x){
+	if (x) {
     	object_obex_store(x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
 		x->outlet[2] = outlet_new(x, 0);				// Third outlet: Visualization data
 		x->outlet[1] = outlet_new(x, 0);				// Middle outlet: Distance from convex hull
@@ -119,8 +119,8 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 		x->attr_view_end.y = 15.;					// according to the dbap maxhelp space
 		x->attr_view_end.z = 0.;					// according to the dbap maxhelp space
 
-		for(i=0; i<MAX_SIZE_VIEW_X; i++){
-			for(j=0; j<MAX_SIZE_VIEW_Y; j++){
+		for (i=0; i<MAX_SIZE_VIEW_X; i++) {
+			for (j=0; j<MAX_SIZE_VIEW_Y; j++) {
 				x->view_matrix[i][j] = 0;
 			}
 		}
@@ -140,8 +140,8 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 			x->dst_position[i].z = 0.;
 		}
 
-		for(i=0;i<MAX_NUM_WEIGHTED_SOURCES;i++){
-			for(j=0;j<MAX_NUM_WEIGHTED_DESTINATIONS;j++){
+		for (i=0;i<MAX_NUM_WEIGHTED_SOURCES;i++) {
+			for (j=0;j<MAX_NUM_WEIGHTED_DESTINATIONS;j++) {
 				x->src_weight[i][j] = 1.;
 			}
 		}
@@ -175,7 +175,7 @@ void dbap_blur(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 	long n;
 	float f;
 	
-	if((argc>=2) && argv) {	
+	if ((argc>=2) && argv) {	
 		n = atom_getlong(argv)-1;							// we start counting from 1 for sources
 		if ( (n<0) || (n>=MAX_NUM_SOURCES) ) {
 			error("Invalid argument(s) for blur");
@@ -268,7 +268,7 @@ void dbap_destination(t_dbap *x, void *msg, long argc, t_atom *argv)
 		}
 		// The set of destination points has been changed - recalculate variance.
 		dbap_calculate_variance(x);						// implicitely updates all matrix values
-		if(x->hull_io) dbap_calculate_hull(x,n);		// implicitely updates the hull
+		if (x->hull_io) dbap_calculate_hull(x,n);		// implicitely updates the hull
 		dbap_update_view(x);							// implicitely updates the view
 	}
 	else
@@ -281,7 +281,7 @@ void dbap_sourcegain(t_dbap *x, void *msg, long argc, t_atom *argv)
 	long n;
 	float f;
 	
-	if((argc>=2) && argv) {	
+	if ((argc>=2) && argv) {	
 		n = atom_getlong(argv)-1;							// we start counting from 1 for sources
 		if ( (n<0) || (n>=MAX_NUM_SOURCES) ) {
 			error("Invalid argument(s) for source_gain");
@@ -318,34 +318,34 @@ void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 	long source, i;
 	float weight;
 	
-	if(argc && argv) {			
+	if (argc && argv) {			
 		
-		if(atom_gettype(argv) == A_LONG){						// the first argument is the source number
+		if (atom_gettype(argv) == A_LONG) {						// the first argument is the source number
 			source = atom_getlong(argv)-1;						// we start counting from 1 for sources
 		
-			if((source < 0)||(source >= x->attr_num_sources)) {
+			if ((source < 0)||(source >= x->attr_num_sources)) {
 				object_error((t_object*)x, "src_weight : the source n°%d doesn't exist", source);
 				return;
 			}
 		}
-		else{
+		else {
 			object_error((t_object*)x, "src_weight : no source id");
 			return;
 		}
 		
-		for(i=0; i<x->attr_num_destinations; i++){				// the rest is the list of weights for each destination
+		for (i=0; i<x->attr_num_destinations; i++) {				// the rest is the list of weights for each destination
 			
-			if(i+1 < argc){
-				if(atom_gettype(&argv[i+1]) == A_LONG)
+			if (i+1 < argc) {
+				if (atom_gettype(&argv[i+1]) == A_LONG)
 					weight = (float)atom_getlong(&argv[i+1]);
 				
-				if(atom_gettype(&argv[i+1]) == A_FLOAT)
+				if (atom_gettype(&argv[i+1]) == A_FLOAT)
 					weight = atom_getfloat(&argv[i+1]);
 			}
 			else
 				weight = 0.0;									// if the list is smaller than the src_weight array, fill src_weight with 0.0
 			
-			if(weight < 0.0) 
+			if (weight < 0.0) 
 				weight = 0.0;
 			
 			x->src_weight[source][i] = weight;
@@ -363,7 +363,7 @@ void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv)
 {
 	long n;
 	
-	if((argc>=2) && argv) {	
+	if ((argc>=2) && argv) {	
 		n = atom_getlong(argv)-1;							// we start counting from 1 for sources
 		if ( (n<0) || (n>=MAX_NUM_SOURCES) ) {
 			error("Invalid argument(s) for source_gain");
@@ -385,15 +385,15 @@ void dbap_hull(t_dbap *x, long f)
 	x->hull_io = f > 0;
 
 	// Is the hull has been built ?
-	if(x->hull_io){
-		if(x->attr_dimensions == 1){
-			if((x->hull1.min == 0.)&&(x->hull1.max == 0.)) refresh = true;
+	if (x->hull_io) {
+		if (x->attr_dimensions == 1) {
+			if ((x->hull1.min == 0.)&&(x->hull1.max == 0.)) refresh = true;
 		}
-		else if(x->attr_dimensions == 2){
-			if(x->hull2.num_dst == 0) refresh = true;
+		else if (x->attr_dimensions == 2) {
+			if (x->hull2.num_dst == 0) refresh = true;
 			}
 	}
-	if(refresh) dbap_calculate_hull(x,1);	//It's the same hull for all sources
+	if (refresh) dbap_calculate_hull(x,1);	//It's the same hull for all sources
 											//TODO : a hull for each source
 }
 
@@ -403,28 +403,28 @@ void dbap_view(t_dbap *x, void *msg, long argc, t_atom *argv)
 	long dst, src,i ,j;
 	t_symbol *all;
 
-	if((argc==2) && argv){
-		if((atom_gettype(argv) == A_LONG) && (atom_gettype(argv+1) == A_LONG)){
+	if ((argc==2) && argv) {
+		if ((atom_gettype(argv) == A_LONG) && (atom_gettype(argv+1) == A_LONG)) {
 			dst = atom_getlong(argv)-1;							// we start counting from 1 for destinations
 			src = atom_getlong(argv+1)-1;						// we start counting from 1 for sources
-			if((src<0) || (src>=MAX_NUM_SOURCES) || (dst<0) || (dst>=MAX_NUM_DESTINATIONS)){
+			if ((src<0) || (src>=MAX_NUM_SOURCES) || (dst<0) || (dst>=MAX_NUM_DESTINATIONS)) {
 				error("Invalid argument(s) for view");
 				return;
 			}
 			dbap_calculate_view(x,dst,src);
 		}
-		else{
-			if((atom_gettype(argv) == A_SYM) && (atom_gettype(argv+1) == A_LONG)){
+		else {
+			if ((atom_gettype(argv) == A_SYM) && (atom_gettype(argv+1) == A_LONG)) {
 				all = atom_getsym(argv);
 				src = atom_getlong(argv+1)-1;					// we start counting from 1 for sources
-				if((src<0) || (src>=MAX_NUM_SOURCES) || (all != gensym("all"))){
+				if ((src<0) || (src>=MAX_NUM_SOURCES) || (all != gensym("all"))) {
 					error("Invalid argument(s) for view");
 					return;
 				}
 				
 				// Calculation for each non-zero weighted dst
-				for(i=0; i<x->attr_num_destinations; i++){
-					if(x->src_weight[src][i] > 0)
+				for (i=0; i<x->attr_num_destinations; i++) {
+					if (x->src_weight[src][i] > 0)
 						dbap_calculate_view(x,i,src);
 				}
 			}
@@ -432,8 +432,8 @@ void dbap_view(t_dbap *x, void *msg, long argc, t_atom *argv)
 		dbap_output_view(x);
 
 		// then we reset the matrix
-		for(i=0; i<MAX_SIZE_VIEW_X; i++){
-			for(j=0; j<MAX_SIZE_VIEW_Y; j++){
+		for (i=0; i<MAX_SIZE_VIEW_X; i++) {
+			for (j=0; j<MAX_SIZE_VIEW_Y; j++) {
 				x->view_matrix[i][j] = 0;
 			}
 		}
@@ -453,9 +453,9 @@ void dbap_view_update(t_dbap *x, long io)
 }
 
 /** Set the size of hitmap view window */
-void dbap_view_size(t_dbap *x, long sizeX, long sizeY){
+void dbap_view_size(t_dbap *x, long sizeX, long sizeY) {
 	
-	if((sizeX > 0)&&(sizeY > 0)&&(sizeX <= MAX_SIZE_VIEW_X)&&(sizeY <= MAX_SIZE_VIEW_Y)){
+	if ((sizeX > 0)&&(sizeY > 0)&&(sizeX <= MAX_SIZE_VIEW_X)&&(sizeY <= MAX_SIZE_VIEW_Y)) {
 		x->attr_view_size[0] = sizeX;
 		x->attr_view_size[1] = sizeY;
 		dbap_update_view(x);
@@ -465,26 +465,26 @@ void dbap_view_size(t_dbap *x, long sizeX, long sizeY){
 }
 
 /** Set the start point of the hitmap view window */
-void dbap_view_start(t_dbap *x, void *msg, long argc, t_atom *argv){
+void dbap_view_start(t_dbap *x, void *msg, long argc, t_atom *argv) {
 
-	if((argc == x->attr_dimensions) && argv){
-		if(atom_gettype(argv) == A_FLOAT)
+	if ((argc == x->attr_dimensions) && argv) {
+		if (atom_gettype(argv) == A_FLOAT)
 			x->attr_view_start.x = atom_getfloat(argv);
-		else{
+		else {
 			dbap_update_view(x);
 			return;
 		}
 			
-		if(atom_gettype(argv+1) == A_FLOAT)
+		if (atom_gettype(argv+1) == A_FLOAT)
 			x->attr_view_start.y = atom_getfloat(argv+1);
-		else{
+		else {
 			dbap_update_view(x);
 			return;
 		}
 			
-		if(atom_gettype(argv+2) == A_FLOAT)
+		if (atom_gettype(argv+2) == A_FLOAT)
 			x->attr_view_start.z = atom_getfloat(argv+2);
-		else{
+		else {
 			dbap_update_view(x);
 			return;
 		}
@@ -494,26 +494,26 @@ void dbap_view_start(t_dbap *x, void *msg, long argc, t_atom *argv){
 }
 
 /** Set the end point of the hitmap view window */
-void dbap_view_end(t_dbap *x, void *msg, long argc, t_atom *argv){
+void dbap_view_end(t_dbap *x, void *msg, long argc, t_atom *argv) {
 
-	if((argc == x->attr_dimensions) && argv){
-		if(atom_gettype(argv) == A_FLOAT)
+	if ((argc == x->attr_dimensions) && argv) {
+		if (atom_gettype(argv) == A_FLOAT)
 			x->attr_view_end.x = atom_getfloat(argv);
-		else{
+		else {
 			dbap_update_view(x);
 			return;
 		}
 			
-		if(atom_gettype(argv+1) == A_FLOAT)
+		if (atom_gettype(argv+1) == A_FLOAT)
 			x->attr_view_end.y = atom_getfloat(argv+1);
-		else{
+		else {
 			dbap_update_view(x);
 			return;
 		}
 			
-		if(atom_gettype(argv+2) == A_FLOAT)
+		if (atom_gettype(argv+2) == A_FLOAT)
 			x->attr_view_end.z = atom_getfloat(argv+2);
-		else{
+		else {
 			dbap_update_view(x);
 			return;
 		}
@@ -566,7 +566,7 @@ void dbap_info(t_dbap *x)
 // Method for Assistance Messages
 void dbap_assist(t_dbap *x, void *b, long msg, long arg, char *dst)	// Display assistance messages
 {
-	if(msg==1)
+	if (msg==1)
 	{ 
 		switch(arg)
 		{
@@ -575,7 +575,7 @@ void dbap_assist(t_dbap *x, void *b, long msg, long arg, char *dst)	// Display a
 				break;	
 		}
 	}
-	else if(msg==2)
+	else if (msg==2)
 	{
 		switch(arg)
 		{
@@ -606,7 +606,7 @@ t_max_err dbap_attr_setdimensions(t_dbap *x, void *attr, long argc, t_atom *argv
 {
 	long n;
 
-	if(argc && argv) {
+	if (argc && argv) {
 		n = atom_getlong(argv);
 		if (n<1) n = 1;
 		if (n>3) n = 3;
@@ -621,7 +621,7 @@ t_max_err dbap_attr_setnum_sources(t_dbap *x, void *attr, long argc, t_atom *arg
 {
 	long n;
 	
-	if(argc && argv) {	
+	if (argc && argv) {	
 		n = atom_getlong(argv);
 		if (n<0) 
 			n = 0;
@@ -638,7 +638,7 @@ t_max_err dbap_attr_setnum_destinations(t_dbap *x, void *attr, long argc, t_atom
 {
 	long n;
 	
-	if(argc && argv) {	
+	if (argc && argv) {	
 		n = atom_getlong(argv);
 		if (n<0) 
 			n = 0;
@@ -658,7 +658,7 @@ t_max_err dbap_attr_setrolloff(t_dbap *x, void *attr, long argc, t_atom *argv)
 	float f;
 	long i;
 	
-	if(argc && argv) {	
+	if (argc && argv) {	
 		f = atom_getfloat(argv);
 		if (f<=0.0) {
 			error("Invalid argument for rolloff. Must be > 0");
@@ -709,7 +709,7 @@ void dbap_calculate1D(t_dbap *x, long n)
 	xPos = x->src_position[n].x;
 
 	// Calculate distance from convex hull and project position onto convex hull)
-	if(x->hull_io){
+	if (x->hull_io) {
 		if (xPos < x->hull1.min) {
 			dist = x->hull1.min - xPos;
 			xPos = x->hull1.min;
@@ -765,20 +765,20 @@ void dbap_calculate2D(t_dbap *x, long n)
 	r2 = x->blur[n] * x->variance;
 	r2 = r2*r2;
 	k2inv = 0;
-	for(i=0; i<x->attr_num_destinations; i++){
+	for (i=0; i<x->attr_num_destinations; i++) {
 		dx = x->src_position[n].x - x->dst_position[i].x;
 		dy = x->src_position[n].y - x->dst_position[i].y;
 		dia[i] = pow(double(dx*dx + dy*dy + r2), double(0.5*x->a));
-		if(x->hull_io) sdia[i] = dx*dx + dy*dy;
+		if (x->hull_io) sdia[i] = dx*dx + dy*dy;
 		
 		k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i]);
 	}
 
-	if(x->hull_io){
+	if (x->hull_io) {
 		// Find the closest border in the hull
 		min_dist = 10000.;
 		out = -1.;
-		for(j=0; j<x->hull2.num_dst; j++){
+		for (j=0; j<x->hull2.num_dst; j++) {
 			// index in the dst_position[]
 			iC = x->hull2.id_dst[j];
 			iN = x->hull2.id_dst[(j+1)%x->hull2.num_dst];
@@ -789,14 +789,14 @@ void dbap_calculate2D(t_dbap *x, long n)
 			sCN = x->hull2.dst2next[j];
 			kCN = (sSC + sCN - sSN)/sCN;
 
-			if(kCN<0){
+			if (kCN<0) {
 				dist = sqrt(sSC);
 			}
-			else{
-				if(kCN>2){
+			else {
+				if (kCN>2) {
 					dist = sqrt(sSN);
 				}
-				else{
+				else {
 					// the projection of the source on [CN] : <CP> = kCN * <CN>
 					P.x = (kCN/2) * (x->dst_position[iN].x - x->dst_position[iC].x) + x->dst_position[iC].x;
 					P.y = (kCN/2) * (x->dst_position[iN].y - x->dst_position[iC].y) + x->dst_position[iC].y;
@@ -810,11 +810,11 @@ void dbap_calculate2D(t_dbap *x, long n)
 			// is the source out of the hull ?
 			v = (x->dst_position[iN].x - x->dst_position[iC].x)*(x->src_position[n].y - x->dst_position[iC].y);
 			v -= (x->dst_position[iN].y - x->dst_position[iC].y)*(x->src_position[n].x - x->dst_position[iC].x);
-			if(v>0) out = 1.;
+			if (v>0) out = 1.;
 
-			if(dist < min_dist){
+			if (dist < min_dist) {
 				min_dist = dist;
-				if(sSC < sSN) id_min = iC;
+				if (sSC < sSN) id_min = iC;
 				else  id_min = iN;
 			}
 		}
@@ -975,11 +975,11 @@ void dbap_calculate_hull2D(t_dbap *x, long n)
 	long m;				// Index of lowest so far
 
 	//post("h2D : Start ********************************************");
-	if(x->attr_num_destinations < 2) return;
+	if (x->attr_num_destinations < 2) return;
 	else h2.nb_point = x->attr_num_destinations;
 
 	// Store dst coordinate to prepare algorithm
-	for(i = 0; i<x->attr_num_destinations; i++){
+	for (i = 0; i<x->attr_num_destinations; i++) {
 		h2.point[i].v[X] = (double) x->dst_position[i].x;
 		h2.point[i].v[Y] = (double) x->dst_position[i].y;
 		h2.point[i].vnum = i+1;
@@ -988,8 +988,8 @@ void dbap_calculate_hull2D(t_dbap *x, long n)
 
 	// Find the lowest and rightmost Point
 	m = 0;
-	for(i = 1; i<x->attr_num_destinations; i++){
-		if((h2.point[i].v[Y] <  h2.point[m].v[Y]) || ((h2.point[i].v[Y] == h2.point[m].v[Y]) && (h2.point[i].v[X] > h2.point[m].v[X]))){
+	for (i = 1; i<x->attr_num_destinations; i++) {
+		if ((h2.point[i].v[Y] <  h2.point[m].v[Y]) || ((h2.point[i].v[Y] == h2.point[m].v[Y]) && (h2.point[i].v[X] > h2.point[m].v[X]))) {
 			m = i;
 		}
 	}
@@ -1002,7 +1002,7 @@ void dbap_calculate_hull2D(t_dbap *x, long n)
 	Swap(h2.point,0,m);
 
 	// add p0 to each point[i] (to get it during Compare without use a qsort_s)
-	for(i = 0; i<x->attr_num_destinations; i++){
+	for (i = 0; i<x->attr_num_destinations; i++) {
 		h2.point[i].p0[0] = h2.point[0].v[0];
 		h2.point[i].p0[1] = h2.point[0].v[1];
 	}
@@ -1019,20 +1019,20 @@ void dbap_calculate_hull2D(t_dbap *x, long n)
 
 	// count nb_delete ('cause we can't do that in Compare)
 	h2.nb_delete = 0;
-	for(i = 1; i<x->attr_num_destinations; i++){
-		if(h2.point[i].del) h2.nb_delete++;
+	for (i = 1; i<x->attr_num_destinations; i++) {
+		if (h2.point[i].del) h2.nb_delete++;
 	}
 
 	// debug
 	//post("nb_del = %d",h2.nb_delete);
 
 	// Remove all elements from point marked deleted
-	if(h2.nb_delete > 0){
+	if (h2.nb_delete > 0) {
 		i = 0;
 		j = 0;
-		while(i < x->attr_num_destinations){
-			if(!h2.point[i].del){		// if not marked for deletion
-				if (i != j){
+		while (i < x->attr_num_destinations) {
+			if (!h2.point[i].del) {		// if not marked for deletion
+				if (i != j) {
 					Copy(h2.point,i,j);	// Copy point[i] to point[j]
 					Delete(h2.point,i);	// Delete point[i]
 				}
@@ -1054,15 +1054,15 @@ void dbap_calculate_hull2D(t_dbap *x, long n)
 
 	// store result in x->hull2
 	i = 0;
-	if(h2.stack){
-		while(h2.stack){
+	if (h2.stack) {
+		while (h2.stack) {
 			// Debug
 			//post("vnum = %d, x = %f, y = %f", h2.stack->p->vnum,h2.stack->p->v[X],h2.stack->p->v[Y]);
 			
 			x->hull2.id_dst[i] = (h2.stack->p->vnum)-1;
 			
 			// calculate the lenght of each border of the hull
-			if(i>0){
+			if (i>0) {
 				dx = x->dst_position[x->hull2.id_dst[i-1]].x - x->dst_position[x->hull2.id_dst[i]].x;
 				dy = x->dst_position[x->hull2.id_dst[i-1]].y - x->dst_position[x->hull2.id_dst[i]].y;
 				x->hull2.dst2next[i-1] = dx*dx + dy*dy;
@@ -1082,7 +1082,7 @@ void dbap_calculate_hull2D(t_dbap *x, long n)
 	} // else do nothing
 
 	// debug
-	//for(i=0; i<x->hull2.num_dst; i++){
+	//for (i=0; i<x->hull2.num_dst; i++) {
 	//	post("id = %d",x->hull2.id_dst[i]+1);
 	//}
 }
@@ -1092,8 +1092,8 @@ void dbap_hull2_postpoint(t_dbap *x, t_H2D h2)
 {
 	long i;
 	post("H2D : %d points", h2.nb_point);
-	for(i = 0; i<x->attr_num_destinations; i++)
-		if(!h2.point[i].del)
+	for (i = 0; i<x->attr_num_destinations; i++)
+		if (!h2.point[i].del)
 			post("vnum = %d, x = %f, y = %f", 
 			h2.point[i].vnum, h2.point[i].v[X], h2.point[i].v[Y]);
 }
@@ -1115,8 +1115,8 @@ void dbap_calculate_view(t_dbap *x, long dst, long src)
 }
 
 /** If the attr_view_update is true : calculate the last view */
-void dbap_update_view(t_dbap *x){
-	if(x->attr_view_update)
+void dbap_update_view(t_dbap *x) {
+	if (x->attr_view_update)
 		defer_low(x,(method) dbap_view, gensym("view"), 2, x->last_view);
 }
 
@@ -1141,8 +1141,8 @@ void dbap_calculate_view2D(t_dbap *x, long dst, long src)
 	div_y = (x->attr_view_end.y - x->attr_view_start.y)/x->attr_view_size[1];
 
 	// For each pixel of the view window
-	for(i=0; i<x->attr_view_size[0]; i++){
-		for(j=0 ; j<x->attr_view_size[1]; j++){
+	for (i=0; i<x->attr_view_size[0]; i++) {
+		for (j=0 ; j<x->attr_view_size[1]; j++) {
 
 			temp_src.x = x->attr_view_start.x + i * div_x;
 			temp_src.y = x->attr_view_start.y + j * div_y;
@@ -1154,7 +1154,7 @@ void dbap_calculate_view2D(t_dbap *x, long dst, long src)
 			r2 = r2*r2;
 			k2inv = 0;
 
-			for (d=0; d<x->attr_num_destinations; d++){
+			for (d=0; d<x->attr_num_destinations; d++) {
 				dx = temp_src.x - x->dst_position[d].x;
 				dy = temp_src.y - x->dst_position[d].y;
 				dia[d] = pow(double(dx*dx + dy*dy + r2), double(0.5*x->a));
@@ -1168,7 +1168,7 @@ void dbap_calculate_view2D(t_dbap *x, long dst, long src)
 
 			// keep the max
 			m_j = x->attr_view_size[1]-j-1;   // jit.matrix style
-			if(x->view_matrix[i][m_j] < (unsigned char)(pix * 255.))
+			if (x->view_matrix[i][m_j] < (unsigned char)(pix * 255.))
 				x->view_matrix[i][m_j] = (unsigned char)(pix * 255.);
 		}
 	}
@@ -1186,8 +1186,8 @@ void dbap_output_view(t_dbap *x)
 	long i,j;
 
 	// For each pixel of the view window
-	for(i=0; i<x->attr_view_size[0]; i++){
-		for(j=0; j<x->attr_view_size[1]; j++){
+	for (i=0; i<x->attr_view_size[0]; i++) {
+		for (j=0; j<x->attr_view_size[1]; j++) {
 			atom_setlong(&a[0], i);
 			atom_setlong(&a[1], j);
 			atom_setlong(&a[2], x->view_matrix[i][j]);

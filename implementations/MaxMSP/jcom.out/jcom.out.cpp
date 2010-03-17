@@ -97,7 +97,7 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 	t_out 		*x = (t_out *)object_alloc(out_class);
 	short 		i;
 
-	if(x){
+	if (x) {
 		x->dumpout = outlet_new(x, NULL);
 		object_obex_store((void *)x, jps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
@@ -107,18 +107,18 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_bypass = 0;
 		x->attr_mute = 0;
 		x->attr_mix = 100;										// Assume 100%, so that processed signal is passed through if @has_mix is false
-		if(attrstart > 0){
+		if (attrstart > 0) {
 			int argument = atom_getlong(argv);
 			x->numOutputs = TTClip(argument, 1, MAX_NUM_CHANNELS);
 		}
 #ifdef JCOM_OUT_TILDE
-		if(x->numOutputs > 0)
+		if (x->numOutputs > 0)
 			dsp_setup((t_pxobject *)x, x->numOutputs);		// Create Object and Inlets
 		else
 			dsp_setup((t_pxobject *)x, 1);					// Create Object and Inlets
 			
 		x->common.ob.z_misc = Z_NO_INPLACE | Z_PUT_LAST;	// Z_PUT_LAST so that thispoly~ gets it's message properly?  		
-		for(i=0; i < (x->numOutputs); i++)
+		for (i=0; i < (x->numOutputs); i++)
 			outlet_new((t_pxobject *)x, "signal");			// Create a signal Outlet   		
 
 		x->clock = clock_new(x, (method)update_meters);
@@ -138,9 +138,9 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 //		out_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
 		x->gain->setAttributeValue(TT("LinearGain"), 1.0);
 #else
-		for(i=x->numOutputs-1; i >= 1; i--)
+		for (i=x->numOutputs-1; i >= 1; i--)
 			x->inlet[i] = proxy_new(x, i, 0L);
-		for(i=x->numOutputs-1; i >= 0; i--)
+		for (i=x->numOutputs-1; i >= 0; i--)
 			x->outlet[i] = outlet_new(x, 0L);
 #endif		
 		jcom_core_subscriber_new_common(&x->common, jps__jcom_out__, jps_subscribe_out);
@@ -161,7 +161,7 @@ void out_subscribe(void *z)
 	t_atom		*argv = &a;
 	t_out		*x = (t_out *)z;
 	
-	if(x->common.hub != NULL){
+	if (x->common.hub != NULL) {
 		object_attr_getvalueof(x->common.hub, jps_name, &argc, &argv);
 		x->common.module_name = atom_getsym(argv);
 	}
@@ -195,7 +195,7 @@ void out_release(t_out *x)
 	
 	jcom_core_subscriber_hubrelease(&x->common);	
 	x->in_object = NULL;
-	for(i=0; i<MAX_NUM_CHANNELS; i++)
+	for (i=0; i<MAX_NUM_CHANNELS; i++)
 		x->meter_object[i] = NULL;
 	x->num_meter_objects = 0;
 	x->preview_object = NULL;
@@ -208,10 +208,10 @@ void out_release(t_out *x)
 // Method for Assistance Messages
 void out_assist(t_out *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 	// Inlets
+	if (msg==1) 	// Inlets
 		strcpy(dst, "(signal) connect to the module algorithm");
-	else if(msg==2){ // Outlets
-		if(arg < x->numOutputs) 
+	else if (msg==2) { // Outlets
+		if (arg < x->numOutputs) 
 			strcpy(dst, "(signal) connect to the module's outlets");
 		else 
 			strcpy(dst, "dumpout");
@@ -222,14 +222,14 @@ void out_assist(t_out *x, void *b, long msg, long arg, char *dst)
 // messages received from jcom.hub for the algorithm
 void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	if(argc < 2)
+	if (argc < 2)
 		return;
 		
-	if(argv->a_type == A_SYM){
+	if (argv->a_type == A_SYM) {
 // jamoma 0.4
-//		if((argv->a_w.w_sym == jps_slash_audio_gain_midi) || (argv->a_w.w_sym == jps_audio_gain_midi)){
+//		if ((argv->a_w.w_sym == jps_slash_audio_gain_midi) || (argv->a_w.w_sym == jps_audio_gain_midi)) {
 // jamoma 0.5
-		if((argv->a_w.w_sym == gensym("/audio/gain")) || (argv->a_w.w_sym == gensym("audio/gain")) || (argv->a_w.w_sym == gensym("gain")) || (argv->a_w.w_sym == gensym("/gain"))){
+		if ((argv->a_w.w_sym == gensym("/audio/gain")) || (argv->a_w.w_sym == gensym("audio/gain")) || (argv->a_w.w_sym == gensym("gain")) || (argv->a_w.w_sym == gensym("/gain"))) {
 			// Do gain control here...
 			// Should be that the gain change triggers a short tt_ramp to the new value
 			x->attr_gain = atom_getfloat(argv+1);	// store as midi values
@@ -237,35 +237,35 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 			x->gain->setAttributeValue(TT("MidiGain"), x->attr_gain);
 #endif
 		}
-		else if((argv->a_w.w_sym == jps_audio_mute) || (argv->a_w.w_sym == jps_slash_audio_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute"))){
+		else if ((argv->a_w.w_sym == jps_audio_mute) || (argv->a_w.w_sym == jps_slash_audio_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute"))) {
 			x->attr_mute = atom_getlong(argv+1);
 #ifdef JCOM_OUT_TILDE
-			if(x->attr_mute)
+			if (x->attr_mute)
 				x->gain->setAttributeValue(TT("LinearGain"), 0.0);
 			else 
 				x->gain->setAttributeValue(TT("MidiGain"), x->attr_gain);			
 #endif
 		}
-		else if((argv->a_w.w_sym == jps_audio_bypass) || (argv->a_w.w_sym == jps_slash_audio_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass"))){
+		else if ((argv->a_w.w_sym == jps_audio_bypass) || (argv->a_w.w_sym == jps_slash_audio_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass"))) {
 			x->attr_bypass = atom_getlong(argv+1);
 #ifdef JCOM_OUT_TILDE
-			if(x->attr_bypass == 0)
+			if (x->attr_bypass == 0)
 				x->xfade->setAttributeValue(TT("Position"), x->attr_mix * 0.01);
 			else
 				x->xfade->setAttributeValue(TT("Position"), 0.0);
 #endif
 		}
-		else if((argv->a_w.w_sym == jps_audio_mix) || (argv->a_w.w_sym == jps_slash_audio_mix) || (argv->a_w.w_sym == gensym("mix")) || (argv->a_w.w_sym == gensym("/mix"))){
+		else if ((argv->a_w.w_sym == jps_audio_mix) || (argv->a_w.w_sym == jps_slash_audio_mix) || (argv->a_w.w_sym == gensym("mix")) || (argv->a_w.w_sym == gensym("/mix"))) {
 			x->attr_mix = atom_getfloat(argv+1);
 #ifdef JCOM_OUT_TILDE
-			if(x->attr_bypass == 0)
+			if (x->attr_bypass == 0)
 				x->xfade->setAttributeValue(TT("Position"), x->attr_mix * 0.01);		
 #endif
 		}
-		else if((argv->a_w.w_sym == jps_audio_meters_freeze) || (argv->a_w.w_sym == jps_slash_audio_meters_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze"))){
+		else if ((argv->a_w.w_sym == jps_audio_meters_freeze) || (argv->a_w.w_sym == jps_slash_audio_meters_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze"))) {
 			x->attr_defeat_meters = atom_getlong(argv+1);
 		}
-		else if((argv->a_w.w_sym == jps_video_preview) || (argv->a_w.w_sym == jps_slash_video_preview) || (argv->a_w.w_sym == gensym("preview")) || (argv->a_w.w_sym == gensym("/preview")))
+		else if ((argv->a_w.w_sym == jps_video_preview) || (argv->a_w.w_sym == jps_slash_video_preview) || (argv->a_w.w_sym == gensym("preview")) || (argv->a_w.w_sym == gensym("/preview")))
 			x->attr_preview = atom_getlong(argv+1);
 	}
 }
@@ -285,7 +285,7 @@ void out_unlink(t_out *x)
 void out_register_meter(t_out *x, int meternum, void *meter_object)
 {
 	x->meter_object[meternum] = meter_object;
-	if((meternum+1) > x->num_meter_objects)
+	if ((meternum+1) > x->num_meter_objects)
 		x->num_meter_objects = meternum+1;
 }
 
@@ -293,7 +293,7 @@ void out_register_meter(t_out *x, int meternum, void *meter_object)
 void out_remove_meters(t_out *x)
 {
 	short i;
-	for(i=0; i<MAX_NUM_CHANNELS; i++)
+	for (i=0; i<MAX_NUM_CHANNELS; i++)
 		x->meter_object[i] = NULL;
 	x->num_meter_objects = 0;
 }
@@ -315,7 +315,7 @@ void out_dispatched(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 // messages received from jcom.in
 void out_sendbypassedvalue(t_out *x, short inletnum, t_symbol *msg, long argc, t_atom *argv)
 {
-	if(inletnum < x->numOutputs)
+	if (inletnum < x->numOutputs)
 		outlet_anything(x->outlet[inletnum], msg, argc, argv);
 }
 
@@ -329,7 +329,7 @@ void out_sendlastvalue(t_out *x)
 	// because it shouldn't have changed since input to the algorithm is turned off...
 	short i;
 
-	for(i=0; i< x->numOutputs; i++)
+	for (i=0; i< x->numOutputs; i++)
 		outlet_anything(x->outlet[i], x->last_msg[i], x->last_argc[i], x->last_argv[i]);
 }
 
@@ -341,8 +341,8 @@ void out_anything(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 	x->last_argc[inletnum] = argc;
 	sysmem_copyptr(argv, x->last_argv[inletnum], argc * sizeof(t_atom));
 	
-	if(x->attr_preview == 1){
-		if(msg == _sym_jit_matrix)
+	if (x->attr_preview == 1) {
+		if (msg == _sym_jit_matrix)
 			object_method_typed(x->preview_object, _sym_jit_matrix, argc, argv, NULL);
 		else if (msg == _sym_jit_gl_texture)
 			object_method_typed(x->preview_object, _sym_jit_gl_texture, argc, argv, NULL);
@@ -359,8 +359,8 @@ void update_meters(t_out *x)
 	t_atom	a[2];
 	
 	x->clock_is_set = 0;
-	for(i=0; i < x->num_meter_objects; i++){
-		if(x->meter_object[i] && x->peakamp[i] != x->lastPeakamp[i]){
+	for (i=0; i < x->num_meter_objects; i++) {
+		if (x->meter_object[i] && x->peakamp[i] != x->lastPeakamp[i]) {
 			atom_setsym(&a[0], _sym_float);
 			atom_setfloat(&a[1], x->peakamp[i]);
 			object_method_typed(x->meter_object[i], jps_dispatched, 2, a, NULL);
@@ -383,17 +383,17 @@ t_int *out_perform(t_int *w)
 	float			peakvalue = 0;	// values for calculating metering
 	
 	// Store the input from the inlets
-	for(i=0; i<x->numChannels; i++){
+	for (i=0; i<x->numChannels; i++) {
 		j = (i*2) + 1;
 		x->audioIn->setVector(i, x->vectorSize, (TTFloat32*)w[j+1]);
 	}
 	
-	if(x->attr_bypass)
+	if (x->attr_bypass)
 		TTAudioSignal::copy(*x->in_object->audioOut, *x->audioOut);
-	else if(x->attr_mute)
+	else if (x->attr_mute)
 		TTAudioSignal::copy(*x->zeroSignal, *x->audioOut);
-	else{
-		if(x->in_object && x->in_object->numChannels)
+	else {
+		if (x->in_object && x->in_object->numChannels)
 			x->xfade->process(x->in_object->audioOut, x->audioIn, x->audioTemp);	// perform bypass/mix control
 		else
 			TTAudioSignal::copy(*x->audioIn, *x->audioTemp);
@@ -402,30 +402,30 @@ t_int *out_perform(t_int *w)
 	}
 	
 	// Send the input on to the outlets for the algorithm
-	for(i=0; i<x->numChannels; i++){
+	for (i=0; i<x->numChannels; i++) {
 		j = (i*2) + 1;
 		x->audioOut->getVector(i, x->vectorSize, (TTFloat32*)w[j+2]);
 		
 		// since we are already looping through the channels here, we will also do the per-channel metering here
-		if(x->attr_defeat_meters == 0 && x->num_meter_objects && !x->attr_mute){
+		if (x->attr_defeat_meters == 0 && x->num_meter_objects && !x->attr_mute) {
 			t_float* envelope = (t_float *)(w[j+2]);
 			peakvalue = 0.0;
 			
 			n = x->vectorSize;
-			while(n--){
-				if((*envelope) < 0 )						// get the current sample's absolute value
+			while (n--) {
+				if ((*envelope) < 0 )						// get the current sample's absolute value
 					currentvalue = -(*envelope);
 				else
 					currentvalue = *envelope;
 			
-				if(currentvalue > peakvalue) 					// if it's a new peak amplitude...
+				if (currentvalue > peakvalue) 					// if it's a new peak amplitude...
 					peakvalue = currentvalue;
 				envelope++; 										// increment pointer in the vector
 			}
-//			if(peakvalue != x->peakamp[i]){					// filter out repetitions
-			if(peakvalue > x->peakamp[i])
+//			if (peakvalue != x->peakamp[i]) {					// filter out repetitions
+			if (peakvalue > x->peakamp[i])
 				x->peakamp[i] = peakvalue;
-//				if(x->clock_is_set == 0){
+//				if (x->clock_is_set == 0) {
 //					clock_delay(x->clock, POLL_INTERVAL); 		// start the clock
 //					x->clock_is_set = 1;
 //				}
@@ -459,11 +459,11 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 	audioVectors[k] = x;
 	k++;
 	
-	for(i=0; i < x->numOutputs; i++){
+	for (i=0; i < x->numOutputs; i++) {
 		j = x->numOutputs + i;
-		if(count[i] || count[j]){
+		if (count[i] || count[j]) {
 			numChannels++;
-			if(sp[i]->s_n > vs)
+			if (sp[i]->s_n > vs)
 				vs = sp[i]->s_n;
 				
 			audioVectors[k] = sp[i]->s_vec;
@@ -495,8 +495,8 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 	sysmem_freeptr(audioVectors);
 
 	// start the meters
-	if(x->num_meter_objects){
-		for(i=0; i<MAX_NUM_CHANNELS; i++)
+	if (x->num_meter_objects) {
+		for (i=0; i<MAX_NUM_CHANNELS; i++)
 			x->peakamp[i] = 0;
 		clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
 	}
@@ -507,7 +507,7 @@ void out_alloc(t_out *x, int vector_size)
 {
 // TODO: Do we still need this?  The remote audio from jcom.send~ still needs to be re-implemented!
 /*
-	if(vector_size != x->vector_size){
+	if (vector_size != x->vector_size) {
 		x->vector_size = vector_size;
 		x->signal_temp->alloc(vector_size);		
 		x->ramp_gain->set_vectorsize(vector_size);

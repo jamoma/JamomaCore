@@ -110,14 +110,14 @@ t_stack	Graham(t_H2D h2)
 	/* Bottom two elements will never be removed. */
 	i = 2;
 
-	while(i < h2.nb_point){
+	while (i < h2.nb_point) {
 		//post("Stack at top of while loop, i = %d, vnum = %d :", i, P[i].vnum);
 		//PrintStack( top );
-		if(!top->next) 
+		if (!top->next) 
 			return NULL;	// Failure
 		p1 = top->next->p;
 		p2 = top->p;
-		if(Left(p1->v , p2->v, h2.point[i].v)){
+		if (Left(p1->v , p2->v, h2.point[i].v)) {
 			top = Push(&h2.point[i], top);
 			i++;
 		}
