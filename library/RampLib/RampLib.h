@@ -48,7 +48,7 @@ class JAMOMA_EXPORT RampUnit : public TTObject {
 		/** destructor */
 		virtual ~RampUnit();
 		
-		TTErr getFunctionParameterNames(TTSymbol* parameterName, TTValue& names);
+		TTErr getFunctionParameterNames(TTValue& names);
 		TTErr setFunctionParameterValue(TTSymbol* parameterName, TTValue& newValue);
 		TTErr getFunctionParameterValue(TTSymbol* parameterName, TTValue& value);
 		
