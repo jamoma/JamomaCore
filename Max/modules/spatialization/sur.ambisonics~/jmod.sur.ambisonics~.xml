@@ -12,7 +12,7 @@
     <item name='center/size' type='decimal' priority='0'>0.000000</item>
     <item name='flavor' type='string' priority='0'>Furse-Malham</item>
     <item name='interpolation' type='boolean' priority='0'>0</item>
-    <item name='numSources' type='integer' priority='1'>1</item>
+    <item name='numSources' type='integer' priority='1'>3</item>
     <item name='numSpeakers' type='integer' priority='3'>8</item>
     <item name='order' type='integer' priority='0'>3</item>
     <item name='source.1/order' type='integer' priority='0'>3</item>

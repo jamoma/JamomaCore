@@ -9,7 +9,7 @@
     <item name='audio/mute' type='boolean' priority='0'>0</item>
     <item name='flavor' type='string' priority='0'>Furse-Malham</item>
     <item name='numSpeakers' type='integer' priority='0'>8</item>
-    <item name='order' type='integer' priority='0'>2</item>
+    <item name='order' type='integer' priority='0'>3</item>
     <item name='orderWeights' type='array' priority='0'>1.000000 0.500000 0.100000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 </item>
     <item name='view/color/border' type='array' priority='0'>0</item>
     <item name='view/color/contentBackground' type='array' priority='0'>0</item>
