@@ -183,8 +183,11 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 		// 3. Add the effective address (with the generated instance) to the global hashtab
 		newTTNode->getOscAddress(&oscAddress_got);
 		mDirectory->append(oscAddress_got,TTValue(newTTNode));
+		
+		// 4. Notify observers that a node have been created AFTER the creation
+		this->notifyObservers(oscAddress_got, newTTNode, kAddressDestroyed);
 
-		// 4. returned the new TTNode
+		// 5. returned the new TTNode
 		*returnedTTNode = newTTNode;
 
 		return kTTErrNone;
@@ -195,10 +198,26 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 TTErr TTNodeDirectory::TTNodeRemove(TTSymbolPtr oscAddress)
 {
 	TTErr err;
-	TTValue data;
-
-	err = mDirectory->remove(oscAddress);
-	notifyObservers(oscAddress, kAddressDestroyed);
+	TTNodePtr oldNode;
+	
+	// find the TTNode in the directory
+	err = this->getTTNodeForOSC(oscAddress, &oldNode);
+	
+	if(!err){
+		// Notify observers that a node will be destroyed BEFORE the destruction
+		this->notifyObservers(oscAddress, oldNode, kAddressDestroyed);
+		
+		// Remove his address
+		err = mDirectory->remove(oscAddress);
+		
+		if(!err)
+			// Destroy his children
+			
+			
+			// Destroy the TTNode
+			err = TTObjectRelease(TTObjectHandle(&oldNode));
+	}
+		
 	return err;
 }
 
@@ -419,7 +438,7 @@ TTErr TTNodeDirectory::removeObserverForNotifications(TTSymbolPtr oscAddress, co
 	return err;
 }
 
-TTErr TTNodeDirectory::notifyObservers(TTSymbolPtr oscAddress, TTAddressNotificationFlag flag)
+TTErr TTNodeDirectory::notifyObservers(TTSymbolPtr oscAddress, TTNodePtr aNode, TTAddressNotificationFlag flag)
 {
 	unsigned int i;
 	TTValue hk, lk, o, f, data;
@@ -455,7 +474,9 @@ TTErr TTNodeDirectory::notifyObservers(TTSymbolPtr oscAddress, TTAddressNotifica
 						lk_o->current().get(0, TTObjectHandle(&anObserver));
 						TT_ASSERT("TTNode observer list member is not NULL", anObserver);
 						data.append((TTPtr)oscAddress);
+						data.append((TTPtr)aNode);
 						data.append((TTInt8)flag);
+						data.append((TTPtr)anObserver);
 						anObserver->notify(data);			// TODO : sometimes there is none TTCallback that are observing the node so 'notify' crashes !!!
 															// How to be sure the 'anObserver' points on a TTCallback ?
 					}

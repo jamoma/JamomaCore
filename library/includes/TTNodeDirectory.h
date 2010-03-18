@@ -168,10 +168,11 @@ public:
 	TTErr			removeObserverForNotifications(TTSymbolPtr oscAddress, const TTObject& observer);
 	
 	/** Notify life cycle observers that something appends below this TTNode
-	 @param data					an OSC address
+	 @param data					an OSC address where something append
+	 @param aNode					a TTNodePtr where something append (NULL in case of destruction)
 	 @param flag					a flag to notify about creation or destruction (or anything else)
 	 @return						a kTTErrGeneric if there isn't observer	*/
-	TTErr			notifyObservers(TTSymbolPtr oscAddress, TTAddressNotificationFlag flag);
+	TTErr			notifyObservers(TTSymbolPtr oscAddress, TTNodePtr aNode, TTAddressNotificationFlag flag);
 	
 	/** TODO :
 			:/catalog?

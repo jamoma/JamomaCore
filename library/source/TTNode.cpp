@@ -42,24 +42,6 @@ TTNode::~TTNode()
 	TTHashPtr ht_i, p_ht_i;
 	TTNodePtr n_c;
 
-	// get the address of the TTNode in the directory 
-	this->getOscAddress(&OSCaddress);
-	
-	// it is not a child of his parent anymore
-	err = this->parent->children->lookup(this->name, p_c);
-
-	if (err != kTTErrValueNotFound) {
-		p_c.get(0,(TTPtr*)&p_ht_i);
-		p_ht_i->remove(this->instance);
-
-		// If it was the last instance
-		// remove the hashtab
-		if (p_ht_i->getSize() == 0) {
-			p_ht_i->~TTHash();
-			this->parent->children->remove(this->name);
-		}
-	}
-
 	// destroy all his children
 	nb_c = this->children->getSize();
 	if (nb_c) {
@@ -91,11 +73,27 @@ TTNode::~TTNode()
 
 						if (err != kTTErrValueNotFound) {
 							c_i.get(0,(TTPtr*)&n_c);
-							n_c->~TTNode();
+							n_c->getOscAddress(&OSCaddress);
+							this->directory->TTNodeRemove(OSCaddress);		// remove children properly using the TTNodeDirectory
 						}
 					}
 				}
 			}
+		}
+	}
+	
+	// it is not a child of his parent anymore
+	err = this->parent->children->lookup(this->name, p_c);
+	
+	if (err != kTTErrValueNotFound) {
+		p_c.get(0,(TTPtr*)&p_ht_i);
+		p_ht_i->remove(this->instance);
+		
+		// If it was the last instance
+		// remove the hashtab
+		if (p_ht_i->getSize() == 0) {
+			p_ht_i->~TTHash();
+			this->parent->children->remove(this->name);
 		}
 	}
 
@@ -111,9 +109,6 @@ TTNode::~TTNode()
 	this->type = NULL;
 	this->object = NULL;
 	this->instance = NULL;
-
-	// remove the OSCaddress from the directory
-	this->directory->TTNodeRemove(OSCaddress);
 }
 
 #if 0
