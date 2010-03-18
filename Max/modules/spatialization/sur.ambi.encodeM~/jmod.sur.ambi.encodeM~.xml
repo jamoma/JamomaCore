@@ -6,7 +6,7 @@
 >
   <preset number='1' name='default'>
     <item name='audio/gain' type='decimal' priority='0'>100.000000</item>
-    <item name='audio/mute' type='boolean' priority='0'>1</item>
+    <item name='audio/mute' type='boolean' priority='0'>0</item>
     <item name='center/curve' type='decimal' priority='0'>0.000000</item>
     <item name='center/decay' type='decimal' priority='0'>0.000000</item>
     <item name='center/size' type='decimal' priority='0'>1.000000</item>
