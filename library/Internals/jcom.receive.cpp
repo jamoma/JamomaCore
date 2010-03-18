@@ -17,7 +17,7 @@ typedef struct _receive{
 	void						*data_out;			///< outlet used to output received data
 	t_symbol					*attr_name;			///< ATTRIBUTE: the name of the jcom.receive (/address:attribute)
 	t_symbol					*_address;			///< the address to bind
-	t_symbol					*_attribute;			///< the attribute to bind (default : value)
+	t_symbol					*_attribute;		///< the attribute to bind (default : value)
 	bool						enable;				///< if false, received data won't be output without unregistered attribute observers (default true).
 	TTListPtr					lk_nodes;			///< a pointer to a selection of nodes of the tree
 	TTListPtr					lk_attr_observer;	///< a pointer to each created attribute observers
@@ -268,20 +268,16 @@ void receive_enable(t_receive *x, long e)
 // Read the TTNodeDirectory file to get info about life cycle observers mecanism
 void receive_directory_callback(t_receive *x, t_symbol *oscAddress, long argc, t_atom *argv)
 {
-	TTObjectPtr newAttrCallback;
-	TTList		lk_selection;
-	TTNodePtr	p_node;
-	TTErr		err = kTTErrGeneric;
-	long		flag = atom_getlong(&argv[0]);
+	TTObjectPtr		newAttrCallback;
+	TTList			lk_selection;
+	TTErr			err = kTTErrGeneric;
+	TTNodePtr		aNode = (TTNodePtr)atom_getobj(&argv[0]);
+	long			flag = atom_getlong(&argv[1]);
+	TTCallbackPtr	anObserver = (TTCallbackPtr)atom_getobj(&argv[2]);
 	
 	if(flag == kAddressCreated){
 		
 		//post("jcom.receive %s observe a node creation at %s", x->attr_name->s_name, oscAddress->s_name);
-		
-		// check the oscAddress into the directory to be sure that this node exist
-		if(oscAddress->s_name[0] == C_SEPARATOR)
-			if(jamoma_directory)
-				err = jamoma_directory->getTTNodeForOSC(TT(oscAddress->s_name), &p_node);
 		
 		if(!err){
 			
@@ -293,10 +289,10 @@ void receive_directory_callback(t_receive *x, t_symbol *oscAddress, long argc, t
 			else
 			{
 				// add the node to the selection
-				x->lk_nodes->append(new TTValue((TTPtr)p_node));
+				x->lk_nodes->append(new TTValue((TTPtr)aNode));
 				
 				// start attribute observation on the node
-				jamoma_node_attribute_observer_add(p_node, x->_attribute, (t_object*)x, gensym("receive_node_attribute_callback"), &newAttrCallback);
+				jamoma_node_attribute_observer_add(aNode, x->_attribute, (t_object*)x, gensym("receive_node_attribute_callback"), &newAttrCallback);
 				x->lk_attr_observer->append(new TTValue((TTPtr)newAttrCallback));
 			}
 		}
@@ -312,8 +308,13 @@ void receive_directory_callback(t_receive *x, t_symbol *oscAddress, long argc, t
 		}
 		else
 		{
+			jamoma_node_attribute_observer_remove(aNode, x->_attribute, anObserver);
+			
 			// remove the node from the selection
-			x->lk_nodes->remove(p_node);
+			x->lk_nodes->remove(aNode);
+			
+			// and remove his observer
+			x->lk_attr_observer->remove(anObserver);
 		}
 	}
 }

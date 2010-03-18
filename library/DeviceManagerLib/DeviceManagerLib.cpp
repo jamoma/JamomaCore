@@ -494,13 +494,15 @@ void jamoma_namespace_listen_method(TTPtr p_baton, TTValue& data)
 
 void jamoma_namespace_notify_method(TTPtr p_baton, TTValue& data)
 {
-	TTValuePtr	b;
-	TTString	whereToSend;
-	TTString	whereToListen;
-	TTString	attributeToListen;
-	TTString	returnedValue;
-	TTSymbolPtr	oscAddress;
-	long		flag;
+	TTValuePtr		b;
+	TTString		whereToSend;
+	TTString		whereToListen;
+	TTString		attributeToListen;
+	TTString		returnedValue;
+	TTSymbolPtr		oscAddress;
+	TTSymbolPtr		aNode;
+	long			flag;
+	TTCallbackPtr	anObserver;
 	
 	// unpack baton (a t_object* and the name of the method to call)
 	b = (TTValuePtr)p_baton;
@@ -508,9 +510,11 @@ void jamoma_namespace_notify_method(TTPtr p_baton, TTValue& data)
 	b->get(1, whereToListen);
 	b->get(2, attributeToListen);
 	
-	// unpack data (flag)
+	// unpack data (oscAddress, aNode, flag, anObserver)
 	data.get(0, (TTPtr*)&oscAddress);
-	data.get(1, flag);
+	data.get(1, (TTPtr*)&aNode);
+	data.get(2, flag);
+	data.get(3, (TTPtr*)&anObserver);
 	
 	returnedValue = "" + flag;
 	

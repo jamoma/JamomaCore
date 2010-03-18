@@ -15,8 +15,6 @@
 
 #define TEXT_BUFFER_SIZE 4096
 
-typedef void (*pf_sym)(void *x, t_symbol *adr);			// pointer to a function with the struct pointer given and a symbol for the address
-
 // Data Structure for this object
 typedef struct _nmspc{
 
@@ -25,9 +23,12 @@ typedef struct _nmspc{
 	
 	t_symbol		*attr_operation;		///< ATTRIBUTE: an operation to perform
 	t_symbol		*attr_address;			///< ATTRIBUTE: the address to discover or observe
-	long			attr_observe;			///< ATTRIBUTE: to observe or not the address in order to update the content of umenu
+	t_symbol		*attr_update;			///< ATTRIBUTE: to observe or not the address in order to update the content of umenu (three options : none, singly, all)
 	
+	TTNodePtr		tempNode;				///< a pointer to a node usefull to perform the operation (depends on operation)
+	TTSymbolPtr		tempName;				///< the name of the children we bind in the case of getInstances operation
 	method			operation;				///< pointer on the a method
+	TTObjectPtr		life_observer;			///< a pointer to a life cycle observer
 	
 	short			nmspc_file_path;		// a text file /path/name
 	t_symbol		*nmspc_file_name;		// the name of the namespace file
@@ -38,6 +39,15 @@ typedef struct _nmspc{
 	unsigned int	eof;					// the number of written char in the file.
 	char			**buf;					// a text handler //(pointer to a text buffer)
 	long			eobuf;					// the number of written char in the text buffer
+	
+	t_symbol		*op_getChildren;
+	t_symbol		*op_getInstances;
+	t_symbol		*op_getAttributes;
+	t_symbol		*op_getHubs;
+	t_symbol		*op_getParameters;
+	t_symbol		*op_getMessages;
+	t_symbol		*op_getReturns;
+	
 
 } t_nmspc;
 
@@ -51,7 +61,7 @@ void			nmspc_assist(t_nmspc *x, void *b, long m, long a, char *s);
 
 t_max_err		nmspc_attr_set_operation(t_nmspc *x, void *attr, long argc, t_atom *argv);
 t_max_err		nmspc_attr_set_address(t_nmspc *x, void *attr, long argc, t_atom *argv);
-t_max_err		nmspc_attr_set_observe(t_nmspc *x, void *attr, long argc, t_atom *argv);
+t_max_err		nmspc_attr_set_update(t_nmspc *x, void *attr, long argc, t_atom *argv);
 
 void			nmspc_bang(t_nmspc *x);
 void			nmspc_symbol(t_nmspc *x, t_symbol *msg, long argc, t_atom *argv);
@@ -83,3 +93,7 @@ void			nmspc_write_long(t_nmspc *x, long src);
 void			nmspc_write_float(t_nmspc *x, float src);
 void			nmspc_write_buffer(t_nmspc *x);
 long			nmspc_myobject_iterator(t_nmspc *x, t_object *b);
+
+t_symbol*		nmspc_filter_underscore_instance(t_symbol* a);
+
+void			nmspc_directory_callback(t_nmspc *x, t_symbol *mess, long argc, t_atom *argv);

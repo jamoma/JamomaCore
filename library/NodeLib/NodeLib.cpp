@@ -131,12 +131,13 @@ JamomaError	jamoma_directory_register(t_symbol *OSCaddress, t_symbol *type, t_ob
 {
 	long			count = 0;
 	t_symbol		**attrnames = NULL;
+	TTSymbolPtr		newAddress = TT(OSCaddress->s_name);
 	long			i;
 	
 	if(jamoma_directory){
 		
 		// create a TTNode
-		jamoma_directory->TTNodeCreate(TT(OSCaddress->s_name), TT(type->s_name), obj, newTTNode, (TTBoolean *)newInstanceCreated);
+		jamoma_directory->TTNodeCreate(newAddress, TT(type->s_name), obj, newTTNode, (TTBoolean *)newInstanceCreated);
 	
 		// !!!
 		// !!! get attributes names of the Max external (So the object have to set a getattrnames method)
@@ -149,9 +150,6 @@ JamomaError	jamoma_directory_register(t_symbol *OSCaddress, t_symbol *type, t_ob
 		// free the memory allocated inside param_getattrnames
 		sysmem_freeptr(attrnames);
 		
-		// notify observers that the new have been created
-		jamoma_directory->notifyObservers(TT(OSCaddress->s_name), kAddressCreated);
-		
 		return JAMOMA_ERR_NONE;
 	}
 
@@ -161,21 +159,16 @@ JamomaError	jamoma_directory_register(t_symbol *OSCaddress, t_symbol *type, t_ob
 
 TTErr jamoma_directory_unregister(t_symbol *OSCaddress)
 {
-	TTErr err;
-	TTNodePtr node = NULL;
+	TTErr err = kTTErrNone;
+	TTSymbolPtr oldAddress = TT(OSCaddress->s_name);
 
 	if(jamoma_directory){
-		jamoma_directory->getTTNodeForOSC(TT(OSCaddress->s_name), &node);
+		err = jamoma_directory->TTNodeRemove(oldAddress);
 	}
 	else{
 		post("jamoma_directory_unregister %s : create a directory before", OSCaddress->s_name);
 		return kTTErrGeneric;
 	}
-	
-	// Destroy the TTNode
-	err = TTObjectRelease(TTObjectHandle(&node));
-	
-	// note : No need to notify the destruction. It's done automatically
 	
 	return err;
 }
@@ -207,16 +200,14 @@ void jamoma_directory_observer_add(t_symbol *OSCaddress, t_object *object, t_sym
 
 void jamoma_directory_observer_remove(t_symbol *OSCaddress, TTObjectPtr oldObserver)
 {
+	TTErr err = kTTErrNone;
+	
 	if(jamoma_directory){
-		jamoma_directory->removeObserverForNotifications(TT(OSCaddress->s_name), *oldObserver);
-		TTObjectRelease(&oldObserver);
-	}
-}
-
-void jamoma_directory_observer_notify(t_symbol *OSCaddress, TTAddressNotificationFlag flag)
-{
-	if(jamoma_directory){
-		jamoma_directory->notifyObservers(TT(OSCaddress->s_name), flag);
+		
+		err = jamoma_directory->removeObserverForNotifications(TT(OSCaddress->s_name), *oldObserver);
+		
+		if(!err)
+			TTObjectRelease(&oldObserver);
 	}
 }
 
@@ -488,25 +479,32 @@ void jamoma_node_attribute_observer_remove(TTNodePtr node, t_symbol *attrname, T
 
 void jamoma_directory_observer_callback(TTPtr p_baton, TTValue& data)
 {
-	TTValuePtr	b;
-	t_object	*x;
-	t_symbol	*jps_method;
-	TTSymbolPtr	oscAddress;
-	long		flag;
-	t_atom		a_flag[1];
+	TTValuePtr		b;
+	t_object		*x;
+	t_symbol		*jps_method;
+	TTSymbolPtr		oscAddress;
+	TTNodePtr		aNode;
+	long			flag;
+	TTCallbackPtr	anObserver;
+	t_atom			a_extra[3];
 	
 	// unpack baton (a t_object* and the name of the method to call)
 	b = (TTValuePtr)p_baton;
 	b->get(0, (TTPtr*)&x);
 	b->get(1, (TTPtr*)&jps_method);
 	
-	// unpack data (flag)
+	// unpack data (oscAddress, aNode, flag, anObserver)
 	data.get(0, (TTPtr*)&oscAddress);
-	data.get(1, flag);
+	data.get(1, (TTPtr*)&aNode);
+	data.get(2, flag);
+	data.get(3, (TTPtr*)&anObserver);
 	
 	// send data using a class method of the object : void function(t_object *x, t_symbol *mess, long argc, t_atom *argv)
-	atom_setlong(&a_flag[0], flag);
-	object_method(x, jps_method, gensym((char*)oscAddress->getString().c_str()), 1, a_flag);
+	atom_setobj(&a_extra[0], aNode);
+	atom_setlong(&a_extra[1], flag);
+	atom_setobj(&a_extra[2], anObserver);
+	
+	object_method(x, jps_method, gensym((char*)oscAddress->getString().c_str()), 3, a_extra);
 }
 
 void jamoma_node_getter_callback(TTPtr p_baton, TTValue& data)

@@ -28,6 +28,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	c = class_new("jcom.namespace",(method)nmspc_new, (method)nmspc_free, (long)sizeof(t_nmspc), 0L, A_GIMME, 0);
 
 	// add methods
+	class_addmethod(c, (method)nmspc_directory_callback,"nmspc_directory_callback",A_CANT, 0);
 	class_addmethod(c, (method)nmspc_notify,			"notify",				A_CANT, 0);
 	class_addmethod(c, (method)nmspc_assist,			"assist",				A_CANT, 0);
 	
@@ -82,14 +83,13 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_ACCESSORS(c,	"address",			0,		nmspc_attr_set_address);
 	
 	// ATTRIBUTE: observe
-	CLASS_ATTR_LONG(c,		"observe",			0,		t_nmspc,	attr_observe);
-	CLASS_ATTR_ACCESSORS(c,	"observe",			0,		nmspc_attr_set_observe);
-	CLASS_ATTR_ENUM(c,		"observe",			0,		"0 1");
+	CLASS_ATTR_LONG(c,		"update",			0,		t_nmspc,	attr_update);
+	CLASS_ATTR_ACCESSORS(c,	"update",			0,		nmspc_attr_set_update);
+	CLASS_ATTR_ENUM(c,		"update",			0,		"none singly all");
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	nmspc_class = c;
-	return 0;
 }
 
 #if 0
@@ -99,7 +99,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 void *nmspc_new(t_symbol *name, long argc, t_atom *argv)
 {
-	t_nmspc *x;
+	t_nmspc		*x;
+	t_atom		a[1];
 
 	x = (t_nmspc*)object_alloc(nmspc_class);
 
@@ -110,20 +111,50 @@ void *nmspc_new(t_symbol *name, long argc, t_atom *argv)
 		x->_out = outlet_new(x, 0);
 		
 		x->attr_operation = _sym_none;
-		x->attr_address = gensym("/");
-		x->attr_observe = 0;
+		x->attr_address = _sym_none;
+		x->attr_update = _sym_none;
+		
+		x->life_observer = NULL;
+		x->tempName = NO_NAME;
 
 		x->nmspc_file_name = gensym("namespace.opml");
 		x->nmspc_file_path = 0;
 		
-		attr_args_process(x, argc, argv);			// handle attribute args
+		x->op_getChildren = gensym("getChildren");
+		x->op_getInstances = gensym("getInstances");
+		x->op_getAttributes = gensym("getAttributes");
+		x->op_getHubs = gensym("getHubs");
+		x->op_getParameters = gensym("getParameters");
+		x->op_getMessages = gensym("getMessages");
+		x->op_getReturns = gensym("getReturns");
+		
+		// clear umenu
+		outlet_anything(x->_out, _sym_clear, 0, NULL);
+		
+		// prepare umenu prefix to be concatenated
+		atom_setlong(a, 0);
+		outlet_anything(x->_out, gensym("prefix_mode"), 1, a);
+		
+		// no umenu prefix
+
+		// handle attribute args
+		attr_args_process(x, argc, argv);
 	}
 	return x;
 }
 
 void nmspc_free(t_nmspc *x)
 {
-	;
+	TTSymbolPtr tempAdrs;
+	
+	// delete the observer
+	if(x->life_observer)
+		if(x->attr_operation != x->op_getInstances)
+			jamoma_directory_observer_remove(x->attr_address, x->life_observer);
+		else{
+			x->tempNode->getOscAddress(&tempAdrs);
+			; // not sure...
+		}
 }
 
 #if 0
@@ -149,46 +180,199 @@ void nmspc_assist(t_nmspc *x, void *b, long msg, long arg, char *dst)
 	}		
 }
 
+// This method his called by the jcom.namespace observer attached to the directory.
+// Read the TTNodeDirectory file to get info about life cycle observers mecanism
+void nmspc_directory_callback(t_nmspc *x, t_symbol *oscAddress, long argc, t_atom *argv)
+{
+	TTList			lk_selection;
+	t_atom			a[1];
+	TTNodePtr		aNode = (TTNodePtr)atom_getobj(&argv[0]);
+	long			flag = atom_getlong(&argv[1]);
+	//TTCallbackPtr	anObserver = (TTCallbackPtr)atom_getobj(&argv[2]);
+	t_symbol		*umenuCommand;
+	TTString		anAddress;
+	if(flag == kAddressCreated)
+		umenuCommand = _sym_append;
+	else
+		umenuCommand = _sym_delete;
+	
+	// Depends on current operation
+	if(x->attr_operation == x->op_getChildren){
+		
+		if(aNode->getParent() == x->tempNode){							// In case of destruction, the notification is done before so it possible to ask info about the node...
+			if(x->attr_update == _sym_all)
+				defer_low((t_object*)x,(method)nmspc_bang,0,0,NULL);	// ... but we need to wait before updating all the list because it is not destroyed yet.
+		
+			else{
+				// output name
+				atom_setsym(a, gensym((char*)aNode->getName()->getCString()));
+				outlet_anything(x->_out, umenuCommand, 1, a);
+			}
+		}
+		return;
+	}
+	
+	if(x->attr_operation == x->op_getInstances){
+		
+		if((aNode->getParent() == x->tempNode) && (aNode->getName() == x->tempName)){	// In case of destruction, the notification is done before so it possible to ask info about the node...
+			if(x->attr_update == _sym_all){
+				
+				if(x->attr_address != gensym("/"))
+					anAddress = x->attr_address->s_name;
+				anAddress += "/";
+				anAddress += x->tempName->getCString();
+				
+				defer_low((t_object*)x,(method)nmspc_symbol,gensym((char*)anAddress.data()),0,NULL);	// ... but we need to wait before updating all the list because it is not destroyed yet.
+			}
+			else{
+				// output instance
+				atom_setsym(a, gensym((char*)aNode->getInstance()->getCString()));
+				outlet_anything(x->_out, umenuCommand, 1, a);
+			}
+		}
+		return;
+	}
+	
+	if(x->attr_operation == x->op_getAttributes){
+		
+		if(aNode == x->tempNode){										// In case of destruction, the notification is done before so it possible to ask info about the node.
+			if(flag == kAddressCreated)
+				defer_low((t_object*)x,(method)nmspc_bang,0,0,NULL);
+			
+			else
+				outlet_anything(x->_out, _sym_clear, 0, NULL);
+		}
+		return;
+	}
+	
+	if(x->attr_operation == x->op_getHubs){								
+		
+		if(aNode->getType() == TT("hub")){								// In case of destruction, the notification is done before so it possible to ask info about the node...
+			
+			if(x->attr_update == _sym_all)
+				defer_low((t_object*)x,(method)nmspc_bang,0,0,NULL);	// ... but we need to wait before updating all the list because it is not destroyed yet.
+			
+			else{
+				// output address
+				atom_setsym(a, oscAddress);
+				outlet_anything(x->_out, umenuCommand, 1, a);
+			}
+		}
+		return;
+	}
+	
+	if(x->attr_operation == x->op_getParameters){
+		if(aNode->getType() == TT(jps_subscribe_parameter->s_name)){	// In case of destruction, the notification is done before so it possible to ask info about the node...
+			
+			if(x->attr_update == _sym_all)
+				defer_low((t_object*)x,(method)nmspc_bang,0,0,NULL);	// ... but we need to wait before updating all the list because it is not destroyed yet.
+			
+			else{
+				// parsed the begining of the OSC address by the given address
+				TTString start = x->attr_address->s_name;
+				TTString fullAddress = oscAddress->s_name;
+				TTString relativeAddress = fullAddress.substr(start.size(), fullAddress.size());
+				relativeAddress += "";
+				
+				// output relative address
+				atom_setsym(a, gensym((char*)relativeAddress.data()));
+				outlet_anything(x->_out, umenuCommand, 1, a);
+			}
+		}
+		return;
+	}
+	
+	if(x->attr_operation == x->op_getMessages){
+		if(aNode->getType() == TT(jps_subscribe_message->s_name)){		// In case of destruction, the notification is done before so it possible to ask info about the node...
+			
+			if(x->attr_update == _sym_all)
+				defer_low((t_object*)x,(method)nmspc_bang,0,0,NULL);	// ... but we need to wait before updating all the list because it is not destroyed yet.
+			
+			else{
+				// parsed the begining of the OSC address by the given address
+				TTString start = x->attr_address->s_name;
+				TTString fullAddress = oscAddress->s_name;
+				TTString relativeAddress = fullAddress.substr(start.size(), fullAddress.size());
+				relativeAddress += "";
+				
+				// output relative address
+				atom_setsym(a, gensym((char*)relativeAddress.data()));
+				outlet_anything(x->_out, umenuCommand, 1, a);
+			}
+		}
+		return;
+	}
+	
+	if(x->attr_operation == x->op_getReturns){
+		if(aNode->getType() == TT(jps_subscribe_return->s_name)){		// In case of destruction, the notification is done before so it possible to ask info about the node...
+			
+			if(x->attr_update == _sym_all)
+				defer_low((t_object*)x,(method)nmspc_bang,0,0,NULL);	// ... but we need to wait before updating all the list because it is not destroyed yet.
+			
+			else{
+				// parsed the begining of the OSC address by the given address
+				TTString start = x->attr_address->s_name;
+				TTString fullAddress = oscAddress->s_name;
+				TTString relativeAddress = fullAddress.substr(start.size(), fullAddress.size());
+				relativeAddress += "";
+				
+				// output relative address
+				atom_setsym(a, gensym((char*)relativeAddress.data()));
+				outlet_anything(x->_out, umenuCommand, 1, a);
+			}
+		}
+		return;
+	}
+}
+
 t_max_err nmspc_attr_set_operation(t_nmspc *x, void *attr, long argc, t_atom *argv)
 {
+	t_symbol *new_op;
+	
 	if(argc && argv){
 		
-		x->attr_operation = atom_getsym(argv);
+		new_op = atom_getsym(argv);
 		
-		// select method
-		if(x->attr_operation == gensym("getChildren")){
-			x->operation = (method)nmspc_get_children;
-			return MAX_ERR_NONE;
-		}
-		
-		if(x->attr_operation == gensym("getInstances")){
-			x->operation = (method)nmspc_get_instances;
-			return MAX_ERR_NONE;
-		}
-		
-		if(x->attr_operation == gensym("getAttributes")){
-			x->operation = (method)nmspc_get_attributes;
-			return MAX_ERR_NONE;
-		}
-		
-		if(x->attr_operation == gensym("getHubs")){
-			x->operation = (method)nmspc_get_hubs;
-			return MAX_ERR_NONE;
-		}
-		
-		if(x->attr_operation == gensym("getParameters")){
-			x->operation = (method)nmspc_get_parameters;
-			return MAX_ERR_NONE;
-		}
-		
-		if(x->attr_operation == gensym("getMessages")){
-			x->operation = (method)nmspc_get_messages;
-			return MAX_ERR_NONE;
-		}
-		
-		if(x->attr_operation == gensym("getReturns")){
-			x->operation = (method)nmspc_get_returns;
-			return MAX_ERR_NONE;
+		if(x->attr_operation != new_op){
+			
+			x->attr_operation = new_op;
+			
+			// select method
+			if(x->attr_operation == x->op_getChildren){
+				x->operation = (method)nmspc_get_children;
+				return MAX_ERR_NONE;
+			}
+			
+			if(x->attr_operation == x->op_getInstances){
+				x->operation = (method)nmspc_get_instances;
+				return MAX_ERR_NONE;
+			}
+			
+			if(x->attr_operation == x->op_getAttributes){
+				x->operation = (method)nmspc_get_attributes;
+				return MAX_ERR_NONE;
+			}
+			
+			if(x->attr_operation == x->op_getHubs){
+				x->operation = (method)nmspc_get_hubs;
+				x->attr_address = gensym("/");
+				return MAX_ERR_NONE;
+			}
+			
+			if(x->attr_operation == x->op_getParameters){
+				x->operation = (method)nmspc_get_parameters;
+				return MAX_ERR_NONE;
+			}
+			
+			if(x->attr_operation == x->op_getMessages){
+				x->operation = (method)nmspc_get_messages;
+				return MAX_ERR_NONE;
+			}
+			
+			if(x->attr_operation == x->op_getReturns){
+				x->operation = (method)nmspc_get_returns;
+				return MAX_ERR_NONE;
+			}
 		}
 	}
 	else
@@ -199,25 +383,82 @@ t_max_err nmspc_attr_set_operation(t_nmspc *x, void *attr, long argc, t_atom *ar
 
 t_max_err nmspc_attr_set_address(t_nmspc *x, void *attr, long argc, t_atom *argv)
 {
-	if(argc && argv)
-		x->attr_address = atom_getsym(argv);
+	t_symbol	*new_adrs;
+	t_atom		a[1];
+	
+	if(argc && argv){
+		
+		new_adrs = atom_getsym(argv);
+		
+		if(x->attr_address != new_adrs){
+			
+			x->attr_address = new_adrs;
+			
+			if(x->attr_update != _sym_none){
+				
+				// delete the old observer before to create a new one
+				if(x->life_observer)
+					jamoma_directory_observer_remove(x->attr_address, x->life_observer);
+			
+				if(x->attr_address != _sym_none)
+					jamoma_directory_observer_add(x->attr_address, (t_object*)x, gensym("nmspc_directory_callback"), &x->life_observer);
+			}
+			
+			// prepare umenu prefix to be concatenated
+			atom_setlong(a, 0);
+			outlet_anything(x->_out, gensym("prefix_mode"), 1, a);
+			
+			// prepare umenu prefix 
+			// (except in case the operation is getInstances (see getInstances method))
+			if(x->attr_operation != x->op_getInstances){
+				
+				if(x->attr_address == gensym("/"))
+					atom_setsym(a, x->attr_address);
+				else{
+					TTString prefix = x->attr_address->s_name;
+					
+					if(x->attr_operation == x->op_getChildren)
+						prefix += "/";
+					if(x->attr_operation == x->op_getAttributes)
+						prefix += ":";
+					else
+						prefix += "";
+					
+					atom_setsym(a, gensym((char*)prefix.data()));
+				}
+				outlet_anything(x->_out, gensym("prefix"), 1, a);
+			}
+			
+		}
+	}
 	else
 		return MAX_ERR_GENERIC;
 	
 	return MAX_ERR_NONE;
 }
 
-t_max_err nmspc_attr_set_observe(t_nmspc *x, void *attr, long argc, t_atom *argv)
+t_max_err nmspc_attr_set_update(t_nmspc *x, void *attr, long argc, t_atom *argv)
 {
-	long o;
+	t_symbol *new_upd;
 	
-	if(argc && argv)
-	{
-		o = atom_getlong(argv);
-		if (o >= 0)
-			x->attr_observe = o;
-		else
-			return MAX_ERR_GENERIC;
+	if(argc && argv){
+		
+		new_upd = atom_getsym(argv);
+		
+		if(x->attr_update != new_upd){
+			
+			x->attr_update = new_upd;
+			
+			if(x->attr_update != _sym_none){
+			
+				// delete the old observer before
+				if(x->life_observer)
+					jamoma_directory_observer_remove(x->attr_address, x->life_observer);
+			
+				if(x->attr_address != _sym_none)
+					jamoma_directory_observer_add(x->attr_address, (t_object*)x, gensym("nmspc_directory_callback"), &x->life_observer);
+			}
+		}
 	}
 	else
 		return MAX_ERR_GENERIC;
@@ -235,10 +476,8 @@ void nmspc_bang(t_nmspc *x)
 
 void nmspc_symbol(t_nmspc *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	x->attr_address = msg;
-	
 	if(x->attr_operation != _sym_none)
-		defer(x, (method)x->operation, x->attr_address, 0, NULL);
+		defer(x, (method)x->operation, msg, 0, NULL);
 	else
 		object_error((t_object*)x, "there is no operation to perform");
 }
@@ -261,23 +500,21 @@ void nmspc_get_children(t_nmspc *x, t_symbol *address)
 	TTList		childrenList;
 	TTList		nameList;
 	TTSymbolPtr name;
-	TTNodePtr	p_node;
 	t_atom		a[1];
-	
 	JamomaError err = JAMOMA_ERR_NONE;
+	
+	t_symbol *adrs = nmspc_filter_underscore_instance(address);
 		
-	err = jamoma_directory_get_node(address, childrenList, &p_node);
+	err = jamoma_directory_get_node(adrs, childrenList, &x->tempNode);
 	
 	// clear umenu
 	outlet_anything(x->_out, _sym_clear, 0, NULL);
 		
 	// if the address exists
 	if(err == JAMOMA_ERR_NONE){
-		
-		x->attr_address = address;
 			
 		// Get the name list
-		p_node->getChildrenName(nameList);
+		x->tempNode->getChildrenName(nameList);
 			
 		// for each name
 		if(!nameList.isEmpty()){
@@ -293,36 +530,39 @@ void nmspc_get_children(t_nmspc *x, t_symbol *address)
 		else
 			outlet_anything(x->_out, _sym_none, 0, NULL);
 	}
-	else
-		outlet_anything(x->_out, _sym_error, 0, NULL);
+	
+	atom_setsym(a, x->op_getChildren);
+	defer(x, (method)nmspc_attr_set_operation, _sym_none, 1, a);
+	atom_setsym(a, adrs);
+	defer(x, (method)nmspc_attr_set_address, _sym_none, 1, a);
 }
 
 void nmspc_get_instances(t_nmspc *x, t_symbol *address)
 {
 	TTList		nodeList;
-	TTNodePtr	p_node;
 	TTList		instanceList;
 	TTSymbolPtr instance;
 	t_atom		a[1];
+	TTString	prefix;
 	TTErr		err;
 	
-	// Split the address at the last Slash
-	TTSymbolPtr parent, name, inst, attr;
-	TTSymbolPtr fullAddress = TT(address->s_name);
-	splitOSCAddress(fullAddress, &parent, &name, &inst, &attr);
+	t_symbol *adrs = nmspc_filter_underscore_instance(address);
 	
-	err = jamoma_directory->Lookup(parent, nodeList, &p_node);
+	// Split the address at the last Slash
+	TTSymbolPtr parent, inst, attr;
+	TTSymbolPtr fullAddress = TT(adrs->s_name);
+	splitOSCAddress(fullAddress, &parent, &x->tempName, &inst, &attr);
+	
+	err = jamoma_directory->Lookup(parent, nodeList, &x->tempNode);
 	
 	// clear umenu
 	outlet_anything(x->_out, _sym_clear, 0, NULL);
 	
 	// if the address exists
 	if(err == kTTErrNone){
-		
-		x->attr_address = address;
 
 		// Get the instance list
-		p_node->getChildrenInstance(name, instanceList);
+		x->tempNode->getChildrenInstance(x->tempName, instanceList);
 			
 		// for each instance
 		if(!instanceList.isEmpty()){
@@ -340,15 +580,26 @@ void nmspc_get_instances(t_nmspc *x, t_symbol *address)
 					outlet_anything(x->_out, _sym_append, 1, a);
 				}
 			}
-			
-			if(instanceList.getSize() == 1)
-				outlet_anything(x->_out, _sym_bang, 0, NULL);		// outlet bang if there is only one instance (in order to push it out the umenu)
 		}
 		else
 			outlet_anything(x->_out, _sym_none, 0, NULL);
 	}
-	else
-		outlet_anything(x->_out, _sym_error, 0, NULL);
+	
+	atom_setsym(a, x->op_getInstances);
+	defer(x, (method)nmspc_attr_set_operation, _sym_none, 1, a);
+	
+	atom_setsym(a, gensym((char*)parent->getCString()));
+	defer(x, (method)nmspc_attr_set_address, _sym_none, 1, a);
+	
+	// For getInstance we have to bind on the parent addess 
+	// but the umenu prefix have to be the child address
+	prefix = adrs->s_name;
+	prefix += ".";
+	atom_setsym(a, gensym((char*)prefix.data()));
+	outlet_anything(x->_out, gensym("prefix"), 1, a);
+	
+	if(instanceList.getSize() == 1)
+		outlet_anything(x->_out, _sym_one, 0, NULL);		// outlet 'one' if there is only one instance (in order to be able to push it out the umenu in that case)
 }
 
 void nmspc_get_attributes(t_nmspc *x, t_symbol *address)
@@ -357,12 +608,12 @@ void nmspc_get_attributes(t_nmspc *x, t_symbol *address)
 	TTValue		attributeList;
 	TTSymbolPtr attribute;
 	TTList		nodeList;
-	TTNodePtr	p_node;
 	t_atom		a[1];
-	
 	JamomaError err = JAMOMA_ERR_NONE;
 	
-	err = jamoma_directory_get_node(address, nodeList, &p_node);
+	t_symbol *adrs = nmspc_filter_underscore_instance(address);
+	
+	err = jamoma_directory_get_node(adrs, nodeList, &x->tempNode);
 	
 	// clear umenu
 	outlet_anything(x->_out, _sym_clear, 0, NULL);
@@ -370,10 +621,8 @@ void nmspc_get_attributes(t_nmspc *x, t_symbol *address)
 	// if the address exists
 	if(err == JAMOMA_ERR_NONE){
 		
-		x->attr_address = address;
-		
 		// Get all attributes
-		p_node->getAttributeNames(attributeList);
+		x->tempNode->getAttributeNames(attributeList);
 		
 		// for each attribute
 		if(attributeList.getSize()){
@@ -389,8 +638,11 @@ void nmspc_get_attributes(t_nmspc *x, t_symbol *address)
 		else
 			outlet_anything(x->_out, _sym_none, 0, NULL);
 	}
-	else
-		outlet_anything(x->_out, _sym_error, 0, NULL);
+	
+	atom_setsym(a, x->op_getAttributes);
+	defer(x, (method)nmspc_attr_set_operation, _sym_none, 1, a);
+	atom_setsym(a, adrs);
+	defer(x, (method)nmspc_attr_set_address, _sym_none, 1, a);
 }
 
 void nmspc_get_hubs(t_nmspc *x)
@@ -407,8 +659,6 @@ void nmspc_get_hubs(t_nmspc *x)
 	
 	if(err == JAMOMA_ERR_NONE){
 		
-		x->attr_address = gensym("/");
-		
 		if(!returnedTTNodes.isEmpty()){
 			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
 				
@@ -423,8 +673,11 @@ void nmspc_get_hubs(t_nmspc *x)
 		else
 			outlet_anything(x->_out, _sym_none, 0, NULL);
 	}
-	else
-		outlet_anything(x->_out, _sym_error, 0, NULL);
+	
+	atom_setsym(a, x->op_getHubs);
+	defer(x, (method)nmspc_attr_set_operation, _sym_none, 1, a);
+	atom_setsym(a, gensym("/"));
+	defer(x, (method)nmspc_attr_set_address, _sym_none, 1, a);
 }
 
 void nmspc_get_parameters(t_nmspc *x, t_symbol *address)
@@ -434,13 +687,13 @@ void nmspc_get_parameters(t_nmspc *x, t_symbol *address)
 	t_atom		a[1];
 	JamomaError err;
 	
+	t_symbol *adrs = nmspc_filter_underscore_instance(address);
+	
 	// get all parameters below an address
 	outlet_anything(x->_out, _sym_clear, 0, NULL);
-	err = jamoma_directory_get_node_by_type(address, jps_subscribe_parameter, returnedTTNodes, &firstReturnedTTNode);
+	err = jamoma_directory_get_node_by_type(adrs, jps_subscribe_parameter, returnedTTNodes, &firstReturnedTTNode);
 	
 	if(err == JAMOMA_ERR_NONE){
-		
-		x->attr_address = address;
 		
 		if(!returnedTTNodes.isEmpty()){
 			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
@@ -461,8 +714,11 @@ void nmspc_get_parameters(t_nmspc *x, t_symbol *address)
 		else
 			outlet_anything(x->_out, _sym_none, 0, NULL);
 	}
-	else
-		outlet_anything(x->_out, _sym_error, 0, NULL);
+	
+	atom_setsym(a, x->op_getParameters);
+	defer(x, (method)nmspc_attr_set_operation, _sym_none, 1, a);
+	atom_setsym(a, adrs);
+	defer(x, (method)nmspc_attr_set_address, _sym_none, 1, a);
 }
 
 void nmspc_get_messages(t_nmspc *x, t_symbol *address)
@@ -472,13 +728,13 @@ void nmspc_get_messages(t_nmspc *x, t_symbol *address)
 	t_atom		a[1];
 	JamomaError err;
 	
+	t_symbol *adrs = nmspc_filter_underscore_instance(address);
+	
 	// get all messages below an address
 	outlet_anything(x->_out, _sym_clear, 0, NULL);
-	err = jamoma_directory_get_node_by_type(address, jps_subscribe_message, returnedTTNodes, &firstReturnedTTNode);
+	err = jamoma_directory_get_node_by_type(adrs, jps_subscribe_message, returnedTTNodes, &firstReturnedTTNode);
 	
 	if(err == JAMOMA_ERR_NONE){
-		
-		x->attr_address = address;
 		
 		if(!returnedTTNodes.isEmpty()){
 			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
@@ -499,8 +755,11 @@ void nmspc_get_messages(t_nmspc *x, t_symbol *address)
 		else
 			outlet_anything(x->_out, _sym_none, 0, NULL);
 	}
-	else
-		outlet_anything(x->_out, _sym_error, 0, NULL);
+	
+	atom_setsym(a, x->op_getMessages);
+	defer(x, (method)nmspc_attr_set_operation, _sym_none, 1, a);
+	atom_setsym(a, adrs);
+	defer(x, (method)nmspc_attr_set_address, _sym_none, 1, a);
 }
 
 void nmspc_get_returns(t_nmspc *x, t_symbol *address)
@@ -510,13 +769,13 @@ void nmspc_get_returns(t_nmspc *x, t_symbol *address)
 	t_atom		a[1];
 	JamomaError err;
 	
+	t_symbol *adrs = nmspc_filter_underscore_instance(address);
+	
 	// get all returns below an address
 	outlet_anything(x->_out, _sym_clear, 0, NULL);
-	err = jamoma_directory_get_node_by_type(address, jps_subscribe_return, returnedTTNodes, &firstReturnedTTNode);
+	err = jamoma_directory_get_node_by_type(adrs, jps_subscribe_return, returnedTTNodes, &firstReturnedTTNode);
 	
 	if(err == JAMOMA_ERR_NONE){
-		
-		x->attr_address = address;
 		
 		if(!returnedTTNodes.isEmpty()){
 			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
@@ -537,8 +796,11 @@ void nmspc_get_returns(t_nmspc *x, t_symbol *address)
 		else
 			outlet_anything(x->_out, _sym_none, 0, NULL);
 	}
-	else
-		outlet_anything(x->_out, _sym_error, 0, NULL);
+	
+	atom_setsym(a, x->op_getReturns);
+	defer(x, (method)nmspc_attr_set_operation, _sym_none, 1, a);
+	atom_setsym(a, adrs);
+	defer(x, (method)nmspc_attr_set_address, _sym_none, 1, a);
 }
 
 void nmspc_dump(t_nmspc *x)
@@ -901,4 +1163,37 @@ void nmspc_write_buffer(t_nmspc *x)
 	x->eobuf = 0;
 	sysmem_freehandle(x->buf);
 	x->buf = sysmem_newhandleclear(TEXT_BUFFER_SIZE);
+}
+
+t_symbol* nmspc_filter_underscore_instance(t_symbol* a)
+{
+	t_symbol* b;
+	TTString toParse = a->s_name;
+	
+	//post("before parsing : %s", a->s_name);
+	int foundDot = toParse.find_last_of('.');
+	int foundUnd = toParse.find_last_of('_');
+	
+	//post("toParse : %d", toParse.size());
+	//post("foundDot : %d", foundDot);
+	//post("foundUnd : %d", foundUnd);
+	
+	if(foundUnd == (foundDot+1)){
+
+		if(foundDot > 0 && foundUnd > 0){
+			
+			TTString parsed = toParse.substr(0,foundDot);
+			if(foundUnd+1 < (int)toParse.size())
+				parsed += toParse.substr(foundUnd+1);
+		
+			b = gensym((char*)parsed.data());
+		}
+		else
+			b = a;
+	}		
+	else
+		b = a;
+	
+	//post("after parsing : %s", b->s_name);
+	return b;
 }

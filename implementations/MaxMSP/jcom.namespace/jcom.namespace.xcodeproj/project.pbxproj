@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */; };
+		22C6B15D109A5C4400AD8BBF /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C6B15C109A5C4400AD8BBF /* libxml2.dylib */; };
 		22C9F7D2103338310062F7B8 /* commonsyms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F7D1103338310062F7B8 /* commonsyms.cpp */; };
 		22C9F7D8103338390062F7B8 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F7D7103338390062F7B8 /* MaxAPI.framework */; };
 		22C9F7DC1033383F0062F7B8 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F7DB1033383F0062F7B8 /* MaxAudioAPI.framework */; };
@@ -16,12 +17,13 @@
 		22C9F7E2103338990062F7B8 /* tt-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F7E1103338990062F7B8 /* tt-max.xcconfig */; };
 		22C9F81910333A130062F7B8 /* MaxObjectTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F81810333A130062F7B8 /* MaxObjectTypes.h */; };
 		22C9F82510333A4C0062F7B8 /* JamomaModular.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F82410333A4C0062F7B8 /* JamomaModular.framework */; };
-		D2312D79114E7C4500FDDE8F /* jcom.namespace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2312D77114E7C4500FDDE8F /* jcom.namespace.cpp */; };
-		D2312D7A114E7C4500FDDE8F /* jcom.namespace.h in Headers */ = {isa = PBXBuildFile; fileRef = D2312D78114E7C4500FDDE8F /* jcom.namespace.h */; };
+		D2B251E11150EAF80097961C /* jcom.namespace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2B251DF1150EAF80097961C /* jcom.namespace.cpp */; };
+		D2B251E21150EAF80097961C /* jcom.namespace.h in Headers */ = {isa = PBXBuildFile; fileRef = D2B251E01150EAF80097961C /* jcom.namespace.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
+		22C6B15C109A5C4400AD8BBF /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = /usr/lib/libxml2.dylib; sourceTree = "<absolute>"; };
 		22C9F7D1103338310062F7B8 /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
 		22C9F7D7103338390062F7B8 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
 		22C9F7DB1033383F0062F7B8 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
@@ -31,8 +33,8 @@
 		22C9F81810333A130062F7B8 /* MaxObjectTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaxObjectTypes.h; path = ../../../supports/objectivemax/MaxObject/MaxObjectTypes.h; sourceTree = SOURCE_ROOT; };
 		22C9F82410333A4C0062F7B8 /* JamomaModular.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaModular.framework; path = ../../../library/build/UninstalledProducts/JamomaModular.framework; sourceTree = SOURCE_ROOT; };
 		2FBBEAE508F335360078DB84 /* jcom.namespace.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.namespace.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2312D77114E7C4500FDDE8F /* jcom.namespace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.namespace.cpp; sourceTree = "<group>"; };
-		D2312D78114E7C4500FDDE8F /* jcom.namespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.namespace.h; sourceTree = "<group>"; };
+		D2B251DF1150EAF80097961C /* jcom.namespace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.namespace.cpp; sourceTree = "<group>"; };
+		D2B251E01150EAF80097961C /* jcom.namespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.namespace.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +48,7 @@
 				22C9F7DE103338490062F7B8 /* JamomaFoundation.framework in Frameworks */,
 				22C9F7E01033384F0062F7B8 /* JamomaMulticore.framework in Frameworks */,
 				22C9F82510333A4C0062F7B8 /* JamomaModular.framework in Frameworks */,
+				22C6B15D109A5C4400AD8BBF /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +70,7 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				22C6B15C109A5C4400AD8BBF /* libxml2.dylib */,
 				22C9F82410333A4C0062F7B8 /* JamomaModular.framework */,
 				22C9F7DD103338490062F7B8 /* JamomaFoundation.framework */,
 				22C9F7DF1033384F0062F7B8 /* JamomaMulticore.framework */,
@@ -80,8 +84,8 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				D2312D77114E7C4500FDDE8F /* jcom.namespace.cpp */,
-				D2312D78114E7C4500FDDE8F /* jcom.namespace.h */,
+				D2B251E01150EAF80097961C /* jcom.namespace.h */,
+				D2B251DF1150EAF80097961C /* jcom.namespace.cpp */,
 				22C9F7D1103338310062F7B8 /* commonsyms.cpp */,
 			);
 			name = Source;
@@ -103,7 +107,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C9F81910333A130062F7B8 /* MaxObjectTypes.h in Headers */,
-				D2312D7A114E7C4500FDDE8F /* jcom.namespace.h in Headers */,
+				D2B251E21150EAF80097961C /* jcom.namespace.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,7 +177,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C9F7D2103338310062F7B8 /* commonsyms.cpp in Sources */,
-				D2312D79114E7C4500FDDE8F /* jcom.namespace.cpp in Sources */,
+				D2B251E11150EAF80097961C /* jcom.namespace.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +217,7 @@
 					"\"$(SRCROOT)/../../../../Multicore/library/build/UninstalledProducts\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
+				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};
 			name = Development;
 		};
@@ -237,6 +242,7 @@
 					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../../Multicore/library/build/UninstalledProducts\"",
 				);
+				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};
 			name = Deployment;
 		};
