@@ -14,7 +14,7 @@ static ClassPtr	parameter_class;	// Required: Global pointer for our class
 //static char		units[2048];
 
 // Prototypes
-int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy);
+int param_list_compare(AtomPtr x, long lengthx, AtomPtr y, long lengthy);
 
 
 /************************************************************************************/
@@ -170,7 +170,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 #pragma mark -
 #pragma mark life cycle
 
-void *param_new(t_symbol *s, long argc, t_atom *argv)
+void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
 	short			i;
 	long			attrstart = attr_args_offset(argc, argv);
@@ -243,12 +243,12 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		// If no type was specified by the user we call the accessor here
 		// this is important because memory is configured - not just setting a default!
 		if (x->common.attr_type == NULL) {
-			t_atom a;
+			Atom a;
 			atom_setsym(&a, jps_generic);
 			object_attr_setvalueof(x, jps_type, 1, &a);
 		}
 		if (x->attr_ramp == _sym_nothing) {
-			t_atom a;
+			Atom a;
 			atom_setsym(&a, jps_none);
 			object_attr_setvalueof(x, gensym("ramp/drive"), 1, &a);
 		}
@@ -280,10 +280,10 @@ void param_free(t_param *x)
 #pragma mark pattr support
 
 // FROM psto
-t_max_err param_setvalueof(t_param *x, long argc, t_atom *argv)
+MaxErr param_setvalueof(t_param *x, AtomCount argc, AtomPtr argv)
 {
 	if (argc && argv) {
-		sysmem_copyptr(argv, &x->atom_list[0], sizeof(t_atom) * argc);
+		sysmem_copyptr(argv, &x->atom_list[0], sizeof(Atom) * argc);
 		x->list_size = argc;
 		x->param_output(x);
 	}	
@@ -291,7 +291,7 @@ t_max_err param_setvalueof(t_param *x, long argc, t_atom *argv)
 }
 
 // TO psto
-t_max_err param_getvalueof(t_param *x, long *argc, t_atom **argv)
+MaxErr param_getvalueof(t_param *x, long *argc, AtomPtr *argv)
 {
 	if (argc && argv) {
 		if (*argc && *argv) {
@@ -299,13 +299,13 @@ t_max_err param_getvalueof(t_param *x, long *argc, t_atom **argv)
 		} 
 		else { 
 			if (x->list_size > 1)
-				*argv = (t_atom *)getbytes(sizeof(t_atom) * x->list_size);
+				*argv = (AtomPtr )getbytes(sizeof(Atom) * x->list_size);
 			else
-				*argv = (t_atom *)getbytes(sizeof(t_atom));
+				*argv = (AtomPtr )getbytes(sizeof(Atom));
 		}
 		
 		*argc = x->list_size > 1 ? x->list_size : 1;
-		sysmem_copyptr(&x->atom_list[0], *argv, sizeof(t_atom) * (*argc));
+		sysmem_copyptr(&x->atom_list[0], *argv, sizeof(Atom) * (*argc));
 	}
 	return MAX_ERR_NONE;
 }
@@ -323,7 +323,7 @@ t_max_err param_getvalueof(t_param *x, long *argc, t_atom **argv)
 void param_reset(t_param *x)
 {
 	if (x->listDefault_size) {						// copy the default values to the current value
-		sysmem_copyptr(x->atom_listDefault, x->atom_list, sizeof(t_atom) * x->listDefault_size);
+		sysmem_copyptr(x->atom_listDefault, x->atom_list, sizeof(Atom) * x->listDefault_size);
 		x->list_size = x->listDefault_size;
 		param_bang(x);
 	}
@@ -340,7 +340,7 @@ void param_setcallback(t_param *x, method newCallback, t_object *callbackArg)
 }
 
 
-bool param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
+bool param_handleProperty(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	char	osc[4096];
 	char*	property;
@@ -379,7 +379,7 @@ bool param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			TTSymbol*	parameterName = TT(property);
 			TTValue		parameterValue;
 			int			numValues;
-			t_atom*		a;
+			AtomPtr		a;
 			TTSymbol*	tempSymbol;
 			double		tempValue;				
 			
@@ -387,7 +387,7 @@ bool param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			numValues = parameterValue.getSize();
 			
 			if (numValues) {
-				a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
+				a = (AtomPtr )sysmem_newptr(sizeof(Atom) * (numValues+1));
 				// First list item is name of parameter
 				atom_setsym(a, msg);
 				// Next the whole shebang is copied
@@ -432,7 +432,7 @@ bool param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			TTSymbol*	parameterName = TT(property);
 			TTValue		parameterValue;
 			int			numValues;
-			t_atom*		a;
+			AtomPtr		a;
 			TTSymbol*	tempSymbol;
 			double		tempValue;				
 			
@@ -440,7 +440,7 @@ bool param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			numValues = parameterValue.getSize();
 			
 			if (numValues) {
-				a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
+				a = (AtomPtr )sysmem_newptr(sizeof(Atom) * (numValues+1));
 				// First list item is name of parameter
 				atom_setsym(a, gensym((char*)parameterName->getCString()));
 				// Next the whole shebang is copied
@@ -485,10 +485,10 @@ bool param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 }
 
 // This function allocates memory -- caller must free it!
-void param_getattrnames(t_param *x, long* count, t_symbol*** names)
+void param_getattrnames(t_param *x, long* count, SymbolPtr** names)
 {
 	*count = 18;
-	*names = (t_symbol**)sysmem_newptr(sizeof(t_symbol*) * *count);
+	*names = (SymbolPtr*)sysmem_newptr(sizeof(SymbolPtr) * *count);
 	
 	// These should be alphabetized
 	if (*count) {
@@ -516,9 +516,9 @@ void param_getattrnames(t_param *x, long* count, t_symbol*** names)
 
 // ATTRIBUTE: TYPE
 // This is crucial because it sets function pointers for the optimized clipping, bang, and other functions
-t_max_err param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv)
+MaxErr param_attr_settype(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
-	t_symbol *arg = atom_getsym(argv);
+	SymbolPtr arg = atom_getsym(argv);
 	x->common.attr_type = arg;
 
 	if (arg == jps_integer) {
@@ -562,28 +562,28 @@ t_max_err param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv)
 
 // ATTRIBUTE: RAMP
 // This is crucial because it sets function pointers
-t_max_err param_attr_setramp(t_param *x, void *attr, long argc, t_atom *argv)
+MaxErr param_attr_setramp(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
-	t_symbol *arg = atom_getsym(argv);
+	SymbolPtr arg = atom_getsym(argv);
 	x->attr_ramp = arg;
 	
 	qelem_set(x->ramp_qelem);	// place a call to param_ramp_setup() at the end of the low-priority queue
 	return MAX_ERR_NONE;
 }
 
-t_max_err param_attr_getramp(t_param *x, void *attr, long *argc, t_atom **argv)
+MaxErr param_attr_getramp(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+		*argv = (AtomPtr )sysmem_newptr(sizeof(Atom));
 	atom_setsym(*argv, x->attr_ramp);
 	return MAX_ERR_NONE;
 }
 
 
-t_max_err param_attr_setrampfunction(t_param *x, void *attr, long argc, t_atom *argv)
+MaxErr param_attr_setrampfunction(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
-	t_symbol *arg = atom_getsym(argv);
+	SymbolPtr arg = atom_getsym(argv);
 	x->attr_rampfunction = arg;
 
 	if (x->ramper)
@@ -591,36 +591,36 @@ t_max_err param_attr_setrampfunction(t_param *x, void *attr, long argc, t_atom *
 	return MAX_ERR_NONE;
 }
 
-t_max_err param_attr_getrampfunction(t_param *x, void *attr, long *argc, t_atom **argv)
+MaxErr param_attr_getrampfunction(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+		*argv = (AtomPtr )sysmem_newptr(sizeof(Atom));
 	atom_setsym(*argv, x->attr_rampfunction);
 	return MAX_ERR_NONE;
 }
 
 
-t_max_err param_attr_gettype(t_param *x, void *attr, long *argc, t_atom **argv)
+MaxErr param_attr_gettype(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+		*argv = (AtomPtr )sysmem_newptr(sizeof(Atom));
 	atom_setsym(*argv, x->common.attr_type);
 	return MAX_ERR_NONE;
 }
 
 	
-t_max_err param_attr_getfreeze(t_param *x, void *attr, long *argc, t_atom **argv)
+MaxErr param_attr_getfreeze(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+		*argv = (AtomPtr )sysmem_newptr(sizeof(Atom));
 	atom_setlong(*argv, x->attr_ui_freeze);
 	return MAX_ERR_NONE;
 }
 
-t_max_err param_attr_setfreeze(t_param *x, void *attr, long argc, t_atom *argv)
+MaxErr param_attr_setfreeze(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc && argv)
 		x->attr_ui_freeze = atom_getlong(argv);
@@ -628,16 +628,16 @@ t_max_err param_attr_setfreeze(t_param *x, void *attr, long argc, t_atom *argv)
 }
 
 
-t_max_err param_attr_getstepsize(t_param *x, void *attr, long *argc, t_atom **argv)
+MaxErr param_attr_getstepsize(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+		*argv = (AtomPtr )sysmem_newptr(sizeof(Atom));
 	atom_setfloat(*argv, x->attr_stepsize);
 	return MAX_ERR_NONE;
 }
 
-t_max_err param_attr_setstepsize(t_param *x, void *attr, long argc, t_atom *argv)
+MaxErr param_attr_setstepsize(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc && argv)
 		x->attr_stepsize = atom_getfloat(argv);
@@ -645,16 +645,16 @@ t_max_err param_attr_setstepsize(t_param *x, void *attr, long argc, t_atom *argv
 }
 
 
-t_max_err param_attr_getpriority(t_param *x, void *attr, long *argc, t_atom **argv)
+MaxErr param_attr_getpriority(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+		*argv = (AtomPtr )sysmem_newptr(sizeof(Atom));
 	atom_setlong(*argv, x->attr_priority);
 	return MAX_ERR_NONE;
 }
 
-t_max_err param_attr_setpriority(t_param *x, void *attr, long argc, t_atom *argv)
+MaxErr param_attr_setpriority(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc && argv)
 		x->attr_priority = atom_getlong(argv);
@@ -662,16 +662,16 @@ t_max_err param_attr_setpriority(t_param *x, void *attr, long argc, t_atom *argv
 }
 
 
-t_max_err param_attr_getreadonly(t_param *x, void *attr, long *argc, t_atom **argv)
+MaxErr param_attr_getreadonly(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+		*argv = (AtomPtr )sysmem_newptr(sizeof(Atom));
 	atom_setlong(*argv, x->attr_readonly);
 	return MAX_ERR_NONE;
 }
 
-t_max_err param_attr_setreadonly(t_param *x, void *attr, long argc, t_atom *argv)
+MaxErr param_attr_setreadonly(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc && argv)
 		x->attr_readonly = atom_getlong(argv);
@@ -679,20 +679,20 @@ t_max_err param_attr_setreadonly(t_param *x, void *attr, long argc, t_atom *argv
 }
 
 
-t_max_err param_attr_getvalue(t_param *x, void *attr, long *argc, t_atom **argv)
+MaxErr param_attr_getvalue(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = x->list_size;
 	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * x->list_size);
-	sysmem_copyptr(x->atom_list, *argv, sizeof(t_atom) * x->list_size);
+		*argv = (AtomPtr )sysmem_newptr(sizeof(Atom) * x->list_size);
+	sysmem_copyptr(x->atom_list, *argv, sizeof(Atom) * x->list_size);
 	return MAX_ERR_NONE;
 }
 
-t_max_err param_attr_setvalue(t_param *x, void *attr, long argc, t_atom *argv)
+MaxErr param_attr_setvalue(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
 	x->list_size = argc;
-	//sysmem_copyptr(argv, x->atom_list, argc * sizeof(t_atom));
-	//memcpy(x->atom_list, argv, argc * sizeof(t_atom));
+	//sysmem_copyptr(argv, x->atom_list, argc * sizeof(Atom));
+	//memcpy(x->atom_list, argv, argc * sizeof(Atom));
 	// the two calls above fail to copy the atoms ???
 	for (int i=0; i<argc; i++) {
 		x->atom_list[i].a_type = argv[i].a_type;
@@ -702,36 +702,36 @@ t_max_err param_attr_setvalue(t_param *x, void *attr, long argc, t_atom *argv)
 }
 
 
-t_max_err param_attr_getdefault(t_param *x, void *attr, long *argc, t_atom **argv)
+MaxErr param_attr_getdefault(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = x->listDefault_size;
 	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * x->listDefault_size);
-	sysmem_copyptr(x->atom_listDefault, *argv, sizeof(t_atom) * x->listDefault_size);
+		*argv = (AtomPtr )sysmem_newptr(sizeof(Atom) * x->listDefault_size);
+	sysmem_copyptr(x->atom_listDefault, *argv, sizeof(Atom) * x->listDefault_size);
 	return MAX_ERR_NONE;
 }
 
-t_max_err param_attr_setdefault(t_param *x, void *attr, long argc, t_atom *argv)
+MaxErr param_attr_setdefault(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
 	x->listDefault_size = argc;
-	sysmem_copyptr(argv, x->atom_listDefault, argc * sizeof(t_atom));
+	sysmem_copyptr(argv, x->atom_listDefault, argc * sizeof(Atom));
 	return MAX_ERR_NONE;
 }
 
 
-t_max_err param_attr_getdataspace(t_param *x, void *attr, long *argc, t_atom **argv)
+MaxErr param_attr_getdataspace(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+		*argv = (AtomPtr )sysmem_newptr(sizeof(Atom));
 	atom_setsym(*argv, x->attr_dataspace);
 	return MAX_ERR_NONE;
 }
 
-t_max_err param_attr_setdataspace(t_param *x, void *attr, long argc, t_atom *argv)
+MaxErr param_attr_setdataspace(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc && argv) {
-		t_max_err	err;
+		MaxErr	err;
 		
 		x->attr_dataspace = atom_getsym(argv);
 		jamoma_getDataspace(x->attr_dataspace, &x->dataspace_active2native);
@@ -777,16 +777,16 @@ t_max_err param_attr_setdataspace(t_param *x, void *attr, long argc, t_atom *arg
 }
 
 
-t_max_err param_attr_getactiveunit(t_param *x, void *attr, long *argc, t_atom **argv)
+MaxErr param_attr_getactiveunit(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+		*argv = (AtomPtr )sysmem_newptr(sizeof(Atom));
 	atom_setsym(*argv, x->attr_unitActive);
 	return MAX_ERR_NONE;
 }
 
-t_max_err param_attr_setactiveunit(t_param *x, void *attr, long argc, t_atom *argv)
+MaxErr param_attr_setactiveunit(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc && argv) {
 		x->attr_unitActive = atom_getsym(argv);
@@ -801,16 +801,16 @@ t_max_err param_attr_setactiveunit(t_param *x, void *attr, long argc, t_atom *ar
 }
 
 
-t_max_err param_attr_getnativeunit(t_param *x, void *attr, long *argc, t_atom **argv)
+MaxErr param_attr_getnativeunit(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+		*argv = (AtomPtr )sysmem_newptr(sizeof(Atom));
 	atom_setsym(*argv, x->attr_unitNative);
 	return MAX_ERR_NONE;
 }
 
-t_max_err param_attr_setnativeunit(t_param *x, void *attr, long argc, t_atom *argv)
+MaxErr param_attr_setnativeunit(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc && argv) {
 		x->attr_unitNative = atom_getsym(argv);
@@ -821,16 +821,16 @@ t_max_err param_attr_setnativeunit(t_param *x, void *attr, long argc, t_atom *ar
 }
 
 
-t_max_err param_attr_getdisplayunit(t_param *x, void *attr, long *argc, t_atom **argv)
+MaxErr param_attr_getdisplayunit(t_param *x, void *attr, long *argc, AtomPtr *argv)
 {
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+		*argv = (AtomPtr )sysmem_newptr(sizeof(Atom));
 	atom_setsym(*argv, x->attr_unitDisplay);
 	return MAX_ERR_NONE;
 }
 
-t_max_err param_attr_setdisplayunit(t_param *x, void *attr, long argc, t_atom *argv)
+MaxErr param_attr_setdisplayunit(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc && argv) {
 		x->attr_unitDisplay = atom_getsym(argv);
@@ -870,7 +870,7 @@ void param_assist(t_param *x, void *b, long msg, long arg, char *dst)
 
 
 // receive messages from our internal jcom.receive external
-void param_receive_callback(t_param *x, t_symbol *msg, long argc, t_atom *argv)
+void param_receive_callback(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	if (msg == _sym_int)
 		param_int(x, atom_getlong(argv));
@@ -888,9 +888,9 @@ void param_receive_callback(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 void param_makereceive(void* z)
 {
 	t_param*	x = (t_param*)z;
-	t_atom		a;
+	Atom		a;
 	char		osc[512];
-	t_symbol*	module_name = object_attr_getsym(x->common.hub, _sym_name);
+	SymbolPtr	module_name = object_attr_getsym(x->common.hub, _sym_name);
 	
 	if (x->receive) {
 		object_free(x->receive);
@@ -916,7 +916,7 @@ void param_makereceive(void* z)
 void param_dump(t_param *x)
 {
 	char		s[256];
-	t_atom		a[4];
+	Atom		a[4];
 	AtomCount	ac;
 	AtomPtr		av;
 	
@@ -1024,7 +1024,7 @@ void param_dump(t_param *x)
 void param_bang(t_param *x)
 {
 #ifdef JMOD_MESSAGE
-	t_atom	a;
+	Atom	a;
 	
 	atom_setsym(&a, gensym(""));
 	outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
@@ -1132,8 +1132,8 @@ void param_output_list(void *z)
 void param_output_none(void *z)
 {
 	t_param *x = (t_param *)z;
-	t_atom output[1];
-	t_atom *out = (t_atom *)(&output);
+	Atom output[1];
+	AtomPtr out = (AtomPtr )(&output);
 
 	x->isSending = YES;
 
@@ -1158,11 +1158,11 @@ void param_output_none(void *z)
 
 
 // INC & DEC
-void param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv)
+void param_inc(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	float	stepmult = 1.0;
 	long	ramptime = 0;		// ms
-	t_atom	a[3];				// value, 'ramp', value
+	Atom	a[3];				// value, 'ramp', value
 	short	a_len = 1;
 	
 	// Check for Arguments...
@@ -1222,11 +1222,11 @@ void param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 }
 
 
-void param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv)
+void param_dec(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	float	stepmult = 1.0;
 	long	ramptime = 0;		// ms
-	t_atom	a[3];				// value, 'ramp', value
+	Atom	a[3];				// value, 'ramp', value
 	short	a_len = 1;
 
 	// Check for Arguments...
@@ -1317,8 +1317,8 @@ void param_float(t_param *x, double value)
 	
 	// this block added for implementing the dataspace features [TAP]
 	{
-		t_atom	a;
-		t_atom*	r = NULL;
+		Atom	a;
+		AtomPtr	r = NULL;
 		bool	alloc = false;
 		long	count = 0;
 		
@@ -1333,7 +1333,7 @@ void param_float(t_param *x, double value)
 }
 
 // SYMBOL INPUT
-void param_symbol(t_param *x, t_symbol *value)
+void param_symbol(t_param *x, SymbolPtr value)
 {
 	x->list_size = 1;
 	if (x->common.attr_repetitions == 0 && x->isInitialised) {
@@ -1348,11 +1348,11 @@ void param_symbol(t_param *x, t_symbol *value)
 }
 
 // ANYTHING INPUT
-void param_anything(t_param *x, t_symbol *msg, long argc, t_atom *argv)
+void param_anything(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	char*	c = strrchr(msg->s_name, ':');
 	long	ac = 0;
-	t_atom*	av = NULL;
+	AtomPtr	av = NULL;
 
 	if (c) {
 		if (param_handleProperty(x, msg, argc, argv))
@@ -1360,9 +1360,9 @@ void param_anything(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	}
 
 	ac = argc+1;
-	av = (t_atom*)malloc(sizeof(t_atom) * ac);
+	av = (AtomPtr)malloc(sizeof(Atom) * ac);
 	atom_setsym(av, msg);
-	memcpy(av+1, argv, sizeof(t_atom) * argc);
+	memcpy(av+1, argv, sizeof(Atom) * argc);
 	param_list(x, _sym_list, ac, av);
 	free(av);
 }
@@ -1377,8 +1377,8 @@ void param_ui_refresh(t_param *x)
 // Send feedback to the hub
 void param_send_feedback(t_param *x)
 {
-	t_atom output[LISTSIZE + 1];
-	t_atom *out = (t_atom *)(&output);
+	Atom output[LISTSIZE + 1];
+	AtomPtr out = (AtomPtr )(&output);
 	
 	// send to our ui outlet
 	if (x->attr_ui_freeze == 0)
@@ -1394,7 +1394,7 @@ void param_send_feedback(t_param *x)
 		jcom_core_atom_copy(out+1, &x->attr_value);
 		// copy any remaining atoms
 		if (x->list_size > 1) 
-			sysmem_copyptr(&x->atom_list[1], out + 2, sizeof(t_atom) * (x->list_size - 1));
+			sysmem_copyptr(&x->atom_list[1], out + 2, sizeof(Atom) * (x->list_size - 1));
 		object_method_typed(x->common.hub, jps_feedback, x->list_size + 1, out, NULL);
 	}
 	// notify listeners (pattr or jcom.paramui) that we have modified data
@@ -1412,7 +1412,7 @@ void param_ui_queuefn(t_param *x)
 
 
 // messages received from jcom.hub
-void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
+void param_dispatched(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	if (!x->isSending) {
 		// new input - halt any ramping...
@@ -1426,7 +1426,7 @@ void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 				return;
 			
 			if (x->dataspace_active2native) {
-				t_atom* r = (t_atom*)sysmem_newptr(sizeof(t_atom));
+				AtomPtr r = (AtomPtr)sysmem_newptr(sizeof(Atom));
 				x->dataspace_active2native->convert(1, argv, &x->list_size, &r);
 				jcom_core_atom_copy(&x->attr_value, r);
 			}
@@ -1449,7 +1449,7 @@ void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 }
 
 // Returns true if lists are identical
-int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy)
+int param_list_compare(AtomPtr x, long lengthx, AtomPtr y, long lengthy)
 {
 	// If lists differ in length they're obviously not the same
 	if (lengthx == lengthy) {
@@ -1478,12 +1478,12 @@ int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy)
 }
 
 
-void param_convert_units(t_param* x,long argc, t_atom* argv, long* rc, t_atom** rv, bool* alloc)
+void param_convert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, AtomPtr* rv, bool* alloc)
 {
 	if ((x->attr_dataspace && x->dataspace_active2native) && (x->attr_unitActive != x->attr_unitNative)) {
 		long	count;
 
-		*rv = (t_atom*)sysmem_newptr(sizeof(t_atom) * argc);
+		*rv = (AtomPtr)sysmem_newptr(sizeof(Atom) * argc);
 		
 		x->dataspace_active2native->convert(argc, argv, &count, rv);
 		*rc = count;
@@ -1498,18 +1498,18 @@ void param_convert_units(t_param* x,long argc, t_atom* argv, long* rc, t_atom** 
 
 
 // LIST INPUT <value, ramptime>
-void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
+void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	double		start[LISTSIZE],
 				values[LISTSIZE],
 				time;
 	int			i;
-	t_atom*		ramp;
-	t_symbol*	unit;
+	AtomPtr		ramp;
+	SymbolPtr	unit;
 	bool		hasRamp = false;
 	bool		hasUnit = false;
 	long		ac = 0;				// These two hold the input, but the input is converted into the native units
-	t_atom*		av = NULL;
+	AtomPtr		av = NULL;
 	bool		alloc = false;
 	
 	/*	If the list is only 1 atom, then we know it is just a value 
@@ -1690,7 +1690,7 @@ void param_ramp_callback_int(void *v, long, double *value)
 }
 
 
-void param_ramp_callback_list(void *v, long argc, double *value)
+void param_ramp_callback_list(void *v, AtomCount argc, double *value)
 {
 	long i;
 	t_param *x = (t_param *)v;
@@ -1731,7 +1731,7 @@ void param_ramp_setup(t_param *x)
 		object_attr_setsym(x, gensym("ramp/function"), x->attr_rampfunction);
 }
 
-void param_notify(t_param *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+void param_notify(t_param *x, SymbolPtr s, SymbolPtr msg, void *sender, void *data)
 {   //TODO: if Max5 can handle dynamically created menues in the inspector, then we can display the content of 'units'. 
 	//right now the menu items have to be provided at the time a parameter is created, therfore we can't change the items of the data units dynamically 
 	/*t_symbol	**unitNames = NULL;
