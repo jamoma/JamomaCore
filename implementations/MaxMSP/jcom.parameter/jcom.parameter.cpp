@@ -195,6 +195,7 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		
 		x->ui_qelem = qelem_new(x, (method)param_ui_queuefn);
 		x->ramp_qelem = qelem_new(x, (method)param_ramp_setup);
+		x->rampParameterNames = new TTHash;
 
 		// set defaults...
 		x->attr_rampfunction = _sym_nothing;
@@ -270,6 +271,7 @@ void param_free(t_param *x)
 		delete x->ramper;
 	if (x->receive)
 		object_free(x->receive);
+	delete x->rampParameterNames;
 }
 
 
@@ -381,7 +383,13 @@ bool param_handleProperty(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr arg
 			int			numValues;
 			AtomPtr		a;
 			TTSymbol*	tempSymbol;
-			double		tempValue;				
+			double		tempValue;
+			TTValue		v;
+			
+			// get the correct TT name for the parameter given the Max name
+			// parameterName = TT(atom_getsym(argv)->s_name);
+			x->rampParameterNames->lookup(parameterName, v);
+			v.get(0, &parameterName);
 			
 			x->ramper->getAttributeValue(parameterName, parameterValue);
 			numValues = parameterValue.getSize();
@@ -434,7 +442,13 @@ bool param_handleProperty(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr arg
 			int			numValues;
 			AtomPtr		a;
 			TTSymbol*	tempSymbol;
-			double		tempValue;				
+			double		tempValue;
+			TTValue		v;
+						
+			// get the correct TT name for the parameter given the Max name
+			// parameterName = TT(atom_getsym(argv)->s_name);
+			x->rampParameterNames->lookup(parameterName, v);
+			v.get(0, &parameterName);
 			
 			x->ramper->getFunctionParameterValue(parameterName, parameterValue);
 			numValues = parameterValue.getSize();
@@ -586,8 +600,34 @@ MaxErr param_attr_setrampfunction(t_param *x, void *attr, AtomCount argc, AtomPt
 	SymbolPtr arg = atom_getsym(argv);
 	x->attr_rampfunction = arg;
 
-	if (x->ramper)
+	if (x->ramper) {
+		long		n;
+		TTValue		names;
+		TTSymbolPtr	aName;
+		TTString	nameString;
+		
+		// set the function
 		x->ramper->setAttributeValue(TT("Function"), TT(x->attr_rampfunction->s_name));
+		
+		// cache the function's attribute names
+		x->rampParameterNames->clear();
+		x->ramper->getFunctionParameterNames(names);
+		n = names.getSize();
+		for (int i=0; i<n; i++) {
+			names.get(i, &aName);
+			nameString = aName->getString();
+			
+			if (aName == TT("Bypass") || aName == TT("Mute") || aName == TT("MaxNumChannels") || aName == TT("SampleRate"))
+				continue;										// don't publish these parameters
+			
+			if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
+				nameString[0] += 32;							// convert first letter to lower-case for Max
+				
+				TTValuePtr v = new TTValue(aName);
+				x->rampParameterNames->append(TT(nameString.c_str()), *v);
+			}
+		}	
+	}
 	return MAX_ERR_NONE;
 }
 

@@ -24,7 +24,7 @@ typedef struct _ramp {
 	void		*outlets[num_outlets];	///< Outlet array
 	t_symbol	*attr_rampunit;			///< Name of the current rampunit
 	RampUnit	*rampUnit;				///< Instance of the current rampunit
-	TTHashPtr	parameterNames;		// cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
+	TTHashPtr	parameterNames;			// cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
 } t_ramp;
 
 

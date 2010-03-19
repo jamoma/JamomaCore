@@ -52,6 +52,7 @@ typedef struct _param{
 	TTPtr			ui_qelem;					///< the output to the connected ui object is "qlim'd" with this qelem
 	TTPtr			ramp_qelem;					///< allows us to defer calls to setup a rampunit
 	SymbolPtr		attr_rampfunction;			///< Attribute for setting the function used by the ramping
+	TTHashPtr		rampParameterNames;			// cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
 	SymbolPtr		attr_dataspace;				///< The dataspace that this parameter uses (default is 'none')
 	DataspaceLib*	dataspace_override2active;	///< Performs conversion from messages like 'gain -6 db' to the active unit
 	DataspaceLib*	dataspace_active2display;	///< Performs conversion from the active input format to the format used by the parameter display
