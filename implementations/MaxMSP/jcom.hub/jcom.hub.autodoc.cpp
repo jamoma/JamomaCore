@@ -14,7 +14,7 @@ void hub_autodoc(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_symbol *userpath = _sym_nothing;
 	
-	if(argc)
+	if (argc)
 		userpath = atom_getsym(argv);
 	defer(x, (method)hub_doautodoc, userpath, 0, 0L);
 }
@@ -35,21 +35,21 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	t_atom			*argv = &a[0];
 
 	// SPECIFY THE FILE WE WANT TO WRITE
-	if(!userpath->s_name[0]){												// Empty string - Throw up a dialog
+	if (!userpath->s_name[0]) {												// Empty string - Throw up a dialog
 		snprintf(filename, MAX_FILENAME_CHARS, "%s.html", x->attr_name->s_name);					// Default File Name
 		saveas_promptset("Save Generated HTML Documentation...");			// Instructional Text in the dialog
 		err = saveasdialog_extended(filename, &path, &outtype, &type, 1);	// Returns 0 if successful
-		if(err)																// User Cancelled
+		if (err)																// User Cancelled
 			return;															
 	}
-	else{
+	else {
 		strcpy(filename, userpath->s_name);									// Copy symbol argument to a local string
 		path = 0;		
 	}
 
 	// NOW ATTEMPT TO CREATE THE FILE...
 	err = path_createsysfile(filename, path, type, &file_handle);
-	if(err){																// Handle any errors that occur
+	if (err) {																// Handle any errors that occur
 		object_error((t_object*)x, "%s - error %d creating file", filename, err);
 		return;	
 	}
@@ -94,7 +94,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 	
 	// Inlets and outlets
-	if(x->in_object){
+	if (x->in_object) {
 		argc = NULL;
 		argv = NULL;
 		object_attr_getvalueof(x->in_object, jps_num_inputs, &argc, &argv);	
@@ -104,14 +104,14 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	else
 		jcom_core_file_writeline(&file_handle, &myEof, "\t<p>BOGUS INLET DEFINITION!<br/>");
 
-	if(x->out_object){	// jcom.out is optional in the case of no signals
+	if (x->out_object) {	// jcom.out is optional in the case of no signals
 		argc = NULL;
 		argv = NULL;
 		object_attr_getvalueof(x->out_object, jps_num_outputs, &argc, &argv);
 		snprintf(tempstring, 1024, "\tNumber of signal outlets: <code> %ld </code> </p>", atom_getlong(argv));
 		jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 	}	
-	else{
+	else {
 		jcom_core_file_writeline(&file_handle, &myEof, "Number of signal outlets: <code> 0 </code> </p>");
 	}
 	
@@ -130,9 +130,9 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	subscriber = x->subscriber;
 	subscriberIterator i;
 	t_subscriber* t;
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == jps_subscribe_parameter){
+		if (t->type == jps_subscribe_parameter) {
 			hub_autodoc_node(&file_handle, &myEof, t);
 		}
 	}	
@@ -155,9 +155,9 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 		
 	// Process each message
 	critical_enter(0);
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == jps_subscribe_message){
+		if (t->type == jps_subscribe_message) {
 			hub_autodoc_node(&file_handle, &myEof, t);
 		}
 	}
@@ -180,9 +180,9 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 		
 	// Process each return
 	critical_enter(0);
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == jps_subscribe_return){
+		if (t->type == jps_subscribe_return) {
 			hub_autodoc_node(&file_handle, &myEof, t);
 		}
 	}
@@ -207,7 +207,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	
 	// WE ARE DONE, SO CLOSE THE FILE
 	err = sysfile_seteof(file_handle, myEof);
-	if(err){
+	if (err) {
 		object_error((t_object*)x, "%s - error %d creating EOF", filename, err);
 		return;	
 	}
@@ -240,13 +240,13 @@ void hub_autodoc_node(t_filehandle *file_handle, long *myEof, t_subscriber* t)
 	argc = NULL;
 	argv = NULL;
 	err = object_attr_getvalueof(t->object ,jps_type , &argc, &argv);
-	if(err)
+	if (err)
 		msg_type = gensym("bogus");
 	else
 		msg_type = atom_getsym(argv);
 	
 	humantype = msg_type->s_name;
-	if(strstr(humantype, "msg_"))
+	if (strstr(humantype, "msg_"))
 		humantype += 4;
 	snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionType\"> %s </td>", humantype);
 	jcom_core_file_writeline(file_handle, myEof, tempstring);
@@ -257,7 +257,7 @@ void hub_autodoc_node(t_filehandle *file_handle, long *myEof, t_subscriber* t)
 	object_attr_getvalueof(t->object, jps_range_bounds, &argc, &argv);
 	range[0] = atom_getfloat(argv);
 	range[1] = atom_getfloat(argv+1);
-	if( (msg_type==jps_integer) || (msg_type==jps_boolean) )
+	if ( (msg_type==jps_integer) || (msg_type==jps_boolean) )
 		snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionRangeBounds\"> %ld %ld </td>", (long)range[0], (long)range[1]);
 	else if ( (msg_type==jps_decimal) || (msg_type==jps_generic) )
 		snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionRangeBounds\"> %f %f </td>", range[0], range[1]);

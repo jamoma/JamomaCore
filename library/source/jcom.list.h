@@ -1,6 +1,6 @@
 /* 
  * Class for handling linked lists. 
- * By Dave Watson Copyright © 2007
+ * By Dave Watson Copyright ï¿½ 2007
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -42,7 +42,7 @@ public:
 	void remove(const T& x)
 	{
 		jcomListIterator i = find(ll.begin(), ll.end(), x);
-		if(i != ll.end())
+		if (i != ll.end())
 			ll.erase(i);
 	}
 	
@@ -51,10 +51,10 @@ public:
 		return find(ll.begin(), ll.end(), x) != ll.end();
 	}
 	template<typename Predicate>
-	T& find_if(jcomListIterator first, jcomListIterator last, Predicate pred)
+	T& find_if (jcomListIterator first, jcomListIterator last, Predicate pred)
 	{
 		jcomListIterator result;
-		while(first != last) {
+		while (first != last) {
 			result = pred(first, last);
 			++first;
 		}

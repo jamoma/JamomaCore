@@ -54,7 +54,7 @@ void *savebang_new(void)
 	
 	x = (t_savebang *)object_alloc(s_savebang_class);	// Create object, store pointer to it (get 1 inlet free)
 
-	if(x){
+	if (x) {
 		x->outlet = outlet_new(x, NULL);
 	}
 	return (x);

@@ -53,7 +53,7 @@ void *folder_new(t_symbol *msg, short argc, t_atom *argv)
 	t_folder *x;
 		
 	x = (t_folder *)object_alloc(folder_class);
-	if(x){
+	if (x) {
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));
 
     	attr_args_process(x,argc,argv);
@@ -69,10 +69,10 @@ void *folder_new(t_symbol *msg, short argc, t_atom *argv)
 // Method for Assistance Messages
 void folder_assist(t_folder *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 		// Inlets
+	if (msg==1) 		// Inlets
 		strcpy(dst, "(int/symbol/list) Input");
-	else if(msg==2){ 	// Outlets
-		switch(arg){
+	else if (msg==2) { 	// Outlets
+		switch(arg) {
 			case 0: strcpy(dst, "dumpout"); break;
 		}
 	}
@@ -92,14 +92,14 @@ void folder_domakedir(t_folder *x, t_symbol *s, long argc, t_atom *argv)
 	path_nameconform(s->s_name, fullpath, PATH_STYLE_MAX, PATH_TYPE_ABSOLUTE);
 	folderName = strrchr(fullpath, '/');
 	
-	if(folderName){
+	if (folderName) {
 		*folderName = 0;
 		folderName++;
 		
 		err = path_frompathname(fullpath, &path, temp);
-		if(!err)
+		if (!err)
 			err = path_createfolder(path, folderName, &createdPath);
-		if(err)
+		if (err)
 			object_error((t_object*)x, "error %hd trying to create folder", err);
 	}
 	object_obex_dumpout(x, _sym_bang, 0, NULL);
@@ -131,10 +131,10 @@ void folder_docopy(t_folder *x, t_symbol *srcin, long argc, t_atom *argv)
 	*tempstr = 0;
 	tempstr++;
 	path_frompathname(dstname, &dstpath, dstfilename);
-	if(tempstr)
+	if (tempstr)
 		strncpy_zero(dstfilename, tempstr, MAX_FILENAME_CHARS);
 
-	if(!srcfilename[0])
+	if (!srcfilename[0])
 		path_copyfolder(srcpath, dstpath, dstfilename, true, &newpath);
 	else
 		path_copyfile(srcpath, srcfilename, dstpath, dstfilename);

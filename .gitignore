@@ -16,7 +16,11 @@ Release
 *.ncb
 *.suo
 *.user
+*.tm_build_errors
 
 # Files generated from templates by the build script
 JamomaModular.xcconfig
 TTModularVersion.h
+
+# Git conflict files
+*.orig

@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 80.0, 173.0, 675.0, 642.0 ],
+		"rect" : [ 1.0, 44.0, 699.0, 691.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 80.0, 173.0, 675.0, 642.0 ],
+		"defrect" : [ 1.0, 44.0, 699.0, 691.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"args" : [ "/onDeck" ],
@@ -28,7 +29,7 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 350.0, 107.0, 300.0, 70.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 253.0, 104.0, 300.0, 70.0 ]
+					"presentation_rect" : [ 350.0, 107.0, 300.0, 70.0 ]
 				}
 
 			}
@@ -60,6 +61,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"comment" : "",
@@ -146,13 +148,13 @@
 ,
 					"patching_rect" : [ 35.0, 75.0, 65.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
+						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p spacebar"
@@ -178,14 +180,14 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-13",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 230.0, 188.0, 155.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 232.0, 187.0, 280.0, 19.0 ],
+					"presentation_rect" : [ 230.0, 188.0, 155.0, 19.0 ],
 					"text" : "<- double click for more info"
 				}
 
@@ -217,6 +219,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"color" : [ 0.4, 0.4, 0.8, 1.0 ],
@@ -329,14 +332,16 @@
 					}
 ,
 					"patching_rect" : [ 36.0, 185.0, 191.0, 24.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 36.0, 185.0, 191.0, 24.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
+						"globalpatchername" : "",
 						"default_fontface" : 0,
-						"default_fontname" : "Arial"
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p cueTriggerCompatibility"
@@ -362,7 +367,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-10",
 					"linecount" : 3,
 					"maxclass" : "comment",
@@ -370,8 +375,8 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 350.0, 558.0, 193.0, 43.0 ],
 					"presentation" : 1,
-					"presentation_linecount" : 2,
-					"presentation_rect" : [ 339.0, 315.0, 260.0, 31.0 ],
+					"presentation_linecount" : 3,
+					"presentation_rect" : [ 350.0, 558.0, 193.0, 43.0 ],
 					"text" : "Note : the check mark in the cue menu shows the actual reference KEYCUE."
 				}
 
@@ -407,14 +412,14 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-5",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 350.0, 385.0, 264.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 339.0, 166.0, 264.0, 19.0 ],
+					"presentation_rect" : [ 350.0, 385.0, 264.0, 19.0 ],
 					"text" : "update : store the last changes in the selected cue"
 				}
 
@@ -430,7 +435,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 35.0, 107.0, 300.0, 70.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 20.0, 85.0, 300.0, 70.0 ]
+					"presentation_rect" : [ 35.0, 107.0, 300.0, 70.0 ]
 				}
 
 			}
@@ -438,7 +443,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-14",
 					"linecount" : 3,
 					"maxclass" : "comment",
@@ -447,7 +452,7 @@
 					"patching_rect" : [ 350.0, 310.0, 230.0, 43.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 3,
-					"presentation_rect" : [ 340.0, 92.0, 230.0, 43.0 ],
+					"presentation_rect" : [ 350.0, 310.0, 230.0, 43.0 ],
 					"text" : "+ INSPECTOR : \n- to manage the cue list (copy, remove)\n- to select the module to store in the cuelist"
 				}
 
@@ -456,7 +461,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-11",
 					"linecount" : 10,
 					"maxclass" : "comment",
@@ -464,8 +469,8 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 350.0, 410.0, 246.0, 128.0 ],
 					"presentation" : 1,
-					"presentation_linecount" : 9,
-					"presentation_rect" : [ 339.0, 185.0, 298.0, 116.0 ],
+					"presentation_linecount" : 10,
+					"presentation_rect" : [ 350.0, 410.0, 246.0, 128.0 ],
 					"text" : "new : open the 'create menu' to select a way to store data and give a name to  the new cue .\n\n> ABSOLUTE : store all parameters. The cue type will be a KEYCUE.\n\n> DIFERRENTIAL : store only changed parameters since the last stored or recalled cue. The cue type will be a CUE."
 				}
 
@@ -474,14 +479,14 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-4",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 350.0, 365.0, 243.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 339.0, 147.0, 243.0, 19.0 ],
+					"presentation_rect" : [ 350.0, 365.0, 243.0, 19.0 ],
 					"text" : "edit : open a text file to show the selected cue"
 				}
 
@@ -490,14 +495,14 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-3",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 350.0, 275.0, 280.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 340.0, 57.0, 280.0, 19.0 ],
+					"presentation_rect" : [ 350.0, 275.0, 280.0, 19.0 ],
 					"text" : "2/ Use the \"Cue___Menu\" to select a cue and dump it"
 				}
 
@@ -506,7 +511,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-2",
 					"linecount" : 3,
 					"maxclass" : "comment",
@@ -515,7 +520,7 @@
 					"patching_rect" : [ 350.0, 223.0, 323.0, 43.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 3,
-					"presentation_rect" : [ 340.0, 10.0, 323.0, 43.0 ],
+					"presentation_rect" : [ 350.0, 223.0, 323.0, 43.0 ],
 					"text" : "1/ Load a cuelist file example (use the menu at the upper left corner of the jmod.Qmanager and select the cuelist_help.txt into the jmod.Qmanager folder))"
 				}
 
@@ -531,7 +536,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 30.0, 459.0, 300.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 20.0, 545.0, 300.0, 140.0 ]
+					"presentation_rect" : [ 30.0, 459.0, 300.0, 140.0 ]
 				}
 
 			}
@@ -547,7 +552,7 @@
 					"outlettype" : [ "", "signal", "signal" ],
 					"patching_rect" : [ 30.0, 229.0, 300.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 20.0, 315.0, 300.0, 140.0 ],
+					"presentation_rect" : [ 30.0, 229.0, 300.0, 140.0 ],
 					"varname" : "/input~"
 				}
 
@@ -564,7 +569,7 @@
 					"outlettype" : [ "", "signal", "signal" ],
 					"patching_rect" : [ 30.0, 379.0, 300.0, 70.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 20.0, 465.0, 300.0, 70.0 ],
+					"presentation_rect" : [ 30.0, 379.0, 300.0, 70.0 ],
 					"varname" : "/degrade~"
 				}
 

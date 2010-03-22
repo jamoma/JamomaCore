@@ -25,7 +25,7 @@ not removed.
 #include <stdlib.h>
 
 /** Macros */
-#define NEW(p,type) if ((p=(type *) malloc (sizeof(type))) == NULL){exit(EXIT_FAILURE);}
+#define NEW(p,type) if ((p=(type *) malloc (sizeof(type))) == NULL) {exit(EXIT_FAILURE);}
 #define FREE(p)  if (p) {free ((void *) p); p = NULL;}
 #define SWAP(t,x,y)     {t = x; x = y; y = t;}
 

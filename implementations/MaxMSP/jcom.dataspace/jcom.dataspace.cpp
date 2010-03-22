@@ -96,7 +96,7 @@ void *dataspace_new(t_symbol *name, long argc, t_atom *argv)
 	t_dataspace *obj;									// Declare an object (based on our struct)
 
 	obj = (t_dataspace *)object_alloc(dataspace_class);		// Create object, store pointer to it (get 1 inlet free)
-	if(obj){
+	if (obj) {
 		object_obex_store((void *)obj, _sym_dumpout, (object *)outlet_new(obj,NULL));
 	    //obj->outlet_active = outlet_new(obj, 0);
 	    obj->outlet_native = outlet_new(obj, 0);
@@ -105,7 +105,7 @@ void *dataspace_new(t_symbol *name, long argc, t_atom *argv)
 		obj->attr_dataspace_native = _sym_nothing;
 
 		attr_args_process(obj, argc, argv);
-		if(!obj->dataspace)
+		if (!obj->dataspace)
 			object_attr_setsym(obj, gensym("dataspace"), gensym("temperature"));
 
 		obj->av = (t_atom*)sysmem_newptr(sizeof(t_atom) * 3);	// just allocating three for now -- limited list support
@@ -117,7 +117,7 @@ void *dataspace_new(t_symbol *name, long argc, t_atom *argv)
 void dataspace_free(t_dataspace *obj)
 {
 	sysmem_freeptr(obj->av);
-	if(obj->dataspace)
+	if (obj->dataspace)
 		delete obj->dataspace;
 }
 
@@ -128,10 +128,10 @@ void dataspace_free(t_dataspace *obj)
 // Method for Assistance Messages
 void dataspace_assist(t_dataspace *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 							// Inlets
+	if (msg==1) 							// Inlets
 		strcpy(dst, "x");
-	else if(msg==2){ 					// Outlets
-		switch(arg){
+	else if (msg==2) { 					// Outlets
+		switch(arg) {
 			case 0: strcpy(dst, "y=f(x)"); break;
 			default: strcpy(dst, "dumpout"); break;
  		}
@@ -176,13 +176,13 @@ void dataspace_getDataspaces(t_dataspace *obj)
 	
 	jamoma_getDataspaceList(&numDataspaces, &dataspaceNames);
 	
-	for(i=0; i<numDataspaces; i++){
+	for (i=0; i<numDataspaces; i++) {
 		atom_setsym(a+0, gensym("append"));
 		atom_setsym(a+1, dataspaceNames[i]);
 		object_obex_dumpout(obj, gensym("DataspacesMenu"), 2, a);
 	}
 	
-	if(numDataspaces)
+	if (numDataspaces)
 		sysmem_freeptr(dataspaceNames);
 }
 
@@ -199,13 +199,13 @@ void dataspace_getUnits(t_dataspace *obj)
 	
 	obj->dataspace->getAvailableUnits(&numUnits, &unitNames);
 	
-	for(i=0; i<numUnits; i++){
+	for (i=0; i<numUnits; i++) {
 		atom_setsym(a+0, gensym("append"));
 		atom_setsym(a+1, unitNames[i]);
 		object_obex_dumpout(obj, gensym("UnitMenu"), 2, a);
 	}
 	
-	if(numUnits)
+	if (numUnits)
 		sysmem_freeptr(unitNames);
 }
 

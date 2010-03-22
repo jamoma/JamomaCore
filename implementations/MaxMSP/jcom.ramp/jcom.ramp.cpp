@@ -9,7 +9,7 @@
 
 #include "Jamoma.h"
 
-enum outlets{
+enum outlets {
 	k_outlet_value = 0,
 	k_outlet_dumpout,
 	num_outlets
@@ -19,11 +19,12 @@ enum outlets{
 /** The Ramp. jcom.ramp can be considered an extended object comapred to of a line object.
   * It use the RampLib to drive values in different ways, as well as the Function Lib to
   * do the ramp to new values according to an extendable set of functions.  */
-typedef struct _ramp{
+typedef struct _ramp {
 	t_object	 ob;					///< Data Structure for this object
 	void		*outlets[num_outlets];	///< Outlet array
 	t_symbol	*attr_rampunit;			///< Name of the current rampunit
 	RampUnit	*rampUnit;				///< Instance of the current rampunit
+	TTHashPtr	parameterNames;			// cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
 } t_ramp;
 
 
@@ -134,16 +135,17 @@ void *ramp_new(t_symbol *s, long argc, t_atom *argv)
 	t_ramp	*x = (t_ramp *)object_alloc(ramp_class);
 	t_atom	a;
 
-	if(x){
+	if (x) {
 		x->outlets[k_outlet_dumpout] = outlet_new(x, 0L);
 		x->outlets[k_outlet_value]   = outlet_new(x, 0L);
 		object_obex_store((void *)x, _sym_dumpout, (t_object *)x->outlets[k_outlet_dumpout]);
+		x->parameterNames = new TTHash;
 
 		x->rampUnit = NULL;
 		x->attr_rampunit = _sym_nothing;		
 		attr_args_process(x, argc, argv);	// handle attribute args
 
-		if(x->attr_rampunit == _sym_nothing){
+		if (x->attr_rampunit == _sym_nothing) {
 			atom_setsym(&a, gensym("scheduler"));
 			object_attr_setvalueof(x, gensym("drive"), 1, &a);
 		}
@@ -155,6 +157,7 @@ void *ramp_new(t_symbol *s, long argc, t_atom *argv)
 void ramp_free(t_ramp *x)
 {
 	delete x->rampUnit;
+	delete x->parameterNames;
 }
 
 
@@ -164,10 +167,10 @@ void ramp_free(t_ramp *x)
 // Method for Assistance Messages
 void ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 						// Inlet
+	if (msg==1) 						// Inlet
 		strcpy(dst, "input");
-	else{							// Outlets
-		switch(arg){
+	else {							// Outlets
+		switch(arg) {
 			case k_outlet_value:
 					strcpy(dst, "ramping value");
 					break;
@@ -181,7 +184,32 @@ void ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst)
 
 void ramp_setFunction(t_ramp *x, t_symbol *functionName)
 {
-	x->rampUnit->setAttributeValue(TT("function"), TT(functionName->s_name));  
+	long		n;
+	TTValue		names;
+	TTSymbol*	aName;
+	TTString	nameString;
+	
+	// set the function
+	x->rampUnit->setAttributeValue(TT("Function"), TT(functionName->s_name));
+	
+	// cache the function's attribute names
+	x->parameterNames->clear();
+	x->rampUnit->getFunctionParameterNames(names);
+	n = names.getSize();
+	for (int i=0; i<n; i++) {
+		names.get(i, &aName);
+		nameString = aName->getString();
+		
+		if (aName == TT("Bypass") || aName == TT("Mute") || aName == TT("MaxNumChannels") || aName == TT("SampleRate"))
+			continue;										// don't publish these parameters
+
+		if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
+			nameString[0] += 32;							// convert first letter to lower-case for Max
+
+			TTValuePtr v = new TTValue(aName);
+			x->parameterNames->append(TT(nameString.c_str()), *v);
+		}
+	}	
 }
 
 
@@ -194,26 +222,31 @@ void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 	int			i;
 	TTSymbol*	tempSymbol;
 	double		tempValue;
+	TTValue		v;
 	
-	if(!argc){
+	if (!argc) {
 		error("jcom.ramp: not enough arguments to function.parameter.get");
 		return;
 	}
 	
+	// get the correct TT name for the parameter given the Max name
 	parameterName = TT(atom_getsym(argv)->s_name);
+	obj->parameterNames->lookup(parameterName, v);
+	v.get(0, &parameterName);
+	
 	obj->rampUnit->getFunctionParameterValue(parameterName, parameterValue);
 	numValues = parameterValue.getSize();
-	if(numValues){
+	if (numValues) {
 		a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
 		// First list item is name of parameter
 		atom_setsym(a, gensym((char*)parameterName->getCString()));
 		// Next the whole shebang is copied
-		for(i=0; i<numValues; i++){
-			if(parameterValue.getType(i) == kTypeSymbol){
+		for (i=0; i<numValues; i++) {
+			if (parameterValue.getType(i) == kTypeSymbol) {
 				parameterValue.get(i, &tempSymbol);
 				atom_setsym(a+i+1, gensym((char*)tempSymbol->getCString()));
 			}
-			else{
+			else {
 				parameterValue.get(i, tempValue);
 				atom_setfloat(a+i+1, tempValue);
 			}
@@ -231,15 +264,20 @@ void ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 	TTSymbol*	parameterName;
 	TTValue		newValue;
 	int			i;
+	TTValue		v;
 	
-	if(argc < 2){
+	if (argc < 2) {
 		error("jcom.map: not enough arguments to setParameter");
 		return;
 	}
 	
+	// get the correct TT name for the parameter given the Max name
 	parameterName = TT(atom_getsym(argv)->s_name);
-	for(i=1; i<=(argc-1); i++){
-		if(argv[i].a_type == A_SYM)
+	obj->parameterNames->lookup(parameterName, v);
+	v.get(0, &parameterName);
+	
+	for (i=1; i<=(argc-1); i++) {
+		if (argv[i].a_type == A_SYM)
 			newValue.append(TT(atom_getsym(argv+1)->s_name));
 		else
 			newValue.append(atom_getfloat(argv+i));
@@ -260,7 +298,7 @@ t_max_err ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv)
 
 void ramp_clock(t_ramp *x, t_symbol *clockName)
 {
-	x->rampUnit->setAttributeValue(TT("clock"), TT(clockName->s_name));
+	x->rampUnit->setAttributeValue(TT("Clock"), TT(clockName->s_name));
 }
 
 
@@ -271,10 +309,10 @@ void ramp_callback(void *v, long numvalues, double *values)
 	t_atom	*a = (t_atom *)malloc(numvalues * sizeof(t_atom));
 	short	i;
 	
-	for(i=0; i<numvalues; i++)
+	for (i=0; i<numvalues; i++)
 		atom_setfloat(a+i, values[i]);
 		
-	if(numvalues == 1)
+	if (numvalues == 1)
 		outlet_float(x->outlets[k_outlet_value], values[0]);
 	else
 		outlet_anything(x->outlets[k_outlet_value], _sym_list, numvalues, a);
@@ -316,7 +354,7 @@ void ramp_set(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 	
 	values = (double *)malloc(argc * sizeof(double));
 
-	for(i=0; i<argc; i++)
+	for (i=0; i<argc; i++)
 		values[i] = atom_getfloat(argv+i);
 
 	x->rampUnit->set(argc, values);
@@ -331,16 +369,16 @@ void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 	short	ramp_keyword_index = -1;
 	double	*values;
 	
-	/*if(argc < 3){
+	/*if (argc < 3) {
 		error("invalid syntax -- not enough args to ramp");
 		return;
 	}*/
 
 	values = (double *)malloc((argc-2) * sizeof(double));
 	
-	for(i=0; i<argc; i++){
-		if(argv[i].a_type == A_SYM){
-			if(atom_getsym(argv+i) == gensym("ramp")){
+	for (i=0; i<argc; i++) {
+		if (argv[i].a_type == A_SYM) {
+			if (atom_getsym(argv+i) == gensym("ramp")) {
 				ramp_keyword_index = i;
 				break;
 			}
@@ -348,17 +386,17 @@ void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 		values[i] = atom_getfloat(argv+i);
 	}
 	
-	if(ramp_keyword_index == -1){ // just a list w/o ramp information
+	if (ramp_keyword_index == -1) { // just a list w/o ramp information
 	x->rampUnit->set(argc, values);
 	outlet_anything(x->outlets[k_outlet_value], _sym_list, argc, argv);
 	}
-	else{
-		if(argc != (ramp_keyword_index + 2)){ // "ramp" is not the second last list member
+	else {
+		if (argc != (ramp_keyword_index + 2)) { // "ramp" is not the second last list member
 			error("invalid syntax -- wrong number of args following the 'ramp' keyword");
 			free(values);
 			return;
 		}
-	else{ // "ramp" is the second last list member, so we start ramping
+	else { // "ramp" is the second last list member, so we start ramping
 		x->rampUnit->go(argc-2, values, atom_getfloat(argv+ramp_keyword_index+1));
 		}
 	}
@@ -373,14 +411,14 @@ void ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 	TTValue		newValue;
 	int			i;
 	
-	if(argc < 2){
+	if (argc < 2) {
 		error("jcom.ramp: not enough arguments to setParameter");
 		return;
 	}
 	
 	parameterName = TT(atom_getsym(argv)->s_name);
-	for(i=1; i<=(argc-1); i++){
-		if(argv[i].a_type == A_SYM)
+	for (i=1; i<=(argc-1); i++) {
+		if (argv[i].a_type == A_SYM)
 			newValue.append(TT(atom_getsym(argv+1)->s_name));
 		else
 			newValue.append(atom_getfloat(argv+i));
@@ -399,7 +437,7 @@ void ramp_attrget(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 	TTSymbol*	tempSymbol;
 	double		tempValue;
 	
-	if(!argc){
+	if (!argc) {
 		error("jcom.ramp: not enough arguments to parameter.get");
 		return;
 	}
@@ -408,17 +446,17 @@ void ramp_attrget(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 	x->rampUnit->getAttributeValue(parameterName, parameterValue);
 	numValues = parameterValue.getSize();
 
-	if(numValues){
+	if (numValues) {
 		a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
 		// First list item is name of parameter
 		atom_setsym(a, gensym((char*)parameterName->getCString()));
 		// Next the whole shebang is copied
-		for(i=0; i<numValues; i++){
-			if(parameterValue.getType(i) == kTypeSymbol){
+		for (i=0; i<numValues; i++) {
+			if (parameterValue.getType(i) == kTypeSymbol) {
 				parameterValue.get(i, &tempSymbol);
 				atom_setsym(a+i+1, gensym((char*)tempSymbol->getCString()));
 			}
-			else{
+			else {
 				parameterValue.get(i, tempValue);
 				atom_setfloat(a+i+1, tempValue);
 			}

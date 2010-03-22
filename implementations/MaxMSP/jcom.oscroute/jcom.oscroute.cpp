@@ -83,23 +83,23 @@ void *oscroute_new(t_symbol *s, long argc, t_atom *argv)
 	short i;
 	t_oscroute	*x = (t_oscroute *)object_alloc(oscroute_class);
 	
-	if(x){
+	if (x) {
 		x->outlet_overflow = outlet_new(x, 0);		// overflow outlet
 		//object_obex_store((void *)x, _sym_dumpout, (object *)x->outlet_overflow);	// dumpout
 		x->num_args = argc;
 		
-		if(argc < 1){	// if no args are provided, we provide a way to set the arg using an inlet
+		if (argc < 1) {	// if no args are provided, we provide a way to set the arg using an inlet
 			x->num_args = 1;
 			x->arguments[0] = gensym("/nil");
 			x->arglen[0] = 4;
 			x->proxy_inlet = proxy_new(x, 1, 0L);
 			x->outlets[0] = outlet_new(x, 0);
 		}
-		else{
+		else {
 			x->proxy_inlet = 0;
-			for(i=x->num_args-1; i >= 0; i--){				
+			for (i=x->num_args-1; i >= 0; i--) {				
 				x->outlets[i] = outlet_new(x, 0);		// Create Outlet
-				switch(argv[i].a_type){
+				switch(argv[i].a_type) {
 					case A_SYM:
 						//atom_setsym(&(x->arguments[i]), atom_getsym(argv+i));
 						x->arguments[i] = atom_getsym(argv+i);
@@ -135,7 +135,7 @@ void *oscroute_new(t_symbol *s, long argc, t_atom *argv)
 
 void oscroute_free(t_oscroute *x)
 {
-	if(x->proxy_inlet != 0)
+	if (x->proxy_inlet != 0)
 		freeobject((t_object *)(x->proxy_inlet));
 }
 
@@ -147,10 +147,10 @@ void oscroute_free(t_oscroute *x)
 // Method for Assistance Messages
 void oscroute_assist(t_oscroute *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 						// Inlet
+	if (msg==1) 						// Inlet
 		strcpy(dst, "Input");
-	else if(msg==2){ 				// Outlets
-		if(arg < x->num_args)
+	else if (msg==2) { 				// Outlets
+		if (arg < x->num_args)
 			strcpy(dst, x->arguments[arg]->s_name);
 		else
 			strcpy(dst, "dumpout / overflow from non-matching input");	
@@ -185,7 +185,7 @@ void oscroute_list(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 void output_msg(t_oscroute *x, char *msg, int outlet, long argc, t_atom *argv)
 {
 	t_symbol *output;
-	if(msg == '\0') {
+	if (msg == '\0') {
 		
 		if (argc == 0) {
 			outlet_bang(x->outlets[outlet]);
@@ -222,7 +222,7 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 	long		inlet = proxy_getinlet((t_object *)x);
 
 	// If the message comes in the second inlet, then set the string to match...
-	if(inlet == 1){
+	if (inlet == 1) {
 		x->arguments[0] = msg;
 		x->arglen[0] = strlen(msg->s_name);
 		return;
@@ -233,7 +233,7 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
 	
-	if(input[0] != '/') {
+	if (input[0] != '/') {
 		outlet_anything(x->outlet_overflow, msg, argc , argv);
 		return;
 	}
@@ -244,7 +244,7 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 		// Look for exact matches first.
 		if (strncmp(msg->s_name, x->arguments[pos]->s_name, x->arglen[pos])==0) {
 			// If incoming message is longer than argument...
-			if (strlen(msg->s_name) > x->arglen[pos]){
+			if (strlen(msg->s_name) > x->arglen[pos]) {
 				// ...it is only a match if it continues with a slash
 				if (input[x->arglen[pos]] == '/') {
 					output = gensym(msg->s_name + x->arglen[pos]);
@@ -303,17 +303,17 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 	// If no exact matches, look for wildcards.
 	for (int index=0; index < x->num_args; index++) {	
 
-		if(wc = strstr(x->arguments[index]->s_name, "*")) {
+		if (wc = strstr(x->arguments[index]->s_name, "*")) {
 			// Does the argument have anything following the wildcard?
-			if(*(wc+1) == '\0') {
+			if (*(wc+1) == '\0') {
 				// Now compare the argument up to the asterisk to the message
-				if(strncmp(msg->s_name, x->arguments[index]->s_name, x->arglen[index] - 1) == 0) {
+				if (strncmp(msg->s_name, x->arguments[index]->s_name, x->arglen[index] - 1) == 0) {
 
 					// Increment string past everything that matches including the asterisk
 					char *temp = msg->s_name + (x->arglen[index] - 1);
 					// Check for a slash, an asterisk causes us to strip off everything up to the next slash
 					char *outMsg = strstr(temp, "/");
-					if(outMsg)
+					if (outMsg)
 						output_msg(x, outMsg, index, argc, argv);
 					else {
 						// no slash, output everything following the message
@@ -328,13 +328,13 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 			} else {
 				// There is no NULL char after asterisk
 				c = msg->s_name;
-				while(wc && *(wc) == '*') {
+				while (wc && *(wc) == '*') {
 					wc++;
 					c++;
 				}
 					
 				c += strlen(c) - strlen(wc);
-				if(strncmp(c, wc, strlen(c)) == 0) {
+				if (strncmp(c, wc, strlen(c)) == 0) {
 					output_msg(x, c, index, argc, argv);
 					return;
 				}
@@ -343,6 +343,6 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 	}
 
 	// the message was never reckognised
-	if(overFlow)
+	if (overFlow)
 		outlet_anything(x->outlet_overflow, msg, argc , argv);
 }

@@ -13,6 +13,8 @@
 #include "RampLib.h"
 #include "ext.h"
 
+#define thisTTClass RampUnit
+
 RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void *aBaton)
 	: TTObject(kTTValNONE), startValue(NULL), targetValue(NULL), currentValue(NULL), normalizedValue(0.0), numValues(0), functionUnit(NULL)
 {
@@ -23,8 +25,8 @@ RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void 
 	targetValue[0] = 0.0;
 	startValue[0] = 0.0;
 
-	registerAttribute(TT("function"),	kTypeSymbol,	&attrFunction,	(TTSetterMethod)&RampUnit::setFunction);
-	setAttributeValue(TT("function"), TT("linear"));
+	addAttributeWithSetter(Function, kTypeSymbol);
+	setAttributeValue(TT("Function"), TT("linear"));
 }
 
 
@@ -43,7 +45,7 @@ void RampUnit::set(TTUInt32 newNumValues, TTFloat64 *newValues)
 	
 	stop();
 	setNumValues(newNumValues);
-	for(i=0; i<newNumValues; i++)
+	for (i=0; i<newNumValues; i++)
 		currentValue[i] = newValues[i];
 }
 
@@ -55,21 +57,21 @@ TTErr RampUnit::setFunction(const TTValue& functionName)
 	
 	functionName.get(0, &newFunctionName);
 	
-	if(newFunctionName == TT("none"))
+	if (newFunctionName == TT("none"))
 		newFunctionName = TT("linear");
 	
-	if(newFunctionName == attrFunction)
+	if (newFunctionName == mFunction)
 		return kTTErrNone;
 	
-	attrFunction = newFunctionName;
-	err = FunctionLib::createUnit(attrFunction, (TTObject**)&functionUnit);
-	if(err)
+	mFunction = newFunctionName;
+	err = FunctionLib::createUnit(mFunction, (TTObject**)&functionUnit);
+	if (err)
 		logError("Jamoma ramp unit failed to load the requested FunctionUnit from TTBlue.");
 	return err;
 }
 
 
-TTErr RampUnit::getFunctionParameterNames(TTSymbol* parameterName, TTValue& names)
+TTErr RampUnit::getFunctionParameterNames(TTValue& names)
 {
 	functionUnit->getAttributeNames(names);
 	return kTTErrNone;
@@ -92,8 +94,8 @@ TTErr RampUnit::getFunctionParameterValue(TTSymbol* parameterName, TTValue& valu
 
 void RampUnit::setNumValues(TTUInt32 newNumValues)
 {
-	if(newNumValues != numValues){
-		if(numValues != 0){
+	if (newNumValues != numValues) {
+		if (numValues != 0) {
 			delete [] currentValue;
 			delete [] targetValue;
 			delete [] startValue;
@@ -120,17 +122,17 @@ void RampUnit::setNumValues(TTUInt32 newNumValues)
 
 JamomaError RampLib::createUnit(const TTSymbol* unitName, RampUnit **unit, RampUnitCallback callback, void* baton)
 {
-	if(*unit)
+	if (*unit)
 		delete *unit;
 
 	// These should be alphabetized
-	if(unitName == TT("async"))
+	if (unitName == TT("async"))
 		*unit = (RampUnit*) new AsyncRamp(callback, baton);
-	else if(unitName == TT("none"))
+	else if (unitName == TT("none"))
 		*unit = (RampUnit*) new NoneRamp(callback, baton);
-	else if(unitName == TT("queue"))
+	else if (unitName == TT("queue"))
 		*unit = (RampUnit*) new QueueRamp(callback, baton);
-	else if(unitName == TT("scheduler"))
+	else if (unitName == TT("scheduler"))
 		*unit = (RampUnit*) new SchedulerRamp(callback, baton);
 	else {
 		// Invalid function specified default to linear
