@@ -189,7 +189,7 @@ void InDsp(InPtr self, t_signal** sp, short* count)
 	self->multicoreObject->setOutputNumChannels(0, highestIndexForConnectedSignal+1);
 	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("VectorSize"), self->vectorSize);
 	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("MaxNumChannels"), self->maxNumChannels);
-	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
 	
 	dsp_addv(InPerform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
