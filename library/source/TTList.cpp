@@ -43,6 +43,31 @@ TTValue& TTList::getTail()
 	return *theList.back();
 }
 
+void TTList::begin()
+{
+	theIter = theList.begin();	
+}
+
+bool TTList::end()
+{
+	return theIter != theList.end();	
+}
+
+
+void TTList::next()
+{
+	theIter++;
+}
+
+void TTList::prev()
+{
+	theIter--;
+}
+
+TTValue& TTList::current()
+{
+	return **theIter;
+}
 
 TTBoolean TTList::isEmpty()
 {

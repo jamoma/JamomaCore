@@ -12,6 +12,11 @@
 
 
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSymEmpty;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSymSlash;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSymDot;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSymColon;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSymStar;
+
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_setVector32;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_getVector32;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_setVector64;
@@ -60,6 +65,11 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_phasor;
 void TTSymbolCacheInit()
 {
 	kTTSymEmpty						= TT("");
+	kTTSymSlash						= TT("/");
+	kTTSymDot						= TT(".");
+	kTTSymColon						= TT(":");
+	kTTSymStar						= TT("*");
+
 	kTTSym_setVector32				= TT("setVector32");
 	kTTSym_getVector32				= TT("getVector32");
 	kTTSym_setVector64				= TT("setVector64");

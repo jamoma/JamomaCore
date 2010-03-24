@@ -97,6 +97,14 @@ TTErr TTObject::registerAttribute(const TTSymbolPtr name, const TTDataType type,
 	return kTTErrNone;
 }
 
+TTErr TTObject::registerAttribute(const TTSymbolPtr name, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject)
+{
+	TTAttribute* newAttribute = new TTAttribute(name, newGetterObject, newSetterObject);
+	
+	attributes->append(name, TTPtr(newAttribute));
+	return kTTErrNone;
+}
+
 
 TTErr TTObject::removeAttribute(const TTSymbolPtr name)
 {
@@ -133,6 +141,7 @@ TTErr TTObject::getAttributeValue(const TTSymbolPtr name, TTValue& value)
 	
 	err = findAttribute(name, &attribute);
 	if(!err){
+		
 		if(attribute->getterFlags & kTTAttrPassObject)
 			err = (this->*attribute->getter)(*attribute, value);
 		else{
@@ -140,7 +149,6 @@ TTErr TTObject::getAttributeValue(const TTSymbolPtr name, TTValue& value)
 			err = (this->*getter)(value);
 		}
 	}
-	
 	return err;
 }
 
@@ -376,6 +384,11 @@ TTErr TTObject::unregisterObserverForNotifications(const TTObject& observingObje
 	return err;
 }
 
+
+TTErr TTObject::sendNotification(const TTSymbolPtr name, const TTValue& arguments)
+{
+	return observers->iterateObjectsSendingMessage(name, TTValueRef(arguments));
+}
 
 
 #if 0

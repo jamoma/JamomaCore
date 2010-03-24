@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)..\extensions\NodeLib&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)source\&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTFOUNDATION_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
@@ -130,7 +130,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)..\extensions\NodeLib&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)source\&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTFOUNDATION_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
@@ -200,6 +200,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\includes\TTCallback.h"
+				>
+			</File>
+			<File
 				RelativePath=".\includes\TTClass.h"
 				>
 			</File>
@@ -237,6 +241,14 @@
 			</File>
 			<File
 				RelativePath=".\includes\TTMutex.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTNode.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTNodeDirectory.h"
 				>
 			</File>
 			<File
@@ -280,6 +292,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\source\TTCallback.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\TTClass.cpp"
 				>
 			</File>
@@ -313,6 +329,14 @@
 			</File>
 			<File
 				RelativePath=".\source\TTMutex.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTNode.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTNodeDirectory.cpp"
 				>
 			</File>
 			<File

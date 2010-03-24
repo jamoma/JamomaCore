@@ -11,7 +11,10 @@
 #include "TTEnvironment.h"
 #include "TTSymbolCache.h"
 #include "TTValueCache.h"
-//#include "TTAudioEngine.h"
+#include "TTCallback.h"
+#include "TTNode.h"
+#include "TTNodeDirectory.h"
+
 
 #ifdef TT_PLATFORM_MAC
 #include <dlfcn.h>
@@ -48,6 +51,11 @@ void TTFoundationInit()
 		TTLogMessage("JamomaFoundation -- Version %s\n", TTFOUNDATION_VERSION_STRING);
 #endif
 		
+		// register classes -- both internal and external
+		TTCallback::registerClass();
+		TTNode::registerClass();
+		TTNodeDirectory::registerClass();
+
 		TTFoundationLoadExternalClasses();
 	}
 }

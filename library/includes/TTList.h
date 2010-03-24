@@ -31,6 +31,7 @@ private:
 	#pragma warning(disable:4251)
 	#endif
 	std::list<TTValue*>	theList;
+	TTListIter theIter;
 	
 	void lock();
 	void unlock();
@@ -54,6 +55,23 @@ public:
 	/** Return the last value in the list.
 		@return	The last value in the list.				*/
 	TTValue& getTail();
+
+	/** Put the iterator pointing to the beginning of the list. */
+	void begin();
+
+	/** Is the iterator points to the end of the list ?				
+		@return false if the iterator is at the end of the list	*/
+	bool end();
+
+	/** Put the iterator pointing to the next position	*/
+	void next();
+
+	/** Put the iterator pointing to the prev position	*/
+	void prev();
+
+	/** Returns the current value in the list (where the iterator is).
+		@return	The current value.						*/
+	TTValue& current();
 	
 	/**	Return a value by it's location in the list.	*/
 	TTErr getIndex(TTUInt32 index, TTValue& returnedValue);

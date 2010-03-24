@@ -11,12 +11,11 @@
 
 #include "TTObject.h"
 
-
 /**	A convenience macro to be used by subclasses for registering attributes with a custom getter.
 	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the getter method name.
 	@param	type	The type of the value.
 */
-#define addAttribute(name, type)			registerAttribute(TT(#name), type, &m##name)
+#define addAttribute(name, type)					registerAttribute(TT(#name), type, &m##name)
 #define registerAttributeSimple(name, type)    		registerAttribute(TT(#name), type, &name)
 
 /**	A convenience macro to be used by subclasses for registering attributes with a custom getter.
@@ -67,6 +66,8 @@ public:
 	void*				address;		///< Pointer to the memory holding the attribute value.
 	TTGetterMethod		getter;			///< Method to fetch the attribute value.
 	TTSetterMethod		setter;			///< Method to set the attribute value.
+	const TTObjectPtr	getterObject;	///< TTObjectPtr to fetch the attribute value.
+	const TTObjectPtr	setterObject;	///< TTObjectPtr to set the attribute value.
 	TTAttributeFlags	getterFlags;	///< Define the behavior of the attribute getter method.
 	TTAttributeFlags	setterFlags;	///< Define the behavior of the attribute setter method.
 	TTValue				internalValue;	///< Attributes that maintain their own data use this member to store it.
@@ -82,6 +83,7 @@ public:
 	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
 	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
 	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
+	TTAttribute(const TTSymbolPtr newName, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject);
 	virtual ~TTAttribute();
 	
 	void setGetterFlags(TTAttributeFlags newFlags);
@@ -92,6 +94,9 @@ public:
 
 	TTErr defaultGetter(const TTAttribute& attribute, TTValue& value);
 	TTErr defaultSetter(const TTAttribute& attribute, const TTValue& value);
+	
+	TTErr callbackGetter(const TTAttribute& attribute, TTValue& value);
+	TTErr callbackSetter(const TTAttribute& attribute, TTValue& value);
 	
 	// Potential Attributes of TTAttribute
 	TTErr setreadOnly(const TTValue& newReadOnlyValue);

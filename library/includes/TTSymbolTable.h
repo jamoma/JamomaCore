@@ -12,7 +12,7 @@
 #include "TTElement.h"
 #include "TTSymbol.h"
 
-#ifdef TT_PLATFORM_MAC
+#if defined( TT_PLATFORM_MAC ) || defined ( TT_PLATFORM_IPHONE )
 #include <ext/hash_map>
 using namespace __gnu_cxx;
 #elif TT_PLATFORM_LINUX
@@ -41,7 +41,7 @@ public:
 		return stdext::hash_value(s);
 	}
 };
-#elif defined ( TT_PLATFORM_MAC )
+#elif defined( TT_PLATFORM_MAC ) || defined ( TT_PLATFORM_IPHONE )
 class TTStringCompare {
 public:
 	bool operator()(const char* s1, const char* s2) const

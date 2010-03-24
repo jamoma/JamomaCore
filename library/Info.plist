@@ -12,16 +12,16 @@
 	<string>org.jamoma.${PRODUCT_NAME}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleLongVersionString</key>
+	<string>Jamoma Foundation Runtime: ${PRODUCT_NAME} ${PRODUCT_VERSION} (build ${SVNREV})</string>
 	<key>CFBundlePackageType</key>
 	<string>????</string>
+	<key>CFBundleShortVersionString</key>
+	<string>${PRODUCT_VERSION} (${SVNREV})</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>${SVNREV}</string>
-	<key>CFBundleShortVersionString</key>
-	<string>${PRODUCT_VERSION} (${SVNREV})</string>
-	<key>CFBundleLongVersionString</key>
-	<string>Jamoma Foundation Runtime: ${PRODUCT_NAME} ${PRODUCT_VERSION} (build ${SVNREV})</string>
 	<key>CSResourcesFileMapped</key>
 	<true/>
 </dict>
