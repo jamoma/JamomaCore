@@ -88,7 +88,7 @@ private:
 		
 	TTDataType*	type;			///< array of types
 	DataValue*	data;			///< array of values
-	TTBoolean*	numerical;		///< array of indicators for whether or not the type is numerical
+	TTPtr		reserved;		///< (unused)
 	TTUInt16	numValues;		///< number of values
 	TTBoolean	stringsPresent;	///< are there any values which are strings?  if so they need special handling when it is time to free them.
 

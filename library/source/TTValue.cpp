@@ -14,7 +14,7 @@
 /****************************************************************************************************/
 
 TTValue::TTValue()
-	: type(NULL), data(NULL), numValues(0)
+	: type(NULL), data(NULL), reserved(NULL), numValues(0)
 {
 	clear();
 }
@@ -204,6 +204,7 @@ void TTValue::init()
 	data = new DataValue;
 	numValues = 1;
 	stringsPresent = false;
+	reserved = NULL;
 }
 
 
@@ -242,7 +243,7 @@ void TTValue::copy(const TTValue& obj)
 	memcpy(type, obj.type, sizeof(TTDataType) * numValues);
 	memcpy(data, obj.data, sizeof(DataValue) * numValues);
 	
-	numerical = obj.numerical;
+	reserved = obj.reserved;
 	stringsPresent = obj.stringsPresent;
 }
 
