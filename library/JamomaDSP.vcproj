@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="JamomaDSP"
 	ProjectGUID="{34630069-834D-46BA-83CF-3DB7F1A9665F}"
 	RootNamespace="TTBlue"
@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)includes\units&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)source\units&quot;;&quot;$(ProjectDir)portaudio\include&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\JamomaFoundation\library\includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)includes\units&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)source\units&quot;;&quot;$(ProjectDir)portaudio\include&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTDSP_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
@@ -70,7 +70,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="PortAudio.lib JamomaFoundation.lib"
 				ShowProgress="0"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)portaudio\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\JamomaFoundation\library\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)portaudio\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
 				DelayLoadDLLs=""
 				GenerateDebugInformation="true"
@@ -131,7 +131,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)includes\units&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)source\units&quot;;&quot;$(ProjectDir)portaudio\include&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\JamomaFoundation\library\includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)includes\units&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)source\units&quot;;&quot;$(ProjectDir)portaudio\include&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTDSP_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
@@ -155,7 +155,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="PortAudio.lib JamomaFoundation.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)portaudio\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\JamomaFoundation\library\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)portaudio\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
 				DelayLoadDLLs=""
 				GenerateDebugInformation="true"
