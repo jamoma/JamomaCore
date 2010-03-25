@@ -15,11 +15,18 @@
 
 #define thisTTClass RampUnit
 
-RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void *aBaton)
-	: TTObject(kTTValNONE), startValue(NULL), targetValue(NULL), currentValue(NULL), normalizedValue(0.0), numValues(0), functionUnit(NULL)
+RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void *aBaton) : 
+	TTObject(kTTValNONE),
+	mFunction(NULL),
+	callback(aCallbackMethod),
+	baton(aBaton),
+	startValue(NULL),
+	targetValue(NULL),
+	currentValue(NULL),
+	normalizedValue(0.0),
+	numValues(0),
+	functionUnit(NULL)
 {
-	callback = aCallbackMethod;
-	baton = aBaton;
 	setNumValues(1);
 	currentValue[0] = 0.0;
 	targetValue[0] = 0.0;
