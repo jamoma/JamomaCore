@@ -127,7 +127,7 @@ TTErr TTWavetable::processAsLFO(TTAudioSignalArrayPtr, TTAudioSignalArrayPtr out
 	// Wrap the play head
 	if (mIndex >= mSize)
 		mIndex -= mSize;
-	else if (index < 0)
+	else if (mIndex < 0)
 		mIndex += mSize;
 	
 	// table lookup (no interpolation)
