@@ -50,7 +50,6 @@ typedef struct _param{
 	//	Atom			name_atom;					///< the above name, but cached as an atom for quick referencing
 	RampUnit*		ramper;						///< rampunit object to perform ramping of input values
 	TTPtr			ui_qelem;					///< the output to the connected ui object is "qlim'd" with this qelem
-	TTPtr			ramp_qelem;					///< allows us to defer calls to setup a rampunit
 	SymbolPtr		attr_rampfunction;			///< Attribute for setting the function used by the ramping
 	TTHashPtr		rampParameterNames;			// cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
 	SymbolPtr		attr_dataspace;				///< The dataspace that this parameter uses (default is 'none')
