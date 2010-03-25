@@ -194,7 +194,6 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		object_obex_store((void *)x, _sym_dumpout, (t_object *)x->outlets[k_outlet_dumpout]);
 		
 		x->ui_qelem = qelem_new(x, (method)param_ui_queuefn);
-		x->ramp_qelem = qelem_new(x, (method)param_ramp_setup);
 		x->rampParameterNames = new TTHash;
 
 		// set defaults...
@@ -266,7 +265,6 @@ void param_free(t_param *x)
 {	
 	jcom_core_subscriber_common_free((t_jcom_core_subscriber_common *)x);
 	qelem_free(x->ui_qelem);
-	qelem_free(x->ramp_qelem);
 	if (x->ramper)
 		delete x->ramper;
 	if (x->receive)
@@ -569,7 +567,7 @@ MaxErr param_attr_settype(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 		x->param_output = &param_output_generic;
 	}
 
-	qelem_set(x->ramp_qelem);	// set up the rampunit with callbacks appropriate to this data type
+	defer(x, (method)param_ramp_setup, NULL, 0, NULL);
 	return MAX_ERR_NONE;
 }
 
@@ -581,7 +579,7 @@ MaxErr param_attr_setramp(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 	SymbolPtr arg = atom_getsym(argv);
 	x->attr_ramp = arg;
 	
-	qelem_set(x->ramp_qelem);	// place a call to param_ramp_setup() at the end of the low-priority queue
+	defer(x, (method)param_ramp_setup, NULL, 0, NULL);
 	return MAX_ERR_NONE;
 }
 
@@ -1743,6 +1741,8 @@ void param_ramp_callback_list(void *v, AtomCount argc, double *value)
 }
 
 
+// TODO: This function can be hit multiple times when the object is first created, because it is triggered by changes to several different attributes
+// We should eliminate the multiple firing since it is not very efficient at load time.
 void param_ramp_setup(t_param *x)
 {
 	// 1. destroy the old rampunit
