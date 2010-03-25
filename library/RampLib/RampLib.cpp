@@ -136,8 +136,7 @@ JamomaError RampLib::createUnit(const TTSymbol* unitName, RampUnit **unit, RampU
 		*unit = (RampUnit*) new SchedulerRamp(callback, baton);
 	else {
 		// Invalid function specified default to linear
-//		TTLogError("rampLib: Invalid rampUnit: %s", (char*)unitName);
-		error("puke");
+		error("Jamoma RampLib: Invalid RampUnit ( %s ) specified", (char*)unitName);
 		*unit = (RampUnit*) new NoneRamp(callback, baton);
 	}
 	return JAMOMA_ERR_NONE;
