@@ -29,6 +29,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
 using namespace std;
 
 #ifdef TT_PLATFORM_LINUX
@@ -38,6 +39,7 @@ using namespace std;
 
 #ifdef TT_PLATFORM_WIN
 	#include "windows.h"
+	#include <algorithm>
 	#ifndef _CRT_SECURE_NO_WARNINGS
 		#define _CRT_SECURE_NO_WARNINGS
 	#endif
