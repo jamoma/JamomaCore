@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="Max External"
 	ProjectGUID="{E3F6789F-D53D-458B-88CC-D5718E89B940}"
 	RootNamespace="tt.balance~"
@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds\MaxMSP&quot;&#x0D;&#x0A;"
 				Outputs="output"
 			/>
 			<Tool
@@ -107,7 +107,8 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds\MaxMSP&quot;&#x0D;&#x0A;"
+				Outputs="output"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
