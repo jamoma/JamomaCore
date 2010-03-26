@@ -23,7 +23,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessageWithArgument(updateMaxNumChannels);
 	addMessageWithArgument(updateSr);
 
-	setAttributeValue(TT("VectorSize"), 64);
+	setAttributeValue(kTTSym_VectorSize, 64);
 	setAttributeValue(TT("MaxNumChannels"), 1);
 	setProcessMethod(processAudio);
 }

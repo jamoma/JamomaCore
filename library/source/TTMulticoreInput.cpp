@@ -31,8 +31,8 @@ TT_AUDIO_CONSTRUCTOR
 	
 	setProcessMethod(processAudio);
 	
-	setAttributeValue(TT("SampleRate"), 44100);
-	setAttributeValue(TT("VectorSize"), 512);
+	setAttributeValue(kTTSym_SampleRate, 44100);
+	setAttributeValue(kTTSym_VectorSize, 512);
 }
 
 
@@ -51,14 +51,14 @@ TTErr TTMulticoreInput::GetAvailableDeviceNames(TTValue& returnedDeviceNames)
 
 TTErr TTMulticoreInput::Start()
 {
-	mAudioEngine->sendMessage(TT("start"));
+	mAudioEngine->sendMessage(TT("Start"));
 	return kTTErrNone;
 }
 
 
 TTErr TTMulticoreInput::Stop()
 {
-	mAudioEngine->sendMessage(TT("stop"));
+	mAudioEngine->sendMessage(TT("Stop"));
 	return kTTErrNone;
 }
 
