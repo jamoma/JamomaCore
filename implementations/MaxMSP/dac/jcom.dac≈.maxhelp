@@ -22,6 +22,21 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-65",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 390.0, 725.0, 105.0, 17.0 ],
+					"presentation_rect" : [ 389.0, 726.0, 0.0, 0.0 ],
+					"text" : "sampleRate 44100"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-59",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -51,7 +66,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-64",
-					"items" : [ "Duet (3280)", ",", "Built-in Output", ",", "PLT   510", ",", "Soundflower (2ch)", ",", "Soundflower (16ch)" ],
+					"items" : [ "Built-in Output", ",", "PLT   510", ",", "Soundflower (2ch)", ",", "Soundflower (16ch)" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1295,6 +1310,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 760.0, 569.0, 719.5, 569.0 ],
 					"source" : [ "obj-64", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-65", 0 ]
 				}
 
 			}
