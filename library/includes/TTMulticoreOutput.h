@@ -28,17 +28,17 @@ public:
 	TTMulticorePreprocessData	mInitData;
 	TTSymbolPtr					mDevice;		///< name of the audio interface
 	
-	TTErr start();
-	TTErr stop();
+	TTErr Start();
+	TTErr Stop();
 	
 	/** Called by the audio engine every time a new vector of output is required. */
 	TTErr audioEngineWillProcess();
 	
 	TTErr setOwner(TTValue& newOwner);
 
-	TTErr getAvailableDeviceNames(TTValue& returnedDeviceNames);
+	TTErr GetAvailableDeviceNames(TTValue& returnedDeviceNames);
 
-	TTErr getCpuLoad(TTValue& returnedValue);
+	TTErr GetCpuLoad(TTValue& returnedValue);
 	
 	// Attribute Accessors
 	TTErr setSampleRate(const TTValue& newValue);

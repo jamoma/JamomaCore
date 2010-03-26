@@ -26,12 +26,12 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithGetterAndSetter(VectorSize, kTypeUInt16);
 	addAttributeWithGetterAndSetter(Device,		kTypeSymbol);
 	
-	addMessage(start);
-	addMessage(stop);
+	addMessage(Start);
+	addMessage(Stop);
 	addMessage(audioEngineWillProcess);
 	addMessageWithArgument(setOwner);
-	addMessageWithArgument(getAvailableDeviceNames);
-	addMessageWithArgument(getCpuLoad);
+	addMessageWithArgument(GetAvailableDeviceNames);
+	addMessageWithArgument(GetCpuLoad);
 	
 	setProcessMethod(processAudio);
 	
@@ -50,21 +50,21 @@ TTMulticoreOutput::~TTMulticoreOutput()
 }
 
 
-TTErr TTMulticoreOutput::start()
+TTErr TTMulticoreOutput::Start()
 {
 	TTValue						v;
 
 	getVectorSize(v);
 	mInitData.vectorSize = v;
 	
-	audioEngine->sendMessage(TT("start"));
+	audioEngine->sendMessage(TT("Start"));
 	return kTTErrNone;
 }
 
 
-TTErr TTMulticoreOutput::stop()
+TTErr TTMulticoreOutput::Stop()
 {
-	audioEngine->sendMessage(TT("stop"));
+	audioEngine->sendMessage(TT("Stop"));
 	return kTTErrNone;
 }
 
@@ -88,15 +88,15 @@ TTErr TTMulticoreOutput::setOwner(TTValue& newOwner)
 }
 
 
-TTErr TTMulticoreOutput::getAvailableDeviceNames(TTValue& returnedDeviceNames)
+TTErr TTMulticoreOutput::GetAvailableDeviceNames(TTValue& returnedDeviceNames)
 {
-	return audioEngine->sendMessage(TT("getAvailableOutputDeviceNames"), returnedDeviceNames);
+	return audioEngine->sendMessage(TT("GetAvailableOutputDeviceNames"), returnedDeviceNames);
 }
 
 
-TTErr TTMulticoreOutput::getCpuLoad(TTValue& returnedValue)
+TTErr TTMulticoreOutput::GetCpuLoad(TTValue& returnedValue)
 {
-	return audioEngine->sendMessage(TT("getCpuLoad"), returnedValue);
+	return audioEngine->sendMessage(TT("GetCpuLoad"), returnedValue);
 }
 
 

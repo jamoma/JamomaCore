@@ -24,10 +24,9 @@ public:
 	TTObjectPtr				mAudioEngine;
 	TTAudioSignalPtr		mBuffer;			///< an unused audio signal that we pass
 	
-	TTErr start();
-	TTErr stop();
-	
-	TTErr getAvailableDeviceNames(TTValue& returnedDeviceNames);
+	TTErr Start();
+	TTErr Stop();
+	TTErr GetAvailableDeviceNames(TTValue& returnedDeviceNames);
 	
 	// Attribute Accessors
 	TTErr setSampleRate(const TTValue& newValue);

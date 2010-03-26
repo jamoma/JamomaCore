@@ -25,9 +25,9 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithGetterAndSetter(VectorSize, kTypeUInt16);
 	addAttributeWithGetterAndSetter(Device,		kTypeSymbol);
 
-	addMessage(start);
-	addMessage(stop);
-	addMessageWithArgument(getAvailableDeviceNames);
+	addMessage(Start);
+	addMessage(Stop);
+	addMessageWithArgument(GetAvailableDeviceNames);
 	
 	setProcessMethod(processAudio);
 	
@@ -43,20 +43,20 @@ TTMulticoreInput::~TTMulticoreInput()
 }
 
 
-TTErr TTMulticoreInput::getAvailableDeviceNames(TTValue& returnedDeviceNames)
+TTErr TTMulticoreInput::GetAvailableDeviceNames(TTValue& returnedDeviceNames)
 {
-	return mAudioEngine->sendMessage(TT("getAvailableInputDeviceNames"), returnedDeviceNames);
+	return mAudioEngine->sendMessage(TT("GetAvailableInputDeviceNames"), returnedDeviceNames);
 }
 
 
-TTErr TTMulticoreInput::start()
+TTErr TTMulticoreInput::Start()
 {
 	mAudioEngine->sendMessage(TT("start"));
 	return kTTErrNone;
 }
 
 
-TTErr TTMulticoreInput::stop()
+TTErr TTMulticoreInput::Stop()
 {
 	mAudioEngine->sendMessage(TT("stop"));
 	return kTTErrNone;

@@ -146,13 +146,13 @@ TTErr AdcSetup(AdcPtr self)
 
 TTErr AdcStart(AdcPtr self)
 {
-	return self->multicoreObject->getUnitGenerator()->sendMessage(TT("start"));
+	return self->multicoreObject->getUnitGenerator()->sendMessage(TT("Start"));
 }
 
 
 TTErr AdcStop(AdcPtr self)
 {	
-	return self->multicoreObject->getUnitGenerator()->sendMessage(TT("stop"));
+	return self->multicoreObject->getUnitGenerator()->sendMessage(TT("Stop"));
 }
 
 
@@ -164,7 +164,7 @@ void AdcGetDeviceNames(AdcPtr self)
 	AtomPtr		ap;
 	TTSymbolPtr	name;
 	
-	err = self->multicoreObject->getUnitGenerator()->sendMessage(TT("getAvailableDeviceNames"), v);
+	err = self->multicoreObject->getUnitGenerator()->sendMessage(TT("GetAvailableDeviceNames"), v);
 	if (!err) {
 		ac = v.getSize();
 		ap = new Atom[ac];

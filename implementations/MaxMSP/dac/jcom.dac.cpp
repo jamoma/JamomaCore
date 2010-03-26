@@ -260,7 +260,7 @@ void DacIterateResetCallback(DacPtr self, ObjectPtr obj)
 	method		multicoreResetMethod = zgetfn(obj, gensym("multicore.reset"));
 	
 	if (multicoreResetMethod) {
-		self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("vectorSize"), vectorSize);
+		self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("VectorSize"), vectorSize);
 		multicoreResetMethod(obj, vectorSize);
 	}
 }
@@ -296,7 +296,7 @@ TTErr DacStart(DacPtr self)
 	long					result = 0;
 	TTMulticoreOutputPtr	outputObject = TTMulticoreOutputPtr(self->multicoreObject->getUnitGenerator());
 	
-	outputObject->getAttributeValue(TT("vectorSize"), vectorSize);
+	outputObject->getAttributeValue(TT("VectorSize"), vectorSize);
 	
 	err = object_obex_lookup(self, gensym("#P"), &patcher);
 	
@@ -326,13 +326,13 @@ TTErr DacStart(DacPtr self)
 	DacAttachToPatchlinesForPatcher(self, self->patcher);
 	
 	outputObject->mInitData.vectorSize = vectorSize;
-	return outputObject->sendMessage(TT("start"));
+	return outputObject->sendMessage(TT("Start"));
 }
 
 
 TTErr DacStop(DacPtr self)
 {	
-	return self->multicoreObject->getUnitGenerator()->sendMessage(TT("stop"));
+	return self->multicoreObject->getUnitGenerator()->sendMessage(TT("Stop"));
 }
 
 
@@ -344,7 +344,7 @@ void DacGetDeviceNames(DacPtr self)
 	AtomPtr		ap;
 	TTSymbolPtr	name;
 	
-	err = self->multicoreObject->getUnitGenerator()->sendMessage(TT("getAvailableDeviceNames"), v);
+	err = self->multicoreObject->getUnitGenerator()->sendMessage(TT("GetAvailableDeviceNames"), v);
 	if (!err) {
 		ac = v.getSize();
 		ap = new Atom[ac];
@@ -363,7 +363,7 @@ TTErr DacGetCpuLoad(DacPtr self)
 {
 	TTValue cpuload = -1.0;
 	
-	self->multicoreObject->getUnitGenerator()->sendMessage(TT("getCpuLoad"), cpuload);
+	self->multicoreObject->getUnitGenerator()->sendMessage(TT("GetCpuLoad"), cpuload);
 	outlet_float(self->outlet, TTFloat64(cpuload));
 	return kTTErrNone;
 }
