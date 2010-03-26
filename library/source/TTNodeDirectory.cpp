@@ -513,7 +513,7 @@ TTErr splitAtOSCAddress(TTSymbolPtr oscAddress, int whereToSplit, TTSymbolPtr* r
 
 	while(i <= whereToSplit)
 	{
-		nb = count(part2.begin(), part2.end(), C_SEPARATOR);
+		nb = std::count(part2.begin(), part2.end(), C_SEPARATOR);
 		
 		if(nb)
 		{
