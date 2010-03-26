@@ -362,9 +362,9 @@ TTInt32 TTAudioEngine::callback(const TTFloat32*		input,
 	
 	// right now we copy all of the channels, regardless of whether or not they are actually being used
 	// TODO: only copy the channels that actually contain new audio samples
-	for (unsigned int i=0; i<frameCount; i++) {		
+	for (unsigned int i=0; i<frameCount; i++) {
 		for (TTUInt16 channel=0; channel<mNumOutputChannels; channel++)
-			*output++ = mOutputBuffer->mSampleVectors[channel][i];
+			*output++ = TTClip(mOutputBuffer->mSampleVectors[channel][i], -1.0, 1.0);
     }
     return 0;
 }
