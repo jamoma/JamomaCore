@@ -86,7 +86,7 @@ public:
 	TTUInt16 getSampleRate()
 	{
 		TTUInt16 sr;
-		mKernel->getAttributeValue(kTTSym_sr, sr);
+		mKernel->getAttributeValue(kTTSym_SampleRate, sr);
 		return sr;
 	}
 	
