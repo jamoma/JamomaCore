@@ -198,7 +198,7 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 
 		// set defaults...
 		x->attr_rampfunction = _sym_nothing;
-		x->attr_ramp = _sym_nothing;
+		x->attr_ramp = _sym_none;
 		x->ramper = NULL;
 
 		// defaulted to one long above, set list to be of size 1
