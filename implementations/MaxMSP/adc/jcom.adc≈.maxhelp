@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 150.0, 133.0, 796.0, 650.0 ],
+		"rect" : [ 465.0, 98.0, 796.0, 650.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 150.0, 133.0, 796.0, 650.0 ],
+		"defrect" : [ 465.0, 98.0, 796.0, 650.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -20,11 +20,21 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-5",
+					"maxclass" : "ezdac~",
+					"numinlets" : 2,
+					"numoutlets" : 0,
+					"patching_rect" : [ 195.0, 460.0, 45.0, 45.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-31",
 					"maxclass" : "scope~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 40.0, 470.0, 130.0, 130.0 ]
+					"patching_rect" : [ 55.0, 460.0, 130.0, 130.0 ]
 				}
 
 			}
@@ -49,7 +59,6 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
 					"patching_rect" : [ 180.0, 425.0, 56.0, 19.0 ],
-					"presentation_rect" : [ 195.0, 454.0, 0.0, 0.0 ],
 					"sig" : 0.0
 				}
 
@@ -208,7 +217,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-64",
-					"items" : [ "Built-in Microphone", ",", "Built-in Input", ",", "PLT   510", ",", "Soundflower (2ch)", ",", "Soundflower (16ch)" ],
+					"items" : [ "Built-in Microphone", ",", "Built-in Input", ",", "Soundflower (2ch)", ",", "Soundflower (16ch)" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -292,7 +301,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-9",
 					"linecount" : 5,
 					"maxclass" : "comment",
@@ -348,7 +357,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-16",
 					"linecount" : 3,
 					"maxclass" : "comment",
