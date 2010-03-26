@@ -98,7 +98,7 @@ void* ramp_new(t_symbol *msg, short argc, t_atom *argv)
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
 
-		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
+		ttEnvironment->setAttributeValue(kTTSym_SampleRate, sr);
 		//x->ramp = new TTRamp(x->maxNumChannels);
 		TTObjectInstantiate(TT("ramp"), &x->ramp, x->maxNumChannels);
 		TTObjectInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);

@@ -105,7 +105,7 @@ void* balance_new(t_symbol *msg, short argc, t_atom *argv)
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
 
-		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
+		ttEnvironment->setAttributeValue(kTTSym_SampleRate, sr);
 		TTObjectInstantiate(TT("balance"), &x->balance, x->maxNumChannels);
 		TTObjectInstantiate(TT("audiosignal"), &x->audioIn, x->maxNumChannels*2);
 		TTObjectInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);
