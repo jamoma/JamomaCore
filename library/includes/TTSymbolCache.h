@@ -11,7 +11,7 @@
 
 #include "TTSymbol.h"
 
-// high-performance (these are defined first so that they are found fast)
+
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSymEmpty;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSymSlash;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSymDot;
@@ -26,20 +26,20 @@ extern TTFOUNDATION_EXPORT TTSymbolPtr kTTSym_getVector64;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_alloc;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_audioEngineWillProcess;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_both;
-extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_bypass;
-extern TTFOUNDATION_EXPORT TTSymbolPtr kTTSym_clear;
+//extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_bypass;
+//extern TTFOUNDATION_EXPORT TTSymbolPtr kTTSym_clear;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clipmode;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_high;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_low;
-extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_maxNumChannels;
-extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_numChannels;
+//extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_maxNumChannels;
+//extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_numChannels;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_processInPlace;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_range;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_resonance;
-extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sr;
+//extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sr;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_updateMaxNumChannels;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_updateSr;
-extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_vectorSize;
+//extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_vectorSize;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_VectorSize;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_SampleRate;
 
