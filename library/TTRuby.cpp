@@ -9,7 +9,9 @@
 //
 class TTRubyInstance {
 public:
-	TTAudioObjectPtr	obj;
+	TTAudioObjectPtr		obj;
+	TTHashPtr				parameterNames;		// cache of parameter names, mapped from lowercase (ruby) to uppercase (TT)
+	TTHashPtr				messageNames;		// cache of parameter names, mapped from lowercase (ruby) to uppercase (TT)
 	
 	TTRubyInstance()
 	{
@@ -22,6 +24,8 @@ public:
 class TTAudioInstance {
 public:
 	TTMulticoreObjectPtr	obj;
+	TTHashPtr				parameterNames;		// cache of parameter names, mapped from lowercase (ruby) to uppercase (TT)
+	TTHashPtr				messageNames;		// cache of parameter names, mapped from lowercase (ruby) to uppercase (TT)
 	
 	TTAudioInstance()
 	{
@@ -127,10 +131,40 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 	TTValue			args;
 	TTErr			err = kTTErrNone;
 	VALUE			classNameStr = StringValue(className);
+	long			n;
+	TTValue			names;
+	TTSymbolPtr		aName;
+	TTString		nameString;
 	
 	args.clear();
 	err = TTObjectInstantiate(TT(RSTRING(classNameStr)->ptr), &instance->obj, args);
 	if (!err) {
+		instance->parameterNames = new TTHash;	// TODO: need to free this
+		instance->obj->getAttributeNames(names);
+		n = names.getSize();
+		for (int i=0; i<n; i++) {
+			names.get(i, &aName);
+			nameString = aName->getString();
+			if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
+				nameString[0] += 32;							// convert first letter to lower-case for Max
+				TTValuePtr v = new TTValue(aName);
+				instance->parameterNames->append(TT(nameString.c_str()), *v);
+			}
+		}
+				
+		instance->messageNames = new TTHash;	// TODO: need to free this
+		instance->obj->getMessageNames(names);
+		n = names.getSize();
+		for (int i=0; i<n; i++) {
+			names.get(i, &aName);
+			nameString = aName->getString();
+			if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
+				nameString[0] += 32;							// convert first letter to lower-case for Max
+				TTValuePtr v = new TTValue(aName);
+				instance->messageNames->append(TT(nameString.c_str()), *v);
+			}
+		}
+				
 		v->setSize(1);
 		v->set(0, TTPtr(instance));
 		gTTRubyInstances->append(TTSymbolPtr(self), *v);
@@ -161,8 +195,11 @@ VALUE TTRubyGetMessages(VALUE self)
 	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
-		if (instance) {			
-			instance->obj->getMessageNames(v);			
+		if (instance) {
+			TTValue names;
+			
+			instance->messageNames->getKeys(names);
+			//instance->obj->getMessageNames(v);			
 			size = v.getSize();
 			returnValue = rb_ary_new2(size);
 			for (TTUInt16 i=0; i<size; i++) {				
@@ -193,8 +230,15 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 	if (!err) {
 		v.get(0, (TTPtr*)&instance);
 		if (instance) {
+			TTSymbolPtr	messageName;
+			TTValue		messageNameValue;
+
+			messageName = TT(RSTRING(messageNameStr)->ptr);
+			instance->messageNames->lookup(messageName, messageNameValue);
+			messageNameValue.get(0, &messageName);
+
 			if (argc == 1) {		// no arguments...
-				err = instance->obj->sendMessage(TT(RSTRING(messageNameStr)->ptr));
+				err = instance->obj->sendMessage(messageName);
 			}
 			else {					// we have arguments...
 				v.clear();
@@ -231,8 +275,9 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 					}
 				}				
 
-				if (!err)
-					err = instance->obj->sendMessage(TT(RSTRING(messageNameStr)->ptr), v);				
+				if (!err) {
+					err = instance->obj->sendMessage(messageName, v);
+				}
 			}
 			
 			if (err)
@@ -257,8 +302,11 @@ VALUE TTRubyGetAttributes(VALUE self)
 	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
-		if (instance) {			
-			instance->obj->getAttributeNames(v);			
+		if (instance) {
+			TTValue names;
+			
+			instance->parameterNames->getKeys(names);
+			//instance->obj->getAttributeNames(v);			
 			size = v.getSize();
 			returnValue = rb_ary_new2(size);
 			for (TTUInt16 i=0; i<size; i++) {				
@@ -315,8 +363,16 @@ VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 					err = kTTErrGeneric;
 					break;
 			}
-			if (!err)
-				err = instance->obj->setAttributeValue(TT(RSTRING(attributeNameStr)->ptr), v);
+			if (!err) {
+				TTSymbolPtr	parameterName;
+				TTValue		parameterNameValue;
+				
+				parameterName = TT(RSTRING(attributeNameStr)->ptr);
+				instance->parameterNames->lookup(parameterName, parameterNameValue);
+				parameterNameValue.get(0, &parameterName);
+				
+				err = instance->obj->setAttributeValue(parameterName, v);
+			}
 			if (err)
 				cout << "TTRubySetAttribute: Error " << err << endl;
 		}
@@ -339,7 +395,14 @@ VALUE TTRubyGetAttribute(VALUE self, VALUE attributeName)
 	if (!err) {
 		v.get(0, (TTPtr*)&instance);
 		if (instance) {
-			err = instance->obj->getAttributeValue(TT(RSTRING(attributeNameStr)->ptr), v);
+			TTSymbolPtr	parameterName;
+			TTValue		parameterNameValue;
+			
+			parameterName = TT(RSTRING(attributeNameStr)->ptr);
+			instance->parameterNames->lookup(parameterName, parameterNameValue);
+			parameterNameValue.get(0, &parameterName);
+			
+			err = instance->obj->getAttributeValue(parameterName, v);
 			if (err) {
 				cout << "TTRubyGetAttribute: Error " << err << endl;
 				goto out;
@@ -406,6 +469,8 @@ VALUE TTRubyCalculate(VALUE self, VALUE x)
 /**************************************************************************************
  * MULTICORE SUPPORT
  **************************************************************************************/
+#pragma mark -
+#pragma mark Multicore Support
 
 
 //VALUE TTAudioInitialize(VALUE self, VALUE className)
@@ -417,6 +482,10 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 	TTErr				err = kTTErrNone;
 	//VALUE				classNameStr = StringValue(className);
 	VALUE				messageArgStr;
+	long				n;
+	TTValue				names;
+	TTSymbolPtr			aName;
+	TTString			nameString;
 
 	if (argc < 1) {
 		cout << "ERROR -- TTAudio requires at least 1 argument (the name of the object class to create)" << endl;
@@ -460,6 +529,32 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 	err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&instance->obj, args);
 	
 	if (!err) {
+		instance->parameterNames = new TTHash;	// TODO: need to free this
+		instance->obj->getUnitGenerator()->getAttributeNames(names);
+		n = names.getSize();
+		for (int i=0; i<n; i++) {
+			names.get(i, &aName);
+			nameString = aName->getString();
+			if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
+				nameString[0] += 32;							// convert first letter to lower-case for Max
+				TTValuePtr v = new TTValue(aName);
+				instance->parameterNames->append(TT(nameString.c_str()), *v);
+			}
+		}
+
+		instance->messageNames = new TTHash;	// TODO: need to free this
+		instance->obj->getUnitGenerator()->getMessageNames(names);
+		n = names.getSize();
+		for (int i=0; i<n; i++) {
+			names.get(i, &aName);
+			nameString = aName->getString();
+			if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
+				nameString[0] += 32;							// convert first letter to lower-case for Max
+				TTValuePtr v = new TTValue(aName);
+				instance->messageNames->append(TT(nameString.c_str()), *v);
+			}
+		}
+				
 		v->setSize(1);
 		v->set(0, TTPtr(instance));
 		gTTAudioInstances->append(TTSymbolPtr(self), *v);
@@ -485,8 +580,11 @@ VALUE TTAudioGetMessages(VALUE self)
 	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
-		if (instance) {			
-			instance->obj->getUnitGenerator()->getMessageNames(v);			
+		if (instance) {
+			TTValue names;
+			
+			instance->messageNames->getKeys(names);	
+			//instance->obj->getUnitGenerator()->getMessageNames(v);			
 			size = v.getSize();
 			returnValue = rb_ary_new2(size);
 			for (TTUInt16 i=0; i<size; i++) {				
@@ -518,8 +616,15 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 	if (!err) {
 		v.get(0, (TTPtr*)&instance);
 		if (instance) {
+			TTSymbolPtr	messageName;
+			TTValue		messageNameValue;
+
+			messageName = TT(RSTRING(messageNameStr)->ptr);
+			instance->messageNames->lookup(messageName, messageNameValue);
+			messageNameValue.get(0, &messageName);
+
 			if (argc == 1) {		// no arguments...
-				err = instance->obj->getUnitGenerator()->sendMessage(TT(RSTRING(messageNameStr)->ptr));
+				err = instance->obj->getUnitGenerator()->sendMessage(messageName);
 			}
 			else {					// we have arguments...
 				v.clear();
@@ -557,7 +662,7 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 				}				
 
 				if (!err)
-					err = instance->obj->getUnitGenerator()->sendMessage(TT(RSTRING(messageNameStr)->ptr), v);				
+					err = instance->obj->getUnitGenerator()->sendMessage(messageName, v);				
 			}
 
 			if (err)
@@ -582,8 +687,12 @@ VALUE TTAudioGetAttributes(VALUE self)
 	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
-		if (instance) {			
-			instance->obj->getUnitGenerator()->getAttributeNames(v);			
+		if (instance) {
+			TTValue names;
+			
+			instance->parameterNames->getKeys(names);
+			//instance->obj->getAttributeNames(v);			
+			//instance->obj->getUnitGenerator()->getAttributeNames(v);			
 			size = v.getSize();
 			returnValue = rb_ary_new2(size);
 			for (TTUInt16 i=0; i<size; i++) {				
@@ -640,8 +749,16 @@ VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 					err = kTTErrGeneric;
 					break;
 			}
-			if (!err)
-				err = instance->obj->getUnitGenerator()->setAttributeValue(TT(RSTRING(attributeNameStr)->ptr), v);
+			if (!err) {
+				TTSymbolPtr	parameterName;
+				TTValue		parameterNameValue;
+				
+				parameterName = TT(RSTRING(attributeNameStr)->ptr);
+				instance->parameterNames->lookup(parameterName, parameterNameValue);
+				parameterNameValue.get(0, &parameterName);
+				
+				err = instance->obj->getUnitGenerator()->setAttributeValue(parameterName, v);
+			}
 			if (err)
 				cout << "TTAudioSetAttribute: Error " << err << endl;
 		}
@@ -664,7 +781,14 @@ VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName)
 	if (!err) {
 		v.get(0, (TTPtr*)&instance);
 		if (instance) {
-			err = instance->obj->getUnitGenerator()->getAttributeValue(TT(RSTRING(attributeNameStr)->ptr), v);
+			TTSymbolPtr	parameterName;
+			TTValue		parameterNameValue;
+			
+			parameterName = TT(RSTRING(attributeNameStr)->ptr);
+			instance->parameterNames->lookup(parameterName, parameterNameValue);
+			parameterNameValue.get(0, &parameterName);
+			
+			err = instance->obj->getUnitGenerator()->getAttributeValue(parameterName, v);
 			if (err) {
 				cout << "TTAudioGetAttribute: Error " << err << endl;
 				goto out;
