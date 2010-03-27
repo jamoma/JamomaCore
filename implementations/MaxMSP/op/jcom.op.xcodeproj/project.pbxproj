@@ -30,7 +30,7 @@
 		22A0833F11388A9300D6D843 /* JamomaGraph.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaGraph.framework; path = ../../../library/build/UninstalledProducts/JamomaGraph.framework; sourceTree = SOURCE_ROOT; };
 		22EB3AE0102E6073006D027A /* tt-max.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max.xcconfig"; path = "../../../supports/max/tt-max.xcconfig"; sourceTree = SOURCE_ROOT; };
 		22EB3B30102E61EA006D027A /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
-		2FBBEAE508F335360078DB84 /* jcom.op>.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.op>.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FBBEAE508F335360078DB84 /* jcom.op!.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.op!.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +86,7 @@
 		19C28FB4FE9D528D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2FBBEAE508F335360078DB84 /* jcom.op>.mxo */,
+				2FBBEAE508F335360078DB84 /* jcom.op!.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -121,7 +121,7 @@
 			);
 			name = "max-external";
 			productName = iterator;
-			productReference = 2FBBEAE508F335360078DB84 /* jcom.op>.mxo */;
+			productReference = 2FBBEAE508F335360078DB84 /* jcom.op!.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -211,7 +211,7 @@
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = "$(PROJECT_NAME)>";
+				PRODUCT_NAME = "$(PROJECT_NAME)!";
 			};
 			name = Development;
 		};
@@ -237,7 +237,7 @@
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/max-includes\"",
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes\"",
 				);
-				PRODUCT_NAME = "$(PROJECT_NAME)>";
+				PRODUCT_NAME = "$(PROJECT_NAME)!";
 			};
 			name = Deployment;
 		};

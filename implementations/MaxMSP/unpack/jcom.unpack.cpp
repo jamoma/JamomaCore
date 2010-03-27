@@ -1,5 +1,5 @@
 /* 
- *	unpack>
+ *	unpack!
  *	External object for Max/MSP to perform basic mathematical operations on objects in a Jamoma Graph.
  *	Copyright © 2010 by Timothy Place
  * 
@@ -42,7 +42,7 @@ int main(void)
 	TTGraphInit();	
 	common_symbols_init();
 	
-	c = class_new("jcom.unpack>", (method)UnpackNew, (method)UnpackFree, sizeof(Unpack), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.unpack!", (method)UnpackNew, (method)UnpackFree, sizeof(Unpack), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)MaxGraphReset,		"graph.reset",		A_CANT, 0);
 	class_addmethod(c, (method)MaxGraphConnect,		"graph.connect",	A_OBJ, A_LONG, 0);
