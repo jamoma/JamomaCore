@@ -38,8 +38,8 @@ typedef struct _param{
 	t_jcom_core_subscriber_extended	common;
 	pf_noargs		param_output;				///< bang method for the instance points to an optimized function
 	TTPtr 			outlets[num_outlets];		///< my outlet array
-	t_atom			atom_list[LISTSIZE];		///< was "t_atom attr_value;"	// ATTRIBUTE: The parameter's value
-	t_atom			atom_listDefault[LISTSIZE];
+	Atom			atom_list[LISTSIZE];		///< was "Atom attr_value;"	// ATTRIBUTE: The parameter's value
+	Atom			atom_listDefault[LISTSIZE];
 	long			list_size;					///< size of currently stored list
 	long			listDefault_size;
 	SymbolPtr		attr_ramp;					///< ATTRIBUTE: ramp mode 
@@ -50,8 +50,8 @@ typedef struct _param{
 	//	Atom			name_atom;					///< the above name, but cached as an atom for quick referencing
 	RampUnit*		ramper;						///< rampunit object to perform ramping of input values
 	TTPtr			ui_qelem;					///< the output to the connected ui object is "qlim'd" with this qelem
-	TTPtr			ramp_qelem;					///< allows us to defer calls to setup a rampunit
 	SymbolPtr		attr_rampfunction;			///< Attribute for setting the function used by the ramping
+	TTHashPtr		rampParameterNames;			// cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
 	SymbolPtr		attr_dataspace;				///< The dataspace that this parameter uses (default is 'none')
 	DataspaceLib*	dataspace_override2active;	///< Performs conversion from messages like 'gain -6 db' to the active unit
 	DataspaceLib*	dataspace_active2display;	///< Performs conversion from the active input format to the format used by the parameter display
@@ -73,7 +73,7 @@ typedef struct _param{
 // Defined in jcom.parameter.c
 
 /** The jcom.parameter constructor */
-void		*param_new(t_symbol *s, long argc, t_atom *argv);
+void		*param_new(SymbolPtr s, AtomCount argc, AtomPtr argv);
 
 /** The parameter deconstructor, frees any memory used by the parameter
  * @param x the parameter who's memory should be freed
@@ -144,7 +144,7 @@ void		param_output_none(void *z);
 	@param Array length
 	@param argv Pointer to atom array
 	@see param_inc param_dec */
-void 		param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv);
+void 		param_inc(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 /** Decrease parameter value in steps. 
 	Optional arguments passed as pointer to array of atoms specify
@@ -156,14 +156,14 @@ void 		param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 	@param Array length
 	@param argv Pointer to atom array
 	@see param_inc param_dec */
-void 		param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv);
+void 		param_dec(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void		param_notify(t_param *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+void		param_notify(t_param *x, SymbolPtr s, SymbolPtr msg, void *sender, void *data);
 
 void		param_int(t_param *x, long n);
 void		param_float(t_param *x, double f);
-void		param_symbol(t_param *x, t_symbol *s);
-void		param_anything(t_param *x, t_symbol *msg, long argc, t_atom *argv);
+void		param_symbol(t_param *x, SymbolPtr s);
+void		param_anything(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void 		param_send_feedback(t_param *x);
 
 /**	Convert a list of atoms through the DataspaceLib from the active units into the native units.
@@ -175,13 +175,13 @@ void 		param_send_feedback(t_param *x);
 	@param	alloc	A pointer to a bool that will be true if memory was allocated to the rv parameter.
 					If no memory was allocated, then rv will be pointing to argv and alloc will be set to false.
 */
-void		param_convert_units(t_param* x,long argc, t_atom* argv, long* rc, t_atom** rv, bool* alloc);
+void		param_convert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, AtomPtr* rv, bool* alloc);
 
-void		param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv);
+void		param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		param_ramp_callback_float(void *v, float value);
 void		param_ramp_callback_int(void *v, float value);
-void		param_ramp_callback_list(void *v, long argc, double *value);
-void		atom_clip(t_param *x, t_atom *a);
+void		param_ramp_callback_list(void *v, AtomCount argc, double *value);
+void		atom_clip(t_param *x, AtomPtr a);
 
 /** Messages received from jcom.hub
 	@param	x		Parameter or Message instance pointer.
@@ -189,46 +189,46 @@ void		atom_clip(t_param *x, t_atom *a);
 	@param	argc	The number of input atoms.
 	@param	argv	The address of the first of an array of input atoms.	
 */
-void 		param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv);
+void 		param_dispatched(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void		param_getattrnames(t_param *x, long* count, t_symbol*** names);
+void		param_getattrnames(t_param *x, long* count, SymbolPtr** names);
 
-t_max_err	param_attr_getramp(t_param *x, void *attr, long *argc, t_atom **argv);
-t_max_err	param_attr_setramp(t_param *x, void *attr, long argc, t_atom *argv);
-t_max_err	param_attr_gettype(t_param *x, void *attr, long *argc, t_atom **argv);
-t_max_err 	param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv);
-t_max_err	param_attr_getfreeze(t_param *x, void *attr, long *argc, t_atom **argv);
-t_max_err	param_attr_setfreeze(t_param *x, void *attr, long argc, t_atom *argv);
-t_max_err	param_attr_getstepsize(t_param *x, void *attr, long *argc, t_atom **argv);
-t_max_err	param_attr_setstepsize(t_param *x, void *attr, long argc, t_atom *argv);
-t_max_err	param_attr_getpriority(t_param *x, void *attr, long *argc, t_atom **argv);
-t_max_err	param_attr_setpriority(t_param *x, void *attr, long argc, t_atom *argv);
-t_max_err	param_attr_getreadonly(t_param *x, void *attr, long *argc, t_atom **argv);
-t_max_err	param_attr_setreadonly(t_param *x, void *attr, long argc, t_atom *argv);
-t_max_err	param_attr_getvalue(t_param *x, void *attr, long *argc, t_atom **argv);
-t_max_err	param_attr_setvalue(t_param *x, void *attr, long argc, t_atom *argv);
-t_max_err	param_attr_getdefault(t_param *x, void *attr, long *argc, t_atom **argv);
-t_max_err	param_attr_setdefault(t_param *x, void *attr, long argc, t_atom *argv);
-t_max_err	param_attr_getdataspace(t_param *x, void *attr, long *argc, t_atom **argv);
-t_max_err	param_attr_setdataspace(t_param *x, void *attr, long argc, t_atom *argv);
-t_max_err	param_attr_getactiveunit(t_param *x, void *attr, long *argc, t_atom **argv);
-t_max_err	param_attr_setactiveunit(t_param *x, void *attr, long argc, t_atom *argv);
-t_max_err	param_attr_getnativeunit(t_param *x, void *attr, long *argc, t_atom **argv);
-t_max_err	param_attr_setnativeunit(t_param *x, void *attr, long argc, t_atom *argv);
-t_max_err	param_attr_getdisplayunit(t_param *x, void *attr, long *argc, t_atom **argv);
-t_max_err	param_attr_setdisplayunit(t_param *x, void *attr, long argc, t_atom *argv);
+MaxErr	param_attr_getramp(t_param *x, void *attr, long *argc, AtomPtr *argv);
+MaxErr	param_attr_setramp(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr	param_attr_gettype(t_param *x, void *attr, long *argc, AtomPtr *argv);
+MaxErr 	param_attr_settype(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr	param_attr_getfreeze(t_param *x, void *attr, long *argc, AtomPtr *argv);
+MaxErr	param_attr_setfreeze(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr	param_attr_getstepsize(t_param *x, void *attr, long *argc, AtomPtr *argv);
+MaxErr	param_attr_setstepsize(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr	param_attr_getpriority(t_param *x, void *attr, long *argc, AtomPtr *argv);
+MaxErr	param_attr_setpriority(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr	param_attr_getreadonly(t_param *x, void *attr, long *argc, AtomPtr *argv);
+MaxErr	param_attr_setreadonly(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr	param_attr_getvalue(t_param *x, void *attr, long *argc, AtomPtr *argv);
+MaxErr	param_attr_setvalue(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr	param_attr_getdefault(t_param *x, void *attr, long *argc, AtomPtr *argv);
+MaxErr	param_attr_setdefault(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr	param_attr_getdataspace(t_param *x, void *attr, long *argc, AtomPtr *argv);
+MaxErr	param_attr_setdataspace(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr	param_attr_getactiveunit(t_param *x, void *attr, long *argc, AtomPtr *argv);
+MaxErr	param_attr_setactiveunit(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr	param_attr_getnativeunit(t_param *x, void *attr, long *argc, AtomPtr *argv);
+MaxErr	param_attr_setnativeunit(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr	param_attr_getdisplayunit(t_param *x, void *attr, long *argc, AtomPtr *argv);
+MaxErr	param_attr_setdisplayunit(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
 
 void 		param_ramp_setup(t_param *x);
 void		param_ui_refresh(t_param *x);
 void		param_ui_queuefn(t_param *x);
 #ifndef JMOD_MESSAGE
-t_max_err 	param_setvalueof(t_param *x, long argc, t_atom *argv);
-t_max_err 	param_getvalueof(t_param *x, long *argc, t_atom **argv);
+MaxErr 	param_setvalueof(t_param *x, AtomCount argc, AtomPtr argv);
+MaxErr 	param_getvalueof(t_param *x, long *argc, AtomPtr *argv);
 void		param_reset(t_param *x);
 #endif
 void		param_setcallback(t_param *x, method newCallback, t_object *callbackArg);
-t_max_err	param_attr_setrampfunction(t_param *x, void *attr, long argc, t_atom *argv);
-t_max_err	param_attr_getrampfunction(t_param *x, void *attr, long *argc, t_atom **argv);
+MaxErr	param_attr_setrampfunction(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr	param_attr_getrampfunction(t_param *x, void *attr, long *argc, AtomPtr *argv);
 
 // Defined in jcom.parameter.clip.c
 bool 		param_clip_generic(t_param *x);

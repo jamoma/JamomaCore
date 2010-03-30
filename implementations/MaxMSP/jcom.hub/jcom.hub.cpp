@@ -126,9 +126,9 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 	t_symbol		*name = _sym_nothing;
 	t_atom			a[2];
 	
-	if(attrstart && argv)
+	if (attrstart && argv)
 		atom_arg_getsym(&name, 0, attrstart, argv);
-	else{
+	else {
 		t_object*	patcher = jamoma_object_getpatcher((t_object*)x);
 		t_symbol*	filepath = object_attr_getsym(patcher, _sym_filepath);
 		char		pathstr[MAX_PATH_CHARS];
@@ -136,7 +136,7 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		
 		strncpy_zero(pathstr, filepath->s_name, MAX_PATH_CHARS);
 		filename = strrchr(pathstr, '.');
-		if(filename) {
+		if (filename) {
 			*filename = 0;	// strip the suffix by setting '.' to terminating NULL char
 			filename = strrchr(pathstr, '/');
 			if (filename) {
@@ -154,8 +154,8 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		}
 	}
 		
-	if(x){
-		for(i=k_num_outlets; i > 0; i--)
+	if (x) {
+		for (i=k_num_outlets; i > 0; i--)
 			x->outlets[i-1] = outlet_new(x, 0);
 		object_obex_store((void *)x, _sym_dumpout, (t_object *)x->outlets[k_outlet_dumpout]);
 		x->init_qelem = qelem_new(x, (method)hub_qfn_init);
@@ -173,7 +173,7 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->out_object = NULL;						// the jcom.out object is optional
 		x->gui_object = NULL;						// jcom.remote in the gui
 		x->num_parameters = 0;
-		for(i=0; i<MAX_NUM_CHANNELS; i++)
+		for (i=0; i<MAX_NUM_CHANNELS; i++)
 			x->meter_object[i] = NULL;
 		
 		x->preset = new presetList;					// begin with no presets
@@ -187,10 +187,15 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->jcom_send = (t_object*)object_new_typed(_sym_box, jps_jcom_send, 1, a);
 		
 		atom_setsym(a, jps_jcom_remote_toModule);
+		
+		// 2010-03-01: Marlon has had some crashes, with overdrive on, which look like they may be caused by 
+		// this jcom.receive object having been created prior to the jcom.hub being fully set-up via the
+		// deferred hub_examine_context() call at the end of this method.  
+		// This results in this hub receiving messages before it is really ready for them... [TAP]
 		x->jcom_receive = (t_object*)object_new_typed(_sym_box, jps_jcom_receive, 1, a);
 		object_method(x->jcom_receive, jps_setcallback, &hub_receive_callback, x);
 					
-		if(!g_jcom_send_notifications){
+		if (!g_jcom_send_notifications) {
 			atom_setsym(a, gensym("notifications"));
 			g_jcom_send_notifications = (t_object*)object_new_typed(_sym_box, jps_jcom_send, 1, a);
 		}
@@ -215,9 +220,9 @@ long hub_iterate_callback(t_hub *x, t_object *obj)
 	
 	//object_post(ObjectPtr(x), "iterate: %s (in %s)", name->s_name, s);
 	
-	if(!object_classname_compare(obj, jps_jcom_hub)){
+	if (!object_classname_compare(obj, jps_jcom_hub)) {
 		subscribeMethod = zgetfn(obj, jps_subscribe);
-		if(subscribeMethod)
+		if (subscribeMethod)
 			(*subscribeMethod)(obj);
 	}
 	return 0;
@@ -242,7 +247,7 @@ void hub_examine_context(t_hub *x)
 
 	// Try to get OSC Name of module from an argument
 	jamoma_patcher_getargs(x->container, &argc, &argv);	// <-- this call allocates memory for argv
-	if(argc){
+	if (argc) {
 		x->osc_name = atom_getsym(argv+(argc-1));
 		sysmem_freeptr(argv);
 	}
@@ -250,15 +255,15 @@ void hub_examine_context(t_hub *x)
 		x->osc_name = _sym_nothing;
 	
 	// Try to get OSC Name of module from scripting name
-	if(x->osc_name == _sym_nothing)
+	if (x->osc_name == _sym_nothing)
 		x->osc_name = jamoma_patcher_getvarname(x->container);
 
 	// In this case we overwrite whatever happened above
-	if(context == gensym("toplevel")){
+	if (context == gensym("toplevel")) {
 		x->osc_name = gensym("/editing_this_module");
 		x->editing = true;
 	}
-	else{
+	else {
 		t_object*	patcher = jamoma_object_getpatcher((t_object*)x);
 		t_object*	box = object_attr_getobj(patcher, jps_box);
 		t_object*	ui = NULL;
@@ -266,18 +271,18 @@ void hub_examine_context(t_hub *x)
 		
 		x->editing = false;		
 		ui = object_attr_getobj(patcher, gensym("firstobject"));
-		while(ui){
+		while (ui) {
 			objclass = object_attr_getsym(ui, gensym("maxclass"));
-			if(objclass == gensym("jcom.ui"))
+			if (objclass == gensym("jcom.ui"))
 				break;
 			ui = object_attr_getobj(ui, gensym("nextobject"));
 		}
 		
-		if(ui){
+		if (ui) {
 			t_rect	boxRect;
 			t_rect	uiRect;
 			
-			if(context == gensym("bpatcher")){
+			if (context == gensym("bpatcher")) {
 				object_attr_get_rect(ui, _sym_presentation_rect, &uiRect);
 				object_attr_get_rect(box, _sym_patching_rect, &boxRect);
 				boxRect.width = uiRect.width;
@@ -289,7 +294,7 @@ void hub_examine_context(t_hub *x)
 				boxRect.height = uiRect.height;
 				object_attr_set_rect(box, _sym_presentation_rect, &boxRect);
 			}
-			else if(context == gensym("subpatcher")){
+			else if (context == gensym("subpatcher")) {
 				object_attr_get_rect(ui, _sym_presentation_rect, &uiRect);
 				object_attr_get_rect(patcher, _sym_defrect, &boxRect);
 				boxRect.width = uiRect.width;
@@ -328,24 +333,24 @@ void hub_free(t_hub *x)
 	object_method_typed(g_jcom_send_notifications, gensym("module.removed"), 2, a, NULL);
 
 	critical_enter(0);
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		// notify the subscriber that the hub is going away
-		if(!NOGOOD((*i)->object))
+		if (!NOGOOD((*i)->object))
 			object_method((*i)->object, jps_release);
 		sysmem_freeptr(*i);
 	}
 	critical_exit(0);	
 
 	object_free(x->textEditor);
-	if(x->textSize)
+	if (x->textSize)
 		free(x->text);
 		
 	hub_internals_destroy(x);
  	hub_presets_clear(x, NULL, 0, NULL);
 	qelem_free(x->init_qelem);
-	if(x->jcom_send)
+	if (x->jcom_send)
 		object_free(x->jcom_send);
-	if(x->jcom_receive)
+	if (x->jcom_receive)
 		object_free(x->jcom_receive);
 	x->subscriber->clear();
 	delete x->subscriber;
@@ -355,13 +360,13 @@ void hub_free(t_hub *x)
 
 void hub_notify(t_hub *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
-	if(sender == x->preset_interface){
-		if(msg == _sym_attr_modified){
+	if (sender == x->preset_interface) {
+		if (msg == _sym_attr_modified) {
 			t_symbol* name;
 
 			name = (t_symbol *)object_method((t_object *)data, _sym_getname);
 		}
-		else if(msg == _sym_free){
+		else if (msg == _sym_free) {
 			object_detach_byptr(x, x->preset_interface);
 			x->preset_interface = NULL;
 		}
@@ -380,7 +385,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 	t_symbol		*newInstance;
 	char			fullAddress[256];
 	
-	if(subscriber_object == NULL){
+	if (subscriber_object == NULL) {
 		if (x->editing)
 			object_error((t_object*)x, "Null object cannot subscribe to jcom.hub (in % module)", x->attr_name->s_name);
 		else	
@@ -425,41 +430,41 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 	x->subscriber->merge(new_subscriber, subscriberIsLess);
 
 	// special cases and other caching
-	if(new_subscriber->type == jps_subscribe_in){
+	if (new_subscriber->type == jps_subscribe_in) {
 		x->in_object = (t_object*)subscriber_object;
-		if(x->out_object){		// set up pointers between jcom.in and jcom.out
+		if (x->out_object) {		// set up pointers between jcom.in and jcom.out
 			object_method(x->in_object, jps_link_out, x->out_object);
 			object_method(x->out_object, jps_link_in, x->in_object);
 		}
 	}
-	if(new_subscriber->type == jps_subscribe_out){
+	if (new_subscriber->type == jps_subscribe_out) {
 		x->out_object = (t_object*)subscriber_object;
-		if(x->in_object){		// set up pointers between jcom.in and jcom.out
+		if (x->in_object) {		// set up pointers between jcom.in and jcom.out
 			object_method(x->in_object, jps_link_out, x->out_object);
 			object_method(x->out_object, jps_link_in, x->in_object);
 		}
-		for(int i=0; i<MAX_NUM_CHANNELS; i++){
-			if(x->meter_object[i])
+		for (int i=0; i<MAX_NUM_CHANNELS; i++) {
+			if (x->meter_object[i])
 				object_method(x->out_object, jps_register_meter, i, x->meter_object[i]);
 		}
 		object_method(x->out_object, jps_register_preview, x->gui_object);
 	}
 
-	if(new_subscriber->type == jps_subscribe_remote){
+	if (new_subscriber->type == jps_subscribe_remote) {
 		int meternum = 0;
 		sscanf( new_subscriber->name->s_name, "%i__meter__", &meternum);
-		if(meternum > 0){
+		if (meternum > 0) {
 			x->meter_object[meternum-1] = (t_object*)new_subscriber->object;
-			if(x->out_object)
+			if (x->out_object)
 				object_method(x->out_object, jps_register_meter, meternum-1, x->meter_object[meternum-1]);
 		}
 	}
 	
-	if(new_subscriber->type == jps_subscribe_parameter)
+	if (new_subscriber->type == jps_subscribe_parameter)
 		x->num_parameters++;
-	if(new_subscriber->name == jps__gui__){
+	if (new_subscriber->name == jps__gui__) {
 		x->gui_object = subscriber_object;
-		if(x->out_object)
+		if (x->out_object)
 			object_method(x->out_object, jps_register_preview, x->gui_object);				
 	}
 	critical_exit(0);
@@ -475,31 +480,31 @@ void hub_unsubscribe(t_hub *x, t_object *subscriber_object)
 	// Search the linked list for this object and remove it
 	t_subscriber* t;
 	critical_enter(0);
-	for(subscriberIterator item = subscribers->begin(); item != subscribers->end(); ++item) {
+	for (subscriberIterator item = subscribers->begin(); item != subscribers->end(); ++item) {
 		t = *item;
 		
-		if(t->object == subscriber_object) {
-			if(t->type == jps_subscribe_parameter)
+		if (t->object == subscriber_object) {
+			if (t->type == jps_subscribe_parameter)
 				x->num_parameters--;
 			/*	Temporarily disabling this for Jamoma 0.5
 				We need to evaluate whether or not this is needed any more given the new way we are doing the UI.
 				[TAP]
 
-			else if(t->type == jps_subscribe_in){
-				if(x->out_object)
+			else if (t->type == jps_subscribe_in) {
+				if (x->out_object)
 					object_method(x->out_object, jps_unlink_out);
 			}
-			else if(t->type == jps_subscribe_out){
-				if(x->in_object)
+			else if (t->type == jps_subscribe_out) {
+				if (x->in_object)
 					object_method(x->in_object, jps_unlink_in);
 			}
 				
-			else if(t->type == jps_subscribe_remote){
+			else if (t->type == jps_subscribe_remote) {
 				char temp[32];
-				for(short i=0; i<MAX_NUM_CHANNELS; i++) {
+				for (short i=0; i<MAX_NUM_CHANNELS; i++) {
 					snprintf(temp, 32, "__meter__%i", i);
-					if(t->name == gensym(temp)) {
-						if(x->out_object)
+					if (t->name == gensym(temp)) {
+						if (x->out_object)
 							object_method(x->out_object, gensym("remove_meters"));
 					}
 				}
@@ -515,7 +520,7 @@ void hub_unsubscribe(t_hub *x, t_object *subscriber_object)
 			 * implementation */
 			// XXX -- TIM is commenting it out temporarily.  It may not effect us anymore with all of the recent changes?
 			// If we have processed the unsub then we really want to just break right away...
-			//if(item == subscribers->end())
+			//if (item == subscribers->end())
 				break;
 
 		}
@@ -542,7 +547,7 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	
 	if(x->in_object != NULL)
 		object_method_typed(x->in_object, jps_algorithm_message, argc, argv, NULL);	// send to jcom.in
-	if(x->out_object != NULL)
+	if (x->out_object != NULL)
 		object_method_typed(x->out_object, jps_algorithm_message, argc, argv, NULL);	// send to jcom.out
 
 	/* 
@@ -582,10 +587,10 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	private_message = atom_getsym(argv);
 	argc--;
 	argv++;
-	if(private_id == jps__gui__){
+	if (private_id == jps__gui__) {
 		if (private_message == jps_slash_preset_slash_default)			// 	/preset/default
 			hub_preset_default(x, NULL, 0, NULL);
-		else if (private_message == jps_slash_preset_slash_load){		// 	/preset/load
+		else if (private_message == jps_slash_preset_slash_load) {		// 	/preset/load
 			atom_setsym(&a, userpath);
 			hub_preset_read(x, NULL, 1, &a);
 		}
@@ -597,7 +602,7 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 			hub_preset_store_next(x, _sym_list, argc, argv);
 		else if (private_message == jps_slash_preset_slash_copy)			// 	/preset/load
 			hub_preset_copy(x, _sym_list, argc, argv);
-		else if (private_message == jps_slash_preset_slash_write){		//	/preset/save
+		else if (private_message == jps_slash_preset_slash_write) {		//	/preset/save
 			atom_setsym(&a, userpath);
 			hub_preset_write(x, NULL, 1, &a);
 		}
@@ -605,17 +610,17 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 			hub_module_view_alg(x, NULL, 0, NULL);
 		else if (private_message == gensym("/module/help"))
 			hub_module_help(x);
-		else if (private_message == gensym("/module/reference")){
+		else if (private_message == gensym("/module/reference")) {
 			char refstr[MAX_FILENAME_CHARS];
 			
 			strncpy_zero(refstr, x->attr_name->s_name, MAX_FILENAME_CHARS);
 			object_method_sym(gensym("max")->s_thing, gensym("html_ref"), gensym(refstr), NULL);
 			//hub_module_reference(x);
 		}
-		else if(private_message == gensym("/preset/interface")){
+		else if (private_message == gensym("/preset/interface")) {
 			hub_preset_interface(x);
 		}
-		else if(private_message == gensym("/getstate")){
+		else if (private_message == gensym("/getstate")) {
 			hub_getstate(x);
 		}
 		else if (private_message == jps_slash_ui_slash_freeze) {			// 	/view/freeze
@@ -623,13 +628,13 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 		}
 		else if ( private_message == jps_slash_ui_slash_refresh )		//	/view/refresh
 			hub_ui_refresh(x, NULL, 0, NULL);
-		else if(private_message == gensym("fetchParameterNamesInLinklist"))
+		else if (private_message == gensym("fetchParameterNamesInLinklist"))
 			hub_paramnames_linklist(x, (t_linklist*)atom_getobj(argv));
-		else if(private_message == gensym("fetchMessageNamesInLinklist"))
+		else if (private_message == gensym("fetchMessageNamesInLinklist"))
 			hub_messagenames_linklist(x, (t_linklist*)atom_getobj(argv));
-		else if(private_message == gensym("fetchReturnNamesInLinklist"))
+		else if (private_message == gensym("fetchReturnNamesInLinklist"))
 			hub_returnnames_linklist(x, (t_linklist*)atom_getobj(argv));
-		else if(private_message == gensym("fetchPresetNamesInLinklist"))
+		else if (private_message == gensym("fetchPresetNamesInLinklist"))
 			hub_presetnames_linklist(x, (t_linklist*)atom_getobj(argv));
 		else
 			hub_symbol(x, private_message, argc, argv);
@@ -658,18 +663,18 @@ void hub_return_extended(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	
 	strcpy(namestring, "/");						// perhaps we could optimize this operation
 	strcat(namestring, argv->a_w.w_sym->s_name);	//	by creating a table when the param is bound
-	if(namestring[strlen(namestring)-1] == '*'){
+	if (namestring[strlen(namestring)-1] == '*') {
 		namestring[strlen(namestring)-1] = 0;
-		if(argv[1].a_type == A_LONG)
+		if (argv[1].a_type == A_LONG)
 			snprintf(namestring, 256, "%s%ld", namestring, argv[1].a_w.w_long);
-		else if(argv[1].a_type == A_FLOAT)
+		else if (argv[1].a_type == A_FLOAT)
 			snprintf(namestring, 256, "%s%f", namestring, argv[1].a_w.w_float);
 		else // assuming symbol
 			strcat(namestring, atom_getsym(argv+1)->s_name);
 		osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
 		hub_outlet_return(x, osc, argc-2, argv+2);		
 	}
-	else{
+	else {
 		osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
 		hub_outlet_return(x, osc, argc-1, argv+1);
 	}
@@ -681,9 +686,9 @@ void hub_outlet_return(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	outlet_anything(x->outlets[k_outlet_return], msg, argc, argv);
 
-	if(x->osc_name == NULL)					// it's possible for this method to be called before osc_name is valid
+	if (x->osc_name == NULL)					// it's possible for this method to be called before osc_name is valid
 		return;								//	...
-	if(x->jcom_send){
+	if (x->jcom_send) {
 		char		mess[256];
 		t_symbol	*osc;
 		
@@ -703,19 +708,19 @@ void hub_getstate(t_hub *x)
 	char*				text = NULL;
 	long				textsize = 0;
 
-	if(!x->textEditor)
+	if (!x->textEditor)
 		x->textEditor = (t_object*)object_new(_sym_nobox, _sym_jed, x, 0);
 	
-	if(!x->textSize){
+	if (!x->textSize) {
 		x->textSize = 4096;
 		x->text = (char*)malloc(sizeof(char) * x->textSize);
 	}
 	x->text[0] = 0;
 	
 	critical_enter(0);
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == jps_subscribe_parameter){
+		if (t->type == jps_subscribe_parameter) {
 			long	ac = NULL; 
 			t_atom* av = NULL;
 			
@@ -723,7 +728,7 @@ void hub_getstate(t_hub *x)
 			atom_gettext(ac, av, &textsize, &text, 0);
 			
 			// this is a really lame way to do this...
-			if(strlen(x->text) > (x->textSize - 1024)){
+			if (strlen(x->text) > (x->textSize - 1024)) {
 				x->textSize += 4096;
 				x->text = (char*)realloc(x->text, x->textSize);
 			}
@@ -766,8 +771,8 @@ t_symbol *hub_modulename_get(t_hub *x)
 {
 	t_atom	a;
 
-	if(x->osc_name != NULL){
-		if(x->osc_name != _sym_nothing){
+	if (x->osc_name != NULL) {
+		if (x->osc_name != _sym_nothing) {
 			atom_setsym(&a, x->osc_name);	
 			hub_outlet_return(x, gensym("/module_name"), 1, &a);
 		}
@@ -796,9 +801,9 @@ void hub_paramnames_linklist(t_hub *x, t_linklist *ll)
 	t_symobject*		o;
 	
 	//	critical_enter(0);
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == jps_subscribe_parameter){
+		if (t->type == jps_subscribe_parameter) {
 			o = (t_symobject *)symobject_new(t->name);
 			linklist_append(ll, o);
 		}
@@ -814,9 +819,9 @@ void hub_messagenames_linklist(t_hub *x, t_linklist *ll)
 	t_symobject*		o;
 	
 //	critical_enter(0);
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == jps_subscribe_message){
+		if (t->type == jps_subscribe_message) {
 			o = (t_symobject *)symobject_new(t->name);
 			linklist_append(ll, o);
 		}
@@ -832,9 +837,9 @@ void hub_returnnames_linklist(t_hub *x, t_linklist *ll)
 	t_symobject*		o;
 	
 	//	critical_enter(0);
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == jps_subscribe_return){
+		if (t->type == jps_subscribe_return) {
 			o = (t_symobject *)symobject_new(t->name);
 			linklist_append(ll, o);
 		}
@@ -851,8 +856,8 @@ void hub_init(t_hub *x, t_symbol*, long, t_atom*)
 	x->flag_init = 1;
 	// Search the linked list for jcom.init objects and 'bang' them
 	critical_enter(0);
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
-		if((*i)->type == jps_subscribe_init)
+	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
+		if ((*i)->type == jps_subscribe_init)
 			object_method((*i)->object, jps_go);		// TODO: This is an exceptionally bad thing to do inside of the critical region
 														// It could result in a deadlock
 	}
@@ -875,15 +880,15 @@ void hub_gui_build(t_hub *x)
 {
 	subscriberList 	*subscriber = x->subscriber;
 
-	if(x->gui_object != NULL){
+	if (x->gui_object != NULL) {
 		t_atom				a[3];
 		subscriberIterator	i;
 		t_subscriber*		t;
 		
 		critical_enter(0);
-		for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 			t = *i;
-			if((t->type == jps_subscribe_remote) && t->name == jps__gui__){
+			if ((t->type == jps_subscribe_remote) && t->name == jps__gui__) {
 				atom_setsym(&a[0], gensym("module_name"));
 				atom_setsym(&a[1], x->osc_name);
 				object_method_typed(x->gui_object, jps_dispatched, 2, a, NULL);			
@@ -908,10 +913,10 @@ void hub_gui_build(t_hub *x)
 // Method for Assistance Messages
 void hub_assist(t_hub *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 						// Inlet
+	if (msg==1) 						// Inlet
 		strcpy(dst, "input");
-	else{							// Outlets
-		switch(arg){
+	else {							// Outlets
+		switch(arg) {
 			case k_outlet_return:
 					strcpy(dst, "return: connect to return outlet");
 					break;
@@ -926,7 +931,7 @@ void hub_assist(t_hub *x, void *b, long msg, long arg, char *dst)
 // return a pointer to the jcom.in~ object
 t_object* hub_getobj_audioin(t_hub *x)
 {
-	if(x->attr_type == jps_audio)
+	if (x->attr_type == jps_audio)
 		return x->in_object;
 	else
 		return NULL;
@@ -936,7 +941,7 @@ t_object* hub_getobj_audioin(t_hub *x)
 // return a pointer to the jcom.out~ object
 t_object* hub_getobj_audioout(t_hub *x)
 {
-	if(x->attr_type == jps_audio)
+	if (x->attr_type == jps_audio)
 		return x->out_object;
 	else
 		return NULL;
@@ -960,32 +965,32 @@ void hub_paramnames_get(t_hub *x)
 	
 	// Count the number of parameters with a priority
 	critical_enter(0);
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == jps_subscribe_parameter){
+		if (t->type == jps_subscribe_parameter) {
 			ac = NULL; 
 			av = NULL;	
 			object_attr_getvalueof(t->object, jps_priority, &ac, &av);
-			if(atom_getlong(av) > 0)
+			if (atom_getlong(av) > 0)
 				num_params_with_priority++;		
 		}
 	}
 	critical_exit(0);
 
-	if(num_params_with_priority > 0){
+	if (num_params_with_priority > 0) {
 		p=1;
-		while(num_params_with_priority > num_params_recalled){
+		while (num_params_with_priority > num_params_recalled) {
 			critical_enter(0);
-			for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+			for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 				t = *i;
-				if(t->type == jps_subscribe_parameter){
+				if (t->type == jps_subscribe_parameter) {
 					ac = NULL; 
 					av = NULL;	
 					object_attr_getvalueof(t->object, jps_priority, &ac, &av);
-					if(atom_getlong(av) == p){
+					if (atom_getlong(av) == p) {
 						ac = NULL; av = NULL;								// init
 						atom_setsym(&a, t->name);
-						if(t->type == jps_subscribe_parameter)
+						if (t->type == jps_subscribe_parameter)
 							hub_outlet_return(x, jps_parameter_name, 1, &a);
 						num_params_recalled++;
 					}
@@ -997,34 +1002,34 @@ void hub_paramnames_get(t_hub *x)
 
 		// Recall items with priority 0 now
 		critical_enter(0);
-		for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 			t = *i;
-			if(t->type == jps_subscribe_parameter){
+			if (t->type == jps_subscribe_parameter) {
 				ac = NULL; 
 				av = NULL;	
 				object_attr_getvalueof(t->object, jps_priority, &ac, &av);
-				if(atom_getlong(av) == 0) {
+				if (atom_getlong(av) == 0) {
 					ac = NULL; av = NULL;										// init
 					atom_setsym(&a, t->name);
-					if(t->type == jps_subscribe_parameter)
+					if (t->type == jps_subscribe_parameter)
 						hub_outlet_return(x, jps_parameter_name, 1, &a);
 				}
 			}
 		}
 		critical_exit(0);
 	}
-	else{
+	else {
 		critical_enter(0);
-		for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 			t = *i;
-			if(t->type == jps_subscribe_parameter){
+			if (t->type == jps_subscribe_parameter) {
 				ac = NULL; 
 				av = NULL;	
 				object_attr_getvalueof(t->object, jps_priority, &ac, &av);
-				if(atom_getlong(av) == 0) {
+				if (atom_getlong(av) == 0) {
 					ac = NULL; av = NULL;										// init
 					atom_setsym(&a, t->name);
-					if(t->type == jps_subscribe_parameter)
+					if (t->type == jps_subscribe_parameter)
 						hub_outlet_return(x, jps_parameter_name, 1, &a);
 				}
 			}
@@ -1053,30 +1058,30 @@ void hub_paramvalues_get(t_hub *x)
 	
 	// Count the number of parameters with a priority
 	critical_enter(0);
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == jps_subscribe_parameter){
+		if (t->type == jps_subscribe_parameter) {
 			ac = NULL; 
 			av = NULL;	
 			object_attr_getvalueof(t->object, jps_priority, &ac, &av);
-			if(atom_getlong(av) > 0)
+			if (atom_getlong(av) > 0)
 				num_params_with_priority++;		
 		}
 	}
 	critical_exit(0);
 
-	if(num_params_with_priority > 0){
+	if (num_params_with_priority > 0) {
 		p=1;
-		while(num_params_with_priority > num_params_recalled){
+		while (num_params_with_priority > num_params_recalled) {
 			critical_enter(0);
-			for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+			for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 				t = *i;
-				if(t->type == jps_subscribe_parameter){
+				if (t->type == jps_subscribe_parameter) {
 					ac = NULL; 
 					av = NULL;	
 					object_attr_getvalueof(t->object, jps_priority, &ac, &av);
 //					post("Priority" + atom_getlong(av));
-					if(atom_getlong(av) == p){
+					if (atom_getlong(av) == p) {
 						ac = NULL; av = NULL;										// init
 						object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get	
 						snprintf(osc, 512, "%s/%s", jps_parameter_value->s_name, t->name->s_name);
@@ -1091,13 +1096,13 @@ void hub_paramvalues_get(t_hub *x)
 
 		// Recall items with priority 0 now
 		critical_enter(0);
-		for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 			t = *i;
-			if(t->type == jps_subscribe_parameter){
+			if (t->type == jps_subscribe_parameter) {
 				ac = NULL; 
 				av = NULL;	
 				object_attr_getvalueof(t->object, jps_priority, &ac, &av);
-				if(atom_getlong(av) == 0) {
+				if (atom_getlong(av) == 0) {
 					ac = NULL; av = NULL;										// init
 					object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get	
 					snprintf(osc, 512, "%s/%s", jps_parameter_value->s_name, t->name->s_name);
@@ -1107,15 +1112,15 @@ void hub_paramvalues_get(t_hub *x)
 		}
 		critical_exit(0);
 	}
-	else{
+	else {
 		critical_enter(0);
-		for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 			t = *i;
-			if(t->type == jps_subscribe_parameter){
+			if (t->type == jps_subscribe_parameter) {
 				ac = NULL; 
 				av = NULL;	
 				object_attr_getvalueof(t->object, jps_priority, &ac, &av);
-				if(atom_getlong(av) == 0) {
+				if (atom_getlong(av) == 0) {
 					ac = NULL; av = NULL;										// init
 					object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get	
 					snprintf(osc, 512, "%s/%s", jps_parameter_value->s_name, t->name->s_name);
@@ -1139,10 +1144,10 @@ void hub_messagenames_get(t_hub *x)
 	subscriberIterator i;
 	t_subscriber* t;
 	critical_enter(0);
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
 		atom_setsym(&a, t->name);
-		if(t->type == jps_subscribe_message)
+		if (t->type == jps_subscribe_message)
 			hub_outlet_return(x, jps_message_name, 1, &a);
 	}
 	critical_exit(0);
@@ -1160,10 +1165,10 @@ void hub_returnnames_get(t_hub *x)
 	subscriberIterator i;
 	t_subscriber* t;
 	critical_enter(0);
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
 		atom_setsym(&a, t->name);
-		if(t->type == jps_subscribe_return)
+		if (t->type == jps_subscribe_return)
 			hub_outlet_return(x, jps_message_return, 1, &a);
 	}
 	critical_exit(0);
@@ -1203,11 +1208,11 @@ void hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	t_symbol		*name = msg;			// default to the name being the message
 
 	strcpy(input, msg->s_name);
-	if(*input2 == '/')				// leading slash means it's OSC...
+	if (*input2 == '/')				// leading slash means it's OSC...
 		input2++;					// remove the leading slash
 
 	split = strchr(input2, ':');	// remove (and store) the param name
-	if(split != NULL){
+	if (split != NULL) {
 		*split = NULL;				// now input2 = param name; split = a message for the parameter object
 		split += 2;					// this will jump the pointer past the :/ to the actual name
 		osc = gensym(split);
@@ -1217,50 +1222,50 @@ void hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	subscriberIterator i;
 	t_subscriber* t;
 	critical_enter(0);
-	if(name == jps_star){			// wildcard
+	if (name == jps_star) {			// wildcard
 		t_symbol* type;
-		for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 			t = *i; type = t->type;
-			if(type == jps_subscribe_parameter 
+			if (type == jps_subscribe_parameter 
 			  || type == jps_subscribe_message 
-			  || type == jps_subscribe_return){
-				if(osc == NULL){
+			  || type == jps_subscribe_return) {
+				if (osc == NULL) {
 					object_method_typed(t->object, jps_dispatched, argc, argv, NULL);
 				}
-				else{
+				else {
 					object_method_typed(t->object, osc, argc, argv, NULL);
 				}
 			}
 		}
 	}
-	else{
+	else {
 		
 		// search the linked list of params to find the right one
-		for(i = subscriber->begin(); (i != subscriber->end()) && (found == false); ++i) {
+		for (i = subscriber->begin(); (i != subscriber->end()) && (found == false); ++i) {
 			t = *i; 
-			if(t->name == name) {
+			if (t->name == name) {
 				found = true;
 				break;
 			}
 		}
 
 		// dispatch to the correct jcom.param object
-		if(found == true){
-			if(osc == NULL){
+		if (found == true) {
+			if (osc == NULL) {
 				object_method_typed(t->object, jps_dispatched, argc, argv, NULL);
 			}
 			else
 				object_method_typed(t->object, osc, argc, argv, NULL);
 		}
-		else{
+		else {
 			// Check to see if it's a message we need to forward to jcom.out
-			if(name == jps_slash_audio_meters_freeze || name == jps_audio_meters_freeze) {
+			if (name == jps_slash_audio_meters_freeze || name == jps_audio_meters_freeze) {
 				t_atom msg[2];
 				atom_setsym(msg, name);
 				jcom_core_atom_copy(msg+1, argv);
-				if(x->out_object != NULL)
+				if (x->out_object != NULL)
 					object_method_typed(x->out_object, jps_algorithm_message, 2, msg, NULL);	
-			} else if(!x->using_wildcard) {
+			} else if (!x->using_wildcard) {
 				// if we got here through the use a remote message to modules named by a wildcard
 				// then we need don't post annoying errors to the Max window
 				if (x->editing)
@@ -1276,7 +1281,7 @@ void hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 
 void hub_module_view_alg(t_hub *x, t_symbol*, long, t_atom*)
 {
-	if(x->in_object != NULL)
+	if (x->in_object != NULL)
 		object_method_typed(x->in_object, jps_open, 0, 0L, NULL);					// send "open" to jcom.in
 	hub_outlet_return(x, jps_slash_module_view_internals, 0, 0L);					// return from jcom.hub left outlet
 }
@@ -1298,9 +1303,9 @@ void hub_ui_freeze(t_hub *x, t_symbol*, long argc, t_atom *argv)
 	err = object_attr_setlong(x->gui_object, gensym("ui_is_frozen"), atom_getlong(argv));
 
 	critical_enter(0);
- 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+ 	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == jps_subscribe_parameter)
+		if (t->type == jps_subscribe_parameter)
 			object_method_typed(t->object, jps_ui_slash_freeze, 1, argv, NULL);
 	}
 	critical_exit(0);
@@ -1315,9 +1320,9 @@ void hub_ui_refresh(t_hub *x, t_symbol*, long, t_atom*)
 	subscriberIterator i;
 	t_subscriber* t;
 	critical_enter(0);
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == jps_subscribe_parameter)
+		if (t->type == jps_subscribe_parameter)
 			object_method_typed(t->object, jps_ui_slash_refresh, 0, 0L, NULL);
 	}
 	critical_exit(0);
@@ -1333,12 +1338,12 @@ void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 	char		*split;
 	t_symbol	*osc;
 	
-	strcpy(mess, msg->s_name);
-	if(*in == '/')					// remove leading slash...
+	strncpy_zero(mess, msg->s_name, 256);
+	if (*in == '/')					// remove leading slash...
 		in++;
 		
 	split = strchr(in, '/');		// get the OSC message for the module
-	if(split == NULL){
+	if (split == NULL) {
 		if (x->editing)
 			object_error((t_object*)x, "%s module received message from jcom.send with problematic or missing OSC namespace (%s) in %s module", 
 										x->attr_name->s_name, mess, x->attr_name->s_name);
@@ -1350,7 +1355,7 @@ void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 
 	*split = 0;						
 	
-	if(*in == '*'){										// wildcard
+	if (*in == '*') {										// wildcard
 		// when parsing wildcards, we need to check and see if there is actually a valid subscriber
 		// before blindly sending the message... 
 		split++;
@@ -1359,7 +1364,7 @@ void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 		object_method_typed(x, osc, argc, argv, NULL);		// call the method on this hub object
 		x->using_wildcard = false;
 	}
-	else if(!strcmp(mess, x->osc_name->s_name)){		// check if we are the correct module...
+	else if (x->osc_name && x->osc_name->s_name[0] && !strcmp(mess, x->osc_name->s_name)) {		// check if we are the correct module...
 		split++;
 		osc = gensym(split);
 		object_method_typed(x, osc, argc, argv, NULL);		// call the method on this hub object
@@ -1376,10 +1381,10 @@ void hub_bang(t_hub *x)
 	t_subscriber		*t;
 	t_symbol			*type;
 	
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i; 
 		type = t->type;		
-		if(type == jps_subscribe_parameter || type == jps_subscribe_message)
+		if (type == jps_subscribe_parameter || type == jps_subscribe_message)
 			object_method(t->object, gensym("/ramp/update"));
 	}	
 }
@@ -1388,7 +1393,7 @@ void hub_bang(t_hub *x)
 // TODO: need a custom setter so that we can update the display of the module name in the ui
 t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 {
-	if(argc && argv){
+	if (argc && argv) {
 		char			name[256];
 		unsigned short	i;
 		t_max_err		err = MAX_ERR_NONE;
@@ -1401,12 +1406,12 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		x->osc_name = atom_getsym(argv);
 
 		// No arg is present -- try to invent something intelligent for a name
-		if(x->osc_name == _sym_nothing){
+		if (x->osc_name == _sym_nothing) {
 			// it's annoting when doing fast demos and such to have to see this, so it is now silent when doing this:
 			// object_post((t_object*)x, "%s: this module was not given an osc name as an argument!  making up something that will hopefully work.", x->attr_name->s_name);
 
 			// Strip jmod. from the beginning of patch names, this happens if you drag a module from browser to bpatcher
-			if(strncmp(x->attr_name->s_name, "jmod.", 5) == 0)
+			if (strncmp(x->attr_name->s_name, "jmod.", 5) == 0)
 				x->osc_name = gensym(x->attr_name->s_name + 5);
 			else
 				x->osc_name = x->attr_name;
@@ -1415,7 +1420,7 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		strcpy(name, x->osc_name->s_name);
 		
 		// the name is autoprepended with a /
-		if(name[0] != '/'){
+		if (name[0] != '/') {
 			char newname[256];
 			
 			strcpy(newname, "/");
@@ -1424,20 +1429,20 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		}
 		
 		// search for illegal characters as specified by the OSC standard and replace them
-		for(i=0; i<strlen(name); i++){
+		for (i=0; i<strlen(name); i++) {
 /*			TODO :This has to happen only when setting the OSC name from the module's file name
-			if(name[i] == '.')
+			if (name[i] == '.')
 				name[i] = '_';
 			else */
-			if(name[i] == '[')
+			if (name[i] == '[')
 				name[i] = '.';
-			else if(name[i] == ']')
+			else if (name[i] == ']')
 				name[i] = 0;
 		}
 		
 		// if arg contains a slash then we must complain
 		nametest = name + 1;
-		if(strchr(nametest, '/'))
+		if (strchr(nametest, '/'))
 			object_error((t_object*)x, "%s: OSC NAME GIVEN TO MODULES MAY NOT CONTAIN A SLASH OTHER THAN THE LEADING SLASH!", x->attr_name->s_name);
 		
 		// Memorize the original name
@@ -1461,7 +1466,7 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		x->osc_name = gensym(name);
 		
 		// update the ui object
-		if(x->gui_object){
+		if (x->gui_object) {
 			atom_setsym(&a[0], gensym("module_name"));
 			atom_setsym(&a[1], x->osc_name);
 			object_method_typed(x->gui_object, jps_dispatched, 2, a, NULL);			

@@ -58,7 +58,7 @@ void *receivemaster_new(t_symbol *msg, long argc, t_atom *argv)
 {
 	t_jcom_receivemaster *x = (t_jcom_receivemaster *)object_alloc(s_receivemaster_class);
 
-	if(!s_receive_lists)
+	if (!s_receive_lists)
 		s_receive_lists = hashtab_new(0);
 	return x;
 }
@@ -78,7 +78,7 @@ void receivemaster_dispatch(t_jcom_receivemaster *x, t_symbol *name, t_symbol *m
 	t_linklist	*list = NULL;										// linklist of receives with this name
 
 	hashtab_lookup(s_receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab
-	if(list)
+	if (list)
 		linklist_methodall(list, jps_dispatch, msg, argc, argv);		// 2. Call method on every object in the linklist
 }
 
@@ -87,7 +87,7 @@ void receivemaster_add(t_jcom_receivemaster *x, t_symbol *name, t_object *obj)
 	t_linklist	*list = NULL;
 
 	hashtab_lookup(s_receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab
-	if(!list){
+	if (!list) {
 		list = (t_linklist *)linklist_new();						// if there isn't a linklist for this name yet,
 		hashtab_store(s_receive_lists, name, (t_object *)list);		//	then we make one and store it in the hashtab
 	}
@@ -108,7 +108,7 @@ void linklist_chuckobject(t_linklist *x, void *o)
 	void *obj;
 	
 	long index = linklist_findfirst(x, &obj, linklist_match, o);
-	if(index != -1)
+	if (index != -1)
 		linklist_chuckindex(x, index);
 }
  */
@@ -121,6 +121,6 @@ void receivemaster_remove(t_jcom_receivemaster *x, t_symbol *name, t_object *obj
 
 	hashtab_lookup(s_receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab
 	linklist_chuckobject(list, obj);
-	if(!linklist_getsize(list))
+	if (!linklist_getsize(list))
 		hashtab_chuckkey(s_receive_lists, name);					// 2. Chuck the key if there are no more objects with this name
 }

@@ -85,17 +85,17 @@ void *remote_new(t_symbol *s, long argc, t_atom *argv)
 	SymbolPtr	name = _sym_nothing;
 	ObjectPtr	patcher = NULL;
 	
-	if(attrstart && argv)
+	if (attrstart && argv)
 		atom_arg_getsym(&name, 0, attrstart, argv);
 	else
 		name = symbol_unique();
 	
 	// for instances buried inside of another object:
 	// we pass a second argument which is a pointer to the patcher
-	if(attrstart>1 && argv)
+	if (attrstart>1 && argv)
 		patcher = ObjectPtr(atom_getobj(argv+1));
 
-	if(x){
+	if (x) {
 		x->dumpout = outlet_new(x, NULL);
 		x->outlet = outlet_new(x, NULL);
 		object_obex_store((void *)x, jps_dumpout, (object *)x->dumpout);		// setup the dumpout
@@ -105,7 +105,7 @@ void *remote_new(t_symbol *s, long argc, t_atom *argv)
 		
 		jcom_core_subscriber_new_common(&x->common, name, jps_subscribe_remote);		
 		jcom_core_subscriber_setcustomsubscribe_method(&x->common, (t_subscribe_method)remote_subscribe);
-		if(patcher)
+		if (patcher)
 			x->common.container = patcher;
 		
 		attr_args_process(x, argc, argv);					// handle attribute args				
@@ -121,10 +121,10 @@ void *remote_new(t_symbol *s, long argc, t_atom *argv)
 // Method for Assistance Messages
 void remote_assist(t_remote *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 	// Inlets
+	if (msg==1) 	// Inlets
 		strcpy(dst, "private messages to send to the hub");
-	else if(msg==2){ // Outlets
-		if(arg == 0) strcpy(dst, "private messages from the hub");
+	else if (msg==2) { // Outlets
+		if (arg == 0) strcpy(dst, "private messages from the hub");
 		else strcpy(dst, "dumpout");
 	}
 }
@@ -133,7 +133,7 @@ void remote_assist(t_remote *x, void *b, long msg, long arg, char *dst)
 // this method is called when we have subscribed to the hub
 void remote_subscribe(t_remote *x)
 {
-	if(x->callback)
+	if (x->callback)
 		x->callback(x->callbackArg, jps_subscribe, 0, NULL);
 }
 
@@ -142,7 +142,7 @@ void remote_subscribe(t_remote *x)
 void remote_dispatched(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	outlet_anything(x->outlet, atom_getsym(argv), argc-1, argv+1);
-	if(x->callback)
+	if (x->callback)
 		x->callback(x->callbackArg, x->common.attr_name, argc, argv);
 }
 
@@ -151,14 +151,14 @@ void remote_dispatched(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 void remote_jit_matrix(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	outlet_anything(x->outlet, msg, argc, argv);
-	if(x->callback)
+	if (x->callback)
 		x->callback(x->callbackArg, msg, argc, argv);
 }
 
 void remote_jit_gl_texture(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	outlet_anything(x->outlet, msg, argc, argv);
-	if(x->callback)
+	if (x->callback)
 		x->callback(x->callbackArg, msg, argc, argv);
 }
 
@@ -166,7 +166,7 @@ void remote_jit_gl_texture(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 // remote values to the hub
 void remote_send_private(t_remote *x)
 {
-	if(x->common.hub){
+	if (x->common.hub) {
 		object_method_typed(x->common.hub, jps_private, x->output_len, x->output, NULL);
 		x->output_len = 1;	// truncate to just the name of this jcom.remote object
 	}
@@ -201,7 +201,7 @@ void remote_symbol(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 	atom_setsym(&x->output[1], msg);
 	x->output_len++;
 	
-	for(i=1; i<=argc; i++){
+	for (i=1; i<=argc; i++) {
 		jcom_core_atom_copy(&x->output[i+1], argv++);
 		x->output_len++;
 	}	
@@ -215,7 +215,7 @@ void remote_list(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short i;
 	
-	for(i=1; i<=argc; i++){
+	for (i=1; i<=argc; i++) {
 		jcom_core_atom_copy(&x->output[i], argv++);
 		x->output_len++;
 	}

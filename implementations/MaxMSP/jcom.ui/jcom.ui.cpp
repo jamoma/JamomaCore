@@ -218,10 +218,10 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 	long 			flags;
 	t_atom			a[2];
 
-	if(!(d=object_dictionaryarg(argc, argv)))
+	if (!(d=object_dictionaryarg(argc, argv)))
 		return NULL;	
 
-	if(x = (t_ui*)object_alloc(s_ui_class)){
+	if (x = (t_ui*)object_alloc(s_ui_class)) {
 		flags = 0 
 				| JBOX_DRAWFIRSTIN
 				| JBOX_NODRAWBOX
@@ -285,21 +285,21 @@ t_max_err ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *dat
 	t_object	*textfield;
 	t_symbol	*attrname;
 
-	if((msg == _sym_attr_modified) && (sender == x)){
+	if ((msg == _sym_attr_modified) && (sender == x)) {
 		attrname = (t_symbol *)object_method((t_object *)data, gensym("getname"));
 		textfield = jbox_get_textfield((t_object*) x);
-		if(textfield)
+		if (textfield)
 			textfield_set_textcolor(textfield, &x->textcolor);
 		
-		if(attrname == gensym("module_name"))
+		if (attrname == gensym("module_name"))
 			object_method(textfield, gensym("settext"), x->attr_modulename->s_name);
 			
 		char str[5];
-		if(x->gainDragging) {
+		if (x->gainDragging) {
 			snprintf(str, sizeof(str), "%f", x->attr_gain);
 			object_method(textfield, gensym("settext"), str);
 		}
-		if(x->mixDragging) {
+		if (x->mixDragging) {
 			snprintf(str, sizeof(str), "%f", x->attr_mix);
 			object_method(textfield, gensym("settext"), str);
 		}
@@ -317,8 +317,8 @@ void ui_subscribe(t_ui *x)
 	uiInternalObject*	anObject = NULL;
 	
 	hashtab_getkeys(x->hash_internals, &numkeys, &keys);
-	if(numkeys && keys){
-		for(int i=0; i<numkeys; i++){
+	if (numkeys && keys) {
+		for (int i=0; i<numkeys; i++) {
 			hashtab_lookup(x->hash_internals, keys[i], (t_object**)&anObject);
 			object_method(anObject->theObject, jps_subscribe);
 		}
@@ -333,17 +333,17 @@ void ui_remote_callback(t_ui *x, t_symbol *s, long argc, t_atom* argv)
 {
 	t_symbol*	message = atom_getsym(argv);
 	
-	if(argc == 1){
+	if (argc == 1) {
 		if (s == _sym_jit_matrix)
 			outlet_anything(x->outlet, _sym_jit_matrix, argc, argv);
 		else if (s == _sym_jit_gl_texture)
 			outlet_anything(x->outlet, _sym_jit_gl_texture, argc, argv);
 	}
-	else if(message == gensym("module_name") && argc == 2)
+	else if (message == gensym("module_name") && argc == 2)
 		object_attr_setvalueof(x, gensym("module_name"), 1, argv+1);
-	else if(message == gensym("module_class") && argc == 2)
+	else if (message == gensym("module_class") && argc == 2)
 		x->attrModuleClass = atom_getsym(argv+1);
-//	else if(message == gensym("module_type") && argc == 2)
+//	else if (message == gensym("module_type") && argc == 2)
 //		; // TODO: Should do something here?
 }
 
@@ -420,21 +420,21 @@ void ui_paint(t_ui *x, t_object *view)
 
 
 	// draw the gain knob
-	if(x->attr_hasgain){
+	if (x->attr_hasgain) {
 		long right_side = rect.width - 16.0;
 		float gain = TTClip(x->attr_gain, 0.0f, 127.0f);
 
-		if(x->attr_hasmix)
+		if (x->attr_hasmix)
 			right_side -= 16.0;
-		if(x->attr_hasmute)
+		if (x->attr_hasmute)
 			right_side -= 16.0;
-		if(x->attr_hasbypass)
+		if (x->attr_hasbypass)
 			right_side -= 16.0;
-		if(x->attr_hasfreeze)
+		if (x->attr_hasfreeze)
 			right_side -= 16.0;
-		if(x->attr_haspreview)
+		if (x->attr_haspreview)
 			right_side -= 16.0;
-		if(x->attr_hasinspector)
+		if (x->attr_hasinspector)
 			right_side -= 16.0;
 	
 		jgraphics_set_source_jrgba(g, &s_color_background_button);
@@ -470,19 +470,19 @@ void ui_paint(t_ui *x, t_object *view)
 	
 	
 	// draw the mix knob
-	if(x->attr_hasmix){
+	if (x->attr_hasmix) {
 		long right_side = rect.width - 16.0;
 		float mix = TTClip(x->attr_mix, 0.0f, 100.0f);
 
-		if(x->attr_hasmute)
+		if (x->attr_hasmute)
 			right_side -= 16.0;
-		if(x->attr_hasbypass)
+		if (x->attr_hasbypass)
 			right_side -= 16.0;
-		if(x->attr_hasfreeze)
+		if (x->attr_hasfreeze)
 			right_side -= 16.0;
-		if(x->attr_haspreview)
+		if (x->attr_haspreview)
 			right_side -= 16.0;
-		if(x->attr_hasinspector)
+		if (x->attr_hasinspector)
 			right_side -= 16.0;
 	
 		jgraphics_set_source_jrgba(g, &s_color_background_button);
@@ -518,19 +518,19 @@ void ui_paint(t_ui *x, t_object *view)
 
 
 	// draw the mute button
-	if(x->attr_hasmute){
+	if (x->attr_hasmute) {
 		long right_side = rect.width - 16.0;
 
-		if(x->attr_hasbypass)
+		if (x->attr_hasbypass)
 			right_side -= 16.0;
-		if(x->attr_hasfreeze)
+		if (x->attr_hasfreeze)
 			right_side -= 16.0;
-		if(x->attr_haspreview)
+		if (x->attr_haspreview)
 			right_side -= 16.0;
-		if(x->attr_hasinspector)
+		if (x->attr_hasinspector)
 			right_side -= 16.0;
 	
-		if(x->attr_ismuted)
+		if (x->attr_ismuted)
 			jgraphics_set_source_jrgba(g, &s_color_red_button);
 		else
 			jgraphics_set_source_jrgba(g, &s_color_background_button);
@@ -549,7 +549,7 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_stroke(g);
 				
 		// m
-		if(x->attr_ismuted)
+		if (x->attr_ismuted)
 			jgraphics_set_source_jrgba(g, &s_color_text_button_on);
 		else
 			jgraphics_set_source_jrgba(g, &s_color_text_button_off);
@@ -562,17 +562,17 @@ void ui_paint(t_ui *x, t_object *view)
 	}
 
 	// draw the bypass button
-	if(x->attr_hasbypass){
+	if (x->attr_hasbypass) {
 		long right_side = rect.width - 16.0;
 
-		if(x->attr_hasfreeze)
+		if (x->attr_hasfreeze)
 			right_side -= 16.0;
-		if(x->attr_haspreview)
+		if (x->attr_haspreview)
 			right_side -= 16.0;
-		if(x->attr_hasinspector)
+		if (x->attr_hasinspector)
 			right_side -= 16.0;
 	
-		if(x->attr_isbypassed)
+		if (x->attr_isbypassed)
 			jgraphics_set_source_jrgba(g, &s_color_blue_button);
 		else
 			jgraphics_set_source_jrgba(g, &s_color_background_button);
@@ -591,7 +591,7 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_stroke(g);
 				
 		// b
-		if(x->attr_isbypassed)
+		if (x->attr_isbypassed)
 			jgraphics_set_source_jrgba(g, &s_color_text_button_on);
 		else
 			jgraphics_set_source_jrgba(g, &s_color_text_button_off);
@@ -603,15 +603,15 @@ void ui_paint(t_ui *x, t_object *view)
 	}
 
 	// draw the freeze button
-	if(x->attr_hasfreeze){
+	if (x->attr_hasfreeze) {
 		long right_side = rect.width - 16.0;
 
-		if(x->attr_haspreview)
+		if (x->attr_haspreview)
 			right_side -= 16.0;
-		if(x->attr_hasinspector)
+		if (x->attr_hasinspector)
 			right_side -= 16.0;
 	
-		if(x->attr_isfrozen)
+		if (x->attr_isfrozen)
 			jgraphics_set_source_jrgba(g, &s_color_orange_button);
 		else
 			jgraphics_set_source_jrgba(g, &s_color_background_button);
@@ -630,7 +630,7 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_stroke(g);
 				
 		// f
-		if(x->attr_isfrozen)
+		if (x->attr_isfrozen)
 			jgraphics_set_source_jrgba(g, &s_color_text_button_on);
 		else
 			jgraphics_set_source_jrgba(g, &s_color_text_button_off);
@@ -642,13 +642,13 @@ void ui_paint(t_ui *x, t_object *view)
 	}
 
 	// draw the preview button
-	if(x->attr_haspreview){
+	if (x->attr_haspreview) {
 		long right_side = rect.width - 16.0;
 
-		if(x->attr_hasinspector)
+		if (x->attr_hasinspector)
 			right_side -= 16.0;
 	
-		if(x->attr_ispreviewing)
+		if (x->attr_ispreviewing)
 			jgraphics_set_source_jrgba(g, &s_color_green_button);
 		else
 			jgraphics_set_source_jrgba(g, &s_color_background_button);
@@ -667,7 +667,7 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_stroke(g);
 				
 		// p
-		if(x->attr_ispreviewing)
+		if (x->attr_ispreviewing)
 			jgraphics_set_source_jrgba(g, &s_color_text_button_on);
 		else
 			jgraphics_set_source_jrgba(g, &s_color_text_button_off);
@@ -679,7 +679,7 @@ void ui_paint(t_ui *x, t_object *view)
 	}
 
 	// draw the panel button
-	if(x->attr_hasinspector){
+	if (x->attr_hasinspector) {
 		long right_side = rect.width - 16.0;
 		
 		x->rect_inspector.x = right_side;
@@ -715,38 +715,38 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	jbox_set_mousedragdelta((t_object *)x, 0);
 	
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect); 
-	if(px.y > 20.0)	// we only handle clicks in the title bar
+	if (px.y > 20.0)	// we only handle clicks in the title bar
 		return;
 	
-	if(px.x > 18){//(rect.width - 112)){
+	if (px.x > 18) {//(rect.width - 112)) {
 		// we check the gain and mix knobs first because they are continuous parameters and should run as fast as possible
-		if(x->attr_hasgain && px.x >= x->rect_gain.x && px.x <= (x->rect_gain.x + x->rect_gain.width)){
+		if (x->attr_hasgain && px.x >= x->rect_gain.x && px.x <= (x->rect_gain.x + x->rect_gain.width)) {
 			setGainDataspaceUnit(x, gensym("midi"));
 			x->gainDragging = true;
 			x->anchor.x = x->anchor.y = 0.0;
 			x->anchorValue = x->attr_gain;			
 			jbox_set_mousedragdelta((t_object *)x, 1);
 		}
-		else if(x->attr_hasmix && px.x >= x->rect_mix.x && px.x <= (x->rect_mix.x + x->rect_mix.width)){
+		else if (x->attr_hasmix && px.x >= x->rect_mix.x && px.x <= (x->rect_mix.x + x->rect_mix.width)) {
 			x->mixDragging = true;
 			x->anchor.x = x->anchor.y = 0.0;
 			x->anchorValue = x->attr_mix;			
 			jbox_set_mousedragdelta((t_object *)x, 1);
 		}
-		else if(x->attr_hasinspector && px.x >= x->rect_inspector.x && px.x <= (x->rect_inspector.x + x->rect_inspector.width))
+		else if (x->attr_hasinspector && px.x >= x->rect_inspector.x && px.x <= (x->rect_inspector.x + x->rect_inspector.width))
 			object_method_typed(x->obj_remote, gensym("/view/panel"), 0, NULL, NULL);
-		else if(x->attr_haspreview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width))
+		else if (x->attr_haspreview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width))
 			object_attr_setlong(x, gensym("is_previewing"), !x->attr_ispreviewing);
-		else if(x->attr_hasfreeze && px.x >= x->rect_freeze.x && px.x <= (x->rect_freeze.x + x->rect_freeze.width))
+		else if (x->attr_hasfreeze && px.x >= x->rect_freeze.x && px.x <= (x->rect_freeze.x + x->rect_freeze.width))
 			object_attr_setlong(x, gensym("is_frozen"), !x->attr_isfrozen);
-		else if(x->attr_hasbypass && px.x >= x->rect_bypass.x && px.x <= (x->rect_bypass.x + x->rect_bypass.width))
+		else if (x->attr_hasbypass && px.x >= x->rect_bypass.x && px.x <= (x->rect_bypass.x + x->rect_bypass.width))
 			object_attr_setlong(x, gensym("is_bypassed"), !x->attr_isbypassed);
-		else if(x->attr_hasmute && px.x >= x->rect_mute.x && px.x <= (x->rect_mute.x + x->rect_mute.width))
+		else if (x->attr_hasmute && px.x >= x->rect_mute.x && px.x <= (x->rect_mute.x + x->rect_mute.width))
 			object_attr_setlong(x, gensym("is_muted"), !x->attr_ismuted);
-		else if(px.x < 100)
+		else if (px.x < 100)
 			ui_refmenu_do(x, patcherview, px, modifiers);
 	}
-	else //if(px.x < 18)
+	else //if (px.x < 18)
 		ui_menu_do(x, patcherview, px, modifiers);
 	
 }
@@ -760,14 +760,14 @@ void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 	
-	if(modifiers & eShiftKey)
+	if (modifiers & eShiftKey)
 		factor = 0.02;
 	
-	if(x->mixDragging){
+	if (x->mixDragging) {
 		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y * factor), 0.0, 100.0);
 		object_attr_setfloat(x, gensym("mix"), x->anchorValue);
 	}
-	else if(x->gainDragging){
+	else if (x->gainDragging) {
 		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y * factor), 0.0, 127.0);
 		object_attr_setfloat(x, gensym("gain"), x->anchorValue);
 	}
@@ -779,7 +779,7 @@ void ui_mouseup(t_ui *x, t_object *patcherview)
 	x->mixDragging = false;
 	x->gainDragging = false;
 	t_object *textfield = jbox_get_textfield((t_object*) x);
-	if(textfield)
+	if (textfield)
 		object_method(textfield, gensym("settext"), x->attr_modulename->s_name);
 	
 	jbox_redraw(&x->box);
@@ -812,19 +812,19 @@ void ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	jfont_destroy(font);
 	//	jpopupmenu_setcolors(p, s_color_text, s_color_titlebar_audio, s_color_text_button_on, x->bgcolor);
 	size = linklist_getsize(x->menu_items);
-	for(i=0; i<size; i++){
+	for (i=0; i<size; i++) {
 		item = (t_symobject *)linklist_getindex(x->menu_items, i);
-		if(!item->sym || (item->sym->s_name[0] == '\0') || item->sym->s_name[0] == '-')//{
+		if (!item->sym || (item->sym->s_name[0] == '\0') || item->sym->s_name[0] == '-')//{
 			jpopupmenu_addseperator(p);
-		else{
-			if(item->sym == gensym("Defeat Signal Meters")){
-				if(x->attr_metersdefeated)
+		else {
+			if (item->sym == gensym("Defeat Signal Meters")) {
+				if (x->attr_metersdefeated)
 					jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 1, 0, NULL);
 				else
 					jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
 			}
-			else if(item->sym == gensym("Disable UI Updates")){
-				if(x->attr_ui_freeze)
+			else if (item->sym == gensym("Disable UI Updates")) {
+				if (x->attr_ui_freeze)
 					jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 1, 0, NULL);
 				else
 					jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
@@ -840,7 +840,7 @@ void ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	pt.x = coord_x;
 	pt.y = coord_y;
 	selectedId = jpopupmenu_popup(p, pt, x->refmenu_selection+1);
-	if(selectedId){
+	if (selectedId) {
 		x->menu_selection = selectedId -1;
 		qelem_set(x->menu_qelem);
 	}	
@@ -852,41 +852,41 @@ void ui_menu_qfn(t_ui *x)
 {
 	t_symobject *item = (t_symobject *)linklist_getindex(x->menu_items, x->menu_selection);
 
-	if(item->sym == gensym("Defeat Signal Meters")){
-		if(x->attr_metersdefeated)
+	if (item->sym == gensym("Defeat Signal Meters")) {
+		if (x->attr_metersdefeated)
 			object_attr_setlong(x, gensym("meters_defeated"), 0);
 		else
 			object_attr_setlong(x, gensym("meters_defeated"), 1);
 		object_method_long(x->obj_remote, gensym("audio/meters/freeze"), x->attr_metersdefeated, NULL);
 	}
-	else if(item->sym == gensym("Disable UI Updates")){
-		if(x->attr_ui_freeze)
+	else if (item->sym == gensym("Disable UI Updates")) {
+		if (x->attr_ui_freeze)
 			object_attr_setlong(x, gensym("ui_is_frozen"), 0);
 		else
 			object_attr_setlong(x, gensym("ui_is_frozen"), 1);
 		object_method_long(x->obj_remote, gensym("/view/freeze"), x->attr_ui_freeze, NULL);
 	}
-	else if(item->sym == gensym("Refresh UI"))
+	else if (item->sym == gensym("Refresh UI"))
 		object_method_sym(x->obj_remote, gensym("/view/refresh"), item->sym, NULL);
-	else if(item->sym == gensym("Load Settings..."))
+	else if (item->sym == gensym("Load Settings..."))
 		object_method_sym(x->obj_remote, gensym("/preset/load"), item->sym, NULL);
-	else if(item->sym == gensym("Save Settings..."))
+	else if (item->sym == gensym("Save Settings..."))
 		object_method_sym(x->obj_remote, gensym("/preset/write"), item->sym, NULL);
-	else if(item->sym == gensym("Restore Default Settings"))
+	else if (item->sym == gensym("Restore Default Settings"))
 		object_method_sym(x->obj_remote, gensym("/preset/default"), item->sym, NULL);
-	else if(item->sym == gensym("Store Current Preset"))
+	else if (item->sym == gensym("Store Current Preset"))
 		object_method_sym(x->obj_remote, gensym("/preset/store"), item->sym, NULL);
-	else if(item->sym == gensym("Store as Next Preset"))
+	else if (item->sym == gensym("Store as Next Preset"))
 		object_method_sym(x->obj_remote, gensym("/preset/storenext"), item->sym, NULL);
-	else if(item->sym == gensym("Open Preset Interface"))
+	else if (item->sym == gensym("Open Preset Interface"))
 		object_method_sym(x->obj_remote, gensym("/preset/interface"), item->sym, NULL);
-	else if(item->sym == gensym("Get Current State as Text"))
+	else if (item->sym == gensym("Get Current State as Text"))
 		object_method_sym(x->obj_remote, gensym("/getstate"), item->sym, NULL);
-	else if(item->sym == gensym("View Internal Components"))
+	else if (item->sym == gensym("View Internal Components"))
 		object_method_sym(x->obj_remote, gensym("/view/internals"), item->sym, NULL);
-	else if(item->sym == gensym("Open Help Patch"))
+	else if (item->sym == gensym("Open Help Patch"))
 		object_method_sym(x->obj_remote, gensym("/module/help"), item->sym, NULL);
-	else if(item->sym == gensym("Open Reference Page"))
+	else if (item->sym == gensym("Open Reference Page"))
 		object_method_sym(x->obj_remote, gensym("/module/reference"), item->sym, NULL);
 	else	// assume the menu item is a preset name
 		object_method_sym(x->obj_remote, gensym("/preset/recall"), item->sym, NULL);
@@ -899,7 +899,7 @@ void ui_menu_build(t_ui *x)
 	int				i;
 	t_linklist*		ll;
 	
-	if(!x->menu_items)
+	if (!x->menu_items)
 		return;
 
 	linklist_clear(x->menu_items);
@@ -910,7 +910,7 @@ void ui_menu_build(t_ui *x)
 	item = (t_symobject *)symobject_new(gensym("-"));
 	linklist_append(x->menu_items, item);
 	
-	if(x->attr_hasmeters){
+	if (x->attr_hasmeters) {
 		item = (t_symobject *)symobject_new(gensym("Defeat Signal Meters"));
 		linklist_append(x->menu_items, item);
 		item = (t_symobject *)symobject_new(gensym("Clear Signal Meters"));
@@ -945,11 +945,11 @@ void ui_menu_build(t_ui *x)
 	
 	ll = linklist_new();
 	object_method_obj(x->obj_remote, gensym("fetchPresetNamesInLinklist"), (t_object*)ll, NULL);
-	if(linklist_getsize(ll)){
+	if (linklist_getsize(ll)) {
 		item = (t_symobject *)symobject_new(gensym("-"));
 		linklist_append(x->menu_items, item);
 		
-		for(i=0; i<linklist_getsize(ll); i++){
+		for (i=0; i<linklist_getsize(ll); i++) {
 			item = (t_symobject*)linklist_getindex(ll, i);
 			linklist_append(x->menu_items, item);
 		}
@@ -982,15 +982,15 @@ void ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	//	jpopupmenu_setcolors(p, s_color_text, s_color_titlebar_audio, s_color_text_button_on, x->bgcolor);
 	//	jpopupmenu_setheadercolor(<#t_jpopupmenu * menu#>, <#t_jrgba * hc#>)
 	size = linklist_getsize(x->refmenu_items);
-	for(i=0; i<size; i++){
+	for (i=0; i<size; i++) {
 		item = (t_symobject *)linklist_getindex(x->refmenu_items, i);
-		if(!item->sym || (item->sym->s_name[0] == '\0') || item->sym->s_name[0] == '-')//{
+		if (!item->sym || (item->sym->s_name[0] == '\0') || item->sym->s_name[0] == '-')//{
 			jpopupmenu_addseperator(p);
-		else{
+		else {
 //TODO: Instead of passing NULL for the 4th parameter, we can pass a custom color for "header" items			
 			jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
 		// TODO: use jpopupmenu_addheader instead -- requires that Max export this function though (which it currently doesn't)
-		//	if(item->flags)
+		//	if (item->flags)
 		//		jpopupmenu_addheader(p, item->sym->s_name);
 		//	else
 		//		jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
@@ -1004,7 +1004,7 @@ void ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	pt.y = coord_y;
 
 	selectedId = jpopupmenu_popup(p, pt, x->refmenu_selection+1);
-	if(selectedId){
+	if (selectedId) {
 		x->refmenu_selection = selectedId -1;
 		qelem_set(x->refmenu_qelem);
 	}
@@ -1031,12 +1031,12 @@ void ui_refmenu_build(t_ui *x)
 	t_linklist	*ll;
 	int			i;
 	
-	if(!x->refmenu_items)
+	if (!x->refmenu_items)
 		return;
 	
 	linklist_clear(x->refmenu_items);
 
-	if(x->attrModuleClass && x->attrModuleClass->s_name[0])
+	if (x->attrModuleClass && x->attrModuleClass->s_name[0])
 		snprintf(tempStr, 512, "Module: %s", x->attrModuleClass->s_name);
 	else
 		strncpy_zero(tempStr, "Module: ?", 512);
@@ -1046,14 +1046,14 @@ void ui_refmenu_build(t_ui *x)
 	
 	ll = linklist_new();
 	object_method_obj(x->obj_remote, gensym("fetchParameterNamesInLinklist"), (t_object*)ll, NULL);
-	if(linklist_getsize(ll)){
+	if (linklist_getsize(ll)) {
 		item = (t_symobject *)symobject_new(gensym("-"));
 		linklist_append(x->refmenu_items, item);
 		item = (t_symobject *)symobject_new(gensym("Parameters"));
 		linklist_append(x->refmenu_items, item);
 		item->flags = 1;	// mark to disable this item (we use it as a label)
 
-		for(i=0; i<linklist_getsize(ll); i++){
+		for (i=0; i<linklist_getsize(ll); i++) {
 			item = (t_symobject*)linklist_getindex(ll, i);
 			linklist_append(x->refmenu_items, item);
 		}
@@ -1062,14 +1062,14 @@ void ui_refmenu_build(t_ui *x)
 	
 	ll = linklist_new();
 	object_method_obj(x->obj_remote, gensym("fetchMessageNamesInLinklist"), (t_object*)ll, NULL);
-	if(linklist_getsize(ll)){
+	if (linklist_getsize(ll)) {
 		item = (t_symobject *)symobject_new(gensym("-"));
 		linklist_append(x->refmenu_items, item);
 		item = (t_symobject *)symobject_new(gensym("Messages"));
 		linklist_append(x->refmenu_items, item);
 		item->flags = 1;	// mark to disable this item (we use it as a label)
 
-		for(i=0; i<linklist_getsize(ll); i++){
+		for (i=0; i<linklist_getsize(ll); i++) {
 			item = (t_symobject*)linklist_getindex(ll, i);
 			linklist_append(x->refmenu_items, item);
 		}
@@ -1078,14 +1078,14 @@ void ui_refmenu_build(t_ui *x)
 	
 	ll = linklist_new();
 	object_method_obj(x->obj_remote, gensym("fetchReturnNamesInLinklist"), (t_object*)ll, NULL);
-	if(linklist_getsize(ll)){
+	if (linklist_getsize(ll)) {
 		item = (t_symobject *)symobject_new(gensym("-"));
 		linklist_append(x->refmenu_items, item);
 		item = (t_symobject *)symobject_new(gensym("Returns"));
 		linklist_append(x->refmenu_items, item);
 		item->flags = 1;	// mark to disable this item (we use it as a label)
 
-		for(i=0; i<linklist_getsize(ll); i++){
+		for (i=0; i<linklist_getsize(ll); i++) {
 			item = (t_symobject*)linklist_getindex(ll, i);
 			linklist_append(x->refmenu_items, item);
 		}
@@ -1103,17 +1103,17 @@ void* ui_oksize(t_ui *x, t_rect *rect)
 		
 	unitHeight = rect->height / JAMOMA_UNIT_HEIGHT;
 	unitFrac = rect->height - (unitHeight * JAMOMA_UNIT_HEIGHT);
-	if(unitFrac > (JAMOMA_UNIT_HEIGHT/2))
+	if (unitFrac > (JAMOMA_UNIT_HEIGHT/2))
 		unitHeight += 1;	
-	if(unitHeight < 1)
+	if (unitHeight < 1)
 		unitHeight = 1;
 	rect->height = unitHeight * JAMOMA_UNIT_HEIGHT;
 
 	unitWidth = rect->width / JAMOMA_UNIT_WIDTH;
 	unitFrac = rect->width - (unitWidth * JAMOMA_UNIT_WIDTH);
-	if(unitFrac > (JAMOMA_UNIT_WIDTH/2))
+	if (unitFrac > (JAMOMA_UNIT_WIDTH/2))
 		unitWidth += 1;
-	if(unitWidth < 1)
+	if (unitWidth < 1)
 		unitWidth = 1;
 	rect->width = unitWidth * JAMOMA_UNIT_WIDTH;
 

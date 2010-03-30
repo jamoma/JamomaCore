@@ -313,7 +313,7 @@ void receive_directory_callback(t_receive *x, t_symbol *oscAddress, long argc, t
 			// remove the node from the selection
 			x->lk_nodes->remove(aNode);
 			
-			// and remove his observer
+			// and remove his observer				
 			x->lk_attr_observer->remove(anObserver);
 		}
 	}

@@ -11,7 +11,7 @@
 
 
 // Data Structure for this object
-typedef struct _map{
+typedef struct _map {
 	t_object		ob;
 	void			*outlet;
 	t_symbol		*attr_function;
@@ -23,6 +23,7 @@ typedef struct _map{
 	double			c, d;				// Coefficients used for scaling normalized output
 	TTAudioObject	*functionUnit;
 	bool			valid;				// true if the functionUnit can be used
+	TTHashPtr		parameterNames;		// cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
 } t_map;
 
 
@@ -111,7 +112,8 @@ void *map_new(t_symbol *name, long argc, t_atom *argv)
 	t_map *obj;									// Declare an object (based on our struct)
 
 	obj = (t_map *)object_alloc(map_class);		// Create object, store pointer to it (get 1 inlet free)
-	if(obj){
+	if (obj) {
+		obj->parameterNames = new TTHash;
 		object_obex_store((void *)obj, _sym_dumpout, (object *)outlet_new(obj,NULL));
 	    obj->outlet = outlet_new(obj, 0);
 		obj->attr_function = _sym_nothing;
@@ -124,7 +126,7 @@ void *map_new(t_symbol *name, long argc, t_atom *argv)
 		attr_args_process(obj, argc, argv);
 		map_scaleInput(obj);
 		map_scaleOutput(obj);
-		if(!obj->functionUnit)
+		if (!obj->functionUnit)
 			object_attr_setsym(obj, gensym("function"), gensym("linear"));
 	}
 	return obj;										// Return pointer to our instance
@@ -133,8 +135,9 @@ void *map_new(t_symbol *name, long argc, t_atom *argv)
 
 void map_free(t_map *obj)
 {
-	if(obj->functionUnit)
+	if (obj->functionUnit)
 		delete obj->functionUnit;
+	delete obj->parameterNames;
 }
 
 
@@ -144,10 +147,10 @@ void map_free(t_map *obj)
 // Method for Assistance Messages
 void map_assist(t_map *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 							// Inlets
+	if (msg==1) 							// Inlets
 		strcpy(dst, "x");
-	else if(msg==2){ 					// Outlets
-		switch(arg){
+	else if (msg==2) { 					// Outlets
+		switch(arg) {
 			case 0: strcpy(dst, "y=f(x)"); break;
 			default: strcpy(dst, "dumpout"); break;
  		}
@@ -165,7 +168,7 @@ void map_float(t_map *obj, double x)
 {
 	double y;
 	
-	if(obj->valid){
+	if (obj->valid) {
 		//y = obj->c * obj->functionUnit->map(obj->a * x + obj->b) + obj->d;
 		obj->functionUnit->calculate(obj->a * x + obj->b, y);
 		y = obj->c * y + obj->d;
@@ -176,7 +179,7 @@ void map_float(t_map *obj, double x)
 
 void map_list(t_map* obj, SymbolPtr message, AtomCount argc, AtomPtr argv)
 {	
-	if(obj->valid){
+	if (obj->valid) {
 		TTValue		v;
 		TTValue		ret;
 		double		x, y;
@@ -184,7 +187,7 @@ void map_list(t_map* obj, SymbolPtr message, AtomCount argc, AtomPtr argv)
 		AtomPtr		av = NULL;
 
 		v.clear();
-		for(int i=0; i<argc; i++){
+		for (int i=0; i<argc; i++) {
 			x = atom_getfloat(argv+i);
 			v.append(obj->a * x + obj->b);
 		}
@@ -193,7 +196,7 @@ void map_list(t_map* obj, SymbolPtr message, AtomCount argc, AtomPtr argv)
 		
 		ac = ret.getSize();
 		av = new Atom[ac];
-		for(int i=0; i<ac; i++){
+		for (int i=0; i<ac; i++) {
 			ret.get(i, y);
 			y = obj->c * y + obj->d;
 			atom_setfloat(av+i, y);
@@ -220,7 +223,7 @@ void map_getFunctions(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	numFunctions = functionNames.getSize();
 
 	atom_setsym(a+0, gensym("append"));
-	for(i=0; i<numFunctions; i++){
+	for (i=0; i<numFunctions; i++) {
 		functionNames.get(i, &aName);
 		atom_setsym(a+1, gensym((char*)aName->getCString()));
 		object_obex_dumpout(obj, gensym("functions"), 2, a);
@@ -237,27 +240,31 @@ void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	int			i;
 	TTSymbol*	tempSymbol;
 	double		tempValue;
+	TTValue		v;
 	
-	if(!argc){
+	if (!argc) {
 		error("jcom.map: not enough arguments to parameter.get");
 		return;
 	}
 	
+	// get the correct TT name for the parameter given the Max name
 	parameterName = TT(atom_getsym(argv)->s_name);
+	obj->parameterNames->lookup(parameterName, v);
+	v.get(0, &parameterName);
+	
 	obj->functionUnit->getAttributeValue(parameterName, parameterValue);
 	numValues = parameterValue.getSize();
-
-	if(numValues){
+	if (numValues) {
 		a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
 		// First list item is name of parameter
 		atom_setsym(a, gensym((char*)parameterName->getCString()));
 		// Next the whole shebang is copied
-		for(i=0; i<numValues; i++){
-			if(parameterValue.getType(i) == kTypeSymbol){
+		for (i=0; i<numValues; i++) {
+			if (parameterValue.getType(i) == kTypeSymbol) {
 				parameterValue.get(i, &tempSymbol);
 				atom_setsym(a+i+1, gensym((char*)tempSymbol->getCString()));
 			}
-			else{
+			else {
 				parameterValue.get(i, tempValue);
 				atom_setfloat(a+i+1, tempValue);
 			}
@@ -279,14 +286,12 @@ void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *arg
 	atom_setsym(a+0, gensym("clear"));
 	object_obex_dumpout(obj, gensym("function.parameters"), 1, a);
 
-	obj->functionUnit->getAttributeNames(names);
+	obj->parameterNames->getKeys(names);
 	n = names.getSize();
-	if(n){
-		for(int i=0; i<n; i++){
+	if (n) {
+		for (int i=0; i<n; i++) {
 			atom_setsym(a+0, gensym("append"));
 			names.get(i, &aName);
-			if(aName == TT("processInPlace") || aName == TT("bypass") || aName == TT("mute") || aName == TT("maxNumChannels") || aName == TT("sr"))
-				continue;	// don't publish these parameters
 			atom_setsym(a+1, gensym((char*)aName->getCString()));
 			object_obex_dumpout(obj, gensym("function.parameters"), 2, a);
 		}
@@ -302,16 +307,21 @@ void map_setParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 {
 	TTSymbol*	parameterName;
 	TTValue		newValue;
+	TTValue		v;
 	int			i;
 	
-	if(argc < 2){
+	if (argc < 2) {
 		error("jcom.map: not enough arguments to setParameter");
 		return;
 	}
 	
+	// get the correct TT name for the parameter given the Max name
 	parameterName = TT(atom_getsym(argv)->s_name);
-	for(i=1; i<=(argc-1); i++){
-		if(argv[i].a_type == A_SYM)
+	obj->parameterNames->lookup(parameterName, v);
+	v.get(0, &parameterName);
+	
+	for (i=1; i<=(argc-1); i++) {
+		if (argv[i].a_type == A_SYM)
 			newValue.append(TT(atom_getsym(argv+1)->s_name));
 		else
 			newValue.append(atom_getfloat(argv+i));
@@ -325,6 +335,31 @@ void map_doSetFunction(t_map *obj, t_symbol *newFunctionName)
 {
 	obj->attr_function = newFunctionName;
 	FunctionLib::createUnit(TT(obj->attr_function->s_name), (TTObject **)&obj->functionUnit);
+
+	if (obj->functionUnit) {
+		long		n;
+		TTValue		names;
+		TTSymbol*	aName;
+		TTString	nameString;
+		
+		obj->parameterNames->clear();
+		obj->functionUnit->getAttributeNames(names);
+		n = names.getSize();
+		for (int i=0; i<n; i++) {
+			names.get(i, &aName);
+			nameString = aName->getString();
+			
+			if (aName == TT("Bypass") || aName == TT("Mute") || aName == TT("MaxNumChannels") || aName == TT("SampleRate"))
+				continue;										// don't publish these parameters
+
+			if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
+				nameString[0] += 32;							// convert first letter to lower-case for Max
+
+				TTValuePtr v = new TTValue(aName);
+				obj->parameterNames->append(TT(nameString.c_str()), *v);
+			}
+		}
+	}
 	obj->valid = true;
 }
 

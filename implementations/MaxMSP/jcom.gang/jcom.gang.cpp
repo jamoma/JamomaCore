@@ -76,10 +76,10 @@ void *gang_new(t_symbol *msg, long argc, t_atom *argv)
 	short i;
 	 
 	x = (t_gang *)object_alloc(gang_class);
-	if(x){
+	if (x) {
 		// outlets
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	
-		for(i = NUM_OUTLETS-1; i>=0; i--)
+		for (i = NUM_OUTLETS-1; i>=0; i--)
     		x->outlets[i] = floatout(x);
     	
 		// Create Inlets (inlets beyond the default (num 0) inlet)
@@ -122,16 +122,16 @@ void gang_free(t_gang *x)
 // Method for Assistance Messages
 void gang_assist(t_gang *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1){ 		// Inlets
-		switch(arg){
+	if (msg==1) { 		// Inlets
+		switch(arg) {
 			case 0: strcpy(dst, "connect to ui object"); break;
 			case 1: strcpy(dst, "connect to pp"); break;
 			case 2: strcpy(dst, "aux object 1"); break;
 			case 3: strcpy(dst, "aux object 2"); break;
 		}
 	}
-	else if(msg==2){ 	// Outlets
-		switch(arg){
+	else if (msg==2) { 	// Outlets
+		switch(arg) {
 			case 0: strcpy(dst, "connect to ui object"); break;
 			case 1: strcpy(dst, "connect to pp"); break;
 			case 2: strcpy(dst, "aux object 1"); break;
@@ -154,12 +154,12 @@ void gang_float(t_gang *x, double value)
 {
 	long inletnum = proxy_getinlet((object *)x);
 	
-	if(value == x->parameter_value) return;
+	if (value == x->parameter_value) return;
 	//x->parameter_value = value;
 	x->parameter_value = gang_bitsafe(value);
 	x->type_is_list = false;
 
-	switch(inletnum){
+	switch(inletnum) {
 		case 0:			// UI Input
 			qelem_set(x->qelem_send_pp);
 			qelem_set(x->qelem_send_pattr);
@@ -193,28 +193,28 @@ void gang_list(t_gang *x, t_symbol *msg, long argc, t_atom *argv)
 	short i,n;
 	Atom *ap;
 	
-//	if(x->set_by_pp == false) return;	// this has already been set by pp, which takes precedance
+//	if (x->set_by_pp == false) return;	// this has already been set by pp, which takes precedance
 	
 	n = MIN(MAX_LIST_LENGTH, argc);
 	ap = x->argv;
 	x->type_is_list = true;
 
 	// check to see if the list has changed
-	for(i=0; i<n; i++){
-		if(atom_getfloat(ap+i) != atom_getfloat(argv+i)) goto process;
+	for (i=0; i<n; i++) {
+		if (atom_getfloat(ap+i) != atom_getfloat(argv+i)) goto process;
 	}
 	return;
 	
 process:
 	// copy input to our private copy
-	for(i=0; i < n; i++, argv++, ap++){
+	for (i=0; i < n; i++, argv++, ap++) {
 //		*ap = *argv;
 		atom_setfloat(ap, gang_bitsafe(atom_getfloat(argv)));
 
 	}
 	x->argc = n;
 
-	switch(inletnum){
+	switch(inletnum) {
 		case 0:			// UI Input
 			qelem_set(x->qelem_send_pp);
 			qelem_set(x->qelem_send_pattr);
@@ -242,10 +242,10 @@ process:
 // METHOD: Queue Function
 void gang_qfn_send_ui(t_gang *x)
 {	
-	if(x->type_is_list)
+	if (x->type_is_list)
 		outlet_list(x->outlets[0], _sym_list, x->argc, x->argv);
-	else{
-		if(x->set_by_pp) 	outlet_float(x->outlets[0], x->parameter_value_pp);
+	else {
+		if (x->set_by_pp) 	outlet_float(x->outlets[0], x->parameter_value_pp);
 		else 				outlet_float(x->outlets[0], x->parameter_value);
 	}
 	x->set_by_pp = false;
@@ -254,10 +254,10 @@ void gang_qfn_send_ui(t_gang *x)
 // METHOD: Queue Function
 void gang_qfn_send_pp(t_gang *x)
 {	
-	if(x->type_is_list)
+	if (x->type_is_list)
 		outlet_list(x->outlets[1], _sym_list, x->argc, x->argv);
-	else{
-		if(x->set_by_pp) 	outlet_float(x->outlets[1], x->parameter_value_pp);
+	else {
+		if (x->set_by_pp) 	outlet_float(x->outlets[1], x->parameter_value_pp);
 		else 				outlet_float(x->outlets[1], x->parameter_value);
 	}
 	x->set_by_pp = false;
@@ -266,10 +266,10 @@ void gang_qfn_send_pp(t_gang *x)
 // METHOD: Queue Function
 void gang_qfn_send_pattr(t_gang *x)
 {	
-	if(x->type_is_list)
+	if (x->type_is_list)
 		outlet_list(x->outlets[2], _sym_list, x->argc, x->argv);
-	else{
-		if(x->set_by_pp) 	outlet_float(x->outlets[2], x->parameter_value_pp);
+	else {
+		if (x->set_by_pp) 	outlet_float(x->outlets[2], x->parameter_value_pp);
 		else 				outlet_float(x->outlets[2], x->parameter_value);
 	}
 	x->set_by_pp = false;
@@ -278,10 +278,10 @@ void gang_qfn_send_pattr(t_gang *x)
 // METHOD: Queue Function
 void gang_qfn_send_scope(t_gang *x)
 {	
-	if(x->type_is_list)
+	if (x->type_is_list)
 		outlet_list(x->outlets[3], _sym_list, x->argc, x->argv);
-	else{
-		if(x->set_by_pp) 	outlet_float(x->outlets[3], x->parameter_value_pp);
+	else {
+		if (x->set_by_pp) 	outlet_float(x->outlets[3], x->parameter_value_pp);
 		else 				outlet_float(x->outlets[3], x->parameter_value);
 	}
 	x->set_by_pp = false;
@@ -292,7 +292,7 @@ void gang_qfn_send_scope(t_gang *x)
 float gang_bitsafe(double in)
 {
 	double temp = in;
-	if(temp != in)	// nan does not equal itself
+	if (temp != in)	// nan does not equal itself
 		temp = 0;
 	return(temp);
 }

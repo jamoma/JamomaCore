@@ -152,7 +152,7 @@ void nmspc_free(t_nmspc *x)
 		if(x->attr_operation != x->op_getInstances)
 			jamoma_directory_observer_remove(x->attr_address, x->life_observer);
 		else{
-			x->tempNode->getOscAddress(&tempAdrs);
+			//x->tempNode->getOscAddress(&tempAdrs);
 			; // not sure...
 		}
 }

@@ -56,7 +56,7 @@ void SchedulerRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time
 	stepsize = 1.0 / numgrains;
 
 	setNumValues(inNumValues);
-	for(i=0; i<numValues; i++){
+	for (i=0; i<numValues; i++) {
 		targetValue[i] = inValues[i];
 		startValue[i] = currentValue[i];
 	}
@@ -81,17 +81,17 @@ void SchedulerRamp::tick()
 	double			*target = targetValue;
 	double			*start = startValue;
 
-	if(functionUnit && isRunning){
+	if (functionUnit && isRunning) {
 		// 1. go to the the next step in our ramp
 		numgrains--;
-		if(numgrains == 0){
-			for(i=0; i < numValues; i++)
+		if (numgrains == 0) {
+			for (i=0; i < numValues; i++)
 				currentValue[i] = targetValue[i];
 		}
-		else{
+		else {
 			normalizedValue += stepsize;
 			functionUnit->calculate(normalizedValue, mapped);
-			for(i=0; i < numValues; i++)
+			for (i=0; i < numValues; i++)
 				current[i] = start[i] + ((target[i] - start[i]) * mapped);
 		}
 		
@@ -99,7 +99,7 @@ void SchedulerRamp::tick()
 		(callback)(baton, numValues, currentValue);
 
 		// 3. set the clock to fire again
-		if(numgrains)
+		if (numgrains)
 			setclock_fdelay(NULL, clock, attrGranularity);
 		else
 			isRunning = false;

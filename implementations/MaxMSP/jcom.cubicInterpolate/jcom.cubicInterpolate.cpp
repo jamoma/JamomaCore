@@ -81,7 +81,7 @@ void *cubic_interpolate_new(t_symbol *msg, long argc, t_atom *argv)
 	
 	x = (t_cubic_interp *)object_alloc(this_class);	// create the new instance and return a pointer to it
 	
-	if(x){
+	if (x) {
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
 		x->outlet2 = bangout(x);					// create 2nd outlet. Used to ask for new value
 		x->outlet = floatout(x);					// create the outlet
@@ -186,7 +186,7 @@ void cubic_interpolate_clear(t_cubic_interp *x)
 // Method for Assistance Messages
 void cubic_interpolate_assist(t_cubic_interp *x, void *b, long msg, long arg, char *dst)	// Display assistance messages
 {
-	if(msg==1)
+	if (msg==1)
 	{ 
 		switch(arg)
 		{
@@ -194,7 +194,7 @@ void cubic_interpolate_assist(t_cubic_interp *x, void *b, long msg, long arg, ch
 			break;	
 		}
 	}
-	else if(msg==2)
+	else if (msg==2)
 	{
 		switch(arg)
 		{

@@ -91,7 +91,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 void *route_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_route	*x = (t_route *)object_alloc(route_class);
-	if(x){
+	if (x) {
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
 			
 		// Create Outlets
@@ -118,10 +118,10 @@ void *route_new(t_symbol *s, long argc, t_atom *argv)
 // Method for Assistance Messages
 void route_assist(t_route *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 						// Inlet
+	if (msg==1) 						// Inlet
 		strcpy(dst, "Input");
-	else if(msg==2){ 				// Outlets
-		switch(arg){
+	else if (msg==2) { 				// Outlets
+		switch(arg) {
 			case 0: strcpy(dst, "Matching Output"); break;
 			case 1: strcpy(dst, "Unmatching Output"); break;
 			case 2: strcpy(dst, "Dumpout"); break;
@@ -137,7 +137,7 @@ void route_bang(t_route *x)
 	char		newstring[500];
 	
 	newstring[0] = 0;
-	for(i=0; i< (x->searchlistlen); i++){
+	for (i=0; i< (x->searchlistlen); i++) {
 		strcat(newstring, x->searchlist[i]->s_name);
 		strcat(newstring, " ");
 	}
@@ -155,15 +155,15 @@ char find_match(t_route *x, t_symbol *input, short position)
 	char matched = 0;
 	short len;
 	
-	for(i=0; i<MAX_LIST_LENGTH ;i++){
+	for (i=0; i<MAX_LIST_LENGTH ;i++) {
 		matched += (x->searchpositions[i] == position);
 	}
 	
-	if(matched > 0){
-		if(x->partialmatch){
+	if (matched > 0) {
+		if (x->partialmatch) {
 			len = strlen(x->searchsymbol->s_name);
-			for(i=0; i<len; i++){
-				if(input->s_name[i] != x->searchsymbol->s_name[i])
+			for (i=0; i<len; i++) {
+				if (input->s_name[i] != x->searchsymbol->s_name[i])
 					return 0;
 			}
 			return 1;
@@ -191,8 +191,8 @@ void route_symbol(t_route *x, t_symbol *msg, long argc, t_atom *argv)
 	matched += find_match(x, msg, 1);
 	
 	// match the arguments
-	for(i=0; i<argc; i++){
-		switch(argv[i].a_type){
+	for (i=0; i<argc; i++) {
+		switch(argv[i].a_type) {
 			case A_LONG:
 				snprintf(tempstring, 50, "%ld", argv[i].a_w.w_long);
 				tempsym = gensym(tempstring);
@@ -209,7 +209,7 @@ void route_symbol(t_route *x, t_symbol *msg, long argc, t_atom *argv)
 	}
 
 	// Output
-	if(matched > 0)
+	if (matched > 0)
 		outlet_anything(x->my_outlet[0], msg, argc , argv);
 	else
 		outlet_anything(x->my_outlet[1], msg, argc, argv);		
@@ -229,8 +229,8 @@ void route_list(t_route *x, t_symbol *msg, long argc, t_atom *argv)
 	matched = 0;
 	
 	// match the arguments
-	for(i=0; i<argc; i++){
-		switch(argv[i].a_type){
+	for (i=0; i<argc; i++) {
+		switch(argv[i].a_type) {
 			case A_LONG:
 				snprintf(tempstring, 50, "%ld", argv[i].a_w.w_long);
 				tempsym = gensym(tempstring);
@@ -247,7 +247,7 @@ void route_list(t_route *x, t_symbol *msg, long argc, t_atom *argv)
 	}
 
 	// Output
-	if(matched > 0)
+	if (matched > 0)
 		outlet_anything(x->my_outlet[0], msg, argc , argv);
 	else
 		outlet_anything(x->my_outlet[1], msg, argc, argv);		

@@ -94,7 +94,7 @@ void *stats_new(t_symbol *s, long argc, t_atom *argv)
 	
 	
 	x = (t_stats *)object_alloc(this_class);	// create the new instance and return a pointer to it
-	if(x){
+	if (x) {
 		// Create outlets
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout		
 		x->outlet5 = floatout(x);				// 5th outlet: standard deviation
@@ -310,10 +310,10 @@ void stats_clear(t_stats *x)
 // Method for Assistance Messages
 void stats_assist(t_stats *x, void *b, long msg, long arg, char *dst)	// Display assistance messages
 {
-	if(msg==1){ 
+	if (msg==1) { 
 		strcpy(dst, "(int/float) function value");
 	}
-	else if(msg==2){
+	else if (msg==2) {
 		if (arg==0)
 			strcpy(dst, "(int) counter");
 		else if (arg==1)

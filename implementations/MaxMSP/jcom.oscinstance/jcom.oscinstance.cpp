@@ -76,7 +76,7 @@ void *oscinstance_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_oscinstance	*x = (t_oscinstance *)object_alloc(oscinstance_class);
 	
-	if(x){
+	if (x) {
 		x->outlet_overflow = outlet_new(x, 0);		// overflow outlet
 		object_obex_store((void *)x, _sym_dumpout, (object *)x->outlet_overflow);	// dumpout
 		x->outlet2 = outlet_new(x, 0);				// Create Outlet
@@ -93,10 +93,10 @@ void *oscinstance_new(t_symbol *s, long argc, t_atom *argv)
 // Method for Assistance Messages
 void oscinstance_assist(t_oscinstance *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 						// Inlet
+	if (msg==1) 						// Inlet
 		strcpy(dst, "Input");
-	else if(msg==2){ 				// Outlets
-		if(arg == 0)
+	else if (msg==2) { 				// Outlets
+		if (arg == 0)
 			strcpy(dst, "OSC message with instance info stripped");
 		else if (arg == 1)
 		 	strcpy(dst, "OSC instance number or ID");
@@ -144,7 +144,7 @@ void oscinstance_symbol(t_oscinstance *x, t_symbol *msg, long argc, t_atom *argv
 	strcpy(input, msg->s_name);
 	
 	// This object only deals with OSC messages
-	if(!(*input2 == '/')) {
+	if (!(*input2 == '/')) {
 		goto spillover;
 	}
 	input2++;								// jump past the leading slash

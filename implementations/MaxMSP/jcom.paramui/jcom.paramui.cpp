@@ -35,13 +35,13 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 common_symbols_init();
 	jamoma_getDataspaceList(&numDataspaces, &dataspaceNames);
 	dataspaces[0] = 0;
-	for(i=0; i<numDataspaces; i++){
+	for (i=0; i<numDataspaces; i++) {
 		strcat(dataspaces, dataspaceNames[i]->s_name);
 		strcat(dataspaces, " ");
 	}
 	FunctionLib::getUnitNames(functionNames);
 	functions[0] = 0;
-	for(i=0; i<functionNames.getSize(); i++){
+	for (i=0; i<functionNames.getSize(); i++) {
 		functionNames.get(i, &functionName);
 		strcat(functions, functionName->getCString());	
 		strcat(functions, " ");
@@ -196,10 +196,10 @@ t_paramui* paramui_new(t_symbol *s, long argc, t_atom *argv)
 	long			argLen;
 	//t_max_err		err = MAX_ERR_NONE;
 
-	if(!(d=object_dictionaryarg(argc, argv)))
+	if (!(d=object_dictionaryarg(argc, argv)))
 		return NULL;	
 
-	if(x = (t_paramui*)object_alloc(s_ui_class)){
+	if (x = (t_paramui*)object_alloc(s_ui_class)) {
 		flags = 0 
 				| JBOX_DRAWFIRSTIN
 				| JBOX_NODRAWBOX
@@ -263,7 +263,7 @@ t_paramui* paramui_new(t_symbol *s, long argc, t_atom *argv)
 		atom_setsym(a+25, x->attr_unitActive);
 		atom_setsym(a+26, gensym("@dataspace/unit/native"));
 		atom_setsym(a+27, x->attr_unitNative);
-		if(x->attr_defaultSize){
+		if (x->attr_defaultSize) {
 			atom_setsym(a+28, gensym("@value/default"));
 			sysmem_copyptr(x->attr_default, a+29, sizeof(t_atom) * x->attr_defaultSize);
 			argLen = 29 + x->attr_defaultSize;
@@ -285,9 +285,9 @@ void paramui_free(t_paramui *x)
 	x->menu_qelem = NULL;
 	object_free(x->menu_items);
 	object_detach_byptr(x, x->obj_parameter);
-	if(x->layout_value)
+	if (x->layout_value)
 		jtextlayout_destroy(x->layout_value);
-	if(x->layout_unit)
+	if (x->layout_unit)
 		jtextlayout_destroy(x->layout_unit);
 	object_free(x->obj_parameter);
 }
@@ -298,22 +298,22 @@ void paramui_free(t_paramui *x)
 
 t_max_err paramui_notify(t_paramui *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
-	if(msg == _sym_modified)
+	if (msg == _sym_modified)
 		jbox_redraw(&x->box);	
-	else if((msg == _sym_attr_modified) && (sender == x)){
+	else if ((msg == _sym_attr_modified) && (sender == x)) {
 		t_object	*textfield;
 		t_symbol	*attrname;
 
 		attrname = (t_symbol *)object_method((t_object *)data, gensym("getname"));
 		
-		if(attrname == _sym_name){
-			if(!x->attr_label || x->attr_label == _sym_nothing){
+		if (attrname == _sym_name) {
+			if (!x->attr_label || x->attr_label == _sym_nothing) {
 				textfield = jbox_get_textfield((t_object*) x); 
 				object_method(textfield, gensym("settext"), x->attr_name->s_name);
 			}
 		}
-		else if(attrname == gensym("label")){
-			if(x->attr_label && x->attr_label != _sym_nothing){
+		else if (attrname == gensym("label")) {
+			if (x->attr_label && x->attr_label != _sym_nothing) {
 				textfield = jbox_get_textfield((t_object*) x); 
 				object_method(textfield, gensym("settext"), x->attr_label->s_name);
 			}
@@ -374,7 +374,7 @@ void paramui_paint(t_paramui *x, t_object *view)
 	jgraphics_fill(g);
 
 
-	if(x->attr_dataspace != jps_none) {
+	if (x->attr_dataspace != jps_none) {
 		char data[64];	
 	
 		strncpy(data, x->attr_unitActive->s_name, 64);
@@ -409,14 +409,14 @@ void paramui_paint(t_paramui *x, t_object *view)
 		t_atom	*av = NULL;
 		long	ac = 0;
 
-		if(x->obj_parameter){
+		if (x->obj_parameter) {
 			object_attr_getvalueof(x->obj_parameter, gensym("value"), &ac, &av);
-			if(ac){
-				if(x->attr_type == jps_decimal)
+			if (ac) {
+				if (x->attr_type == jps_decimal)
 					snprintf(data, 256, "%.4f", atom_getfloat(av));
-				else if(x->attr_type == jps_integer || x->attr_type == jps_boolean)
+				else if (x->attr_type == jps_integer || x->attr_type == jps_boolean)
 					snprintf(data, 256, "%ld", atom_getlong(av));
-				else if(x->attr_type == jps_string)
+				else if (x->attr_type == jps_string)
 					strcpy(data, atom_getsym(av)->s_name);
 				
 				jtextlayout_settextcolor(x->layout_value, &s_light_gray);
@@ -454,7 +454,7 @@ void paramui_mousedown(t_paramui *x, t_object *patcherview, t_pt px, long modifi
 	t_rect rect;
 	
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect); 
-	if(px.x < 14)
+	if (px.x < 14)
 		paramui_menu_do(x, patcherview, px, modifiers);
 }
 
@@ -496,9 +496,9 @@ void paramui_menu_do(t_paramui *x, t_object *patcherview, t_pt px, long modifier
 	jpopupmenu_setfont(p, font);
 	jfont_destroy(font);
 	size = linklist_getsize(x->menu_items);
-	for(i=0; i<size; i++){
+	for (i=0; i<size; i++) {
 		item = (t_symobject *)linklist_getindex(x->menu_items, i);
-		if(!item->sym || (item->sym->s_name[0] == '\0') || item->sym->s_name[0] == '-')//{
+		if (!item->sym || (item->sym->s_name[0] == '\0') || item->sym->s_name[0] == '-')//{
 			jpopupmenu_addseperator(p);
 		else
 			jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
@@ -510,7 +510,7 @@ void paramui_menu_do(t_paramui *x, t_object *patcherview, t_pt px, long modifier
 	pt.x = coord_x;
 	pt.y = coord_y;
 	selectedId = jpopupmenu_popup_nearbox(p, (t_object*)x, patcherview, x->menu_selection+1); 
-	if(selectedId){
+	if (selectedId) {
 		x->menu_selection = selectedId -1;
 		qelem_set(x->menu_qelem);
 	}
@@ -523,7 +523,7 @@ void paramui_menu_qfn(t_paramui *x)
 {
 	t_symobject *item = (t_symobject *)linklist_getindex(x->menu_items, x->menu_selection);
 	
-	if(item->sym == gensym("Set Parameter to Default Value"))
+	if (item->sym == gensym("Set Parameter to Default Value"))
 		object_method(x->obj_parameter, gensym("reset"));
 }
 
@@ -532,7 +532,7 @@ void paramui_menu_build(t_paramui *x)
 {
 	t_symobject	*item = NULL;
 	
-	if(!x->menu_items)
+	if (!x->menu_items)
 		return;
 
 	linklist_clear(x->menu_items);

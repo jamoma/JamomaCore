@@ -145,12 +145,12 @@ public:
 		atom_setsym(a+(i++), gensym(ramptype));
 		atom_setsym(a+(i++), gensym("@description"));
 		atom_setsym(a+(i++), gensym(description));
-		if(rangebounds){
+		if (rangebounds) {
 			atom_setsym(a+(i++), gensym("@range/bounds"));
 			atom_setfloat(a+(i++), rangebounds[0]);	
 			atom_setfloat(a+(i++), rangebounds[1]);	
 		}	
-		if(dataspace && nativeUnit && activeUnit){
+		if (dataspace && nativeUnit && activeUnit) {
 			atom_setsym(a+(i++), gensym("@dataspace"));
 			atom_setsym(a+(i++), gensym(dataspace));
 			atom_setsym(a+(i++), gensym("@dataspace/unit/native"));
@@ -163,31 +163,31 @@ public:
 	
 	~uiInternalObject()
 	{
-		if(theObject)
+		if (theObject)
 			object_free(theObject);
 	}
 	
 	void setAction(method aCallback, t_object *aCallbackArg)
 	{
-		if(theObject)
+		if (theObject)
 			object_method(theObject, gensym("setcallback"), aCallback, aCallbackArg);
 	}
 	
 	void setName(char* newName)
 	{
-		if(theObject)
+		if (theObject)
 			object_attr_setsym(theObject, _sym_name, gensym(newName));
 	}
 	
 	void setReadonly(bool value)
 	{
-		if(theObject)
+		if (theObject)
 			object_attr_setlong(theObject, _sym_readonly, value);
 	}
 
 	void setValue(AtomCount ac, AtomPtr av)
 	{
-		if(theObject)
+		if (theObject)
 			object_attr_setvalueof(theObject, _sym_value, ac, av);
 	}
 };

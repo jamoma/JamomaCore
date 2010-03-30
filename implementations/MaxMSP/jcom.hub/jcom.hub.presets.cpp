@@ -43,24 +43,24 @@ void hub_preset_copy(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// number
 {
 	presetList		*preset = x->preset;
 	
-	if(argc < 1){
+	if (argc < 1) {
 		object_error((t_object*)x, "%s module: preset.recall requires a valid argument", x->attr_name);
 		return;
 	}
 	
 	presetListIterator pIter;
 	bool found = false;
-	if(argv->a_type == A_SYM) {
-		for(pIter = preset->begin(); pIter != preset->end(); ++pIter) {
-			if((*pIter)->name == argv->a_w.w_sym) {
+	if (argv->a_type == A_SYM) {
+		for (pIter = preset->begin(); pIter != preset->end(); ++pIter) {
+			if ((*pIter)->name == argv->a_w.w_sym) {
 				found = true;
 				break;
 			}
 		}
 	} else {
 		long presetNum = atom_getlong(argv);
-		for(pIter = preset->begin(); pIter != preset->end(); ++pIter) {
-			if((*pIter)->number == presetNum) {
+		for (pIter = preset->begin(); pIter != preset->end(); ++pIter) {
+			if ((*pIter)->number == presetNum) {
 				found = true;
 				break;
 			}
@@ -68,10 +68,10 @@ void hub_preset_copy(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// number
 	}
 	
 	t_symbol* presetsName = NULL;
-	if(found) {
+	if (found) {
 		t_preset *presetCopy = (t_preset*)sysmem_newptr((sizeof(t_preset)));
 		// Get name to use for the newly created preset
-		if(argc > 1) 
+		if (argc > 1) 
 			presetsName = atom_getsym(argv+1);
 		else 
  			presetsName = symbol_unique();  // make one up
@@ -100,7 +100,7 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// numb
 	short			num_items_recalled = 0;
 	short			i;
 	
-	if(argc < 1){
+	if (argc < 1) {
 		object_error((t_object*)x, "%s module: preset.recall requires a valid argument", x->attr_name);
 		return;
 	}
@@ -108,30 +108,30 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// numb
 	presetListIterator pIter;
 	critical_enter(0);	
 	// Search the linked list of presets for the specified preset by name
-	if(argv->a_type == A_SYM){
-		for(pIter = preset->begin(); pIter != preset->end(); ++pIter) {
-			if((*pIter)->name == argv->a_w.w_sym) {
+	if (argv->a_type == A_SYM) {
+		for (pIter = preset->begin(); pIter != preset->end(); ++pIter) {
+			if ((*pIter)->name == argv->a_w.w_sym) {
 				found = true;
 				break;
 			}
-			//pIter = preset->find_if(preset->begin(), preset->end(), presetByName);
+			//pIter = preset->find_if (preset->begin(), preset->end(), presetByName);
 			//found = pIter != preset->end() ? true : false;
 		}
 	}
-	else{
+	else {
 		long preset_num = atom_getlong(argv);
-		for(pIter = preset->begin(); pIter != preset->end(); ++pIter) {
-			if((*pIter)->number == preset_num) {
+		for (pIter = preset->begin(); pIter != preset->end(); ++pIter) {
+			if ((*pIter)->number == preset_num) {
 				found = true;
 				break;
 			}
-			//pIter = preset->find_if(pIter, preset->end(), presetByNumber);
+			//pIter = preset->find_if (pIter, preset->end(), presetByNumber);
 			//found = pIter != preset->end() ? true : false;
 		}
 	}
 	
-	if(!found){
-		if(x->attr_name != gensym("/editing_this_module"))
+	if (!found) {
+		if (x->attr_name != gensym("/editing_this_module"))
 			object_error((t_object*)x, "%s module: preset.recall - invalid preset specified", x->attr_name->s_name);
 		critical_exit(0);
 		return;
@@ -144,18 +144,18 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// numb
 	// Now take our preset items and send them out!
 	item = (*pIter)->item;
 	presetItemListIterator itemIterator;
-	for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
-		if((*itemIterator)->priority)
+	for (itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
+		if ((*itemIterator)->priority)
 			num_items_with_priority++;
 	}
 
 	t_preset_item *presetItem;
-	if(num_items_with_priority > 0){
+	if (num_items_with_priority > 0) {
 		i=1;
-		while(num_items_with_priority > num_items_recalled){
-			for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
+		while (num_items_with_priority > num_items_recalled) {
+			for (itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
 				presetItem = *itemIterator;
-				if(presetItem->priority == i) {
+				if (presetItem->priority == i) {
 					hub_symbol(x, presetItem->param_name, presetItem->list_size,
 						&(presetItem->value_list[0]));
 					num_items_recalled++;
@@ -164,16 +164,16 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// numb
 			i++;
 		}
 		// Recall items with priority 0 now
-		for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
+		for (itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
 			presetItem = *itemIterator;
-			if(presetItem->priority == 0)
+			if (presetItem->priority == 0)
 				hub_symbol(x, presetItem->param_name, presetItem->list_size, &(presetItem->value_list[0]));
 		}		
 	}
-	else{
-		for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
+	else {
+		for (itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
 			presetItem = *itemIterator;
-			if(presetItem->priority == 0)
+			if (presetItem->priority == 0)
 				hub_symbol(x, presetItem->param_name, presetItem->list_size, &(presetItem->value_list[0]));
 		}
 	}
@@ -187,9 +187,9 @@ t_preset* find_preset(presetList *presetll, t_symbol* name)
 	t_preset* p;
 	//presetList *presetll = x->preset;
 		
-	for(pIter = presetll->begin(); pIter != presetll->end(); ++pIter) {
+	for (pIter = presetll->begin(); pIter != presetll->end(); ++pIter) {
 		p = *pIter;
-		if(p->name == name)
+		if (p->name == name)
 			return p;
 	}
 	
@@ -206,17 +206,17 @@ void interpolate_presets(t_hub *x, t_preset *p1, t_preset *p2, float position)
 	bool found = false;
 	
 	presetItemListIterator i1, i2;
-	for(i1 = itemOneList->begin(), i2 = itemTwoList->begin(); i1 != itemOneList->end() 
+	for (i1 = itemOneList->begin(), i2 = itemTwoList->begin(); i1 != itemOneList->end() 
 		&& i2 != itemTwoList->end(); ++i1, ++i2) {
 		
 		item1 = *i1; item2 = *i2;
 
-		if(item1->param_name != item2->param_name) {
+		if (item1->param_name != item2->param_name) {
 			// parameter names don't match find the parameter
 			found = false;
-			for(i2 = itemTwoList->begin(); i2 != itemTwoList->end(); ++i2) {
+			for (i2 = itemTwoList->begin(); i2 != itemTwoList->end(); ++i2) {
 				item2 = *i2;
-				if(item1->param_name != item2->param_name)
+				if (item1->param_name != item2->param_name)
 					continue;
 				else {
 					found = true;
@@ -229,27 +229,27 @@ void interpolate_presets(t_hub *x, t_preset *p1, t_preset *p2, float position)
 			found = true;
 		
 		// couldn't find parameter, skip it
-		if(!found) {
+		if (!found) {
 			i2 = itemTwoList->begin();
 			continue;
 		}
 		
 		// we can assume item1 and item2 are the same type if they are the same parameter (see above)
-		if(item1->type == jps_integer) {
+		if (item1->type == jps_integer) {
 			val = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
 			atom_setfloat(&newValue[0], val);
-		} else if(item1->type == jps_decimal) {
+		} else if (item1->type == jps_decimal) {
 			val = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
 			atom_setfloat(&newValue[0], val);
-		} else if(item1->type == jps_boolean) {
+		} else if (item1->type == jps_boolean) {
 			val = position <= 0.5 ? atom_getlong(&item1->value) : atom_getlong(&item2->value);
 			atom_setlong(&newValue[0], val);
-		} else if(item1->type == jps_array || item1->type == gensym("list_int") || item1->type == gensym("list_float")) {
-			for(int i = 0; i < item1->list_size; i++) {
+		} else if (item1->type == jps_array || item1->type == gensym("list_int") || item1->type == gensym("list_float")) {
+			for (int i = 0; i < item1->list_size; i++) {
 				val = atom_getfloat(&item1->value_list[i]) * (1. - position) + atom_getfloat(&item2->value_list[i]) * position;
 				atom_setfloat(&newValue[i], val);
 			}
-		} else if(item1->type == jps_string) {
+		} else if (item1->type == jps_string) {
 			atom_setsym(&newValue[0], position <= 0.5 ? atom_getsym(&item1->value) : atom_getsym(&item2->value));
 		}
 		hub_symbol(x, item1->param_name, item1->list_size, &newValue[0]);
@@ -265,7 +265,7 @@ void hub_preset_interpolate(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	t_symbol *p1Name, *p2Name;
 	float position;
 	
-	if(argc < 3) {
+	if (argc < 3) {
 		object_error((t_object*)x, "%s module: interpolation requires three arguments", x->attr_name);
 		return;
 	}
@@ -274,13 +274,13 @@ void hub_preset_interpolate(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	position = atom_getfloat(argv+2);
 	
 	p1 = find_preset(presetll, p1Name);
-	if(!p1) {
+	if (!p1) {
 		object_error((t_object*)x, "can't find preset %s", p1Name);
 		return;
 	}
 	
 	p2 = find_preset(presetll, p2Name);
-	if(!p2) {
+	if (!p2) {
 		object_error((t_object*)x, "can't find preset %s", p1Name);
 		return;
 	}
@@ -300,10 +300,10 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 	t_atom			*av;					// used for return values from attribute queries
 	long			ac;						// ...
 	
-	if(argc < 1 || atom_getsym(argv) == gensym("Store Current Preset")){
+	if (argc < 1 || atom_getsym(argv) == gensym("Store Current Preset")) {
 		// write over the last preset recalled
 			
-		if(preset->empty()) {
+		if (preset->empty()) {
 			object_error((t_object*)x, "%s module: no preset specified active", x->attr_name);
 			return;
 		}
@@ -312,16 +312,16 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 		// Recall the name as well
 		preset_name = (*(preset->begin()))->last_preset_name;
 	} 
-	else{
-		if(argv->a_type != A_LONG){
+	else {
+		if (argv->a_type != A_LONG) {
 			//error("jcom.hub (%s module): first argument must be an int if a name is specified", x->attr_name);
 			preset_num = (*(preset->begin()))->last_preset_num;
 			preset_name = atom_getsym(argv);
 			return;
 		}
-		else{		
+		else {		
 			preset_num = atom_getlong(argv);
-			if(argc > 1)
+			if (argc > 1)
 				preset_name = atom_getsym(argv+1);
 			else
 				preset_name = symbol_unique();
@@ -335,25 +335,25 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 	t_preset* p;
 	/*
 	pIter = preset->begin();
-	if(!preset->empty())
-	   	pIter = preset->find_if(preset->begin(), preset->end(), presetByNumber(*pIter, preset_num));
-	if(pIter != preset->end()) {
+	if (!preset->empty())
+	   	pIter = preset->find_if (preset->begin(), preset->end(), presetByNumber(*pIter, preset_num));
+	if (pIter != preset->end()) {
 	*/
 	critical_enter(0);
 	pIter = preset->begin();
-	while(pIter != preset->end()){
+	while (pIter != preset->end()) {
 		p = *pIter;
-		if(p->number == preset_num) {
+		if (p->number == preset_num) {
 			item = p->item;
 			// Free the parameters this preset contains
-			while(!item->empty()) {
+			while (!item->empty()) {
 				itemIterator = item->begin();
   				sysmem_freeptr(*itemIterator);
 				item->remove(itemIterator);
 			}
 
 			/*
-			for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
+			for (itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
 			sysmem_freeptr(*itemIterator);
 				itemIterator = item->erase(itemIterator);
 			}
@@ -372,7 +372,7 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 	p->number = preset_num;
 	p->name = preset_name;
 	// If there are no presets yet don't mess up the list
-	if(!x->preset->empty()) {
+	if (!x->preset->empty()) {
 		// Store the number of the preset we recalled last in the first preset (the one being recalled now)
 		(*(x->preset->begin()))->last_preset_num = preset_num;
 		// Store the name as well
@@ -385,9 +385,9 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 	subscriber = x->subscriber;
 	subscriberIterator i;
 	t_subscriber* t;
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+	for (i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == jps_subscribe_parameter){
+		if (t->type == jps_subscribe_parameter) {
 			newItem = (t_preset_item *)sysmem_newptr(sizeof(t_preset_item));
 			newItem->param_name = t->name;
 
@@ -409,7 +409,7 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 	}
 				
 	preset->merge(p, presetIsLess);
-	if(x->preset->size() == 1) {
+	if (x->preset->size() == 1) {
 		// If there is only 1 preset it's possible it was the first one added, in which case
 		// we need to ensure that the first preset has the last preset number and name saved as well
 		(*(x->preset->begin()))->last_preset_num = preset_num;
@@ -430,7 +430,7 @@ void hub_preset_store_next(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 
 	//long jdialog_showtext(char *prompt, char *deftext, long flags, char **text);
 	result = jdialog_showtext("Provide a Name for This Preset", buf, 0, &text);
-	if(result != 1)
+	if (result != 1)
 		return;
 	
 	atom_setlong(&b[0], x->preset->size() + 1);
@@ -476,7 +476,7 @@ void hub_preset_default(t_hub *x, t_symbol*, long, t_atom*)
 	atom_setlong(&a, 1);
 
 	err = hub_preset_doread(x, gensym(default_file_name));
-	if(!err){
+	if (!err) {
 		hub_preset_recall(x, _sym_nothing, 1, &a);
 		
 		// Is default preset recalled as part of initialization of module?
@@ -497,7 +497,7 @@ void hub_preset_default(t_hub *x, t_symbol*, long, t_atom*)
 void hub_preset_read(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_symbol *arg_path;
-	if(argc)
+	if (argc)
 		arg_path = atom_getsym(argv);
 	else
 		arg_path = _sym_nothing;
@@ -514,14 +514,14 @@ t_max_err hub_preset_doread(t_hub *x, t_symbol *userpath)
     long			filetype = 'TEXT', outtype;  // the file type that is actually true    
 
 	// FIND THE FILE WE WANT TO READ
-	if(!userpath->s_name[0]){											// Empty string
-		if(open_dialog(filename, &path, &outtype, &filetype, 1))			// Returns 0 if successful
+	if (!userpath->s_name[0]) {											// Empty string
+		if (open_dialog(filename, &path, &outtype, &filetype, 1))			// Returns 0 if successful
 			return MAX_ERR_GENERIC;										// User Cancelled
 	}
-	else{
+	else {
 		strcpy(filename, userpath->s_name);								// Copy symbol argument to a local string
-		if(locatefile_extended(filename, &path, &outtype, &filetype, 1)){	// Returns 0 if successful
-			if(!x->editing)
+		if (locatefile_extended(filename, &path, &outtype, &filetype, 1)) {	// Returns 0 if successful
+			if (!x->editing)
 				object_error((t_object*)x, "%s module: preset file not found", x->attr_name->s_name);
 			return MAX_ERR_GENERIC;										// Not found
 		}
@@ -541,17 +541,17 @@ t_max_err hub_preset_doread(t_hub *x, t_symbol *userpath)
 int coerceType(const char* s)
 {
 	// Is the first char a digit?
-	if(isdigit(s[0])){
+	if (isdigit(s[0])) {
 		// It's not a symbol, so is it an int or a float?
-		if(strchr(s, '.'))  // First char is a digit and s contains a ., consider it a float
+		if (strchr(s, '.'))  // First char is a digit and s contains a ., consider it a float
 			return A_FLOAT;
 		else
 			return A_LONG;  // No decimal point, so treat it as an int
 	}
-	else if(s[0] == '-'){
-		if(strlen(s) > 1){
-			if(isdigit(s[1])){
-				if(strchr(s, '.'))  	// First char is a digit and s contains a ., consider it a float
+	else if (s[0] == '-') {
+		if (strlen(s) > 1) {
+			if (isdigit(s[1])) {
+				if (strchr(s, '.'))  	// First char is a digit and s contains a ., consider it a float
 					return A_FLOAT;
 				else
 					return A_LONG;  	// No decimal point, so treat it as an int				
@@ -583,26 +583,26 @@ void hub_preset_parse(t_hub *x, char *path)
 	LIBXML_TEST_VERSION							// init the library
 
 	// 1. Check the file before we try to use it
-	if(hub_preset_validate(x, path) != 0)
+	if (hub_preset_validate(x, path) != 0)
 		return;
 	
 	// 2. Read and parse the file
 	reader = xmlReaderForFile(path, NULL, 0);
 
-	if(reader != NULL){
+	if (reader != NULL) {
 		hub_presets_clear(x, NULL, 0, NULL);
 		ret = xmlTextReaderRead(reader);
 		
 		presetListIterator pli = presetLL->begin();
 		critical_enter(0);
 
-		while(ret==1){
+		while (ret==1) {
 			element_name = xmlTextReaderConstName(reader);
-			if(element_name == NULL)
+			if (element_name == NULL)
 				return;
 			
-			if(!strcmp((char *)element_name, "preset")){
-				if(xmlTextReaderNodeType(reader) == 1){				// element start
+			if (!strcmp((char *)element_name, "preset")) {
+				if (xmlTextReaderNodeType(reader) == 1) {				// element start
 					number = xmlTextReaderGetAttribute(reader, (xmlChar *)"number");
 					//post("PRESET: %s - %s", (char *)xmlTextReaderGetAttribute(reader, (xmlChar *)"number"), (char *)xmlTextReaderGetAttribute(reader, (xmlChar *)"name"));
 					//sscanf((char *)xmlTextReaderGetAttribute(reader, (xmlChar *)"number"), "%i", &preset_num);
@@ -620,26 +620,26 @@ void hub_preset_parse(t_hub *x, char *path)
 					xmlFree((void *)name);
 					name = NULL;
 				}
-				else if(xmlTextReaderNodeType(reader) == 15){ 		// element close
+				else if (xmlTextReaderNodeType(reader) == 15) { 		// element close
 					//post("PRESET CLOSING: %s", (char *)xmlTextReaderGetAttribute(reader, (xmlChar *)"number"));
 					presetLL->merge(preset, presetIsLess);
 				}
 			}
 
-			if(!strcmp((char *)element_name, "item")){
-				if(xmlTextReaderNodeType(reader) == 1){				// element start
+			if (!strcmp((char *)element_name, "item")) {
+				if (xmlTextReaderNodeType(reader) == 1) {				// element start
 					item_opened = true;
 					//post("   ITEM: %s", (char *)xmlTextReaderGetAttribute(reader, (xmlChar *)"name"));
 					item = (t_preset_item *)sysmem_newptr(sizeof(t_preset_item));
 					name = xmlTextReaderGetAttribute(reader, (xmlChar *)"name");
 					item->param_name = gensym((char *)name);
 					type = xmlTextReaderGetAttribute(reader, (xmlChar *)"type");
-					if(type != NULL)
+					if (type != NULL)
 						item->type = gensym((char *)type);
 					else
 						item->type = jps_generic;
 					priority = xmlTextReaderGetAttribute(reader, (xmlChar *)"priority");
-					if(priority)
+					if (priority)
 						sscanf((char *)priority, "%ld", &item->priority);
 					else
 						item->priority = 0;
@@ -651,26 +651,26 @@ void hub_preset_parse(t_hub *x, char *path)
 					xmlFree((void*)priority); 
 					priority = NULL;
 				}
-				else if(xmlTextReaderNodeType(reader) == 15){ 		// element close
+				else if (xmlTextReaderNodeType(reader) == 15) { 		// element close
 					preset->item->push_back(item);
 					item_opened = false;
 				}
 			}
 
-			if(xmlTextReaderNodeType(reader) == XML_TEXT_NODE){
+			if (xmlTextReaderNodeType(reader) == XML_TEXT_NODE) {
 				val = xmlTextReaderConstValue(reader);
-				if((val != NULL) && (item_opened)){
+				if ((val != NULL) && (item_opened)) {
 					float	temp_float = 0;
 					long	temp_int = 0;
 		
-					if(item->type == jps_string){
+					if (item->type == jps_string) {
 						//post("Symbol! %s", (char *)value);
 						atom_setsym(&item->value, gensym((char *)val));		// assume symbol	
 						item->list_size = 1;
 					}
-					else if((item->type == jps_integer) || (item->type == jps_boolean)){
+					else if ((item->type == jps_integer) || (item->type == jps_boolean)) {
 						result = sscanf((char *)val, "%ld", &temp_int);		// try to get long
-						if(result > 0){
+						if (result > 0) {
 							//post("Int! %i", temp_int, result);
 							atom_setlong(&item->value, temp_int);					
 							item->list_size = 1;
@@ -681,17 +681,17 @@ void hub_preset_parse(t_hub *x, char *path)
 						char *element;
 						int i = item->list_size = 0;
 
-						for(element = strtok((char*)val, sep); element; element = strtok(NULL, sep), i++) {
+						for (element = strtok((char*)val, sep); element; element = strtok(NULL, sep), i++) {
 							switch(coerceType(element))
 							{
 								case A_LONG:
-									if(sscanf(element, "%ld", &temp_int)) {
+									if (sscanf(element, "%ld", &temp_int)) {
 										atom_setlong(&item->value_list[i], temp_int);
 										item->list_size += 1;
 									}
 									break;
 								case A_FLOAT:
-									if(sscanf(element, "%f", &temp_float)) {
+									if (sscanf(element, "%f", &temp_float)) {
 										atom_setfloat(&item->value_list[i], temp_float);
 										item->list_size += 1;
 									}
@@ -711,12 +711,12 @@ void hub_preset_parse(t_hub *x, char *path)
 			ret = xmlTextReaderRead(reader);
 		}
 		xmlFreeTextReader(reader);
-		if(ret != 0){
+		if (ret != 0) {
 			object_error((t_object*)x, "%s: failed to parse", path);
 		}
 		critical_exit(0);
 	}
-	else{
+	else {
 		object_error((t_object*)x, "Unable to open %s", path);
 	}
 }
@@ -738,7 +738,7 @@ short hub_preset_validate(t_hub *x, char *xml_path)
 	
 	// 1. Find the XML Schema file
 	strcpy(filename, "jamoma.xsd");
-	if(locatefile_extended(filename, &path, &outtype, NULL, -1)){
+	if (locatefile_extended(filename, &path, &outtype, NULL, -1)) {
 		object_error((t_object*)x, "%s module: jamoma.xsd schema file not found", x->attr_name->s_name);
 		return -1;
 	}	
@@ -747,37 +747,37 @@ short hub_preset_validate(t_hub *x, char *xml_path)
 	// 2. Actually validate the XML file using the schema...
 	//schema_doc = xmlReadFile("/Users/tim/Developer/_electrotap/Jamoma/library/jamoma.xsd", NULL, 0);
 	schema_doc = xmlReadFile(fullpath, NULL, 0);
-	if(schema_doc == NULL){
+	if (schema_doc == NULL) {
 		object_error((t_object*)x, "preset validation could not open schema doc");
 		goto out;
 	}
 
 	parser_context = xmlSchemaNewDocParserCtxt(schema_doc);
-	if(schema_doc == NULL){
+	if (schema_doc == NULL) {
 		object_error((t_object*)x, "preset validation could not create parser for schema doc");
 		goto out;
 	}
 
 	schema = xmlSchemaParse(parser_context);
-	if(schema_doc == NULL){
+	if (schema_doc == NULL) {
 		object_error((t_object*)x, "preset validation could not create representation of schema in memory");
 		goto out;
 	}
 
 	context = xmlSchemaNewValidCtxt(schema);
-	if(context == NULL){
+	if (context == NULL) {
 		object_error((t_object*)x, "preset validation failed to create a context");
 		goto out;
 	}
 
 	document = xmlReadFile(xml_path, NULL, 0);
-	if(document == NULL){
+	if (document == NULL) {
 		object_error((t_object*)x, "preset validation could not open the preset file");
 		goto out;
 	}
 
 	result = xmlSchemaValidateDoc(context, document);	
-	if(result){
+	if (result) {
 		object_error((t_object*)x, "preset file FAILED xml schema validation");
 	}
 
@@ -802,12 +802,12 @@ void hub_presets_clear(t_hub *x, t_symbol*, long, t_atom*)
 	t_preset *thePreset;	
 
 	critical_enter(0);	
-	while(!presetList->empty()) {
+	while (!presetList->empty()) {
 		pli = presetList->begin();
 		thePreset = *pli;
 		itemList = thePreset->item;  // The list of items in the preset
 		// Delete all the items in the preset
-		while(!itemList->empty()) {
+		while (!itemList->empty()) {
 			nextItem = itemList->begin();
 			sysmem_freeptr(*nextItem);
 			itemList->remove(nextItem);
@@ -834,7 +834,7 @@ void hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*)
 	t_preset *p;
 	//t_preset_item *presetItem;
 	critical_enter(0);
-	for(i = preset->begin(); i != preset->end(); ++i) {
+	for (i = preset->begin(); i != preset->end(); ++i) {
 		p = *i;
 		atom_setlong(&a[0], p->number);
 		atom_setsym(&a[1], p->name);
@@ -861,17 +861,17 @@ void hub_presets_post(t_hub *x, t_symbol*, long, t_atom*)
 	t_preset *p;
 	t_preset_item *presetItem;
 	critical_enter(0);
-	for(i = preset->begin(); i != preset->end(); ++i) {
+	for (i = preset->begin(); i != preset->end(); ++i) {
 		p = *i;
 		object_post((t_object*)x, "  PRESET %i: %s", p->number, p->name->s_name);
 		item = p->item;
-		for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
+		for (itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
 			presetItem = *itemIterator;
-			if((presetItem->type == jps_integer) || (presetItem->type == jps_boolean)){
+			if ((presetItem->type == jps_integer) || (presetItem->type == jps_boolean)) {
 				object_post((t_object*)x, "    %s (type %s, priority %i): %ld", presetItem->param_name->s_name,
 				 	presetItem->type->s_name, presetItem->priority, atom_getlong(&(presetItem->value)));
 			}
-			else if(presetItem->type == jps_string)
+			else if (presetItem->type == jps_string)
 				object_post((t_object*)x, "    %s (type %s, priority %i): %s", presetItem->param_name->s_name,
 				 	presetItem->type->s_name, presetItem->priority, 
 					atom_getsym(&(presetItem->value))->s_name);
@@ -887,7 +887,7 @@ void hub_preset_write_again(t_hub *x)
 {
 	t_atom a;
 
-	if(x->user_path->s_name[0]){
+	if (x->user_path->s_name[0]) {
 		atom_setsym(&a,jps_slash_preset_slash_writeagain);
 		defer(x, (method)hub_preset_write, NULL, 1, &a);
 	}
@@ -898,12 +898,12 @@ void hub_preset_write_again(t_hub *x)
 void hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_symbol *arg_path;
-	if(argc)
+	if (argc)
 		arg_path = atom_getsym(argv);
 	else
 		arg_path = _sym_nothing;
 
-	if(x->preset->empty()){	// no presets have been stored, so store the current state as the default
+	if (x->preset->empty()) {	// no presets have been stored, so store the current state as the default
 		t_atom	a[2];
 
 		atom_setlong(&a[0], 1);
@@ -937,7 +937,7 @@ void writeList(t_filehandle *fh, long *eof, t_preset_item *item)
 	sysfile_write(*fh, &len, tempstring);
 	*eof += len;
 	
-	for(int i = 0; i < item->list_size; i++) {
+	for (int i = 0; i < item->list_size; i++) {
 		switch(item->value_list[i].a_type) 
 		{
 			case A_SYM:
@@ -976,37 +976,37 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 	presetItemList	*item = NULL;				// for accessing items of the preset
 	t_symbol		*result;
 
-	if(userpath == jps_slash_preset_slash_writeagain)
+	if (userpath == jps_slash_preset_slash_writeagain)
 	{
 	// THE FILE WE WANT TO WRITE IS ALREADY SPECIFIED
 		strcpy(filename, x->user_path->s_name);
 		path = 0;
 		err = path_createsysfile(filename, path, type, &file_handle);
-			if(err)
+			if (err)
 				return;
 	}
-	else{
+	else {
 		// SPECIFY THE FILE WE WANT TO WRITE
-		if(!userpath->s_name[0]){												// Empty string - Throw up a dialog
+		if (!userpath->s_name[0]) {												// Empty string - Throw up a dialog
 			snprintf(filename, MAX_FILENAME_CHARS, "%s.xml", x->attr_name->s_name);		// Default File Name
 			saveas_promptset("Save Preset...");									// Instructional Text in the dialog
 			err = saveasdialog_extended(filename, &path, &outtype, &type, 1);	// Returns 0 if successful
-			if(err)																// User Cancelled
+			if (err)																// User Cancelled
 				return;
 		}
-		else{
+		else {
 			strcpy(filename, userpath->s_name);								// Copy symbol argument to a local string
 			path = 0;
 		}
 
 		// NOW ATTEMPT TO CREATE THE FILE...
 		err = path_createsysfile(filename, path, type, &file_handle);
-		if(err){																// Handle any errors that occur
+		if (err) {																// Handle any errors that occur
 			object_error((t_object*)x, "%s - error %d creating file", filename, err);
 			return;	
 		}
 		// ... AND WE SAVE THE fullpath IN THE HUB ATTRIBUTE user_path.
-		if(path) jcom_core_getfilepath(path, filename, fullpath);
+		if (path) jcom_core_getfilepath(path, filename, fullpath);
 		else strcpy(fullpath, filename);
 		x->user_path = gensym(fullpath);
 	}
@@ -1026,29 +1026,29 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 	t_preset_item *presetItem;
 	preset = x->preset;	// head of the list of presets
 	critical_enter(0);
-	for(i = preset->begin(); i != preset->end(); ++i) {
+	for (i = preset->begin(); i != preset->end(); ++i) {
 		p = *i;
 		snprintf(tempstring, 1024, "  <preset number='%ld' name='%s'>", p->number, p->name->s_name);
 		jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 
 		// Process each item in the preset
 		item = p->item;
-		for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
+		for (itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
 			presetItem = *itemIterator;
-			if(presetItem->list_size > 1) {
+			if (presetItem->list_size > 1) {
 				writeList(&file_handle, &myEof, presetItem);				
 			} else {
-				if(presetItem->value.a_type == A_SYM){
+				if (presetItem->value.a_type == A_SYM) {
 					result = atom_getsym(&(presetItem->value));
 					snprintf(tempstring, 1024, "    <item name='%s' type='%s' priority='%ld'>%s</item>",
 					 	presetItem->param_name->s_name, presetItem->type->s_name, 
 						presetItem->priority, result->s_name);
 				}
-				else if(presetItem->value.a_type == A_FLOAT)
+				else if (presetItem->value.a_type == A_FLOAT)
 					snprintf(tempstring, 1024, "    <item name='%s' type='%s' priority='%ld'>%f</item>",
 					 	presetItem->param_name->s_name, presetItem->type->s_name, presetItem->priority,
 						atom_getfloat(&(presetItem->value)));
-				else if(presetItem->value.a_type == A_LONG)
+				else if (presetItem->value.a_type == A_LONG)
 					snprintf(tempstring, 1024, "    <item name='%s' type='%s' priority='%ld'>%ld</item>",
 					 	presetItem->param_name->s_name, presetItem->type->s_name, presetItem->priority,
 						atom_getlong(&(presetItem->value)));
@@ -1064,7 +1064,7 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 	
 	// WE ARE DONE, SO CLOSE THE FILE
 	err = sysfile_seteof(file_handle, myEof);
-	if(err){
+	if (err) {
 		object_error((t_object*)x, "%s - error %d creating EOF", filename, err);
 		return;	
 	}
@@ -1082,7 +1082,7 @@ void hub_presetnames_linklist(t_hub *x, t_linklist *ll)
 	t_symobject*		item;
 	
 	//	critical_enter(0);
-	for(i = preset->begin(); i != preset->end(); ++i) {
+	for (i = preset->begin(); i != preset->end(); ++i) {
 		p = *i;
 		item = (t_symobject*)symobject_new(p->name);
 		linklist_append(ll, item);
@@ -1101,9 +1101,9 @@ void hub_preset_interface(t_hub* x)
 	t_object*		p;
 	t_atom			a;
 	
-	if(x->preset->empty())
+	if (x->preset->empty())
 		return;
-	else{
+	else {
 		x->preset_lastnum = (*(x->preset->begin()))->last_preset_num;
 		x->preset_lastname = (*(x->preset->begin()))->last_preset_name;
 	}

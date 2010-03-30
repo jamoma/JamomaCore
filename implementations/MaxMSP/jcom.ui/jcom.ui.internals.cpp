@@ -60,13 +60,13 @@ void ui_internals_destroy(t_ui *obj)
 	t_max_err			err;
 	
 	hashtab_getkeys(obj->hash_internals, &numKeys, &keys);
-	for(i=0; i<numKeys; i++){
+	for (i=0; i<numKeys; i++) {
 		err = hashtab_lookup(obj->hash_internals, keys[i], (t_object**)&anObject);
-		if(!err)
+		if (!err)
 			delete anObject;
 	}
 	
-	if(keys)
+	if (keys)
 		sysmem_freeptr(keys);
 		
 	hashtab_chuck(obj->hash_internals);
@@ -158,10 +158,10 @@ t_max_err attr_set_mute(t_ui *obj, void *attr, long argc, t_atom *argv)
 	long				value = atom_getlong(argv);
 	t_max_err			err = MAX_ERR_NONE;
 
-	if(obj->attr_ismuted != value){
+	if (obj->attr_ismuted != value) {
 		obj->attr_ismuted = value;
 		err = hashtab_lookup(obj->hash_internals, gensym("mute"), (t_object**)&anObject);
-		if(!err)
+		if (!err)
 			object_method(anObject->theObject, _sym_int, obj->attr_ismuted);
 	}
 	return err;
@@ -174,10 +174,10 @@ t_max_err attr_set_bypass(t_ui *obj, void *attr, long argc, t_atom *argv)
 	long				value = atom_getlong(argv);
 	t_max_err			err = MAX_ERR_NONE;
 
-	if(obj->attr_isbypassed != value){
+	if (obj->attr_isbypassed != value) {
 		obj->attr_isbypassed = value;
 		err = hashtab_lookup(obj->hash_internals, gensym("bypass"), (t_object**)&anObject);
-		if(!err)
+		if (!err)
 			object_method(anObject->theObject, _sym_int, obj->attr_isbypassed);
 	}
 	return err;
@@ -190,10 +190,10 @@ t_max_err attr_set_mix(t_ui *obj, void *attr, long argc, t_atom *argv)
 	float				value = atom_getfloat(argv);
 	t_max_err			err = MAX_ERR_NONE;
 
-	if(obj->attr_mix != value){
+	if (obj->attr_mix != value) {
 		obj->attr_mix = value;
 		err = hashtab_lookup(obj->hash_internals, gensym("mix"), (t_object**)&anObject);
-		if(!err)
+		if (!err)
 			object_method(anObject->theObject, _sym_float, obj->attr_mix);
 	}
 	return err;
@@ -206,10 +206,10 @@ t_max_err attr_set_gain(t_ui *obj, void *attr, long argc, t_atom *argv)
 	float				value = atom_getfloat(argv);
 	t_max_err			err = MAX_ERR_NONE;
 
-	if(obj->attr_gain != value){
+	if (obj->attr_gain != value) {
 		obj->attr_gain = value;
 		err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
-		if(!err)
+		if (!err)
 			object_method(anObject->theObject, _sym_float, obj->attr_gain);
 	}
 	return err;
@@ -222,7 +222,7 @@ void setGainDataspaceUnit(t_ui* obj, t_symbol* unit)
 	t_max_err			err = MAX_ERR_NONE;
 	
 	err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
-	if(!err)
+	if (!err)
 		object_attr_setsym(anObject->theObject, gensym("dataspace/unit/active"), unit);
 }
 
@@ -233,10 +233,10 @@ t_max_err attr_set_freeze(t_ui *obj, void *attr, long argc, t_atom *argv)
 	long				value = atom_getlong(argv);
 	t_max_err			err = MAX_ERR_NONE;
 
-	if(obj->attr_isfrozen != value){
+	if (obj->attr_isfrozen != value) {
 		obj->attr_isfrozen = value;
 		err = hashtab_lookup(obj->hash_internals, gensym("freeze"), (t_object**)&anObject);
-		if(!err)
+		if (!err)
 			object_method(anObject->theObject, _sym_int, obj->attr_isfrozen);
 	}
 	return err;
@@ -249,10 +249,10 @@ t_max_err attr_set_preview(t_ui *obj, void *attr, long argc, t_atom *argv)
 	long				value = atom_getlong(argv);
 	t_max_err			err = MAX_ERR_NONE;
 
-	if(obj->attr_ispreviewing != value){
+	if (obj->attr_ispreviewing != value) {
 		obj->attr_ispreviewing = value;
 		err = hashtab_lookup(obj->hash_internals, gensym("preview"), (t_object**)&anObject);
-		if(!err)
+		if (!err)
 			object_method(anObject->theObject, _sym_int, obj->attr_ispreviewing);
 	}
 	return err;
@@ -271,15 +271,15 @@ t_max_err attr_set_hasmute(t_ui *obj, void *attr, long argc, t_atom *argv)
 
 	obj->attr_hasmute = atom_getlong(argv);
 	
-	if(obj->attr_hasmute){
+	if (obj->attr_hasmute) {
 		anObject = new uiInternalObject("jcom.parameter", "mute", obj->box.b_patcher, "boolean", "none", "When active, this attribute turns off the module's processing algorithm to save CPU", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_mute, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("mute"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
 	}
-	else{
+	else {
 		err = hashtab_lookup(obj->hash_internals, gensym("mute"), (t_object**)&anObject);
-		if(!err){
+		if (!err) {
 			hashtab_chuckkey(obj->hash_internals, gensym("mute"));
 			delete anObject;
 		}
@@ -295,13 +295,13 @@ t_max_err attr_set_hasinspector(t_ui *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_hasinspector = atom_getlong(argv);
 	
 	
-	if(obj->attr_hasinspector){
+	if (obj->attr_hasinspector) {
 		anObject = new uiInternalObject("jcom.message", 	"view/panel",	obj->box.b_patcher,	"none",		"none",	"Open an a module's control panel (inspector) if one is present.", NULL, NULL, NULL, NULL);
 		hashtab_store(obj->hash_internals, gensym("panel/open"), (t_object*)anObject);	
 	}
-	else{
+	else {
 		err = hashtab_lookup(obj->hash_internals, gensym("panel/open"), (t_object**)&anObject);
-		if(!err){
+		if (!err) {
 			hashtab_chuckkey(obj->hash_internals, gensym("panel/open"));
 			delete anObject;
 		}
@@ -317,15 +317,15 @@ t_max_err attr_set_hasbypass(t_ui *obj, void *attr, long argc, t_atom *argv)
 
 	obj->attr_hasbypass = atom_getlong(argv);
 	
-	if(obj->attr_hasbypass){
+	if (obj->attr_hasbypass) {
 		anObject = new uiInternalObject("jcom.parameter", "bypass", obj->box.b_patcher, "boolean", "none", "When active, this attribute bypasses the module's processing algtorithm, letting audio or video pass through unaffected", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_bypass, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("bypass"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
 	}
-	else{
+	else {
 		err = hashtab_lookup(obj->hash_internals, gensym("bypass"), (t_object**)&anObject);
-		if(!err){
+		if (!err) {
 			hashtab_chuckkey(obj->hash_internals, gensym("bypass"));
 			delete anObject;
 		}
@@ -342,7 +342,7 @@ t_max_err attr_set_hasmix(t_ui *obj, void *attr, long argc, t_atom *argv)
 
 	obj->attr_hasmix = atom_getlong(argv);
 	
-	if(obj->attr_hasmix){
+	if (obj->attr_hasmix) {
 		range[0] = 0.0;
 		range[1] = 100.0;
 		anObject = new uiInternalObject("jcom.parameter", "mix", obj->box.b_patcher, "decimal", "scheduler", "Controls the wet/dry mix of the module's processing routine in percent.", range, NULL, NULL, NULL);
@@ -350,9 +350,9 @@ t_max_err attr_set_hasmix(t_ui *obj, void *attr, long argc, t_atom *argv)
 		hashtab_store(obj->hash_internals, gensym("mix"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
 	}
-	else{
+	else {
 		err = hashtab_lookup(obj->hash_internals, gensym("mix"), (t_object**)&anObject);
-		if(!err){
+		if (!err) {
 			hashtab_chuckkey(obj->hash_internals, gensym("mix"));
 			delete anObject;
 		}
@@ -369,7 +369,7 @@ t_max_err attr_set_hasgain(t_ui *obj, void *attr, long argc, t_atom *argv)
 
 	obj->attr_hasgain = atom_getlong(argv);
 	
-	if(obj->attr_hasgain){
+	if (obj->attr_hasgain) {
 		range[0] = 0.0;
 		range[1] = 127.0;
 		anObject = new uiInternalObject("jcom.parameter", "gain", obj->box.b_patcher, "decimal", "scheduler", "Set gain (as MIDI value by default).", range, "gain", "midi", "midi");
@@ -377,9 +377,9 @@ t_max_err attr_set_hasgain(t_ui *obj, void *attr, long argc, t_atom *argv)
 		hashtab_store(obj->hash_internals, gensym("gain"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
 	}
-	else{
+	else {
 		err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
-		if(!err){
+		if (!err) {
 			hashtab_chuckkey(obj->hash_internals, gensym("gain"));
 			delete anObject;
 		}
@@ -395,15 +395,15 @@ t_max_err attr_set_hasfreeze(t_ui *obj, void *attr, long argc, t_atom *argv)
 
 	obj->attr_hasfreeze = atom_getlong(argv);
 	
-	if(obj->attr_hasfreeze){
+	if (obj->attr_hasfreeze) {
 		anObject = new uiInternalObject("jcom.parameter", "freeze", obj->box.b_patcher, "boolean", "none", "Freezes the last frame of output from the module's processing algorithm.", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_freeze, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("freeze"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
 	}
-	else{
+	else {
 		err = hashtab_lookup(obj->hash_internals, gensym("freeze"), (t_object**)&anObject);
-		if(!err){
+		if (!err) {
 			hashtab_chuckkey(obj->hash_internals, gensym("freeze"));
 			delete anObject;
 		}
@@ -419,15 +419,15 @@ t_max_err attr_set_haspreview(t_ui *obj, void *attr, long argc, t_atom *argv)
 
 	obj->attr_haspreview = atom_getlong(argv);
 	
-	if(obj->attr_haspreview){
+	if (obj->attr_haspreview) {
 		anObject = new uiInternalObject("jcom.parameter", "preview", obj->box.b_patcher, "boolean", "none", "Turns on/off the video display in the module's preview window.", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_preview, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("preview"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
 	}
-	else{
+	else {
 		err = hashtab_lookup(obj->hash_internals, gensym("preview"), (t_object**)&anObject);
-		if(!err){
+		if (!err) {
 			hashtab_chuckkey(obj->hash_internals, gensym("preview"));
 			delete anObject;
 		}
@@ -442,17 +442,17 @@ t_max_err attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv)
 	t_max_err			err = MAX_ERR_NONE;
 	char				name[256];
 	
-	if(argc && argv)
+	if (argc && argv)
 		obj->attrPrefix = atom_getsym(argv);
 	else
 		obj->attrPrefix = _sym_nothing;
 	
 	err = hashtab_lookup(obj->hash_internals, gensym("mute"), (t_object**)&anObject);
-	if(!err){
+	if (!err) {
 		name[0] = 0;
 		if (obj->attrPrefix!=gensym(""))
 		{
-			if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+			if (obj->attrPrefix && obj->attrPrefix->s_name[0])
 				strncpy_zero(name, obj->attrPrefix->s_name, 256);
 			strncat_zero(name, "/mute", 256);
 		}
@@ -462,11 +462,11 @@ t_max_err attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv)
 	}
 	
 	err = hashtab_lookup(obj->hash_internals, gensym("bypass"), (t_object**)&anObject);
-	if(!err){
+	if (!err) {
 		name[0] = 0;
 		if (obj->attrPrefix!=gensym("")) 
 		{
-			if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+			if (obj->attrPrefix && obj->attrPrefix->s_name[0])
 				strncpy_zero(name, obj->attrPrefix->s_name, 256);
 			strncat_zero(name, "/bypass", 256);
 		}
@@ -476,11 +476,11 @@ t_max_err attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv)
 	}
 	
 	err = hashtab_lookup(obj->hash_internals, gensym("mix"), (t_object**)&anObject);
-	if(!err){
+	if (!err) {
 		name[0] = 0;
 		if (obj->attrPrefix!=gensym(""))
 		{
-			if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+			if (obj->attrPrefix && obj->attrPrefix->s_name[0])
 			strncpy_zero(name, obj->attrPrefix->s_name, 256);
 			strncat_zero(name, "/mix", 256);
 		}
@@ -490,11 +490,11 @@ t_max_err attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv)
 	}
 	
 	err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
-	if(!err){
+	if (!err) {
 		name[0] = 0;
 		if (obj->attrPrefix!=gensym(""))
 		{
-			if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+			if (obj->attrPrefix && obj->attrPrefix->s_name[0])
 				strncpy_zero(name, obj->attrPrefix->s_name, 256);
 			strncat_zero(name, "/gain", 256);
 		}
@@ -504,11 +504,11 @@ t_max_err attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv)
 	}
 	
 	err = hashtab_lookup(obj->hash_internals, gensym("freeze"), (t_object**)&anObject);
-	if(!err){
+	if (!err) {
 		name[0] = 0;
 		if (obj->attrPrefix!=gensym(""))
 		{
-			if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+			if (obj->attrPrefix && obj->attrPrefix->s_name[0])
 				strncpy_zero(name, obj->attrPrefix->s_name, 256);
 			strncat_zero(name, "/freeze", 256);
 		}
@@ -518,11 +518,11 @@ t_max_err attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv)
 	}
 	
 	err = hashtab_lookup(obj->hash_internals, gensym("preview"), (t_object**)&anObject);
-	if(!err){
+	if (!err) {
 		name[0] = 0;
 		if (obj->attrPrefix!=gensym(""))
 		{
-			if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+			if (obj->attrPrefix && obj->attrPrefix->s_name[0])
 				strncpy_zero(name, obj->attrPrefix->s_name, 256);
 			strncat_zero(name, "/preview", 256);
 		}
