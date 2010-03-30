@@ -2290,7 +2290,7 @@ void cuemng_output_line(t_line *l, t_cuemng *x)
 
 					// copy ramp
 					atom_setsym(&data_ramp[l->n],x->ps_ramp);
-					if (l->ramp = GLOBAL_RAMP) {
+					if (l->ramp == GLOBAL_RAMP) {
 						atom_setlong(&data_ramp[l->n+1],x->global_ramp);
 					}
 					else {
@@ -2482,8 +2482,8 @@ void cuemng_write_line(t_line *l, t_cuemng *x)
 			cuemng_write_long(x,l->ramp);
 		}
 		if (l->ramp == GLOBAL_RAMP) {
-			cuemng_write_sym(x,x->ps_ramp);
-			cuemng_write_sym(x,ps_ramp_global);
+				cuemng_write_sym(x,x->ps_ramp);
+				cuemng_write_sym(x,ps_ramp_global);
 		}
 		
 		// l->type : number of newline after
