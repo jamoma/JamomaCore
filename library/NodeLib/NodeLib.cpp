@@ -207,7 +207,7 @@ void jamoma_directory_observer_remove(t_symbol *OSCaddress, TTObjectPtr oldObser
 		err = jamoma_directory->removeObserverForNotifications(TT(OSCaddress->s_name), *oldObserver);
 		
 		if(!err)
-			TTObjectRelease(&oldObserver);
+			TTObjectRelease(TTObjectHandle(&oldObserver));
 	}
 }
 

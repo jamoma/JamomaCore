@@ -392,14 +392,16 @@ t_max_err nmspc_attr_set_address(t_nmspc *x, void *attr, long argc, t_atom *argv
 		
 		if(x->attr_address != new_adrs){
 			
-			x->attr_address = new_adrs;
-			
 			if(x->attr_update != _sym_none){
 				
 				// delete the old observer before to create a new one
 				if(x->life_observer)
 					jamoma_directory_observer_remove(x->attr_address, x->life_observer);
-			
+				
+				// change the address
+				x->attr_address = new_adrs;
+				
+				// crate a new observer
 				if(x->attr_address != _sym_none)
 					jamoma_directory_observer_add(x->attr_address, (t_object*)x, gensym("nmspc_directory_callback"), &x->life_observer);
 			}

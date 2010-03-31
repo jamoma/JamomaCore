@@ -359,5 +359,6 @@ void receive_remove(t_receive *x)
 	delete x->lk_nodes;
 	delete x->lk_attr_observer;
 	
-	jamoma_directory_observer_remove(x->attr_name, x->life_observer);
+	if(x->_address)
+		jamoma_directory_observer_remove(x->_address, x->life_observer);
 }
