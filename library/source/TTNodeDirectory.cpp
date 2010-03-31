@@ -430,9 +430,14 @@ TTErr TTNodeDirectory::removeObserverForNotifications(TTSymbolPtr oscAddress, co
 		
 		// is observer exists ?
 		o = TTValue(observer);
-		err = observers->findEquals(o, v);
+		err = lk_o->findEquals(o, v);
 		if(!err)
-			observers->remove(v);
+			lk_o->remove(v);
+		
+		// was it the last observer ?
+		if(lk_o->getSize() == 0)
+			// remove the key
+			this->mObservers->remove(oscAddress);
 	}
 
 	return err;
