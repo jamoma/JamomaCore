@@ -63,20 +63,6 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"id" : "obj-1",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 383.0, 221.0, 94.0, 20.0 ],
-									"text" : "jcom.parameter"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 12.0,
 									"hidden" : 1,
 									"id" : "obj-6",
 									"maxclass" : "newobj",
@@ -349,13 +335,13 @@
 ,
 									"patching_rect" : [ 66.0, 144.0, 103.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontface" : 0,
+										"globalpatchername" : "",
+										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
-										"default_fontface" : 0
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p listOfParameters"
@@ -516,13 +502,13 @@
 ,
 									"patching_rect" : [ 66.0, 261.0, 55.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontface" : 0,
+										"globalpatchername" : "",
+										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
-										"default_fontface" : 0
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p format"
@@ -562,7 +548,7 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-16",
-									"items" : [  ],
+									"items" : [ "/parameter/delay/time", ",", "/parameter/dry/wet/mix", ",", "/parameter/feedback", ",", "/parameter/lowpass/cutoff/frequency" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -659,13 +645,13 @@
 ,
 					"patching_rect" : [ 366.0, 450.0, 209.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"globalpatchername" : "",
+						"fontsize" : 12.0,
+						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 12.0,
-						"default_fontface" : 0
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p \"AU parameter migration\""
@@ -892,13 +878,13 @@
 ,
 									"patching_rect" : [ 16.0, 9.0, 84.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontface" : 0,
+										"globalpatchername" : "",
+										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
-										"default_fontface" : 0
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p UnNormalize"
@@ -1084,13 +1070,13 @@
 ,
 									"patching_rect" : [ 280.0, 60.0, 121.0, 19.0 ],
 									"saved_object_attributes" : 									{
+										"fontface" : 0,
+										"globalpatchername" : "",
+										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
-										"default_fontface" : 0
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p make_osc_message"
@@ -1197,13 +1183,13 @@
 ,
 					"patching_rect" : [ 25.0, 245.0, 57.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"globalpatchername" : "",
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p midi_in",
@@ -1290,7 +1276,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 65.0, 240.0, 310.0, 19.0 ],
-									"text" : "Select appropriate program using /au/program."
+									"text" : "Select appropriate program using /au/preset/read"
 								}
 
 							}
@@ -1404,8 +1390,8 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 15.0, 120.0, 374.0, 55.0 ],
-									"text" : "When using jmod.au~ with jmod.cueScript or jmod.cuemanager it is recommended to introduce a new vst plug-in thrugh a series of steps in a certain order, with a bit of time left in between for Max and Jamoma to catch up:"
+									"patching_rect" : [ 15.0, 120.0, 363.0, 55.0 ],
+									"text" : "When using jmod.audiounit~ with jmod.cueScript or jmod.cuemanager it is recommended to introduce a new vst plug-in thrugh a series of steps in a certain order, with a bit of time left in between for Max and Jamoma to catch up:"
 								}
 
 							}
@@ -1429,13 +1415,13 @@
 ,
 					"patching_rect" : [ 366.0, 415.0, 198.0, 24.0 ],
 					"saved_object_attributes" : 					{
+						"fontface" : 0,
+						"globalpatchername" : "",
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p \"Using jmod.audiounit~\""
