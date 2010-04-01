@@ -17,6 +17,7 @@
 
 TT_OBJECT_CONSTRUCTOR, 
 	audioSignals(NULL),
+	maxNumAudioSignals(0),
 	numAudioSignals(0)
 {
 	TTUInt16 initialMaxNumAudioSignals = arguments;
