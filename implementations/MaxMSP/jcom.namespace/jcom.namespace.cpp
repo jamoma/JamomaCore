@@ -982,65 +982,67 @@ void nmspc_dump_as_opml(t_nmspc *x, TTNodePtr parent, ushort level)
 	TTNodePtr	p_node;
 
 	// get info about the node
-	t_symbol *name = jamoma_node_name(parent);
-	t_symbol *instance = jamoma_node_instance(parent);
-
-	parent->getAttributeNames(attributeNameList);
-	jamoma_node_children(parent, lk_chd);
-
-	// make (2 + level) tabs
-	nmspc_write_string(x, TAB);
-	nmspc_write_string(x, TAB);
-	for(i=0; i<level; i++)
+	t_symbol *type = jamoma_node_type(parent);
+	
+	if((type == gensym("hub")) || 
+	   (type == jps_subscribe_parameter) || 
+	   (type == jps_subscribe_message) || 
+	   (type == jps_subscribe_return) || 
+	   (type == gensym("container")))
+	{
+		t_symbol *name = jamoma_node_name(parent);
+		t_symbol *instance = jamoma_node_instance(parent);
+		
+		parent->getAttributeNames(attributeNameList);
+		jamoma_node_children(parent, lk_chd);
+		
+		// make (2 + level) tabs
 		nmspc_write_string(x, TAB);
-
-	// write an outline for the node
-	nmspc_write_string(x, "<outline text=\"");
-	if(name != gensym("")){
-		if(instance != gensym(""))
-			snprintf(temp, sizeof(temp), "%s.%s", name->s_name, instance->s_name);
-		else
-			snprintf(temp, sizeof(temp), "%s", name->s_name);
-
-		nmspc_write_string(x,temp);
-	}
-	nmspc_write_string(x, "\">");
-	nmspc_write_string(x, LB);
-
-	// if there are properties
-	if(attributeNameList.getSize()){
-		// write an outline for the attributes
-		nmspc_write_string(x, "<outline text=\":\">");
-		nmspc_write_string(x, LB);
-
-		// write an outline for each attribute
-		attr = NULL;
-		for(i = 0; i < attributeNameList.getSize(); i++)
-		{
-			attributeNameList.get(i,(TTSymbolPtr*)&attributeName);
-			nmspc_write_string(x, "<outline text=\"");
-			nmspc_write_string(x, (char*)attributeName->getCString());
-			nmspc_write_string(x,"\"/>");
-			nmspc_write_string(x, LB);
+		nmspc_write_string(x, TAB);
+		for(i=0; i<level; i++)
+			nmspc_write_string(x, TAB);
+		
+		// write an outline for the node
+		nmspc_write_string(x, "<outline text=\"");
+		if(name != gensym("")){
+			if(instance != gensym(""))
+				snprintf(temp, sizeof(temp), "%s.%s", name->s_name, instance->s_name);
+			else
+				snprintf(temp, sizeof(temp), "%s", name->s_name);
+			
+			nmspc_write_string(x,temp);
 		}
-
-		// close the outline of attributes
+		nmspc_write_string(x, "\">");
+		nmspc_write_string(x, LB);
+		
+		// if there are properties
+		if(attributeNameList.getSize()){
+			// write an outline for each attribute
+			attr = NULL;
+			for(i = 0; i < attributeNameList.getSize(); i++)
+			{
+				attributeNameList.get(i,(TTSymbolPtr*)&attributeName);
+				nmspc_write_string(x, "<outline text=\"");
+				nmspc_write_string(x, (char*)attributeName->getCString());
+				nmspc_write_string(x,"\"/>");
+				nmspc_write_string(x, LB);
+			}
+			
+		}
+		
+		// if there are children : do the same for each child
+		if(!lk_chd.isEmpty()){
+			for(lk_chd.begin(); lk_chd.end(); lk_chd.next()){
+				
+				lk_chd.current().get(0,(TTPtr*)&p_node);
+				nmspc_dump_as_opml(x, p_node, level+1);
+			}
+		}
+		
+		// close the outline of this node
 		nmspc_write_string(x, "</outline>");
 		nmspc_write_string(x, LB);
 	}
-
-	// if there are children : do the same for each child
-	if(!lk_chd.isEmpty()){
-		for(lk_chd.begin(); lk_chd.end(); lk_chd.next()){
-
-			lk_chd.current().get(0,(TTObject **)&p_node);
-			nmspc_dump_as_opml(x, p_node, level+1);
-		}
-	}
-
-	// close the outline of this node
-	nmspc_write_string(x, "</outline>");
-	nmspc_write_string(x, LB);
 }
 
 // append an atom to a string
