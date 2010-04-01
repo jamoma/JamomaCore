@@ -144,10 +144,11 @@ public:
 	 @param	newType					The type of TTNode to be created.
 									For example, one of the following: hub, parameter, message, return, init, in, out, container, etc.
 	 @param	newObject				The object, if applicable, that is represented by this TTNode.
+	 @param attributesAccess		A TTList containing <attributeName, aGetterCallback, aSetterCallback>
 	 @param	returnedTTNode			A pointer to the TTNode at the given address 
 	 @param	nodeCreated				A boolean : true if a TTNode have been created, else false
 	 @return						An error code. */
-	TTErr			TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, TTNodePtr *returnedTTNode, TTBoolean *nodeCreated);
+	TTErr			TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, TTList& attributesAccess, TTNodePtr *returnedTTNode, TTBoolean *nodeCreated);
 	
 	/**	Remove a TTNodefrom the directory.
 	 @param	oscAddress				The OSC address for which you wish to remove the TTNode.

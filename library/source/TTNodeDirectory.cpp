@@ -17,6 +17,7 @@ TT_OBJECT_CONSTRUCTOR,
 	mRoot(NULL)
 {
 	TTBoolean nodeCreated = NO;
+	TTList attributeAccess;
 	
 	// Set the name of the tree
 	TT_ASSERT("Correct number of args to create TTNodeDirectory", arguments.getSize() == 1);
@@ -29,7 +30,7 @@ TT_OBJECT_CONSTRUCTOR,
 	this->mObservers = new TTHash();
 
 	// create a root (OSC style)
-	TTNodeCreate(S_SEPARATOR, TT("container"), NULL, &mRoot, &nodeCreated);
+	TTNodeCreate(S_SEPARATOR, TT("container"), NULL, attributeAccess, &mRoot, &nodeCreated);
 }
 
 TTNodeDirectory::~TTNodeDirectory()
@@ -95,15 +96,17 @@ TTErr TTNodeDirectory::getTTNodeForOSC(TTSymbolPtr oscAddress, TTNodePtr* return
 	return kTTErrGeneric;
 }
 
-TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
+TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, TTList& attributesAccess, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
 {
-	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_property, newInstance, oscAddress_got;
-	TTBoolean parent_created;
-	TTValue* found;
-	TTNodePtr	newTTNode = NULL;
-	TTNodePtr	n_found = NULL;
-	TTErr err;
-	TTValue v;
+	TTSymbolPtr		oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_property, newInstance, oscAddress_got;
+	TTBoolean		parent_created;
+	TTValue*		found;
+	TTNodePtr		newTTNode = NULL;
+	TTNodePtr		n_found = NULL;
+	TTSymbolPtr		aName;
+	TTCallbackPtr	aGetterCallback, aSetterCallback;
+	TTErr			err;
+	TTValue			v, c;
 
 	// Split the OSC address in /parent/name.instance:/property
 	err = splitOSCAddress(oscAddress,&oscAddress_parent,&oscAddress_name, &oscAddress_instance, &oscAddress_property);
@@ -184,10 +187,23 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 		newTTNode->getOscAddress(&oscAddress_got);
 		mDirectory->append(oscAddress_got,TTValue(newTTNode));
 		
-		// 4. Notify observers that a node have been created AFTER the creation
-		this->notifyObservers(oscAddress_got, newTTNode, kAddressDestroyed);
+		// 4. Add each attribute Access Pack to the node
+		for(attributesAccess.begin(); attributesAccess.end(); attributesAccess.next()){
+			
+			// get each element of the pack <attributeName, aGetterCallback, aSetterCallback>
+			c = attributesAccess.current();
+			c.get(0,(TTPtr*)&aName);
+			c.get(1,(TTPtr*)&aGetterCallback);
+			c.get(2,(TTPtr*)&aSetterCallback);
+		
+			// add the attribute as an attribute of the node
+			newTTNode->registerAttribute(aName, aGetterCallback, aSetterCallback);
+		}
+		
+		// 5. Notify observers that a node have been created AFTER the creation
+		this->notifyObservers(oscAddress_got, newTTNode, kAddressCreated);
 
-		// 5. returned the new TTNode
+		// 6. returned the new TTNode
 		*returnedTTNode = newTTNode;
 
 		return kTTErrNone;
@@ -450,7 +466,7 @@ TTErr TTNodeDirectory::notifyObservers(TTSymbolPtr oscAddress, TTNodePtr aNode, 
 	TTSymbolPtr key;
 	TTAddressComparisonFlag comp;
 	TTListPtr lk_o;
-	TTCallbackPtr anObserver = NULL;
+	TTCallbackPtr anObserver;
 	bool foundObsv = false;
 	
 	// if there are observers in mObservers tab
@@ -475,15 +491,14 @@ TTErr TTNodeDirectory::notifyObservers(TTSymbolPtr oscAddress, TTNodePtr aNode, 
 				if(!lk_o->isEmpty()) {
 					for (lk_o->begin(); lk_o->end(); lk_o->next()) 
 					{
-						//o = lk_o->current();
+						anObserver = NULL;
 						lk_o->current().get(0, TTObjectHandle(&anObserver));
 						TT_ASSERT("TTNode observer list member is not NULL", anObserver);
 						data.append((TTPtr)oscAddress);
 						data.append((TTPtr)aNode);
 						data.append((TTInt8)flag);
 						data.append((TTPtr)anObserver);
-						anObserver->notify(data);			// TODO : sometimes there is none TTCallback that are observing the node so 'notify' crashes !!!
-															// How to be sure the 'anObserver' points on a TTCallback ?
+						anObserver->notify(data);
 					}
 					
 					foundObsv = true;

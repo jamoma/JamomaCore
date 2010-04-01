@@ -279,6 +279,7 @@ TTErr TTNode::setInstance(TTSymbolPtr anInstance, TTSymbolPtr *newInstance, TTBo
 TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created)
 {
 	TTValue	found;
+	TTList	attributeAccess;
 	TTErr	err;
 
 	// look into the hashtab to check if the address exist in the directory
@@ -288,7 +289,7 @@ TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created
 	if (err == kTTErrValueNotFound) {
 
 		// we create a container TTNode
-		this->directory->TTNodeCreate(oscAddress_parent, TT("container"), NULL, &this->parent, parent_created);
+		this->directory->TTNodeCreate(oscAddress_parent, TT("container"), NULL, attributeAccess, &this->parent, parent_created);
 
 		// Is it a good test ?
 		if (*parent_created && (this->parent->instance != NO_INSTANCE)) {
