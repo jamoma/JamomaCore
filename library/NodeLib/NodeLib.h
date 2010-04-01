@@ -93,9 +93,8 @@ extern "C" {
 	/** Return all attributes of a node */
 	JamomaError		jamoma_node_attribute_list(TTNodePtr node, TTValue& attrlist);
 		
-	/** Add an attribute of a t_object as attribute of the node 
-	 and prepare callback mecanism to get and set them */
-	JamomaError		jamoma_node_attribute_add(TTNodePtr node, t_symbol *attrname, t_object *object);
+	/** Prepare an attribute access pack <attribute, aGetterCallback, aSetterCallback> for a t_object */
+	JamomaError		jamoma_node_attribute_access_pack(t_symbol *attrname, t_object *object, TTValuePtr *attributeAccessPack);
 	
 	/** Get the value of a attribute of a node */
 	JamomaError		jamoma_node_attribute_get(TTNodePtr node, t_symbol *attrname, long *argc, t_atom **argv);

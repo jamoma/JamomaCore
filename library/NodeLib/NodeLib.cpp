@@ -131,22 +131,28 @@ JamomaError	jamoma_directory_register(t_symbol *OSCaddress, t_symbol *type, t_ob
 {
 	long			count = 0;
 	t_symbol		**attrnames = NULL;
+	TTValuePtr		attributesAccessPack;
+	TTList			attributesAccessList;
 	TTSymbolPtr		newAddress = TT(OSCaddress->s_name);
 	long			i;
 	
 	if(jamoma_directory){
 		
-		// create a TTNode
-		jamoma_directory->TTNodeCreate(newAddress, TT(type->s_name), obj, newTTNode, (TTBoolean *)newInstanceCreated);
-	
+		// prepare Getter and Setter for each attribute to add
+		// in a TTList of <attributeName, aGetterCallback, aSetterCallback>
 		// !!!
 		// !!! get attributes names of the Max external (So the object have to set a getattrnames method)
 		// !!!
 		object_method(obj, gensym("getattrnames"), &count, &attrnames);
 		
-		for(i = 0; i < count; i++)
-			jamoma_node_attribute_add(*newTTNode, attrnames[i], obj);
+		for(i = 0; i < count; i++){
+			jamoma_node_attribute_access_pack(attrnames[i], obj, &attributesAccessPack);
+			attributesAccessList.append(attributesAccessPack);
+		}
 		
+		// create a TTNode
+		jamoma_directory->TTNodeCreate(newAddress, TT(type->s_name), obj, attributesAccessList, newTTNode, (TTBoolean *)newInstanceCreated);
+
 		// free the memory allocated inside param_getattrnames
 		sysmem_freeptr(attrnames);
 		
@@ -191,6 +197,8 @@ void jamoma_directory_observer_add(t_symbol *OSCaddress, t_object *object, t_sym
 			newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
 			newObserver->setAttributeValue(TT("Function"), TTPtr(&jamoma_directory_observer_callback));
 			
+			newObserver->setAttributeValue(TT("Owner"), TT(jps_method->s_name));		// this is usefull only to debug
+			
 			jamoma_directory->addObserverForNotifications(TT(OSCaddress->s_name), *newObserver);
 			
 			(*returnedObserver) = newObserver;
@@ -207,7 +215,8 @@ void jamoma_directory_observer_remove(t_symbol *OSCaddress, TTObjectPtr oldObser
 		err = jamoma_directory->removeObserverForNotifications(TT(OSCaddress->s_name), *oldObserver);
 		
 		if(!err)
-			TTObjectRelease(TTObjectHandle(&oldObserver));
+			TTObjectRelease(&oldObserver);
+		
 	}
 }
 
@@ -338,8 +347,10 @@ JamomaError	jamoma_node_attribute_list(TTNodePtr node, TTValue& attrlist)
 	return JAMOMA_ERR_NONE;
 }
 
-JamomaError	jamoma_node_attribute_add(TTNodePtr node, t_symbol *attrname, t_object *object)
+JamomaError jamoma_node_attribute_access_pack(t_symbol *attrname, t_object *object, TTValuePtr *attributeAccessPack)
 {
+	TTSymbolPtr aName = TT(attrname->s_name);
+	
 	// Prepare a callback to get attribute
 	TTObjectPtr newGetter = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &newGetter, kTTValNONE);
@@ -365,8 +376,10 @@ JamomaError	jamoma_node_attribute_add(TTNodePtr node, t_symbol *attrname, t_obje
 	else
 		newSetter->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_setter_callback));
 	
-	// add the attribute as an attribute of the node
-	node->registerAttribute(TT(attrname->s_name), newGetter, newSetter);
+	// prepare the pack
+	(*attributeAccessPack) = new TTValue((TTPtr)aName);
+	(*attributeAccessPack)->append((TTPtr)newGetter);
+	(*attributeAccessPack)->append((TTPtr)newSetter);
 	
 	return JAMOMA_ERR_NONE;
 }
@@ -430,6 +443,8 @@ void jamoma_node_attribute_observer_add(TTNodePtr node, t_symbol *attrname, t_ob
 			newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
 			newObserver->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_attribute_observer_callback));
 			
+			newObserver->setAttributeValue(TT("Owner"), TT(attrname->s_name));			// this is usefull only to debug
+			
 			anAttribute->registerObserverForNotifications(*newObserver);
 			
 			(*returnedObserver) = newObserver;
@@ -467,8 +482,11 @@ void jamoma_node_attribute_observer_remove(TTNodePtr node, t_symbol *attrname, T
 	err = node->findAttribute(TT(attrname->s_name), &anAttribute);
 	
 	if(!err){
-		anAttribute->unregisterObserverForNotifications(*oldCallback);
-		TTObjectRelease(&oldCallback);
+		
+		err = anAttribute->unregisterObserverForNotifications(*oldCallback);
+	
+		if(!err)
+			TTObjectRelease(&oldCallback);
 	}
 }
 
@@ -497,7 +515,7 @@ void jamoma_directory_observer_callback(TTPtr p_baton, TTValue& data)
 	data.get(0, (TTPtr*)&oscAddress);
 	data.get(1, (TTPtr*)&aNode);
 	data.get(2, flag);
-	data.get(3, (TTPtr*)&anObserver);
+	data.get(3, TTObjectHandle(&anObserver));
 	
 	// send data using a class method of the object : void function(t_object *x, t_symbol *mess, long argc, t_atom *argv)
 	atom_setobj(&a_extra[0], aNode);

@@ -59,7 +59,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 539.0, 463.0, 238.0, 62.0 ],
+					"patching_rect" : [ 539.0, 463.0, 241.0, 62.0 ],
 					"text" : "3/ Use basic operations in order to get, set, discover or listen a device. Those basic operation are only availble if they have been implemented in the plugin."
 				}
 
@@ -511,7 +511,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 8.0, 472.0, 1293.0, 39.0 ],
-									"text" : "bang"
+									"text" : "Jamoma:listen /out.B/audio/gain:value 27.214312"
 								}
 
 							}
@@ -1105,7 +1105,6 @@
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Arial",
@@ -1131,7 +1130,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 145.0, 269.0, 176.0, 34.0 ],
+									"patching_rect" : [ 145.0, 269.0, 179.0, 34.0 ],
 									"text" : "TODO : the OSC reception port should be choosen by the user",
 									"textcolor" : [ 0.811765, 0.372549, 0.372549, 1.0 ]
 								}
@@ -1710,7 +1709,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 1138.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 1142.0, 70.0 ],
 					"varname" : "maxhelpui"
 				}
 

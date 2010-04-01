@@ -144,17 +144,10 @@ void *nmspc_new(t_symbol *name, long argc, t_atom *argv)
 }
 
 void nmspc_free(t_nmspc *x)
-{
-	TTSymbolPtr tempAdrs;
-	
+{	
 	// delete the observer
 	if(x->life_observer)
-		if(x->attr_operation != x->op_getInstances)
-			jamoma_directory_observer_remove(x->attr_address, x->life_observer);
-		else{
-			//x->tempNode->getOscAddress(&tempAdrs);
-			; // not sure...
-		}
+		jamoma_directory_observer_remove(x->attr_address, x->life_observer);
 }
 
 #if 0
@@ -191,6 +184,7 @@ void nmspc_directory_callback(t_nmspc *x, t_symbol *oscAddress, long argc, t_ato
 	//TTCallbackPtr	anObserver = (TTCallbackPtr)atom_getobj(&argv[2]);
 	t_symbol		*umenuCommand;
 	TTString		anAddress;
+	
 	if(flag == kAddressCreated)
 		umenuCommand = _sym_append;
 	else
@@ -401,7 +395,7 @@ t_max_err nmspc_attr_set_address(t_nmspc *x, void *attr, long argc, t_atom *argv
 				// change the address
 				x->attr_address = new_adrs;
 				
-				// crate a new observer
+				// create a new observer
 				if(x->attr_address != _sym_none)
 					jamoma_directory_observer_add(x->attr_address, (t_object*)x, gensym("nmspc_directory_callback"), &x->life_observer);
 			}
@@ -593,7 +587,7 @@ void nmspc_get_instances(t_nmspc *x, t_symbol *address)
 	atom_setsym(a, gensym((char*)parent->getCString()));
 	defer(x, (method)nmspc_attr_set_address, _sym_none, 1, a);
 	
-	// For getInstance we have to bind on the parent addess 
+	// For getInstance we have to bind on the parent address 
 	// but the umenu prefix have to be the child address
 	prefix = adrs->s_name;
 	prefix += ".";

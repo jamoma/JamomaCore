@@ -19,8 +19,7 @@ typedef struct _receive{
 	t_symbol					*_address;			///< the address to bind
 	t_symbol					*_attribute;		///< the attribute to bind (default : value)
 	bool						enable;				///< if false, received data won't be output without unregistered attribute observers (default true).
-	TTListPtr					lk_nodes;			///< a pointer to a selection of nodes of the tree
-	TTListPtr					lk_attr_observer;	///< a pointer to each created attribute observers
+	TTListPtr					lk_couple;			///< a pointer to a list of <nodes, observer> couple
 	TTObjectPtr					life_observer;		///< a pointer to a life cycle observer
 } t_receive;
 
@@ -104,8 +103,7 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 		x->_attribute = NULL;
 		x->enable = true;
 		
-		x->lk_nodes = NULL;
-		x->lk_attr_observer = NULL;
+		x->lk_couple = NULL;
 		
 		//attr_args_process(x, argc, argv);			// handle attribute args				
 
@@ -164,10 +162,10 @@ void receive_bind(t_receive *x)
 	TTObjectPtr newAttrCallback;
 	TTList		lk_selection;
 	TTNodePtr	p_node;
+	TTValuePtr	couple;
 	TTErr		err = kTTErrGeneric;
 	
-	x->lk_nodes = new TTList();
-	x->lk_attr_observer = new TTList();
+	x->lk_couple = new TTList();
 	
 	if(x->attr_name->s_name[0] == C_SEPARATOR){
 		if(jamoma_directory){
@@ -196,17 +194,19 @@ void receive_bind(t_receive *x)
 				// 2. start attribute observation on each existing node of the selection
 				if(!err){
 					
-					x->lk_nodes->merge(lk_selection);
-					
-					for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next())
+					for(lk_selection.begin(); lk_selection.end(); lk_selection.next())
 					{
 						// get a node from the selection
-						x->lk_nodes->current().get(0,(TTPtr*)&p_node);
+						lk_selection.current().get(0,(TTPtr*)&p_node);
 						
 						// prepare the callback mecanism to
 						// be notified about changing value attribute
 						jamoma_node_attribute_observer_add(p_node, x->_attribute, (t_object*)x, gensym("receive_node_attribute_callback"), &newAttrCallback);
-						x->lk_attr_observer->append(new TTValue((TTPtr)newAttrCallback));
+						
+						// memorize the node and his attribute observer
+						couple = new TTValue((TTPtr)p_node);
+						couple->append((TTPtr)newAttrCallback);
+						x->lk_couple->append(couple);
 					}
 				}
 				
@@ -226,13 +226,13 @@ void receive_get(t_receive *x)
 	t_atom		*argv;
 	JamomaError err;
 	
-	if(!x->lk_nodes->isEmpty()){
+	if(!x->lk_couple->isEmpty()){
 		
 		// for each node of the selection
-		for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
+		for(x->lk_couple->begin(); x->lk_couple->end(); x->lk_couple->next()){
 			
 			// get a node from the selection
-			x->lk_nodes->current().get(0,(TTPtr*)&p_node);
+			x->lk_couple->current().get(0,(TTPtr*)&p_node);
 			
 			// get the value of the node
 			err = jamoma_node_attribute_get(p_node, x->_attribute, &argc, &argv);
@@ -269,31 +269,53 @@ void receive_enable(t_receive *x, long e)
 void receive_directory_callback(t_receive *x, t_symbol *oscAddress, long argc, t_atom *argv)
 {
 	TTObjectPtr		newAttrCallback;
-	TTList			lk_selection;
-	TTErr			err = kTTErrGeneric;
+	TTValue			c;
+	TTValuePtr		couple;
+	TTNodePtr		p_node;
+	TTCallbackPtr	p_clbk;
 	TTNodePtr		aNode = (TTNodePtr)atom_getobj(&argv[0]);
 	long			flag = atom_getlong(&argv[1]);
-	TTCallbackPtr	anObserver = (TTCallbackPtr)atom_getobj(&argv[2]);
+	bool			found;
 	
 	if(flag == kAddressCreated){
 		
 		//post("jcom.receive %s observe a node creation at %s", x->attr_name->s_name, oscAddress->s_name);
 		
-		if(!err){
-			
-			if(x->_attribute == gensym("created"))
-			{
-				// output the OSCAddress of the new node
-				outlet_anything(x->address_out, oscAddress, 0, NULL);
-			}
-			else
-			{
-				// add the node to the selection
-				x->lk_nodes->append(new TTValue((TTPtr)aNode));
+		if(x->_attribute == gensym("created"))
+		{
+			// output the OSCAddress of the new node
+			outlet_anything(x->address_out, oscAddress, 0, NULL);
+		}
+		else if (x->_attribute != gensym("destroyed"))
+		{
+			// is the observer already exist ?
+			found = false;
+			if(x->lk_couple){
 				
+				// for each node of the selection
+				for(x->lk_couple->begin(); x->lk_couple->end(); x->lk_couple->next()){
+					
+					// get a couple
+					c = x->lk_couple->current();
+					
+					// get the node of the couple
+					c.get(0, (TTPtr*)&p_node);
+					
+					// compare it to the receive node
+					if(p_node == aNode)
+						found = true;
+				}
+			}
+			
+			if(!found)
+			{
 				// start attribute observation on the node
 				jamoma_node_attribute_observer_add(aNode, x->_attribute, (t_object*)x, gensym("receive_node_attribute_callback"), &newAttrCallback);
-				x->lk_attr_observer->append(new TTValue((TTPtr)newAttrCallback));
+				
+				// memorize the node and his attribute observer
+				couple = new TTValue((TTPtr)aNode);
+				couple->append((TTPtr)newAttrCallback);
+				x->lk_couple->append(couple);
 			}
 		}
 	}
@@ -306,15 +328,34 @@ void receive_directory_callback(t_receive *x, t_symbol *oscAddress, long argc, t
 			// output the OSCAddress of the old node
 			outlet_anything(x->address_out, oscAddress, 0, NULL);
 		}
-		else
+		else if (x->_attribute != gensym("created"))
 		{
-			jamoma_node_attribute_observer_remove(aNode, x->_attribute, anObserver);
-			
-			// remove the node from the selection
-			x->lk_nodes->remove(aNode);
-			
-			// and remove his observer				
-			x->lk_attr_observer->remove(anObserver);
+			// look at the node among memorized <node, observer>
+			if(x->lk_couple){
+				
+				// for each node of the selection
+				for(x->lk_couple->begin(); x->lk_couple->end(); x->lk_couple->next()){
+					
+					// get a couple
+					c = x->lk_couple->current();
+					
+					// get the node of the couple
+					c.get(0, (TTPtr*)&p_node);
+					
+					// compare it to the receive node
+					if(p_node == aNode){
+						
+						// get the observer of the couple
+						c.get(1, (TTPtr*)&p_clbk);
+						
+						// stop attribute observation of the node
+						jamoma_node_attribute_observer_remove(p_node, x->_attribute, p_clbk);
+						
+						// forget this couple
+						x->lk_couple->remove(c);
+					}
+				}
+			}
 		}
 	}
 }
@@ -334,31 +375,36 @@ void receive_node_attribute_callback(t_receive *x, t_symbol *mess, long argc, t_
 
 void receive_remove(t_receive *x)
 {
-	TTObjectPtr oldAttrCallback;
-	TTNodePtr p_node;
+	TTValue			c;
+	TTNodePtr		p_node;
+	TTCallbackPtr	p_clbk;
 	
-	// if there is a selection, remove Observers
-	if(x->lk_nodes){
+	// remove observers
+	if(x->lk_couple){
 		
-		x->lk_attr_observer->begin();
-		for(x->lk_nodes->begin(); x->lk_nodes->end(); x->lk_nodes->next()){
+		// for each couple
+		for(x->lk_couple->begin(); x->lk_couple->end(); x->lk_couple->next()){
 			
-			// get a node of the selection
-			x->lk_nodes->current().get(0,(TTPtr*)&p_node);
+			// get a couple
+			c = x->lk_couple->current();
 			
-			// get the observer relative to this node
-			x->lk_attr_observer->current().get(0,(TTPtr*)&oldAttrCallback);
+			// get the node of the couple
+			c.get(0,(TTPtr*)&p_node);
+									
+			// get the observer of the couple
+			c.get(1, (TTPtr*)&p_clbk);
 
-			// remove all the observers
-			jamoma_node_attribute_observer_remove(p_node, x->_attribute, oldAttrCallback);
-
-			x->lk_attr_observer->next();
+			// stop attribute observation of the node
+			jamoma_node_attribute_observer_remove(p_node, x->_attribute, p_clbk);
+				
+			// forget this couple
+			x->lk_couple->remove(c);
 		}
 	}
 	
-	delete x->lk_nodes;
-	delete x->lk_attr_observer;
+	delete x->lk_couple;
 	
+	// stop life cycle observation
 	if(x->_address)
 		jamoma_directory_observer_remove(x->_address, x->life_observer);
 }
