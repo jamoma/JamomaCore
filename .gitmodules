@@ -1,9 +1,6 @@
 [submodule "Modules/Graphics"]
 	path = Modules/Graphics
 	url = git://github.com/tap/JamomaGraphics.git
-[submodule "Modules/Multicore"]
-	path = Modules/Multicore
-	url = git://github.com/tap/JamomaMulticore.git
 [submodule "Modules/DSP"]
 	path = Modules/DSP
 	url = git://github.com/tap/JamomaDSP.git
@@ -16,6 +13,32 @@
 [submodule "Modules/Publications"]
 	path = Modules/Publications
 	url = git://github.com/tap/JamomaPublications.git
+[submodule "Modules/Ruby"]
+	path = Modules/Ruby
+	url = git://github.com/tap/JamomaRuby.git
+[submodule "Tools/supports"]
+	path = Tools/supports
+	url = git://github.com/tap/JamomaSupport.git
+[submodule "Modules/Test"]
+	path = Modules/Test
+	url = git://github.com/tap/JamomaTest.git
+[submodule "Modules/Graph"]
+	path = Modules/Graph
+	url = git://github.com/tap/JamomaGraph.git
+[submodule "Modules/AudioGraph"]
+	path = Modules/AudioGraph
+	url = git://github.com/tap/JamomaAudioGraph.git
+
+[submodule "Modules/Dependencies"]
+	path = Modules/Dependencies
+	url = git://github.com/jln-/JamomaDependencies.git
+[submodule "Modules/TheGitter"]
+	path = Modules/TheGitter
+	url = git://github.com/bltzr/JamomaGitter.git
+	
+[submodule "UserLib/Jamoma.Ircam.FTM"]
+	path = UserLib/Jamoma.Ircam.FTM
+	url = git://github.com/lossius/Jamoma.Ircam.FTM.git
 [submodule "UserLib/Tap.Tools"]
 	path = UserLib/Tap.Tools
 	url = git://github.com/tap/TapToolsForJamoma.git
@@ -43,27 +66,6 @@
 [submodule "UserLib/Holophon"]
 	path = UserLib/Holophon
 	url = git://github.com/Nilson/Holophon.git
-[submodule "Modules/Dependencies"]
-	path = Modules/Dependencies
-	url = git://github.com/jln-/JamomaDependencies.git
-[submodule "UserLib/Jamoma.Ircam.FTM"]
-	path = UserLib/Jamoma.Ircam.FTM
-	url = git://github.com/lossius/Jamoma.Ircam.FTM.git
-[submodule "Modules/TheGitter"]
-	path = Modules/TheGitter
-	url = git://github.com/bltzr/JamomaGitter.git
-[submodule "Modules/Ruby"]
-	path = Modules/Ruby
-	url = git://github.com/tap/JamomaRuby.git
-[submodule "Tools/supports"]
-	path = Tools/supports
-	url = git://github.com/tap/JamomaSupport.git
 [submodule "UserLib/NavNav"]
 	path = UserLib/NavNav
 	url = git://github.com/navid/NavNav.git
-[submodule "Modules/Test"]
-	path = Modules/Test
-	url = git://github.com/tap/JamomaTest.git
-[submodule "Modules/Graph"]
-	path = Modules/Graph
-	url = git://github.com/tap/JamomaGraph.git
