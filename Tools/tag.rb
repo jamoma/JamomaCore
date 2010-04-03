@@ -34,11 +34,16 @@ end
 `git tag #{$tag}`
 `git push origin --tags`
 
-tagOne "Foundation"
+tagOne "Dependencies"
 tagOne "DSP"
-tagOne "Graphics"
-tagOne "Multicore"
+tagOne "Foundation"   
+tagOne "Graph"
+tagOne "Graphics"  
 tagOne "Modular"
+tagOne "Multicore"
+tagOne "Ruby"
+tagOne "Test"
+
 
 #{}`git submodule foreach git remote prune origin`
 #{}`git submodule foreach git tag #{tag}`
