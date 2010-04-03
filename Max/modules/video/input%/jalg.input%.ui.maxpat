@@ -1,10 +1,10 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 0.0, 45.0, 1280.0, 726.0 ],
+		"rect" : [ 0.0, 45.0, 1330.0, 810.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 0.0, 45.0, 1280.0, 726.0 ],
+		"defrect" : [ 0.0, 45.0, 1330.0, 810.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -1236,10 +1236,10 @@
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0
 					}
 ,
@@ -1277,8 +1277,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 89.0, 736.0, 409.0, 19.0 ],
-					"text" : "jcom.parameter camera/camera @type integer @description \"Choose camera\"",
+					"patching_rect" : [ 90.0, 745.0, 399.0, 19.0 ],
+					"text" : "jcom.parameter camera/camera @type string @description \"Choose camera\"",
 					"varname" : "camera/camera"
 				}
 
@@ -1292,8 +1292,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 89.0, 666.0, 415.0, 19.0 ],
-					"text" : "jcom.parameter camera/device @type integer @description \"Input device type\"",
+					"patching_rect" : [ 89.0, 671.0, 405.0, 19.0 ],
+					"text" : "jcom.parameter camera/device @type string @description \"Input device type\"",
 					"varname" : "camera/device"
 				}
 
@@ -1307,7 +1307,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 89.0, 689.0, 91.0, 19.0 ],
+					"patching_rect" : [ 90.0, 695.0, 91.0, 19.0 ],
 					"text" : "r #1_camera"
 				}
 
@@ -1321,7 +1321,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 89.0, 622.0, 86.0, 19.0 ],
+					"patching_rect" : [ 90.0, 620.0, 86.0, 19.0 ],
 					"text" : "r #1_device"
 				}
 
@@ -1517,10 +1517,10 @@
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0
 					}
 ,
@@ -2018,13 +2018,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-72",
-					"items" : [  ],
+					"items" : "<empty>",
 					"labelclick" : 1,
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 89.0, 714.0, 100.0, 19.0 ],
+					"patching_rect" : [ 90.0, 720.0, 100.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 85.0, 43.0, 149.0, 19.0 ],
 					"types" : [  ],
@@ -2043,7 +2043,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 89.0, 645.0, 100.0, 19.0 ],
+					"patching_rect" : [ 90.0, 645.0, 100.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 85.0, 25.0, 149.0, 19.0 ],
 					"types" : [  ],
@@ -2810,7 +2810,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-72", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 98.5, 760.0, 71.0, 760.0, 71.0, 710.0, 98.5, 710.0 ],
+					"midpoints" : [ 99.5, 771.0, 71.0, 771.0, 71.0, 715.0, 99.5, 715.0 ],
 					"source" : [ "obj-7", 0 ]
 				}
 
@@ -2838,7 +2838,7 @@
 					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-72", 0 ]
+					"source" : [ "obj-72", 1 ]
 				}
 
 			}
@@ -2847,7 +2847,7 @@
 					"destination" : [ "obj-9", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-73", 0 ]
+					"source" : [ "obj-73", 1 ]
 				}
 
 			}
@@ -2990,7 +2990,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-73", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 98.5, 687.0, 71.0, 687.0, 71.0, 642.0, 98.5, 642.0 ],
+					"midpoints" : [ 98.5, 692.0, 71.0, 692.0, 71.0, 642.0, 99.5, 642.0 ],
 					"source" : [ "obj-9", 0 ]
 				}
 
