@@ -1,19 +1,19 @@
 /* 
  *	wavetable≈
- *	Oscillator object for Jamoma Multicore
+ *	Oscillator object for Jamoma AudioGraph
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxAudioGraph.h"
 
 
 // Data Structure for this object
 typedef struct Oscil {
     t_object				obj;
-	TTMulticoreObjectPtr	multicoreObject;
+	TTAudioGraphObjectPtr	multicoreObject;
 	TTPtr					multicoreOutlet;
 	SymbolPtr				attrWaveform;
 	SymbolPtr				attrInterpolation;
@@ -48,15 +48,15 @@ int main(void)
 {
 	ClassPtr c;
 
-	TTMulticoreInit();	
+	TTAudioGraphInit();	
 	common_symbols_init();
 
 	c = class_new("jcom.wavetable≈", (method)OscilNew, (method)OscilFree, sizeof(Oscil), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)OscilReset,			"multicore.reset",	A_CANT, 0);
 	class_addmethod(c, (method)OscilSetup,			"multicore.setup",	A_CANT,	0);
-	class_addmethod(c, (method)MaxMulticoreDrop,	"multicore.drop",		A_CANT, 0);
-	class_addmethod(c, (method)MaxMulticoreObject,	"multicore.object",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphDrop,	"multicore.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,	"multicore.object",		A_CANT, 0);
 	class_addmethod(c, (method)OscilAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",			A_CANT, 0);  
 	
@@ -103,7 +103,7 @@ OscilPtr OscilNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.set(1, TTUInt32(0));
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 
-		self->multicoreObject->addAudioFlag(kTTMulticoreGenerator);
+		self->multicoreObject->addAudioFlag(kTTAudioGraphGenerator);
 
 		attr_args_process(self, argc, argv);
     	object_obex_store((TTPtr)self, _sym_dumpout, (ObjectPtr)outlet_new(self, NULL));

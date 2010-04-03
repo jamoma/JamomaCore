@@ -1,5 +1,5 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
+ * AudioGraph Audio Graph Layer for Jamoma DSP
  * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
  * Copyright © 2008, Timothy Place
  * 
@@ -10,16 +10,16 @@
 #ifndef __TTMULTICORE_GENERATOR_H__
 #define __TTMULTICORE_GENERATOR_H__
 
-#include "TTMulticore.h"
+#include "TTAudioGraph.h"
 
 
 /******************************************************************************************/
 
-/**	TTMulticoreSource is a very simple audio object that holds a signal from TTBlue
- that can be used by a TTMulticore graph.		*/
-class TTMULTICORE_EXPORT TTMulticoreGenerator : public TTAudioObject
+/**	TTAudioGraphSource is a very simple audio object that holds a signal from TTBlue
+ that can be used by a TTAudioGraph graph.		*/
+class TTMULTICORE_EXPORT TTAudioGraphGenerator : public TTAudioObject
 {
-	TTCLASS_SETUP(TTMulticoreGenerator)
+	TTCLASS_SETUP(TTAudioGraphGenerator)
 
 	TTUInt16	mVectorSize;
 	
@@ -35,7 +35,7 @@ public:
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	
 };
 
-typedef TTMulticoreGenerator*	TTMulticoreGeneratorPtr;
+typedef TTAudioGraphGenerator*	TTAudioGraphGeneratorPtr;
 
 
 #endif // __TTMULTICORE_GENERATOR_H__

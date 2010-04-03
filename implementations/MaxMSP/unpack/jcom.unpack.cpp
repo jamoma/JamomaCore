@@ -1,20 +1,20 @@
 /* 
  *	out≈
- *	External object for Max/MSP to output TTAudioSignals from a Jamoma Multicore dsp chain.
+ *	External object for Max/MSP to output TTAudioSignals from a Jamoma AudioGraph dsp chain.
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxAudioGraph.h"
 #include "jpatcher_api.h"
 //#define DEBUG_NOTIFICATIONS
 
 // Data Structure for this object
 struct Out {
     t_pxobject					obj;
-	TTMulticoreObjectPtr		multicoreObject;
+	TTAudioGraphObjectPtr		multicoreObject;
 	TTAudioSignalPtr			audioSignal;
 	TTUInt16					maxNumChannels;	// the number of inlets or outlets, which is an argument at instantiation
 	TTUInt16					numChannels;	// the actual number of channels to use, set by the dsp method
@@ -25,7 +25,7 @@ struct Out {
 	ObjectPtr					patcher;		// the patcher -- cached for iterating to make connections
 	ObjectPtr					patcherview;	// first view of the top-level patcher (for dirty notifications)
 	TTPtr						qelem;			// for clumping patcher dirty notifications
-	TTMulticorePreprocessData	initData;		// for the preprocess method
+	TTAudioGraphPreprocessData	initData;		// for the preprocess method
 };
 typedef Out* OutPtr;
 
@@ -37,7 +37,7 @@ MaxErr	OutNotify(OutPtr self, SymbolPtr s, SymbolPtr msg, ObjectPtr sender, TTPt
 void	OutQFn(OutPtr self);
 void	OutAssist(OutPtr self, void* b, long msg, long arg, char* dst);
 TTErr	OutReset(OutPtr self, long vectorSize);
-TTErr	OutConnect(OutPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr	OutConnect(OutPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber);
 void	OutIterateResetCallback(OutPtr self, ObjectPtr obj);
 void	OutIterateSetupCallback(OutPtr self, ObjectPtr obj);
 void	OutAttachToPatchlinesForPatcher(OutPtr self, ObjectPtr patcher);
@@ -57,7 +57,7 @@ int main(void)
 {
 	ClassPtr c;
 
-	TTMulticoreInit();	
+	TTAudioGraphInit();	
 	common_symbols_init();
 
 	c = class_new("jcom.unpack≈", (method)OutNew, (method)OutFree, sizeof(Out), (method)0L, A_GIMME, 0);
@@ -65,8 +65,8 @@ int main(void)
 	class_addmethod(c, (method)OutNotify,			"notify",				A_CANT, 0);
 	class_addmethod(c, (method)OutReset,			"multicore.reset",		A_CANT, 0);
 	class_addmethod(c, (method)OutConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
-	class_addmethod(c, (method)MaxMulticoreDrop,	"multicore.drop",		A_CANT, 0);
-	class_addmethod(c, (method)MaxMulticoreObject,	"multicore.object",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphDrop,	"multicore.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,	"multicore.object",		A_CANT, 0);
  	class_addmethod(c, (method)OutDsp,				"dsp",					A_CANT, 0);		
 	class_addmethod(c, (method)OutAssist,			"assist",				A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
@@ -220,7 +220,7 @@ TTErr OutReset(OutPtr self, long vectorSize)
 }
 
 
-TTErr OutConnect(OutPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
+TTErr OutConnect(OutPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber)
 {
 	self->hasConnections = true;
 	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);

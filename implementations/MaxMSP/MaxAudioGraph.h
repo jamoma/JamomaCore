@@ -1,5 +1,5 @@
 /* 
- *	MaxMulticore
+ *	MaxAudioGraph
  *	A thin wrapper of the Lydbaer audio system for use in the Cycling '74 Max/MSP environment.
  *	Includes an automated class wrapper to make TTBlue object's available as objects for Max/MSP.
  *	Copyright © 2008 by Timothy Place
@@ -18,7 +18,7 @@
 #include "z_dsp.h"					// MSP Header
 #include "jpatcher_api.h"			// Required for patcher traversal code
 
-#include "TTMulticoreAPI.h"			// Definitions for Jamoma Multicore
+#include "TTAudioGraphAPI.h"			// Definitions for Jamoma AudioGraph
 #include "maxGraph.h"
 
 
@@ -37,31 +37,31 @@ typedef t_max_err	MaxErr;
 
 typedef TTErr (*TTValidityCheckFunction)(const TTPtr data);		///< A type that can be used to store a pointer to a validity checking function.
 
-class MaxMulticoreWrappedClassOptions;
+class MaxAudioGraphWrappedClassOptions;
 
-typedef struct _MaxMulticoreWrappedClass {
+typedef struct _MaxAudioGraphWrappedClass {
 	ClassPtr							maxClass;					///< The Max class pointer.
 	SymbolPtr							maxClassName;				///< The name to give the Max class.
 	TTSymbolPtr							ttClassName;				///< The name of the class as registered with the TTBlue framework.
 	TTValidityCheckFunction				validityCheck;				///< A function to call to validate the context for an object before it is instantiated.
 	TTPtr								validityCheckArgument;		///< An argument to pass to the validityCheck function when it is called.
-	MaxMulticoreWrappedClassOptions*	options;					///< Additional configuration options specified for the class.
+	MaxAudioGraphWrappedClassOptions*	options;					///< Additional configuration options specified for the class.
 	t_hashtab*							maxNamesToTTNames;			///< names may not be direct mappings, as we downcase the first letter.
-} MaxMulticoreWrappedClass;
+} MaxAudioGraphWrappedClass;
 
 
 
-class MaxMulticoreWrappedClassOptions {
+class MaxAudioGraphWrappedClassOptions {
 protected:
 	TTHash*	options;
 
 public:
-	MaxMulticoreWrappedClassOptions()
+	MaxAudioGraphWrappedClassOptions()
 	{
 		options = new TTHash;
 	}
 	
-	virtual ~MaxMulticoreWrappedClassOptions()
+	virtual ~MaxAudioGraphWrappedClassOptions()
 	{
 		delete options;
 	}
@@ -80,32 +80,32 @@ public:
 };
 	
 
-typedef MaxMulticoreWrappedClass* MaxMulticoreWrappedClassPtr;							///< A pointer to a WrappedClass.
-typedef MaxMulticoreWrappedClassOptions* MaxMulticoreWrappedClassOptionsPtr;			///< A pointer to WrappedClassOptions.
+typedef MaxAudioGraphWrappedClass* MaxAudioGraphWrappedClassPtr;							///< A pointer to a WrappedClass.
+typedef MaxAudioGraphWrappedClassOptions* MaxAudioGraphWrappedClassOptionsPtr;			///< A pointer to WrappedClassOptions.
 
 
 // FUNCTIONS
 
 // Wrap a TTBlue class as a Max class.
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c);
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c);
 
 // This version can be passed a method that is called to make sure it is legit to instantiate the class.
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c, TTValidityCheckFunction validityCheck);
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck);
 
 // This version can be passed a method that is called to make sure it is legit to instantiate the class.
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument);
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument);
 
 
 // These are versions of the above, but for which additional options can be specified.
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttblueClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c, MaxMulticoreWrappedClassOptionsPtr options);
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttblueClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c, TTValidityCheckFunction validityCheck, MaxMulticoreWrappedClassOptionsPtr options);
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttblueClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, MaxMulticoreWrappedClassOptionsPtr options);
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttblueClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, MaxAudioGraphWrappedClassOptionsPtr options);
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttblueClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, MaxAudioGraphWrappedClassOptionsPtr options);
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttblueClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, MaxAudioGraphWrappedClassOptionsPtr options);
 
 
 
 
-TTErr MaxMulticoreDrop(ObjectPtr self, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber);
-TTErr MaxMulticoreObject(ObjectPtr self, TTMulticoreObjectPtr* returnedMulticoreObject);
+TTErr MaxAudioGraphDrop(ObjectPtr self, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber);
+TTErr MaxAudioGraphObject(ObjectPtr self, TTAudioGraphObjectPtr* returnedAudioGraphObject);
 
 
 #endif // __TT_MAX_MULTICORE_H__

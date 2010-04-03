@@ -1,5 +1,5 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
+ * AudioGraph Audio Graph Layer for Jamoma DSP
  * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
  * Copyright © 2008, Timothy Place
  * 
@@ -7,12 +7,12 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTMulticoreObject.h"
-#include "TTMulticoreInlet.h"		// required for windows build
-#include "TTMulticoreOutput.h"
+#include "TTAudioGraphObject.h"
+#include "TTAudioGraphInlet.h"		// required for windows build
+#include "TTAudioGraphOutput.h"
 #include "TTAudioEngine.h"
 
-#define thisTTClass			TTMulticoreOutput
+#define thisTTClass			TTAudioGraphOutput
 #define thisTTClassName		"multicore.output"
 #define thisTTClassTags		"audio, multicore, output"
 
@@ -41,7 +41,7 @@ TT_AUDIO_CONSTRUCTOR,
 }
 
 
-TTMulticoreOutput::~TTMulticoreOutput()
+TTAudioGraphOutput::~TTAudioGraphOutput()
 {
 	audioEngine->sendMessage(TT("removeCallbackObserver"), *me);
 	delete me;
@@ -50,7 +50,7 @@ TTMulticoreOutput::~TTMulticoreOutput()
 }
 
 
-TTErr TTMulticoreOutput::Start()
+TTErr TTAudioGraphOutput::Start()
 {
 	TTValue						v;
 
@@ -62,14 +62,14 @@ TTErr TTMulticoreOutput::Start()
 }
 
 
-TTErr TTMulticoreOutput::Stop()
+TTErr TTAudioGraphOutput::Stop()
 {
 	audioEngine->sendMessage(TT("Stop"));
 	return kTTErrNone;
 }
 
 
-TTErr TTMulticoreOutput::audioEngineWillProcess()
+TTErr TTAudioGraphOutput::audioEngineWillProcess()
 {
 	TT_ASSERT("There must be an owner", owner);
 	
@@ -81,59 +81,59 @@ TTErr TTMulticoreOutput::audioEngineWillProcess()
 }
 
 
-TTErr TTMulticoreOutput::setOwner(TTValue& newOwner)
+TTErr TTAudioGraphOutput::setOwner(TTValue& newOwner)
 {
-	owner = TTMulticoreObjectPtr(TTPtr(newOwner));
+	owner = TTAudioGraphObjectPtr(TTPtr(newOwner));
 	return kTTErrNone;
 }
 
 
-TTErr TTMulticoreOutput::GetAvailableDeviceNames(TTValue& returnedDeviceNames)
+TTErr TTAudioGraphOutput::GetAvailableDeviceNames(TTValue& returnedDeviceNames)
 {
 	return audioEngine->sendMessage(TT("GetAvailableOutputDeviceNames"), returnedDeviceNames);
 }
 
 
-TTErr TTMulticoreOutput::GetCpuLoad(TTValue& returnedValue)
+TTErr TTAudioGraphOutput::GetCpuLoad(TTValue& returnedValue)
 {
 	return audioEngine->sendMessage(TT("GetCpuLoad"), returnedValue);
 }
 
 
-TTErr TTMulticoreOutput::setSampleRate(const TTValue& newValue)
+TTErr TTAudioGraphOutput::setSampleRate(const TTValue& newValue)
 {
 	return audioEngine->setAttributeValue(kTTSym_SampleRate, const_cast<TTValue&>(newValue));
 }
 
-TTErr TTMulticoreOutput::getSampleRate(TTValue& returnedValue)
+TTErr TTAudioGraphOutput::getSampleRate(TTValue& returnedValue)
 {
 	return audioEngine->getAttributeValue(kTTSym_SampleRate, returnedValue);
 }
 
 
-TTErr TTMulticoreOutput::setVectorSize(const TTValue& newValue)
+TTErr TTAudioGraphOutput::setVectorSize(const TTValue& newValue)
 {
 	return audioEngine->setAttributeValue(kTTSym_VectorSize, const_cast<TTValue&>(newValue));
 }
 
-TTErr TTMulticoreOutput::getVectorSize(TTValue& returnedValue)
+TTErr TTAudioGraphOutput::getVectorSize(TTValue& returnedValue)
 {
 	return audioEngine->getAttributeValue(kTTSym_VectorSize, returnedValue);
 }
 
 
-TTErr TTMulticoreOutput::setDevice(const TTValue& newValue)
+TTErr TTAudioGraphOutput::setDevice(const TTValue& newValue)
 {
 	return audioEngine->setAttributeValue(TT("OutputDevice"), const_cast<TTValue&>(newValue));
 }
 
-TTErr TTMulticoreOutput::getDevice(TTValue& returnedValue)
+TTErr TTAudioGraphOutput::getDevice(TTValue& returnedValue)
 {
 	return audioEngine->getAttributeValue(TT("OutputDevice"), returnedValue);
 }
 
 
-TTErr TTMulticoreOutput::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTAudioGraphOutput::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	if(inputs->numAudioSignals){
 		TTAudioSignal&	in = inputs->getSignal(0);

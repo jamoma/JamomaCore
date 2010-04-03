@@ -1,20 +1,20 @@
 /* 
  *	op≈
- *	External object for Max/MSP to perform basic mathematical operations on objects in a Jamoma Multicore dsp chain.
+ *	External object for Max/MSP to perform basic mathematical operations on objects in a Jamoma AudioGraph dsp chain.
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxAudioGraph.h"
 #include "maxGraph.h"
 
 
 // Data Structure for this object
 struct Op {
    	Object					obj;
-	TTMulticoreObjectPtr	multicoreObject;
+	TTAudioGraphObjectPtr	multicoreObject;
 	TTPtr					outlet;
 	SymbolPtr				attrOperator;
 	TTFloat32				attrOperand;
@@ -29,7 +29,7 @@ void   	OpAssist		(OpPtr self, void* b, long msg, long arg, char* dst);
 TTErr  	OpResetAudio	(OpPtr self, long vectorSize);
 TTErr  	OpSetupAudio	(OpPtr self);
 //TTErr	OpSetup			(OpPtr self);
-TTErr  	OpConnectAudio	(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr  	OpConnectAudio	(OpPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber);
 MaxErr 	OpSetOperator	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr 	OpSetOperand	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
 
@@ -45,7 +45,7 @@ int main(void)
 {
 	ClassPtr c;
 	
-	TTMulticoreInit();	
+	TTAudioGraphInit();	
 	common_symbols_init();
 	
 	c = class_new("jcom.op≈", (method)OpNew, (method)OpFree, sizeof(Op), (method)0L, A_GIMME, 0);
@@ -53,13 +53,13 @@ int main(void)
 	class_addmethod(c, (method)OpResetAudio,		"multicore.reset",		A_CANT, 0);
 	class_addmethod(c, (method)OpSetupAudio,		"multicore.setup",		A_CANT, 0);
 	class_addmethod(c, (method)OpConnectAudio,		"multicore.connect",	A_OBJ, A_LONG, 0);
-	class_addmethod(c, (method)MaxMulticoreDrop,	"multicore.drop",		A_CANT, 0);
-	class_addmethod(c, (method)MaxMulticoreObject,	"multicore.object",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphDrop,	"multicore.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,	"multicore.object",		A_CANT, 0);
 	class_addmethod(c, (method)MaxGraphReset,		"graph.reset",			A_CANT, 0);
 	//class_addmethod(c, (method)OpSetup,			"graph.setup",			A_CANT, 0); // no setup -- no graph outlets
 	class_addmethod(c, (method)MaxGraphConnect,		"graph.connect",		A_OBJ, A_LONG, 0);
- 	class_addmethod(c, (method)MaxMulticoreDrop,	"graph.drop",			A_CANT, 0);
-	class_addmethod(c, (method)MaxMulticoreObject,	"graph.object",			A_CANT, 0);
+ 	class_addmethod(c, (method)MaxAudioGraphDrop,	"graph.drop",			A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,	"graph.object",			A_CANT, 0);
 	class_addmethod(c, (method)OpAssist,			"assist",				A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
 	
@@ -165,7 +165,7 @@ TTErr OpSetup(OpPtr self)
  */
 
 
-TTErr OpConnectAudio(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
+TTErr OpConnectAudio(OpPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber)
 {
 	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }

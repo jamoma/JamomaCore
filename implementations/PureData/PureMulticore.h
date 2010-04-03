@@ -1,6 +1,6 @@
 /* 
- *	PureMulticore
- *	A thin wrapper of Jamoma Multicore for use in the PureData environment.
+ *	PureAudioGraph
+ *	A thin wrapper of Jamoma AudioGraph for use in the PureData environment.
  *	Includes an automated class wrapper to make Jamoma DSP objects available as objects for Pd.
  *	Copyright © 2010 by Timothy Place
  * 
@@ -19,7 +19,7 @@
 //#include "z_dsp.h"					// MSP Header
 //#include "jpatcher_api.h"			// Required for patcher traversal code
 
-#include "TTMulticoreAPI.h"			// Definitions for Jamoma Multicore
+#include "TTAudioGraphAPI.h"			// Definitions for Jamoma AudioGraph
 
 
 
@@ -90,19 +90,19 @@ typedef WrappedClassOptions* WrappedClassOptionsPtr;			///< A pointer to Wrapped
 // FUNCTIONS
 
 // Wrap a TTBlue class as a Max class.
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c);
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c);
 
 // This version can be passed a method that is called to make sure it is legit to instantiate the class.
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck);
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck);
 
 // This version can be passed a method that is called to make sure it is legit to instantiate the class.
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument);
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument);
 
 
 // These are versions of the above, but for which additional options can be specified.
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, WrappedClassOptionsPtr options);
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, WrappedClassOptionsPtr options);
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, WrappedClassOptionsPtr options);
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, WrappedClassOptionsPtr options);
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, WrappedClassOptionsPtr options);
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, WrappedClassOptionsPtr options);
 
 
 // NOTE: DUPLICATIONS FROM THE MSP WRAPPER

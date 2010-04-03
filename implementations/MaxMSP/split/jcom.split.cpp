@@ -1,22 +1,22 @@
 /* 
  *	split≈
- *	External object for Jamoma Multicore
+ *	External object for Jamoma AudioGraph
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxAudioGraph.h"
 
-#define thisTTClass			TTMulticoreSplit
+#define thisTTClass			TTAudioGraphSplit
 #define thisTTClassName		"multicore.split"
 #define thisTTClassTags		"audio, multicore"
 
 
 /**	The split≈ object takes a single input signal and splits it out	into N output signals */
-class TTMulticoreSplit : public TTAudioObject {
-	TTCLASS_SETUP(TTMulticoreSplit)
+class TTAudioGraphSplit : public TTAudioObject {
+	TTCLASS_SETUP(TTAudioGraphSplit)
 
 	vector<TTUInt16>	mSplitChannels;	///< The number of channels in each of N groups of signals
 
@@ -71,7 +71,7 @@ TT_AUDIO_CONSTRUCTOR_EXPORT
 
 
 // Destructor
-TTMulticoreSplit::~TTMulticoreSplit()
+TTAudioGraphSplit::~TTAudioGraphSplit()
 {
 	;
 }
@@ -79,13 +79,13 @@ TTMulticoreSplit::~TTMulticoreSplit()
 
 int main(void)
 {
-	MaxMulticoreWrappedClassOptionsPtr	options = new MaxMulticoreWrappedClassOptions;
+	MaxAudioGraphWrappedClassOptionsPtr	options = new MaxAudioGraphWrappedClassOptions;
 	TTValue								value(0);
 
-	TTMulticoreInit();
-	TTMulticoreSplit::registerClass();
+	TTAudioGraphInit();
+	TTAudioGraphSplit::registerClass();
 	
 	options->append(TT("argumentDefinesNumOutlets"), value);
-	return wrapAsMaxMulticore(TT("multicore.split"), "jcom.split≈", NULL, options);
+	return wrapAsMaxAudioGraph(TT("multicore.split"), "jcom.split≈", NULL, options);
 }
 

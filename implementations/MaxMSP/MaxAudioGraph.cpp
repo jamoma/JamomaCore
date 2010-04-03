@@ -1,5 +1,5 @@
 /* 
- *	MaxMulticore
+ *	MaxAudioGraph
  *	A thin wrapper of the Lydbaer audio system for use in the Cycling '74 Max/MSP environment.
  *	Includes an automated class wrapper to make TTBlue object's available as objects for Max/MSP.
  *	Copyright © 2008 by Timothy Place
@@ -8,17 +8,17 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxAudioGraph.h"
 #include "ext_hashtab.h"
 
 
 // Data Structure for this object
 typedef struct _wrappedInstance {
     t_object					obj;					///< Max audio object header
-	TTMulticoreObjectPtr		multicoreObject;		///< The DSP instance we are wrapping -- MUST BE 2nd!
+	TTAudioGraphObjectPtr		multicoreObject;		///< The DSP instance we are wrapping -- MUST BE 2nd!
 	TTPtr						multicoreOutlets[16];	///< Array of outlets, may eventually want this to be more dynamic
 	TTPtr						inlets[16];				///< Array of proxy inlets beyond the first inlet
-	MaxMulticoreWrappedClassPtr	wrappedClassDefinition;	///< A pointer to the class definition
+	MaxAudioGraphWrappedClassPtr	wrappedClassDefinition;	///< A pointer to the class definition
 } WrappedInstance;
 
 typedef WrappedInstance* WrappedInstancePtr;		///< Pointer to a wrapped instance of our object.
@@ -28,9 +28,9 @@ typedef WrappedInstance* WrappedInstancePtr;		///< Pointer to a wrapped instance
 static t_hashtab*	wrappedMaxClasses = NULL;
 
 
-ObjectPtr MaxMulticoreWrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
+ObjectPtr MaxAudioGraphWrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 {	
-	MaxMulticoreWrappedClassPtr	wrappedMaxClass = NULL;
+	MaxAudioGraphWrappedClassPtr	wrappedMaxClass = NULL;
     WrappedInstancePtr			self = NULL;
 	TTValue						v;
 	TTErr						err = kTTErrNone;
@@ -80,9 +80,9 @@ ObjectPtr MaxMulticoreWrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr a
 		v.set(2, numOutputs);
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 		if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("generator"), v))
-			self->multicoreObject->addAudioFlag(kTTMulticoreGenerator);
+			self->multicoreObject->addAudioFlag(kTTAudioGraphGenerator);
 		if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("nonadapting"), v))
-			self->multicoreObject->addAudioFlag(kTTMulticoreNonAdapting);
+			self->multicoreObject->addAudioFlag(kTTAudioGraphNonAdapting);
 			
 		attr_args_process(self, argc, argv);
 	}
@@ -90,7 +90,7 @@ ObjectPtr MaxMulticoreWrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr a
 }
 
 
-void MaxMulticoreWrappedClass_free(WrappedInstancePtr self)
+void MaxAudioGraphWrappedClass_free(WrappedInstancePtr self)
 {
 	if (self->multicoreObject)
 		TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
@@ -101,13 +101,13 @@ void MaxMulticoreWrappedClass_free(WrappedInstancePtr self)
 
 // METHODS SPECIFIC TO MULTICORE EXTERNALS
 
-TTErr MaxMulticoreReset(WrappedInstancePtr self, long vectorSize)
+TTErr MaxAudioGraphReset(WrappedInstancePtr self, long vectorSize)
 {
 	return self->multicoreObject->resetAudio();
 }
 
 
-TTErr MaxMulticoreSetup(WrappedInstancePtr self)
+TTErr MaxAudioGraphSetup(WrappedInstancePtr self)
 {
 	Atom		a[2];
 	TTUInt16	i=0;
@@ -122,7 +122,7 @@ TTErr MaxMulticoreSetup(WrappedInstancePtr self)
 }
 
 
-TTErr MaxMulticoreConnect(ObjectPtr x, TTMulticoreObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
+TTErr MaxAudioGraphConnect(ObjectPtr x, TTAudioGraphObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
 {
 	WrappedInstancePtr	self = WrappedInstancePtr(x);
 	long				inletNumber = proxy_getinlet(SELF);
@@ -131,10 +131,10 @@ TTErr MaxMulticoreConnect(ObjectPtr x, TTMulticoreObjectPtr audioSourceObject, T
 }
 
 
-TTErr MaxMulticoreDrop(ObjectPtr x, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber)
+TTErr MaxAudioGraphDrop(ObjectPtr x, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber)
 {
 	WrappedInstancePtr		self = WrappedInstancePtr(x);
-	TTMulticoreObjectPtr	sourceObject = NULL;
+	TTAudioGraphObjectPtr	sourceObject = NULL;
 	TTErr 					err;
 	
 	err = (TTErr)int(object_method(sourceMaxObject, gensym("multicore.object"), &sourceObject));
@@ -144,16 +144,16 @@ TTErr MaxMulticoreDrop(ObjectPtr x, long inletNumber, ObjectPtr sourceMaxObject,
 }
 
 
-TTErr MaxMulticoreObject(ObjectPtr x, TTMulticoreObjectPtr* returnedMulticoreObject)
+TTErr MaxAudioGraphObject(ObjectPtr x, TTAudioGraphObjectPtr* returnedAudioGraphObject)
 {
 	WrappedInstancePtr	self = WrappedInstancePtr(x);
 
-	*returnedMulticoreObject = self->multicoreObject;
+	*returnedAudioGraphObject = self->multicoreObject;
 	return kTTErrNone;
 }
 
 
-t_max_err MaxMulticoreWrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
+t_max_err MaxAudioGraphWrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
 {
 	SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
 	TTValue		v;
@@ -192,7 +192,7 @@ t_max_err MaxMulticoreWrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr at
 }
 
 
-t_max_err MaxMulticoreWrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr attr, AtomCount argc, AtomPtr argv)
+t_max_err MaxAudioGraphWrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc && argv) {
 		SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
@@ -223,7 +223,7 @@ t_max_err MaxMulticoreWrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr at
 }
 
 
-void MaxMulticoreWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
+void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {	
 	TTValue		v;
 	TTSymbolPtr	ttName = NULL;
@@ -285,7 +285,7 @@ void MaxMulticoreWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, Ato
 
 
 // Method for Assistance Messages
-void MaxMulticoreWrappedClass_assist(WrappedInstancePtr self, void *b, long msg, long arg, char *dst)
+void MaxAudioGraphWrappedClass_assist(WrappedInstancePtr self, void *b, long msg, long arg, char *dst)
 {
 	if (msg==1)			// Inlets
 		strcpy(dst, "multichannel input and control messages");		
@@ -302,33 +302,33 @@ void MaxMulticoreWrappedClass_assist(WrappedInstancePtr self, void *b, long msg,
 
 
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c)
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c)
 {
-	return wrapAsMaxMulticore(ttClassName, maxClassName, c, (MaxMulticoreWrappedClassOptionsPtr)NULL);
+	return wrapAsMaxAudioGraph(ttClassName, maxClassName, c, (MaxAudioGraphWrappedClassOptionsPtr)NULL);
 }
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c, MaxMulticoreWrappedClassOptionsPtr options)
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, MaxAudioGraphWrappedClassOptionsPtr options)
 {
 	TTObject*					o = NULL;
 	TTValue						v;
 	TTUInt16					numChannels = 1;
-	MaxMulticoreWrappedClassPtr	wrappedMaxClass = NULL;
+	MaxAudioGraphWrappedClassPtr	wrappedMaxClass = NULL;
 	TTSymbolPtr					name = NULL;
 	TTCString					nameCString = NULL;
 	SymbolPtr					nameMaxSymbol = NULL;
 	TTUInt32					nameSize = 0;
 	
 	common_symbols_init();
-	TTMulticoreInit();
+	TTAudioGraphInit();
 	
 	if (!wrappedMaxClasses)
 		wrappedMaxClasses = hashtab_new(0);
 	
-	wrappedMaxClass = new MaxMulticoreWrappedClass;
+	wrappedMaxClass = new MaxAudioGraphWrappedClass;
 	wrappedMaxClass->maxClassName = gensym(maxClassName);
 	wrappedMaxClass->maxClass = class_new(	maxClassName, 
-											(method)MaxMulticoreWrappedClass_new, 
-											(method)MaxMulticoreWrappedClass_free, 
+											(method)MaxAudioGraphWrappedClass_new, 
+											(method)MaxAudioGraphWrappedClass_free, 
 											sizeof(WrappedInstance), 
 											(method)0L, 
 											A_GIMME, 
@@ -354,7 +354,7 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMultico
 			nameMaxSymbol = gensym(nameCString);
 			
 			hashtab_store(wrappedMaxClass->maxNamesToTTNames, nameMaxSymbol, ObjectPtr(name));
-			class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreWrappedClass_anything, nameCString, A_GIMME, 0);
+			class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphWrappedClass_anything, nameCString, A_GIMME, 0);
 		}
 		delete nameCString;
 		nameCString = NULL;
@@ -392,7 +392,7 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMultico
 				maxType = _sym_symbol;
 			
 			hashtab_store(wrappedMaxClass->maxNamesToTTNames, nameMaxSymbol, ObjectPtr(name));
-			class_addattr(wrappedMaxClass->maxClass, attr_offset_new(nameCString, maxType, 0, (method)MaxMulticoreWrappedClass_attrGet, (method)MaxMulticoreWrappedClass_attrSet, NULL));
+			class_addattr(wrappedMaxClass->maxClass, attr_offset_new(nameCString, maxType, 0, (method)MaxAudioGraphWrappedClass_attrGet, (method)MaxAudioGraphWrappedClass_attrSet, NULL));
 			
 			// Add display styles for the Max 5 inspector
 			if (attr->type == kTypeBoolean)
@@ -406,13 +406,13 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMultico
 	
 	TTObjectRelease(&o);
 	
-	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreReset,		"multicore.reset",		A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreSetup,		"multicore.setup",		A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreConnect,		"multicore.connect",	A_OBJ, A_LONG, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreDrop,		"multicore.drop",		A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreObject,		"multicore.object",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphReset,		"multicore.reset",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphSetup,		"multicore.setup",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphConnect,		"multicore.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphDrop,		"multicore.drop",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphObject,		"multicore.object",		A_CANT, 0);
     class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",				A_CANT, 0); 
-	class_addmethod(wrappedMaxClass->maxClass, (method)MaxMulticoreWrappedClass_assist, 	"assist",				A_CANT, 0L);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphWrappedClass_assist, 	"assist",				A_CANT, 0L);
 	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,			"inletinfo",			A_CANT, 0);
 	
 	class_register(_sym_box, wrappedMaxClass->maxClass);
@@ -424,9 +424,9 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMultico
 }
 
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c, TTValidityCheckFunction validityCheck)
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck)
 {
-	TTErr err = wrapAsMaxMulticore(ttClassName, maxClassName, c);
+	TTErr err = wrapAsMaxAudioGraph(ttClassName, maxClassName, c);
 	
 	if (!err) {
 		(*c)->validityCheck = validityCheck;
@@ -435,9 +435,9 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMultico
 	return err;
 }
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c, TTValidityCheckFunction validityCheck, MaxMulticoreWrappedClassOptionsPtr options)
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, MaxAudioGraphWrappedClassOptionsPtr options)
 {
-	TTErr err = wrapAsMaxMulticore(ttClassName, maxClassName, c, options);
+	TTErr err = wrapAsMaxAudioGraph(ttClassName, maxClassName, c, options);
 	
 	if (!err) {
 		(*c)->validityCheck = validityCheck;
@@ -447,9 +447,9 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMultico
 }
 
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument)
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument)
 {
-	TTErr err = wrapAsMaxMulticore(ttClassName, maxClassName, c);
+	TTErr err = wrapAsMaxAudioGraph(ttClassName, maxClassName, c);
 	
 	if (!err) {
 		(*c)->validityCheck = validityCheck;
@@ -458,9 +458,9 @@ TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMultico
 	return err;
 }
 
-TTErr wrapAsMaxMulticore(TTSymbolPtr ttClassName, char* maxClassName, MaxMulticoreWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, MaxMulticoreWrappedClassOptionsPtr options)
+TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, MaxAudioGraphWrappedClassOptionsPtr options)
 {
-	TTErr err = wrapAsMaxMulticore(ttClassName, maxClassName, c, options);
+	TTErr err = wrapAsMaxAudioGraph(ttClassName, maxClassName, c, options);
 	
 	if (!err) {
 		(*c)->validityCheck = validityCheck;

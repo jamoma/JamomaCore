@@ -1,5 +1,5 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
+ * AudioGraph Audio Graph Layer for Jamoma DSP
  * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
  * Copyright © 2010, Timothy Place
  * 
@@ -7,13 +7,13 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTMulticoreObject.h"
-#include "TTMulticoreInlet.h"
+#include "TTAudioGraphObject.h"
+#include "TTAudioGraphInlet.h"
 #include "TTCallback.h"
 
 
-// C Callback from any Multicore Source objects we are observing
-void TTMulticoreSourceObserverCallback(TTMulticoreSourcePtr self, TTValue& arg)
+// C Callback from any AudioGraph Source objects we are observing
+void TTAudioGraphSourceObserverCallback(TTAudioGraphSourcePtr self, TTValue& arg)
 {
 	// at the moment we only receive one callback, which is for the object being deleted
 	self->mSourceObject = NULL;
@@ -22,9 +22,9 @@ void TTMulticoreSourceObserverCallback(TTMulticoreSourcePtr self, TTValue& arg)
 }
 
 
-// Implementation for Multicore Source class
+// Implementation for AudioGraph Source class
 
-TTMulticoreSource::TTMulticoreSource() :
+TTAudioGraphSource::TTAudioGraphSource() :
 	mSourceObject(NULL),
 	mOutletNumber(0),
 	mCallbackHandler(NULL),
@@ -34,7 +34,7 @@ TTMulticoreSource::TTMulticoreSource() :
 }
 
 
-TTMulticoreSource::~TTMulticoreSource()
+TTAudioGraphSource::~TTAudioGraphSource()
 {
 	if (mSourceObject)
 		mSourceObject->unregisterObserverForNotifications(*mCallbackHandler);
@@ -47,16 +47,16 @@ TTMulticoreSource::~TTMulticoreSource()
 }
 
 
-void TTMulticoreSource::create()
+void TTAudioGraphSource::create()
 {
 	TTObjectInstantiate(TT("Callback"), &mCallbackHandler, kTTValNONE);
 	
-	mCallbackHandler->setAttributeValue(TT("Function"), TTPtr(&TTMulticoreSourceObserverCallback));
+	mCallbackHandler->setAttributeValue(TT("Function"), TTPtr(&TTAudioGraphSourceObserverCallback));
 	mCallbackHandler->setAttributeValue(TT("Baton"), TTPtr(this));	
 }
 
 
-void TTMulticoreSource::connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber)
+void TTAudioGraphSource::connect(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
 {
 	mSourceObject = anObject;
 	mOutletNumber = fromOutletNumber;

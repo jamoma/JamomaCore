@@ -1,19 +1,19 @@
 /* 
  *	dcblocker≈
- *	DC-Blocking Filter object for Jamoma Multicore
+ *	DC-Blocking Filter object for Jamoma AudioGraph
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxAudioGraph.h"
 
 
 // Data Structure for this object
 typedef struct DCBlocker {
     t_object				obj;
-	TTMulticoreObjectPtr	multicoreObject;
+	TTAudioGraphObjectPtr	multicoreObject;
 	TTPtr					multicoreOutlet;
 	long					attrBypass;
 };
@@ -27,7 +27,7 @@ void			DCBlockerAssist(DCBlockerPtr self, void* b, long msg, long arg, char* dst
 void			DCBlockerClear(DCBlockerPtr self);
 TTErr			DCBlockerReset(DCBlockerPtr self);
 TTErr			DCBlockerSetup(DCBlockerPtr self);
-TTErr			DCBlockerConnect(DCBlockerPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr			DCBlockerConnect(DCBlockerPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber);
 MaxErr			DCBlockerSetBypass(DCBlockerPtr self, void* attr, AtomCount argc, AtomPtr argv);
 
 
@@ -42,7 +42,7 @@ int main(void)
 {
 	ClassPtr c;
 	
-	TTMulticoreInit();	
+	TTAudioGraphInit();	
 	common_symbols_init();
 	
 	c = class_new("jcom.dcblocker≈", (method)DCBlockerNew, (method)DCBlockerFree, sizeof(DCBlocker), (method)0L, A_GIMME, 0);
@@ -51,8 +51,8 @@ int main(void)
 	class_addmethod(c, (method)DCBlockerReset,		"multicore.reset",		A_CANT, 0);
 	class_addmethod(c, (method)DCBlockerSetup,		"multicore.setup",		A_CANT, 0);
 	class_addmethod(c, (method)DCBlockerConnect,	"multicore.connect",	A_OBJ, A_LONG, 0);
- 	class_addmethod(c, (method)MaxMulticoreDrop,	"multicore.drop",		A_CANT, 0);
-	class_addmethod(c, (method)MaxMulticoreObject,	"multicore.object",		A_CANT, 0);
+ 	class_addmethod(c, (method)MaxAudioGraphDrop,	"multicore.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,	"multicore.object",		A_CANT, 0);
 	class_addmethod(c, (method)DCBlockerAssist,		"assist",				A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
 	
@@ -147,7 +147,7 @@ TTErr DCBlockerSetup(DCBlockerPtr self)
 }
 
 
-TTErr DCBlockerConnect(DCBlockerPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
+TTErr DCBlockerConnect(DCBlockerPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber)
 {
 	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }

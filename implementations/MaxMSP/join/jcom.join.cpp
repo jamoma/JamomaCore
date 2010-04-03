@@ -1,15 +1,15 @@
 /* 
  *	join≈
- *	External object for Jamoma Multicore
+ *	External object for Jamoma AudioGraph
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxAudioGraph.h"
 
-#define thisTTClass			TTMulticoreJoin
+#define thisTTClass			TTAudioGraphJoin
 #define thisTTClassName		"multicore.join"
 #define thisTTClassTags		"audio, multicore"
 
@@ -17,8 +17,8 @@
 /**	The join≈ object takes N input signals and combines them
 	into a single signal with all of the channels present.
 */
-class TTMulticoreJoin : public TTAudioObject {
-	TTCLASS_SETUP(TTMulticoreJoin)
+class TTAudioGraphJoin : public TTAudioObject {
+	TTCLASS_SETUP(TTAudioGraphJoin)
 		
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
@@ -57,7 +57,7 @@ TT_AUDIO_CONSTRUCTOR_EXPORT
 
 
 // Destructor
-TTMulticoreJoin::~TTMulticoreJoin()
+TTAudioGraphJoin::~TTAudioGraphJoin()
 {
 	;
 }
@@ -67,13 +67,13 @@ TTMulticoreJoin::~TTMulticoreJoin()
 
 int main(void)
 {
-	MaxMulticoreWrappedClassOptionsPtr	options = new MaxMulticoreWrappedClassOptions;
+	MaxAudioGraphWrappedClassOptionsPtr	options = new MaxAudioGraphWrappedClassOptions;
 	TTValue								value(0);
 
-	TTMulticoreInit();
-	TTMulticoreJoin::registerClass();
+	TTAudioGraphInit();
+	TTAudioGraphJoin::registerClass();
 	
 	options->append(TT("argumentDefinesNumInlets"), value);
 	options->append(TT("nonadapting"), value); // don't change the number of out-channels in response to changes in the number of in-channels
-	return wrapAsMaxMulticore(TT("multicore.join"), "jcom.join≈", NULL, options);
+	return wrapAsMaxAudioGraph(TT("multicore.join"), "jcom.join≈", NULL, options);
 }

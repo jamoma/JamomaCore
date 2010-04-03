@@ -1,5 +1,5 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
+ * AudioGraph Audio Graph Layer for Jamoma DSP
  * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
  * Copyright © 2008, Timothy Place
  * 
@@ -7,9 +7,9 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTMulticoreGenerator.h"
+#include "TTAudioGraphGenerator.h"
 
-#define thisTTClass			TTMulticoreGenerator
+#define thisTTClass			TTAudioGraphGenerator
 #define thisTTClassName		"multicore.generator"
 #define thisTTClassTags		"audio, multicore, generator"
 
@@ -29,20 +29,20 @@ TT_AUDIO_CONSTRUCTOR,
 }
 
 
-TTMulticoreGenerator::~TTMulticoreGenerator()
+TTAudioGraphGenerator::~TTAudioGraphGenerator()
 {
 	TTObjectRelease(&mBuffer);
 }
 
 
-TTErr TTMulticoreGenerator::setVectorSize(const TTValue& newVectorSize)
+TTErr TTAudioGraphGenerator::setVectorSize(const TTValue& newVectorSize)
 {
 	mVectorSize = newVectorSize;
 	return mBuffer->setAttributeValue(TT("VectorSize"), mVectorSize);
 }
 
 
-TTErr TTMulticoreGenerator::updateMaxNumChannels(const TTValue&)
+TTErr TTAudioGraphGenerator::updateMaxNumChannels(const TTValue&)
 {
 	mBuffer->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
 	mBuffer->setAttributeValue(TT("NumChannels"), maxNumChannels);
@@ -50,13 +50,13 @@ TTErr TTMulticoreGenerator::updateMaxNumChannels(const TTValue&)
 }
 
 
-TTErr TTMulticoreGenerator::updateSr(const TTValue&)
+TTErr TTAudioGraphGenerator::updateSr(const TTValue&)
 {
 	return kTTErrNone;
 }
 
 
-TTErr TTMulticoreGenerator::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTAudioGraphGenerator::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	return TTAudioSignal::copy(*mBuffer, out);

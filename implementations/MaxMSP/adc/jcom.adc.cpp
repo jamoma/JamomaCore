@@ -1,19 +1,19 @@
 /* 
  *	adc≈
- *	Get input from A/D converter for Jamoma Multicore
+ *	Get input from A/D converter for Jamoma AudioGraph
  *	Copyright © 2010 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxAudioGraph.h"
 
 
 // Data Structure for this object
 typedef struct Adc {
     Object					obj;
-	TTMulticoreObjectPtr	multicoreObject;
+	TTAudioGraphObjectPtr	multicoreObject;
 	TTPtr					multicoreOutlet;
 	SymbolPtr				attrMode;
 };
@@ -49,15 +49,15 @@ int main(void)
 {
 	ClassPtr c;
 
-	TTMulticoreInit();	
+	TTAudioGraphInit();	
 	common_symbols_init();
 
 	c = class_new("jcom.adc≈", (method)AdcNew, (method)AdcFree, sizeof(Adc), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)AdcReset,			"multicore.reset",	A_CANT, 0);
 	class_addmethod(c, (method)AdcSetup,			"multicore.setup",	A_CANT,	0);
-	class_addmethod(c, (method)MaxMulticoreDrop,	"multicore.drop",	A_CANT, 0);
-	class_addmethod(c, (method)MaxMulticoreObject,	"multicore.object",	A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphDrop,	"multicore.drop",	A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,	"multicore.object",	A_CANT, 0);
 	class_addmethod(c, (method)AdcStart,			"start",			0);
 	class_addmethod(c, (method)AdcStop,				"stop",				0);
 	class_addmethod(c, (method)AdcGetDeviceNames,	"getAvailableDeviceNames",	0);
@@ -94,7 +94,7 @@ AdcPtr AdcNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.set(1, TTUInt32(1));
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 
-		self->multicoreObject->addAudioFlag(kTTMulticoreGenerator);
+		self->multicoreObject->addAudioFlag(kTTAudioGraphGenerator);
 
 		attr_args_process(self, argc, argv);
     	object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));

@@ -1,19 +1,19 @@
 /* 
  *	dac≈
- *	Jamoma Multicore external object for Max
+ *	Jamoma AudioGraph external object for Max
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxAudioGraph.h"
 
 
 // Data Structure for this object
 struct Dac {
     Object					obj;
-	TTMulticoreObjectPtr	multicoreObject;
+	TTAudioGraphObjectPtr	multicoreObject;
 	ObjectPtr				patcher;		// the patcher -- cached for iterating to make connections
 	ObjectPtr				patcherview;	// first view of the top-level patcher (for dirty notifications)
 	TTPtr					qelem;			// for clumping patcher dirty notifications
@@ -32,7 +32,7 @@ void	DacAssist(DacPtr self, void* b, long msg, long arg, char* dst);
 TTErr	DacReset(DacPtr self);
 void	DacIterateResetCallback(DacPtr self, ObjectPtr obj);
 void	DacIterateSetupCallback(DacPtr self, ObjectPtr obj);
-TTErr	DacConnect(DacPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr	DacConnect(DacPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber);
 TTErr	DacInt(DacPtr self, long value);
 TTErr	DacStart(DacPtr self);
 TTErr	DacStop(DacPtr self);
@@ -61,7 +61,7 @@ int main(void)
 {
 	ClassPtr c;
 	
-	TTMulticoreInit();	
+	TTAudioGraphInit();	
 	common_symbols_init();
 	
 	c = class_new("jcom.dac≈", (method)DacNew, (method)DacFree, sizeof(Dac), (method)0L, A_GIMME, 0);
@@ -74,8 +74,8 @@ int main(void)
 	class_addmethod(c, (method)DacNotify,			"notify",				A_CANT, 0);
 	class_addmethod(c, (method)DacReset,			"multicore.reset",		A_CANT, 0);
 	class_addmethod(c, (method)DacConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
-	class_addmethod(c, (method)MaxMulticoreDrop,	"multicore.drop",		A_CANT, 0);
-	class_addmethod(c, (method)MaxMulticoreObject,	"multicore.object",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphDrop,	"multicore.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,	"multicore.object",		A_CANT, 0);
 	class_addmethod(c, (method)DacExportRuby,		"exportRuby",			A_GIMME, 0);
 	class_addmethod(c, (method)DacExportCpp,		"exportC++",			A_GIMME, 0);
 	class_addmethod(c, (method)DacExportMax,		"exportMax",			A_GIMME, 0);
@@ -248,7 +248,7 @@ TTErr DacReset(DacPtr self)
 }
 
 
-TTErr DacConnect(DacPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
+TTErr DacConnect(DacPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber)
 {
 	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }
@@ -294,7 +294,7 @@ TTErr DacStart(DacPtr self)
 	ObjectPtr				patcherview = NULL;
 	long					vectorSize;
 	long					result = 0;
-	TTMulticoreOutputPtr	outputObject = TTMulticoreOutputPtr(self->multicoreObject->getUnitGenerator());
+	TTAudioGraphOutputPtr	outputObject = TTAudioGraphOutputPtr(self->multicoreObject->getUnitGenerator());
 	
 	outputObject->getAttributeValue(TT("VectorSize"), vectorSize);
 	
@@ -371,7 +371,7 @@ TTErr DacGetCpuLoad(DacPtr self)
 
 MaxErr DacDoExportRuby(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
-	TTMulticoreDescription	desc;
+	TTAudioGraphDescription	desc;
 	TTString				fullpathToFile = "/multicore-export.rb";
 	
 	if (argc && argv)
@@ -397,7 +397,7 @@ MaxErr DacExportRuby(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 
 MaxErr DacDoExportCpp(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
-	TTMulticoreDescription	desc;
+	TTAudioGraphDescription	desc;
 	TTString				fullpathToFile = "/multicore-export.cpp";
 	
 	if (argc && argv)
@@ -423,7 +423,7 @@ MaxErr DacExportCpp(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 
 MaxErr DacDoExportMax(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
-	TTMulticoreDescription	desc;
+	TTAudioGraphDescription	desc;
 	TTString				fullpathToFile = "/multicore-export.maxpat";
 	
 	if (argc && argv)

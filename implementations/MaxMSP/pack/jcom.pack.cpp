@@ -1,18 +1,18 @@
 /* 
  *	in≈
- *	External object for Max/MSP to Provide a source for TTAudioSignals usable by a Jamoma Multicore dsp chain.
+ *	External object for Max/MSP to Provide a source for TTAudioSignals usable by a Jamoma AudioGraph dsp chain.
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxAudioGraph.h"
 
 // Data Structure for this object
 struct In {
     t_pxobject				obj;
-	TTMulticoreObjectPtr	multicoreObject;
+	TTAudioGraphObjectPtr	multicoreObject;
 	TTPtr					multicoreObjectOutlet;
 	TTUInt32				maxNumChannels;			// the number of inlets or outlets, which is an argument at instantiation
 	TTUInt32				numChannels;			// the actual number of channels to use, set by the dsp method
@@ -27,7 +27,7 @@ void	InFree(InPtr self);
 void	InAssist(InPtr self, void* b, long msg, long arg, char* dst);
 TTErr	InReset(InPtr self, long vectorSize);
 TTErr	InSetup(InPtr self);
-TTErr	InObject(InPtr self, TTMulticoreObjectPtr audioSourceObject);
+TTErr	InObject(InPtr self, TTAudioGraphObjectPtr audioSourceObject);
 t_int*	InPerform(t_int* w);
 void	InDsp(InPtr self, t_signal** sp, short* count);
 MaxErr	InSetGain(InPtr self, void* attr, AtomCount argc, AtomPtr argv);
@@ -44,15 +44,15 @@ int main(void)
 {
 	ClassPtr c;
 	
-	TTMulticoreInit();	
+	TTAudioGraphInit();	
 	common_symbols_init();
 	
 	c = class_new("jcom.pack≈", (method)InNew, (method)InFree, sizeof(In), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)InReset,					"multicore.reset",	A_CANT, 0);
 	class_addmethod(c, (method)InSetup,					"multicore.setup",	A_CANT, 0);
-	class_addmethod(c, (method)MaxMulticoreDrop,		"multicore.drop",		A_CANT, 0);
-	class_addmethod(c, (method)MaxMulticoreObject,		"multicore.object",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphDrop,		"multicore.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,		"multicore.object",		A_CANT, 0);
  	class_addmethod(c, (method)InDsp,					"dsp",				A_CANT, 0);		
 	class_addmethod(c, (method)InAssist,				"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
@@ -88,7 +88,7 @@ InPtr InNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.set(1, 0); // no multicore inlets (only msp inlets)
 		v.set(2, 1); // one multicore outlet
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
-		self->multicoreObject->addAudioFlag(kTTMulticoreGenerator);
+		self->multicoreObject->addAudioFlag(kTTAudioGraphGenerator);
 
 		if (!self->multicoreObject->getUnitGenerator()) {
 			object_error(SELF, "cannot load multicore.source");
@@ -157,7 +157,7 @@ t_int* InPerform(t_int* w)
 	
 	if (!self->obj.z_disabled) {
 		for (i=0; i < self->numChannels; i++)
-			TTMulticoreGeneratorPtr(self->multicoreObject->getUnitGenerator())->mBuffer->setVector(i, self->vectorSize, (TTFloat32*)w[i+2]);
+			TTAudioGraphGeneratorPtr(self->multicoreObject->getUnitGenerator())->mBuffer->setVector(i, self->vectorSize, (TTFloat32*)w[i+2]);
 	}	
 	return w + (self->numChannels+2);
 }

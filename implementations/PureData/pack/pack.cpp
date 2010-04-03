@@ -1,18 +1,18 @@
 /* 
  *	in≈
- *	External object for Pd to Provide a source for TTAudioSignals usable by a Jamoma Multicore dsp chain.
+ *	External object for Pd to Provide a source for TTAudioSignals usable by a Jamoma AudioGraph dsp chain.
  *	Copyright © 2010 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "PureMulticore.h"
+#include "PureAudioGraph.h"
 
 // Data Structure for this object
 struct In {
     Object					obj;
-	TTMulticoreObjectPtr	multicoreObject;
+	TTAudioGraphObjectPtr	multicoreObject;
 	_outlet*				multicoreObjectOutlet;
 	t_float					f;						// dummy for signal in first inlet
 	TTUInt32				maxNumChannels;			// the number of inlets or outlets, which is an argument at instantiation
@@ -28,7 +28,7 @@ InPtr	InNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void	InFree(InPtr self);
 TTErr	InReset(InPtr self, long vectorSize);
 TTErr	InSetup(InPtr self);
-TTErr	InObject(InPtr self, TTMulticoreObjectPtr audioSourceObject);
+TTErr	InObject(InPtr self, TTAudioGraphObjectPtr audioSourceObject);
 t_int*	InPerform(t_int* w);
 void	InDsp(InPtr self, t_signal** sp, short* count);
 
@@ -42,7 +42,7 @@ static ClassPtr sInClass;
 
 void setup_jcom_pack0x3d(void)
 {
-	TTMulticoreInit();	
+	TTAudioGraphInit();	
 	
 	sInClass = class_new(gensym("jcom_pack="), (t_newmethod)InNew, (t_method)InFree, sizeof(In), 0, A_GIMME, 0);
 	
@@ -78,7 +78,7 @@ InPtr InNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.set(1, 0); // no multicore inlets (only msp inlets)
 		v.set(2, 1); // one multicore outlet
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
-		self->multicoreObject->addAudioFlag(kTTMulticoreGenerator);
+		self->multicoreObject->addAudioFlag(kTTAudioGraphGenerator);
 
 		if (!self->multicoreObject->getUnitGenerator()) {
 			error("in=: cannot load multicore.source");
@@ -134,7 +134,7 @@ t_int* InPerform(t_int* w)
 	TTUInt32	i;
 	
 	for (i=0; i < self->numChannels; i++)
-		TTMulticoreGeneratorPtr(self->multicoreObject->getUnitGenerator())->mBuffer->setVector(i, self->vectorSize, (TTFloat32*)w[i+2]);
+		TTAudioGraphGeneratorPtr(self->multicoreObject->getUnitGenerator())->mBuffer->setVector(i, self->vectorSize, (TTFloat32*)w[i+2]);
 
 	return w + (self->numChannels+2);
 }

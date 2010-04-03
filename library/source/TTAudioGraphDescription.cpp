@@ -1,5 +1,5 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
+ * AudioGraph Audio Graph Layer for Jamoma DSP
  * Describe a node in an audio processing graph.
  * Copyright © 2010, Timothy Place
  * 
@@ -7,14 +7,14 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTMulticoreDescription.h"
+#include "TTAudioGraphDescription.h"
 #include <fstream>
 #include <iostream>
 
 using namespace std;
 
 
-void TTMulticoreDescription::exportRuby(const TTString& fullpathToFile)
+void TTAudioGraphDescription::exportRuby(const TTString& fullpathToFile)
 {
 	TTString		rubyContent;
 	int				index = -1;
@@ -29,7 +29,7 @@ void TTMulticoreDescription::exportRuby(const TTString& fullpathToFile)
 
 
 // WARNING: this code has been largely duplicated to TTGraphDescription.h
-int TTMulticoreDescription::exportRubyNode(TTString& content, int& index, TTStringVector& nodeNames)
+int TTAudioGraphDescription::exportRubyNode(TTString& content, int& index, TTStringVector& nodeNames)
 {
 	char	objName[16];
 	int		localIndex;
@@ -44,7 +44,7 @@ int TTMulticoreDescription::exportRubyNode(TTString& content, int& index, TTStri
 	content += mClassName->getString();
 	content += "\"\n";
 
-	for (TTMulticoreDescriptionIter input = mAudioDescriptions.begin(); input != mAudioDescriptions.end(); input++) {
+	for (TTAudioGraphDescriptionIter input = mAudioDescriptions.begin(); input != mAudioDescriptions.end(); input++) {
 		int inputIndex = input->exportRubyNode(content, index, nodeNames);
 		content += objName;
 		content += ".connect_audio ";
@@ -62,16 +62,16 @@ int TTMulticoreDescription::exportRubyNode(TTString& content, int& index, TTStri
 }
 
 
-void TTMulticoreDescription::exportCpp(const TTString& fullpathToFile)
+void TTAudioGraphDescription::exportCpp(const TTString& fullpathToFile)
 {
 	TTString		content;
 	int				index = -1;
 	TTStringVector	nodeNames;
 	ofstream		aFile(fullpathToFile.c_str());
 	
-	content += "#include \"TTMulticoreAPI.h\"\n\n";
+	content += "#include \"TTAudioGraphAPI.h\"\n\n";
 	content += "int main()\n{\n";
-	content += "	TTMulticoreInit();\n\n";
+	content += "	TTAudioGraphInit();\n\n";
 			
 	exportCppNode(content, index, nodeNames);
 	
@@ -81,7 +81,7 @@ void TTMulticoreDescription::exportCpp(const TTString& fullpathToFile)
 	aFile.close();
 }
 
-int TTMulticoreDescription::exportCppNode(TTString& content, int& index, TTStringVector& nodeNames)
+int TTAudioGraphDescription::exportCppNode(TTString& content, int& index, TTStringVector& nodeNames)
 {
 	char	objName[16];
 	int		localIndex;
@@ -91,7 +91,7 @@ int TTMulticoreDescription::exportCppNode(TTString& content, int& index, TTStrin
 	snprintf(objName, 16, "obj%i", index);
 	nodeNames.push_back(TTString(objName));
 	
-	content += "	TTMulticoreObjectPtr ";
+	content += "	TTAudioGraphObjectPtr ";
 	content += objName;
 	content += ";\n";
 	content += "	TTObjectInstantiate(TT(\"multicore.object\"), (TTObjectPtr*)&";
@@ -100,7 +100,7 @@ int TTMulticoreDescription::exportCppNode(TTString& content, int& index, TTStrin
 	content += mClassName->getString();
 	content += "\")))\n\n";
 	
-	for (TTMulticoreDescriptionIter input = mAudioDescriptions.begin(); input != mAudioDescriptions.end(); input++) {
+	for (TTAudioGraphDescriptionIter input = mAudioDescriptions.begin(); input != mAudioDescriptions.end(); input++) {
 		int inputIndex = input->exportCppNode(content, index, nodeNames);
 		content += "	";
 		content += objName;
@@ -120,7 +120,7 @@ int TTMulticoreDescription::exportCppNode(TTString& content, int& index, TTStrin
 }
 
 
-void TTMulticoreDescription::exportMax(const TTString& fullpathToFile)
+void TTAudioGraphDescription::exportMax(const TTString& fullpathToFile)
 {
 	TTString		content;
 	int				index = -1;
@@ -140,7 +140,7 @@ void TTMulticoreDescription::exportMax(const TTString& fullpathToFile)
 	aFile.close();
 }
 
-int TTMulticoreDescription::exportMaxNode(TTString& content, int& index, TTStringVector& nodeNames)
+int TTAudioGraphDescription::exportMaxNode(TTString& content, int& index, TTStringVector& nodeNames)
 {
 	char	objName[16];
 	char	location[16];
@@ -180,7 +180,7 @@ int TTMulticoreDescription::exportMaxNode(TTString& content, int& index, TTStrin
 	content += "				}\n";
 	content += "			}\n";
 		
-	for (TTMulticoreDescriptionIter input = mAudioDescriptions.begin(); input != mAudioDescriptions.end(); input++) {
+	for (TTAudioGraphDescriptionIter input = mAudioDescriptions.begin(); input != mAudioDescriptions.end(); input++) {
 		int inputIndex;
 		
 		inputIndex = input->exportMaxNode(content, index, nodeNames);

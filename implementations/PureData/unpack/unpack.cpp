@@ -1,26 +1,26 @@
 /* 
  *	out≈
- *	External object for Pd to output TTAudioSignals from a Jamoma Multicore dsp chain.
+ *	External object for Pd to output TTAudioSignals from a Jamoma AudioGraph dsp chain.
  *	Copyright © 2010 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "PureMulticore.h"
+#include "PureAudioGraph.h"
 
 
 // Data Structure for this object
 struct Out {
     Object						obj;
 	t_float						f;					// dummy for signal in first inlet
-	TTMulticoreObjectPtr		multicoreObject;
+	TTAudioGraphObjectPtr		multicoreObject;
 	TTAudioSignalPtr			audioSignal;
 	TTUInt16					maxNumChannels;		// the number of inlets or outlets, which is an argument at instantiation
 	TTUInt16					numChannels;		// the actual number of channels to use, set by the dsp method
 	TTUInt16					vectorSize;			// cached by the DSP method
 	TTFloat32					gain;				// gain multiplier
-	TTMulticorePreprocessData	initData;			// for the preprocess method
+	TTAudioGraphPreprocessData	initData;			// for the preprocess method
 	t_canvas*					canvas;
 };
 typedef Out* OutPtr;
@@ -31,7 +31,7 @@ extern "C" void setup_jcom_unpack0x3d(void);
 OutPtr	OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void	OutFree(OutPtr self);
 TTErr	OutReset(OutPtr self, long vectorSize);
-TTErr	OutConnect(OutPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr	OutConnect(OutPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber);
 t_int*	OutPerform(t_int* w);
 void	OutDsp(OutPtr self, t_signal** sp, short* count);
 void	OutSetGain(OutPtr self, t_floatarg value);
@@ -46,7 +46,7 @@ static ClassPtr		sOutClass;
 
 void setup_jcom_unpack0x3d(void)
 {
-	TTMulticoreInit();	
+	TTAudioGraphInit();	
 
 	sOutClass = class_new(gensym("jcom_unpack="), (t_newmethod)OutNew, (t_method)OutFree, sizeof(Out), 0, A_GIMME, 0);
 	
@@ -110,7 +110,7 @@ TTErr OutReset(OutPtr self, long vectorSize)
 }
 
 
-TTErr OutConnect(OutPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
+TTErr OutConnect(OutPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber)
 {
 	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }

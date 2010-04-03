@@ -1,19 +1,19 @@
 /* 
  *	op≈
- *	External object for Pd to perform basic mathematical operations on objects in a Jamoma Multicore dsp chain.
+ *	External object for Pd to perform basic mathematical operations on objects in a Jamoma AudioGraph dsp chain.
  *	Copyright © 2010 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "PureMulticore.h"
+#include "PureAudioGraph.h"
 
 
 // Data Structure for this object
 struct Op {
    	Object					obj;
-	TTMulticoreObjectPtr	multicoreObject;
+	TTAudioGraphObjectPtr	multicoreObject;
 	_outlet*				outlet;
 	SymbolPtr				attrOperator;
 	TTFloat32				attrOperand;
@@ -27,7 +27,7 @@ OpPtr	OpNew			(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void   	OpFree			(OpPtr self);
 TTErr  	OpReset			(OpPtr self, long vectorSize);
 TTErr  	OpSetup			(OpPtr self);
-TTErr  	OpConnect		(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr  	OpConnect		(OpPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber);
 void 	OpSetOperator	(OpPtr self, SymbolPtr value);
 void 	OpSetOperand	(OpPtr self, t_floatarg value);
 
@@ -41,7 +41,7 @@ static ClassPtr sOpClass;
 
 void setup_jcom_op0x3d(void)
 {
-	TTMulticoreInit();	
+	TTAudioGraphInit();	
 	
 	sOpClass = class_new(gensym("jcom_op="), (t_newmethod)OpNew, (t_method)OpFree, sizeof(Op), 0, A_GIMME, 0);
 	
@@ -113,7 +113,7 @@ TTErr OpSetup(OpPtr self)
 }
 
 
-TTErr OpConnect(OpPtr self, TTMulticoreObjectPtr audioSourceObject, TTPtrSizedInt sourceOutletNumber)
+TTErr OpConnect(OpPtr self, TTAudioGraphObjectPtr audioSourceObject, TTPtrSizedInt sourceOutletNumber)
 {
 	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }

@@ -1,5 +1,5 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
+ * AudioGraph Audio Graph Layer for Jamoma DSP
  * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
  * Copyright © 2008, Timothy Place
  * 
@@ -7,12 +7,12 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTMulticoreObject.h"
-#include "TTMulticoreInlet.h"		// required for windows build
-#include "TTMulticoreInput.h"
+#include "TTAudioGraphObject.h"
+#include "TTAudioGraphInlet.h"		// required for windows build
+#include "TTAudioGraphInput.h"
 #include "TTAudioEngine.h"
 
-#define thisTTClass			TTMulticoreInput
+#define thisTTClass			TTAudioGraphInput
 #define thisTTClassName		"multicore.input"
 #define thisTTClassTags		"audio, multicore, input"
 
@@ -36,66 +36,66 @@ TT_AUDIO_CONSTRUCTOR
 }
 
 
-TTMulticoreInput::~TTMulticoreInput()
+TTAudioGraphInput::~TTAudioGraphInput()
 {
 	TTAudioEngine::destroy();
 	TTObjectRelease(&mBuffer);
 }
 
 
-TTErr TTMulticoreInput::GetAvailableDeviceNames(TTValue& returnedDeviceNames)
+TTErr TTAudioGraphInput::GetAvailableDeviceNames(TTValue& returnedDeviceNames)
 {
 	return mAudioEngine->sendMessage(TT("GetAvailableInputDeviceNames"), returnedDeviceNames);
 }
 
 
-TTErr TTMulticoreInput::Start()
+TTErr TTAudioGraphInput::Start()
 {
 	mAudioEngine->sendMessage(TT("Start"));
 	return kTTErrNone;
 }
 
 
-TTErr TTMulticoreInput::Stop()
+TTErr TTAudioGraphInput::Stop()
 {
 	mAudioEngine->sendMessage(TT("Stop"));
 	return kTTErrNone;
 }
 
-TTErr TTMulticoreInput::setSampleRate(const TTValue& newValue)
+TTErr TTAudioGraphInput::setSampleRate(const TTValue& newValue)
 {
 	return mAudioEngine->setAttributeValue(kTTSym_SampleRate, const_cast<TTValue&>(newValue));
 }
 
-TTErr TTMulticoreInput::getSampleRate(TTValue& returnedValue)
+TTErr TTAudioGraphInput::getSampleRate(TTValue& returnedValue)
 {
 	return mAudioEngine->getAttributeValue(kTTSym_SampleRate, returnedValue);
 }
 
 
-TTErr TTMulticoreInput::setVectorSize(const TTValue& newValue)
+TTErr TTAudioGraphInput::setVectorSize(const TTValue& newValue)
 {
 	return mAudioEngine->setAttributeValue(kTTSym_VectorSize, const_cast<TTValue&>(newValue));
 }
 
-TTErr TTMulticoreInput::getVectorSize(TTValue& returnedValue)
+TTErr TTAudioGraphInput::getVectorSize(TTValue& returnedValue)
 {
 	return mAudioEngine->getAttributeValue(kTTSym_VectorSize, returnedValue);
 }
 
 
-TTErr TTMulticoreInput::setDevice(const TTValue& newValue)
+TTErr TTAudioGraphInput::setDevice(const TTValue& newValue)
 {
 	return mAudioEngine->setAttributeValue(TT("InputDevice"), const_cast<TTValue&>(newValue));
 }
 
-TTErr TTMulticoreInput::getDevice(TTValue& returnedValue)
+TTErr TTAudioGraphInput::getDevice(TTValue& returnedValue)
 {
 	return mAudioEngine->getAttributeValue(TT("InputDevice"), returnedValue);
 }
 
 
-TTErr TTMulticoreInput::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTAudioGraphInput::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	if (outputs->numAudioSignals){
 		TTAudioSignal&	out = outputs->getSignal(0);

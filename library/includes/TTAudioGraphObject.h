@@ -1,5 +1,5 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
+ * AudioGraph Audio Graph Layer for Jamoma DSP
  * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
  * Copyright © 2008, Timothy Place
  * 
@@ -10,33 +10,33 @@
 #ifndef __TTMULTICORE_OBJECT_H__
 #define __TTMULTICORE_OBJECT_H__
 
-#include "TTMulticore.h"
+#include "TTAudioGraph.h"
 #include "TTGraphObject.h"
-#include "TTMulticoreOutlet.h"
-#include "TTMulticoreDescription.h"
+#include "TTAudioGraphOutlet.h"
+#include "TTAudioGraphDescription.h"
 
 
 /******************************************************************************************/
 
 /**
-	The TTMulticoreObject wraps a TTDSP object such that it is possible to 
+	The TTAudioGraphObject wraps a TTDSP object such that it is possible to 
 	build a dynamic graph of audio processing units.
  
 	It is implemented as a TTObject so that it can receive dynamically bound messages, 
 	incliding notifications from other objects.
 */
-class TTMULTICORE_EXPORT TTMulticoreObject : public TTGraphObject {	
-	TTCLASS_SETUP(TTMulticoreObject)
+class TTMULTICORE_EXPORT TTAudioGraphObject : public TTGraphObject {	
+	TTCLASS_SETUP(TTAudioGraphObject)
 	
 protected:
-	TTMulticoreProcessStatus	mStatus;			///< Used to enable correct processing of feedback loops, multiple destinations, etc.
-	TTUInt32					mAudioFlags;		///< A bitmask of values defined in #TTMulticoreFlags
-	TTMulticoreInletVector		mAudioInlets;			///< The inlets through which we pull audio from sources
-	TTMulticoreOutletVector		mAudioOutlets;			///< The inlets through which we pull audio from sources
+	TTAudioGraphProcessStatus	mStatus;			///< Used to enable correct processing of feedback loops, multiple destinations, etc.
+	TTUInt32					mAudioFlags;		///< A bitmask of values defined in #TTAudioGraphFlags
+	TTAudioGraphInletVector		mAudioInlets;			///< The inlets through which we pull audio from sources
+	TTAudioGraphOutletVector		mAudioOutlets;			///< The inlets through which we pull audio from sources
 	TTAudioSignalArrayPtr		mInputSignals;		///< The buffered input for processing audio with our object.
 	TTAudioSignalArrayPtr		mOutputSignals;		///< The results of processing audio with our object, buffered for objects requesting it
 	TTUInt16					mVectorSize;		///< The most recent vector size info passed from the terminal object during a preprocess
-	static TTMutexPtr			sSharedMutex;		///< A critical region shared by all TTMulticoreObjects to prevent changes to the graph while processing.
+	static TTMutexPtr			sSharedMutex;		///< A critical region shared by all TTAudioGraphObjects to prevent changes to the graph while processing.
 
 public:
 
@@ -46,7 +46,7 @@ public:
 	}
 	
 
-	void addAudioFlag(TTMulticoreFlags flag)
+	void addAudioFlag(TTAudioGraphFlags flag)
 	{
 		mAudioFlags |= flag;
 	}
@@ -91,7 +91,7 @@ public:
 	}
 	
 	
-	void getAudioDescription(TTMulticoreDescription& desc);
+	void getAudioDescription(TTAudioGraphDescription& desc);
 	
 	
 	/**	Clear the list of source objects from which this object will try to pull audio.	*/
@@ -103,7 +103,7 @@ public:
 		@param	anInletNumber	If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.
 								Typically the value passed here will be 0, indicating the normal audio input.
 		@return					An error code.	*/
-	TTErr connectAudio(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
+	TTErr connectAudio(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 	
 	
 	/**	Drop a source from the list of objects from which to request audio.  In other words, disconnect.
@@ -111,7 +111,7 @@ public:
 		@param	anInletNumber	If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.
 								Typically the value passed here will be 0, indicating the normal audio input.
 		@return					An error code.	*/
-	TTErr dropAudio(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
+	TTErr dropAudio(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 
 	
 	/**	The thread protection for processing is important: we cannot have the graph nodes being deleted or re-arranged while we are pulling. 
@@ -134,7 +134,7 @@ public:
 		As with the getAudioOutput() method, this is driven by the destination object and working up through the chains.
 		@param	initData		Data provided by the terminal object so that the graph will be able to adapt to it.
 		@return					An error code.		*/
-	virtual TTErr preprocess(const TTMulticorePreprocessData& initData);
+	virtual TTErr preprocess(const TTAudioGraphPreprocessData& initData);
 	
 	
 	/**	This method is required to be implemented by all objects except for those existing solely as a destination.

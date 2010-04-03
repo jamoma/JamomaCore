@@ -1,5 +1,5 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
+ * AudioGraph Audio Graph Layer for Jamoma DSP
  * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
  * Copyright © 2010, Timothy Place
  * 
@@ -10,30 +10,30 @@
 #ifndef __TTMULTICORE_SOURCE_H__
 #define __TTMULTICORE_SOURCE_H__
 
-#include "TTMulticore.h"
-#include "TTMulticoreObject.h"
+#include "TTAudioGraph.h"
+#include "TTAudioGraphObject.h"
 
 
 /******************************************************************************************/
 
 // NOTE: we don't need to keep a buffer of our own, be we just mirror the buffer of mSourceObject
 
-class TTMulticoreSource {
-	friend void TTMulticoreSourceObserverCallback(TTMulticoreSource* self, TTValue& arg);
+class TTAudioGraphSource {
+	friend void TTAudioGraphSourceObserverCallback(TTAudioGraphSource* self, TTValue& arg);
 	
-	TTMulticoreObjectPtr	mSourceObject;		// the object from which we pull samples
+	TTAudioGraphObjectPtr	mSourceObject;		// the object from which we pull samples
 	TTUInt16				mOutletNumber;		// zero-based
 	TTObjectPtr				mCallbackHandler;
-	TTMulticoreInletPtr		mOwner;				// the owning inlet
+	TTAudioGraphInletPtr		mOwner;				// the owning inlet
 	
 public:
-	TTMulticoreSource();	
-	~TTMulticoreSource();			
+	TTAudioGraphSource();	
+	~TTAudioGraphSource();			
 
 	// Internal method shared/called by constructors.
 	void create();
 	
-	TTBoolean match(TTMulticoreObjectPtr anObject, TTUInt16 anOutletNumber)
+	TTBoolean match(TTAudioGraphObjectPtr anObject, TTUInt16 anOutletNumber)
 	{
 		if (anObject == mSourceObject && anOutletNumber == mOutletNumber)
 			return YES;
@@ -41,14 +41,14 @@ public:
 			return NO;
 	}
 	
-	void setOwner(TTMulticoreInletPtr theOwningInlet)
+	void setOwner(TTAudioGraphInletPtr theOwningInlet)
 	{
 		mOwner = theOwningInlet;
 	}
 	
 	// Copying Functions -- critical due to use by std::vector 
 	
-	TTMulticoreSource(const TTMulticoreSource& original) :
+	TTAudioGraphSource(const TTAudioGraphSource& original) :
 		mSourceObject(NULL),
 		mOutletNumber(0),
 		mCallbackHandler(NULL),
@@ -57,7 +57,7 @@ public:
 		create();
 		mOwner = original.mOwner;
 		
-		// NOTE: See notes below in TTMulticoreInlet copy constructor...
+		// NOTE: See notes below in TTAudioGraphInlet copy constructor...
 		// NOTE: When vector of sources is resized, it is possible for an object to be created and immediately copied -- prior to a 'connect' method call
 		// NOTE: Are we ever called after connecting?  If so, then we need to set up the connection...
 		
@@ -66,7 +66,7 @@ public:
 	}
 	
 	// This one is called, for example, on the Mac when dropping a source and the vector has to be re-arranged.	
-	TTMulticoreSource& operator=(const TTMulticoreSource& original)
+	TTAudioGraphSource& operator=(const TTAudioGraphSource& original)
 	{
 		mSourceObject = NULL;
 		mOutletNumber = 0;
@@ -92,7 +92,7 @@ public:
 	}
 	
 	/** Compare two sources for equality. */
-	inline friend bool operator == (const TTMulticoreSource& source1, const TTMulticoreSource& source2)
+	inline friend bool operator == (const TTAudioGraphSource& source1, const TTAudioGraphSource& source2)
 	{
 		if (source1.mSourceObject == source2.mSourceObject && source1.mOutletNumber == source2.mOutletNumber)
 			return true;
@@ -103,16 +103,16 @@ public:
 	
 	// Info Methods
 	
-	void getDescription(TTMulticoreDescription& desc)
+	void getDescription(TTAudioGraphDescription& desc)
 	{
 		mSourceObject->getAudioDescription(desc);
 	}
 	
 	// Graph Methods
 	
-	void connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber);
+	void connect(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber);
 		
-	void preprocess(const TTMulticorePreprocessData& initData)
+	void preprocess(const TTAudioGraphPreprocessData& initData)
 	{
 		mSourceObject->preprocess(initData);
 	}
@@ -124,9 +124,9 @@ public:
 	
 };
 
-typedef TTMulticoreSource*					TTMulticoreSourcePtr;
-typedef vector<TTMulticoreSource>			TTMulticoreSourceVector;
-typedef TTMulticoreSourceVector::iterator	TTMulticoreSourceIter;
+typedef TTAudioGraphSource*					TTAudioGraphSourcePtr;
+typedef vector<TTAudioGraphSource>			TTAudioGraphSourceVector;
+typedef TTAudioGraphSourceVector::iterator	TTAudioGraphSourceIter;
 
 
 #endif // __TTMULTICORE_SOURCE_H__

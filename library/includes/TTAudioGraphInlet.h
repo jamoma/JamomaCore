@@ -1,5 +1,5 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
+ * AudioGraph Audio Graph Layer for Jamoma DSP
  * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
  * Copyright © 2010, Timothy Place
  * 
@@ -10,15 +10,15 @@
 #ifndef __TTMULTICORE_INLET_H__
 #define __TTMULTICORE_INLET_H__
 
-#include "TTMulticore.h"
-#include "TTMulticoreObject.h"
-#include "TTMulticoreSource.h"
+#include "TTAudioGraph.h"
+#include "TTAudioGraphObject.h"
+#include "TTAudioGraphSource.h"
 
 
 /******************************************************************************************/
 
-/**	This object represents a single 'inlet' to a TTMulticoreObject.
-	TTMulticoreObject maintains a vector of these inlets.
+/**	This object represents a single 'inlet' to a TTAudioGraphObject.
+	TTAudioGraphObject maintains a vector of these inlets.
 	
 	The relationship of an inlet to other parts of the multicore heirarchy is as follows:
 
@@ -27,20 +27,20 @@
 		An inlet may have many signals connected.
 		A signal may have many channels.
 */
-class TTMulticoreInlet {
-	TTMulticoreSourceVector	mSourceObjects;		///< A vector of object pointers from which we pull our source samples using the ::getAudioOutput() method.
+class TTAudioGraphInlet {
+	TTAudioGraphSourceVector	mSourceObjects;		///< A vector of object pointers from which we pull our source samples using the ::getAudioOutput() method.
 	TTAudioSignalPtr		mBufferedInput;		///< summed samples from all sources
 	TTBoolean				mClean;
 	
 public:
-	TTMulticoreInlet() : 
+	TTAudioGraphInlet() : 
 		mBufferedInput(NULL),
 		mClean(NO)
 	{
 		createBuffer();
 	}
 
-	~TTMulticoreInlet()
+	~TTAudioGraphInlet()
 	{
 		TTObjectRelease(&mBufferedInput);
 	}
@@ -48,7 +48,7 @@ public:
 	
 	// Copying Functions are critical due to use by std::vector 
 	// At least on the Mac, a call to std::vector::resize() does not simply construct N objects.
-	// For example, mInlets.resize(2) in TTMulticoreObject() will construct 1 object, 
+	// For example, mInlets.resize(2) in TTAudioGraphObject() will construct 1 object, 
 	// and then copy it to get the second object rather than constructing the second object!
 	// Because of that, we have to be super careful!
 	//
@@ -58,7 +58,7 @@ public:
 	// We need to be on the alert for strange behaviors caused by this situation.
 	// At some point perhaps we should switch to just using a vector of pointers, though there are sensitive issues there too...
 	
-	TTMulticoreInlet(const TTMulticoreInlet& original) : 
+	TTAudioGraphInlet(const TTAudioGraphInlet& original) : 
 		mBufferedInput(NULL),
 		mClean(NO)
 	{
@@ -70,7 +70,7 @@ public:
 	}
 	
 	// The copy assignment constructor doesn't appear to be involved, at least with resizes, on the Mac...
-	TTMulticoreInlet& operator=(const TTMulticoreInlet& source)
+	TTAudioGraphInlet& operator=(const TTAudioGraphInlet& source)
 	{
 		TTObjectRelease(&mBufferedInput);
 		
@@ -100,12 +100,12 @@ public:
 		mSourceObjects.clear();
 	}
 		
-	TTErr connect(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber)
+	TTErr connect(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
 	{
 		TTUInt16 size = mSourceObjects.size();
 
 		// make sure the connection doesn't already exist
-		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
+		for (TTAudioGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
 			if (source->match(anObject, fromOutletNumber))
 				return kTTErrNone;
 		}
@@ -117,9 +117,9 @@ public:
 		return kTTErrNone;
 	}
 	
-	TTErr drop(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber)
+	TTErr drop(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
 	{
-		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
+		for (TTAudioGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
 			if (source->match(anObject, fromOutletNumber)) {
 				drop(*source);
 				break;
@@ -128,19 +128,19 @@ public:
 		return kTTErrNone;
 	}
 	
-	void drop(TTMulticoreSource& aSource)
+	void drop(TTAudioGraphSource& aSource)
 	{
-		TTMulticoreSourceIter iter = find(mSourceObjects.begin(), mSourceObjects.end(), aSource);
+		TTAudioGraphSourceIter iter = find(mSourceObjects.begin(), mSourceObjects.end(), aSource);
 		
 		if (iter != mSourceObjects.end())
 			mSourceObjects.erase(iter);
 	}
 	
 
-	void preprocess(const TTMulticorePreprocessData& initData)
+	void preprocess(const TTAudioGraphPreprocessData& initData)
 	{
 		mBufferedInput->clear();
-		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++)
+		for (TTAudioGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++)
 			source->preprocess(initData);
 		mClean = YES;
 	}
@@ -152,7 +152,7 @@ public:
 		int					err;
 		TTAudioSignalPtr	foo;
 		
-		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
+		for (TTAudioGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
 			err |= (*source).process(foo);
 			if (mClean) {
 				(*mBufferedInput) = (*foo);
@@ -171,10 +171,10 @@ public:
 	}
 	
 	
-	void getDescriptions(TTMulticoreDescriptionVector& descs)
+	void getDescriptions(TTAudioGraphDescriptionVector& descs)
 	{
-		for (TTMulticoreSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
-			TTMulticoreDescription	desc;
+		for (TTAudioGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
+			TTAudioGraphDescription	desc;
 			
 			source->getDescription(desc);
 			descs.push_back(desc);

@@ -1,5 +1,5 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
+ * AudioGraph Audio Graph Layer for Jamoma DSP
  * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
  * Copyright © 2010, Timothy Place
  * 
@@ -10,26 +10,26 @@
 #ifndef __TTMULTICORE_OUTLET_H__
 #define __TTMULTICORE_OUTLET_H__
 
-#include "TTMulticore.h"
+#include "TTAudioGraph.h"
 
 
 /******************************************************************************************/
 
-/**	This object represents a single 'outlet' from a TTMulticoreObject.
-	TTMulticoreObject maintains a vector of these outlets.
+/**	This object represents a single 'outlet' from a TTAudioGraphObject.
+	TTAudioGraphObject maintains a vector of these outlets.
 */
-class TTMulticoreOutlet {
-	friend class TTMulticoreObject;
+class TTAudioGraphOutlet {
+	friend class TTAudioGraphObject;
 	TTAudioSignalPtr		mBufferedOutput;	
 	
 public:
-	TTMulticoreOutlet() : 
+	TTAudioGraphOutlet() : 
 		mBufferedOutput(NULL)
 	{
 		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedOutput, 1);
 	}
 	
-	~TTMulticoreOutlet()
+	~TTAudioGraphOutlet()
 	{
 		TTObjectRelease(&mBufferedOutput);
 	}
@@ -37,14 +37,14 @@ public:
 	
 	// Copying Functions are critical due to use by std::vector 
 	
-	TTMulticoreOutlet(const TTMulticoreOutlet& original) : 
+	TTAudioGraphOutlet(const TTAudioGraphOutlet& original) : 
 		mBufferedOutput(NULL)
 	{
 //		mBufferedOutput = TTObjectReference(original.mBufferedOutput);
 		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedOutput, 1);
 	}
 	
-	TTMulticoreOutlet& operator=(const TTMulticoreOutlet& source)
+	TTAudioGraphOutlet& operator=(const TTAudioGraphOutlet& source)
 	{
 		TTObjectRelease(&mBufferedOutput);
 		mBufferedOutput = TTObjectReference(source.mBufferedOutput);

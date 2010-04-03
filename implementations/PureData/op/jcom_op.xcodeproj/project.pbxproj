@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2237363011091F38004950CF /* JamomaMulticore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2237362F11091F38004950CF /* JamomaMulticore.framework */; };
+		2237363011091F38004950CF /* JamomaAudioGraph.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2237362F11091F38004950CF /* JamomaAudioGraph.framework */; };
 		2237363211091F4A004950CF /* op.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2237363111091F4A004950CF /* op.cpp */; };
 		22C9F4F2103256A80062F7B8 /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F4F1103256A80062F7B8 /* JamomaFoundation.framework */; };
 		22DEC1BF0E1C8A0600F4ADDF /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DEC1BE0E1C8A0600F4ADDF /* JamomaDSP.framework */; };
@@ -16,9 +16,9 @@
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		2237362F11091F38004950CF /* JamomaMulticore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaMulticore.framework; path = ../../../library/build/UninstalledProducts/JamomaMulticore.framework; sourceTree = SOURCE_ROOT; };
+		2237362F11091F38004950CF /* JamomaAudioGraph.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaAudioGraph.framework; path = ../../../library/build/UninstalledProducts/JamomaAudioGraph.framework; sourceTree = SOURCE_ROOT; };
 		2237363111091F4A004950CF /* op.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = op.cpp; sourceTree = "<group>"; };
-		2237363311091F54004950CF /* PureMulticore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PureMulticore.h; path = ../PureMulticore.h; sourceTree = SOURCE_ROOT; };
+		2237363311091F54004950CF /* PureAudioGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PureAudioGraph.h; path = ../PureAudioGraph.h; sourceTree = SOURCE_ROOT; };
 		22C9F4F1103256A80062F7B8 /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
 		22DEC1BE0E1C8A0600F4ADDF /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		D2AAC09D05546B4700DB518D /* jcom_op=.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "jcom_op=.pd_darwin"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,7 +32,7 @@
 				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
 				22DEC1BF0E1C8A0600F4ADDF /* JamomaDSP.framework in Frameworks */,
 				22C9F4F2103256A80062F7B8 /* JamomaFoundation.framework in Frameworks */,
-				2237363011091F38004950CF /* JamomaMulticore.framework in Frameworks */,
+				2237363011091F38004950CF /* JamomaAudioGraph.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +62,7 @@
 			children = (
 				22C9F4F1103256A80062F7B8 /* JamomaFoundation.framework */,
 				22DEC1BE0E1C8A0600F4ADDF /* JamomaDSP.framework */,
-				2237362F11091F38004950CF /* JamomaMulticore.framework */,
+				2237362F11091F38004950CF /* JamomaAudioGraph.framework */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -72,7 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				2237363111091F4A004950CF /* op.cpp */,
-				2237363311091F54004950CF /* PureMulticore.h */,
+				2237363311091F54004950CF /* PureAudioGraph.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";

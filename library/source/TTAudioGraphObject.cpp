@@ -1,5 +1,5 @@
 /* 
- * Multicore Audio Graph Layer for Jamoma DSP
+ * AudioGraph Audio Graph Layer for Jamoma DSP
  * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
  * Copyright © 2008, Timothy Place
  * 
@@ -7,13 +7,13 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTMulticoreObject.h"
-#include "TTMulticoreInlet.h"
-#include "TTMulticoreOutlet.h"
+#include "TTAudioGraphObject.h"
+#include "TTAudioGraphInlet.h"
+#include "TTAudioGraphOutlet.h"
 
-#define thisTTClass			TTMulticoreObject
+#define thisTTClass			TTAudioGraphObject
 
-TTMutexPtr TTMulticoreObject::sSharedMutex = NULL;
+TTMutexPtr TTAudioGraphObject::sSharedMutex = NULL;
 
 
 //	Arguments
@@ -22,19 +22,19 @@ TTMutexPtr TTMulticoreObject::sSharedMutex = NULL;
 //	3. (optional) Number of outlets, default = 1
 
 
-TTObjectPtr TTMulticoreObject::instantiate (TTSymbolPtr name, TTValue& arguments) 
+TTObjectPtr TTAudioGraphObject::instantiate (TTSymbolPtr name, TTValue& arguments) 
 {
-	return new TTMulticoreObject(arguments);
+	return new TTAudioGraphObject(arguments);
 }
 
-extern "C" void TTMulticoreObject::registerClass() 
+extern "C" void TTAudioGraphObject::registerClass() 
 {
-	TTClassRegister(TT("multicore.object"), "audio, multicore, wrapper", TTMulticoreObject::instantiate );
+	TTClassRegister(TT("multicore.object"), "audio, multicore, wrapper", TTAudioGraphObject::instantiate );
 }
 
 
-TTMulticoreObject :: TTMulticoreObject (TTValue& arguments) : TTGraphObject(arguments),
-	mAudioFlags(kTTMulticoreProcessor), 
+TTAudioGraphObject :: TTAudioGraphObject (TTValue& arguments) : TTGraphObject(arguments),
+	mAudioFlags(kTTAudioGraphProcessor), 
 	mInputSignals(NULL), 
 	mOutputSignals(NULL), 
 	mVectorSize(0)
@@ -76,33 +76,33 @@ TTMulticoreObject :: TTMulticoreObject (TTValue& arguments) : TTGraphObject(argu
 }
 
 
-TTMulticoreObject::~TTMulticoreObject()
+TTAudioGraphObject::~TTAudioGraphObject()
 {
 	TTObjectRelease((TTObjectPtr*)&mInputSignals);
 	TTObjectRelease((TTObjectPtr*)&mOutputSignals);
 }
 
 
-void TTMulticoreObject::getAudioDescription(TTMulticoreDescription& desc)
+void TTAudioGraphObject::getAudioDescription(TTAudioGraphDescription& desc)
 {
 	desc.mClassName = mKernel->getName();
 	desc.mAudioDescriptions.clear();
-	for (TTMulticoreInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++)
+	for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++)
 		inlet->getDescriptions(desc.mAudioDescriptions);
 	getDescription(desc.mControlDescription);
 }
 
 
-TTErr TTMulticoreObject::resetAudio()
+TTErr TTAudioGraphObject::resetAudio()
 {
 	sSharedMutex->lock();
-	for_each(mAudioInlets.begin(), mAudioInlets.end(), mem_fun_ref(&TTMulticoreInlet::reset));		
+	for_each(mAudioInlets.begin(), mAudioInlets.end(), mem_fun_ref(&TTAudioGraphInlet::reset));		
 	sSharedMutex->unlock();
 	return kTTErrNone;
 }
 
 
-TTErr TTMulticoreObject::connectAudio(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
+TTErr TTAudioGraphObject::connectAudio(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
 {	
 	TTErr err;
 
@@ -119,7 +119,7 @@ TTErr TTMulticoreObject::connectAudio(TTMulticoreObjectPtr anObject, TTUInt16 fr
 }
 
 
-TTErr TTMulticoreObject::dropAudio(TTMulticoreObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
+TTErr TTAudioGraphObject::dropAudio(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
 {
 	TTErr err = kTTErrInvalidValue;
 
@@ -131,16 +131,16 @@ TTErr TTMulticoreObject::dropAudio(TTMulticoreObjectPtr anObject, TTUInt16 fromO
 }
 
 
-TTErr TTMulticoreObject::preprocess(const TTMulticorePreprocessData& initData)
+TTErr TTAudioGraphObject::preprocess(const TTAudioGraphPreprocessData& initData)
 {
 	lock();
-	if (valid && mStatus != kTTMulticoreProcessNotStarted) {
+	if (valid && mStatus != kTTAudioGraphProcessNotStarted) {
 		TTAudioSignalPtr	audioSignal;
 		TTUInt16			index = 0;
 		
-		mStatus = kTTMulticoreProcessNotStarted;		
+		mStatus = kTTAudioGraphProcessNotStarted;		
 
-		for (TTMulticoreInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++) {
+		for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++) {
 			inlet->preprocess(initData);
 			audioSignal = inlet->getBuffer(); // TODO: It seems like we can just cache this once when we init the graph, because the number of inlets cannot change on-the-fly
 			mInputSignals->setSignal(index, audioSignal);
@@ -148,13 +148,13 @@ TTErr TTMulticoreObject::preprocess(const TTMulticorePreprocessData& initData)
 		}
 		
 		index = 0;
-		for (TTMulticoreOutletIter outlet = mAudioOutlets.begin(); outlet != mAudioOutlets.end(); outlet++) {
+		for (TTAudioGraphOutletIter outlet = mAudioOutlets.begin(); outlet != mAudioOutlets.end(); outlet++) {
 			audioSignal = outlet->getBuffer();
 			mOutputSignals->setSignal(index, audioSignal);
 			index++;
 		}
 
-		if (mAudioFlags & kTTMulticoreGenerator) {
+		if (mAudioFlags & kTTAudioGraphGenerator) {
 			if (mVectorSize != initData.vectorSize) {
 				mVectorSize = initData.vectorSize;					
 				mOutputSignals->allocAllWithVectorSize(initData.vectorSize);
@@ -166,16 +166,16 @@ TTErr TTMulticoreObject::preprocess(const TTMulticorePreprocessData& initData)
 }
 
 
-TTErr TTMulticoreObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 forOutletNumber)
+TTErr TTAudioGraphObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 forOutletNumber)
 {
 	lock();
 	switch (mStatus) {		
 
 		// we have not processed anything yet, so let's get started
-		case kTTMulticoreProcessNotStarted:
-			mStatus = kTTMulticoreProcessingCurrently;
+		case kTTAudioGraphProcessNotStarted:
+			mStatus = kTTAudioGraphProcessingCurrently;
 			
-			if (mAudioFlags & kTTMulticoreGenerator) {			// a generator (or no input)
+			if (mAudioFlags & kTTAudioGraphGenerator) {			// a generator (or no input)
 				getUnitGenerator()->process(mInputSignals, mOutputSignals);
 			}
 			else {												// a processor
@@ -183,9 +183,9 @@ TTErr TTMulticoreObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 forO
 				mInputSignals->clearAll();
 
 				// pull (process, sum, and collect) all of our source audio
-				for_each(mAudioInlets.begin(), mAudioInlets.end(), mem_fun_ref(&TTMulticoreInlet::process));
+				for_each(mAudioInlets.begin(), mAudioInlets.end(), mem_fun_ref(&TTAudioGraphInlet::process));
 
-				if (!(mAudioFlags & kTTMulticoreNonAdapting)) {
+				if (!(mAudioFlags & kTTAudioGraphNonAdapting)) {
 					// examples of non-adapting objects are join≈ and matrix≈
 					// non-adapting in this case means channel numbers -- vector sizes still adapt
 					mOutputSignals->matchNumChannels(mInputSignals);
@@ -196,16 +196,16 @@ TTErr TTMulticoreObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 forO
 			
 			// TODO: we're doing a copy below -- is that what we really want?  Or can we just return the pointer?
 			returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
-			mStatus = kTTMulticoreProcessComplete;
+			mStatus = kTTAudioGraphProcessComplete;
 			break;
 		
 		// we already processed everything that needs to be processed, so just set the pointer
-		case kTTMulticoreProcessComplete:
+		case kTTAudioGraphProcessComplete:
 			returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
 			break;
 		
 		// to prevent feedback / infinite loops, we just hand back the last calculated output here
-		case kTTMulticoreProcessingCurrently:
+		case kTTAudioGraphProcessingCurrently:
 			returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
 			break;
 		

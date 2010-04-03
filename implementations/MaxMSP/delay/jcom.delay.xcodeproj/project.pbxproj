@@ -15,9 +15,9 @@
 		226C435C109A16A200E2BFB0 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 226C435B109A16A200E2BFB0 /* MaxAPI.framework */; };
 		226C435F109A16AB00E2BFB0 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 226C435E109A16AB00E2BFB0 /* MaxAudioAPI.framework */; };
 		22B046A4112F6145001D29FD /* jcom.delay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B046A3112F6145001D29FD /* jcom.delay.cpp */; };
-		22C9F5EE10325FE40062F7B8 /* maxMulticore.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5EC10325FE40062F7B8 /* maxMulticore.h */; };
-		22C9F5EF10325FE40062F7B8 /* maxMulticore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F5ED10325FE40062F7B8 /* maxMulticore.cpp */; };
-		22C9F61E1032612C0062F7B8 /* JamomaMulticore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F61D1032612C0062F7B8 /* JamomaMulticore.framework */; };
+		22C9F5EE10325FE40062F7B8 /* maxAudioGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5EC10325FE40062F7B8 /* maxAudioGraph.h */; };
+		22C9F5EF10325FE40062F7B8 /* maxAudioGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F5ED10325FE40062F7B8 /* maxAudioGraph.cpp */; };
+		22C9F61E1032612C0062F7B8 /* JamomaAudioGraph.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F61D1032612C0062F7B8 /* JamomaAudioGraph.framework */; };
 		22EB3AE1102E6073006D027A /* tt-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22EB3AE0102E6073006D027A /* tt-max.xcconfig */; };
 		22EB3B31102E61EA006D027A /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EB3B30102E61EA006D027A /* JamomaFoundation.framework */; };
 /* End PBXBuildFile section */
@@ -31,9 +31,9 @@
 		226C435B109A16A200E2BFB0 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
 		226C435E109A16AB00E2BFB0 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
 		22B046A3112F6145001D29FD /* jcom.delay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.delay.cpp; sourceTree = "<group>"; };
-		22C9F5EC10325FE40062F7B8 /* maxMulticore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = maxMulticore.h; path = ../maxMulticore.h; sourceTree = SOURCE_ROOT; };
-		22C9F5ED10325FE40062F7B8 /* maxMulticore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = maxMulticore.cpp; path = ../maxMulticore.cpp; sourceTree = SOURCE_ROOT; };
-		22C9F61D1032612C0062F7B8 /* JamomaMulticore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaMulticore.framework; path = ../../../library/build/UninstalledProducts/JamomaMulticore.framework; sourceTree = SOURCE_ROOT; };
+		22C9F5EC10325FE40062F7B8 /* maxAudioGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = maxAudioGraph.h; path = ../maxAudioGraph.h; sourceTree = SOURCE_ROOT; };
+		22C9F5ED10325FE40062F7B8 /* maxAudioGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = maxAudioGraph.cpp; path = ../maxAudioGraph.cpp; sourceTree = SOURCE_ROOT; };
+		22C9F61D1032612C0062F7B8 /* JamomaAudioGraph.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaAudioGraph.framework; path = ../../../library/build/UninstalledProducts/JamomaAudioGraph.framework; sourceTree = SOURCE_ROOT; };
 		22EB3AE0102E6073006D027A /* tt-max.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max.xcconfig"; path = "../../../supports/max/tt-max.xcconfig"; sourceTree = SOURCE_ROOT; };
 		22EB3B30102E61EA006D027A /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
 		2FBBEAE508F335360078DB84 /* jcom.delay≈.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.delay≈.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -46,7 +46,7 @@
 			files = (
 				222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */,
 				22EB3B31102E61EA006D027A /* JamomaFoundation.framework in Frameworks */,
-				22C9F61E1032612C0062F7B8 /* JamomaMulticore.framework in Frameworks */,
+				22C9F61E1032612C0062F7B8 /* JamomaAudioGraph.framework in Frameworks */,
 				226C435C109A16A200E2BFB0 /* MaxAPI.framework in Frameworks */,
 				226C435F109A16AB00E2BFB0 /* MaxAudioAPI.framework in Frameworks */,
 				224D1AE6113DD96500C447B6 /* JamomaGraph.framework in Frameworks */,
@@ -74,7 +74,7 @@
 				226C435B109A16A200E2BFB0 /* MaxAPI.framework */,
 				22EB3B30102E61EA006D027A /* JamomaFoundation.framework */,
 				222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */,
-				22C9F61D1032612C0062F7B8 /* JamomaMulticore.framework */,
+				22C9F61D1032612C0062F7B8 /* JamomaAudioGraph.framework */,
 				224D1AE5113DD96500C447B6 /* JamomaGraph.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -85,8 +85,8 @@
 			children = (
 				22B046A3112F6145001D29FD /* jcom.delay.cpp */,
 				226C4359109A169900E2BFB0 /* commonsyms.cpp */,
-				22C9F5EC10325FE40062F7B8 /* maxMulticore.h */,
-				22C9F5ED10325FE40062F7B8 /* maxMulticore.cpp */,
+				22C9F5EC10325FE40062F7B8 /* maxAudioGraph.h */,
+				22C9F5ED10325FE40062F7B8 /* maxAudioGraph.cpp */,
 				224D1AD7113DD95A00C447B6 /* maxGraph.cpp */,
 				224D1AD8113DD95A00C447B6 /* maxGraph.h */,
 			);
@@ -108,7 +108,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22C9F5EE10325FE40062F7B8 /* maxMulticore.h in Headers */,
+				22C9F5EE10325FE40062F7B8 /* maxAudioGraph.h in Headers */,
 				224D1ADA113DD95A00C447B6 /* maxGraph.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,7 +178,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22C9F5EF10325FE40062F7B8 /* maxMulticore.cpp in Sources */,
+				22C9F5EF10325FE40062F7B8 /* maxAudioGraph.cpp in Sources */,
 				226C435A109A169900E2BFB0 /* commonsyms.cpp in Sources */,
 				22B046A4112F6145001D29FD /* jcom.delay.cpp in Sources */,
 				224D1AD9113DD95A00C447B6 /* maxGraph.cpp in Sources */,
