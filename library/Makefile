@@ -44,10 +44,10 @@ LIBRUBYARG_SHARED = -l$(RUBY_SO_NAME)
 LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)
 
 RUBY_EXTCONF_H = 
-CFLAGS   =  -fno-common -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common $(cflags) -I /code/Jamoma/Modules/Foundation/library/includes -I /code/Jamoma/Modules/DSP/library/includes -I /code/Jamoma/Modules/AudioGraph/library/includes -I /code/Jamoma/Modules/Graph/library/includes -g -O1 
+CFLAGS   =  -fno-common -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common $(cflags) -I /Users/lossius/dev/Jamoma/Modules/Foundation/library/includes -I /Users/lossius/dev/Jamoma/Modules/DSP/library/includes -I /Users/lossius/dev/Jamoma/Modules/AudioGraph/library/includes -I /Users/lossius/dev/Jamoma/Modules/Graph/library/includes -g -O1 
 INCFLAGS = -I. -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0 -I.
 DEFS     = 
-CPPFLAGS =   -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I /code/Jamoma/Modules/Foundation/library/includes -I /code/Jamoma/Modules/DSP/library/includes -I /code/Jamoma/Modules/AudioGraph/library/includes -I /code/Jamoma/Modules/Graph/library/includes -g -O1
+CPPFLAGS =   -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I /Users/lossius/dev/Jamoma/Modules/Foundation/library/includes -I /Users/lossius/dev/Jamoma/Modules/DSP/library/includes -I /Users/lossius/dev/Jamoma/Modules/AudioGraph/library/includes -I /Users/lossius/dev/Jamoma/Modules/Graph/library/includes -g -O1
 CXXFLAGS = $(CFLAGS) 
 ldflags  = -L. -arch i386 -arch x86_64  -framework JamomaFoundation -framework JamomaDSP -framework JamomaAudioGraph -framework JamomaGraph
 dldflags = 
@@ -148,7 +148,7 @@ site-install-rb: install-rb
 .c.o:
 	$(CC) $(INCFLAGS) $(CPPFLAGS) $(CFLAGS) -c $<
 
-$(DLLIB): $(OBJS)
+$(DLLIB): $(OBJS) Makefile
 	@-$(RM) $@
 	$(LDSHARED) -o $@ $(OBJS) $(LIBPATH) $(DLDFLAGS) $(LOCAL_LIBS) $(LIBS)
 
