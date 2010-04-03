@@ -6,8 +6,8 @@
 >
   <preset number='1' name='default'>
     <item name='active' type='boolean' priority='0'>0</item>
-    <item name='camera/camera' type='integer' priority='0'>0</item>
-    <item name='camera/device' type='integer' priority='0'>0</item>
+    <item name='camera/camera' type='string' priority='0'>none</item>
+    <item name='camera/device' type='string' priority='0'>none</item>
     <item name='camera/size' type='integer' priority='0'>1</item>
     <item name='camera/updaterate' type='integer' priority='0'>1</item>
     <item name='desktop/offset/x' type='integer' priority='0'>0</item>
