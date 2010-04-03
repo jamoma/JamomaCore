@@ -37,10 +37,10 @@
 					"id" : "obj-13",
 					"maxclass" : "newobj",
 					"numinlets" : 32,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 41.0, 444.0, 239.0, 19.0 ],
-					"text" : "jcom.multi.in~",
+					"numoutlets" : 2,
+					"outlettype" : [ "multicore.connect", "" ],
+					"patching_rect" : [ 41.0, 444.0, 229.5, 19.0 ],
+					"text" : "jcom.pack≈ 32",
 					"varname" : "multiin2"
 				}
 
@@ -51,11 +51,11 @@
 					"fontsize" : 10.0,
 					"id" : "obj-12",
 					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 32,
-					"outlettype" : [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
-					"patching_rect" : [ 554.0, 149.0, 275.0, 19.0 ],
-					"text" : "jcom.multi.out~",
+					"numinlets" : 1,
+					"numoutlets" : 33,
+					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "" ],
+					"patching_rect" : [ 554.0, 149.0, 451.0, 19.0 ],
+					"text" : "jcom.unpack≈ 32",
 					"varname" : "multiout2"
 				}
 
@@ -104,11 +104,11 @@
 					"fontsize" : 10.0,
 					"id" : "obj-2",
 					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 32,
-					"outlettype" : [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
-					"patching_rect" : [ 275.0, 95.0, 399.0, 19.0 ],
-					"text" : "jcom.multi.out~",
+					"numinlets" : 1,
+					"numoutlets" : 33,
+					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "" ],
+					"patching_rect" : [ 275.0, 95.0, 451.0, 19.0 ],
+					"text" : "jcom.unpack≈ 32",
 					"varname" : "multiout"
 				}
 
@@ -120,10 +120,10 @@
 					"id" : "obj-3",
 					"maxclass" : "newobj",
 					"numinlets" : 32,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 275.0, 575.0, 542.0, 19.0 ],
-					"text" : "jcom.multi.in~",
+					"numoutlets" : 2,
+					"outlettype" : [ "multicore.connect", "" ],
+					"patching_rect" : [ 275.0, 575.0, 573.5, 19.0 ],
+					"text" : "jcom.pack≈ 32",
 					"varname" : "multiin"
 				}
 
@@ -541,8 +541,8 @@
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p center"
@@ -1032,8 +1032,8 @@
 														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"globalpatchername" : ""
+														"globalpatchername" : "",
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p init"
@@ -1257,8 +1257,8 @@
 														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"globalpatchername" : ""
+														"globalpatchername" : "",
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p creating_gain"
@@ -1809,8 +1809,8 @@
 														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"globalpatchername" : ""
+														"globalpatchername" : "",
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p createMuteMessgage"
@@ -2656,8 +2656,8 @@
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p source"
@@ -3190,8 +3190,8 @@
 														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
-														"globalpatchername" : ""
+														"globalpatchername" : "",
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p createMuteMessgage"
@@ -3553,8 +3553,8 @@
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p loudspeaker"
@@ -3870,8 +3870,8 @@
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p messages",
@@ -4151,8 +4151,8 @@
 										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"default_fontsize" : 12.0
 									}
 ,
 									"text" : "p delete_externals"
@@ -4299,8 +4299,8 @@
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p connect_between"
@@ -4734,8 +4734,8 @@
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p create_pass"
@@ -5029,8 +5029,8 @@
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p delete_pass"
@@ -5637,8 +5637,8 @@
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p connect_from"
@@ -6010,8 +6010,8 @@
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p connect_to"
@@ -6259,8 +6259,8 @@
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p new_externals"
@@ -6655,8 +6655,8 @@
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p scripting"
@@ -6714,21 +6714,21 @@
 					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal" ],
 					"patching_rect" : [ 273.0, 150.0, 264.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"order" : 3,
-						"coord_system" : 0,
-						"distance_mode" : 1,
-						"xyz_scale" : 1.0,
-						"interpolation" : 1,
-						"gain" : 1.0,
 						"aed_scale" : 10.0,
-						"center_curve" : 0.2,
-						"center_size" : 1.0,
-						"db_unit" : 1.5,
-						"type" : 1,
-						"active" : [ 1 ],
-						"center_att_db" : 6.0,
 						"coord_angles" : 0,
-						"dist_att" : 1.0
+						"gain" : 1.0,
+						"interpolation" : 1,
+						"center_curve" : 0.2,
+						"dist_att" : 1.0,
+						"coord_system" : 0,
+						"center_size" : 1.0,
+						"type" : 1,
+						"distance_mode" : 1,
+						"db_unit" : 1.5,
+						"order" : 3,
+						"xyz_scale" : 1.0,
+						"center_att_db" : 6.0,
+						"active" : [ 1 ]
 					}
 ,
 					"text" : "ambiencode~ 3 1 @coord_system 0 @xyz_scale 1",
@@ -6747,15 +6747,15 @@
 					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal" ],
 					"patching_rect" : [ 273.0, 200.0, 264.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"orderweight" : [ 1.0, 0.6, 0.2, 0.028571 ],
-						"order" : 3,
-						"coord_system" : 0,
-						"xyz_scale" : 1.0,
-						"gain" : 1.0,
 						"aed_scale" : 1.0,
+						"coord_angles" : 0,
+						"gain" : 1.0,
+						"coord_system" : 0,
+						"orderweight" : [ 1.0, 0.6, 0.2, 0.028571 ],
 						"type" : 1,
-						"active" : [ 1, 1, 1, 1, 1, 1, 1, 1 ],
-						"coord_angles" : 0
+						"order" : 3,
+						"xyz_scale" : 1.0,
+						"active" : [ 1, 1, 1, 1, 1, 1, 1, 1 ]
 					}
 ,
 					"text" : "ambidecode~ 3 8 @coord_system 0 @xyz_scale 1",
