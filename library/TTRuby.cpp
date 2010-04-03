@@ -2,7 +2,7 @@
 // Copyright © 2009, Timothy Place
 // GNU LGPL
 
-#include "TTMulticoreAPI.h"
+#include "TTAudioGraphAPI.h"
 #include "ruby.h"
 
 
@@ -23,7 +23,7 @@ public:
 //
 class TTAudioInstance {
 public:
-	TTMulticoreObjectPtr	obj;
+	TTAudioGraphObjectPtr	obj;
 	TTHashPtr				parameterNames;		// cache of parameter names, mapped from lowercase (ruby) to uppercase (TT)
 	TTHashPtr				messageNames;		// cache of parameter names, mapped from lowercase (ruby) to uppercase (TT)
 	
@@ -97,7 +97,7 @@ void Init_TTRuby()
 	
 	// MULTICORE / AUDIO
 	
-	TTMulticoreInit();
+	TTAudioGraphInit();
 
 	c = rb_define_class("TTAudio", rb_cObject);
 	
@@ -470,7 +470,7 @@ VALUE TTRubyCalculate(VALUE self, VALUE x)
  * MULTICORE SUPPORT
  **************************************************************************************/
 #pragma mark -
-#pragma mark Multicore Support
+#pragma mark Audio Graph Support
 
 
 //VALUE TTAudioInitialize(VALUE self, VALUE className)
@@ -939,7 +939,7 @@ VALUE TTAudioExportMax(VALUE self, VALUE pathToExportFile)
 	TTAudioInstance*		instance = NULL;
 	TTErr					err = kTTErrNone;
 	TTValue					v;
-	TTMulticoreDescription	desc;
+	TTAudioGraphDescription	desc;
 	VALUE					pathToExportStr = StringValue(pathToExportFile);
 	TTString				path = RSTRING(pathToExportStr)->ptr;
 
@@ -959,7 +959,7 @@ VALUE TTAudioExportCpp(VALUE self, VALUE pathToExportFile)
 	TTAudioInstance*		instance = NULL;
 	TTErr					err = kTTErrNone;
 	TTValue					v;
-	TTMulticoreDescription	desc;
+	TTAudioGraphDescription	desc;
 	VALUE					pathToExportStr = StringValue(pathToExportFile);
 	TTString				path = RSTRING(pathToExportStr)->ptr;
 
