@@ -50,6 +50,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	class_addmethod(c, (method)hub_getobj_audioin,		"getobj_audioin",			A_CANT, 0);		// return a pointer to the jcom.in~ object
 	class_addmethod(c, (method)hub_getobj_audioout,		"getobj_audioout",			A_CANT, 0);		// return a pointer to the jcom.out~ object
+	
+	class_addmethod(c, (method)hub_getattrnames,		"getattrnames",				A_CANT,	0);		// used by the NodeLib in order to register attributes
 
 	class_addmethod(c, (method)hub_bang,				"bang",						0);				// bang is used by one of the ramp driving mechanisms to calculate values
 
@@ -99,8 +101,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	CLASS_ATTR_SYM(c,		"name",				0,	t_hub,	osc_name);				// instance name (osc)
 	CLASS_ATTR_ACCESSORS(c,	"name",				NULL,	hub_attr_setname);
-
-	CLASS_ATTR_SYM(c,		"class",			0,	t_hub,	attr_name);				// module class name
+	
+	// to -- here I register the attribute as in jcom.parameter in order to have a way to get the class with the NodeLib
+	jamoma_class_attr_new(c, "class", _sym_symbol, 0, (method)hub_attr_getclass);
+	//CLASS_ATTR_SYM(c,		"class",			0,	t_hub,	attr_name);				// module class name
+	
 	CLASS_ATTR_SYM(c,		"module_type",		0,	t_hub,	attr_type);
 	CLASS_ATTR_SYM(c,		"algorithm_type",	0,	t_hub,	attr_algorithm_type);
 	CLASS_ATTR_SYM(c,		"description",		0,	t_hub,	attr_description);
@@ -1493,6 +1498,28 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		atom_setsym(a+1, x->osc_name);
 		object_method_typed(g_jcom_send_notifications, gensym("module.new"), 2, a, NULL);
 	}
+	return MAX_ERR_NONE;
+}
+
+// This function allocates memory -- caller must free it!
+void hub_getattrnames(t_hub *x, long* count, SymbolPtr** names)
+{
+	*count = 1;
+	*names = (SymbolPtr*)sysmem_newptr(sizeof(SymbolPtr) * *count);
+	
+	// These should be alphabetized
+	if (*count) {
+		*(*names+0) = gensym("class");
+	}
+}
+
+
+MaxErr hub_attr_getclass(t_hub *x, void *attr, long *argc, AtomPtr *argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (AtomPtr )sysmem_newptr(sizeof(Atom));
+	atom_setsym(*argv, x->attr_name);
 	return MAX_ERR_NONE;
 }
 

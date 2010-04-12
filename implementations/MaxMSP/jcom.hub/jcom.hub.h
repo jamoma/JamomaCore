@@ -348,6 +348,9 @@ void hub_script(t_hub* x, SymbolPtr s, AtomCount ac, AtomPtr av);
 
 void hub_preset_interface(t_hub* x);
 t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv);
+void hub_getattrnames(t_hub *x, long* count, SymbolPtr** names);
+
+MaxErr hub_attr_getclass(t_hub *x, void *attr, long *argc, AtomPtr *argv);
 
 // Globals
 extern 		t_class		*hub_class;				// Required: Global pointer for our class
