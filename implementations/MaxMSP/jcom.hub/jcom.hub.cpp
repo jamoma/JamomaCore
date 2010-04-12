@@ -851,6 +851,9 @@ void hub_init(t_hub *x, t_symbol*, long, t_atom*)
 {
 	subscriberList	*subscriber = x->subscriber;
 	subscriberIterator i;
+	TTNodePtr aNode;
+	TTList aNodeList;
+	JamomaError err;
 
 	// The flag is indicating that we're in the middle of initialization
 	x->flag_init = 1;
@@ -864,6 +867,13 @@ void hub_init(t_hub *x, t_symbol*, long, t_atom*)
 	
 	critical_exit(0);
 	defer_low(x, (method)hub_preset_default, 0, 0, 0L);
+	
+	// Notify observers of this node that the initialisation is ended
+	err = jamoma_directory_get_node(x->osc_name, aNodeList, &aNode);
+	
+	if(!err)
+		jamoma_directory->notifyObservers(TT(x->osc_name->s_name), aNode, kAddressInitialized);
+	
 }
 
 

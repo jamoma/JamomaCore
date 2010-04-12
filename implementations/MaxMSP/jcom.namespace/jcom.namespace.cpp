@@ -185,16 +185,25 @@ void nmspc_directory_callback(t_nmspc *x, t_symbol *oscAddress, long argc, t_ato
 	t_symbol		*umenuCommand;
 	TTString		anAddress;
 	
-	if(flag == kAddressCreated)
-		umenuCommand = _sym_append;
-	else
-		umenuCommand = _sym_delete;
+	switch (flag) {
+			
+		case kAddressCreated :
+			umenuCommand = _sym_append;
+			break;
+			
+		case kAddressDestroyed :
+			umenuCommand = _sym_delete;
+			break;
+			
+		default :
+			return;
+	}
 	
 	// Depends on current operation
-	if(x->attr_operation == x->op_getChildren){
+	if (x->attr_operation == x->op_getChildren){
 		
-		if(aNode->getParent() == x->tempNode){							// In case of destruction, the notification is done before so it possible to ask info about the node...
-			if(x->attr_update == _sym_all)
+		if (aNode->getParent() == x->tempNode){							// In case of destruction, the notification is done before so it possible to ask info about the node...
+			if (x->attr_update == _sym_all)
 				defer_low((t_object*)x,(method)nmspc_bang,0,0,NULL);	// ... but we need to wait before updating all the list because it is not destroyed yet.
 		
 			else{
@@ -206,12 +215,12 @@ void nmspc_directory_callback(t_nmspc *x, t_symbol *oscAddress, long argc, t_ato
 		return;
 	}
 	
-	if(x->attr_operation == x->op_getInstances){
+	if (x->attr_operation == x->op_getInstances){
 		
-		if((aNode->getParent() == x->tempNode) && (aNode->getName() == x->tempName)){	// In case of destruction, the notification is done before so it possible to ask info about the node...
-			if(x->attr_update == _sym_all){
+		if ((aNode->getParent() == x->tempNode) && (aNode->getName() == x->tempName)){	// In case of destruction, the notification is done before so it possible to ask info about the node...
+			if (x->attr_update == _sym_all){
 				
-				if(x->attr_address != gensym("/"))
+				if (x->attr_address != gensym("/"))
 					anAddress = x->attr_address->s_name;
 				anAddress += "/";
 				anAddress += x->tempName->getCString();
@@ -227,10 +236,10 @@ void nmspc_directory_callback(t_nmspc *x, t_symbol *oscAddress, long argc, t_ato
 		return;
 	}
 	
-	if(x->attr_operation == x->op_getAttributes){
+	if (x->attr_operation == x->op_getAttributes){
 		
-		if(aNode == x->tempNode){										// In case of destruction, the notification is done before so it possible to ask info about the node.
-			if(flag == kAddressCreated)
+		if (aNode == x->tempNode){										// In case of destruction, the notification is done before so it possible to ask info about the node.
+			if (flag == kAddressCreated)
 				defer_low((t_object*)x,(method)nmspc_bang,0,0,NULL);
 			
 			else
@@ -239,11 +248,11 @@ void nmspc_directory_callback(t_nmspc *x, t_symbol *oscAddress, long argc, t_ato
 		return;
 	}
 	
-	if(x->attr_operation == x->op_getHubs){								
+	if (x->attr_operation == x->op_getHubs){								
 		
-		if(aNode->getType() == TT("hub")){								// In case of destruction, the notification is done before so it possible to ask info about the node...
+		if (aNode->getType() == TT("hub")){								// In case of destruction, the notification is done before so it possible to ask info about the node...
 			
-			if(x->attr_update == _sym_all)
+			if (x->attr_update == _sym_all)
 				defer_low((t_object*)x,(method)nmspc_bang,0,0,NULL);	// ... but we need to wait before updating all the list because it is not destroyed yet.
 			
 			else{

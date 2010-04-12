@@ -180,8 +180,8 @@ void receive_bind(t_receive *x)
 			else
 				x->_attribute = jps_value;
 			
-			// observe for node creation or destruction
-			if((x->_attribute == gensym("created")) || (x->_attribute == gensym("destroyed")))
+			// observe for node creation, destruction or specific application flag (TODO : see TTNodeDirectory.cpp)
+			if((x->_attribute == gensym("created")) || (x->_attribute == gensym("destroyed")) || (x->_attribute == gensym("initialized")))
 			{
 				jamoma_directory_observer_add(x->_address, (t_object*)x, gensym("receive_directory_callback"), &x->life_observer);
 			}
@@ -277,86 +277,111 @@ void receive_directory_callback(t_receive *x, t_symbol *oscAddress, long argc, t
 	long			flag = atom_getlong(&argv[1]);
 	bool			found;
 	
-	if(flag == kAddressCreated){
-		
-		//post("jcom.receive %s observe a node creation at %s", x->attr_name->s_name, oscAddress->s_name);
-		
-		if(x->_attribute == gensym("created"))
+	switch (flag) {
+			
+		case kAddressCreated :
 		{
-			// output the OSCAddress of the new node
-			outlet_anything(x->address_out, oscAddress, 0, NULL);
-		}
-		else if (x->_attribute != gensym("destroyed"))
-		{
-			// is the observer already exist ?
-			found = false;
-			if(x->lk_couple){
+			
+			//post("jcom.receive %s observe a node creation at %s", x->attr_name->s_name, oscAddress->s_name);
+			
+			if(x->_attribute == gensym("created"))
+			{
+				// output the OSCAddress of the new node
+				outlet_anything(x->address_out, oscAddress, 0, NULL);
+			}
+			else if ( (x->_attribute != gensym("destroyed")) && (x->_attribute != gensym("initialized")) )
+			{
+				// is the observer already exist ?
+				found = false;
+				if(x->lk_couple){
+					
+					// for each node of the selection
+					for(x->lk_couple->begin(); x->lk_couple->end(); x->lk_couple->next()){
+						
+						// get a couple
+						c = x->lk_couple->current();
+						
+						// get the node of the couple
+						c.get(0, (TTPtr*)&p_node);
+						
+						// compare it to the receive node
+						if(p_node == aNode)
+							found = true;
+					}
+				}
 				
-				// for each node of the selection
-				for(x->lk_couple->begin(); x->lk_couple->end(); x->lk_couple->next()){
+				if(!found)
+				{
+					// start attribute observation on the node
+					jamoma_node_attribute_observer_add(aNode, x->_attribute, (t_object*)x, gensym("receive_node_attribute_callback"), &newAttrCallback);
 					
-					// get a couple
-					c = x->lk_couple->current();
-					
-					// get the node of the couple
-					c.get(0, (TTPtr*)&p_node);
-					
-					// compare it to the receive node
-					if(p_node == aNode)
-						found = true;
+					// memorize the node and his attribute observer
+					couple = new TTValue((TTPtr)aNode);
+					couple->append((TTPtr)newAttrCallback);
+					x->lk_couple->append(couple);
 				}
 			}
 			
-			if(!found)
+			break;
+		}
+			
+		case kAddressDestroyed :
+		{
+			
+			//post("jcom.receive %s observe a node destruction at %s", x->attr_name->s_name, oscAddress->s_name);
+			
+			if(x->_attribute == gensym("destroyed"))
 			{
-				// start attribute observation on the node
-				jamoma_node_attribute_observer_add(aNode, x->_attribute, (t_object*)x, gensym("receive_node_attribute_callback"), &newAttrCallback);
-				
-				// memorize the node and his attribute observer
-				couple = new TTValue((TTPtr)aNode);
-				couple->append((TTPtr)newAttrCallback);
-				x->lk_couple->append(couple);
+				// output the OSCAddress of the old node
+				outlet_anything(x->address_out, oscAddress, 0, NULL);
 			}
-		}
-	}
-	else{
-		
-		//post("jcom.receive %s observe a node destruction at %s", x->attr_name->s_name, oscAddress->s_name);
-		
-		if(x->_attribute == gensym("destroyed"))
-		{
-			// output the OSCAddress of the old node
-			outlet_anything(x->address_out, oscAddress, 0, NULL);
-		}
-		else if (x->_attribute != gensym("created"))
-		{
-			// look at the node among memorized <node, observer>
-			if(x->lk_couple){
-				
-				// for each node of the selection
-				for(x->lk_couple->begin(); x->lk_couple->end(); x->lk_couple->next()){
+			else if ( (x->_attribute != gensym("created")) && (x->_attribute != gensym("initialized")) )
+			{
+				// look at the node among memorized <node, observer>
+				if(x->lk_couple){
 					
-					// get a couple
-					c = x->lk_couple->current();
-					
-					// get the node of the couple
-					c.get(0, (TTPtr*)&p_node);
-					
-					// compare it to the receive node
-					if(p_node == aNode){
+					// for each node of the selection
+					for(x->lk_couple->begin(); x->lk_couple->end(); x->lk_couple->next()){
 						
-						// get the observer of the couple
-						c.get(1, (TTPtr*)&p_clbk);
+						// get a couple
+						c = x->lk_couple->current();
 						
-						// stop attribute observation of the node
-						jamoma_node_attribute_observer_remove(p_node, x->_attribute, p_clbk);
+						// get the node of the couple
+						c.get(0, (TTPtr*)&p_node);
 						
-						// forget this couple
-						x->lk_couple->remove(c);
+						// compare it to the receive node
+						if(p_node == aNode){
+							
+							// get the observer of the couple
+							c.get(1, (TTPtr*)&p_clbk);
+							
+							// stop attribute observation of the node
+							jamoma_node_attribute_observer_remove(p_node, x->_attribute, p_clbk);
+							
+							// forget this couple
+							x->lk_couple->remove(c);
+						}
 					}
 				}
 			}
+			
+			break;
 		}
+			
+		case kAddressInitialized :
+		{
+			//post("jcom.receive %s observe a node initialisation at %s", x->attr_name->s_name, oscAddress->s_name);
+			
+			if(x->_attribute == gensym("initialized"))
+			{
+				// output the OSCAddress of the initialized node
+				outlet_anything(x->address_out, oscAddress, 0, NULL);
+			}
+			break;
+		}
+			
+		default:
+			break;
 	}
 }
 

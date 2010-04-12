@@ -29,9 +29,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 407.0, 44.0, 932.0, 768.0 ],
+						"rect" : [ 407.0, 44.0, 934.0, 826.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 407.0, 44.0, 932.0, 768.0 ],
+						"defrect" : [ 407.0, 44.0, 934.0, 826.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -47,6 +47,74 @@
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-23",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 208.0, 831.0, 168.0, 20.0 ],
+									"text" : "print INPUT_INITIALISATION"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-27",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 208.0, 791.0, 178.0, 20.0 ],
+									"text" : "jcom.receive /input~.*:initialized"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-20",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 29.0, 830.0, 152.0, 20.0 ],
+									"text" : "print ALL_INITIALISATION"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-21",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 29.0, 790.0, 137.0, 20.0 ],
+									"text" : "jcom.receive /:initialized"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"id" : "obj-2",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 30.0, 768.0, 153.0, 20.0 ],
+									"text" : "bind to the intialisation flag"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
@@ -546,7 +614,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 416.0, 190.0, 169.0, 18.0 ],
-									"text" : "/degrade~/audio/gain"
+									"text" : "/input~.2/audio/gain"
 								}
 
 							}
@@ -776,6 +844,15 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-20", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 156.5, 819.5, 38.5, 819.5 ],
+									"source" : [ "obj-21", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-1", 1 ],
 									"hidden" : 0,
 									"midpoints" : [ 321.5, 543.5, 565.5, 543.5 ],
@@ -807,6 +884,15 @@
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-26", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-23", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 376.5, 820.5, 217.5, 820.5 ],
+									"source" : [ "obj-27", 1 ]
 								}
 
 							}
@@ -916,11 +1002,11 @@
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 12.0,
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p new_jcom.receive"
@@ -1369,11 +1455,11 @@
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 12.0,
+						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p new_jcom.send"
