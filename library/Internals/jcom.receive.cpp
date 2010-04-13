@@ -35,8 +35,11 @@ void 		receive_remove(t_receive *x);
 void		receive_directory_callback(t_receive *x, t_symbol *mess, long argc, t_atom *argv);
 void		receive_node_attribute_callback(t_receive *x, t_symbol *mess, long argc, t_atom *argv);
 
-// ask the value to the node
+// ask the value to the binded node
 void		receive_get(t_receive *x);
+
+// ask the value of any node without binding on it
+void		receive_symbol(t_receive *x, t_symbol *mess, long argc, t_atom *argv);
 
 // enable/disable outputs without unregistered attributes observers
 void		receive_enable(t_receive *x, long e);
@@ -68,8 +71,11 @@ void receive_initclass()
     class_addmethod(c, (method)receive_assist,					"assist",							A_CANT, 0);
     class_addmethod(c, (method)object_obex_dumpout,				"dumpout",							A_CANT, 0);
 	
-	// ask the value to the node
+	// ask the value to the binded node
 	class_addmethod(c, (method)receive_get,						"bang",								0);
+	
+	// ask the value of any node without binding on it
+	class_addmethod(c, (method)receive_symbol,					"anything",							A_GIMME, 0);
 	
 	// enable/disable outputs without unregistered attributes observers
 	class_addmethod(c, (method)receive_enable,					"int",								A_LONG,	0);
@@ -217,7 +223,7 @@ void receive_bind(t_receive *x)
 	}
 }
 
-// ask the value to the node
+// ask the value to the binded node
 void receive_get(t_receive *x)
 {
 	TTNodePtr	p_node;
@@ -255,6 +261,61 @@ void receive_get(t_receive *x)
 			// free memory allocated inside the get property method
 			sysmem_freeptr(argv);
 		}
+	}
+}
+
+// ask the value of any node without binding on it
+void receive_symbol(t_receive *x, t_symbol* mess, long argc, t_atom* argv)
+{
+	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_attribute, oscAddress_noAttribute;
+	TTNodePtr	p_node;
+	TTList		lk_selection;
+	TTString	fullAddress;
+	t_symbol	*address, *attr;
+	long		ac;
+	t_atom		*av;
+	TTErr		tt_err;
+	JamomaError j_err;
+	
+	// 0. split the name in address part and attribute
+	splitOSCAddress(TT(mess->s_name), &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_attribute);
+	mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
+	address = SymbolGen((char*)oscAddress_noAttribute->getCString());
+	
+	if(oscAddress_attribute != NO_ATTRIBUTE)
+		attr = SymbolGen((char*)oscAddress_attribute->getCString());
+	else
+		attr = jps_value;
+	
+	// 1. look for node(s) into the directory
+	tt_err = jamoma_directory->Lookup(TT(address->s_name), lk_selection, &p_node);
+	
+	// for each node of the selection
+	for(lk_selection.begin(); lk_selection.end(); lk_selection.next())
+	{
+		// get a node from the selection
+		lk_selection.current().get(0,(TTPtr*)&p_node);
+		
+		// get the value of the node
+		j_err = jamoma_node_attribute_get(p_node, attr, &ac, &av);
+		
+		if(!j_err){
+			// output the OSCAddress of the node (in case we use * inside the x->attrname)
+			fullAddress = jamoma_node_OSC_address(p_node)->s_name;
+			if(attr != jps_value){
+				fullAddress += C_PROPERTY;
+				fullAddress += attr->s_name;
+			}
+			outlet_anything(x->address_out, gensym((char*)fullAddress.data()), 0, NULL);
+			
+			// then output data as a list
+			outlet_list(x->data_out, 0L, ac, av);
+		}
+		else
+			object_error((t_object*)x,"%s doesn't exist", x->attr_name->s_name);
+		
+		// free memory allocated inside the get property method
+		sysmem_freeptr(av);
 	}
 }
 
