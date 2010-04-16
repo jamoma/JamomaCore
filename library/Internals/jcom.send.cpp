@@ -152,6 +152,10 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 				object_error((t_object*)x,"%s doesn't exist", msg->s_name);
 			
 			destination = msg;
+			
+			// TODO : memorized the destination because, in the case of hub communication,
+			// the hub send all datas using a jcom.send giving the osc address so that have
+			// to be optimized !!!
 		}
 	}
 	// here is the initialization of the lk_nodes 
