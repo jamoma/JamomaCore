@@ -83,7 +83,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_ACCESSORS(c,	"address",			0,		nmspc_attr_set_address);
 	
 	// ATTRIBUTE: observe
-	CLASS_ATTR_LONG(c,		"update",			0,		t_nmspc,	attr_update);
+	CLASS_ATTR_SYM(c,		"update",			0,		t_nmspc,	attr_update);
 	CLASS_ATTR_ACCESSORS(c,	"update",			0,		nmspc_attr_set_update);
 	CLASS_ATTR_ENUM(c,		"update",			0,		"none singly all");
 	

@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 304.0, 123.0, 930.0, 730.0 ],
+		"rect" : [ 283.0, 44.0, 930.0, 730.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 304.0, 123.0, 930.0, 730.0 ],
+		"defrect" : [ 283.0, 44.0, 930.0, 730.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -3030,11 +3030,11 @@
 					"fontsize" : 10.0,
 					"id" : "obj-11",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 33,
-					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "" ],
-					"patching_rect" : [ 471.0, 123.0, 451.0, 19.0 ],
-					"text" : "jcom.unpack≈ 32",
+					"numinlets" : 2,
+					"numoutlets" : 32,
+					"outlettype" : [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
+					"patching_rect" : [ 471.0, 123.0, 437.5, 19.0 ],
+					"text" : "jcom.multi.out~",
 					"varname" : "multiout"
 				}
 
@@ -3046,10 +3046,10 @@
 					"id" : "obj-30",
 					"maxclass" : "newobj",
 					"numinlets" : 32,
-					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 474.0, 580.0, 437.5, 19.0 ],
-					"text" : "jcom.pack≈ 32",
+					"text" : "jcom.multi.in~",
 					"varname" : "multiin"
 				}
 
