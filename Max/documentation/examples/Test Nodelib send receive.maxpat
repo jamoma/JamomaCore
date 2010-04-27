@@ -1002,11 +1002,11 @@
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 12.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
 						"default_fontsize" : 12.0,
 						"fontname" : "Arial",
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Arial"
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p new_jcom.receive"
@@ -1050,7 +1050,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 158.0, 523.0, 172.0, 20.0 ],
+									"patching_rect" : [ 38.0, 508.0, 172.0, 20.0 ],
 									"text" : "jcom.send /input~.*/audio/gain"
 								}
 
@@ -1064,37 +1064,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 158.0, 500.0, 91.0, 18.0 ],
+									"patching_rect" : [ 120.0, 464.0, 91.0, 18.0 ],
 									"text" : "100 ramp 1000"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 12.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-									"id" : "obj-19",
-									"linecount" : 2,
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 39.0, 481.0, 114.0, 34.0 ],
-									"text" : "if you send a ramp using a message"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 12.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-									"id" : "obj-18",
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 39.0, 457.0, 83.0, 20.0 ],
-									"text" : "known bugs : "
 								}
 
 							}
@@ -1274,27 +1245,12 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-									"id" : "obj-43",
-									"linecount" : 2,
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 253.0, 480.0, 91.0, 34.0 ],
-									"text" : "you have to click two times"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 12.0,
 									"id" : "obj-24",
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 158.0, 479.0, 78.0, 18.0 ],
+									"patching_rect" : [ 38.0, 464.0, 78.0, 18.0 ],
 									"text" : "0 ramp 1000"
 								}
 
@@ -1389,7 +1345,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-21", 0 ],
 									"hidden" : 0,
-									"midpoints" : [  ],
+									"midpoints" : [ 129.5, 494.5, 47.5, 494.5 ],
 									"source" : [ "obj-20", 0 ]
 								}
 
@@ -1455,11 +1411,11 @@
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 12.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
 						"default_fontsize" : 12.0,
 						"fontname" : "Arial",
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Arial"
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p new_jcom.send"

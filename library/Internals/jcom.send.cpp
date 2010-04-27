@@ -9,28 +9,34 @@
 
 #include "Jamoma.h"
 
-
 /** Send Object */
 typedef struct _send{
-	t_object					ob;				///< REQUIRED: Our object
-	t_symbol					*attr_name;		///< ATTRIBUTE: name
-	TTListPtr					lk_nodes;		///< a pointer to a selection of TTNodes
+	t_object					ob;					///< REQUIRED: Our object
+	t_symbol					*attr_name;			///< ATTRIBUTE: name
+	t_symbol					*_address;			///< the address to bind
+	t_symbol					*_attribute;		///< the attribute to bind (default : value)
+	TTListPtr					lk_couple;			///< a pointer to a list of couple < TTNodes, address >
+	TTObjectPtr					life_observer;		///< a pointer to a life cycle observer
 } t_send;
 
-
-
 // Prototypes
-void *send_new(t_symbol *s, long argc, t_atom *argv);
-void send_free(t_send *x);
-void send_assist(t_send *x, void *b, long msg, long arg, char *dst);
-void send_bang(t_send *x);
-void send_int(t_send *x, long value);
-void send_float(t_send *x, double value);
-void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv);
+void		*send_new(t_symbol *s, long argc, t_atom *argv);
+void		send_free(t_send *x);
+void		send_assist(t_send *x, void *b, long msg, long arg, char *dst);
+
+t_max_err	send_setname(t_send *x, void *attr, long argc, t_atom *argv);
+
+void		send_bind(t_send *x);
+void		send_remove(t_send *x);
+void		send_directory_callback(t_send *x, t_symbol *mess, long argc, t_atom *argv);
+
+void		send_bang(t_send *x);
+void		send_int(t_send *x, long value);
+void		send_float(t_send *x, double value);
+void		send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv);
 
 // Globals
 static t_class		*s_send_class;				// Required: Global pointer for our class
-//extern t_object		*g_receivemaster_object;	// An instance of the jcom.receivemaster class
 
 
 /************************************************************************************/
@@ -43,20 +49,27 @@ void send_initclass()
 	t_object *attr;
 	
 	// Define our class
-	c = class_new("jcom.send", (method)send_new, (method)0L, sizeof(t_send), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.send", 
+				  (method)send_new, 
+				  (method)send_free, 
+				  sizeof(t_send), 
+				  (method)0L, 
+				  A_GIMME, 
+				  0);
 
 	// Make methods accessible for our class:
-	class_addmethod(c, (method)send_bang,				"bang",			0L);
-	class_addmethod(c, (method)send_int,				"int",			A_LONG, 0L);
-	class_addmethod(c, (method)send_float,				"float",		A_FLOAT, 0L);
-	class_addmethod(c, (method)send_list,				"list",			A_GIMME, 0L);
-	class_addmethod(c, (method)send_list,				"anything",		A_GIMME, 0L);
-    class_addmethod(c, (method)send_assist,				"assist", 		A_CANT, 0L);
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 		A_CANT,0);
+	class_addmethod(c, (method)send_directory_callback,	"send_directory_callback",		A_CANT, 0);
+	class_addmethod(c, (method)send_bang,				"bang",							0L);
+	class_addmethod(c, (method)send_int,				"int",							A_LONG, 0L);
+	class_addmethod(c, (method)send_float,				"float",						A_FLOAT, 0L);
+	class_addmethod(c, (method)send_list,				"list",							A_GIMME, 0L);
+	class_addmethod(c, (method)send_list,				"anything",						A_GIMME, 0L);
+    class_addmethod(c, (method)send_assist,				"assist",						A_CANT, 0L);
+    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",						A_CANT,0);
 	
 	// ATTRIBUTE: name
 	attr = attr_offset_new("name", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_send, attr_name));
+		(method)0, (method)send_setname, calcoffset(t_send, attr_name));
 	class_addattr(c, attr);
 	
 	// Finalize our class
@@ -71,26 +84,43 @@ void send_initclass()
 // Create
 void *send_new(t_symbol *s, long argc, t_atom *argv)
 {
-	long attrstart = attr_args_offset(argc, argv);		// support normal arguments
-	t_send 	*x = (t_send *)object_alloc(s_send_class);
+	long	 attrstart = attr_args_offset(argc, argv);		// support normal arguments
+	t_symbol *arg;
+	t_send	 *x = (t_send *)object_alloc(s_send_class);
 	
 	if(x){
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x, NULL));
 		
-		// the selection of nodes is made during the first send
-		x->lk_nodes = new TTList();
-
-		if(attrstart > 0)
-			x->attr_name = atom_getsym(argv);
-		else
-			x->attr_name = SymbolGen("jcom.send no arg specified");
-			
-		attr_args_process(x, argc, argv);					// handle attribute args
+		x->attr_name = NULL;
+		x->_address = NULL;
+		x->_attribute = NULL;
+		x->life_observer = NULL;
+		x->lk_couple = NULL;
 		
-//		if(!g_receivemaster_object)
-//			g_receivemaster_object = (t_object *)object_new(CLASS_NOBOX, SymbolGen("jcom.receivemaster"));
+		//attr_args_process(x, argc, argv);			// handle attribute args				
+		
+		// If no name was specified as an attribute
+		if(x->attr_name == NULL){
+			if(attrstart > 0)
+			{
+				arg = atom_getsym(argv);
+				if (arg->s_name[0] == C_SEPARATOR)
+				{
+						x->attr_name = arg;
+						send_bind(x);
+				}
+			}
+			else
+				x->attr_name = SymbolGen("jcom.receive no arg specified");
+		}
+		
 	}
 	return x;
+}
+
+void send_free(t_send *x)
+{
+	send_remove(x);
 }
 
 
@@ -106,6 +136,23 @@ void send_assist(t_send *x, void *b, long msg, long arg, char *dst)
 		strcpy(dst, "dumpout");
 }
 
+// ATTRIBUTE: name
+t_max_err send_setname(t_send *x, void *attr, long argc, t_atom *argv)
+{
+	t_symbol *arg = atom_getsym(argv);
+	
+	if (arg->s_name[0] == C_SEPARATOR)
+	{
+		if (arg != x->attr_name)
+		{
+			send_remove(x);
+			x->attr_name = arg;
+			send_bind(x);
+		}
+	}
+	
+	return MAX_ERR_NONE;
+}
 
 void send_bang(t_send *x)
 {
@@ -130,75 +177,206 @@ void send_float(t_send *x, double value)
 	send_list(x, _sym_float, 1, &a);
 }
 
-
 void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	TTNodePtr p_node;
-	t_symbol *destination;
-	TTList selection;
-	JamomaError err = JAMOMA_ERR_GENERIC;
+	TTValue		c;
+	TTNodePtr	p_node;
+	t_symbol	*address;
 	
-	// Is it still necessary to do that ?
-	//object_method(g_receivemaster_object, jps_dispatch, x->attr_name, msg, argc, argv);
-	
-	// To send to another address than x->attr_name,
 	// prepend the data with an OSC address
-	if(msg->s_name[0] == C_SEPARATOR){
-		if(msg != x->attr_name){
-			// look for the node(s) into the directory
-			err = jamoma_directory_get_node(msg, selection, &p_node);
-			
-			if(err != JAMOMA_ERR_NONE)
-				object_error((t_object*)x,"%s doesn't exist", msg->s_name);
-			
-			destination = msg;
-			
-			// TODO : memorized the destination because, in the case of hub communication,
-			// the hub send all datas using a jcom.send giving the osc address so that have
-			// to be optimized !!!
+	// to change the x->attr_name
+	if (msg->s_name[0] == C_SEPARATOR)
+	{
+		if (msg != x->attr_name)
+		{
+			send_remove(x);
+			x->attr_name = msg;
+			send_bind(x);
 		}
 	}
-	// here is the initialization of the lk_nodes 
-	// (to be sure that the jamoma directory is built)
-	else{
-		if(x->lk_nodes->isEmpty()){
-			// look for the node(s) into the directory
-			if(x->attr_name->s_name[0] == C_SEPARATOR){
-				if(jamoma_directory){
-					err = jamoma_directory_get_node(x->attr_name, selection, &p_node);
-					x->lk_nodes->merge(selection);
-				}
+	
+	// If there is a node selection
+	if(x->lk_couple){
+		if(!x->lk_couple->isEmpty()){
+			
+			// send data to each node of the selection
+			for(x->lk_couple->begin(); x->lk_couple->end(); x->lk_couple->next()){
 				
-				if(err != JAMOMA_ERR_NONE){
-					x->lk_nodes = new TTList();
-					object_error((t_object*)x,"%s doesn't exist", x->attr_name->s_name);
+				// get a couple
+				c = x->lk_couple->current();
+				
+				// get the node of the couple
+				c.get(0,(TTPtr*)&p_node);
+				
+				// get the address of the couple
+				c.get(1, (TTPtr*)&address);
+				
+				// 1. set the attribute of the node
+				jamoma_node_attribute_set(p_node, x->_attribute, argc, argv);
+				
+				// 2. notify attribute observers
+				jamoma_node_attribute_observer_notify(p_node, x->_attribute, address, argc, argv);
+			}
+		}
+	}
+}
+
+void send_bind(t_send *x)
+{
+	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_attribute, oscAddress_noAttribute;
+	TTList lk_selection;
+	TTNodePtr p_node;
+	TTValuePtr couple;
+	JamomaError err = JAMOMA_ERR_NONE;
+	
+	x->lk_couple = new TTList();
+	
+	if (jamoma_directory){
+		
+		// 0. split the name in address part and attribute part
+		splitOSCAddress(TT(x->attr_name->s_name), &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_attribute);
+		mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
+		x->_address = SymbolGen((char*)oscAddress_noAttribute->getCString());
+		
+		if (oscAddress_attribute != NO_ATTRIBUTE)
+			x->_attribute = SymbolGen((char*)oscAddress_attribute->getCString());
+		else
+			x->_attribute = jps_value;
+		
+		// 1. look for the node(s) into the directory
+		err = jamoma_directory_get_node(x->_address, lk_selection, &p_node);
+		
+		// 2. if the address exist
+		// make a list of couple < node, address >
+		if (!err)
+		{
+			for(lk_selection.begin(); lk_selection.end(); lk_selection.next())
+			{
+				// get a node from the selection
+				lk_selection.current().get(0,(TTPtr*)&p_node);
+				
+				// memorize the node and his address
+				couple = new TTValue((TTPtr)p_node);
+				couple->append((TTPtr)jamoma_node_OSC_address(p_node));
+				x->lk_couple->append(couple);
+			}
+		}
+		
+		// 3. observe any creation or destruction below the attr_name address
+		jamoma_directory_observer_add(x->_address, (t_object*)x, gensym("send_directory_callback"), &x->life_observer);
+	}
+}
+
+void send_remove(t_send *x)
+{
+	TTValue			c;
+	TTNodePtr		p_node;
+	
+	// remove couples
+	if(x->lk_couple){
+		
+		// for each couple
+		for(x->lk_couple->begin(); x->lk_couple->end(); x->lk_couple->next()){
+			
+			// get a couple
+			c = x->lk_couple->current();
+			
+			// get the node of the couple
+			c.get(0,(TTPtr*)&p_node);
+			
+			// forget this couple
+			x->lk_couple->remove(c);
+		}
+	}
+	
+	delete x->lk_couple;
+	
+	// stop life cycle observation
+	if(x->life_observer)
+		jamoma_directory_observer_remove(x->_address, x->life_observer);
+}
+
+void send_directory_callback(t_send *x, t_symbol *mess, long argc, t_atom *argv)
+{
+	TTValue			c;
+	TTValuePtr		couple;
+	TTNodePtr		p_node;
+	TTNodePtr		aNode = (TTNodePtr)atom_getobj(&argv[0]);
+	long			flag = atom_getlong(&argv[1]);
+	bool			found;
+	
+	switch (flag) {
+			
+		case kAddressCreated :
+		{
+			//post("jcom.send %s observe a node creation at %s", x->attr_name->s_name, mess->s_name);
+			
+			// is the couple already exist ?
+			found = false;
+			if(x->lk_couple){
+				
+				// for each couple of the selection
+				for(x->lk_couple->begin(); x->lk_couple->end(); x->lk_couple->next()){
+					
+					// get a couple
+					c = x->lk_couple->current();
+					
+					// get the node of the couple
+					c.get(0, (TTPtr*)&p_node);
+					
+					// compare it to the receive node
+					if(p_node == aNode)
+						found = true;
 				}
 			}
-			else
-				x->lk_nodes = new TTList();
-		}
-		// default destination
-		else
-			selection.merge(*x->lk_nodes);
-		
-		destination = x->attr_name;
-	}
-		
-	// If there is a destination list
-	if(!selection.isEmpty()){
-		
-		// send data to the selection of nodes
-		for(selection.begin(); selection.end(); selection.next()){
 			
-			selection.current().get(0,(TTPtr*)&p_node);
-
-			// 1. set the value attribute of the node
-			// TODO : set other attributes
-			jamoma_node_attribute_set(p_node, jps_value, argc, argv);
-
-			// 2. notify value attribute observers
-			// TODO : notify other attribute observers
-			jamoma_node_attribute_observer_notify(p_node, jps_value, destination, argc, argv);
+			if(!found)
+			{
+				// memorize the node and his address
+				// TODO : only the address at the same level (not lower address)
+				//if ( compareOSCAddress(TT(x->_address->s_name), TT(mess->s_name)) == kAddressEqual )
+				//{
+					couple = new TTValue((TTPtr)aNode);
+					couple->append((TTPtr)mess);
+					x->lk_couple->append(couple);
+				//}
+			}
+			
+			break;
+		}
+			
+		case kAddressDestroyed :
+		{
+			//post("jcom.send %s observe a node destruction at %s", x->attr_name->s_name, mess->s_name);
+			
+			// look at the node among memorized <node, observer>
+			if(x->lk_couple){
+				
+				// for each node of the selection
+				for(x->lk_couple->begin(); x->lk_couple->end(); x->lk_couple->next()){
+					
+					// get a couple
+					c = x->lk_couple->current();
+					
+					// get the node of the couple
+					c.get(0, (TTPtr*)&p_node);
+					
+					// compare it to the receive node
+					if(p_node == aNode){
+						
+						// forget this couple
+						x->lk_couple->remove(c);
+					}
+				}
+				
+				break;
+			}
+			
+		case kAddressInitialized :
+			break;
+			
+		default:
+			break;
 		}
 	}
 }

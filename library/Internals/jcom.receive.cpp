@@ -98,6 +98,7 @@ void receive_initclass()
 void *receive_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long		attrstart = attr_args_offset(argc, argv);		// support normal arguments
+	t_symbol	*arg;
 	t_receive	*x = (t_receive *)object_alloc(s_receive_class);
 
 	if(x){
@@ -108,19 +109,23 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 		x->_address = NULL;
 		x->_attribute = NULL;
 		x->enable = true;
-		
+		x->life_observer = NULL;
 		x->lk_couple = NULL;
 		
 		//attr_args_process(x, argc, argv);			// handle attribute args				
 
 		// If no name was specified as an attribute
 		if(x->attr_name == NULL){
-			if(attrstart > 0)
-				x->attr_name = atom_getsym(argv);
+			if(attrstart > 0){
+				arg = atom_getsym(argv);
+				if (arg->s_name[0] == C_SEPARATOR)
+				{
+					x->attr_name = arg;
+					receive_bind(x);
+				}
+			}
 			else
 				x->attr_name = SymbolGen("jcom.receive no arg specified");
-			
-			receive_bind(x);
 		}
 	}
 	return x;
@@ -491,6 +496,6 @@ void receive_remove(t_receive *x)
 	delete x->lk_couple;
 	
 	// stop life cycle observation
-	if(x->_address)
+	if(x->life_observer)
 		jamoma_directory_observer_remove(x->_address, x->life_observer);
 }
