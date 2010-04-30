@@ -1,11 +1,11 @@
-Jamoma Multicore
-Dynamic Audio Graph Layer
+Jamoma Audio Graph
+Create dynamic networks of Jamoma DSP objects
 _________________________________________________________________
 
 
 Introduction
 
-The Jamoma Multicore Audio Graph Layer is an open source wrapper for Jamoma DSP classes to create dynamic topographies of interacting audio objects.
+The Jamoma Audio Graph layer is an open source wrapper for Jamoma DSP classes to create dynamic topographies of interacting audio objects.
 
 
 Features
@@ -34,7 +34,7 @@ Install Locations are as follows:
 
 
 License
-Jamoma Multicore is licensed as open source software under the terms of the GNU LPGL.
+Jamoma Audio Graph is licensed as open source software under the terms of the GNU LPGL.
 
 
 Known Issues & Wish List
