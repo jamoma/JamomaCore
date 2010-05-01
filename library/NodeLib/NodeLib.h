@@ -133,6 +133,18 @@ extern "C" {
 		void function(t_object *x, t_symbol *msg, long argc, t_atom *argv) */
 	void			jamoma_node_attribute_observer_callback(TTPtr p_baton, TTValue& data);
 
+	// Method to deal with Max patch structure in order to build the tree
+	///////////////////////////////////////////////////////////////////////
+	
+	/** look recursively every parent patcher of an object in order to get all models name
+		note : a model is a patcher named [jmod.something otherName] 
+		return a <formatedName, patcher> list */
+	void			jamoma_node_build_model_list(ObjectPtr z, TTListPtr *returnedModelList);
+	
+	/** register each model of the list if they don't exist as TTNode in the tree structure
+		return the lower model node */
+	void			jamoma_directory_register_model_list(TTListPtr ModelList, TTNodePtr *returnedModelNode);
+	
 #ifdef __cplusplus
 }
 #endif
