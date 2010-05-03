@@ -113,6 +113,9 @@ public:
 
 	/** Get a pointer to the object linked with the TTNode */
 	void*			getObject();
+	
+	/** Set a pointer to the object linked with the TTNode */
+	TTErr			setObject(void* ob);
 
 	/** Get a pointer to the parent TTNode of the TTNode */
 	TTNodePtr		getParent();

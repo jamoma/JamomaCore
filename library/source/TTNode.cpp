@@ -276,6 +276,12 @@ TTErr TTNode::setInstance(TTSymbolPtr anInstance, TTSymbolPtr *newInstance, TTBo
 	return kTTErrNone;
 }
 
+TTErr TTNode::setObject(void* ob)
+{
+	this->object = ob;
+	return kTTErrNone;
+}
+
 TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created)
 {
 	TTValue	found;

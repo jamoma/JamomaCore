@@ -216,23 +216,26 @@ TTErr TTNodeDirectory::TTNodeRemove(TTSymbolPtr oscAddress)
 	TTErr err;
 	TTNodePtr oldNode;
 	
-	// find the TTNode in the directory
-	err = this->getTTNodeForOSC(oscAddress, &oldNode);
-	
-	if(!err){
-		// Notify observers that a node will be destroyed BEFORE the destruction
-		this->notifyObservers(oscAddress, oldNode, kAddressDestroyed);
+	// can't destroy the root (use the TTNodeDirectory destructor)
+	if (oscAddress != S_SEPARATOR) {
+		// find the TTNode in the directory
+		err = this->getTTNodeForOSC(oscAddress, &oldNode);
 		
-		// Remove his address
-		err = mDirectory->remove(oscAddress);
-		
-		if(!err)
-			// Destroy his children
+		if (!err) {
 			
+			// Notify observers that a node will be destroyed BEFORE the destruction
+			this->notifyObservers(oscAddress, oldNode, kAddressDestroyed);
+			
+			// Remove his address
+			err = mDirectory->remove(oscAddress);
 			
 			// Destroy the TTNode
-			err = TTObjectRelease(TTObjectHandle(&oldNode));
+			if (!err)
+				err = TTObjectRelease(TTObjectHandle(&oldNode));
+		}
 	}
+	else
+		return kTTErrGeneric;
 		
 	return err;
 }
