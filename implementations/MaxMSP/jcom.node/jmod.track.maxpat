@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 530.0, 455.0, 477.0, 383.0 ],
+		"rect" : [ 809.0, 306.0, 611.0, 471.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 530.0, 455.0, 477.0, 383.0 ],
+		"defrect" : [ 809.0, 306.0, 611.0, 471.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -23,24 +23,53 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"frgb" : [ 0.333333, 0.333333, 0.333333, 1.0 ],
+					"id" : "obj-10",
+					"linecount" : 6,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 11.0, 190.0, 163.0, 89.0 ],
+					"text" : "Note : to create a model you have to save the patch with a \"jmod.\" before.\n\nDO NOT use space and dot inside the name."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"frgb" : [ 0.333333, 0.333333, 0.333333, 1.0 ],
+					"id" : "obj-8",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 231.0, 118.0, 288.0, 20.0 ],
+					"text" : "Here is another jmod.tester embedded in a bpatcher"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"frgb" : [ 0.333333, 0.333333, 0.333333, 1.0 ],
 					"id" : "obj-12",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 202.0, 185.0, 194.0, 20.0 ],
+					"patching_rect" : [ 10.0, 138.0, 194.0, 20.0 ],
 					"text" : "model name = bpatcher argument"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "myTesterView" ],
+					"args" : [ "myModule" ],
 					"id" : "obj-4",
 					"maxclass" : "bpatcher",
 					"name" : "jmod.tester.maxpat",
 					"numinlets" : 0,
 					"numoutlets" : 0,
-					"patching_rect" : [ 18.0, 176.0, 168.0, 110.0 ]
+					"patching_rect" : [ 226.0, 137.0, 381.0, 329.0 ]
 				}
 
 			}
@@ -53,7 +82,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 202.0, 124.0, 217.0, 20.0 ],
+					"patching_rect" : [ 10.0, 83.0, 217.0, 20.0 ],
 					"text" : "model name = patcher scripting name"
 				}
 
@@ -67,7 +96,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 202.0, 87.0, 185.0, 20.0 ],
+					"patching_rect" : [ 10.0, 46.0, 185.0, 20.0 ],
 					"text" : "model name = patcher argument"
 				}
 
@@ -81,7 +110,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 202.0, 53.0, 185.0, 20.0 ],
+					"patching_rect" : [ 10.0, 12.0, 185.0, 20.0 ],
 					"text" : "model name = patcher filename"
 				}
 
@@ -94,7 +123,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 0,
-					"patching_rect" : [ 47.0, 122.0, 70.0, 20.0 ],
+					"patching_rect" : [ 237.0, 82.0, 70.0, 20.0 ],
 					"text" : "jmod.tester",
 					"varname" : "myTester"
 				}
@@ -108,7 +137,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 0,
-					"patching_rect" : [ 47.0, 86.0, 104.0, 20.0 ],
+					"patching_rect" : [ 237.0, 46.0, 104.0, 20.0 ],
 					"text" : "jmod.tester test.A"
 				}
 
@@ -121,7 +150,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 0,
-					"patching_rect" : [ 47.0, 54.0, 70.0, 20.0 ],
+					"patching_rect" : [ 237.0, 12.0, 70.0, 20.0 ],
 					"text" : "jmod.tester"
 				}
 

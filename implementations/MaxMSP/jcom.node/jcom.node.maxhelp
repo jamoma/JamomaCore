@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 72.0, 64.0, 902.0, 383.0 ],
+		"rect" : [ 2.0, 44.0, 902.0, 383.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 72.0, 64.0, 902.0, 383.0 ],
+		"defrect" : [ 2.0, 44.0, 902.0, 383.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -23,15 +23,115 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"frgb" : [ 0.333333, 0.333333, 0.333333, 1.0 ],
-					"id" : "obj-10",
+					"id" : "obj-16",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 141.0, 195.0, 153.0, 34.0 ],
+					"patching_rect" : [ 228.0, 174.0, 267.0, 34.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 357.0, 282.0, 259.0, 20.0 ],
-					"text" : "Dump all the namespace into the Max window"
+					"presentation_linecount" : 2,
+					"presentation_rect" : [ 227.0, 183.0, 273.0, 34.0 ],
+					"text" : "the \"other\" and \"level\" nodes are automatically created but they aren't linked to any jcom.node."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"frgb" : [ 0.333333, 0.333333, 0.333333, 1.0 ],
+					"id" : "obj-18",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 228.0, 118.0, 153.0, 48.0 ],
+					"presentation" : 1,
+					"presentation_linecount" : 3,
+					"presentation_rect" : [ 227.0, 118.0, 156.0, 48.0 ],
+					"text" : "those jcom.nodes refers to containers nodes used to organized the namespace."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"frgb" : [ 0.333333, 0.333333, 0.333333, 1.0 ],
+					"id" : "obj-19",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 227.0, 88.0, 277.0, 34.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 227.0, 82.0, 318.0, 20.0 ],
+					"text" : "this jcom.node refers to the root and the top level patcher."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-15",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 13.0, 178.0, 176.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 17.0, 189.0, 176.0, 20.0 ],
+					"text" : "jcom.node other/level/subLevel"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-7",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 13.0, 147.0, 145.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 17.0, 149.0, 145.0, 20.0 ],
+					"text" : "jcom.node level/subLevel"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-6",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 13.0, 117.0, 94.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 17.0, 123.0, 94.0, 20.0 ],
+					"text" : "jcom.node level"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-3",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 13.0, 87.0, 66.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 17.0, 84.0, 66.0, 20.0 ],
+					"text" : "jcom.node"
 				}
 
 			}
@@ -48,8 +148,8 @@
 					"patching_rect" : [ 615.0, 78.0, 153.0, 89.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 3,
-					"presentation_rect" : [ 16.0, 222.0, 281.0, 48.0 ],
-					"text" : "Here you can explore the namespace created by the jcom.node. Some names comes from hidden patcher args or scripting names"
+					"presentation_rect" : [ 580.0, 80.0, 255.0, 48.0 ],
+					"text" : "Here you can explore the namespace created by the jcom.node. Some names comes from hidden patcher args or scripting names."
 				}
 
 			}
@@ -59,21 +159,21 @@
 					"fontsize" : 12.0,
 					"frgb" : [ 0.333333, 0.333333, 0.333333, 1.0 ],
 					"id" : "obj-8",
-					"linecount" : 4,
+					"linecount" : 6,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 234.0, 91.0, 152.0, 62.0 ],
+					"patching_rect" : [ 204.0, 253.0, 152.0, 89.0 ],
 					"presentation" : 1,
-					"presentation_linecount" : 3,
-					"presentation_rect" : [ 232.0, 84.0, 194.0, 48.0 ],
-					"text" : "See in jmod.track and jmod.tester patcher to understand how works the jcom.node."
+					"presentation_linecount" : 4,
+					"presentation_rect" : [ 226.0, 273.0, 208.0, 62.0 ],
+					"text" : "See in jmod.tester and jmod.track  patchers to understand how works a jcom.node.when it is embedded in a patcher or a bpatcher."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.node", "@description", "An external to structure Jamoma tree" ],
+					"args" : [ "@name", "jcom.node", "@description", "An external to organize the namespace" ],
 					"bgmode" : 1,
 					"id" : "obj-21",
 					"maxclass" : "bpatcher",
@@ -94,9 +194,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 0,
-					"patching_rect" : [ 136.0, 129.0, 70.0, 20.0 ],
+					"patching_rect" : [ 117.0, 290.0, 70.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 131.0, 113.0, 70.0, 20.0 ],
+					"presentation_rect" : [ 18.0, 268.0, 70.0, 20.0 ],
 					"text" : "jmod.tester"
 				}
 
@@ -109,9 +209,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 0,
-					"patching_rect" : [ 37.0, 129.0, 86.0, 20.0 ],
+					"patching_rect" : [ 18.0, 290.0, 86.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 19.0, 81.0, 86.0, 20.0 ],
+					"presentation_rect" : [ 18.0, 298.0, 86.0, 20.0 ],
 					"text" : "jmod.track foo"
 				}
 
@@ -124,9 +224,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 0,
-					"patching_rect" : [ 37.0, 101.0, 86.0, 20.0 ],
+					"patching_rect" : [ 18.0, 262.0, 86.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 19.0, 113.0, 86.0, 20.0 ],
+					"presentation_rect" : [ 18.0, 330.0, 86.0, 20.0 ],
 					"text" : "jmod.track foo"
 				}
 
@@ -247,7 +347,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 753.0, 580.0, 57.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 198.0, 339.0, 57.0, 20.0 ],
+					"presentation_rect" : [ 762.0, 194.0, 57.0, 20.0 ],
 					"text" : "intances"
 				}
 
@@ -263,7 +363,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 810.0, 355.0, 49.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 198.0, 309.0, 49.0, 20.0 ],
+					"presentation_rect" : [ 762.0, 164.0, 49.0, 20.0 ],
 					"text" : "names"
 				}
 
@@ -279,7 +379,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 640.0, 183.0, 101.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 31.0, 279.0, 101.0, 20.0 ],
+					"presentation_rect" : [ 595.0, 134.0, 101.0, 20.0 ],
 					"text" : "return to the root"
 				}
 
@@ -293,7 +393,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 613.0, 182.0, 20.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 16.0, 279.0, 20.0, 20.0 ]
+					"presentation_rect" : [ 580.0, 134.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -344,15 +444,15 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-13",
-					"items" : "A",
+					"items" : "_",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 709.0, 580.0, 35.0, 20.0 ],
-					"prefix" : "/foo.1/test.",
+					"prefix" : "/other/level.",
 					"presentation" : 1,
-					"presentation_rect" : [ 151.0, 339.0, 35.0, 20.0 ],
+					"presentation_rect" : [ 714.0, 194.0, 36.0, 20.0 ],
 					"types" : [  ]
 				}
 
@@ -362,15 +462,15 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-47",
-					"items" : "audio",
+					"items" : [ "level", ",", "foo", ",", "other", ",", "tester" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 634.0, 355.0, 168.0, 20.0 ],
-					"prefix" : "/foo.1/test.A/",
+					"prefix" : "Mac:/",
 					"presentation" : 1,
-					"presentation_rect" : [ 18.0, 309.0, 168.0, 20.0 ],
+					"presentation_rect" : [ 582.0, 164.0, 168.0, 20.0 ],
 					"types" : [  ]
 				}
 
@@ -418,22 +518,6 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 709.0, 497.0, 145.0, 48.0 ],
 					"text" : "jcom.namespace @operation getInstances @update all"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-14",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 762.0, 183.0, 50.0, 18.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 300.0, 282.0, 50.0, 18.0 ],
-					"text" : "dump"
 				}
 
 			}
@@ -489,15 +573,6 @@
 					"hidden" : 0,
 					"midpoints" : [ 726.5, 603.0, 606.5, 603.0, 606.5, 234.0, 622.5, 234.0 ],
 					"source" : [ "obj-13", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-39", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-14", 0 ]
 				}
 
 			}
