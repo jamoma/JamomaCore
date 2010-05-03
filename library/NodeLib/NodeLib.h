@@ -136,14 +136,17 @@ extern "C" {
 	// Method to deal with Max patch structure in order to build the tree
 	///////////////////////////////////////////////////////////////////////
 	
-	/** look recursively every parent patcher of an object in order to get all models name
-		note : a model is a patcher named [jmod.something otherName] 
-		return a <formatedName, patcher> list */
-	void			jamoma_node_build_model_list(ObjectPtr z, TTListPtr *returnedModelList);
+	/**	Register a node relative to a jcom external at an adresse relative to a jmod.modelPatcher node */
+	JamomaError		jamoma_patcher_register_jcom(TTSymbolPtr relativeAddress, SymbolPtr type, ObjectPtr x, TTNodePtr *returnedNode, TTNodePtr *returnedModelNode);
 	
-	/** register each model of the list if they don't exist as TTNode in the tree structure
+	/** Look recursively to every jmod.modelPatcher above an object in order to know his place in the tree
+		note : a modelPatcher is a patcher named [jmod.something otherName] 
+		return a <formatedModelName, patcher> list */
+	void			jamoma_patcher_get_jmod_list(ObjectPtr z, TTListPtr *returnedModelList, long *nbLevel);
+	
+	/** Register each jmod.modelPatcher of the list as TTNode in the tree structure (if they doesn't exist yet)
 		return the lower model node */
-	void			jamoma_directory_register_model_list(TTListPtr ModelList, TTNodePtr *returnedModelNode);
+	void			jamoma_patcher_register_jmod_list(TTListPtr ModelList, TTNodePtr *returnedModelNode);
 	
 #ifdef __cplusplus
 }

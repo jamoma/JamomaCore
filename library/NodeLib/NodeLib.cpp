@@ -143,11 +143,13 @@ JamomaError	jamoma_directory_register(t_symbol *OSCaddress, t_symbol *type, t_ob
 		// !!!
 		// !!! get attributes names of the Max external (So the object have to set a getattrnames method)
 		// !!!
-		object_method(obj, gensym("getattrnames"), &count, &attrnames);
-		
-		for(i = 0; i < count; i++){
-			jamoma_node_attribute_access_pack(attrnames[i], obj, &attributesAccessPack);
-			attributesAccessList.append(attributesAccessPack);
+		if (obj) {
+			object_method(obj, gensym("getattrnames"), &count, &attrnames);
+			
+			for(i = 0; i < count; i++){
+				jamoma_node_attribute_access_pack(attrnames[i], obj, &attributesAccessPack);
+				attributesAccessList.append(attributesAccessPack);
+			}
 		}
 		
 		// create a TTNode
@@ -275,9 +277,14 @@ bool testTTNodeType(TTNodePtr n, void *args)
 t_symbol * jamoma_node_OSC_address(TTNodePtr node)
 {
 	TTSymbolPtr OSCaddress;
-	node->getOscAddress(&OSCaddress);
+	TTErr err;
 	
-	return gensym((char*)OSCaddress->getCString());
+	err = node->getOscAddress(&OSCaddress);
+	
+	if(err == kTTErrNone)
+		return gensym((char*)OSCaddress->getCString());
+	else
+		return NULL;
 }
 
 t_symbol * jamoma_node_name(TTNodePtr node)
@@ -618,14 +625,115 @@ void jamoma_node_attribute_observer_callback(TTPtr p_baton, TTValue& data)
 // Method to deal with Max patch structure in order to build the tree
 ///////////////////////////////////////////////////////////////////////
 
-void jamoma_node_build_model_list(ObjectPtr z, TTListPtr *returnedModelList)
+JamomaError jamoma_patcher_register_jcom(TTSymbolPtr relativeAddress, SymbolPtr type, ObjectPtr jcom, TTNodePtr *returnedNode, TTNodePtr *returnedModelNode)
+{
+	TTSymbolPtr _parent, _name, _instance, _attribute;
+	ObjectPtr	modelPatcher, obj = NULL;
+	SymbolPtr	objclass = NULL, _sym_jcomnode, _sym_jcomparam, _sym_share;
+	TTList		*modelList, aNodeList;
+	TTNodePtr	parentNode;
+	TTString	nodeAddress;
+	bool		newInstanceCreated;
+	long		nbLevel = 0;
+	TTErr		err;
+	
+	splitOSCAddress(relativeAddress, &_parent, &_name, &_instance, &_attribute);
+	
+	// look for any other registered jcom. in the patcher
+	// to ask them the model node using their "share_model_node" method. 
+	// this would optimized the registration process.
+	*returnedModelNode = NULL;
+	modelPatcher = jamoma_object_getpatcher(jcom);
+	obj = object_attr_getobj(modelPatcher, _sym_firstobject);
+	_sym_jcomnode = gensym("jcom.node");
+	_sym_jcomparam = gensym("jcom.parameter");
+	_sym_share = gensym("share_model_node");
+	
+	while (obj) {
+		objclass = object_attr_getsym(obj, _sym_maxclass);
+		if ((objclass == _sym_jcomnode) || (objclass == _sym_jcomparam)) {
+			
+			// ask it the modelNode
+			object_method(object_attr_getobj(obj, _sym_object), _sym_share, returnedModelNode);
+			
+			if (*returnedModelNode)
+				break;
+		}
+		obj = object_attr_getobj(obj, _sym_nextobject);
+	}
+	
+	// if it is the first registered jcom. of the patcher
+	// or the sharing failed
+	if (!*returnedModelNode) {
+		
+		// Get all jmod.modelPatcher above the jcom and their modelName 
+		// looking recursively at all parent patcher.
+		modelList = new TTList();
+		jamoma_patcher_get_jmod_list(jcom, &modelList, &nbLevel);
+		
+		// register each model of the list if they don't exist as 
+		// TTNode in the tree structure
+		jamoma_patcher_register_jmod_list(modelList, returnedModelNode);
+	}
+	
+	// Build the node at /modelAddress/parent/node
+	if (*returnedModelNode) {
+		
+		// start at /modelAddress
+		nodeAddress = jamoma_node_OSC_address(*returnedModelNode)->s_name;
+		
+		// Check if parent exists
+		if ((_parent != NO_PARENT) && (_parent->getCString()[0] != C_SEPARATOR))
+			nodeAddress += "/";
+		nodeAddress += _parent->getCString();
+		
+		err = jamoma_directory->Lookup(TT(nodeAddress.data()), aNodeList, &parentNode);
+		
+		// if parent doesn't exist create it
+		if (err) {
+			
+			// the parent could be a container
+			if (_parent != NO_PARENT)
+				jamoma_directory_register(gensym((char*)nodeAddress.data()), gensym("container"), NULL, &parentNode, &newInstanceCreated);
+			// else the model himself...
+		}
+		
+		// Check if node exists
+		if ((_name != NO_NAME) && (_name->getCString()[0] != C_SEPARATOR))
+			nodeAddress += "/";
+		nodeAddress += _name->getCString();
+		
+		err = jamoma_directory->Lookup(TT(nodeAddress.data()), aNodeList, returnedNode);
+		
+		// if node doesn't exist create it
+		if (err) {
+			// the node could be a container
+			if (_name != NO_NAME)
+				jamoma_directory_register(gensym((char*)nodeAddress.data()), type, jcom, returnedNode, &newInstanceCreated);
+			// or the model himself
+			else 
+				*returnedNode = *returnedModelNode;
+		}
+		// else ensure that the object is stored
+		else
+			(*returnedNode)->setObject(jcom);
+	}
+	else
+		return JAMOMA_ERR_GENERIC;
+	
+	return JAMOMA_ERR_NONE;
+}
+
+void jamoma_patcher_get_jmod_list(ObjectPtr z, TTListPtr *returnedModelList, long *nbLevel)
 {
 	AtomCount		ac = 0;
 	AtomPtr			av = NULL;
+	bool			isJmodPatcher;
 	ObjectPtr		box, patcher = jamoma_object_getpatcher(z);
 	SymbolPtr		context;
 	SymbolPtr		patcherName;
 	SymbolPtr		modelName = _sym_nothing;
+	TTString		modelEditionName;
 	TTValuePtr		v;
 	
 	// If z is a bpatcher, the patcher is NULL
@@ -636,21 +744,18 @@ void jamoma_node_build_model_list(ObjectPtr z, TTListPtr *returnedModelList)
 	context = jamoma_patcher_getcontext(patcher);
 	patcherName = object_attr_getsym(patcher, _sym_name);
 	
-	// Is the patcher embedded ?
+	// if the patcher name begin by "jmod."
+	// Strip jmod. from the beginning of patch name
+	isJmodPatcher = strncmp(patcherName->s_name, "jmod.", 5) == 0;
+	if (isJmodPatcher)
+		patcherName = gensym(patcherName->s_name + 5);						// TODO : replace each "." by the Uppercase of the letter after the "."
+	
+	// Is the patcher embedded in a jmod.patcher ?
 	// The topLevel patcher name have not to be include in the address
-	if ( (context == _sym_bpatcher) || (context == _sym_subpatcher) ) {
+	if (isJmodPatcher && ((context == _sym_bpatcher) || (context == _sym_subpatcher)) ) {
 
-		jamoma_node_build_model_list(patcher, returnedModelList);
-		
-		// check the patcher name
-		if (patcherName)
-			// if the patcher name begin by "jmod."
-			// Strip jmod. from the beginning of patch name
-			if (strncmp(patcherName->s_name, "jmod.", 5) == 0)
-				patcherName = gensym(patcherName->s_name + 5);				// TODO : replace each "." by the Uppercase of the letter after the "."
-		// else do nothing
-			else
-				return;
+		(*nbLevel)++;
+		jamoma_patcher_get_jmod_list(patcher, returnedModelList, nbLevel);
 		
 		// Try to get model name from the patcher arguments
 		jamoma_patcher_getargs(patcher, &ac, &av);
@@ -680,9 +785,18 @@ void jamoma_node_build_model_list(ObjectPtr z, TTListPtr *returnedModelList)
 		if (av)
 			sysmem_freeptr(av);
 	}
+	// case where the user is editing the module 
+	// or because there are jcom to register in the toplevel patcher
+	else if ((context == gensym("toplevel")) && (*nbLevel == 0)) {
+		
+		// add the < /, patcher > to the modelList
+		v = new TTValue(S_SEPARATOR);
+		v->append((TTPtr)patcher);
+		(*returnedModelList)->append(v);
+	}
 }
 
-void jamoma_directory_register_model_list(TTListPtr modelList, TTNodePtr *returnedModelNode)
+void jamoma_patcher_register_jmod_list(TTListPtr modelList, TTNodePtr *returnedModelNode)
 {
 	TTSymbolPtr formatedModelName, modelAddress, model_parent, model_name, model_instance, model_attribute;
 	TTList		modelNodeList, attributesAccess;
@@ -718,8 +832,8 @@ void jamoma_directory_register_model_list(TTListPtr modelList, TTNodePtr *return
 				
 				if (model_instance == NO_INSTANCE)
 					err = modelNode->getChildren(model_name, S_WILDCARD, modelNodeList);
-				else
-					err = modelNode->getChildren(model_name, model_instance, modelNodeList);
+				else 
+					err = modelNode->getChildren(model_name, model_instance, modelNodeList);	
 				
 				// 3. For each node of the modelNodeList, check the patcher object
 				// if one matches, keep it else we have to create the node
@@ -736,16 +850,22 @@ void jamoma_directory_register_model_list(TTListPtr modelList, TTNodePtr *return
 					}
 				}
 				
-				// if no node exist : create a new instance for this model
+				// if no node exists : create a new instance for this model
 				if (!found) {
 					
 					modelNode->getOscAddress(&modelAddress);
-					lowerModelAddress = modelAddress->getCString();
-					if(modelAddress != S_SEPARATOR)
-						lowerModelAddress += "/";
-					lowerModelAddress += formatedModelName->getCString();
 					
-					jamoma_directory->TTNodeCreate(TT(lowerModelAddress.data()), TT("model"), (TTPtr)patcher, attributesAccess, &modelNode, &nodeCreated);
+					// don't create another root !
+					if (formatedModelName != S_SEPARATOR) {
+						lowerModelAddress = modelAddress->getCString();
+						if (modelAddress != S_SEPARATOR)
+							lowerModelAddress += "/";
+						lowerModelAddress += formatedModelName->getCString();
+						
+						jamoma_directory->TTNodeCreate(TT(lowerModelAddress.data()), TT("model"), (TTPtr)patcher, attributesAccess, &modelNode, &nodeCreated);
+					}
+					else
+						modelNode = jamoma_directory->getRoot();
 				}
 				else
 					modelNode = lowerModelNode;
@@ -755,4 +875,3 @@ void jamoma_directory_register_model_list(TTListPtr modelList, TTNodePtr *return
 		}
 	}
 }
-

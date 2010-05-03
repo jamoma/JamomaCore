@@ -15,17 +15,15 @@ typedef struct _node{
 	t_object		ob;
 	void			*p_out;						///< the leftmost outlet
 	
-	bool			built;						///< true when the TTNode is built
-	
-	TTSymbolPtr		name;						///< the name of the node
-	TTSymbolPtr		parent;						///< the name of the parent node
-	TTListPtr		modelList;					///< the list containing each <modelName, patcher> above the jcom.node
+	TTSymbolPtr		relativeAddress;			///< the address of this jcom.node relative to the jmod.patcher node
+	TTSymbolPtr		absoluteAddress;			///< the address of this jcom.node relative in the tree structure
+	ObjectPtr		modelPatcher;				///< the jmod.patcher which contains this jcom.node
+	TTSymbolPtr		modelAddress;				///< address of the model node in the tree
 	
 	TTNodePtr		node;						///< the TTNode relative to this jcom.node
 	TTNodePtr		modelNode;					///< the TTNode relative to the model
-	TTSymbolPtr		address;					///< the address of this jcom.node in the jamoma tree
 	
-	TTObjectPtr		life_observer;				///< a pointer to a life cycle observer
+	TTObjectPtr		param_observer;				///< a life cycle observer to observe any parameter creation (if asked by the user)
 
 } t_node;
 
