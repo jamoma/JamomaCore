@@ -233,5 +233,4 @@ TTAddressComparisonFlag TTFOUNDATION_EXPORT compareOSCAddress(TTSymbolPtr oscAdd
  @return							The number of C_SEPARATOR */
 unsigned int TTFOUNDATION_EXPORT countSeparator(TTSymbolPtr oscAddress);
 
-
 #endif // __TT_NODE_DIRECTORY_H__

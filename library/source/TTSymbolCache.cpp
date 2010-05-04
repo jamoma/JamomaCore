@@ -38,6 +38,7 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_resonance;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sr;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_updateMaxNumChannels;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_updateSr;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_value;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_vectorSize;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_VectorSize;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_SampleRate;
@@ -93,6 +94,7 @@ void TTSymbolCacheInit()
 	kTTSym_sr						= TT("sr");
 	kTTSym_updateMaxNumChannels		= TT("updateMaxNumChannels");
 	kTTSym_updateSr					= TT("updateSr");
+	kTTSym_value					= TT("value");
 	kTTSym_vectorSize				= TT("vectorSize");
 	kTTSym_VectorSize				= TT("VectorSize");
 	kTTSym_SampleRate				= TT("SampleRate");
