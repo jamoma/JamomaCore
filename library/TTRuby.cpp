@@ -137,7 +137,7 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 	TTString		nameString;
 	
 	args.clear();
-	err = TTObjectInstantiate(TT(RSTRING(classNameStr)->ptr), &instance->obj, args);
+	err = TTObjectInstantiate(TT(RSTRING_PTR(classNameStr)), &instance->obj, args);
 	if (!err) {
 		instance->parameterNames = new TTHash;	// TODO: need to free this
 		instance->obj->getAttributeNames(names);
@@ -233,7 +233,7 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 			TTSymbolPtr	messageName;
 			TTValue		messageNameValue;
 
-			messageName = TT(RSTRING(messageNameStr)->ptr);
+			messageName = TT(RSTRING_PTR(messageNameStr));
 			instance->messageNames->lookup(messageName, messageNameValue);
 			messageNameValue.get(0, &messageName);
 
@@ -259,7 +259,7 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 							break;
 						case T_STRING:
 							messageArgStr = StringValue(argv[i]);
-							v.append(TT(RSTRING(messageArgStr)->ptr));
+							v.append(TT(RSTRING_PTR(messageArgStr)));
 							break;
 						case T_ARRAY:
 							cout << "TTError: Array arguments for messages not yet supported in Ruby" << endl;
@@ -348,7 +348,7 @@ VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 					break;
 				case T_STRING:
 					attributeValueStr = StringValue(attributeValue);
-					v.append(TT(RSTRING(attributeValueStr)->ptr));
+					v.append(TT(RSTRING_PTR(attributeValueStr)));
 					break;
 				case T_ARRAY:
 					cout << "TTError: Array arguments for attributes not yet supported in Ruby" << endl;
@@ -367,7 +367,7 @@ VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 				TTSymbolPtr	parameterName;
 				TTValue		parameterNameValue;
 				
-				parameterName = TT(RSTRING(attributeNameStr)->ptr);
+				parameterName = TT(RSTRING_PTR(attributeNameStr));
 				instance->parameterNames->lookup(parameterName, parameterNameValue);
 				parameterNameValue.get(0, &parameterName);
 				
@@ -398,7 +398,7 @@ VALUE TTRubyGetAttribute(VALUE self, VALUE attributeName)
 			TTSymbolPtr	parameterName;
 			TTValue		parameterNameValue;
 			
-			parameterName = TT(RSTRING(attributeNameStr)->ptr);
+			parameterName = TT(RSTRING_PTR(attributeNameStr));
 			instance->parameterNames->lookup(parameterName, parameterNameValue);
 			parameterNameValue.get(0, &parameterName);
 			
@@ -509,7 +509,7 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 				break;
 			case T_STRING:
 				messageArgStr = StringValue(argv[i]);
-				args.append(TT(RSTRING(messageArgStr)->ptr));
+				args.append(TT(RSTRING_PTR(messageArgStr)));
 				break;
 			case T_ARRAY:
 				cout << "TTError: Array arguments for messages not yet supported in Ruby" << endl;
@@ -525,7 +525,7 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 		}
 	}				
 	
-	//err = TTObjectInstantiate(TT(RSTRING(classNameStr)->ptr), &instance->obj, args);
+	//err = TTObjectInstantiate(TT(RSTRING_PTR(classNameStr)), &instance->obj, args);
 	err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&instance->obj, args);
 	
 	if (!err) {
@@ -619,7 +619,7 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 			TTSymbolPtr	messageName;
 			TTValue		messageNameValue;
 
-			messageName = TT(RSTRING(messageNameStr)->ptr);
+			messageName = TT(RSTRING_PTR(messageNameStr));
 			instance->messageNames->lookup(messageName, messageNameValue);
 			messageNameValue.get(0, &messageName);
 
@@ -645,7 +645,7 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 							break;
 						case T_STRING:
 							messageArgStr = StringValue(argv[i]);
-							v.append(TT(RSTRING(messageArgStr)->ptr));
+							v.append(TT(RSTRING_PTR(messageArgStr)));
 							break;
 						case T_ARRAY:
 							cout << "TTError: Array arguments for messages not yet supported in Ruby" << endl;
@@ -666,7 +666,7 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 			}
 
 			if (err)
-				cout << "TTAudioSendMessage ('" << RSTRING(messageNameStr)->ptr << "'): Error " << err << endl;
+				cout << "TTAudioSendMessage ('" << RSTRING_PTR(messageNameStr) << "'): Error " << err << endl;
 		}
 	}
 bye:
@@ -734,7 +734,7 @@ VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 					break;
 				case T_STRING:
 					attributeValueStr = StringValue(attributeValue);
-					v.append(TT(RSTRING(attributeValueStr)->ptr));
+					v.append(TT(RSTRING_PTR(attributeValueStr)));
 					break;
 				case T_ARRAY:
 					cout << "TTError: Array arguments for attributes not yet supported in Ruby" << endl;
@@ -753,7 +753,7 @@ VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 				TTSymbolPtr	parameterName;
 				TTValue		parameterNameValue;
 				
-				parameterName = TT(RSTRING(attributeNameStr)->ptr);
+				parameterName = TT(RSTRING_PTR(attributeNameStr));
 				instance->parameterNames->lookup(parameterName, parameterNameValue);
 				parameterNameValue.get(0, &parameterName);
 				
@@ -784,7 +784,7 @@ VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName)
 			TTSymbolPtr	parameterName;
 			TTValue		parameterNameValue;
 			
-			parameterName = TT(RSTRING(attributeNameStr)->ptr);
+			parameterName = TT(RSTRING_PTR(attributeNameStr));
 			instance->parameterNames->lookup(parameterName, parameterNameValue);
 			parameterNameValue.get(0, &parameterName);
 			
@@ -941,7 +941,7 @@ VALUE TTAudioExportMax(VALUE self, VALUE pathToExportFile)
 	TTValue					v;
 	TTAudioGraphDescription	desc;
 	VALUE					pathToExportStr = StringValue(pathToExportFile);
-	TTString				path = RSTRING(pathToExportStr)->ptr;
+	TTString				path = RSTRING_PTR(pathToExportStr);
 
 	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
@@ -961,7 +961,7 @@ VALUE TTAudioExportCpp(VALUE self, VALUE pathToExportFile)
 	TTValue					v;
 	TTAudioGraphDescription	desc;
 	VALUE					pathToExportStr = StringValue(pathToExportFile);
-	TTString				path = RSTRING(pathToExportStr)->ptr;
+	TTString				path = RSTRING_PTR(pathToExportStr);
 
 	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
 	if (!err) {
