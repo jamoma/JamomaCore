@@ -51,7 +51,7 @@ private:
 //	#ifdef TT_PLATFORM_WIN
 //	#pragma warning(disable:4251)
 //	#endif
-	TTHashMap*	hashMap;
+	TTHashMap	hashMap;
 	
 public:
 	TTHash();

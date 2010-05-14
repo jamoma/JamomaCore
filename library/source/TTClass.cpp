@@ -28,10 +28,10 @@ TTErr TTClass::createInstance(TTObject** anObject, TTValue& anArgument)
 {
 	TTErr err = kTTErrNone;
 	
-	try{
+	try {
 		*anObject = instantiationMethod(name, anArgument);
 	}
-	catch(...){
+	catch (...) {
 		err = kTTErrAllocFailed;
 	}
 	

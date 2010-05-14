@@ -19,7 +19,7 @@ TTMutex::TTMutex(bool recursive)
 		pthread_mutexattr_t		pAttr;
 		
 		pthread_mutexattr_init(&pAttr);
-		if(recursive)
+		if (recursive)
 			pthread_mutexattr_settype(&pAttr, PTHREAD_MUTEX_RECURSIVE);
 		pthread_mutex_init(&pMutex, &pAttr);
 	#endif

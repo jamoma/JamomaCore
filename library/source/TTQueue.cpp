@@ -32,7 +32,7 @@ TTQueue::TTQueue()
 
 TTQueue::~TTQueue()
 {
-	if(queueThread)
+	if (queueThread)
 		delete queueThread;
 	delete queueEventObjects;
 	delete queueEventMethods;
@@ -52,7 +52,7 @@ void* TTQueue::run()
 	TTValue		value;
 	TTValue		tempValue;
 
-	while(1){
+	while (1) {
 		objectItem = queueEventObjects->getHead(tempValue);
 		object = tempValue;
 		messageItem = queueEventObjects->getHead(tempValue);

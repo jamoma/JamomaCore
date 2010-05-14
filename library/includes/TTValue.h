@@ -18,7 +18,7 @@ class TTObject;
 
 
 // macro for converting from one type to another regardless of type
-#define	CONVERT(dType) switch(*(type+index)){\
+#define	CONVERT(dType) switch(*(type+index)) {\
 			case kTypeInt8:\
 				value = (dType)(data+index)->int8;\
 				break;\
@@ -88,7 +88,7 @@ private:
 		
 	TTDataType*	type;			///< array of types
 	DataValue*	data;			///< array of values
-	TTBoolean*	numerical;		///< array of indicators for whether or not the type is numerical
+	TTPtr		reserved;		///< (unused)
 	TTUInt16	numValues;		///< number of values
 	TTBoolean	stringsPresent;	///< are there any values which are strings?  if so they need special handling when it is time to free them.
 
@@ -262,7 +262,7 @@ public:
 	// inlined for speed (e.g. for use in the dataspace lib)
 	TTFloat64 getFloat64(TTUInt16 index = 0) const
 	{
-		if(type[index] == kTypeFloat64)
+		if (type[index] == kTypeFloat64)
 			return (data+index)->float64;
 		else {
 			TTFloat64 value;
@@ -304,72 +304,72 @@ public:
 	{
 		short 	i;
 		
-		if(a1.numValues != a2.numValues)
+		if (a1.numValues != a2.numValues)
 			return false;
 
-		for(i=0; i < a1.numValues; i++){
-			if(a1.type[i] != a2.type[i])
+		for (i=0; i < a1.numValues; i++) {
+			if (a1.type[i] != a2.type[i])
 				return false;
-			else{
-				switch(a1.type[i]){
+			else {
+				switch(a1.type[i]) {
 					case kTypeInt8:
-						if( (a1.data+i)->int8 != (a2.data+i)->int8 )
+						if ( (a1.data+i)->int8 != (a2.data+i)->int8 )
 							return false;
 						break;
 					case kTypeUInt8:
-						if( (a1.data+i)->uint8 != (a2.data+i)->uint8 )
+						if ( (a1.data+i)->uint8 != (a2.data+i)->uint8 )
 							return false;
 						break;
 					case kTypeInt16:
-						if( (a1.data+i)->int16 != (a2.data+i)->int16 )
+						if ( (a1.data+i)->int16 != (a2.data+i)->int16 )
 							return false;
 						break;
 					case kTypeUInt16:
-						if( (a1.data+i)->uint16 != (a2.data+i)->uint16 )
+						if ( (a1.data+i)->uint16 != (a2.data+i)->uint16 )
 							return false;
 						break;
 					case kTypeInt32:
-						if( (a1.data+i)->int32 != (a2.data+i)->int32 )
+						if ( (a1.data+i)->int32 != (a2.data+i)->int32 )
 							return false;
 						break;
 					case kTypeUInt32:
-						if( (a1.data+i)->uint32 != (a2.data+i)->uint32 )
+						if ( (a1.data+i)->uint32 != (a2.data+i)->uint32 )
 							return false;
 						break;
 					case kTypeInt64:
-						if( (a1.data+i)->int64 != (a2.data+i)->int64 )
+						if ( (a1.data+i)->int64 != (a2.data+i)->int64 )
 							return false;
 						break;
 					case kTypeUInt64:
-						if( (a1.data+i)->uint64 != (a2.data+i)->uint64 )
+						if ( (a1.data+i)->uint64 != (a2.data+i)->uint64 )
 							return false;
 						break;
 					case kTypeFloat32:
-						if( (a1.data+i)->float32 != (a2.data+i)->float32 )
+						if ( (a1.data+i)->float32 != (a2.data+i)->float32 )
 							return false;
 						break;
 					case kTypeFloat64:
-						if( (a1.data+i)->float64 != (a2.data+i)->float64 )
+						if ( (a1.data+i)->float64 != (a2.data+i)->float64 )
 							return false;
 						break;
 					case kTypeBoolean:
-						if( (a1.data+i)->boolean != (a2.data+i)->boolean )
+						if ( (a1.data+i)->boolean != (a2.data+i)->boolean )
 							return false;
 						break;
 					case kTypeSymbol:
-						if( (a1.data+i)->sym != (a2.data+i)->sym )
+						if ( (a1.data+i)->sym != (a2.data+i)->sym )
 							return false;
 						break;
 					case kTypeString:
-						if( *(a1.data+i)->stringPtr != *(a2.data+i)->stringPtr )
+						if ( *(a1.data+i)->stringPtr != *(a2.data+i)->stringPtr )
 							return false;
 						break;
 					case kTypeObject:
-						if( (a1.data+i)->object != (a2.data+i)->object )
+						if ( (a1.data+i)->object != (a2.data+i)->object )
 							return false;
 						break;
 					case kTypePointer:
-						if( (a1.data+i)->ptr != (a2.data+i)->ptr )
+						if ( (a1.data+i)->ptr != (a2.data+i)->ptr )
 							return false;
 						break;
 					default:
@@ -388,10 +388,10 @@ public:
 	
 	void clip(const TTFloat64& lowBound, const TTFloat64& highBound)
 	{
-		for(TTUInt16 i=0; i<numValues; i++){
-			if(TTDataInfo::getIsNumerical(type[i])){
+		for (TTUInt16 i=0; i<numValues; i++) {
+			if (TTDataInfo::getIsNumerical(type[i])) {
 				// TODO: find a way to make this routine faster
-				switch(type[i]){
+				switch(type[i]) {
 					case kTypeFloat32:
 						data[i].float32 = TTClip<TTFloat32>(data[i].float32, (TTFloat32)lowBound, (TTFloat32)highBound);
 						break;
@@ -431,10 +431,10 @@ public:
 	
 	void cliplow(const TTFloat64& lowBound)
 	{
-		for(TTUInt16 i=0; i<numValues; i++){
-			if(TTDataInfo::getIsNumerical(type[i])){
+		for (TTUInt16 i=0; i<numValues; i++) {
+			if (TTDataInfo::getIsNumerical(type[i])) {
 				// TODO: find a way to make this routine faster
-				switch(type[i]){
+				switch(type[i]) {
 					case kTypeFloat32:
 						data[i].float32 = TTLimitMin<TTFloat32>(data[i].float32, (TTFloat32)lowBound);
 						break;
@@ -474,10 +474,10 @@ public:
 	
 	void cliphigh(const TTFloat64& highBound)
 	{
-		for(TTUInt16 i=0; i<numValues; i++){
-			if(TTDataInfo::getIsNumerical(type[i])){
+		for (TTUInt16 i=0; i<numValues; i++) {
+			if (TTDataInfo::getIsNumerical(type[i])) {
 				// TODO: find a way to make this routine faster
-				switch(type[i]){
+				switch(type[i]) {
 					case kTypeFloat32:
 						data[i].float32 = TTLimitMax<TTFloat32>(data[i].float32, (TTFloat32)highBound);
 						break;
@@ -517,10 +517,10 @@ public:
 	
 	void round()
 	{
-		for(TTUInt16 i=0; i<numValues; i++){
-			if(TTDataInfo::getIsNumerical(type[i])){
+		for (TTUInt16 i=0; i<numValues; i++) {
+			if (TTDataInfo::getIsNumerical(type[i])) {
 				// TODO: find a way to make this routine faster
-				switch(type[i]){
+				switch(type[i]) {
 					case kTypeFloat32:
 						data[i].float32 = (TTFloat32)TTRound(data[i].float32);
 						break;
@@ -563,10 +563,10 @@ public:
 		TTString*	str = new TTString;
 		TTCString	temp;
 		
-		for(TTUInt16 i=0; i<numValues; i++){
+		for (TTUInt16 i=0; i<numValues; i++) {
 			temp = NULL;
 			
-			switch(type[i]){
+			switch(type[i]) {
 				case kTypeFloat32:
 					temp = new char[16];
 					snprintf(temp, 16, "%f ", data[i].float32);
@@ -616,7 +616,7 @@ public:
 #endif
 					break;
 				case kTypeBoolean:
-					if(data[i].boolean)
+					if (data[i].boolean)
 						str->append("1 ");
 					else
 						str->append("0 ");
@@ -642,7 +642,7 @@ public:
 					break;
 			}
 			
-			if(temp){
+			if (temp) {
 				str->append(temp);
 				delete temp;
 			}

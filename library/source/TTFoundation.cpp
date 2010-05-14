@@ -33,11 +33,11 @@ TTObjectPtr	TTFoundationInstantiateInternalClass(TTSymbol* className, TTValue& a
 /****************************************************************************************************/
 void TTFoundationInit()
 {
-	if(!TTFoundationHasInitialized){
+	if (!TTFoundationHasInitialized) {
 		TTFoundationHasInitialized = true;
 		
 		ttSymbolTable = new TTSymbolTable;
-		for(int i=0; i<kNumTTDataTypes; i++)
+		for (int i=0; i<kNumTTDataTypes; i++)
 			TTDataInfo::addDataInfoForType(TTDataType(i));
 
 		ttEnvironment = new TTEnvironment;
@@ -80,7 +80,7 @@ void TTFoundationLoadExternalClasses()
 	
 	// Look in ~/Library/Application Support/TTBlue/Extensions
 	err = FSFindFolder(kLocalDomain, kApplicationSupportFolderType, kCreateFolder, &ref);
-	if(!err){
+	if (!err) {
 		FSRefMakePath(&ref, path, 4096);
 		fullpath = (char*)path;
 		fullpath += "/Jamoma/Extensions";
@@ -89,7 +89,7 @@ void TTFoundationLoadExternalClasses()
 	
 	// Look in /Library/Application Support/TTBlue/Extensions
 	err = FSFindFolder(kUserDomain, kApplicationSupportFolderType, kCreateFolder, &ref);
-	if(!err){
+	if (!err) {
 		FSRefMakePath(&ref, path, 4096);
 		fullpath = (char*)path;
 		fullpath += "/Jamoma/Extensions";
@@ -119,7 +119,7 @@ void TTFoundationLoadExternalClasses()
 
 	// Look in C:\Program Files\Common Files\TTBlue\Extensions
 	hr = SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES_COMMON, NULL, SHGFP_TYPE_CURRENT, (LPSTR)temppath);
-	if(!FAILED(hr)){
+	if (!FAILED(hr)) {
 		fullpath = temppath;
 		fullpath += "\\Jamoma\\Extensions\\";
 		lRes = SHCreateDirectory(NULL, (LPCWSTR)fullpath.c_str());
@@ -173,17 +173,17 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 	}
 	
 	status = FSOpenIterator(&ref, kFSIterateFlat, &iterator);
-	if(!status){
+	if (!status) {
         names = (HFSUniStr255 *)malloc(sizeof(HFSUniStr255) * 4096);
-        if(names){
+        if (names) {
             // Request information about files in the given directory,
             // until we get a status code back from the File Manager
             do{
 				status = FSGetCatalogInfoBulk(iterator, 4096, &count, NULL, kFSCatInfoNone, NULL, NULL, NULL, names);
 				
                 // Process all items received
-                if(status == OSStatus(noErr) || status == OSStatus(errFSNoMoreItems)){
-                    for(UInt32 i=0; i < count; i += 1){
+                if (status == OSStatus(noErr) || status == OSStatus(errFSNoMoreItems)) {
+                    for (UInt32 i=0; i < count; i += 1) {
   						name = CFStringCreateWithCharacters(kCFAllocatorDefault, names[i].unicode, names[i].length);
 // TODO: filter on name.  We only want to try and load .ttdylib files						
 						CFStringGetCString(name, cname, 4096, kCFStringEncodingUTF8);
@@ -194,17 +194,17 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 						handle = dlopen(path.c_str(), RTLD_LAZY);
 // TODO: assert -- or at least do a log post -- if handle is NULL
 						initializer = (TTExtensionInitializationMethod)dlsym(handle, "loadTTExtension");
-						if(initializer)
+						if (initializer)
 							err = initializer();
 						CFRelease(name);
                     }
                 }
             }
-            while(status == OSStatus(noErr));
+            while (status == OSStatus(noErr));
 			
             // errFSNoMoreItems tells us we have successfully processed all
             // items in the directory -- not really an error
-            if(status == OSStatus(errFSNoMoreItems))
+            if (status == OSStatus(errFSNoMoreItems))
                 status = noErr;
 			
             // Free the array memory
@@ -223,18 +223,18 @@ void TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 	path = fullpath;
 	path += "*.ttdll";
 	fdHandle = FindFirstFile(path.c_str(), &findFileData);
-	if(fdHandle && (fdHandle != INVALID_HANDLE_VALUE)){
-		while(fdHandle){
+	if (fdHandle && (fdHandle != INVALID_HANDLE_VALUE)) {
+		while (fdHandle) {
 			path = fullpath;
 			path += findFileData.cFileName;
 
 			hLib = LoadLibrary(path.c_str());
-			if(hLib){
+			if (hLib) {
 				initializer = (TTExtensionInitializationMethod)GetProcAddress((HMODULE)hLib, "loadTTExtension");
-				if(initializer)
+				if (initializer)
 					err = initializer();
 			}
-			if(!FindNextFile(fdHandle, &findFileData))
+			if (!FindNextFile(fdHandle, &findFileData))
 				break;
 		}
 	}

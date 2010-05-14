@@ -73,7 +73,7 @@ void TTThread::wait()
 
 void* TTThread::doCallbackMethod()
 {
-	if(callback)
+	if (callback)
 		return callback(argument);
 	else
 		return (void*)-1;
