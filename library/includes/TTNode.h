@@ -28,7 +28,7 @@ typedef TTCallback* TTCallbackPtr;
 #define NO_INSTANCE		kTTSymEmpty
 #define NO_TYPE			kTTSymEmpty
 #define NO_PARENT		kTTSymEmpty
-#define NO_PROPERTY		kTTSymEmpty
+#define NO_ATTRIBUTE	kTTSymEmpty
 
 // OSC2 style address
 #define C_SEPARATOR		'/'
@@ -113,6 +113,9 @@ public:
 
 	/** Get a pointer to the object linked with the TTNode */
 	void*			getObject();
+	
+	/** Set a pointer to the object linked with the TTNode */
+	TTErr			setObject(void* ob);
 
 	/** Get a pointer to the parent TTNode of the TTNode */
 	TTNodePtr		getParent();
@@ -122,21 +125,26 @@ public:
 		@param	oscAddress_parent	The OSC address to check
 		@param	parent_created		This parameter will be set to true upon return if a new TTNode was created, or false if one was not created - 
 									e.g. because a TTNode already existed with this address and instance name.			
-		@return						An error code.	*/
+		@return						An error code. */
 	TTErr			setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created);
 
 	/** Get a linklist of children of the TTNode : select them by name and instance (use wilcards to select them all) */
 	TTErr			getChildren(TTSymbolPtr name, TTSymbolPtr instance, TTList& returnedChildren);
 	
+	/** Get a linklist of children name */
+	TTErr			getChildrenName(TTList& returnedChildrenName);
+	
+	/** Get a linklist of children instance for a given name */
+	TTErr			getChildrenInstance(TTSymbolPtr aName, TTList& returnedChildrenInstance);
+	
 	/** Add a TTNode as a child of the TTNode
 		@param child			a TTNodePtr to add as children of the TTNode.
-		@return					a kTTErrGeneric if the instance of the given child already exist.
-		*/
+		@return					a kTTErrGeneric if the instance of the given child already exist. */
 	TTErr			setChild(TTNodePtr child);
 	
 	/** Get the OSC address of the TTNode 
 		It is computed dynamicaly by asking to all the ancestor of the TTNode	
-		@param	returnedOscAddress		A TTSymbolPtr with the OOSC address is returned in this parameter.	*/
+		@param	returnedOscAddress		A TTSymbolPtr with the OOSC address is returned in this parameter. */
 	TTErr			getOscAddress(TTSymbolPtr *returnedOscAddress);
 
 	/** Generate a new instance of a given child
@@ -144,12 +152,6 @@ public:
 		@param newInstance		a new instance created (or NULL if not)	.
 		@return					a kTTErrGeneric if the child doesn't exist.	*/
 	TTErr			generateInstance(TTSymbolPtr childName, TTSymbolPtr *newInstance);
-
-	/** Notify life cycle observers of the TTNode object
-		@param data				a TTValue to send to obervers
-		@return					a kTTErrGeneric if there isn't observer	*/
-	//TTErr			notifyObservers(TTValue& data);
-
 };
 
 	

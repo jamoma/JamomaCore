@@ -29,6 +29,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
 using namespace std;
 
 #ifdef TT_PLATFORM_LINUX
@@ -38,6 +39,7 @@ using namespace std;
 
 #ifdef TT_PLATFORM_WIN
 	#include "windows.h"
+	#include <algorithm>
 	#ifndef _CRT_SECURE_NO_WARNINGS
 		#define _CRT_SECURE_NO_WARNINGS
 	#endif
@@ -76,7 +78,7 @@ using namespace std;
 
 #ifdef TT_ENABLE_ASSERTIONS
 #define TT_ASSERT(name, result) \
-				if(!result){\
+				if (!result) {\
 					char* nullPtr = 0;\
 					TTLogError("%s:%ld ASSERTION %s FAILED\n", __FILE__, __LINE__, #name );\
 					*nullPtr = 1;\
@@ -135,6 +137,10 @@ typedef TTSampleVector::iterator	TTSampleIter;
 
 typedef TTSampleValue*				TTSampleValuePtr;
 typedef TTSampleVector*				TTSampleVectorPtr;
+
+/** A TTSampleMatrix is vector of TTSampleVectors. */
+typedef std::vector<TTSampleVector>	TTSampleMatrix;
+typedef TTSampleMatrix::iterator	TTSampleMatrixIter;
 
 /** An integer that is the same size as a pointer.	*/
 typedef long				TTPtrSizedInt;				// this works for both 32 and 64 bit code on the Mac

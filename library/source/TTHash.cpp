@@ -10,39 +10,37 @@
 #include "TTSymbolTable.h"
 #include "TTMutex.h"
 
-static TTMutex* sListMutex=NULL;
+static TTMutex* sHashMutex=NULL;
 
 /****************************************************************************************************/
 
 TTHash::TTHash()
 {
-	if(!sListMutex)
-		sListMutex = new TTMutex(false);
-	hashMap = new TTHashMap;
+	if (!sHashMutex)
+		sHashMutex = new TTMutex(false);
 }
 
 
 TTHash::~TTHash()
 {
-	hashMap->clear();
-	delete hashMap;
+	;
 }
 
 
 TTErr TTHash::append(const TTSymbolPtr key, const TTValue& value)
 {
-	hashMap->insert(TTKeyVal(TTPtrSizedInt(key), value));
+	hashMap.insert(TTKeyVal(TTPtrSizedInt(key), value));
 	return kTTErrNone;
 }
 
 
 TTErr TTHash::lookup(const TTSymbolPtr key, TTValue& value)
 {
-	TTHashMapIter iter = hashMap->find(TTPtrSizedInt(key));
+	TTHashMapIter iter = hashMap.find(TTPtrSizedInt(key));
 
-	if(iter == hashMap->end())
+	if (iter == hashMap.end())
 		return kTTErrValueNotFound;
-	else{
+	else {
 		value = iter->second;
 		return kTTErrNone;
 	}
@@ -51,14 +49,14 @@ TTErr TTHash::lookup(const TTSymbolPtr key, TTValue& value)
 
 TTErr TTHash::remove(const TTSymbolPtr key)
 {
-	hashMap->erase(TTPtrSizedInt(key));
+	hashMap.erase(TTPtrSizedInt(key));
 	return kTTErrNone;
 }
 
 
 TTErr TTHash::clear()
 {
-	hashMap->clear();
+	hashMap.clear();
 	return kTTErrNone;
 }
 
@@ -67,7 +65,7 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 {
 // TODO: we need to have some thread protection for TTHash!
 	hashKeys.clear();
-	for(TTHashMapIter iter = hashMap->begin(); iter != hashMap->end(); iter++)	
+	for (TTHashMapIter iter = hashMap.begin(); iter != hashMap.end(); iter++)	
 		hashKeys.append(TTSymbolPtr(iter->first));
 	return kTTErrNone;
 }
@@ -75,12 +73,12 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 
 TTUInt32 TTHash::getSize()
 {
-	return hashMap->size();
+	return hashMap.size();
 }
 
 
 TTBoolean TTHash::isEmpty()
 {
-	return hashMap->empty();
+	return hashMap.empty();
 }
 

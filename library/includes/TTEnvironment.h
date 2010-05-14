@@ -36,9 +36,9 @@ private:
 	TTHash*		tags;				///< A hash keyed on tag names, which map to TTLists of all classes with that tag name.
 	
 public:
-	TTBoolean	debugBasic;			///< Attribute: basic debug functionality is enabled when true.
-	TTBoolean	debugMessaging;		///< Attribute: should all message traffic be logged?
-	TTUInt32	sr;					///< Current sample rate as understood by the environment as a whole.
+	TTBoolean	mDebugBasic;		///< Attribute: basic debug functionality is enabled when true.
+	TTBoolean	mDebugMessaging;	///< Attribute: should all message traffic be logged?
+	TTUInt32	mSampleRate;		///< Current sample rate as understood by the environment as a whole.
 
 	
 	/**	Constructor	*/
@@ -50,7 +50,7 @@ public:
 
 	
 	/**	Retrieve the environment version number. */
-	TTErr getVersion(TTValue &value);
+	TTErr GetVersion(TTValue &value);
 
 	
 	/**	Register the unit name, and associate it with the constructor to be called. 

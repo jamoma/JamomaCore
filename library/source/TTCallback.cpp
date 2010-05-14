@@ -14,10 +14,13 @@
 
 TT_OBJECT_CONSTRUCTOR,
 	mFunction(NULL),
-	mBaton(NULL)
+	mBaton(NULL),
+	mOwner(NULL)
 {
 	addAttribute(Function, kTypePointer);
 	addAttribute(Baton, kTypePointer);
+	
+	addAttribute(Owner, kTypeSymbol);
 	
 	addMessageWithArgument(notify);
 }
@@ -25,7 +28,8 @@ TT_OBJECT_CONSTRUCTOR,
 
 TTCallback::~TTCallback()
 {
-	;
+	mFunction = NULL;
+	mBaton = NULL;
 }
 
 

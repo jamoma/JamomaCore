@@ -74,9 +74,9 @@ static T TTLimitMin(T value, T low_bound)
 template<class T>
 static T TTOneWrap(T value, T low_bound, T high_bound)
 {
-	if((value >= low_bound) && (value < high_bound))
+	if ((value >= low_bound) && (value < high_bound))
 		return value;
-	else if(value >= high_bound)
+	else if (value >= high_bound)
 		return((low_bound - 1) + (value - high_bound));
 	else
 		return((high_bound + 1) - (low_bound - value));
@@ -85,7 +85,7 @@ static T TTOneWrap(T value, T low_bound, T high_bound)
 template<class T>
 static T TTInfWrap(T value, T low_bound, T high_bound)
 {
-	if((value >= low_bound) && (value < high_bound))
+	if ((value >= low_bound) && (value < high_bound))
 		return value; //nothing to wrap
 	/* let's wrap it */
 	else if (value - low_bound >= 0)
@@ -100,9 +100,9 @@ static T TTFold(T value, T low_bound, T high_bound)
 {
 	double foldRange;
 
-	if((value >= low_bound) && (value <= high_bound))
+	if ((value >= low_bound) && (value <= high_bound))
 		return value; //nothing to fold
-	else{
+	else {
 		foldRange = 2 * fabs((double)low_bound - high_bound);
 #ifdef TT_PLATFORM_WIN
 		// The standard remainder() function is not present on Windows, so we do it ourselves.
@@ -137,7 +137,7 @@ static T TTScale(T value, T inlow, T inhigh, T outlow, T outhigh)
 template<class T>
 static TTInt32 TTRound(T value)
 {
-	if(value > 0)
+	if (value > 0)
 		return((long)(value + 0.5));
 	else
 		return((long)(value - 0.5));
