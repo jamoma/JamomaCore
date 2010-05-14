@@ -123,7 +123,7 @@ void zerox_assist(t_zerox *x, void *b, long msg, long arg, char *dst)
 t_max_err attr_set_size(t_zerox *x, void *attr, long argc, t_atom *argv)
 {
 	x->attr_size = atom_getfloat(argv);
-	x->zeroxUnit->setAttributeValue(TT("size"), (TTUInt16)x->attr_size);
+	x->zeroxUnit->setAttributeValue(TT("Size"), (TTUInt16)x->attr_size);
 	return MAX_ERR_NONE;
 }
 
@@ -150,12 +150,12 @@ t_int *zerox_perform(t_int *w)
 // DSP Method
 void zerox_dsp(t_zerox *x, t_signal **sp, short *count)
 {
-	x->zeroxUnit->sendMessage(TT("clear"));
-	x->zeroxUnit->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	x->zeroxUnit->sendMessage(TT("Clear"));
+	x->zeroxUnit->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
 	dsp_add(zerox_perform, 5, x, sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n);
 		
-	x->signalIn->setAttributeValue(TT("vectorSize"), (TTUInt16)sp[0]->s_n);
-	x->signalOut->setAttributeValue(TT("vectorSize"), (TTUInt32)sp[0]->s_n);
+	x->signalIn->setAttributeValue(TT("VectorSize"), (TTUInt16)sp[0]->s_n);
+	x->signalOut->setAttributeValue(TT("VectorSize"), (TTUInt32)sp[0]->s_n);
 	
 	//signalIn will be set (alloc'd) in the perform method
 	x->signalOut->sendMessage(TT("alloc"));

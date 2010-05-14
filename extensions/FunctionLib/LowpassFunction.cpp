@@ -15,16 +15,16 @@
 
 
 TT_AUDIO_CONSTRUCTOR, 
-	feedback(NULL)
+	mFeedback(NULL)
 {
-	registerAttributeWithSetter(coefficient, kTypeFloat64);
-	registerMessageSimple(clear);
-	registerMessageWithArgument(updateMaxNumChannels);
+	addAttributeWithSetter(Coefficient, kTypeFloat64);
+	addMessage(Clear);
+	addMessageWithArgument(updateMaxNumChannels);
 	
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	arguments);			// This attribute is inherited
-	setAttributeValue(TT("coefficient"), 0.75);
-	sendMessage(TT("clear"));
+	setAttributeValue(TT("MaxNumChannels"),	arguments);			// This attribute is inherited
+	setAttributeValue(TT("Coefficient"), 0.75);
+	sendMessage(TT("Clear"));
 	
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);
@@ -32,30 +32,30 @@ TT_AUDIO_CONSTRUCTOR,
 
 LowpassFunction::~LowpassFunction()
 {
-	delete[] feedback;
+	delete[] mFeedback;
 }
 
 
 TTErr LowpassFunction::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	delete[] feedback;
-	feedback = new TTFloat64[maxNumChannels];
-	return clear();
+	delete[] mFeedback;
+	mFeedback = new TTFloat64[maxNumChannels];
+	return Clear();
 }
 
 
-TTErr LowpassFunction::clear()
+TTErr LowpassFunction::Clear()
 {
 	for (TTUInt16 channel=0; channel<maxNumChannels; channel++)
-		feedback[channel] = 0.0;
+		mFeedback[channel] = 0.0;
 	return kTTErrNone;
 }
 
 
-TTErr LowpassFunction::setcoefficient(const TTValue& newValue)
+TTErr LowpassFunction::setCoefficient(const TTValue& newValue)
 {
-	coefficient = newValue;
-	one_minus_coefficient = 1.0 - coefficient;
+	mCoefficient = newValue;
+	mOneMinusCoefficient = 1.0 - mCoefficient;
 	return kTTErrNone;
 }
 
@@ -63,7 +63,7 @@ TTErr LowpassFunction::setcoefficient(const TTValue& newValue)
 
 inline TTErr LowpassFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
-	y = feedback[channel] = TTAntiDenormal((feedback[channel] * coefficient) + (x * one_minus_coefficient));
+	y = mFeedback[channel] = TTAntiDenormal((mFeedback[channel] * mCoefficient) + (x * mOneMinusCoefficient));
 	return kTTErrNone;
 }
 

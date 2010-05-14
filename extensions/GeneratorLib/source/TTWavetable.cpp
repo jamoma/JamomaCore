@@ -14,44 +14,44 @@
 
 
 TT_AUDIO_CONSTRUCTOR,
-	index(0.0),
-	indexDelta(0.0),
-	wavetable(NULL)
+	mIndex(0.0),
+	mIndexDelta(0.0),
+	mWavetable(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 
-	registerAttribute(TT("frequency"),		kTypeFloat64,	&attrFrequency,		(TTSetterMethod)&TTWavetable::setFrequency);
-	registerAttribute(TT("mode"),			kTypeSymbol,	&attrMode,			(TTSetterMethod)&TTWavetable::setMode);
-	registerAttribute(TT("gain"),			kTypeFloat64,	&attrGain,			(TTSetterMethod)&TTWavetable::setGain);
-	registerAttribute(TT("interpolation"),	kTypeSymbol,	&attrInterpolation,	(TTSetterMethod)&TTWavetable::setInterpolation);
-	registerAttribute(TT("size"),			kTypeInt64,		&attrSize,			(TTSetterMethod)&TTWavetable::setSize);
+	addAttributeWithSetter(Frequency,		kTypeFloat64);
+	addAttributeWithSetter(Mode,			kTypeSymbol);
+	addAttributeWithSetter(Gain,			kTypeFloat64);
+	addAttributeWithSetter(Interpolation,	kTypeSymbol);
+	addAttributeWithSetter(Size,			kTypeInt64);
 
-	registerMessageSimple(updateSr);
+	addMessage(updateSr);
 
-	TTObjectInstantiate(TT("buffer"), (TTObjectPtr*)&wavetable, kTTValNONE);
-	if(!wavetable)
+	TTObjectInstantiate(TT("buffer"), (TTObjectPtr*)&mWavetable, kTTValNONE);
+	if (!mWavetable)
 		throw TTException("Could not create internal buffer object");
-	wavetable->setnumChannels(TTUInt32(1));
+	mWavetable->setNumChannels(TTUInt32(1));
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("size"), 4096);
-	setAttributeValue(TT("mode"), kTTSym_sine);
-	setAttributeValue(TT("frequency"), 440.0);
-	setAttributeValue(TT("gain"), 0.0);			// 0 dB
-	setAttributeValue(TT("interpolation"), TT("linear"));
+	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
+	setAttributeValue(TT("Size"), 4096);
+	setAttributeValue(TT("Mode"), kTTSym_sine);
+	setAttributeValue(TT("Frequency"), 440.0);
+	setAttributeValue(TT("Gain"), 0.0);			// 0 dB
+	setAttributeValue(TT("Interpolation"), TT("linear"));
 }
 
 
 TTWavetable::~TTWavetable()
 {
-	TTObjectRelease((TTObject**)&wavetable);
+	TTObjectRelease((TTObject**)&mWavetable);
 }
 
 
 TTErr TTWavetable::updateSr()
 {
-	setAttributeValue(TT("frequency"), attrFrequency);
+	setAttributeValue(TT("Frequency"), mFrequency);
 	return kTTErrNone;
 }
 
@@ -60,19 +60,19 @@ TTErr TTWavetable::setFrequency(const TTValue& newValue)
 {
 	TTValue	v;
 
-	attrFrequency = TTClip<TTFloat64>(newValue, 0.0, sr/2.0);
-	wavetable->getAttributeValue(TT("lengthInSamples"), v);
-	indexDelta = attrFrequency * TTFloat64(v) / sr;
+	mFrequency = TTClip<TTFloat64>(newValue, 0.0, sr/2.0);
+	mWavetable->getAttributeValue(TT("LengthInSamples"), v);
+	mIndexDelta = mFrequency * TTFloat64(v) / sr;
 	return kTTErrNone;
 }
 
 
 TTErr TTWavetable::setMode(const TTValue& newValue)
 {
-	attrMode = newValue;	// TODO: should be newValue[0]
+	mMode = newValue;	// TODO: should be newValue[0]
 
-	if (attrMode != TT("externalBuffer"))
-		return wavetable->fill(newValue);
+	if (mMode != TT("externalBuffer"))
+		return mWavetable->Fill(newValue);
 	else {
 		// TODO: implement the ability to use an externally defined buffer
 		return kTTErrInvalidValue;
@@ -82,10 +82,10 @@ TTErr TTWavetable::setMode(const TTValue& newValue)
 
 TTErr TTWavetable::setInterpolation(const TTValue& newValue)
 {
-	attrMode = newValue;
-	if (attrMode == TT("linear"))
+	mMode = newValue;
+	if (mMode == TT("linear"))
 		setProcessMethod(processWithLinearInterpolation);
-	else if (attrMode == TT("lfo"))
+	else if (mMode == TT("lfo"))
 		setProcessMethod(processAsLFO);
 	else
 		setProcessMethod(processWithNoInterpolation);
@@ -95,16 +95,16 @@ TTErr TTWavetable::setInterpolation(const TTValue& newValue)
 
 TTErr TTWavetable::setGain(const TTValue& newValue)
 {
-	attrGain = newValue;
-	linearGain = dbToLinear(attrGain);
+	mGain = newValue;
+	mLinearGain = dbToLinear(mGain);
 	return kTTErrNone;
 }
 
 
 TTErr TTWavetable::setSize(const TTValue& newSize)
 {
-	attrSize = newSize;
-	return wavetable->setlengthInSamples(attrSize);
+	mSize = newSize;
+	return mWavetable->setLengthInSamples(mSize);
 }
 
 
@@ -114,29 +114,29 @@ TTErr TTWavetable::processAsLFO(TTAudioSignalArrayPtr, TTAudioSignalArrayPtr out
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	tempSample;
-	TTUInt16		vs = out.getVectorSize();
+	TTUInt16		vs = out.getVectorSizeAsInt();
 	TTUInt16		i=0;
-	TTUInt16		numChannels = out.getNumChannels();
+	TTUInt16		numChannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;
-	TTUInt32		p1 = (TTUInt32)index;						// playback index
-	TTSampleValue*	contents = wavetable->getContentsForChannel(0);
+	TTUInt32		p1 = (TTUInt32)mIndex;						// playback index
+	TTSampleValue*	contents = mWavetable->getContentsForChannel(0);
 	
 	// Move the play head
-	index += (indexDelta * vs);
+	mIndex += (mIndexDelta * vs);
 	
 	// Wrap the play head
-	if (index >= attrSize)
-		index -= attrSize;
-	else if (index < 0)
-		index += attrSize;
+	if (mIndex >= mSize)
+		mIndex -= mSize;
+	else if (mIndex < 0)
+		mIndex += mSize;
 	
 	// table lookup (no interpolation)
-	tempSample = contents[p1] * linearGain;
+	tempSample = contents[p1] * mLinearGain;
 	
 	// TODO: in TTBlue 0.2.x this code only assigned the first sample value to save cpu -- should we bring this back as an option?
 	while (vs--) {
 		for (channel=0; channel<numChannels; channel++)
-			out.sampleVectors[channel][i] = tempSample;
+			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
 	return kTTErrNone;
@@ -146,43 +146,43 @@ TTErr TTWavetable::processAsLFO(TTAudioSignalArrayPtr, TTAudioSignalArrayPtr out
 TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignalPtr	in; // can't call getSignal if there is no signal! = inputs->getSignal(0);
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTSampleValue	*inSample = NULL;
-	TTSampleValue	tempSample;
-	TTUInt16		vs = out.getVectorSize();
-	TTUInt16		i=0;
-	TTUInt16		numChannels = out.getNumChannels();
-	TTUInt16		channel;
-	TTBoolean		hasModulation = true;
-	TTUInt32		p1 = (TTUInt32)index;						// playback index
-	TTSampleValue*	contents = wavetable->getContentsForChannel(0);
+	TTAudioSignal&		out = outputs->getSignal(0);
+	TTSampleValue		*inSample = NULL;
+	TTSampleValue		tempSample;
+	TTUInt16			vs = out.getVectorSizeAsInt();
+	TTUInt16			i=0;
+	TTUInt16			numChannels = out.getNumChannelsAsInt();
+	TTUInt16			channel;
+	TTBoolean			hasModulation = true;
+	TTUInt32			p1 = (TTUInt32)mIndex;						// playback index
+	TTSampleValue*		contents = mWavetable->getContentsForChannel(0);
 
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
-	if(in == &out)
+	if (in == &out)
 		hasModulation = false;
 	else {
 		in = &inputs->getSignal(0);
-		inSample = in->sampleVectors[0];
+		inSample = in->mSampleVectors[0];
 	}
-	while(vs--){
+	while (vs--) {
 		// Move the play head
-		index += indexDelta;
+		mIndex += mIndexDelta;
 
 		// Apply modulation to the play head
-		if(hasModulation)
-			index += *inSample++ * attrSize / sr;
+		if (hasModulation)
+			mIndex += *inSample++ * mSize / sr;
 
 		// Wrap the play head
-		if(index >= attrSize)
-			index -= attrSize;
-		else if(index < 0)
-			index += attrSize;
+		if (mIndex >= mSize)
+			mIndex -= mSize;
+		else if (mIndex < 0)
+			mIndex += mSize;
 
 		// table lookup (no interpolation)
-		tempSample = contents[p1] * linearGain;
-		for(channel=0; channel<numChannels; channel++)
-			out.sampleVectors[channel][i] = tempSample;
+		tempSample = contents[p1] * mLinearGain;
+		for (channel=0; channel<numChannels; channel++)
+			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
 	return kTTErrNone;
@@ -195,46 +195,46 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*inSample = NULL;
 	TTSampleValue	tempSample;
-	TTUInt16		vs = out.getVectorSize();
+	TTUInt16		vs = out.getVectorSizeAsInt();
 	TTUInt16		i=0;
-	TTUInt16		numChannels = out.getNumChannels();
+	TTUInt16		numChannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;
 	TTBoolean		hasModulation = true;
 	TTUInt32		p1, p2;									// two playback indices
 	TTFloat64		diff;
-	TTSampleValue*	contents = wavetable->getContentsForChannel(0);
+	TTSampleValue*	contents = mWavetable->getContentsForChannel(0);
 
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
-	if(inputs->numAudioSignals == 0)
+	if (inputs->numAudioSignals == 0)
 		hasModulation = false;
 	else {
 		in = &inputs->getSignal(0);
-		inSample = in->sampleVectors[0];
+		inSample = in->mSampleVectors[0];
 	}
-	while(vs--){
+	while (vs--) {
 		// Move the play head
-		index += indexDelta;
+		mIndex += mIndexDelta;
 
 		// Apply modulation to the play head
-		if(hasModulation)
-			index += *inSample++ * attrSize / sr;
+		if (hasModulation)
+			mIndex += *inSample++ * mSize / sr;
 
 		// Wrap the play head
-		if(index >= attrSize)
-			index -= attrSize;
-		else if(index < 0)
-			index += attrSize;
+		if (mIndex >= mSize)
+			mIndex -= mSize;
+		else if (mIndex < 0)
+			mIndex += mSize;
 
 		// table lookup (linear interpolation)
-		p1 = (TTUInt32)index;
+		p1 = (TTUInt32)mIndex;
 		p2 = p1 + 1;
-		diff = index - p1;
-		p2 &= (attrSize - 1);	// fast modulo
+		diff = mIndex - p1;
+		p2 &= (mSize - 1);	// fast modulo
 
-		tempSample = ((contents[p2] * diff) + (contents[p1] * (1.0 - diff))) * linearGain;
-		for(channel=0; channel<numChannels; channel++)
-			out.sampleVectors[channel][i] = tempSample;
+		tempSample = ((contents[p2] * diff) + (contents[p1] * (1.0 - diff))) * mLinearGain;
+		for (channel=0; channel<numChannels; channel++)
+			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
 	return kTTErrNone;

@@ -16,15 +16,15 @@
 TT_AUDIO_CONSTRUCTOR
 , attrMode(TT("vector")), attrCurrentValue(0), attrDestinationValue(0), step(0), direction(0)
 {
-	registerAttribute(TT("rampTime"),			kTypeFloat64,	&attrRampTime,	(TTSetterMethod)&TTRamp::setRampTime);
-	registerAttribute(TT("currentValue"),		kTypeFloat64,	&attrCurrentValue);
-	registerAttribute(TT("destinationValue"),	kTypeFloat64,	&attrDestinationValue);
-	registerAttribute(TT("mode"),				kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTRamp::setMode);
+	registerAttribute(TT("RampTime"),			kTypeFloat64,	&attrRampTime,	(TTSetterMethod)&TTRamp::setRampTime);
+	registerAttribute(TT("CurrentValue"),		kTypeFloat64,	&attrCurrentValue);
+	registerAttribute(TT("DestinationValue"),	kTypeFloat64,	&attrDestinationValue);
+	registerAttribute(TT("Mode"),				kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTRamp::setMode);
 	
-	registerMessageSimple(stop);
-	registerMessageSimple(rampTimeInSamples);
+	addMessage(Stop);
+	addMessage(RampTimeInSamples);
 
-	setAttributeValue(TT("mode"), TT("vector"));
+	setAttributeValue(TT("Mode"), TT("vector"));
 }
 
 
@@ -34,15 +34,15 @@ TTRamp::~TTRamp()
 }
 
 
-TTErr TTRamp::rampTimeInSamples(const TTValue& newValue)
+TTErr TTRamp::RampTimeInSamples(const TTValue& newValue)
 {
 	rampSamples = newValue;
-	if(rampSamples == 0){
+	if (rampSamples == 0) {
 		step = 0;
 		attrCurrentValue = attrDestinationValue;
 		direction = 0;
 	}
-	else{
+	else {
 		attrRampTime = 1000.0 * (rampSamples / TTFloat32(sr));
 		setStep();		
 	}
@@ -54,12 +54,12 @@ TTErr TTRamp::rampTimeInSamples(const TTValue& newValue)
 TTErr TTRamp::setRampTime(const TTValue& newValue)
 {
 	attrRampTime = newValue;
-	if((attrRampTime <= 0.0 + kTTAntiDenormalValue) && (attrRampTime >= 0.0 - kTTAntiDenormalValue)){
+	if ((attrRampTime <= 0.0 + kTTAntiDenormalValue) && (attrRampTime >= 0.0 - kTTAntiDenormalValue)) {
 		step = 0;
 		attrCurrentValue = attrDestinationValue;
 		direction = 0;
 	}
-	else{
+	else {
 		rampSamples = long((attrRampTime * 0.001) * sr);
 		setStep();		
 	}
@@ -76,7 +76,7 @@ TTErr TTRamp::setMode(const TTValue& newValue)
 }
 
 
-TTErr TTRamp::stop()
+TTErr TTRamp::Stop()
 {
 	step = 0;
 	return kTTErrNone;
@@ -85,11 +85,11 @@ TTErr TTRamp::stop()
 
 void TTRamp::setupProcess()
 {
-	if((attrMode == TT("sample")) && (direction == kUP))
+	if ((attrMode == TT("sample")) && (direction == kUP))
 		setProcessMethod(processSampleAccurateUp);
-	else if((attrMode == TT("sample")) && (direction == kDOWN))
+	else if ((attrMode == TT("sample")) && (direction == kDOWN))
 		setProcessMethod(processSampleAccurateDown);
-	else if((attrMode == TT("vector")) && (direction == kUP))
+	else if ((attrMode == TT("vector")) && (direction == kUP))
 		setProcessMethod(processVectorAccurateUp);
 	else
 		setProcessMethod(processVectorAccurateDown);
@@ -107,14 +107,14 @@ TTErr TTRamp::processVectorAccurateDown(TTAudioSignalArrayPtr inputs, TTAudioSig
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*outSample;
-	TTUInt16		numchannels = out.getNumChannels();
+	TTUInt16		numchannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;
 
-	for(channel=0; channel<numchannels; channel++){
-		outSample = out.sampleVectors[channel];
-		if(step){
-			attrCurrentValue += (step * out.getVectorSize());
-			if(attrCurrentValue <= attrDestinationValue){
+	for (channel=0; channel<numchannels; channel++) {
+		outSample = out.mSampleVectors[channel];
+		if (step) {
+			attrCurrentValue += (step * out.getVectorSizeAsInt());
+			if (attrCurrentValue <= attrDestinationValue) {
 				step = 0;
 				attrCurrentValue = attrDestinationValue;	// clamp
 			}
@@ -129,14 +129,14 @@ TTErr TTRamp::processVectorAccurateUp(TTAudioSignalArrayPtr inputs, TTAudioSigna
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*outSample;
-	TTUInt16		numchannels = out.getNumChannels();
+	TTUInt16		numchannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;
 
-	for(channel=0; channel<numchannels; channel++){
-		outSample = out.sampleVectors[channel];
-		if(step){
-			attrCurrentValue += (step * out.getVectorSize());
-			if(attrCurrentValue >= attrDestinationValue){
+	for (channel=0; channel<numchannels; channel++) {
+		outSample = out.mSampleVectors[channel];
+		if (step) {
+			attrCurrentValue += (step * out.getVectorSizeAsInt());
+			if (attrCurrentValue >= attrDestinationValue) {
 				step = 0;
 				attrCurrentValue = attrDestinationValue;	// clamp
 			}
@@ -151,17 +151,17 @@ TTErr TTRamp::processSampleAccurateDown(TTAudioSignalArrayPtr inputs, TTAudioSig
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*outSample;
-	TTUInt16		numchannels = out.getNumChannels();
+	TTUInt16		numchannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;
 	TTUInt16		vs;
 
-	for(channel=0; channel<numchannels; channel++){
-		vs = out.getVectorSize();
-		outSample = out.sampleVectors[channel];
-		while(vs--){
-			if(step){
+	for (channel=0; channel<numchannels; channel++) {
+		vs = out.getVectorSizeAsInt();
+		outSample = out.mSampleVectors[channel];
+		while (vs--) {
+			if (step) {
 				attrCurrentValue += step;
-				if(attrCurrentValue <= attrDestinationValue){
+				if (attrCurrentValue <= attrDestinationValue) {
 					step = 0;
 					attrCurrentValue = attrDestinationValue; // clamp
 				}
@@ -177,17 +177,17 @@ TTErr TTRamp::processSampleAccurateUp(TTAudioSignalArrayPtr inputs, TTAudioSigna
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*outSample;
-	TTUInt16		numchannels = out.getNumChannels();
+	TTUInt16		numchannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;
 	TTUInt16		vs;
 
-	for(channel=0; channel<numchannels; channel++){
-		vs = out.getVectorSize();
-		outSample = out.sampleVectors[channel];
-		while(vs--){
-			if(step){
+	for (channel=0; channel<numchannels; channel++) {
+		vs = out.getVectorSizeAsInt();
+		outSample = out.mSampleVectors[channel];
+		while (vs--) {
+			if (step) {
 				attrCurrentValue += step;
-				if(attrCurrentValue >= attrDestinationValue){
+				if (attrCurrentValue >= attrDestinationValue) {
 					step = 0;
 					attrCurrentValue = attrDestinationValue; // clamp
 				}

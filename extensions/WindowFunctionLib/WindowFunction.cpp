@@ -23,7 +23,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(Mode,		kTypeSymbol);
 	addAttributeWithSetter(Padding,		kTypeUInt32);
 	
-	addMessageWithArgument(getFunctions);
+	addMessageWithArgument(GetFunctions);
 	
 	setAttributeValue(TT("Function"), TT("rectangular"));
 	setAttributeValue(TT("Mode"), TT("lookup"));
@@ -103,7 +103,7 @@ TTErr WindowFunction::setMode(const TTValue& mode)
 }
 
 
-TTErr WindowFunction::getFunctions(TTValue& listOfWindowTypesToReturn)
+TTErr WindowFunction::GetFunctions(TTValue& listOfWindowTypesToReturn)
 {
 	return TTGetRegisteredClassNamesForTags(listOfWindowTypesToReturn, TT("window"));
 }
@@ -144,7 +144,7 @@ TTErr WindowFunction::processApply(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 {
 	TTAudioSignal&		in = inputs->getSignal(0);
 	TTAudioSignal&		out = outputs->getSignal(0);
-	TTUInt16			vs = in.getVectorSize();
+	TTUInt16			vs = in.getVectorSizeAsInt();
 	TTSampleValuePtr	inSample;
 	TTSampleValuePtr	outSample;
 	TTUInt16			numChannels = TTAudioSignal::getMinChannelCount(in, out);
@@ -156,8 +156,8 @@ TTErr WindowFunction::processApply(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 		doSetNumPoints(vs);
 	
 	for (channel=0; channel<numChannels; channel++) {
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
+		inSample = in.mSampleVectors[channel];
+		outSample = out.mSampleVectors[channel];
 		
 		for (TTUInt32 i=0; i<vs; i++)
 			*outSample++ = (*inSample++) * mLookupTable[i];

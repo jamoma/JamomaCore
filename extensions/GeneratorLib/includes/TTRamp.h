@@ -49,12 +49,12 @@ class TTRamp : TTAudioObject {
 	TTErr setMode(const TTValue& value);
 	
 	/** Trigger a ramp with a time set in samples */
-	TTErr rampTimeInSamples(const TTValue& newValue);
+	TTErr RampTimeInSamples(const TTValue& newValue);
 	/** Trigger a ramp with a time set in milliseconds */
 	TTErr setRampTime(const TTValue& newValue);
 	
 	/**	Stop the current ramp.			*/
-	TTErr stop();
+	TTErr Stop();
 	
 };
 

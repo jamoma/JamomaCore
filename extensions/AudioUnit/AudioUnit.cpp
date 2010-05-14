@@ -29,7 +29,7 @@ OSStatus TTAudioUnitGetInputSamples(void*						inRefCon,
 /**	Host AudioUnit plug-ins. */
 class TTAudioUnit : public TTAudioObject {
 public:
-	TTSymbolPtr			plugin;				///< Attribute: the name of the current plugin
+	TTSymbolPtr			mPlugin;			///< Attribute: the name of the current plugin
 	AudioUnit			audioUnit;			///< the actual plugin
 	AudioBufferList*	inputBufferList;
 	AudioBufferList*	outputBufferList;
@@ -42,23 +42,23 @@ public:
 		  inputBufferList(NULL), 
 		  outputBufferList(NULL)
 	{
-		registerAttributeWithSetter(plugin,	kTypeSymbol);
+		addAttributeWithSetter(Plugin,	kTypeSymbol);
 		
-		registerMessageWithArgument(getPluginNames);
-		registerMessageWithArgument(getParameterNames);
-		registerMessageWithArgument(getPresetNames);
+		addMessageWithArgument(GetPluginNames);
+		addMessageWithArgument(GetParameterNames);
+		addMessageWithArgument(GetPresetNames);
 		
-		registerMessageWithArgument(setParameter);
-		registerMessageWithArgument(getParameter);
-		registerMessageWithArgument(recallPreset);
+		addMessageWithArgument(SetParameter);
+		addMessageWithArgument(GetParameter);
+		addMessageWithArgument(RecallPreset);
 
-		registerMessageWithArgument(updateMaxNumChannels);
+		addMessageWithArgument(updateMaxNumChannels);
 
 		parameterNames = new TTHash;
 		timeStamp.mSampleTime = 0;
 		timeStamp.mFlags = kAudioTimeStampSampleTimeValid;
 		
-		setAttributeValue(TT("plugin"), TT("AULowpass"));
+		setAttributeValue(TT("Plugin"), TT("AULowpass"));
 		setProcessMethod(processAudio);
 	}
 	
@@ -99,7 +99,7 @@ public:
 	}
 	
 	
-	TTErr getPluginNames(TTValue& pluginNames)
+	TTErr GetPluginNames(TTValue& pluginNames)
 	{
 		ComponentDescription	searchDesc;
 		Component				comp = NULL;
@@ -136,7 +136,7 @@ public:
 	}
 	
 	
-	TTErr setplugin(TTValue& newPluginName)
+	TTErr setPlugin(TTValue& newPluginName)
 	{
 		ComponentDescription	searchDesc;
 		Component				comp = NULL;
@@ -173,7 +173,7 @@ public:
 				AURenderCallbackStruct callbackStruct;
 
 				audioUnit = OpenComponent(comp);
-				plugin = pluginName;
+				mPlugin = pluginName;
 				
 				stuffParameterNamesIntoHash();
 				
@@ -232,13 +232,13 @@ public:
 	}
 	
 	
-	TTErr getParameterNames(TTValue& returnedParameterNames)
+	TTErr GetParameterNames(TTValue& returnedParameterNames)
 	{
 		return parameterNames->getKeys(returnedParameterNames);
 	}
 
 	
-	TTErr setParameter(const TTValue& nameAndValue)
+	TTErr SetParameter(const TTValue& nameAndValue)
 	{
 		TTSymbolPtr	parameterName;
 		TTFloat32	parameterValue;
@@ -253,13 +253,13 @@ public:
 		nameAndValue.get(0, &parameterName);
 		nameAndValue.get(1, parameterValue);
 		err = parameterNames->lookup(parameterName, v);
-		if(!err)
+		if (!err)
 			AudioUnitSetParameter(audioUnit, v, kAudioUnitScope_Global, 0, parameterValue, 0);
 		return err;
 	}
 	
 	
-	TTErr getParameter(TTValue& nameInAndValueOut)
+	TTErr GetParameter(TTValue& nameInAndValueOut)
 	{
 		TTSymbolPtr	parameterName = nameInAndValueOut;
 		TTValue		v;
@@ -277,7 +277,7 @@ public:
 	}
 	
 
-	TTErr getPresetNames(TTValue& returnedPresetNames)
+	TTErr GetPresetNames(TTValue& returnedPresetNames)
 	{
 		CFArrayRef	factoryPresets = NULL;
 		UInt32		size = sizeof(CFArrayRef);
@@ -304,7 +304,7 @@ public:
 	
 	
 	// We could also keep a hash of factory presets and allow a symbol to set the preset by name at some point...
-	TTErr recallPreset(const TTValue& presetNumber)
+	TTErr RecallPreset(const TTValue& presetNumber)
 	{
 		AUPreset	presetInfo;
 		OSStatus	err = noErr;
@@ -321,9 +321,9 @@ public:
 	{
 		TTAudioSignal&				in = inputs->getSignal(0);
 		TTAudioSignal&				out = outputs->getSignal(0);
-		TTUInt16					vs = in.getVectorSize();
-		TTUInt16					numInputChannels = in.getNumChannels();
-		TTUInt16					numOutputChannels = out.getNumChannels();		
+		TTUInt16					vs = in.getVectorSizeAsInt();
+		TTUInt16					numInputChannels = in.getNumChannelsAsInt();
+		TTUInt16					numOutputChannels = out.getNumChannelsAsInt();		
 		TTFloat32*					auInput[numInputChannels];
 		TTFloat32*					auOutput[numOutputChannels];
 		AudioUnitRenderActionFlags	ioActionFlags = 0;

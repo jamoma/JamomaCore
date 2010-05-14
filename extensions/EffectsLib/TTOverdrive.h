@@ -31,10 +31,10 @@
 class TT_OVERDRIVE_EXPORT TTOverdrive : public TTAudioObject {
 	TTCLASS_SETUP(TTOverdrive)
 
-	TTFloat64			drive;			///< Attribute:
-	TTBoolean			dcBlocker;		///< Attribute:
-	TTUInt8				mode;			///< Attribute:
-	TTFloat64			preamp;			///< Attribute: linear gain for preamp (attr setter sets it in dB)
+	TTFloat64			mDrive;			///< Attribute:
+	TTBoolean			mDcBlocker;		///< Attribute:
+	TTUInt8				mMode;			///< Attribute:
+	TTFloat64			mPreamp;			///< Attribute: linear gain for preamp (attr setter sets it in dB)
 	TTFloat64			s,
 						b,
 						nb,
@@ -54,21 +54,21 @@ class TT_OVERDRIVE_EXPORT TTOverdrive : public TTAudioObject {
 public:
 
 	/**	Setter for the mode attribute. */
-	TTErr setdrive(const TTValue& value);
+	TTErr setDrive(const TTValue& value);
 
 	/**	Setter for the mode attribute. */
-	TTErr setdcBlocker(const TTValue& value);
+	TTErr setDcBlocker(const TTValue& value);
 
 	/**	Setter for the mode attribute. */
-	TTErr setmode(const TTValue& value);
+	TTErr setMode(const TTValue& value);
 
 	/**	Getter for the mode attribute. */
-	TTErr getpreamp(TTValue& value);
+	TTErr getPreamp(TTValue& value);
 	/**	Setter for the mode attribute. */
-	TTErr setpreamp(const TTValue& value);
+	TTErr setPreamp(const TTValue& value);
 
 	/**	Reset the DC Blocker.			*/
-	TTErr clear();
+	TTErr Clear();
 };
 
 

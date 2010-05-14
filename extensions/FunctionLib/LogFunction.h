@@ -20,13 +20,13 @@
 class LogFunction : TTAudioObject {
 	TTCLASS_SETUP(LogFunction)
 
-	TTFloat64	base;			///< Base for the exponential function
+	TTFloat64	mBase;		///< Base for the exponential function
+	double		k;			///< Internal coefficient
+	double		l;			///< Internal coefficient
+
 	
-	double k;					///< Internal coefficient
-	double l;					///< Internal coefficient
-		
 	/** Calculate coefficients when this attr is set */
-	TTErr setbase(const TTValue& value);
+	TTErr setBase(const TTValue& value);
 		
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);

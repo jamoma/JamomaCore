@@ -39,10 +39,10 @@ TT_AUDIO_CONSTRUCTOR
 	// register for notifications from the parent class so we can recalculate coefficients as required
 	addMessage(updateSr);
 	// make the clear method available to the outside world
-	addMessage(clear);
+	addMessage(Clear);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),		arguments);			// This attribute is inherited
+	setAttributeValue(TT("MaxNumChannels"),		arguments);			// This attribute is inherited
 	setAttributeValue(TT("FrequencyMh"),		3000.0);
 	setAttributeValue(TT("FrequencyLm"),		300.0);
 	setAttributeValue(TT("GainL"),				1.0);
@@ -66,7 +66,7 @@ TTErr TTHighMidLowShelf::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	mX1.resize(maxNumChannels);
 	mX2.resize(maxNumChannels);
 	mX0.resize(maxNumChannels);
-	clear();
+	Clear();
 	return kTTErrNone;
 }
 
@@ -77,7 +77,7 @@ TTErr TTHighMidLowShelf::updateSr()
 }
 
 
-TTErr TTHighMidLowShelf::clear()
+TTErr TTHighMidLowShelf::Clear()
 {
 	mX1.assign(maxNumChannels, 0.0);
 	mX2.assign(maxNumChannels, 0.0);
@@ -159,11 +159,11 @@ TTErr TTHighMidLowShelf::calculateCoefficients()
 	TTClip<double>(tempb1, -1.9999996, 1.9999996);
 	TTClip<double>(tempb2, -0.9999998, 0.9999998);
    	
-    if(discriminant >= 0.0)
+    if (discriminant >= 0.0)
     {
-        if(0.9999998 - tempb1 - tempb2 < 0.0)
+        if (0.9999998 - tempb1 - tempb2 < 0.0)
             tempb2 = 0.9999998 - tempb1;
-        if(0.9999998 + tempb1 - tempb2 < 0.0)
+        if (0.9999998 + tempb1 - tempb2 < 0.0)
             tempb2 = 0.9999998 + tempb1;
     }
 	//TTClip<double>(tempb2, 0.9999998 - tempb1, 0.9999998 + tempb1);  //[NP] is that what the loop above means ?
@@ -186,11 +186,11 @@ TTErr TTHighMidLowShelf::calculateCoefficients()
 	TTClip<double>(mB1, -1.9999996, 1.9999996);
 	TTClip<double>(mB2, -0.9999998, 0.9999998);
    	
-    if(discriminant >= 0.0)
+    if (discriminant >= 0.0)
     {
-        if(0.9999998 - mB1 - mB2 < 0.0)
+        if (0.9999998 - mB1 - mB2 < 0.0)
             mB2 = 0.9999998 - mB1;
-        if(0.9999998 + mB1 - mB2 < 0.0)
+        if (0.9999998 + mB1 - mB2 < 0.0)
             mB2 = 0.9999998 + mB1;
     }
 	

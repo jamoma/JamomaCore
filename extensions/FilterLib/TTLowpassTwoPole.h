@@ -30,7 +30,7 @@ class TTLowpassTwoPole : public TTAudioObject {
 	// Notifications
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	TTErr updateSr();
-	TTErr clear();
+	TTErr Clear();
     // Attributes
 	TTErr setFrequency(const TTValue& value);
 	TTErr setResonance(const TTValue& value);

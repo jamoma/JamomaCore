@@ -28,7 +28,7 @@ TT_AUDIO_CONSTRUCTOR
 	addMessageWithArgument(updateMaxNumChannels);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
+	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
 	setAttributeValue(TT("Bitdepth"),		24);
 	setAttributeValue(TT("SrRatio"),		1.0);
 	setProcessMethod(processAudio);
@@ -71,9 +71,9 @@ TTErr TTDegrade::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	long			l;
 
 	for (channel=0; channel<numchannels; channel++) {
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
+		inSample = in.mSampleVectors[channel];
+		outSample = out.mSampleVectors[channel];
+		vs = in.getVectorSizeAsInt();
 		
 		while (vs--) {
 			// SampeRate Reduction

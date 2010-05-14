@@ -20,7 +20,7 @@ TT_AUDIO_CONSTRUCTOR
 	registerAttribute(TT("MidiGain"),	kTypeFloat64,	NULL,	(TTGetterMethod)&TTGain::getMidiGain, (TTSetterMethod)&TTGain::setMidiGain);
 
 	// Set Defaults...
-	setAttributeValue(TT("LinearGain"),	1.0);
+	setAttributeValue(TT("LinearGain"),	0.0);
 	setProcessMethod(processAudio);
 }
 
@@ -70,9 +70,9 @@ TTErr TTGain::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr o
 	TTUInt16		channel;
 
 	for (channel=0; channel<numchannels; channel++) {
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
+		inSample = in.mSampleVectors[channel];
+		outSample = out.mSampleVectors[channel];
+		vs = in.getVectorSizeAsInt();
 		
 		while (vs--)
 			*outSample++ = (*inSample++) * mGain;

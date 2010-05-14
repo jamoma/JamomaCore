@@ -116,7 +116,7 @@ void FFTFree(FFTPtr self)
 t_int* FFTPerform(t_int *w)
 {
    	FFTPtr		self = (FFTPtr)(w[1]);
-	TTUInt16	vs = self->audioIn->getVectorSize();
+	TTUInt16	vs = self->audioIn->getVectorSizeAsInt();
 	TTFloat32*	in = (TTFloat32*)(w[2]);
 	TTFloat32*	out1 = (TTFloat32*)(w[3]);
 	TTFloat32*	out2 = (TTFloat32*)(w[4]);
@@ -136,14 +136,14 @@ void FFTDsp(FFTPtr self, t_signal **sp, short *count)
 	TTUInt16	numChannels = 1;
 	TTUInt16	vs = sp[0]->s_n;
 	
-	self->audioIn->setnumChannels(numChannels);
-	self->audioOut->setmaxNumChannels(numChannels*2);
-	self->audioOut->setnumChannels(numChannels*2);
-	self->audioIn->setvectorSize(vs);
-	self->audioOut->setvectorSize(vs);
+	self->audioIn->setNumChannels(numChannels);
+	self->audioOut->setMaxNumChannels(numChannels*2);
+	self->audioOut->setNumChannels(numChannels*2);
+	self->audioIn->setVectorSizeWithInt(vs);
+	self->audioOut->setVectorSizeWithInt(vs);
 	//audioIn will be set in the perform method
 	self->audioOut->alloc();	
-	self->fft->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	self->fft->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
 	
 	dsp_add(FFTPerform, 4, self, sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec);
 }

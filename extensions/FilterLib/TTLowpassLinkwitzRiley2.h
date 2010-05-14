@@ -47,7 +47,7 @@ class TTLowpassLinkwitzRiley2 : public TTAudioObject {
 	 so that each channel's previous values are remembered.		*/
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	TTErr updateSr();
-	TTErr clear();
+	TTErr Clear();
 	
 	void calculateCoefficients();
 	

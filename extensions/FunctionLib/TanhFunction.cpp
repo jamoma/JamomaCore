@@ -18,12 +18,12 @@
 TT_AUDIO_CONSTRUCTOR
 {
 	// Register Attributes...
-	registerAttributeWithSetter(offset,	kTypeFloat64);
-	registerAttributeWithSetter(width,	kTypeFloat64);
+	addAttributeWithSetter(Offset,	kTypeFloat64);
+	addAttributeWithSetter(Width,	kTypeFloat64);
 		
 	// Set Defaults...
-	setAttributeValue(TT("offset"),	0.0);
-	setAttributeValue(TT("width"), 0.5);
+	setAttributeValue(TT("Offset"),	0.0);
+	setAttributeValue(TT("Width"), 0.5);
 	
 	setProcessMethod(processAudio);
 	setCalculateMethod(calculateValue);
@@ -36,22 +36,22 @@ TanhFunction::~TanhFunction()
 }
 
 
-TTErr TanhFunction::setoffset(const TTValue& newValue)
+TTErr TanhFunction::setOffset(const TTValue& newValue)
 {
-	offset = newValue;
-	b = 0.5*(offset+1);
+	mOffset = newValue;
+	b = 0.5 * (mOffset+1);
 	calculateOutputScaling();
 	return kTTErrNone;
 }
 
 
-TTErr TanhFunction::setwidth(const TTValue& newValue)
+TTErr TanhFunction::setWidth(const TTValue& newValue)
 {
-	width = newValue;
-	if(width <= 0)
+	mWidth = newValue;
+	if (mWidth <= 0)
 		a = log(7.0);
 	else 
-		a = log(7.0)/width;
+		a = log(7.0)/mWidth;
 	calculateOutputScaling();
 	return kTTErrNone;
 }
@@ -61,8 +61,8 @@ void TanhFunction::calculateOutputScaling(void)
 {
 	double f0, f1;
 	
-	f0=tanh(a*(-b));
-	f1=tanh(a*(1-b));
+	f0 = tanh(a*(-b));
+	f1 = tanh(a*(1-b));
 	// This will never be division by zero, due to the fact that we always have width > 0
 	alpha = 1/(f1-f0);
 	beta = f0;

@@ -98,7 +98,7 @@ void* ramp_new(t_symbol *msg, short argc, t_atom *argv)
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
 
-		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
+		ttEnvironment->setAttributeValue(kTTSym_SampleRate, sr);
 		//x->ramp = new TTRamp(x->maxNumChannels);
 		TTObjectInstantiate(TT("ramp"), &x->ramp, x->maxNumChannels);
 		TTObjectInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);
@@ -139,7 +139,7 @@ void ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst)
 
 void ramp_stop(t_ramp *x)
 {
-	x->ramp->sendMessage(TT("stop"));
+	x->ramp->sendMessage(TT("Stop"));
 }
 
 
@@ -150,13 +150,13 @@ void ramp_int(t_ramp *x, long newCurrentValue)
 
 void ramp_float(t_ramp *x, double newCurrentValue)
 {
-	x->ramp->setAttributeValue(TT("currentValue"), newCurrentValue);
+	x->ramp->setAttributeValue(TT("CurrentValue"), newCurrentValue);
 }
 
 void ramp_list(t_ramp *x, double endValue, double time)
 {
-	x->ramp->setAttributeValue(TT("destinationValue"), endValue);
-	x->ramp->setAttributeValue(TT("rampTime"), time);
+	x->ramp->setAttributeValue(TT("DestinationValue"), endValue);
+	x->ramp->setAttributeValue(TT("RampTime"), time);
 }
 
 
@@ -176,11 +176,11 @@ t_int *ramp_perform(t_int *w)
 // DSP Method
 void ramp_dsp(t_ramp *x, t_signal **sp, short *count)
 {
-	x->ramp->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	x->ramp->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
 	x->vs = sp[0]->s_n;
 	
-	x->audioOut->setAttributeValue(TT("numChannels"), x->maxNumChannels);
-	x->audioOut->setAttributeValue(TT("vectorSize"), TTUInt16(sp[0]->s_n));
+	x->audioOut->setAttributeValue(TT("NumChannels"), x->maxNumChannels);
+	x->audioOut->setAttributeValue(TT("VectorSize"), TTUInt16(sp[0]->s_n));
 	x->audioOut->sendMessage(TT("alloc"));
 
 	dsp_add(ramp_perform, 2, x, sp[0]->s_vec);
@@ -192,9 +192,9 @@ t_max_err ramp_setMode(t_ramp *x, void *attr, long argc, t_atom *argv)
 	if(argc){
 		x->attrMode = atom_getsym(argv);
 		if(x->attrMode == gensym("sample_accurate"))
-			x->ramp->setAttributeValue(TT("mode"), TT("sample"));
+			x->ramp->setAttributeValue(TT("Mode"), TT("sample"));
 		else if(x->attrMode == gensym("vector_accurate"))
-			x->ramp->setAttributeValue(TT("mode"), TT("vector"));
+			x->ramp->setAttributeValue(TT("Mode"), TT("vector"));
 	}
 	return MAX_ERR_NONE;
 }

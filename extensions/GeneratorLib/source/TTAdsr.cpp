@@ -16,22 +16,22 @@
 TT_AUDIO_CONSTRUCTOR
 , output(0.), output_db(NOISE_FLOOR), eg_state(k_eg_inactive), trigger(false), attrMode(TT("linear"))
 {
-	registerAttribute(TT("attack"), kTypeFloat64, &attack_ms, (TTSetterMethod)&TTAdsr::setAttack);
-	registerAttribute(TT("decay"), kTypeFloat64, &decay_ms, (TTSetterMethod)&TTAdsr::setDecay);
-	registerAttribute(TT("release"), kTypeFloat64, &release_ms, (TTSetterMethod)&TTAdsr::setRelease);
-	registerAttribute(TT("linearSustain"), kTypeFloat64, &sustain_amp, (TTSetterMethod)&TTAdsr::setSustainAmp);
-	registerAttribute(TT("sustain"), kTypeFloat64, NULL, (TTGetterMethod)&TTAdsr::getSustainDb, (TTSetterMethod)&TTAdsr::setSustainDb);
-	registerAttributeSimple(trigger, kTypeBoolean);
-	registerAttribute(TT("mode"), kTypeSymbol, &attrMode, (TTSetterMethod)&TTAdsr::setMode);
+	registerAttribute(TT("Attack"), kTypeFloat64, &attack_ms, (TTSetterMethod)&TTAdsr::setAttack);
+	registerAttribute(TT("Decay"), kTypeFloat64, &decay_ms, (TTSetterMethod)&TTAdsr::setDecay);
+	registerAttribute(TT("Release"), kTypeFloat64, &release_ms, (TTSetterMethod)&TTAdsr::setRelease);
+	registerAttribute(TT("LinearSustain"), kTypeFloat64, &sustain_amp, (TTSetterMethod)&TTAdsr::setSustainAmp);
+	registerAttribute(TT("Sustain"), kTypeFloat64, NULL, (TTGetterMethod)&TTAdsr::getSustainDb, (TTSetterMethod)&TTAdsr::setSustainDb);
+	registerAttribute(TT("Trigger"), kTypeBoolean, &trigger);
+	registerAttribute(TT("Mode"), kTypeSymbol, &attrMode, (TTSetterMethod)&TTAdsr::setMode);
 
 	// register for notifications from the parent class so we can recalculate coefficients as required
 	registerMessageSimple(updateSr);
 
-	setAttributeValue(TT("attack"), 50.);
-	setAttributeValue(TT("decay"), 100.);
-	setAttributeValue(TT("sustain"), -6.);
-	setAttributeValue(TT("release"), 500.);
-	setAttributeValue(TT("mode"), TT("hybrid"));	// <-- sets the process method
+	setAttributeValue(TT("Attack"), 50.);
+	setAttributeValue(TT("Decay"), 100.);
+	setAttributeValue(TT("Sustain"), -6.);
+	setAttributeValue(TT("Release"), 500.);
+	setAttributeValue(TT("Mode"), TT("hybrid"));	// <-- sets the process method
 }
 
 TTAdsr::~TTAdsr()
@@ -129,39 +129,39 @@ TTErr TTAdsr::processAudioLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue*	inSample = NULL;
 	TTSampleValue*	outSample;
-	TTUInt16		vs = out.getVectorSize();
+	TTUInt16		vs = out.getVectorSizeAsInt();
 	bool			checkAudioTrigger = false;
 
 	// TODO: Is there a decent way to do this without having to check this every single vector?
-	if(inputs->numAudioSignals){
+	if (inputs->numAudioSignals) {
 		checkAudioTrigger = true;
-		inSample = in.sampleVectors[0];
+		inSample = in.mSampleVectors[0];
 	}
-	outSample = out.sampleVectors[0];
+	outSample = out.mSampleVectors[0];
 
-	while(vs--) {
-		if(checkAudioTrigger)
+	while (vs--) {
+		if (checkAudioTrigger)
 			trigger = (TTBoolean)(*inSample++ > 0.5);
 
-		if(trigger) {
-			if(eg_state == k_eg_inactive || eg_state == k_eg_release)
+		if (trigger) {
+			if (eg_state == k_eg_inactive || eg_state == k_eg_release)
 				eg_state = k_eg_attack;
 		} else {
-			if(eg_state != k_eg_inactive && eg_state != k_eg_release)
+			if (eg_state != k_eg_inactive && eg_state != k_eg_release)
 				eg_state = k_eg_release;
 		}
 
 		switch(eg_state) {
 			case k_eg_attack:
 				output += attack_step;
-				if(output >= 1.) {
+				if (output >= 1.) {
 					output = 1.;
 					eg_state = k_eg_decay;
 				}
 				break;
 			case k_eg_decay:
 				output -= decay_step;
-				if(output <= sustain_amp) {
+				if (output <= sustain_amp) {
 					eg_state = k_eg_sustain;
 					output = sustain_amp;
 				}
@@ -172,7 +172,7 @@ TTErr TTAdsr::processAudioLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 
 			case k_eg_release:
 				output -= release_step;
-				if(output <= 0.) {
+				if (output <= 0.) {
 					eg_state = k_eg_inactive;
 					output = 0.;
 				}
@@ -191,32 +191,32 @@ TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSigna
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue*	inSample = NULL;
 	TTSampleValue*	outSample;
-	TTUInt16		vs = out.getVectorSize();
+	TTUInt16		vs = out.getVectorSizeAsInt();
 	bool			checkAudioTrigger = false;
 
 	// TODO: Is there a decent way to do this without having to check this every single vector?
-	if(inputs->numAudioSignals){
+	if (inputs->numAudioSignals) {
 		checkAudioTrigger = true;
-		inSample = in.sampleVectors[0];
+		inSample = in.mSampleVectors[0];
 	}
-	outSample = out.sampleVectors[0];
+	outSample = out.mSampleVectors[0];
 
-	while(vs--) {
-		if(checkAudioTrigger)
+	while (vs--) {
+		if (checkAudioTrigger)
 			trigger = (TTBoolean)(*inSample++ > 0.5);
 
-		if(trigger) {
-			if(eg_state == k_eg_inactive || eg_state == k_eg_release)
+		if (trigger) {
+			if (eg_state == k_eg_inactive || eg_state == k_eg_release)
 				eg_state = k_eg_attack;
 		} else {
-			if(eg_state != k_eg_inactive && eg_state != k_eg_release)
+			if (eg_state != k_eg_inactive && eg_state != k_eg_release)
 				eg_state = k_eg_release;
 		}
 
-		switch(eg_state){
+		switch(eg_state) {
 			case k_eg_attack:						// ATTACK
 				output_db += attack_step_db;			// Increment the output
-				if (output_db >= 0.0){						// If we've hit the top of the attack,
+				if (output_db >= 0.0) {						// If we've hit the top of the attack,
 					eg_state = k_eg_decay;				// start the decay stage
 					output = 1.0;						// Make sure we didn't go over 1.0
 				}
@@ -226,7 +226,7 @@ TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSigna
 			case k_eg_decay:						// DECAY
 				output_db -= decay_step_db;
 				output = dbToLinear(output_db);	// Decrement the output
-				if (output <= sustain_amp){				// If we've hit the bottom of the decay,
+				if (output <= sustain_amp) {				// If we've hit the bottom of the decay,
 					eg_state = k_eg_sustain;			// start the sustain stage
 					output = sustain_amp;				// Lock in the sustain value
 				}
@@ -236,7 +236,7 @@ TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSigna
 
 			case k_eg_release:						// RELEASE
 				output_db -= release_step_db;
-				if (output_db <= NOISE_FLOOR){						// If we've hit the basement,
+				if (output_db <= NOISE_FLOOR) {						// If we've hit the basement,
 					eg_state = k_eg_inactive;			// deactivate the eg
 					output = 0.0;						// Make sure we didn't dip too low
 				}
@@ -259,22 +259,22 @@ TTErr TTAdsr::processAudioHybrid(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue*	inSample = NULL;
 	TTSampleValue*	outSample;
-	TTUInt16		vs = out.getVectorSize();
+	TTUInt16		vs = out.getVectorSizeAsInt();
 	bool			checkAudioTrigger = false;
 
 	// TODO: Is there a decent way to do this without having to check this every single vector?
 	if (inputs->numAudioSignals) {
 		checkAudioTrigger = true;
-		inSample = in.sampleVectors[0];
+		inSample = in.mSampleVectors[0];
 	}
-	outSample = out.sampleVectors[0];
+	outSample = out.mSampleVectors[0];
 
 	while (vs--) {
 		if (checkAudioTrigger)
 			trigger = (TTBoolean)(*inSample++ > 0.5);
 
 		if (trigger) {
-			if(eg_state == k_eg_inactive || eg_state == k_eg_release)
+			if (eg_state == k_eg_inactive || eg_state == k_eg_release)
 				eg_state = k_eg_attack;
 		} 
 		else {

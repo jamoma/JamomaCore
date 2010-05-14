@@ -22,13 +22,13 @@
 class LowpassFunction : TTAudioObject {
 	TTCLASS_SETUP(LowpassFunction)
 
-	TTFloat64		coefficient;
-	TTFloat64		one_minus_coefficient;
-	TTFloat64*		feedback;
+	TTFloat64		mCoefficient;
+	TTFloat64		mOneMinusCoefficient;
+	TTFloat64*		mFeedback;
 
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
-	TTErr clear();
-	TTErr setcoefficient(const TTValue& newValue);
+	TTErr Clear();
+	TTErr setCoefficient(const TTValue& newValue);
 
 	/** y = f(x) for a single value */
 	TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);

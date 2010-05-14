@@ -24,10 +24,10 @@
 class TTDSP_EXPORT TTBuffer : public TTDataObject {
 	TTCLASS_SETUP(TTBuffer)
 
-	TTSampleValue**		contents;			///< An array of vectors (one vector per channel) to hold the samples.
-	TTUInt16			numChannels;		///< The number of channels in the buffer
-	TTFloat64			length;				///< The size of the buffer in milliseconds
-	TTUInt64			lengthInSamples;	///< The size of the buffer in samples
+	TTSampleValue**		mContents;			///< An array of vectors (one vector per channel) to hold the samples.
+	TTUInt16			mNumChannels;		///< The number of channels in the buffer
+	TTFloat64			mLength;			///< The size of the buffer in milliseconds
+	TTUInt64			mLengthInSamples;	///< The size of the buffer in samples
 
 	/** Internally used method for allocating the contents of the buffer. */
 	TTErr init();
@@ -41,24 +41,24 @@ class TTDSP_EXPORT TTBuffer : public TTDataObject {
 public:
 	/**	Attribute accessor: set the number of channels for this buffer.
 		@return Returns a TTErr error code.	*/
-	TTErr setnumChannels(const TTValue& newNumChannels);
+	TTErr setNumChannels(const TTValue& newNumChannels);
 
 	/**	Attribute accessor: set the buffer length specified in milliseconds.
 		@return Returns a TTErr error code.	*/
-	TTErr setlength(const TTValue& newLength);
+	TTErr setLength(const TTValue& newLength);
           
 	/**	Attribute accessor: set the buffer length specified as a number of samples.
 		@return Returns a TTErr error code.	*/
-	TTErr setlengthInSamples(const TTValue& newLengthInSamples);
+	TTErr setLengthInSamples(const TTValue& newLengthInSamples);
           
 	/**	Set all values to zero.
 	 	@return Returns a TTErr error code.	*/
-	TTErr clear();
+	TTErr Clear();
 
 	// METHOD: SET_BUFFER
 	//	void set_buffer(tt_buffer *newbuffer);
 
-	TTErr	getValueAtIndex(TTValue& index);
+	TTErr	GetValueAtIndex(TTValue& index);
 	TTErr	peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value);
 	
 	/**	Set the sample value for a given index.
@@ -66,11 +66,11 @@ public:
 		If there are three numbers passed, then the second number, if passed, will designate the channel index (defaults to zero).
 		The final value will be used as the sample value that will be copied to the designated index.
 	*/
-	TTErr	setValueAtIndex(const TTValue& index);
+	TTErr	SetValueAtIndex(const TTValue& index);
 	TTErr	poke(const TTUInt64 index, const TTUInt16 channel, const TTSampleValue value);
 	
 	/** Set the contents of the buffer using a specified algorithm and, if appropriate, coefficients for that algorithm. */
-	TTErr	fill(const TTValue& value);
+	TTErr	Fill(const TTValue& value);
 
 	/** Get a pointer to the buffer's memory.
 		WARNING: You need to be very careful about accessing the memory in case it goes away or is freed, etc. 

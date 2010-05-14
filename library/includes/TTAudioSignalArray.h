@@ -72,12 +72,12 @@ public:
 		TTValue		v;
 		
 		for (int i=0; i<audioSignalCount; i++) {
-			TTUInt16 numChannels = anotherArray.audioSignals[i]->getNumChannels();
+			TTUInt16 numChannels = anotherArray.audioSignals[i]->getNumChannelsAsInt();
 
 			v = numChannels;
 			// TODO: for efficiency, we should only set the maxNumChannels if it is larger than the current so we aren't allocing memory on the heap!
-			audioSignals[i]->setmaxNumChannels(v);
-			audioSignals[i]->setnumChannels(v);
+			audioSignals[i]->setMaxNumChannels(v);
+			audioSignals[i]->setNumChannels(v);
 		}
 		
 		// TODO, for all channels that are not in this array, but are in another array, we should zero the numChannels

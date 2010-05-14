@@ -25,10 +25,10 @@ TT_AUDIO_CONSTRUCTOR
 	// register for notifications from the parent class so we can recalculate coefficients as required
 	addMessage(updateSr);
 	// make the clear method available to the outside world
-	addMessage(clear);
+	addMessage(Clear);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);		// This attribute is inherited
+	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);		// This attribute is inherited
 	setAttributeValue(TT("Frequency"),		10.0);						// Default frequency is 10 Hz
 	setProcessMethod(processAudio);
 }
@@ -48,7 +48,7 @@ TTErr TTBalance::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	xm2B.resize(maxNumChannels);
 	ym1B.resize(maxNumChannels);
 	ym2B.resize(maxNumChannels);	
-	return clear();
+	return Clear();
 }
 
 
@@ -59,7 +59,7 @@ TTErr TTBalance::updateSr()
 }
 
 
-TTErr TTBalance::clear()
+TTErr TTBalance::Clear()
 {
 	xm1A.assign(maxNumChannels, 0.0);
 	xm2A.assign(maxNumChannels, 0.0);
@@ -112,10 +112,10 @@ TTErr TTBalance::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	// This outside loop works through each channel one at a time
 	for (channel=0; channel<numChannels; channel++) {
 		// We first expect all channels of inputSignalA, then all channels of inputSignalB
-		inSampleA = in.sampleVectors[channel];
-		inSampleB = in.sampleVectors[channel+numChannels];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
+		inSampleA = in.mSampleVectors[channel];
+		inSampleB = in.mSampleVectors[channel+numChannels];
+		outSample = out.mSampleVectors[channel];
+		vs = in.getVectorSizeAsInt();
 		
 		// This inner loop works through each sample within the channel one at a time
 		while (vs--) {

@@ -83,13 +83,13 @@ void ttclip_free(t_ttclip *x)
 // set attr
 void ttclip_setlowbound(t_ttclip *x, double f)
 {
-	x->clipper->setAttributeValue(TT("lowBound"), f);
+	x->clipper->setAttributeValue(TT("LowBound"), f);
 }
 
 // set attr
 void ttclip_sethighbound(t_ttclip *x, double f)
 {
-	x->clipper->setAttributeValue(TT("highBound"), f);
+	x->clipper->setAttributeValue(TT("HighBound"), f);
 }
 
 
@@ -99,9 +99,7 @@ t_int *ttclip_perform(t_int *w)
 	t_ttclip*	x = (t_ttclip*)(w[1]);		
 	t_float*		in = (t_float*)(w[2]);
 	t_float*		out = (t_float*)(w[3]);
-	//int			n = (int)(w[4]);
-	//TTUInt8		numChannels = x->audioIn->getNumChannels();
-	TTUInt16		vs = x->audioIn->getVectorSize();
+	TTUInt16		vs = x->audioIn->getVectorSizeAsInt();
 
 	x->audioIn->setVector(0, vs, (t_float*)in);
 	x->clipper->process(x->audioIn, x->audioOut);
@@ -114,14 +112,14 @@ t_int *ttclip_perform(t_int *w)
 // DSP Method
 void ttclip_dsp(t_ttclip *x, t_signal **sp)
 {
-	x->audioIn->setnumChannels(1);
-	x->audioOut->setnumChannels(1);
-	x->audioIn->setvectorSize(sp[0]->s_n);
-	x->audioOut->setvectorSize(sp[0]->s_n);
+	x->audioIn->setNumChannels(1);
+	x->audioOut->setNumChannels(1);
+	x->audioIn->setVectorSizeWithInt(sp[0]->s_n);
+	x->audioOut->setVectorSizeWithInt(sp[0]->s_n);
 	//audioIn will be set in the perform method
 	x->audioOut->alloc();
 	
-	x->clipper->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	x->clipper->setAttributeValue(kTTSym_SampleRate, sp[0]->s_sr);
 	
     dsp_add(ttclip_perform, 4, x, sp[0]->s_vec, sp[1]->s_vec, sp[0]->s_n);
 }

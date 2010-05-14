@@ -57,9 +57,7 @@ static t_class	*s_fade_class;
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)				// main recieves a copy of the Max function macros table
 {
-	long attrflags = 0;
 	t_class *c;
-	t_object *attr;
 	
 	TTDSPInit();
 	common_symbols_init();
@@ -175,7 +173,7 @@ void fade_assist(t_fade *x, void *b, long msg, long arg, char *dst)
 void fade_float(t_fade *x, double value)
 {
 	x->attr_position = value;
-	x->xfade->setAttributeValue(TT("position"), value);
+	x->xfade->setAttributeValue(TT("Position"), value);
 }
 
 
@@ -192,11 +190,11 @@ t_max_err attr_set_shape(t_fade *x, void *attr, long argc, t_atom *argv)
 {
 	x->attr_shape = atom_getlong(argv);
 	if(x->attr_shape == 0) 
-		x->xfade->setAttributeValue(TT("shape"), TT("equalPower"));
+		x->xfade->setAttributeValue(TT("Shape"), TT("equalPower"));
 	else if(x->attr_shape == 2)  
-	    x->xfade->setAttributeValue(TT("shape"), TT("squareRoot"));
+	    x->xfade->setAttributeValue(TT("Shape"), TT("squareRoot"));
 	else
-		x->xfade->setAttributeValue(TT("shape"), TT("linear"));
+		x->xfade->setAttributeValue(TT("Shape"), TT("linear"));
 	
 	return MAX_ERR_NONE;
 }
@@ -207,9 +205,9 @@ t_max_err attr_set_mode(t_fade *x, void *attr, long argc, t_atom *argv)
 {
 	x->attr_mode = atom_getlong(argv);
 	if(x->attr_mode == 0) 
-		x->xfade->setAttributeValue(TT("mode"), TT("lookup"));
+		x->xfade->setAttributeValue(TT("Mode"), TT("lookup"));
 	else 
-		x->xfade->setAttributeValue(TT("mode"), TT("calculate"));
+		x->xfade->setAttributeValue(TT("Mode"), TT("calculate"));
 	
 	return MAX_ERR_NONE;
 }
@@ -220,8 +218,8 @@ t_int *fade_perform1(t_int *w)
 {
    	t_fade		*x = (t_fade *)(w[1]);
 	short		i, j;
-	TTUInt8		numChannels = x->audioIn1->getNumChannels();
-	TTUInt16	vs = x->audioIn1->getVectorSize();
+	TTUInt8		numChannels = x->audioIn1->getNumChannelsAsInt();
+	TTUInt16	vs = x->audioIn1->getVectorSizeAsInt();
 	
 	for(i=0; i<numChannels; i++){
 		j = (i*3) + 1;
@@ -245,8 +243,8 @@ t_int *fade_perform2(t_int *w)
 {
    	t_fade		*x = (t_fade *)(w[1]);
 	short		i, j;
-	TTUInt8		numChannels = x->audioIn1->getNumChannels();
-	TTUInt16	vs = x->audioIn1->getVectorSize();
+	TTUInt16	numChannels = x->audioIn1->getNumChannelsAsInt();
+	TTUInt16	vs = x->audioIn1->getVectorSizeAsInt();
 	
 	for(i=0; i<numChannels; i++){
 		j = (i*3) + 1;
@@ -305,16 +303,16 @@ void fade_dsp(t_fade *x, t_signal **sp, short *count)
 		l++;
 	}
 	
-	x->audioIn1->setnumChannels(numChannels);
-	x->audioIn2->setnumChannels(numChannels);
-	x->audioOut->setnumChannels(numChannels);
-	x->audioIn1->setvectorSize(vs);
-	x->audioIn2->setvectorSize(vs);
-	x->audioOut->setvectorSize(vs);
+	x->audioIn1->setNumChannels(numChannels);
+	x->audioIn2->setNumChannels(numChannels);
+	x->audioOut->setNumChannels(numChannels);
+	x->audioIn1->setVectorSizeWithInt(vs);
+	x->audioIn2->setVectorSizeWithInt(vs);
+	x->audioOut->setVectorSizeWithInt(vs);
 	//audioIn will be set in the perform method
 	x->audioOut->alloc();	
 	
-	x->xfade->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	x->xfade->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
 	
 	if(count[x->numChannels * 2])		// SIGNAL RATE CROSSFADE CONNECTED
 		dsp_addv(fade_perform2, l, audioVectors);

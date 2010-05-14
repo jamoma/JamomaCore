@@ -35,7 +35,7 @@ class TTSvf : public TTAudioObject {
 	// Notifications
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	TTErr updateSr();
-	TTErr clear();	
+	TTErr Clear();	
 
 	void calculateCoefficients();
 	

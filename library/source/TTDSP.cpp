@@ -23,7 +23,7 @@ void TTDSPInit()
 {
 	TTFoundationInit();
 	
-	if(!TTDSPHasInitialized){
+	if (!TTDSPHasInitialized) {
 		TTDSPHasInitialized = true;
 				
 		// TODO: someday implement these so that we have project-scoped caches and don't stuff everything into the foundation?
@@ -132,7 +132,7 @@ TTAudioSignalPtr TTObjectReference(TTAudioSignalPtr anObject)
 
 TTErr TTObjectRelease(TTAudioObjectPtr* anObject)
 {
-	if(*anObject)
+	if (*anObject)
 		return ttEnvironment->releaseInstance((TTObjectPtr*)anObject);
 	else
 		return kTTErrNone;
@@ -140,7 +140,7 @@ TTErr TTObjectRelease(TTAudioObjectPtr* anObject)
 
 TTErr TTObjectRelease(TTAudioSignalPtr* anObject)
 {
-	if(*anObject)
+	if (*anObject)
 		return ttEnvironment->releaseInstance((TTObjectPtr*)anObject);
 	else
 		return kTTErrNone;

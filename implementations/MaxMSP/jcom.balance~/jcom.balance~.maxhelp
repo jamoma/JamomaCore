@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 205.0, 44.0, 767.0, 703.0 ],
+		"rect" : [ 116.0, 96.0, 767.0, 703.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 205.0, 44.0, 767.0, 703.0 ],
+		"defrect" : [ 116.0, 96.0, 767.0, 703.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,6 +17,7 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"args" : [ "@name", "jcom.balance~", "@description", "Balance intensity of a signal to match that of a referential signal" ],
@@ -66,7 +67,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 117.0, 184.0, 96.0, 19.0 ],
+					"patching_rect" : [ 117.0, 189.0, 96.0, 19.0 ],
 					"text" : "Balanced signal."
 				}
 
@@ -80,8 +81,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 117.0, 125.0, 373.0, 19.0 ],
-					"text" : "cutoff <float>: Set cutoff frequency of internal low pass filter"
+					"patching_rect" : [ 117.0, 123.0, 373.0, 19.0 ],
+					"text" : "frequency <float>: Set cutoff frequency of internal low pass filter"
 				}
 
 			}
@@ -94,7 +95,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 117.0, 113.0, 266.0, 19.0 ],
+					"patching_rect" : [ 117.0, 105.0, 266.0, 19.0 ],
 					"text" : "clear: clear internal low pass filter"
 				}
 
@@ -108,7 +109,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 117.0, 137.0, 186.0, 19.0 ],
+					"patching_rect" : [ 117.0, 142.0, 186.0, 19.0 ],
 					"text" : "Comperator signal."
 				}
 
@@ -122,7 +123,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 117.0, 101.0, 187.0, 19.0 ],
+					"patching_rect" : [ 117.0, 87.0, 187.0, 19.0 ],
 					"text" : "Signal to balance."
 				}
 
@@ -228,6 +229,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -463,8 +465,8 @@
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"globalpatchername" : "",
+						"default_fontname" : "Arial",
 						"fontname" : "Arial"
 					}
 ,
@@ -497,7 +499,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 54.0, 184.0, 78.0, 19.0 ],
+					"patching_rect" : [ 54.0, 189.0, 78.0, 19.0 ],
 					"text" : "Left outlet:"
 				}
 
@@ -511,7 +513,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 54.0, 137.0, 74.0, 19.0 ],
+					"patching_rect" : [ 54.0, 142.0, 74.0, 19.0 ],
 					"text" : "Right inlet:"
 				}
 
@@ -950,7 +952,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 54.0, 101.0, 68.0, 19.0 ],
+					"patching_rect" : [ 54.0, 87.0, 68.0, 19.0 ],
 					"text" : "Left inlet:"
 				}
 
@@ -964,7 +966,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 54.0, 165.0, 122.0, 19.0 ],
+					"patching_rect" : [ 54.0, 170.0, 122.0, 19.0 ],
 					"text" : "No arguments."
 				}
 
@@ -1012,9 +1014,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 133.0, 72.0, 851.0, 702.0 ],
+						"rect" : [ 386.0, 59.0, 851.0, 702.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 133.0, 72.0, 851.0, 702.0 ],
+						"defrect" : [ 386.0, 59.0, 851.0, 702.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -1028,6 +1030,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -1411,8 +1414,8 @@
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"globalpatchername" : "",
+						"default_fontname" : "Arial",
 						"fontname" : "Arial"
 					}
 ,
@@ -1429,8 +1432,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 463.0, 456.0, 58.0, 17.0 ],
-					"text" : "frequency"
+					"patching_rect" : [ 463.0, 456.0, 76.0, 17.0 ],
+					"text" : "frequency $1"
 				}
 
 			}

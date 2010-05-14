@@ -88,7 +88,7 @@ class TTLimiter : public TTAudioObject {
 	TTErr setDCBlocker(TTValue& newValue);
 	
 	/** Clear the history: reset the limiter. */
-	TTErr clear();	
+	TTErr Clear();	
 };
 
 

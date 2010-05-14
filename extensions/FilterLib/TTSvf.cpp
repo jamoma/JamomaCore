@@ -27,12 +27,12 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithSetter(Mode,		kTypeSymbol);
 
 	// register methods
-	addMessage(clear);
+	addMessage(Clear);
 	addMessageWithArgument(updateMaxNumChannels);
 	addMessage(updateSr);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	arguments);			// This attribute is inherited
+	setAttributeValue(TT("MaxNumChannels"),	arguments);			// This attribute is inherited
 	setAttributeValue(TT("Mode"),			TT("lowpass"));
 	setAttributeValue(TT("Frequency"),		1000.0);
 	setAttributeValue(TT("Resonance"),		1.0);
@@ -52,7 +52,7 @@ TTErr TTSvf::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	mBandpass_output.resize(maxNumChannels);
 	mNotch_output.resize(maxNumChannels);
 	mPeak_output.resize(maxNumChannels);
-	clear();
+	Clear();
 	return kTTErrNone;
 }
 
@@ -64,7 +64,7 @@ TTErr TTSvf::updateSr()
 }
 
 
-TTErr TTSvf::clear()
+TTErr TTSvf::Clear()
 {
 	mLowpass_output.assign(maxNumChannels, 0.0);
 	mHighpass_output.assign(maxNumChannels, 0.0);
@@ -79,27 +79,27 @@ TTErr TTSvf::setMode(const TTValue& newValue)
 {
 	TTSymbolPtr newMode = newValue;
 	
-	if(newMode == TT("lowpass")){
+	if (newMode == TT("lowpass")) {
 		setProcessMethod(processLowpass);
 		setCalculateMethod(calculateLowpass);
 	}
-	else if(newMode == TT("highpass")){
+	else if (newMode == TT("highpass")) {
 		setProcessMethod(processHighpass);
 		setCalculateMethod(calculateHighpass);
 	}
-else if(newMode == TT("bandpass")){
+else if (newMode == TT("bandpass")) {
 		setProcessMethod(processBandpass);
 		setCalculateMethod(calculateBandpass);
 	}
-else if(newMode == TT("notch")){
+else if (newMode == TT("notch")) {
 		setProcessMethod(processNotch);
 		setCalculateMethod(calculateNotch);
 	}
-else if(newMode == TT("peak")){
+else if (newMode == TT("peak")) {
 		setProcessMethod(processPeak);
 		setCalculateMethod(calculatePeak);
 	}
-	else{
+	else {
 		logError("bad mode specified for TTSvf: %s", newMode->getCString());
 		return kTTErrInvalidValue;
 	}
@@ -113,7 +113,7 @@ TTErr TTSvf::setFrequency(const TTValue& newValue)
 {	
     mFrequency = newValue;
 	mF = 2.0 * sin(kTTHalfPi * mFrequency / sr ); // equivalent to mF = 2.0 * sin(kTTPi * mFrequency / double(sr * 2)); 
-	if(mF > 0.25)
+	if (mF > 0.25)
 		mF = 0.25;
 	calculateCoefficients();
 	return kTTErrNone;
@@ -134,7 +134,7 @@ void TTSvf::calculateCoefficients()
 	TTFloat64 temp1 = TTLimitMax(2.0 / mF - mF * 0.5, 2.0);
 	TTFloat64 temp2 = 2.0 * (1.0 - pow(mR, 0.25));
 	
-	if(temp1 < temp2)
+	if (temp1 < temp2)
 		mDamp = temp1;
 	else
 		mDamp = temp2;
