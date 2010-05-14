@@ -45,6 +45,8 @@ TTMatrixMixer::~TTMatrixMixer()
 //	rows == outputs
 
 
+// TODO: the next two methods should never decrease their size
+
 TTErr TTMatrixMixer::setNumInputs(const TTUInt16 newValue)
 {
 	if (newValue != mNumInputs) {
@@ -99,6 +101,8 @@ TTErr TTMatrixMixer::SetLinearGain(const TTValue& newValue)
 	
 	if (newValue.getSize() != 3)
 		return kTTErrWrongNumValues;
+	
+	// FIXME: check bounds and increase matrix size if needed!!!
 	
 	newValue.get(0, x);
 	newValue.get(1, y);
