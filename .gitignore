@@ -6,6 +6,7 @@ build
 *.pbxuser
 *.mode1v3
 *.tm_build_errors
+*.orig
 
 # Ignore logs
 logs

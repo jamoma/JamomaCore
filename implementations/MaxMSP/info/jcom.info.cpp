@@ -1,19 +1,19 @@
 /* 
  *	info≈
- *	External object for Max/MSP to get information about TTAudioSignals from a Jamoma Multicore dsp chain.
+ *	External object for Max/MSP to get information about TTAudioSignals from a Jamoma AudioGraph dsp chain.
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxAudioGraph.h"
 
 
 // Data Structure for this object
 typedef struct Info {
     t_object				obj;
-	TTMulticoreObjectPtr	audioSourceObject;
+	TTAudioGraphObjectPtr	audioSourceObject;
 	long					audioSourceOutlet;
 	TTPtr					outletSampleRate;
 	TTPtr					outletVectorSize;
@@ -33,7 +33,7 @@ void	InfoAssist(InfoPtr self, void* b, long msg, long arg, char* dst);
 void	InfoBang(InfoPtr self);
 void	InfoQfn(InfoPtr self);
 TTErr	InfoReset(InfoPtr self, long vectorSize);
-TTErr	InfoConnect(InfoPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr	InfoConnect(InfoPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber);
 
 
 // Globals
@@ -47,7 +47,7 @@ int main(void)
 {
 	ClassPtr c;
 
-	TTMulticoreInit();	
+	TTAudioGraphInit();	
 	common_symbols_init();
 
 	c = class_new("jcom.info≈", (method)InfoNew, (method)InfoFree, sizeof(Info), (method)0L, A_GIMME, 0);
@@ -55,6 +55,8 @@ int main(void)
 	class_addmethod(c, (method)InfoBang,			"bang",					0);
 	class_addmethod(c, (method)InfoReset,			"multicore.reset",		A_CANT, 0);
 	class_addmethod(c, (method)InfoConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)MaxAudioGraphDrop,	"multicore.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,	"multicore.object",		A_CANT, 0);
 	class_addmethod(c, (method)InfoAssist,			"assist",				A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
 	
@@ -138,7 +140,7 @@ TTErr InfoReset(InfoPtr self, long vectorSize)
 }
 
 
-TTErr InfoConnect(InfoPtr self, TTMulticoreObjectPtr newAudioSourceObject, long sourceOutletNumber)
+TTErr InfoConnect(InfoPtr self, TTAudioGraphObjectPtr newAudioSourceObject, long sourceOutletNumber)
 {
 	self->audioSourceObject = newAudioSourceObject;
 	self->audioSourceOutlet = sourceOutletNumber;

@@ -1,23 +1,22 @@
 /* 
  *	matrix≈
- *	External object for Jamoma Multicore
+ *	External object for Jamoma AudioGraph
  *	Copyright © 2009 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxAudioGraph.h"
 
 
 int main(void)
 {
-	WrappedClassOptionsPtr	options = new WrappedClassOptions;
-	TTValue					value(0);
+	MaxAudioGraphWrappedClassOptionsPtr	options = new MaxAudioGraphWrappedClassOptions;
+	TTValue								value(0);
+	
+	TTAudioGraphInit();
 
-	TTMulticoreInit();
-	options->append(TT("argumentDefinesNumInlets"), value);
-	value = 1L;
-	options->append(TT("argumentDefinesNumOutlets"), value);
-	return wrapAsMaxMulticore(TT("matrixmixer"), "jcom.matrix≈", NULL, options);
+	options->append(TT("nonadapting"), value); // don't change the number of out-channels in response to changes in the number of in-channels
+	return wrapAsMaxAudioGraph(TT("matrix"), "jcom.matrix≈", NULL, options);
 }

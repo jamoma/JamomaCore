@@ -41,9 +41,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 374.0, 87.0, 763.0, 356.0 ],
+						"rect" : [ 367.0, 174.0, 763.0, 356.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 374.0, 87.0, 763.0, 356.0 ],
+						"defrect" : [ 367.0, 174.0, 763.0, 356.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -58,7 +58,37 @@
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
+						"visible" : 1,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-26",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "multicore.connect", "" ],
+									"patching_rect" : [ 55.0, 90.0, 68.0, 19.0 ],
+									"presentation_rect" : [ 84.0, 90.0, 0.0, 0.0 ],
+									"text" : "jcom.gain≈"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-25",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "multicore.connect", "" ],
+									"patching_rect" : [ 365.0, 90.0, 68.0, 19.0 ],
+									"text" : "jcom.gain≈"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -67,7 +97,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "signal" ],
-									"patching_rect" : [ 575.0, 70.0, 60.0, 19.0 ],
+									"patching_rect" : [ 575.0, 25.0, 60.0, 19.0 ],
 									"text" : "sig~ -200"
 								}
 
@@ -81,7 +111,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "signal" ],
-									"patching_rect" : [ 505.0, 70.0, 55.0, 19.0 ],
+									"patching_rect" : [ 505.0, 25.0, 55.0, 19.0 ],
 									"text" : "sig~ 200"
 								}
 
@@ -95,7 +125,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "signal" ],
-									"patching_rect" : [ 435.0, 70.0, 60.0, 19.0 ],
+									"patching_rect" : [ 435.0, 25.0, 60.0, 19.0 ],
 									"text" : "sig~ -100"
 								}
 
@@ -109,7 +139,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "signal" ],
-									"patching_rect" : [ 365.0, 70.0, 55.0, 19.0 ],
+									"patching_rect" : [ 365.0, 25.0, 55.0, 19.0 ],
 									"text" : "sig~ 100"
 								}
 
@@ -123,7 +153,7 @@
 									"numinlets" : 4,
 									"numoutlets" : 2,
 									"outlettype" : [ "multicore.connect", "" ],
-									"patching_rect" : [ 365.0, 105.0, 229.5, 19.0 ],
+									"patching_rect" : [ 365.0, 60.0, 229.5, 19.0 ],
 									"text" : "jcom.pack≈ 4"
 								}
 
@@ -206,7 +236,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-38",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -220,7 +250,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 20.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-36",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -324,7 +354,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "signal" ],
-									"patching_rect" : [ 265.0, 70.0, 60.0, 19.0 ],
+									"patching_rect" : [ 265.0, 25.0, 60.0, 19.0 ],
 									"text" : "sig~ -200"
 								}
 
@@ -338,7 +368,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "signal" ],
-									"patching_rect" : [ 195.0, 70.0, 55.0, 19.0 ],
+									"patching_rect" : [ 195.0, 25.0, 55.0, 19.0 ],
 									"text" : "sig~ 200"
 								}
 
@@ -352,7 +382,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "signal" ],
-									"patching_rect" : [ 125.0, 70.0, 60.0, 19.0 ],
+									"patching_rect" : [ 125.0, 25.0, 60.0, 19.0 ],
 									"text" : "sig~ -100"
 								}
 
@@ -366,7 +396,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "signal" ],
-									"patching_rect" : [ 55.0, 70.0, 55.0, 19.0 ],
+									"patching_rect" : [ 55.0, 25.0, 55.0, 19.0 ],
 									"text" : "sig~ 100"
 								}
 
@@ -394,7 +424,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "multicore.connect", "" ],
-									"patching_rect" : [ 55.0, 190.0, 189.0, 19.0 ],
+									"patching_rect" : [ 55.0, 190.0, 190.0, 19.0 ],
 									"text" : "jcom.op≈ @operator + @operand 5"
 								}
 
@@ -408,7 +438,7 @@
 									"numinlets" : 4,
 									"numoutlets" : 2,
 									"outlettype" : [ "multicore.connect", "" ],
-									"patching_rect" : [ 55.0, 105.0, 229.5, 19.0 ],
+									"patching_rect" : [ 55.0, 60.0, 229.5, 19.0 ],
 									"text" : "jcom.pack≈ 4"
 								}
 
@@ -422,7 +452,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 153.0, 160.0, 61.0, 17.0 ],
+									"patching_rect" : [ 195.0, 160.0, 61.0, 17.0 ],
 									"text" : "operator /"
 								}
 
@@ -430,7 +460,7 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"destination" : [ "obj-2", 0 ],
+									"destination" : [ "obj-26", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-1", 0 ]
@@ -495,7 +525,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-19", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 64.5, 221.0, 369.5, 221.0 ],
+									"midpoints" : [ 64.5, 232.0, 369.5, 232.0 ],
 									"source" : [ "obj-2", 0 ]
 								}
 
@@ -547,10 +577,28 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-25", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-24", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-2", 0 ],
 									"hidden" : 0,
 									"midpoints" : [ 374.5, 152.0, 64.5, 152.0 ],
-									"source" : [ "obj-24", 0 ]
+									"source" : [ "obj-25", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-2", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-26", 0 ]
 								}
 
 							}
@@ -631,13 +679,13 @@
 ,
 					"patching_rect" : [ 329.0, 140.0, 115.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"globalpatchername" : "",
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p splitting+summing"
@@ -823,7 +871,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-38",
 									"linecount" : 3,
 									"maxclass" : "comment",
@@ -838,7 +886,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 20.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-36",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1012,7 +1060,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "multicore.connect", "" ],
-									"patching_rect" : [ 120.0, 160.0, 189.0, 19.0 ],
+									"patching_rect" : [ 120.0, 160.0, 190.0, 19.0 ],
 									"text" : "jcom.op≈ @operator + @operand 5"
 								}
 
@@ -1249,13 +1297,13 @@
 ,
 					"patching_rect" : [ 196.0, 140.0, 60.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"globalpatchername" : "",
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p splitting"
@@ -1293,7 +1341,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-38",
 									"linecount" : 3,
 									"maxclass" : "comment",
@@ -1308,7 +1356,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 20.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 									"id" : "obj-36",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1397,7 +1445,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "multicore.connect", "" ],
-									"patching_rect" : [ 435.0, 160.0, 189.0, 19.0 ],
+									"patching_rect" : [ 435.0, 160.0, 190.0, 19.0 ],
 									"text" : "jcom.op≈ @operator + @operand 5"
 								}
 
@@ -1594,7 +1642,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "multicore.connect", "" ],
-									"patching_rect" : [ 120.0, 160.0, 189.0, 19.0 ],
+									"patching_rect" : [ 120.0, 160.0, 190.0, 19.0 ],
 									"text" : "jcom.op≈ @operator + @operand 5"
 								}
 
@@ -1813,13 +1861,13 @@
 ,
 					"patching_rect" : [ 56.0, 140.0, 67.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"globalpatchername" : "",
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p summing"

@@ -1,0 +1,79 @@
+/* 
+ * AudioGraph Audio Graph Layer for Jamoma DSP
+ * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
+ * Copyright © 2010, Timothy Place
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
+
+#ifndef __TTMULTICORE_OUTLET_H__
+#define __TTMULTICORE_OUTLET_H__
+
+#include "TTAudioGraph.h"
+
+
+/******************************************************************************************/
+
+/**	This object represents a single 'outlet' from a TTAudioGraphObject.
+	TTAudioGraphObject maintains a vector of these outlets.
+*/
+class TTAudioGraphOutlet {
+	friend class TTAudioGraphObject;
+	TTAudioSignalPtr		mBufferedOutput;	
+	
+public:
+	TTAudioGraphOutlet() : 
+		mBufferedOutput(NULL)
+	{
+		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedOutput, 1);
+	}
+	
+	~TTAudioGraphOutlet()
+	{
+		TTObjectRelease(&mBufferedOutput);
+	}
+	
+	
+	// Copying Functions are critical due to use by std::vector 
+	
+	TTAudioGraphOutlet(const TTAudioGraphOutlet& original) : 
+		mBufferedOutput(NULL)
+	{
+//		mBufferedOutput = TTObjectReference(original.mBufferedOutput);
+		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedOutput, 1);
+	}
+	
+	TTAudioGraphOutlet& operator=(const TTAudioGraphOutlet& source)
+	{
+		TTObjectRelease(&mBufferedOutput);
+		mBufferedOutput = TTObjectReference(source.mBufferedOutput);
+		return *this;
+	}
+	
+
+	// Audio Signal Access Methods
+
+	TTUInt16 getNumOutputChannels()
+	{
+		return mBufferedOutput->getNumChannelsAsInt();
+	}
+	
+	
+	TTUInt16 getOutputVectorSize()
+	{
+		return mBufferedOutput->getVectorSizeAsInt();
+	}
+
+	
+	TTAudioSignalPtr getBuffer()
+	{
+		return mBufferedOutput;
+	}
+	
+};
+
+
+
+
+#endif // __TTMULTICORE_OUTLET_H__

@@ -1,19 +1,23 @@
 /* 
  *	dac≈
- *	Jamoma Multicore external object for Max
+ *	Jamoma AudioGraph external object for Max
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxAudioGraph.h"
 
 
 // Data Structure for this object
 struct Dac {
     Object					obj;
-	TTMulticoreObjectPtr	multicoreObject;
+	TTAudioGraphObjectPtr	multicoreObject;
+	ObjectPtr				patcher;		// the patcher -- cached for iterating to make connections
+	ObjectPtr				patcherview;	// first view of the top-level patcher (for dirty notifications)
+	TTPtr					qelem;			// for clumping patcher dirty notifications
+	TTPtr					outlet;			// for sending cpu load
 };
 typedef Dac* DacPtr;
 
@@ -21,11 +25,19 @@ typedef Dac* DacPtr;
 // Prototypes for methods
 DacPtr	DacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void	DacFree(DacPtr self);
+MaxErr	DacNotify(DacPtr self, SymbolPtr s, SymbolPtr msg, ObjectPtr sender, TTPtr data);
+void	DacQFn(DacPtr self);
+void	DacAttachToPatchlinesForPatcher(DacPtr self, ObjectPtr patcher);
 void	DacAssist(DacPtr self, void* b, long msg, long arg, char* dst);
 TTErr	DacReset(DacPtr self);
-TTErr	DacConnect(DacPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
+void	DacIterateResetCallback(DacPtr self, ObjectPtr obj);
+void	DacIterateSetupCallback(DacPtr self, ObjectPtr obj);
+TTErr	DacConnect(DacPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr	DacInt(DacPtr self, long value);
 TTErr	DacStart(DacPtr self);
 TTErr	DacStop(DacPtr self);
+void	DacGetDeviceNames(DacPtr self);
+TTErr	DacGetCpuLoad(DacPtr self);
 MaxErr	DacExportRuby(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv);
 MaxErr	DacExportCpp(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv);
 MaxErr	DacExportMax(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv);
@@ -34,6 +46,8 @@ MaxErr	DacSetSampleRate(DacPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr	DacGetSampleRate(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv);
 MaxErr	DacSetVectorSize(DacPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr	DacGetVectorSize(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv);
+MaxErr	DacSetDevice(DacPtr self, void* attr, AtomCount argc, AtomPtr argv);
+MaxErr	DacGetDevice(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv);
 
 
 // Globals
@@ -47,16 +61,21 @@ int main(void)
 {
 	ClassPtr c;
 	
-	TTMulticoreInit();	
+	TTAudioGraphInit();	
 	common_symbols_init();
 	
 	c = class_new("jcom.dac≈", (method)DacNew, (method)DacFree, sizeof(Dac), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)DacStart,			"start",				0);
 	class_addmethod(c, (method)DacStop,				"stop",					0);
-	//class_addmethod(c, (method)DacNotify,			"notify",				A_CANT, 0);
+	class_addmethod(c, (method)DacGetDeviceNames,	"getAvailableDeviceNames",	0);
+	class_addmethod(c, (method)DacInt,				"int",					A_LONG, 0);
+	class_addmethod(c, (method)DacGetCpuLoad,		"getCpuLoad",			0);
+	class_addmethod(c, (method)DacNotify,			"notify",				A_CANT, 0);
 	class_addmethod(c, (method)DacReset,			"multicore.reset",		A_CANT, 0);
 	class_addmethod(c, (method)DacConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)MaxAudioGraphDrop,	"multicore.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,	"multicore.object",		A_CANT, 0);
 	class_addmethod(c, (method)DacExportRuby,		"exportRuby",			A_GIMME, 0);
 	class_addmethod(c, (method)DacExportCpp,		"exportC++",			A_GIMME, 0);
 	class_addmethod(c, (method)DacExportMax,		"exportMax",			A_GIMME, 0);
@@ -68,6 +87,9 @@ int main(void)
 	
 	CLASS_ATTR_LONG(c,		"vectorSize",	0,		Dac,	obj);
 	CLASS_ATTR_ACCESSORS(c,	"vectorSize",	DacGetVectorSize,	DacSetVectorSize);
+	
+	CLASS_ATTR_SYM(c,		"device",		0,		Dac,	obj);
+	CLASS_ATTR_ACCESSORS(c,	"device",		DacGetDevice,		DacSetDevice);
 	
 	class_register(_sym_box, c);
 	sDacClass = c;
@@ -91,10 +113,11 @@ DacPtr DacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 
 		v = TTPtr(self->multicoreObject);
-		//self->multicoreObject->mUnitGenerator->sendMessage(TT("setOwner"), v);
 
 		attr_args_process(self, argc, argv);
 		object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));
+		self->outlet = outlet_new(self, NULL);
+		self->qelem = qelem_new(self, (method)DacQFn);
 	}
 	return self;
 }
@@ -102,32 +125,132 @@ DacPtr DacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 
 void DacFree(DacPtr self)
 {
+	DacStop(self);
+	if (self->patcherview) {
+		object_detach_byptr(self, self->patcherview);
+		self->patcherview = NULL;
+	}
 	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
+	qelem_free(self->qelem);
 }
 
 
 /************************************************************************************/
 // Methods bound to input/inlets
 
+MaxErr DacNotify(DacPtr self, SymbolPtr s, SymbolPtr msg, ObjectPtr sender, TTPtr data)
+{
+	if (sender == self->patcherview) {
+		if (msg == _sym_attr_modified) {
+			SymbolPtr name = (SymbolPtr)object_method((ObjectPtr)data, _sym_getname);
+			if (name == _sym_dirty) {
+				qelem_set(self->qelem);
+			}
+		}
+		else if (msg == _sym_free)
+			self->patcherview = NULL;
+	}
+	else {
+		if (msg == _sym_free) {
+			if (self->patcherview)
+				goto out; // if there is no patcherview, then we are freeing the whole thing and can skip this
+			
+			#ifdef DEBUG_NOTIFICATIONS
+			object_post(SELF, "patch line deleted");
+			#endif // DEBUG_NOTIFICATIONS
+			
+			// get boxes and inlets
+			ObjectPtr	sourceBox = jpatchline_get_box1(sender);
+			if (!sourceBox)
+				goto out;
+			ObjectPtr	sourceObject = jbox_get_object(sourceBox);
+			long		sourceOutlet = jpatchline_get_outletnum(sender);
+			ObjectPtr	destBox = jpatchline_get_box2(sender);
+			if (!destBox)
+				goto out;
+			ObjectPtr	destObject = jbox_get_object(destBox);
+			long		destInlet = jpatchline_get_inletnum(sender);
+			
+			// if both boxes are multicore objects 
+			if ( zgetfn(sourceObject, gensym("multicore.object")) && zgetfn(destObject, gensym("multicore.object")) ) {
+				#ifdef DEBUG_NOTIFICATIONS
+				object_post(SELF, "deleting multicore patchline!");
+				#endif // DEBUG_NOTIFICATIONS
+				
+				object_method(destObject, gensym("multicore.drop"), destInlet, sourceObject, sourceOutlet);
+			}
+		out:		
+			;
+		}
+	}
+	return MAX_ERR_NONE;
+}
+
+
+// Qelem function, which clumps together dirty notifications before making the new connections
+void DacQFn(DacPtr self)
+{
+	t_atom result;
+	
+	#ifdef DEBUG_NOTIFICATIONS
+	object_post(SELF, "patcher dirtied");
+	#endif // DEBUG_NOTIFICATIONS
+	
+	object_method(self->patcher, gensym("iterate"), (method)DacIterateSetupCallback, self, PI_DEEP, &result);
+	
+	// attach to all of the patch cords so we will know if one is deleted
+	// we are not trying to detach first -- hopefully this is okay and multiple attachments will be filtered (?)
+	DacAttachToPatchlinesForPatcher(self, self->patcher);
+}
+
+
+void DacAttachToPatchlinesForPatcher(DacPtr self, ObjectPtr patcher)
+{
+	ObjectPtr	patchline = object_attr_getobj(patcher, _sym_firstline);
+	ObjectPtr	box = jpatcher_get_firstobject(patcher);
+	
+	while (patchline) {
+		object_attach_byptr_register(self, patchline, _sym_nobox);
+		patchline = object_attr_getobj(patchline, _sym_nextline);
+	}
+	
+	while (box) {
+		SymbolPtr	classname = jbox_get_maxclass(box);
+		
+		if (classname == _sym_jpatcher) {
+			ObjectPtr	subpatcher = jbox_get_object(box);
+			
+			DacAttachToPatchlinesForPatcher(self, subpatcher);
+		}
+		box = jbox_get_nextobject(box);
+	}
+}
+
+
 // Method for Assistance Messages
 void DacAssist(DacPtr self, void* b, long msg, long arg, char* dst)
 {
 	if (msg==1)				// Inlets
 		strcpy(dst, "multichannel audio connection and control messages");		
-	else if (msg==2)		// Outlets
-		strcpy(dst, "dumpout");
+	else if (msg==2){		// Outlets
+		if(arg == 0)
+			strcpy(dst, "stats on DSP graph");
+		else
+			strcpy(dst, "dumpout");	
+		
+	}		
 }
 
 
 TTErr DacReset(DacPtr self)
 {
-	return self->multicoreObject->reset();
+	return self->multicoreObject->resetAudio();
 }
 
 
-TTErr DacConnect(DacPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
+TTErr DacConnect(DacPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
+	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }
 
 
@@ -137,7 +260,7 @@ void DacIterateResetCallback(DacPtr self, ObjectPtr obj)
 	method		multicoreResetMethod = zgetfn(obj, gensym("multicore.reset"));
 	
 	if (multicoreResetMethod) {
-		self->multicoreObject->mUnitGenerator->getAttributeValue(TT("vectorSize"), vectorSize);
+		self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("VectorSize"), vectorSize);
 		multicoreResetMethod(obj, vectorSize);
 	}
 }
@@ -152,36 +275,103 @@ void DacIterateSetupCallback(DacPtr self, ObjectPtr obj)
 }
 
 
+TTErr DacInt(DacPtr self, long value)
+{
+	if (value==0)
+		 DacStop(self);
+	else
+		DacStart(self);
+	
+	return kTTErrNone;
+}
+
+
 TTErr DacStart(DacPtr self)
 {
-	MaxErr		err;
-	ObjectPtr	patcher = NULL;
-	long		vectorSize;
-	long		result = 0;
+	MaxErr					err;
+	ObjectPtr				patcher = NULL;
+	ObjectPtr				parent = NULL;
+	ObjectPtr				patcherview = NULL;
+	long					vectorSize;
+	long					result = 0;
+	TTAudioGraphOutputPtr	outputObject = TTAudioGraphOutputPtr(self->multicoreObject->getUnitGenerator());
 	
-	self->multicoreObject->mUnitGenerator->getAttributeValue(TT("vectorSize"), vectorSize);
+	outputObject->getAttributeValue(TT("VectorSize"), vectorSize);
 	
 	err = object_obex_lookup(self, gensym("#P"), &patcher);
-	object_method(patcher, gensym("iterate"), (method)DacIterateResetCallback, self, PI_DEEP, &result);
+	
+	// first find the top-level patcher
+	err = object_obex_lookup(self, gensym("#P"), &patcher);
+	parent = patcher;
+	while (parent) {
+		patcher = parent;
+		parent = object_attr_getobj(patcher, _sym_parentpatcher);
+	}
+	
+	// Do we really want to reset any more?  It's not clear that it's needed or desired.
+	//object_method(patcher, gensym("iterate"), (method)DacIterateResetCallback, self, PI_DEEP, &result);
 	object_method(patcher, gensym("iterate"), (method)DacIterateSetupCallback, self, PI_DEEP, &result);
 	
-	TTMulticoreInitData	initData;
-	initData.vectorSize = vectorSize;
-	self->multicoreObject->init(initData);
+	// now let's attach to the patcherview to get notifications about any further changes to the patch cords
+	// the patcher 'dirty' attribute is not modified for each change, but the patcherview 'dirty' attribute is
+	if (!self->patcherview) {
+		patcherview = jpatcher_get_firstview(patcher);
+		self->patcherview = patcherview;
+		self->patcher = patcher;
+		object_attach_byptr_register(self, patcherview, _sym_nobox);			
+	}
 	
-	return self->multicoreObject->mUnitGenerator->sendMessage(TT("start"));
+	// now we want to go a step further and attach to all of the patch cords 
+	// this is how we will know if one is deleted
+	DacAttachToPatchlinesForPatcher(self, self->patcher);
+	
+	outputObject->mInitData.vectorSize = vectorSize;
+	return outputObject->sendMessage(TT("Start"));
 }
 
 
 TTErr DacStop(DacPtr self)
 {	
-	return self->multicoreObject->mUnitGenerator->sendMessage(TT("stop"));
+	return self->multicoreObject->getUnitGenerator()->sendMessage(TT("Stop"));
+}
+
+
+void DacGetDeviceNames(DacPtr self)
+{
+	TTValue		v;
+	TTErr		err;
+	AtomCount	ac;
+	AtomPtr		ap;
+	TTSymbolPtr	name;
+	
+	err = self->multicoreObject->getUnitGenerator()->sendMessage(TT("GetAvailableDeviceNames"), v);
+	if (!err) {
+		ac = v.getSize();
+		ap = new Atom[ac];
+		
+		for (AtomCount i=0; i<ac; i++) {
+			v.get(i, &name);
+			atom_setsym(ap+i, gensym((char*)name->getCString()));
+		}
+		object_obex_dumpout(self, gensym("getAvailableDeviceNames"), ac, ap);
+		delete ap;
+	}
+}
+
+
+TTErr DacGetCpuLoad(DacPtr self)
+{
+	TTValue cpuload = -1.0;
+	
+	self->multicoreObject->getUnitGenerator()->sendMessage(TT("GetCpuLoad"), cpuload);
+	outlet_float(self->outlet, TTFloat64(cpuload));
+	return kTTErrNone;
 }
 
 
 MaxErr DacDoExportRuby(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
-	TTMulticoreDescription	desc;
+	TTAudioGraphDescription	desc;
 	TTString				fullpathToFile = "/multicore-export.rb";
 	
 	if (argc && argv)
@@ -191,7 +381,7 @@ MaxErr DacDoExportRuby(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 		return MAX_ERR_GENERIC;
 	}
 	
-	self->multicoreObject->getDescription(desc);
+	self->multicoreObject->getAudioDescription(desc);
 	desc.exportRuby(fullpathToFile);
 	
 	return MAX_ERR_NONE;
@@ -207,7 +397,7 @@ MaxErr DacExportRuby(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 
 MaxErr DacDoExportCpp(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
-	TTMulticoreDescription	desc;
+	TTAudioGraphDescription	desc;
 	TTString				fullpathToFile = "/multicore-export.cpp";
 	
 	if (argc && argv)
@@ -217,7 +407,7 @@ MaxErr DacDoExportCpp(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 		return MAX_ERR_GENERIC;
 	}
 	
-	self->multicoreObject->getDescription(desc);
+	self->multicoreObject->getAudioDescription(desc);
 	desc.exportCpp(fullpathToFile);
 	
 	return MAX_ERR_NONE;
@@ -233,7 +423,7 @@ MaxErr DacExportCpp(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 
 MaxErr DacDoExportMax(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
-	TTMulticoreDescription	desc;
+	TTAudioGraphDescription	desc;
 	TTString				fullpathToFile = "/multicore-export.maxpat";
 	
 	if (argc && argv)
@@ -243,7 +433,7 @@ MaxErr DacDoExportMax(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 		return MAX_ERR_GENERIC;
 	}
 	
-	self->multicoreObject->getDescription(desc);
+	self->multicoreObject->getAudioDescription(desc);
 	desc.exportMax(fullpathToFile);
 	
 	return MAX_ERR_NONE;
@@ -261,7 +451,7 @@ MaxErr DacSetSampleRate(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 sr = atom_getlong(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("sampleRate"), sr);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sr);
 	}
 	return MAX_ERR_NONE;
 }
@@ -270,7 +460,7 @@ MaxErr DacGetSampleRate(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long sr;
 	
-	self->multicoreObject->mUnitGenerator->getAttributeValue(TT("sampleRate"), sr);
+	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("SampleRate"), sr);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
@@ -284,7 +474,7 @@ MaxErr DacSetVectorSize(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 vs = atom_getlong(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("vectorSize"), vs);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("VectorSize"), vs);
 	}
 	return MAX_ERR_NONE;
 }
@@ -293,7 +483,7 @@ MaxErr DacGetVectorSize(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long vs;
 	
-	self->multicoreObject->mUnitGenerator->getAttributeValue(TT("vectorSize"), vs);
+	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("VectorSize"), vs);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
@@ -303,3 +493,28 @@ MaxErr DacGetVectorSize(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 }
 
 
+MaxErr DacSetDevice(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
+{
+	if (argc) {
+		SymbolPtr s = atom_getsym(argv);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Device"), TT(s->s_name));
+	}
+	return MAX_ERR_NONE;
+}
+
+MaxErr DacGetDevice(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
+{
+	TTValue		v;
+	TTSymbolPtr	s;
+	
+	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("Device"), v);
+	v.get(0, &s);
+	if (!s)
+		return MAX_ERR_GENERIC;
+	
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, gensym((char*)s->getCString()));
+	return MAX_ERR_NONE;
+}

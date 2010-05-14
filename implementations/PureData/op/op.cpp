@@ -1,19 +1,19 @@
 /* 
  *	op≈
- *	External object for Pd to perform basic mathematical operations on objects in a Jamoma Multicore dsp chain.
+ *	External object for Pd to perform basic mathematical operations on objects in a Jamoma AudioGraph dsp chain.
  *	Copyright © 2010 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "PureMulticore.h"
+#include "PureAudioGraph.h"
 
 
 // Data Structure for this object
 struct Op {
    	Object					obj;
-	TTMulticoreObjectPtr	multicoreObject;
+	TTAudioGraphObjectPtr	multicoreObject;
 	_outlet*				outlet;
 	SymbolPtr				attrOperator;
 	TTFloat32				attrOperand;
@@ -27,7 +27,7 @@ OpPtr	OpNew			(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void   	OpFree			(OpPtr self);
 TTErr  	OpReset			(OpPtr self, long vectorSize);
 TTErr  	OpSetup			(OpPtr self);
-TTErr  	OpConnect		(OpPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr  	OpConnect		(OpPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber);
 void 	OpSetOperator	(OpPtr self, SymbolPtr value);
 void 	OpSetOperand	(OpPtr self, t_floatarg value);
 
@@ -41,13 +41,13 @@ static ClassPtr sOpClass;
 
 void setup_jcom_op0x3d(void)
 {
-	TTMulticoreInit();	
+	TTAudioGraphInit();	
 	
 	sOpClass = class_new(gensym("jcom_op="), (t_newmethod)OpNew, (t_method)OpFree, sizeof(Op), 0, A_GIMME, 0);
 	
 	class_addmethod(sOpClass, (t_method)OpReset,		gensym("multicore.reset"),		A_CANT, 0);
 	class_addmethod(sOpClass, (t_method)OpSetup,		gensym("multicore.setup"),		A_CANT, 0);
-	class_addmethod(sOpClass, (t_method)OpConnect,		gensym("multicore.connect"),	A_CANT, 0);
+	class_addmethod(sOpClass, (t_method)OpConnect,		gensym("multicore.connect"),	A_POINTER, A_POINTER, 0);
 	class_addmethod(sOpClass, (t_method)OpSetOperator,	gensym("operator"),				A_SYMBOL, 0);
 	class_addmethod(sOpClass, (t_method)OpSetOperand,	gensym("operand"),				A_FLOAT, 0);
 		
@@ -66,15 +66,14 @@ OpPtr OpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
     self = OpPtr(pd_new(sOpClass));
     if (self) {
-    	//object_obex_store((void*)self, _sym_dumpout, (ObjectPtr)outlet_new(self, NULL));	// dumpout	
-		self->outlet = outlet_new(SELF, gensym("multicore.connect"));
+ 		self->outlet = outlet_new(SELF, gensym("multicore.connect"));
 		
 		v.setSize(2);
 		v.set(0, TT("operator"));
 		v.set(1, TTUInt32(1));
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 
-		if (!self->multicoreObject->mUnitGenerator) {
+		if (!self->multicoreObject->getUnitGenerator()) {
 			error("op≈: cannot load Jamoma DSP object");
 			return NULL;
 		}
@@ -96,7 +95,7 @@ void OpFree(OpPtr self)
 
 TTErr OpReset(OpPtr self, long vectorSize)
 {
-	return self->multicoreObject->reset();
+	return self->multicoreObject->resetAudio();
 }
 
 
@@ -114,9 +113,9 @@ TTErr OpSetup(OpPtr self)
 }
 
 
-TTErr OpConnect(OpPtr self, TTMulticoreObjectPtr audioSourceObject, TTPtrSizedInt sourceOutletNumber)
+TTErr OpConnect(OpPtr self, TTAudioGraphObjectPtr audioSourceObject, TTPtrSizedInt sourceOutletNumber)
 {
-	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
+	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }
 
 
@@ -125,13 +124,13 @@ TTErr OpConnect(OpPtr self, TTMulticoreObjectPtr audioSourceObject, TTPtrSizedIn
 void OpSetOperator(OpPtr self, SymbolPtr value)
 {
 	self->attrOperator = value;
-	self->multicoreObject->mUnitGenerator->setAttributeValue(TT("operator"), TT(self->attrOperator->s_name));
+	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Operator"), TT(self->attrOperator->s_name));
 }
 
 
 void OpSetOperand(OpPtr self, t_floatarg value)
 {
 	self->attrOperand = value;
-	self->multicoreObject->mUnitGenerator->setAttributeValue(TT("operand"), self->attrOperand);
+	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Operand"), self->attrOperand);
 }
 

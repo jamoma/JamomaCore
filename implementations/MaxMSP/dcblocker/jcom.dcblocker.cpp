@@ -1,19 +1,19 @@
 /* 
  *	dcblocker≈
- *	DC-Blocking Filter object for Jamoma Multicore
+ *	DC-Blocking Filter object for Jamoma AudioGraph
  *	Copyright © 2008 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxAudioGraph.h"
 
 
 // Data Structure for this object
 typedef struct DCBlocker {
     t_object				obj;
-	TTMulticoreObjectPtr	multicoreObject;
+	TTAudioGraphObjectPtr	multicoreObject;
 	TTPtr					multicoreOutlet;
 	long					attrBypass;
 };
@@ -27,7 +27,7 @@ void			DCBlockerAssist(DCBlockerPtr self, void* b, long msg, long arg, char* dst
 void			DCBlockerClear(DCBlockerPtr self);
 TTErr			DCBlockerReset(DCBlockerPtr self);
 TTErr			DCBlockerSetup(DCBlockerPtr self);
-TTErr			DCBlockerConnect(DCBlockerPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr			DCBlockerConnect(DCBlockerPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber);
 MaxErr			DCBlockerSetBypass(DCBlockerPtr self, void* attr, AtomCount argc, AtomPtr argv);
 
 
@@ -42,7 +42,7 @@ int main(void)
 {
 	ClassPtr c;
 	
-	TTMulticoreInit();	
+	TTAudioGraphInit();	
 	common_symbols_init();
 	
 	c = class_new("jcom.dcblocker≈", (method)DCBlockerNew, (method)DCBlockerFree, sizeof(DCBlocker), (method)0L, A_GIMME, 0);
@@ -51,7 +51,9 @@ int main(void)
 	class_addmethod(c, (method)DCBlockerReset,		"multicore.reset",		A_CANT, 0);
 	class_addmethod(c, (method)DCBlockerSetup,		"multicore.setup",		A_CANT, 0);
 	class_addmethod(c, (method)DCBlockerConnect,	"multicore.connect",	A_OBJ, A_LONG, 0);
- 	class_addmethod(c, (method)DCBlockerAssist,		"assist",				A_CANT, 0); 
+ 	class_addmethod(c, (method)MaxAudioGraphDrop,	"multicore.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,	"multicore.object",		A_CANT, 0);
+	class_addmethod(c, (method)DCBlockerAssist,		"assist",				A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
 	
 	CLASS_ATTR_LONG(c,		"bypass",	0,		DCBlocker,	attrBypass);
@@ -85,8 +87,8 @@ DCBlockerPtr DCBlockerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.set(1, 1.);
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 
-		if (!self->multicoreObject->mUnitGenerator) {
-			object_error(SELF, "cannot load TTBlue object");
+		if (!self->multicoreObject->getUnitGenerator()) {
+			object_error(SELF, "cannot load JamomaDSP object");
 			return NULL;
 		}
 		
@@ -122,7 +124,7 @@ void DCBlockerAssist(DCBlockerPtr self, void* b, long msg, long arg, char* dst)
 
 void DCBlockerClear(DCBlockerPtr self)
 {
-	self->multicoreObject->mUnitGenerator->sendMessage(TT("clear"));
+	self->multicoreObject->getUnitGenerator()->sendMessage(TT("Clear"));
 }
 
 
@@ -130,7 +132,7 @@ void DCBlockerClear(DCBlockerPtr self)
 
 TTErr DCBlockerReset(DCBlockerPtr self)
 {
-	return self->multicoreObject->reset();
+	return self->multicoreObject->resetAudio();
 }
 
 
@@ -145,9 +147,9 @@ TTErr DCBlockerSetup(DCBlockerPtr self)
 }
 
 
-TTErr DCBlockerConnect(DCBlockerPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
+TTErr DCBlockerConnect(DCBlockerPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
+	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }
 
 
@@ -157,7 +159,7 @@ MaxErr DCBlockerSetBypass(DCBlockerPtr self, void* attr, AtomCount argc, AtomPtr
 {
 	if (argc) {
 		self->attrBypass = atom_getlong(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(kTTSym_bypass, (TTBoolean)self->attrBypass);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Bypass"), (TTBoolean)self->attrBypass);
 	}
 	return MAX_ERR_NONE;
 }

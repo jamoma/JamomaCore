@@ -1,25 +1,27 @@
 /* 
  *	out≈
- *	External object for Pd to output TTAudioSignals from a Jamoma Multicore dsp chain.
+ *	External object for Pd to output TTAudioSignals from a Jamoma AudioGraph dsp chain.
  *	Copyright © 2010 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "PureMulticore.h"
+#include "PureAudioGraph.h"
 
 
 // Data Structure for this object
 struct Out {
-    Object					obj;
-	t_float					f;					// dummy for signal in first inlet
-	TTMulticoreObjectPtr	multicoreObject;
-	TTAudioSignalPtr		audioSignal;
-	TTUInt16				maxNumChannels;		// the number of inlets or outlets, which is an argument at instantiation
-	TTUInt16				numChannels;		// the actual number of channels to use, set by the dsp method
-	TTUInt16				vectorSize;			// cached by the DSP method
-	TTFloat32				gain;				// gain multiplier
+    Object						obj;
+	t_float						f;					// dummy for signal in first inlet
+	TTAudioGraphObjectPtr		multicoreObject;
+	TTAudioSignalPtr			audioSignal;
+	TTUInt16					maxNumChannels;		// the number of inlets or outlets, which is an argument at instantiation
+	TTUInt16					numChannels;		// the actual number of channels to use, set by the dsp method
+	TTUInt16					vectorSize;			// cached by the DSP method
+	TTFloat32					gain;				// gain multiplier
+	TTAudioGraphPreprocessData	initData;			// for the preprocess method
+	t_canvas*					canvas;
 };
 typedef Out* OutPtr;
 
@@ -29,7 +31,7 @@ extern "C" void setup_jcom_unpack0x3d(void);
 OutPtr	OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void	OutFree(OutPtr self);
 TTErr	OutReset(OutPtr self, long vectorSize);
-TTErr	OutConnect(OutPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr	OutConnect(OutPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber);
 t_int*	OutPerform(t_int* w);
 void	OutDsp(OutPtr self, t_signal** sp, short* count);
 void	OutSetGain(OutPtr self, t_floatarg value);
@@ -37,7 +39,6 @@ void	OutSetGain(OutPtr self, t_floatarg value);
 
 // Globals
 static ClassPtr		sOutClass;
-static t_linklist*	sInstances;		// TODO: use this information to run each graph from which we pull in its own thread
 
 
 /************************************************************************************/
@@ -45,7 +46,7 @@ static t_linklist*	sInstances;		// TODO: use this information to run each graph 
 
 void setup_jcom_unpack0x3d(void)
 {
-	TTMulticoreInit();	
+	TTAudioGraphInit();	
 
 	sOutClass = class_new(gensym("jcom_unpack="), (t_newmethod)OutNew, (t_method)OutFree, sizeof(Out), 0, A_GIMME, 0);
 	
@@ -76,20 +77,19 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		if(argc && argv)
 			self->maxNumChannels = atom_getfloat(argv)+0.1;
 
-		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
+		ttEnvironment->setAttributeValue(kTTSym_SampleRate, sr);
 		
 		v.setSize(2);
 		v.set(0, TT("gain"));
 		v.set(1, 1); // arg is the number of inlets
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 		
-		//object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));	// dumpout	
-	    //dsp_setup((t_pxobject*)self, 1);
 		for(i=0; i < self->maxNumChannels; i++)
 			outlet_new(SELF, gensym("signal"));
 		
 		//self->obj.z_misc = Z_NO_INPLACE | Z_PUT_LAST;
-		sInstances->append(self);
+		
+		self->canvas = canvas_getcurrent();
 	}
 	return self;
 }
@@ -97,7 +97,6 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void OutFree(OutPtr self)
 {
-	sInstances->pop(self);
 	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
 }
 
@@ -107,13 +106,13 @@ void OutFree(OutPtr self)
 
 TTErr OutReset(OutPtr self, long vectorSize)
 {
-	return self->multicoreObject->reset();
+	return self->multicoreObject->resetAudio();
 }
 
 
-TTErr OutConnect(OutPtr self, TTMulticoreObjectPtr audioSourceObject, long sourceOutletNumber)
+TTErr OutConnect(OutPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber);
+	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }
 
 
@@ -123,11 +122,11 @@ t_int* OutPerform(t_int* w)
    	OutPtr		self = (OutPtr)(w[1]);
 	TTUInt16	numChannels;
 
-// TODO: wrap all of this in a new function that will be called in our instance's worker thread -- maybe want an attribute to turn threading on/off
-	self->multicoreObject->preprocess();
+	self->multicoreObject->lockProcessing();
+	self->multicoreObject->preprocess(self->initData);
 	self->multicoreObject->process(self->audioSignal);
-// TODO: end of worker thread, now copy the buffers as usual	
-// We need to thread-sync here though, yes?		
+	self->multicoreObject->unlockProcessing();
+
 	numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannels());
 	for(TTUInt16 channel=0; channel<numChannels; channel++)
 		self->audioSignal->getVector(channel, self->vectorSize, (TTFloat32*)w[channel+2]);
@@ -138,13 +137,12 @@ t_int* OutPerform(t_int* w)
 // DSP Method
 void OutDsp(OutPtr self, t_signal** sp, short* count)
 {
-	TTUInt16	i, k=0;
+	TTUInt16	i;
+	TTUInt16	k=0;
 	void		**audioVectors = NULL;
-	MaxErr		err;
-	ObjectPtr	patcher = NULL;
-	ObjectPtr	box = NULL;
 	ObjectPtr	o = NULL;
-	t_method	multicoreSetupMethod = NULL;
+	t_gotfn		multicoreSetupMethod = NULL;
+	t_gobj		*y;
 	
 	self->vectorSize = sp[0]->s_n;
 	
@@ -171,31 +169,46 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 		(since the order in which we traverse objects is undefined).
 	 */ 
 
-	// FIXME: How do we spam all of the objects in a patcher in Pd?
+	// traversal code lifted from line 1105+ in g_canvas.c from Pd
+	// thanks to IOhannes Zmoelnig for the reference to that code...
 	
-	err = object_obex_lookup(self, gensym("#P"), &patcher);
-	box = jpatcher_get_firstobject(patcher);
-	while (box) {
-		o = jbox_get_object(box);
-		multicoreSetupMethod = zgetfn(o, gensym("multicore.reset"));
-		if(multicoreSetupMethod)
-			err = (MaxErr)multicoreSetupMethod(o, self->vectorSize);
-		box = jbox_get_nextobject(box);
-	}
-	box = jpatcher_get_firstobject(patcher);
-	while (box) {
-		o = jbox_get_object(box);
-		multicoreSetupMethod = zgetfn(o, gensym("multicore.setup"));
-		if(multicoreSetupMethod)
-			err = (MaxErr)multicoreSetupMethod(o);
-		box = jbox_get_nextobject(box);
-	}
+	struct _glist_hack
+	{
+		t_object gl_obj;            // header in case we're a glist
+		t_gobj *gl_list;            // the actual data
+		struct _gstub *gl_stub;     // safe pointer handler 
+		int gl_valid;               // incremented when pointers might be stale
+		struct _glist *gl_owner;    // parent glist, supercanvas, or 0 if none
+	};
 	
+	y = ((_glist_hack*)self->canvas)->gl_list;
+	while (y) {
+		o = pd_checkobject(&y->g_pd);
+		if (o) {
+			multicoreSetupMethod = zgetfn(&y->g_pd, gensym("multicore.reset"));
+			if (multicoreSetupMethod) {
+				multicoreSetupMethod(o, self->vectorSize);				
+			}
+		}
+		y = y->g_next;
+	}
+		
+	y = ((_glist_hack*)self->canvas)->gl_list;
+	while (y) {
+		o = pd_checkobject(&y->g_pd);
+		if (o) {
+			multicoreSetupMethod = zgetfn(&y->g_pd, gensym("multicore.setup"));
+			if (multicoreSetupMethod)
+				multicoreSetupMethod(o);
+		}
+		y = y->g_next;
+	}
+		
 	// Setup the perform method
 	audioVectors = (void**)malloc(sizeof(void*) * (self->maxNumChannels + 1));
 	audioVectors[k] = self;
 	k++;
-	
+
 	self->numChannels = 0;
 	for (i=1; i <= self->maxNumChannels; i++) {
 		self->numChannels++;				
@@ -203,20 +216,18 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 		k++;
 	}
 	
-	self->multicoreObject->mUnitGenerator->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
 	
 	dsp_addv(OutPerform, k, (t_int*)audioVectors);
 	free(audioVectors);
 	
-	TTMulticoreInitData	initData;
-	initData.vectorSize = self->vectorSize;
-	self->multicoreObject->init(initData);
+	self->initData.vectorSize = self->vectorSize;
 }
 
 
 void OutSetGain(OutPtr self, t_floatarg value)
 {
 	self->gain = value;
-	self->multicoreObject->mUnitGenerator->setAttributeValue(TT("LinearGain"), self->gain);
+	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("LinearGain"), self->gain);
 }
 

@@ -1,19 +1,19 @@
 /* 
  *	adc≈
- *	Get input from A/D converter for Jamoma Multicore
+ *	Get input from A/D converter for Jamoma AudioGraph
  *	Copyright © 2010 by Timothy Place
  * 
  *	License: This code is licensed under the terms of the GNU LGPL
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxMulticore.h"
+#include "maxAudioGraph.h"
 
 
 // Data Structure for this object
 typedef struct Adc {
     Object					obj;
-	TTMulticoreObjectPtr	multicoreObject;
+	TTAudioGraphObjectPtr	multicoreObject;
 	TTPtr					multicoreOutlet;
 	SymbolPtr				attrMode;
 };
@@ -28,11 +28,14 @@ TTErr	AdcReset(AdcPtr self);
 TTErr	AdcSetup(AdcPtr self);
 TTErr	AdcStart(AdcPtr self);
 TTErr	AdcStop(AdcPtr self);
+void	AdcGetDeviceNames(AdcPtr self);
 // Prototypes for attribute accessors
 MaxErr	AdcSetSampleRate(AdcPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr	AdcGetSampleRate(AdcPtr self, void* attr, AtomCount* argc, AtomPtr* argv);
 MaxErr	AdcSetVectorSize(AdcPtr self, void* attr, AtomCount argc, AtomPtr argv);
 MaxErr	AdcGetVectorSize(AdcPtr self, void* attr, AtomCount* argc, AtomPtr* argv);
+MaxErr	AdcSetDevice(AdcPtr self, void* attr, AtomCount argc, AtomPtr argv);
+MaxErr	AdcGetDevice(AdcPtr self, void* attr, AtomCount* argc, AtomPtr* argv);
 
 
 // Globals
@@ -46,15 +49,18 @@ int main(void)
 {
 	ClassPtr c;
 
-	TTMulticoreInit();	
+	TTAudioGraphInit();	
 	common_symbols_init();
 
 	c = class_new("jcom.adc≈", (method)AdcNew, (method)AdcFree, sizeof(Adc), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)AdcReset,			"multicore.reset",	A_CANT, 0);
 	class_addmethod(c, (method)AdcSetup,			"multicore.setup",	A_CANT,	0);
-	class_addmethod(c, (method)AdcStart,			"start",				0);
-	class_addmethod(c, (method)AdcStop,				"stop",					0);
+	class_addmethod(c, (method)MaxAudioGraphDrop,	"multicore.drop",	A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,	"multicore.object",	A_CANT, 0);
+	class_addmethod(c, (method)AdcStart,			"start",			0);
+	class_addmethod(c, (method)AdcStop,				"stop",				0);
+	class_addmethod(c, (method)AdcGetDeviceNames,	"getAvailableDeviceNames",	0);
 	class_addmethod(c, (method)AdcAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",			A_CANT, 0);  
 
@@ -63,6 +69,9 @@ int main(void)
 	
 	CLASS_ATTR_LONG(c,		"vectorSize",	0,		Adc,	obj);
 	CLASS_ATTR_ACCESSORS(c,	"vectorSize",	AdcGetVectorSize,	AdcSetVectorSize);
+	
+	CLASS_ATTR_SYM(c,		"device",		0,		Adc,	obj);
+	CLASS_ATTR_ACCESSORS(c,	"device",		AdcGetDevice,		AdcSetDevice);
 	
 	class_register(_sym_box, c);
 	sAdcClass = c;
@@ -85,7 +94,7 @@ AdcPtr AdcNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.set(1, TTUInt32(1));
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
 
-		self->multicoreObject->addFlag(kTTMulticoreGenerator);
+		self->multicoreObject->addAudioFlag(kTTAudioGraphGenerator);
 
 		attr_args_process(self, argc, argv);
     	object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));
@@ -120,7 +129,7 @@ void AdcAssist(AdcPtr self, void* b, long msg, long arg, char* dst)
 
 TTErr AdcReset(AdcPtr self)
 {
-	return self->multicoreObject->reset();
+	return self->multicoreObject->resetAudio();
 }
 
 
@@ -137,13 +146,36 @@ TTErr AdcSetup(AdcPtr self)
 
 TTErr AdcStart(AdcPtr self)
 {
-	return self->multicoreObject->mUnitGenerator->sendMessage(TT("start"));
+	return self->multicoreObject->getUnitGenerator()->sendMessage(TT("Start"));
 }
 
 
 TTErr AdcStop(AdcPtr self)
 {	
-	return self->multicoreObject->mUnitGenerator->sendMessage(TT("stop"));
+	return self->multicoreObject->getUnitGenerator()->sendMessage(TT("Stop"));
+}
+
+
+void AdcGetDeviceNames(AdcPtr self)
+{
+	TTValue		v;
+	TTErr		err;
+	AtomCount	ac;
+	AtomPtr		ap;
+	TTSymbolPtr	name;
+	
+	err = self->multicoreObject->getUnitGenerator()->sendMessage(TT("GetAvailableDeviceNames"), v);
+	if (!err) {
+		ac = v.getSize();
+		ap = new Atom[ac];
+		
+		for (AtomCount i=0; i<ac; i++) {
+			v.get(i, &name);
+			atom_setsym(ap+i, gensym((char*)name->getCString()));
+		}
+		object_obex_dumpout(self, gensym("getAvailableDeviceNames"), ac, ap);
+		delete ap;
+	}
 }
 
 
@@ -151,7 +183,7 @@ MaxErr AdcSetSampleRate(AdcPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 sr = atom_getlong(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("sampleRate"), sr);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sr);
 	}
 	return MAX_ERR_NONE;
 }
@@ -160,7 +192,7 @@ MaxErr AdcGetSampleRate(AdcPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long sr;
 	
-	self->multicoreObject->mUnitGenerator->getAttributeValue(TT("sampleRate"), sr);
+	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("SampleRate"), sr);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
@@ -174,7 +206,7 @@ MaxErr AdcSetVectorSize(AdcPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 vs = atom_getlong(argv);
-		self->multicoreObject->mUnitGenerator->setAttributeValue(TT("vectorSize"), vs);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("VectorSize"), vs);
 	}
 	return MAX_ERR_NONE;
 }
@@ -183,7 +215,7 @@ MaxErr AdcGetVectorSize(AdcPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long vs;
 	
-	self->multicoreObject->mUnitGenerator->getAttributeValue(TT("vectorSize"), vs);
+	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("VectorSize"), vs);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
@@ -193,3 +225,28 @@ MaxErr AdcGetVectorSize(AdcPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 }
 
 
+MaxErr AdcSetDevice(AdcPtr self, void* attr, AtomCount argc, AtomPtr argv)
+{
+	if (argc) {
+		SymbolPtr s = atom_getsym(argv);
+		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Device"), TT(s->s_name));
+	}
+	return MAX_ERR_NONE;
+}
+
+MaxErr AdcGetDevice(AdcPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
+{
+	TTValue		v;
+	TTSymbolPtr	s;
+	
+	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("Device"), v);
+	v.get(0, &s);
+	if (!s)
+		return MAX_ERR_GENERIC;
+	
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, gensym((char*)s->getCString()));
+	return MAX_ERR_NONE;
+}
