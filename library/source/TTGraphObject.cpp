@@ -109,11 +109,11 @@ TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 	TTMessagePtr	message = NULL;
 	
 	// If an object defines a 'dictionary' message then this trumps all the others
-	err = mKernel->findMessage(TT("dictionary"), &message);
+	err = mKernel->findMessage(TT("Dictionary"), &message);
 	if (!err && message) {
 		(*mDictionary) = aDictionary;
 		v.set(0, TTPtr(mDictionary));
-		err = mKernel->sendMessage(TT("dictionary"), v);
+		err = mKernel->sendMessage(TT("Dictionary"), v);
 	}
 	else if (schema == TT("number")) {
 		aDictionary.getValue(v);
