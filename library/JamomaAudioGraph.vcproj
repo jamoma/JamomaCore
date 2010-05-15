@@ -46,7 +46,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)includes\units&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)source\units&quot;;&quot;$(ProjectDir)portaudio\include&quot;;&quot;$(ProjectDir)..\..\DSP\library\portaudio\include&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\Graph\library\includes&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTMULTICORE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTAUDIOGRAPH_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -132,7 +132,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)includes\units&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)source\units&quot;;&quot;$(ProjectDir)portaudio\include&quot;;&quot;$(ProjectDir)..\..\DSP\library\portaudio\include&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\Graph\library\includes&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTMULTICORE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTAUDIOGRAPH_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
@@ -198,39 +198,43 @@
 			Name="includes"
 			>
 			<File
-				RelativePath=".\includes\TTMulticore.h"
+				RelativePath=".\includes\TTAudioGraph.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTMulticoreAPI.h"
+				RelativePath=".\includes\TTAudioGraphAPI.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTMulticoreDescription.h"
+				RelativePath=".\includes\TTAudioGraphDescription.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTMulticoreGenerator.h"
+				RelativePath=".\includes\TTAudioGraphGenerator.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTMulticoreInlet.h"
+				RelativePath=".\includes\TTAudioGraphInlet.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTMulticoreInput.h"
+				RelativePath=".\includes\TTAudioGraphInput.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTMulticoreObject.h"
+				RelativePath=".\includes\TTAudioGraphObject.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTMulticoreOutlet.h"
+				RelativePath=".\includes\TTAudioGraphOutlet.h"
 				>
 			</File>
 			<File
-				RelativePath=".\includes\TTMulticoreOutput.h"
+				RelativePath=".\includes\TTAudioGraphOutput.h"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\TTAudioGraphSource.h"
 				>
 			</File>
 		</Filter>
