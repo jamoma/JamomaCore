@@ -11,7 +11,7 @@
 #define __TTMULTICORE_DESCRIPTION_H__
 
 #include "TTAudioGraph.h"
-
+#include "TTGraphDescription.h"
 
 /******************************************************************************************/
 
