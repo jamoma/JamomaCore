@@ -15,7 +15,7 @@
 
 #ifdef TT_PLATFORM_WIN
 	#include "windows.h"
-	#ifdef _DLL_EXPORT
+	#if defined( _DLL_EXPORT ) && defined( TTAUDIOGRAPH_EXPORTS )
 		#define TTMULTICORE_EXPORT __declspec(dllexport)
 	#else
 		#define TTMULTICORE_EXPORT __declspec(dllimport)
