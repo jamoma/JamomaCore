@@ -11,7 +11,11 @@
 #define __TTGRAPH_DESTINATION_H__
 
 #include "TTGraph.h"
-#include "TTGraphObject.h"
+//#include "TTGraphObject.h"
+#include "TTGraphOutlet.h"
+
+class TTGraphOutlet;
+typedef TTGraphOutlet*					TTGraphOutletPtr;
 
 
 /******************************************************************************************/

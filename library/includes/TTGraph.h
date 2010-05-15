@@ -53,17 +53,11 @@ typedef TTGraphObject*					TTGraphObjectPtr;
 typedef vector<TTGraphObjectPtr>		TTGraphObjectVector;
 typedef TTGraphObjectVector::iterator	TTGraphObjectIter;
 
-class	TTGraphInlet;
-typedef TTGraphInlet*					TTGraphInletPtr;
-typedef vector<TTGraphInlet>			TTGraphInletVector;
-typedef TTGraphInletVector::iterator	TTGraphInletIter;
+//#include "TTGraphInlet.h"
+//#include "TTGraphOutlet.h"
+//class	TTGraphOutlet;
 
-class	TTGraphOutlet;
-typedef TTGraphOutlet*					TTGraphOutletPtr;
-typedef vector<TTGraphOutlet>			TTGraphOutletVector;
-typedef TTGraphOutletVector::iterator	TTGraphOutletIter;
-
-#include "TTGraphDescription.h"
+//#include "TTGraphDescription.h"
 
 /******************************************************************************************/
 

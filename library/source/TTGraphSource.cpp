@@ -10,7 +10,7 @@
 #include "TTGraphSource.h"
 #include "TTGraphInlet.h"
 #include "TTCallback.h"
-
+#include "TTGraphObject.h"
 
 // C Callback from any Multicore Source objects we are observing
 void TTGraphSourceObserverCallback(TTGraphSourcePtr self, TTValue& arg)
@@ -53,6 +53,12 @@ void TTGraphSource::create()
 	
 	mCallbackHandler->setAttributeValue(TT("Function"), TTPtr(&TTGraphSourceObserverCallback));
 	mCallbackHandler->setAttributeValue(TT("Baton"), TTPtr(this));	
+}
+
+
+void TTGraphSource::getDescription(TTGraphDescription& desc)
+{
+	mSourceObject->getDescription(desc);
 }
 
 

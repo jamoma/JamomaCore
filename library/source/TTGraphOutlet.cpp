@@ -8,17 +8,7 @@
  */
 
 #include "TTGraphObject.h"
-#include "TTGraphInlet.h"
+#include "TTGraphOutlet.h"
 #include "TTCallback.h"
 
-
-void TTGraphInlet::getDescriptions(TTGraphDescriptionVector& descs)
-{
-	for (TTGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
-		TTGraphDescription	desc;
-		
-		source->getDescription(desc);
-		descs.push_back(desc);
-	}
-}
 

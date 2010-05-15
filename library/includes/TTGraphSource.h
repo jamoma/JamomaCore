@@ -11,8 +11,11 @@
 #define __TTGRAPH_SOURCE_H__
 
 #include "TTGraph.h"
-#include "TTGraphObject.h"
+//#include "TTGraphObject.h"
 
+class TTGraphInlet;
+typedef TTGraphInlet*					TTGraphInletPtr;
+class TTGraphDescription;
 
 /******************************************************************************************/
 
@@ -103,10 +106,7 @@ public:
 	
 	// Info Methods
 	
-	void getDescription(TTGraphDescription& desc)
-	{
-		mSourceObject->getDescription(desc);
-	}
+	void getDescription(TTGraphDescription& desc);
 	
 	// Graph Methods
 	

@@ -10,6 +10,7 @@
 #include "TTGraphOutlet.h"
 #include "TTCallback.h"
 #include "TTGraphDestination.h"
+#include "TTGraphObject.h"
 
 
 // C Callback from any Multicore Source objects we are observing

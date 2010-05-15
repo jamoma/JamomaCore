@@ -11,7 +11,7 @@
 #define __TTGRAPH_OUTLET_H__
 
 #include "TTGraph.h"
-#include "TTGraphObject.h"
+//#include "TTGraphObject.h"
 #include "TTGraphDestination.h"
 
 
@@ -91,5 +91,8 @@ public:
 	
 };
 
+typedef TTGraphOutlet*					TTGraphOutletPtr;
+typedef vector<TTGraphOutlet>			TTGraphOutletVector;
+typedef TTGraphOutletVector::iterator	TTGraphOutletIter;
 
 #endif // __TTGRAPH_OUTLET_H__
