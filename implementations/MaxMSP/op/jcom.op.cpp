@@ -55,9 +55,9 @@ int main(void)
 	class_addmethod(c, (method)OpConnectAudio,		"multicore.connect",	A_OBJ, A_LONG, 0);
 	class_addmethod(c, (method)MaxAudioGraphDrop,	"multicore.drop",		A_CANT, 0);
 	class_addmethod(c, (method)MaxAudioGraphObject,	"multicore.object",		A_CANT, 0);
-	class_addmethod(c, (method)MaxGraphReset,		"graph.reset",			A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphReset,	"graph.reset",			A_CANT, 0);
 	//class_addmethod(c, (method)OpSetup,			"graph.setup",			A_CANT, 0); // no setup -- no graph outlets
-	class_addmethod(c, (method)MaxGraphConnect,		"graph.connect",		A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)MaxAudioGraphConnect,"graph.connect",		A_OBJ, A_LONG, 0);
  	class_addmethod(c, (method)MaxAudioGraphDrop,	"graph.drop",			A_CANT, 0);
 	class_addmethod(c, (method)MaxAudioGraphObject,	"graph.object",			A_CANT, 0);
 	class_addmethod(c, (method)OpAssist,			"assist",				A_CANT, 0); 

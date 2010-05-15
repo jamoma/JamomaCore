@@ -101,8 +101,9 @@ void MaxAudioGraphWrappedClass_free(WrappedInstancePtr self)
 
 // METHODS SPECIFIC TO MULTICORE EXTERNALS
 
-TTErr MaxAudioGraphReset(WrappedInstancePtr self, long vectorSize)
+TTErr MaxAudioGraphReset(ObjectPtr x, long vectorSize)
 {
+	WrappedInstancePtr self = (WrappedInstancePtr)x;
 	return self->multicoreObject->resetAudio();
 }
 

@@ -107,6 +107,9 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttblueClassName, char* maxClassName, MaxAu
 TTErr MaxAudioGraphDrop(ObjectPtr self, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber);
 TTErr MaxAudioGraphObject(ObjectPtr self, TTAudioGraphObjectPtr* returnedAudioGraphObject);
 
+TTErr MaxAudioGraphConnect(ObjectPtr x, TTAudioGraphObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber);
+TTErr MaxAudioGraphReset(ObjectPtr x, long vectorSize);
+
 
 #endif // __TT_MAX_MULTICORE_H__
 
