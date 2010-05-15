@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="JamomaMulticore"
+	Name="JamomaAudioGraph"
 	ProjectGUID="{34630069-834D-46BA-83CF-3DB7F1A9665F}"
 	RootNamespace="TTBlue"
 	Keyword="Win32Proj"
@@ -26,11 +26,11 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Delete old DLL from Max&apos;s support folder."
-				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaMulticore.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaMulticore.dll&quot;"
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaAudioGraph.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\AudioGraph.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\JamomaMulticore.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaMulticore.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\JamomaAudioGraph.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaAudioGraph.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="none"
 			/>
 			<Tool
@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)includes\units&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)source\units&quot;;&quot;$(ProjectDir)portaudio\include&quot;;&quot;$(ProjectDir)..\..\DSP\library\portaudio\include&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)includes\units&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)source\units&quot;;&quot;$(ProjectDir)portaudio\include&quot;;&quot;$(ProjectDir)..\..\DSP\library\portaudio\include&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\Graph\library\includes&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTMULTICORE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
@@ -68,9 +68,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib"
+				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib JamomaGraph.lib"
 				ShowProgress="0"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)portaudio\Debug&quot;;&quot;$(ProjectDir)..\..\Foundation\library\Debug&quot;;&quot;$(ProjectDir)..\..\DSP\library\Debug&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)portaudio\Debug&quot;;&quot;$(ProjectDir)..\..\Foundation\library\Debug&quot;;&quot;$(ProjectDir)..\..\DSP\library\Debug&quot;;&quot;$(ProjectDir)..\..\Graph\library\Debug&quot;"
 				GenerateManifest="false"
 				DelayLoadDLLs=""
 				GenerateDebugInformation="true"
@@ -99,8 +99,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy JamomaMulticore.dll to the Max 5 install."
-				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\JamomaMulticore.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\JamomaMulticore.dll&quot;"
+				Description="Copy JamomaAudioGraph.dll to the Max 5 install."
+				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\JamomaAudioGraph.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\JamomaAudioGraph.dll&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -112,11 +112,11 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Delete old DLL from Max&apos;s support folder."
-				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaMulticore.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaMulticore.dll&quot;"
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaAudioGraph.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\AudioGraph.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\JamomaMulticore.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaMulticore.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\JamomaAudioGraph.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaAudioGraph.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="AAA"
 			/>
 			<Tool
@@ -131,7 +131,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)includes\units&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)source\units&quot;;&quot;$(ProjectDir)portaudio\include&quot;;&quot;$(ProjectDir)..\..\DSP\library\portaudio\include&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)includes\units&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)source\units&quot;;&quot;$(ProjectDir)portaudio\include&quot;;&quot;$(ProjectDir)..\..\DSP\library\portaudio\include&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;;&quot;$(ProjectDir)..\..\Graph\library\includes&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTMULTICORE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
@@ -153,9 +153,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib"
+				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib JamomaGraph.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)portaudio\Release&quot;;&quot;$(ProjectDir)..\..\Foundation\library\Release&quot;;&quot;$(ProjectDir)..\..\DSP\library\Release&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)portaudio\Release&quot;;&quot;$(ProjectDir)..\..\Foundation\library\Release&quot;;&quot;$(ProjectDir)..\..\DSP\library\Release&quot;;&quot;$(ProjectDir)..\..\Graph\library\Release&quot;"
 				GenerateManifest="false"
 				DelayLoadDLLs=""
 				GenerateDebugInformation="true"
@@ -186,8 +186,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy JamomaMulticore.dll to the Max 5 install."
-				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\JamomaMulticore.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\JamomaMulticore.dll&quot;"
+				Description="Copy JamomaAudioGraph.dll to the Max 5 install."
+				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\JamomaAudioGraph.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\JamomaAudioGraph.dll&quot;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -238,31 +238,31 @@
 			Name="source"
 			>
 			<File
-				RelativePath=".\source\TTMulticore.cpp"
+				RelativePath=".\source\TTAudioGraph.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\TTMulticoreDescription.cpp"
+				RelativePath=".\source\TTAudioGraphDescription.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\TTMulticoreGenerator.cpp"
+				RelativePath=".\source\TTAudioGraphGenerator.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\TTMulticoreInlet.cpp"
+				RelativePath=".\source\TTAudioGraphInput.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\TTMulticoreInput.cpp"
+				RelativePath=".\source\TTAudioGraphObject.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\TTMulticoreObject.cpp"
+				RelativePath=".\source\TTAudioGraphOutput.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\TTMulticoreOutput.cpp"
+				RelativePath=".\source\TTAudioGraphSource.cpp"
 				>
 			</File>
 		</Filter>
