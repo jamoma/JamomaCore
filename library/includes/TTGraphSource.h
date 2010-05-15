@@ -21,7 +21,7 @@ class TTGraphDescription;
 
 // NOTE: we don't need to keep a buffer of our own, be we just mirror the buffer of mSourceObject
 
-class TTGraphSource {
+class TTGRAPH_EXPORT TTGraphSource {
 	friend void TTGraphSourceObserverCallback(TTGraphSource* self, TTValue& arg);
 	
 	TTGraphObjectPtr	mSourceObject;		// the object from which we pull samples

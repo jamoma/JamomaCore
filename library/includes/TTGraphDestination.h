@@ -22,7 +22,7 @@ typedef TTGraphOutlet*					TTGraphOutletPtr;
 
 // NOTE: we don't need to keep a buffer of our own, be we just mirror the buffer of mSourceObject
 
-class TTGraphDestination {
+class TTGRAPH_EXPORT TTGraphDestination {
 	friend void TTGraphDestinationObserverCallback(TTGraphDestination* self, TTValue& arg);
 	
 	TTGraphObjectPtr	mDestinationObject;	// the object from which we pull samples

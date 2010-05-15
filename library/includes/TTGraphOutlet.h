@@ -20,7 +20,7 @@
 /**	This object represents a single 'outlet' from a TTGraphObject.
 	TTGraphObject maintains a vector of these outlets.
 */
-class TTGraphOutlet {
+class TTGRAPH_EXPORT TTGraphOutlet {
 	TTGraphDestinationVector	mDestinationObjects;
 	
 public:
