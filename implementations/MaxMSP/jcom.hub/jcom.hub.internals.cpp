@@ -44,7 +44,7 @@ class hubInternalObject {
 	
 	void setAction(method aCallback, t_object *aCallbackArg)
 	{
-		if(theObject)
+		if (theObject)
 			object_method(theObject, gensym("setcallback"), aCallback, aCallbackArg);
 	}
 	
@@ -144,13 +144,13 @@ void hub_internals_destroy(t_hub *x)
 	t_max_err			err;
 	
 	hashtab_getkeys(x->hash_internals, &numKeys, &keys);
-	for(i=0; i<numKeys; i++){
+	for (i=0; i<numKeys; i++) {
 		err = hashtab_lookup(x->hash_internals, keys[i], (t_object**)&anObject);
-		if(!err)
+		if (!err)
 			delete anObject;
 	}
 	
-	if(keys)
+	if (keys)
 		sysmem_freeptr(keys);
 		
 	hashtab_chuck(x->hash_internals);
@@ -163,8 +163,8 @@ void hub_internals_dispatch(t_hub *x, t_symbol *osc_name, long argc, t_atom *arg
 	t_max_err			err;
 	
 	err = hashtab_lookup(x->hash_internals, osc_name, (t_object**)&theObject);
-	if(!err){
-		if(theObject->action)
+	if (!err) {
+		if (theObject->action)
 			theObject->action(x, osc_name, argc, argv);
 	}
 }

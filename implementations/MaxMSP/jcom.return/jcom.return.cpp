@@ -69,7 +69,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	
 	jamoma_getDataspaceList(&numDataspaces, &dataspaceNames);
 	dataspaces[0] = 0;
-	for(i=0; i<numDataspaces; i++)
+	for (i=0; i<numDataspaces; i++)
 	{
 		strcat(dataspaces, dataspaceNames[i]->s_name);
 		strcat(dataspaces, " ");
@@ -123,17 +123,17 @@ void *return_new(t_symbol *s, long argc, t_atom *argv)
 	t_symbol*	name = _sym_nothing;
 	ObjectPtr	patcher = NULL;
 
-	if(attrstart && argv)
+	if (attrstart && argv)
 		atom_arg_getsym(&name, 0, attrstart, argv);
 	else
 		name = symbol_unique();
 
 	// for instances buried inside of another object:
 	// we pass a second argument which is a pointer to the patcher
-	if(attrstart>1 && argv)
+	if (attrstart>1 && argv)
 		patcher = ObjectPtr(atom_getobj(argv+1));
 
-	if(x){
+	if (x) {
 		x->outlets[k_outlet_dumpout] = outlet_new(x, 0L);
 		object_obex_store((void *)x, _sym_dumpout, (t_object *)x->outlets[k_outlet_dumpout]);
 		x->outlets[k_outlet_thru] = outlet_new(x, 0L);
@@ -145,7 +145,7 @@ void *return_new(t_symbol *s, long argc, t_atom *argv)
 		x->attrDataspace = jps_none;
 		x->attrUnitNative = jps_none;
 		
-		if(patcher)
+		if (patcher)
 			x->common.container = patcher;
 		
 		attr_args_process(x, argc, argv);
@@ -162,7 +162,7 @@ void return_makesend(t_return *x)
 	char		osc[512];
 	t_symbol*	module_name = object_attr_getsym(x->common.hub, _sym_name);
 
-	if(module_name && module_name != _sym_nothing){
+	if (module_name && module_name != _sym_nothing) {
 		strcpy(osc, module_name->s_name);
 		strcat(osc, "/");
 		strcat(osc, x->common.attr_name->s_name);
@@ -177,7 +177,7 @@ void return_makesend(t_return *x)
 void return_free(t_return *x)
 {
 	jcom_core_subscriber_common_free((t_jcom_core_subscriber_common*)x);
-	if(x->send)
+	if (x->send)
 		object_free(x->send);
 }
 
@@ -188,10 +188,10 @@ void return_free(t_return *x)
 // Method for Assistance Messages
 void return_assist(t_return *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 						// Inlet
+	if (msg==1) 						// Inlet
 		strcpy(dst, "data to return via jcom.hub");
-	else{							// Outlets
-		switch(arg){
+	else {							// Outlets
+		switch(arg) {
 			case k_outlet_dumpout:
 					strcpy(dst, "dumpout");
 					break;
@@ -211,7 +211,7 @@ void return_dump(t_return *x)
 	char	s[256];
 	t_atom	a[4];
 	
-	if(x->common.hub != NULL){
+	if (x->common.hub != NULL) {
 
 		snprintf(s, 256, "%s:/description", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
@@ -276,7 +276,7 @@ t_max_err return_attr_gettype(t_return *x, void *attr, long *argc, t_atom **argv
 
 t_max_err return_attr_settype(t_return *x, void *attr, long argc, t_atom *argv)
 {
-	if(argc && argv)
+	if (argc && argv)
 		x->common.attr_type = atom_getsym(argv);
 	return MAX_ERR_NONE;
 }
@@ -284,24 +284,24 @@ t_max_err return_attr_settype(t_return *x, void *attr, long argc, t_atom *argv)
 // Return values to the hub (so it can return them to the outside world)
 void return_send_feedback(t_return *x)
 {
-	if(x->common.hub != NULL){
-		if(x->common.has_wildcard)
+	if (x->common.hub != NULL) {
+		if (x->common.has_wildcard)
 			object_method_typed(x->common.hub, jps_return_extended, x->output_len, x->output, NULL);
 		else
 			object_method_typed(x->common.hub, jps_return, x->output_len, x->output, NULL);
 	}
 	
-	if(x->send){
-		if(x->output_len > 2){
-			if(x->output[1].a_type == A_FLOAT || x->output[1].a_type == A_LONG)
+	if (x->send) {
+		if (x->output_len > 2) {
+			if (x->output[1].a_type == A_FLOAT || x->output[1].a_type == A_LONG)
 				object_method_typed(x->send, _sym_list, x->output_len-1, x->output+1, NULL);		
 			else
 				object_method_typed(x->send, atom_getsym(x->output), x->output_len-1, x->output+1, NULL);
 		}
-		else if(x->output_len > 1){
-			if(x->output[1].a_type == A_FLOAT)
+		else if (x->output_len > 1) {
+			if (x->output[1].a_type == A_FLOAT)
 				object_method_typed(x->send, _sym_float, x->output_len-1, x->output+1, NULL);		
-			else if(x->output[1].a_type == A_LONG)
+			else if (x->output[1].a_type == A_LONG)
 				object_method_typed(x->send, _sym_int, x->output_len-1, x->output+1, NULL);		
 			else
 				object_method_typed(x->send, atom_getsym(x->output), 0, NULL, NULL);
@@ -316,11 +316,11 @@ void return_send_feedback(t_return *x)
 // BANG INPUT - this sends the OSC name with no additional arguments
 void return_bang(t_return *x)
 {
-	if(!x->attrEnable)
+	if (!x->attrEnable)
 		return;
 
 	x->output_len = 1;
-	if(x->common.hub != NULL)
+	if (x->common.hub != NULL)
 		object_method_typed(x->common.hub, jps_return, x->output_len, x->output, NULL);
 	
 	outlet_anything(x->outlets[k_outlet_thru], x->common.attr_name, 0, NULL);
@@ -330,22 +330,22 @@ void return_bang(t_return *x)
 // INT INPUT
 void return_int(t_return *x, long value)
 {
-	if(!x->attrEnable)
+	if (!x->attrEnable)
 		return;
-	if(x->common.attr_repetitions == 0){
-		if(value == atom_getlong(&x->output[1]))
+	if (x->common.attr_repetitions == 0) {
+		if (value == atom_getlong(&x->output[1]))
 			return;
 	}
-	if(x->common.attr_clipmode != _sym_none){
-		if(x->common.attr_clipmode == jps_both)
+	if (x->common.attr_clipmode != _sym_none) {
+		if (x->common.attr_clipmode == jps_both)
 			value = TTClip<TTInt32>(value, x->common.attr_range[0], x->common.attr_range[1]);
-		else if(x->common.attr_clipmode == jps_low)
+		else if (x->common.attr_clipmode == jps_low)
 			value = TTLimitMin<TTInt32>(value, x->common.attr_range[0]);
-		else if(x->common.attr_clipmode == jps_high)
+		else if (x->common.attr_clipmode == jps_high)
 			value = TTLimitMax<TTInt32>(value, x->common.attr_range[1]);
-		else if(x->common.attr_clipmode == jps_wrap)
+		else if (x->common.attr_clipmode == jps_wrap)
 			value = TTInfWrap<TTInt32>(value,x->common.attr_range[0], x->common.attr_range[1]);
-		else if(x->common.attr_clipmode == jps_fold)
+		else if (x->common.attr_clipmode == jps_fold)
 			value = TTFold<TTInt32>(value, x->common.attr_range[0], x->common.attr_range[1]);
 	}
     
@@ -360,22 +360,22 @@ void return_int(t_return *x, long value)
 // FLOAT INPUT
 void return_float(t_return *x, double value)
 {
-	if(!x->attrEnable)
+	if (!x->attrEnable)
 		return;    
-	if(x->common.attr_repetitions == 0){
-		if(value == atom_getfloat(&x->output[1]))
+	if (x->common.attr_repetitions == 0) {
+		if (value == atom_getfloat(&x->output[1]))
 			return;
 	}
-	if(x->common.attr_clipmode != _sym_none){
-		if(x->common.attr_clipmode == jps_both)
+	if (x->common.attr_clipmode != _sym_none) {
+		if (x->common.attr_clipmode == jps_both)
 			value = TTClip<TTFloat32>(value, x->common.attr_range[0], x->common.attr_range[1]);
-		else if(x->common.attr_clipmode == jps_low)
+		else if (x->common.attr_clipmode == jps_low)
 			value = TTLimitMin<TTFloat32>(value, x->common.attr_range[0]);
-		else if(x->common.attr_clipmode == jps_high)
+		else if (x->common.attr_clipmode == jps_high)
 			value = TTLimitMax<TTFloat32>(value, x->common.attr_range[1]);
-		else if(x->common.attr_clipmode == jps_wrap)
+		else if (x->common.attr_clipmode == jps_wrap)
 			value = TTInfWrap<TTFloat32>(value, x->common.attr_range[0], x->common.attr_range[1]);
-		else if(x->common.attr_clipmode == jps_fold)
+		else if (x->common.attr_clipmode == jps_fold)
 			value = TTFold<TTFloat32>(value, x->common.attr_range[0], x->common.attr_range[1]);
 	}
 
@@ -392,16 +392,16 @@ void return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short i;
 
-	if(!x->attrEnable)
+	if (!x->attrEnable)
 		return;
-    if(x->common.attr_repetitions == 0){
-		if(msg == atom_getsym(&x->output[1]))
+    if (x->common.attr_repetitions == 0) {
+		if (msg == atom_getsym(&x->output[1]))
 			return;
 	}
 	atom_setsym(&x->output[1], msg);
 	x->output_len++;
 	
-	for(i=1; i<=argc; i++){
+	for (i=1; i<=argc; i++) {
 		jcom_core_atom_copy(&x->output[i+1], argv++);
 		x->output_len++;
 	}	
@@ -415,15 +415,15 @@ void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short i;
 	
-	if(!x->attrEnable)
+	if (!x->attrEnable)
 		return;
 	
-	if(x->common.attr_repetitions == 0){
-		if(param_list_compare(x->output+1, x->input_len, argv, argc))
+	if (x->common.attr_repetitions == 0) {
+		if (param_list_compare(x->output+1, x->input_len, argv, argc))
 			return;	// nothing to do
 	}
 			
-	for(i=1; i<=argc; i++){
+	for (i=1; i<=argc; i++) {
 		jcom_core_atom_copy(&x->output[i], argv++);
 		x->output_len++;	
 	}
@@ -436,18 +436,18 @@ void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy)
 {
 	// If lists differ in length they're obviously not the same
-	if(lengthx == lengthy) {
+	if (lengthx == lengthy) {
 		short type;
-		for(int i = 0; i < lengthx; i++) {
-			if((x->a_type) != (y->a_type))
+		for (int i = 0; i < lengthx; i++) {
+			if ((x->a_type) != (y->a_type))
 				return 0; // not identical, types differ
 			
 			type = x->a_type;
-			if((type == A_FLOAT) && (x->a_w.w_float != y->a_w.w_float))
+			if ((type == A_FLOAT) && (x->a_w.w_float != y->a_w.w_float))
 				return 0;
-			else if((type == A_LONG) && (x->a_w.w_long != y->a_w.w_long))
+			else if ((type == A_LONG) && (x->a_w.w_long != y->a_w.w_long))
 				return 0;
-			else if((type == A_SYM) && (x->a_w.w_sym != y->a_w.w_sym))
+			else if ((type == A_SYM) && (x->a_w.w_sym != y->a_w.w_sym))
 				return 0;
 			
 			x++; y++;  // keep going

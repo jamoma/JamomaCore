@@ -12,15 +12,15 @@
 
 double hls_value(double n1, double n2, double hue)
 {
-	if(hue > 360.0) 
+	if (hue > 360.0) 
 		hue -= 360.;
-	if(hue < 0.0) 
+	if (hue < 0.0) 
 		hue += 360.;
-	if(hue < 60.) 
+	if (hue < 60.) 
 		return (n1+(n2-n1)*hue/60.);
-	if(hue < 180.) 
+	if (hue < 180.) 
 		return n2;
-	if(hue < 240.) 
+	if (hue < 240.) 
 		return (n1+(n2-n1)*(240-hue)/60.);
 	return n1;
 }
@@ -79,18 +79,18 @@ void HSLUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outp
 	saturation = s/100.0;
 	lightness = l/100.0;
 
-	if(lightness <= 0.5) 
+	if (lightness <= 0.5) 
 		m2 = lightness*(1.0+saturation); 
 	else 
 		m2 = lightness+saturation-lightness*saturation;
 	
 	m1 = 2.0 * lightness-m2;
-	if(saturation == 0.0){
+	if (saturation == 0.0) {
 		red = lightness;
 		green = lightness;
 		blue = lightness;
 	} 
-	else{
+	else {
 		red = hls_value(m1, m2, hue+120.0);
 		green = hls_value(m1, m2, hue);
 		blue = hls_value(m1, m2, hue-120.0);
@@ -113,38 +113,38 @@ void HSLUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 	double	H,L,S;
 	
 	max = r;
-	if(max<g)
+	if (max<g)
 		max=g;
-	if(max<b)
+	if (max<b)
 		max=b;
 	
 	min = r;
-	if(min>g)
+	if (min>g)
 		min=g;
-	if(min>b)
+	if (min>b)
 		min=b;
 	
 	L = (max+min)/2.0;
-	if(max == min){
+	if (max == min) {
 		S = 0;
 		H = 0;
 	}
-	else{
+	else {
 		delta = max-min;
-		if(L < 0.5)
+		if (L < 0.5)
 			S = delta/(max+min);
 		else 
 			S = delta/(2.0-max-min);
-		if(r == max)
+		if (r == max)
 			H = (g-b)/delta;
-		else if(g == max)
+		else if (g == max)
 			H = 2.0+(b-r)/delta;
-		else if(b == max) 
+		else if (b == max) 
 			H = 4.0+(r-g)/delta;
 	}
 	
 	H *= 60.0; 
-	if(H < 0) 
+	if (H < 0) 
 		H += 360.0;
 	
 	hue = H;
@@ -257,15 +257,15 @@ void HSVUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 	{
 		s = delta / max;
 
-		if(r == max)
+		if (r == max)
 			h = (g-b)/delta;
-		else if(g == max)
+		else if (g == max)
 			h = 2.0+(b-r)/delta;
-		else if(b == max) 
+		else if (b == max) 
 			h = 4.0+(r-g)/delta;
 		
 		h *= 60.0; 
-		if(h < 0) 
+		if (h < 0) 
 			h += 360.0;
 	}
 

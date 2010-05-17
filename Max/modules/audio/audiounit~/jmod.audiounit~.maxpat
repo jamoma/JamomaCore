@@ -22,6 +22,78 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-5",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "view/panel" ],
+					"patching_rect" : [ 158.0, 200.0, 73.0, 19.0 ],
+					"text" : "t view/panel"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"border" : 1,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"hidden" : 1,
+					"id" : "obj-4",
+					"maxclass" : "textbutton",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
+					"patching_rect" : [ 134.0, 140.0, 67.0, 55.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 230.0, 160.0, 62.0, 44.0 ],
+					"rounded" : 8.0,
+					"text" : "more parameter",
+					"truncate" : 0,
+					"varname" : "panelButton"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"align" : 0,
+					"border" : 1,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-25",
+					"maxclass" : "textbutton",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
+					"patching_rect" : [ 570.0, 290.0, 90.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 6.0, 45.0, 38.0, 18.0 ],
+					"prototypename" : "jamoma settings",
+					"rounded" : 8.0,
+					"text" : "Write",
+					"texton" : "",
+					"varname" : "Write Preset"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-3",
+					"linecount" : 2,
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 570.0, 315.0, 622.0, 31.0 ],
+					"text" : "jcom.message au/preset/save @repetitions/allow 1 @type generic @ramp/drive none @description \"Write current settings into an AU User preset file to ~/Library/Audio/Presets\""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-40",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -92,21 +164,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 191.0, 65.0, 48.0, 21.0 ],
 					"rounded" : 8.0,
-					"text" : "view"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-21",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 555.0, 490.0, 150.0, 19.0 ],
-					"text" : "those don't have an effect "
+					"text" : "custom"
 				}
 
 			}
@@ -264,108 +322,6 @@
 			}
 , 			{
 				"box" : 				{
-					"align" : 0,
-					"border" : 1,
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-25",
-					"maxclass" : "textbutton",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 575.0, 440.0, 90.0, 20.0 ],
-					"prototypename" : "jamoma settings",
-					"rounded" : 8.0,
-					"text" : "Write Program",
-					"texton" : "recording",
-					"varname" : "Write Program"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"align" : 0,
-					"border" : 1,
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-6",
-					"maxclass" : "textbutton",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 575.0, 390.0, 90.0, 20.0 ],
-					"prototypename" : "jamoma settings",
-					"rounded" : 8.0,
-					"text" : "Write Bank",
-					"texton" : "recording",
-					"varname" : "Write Bank"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"align" : 0,
-					"border" : 1,
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-4",
-					"maxclass" : "textbutton",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "int" ],
-					"patching_rect" : [ 575.0, 340.0, 90.0, 20.0 ],
-					"prototypename" : "jamoma settings",
-					"rounded" : 8.0,
-					"text" : "Read Bank",
-					"texton" : "recording",
-					"varname" : "Read Bank"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-3",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 575.0, 465.0, 637.0, 19.0 ],
-					"text" : "jcom.message au/write/program @type generic @description \"Write current settings to an  individual effect program file.\""
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-5",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 575.0, 415.0, 575.0, 19.0 ],
-					"text" : "jcom.message au/write/bank @type generic @description \"Write current effect settings to a program bank file.\""
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-7",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 575.0, 366.0, 683.0, 19.0 ],
-					"text" : "jcom.message au/read @type generic @description \"Read a VS  file of effect programs, either in bank or individual program format.\""
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-11",
@@ -458,7 +414,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 185.0, 25.0, 59.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 185.0, 25.0, 59.0, 19.0 ],
+					"presentation_rect" : [ 195.0, 25.0, 59.0, 19.0 ],
 					"text" : "Plug-In"
 				}
 
@@ -482,14 +438,14 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-23",
-					"items" : [  ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 575.0, 140.0, 100.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 10.0, 25.0, 172.0, 19.0 ],
+					"presentation_rect" : [ 6.0, 25.0, 187.0, 19.0 ],
 					"types" : [  ]
 				}
 
@@ -518,8 +474,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 560.0, 245.0, 599.0, 31.0 ],
-					"text" : "jcom.message au/open @type string @description \"Open the plug-in's edit window. \\\"view\\\" or \\\"generic\\\" specifies what interface will be shown.\" @repetitions/allow 1"
+					"patching_rect" : [ 560.0, 245.0, 564.0, 31.0 ],
+					"text" : "jcom.message au/view @type string @description \"Open the plug-in's edit window. \\\"custom\\\" or \\\"generic\\\" specifies what interface will be shown.\" @repetitions/allow 1"
 				}
 
 			}
@@ -551,6 +507,7 @@
 						"enablehscroll" : 0,
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
+						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"comment" : "",
@@ -592,6 +549,48 @@
 										"enablevscroll" : 1,
 										"devicewidth" : 0.0,
 										"boxes" : [ 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-23",
+													"maxclass" : "message",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 54.0, 459.0, 132.0, 17.0 ],
+													"text" : "script show panelButton"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-18",
+													"maxclass" : "message",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 39.0, 484.0, 127.0, 17.0 ],
+													"text" : "script hide panelButton"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
+													"id" : "obj-15",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 3,
+													"outlettype" : [ "bang", "bang", "" ],
+													"patching_rect" : [ 40.0, 429.0, 46.0, 19.0 ],
+													"text" : "sel 0 1"
+												}
+
+											}
+, 											{
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
@@ -680,12 +679,13 @@
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"id" : "obj-10",
+													"linecount" : 2,
 													"maxclass" : "message",
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 622.0, 365.0, 142.0, 17.0 ],
-													"text" : "script send ui has_panel 0"
+													"patching_rect" : [ 622.0, 365.0, 155.0, 29.0 ],
+													"text" : "script send ui has_panel 0, script hide panelButton"
 												}
 
 											}
@@ -1111,13 +1111,13 @@
 ,
 													"patching_rect" : [ 623.0, 140.0, 72.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontface" : 0,
-														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
+														"default_fontface" : 0,
 														"fontface" : 0,
-														"fontsize" : 10.0
+														"fontsize" : 10.0,
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p set_values"
@@ -1506,13 +1506,13 @@
 ,
 													"patching_rect" : [ 543.0, 140.0, 70.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontface" : 0,
-														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
+														"default_fontface" : 0,
 														"fontface" : 0,
-														"fontsize" : 10.0
+														"fontsize" : 10.0,
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p delete_old"
@@ -1842,13 +1842,13 @@
 ,
 																	"patching_rect" : [ 21.0, 395.0, 75.0, 19.0 ],
 																	"saved_object_attributes" : 																	{
-																		"default_fontface" : 0,
-																		"default_fontname" : "Arial",
 																		"fontname" : "Arial",
-																		"default_fontsize" : 12.0,
 																		"globalpatchername" : "",
+																		"default_fontface" : 0,
 																		"fontface" : 0,
-																		"fontsize" : 12.0
+																		"fontsize" : 12.0,
+																		"default_fontname" : "Arial",
+																		"default_fontsize" : 12.0
 																	}
 ,
 																	"text" : "p description"
@@ -2003,7 +2003,7 @@
 																									"numinlets" : 2,
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
-																									"patching_rect" : [ 50.0, 100.0, 587.0, 73.0 ],
+																									"patching_rect" : [ 50.0, 100.0, 590.0, 73.0 ],
 																									"text" : "store generic 1, store index 2, store boolean 3, store percent 4, store seconds 5, store \"sample frames\" 6, store phase 7, store rate 8, store hertz 9, store cents 10, store semitones 11, store \"midi pitch\" 12, store \"midi control\" 13, store decibels 14, store \"linear gain\" 15, store degrees 16, store crossfade 17, store fader 18, store pan 19, store meters 20, store \"absolute cents\" 21, store octaves 22, store bpm 23, store beats 24, store milliseconds 25, store ratio 26"
 																								}
 
@@ -2034,13 +2034,13 @@
 ,
 																					"patching_rect" : [ 188.0, 104.0, 39.0, 20.0 ],
 																					"saved_object_attributes" : 																					{
-																						"default_fontface" : 0,
-																						"default_fontname" : "Arial",
 																						"fontname" : "Arial",
-																						"default_fontsize" : 12.0,
 																						"globalpatchername" : "",
+																						"default_fontface" : 0,
 																						"fontface" : 0,
-																						"fontsize" : 12.0
+																						"fontsize" : 12.0,
+																						"default_fontname" : "Arial",
+																						"default_fontsize" : 12.0
 																					}
 ,
 																					"text" : "p tidy"
@@ -2653,13 +2653,13 @@
 ,
 																					"patching_rect" : [ 390.0, 205.0, 233.0, 20.0 ],
 																					"saved_object_attributes" : 																					{
-																						"default_fontface" : 0,
-																						"default_fontname" : "Arial",
 																						"fontname" : "Arial",
-																						"default_fontsize" : 12.0,
 																						"globalpatchername" : "",
+																						"default_fontface" : 0,
 																						"fontface" : 0,
-																						"fontsize" : 12.0
+																						"fontsize" : 12.0,
+																						"default_fontname" : "Arial",
+																						"default_fontsize" : 12.0
 																					}
 ,
 																					"text" : "p edit-parameter"
@@ -3343,13 +3343,13 @@
 ,
 																					"patching_rect" : [ 83.0, 209.0, 233.0, 20.0 ],
 																					"saved_object_attributes" : 																					{
-																						"default_fontface" : 0,
-																						"default_fontname" : "Arial",
 																						"fontname" : "Arial",
-																						"default_fontsize" : 12.0,
 																						"globalpatchername" : "",
+																						"default_fontface" : 0,
 																						"fontface" : 0,
-																						"fontsize" : 12.0
+																						"fontsize" : 12.0,
+																						"default_fontname" : "Arial",
+																						"default_fontsize" : 12.0
 																					}
 ,
 																					"text" : "p edit-texslider"
@@ -3693,13 +3693,13 @@
 ,
 																	"patching_rect" : [ 35.0, 329.0, 100.0, 19.0 ],
 																	"saved_object_attributes" : 																	{
-																		"default_fontface" : 0,
-																		"default_fontname" : "Arial",
 																		"fontname" : "Arial",
-																		"default_fontsize" : 12.0,
 																		"globalpatchername" : "",
+																		"default_fontface" : 0,
 																		"fontface" : 0,
-																		"fontsize" : 12.0
+																		"fontsize" : 12.0,
+																		"default_fontname" : "Arial",
+																		"default_fontsize" : 12.0
 																	}
 ,
 																	"text" : "p unit"
@@ -4338,13 +4338,13 @@
 ,
 																	"patching_rect" : [ 212.0, 111.0, 76.0, 19.0 ],
 																	"saved_object_attributes" : 																	{
-																		"default_fontface" : 0,
-																		"default_fontname" : "Verdana",
 																		"fontname" : "Verdana",
-																		"default_fontsize" : 10.0,
 																		"globalpatchername" : "",
+																		"default_fontface" : 0,
 																		"fontface" : 0,
-																		"fontsize" : 10.0
+																		"fontsize" : 10.0,
+																		"default_fontname" : "Verdana",
+																		"default_fontsize" : 10.0
 																	}
 ,
 																	"text" : "p xy-position"
@@ -4855,13 +4855,13 @@
 ,
 													"patching_rect" : [ 290.0, 295.0, 217.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontface" : 0,
-														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
-														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
+														"default_fontface" : 0,
 														"fontface" : 0,
-														"fontsize" : 10.0
+														"fontsize" : 10.0,
+														"default_fontname" : "Verdana",
+														"default_fontsize" : 10.0
 													}
 ,
 													"text" : "p create_new_parameter"
@@ -5104,6 +5104,24 @@
 											}
 , 											{
 												"patchline" : 												{
+													"destination" : [ "obj-18", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-15", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-23", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-15", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
 													"destination" : [ "obj-30", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
@@ -5113,10 +5131,28 @@
 											}
 , 											{
 												"patchline" : 												{
+													"destination" : [ "obj-15", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-17", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
 													"destination" : [ "obj-16", 0 ],
 													"hidden" : 0,
 													"midpoints" : [  ],
 													"source" : [ "obj-17", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-30", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-18", 0 ]
 												}
 
 											}
@@ -5180,6 +5216,15 @@
 													"hidden" : 0,
 													"midpoints" : [  ],
 													"source" : [ "obj-22", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-30", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-23", 0 ]
 												}
 
 											}
@@ -5350,13 +5395,13 @@
 ,
 									"patching_rect" : [ 25.0, 85.0, 79.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p scripting"
@@ -5480,13 +5525,13 @@
 ,
 					"patching_rect" : [ 360.0, 505.0, 64.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p inspector",
@@ -5499,14 +5544,15 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-31",
-					"items" : [  ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 576.0, 35.0, 100.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 10.0, 45.0, 172.0, 19.0 ],
+					"presentation_rect" : [ 46.0, 45.0, 147.0, 19.0 ],
+					"truncate" : 2,
 					"types" : [  ]
 				}
 
@@ -5522,7 +5568,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 185.0, 45.0, 59.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 185.0, 45.0, 59.0, 19.0 ],
+					"presentation_rect" : [ 195.0, 45.0, 59.0, 19.0 ],
 					"text" : "Program"
 				}
 
@@ -5666,13 +5712,12 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-47",
-					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 575.0, 65.0, 580.0, 31.0 ],
-					"text" : "jcom.parameter au/program @type string @priority 2 @ramp/drive none @repetitions/allow 1 @description \"AU presets.\"",
+					"patching_rect" : [ 575.0, 65.0, 670.0, 19.0 ],
+					"text" : "jcom.message au/preset/read @type string @priority 2 @ramp/drive none @repetitions/allow 1 @description \"recalls AU presets.\"",
 					"varname" : "vst/program"
 				}
 
@@ -5778,7 +5823,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 570.0, 170.0, 599.0, 31.0 ],
+					"patching_rect" : [ 570.0, 170.0, 421.0, 31.0 ],
 					"text" : "jcom.parameter au/plug @type string @priority 1 @repetitions/allow 0 @description \"Load an AU plugin. must work with 2 audio ins and 2 audio outs.\"",
 					"varname" : "vst/plug"
 				}
@@ -5802,16 +5847,6 @@
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 210.0 ],
 					"text" : "/editing_this_module",
 					"varname" : "ui"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-10",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 525.0, 340.0, 724.0, 176.0 ]
 				}
 
 			}
@@ -5999,7 +6034,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-23", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 579.5, 195.0, 567.0, 195.0, 567.0, 132.0, 584.5, 132.0 ],
+					"midpoints" : [ 579.5, 203.0, 567.0, 203.0, 567.0, 132.0, 584.5, 132.0 ],
 					"source" : [ "obj-26", 0 ]
 				}
 
@@ -6123,10 +6158,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
+					"destination" : [ "obj-5", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-4", 0 ]
+					"source" : [ "obj-4", 1 ]
 				}
 
 			}
@@ -6179,7 +6214,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-31", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 584.5, 92.0, 562.0, 92.0, 562.0, 30.0, 585.5, 30.0 ],
+					"midpoints" : [ 584.5, 87.0, 562.0, 87.0, 562.0, 30.0, 585.5, 30.0 ],
 					"source" : [ "obj-47", 0 ]
 				}
 
@@ -6240,10 +6275,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
+					"destination" : [ "obj-41", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-6", 0 ]
+					"midpoints" : [ 167.5, 258.0, 39.5, 258.0 ],
+					"source" : [ "obj-5", 0 ]
 				}
 
 			}

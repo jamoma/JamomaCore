@@ -17,6 +17,7 @@
 #define	CMT "#"
 #define WAIT "WAIT"
 #define RAMP "ramp"
+#define COMMENT "comment"
 #define NO_RAMP 0
 #define GLOBAL_RAMP -1
 #define TAB "	"
@@ -86,6 +87,7 @@ typedef struct _cue
 	t_symbol	*index;				// cue index to find the cue in the cuelist (the name)
 	long		mode;				// getstate mode (ABSOLUTE or DIFFERENTIAL)
 	long		ramp;				// ramp time (NO_RAMP or a value in ms)
+	t_symbol	*comment;			// a description of what do the cue (start and ends with #)
 	t_linklist	*linelist;			// a linked list of t_line
 }t_cue;
 
@@ -129,6 +131,7 @@ typedef struct _cuemng
 	t_symbol	*ps_wait;			// special flag	for wait
 	t_symbol	*ps_cmt;			// special flag	for comment
 	t_symbol	*ps_ramp;			// special flag for ramp
+	t_symbol	*ps_comment;		// special flag for a description of what do a cue
 
 	t_symbol	*ps_lb;				// to create a line break in the text
 	t_symbol	*ps_tab;			// to create a tab in the text
@@ -167,6 +170,8 @@ void cuemng_info(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_doramp(t_cuemng *x, long r);
 void cuemng_set_ramp(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_set_name(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
+void cuemng_set_mode(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
+void cuemng_set_comment(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_insert(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_append(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_replace(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
@@ -224,5 +229,6 @@ void cuemng_write_buffer(t_cuemng *x);
 long cuemng_check_temp(t_cuemng *x, long argc, t_atom *argv);
 long cuemng_check_index(t_cuemng *x, long argc, t_atom *argv);
 long cuemng_check_ramp(t_cuemng *x, long *pos, long argc, t_atom *argv);
+t_symbol *cuemng_check_comment(t_cuemng *x, long *pos, long argc, t_atom *argv);
 
 int cuemng_count_lines(t_cuemng *x, t_cue *cue);

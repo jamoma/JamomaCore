@@ -25,9 +25,9 @@ t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, 
 	
 again5:
 	box = object_attr_getobj(patcher, _sym_firstobject);
-	while(box){
+	while (box) {
 		objclass = object_attr_getsym(box, _sym_maxclass);
-		if(objclass == jps_jcom_hub){
+		if (objclass == jps_jcom_hub) {
 			hub = object_attr_getobj(box, _sym_object);
 			object_method(hub, jps_subscribe, name, x, object_type);
 			return hub;
@@ -35,7 +35,7 @@ again5:
 		box = object_attr_getobj(box, _sym_nextobject);
 	}
 	patcher = object_attr_getobj(patcher, _sym_parentpatcher);
-	if(patcher)
+	if (patcher)
 		goto again5;
 
 	return NULL;
@@ -54,7 +54,7 @@ t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, 
 //void jcom_core_unsubscribe(void *hub, t_symbol *name)
 void jcom_core_unsubscribe(t_object *hub, void *object)
 {
-	if(hub)
+	if (hub)
 		object_method(hub, jps_unsubscribe, object);
 }
 
@@ -73,36 +73,36 @@ void jcom_core_atom_copy(t_atom *dst, t_atom *src)
 
 bool jcom_core_atom_compare(t_symbol *type, t_atom *a1, t_atom *a2)
 {
-	if(!a1 || !a2)
+	if (!a1 || !a2)
 		return 0;
 		
-	if(type == jps_decimal){				// float is first so that it gets process the most quickly
-		if(atom_getfloat(a1) == atom_getfloat(a2))
+	if (type == jps_decimal) {				// float is first so that it gets process the most quickly
+		if (atom_getfloat(a1) == atom_getfloat(a2))
 			return 1;
 	}
-	else if((type == jps_integer) || (type == jps_boolean)){
-		if(atom_getlong(a1) == atom_getlong(a2))
+	else if ((type == jps_integer) || (type == jps_boolean)) {
+		if (atom_getlong(a1) == atom_getlong(a2))
 			return 1;
 	}
-	else if(type == jps_string){
-		if(atom_getsym(a1) == atom_getsym(a2))
+	else if (type == jps_string) {
+		if (atom_getsym(a1) == atom_getsym(a2))
 			return 1;
 	}
-	else if((type == jps_generic) || (type == jps_array)){
+	else if ((type == jps_generic) || (type == jps_array)) {
 		// type array should be checked here as well.  If type == array and this function is called
 		// it means we are dealing with a list of length 1, so we only need to compare one atom anyway.
 		
 		// note that if the two are of different types, then they are obviously not the same
-		if((a1->a_type == A_LONG) && (a2->a_type == A_LONG)){
-			if(a1->a_w.w_long == a2->a_w.w_long)
+		if ((a1->a_type == A_LONG) && (a2->a_type == A_LONG)) {
+			if (a1->a_w.w_long == a2->a_w.w_long)
 				return 1;
 		}
-		else if((a1->a_type == A_FLOAT) && (a2->a_type == A_FLOAT)){
-			if(a1->a_w.w_float == a2->a_w.w_float)
+		else if ((a1->a_type == A_FLOAT) && (a2->a_type == A_FLOAT)) {
+			if (a1->a_w.w_float == a2->a_w.w_float)
 				return 1;
 		}
-		else if((a1->a_type == A_SYM) && (a2->a_type == A_SYM)){
-			if(a1->a_w.w_sym == a2->a_w.w_sym)
+		else if ((a1->a_type == A_SYM) && (a2->a_type == A_SYM)) {
+			if (a1->a_w.w_sym == a2->a_w.w_sym)
 				return 1;
 		}
 	}
@@ -122,7 +122,7 @@ void jcom_core_file_writeline(t_filehandle *fh, long *the_eof, char *the_text)
 	strcat(tempstring, "\n");
 	len = strlen(tempstring);
 	err = sysfile_write(*fh, &len, &tempstring);
-	if(err){
+	if (err) {
 		error("jamoma: sysfile_write error (%d)", err);
 		return;
 	}
@@ -139,15 +139,15 @@ bool jcom_core_string_compare(char *s1, char *s2)
 	bool result = false;
 	bool keepgoing = true;
 	
-	if(len2 < len1)
+	if (len2 < len1)
 		len1 = len2;	// only compare the characters of the short string
 		
-	for(i=0; i<len1 && keepgoing; i++){
-		if(s1[i] < s2[i]){
+	for (i=0; i<len1 && keepgoing; i++) {
+		if (s1[i] < s2[i]) {
 			result = true;
 			keepgoing = false;
 		}
-		else if(s1[i] > s2[i])
+		else if (s1[i] > s2[i])
 			keepgoing = false;
 	}
 	return result;
@@ -162,20 +162,20 @@ bool jcom_core_loadextern(t_symbol *objectname, long argc, t_atom *argv, t_objec
 	t_object	*p = NULL;
 
 	c = class_findbyname(jps_box, objectname);
-	if(!c){
+	if (!c) {
 		p = (t_object *)newinstance(objectname, 0, NULL);
-		if(p){
+		if (p) {
 			c = class_findbyname(jps_box, objectname);
 			freeobject(p);
 			p = NULL;
 		}
-		else{
+		else {
 			error("jamoma: could not load extern (%s) within the core", objectname->s_name);
 			return false;
 		}
 	}
 
-	if(*object != NULL){			// if there was an object set previously, free it first...
+	if (*object != NULL) {			// if there was an object set previously, free it first...
 		object_free(*object);
 		*object = NULL;
 	}
@@ -216,7 +216,7 @@ void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, bool defi
 	class_addmethod(c, (method)object_obex_dumpout,				"dumpout",		A_CANT, 0);  
 
 	// ATTRIBUTE: name
-	if(define_name)
+	if (define_name)
 		jamoma_class_attr_new(c, "name", _sym_symbol, (method)jcom_core_subscriber_attribute_common_setname, (method)jcom_core_attr_getname);
 }
 
@@ -284,13 +284,13 @@ void jcom_core_subscriber_new_extended(t_jcom_core_subscriber_extended *x, t_sym
 // function for registering with the jcom.hub object
 void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x)
 {
-	if(x->hub)
+	if (x->hub)
 		x->hub = jcom_core_subscribe((t_object*)x, x->attr_name, x->container, x->subscriber_type, x->hub);
 	else
 		x->hub = jcom_core_subscribe((t_object*)x, x->attr_name, x->container, x->subscriber_type);
-	if(x->hub){
+	if (x->hub) {
 		x->module_name = (t_symbol *)object_method(x->hub, jps_core_module_name_get);
-		if(x->custom_subscribe)
+		if (x->custom_subscribe)
 			x->custom_subscribe(x);
 	}
 }
@@ -326,13 +326,13 @@ t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_c
 	t_symbol *arg = atom_getsym(argv);
 	x->attr_name = arg;
 
-	if(arg->s_name[strlen(arg->s_name)-1] == '*')
+	if (arg->s_name[strlen(arg->s_name)-1] == '*')
 		x->has_wildcard = true;
 	else
 		x->has_wildcard = false;
 
-//	if(x->subscriber_type == jps_subscribe_return && x->hub){
-	if(x->hub){
+//	if (x->subscriber_type == jps_subscribe_return && x->hub) {
+	if (x->hub) {
 		jcom_core_unsubscribe(x->hub, x);
 		x->hub = NULL;
 //		x->attr_name = atom_getsym(argv);
@@ -355,7 +355,7 @@ t_max_err jcom_core_attr_getname(t_jcom_core_subscriber_extended *x, void *attr,
 
 t_max_err jcom_core_attr_setname(t_jcom_core_subscriber_extended *x, void *attr, long argc, t_atom *argv)
 {
-	if(argc && argv){
+	if (argc && argv) {
 		jcom_core_unsubscribe(x->hub, x);
 		x->hub = NULL;
 		x->attr_name = atom_getsym(argv);
@@ -369,9 +369,9 @@ t_max_err jcom_core_attr_setname(t_jcom_core_subscriber_extended *x, void *attr,
 // This was the easiest way to avoid that.
 t_max_err jcom_core_attr_setrange(t_jcom_core_subscriber_extended *x, void *attr, long argc, t_atom *argv)
 {	
-	if(argc)
+	if (argc)
 		x->attr_range[0] = atom_getfloat(argv+0);
-	if(argc > 1)
+	if (argc > 1)
 		x->attr_range[1] = atom_getfloat(argv+1);
 	
 	return MAX_ERR_NONE;
@@ -404,7 +404,7 @@ t_max_err jcom_core_attr_getrepetitions(t_jcom_core_subscriber_extended *x, void
 
 t_max_err jcom_core_attr_setrepetitions(t_jcom_core_subscriber_extended *x, void *attr, long argc, t_atom *argv)
 {
-	if(argc && argv)
+	if (argc && argv)
 		x->attr_repetitions = atom_getlong(argv);
 	return MAX_ERR_NONE;
 }
@@ -421,7 +421,7 @@ t_max_err jcom_core_attr_getclipmode(t_jcom_core_subscriber_extended *x, void *a
 
 t_max_err jcom_core_attr_setclipmode(t_jcom_core_subscriber_extended *x, void *attr, long argc, t_atom *argv)
 {
-	if(argc && argv)
+	if (argc && argv)
 		x->attr_clipmode = atom_getsym(argv);
 	return MAX_ERR_NONE;
 }
@@ -443,7 +443,7 @@ t_max_err jcom_core_attr_setdescription(t_jcom_core_subscriber_extended *x, void
 	long	textsize = 0;
 	
 	atom_gettext(argc, argv, &textsize, &text, OBEX_UTIL_ATOM_GETTEXT_SYM_NO_QUOTE);
-	if(text && textsize){
+	if (text && textsize) {
 		x->attr_description = SymbolGen(text);
 		sysmem_freeptr(text);
 	}

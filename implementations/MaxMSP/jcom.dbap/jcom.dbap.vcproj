@@ -4,7 +4,7 @@
 	Version="9,00"
 	Name="jcom.dbap"
 	ProjectGUID="{3DBF9BCD-66D4-4487-848B-1423B0528C5A}"
-	RootNamespace="jcom.dbap"
+	RootNamespace="jcom.ramp"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds\MaxMSP&quot;&#x0D;&#x0A;"
 				Outputs="output"
 			/>
 			<Tool
@@ -43,7 +43,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\supports\objectivemax\MaxObject&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes\&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\includes\&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\includes\units&quot;;..\..\..\library\source;..\..\..\library\Dataspacelib;..\..\..\library\Functionlib;..\..\..\library\Ramplib;..\..\..\library\NodeLib"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -107,7 +107,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds\MaxMSP&quot;&#x0D;&#x0A;"
 				Outputs="output"
 			/>
 			<Tool
@@ -183,24 +183,12 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="hull2D"
-			>
-			<File
-				RelativePath=".\hull2D.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\hull2D.h"
-				>
-			</File>
-		</Filter>
 		<File
 			RelativePath="..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes\common\commonsyms.c"
 			>
 		</File>
 		<File
-			RelativePath=".\dbap.h"
+			RelativePath=".\hull2D.cpp"
 			>
 		</File>
 		<File

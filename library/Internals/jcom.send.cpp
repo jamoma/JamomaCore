@@ -63,17 +63,17 @@ void *send_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long 	attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	t_send 	*x = (t_send *)object_alloc(s_send_class);
-	if(x){
+	if (x) {
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x, NULL));
 
-		if(attrstart > 0)
+		if (attrstart > 0)
 			x->attr_name = atom_getsym(argv);
 		else
 			x->attr_name = SymbolGen("jcom.send no arg specified");
 			
 		attr_args_process(x, argc, argv);					// handle attribute args
 		
-		if(!g_receivemaster_object)
+		if (!g_receivemaster_object)
 			g_receivemaster_object = (t_object *)object_new(CLASS_NOBOX, SymbolGen("jcom.receivemaster"));
 	}
 	return x;
@@ -86,9 +86,9 @@ void *send_new(t_symbol *s, long argc, t_atom *argv)
 // Method for Assistance Messages
 void send_assist(t_send *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 			// Inlets
+	if (msg==1) 			// Inlets
 		strcpy(dst, "input to dispatch to jcom.receive objects");
-	else if(msg==2)		// Outlets
+	else if (msg==2)		// Outlets
 		strcpy(dst, "dumpout");
 }
 

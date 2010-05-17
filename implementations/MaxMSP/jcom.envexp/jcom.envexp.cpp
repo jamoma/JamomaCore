@@ -300,7 +300,7 @@ void envExp_setthreshold(t_envExp *x, void *attr, long argc, t_atom *argv)
 void envExp_assist(t_envExp *x, void *b, long msg, long arg, char *dst)	
 {
 	if (msg==1) { 
-		switch(arg){
+		switch(arg) {
 			case 0: strcpy(dst, "(List) Max. ampl, attack time, decay time");
 			break;
 		}

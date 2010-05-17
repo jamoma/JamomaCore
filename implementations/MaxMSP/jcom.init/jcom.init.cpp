@@ -66,12 +66,12 @@ void *init_new(t_symbol *s, long argc, t_atom *argv)
 	t_init 		*x = (t_init *)object_alloc(g_init_class);
 	t_symbol	*name = _sym_nothing;
 
-	if(attrstart && argv)
+	if (attrstart && argv)
 		atom_arg_getsym(&name, 0, attrstart, argv);
 	else
 		name = symbol_unique();
 	
-	if(x){
+	if (x) {
 		x->dumpout = outlet_new(x, NULL);
 		x->outlet = outlet_new(x, NULL);
 		object_obex_store((void *)x, jps_dumpout, (object *)x->dumpout);		// setup the dumpout
@@ -91,10 +91,10 @@ void *init_new(t_symbol *s, long argc, t_atom *argv)
 // Method for Assistance Messages
 void init_assist(t_init *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 	// Inlets
+	if (msg==1) 	// Inlets
 		strcpy(dst, "bang is passed through to the outlet");
-	else if(msg==2){ // Outlets
-		if(arg == 0) 
+	else if (msg==2) { // Outlets
+		if (arg == 0) 
 			strcpy(dst, "bang on initialization");
 		else 
 			strcpy(dst, "dumpout");
@@ -110,6 +110,6 @@ void init_go(t_init *x)
 // BANG!
 void init_bang(t_init *x)
 {
-	if(x->common.hub != NULL)
+	if (x->common.hub != NULL)
 		object_method_typed(x->common.hub, jps_init, 0, NULL, NULL);
 }

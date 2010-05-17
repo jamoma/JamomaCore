@@ -17,32 +17,18 @@
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-14",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 240.0, 435.0, 137.0, 17.0 ],
-					"text" : "/view/freeze 0"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
 					"id" : "obj-10",
-					"linecount" : 2,
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 30.0, 375.0, 140.0, 29.0 ],
-					"text" : "/parameter/DryLevel \"0.\" ramp 2000"
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 575.0, 685.0, 495.0, 19.0 ],
+					"text" : "jcom.message raw/midievent @type list @description \"Send raw midi messages to the plug-in.\""
 				}
 
 			}
@@ -111,7 +97,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 575.0, 765.0, 141.0, 19.0 ],
+					"patching_rect" : [ 575.0, 795.0, 141.0, 19.0 ],
 					"text" : "jcom.meter_receive 2"
 				}
 
@@ -125,7 +111,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 575.0, 710.0, 141.0, 19.0 ],
+					"patching_rect" : [ 575.0, 740.0, 141.0, 19.0 ],
 					"text" : "jcom.meter_receive 1"
 				}
 
@@ -137,7 +123,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 575.0, 790.0, 80.0, 4.0 ],
+					"patching_rect" : [ 575.0, 820.0, 80.0, 4.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 136.0, 10.0, 80.0, 4.0 ]
 				}
@@ -150,7 +136,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 575.0, 735.0, 80.0, 4.0 ],
+					"patching_rect" : [ 575.0, 765.0, 80.0, 4.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 136.0, 5.0, 80.0, 4.0 ]
 				}
@@ -174,7 +160,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-8",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -424,7 +410,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 0,
-					"patching_rect" : [ 575.0, 680.0, 201.0, 19.0 ],
+					"patching_rect" : [ 575.0, 710.0, 201.0, 19.0 ],
 					"text" : "jcom.midi.channel_messages_receive"
 				}
 
@@ -433,7 +419,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-19",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -472,6 +458,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -749,13 +736,13 @@
 ,
 					"patching_rect" : [ 575.0, 235.0, 81.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p regex-magic"
@@ -789,6 +776,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -953,13 +941,13 @@
 ,
 					"patching_rect" : [ 575.0, 100.0, 65.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p fill_menu"
@@ -986,14 +974,14 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-23",
-					"items" : [ "Fire.vst", ",", "LiveCut.vst", ",", "MdspDuckDelay.vst" ],
+					"items" : [ "+binaural.vst", ",", "+morphfilter.vst", ",", "+spectralcompand.vst", ",", "+spectralgate.vst", ",", "20 Bands Eq.vst", ",", "5 Band Eq.vst", ",", "Audio Ease/Altiverb 6.vst", ",", "Bassdrum.vst", ",", "Buff rice.vst", ",", "Compressor.vst", ",", "Convolution reverb mono.vst", ",", "Convolution reverb stereo.vst", ",", "DC Blocker.vst", ",", "endless series/endless flanger.vst", ",", "endless series/endless phaser.vst", ",", "endless series/endless shifter.vst", ",", "endless series/endless tone.vst", ",", "Flying monkey synth.vst", ",", "Funky repeater.vst", ",", "Gate.vst", ",", "Graphic Equalizer.vst", ",", "Hipno/Amogwai.vst", ",", "Hipno/Brita.vst", ",", "Hipno/Bus.Envelope.vst", ",", "Hipno/Bus.Receive.vst", ",", "Hipno/Bus.Send.vst", ",", "Hipno/Bus.Xover.vst", ",", "Hipno/ChannelStrip.vst", ",", "Hipno/Chazoohm.vst", ",", "Hipno/CrackVerb.vst", ",", "Hipno/Deluge.vst", ",", "Hipno/DrunkenSailor.vst", ",", "Hipno/GoMoDo.vst", ",", "Hipno/GrainBandit.vst", ",", "Hipno/GrainStream.vst", ",", "Hipno/Greequaincer.vst", ",", "Hipno/Invertonudge.vst", ",", "Hipno/LiquiDigital.vst", ",", "Hipno/LoopDeeLa.vst", ",", "Hipno/MasterNeedle.vst", ",", "Hipno/Modulator.Gen.vst", ",", "Hipno/Modulator.Human.vst", ",", "Hipno/Modulator.Remap.vst", ",", "Hipno/Modulator.VColorTrack.vst", ",", "Hipno/Modulator.VMotion.vst", ",", "Hipno/Modulator.VScene.vst", ",", "Hipno/Morphulescence.vst", ",", "Hipno/Multilution.vst", ",", "Hipno/RTAQ.vst", ",", "Hipno/Sbinulator.vst", ",", "Hipno/Sffizzlerr.vst", ",", "Hipno/SfylterBank.vst", ",", "Hipno/SfylterSynth.vst", ",", "Hipno/Shypht.vst", ",", "Hipno/Spuntorrt.vst", ",", "Hipno/Squeegee.vst", ",", "Hipno/SquiglyQ.vst", ",", "Hipno/Substrate.vst", ",", "Hipno/Technifly.vst", ",", "Hipno/Technishypht.vst", ",", "Hipno/VAirTime.vst", ",", "Hipno/VDelay.vst", ",", "Hipno/VSynth.vst", ",", "Hipno/VTheremin.vst", ",", "Hum remover.vst", ",", "JACK-insert.vst", ",", "Limiter.vst", ",", "Mackie Plug-ins/DSR.vst", ",", "Mackie Plug-ins/FinalMix.vst", ",", "Mackie Plug-ins/Mono Comp.vst", ",", "Mackie Plug-ins/Mono Sidechain Comp.vst", ",", "Mackie Plug-ins/Stereo Comp.vst", ",", "Mackie Plug-ins/Stereo Sidechain Comp.vst", ",", "Mackie Plug-ins/Three Band Comp.vst", ",", "mda_vst_ub/mda Ambience.vst", ",", "mda_vst_ub/mda Bandisto.vst", ",", "mda_vst_ub/mda BeatBox.vst", ",", "mda_vst_ub/mda Combo.vst", ",", "mda_vst_ub/mda De-ess.vst", ",", "mda_vst_ub/mda Degrade.vst", ",", "mda_vst_ub/mda Delay.vst", ",", "mda_vst_ub/mda Detune.vst", ",", "mda_vst_ub/mda Dither.vst", ",", "mda_vst_ub/mda DubDelay.vst", ",", "mda_vst_ub/mda DX10.vst", ",", "mda_vst_ub/mda Dynamics.vst", ",", "mda_vst_ub/mda ePiano.vst", ",", "mda_vst_ub/mda Image.vst", ",", "mda_vst_ub/mda JX10.vst", ",", "mda_vst_ub/mda Leslie.vst", ",", "mda_vst_ub/mda Limiter.vst", ",", "mda_vst_ub/mda Looplex.vst", ",", "mda_vst_ub/mda Loudness.vst", ",", "mda_vst_ub/mda MultiBand.vst", ",", "mda_vst_ub/mda Overdrive.vst", ",", "mda_vst_ub/mda Piano.vst", ",", "mda_vst_ub/mda RePsycho!.vst", ",", "mda_vst_ub/mda RezFilter.vst", ",", "mda_vst_ub/mda RingMod.vst", ",", "mda_vst_ub/mda RoundPan.vst", ",", "mda_vst_ub/mda Shepard.vst", ",", "mda_vst_ub/mda Splitter.vst", ",", "mda_vst_ub/mda Stereo.vst", ",", "mda_vst_ub/mda SubBass.vst", ",", "mda_vst_ub/mda Talkbox.vst", ",", "mda_vst_ub/mda TestTone.vst", ",", "mda_vst_ub/mda ThruZero.vst", ",", "mda_vst_ub/mda Tracker.vst", ",", "mda_vst_ub/mda VocInput.vst", ",", "mda_vst_ub/mda Vocoder.vst", ",", "MIDI Filter.vst", ",", "Multiband freeverb.vst", ",", "Multiband scraper.vst", ",", "noatikl_VSTi_mac.vst", ",", "Pianoteq21.vst", ",", "Pianoteq22.vst", ",", "Pianoteq23.vst", ",", "Pianoteq30.vst", ",", "Pianoteq35.vst", ",", "PlogueBiduleVSTOSX/PlogueBiduleVST.vst", ",", "PlogueBiduleVSTOSX/PlogueBiduleVSTi.vst", ",", "Pluggo/additive heaven.vst", ",", "Pluggo/analogue drums.vst", ",", "Pluggo/analogue percussion.vst", ",", "Pluggo/Audio Rate Pan.vst", ",", "Pluggo/Audio2Control.vst", ",", "Pluggo/Average Injector.vst", ",", "Pluggo/bassline.vst", ",", "Pluggo/beatN.vst", ",", "Pluggo/big ben bell.vst", ",", "Pluggo/Breakpoints.vst", ",", "Pluggo/Center Channel.vst", ",", "Pluggo/Chamberverb.vst", ",", "Pluggo/Chorus x2.vst", ",", "Pluggo/Comber.vst", ",", "Pluggo/Control2Audio.vst", ",", "Pluggo/Convolver.vst", ",", "Pluggo/Cyclotron.vst", ",", "Pluggo/D-Meter.vst", ",", "Pluggo/deep bass.vst", ",", "Pluggo/Degrader.vst", ",", "Pluggo/Dynamical.vst", ",", "Pluggo/easy sampler.vst", ",", "Pluggo/Env Follower.vst", ",", "Pluggo/Feedback Network.vst", ",", "Pluggo/filtered drums.vst", ",", "Pluggo/FilterTaps.vst", ",", "Pluggo/Flange-o-tron.vst", ",", "Pluggo/flying waves.vst", ",", "Pluggo/fm 4-op.vst", ",", "Pluggo/Fragulator.vst", ",", "Pluggo/Frequency Shift.vst", ",", "Pluggo/Generic Effect.vst", ",", "Pluggo/Granular-to-Go.vst", ",", "Pluggo/harmonic dreamz.vst", ",", "Pluggo/Harmonic Filter.vst", ",", "Pluggo/HF Ring Mod.vst", ",", "Pluggo/Jet.vst", ",", "Pluggo/Key Triggers.vst", ",", "Pluggo/KnaveStories.vst", ",", "Pluggo/Laverne.vst", ",", "Pluggo/LFO.vst", ",", "Pluggo/Light Organ.vst", ",", "Pluggo/Limi.vst", ",", "Pluggo/lofi drums.vst", ",", "Pluggo/LongStereoDelay.vst", ",", "Pluggo/M2M.vst", ",", "Pluggo/Mangle Filter.vst", ",", "Pluggo/Monstercrunch.vst", ",", "Pluggo/Mouse Mod.vst", ",", "Pluggo/Moving Filters.vst", ",", "Pluggo/moving waves.vst", ",", "Pluggo/Multi-Filter.vst", ",", "Pluggo/Multi-Filter[S].vst", ",", "Pluggo/Nebula.vst", ",", "Pluggo/Noyzckippr.vst", ",", "Pluggo/OneByEight.vst", ",", "Pluggo/Pendulum.vst", ",", "Pluggo/pgs-1.vst", ",", "Pluggo/Phase Scope.vst", ",", "Pluggo/Phase Shifter.vst", ",", "Pluggo/Phone Filter.vst", ",", "Pluggo/PluggoBus Rcv.vst", ",", "Pluggo/PluggoBus Send.vst", ",", "Pluggo/PluggoFuzz.vst", ",", "Pluggo/PluggoSync.vst", ",", "Pluggo/PlugLogic.vst", ",", "Pluggo/PlugLoop.vst", ",", "Pluggo/qsynth.vst", ",", "Pluggo/quick drums.vst", ",", "Pluggo/Raindrops.vst", ",", "Pluggo/Randomizer.vst", ",", "Pluggo/Resonation.vst", ",", "Pluggo/Resosweep.vst", ",", "Pluggo/Ring Modulator.vst", ",", "Pluggo/Rough Reverb.vst", ",", "Pluggo/Rye.vst", ",", "Pluggo/shape synth.vst", ",", "Pluggo/ShepardTones.vst", ",", "Pluggo/Shuffler.vst", ",", "Pluggo/Sine Bank.vst", ",", "Pluggo/Sizzle Delays.vst", ",", "Pluggo/Slice-n-Dice.vst", ",", "Pluggo/Space Echo.vst", ",", "Pluggo/Spectral Filter.vst", ",", "Pluggo/Speed Shifter.vst", ",", "Pluggo/SquirrelParade.vst", ",", "Pluggo/Step Sequencer.vst", ",", "Pluggo/Stereo Adjuster.vst", ",", "Pluggo/Stereo Faker.vst", ",", "Pluggo/Stutterer.vst", ",", "Pluggo/Swirl.vst", ",", "Pluggo/Swish.vst", ",", "Pluggo/TapNet.vst", ",", "Pluggo/Tapped Delay.vst", ",", "Pluggo/Tremellow.vst", ",", "Pluggo/Very Long Delay.vst", ",", "Pluggo/Vibrato Cauldron.vst", ",", "Pluggo/vocalese.vst", ",", "Pluggo/Vocoder 10-band.vst", ",", "Pluggo/Vocoder 16-band.vst", ",", "Pluggo/Warble.vst", ",", "Pluggo/Warpoon.vst", ",", "Pluggo/WasteBand.vst", ",", "Pluggo/Waveshaper.vst", ",", "Pluggo/wavy waves.vst", ",", "Pluggo/Wheat.vst", ",", "Pluggo/white grains.vst", ",", "Pluggo/Xformer.vst", ",", "Pluggo/xmod synth.vst", ",", "Rainy synth.vst", ",", "Simple reverb.vst", ",", "Spectral Shapers/+binaural.vst", ",", "Spectral Shapers/+chebyshev.vst", ",", "Spectral Shapers/+compand.vst", ",", "Spectral Shapers/+decimate.vst", ",", "Spectral Shapers/+matrix.vst", ",", "Spectral Shapers/+morphfilter.vst", ",", "Spectral Shapers/+phasescope.vst", ",", "Spectral Shapers/+spectralcompand.vst", ",", "Spectral Shapers/+spectralgate.vst", ",", "SPS200SurroundZoneVSTi.vst", ",", "Swamp buffer.vst", ",", "Synful Orchestra VST.vst", ",", "UVIWorkstationVST.vst", ",", "Valve warmer.vst", ",", "Width Enhancer.vst" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 575.0, 130.0, 150.0, 19.0 ],
 					"pattrmode" : 1,
-					"prefix" : "Servo:/Library/Audio/Plug-Ins/VST/",
+					"prefix" : "Macintosh HD:/Library/Audio/Plug-Ins/VST/",
 					"presentation" : 1,
 					"presentation_rect" : [ 10.0, 25.0, 165.0, 19.0 ],
 					"types" : [ "BNDL", "aPcs" ],
@@ -1057,6 +1045,7 @@
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -1065,7 +1054,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 3,
 									"numoutlets" : 2,
-									"outlettype" : [ "", "front" ],
+									"outlettype" : [ "", "" ],
 									"patcher" : 									{
 										"fileversion" : 1,
 										"rect" : [ 443.0, 87.0, 879.0, 740.0 ],
@@ -1084,6 +1073,7 @@
 										"imprint" : 0,
 										"enablehscroll" : 1,
 										"enablevscroll" : 1,
+										"devicewidth" : 0.0,
 										"boxes" : [ 											{
 												"box" : 												{
 													"fontname" : "Verdana",
@@ -1236,6 +1226,7 @@
 														"imprint" : 0,
 														"enablehscroll" : 1,
 														"enablevscroll" : 1,
+														"devicewidth" : 0.0,
 														"boxes" : [ 															{
 																"box" : 																{
 																	"comment" : "",
@@ -1422,13 +1413,13 @@
 ,
 													"patching_rect" : [ 575.0, 140.0, 72.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontface" : 0,
-														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
-														"fontsize" : 10.0
+														"fontsize" : 10.0,
+														"default_fontface" : 0,
+														"default_fontname" : "Verdana"
 													}
 ,
 													"text" : "p set_values"
@@ -1462,6 +1453,7 @@
 														"imprint" : 0,
 														"enablehscroll" : 1,
 														"enablevscroll" : 1,
+														"devicewidth" : 0.0,
 														"boxes" : [ 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
@@ -1723,13 +1715,13 @@
 ,
 													"patching_rect" : [ 495.0, 140.0, 70.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontface" : 0,
-														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
-														"fontsize" : 10.0
+														"fontsize" : 10.0,
+														"default_fontface" : 0,
+														"default_fontname" : "Verdana"
 													}
 ,
 													"text" : "p delete_old"
@@ -1805,6 +1797,7 @@
 														"imprint" : 0,
 														"enablehscroll" : 1,
 														"enablevscroll" : 1,
+														"devicewidth" : 0.0,
 														"boxes" : [ 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
@@ -1865,7 +1858,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 																	"id" : "obj-24",
 																	"linecount" : 3,
 																	"maxclass" : "comment",
@@ -1880,7 +1873,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 																	"id" : "obj-23",
 																	"maxclass" : "comment",
 																	"numinlets" : 1,
@@ -1927,7 +1920,7 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
 																	"numoutlets" : 2,
-																	"outlettype" : [ "int", "" ],
+																	"outlettype" : [ "int", "int" ],
 																	"patcher" : 																	{
 																		"fileversion" : 1,
 																		"rect" : [ 938.0, 263.0, 395.0, 466.0 ],
@@ -1946,6 +1939,7 @@
 																		"imprint" : 0,
 																		"enablehscroll" : 1,
 																		"enablevscroll" : 1,
+																		"devicewidth" : 0.0,
 																		"boxes" : [ 																			{
 																				"box" : 																				{
 																					"fontname" : "Verdana",
@@ -2338,13 +2332,13 @@
 ,
 																	"patching_rect" : [ 212.0, 111.0, 76.0, 19.0 ],
 																	"saved_object_attributes" : 																	{
-																		"default_fontface" : 0,
-																		"default_fontname" : "Verdana",
 																		"fontname" : "Verdana",
 																		"default_fontsize" : 10.0,
 																		"globalpatchername" : "",
 																		"fontface" : 0,
-																		"fontsize" : 10.0
+																		"fontsize" : 10.0,
+																		"default_fontface" : 0,
+																		"default_fontname" : "Verdana"
 																	}
 ,
 																	"text" : "p xy-position"
@@ -2507,7 +2501,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 																	"id" : "obj-15",
 																	"linecount" : 2,
 																	"maxclass" : "comment",
@@ -2767,13 +2761,13 @@
 ,
 													"patching_rect" : [ 290.0, 295.0, 137.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontface" : 0,
-														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
-														"fontsize" : 10.0
+														"fontsize" : 10.0,
+														"default_fontface" : 0,
+														"default_fontname" : "Verdana"
 													}
 ,
 													"text" : "p create_new_parameter"
@@ -2847,7 +2841,7 @@
 													"maxclass" : "inlet",
 													"numinlets" : 0,
 													"numoutlets" : 1,
-													"outlettype" : [ "bang" ],
+													"outlettype" : [ "" ],
 													"patching_rect" : [ 290.0, 40.0, 25.0, 25.0 ]
 												}
 
@@ -3156,13 +3150,13 @@
 ,
 									"patching_rect" : [ 25.0, 85.0, 79.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p scripting"
@@ -3173,7 +3167,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-4",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3215,7 +3209,7 @@
 									"maxclass" : "inlet",
 									"numinlets" : 0,
 									"numoutlets" : 1,
-									"outlettype" : [ "bang" ],
+									"outlettype" : [ "" ],
 									"patching_rect" : [ 25.0, 45.0, 28.0, 28.0 ]
 								}
 
@@ -3298,13 +3292,13 @@
 ,
 					"patching_rect" : [ 360.0, 505.0, 64.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p inspector",
@@ -3335,7 +3329,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-32",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -3422,7 +3416,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-42",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -3517,7 +3511,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 3,
 					"numoutlets" : 5,
-					"outlettype" : [ "", "signal", "signal", "bang", "" ],
+					"outlettype" : [ "", "signal", "signal", "", "" ],
 					"patching_rect" : [ 93.0, 468.0, 124.0, 19.0 ],
 					"text" : "jalg.vst~ #0_"
 				}
@@ -3527,7 +3521,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-50",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -3563,7 +3557,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-53",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -3577,7 +3571,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-54",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -3608,7 +3602,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-56",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -3882,15 +3876,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-14", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-37", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-30", 2 ],
 					"hidden" : 0,
 					"midpoints" : [ 268.833344, 402.0, 414.5, 402.0 ],
@@ -3949,15 +3934,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-41", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-10", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-43", 0 ]
 				}
 
 			}

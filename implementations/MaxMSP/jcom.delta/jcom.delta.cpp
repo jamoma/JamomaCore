@@ -148,7 +148,7 @@ void *delta_new(void)
 {
 	t_delta *x;	
 	x = (t_delta *)object_alloc(this_class);	// create the new instance and return a pointer to it
-	if(x){
+	if (x) {
 		// create inlets and outlets		
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
 		x->outlets[2] = floatout(x);			// velocity
@@ -247,7 +247,7 @@ void delta_clear(t_delta *x)
 // Method for Assistance Messages
 void delta_assist(t_delta *x, void *b, long msg, long arg, char *dst)	// Display assistance messages
 {
-	if(msg==1)
+	if (msg==1)
 	{ 
 		switch(arg)
 		{
@@ -256,7 +256,7 @@ void delta_assist(t_delta *x, void *b, long msg, long arg, char *dst)	// Display
 				break;	
 		}
 	}
-	else if(msg==2)
+	else if (msg==2)
 	{
 		switch(arg)
 		{

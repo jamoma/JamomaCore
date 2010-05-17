@@ -28,12 +28,12 @@ bool				max5 = false;
 
 void jamoma_init(void)
 {
-	if(!initialized){
+	if (!initialized) {
 		t_object*	max = SymbolGen("max")->s_thing;
 		t_symbol*	meth = SymbolGen("objectfile");
 		t_atom		a[4];
 	
-		if(maxversion() >= 0x0500)
+		if (maxversion() >= 0x0500)
 			max5 = true;
 		
 		TTDSPInit();
@@ -137,9 +137,9 @@ t_max_err jamoma_hub_register(t_symbol *name, t_object *hub)
 	t_object *test = NULL;
 	
 	hashtab_lookup(hash_modules, name, &test);
-	if(test)
+	if (test)
 		return MAX_ERR_GENERIC;
-	else{
+	else {
 		hashtab_store(hash_modules, name, hub);
 		return MAX_ERR_NONE;
 	}
@@ -181,12 +181,12 @@ t_symbol *jamoma_patcher_getcontext(t_object *patcher)
 	t_object	*box = object_attr_getobj(patcher, jps_box);
 	t_symbol	*objclass = NULL;
 	
-	if(box)
+	if (box)
 		objclass = object_classname(box);
 	
-	if(objclass == SymbolGen("bpatcher"))
+	if (objclass == SymbolGen("bpatcher"))
 		return objclass;
-	else if(objclass == SymbolGen("newobj"))
+	else if (objclass == SymbolGen("newobj"))
 		return SymbolGen("subpatcher");
 	else
 		return SymbolGen("toplevel");
@@ -203,14 +203,14 @@ void jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv)
 	char			*text = NULL;
 	unsigned long	textlen = 0;
 
-	if(context == SymbolGen("bpatcher"))
+	if (context == SymbolGen("bpatcher"))
 		object_attr_getvalueof(box, SymbolGen("args"), argc, argv);
-	else if(context == SymbolGen("subpatcher")){
+	else if (context == SymbolGen("subpatcher")) {
 		textfield = object_attr_getobj(box, SymbolGen("textfield"));
 		object_method(textfield, SymbolGen("gettextptr"), &text, &textlen);
 		atom_setparse(argc, argv, text);
 	}
-	else{
+	else {
 		*argc = 0;
 		*argv = NULL;
 	}
@@ -219,10 +219,10 @@ void jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv)
 
 t_symbol* jamoma_patcher_getvarname(t_object *patcher)
 {
-	if(max5){
+	if (max5) {
 		return _sym_nothing;
 	}
-	else{
+	else {
 		error("This version of Jamoma requires Max 5");
 		return _sym_nothing;
 	}
@@ -284,13 +284,13 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 	
 	strcpy(cAttrName, attrName->s_name);
 	temp = strrchr(cAttrName, '/');
-	if(temp)
+	if (temp)
 		*temp = 0;
 	sAttrName = SymbolGen(cAttrName);
 
 	object_attr_getvalueof(o, sAttrName, &ac, &av);
 	object_obex_dumpout(o, sAttrName, ac, av);
-	if(x->hub != NULL){
+	if (x->hub != NULL) {
 		char		s[256];
 		t_atom		a[4];
 	
@@ -300,7 +300,7 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 		object_method_typed(x->hub, jps_feedback, ac + 1, a, NULL);
 	}
 
-	if(ac)
+	if (ac)
 		sysmem_freeptr(av);
 }
 

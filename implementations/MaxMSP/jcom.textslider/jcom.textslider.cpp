@@ -316,7 +316,7 @@ t_max_err textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *s
 		if (attrname == gensym("textpos"))
 			textfield_set_textmargins(textfield, x->attrTextOffset[0], x->attrTextOffset[1], 2.0, 2.0);
 		
-		if((x->mouseDown) && (x->attrShowValue))
+		if ((x->mouseDown) && (x->attrShowValue))
 			textslider_updatestringvalue(x);
 		
 		jbox_redraw(&x->box);
@@ -422,7 +422,7 @@ t_max_err textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *ar
 {
 	if (argc)
 		x->attrRange[0] = atom_getfloat(argv+0);
-	if (argc > 1){
+	if (argc > 1) {
 		if (atom_getfloat(argv+1) >= atom_getfloat(argv+0))	
 			x->attrRange[1] = atom_getfloat(argv+1);
 		else {
@@ -666,21 +666,24 @@ void textslider_paint(t_textslider *x, t_object *view)
 	jbox_get_rect_for_view((t_object *)x, view, &rect);		// this is the box rectangle -- but we draw relative to 0 0, and thus only care about width & height
 	position = ((rect.width-3)*value)+1;					// -3: one pixel for each border and -1 for counting to N-1 
 
-	// Draw frame
-	c = x->attrBorderColor;
-	jgraphics_set_source_jrgba(g, &c);
-	jgraphics_rectangle_fill_fast(g, 0., 0., rect.width, rect.height);	
-
 	// Draw passive part of slider
-	c = x->attrBgColor;
-	jgraphics_set_source_jrgba(g, &c);
-	jgraphics_rectangle_fill_fast(g, position, 1.0, rect.width-position-2.0, rect.height-2.0);
+	 
+	// Draw Background
+	jgraphics_set_source_jrgba(g,&x->attrBgColor);
+	jgraphics_rectangle(g, 0., 0., rect.width, rect.height);
+	jgraphics_fill(g);
+	// Draw frame
+	jgraphics_rectangle(g, 0., 0., rect.width, rect.height);
+	jgraphics_set_source_jrgba(g, &x->attrBorderColor); 
+	jgraphics_set_line_width(g, 1.0);
+	jgraphics_stroke(g);
+	
 	
 	if (value > 0.)
 	{
 		// Draw active part of slider
 		c = x->attrFgColor;
 		jgraphics_set_source_jrgba(g, &c);
-		jgraphics_rectangle_fill_fast(g, 1.0,1.0, position, rect.height-2.0);	
+		jgraphics_rectangle_fill_fast(g, 1.0 ,1.0, position, rect.height-2.0);	
 	}
 }
