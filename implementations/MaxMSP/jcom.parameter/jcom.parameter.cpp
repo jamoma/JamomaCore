@@ -71,22 +71,23 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// Make methods accessible for our class:
 	// Note that we can't make the bang method directly accessible here (must go through another function)
 	//	because the function pointer is in out struct, which hasn't been defined yet
-	class_addmethod(c, (method)param_notify,		"notify",		A_CANT,		0);	
-	class_addmethod(c, (method)param_getattrnames,	"getattrnames",	A_CANT,		0);
-	class_addmethod(c, (method)param_dispatched,	"dispatched",	A_GIMME,	0);
-	class_addmethod(c, (method)param_int,			"int",			A_DEFLONG,	0);
-	class_addmethod(c, (method)param_float,			"float",		A_DEFFLOAT,	0);
- 	class_addmethod(c, (method)param_list,			"list",			A_GIMME,	0);
-	class_addmethod(c, (method)param_symbol,		"symbol",		A_DEFSYM,	0);
- 	class_addmethod(c, (method)param_anything,		"anything",		A_GIMME,	0);
-	class_addmethod(c, (method)param_ui_refresh,	"view/refresh",				0);
-	class_addmethod(c, (method)param_inc,			"value/inc",	A_GIMME,	0);
-	class_addmethod(c, (method)param_dec,			"value/dec",	A_GIMME,	0);
-	class_addmethod(c, (method)param_inc,			"+",			A_GIMME,	0);
-	class_addmethod(c, (method)param_dec,			"-",			A_GIMME,	0);
-	class_addmethod(c, (method)param_dump,			"dump",						0);
-	class_addmethod(c, (method)param_bang,			"bang",						0);
-	class_addmethod(c, (method)param_assist,		"assist",		A_CANT,		0); 
+	class_addmethod(c, (method)param_notify,			"notify",					A_CANT,		0);	
+	class_addmethod(c, (method)param_getattrnames,		"getattrnames",				A_CANT,		0);
+	class_addmethod(c, (method)param_receive_callback,	"param_receive_callback",	A_CANT,		0);
+	class_addmethod(c, (method)param_dispatched,		"dispatched",				A_GIMME,	0);
+	class_addmethod(c, (method)param_int,				"int",						A_DEFLONG,	0);
+	class_addmethod(c, (method)param_float,				"float",					A_DEFFLOAT,	0);
+ 	class_addmethod(c, (method)param_list,				"list",						A_GIMME,	0);
+	class_addmethod(c, (method)param_symbol,			"symbol",					A_DEFSYM,	0);
+ 	class_addmethod(c, (method)param_anything,			"anything",					A_GIMME,	0);
+	class_addmethod(c, (method)param_ui_refresh,		"view/refresh",				0);
+	class_addmethod(c, (method)param_inc,				"value/inc",				A_GIMME,	0);
+	class_addmethod(c, (method)param_dec,				"value/dec",				A_GIMME,	0);
+	class_addmethod(c, (method)param_inc,				"+",						A_GIMME,	0);
+	class_addmethod(c, (method)param_dec,				"-",						A_GIMME,	0);
+	class_addmethod(c, (method)param_dump,				"dump",						0);
+	class_addmethod(c, (method)param_bang,				"bang",						0);
+	class_addmethod(c, (method)param_assist,			"assist",					A_CANT,		0); 
 #ifndef JMOD_MESSAGE
 	class_addmethod(c, (method)param_reset,			"reset",					0);
 #endif
@@ -227,9 +228,6 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		if (patcher)
 			x->common.container = patcher;
 		
-		// Any time this object subscribes, we need to (re)setup the internal direct receive object:
-		jcom_core_subscriber_setcustomsubscribe_method((t_jcom_core_subscriber_common*)x, param_makereceive);
-		
 		attr_args_process(x, argc, argv);			// handle attribute args
 		object_attach_byptr_register(x, x , _sym_box);
 #ifndef JMOD_MESSAGE
@@ -267,8 +265,7 @@ void param_free(t_param *x)
 	qelem_free(x->ui_qelem);
 	if (x->ramper)
 		delete x->ramper;
-	if (x->receive)
-		object_free(x->receive);
+	
 	delete x->rampParameterNames;
 }
 
@@ -906,8 +903,7 @@ void param_assist(t_param *x, void *b, long msg, long arg, char *dst)
  	}		
 }
 
-
-// receive messages from our internal jcom.receive external
+// a callback method used to set the value attribute of the parameter 
 void param_receive_callback(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	if (msg == _sym_int)
@@ -921,39 +917,6 @@ void param_receive_callback(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr a
 	else
 		param_anything(x, msg, argc, argv);
 }
-
-
-void param_makereceive(void* z)
-{
-	t_param*	x = (t_param*)z;
-	Atom		a;
-	char		osc[512];
-	SymbolPtr	module_name = object_attr_getsym(x->common.hub, _sym_name);
-	
-	if (x->receive) {
-		object_free(x->receive);
-		x->receive = NULL;
-	}
-	
-	if (module_name && module_name != _sym_nothing) {
-		strcpy(osc, module_name->s_name);
-		strcat(osc, "/");
-		strcat(osc, x->common.attr_name->s_name);
-		
-		atom_setsym(&a, gensym(osc));
-		
-		// !!!
-		// to -- With the NodeLib we don't need to build a receive anymore
-		// !!!
-		
-		//x->receive = (t_object*)object_new_typed(_sym_box, jps_jcom_receive, 1, &a);
-		//object_method(x->receive, jps_setcallback, &param_receive_callback, x);
-	}
-	else
-		defer_low(x, (method)param_makereceive, 0, 0, 0);
-}
-
-
 
 // DUMP: use for debugging - dump state to the Max window
 void param_dump(t_param *x)

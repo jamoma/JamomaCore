@@ -63,7 +63,6 @@ typedef struct _param{
 	SymbolPtr		attr_unitOverride;			///< An internal unit conversion that is used temporarily when the parameter's value is set with a non-active unit.
 	method			callback;					///< A callback method that is used to pass output to an object that encapsulates this parameter (such as the jcom.ui)
 	ObjectPtr		callbackArg;				///< The object for which the callback method should be applied
-	ObjectPtr		receive;					///< Direct receive
 	TTBoolean		isSending;					///< flag to tell us if we are currently sending out our value
 	TTBoolean		isInitialised;				///< The parameter or message has been initialised
 } t_param;
@@ -92,8 +91,8 @@ void		param_subscribe(t_param *x);
  * @param dst destination that assistance string is copied to */
 void		param_assist(t_param *x, void *b, long msg, long arg, char *dst);
 
-/**	Create the direct receive object. */
-void		param_makereceive(void *z);
+/**	A callback method in order to set the value attribute of the parameter */
+void		param_receive_callback(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 /** Use for debugging - dump state to the Max window.
  * @param x the parameter instance to be investigated. */

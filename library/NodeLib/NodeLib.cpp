@@ -594,8 +594,8 @@ void jamoma_node_setter_value_callback(TTPtr p_baton, TTValue& data)
 	data.get(0, argc);
 	data.get(1, (TTPtr*)&argv);
 	
-	// send data to a parameter using the dispatched method
-	err = object_method_typed(x, jps_dispatched, argc, argv, NULL);
+	// send data to a parameter using the receive callback method
+	err = object_method_typed(x, gensym("param_receive_callback"), argc, argv, NULL);
 }
 
 void jamoma_node_attribute_observer_callback(TTPtr p_baton, TTValue& data)
