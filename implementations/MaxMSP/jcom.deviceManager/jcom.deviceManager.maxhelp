@@ -342,11 +342,11 @@
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontname" : "Arial"
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p DeviceManager_operation"
@@ -511,7 +511,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 8.0, 472.0, 1293.0, 39.0 ],
-									"text" : "Jamoma:listen /out.B/audio/gain:value 27.214312"
+									"text" : "bang"
 								}
 
 							}
@@ -1066,11 +1066,11 @@
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontname" : "Arial"
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p Control_and_discover_Jamoma_using_MINUIT"
@@ -1409,11 +1409,11 @@
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
 						"default_fontface" : 0,
 						"globalpatchername" : "",
-						"default_fontname" : "Arial"
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p Control_Jamoma_using_OSC"
@@ -1626,8 +1626,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 201.0, 151.0, 334.0, 21.0 ],
-					"text" : "load_plugins \"/Library/Application Support/Jamoma/\""
+					"patching_rect" : [ 201.0, 151.0, 265.0, 21.0 ],
+					"text" : "load_plugins /Applications/Max5/support/"
 				}
 
 			}
