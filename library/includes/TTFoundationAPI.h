@@ -22,6 +22,7 @@
 #include "TTQueue.h"
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"
+#include "TTSymbolCache.h"
 #include "TTValue.h"
 
 #ifdef TT_PLATFORM_WIN
