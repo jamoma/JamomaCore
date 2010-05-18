@@ -73,7 +73,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	//	because the function pointer is in out struct, which hasn't been defined yet
 	class_addmethod(c, (method)param_notify,			"notify",					A_CANT,		0);	
 	class_addmethod(c, (method)param_getattrnames,		"getattrnames",				A_CANT,		0);
-	class_addmethod(c, (method)param_receive_callback,	"param_receive_callback",	A_CANT,		0);
 	class_addmethod(c, (method)param_dispatched,		"dispatched",				A_GIMME,	0);
 	class_addmethod(c, (method)param_int,				"int",						A_DEFLONG,	0);
 	class_addmethod(c, (method)param_float,				"float",					A_DEFFLOAT,	0);
@@ -901,21 +900,6 @@ void param_assist(t_param *x, void *b, long msg, long arg, char *dst)
 					break;
 		}
  	}		
-}
-
-// a callback method used to set the value attribute of the parameter 
-void param_receive_callback(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	if (msg == _sym_int)
-		param_int(x, atom_getlong(argv));
-	else if (msg == _sym_float)
-		param_float(x, atom_getfloat(argv));
-	else if (msg == _sym_symbol)
-		param_symbol(x, atom_getsym(argv));
-	else if (msg == _sym_list)
-		param_list(x, msg, argc, argv);
-	else
-		param_anything(x, msg, argc, argv);
 }
 
 // DUMP: use for debugging - dump state to the Max window

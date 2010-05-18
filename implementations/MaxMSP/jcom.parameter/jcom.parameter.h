@@ -91,9 +91,6 @@ void		param_subscribe(t_param *x);
  * @param dst destination that assistance string is copied to */
 void		param_assist(t_param *x, void *b, long msg, long arg, char *dst);
 
-/**	A callback method in order to set the value attribute of the parameter */
-void		param_receive_callback(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-
 /** Use for debugging - dump state to the Max window.
  * @param x the parameter instance to be investigated. */
 void		param_dump(t_param *x);
