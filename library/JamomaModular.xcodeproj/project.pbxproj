@@ -75,6 +75,10 @@
 		D2730C5C104FBA70004513A7 /* NodeLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2730C5A104FBA70004513A7 /* NodeLib.cpp */; };
 		D2730C5D104FBA70004513A7 /* NodeLib.h in Headers */ = {isa = PBXBuildFile; fileRef = D2730C5B104FBA70004513A7 /* NodeLib.h */; };
 		D28AF8311110A3AF0072C7FC /* Controller.h in Headers */ = {isa = PBXBuildFile; fileRef = D28AF8301110A3AF0072C7FC /* Controller.h */; };
+		D2A7042411A5230800D5705E /* TTSubscriber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2A7042211A5230800D5705E /* TTSubscriber.cpp */; };
+		D2A7042511A5230800D5705E /* TTSubscriber.h in Headers */ = {isa = PBXBuildFile; fileRef = D2A7042311A5230800D5705E /* TTSubscriber.h */; };
+		D2A704C211A5712D00D5705E /* TTContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2A704C011A5712D00D5705E /* TTContainer.cpp */; };
+		D2A704C311A5712D00D5705E /* TTContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = D2A704C111A5712D00D5705E /* TTContainer.h */; };
 		D2AD390210B17B5200EBE079 /* jcom.receive~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AD38FF10B17B5200EBE079 /* jcom.receive~.cpp */; };
 		D2AD390310B17B5200EBE079 /* jcom.receivemaster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AD390010B17B5200EBE079 /* jcom.receivemaster.cpp */; };
 		D2AD390410B17B5200EBE079 /* jcom.send~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AD390110B17B5200EBE079 /* jcom.send~.cpp */; };
@@ -165,6 +169,10 @@
 		D2730C5A104FBA70004513A7 /* NodeLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NodeLib.cpp; sourceTree = "<group>"; };
 		D2730C5B104FBA70004513A7 /* NodeLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeLib.h; sourceTree = "<group>"; };
 		D28AF8301110A3AF0072C7FC /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controller.h; sourceTree = "<group>"; };
+		D2A7042211A5230800D5705E /* TTSubscriber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSubscriber.cpp; sourceTree = "<group>"; };
+		D2A7042311A5230800D5705E /* TTSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSubscriber.h; sourceTree = "<group>"; };
+		D2A704C011A5712D00D5705E /* TTContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTContainer.cpp; sourceTree = "<group>"; };
+		D2A704C111A5712D00D5705E /* TTContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTContainer.h; sourceTree = "<group>"; };
 		D2AD38FF10B17B5200EBE079 /* jcom.receive~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.receive~.cpp"; sourceTree = "<group>"; };
 		D2AD390010B17B5200EBE079 /* jcom.receivemaster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receivemaster.cpp; sourceTree = "<group>"; };
 		D2AD390110B17B5200EBE079 /* jcom.send~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.send~.cpp"; sourceTree = "<group>"; };
@@ -386,6 +394,10 @@
 			children = (
 				D2DD735211A34BD2003CD5B2 /* TTPeerObjectModel.h */,
 				D2DD735111A34BD2003CD5B2 /* TTPeerObjectModel.cpp */,
+				D2A7042311A5230800D5705E /* TTSubscriber.h */,
+				D2A7042211A5230800D5705E /* TTSubscriber.cpp */,
+				D2A704C111A5712D00D5705E /* TTContainer.h */,
+				D2A704C011A5712D00D5705E /* TTContainer.cpp */,
 				D2DD735011A34BD2003CD5B2 /* TTParameter.h */,
 				D2DD734F11A34BD2003CD5B2 /* TTParameter.cpp */,
 				D2DD735811A34BD2003CD5B2 /* TTSender.h */,
@@ -445,6 +457,8 @@
 				D2DD736011A34BD2003CD5B2 /* TTPreset.h in Headers */,
 				D2DD736211A34BD2003CD5B2 /* TTReceiver.h in Headers */,
 				D2DD736411A34BD2003CD5B2 /* TTSender.h in Headers */,
+				D2A7042511A5230800D5705E /* TTSubscriber.h in Headers */,
+				D2A704C311A5712D00D5705E /* TTContainer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,6 +572,8 @@
 				D2DD735F11A34BD2003CD5B2 /* TTPreset.cpp in Sources */,
 				D2DD736111A34BD2003CD5B2 /* TTReceiver.cpp in Sources */,
 				D2DD736311A34BD2003CD5B2 /* TTSender.cpp in Sources */,
+				D2A7042411A5230800D5705E /* TTSubscriber.cpp in Sources */,
+				D2A704C211A5712D00D5705E /* TTContainer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

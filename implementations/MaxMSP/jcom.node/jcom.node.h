@@ -15,13 +15,8 @@ typedef struct _node{
 	t_object		ob;
 	void			*p_out;						///< the leftmost outlet
 	
-	TTSymbolPtr		relativeAddress;			///< the address of this jcom.node relative to the jmod.patcher node
-	TTSymbolPtr		absoluteAddress;			///< the address of this jcom.node relative in the tree structure
-	ObjectPtr		modelPatcher;				///< the jmod.patcher which contains this jcom.node
-	TTSymbolPtr		modelAddress;				///< address of the model node in the tree
-	
-	TTNodePtr		node;						///< the TTNode relative to this jcom.node
-	TTNodePtr		modelNode;					///< the TTNode relative to the model
+	TTObjectPtr		subscriber;					///< a pointer to a TTSubscriber object
+	TTObjectPtr		container;					///< a pointer to a TTContainer object
 	
 	TTObjectPtr		param_observer;				///< a life cycle observer to observe any parameter creation (if asked by the user)
 
@@ -40,6 +35,6 @@ void			node_assist(t_node *x, void *b, long m, long a, char *s);
 
 void			node_bang(t_node *x);
 
-void			node_build(t_node *x);
+void			node_build(t_node *x, SymbolPtr relativeAddress);
 
 void			node_directory_callback(t_node *x, t_symbol *msg, long argc, t_atom *argv);

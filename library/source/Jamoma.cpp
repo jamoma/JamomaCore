@@ -34,6 +34,7 @@ void jamoma_init(void)
 		if (maxversion() >= 0x0500)
 			max5 = true;
 		
+		TTPOMInit();
 		TTDSPInit();
 		common_symbols_init();
 		jamomaSymbolsInit();

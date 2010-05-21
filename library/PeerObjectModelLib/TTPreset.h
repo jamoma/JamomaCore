@@ -1,6 +1,6 @@
 /* 
  * A Preset Object
- * Copyright © 2008, Théo de la Hogue
+ * Copyright © 2010, Théo de la Hogue
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 

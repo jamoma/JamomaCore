@@ -153,7 +153,7 @@ JamomaError	jamoma_directory_register(t_symbol *OSCaddress, t_symbol *type, t_ob
 		}
 		
 		// create a TTNode
-		jamoma_directory->TTNodeCreate(newAddress, TT(type->s_name), obj, attributesAccessList, newTTNode, (TTBoolean *)newInstanceCreated);
+		jamoma_directory->TTNodeCreate(newAddress, TT(type->s_name), obj, NULL, attributesAccessList, newTTNode, (TTBoolean *)newInstanceCreated);
 
 		// free the memory allocated inside param_getattrnames
 		sysmem_freeptr(attrnames);
@@ -621,30 +621,68 @@ void jamoma_node_attribute_observer_callback(TTPtr p_baton, TTValue& data)
 	object_method(x, jps_method, mess, argc, argv);
 }
 
-
-// Method to deal with Max patch structure in order to build the tree
+// Method to deal with TTSubscriber
 ///////////////////////////////////////////////////////////////////////
 
-JamomaError jamoma_patcher_register_jcom(TTSymbolPtr relativeAddress, SymbolPtr type, ObjectPtr jcom, TTNodePtr *returnedNode, TTNodePtr *returnedModelNode)
+JamomaError jamoma_subscriber_create(ObjectPtr x, SymbolPtr relativeAddress, TTObjectPtr aTTObject, TTSubscriberPtr *returnedSubscriber)
 {
-	TTSymbolPtr _parent, _name, _instance, _attribute;
-	ObjectPtr	modelPatcher, obj = NULL;
-	SymbolPtr	objclass = NULL, _sym_jcomnode, _sym_jcomparam, _sym_share;
-	TTList		*modelList, aNodeList;
-	TTNodePtr	parentNode;
-	TTString	nodeAddress;
-	bool		newInstanceCreated;
-	long		nbLevel = 0;
-	TTErr		err;
+	TTValue			args;
+	ObjectPtr		context;
+	TTObjectPtr		shareCallback, contextListCallback;
+	TTValuePtr		shareBaton, contextListBaton;
+		
+	// prepare aguments
 	
-	splitOSCAddress(relativeAddress, &_parent, &_name, &_instance, &_attribute);
+	args.append(jamoma_directory);
+	
+	context = jamoma_object_getpatcher(x);
+	args.append(context);
+	
+	args.append(TT(relativeAddress->s_name));
+	
+	shareCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &shareCallback, kTTValNONE);
+	shareBaton = new TTValue(TTPtr(x));
+	shareCallback->setAttributeValue(TT("Baton"), TTPtr(shareBaton));
+	shareCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_subscriber_share_context_node));
+	args.append(shareCallback);
+	
+	contextListCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &contextListCallback, kTTValNONE);
+	contextListBaton = new TTValue(TTPtr(x));
+	contextListCallback->setAttributeValue(TT("Baton"), TTPtr(contextListBaton));
+	contextListCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_subscriber_get_context_list));
+	args.append(contextListCallback);
+	
+	args.append(TTPtr(aTTObject));
+	
+	*returnedSubscriber = NULL;
+	TTObjectInstantiate(TT("Subscriber"), TTObjectHandle(returnedSubscriber), args);
+	TT_ASSERT("Subscriber created successfully", !err);
+	
+	return JAMOMA_ERR_NONE;
+}
+
+void jamoma_subscriber_share_context_node(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr	b;
+	ObjectPtr	x;
+	ObjectPtr	contextPatcher, obj;
+	TTNodePtr	returnedContextNode;
+	SymbolPtr	objclass = NULL,	_sym_jcomnode, _sym_jcomparam, _sym_share;
+	
+	// unpack baton
+	b = (TTValuePtr)p_baton;
+	b->get(0, (TTPtr*)&x);
 	
 	// look for any other registered jcom. in the patcher
 	// to ask them the model node using their "share_model_node" method. 
 	// this would optimized the registration process.
-	*returnedModelNode = NULL;
-	modelPatcher = jamoma_object_getpatcher(jcom);
-	obj = object_attr_getobj(modelPatcher, _sym_firstobject);
+	returnedContextNode = NULL;
+	contextPatcher = jamoma_object_getpatcher(x);
+	obj = object_attr_getobj(contextPatcher, _sym_firstobject);
+	
+	// TODO : find a way to cache those t_symbol else where ...
 	_sym_jcomnode = gensym("jcom.node");
 	_sym_jcomparam = gensym("jcom.parameter");
 	_sym_share = gensym("share_model_node");
@@ -653,78 +691,38 @@ JamomaError jamoma_patcher_register_jcom(TTSymbolPtr relativeAddress, SymbolPtr 
 		objclass = object_attr_getsym(obj, _sym_maxclass);
 		if ((objclass == _sym_jcomnode) || (objclass == _sym_jcomparam)) {
 			
-			// ask it the modelNode
-			object_method(object_attr_getobj(obj, _sym_object), _sym_share, returnedModelNode);
+			// ask it the contextNode
+			object_method(object_attr_getobj(obj, _sym_object), _sym_share, &returnedContextNode);
 			
-			if (*returnedModelNode)
+			if (returnedContextNode)
 				break;
 		}
 		obj = object_attr_getobj(obj, _sym_nextobject);
 	}
 	
-	// if it is the first registered jcom. of the patcher
-	// or the sharing failed
-	if (!*returnedModelNode) {
-		
-		// Get all jmod.modelPatcher above the jcom and their modelName 
-		// looking recursively at all parent patcher.
-		modelList = new TTList();
-		jamoma_patcher_get_jmod_list(jcom, &modelList, &nbLevel);
-		
-		// register each model of the list if they don't exist as 
-		// TTNode in the tree structure
-		jamoma_patcher_register_jmod_list(modelList, returnedModelNode);
-	}
-	
-	// Build the node at /modelAddress/parent/node
-	if (*returnedModelNode) {
-		
-		// start at /modelAddress
-		nodeAddress = jamoma_node_OSC_address(*returnedModelNode)->s_name;
-		
-		// Check if parent exists
-		if ((_parent != NO_PARENT) && (_parent->getCString()[0] != C_SEPARATOR))
-			nodeAddress += "/";
-		nodeAddress += _parent->getCString();
-		
-		err = jamoma_directory->Lookup(TT(nodeAddress.data()), aNodeList, &parentNode);
-		
-		// if parent doesn't exist create it
-		if (err) {
-			
-			// the parent could be a container
-			if (_parent != NO_PARENT)
-				jamoma_directory_register(gensym((char*)nodeAddress.data()), gensym("container"), NULL, &parentNode, &newInstanceCreated);
-			// else the model himself...
-		}
-		
-		// Check if node exists
-		if ((_name != NO_NAME) && (_name->getCString()[0] != C_SEPARATOR))
-			nodeAddress += "/";
-		nodeAddress += _name->getCString();
-		
-		err = jamoma_directory->Lookup(TT(nodeAddress.data()), aNodeList, returnedNode);
-		
-		// if node doesn't exist create it
-		if (err) {
-			// the node could be a container
-			if (_name != NO_NAME)
-				jamoma_directory_register(gensym((char*)nodeAddress.data()), type, jcom, returnedNode, &newInstanceCreated);
-			// or the model himself
-			else 
-				*returnedNode = *returnedModelNode;
-		}
-		// else ensure that the object is stored
-		else
-			(*returnedNode)->setObject(jcom);
-	}
-	else
-		return JAMOMA_ERR_GENERIC;
-	
-	return JAMOMA_ERR_NONE;
+	data.append(returnedContextNode);
 }
 
-void jamoma_patcher_get_jmod_list(ObjectPtr z, TTListPtr *returnedModelList, long *nbLevel)
+void jamoma_subscriber_get_context_list(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr	b;
+	ObjectPtr	x;
+	TTListPtr	aContextList;
+	long		nbLevel = 0;
+	
+	// unpack baton
+	b = (TTValuePtr)p_baton;
+	b->get(0, (TTPtr*)&x);
+	
+	// unpack data to get a TTListPtr
+	data.get(0, (TTPtr*)&aContextList);
+	
+	// Get all jmod.modelPatcher above the jcom and their modelName 
+	// looking recursively at all parent patcher.
+	jamoma_subscriber_get_context_list_method(x, aContextList, &nbLevel);
+}
+
+void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextList, long *nbLevel)
 {
 	AtomCount		ac = 0;
 	AtomPtr			av = NULL;
@@ -732,8 +730,8 @@ void jamoma_patcher_get_jmod_list(ObjectPtr z, TTListPtr *returnedModelList, lon
 	ObjectPtr		box, patcher = jamoma_object_getpatcher(z);
 	SymbolPtr		context;
 	SymbolPtr		patcherName;
-	SymbolPtr		modelName = _sym_nothing;
-	TTString		modelEditionName;
+	SymbolPtr		contextName = _sym_nothing;
+	TTString		contextEditionName;
 	TTValuePtr		v;
 	
 	// If z is a bpatcher, the patcher is NULL
@@ -753,125 +751,50 @@ void jamoma_patcher_get_jmod_list(ObjectPtr z, TTListPtr *returnedModelList, lon
 	// Is the patcher embedded in a jmod.patcher ?
 	// The topLevel patcher name have not to be include in the address
 	if (isJmodPatcher && ((context == _sym_bpatcher) || (context == _sym_subpatcher)) ) {
-
-		(*nbLevel)++;
-		jamoma_patcher_get_jmod_list(patcher, returnedModelList, nbLevel);
 		
-		// Try to get model name from the patcher arguments
+		(*nbLevel)++;
+		jamoma_subscriber_get_context_list_method(patcher, aContextList, nbLevel);
+		
+		// Try to get context name from the patcher arguments
 		jamoma_patcher_getargs(patcher, &ac, &av);
 		if ((context == _sym_subpatcher) && (ac == 2))
-			modelName = atom_getsym(av+1);
+			contextName = atom_getsym(av+1);
 		else if ((context == _sym_bpatcher) && (ac == 1))
-			modelName = atom_getsym(av);
+			contextName = atom_getsym(av);
 		
-		// Try to get model name from the patcher scripting name
+		// Try to get context name from the patcher scripting name
 		else {
 			box = object_attr_getobj(patcher, jps_box);
-			modelName = object_attr_getsym(box, gensym("varname"));
-			if (!modelName)
-				modelName = _sym_nothing;
+			contextName = object_attr_getsym(box, gensym("varname"));
+			if (!contextName)
+				contextName = _sym_nothing;
 		}
 		
-		// If the modelName is still nothing
+		// If the contextName is still nothing
 		// get it from the patcher name if it start by "jmod."
-		if (modelName == _sym_nothing)
-			modelName = patcherName;
+		if (contextName == _sym_nothing)
+			contextName = patcherName;
 		
-		// add the < modelName, patcher > to the modelList
-		v = new TTValue(TT(modelName->s_name));
+		// add the < contextName, patcher > to the contextList
+		v = new TTValue(TT(contextName->s_name));
 		v->append((TTPtr)patcher);
-		(*returnedModelList)->append(v);
-			
+		aContextList->append(v);
+		
 		if (av)
 			sysmem_freeptr(av);
+	}
+	// case where the object is in a subpatcher
+	else if (!isJmodPatcher && (context == _sym_subpatcher) ) {
+		// ignore this level
+		jamoma_subscriber_get_context_list_method(patcher, aContextList, nbLevel);
 	}
 	// case where the user is editing the module 
 	// or because there are jcom to register in the toplevel patcher
 	else if ((context == gensym("toplevel")) && (*nbLevel == 0)) {
 		
-		// add the < /, patcher > to the modelList
+		// add the < /, patcher > to the contextList
 		v = new TTValue(S_SEPARATOR);
 		v->append((TTPtr)patcher);
-		(*returnedModelList)->append(v);
-	}
-}
-
-void jamoma_patcher_register_jmod_list(TTListPtr modelList, TTNodePtr *returnedModelNode)
-{
-	TTSymbolPtr formatedModelName, modelAddress, model_parent, model_name, model_instance, model_attribute;
-	TTList		modelNodeList, attributesAccess;
-	TTNodePtr	modelNode, lowerModelNode;
-	TTString	lowerModelAddress;
-	ObjectPtr	patcher;
-	bool		found, nodeCreated;
-	TTErr		err;
-
-	if (jamoma_directory) {
-		
-		// Build the /topModel/subModel/.../modelName/ structure
-		// Check each model instance looking at the patcher.
-		
-		// start by the root
-		modelNode = jamoma_directory->getRoot();
-		
-		// if there are models modelList
-		if(!modelList->isEmpty()){
-			
-			// for each model of the modelList
-			for (modelList->begin(); modelList->end(); modelList->next()){
-				
-				// get the modelName
-				modelList->current().get(0, (TTSymbolPtr*)&formatedModelName);
-				
-				// get the patcher
-				modelList->current().get(1, (TTPtr*)&patcher);
-				
-				// Is there a specific instance inside the modelName (eg. myModel.A) ?
-				// if not we look for modelName.* else for myModel.A
-				splitOSCAddress(formatedModelName, &model_parent, &model_name, &model_instance, &model_attribute);
-				
-				if (model_instance == NO_INSTANCE)
-					err = modelNode->getChildren(model_name, S_WILDCARD, modelNodeList);
-				else 
-					err = modelNode->getChildren(model_name, model_instance, modelNodeList);	
-				
-				// 3. For each node of the modelNodeList, check the patcher object
-				// if one matches, keep it else we have to create the node
-				found = false;
-				lowerModelNode = NULL;
-				for (modelNodeList.begin(); modelNodeList.end(); modelNodeList.next()) {
-					
-					modelNodeList.current().get(0, (TTPtr*) &lowerModelNode);
-					
-					// Check if objects are the same
-					if (patcher == (ObjectPtr)lowerModelNode->getObject()) {
-						found = true;
-						break;
-					}
-				}
-				
-				// if no node exists : create a new instance for this model
-				if (!found) {
-					
-					modelNode->getOscAddress(&modelAddress);
-					
-					// don't create another root !
-					if (formatedModelName != S_SEPARATOR) {
-						lowerModelAddress = modelAddress->getCString();
-						if (modelAddress != S_SEPARATOR)
-							lowerModelAddress += "/";
-						lowerModelAddress += formatedModelName->getCString();
-						
-						jamoma_directory->TTNodeCreate(TT(lowerModelAddress.data()), TT("model"), (TTPtr)patcher, attributesAccess, &modelNode, &nodeCreated);
-					}
-					else
-						modelNode = jamoma_directory->getRoot();
-				}
-				else
-					modelNode = lowerModelNode;
-			}
-			
-			*(returnedModelNode) = modelNode;
-		}
+		aContextList->append(v);
 	}
 }

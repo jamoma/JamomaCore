@@ -6,10 +6,10 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTFoundationAPI.h"
 #include "Jamoma.h"
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
+#include "TTSubscriber.h"
 
 // statics and globals
 
@@ -133,20 +133,26 @@ extern "C" {
 		void function(t_object *x, t_symbol *msg, long argc, t_atom *argv) */
 	void			jamoma_node_attribute_observer_callback(TTPtr p_baton, TTValue& data);
 
-	// Method to deal with Max patch structure in order to build the tree
+	
+	// Method to deal with TTSubscriber
 	///////////////////////////////////////////////////////////////////////
 	
-	/**	Register a node relative to a jcom external at an adresse relative to a jmod.modelPatcher node */
-	JamomaError		jamoma_patcher_register_jcom(TTSymbolPtr relativeAddress, SymbolPtr type, ObjectPtr x, TTNodePtr *returnedNode, TTNodePtr *returnedModelNode);
+	/**	Create a subscriber object and register an object to the tree */
+	JamomaError		jamoma_subscriber_create(ObjectPtr x, SymbolPtr relativeAddress, TTObjectPtr aTTObject, TTSubscriberPtr *returnedSubscriber);
 	
-	/** Look recursively to every jmod.modelPatcher above an object in order to know his place in the tree
-		note : a modelPatcher is a patcher named [jmod.something otherName] 
-		return a <formatedModelName, patcher> list */
-	void			jamoma_patcher_get_jmod_list(ObjectPtr z, TTListPtr *returnedModelList, long *nbLevel);
+	/** Share the context node between subscribed object
+		To understand how this method have to work see in TTSubscriber.h and .cpp */
+	void			jamoma_subscriber_share_context_node(TTPtr p_baton, TTValue& data);
 	
-	/** Register each jmod.modelPatcher of the list as TTNode in the tree structure (if they doesn't exist yet)
-		return the lower model node */
-	void			jamoma_patcher_register_jmod_list(TTListPtr ModelList, TTNodePtr *returnedModelNode);
+	/** Get the context list above a subscribed object
+	 To understand how this method have to work see in TTSubscriber.h and .cpp */
+	void			jamoma_subscriber_get_context_list(TTPtr p_baton, TTValue& data);
+	
+	/** Look recursively to every jmod.contextPatcher above an object in order to know his place in the tree
+	 note : a contextPatcher is a patcher named [jmod.something otherName] 
+	 return a <formatedContextName, patcher> list 
+	 To understand how this method have to work see in TTSubscriber.h and .cpp */
+	void			jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextList, long *nbLevel);
 	
 #ifdef __cplusplus
 }

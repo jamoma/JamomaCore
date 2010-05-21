@@ -35,6 +35,15 @@ void TTPOMInit()
 		TTLogMessage("PeerObjectModel -- Version %s\n", TTPOM_VERSION_STRING);
 #endif
 		
+		// register classes -- both internal and external
+		TTSubscriber::registerClass();
+		TTContainer::registerClass();
+		TTParameter::registerClass();
+		TTSender::registerClass();
+		TTReceiver::registerClass();
+		TTMapper::registerClass();
+		TTPreset::registerClass();
+		
 		TTPOMRegisterInternalClasses();
 	}
 }

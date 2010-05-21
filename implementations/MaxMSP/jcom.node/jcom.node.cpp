@@ -51,24 +51,20 @@ void *node_new(t_symbol *name, long argc, t_atom *argv)
 {
 	long		attrstart = attr_args_offset(argc, argv);
 	t_node		*x = (t_node*)object_alloc(node_class);
-	t_symbol	*adrs;
+	t_symbol	*relativeAddress = _sym_nothing;
 	
 	if(x){
 		
 		x->p_out = outlet_new(x, 0);
 		
 		// the first arg is for /parent/name
-		if (attrstart && argv) {
-			atom_arg_getsym(&adrs, 0, attrstart, argv);
-			x->relativeAddress = TT(adrs->s_name);
-		}
-		else
-			x->relativeAddress = NO_NAME;
+		if (attrstart && argv)
+			atom_arg_getsym(&relativeAddress, 0, attrstart, argv);
 		
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)node_build, 0, 0, 0);
+		defer_low((ObjectPtr)x, (method)node_build, relativeAddress, 0, 0);
 		
 	}
 	return x;
@@ -76,9 +72,9 @@ void *node_new(t_symbol *name, long argc, t_atom *argv)
 
 void node_free(t_node *x)
 {
-	// unregister the node (normally it's done when the patcher is deleted but during edition time
+	// unregister the jcom.node (normally it's done when the patcher is deleted but during edition time
 	// it could be destroyed even if the patcher is not destroyed)
-	jamoma_directory->TTNodeRemove(x->absoluteAddress);
+	TTObjectRelease(TTObjectHandle(&x->subscriber));
 }
 
 #if 0
@@ -88,19 +84,21 @@ void node_free(t_node *x)
 
 t_max_err node_notify(t_node *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
-	TTList returnedTTNodes;
-	TTNodePtr firstReturnedTTNode;
+	TTValue	v;
+	ObjectPtr context;
+	x->subscriber->getAttributeValue(TT("Context"), v);
+	v.get(0, (TTPtr*)&context);
 	
 	// if the patcher is deleted
-	if (sender == x->modelPatcher)
+	if (sender == context)
 		if (msg == _sym_free) {
 			
-			// unregister the modelNode
-			if(jamoma_directory->Lookup(x->modelAddress, returnedTTNodes, &firstReturnedTTNode))
-				jamoma_directory->TTNodeRemove(x->modelAddress);
+			// delete
+			TTObjectRelease(TTObjectHandle(&x->subscriber));
+			delete x->subscriber;
 			
 			// no more notification
-			object_detach_byptr((ObjectPtr)x, x->modelPatcher);
+			object_detach_byptr((ObjectPtr)x, context);
 		}
 	
 	return MAX_ERR_NONE;
@@ -123,31 +121,44 @@ void node_bang(t_node *x)
 	;
 }
 
-void node_build(t_node *x)
+void node_build(t_node *x, SymbolPtr relativeAddress)
 {
-	JamomaError err;
-	//object_post((ObjectPtr)x, "*************** START BUILD ****************");
-	//object_post((ObjectPtr)x, "name = %s", x->name->getCString());
-	//object_post((ObjectPtr)x, "parent = %s", x->parent->getCString());
+	TTValue	v, args;
+	ObjectPtr context;
+	TTSymbolPtr absoluteAddress;
 	
-	err = jamoma_patcher_register_jcom(x->relativeAddress, gensym("container"), (ObjectPtr)x, &x->node, &x->modelNode);
+	args = new TTValue(0);
+	args.append(kTTSymEmpty);
+	x->container = NULL;
+	TTObjectInstantiate(TT("Container"), TTObjectHandle(&x->container), args);
 	
-	if (!err) {
-		
-		x->node->getOscAddress(&x->absoluteAddress);
-		x->modelNode->getOscAddress(&x->modelAddress);
-		
+	jamoma_subscriber_create((ObjectPtr)x, relativeAddress, x->container, (TTSubscriberPtr*)&x->subscriber);
+	
+	if (x->subscriber) {
+		 
 		// attach to the patcher to be notified of his destruction
-		x->modelPatcher = jamoma_object_getpatcher((ObjectPtr)x);
-		object_attach_byptr_register(x, x->modelPatcher, _sym_box);
+		x->subscriber->getAttributeValue(TT("Context"), v);
+		v.get(0, (TTPtr*)&context);
+		object_attach_byptr_register(x, context, _sym_box);
 		
-		object_post((ObjectPtr)x, "node address = %s", x->absoluteAddress->getCString());
+		// debug
+		x->subscriber->getAttributeValue(TT("AbsoluteAddress"), v);
+		v.get(0, &absoluteAddress);
+		object_post((ObjectPtr)x, "node address = %s", absoluteAddress->getCString());
 	}
 }
 
-void node_share_model_node(t_node *x, TTNodePtr *modelNode)
+void node_share_model_node(t_node *x, TTNodePtr *contextNode)
 {
-	*modelNode = x->modelNode;
+	TTValue	v;
+	
+	if (x->subscriber) {
+		
+		x->subscriber->getAttributeValue(TT("ContextNode"), v);
+		v.get(0, (TTObjectPtr*)contextNode);
+	}
+	else
+		*contextNode = NULL;
 }
 
 void node_directory_callback(t_node *x, t_symbol *msg, long argc, t_atom *argv)

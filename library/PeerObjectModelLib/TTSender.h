@@ -1,6 +1,6 @@
 /* 
  * A Sender Object
- * Copyright © 2008, Théo de la Hogue
+ * Copyright © 2010, Théo de la Hogue
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -20,8 +20,8 @@ class TTPOM_EXPORT TTSender : public TTObject
 	public:
 	
 	TTNodeDirectoryPtr	mDirectory;			///< the directory
-	TTSymbolPtr			mAddress;			///< the address to bind
-	TTSymbolPtr			mAttribute;			///< the attribute to bind (default : value)
+	TTSymbolPtr			mAddress;			///< ATTRIBUTE: the address to bind
+	TTSymbolPtr			mAttribute;			///< ATTRIBUTE: the attribute to bind (default : value)
 
 	private:
 	

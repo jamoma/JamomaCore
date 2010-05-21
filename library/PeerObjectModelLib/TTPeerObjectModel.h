@@ -33,6 +33,8 @@
 
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
+#include "TTSubscriber.h"
+#include "TTContainer.h"
 #include "TTParameter.h"
 #include "TTSender.h"
 #include "TTReceiver.h"
