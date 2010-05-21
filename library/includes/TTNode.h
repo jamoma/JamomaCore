@@ -66,7 +66,7 @@ typedef TTCallback* TTCallbackPtr;
 	
 */
 
-class TTFOUNDATION_EXPORT TTNode : public TTObject			///< we will subclass TTObject in order to gain some functionality -- like observers and notifications
+class TTFOUNDATION_EXPORT TTNode : public TTObject			///< we subclass TTObject in order to gain some functionality -- like observers and notifications
 {
 	TTCLASS_SETUP(TTNode)
 
@@ -74,9 +74,8 @@ class TTFOUNDATION_EXPORT TTNode : public TTObject			///< we will subclass TTObj
 	TTSymbolPtr			instance;				///< an instance symbol. default to ""
 
 	TTSymbolPtr			type;					///< a type symbol to organized the TTNode of the directory
-	TTPtr				object;					///< an object linked to the TTNode (or even NULL for containters)
-	TTHashPtr			properties;				///< a hashtab of properties of the TTNode (no data stored, just properties as keys and gette and setter callbacks)
-												// TODO : use the TTObject class fonctionnality besause TTNode is also a TTObject
+	TTPtr				object;					///< an object linked to the TTNode (or even NULL for containers)
+	TTPtr				context;				///< an element that contains the object in the environnement
 	
 	TTNodePtr			parent;					///< pointer to the parent TTNode in the directory
 	TTHashPtr			children;				///< a hashtab of hashtabs:
@@ -116,6 +115,12 @@ public:
 	
 	/** Set a pointer to the object linked with the TTNode */
 	TTErr			setObject(void* ob);
+	
+	/** Get a pointer to the context linked with the TTNode */
+	void*			getContext();
+	
+	/** Set a pointer to the context linked with the TTNode */
+	TTErr			setContext(void* ob);
 
 	/** Get a pointer to the parent TTNode of the TTNode */
 	TTNodePtr		getParent();

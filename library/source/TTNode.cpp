@@ -16,20 +16,18 @@
 TT_OBJECT_CONSTRUCTOR,
 	parent(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTNode", arguments.getSize() == 5);
+	TT_ASSERT("Correct number of args to create TTNode", arguments.getSize() == 6);
 	
 	arguments.get(0, &name);
 	arguments.get(1, &instance);
 	arguments.get(2, &type);
 	arguments.get(3, &object);
-	arguments.get(4, TTObjectHandle(&directory));
+	arguments.get(4, &context);
+	arguments.get(5, TTObjectHandle(&directory));
 	TT_ASSERT("Directory passed to TTNode is not NULL", directory);
 	
 	// a new TTNode have no child
 	this->children = new TTHash();
-
-	// a new TTNode have no propertie
-	this->properties = new TTHash();
 }
 
 TTNode::~TTNode()
@@ -102,9 +100,6 @@ TTNode::~TTNode()
 	this->children->clear();
 	this->children->~TTHash();
 
-	// clear all other infomations
-	this->properties->clear();
-	this->properties->~TTHash();
 	this->name = NULL;
 	this->type = NULL;
 	this->object = NULL;
@@ -120,6 +115,7 @@ TTSymbolPtr		TTNode::getName() {return this->name;}
 TTSymbolPtr		TTNode::getInstance() {return this->instance;}
 TTSymbolPtr		TTNode::getType() {return this->type;}
 void*			TTNode::getObject() {return this->object;}
+void*			TTNode::getContext() {return this->context;}
 TTNodePtr		TTNode::getParent() {return this->parent;}
 
 
@@ -282,6 +278,12 @@ TTErr TTNode::setObject(void* ob)
 	return kTTErrNone;
 }
 
+TTErr TTNode::setContext(void* ob)
+{
+	this->context = ob;
+	return kTTErrNone;
+}
+
 TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created)
 {
 	TTValue	found;
@@ -295,7 +297,7 @@ TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created
 	if (err == kTTErrValueNotFound) {
 
 		// we create a container TTNode
-		this->directory->TTNodeCreate(oscAddress_parent, TT("container"), NULL, attributeAccess, &this->parent, parent_created);
+		this->directory->TTNodeCreate(oscAddress_parent, TT("container"), NULL, NULL, attributeAccess, &this->parent, parent_created);
 
 		// Is it a good test ?
 		if (*parent_created && (this->parent->instance != NO_INSTANCE)) {
