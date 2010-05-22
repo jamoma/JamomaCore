@@ -297,13 +297,11 @@ TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created
 	if (err == kTTErrValueNotFound) {
 
 		// we create a container TTNode
-		this->directory->TTNodeCreate(oscAddress_parent, TT("container"), NULL, NULL, attributeAccess, &this->parent, parent_created);
+		this->directory->TTNodeCreate(oscAddress_parent, TT("Container"), NULL, NULL, attributeAccess, &this->parent, parent_created);
 
 		// Is it a good test ?
-		if (*parent_created && (this->parent->instance != NO_INSTANCE)) {
-			//post("setParent : error : a new instance %s of %s have been created", this->parent->instance->getCString(), this->parent->name->getCString());
+		if (*parent_created && (this->parent->instance != NO_INSTANCE))
 			return kTTErrGeneric;
-		}
 	}
 	else
 		found.get(0,(TTPtr*)&this->parent);

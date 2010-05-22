@@ -30,7 +30,7 @@ TT_OBJECT_CONSTRUCTOR,
 	this->mObservers = new TTHash();
 
 	// create a root (OSC style)
-	TTNodeCreate(S_SEPARATOR, TT("container"), NULL, NULL, attributeAccess, &mRoot, &nodeCreated);
+	TTNodeCreate(S_SEPARATOR, TT("Container"), NULL, NULL, attributeAccess, &mRoot, &nodeCreated);
 }
 
 TTNodeDirectory::~TTNodeDirectory()
