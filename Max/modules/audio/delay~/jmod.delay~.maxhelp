@@ -55,7 +55,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 55.0, 596.0, 316.0, 55.0 ],
-					"text" : "When the same signal is fed to both channels, differences in delay illustrate the proximity effect: The perceived direction of the source gravitates towards the source with the least delay."
+					"text" : "When the same signal is fed to both channels, differences in delay illustrate the precedence effect: The perceived direction of the source gravitates towards the source with the least delay."
 				}
 
 			}
