@@ -30,7 +30,7 @@ TT_OBJECT_CONSTRUCTOR,
 	this->mObservers = new TTHash();
 
 	// create a root (OSC style)
-	TTNodeCreate(S_SEPARATOR, TT("Container"), NULL, NULL, attributeAccess, &mRoot, &nodeCreated);
+	TTNodeCreate(S_SEPARATOR, TT("Root"), this, this, attributeAccess, &mRoot, &nodeCreated);
 }
 
 TTNodeDirectory::~TTNodeDirectory()
@@ -210,49 +210,6 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 		return kTTErrNone;
 	}
 	return kTTErrGeneric;
-}
-
-TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
-{
-	TTUInt8		i;
-	TTValue		attributeNames;
-	TTSymbolPtr	aName;
-	TTValuePtr	attributeAccessPack;
-	TTList		attributeAccessList;
-	
-	// get all attributes of the TTObject
-	newObject->getAttributeNames(attributeNames);
-	
-	// for each attribute
-	for(i = 0; i < attributeNames.getSize(); i++) {
-		
-		attributeNames.get(i, &aName);
-		
-		// Prepare a callback to get attribute
-		TTObjectPtr newGetter = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("Callback"), &newGetter, kTTValNONE);
-		TTValuePtr	newGetterBaton = new TTValue(TTPtr(newObject));
-		newGetterBaton->append(TTPtr(aName));
-		newGetter->setAttributeValue(TT("Baton"), TTPtr(newGetterBaton));
-		newGetter->setAttributeValue(TT("Function"), TTPtr(&TTObjectGetAttributeCallbackMethod));
-		
-		// Prepare a callback to set attribute
-		TTObjectPtr newSetter = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("Callback"), &newSetter, kTTValNONE);
-		TTValuePtr newSetterBaton = new TTValue(TTPtr(newObject));
-		newSetterBaton->append(TTPtr(aName));
-		newSetter->setAttributeValue(TT("Baton"), TTPtr(newSetterBaton));
-		newSetter->setAttributeValue(TT("Function"), TTPtr(&TTObjectSetAttributeCallbackMethod));
-		
-		// prepare the pack
-		attributeAccessPack = new TTValue((TTPtr)aName);
-		attributeAccessPack->append((TTPtr)newGetter);
-		attributeAccessPack->append((TTPtr)newSetter);
-		
-		attributeAccessList.append(attributeAccessPack);
-	}
-	
-	return this->TTNodeCreate(oscAddress, newObject->getName(), newObject, aContext, attributeAccessList, returnedTTNode, newInstanceCreated);
 }
 
 TTErr TTNodeDirectory::TTNodeRemove(TTSymbolPtr oscAddress)
@@ -567,34 +524,6 @@ TTErr TTNodeDirectory::notifyObservers(TTSymbolPtr oscAddress, TTNodePtr aNode, 
  *		GLOBAL METHODS
  *
  ************************************************************************************/
-
-TTErr TTObjectGetAttributeCallbackMethod(TTPtr baton, TTValue& data)
-{
-	TTValuePtr	b;
-	TTObjectPtr	x;
-	TTSymbolPtr	aName;
-	
-	// unpack baton
-	b = (TTValuePtr)baton;
-	b->get(0, TTObjectHandle(&x));
-	b->get(1, (TTPtr*)&aName);
-	
-	return x->getAttributeValue(aName, data);
-}
-
-TTErr TTObjectSetAttributeCallbackMethod(TTPtr baton, TTValue& data)
-{
-	TTValuePtr	b;
-	TTObjectPtr	x;
-	TTSymbolPtr	aName;
-	
-	// unpack baton
-	b = (TTValuePtr)baton;
-	b->get(0, TTObjectHandle(&x));
-	b->get(1, (TTPtr*)&aName);
-	
-	return x->setAttributeValue(aName, data);
-}
 
 TTErr splitAtOSCAddress(TTSymbolPtr oscAddress, int whereToSplit, TTSymbolPtr* returnedPart1, TTSymbolPtr* returnedPart2)
 {

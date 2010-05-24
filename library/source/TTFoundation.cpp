@@ -14,7 +14,6 @@
 #include "TTCallback.h"
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
-#include "TTNodeSubscriber.h"
 
 
 #ifdef TT_PLATFORM_MAC
@@ -56,7 +55,6 @@ void TTFoundationInit()
 		TTCallback::registerClass();
 		TTNode::registerClass();
 		TTNodeDirectory::registerClass();
-		TTNodeSubscriber::registerClass();
 
 		TTFoundationLoadExternalClasses();
 	}

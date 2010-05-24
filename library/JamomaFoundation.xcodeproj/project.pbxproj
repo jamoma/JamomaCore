@@ -69,8 +69,6 @@
 		22EB3BC7102F0BEB006D027A /* TTQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E010286BB0002000A9 /* TTQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22EB3BC8102F0BEB006D027A /* TTThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E410286BB0002000A9 /* TTThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22EB3BC9102F0BEB006D027A /* TTValueCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E610286BB0002000A9 /* TTValueCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D22D140311A7F84300C81BE8 /* TTNodeSubscriber.h in Headers */ = {isa = PBXBuildFile; fileRef = D22D140211A7F84300C81BE8 /* TTNodeSubscriber.h */; };
-		D22D140511A7F84F00C81BE8 /* TTNodeSubscriber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D22D140411A7F84F00C81BE8 /* TTNodeSubscriber.cpp */; };
 		D2F68EC7108C9BE10094260C /* TTNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D2F68EC5108C9BE10094260C /* TTNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D2F68EC8108C9BE10094260C /* TTNodeDirectory.h in Headers */ = {isa = PBXBuildFile; fileRef = D2F68EC6108C9BE10094260C /* TTNodeDirectory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D2F68ECB108C9BEF0094260C /* TTNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F68EC9108C9BEF0094260C /* TTNode.cpp */; };
@@ -125,8 +123,6 @@
 		22E3860510286BBE002000A9 /* TTThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTThread.cpp; path = source/TTThread.cpp; sourceTree = "<group>"; };
 		22E3860610286BBE002000A9 /* TTValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValue.cpp; path = source/TTValue.cpp; sourceTree = "<group>"; };
 		22E3860710286BBE002000A9 /* TTValueCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValueCache.cpp; path = source/TTValueCache.cpp; sourceTree = "<group>"; };
-		D22D140211A7F84300C81BE8 /* TTNodeSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNodeSubscriber.h; path = includes/TTNodeSubscriber.h; sourceTree = "<group>"; };
-		D22D140411A7F84F00C81BE8 /* TTNodeSubscriber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNodeSubscriber.cpp; path = source/TTNodeSubscriber.cpp; sourceTree = "<group>"; };
 		D2F68EC5108C9BE10094260C /* TTNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNode.h; path = includes/TTNode.h; sourceTree = "<group>"; };
 		D2F68EC6108C9BE10094260C /* TTNodeDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNodeDirectory.h; path = includes/TTNodeDirectory.h; sourceTree = "<group>"; };
 		D2F68EC9108C9BEF0094260C /* TTNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNode.cpp; path = source/TTNode.cpp; sourceTree = "<group>"; };
@@ -263,8 +259,6 @@
 				D2F68EC9108C9BEF0094260C /* TTNode.cpp */,
 				D2F68EC6108C9BE10094260C /* TTNodeDirectory.h */,
 				D2F68ECA108C9BEF0094260C /* TTNodeDirectory.cpp */,
-				D22D140211A7F84300C81BE8 /* TTNodeSubscriber.h */,
-				D22D140411A7F84F00C81BE8 /* TTNodeSubscriber.cpp */,
 			);
 			name = NodeDirectory;
 			sourceTree = "<group>";
@@ -306,7 +300,6 @@
 				D2F68EC7108C9BE10094260C /* TTNode.h in Headers */,
 				D2F68EC8108C9BE10094260C /* TTNodeDirectory.h in Headers */,
 				22A083C211389A6800D6D843 /* TTDictionary.h in Headers */,
-				D22D140311A7F84300C81BE8 /* TTNodeSubscriber.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,7 +415,6 @@
 				D2F68ECC108C9BEF0094260C /* TTNodeDirectory.cpp in Sources */,
 				228AFDF0111E095100BB900B /* TTCallback.cpp in Sources */,
 				22A083C411389A7A00D6D843 /* TTDictionary.cpp in Sources */,
-				D22D140511A7F84F00C81BE8 /* TTNodeSubscriber.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
