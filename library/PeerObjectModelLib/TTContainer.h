@@ -9,12 +9,12 @@
 #ifndef __TT_CONTAINER_H__
 #define __TT_CONTAINER_H__
 
-#include "TTPeerObjectModel.h"
+#include "TTModular.h"
 
 /*
  */
 
-class TTPOM_EXPORT TTContainer : public TTObject
+class TTMODULAR_EXPORT TTContainer : public TTObject
 {
 	
 public:
@@ -44,6 +44,6 @@ typedef TTContainer* TTContainerPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTPOM_EXPORT TTContainerCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTContainerCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_CONTAINER_H__

@@ -9,11 +9,11 @@
 #ifndef __TT_MAPPER_H__
 #define __TT_MAPPER_H__
 
-#include "TTPeerObjectModel.h"
+#include "TTModular.h"
 
 /**	TTMapper ... TODO : an explanation
  */
-class TTPOM_EXPORT TTMapper : public TTObject
+class TTMODULAR_EXPORT TTMapper : public TTObject
 {
 	TTCLASS_SETUP(TTMapper)
 	
@@ -32,6 +32,6 @@ typedef TTMapper* TTMapperPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTFOUNDATION_EXPORT TTMapperCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTMapperCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_MAPPER_H__

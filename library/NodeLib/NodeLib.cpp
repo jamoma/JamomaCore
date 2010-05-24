@@ -624,21 +624,16 @@ void jamoma_node_attribute_observer_callback(TTPtr p_baton, TTValue& data)
 // Method to deal with TTSubscriber
 ///////////////////////////////////////////////////////////////////////
 
-JamomaError jamoma_subscriber_create(ObjectPtr x, SymbolPtr relativeAddress, TTObjectPtr aTTObject, TTSubscriberPtr *returnedSubscriber)
+JamomaError jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress, TTSubscriberPtr *returnedSubscriber)
 {
 	TTValue			args;
-	ObjectPtr		context;
 	TTObjectPtr		shareCallback, contextListCallback;
 	TTValuePtr		shareBaton, contextListBaton;
 		
 	// prepare aguments
-	
-	args.append(jamoma_directory);
-	
-	context = jamoma_object_getpatcher(x);
-	args.append(context);
-	
+	args.append(TTPtr(aTTObject));
 	args.append(TT(relativeAddress->s_name));
+	args.append(jamoma_directory);
 	
 	shareCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &shareCallback, kTTValNONE);
@@ -653,8 +648,6 @@ JamomaError jamoma_subscriber_create(ObjectPtr x, SymbolPtr relativeAddress, TTO
 	contextListCallback->setAttributeValue(TT("Baton"), TTPtr(contextListBaton));
 	contextListCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_subscriber_get_context_list));
 	args.append(contextListCallback);
-	
-	args.append(TTPtr(aTTObject));
 	
 	*returnedSubscriber = NULL;
 	TTObjectInstantiate(TT("Subscriber"), TTObjectHandle(returnedSubscriber), args);

@@ -1,38 +1,39 @@
 /* 
- * TTPOM Library
+ * TTModular Library
  * Copyright © 2010, Théo de la Hogue
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TT_POM_H__
-#define __TT_POM_H__
+#ifndef __TT_MODULAR_H__
+#define __TT_MODULAR_H__
 
-#define TTPOM_VERSION_STRING "0.1"
+#define TTMODULAR_VERSION_STRING "0.1"
 
 
 #ifdef TT_PLATFORM_WIN
-	#ifdef TTPOM_EXPORTS
-	#define TTPOM_EXPORT __declspec(dllexport)
+	#ifdef TTMODULAR_EXPORTS
+	#define TTMODULAR_EXPORT __declspec(dllexport)
 	#else
 	#ifdef TTSTATIC
-	#define TTPOM_EXPORT
+	#define TTMODULAR_EXPORT
 	#else
-	#define TTPOM_EXPORT __declspec(dllimport)
+	#define TTMODULAR_EXPORT __declspec(dllimport)
 	#endif
 	#endif // _DLL_EXPORT
 
 #else // TT_PLATFORM_MAC
-	#ifdef TTPOM_EXPORTS
-	#define TTPOM_EXPORT __attribute__((visibility("default")))
+	#ifdef TTMODULAR_EXPORTS
+	#define TTMODULAR_EXPORT __attribute__((visibility("default")))
 	#else
-	#define TTPOM_EXPORT
+	#define TTMODULAR_EXPORT
 	#endif
 #endif
 
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
+
 #include "TTSubscriber.h"
 #include "TTContainer.h"
 #include "TTParameter.h"
@@ -43,7 +44,7 @@
 
 // Macros
 
-#define TT_POM_CONSTRUCTOR \
+#define TT_MODULAR_CONSTRUCTOR \
 TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {return new thisTTClass (arguments);} \
 \
 extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
@@ -52,22 +53,22 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTObject(arguments)
 
 
 
-#define TT_POM_CONSTRUCTOR_EXPORT \
+#define TT_MODULAR_CONSTRUCTOR_EXPORT \
 	\
 	extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\
 	TTErr loadTTExtension(void)\
 	{\
-		TTPOMInit();\
+		TTModularInit();\
 		thisTTClass :: registerClass(); \
 		return kTTErrNone;\
 	}\
 	\
-	TT_POM_CONSTRUCTOR
+	TT_MODULAR_CONSTRUCTOR
 
 
 /** A macro for setting up the class binding to the library in extension classes. 
  @param strname A C-string that names the object as it should be listed in the environment. */
-#define TT_POM_CLASS_SETUP(strname, tags, className)\
+#define TT_MODULAR_CLASS_SETUP(strname, tags, className)\
 	\
 	extern "C" TT_EXTENSION_EXPORT TTObject* instantiate ## className (TTSymbol*, TTValue& arguments); \
 	\
@@ -89,7 +90,7 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTObject(arguments)
 // Prototypes
 
 // init the dsp lib, and the foundation if needed
-void TTPOM_EXPORT TTPOMInit();
+void TTMODULAR_EXPORT TTModularInit();
 
 
 /**	Allocate memory with 16-byte alignment.  This memory must be freed using TTFree16()	*/
@@ -99,4 +100,4 @@ TTPtr TTMalloc16(size_t numBytes);
 void TTFree16(TTPtr ptr);
 
 
-#endif // __TT_POM_H__
+#endif // __TT_MODULAR_H__

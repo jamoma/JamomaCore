@@ -12,7 +12,7 @@
 #define thisTTClassName		"Receiver"
 #define thisTTClassTags		"node, receiver"
 
-TT_OBJECT_CONSTRUCTOR,
+TT_MODULAR_CONSTRUCTOR,
 mDirectory(NULL), mAddress(kTTSymEmpty), mAttribute(kTTSym_value)
 {
 	TT_ASSERT("Correct number of args to create TTReceiver", arguments.getSize() == 3);

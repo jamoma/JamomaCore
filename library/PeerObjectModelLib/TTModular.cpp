@@ -1,5 +1,5 @@
 /* 
- * TTPOM Library
+ * TTModular Library
  * Copyright © 2010, Théo de la Hogue
  * 
  * License: This code is licensed under the terms of the GNU LGPL
@@ -7,32 +7,32 @@
  */
 
 
-#include "TTPeerObjectModel.h"
+#include "TTModular.h"
 
 
-static bool TTPOMHasInitialized = false;
+static bool TTModularHasInitialized = false;
 
 
-void TTPOMRegisterInternalClasses();
+void TTModularRegisterInternalClasses();
 
 
 /****************************************************************************************************/
 
-void TTPOMInit()
+void TTModularInit()
 {
 	TTFoundationInit();
 	
-	if (!TTPOMHasInitialized) {
-		TTPOMHasInitialized = true;
+	if (!TTModularHasInitialized) {
+		TTModularHasInitialized = true;
 				
 		// TODO: someday implement these so that we have project-scoped caches and don't stuff everything into the foundation?
-		//TTPOMSymbolCacheInit();
-		//TTPOMValueCacheInit();
+		//TTModularSymbolCacheInit();
+		//TTModularValueCacheInit();
 		
 #ifdef TT_DEBUG
-		TTLogMessage("PeerObjectModel -- Version %s -- Debugging Enabled\n", TTPOM_VERSION_STRING);
+		TTLogMessage("Modular -- Version %s -- Debugging Enabled\n", TTMODULAR_VERSION_STRING);
 #else
-		TTLogMessage("PeerObjectModel -- Version %s\n", TTPOM_VERSION_STRING);
+		TTLogMessage("Modular -- Version %s\n", TTMODULAR_VERSION_STRING);
 #endif
 		
 		// register classes -- both internal and external
@@ -44,14 +44,14 @@ void TTPOMInit()
 		TTMapper::registerClass();
 		TTPreset::registerClass();
 		
-		TTPOMRegisterInternalClasses();
+		TTModularRegisterInternalClasses();
 	}
 }
 
 #ifdef TT_PLATFORM_LINUX
 int main(void)
 {
-	// TODO: should we call TTPOMInit() here?
+	// TODO: should we call TTModularInit() here?
 	return 0;
 }
 #endif
@@ -61,7 +61,7 @@ int main(void)
 
 // Core
 
-void TTPOMRegisterInternalClasses()
+void TTModularRegisterInternalClasses()
 {
 }
 

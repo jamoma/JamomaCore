@@ -9,11 +9,11 @@
 #ifndef __TT_PRESET_H__
 #define __TT_PRESET_H__
 
-#include "TTPeerObjectModel.h"
+#include "TTModular.h"
 
 /**	TTPreset ... TODO : an explanation
  */
-class TTPOM_EXPORT TTPreset : public TTObject
+class TTMODULAR_EXPORT TTPreset : public TTObject
 {
 	TTCLASS_SETUP(TTPreset)
 	
@@ -33,6 +33,6 @@ typedef TTPreset* TTPresetPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTFOUNDATION_EXPORT TTPresetCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTPresetCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_PRESET_H__

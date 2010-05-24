@@ -9,11 +9,11 @@
 #ifndef __TT_SENDER_H__
 #define __TT_SENDER_H__
 
-#include "TTPeerObjectModel.h"
+#include "TTModular.h"
 
 /**	TTSender ... TODO : an explanation
  */
-class TTPOM_EXPORT TTSender : public TTObject
+class TTMODULAR_EXPORT TTSender : public TTObject
 {
 	TTCLASS_SETUP(TTSender)
 	
@@ -54,6 +54,6 @@ typedef TTSender* TTSenderPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTFOUNDATION_EXPORT TTSenderCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTSenderCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_SENDER_H__

@@ -12,7 +12,7 @@
 #define thisTTClassName		"Container"
 #define thisTTClassTags		"node, container"
 
-TT_OBJECT_CONSTRUCTOR,
+TT_MODULAR_CONSTRUCTOR,
 mPriority(), mDescription(kTTSymEmpty)
 {
 	

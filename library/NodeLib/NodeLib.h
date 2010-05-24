@@ -134,11 +134,11 @@ extern "C" {
 	void			jamoma_node_attribute_observer_callback(TTPtr p_baton, TTValue& data);
 
 	
-	// Method to deal with TTSubscriber
+	// Method to deal with TTNodeSubscriber
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a subscriber object and register an object to the tree */
-	JamomaError		jamoma_subscriber_create(ObjectPtr x, SymbolPtr relativeAddress, TTObjectPtr aTTObject, TTSubscriberPtr *returnedSubscriber);
+	JamomaError		jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress,  TTSubscriberPtr *returnedSubscriber);
 	
 	/** Share the context node between subscribed object
 		To understand how this method have to work see in TTSubscriber.h and .cpp */

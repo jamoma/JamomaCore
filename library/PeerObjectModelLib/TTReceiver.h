@@ -9,11 +9,11 @@
 #ifndef __TT_RECEIVER_H__
 #define __TT_RECEIVER_H__
 
-#include "TTPeerObjectModel.h"
+#include "TTModular.h"
 
 /**	TTReceiver ... TODO : an explanation
  */
-class TTPOM_EXPORT TTReceiver : public TTObject
+class TTMODULAR_EXPORT TTReceiver : public TTObject
 {
 	TTCLASS_SETUP(TTReceiver)
 	
@@ -63,12 +63,12 @@ typedef TTReceiver* TTReceiverPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTFOUNDATION_EXPORT TTReceiverDirectoryCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTReceiverDirectoryCallback(TTPtr baton, TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTFOUNDATION_EXPORT TTReceiverAttrCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTReceiverAttrCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_RECEIVER_H__

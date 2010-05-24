@@ -8,6 +8,8 @@
  */
 
 #include "Jamoma.h"
+#include "TTNode.h"
+#include "TTSubscriber.h"
 
 // Data Structure for this object
 typedef struct _node{
@@ -15,8 +17,8 @@ typedef struct _node{
 	t_object		ob;
 	void			*p_out;						///< the leftmost outlet
 	
-	TTObjectPtr		subscriber;					///< a pointer to a TTSubscriber object
-	TTObjectPtr		container;					///< a pointer to a TTContainer object
+	TTSubscriberPtr	subscriber;					///< a pointer to a TTSubscriber object
+	TTContainerPtr	container;					///< a pointer to a TTContainer object
 	
 	TTObjectPtr		param_observer;				///< a life cycle observer to observe any parameter creation (if asked by the user)
 

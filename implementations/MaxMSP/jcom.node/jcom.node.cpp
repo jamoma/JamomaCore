@@ -57,7 +57,7 @@ void *node_new(t_symbol *name, long argc, t_atom *argv)
 		
 		x->p_out = outlet_new(x, 0);
 		
-		// the first arg is for /parent/name
+		// the first arg is for parent/name
 		if (attrstart && argv)
 			atom_arg_getsym(&relativeAddress, 0, attrstart, argv);
 		
@@ -95,7 +95,6 @@ t_max_err node_notify(t_node *x, t_symbol *s, t_symbol *msg, void *sender, void 
 			
 			// delete
 			TTObjectRelease(TTObjectHandle(&x->subscriber));
-			delete x->subscriber;
 			
 			// no more notification
 			object_detach_byptr((ObjectPtr)x, context);
@@ -123,28 +122,35 @@ void node_bang(t_node *x)
 
 void node_build(t_node *x, SymbolPtr relativeAddress)
 {
-	TTValue	v, args;
-	ObjectPtr context;
-	TTSymbolPtr absoluteAddress;
+	TTValue		v, args;
+	TTNodePtr	node = NULL;
+	TTSymbolPtr nodeAddress;
 	
-	args = new TTValue(0);
-	args.append(kTTSymEmpty);
+	// Make a TTContainer object
+	args = new TTValue(0);		// set priority to 0
+	args.append(kTTSymEmpty);	// set empty description
 	x->container = NULL;
 	TTObjectInstantiate(TT("Container"), TTObjectHandle(&x->container), args);
 	
-	jamoma_subscriber_create((ObjectPtr)x, relativeAddress, x->container, (TTSubscriberPtr*)&x->subscriber);
+	// Subscribe the TTContainer
+	jamoma_subscriber_create((ObjectPtr)x, (TTObjectPtr)x->container, relativeAddress, &x->subscriber);
 	
+	// if the subscription is successful
 	if (x->subscriber) {
-		 
-		// attach to the patcher to be notified of his destruction
-		x->subscriber->getAttributeValue(TT("Context"), v);
-		v.get(0, (TTPtr*)&context);
-		object_attach_byptr_register(x, context, _sym_box);
 		
 		// debug
-		x->subscriber->getAttributeValue(TT("AbsoluteAddress"), v);
-		v.get(0, &absoluteAddress);
-		object_post((ObjectPtr)x, "node address = %s", absoluteAddress->getCString());
+		x->subscriber->getAttributeValue(TT("NodeAddress"), v);
+		v.get(0, &nodeAddress);
+		object_post((ObjectPtr)x, "node address = %s", nodeAddress->getCString());
+		
+		// get the Node
+		x->subscriber->getAttributeValue(TT("Node"), v);
+		v.get(0, (TTPtr*)&node);
+		 
+		// attach to the patcher to be notified of his destruction
+		object_attach_byptr_register(x, node->getContext(), _sym_box);
+		
+
 	}
 }
 

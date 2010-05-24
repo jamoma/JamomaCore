@@ -12,7 +12,7 @@
 #define thisTTClassName		"Parameter"
 #define thisTTClassTags		"parameter"
 
-TT_POM_CONSTRUCTOR
+TT_MODULAR_CONSTRUCTOR
 {
 	TT_ASSERT("Correct number of args to create TTParameter", arguments.getSize() == 0);
 	

@@ -29,6 +29,8 @@
 
 #include "TTFoundationAPI.h"		// TTBlue Headers...
 
+#include "TTModular.h"
+
 #include "jcom.core.h"
 #include "jcom.list.h"
 #include "jcom.io.h"
@@ -40,7 +42,6 @@
 #include "RampLib.h"
 #include "NodeLib.h"
 #include "DeviceManagerLib.h"
-#include "TTPeerObjectModel.h"
 
 #define JAMOMA_UNIT_HEIGHT 35.0
 #define JAMOMA_UNIT_WIDTH 150.0

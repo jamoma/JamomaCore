@@ -12,7 +12,7 @@
 #define thisTTClassName		"Preset"
 #define thisTTClassTags		"preset"
 
-TT_OBJECT_CONSTRUCTOR
+TT_MODULAR_CONSTRUCTOR
 {
 	TT_ASSERT("Correct number of args to create TTPreset", arguments.getSize() == 0);
 }

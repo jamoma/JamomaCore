@@ -9,11 +9,11 @@
 #ifndef __TT_PARAMETER_H__
 #define __TT_PARAMETER_H__
 
-#include "TTPeerObjectModel.h"
+#include "TTModular.h"
 
 /**	TTParameter ... TODO : an explanation
  */
-class TTPOM_EXPORT TTParameter : public TTObject // TODO : how to put TTSubscriber instead ?
+class TTMODULAR_EXPORT TTParameter : public TTObject // TODO : how to put TTSubscriber instead ?
 {
 	TTCLASS_SETUP(TTParameter)
 	
@@ -143,6 +143,6 @@ typedef TTParameter* TTParameterPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTPOM_EXPORT TTParameterCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTParameterCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_PARAMETER_H__

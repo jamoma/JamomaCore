@@ -1,5 +1,5 @@
 /* 
- * A contextual TTNode builder
+ * A contextual subscriber to register TTObject as TTNode in a TTNodeDirectory
  * Copyright © 2010, Théo de la Hogue
  * 
  * License: This code is licensed under the terms of the GNU LGPL
@@ -12,35 +12,33 @@
 #define thisTTClassName		"Subscriber"
 #define thisTTClassTags		"node, subscriber"
 
-TT_OBJECT_CONSTRUCTOR,
-mDirectory(NULL), mContext(NULL), mRelativeAddress(kTTSymEmpty), mShareCallback(NULL), mContextListCallback(NULL)
+TT_MODULAR_CONSTRUCTOR,
+mRelativeAddress(kTTSymEmpty), mDirectory(NULL), mShareContextNodeCallback(NULL), mGetContextListCallback(NULL)
 {
 	TTObjectPtr anObject;
 	
-	TT_ASSERT("Correct number of args to create TTSubscriber", arguments.getSize() == 6);
+	TT_ASSERT("Correct number of args to create TTSubscriber", arguments.getSize() == 5);
 	
-	arguments.get(0, (TTPtr*)&mDirectory);
+	arguments.get(0, (TTPtr*)&anObject);
+	
+	arguments.get(1, &mRelativeAddress);
+	
+	arguments.get(2, (TTPtr*)&mDirectory);
 	TT_ASSERT("Directory passed to TTSubscriber is not NULL", mDirectory);
-	arguments.get(1, &mContext);
-	TT_ASSERT("Context passed to TTSubscriber is not NULL", mContext);
 	
-	arguments.get(2, &mRelativeAddress);
+	arguments.get(3, (TTPtr*)&mShareContextNodeCallback);
+	TT_ASSERT("Share Callback passed to TTSubscriber is not NULL", mShareContextNodeCallback);
 	
-	arguments.get(3, (TTPtr*)&mShareCallback);
-	TT_ASSERT("Share Callback passed to TTSubscriber is not NULL", mShareCallback);
-	arguments.get(4, (TTPtr*)&mContextListCallback);
-	TT_ASSERT("ContextList Callback passed to TTSubscriber is not NULL", mContextListCallback);
+	arguments.get(4, (TTPtr*)&mGetContextListCallback);
+	TT_ASSERT("ContextList Callback passed to TTSubscriber is not NULL", mGetContextListCallback);
 	
-	arguments.get(5, (TTPtr*)&anObject);
-	
-	addAttributeWithGetter(Context, kTypePointer);
-	addAttributeWithGetter(RelativeAddress, kTypeSymbol);
-	addAttributeWithGetter(AbsoluteAddress, kTypeSymbol);
-	addAttributeWithGetter(ContextAddress, kTypeSymbol);
-	addAttributeWithGetter(Node, kTypeObject);
-	addAttributeWithGetter(ContextNode, kTypeObject);
-	
-	this->build(anObject);
+	addAttribute(RelativeAddress, kTypeSymbol);
+	addAttribute(Node, kTypePointer);
+	addAttribute(NodeAddress, kTypeSymbol);
+	addAttribute(ContextNode, kTypePointer);
+	addAttribute(ContextAddress, kTypeSymbol);
+
+	this->subscribe(anObject);
 }
 
 TTSubscriber::~TTSubscriber()
@@ -52,50 +50,13 @@ TTSubscriber::~TTSubscriber()
 		this->mDirectory->TTNodeRemove(this->mContextAddress);
 }
 
-TTErr TTSubscriber::getContext(TTValue& value)
-{
-	value = mContext;
-	return kTTErrNone;
-}
-
-TTErr TTSubscriber::getRelativeAddress(TTValue& value)
-{
-	value = mRelativeAddress;
-	return kTTErrNone;
-}
-
-TTErr TTSubscriber::getAbsoluteAddress(TTValue& value)
-{
-	value = mAbsoluteAddress;
-	return kTTErrNone;
-}
-
-TTErr TTSubscriber::getContextAddress(TTValue& value)
-{
-	value = mContextAddress;
-	return kTTErrNone;
-}
-
-TTErr TTSubscriber::getNode(TTValue& value)
-{
-	value = mNode;
-	return kTTErrNone;
-}
-
-TTErr TTSubscriber::getContextNode(TTValue& value)
-{
-	value = mContextNode;
-	return kTTErrNone;
-}
-
-TTErr TTSubscriber::build(TTObjectPtr anObject)
+TTErr TTSubscriber::subscribe(TTObjectPtr anObject)
 {
 	TTSymbolPtr		_parent, _name, _instance, _attribute, _node;
 	TTValue			aTempValue, args;
 	TTListPtr		aContextList;
 	TTList			aNodeList;
 	TTNodePtr		aParentNode, aNode;
-	TTContainerPtr	aContainer;
 	TTString		nodeAddress;
 	TTBoolean		newInstanceCreated;
 	TTErr			err;
@@ -104,7 +65,7 @@ TTErr TTSubscriber::build(TTObjectPtr anObject)
 	// to ask them the Context node using the shareCallback.
 	// (this is done to optimized the registration process)
 	this->mContextNode = NULL;
-	this->mShareCallback->notify(aTempValue);
+	this->mShareContextNodeCallback->notify(aTempValue);
 	aTempValue.get(0, (TTPtr*)&(this->mContextNode));
 	
 	// if it is the first registered subscriber in the Context
@@ -116,7 +77,7 @@ TTErr TTSubscriber::build(TTObjectPtr anObject)
 		aTempValue.clear();
 		aContextList = new TTList();
 		aTempValue.append(aContextList);
-		this->mContextListCallback->notify(aTempValue);
+		this->mGetContextListCallback->notify(aTempValue);
 		
 		// register each Context of the list as 
 		// TTNode in the tree structure (if they don't exist yet)
@@ -146,13 +107,8 @@ TTErr TTSubscriber::build(TTObjectPtr anObject)
 			// the parent could be a container
 			if (_parent != NO_PARENT) {
 
-				args = new TTValue(0);
-				args.append(kTTSymEmpty);
-				aContainer = NULL;
-				err = TTObjectInstantiate(TT("Container"), TTObjectHandle(&aContainer), args);
-				
-				if (!err)
-					this->mDirectory->TTNodeCreate(TT(nodeAddress.data()), aContainer, this->mContextNode->getContext(), &aParentNode, &newInstanceCreated);
+				// Make a TTNode with no object
+				registerTTObject(TT(nodeAddress.data()), NULL, this->mContextNode->getContext(), &aParentNode, &newInstanceCreated);
 			}
 			// else the context himself...
 		}
@@ -170,22 +126,22 @@ TTErr TTSubscriber::build(TTObjectPtr anObject)
 		if (err) {
 			// the node could be a container
 			if (_name != NO_NAME)
-				this->mDirectory->TTNodeCreate(_node, anObject, this->mContextNode->getContext(), &aNode, &newInstanceCreated);
+				registerTTObject(_node, anObject, this->mContextNode->getContext(), &aNode, &newInstanceCreated);
 			// or the Context himself
 			else 
 				aNode = this->mContextNode;
 		}
-		// else replace the object
-		// and reset attribute access
+		// else set the object
+		// and set attribute access
 		else {
 			
 			aNode->setObject(anObject);
 			
-			// TODO : reset attribute access - hum ?
+			// TODO : set attribute access after node creation
 		}
 		
 		this->mNode = aNode;
-		this->mNode->getOscAddress(&this->mAbsoluteAddress);
+		this->mNode->getOscAddress(&this->mNodeAddress);
 		this->mContextNode->getOscAddress(&this->mContextAddress);
 		
 	}
@@ -203,7 +159,6 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 	TTNodePtr		contextNode, lowerContextNode;
 	TTString		lowerContextAddress;
 	TTPtr			aContext;
-	TTContainerPtr	aContainer;
 	TTBoolean		found, newInstanceCreated;
 	TTErr			err;
 	
@@ -213,19 +168,19 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 	// start by the root
 	contextNode = mDirectory->getRoot();
 	
-	// if there are contexts contextList
+	// if there are contexts in the context list
 	if(!aContextList->isEmpty()){
 		
-		// for each context of the contextList
+		// for each context of the context list
 		for (aContextList->begin(); aContextList->end(); aContextList->next()){
 			
-			// get the contextName
+			// get the context name
 			aContextList->current().get(0, (TTSymbolPtr*)&formatedContextName);
 			
 			// get the context
 			aContextList->current().get(1, (TTPtr*)&aContext);
 			
-			// Is there a specific instance inside the contextName (eg. myContext.A) ?
+			// Is there a specific instance inside the context name (eg. myContext.A) ?
 			// if not we look for contextName.* else for myContext.A
 			splitOSCAddress(formatedContextName, &context_parent, &context_name, &context_instance, &context_attribute);
 			
@@ -261,13 +216,8 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 						lowerContextAddress += "/";
 					lowerContextAddress += formatedContextName->getCString();
 					
-					args = new TTValue(0);
-					args.append(kTTSymEmpty);
-					aContainer = NULL;
-					err = TTObjectInstantiate(TT("Container"), TTObjectHandle(&aContainer), args);
-					
-					if (!err)
-						this->mDirectory->TTNodeCreate(TT(lowerContextAddress.data()), aContainer, aContext, &contextNode, &newInstanceCreated);
+					// Make a TTNode with no object
+					registerTTObject(TT(lowerContextAddress.data()), NULL, aContext, &contextNode, &newInstanceCreated);
 
 				}
 				else
@@ -282,6 +232,87 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 	
 	return kTTErrNone;
 }
+
+TTErr TTSubscriber::registerTTObject(TTSymbolPtr oscAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
+{
+	TTUInt8		i;
+	TTValue		attributeNames;
+	TTSymbolPtr	aName, aType;
+	TTValuePtr	attributeAccessPack;
+	TTList		attributeAccessList;
+	TTErr		err;
+	
+	// get all attributes of the TTObject
+	if (newObject) {
+		newObject->getAttributeNames(attributeNames);
+		
+		// for each attribute
+		for(i = 0; i < attributeNames.getSize(); i++) {
+			
+			attributeNames.get(i, &aName);
+			
+			// Prepare a callback to get attribute
+			TTObjectPtr newGetter = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+			TTObjectInstantiate(TT("Callback"), &newGetter, kTTValNONE);
+			TTValuePtr	newGetterBaton = new TTValue(TTPtr(newObject));
+			newGetterBaton->append(TTPtr(aName));
+			newGetter->setAttributeValue(TT("Baton"), TTPtr(newGetterBaton));
+			newGetter->setAttributeValue(TT("Function"), TTPtr(&TTObjectGetAttributeCallbackMethod));
+			
+			// Prepare a callback to set attribute
+			TTObjectPtr newSetter = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+			TTObjectInstantiate(TT("Callback"), &newSetter, kTTValNONE);
+			TTValuePtr newSetterBaton = new TTValue(TTPtr(newObject));
+			newSetterBaton->append(TTPtr(aName));
+			newSetter->setAttributeValue(TT("Baton"), TTPtr(newSetterBaton));
+			newSetter->setAttributeValue(TT("Function"), TTPtr(&TTObjectSetAttributeCallbackMethod));
+			
+			// prepare the pack
+			attributeAccessPack = new TTValue((TTPtr)aName);
+			attributeAccessPack->append((TTPtr)newGetter);
+			attributeAccessPack->append((TTPtr)newSetter);
+			
+			attributeAccessList.append(attributeAccessPack);
+		}
+		
+		aType = newObject->getName();
+	}
+	else
+		aType = TT("Container");
+	
+	err = this->mDirectory->TTNodeCreate(oscAddress, aType, newObject, aContext, attributeAccessList, returnedTTNode, newInstanceCreated);
+	
+	return err;
+}
+
+TTErr TTObjectGetAttributeCallbackMethod(TTPtr baton, TTValue& data)
+{
+	TTValuePtr	b;
+	TTObjectPtr	x;
+	TTSymbolPtr	aName;
+	
+	// unpack baton
+	b = (TTValuePtr)baton;
+	b->get(0, TTObjectHandle(&x));
+	b->get(1, (TTPtr*)&aName);
+	
+	return x->getAttributeValue(aName, data);
+}
+
+TTErr TTObjectSetAttributeCallbackMethod(TTPtr baton, TTValue& data)
+{
+	TTValuePtr	b;
+	TTObjectPtr	x;
+	TTSymbolPtr	aName;
+	
+	// unpack baton
+	b = (TTValuePtr)baton;
+	b->get(0, TTObjectHandle(&x));
+	b->get(1, (TTPtr*)&aName);
+	
+	return x->setAttributeValue(aName, data);
+}
+
 
 #if 0
 #pragma mark -
