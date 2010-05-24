@@ -20,3 +20,7 @@ Release
 *.bundle
 *.log
 Makefile
+
+
+examples/Rails/public/images/temp-*.svg
+examples/Rails/public/images/temp.svg
