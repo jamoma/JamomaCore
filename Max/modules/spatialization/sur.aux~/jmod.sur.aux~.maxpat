@@ -1786,7 +1786,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "multicore.connect", "multicore.connect", "multicore.connect" ],
 					"patching_rect" : [ 158.0, 218.0, 133.0, 19.0 ],
-					"text" : "jalg.sur.multi.aux~"
+					"text" : "jalg.sur.aux~"
 				}
 
 			}
