@@ -498,10 +498,10 @@ TTErr TTNodeDirectory::notifyObservers(TTSymbolPtr oscAddress, TTNodePtr aNode, 
 						anObserver = NULL;
 						lk_o->current().get(0, TTObjectHandle(&anObserver));
 						TT_ASSERT("TTNode observer list member is not NULL", anObserver);
-						data.append((TTPtr)oscAddress);
-						data.append((TTPtr)aNode);
+						data.append(oscAddress);
+						data.append((TTPtr*)aNode);
 						data.append((TTInt8)flag);
-						data.append((TTPtr)anObserver);
+						data.append((TTPtr*)anObserver);
 						anObserver->notify(data);
 					}
 					
