@@ -12,9 +12,27 @@
 #define thisTTClassName		"Parameter"
 #define thisTTClassTags		"parameter"
 
-TT_MODULAR_CONSTRUCTOR
+TT_MODULAR_CONSTRUCTOR,
+mValue(TTValue(0.0)),
+mValueDefault(TTValue(0.0)),
+mValueStepsize(TTValue(0.0)),
+mType(kTTSymEmpty),
+mRepetitionsAllow(NO),
+mReadonly(NO),
+mViewFreeze(NO),
+mRangeBounds(TTValue(0.0, 1.0)),
+mRangeClipmode(kTTSymEmpty),
+mRampDrive(kTTSymEmpty),
+mRampFunction(kTTSymEmpty),
+mDataspace(kTTSymEmpty),
+mDataspaceUnitNative(kTTSymEmpty),
+mDataspaceUnitActive(kTTSymEmpty),
+mDataspaceUnitDisplay(kTTSymEmpty)
 {
-	TT_ASSERT("Correct number of args to create TTParameter", arguments.getSize() == 0);
+	TT_ASSERT("Correct number of args to create TTParameter", arguments.getSize() == 1);
+	
+	arguments.get(0, (TTPtr*)&mReturnValueCallback);
+	TT_ASSERT("Return Value Callback passed to TTParameter is not NULL", mReturnValueCallback);
 	
 	addAttributeWithGetterAndSetter(Value, kTypeNone);
 	addAttributeWithGetterAndSetter(ValueDefault, kTypeNone);
@@ -50,6 +68,9 @@ TTErr TTParameter::getValue(TTValue& value)
 TTErr TTParameter::setValue(const TTValue& value)
 {
 	mValue = value;
+	
+	this->mReturnValueCallback->notify(mValue);
+	
 	return kTTErrNone;
 }
 

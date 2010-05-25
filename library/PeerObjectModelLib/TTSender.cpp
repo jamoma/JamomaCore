@@ -17,7 +17,7 @@ mDirectory(NULL), mAddress(kTTSymEmpty), mAttribute(kTTSym_value)
 {
 	TT_ASSERT("Correct number of args to create TTSender", arguments.getSize() == 3);
 		
-	arguments.get(0, TTObjectHandle(&mDirectory));
+	arguments.get(0, (TTPtr*)&mDirectory);
 	TT_ASSERT("Directory passed to TTSender is not NULL", mDirectory);
 	arguments.get(1, &mAddress);
 	arguments.get(2, &mAttribute);
@@ -26,6 +26,8 @@ mDirectory(NULL), mAddress(kTTSymEmpty), mAttribute(kTTSym_value)
 	addAttributeWithSetter(Attribute, kTypeSymbol);
 	
 	addMessageWithArgument(send);
+	
+	bind();
 }
 
 TTSender::~TTSender()
@@ -58,26 +60,38 @@ TTErr TTSender::send(TTValue& valueToSend)
 {
 	TTAttributePtr	anAttribute = NULL;
 	TTObjectPtr		aNode;
+	TTSymbolPtr		anAddress;
+	TTValue			nodeAndAddress, addressAndValue;
 	TTErr			err;
 	
-	if (!mNodesCache->isEmpty()) {
+	if (!mNodesAddressCache->isEmpty()) {
 		
 		// send data to each node of the selection
-		for (mNodesCache->begin(); mNodesCache->end(); mNodesCache->next()) {
+		for (mNodesAddressCache->begin(); mNodesAddressCache->end(); mNodesAddressCache->next()) {
+			
+			nodeAndAddress = mNodesAddressCache->current();
 			
 			// get a node
-			mNodesCache->current().get(0,(TTPtr*)&aNode);
+			nodeAndAddress.get(0, (TTPtr*)&aNode);
 			
-			// 1. set the attribute of the node
+			// and his address
+			nodeAndAddress.get(1, &anAddress);
+			
+			// 1.set the attribute of the node
 			aNode->setAttributeValue(mAttribute, valueToSend);
 			
 			// 2. notify attribute observers
 			// if the attribute exist
 			err = aNode->findAttribute(mAttribute, &anAttribute);
 			
-			if (!err)
+			if (!err) {
+				addressAndValue.clear();
+				addressAndValue.append(anAddress);
+				addressAndValue.append((TTPtr)&valueToSend);
+				
 				// notify each observer of the attribute
-				anAttribute->sendNotification(TT("notify"), valueToSend);
+				anAttribute->sendNotification(TT("notify"), addressAndValue);
+			}
 		}
 	}
 	
@@ -87,15 +101,29 @@ TTErr TTSender::send(TTValue& valueToSend)
 TTErr TTSender::bind()
 {
 	TTNodePtr	aNode;
-	TTValuePtr	newBaton;
+	TTSymbolPtr anAddress;
+	TTValuePtr	newBaton, nodeAndAddress;
+	TTList		aNodeList;
 	TTErr		err = kTTErrNone;
 	
-	mNodesCache = new TTList();
-	
 	// 1. Look for the node(s) into the directory
-	err = mDirectory->Lookup(mAddress, *mNodesCache, &aNode);
+	err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
 	
-	// 2. Observe any creation or destruction below the attr_name address
+	// 2. make a cache containing each node and his address
+	mNodesAddressCache  = new TTList();
+	
+	for (aNodeList.begin(); aNodeList.end(); aNodeList.next()) {
+		
+		aNodeList.current().get(0, (TTPtr*)&aNode);
+		aNode->getOscAddress(&anAddress);
+		
+		nodeAndAddress = new TTValue((TTPtr)aNode);
+		nodeAndAddress->append(anAddress);
+		
+		mNodesAddressCache->append(nodeAndAddress);
+	}
+	
+	// 3. Observe any creation or destruction below the address
 	mObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &mObserver, kTTValNONE);
 	
@@ -103,7 +131,7 @@ TTErr TTSender::bind()
 	newBaton->append(TTPtr(kTTSymEmpty));
 	
 	mObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-	mObserver->setAttributeValue(TT("Function"), TTPtr(&TTSenderCallback));
+	mObserver->setAttributeValue(TT("Function"), TTPtr(&TTSenderDirectoryCallback));
 	
 	mObserver->setAttributeValue(TT("Owner"), TT("TTSender"));		// this is usefull only to debug
 	
@@ -116,8 +144,8 @@ TTErr TTSender::unbind()
 {
 	TTErr		err = kTTErrNone;	
 	
-	delete mNodesCache;
-	mNodesCache = NULL;
+	delete mNodesAddressCache;
+	mNodesAddressCache = NULL;
 	
 	// stop life cycle observation
 	if(mObserver) {
@@ -131,30 +159,46 @@ TTErr TTSender::unbind()
 	return kTTErrNone;
 }
 
-TTErr TTSender::directoryNotification(TTPtr baton, TTValue& data)
+TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 {
-	//TTSymbolPtr		oscAddress;
-	TTNodePtr		aNode;
+	TTValuePtr		b, nodeAndAddress;
+	TTSenderPtr		aSender;
+	TTNodePtr		aNode, aCacheNode;
+	TTSymbolPtr		anAddress;
 	long			flag;
-	//TTCallbackPtr	anObserver;
-	
+
+	// unpack baton (a TTSenderPtr)
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&aSender);
+
 	// Unpack data (oscAddress, aNode, flag, anObserver)
-	//data.get(0, (TTPtr*)&oscAddress);
+	data.get(0, &anAddress);
 	data.get(1, (TTPtr*)&aNode);
 	data.get(2, flag);
-	//data.get(3, TTObjectHandle(&anObserver));
 	
 	switch (flag) {
 			
 		case kAddressCreated :
 		{
-			mNodesCache->appendUnique(new TTValue((TTPtr)aNode));
+			nodeAndAddress = new TTValue((TTPtr)aNode);
+			nodeAndAddress->append(anAddress);
+			aSender->mNodesAddressCache->appendUnique(nodeAndAddress);
 			break;
 		}
 			
 		case kAddressDestroyed :
 		{
-			mNodesCache->remove((TTPtr)aNode);
+			// find the node in the cache and remove it
+			for (aSender->mNodesAddressCache->begin(); aSender->mNodesAddressCache->end(); aSender->mNodesAddressCache->next()) {
+				
+				// get a node
+				aSender->mNodesAddressCache->current().get(0,(TTPtr*)&aCacheNode);
+				
+				if (aCacheNode == aNode) {
+					aSender->mNodesAddressCache->remove(aSender->mNodesAddressCache->current());
+					break;
+				}
+			}
 			break;
 		}
 			
@@ -163,19 +207,5 @@ TTErr TTSender::directoryNotification(TTPtr baton, TTValue& data)
 	}
 	
 	return kTTErrNone;
-}
-
-TTErr TTSenderCallback(TTPtr baton, TTValue& data)
-{
-	TTValuePtr		b;
-	TTSenderPtr	aNodeSender;
-	TTSymbolPtr		aSymbol;
-	
-	// unpack baton (a TTObject and the name of the message to call)
-	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aNodeSender);
-	b->get(1, (TTPtr*)&aSymbol);
-	
-	return aNodeSender->directoryNotification(baton, data);
 }
 

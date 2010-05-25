@@ -13,7 +13,7 @@
 #define thisTTClassTags		"node, container"
 
 TT_MODULAR_CONSTRUCTOR,
-mPriority(), mDescription(kTTSymEmpty)
+mPriority(), mDescription(kTTSymEmpty) 
 {
 	
 	TT_ASSERT("Correct number of args to create TTContainer", arguments.getSize() == 2);
@@ -21,37 +21,13 @@ mPriority(), mDescription(kTTSymEmpty)
 	arguments.get(0, mPriority);
 	arguments.get(1, &mDescription);
 	
-	addAttributeWithGetterAndSetter(Priority, kTypeUInt8);
-	addAttributeWithGetterAndSetter(Description, kTypeString);
+	addAttribute(Priority, kTypeUInt8);
+	addAttribute(Description, kTypeString);
 }
 
 TTContainer::~TTContainer()
 {
 	;
-}
-
-TTErr TTContainer::getPriority(TTValue& value)
-{
-	value = mPriority;
-	return kTTErrNone;
-}
-
-TTErr TTContainer::setPriority(const TTValue& value)
-{
-	mPriority = value;
-	return kTTErrNone;
-}
-
-TTErr TTContainer::getDescription(TTValue& value)
-{
-	value = mDescription;
-	return kTTErrNone;
-}
-
-TTErr TTContainer::setDescription(const TTValue& value)
-{
-	mDescription = value;
-	return kTTErrNone;
 }
 
 #if 0

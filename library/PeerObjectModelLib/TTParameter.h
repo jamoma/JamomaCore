@@ -12,8 +12,19 @@
 #include "TTModular.h"
 
 /**	TTParameter ... TODO : an explanation
+ 
+From jcom.parameter we have to make : 
+ 
+ -> clip
+ -> ramp
+ -> dataspace
+ -> handleProperty : used TTObject message mecanism ... 
+ 
+ ??? How to notify observers when something like a ramper return a value ???
+ 
  */
-class TTMODULAR_EXPORT TTParameter : public TTObject // TODO : how to put TTSubscriber instead ?
+
+class TTMODULAR_EXPORT TTParameter : public TTObject
 {
 	TTCLASS_SETUP(TTParameter)
 	
@@ -40,6 +51,9 @@ public:
 	TTSymbolPtr		mDataspaceUnitDisplay;		///< ATTRIBUTE: The display unit within the dataspace -- sent to/from the inlet/outlet of this instance
 	
 private:
+	
+	TTCallbackPtr	mReturnValueCallback;		///< a callback to return the value to the owner of this parameter
+	
 	/*
 	TTBoolean		isSending;					///< flag to tell us if we are currently sending out our value
 	TTBoolean		isInitialised;				///< The parameter or message has been initialised
@@ -57,6 +71,13 @@ private:
 	*/
 	
 public:
+	
+	/** reset value to default value */
+	TTErr	reset();
+	
+
+	
+	
 	
 	/**	Getter for m attribute. */
 	TTErr getValue(TTValue& value);

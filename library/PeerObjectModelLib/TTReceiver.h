@@ -17,20 +17,21 @@ class TTMODULAR_EXPORT TTReceiver : public TTObject
 {
 	TTCLASS_SETUP(TTReceiver)
 	
-	public:
+public:
 	
-	TTNodeDirectoryPtr	mDirectory;			///< the directory
-	TTSymbolPtr			mAddress;			///< the address to bind
-	TTSymbolPtr			mAttribute;			///< the attribute to bind (default : value)
-	TTBoolean			mEnable;			///< if false, received data won't be output without unregistered attribute observers (default true).
+	TTNodeDirectoryPtr	mDirectory;					///< the directory
+	TTSymbolPtr			mAddress;					///< the address to bind
+	TTSymbolPtr			mAttribute;					///< the attribute to bind (default : value)
+	TTBoolean			mEnable;					///< if false, received data won't be output without unregistered attribute observers (default true).
 	
-	private :
+private :
 	
-	TTListPtr			mNodesCache;		///< a cache containing all binded nodes for quick access
-	TTObjectPtr			mObserver;			///< a life cycle observer
-	TTListPtr			mAttrObservers;		///< a list containing <aNode, anAttrObserver>
+	TTCallbackPtr		mReturnAddressCallback;		///< a way to return received address to the owner of this parameter
+	TTCallbackPtr		mReturnValueCallback;		///< a way to return received value to the owner of this parameter
+	TTObjectPtr			mObserver;					///< a life cycle observer
+	TTListPtr			mNodesObserversCache;		///< a list containing <aNode, anAttrObserver>
 	
-	public:
+public:
 	
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);
@@ -41,19 +42,18 @@ class TTMODULAR_EXPORT TTReceiver : public TTObject
 	/**	Setter for mMute attribute. */
 	TTErr setEnable(const TTValue& value);
 	
-	TTErr directoryNotification(TTPtr baton, TTValue& data);
-	
-	TTErr attrNotification(TTPtr baton, TTValue& data);
-	
+	/** Ask the value directly */
 	TTErr get();
 	
-	private :
-	
-	TTErr send(TTValue& valueToSend);
+private :
 	
 	TTErr bind();
 	
 	TTErr unbind();
+	
+	friend TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data);
+	
+	friend TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data);
 	
 };
 
@@ -69,6 +69,6 @@ TTErr TTMODULAR_EXPORT TTReceiverDirectoryCallback(TTPtr baton, TTValue& data);
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTReceiverAttrCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTReceiverAttributeCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_RECEIVER_H__

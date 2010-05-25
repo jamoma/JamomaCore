@@ -134,7 +134,7 @@ extern "C" {
 	void			jamoma_node_attribute_observer_callback(TTPtr p_baton, TTValue& data);
 
 	
-	// Method to deal with TTNodeSubscriber
+	// Method to deal with TTSubscriber
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a subscriber object and register an object to the tree */
@@ -153,6 +153,39 @@ extern "C" {
 	 return a <formatedContextName, patcher> list 
 	 To understand how this method have to work see in TTSubscriber.h and .cpp */
 	void			jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextList, long *nbLevel);
+	
+	
+	// Method to deal with TTParameter
+	///////////////////////////////////////////////////////////////////////
+	
+	/**	Create a parameter object */
+	JamomaError		jamoma_parameter_create(ObjectPtr x, AtomCount argc, AtomPtr argv, TTParameterPtr *returnedParameter);
+	
+	/** Return the value to a jcom.paramTest external */
+	void			jamoma_parameter_return_value(TTPtr p_baton, TTValue& data);
+	
+	
+	// Method to deal with TTSender
+	///////////////////////////////////////////////////////////////////////
+	
+	/**	Create a sender object */
+	JamomaError		jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTSenderPtr *returnedSender);
+	
+	/**	Send Max data using a sender object */
+	JamomaError		jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+	
+	
+	// Method to deal with TTReceiver
+	///////////////////////////////////////////////////////////////////////
+	
+	/**	Create a receiver object */
+	JamomaError		jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTReceiverPtr *returnedReceiver);
+	
+	/** Return the address to a jcom.receive external */
+	void			jamoma_receiver_return_address(TTPtr p_baton, TTValue& data);
+	
+	/** Return the value to a jcom.receive external */
+	void			jamoma_receiver_return_value(TTPtr p_baton, TTValue& data);
 	
 #ifdef __cplusplus
 }

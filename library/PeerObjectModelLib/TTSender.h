@@ -17,18 +17,18 @@ class TTMODULAR_EXPORT TTSender : public TTObject
 {
 	TTCLASS_SETUP(TTSender)
 	
-	public:
+public:
 	
-	TTNodeDirectoryPtr	mDirectory;			///< the directory
-	TTSymbolPtr			mAddress;			///< ATTRIBUTE: the address to bind
-	TTSymbolPtr			mAttribute;			///< ATTRIBUTE: the attribute to bind (default : value)
+	TTNodeDirectoryPtr	mDirectory;				///< the directory
+	TTSymbolPtr			mAddress;				///< ATTRIBUTE: the address to bind
+	TTSymbolPtr			mAttribute;				///< ATTRIBUTE: the attribute to bind (default : value)
 
-	private:
+private:
 	
-	TTListPtr			mNodesCache;		///< a cache containing all binded nodes for quick access
-	TTObjectPtr			mObserver;			///< a life cycle observer
+	TTListPtr			mNodesAddressCache;		///< a cache containing all binded nodes and their address for quick access
+	TTObjectPtr			mObserver;				///< a life cycle observer
 	
-	public:
+public:
 	
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);
@@ -36,15 +36,15 @@ class TTMODULAR_EXPORT TTSender : public TTObject
 	/**	Setter for mAttribute attribute. */
 	TTErr setAttribute(const TTValue& value);
 	
-	TTErr directoryNotification(TTPtr baton, TTValue& data);
-	
-	private :
+private :
 	
 	TTErr send(TTValue& valueToSend);
 	
 	TTErr bind();
 	
 	TTErr unbind();
+	
+	friend TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data);
 	
 };
 
@@ -54,6 +54,6 @@ typedef TTSender* TTSenderPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTSenderCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTSenderDirectoryCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_SENDER_H__

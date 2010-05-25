@@ -37,6 +37,12 @@ mRelativeAddress(kTTSymEmpty), mDirectory(NULL), mShareContextNodeCallback(NULL)
 	addAttribute(NodeAddress, kTypeSymbol);
 	addAttribute(ContextNode, kTypePointer);
 	addAttribute(ContextAddress, kTypeSymbol);
+	
+	addAttributeProperty(RelativeAddress, readOnly, YES);
+	addAttributeProperty(Node, readOnly, YES);
+	addAttributeProperty(NodeAddress, readOnly, YES);
+	addAttributeProperty(ContextNode, readOnly, YES);
+	addAttributeProperty(ContextAddress, readOnly, YES);
 
 	this->subscribe(anObject);
 }
@@ -195,7 +201,7 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 			lowerContextNode = NULL;
 			for (contextNodeList.begin(); contextNodeList.end(); contextNodeList.next()) {
 				
-				contextNodeList.current().get(0, (TTPtr*) &lowerContextNode);
+				contextNodeList.current().get(0, (TTPtr*)&lowerContextNode);
 				
 				// Check if objects are the same
 				if (aContext == (TTPtr)lowerContextNode->getContext()) {
@@ -307,7 +313,7 @@ TTErr TTObjectSetAttributeCallbackMethod(TTPtr baton, TTValue& data)
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
-	b->get(0, TTObjectHandle(&x));
+	b->get(0, (TTPtr*)&x);
 	b->get(1, (TTPtr*)&aName);
 	
 	return x->setAttributeValue(aName, data);

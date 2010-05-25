@@ -519,10 +519,10 @@ void jamoma_directory_observer_callback(TTPtr p_baton, TTValue& data)
 	b->get(1, (TTPtr*)&jps_method);
 	
 	// unpack data (oscAddress, aNode, flag, anObserver)
-	data.get(0, (TTPtr*)&oscAddress);
+	data.get(0, &oscAddress);
 	data.get(1, (TTPtr*)&aNode);
 	data.get(2, flag);
-	data.get(3, TTObjectHandle(&anObserver));
+	data.get(3, (TTPtr*)&anObserver);
 	
 	// send data using a class method of the object : void function(t_object *x, t_symbol *mess, long argc, t_atom *argv)
 	atom_setobj(&a_extra[0], aNode);
@@ -651,7 +651,6 @@ JamomaError jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolP
 	
 	*returnedSubscriber = NULL;
 	TTObjectInstantiate(TT("Subscriber"), TTObjectHandle(returnedSubscriber), args);
-	TT_ASSERT("Subscriber created successfully", !err);
 	
 	return JAMOMA_ERR_NONE;
 }
@@ -678,7 +677,7 @@ void jamoma_subscriber_share_context_node(TTPtr p_baton, TTValue& data)
 	// TODO : find a way to cache those t_symbol else where ...
 	_sym_jcomnode = gensym("jcom.node");
 	_sym_jcomparam = gensym("jcom.parameter");
-	_sym_share = gensym("share_model_node");
+	_sym_share = gensym("share_context_node");
 	
 	while (obj) {
 		objclass = object_attr_getsym(obj, _sym_maxclass);
@@ -791,3 +790,196 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextLi
 		aContextList->append(v);
 	}
 }
+
+// Method to deal with TTParameter
+///////////////////////////////////////////////////////////////////////
+
+/**	Create a parameter object */
+JamomaError	jamoma_parameter_create(ObjectPtr x, AtomCount argc, AtomPtr argv, TTParameterPtr *returnedParameter)
+{
+	TTValue			args;
+	TTObjectPtr		returnValueCallback;
+	TTValuePtr		returnValueBaton;
+	
+	// prepare aguments
+
+	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
+	returnValueBaton = new TTValue(TTPtr(x));
+	returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_parameter_return_value));
+	args.append(returnValueCallback);
+	
+	*returnedParameter = NULL;
+	TTObjectInstantiate(TT("Parameter"), TTObjectHandle(returnedParameter), args);
+	
+	return JAMOMA_ERR_NONE;
+	
+}
+
+void jamoma_parameter_return_value(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr	b;
+	ObjectPtr	x;
+	SymbolPtr	msg;
+	long		argc;
+	AtomPtr		argv;
+	
+	// unpack baton (a t_object* and the name of the method to call)
+	b = (TTValuePtr)p_baton;
+	b->get(0, (TTPtr*)&x);
+	
+	// unpack data (msg, argc and argv)
+	data.get(0, (TTPtr*)&msg);
+	data.get(1, argc);
+	data.get(2, (TTPtr*)&argv);
+	
+	// send data to a parameter using the return_value method
+	object_method(x, gensym("return_value"), msg, argc, argv);
+
+}
+
+// Method to deal with TTSender
+///////////////////////////////////////////////////////////////////////
+
+/**	Create a sender object */
+JamomaError jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTSenderPtr *returnedSender)
+{
+	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_attribute, oscAddress_noAttribute;
+	TTValue args;
+	
+	if (addressAndAttribute->s_name[0] == C_SEPARATOR)
+	{
+		
+		// Get address part and attribute part
+		splitOSCAddress(TT(addressAndAttribute->s_name), &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_attribute);
+		mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
+
+		// Make a TTSender object
+		args.append(jamoma_directory);
+		args.append(oscAddress_noAttribute);
+		
+		// TODO : convert attribute from value/stepsize into ValueStepsize
+		if (oscAddress_attribute != NO_ATTRIBUTE)
+			args.append(oscAddress_attribute);
+		else
+			args.append(TT("Value"));
+		
+		*returnedSender = NULL;
+		TTObjectInstantiate(TT("Sender"), TTObjectHandle(returnedSender), args);
+		return JAMOMA_ERR_NONE;
+	}
+	
+	return JAMOMA_ERR_GENERIC;
+}
+
+/**	Send Max data using a sender object */
+JamomaError jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	TTValue data;
+	
+	if (aSender) {
+		
+		// prepare data to send (msg, argc, argv)
+		data.append((TTPtr)msg);
+		data.append((TTUInt8)argc);
+		data.append((TTPtr)argv);
+		
+		aSender->sendMessage(TT("send"), data);			// TODO : make a kTTSym_send
+		return JAMOMA_ERR_NONE;
+	}
+	
+	return JAMOMA_ERR_GENERIC;
+}
+
+// Method to deal with TTReceiver
+///////////////////////////////////////////////////////////////////////
+
+/**	Create a receiver object */
+JamomaError	jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTReceiverPtr *returnedReceiver)
+{
+	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_attribute, oscAddress_noAttribute;
+	TTValue			args;
+	TTObjectPtr		returnAddressCallback, returnValueCallback;
+	TTValuePtr		returnAddressBaton, returnValueBaton;
+	
+	// prepare aguments
+	if (addressAndAttribute->s_name[0] == C_SEPARATOR)
+	{
+		
+		// Get address part and attribute part
+		splitOSCAddress(TT(addressAndAttribute->s_name), &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_attribute);
+		mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
+		
+		// Make a TTSender object
+		args.append(jamoma_directory);
+		args.append(oscAddress_noAttribute);
+		
+		// TODO : convert attribute from value/stepsize into ValueStepsize
+		if (oscAddress_attribute != NO_ATTRIBUTE)
+			args.append(oscAddress_attribute);
+		else
+			args.append(TT("Value"));
+		
+		returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectInstantiate(TT("Callback"), &returnAddressCallback, kTTValNONE);
+		returnAddressBaton = new TTValue(TTPtr(x));
+		returnAddressCallback->setAttributeValue(TT("Baton"), TTPtr(returnAddressBaton));
+		returnAddressCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_receiver_return_address));
+		args.append(returnAddressCallback);
+		
+		returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
+		returnValueBaton = new TTValue(TTPtr(x));
+		returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
+		returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_receiver_return_value));
+		args.append(returnValueCallback);
+		
+		*returnedReceiver = NULL;
+		TTObjectInstantiate(TT("Receiver"), TTObjectHandle(returnedReceiver), args);
+		
+		return JAMOMA_ERR_NONE;
+	}
+	
+	return JAMOMA_ERR_GENERIC;
+	
+}
+
+void jamoma_receiver_return_address(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr	b;
+	ObjectPtr	x;
+	TTSymbolPtr	address;
+	
+	// unpack baton (a t_object* and the name of the method to call)
+	b = (TTValuePtr)p_baton;
+	b->get(0, (TTPtr*)&x);
+	
+	// unpack data (address)
+	data.get(0, &address);
+	
+	// send data to a parameter using the return_value method
+	object_method(x, gensym("return_address"), SymbolGen(address->getCString()), 0, 0);
+}
+
+void jamoma_receiver_return_value(TTPtr p_baton, TTValue& data)
+{
+	TTValuePtr	b;
+	ObjectPtr	x;
+	SymbolPtr	msg;
+	long		argc;
+	AtomPtr		argv;
+	
+	// unpack baton (a t_object* and the name of the method to call)
+	b = (TTValuePtr)p_baton;
+	b->get(0, (TTPtr*)&x);
+	
+	// unpack data (msg, argc and argv)
+	data.get(0, (TTPtr*)&msg);
+	data.get(1, argc);
+	data.get(2, (TTPtr*)&argv);
+	
+	// send data to a parameter using the return_value method
+	object_method(x, gensym("return_value"), msg, argc, argv);
+}
+

@@ -27,7 +27,7 @@ typedef struct _node{
 // Prototypes for methods
 
 // Private methods
-void			node_share_model_node(t_node *x, TTNodePtr *modelNode);
+void			node_share_context_node(t_node *x, TTNodePtr *modelNode);
 
 // Public methods
 void*			node_new(t_symbol *name, long argc, t_atom *argv);
@@ -38,5 +38,3 @@ void			node_assist(t_node *x, void *b, long m, long a, char *s);
 void			node_bang(t_node *x);
 
 void			node_build(t_node *x, SymbolPtr relativeAddress);
-
-void			node_directory_callback(t_node *x, t_symbol *msg, long argc, t_atom *argv);

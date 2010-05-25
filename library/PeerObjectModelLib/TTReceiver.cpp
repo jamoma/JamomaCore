@@ -13,23 +13,26 @@
 #define thisTTClassTags		"node, receiver"
 
 TT_MODULAR_CONSTRUCTOR,
-mDirectory(NULL), mAddress(kTTSymEmpty), mAttribute(kTTSym_value)
+mDirectory(NULL), mAddress(kTTSymEmpty), mAttribute(kTTSym_value), mEnable(YES), mReturnAddressCallback(NULL), mReturnValueCallback(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTReceiver", arguments.getSize() == 3);
+	TT_ASSERT("Correct number of args to create TTReceiver", arguments.getSize() == 5);
 	
-	arguments.get(0, TTObjectHandle(&mDirectory));
+	arguments.get(0, (TTPtr*)&mDirectory);
 	TT_ASSERT("Directory passed to TTReceiver is not NULL", mDirectory);
 	arguments.get(1, &mAddress);
 	arguments.get(2, &mAttribute);
-	
-	// Set Defaults (the attribute setters will set the process method for us)...
-	setAttributeValue(TT("Enable"),	kTTBoolYes);
+	arguments.get(3, (TTPtr*)&mReturnAddressCallback);
+	TT_ASSERT("Return Address Callback passed to TTReceiver is not NULL", mReturnAddressCallback);
+	arguments.get(4, (TTPtr*)&mReturnValueCallback);
+	TT_ASSERT("Return Value Callback passed to TTReceiver is not NULL", mReturnValueCallback);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Attribute, kTypeSymbol);
 	addAttributeWithSetter(Enable, kTypeBoolean);
 	
 	addMessage(get);
+	
+	bind();
 }
 
 TTReceiver::~TTReceiver()
@@ -70,19 +73,20 @@ TTErr TTReceiver::get()
 	TTNodePtr	aNode;
 	TTSymbolPtr	oscAddress;
 	TTString	fullAddress;
+	TTValue		address;
 	TTValue		data;
 	TTErr		err;
 	
-	if (!mNodesCache->isEmpty()) {
+	if (!mNodesObserversCache->isEmpty()) {
 		
 		// for each node of the selection
-		for (mNodesCache->begin(); mNodesCache->end(); mNodesCache->next()) {
+		for (mNodesObserversCache->begin(); mNodesObserversCache->end(); mNodesObserversCache->next()) {
 			
 			// get a node from the selection
-			mNodesCache->current().get(0,(TTPtr*)&aNode);
+			mNodesObserversCache->current().get(0,(TTPtr*)&aNode);
 			
 			// get the value of the attribute
-			err = aNode->getAttributeValue(mAttribute, data);;
+			err = aNode->getAttributeValue(mAttribute, data);
 			
 			if (!err) {
 				
@@ -93,13 +97,16 @@ TTErr TTReceiver::get()
 					fullAddress += C_PROPERTY;
 					fullAddress += mAttribute->getCString();
 				}
-				//  TODO : outlet_anything(x->address_out, gensym((char*)fullAddress.data()), 0, NULL);
 				
-				// then output data as a list
-				// TODO : outlet_list(x->data_out, 0L, argc, argv);
+				// return the address
+				address.append(TT(fullAddress.data()));
+				this->mReturnAddressCallback->notify(address);
+				
+				// return the value
+				this->mReturnValueCallback->notify(data);
 			}
 			else
-				;// TODO : object_error((t_object*)x,"%s doesn't exist", x->attr_name->s_name);
+				;// TODO : error "%s doesn't exist"
 		}
 	}
 	
@@ -111,25 +118,26 @@ TTErr TTReceiver::bind()
 	TTSymbolPtr		oscAddress;
 	TTAttributePtr	anAttribute = NULL;
 	TTObjectPtr		newObserver;
+	TTList			aNodeList;
 	TTNodePtr		aNode;
 	TTValuePtr		newBaton, newCouple;
 	TTErr			err = kTTErrNone;
 	
-	mNodesCache = new TTList();
+	mNodesObserversCache = new TTList();
 	
 	// for any Attribute observation except created, destroyed and initialized
 	if ((mAttribute != TT("created")) && (mAttribute != TT("destroyed")) && (mAttribute != TT("initialized")))
 	{
 		// Look for node(s) into the directory
-		err = mDirectory->Lookup(mAddress, *mNodesCache, &aNode);
+		err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
 		
 		// Start attribute observation on each existing node of the selection
 		if (!err) {
 			
-			for (mNodesCache->begin(); mNodesCache->end(); mNodesCache->next())
+			for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
 			{
 				// get a node from the selection
-				mNodesCache->current().get(0,(TTPtr*)&aNode);
+				aNodeList.current().get(0,(TTPtr*)&aNode);
 				
 				// prepare the callback mecanism to
 				// be notified about changing value attribute
@@ -146,7 +154,7 @@ TTErr TTReceiver::bind()
 					newBaton->append(TTPtr(oscAddress));
 					
 					newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-					newObserver->setAttributeValue(TT("Function"), TTPtr(&TTReceiverAttrCallback));
+					newObserver->setAttributeValue(TT("Function"), TTPtr(&TTReceiverAttributeCallback));
 					
 					newObserver->setAttributeValue(TT("Owner"), TT("TTReceiver"));					// this is usefull only to debug
 					
@@ -155,7 +163,7 @@ TTErr TTReceiver::bind()
 					// memorize the node and his attribute observer
 					newCouple = new TTValue((TTPtr)aNode);
 					newCouple->append((TTPtr)newObserver);
-					mAttrObservers->appendUnique(newCouple);
+					mNodesObserversCache->appendUnique(newCouple);
 				}
 			}
 		}
@@ -182,8 +190,8 @@ TTErr TTReceiver::unbind()
 {
 	TTErr err = kTTErrNone;	
 	
-	delete mNodesCache;
-	mNodesCache = NULL;
+	delete mNodesObserversCache;
+	mNodesObserversCache = NULL;
 	
 	// stop life cycle observation
 	if (mObserver) {
@@ -197,46 +205,53 @@ TTErr TTReceiver::unbind()
 	return kTTErrNone;
 }
 
-TTErr TTReceiver::directoryNotification(TTPtr baton, TTValue& data)
+TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 {
+	TTValuePtr		b;
+	TTReceiverPtr	aReceiver;
 	TTSymbolPtr		oscAddress;
 	TTAttributePtr	anAttribute = NULL;
 	TTObjectPtr		newObserver, oldObserver;
 	TTNodePtr		aNode, p_node;
-	TTValue			c;
+	TTValue			c, address;
 	long			flag;
 	TTBoolean		found;
 	TTCallbackPtr	anObserver;
 	TTValuePtr		newBaton, newCouple;
 	TTErr			err;
 	
+	// unpack baton
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&aReceiver);
+	
 	// Unpack data (oscAddress, aNode, flag, anObserver)
-	data.get(0, (TTPtr*)&oscAddress);
+	data.get(0, &oscAddress);
 	data.get(1, (TTPtr*)&aNode);
 	data.get(2, flag);
-	data.get(3, TTObjectHandle(&anObserver));
+	data.get(3, (TTPtr*)&anObserver);
 	
 	switch (flag) {
 			
 		case kAddressCreated :
 		{
 			
-			if (mAttribute == TT("created"))
+			if (aReceiver->mAttribute == TT("created"))
 			{
-				// TODO : output the oscAddress of the new node
-				//outlet_anything(x->address_out, oscAddress, 0, NULL);
+				// return the address
+				address.append(oscAddress);
+				aReceiver->mReturnAddressCallback->notify(address);
 			}
-			else if ( (mAttribute != TT("destroyed")) && (mAttribute != TT("initialized")) )
+			else if ( (aReceiver->mAttribute != TT("destroyed")) && (aReceiver->mAttribute != TT("initialized")) )
 			{
 				// is the observer already exist ?
 				found = false;
-				if(mAttrObservers){
+				if(aReceiver->mNodesObserversCache){
 					
 					// for each node of the selection
-					for(mAttrObservers->begin(); mAttrObservers->end(); mAttrObservers->next()) {
+					for(aReceiver->mNodesObserversCache->begin(); aReceiver->mNodesObserversCache->end(); aReceiver->mNodesObserversCache->next()) {
 						
 						// get the node of the couple
-						mAttrObservers->current().get(0, (TTPtr*)&p_node);
+						aReceiver->mNodesObserversCache->current().get(0, (TTPtr*)&p_node);
 						
 						// compare it to the receive node
 						if(p_node == aNode)
@@ -249,18 +264,18 @@ TTErr TTReceiver::directoryNotification(TTPtr baton, TTValue& data)
 					// prepare the callback mecanism to
 					// be notified about changing value attribute
 					// if the attribute exist
-					err = aNode->findAttribute(mAttribute, &anAttribute);
+					err = aNode->findAttribute(aReceiver->mAttribute, &anAttribute);
 					
 					if (!err) {
 						
 						newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 						TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
 						
-						newBaton = new TTValue(TTPtr(this));
+						newBaton = new TTValue(TTPtr(aReceiver));
 						newBaton->append(TTPtr(oscAddress));
 						
 						newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-						newObserver->setAttributeValue(TT("Function"), TTPtr(&TTReceiverAttrCallback));
+						newObserver->setAttributeValue(TT("Function"), TTPtr(&TTReceiverAttributeCallback));
 						
 						newObserver->setAttributeValue(TT("Owner"), TT("TTReceiver"));			// this is usefull only to debug
 						
@@ -269,7 +284,7 @@ TTErr TTReceiver::directoryNotification(TTPtr baton, TTValue& data)
 						// memorize the node and his attribute observer
 						newCouple = new TTValue((TTPtr)aNode);
 						newCouple->append((TTPtr)newObserver);
-						mAttrObservers->appendUnique(newCouple);
+						aReceiver->mNodesObserversCache->appendUnique(newCouple);
 					}
 				}
 			}
@@ -279,20 +294,21 @@ TTErr TTReceiver::directoryNotification(TTPtr baton, TTValue& data)
 			
 		case kAddressDestroyed :
 		{
-			if (mAttribute == TT("destroyed"))
+			if (aReceiver->mAttribute == TT("destroyed"))
 			{
-				// TODO : output the OSCAddress of the old node
-				//outlet_anything(x->address_out, oscAddress, 0, NULL);
+				// return the address
+				address.append(oscAddress);
+				aReceiver->mReturnAddressCallback->notify(address);
 			}
-			else if ( (mAttribute != TT("created")) && (mAttribute != TT("initialized")) )
+			else if ( (aReceiver->mAttribute != TT("created")) && (aReceiver->mAttribute != TT("initialized")) )
 			{
 				// look at the node among memorized <node, observer>
 					
 					// for each node of the selection
-					for(mNodesCache->begin(); mNodesCache->end(); mNodesCache->next()){
+					for(aReceiver->mNodesObserversCache->begin(); aReceiver->mNodesObserversCache->end(); aReceiver->mNodesObserversCache->next()){
 						
 						// get a couple
-						c = mNodesCache->current();
+						c = aReceiver->mNodesObserversCache->current();
 						
 						// get the node of the couple
 						c.get(0, (TTPtr*)&p_node);
@@ -305,7 +321,7 @@ TTErr TTReceiver::directoryNotification(TTPtr baton, TTValue& data)
 							
 							// stop attribute observation of the node
 							// if the attribute exist
-							err = aNode->findAttribute(mAttribute, &anAttribute);
+							err = aNode->findAttribute(aReceiver->mAttribute, &anAttribute);
 							
 							if(!err){
 								
@@ -316,7 +332,7 @@ TTErr TTReceiver::directoryNotification(TTPtr baton, TTValue& data)
 							}
 							
 							// forget this couple
-							mNodesCache->remove(c);
+							aReceiver->mNodesObserversCache->remove(c);
 						}
 					}
 			}
@@ -325,12 +341,12 @@ TTErr TTReceiver::directoryNotification(TTPtr baton, TTValue& data)
 			
 		case kAddressInitialized :
 		{
-			//post("jcom.receive %s observe a node initialisation at %s", x->attr_name->s_name, oscAddress->s_name);
-			
-			if(mAttribute == TT("initialized"))
+
+			if(aReceiver->mAttribute == TT("initialized"))
 			{
-				// TODO : output the OSCAddress of the initialized node
-				//outlet_anything(x->address_out, oscAddress, 0, NULL);
+				// return the address
+				address.append(oscAddress);
+				aReceiver->mReturnAddressCallback->notify(address);
 			}
 			break;
 		}
@@ -342,44 +358,30 @@ TTErr TTReceiver::directoryNotification(TTPtr baton, TTValue& data)
 	return kTTErrNone;
 }
 
-TTErr TTReceiver::attrNotification(TTPtr baton, TTValue& data)
+TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 {
-	if(mEnable) {
+	TTValuePtr		b, value;
+	TTReceiverPtr	aReceiver;
+	TTSymbolPtr		oscAddress;
+	TTValue			address;
+	
+	// unpack baton
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&aReceiver);
+							   
+	// Unpack data (oscAddress, value)
+	data.get(0, &oscAddress);
+	data.get(1, (TTPtr*)&value);
+	
+	if(aReceiver->mEnable) {
 		
-		// TODO : output the OSCAddress of the node (in case we use * inside the x->attrname)
-		// outlet_anything(x->address_out, (t_symbol *)mess, 0, NULL);
-		
-		// TODO then output data as a list
-		// outlet_list(x->data_out, 0L, argc, argv);
+		// return the address
+		address.append(oscAddress);
+		aReceiver->mReturnAddressCallback->notify(address);
+											  
+		// return the value
+		aReceiver->mReturnValueCallback->notify(*value);
 	}
 	
 	return kTTErrNone;
-}
-
-TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
-{
-	TTValuePtr			b;
-	TTReceiverPtr	aNodeReceiver;
-	TTSymbolPtr			aSymbol;
-	
-	// unpack baton (a TTObject and the name of the message to call)
-	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aNodeReceiver);
-	b->get(1, (TTPtr*)&aSymbol);
-	
-	return aNodeReceiver->directoryNotification(baton, data);
-}
-
-TTErr TTReceiverAttrCallback(TTPtr baton, TTValue& data)
-{
-	TTValuePtr			b;
-	TTReceiverPtr	aNodeReceiver;
-	TTSymbolPtr			aSymbol;
-	
-	// unpack baton (a TTObject and the name of the message to call)
-	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aNodeReceiver);
-	b->get(1, (TTPtr*)&aSymbol);
-	
-	return aNodeReceiver->attrNotification(baton, data);
 }

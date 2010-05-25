@@ -12,6 +12,7 @@
 #include "TTModular.h"
 
 /*
+ 
  */
 
 class TTMODULAR_EXPORT TTContainer : public TTObject
@@ -24,17 +25,6 @@ public:
 	
 	TTUInt8				mPriority;				///< ATTRIBUTE: does this container have a priority over other containers ?
 	TTSymbolPtr			mDescription;			///< ATTRIBUTE: 
-
-	
-	/**	Getter for m attribute. */
-	TTErr getPriority(TTValue& value);
-	/**	Setter for m attribute. */
-	TTErr setPriority(const TTValue& value);
-	
-	/**	Getter for m attribute. */
-	TTErr getDescription(TTValue& value);
-	/**	Setter for m attribute. */
-	TTErr setDescription(const TTValue& value);	
 	
 };
 

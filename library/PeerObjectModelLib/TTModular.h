@@ -66,38 +66,10 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTObject(arguments)
 	TT_MODULAR_CONSTRUCTOR
 
 
-/** A macro for setting up the class binding to the library in extension classes. 
- @param strname A C-string that names the object as it should be listed in the environment. */
-#define TT_MODULAR_CLASS_SETUP(strname, tags, className)\
-	\
-	extern "C" TT_EXTENSION_EXPORT TTObject* instantiate ## className (TTSymbol*, TTValue& arguments); \
-	\
-	TTObject*  instantiate ## className (TTSymbol*, TTValue& arguments) \
-	{\
-		return new className (arguments);\
-	}\
-	\
-	extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\
-	TTErr loadTTExtension(void)\
-	{\
-		TTFoundationInit();\
-		TTClassRegister(TT(strname), tags, & instantiate ## className);\
-		return kTTErrNone;\
-	}
-
-
-
 // Prototypes
 
-// init the dsp lib, and the foundation if needed
+// init the modular lib, and the foundation if needed
 void TTMODULAR_EXPORT TTModularInit();
-
-
-/**	Allocate memory with 16-byte alignment.  This memory must be freed using TTFree16()	*/
-TTPtr TTMalloc16(size_t numBytes);
-
-/**	Free 16-byte aligned memory alloc'd by TTMalloc16()	*/
-void TTFree16(TTPtr ptr);
 
 
 #endif // __TT_MODULAR_H__

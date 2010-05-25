@@ -1,15 +1,15 @@
 /* 
- * jcom.node
+ * jcom.paramTest
  * External for Jamoma : ...
  * By Théo de la Hogue, Copyright 2009
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
-#include "jcom.node.h"
+#include "jcom.paramTest.h"
 
 // Globals
-t_class		*node_class;
+t_class		*paramTest_class;
 
 // implementation
 #if 0
@@ -25,19 +25,20 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	common_symbols_init();
 	
 	// Define our class
-	c = class_new("jcom.node",(method)node_new, (method)node_free, (long)sizeof(t_node), 0L, A_GIMME, 0);
+	c = class_new("jcom.paramTest",(method)paramTest_new, (method)paramTest_free, (long)sizeof(t_paramTest), 0L, A_GIMME, 0);
 	
 	// add methods
-	class_addmethod(c, (method)node_share_context_node,		"share_context_node",			A_CANT,	0);
-	class_addmethod(c, (method)node_notify,					"notify",						A_CANT, 0);
-	class_addmethod(c, (method)node_assist,					"assist",						A_CANT, 0);
+	class_addmethod(c, (method)paramTest_share_context_node,		"share_context_node",				A_CANT,	0);
+	class_addmethod(c, (method)paramTest_return_value,				"return_value",						A_CANT, 0);
+	class_addmethod(c, (method)paramTest_notify,					"notify",							A_CANT, 0);
+	class_addmethod(c, (method)paramTest_assist,					"assist",							A_CANT, 0);
 	
-	class_addmethod(c, (method)node_bang,					"bang",							0);
+	class_addmethod(c, (method)paramTest_bang,						"bang",								0);
 	
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
-	node_class = c;
+	paramTest_class = c;
 	return 0;
 }
 
@@ -46,11 +47,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 #pragma mark Life Cycle
 #endif 0
 
-void *node_new(t_symbol *name, long argc, t_atom *argv)
+void *paramTest_new(t_symbol *name, long argc, t_atom *argv)
 {
-	long		attrstart = attr_args_offset(argc, argv);
-	t_node		*x = (t_node*)object_alloc(node_class);
-	t_symbol	*relativeAddress = _sym_nothing;
+	long			attrstart = attr_args_offset(argc, argv);
+	t_paramTest		*x = (t_paramTest*)object_alloc(paramTest_class);
+	t_symbol		*relativeAddress = _sym_nothing;
 	
 	if(x){
 		
@@ -63,15 +64,15 @@ void *node_new(t_symbol *name, long argc, t_atom *argv)
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)node_build, relativeAddress, 0, 0);
+		defer_low((ObjectPtr)x, (method)paramTest_build, relativeAddress, argc-attrstart, argv+attrstart);
 		
 	}
 	return x;
 }
 
-void node_free(t_node *x)
+void paramTest_free(t_paramTest *x)
 {
-	// unregister the jcom.node (normally it's done when the patcher is deleted but during edition time
+	// unregister the jcom.paramTest (normally it's done when the patcher is deleted but during edition time
 	// it could be destroyed even if the patcher is not destroyed)
 	TTObjectRelease(TTObjectHandle(&x->subscriber));
 }
@@ -81,7 +82,7 @@ void node_free(t_node *x)
 #pragma mark Methods
 #endif 0
 
-t_max_err node_notify(t_node *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+t_max_err paramTest_notify(t_paramTest *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
 	TTValue	v;
 	ObjectPtr context;
@@ -102,7 +103,7 @@ t_max_err node_notify(t_node *x, t_symbol *s, t_symbol *msg, void *sender, void 
 	return MAX_ERR_NONE;
 }
 
-void node_assist(t_node *x, void *b, long msg, long arg, char *dst)
+void paramTest_assist(t_paramTest *x, void *b, long msg, long arg, char *dst)
 {
 	if (msg == ASSIST_INLET) { // inlet
 		//if(arg == 0)
@@ -114,45 +115,42 @@ void node_assist(t_node *x, void *b, long msg, long arg, char *dst)
 	}		
 }
 
-void node_bang(t_node *x)
+void paramTest_bang(t_paramTest *x)
 {
 	;
 }
 
-void node_build(t_node *x, SymbolPtr relativeAddress)
+void paramTest_build(t_paramTest *x, SymbolPtr relativeAddress, AtomCount argc, AtomPtr argv)
 {
 	TTValue		v, args;
-	TTNodePtr	node = NULL;
-	TTSymbolPtr nodeAddress;
+	TTNodePtr	paramTest = NULL;
+	TTSymbolPtr paramTestAddress;
 	
-	// Make a TTContainer object
-	args = new TTValue(0);		// set priority to 0
-	args.append(kTTSymEmpty);	// set empty description
-	x->container = NULL;
-	TTObjectInstantiate(TT("Container"), TTObjectHandle(&x->container), args);
+	// Make a TTPar object
+	jamoma_parameter_create((ObjectPtr)x, argc, argv, &x->parameter);
 	
-	// Subscribe the TTContainer
-	jamoma_subscriber_create((ObjectPtr)x, (TTObjectPtr)x->container, relativeAddress, &x->subscriber);
+	// Subscribe the TTParameter
+	jamoma_subscriber_create((ObjectPtr)x, (TTObjectPtr)x->parameter, relativeAddress, &x->subscriber);
 	
 	// if the subscription is successful
 	if (x->subscriber) {
 		
 		// debug
 		x->subscriber->getAttributeValue(TT("NodeAddress"), v);
-		v.get(0, &nodeAddress);
-		object_post((ObjectPtr)x, "node address = %s", nodeAddress->getCString());
+		v.get(0, &paramTestAddress);
+		object_post((ObjectPtr)x, "paramTest address = %s", paramTestAddress->getCString());
 		
 		// get the Node
 		x->subscriber->getAttributeValue(TT("Node"), v);
-		v.get(0, (TTPtr*)&node);
+		v.get(0, (TTPtr*)&paramTest);
 		 
 		// attach to the patcher to be notified of his destruction
-		object_attach_byptr_register(x, node->getContext(), _sym_box);
+		object_attach_byptr_register(x, paramTest->getContext(), _sym_box);
 		
 	}
 }
 
-void node_share_context_node(t_node *x, TTNodePtr *contextNode)
+void paramTest_share_context_node(t_paramTest *x, TTNodePtr *contextNode)
 {
 	TTValue	v;
 	
@@ -163,4 +161,9 @@ void node_share_context_node(t_node *x, TTNodePtr *contextNode)
 	}
 	else
 		*contextNode = NULL;
+}
+
+void paramTest_return_value(t_paramTest *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	outlet_anything(x->p_out, msg, argc, argv);
 }
