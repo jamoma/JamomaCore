@@ -2733,7 +2733,7 @@
 					"numoutlets" : 27,
 					"outlettype" : [ "signal", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "float", "float", "" ],
 					"patching_rect" : [ 275.0, 448.0, 380.0, 19.0 ],
-					"text" : "jalg.sur.multi.input~ #0_",
+					"text" : "jalg.sur.input~ #0_",
 					"varname" : "jalg"
 				}
 

@@ -8093,7 +8093,7 @@
 									"patching_rect" : [ 256.0, 352.0, 122.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 220.0, 300.0, 163.0, 17.0 ],
-									"text" : "jmod.sur.multi.input~"
+									"text" : "jmod.sur.input~"
 								}
 
 							}
