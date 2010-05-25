@@ -20,7 +20,7 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"args" : [ "@name", "jmod.sur.multi.input~", "@description", "Playback of multichannel audiofiles based on sfplay" ],
+					"args" : [ "@name", "jmod.sur.input~", "@description", "Playback of multichannel audiofiles based on sfplay" ],
 					"bgmode" : 1,
 					"id" : "obj-2",
 					"maxclass" : "bpatcher",
@@ -344,11 +344,11 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "multi.input~" ],
+					"args" : [ "input~" ],
 					"id" : "obj-52",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.sur.multi.input~.maxpat",
+					"name" : "jmod.sur.input~.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "multicore.connect" ],
