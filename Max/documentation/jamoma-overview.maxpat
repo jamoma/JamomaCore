@@ -8077,7 +8077,7 @@
 									"patching_rect" : [ 256.0, 369.0, 113.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 220.0, 340.0, 162.0, 17.0 ],
-									"text" : "jmod.sur.multi.aux~"
+									"text" : "jmod.sur.aux~"
 								}
 
 							}

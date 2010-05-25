@@ -1775,7 +1775,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 158.0, 218.0, 133.0, 17.0 ],
-					"text" : "jalg.sur.multi.aux~"
+					"text" : "jalg.sur.aux~"
 				}
 
 			}
