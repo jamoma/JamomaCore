@@ -155,11 +155,18 @@ extern "C" {
 	void			jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextList, long *nbLevel);
 	
 	
+	// Method to deal with TTContainer
+	///////////////////////////////////////////////////////////////////////
+	
+	/**	Create a container object */
+	JamomaError		jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer);
+	
+	
 	// Method to deal with TTParameter
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a parameter object */
-	JamomaError		jamoma_parameter_create(ObjectPtr x, AtomCount argc, AtomPtr argv, TTParameterPtr *returnedParameter);
+	JamomaError		jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter);
 	
 	/** Return the value to a jcom.paramTest external */
 	void			jamoma_parameter_return_value(TTPtr p_baton, TTValue& data);
@@ -169,7 +176,7 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a sender object */
-	JamomaError		jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTSenderPtr *returnedSender);
+	JamomaError		jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedSender);
 	
 	/**	Send Max data using a sender object */
 	JamomaError		jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -179,7 +186,7 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a receiver object */
-	JamomaError		jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTReceiverPtr *returnedReceiver);
+	JamomaError		jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedReceiver);
 	
 	/** Return the address to a jcom.receive external */
 	void			jamoma_receiver_return_address(TTPtr p_baton, TTValue& data);

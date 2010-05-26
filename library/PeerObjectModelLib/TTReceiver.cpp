@@ -32,7 +32,8 @@ mDirectory(NULL), mAddress(kTTSymEmpty), mAttribute(kTTSym_value), mEnable(YES),
 	
 	addMessage(get);
 	
-	bind();
+	if	(mDirectory && mReturnAddressCallback && mReturnValueCallback)
+		bind();
 }
 
 TTReceiver::~TTReceiver()

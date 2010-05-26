@@ -111,7 +111,7 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 		
 		// If no address was specified as an attribute
 		if(attrstart > 0)
-			jamoma_receiver_create((ObjectPtr)x, atom_getsym(argv), &x->receiver);
+			;//jamoma_receiver_create((ObjectPtr)x, atom_getsym(argv), &x->receiver);
 
 	}
 	return x;
@@ -274,10 +274,10 @@ void receive_symbol(t_receive *x, t_symbol* msg, long argc, t_atom* argv)
 	// Make a temporary receiver
 	if (msg->s_name[0] == C_SEPARATOR)
 	{
-		if (jamoma_receiver_create((ObjectPtr)x, msg, &aTempReceiver)) {
+		/*if (jamoma_receiver_create((ObjectPtr)x, msg, &aTempReceiver)) {
 			aTempReceiver->sendMessage(TT("get"));
 			TTObjectRelease(TTObjectHandle(&aTempReceiver));
-		}
+		}*/
 	}
 }
 

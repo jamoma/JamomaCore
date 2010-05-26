@@ -13,13 +13,11 @@
 #define thisTTClassTags		"node, container"
 
 TT_MODULAR_CONSTRUCTOR,
-mPriority(), mDescription(kTTSymEmpty) 
+mPriority(0), 
+mDescription(kTTSymEmpty) 
 {
 	
-	TT_ASSERT("Correct number of args to create TTContainer", arguments.getSize() == 2);
-	
-	arguments.get(0, mPriority);
-	arguments.get(1, &mDescription);
+	TT_ASSERT("Correct number of args to create TTContainer", arguments.getSize() == 0);
 	
 	addAttribute(Priority, kTypeUInt8);
 	addAttribute(Description, kTypeString);

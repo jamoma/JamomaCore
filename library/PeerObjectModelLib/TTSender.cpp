@@ -27,7 +27,8 @@ mDirectory(NULL), mAddress(kTTSymEmpty), mAttribute(kTTSym_value)
 	
 	addMessageWithArgument(send);
 	
-	bind();
+	if	(mDirectory)
+		bind();
 }
 
 TTSender::~TTSender()

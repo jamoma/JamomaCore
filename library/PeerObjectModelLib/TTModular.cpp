@@ -11,7 +11,7 @@
 
 
 static bool TTModularHasInitialized = false;
-
+TTNodeDirectoryPtr jamoma_directory = NULL;
 
 void TTModularRegisterInternalClasses();
 

@@ -8,7 +8,7 @@
 
 #include "NodeLib.h"
 
-TTNodeDirectoryPtr jamoma_directory = NULL;
+
 
 /***********************************************************************************
 *
@@ -630,7 +630,7 @@ JamomaError jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolP
 	TTObjectPtr		shareCallback, contextListCallback;
 	TTValuePtr		shareBaton, contextListBaton;
 		
-	// prepare aguments
+	// prepare arguments
 	args.append(TTPtr(aTTObject));
 	args.append(TT(relativeAddress->s_name));
 	args.append(jamoma_directory);
@@ -791,17 +791,33 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextLi
 	}
 }
 
+// Method to deal with TTContainer
+///////////////////////////////////////////////////////////////////////
+
+/**	Create a container object */
+JamomaError	jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer)
+{
+	TTValue			args;
+	
+	// no arguments
+	
+	*returnedContainer = NULL;
+	TTObjectInstantiate(TT("Container"), TTObjectHandle(returnedContainer), args);
+	
+	return JAMOMA_ERR_NONE;
+}
+
 // Method to deal with TTParameter
 ///////////////////////////////////////////////////////////////////////
 
 /**	Create a parameter object */
-JamomaError	jamoma_parameter_create(ObjectPtr x, AtomCount argc, AtomPtr argv, TTParameterPtr *returnedParameter)
+JamomaError	jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter)
 {
 	TTValue			args;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
 	
-	// prepare aguments
+	// prepare arguments
 
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
@@ -843,7 +859,7 @@ void jamoma_parameter_return_value(TTPtr p_baton, TTValue& data)
 ///////////////////////////////////////////////////////////////////////
 
 /**	Create a sender object */
-JamomaError jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTSenderPtr *returnedSender)
+JamomaError jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedSender)
 {
 	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_attribute, oscAddress_noAttribute;
 	TTValue args;
@@ -896,14 +912,14 @@ JamomaError jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount arg
 ///////////////////////////////////////////////////////////////////////
 
 /**	Create a receiver object */
-JamomaError	jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTReceiverPtr *returnedReceiver)
+JamomaError	jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedReceiver)
 {
 	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_attribute, oscAddress_noAttribute;
 	TTValue			args;
 	TTObjectPtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
-	// prepare aguments
+	// prepare arguments
 	if (addressAndAttribute->s_name[0] == C_SEPARATOR)
 	{
 		

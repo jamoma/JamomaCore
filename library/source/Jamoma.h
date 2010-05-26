@@ -70,8 +70,8 @@ extern "C" {
 	void		jamoma_class_attr_array_new(t_class *c, char *attrName, t_symbol *attrType, long list_size, method setter, method getter);
 	void		jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *);
 
-	void		receive_initclass();
-	void		send_initclass();
+	//void		receive_initclass();
+	//void		send_initclass();
 }
 
 

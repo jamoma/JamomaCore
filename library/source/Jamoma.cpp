@@ -40,13 +40,13 @@ void jamoma_init(void)
 		jamomaSymbolsInit();
 		jamoma_directory_init();
 
-		receive_initclass();
-		object_method(max, meth, SymbolGen("jcom.receive"), SymbolGen("jcom.loader"), SymbolGen("jcom.receive"));
-		object_method_sym(max, SymbolGen("db.object_addinternal"), SymbolGen("jcom.receive"), NULL);
+		//receive_initclass();
+		//object_method(max, meth, SymbolGen("jcom.receive"), SymbolGen("jcom.loader"), SymbolGen("jcom.receive"));
+		//object_method_sym(max, SymbolGen("db.object_addinternal"), SymbolGen("jcom.receive"), NULL);
 		
-		send_initclass();
-		object_method(max, meth, SymbolGen("jcom.send"), SymbolGen("jcom.loader"), SymbolGen("jcom.send"));
-		object_method_sym(max, SymbolGen("db.object_addinternal"), SymbolGen("jcom.send"), NULL);
+		//send_initclass();
+		//object_method(max, meth, SymbolGen("jcom.send"), SymbolGen("jcom.loader"), SymbolGen("jcom.send"));
+		//object_method_sym(max, SymbolGen("db.object_addinternal"), SymbolGen("jcom.send"), NULL);
 		
 		// Create Required Global Instances
 		hash_modules = (t_hashtab*)hashtab_new(0);

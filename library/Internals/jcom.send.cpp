@@ -93,7 +93,7 @@ void *send_new(t_symbol *s, long argc, t_atom *argv)
 		
 		// If no address was specified as an attribute
 		if(attrstart > 0)
-			jamoma_sender_create((ObjectPtr)x, atom_getsym(argv), &x->sender);
+			;//jamoma_sender_create((ObjectPtr)x, atom_getsym(argv), &x->sender);
 
 	}
 	return x;
@@ -223,10 +223,10 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 	// Make a temporary sender
 	if (msg->s_name[0] == C_SEPARATOR)
 	{
-		if (jamoma_sender_create((ObjectPtr)x, msg, &aTempSender)) {
+		;/*if (jamoma_sender_create((ObjectPtr)x, msg, &aTempSender)) {
 			jamoma_sender_send(aTempSender, _sym_list, argc, argv);
 			TTObjectRelease(TTObjectHandle(&aTempSender));
-		}
+		}*/
 	}
 	else
 		jamoma_sender_send(x->sender, msg, argc, argv);

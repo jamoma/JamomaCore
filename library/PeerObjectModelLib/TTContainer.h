@@ -21,10 +21,9 @@ class TTMODULAR_EXPORT TTContainer : public TTObject
 public:
 	
 	TTCLASS_SETUP(TTContainer)
-
 	
 	TTUInt8				mPriority;				///< ATTRIBUTE: does this container have a priority over other containers ?
-	TTSymbolPtr			mDescription;			///< ATTRIBUTE: 
+	TTSymbolPtr			mDescription;			///< ATTRIBUTE: a text label to describe the role of this container
 	
 };
 

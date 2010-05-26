@@ -35,6 +35,8 @@ public:
 	TTFloat32		mValueStepsize;				///< ATTRIBUTE: amount to increment or decrement by
 	
 	TTSymbolPtr		mType;						///< ATTRIBUTE: type of this parameter's value
+	TTUInt8			mPriority;					///< ATTRIBUTE: does this parameter have a priority over other parameters ?
+	TTString		mDescription;				///< ATTRIBUTE: a text label to describe the role of this parameter
 	TTSymbolPtr		mRepetitionsAllow;			///< ATTRIBUTE: is the same value can be update twice ?
 	TTBoolean		mReadonly;					///< ATTRIBUTE: 
 	TTBoolean		mViewFreeze;				///< ATTRIBUTE: freeze updating of graphical user interface
@@ -76,81 +78,49 @@ public:
 	TTErr	reset();
 	
 
-	
-	
-	
-	/**	Getter for m attribute. */
-	TTErr getValue(TTValue& value);
+
 	/**	Setter for m attribute. */
 	TTErr setValue(const TTValue& value);
 
-	/**	Getter for m attribute. */
-	TTErr getValueDefault(TTValue& value);
 	/**	Setter for m attribute. */
 	TTErr setValueDefault(const TTValue& value);
 	
-	/**	Getter for m attribute. */
-	TTErr getValueStepsize(TTValue& value);
 	/**	Setter for m attribute. */
 	TTErr setValueStepsize(const TTValue& value);
 	
-	/**	Getter for m attribute. */
-	TTErr getType(TTValue& value);
 	/**	Setter for m attribute. */
 	TTErr setType(const TTValue& value);
 	
-	/**	Getter for m attribute. */
-	TTErr getRepetitionsAllow(TTValue& value);
 	/**	Setter for m attribute. */
 	TTErr setRepetitionsAllow(const TTValue& value);
 	
-	/**	Getter for m attribute. */
-	TTErr getReadonly(TTValue& value);
 	/**	Setter for m attribute. */
 	TTErr setReadonly(const TTValue& value);
 	
-	/**	Getter for m attribute. */
-	TTErr getViewFreeze(TTValue& value);
 	/**	Setter for m attribute. */
 	TTErr setViewFreeze(const TTValue& value);
 	
-	/**	Getter for m attribute. */
-	TTErr getRangeBounds(TTValue& value);
 	/**	Setter for m attribute. */
 	TTErr setRangeBounds(const TTValue& value);
 	
-	/**	Getter for m attribute. */
-	TTErr getRangeClipmode(TTValue& value);
 	/**	Setter for m attribute. */
 	TTErr setRangeClipmode(const TTValue& value);
 	
-	/**	Getter for m attribute. */
-	TTErr getRampDrive(TTValue& value);
 	/**	Setter for m attribute. */
 	TTErr setRampDrive(const TTValue& value);
 	
-	/**	Getter for m attribute. */
-	TTErr getRampFunction(TTValue& value);
 	/**	Setter for m attribute. */
 	TTErr setRampFunction(const TTValue& value);
 	
-	/**	Getter for m attribute. */
-	TTErr getDataspace(TTValue& value);
 	/**	Setter for m attribute. */
 	TTErr setDataspace(const TTValue& value);
 	
-	/**	Getter for m attribute. */
-	TTErr getDataspaceUnitNative(TTValue& value);
 	/**	Setter for m attribute. */
 	TTErr setDataspaceUnitNative(const TTValue& value);
 	
-	/**	Getter for m attribute. */
-	TTErr getDataspaceUnitActive(TTValue& value);
 	/**	Setter for m attribute. */
 	TTErr setDataspaceUnitActive(const TTValue& value);
 	
-	/**	Getter for m attribute. */
-	TTErr getDataspaceUnitDisplay(TTValue& value);
 	/**	Setter for m attribute. */
 	TTErr setDataspaceUnitDisplay(const TTValue& value);
 	

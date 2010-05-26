@@ -44,7 +44,8 @@ mRelativeAddress(kTTSymEmpty), mDirectory(NULL), mShareContextNodeCallback(NULL)
 	addAttributeProperty(ContextNode, readOnly, YES);
 	addAttributeProperty(ContextAddress, readOnly, YES);
 
-	this->subscribe(anObject);
+	if	(mDirectory && mShareContextNodeCallback && mGetContextListCallback)
+		this->subscribe(anObject);
 }
 
 TTSubscriber::~TTSubscriber()

@@ -17,6 +17,8 @@ mValue(TTValue(0.0)),
 mValueDefault(TTValue(0.0)),
 mValueStepsize(TTValue(0.0)),
 mType(kTTSymEmpty),
+mPriority(0), 
+mDescription(""),
 mRepetitionsAllow(NO),
 mReadonly(NO),
 mViewFreeze(NO),
@@ -34,36 +36,32 @@ mDataspaceUnitDisplay(kTTSymEmpty)
 	arguments.get(0, (TTPtr*)&mReturnValueCallback);
 	TT_ASSERT("Return Value Callback passed to TTParameter is not NULL", mReturnValueCallback);
 	
-	addAttributeWithGetterAndSetter(Value, kTypeNone);
-	addAttributeWithGetterAndSetter(ValueDefault, kTypeNone);
-	addAttributeWithGetterAndSetter(ValueStepsize, kTypeFloat32);
+	addAttributeWithSetter(Value, kTypeNone);
+	addAttributeWithSetter(ValueDefault, kTypeNone);
+	addAttributeWithSetter(ValueStepsize, kTypeFloat32);
 	
-	addAttributeWithGetterAndSetter(Type, kTypeSymbol);
-	addAttributeWithGetterAndSetter(RepetitionsAllow, kTypeBoolean);
-	addAttributeWithGetterAndSetter(Readonly, kTypeBoolean);
-	addAttributeWithGetterAndSetter(ViewFreeze, kTypeBoolean);
+	addAttributeWithSetter(Type, kTypeSymbol);
+	addAttribute(Priority, kTypeUInt8);
+	addAttribute(Description, kTypeString);
+	addAttributeWithSetter(RepetitionsAllow, kTypeBoolean);
+	addAttributeWithSetter(Readonly, kTypeBoolean);
+	addAttributeWithSetter(ViewFreeze, kTypeBoolean);
 	
-	addAttributeWithGetterAndSetter(RangeBounds, kTypeNone);
-	addAttributeWithGetterAndSetter(RangeClipmode, kTypeSymbol);
+	addAttributeWithSetter(RangeBounds, kTypeNone);
+	addAttributeWithSetter(RangeClipmode, kTypeSymbol);
 	
-	addAttributeWithGetterAndSetter(RampDrive, kTypeSymbol);
-	addAttributeWithGetterAndSetter(RampFunction, kTypeSymbol);
+	addAttributeWithSetter(RampDrive, kTypeSymbol);
+	addAttributeWithSetter(RampFunction, kTypeSymbol);
 
-	addAttributeWithGetterAndSetter(Dataspace, kTypeSymbol);
-	addAttributeWithGetterAndSetter(DataspaceUnitNative, kTypeSymbol);
-	addAttributeWithGetterAndSetter(DataspaceUnitActive, kTypeSymbol);
-	addAttributeWithGetterAndSetter(DataspaceUnitDisplay, kTypeSymbol);
+	addAttributeWithSetter(Dataspace, kTypeSymbol);
+	addAttributeWithSetter(DataspaceUnitNative, kTypeSymbol);
+	addAttributeWithSetter(DataspaceUnitActive, kTypeSymbol);
+	addAttributeWithSetter(DataspaceUnitDisplay, kTypeSymbol);
 
 }
 
 TTParameter::~TTParameter()
 {;}
-
-TTErr TTParameter::getValue(TTValue& value)
-{
-	value = mValue;
-	return kTTErrNone;
-}
 
 TTErr TTParameter::setValue(const TTValue& value)
 {
@@ -74,21 +72,9 @@ TTErr TTParameter::setValue(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::getValueDefault(TTValue& value)
-{
-	value = mValueDefault;
-	return kTTErrNone;
-}
-
 TTErr TTParameter::setValueDefault(const TTValue& value)
 {
 	mValueDefault = value;
-	return kTTErrNone;
-}
-
-TTErr TTParameter::getValueStepsize(TTValue& value)
-{
-	value = mValueStepsize;
 	return kTTErrNone;
 }
 
@@ -98,21 +84,9 @@ TTErr TTParameter::setValueStepsize(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::getType(TTValue& value)
-{
-	value = mType;
-	return kTTErrNone;
-}
-
 TTErr TTParameter::setType(const TTValue& value)
 {
 	mType = value;
-	return kTTErrNone;
-}
-
-TTErr TTParameter::getRepetitionsAllow(TTValue& value)
-{
-	value = mRepetitionsAllow;
 	return kTTErrNone;
 }
 
@@ -122,21 +96,9 @@ TTErr TTParameter::setRepetitionsAllow(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::getReadonly(TTValue& value)
-{
-	value = mReadonly;
-	return kTTErrNone;
-}
-
 TTErr TTParameter::setReadonly(const TTValue& value)
 {
 	mReadonly = value;
-	return kTTErrNone;
-}
-
-TTErr TTParameter::getViewFreeze(TTValue& value)
-{
-	value = mViewFreeze;
 	return kTTErrNone;
 }
 
@@ -146,21 +108,9 @@ TTErr TTParameter::setViewFreeze(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::getRangeBounds(TTValue& value)
-{
-	value = mRangeBounds;
-	return kTTErrNone;
-}
-
 TTErr TTParameter::setRangeBounds(const TTValue& value)
 {
 	mRangeBounds = value;
-	return kTTErrNone;
-}
-
-TTErr TTParameter::getRangeClipmode(TTValue& value)
-{
-	value = mRangeClipmode;
 	return kTTErrNone;
 }
 
@@ -170,21 +120,9 @@ TTErr TTParameter::setRangeClipmode(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::getRampDrive(TTValue& value)
-{
-	value = mRampDrive;
-	return kTTErrNone;
-}
-
 TTErr TTParameter::setRampDrive(const TTValue& value)
 {
 	mRampDrive = value;
-	return kTTErrNone;
-}
-
-TTErr TTParameter::getRampFunction(TTValue& value)
-{
-	value = mRampFunction;
 	return kTTErrNone;
 }
 
@@ -194,21 +132,9 @@ TTErr TTParameter::setRampFunction(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::getDataspace(TTValue& value)
-{
-	value = mDataspace;
-	return kTTErrNone;
-}
-
 TTErr TTParameter::setDataspace(const TTValue& value)
 {
 	mDataspace = value;
-	return kTTErrNone;
-}
-
-TTErr TTParameter::getDataspaceUnitNative(TTValue& value)
-{
-	value = mDataspaceUnitNative;
 	return kTTErrNone;
 }
 
@@ -218,21 +144,9 @@ TTErr TTParameter::setDataspaceUnitNative(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::getDataspaceUnitActive(TTValue& value)
-{
-	value = mDataspaceUnitActive;
-	return kTTErrNone;
-}
-
 TTErr TTParameter::setDataspaceUnitActive(const TTValue& value)
 {
 	mDataspaceUnitActive = value;
-	return kTTErrNone;
-}
-
-TTErr TTParameter::getDataspaceUnitDisplay(TTValue& value)
-{
-	value = mDataspaceUnitDisplay;
 	return kTTErrNone;
 }
 
