@@ -153,7 +153,7 @@ JamomaError	jamoma_directory_register(t_symbol *OSCaddress, t_symbol *type, t_ob
 		}
 		
 		// create a TTNode
-		jamoma_directory->TTNodeCreate(newAddress, TT(type->s_name), obj, attributesAccessList, newTTNode, (TTBoolean *)newInstanceCreated);
+		jamoma_directory->TTNodeCreate(newAddress, TT(type->s_name), obj, NULL, attributesAccessList, newTTNode, (TTBoolean *)newInstanceCreated);
 
 		// free the memory allocated inside param_getattrnames
 		sysmem_freeptr(attrnames);
@@ -519,7 +519,7 @@ void jamoma_directory_observer_callback(TTPtr p_baton, TTValue& data)
 	b->get(1, (TTPtr*)&jps_method);
 	
 	// unpack data (oscAddress, aNode, flag, anObserver)
-	data.get(0, (TTPtr*)&oscAddress);
+	data.get(0, &oscAddress);
 	data.get(1, (TTPtr*)&aNode);
 	data.get(2, flag);
 	data.get(3, TTObjectHandle(&anObserver));
@@ -862,7 +862,7 @@ void jamoma_patcher_register_jmod_list(TTListPtr modelList, TTNodePtr *returnedM
 							lowerModelAddress += "/";
 						lowerModelAddress += formatedModelName->getCString();
 						
-						jamoma_directory->TTNodeCreate(TT(lowerModelAddress.data()), TT("model"), (TTPtr)patcher, attributesAccess, &modelNode, &nodeCreated);
+						jamoma_directory->TTNodeCreate(TT(lowerModelAddress.data()), TT("model"), (TTPtr)patcher, NULL, attributesAccess, &modelNode, &nodeCreated);
 					}
 					else
 						modelNode = jamoma_directory->getRoot();
