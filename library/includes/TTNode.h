@@ -73,9 +73,8 @@ class TTFOUNDATION_EXPORT TTNode : public TTObject			///< we subclass TTObject i
 	TTSymbolPtr			name;					///< the name of the TTNode
 	TTSymbolPtr			instance;				///< an instance symbol. default to ""
 
-	TTSymbolPtr			type;					///< a type symbol to organized the TTNode of the directory
-	TTPtr				object;					///< an object linked to the TTNode (or even NULL for containers)
-	TTPtr				context;				///< an element that contains the object in the environnement
+	TTObjectPtr			mObject;				///< an object linked to the TTNode
+	TTPtr				mContext;				///< an element that contains the object in the environnement
 	
 	TTNodePtr			parent;					///< pointer to the parent TTNode in the directory
 	TTHashPtr			children;				///< a hashtab of hashtabs:
@@ -106,21 +105,6 @@ public:
 		@param	newInstanceCreated		true if a new instance have been created
 		@return							a error code	*/
 	TTErr			setInstance(TTSymbolPtr instance, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated);
-
-	/** Get the type of the TTNode */
-	TTSymbolPtr		getType();
-
-	/** Get a pointer to the object linked with the TTNode */
-	void*			getObject();
-	
-	/** Set a pointer to the object linked with the TTNode */
-	TTErr			setObject(void* ob);
-	
-	/** Get a pointer to the context linked with the TTNode */
-	void*			getContext();
-	
-	/** Set a pointer to the context linked with the TTNode */
-	TTErr			setContext(void* ob);
 
 	/** Get a pointer to the parent TTNode of the TTNode */
 	TTNodePtr		getParent();

@@ -14,17 +14,24 @@
 #define thisTTClassTags		"node"
 
 TT_OBJECT_CONSTRUCTOR,
-	parent(NULL)
+name(kTTSymEmpty),
+instance(kTTSymEmpty),
+mObject(NULL),
+mContext(NULL),
+parent(NULL),
+children(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTNode", arguments.getSize() == 6);
+	TT_ASSERT("Correct number of args to create TTNode", arguments.getSize() == 5);
 	
 	arguments.get(0, &name);
 	arguments.get(1, &instance);
-	arguments.get(2, &type);
-	arguments.get(3, &object);
-	arguments.get(4, &context);
-	arguments.get(5, TTObjectHandle(&directory));
+	arguments.get(2, (TTPtr*)&mObject);
+	arguments.get(3, &mContext);
+	arguments.get(4, TTObjectHandle(&directory));
 	TT_ASSERT("Directory passed to TTNode is not NULL", directory);
+	
+	addAttribute(Object, kTypePointer);
+	addAttribute(Context, kTypePointer);
 	
 	// a new TTNode have no child
 	this->children = new TTHash();
@@ -101,8 +108,8 @@ TTNode::~TTNode()
 	this->children->~TTHash();
 
 	this->name = NULL;
-	this->type = NULL;
-	this->object = NULL;
+	this->mObject = NULL;
+	this->mContext = NULL;
 	this->instance = NULL;
 }
 
@@ -113,9 +120,6 @@ TTNode::~TTNode()
 
 TTSymbolPtr		TTNode::getName() {return this->name;}
 TTSymbolPtr		TTNode::getInstance() {return this->instance;}
-TTSymbolPtr		TTNode::getType() {return this->type;}
-void*			TTNode::getObject() {return this->object;}
-void*			TTNode::getContext() {return this->context;}
 TTNodePtr		TTNode::getParent() {return this->parent;}
 
 
@@ -272,22 +276,9 @@ TTErr TTNode::setInstance(TTSymbolPtr anInstance, TTSymbolPtr *newInstance, TTBo
 	return kTTErrNone;
 }
 
-TTErr TTNode::setObject(void* ob)
-{
-	this->object = ob;
-	return kTTErrNone;
-}
-
-TTErr TTNode::setContext(void* ob)
-{
-	this->context = ob;
-	return kTTErrNone;
-}
-
 TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created)
 {
 	TTValue	found;
-	TTList	attributeAccess;
 	TTErr	err;
 
 	// look into the hashtab to check if the address exist in the directory
@@ -297,7 +288,7 @@ TTErr TTNode::setParent(TTSymbolPtr oscAddress_parent, TTBoolean *parent_created
 	if (err == kTTErrValueNotFound) {
 
 		// we create a container TTNode
-		this->directory->TTNodeCreate(oscAddress_parent, TT("Container"), NULL, NULL, attributeAccess, &this->parent, parent_created);
+		this->directory->TTNodeCreate(oscAddress_parent, NULL, NULL, &this->parent, parent_created);
 
 		// Is it a good test ?
 		if (*parent_created && (this->parent->instance != NO_INSTANCE))

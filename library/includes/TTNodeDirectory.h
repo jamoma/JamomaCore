@@ -150,15 +150,12 @@ public:
 									If you specify an instance name/number that already exists, then returnedTTNode will be a pointer to
 									the already existing TTNode upon return and no new TTNode will be created.
 									If you do not specify an instance name/number, then one will be generated for you automatically.
-	 @param	newType					The type of TTNode to be created.
-									For example, one of the following: hub, parameter, message, return, init, in, out, container, etc.
 	 @param	newObject				The object, if applicable, that is represented by this TTNode.
 	 @param aContext				The context in which the object is.
-	 @param attributesAccess		A TTList containing <attributeName, aGetterCallback, aSetterCallback>
 	 @param	returnedTTNode			A pointer to the TTNode at the given address 
 	 @param	nodeCreated				A boolean : true if a TTNode have been created, else false
 	 @return						An error code. */
-	TTErr			TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, void *aContext, TTList& attributesAccess, TTNodePtr *returnedTTNode, TTBoolean *nodeCreated);
+	TTErr			TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *nodeCreated);
 	
 	/**	Remove a TTNodefrom the directory.
 	 @param	oscAddress				The OSC address for which you wish to remove the TTNode.

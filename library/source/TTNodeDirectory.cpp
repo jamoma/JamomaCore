@@ -17,7 +17,6 @@ TT_OBJECT_CONSTRUCTOR,
 	mRoot(NULL)
 {
 	TTBoolean nodeCreated = NO;
-	TTList attributeAccess;
 	
 	// Set the name of the tree
 	TT_ASSERT("Correct number of args to create TTNodeDirectory", arguments.getSize() == 1);
@@ -30,7 +29,7 @@ TT_OBJECT_CONSTRUCTOR,
 	this->mObservers = new TTHash();
 
 	// create a root (OSC style)
-	TTNodeCreate(S_SEPARATOR, TT("Root"), this, this, attributeAccess, &mRoot, &nodeCreated);
+	TTNodeCreate(S_SEPARATOR, this, this, &mRoot, &nodeCreated);
 }
 
 TTNodeDirectory::~TTNodeDirectory()
@@ -96,15 +95,13 @@ TTErr TTNodeDirectory::getTTNodeForOSC(TTSymbolPtr oscAddress, TTNodePtr* return
 	return kTTErrGeneric;
 }
 
-TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType, void *newObject, void *aContext, TTList& attributesAccess, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
+TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
 {
 	TTSymbolPtr		oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_property, newInstance, oscAddress_got;
 	TTBoolean		parent_created;
 	TTValue*		found;
 	TTNodePtr		newTTNode = NULL;
 	TTNodePtr		n_found = NULL;
-	TTSymbolPtr		aName;
-	TTCallbackPtr	aGetterCallback, aSetterCallback;
 	TTErr			err;
 	TTValue			v, c;
 
@@ -162,10 +159,9 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 		v.setSize(5);
 		v.set(0, oscAddress_name);
 		v.set(1, newInstance);
-		v.set(2, newType);
-		v.set(3, newObject);
-		v.set(4, aContext);
-		v.set(5, TTObjectRef(*this));
+		v.set(2, newObject);
+		v.set(3, aContext);
+		v.set(4, TTObjectRef(*this));
 		
 		err = TTObjectInstantiate(TT("Node"), TTObjectHandle(&newTTNode), v);
 		TT_ASSERT("new TTNode successful", !err);
@@ -188,23 +184,10 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTSymbolPtr newType,
 		newTTNode->getOscAddress(&oscAddress_got);
 		mDirectory->append(oscAddress_got,TTValue(newTTNode));
 		
-		// 4. Add each attribute Access Pack to the node
-		for(attributesAccess.begin(); attributesAccess.end(); attributesAccess.next()){
-			
-			// get each element of the pack <attributeName, aGetterCallback, aSetterCallback>
-			c = attributesAccess.current();
-			c.get(0,(TTPtr*)&aName);
-			c.get(1,(TTPtr*)&aGetterCallback);
-			c.get(2,(TTPtr*)&aSetterCallback);
-		
-			// add the attribute as an attribute of the node
-			newTTNode->registerAttribute(aName, aGetterCallback, aSetterCallback);
-		}
-		
-		// 5. Notify observers that a node have been created AFTER the creation
+		// 4. Notify observers that a node have been created AFTER the creation
 		this->notifyObservers(oscAddress_got, newTTNode, kAddressCreated);
 
-		// 6. returned the new TTNode
+		// 5. returned the new TTNode
 		*returnedTTNode = newTTNode;
 
 		return kTTErrNone;
