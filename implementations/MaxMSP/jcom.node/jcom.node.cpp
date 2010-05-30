@@ -67,6 +67,7 @@ void node_build(TTPtr self, SymbolPtr address)
 	TTValue						v, args;
 	TTNodePtr					node = NULL;
 	TTSymbolPtr					nodeAddress;
+	TTPtr						context;
 	
 	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, address, &x->subscriberObject);
 	
@@ -83,7 +84,9 @@ void node_build(TTPtr self, SymbolPtr address)
 		v.get(0, (TTPtr*)&node);
 		
 		// attach to the patcher to be notified of his destruction
-		object_attach_byptr_register(x, node->getContext(), _sym_box);
+		 node->getAttributeValue(TT("Context"), v);
+		v.get(0, (TTPtr*)&context);
+		object_attach_byptr_register(x, context, _sym_box);
 		
 
 		

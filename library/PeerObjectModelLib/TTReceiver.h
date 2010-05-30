@@ -26,8 +26,8 @@ public:
 	
 private :
 	
-	TTCallbackPtr		mReturnAddressCallback;		///< a way to return received address to the owner of this parameter
-	TTCallbackPtr		mReturnValueCallback;		///< a way to return received value to the owner of this parameter
+	TTCallbackPtr		mReturnAddressCallback;		///< a way to return received address to the owner of this receiver
+	TTCallbackPtr		mReturnValueCallback;		///< a way to return received value to the owner of this receiver
 	TTObjectPtr			mObserver;					///< a life cycle observer
 	TTListPtr			mNodesObserversCache;		///< a list containing <aNode, anAttrObserver>
 	

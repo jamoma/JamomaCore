@@ -21,6 +21,7 @@ mDescription(kTTSymEmpty)
 	
 	addAttribute(Priority, kTypeUInt8);
 	addAttribute(Description, kTypeString);
+
 }
 
 TTContainer::~TTContainer()

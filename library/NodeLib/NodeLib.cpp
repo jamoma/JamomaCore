@@ -127,60 +127,6 @@ JamomaError jamoma_directory_dump_by_type(void)
 	return err;
 }
 
-JamomaError	jamoma_directory_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, TTNodePtr *newTTNode, bool *newInstanceCreated)
-{
-	long			count = 0;
-	t_symbol		**attrnames = NULL;
-	TTValuePtr		attributesAccessPack;
-	TTList			attributesAccessList;
-	TTSymbolPtr		newAddress = TT(OSCaddress->s_name);
-	long			i;
-	
-	if(jamoma_directory){
-		
-		// prepare Getter and Setter for each attribute to add
-		// in a TTList of <attributeName, aGetterCallback, aSetterCallback>
-		// !!!
-		// !!! get attributes names of the Max external (So the object have to set a getattrnames method)
-		// !!!
-		if (obj) {
-			object_method(obj, gensym("getattrnames"), &count, &attrnames);
-			
-			for(i = 0; i < count; i++){
-				jamoma_node_attribute_access_pack(attrnames[i], obj, &attributesAccessPack);
-				attributesAccessList.append(attributesAccessPack);
-			}
-		}
-		
-		// create a TTNode
-		jamoma_directory->TTNodeCreate(newAddress, TT(type->s_name), obj, NULL, attributesAccessList, newTTNode, (TTBoolean *)newInstanceCreated);
-
-		// free the memory allocated inside param_getattrnames
-		sysmem_freeptr(attrnames);
-		
-		return JAMOMA_ERR_NONE;
-	}
-
-	post("jamoma_directory_register %s : create a directory before", OSCaddress->s_name);
-	return JAMOMA_ERR_GENERIC;
-}
-
-TTErr jamoma_directory_unregister(t_symbol *OSCaddress)
-{
-	TTErr err = kTTErrNone;
-	TTSymbolPtr oldAddress = TT(OSCaddress->s_name);
-
-	if(jamoma_directory){
-		err = jamoma_directory->TTNodeRemove(oldAddress);
-	}
-	else{
-		post("jamoma_directory_unregister %s : create a directory before", OSCaddress->s_name);
-		return kTTErrGeneric;
-	}
-	
-	return err;
-}
-
 
 void jamoma_directory_observer_add(t_symbol *OSCaddress, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver)
 {
@@ -268,7 +214,12 @@ JamomaError jamoma_directory_get_node_by_type(t_symbol *addressToStart, t_symbol
 
 bool testTTNodeType(TTNodePtr n, void *args)
 {
-	return n->getType() == (TTSymbolPtr)args;	
+	TTValue		v;
+	TTObjectPtr o;
+	n->getAttributeValue(TT("Object"), v);
+	v.get(0, (TTPtr*)&o);
+	
+	return o->getName() == (TTSymbolPtr)args;	
 }
 
 // Method to deal with a node
@@ -324,7 +275,12 @@ t_symbol * jamoma_node_set_instance(TTNodePtr node, t_symbol *instance)
 
 t_symbol * jamoma_node_type(TTNodePtr node)
 {
-	return gensym((char*)node->getType()->getCString());
+	TTValue		v;
+	TTObjectPtr o;
+	node->getAttributeValue(TT("Object"), v);
+	v.get(0, TTObjectHandle(&o));
+	
+	return gensym((char*)o->getName()->getCString());
 }
 
 JamomaError jamoma_node_children(TTNodePtr node, TTList& lk_children)
@@ -337,11 +293,6 @@ JamomaError jamoma_node_children(TTNodePtr node, TTList& lk_children)
 		return JAMOMA_ERR_NONE;
 	
 	return JAMOMA_ERR_GENERIC;
-}
-
-t_object * jamoma_node_max_object(TTNodePtr node)
-{
-	return (t_object*)node->getObject();
 }
 
 // Method to deal with the attributes of a node
@@ -652,6 +603,13 @@ JamomaError jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolP
 	*returnedSubscriber = NULL;
 	TTObjectInstantiate(TT("Subscriber"), TTObjectHandle(returnedSubscriber), args);
 	
+	// pass the Subscriber to the TTObject m_subscriber member
+	// to -- this is a bad way to do... maybe the solution is to make TTContainer, TTParameter, ... as children class of TTSubscriber
+	// we have to pass the subscriber in order to notify internal changes of attributes
+	args.clear();
+	args.append(TTPtr(*returnedSubscriber));
+	aTTObject->setAttributeValue(TT("_subscriber"), args);
+	
 	return JAMOMA_ERR_NONE;
 }
 
@@ -823,7 +781,7 @@ JamomaError	jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter)
 	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
-	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_parameter_return_value));
+	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
 	args.append(returnValueCallback);
 	
 	*returnedParameter = NULL;
@@ -831,28 +789,6 @@ JamomaError	jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter)
 	
 	return JAMOMA_ERR_NONE;
 	
-}
-
-void jamoma_parameter_return_value(TTPtr p_baton, TTValue& data)
-{
-	TTValuePtr	b;
-	ObjectPtr	x;
-	SymbolPtr	msg;
-	long		argc;
-	AtomPtr		argv;
-	
-	// unpack baton (a t_object* and the name of the method to call)
-	b = (TTValuePtr)p_baton;
-	b->get(0, (TTPtr*)&x);
-	
-	// unpack data (msg, argc and argv)
-	data.get(0, (TTPtr*)&msg);
-	data.get(1, argc);
-	data.get(2, (TTPtr*)&argv);
-	
-	// send data to a parameter using the return_value method
-	object_method(x, gensym("return_value"), msg, argc, argv);
-
 }
 
 // Method to deal with TTSender
@@ -892,16 +828,24 @@ JamomaError jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTO
 /**	Send Max data using a sender object */
 JamomaError jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	TTValue data;
+	TTValue		v;
+	AtomCount	i;
 	
 	if (aSender) {
 		
-		// prepare data to send (msg, argc, argv)
-		data.append((TTPtr)msg);
-		data.append((TTUInt8)argc);
-		data.append((TTPtr)argv);
+		// convert Atom to TTValue
+		v.setSize(argc);
+		for (i=0; i<argc; i++) 
+		{
+			if (atom_gettype(argv+i) == A_LONG)
+				v.set(i, (int)atom_getlong(argv+i));
+			else if (atom_gettype(argv+i) == A_FLOAT)
+				v.set(i, atom_getfloat(argv+i));
+			else if (atom_gettype(argv+i) == A_SYM)
+				v.set(i, TT(atom_getsym(argv+i)->s_name));
+		}
 		
-		aSender->sendMessage(TT("send"), data);			// TODO : make a kTTSym_send
+		aSender->sendMessage(TT("send"), v);			// TODO : make a kTTSym_send
 		return JAMOMA_ERR_NONE;
 	}
 	
@@ -948,7 +892,7 @@ JamomaError	jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, T
 		TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
 		returnValueBaton = new TTValue(TTPtr(x));
 		returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
-		returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_receiver_return_value));
+		returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
 		args.append(returnValueCallback);
 		
 		*returnedReceiver = NULL;
@@ -978,22 +922,51 @@ void jamoma_receiver_return_address(TTPtr p_baton, TTValue& data)
 	object_method(x, gensym("return_address"), SymbolGen(address->getCString()), 0, 0);
 }
 
-void jamoma_receiver_return_value(TTPtr p_baton, TTValue& data)
+
+// Method to return data
+///////////////////////////////////////////////////////////////////////
+
+void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
+	AtomCount	i;
 	SymbolPtr	msg;
-	long		argc;
-	AtomPtr		argv;
+	long		argc = 0;
+	AtomPtr		argv = NULL;
 	
 	// unpack baton (a t_object* and the name of the method to call)
 	b = (TTValuePtr)p_baton;
 	b->get(0, (TTPtr*)&x);
+
+	// convert TTValue to Atom
+	msg = _sym_nothing;
+	argc = v.getSize();
+	argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * argc);
 	
-	// unpack data (msg, argc and argv)
-	data.get(0, (TTPtr*)&msg);
-	data.get(1, argc);
-	data.get(2, (TTPtr*)&argv);
+	for (i=0; i<argc; i++) {
+		if(v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
+			TTFloat64	value;
+			v.get(i, value);
+			atom_setfloat(argv+i, value);
+			msg = _sym_float;
+		}
+		else if(v.getType(i) == kTypeSymbol){
+			TTSymbolPtr	value = NULL;
+			v.get(i, &value);
+			atom_setsym(argv+i, gensym((char*)value->getCString()));
+			msg = _sym_symbol;
+		}
+		else{	// assume int
+			TTInt32		value;
+			v.get(i, value);
+			atom_setlong(argv+i, value);
+			msg = _sym_long;
+		}
+	}
+	
+	if (i>1)
+		msg = _sym_list;
 	
 	// send data to a parameter using the return_value method
 	object_method(x, gensym("return_value"), msg, argc, argv);

@@ -65,7 +65,7 @@ private:
 	TTErr registerContextList(TTListPtr aContextList);
 	
 	/** Register a TTObject as TTNode */
-	TTErr registerTTObject(TTSymbolPtr oscAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *nodeCreated);
+	//TTErr registerTTObject(TTSymbolPtr oscAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *nodeCreated);
 	
 };
 

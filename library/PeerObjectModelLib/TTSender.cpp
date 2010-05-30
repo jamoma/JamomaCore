@@ -59,11 +59,10 @@ TTErr TTSender::setAttribute(const TTValue& newValue)
 
 TTErr TTSender::send(TTValue& valueToSend)
 {
-	TTAttributePtr	anAttribute = NULL;
-	TTObjectPtr		aNode;
+	TTNodePtr		aNode;
 	TTSymbolPtr		anAddress;
-	TTValue			nodeAndAddress, addressAndValue;
-	TTErr			err;
+	TTValue			v, nodeAndAddress;
+	TTObjectPtr		o;
 	
 	if (!mNodesAddressCache->isEmpty()) {
 		
@@ -78,21 +77,10 @@ TTErr TTSender::send(TTValue& valueToSend)
 			// and his address
 			nodeAndAddress.get(1, &anAddress);
 			
-			// 1.set the attribute of the node
-			aNode->setAttributeValue(mAttribute, valueToSend);
-			
-			// 2. notify attribute observers
-			// if the attribute exist
-			err = aNode->findAttribute(mAttribute, &anAttribute);
-			
-			if (!err) {
-				addressAndValue.clear();
-				addressAndValue.append(anAddress);
-				addressAndValue.append((TTPtr)&valueToSend);
-				
-				// notify each observer of the attribute
-				anAttribute->sendNotification(TT("notify"), addressAndValue);
-			}
+			// set the attribute of the object
+			aNode->getAttributeValue(TT("Object"), v);
+			v.get(0, (TTPtr*)&o);
+			o->setAttributeValue(mAttribute, valueToSend);
 		}
 	}
 	

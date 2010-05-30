@@ -144,7 +144,8 @@ void jamoma_namespace_discover_callback(void* arg, Address whereToDiscover, std:
 	TTList allChildren;
 	TTString instanceName, sAttribute;
 	TTSymbolPtr attributeName, type;
-	TTValue attributeNameList;
+	TTValue attributeNameList, v;
+	TTObjectPtr o;
 	int i;
 	
 	TTNodeDirectoryPtr m_directory = (TTNodeDirectoryPtr) arg;
@@ -171,8 +172,10 @@ void jamoma_namespace_discover_callback(void* arg, Address whereToDiscover, std:
 				
 				// if the node is a parameter : add it as a leaf
 				// else : add it as a node
-				type = aChild->getType();
-				if((type == TT(jps_subscribe_parameter->s_name)) || (type == TT(jps_subscribe_message->s_name)))
+				aChild->getAttributeValue(TT("Object"), v);
+				v.get(0, TTObjectHandle(&o));
+				type = o->getName();
+				if(type == TT("Parameter"))
 				   returnedLeaves.push_back(instanceName.c_str());
 				else if(type != TT(jps_subscribe_return->s_name))
 				   returnedNodes.push_back(instanceName.c_str());
@@ -184,8 +187,10 @@ void jamoma_namespace_discover_callback(void* arg, Address whereToDiscover, std:
 			
 			// Add the acces attribute which is not a jamoma attribute
 			// only for the parameter, message or return
-			type = nodeToDiscover->getType();
-			if((type == TT(jps_subscribe_parameter->s_name)) || (type == TT(jps_subscribe_message->s_name)) || (type == TT(jps_subscribe_return->s_name)))
+			nodeToDiscover->getAttributeValue(TT("Object"), v);
+			v.get(0, TTObjectHandle(&o));
+			type = o->getName();
+			if(type == TT("Parameter"))
 				returnedAttributes.push_back(NAMESPACE_ATTR_ACCESS);
 			
 			// Add all other attributes
@@ -211,6 +216,8 @@ void jamoma_namespace_get_callback(void* arg, Address whereToGet, std::string at
 	TTNodePtr nodeToGet;
 	TTList allChildren;
 	TTSymbolPtr nodeType, attributeName;
+	TTValue v;
+	TTObjectPtr o;
 	long argc, i;
 	t_atom *argv;
 	t_symbol* sym;
@@ -225,7 +232,9 @@ void jamoma_namespace_get_callback(void* arg, Address whereToGet, std::string at
 		if(!err){
 			
 			// test node type to get the access status
-			nodeType = nodeToGet->getType();
+			nodeToGet->getAttributeValue(TT("Object"), v);
+			v.get(0, TTObjectHandle(&o));
+			nodeType = o->getName();
 			
 			// Convert attribute into Jamoma style
 			attributeName = convertAttributeToJamoma(attribute);
@@ -293,7 +302,8 @@ void jamoma_namespace_set_callback(void* arg, Address whereToSet, std::string at
 	TTNodePtr nodeToSet;
 	TTList allChildren;
 	TTSymbolPtr nodeType;
-	TTValue attributeValue;
+	TTValue attributeValue, v;
+	TTObjectPtr o;
 	long argc;
 	t_atom *argv;
 	
@@ -307,9 +317,11 @@ void jamoma_namespace_set_callback(void* arg, Address whereToSet, std::string at
 		if(!err){
 			
 			// test node type to get the access status
-			nodeType = nodeToSet->getType();
+			nodeToSet->getAttributeValue(TT("Object"), v);
+			v.get(0, TTObjectHandle(&o));
+			nodeType = o->getName();
 			
-			if((nodeType == TT("subscribe_parameter")) || (nodeType == TT("subscribe_message"))){
+			if(nodeType == TT("Parameter")){
 				
 				// parse the value to get a t_atom array
 				argc = 0;
@@ -336,11 +348,12 @@ void jamoma_namespace_listen_callback(void* arg, std::string whereToSend, Addres
 void jamoma_namespace_enable_listening(void* arg, std::string whereToSend, Address whereToListen, std::string attributeToListen)
 {
 	TTErr err;
-	TTNodePtr nodeToListen;
-	TTAttributePtr anAttribute = NULL;
-	TTObjectPtr newListener;
-	TTValuePtr	newBaton;
-	TTString keyLink;
+	TTNodePtr		nodeToListen;
+	TTAttributePtr	anAttribute = NULL;
+	TTObjectPtr		newListener, o;
+	TTValuePtr		newBaton;
+	TTValue			v;
+	TTString		keyLink;
 	
 	TTNodeDirectoryPtr m_directory = (TTNodeDirectoryPtr) arg;
 	
@@ -375,7 +388,9 @@ void jamoma_namespace_enable_listening(void* arg, std::string whereToSend, Addre
 			else{
 				
 				// if the attribute exist
-				err = nodeToListen->findAttribute(convertAttributeToJamoma(attributeToListen.c_str()), &anAttribute);
+				nodeToListen->getAttributeValue(TT("Object"), v);
+				v.get(0, TTObjectHandle(&o));
+				err = o->findAttribute(convertAttributeToJamoma(attributeToListen.c_str()), &anAttribute);
 				
 				if(!err){
 					

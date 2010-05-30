@@ -32,16 +32,6 @@ extern "C" {
 	/** Dump all the OSC address of the directory in the max window */
 	JamomaError		jamoma_directory_dump(void);
 	JamomaError		jamoma_directory_dump_by_type(void);
-
-	/** Register an osc address in the directory
-
-		Note : this is called in
-				> "hub_attr_setname" (in jcom.hub.cpp) to register the hub
-				> "hub_subscribe" (in jcom.hub.cpp) to register a param	*/
-	JamomaError		jamoma_directory_register(t_symbol *OSCaddress, t_symbol *type, t_object *obj, TTNodePtr *newTTNode, bool *newInstanceCreated);
-
-	/** Unregister an osc address in the directory */
-	TTErr			jamoma_directory_unregister(t_symbol *OSCaddress);
 	
 	/** Add an t_object as a life cycle observer */
 	void			jamoma_directory_observer_add(t_symbol *OSCaddress, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver);
@@ -82,9 +72,6 @@ extern "C" {
 
 	/** Return all children of a node */
 	JamomaError		jamoma_node_children(TTNodePtr node, TTList& lk_children);
-
-	/** Return the Max object of a node */
-	t_object*		jamoma_node_max_object(TTNodePtr node);
 	
 	
 	// Method to deal with the attributes of a node
@@ -168,9 +155,6 @@ extern "C" {
 	/**	Create a parameter object */
 	JamomaError		jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter);
 	
-	/** Return the value to a jcom.paramTest external */
-	void			jamoma_parameter_return_value(TTPtr p_baton, TTValue& data);
-	
 	
 	// Method to deal with TTSender
 	///////////////////////////////////////////////////////////////////////
@@ -191,8 +175,12 @@ extern "C" {
 	/** Return the address to a jcom.receive external */
 	void			jamoma_receiver_return_address(TTPtr p_baton, TTValue& data);
 	
-	/** Return the value to a jcom.receive external */
-	void			jamoma_receiver_return_value(TTPtr p_baton, TTValue& data);
+	
+	// Method to return data
+	///////////////////////////////////////////////////////////////////////
+	
+	/** Return the value to a jcom. external */
+	void			jamoma_callback_return_value(TTPtr p_baton, TTValue& v);
 	
 #ifdef __cplusplus
 }

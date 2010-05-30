@@ -11,6 +11,7 @@
 
 #include "TTModular.h"
 
+
 /**	TTParameter ... TODO : an explanation
  
 From jcom.parameter we have to make : 
@@ -24,8 +25,10 @@ From jcom.parameter we have to make :
  
  */
 
+
 class TTMODULAR_EXPORT TTParameter : public TTObject
 {
+
 	TTCLASS_SETUP(TTParameter)
 	
 public:
@@ -75,13 +78,11 @@ private:
 public:
 	
 	/** reset value to default value */
-	TTErr	reset();
+	TTErr Reset();
 	
-
-
 	/**	Setter for m attribute. */
 	TTErr setValue(const TTValue& value);
-
+	
 	/**	Setter for m attribute. */
 	TTErr setValueDefault(const TTValue& value);
 	
@@ -125,6 +126,8 @@ public:
 	TTErr setDataspaceUnitDisplay(const TTValue& value);
 	
 private:
+	
+	TTErr updateObservers(TTSymbolPtr attrName, const TTValue& value);
 	
 };
 

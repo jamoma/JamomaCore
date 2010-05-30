@@ -66,6 +66,7 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTObject(arguments)
 	TT_MODULAR_CONSTRUCTOR
 
 
+
 // Prototypes
 
 // init the modular lib, and the foundation if needed
