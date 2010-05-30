@@ -136,7 +136,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jmod.sur.multi.aux~", "@description", "A module to distribute a multicable to three receivers" ],
+					"args" : [ "@name", "jmod.sur.aux~", "@description", "A module to distribute a multicable to three receivers" ],
 					"bgmode" : 1,
 					"id" : "obj-4",
 					"maxclass" : "bpatcher",
@@ -254,7 +254,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 230.0, 80.0, 143.0, 19.0 ],
-									"text" : "route jmod.sur.multi.aux~"
+									"text" : "route jmod.sur.aux~"
 								}
 
 							}
@@ -536,7 +536,7 @@
 					"outlettype" : [ "", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal" ],
 					"patching_rect" : [ 618.0, 293.0, 300.0, 35.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 35.0 ],
-					"varname" : "jmod.sur.multi.aux~[4]"
+					"varname" : "jmod.sur.aux~[4]"
 				}
 
 			}
@@ -552,7 +552,7 @@
 					"outlettype" : [ "", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal" ],
 					"patching_rect" : [ 317.0, 293.0, 300.0, 35.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 35.0 ],
-					"varname" : "jmod.sur.multi.aux~[3]"
+					"varname" : "jmod.sur.aux~[3]"
 				}
 
 			}
@@ -568,7 +568,7 @@
 					"outlettype" : [ "", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal" ],
 					"patching_rect" : [ 16.0, 293.0, 300.0, 35.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 35.0 ],
-					"varname" : "jmod.sur.multi.aux~[2]"
+					"varname" : "jmod.sur.aux~[2]"
 				}
 
 			}
@@ -598,23 +598,23 @@
 					"outlettype" : [ "", "multicore.connect" ],
 					"patching_rect" : [ 17.0, 157.0, 300.0, 35.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 35.0 ],
-					"varname" : "jmod.sur.multi.aux~[1]"
+					"varname" : "jmod.sur.aux~[1]"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "/jmod.sur.multi.aux~" ],
+					"args" : [ "/jmod.sur.aux~" ],
 					"id" : "obj-24",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
-					"name" : "jmod.sur.multi.aux~.maxpat",
+					"name" : "jmod.sur.aux~.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "multicore.connect", "multicore.connect", "multicore.connect" ],
 					"patching_rect" : [ 17.0, 198.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"varname" : "jmod.sur.multi.aux~"
+					"varname" : "jmod.sur.aux~"
 				}
 
 			}

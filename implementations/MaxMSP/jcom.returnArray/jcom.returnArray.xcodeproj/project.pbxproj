@@ -237,7 +237,8 @@
 					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/msp-includes\"",
 					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../../AudioGraph/library/build/UninstalledProducts\"",
-				);
+				); 
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 			};
 			name = Deployment;
 		};

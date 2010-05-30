@@ -1275,7 +1275,7 @@
 					"args" : [  ],
 					"id" : "obj-1",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.sur.multi.input~.maxpat",
+					"name" : "jmod.sur.input~.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
