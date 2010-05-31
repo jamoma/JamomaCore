@@ -2,7 +2,16 @@ This project is the master project for the Jamoma platform.
 
 It is intended to contain sub-projects representing the various modules of the Jamoma platform.
 
-- Dependencies- DSP- Foundation- Graph- Graphics- Modular- Multicore- Publications- Ruby- Test- TheGitter
+- Audio Graph
+- Dependencies
+- DSP
+- Foundation
+- Graph
+- Graphics
+- Modular
+- Ruby
+- Test
+- TheGitter
 
 The Tools folder contains scripts which perform various essential tasks for the development of Jamoma.
 
@@ -21,7 +30,7 @@ All sources needed to build Jamoma can be updated to last version following thes
 
 'ruby update.rb'
 
-3) Wait until it is doneÉ
+3) Wait until it is doneï¿½
 
 4) When the update process is finished, you have the latest version Jamoma repository
 --------------------------------------------------
@@ -65,7 +74,7 @@ Again, if you want a developer release rather than a nice, clean release version
 
 'ruby all.rb master Development clean'
 
-3) Wait until it is doneÉ
+3) Wait until it is doneï¿½
 
 4) When the update process is finished, you have the latest version Jamoma repository
 --------------------------------------------------
