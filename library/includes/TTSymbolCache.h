@@ -29,6 +29,7 @@ extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_both;
 //extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_bypass;
 //extern TTFOUNDATION_EXPORT TTSymbolPtr kTTSym_clear;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clipmode;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_fold;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_high;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_low;
 //extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_maxNumChannels;
@@ -43,6 +44,7 @@ extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_updateSr;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_value;
 //extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_vectorSize;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_VectorSize;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_wrap;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_SampleRate;
 
 // waveforms

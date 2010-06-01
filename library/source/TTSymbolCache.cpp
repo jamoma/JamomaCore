@@ -28,6 +28,7 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_both;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_bypass;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clear;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clipmode;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_fold;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_high;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_low;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_maxNumChannels;
@@ -42,6 +43,7 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_updateSr;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_value;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_vectorSize;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_VectorSize;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_wrap;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_SampleRate;
 
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sine;
@@ -85,6 +87,7 @@ void TTSymbolCacheInit()
 	kTTSym_bypass					= TT("bypass");
 	kTTSym_clear					= TT("clear");
 	kTTSym_clipmode					= TT("clipmode");
+	kTTSym_fold						= TT("fold");
 	kTTSym_high						= TT("high");
 	kTTSym_low						= TT("low");
 	kTTSym_maxNumChannels			= TT("maxNumChannels");
@@ -99,6 +102,7 @@ void TTSymbolCacheInit()
 	kTTSym_value					= TT("value");
 	kTTSym_vectorSize				= TT("vectorSize");
 	kTTSym_VectorSize				= TT("VectorSize");
+	kTTSym_wrap						= TT("wrap");
 	kTTSym_SampleRate				= TT("SampleRate");
 	
 	kTTSym_sine						= TT("sine");
