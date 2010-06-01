@@ -37,7 +37,7 @@ TTErr jamoma_directory_free(void)
 	return TTObjectRelease(TTObjectHandle(&jamoma_directory));
 }
 
-JamomaError jamoma_directory_dump(void)
+TTErr jamoma_directory_dump(void)
 {
 	unsigned int i;
 	TTValue hk;
@@ -50,31 +50,31 @@ JamomaError jamoma_directory_dump(void)
 			hk.get(i,(TTSymbol**)&key);
 			post("%s",key->getCString());
 		}
-		return JAMOMA_ERR_NONE;
+		return kTTErrNone;
 	}
 	
 	post("jamoma_directory_dump : create a directory before");
-	return JAMOMA_ERR_GENERIC;
+	return kTTErrGeneric;
 }
 
-JamomaError jamoma_directory_dump_by_type(void)
+TTErr jamoma_directory_dump_by_type(void)
 {
 	TTList returnedTTNodes;
 	TTNodePtr firstReturnedTTNode, n_r;
-	t_symbol *osc_adrs;
-	JamomaError err;
+	TTSymbolPtr osc_adrs;
+	TTErr err;
 	
 	// dump all parameters of the tree
-	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_parameter, returnedTTNodes, &firstReturnedTTNode);
+	err = jamoma_directory_get_node_by_type(TT("/"), TT("Parameter"), returnedTTNodes, &firstReturnedTTNode);
 	
-	if(err == JAMOMA_ERR_NONE){
+	if(err == kTTErrNone){
 		
 		if(!returnedTTNodes.isEmpty()){
 			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
 				
 				returnedTTNodes.current().get(0,(TTPtr*)&n_r);
 				osc_adrs = jamoma_node_OSC_address(n_r);
-				post("parameter : %s", osc_adrs->s_name);
+				post("parameter : %s", osc_adrs->getCString());
 			}
 			post(" SIZE : %d", returnedTTNodes.getSize());
 		}
@@ -84,132 +84,44 @@ JamomaError jamoma_directory_dump_by_type(void)
 	else
 		post("dump parameter error");
 	
-	// dump all messages of the tree
-	returnedTTNodes.clear();
-	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_message, returnedTTNodes, &firstReturnedTTNode);
-	
-	if(err == JAMOMA_ERR_NONE){
-		
-		if(!returnedTTNodes.isEmpty()){
-			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
-				
-				returnedTTNodes.current().get(0,(TTPtr*)&n_r);
-				osc_adrs = jamoma_node_OSC_address(n_r);
-				post("message : %s", osc_adrs->s_name);	
-			}
-		}
-		else
-			post("no message");
-	}
-	else
-		post("dump message error");
-	
-	// dump all returns of the tree
-	returnedTTNodes.clear();
-	err = jamoma_directory_get_node_by_type(gensym("/"), jps_subscribe_return, returnedTTNodes, &firstReturnedTTNode);
-	
-	if(err == JAMOMA_ERR_NONE){
-		
-		if(!returnedTTNodes.isEmpty()){
-			for(returnedTTNodes.begin(); returnedTTNodes.end(); returnedTTNodes.next()){
-				
-				returnedTTNodes.current().get(0,(TTPtr*)&n_r);
-				osc_adrs = jamoma_node_OSC_address(n_r);
-				post("return : %s", osc_adrs->s_name);	
-			}
-		}
-		else
-			post("no return");
-	}
-	else
-		post("dump return error");
-	
 	return err;
 }
 
-
-void jamoma_directory_observer_add(t_symbol *OSCaddress, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver)
-{
-	TTObjectPtr newObserver;
-	TTValuePtr	newBaton;
-	
-	if(jamoma_directory){
-		if(object && jps_method){
-			
-			newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
-			
-			newBaton = new TTValue(TTPtr(object));
-			newBaton->append(TTPtr(jps_method));
-			
-			newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-			newObserver->setAttributeValue(TT("Function"), TTPtr(&jamoma_directory_observer_callback));
-			
-			newObserver->setAttributeValue(TT("Owner"), TT(jps_method->s_name));		// this is usefull only to debug
-			
-			jamoma_directory->addObserverForNotifications(TT(OSCaddress->s_name), *newObserver);
-			
-			(*returnedObserver) = newObserver;
-		}
-	}
-}
-
-void jamoma_directory_observer_remove(t_symbol *OSCaddress, TTObjectPtr oldObserver)
-{
-	TTErr err = kTTErrNone;
-	
-	if(jamoma_directory){
-		
-		err = jamoma_directory->removeObserverForNotifications(TT(OSCaddress->s_name), *oldObserver);
-		
-		if(!err)
-			TTObjectRelease(&oldObserver);
-		
-	}
-}
-
-JamomaError jamoma_directory_get_node(t_symbol *address, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
+TTErr jamoma_directory_get_node(TTSymbolPtr address, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
 {
 	TTErr err;
 
 	if(jamoma_directory){
-		err = jamoma_directory->Lookup(TT(address->s_name), returnedTTNodes, firstReturnedTTNode);
+		err = jamoma_directory->Lookup(address, returnedTTNodes, firstReturnedTTNode);
 
-		if(err == kTTErrNone)
-			return JAMOMA_ERR_NONE;
-		else
-			return JAMOMA_ERR_GENERIC;
+		return err;
 	}
 	
-	post("jamoma_directory_get_node %s : create a directory before", address->s_name);
-	return JAMOMA_ERR_GENERIC;
+	post("jamoma_directory_get_node %s : create a directory before", address->getCString());
+	return kTTErrGeneric;
 }
 
-JamomaError jamoma_directory_get_node_by_type(t_symbol *addressToStart, t_symbol *type, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
+TTErr jamoma_directory_get_node_by_type(TTSymbolPtr addressToStart, TTSymbolPtr type, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
 {
 	TTList whereToSearch;
-	
 	TTErr err;
 	
 	if(jamoma_directory){
 		
-		err = jamoma_directory->Lookup(TT(addressToStart->s_name), whereToSearch, firstReturnedTTNode);
+		err = jamoma_directory->Lookup(addressToStart, whereToSearch, firstReturnedTTNode);
 		
 		if(err == kTTErrNone){
 			
-			err = jamoma_directory->LookingFor(&whereToSearch, testTTNodeType, TT(type->s_name), returnedTTNodes, firstReturnedTTNode);
+			err = jamoma_directory->LookingFor(&whereToSearch, testTTNodeType, type, returnedTTNodes, firstReturnedTTNode);
 			
-			if(err == kTTErrNone)
-				return JAMOMA_ERR_NONE;
-			else
-				return JAMOMA_ERR_GENERIC;
+			return err;
 		}
 		else
-			return JAMOMA_ERR_GENERIC;
+			return kTTErrGeneric;
 	}
 	
-	post("jamoma_directory_get_node_by_type %s : create a directory before", addressToStart->s_name);
-	return JAMOMA_ERR_GENERIC;
+	post("jamoma_directory_get_node_by_type %s : create a directory before", addressToStart->getCString());
+	return kTTErrGeneric;
 }
 
 bool testTTNodeType(TTNodePtr n, void *args)
@@ -225,7 +137,7 @@ bool testTTNodeType(TTNodePtr n, void *args)
 // Method to deal with a node
 ////////////////////////////////////
 
-t_symbol * jamoma_node_OSC_address(TTNodePtr node)
+TTSymbolPtr jamoma_node_OSC_address(TTNodePtr node)
 {
 	TTSymbolPtr OSCaddress;
 	TTErr err;
@@ -233,152 +145,59 @@ t_symbol * jamoma_node_OSC_address(TTNodePtr node)
 	err = node->getOscAddress(&OSCaddress);
 	
 	if(err == kTTErrNone)
-		return gensym((char*)OSCaddress->getCString());
+		return OSCaddress;
 	else
 		return NULL;
 }
 
-t_symbol * jamoma_node_name(TTNodePtr node)
-{
-	return gensym((char*)node->getName()->getCString());
-}
-
-t_symbol * jamoma_node_set_name(TTNodePtr node, t_symbol *name)
+TTSymbolPtr jamoma_node_set_name(TTNodePtr node, TTSymbolPtr name)
 {
 	TTSymbolPtr newInstance;
 	TTBoolean *newInstanceCreated = new TTBoolean(false);
 
-	node->setName(TT(name->s_name), &newInstance, newInstanceCreated);
+	node->setName(name, &newInstance, newInstanceCreated);
 	if(*newInstanceCreated)
-		return gensym((char*)newInstance->getCString());
+		return newInstance;
 
 	return NULL;
 }
 
-t_symbol * jamoma_node_instance(TTNodePtr node)
-{
-	return gensym((char*)node->getInstance()->getCString());
-}
-
-t_symbol * jamoma_node_set_instance(TTNodePtr node, t_symbol *instance)
+TTSymbolPtr jamoma_node_set_instance(TTNodePtr node, TTSymbolPtr instance)
 {
 	TTSymbolPtr newInstance;
 	TTBoolean *newInstanceCreated = new TTBoolean(false);
 
-	node->setInstance(TT(instance->s_name), &newInstance, newInstanceCreated);
+	node->setInstance(instance, &newInstance, newInstanceCreated);
 
 	if(*newInstanceCreated)
-		return gensym((char*)newInstance->getCString());
+		return newInstance;
 
 	return NULL;
 }
 
-t_symbol * jamoma_node_type(TTNodePtr node)
+TTSymbolPtr jamoma_node_type(TTNodePtr node)
 {
 	TTValue		v;
 	TTObjectPtr o;
 	node->getAttributeValue(TT("Object"), v);
 	v.get(0, TTObjectHandle(&o));
 	
-	return gensym((char*)o->getName()->getCString());
+	return o->getName();
 }
 
-JamomaError jamoma_node_children(TTNodePtr node, TTList& lk_children)
+TTErr jamoma_node_children(TTNodePtr node, TTList& lk_children)
 {
 	TTErr err;
 
 	err =  node->getChildren(S_WILDCARD,S_WILDCARD, lk_children);
-
-	if(err == kTTErrNone)
-		return JAMOMA_ERR_NONE;
 	
-	return JAMOMA_ERR_GENERIC;
+	return err;
 }
 
 // Method to deal with the attributes of a node
 ////////////////////////////////////////////////////
 
-JamomaError	jamoma_node_attribute_list(TTNodePtr node, TTValue& attrlist)
-{
-	node->getAttributeNames(attrlist);
-	
-	return JAMOMA_ERR_NONE;
-}
-
-JamomaError jamoma_node_attribute_access_pack(t_symbol *attrname, t_object *object, TTValuePtr *attributeAccessPack)
-{
-	TTSymbolPtr aName = TT(attrname->s_name);
-	
-	// Prepare a callback to get attribute
-	TTObjectPtr newGetter = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("Callback"), &newGetter, kTTValNONE);
-	
-	TTValuePtr	newGetterBaton = new TTValue(TTPtr(object));
-	newGetterBaton->append(TTPtr(attrname));
-	
-	newGetter->setAttributeValue(TT("Baton"), TTPtr(newGetterBaton));
-	newGetter->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_getter_callback));
-	
-	// Prepare a callback to set attribute
-	TTObjectPtr newSetter = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("Callback"), &newSetter, kTTValNONE);
-	
-	TTValuePtr newSetterBaton = new TTValue(TTPtr(object));
-	newSetterBaton->append(TTPtr(attrname));
-	
-	newSetter->setAttributeValue(TT("Baton"), TTPtr(newSetterBaton));
-	
-	// Special case for 'value' attribute
-	if(attrname == jps_value)
-		newSetter->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_setter_value_callback));
-	else
-		newSetter->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_setter_callback));
-	
-	// prepare the pack
-	(*attributeAccessPack) = new TTValue((TTPtr)aName);
-	(*attributeAccessPack)->append((TTPtr)newGetter);
-	(*attributeAccessPack)->append((TTPtr)newSetter);
-	
-	return JAMOMA_ERR_NONE;
-}
-
-JamomaError jamoma_node_attribute_get(TTNodePtr node, t_symbol *attrname, long *argc, t_atom **argv)
-{
-	TTErr	err;
-	TTValue	data;
-	
-	// prepare data to send (argc, argv)
-	data.append((TTPtr)argc);
-	data.append((TTPtr)argv);
-	
-	// get the value of the property
-	err = node->getAttributeValue(TT(attrname->s_name), data);
-	
-	if(err == kTTErrNone)
-		return JAMOMA_ERR_NONE;
-
-	return JAMOMA_ERR_GENERIC;
-}
-
-JamomaError jamoma_node_attribute_set(TTNodePtr node, t_symbol *attrname, long argc, t_atom *argv)
-{
-	TTErr err;
-	TTValue	data;
-	
-	// prepare data to send (argc, argv)
-	data.append((TTUInt8)argc);
-	data.append((TTPtr)argv);
-	
-	// set the value of the property
-	err = node->setAttributeValue(TT(attrname->s_name), data);
-	
-	if(err == kTTErrNone)
-		return JAMOMA_ERR_NONE;
-	
-	return JAMOMA_ERR_GENERIC;
-}
-
-void jamoma_node_attribute_observer_add(TTNodePtr node, t_symbol *attrname, t_object *object, t_symbol *jps_method, TTObjectPtr *returnedObserver)
+void jamoma_node_attribute_observer_add(TTNodePtr node, TTSymbolPtr attrname, TTObjectPtr object, void* method, TTObjectPtr *returnedObserver)
 {
 	TTAttributePtr anAttribute = NULL;
 	TTObjectPtr newObserver;
@@ -386,22 +205,21 @@ void jamoma_node_attribute_observer_add(TTNodePtr node, t_symbol *attrname, t_ob
 	TTErr err;
 	
 	// if the attribute exist
-	err = node->findAttribute(TT(attrname->s_name), &anAttribute);
+	err = node->findAttribute(attrname, &anAttribute);
 	
 	if(!err){
 		
-		if(object && jps_method){
+		if(object && method){
 			
 			newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 			TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
 			
 			newBaton = new TTValue(TTPtr(object));
-			newBaton->append(TTPtr(jps_method));
 			
 			newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-			newObserver->setAttributeValue(TT("Function"), TTPtr(&jamoma_node_attribute_observer_callback));
+			newObserver->setAttributeValue(TT("Function"), TTPtr(method));
 			
-			newObserver->setAttributeValue(TT("Owner"), TT(attrname->s_name));			// this is usefull only to debug
+			newObserver->setAttributeValue(TT("Owner"), object->getName());			// this is usefull only to debug
 			
 			anAttribute->registerObserverForNotifications(*newObserver);
 			
@@ -410,172 +228,27 @@ void jamoma_node_attribute_observer_add(TTNodePtr node, t_symbol *attrname, t_ob
 	}
 }
 
-void jamoma_node_attribute_observer_notify(TTNodePtr node, t_symbol *attrname, t_symbol* mess, long argc, t_atom *argv)
-{
-	TTAttributePtr anAttribute = NULL;
-	TTValue	data;
-	TTErr err;
-	
-	// if the attribute exist
-	err = node->findAttribute(TT(attrname->s_name), &anAttribute);
-	
-	if(!err){
-
-		// prepare data to send (mess, argc, argv)
-		data.append(TTPtr(mess));
-		data.append(TTUInt8(argc));
-		data.append(TTPtr(argv));
-		
-		// notify each observer of the attribute
-		anAttribute->sendNotification(TT("notify"), data);
-	}
-}
-
-void jamoma_node_attribute_observer_remove(TTNodePtr node, t_symbol *attrname, TTObjectPtr oldCallback)
+void jamoma_node_attribute_observer_remove(TTNodePtr node, TTSymbolPtr attrname, TTObjectPtr oldObserver)
 {
 	TTAttributePtr anAttribute = NULL;
 	TTErr err;
 	
 	// if the attribute exist
-	err = node->findAttribute(TT(attrname->s_name), &anAttribute);
+	err = node->findAttribute(attrname, &anAttribute);
 	
 	if(!err){
 		
-		err = anAttribute->unregisterObserverForNotifications(*oldCallback);
+		err = anAttribute->unregisterObserverForNotifications(*oldObserver);
 	
 		if(!err)
-			TTObjectRelease(&oldCallback);
+			TTObjectRelease(&oldObserver);
 	}
-}
-
-
-// Callbacks called when the directory or a node 
-// have to notify his observers (life cycle and attribute observers)
-///////////////////////////////////////////////////////////////////////
-
-void jamoma_directory_observer_callback(TTPtr p_baton, TTValue& data)
-{
-	TTValuePtr		b;
-	t_object		*x;
-	t_symbol		*jps_method;
-	TTSymbolPtr		oscAddress;
-	TTNodePtr		aNode;
-	long			flag;
-	TTCallbackPtr	anObserver;
-	t_atom			a_extra[3];
-	
-	// unpack baton (a t_object* and the name of the method to call)
-	b = (TTValuePtr)p_baton;
-	b->get(0, (TTPtr*)&x);
-	b->get(1, (TTPtr*)&jps_method);
-	
-	// unpack data (oscAddress, aNode, flag, anObserver)
-	data.get(0, &oscAddress);
-	data.get(1, (TTPtr*)&aNode);
-	data.get(2, flag);
-	data.get(3, (TTPtr*)&anObserver);
-	
-	// send data using a class method of the object : void function(t_object *x, t_symbol *mess, long argc, t_atom *argv)
-	atom_setobj(&a_extra[0], aNode);
-	atom_setlong(&a_extra[1], flag);
-	atom_setobj(&a_extra[2], anObserver);
-	
-	object_method(x, jps_method, gensym((char*)oscAddress->getString().c_str()), 3, a_extra);
-}
-
-void jamoma_node_getter_callback(TTPtr p_baton, TTValue& data)
-{
-	TTValuePtr	b;
-	t_object	*x;
-	t_symbol	*attrname;
-	long		*p_argc;
-	t_atom		**p_argv;
-	t_max_err	err;
-	
-	// unpack baton (a t_object* and the name of the method to call)
-	b = (TTValuePtr)p_baton;
-	b->get(0, (TTPtr*)&x);
-	b->get(1, (TTPtr*)&attrname);
-	
-	// unpack data (p_argc and p_argv)
-	data.get(0, (TTPtr*)&p_argc);
-	data.get(1, (TTPtr*)&p_argv);
-	
-	// get back data using a class method of the object : void function(t_object *x, long *argc, t_atom **argv)
-	*p_argc = 0;
-	*p_argv = NULL;
-	err = object_attr_getvalueof(x, attrname, p_argc, p_argv);
-}
-
-void jamoma_node_setter_callback(TTPtr p_baton, TTValue& data)
-{
-	TTValuePtr	b;
-	t_object	*x;
-	t_symbol	*attrname;
-	long		argc;
-	t_atom		*argv;
-	t_max_err	err;
-	
-	// unpack baton (a t_object* and the name of the method to call)
-	b = (TTValuePtr)p_baton;
-	b->get(0, (TTPtr*)&x);
-	b->get(1, (TTPtr*)&attrname);
-	
-	// unpack data (argc and argv)
-	data.get(0, argc);
-	data.get(1, (TTPtr*)&argv);
-	
-	// send data using a class attr method of the object
-	err = object_attr_setvalueof(x, attrname, argc, argv);
-}
-
-void jamoma_node_setter_value_callback(TTPtr p_baton, TTValue& data)
-{
-	TTValuePtr	b;
-	t_object	*x;
-	long		argc;
-	t_atom		*argv;
-	t_max_err	err;
-	
-	// unpack baton (a t_object* and the name of the method to call)
-	b = (TTValuePtr)p_baton;
-	b->get(0, (TTPtr*)&x);
-	
-	// unpack data (argc and argv)
-	data.get(0, argc);
-	data.get(1, (TTPtr*)&argv);
-	
-	// send data to a parameter using the receive callback method
-	err = object_method_typed(x, jps_dispatched, argc, argv, NULL);
-}
-
-void jamoma_node_attribute_observer_callback(TTPtr p_baton, TTValue& data)
-{
-	TTValuePtr	b;
-	t_object	*x;
-	t_symbol	*jps_method;
-	t_symbol	*mess;
-	long		argc;
-	t_atom		*argv;
-	
-	// unpack baton (a t_object* and the name of the method to call)
-	b = (TTValuePtr)p_baton;
-	b->get(0, (TTPtr*)&x);
-	b->get(1, (TTPtr*)&jps_method);
-	
-	// unpack data (argc and argv)
-	data.get(0, (TTPtr*)&mess);
-	data.get(1, argc);
-	data.get(2, (TTPtr*)&argv);
-	
-	// send data using a class method of the object : void function(t_object *x, t_symbol *mess, long argc, t_atom *argv)
-	object_method(x, jps_method, mess, argc, argv);
 }
 
 // Method to deal with TTSubscriber
 ///////////////////////////////////////////////////////////////////////
 
-JamomaError jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress, TTSubscriberPtr *returnedSubscriber)
+TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr relativeAddress, TTSubscriberPtr *returnedSubscriber)
 {
 	TTValue			args;
 	TTObjectPtr		shareCallback, contextListCallback;
@@ -610,7 +283,7 @@ JamomaError jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolP
 	args.append(TTPtr(*returnedSubscriber));
 	aTTObject->setAttributeValue(TT("_subscriber"), args);
 	
-	return JAMOMA_ERR_NONE;
+	return kTTErrNone;
 }
 
 void jamoma_subscriber_share_context_node(TTPtr p_baton, TTValue& data)
@@ -753,7 +426,7 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextLi
 ///////////////////////////////////////////////////////////////////////
 
 /**	Create a container object */
-JamomaError	jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer)
+TTErr jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer)
 {
 	TTValue			args;
 	
@@ -762,14 +435,14 @@ JamomaError	jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer)
 	*returnedContainer = NULL;
 	TTObjectInstantiate(TT("Container"), TTObjectHandle(returnedContainer), args);
 	
-	return JAMOMA_ERR_NONE;
+	return kTTErrNone;
 }
 
 // Method to deal with TTParameter
 ///////////////////////////////////////////////////////////////////////
 
 /**	Create a parameter object */
-JamomaError	jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter)
+TTErr jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter)
 {
 	TTValue			args;
 	TTObjectPtr		returnValueCallback;
@@ -787,7 +460,7 @@ JamomaError	jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter)
 	*returnedParameter = NULL;
 	TTObjectInstantiate(TT("Parameter"), TTObjectHandle(returnedParameter), args);
 	
-	return JAMOMA_ERR_NONE;
+	return kTTErrNone;
 	
 }
 
@@ -795,7 +468,7 @@ JamomaError	jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter)
 ///////////////////////////////////////////////////////////////////////
 
 /**	Create a sender object */
-JamomaError jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedSender)
+TTErr jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedSender)
 {
 	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_attribute, oscAddress_noAttribute;
 	TTValue args;
@@ -819,14 +492,14 @@ JamomaError jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTO
 		
 		*returnedSender = NULL;
 		TTObjectInstantiate(TT("Sender"), TTObjectHandle(returnedSender), args);
-		return JAMOMA_ERR_NONE;
+		return kTTErrNone;
 	}
 	
-	return JAMOMA_ERR_GENERIC;
+	return kTTErrGeneric;
 }
 
 /**	Send Max data using a sender object */
-JamomaError jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+TTErr jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	TTValue		v;
 	AtomCount	i;
@@ -846,17 +519,17 @@ JamomaError jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount arg
 		}
 		
 		aSender->sendMessage(TT("send"), v);			// TODO : make a kTTSym_send
-		return JAMOMA_ERR_NONE;
+		return kTTErrNone;
 	}
 	
-	return JAMOMA_ERR_GENERIC;
+	return kTTErrGeneric;
 }
 
 // Method to deal with TTReceiver
 ///////////////////////////////////////////////////////////////////////
 
 /**	Create a receiver object */
-JamomaError	jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedReceiver)
+TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedReceiver)
 {
 	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_attribute, oscAddress_noAttribute;
 	TTValue			args;
@@ -871,7 +544,7 @@ JamomaError	jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, T
 		splitOSCAddress(TT(addressAndAttribute->s_name), &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_attribute);
 		mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
 		
-		// Make a TTSender object
+		// Make a TTReceiver object
 		args.append(jamoma_directory);
 		args.append(oscAddress_noAttribute);
 		
@@ -885,7 +558,7 @@ JamomaError	jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, T
 		TTObjectInstantiate(TT("Callback"), &returnAddressCallback, kTTValNONE);
 		returnAddressBaton = new TTValue(TTPtr(x));
 		returnAddressCallback->setAttributeValue(TT("Baton"), TTPtr(returnAddressBaton));
-		returnAddressCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_receiver_return_address));
+		returnAddressCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_address));
 		args.append(returnAddressCallback);
 		
 		returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -898,14 +571,37 @@ JamomaError	jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, T
 		*returnedReceiver = NULL;
 		TTObjectInstantiate(TT("Receiver"), TTObjectHandle(returnedReceiver), args);
 		
-		return JAMOMA_ERR_NONE;
+		return kTTErrNone;
 	}
 	
-	return JAMOMA_ERR_GENERIC;
+	return kTTErrGeneric;
 	
 }
 
-void jamoma_receiver_return_address(TTPtr p_baton, TTValue& data)
+
+// Method to deal with TTDeviceManager
+///////////////////////////////////////////////////////////////////////
+
+/**	Create a deviceManager object */
+TTErr jamoma_deviceManager_create(ObjectPtr x, SymbolPtr name, TTObjectPtr *returnedDeviceManager)
+{
+	TTValue			args;
+	
+	// Make a TTDeviceManager object
+	args.append(jamoma_directory);
+	args.append(name->s_name);
+	
+	*returnedDeviceManager = NULL;
+	TTObjectInstantiate(TT("DeviceManager"), TTObjectHandle(returnedDeviceManager), args);
+	
+	return kTTErrNone;
+}
+
+
+// Method to return data
+///////////////////////////////////////////////////////////////////////
+
+void jamoma_callback_return_address(TTPtr p_baton, TTValue& data)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
@@ -921,10 +617,6 @@ void jamoma_receiver_return_address(TTPtr p_baton, TTValue& data)
 	// send data to a parameter using the return_value method
 	object_method(x, gensym("return_address"), SymbolGen(address->getCString()), 0, 0);
 }
-
-
-// Method to return data
-///////////////////////////////////////////////////////////////////////
 
 void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 {

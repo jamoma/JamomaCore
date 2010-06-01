@@ -43,6 +43,7 @@ void TTModularInit()
 		TTReceiver::registerClass();
 		TTMapper::registerClass();
 		TTPreset::registerClass();
+		TTDeviceManager::registerClass();
 		
 		TTModularRegisterInternalClasses();
 	}

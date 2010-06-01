@@ -13,7 +13,12 @@
 #define thisTTClassTags		"node, receiver"
 
 TT_MODULAR_CONSTRUCTOR,
-mDirectory(NULL), mAddress(kTTSymEmpty), mAttribute(kTTSym_value), mEnable(YES), mReturnAddressCallback(NULL), mReturnValueCallback(NULL)
+mDirectory(NULL),
+mAddress(kTTSymEmpty),
+mAttribute(kTTSym_value),
+mEnable(YES),
+mReturnAddressCallback(NULL),
+mReturnValueCallback(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTReceiver", arguments.getSize() == 5);
 	

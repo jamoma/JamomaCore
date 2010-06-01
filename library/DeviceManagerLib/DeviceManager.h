@@ -1,22 +1,57 @@
 /*
- *
- *  Created by Laurent Garnier on 03/06/09.
- *  Copyright 2009 __BlueYeti/LaBRI__. All rights reserved.
- *
+ Copyright: 
+ LaBRI (http://www.labri.fr) - BlueYeti (http://www.blueyeti.fr) - GMEA (http://www.gmea.net)
+ 
+ Author(s): Laurent Garnier, Theo Delahogue
+ Last modification: 08/03/2010
+ 
+ Adviser(s): 
+ Myriam Desainte-Catherine (myriam.desainte-catherine@labri.fr)
+ 
+ This software is a computer program whose purpose is to propose
+ a library for interactive scores edition and execution.
+ 
+ This software is governed by the CeCILL-C license under French law and
+ abiding by the rules of distribution of free software.  You can  use, 
+ modify and/ or redistribute the software under the terms of the CeCILL-C
+ license as circulated by CEA, CNRS and INRIA at the following URL
+ "http://www.cecill.info". 
+ 
+ As a counterpart to the access to the source code and  rights to copy,
+ modify and redistribute granted by the license, users are provided only
+ with a limited warranty  and the software's author,  the holder of the
+ economic rights,  and the successive licensors  have only  limited
+ liability. 
+ 
+ In this respect, the user's attention is drawn to the risks associated
+ with loading,  using,  modifying and/or developing or reproducing the
+ software by the user in light of its specific status of free software,
+ that may mean  that it is complicated to manipulate,  and  that  also
+ therefore means  that it is reserved for developers  and  experienced
+ professionals having in-depth computer knowledge. Users are therefore
+ encouraged to load and test the software's suitability as regards their
+ requirements in conditions enabling the security of their systems and/or 
+ data to be ensured and,  more generally, to use and operate it in the 
+ same conditions as regards security.
+ 
+ The fact that you are presently reading this means that you have had
+ knowledge of the CeCILL-C license and that you accept its terms.
  */
 
 /*!
- * \class Controller
- * \author Laurent Garnier (BlueYeti/LaBRI)
+ * \class DeviceManager
+ * \author Laurent Garnier (BlueYeti/LaBRI) : lo.garnier@yahoo.fr
+ *		   Théo Delahogue  (GMEA)			: theod@gmea.net
  * \date 03/06/09
  *
- * The Controller is a network plugin manager.
- * It is totally independant. It can be used in other communication applications.
- * It is compiled in a library called libController.a that can be added in a project.
+ * \brief The DeviceManager is a network plugin manager.
+ * It is totally independant. It can be used in multimedia communication applications.
+ * It is compiled in a library called libDeviceManager.a that can be added in a project.
+ * It contains all methods that a developer has to call to use the DeviceManager.
  *
  * In the sequencer it establishes the communication between the engine and devices detected on the network.
- * It create the good link and use the good plugin according to the device communication protocol.
- * It select the good plugin to use with the device name
+ * It creates the good link and use the good plugin according to the device communication protocol.
+ * It selects the good plugin to use with the device name
  *
  */
 
@@ -33,7 +68,7 @@
 #define NO_ANSWER 0
 #define ANSWER_RECEIVED 1
 
-// TODO : put those string in a global symbol cache table used by the Controller
+// TODO : put those string in a global symbol cache table used by the DeviceManager
 #define NAMESPACE_ATTR_NONE ""					//< 
 #define NAMESPACE_ATTR_ACCESS "access"			//< 
 #define NAMESPACE_ATTR_VALUE "value"			//< 
@@ -45,29 +80,47 @@
 
 #define NAMESPACE_ATTR_LIFE "life"				//< used to observe the creation or the destruction of node below an address
 
+/*********************************************************************
+ TEMPORARY DEFINE USED TO ALLOW THE TIPITOUCH TO SPEAK WITH THE CONTROLLER
+ *********************************************************************/
+static const unsigned int TRIGGER_READY = 0;
+static const unsigned int TRIGGER_WAITED = 1;
+static const unsigned int TRIGGER_PUSHED = 2;
+/********************************************************************/
+
 class Namespace;
 class Device;
 class Plugin;
 class PluginFactories;
 
-typedef std::string Address;										// at the Controller level, an Address should be like this  : /<nodeName>/.../<nodeName>
+typedef std::string Address;										// at the DeviceManager level, an Address should be like this  : /<nodeName>/.../<nodeName>
 typedef Address* AddressPtr;										// !!! DO NOT INCLUDE THE DEVICE NAME AS A ROOT LEVEL !!!
 																	// TODO : a class Address (containing the attribute part too and method to parse string in /parent/node.instance:attribute)
 
 typedef std::string Value;											// any kind of data : bool, int, float, array, list, enum, ...
 typedef Value* ValuePtr;											// TODO : a class like TTValue
 
-class Controller{
+class DeviceManager{
 	
 private:
 	
-	std::string m_application_name;									//< the name of the application in wich the Controller is called
+	std::string m_application_name;									//< the name of the application in wich the DeviceManager is called
 	
 	PluginFactories *factories;										//< the plugin factories
 	
 	std::map<std::string, Plugin*> *netPlugins;						//< a map between a plugin name and an instance of this Plugin
 	std::map<std::string, Device*> *netDevices;						//< a map between a device name and an instance of this Device
 	unsigned int deviceId;											//< the device id witch is incremented automatically 
+	
+	/*********************************************************************
+	 TEMPORARY MEMBER USED TO ALLOW THE TIPITOUCH TO SPEAK WITH THE CONTROLLER
+	 *********************************************************************/
+	std::map<unsigned int, std::string> *m_namespace;				//TriggerId , TriggerAddress
+	std::map<unsigned int, unsigned int> *m_values;					//TriggerId , TriggerValue
+	std::map<unsigned int, std::string> m_boxColorArg;				//TriggerId , TriggerAttachedBoxColour
+	std::map<unsigned int, std::string> m_boxCommentArg;			//TriggerId , TriggerAttachedBoxComment
+	
+	/********************************************************************/
 	
 	void (*m_discover_callback)(void*, 
 								Address, 
@@ -99,18 +152,18 @@ public:
 	
 	/************************************************
 	 CONTROLLER METHODS :
-	 a set of methods used to handle Controller.
+	 a set of methods used to handle DeviceManager.
 	 ************************************************/
 	
 	/*!
 	 * Default constructor.
 	 */
-	Controller(std::string aName);
+	DeviceManager(std::string aName);
 	
 	/*!
 	 * Destructor.
 	 */
-	~Controller();
+	~DeviceManager();
 	
 	/*!
 	 * The message callback method
@@ -379,6 +432,21 @@ public:
 private:
 	void parseDeviceAndAddress(std::string deviceAndAddress, std::string& device, std::string& address);
 	std::vector<std::string> snapshotProcess(Plugin *plugin, Device *device, Address address);
+	
+	
+	
+	
+	/*********************************************************************
+	 TEMPORARY METHOD TO ALLOW THE TPITOUCH TO SPEAK WITH THE CONTROLLER
+	 *********************************************************************/
+//public:
+//	void addTriggerPointLeave(unsigned int triggerId, std::string triggerMessage);
+//	void removeTriggerPointLeave(unsigned int triggerId);
+//	void setNamespaceValue(std::string address, int value, std::map<std::string, std::string> optionalArguments);
+//	void resetTriggerPointStates();
+//	
+//	void askDeviceManagerNamespaceFor(std::string address, std::vector<std::string>* namespaceVectorToFill);
+//	std::string askDeviceManagerValueFor(std::string address, std::string attribute);
 
 };
 

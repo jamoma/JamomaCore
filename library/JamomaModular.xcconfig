@@ -12,7 +12,7 @@
 // Name & Version
 PRODUCT_NAME = $(PROJECT_NAME)
 PRODUCT_VERSION = 0.5.5a5
-SVNREV = 3d431
+SVNREV = e170c
 
 
 // Paths
@@ -25,7 +25,7 @@ INSTALL_PATH = /
 // Special Files
 INFOPLIST_FILE = $(SRCROOT)/Info.plist
 
-HEADER_SEARCH_PATHS = $(inherited) "$(SRCROOT)/../supports/objectivemax/SDKs/Max5/c74support/**" "$(SRCROOT)/../../Foundation/library/includes" "$(SRCROOT)/../../DSP/library/includes" "$(SRCROOT)/../../Multicore/library/includes" "$(SRCROOT)/../../Graphics/library/includes"
+HEADER_SEARCH_PATHS = $(inherited) "$(SRCROOT)/../supports/objectivemax/SDKs/Max5/c74support/**" "$(SRCROOT)/../../Foundation/library/includes" "$(SRCROOT)/../../DSP/library/includes" "$(SRCROOT)/../../Multicore/library/includes"
 LIBRARY_SEARCH_PATHS = $(inherited) 
 FRAMEWORK_SEARCH_PATHS = $(inherited) "$(SRCROOT)/../supports/objectivemax/SDKs/Max5/c74support/**"
 

@@ -13,7 +13,9 @@
 #define thisTTClassTags		"node, sender"
 
 TT_MODULAR_CONSTRUCTOR,
-mDirectory(NULL), mAddress(kTTSymEmpty), mAttribute(kTTSym_value)
+mDirectory(NULL),
+mAddress(kTTSymEmpty),
+mAttribute(kTTSym_value)
 {
 	TT_ASSERT("Correct number of args to create TTSender", arguments.getSize() == 3);
 		
@@ -25,9 +27,9 @@ mDirectory(NULL), mAddress(kTTSymEmpty), mAttribute(kTTSym_value)
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Attribute, kTypeSymbol);
 	
-	addMessageWithArgument(send);
+	addMessageWithArgument(Send);
 	
-	if	(mDirectory)
+	if (mDirectory)
 		bind();
 }
 
@@ -57,7 +59,7 @@ TTErr TTSender::setAttribute(const TTValue& newValue)
 #pragma mark Some Methods
 #endif
 
-TTErr TTSender::send(TTValue& valueToSend)
+TTErr TTSender::Send(TTValue& valueToSend)
 {
 	TTNodePtr		aNode;
 	TTSymbolPtr		anAddress;

@@ -36,9 +36,10 @@ public:
 	/**	Setter for mAttribute attribute. */
 	TTErr setAttribute(const TTValue& value);
 	
+	TTErr Send(TTValue& valueToSend);
+	
 private :
 	
-	TTErr send(TTValue& valueToSend);
 	
 	TTErr bind();
 	
