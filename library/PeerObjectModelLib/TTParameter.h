@@ -11,15 +11,25 @@
 
 #include "TTModular.h"
 
+#include "DataspaceLib.h"
+#include "FunctionLib.h"
+#include "RampLib.h"
 
 /**	TTParameter ... TODO : an explanation
  
-From jcom.parameter we have to make : 
+TODO LIST : 
  
- -> clip
- -> ramp
- -> dataspace
- -> handleProperty : used TTObject message mecanism ... 
+ -> setDataspace					TODO
+ -> bang							TODO is it works with bang ?
+ -> Parameter, Message, Return :	add an attribute to deal with tree cases					(see in several place...)
+ -> clip :							make a clipwrap and a clipfold method inti TTValue...		(see in TTParameter::clipValue method)
+ -> ramp :							All the RampLib have to works with TTValue now...			(see in TTParameter::ramSetup method)
+ -> rampParameterNames :			put this in the Max External !!!							(see in TTParameter::setRampFunction)
+ -> dataspace :						All the DataspaceLib have to to works with TTValue now...	(see in TTParameter::convertUnit method)
+ -> handleProperty :				used TTObject message mecanism...							(see in TTParameter::Command method)
+ -> inc :							TODO
+ -> dec :							TODO
+ -> dump :							TODO
  
  
  */				
@@ -56,20 +66,25 @@ public:
 	
 private:
 	
-	TTCallbackPtr	mReturnValueCallback;		///< a callback to return the value to the owner of this parameter
+	TTCallbackPtr	mReturnValueCallback;		///< Callback to return the value to the owner of this parameter
 	
-	TTBoolean		mIsSending;					///< flag to tell us if we are currently sending out our Value attribute
-	TTBoolean		mIsInitialised;				///< flag to tell us if the Value attribute has been initialised
-
+	TTBoolean		mIsSending;					///< Flag to tell us if we are currently sending out our Value attribute
+	TTBoolean		mIsInitialised;				///< Flag to tell us if the Value attribute has been initialised
+	
+	DataspaceLib*	mDataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
+	
+	RampUnit*		mRamper;					///< Rampunit object to perform ramping of input values
+	
+	
 	/*
-	RampUnit*		ramper;						///< rampunit object to perform ramping of input values
-	TTHashPtr		rampParameterNames;			// cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
-	
+	 
+	TTHashPtr		mRampParameterNames;		///< Cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
+	 
 	TTSymbolPtr		mUnitOverride;				///< An internal unit conversion that is used temporarily when the parameter's value is set with a non-active unit.
 	DataspaceLib*	dataspace_override2active;	///< Performs conversion from messages like 'gain -6 db' to the active unit
 	DataspaceLib*	dataspace_active2display;	///< Performs conversion from the active input format to the format used by the parameter display
 	DataspaceLib*	dataspace_display2active;	///< Performs conversion from the display/ui to get back to the active units
-	DataspaceLib*	dataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
+
 	
 	// it was in the Max external code :	TTPtr			ui_qelem;					///< the output to the connected ui object is "qlim'd" with this qelem
 	*/
@@ -135,7 +150,10 @@ public:
 	
 private:
 	
-	TTErr notifyObservers(TTSymbolPtr attrName, const TTValue& value);
+	TTBoolean	clipValue();
+	TTErr		rampSetup();
+	TTErr		convertUnit(const TTValue& inValue, TTValue& outValue);
+	TTErr		notifyObservers(TTSymbolPtr attrName, const TTValue& value);
 	
 };
 
@@ -145,6 +163,6 @@ typedef TTParameter* TTParameterPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTParameterCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTParameterRampUnitCallback(TTPtr baton, TTValue& data);
 
 #endif // __TT_PARAMETER_H__

@@ -11,15 +11,29 @@
 #include "TTModular.h"
 #include "TTModularSymbolCache.h"
 
+
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
+
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_boolean;
+
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Container;
+
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Dataspace;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_DataspaceUnitActive;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_DataspaceUnitDisplay;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_DataspaceUnitNative;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_decimal;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Description;
+
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
+
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_integer;
+
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_none;
+
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Parameter;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Priority;
+
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RangeBounds;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RangeClipmode;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RampDrive;
@@ -27,9 +41,13 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RampFunction;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Readonly;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Receiver;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RepetitionsAllow;
+
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Sender;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Subscriber;
+
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Type;
+
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Value;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ValueDefault;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ValueStepsize;
@@ -38,14 +56,22 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ViewFreeze;
 
 void TTSymbolCacheInit()
 {
+	kTTSym_array					= TT("array");
+	
+	kTTSym_boolean					= TT("boolean");
+	
 	kTTSym_Container				= TT("Container");
 	
 	kTTSym_Dataspace				= TT("Dataspace");
 	kTTSym_DataspaceUnitActive		= TT("DataspaceUnitActive");
 	kTTSym_DataspaceUnitDisplay		= TT("DataspaceUnitDisplay");
 	kTTSym_DataspaceUnitNative		= TT("DataspaceUnitNative");
-
+	kTTSym_decimal					= TT("decimal");
 	kTTSym_Description				= TT("Description");
+	
+	kTTSym_generic					= TT("generic");
+	
+	kTTSym_integer					= TT("integer");
 	
 	kTTSym_none						= TT("none");
 	
@@ -61,6 +87,7 @@ void TTSymbolCacheInit()
 	kTTSym_RepetitionsAllow			= TT("RepetitionsAllow");
 	
 	kTTSym_Sender					= TT("Sender");
+	kTTSym_string					= TT("string");
 	kTTSym_Subscriber				= TT("Subscriber");
 
 	kTTSym_Type						= TT("Type");

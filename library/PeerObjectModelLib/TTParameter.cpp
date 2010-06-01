@@ -16,20 +16,20 @@ TT_MODULAR_CONSTRUCTOR,
 mValue(TTValue(0.0)),
 mValueDefault(TTValue(0.0)),
 mValueStepsize(TTValue(0.0)),
-mType(kTTSymEmpty),					// TODO : define TTSymbol for Type in Jamoma (kTTSymNone, kTTSymGeneric, kTTSymBoolean, kTTSymInteger, kTTSymDecimal, kTTSymString, kTTSymArray) 
-mPriority(0), 
+mType(kTTSym_generic),
+mPriority(0),
 mDescription(""),
 mRepetitionsAllow(NO),
 mReadonly(NO),
 mViewFreeze(NO),
 mRangeBounds(TTValue(0.0, 1.0)),
-mRangeClipmode(kTTSymEmpty),
-mRampDrive(kTTSymEmpty),
+mRangeClipmode(kTTSym_none),
+mRampDrive(kTTSym_none),
 mRampFunction(kTTSymEmpty),
-mDataspace(kTTSymEmpty),
-mDataspaceUnitNative(kTTSymEmpty),
-mDataspaceUnitActive(kTTSymEmpty),
-mDataspaceUnitDisplay(kTTSymEmpty)
+mDataspace(kTTSym_none),
+mDataspaceUnitNative(kTTSym_none),
+mDataspaceUnitActive(kTTSym_none),
+mDataspaceUnitDisplay(kTTSym_none)
 {
 	TT_ASSERT("Correct number of args to create TTParameter", arguments.getSize() == 1);
 	
@@ -52,7 +52,7 @@ mDataspaceUnitDisplay(kTTSymEmpty)
 	
 	addAttributeWithSetter(RampDrive, kTypeSymbol);
 	addAttributeWithSetter(RampFunction, kTypeSymbol);
-
+	
 	addAttributeWithSetter(Dataspace, kTypeSymbol);
 	addAttributeWithSetter(DataspaceUnitNative, kTypeSymbol);
 	addAttributeWithSetter(DataspaceUnitActive, kTypeSymbol);
@@ -63,11 +63,16 @@ mDataspaceUnitDisplay(kTTSymEmpty)
 	
 	mIsSending = NO;
 	mIsInitialised = NO;
-
+	
+	mValue = TTValue();
+	mRamper = NULL;
 }
 
 TTParameter::~TTParameter()
-{;}
+{
+	if (mRamper)
+		delete mRamper;
+}
 
 TTErr TTParameter::Reset()
 {
@@ -84,26 +89,28 @@ TTErr TTParameter::Reset()
 
 TTErr TTParameter::Command(const TTValue& command)
 {
-	double		start[LISTSIZE],
-				values[LISTSIZE],
-				time;
-	int			i, commandSize;
-	AtomPtr		ramp;
-	TTSymbolPtr	unit, ramp;
+	double		time;
+	int			commandSize;
+	TTSymbolPtr	first, unit, ramp;
+	TTValue		aValue, convertedValue;
 	bool		hasRamp = false;
 	bool		hasUnit = false;
-	long		ac = 0;				// These two hold the input, but the input is converted into the native units
-	AtomPtr		av = NULL;
-	bool		alloc = false;
 	
-	char*	c = strrchr(msg->s_name, ':');
 	
-	if (c) {
-		if (param_handleProperty(x, msg, argc, argv))
-			return;
+	// 1. Parse the command to handle Property
+	//////////////////////////////////////////////////
+	if (command.getType(0) == kTypeSymbol) {
+		command.get(0, &first);
+		char*	c = strrchr(first->getCString(), ':');
+		if (c) {
+			// TODO
+			//if (param_handleProperty(x, msg, argc, argv))
+			return kTTErrGeneric;
+		}
 	}
 	
-	// Parse command
+	// 2. Parse the command to handle unit and ramp
+	///////////////////////////////////////////////////
 	commandSize = command.getSize();
 	switch(commandSize) {
 			
@@ -123,7 +130,7 @@ TTErr TTParameter::Command(const TTValue& command)
 					hasUnit = true;
 					command.get(1, &unit);
 				}
-				
+			
 			break;	
 		}
 			
@@ -162,115 +169,82 @@ TTErr TTParameter::Command(const TTValue& command)
 						hasUnit = true;
 						command.get(commandSize - 3, &unit);
 					}
-				else
-					if (command.getType(commandSize - 1) == kTypeSymbol) {
-						hasUnit = true;
-						command.get(commandSize - 1, &unit);
-					}
+					else
+						if (command.getType(commandSize - 1) == kTypeSymbol) {
+							hasUnit = true;
+							command.get(commandSize - 1, &unit);
+						}
 			
 			break;	
 		}
 			
 	}
 	
-	// The current implementation does not override the active unit temporarily or anything fancy
-	//	It just sets the active unit and then runs with it...
-	if (hasUnit)
-		object_attr_setsym(x, gensym("dataspace/unit/active"), unit);
 	
-	/*
-	 For this initial implementation we are converting the values prior to ramping, as it is easier.
-	 Ultimately though, we actually want to convert the units after the ramping, 
-	 for example to perform a sweep that is linear vs logarithmic
-	 */
+	// 3. Set DataspaceUnitActive attribute
+	// Note : The current implementation does not override 
+	// the active unit temporarily or anything fancy.
+	// It just sets the active unit and then runs with it...
+	////////////////////////////////////////////////////////////////
+	if (hasUnit)
+		setDataspaceUnitActive(unit);
+	
+	
+	// 4. Convert the value
+	// Note : For this initial implementation we are converting the values prior to ramping, as it is easier.
+	// Ultimately though, we actually want to convert the units after the ramping, 
+	// for example to perform a sweep that is linear vs logarithmic
+	///////////////////////////////////////////////////////////////////
 	if (hasRamp && hasUnit) {
-		param_convert_units(x, argc-3, argv, &ac, &av, &alloc);
+		aValue = command;
+		aValue.setSize(commandSize - 3);
+		convertUnit(aValue, convertedValue);
 	}
 	else if (hasRamp) {
-		param_convert_units(x, argc-2, argv, &ac, &av, &alloc);
+		aValue = command;
+		aValue.setSize(commandSize - 2);
+		convertUnit(aValue, convertedValue);
 	}
 	else if (hasUnit) {
-		param_convert_units(x, argc-1, argv, &ac, &av, &alloc);
+		aValue = command;
+		aValue.setSize(commandSize - 1);
+		convertUnit(aValue, convertedValue);
 	}
-	else {
-		param_convert_units(x, argc, argv, &ac, &av, &alloc);
-	}
+	else
+		convertUnit(aValue, convertedValue);
 	
-	// Check the second to last item in the list first, which when ramping should == the string ramp
-	//	ramp = argv + (argc - 2);
-	//	if (ramp->a_type == A_SYM && ramp->a_w.w_sym == jps_ramp) {
+	
+	// 5. Ramp the value
+	/////////////////////////////////
 	if (hasRamp) {
-		time = atom_getfloat(argv+(argc-1));
 		
-		// Only one list member if @type is integer of decimal
-		if ( x->common.attr_type == jps_integer || x->common.attr_type == jps_decimal)
-			ac = 1;
-		//		else
-		//		argc = argc - 2;
-		
-		for (i=0; i<ac; i++) {
-			values[i] = atom_getfloat(av+i);
-			if (i <= x->list_size)
-				start[i] = atom_getfloat(&x->atom_list[i]);
-			else
-				start[i] = atom_getfloat(&x->atom_list[(x->list_size)-1]);
-		}
-		
+		command.get(commandSize - 1, time);
+
 		if (time <= 0) {
-			jcom_core_atom_copy(&x->attr_value, av);
-			x->param_output(x);
-			return;
+			setValue(convertedValue);
+			return kTTErrNone;
 		}	
 		
-		if (x->common.attr_repetitions == 0 && x->isInitialised) {
-			if (param_list_compare(x->atom_list, x->list_size, av, ac))
-				return;	// nothing to do
+		if (!mRepetitionsAllow && mIsInitialised) {
+			if (mValue == convertedValue)
+				return kTTErrNone;	// nothing to do
 		}
 		
-		x->list_size = ac;
-		x->ramper->set(ac, start);
-		x->ramper->go(ac, values, time);
+		//mRamper->set(convertedValue, mValue);
+		//mRamper->go(convertedValue, mValue, time);
+		setValue(convertedValue); // for instant...
 	} 
 	else {
-		// Don't output if the input data is identical
-		if (x->common.attr_repetitions == 0 && x->isInitialised) {
-			if (param_list_compare(x->atom_list, x->list_size, av, ac))
-				return;	// nothing to do
+		// check repetitions
+		if (!mRepetitionsAllow && mIsInitialised) {
+			if (mValue == convertedValue)
+				return kTTErrNone;	// nothing to do
 		}
 		
-		// Avoid copying more than one atom if the type only can have one argument
-		if (x->common.attr_type != jps_array && x->common.attr_type != jps_generic
-			&& x->common.attr_type != jps_none && x->common.attr_type != jps_string) {
-			// If attr_type is != to anyone of the above values then we know 
-			// that it must be == to a scalar type.  This ensures it will behave
-			// as a scalar and not a list.
-			ac = 1;
-		}
-		
-		for (i = 0; i < ac; i++) {
-			switch(av[i].a_type) {
-				case A_LONG:
-					atom_setlong(&x->atom_list[i], atom_getlong(av + i));
-					break;
-				case A_FLOAT:
-					atom_setfloat(&x->atom_list[i], atom_getfloat(av + i));
-					break;
-				case A_SYM:
-					atom_setsym(&x->atom_list[i], atom_getsym(av + i));
-					break;
-				default:
-					error("param_list: no type specification");
-					break;
-			}
-		}
-		x->list_size = ac;
-		x->param_output(x);
+		setValue(convertedValue);
 	}
 	
-	if (alloc)
-		sysmem_freeptr(av);
-	
-	
+	return kTTErrNone;
 }
 
 TTErr TTParameter::setValue(const TTValue& value)
@@ -280,16 +254,19 @@ TTErr TTParameter::setValue(const TTValue& value)
 		// lock
 		mIsSending = YES;
 		
+		if (clipValue() && mRamper)
+			mRamper->stop();
+		
 		mValue = value;
-	
+		
 		// return the value to his owner
 		this->mReturnValueCallback->notify(mValue);
-	
+		
 		// notify each observers
-		notifyObservers(kTTSym_Value, value);
+		notifyObservers(kTTSym_Value, mValue);
 		
 		// we have had our value set at least once
-		x->isInitialised = YES;
+		mIsInitialised = YES;
 		
 		// unlock
 		mIsSending = NO;
@@ -303,98 +280,231 @@ TTErr TTParameter::setValue(const TTValue& value)
 TTErr TTParameter::setValueDefault(const TTValue& value)
 {
 	mValueDefault = value;
-	notifyObservers(kTTSym_ValueDefault, value);
+	notifyObservers(kTTSym_ValueDefault, mValueDefault);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setValueStepsize(const TTValue& value)
 {
 	mValueStepsize = value;
-	notifyObservers(kTTSym_ValueStepsize, value);
+	notifyObservers(kTTSym_ValueStepsize, mValueStepsize);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setType(const TTValue& value)
 {
 	mType = value;
-	notifyObservers(kTTSym_Type, value);
+	
+	// Prepare memory
+	if (mType == kTTSym_integer)
+		mValue = TTValue(0);
+	else if (mType == kTTSym_decimal)
+		mValue = TTValue(0.);
+	else if (mType == kTTSym_string)
+		mValue = TTValue("");
+	else if (mType == kTTSym_boolean)
+		mValue = TTValue(NO);
+	else if (mType == kTTSym_generic)
+		mValue = TTValue();
+	else if (mType == kTTSym_array)
+		mValue = TTValue();
+	
+//#ifdef JMOD_MESSAGE
+	else if (mType == kTTSym_none)
+		mValue = TTValue();
+//#endif // JMOD_MESSAGE
+	else {
+		mType = kTTSym_generic;
+		mValue = TTValue();
+		return kTTErrGeneric;
+	}
+	
+	rampSetup();
+			
+	notifyObservers(kTTSym_Type, mType);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setRepetitionsAllow(const TTValue& value)
 {
 	mRepetitionsAllow = value;
-	notifyObservers(kTTSym_RepetitionsAllow, value);
+	notifyObservers(kTTSym_RepetitionsAllow, mRepetitionsAllow);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setReadonly(const TTValue& value)
 {
 	mReadonly = value;
-	notifyObservers(kTTSym_Readonly, value);
+	notifyObservers(kTTSym_Readonly, mReadonly);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setViewFreeze(const TTValue& value)
 {
 	mViewFreeze = value;
-	notifyObservers(kTTSym_ViewFreeze, value);
+	notifyObservers(kTTSym_ViewFreeze, mViewFreeze);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setRangeBounds(const TTValue& value)
-{
-	mRangeBounds = value;
-	notifyObservers(kTTSym_RangeBounds, value);
+{	
+	if (value.getSize() == 1)
+		mRangeBounds.set(0, value.getFloat64());
+	
+	if (value.getSize() == 2)
+		mRangeBounds.set(1, value.getFloat64(1));
+	
+	notifyObservers(kTTSym_RangeBounds, mRangeBounds);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setRangeClipmode(const TTValue& value)
 {
 	mRangeClipmode = value;
-	notifyObservers(kTTSym_RangeClipmode, value);
+	notifyObservers(kTTSym_RangeClipmode, mRangeClipmode);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setRampDrive(const TTValue& value)
 {
 	mRampDrive = value;
-	notifyObservers(kTTSym_RampDrive, value);
+	
+	rampSetup();
+	
+	notifyObservers(kTTSym_RampDrive, mRampDrive);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setRampFunction(const TTValue& value)
 {
 	mRampFunction = value;
-	notifyObservers(kTTSym_RampFunction, value);
+	
+	if (mRamper && mRampFunction != kTTSymEmpty && mRampFunction != TT("linear")) {
+		
+			// set the function of the ramper
+			mRamper->setAttributeValue(TT("Function"), mRampFunction);
+			
+			/* This have to be in the Max External !!!
+			 long		n;
+			 TTValue		names;
+			 TTSymbolPtr	aName;
+			 TTString	nameString;
+			 
+			// cache the function's attribute names
+			mRampParameterNames->clear();
+			mRamper->getFunctionParameterNames(names);
+			n = names.getSize();
+			for (int i=0; i<n; i++) {
+				
+				names.get(i, &aName);
+				nameString = aName->getString();
+				
+				if (aName == TT("Bypass") || aName == TT("Mute") || aName == TT("MaxNumChannels") || aName == TT("SampleRate"))
+					continue;										// don't publish these parameters
+				
+				if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
+					nameString[0] += 32;							// convert first letter to lower-case for Max
+					
+					TTValuePtr v = new TTValue(aName);
+					mRampParameterNames->append(TT(nameString.c_str()), *v);
+				}
+			}
+			 */
+	}
+	
+	notifyObservers(kTTSym_RampFunction, mRampFunction);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setDataspace(const TTValue& value)
 {
 	mDataspace = value;
-	notifyObservers(kTTSym_Dataspace, value);
+	notifyObservers(kTTSym_Dataspace, mDataspace);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setDataspaceUnitNative(const TTValue& value)
 {
 	mDataspaceUnitNative = value;
-	notifyObservers(kTTSym_DataspaceUnitNative, value);
+	notifyObservers(kTTSym_DataspaceUnitNative, mDataspaceUnitNative);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setDataspaceUnitActive(const TTValue& value)
 {
 	mDataspaceUnitActive = value;
-	notifyObservers(kTTSym_DataspaceUnitActive, value);
+	notifyObservers(kTTSym_DataspaceUnitActive, mDataspaceUnitActive);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setDataspaceUnitDisplay(const TTValue& value)
 {
 	mDataspaceUnitDisplay = value;
-	notifyObservers(kTTSym_DataspaceUnitDisplay, value);
+	notifyObservers(kTTSym_DataspaceUnitDisplay, mDataspaceUnitDisplay);
+	return kTTErrNone;
+}
+
+TTBoolean TTParameter::clipValue()
+{
+	//bool	didClipAll = false;
+	
+	// the code regarding didClipAll is supposed to return true when every member of the list has been clipped to its limit
+	// that way ramping can be terminated prematurely if it was trying to ramp to something out of range
+	// however, this code as it is doesn't work, and it doesn't buy us much anyway
+	// so I'm just commenting it out for the time being [TAP]
+	
+	if (mRangeClipmode != kTTSym_none) {
+		
+		if (mType == kTTSym_generic || mType == kTTSym_integer || mType == kTTSym_decimal) {
+			
+			if (mRangeClipmode == kTTSym_low)
+				mValue.cliplow(mRangeBounds.getFloat64());
+			else if (mRangeClipmode == kTTSym_high)
+				mValue.cliphigh(mRangeBounds.getFloat64(1));
+			else if (mRangeClipmode == kTTSym_both)
+				mValue.clip(mRangeBounds.getFloat64(), mRangeBounds.getFloat64(1));
+			else if (mRangeClipmode == kTTSym_wrap)
+				;//mValue.clipwrap(mRangeBounds.getFloat64(), mRangeBounds.getFloat64(1));
+			else if (mRangeClipmode == kTTSym_fold)
+				;//mValue.clipfold(mRangeBounds.getFloat64(), mRangeBounds.getFloat64(1));
+		}
+	}
+	
+	return false;
+}
+
+TTErr TTParameter::rampSetup()
+{
+	// 1. destroy the old rampunit
+	if (mRamper != NULL) {
+		delete mRamper;
+		mRamper = NULL;
+	}
+	
+	// 2. create the new rampunit
+	// For some types ramping doesn't make sense, so they will be set to none
+	if (mType == kTTSym_none || mType == kTTSym_string || mType == kTTSym_generic)
+		mRampDrive = kTTSym_none;
+	else
+		;//TODO : RampLib::createUnit(mRampDrive, &mRamper, &TTParameterRampUnitCallback, &mValue);
+	
+	if (mRamper == NULL)
+		return kTTErrGeneric; //error("jcom.parameter (%s module): could not allocate memory for ramp unit!", x->common.module_name);
+	
+	// 3. reset the ramp function
+	setRampFunction(mRampFunction);
+	
+	return kTTErrNone;	
+}
+
+TTErr TTParameter::convertUnit(const TTValue& inValue, TTValue& outValue)
+{
+	if (mDataspace && mDataspace_active2native && (mDataspaceUnitActive != mDataspaceUnitNative))
+		// TODO : mDataspace_active2native->convert(inValue, outValue);
+		outValue = inValue;  // for instant...
+	else
+		outValue = inValue;
+	
 	return kTTErrNone;
 }
 
