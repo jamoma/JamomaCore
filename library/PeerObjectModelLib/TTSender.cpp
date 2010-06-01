@@ -29,6 +29,8 @@ mAttribute(kTTSym_value)
 	
 	addMessageWithArgument(Send);
 	
+	mIsSending = false;
+	
 	if (mDirectory)
 		bind();
 }
@@ -66,24 +68,33 @@ TTErr TTSender::Send(TTValue& valueToSend)
 	TTValue			v, nodeAndAddress;
 	TTObjectPtr		o;
 	
-	if (!mNodesAddressCache->isEmpty()) {
+	if (!mIsSending) {
 		
-		// send data to each node of the selection
-		for (mNodesAddressCache->begin(); mNodesAddressCache->end(); mNodesAddressCache->next()) {
+		// lock
+		mIsSending = true;
+		
+		if (!mNodesAddressCache->isEmpty()) {
 			
-			nodeAndAddress = mNodesAddressCache->current();
-			
-			// get a node
-			nodeAndAddress.get(0, (TTPtr*)&aNode);
-			
-			// and his address
-			nodeAndAddress.get(1, &anAddress);
-			
-			// set the attribute of the object
-			aNode->getAttributeValue(TT("Object"), v);
-			v.get(0, (TTPtr*)&o);
-			o->setAttributeValue(mAttribute, valueToSend);
+			// send data to each node of the selection
+			for (mNodesAddressCache->begin(); mNodesAddressCache->end(); mNodesAddressCache->next()) {
+				
+				nodeAndAddress = mNodesAddressCache->current();
+				
+				// get a node
+				nodeAndAddress.get(0, (TTPtr*)&aNode);
+				
+				// and his address
+				nodeAndAddress.get(1, &anAddress);
+				
+				// set the attribute of the object
+				aNode->getAttributeValue(TT("Object"), v);
+				v.get(0, (TTPtr*)&o);
+				o->setAttributeValue(mAttribute, valueToSend);
+			}
 		}
+		
+		// unlock
+		mIsSending = false;	
 	}
 	
 	return kTTErrNone;

@@ -1,0 +1,73 @@
+/* 
+ * TTBlue Class for caching common symbols for speed
+ * Copyright © 2008, Timothy Place
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
+
+#include "TTValueCache.h"
+#include "TTSymbolTable.h"
+#include "TTModular.h"
+#include "TTModularSymbolCache.h"
+
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Container;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Dataspace;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_DataspaceUnitActive;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_DataspaceUnitDisplay;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_DataspaceUnitNative;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Description;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_none;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Parameter;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Priority;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RangeBounds;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RangeClipmode;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RampDrive;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RampFunction;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Readonly;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Receiver;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RepetitionsAllow;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Sender;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Subscriber;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Type;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Value;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ValueDefault;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ValueStepsize;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ViewFreeze;
+
+
+void TTSymbolCacheInit()
+{
+	kTTSym_Container				= TT("Container");
+	
+	kTTSym_Dataspace				= TT("Dataspace");
+	kTTSym_DataspaceUnitActive		= TT("DataspaceUnitActive");
+	kTTSym_DataspaceUnitDisplay		= TT("DataspaceUnitDisplay");
+	kTTSym_DataspaceUnitNative		= TT("DataspaceUnitNative");
+
+	kTTSym_Description				= TT("Description");
+	
+	kTTSym_none						= TT("none");
+	
+	kTTSym_Parameter				= TT("Parameter");
+	kTTSym_Priority					= TT("Priority");
+	
+	kTTSym_RangeBounds				= TT("RangeBounds");
+	kTTSym_RangeClipmode			= TT("RangeClipmode");
+	kTTSym_RampDrive				= TT("RampDrive");
+	kTTSym_RampFunction				= TT("RampFunction");
+	kTTSym_Readonly					= TT("Readonly");
+	kTTSym_Receiver					= TT("Receiver");
+	kTTSym_RepetitionsAllow			= TT("RepetitionsAllow");
+	
+	kTTSym_Sender					= TT("Sender");
+	kTTSym_Subscriber				= TT("Subscriber");
+
+	kTTSym_Type						= TT("Type");
+	
+	kTTSym_Value					= TT("Value");
+	kTTSym_ValueDefault				= TT("ValueDefault");
+	kTTSym_ValueStepsize			= TT("ValueStepsize");
+	kTTSym_ViewFreeze				= TT("ViewFreeze");
+}
+

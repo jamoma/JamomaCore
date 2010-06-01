@@ -34,6 +34,8 @@
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
 
+#include "TTModularSymbolCache.h"
+
 #include "TTSubscriber.h"
 #include "TTContainer.h"
 #include "TTParameter.h"

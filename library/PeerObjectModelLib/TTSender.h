@@ -25,6 +25,7 @@ public:
 
 private:
 	
+	TTBoolean			mIsSending;				///< a flag to lock the object in case of infinite loop
 	TTListPtr			mNodesAddressCache;		///< a cache containing all binded nodes and their address for quick access
 	TTObjectPtr			mObserver;				///< a life cycle observer
 	

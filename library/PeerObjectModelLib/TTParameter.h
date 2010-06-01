@@ -21,9 +21,8 @@ From jcom.parameter we have to make :
  -> dataspace
  -> handleProperty : used TTObject message mecanism ... 
  
- ??? How to notify observers when something like a ramper return a value ???
  
- */
+ */				
 
 
 class TTMODULAR_EXPORT TTParameter : public TTObject
@@ -59,10 +58,10 @@ private:
 	
 	TTCallbackPtr	mReturnValueCallback;		///< a callback to return the value to the owner of this parameter
 	
+	TTBoolean		mIsSending;					///< flag to tell us if we are currently sending out our Value attribute
+	TTBoolean		mIsInitialised;				///< flag to tell us if the Value attribute has been initialised
+
 	/*
-	TTBoolean		isSending;					///< flag to tell us if we are currently sending out our value
-	TTBoolean		isInitialised;				///< The parameter or message has been initialised
-	
 	RampUnit*		ramper;						///< rampunit object to perform ramping of input values
 	TTHashPtr		rampParameterNames;			// cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
 	
@@ -79,6 +78,15 @@ public:
 	
 	/** reset value to default value */
 	TTErr Reset();
+	
+	/** control the parameter using a command like < value (unit) (ramp ramptime) >
+		It depends on the command size :
+			1		: 1 value 
+			2		: 2 values || 1 value + unit
+			3		: 3 values || 2 values + unit || 1 value + ramp ramptime
+			X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime
+	 */
+	TTErr Command(const TTValue& command);
 	
 	/**	Setter for m attribute. */
 	TTErr setValue(const TTValue& value);
@@ -127,7 +135,7 @@ public:
 	
 private:
 	
-	TTErr updateObservers(TTSymbolPtr attrName, const TTValue& value);
+	TTErr notifyObservers(TTSymbolPtr attrName, const TTValue& value);
 	
 };
 

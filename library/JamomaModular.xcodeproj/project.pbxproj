@@ -62,6 +62,8 @@
 		A7CA9C890D1F21FD0099D8CA /* PitchDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7CA9C970D1FD9960099D8CA /* GainDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CA9C950D1FD9960099D8CA /* GainDataspace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7CA9C980D1FD9960099D8CA /* GainDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */; };
+		D206115D11B5108B00218608 /* TTModularSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D206115B11B5108B00218608 /* TTModularSymbolCache.cpp */; };
+		D206115E11B5108B00218608 /* TTModularSymbolCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D206115C11B5108B00218608 /* TTModularSymbolCache.h */; };
 		D22D13BE11A7F59700C81BE8 /* TTModular.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D22D13BC11A7F59700C81BE8 /* TTModular.cpp */; };
 		D22D13BF11A7F59700C81BE8 /* TTModular.h in Headers */ = {isa = PBXBuildFile; fileRef = D22D13BD11A7F59700C81BE8 /* TTModular.h */; };
 		D2730C5C104FBA70004513A7 /* NodeLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2730C5A104FBA70004513A7 /* NodeLib.cpp */; };
@@ -149,6 +151,8 @@
 		A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PitchDataspace.h; path = DataspaceLib/PitchDataspace.h; sourceTree = SOURCE_ROOT; };
 		A7CA9C950D1FD9960099D8CA /* GainDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GainDataspace.h; path = DataspaceLib/GainDataspace.h; sourceTree = SOURCE_ROOT; };
 		A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = GainDataspace.cpp; path = DataspaceLib/GainDataspace.cpp; sourceTree = SOURCE_ROOT; };
+		D206115B11B5108B00218608 /* TTModularSymbolCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTModularSymbolCache.cpp; sourceTree = "<group>"; };
+		D206115C11B5108B00218608 /* TTModularSymbolCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularSymbolCache.h; sourceTree = "<group>"; };
 		D22D13BC11A7F59700C81BE8 /* TTModular.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTModular.cpp; sourceTree = "<group>"; };
 		D22D13BD11A7F59700C81BE8 /* TTModular.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModular.h; sourceTree = "<group>"; };
 		D2730C5A104FBA70004513A7 /* NodeLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NodeLib.cpp; sourceTree = "<group>"; };
@@ -372,6 +376,8 @@
 			children = (
 				D22D13BD11A7F59700C81BE8 /* TTModular.h */,
 				D22D13BC11A7F59700C81BE8 /* TTModular.cpp */,
+				D206115C11B5108B00218608 /* TTModularSymbolCache.h */,
+				D206115B11B5108B00218608 /* TTModularSymbolCache.cpp */,
 				D29B37B511AA4C2700109189 /* TTSubscriber.h */,
 				D29B37B611AA4C2700109189 /* TTSubscriber.cpp */,
 				D2A704C111A5712D00D5705E /* TTContainer.h */,
@@ -436,6 +442,7 @@
 				D29B37B711AA4C2700109189 /* TTSubscriber.h in Headers */,
 				D2D15DFB11B3C03F0014B1B1 /* DeviceManager.h in Headers */,
 				D2D15E0011B3C0F10014B1B1 /* TTDeviceManager.h in Headers */,
+				D206115E11B5108B00218608 /* TTModularSymbolCache.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,6 +553,7 @@
 				D22D13BE11A7F59700C81BE8 /* TTModular.cpp in Sources */,
 				D29B37B811AA4C2700109189 /* TTSubscriber.cpp in Sources */,
 				D2D15DFF11B3C0F10014B1B1 /* TTDeviceManager.cpp in Sources */,
+				D206115D11B5108B00218608 /* TTModularSymbolCache.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
