@@ -31,6 +31,7 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clipmode;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_high;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_low;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_maxNumChannels;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_notify;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_numChannels;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_processInPlace;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_range;
@@ -87,6 +88,7 @@ void TTSymbolCacheInit()
 	kTTSym_high						= TT("high");
 	kTTSym_low						= TT("low");
 	kTTSym_maxNumChannels			= TT("maxNumChannels");
+	kTTSym_notify					= TT("notify");
 	kTTSym_numChannels				= TT("numChannels");
 	kTTSym_processInPlace			= TT("processInPlace");
 	kTTSym_range					= TT("range");
