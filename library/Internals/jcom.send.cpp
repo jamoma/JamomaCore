@@ -17,6 +17,7 @@ typedef struct _send{
 	t_symbol					*_attribute;		///< the attribute to bind (default : value)
 	TTListPtr					lk_couple;			///< a pointer to a list of couple < TTNodes, address >
 	TTObjectPtr					life_observer;		///< a pointer to a life cycle observer
+	TTBoolean					isSending;			///< a flag to stop infinite loop
 } t_send;
 
 // Prototypes
@@ -96,6 +97,7 @@ void *send_new(t_symbol *s, long argc, t_atom *argv)
 		x->_attribute = NULL;
 		x->life_observer = NULL;
 		x->lk_couple = NULL;
+		x->isSending = false;
 		
 		//attr_args_process(x, argc, argv);			// handle attribute args				
 		
@@ -182,6 +184,7 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 	TTValue		c;
 	TTNodePtr	p_node;
 	t_symbol	*address;
+	long i;
 	
 	// prepend the data with an OSC address
 	// to change the x->attr_name
@@ -196,26 +199,30 @@ void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 	}
 	
 	// If there is a node selection
-	if(x->lk_couple){
-		if(!x->lk_couple->isEmpty()){
-			
-			// send data to each node of the selection
-			for(x->lk_couple->begin(); x->lk_couple->end(); x->lk_couple->next()){
+	if (!x->isSending){
+		if (x->lk_couple){
+			if (!x->lk_couple->isEmpty()){
 				
-				// get a couple
-				c = x->lk_couple->current();
-				
-				// get the node of the couple
-				c.get(0,(TTPtr*)&p_node);
-				
-				// get the address of the couple
-				c.get(1, (TTPtr*)&address);
-				
-				// 1. set the attribute of the node
-				jamoma_node_attribute_set(p_node, x->_attribute, argc, argv);
-				
-				// 2. notify attribute observers
-				jamoma_node_attribute_observer_notify(p_node, x->_attribute, address, argc, argv);
+				// send data to each node of the selection
+				x->isSending = true;
+				for(x->lk_couple->begin(); x->lk_couple->end(); x->lk_couple->next()){
+					
+					// get a couple
+					c = x->lk_couple->current();
+					
+					// get the node of the couple
+					c.get(0,(TTPtr*)&p_node);
+					
+					// get the address of the couple
+					c.get(1, (TTPtr*)&address);
+					
+					// 1. set the attribute of the node
+					jamoma_node_attribute_set(p_node, x->_attribute, argc, argv);
+					
+					// 2. notify attribute observers
+					jamoma_node_attribute_observer_notify(p_node, x->_attribute, address, argc, argv);
+				}
+				x->isSending = false;
 			}
 		}
 	}
