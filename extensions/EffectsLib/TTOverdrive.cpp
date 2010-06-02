@@ -1,5 +1,5 @@
 /* 
- * TTBlue Overdrive / Soft Saturation Effect 
+ * Overdrive / Soft Saturation Effect 
  * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
