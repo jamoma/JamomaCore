@@ -10,8 +10,9 @@
 #include "TTModularClassWrapperMax.h"
 
 // Definitions
-void	WrapTTSenderClassSpecificities(WrappedClassPtr c);
-void	WrappedSenderClass_newSpecificities(TTPtr self, AtomCount argc, AtomPtr argv);
+void	WrapTTSenderClass(WrappedClassPtr c);
+void	WrappedSenderClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+void	WrappedSenderClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void	send_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
@@ -23,18 +24,26 @@ void	send_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
-	return wrapTTModularClassAsMaxClass(TT("Sender"), "jcom.send", NULL, &WrapTTSenderClassSpecificities, &WrappedSenderClass_newSpecificities);
+	ModularSpec *spec = new ModularSpec;
+	spec->_wrap = &WrapTTSenderClass;
+	spec->_new = &WrappedSenderClass_new;
+	spec->_any = &WrappedSenderClass_anything;
+	
+	return wrapTTModularClassAsMaxClass(TT("Sender"), "jcom.send", NULL, spec);
 }
 
-void WrapTTSenderClassSpecificities(WrappedClassPtr c)
+void WrapTTSenderClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)send_assist,	"assist",	A_CANT, 0L);
+	class_addmethod(c->maxClass, (method)send_bang,		"bang",		0L);
 	class_addmethod(c->maxClass, (method)send_int,		"int",		A_LONG, 0L);
 	class_addmethod(c->maxClass, (method)send_float,	"float",	A_FLOAT, 0L);
 	class_addmethod(c->maxClass, (method)send_list,		"list",		A_GIMME, 0L);
+	
+	class_addmethod(c->maxClass, (method)WrappedSenderClass_anything,	"symbol",	A_SYM, 0L);
 }
 
-void WrappedSenderClass_newSpecificities(TTPtr self, AtomCount argc, AtomPtr argv)
+void WrappedSenderClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr					address;
@@ -49,6 +58,19 @@ void WrappedSenderClass_newSpecificities(TTPtr self, AtomCount argc, AtomPtr arg
 	jamoma_sender_create((ObjectPtr)x, address, &x->wrappedObject);
 	
 	// No outlets
+}
+
+void WrappedSenderClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{	
+	t_atom a;
+	
+	if (!argc) {
+		atom_setsym(&a, msg);
+		send_list(self, _sym_symbol, 1, &a);
+	}
+	else {
+		; // TODO : copy msg and append argv into one t_atom array
+	}
 }
 
 // Method for Assistance Messages

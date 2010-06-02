@@ -106,6 +106,9 @@ extern "C" {
 	/**	Create a parameter object */
 	TTErr			jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter);
 	
+	/**	Send Max data command */
+	TTErr			jamoma_parameter_command(TTParameterPtr aParameter, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+	
 	
 	// Method to deal with TTSender
 	///////////////////////////////////////////////////////////////////////

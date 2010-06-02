@@ -464,6 +464,33 @@ TTErr jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter)
 	
 }
 
+/**	Send Max data command */
+TTErr jamoma_parameter_command(TTParameterPtr aParameter, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	TTValue		v;
+	AtomCount	i;
+	
+	if (aParameter) {
+		
+		// convert Atom to TTValue
+		v.setSize(argc);
+		for (i=0; i<argc; i++) 
+		{
+			if (atom_gettype(argv+i) == A_LONG)
+				v.set(i, (int)atom_getlong(argv+i));
+			else if (atom_gettype(argv+i) == A_FLOAT)
+				v.set(i, atom_getfloat(argv+i));
+			else if (atom_gettype(argv+i) == A_SYM)
+				v.set(i, TT(atom_getsym(argv+i)->s_name));
+		}
+		
+		aParameter->sendMessage(kTTSym_Command, v);
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
+
 // Method to deal with TTSender
 ///////////////////////////////////////////////////////////////////////
 
@@ -488,7 +515,7 @@ TTErr jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectP
 		if (oscAddress_attribute != NO_ATTRIBUTE)
 			args.append(oscAddress_attribute);
 		else
-			args.append(TT("Value"));
+			args.append(kTTSym_Value);
 		
 		*returnedSender = NULL;
 		TTObjectInstantiate(TT("Sender"), TTObjectHandle(returnedSender), args);
@@ -518,7 +545,7 @@ TTErr jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, Ato
 				v.set(i, TT(atom_getsym(argv+i)->s_name));
 		}
 		
-		aSender->sendMessage(TT("send"), v);			// TODO : make a kTTSym_send
+		aSender->sendMessage(kTTSym_Send, v);
 		return kTTErrNone;
 	}
 	
@@ -636,29 +663,33 @@ void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 	argc = v.getSize();
 	argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * argc);
 	
-	for (i=0; i<argc; i++) {
-		if(v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
-			TTFloat64	value;
-			v.get(i, value);
-			atom_setfloat(argv+i, value);
-			msg = _sym_float;
+	if (argc) {
+		for (i=0; i<argc; i++) {
+			if(v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
+				TTFloat64	value;
+				v.get(i, value);
+				atom_setfloat(argv+i, value);
+				msg = _sym_float;
+			}
+			else if(v.getType(i) == kTypeSymbol){
+				TTSymbolPtr	value = NULL;
+				v.get(i, &value);
+				atom_setsym(argv+i, gensym((char*)value->getCString()));
+				//msg = _sym_symbol;
+			}
+			else{	// assume int
+				TTInt32		value;
+				v.get(i, value);
+				atom_setlong(argv+i, value);
+				//msg = _sym_long;
+			}
 		}
-		else if(v.getType(i) == kTypeSymbol){
-			TTSymbolPtr	value = NULL;
-			v.get(i, &value);
-			atom_setsym(argv+i, gensym((char*)value->getCString()));
-			msg = _sym_symbol;
-		}
-		else{	// assume int
-			TTInt32		value;
-			v.get(i, value);
-			atom_setlong(argv+i, value);
-			msg = _sym_long;
-		}
-	}
 	
-	if (i>1)
-		msg = _sym_list;
+		if (i>1)
+			msg = _sym_list;
+	}
+	else
+		msg = _sym_bang;
 	
 	// send data to a parameter using the return_value method
 	object_method(x, gensym("return_value"), msg, argc, argv);

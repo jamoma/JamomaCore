@@ -19,7 +19,7 @@ mValueStepsize(TTValue(0.0)),
 mType(kTTSym_generic),
 mPriority(0),
 mDescription(""),
-mRepetitionsAllow(NO),
+mRepetitionsAllow(YES),
 mReadonly(NO),
 mViewFreeze(NO),
 mRangeBounds(TTValue(0.0, 1.0)),
@@ -113,6 +113,13 @@ TTErr TTParameter::Command(const TTValue& command)
 	///////////////////////////////////////////////////
 	commandSize = command.getSize();
 	switch(commandSize) {
+			
+			// no value	
+		case 0 :
+		{
+			// nothing to do
+			break;	
+		}
 			
 		// 1 value	
 		case 1 :
@@ -211,7 +218,7 @@ TTErr TTParameter::Command(const TTValue& command)
 		convertUnit(aValue, convertedValue);
 	}
 	else
-		convertUnit(aValue, convertedValue);
+		convertUnit(command, convertedValue);
 	
 	
 	// 5. Ramp the value

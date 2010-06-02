@@ -31,6 +31,8 @@
 	#endif
 #endif
 
+#include "TTFoundationAPI.h"		// TTBlue Headers...
+
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
 

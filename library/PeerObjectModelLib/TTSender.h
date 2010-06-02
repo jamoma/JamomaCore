@@ -19,15 +19,15 @@ class TTMODULAR_EXPORT TTSender : public TTObject
 	
 public:
 	
-	TTNodeDirectoryPtr	mDirectory;				///< the directory
-	TTSymbolPtr			mAddress;				///< ATTRIBUTE: the address to bind
-	TTSymbolPtr			mAttribute;				///< ATTRIBUTE: the attribute to bind (default : value)
+	TTNodeDirectoryPtr	mDirectory;					///< the directory
+	TTSymbolPtr			mAddress;					///< ATTRIBUTE: the address to bind
+	TTSymbolPtr			mAttribute;					///< ATTRIBUTE: the attribute to bind (default : value)
 
 private:
 	
-	TTBoolean			mIsSending;				///< a flag to lock the object in case of infinite loop
-	TTListPtr			mNodesAddressCache;		///< a cache containing all binded nodes and their address for quick access
-	TTObjectPtr			mObserver;				///< a life cycle observer
+	TTBoolean			mIsSending;					///< a flag to lock the object in case of infinite loop
+	TTListPtr			mAddressObjectCache;		///< a cache containing all binded addresses and the object for quick access
+	TTObjectPtr			mObserver;					///< a life cycle observer
 	
 public:
 	

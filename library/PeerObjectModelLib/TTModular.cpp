@@ -26,7 +26,7 @@ void TTModularInit()
 		TTModularHasInitialized = true;
 				
 		// TODO: someday implement these so that we have project-scoped caches and don't stuff everything into the foundation?
-		//TTModularSymbolCacheInit();
+		TTModularSymbolCacheInit();
 		//TTModularValueCacheInit();
 		
 #ifdef TT_DEBUG

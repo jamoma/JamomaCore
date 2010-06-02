@@ -15,7 +15,9 @@
 TT_MODULAR_CONSTRUCTOR,
 mDirectory(NULL),
 mAddress(kTTSymEmpty),
-mAttribute(kTTSym_value)
+mAttribute(kTTSym_value),
+mAddressObjectCache(NULL),
+mObserver(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTSender", arguments.getSize() == 3);
 		
@@ -36,7 +38,9 @@ mAttribute(kTTSym_value)
 }
 
 TTSender::~TTSender()
-{;}
+{
+	unbind();
+}
 
 TTErr TTSender::setAddress(const TTValue& newValue)
 {
@@ -63,33 +67,35 @@ TTErr TTSender::setAttribute(const TTValue& newValue)
 
 TTErr TTSender::Send(TTValue& valueToSend)
 {
-	TTNodePtr		aNode;
 	TTSymbolPtr		anAddress;
-	TTValue			v, nodeAndAddress;
-	TTObjectPtr		o;
+	TTObjectPtr		anObject;
+	TTValue			addressObject;
+
 	
 	if (!mIsSending) {
 		
 		// lock
 		mIsSending = true;
 		
-		if (!mNodesAddressCache->isEmpty()) {
+		if (!mAddressObjectCache->isEmpty()) {
 			
 			// send data to each node of the selection
-			for (mNodesAddressCache->begin(); mNodesAddressCache->end(); mNodesAddressCache->next()) {
+			for (mAddressObjectCache->begin(); mAddressObjectCache->end(); mAddressObjectCache->next()) {
 				
-				nodeAndAddress = mNodesAddressCache->current();
-				
-				// get a node
-				nodeAndAddress.get(0, (TTPtr*)&aNode);
+				addressObject = mAddressObjectCache->current();
 				
 				// and his address
-				nodeAndAddress.get(1, &anAddress);
+				addressObject.get(0, &anAddress);
 				
-				// set the attribute of the object
-				aNode->getAttributeValue(TT("Object"), v);
-				v.get(0, (TTPtr*)&o);
-				o->setAttributeValue(mAttribute, valueToSend);
+				// then his object
+				addressObject.get(1, (TTPtr*)&anObject);
+				
+				if (mAttribute == kTTSym_Value)
+					// set the value attribute using a command
+					anObject->sendMessage(kTTSym_Command, valueToSend);
+				else
+					// set the attribute of the object
+					anObject->setAttributeValue(mAttribute, valueToSend);
 			}
 		}
 		
@@ -104,25 +110,31 @@ TTErr TTSender::bind()
 {
 	TTNodePtr	aNode;
 	TTSymbolPtr anAddress;
-	TTValuePtr	newBaton, nodeAndAddress;
+	TTObjectPtr	anObject;
+	TTValuePtr	newBaton, addressObject;
 	TTList		aNodeList;
+	TTValue		v;
+
 	TTErr		err = kTTErrNone;
 	
 	// 1. Look for the node(s) into the directory
 	err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
 	
 	// 2. make a cache containing each node and his address
-	mNodesAddressCache  = new TTList();
+	mAddressObjectCache  = new TTList();
 	
 	for (aNodeList.begin(); aNodeList.end(); aNodeList.next()) {
 		
 		aNodeList.current().get(0, (TTPtr*)&aNode);
 		aNode->getOscAddress(&anAddress);
 		
-		nodeAndAddress = new TTValue((TTPtr)aNode);
-		nodeAndAddress->append(anAddress);
+		aNode->getAttributeValue(kTTSym_Object, v);
+		v.get(0, (TTPtr*)&anObject);
 		
-		mNodesAddressCache->append(nodeAndAddress);
+		addressObject = new TTValue(anAddress);
+		addressObject->append((TTPtr)anObject);
+		
+		mAddressObjectCache->append(addressObject);
 	}
 	
 	// 3. Observe any creation or destruction below the address
@@ -146,11 +158,12 @@ TTErr TTSender::unbind()
 {
 	TTErr		err = kTTErrNone;	
 	
-	delete mNodesAddressCache;
-	mNodesAddressCache = NULL;
+	if (mAddressObjectCache)
+		delete mAddressObjectCache;
+		mAddressObjectCache = NULL;
 	
 	// stop life cycle observation
-	if(mObserver) {
+	if(mObserver && mDirectory) {
 		
 		err = mDirectory->removeObserverForNotifications(mAddress, *mObserver);
 	
@@ -163,10 +176,12 @@ TTErr TTSender::unbind()
 
 TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 {
-	TTValuePtr		b, nodeAndAddress;
+	TTValuePtr		b, addressObject;
 	TTSenderPtr		aSender;
-	TTNodePtr		aNode, aCacheNode;
+	TTNodePtr		aNode, aCacheObject;
+	TTObjectPtr		anObject;
 	TTSymbolPtr		anAddress;
+	TTValue			v;
 	long			flag;
 
 	// unpack baton (a TTSenderPtr)
@@ -182,22 +197,29 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 			
 		case kAddressCreated :
 		{
-			nodeAndAddress = new TTValue((TTPtr)aNode);
-			nodeAndAddress->append(anAddress);
-			aSender->mNodesAddressCache->appendUnique(nodeAndAddress);
+			aNode->getAttributeValue(kTTSym_Object, v);
+			v.get(0, (TTPtr*)&anObject);
+			
+			addressObject = new TTValue(anAddress);
+			addressObject->append((TTPtr)anObject);
+			
+			aSender->mAddressObjectCache->appendUnique(addressObject);
 			break;
 		}
 			
 		case kAddressDestroyed :
 		{
-			// find the node in the cache and remove it
-			for (aSender->mNodesAddressCache->begin(); aSender->mNodesAddressCache->end(); aSender->mNodesAddressCache->next()) {
+			aNode->getAttributeValue(kTTSym_Object, v);
+			v.get(0, (TTPtr*)&anObject);
+			
+			// find the object in the cache and remove it
+			for (aSender->mAddressObjectCache->begin(); aSender->mAddressObjectCache->end(); aSender->mAddressObjectCache->next()) {
 				
 				// get a node
-				aSender->mNodesAddressCache->current().get(0,(TTPtr*)&aCacheNode);
+				aSender->mAddressObjectCache->current().get(1,(TTPtr*)&aCacheObject);
 				
-				if (aCacheNode == aNode) {
-					aSender->mNodesAddressCache->remove(aSender->mNodesAddressCache->current());
+				if (aCacheObject == anObject) {
+					aSender->mAddressObjectCache->remove(aSender->mAddressObjectCache->current());
 					break;
 				}
 			}

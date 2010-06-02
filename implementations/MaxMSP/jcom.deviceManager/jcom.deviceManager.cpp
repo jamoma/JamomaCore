@@ -14,8 +14,8 @@
 #define data_out 1
 
 // Definitions
-void	WrapTTDeviceManagerClassSpecificities(WrappedClassPtr c);
-void	WrappedDeviceManagerClass_newSpecificities(TTPtr self, AtomCount argc, AtomPtr argv);
+void	WrapTTDeviceManagerClass(WrappedClassPtr c);
+void	WrappedDeviceManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 
 void	dvmg_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
@@ -25,10 +25,15 @@ void	dvmg_return_value(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
-	return wrapTTModularClassAsMaxClass(TT("DeviceManager"), "jcom.deviceManager", NULL, &WrapTTDeviceManagerClassSpecificities, &WrappedDeviceManagerClass_newSpecificities);
+	ModularSpec *spec = new ModularSpec;
+	spec->_wrap = &WrapTTDeviceManagerClass;
+	spec->_new = &WrappedDeviceManagerClass_new;
+	spec->_any = NULL;
+	
+	return wrapTTModularClassAsMaxClass(TT("DeviceManager"), "jcom.deviceManager", NULL, spec);
 }
 
-void WrapTTDeviceManagerClassSpecificities(WrappedClassPtr c)
+void WrapTTDeviceManagerClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)dvmg_assist,				"assist",				A_CANT, 0L);
 	
@@ -37,7 +42,7 @@ void WrapTTDeviceManagerClassSpecificities(WrappedClassPtr c)
 	
 }
 
-void WrappedDeviceManagerClass_newSpecificities(TTPtr self, AtomCount argc, AtomPtr argv)
+void WrappedDeviceManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	t_symbol					*name;

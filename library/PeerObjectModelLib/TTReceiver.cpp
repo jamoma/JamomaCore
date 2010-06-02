@@ -18,7 +18,9 @@ mAddress(kTTSymEmpty),
 mAttribute(kTTSym_value),
 mEnable(YES),
 mReturnAddressCallback(NULL),
-mReturnValueCallback(NULL)
+mReturnValueCallback(NULL),
+mObserver(NULL),
+mNodesObserversCache(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTReceiver", arguments.getSize() == 5);
 	
@@ -42,7 +44,9 @@ mReturnValueCallback(NULL)
 }
 
 TTReceiver::~TTReceiver()
-{;}
+{
+	unbind();
+}
 
 TTErr TTReceiver::setAddress(const TTValue& newValue)
 {
@@ -133,7 +137,7 @@ TTErr TTReceiver::bind()
 	mNodesObserversCache = new TTList();
 	
 	// for any Attribute observation except created, destroyed and initialized
-	if ((mAttribute != TT("created")) && (mAttribute != TT("destroyed")) && (mAttribute != TT("initialized")))
+	if ((mAttribute != kTTSym_created) && (mAttribute != kTTSym_destroyed) && (mAttribute != kTTSym_initialized))
 	{
 		// Look for node(s) into the directory
 		err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
@@ -149,7 +153,7 @@ TTErr TTReceiver::bind()
 				// prepare the callback mecanism to
 				// be notified about changing value attribute
 				// if the attribute exist
-				aNode->getAttributeValue(TT("Object"), v);
+				aNode->getAttributeValue(kTTSym_Object, v);
 				v.get(0, (TTPtr*)&o);
 				err = o->findAttribute(mAttribute, &anAttribute);
 				
@@ -205,41 +209,43 @@ TTErr TTReceiver::unbind()
 	
 	// stop attribute obeservation
 	// for each node of the selection
-	for (mNodesObserversCache->begin(); mNodesObserversCache->end(); mNodesObserversCache->next()){
-		
-		// get a couple
-		c = mNodesObserversCache->current();
-		
-		// get the node of the couple
-		c.get(0, (TTPtr*)&p_node);
-		
-		// get the observer of the couple
-		c.get(1, (TTPtr*)&oldObserver);
-		
-		// stop attribute observation of the node
-		// if the attribute exist
-		p_node->getAttributeValue(TT("Object"), v);
-		v.get(0, (TTPtr*)&o);
-		anAttribute = NULL;
-		err = o->findAttribute(mAttribute, &anAttribute);
-		
-		if(!err){
+	if (mNodesObserversCache) {
+		for (mNodesObserversCache->begin(); mNodesObserversCache->end(); mNodesObserversCache->next()){
 			
-			err = anAttribute->unregisterObserverForNotifications(*oldObserver);
+			// get a couple
+			c = mNodesObserversCache->current();
 			
-			if(!err)
-				TTObjectRelease(&oldObserver);
+			// get the node of the couple
+			c.get(0, (TTPtr*)&p_node);
+			
+			// get the observer of the couple
+			c.get(1, (TTPtr*)&oldObserver);
+			
+			// stop attribute observation of the node
+			// if the attribute exist
+			p_node->getAttributeValue(kTTSym_Object, v);
+			v.get(0, (TTPtr*)&o);
+			anAttribute = NULL;
+			err = o->findAttribute(mAttribute, &anAttribute);
+			
+			if(!err){
+				
+				err = anAttribute->unregisterObserverForNotifications(*oldObserver);
+				
+				if(!err)
+					TTObjectRelease(&oldObserver);
+			}
+			
+			// forget this couple
+			mNodesObserversCache->remove(c);
 		}
-		
-		// forget this couple
-		mNodesObserversCache->remove(c);
+	
+		delete mNodesObserversCache;
+		mNodesObserversCache = NULL;
 	}
 	
-	delete mNodesObserversCache;
-	mNodesObserversCache = NULL;
-	
 	// stop life cycle observation
-	if (mObserver) {
+	if (mObserver && mDirectory) {
 		
 		err = mDirectory->removeObserverForNotifications(mAddress, *mObserver);
 		
@@ -280,13 +286,13 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 		case kAddressCreated :
 		{
 			
-			if (aReceiver->mAttribute == TT("created"))
+			if (aReceiver->mAttribute == kTTSym_created)
 			{
 				// return the address
 				address.append(oscAddress);
 				aReceiver->mReturnAddressCallback->notify(address);
 			}
-			else if ( (aReceiver->mAttribute != TT("destroyed")) && (aReceiver->mAttribute != TT("initialized")) )
+			else if ( (aReceiver->mAttribute != kTTSym_destroyed) && (aReceiver->mAttribute != kTTSym_initialized) )
 			{
 				// is the observer already exist ?
 				found = false;
@@ -309,7 +315,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 					// prepare the callback mecanism to
 					// be notified about changing value attribute
 					// if the attribute exist
-					aNode->getAttributeValue(TT("Object"), v);
+					aNode->getAttributeValue(kTTSym_Object, v);
 					v.get(0, (TTPtr*)&o);
 					err = o->findAttribute(aReceiver->mAttribute, &anAttribute);
 					
@@ -341,13 +347,13 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 			
 		case kAddressDestroyed :
 		{
-			if (aReceiver->mAttribute == TT("destroyed"))
+			if (aReceiver->mAttribute == kTTSym_destroyed)
 			{
 				// return the address
 				address.append(oscAddress);
 				aReceiver->mReturnAddressCallback->notify(address);
 			}
-			else if ( (aReceiver->mAttribute != TT("created")) && (aReceiver->mAttribute != TT("initialized")) )
+			else if ( (aReceiver->mAttribute != kTTSym_created) && (aReceiver->mAttribute != kTTSym_initialized) )
 			{
 				// look at the node among memorized <node, observer>
 					
@@ -366,19 +372,8 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 							// get the observer of the couple
 							c.get(1, (TTPtr*)&oldObserver);
 							
-							// stop attribute observation of the node
-							// if the attribute exist
-							aNode->getAttributeValue(TT("Object"), v);
-							v.get(0, (TTPtr*)&o);
-							err = o->findAttribute(aReceiver->mAttribute, &anAttribute);
-							
-							if(!err){
-								
-								err = anAttribute->unregisterObserverForNotifications(*oldObserver);
-								
-								if(!err)
-									TTObjectRelease(&oldObserver);
-							}
+							// destroy the observer (don't need to unregister because the object is destroyed...)
+							TTObjectRelease(&oldObserver);
 							
 							// forget this couple
 							aReceiver->mNodesObserversCache->remove(c);
@@ -391,7 +386,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 		case kAddressInitialized :
 		{
 
-			if(aReceiver->mAttribute == TT("initialized"))
+			if(aReceiver->mAttribute == kTTSym_initialized)
 			{
 				// return the address
 				address.append(oscAddress);

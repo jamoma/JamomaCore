@@ -14,8 +14,8 @@
 
 
 // Definitions
-void	WrapTTReceiverClassSpecificities(WrappedClassPtr c);
-void	WrappedReceiverClass_newSpecificities(TTPtr self, AtomCount argc, AtomPtr argv);
+void	WrapTTReceiverClass(WrappedClassPtr c);
+void	WrappedReceiverClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 
 void	receive_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
@@ -25,10 +25,15 @@ void	receive_return_value(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
-	return wrapTTModularClassAsMaxClass(TT("Receiver"), "jcom.receive", NULL, &WrapTTReceiverClassSpecificities, &WrappedReceiverClass_newSpecificities);
+	ModularSpec *spec = new ModularSpec;
+	spec->_wrap = &WrapTTReceiverClass;
+	spec->_new = &WrappedReceiverClass_new;
+	spec->_any = NULL;
+	
+	return wrapTTModularClassAsMaxClass(TT("Receiver"), "jcom.receive", NULL, spec);
 }
 
-void WrapTTReceiverClassSpecificities(WrappedClassPtr c)
+void WrapTTReceiverClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)receive_assist,				"assist",				A_CANT, 0L);
 	
@@ -37,7 +42,7 @@ void WrapTTReceiverClassSpecificities(WrappedClassPtr c)
 	
 }
 
-void WrappedReceiverClass_newSpecificities(TTPtr self, AtomCount argc, AtomPtr argv)
+void WrappedReceiverClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr					address;

@@ -49,12 +49,8 @@ mRelativeAddress(kTTSymEmpty), mDirectory(NULL), mShareContextNodeCallback(NULL)
 }
 
 TTSubscriber::~TTSubscriber()
-{
-	TTList		returnedTTNodes;
-	TTNodePtr	firstReturnedTTNode;
-	
-	if (this->mDirectory->Lookup(this->mContextAddress, returnedTTNodes, &firstReturnedTTNode))
-		this->mDirectory->TTNodeRemove(this->mContextAddress);
+{	
+	this->mDirectory->TTNodeRemove(this->mNodeAddress);
 }
 
 TTErr TTSubscriber::subscribe(TTObjectPtr anObject)

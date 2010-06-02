@@ -12,8 +12,8 @@
 #define data_out 0
 
 // Definitions
-void		WrapTTContainerClassSpecificities(WrappedClassPtr c);
-void		WrappedContainerClass_newSpecificities(TTPtr self, AtomCount argc, AtomPtr argv);
+void		WrapTTContainerClass(WrappedClassPtr c);
+void		WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 
 t_max_err	node_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void		node_assist(TTPtr self, void *b, long msg, long arg, char *dst);
@@ -25,10 +25,15 @@ void		node_build(TTPtr self, SymbolPtr address);
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
-	return wrapTTModularClassAsMaxClass(TT("Container"), "jcom.node", NULL, &WrapTTContainerClassSpecificities, &WrappedContainerClass_newSpecificities);
+	ModularSpec *spec = new ModularSpec;
+	spec->_wrap = &WrapTTContainerClass;
+	spec->_new = &WrappedContainerClass_new;
+	spec->_any = NULL;
+	
+	return wrapTTModularClassAsMaxClass(TT("Container"), "jcom.node", NULL, spec);
 }
 
-void WrapTTContainerClassSpecificities(WrappedClassPtr c)
+void WrapTTContainerClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)node_notify,					"notify",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)node_assist,					"assist",				A_CANT, 0L);
@@ -37,7 +42,7 @@ void WrapTTContainerClassSpecificities(WrappedClassPtr c)
 	
 }
 
-void WrappedContainerClass_newSpecificities(TTPtr self, AtomCount argc, AtomPtr argv)
+void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr					address;
