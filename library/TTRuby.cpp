@@ -285,7 +285,7 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 		}
 	}
 bye:
-	;
+	return 0;
 }
 
 
@@ -377,6 +377,7 @@ VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 				cout << "TTRubySetAttribute: Error " << err << endl;
 		}
 	}
+	return 0;
 }
 
 
@@ -385,7 +386,7 @@ VALUE TTRubyGetAttribute(VALUE self, VALUE attributeName)
 	TTRubyInstance* instance = NULL;
 	TTErr			err = kTTErrNone;
 	VALUE			attributeNameStr = StringValue(attributeName);
-	VALUE			attributeValueStr;
+	//VALUE			attributeValueStr;
 	TTValue			v;
 	VALUE			returnValue = rb_float_new(0.0);
 	TTSymbolPtr		s;
@@ -434,6 +435,15 @@ VALUE TTRubyGetAttribute(VALUE self, VALUE attributeName)
 					s = v;
 					c = (TTCString)s->getCString();
 					returnValue = rb_str_new(c, strlen(c));
+					break;
+					
+				case kTypeNone:
+				case kTypeObject:
+				case kTypePointer:
+				case kTypeString:
+				case kTypeLocalValue:
+				case kNumTTDataTypes:
+				default:
 					break;
 			}
 		}
@@ -668,7 +678,7 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 		}
 	}
 bye:
-	;
+	return 0;
 }
 
 
@@ -761,6 +771,7 @@ VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 				cout << "TTAudioSetAttribute: Error " << err << endl;
 		}
 	}
+	return 0;
 }
 
 
@@ -769,7 +780,7 @@ VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName)
 	TTAudioInstance*	instance = NULL;
 	TTErr				err = kTTErrNone;
 	VALUE				attributeNameStr = StringValue(attributeName);
-	VALUE				attributeValueStr;
+	//VALUE				attributeValueStr;
 	TTValue				v;
 	VALUE				returnValue = rb_float_new(0.0);
 	TTSymbolPtr			s;
@@ -819,6 +830,15 @@ VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName)
 					c = (TTCString)s->getCString();
 					returnValue = rb_str_new(c, strlen(c));
 					break;
+					
+				case kTypeNone:
+				case kTypeObject:
+				case kTypePointer:
+				case kTypeString:
+				case kTypeLocalValue:
+				case kNumTTDataTypes:
+				default:
+					break;				
 			}
 		}
 	}
