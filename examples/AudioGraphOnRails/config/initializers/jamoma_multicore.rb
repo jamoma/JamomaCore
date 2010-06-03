@@ -1,12 +1,12 @@
 require 'TTRuby'
 
-#def CreateMulticoreGraph
-    # build the multicore graph here
+#def CreateAudioGraph
+    # build the audio graph here
      # TODO: need to clear all of this up when we are done!
   # def initialize
 
    	  puts "creating objects"
-       $tt_dac = TTAudio.new "multicore.output"
+       $tt_dac = TTAudio.new "dac"
        $tt_gain = TTAudio.new "gain"
        $tt_op = TTAudio.new "operator"
        $tt_oscil = TTAudio.new "wavetable"
