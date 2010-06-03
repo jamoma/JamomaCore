@@ -356,7 +356,7 @@ TTInt32 TTAudioEngine::callback(const TTFloat32*		input,
     }
 	
 	// notify any observers that we are about to process a vector
-	// for example, a multicore graph will do all of its processing in response to this
+	// for example, an audio graph will do all of its processing in response to this
 	// also, the scheduler will be serviced as a result of this
 	mCallbackObservers->iterateObjectsSendingMessage(kTTSym_audioEngineWillProcess);
 	

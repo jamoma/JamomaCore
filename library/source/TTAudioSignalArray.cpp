@@ -23,7 +23,7 @@ TT_OBJECT_CONSTRUCTOR,
 	TTUInt16 initialMaxNumAudioSignals = arguments;
 	
 	// TT_ASSERT(audio_signal_array_has_valid arg, initialMaxNumAudioSignals > 0);
-	// Can't assert because, for example, Multicore can have objects with no inlets
+	// Can't assert because, for example, an audio graph can have objects with no inlets
 	// So we just enforce a lower-limit of 1:
 
 	if (initialMaxNumAudioSignals < 1)
