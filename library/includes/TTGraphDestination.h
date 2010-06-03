@@ -11,7 +11,6 @@
 #define __TTGRAPH_DESTINATION_H__
 
 #include "TTGraph.h"
-//#include "TTGraphObject.h"
 #include "TTGraphOutlet.h"
 
 class TTGraphOutlet;
@@ -61,7 +60,7 @@ public:
 		create();
 		mOwner = original.mOwner;
 		
-		// NOTE: See notes below in TTMulticoreInlet copy constructor...
+		// NOTE: See notes below in TTGraphInlet copy constructor...
 		// NOTE: When vector of sources is resized, it is possible for an object to be created and immediately copied -- prior to a 'connect' method call
 		// NOTE: Are we ever called after connecting?  If so, then we need to set up the connection...
 		

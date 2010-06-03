@@ -13,7 +13,7 @@
 
 #define thisTTClass			TTGraphObject
 #define thisTTClassName		"graph.object"
-#define thisTTClassTags		"audio, multicore, wrapper"
+#define thisTTClassTags		"graph, wrapper"
 
 
 //	Arguments
