@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2248BE9B11B5C32D002EA67F /* TTOnePole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2248BE9911B5C32D002EA67F /* TTOnePole.cpp */; };
+		2248BE9C11B5C32D002EA67F /* TTOnePole.h in Headers */ = {isa = PBXBuildFile; fileRef = 2248BE9A11B5C32D002EA67F /* TTOnePole.h */; };
 		22526AE610385DDD00CD634E /* FilterLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22526AE510385DDD00CD634E /* FilterLib.cpp */; };
 		22CC002F0FDEFC310024A915 /* TTAllpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CC00290FDEFC310024A915 /* TTAllpass.cpp */; };
 		22CC00300FDEFC310024A915 /* TTAllpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 22CC002A0FDEFC310024A915 /* TTAllpass.h */; };
@@ -57,6 +59,8 @@
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		220D07340FF644A40032DAF9 /* TTBandpassButterworth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBandpassButterworth2.h; sourceTree = "<group>"; };
 		220D07350FF644B20032DAF9 /* TTBandrejectButterworth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBandrejectButterworth2.h; sourceTree = "<group>"; };
+		2248BE9911B5C32D002EA67F /* TTOnePole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTOnePole.cpp; sourceTree = "<group>"; };
+		2248BE9A11B5C32D002EA67F /* TTOnePole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOnePole.h; sourceTree = "<group>"; };
 		22526AE510385DDD00CD634E /* FilterLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FilterLib.cpp; sourceTree = "<group>"; };
 		22CC00290FDEFC310024A915 /* TTAllpass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTAllpass.cpp; sourceTree = "<group>"; };
 		22CC002A0FDEFC310024A915 /* TTAllpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAllpass.h; sourceTree = "<group>"; };
@@ -197,6 +201,8 @@
 				22CC00540FDEFC3D0024A915 /* TTLowpassTwoPole.cpp */,
 				22CC004D0FDEFC3D0024A915 /* TTLowpassFourPole.h */,
 				22CC004C0FDEFC3D0024A915 /* TTLowpassFourPole.cpp */,
+				2248BE9A11B5C32D002EA67F /* TTOnePole.h */,
+				2248BE9911B5C32D002EA67F /* TTOnePole.cpp */,
 				22CC00570FDEFC3D0024A915 /* TTSvf.h */,
 				22CC00560FDEFC3D0024A915 /* TTSvf.cpp */,
 			);
@@ -229,6 +235,7 @@
 				22CC00750FDEFC3D0024A915 /* TTLowpassOnePole.h in Headers */,
 				22CC00770FDEFC3D0024A915 /* TTLowpassTwoPole.h in Headers */,
 				22CC00790FDEFC3D0024A915 /* TTSvf.h in Headers */,
+				2248BE9C11B5C32D002EA67F /* TTOnePole.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +321,7 @@
 				22CC00760FDEFC3D0024A915 /* TTLowpassTwoPole.cpp in Sources */,
 				22CC00780FDEFC3D0024A915 /* TTSvf.cpp in Sources */,
 				22526AE610385DDD00CD634E /* FilterLib.cpp in Sources */,
+				2248BE9B11B5C32D002EA67F /* TTOnePole.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
