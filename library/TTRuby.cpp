@@ -95,7 +95,7 @@ void Init_TTRuby()
 	gTTRubyInstances = new TTHash;
 	
 	
-	// MULTICORE / AUDIO
+	// AUDIO
 	
 	TTAudioGraphInit();
 
@@ -107,11 +107,11 @@ void Init_TTRuby()
 	rb_define_method(c, "attributes?",		TTRubyMethod(TTAudioGetAttributes), 0);
 	rb_define_method(c, "set",				TTRubyMethod(TTAudioSetAttribute),	2);		// set attribute value
 	rb_define_method(c, "get",				TTRubyMethod(TTAudioGetAttribute),	1);		// get attribute value
-	rb_define_method(c, "reset_audio",		TTRubyMethod(TTAudioReset),			0);		// reset multicore connections
+	rb_define_method(c, "reset_audio",		TTRubyMethod(TTAudioReset),			0);		// reset audio graph connections
 	rb_define_method(c, "connect_audio",	TTRubyMethod(TTAudioConnect),		-1);	// connect an output of another object to our input
 	rb_define_method(c, "drop_audio",		TTRubyMethod(TTAudioDrop),			-1);	// disconnect an output of another object from our input
-	rb_define_method(c, "export_max",		TTRubyMethod(TTAudioExportMax),		1);		// reset multicore connections
-	rb_define_method(c, "export_cpp",		TTRubyMethod(TTAudioExportCpp),		1);		// reset multicore connections
+	rb_define_method(c, "export_max",		TTRubyMethod(TTAudioExportMax),		1);		// reset audio graph connections
+	rb_define_method(c, "export_cpp",		TTRubyMethod(TTAudioExportCpp),		1);		// reset audio graph connections
 	
 	TTAudio_class = c;
 	gTTAudioInstances = new TTHash;
@@ -466,9 +466,7 @@ VALUE TTRubyCalculate(VALUE self, VALUE x)
 
 
 
-/**************************************************************************************
- * MULTICORE SUPPORT
- **************************************************************************************/
+/**************************************************************************************/
 #pragma mark -
 #pragma mark Audio Graph Support
 
@@ -526,7 +524,7 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 	}				
 	
 	//err = TTObjectInstantiate(TT(RSTRING_PTR(classNameStr)), &instance->obj, args);
-	err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&instance->obj, args);
+	err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&instance->obj, args);
 	
 	if (!err) {
 		instance->parameterNames = new TTHash;	// TODO: need to free this
