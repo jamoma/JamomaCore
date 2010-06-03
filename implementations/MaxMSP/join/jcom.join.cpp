@@ -10,8 +10,8 @@
 #include "maxAudioGraph.h"
 
 #define thisTTClass			TTAudioGraphJoin
-#define thisTTClassName		"multicore.join"
-#define thisTTClassTags		"audio, multicore"
+#define thisTTClassName		"audio.join"
+#define thisTTClassTags		"audio, graph"
 
 
 /**	The join≈ object takes N input signals and combines them
@@ -75,5 +75,5 @@ int main(void)
 	
 	options->append(TT("argumentDefinesNumInlets"), value);
 	options->append(TT("nonadapting"), value); // don't change the number of out-channels in response to changes in the number of in-channels
-	return wrapAsMaxAudioGraph(TT("multicore.join"), "jcom.join≈", NULL, options);
+	return wrapAsMaxAudioGraph(TT("audio.join"), "jcom.join≈", NULL, options);
 }

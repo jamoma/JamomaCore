@@ -14,7 +14,7 @@
 // Data Structure for this object
 struct Op {
    	Object					obj;
-	TTAudioGraphObjectPtr	multicoreObject;
+	TTAudioGraphObjectPtr	audioGraphObject;
 	TTPtr					outlet;
 	SymbolPtr				attrOperator;
 	TTFloat32				attrOperand;
@@ -50,11 +50,11 @@ int main(void)
 	
 	c = class_new("jcom.op≈", (method)OpNew, (method)OpFree, sizeof(Op), (method)0L, A_GIMME, 0);
 	
-	class_addmethod(c, (method)OpResetAudio,		"multicore.reset",		A_CANT, 0);
-	class_addmethod(c, (method)OpSetupAudio,		"multicore.setup",		A_CANT, 0);
-	class_addmethod(c, (method)OpConnectAudio,		"multicore.connect",	A_OBJ, A_LONG, 0);
-	class_addmethod(c, (method)MaxAudioGraphDrop,	"multicore.drop",		A_CANT, 0);
-	class_addmethod(c, (method)MaxAudioGraphObject,	"multicore.object",		A_CANT, 0);
+	class_addmethod(c, (method)OpResetAudio,		"audio.reset",		A_CANT, 0);
+	class_addmethod(c, (method)OpSetupAudio,		"audio.setup",		A_CANT, 0);
+	class_addmethod(c, (method)OpConnectAudio,		"audio.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)MaxAudioGraphDrop,	"audio.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,	"audio.object",		A_CANT, 0);
 	class_addmethod(c, (method)MaxAudioGraphReset,	"graph.reset",			A_CANT, 0);
 	//class_addmethod(c, (method)OpSetup,			"graph.setup",			A_CANT, 0); // no setup -- no graph outlets
 	class_addmethod(c, (method)MaxGraphConnect,		"graph.connect",		A_OBJ, A_LONG, 0);
@@ -87,14 +87,14 @@ OpPtr OpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     self = OpPtr(object_alloc(sOpClass));
     if (self) {
     	object_obex_store((void*)self, _sym_dumpout, (ObjectPtr)outlet_new(self, NULL));	// dumpout	
-		self->outlet = outlet_new(self, "multicore.connect");
+		self->outlet = outlet_new(self, "audio.connect");
 		
 		v.setSize(2);
 		v.set(0, TT("operator"));
 		v.set(1, TTUInt32(1));
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
+		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
 
-		if (!self->multicoreObject->getUnitGenerator()) {
+		if (!self->audioGraphObject->getUnitGenerator()) {
 			object_error(SELF, "cannot load Jamoma DSP object");
 			return NULL;
 		}
@@ -108,7 +108,7 @@ OpPtr OpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void OpFree(OpPtr self)
 {
-	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
+	TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
 }
 
 
@@ -129,11 +129,11 @@ void OpAssist(OpPtr self, void* b, long msg, long arg, char* dst)
 }
 
 
-// METHODS SPECIFIC TO MULTICORE EXTERNALS
+// METHODS SPECIFIC TO AUDIO GRAPH EXTERNALS
 
 TTErr OpResetAudio(OpPtr self, long vectorSize)
 {
-	return self->multicoreObject->resetAudio();
+	return self->audioGraphObject->resetAudio();
 }
 
 
@@ -141,9 +141,9 @@ TTErr OpSetupAudio(OpPtr self)
 {
 	Atom a[2];
 	
-	atom_setobj(a+0, ObjectPtr(self->multicoreObject));
+	atom_setobj(a+0, ObjectPtr(self->audioGraphObject));
 	atom_setlong(a+1, 0);
-	outlet_anything(self->outlet, gensym("multicore.connect"), 2, a);
+	outlet_anything(self->outlet, gensym("audio.connect"), 2, a);
 	return kTTErrNone;
 }
 
@@ -167,7 +167,7 @@ TTErr OpSetup(OpPtr self)
 
 TTErr OpConnectAudio(OpPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
+	return self->audioGraphObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }
 
 
@@ -177,7 +177,7 @@ MaxErr OpSetOperator(OpPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrOperator = atom_getsym(argv);
-		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Operator"), TT(self->attrOperator->s_name));
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Operator"), TT(self->attrOperator->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -187,7 +187,7 @@ MaxErr OpSetOperand(OpPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrOperand = atom_getfloat(argv);
-		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Operand"), self->attrOperand);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Operand"), self->attrOperand);
 	}
 	return MAX_ERR_NONE;
 }

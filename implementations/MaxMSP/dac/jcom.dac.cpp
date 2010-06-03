@@ -13,7 +13,7 @@
 // Data Structure for this object
 struct Dac {
     Object					obj;
-	TTAudioGraphObjectPtr	multicoreObject;
+	TTAudioGraphObjectPtr	audioGraphObject;
 	ObjectPtr				patcher;		// the patcher -- cached for iterating to make connections
 	ObjectPtr				patcherview;	// first view of the top-level patcher (for dirty notifications)
 	TTPtr					qelem;			// for clumping patcher dirty notifications
@@ -72,10 +72,10 @@ int main(void)
 	class_addmethod(c, (method)DacInt,				"int",					A_LONG, 0);
 	class_addmethod(c, (method)DacGetCpuLoad,		"getCpuLoad",			0);
 	class_addmethod(c, (method)DacNotify,			"notify",				A_CANT, 0);
-	class_addmethod(c, (method)DacReset,			"multicore.reset",		A_CANT, 0);
-	class_addmethod(c, (method)DacConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
-	class_addmethod(c, (method)MaxAudioGraphDrop,	"multicore.drop",		A_CANT, 0);
-	class_addmethod(c, (method)MaxAudioGraphObject,	"multicore.object",		A_CANT, 0);
+	class_addmethod(c, (method)DacReset,			"audio.reset",		A_CANT, 0);
+	class_addmethod(c, (method)DacConnect,			"audio.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)MaxAudioGraphDrop,	"audio.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,	"audio.object",		A_CANT, 0);
 	class_addmethod(c, (method)DacExportRuby,		"exportRuby",			A_GIMME, 0);
 	class_addmethod(c, (method)DacExportCpp,		"exportC++",			A_GIMME, 0);
 	class_addmethod(c, (method)DacExportMax,		"exportMax",			A_GIMME, 0);
@@ -108,11 +108,11 @@ DacPtr DacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
     if (self) {
 		v.setSize(2);
-		v.set(0, TT("multicore.output"));
+		v.set(0, TT("dac"));
 		v.set(1, 2);
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
+		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
 
-		v = TTPtr(self->multicoreObject);
+		v = TTPtr(self->audioGraphObject);
 
 		attr_args_process(self, argc, argv);
 		object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));
@@ -130,7 +130,7 @@ void DacFree(DacPtr self)
 		object_detach_byptr(self, self->patcherview);
 		self->patcherview = NULL;
 	}
-	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
+	TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
 	qelem_free(self->qelem);
 }
 
@@ -171,13 +171,13 @@ MaxErr DacNotify(DacPtr self, SymbolPtr s, SymbolPtr msg, ObjectPtr sender, TTPt
 			ObjectPtr	destObject = jbox_get_object(destBox);
 			long		destInlet = jpatchline_get_inletnum(sender);
 			
-			// if both boxes are multicore objects 
-			if ( zgetfn(sourceObject, gensym("multicore.object")) && zgetfn(destObject, gensym("multicore.object")) ) {
+			// if both boxes are audio graph objects 
+			if ( zgetfn(sourceObject, gensym("audio.object")) && zgetfn(destObject, gensym("audio.object")) ) {
 				#ifdef DEBUG_NOTIFICATIONS
-				object_post(SELF, "deleting multicore patchline!");
+				object_post(SELF, "deleting audio graph patchline!");
 				#endif // DEBUG_NOTIFICATIONS
 				
-				object_method(destObject, gensym("multicore.drop"), destInlet, sourceObject, sourceOutlet);
+				object_method(destObject, gensym("audio.drop"), destInlet, sourceObject, sourceOutlet);
 			}
 		out:		
 			;
@@ -244,34 +244,34 @@ void DacAssist(DacPtr self, void* b, long msg, long arg, char* dst)
 
 TTErr DacReset(DacPtr self)
 {
-	return self->multicoreObject->resetAudio();
+	return self->audioGraphObject->resetAudio();
 }
 
 
 TTErr DacConnect(DacPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
+	return self->audioGraphObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }
 
 
 void DacIterateResetCallback(DacPtr self, ObjectPtr obj)
 {
 	TTUInt32	vectorSize;
-	method		multicoreResetMethod = zgetfn(obj, gensym("multicore.reset"));
+	method		audioResetMethod = zgetfn(obj, gensym("audio.reset"));
 	
-	if (multicoreResetMethod) {
-		self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("VectorSize"), vectorSize);
-		multicoreResetMethod(obj, vectorSize);
+	if (audioResetMethod) {
+		self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("VectorSize"), vectorSize);
+		audioResetMethod(obj, vectorSize);
 	}
 }
 
 
 void DacIterateSetupCallback(DacPtr self, ObjectPtr obj)
 {
-	method multicoreSetupMethod = zgetfn(obj, gensym("multicore.setup"));
+	method audioSetupMethod = zgetfn(obj, gensym("audio.setup"));
 	
-	if (multicoreSetupMethod)
-		multicoreSetupMethod(obj);
+	if (audioSetupMethod)
+		audioSetupMethod(obj);
 }
 
 
@@ -294,7 +294,7 @@ TTErr DacStart(DacPtr self)
 	ObjectPtr				patcherview = NULL;
 	long					vectorSize;
 	long					result = 0;
-	TTAudioGraphOutputPtr	outputObject = TTAudioGraphOutputPtr(self->multicoreObject->getUnitGenerator());
+	TTAudioGraphOutputPtr	outputObject = TTAudioGraphOutputPtr(self->audioGraphObject->getUnitGenerator());
 	
 	outputObject->getAttributeValue(TT("VectorSize"), vectorSize);
 	
@@ -332,7 +332,7 @@ TTErr DacStart(DacPtr self)
 
 TTErr DacStop(DacPtr self)
 {	
-	return self->multicoreObject->getUnitGenerator()->sendMessage(TT("Stop"));
+	return self->audioGraphObject->getUnitGenerator()->sendMessage(TT("Stop"));
 }
 
 
@@ -344,7 +344,7 @@ void DacGetDeviceNames(DacPtr self)
 	AtomPtr		ap;
 	TTSymbolPtr	name;
 	
-	err = self->multicoreObject->getUnitGenerator()->sendMessage(TT("GetAvailableDeviceNames"), v);
+	err = self->audioGraphObject->getUnitGenerator()->sendMessage(TT("GetAvailableDeviceNames"), v);
 	if (!err) {
 		ac = v.getSize();
 		ap = new Atom[ac];
@@ -363,7 +363,7 @@ TTErr DacGetCpuLoad(DacPtr self)
 {
 	TTValue cpuload = -1.0;
 	
-	self->multicoreObject->getUnitGenerator()->sendMessage(TT("GetCpuLoad"), cpuload);
+	self->audioGraphObject->getUnitGenerator()->sendMessage(TT("GetCpuLoad"), cpuload);
 	outlet_float(self->outlet, TTFloat64(cpuload));
 	return kTTErrNone;
 }
@@ -372,7 +372,7 @@ TTErr DacGetCpuLoad(DacPtr self)
 MaxErr DacDoExportRuby(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
 	TTAudioGraphDescription	desc;
-	TTString				fullpathToFile = "/multicore-export.rb";
+	TTString				fullpathToFile = "/graph-export.rb";
 	
 	if (argc && argv)
 		fullpathToFile = atom_getsym(argv)->s_name;
@@ -381,7 +381,7 @@ MaxErr DacDoExportRuby(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 		return MAX_ERR_GENERIC;
 	}
 	
-	self->multicoreObject->getAudioDescription(desc);
+	self->audioGraphObject->getAudioDescription(desc);
 	desc.exportRuby(fullpathToFile);
 	
 	return MAX_ERR_NONE;
@@ -398,7 +398,7 @@ MaxErr DacExportRuby(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 MaxErr DacDoExportCpp(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
 	TTAudioGraphDescription	desc;
-	TTString				fullpathToFile = "/multicore-export.cpp";
+	TTString				fullpathToFile = "/graph-export.cpp";
 	
 	if (argc && argv)
 		fullpathToFile = atom_getsym(argv)->s_name;
@@ -407,7 +407,7 @@ MaxErr DacDoExportCpp(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 		return MAX_ERR_GENERIC;
 	}
 	
-	self->multicoreObject->getAudioDescription(desc);
+	self->audioGraphObject->getAudioDescription(desc);
 	desc.exportCpp(fullpathToFile);
 	
 	return MAX_ERR_NONE;
@@ -424,7 +424,7 @@ MaxErr DacExportCpp(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 MaxErr DacDoExportMax(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {
 	TTAudioGraphDescription	desc;
-	TTString				fullpathToFile = "/multicore-export.maxpat";
+	TTString				fullpathToFile = "/graph-export.maxpat";
 	
 	if (argc && argv)
 		fullpathToFile = atom_getsym(argv)->s_name;
@@ -433,7 +433,7 @@ MaxErr DacDoExportMax(DacPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 		return MAX_ERR_GENERIC;
 	}
 	
-	self->multicoreObject->getAudioDescription(desc);
+	self->audioGraphObject->getAudioDescription(desc);
 	desc.exportMax(fullpathToFile);
 	
 	return MAX_ERR_NONE;
@@ -451,7 +451,7 @@ MaxErr DacSetSampleRate(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 sr = atom_getlong(argv);
-		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sr);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sr);
 	}
 	return MAX_ERR_NONE;
 }
@@ -460,7 +460,7 @@ MaxErr DacGetSampleRate(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long sr;
 	
-	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("SampleRate"), sr);
+	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("SampleRate"), sr);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
@@ -474,7 +474,7 @@ MaxErr DacSetVectorSize(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		TTUInt32 vs = atom_getlong(argv);
-		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("VectorSize"), vs);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("VectorSize"), vs);
 	}
 	return MAX_ERR_NONE;
 }
@@ -483,7 +483,7 @@ MaxErr DacGetVectorSize(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	long vs;
 	
-	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("VectorSize"), vs);
+	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("VectorSize"), vs);
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
@@ -497,7 +497,7 @@ MaxErr DacSetDevice(DacPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		SymbolPtr s = atom_getsym(argv);
-		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Device"), TT(s->s_name));
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Device"), TT(s->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -507,7 +507,7 @@ MaxErr DacGetDevice(DacPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 	TTValue		v;
 	TTSymbolPtr	s;
 	
-	self->multicoreObject->getUnitGenerator()->getAttributeValue(TT("Device"), v);
+	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("Device"), v);
 	v.get(0, &s);
 	if (!s)
 		return MAX_ERR_GENERIC;

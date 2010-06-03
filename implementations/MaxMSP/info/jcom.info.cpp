@@ -53,10 +53,10 @@ int main(void)
 	c = class_new("jcom.info≈", (method)InfoNew, (method)InfoFree, sizeof(Info), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)InfoBang,			"bang",					0);
-	class_addmethod(c, (method)InfoReset,			"multicore.reset",		A_CANT, 0);
-	class_addmethod(c, (method)InfoConnect,			"multicore.connect",	A_OBJ, A_LONG, 0);
-	class_addmethod(c, (method)MaxAudioGraphDrop,	"multicore.drop",		A_CANT, 0);
-	class_addmethod(c, (method)MaxAudioGraphObject,	"multicore.object",		A_CANT, 0);
+	class_addmethod(c, (method)InfoReset,			"audio.reset",		A_CANT, 0);
+	class_addmethod(c, (method)InfoConnect,			"audio.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)MaxAudioGraphDrop,	"audio.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,	"audio.object",		A_CANT, 0);
 	class_addmethod(c, (method)InfoAssist,			"assist",				A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
 	

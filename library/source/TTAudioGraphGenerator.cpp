@@ -10,8 +10,8 @@
 #include "TTAudioGraphGenerator.h"
 
 #define thisTTClass			TTAudioGraphGenerator
-#define thisTTClassName		"multicore.generator"
-#define thisTTClassTags		"audio, multicore, generator"
+#define thisTTClassName		"audio.generator"
+#define thisTTClassTags		"audio, graph, generator"
 
 TT_AUDIO_CONSTRUCTOR,
 	mBuffer(NULL)

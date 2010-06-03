@@ -7,8 +7,8 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TTMULTICORE_INLET_H__
-#define __TTMULTICORE_INLET_H__
+#ifndef __TTAUDIOGRAPH_INLET_H__
+#define __TTAUDIOGRAPH_INLET_H__
 
 #include "TTAudioGraph.h"
 #include "TTAudioGraphObject.h"
@@ -20,7 +20,7 @@
 /**	This object represents a single 'inlet' to a TTAudioGraphObject.
 	TTAudioGraphObject maintains a vector of these inlets.
 	
-	The relationship of an inlet to other parts of the multicore heirarchy is as follows:
+	The relationship of an inlet to other parts of the audio graph heirarchy is as follows:
 
 		A graph may have many objects.
 		An object may have many inlets.	
@@ -184,4 +184,4 @@ public:
 };
 
 
-#endif // __TTMULTICORE_INLET_H__
+#endif // __TTAUDIOGRAPH_INLET_H__

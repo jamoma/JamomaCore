@@ -12,8 +12,8 @@
 // Data Structure for this object
 struct In {
     Object					obj;
-	TTAudioGraphObjectPtr	multicoreObject;
-	_outlet*				multicoreObjectOutlet;
+	TTAudioGraphObjectPtr	audioGraphObject;
+	_outlet*				audioGraphObjectOutlet;
 	t_float					f;						// dummy for signal in first inlet
 	TTUInt32				maxNumChannels;			// the number of inlets or outlets, which is an argument at instantiation
 	TTUInt32				numChannels;			// the actual number of channels to use, set by the dsp method
@@ -47,8 +47,8 @@ void setup_jcom_pack0x3d(void)
 	sInClass = class_new(gensym("jcom_pack="), (t_newmethod)InNew, (t_method)InFree, sizeof(In), 0, A_GIMME, 0);
 	
 	CLASS_MAINSIGNALIN(sInClass, In, f);
-	class_addmethod(sInClass, (t_method)InReset,	gensym("multicore.reset"),	A_CANT, 0);
-	class_addmethod(sInClass, (t_method)InSetup,	gensym("multicore.setup"),	A_CANT, 0);
+	class_addmethod(sInClass, (t_method)InReset,	gensym("audio.reset"),	A_CANT, 0);
+	class_addmethod(sInClass, (t_method)InSetup,	gensym("audio.setup"),	A_CANT, 0);
  	class_addmethod(sInClass, (t_method)InDsp,		gensym("dsp"),				A_CANT, 0);		
 		
 	class_sethelpsymbol(sInClass, gensym("help-jcom_pack=.pd"));
@@ -74,18 +74,18 @@ InPtr InNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		ttEnvironment->setAttributeValue(kTTSym_SampleRate, sr);
 
 		v.setSize(3);
-		v.set(0, TT("multicore.generator"));
-		v.set(1, 0); // no multicore inlets (only msp inlets)
-		v.set(2, 1); // one multicore outlet
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
-		self->multicoreObject->addAudioFlag(kTTAudioGraphGenerator);
+		v.set(0, TT("audio.generator"));
+		v.set(1, 0); // no audio graph inlets (only pd audio inlets)
+		v.set(2, 1); // one audio graph outlet
+		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
+		self->audioGraphObject->addAudioFlag(kTTAudioGraphGenerator);
 
-		if (!self->multicoreObject->getUnitGenerator()) {
-			error("in=: cannot load multicore.source");
+		if (!self->audioGraphObject->getUnitGenerator()) {
+			error("in=: cannot load audio.generator");
 			return NULL;
 		}
 		
-		self->multicoreObjectOutlet = outlet_new(SELF, gensym("multicore.connect"));
+		self->audioGraphObjectOutlet = outlet_new(SELF, gensym("audio.connect"));
 	
 		for (int i=1; i<self->maxNumChannels; i++)
 			inlet_new(&self->obj, &self->obj.ob_pd, &s_signal, &s_signal);
@@ -99,7 +99,7 @@ InPtr InNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void InFree(InPtr self)
 {
-	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
+	TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
 }
 
 
@@ -109,7 +109,7 @@ void InFree(InPtr self)
 
 TTErr InReset(InPtr self, long vectorSize)
 {
-	return self->multicoreObject->resetAudio();
+	return self->audioGraphObject->resetAudio();
 }
 
 
@@ -119,10 +119,10 @@ TTErr InSetup(InPtr self)
 	
 	a[0].a_type = A_POINTER;
 	a[1].a_type = A_POINTER;
-	a[0].a_w.w_symbol = SymbolPtr(self->multicoreObject);
+	a[0].a_w.w_symbol = SymbolPtr(self->audioGraphObject);
 	a[1].a_w.w_symbol = 0;
 	
-	outlet_anything(self->multicoreObjectOutlet, gensym("multicore.connect"), 2, a);
+	outlet_anything(self->audioGraphObjectOutlet, gensym("audio.connect"), 2, a);
 	return kTTErrNone;
 }
 
@@ -134,7 +134,7 @@ t_int* InPerform(t_int* w)
 	TTUInt32	i;
 	
 	for (i=0; i < self->numChannels; i++)
-		TTAudioGraphGeneratorPtr(self->multicoreObject->getUnitGenerator())->mBuffer->setVector(i, self->vectorSize, (TTFloat32*)w[i+2]);
+		TTAudioGraphGeneratorPtr(self->audioGraphObject->getUnitGenerator())->mBuffer->setVector(i, self->vectorSize, (TTFloat32*)w[i+2]);
 
 	return w + (self->numChannels+2);
 }
@@ -160,10 +160,10 @@ void InDsp(InPtr self, t_signal** sp, short* count)
 		k++;
 	}
 	
-	self->multicoreObject->setOutputNumChannels(0, self->maxNumChannels);
-	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("VectorSize"), self->vectorSize);
-	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("maxNumChannels"), self->maxNumChannels);
-	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
+	self->audioGraphObject->setOutputNumChannels(0, self->maxNumChannels);
+	self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("VectorSize"), self->vectorSize);
+	self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("maxNumChannels"), self->maxNumChannels);
+	self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
 	
 	dsp_addv(InPerform, k, (t_int*)audioVectors);
 	free(audioVectors);

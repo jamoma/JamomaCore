@@ -7,8 +7,8 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TTMULTICORE_OUTLET_H__
-#define __TTMULTICORE_OUTLET_H__
+#ifndef __TTAUDIOGRAPH_OUTLET_H__
+#define __TTAUDIOGRAPH_OUTLET_H__
 
 #include "TTAudioGraph.h"
 
@@ -76,4 +76,4 @@ public:
 
 
 
-#endif // __TTMULTICORE_OUTLET_H__
+#endif // __TTAUDIOGRAPH_OUTLET_H__

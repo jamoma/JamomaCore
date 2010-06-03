@@ -8,17 +8,10 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __PURE_MULTICORE_H__
-#define __PURE_MULTICORE_H__
+#ifndef __PURE_AUDIOGRAPH_H__
+#define __PURE_AUDIOGRAPH_H__
 
 #include "m_pd.h"
-//#include "ext.h"					// Max Header
-//#include "ext_obex.h"				// Max Object Extensions (attributes) Header
-//#include "ext_strings.h"			// String Functions
-//#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
-//#include "z_dsp.h"					// MSP Header
-//#include "jpatcher_api.h"			// Required for patcher traversal code
-
 #include "TTAudioGraphAPI.h"			// Definitions for Jamoma AudioGraph
 
 
@@ -114,5 +107,5 @@ int AtomGetInt(AtomPtr a);
 #endif
 
 
-#endif // __PURE_MULTICORE_H__
+#endif // __PURE_AUDIOGRAPH_H__
 
