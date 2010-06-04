@@ -13,8 +13,8 @@
 // Data Structure for this object
 typedef struct DCBlocker {
     t_object				obj;
-	TTAudioGraphObjectPtr	multicoreObject;
-	TTPtr					multicoreOutlet;
+	TTAudioGraphObjectPtr	audioGraphObject;
+	TTPtr					audioGraphOutlet;
 	long					attrBypass;
 };
 typedef DCBlocker* DCBlockerPtr;
@@ -48,11 +48,11 @@ int main(void)
 	c = class_new("jcom.dcblocker≈", (method)DCBlockerNew, (method)DCBlockerFree, sizeof(DCBlocker), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)DCBlockerClear,		"clear",				0);
-	class_addmethod(c, (method)DCBlockerReset,		"multicore.reset",		A_CANT, 0);
-	class_addmethod(c, (method)DCBlockerSetup,		"multicore.setup",		A_CANT, 0);
-	class_addmethod(c, (method)DCBlockerConnect,	"multicore.connect",	A_OBJ, A_LONG, 0);
- 	class_addmethod(c, (method)MaxAudioGraphDrop,	"multicore.drop",		A_CANT, 0);
-	class_addmethod(c, (method)MaxAudioGraphObject,	"multicore.object",		A_CANT, 0);
+	class_addmethod(c, (method)DCBlockerReset,		"audio.reset",		A_CANT, 0);
+	class_addmethod(c, (method)DCBlockerSetup,		"audio.setup",		A_CANT, 0);
+	class_addmethod(c, (method)DCBlockerConnect,	"audio.connect",	A_OBJ, A_LONG, 0);
+ 	class_addmethod(c, (method)MaxAudioGraphDrop,	"audio.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,	"audio.object",		A_CANT, 0);
 	class_addmethod(c, (method)DCBlockerAssist,		"assist",				A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
 	
@@ -78,16 +78,16 @@ DCBlockerPtr DCBlockerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     self = (DCBlockerPtr)object_alloc(sDCBlockerClass);
     if (self) {
     	object_obex_store((void*)self, _sym_dumpout, (ObjectPtr)outlet_new(self, NULL));
-		self->multicoreOutlet = outlet_new(self, "multicore.connect");
+		self->audioGraphOutlet = outlet_new(self, "audio.connect");
 		
 		// TODO: we need to update objects to work with the correct number of channels when the network is configured
 		// Either that, or when we pull we just up the number of channels if when we need to ???
 		v.setSize(2);
 		v.set(0, TT("dcblock"));
 		v.set(1, 1.);
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
+		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
 
-		if (!self->multicoreObject->getUnitGenerator()) {
+		if (!self->audioGraphObject->getUnitGenerator()) {
 			object_error(SELF, "cannot load JamomaDSP object");
 			return NULL;
 		}
@@ -100,8 +100,8 @@ DCBlockerPtr DCBlockerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void DCBlockerFree(DCBlockerPtr self)
 {
-	if (self->multicoreObject)
-		TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
+	if (self->audioGraphObject)
+		TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
 }
 
 
@@ -124,15 +124,15 @@ void DCBlockerAssist(DCBlockerPtr self, void* b, long msg, long arg, char* dst)
 
 void DCBlockerClear(DCBlockerPtr self)
 {
-	self->multicoreObject->getUnitGenerator()->sendMessage(TT("Clear"));
+	self->audioGraphObject->getUnitGenerator()->sendMessage(TT("Clear"));
 }
 
 
-// METHODS SPECIFIC TO MULTICORE EXTERNALS
+// METHODS SPECIFIC TO AUDIO GRAPH EXTERNALS
 
 TTErr DCBlockerReset(DCBlockerPtr self)
 {
-	return self->multicoreObject->resetAudio();
+	return self->audioGraphObject->resetAudio();
 }
 
 
@@ -140,16 +140,16 @@ TTErr DCBlockerSetup(DCBlockerPtr self)
 {
 	Atom a[2];
 	
-	atom_setobj(a+0, ObjectPtr(self->multicoreObject));
+	atom_setobj(a+0, ObjectPtr(self->audioGraphObject));
 	atom_setlong(a+1, 0);
-	outlet_anything(self->multicoreOutlet, gensym("multicore.connect"), 2, a);
+	outlet_anything(self->audioGraphOutlet, gensym("audio.connect"), 2, a);
 	return kTTErrNone;
 }
 
 
 TTErr DCBlockerConnect(DCBlockerPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
+	return self->audioGraphObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }
 
 
@@ -159,7 +159,7 @@ MaxErr DCBlockerSetBypass(DCBlockerPtr self, void* attr, AtomCount argc, AtomPtr
 {
 	if (argc) {
 		self->attrBypass = atom_getlong(argv);
-		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Bypass"), (TTBoolean)self->attrBypass);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Bypass"), (TTBoolean)self->attrBypass);
 	}
 	return MAX_ERR_NONE;
 }

@@ -10,8 +10,8 @@
 #include "maxAudioGraph.h"
 
 #define thisTTClass			TTAudioGraphSplit
-#define thisTTClassName		"multicore.split"
-#define thisTTClassTags		"audio, multicore"
+#define thisTTClassName		"audio.split"
+#define thisTTClassTags		"audio, graph"
 
 
 /**	The split≈ object takes a single input signal and splits it out	into N output signals */
@@ -86,6 +86,6 @@ int main(void)
 	TTAudioGraphSplit::registerClass();
 	
 	options->append(TT("argumentDefinesNumOutlets"), value);
-	return wrapAsMaxAudioGraph(TT("multicore.split"), "jcom.split≈", NULL, options);
+	return wrapAsMaxAudioGraph(TT("audio.split"), "jcom.split≈", NULL, options);
 }
 

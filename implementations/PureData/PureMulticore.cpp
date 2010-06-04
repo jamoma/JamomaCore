@@ -16,8 +16,8 @@
 typedef struct _wrappedInstance {
     t_object				obj;						///< Max audio object header
 	WrappedClassPtr			wrappedClassDefinition;		///< A pointer to the class definition
-	TTAudioGraphObjectPtr	multicoreObject;				///< The instance of the TTBlue object we are wrapping
-	TTPtr					multicoreOutlets[16];			///< Array of outlets, may eventually want this to be more dynamic
+	TTAudioGraphObjectPtr	audioGraphObject;				///< The instance of the TTBlue object we are wrapping
+	TTPtr					audioGraphOutlets[16];			///< Array of outlets, may eventually want this to be more dynamic
 	TTPtr					inlets[16];					///< Array of proxy inlets beyond the first inlet
 } WrappedInstance;
 
@@ -71,14 +71,14 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 				numOutputs = atom_getlong(argv+argumentOffsetToDefineTheNumberOfOutlets);
 		}
 		for (TTInt16 i=numOutputs-1; i>=0; i--)
-			self->multicoreOutlets[i] = outlet_new(self, "multicore.connect");
+			self->audioGraphOutlets[i] = outlet_new(self, "audio.connect");
 
 		self->wrappedClassDefinition = wrappedMaxClass;
 		v.setSize(3);
 		v.set(0, wrappedMaxClass->ttClassName);
 		v.set(1, numInputs);
 		v.set(2, numOutputs);
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
+		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
 				
 		attr_args_process(self, argc, argv);
 	}
@@ -88,18 +88,18 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 
 void wrappedClass_free(WrappedInstancePtr self)
 {
-	if (self->multicoreObject)
-		TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
+	if (self->audioGraphObject)
+		TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
 	// FIXME: leaking proxy inlets!
 }
 
 
 
-// METHODS SPECIFIC TO MULTICORE EXTERNALS
+// METHODS SPECIFIC TO AUDIO GRAPH EXTERNALS
 
 TTErr MaxAudioGraphReset(WrappedInstancePtr self, long vectorSize)
 {
-	return self->multicoreObject->reset();
+	return self->audioGraphObject->reset();
 }
 
 
@@ -108,10 +108,10 @@ TTErr MaxAudioGraphSetup(WrappedInstancePtr self)
 	Atom		a[2];
 	TTUInt16	i=0;
 	
-	atom_setobj(a+0, ObjectPtr(self->multicoreObject));
-	while (self->multicoreOutlets[i]) {
+	atom_setobj(a+0, ObjectPtr(self->audioGraphObject));
+	while (self->audioGraphOutlets[i]) {
 		atom_setlong(a+1, i);
-		outlet_anything(self->multicoreOutlets[i], gensym("multicore.connect"), 2, a);
+		outlet_anything(self->audioGraphOutlets[i], gensym("audio.connect"), 2, a);
 		i++;
 	}
 	return kTTErrNone;
@@ -121,7 +121,7 @@ TTErr MaxAudioGraphSetup(WrappedInstancePtr self)
 TTErr MaxAudioGraphConnect(WrappedInstancePtr self, TTAudioGraphObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
 {
 	long inletNumber = proxy_getinlet(SELF);
-	return self->multicoreObject->connect(audioSourceObject, sourceOutletNumber, inletNumber);
+	return self->audioGraphObject->connect(audioSourceObject, sourceOutletNumber, inletNumber);
 }
 
 
@@ -137,7 +137,7 @@ t_max_err wrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr attr, AtomCoun
 	if (err)
 		return err;
 
-	self->multicoreObject->mUnitGenerator->getAttributeValue(ttAttrName, v);
+	self->audioGraphObject->mUnitGenerator->getAttributeValue(ttAttrName, v);
 
 	*argc = v.getSize();
 	if (!(*argv)) // otherwise use memory passed in
@@ -188,7 +188,7 @@ t_max_err wrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr attr, AtomCoun
 			else
 				object_error(SELF, "bad type for attribute setter");
 		}
-		self->multicoreObject->mUnitGenerator->setAttributeValue(ttAttrName, v);
+		self->audioGraphObject->mUnitGenerator->setAttributeValue(ttAttrName, v);
 		return MAX_ERR_NONE;
 	}
 	return MAX_ERR_GENERIC;
@@ -211,7 +211,7 @@ void wrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc,
 			else
 				object_error(SELF, "bad type for message arg");
 		}
-		self->multicoreObject->mUnitGenerator->sendMessage(TT(s->s_name), v);
+		self->audioGraphObject->mUnitGenerator->sendMessage(TT(s->s_name), v);
 		
 		// process the returned value for the dumpout outlet
 		{
@@ -242,7 +242,7 @@ void wrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc,
 		}
 	}
 	else
-		self->multicoreObject->mUnitGenerator->sendMessage(TT(s->s_name));
+		self->audioGraphObject->mUnitGenerator->sendMessage(TT(s->s_name));
 }
 
 
@@ -353,9 +353,9 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, WrappedCl
 	
 	TTObjectRelease(&o);
 	
-	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphReset,		"multicore.reset",		A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphSetup,		"multicore.setup",		A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphConnect,		"multicore.connect",	A_OBJ, A_LONG, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphReset,		"audio.reset",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphSetup,		"audio.setup",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphConnect,		"audio.connect",	A_OBJ, A_LONG, 0);
     class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",				A_CANT, 0); 
 	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_assist, 	"assist",				A_CANT, 0L);
 	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,			"inletinfo",			A_CANT, 0);

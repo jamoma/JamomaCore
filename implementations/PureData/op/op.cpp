@@ -13,7 +13,7 @@
 // Data Structure for this object
 struct Op {
    	Object					obj;
-	TTAudioGraphObjectPtr	multicoreObject;
+	TTAudioGraphObjectPtr	audioGraphObject;
 	_outlet*				outlet;
 	SymbolPtr				attrOperator;
 	TTFloat32				attrOperand;
@@ -45,9 +45,9 @@ void setup_jcom_op0x3d(void)
 	
 	sOpClass = class_new(gensym("jcom_op="), (t_newmethod)OpNew, (t_method)OpFree, sizeof(Op), 0, A_GIMME, 0);
 	
-	class_addmethod(sOpClass, (t_method)OpReset,		gensym("multicore.reset"),		A_CANT, 0);
-	class_addmethod(sOpClass, (t_method)OpSetup,		gensym("multicore.setup"),		A_CANT, 0);
-	class_addmethod(sOpClass, (t_method)OpConnect,		gensym("multicore.connect"),	A_POINTER, A_POINTER, 0);
+	class_addmethod(sOpClass, (t_method)OpReset,		gensym("audio.reset"),		A_CANT, 0);
+	class_addmethod(sOpClass, (t_method)OpSetup,		gensym("audio.setup"),		A_CANT, 0);
+	class_addmethod(sOpClass, (t_method)OpConnect,		gensym("audio.connect"),	A_POINTER, A_POINTER, 0);
 	class_addmethod(sOpClass, (t_method)OpSetOperator,	gensym("operator"),				A_SYMBOL, 0);
 	class_addmethod(sOpClass, (t_method)OpSetOperand,	gensym("operand"),				A_FLOAT, 0);
 		
@@ -66,14 +66,14 @@ OpPtr OpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
     self = OpPtr(pd_new(sOpClass));
     if (self) {
- 		self->outlet = outlet_new(SELF, gensym("multicore.connect"));
+ 		self->outlet = outlet_new(SELF, gensym("audio.connect"));
 		
 		v.setSize(2);
 		v.set(0, TT("operator"));
 		v.set(1, TTUInt32(1));
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
+		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
 
-		if (!self->multicoreObject->getUnitGenerator()) {
+		if (!self->audioGraphObject->getUnitGenerator()) {
 			error("op≈: cannot load Jamoma DSP object");
 			return NULL;
 		}
@@ -85,7 +85,7 @@ OpPtr OpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void OpFree(OpPtr self)
 {
-	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
+	TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
 }
 
 
@@ -95,7 +95,7 @@ void OpFree(OpPtr self)
 
 TTErr OpReset(OpPtr self, long vectorSize)
 {
-	return self->multicoreObject->resetAudio();
+	return self->audioGraphObject->resetAudio();
 }
 
 
@@ -105,17 +105,17 @@ TTErr OpSetup(OpPtr self)
 	
 	a[0].a_type = A_POINTER;
 	a[1].a_type = A_POINTER;
-	a[0].a_w.w_symbol = SymbolPtr(self->multicoreObject);
+	a[0].a_w.w_symbol = SymbolPtr(self->audioGraphObject);
 	a[1].a_w.w_symbol = 0;
 	
-	outlet_anything(self->outlet, gensym("multicore.connect"), 2, a);
+	outlet_anything(self->outlet, gensym("audio.connect"), 2, a);
 	return kTTErrNone;
 }
 
 
 TTErr OpConnect(OpPtr self, TTAudioGraphObjectPtr audioSourceObject, TTPtrSizedInt sourceOutletNumber)
 {
-	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
+	return self->audioGraphObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }
 
 
@@ -124,13 +124,13 @@ TTErr OpConnect(OpPtr self, TTAudioGraphObjectPtr audioSourceObject, TTPtrSizedI
 void OpSetOperator(OpPtr self, SymbolPtr value)
 {
 	self->attrOperator = value;
-	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Operator"), TT(self->attrOperator->s_name));
+	self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Operator"), TT(self->attrOperator->s_name));
 }
 
 
 void OpSetOperand(OpPtr self, t_floatarg value)
 {
 	self->attrOperand = value;
-	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Operand"), self->attrOperand);
+	self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Operand"), self->attrOperand);
 }
 

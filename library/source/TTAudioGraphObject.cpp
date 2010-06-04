@@ -29,7 +29,7 @@ TTObjectPtr TTAudioGraphObject::instantiate (TTSymbolPtr name, TTValue& argument
 
 extern "C" void TTAudioGraphObject::registerClass() 
 {
-	TTClassRegister(TT("multicore.object"), "audio, multicore, wrapper", TTAudioGraphObject::instantiate );
+	TTClassRegister(TT("audio.object"), "audio, graph, wrapper", TTAudioGraphObject::instantiate );
 }
 
 
@@ -45,8 +45,8 @@ TTAudioGraphObject :: TTAudioGraphObject (TTValue& arguments) : TTGraphObject(ar
 	TTUInt16	numInlets = 1;
 	TTUInt16	numOutlets = 1;
 	
-	TT_ASSERT(multicore_correct_instantiation_args, arguments.getSize() > 0);
-	
+	TT_ASSERT(audiograph_correct_instantiation_arg_count, arguments.getSize() > 0);
+
 	arguments.get(0, &wrappedObjectName);
 	if (arguments.getSize() > 1)
 		arguments.get(1, numInlets);
@@ -67,7 +67,7 @@ TTAudioGraphObject :: TTAudioGraphObject (TTValue& arguments) : TTGraphObject(ar
 	mOutputSignals->numAudioSignals = numOutlets;
 
 	// if an object supports the 'setOwner' message, then we tell it that we want to become the owner
-	// this is particularly important for the multicore.output object
+	// this is particularly important for the dac object
 	TTValue v = TTPtr(this);
 	mKernel->sendMessage(TT("setOwner"), v);
 	

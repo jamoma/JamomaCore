@@ -14,7 +14,7 @@
 struct Out {
     Object						obj;
 	t_float						f;					// dummy for signal in first inlet
-	TTAudioGraphObjectPtr		multicoreObject;
+	TTAudioGraphObjectPtr		audioGraphObject;
 	TTAudioSignalPtr			audioSignal;
 	TTUInt16					maxNumChannels;		// the number of inlets or outlets, which is an argument at instantiation
 	TTUInt16					numChannels;		// the actual number of channels to use, set by the dsp method
@@ -51,8 +51,8 @@ void setup_jcom_unpack0x3d(void)
 	sOutClass = class_new(gensym("jcom_unpack="), (t_newmethod)OutNew, (t_method)OutFree, sizeof(Out), 0, A_GIMME, 0);
 	
 	CLASS_MAINSIGNALIN(sOutClass, Out, f);
-	class_addmethod(sOutClass, (t_method)OutReset,		gensym("multicore.reset"),		A_CANT, 0);
-	class_addmethod(sOutClass, (t_method)OutConnect,	gensym("multicore.connect"),	A_POINTER, A_POINTER, 0);
+	class_addmethod(sOutClass, (t_method)OutReset,		gensym("audio.reset"),		A_CANT, 0);
+	class_addmethod(sOutClass, (t_method)OutConnect,	gensym("audio.connect"),	A_POINTER, A_POINTER, 0);
  	class_addmethod(sOutClass, (t_method)OutDsp,		gensym("dsp"),					A_CANT, 0);		
  	class_addmethod(sOutClass, (t_method)OutSetGain,	gensym("gain"),					A_FLOAT, 0);		
 
@@ -82,7 +82,7 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.setSize(2);
 		v.set(0, TT("gain"));
 		v.set(1, 1); // arg is the number of inlets
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
+		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
 		
 		for(i=0; i < self->maxNumChannels; i++)
 			outlet_new(SELF, gensym("signal"));
@@ -97,7 +97,7 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void OutFree(OutPtr self)
 {
-	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
+	TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
 }
 
 
@@ -106,13 +106,13 @@ void OutFree(OutPtr self)
 
 TTErr OutReset(OutPtr self, long vectorSize)
 {
-	return self->multicoreObject->resetAudio();
+	return self->audioGraphObject->resetAudio();
 }
 
 
 TTErr OutConnect(OutPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return self->multicoreObject->connectAudio(audioSourceObject, sourceOutletNumber);
+	return self->audioGraphObject->connectAudio(audioSourceObject, sourceOutletNumber);
 }
 
 
@@ -122,10 +122,10 @@ t_int* OutPerform(t_int* w)
    	OutPtr		self = (OutPtr)(w[1]);
 	TTUInt16	numChannels;
 
-	self->multicoreObject->lockProcessing();
-	self->multicoreObject->preprocess(self->initData);
-	self->multicoreObject->process(self->audioSignal);
-	self->multicoreObject->unlockProcessing();
+	self->audioGraphObject->lockProcessing();
+	self->audioGraphObject->preprocess(self->initData);
+	self->audioGraphObject->process(self->audioSignal);
+	self->audioGraphObject->unlockProcessing();
 
 	numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannels());
 	for(TTUInt16 channel=0; channel<numChannels; channel++)
@@ -141,26 +141,26 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 	TTUInt16	k=0;
 	void		**audioVectors = NULL;
 	ObjectPtr	o = NULL;
-	t_gotfn		multicoreSetupMethod = NULL;
+	t_gotfn		audioSetupMethod = NULL;
 	t_gobj		*y;
 	
 	self->vectorSize = sp[0]->s_n;
 	
 	/*	We need to figure out what objects are connected to what inlets to build the graph:
 		
-		1. Broadcast 'multicore.reset' to every object in the patcher, to remove all existing connections.
-		2. Broadcast 'multicore.setup' to every object in the patcher, to tell objects to then send
-			'multicore.connect' messages to any objects below them.
-		3. When an object received 'multicore.connect', then it makes the connection.
+		1. Broadcast 'audio.reset' to every object in the patcher, to remove all existing connections.
+		2. Broadcast 'audio.setup' to every object in the patcher, to tell objects to then send
+			'audio.connect' messages to any objects below them.
+		3. When an object received 'audio.connect', then it makes the connection.
 		
-		4. Crawl the graph from bottom to top, call the multicore init method
+		4. Crawl the graph from bottom to top, call the audio graph init method
 
 		At this point, the graph is configured and we just need to execute it.
 		We execute the graph from our perform method, which MSP calls once per signal vector.
 	 
-		5. Crawl the graph from bottom to top, calling the multicore preprocess method (prepare for process)
-		6. Crawl the graph from bottom to top, calling the multicore process method (calculate the samples)
-		7. (Maybe) crawl the graph from bottom to top, calling a multicore postprocess method
+		5. Crawl the graph from bottom to top, calling the audio graph preprocess method (prepare for process)
+		6. Crawl the graph from bottom to top, calling the audio graph process method (calculate the samples)
+		7. (Maybe) crawl the graph from bottom to top, calling a audio graph postprocess method
 	 
 		For steps 1 & 2, we have to traverse thge patcher twice, 
 		because we have to clear all connections first, then add connections.
@@ -185,9 +185,9 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 	while (y) {
 		o = pd_checkobject(&y->g_pd);
 		if (o) {
-			multicoreSetupMethod = zgetfn(&y->g_pd, gensym("multicore.reset"));
-			if (multicoreSetupMethod) {
-				multicoreSetupMethod(o, self->vectorSize);				
+			audioSetupMethod = zgetfn(&y->g_pd, gensym("audio.reset"));
+			if (audioSetupMethod) {
+				audioSetupMethod(o, self->vectorSize);				
 			}
 		}
 		y = y->g_next;
@@ -197,9 +197,9 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 	while (y) {
 		o = pd_checkobject(&y->g_pd);
 		if (o) {
-			multicoreSetupMethod = zgetfn(&y->g_pd, gensym("multicore.setup"));
-			if (multicoreSetupMethod)
-				multicoreSetupMethod(o);
+			audioSetupMethod = zgetfn(&y->g_pd, gensym("audio.setup"));
+			if (audioSetupMethod)
+				audioSetupMethod(o);
 		}
 		y = y->g_next;
 	}
@@ -216,7 +216,7 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 		k++;
 	}
 	
-	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
+	self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
 	
 	dsp_addv(OutPerform, k, (t_int*)audioVectors);
 	free(audioVectors);
@@ -228,6 +228,6 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 void OutSetGain(OutPtr self, t_floatarg value)
 {
 	self->gain = value;
-	self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("LinearGain"), self->gain);
+	self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("LinearGain"), self->gain);
 }
 

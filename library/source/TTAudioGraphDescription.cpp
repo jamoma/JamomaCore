@@ -94,7 +94,7 @@ int TTAudioGraphDescription::exportCppNode(TTString& content, int& index, TTStri
 	content += "	TTAudioGraphObjectPtr ";
 	content += objName;
 	content += ";\n";
-	content += "	TTObjectInstantiate(TT(\"multicore.object\"), (TTObjectPtr*)&";
+	content += "	TTObjectInstantiate(TT(\"audio.object\"), (TTObjectPtr*)&";
 	content += objName;
 	content += ", TTValue(TT(\"";
 	content += mClassName->getString();
@@ -163,11 +163,12 @@ int TTAudioGraphDescription::exportMaxNode(TTString& content, int& index, TTStri
 	content += "					\"text\" : \"jcom.";
 	
 	// TODO: is there a better way to know about object name mappings?
-	if (mClassName == TT("multicore.output"))
-		content += "dac";
-	else if (mClassName == TT("multicore.input"))
-		content += "adc";
-	else if (mClassName == TT("operator"))
+	//if (mClassName == TT("dac"))
+	//	content += "dac";
+	//else if (mClassName == TT("adc"))
+	//	content += "adc";
+	//else
+	if (mClassName == TT("operator"))
 		content += "op";
 	else
 		content += mClassName->getString();

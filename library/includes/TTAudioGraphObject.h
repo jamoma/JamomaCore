@@ -7,8 +7,8 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TTMULTICORE_OBJECT_H__
-#define __TTMULTICORE_OBJECT_H__
+#ifndef __TTAUDIOGRAPH_OBJECT_H__
+#define __TTAUDIOGRAPH_OBJECT_H__
 
 #include "TTAudioGraph.h"
 #include "TTGraphObject.h"
@@ -25,7 +25,7 @@
 	It is implemented as a TTObject so that it can receive dynamically bound messages, 
 	incliding notifications from other objects.
 */
-class TTMULTICORE_EXPORT TTAudioGraphObject : public TTGraphObject {	
+class TTAUDIOGRAPH_EXPORT TTAudioGraphObject : public TTGraphObject {	
 	TTCLASS_SETUP(TTAudioGraphObject)
 	
 protected:
@@ -146,4 +146,4 @@ public:
 };
 
 
-#endif // __TTMULTICORE_OBJECT_H__
+#endif // __TTAUDIOGRAPH_OBJECT_H__

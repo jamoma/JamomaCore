@@ -7,8 +7,8 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TTMULTICORE_SOURCE_H__
-#define __TTMULTICORE_SOURCE_H__
+#ifndef __TTAUDIOGRAPH_SOURCE_H__
+#define __TTAUDIOGRAPH_SOURCE_H__
 
 #include "TTAudioGraph.h"
 #include "TTAudioGraphObject.h"
@@ -129,4 +129,4 @@ typedef vector<TTAudioGraphSource>			TTAudioGraphSourceVector;
 typedef TTAudioGraphSourceVector::iterator	TTAudioGraphSourceIter;
 
 
-#endif // __TTMULTICORE_SOURCE_H__
+#endif // __TTAUDIOGRAPH_SOURCE_H__

@@ -13,8 +13,8 @@
 // Data Structure for this object
 typedef struct Oscil {
     t_object				obj;
-	TTAudioGraphObjectPtr	multicoreObject;
-	TTPtr					multicoreOutlet;
+	TTAudioGraphObjectPtr	audioGraphObject;
+	TTPtr					audioGraphOutlet;
 	SymbolPtr				attrWaveform;
 	SymbolPtr				attrInterpolation;
 	float					attrFrequency;
@@ -53,10 +53,10 @@ int main(void)
 
 	c = class_new("jcom.wavetable≈", (method)OscilNew, (method)OscilFree, sizeof(Oscil), (method)0L, A_GIMME, 0);
 	
-	class_addmethod(c, (method)OscilReset,			"multicore.reset",	A_CANT, 0);
-	class_addmethod(c, (method)OscilSetup,			"multicore.setup",	A_CANT,	0);
-	class_addmethod(c, (method)MaxAudioGraphDrop,	"multicore.drop",		A_CANT, 0);
-	class_addmethod(c, (method)MaxAudioGraphObject,	"multicore.object",		A_CANT, 0);
+	class_addmethod(c, (method)OscilReset,			"audio.reset",	A_CANT, 0);
+	class_addmethod(c, (method)OscilSetup,			"audio.setup",	A_CANT,	0);
+	class_addmethod(c, (method)MaxAudioGraphDrop,	"audio.drop",		A_CANT, 0);
+	class_addmethod(c, (method)MaxAudioGraphObject,	"audio.object",		A_CANT, 0);
 	class_addmethod(c, (method)OscilAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",			A_CANT, 0);  
 	
@@ -101,13 +101,13 @@ OscilPtr OscilNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.setSize(2);
 		v.set(0, TT("wavetable"));
 		v.set(1, TTUInt32(0));
-		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&self->multicoreObject, v);
+		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
 
-		self->multicoreObject->addAudioFlag(kTTAudioGraphGenerator);
+		self->audioGraphObject->addAudioFlag(kTTAudioGraphGenerator);
 
 		attr_args_process(self, argc, argv);
     	object_obex_store((TTPtr)self, _sym_dumpout, (ObjectPtr)outlet_new(self, NULL));
-		self->multicoreOutlet = outlet_new((t_pxobject*)self, "multicore.connect");
+		self->audioGraphOutlet = outlet_new((t_pxobject*)self, "audio.connect");
 	}
 	return self;
 }
@@ -115,7 +115,7 @@ OscilPtr OscilNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void OscilFree(OscilPtr self)
 {
-	TTObjectRelease((TTObjectPtr*)&self->multicoreObject);
+	TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
 }
 
 
@@ -138,7 +138,7 @@ void OscilAssist(OscilPtr self, void* b, long msg, long arg, char* dst)
 
 TTErr OscilReset(OscilPtr self)
 {
-	return self->multicoreObject->resetAudio();
+	return self->audioGraphObject->resetAudio();
 }
 
 
@@ -146,9 +146,9 @@ TTErr OscilSetup(OscilPtr self)
 {
 	Atom a[2];
 	
-	atom_setobj(a+0, ObjectPtr(self->multicoreObject));
+	atom_setobj(a+0, ObjectPtr(self->audioGraphObject));
 	atom_setlong(a+1, 0);
-	outlet_anything(self->multicoreOutlet, gensym("multicore.connect"), 2, a);
+	outlet_anything(self->audioGraphOutlet, gensym("audio.connect"), 2, a);
 	return kTTErrNone;
 }
 
@@ -158,7 +158,7 @@ MaxErr OscilSetMode(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrWaveform = atom_getsym(argv);
-		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Mode"), TT(self->attrWaveform->s_name));
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Mode"), TT(self->attrWaveform->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -168,7 +168,7 @@ MaxErr OscilSetInterpolation(OscilPtr self, void* attr, AtomCount argc, AtomPtr 
 {
 	if (argc) {
 		self->attrInterpolation = atom_getsym(argv);
-		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Interpolation"), TT(self->attrInterpolation->s_name));
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Interpolation"), TT(self->attrInterpolation->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -178,7 +178,7 @@ MaxErr OscilSetFrequency(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv
 {
 	if (argc) {
 		self->attrFrequency = atom_getfloat(argv);
-		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Frequency"), self->attrFrequency);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Frequency"), self->attrFrequency);
 	}
 	return MAX_ERR_NONE;
 }
@@ -188,7 +188,7 @@ MaxErr OscilSetGain(OscilPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
 		self->attrGain	= atom_getfloat(argv);
-		self->multicoreObject->getUnitGenerator()->setAttributeValue(TT("Gain"), self->attrGain);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("Gain"), self->attrGain);
 	}
 	return MAX_ERR_NONE;
 }
@@ -198,7 +198,7 @@ MaxErr OscilSetNumChannels(OscilPtr self, void* attr, AtomCount argc, AtomPtr ar
 {
 	if (argc) {
 		self->attrNumChannels = atom_getlong(argv);
-		self->multicoreObject->setOutputNumChannels(0, self->attrNumChannels);
+		self->audioGraphObject->setOutputNumChannels(0, self->attrNumChannels);
 	}
 	return MAX_ERR_NONE;
 }

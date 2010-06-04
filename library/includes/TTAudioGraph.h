@@ -7,27 +7,27 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TTMULTICORE_H__
-#define __TTMULTICORE_H__
+#ifndef __TTAUDIOGRAPH_H__
+#define __TTAUDIOGRAPH_H__
 
 #include "TTDSP.h"
 #include "TTGraph.h"
 
 #ifdef TT_PLATFORM_WIN
 	#include "windows.h"
-	#ifdef _DLL_EXPORT
-		#define TTMULTICORE_EXPORT __declspec(dllexport)
+	#if defined( _DLL_EXPORT ) && defined( TTAUDIOGRAPH_EXPORTS )
+		#define TTAUDIOGRAPH_EXPORT __declspec(dllexport)
 	#else
-		#define TTMULTICORE_EXPORT __declspec(dllimport)
+		#define TTAUDIOGRAPH_EXPORT __declspec(dllimport)
 	#endif
 
 	#include <algorithm>
 	using namespace std;
 #else // TT_PLATFORM_MAC
 	#ifdef _DLL_EXPORT
-		#define TTMULTICORE_EXPORT __attribute__((visibility("default")))
+		#define TTAUDIOGRAPH_EXPORT __attribute__((visibility("default")))
 	#else
-		#define TTMULTICORE_EXPORT  
+		#define TTAUDIOGRAPH_EXPORT  
 	#endif
 #endif
 
@@ -78,7 +78,7 @@ typedef TTAudioGraphOutletVector::iterator	TTAudioGraphOutletIter;
 
 /******************************************************************************************/
 
-TTMULTICORE_EXPORT void TTAudioGraphInit(void);
+TTAUDIOGRAPH_EXPORT void TTAudioGraphInit(void);
 
 
-#endif // __TTMULTICORE_H__
+#endif // __TTAUDIOGRAPH_H__

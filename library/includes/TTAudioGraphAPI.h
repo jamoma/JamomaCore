@@ -7,12 +7,12 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TTMULTICORE_API_H__
-#define __TTMULTICORE_API_H__
+#ifndef __TTAUDIOGRAPH_API_H__
+#define __TTAUDIOGRAPH_API_H__
 
 #include "TTAudioGraph.h"
 #include "TTAudioGraphObject.h"
 #include "TTAudioGraphOutput.h"
 #include "TTAudioGraphGenerator.h"
 
-#endif // __TTMULTICORE_API_H__
+#endif // __TTAUDIOGRAPH_API_H__

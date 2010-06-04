@@ -7,8 +7,8 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TTMULTICORE_DESCRIPTION_H__
-#define __TTMULTICORE_DESCRIPTION_H__
+#ifndef __TTAUDIOGRAPH_DESCRIPTION_H__
+#define __TTAUDIOGRAPH_DESCRIPTION_H__
 
 #include "TTAudioGraph.h"
 #include "TTGraphDescription.h"
@@ -26,7 +26,7 @@ typedef std::vector<TTString>	TTStringVector;
 	TTAudioGraphObject maintains a vector of these outlets.
 */
 
-class TTMULTICORE_EXPORT TTAudioGraphDescription {
+class TTAUDIOGRAPH_EXPORT TTAudioGraphDescription {
 public:
 	TTSymbolPtr						mClassName;
 	TTAudioGraphDescriptionVector	mAudioDescriptions;
@@ -43,4 +43,4 @@ public:
 };
 
 
-#endif // __TTMULTICORE_DESCRIPTION_H__
+#endif // __TTAUDIOGRAPH_DESCRIPTION_H__

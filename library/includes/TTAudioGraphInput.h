@@ -7,8 +7,8 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TTMULTICORE_INPUT_H__
-#define __TTMULTICORE_INPUT_H__
+#ifndef __TTAUDIOGRAPH_INPUT_H__
+#define __TTAUDIOGRAPH_INPUT_H__
 
 #include "TTAudioGraph.h"
 
@@ -16,7 +16,7 @@
 /******************************************************************************************/
 
 /**	TTAudioGraphOutput is an audio object that serves as the destination and master for a TTAudioGraph graph.		*/
-class TTMULTICORE_EXPORT TTAudioGraphInput : public TTAudioObject
+class TTAUDIOGRAPH_EXPORT TTAudioGraphInput : public TTAudioObject
 {
 	TTCLASS_SETUP(TTAudioGraphInput)
 
@@ -44,4 +44,4 @@ public:
 typedef TTAudioGraphInput* TTAudioGraphInputPtr;
 
 
-#endif // __TTMULTICORE_INPUT_H__
+#endif // __TTAUDIOGRAPH_INPUT_H__

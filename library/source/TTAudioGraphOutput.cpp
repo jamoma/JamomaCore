@@ -13,8 +13,8 @@
 #include "TTAudioEngine.h"
 
 #define thisTTClass			TTAudioGraphOutput
-#define thisTTClassName		"multicore.output"
-#define thisTTClassTags		"audio, multicore, output"
+#define thisTTClassName		"dac"
+#define thisTTClassTags		"audio, graph, output"
 
 TT_AUDIO_CONSTRUCTOR,
 	placeHolder(NULL)

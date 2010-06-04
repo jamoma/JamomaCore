@@ -10,8 +10,8 @@
 #include "maxAudioGraph.h"
 
 #define thisTTClass			TTAudioGraphFilter
-#define thisTTClassName		"multicore.filter"
-#define thisTTClassTags		"audio, processor, filter, multicore"
+#define thisTTClassName		"audio.filter"
+#define thisTTClassTags		"audio, processor, filter, graph"
 
 
 
@@ -141,5 +141,5 @@ int main(void)
 	TTAudioGraphFilter::registerClass();
 	
 	// Then we are able to wrap it as a Max class.
-	return wrapAsMaxAudioGraph(TT("multicore.filter"), "jcom.filter≈", NULL);
+	return wrapAsMaxAudioGraph(TT("audio.filter"), "jcom.filter≈", NULL);
 }

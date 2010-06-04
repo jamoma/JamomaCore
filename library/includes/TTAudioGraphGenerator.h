@@ -7,8 +7,8 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TTMULTICORE_GENERATOR_H__
-#define __TTMULTICORE_GENERATOR_H__
+#ifndef __TTAUDIOGRAPH_GENERATOR_H__
+#define __TTAUDIOGRAPH_GENERATOR_H__
 
 #include "TTAudioGraph.h"
 
@@ -17,7 +17,7 @@
 
 /**	TTAudioGraphSource is a very simple audio object that holds a signal from TTBlue
  that can be used by a TTAudioGraph graph.		*/
-class TTMULTICORE_EXPORT TTAudioGraphGenerator : public TTAudioObject
+class TTAUDIOGRAPH_EXPORT TTAudioGraphGenerator : public TTAudioObject
 {
 	TTCLASS_SETUP(TTAudioGraphGenerator)
 
@@ -38,4 +38,4 @@ public:
 typedef TTAudioGraphGenerator*	TTAudioGraphGeneratorPtr;
 
 
-#endif // __TTMULTICORE_GENERATOR_H__
+#endif // __TTAUDIOGRAPH_GENERATOR_H__
