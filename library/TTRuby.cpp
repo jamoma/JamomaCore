@@ -95,7 +95,7 @@ void Init_TTRuby()
 	gTTRubyInstances = new TTHash;
 	
 	
-	// MULTICORE / AUDIO
+	// AUDIO
 	
 	TTAudioGraphInit();
 
@@ -107,11 +107,11 @@ void Init_TTRuby()
 	rb_define_method(c, "attributes?",		TTRubyMethod(TTAudioGetAttributes), 0);
 	rb_define_method(c, "set",				TTRubyMethod(TTAudioSetAttribute),	2);		// set attribute value
 	rb_define_method(c, "get",				TTRubyMethod(TTAudioGetAttribute),	1);		// get attribute value
-	rb_define_method(c, "reset_audio",		TTRubyMethod(TTAudioReset),			0);		// reset multicore connections
+	rb_define_method(c, "reset_audio",		TTRubyMethod(TTAudioReset),			0);		// reset audio graph connections
 	rb_define_method(c, "connect_audio",	TTRubyMethod(TTAudioConnect),		-1);	// connect an output of another object to our input
 	rb_define_method(c, "drop_audio",		TTRubyMethod(TTAudioDrop),			-1);	// disconnect an output of another object from our input
-	rb_define_method(c, "export_max",		TTRubyMethod(TTAudioExportMax),		1);		// reset multicore connections
-	rb_define_method(c, "export_cpp",		TTRubyMethod(TTAudioExportCpp),		1);		// reset multicore connections
+	rb_define_method(c, "export_max",		TTRubyMethod(TTAudioExportMax),		1);		// reset audio graph connections
+	rb_define_method(c, "export_cpp",		TTRubyMethod(TTAudioExportCpp),		1);		// reset audio graph connections
 	
 	TTAudio_class = c;
 	gTTAudioInstances = new TTHash;
@@ -285,7 +285,7 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 		}
 	}
 bye:
-	;
+	return 0;
 }
 
 
@@ -377,6 +377,7 @@ VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 				cout << "TTRubySetAttribute: Error " << err << endl;
 		}
 	}
+	return 0;
 }
 
 
@@ -385,7 +386,7 @@ VALUE TTRubyGetAttribute(VALUE self, VALUE attributeName)
 	TTRubyInstance* instance = NULL;
 	TTErr			err = kTTErrNone;
 	VALUE			attributeNameStr = StringValue(attributeName);
-	VALUE			attributeValueStr;
+	//VALUE			attributeValueStr;
 	TTValue			v;
 	VALUE			returnValue = rb_float_new(0.0);
 	TTSymbolPtr		s;
@@ -435,6 +436,15 @@ VALUE TTRubyGetAttribute(VALUE self, VALUE attributeName)
 					c = (TTCString)s->getCString();
 					returnValue = rb_str_new(c, strlen(c));
 					break;
+					
+				case kTypeNone:
+				case kTypeObject:
+				case kTypePointer:
+				case kTypeString:
+				case kTypeLocalValue:
+				case kNumTTDataTypes:
+				default:
+					break;
 			}
 		}
 	}
@@ -466,9 +476,7 @@ VALUE TTRubyCalculate(VALUE self, VALUE x)
 
 
 
-/**************************************************************************************
- * MULTICORE SUPPORT
- **************************************************************************************/
+/**************************************************************************************/
 #pragma mark -
 #pragma mark Audio Graph Support
 
@@ -526,7 +534,7 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 	}				
 	
 	//err = TTObjectInstantiate(TT(RSTRING_PTR(classNameStr)), &instance->obj, args);
-	err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&instance->obj, args);
+	err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&instance->obj, args);
 	
 	if (!err) {
 		instance->parameterNames = new TTHash;	// TODO: need to free this
@@ -670,7 +678,7 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 		}
 	}
 bye:
-	;
+	return 0;
 }
 
 
@@ -763,6 +771,7 @@ VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 				cout << "TTAudioSetAttribute: Error " << err << endl;
 		}
 	}
+	return 0;
 }
 
 
@@ -771,7 +780,7 @@ VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName)
 	TTAudioInstance*	instance = NULL;
 	TTErr				err = kTTErrNone;
 	VALUE				attributeNameStr = StringValue(attributeName);
-	VALUE				attributeValueStr;
+	//VALUE				attributeValueStr;
 	TTValue				v;
 	VALUE				returnValue = rb_float_new(0.0);
 	TTSymbolPtr			s;
@@ -821,6 +830,15 @@ VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName)
 					c = (TTCString)s->getCString();
 					returnValue = rb_str_new(c, strlen(c));
 					break;
+					
+				case kTypeNone:
+				case kTypeObject:
+				case kTypePointer:
+				case kTypeString:
+				case kTypeLocalValue:
+				case kNumTTDataTypes:
+				default:
+					break;				
 			}
 		}
 	}

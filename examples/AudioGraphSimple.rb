@@ -7,7 +7,7 @@ puts
 puts "create objects"
 puts
 
-dac = TTAudio.new "multicore.output"
+dac = TTAudio.new "dac"
 osc = TTAudio.new "wavetable"
 
 
