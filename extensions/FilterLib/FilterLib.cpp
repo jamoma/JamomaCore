@@ -28,6 +28,7 @@
 #include "TTLowpassOnePole.h"
 #include "TTLowpassTwoPole.h"
 #include "TTLowpassFourPole.h"
+#include "TTOnePole.h"
 #include "TTSvf.h"
 
 
@@ -61,6 +62,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	TTLowpassTwoPole::registerClass();				//"audio, processor, filter, lowpass",					
 	TTLowpassFourPole::registerClass();				//"audio, processor, filter, lowpass",					
 	
+	TTOnePole::registerClass();
 	TTSvf::registerClass();							//"audio, processor, filter, lowpass, highpass, bandpass, notch",
 	
 	return kTTErrNone;
