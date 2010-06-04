@@ -21,7 +21,7 @@ class TTGraphDescription;
 
 // NOTE: we don't need to keep a buffer of our own, be we just mirror the buffer of mSourceObject
 
-class TTGraphSource {
+class TTGRAPH_EXPORT TTGraphSource {
 	friend void TTGraphSourceObserverCallback(TTGraphSource* self, TTValue& arg);
 	
 	TTGraphObjectPtr	mSourceObject;		// the object from which we pull samples
@@ -60,7 +60,7 @@ public:
 		create();
 		mOwner = original.mOwner;
 		
-		// NOTE: See notes below in TTMulticoreInlet copy constructor...
+		// NOTE: See notes below in TTGraphInlet copy constructor...
 		// NOTE: When vector of sources is resized, it is possible for an object to be created and immediately copied -- prior to a 'connect' method call
 		// NOTE: Are we ever called after connecting?  If so, then we need to set up the connection...
 		

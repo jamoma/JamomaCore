@@ -20,7 +20,7 @@
 /**	This object represents a single 'inlet' to a TTGraphObject.
 	TTGraphObject maintains a vector of these inlets.
 */
-class TTGraphInlet {
+class TTGRAPH_EXPORT TTGraphInlet {
 	TTGraphSourceVector		mSourceObjects;		///< A vector of object pointers from which we pull our source samples using the ::getAudioOutput() method.
 	
 public:
