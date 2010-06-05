@@ -75,45 +75,6 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 18.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-2",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 258.0, 413.0, 196.0, 28.0 ],
-					"text" : "tt.xfade~"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-3",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 258.0, 438.0, 167.0, 19.0 ],
-					"text" : "crossfade object for n channels"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-4",
-					"maxclass" : "panel",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 253.0, 403.0, 285.0, 55.0 ],
-					"rounded" : 15
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"bgcolor" : [ 0.517647, 0.517647, 0.517647, 1.0 ],
 					"candicane2" : [ 0.145098, 0.203922, 0.356863, 1.0 ],
 					"candicane3" : [ 0.290196, 0.411765, 0.713726, 1.0 ],
@@ -457,13 +418,13 @@
 ,
 					"patching_rect" : [ 156.0, 120.0, 74.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p white_light"
@@ -618,13 +579,13 @@
 ,
 					"patching_rect" : [ 75.0, 120.0, 79.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p black_verve"
