@@ -5,8 +5,8 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='Beats' type='integer' priority='3'>4</item>
-    <item name='Unit' type='integer' priority='4'>4</item>
+    <item name='beats' type='integer' priority='3'>4</item>
+    <item name='unit' type='integer' priority='4'>4</item>
     <item name='mute' type='boolean' priority='0'>1</item>
     <item name='position/bars' type='integer' priority='10'>1</item>
     <item name='position/beats' type='integer' priority='11'>1</item>
