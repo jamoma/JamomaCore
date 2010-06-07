@@ -1142,7 +1142,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jmod.mapperContinuous", "@description", "a one-to-one continuous mapper" ],
+					"args" : [ "@name", "jmod.mapperContinuous", "@description", "A one-to-one continuous mapper" ],
 					"bgmode" : 1,
 					"id" : "obj-31",
 					"maxclass" : "bpatcher",
