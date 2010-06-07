@@ -43,7 +43,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jmod.sur.vbap~", "@description", "Vector based amplitude panning" ],
+					"args" : [ "@name", "jmod.sur.vbap~", "@description", "Vector base amplitude panning (VBAP)" ],
 					"bgmode" : 1,
 					"id" : "obj-1",
 					"maxclass" : "bpatcher",
