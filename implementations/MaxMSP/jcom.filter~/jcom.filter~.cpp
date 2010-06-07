@@ -183,11 +183,24 @@ void filter_free(t_filter *x)
 
 // Method for Assistance Messages
 void filter_assist(t_filter *x, void *b, long msg, long arg, char *dst)
-{
-	if(msg==1) 	// Inlets
-		strcpy(dst, "(signal) input, control messages");		
-	else if(msg==2) // Outlets
-		strcpy(dst, "(signal) Filtered output");
+{ 
+	if(msg==1){ 	// Inlets		
+		if(arg == x->maxNumChannels)
+			strcpy(dst, "(signal) Frequency");
+		else if(arg == x->maxNumChannels+1)
+			strcpy(dst, "(signal) Q-value");
+		else if(arg == 0)
+			strcpy(dst, "(signal) input 1, control messages");
+		else if(arg < x->maxNumChannels)
+			snprintf(dst, 256, "(signal) input %ld", arg+1);
+		}
+				
+	else if(msg==2) {// Outlets		
+		if(arg == x->maxNumChannels)
+			strcpy(dst, "dumpout");					
+		else 
+			snprintf(dst, 256, "(signal) Filtered output %ld", arg+1);  
+		}		
 }
 
 
