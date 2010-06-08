@@ -145,20 +145,23 @@ void gain_free(t_gain *x)
 
 // Method for Assistance Messages
 void gain_assist(t_gain *x, void *b, long msg, long arg, char *dst)
-{
+{   	
 	if(msg==1){ 	// Inlets
-		if(arg < x->numChannels) 
-			strcpy(dst, "(signal) Raw (unprocessed) signal");
-		else 
-			strcpy(dst, "(signal) Processed signal");
+		if(arg == 0)
+			snprintf(dst, 256, "(signal) raw audio (ch. %ld), control messages", arg+1);
+		else if(arg < x->numChannels)
+			snprintf(dst, 256, "(signal) raw audio (ch. %ld)", arg+1);
+		else if(arg >= x->numChannels)
+			snprintf(dst, 256, "(signal) wet audio (ch. %ld)", arg-x->numChannels+1);
 	}
-	else if(msg==2){ // Outlets
-		if(arg < x->numChannels) 
-			strcpy(dst, "(signal) Raw (unprocessed) signal");
+	else if(msg==2) {// Outlets		
+		if(arg == x->numChannels)
+			strcpy(dst, "dumpout");					
 		else 
-			strcpy(dst, "(signal) Processed signal");
+			snprintf(dst, 256, "(signal) processed audio (ch. %ld)", arg+1);  
 	}
 }
+
 
 
 // ATTRIBUTE: gain

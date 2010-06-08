@@ -137,11 +137,21 @@ void balance_free(t_balance *x)
 
 // Method for Assistance Messages
 void balance_assist(t_balance *x, void *b, long msg, long arg, char *dst)
-{
-	if(msg==1) 	// Inlets
-		strcpy(dst, "(signal) input, control messages");		
-	else if(msg==2) // Outlets
-		strcpy(dst, "(signal) Balanced output");
+{   	
+	if(msg==1){ 	// Inlets
+		if(arg == 0)
+			snprintf(dst, 256, "(signal) to balance (ch. %ld), control messages", arg+1);
+		else if(arg < x->maxNumChannels)
+			snprintf(dst, 256, "(signal) to balance (ch. %ld)", arg+1);
+		else if(arg >= x->maxNumChannels)
+			snprintf(dst, 256, "(signal) Comperator (ch. %ld)", arg-x->maxNumChannels+1);
+	}
+	else if(msg==2) {// Outlets		
+		if(arg == x->maxNumChannels)
+			strcpy(dst, "dumpout");					
+		else 
+			snprintf(dst, 256, "(signal) Balanced output %ld", arg+1);  
+	}
 }
 
 

@@ -113,7 +113,7 @@ void zerox_assist(t_zerox *x, void *b, long msg, long arg, char *dst)
 		switch(arg){
 			case 0: strcpy(dst, "(signal) number of zero crossings"); break;
 			case 1: strcpy(dst, "(signal) trigger"); break;
-			case 2: strcpy(dst, "(signal) dumpout"); break;
+			case 2: strcpy(dst, "dumpout"); break;
 		}
 	}
 }

@@ -125,11 +125,22 @@ void op_free(t_op *x)
 // Method for Assistance Messages
 void op_assist(t_op *x, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1) 	// Inlets
-		strcpy(dst, "(signal) input, control messages");		
+	if(msg==1) {	// Inlets
+		if(arg == 0)
+			snprintf(dst, 256, "(signal) input %ld, control messages", arg+1);
+		else 
+			snprintf(dst, 256, "(signal) input %ld", arg+1);
+	}
 	else if(msg==2) // Outlets
-		strcpy(dst, "(signal) Filtered output");
+		if(arg == x->maxNumChannels)
+			strcpy(dst, "dumpout");					
+		else 
+			snprintf(dst, 256, "(signal) processed audio (ch. %ld)", arg+1);  
+
 }
+
+
+
 
 
 // Perform (signal) Method
