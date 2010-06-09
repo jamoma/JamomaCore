@@ -18,7 +18,7 @@
     <item name='file/framedump' type='boolean' priority='0'>0</item>
     <item name='file/loop/bounds' type='array' priority='0'>0</item>
     <item name='file/loop/mode' type='boolean' priority='0'>1</item>
-    <item name='file/open' type='generic' priority='0'>/Applications/Max5/patches/media/traffic.mov</item>
+    <item name='file/open' type='generic' priority='0'>traffic.mov</item>
     <item name='file/rate' type='decimal' priority='0'>1.000000</item>
     <item name='file/size' type='integer' priority='0'>2</item>
     <item name='source' type='string' priority='0'>file</item>
