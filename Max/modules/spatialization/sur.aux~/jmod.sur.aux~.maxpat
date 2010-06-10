@@ -1784,7 +1784,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 4,
-					"outlettype" : [ "", "multicore.connect", "multicore.connect", "multicore.connect" ],
+					"outlettype" : [ "", "audio.connect", "audio.connect", "audio.connect" ],
 					"patching_rect" : [ 158.0, 218.0, 133.0, 19.0 ],
 					"text" : "jalg.sur.aux~"
 				}

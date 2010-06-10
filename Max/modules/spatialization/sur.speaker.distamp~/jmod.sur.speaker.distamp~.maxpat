@@ -197,7 +197,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "dump", "multicore.connect" ],
+					"outlettype" : [ "dump", "audio.connect" ],
 					"patching_rect" : [ 210.0, 305.0, 196.0, 19.0 ],
 					"text" : "jalg.sur.speaker.distamp~"
 				}

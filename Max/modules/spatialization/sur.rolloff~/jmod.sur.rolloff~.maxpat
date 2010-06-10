@@ -321,7 +321,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"outlettype" : [ "multicore.connect" ],
+					"outlettype" : [ "audio.connect" ],
 					"patching_rect" : [ 57.0, 220.0, 140.0, 19.0 ],
 					"text" : "jalg.sur.rolloff~"
 				}

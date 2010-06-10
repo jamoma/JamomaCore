@@ -1989,7 +1989,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 154.0, 230.0, 162.0, 19.0 ],
 					"text" : "jalg.sur.speaker.delay~"
 				}

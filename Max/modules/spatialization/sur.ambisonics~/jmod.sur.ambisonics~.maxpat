@@ -7246,7 +7246,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 3,
 					"numoutlets" : 3,
-					"outlettype" : [ "", "multicore.connect", "multicore.connect" ],
+					"outlettype" : [ "", "audio.connect", "audio.connect" ],
 					"patching_rect" : [ 130.0, 337.0, 116.0, 19.0 ],
 					"text" : "jalg.sur.ambisonics~"
 				}

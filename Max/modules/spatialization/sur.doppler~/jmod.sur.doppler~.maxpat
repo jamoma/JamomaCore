@@ -282,7 +282,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"outlettype" : [ "multicore.connect" ],
+					"outlettype" : [ "audio.connect" ],
 					"patching_rect" : [ 190.0, 304.0, 134.0, 19.0 ],
 					"text" : "jalg.sur.doppler~"
 				}

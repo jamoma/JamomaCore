@@ -1229,7 +1229,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 275.0, 235.0, 79.0, 19.0 ],
 					"text" : "jcom.matrix≈",
 					"varname" : "matrix"

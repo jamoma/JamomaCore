@@ -26,7 +26,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 164.0, 267.0, 159.0, 19.0 ],
 					"text" : "jcom.pack≈ 2"
 				}
@@ -1426,7 +1426,7 @@
 					"name" : "jmod.sur.audiounit~.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "multicore.connect" ],
+					"outlettype" : [ "", "audio.connect" ],
 					"patching_rect" : [ 23.0, 315.0, 300.0, 210.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 210.0 ],
 					"varname" : "jmod.audiounit~"
