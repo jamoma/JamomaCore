@@ -50,7 +50,9 @@ class TTOnePole : public TTAudioObject {
 
 	/**	Setter for the frequency attribute. */
 	TTErr setFrequency(const TTValue& value);
-
+	TTErr setCoefficient(const TTValue& newValue);
+	TTErr getCoefficient(TTValue& returnedValue);
+	
 
 	// Single-sample Value Calculation Methods
 	inline TTErr calculateLowpass(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel);

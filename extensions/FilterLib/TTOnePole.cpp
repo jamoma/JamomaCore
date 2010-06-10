@@ -21,6 +21,8 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeWithSetter(Frequency,	kTypeFloat64);
 	addAttributeProperty(Frequency,		range,			TTValue(2.0, sr*0.475));
 	addAttributeProperty(Frequency,		rangeChecking,	TT("clip"));
+	
+	addAttributeWithGetterAndSetter(Coefficient, kTypeFloat64);
 
 	// message called as a notification from the parent class so we can allocate memory as required
 	addMessageWithArgument(updateMaxNumChannels);
@@ -105,6 +107,29 @@ TTErr TTOnePole::setFrequency(const TTValue& newValue)
 	mHighpassCoefficient = -mOneMinusLowpassCoefficient;
 	mOneMinusHighpassCoefficient = -mLowpassCoefficient;
 
+	return kTTErrNone;
+}
+
+
+TTErr TTOnePole::setCoefficient(const TTValue& newValue)
+{
+	TTFloat64	radians;
+	
+	mLowpassCoefficient = newValue;
+	mOneMinusLowpassCoefficient = 1.0 - mLowpassCoefficient;
+	
+	mHighpassCoefficient = -mOneMinusLowpassCoefficient;
+	mOneMinusHighpassCoefficient = -mLowpassCoefficient;
+		
+	radians = mLowpassCoefficient * kTTPi;
+	mFrequency = radiansToHertz(radians);
+	return kTTErrNone;
+}
+
+
+TTErr TTOnePole::getCoefficient(TTValue& returnedValue)
+{
+	returnedValue = mLowpassCoefficient;
 	return kTTErrNone;
 }
 
