@@ -150,7 +150,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 90.0, 275.0, 93.0, 19.0 ],
 					"text" : "jcom.audiounit≈"
 				}
@@ -164,7 +164,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 90.0, 105.0, 401.0, 19.0 ],
 					"text" : "jcom.wavetable≈ @waveform triangle @interpolation linear @frequency 220."
 				}

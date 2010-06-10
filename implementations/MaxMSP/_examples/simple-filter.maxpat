@@ -186,7 +186,7 @@
 					"patching_rect" : [ 120.0, 185.0, 68.0, 19.0 ],
 					"id" : "obj-6",
 					"fontname" : "Verdana",
-					"outlettype" : [ "multicore.connect", "" ]
+					"outlettype" : [ "audio.connect", "" ]
 				}
 
 			}
@@ -200,7 +200,7 @@
 					"patching_rect" : [ 200.0, 185.0, 68.0, 19.0 ],
 					"id" : "obj-5",
 					"fontname" : "Verdana",
-					"outlettype" : [ "multicore.connect", "" ]
+					"outlettype" : [ "audio.connect", "" ]
 				}
 
 			}
@@ -214,7 +214,7 @@
 					"patching_rect" : [ 200.0, 115.0, 73.0, 19.0 ],
 					"id" : "obj-3",
 					"fontname" : "Verdana",
-					"outlettype" : [ "multicore.connect", "" ]
+					"outlettype" : [ "audio.connect", "" ]
 				}
 
 			}
@@ -228,7 +228,7 @@
 					"patching_rect" : [ 200.0, 225.0, 177.0, 19.0 ],
 					"id" : "obj-2",
 					"fontname" : "Verdana",
-					"outlettype" : [ "multicore.connect", "" ]
+					"outlettype" : [ "audio.connect", "" ]
 				}
 
 			}

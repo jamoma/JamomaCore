@@ -213,7 +213,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 85.0, 210.0, 191.0, 31.0 ],
 					"text" : "jcom.window≈ @mode apply @padding 100 @function hamming"
 				}
@@ -227,7 +227,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 85.0, 130.0, 66.0, 19.0 ],
 					"text" : "jcom.pack≈ 1"
 				}

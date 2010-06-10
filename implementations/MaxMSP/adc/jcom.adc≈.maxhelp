@@ -163,7 +163,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"fontsize" : 10.0,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 120.0, 325.0, 68.0, 19.0 ],
 					"id" : "obj-2",
 					"fontname" : "Verdana"
@@ -401,7 +401,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"fontsize" : 10.0,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 120.0, 195.0, 64.0, 19.0 ],
 					"id" : "obj-1",
 					"fontname" : "Verdana"

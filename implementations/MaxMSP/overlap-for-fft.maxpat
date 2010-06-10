@@ -97,7 +97,7 @@
 									"maxclass" : "inlet",
 									"numinlets" : 0,
 									"numoutlets" : 1,
-									"outlettype" : [ "multicore.connect" ],
+									"outlettype" : [ "audio.connect" ],
 									"patching_rect" : [ 200.0, 110.0, 25.0, 25.0 ]
 								}
 
@@ -162,7 +162,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 35.0, 30.0, 80.0, 19.0 ],
 					"text" : "jcom.pack≈ 2"
 				}
@@ -259,7 +259,7 @@
 									"maxclass" : "inlet",
 									"numinlets" : 0,
 									"numoutlets" : 1,
-									"outlettype" : [ "multicore.connect" ],
+									"outlettype" : [ "audio.connect" ],
 									"patching_rect" : [ 200.0, 110.0, 25.0, 25.0 ]
 								}
 
@@ -292,7 +292,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 4,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 35.0, 415.0, 753.0, 19.0 ],
 					"text" : "jcom.matrix≈ 4 1"
 				}
@@ -306,7 +306,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 335.0, 235.0, 85.0, 19.0 ],
 					"presentation_rect" : [ 389.0, 337.0, 0.0, 0.0 ],
 					"text" : "jcom.window≈"
@@ -321,7 +321,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 235.0, 235.0, 85.0, 19.0 ],
 					"presentation_rect" : [ 289.0, 337.0, 0.0, 0.0 ],
 					"text" : "jcom.window≈"
@@ -336,7 +336,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 135.0, 235.0, 85.0, 19.0 ],
 					"presentation_rect" : [ 189.0, 337.0, 0.0, 0.0 ],
 					"text" : "jcom.window≈"
@@ -351,7 +351,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 35.0, 235.0, 85.0, 19.0 ],
 					"presentation_rect" : [ 89.0, 337.0, 0.0, 0.0 ],
 					"text" : "jcom.window≈"
@@ -367,7 +367,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 335.0, 200.0, 70.0, 31.0 ],
 					"text" : "jcom.fft≈ @inverse 1"
 				}
@@ -382,7 +382,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 235.0, 200.0, 70.0, 31.0 ],
 					"text" : "jcom.fft≈ @inverse 1"
 				}
@@ -397,7 +397,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 135.0, 200.0, 70.0, 31.0 ],
 					"text" : "jcom.fft≈ @inverse 1"
 				}
@@ -412,7 +412,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 35.0, 200.0, 70.0, 31.0 ],
 					"text" : "jcom.fft≈ @inverse 1"
 				}
@@ -464,7 +464,7 @@
 									"maxclass" : "inlet",
 									"numinlets" : 0,
 									"numoutlets" : 1,
-									"outlettype" : [ "multicore.connect" ],
+									"outlettype" : [ "audio.connect" ],
 									"patching_rect" : [ 200.0, 110.0, 25.0, 25.0 ]
 								}
 
@@ -534,7 +534,7 @@
 									"maxclass" : "inlet",
 									"numinlets" : 0,
 									"numoutlets" : 1,
-									"outlettype" : [ "multicore.connect" ],
+									"outlettype" : [ "audio.connect" ],
 									"patching_rect" : [ 200.0, 110.0, 25.0, 25.0 ]
 								}
 
@@ -604,7 +604,7 @@
 									"maxclass" : "inlet",
 									"numinlets" : 0,
 									"numoutlets" : 1,
-									"outlettype" : [ "multicore.connect" ],
+									"outlettype" : [ "audio.connect" ],
 									"patching_rect" : [ 200.0, 110.0, 25.0, 25.0 ]
 								}
 
@@ -674,7 +674,7 @@
 									"maxclass" : "inlet",
 									"numinlets" : 0,
 									"numoutlets" : 1,
-									"outlettype" : [ "multicore.connect" ],
+									"outlettype" : [ "audio.connect" ],
 									"patching_rect" : [ 200.0, 110.0, 25.0, 25.0 ]
 								}
 
@@ -809,7 +809,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 335.0, 125.0, 85.0, 19.0 ],
 					"text" : "jcom.window≈"
 				}
@@ -823,7 +823,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 335.0, 150.0, 58.0, 19.0 ],
 					"text" : "jcom.fft≈"
 				}
@@ -837,7 +837,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 235.0, 125.0, 85.0, 19.0 ],
 					"text" : "jcom.window≈"
 				}
@@ -851,7 +851,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 235.0, 150.0, 58.0, 19.0 ],
 					"text" : "jcom.fft≈"
 				}
@@ -865,7 +865,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 135.0, 125.0, 85.0, 19.0 ],
 					"text" : "jcom.window≈"
 				}
@@ -879,7 +879,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 135.0, 150.0, 58.0, 19.0 ],
 					"text" : "jcom.fft≈"
 				}
@@ -893,7 +893,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 35.0, 125.0, 85.0, 19.0 ],
 					"text" : "jcom.window≈"
 				}
@@ -907,7 +907,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 35.0, 150.0, 58.0, 19.0 ],
 					"text" : "jcom.fft≈"
 				}

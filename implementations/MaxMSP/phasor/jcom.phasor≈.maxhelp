@@ -152,7 +152,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 90.0, 275.0, 68.0, 19.0 ],
 					"text" : "jcom.gain≈"
 				}
@@ -166,7 +166,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 90.0, 105.0, 170.0, 19.0 ],
 					"text" : "jcom.phasor≈ @frequency 220."
 				}

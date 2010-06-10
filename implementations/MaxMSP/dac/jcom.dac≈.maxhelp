@@ -168,7 +168,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 180.0, 275.0, 59.0, 19.0 ],
 					"text" : "jcom.op≈"
 				}
@@ -635,7 +635,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 180.0, 520.0, 68.0, 19.0 ],
 					"text" : "jcom.gain≈"
 				}
@@ -702,7 +702,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 180.0, 140.0, 470.0, 19.0 ],
 					"text" : "jcom.wavetable≈ @waveform sine @interpolation linear @frequency 220. @numchannels 2"
 				}
@@ -716,7 +716,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 180.0, 425.0, 234.0, 19.0 ],
 					"text" : "jcom.degrade≈ @bitdepth 2 @srRatio 0.014"
 				}

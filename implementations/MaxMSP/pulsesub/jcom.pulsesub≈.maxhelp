@@ -94,7 +94,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "multicore.connect", "" ],
+					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 135.0, 215.0, 371.0, 19.0 ],
 					"text" : "jcom.wavetable≈ @frequency 220. @waveform triangle @interpolation linear"
 				}
