@@ -73,7 +73,7 @@ TTErr TTAudioSignal::setMaxNumChannels(const TTValue& newValue)
 	TTBoolean	wasLocallyOwned = mIsLocallyOwned;
 	TTUInt16	newMaxNumChannels = newValue;
 
-	newMaxNumChannels = TTLimitMin<TTUInt16>(newMaxNumChannels, 1);
+	TTLimitMin<TTUInt16>(newMaxNumChannels, 1);
 	if (TTUInt16(newMaxNumChannels) != mMaxNumChannels) {
 		chuck();
 		mMaxNumChannels = newMaxNumChannels;
