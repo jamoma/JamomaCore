@@ -30,10 +30,14 @@ bool param_clip_int(t_param *x)
 	long val = atom_getlong(&x->attr_value);
 	long clipped;
 	
-	if (x->common.attr_clipmode == jps_low)
-		clipped = TTLimitMin(val, (long)x->common.attr_range[0]);
-	else if (x->common.attr_clipmode == jps_high)
-		clipped = TTLimitMax(val, (long)x->common.attr_range[1]);
+	if (x->common.attr_clipmode == jps_low) {
+		clipped = val;
+		TTLimitMin(clipped, (long)x->common.attr_range[0]);
+	}
+	else if (x->common.attr_clipmode == jps_high) {
+		clipped = val;
+		TTLimitMax(clipped, (long)x->common.attr_range[1]);
+	}
 	else if (x->common.attr_clipmode == jps_both)
 		clipped = TTClip(val, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
 	else if (x->common.attr_clipmode == jps_wrap)
@@ -54,10 +58,14 @@ bool param_clip_float(t_param *x)
 	float val = atom_getfloat(&x->attr_value);
 	float clipped;
 
-	if (x->common.attr_clipmode == jps_low)
-		clipped = TTLimitMin(val, x->common.attr_range[0]);
-	else if (x->common.attr_clipmode == jps_high)
-		clipped = TTLimitMax(val, x->common.attr_range[1]);
+	if (x->common.attr_clipmode == jps_low) {
+		clipped = val;
+		TTLimitMin(clipped, x->common.attr_range[0]);
+	}
+	else if (x->common.attr_clipmode == jps_high) {
+		clipped = val;
+		TTLimitMax(clipped, x->common.attr_range[1]);
+	}
 	else if (x->common.attr_clipmode == jps_both)
 		clipped = TTClip(val, x->common.attr_range[0], x->common.attr_range[1]);
 	else if (x->common.attr_clipmode == jps_wrap)
@@ -92,10 +100,14 @@ bool param_clip_list(t_param *x)
 	
 	for (i=0; i < x->list_size; i++) {
 		if (x->atom_list[i].a_type == A_LONG) {
-			if (x->common.attr_clipmode == jps_low)
-				iclipped = TTLimitMin(x->atom_list[i].a_w.w_long, (long)x->common.attr_range[0]);
-			else if (x->common.attr_clipmode == jps_high)
-				iclipped = TTLimitMax(x->atom_list[i].a_w.w_long, (long)x->common.attr_range[1]);
+			if (x->common.attr_clipmode == jps_low) {
+				iclipped = x->atom_list[i].a_w.w_long;
+				TTLimitMin(iclipped, (long)x->common.attr_range[0]);
+			}
+			else if (x->common.attr_clipmode == jps_high) {
+				iclipped = x->atom_list[i].a_w.w_long;
+				TTLimitMax(iclipped, (long)x->common.attr_range[1]);
+			}
 			else if (x->common.attr_clipmode == jps_both)
 				iclipped = TTClip(x->atom_list[i].a_w.w_long, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
 			else if (x->common.attr_clipmode == jps_wrap)
@@ -110,10 +122,14 @@ bool param_clip_list(t_param *x)
 			x->atom_list[i].a_w.w_long = iclipped;
 		}
 		else if (x->atom_list[i].a_type == A_FLOAT) {
-			if (x->common.attr_clipmode == jps_low)
-				fclipped = TTLimitMin(x->atom_list[i].a_w.w_float, x->common.attr_range[0]);
-			else if (x->common.attr_clipmode == jps_high)
-				fclipped = TTLimitMax(x->atom_list[i].a_w.w_float, x->common.attr_range[1]);
+			if (x->common.attr_clipmode == jps_low) {
+				fclipped = x->atom_list[i].a_w.w_float;
+				TTLimitMin(fclipped, x->common.attr_range[0]);
+			}
+			else if (x->common.attr_clipmode == jps_high) {
+				fclipped = x->atom_list[i].a_w.w_float;
+				TTLimitMax(fclipped, x->common.attr_range[1]);
+			}
 			else if (x->common.attr_clipmode == jps_both)
 				fclipped = TTClip(x->atom_list[i].a_w.w_float, x->common.attr_range[0], x->common.attr_range[1]);
 			else if (x->common.attr_clipmode == jps_wrap)
