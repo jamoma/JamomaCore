@@ -10,64 +10,115 @@
 #define __TT_LIMITS_H__
 
 
-
-/** Filter out denormaled values, which can make processing extremely slow when they are present. */
+/** Filter out denormaled values, which can make processing extremely slow when present. 
+	@seealso	TTZeroDenormal
+ */
 template<class T>
-static T TTAntiDenormal(T value)
+static T TTAntiDenormal(const T input)
+{
+	T output = input;
+	TTZeroDenormal(output);
+	return output;
+	
+	// This function used to be implemented using the following algorithm:
+	// 
+	// value += kTTAntiDenormalValue;
+	// value -= kTTAntiDenormalValue;
+	//
+	// That algorithm has the advantage of not branching.  On the PPC this yielded a dramatic performance improvement.
+	// When benchmarked on Intel processors, however, it was significantly slightly slower (roughly 50%) than the more traditional
+	// branching version, which is now implemented in the TTZeroDenormal() function.
+}
+
+
+/** Filter out denormaled values, which can make processing extremely slow when present.  Calculation is performed in-place.
+ @seealso	TTZeroDenormal
+ */
+template<class T>
+static void TTZeroDenormal(T& value)
 {
 #ifndef TT_DISABLE_DENORMAL_FIX
-	value += kTTAntiDenormalValue;
-	value -= kTTAntiDenormalValue;
+	if (isnormal(value))
+		value = 0;
 #endif
-	return(value);
 }
 
-/** A fast routine for clipping a number to a range.  This routine does not use branching. */
+
+/** Constrain a number to within a range. 
+	@seealso	TTLimit()
+ */
 template<class T>
-static T TTClip(T value, T low_bound, T high_bound)
+static T TTClip(const T input, const T lowBound, const T highBound)
 {
-//	TODO: need to benchmark this again now that we are doing this additional casting to a double before calling fabs().
-//	TODO: is there a way in a template to find out the actual type of the input so that we can handle unsigned types differently from signed types?
-//	CHANGED: on the Mac at least, a call to fabs() on an unsigned type like TTUInt32 will always return zero, thus making this template return bogus results [TAP]
-//	#ifdef TT_PLATFORM_MAC
-//		value = T(((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound));
-//	#else	// VC++ gens an ERROR because of the ambiguous call to fabs().  This is annoying...
-		value = T(((fabs(value - double(low_bound))) + (low_bound + high_bound)) - fabs(value - double(high_bound)));
-//	#endif
-	value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
-	return value;
+	T output = input;
+	TTLimit(output, lowBound, highBound);
+	return output;
+
+	// This function used to be implemented using the following algorithm:
+	// 
+	// value = T(((fabs(value - double(low_bound))) + (low_bound + high_bound)) - fabs(value - double(high_bound)));
+	// value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
+	// return value;
+	//
+	// That algorithm has the advantage of not branching.  On the PPC this yielded a dramatic performance improvement.
+	// When benchmarked on Intel processors, however, it was actually very slightly slower than the more traditional
+	// branching version, which is now implemented in the TTLimit() function.
 }
+
+
+/** Constrain a number to within a range.  Calculation is performed in-place. 
+	@seealso	TTClip()
+ */
+template<class T>
+static void TTLimit(T& value, const T lowBound, const T highBound)
+{
+	if (value < lowBound)
+		value = lowBound;
+	else if (value > highBound)
+		value = highBound;
+}
+
 
 /** A fast routine for clipping a number to a maximum range.  The bottom end of the range is not checked.  This routine does not use branching. */
 template<class T>
-static T TTLimitMax(T value, T high_bound)
+static void TTLimitMax(T value, const T highBound)
 {
-	value = high_bound - value;
-	#ifdef TT_PLATFORM_MAC
-		value += fabs(value);
-	#else
-		value = T(value + fabs((double)value));
-	#endif
-	value = T(value * 0.5);
-	value = high_bound - value;
-	return value;
+	if (value > highBound)
+		value = highBound;
+
+	// old algorithm -- see comments in TTClip() for details
+	// value = high_bound - value;
+	// #ifdef TT_PLATFORM_MAC
+	//	value += fabs(value);
+	// #else
+	//	value = T(value + fabs((double)value));
+	// #endif
+	// value = T(value * 0.5);
+	// value = high_bound - value;
+	// return value;
 }
+
 
 /** A fast routine for clipping a number on it's low range.  The high end of the range is not checked.
 	This routine does not use branching. */
 template<class T>
-static T TTLimitMin(T value, T low_bound)
+static void TTLimitMin(T value, const T lowBound)
 {
-	value -= low_bound;
-	#ifdef TT_PLATFORM_MAC
-		value += fabs(value);
-	#else
-		value = T(value + fabs((double)value));
-	#endif
-	value = T(value * 0.5);
-	value = T(value + low_bound);
-	return value;
+	if (value < lowBound)
+		value = lowBound;
+
+	// old algorithm -- see comments in TTClip() for details
+	// value -= low_bound;
+	// #ifdef TT_PLATFORM_MAC
+	//	value += fabs(value);
+	// #else
+	//	value = T(value + fabs((double)value));
+	// #endif
+	// value = T(value * 0.5);
+	// value = T(value + low_bound);
+	// return value;
 }
+
 
 /** A fast routine for wrapping around the range once.  This is faster than doing an expensive module, where you know the range of the input
  	will not equal or exceed twice the range. */

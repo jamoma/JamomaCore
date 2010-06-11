@@ -436,34 +436,34 @@ public:
 				// TODO: find a way to make this routine faster
 				switch(type[i]) {
 					case kTypeFloat32:
-						data[i].float32 = TTLimitMin<TTFloat32>(data[i].float32, (TTFloat32)lowBound);
+						TTLimitMin<TTFloat32>(data[i].float32, (TTFloat32)lowBound);
 						break;
 					case kTypeFloat64:
-						data[i].float64 = TTLimitMin<TTFloat64>(data[i].float64, lowBound);
+						TTLimitMin<TTFloat64>(data[i].float64, lowBound);
 						break;
 					case kTypeInt8:
-						data[i].int8 = TTLimitMin<TTInt8>(data[i].int8, (TTInt8)lowBound);
+						TTLimitMin<TTInt8>(data[i].int8, (TTInt8)lowBound);
 						break;
 					case kTypeUInt8:
-						data[i].uint8 = TTLimitMin<TTUInt8>(data[i].uint8, (TTUInt8)lowBound);
+						TTLimitMin<TTUInt8>(data[i].uint8, (TTUInt8)lowBound);
 						break;
 					case kTypeInt16:
-						data[i].int16 = TTLimitMin<TTInt16>(data[i].int16, (TTInt16)lowBound);
+						TTLimitMin<TTInt16>(data[i].int16, (TTInt16)lowBound);
 						break;
 					case kTypeUInt16:
-						data[i].uint16 = TTLimitMin<TTUInt16>(data[i].uint16, (TTUInt16)lowBound);
+						TTLimitMin<TTUInt16>(data[i].uint16, (TTUInt16)lowBound);
 						break;
 					case kTypeInt32:
-						data[i].int32 = TTLimitMin<TTInt32>(data[i].int32, (TTInt32)lowBound);
+						TTLimitMin<TTInt32>(data[i].int32, (TTInt32)lowBound);
 						break;
 					case kTypeUInt32:
-						data[i].uint32 = TTLimitMin<TTUInt32>(data[i].uint32, (TTUInt32)lowBound);
+						TTLimitMin<TTUInt32>(data[i].uint32, (TTUInt32)lowBound);
 						break;
 					case kTypeInt64:
-						data[i].int64 = TTLimitMin<TTInt64>(data[i].int64, (TTInt64)lowBound);
+						TTLimitMin<TTInt64>(data[i].int64, (TTInt64)lowBound);
 						break;
 					case kTypeUInt64:
-						data[i].uint64 = TTLimitMin<TTUInt64>(data[i].uint64, (TTUInt64)lowBound);
+						TTLimitMin<TTUInt64>(data[i].uint64, (TTUInt64)lowBound);
 						break;
 					default:
 						break;
@@ -479,34 +479,34 @@ public:
 				// TODO: find a way to make this routine faster
 				switch(type[i]) {
 					case kTypeFloat32:
-						data[i].float32 = TTLimitMax<TTFloat32>(data[i].float32, (TTFloat32)highBound);
+						TTLimitMax<TTFloat32>(data[i].float32, (TTFloat32)highBound);
 						break;
 					case kTypeFloat64:
-						data[i].float64 = TTLimitMax<TTFloat64>(data[i].float64, highBound);
+						TTLimitMax<TTFloat64>(data[i].float64, highBound);
 						break;
 					case kTypeInt8:
-						data[i].int8 = TTLimitMax<TTInt8>(data[i].int8, (TTInt8)highBound);
+						TTLimitMax<TTInt8>(data[i].int8, (TTInt8)highBound);
 						break;
 					case kTypeUInt8:
-						data[i].uint8 = TTLimitMax<TTUInt8>(data[i].uint8, (TTUInt8)highBound);
+						TTLimitMax<TTUInt8>(data[i].uint8, (TTUInt8)highBound);
 						break;
 					case kTypeInt16:
-						data[i].int16 = TTLimitMax<TTInt16>(data[i].int16, (TTInt16)highBound);
+						TTLimitMax<TTInt16>(data[i].int16, (TTInt16)highBound);
 						break;
 					case kTypeUInt16:
-						data[i].uint16 = TTLimitMax<TTUInt16>(data[i].uint16, (TTUInt16)highBound);
+						TTLimitMax<TTUInt16>(data[i].uint16, (TTUInt16)highBound);
 						break;
 					case kTypeInt32:
-						data[i].int32 = TTLimitMax<TTInt32>(data[i].int32, (TTInt32)highBound);
+						TTLimitMax<TTInt32>(data[i].int32, (TTInt32)highBound);
 						break;
 					case kTypeUInt32:
-						data[i].uint32 = TTLimitMax<TTUInt32>(data[i].uint32, (TTUInt32)highBound);
+						TTLimitMax<TTUInt32>(data[i].uint32, (TTUInt32)highBound);
 						break;
 					case kTypeInt64:
-						data[i].int64 = TTLimitMax<TTInt64>(data[i].int64, (TTInt64)highBound);
+						TTLimitMax<TTInt64>(data[i].int64, (TTInt64)highBound);
 						break;
 					case kTypeUInt64:
-						data[i].uint64 = TTLimitMax<TTUInt64>(data[i].uint64, (TTUInt64)highBound);
+						TTLimitMax<TTUInt64>(data[i].uint64, (TTUInt64)highBound);
 						break;
 					default:
 						break;
