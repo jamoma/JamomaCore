@@ -1,5 +1,5 @@
 /*
- * TTBlue 4th order Butterworth Lowpass Filter Object
+ * 4th order Butterworth Lowpass Filter Object
  * Copyright © 2008, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
@@ -93,6 +93,8 @@ TTErr TTLowpassButterworth4::setFrequency(const TTValue& newValue)
 	calculateCoefficients();
 	return kTTErrNone;
 }
+
+
 void TTLowpassButterworth4::calculateCoefficients()
 {   
 	TTFloat64 a,b,temp;
@@ -119,6 +121,8 @@ inline TTErr TTLowpassButterworth4::calculateValue(const TTFloat64& x, TTFloat64
 	//y = TTAntiDenormal(mA0*x + mA1*mX1[channel] + mA2*mX2[channel] + mA3*mX3[channel] + mA4*mX4[channel] - mB1*mY1[channel] - mB2*mY2[channel] -mB3*mY3[channel] - mB4*mY4[channel]);
     // since mA3 = mA1 and mA0 =  mA4, we can simplyfy to
 	y = TTAntiDenormal(mA0*(x + mX4[channel]) + mA1*( mX1[channel] + mX3[channel] ) + mA2*mX2[channel] - mB1*mY1[channel] - mB2*mY2[channel] -mB3*mY3[channel] - mB4*mY4[channel]);
+//	y = mA0*(x + mX4[channel]) + mA1*( mX1[channel] + mX3[channel] ) + mA2*mX2[channel] - mB1*mY1[channel] - mB2*mY2[channel] -mB3*mY3[channel] - mB4*mY4[channel];
+//	TTZeroDenormal(y);
 	
 	mX4[channel] = mX3[channel];
 	mX3[channel] = mX2[channel];

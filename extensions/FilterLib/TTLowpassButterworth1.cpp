@@ -75,6 +75,7 @@ TTErr TTLowpassButterworth1::setFrequency(const TTValue& newValue)
 	return kTTErrNone;
 }
 
+
 void TTLowpassButterworth1::calculateCoefficients()
 {
 	mA0 = mK/(mK+mRadians); 
@@ -85,9 +86,10 @@ void TTLowpassButterworth1::calculateCoefficients()
 
 inline TTErr TTLowpassButterworth1::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
-	//y = TTAntiDenormal(mA0*x + mA1*mX1[channel] - mB1*mY1[channel]);
-	//since mA0 = mA1, we can simplyfy to
-	y = TTAntiDenormal(mA0*(x + mX1[channel]) - mB1*mY1[channel]);
+	// y = mA0*x + mA1*mX1[channel] - mB1*mY1[channel];
+	// since mA0 = mA1, we can simplyfy to
+	y = mA0*(x + mX1[channel]) - mB1*mY1[channel];
+	TTZeroDenormal(y);
 	
 	mX1[channel] = x;
 	mY1[channel] = y;
@@ -99,6 +101,3 @@ TTErr TTLowpassButterworth1::processAudio(TTAudioSignalArrayPtr inputs, TTAudioS
 {
 	TT_WRAP_CALCULATE_METHOD(calculateValue);
 }
-
-
-

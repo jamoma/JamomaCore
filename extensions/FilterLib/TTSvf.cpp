@@ -131,8 +131,10 @@ TTErr TTSvf::setResonance(const TTValue& newValue)
 
 void TTSvf::calculateCoefficients()
 {
-	TTFloat64 temp1 = TTLimitMax(2.0 / mF - mF * 0.5, 2.0);
+	TTFloat64 temp1 = 2.0 / mF - mF * 0.5;
 	TTFloat64 temp2 = 2.0 * (1.0 - pow(mR, 0.25));
+	
+	TTLimitMax(temp1, 2.0);
 	
 	if (temp1 < temp2)
 		mDamp = temp1;
