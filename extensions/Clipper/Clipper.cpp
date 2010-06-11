@@ -24,7 +24,8 @@ class TTClipper : TTAudioObject {
 	
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 	{
-		y = TTClip(x, mLowBound, mHighBound);
+		y = x;
+		TTLimit(y, mLowBound, mHighBound);
 		return kTTErrNone;
 	}
 	
