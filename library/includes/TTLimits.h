@@ -38,7 +38,7 @@ template<class T>
 static void TTZeroDenormal(T& value)
 {
 #ifndef TT_DISABLE_DENORMAL_FIX
-	if (isnormal(value))
+	if (!isnormal(value))
 		value = 0;
 #endif
 }
