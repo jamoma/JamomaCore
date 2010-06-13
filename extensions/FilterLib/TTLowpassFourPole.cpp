@@ -117,16 +117,21 @@ inline TTErr TTLowpassFourPole::calculateValue(const TTFloat64& x, TTFloat64& y,
 {
 	TTSampleValue tempSample = x;
 
-	tempSample -= TTAntiDenormal(mY4[channel] * mCoefficientFB);
+	tempSample -= mY4[channel] * mCoefficientFB;
+	TTZeroDenormal(tempSample);
 	tempSample *= mCoefficientG;
 	
-	mY1[channel] = TTAntiDenormal(tempSample + 0.3 * mX1[channel] + mOneMinusCoefficientF * mY1[channel]);
+	mY1[channel] = tempSample + 0.3 * mX1[channel] + mOneMinusCoefficientF * mY1[channel];
+	TTZeroDenormal(mY1[channel]);
 	mX1[channel] = tempSample;
-	mY2[channel] = TTAntiDenormal(mY1[channel] + 0.3 * mX2[channel] + mOneMinusCoefficientF * mY2[channel]);
+	mY2[channel] = mY1[channel] + 0.3 * mX2[channel] + mOneMinusCoefficientF * mY2[channel];
+	TTZeroDenormal(mY2[channel]);
 	mX2[channel] = mY1[channel];
-	mY3[channel] = TTAntiDenormal(mY2[channel] + 0.3 * mX3[channel] + mOneMinusCoefficientF * mY3[channel]);
+	mY3[channel] = mY2[channel] + 0.3 * mX3[channel] + mOneMinusCoefficientF * mY3[channel];
+	TTZeroDenormal(mY3[channel] );
 	mX3[channel] = mY2[channel];
-	mY4[channel] = TTAntiDenormal(mY3[channel] + 0.3 * mX4[channel] + mOneMinusCoefficientF * mY4[channel]);
+	mY4[channel] = mY3[channel] + 0.3 * mX4[channel] + mOneMinusCoefficientF * mY4[channel];
+	TTZeroDenormal(mY4[channel]);
 	mX4[channel] = mY3[channel];
 	tempSample = mY4[channel];
 	

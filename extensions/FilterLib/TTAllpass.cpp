@@ -214,8 +214,8 @@ inline TTErr TTAllpass::calculateValue(const TTFloat64& x, TTFloat64& y, TTDelay
 	*feedforwardBuffer->mWritePointer = x;
 	
 	// Apply the filter
-	y = TTAntiDenormal((*feedforwardBuffer->mReadPointer) + (x * (-mLinearGain)) + (*feedbackBuffer->mReadPointer * mLinearGain));
-
+	y = (*feedforwardBuffer->mReadPointer) + (x * (-mLinearGain)) + (*feedbackBuffer->mReadPointer * mLinearGain);
+    TTZeroDenormal(y; 
 	// Store the output in the feedback buffer
 	*feedbackBuffer->mWritePointer = y;
 

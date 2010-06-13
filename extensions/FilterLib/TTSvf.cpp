@@ -146,15 +146,27 @@ void TTSvf::calculateCoefficients()
 void TTSvf::tick(TTSampleValue value, TTUInt16 channel)
 {
 	// UNROLLED (oversampling) FOR LOOP FOR SPEED
-	mNotch_output[channel]		= TTAntiDenormal(value - mDamp * mBandpass_output[channel]);
-	mLowpass_output[channel]	+= TTAntiDenormal(mFrequency * mBandpass_output[channel]);
-	mHighpass_output[channel]	= TTAntiDenormal(mNotch_output[channel] - mLowpass_output[channel]);
-	mBandpass_output[channel]	= TTAntiDenormal(mFrequency * mHighpass_output[channel] + mBandpass_output[channel]);
+	mNotch_output[channel]		= value - mDamp * mBandpass_output[channel];
+	TTZeroDenormal(mNotch_output[channel]);
 	
-	mNotch_output[channel]		= TTAntiDenormal(value - mDamp * mBandpass_output[channel]);
 	mLowpass_output[channel]	+= TTAntiDenormal(mFrequency * mBandpass_output[channel]);
-	mHighpass_output[channel]	= TTAntiDenormal(mNotch_output[channel] - mLowpass_output[channel]);
-	mBandpass_output[channel]	= TTAntiDenormal(mFrequency * mHighpass_output[channel] + mBandpass_output[channel]);	
+	
+	mHighpass_output[channel]	= mNotch_output[channel] - mLowpass_output[channel];
+	TTZeroDenormal(mHighpass_output[channel]);
+	
+	mBandpass_output[channel]	= mFrequency * mHighpass_output[channel] + mBandpass_output[channel];
+	TTZeroDenormal(mBandpass_output[channel]);
+	
+	mNotch_output[channel]		= value - mDamp * mBandpass_output[channel];
+	TTZeroDenormal(mNotch_output[channel]);
+	
+	mLowpass_output[channel]	+= TTAntiDenormal(mFrequency * mBandpass_output[channel]);
+	
+	mHighpass_output[channel]	= mNotch_output[channel] - mLowpass_output[channel];
+	TTZeroDenormal(mHighpass_output[channel]);
+	
+	mBandpass_output[channel]	= mFrequency * mHighpass_output[channel] + mBandpass_output[channel];
+	TTZeroDenormal(mBandpass_output[channel]);
 }
 
 

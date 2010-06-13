@@ -110,7 +110,8 @@ inline TTErr TTLowpassLinkwitzRiley4::calculateValue(const TTFloat64& x, TTFloat
 {
 	//y = TTAntiDenormal(mA0*x + mA1*mX1[channel] + mA2*mX2[channel] + mA3*mX3[channel] + mA4*mX4[channel] - mB1*mY1[channel] - mB2*mY2[channel] -mB3*mY3[channel] - mB4*mY4[channel]);
 	// since mA3 = mA1 and mA0 =  mA4, we can simplyfy to
-	y = TTAntiDenormal(mA0*(x + mX4[channel]) + mA1*( mX1[channel] + mX3[channel] ) + mA2*mX2[channel] - mB1*mY1[channel] - mB2*mY2[channel] -mB3*mY3[channel] - mB4*mY4[channel]);
+	y = mA0*(x + mX4[channel]) + mA1*( mX1[channel] + mX3[channel] ) + mA2*mX2[channel] - mB1*mY1[channel] - mB2*mY2[channel] -mB3*mY3[channel] - mB4*mY4[channel];
+	TTZeroDenormal(y);
 	mX4[channel] = mX3[channel];
 	mX3[channel] = mX2[channel];
 	mX2[channel] = mX1[channel];

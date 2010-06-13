@@ -207,8 +207,10 @@ TTErr TTHighMidLowShelf::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSigna
 
 inline TTErr TTHighMidLowShelf::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
-    mX0[channel] = TTAntiDenormal(x + mB1 * mX1[channel] + mB2 * mX2[channel]);     // put TTAntiDenormal here for superstition  
-    y = TTAntiDenormal(mA0 * mX0[channel] + mA1 * mX1[channel] + mA2 * mX2[channel]);
+    mX0[channel] = x + mB1 * mX1[channel] + mB2 * mX2[channel];      
+	TTZeroDenormal(mX0[channel]); // put TTZeroDenormal here for superstition
+    y = mA0 * mX0[channel] + mA1 * mX1[channel] + mA2 * mX2[channel];
+	TTZeroDenormal(y);
     mX2[channel] = mX1[channel];    // update feedback values
     mX1[channel] = mX0[channel];
     return kTTErrNone;

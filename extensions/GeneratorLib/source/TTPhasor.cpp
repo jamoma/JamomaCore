@@ -62,7 +62,8 @@ TTErr TTPhasor::setFrequency(const TTValue& newValue)
 
 void TTPhasor::setStep()
 {
-	step = TTAntiDenormal(1.0 / TTFloat64(rampSamples));	// 1.0 is the destination
+	step = 1.0 / TTFloat64(rampSamples);	// 1.0 is the destination        
+	TTZeroDenormal(step); 
 }
 
 

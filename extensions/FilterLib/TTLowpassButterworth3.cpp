@@ -109,7 +109,8 @@ inline TTErr TTLowpassButterworth3::calculateValue(const TTFloat64& x, TTFloat64
 {
 	//y = TTAntiDenormal(mA0*x + mA1*mX1[channel] + mA2*mX2[channel] + mA3*mX3[channel] - mB1*mY1[channel] - mB2*mY2[channel] -mB3*mY3[channel]);
 	// since mA2 = mA1 and mA3 = mA0, we can write
-	y = TTAntiDenormal(mA0*(x +mX3[channel]) + mA1*(mX1[channel] + mX2[channel]) - mB1*mY1[channel] - mB2*mY2[channel] -mB3*mY3[channel]);
+	y = mA0*(x +mX3[channel]) + mA1*(mX1[channel] + mX2[channel]) - mB1*mY1[channel] - mB2*mY2[channel] -mB3*mY3[channel];
+	TTZeroDenormal(y);
 	mX3[channel] = mX2[channel];
 	mX2[channel] = mX1[channel];
 	mX1[channel] = x;
