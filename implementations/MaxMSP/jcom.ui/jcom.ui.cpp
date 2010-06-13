@@ -422,7 +422,8 @@ void ui_paint(t_ui *x, t_object *view)
 	// draw the gain knob
 	if (x->attr_hasgain) {
 		long right_side = rect.width - 16.0;
-		float gain = TTClip(x->attr_gain, 0.0f, 127.0f);
+		float gain = x->attr_gain;
+		TTLimit(gain, 0.0f, 127.0f);
 
 		if (x->attr_hasmix)
 			right_side -= 16.0;
@@ -472,7 +473,8 @@ void ui_paint(t_ui *x, t_object *view)
 	// draw the mix knob
 	if (x->attr_hasmix) {
 		long right_side = rect.width - 16.0;
-		float mix = TTClip(x->attr_mix, 0.0f, 100.0f);
+		float mix = x->attr_mix;
+		TTLimit(mix, 0.0f, 100.0f);
 
 		if (x->attr_hasmute)
 			right_side -= 16.0;
@@ -764,11 +766,13 @@ void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 		factor = 0.02;
 	
 	if (x->mixDragging) {
-		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y * factor), 0.0, 100.0);
+		x->anchorValue = x->anchorValue - (pt.y * factor);
+		TTLimit(x->anchorValue, 0.0f, 100.0f);
 		object_attr_setfloat(x, gensym("mix"), x->anchorValue);
 	}
 	else if (x->gainDragging) {
-		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y * factor), 0.0, 127.0);
+		x->anchorValue = x->anchorValue - (pt.y * factor);
+		TTLimit(x->anchorValue, 0.0f, 127.0f);
 		object_attr_setfloat(x, gensym("gain"), x->anchorValue);
 	}
 }

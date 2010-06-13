@@ -389,7 +389,9 @@ void textslider_float(t_textslider *x, double value)
 void textslider_set(t_textslider *x, double value)
 {   
 	x->attrValueUnclipped = value;
-	x->attrValue = TTClip<float>(value, x->attrRange[0], x->attrRange[1]);
+	x->attrValue = value;
+	TTLimit(x->attrValue, x->attrRange[0], x->attrRange[1]); 
+	
 	if ((x->attrShowValue) && (x->mouseOver)) 
 		textslider_updatestringvalue(x);
 	else
@@ -539,7 +541,8 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 	
     // Jump to new value on mouse down?
 		if (x->attrClickJump) {
-			delta = TTClip<float>(px.x-1., 0., rect.width-3.);	// substract for borders
+			delta = px.x-1.; 					// substract for borders   
+			TTLimit(delta ,0., rect.width-3.);
 			delta = delta/(rect.width-2.)*(x->attrRangeDelta) + x->attrRange[0];
 			if (modifiers & eCommandKey) 
 				textslider_float(x, long(delta)); //when command-key pressed, jump to the nearest integer-value
@@ -578,8 +581,8 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 		else
 			delta = -pt.y;
 	}
-	x->anchorValue = TTClip<float>(x->anchorValue + (delta/factor), x->attrRange[0], x->attrRange[1]);
-	
+	x->anchorValue = x->anchorValue + (delta/factor);
+	TTLimit(x->anchorValue,x->attrRange[0], x->attrRange[1]); 
 	// TODO: Add numdecimalplaces attribute
 	
 	if (modifiers & eCommandKey) 
@@ -655,8 +658,10 @@ void textslider_paint(t_textslider *x, t_object *view)
 	
 	if (x->attrRange[0] == x->attrRange[1])
 		value = 0.5;
-	else
-		value = TTClip( (x->attrValue - x->attrRange[0])/(x->attrRangeDelta), 0.0f, 1.0f);
+	else{
+		value = (x->attrValue - x->attrRange[0])/x->attrRangeDelta;
+		TTLimit(value, 0.0, 1.0);   
+	}
 	double			position;
 	t_jrgba			c;
 

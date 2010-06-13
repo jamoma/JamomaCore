@@ -346,8 +346,8 @@ void meter_dsp(t_meter *x, t_signal **sp, short *count)
 
 void *meter_oksize(t_meter *x, t_rect *newrect)
 {
-	TTClip(newrect->width, kWidthMinimum, kWidthMaximum);
-	TTClip(newrect->height, kHeightMinimum, kHeightMaximum);
+	TTLimit(newrect->width, kWidthMinimum, kWidthMaximum);
+	TTLimit(newrect->height, kHeightMinimum, kHeightMaximum);
 	meterCacheSurface(x);	// Now draw the gradient and cache it in our surface
 	return (void*)1;
 }
