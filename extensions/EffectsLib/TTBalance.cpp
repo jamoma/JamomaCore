@@ -75,7 +75,8 @@ TTErr TTBalance::Clear()
 
 TTErr TTBalance::setFrequency(const TTValue& newValue)
 {
-	mFrequency = TTClip((double)newValue, 1., (sr*0.45));
+	mFrequency = (double)newValue;
+	TTLimit(mFrequency, 1., (sr*0.45));
 
 	c = 1 / ( tan( kTTPi*(mFrequency/sr) ) );
 	a0 = 1 / (1 + kTTSqrt2*c + c*c);

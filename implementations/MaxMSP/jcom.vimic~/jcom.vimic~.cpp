@@ -1209,8 +1209,8 @@ void vimic_bang(t_vimic *x)
             x->delGrain[m] = ((double) x->delay[m] - x->currentDelay[m]) * x->grainsize;  // copy old values into buffer	 
             x->sensiGrain[m] = (x->sensitivity[m] - x->currentSensitivity[m]) * x->grainsize; // copy old values into buffer  
 
-            x->sensiGrain[m] = TTZeroDenormal(x->sensiGrain[m]);
-            x->delGrain[m] = TTZeroDenormal(x->delGrain[m]); // FIXME: necessary?
+            TTZeroDenormal(x->sensiGrain[m]);
+            TTZeroDenormal(x->delGrain[m]); // FIXME: necessary?
         }
         critical_exit(0);
         x->grainCounter = 0;

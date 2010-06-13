@@ -36,8 +36,8 @@ TrapezoidWindow::~TrapezoidWindow()
 
 TTErr TrapezoidWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = (0.5/mFade) * (1 - fabs(2. * x-1));
-	TTClip(y, 0.0, 1.0 );
+	y = (2.0*mFade) * (1 - fabs(2. * x-1));
+	TTLimit(y, 0.0, 1.0 );
 
 	return kTTErrNone;
 }
