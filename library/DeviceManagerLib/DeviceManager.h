@@ -55,8 +55,8 @@
  *
  */
 
-#ifndef _CONTROLLER_H_
-#define _CONTROLLER_H_
+#ifndef _DeviceManager_H_
+#define _DeviceManager_H_
 
 #include <map>
 #include <vector>
@@ -80,18 +80,11 @@
 
 #define NAMESPACE_ATTR_LIFE "life"				//< used to observe the creation or the destruction of node below an address
 
-/*********************************************************************
- TEMPORARY DEFINE USED TO ALLOW THE TIPITOUCH TO SPEAK WITH THE CONTROLLER
- *********************************************************************/
-static const unsigned int TRIGGER_READY = 0;
-static const unsigned int TRIGGER_WAITED = 1;
-static const unsigned int TRIGGER_PUSHED = 2;
-/********************************************************************/
-
 class Namespace;
 class Device;
 class Plugin;
 class PluginFactories;
+class xmlParser;
 
 typedef std::string Address;										// at the DeviceManager level, an Address should be like this  : /<nodeName>/.../<nodeName>
 typedef Address* AddressPtr;										// !!! DO NOT INCLUDE THE DEVICE NAME AS A ROOT LEVEL !!!
@@ -110,17 +103,10 @@ private:
 	
 	std::map<std::string, Plugin*> *netPlugins;						//< a map between a plugin name and an instance of this Plugin
 	std::map<std::string, Device*> *netDevices;						//< a map between a device name and an instance of this Device
-	unsigned int deviceId;											//< the device id witch is incremented automatically 
-	
-	/*********************************************************************
-	 TEMPORARY MEMBER USED TO ALLOW THE TIPITOUCH TO SPEAK WITH THE CONTROLLER
-	 *********************************************************************/
-	std::map<unsigned int, std::string> *m_namespace;				//TriggerId , TriggerAddress
-	std::map<unsigned int, unsigned int> *m_values;					//TriggerId , TriggerValue
-	std::map<unsigned int, std::string> m_boxColorArg;				//TriggerId , TriggerAttachedBoxColour
-	std::map<unsigned int, std::string> m_boxCommentArg;			//TriggerId , TriggerAttachedBoxComment
-	
-	/********************************************************************/
+	unsigned int deviceId;											//< the device id witch is incremented automatically
+
+	Namespace *m_namespace;
+
 	
 	void (*m_discover_callback)(void*, 
 								Address, 
@@ -184,12 +170,27 @@ public:
 	 * \param path : the Plugin directory path.
 	 */
 	void pluginLoad(std::string path);
-	
+
 	/*!
-	 * 
-	 * \return the list of loaded plugin names
+	 * Configure the plugins parameters with a xml file 
+	 * Has to be called before the pluginConfigure method
+	 *
+	 * \param filename : the xml filename.
 	 */
-	std::vector<std::string> pluginGetLoadedByName();
+	void pluginLoadConfigXml(std::string filename);
+
+	/*!
+	 * Write the plugins config in a xml file 
+	 *
+	 * \param filename : the xml filename.
+	 */
+	void pluginWriteConfigXML(std::string filename);
+
+	/*!
+	 * Set a plugin parameter
+	 *
+	 */
+	void pluginSetCommParameter(std::string pluginName, std::string parameterName, std::string parameterValue);
 	
 	/*!
 	 * Get a plugin parameter value
@@ -197,6 +198,19 @@ public:
 	 * \return the value for parameter "parameterName" according to the pluginName
 	 */
 	std::string pluginGetCommParameter(std::string pluginName, std::string parameterName);				// to -- This should be done on a device ...
+
+	/*!
+	 * Configure plugin with added parameters
+	 * Has to be called after pluginSetCommParameter() and pluginLoadConfigXml() methods because run the receiving thread
+	 *
+	 */
+	void pluginLaunch();
+
+	/*!
+	 * 
+	 * \return the list of loaded plugin names
+	 */
+	std::vector<std::string> pluginGetLoadedByName();
 	
 	/*!
 	 * Is a plugin loaded ?
@@ -212,7 +226,21 @@ public:
 	 a set of methods used to manage devices
 	 note : each method of this set is prepend by 'device'
 	 ************************************************/
-	
+
+	/*!
+	 * Configure the devices parameters with a xml file
+	 *
+	 * \param filename : the xml filename.
+	 */
+	void deviceLoadConfigXml(std::string filename);
+
+	/*!
+	 * Write the devices config in a xml file
+	 *
+	 * \param filename : the xml filename.
+	 */
+	void devicesWriteConfigXML(std::string filename);
+
 	/*!
 	 * Scan the network automatically to detect devices using the appropriate plugin.
 	 * This method full the netDevices map.
@@ -346,6 +374,10 @@ public:
 	 note : each method of this set is prepend by 'namespace'
 	 ************************************************/
 	
+	void namespaceInit();
+	void namespaceLoadXml(std::string filename);
+
+
 	/*!
 	 * Get the name of the application
 	 *
@@ -432,24 +464,9 @@ public:
 private:
 	void parseDeviceAndAddress(std::string deviceAndAddress, std::string& device, std::string& address);
 	std::vector<std::string> snapshotProcess(Plugin *plugin, Device *device, Address address);
-	
-	
-	
-	
-	/*********************************************************************
-	 TEMPORARY METHOD TO ALLOW THE TPITOUCH TO SPEAK WITH THE CONTROLLER
-	 *********************************************************************/
-//public:
-//	void addTriggerPointLeave(unsigned int triggerId, std::string triggerMessage);
-//	void removeTriggerPointLeave(unsigned int triggerId);
-//	void setNamespaceValue(std::string address, int value, std::map<std::string, std::string> optionalArguments);
-//	void resetTriggerPointStates();
-//	
-//	void askDeviceManagerNamespaceFor(std::string address, std::vector<std::string>* namespaceVectorToFill);
-//	std::string askDeviceManagerValueFor(std::string address, std::string attribute);
 
 };
 
 
 
-#endif //_CONTROLLER_H_
+#endif //_DeviceManager_H_
