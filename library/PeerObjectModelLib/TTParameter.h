@@ -11,9 +11,9 @@
 
 #include "TTModular.h"
 
-#include "DataspaceLib.h"
-#include "FunctionLib.h"
-#include "RampLib.h"
+//#include "DataspaceLib.h"
+//#include "FunctionLib.h"
+//#include "RampLib.h"
 
 /**	TTParameter ... TODO : an explanation
  
@@ -71,9 +71,9 @@ private:
 	TTBoolean		mIsSending;					///< Flag to tell us if we are currently sending out our Value attribute
 	TTBoolean		mIsInitialised;				///< Flag to tell us if the Value attribute has been initialised
 	
-	DataspaceLib*	mDataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
+	//DataspaceLib*	mDataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
 	
-	RampUnit*		mRamper;					///< Rampunit object to perform ramping of input values
+	//RampUnit*		mRamper;					///< Rampunit object to perform ramping of input values
 	
 	
 	/*
