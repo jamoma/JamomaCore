@@ -9,25 +9,31 @@
 
 #include "TTModular.h"
 
-
+// Statics and Globals
 static bool TTModularHasInitialized = false;
-TTNodeDirectoryPtr jamoma_directory = NULL;
+
+TTNodeDirectoryPtr TTModularDirectory = NULL;
 
 void TTModularRegisterInternalClasses();
 
 
 /****************************************************************************************************/
 
-void TTModularInit()
+void TTModularInit(TTString appName)
 {
+	TTErr err;
 	TTFoundationInit();
 	
 	if (!TTModularHasInitialized) {
+		
 		TTModularHasInitialized = true;
 				
 		// TODO: someday implement these so that we have project-scoped caches and don't stuff everything into the foundation?
 		TTModularSymbolCacheInit();
 		//TTModularValueCacheInit();
+		
+		err = TTObjectInstantiate(TT("NodeDirectory"), TTObjectHandle(&TTModularDirectory), TT(appName));
+		TT_ASSERT("NodeDirectory created successfully", !err);
 		
 #ifdef TT_DEBUG
 		TTLogMessage("Modular -- Version %s -- Debugging Enabled\n", TTMODULAR_VERSION_STRING);

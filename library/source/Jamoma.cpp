@@ -34,12 +34,11 @@ void jamoma_init(void)
 		if (maxversion() >= 0x0500)
 			max5 = true;
 		
-		TTModularInit();
+		TTModularInit("Jamoma");
 		TTDSPInit();
 		common_symbols_init();
 		jamomaSymbolsInit();
-		jamoma_directory_init();
-
+		
 		//receive_initclass();
 		//object_method(max, meth, SymbolGen("jcom.receive"), SymbolGen("jcom.loader"), SymbolGen("jcom.receive"));
 		//object_method_sym(max, SymbolGen("db.object_addinternal"), SymbolGen("jcom.receive"), NULL);

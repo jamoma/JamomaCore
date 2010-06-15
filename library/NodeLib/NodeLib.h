@@ -9,12 +9,8 @@
 #include "Jamoma.h"
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
+#include "TTModular.h"
 #include "TTSubscriber.h"
-
-// statics and globals
-
-/**	The Jamoma node directory				*/
-extern TTNodeDirectoryPtr jamoma_directory;
 
 #ifdef __cplusplus
 extern "C" {
@@ -22,9 +18,6 @@ extern "C" {
 
 	// Method to deal with the jamoma directory
 	/////////////////////////////////////////
-	
-	/** Create and return the directory */
-	TTNodeDirectoryPtr jamoma_directory_init(void);
 	
 	/** Free the directory */
 	TTErr			jamoma_directory_free(void);

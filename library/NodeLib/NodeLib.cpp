@@ -9,7 +9,6 @@
 #include "NodeLib.h"
 
 
-
 /***********************************************************************************
 *
 *		C EXTERN METHODS
@@ -19,22 +18,9 @@
 // Method to deal with the jamoma directory
 /////////////////////////////////////////
 
-TTNodeDirectoryPtr	jamoma_directory_init()
-{
-	TTErr err;
-	
-	if(jamoma_directory)
-		return jamoma_directory;	// already have a directory, just return the pointer to the directory...
-
-	err = TTObjectInstantiate(TT("NodeDirectory"), TTObjectHandle(&jamoma_directory), TT("Jamoma"));
-	TT_ASSERT("NodeDirectory created successfully", !err);
-
-	return jamoma_directory;
-}
-
 TTErr jamoma_directory_free(void)
 {
-	return TTObjectRelease(TTObjectHandle(&jamoma_directory));
+	return TTObjectRelease(TTObjectHandle(&TTModularDirectory));
 }
 
 TTErr jamoma_directory_dump(void)
@@ -43,17 +29,17 @@ TTErr jamoma_directory_dump(void)
 	TTValue hk;
 	TTSymbolPtr key;
 
-	if(jamoma_directory){	
-		jamoma_directory->getDirectory()->getKeys(hk);
+	if(TTModularDirectory){	
+		TTModularDirectory->getDirectory()->getKeys(hk);
 
-		for(i=0; i<jamoma_directory->getDirectory()->getSize(); i++){
+		for(i=0; i<TTModularDirectory->getDirectory()->getSize(); i++){
 			hk.get(i,(TTSymbol**)&key);
 			post("%s",key->getCString());
 		}
 		return kTTErrNone;
 	}
 	
-	post("jamoma_directory_dump : create a directory before");
+	post("TTModularDirectory_dump : create a directory before");
 	return kTTErrGeneric;
 }
 
@@ -91,13 +77,13 @@ TTErr jamoma_directory_get_node(TTSymbolPtr address, TTList& returnedTTNodes, TT
 {
 	TTErr err;
 
-	if(jamoma_directory){
-		err = jamoma_directory->Lookup(address, returnedTTNodes, firstReturnedTTNode);
+	if(TTModularDirectory){
+		err = TTModularDirectory->Lookup(address, returnedTTNodes, firstReturnedTTNode);
 
 		return err;
 	}
 	
-	post("jamoma_directory_get_node %s : create a directory before", address->getCString());
+	post("TTModularDirectory_get_node %s : create a directory before", address->getCString());
 	return kTTErrGeneric;
 }
 
@@ -106,13 +92,13 @@ TTErr jamoma_directory_get_node_by_type(TTSymbolPtr addressToStart, TTSymbolPtr 
 	TTList whereToSearch;
 	TTErr err;
 	
-	if(jamoma_directory){
+	if(TTModularDirectory){
 		
-		err = jamoma_directory->Lookup(addressToStart, whereToSearch, firstReturnedTTNode);
+		err = TTModularDirectory->Lookup(addressToStart, whereToSearch, firstReturnedTTNode);
 		
 		if(err == kTTErrNone){
 			
-			err = jamoma_directory->LookingFor(&whereToSearch, testTTNodeType, type, returnedTTNodes, firstReturnedTTNode);
+			err = TTModularDirectory->LookingFor(&whereToSearch, testTTNodeType, type, returnedTTNodes, firstReturnedTTNode);
 			
 			return err;
 		}
@@ -120,7 +106,7 @@ TTErr jamoma_directory_get_node_by_type(TTSymbolPtr addressToStart, TTSymbolPtr 
 			return kTTErrGeneric;
 	}
 	
-	post("jamoma_directory_get_node_by_type %s : create a directory before", addressToStart->getCString());
+	post("TTModularDirectory_get_node_by_type %s : create a directory before", addressToStart->getCString());
 	return kTTErrGeneric;
 }
 
@@ -257,7 +243,7 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr rel
 	// prepare arguments
 	args.append(TTPtr(aTTObject));
 	args.append(TT(relativeAddress->s_name));
-	args.append(jamoma_directory);
+	args.append(TTModularDirectory);
 	
 	shareCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &shareCallback, kTTValNONE);
@@ -508,7 +494,7 @@ TTErr jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectP
 		mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
 
 		// Make a TTSender object
-		args.append(jamoma_directory);
+		args.append(TTModularDirectory);
 		args.append(oscAddress_noAttribute);
 		
 		// TODO : convert attribute from value/stepsize into ValueStepsize
@@ -572,7 +558,7 @@ TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjec
 		mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
 		
 		// Make a TTReceiver object
-		args.append(jamoma_directory);
+		args.append(TTModularDirectory);
 		args.append(oscAddress_noAttribute);
 		
 		// TODO : convert attribute from value/stepsize into ValueStepsize
@@ -615,7 +601,7 @@ TTErr jamoma_deviceManager_create(ObjectPtr x, SymbolPtr name, TTObjectPtr *retu
 	TTValue			args;
 	
 	// Make a TTDeviceManager object
-	args.append(jamoma_directory);
+	args.append(TTModularDirectory);
 	args.append(name->s_name);
 	
 	*returnedDeviceManager = NULL;

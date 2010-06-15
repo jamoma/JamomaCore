@@ -142,7 +142,7 @@ t_max_err paramTest_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender,
 			x->subscriberObject->getAttributeValue(TT("ContextAddress"), v);
 			v.get(0, &contextAddress);
 			
-			jamoma_directory->TTNodeRemove(contextAddress);
+			TTModularDirectory->TTNodeRemove(contextAddress);
 			
 			// delete the subscriber
 			TTObjectRelease(TTObjectHandle(&x->subscriberObject));

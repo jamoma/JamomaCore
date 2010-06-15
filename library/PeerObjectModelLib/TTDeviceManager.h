@@ -27,17 +27,16 @@ public:
 	
 	TTNodeDirectoryPtr	mDirectory;
 	TTSymbolPtr			mName;					///< ATTRIBUTE: the name the device manager will present to any client
+	
+	DeviceManagerPtr	mDeviceManager;
 
 private:
 	
-	DeviceManagerPtr	mDeviceManager;
 	TTHashPtr			mListernersCache;
 	
 public:
 	
 	TTErr LoadPlugins(TTSymbolPtr path);
-	TTErr DumpPlugins();
-	TTErr DumpDevices();
 	
 	/** scan the network in order to add devices automatically */
 	TTErr Scan();

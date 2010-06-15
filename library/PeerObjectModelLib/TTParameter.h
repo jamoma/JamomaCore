@@ -21,12 +21,11 @@ TODO LIST :
  
  -> RangeBounds						How to declare this attribute in order to see 2 values ?
  -> setDataspace					TODO
- -> bang							TODO is it works with bang ?
  -> Parameter, Message, Return :	add an attribute to deal with three cases					(see in several place...)
- -> clip :							make a clipwrap and a clipfold method inti TTValue...		(see in TTParameter::clipValue method)
+ -> clip :							make a clipwrap and a clipfold method into TTValue...		(see in TTParameter::clipValue method)
  -> ramp :							All the RampLib have to works with TTValue now...			(see in TTParameter::ramSetup method)
  -> rampParameterNames :			put this in the Max External !!!							(see in TTParameter::setRampFunction)
- -> dataspace :						All the DataspaceLib have to to works with TTValue now...	(see in TTParameter::convertUnit method)
+ -> dataspace :						All the DataspaceLib have to works with TTValue now...		(see in TTParameter::convertUnit method)
  -> handleProperty :				used TTObject message mecanism...							(see in TTParameter::Command method)
  -> inc :							TODO
  -> dec :							TODO

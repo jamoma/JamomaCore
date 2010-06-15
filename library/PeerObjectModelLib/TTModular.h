@@ -71,11 +71,11 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTObject(arguments)
 	TT_MODULAR_CONSTRUCTOR
 
 
+// Global
+extern TTNodeDirectoryPtr TTModularDirectory;
 
 // Prototypes
-
 // init the modular lib, and the foundation if needed
-void TTMODULAR_EXPORT TTModularInit();
-
+void TTMODULAR_EXPORT TTModularInit(TTString appName);
 
 #endif // __TT_MODULAR_H__

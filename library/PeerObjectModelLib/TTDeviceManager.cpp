@@ -25,8 +25,6 @@ mName(kTTSymEmpty)
 	addAttribute(Name, kTypeSymbol);
 	
 	addMessageWithArgument(LoadPlugins);
-	addMessageWithArgument(DumpPlugins);
-	addMessageWithArgument(DumpDevices);
 	addMessageWithArgument(Scan);
 	addMessageWithArgument(AddMinuitDevice);
 	addMessageWithArgument(Discover);
@@ -88,37 +86,6 @@ TTErr TTDeviceManager::Scan()
 	return kTTErrNone;
 }
 
-TTErr TTDeviceManager::DumpPlugins()
-{
-	vector<string> plugins;
-	vector<string>::iterator p_iter;
-	
-	// show loaded plugins
-	//post("<< Loaded Plugins >>");
-	plugins = mDeviceManager->pluginGetLoadedByName();
-	for(p_iter = plugins.begin(); p_iter != plugins.end(); p_iter++){
-		;//post(">> %s", std::string(*p_iter).c_str());
-	}
-	
-	return kTTErrNone;
-}
-
-TTErr TTDeviceManager::DumpDevices()
-{
-	map<string, Device*>* devices;
-	map<string, Device*>::iterator d_iter;
-
-	// show devices
-	//post("<< Loaded Devices >>");
-	devices = mDeviceManager->deviceGetCurrent();
-	d_iter = devices->begin();
-	while (d_iter != devices->end()){
-		;//post(">> %s", std::string(d_iter->first).c_str());
-		++d_iter;
-	}
-	
-	return kTTErrNone;
-}
 
 TTErr TTDeviceManager::AddMinuitDevice(TTSymbolPtr device_name, TTSymbolPtr ip, TTInt32 port)
 {
