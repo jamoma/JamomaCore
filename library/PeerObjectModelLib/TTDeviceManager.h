@@ -36,7 +36,7 @@ private:
 	
 public:
 	
-	TTErr LoadPlugins(TTSymbolPtr path);
+	TTErr LoadPlugins(const TTValue& value);
 	
 	/** scan the network in order to add devices automatically */
 	TTErr Scan();

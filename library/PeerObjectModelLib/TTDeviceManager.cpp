@@ -51,8 +51,11 @@ TTDeviceManager::~TTDeviceManager()
 	delete mListernersCache;
 }
 
-TTErr TTDeviceManager::LoadPlugins(TTSymbolPtr path)
+TTErr TTDeviceManager::LoadPlugins(const TTValue& value)
 {
+	TTSymbolPtr path;
+	value.get(0, &path);
+	
 	mDeviceManager->pluginLoad(path->getCString());
 	return kTTErrNone;
 }
@@ -448,7 +451,7 @@ void TTDeviceManagerGetCallback(void* arg, Address whereToGet, std::string attri
 				
 				// get the value of the attribute
 				v.clear();
-				err = nodeToGet->getAttributeValue(attributeName, v);
+				err = o->getAttributeValue(attributeName, v);
 				
 				// and convert it in string
 				if(!err){
