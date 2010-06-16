@@ -19,8 +19,8 @@ class CMYUnit : DataspaceUnit{
 		CMYUnit();
 		~CMYUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class HSLUnit : DataspaceUnit{
@@ -28,8 +28,8 @@ class HSLUnit : DataspaceUnit{
 		HSLUnit();
 		~HSLUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class HSVUnit : DataspaceUnit{
@@ -37,8 +37,8 @@ class HSVUnit : DataspaceUnit{
 		HSVUnit();
 		~HSVUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class RGBUnit : DataspaceUnit{
@@ -46,8 +46,8 @@ class RGBUnit : DataspaceUnit{
 		RGBUnit();
 		~RGBUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class RGB8Unit : DataspaceUnit{
@@ -55,8 +55,8 @@ class RGB8Unit : DataspaceUnit{
 		RGB8Unit();
 		~RGB8Unit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 // Specification of our base class

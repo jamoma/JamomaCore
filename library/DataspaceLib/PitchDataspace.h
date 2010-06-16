@@ -21,8 +21,8 @@ class SpeedUnit : DataspaceUnit{
 		SpeedUnit();
 		~SpeedUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class MidiPitchUnit : DataspaceUnit{
@@ -30,8 +30,8 @@ class MidiPitchUnit : DataspaceUnit{
 		MidiPitchUnit();
 		~MidiPitchUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class FrequencyUnit : DataspaceUnit{
@@ -39,8 +39,8 @@ class FrequencyUnit : DataspaceUnit{
 		FrequencyUnit();
 		~FrequencyUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class CentUnit : DataspaceUnit{
@@ -48,8 +48,8 @@ class CentUnit : DataspaceUnit{
 		CentUnit();
 		~CentUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 // Specification of our base class

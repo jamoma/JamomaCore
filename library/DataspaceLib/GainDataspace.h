@@ -20,8 +20,8 @@ class LinearAmplitudeUnit : DataspaceUnit{
 		LinearAmplitudeUnit();
 		~LinearAmplitudeUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 
@@ -30,8 +30,8 @@ class MidiGainUnit : DataspaceUnit{
 		MidiGainUnit();
 		~MidiGainUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 
@@ -40,8 +40,8 @@ class DecibelUnit : DataspaceUnit{
 		DecibelUnit();
 		~DecibelUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 

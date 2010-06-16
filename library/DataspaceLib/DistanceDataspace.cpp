@@ -18,17 +18,15 @@ CentimeterUnit::~CentimeterUnit()
 {;}
 		
 
-void CentimeterUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void CentimeterUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms) * 0.01;
+	neutralValue = TTValue(inValue.getFloat64() * 0.01);
 }
 
 
-void CentimeterUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void CentimeterUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input * 100.0);
+	outValue = TTValue(neutralValue.getFloat64() * 100.0);
 }
 
 
@@ -42,17 +40,15 @@ FootUnit::~FootUnit()
 {;}
 		
 		
-void FootUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void FootUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms) / 3.281;
+	neutralValue = TTValue(inValue.getFloat64() / 3.281);
 }
 
 
-void FootUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void FootUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, (*input * 3.281));
+	outValue = TTValue(neutralValue.getFloat64() * 3.281);
 }
 
 
@@ -64,19 +60,16 @@ InchUnit::InchUnit()
 
 InchUnit::~InchUnit()
 {;}
-		
-		
-void InchUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+
+void InchUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms) / 39.37;
+	neutralValue = TTValue(inValue.getFloat64() / 39.37);
 }
 
 
-void InchUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void InchUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, (*input * 39.37));
+	outValue = TTValue(neutralValue.getFloat64() * 39.37);
 }
 
 
@@ -90,17 +83,15 @@ MeterUnit::~MeterUnit()
 {;}
 
 		
-void MeterUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void MeterUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms);
+	neutralValue = inValue;
 }
 
 
-void MeterUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void MeterUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input);
+	outValue = neutralValue;
 }
 
 
@@ -109,14 +100,14 @@ DistanceDataspace::DistanceDataspace()
 	: DataspaceLib("distance", "meters")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new CentimeterUnit,	SymbolGen("cm"));
-	registerUnit(new CentimeterUnit,	SymbolGen("centimeters"));
-	registerUnit(new FootUnit,			SymbolGen("'"));
-	registerUnit(new FootUnit,			SymbolGen("feet"));
-	registerUnit(new InchUnit,			SymbolGen("\""));
-	registerUnit(new InchUnit,			SymbolGen("inches"));
-	registerUnit(new MeterUnit,			SymbolGen("m"));
-	registerUnit(new MeterUnit,			SymbolGen("meters"));
+	registerUnit(new CentimeterUnit,	TT("cm"));
+	registerUnit(new CentimeterUnit,	TT("centimeters"));
+	registerUnit(new FootUnit,			TT("'"));
+	registerUnit(new FootUnit,			TT("feet"));
+	registerUnit(new InchUnit,			TT("\""));
+	registerUnit(new InchUnit,			TT("inches"));
+	registerUnit(new MeterUnit,			TT("m"));
+	registerUnit(new MeterUnit,			TT("meters"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

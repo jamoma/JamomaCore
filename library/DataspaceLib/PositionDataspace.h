@@ -20,8 +20,8 @@ class Cartesian3DUnit : DataspaceUnit{
 		Cartesian3DUnit();
 		~Cartesian3DUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class Cartesian2DUnit : DataspaceUnit{
@@ -29,8 +29,8 @@ class Cartesian2DUnit : DataspaceUnit{
 		Cartesian2DUnit();
 		~Cartesian2DUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class SphericalUnit : DataspaceUnit{
@@ -38,8 +38,8 @@ class SphericalUnit : DataspaceUnit{
 		SphericalUnit();
 		~SphericalUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class PolarUnit : DataspaceUnit{
@@ -47,8 +47,8 @@ class PolarUnit : DataspaceUnit{
 		PolarUnit();
 		~PolarUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 		
 class OpenGlUnit : DataspaceUnit{
@@ -56,8 +56,8 @@ class OpenGlUnit : DataspaceUnit{
 		OpenGlUnit();
 		~OpenGlUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 
 };
 
@@ -66,8 +66,8 @@ class CylindricalUnit : DataspaceUnit{
 		CylindricalUnit();
 		~CylindricalUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 
 };
 

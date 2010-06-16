@@ -19,17 +19,15 @@ RadianUnit::~RadianUnit()
 {;}
 		
 
-void RadianUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void RadianUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms);
+	neutralValue = inValue;
 }
 
 
-void RadianUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void RadianUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input);
+	outValue = neutralValue;
 }
 
 
@@ -43,17 +41,15 @@ DegreeUnit::~DegreeUnit()
 {;}
 		
 		
-void DegreeUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void DegreeUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms) * kDegreesToRadians; //kDegreesToRadians defined in DataspaceLib.h
+	neutralValue = TTValue(inValue.getFloat64() * kDegreesToRadians);	//kDegreesToRadians defined in DataspaceLib.h
 }
 
 
-void DegreeUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void DegreeUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, (*input * kRadiansToDegrees));//kRadiansToDegrees defined in DataspaceLib.h
+	outValue = TTValue(neutralValue.getFloat64() * kRadiansToDegrees);	//kRadiansToDegrees defined in DataspaceLib.h
 }
 
 /***********************************************************************************************/
@@ -61,10 +57,10 @@ AngleDataspace::AngleDataspace()
 	: DataspaceLib("angle", "radian") //would "<" be possible ??
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new RadianUnit,	SymbolGen("radian"));
-	registerUnit(new RadianUnit,	SymbolGen("rad"));
-	registerUnit(new DegreeUnit,	SymbolGen("degree"));
-	registerUnit(new DegreeUnit,	SymbolGen("deg"));
+	registerUnit(new RadianUnit,	TT("radian"));
+	registerUnit(new RadianUnit,	TT("rad"));
+	registerUnit(new DegreeUnit,	TT("degree"));
+	registerUnit(new DegreeUnit,	TT("deg"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

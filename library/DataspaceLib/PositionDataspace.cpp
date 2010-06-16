@@ -23,21 +23,15 @@ Cartesian3DUnit::~Cartesian3DUnit()
 {;}
 		
 
-void Cartesian3DUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void Cartesian3DUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 3;
-	*(output+0) = atom_getfloat(inputAtoms+0); //x 
-	*(output+1) = atom_getfloat(inputAtoms+1); //y
-	*(output+2) = atom_getfloat(inputAtoms+2); //z
+	neutralValue = inValue;
 }
 
 
-void Cartesian3DUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void Cartesian3DUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 3;
-	atom_setfloat(*outputAtoms+0, *(input+0));
-	atom_setfloat(*outputAtoms+1, *(input+1));
-	atom_setfloat(*outputAtoms+2, *(input+2));
+	outValue = neutralValue;
 }
 
 
@@ -49,18 +43,14 @@ Cartesian2DUnit::Cartesian2DUnit()
 Cartesian2DUnit::~Cartesian2DUnit()
 {;}
 
-void Cartesian2DUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void Cartesian2DUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 2;
-	*(output+0) = atom_getfloat(inputAtoms+0); //x 
-	*(output+1) = atom_getfloat(inputAtoms+1); //y
+	neutralValue = inValue;
 }
 
-void Cartesian2DUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void Cartesian2DUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 2;
-	atom_setfloat(*outputAtoms+0, *(input+0));
-	atom_setfloat(*outputAtoms+1, *(input+1));
+	outValue = neutralValue;
 }
 
 /***********************************************************************************************/
@@ -75,31 +65,31 @@ SphericalUnit::~SphericalUnit()
 {;}
 		
 		
-void SphericalUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
-{   //double kDegreesToRadians = kDegreesToRadians;
-	double aa = (atom_getfloat(inputAtoms+0)) *  kDegreesToRadians; //a  
-	double ee = atom_getfloat(inputAtoms+1) *  kDegreesToRadians; //e
-	double dd = atom_getfloat(inputAtoms+2); //d
-	
-	*outputNumArgs = 3;
+void SphericalUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
+{   
+	double aa = inValue.getFloat64(0) *  kDegreesToRadians; //a  
+	double ee = inValue.getFloat64(1) *  kDegreesToRadians; //e
+	double dd = inValue.getFloat64(2); //d
 	double temp = cos(ee) * dd;		
-	*(output+0) = sin(aa) * temp; 
-	*(output+1) = cos(aa) * temp; 
-	*(output+2) = sin(ee) * dd;
+	
+	neutralValue.setSize(3);
+	neutralValue.set(0, sin(aa) * temp);
+	neutralValue.set(1, cos(aa) * temp);
+	neutralValue.set(2, sin(ee) * dd);
 }
 
 
-void SphericalUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void SphericalUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {   
-    double xx = *(input+0);
-	double yy = *(input+1);
-	double zz = *(input+2);
+    double xx = neutralValue.getFloat64(0);
+	double yy = neutralValue.getFloat64(1);
+	double zz = neutralValue.getFloat64(2);
 	double temp = (xx * xx) + (yy * yy);
-
-	*outputNumArgs = 3;	
-	atom_setfloat(*outputAtoms+0, atan2(xx, yy) * kRadiansToDegrees); 
-	atom_setfloat(*outputAtoms+1, atan2(zz, (pow((temp), 0.5))) * kRadiansToDegrees);
-	atom_setfloat(*outputAtoms+2, pow((temp + (zz * zz)), 0.5));
+	
+	outValue.setSize(3);
+	outValue.set(0, atan2(xx, yy) * kRadiansToDegrees);
+	outValue.set(1, atan2(zz, (pow((temp), 0.5))) * kRadiansToDegrees);
+	outValue.set(2, pow((temp + (zz * zz)), 0.5));
 }
 
 /***********************************************************************************************/
@@ -113,29 +103,25 @@ PolarUnit::~PolarUnit()
 {;}
 		
 		
-void PolarUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
-{
-    *outputNumArgs = 2;
+void PolarUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
+{	
+	double aa = inValue.getFloat64(0) * kDegreesToRadians; //a
+	double dd = inValue.getFloat64(1); //d
 	
-	double aa = (atom_getfloat(inputAtoms+0)) * kDegreesToRadians; //a
-	double dd = atom_getfloat(inputAtoms+1); //d
-				
-	*(output+0) = sin(aa)  * dd; //x
-	*(output+1) = cos(aa) * dd; //y
-	
-		
+	neutralValue.setSize(2);
+	neutralValue.set(0, sin(aa)  * dd);	//x
+	neutralValue.set(1, cos(aa) * dd);	//y
 }
 
 
-void PolarUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void PolarUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {   
-    double xx = *(input+0);
-	double yy = *(input+1);
-
-	*outputNumArgs = 2;
+    double xx = neutralValue.getFloat64(0);
+	double yy = neutralValue.getFloat64(1);
 	
-	atom_setfloat(*outputAtoms+0, atan2(xx, yy) * kRadiansToDegrees); //a
-	atom_setfloat(*outputAtoms+1, pow(((xx * xx) + (yy * yy)), 0.5)); //distance	
+	outValue.setSize(2);
+	outValue.set(0, atan2(xx, yy) * kRadiansToDegrees);	//a
+	outValue.set(1, pow(((xx * xx) + (yy * yy)), 0.5));	//distance
 }
 
 /***********************************************************************************************/
@@ -149,21 +135,21 @@ OpenGlUnit::~OpenGlUnit()
 {;}
 		
 
-void OpenGlUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
-{
-	*outputNumArgs = 3;
-	*(output+0) = atom_getfloat(inputAtoms+0); //x 
-	*(output+1) = -1.0 * atom_getfloat(inputAtoms+2); //y
-	*(output+2) = atom_getfloat(inputAtoms+1); //z
+void OpenGlUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
+{	
+	neutralValue.setSize(3);
+	neutralValue.set(0, inValue.getFloat64(0));			//x
+	neutralValue.set(1, -1.0 * inValue.getFloat64(2));	//y
+	neutralValue.set(2, inValue.getFloat64(1));			//z
 }
 
 
-void OpenGlUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
-{
-	*outputNumArgs = 3;
-	atom_setfloat(*outputAtoms+0, *(input+0));//x
-	atom_setfloat(*outputAtoms+1, *(input+2));//y
-	atom_setfloat(*outputAtoms+2, *(input+1) * -1.0);//z
+void OpenGlUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
+{		
+	outValue.setSize(3);
+	outValue.set(0, neutralValue.getFloat64(0));		//x
+	outValue.set(1, neutralValue.getFloat64(2));		//y
+	outValue.set(2, -1.0 * neutralValue.getFloat64(1));	//z
 }
 
 
@@ -179,33 +165,30 @@ CylindricalUnit::~CylindricalUnit()
 {;}
 		
 
-void CylindricalUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void CylindricalUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
 	// Cylindrical coordinate System (according to ISO 31-11 http://en.wikipedia.org/wiki/ISO_31-11#Coordinate_systems )  = radius azimut hight
 	
-	*outputNumArgs = 3;
-	double dd = atom_getfloat(inputAtoms+0); //d
-	double aa = (atom_getfloat(inputAtoms+1)) * kDegreesToRadians; //a
+	double dd = inValue.getFloat64(0); //d
+	double aa = inValue.getFloat64(1) * kDegreesToRadians; //a
 	
-				
-	*(output+0) = sin(aa)  * dd; //x
-	*(output+1) = cos(aa) * dd; //y
-	*(output+2) = atom_getfloat(inputAtoms+2); //z
+	neutralValue.setSize(3);
+	neutralValue.set(0, sin(aa)  * dd);			//x
+	neutralValue.set(1, cos(aa) * dd);			//y
+	neutralValue.set(2, inValue.getFloat64(2));	//z
 }
 
 
-void CylindricalUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
-{
-	 
-	 *outputNumArgs = 3;
-	 
-	 double xx = *(input+0);
-     double yy = *(input+1);	
+void CylindricalUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
+{	 
+	 double xx = neutralValue.getFloat64(0);
+     double yy = neutralValue.getFloat64(2);	
 	
 	// d a z
-	atom_setfloat(*outputAtoms+0, pow(((xx * xx) + (yy * yy)), 0.5)); //distance
-	atom_setfloat(*outputAtoms+1, atan2(xx, yy) * kRadiansToDegrees); //a
-	atom_setfloat(*outputAtoms+2, *(input+2));//z
+	outValue.setSize(3);
+	outValue.set(0, pow(((xx * xx) + (yy * yy)), 0.5));		//distance
+	outValue.set(1, atan2(xx, yy) * kRadiansToDegrees);		//a
+	outValue.set(2, neutralValue.getFloat64(2));			//z
 }
 
 
@@ -214,17 +197,17 @@ PositionDataspace::PositionDataspace()
 	: DataspaceLib("position", "xyz")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new Cartesian3DUnit,	SymbolGen("cart3D"));
-	registerUnit(new Cartesian3DUnit,	SymbolGen("xyz"));
-	registerUnit(new Cartesian2DUnit,	SymbolGen("cart2D"));
-	registerUnit(new Cartesian2DUnit,	SymbolGen("xy"));
-	registerUnit(new SphericalUnit,		SymbolGen("spherical"));
-	registerUnit(new SphericalUnit,		SymbolGen("aed"));
-	registerUnit(new PolarUnit,			SymbolGen("polar"));
-	registerUnit(new PolarUnit,			SymbolGen("ad"));
-	registerUnit(new OpenGlUnit,		SymbolGen("openGL"));
-	registerUnit(new CylindricalUnit,	SymbolGen("cylindrical"));
-	registerUnit(new CylindricalUnit,	SymbolGen("daz"));
+	registerUnit(new Cartesian3DUnit,	TT("cart3D"));
+	registerUnit(new Cartesian3DUnit,	TT("xyz"));
+	registerUnit(new Cartesian2DUnit,	TT("cart2D"));
+	registerUnit(new Cartesian2DUnit,	TT("xy"));
+	registerUnit(new SphericalUnit,		TT("spherical"));
+	registerUnit(new SphericalUnit,		TT("aed"));
+	registerUnit(new PolarUnit,			TT("polar"));
+	registerUnit(new PolarUnit,			TT("ad"));
+	registerUnit(new OpenGlUnit,		TT("openGL"));
+	registerUnit(new CylindricalUnit,	TT("cylindrical"));
+	registerUnit(new CylindricalUnit,	TT("daz"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

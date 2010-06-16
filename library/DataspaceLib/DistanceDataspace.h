@@ -20,8 +20,8 @@ class CentimeterUnit : DataspaceUnit{
 		CentimeterUnit();
 		~CentimeterUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class InchUnit : DataspaceUnit{
@@ -29,8 +29,8 @@ class InchUnit : DataspaceUnit{
 		InchUnit();
 		~InchUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class FootUnit : DataspaceUnit{
@@ -38,8 +38,8 @@ class FootUnit : DataspaceUnit{
 		FootUnit();
 		~FootUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class MeterUnit : DataspaceUnit{
@@ -47,8 +47,8 @@ class MeterUnit : DataspaceUnit{
 		MeterUnit();
 		~MeterUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 

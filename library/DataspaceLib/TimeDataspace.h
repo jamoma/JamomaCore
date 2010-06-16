@@ -19,8 +19,8 @@ class MillisecondUnit : DataspaceUnit{
 		MillisecondUnit();
 		~MillisecondUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class SampleUnit : DataspaceUnit{
@@ -35,8 +35,8 @@ class SampleUnit : DataspaceUnit{
 		SampleUnit();
 		~SampleUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class SecondUnit : DataspaceUnit{
@@ -44,8 +44,8 @@ class SecondUnit : DataspaceUnit{
 		SecondUnit();
 		~SecondUnit();
 		
-		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+		void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+		void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class UpdaterateUnit : DataspaceUnit{
@@ -53,8 +53,8 @@ class UpdaterateUnit : DataspaceUnit{
 		UpdaterateUnit();
 		~UpdaterateUnit();
 	
-	void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-	void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+	void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 class BpmUnit : DataspaceUnit{
@@ -62,8 +62,8 @@ class BpmUnit : DataspaceUnit{
 	BpmUnit();
 	~BpmUnit();
 	
-	void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
-	void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+	void convertToNeutral(const TTValue& inValue, TTValue& neutralValue);
+	void convertFromNeutral(TTValue& neutralValue, TTValue& outValue);
 };
 
 

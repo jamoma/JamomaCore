@@ -13,8 +13,7 @@
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
 #endif // WIN_VERSION
 
-#include "MaxObjectTypes.h"
-#include "JamomaTypes.h"
+#include "TTModular.h"
 
 // Constants used for trigonometric convertions:
 static const double kRadiansToDegrees = 180.0 / 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068;
@@ -38,9 +37,10 @@ static const double inv255 = 1./255.;
 // Specification for the base class of each DataspaceUnit
 // A DataspaceUnit converts from a specific unit to a neutral unit
 // and is used by a DataspaceLib to do a conversion
-class JAMOMA_EXPORT DataspaceUnit{
+class TTMODULAR_EXPORT DataspaceUnit {
+	
 	public:
-		t_symbol *name;				/// < name of this unit
+		TTSymbolPtr	name;				/// < name of this unit
 
 		/** Constructor. Must be passed the name of this DataspaceUnit as a C-string. */
 		DataspaceUnit(const char *cName);
@@ -50,28 +50,31 @@ class JAMOMA_EXPORT DataspaceUnit{
 		
 		/** Converts from an actual unit to a 'neutral' unit that can be interpreted by other units within this dataspace.
 			This must be defined by a sub-class.*/
-		virtual void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output) = 0;
+		virtual void convertToNeutral(const TTValue& inValue, TTValue& neutralValue) = 0;
+		//virtual void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output) = 0;
 
 		/** Converts from a neutral unit back to an actual unit. 
 			This must be defined by a sub-class.*/
-		virtual void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms) = 0;
+		virtual void convertFromNeutral(TTValue& neutralValue, TTValue& outValue) = 0;
+		//virtual void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms) = 0;
 };
 
 
 
 // Specification of our base class
-class JAMOMA_EXPORT DataspaceLib{
+class TTMODULAR_EXPORT DataspaceLib {
+	
 	private:
 		DataspaceUnit	*inUnit;
 		DataspaceUnit	*outUnit;
-		t_hashtab		*unitHash;
+		TTHashPtr		unitHash;
 
 	protected:
-		void registerUnit(void *unit, t_symbol *unitName);
+		void		registerUnit(void *unit, TTSymbolPtr unitName);
 		
 	public:
-		t_symbol		*neutralUnit;
-		t_symbol		*name;
+		TTSymbolPtr		neutralUnit;
+		TTSymbolPtr		name;
 
 		/** Constructor. 
 			This constructor maintains a cache of all DataspaceUnits that are associated with
@@ -83,46 +86,31 @@ class JAMOMA_EXPORT DataspaceLib{
 		
 		/** Destructor. */
 		virtual ~DataspaceLib();
-		
-/*		JamomaError convert(long		inputNumArgs, 
-							t_atom		*inputAtoms, 
-							t_symbol	*inputDataspace, 
-							long		*outputNumArgs, 
-							t_atom		**outputAtoms, 
-							t_symbol	*outputDataspace, 
-							);
-*/
 
-		/** converts input to output, possibly doing a unit conversion.
-			EXTREMELY IMPORTANT: We are expecting that **output atoms has its memory passed in already.
-			We are not allocating it due to performance considerations */
-		JamomaError convert(long		inputNumArgs,
-							t_atom		*inputAtoms,
-							long		*outputNumArgs,
-							t_atom		**outputAtoms
-							);
+		/** converts input to output, possibly doing a unit conversion. */
+		TTErr		convert(const TTValue& inValue, TTValue& outValue);
 		// could also create a class that wraps a unit with it's dataspace information and args and whateverelse
 		// and then have an alternative (overridden) version of the convert method
 		
 		/** set the input unit type for this dataspace object by it's name as a symbol */
-		JamomaError setInputUnit(t_symbol *inUnitName);
+		TTErr		setInputUnit(TTSymbolPtr inUnitName);
 
 		/** set the output unit type for this dataspace object by it's name as a symbol */
-		JamomaError setOutputUnit(t_symbol *outUnitName);
+		TTErr		setOutputUnit(TTSymbolPtr outUnitName);
 		
 		/** return a list of all available units for this dataspace */
-		void getAvailableUnits(long *numUnits, t_symbol ***unitNames);
+		void		getAvailableUnits(TTValue& unitNames);
 };
 
 
 extern "C" {
 
 	/** Create a dataspace object by specifying the name of the dataspace you want as a symbol. */
-	JamomaError		jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspace);
+	TTErr			jamoma_getDataspace(TTSymbolPtr dataspaceName, DataspaceLib **dataspace);
 
 	/** Get a list of names of all the available dataspaces.  
 		The caller of this function is responsible for freeing memory allocated by this call. */
-	void			jamoma_getDataspaceList(long *numDataspaces, t_symbol ***dataspaceNames);
+	void			jamoma_getDataspaceList(TTValue& dataspaceNames);
 
 }
 

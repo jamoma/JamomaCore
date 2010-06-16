@@ -18,17 +18,15 @@ CelsiusUnit::~CelsiusUnit()
 {;}
 		
 
-void CelsiusUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void CelsiusUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms) + 273.15;
+	neutralValue = TTValue(inValue.getFloat64() + 273.15);
 }
 
 
-void CelsiusUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void CelsiusUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input - 273.15);
+	outValue = TTValue(neutralValue.getFloat64() - 273.15);
 }
 
 
@@ -42,17 +40,15 @@ FahrenheitUnit::~FahrenheitUnit()
 {;}
 		
 		
-void FahrenheitUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void FahrenheitUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	*output = (atom_getfloat(inputAtoms) + 459.67) / 1.8;
+	neutralValue = TTValue((inValue.getFloat64() + 459.67) / 1.8);
 }
 
 
-void FahrenheitUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void FahrenheitUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, (*input * 1.8) - 459.67);
+	outValue = TTValue((neutralValue.getFloat64() * 1.8) - 459.67);
 }
 
 
@@ -66,17 +62,15 @@ KelvinUnit::~KelvinUnit()
 {;}
 
 		
-void KelvinUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void KelvinUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms);
+	neutralValue = inValue;
 }
 
 
-void KelvinUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void KelvinUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input);
+	outValue = neutralValue;
 }
 
 
@@ -85,12 +79,12 @@ TemperatureDataspace::TemperatureDataspace()
 	: DataspaceLib("temperature", "Kelvin")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new CelsiusUnit,		SymbolGen("C"));
-	registerUnit(new CelsiusUnit,		SymbolGen("Celsius"));
-	registerUnit(new FahrenheitUnit,	SymbolGen("F"));
-	registerUnit(new FahrenheitUnit,	SymbolGen("Fahrenheit"));
-	registerUnit(new KelvinUnit,		SymbolGen("K"));
-	registerUnit(new KelvinUnit,		SymbolGen("Kelvin"));
+	registerUnit(new CelsiusUnit,		TT("C"));
+	registerUnit(new CelsiusUnit,		TT("Celsius"));
+	registerUnit(new FahrenheitUnit,	TT("F"));
+	registerUnit(new FahrenheitUnit,	TT("Fahrenheit"));
+	registerUnit(new KelvinUnit,		TT("K"));
+	registerUnit(new KelvinUnit,		TT("Kelvin"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

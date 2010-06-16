@@ -18,17 +18,15 @@ NoneUnit::~NoneUnit()
 {;}
 		
 
-void NoneUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void NoneUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms);
+	neutralValue = inValue;
 }
 
 
-void NoneUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void NoneUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input);
+	outValue = neutralValue;
 }
 
 
@@ -37,7 +35,7 @@ NoneDataspace::NoneDataspace()
 	: DataspaceLib("none", "none")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new NoneUnit,	SymbolGen("none"));
+	registerUnit(new NoneUnit,	TT("none"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

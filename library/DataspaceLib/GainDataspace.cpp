@@ -22,22 +22,18 @@ LinearAmplitudeUnit::~LinearAmplitudeUnit()
 {;}
 
 
-void LinearAmplitudeUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void LinearAmplitudeUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	
-	*output = atom_getfloat(inputAtoms);
+	neutralValue = inValue;
 	// avoid negative valus that might blow up some convertions
-	if (*output<0)
-		*output = 0;
-
+	if (neutralValue.getFloat64() < 0)
+		neutralValue = TTValue(0);
 }
 
 
-void LinearAmplitudeUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void LinearAmplitudeUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input);
+	outValue = neutralValue;
 }
 
 
@@ -51,23 +47,21 @@ MidiGainUnit::~MidiGainUnit()
 {;}
 		
 
-void MidiGainUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void MidiGainUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
 	// This is the old formula behaving the same as the gain~ object:
 	// *output =  pow(10., (atom_getfloat(inputAtoms)-127.)*0.03);
 	// Now substituted for:
-	*output = pow(atom_getfloat(inputAtoms)*0.01,kGainMidiPower);
+	neutralValue = TTValue(pow(inValue.getFloat64()*0.01, kGainMidiPower));
 }
 
 
-void MidiGainUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void MidiGainUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
 	// This is the old formula behaving the same as the gain~ object:
 	// atom_setfloat(*outputAtoms, log10(*input)*33.333333333333+127.);
 	// Now substituted for:
-	atom_setfloat(*outputAtoms, 100.*pow((*input),kGainMidiPowerInv));
+	outValue = TTValue(100.*pow(neutralValue.getFloat64(), kGainMidiPowerInv));
 }
 
 
@@ -81,17 +75,15 @@ DecibelUnit::~DecibelUnit()
 {;}
 		
 		
-void DecibelUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void DecibelUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	*output = pow(10., atom_getfloat(inputAtoms)*0.05);
+	neutralValue = TTValue(pow(10., inValue.getFloat64()*0.05));
 }
 
 
-void DecibelUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void DecibelUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;	
-	atom_setfloat(*outputAtoms, log10(*input)*20.);
+	outValue = TTValue(log10(neutralValue.getFloat64())*20.);
 }
 
 
@@ -100,10 +92,10 @@ GainDataspace::GainDataspace()
 	: DataspaceLib("gain", "linear")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new LinearAmplitudeUnit,	SymbolGen("linear"));
-	registerUnit(new MidiGainUnit,			SymbolGen("midi"));
-	registerUnit(new DecibelUnit,			SymbolGen("dB"));
-	registerUnit(new DecibelUnit,			SymbolGen("db"));
+	registerUnit(new LinearAmplitudeUnit,	TT("linear"));
+	registerUnit(new MidiGainUnit,			TT("midi"));
+	registerUnit(new DecibelUnit,			TT("dB"));
+	registerUnit(new DecibelUnit,			TT("db"));
 
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

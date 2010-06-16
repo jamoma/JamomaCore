@@ -10,9 +10,8 @@
 
 DataspaceUnit::DataspaceUnit(const char *cName)
 {
-	name = SymbolGen(cName);
+	name = TT(cName);
 }
-
 
 DataspaceUnit::~DataspaceUnit()
 {
@@ -25,93 +24,88 @@ DataspaceUnit::~DataspaceUnit()
 DataspaceLib::DataspaceLib(const char *cName, const char *cNativeUnit)
 	: inUnit(NULL), outUnit(NULL)
 {
-	unitHash = hashtab_new(0);
-	name = SymbolGen(cName);
-	neutralUnit = SymbolGen(cNativeUnit);
+	unitHash = new TTHash();
+	name = TT(cName);
+	neutralUnit = TT(cNativeUnit);
 }
-
 
 DataspaceLib::~DataspaceLib()
 {
-	t_symbol		**keys = NULL;
-	long			numKeys = 0;
+	TTValue			hk, v;
+	TTSymbolPtr		k;
 	long			i;
 	DataspaceUnit	*unit;
 
-	hashtab_getkeys(unitHash, &numKeys, &keys);
-	for (i=0; i<numKeys; i++) {
-		hashtab_lookup(unitHash, keys[i], (t_object**)&unit);
+	unitHash->getKeys(hk);
+	for (i=0; i<hk.getSize(); i++) {
+		hk.get(i, &k);
+		unitHash->lookup(k, v);
+		v.get(0, (TTPtr*)unit);
 		delete unit;
 	}
-	
-	if (keys)
-		sysmem_freeptr(keys);
 		
-	hashtab_chuck(unitHash);
+	delete unitHash;
 }
-
 
 // remember, we are relying on memory passed in for the outputAtoms		
-JamomaError DataspaceLib::convert(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, t_atom **outputAtoms)
+TTErr DataspaceLib::convert(const TTValue& inValue, TTValue& outValue)
 {
-	double	value[3];	// right now we only handle a maximum of 3 values in the neutral unit passing
-	long	numvalues;
+	TTValue neutralValue;
 	
-	if (inUnit->name == outUnit->name) {
-		*outputNumArgs = inputNumArgs;
-		sysmem_copyptr(inputAtoms, *outputAtoms, sizeof(t_atom) * inputNumArgs);
-	}
+	if (inUnit->name == outUnit->name)
+		outValue = inValue;
 	else {
-		inUnit->convertToNeutral(inputNumArgs, inputAtoms, &numvalues, value);
-		outUnit->convertFromNeutral(numvalues, value, outputNumArgs, outputAtoms);
+		inUnit->convertToNeutral(inValue, neutralValue);
+		outUnit->convertFromNeutral(neutralValue, outValue);
 	}
-	return JAMOMA_ERR_NONE;
+	return kTTErrNone;
 }
-
 		
-JamomaError DataspaceLib::setInputUnit(t_symbol *inUnitName)
+TTErr DataspaceLib::setInputUnit(TTSymbolPtr inUnitName)
 {
-	t_object*	newUnit = NULL;
-	JamomaError	err;
+	DataspaceUnit	*newUnit = NULL;
+	TTValue			v;
+	TTErr			err;
 	
 	if (inUnit && inUnitName == inUnit->name)	// already have this one loaded
-		return JAMOMA_ERR_NONE;
+		return kTTErrNone;
 	else {
-		err = (JamomaError)hashtab_lookup(unitHash, inUnitName, (t_object**)&newUnit);
+		err = unitHash->lookup(inUnitName, v);
+		v.get(0, (TTPtr*)newUnit);
+		
 		if (!err && newUnit)
-			inUnit = (DataspaceUnit*)newUnit;
+			inUnit = newUnit;
 		return err;
 	}
 }
 
-
-JamomaError DataspaceLib::setOutputUnit(t_symbol *outUnitName)
+TTErr DataspaceLib::setOutputUnit(TTSymbolPtr outUnitName)
 {
-	t_object*	newUnit = NULL;
-	JamomaError	err;
+	DataspaceUnit	*newUnit = NULL;
+	TTValue			v;
+	TTErr			err;
 	
 	if (outUnit && outUnitName == outUnit->name)	// already have this one loaded
-		return JAMOMA_ERR_NONE;
+		return kTTErrNone;
 	else {
-		err = (JamomaError)hashtab_lookup(unitHash, outUnitName, (t_object**)&newUnit);
+		err = unitHash->lookup(outUnitName, v);
+		v.get(0, (TTPtr*)newUnit);
+		
 		if (!err && newUnit)
-			outUnit = (DataspaceUnit*)newUnit;
+			outUnit = newUnit;
 		return err;
 	}
 }
 
-
-void DataspaceLib::registerUnit(void *unit, t_symbol *unitName)
+void DataspaceLib::registerUnit(TTPtr unit, TTSymbolPtr unitName)
 {
-	hashtab_store(unitHash, unitName, (t_object*)unit);
+	unitHash->append(unitName, unit);
 }
 
-
-void DataspaceLib::getAvailableUnits(long *numUnits, t_symbol ***unitNames)
+void DataspaceLib::getAvailableUnits(TTValue& unitNames)
 {
-	hashtab_getkeys(unitHash, numUnits, unitNames);
+	unitHash->getKeys(unitNames);
 }
-
 
 
 
@@ -128,12 +122,11 @@ void DataspaceLib::getAvailableUnits(long *numUnits, t_symbol ***unitNames)
 #include "TemperatureDataspace.h"
 #include "TimeDataspace.h"
 
-
-JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspace)
+TTErr jamoma_getDataspace(TTSymbolPtr dataspaceName, DataspaceLib **dataspace)
 {	
 	if (*dataspace) {
 		if (dataspaceName == (*dataspace)->name)
-			return JAMOMA_ERR_NONE;	// already have this one, do nothing...
+			return kTTErrNone;	// already have this one, do nothing...
 		else {
 			delete *dataspace;
 			*dataspace = NULL;
@@ -141,49 +134,45 @@ JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspac
 	}
 
 	// These should be alphabetized
-	if (dataspaceName == SymbolGen("angle"))
+	if (dataspaceName == TT("angle"))
 		*dataspace = (DataspaceLib*) new AngleDataspace;
-	else if (dataspaceName == SymbolGen("color"))
+	else if (dataspaceName == TT("color"))
 		*dataspace = (DataspaceLib*) new ColorDataspace;
-	else if (dataspaceName == SymbolGen("distance"))
+	else if (dataspaceName == TT("distance"))
 		*dataspace = (DataspaceLib*) new DistanceDataspace;
-	else if (dataspaceName == SymbolGen("gain"))
+	else if (dataspaceName == TT("gain"))
 		*dataspace = (DataspaceLib*) new GainDataspace;
-	else if (dataspaceName == SymbolGen("none"))
+	else if (dataspaceName == TT("none"))
 		*dataspace = (DataspaceLib*) new NoneDataspace;
-	else if (dataspaceName == SymbolGen("pitch"))
+	else if (dataspaceName == TT("pitch"))
 		*dataspace = (DataspaceLib*) new PitchDataspace;
-	else if (dataspaceName == SymbolGen("position")) 
+	else if (dataspaceName == TT("position")) 
 		*dataspace = (DataspaceLib*) new PositionDataspace;
-	else if (dataspaceName == SymbolGen("temperature"))
+	else if (dataspaceName == TT("temperature"))
 		*dataspace = (DataspaceLib*) new TemperatureDataspace;
-	else if (dataspaceName == SymbolGen("time"))
+	else if (dataspaceName == TT("time"))
 		*dataspace = (DataspaceLib*) new TimeDataspace;
 	else 
 		// Invalid -- default to temperature
 		*dataspace = (DataspaceLib*) new TemperatureDataspace;
 	
-	return JAMOMA_ERR_NONE;
+	return kTTErrNone;
 }
 
-
 // This function allocates memory -- caller must free it!
-void jamoma_getDataspaceList(long *numDataspaces, t_symbol ***dataspaceNames)
+void jamoma_getDataspaceList(TTValue& dataspaceNames)
 {
-	*numDataspaces = 9; // must be the length of the Dataspace
-	*dataspaceNames = (t_symbol**)sysmem_newptr(sizeof(t_symbol*) * *numDataspaces);
+	dataspaceNames.clear();
 	
 	// These should be alphabetized
-	if (*numDataspaces) {
-		*(*dataspaceNames+0) = SymbolGen("angle");
-		*(*dataspaceNames+1) = SymbolGen("color");
-		*(*dataspaceNames+2) = SymbolGen("distance");
-		*(*dataspaceNames+3) = SymbolGen("gain");
-		*(*dataspaceNames+4) = SymbolGen("none");
-		*(*dataspaceNames+5) = SymbolGen("pitch");
-		*(*dataspaceNames+6) = SymbolGen("position"); 
-		*(*dataspaceNames+7) = SymbolGen("temperature");
-		*(*dataspaceNames+8) = SymbolGen("time");
-	}
+	dataspaceNames.append(TT("angle"));
+	dataspaceNames.append(TT("color"));
+	dataspaceNames.append(TT("distance"));
+	dataspaceNames.append(TT("gain"));
+	dataspaceNames.append(TT("none"));
+	dataspaceNames.append(TT("pitch"));
+	dataspaceNames.append(TT("position")); 
+	dataspaceNames.append(TT("temperature"));
+	dataspaceNames.append(TT("time"));
 }
 

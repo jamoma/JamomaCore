@@ -21,20 +21,17 @@ MidiPitchUnit::~MidiPitchUnit()
 {;}
 		
 
-void MidiPitchUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void MidiPitchUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
 	// f = 440 * pow(2, (m-69)/12.)
-	*output = 440. * pow(2,(atom_getfloat(inputAtoms)-69.)/12.);
-
+	neutralValue = TTValue(440. * pow(2,(inValue.getFloat64()-69.)/12.));
 }
 
 
-void MidiPitchUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void MidiPitchUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
 	// m = 69. + 12*log2(f/440.);
-	atom_setfloat(*outputAtoms, 69. + 12* log(*input/440.)/log(2.));
+	outValue = TTValue(69. + 12* log(neutralValue.getFloat64()/440.)/log(2.));
 }
 
 
@@ -50,20 +47,17 @@ CentUnit::~CentUnit()
 {;}
 		
 
-void CentUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void CentUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
 	// f = 440 * pow(2, (m-69)/12.)
-	*output = 440. * pow(2,(atom_getfloat(inputAtoms)-6900.)/1200.);
-
+	neutralValue = TTValue(440. * pow(2,(inValue.getFloat64()-6900.)/1200.));
 }
 
 
-void CentUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void CentUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
 	// m = 69. + 12*log2(f/440.);
-	atom_setfloat(*outputAtoms, 6900. + 1200* log(*input/(440.))/log(2.));
+	outValue = TTValue(6900. + 1200* log(neutralValue.getFloat64()/(440.))/log(2.));
 }
 
 
@@ -77,17 +71,15 @@ FrequencyUnit::~FrequencyUnit()
 {;}
 		
 		
-void FrequencyUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void FrequencyUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms);
+	neutralValue = inValue;
 }
 
 
-void FrequencyUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void FrequencyUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input);
+	outValue = neutralValue;
 }
 
 
@@ -101,19 +93,17 @@ SpeedUnit::SpeedUnit()
 SpeedUnit::~SpeedUnit()
 {;}
 
-void SpeedUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void SpeedUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
 	// f = speed*440./pow(2.,(69./12.))
-	*output = atom_getfloat(inputAtoms) * 440./pow(2.,(69./12.));
+	neutralValue = TTValue(inValue.getFloat64() * 440./pow(2.,(69./12.)));
 }
 
 
-void SpeedUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void SpeedUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
 	// speed = f * pow(2.,(69./12.))/440.
-	atom_setfloat(*outputAtoms, *input * pow(2.,(69./12.))/440.);
+	outValue = TTValue( neutralValue.getFloat64() * pow(2.,(69./12.))/440.);
 }
 
 
@@ -124,10 +114,10 @@ PitchDataspace::PitchDataspace()
 	: DataspaceLib("pitch", "Hz")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new CentUnit,			SymbolGen("cents"));
-	registerUnit(new FrequencyUnit,		SymbolGen("Hz"));
-	registerUnit(new MidiPitchUnit,		SymbolGen("midi"));
-	registerUnit(new SpeedUnit,			SymbolGen("speed"));	// Transposition playback speed of buffers or sound files 
+	registerUnit(new CentUnit,			TT("cents"));
+	registerUnit(new FrequencyUnit,		TT("Hz"));
+	registerUnit(new MidiPitchUnit,		TT("midi"));
+	registerUnit(new SpeedUnit,			TT("speed"));	// Transposition playback speed of buffers or sound files 
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);

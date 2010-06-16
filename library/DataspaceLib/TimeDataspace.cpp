@@ -19,17 +19,15 @@ MillisecondUnit::~MillisecondUnit()
 {;}
 		
 
-void MillisecondUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void MillisecondUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms);
+	neutralValue = inValue;
 }
 
 
-void MillisecondUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void MillisecondUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input);
+	outValue = neutralValue;
 }
 
 
@@ -50,17 +48,15 @@ SampleUnit::~SampleUnit()
 {;}
 		
 		
-void SampleUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void SampleUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms) * rmsr;
+	neutralValue = TTValue(inValue.getFloat64() * rmsr);
 }
 
 
-void SampleUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void SampleUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, (*input * msr));
+	outValue = TTValue(neutralValue.getFloat64() * msr);
 }
 
 
@@ -74,17 +70,15 @@ SecondUnit::~SecondUnit()
 {;}
 
 		
-void SecondUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void SecondUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms) * 1000.0;
+	neutralValue = TTValue(inValue.getFloat64() * 1000.0);
 }
 
 
-void SecondUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void SecondUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, *input * 0.001);
+	outValue = TTValue(neutralValue.getFloat64() * 0.001);
 }
 
 /***********************************************************************************************/
@@ -97,17 +91,15 @@ UpdaterateUnit::~UpdaterateUnit()
 {;}
 
 
-void UpdaterateUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void UpdaterateUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {   
-	*outputNumArgs = 1;
-	*output = 1000.0 / atom_getfloat(inputAtoms);
+	neutralValue = TTValue(1000.0 / inValue.getFloat64());
 }
 //TODO: prevent division with zero
 
-void UpdaterateUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void UpdaterateUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, 1000.0 / *input);
+	outValue = TTValue(1000.0 / neutralValue.getFloat64());
 }
 //TODO: prevent division with zero
 /***********************************************************************************************/
@@ -120,17 +112,15 @@ BpmUnit::~BpmUnit()
 {;}
 
 
-void BpmUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+void BpmUnit::convertToNeutral(const TTValue& inValue, TTValue& neutralValue)
 {
-	*outputNumArgs = 1;
-	*output = 60000.0 / atom_getfloat(inputAtoms);
+	neutralValue = TTValue(60000.0 / inValue.getFloat64());
 }
 //TODO: prevent division with zero
 
-void BpmUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+void BpmUnit::convertFromNeutral(TTValue& neutralValue, TTValue& outValue)
 {
-	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, 60000.0 / *input);
+	outValue = TTValue(60000.0 / neutralValue.getFloat64());
 }
 //TODO: prevent division with zero
 
@@ -140,14 +130,14 @@ TimeDataspace::TimeDataspace()
 	: DataspaceLib("time", "millisecond")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new BpmUnit,			SymbolGen("bpm"));
-	registerUnit(new UpdaterateUnit,	SymbolGen("fps"));
-	registerUnit(new UpdaterateUnit,	SymbolGen("Hz"));
-	registerUnit(new MillisecondUnit,	SymbolGen("ms"));
-	registerUnit(new MillisecondUnit,	SymbolGen("millisecond"));
-	registerUnit(new SecondUnit,		SymbolGen("s"));
-	registerUnit(new SecondUnit,		SymbolGen("second"));
-	registerUnit(new SampleUnit,		SymbolGen("sample"));
+	registerUnit(new BpmUnit,			TT("bpm"));
+	registerUnit(new UpdaterateUnit,	TT("fps"));
+	registerUnit(new UpdaterateUnit,	TT("Hz"));
+	registerUnit(new MillisecondUnit,	TT("ms"));
+	registerUnit(new MillisecondUnit,	TT("millisecond"));
+	registerUnit(new SecondUnit,		TT("s"));
+	registerUnit(new SecondUnit,		TT("second"));
+	registerUnit(new SampleUnit,		TT("sample"));
 	
 	
 	// Now that the cache is created, we can create a set of default units
