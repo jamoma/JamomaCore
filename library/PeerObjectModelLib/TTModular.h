@@ -13,6 +13,7 @@
 
 
 #ifdef TT_PLATFORM_WIN
+#include "windows.h"
 	#ifdef TTMODULAR_EXPORTS
 	#define TTMODULAR_EXPORT __declspec(dllexport)
 	#else
@@ -30,6 +31,7 @@
 	#define TTMODULAR_EXPORT
 	#endif
 #endif
+
 
 #include "TTFoundationAPI.h"		// TTBlue Headers...
 
