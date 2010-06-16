@@ -105,12 +105,16 @@ class TTMODULAR_EXPORT DataspaceLib {
 
 extern "C" {
 
-	/** Create a dataspace object by specifying the name of the dataspace you want as a symbol. */
-	TTErr			jamoma_getDataspace(TTSymbolPtr dataspaceName, DataspaceLib **dataspace);
+	/** Create a dataspace object by specifying the name of the dataspace you want as a symbol.
+	 @param	dataspaceName				..
+	 @param	dataspace					..
+	 @return							an error code */
+	TTErr TTMODULAR_EXPORT	getDataspace(TTSymbolPtr dataspaceName, DataspaceLib **dataspace);
 
 	/** Get a list of names of all the available dataspaces.  
-		The caller of this function is responsible for freeing memory allocated by this call. */
-	void			jamoma_getDataspaceList(TTValue& dataspaceNames);
+		The caller of this function is responsible for freeing memory allocated by this call.
+	 @param	dataspaceNames				.. */
+	void TTMODULAR_EXPORT	getDataspaceList(TTValue& dataspaceNames);
 
 }
 

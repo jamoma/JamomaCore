@@ -112,6 +112,12 @@ void DataspaceLib::getAvailableUnits(TTValue& unitNames)
 /***************************************************************************
 	Interface for Instantiating any DataspaceLib
  ***************************************************************************/
+
+#if 0
+#pragma mark -
+#pragma mark Some Methods
+#endif
+
 #include "AngleDataspace.h"
 #include "ColorDataspace.h"
 #include "DistanceDataspace.h"
@@ -122,7 +128,7 @@ void DataspaceLib::getAvailableUnits(TTValue& unitNames)
 #include "TemperatureDataspace.h"
 #include "TimeDataspace.h"
 
-TTErr jamoma_getDataspace(TTSymbolPtr dataspaceName, DataspaceLib **dataspace)
+TTErr getDataspace(TTSymbolPtr dataspaceName, DataspaceLib **dataspace)
 {	
 	if (*dataspace) {
 		if (dataspaceName == (*dataspace)->name)
@@ -160,7 +166,7 @@ TTErr jamoma_getDataspace(TTSymbolPtr dataspaceName, DataspaceLib **dataspace)
 }
 
 // This function allocates memory -- caller must free it!
-void jamoma_getDataspaceList(TTValue& dataspaceNames)
+void getDataspaceList(TTValue& dataspaceNames)
 {
 	dataspaceNames.clear();
 	

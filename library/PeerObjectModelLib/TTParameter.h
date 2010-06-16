@@ -11,8 +11,8 @@
 
 #include "TTModular.h"
 
-//#include "DataspaceLib.h"
-//#include "FunctionLib.h"
+#include "DataspaceLib.h"
+#include "FunctionLib.h"
 #include "RampLib.h"
 
 /**	TTParameter ... TODO : an explanation
@@ -24,16 +24,18 @@ TODO LIST :
  -> setDataspace					TODO
  -> Parameter, Message, Return :	add an attribute to deal with three cases					(see in several place...)
  -> clip :							make a clipwrap and a clipfold method into TTValue...		(see in TTParameter::clipValue method)
- -> dataspace :						All the DataspaceLib have to works with TTValue now...		(see in TTParameter::convertUnit method)
  -> handleProperty :				used TTObject message mecanism...							(see in TTParameter::Command method)
  -> rampParameterNames :			relative to handleProperty									(see in TTParameter::setRampFunction)
  -> inc :							TODO
  -> dec :							TODO
  -> dump :							TODO
  
- 
  */				
 
+class RampUnit;
+typedef RampUnit*	RampUnitPtr;
+class DataspaceLib;
+typedef DataspaceLib*	DataspaceLibPtr;
 
 class TTMODULAR_EXPORT TTParameter : public TTObject
 {
@@ -71,22 +73,16 @@ private:
 	TTBoolean		mIsSending;					///< Flag to tell us if we are currently sending out our Value attribute
 	TTBoolean		mIsInitialised;				///< Flag to tell us if the Value attribute has been initialised
 	
-	//DataspaceLib*	mDataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
+	RampUnitPtr		mRamper;					///< Rampunit object to perform ramping of input values
+	//TTHashPtr		mRampParameterNames;		///< Cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
 	
-	RampUnit*		mRamper;					///< Rampunit object to perform ramping of input values
-	
-	/*
-	 
-	TTHashPtr		mRampParameterNames;		///< Cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
-	 
+	DataspaceLibPtr	dataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
+	DataspaceLibPtr	dataspace_override2active;	///< Performs conversion from messages like 'gain -6 db' to the active unit
+	DataspaceLibPtr	dataspace_active2display;	///< Performs conversion from the active input format to the format used by the parameter display
+	DataspaceLibPtr	dataspace_display2active;	///< Performs conversion from the display/ui to get back to the active units
 	TTSymbolPtr		mUnitOverride;				///< An internal unit conversion that is used temporarily when the parameter's value is set with a non-active unit.
-	DataspaceLib*	dataspace_override2active;	///< Performs conversion from messages like 'gain -6 db' to the active unit
-	DataspaceLib*	dataspace_active2display;	///< Performs conversion from the active input format to the format used by the parameter display
-	DataspaceLib*	dataspace_display2active;	///< Performs conversion from the display/ui to get back to the active units
 
-	
 	// it was in the Max external code :	TTPtr			ui_qelem;					///< the output to the connected ui object is "qlim'd" with this qelem
-	*/
 	
 public:
 	
