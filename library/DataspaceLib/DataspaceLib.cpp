@@ -71,7 +71,7 @@ TTErr DataspaceLib::setInputUnit(TTSymbolPtr inUnitName)
 		return kTTErrNone;
 	else {
 		err = unitHash->lookup(inUnitName, v);
-		v.get(0, (TTPtr*)newUnit);
+		v.get(0, (TTPtr*)&newUnit);
 		
 		if (!err && newUnit)
 			inUnit = newUnit;
@@ -89,7 +89,7 @@ TTErr DataspaceLib::setOutputUnit(TTSymbolPtr outUnitName)
 		return kTTErrNone;
 	else {
 		err = unitHash->lookup(outUnitName, v);
-		v.get(0, (TTPtr*)newUnit);
+		v.get(0, (TTPtr*)&newUnit);
 		
 		if (!err && newUnit)
 			outUnit = newUnit;

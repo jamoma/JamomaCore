@@ -66,6 +66,10 @@ mDataspaceUnitDisplay(kTTSym_none)
 	
 	mValue = TTValue();
 	mRamper = NULL;
+	dataspace_active2native	= NULL;
+	dataspace_override2active = NULL;
+	dataspace_active2display = NULL;
+	dataspace_display2active = NULL;
 }
 
 TTParameter::~TTParameter()
@@ -114,7 +118,7 @@ TTErr TTParameter::Command(const TTValue& command)
 	commandSize = command.getSize();
 	switch(commandSize) {
 			
-			// no value	
+		// no value	
 		case 0 :
 		{
 			// nothing to do
