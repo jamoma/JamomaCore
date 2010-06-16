@@ -221,7 +221,7 @@ TTErr TTParameter::Command(const TTValue& command)
 		convertUnit(command, convertedValue);
 	
 	
-	// 5. Ramp the value
+	// 5. Ramp the convertedValue
 	/////////////////////////////////
 	if (hasRamp) {
 		
@@ -237,9 +237,25 @@ TTErr TTParameter::Command(const TTValue& command)
 				return kTTErrNone;	// nothing to do
 		}
 		
-		//mRamper->set(convertedValue, mValue);
-		//mRamper->go(convertedValue, mValue, time);
-		setValue(convertedValue); // for instant...
+		if (mRamper) {
+			TTUInt32	i, s = convertedValue.getSize();
+			TTFloat64*	startArray = new TTFloat64[s];		// start to mValue
+			TTFloat64*	targetArray = new TTFloat64[s];		// go to convertedValue
+			
+			if(mValue.getSize() != s)
+				mValue.setSize(s);
+			
+			for (i=0; i<s; i++) {
+				startArray[i] = mValue.getFloat64(i);
+				targetArray[i] = convertedValue.getFloat64(i);
+			}
+			
+			mRamper->set(s, startArray);		
+			mRamper->go(s, targetArray, time);	
+			
+			delete [] startArray;
+			delete [] targetArray;
+		}
 	} 
 	else {
 		// check repetitions
@@ -264,6 +280,7 @@ TTErr TTParameter::setValue(const TTValue& value)
 		if (clipValue() && mRamper)
 			mRamper->stop();
 		
+		// set internal value
 		mValue = value;
 		
 		// return the value to his owner
@@ -391,7 +408,7 @@ TTErr TTParameter::setRampFunction(const TTValue& value)
 			// set the function of the ramper
 			mRamper->setAttributeValue(TT("Function"), mRampFunction);
 			
-			/* This have to be in the Max External !!!
+			/*
 			 long		n;
 			 TTValue		names;
 			 TTSymbolPtr	aName;
@@ -482,6 +499,7 @@ TTBoolean TTParameter::clipValue()
 
 TTErr TTParameter::rampSetup()
 {
+
 	// 1. destroy the old rampunit
 	if (mRamper != NULL) {
 		delete mRamper;
@@ -492,8 +510,8 @@ TTErr TTParameter::rampSetup()
 	// For some types ramping doesn't make sense, so they will be set to none
 	if (mType == kTTSym_none || mType == kTTSym_string || mType == kTTSym_generic)
 		mRampDrive = kTTSym_none;
-	else
-		;//TODO : RampLib::createUnit(mRampDrive, &mRamper, &TTParameterRampUnitCallback, &mValue);
+	else 
+		RampLib::createUnit(mRampDrive, &mRamper, &TTParameterRampUnitCallback, (void *)this);
 	
 	if (mRamper == NULL)
 		return kTTErrGeneric; //error("jcom.parameter (%s module): could not allocate memory for ramp unit!", x->common.module_name);
@@ -506,7 +524,7 @@ TTErr TTParameter::rampSetup()
 
 TTErr TTParameter::convertUnit(const TTValue& inValue, TTValue& outValue)
 {
-	if (mDataspace && mDataspace_active2native && (mDataspaceUnitActive != mDataspaceUnitNative))
+	if (mDataspace /*&& mDataspace_active2native*/ && (mDataspaceUnitActive != mDataspaceUnitNative))
 		// TODO : mDataspace_active2native->convert(inValue, outValue);
 		outValue = inValue;  // for instant...
 	else
@@ -533,8 +551,26 @@ TTErr TTParameter::notifyObservers(TTSymbolPtr attrName, const TTValue& value)
 #pragma mark Some Methods
 #endif
 
-TTErr TTParameterCallback(TTPtr baton, TTValue& data)
+void TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 {
-	return kTTErrNone;
+	TTParameterPtr	aParameter = (TTParameterPtr)o;
+	TTValue		rampedValue;
+	TTUInt32		i;
+	
+	rampedValue.setSize(n);
+	for (i=0; i<n; i++)
+		rampedValue.set(i, rampedArray[i]);
+	
+	if (aParameter->mRepetitionsAllow || !(aParameter->mValue == rampedValue)) {
+		
+		// set internal value
+		aParameter->mValue = rampedValue;
+		
+		// return the value to his owner
+		aParameter->mReturnValueCallback->notify(aParameter->mValue);
+		
+		// notify each observers
+		aParameter->notifyObservers(kTTSym_Value, aParameter->mValue);
+	}
 }
 

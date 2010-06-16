@@ -56,7 +56,7 @@ TTErr TTDeviceManager::LoadPlugins(const TTValue& value)
 	TTSymbolPtr path;
 	value.get(0, &path);
 	
-	mDeviceManager->pluginLoad(path->getCString());
+	//mDeviceManager->pluginLoad(path->getCString());
 	return kTTErrNone;
 }
 

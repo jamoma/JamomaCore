@@ -13,7 +13,7 @@
 #include "TTDSP.h"
 #include "FunctionLib.h"
 
-typedef void (*RampUnitCallback)(void *, long, double *);
+typedef void (*RampUnitCallback)(void *, TTUInt32, TTFloat64 *);
 
 
 /****************************************************************************************************/

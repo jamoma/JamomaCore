@@ -13,20 +13,20 @@
 
 //#include "DataspaceLib.h"
 //#include "FunctionLib.h"
-//#include "RampLib.h"
+#include "RampLib.h"
 
 /**	TTParameter ... TODO : an explanation
  
 TODO LIST : 
  
+ -> type							some work around type checking inside the Command method ...
  -> RangeBounds						How to declare this attribute in order to see 2 values ?
  -> setDataspace					TODO
  -> Parameter, Message, Return :	add an attribute to deal with three cases					(see in several place...)
  -> clip :							make a clipwrap and a clipfold method into TTValue...		(see in TTParameter::clipValue method)
- -> ramp :							All the RampLib have to works with TTValue now...			(see in TTParameter::ramSetup method)
- -> rampParameterNames :			put this in the Max External !!!							(see in TTParameter::setRampFunction)
  -> dataspace :						All the DataspaceLib have to works with TTValue now...		(see in TTParameter::convertUnit method)
  -> handleProperty :				used TTObject message mecanism...							(see in TTParameter::Command method)
+ -> rampParameterNames :			relative to handleProperty									(see in TTParameter::setRampFunction)
  -> inc :							TODO
  -> dec :							TODO
  -> dump :							TODO
@@ -73,8 +73,7 @@ private:
 	
 	//DataspaceLib*	mDataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
 	
-	//RampUnit*		mRamper;					///< Rampunit object to perform ramping of input values
-	
+	RampUnit*		mRamper;					///< Rampunit object to perform ramping of input values
 	
 	/*
 	 
@@ -155,6 +154,8 @@ private:
 	TTErr		convertUnit(const TTValue& inValue, TTValue& outValue);
 	TTErr		notifyObservers(TTSymbolPtr attrName, const TTValue& value);
 	
+	friend void TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
+	
 };
 
 typedef TTParameter* TTParameterPtr;
@@ -163,6 +164,6 @@ typedef TTParameter* TTParameterPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTParameterRampUnitCallback(TTPtr baton, TTValue& data);
+void TTMODULAR_EXPORT TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
 
 #endif // __TT_PARAMETER_H__
