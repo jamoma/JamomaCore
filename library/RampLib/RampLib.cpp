@@ -11,7 +11,6 @@
 #endif // WIN_VERSION
 
 #include "RampLib.h"
-#include "ext.h"
 
 #define thisTTClass RampUnit
 
@@ -127,7 +126,7 @@ void RampUnit::setNumValues(TTUInt32 newNumValues)
 #include "SchedulerRamp.h"
 
 
-JamomaError RampLib::createUnit(const TTSymbol* unitName, RampUnit **unit, RampUnitCallback callback, void* baton)
+TTErr RampLib::createUnit(const TTSymbol* unitName, RampUnit **unit, RampUnitCallback callback, void* baton)
 {
 	if (*unit)
 		delete *unit;
@@ -143,10 +142,11 @@ JamomaError RampLib::createUnit(const TTSymbol* unitName, RampUnit **unit, RampU
 		*unit = (RampUnit*) new SchedulerRamp(callback, baton);
 	else {
 		// Invalid function specified default to linear
-		error("Jamoma RampLib: Invalid RampUnit ( %s ) specified", (char*)unitName);
+		//error("Jamoma RampLib: Invalid RampUnit ( %s ) specified", (char*)unitName);
 		*unit = (RampUnit*) new NoneRamp(callback, baton);
+		return kTTErrGeneric;
 	}
-	return JAMOMA_ERR_NONE;
+	return kTTErrNone;
 }
 
 

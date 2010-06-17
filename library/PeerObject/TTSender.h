@@ -46,7 +46,7 @@ private :
 	
 	TTErr unbind();
 	
-	friend TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTSenderDirectoryCallback(TTPtr baton, TTValue& data);
 	
 };
 

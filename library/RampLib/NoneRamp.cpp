@@ -8,7 +8,6 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "Jamoma.h"
 #include "NoneRamp.h"
 
 NoneRamp::NoneRamp(RampUnitCallback aCallbackMethod, void *aBaton)

@@ -8,7 +8,6 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "Jamoma.h"
 #include "QueueRamp.h"
 
 // called by the Max queue, and provided to the qelem -- needs to have a C interface

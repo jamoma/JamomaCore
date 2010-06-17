@@ -34,7 +34,7 @@ DataspaceLib::~DataspaceLib()
 	TTValue			hk, v;
 	TTSymbolPtr		k;
 	long			i;
-	DataspaceUnit	*unit;
+	DataspaceUnit	*unit = NULL;
 
 	unitHash->getKeys(hk);
 	for (i=0; i<hk.getSize(); i++) {

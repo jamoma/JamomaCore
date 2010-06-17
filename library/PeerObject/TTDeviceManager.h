@@ -65,12 +65,12 @@ private :
 	void enableListening(std::string whereToSend, Address whereToListen, std::string attributeToListen);
 	void disableListening(std::string whereToSend, Address whereToListen, std::string attributeToListen);
 	
-	friend TTErr TTDeviceManagerDirectoryCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTDeviceManagerAttributeCallback(TTPtr baton, TTValue& data);
-	friend void TTDeviceManagerDiscoverCallback(void* arg, Address whereToDiscover, std::vector<std::string>& returnedNodes, std::vector<std::string>& returnedLeaves, std::vector<std::string>& returnedAttributes);
-	friend void TTDeviceManagerGetCallback(void* arg, Address whereToGet, std::string attribute, Value& returnedValue);
-	friend void TTDeviceManagerSetCallback(void* arg, Address whereToSet, std::string attribute, Value& newValue);
-	friend void TTDeviceManagerListenCallback(void* arg, std::string whereToSend, Address whereToListen, std::string attributeToListen, bool enable);
+	friend TTErr TTMODULAR_EXPORT TTDeviceManagerDirectoryCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTDeviceManagerAttributeCallback(TTPtr baton, TTValue& data);
+	friend void TTMODULAR_EXPORT TTDeviceManagerDiscoverCallback(void* arg, Address whereToDiscover, std::vector<std::string>& returnedNodes, std::vector<std::string>& returnedLeaves, std::vector<std::string>& returnedAttributes);
+	friend void TTMODULAR_EXPORT TTDeviceManagerGetCallback(void* arg, Address whereToGet, std::string attribute, Value& returnedValue);
+	friend void TTMODULAR_EXPORT TTDeviceManagerSetCallback(void* arg, Address whereToSet, std::string attribute, Value& newValue);
+	friend void TTMODULAR_EXPORT TTDeviceManagerListenCallback(void* arg, std::string whereToSend, Address whereToListen, std::string attributeToListen, bool enable);
 
 	
 	// use Receiver instead ...

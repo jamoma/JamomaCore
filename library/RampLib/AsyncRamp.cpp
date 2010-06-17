@@ -9,7 +9,6 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "Jamoma.h"
 #include "AsyncRamp.h"
 
 

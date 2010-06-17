@@ -51,9 +51,9 @@ private :
 	
 	TTErr unbind();
 	
-	friend TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTReceiverDirectoryCallback(TTPtr baton, TTValue& data);
 	
-	friend TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTReceiverAttributeCallback(TTPtr baton, TTValue& data);
 	
 };
 

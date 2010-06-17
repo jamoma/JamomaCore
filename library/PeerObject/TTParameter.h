@@ -150,7 +150,7 @@ private:
 	TTErr		convertUnit(const TTValue& inValue, TTValue& outValue);
 	TTErr		notifyObservers(TTSymbolPtr attrName, const TTValue& value);
 	
-	friend void TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
+	friend void TTMODULAR_EXPORT TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
 	
 };
 

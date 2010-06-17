@@ -10,14 +10,13 @@
 #define __FUNCTIONLIB_H__
 
 #include "TTFoundationAPI.h"
-#include "JamomaTypes.h"
-
+#include "TTModular.h"
 
 /****************************************************************************************************/
 // Class Specification
 
 
-class JAMOMA_EXPORT FunctionLib {
+class TTMODULAR_EXPORT FunctionLib {
 public:
 	/** Instantiate a function by name */
 	static TTErr createUnit(const TTSymbolPtr unitName, TTObject **unit);

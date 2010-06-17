@@ -105,7 +105,7 @@ TTErr TTParameter::Command(const TTValue& command)
 	//////////////////////////////////////////////////
 	if (command.getType(0) == kTypeSymbol) {
 		command.get(0, &first);
-		char*	c = strrchr(first->getCString(), ':');
+		char*	c = (char*)strrchr(first->getCString(), ':');
 		if (c) {
 			// TODO
 			//if (param_handleProperty(x, msg, argc, argv))
@@ -242,7 +242,7 @@ TTErr TTParameter::Command(const TTValue& command)
 		}
 		
 		if (mRamper) {
-			TTUInt32	i, s = convertedValue.getSize();
+			TTUInt16	i, s = convertedValue.getSize();
 			TTFloat64*	startArray = new TTFloat64[s];		// start to mValue
 			TTFloat64*	targetArray = new TTFloat64[s];		// go to convertedValue
 			
@@ -620,7 +620,7 @@ void TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 {
 	TTParameterPtr	aParameter = (TTParameterPtr)o;
 	TTValue		rampedValue;
-	TTUInt32		i;
+	TTUInt16		i;
 	
 	rampedValue.setSize(n);
 	for (i=0; i<n; i++)

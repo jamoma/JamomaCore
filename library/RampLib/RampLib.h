@@ -9,9 +9,14 @@
 #ifndef __RAMPLIB_H__
 #define __RAMPLIB_H__
 
-#include "JamomaTypes.h"
 #include "TTDSP.h"
+#include "TTModular.h"
 #include "FunctionLib.h"
+
+#include "ext.h"					// Max Header
+#include "ext_proto.h"
+#include "ext_obex.h"
+
 
 typedef void (*RampUnitCallback)(void *, TTUInt32, TTFloat64 *);
 
@@ -21,7 +26,7 @@ typedef void (*RampUnitCallback)(void *, TTUInt32, TTFloat64 *);
 
 
 // Specification of our base class
-class JAMOMA_EXPORT RampUnit : public TTObject {
+class TTMODULAR_EXPORT RampUnit : public TTObject {
 	private:
 		TTSymbolPtr			mFunction;			///< The name of the functionUnit
 
@@ -66,10 +71,10 @@ class JAMOMA_EXPORT RampUnit : public TTObject {
 };
 
 
-class JAMOMA_EXPORT RampLib {
+class TTMODULAR_EXPORT RampLib {
 public:
 	/** Instantiate a function by name */
-	static JamomaError createUnit(const TTSymbol* unitName, RampUnit **unit, RampUnitCallback callback, void* baton);
+	static TTErr createUnit(const TTSymbol* unitName, RampUnit **unit, RampUnitCallback callback, void* baton);
 
 	/**	Return a list of all available functions. */
 	static void getUnitNames(TTValue& unitNames);
