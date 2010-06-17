@@ -1,12 +1,12 @@
 /* 
- * Jamoma TTNode Tree
- * Copyright © 2008, Théo de la Hogue & Tim Place
+ * Modular For Max
+ * Copyright © 2010, Théo de la Hogue
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "NodeLib.h"
+#include "ModularForMax.h"
 
 
 /***********************************************************************************

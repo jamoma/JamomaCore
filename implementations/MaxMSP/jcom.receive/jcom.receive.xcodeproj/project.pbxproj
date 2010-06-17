@@ -15,11 +15,11 @@
 		22EB3B31102E61EA006D027A /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EB3B30102E61EA006D027A /* JamomaFoundation.framework */; };
 		D28D73CF1190641800B6C380 /* TTClassWrapperMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D28D73CD1190641800B6C380 /* TTClassWrapperMax.cpp */; };
 		D28D73D01190641800B6C380 /* TTClassWrapperMax.h in Headers */ = {isa = PBXBuildFile; fileRef = D28D73CE1190641800B6C380 /* TTClassWrapperMax.h */; };
+		D29BCE3D11C9EC7800F7CF19 /* ModularForMax.h in Headers */ = {isa = PBXBuildFile; fileRef = D29BCE3C11C9EC7800F7CF19 /* ModularForMax.h */; };
 		D2A77EF411ABE06B00CC81C1 /* jcom.receive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2A77EF311ABE06B00CC81C1 /* jcom.receive.cpp */; };
 		D2A77EF611ABE08700CC81C1 /* JamomaModular.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A77EF511ABE08700CC81C1 /* JamomaModular.framework */; };
 		D2A77F0511ABE0A800CC81C1 /* TTModularClassWrapperMax.h in Headers */ = {isa = PBXBuildFile; fileRef = D2A77F0311ABE0A800CC81C1 /* TTModularClassWrapperMax.h */; };
 		D2A77F0611ABE0A800CC81C1 /* TTModularClassWrapperMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2A77F0411ABE0A800CC81C1 /* TTModularClassWrapperMax.cpp */; };
-		D2A77F0A11ABE14C00CC81C1 /* NodeLib.h in Headers */ = {isa = PBXBuildFile; fileRef = D2A77F0911ABE14C00CC81C1 /* NodeLib.h */; };
 		D2A77F1811ABE22800CC81C1 /* MaxObjectTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = D2A77F1711ABE22800CC81C1 /* MaxObjectTypes.h */; };
 /* End PBXBuildFile section */
 
@@ -33,11 +33,11 @@
 		2FBBEAE508F335360078DB84 /* jcom.receive.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.receive.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		D28D73CD1190641800B6C380 /* TTClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTClassWrapperMax.cpp; path = ../../../supports/max/TTClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
 		D28D73CE1190641800B6C380 /* TTClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTClassWrapperMax.h; path = ../../../supports/max/TTClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
+		D29BCE3C11C9EC7800F7CF19 /* ModularForMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModularForMax.h; path = ../../../library/ModularForMax/ModularForMax.h; sourceTree = SOURCE_ROOT; };
 		D2A77EF311ABE06B00CC81C1 /* jcom.receive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receive.cpp; sourceTree = "<group>"; };
 		D2A77EF511ABE08700CC81C1 /* JamomaModular.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaModular.framework; path = ../../../library/build/UninstalledProducts/JamomaModular.framework; sourceTree = SOURCE_ROOT; };
 		D2A77F0311ABE0A800CC81C1 /* TTModularClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModularClassWrapperMax.h; path = ../../../supports/max/TTModularClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
 		D2A77F0411ABE0A800CC81C1 /* TTModularClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModularClassWrapperMax.cpp; path = ../../../supports/max/TTModularClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
-		D2A77F0911ABE14C00CC81C1 /* NodeLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NodeLib.h; path = ../../../library/NodeLib/NodeLib.h; sourceTree = SOURCE_ROOT; };
 		D2A77F1711ABE22800CC81C1 /* MaxObjectTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaxObjectTypes.h; path = ../../../supports/objectivemax/MaxObject/MaxObjectTypes.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -61,7 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				22EB3AE0102E6073006D027A /* tt-max.xcconfig */,
-				D2A77F0911ABE14C00CC81C1 /* NodeLib.h */,
+				D29BCE3C11C9EC7800F7CF19 /* ModularForMax.h */,
 				D2A77F1711ABE22800CC81C1 /* MaxObjectTypes.h */,
 				08FB77ADFE841716C02AAC07 /* Source */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
@@ -112,8 +112,8 @@
 			files = (
 				D28D73D01190641800B6C380 /* TTClassWrapperMax.h in Headers */,
 				D2A77F0511ABE0A800CC81C1 /* TTModularClassWrapperMax.h in Headers */,
-				D2A77F0A11ABE14C00CC81C1 /* NodeLib.h in Headers */,
 				D2A77F1811ABE22800CC81C1 /* MaxObjectTypes.h in Headers */,
+				D29BCE3D11C9EC7800F7CF19 /* ModularForMax.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
