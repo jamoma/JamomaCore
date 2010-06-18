@@ -350,6 +350,7 @@
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/max-includes\"",
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes\"",
 				);
+				GCC_MODEL_TUNING = G5;
 			};
 			name = Deployment;
 		};

@@ -75,7 +75,8 @@ TTErr TTBalance::Clear()
 
 TTErr TTBalance::setFrequency(const TTValue& newValue)
 {
-	mFrequency = TTClip((double)newValue, 1., (sr*0.45));
+	mFrequency = (double)newValue;
+	TTLimit(mFrequency, 1., (sr*0.45));
 
 	c = 1 / ( tan( kTTPi*(mFrequency/sr) ) );
 	a0 = 1 / (1 + kTTSqrt2*c + c*c);
@@ -124,8 +125,10 @@ TTErr TTBalance::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 			tempxB = *inSampleB++;
 			absTempxB = fabs(tempxB);
 			// Lopass filter left and right signals
-			tempyA = TTAntiDenormal(a0*absTempxA + a1*xm1A[channel] + a2*xm2A[channel] - b1*ym1A[channel] - b2*ym2A[channel]);
-			tempyB = TTAntiDenormal(a0*absTempxB + a1*xm1B[channel] + a2*xm2B[channel] - b1*ym1B[channel] - b2*ym2B[channel]);		
+			tempyA = a0*absTempxA + a1*xm1A[channel] + a2*xm2A[channel] - b1*ym1A[channel] - b2*ym2A[channel];
+			TTZeroDenormal(tempyA);
+			tempyB = a0*absTempxB + a1*xm1B[channel] + a2*xm2B[channel] - b1*ym1B[channel] - b2*ym2B[channel];		
+			TTZeroDenormal(tempyB); 
 			// Scale left input to produce output, avoid dividing by zero
 			if (tempyA)
 				*outSample++ = tempxA * (tempyB/tempyA);

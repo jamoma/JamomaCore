@@ -73,8 +73,8 @@ inline double Filter::tick(double input)
     in_[1] = in_[0];
 
     // NAN and denormal protect
-    in_[2] = TTAntiDenormal(in_[2]);
-    in_[1] = TTAntiDenormal(in_[1]);
+    TTZeroDenormal(in_[2]);
+    TTZeroDenormal(in_[1]);
     if (IEM_NAN(in_[2]))
         in_[2] = 0.0;
     if (IEM_NAN(in_[1]))

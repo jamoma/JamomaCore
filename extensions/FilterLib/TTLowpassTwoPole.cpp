@@ -99,7 +99,8 @@ void TTLowpassTwoPole::calculateCoefficients()
 
 inline TTErr TTLowpassTwoPole::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
-	y = TTAntiDenormal((mFeedback1[channel] * mCoefficientA) - (mFeedback2[channel] * mCoefficientB) + (x * mCoefficientC));
+	y = (mFeedback1[channel] * mCoefficientA) - (mFeedback2[channel] * mCoefficientB) + (x * mCoefficientC);
+	TTZeroDenormal(y);
 	mFeedback2[channel] = mFeedback1[channel];
 	mFeedback1[channel] = y;
 	return kTTErrNone;

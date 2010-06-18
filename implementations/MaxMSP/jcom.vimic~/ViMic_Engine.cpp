@@ -117,7 +117,7 @@ void vimic_sensitivity(double *sensi, double *del, Mic *mic, Mirror *mirror, Sou
 
         newSensi *= mic->gain();	
         newSensi *= reflGains[order];
-        newSensi = TTAntiDenormal(newSensi);
+		TTZeroDenormal(newSensi);
 
         if(newSensi > 1.0)
         {

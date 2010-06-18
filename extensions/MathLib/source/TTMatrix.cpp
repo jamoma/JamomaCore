@@ -151,7 +151,7 @@ TTErr TTMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
 	TTUInt16			outChannel;
 	TTUInt16			inChannel;
-
+    TTFloat64           gainValue;
 	if (numInputChannels != mNumInputs) {
 		setNumInputs(numInputChannels);
 	}
@@ -166,12 +166,16 @@ TTErr TTMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 	out.Clear();
 	
 	// TODO: this multiply-nested for-loop has got to be horrendously slow, there should be a much faster way to do this?
-	for (int i=0; i<vs; i++) {
+	
 		for (outChannel=0; outChannel<numOutputChannels; outChannel++) {
 			for (inChannel=0; inChannel<numInputChannels; inChannel++) {
-				inSample = in.mSampleVectors[inChannel];
-				outSample = out.mSampleVectors[outChannel];
-				outSample[i] += inSample[i] * mGainMatrix[inChannel][outChannel];
+				if (mGainMatrix[inChannel][outChannel] != 0.0){
+					gainValue = mGainMatrix[inChannel][outChannel];
+					inSample = in.mSampleVectors[inChannel];
+					outSample = out.mSampleVectors[outChannel];
+				for (int i=0; i<vs; i++) {				
+				outSample[i] += inSample[i] * gainValue;
+				}
 			}
 		}
 	}		

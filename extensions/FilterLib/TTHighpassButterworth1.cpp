@@ -87,7 +87,8 @@ inline TTErr TTHighpassButterworth1::calculateValue(const TTFloat64& x, TTFloat6
 {
 	//y = TTAntiDenormal(mA0*x + mA1*mX1[channel] - mB1*mY1[channel]);
     //since mA1 = -mA0, we can simplyfiy to
-	y = TTAntiDenormal(mA0*(x - mX1[channel]) - mB1*mY1[channel]);
+	y = mA0*(x - mX1[channel]) - mB1*mY1[channel];
+	TTZeroDenormal(y);
 	mX1[channel] = x;
 	mY1[channel] = y;
 	return kTTErrNone;

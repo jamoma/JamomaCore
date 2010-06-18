@@ -126,9 +126,10 @@ TTErr TTNoise::processBrownNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 
 		// Apply a "Browning" Filter
 		tempSample *= 0.1;									// scale the white noise
-		tempSample = TTClip(b[0] + tempSample, -1.0, 1.0);	// 6dB per octave lowpass
+		tempSample = b[0] + tempSample;    					// 6dB per octave lowpass
+		TTLimit(tempSample, -1.0, 1.0);	
 		b[0] = tempSample;									// store Feedback Sample
-		tempSample *= 0.25 * mGain;					// output
+		tempSample *= 0.25 * mGain;							// output
 
 		// Copy the Output to All Channels
 		for (channel=0; channel<numChannels; channel++)
@@ -155,7 +156,7 @@ TTErr TTNoise::processBlueNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 
 		// Apply a "Blue-ing" Filter
 		tempSample -= b[0];									// 6dB per octave highpass (real blue noise = 3dB/oct)
-		tempSample = TTClip(tempSample, -1.0, 1.0);			// clip
+		TTLimit(tempSample, -1.0, 1.0);						// clip
 		b[0] = tempSample;									// store feedback sample
 		tempSample *= mGain;
 		
