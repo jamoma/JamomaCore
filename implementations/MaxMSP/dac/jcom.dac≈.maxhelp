@@ -156,7 +156,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "graph.connect", "" ],
 					"patching_rect" : [ 80.0, 240.0, 59.0, 19.0 ],
-					"text" : "jcom.op>"
+					"text" : "jcom.op!"
 				}
 
 			}
@@ -197,7 +197,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "graph.connect", "" ],
 					"patching_rect" : [ 80.0, 215.0, 70.0, 19.0 ],
-					"text" : "jcom.pack>"
+					"text" : "jcom.pack!"
 				}
 
 			}
