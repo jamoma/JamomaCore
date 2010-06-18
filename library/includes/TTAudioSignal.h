@@ -107,7 +107,13 @@ public:
 		return kTTErrNone;
 	}
 	
-
+	TTErr setNumChannelsWithInt(const TTUInt16 newNumChannels)
+	{
+		mNumChannels = TTClip<TTUInt16>(newNumChannels, 0, mMaxNumChannels);
+		return kTTErrNone;
+	}
+	
+	
 	TTUInt16 getNumChannelsAsInt() const
 	{
 		return mNumChannels;
