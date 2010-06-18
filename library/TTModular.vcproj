@@ -65,9 +65,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib MaxAPI.lib deviceManager.lib"
+				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib MaxAPI.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)\DeviceManagerLib&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
@@ -149,9 +149,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib MaxAPI.lib deviceManager.lib"
+				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib MaxAPI.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)\DeviceManagerLib&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
@@ -193,14 +193,6 @@
 			</File>
 			<File
 				RelativePath=".\PeerObject\TTContainer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\PeerObject\TTDeviceManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PeerObject\TTDeviceManager.h"
 				>
 			</File>
 			<File
@@ -389,14 +381,6 @@
 			</File>
 			<File
 				RelativePath=".\FunctionLib\FunctionLib.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="DeviceManagerLib"
-			>
-			<File
-				RelativePath=".\DeviceManagerLib\DeviceManager.h"
 				>
 			</File>
 		</Filter>
