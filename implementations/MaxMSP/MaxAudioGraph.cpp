@@ -365,6 +365,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 	for (TTUInt16 i=0; i<v.getSize(); i++) {
 		TTAttributePtr	attr = NULL;
 		SymbolPtr		maxType = _sym_long;
+		TTValue			isGenerator = kTTBoolNo;
 		
 		v.get(i, &name);
 		nameSize = name->getString().length();
@@ -379,7 +380,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 			if (name == TT("MaxNumChannels"))
 				continue;						// don't expose these attributes to Max users
 			if (name == TT("Bypass")) {
-				if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("generator"), v))
+				if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("generator"), isGenerator))
 					continue;					// generators don't have inputs, and so don't really provide a bypass
 			}
 			
