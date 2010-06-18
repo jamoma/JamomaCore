@@ -17,7 +17,8 @@ TT_AUDIO_CONSTRUCTOR,
 mFilePath(kTTSymEmpty),
 mSoundFile(NULL),
 mPlay(false),
-mNumChannels(0)
+mNumChannels(0),
+mNumBufferFrames(0)
 {
 	addAttributeWithSetter(	FilePath,		kTypeSymbol);
 	addAttribute(			Play,			kTypeBoolean);
@@ -32,6 +33,8 @@ mNumChannels(0)
 TTSoundfilePlayer::~TTSoundfilePlayer()
 {
 	setAttributeValue(TT("Play"), kTTBoolNo);
+	if (mSoundFile)
+		sf_close(mSoundFile);
 }
 
 
@@ -65,28 +68,54 @@ TTErr TTSoundfilePlayer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSigna
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		outChannelCount = out.getMaxNumChannelsAsInt();
+	TTUInt16		numFrames = out.getVectorSizeAsInt();
+	TTBoolean		bufferNeedsResize = NO;
 
 	// resize of the number of output channels, if needed
-	if (outChannelCount < mSoundFileInfo.channels)
-		out.setMaxNumChannels(outChannelCount);
-	out.setNumChannelsWithInt(outChannelCount);
+	if (outChannelCount != mSoundFileInfo.channels || !mNumChannels) {
+		mNumChannels = mSoundFileInfo.channels;
+		out.setMaxNumChannels(mNumChannels);
+		bufferNeedsResize = YES;
+	}
+	out.setNumChannelsWithInt(mNumChannels);
+	
+	if (mNumBufferFrames != numFrames) {
+		mNumBufferFrames = numFrames;
+		bufferNeedsResize = YES;
+	}
+	if (bufferNeedsResize)
+		mBuffer.resize(mNumBufferFrames * mNumChannels);
+	
+	if (!mNumChannels)
+		return TTAudioObject::muteProcess(inputs, outputs);
 	
 	// if there is an input, we want to treat it as a sample-accurate on/off switch for playback
-	if (inputs->numAudioSignals) {
-		; // TODO: implement this
-	}
-	else {
-		TTUInt16			vs;
+	//if (inputs->numAudioSignals) {
+	//	; // TODO: implement this
+	//}
+	//else {
+		TTUInt16			n;
 		TTSampleValuePtr	outSample;
 		TTUInt16			channel;
+		sf_count_t			numFramesRead;
+		sf_count_t			numSamplesRead;
 		
-		for (channel=0; channel<outChannelCount; channel++) {
-			outSample = out.mSampleVectors[channel];
-			vs = out.getVectorSizeAsInt();
-			
-			while (vs--)
-				*outSample++ = 0;
+		mBuffer.assign(mBuffer.size(), 0.0);
+		
+		if (mPlay) {
+			numSamplesRead = sf_read_double(mSoundFile, &mBuffer[0], numFrames*mNumChannels);
+			if (numSamplesRead < numFrames*mNumChannels) {
+				mPlay = 0;
+				sf_seek(mSoundFile, 0, SEEK_SET);
+			}
 		}
-	}	
+
+		for (channel=0; channel<mNumChannels; channel++) {
+			outSample = out.mSampleVectors[channel];
+
+			for (n=0; n<numFrames; n++)
+				outSample[n] = mBuffer[n * mNumChannels + channel];
+		}
+	//}	
 	return kTTErrNone;
 }

@@ -199,7 +199,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/libsndfile\"",
-					"\"$(SRCROOT)/libsndfile-source/sndfile\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -236,7 +235,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/libsndfile\"",
-					"\"$(SRCROOT)/libsndfile-source/sndfile\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
