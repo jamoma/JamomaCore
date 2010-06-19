@@ -97,7 +97,6 @@ TTErr TTSoundfilePlayer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSigna
 		TTUInt16			n;
 		TTSampleValuePtr	outSample;
 		TTUInt16			channel;
-		sf_count_t			numFramesRead;
 		sf_count_t			numSamplesRead;
 		
 		mBuffer.assign(mBuffer.size(), 0.0);

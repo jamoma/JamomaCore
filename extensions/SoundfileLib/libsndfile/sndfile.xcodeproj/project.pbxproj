@@ -228,7 +228,6 @@
 			isa = PBXGroup;
 			children = (
 				08FB7795FE84155DC02AAC07 /* Source */,
-				C6A0FF2B0290797F04C91782 /* Documentation */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 			);
 			name = sndfile;
@@ -367,13 +366,6 @@
 			);
 			name = GSM610;
 			path = "libsndfile-1.0.21/src/GSM610";
-			sourceTree = "<group>";
-		};
-		C6A0FF2B0290797F04C91782 /* Documentation */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Documentation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -536,11 +528,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					x86_64,
+					i386,
+				);
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = HAVE_EXTERNAL_LIBS;
+				HEADER_SEARCH_PATHS = include;
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -550,6 +548,7 @@
 					"\"$(SRCROOT)/libsndfile-1.0.21/src/GSM610/.libs\"",
 				);
 				PRODUCT_NAME = sndfile;
+				SDKROOT = macosx10.5;
 			};
 			name = Debug;
 		};
@@ -563,6 +562,8 @@
 				);
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = HAVE_EXTERNAL_LIBS;
+				HEADER_SEARCH_PATHS = include;
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -572,6 +573,7 @@
 					"\"$(SRCROOT)/libsndfile-1.0.21/src/GSM610/.libs\"",
 				);
 				PRODUCT_NAME = sndfile;
+				SDKROOT = macosx10.5;
 			};
 			name = Release;
 		};

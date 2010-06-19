@@ -41,7 +41,8 @@
 /* #undef HAVE_ENDIAN_H */
 
 /* Will be set to 1 if flac, ogg and vorbis are available. */
-#define HAVE_EXTERNAL_LIBS 0
+//#define HAVE_EXTERNAL_LIBS 0
+// JAMOMA: we are setting this to 1 in the Xcode project
 
 /* Set to 1 if the compile supports the struct hack. */
 #define HAVE_FLEXIBLE_ARRAY 1
