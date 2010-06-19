@@ -43,8 +43,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\source&quot;;&quot;$(ProjectDir)\PeerObject&quot;;&quot;$(ProjectDir)\DataspaceLib&quot;;&quot;$(ProjectDir)\RampLib&quot;;&quot;$(ProjectDir)\FunctionLib&quot;;&quot;$(ProjectDir)\DeviceManagerLib&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;;$(NOINHERIT)"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TTMODULAR_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\source&quot;;&quot;$(ProjectDir)\PeerObject&quot;;&quot;$(ProjectDir)\DataspaceLib&quot;;&quot;$(ProjectDir)\RampLib&quot;;&quot;$(ProjectDir)\FunctionLib&quot;;&quot;$(ProjectDir)\DeviceManagerLib&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTMODULAR_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -53,6 +53,7 @@
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
+				DisableSpecificWarnings="4800"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -65,12 +66,16 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib MaxAPI.lib"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;"
+				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib"
+				LinkIncremental="0"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
+				GenerateMapFile="true"
+				MapFileName="TTModular.map"
 				SubSystem="2"
 				TargetMachine="1"
 			/>
@@ -126,8 +131,8 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\source&quot;;&quot;$(ProjectDir)\PeerObject&quot;;&quot;$(ProjectDir)\DataspaceLib&quot;;&quot;$(ProjectDir)\RampLib&quot;;&quot;$(ProjectDir)\FunctionLib&quot;;&quot;$(ProjectDir)\DeviceManagerLib&quot;;&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;;$(NOINHERIT)"
-				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\source&quot;;&quot;$(ProjectDir)\PeerObject&quot;;&quot;$(ProjectDir)\DataspaceLib&quot;;&quot;$(ProjectDir)\RampLib&quot;;&quot;$(ProjectDir)\FunctionLib&quot;;&quot;$(ProjectDir)\DeviceManagerLib&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;TTMODULAR_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="0"
@@ -137,6 +142,7 @@
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="0"
+				DisableSpecificWarnings="4800"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -149,12 +155,16 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib MaxAPI.lib"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;"
+				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib"
+				LinkIncremental="0"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
+				GenerateMapFile="true"
+				MapFileName="TTModular.map"
 				SubSystem="2"
 				TargetMachine="1"
 			/>
@@ -325,50 +335,6 @@
 			</File>
 			<File
 				RelativePath=".\DataspaceLib\TimeDataspace.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="RampLib"
-			>
-			<File
-				RelativePath=".\RampLib\AsyncRamp.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\RampLib\AsyncRamp.h"
-				>
-			</File>
-			<File
-				RelativePath=".\RampLib\NoneRamp.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\RampLib\NoneRamp.h"
-				>
-			</File>
-			<File
-				RelativePath=".\RampLib\QueueRamp.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\RampLib\QueueRamp.h"
-				>
-			</File>
-			<File
-				RelativePath=".\RampLib\RampLib.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\RampLib\RampLib.h"
-				>
-			</File>
-			<File
-				RelativePath=".\RampLib\SchedulerRamp.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\RampLib\SchedulerRamp.h"
 				>
 			</File>
 		</Filter>
