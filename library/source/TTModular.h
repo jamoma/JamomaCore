@@ -32,6 +32,7 @@
 	#endif
 #endif
 
+#include <math.h>
 
 #include "TTFoundationAPI.h"		// TTBlue Headers...
 
