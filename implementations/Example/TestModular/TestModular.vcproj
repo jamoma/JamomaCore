@@ -43,7 +43,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../../Foundation/library/includes;../../../../DSP/library/includes;../../../library/source;../../../library/DataspaceLib;../../../library/FunctionLib;../../../library/RampLib;../../../library/PeerObject;&quot;../../../supports/objectivemax/SDKs/Max5/c74support/max-includes&quot;"
-				PreprocessorDefinitions="TTSTATIC;TT_PLATFORM_WIN;WIN32;_DEBUG;_WINDOWS;WIN_VERSION;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
+				PreprocessorDefinitions="TTSTATIC;TT_PLATFORM_WIN;WIN32;_DEBUG;_WINDOWS;WIN_VERSION;_CRT_SECURE_NO_WARNINGS"
 				ExceptionHandling="1"
 				RuntimeLibrary="3"
 				WarningLevel="3"
@@ -60,11 +60,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib TTModular.lib maxcrt.lib Shell32.lib Advapi32.lib User32.lib $(NOINHERIT)"
+				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib TTModular.lib $(NOINHERIT)"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;../../../../Foundation/library/$(ConfigurationName)&quot;;&quot;../../../../DSP/library/$(ConfigurationName)&quot;;&quot;../../../library/$(ConfigurationName)&quot;;&quot;../../../supports/objectivemax/SDKs/Max5/c74support/max-includes&quot;"
+				AdditionalLibraryDirectories="&quot;../../../../Foundation/library/$(ConfigurationName)&quot;;&quot;../../../../DSP/library/$(ConfigurationName)&quot;;&quot;../../../library/$(ConfigurationName)&quot;"
 				IgnoreAllDefaultLibraries="false"
-				IgnoreDefaultLibraryNames="LIBCMT"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				TargetMachine="1"
@@ -118,7 +118,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="../../../../Foundation/library/includes;../../../../DSP/library/includes;../../../library/source;../../../library/DataspaceLib;../../../library/FunctionLib;../../../library/RampLib;../../../library/PeerObject;&quot;../../../supports/objectivemax/SDKs/Max5/c74support/max-includes&quot;"
-				PreprocessorDefinitions="TTSTATIC;TT_PLATFORM_WIN;WIN32;NDEBUG;_WINDOWS"
+				PreprocessorDefinitions="TTSTATIC;TT_PLATFORM_WIN;WIN32;_DEBUG;_WINDOWS;WIN_VERSION;_CRT_SECURE_NO_WARNINGS"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
 				WarningLevel="3"
@@ -135,11 +135,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib TTModular.lib maxcrt.lib Shell32.lib Advapi32.lib User32.lib $(NOINHERIT)"
+				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib TTModular.lib $(NOINHERIT)"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;../../../../Foundation/library/$(ConfigurationName)&quot;;&quot;../../../../DSP/library/$(ConfigurationName)&quot;;&quot;../../../library/$(ConfigurationName)&quot;;&quot;../../../supports/objectivemax/SDKs/Max5/c74support/max-includes&quot;"
+				AdditionalLibraryDirectories="&quot;../../../../Foundation/library/$(ConfigurationName)&quot;;&quot;../../../../DSP/library/$(ConfigurationName)&quot;;&quot;../../../library/$(ConfigurationName)&quot;"
 				IgnoreAllDefaultLibraries="false"
-				IgnoreDefaultLibraryNames="LIBCMT"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
