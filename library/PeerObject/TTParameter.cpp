@@ -24,8 +24,8 @@ mReadonly(NO),
 mViewFreeze(NO),
 mRangeBounds(TTValue(0.0, 1.0)),
 mRangeClipmode(kTTSym_none),
-mRampDrive(kTTSym_none),
-mRampFunction(kTTSymEmpty),
+//mRampDrive(kTTSym_none),
+//mRampFunction(kTTSymEmpty),
 mDataspace(kTTSym_none),
 mDataspaceUnitNative(kTTSym_none),
 mDataspaceUnitActive(kTTSym_none),
@@ -50,8 +50,8 @@ mDataspaceUnitDisplay(kTTSym_none)
 	addAttributeWithSetter(RangeBounds, kTypeNone);
 	addAttributeWithSetter(RangeClipmode, kTypeSymbol);
 	
-	addAttributeWithSetter(RampDrive, kTypeSymbol);
-	addAttributeWithSetter(RampFunction, kTypeSymbol);
+	//addAttributeWithSetter(RampDrive, kTypeSymbol);
+	//addAttributeWithSetter(RampFunction, kTypeSymbol);
 	
 	addAttributeWithSetter(Dataspace, kTypeSymbol);
 	addAttributeWithSetter(DataspaceUnitNative, kTypeSymbol);
@@ -65,7 +65,7 @@ mDataspaceUnitDisplay(kTTSym_none)
 	mIsInitialised = NO;
 	
 	mValue = TTValue();
-	mRamper = NULL;
+	//mRamper = NULL;
 	dataspace_active2native	= NULL;
 	dataspace_override2active = NULL;
 	dataspace_active2display = NULL;
@@ -74,8 +74,8 @@ mDataspaceUnitDisplay(kTTSym_none)
 
 TTParameter::~TTParameter()
 {
-	if (mRamper)
-		delete mRamper;
+	//if (mRamper)
+	//	delete mRamper;
 }
 
 TTErr TTParameter::Reset()
@@ -93,7 +93,7 @@ TTErr TTParameter::Reset()
 
 TTErr TTParameter::Command(const TTValue& command)
 {
-	double		time;
+	//double		time;
 	int			commandSize;
 	TTSymbolPtr	first, unit, ramp;
 	TTValue		aValue, convertedValue;
@@ -227,6 +227,7 @@ TTErr TTParameter::Command(const TTValue& command)
 	
 	// 5. Ramp the convertedValue
 	/////////////////////////////////
+	/*
 	if (hasRamp) {
 		
 		command.get(commandSize - 1, time);
@@ -262,6 +263,7 @@ TTErr TTParameter::Command(const TTValue& command)
 		}
 	} 
 	else {
+	*/
 		// check repetitions
 		if (!mRepetitionsAllow && mIsInitialised) {
 			if (mValue == convertedValue)
@@ -269,7 +271,7 @@ TTErr TTParameter::Command(const TTValue& command)
 		}
 		
 		setValue(convertedValue);
-	}
+	//}
 	
 	return kTTErrNone;
 }
@@ -281,8 +283,8 @@ TTErr TTParameter::setValue(const TTValue& value)
 		// lock
 		mIsSending = YES;
 		
-		if (clipValue() && mRamper)
-			mRamper->stop();
+		//if (clipValue() && mRamper)
+		//	mRamper->stop();
 		
 		// set internal value
 		mValue = value;
@@ -347,7 +349,7 @@ TTErr TTParameter::setType(const TTValue& value)
 		return kTTErrGeneric;
 	}
 	
-	rampSetup();
+	//rampSetup();
 			
 	notifyObservers(kTTSym_Type, mType);
 	return kTTErrNone;
@@ -393,6 +395,7 @@ TTErr TTParameter::setRangeClipmode(const TTValue& value)
 	return kTTErrNone;
 }
 
+/*
 TTErr TTParameter::setRampDrive(const TTValue& value)
 {
 	mRampDrive = value;
@@ -402,7 +405,9 @@ TTErr TTParameter::setRampDrive(const TTValue& value)
 	notifyObservers(kTTSym_RampDrive, mRampDrive);
 	return kTTErrNone;
 }
+*/
 
+/*
 TTErr TTParameter::setRampFunction(const TTValue& value)
 {
 	mRampFunction = value;
@@ -412,7 +417,6 @@ TTErr TTParameter::setRampFunction(const TTValue& value)
 			// set the function of the ramper
 			mRamper->setAttributeValue(TT("Function"), mRampFunction);
 			
-			/*
 			 long		n;
 			 TTValue		names;
 			 TTSymbolPtr	aName;
@@ -437,12 +441,12 @@ TTErr TTParameter::setRampFunction(const TTValue& value)
 					mRampParameterNames->append(TT(nameString.c_str()), *v);
 				}
 			}
-			 */
 	}
 	
 	notifyObservers(kTTSym_RampFunction, mRampFunction);
 	return kTTErrNone;
 }
+*/
 
 TTErr TTParameter::setDataspace(const TTValue& value)
 {
@@ -563,6 +567,7 @@ TTBoolean TTParameter::clipValue()
 	return false;
 }
 
+/*
 TTErr TTParameter::rampSetup()
 {
 
@@ -587,6 +592,7 @@ TTErr TTParameter::rampSetup()
 	
 	return kTTErrNone;	
 }
+*/
 
 TTErr TTParameter::convertUnit(const TTValue& inValue, TTValue& outValue)
 {
@@ -616,6 +622,7 @@ TTErr TTParameter::notifyObservers(TTSymbolPtr attrName, const TTValue& value)
 #pragma mark Some Methods
 #endif
 
+/*
 void TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 {
 	TTParameterPtr	aParameter = (TTParameterPtr)o;
@@ -638,4 +645,4 @@ void TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 		aParameter->notifyObservers(kTTSym_Value, aParameter->mValue);
 	}
 }
-
+*/

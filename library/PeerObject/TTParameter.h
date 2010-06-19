@@ -13,7 +13,7 @@
 
 #include "DataspaceLib.h"
 #include "FunctionLib.h"
-#include "RampLib.h"
+//#include "RampLib.h"			// Excluding RampLib because it use MaxAPI...
 
 /**	TTParameter ... TODO : an explanation
  
@@ -32,8 +32,8 @@ TODO LIST :
  
  */				
 
-class RampUnit;
-typedef RampUnit*	RampUnitPtr;
+//class RampUnit;
+//typedef RampUnit*	RampUnitPtr;
 class DataspaceLib;
 typedef DataspaceLib*	DataspaceLibPtr;
 
@@ -58,8 +58,8 @@ public:
 	TTValue			mRangeBounds;				///< ATTRIBUTE: 
 	TTSymbolPtr		mRangeClipmode;				///< ATTRIBUTE: 
 	
-	TTSymbolPtr		mRampDrive;					///< ATTRIBUTE: ramp mode 
-	TTSymbolPtr		mRampFunction;				///< ATTRIBUTE: for setting the function used by the ramping
+	//TTSymbolPtr		mRampDrive;					///< ATTRIBUTE: ramp mode 
+	//TTSymbolPtr		mRampFunction;				///< ATTRIBUTE: for setting the function used by the ramping
 	
 	TTSymbolPtr		mDataspace;					///< ATTRIBUTE: The dataspace that this parameter uses (default is 'none')
 	TTSymbolPtr		mDataspaceUnitNative;		///< ATTRIBUTE: The native (model/algorithm) unit within the dataspace.
@@ -73,7 +73,7 @@ private:
 	TTBoolean		mIsSending;					///< Flag to tell us if we are currently sending out our Value attribute
 	TTBoolean		mIsInitialised;				///< Flag to tell us if the Value attribute has been initialised
 	
-	RampUnitPtr		mRamper;					///< Rampunit object to perform ramping of input values
+	//RampUnitPtr		mRamper;					///< Rampunit object to perform ramping of input values
 	//TTHashPtr		mRampParameterNames;		///< Cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
 	
 	DataspaceLibPtr	dataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
@@ -126,10 +126,10 @@ public:
 	TTErr setRangeClipmode(const TTValue& value);
 	
 	/**	Setter for m attribute. */
-	TTErr setRampDrive(const TTValue& value);
+	//TTErr setRampDrive(const TTValue& value);
 	
 	/**	Setter for m attribute. */
-	TTErr setRampFunction(const TTValue& value);
+	//TTErr setRampFunction(const TTValue& value);
 	
 	/**	Setter for m attribute. */
 	TTErr setDataspace(const TTValue& value);
@@ -146,11 +146,11 @@ public:
 private:
 	
 	TTBoolean	clipValue();
-	TTErr		rampSetup();
+	//TTErr		rampSetup();
 	TTErr		convertUnit(const TTValue& inValue, TTValue& outValue);
 	TTErr		notifyObservers(TTSymbolPtr attrName, const TTValue& value);
 	
-	friend void TTMODULAR_EXPORT TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
+	//friend void TTMODULAR_EXPORT TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
 	
 };
 
@@ -160,6 +160,6 @@ typedef TTParameter* TTParameterPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-void TTMODULAR_EXPORT TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
+//void TTMODULAR_EXPORT TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
 
 #endif // __TT_PARAMETER_H__
