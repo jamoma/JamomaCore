@@ -36,13 +36,13 @@ mDataspaceUnitDisplay(kTTSym_none)
 	arguments.get(0, (TTPtr*)&mReturnValueCallback);
 	TT_ASSERT("Return Value Callback passed to TTParameter is not NULL", mReturnValueCallback);
 	
-	addAttributeWithSetter(Value, kTypeNone);
-	addAttributeWithSetter(ValueDefault, kTypeNone);
+	addAttributeWithGetterAndSetter(Value, kTypeNone);
+	addAttributeWithGetterAndSetter(ValueDefault, kTypeNone);
 	addAttributeWithSetter(ValueStepsize, kTypeFloat32);
 	
 	addAttributeWithSetter(Type, kTypeSymbol);
 	addAttribute(Priority, kTypeUInt8);
-	addAttribute(Description, kTypeString);
+	addAttribute(Description, kTypeString);			// TODO : add case into defaultGetter and Setter in JamomaFoundation
 	addAttributeWithSetter(RepetitionsAllow, kTypeBoolean);
 	addAttributeWithSetter(Readonly, kTypeBoolean);
 	addAttributeWithSetter(ViewFreeze, kTypeBoolean);
@@ -276,9 +276,17 @@ TTErr TTParameter::Command(const TTValue& command)
 	return kTTErrNone;
 }
 
+TTErr TTParameter::getValue(TTValue& value)
+{
+	value = mValue;
+	return kTTErrNone;
+}
+
 TTErr TTParameter::setValue(const TTValue& value)
 {
-	if (!mIsSending) {
+	if (!mIsSending && checkType(value)) {
+
+		TTValue r, n;				// used new values to protect the attribute
 		
 		// lock
 		mIsSending = YES;
@@ -290,10 +298,12 @@ TTErr TTParameter::setValue(const TTValue& value)
 		mValue = value;
 		
 		// return the value to his owner
-		this->mReturnValueCallback->notify(mValue);
+		r = value;
+		this->mReturnValueCallback->notify(r);
 		
 		// notify each observers
-		notifyObservers(kTTSym_Value, mValue);
+		n = value;
+		notifyObservers(kTTSym_Value, n);
 		
 		// we have had our value set at least once
 		mIsInitialised = YES;
@@ -307,102 +317,156 @@ TTErr TTParameter::setValue(const TTValue& value)
 	return kTTErrGeneric;
 }
 
+TTErr TTParameter::getValueDefault(TTValue& value)
+{
+	value = mValueDefault;
+	return kTTErrNone;
+}
+
 TTErr TTParameter::setValueDefault(const TTValue& value)
 {
+	TTValue n = value;				// use new value to protect the attribute
 	mValueDefault = value;
-	notifyObservers(kTTSym_ValueDefault, mValueDefault);
+	notifyObservers(kTTSym_ValueDefault, n);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setValueStepsize(const TTValue& value)
 {
+	TTValue n = value;				// use new value to protect the attribute
 	mValueStepsize = value;
-	notifyObservers(kTTSym_ValueStepsize, mValueStepsize);
+	notifyObservers(kTTSym_ValueStepsize, n);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setType(const TTValue& value)
 {
-	mType = value;
+	// if the new type is different
+	if (!(TTValue(mType) == value)) {
+		
+		TTValue n = value;				// use new value to protect the attribute
+		mType = value;
+
+		// Unregister mValue and mValueDefault Attribute
+		removeAttribute(kTTSym_Value);
+		removeAttribute(kTTSym_ValueDefault);
+
+		// register mValue Attribute and prepare memory
+		if (mType == kTTSym_integer) {
+			mValue = TTValue(0);
+			addAttributeWithGetterAndSetter(Value, kTypeInt32);
+			mValueDefault = TTValue(0);
+			addAttributeWithGetterAndSetter(ValueDefault, kTypeInt32);
+		}
+		else if (mType == kTTSym_decimal) {
+			mValue = TTValue(0.);
+			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
+			mValueDefault = TTValue(0.);
+			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
+		}
+		else if (mType == kTTSym_string) {
+			mValue = TTValue("");
+			addAttributeWithGetterAndSetter(Value, kTypeSymbol);
+			mValueDefault = TTValue("");
+			addAttributeWithGetterAndSetter(ValueDefault, kTypeSymbol);
+		}
+		else if (mType == kTTSym_boolean) {
+			mValue = TTValue(NO);
+			addAttributeWithGetterAndSetter(Value, kTypeBoolean);
+			mValueDefault = TTValue(NO);
+			addAttributeWithGetterAndSetter(ValueDefault, kTypeBoolean);
+		}
+		else if (mType == kTTSym_generic) {
+			mValue = TTValue();
+			addAttributeWithGetterAndSetter(Value, kTypeInt32);
+			mValueDefault = TTValue();
+			addAttributeWithGetterAndSetter(ValueDefault, kTypeInt32);
+		}
+		else if (mType == kTTSym_array) {				// Is this case means something now we have TTValue
+			mValue = TTValue();
+			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
+			mValueDefault = TTValue();
+			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
+		}
+	//#ifdef JMOD_MESSAGE
+		else if (mType == kTTSym_none) {
+			mValue = TTValue();
+			addAttributeWithGetterAndSetter(Value, kTypeNone);
+			mValueDefault = TTValue();
+			addAttributeWithGetterAndSetter(ValueDefault, kTypeNone);
+		}
+	//#endif // JMOD_MESSAGE
+		else {
+			mType = kTTSym_generic;						// Is this case means something now we have TTValue
+			mValue = TTValue();
+			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
+			mValueDefault = TTValue();
+			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
+			return kTTErrGeneric;
+		}
 	
-	// Prepare memory
-	if (mType == kTTSym_integer)
-		mValue = TTValue(0);
-	else if (mType == kTTSym_decimal)
-		mValue = TTValue(0.);
-	else if (mType == kTTSym_string)
-		mValue = TTValue("");
-	else if (mType == kTTSym_boolean)
-		mValue = TTValue(NO);
-	else if (mType == kTTSym_generic)
-		mValue = TTValue();
-	else if (mType == kTTSym_array)
-		mValue = TTValue();
-	
-//#ifdef JMOD_MESSAGE
-	else if (mType == kTTSym_none)
-		mValue = TTValue();
-//#endif // JMOD_MESSAGE
-	else {
-		mType = kTTSym_generic;
-		mValue = TTValue();
-		return kTTErrGeneric;
-	}
-	
-	//rampSetup();
+		//rampSetup();
 			
-	notifyObservers(kTTSym_Type, mType);
+		notifyObservers(kTTSym_Type, n);
+	}
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setRepetitionsAllow(const TTValue& value)
 {
+	TTValue n = value;				// use new value to protect the attribute
 	mRepetitionsAllow = value;
-	notifyObservers(kTTSym_RepetitionsAllow, mRepetitionsAllow);
+	notifyObservers(kTTSym_RepetitionsAllow, n);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setReadonly(const TTValue& value)
 {
+	TTValue n = value;				// use new value to protect the attribute
 	mReadonly = value;
-	notifyObservers(kTTSym_Readonly, mReadonly);
+	notifyObservers(kTTSym_Readonly, n);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setViewFreeze(const TTValue& value)
 {
+	TTValue n = value;				// use new value to protect the attribute
 	mViewFreeze = value;
-	notifyObservers(kTTSym_ViewFreeze, mViewFreeze);
+	notifyObservers(kTTSym_ViewFreeze, n);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setRangeBounds(const TTValue& value)
 {	
+	TTValue n = value;				// use new value to protect the attribute
+
 	if (value.getSize() == 1)
 		mRangeBounds.set(0, value.getFloat64());
 	
 	if (value.getSize() == 2)
 		mRangeBounds.set(1, value.getFloat64(1));
 	
-	notifyObservers(kTTSym_RangeBounds, mRangeBounds);
+	notifyObservers(kTTSym_RangeBounds, n);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setRangeClipmode(const TTValue& value)
 {
+	TTValue n = value;				// use new value to protect the attribute
 	mRangeClipmode = value;
-	notifyObservers(kTTSym_RangeClipmode, mRangeClipmode);
+	notifyObservers(kTTSym_RangeClipmode, n);
 	return kTTErrNone;
 }
 
 /*
 TTErr TTParameter::setRampDrive(const TTValue& value)
 {
+	TTValue n = value;				// use new value to protect the attribute
 	mRampDrive = value;
 	
 	rampSetup();
 	
-	notifyObservers(kTTSym_RampDrive, mRampDrive);
+	notifyObservers(kTTSym_RampDrive, n);
 	return kTTErrNone;
 }
 */
@@ -410,6 +474,7 @@ TTErr TTParameter::setRampDrive(const TTValue& value)
 /*
 TTErr TTParameter::setRampFunction(const TTValue& value)
 {
+	TTValue n = value;				// use new value to protect the attribute
 	mRampFunction = value;
 	
 	if (mRamper && mRampFunction != kTTSymEmpty && mRampFunction != TT("linear")) {
@@ -443,7 +508,7 @@ TTErr TTParameter::setRampFunction(const TTValue& value)
 			}
 	}
 	
-	notifyObservers(kTTSym_RampFunction, mRampFunction);
+	notifyObservers(kTTSym_RampFunction, n);
 	return kTTErrNone;
 }
 */
@@ -451,7 +516,8 @@ TTErr TTParameter::setRampFunction(const TTValue& value)
 TTErr TTParameter::setDataspace(const TTValue& value)
 {
 	TTErr	err;
-	
+	TTValue n = value;				// use new value to protect the attribute
+
 	mDataspace = value;
 	
 	getDataspace(mDataspace, &dataspace_active2native);
@@ -493,22 +559,24 @@ TTErr TTParameter::setDataspace(const TTValue& value)
 	if (err)
 		mDataspaceUnitNative = dataspace_active2native->neutralUnit;
 
-	notifyObservers(kTTSym_Dataspace, mDataspace);
+	notifyObservers(kTTSym_Dataspace, n);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setDataspaceUnitNative(const TTValue& value)
 {
+	TTValue n = value;				// use new value to protect the attribute
 	mDataspaceUnitNative = value;
 	if (dataspace_active2native)
 		dataspace_active2native->setOutputUnit(mDataspaceUnitNative);
 	
-	notifyObservers(kTTSym_DataspaceUnitNative, mDataspaceUnitNative);
+	notifyObservers(kTTSym_DataspaceUnitNative, n);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setDataspaceUnitActive(const TTValue& value)
 {	
+	TTValue n = value;				// use new value to protect the attribute
 	mDataspaceUnitActive = value;
 	
 	if (dataspace_active2native)
@@ -520,12 +588,13 @@ TTErr TTParameter::setDataspaceUnitActive(const TTValue& value)
 	if (dataspace_display2active)
 		dataspace_display2active->setOutputUnit(mDataspaceUnitActive);
 	
-	notifyObservers(kTTSym_DataspaceUnitActive, mDataspaceUnitActive);
+	notifyObservers(kTTSym_DataspaceUnitActive, n);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setDataspaceUnitDisplay(const TTValue& value)
 {
+	TTValue n = value;				// use new value to protect the attribute
 	mDataspaceUnitDisplay = value;
 	
 	if (dataspace_active2display)
@@ -534,8 +603,34 @@ TTErr TTParameter::setDataspaceUnitDisplay(const TTValue& value)
 	if (dataspace_display2active)
 		dataspace_display2active->setInputUnit(mDataspaceUnitDisplay);
 	
-	notifyObservers(kTTSym_DataspaceUnitDisplay, mDataspaceUnitDisplay);
+	notifyObservers(kTTSym_DataspaceUnitDisplay, n);
 	return kTTErrNone;
+}
+
+TTBoolean TTParameter::checkType(const TTValue& value)
+{
+	switch (value.getType()) 
+	{
+		case kTypeNone :		return mType == kTTSym_none;
+		case kTypeFloat32 :		return mType == kTTSym_decimal;
+		case kTypeFloat64 :		return mType == kTTSym_decimal;
+		case kTypeInt8 :		return mType == kTTSym_integer;
+		case kTypeUInt8 :		return mType == kTTSym_integer;
+		case kTypeInt16 :		return mType == kTTSym_integer;
+		case kTypeUInt16 :		return mType == kTTSym_integer;
+		case kTypeInt32 :		return mType == kTTSym_integer;
+		case kTypeUInt32 :		return mType == kTTSym_integer;
+		case kTypeInt64 :		return mType == kTTSym_integer;
+		case kTypeUInt64 :		return mType == kTTSym_integer;
+		case kTypeBoolean :		return mType == kTTSym_boolean;
+		case kTypeSymbol :		return mType == kTTSym_string;
+		case kTypeObject :		return false;
+		case kTypePointer :		return false;
+		case kTypeString :		return false;
+		case kTypeLocalValue :	return false;
+		case kNumTTDataTypes :	return false;
+		default :				return false;
+	}
 }
 
 TTBoolean TTParameter::clipValue()

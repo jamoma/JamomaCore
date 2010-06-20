@@ -97,11 +97,17 @@ public:
 			X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime
 	 */
 	TTErr Command(const TTValue& command);
+
+	/**	Getter for mValue attribute. */
+	TTErr getValue(TTValue& value);
 	
-	/**	Setter for m attribute. */
+	/**	Setter for mValue attribute. */
 	TTErr setValue(const TTValue& value);
 	
-	/**	Setter for m attribute. */
+	/**	Getter for mValueDefault attribute. */
+	TTErr getValueDefault(TTValue& value);
+
+	/**	Setter for mValueDefault attribute. */
 	TTErr setValueDefault(const TTValue& value);
 	
 	/**	Setter for m attribute. */
@@ -145,6 +151,7 @@ public:
 	
 private:
 	
+	TTBoolean	checkType(const TTValue& value);
 	TTBoolean	clipValue();
 	//TTErr		rampSetup();
 	TTErr		convertUnit(const TTValue& inValue, TTValue& outValue);
