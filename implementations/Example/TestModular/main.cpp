@@ -19,6 +19,7 @@ main(int argc, char **argv)
 {
 	TTValue			args;
 
+	TTLogMessage("\n*** Starting my TTModular application *** \n");
 
 	// Initialize TT environments
 	/////////////////////////////////////////////////////////
@@ -109,9 +110,13 @@ main(int argc, char **argv)
 	// set TTParameter mType attribute as integer
 	myParameter->setAttributeValue(kTTSym_Type, kTTSym_integer);
 
+	// set TTParameter mValueDefault attribute as 0
+	myParameter->setAttributeValue(kTTSym_ValueDefault, 0);
+
 
 	// Register a TTObject into the TTModularDirectory
 	/////////////////////////////////////////////////////////
+	TTLogMessage("\n*** Register myParameter into the TTModularDirectory *** \n");
 	TTNodePtr		returnedNode;
 	TTBoolean		newInstanceCreated;
 
@@ -167,7 +172,8 @@ main(int argc, char **argv)
 
 	// Set mValue attribute of our parameter directly
 	//////////////////////////////////////////////////////////////////
-	TTValue			v = TTValue(1);
+	TTLogMessage("\n*** Set mValue attribute of our parameter directly *** \n");
+	TTValue	v = TTValue(1);
 	myParameter->setAttributeValue(kTTSym_Value, v);
 	// note : the value is returned by the Parameter and the Receiver
 
@@ -175,6 +181,7 @@ main(int argc, char **argv)
 
 	// Set mValue attribute of our parameter using mySender
 	//////////////////////////////////////////////////////////////////
+	TTLogMessage("\n*** Set mValue attribute of our parameter using mySender *** \n");
 	v = TTValue(2);
 	mySender->sendMessage(kTTSym_Send, v);
 	// note : the value is returned by the Parameter and the Receiver
@@ -183,7 +190,7 @@ main(int argc, char **argv)
 
 	// Get our parameter using TTModularDirectory
 	//////////////////////////////////////////////////////////////////
-	
+	TTLogMessage("\n*** Get some attribute of our parameter using TTModularDirectory *** \n");
 	// get the node which represent our parameter
 	TTList			aNodeList;
 	TTNodePtr		aNode;
@@ -197,7 +204,7 @@ main(int argc, char **argv)
 	if (anObject == myParameter)
 		TTLogMessage("anObject is myParameter \n");
 
-	// TODO : get the mValue attribute value of the object
+	// get the mValue attribute value of the object
 	v.clear();
 	anObject->getAttributeValue(kTTSym_Value, v);
 
@@ -205,10 +212,25 @@ main(int argc, char **argv)
 	TTString s;
 	v.toString();
 	v.get(0, s);
-	TTLogMessage("TODO : anObject mValue is %s \n", s.data());
+	TTLogMessage("anObject mValue is %s \n", s.data());
+
+	// get the mValueDefault attribute value of the object
+	v.clear();
+	anObject->getAttributeValue(kTTSym_ValueDefault, v);
+
+	// print the value
+	v.toString();
+	v.get(0, s);
+	TTLogMessage("anObject mValueDefault is %s \n", s.data());
+
+	// reset the mValue to mValueDefault
+	TTLogMessage("\n*** reset the mValue to mValueDefault *** \n");
+	anObject->sendMessage(TT("Reset"));
+	// note : the value is returned by the Parameter and the Receiver
 
 	// Unregister /control from the TTModularDirectory
 	//////////////////////////////////////////////////////////////////
+	TTLogMessage("\n*** Unregister myParameter from the TTModularDirectory *** \n");
 	TTModularDirectory->TTNodeRemove(TT("/control"));
 	// note : our myUnregistrationObserver is informed
 
@@ -239,6 +261,8 @@ main(int argc, char **argv)
 	delete p_returnValueBaton;
 
 	TTObjectRelease(TTObjectHandle(&mySender));
+
+	TTLogMessage("\n*** Ending my TTModular application *** \n");
 
 	return EXIT_SUCCESS;
 }
