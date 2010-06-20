@@ -75,7 +75,7 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTObject(arguments)
 
 
 // Global
-extern TTNodeDirectoryPtr TTModularDirectory;
+extern TTMODULAR_EXPORT TTNodeDirectoryPtr TTModularDirectory;
 
 // Prototypes
 // init the modular lib, and the foundation if needed
