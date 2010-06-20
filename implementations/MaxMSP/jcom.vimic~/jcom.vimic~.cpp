@@ -1196,21 +1196,19 @@ void vimic_bang(t_vimic *x)
             critical_exit(0);
         }
 
-        if (x->normalizeSensiFlag)
-        {   critical_enter(0);
+        if (x->normalizeSensiFlag){   
+			critical_enter(0);
             float invSqrtSumSensi = vimic_invSqrtSumSensi(x->sensitivity, x->bufSz);
             for (int i = 0; i < x->bufSz; i++)
                 vimic_normalizeSensi(x->sensitivity + i, invSqrtSumSensi);
             critical_exit(0);
         }
         critical_enter(0);
-        for (m = 0; m < x->bufSz; m++)				
-        {   
-            x->delGrain[m] = ((double) x->delay[m] - x->currentDelay[m]) * x->grainsize;  // copy old values into buffer	 
-            x->sensiGrain[m] = (x->sensitivity[m] - x->currentSensitivity[m]) * x->grainsize; // copy old values into buffer  
-
-            TTZeroDenormal(x->sensiGrain[m]);
+        for (m = 0; m < x->bufSz; m++){
+			x->delGrain[m] = ((double) x->delay[m] - x->currentDelay[m]) * x->grainsize;  // copy old values into buffer	 
             TTZeroDenormal(x->delGrain[m]); // FIXME: necessary?
+			x->sensiGrain[m] = (x->sensitivity[m] - x->currentSensitivity[m]) * x->grainsize; // copy old values into buffer  
+            TTZeroDenormal(x->sensiGrain[m]);
         }
         critical_exit(0);
         x->grainCounter = 0;
@@ -2209,7 +2207,7 @@ t_int*	vimic_perform(t_int *w)// is that good to initialize all the variable in 
                     double f = *in++;
                     for (int k = 0; k < numChannels; ++k)
                     {
-                        if (micGainNonZero[k] && reflGains[0] != 0.0)
+                        if (micGainNonZero[k])// && reflGains[0] != 0.0)
                             *out[k] = (*(currentSensitivity + numOfRefl * k) * f);
                         else 
                             *out[k] = 0.0;
