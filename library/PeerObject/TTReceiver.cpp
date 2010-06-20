@@ -180,21 +180,21 @@ TTErr TTReceiver::bind()
 				}
 			}
 		}
-		
-		// 3. observe any creation or destruction below the attr_name address
-		mObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("Callback"), &mObserver, kTTValNONE);
-		
-		newBaton = new TTValue(TTPtr(this));
-		newBaton->append(TTPtr(kTTSymEmpty));
-		
-		mObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-		mObserver->setAttributeValue(TT("Function"), TTPtr(&TTReceiverDirectoryCallback));
-		
-		mObserver->setAttributeValue(TT("Owner"), TT("TTReceiver"));							// this is usefull only to debug
-		
-		mDirectory->addObserverForNotifications(mAddress, *mObserver);
 	}
+
+	// observe any creation or destruction below the attr_name address
+	mObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &mObserver, kTTValNONE);
+		
+	newBaton = new TTValue(TTPtr(this));
+	newBaton->append(TTPtr(kTTSymEmpty));
+		
+	mObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
+	mObserver->setAttributeValue(TT("Function"), TTPtr(&TTReceiverDirectoryCallback));
+		
+	mObserver->setAttributeValue(TT("Owner"), TT("TTReceiver"));							// this is usefull only to debug
+		
+	mDirectory->addObserverForNotifications(mAddress, *mObserver);
 
 	return kTTErrNone;
 }
@@ -357,28 +357,34 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 			{
 				// look at the node among memorized <node, observer>
 					
-					// for each node of the selection
-					for(aReceiver->mNodesObserversCache->begin(); aReceiver->mNodesObserversCache->end(); aReceiver->mNodesObserversCache->next()){
+				// for each node of the selection
+				found = false;
+				for(aReceiver->mNodesObserversCache->begin(); aReceiver->mNodesObserversCache->end(); aReceiver->mNodesObserversCache->next()){
 						
-						// get a couple
-						c = aReceiver->mNodesObserversCache->current();
+					// get a couple
+					c = aReceiver->mNodesObserversCache->current();
 						
-						// get the node of the couple
-						c.get(0, (TTPtr*)&p_node);
+					// get the node of the couple
+					c.get(0, (TTPtr*)&p_node);
 						
-						// compare it to the receive node
-						if(p_node == aNode){
-							
-							// get the observer of the couple
-							c.get(1, (TTPtr*)&oldObserver);
-							
-							// destroy the observer (don't need to unregister because the object is destroyed...)
-							TTObjectRelease(&oldObserver);
-							
-							// forget this couple
-							aReceiver->mNodesObserversCache->remove(c);
-						}
+					// compare it to the receive node
+					if(p_node == aNode){
+						found = true;
+						break;
 					}
+				}
+
+				if (found) {
+
+					// get the observer of the couple
+					c.get(1, (TTPtr*)&oldObserver);
+							
+					// destroy the observer (don't need to unregister because the object is destroyed...)
+					TTObjectRelease(&oldObserver);
+							
+					// forget this couple
+					aReceiver->mNodesObserversCache->remove(c);
+				}
 			}
 			break;
 		}
