@@ -9,8 +9,12 @@ AudioEffect* createEffectInstance(audioMasterCallback audioMaster)
 
 /***************************************************************************/
 
-BlueSaturation::BlueSaturation(audioMasterCallback audioMaster)
-	: AudioEffectX(audioMaster, kNumPresets, kNumParameters), mNumChannels(2)
+BlueSaturation::BlueSaturation(audioMasterCallback audioMaster) :
+	AudioEffectX(audioMaster, kNumPresets, kNumParameters), 
+	mNumChannels(2),
+	mOverdrive(NULL),
+	mInput(NULL),
+	mOutput(NULL)
 {
 	TTDSPInit();
 	
@@ -179,7 +183,7 @@ void BlueSaturation::processReplacing(float** inputs, float** outputs, VstInt32 
 {
 	mInput->setVector(0, sampleFrames, (TTFloat32*)inputs[0]);
 	mInput->setVector(1, sampleFrames, (TTFloat32*)inputs[1]);
-	mOutput->setvectorSize(sampleFrames);
+	mOutput->setVectorSizeWithInt(sampleFrames);
 	mOutput->alloc();
 	
 	mOverdrive->process(mInput, mOutput);
@@ -193,7 +197,7 @@ void BlueSaturation::processDoubleReplacing(double** inputs, double** outputs, V
 {
 	mInput->setVector(0, sampleFrames, (TTFloat64*)inputs[0]);
 	mInput->setVector(1, sampleFrames, (TTFloat64*)inputs[1]);
-	mOutput->setvectorSize(sampleFrames);
+	mOutput->setVectorSizeWithInt(sampleFrames);
 	mOutput->alloc();
 	
 	mOverdrive->process(mInput, mOutput);
