@@ -21,6 +21,7 @@ class TTSoundfilePlayer : public TTAudioObject {
 	SNDFILE*			mSoundFile;			///< libsndfile handle for the actual file we open
 	SF_INFO				mSoundFileInfo;		///< libsndfile metadata for the file we open
 	TTBoolean			mPlay;				///< is actively playing back the file?
+	TTBoolean			mLoop;				///< Loop flag
 	TTUInt16			mNumChannels;		///< read-only: number of channels in the open file
 //	TTFloat64			mLength;			///< length of the file in seconds, read-only
 

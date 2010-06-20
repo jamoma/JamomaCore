@@ -17,11 +17,13 @@ TT_AUDIO_CONSTRUCTOR,
 mFilePath(kTTSymEmpty),
 mSoundFile(NULL),
 mPlay(false),
+mLoop(false),
 mNumChannels(0),
 mNumBufferFrames(0)
 {
 	addAttributeWithSetter(	FilePath,		kTypeSymbol);
 	addAttribute(			Play,			kTypeBoolean);
+	addAttribute(			Loop,			kTypeBoolean);
 	addAttribute(			NumChannels,	kTypeUInt16);
 	addAttributeProperty(	NumChannels,	readOnly, kTTBoolYes);
 
@@ -104,8 +106,8 @@ TTErr TTSoundfilePlayer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSigna
 		if (mPlay) {
 			numSamplesRead = sf_read_double(mSoundFile, &mBuffer[0], numFrames*mNumChannels);
 			if (numSamplesRead < numFrames*mNumChannels) {
-				mPlay = 0;
 				sf_seek(mSoundFile, 0, SEEK_SET);
+				mPlay = mLoop;					
 			}
 		}
 
