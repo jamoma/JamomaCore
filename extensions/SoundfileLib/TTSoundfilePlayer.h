@@ -22,6 +22,7 @@ class TTSoundfilePlayer : public TTAudioObject {
 	SF_INFO				mSoundFileInfo;		///< libsndfile metadata for the file we open
 	TTBoolean			mPlay;				///< is actively playing back the file?
 	TTBoolean			mLoop;				///< Loop flag
+	TTBoolean			mContinue;			///< Pause/Resume flag
 	TTUInt16			mNumChannels;		///< read-only: number of channels in the open file
 //	TTFloat64			mLength;			///< length of the file in seconds, read-only
 
@@ -33,6 +34,9 @@ class TTSoundfilePlayer : public TTAudioObject {
 	/**	Setter for the mode attribute.
 	 	This also sets the audio processing method.  */
 	TTErr setFilePath(const TTValue& value);
+	TTErr setPlay(const TTValue& value);
+	TTErr Pause();
+	TTErr Resume();
 	
 	// Block-based Audio Processing Methods
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
