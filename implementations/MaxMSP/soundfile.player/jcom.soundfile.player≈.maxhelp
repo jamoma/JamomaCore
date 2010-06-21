@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ -964.0, 52.0, 845.0, 579.0 ],
+		"rect" : [ 245.0, 85.0, 845.0, 579.0 ],
 		"bglocked" : 0,
-		"defrect" : [ -964.0, 52.0, 845.0, 579.0 ],
+		"defrect" : [ 245.0, 85.0, 845.0, 579.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -19,6 +19,48 @@
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-33",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 263.0, 103.0, 76.0, 17.0 ],
+					"text" : "seek 1000"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-28",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 304.0, 126.0, 48.0, 17.0 ],
+					"text" : "resume"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-24",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 263.0, 126.0, 40.0, 17.0 ],
+					"text" : "pause"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -128,15 +170,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 142.0, 125.0, 69.0, 19.0 ],
+					"patching_rect" : [ 138.0, 125.0, 69.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"fontname" : "Arial"
 					}
 ,
 					"text" : "p formating"
@@ -150,7 +192,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 226.0, 100.0, 20.0, 20.0 ]
+					"patching_rect" : [ 209.0, 101.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -163,7 +205,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 226.0, 125.0, 48.0, 17.0 ],
+					"patching_rect" : [ 209.0, 126.0, 48.0, 17.0 ],
 					"text" : "loop $1"
 				}
 
@@ -175,7 +217,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 142.0, 79.0, 20.0, 20.0 ]
+					"patching_rect" : [ 138.0, 79.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -188,7 +230,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
-					"patching_rect" : [ 142.0, 102.0, 65.0, 19.0 ],
+					"patching_rect" : [ 138.0, 102.0, 65.0, 19.0 ],
 					"text" : "opendialog"
 				}
 
@@ -203,7 +245,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 456.0, 355.0, 238.0, 55.0 ],
+					"patching_rect" : [ 456.0, 355.0, 242.0, 55.0 ],
 					"text" : "number of channels produced updates dynamically when a file is loaded.\nyou may need to click the bang to update the number boxes though."
 				}
 
@@ -231,7 +273,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 352.0, 223.0, 250.0, 17.0 ],
+					"patching_rect" : [ 357.0, 223.0, 250.0, 17.0 ],
 					"text" : "filePath /Users/tim/Music/Demos/41_30sec.flac"
 				}
 
@@ -288,7 +330,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 352.0, 168.0, 317.0, 41.0 ],
+					"patching_rect" : [ 357.0, 168.0, 317.0, 41.0 ],
 					"text" : "filePath \"/Users/tim/_old_home/Documents/Lessons/VendorSpecific/TonePort Lessons/Guitar Tutorial Sounds/Rhodes A.wav\""
 				}
 
@@ -302,7 +344,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 352.0, 143.0, 291.0, 17.0 ],
+					"patching_rect" : [ 357.0, 143.0, 291.0, 17.0 ],
 					"text" : "filePath /Applications/Max5/examples/sounds/jongly.aif"
 				}
 
@@ -327,7 +369,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 352.0, 123.0, 311.0, 17.0 ],
+					"patching_rect" : [ 357.0, 123.0, 311.0, 17.0 ],
 					"text" : "filePath /Applications/Max5/examples/sounds/drumLoop.aif"
 				}
 
@@ -406,7 +448,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 90.0, 100.0, 20.0, 20.0 ]
+					"patching_rect" : [ 90.0, 101.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -419,7 +461,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 90.0, 125.0, 48.0, 17.0 ],
+					"patching_rect" : [ 90.0, 126.0, 46.0, 17.0 ],
 					"text" : "play $1"
 				}
 
@@ -433,7 +475,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 352.0, 248.0, 271.0, 17.0 ],
+					"patching_rect" : [ 357.0, 248.0, 271.0, 17.0 ],
 					"text" : "filePath /Users/tim/Music/Demos/whiteandnerdy.aif"
 				}
 
@@ -484,7 +526,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 90.0, 325.0, 310.0, 19.0 ],
+					"patching_rect" : [ 90.0, 325.0, 311.0, 19.0 ],
 					"text" : "jcom.unpack≈ 2"
 				}
 
@@ -596,6 +638,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-24", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-16", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -618,6 +669,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-27", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-28", 0 ]
 				}
 
 			}
@@ -659,9 +719,18 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-33", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-1", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 245.0, 486.0, 125.5, 486.0 ],
+					"midpoints" : [ 245.5, 493.0, 125.5, 493.0 ],
 					"source" : [ "obj-4", 1 ]
 				}
 
