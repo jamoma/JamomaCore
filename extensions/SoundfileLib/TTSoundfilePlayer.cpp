@@ -19,18 +19,19 @@ mSoundFile(NULL),
 mPlay(false),
 mLoop(false),
 mContinue(false),
+mSeek(0),
 mNumChannels(0),
 mNumBufferFrames(0)
 {
 	addAttributeWithSetter(	FilePath,		kTypeSymbol);
 	addAttributeWithSetter(	Play,			kTypeBoolean);
+	addAttributeWithSetter(	Seek,			kTypeFloat64);
 	addAttribute(			Loop,			kTypeBoolean);
 	addAttribute(			NumChannels,	kTypeUInt16);
 	addAttributeProperty(	NumChannels,	readOnly, kTTBoolYes);
 	
 	addMessage(Pause);
 	addMessage(Resume);
-	
 	setProcessMethod(processAudio);
 	//setAttributeValue(TT("MaxNumChannels"),	arguments);			// This attribute is inherited
 }
@@ -62,6 +63,7 @@ TTErr TTSoundfilePlayer::setFilePath(const TTValue& newValue)
 			sf_close(oldSoundFile);
 		memcpy(&mSoundFileInfo, &soundfileInfo, sizeof(SF_INFO));
 		mFilePath = potentialFilePath;
+		mPlay = 0;
 		mContinue = 1; //eliminating previous pause state
 		// TODO: fill in things like the NumChannels attr here
 		return kTTErrNone;
@@ -75,12 +77,27 @@ TTErr TTSoundfilePlayer::setPlay(const TTValue& newValue)
 	mPlay = newValue; 
 	mContinue = 1; //eliminating previous pause state
 	if (mPlay == 0){
-		if (mSoundFile)
+		if (mSoundFile){
+			mSeek = 0;
 			sf_seek(mSoundFile, 0, SEEK_SET);
+		}
 	}	
 return kTTErrNone;
 }
 
+TTErr TTSoundfilePlayer::setSeek(const TTValue& newValue)
+{   
+	if (mSoundFile) {
+		mSeek = newValue;
+		mSeek = mSeek * sr/1000.0;
+		mContinue = 1; //eliminating previous pause state
+		sf_seek(mSoundFile, mSeek, SEEK_SET);
+		mPlay = 1;
+		return kTTErrNone;
+	}
+	else
+		return kTTErrGeneric;	
+}
 
 TTErr TTSoundfilePlayer::Pause()
 {   
@@ -137,7 +154,7 @@ TTErr TTSoundfilePlayer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSigna
 		if (mPlay && mContinue) {
 			numSamplesRead = sf_read_double(mSoundFile, &mBuffer[0], numFrames*mNumChannels);
 			if (numSamplesRead < numFrames*mNumChannels) {
-				sf_seek(mSoundFile, 0, SEEK_SET);
+				sf_seek(mSoundFile, mSeek, SEEK_SET);
 				mPlay = mLoop;					
 			}
 		}
