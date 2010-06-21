@@ -53,7 +53,7 @@ void WrapTTParameterClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)paramTest_float,					"float",				A_FLOAT, 0L);
 	class_addmethod(c->maxClass, (method)paramTest_list,					"list",					A_GIMME, 0L);
 	
-	class_addmethod(c->maxClass, (method)WrappedParameterClass_anything,		"symbol",				A_SYM, 0L);
+	class_addmethod(c->maxClass, (method)WrappedParameterClass_anything,	"symbol",				A_SYM, 0L);
 }
 
 void WrappedParameterClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -88,9 +88,6 @@ void WrappedParameterClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, A
 	if (!argc) {
 		atom_setsym(&a, msg);
 		paramTest_list(self, _sym_symbol, 1, &a);
-	}
-	else {
-		; // TODO : copy msg and append argv into one t_atom array
 	}
 }
 

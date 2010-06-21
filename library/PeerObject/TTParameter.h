@@ -19,9 +19,9 @@
  
 TODO LIST : 
  
- -> type							some work around type checking inside the Command method ...
+ -> type							DONE (make some test)
  -> RangeBounds						How to declare this attribute in order to see 2 values ?
- -> setDataspace					TODO
+ -> setDataspace					DONE (make some test)
  -> Parameter, Message, Return :	add an attribute to deal with three cases					(see in several place...)
  -> clip :							make a clipwrap and a clipfold method into TTValue...		(see in TTParameter::clipValue method)
  -> handleProperty :				used TTObject message mecanism...							(see in TTParameter::Command method)

@@ -68,9 +68,6 @@ void WrappedSenderClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 		atom_setsym(&a, msg);
 		send_list(self, _sym_symbol, 1, &a);
 	}
-	else {
-		; // TODO : copy msg and append argv into one t_atom array
-	}
 }
 
 // Method for Assistance Messages
