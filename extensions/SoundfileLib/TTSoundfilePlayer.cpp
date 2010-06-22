@@ -50,10 +50,18 @@ TTErr TTSoundfilePlayer::setFilePath(const TTValue& newValue)
 {
 	TTSymbolPtr potentialFilePath = newValue;
 	SNDFILE*	soundfile;
-	SF_INFO		soundfileInfo;
-	
-	memset(&soundfileInfo, 0, sizeof(soundfileInfo));
-	soundfile = sf_open(potentialFilePath->getCString(), SFM_READ, &soundfileInfo);
+#ifdef TT_PLATFORM_WIN
+	// There is a bug in libsndfile on Windows where upon return from this function a runtime check fails
+	// because the stack is corrupted around soundfileInfo when sf_open() is called.
+	// We work around this by allocating some extra memory to absorb the overrun. [tap]
+	SF_INFO		soundfileInfo[2];
+#else
+	SF_INFO		soundfileInfo[1];
+#endif
+
+	memset(&soundfileInfo, 0, sizeof(SF_INFO));
+	//soundfileInfo.format = 0;
+	soundfile = sf_open(potentialFilePath->getCString(), SFM_READ, soundfileInfo);
 	
 	if (soundfile) {
 		SNDFILE* oldSoundFile = mSoundFile;
@@ -61,7 +69,7 @@ TTErr TTSoundfilePlayer::setFilePath(const TTValue& newValue)
 		mSoundFile = soundfile;
 		if (oldSoundFile)
 			sf_close(oldSoundFile);
-		memcpy(&mSoundFileInfo, &soundfileInfo, sizeof(SF_INFO));
+		memcpy(&mSoundFileInfo, soundfileInfo, sizeof(SF_INFO));
 		mFilePath = potentialFilePath;
 		mPlay = 0;
 		mContinue = 1; //eliminating previous pause state
