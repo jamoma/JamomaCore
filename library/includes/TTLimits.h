@@ -38,8 +38,14 @@ template<class T>
 static void TTZeroDenormal(T& value)
 {
 #ifndef TT_DISABLE_DENORMAL_FIX
+#ifdef TT_PLATFORM_WIN
+	// MSVC is not standards-compliant, which includes lack of support for C99's fpclassify()
+	value += kTTAntiDenormalValue;
+	value -= kTTAntiDenormalValue;
+#else // a good platform
 	if (!isnormal(value))
 		value = 0;
+#endif
 #endif
 }
 
