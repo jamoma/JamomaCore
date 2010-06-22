@@ -41,7 +41,7 @@ static ClassPtr sOpClass;
 /************************************************************************************/
 // Main() Function
 
-int main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	ClassPtr c;
 	
