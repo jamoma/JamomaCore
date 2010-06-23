@@ -9,6 +9,7 @@
 
 #include "TTDSP.h"
 #include "TTSoundfilePlayer.h"
+#include "TTSoundfileRecorder.h"
 
 
 extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
@@ -16,6 +17,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	TTDSPInit();
 	
 	TTSoundfilePlayer::registerClass();
+	TTSoundfileRecorder::registerClass();
 	
 	return kTTErrNone;
 }
