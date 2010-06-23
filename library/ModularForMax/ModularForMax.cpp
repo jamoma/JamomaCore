@@ -458,16 +458,20 @@ TTErr jamoma_parameter_command(TTParameterPtr aParameter, SymbolPtr msg, AtomCou
 	
 	if (aParameter) {
 		
-		// convert Atom to TTValue
-		v.setSize(argc);
-		for (i=0; i<argc; i++) 
-		{
-			if (atom_gettype(argv+i) == A_LONG)
-				v.set(i, (int)atom_getlong(argv+i));
-			else if (atom_gettype(argv+i) == A_FLOAT)
-				v.set(i, atom_getfloat(argv+i));
-			else if (atom_gettype(argv+i) == A_SYM)
-				v.set(i, TT(atom_getsym(argv+i)->s_name));
+		if (msg == _sym_bang || argc == 0)
+			v = kTTValNONE;
+		else {
+			// convert Atom to TTValue
+			v.setSize(argc);
+			for (i=0; i<argc; i++) 
+			{
+				if (atom_gettype(argv+i) == A_LONG)
+					v.set(i, (int)atom_getlong(argv+i));
+				else if (atom_gettype(argv+i) == A_FLOAT)
+					v.set(i, atom_getfloat(argv+i));
+				else if (atom_gettype(argv+i) == A_SYM)
+					v.set(i, TT(atom_getsym(argv+i)->s_name));
+			}
 		}
 		
 		aParameter->sendMessage(kTTSym_Command, v);
@@ -519,16 +523,20 @@ TTErr jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, Ato
 	
 	if (aSender) {
 		
-		// convert Atom to TTValue
-		v.setSize(argc);
-		for (i=0; i<argc; i++) 
-		{
-			if (atom_gettype(argv+i) == A_LONG)
-				v.set(i, (int)atom_getlong(argv+i));
-			else if (atom_gettype(argv+i) == A_FLOAT)
-				v.set(i, atom_getfloat(argv+i));
-			else if (atom_gettype(argv+i) == A_SYM)
-				v.set(i, TT(atom_getsym(argv+i)->s_name));
+		if (msg == _sym_bang || argc == 0)
+			v = kTTValNONE;
+		else {
+			// convert Atom to TTValue
+			v.setSize(argc);
+			for (i=0; i<argc; i++) 
+			{
+				if (atom_gettype(argv+i) == A_LONG)
+					v.set(i, (int)atom_getlong(argv+i));
+				else if (atom_gettype(argv+i) == A_FLOAT)
+					v.set(i, atom_getfloat(argv+i));
+				else if (atom_gettype(argv+i) == A_SYM)
+					v.set(i, TT(atom_getsym(argv+i)->s_name));
+			}
 		}
 		
 		aSender->sendMessage(kTTSym_Send, v);
@@ -679,5 +687,7 @@ void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 	
 	// send data to a parameter using the return_value method
 	object_method(x, gensym("return_value"), msg, argc, argv);
+	
+	sysmem_freeptr(argv);
 }
 

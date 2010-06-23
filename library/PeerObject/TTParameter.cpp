@@ -80,8 +80,8 @@ TTParameter::~TTParameter()
 
 TTErr TTParameter::Reset()
 {
-	// if valueDefault and value have the same type
-	if (mValueDefault.getType() == mValue.getType())
+	// if valueDefault type is right
+	if (checkType(mValueDefault))
 		setValue(mValueDefault);
 	
 	// Set parameter to be uninitialised
@@ -99,7 +99,6 @@ TTErr TTParameter::Command(const TTValue& command)
 	TTValue		aValue, convertedValue;
 	bool		hasRamp = false;
 	bool		hasUnit = false;
-	
 	
 	// 1. Parse the command to handle Property
 	//////////////////////////////////////////////////
@@ -221,6 +220,9 @@ TTErr TTParameter::Command(const TTValue& command)
 		aValue.setSize(commandSize - 1);
 		convertUnit(aValue, convertedValue);
 	}
+	else if (command == kTTValNONE) {
+		convertedValue = command;
+	}
 	else
 		convertUnit(command, convertedValue);
 	
@@ -284,29 +286,47 @@ TTErr TTParameter::getValue(TTValue& value)
 
 TTErr TTParameter::setValue(const TTValue& value)
 {
-	if (!mIsSending && checkType(value)) {
-
-		TTValue r, n;				// used new values to protect the attribute
+	TTValue r, n;
+	
+	if (!mIsSending) {
 		
 		// lock
 		mIsSending = YES;
 		
-		//if (clipValue() && mRamper)
-		//	mRamper->stop();
+		// a kTTValNONE would only return the actual value
+		if (value == kTTValNONE) {
+			
+			// if mType is 'none' we have had our value set at least once
+			if (mType == kTTSym_none)
+				mIsInitialised = YES;
+			
+		}
+		// otherwise check the type of the incoming value
+		else if (checkType(value)) {
 		
-		// set internal value
-		mValue = value;
+			// set internal value 
+			mValue = value;
+			
+			clipValue();
+			//if (clipValue() && mRamper)
+			//	mRamper->stop();
+			
+			// we have had our value set at least once
+			mIsInitialised = YES;
+			
+		}
+		else
+			return kTTErrInvalidValue;
+		
+		// used new values to protect the attribute
+		r = mValue;
+		n = mValue;
 		
 		// return the value to his owner
-		r = value;
 		this->mReturnValueCallback->notify(r);
 		
 		// notify each observers
-		n = value;
 		notifyObservers(kTTSym_Value, n);
-		
-		// we have had our value set at least once
-		mIsInitialised = YES;
 		
 		// unlock
 		mIsSending = NO;
@@ -382,7 +402,7 @@ TTErr TTParameter::setType(const TTValue& value)
 			mValueDefault = TTValue();
 			addAttributeWithGetterAndSetter(ValueDefault, kTypeInt32);
 		}
-		else if (mType == kTTSym_array) {				// Is this case means something now we have TTValue
+		else if (mType == kTTSym_array) {				// Is this case means something now we have TTValue?
 			mValue = TTValue();
 			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue();
@@ -390,14 +410,14 @@ TTErr TTParameter::setType(const TTValue& value)
 		}
 	//#ifdef JMOD_MESSAGE
 		else if (mType == kTTSym_none) {
-			mValue = TTValue();
+			mValue = kTTValNONE;
 			addAttributeWithGetterAndSetter(Value, kTypeNone);
-			mValueDefault = TTValue();
+			mValueDefault = kTTValNONE;
 			addAttributeWithGetterAndSetter(ValueDefault, kTypeNone);
 		}
 	//#endif // JMOD_MESSAGE
 		else {
-			mType = kTTSym_generic;						// Is this case means something now we have TTValue
+			mType = kTTSym_generic;						// Is this case means something now we have TTValue ?
 			mValue = TTValue();
 			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue();
@@ -609,6 +629,8 @@ TTErr TTParameter::setDataspaceUnitDisplay(const TTValue& value)
 
 TTBoolean TTParameter::checkType(const TTValue& value)
 {
+	if (mType == kTTSym_generic) return true;
+	
 	switch (value.getType()) 
 	{
 		case kTypeNone :		return mType == kTTSym_none;
