@@ -22,6 +22,12 @@
 #include "maxGraph.h"
 
 
+#ifdef WIN_VERSION
+#define TTCLASSWRAPPERMAX_EXPORT __declspec(dllexport) 
+#else
+#define TTCLASSWRAPPERMAX_EXPORT
+#endif
+
 
 // TYPE DEFINITIONS
 
