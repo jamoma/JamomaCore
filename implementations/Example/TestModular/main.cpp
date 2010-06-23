@@ -120,11 +120,12 @@ main(int argc, char **argv)
 	TTNodePtr		returnedNode;
 	TTBoolean		newInstanceCreated;
 
-	TTModularDirectory->TTNodeCreate(TT("/control"), myParameter, NULL, &returnedNode, &newInstanceCreated);
+	TTModularDirectory->TTNodeCreate(TT("/audio/filter/frequency"), myParameter, NULL, &returnedNode, &newInstanceCreated);
 	// note : our myRegistrationObserver is informed
 
 
-	// Create a TTReceiver to observe the mValue attribute of /control
+
+	// Create a TTReceiver to observe the mValue attribute of /audio/filter/frequency
 	////////////////////////////////////////////////////////////////////
 	TTReceiverPtr	myReceiver = NULL;
 	TTCallbackPtr	r_returnAddressCallback = NULL; 
@@ -134,7 +135,7 @@ main(int argc, char **argv)
 	// prepare arguments : see TTReceiver.h to know which args are needed
 	args.clear();
 	args.append(TTModularDirectory);
-	args.append(TT("/control"));
+	args.append(TT("/audio/filter/frequency"));
 	args.append(kTTSym_Value);
 		
 	TTObjectInstantiate(TT("Callback"), TTObjectHandle(&r_returnAddressCallback), kTTValNONE);
@@ -156,14 +157,14 @@ main(int argc, char **argv)
 	
 
 
-	// Create a TTSender to set mValue attribute of /control
+	// Create a TTSender to set mValue attribute of /audio/filter/frequency
 	//////////////////////////////////////////////////////////////////
 	TTSenderPtr	mySender = NULL;
 
 	// prepare arguments : see TTSender.h to know which args are needed
 	args.clear();
 	args.append(TTModularDirectory);
-	args.append(TT("/control"));
+	args.append(TT("/audio/filter/frequency"));
 	args.append(kTTSym_Value);
 		
 	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mySender), args);
@@ -194,7 +195,7 @@ main(int argc, char **argv)
 	// get the node which represent our parameter
 	TTList			aNodeList;
 	TTNodePtr		aNode;
-	TTModularDirectory->Lookup(TT("/control"), aNodeList, &aNode);
+	TTModularDirectory->Lookup(TT("/audio/filter/frequency"), aNodeList, &aNode);
 
 	// get the object store in the node
 	TTParameterPtr	anObject;
@@ -228,10 +229,10 @@ main(int argc, char **argv)
 	anObject->sendMessage(TT("Reset"));
 	// note : the value is returned by the Parameter and the Receiver
 
-	// Unregister /control from the TTModularDirectory
+	// Unregister /audio/filter/frequency from the TTModularDirectory
 	//////////////////////////////////////////////////////////////////
 	TTLogMessage("\n*** Unregister myParameter from the TTModularDirectory *** \n");
-	TTModularDirectory->TTNodeRemove(TT("/control"));
+	TTModularDirectory->TTNodeRemove(TT("/audio/filter/frequency"));
 	// note : our myUnregistrationObserver is informed
 
 
@@ -305,7 +306,7 @@ void myReceiver_return_address_callback(TTPtr baton, TTValue& v)
 {
 	TTValuePtr	b;
 	TTPtr		x;
-	TTString	s;	
+	TTSymbolPtr	s;	
 
 	// unpack baton
 	b = (TTValuePtr)baton;
@@ -313,9 +314,8 @@ void myReceiver_return_address_callback(TTPtr baton, TTValue& v)
 									// an object in order to process the returned address
 
 	// print the returned value
-	v.toString();
-	v.get(0, s);
-	TTLogMessage("myReceiver returns %s \n", s.data());
+	v.get(0, &s);
+	TTLogMessage("myReceiver returns %s \n", s->getCString());
 }
 
 void myRegistrationObserver_return_value_callback(TTPtr baton, TTValue& v)
@@ -327,7 +327,7 @@ void myRegistrationObserver_return_address_callback(TTPtr baton, TTValue& v)
 {
 	TTValuePtr	b;
 	TTPtr		x;
-	TTString	s;	
+	TTSymbolPtr	s;	
 
 	// unpack baton
 	b = (TTValuePtr)baton;
@@ -335,9 +335,8 @@ void myRegistrationObserver_return_address_callback(TTPtr baton, TTValue& v)
 									// an object in order to process the returned address
 
 	// print the returned value
-	v.toString();
-	v.get(0, s);
-	TTLogMessage("myRegistrationObserver returns %s \n", s.data());
+	v.get(0, &s);
+	TTLogMessage("myRegistrationObserver returns %s \n", s->getCString());
 }
 
 void myUnregistrationObserver_return_value_callback(TTPtr baton, TTValue& v)
@@ -349,7 +348,7 @@ void myUnregistrationObserver_return_address_callback(TTPtr baton, TTValue& v)
 {
 	TTValuePtr	b;
 	TTPtr		x;
-	TTString	s;	
+	TTSymbolPtr	s;	
 
 	// unpack baton
 	b = (TTValuePtr)baton;
@@ -357,7 +356,6 @@ void myUnregistrationObserver_return_address_callback(TTPtr baton, TTValue& v)
 									// an object in order to process the returned address
 
 	// print the returned value
-	v.toString();
-	v.get(0, s);
-	TTLogMessage("myUnregistrationObserver returns %s \n", s.data());
+	v.get(0, &s);
+	TTLogMessage("myUnregistrationObserver returns %s \n", s->getCString());
 }
