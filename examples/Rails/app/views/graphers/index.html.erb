@@ -80,6 +80,22 @@
 
 
 
+<h3>Blackman</h3>
+
+<% svg = MySVG.new(600, 150) %>
+
+<% f = TTObject.new("blackman") %>
+<% for i in 0..600  %>
+	<% x = i/600.0 %>
+	<% y = f.calculate(x) %>
+	<% svg.bar(i, 600, y) %>
+<% end %>
+
+<% svg.write("temp-blackman.svg") %>
+<%= image_tag("temp-blackman.svg") %>
+
+
+
 <h3>Hamming</h3>
 
 <% svg = MySVG.new(600, 150) %>
@@ -111,6 +127,39 @@
 
 <% svg.write("temp-hanning.svg") %>
 <%= image_tag("temp-hanning.svg") %>
+
+
+<h3>Kaiser -- Beta=2.0</h3>
+
+<% svg = MySVG.new(600, 150) %>
+
+<% f = TTObject.new("kaiser") %>
+<% f.set "Beta", 2.0 %>
+<% for i in 0..600  %>
+	<% x = i/600.0 %>
+	<% y = f.calculate(x) %>
+	<% svg.bar(i, 600, y) %>
+<% end %>
+
+<% svg.write("temp-kaiser2.svg") %>
+<%= image_tag("temp-kaiser2.svg") %>
+
+
+
+<h3>Kaiser -- Beta=6.0</h3>
+
+<% svg = MySVG.new(600, 150) %>
+
+<% f = TTObject.new("kaiser") %>
+<% f.set "Beta", 6.0 %>
+<% for i in 0..600  %>
+	<% x = i/600.0 %>
+	<% y = f.calculate(x) %>
+	<% svg.bar(i, 600, y) %>
+<% end %>
+
+<% svg.write("temp-kaiser6.svg") %>
+<%= image_tag("temp-kaiser6.svg") %>
 
 
 
