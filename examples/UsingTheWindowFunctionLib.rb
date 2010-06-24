@@ -30,7 +30,7 @@ postTableFromWindowFunction("trapezoid")
 
 
 puts "  Testing the trapezoid clipping range: we set it out of range, which should be limited between just-above-zero and 0.5:"
-  trapFunction = TTRuby.new("trapezoid")
+  trapFunction = TTObject.new("trapezoid")
 
   puts "    Fade = #{trapFunction.get("Fade")}"
 
