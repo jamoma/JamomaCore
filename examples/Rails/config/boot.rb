@@ -32,6 +32,8 @@ module Rails
       "#{RAILS_ROOT}/config/preinitializer.rb"
     end
   end
+  
+  require 'TTRuby'
 
   class Boot
     def run
