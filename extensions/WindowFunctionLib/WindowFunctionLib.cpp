@@ -10,8 +10,10 @@
 #include "TTDSP.h"
 
 #include "BartlettWindow.h"
+#include "BlackmanWindow.h"
 #include "HammingWindow.h"
 #include "HanningWindow.h"
+#include "KaiserWindow.h"
 #include "RectangularWindow.h"
 #include "TrapezoidWindow.h"
 #include "WelchWindow.h"
@@ -24,8 +26,10 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	TTDSPInit();
 
 	BartlettWindow::registerClass();
+	BlackmanWindow::registerClass();
 	HammingWindow::registerClass();
 	HanningWindow::registerClass();
+	KaiserWindow::registerClass();
 	RectangularWindow::registerClass();
 	TrapezoidWindow::registerClass();
 	WelchWindow::registerClass();

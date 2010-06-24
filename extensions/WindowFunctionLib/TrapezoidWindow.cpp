@@ -17,7 +17,7 @@ TT_AUDIO_CONSTRUCTOR
 {
 	// Register Attributes...
 	addAttribute(Fade, kTypeFloat64);
-	addAttributeProperty(Fade,	range,			TTValue(0.0000001, 0.5));	// Avoid dividing by 0
+	addAttributeProperty(Fade,	range,			TTValue(kTTEpsilon, 0.5));	// Avoid dividing by 0
 	addAttributeProperty(Fade,	rangeChecking,	TT("clip"));
 	
 	// Set Defaults:
