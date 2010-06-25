@@ -9,7 +9,7 @@
 
 #include "maxAudioGraph.h"
 
-int main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	MaxAudioGraphWrappedClassOptionsPtr	options = new MaxAudioGraphWrappedClassOptions;
 	TTValue								value(0);
@@ -17,6 +17,7 @@ int main(void)
 	TTAudioGraphInit();
 
 	options->append(TT("generator"), value);
-	return wrapAsMaxAudioGraph(TT("phasor"), "jcom.phasor≈", NULL, options);
+	wrapAsMaxAudioGraph(TT("phasor"), "jcom.phasor≈", NULL, options);
+	return 0;
 }
 

@@ -10,7 +10,7 @@
 #include "maxAudioGraph.h"
 
 
-int main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	MaxAudioGraphWrappedClassOptionsPtr	options = new MaxAudioGraphWrappedClassOptions;
 	TTValue								value(0);
@@ -19,5 +19,6 @@ int main(void)
 	options->append(TT("argumentDefinesNumInlets"), value);
 	value = 1L;
 	options->append(TT("argumentDefinesNumOutlets"), value);
-	return wrapAsMaxAudioGraph(TT("matrixmixer"), "jcom.matrixmixer≈", NULL, options);
+	wrapAsMaxAudioGraph(TT("matrixmixer"), "jcom.matrixmixer≈", NULL, options);
+	return 0;
 }

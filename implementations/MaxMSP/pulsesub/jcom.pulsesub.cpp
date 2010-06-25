@@ -9,9 +9,10 @@
 
 #include "maxAudioGraph.h"
 
-int main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	TTAudioGraphInit();
-	return wrapAsMaxAudioGraph(TT("pulsesub"), "jcom.pulsesub≈", NULL);
+	wrapAsMaxAudioGraph(TT("pulsesub"), "jcom.pulsesub≈", NULL);
+	return 0;
 }
 

@@ -10,7 +10,7 @@
 #include "maxAudioGraph.h"
 
 
-int main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	MaxAudioGraphWrappedClassOptionsPtr	options = new MaxAudioGraphWrappedClassOptions;
 	TTValue								value(0);
@@ -18,5 +18,6 @@ int main(void)
 	TTAudioGraphInit();
 
 	options->append(TT("nonadapting"), value); // don't change the number of out-channels in response to changes in the number of in-channels
-	return wrapAsMaxAudioGraph(TT("matrix"), "jcom.matrix≈", NULL, options);
+	wrapAsMaxAudioGraph(TT("matrix"), "jcom.matrix≈", NULL, options);
+	return 0;
 }

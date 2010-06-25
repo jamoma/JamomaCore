@@ -9,7 +9,8 @@
 
 #include "maxAudioGraph.h"
 
-int main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
-	return wrapAsMaxAudioGraph(TT("fft"), "jcom.fft≈", NULL);
+	wrapAsMaxAudioGraph(TT("fft"), "jcom.fft≈", NULL);
+	return 0;
 }
