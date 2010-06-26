@@ -301,6 +301,7 @@ void hub_examine_context(t_hub *x)
 				object_attr_set_rect(patcher, _sym_defrect, &boxRect);				
 				object_attr_setchar(patcher, _sym_toolbarvisible, 0);	
 				object_method_parse(patcher, _sym_window, "flags nogrow", NULL); //get rid of the grow thingies
+				object_method_parse(patcher, _sym_window, "flags nozoom", NULL); //disable maximize button 
 				object_method_parse(patcher, _sym_window, "exec", NULL); 
 				object_attr_setsym(patcher, _sym_title, x->attr_name); //set the window title to the module class, jcom.ui shows osc_name already 
 				object_attr_setchar(patcher, _sym_enablehscroll, 0);   // turn off scroll bars
