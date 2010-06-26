@@ -299,8 +299,16 @@ void hub_examine_context(t_hub *x)
 				object_attr_get_rect(patcher, _sym_defrect, &boxRect);
 				boxRect.width = uiRect.width;
 				boxRect.height = uiRect.height;
+				
 				object_attr_set_rect(patcher, _sym_defrect, &boxRect);				
-				object_attr_setchar(patcher, _sym_toolbarvisible, 0);				
+				object_attr_setchar(patcher, _sym_toolbarvisible, 0);	
+				//object_attr_setlong(patcher, _sym_nogrow, 0);
+				//object_method_parse(patcher, _sym_window, "flags nogrow", NULL); 
+				object_method_parse(patcher, _sym_window, "flags nogrow", NULL); //get rid of the grow thingies
+				object_method_parse(patcher, _sym_window, "exec", NULL); 
+				object_attr_setsym(patcher, _sym_title, x->attr_name); //set the window title to the module class, jcom.ui shows osc_name already 
+				object_attr_setchar(patcher, _sym_enablehscroll, 0);   // turn off scroll bars
+				object_attr_setchar(patcher, _sym_enablevscroll, 0);				
 			}
 		
 		}
