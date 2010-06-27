@@ -262,7 +262,7 @@ TTErr TTLimiter::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 			lookaheadBufferPlayback += attrLookahead;		
 		
 		// Process Stage ...
-		for (channel=0; channel<numchannels; channel++) {
+		
 			if (hotSample * maybe > attrThreshold) {
 				curgain = attrThreshold / hotSample;
 				inc = (attrThreshold - curgain);
@@ -273,7 +273,7 @@ TTErr TTLimiter::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 					if (ind<0)
 						ind += maxBufferSize;
 						
-					if (isLinear)
+					if (isLinear) //TODO: can't we move this condition outside the loop? isLinear won't change during a vs [NP]
 						newgain = curgain + inc * acc;
 					else
 						newgain = curgain + inc * (acc * acc);
@@ -285,13 +285,14 @@ TTErr TTLimiter::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 					acc = acc + lookaheadInv;
 				}
 			}
-
+		for (channel=0; channel<numchannels; channel++) {
 			out.mSampleVectors[channel][i] = lookaheadBuffer[channel][lookaheadBufferPlayback] * gain[lookaheadBufferPlayback];
+			}
 			last = gain[lookaheadBufferIndex];
 			lookaheadBufferIndex++;
 			if (lookaheadBufferIndex >= attrLookahead)
 				lookaheadBufferIndex = 0;
-		}
+		
 	}
 	return kTTErrNone;
 }
