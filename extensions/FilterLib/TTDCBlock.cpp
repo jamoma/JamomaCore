@@ -54,8 +54,10 @@ TTErr TTDCBlock::Clear()
 
 inline TTErr TTDCBlock::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
-	y = mLastOutput[channel] = TTAntiDenormal(x - mLastInput[channel] + (mLastOutput[channel] * 0.9997));
-	mLastInput[channel] = x;
+	y = x - mLastInput[channel] + (mLastOutput[channel] * 0.9997);
+	TTZeroDenormal(y);
+	mLastOutput[channel] = y;
+	mLastInput[channel]  = x;
 	return kTTErrNone;
 }
 
