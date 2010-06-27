@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="JamomaGraph"
 	ProjectGUID="{34630069-834D-46BA-83CF-3DB7F1A9665F}"
 	RootNamespace="TTBlue"
@@ -26,11 +26,11 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Delete old DLL from Max&apos;s support folder."
-				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaMulticore.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaMulticore.dll&quot;"
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaGraph.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaGraph.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\JamomaMulticore.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaMulticore.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\JamomaGraph.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaGraph.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="none"
 			/>
 			<Tool
@@ -46,7 +46,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)includes\units&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)source\units&quot;;&quot;$(ProjectDir)portaudio\include&quot;;&quot;$(ProjectDir)..\..\DSP\library\portaudio\include&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTMULTICORE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTGRAPH_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -99,8 +99,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy JamomaMulticore.dll to the Max 5 install."
-				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\JamomaMulticore.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\JamomaMulticore.dll&quot;"
+				Description="Copy JamomaGraph.dll to the Max 5 install."
+				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\JamomaGraph.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\JamomaGraph.dll&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -112,11 +112,11 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Delete old DLL from Max&apos;s support folder."
-				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaMulticore.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaMulticore.dll&quot;"
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaGraph.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaGraph.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\JamomaMulticore.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaMulticore.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\JamomaGraph.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaGraph.lib .\build&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="AAA"
 			/>
 			<Tool
@@ -132,7 +132,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				AdditionalIncludeDirectories="&quot;$(ProjectDir)includes\&quot;;&quot;$(ProjectDir)includes\units&quot;;&quot;$(ProjectDir)source\&quot;;&quot;$(ProjectDir)source\units&quot;;&quot;$(ProjectDir)portaudio\include&quot;;&quot;$(ProjectDir)..\..\DSP\library\portaudio\include&quot;;&quot;$(ProjectDir)..\..\DSP\library\includes&quot;;&quot;$(ProjectDir)..\..\Foundation\library\includes&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTMULTICORE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTGRAPH_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
@@ -186,8 +186,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy JamomaMulticore.dll to the Max 5 install."
-				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\JamomaMulticore.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\JamomaMulticore.dll&quot;"
+				Description="Copy JamomaGraph.dll to the Max 5 install."
+				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\JamomaGraph.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\JamomaGraph.dll&quot;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -263,6 +263,10 @@
 			</File>
 			<File
 				RelativePath=".\source\TTGraphObject.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TTGraphOutlet.cpp"
 				>
 			</File>
 			<File

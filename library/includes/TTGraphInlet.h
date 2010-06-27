@@ -11,16 +11,16 @@
 #define __TTGRAPH_INLET_H__
 
 #include "TTGraph.h"
-#include "TTGraphObject.h"
+//#include "TTGraphObject.h"
 #include "TTGraphSource.h"
-
+#include "TTGraphDescription.h"
 
 /******************************************************************************************/
 
 /**	This object represents a single 'inlet' to a TTGraphObject.
 	TTGraphObject maintains a vector of these inlets.
 */
-class TTGraphInlet {
+class TTGRAPH_EXPORT TTGraphInlet {
 	TTGraphSourceVector		mSourceObjects;		///< A vector of object pointers from which we pull our source samples using the ::getAudioOutput() method.
 	
 public:
@@ -96,17 +96,13 @@ public:
 	}
 		
 	
-	void getDescriptions(TTGraphDescriptionVector& descs)
-	{
-		for (TTGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
-			TTGraphDescription	desc;
-			
-			source->getDescription(desc);
-			descs.push_back(desc);
-		}
-	}
+	void getDescriptions(TTGraphDescriptionVector& descs);
 	
 };
+
+typedef TTGraphInlet*					TTGraphInletPtr;
+typedef vector<TTGraphInlet>			TTGraphInletVector;
+typedef TTGraphInletVector::iterator	TTGraphInletIter;
 
 
 #endif // __TTGRAPH_INLET_H__

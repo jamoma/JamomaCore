@@ -155,7 +155,7 @@ MaxErr PackNotify(PackPtr self, SymbolPtr s, SymbolPtr msg, ObjectPtr sender, TT
 			ObjectPtr	destObject = jbox_get_object(destBox);
 			long		destInlet = jpatchline_get_inletnum(sender);
 			
-			// if both boxes are multicore objects 
+			// if both boxes are graph objects 
 			if ( zgetfn(sourceObject, gensym("graph.object")) && zgetfn(destObject, gensym("graph.object")) ) {
 				#ifdef DEBUG_NOTIFICATIONS
 				object_post(SELF, "deleting graph patchline!");
@@ -184,10 +184,10 @@ void PackIterateResetCallback(PackPtr self, ObjectPtr obj)
 void PackIterateSetupCallback(PackPtr self, ObjectPtr obj)
 {
 	MaxErr err = MAX_ERR_NONE;
-	method multicoreSetupMethod = zgetfn(obj, gensym("graph.setup"));
+	method graphSetupMethod = zgetfn(obj, gensym("graph.setup"));
 	
-	if (multicoreSetupMethod)
-		err = (MaxErr)multicoreSetupMethod(obj);
+	if (graphSetupMethod)
+		err = (MaxErr)graphSetupMethod(obj);
 }
 
 

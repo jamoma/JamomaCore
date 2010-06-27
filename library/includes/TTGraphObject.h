@@ -11,6 +11,7 @@
 #define __TTGRAPH_OBJECT_H__
 
 #include "TTGraph.h"
+#include "TTGraphInlet.h"
 #include "TTGraphOutlet.h"
 #include "TTGraphDescription.h"
 

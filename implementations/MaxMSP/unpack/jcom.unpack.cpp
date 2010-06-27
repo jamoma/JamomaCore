@@ -120,7 +120,7 @@ void UnpackAssist(UnpackPtr self, void* b, long msg, long arg, char* dst)
 }
 
 
-// C Callback from any Multicore Source objects we are observing
+// C Callback from any Graph Source objects we are observing
 void UnpackGraphCallback(UnpackPtr self, TTValue& arg)
 {
 	TTDictionaryPtr aDictionary = NULL;

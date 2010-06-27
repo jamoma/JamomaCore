@@ -11,7 +11,7 @@
 #define __TTGRAPH_OUTLET_H__
 
 #include "TTGraph.h"
-#include "TTGraphObject.h"
+//#include "TTGraphObject.h"
 #include "TTGraphDestination.h"
 
 
@@ -20,7 +20,7 @@
 /**	This object represents a single 'outlet' from a TTGraphObject.
 	TTGraphObject maintains a vector of these outlets.
 */
-class TTGraphOutlet {
+class TTGRAPH_EXPORT TTGraphOutlet {
 	TTGraphDestinationVector	mDestinationObjects;
 	
 public:
@@ -91,5 +91,8 @@ public:
 	
 };
 
+typedef TTGraphOutlet*					TTGraphOutletPtr;
+typedef vector<TTGraphOutlet>			TTGraphOutletVector;
+typedef TTGraphOutletVector::iterator	TTGraphOutletIter;
 
 #endif // __TTGRAPH_OUTLET_H__

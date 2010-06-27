@@ -15,7 +15,7 @@
 
 /******************************************************************************************/
 
-/**	TTMulticoreOutput is an audio object that serves as the destination and master for a TTMulticore graph.		*/
+/**	An object that serves as the source driving an object/graph.		*/
 class TTGRAPH_EXPORT TTGraphInput : public TTObject
 {
 	TTCLASS_SETUP(TTGraphInput)

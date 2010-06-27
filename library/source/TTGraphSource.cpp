@@ -10,9 +10,9 @@
 #include "TTGraphSource.h"
 #include "TTGraphInlet.h"
 #include "TTCallback.h"
+#include "TTGraphObject.h"
 
-
-// C Callback from any Multicore Source objects we are observing
+// C Callback from any Audio Graph Source objects we are observing
 void TTGraphSourceObserverCallback(TTGraphSourcePtr self, TTValue& arg)
 {
 	// at the moment we only receive one callback, which is for the object being deleted
@@ -22,7 +22,7 @@ void TTGraphSourceObserverCallback(TTGraphSourcePtr self, TTValue& arg)
 }
 
 
-// Implementation for Multicore Source class
+// Implementation for Audio Graph Source class
 
 TTGraphSource::TTGraphSource() :
 	mSourceObject(NULL),
@@ -53,6 +53,12 @@ void TTGraphSource::create()
 	
 	mCallbackHandler->setAttributeValue(TT("Function"), TTPtr(&TTGraphSourceObserverCallback));
 	mCallbackHandler->setAttributeValue(TT("Baton"), TTPtr(this));	
+}
+
+
+void TTGraphSource::getDescription(TTGraphDescription& desc)
+{
+	mSourceObject->getDescription(desc);
 }
 
 
