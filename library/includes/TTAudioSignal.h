@@ -143,21 +143,13 @@ public:
 		@return An error code.	*/
 	TTErr Clear()
 	{
-//		TTUInt8		channel;
-//		TTUInt16	i;
-		
 		if (!mSampleVectors)
 			return kTTErrGeneric;
 		
-//		for (channel=0; channel<mNumChannels; channel++) {
-			//for (i=0; i<mVectorSize; i++)
-			//	mSampleVectors[channel][i] = 0.0;
-//			memset(mSampleVectors[channel], 0, sizeof(TTSampleValue) * mVectorSize);
-//		}
-//	Ideally, we could do this:
-//		memset(mSampleVectors, 0, sizeof(TTSampleValue) * mVectorSize * mNumChannels);
-//	But, at the moment, we implement a vector of vectors rather than a block of memory that we index as a single chunk.
-//	So we have to iterate like this:
+		//	Ideally, we could do this:
+		//		memset(mSampleVectors, 0, sizeof(TTSampleValue) * mVectorSize * mNumChannels);
+		//	But, at the moment, we implement a vector of vectors rather than a block of memory that we index as a single chunk.
+		//	So we have to iterate like this:
 		
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++)
 			memset(mSampleVectors[channel], 0, sizeof(TTSampleValue) * mVectorSize);
