@@ -141,7 +141,24 @@ public:
 	
 	/**	Zero out all of the sample values in the audio signal.
 		@return An error code.	*/
-	TTErr Clear();
+	TTErr Clear()
+	{
+//		TTUInt8		channel;
+//		TTUInt16	i;
+		
+		if (!mSampleVectors)
+			return kTTErrGeneric;
+		
+//		for (channel=0; channel<mNumChannels; channel++) {
+			//for (i=0; i<mVectorSize; i++)
+			//	mSampleVectors[channel][i] = 0.0;
+//			memset(mSampleVectors[channel], 0, sizeof(TTSampleValue) * mVectorSize);
+//		}
+		memset(mSampleVectors, 0, sizeof(TTSampleValue) * mVectorSize * mNumChannels);
+		
+		return kTTErrNone;
+	}
+	
 	TTErr clear() {return Clear();}
 	
 	

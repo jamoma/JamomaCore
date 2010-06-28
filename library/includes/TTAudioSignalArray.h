@@ -27,7 +27,14 @@ public:
 	
 	void		init();
 	void		releaseAll();
-	void		clearAll();
+//	void		clearAll();
+
+	void clearAll()
+	{
+		for (TTUInt16 i=0; i<maxNumAudioSignals; i++)
+			audioSignals[i]->Clear();
+	}
+	
 	void		allocAllWithVectorSize(TTUInt16 vs);
 	TTUInt16	getVectorSize();
 	void		setAllMaxNumChannels(TTUInt16 newMaxNumChannels);

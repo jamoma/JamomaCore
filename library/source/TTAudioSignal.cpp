@@ -378,21 +378,5 @@ TTUInt16 TTAudioSignal::getNumChannels(const TTAudioSignal& signal)
 }
 
 
-TTErr TTAudioSignal::Clear()
-{
-	TTUInt8		channel;
-	TTUInt16	i;
-	
-	if (!mSampleVectors)
-		return kTTErrGeneric;
-		
-	for (channel=0; channel<mNumChannels; channel++) {
-		for (i=0; i<mVectorSize; i++)
-			mSampleVectors[channel][i] = 0.0;
-	}
-	return kTTErrNone;
-}
-		
-		
 // TODO: implement fill() method --- SET ALL VALUES IN THE SIGNAL TO A CONSTANT
 

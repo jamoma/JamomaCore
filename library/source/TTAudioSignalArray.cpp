@@ -54,12 +54,6 @@ void TTAudioSignalArray::releaseAll()
 		TTObjectRelease(&audioSignals[i]);
 }
 
-void TTAudioSignalArray::clearAll()
-{
-	for (TTUInt16 i=0; i<maxNumAudioSignals; i++)
-		audioSignals[i]->Clear();
-}
-
 void TTAudioSignalArray::allocAllWithVectorSize(TTUInt16 vs)
 {
 	for (TTUInt16 i=0; i<maxNumAudioSignals; i++)
