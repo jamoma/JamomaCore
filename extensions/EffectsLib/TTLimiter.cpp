@@ -262,7 +262,7 @@ TTErr TTLimiter::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 			lookaheadBufferPlayback += attrLookahead;		
 		
 		// Process Stage ...
-		
+		// this ***very slow*** : with a lookahead of 100, and vs = 64, we loop 640 times!
 			if (hotSample * maybe > attrThreshold) {
 				curgain = attrThreshold / hotSample;
 				inc = (attrThreshold - curgain);
