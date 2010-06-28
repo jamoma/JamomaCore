@@ -69,9 +69,14 @@ TTErr TTNoise::processWhiteNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	for (channel=0; channel<numChannels; channel++) {
 		vs = out.getVectorSizeAsInt();
 		while (vs--) {
+#ifdef USE_MERSENNE_TWISTER_ALGORITHM
+			tempSample = mTwister.rand(2.0);
+			tempSample -= 1.0;
+#else
 			accum = (accum * 3877 + 29573) % 139968;			// Random number generator
-			tempSample = (1.0 - (2.0 * float(accum) / 139968)) * mGain;	// Scale to audio range
-			out.mSampleVectors[channel][i] = tempSample;
+			tempSample = (1.0 - (2.0 * float(accum) / 139968));	// Scale to audio range
+#endif
+			out.mSampleVectors[channel][i] = tempSample * mGain;
 			i++;
 		}
 	}
@@ -92,9 +97,13 @@ TTErr TTNoise::processPinkNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 		vs = out.getVectorSizeAsInt();
 		while (vs--) {
 			// Generate White Noise
+#ifdef USE_MERSENNE_TWISTER_ALGORITHM
+			tempSample = mTwister.rand(2.0);
+			tempSample -= 1.0;
+#else
 			accum = (accum * 3877 + 29573) % 139968;			// Random number generator
 			tempSample = 1.0 - (2.0 * float(accum) / 139968);	// Scale to audio range
-
+#endif
 			// Apply a Pinking Filter
 			b[0] = 0.99886 * b[0] + tempSample * 0.0555179;
 			b[1] = 0.99332 * b[1] + tempSample * 0.0750759;
@@ -127,9 +136,13 @@ TTErr TTNoise::processBrownNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 		vs = out.getVectorSizeAsInt();
 		while (vs--) {
 			// Generate White Noise
+#ifdef USE_MERSENNE_TWISTER_ALGORITHM
+			tempSample = mTwister.rand(2.0);
+			tempSample -= 1.0;
+#else
 			accum = (accum * 3877 + 29573) % 139968;			// Random number generator
 			tempSample = 1.0 - (2.0 * float(accum) / 139968);	// Scale to audio range
-
+#endif
 			// Apply a "Browning" Filter
 			tempSample *= 0.1;									// scale the white noise
 			tempSample = b[0] + tempSample;    					// 6dB per octave lowpass
@@ -159,9 +172,13 @@ TTErr TTNoise::processBlueNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 		vs = out.getVectorSizeAsInt();
 		while (vs--) {
 			// Generate White Noise
+#ifdef USE_MERSENNE_TWISTER_ALGORITHM
+			tempSample = mTwister.rand(2.0);
+			tempSample -= 1.0;
+#else
 			accum = (accum * 3877 + 29573) % 139968;			// Random number generator
 			tempSample = 1.0 - (2.0 * float(accum) / 139968);	// Scale to audio range
-
+#endif
 			// Apply a "Blue-ing" Filter
 			tempSample -= b[0];									// 6dB per octave highpass (real blue noise = 3dB/oct)
 			TTLimit(tempSample, -1.0, 1.0);						// clip

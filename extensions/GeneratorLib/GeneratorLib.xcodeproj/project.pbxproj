@@ -25,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		223D93E611D951E6006953FA /* MersenneTwister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MersenneTwister.h; path = "Mersenne-1.1/MersenneTwister.h"; sourceTree = "<group>"; };
 		22BA7DFD1046ECED009771BC /* GeneratorLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GeneratorLib.cpp; sourceTree = "<group>"; };
 		22BA7DFF1046ED03009771BC /* TTAdsr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAdsr.h; path = includes/TTAdsr.h; sourceTree = "<group>"; };
 		22BA7E001046ED03009771BC /* TTNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNoise.h; path = includes/TTNoise.h; sourceTree = "<group>"; };
@@ -87,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				22BA7DFD1046ECED009771BC /* GeneratorLib.cpp */,
+				223D93E611D951E6006953FA /* MersenneTwister.h */,
 				2217FAAA0E4F284D00806778 /* Generators */,
 			);
 			name = Source;
