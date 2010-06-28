@@ -231,7 +231,6 @@ TTErr TTLimiter::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 
 	for (i=0; i<vs; i++) {
 		hotSample = 0.0;
-
 	
 		// Analysis Stage ...
 		for (channel=0; channel<numchannels; channel++) {
@@ -263,36 +262,38 @@ TTErr TTLimiter::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 		
 		// Process Stage ...
 		// this ***very slow*** : with a lookahead of 100, and vs = 64, we loop 640 times!
-			if (hotSample * maybe > attrThreshold) {
-				curgain = attrThreshold / hotSample;
-				inc = (attrThreshold - curgain);
-				acc = 0;
-				flag = 0;
-				for (j=0; flag==0 && j<attrLookahead; j++) {
-					ind = lookaheadBufferIndex - j;
-					if (ind<0)
-						ind += maxBufferSize;
-						
-					if (isLinear) //TODO: can't we move this condition outside the loop? isLinear won't change during a vs [NP]
-						newgain = curgain + inc * acc;
-					else
-						newgain = curgain + inc * (acc * acc);
-						
-					if (newgain < gain[ind])
-						gain[ind] = newgain;
-					else
-						flag = 1;
-					acc = acc + lookaheadInv;
-				}
+		if (hotSample * maybe > attrThreshold) {
+			curgain = attrThreshold / hotSample;
+			inc = (attrThreshold - curgain);
+			acc = 0;
+			flag = 0;
+			for (j=0; flag==0 && j<attrLookahead; j++) {
+				ind = lookaheadBufferIndex - j;
+				if (ind<0)
+					ind += maxBufferSize;
+					
+				if (isLinear) //TODO: can't we move this condition outside the loop? isLinear won't change during a vs [NP]
+					newgain = curgain + inc * acc;
+				else
+					newgain = curgain + inc * (acc * acc);
+					
+				if (newgain < gain[ind])
+					gain[ind] = newgain;
+				else
+					flag = 1;
+				acc = acc + lookaheadInv;
 			}
+		}
+		
+		// Actual application of the gain
 		for (channel=0; channel<numchannels; channel++) {
 			out.mSampleVectors[channel][i] = lookaheadBuffer[channel][lookaheadBufferPlayback] * gain[lookaheadBufferPlayback];
-			}
-			last = gain[lookaheadBufferIndex];
-			lookaheadBufferIndex++;
-			if (lookaheadBufferIndex >= attrLookahead)
-				lookaheadBufferIndex = 0;
+		}
 		
+		last = gain[lookaheadBufferIndex];
+		lookaheadBufferIndex++;
+		if (lookaheadBufferIndex >= attrLookahead)
+			lookaheadBufferIndex = 0;		
 	}
 	return kTTErrNone;
 }
