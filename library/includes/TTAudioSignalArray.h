@@ -27,7 +27,6 @@ public:
 	
 	void		init();
 	void		releaseAll();
-//	void		clearAll();
 
 	void clearAll()
 	{
@@ -74,7 +73,6 @@ public:
 
 	void matchNumChannels(TTAudioSignalArray& anotherArray)
 	{
-		//TTUInt16	highestNumChannels = 0;
 		TTUInt16	audioSignalCount =  TTClip<TTUInt16>(maxNumAudioSignals, 0, anotherArray.maxNumAudioSignals);
 		TTValue		v;
 		
