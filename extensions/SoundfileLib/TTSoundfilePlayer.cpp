@@ -137,8 +137,8 @@ TTErr TTSoundfilePlayer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSigna
 		mNumChannels = mSoundFileInfo.channels;
 		out.setMaxNumChannels(mNumChannels);
 		bufferNeedsResize = YES;
+		out.setNumChannelsWithInt(mNumChannels);
 	}
-	out.setNumChannelsWithInt(mNumChannels);
 	
 	if (mNumBufferFrames != numFrames) {
 		mNumBufferFrames = numFrames;
