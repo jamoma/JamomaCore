@@ -286,6 +286,12 @@ t_int* OutPerform(t_int* w)
 			numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannelsAsInt());			
 			for(TTUInt16 channel=0; channel<numChannels; channel++)
 				self->audioSignal->getVector(channel, self->vectorSize, (TTFloat32*)w[channel+2]);
+			
+			if (numChannels  < self->maxNumChannels){ // in case the incomming multicable has less channels than jcom.unpack has outlets
+				for(TTUInt16 channel=numChannels; channel<self->maxNumChannels; channel++)
+					for (int i=0 ; i < self->vectorSize; i++)
+						((TTFloat32*)(w[channel+2]))[i] = 0.0;
+			}
 		}
 		else {
 			for (TTUInt16 channel=0; channel < self->numChannels; channel++) {
