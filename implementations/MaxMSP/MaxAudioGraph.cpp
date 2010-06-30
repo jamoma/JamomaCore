@@ -224,6 +224,25 @@ t_max_err MaxAudioGraphWrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr a
 }
 
 
+t_max_err MaxAudioGraphWrappedClass_attrGetNumChannels(WrappedInstancePtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (AtomPtr)sysmem_newptr(sizeof(Atom));
+	
+	atom_setlong(*argv, self->audioGraphObject->getOutputNumChannels(0));
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err MaxAudioGraphWrappedClass_attrSetNumChannels(WrappedInstancePtr self, ObjectPtr attr, AtomCount argc, AtomPtr argv)
+{
+	if (argc)
+		self->audioGraphObject->setOutputNumChannels(0, atom_getlong(argv));
+	return MAX_ERR_NONE;
+}
+
+
 void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, AtomCount argc, AtomPtr argv)
 {	
 	TTValue		v;
@@ -416,6 +435,18 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
     class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",				A_CANT, 0); 
 	class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphWrappedClass_assist, 	"assist",				A_CANT, 0L);
 	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,			"inletinfo",			A_CANT, 0);
+	
+	
+	if (wrappedMaxClass->options) {
+		TTValue		userCanSetNumChannels = kTTBoolNo;
+		TTErr		err = wrappedMaxClass->options->lookup(TT("userCanSetNumChannels"), userCanSetNumChannels);
+		
+		if (!err && userCanSetNumChannels == kTTBoolYes)
+			class_addattr(wrappedMaxClass->maxClass, attr_offset_new("numChannels", _sym_long, 0, 
+																	 (method)MaxAudioGraphWrappedClass_attrGetNumChannels, 
+																	 (method)MaxAudioGraphWrappedClass_attrSetNumChannels, 
+																	 NULL));			
+	}
 	
 	class_register(_sym_box, wrappedMaxClass->maxClass);
 	if (c)
