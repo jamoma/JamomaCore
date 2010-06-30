@@ -23,12 +23,19 @@ class TTNoise : TTAudioObject {
 	TTCLASS_SETUP(TTNoise)
 
 #ifdef USE_MERSENNE_TWISTER_ALGORITHM
-	MTRand			mTwister;	///< class implementing Mersenne Twister algorithm
+	MTRand				mTwister;	///< class implementing Mersenne Twister algorithm
 #endif
-	TTSymbol*		mMode;		///< Attribute: what color is the noise?
-	TTFloat64		mGain;		// gain stage
-	TTUInt32		accum;		///< accumulator for the noise generation
-	TTSampleValue	b[7];		///< for the "pinking" filter
+	TTSymbol*			mMode;		///< Attribute: what color is the noise?
+	TTFloat64			mGain;		// gain stage
+	TTUInt16			mNumChannels;		///< sets the number of noise channels
+	TTUInt32			accum;		///< accumulator for the noise generation
+	TTSampleVector		mb0;						
+	TTSampleVector		mb1;						
+	TTSampleVector		mb2;						
+	TTSampleVector		mb3;						
+	TTSampleVector		mb4;						
+	TTSampleVector		mb5;	
+	TTSampleVector		mb6;
 
 	/**	Audio Processing Method	*/
 	TTErr processWhiteNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
@@ -45,7 +52,9 @@ class TTNoise : TTAudioObject {
 	/**	Attribute Setter. */
 	TTErr setMode(const TTValue& newMode);
     TTErr setGain(const TTValue& newValue); 
+	TTErr setNumChannels(const TTUInt16 newNumChannels);
 	TTErr getGain(TTValue& returnedValue);
+	TTErr Clear();
 };
 
 
