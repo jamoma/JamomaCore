@@ -7,30 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		222B17F60F1D4009008B1A46 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
-		222B17F70F1D4009008B1A46 /* libportaudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F110EC2762900A5EC32 /* libportaudio.a */; };
-		222B17F80F1D4009008B1A46 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F190EC276B200A5EC32 /* CoreAudio.framework */; };
-		222B17F90F1D4009008B1A46 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */; };
-		222B17FA0F1D4009008B1A46 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1B0EC276B200A5EC32 /* AudioUnit.framework */; };
-		222B17FB0F1D4009008B1A46 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1C0EC276B200A5EC32 /* CoreServices.framework */; };
-		224FFBAB110E94CF00270ED3 /* TTDelayBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 224FFBAA110E94CF00270ED3 /* TTDelayBuffer.h */; };
-		228505A2102CFE7E004D74BC /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228505A1102CFE7E004D74BC /* JamomaFoundation.framework */; };
-		228505CD102D001E004D74BC /* TTDSP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 228505CC102D001E004D74BC /* TTDSP.cpp */; };
-		22BA7E291046EE2E009771BC /* TTBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BA7E281046EE2E009771BC /* TTBuffer.cpp */; };
-		22BA7E2B1046EE35009771BC /* TTBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BA7E2A1046EE35009771BC /* TTBuffer.h */; };
-		22E3861410286BBE002000A9 /* TTAudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F310286BBE002000A9 /* TTAudioEngine.cpp */; };
-		22E3861510286BBE002000A9 /* TTAudioObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F410286BBE002000A9 /* TTAudioObject.cpp */; };
-		22E3861610286BBE002000A9 /* TTAudioSignal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F510286BBE002000A9 /* TTAudioSignal.cpp */; };
-		22E3861710286BBE002000A9 /* TTAudioSignalArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F610286BBE002000A9 /* TTAudioSignalArray.cpp */; };
-		22EB3C05102F0D0F006D027A /* TTDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = 228505CB102CFFFA004D74BC /* TTDSP.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3C06102F0D0F006D027A /* TTAudioObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D310286BB0002000A9 /* TTAudioObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3C07102F0D0F006D027A /* TTAudioSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D410286BB0002000A9 /* TTAudioSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3C08102F0D0F006D027A /* TTAudioSignalArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D510286BB0002000A9 /* TTAudioSignalArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22610D5111DD856F000A3DA8 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
+		22610D5211DD856F000A3DA8 /* libportaudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F110EC2762900A5EC32 /* libportaudio.a */; };
+		22610D5311DD856F000A3DA8 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F190EC276B200A5EC32 /* CoreAudio.framework */; };
+		22610D5411DD856F000A3DA8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */; };
+		22610D5511DD856F000A3DA8 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1B0EC276B200A5EC32 /* AudioUnit.framework */; };
+		22610D5611DD856F000A3DA8 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1C0EC276B200A5EC32 /* CoreServices.framework */; };
+		22610D5711DD856F000A3DA8 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22610D1011DD843D000A3DA8 /* JamomaFoundation.dylib */; };
+		22610D5811DD8579000A3DA8 /* TTAudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F310286BBE002000A9 /* TTAudioEngine.cpp */; };
+		22610D5911DD8579000A3DA8 /* TTAudioObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F410286BBE002000A9 /* TTAudioObject.cpp */; };
+		22610D5A11DD8579000A3DA8 /* TTAudioSignal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F510286BBE002000A9 /* TTAudioSignal.cpp */; };
+		22610D5B11DD8579000A3DA8 /* TTAudioSignalArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F610286BBE002000A9 /* TTAudioSignalArray.cpp */; };
+		22610D5C11DD8579000A3DA8 /* TTDSP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 228505CC102D001E004D74BC /* TTDSP.cpp */; };
+		22610D5D11DD8579000A3DA8 /* TTBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BA7E281046EE2E009771BC /* TTBuffer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2227748E0EF1BFF100CA7476 /* JamomaDSP.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaDSP.xcconfig; sourceTree = "<group>"; };
-		222B18000F1D4009008B1A46 /* JamomaDSP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JamomaDSP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		224FFBAA110E94CF00270ED3 /* TTDelayBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDelayBuffer.h; path = includes/TTDelayBuffer.h; sourceTree = "<group>"; };
 		22578F110EC2762900A5EC32 /* libportaudio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libportaudio.a; path = portaudio/libportaudio.a; sourceTree = "<group>"; };
 		22578F170EC2767800A5EC32 /* portaudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = portaudio.h; path = portaudio/include/portaudio.h; sourceTree = "<group>"; };
@@ -38,7 +31,8 @@
 		22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		22578F1B0EC276B200A5EC32 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
 		22578F1C0EC276B200A5EC32 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
-		228505A1102CFE7E004D74BC /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
+		22610D1011DD843D000A3DA8 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
+		22610D2711DD8510000A3DA8 /* JamomaDSP.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = JamomaDSP.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		228505CB102CFFFA004D74BC /* TTDSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDSP.h; path = includes/TTDSP.h; sourceTree = "<group>"; };
 		228505CC102D001E004D74BC /* TTDSP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDSP.cpp; path = source/TTDSP.cpp; sourceTree = "<group>"; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -55,17 +49,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		222B17F50F1D4009008B1A46 /* Frameworks */ = {
+		22610D2511DD8510000A3DA8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				222B17F60F1D4009008B1A46 /* Carbon.framework in Frameworks */,
-				222B17F70F1D4009008B1A46 /* libportaudio.a in Frameworks */,
-				222B17F80F1D4009008B1A46 /* CoreAudio.framework in Frameworks */,
-				222B17F90F1D4009008B1A46 /* AudioToolbox.framework in Frameworks */,
-				222B17FA0F1D4009008B1A46 /* AudioUnit.framework in Frameworks */,
-				222B17FB0F1D4009008B1A46 /* CoreServices.framework in Frameworks */,
-				228505A2102CFE7E004D74BC /* JamomaFoundation.framework in Frameworks */,
+				22610D5111DD856F000A3DA8 /* Carbon.framework in Frameworks */,
+				22610D5211DD856F000A3DA8 /* libportaudio.a in Frameworks */,
+				22610D5311DD856F000A3DA8 /* CoreAudio.framework in Frameworks */,
+				22610D5411DD856F000A3DA8 /* AudioToolbox.framework in Frameworks */,
+				22610D5511DD856F000A3DA8 /* AudioUnit.framework in Frameworks */,
+				22610D5611DD856F000A3DA8 /* CoreServices.framework in Frameworks */,
+				22610D5711DD856F000A3DA8 /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,7 +69,7 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				222B18000F1D4009008B1A46 /* JamomaDSP.framework */,
+				22610D2711DD8510000A3DA8 /* JamomaDSP.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,7 +90,7 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				228505A1102CFE7E004D74BC /* JamomaFoundation.framework */,
+				22610D1011DD843D000A3DA8 /* JamomaFoundation.dylib */,
 				22A403830CAD7B9400E5299E /* Carbon.framework */,
 				22578F170EC2767800A5EC32 /* portaudio.h */,
 				22578F110EC2762900A5EC32 /* libportaudio.a */,
@@ -128,42 +122,22 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		22EB3C04102F0D06006D027A /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22EB3C05102F0D0F006D027A /* TTDSP.h in Headers */,
-				22EB3C06102F0D0F006D027A /* TTAudioObject.h in Headers */,
-				22EB3C07102F0D0F006D027A /* TTAudioSignal.h in Headers */,
-				22EB3C08102F0D0F006D027A /* TTAudioSignalArray.h in Headers */,
-				22BA7E2B1046EE35009771BC /* TTBuffer.h in Headers */,
-				224FFBAB110E94CF00270ED3 /* TTDelayBuffer.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		222B177B0F1D4009008B1A46 /* JamomaDSP */ = {
+		22610D2611DD8510000A3DA8 /* JamomaDSP */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 222B17FD0F1D4009008B1A46 /* Build configuration list for PBXNativeTarget "JamomaDSP" */;
+			buildConfigurationList = 22610D6011DD8597000A3DA8 /* Build configuration list for PBXNativeTarget "JamomaDSP" */;
 			buildPhases = (
-				222B17B90F1D4009008B1A46 /* Resources */,
-				22EB3C04102F0D06006D027A /* Headers */,
-				222B17BA0F1D4009008B1A46 /* Sources */,
-				222B17F50F1D4009008B1A46 /* Frameworks */,
-				22CC01940FDFDF8C0024A915 /* ShellScript */,
+				22610D2411DD8510000A3DA8 /* Sources */,
+				22610D2511DD8510000A3DA8 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = JamomaDSP;
-			productInstallPath = "$(HOME)/Library/Frameworks";
-			productName = MaxObject;
-			productReference = 222B18000F1D4009008B1A46 /* JamomaDSP.framework */;
-			productType = "com.apple.product-type.framework";
+			productName = JamomaDSP;
+			productReference = 22610D2711DD8510000A3DA8 /* JamomaDSP.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
 
@@ -178,48 +152,22 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				222B177B0F1D4009008B1A46 /* JamomaDSP */,
+				22610D2611DD8510000A3DA8 /* JamomaDSP */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		222B17B90F1D4009008B1A46 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		22CC01940FDFDF8C0024A915 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/rm -rfv \"/Library/Frameworks/$PRODUCT_NAME.framework\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.framework\" \"/Library/Frameworks\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		222B17BA0F1D4009008B1A46 /* Sources */ = {
+		22610D2411DD8510000A3DA8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22E3861410286BBE002000A9 /* TTAudioEngine.cpp in Sources */,
-				22E3861510286BBE002000A9 /* TTAudioObject.cpp in Sources */,
-				22E3861610286BBE002000A9 /* TTAudioSignal.cpp in Sources */,
-				22E3861710286BBE002000A9 /* TTAudioSignalArray.cpp in Sources */,
-				228505CD102D001E004D74BC /* TTDSP.cpp in Sources */,
-				22BA7E291046EE2E009771BC /* TTBuffer.cpp in Sources */,
+				22610D5811DD8579000A3DA8 /* TTAudioEngine.cpp in Sources */,
+				22610D5911DD8579000A3DA8 /* TTAudioObject.cpp in Sources */,
+				22610D5A11DD8579000A3DA8 /* TTAudioSignal.cpp in Sources */,
+				22610D5B11DD8579000A3DA8 /* TTAudioSignalArray.cpp in Sources */,
+				22610D5C11DD8579000A3DA8 /* TTDSP.cpp in Sources */,
+				22610D5D11DD8579000A3DA8 /* TTBuffer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,72 +194,52 @@
 			};
 			name = Deployment;
 		};
-		222B17FE0F1D4009008B1A46 /* Development */ = {
+		22610D2811DD8510000A3DA8 /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2227748E0EF1BFF100CA7476 /* JamomaDSP.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				DEPLOYMENT_LOCATION = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
+				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../Foundation/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/portaudio\"",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
 				);
-				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TTBluePrefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					TT_DEBUG,
-					TTDSP_EXPORTS,
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_UNROLL_LOOPS = YES;
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_SHADOW = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				LD_GENERATE_MAP_FILE = YES;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
-				);
-				SKIP_INSTALL = YES;
+				PREBINDING = NO;
+				PRODUCT_NAME = JamomaDSP;
 			};
 			name = Development;
 		};
-		222B17FF0F1D4009008B1A46 /* Deployment */ = {
+		22610D2911DD8510000A3DA8 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2227748E0EF1BFF100CA7476 /* JamomaDSP.xcconfig */;
 			buildSettings = {
-				DEPLOYMENT_LOCATION = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
+				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../Foundation/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/portaudio\"",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
 				);
-				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TTBluePrefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = TTDSP_EXPORTS;
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_UNROLL_LOOPS = YES;
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_SHADOW = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				LD_GENERATE_MAP_FILE = YES;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
 				);
-				SKIP_INSTALL = YES;
+				PREBINDING = NO;
+				PRODUCT_NAME = JamomaDSP;
 			};
 			name = Deployment;
 		};
@@ -327,11 +255,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
 		};
-		222B17FD0F1D4009008B1A46 /* Build configuration list for PBXNativeTarget "JamomaDSP" */ = {
+		22610D6011DD8597000A3DA8 /* Build configuration list for PBXNativeTarget "JamomaDSP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				222B17FE0F1D4009008B1A46 /* Development */,
-				222B17FF0F1D4009008B1A46 /* Deployment */,
+				22610D2811DD8510000A3DA8 /* Development */,
+				22610D2911DD8510000A3DA8 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
