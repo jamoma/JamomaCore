@@ -7,84 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22039B861087816A008DFA4A /* TTLimits.h in Headers */ = {isa = PBXBuildFile; fileRef = 22039B851087816A008DFA4A /* TTLimits.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		222B17F60F1D4009008B1A46 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
-		222B17FB0F1D4009008B1A46 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1C0EC276B200A5EC32 /* CoreServices.framework */; };
-		228AFDF0111E095100BB900B /* TTCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A05DA1110149CE00695770 /* TTCallback.cpp */; };
-		22A083C211389A6800D6D843 /* TTDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A083C111389A6800D6D843 /* TTDictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22A083C411389A7A00D6D843 /* TTDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A083C311389A7A00D6D843 /* TTDictionary.cpp */; };
-		22A35A23110CB20200A55F17 /* TTAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F210286BBE002000A9 /* TTAttribute.cpp */; };
-		22A35A24110CB20400A55F17 /* TTCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A05DA1110149CE00695770 /* TTCallback.cpp */; };
-		22A35A25110CB20A00A55F17 /* TTClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F810286BBE002000A9 /* TTClass.cpp */; };
-		22A35A26110CB21200A55F17 /* TTDataObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F910286BBE002000A9 /* TTDataObject.cpp */; };
-		22A35A27110CB21800A55F17 /* TTElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FA10286BBE002000A9 /* TTElement.cpp */; };
-		22A35A28110CB21E00A55F17 /* TTEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FB10286BBE002000A9 /* TTEnvironment.cpp */; };
-		22A35A29110CB22200A55F17 /* TTFoundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F710286BBE002000A9 /* TTFoundation.cpp */; };
-		22A35A2A110CB22700A55F17 /* TTHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FC10286BBE002000A9 /* TTHash.cpp */; };
-		22A35A2B110CB22A00A55F17 /* TTList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FD10286BBE002000A9 /* TTList.cpp */; };
-		22A35A2C110CB22D00A55F17 /* TTMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FE10286BBE002000A9 /* TTMessage.cpp */; };
-		22A35A2D110CB23000A55F17 /* TTMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FF10286BBE002000A9 /* TTMutex.cpp */; };
-		22A35A2E110CB23300A55F17 /* TTObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860010286BBE002000A9 /* TTObject.cpp */; };
-		22A35A2F110CB23600A55F17 /* TTQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860110286BBE002000A9 /* TTQueue.cpp */; };
-		22A35A30110CB23900A55F17 /* TTSymbol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860210286BBE002000A9 /* TTSymbol.cpp */; };
-		22A35A31110CB23C00A55F17 /* TTSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860310286BBE002000A9 /* TTSymbolCache.cpp */; };
-		22A35A32110CB23F00A55F17 /* TTSymbolTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860410286BBE002000A9 /* TTSymbolTable.cpp */; };
-		22A35A33110CB24200A55F17 /* TTThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860510286BBE002000A9 /* TTThread.cpp */; };
-		22A35A34110CB24600A55F17 /* TTValueCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860710286BBE002000A9 /* TTValueCache.cpp */; };
-		22A35A35110CB24900A55F17 /* TTValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860610286BBE002000A9 /* TTValue.cpp */; };
-		22E3861310286BBE002000A9 /* TTAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F210286BBE002000A9 /* TTAttribute.cpp */; };
-		22E3861810286BBE002000A9 /* TTFoundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F710286BBE002000A9 /* TTFoundation.cpp */; };
-		22E3861910286BBE002000A9 /* TTClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F810286BBE002000A9 /* TTClass.cpp */; };
-		22E3861A10286BBE002000A9 /* TTDataObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F910286BBE002000A9 /* TTDataObject.cpp */; };
-		22E3861B10286BBE002000A9 /* TTElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FA10286BBE002000A9 /* TTElement.cpp */; };
-		22E3861C10286BBE002000A9 /* TTEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FB10286BBE002000A9 /* TTEnvironment.cpp */; };
-		22E3861D10286BBE002000A9 /* TTHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FC10286BBE002000A9 /* TTHash.cpp */; };
-		22E3861E10286BBE002000A9 /* TTList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FD10286BBE002000A9 /* TTList.cpp */; };
-		22E3861F10286BBE002000A9 /* TTMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FE10286BBE002000A9 /* TTMessage.cpp */; };
-		22E3862010286BBE002000A9 /* TTMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FF10286BBE002000A9 /* TTMutex.cpp */; };
-		22E3862110286BBE002000A9 /* TTObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860010286BBE002000A9 /* TTObject.cpp */; };
-		22E3862210286BBE002000A9 /* TTQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860110286BBE002000A9 /* TTQueue.cpp */; };
-		22E3862310286BBE002000A9 /* TTSymbol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860210286BBE002000A9 /* TTSymbol.cpp */; };
-		22E3862410286BBE002000A9 /* TTSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860310286BBE002000A9 /* TTSymbolCache.cpp */; };
-		22E3862510286BBE002000A9 /* TTSymbolTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860410286BBE002000A9 /* TTSymbolTable.cpp */; };
-		22E3862610286BBE002000A9 /* TTThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860510286BBE002000A9 /* TTThread.cpp */; };
-		22E3862710286BBE002000A9 /* TTValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860610286BBE002000A9 /* TTValue.cpp */; };
-		22E3862810286BBE002000A9 /* TTValueCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860710286BBE002000A9 /* TTValueCache.cpp */; };
-		22EB3BB7102F0BEB006D027A /* TTFoundationAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D010286B97002000A9 /* TTFoundationAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BB8102F0BEB006D027A /* TTAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D110286BB0002000A9 /* TTAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BB9102F0BEB006D027A /* TTDataObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D810286BB0002000A9 /* TTDataObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BBA102F0BEB006D027A /* TTElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D910286BB0002000A9 /* TTElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BBB102F0BEB006D027A /* TTMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385DD10286BB0002000A9 /* TTMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BBC102F0BEB006D027A /* TTObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385DF10286BB0002000A9 /* TTObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BBD102F0BEB006D027A /* TTHash.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385DB10286BB0002000A9 /* TTHash.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BBE102F0BEB006D027A /* TTList.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385DC10286BB0002000A9 /* TTList.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BBF102F0BEB006D027A /* TTValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E510286BB0002000A9 /* TTValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BC0102F0BEB006D027A /* TTSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E110286BB0002000A9 /* TTSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BC1102F0BEB006D027A /* TTSymbolCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E210286BB0002000A9 /* TTSymbolCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BC2102F0BEB006D027A /* TTSymbolTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E310286BB0002000A9 /* TTSymbolTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BC3102F0BEB006D027A /* TTFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D610286BB0002000A9 /* TTFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BC4102F0BEB006D027A /* TTClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385D710286BB0002000A9 /* TTClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BC5102F0BEB006D027A /* TTEnvironment.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385DA10286BB0002000A9 /* TTEnvironment.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BC6102F0BEB006D027A /* TTMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385DE10286BB0002000A9 /* TTMutex.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BC7102F0BEB006D027A /* TTQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E010286BB0002000A9 /* TTQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BC8102F0BEB006D027A /* TTThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E410286BB0002000A9 /* TTThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22EB3BC9102F0BEB006D027A /* TTValueCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E385E610286BB0002000A9 /* TTValueCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D2F68EC7108C9BE10094260C /* TTNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D2F68EC5108C9BE10094260C /* TTNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D2F68EC8108C9BE10094260C /* TTNodeDirectory.h in Headers */ = {isa = PBXBuildFile; fileRef = D2F68EC6108C9BE10094260C /* TTNodeDirectory.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D2F68ECB108C9BEF0094260C /* TTNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F68EC9108C9BEF0094260C /* TTNode.cpp */; };
-		D2F68ECC108C9BEF0094260C /* TTNodeDirectory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F68ECA108C9BEF0094260C /* TTNodeDirectory.cpp */; };
+		22610B4A11DD7298000A3DA8 /* TTAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F210286BBE002000A9 /* TTAttribute.cpp */; };
+		22610B4B11DD7298000A3DA8 /* TTFoundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F710286BBE002000A9 /* TTFoundation.cpp */; };
+		22610B4C11DD7298000A3DA8 /* TTClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F810286BBE002000A9 /* TTClass.cpp */; };
+		22610B4D11DD7298000A3DA8 /* TTDataObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385F910286BBE002000A9 /* TTDataObject.cpp */; };
+		22610B4E11DD7298000A3DA8 /* TTElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FA10286BBE002000A9 /* TTElement.cpp */; };
+		22610B4F11DD7298000A3DA8 /* TTEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FB10286BBE002000A9 /* TTEnvironment.cpp */; };
+		22610B5011DD7298000A3DA8 /* TTHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FC10286BBE002000A9 /* TTHash.cpp */; };
+		22610B5111DD7298000A3DA8 /* TTList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FD10286BBE002000A9 /* TTList.cpp */; };
+		22610B5211DD7298000A3DA8 /* TTMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FE10286BBE002000A9 /* TTMessage.cpp */; };
+		22610B5311DD7298000A3DA8 /* TTMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E385FF10286BBE002000A9 /* TTMutex.cpp */; };
+		22610B5411DD7298000A3DA8 /* TTObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860010286BBE002000A9 /* TTObject.cpp */; };
+		22610B5511DD7298000A3DA8 /* TTQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860110286BBE002000A9 /* TTQueue.cpp */; };
+		22610B5611DD7298000A3DA8 /* TTSymbol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860210286BBE002000A9 /* TTSymbol.cpp */; };
+		22610B5711DD7298000A3DA8 /* TTSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860310286BBE002000A9 /* TTSymbolCache.cpp */; };
+		22610B5811DD7298000A3DA8 /* TTSymbolTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860410286BBE002000A9 /* TTSymbolTable.cpp */; };
+		22610B5911DD7298000A3DA8 /* TTThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860510286BBE002000A9 /* TTThread.cpp */; };
+		22610B5A11DD7298000A3DA8 /* TTValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860610286BBE002000A9 /* TTValue.cpp */; };
+		22610B5B11DD7298000A3DA8 /* TTValueCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E3860710286BBE002000A9 /* TTValueCache.cpp */; };
+		22610B5C11DD7298000A3DA8 /* TTNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F68EC9108C9BEF0094260C /* TTNode.cpp */; };
+		22610B5D11DD7298000A3DA8 /* TTNodeDirectory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F68ECA108C9BEF0094260C /* TTNodeDirectory.cpp */; };
+		22610B5E11DD7298000A3DA8 /* TTCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A05DA1110149CE00695770 /* TTCallback.cpp */; };
+		22610B5F11DD7298000A3DA8 /* TTDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A083C311389A7A00D6D843 /* TTDictionary.cpp */; };
+		22610CCD11DD72A9000A3DA8 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
+		22610CCE11DD72A9000A3DA8 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1C0EC276B200A5EC32 /* CoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		22039B851087816A008DFA4A /* TTLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLimits.h; path = includes/TTLimits.h; sourceTree = "<group>"; };
+		221826F811DD71CA00EC7AB7 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = JamomaFoundation.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		2227748E0EF1BFF100CA7476 /* JamomaFoundation.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaFoundation.xcconfig; sourceTree = "<group>"; };
-		222B18000F1D4009008B1A46 /* JamomaFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JamomaFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22578F1C0EC276B200A5EC32 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		22A05D9F110149C300695770 /* TTCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTCallback.h; path = includes/TTCallback.h; sourceTree = "<group>"; };
 		22A05DA1110149CE00695770 /* TTCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCallback.cpp; path = source/TTCallback.cpp; sourceTree = "<group>"; };
 		22A083C111389A6800D6D843 /* TTDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDictionary.h; path = includes/TTDictionary.h; sourceTree = "<group>"; };
 		22A083C311389A7A00D6D843 /* TTDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDictionary.cpp; path = source/TTDictionary.cpp; sourceTree = "<group>"; };
-		22A35A19110CB15B00A55F17 /* libJamomaFoundation-iPhone.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libJamomaFoundation-iPhone.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22E385D010286B97002000A9 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = includes/TTFoundationAPI.h; sourceTree = "<group>"; };
 		22E385D110286BB0002000A9 /* TTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAttribute.h; path = includes/TTAttribute.h; sourceTree = "<group>"; };
@@ -130,19 +87,12 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		222B17F50F1D4009008B1A46 /* Frameworks */ = {
+		221826F611DD71CA00EC7AB7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				222B17F60F1D4009008B1A46 /* Carbon.framework in Frameworks */,
-				222B17FB0F1D4009008B1A46 /* CoreServices.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		22A35A17110CB15B00A55F17 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				22610CCD11DD72A9000A3DA8 /* Carbon.framework in Frameworks */,
+				22610CCE11DD72A9000A3DA8 /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,8 +102,7 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				222B18000F1D4009008B1A46 /* JamomaFoundation.framework */,
-				22A35A19110CB15B00A55F17 /* libJamomaFoundation-iPhone.a */,
+				221826F811DD71CA00EC7AB7 /* JamomaFoundation.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -265,83 +214,22 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		22A35A15110CB15B00A55F17 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		22EB3BB6102F0BD4006D027A /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22EB3BB7102F0BEB006D027A /* TTFoundationAPI.h in Headers */,
-				22EB3BB8102F0BEB006D027A /* TTAttribute.h in Headers */,
-				22EB3BB9102F0BEB006D027A /* TTDataObject.h in Headers */,
-				22EB3BBA102F0BEB006D027A /* TTElement.h in Headers */,
-				22EB3BBB102F0BEB006D027A /* TTMessage.h in Headers */,
-				22EB3BBC102F0BEB006D027A /* TTObject.h in Headers */,
-				22EB3BBD102F0BEB006D027A /* TTHash.h in Headers */,
-				22EB3BBE102F0BEB006D027A /* TTList.h in Headers */,
-				22EB3BBF102F0BEB006D027A /* TTValue.h in Headers */,
-				22EB3BC0102F0BEB006D027A /* TTSymbol.h in Headers */,
-				22EB3BC1102F0BEB006D027A /* TTSymbolCache.h in Headers */,
-				22EB3BC2102F0BEB006D027A /* TTSymbolTable.h in Headers */,
-				22EB3BC3102F0BEB006D027A /* TTFoundation.h in Headers */,
-				22EB3BC4102F0BEB006D027A /* TTClass.h in Headers */,
-				22EB3BC5102F0BEB006D027A /* TTEnvironment.h in Headers */,
-				22EB3BC6102F0BEB006D027A /* TTMutex.h in Headers */,
-				22EB3BC7102F0BEB006D027A /* TTQueue.h in Headers */,
-				22EB3BC8102F0BEB006D027A /* TTThread.h in Headers */,
-				22EB3BC9102F0BEB006D027A /* TTValueCache.h in Headers */,
-				22039B861087816A008DFA4A /* TTLimits.h in Headers */,
-				D2F68EC7108C9BE10094260C /* TTNode.h in Headers */,
-				D2F68EC8108C9BE10094260C /* TTNodeDirectory.h in Headers */,
-				22A083C211389A6800D6D843 /* TTDictionary.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		222B177B0F1D4009008B1A46 /* JamomaFoundation */ = {
+		221826F711DD71CA00EC7AB7 /* JamomaFoundation */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 222B17FD0F1D4009008B1A46 /* Build configuration list for PBXNativeTarget "JamomaFoundation" */;
+			buildConfigurationList = 221826FB11DD71FD00EC7AB7 /* Build configuration list for PBXNativeTarget "JamomaFoundation" */;
 			buildPhases = (
-				222B17B90F1D4009008B1A46 /* Resources */,
-				22EB3BB6102F0BD4006D027A /* Headers */,
-				222B17BA0F1D4009008B1A46 /* Sources */,
-				222B17F50F1D4009008B1A46 /* Frameworks */,
-				22CC01940FDFDF8C0024A915 /* ShellScript */,
+				221826F511DD71CA00EC7AB7 /* Sources */,
+				221826F611DD71CA00EC7AB7 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = JamomaFoundation;
-			productInstallPath = "$(HOME)/Library/Frameworks";
-			productName = MaxObject;
-			productReference = 222B18000F1D4009008B1A46 /* JamomaFoundation.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		22A35A18110CB15B00A55F17 /* JamomaFoundation-iPhone */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 22A35A1E110CB19B00A55F17 /* Build configuration list for PBXNativeTarget "JamomaFoundation-iPhone" */;
-			buildPhases = (
-				22A35A15110CB15B00A55F17 /* Headers */,
-				22A35A16110CB15B00A55F17 /* Sources */,
-				22A35A17110CB15B00A55F17 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "JamomaFoundation-iPhone";
-			productName = "JamomaFoundation-iPhone";
-			productReference = 22A35A19110CB15B00A55F17 /* libJamomaFoundation-iPhone.a */;
-			productType = "com.apple.product-type.library.static";
+			productName = "JamomaFoundation-dylib";
+			productReference = 221826F811DD71CA00EC7AB7 /* JamomaFoundation.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
 
@@ -356,91 +244,38 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				222B177B0F1D4009008B1A46 /* JamomaFoundation */,
-				22A35A18110CB15B00A55F17 /* JamomaFoundation-iPhone */,
+				221826F711DD71CA00EC7AB7 /* JamomaFoundation */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		222B17B90F1D4009008B1A46 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		22CC01940FDFDF8C0024A915 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/rm -rfv \"/Library/Frameworks/$PRODUCT_NAME.framework\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.framework\" \"/Library/Frameworks\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		222B17BA0F1D4009008B1A46 /* Sources */ = {
+		221826F511DD71CA00EC7AB7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22E3861310286BBE002000A9 /* TTAttribute.cpp in Sources */,
-				22E3861810286BBE002000A9 /* TTFoundation.cpp in Sources */,
-				22E3861910286BBE002000A9 /* TTClass.cpp in Sources */,
-				22E3861A10286BBE002000A9 /* TTDataObject.cpp in Sources */,
-				22E3861B10286BBE002000A9 /* TTElement.cpp in Sources */,
-				22E3861C10286BBE002000A9 /* TTEnvironment.cpp in Sources */,
-				22E3861D10286BBE002000A9 /* TTHash.cpp in Sources */,
-				22E3861E10286BBE002000A9 /* TTList.cpp in Sources */,
-				22E3861F10286BBE002000A9 /* TTMessage.cpp in Sources */,
-				22E3862010286BBE002000A9 /* TTMutex.cpp in Sources */,
-				22E3862110286BBE002000A9 /* TTObject.cpp in Sources */,
-				22E3862210286BBE002000A9 /* TTQueue.cpp in Sources */,
-				22E3862310286BBE002000A9 /* TTSymbol.cpp in Sources */,
-				22E3862410286BBE002000A9 /* TTSymbolCache.cpp in Sources */,
-				22E3862510286BBE002000A9 /* TTSymbolTable.cpp in Sources */,
-				22E3862610286BBE002000A9 /* TTThread.cpp in Sources */,
-				22E3862710286BBE002000A9 /* TTValue.cpp in Sources */,
-				22E3862810286BBE002000A9 /* TTValueCache.cpp in Sources */,
-				D2F68ECB108C9BEF0094260C /* TTNode.cpp in Sources */,
-				D2F68ECC108C9BEF0094260C /* TTNodeDirectory.cpp in Sources */,
-				228AFDF0111E095100BB900B /* TTCallback.cpp in Sources */,
-				22A083C411389A7A00D6D843 /* TTDictionary.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		22A35A16110CB15B00A55F17 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22A35A23110CB20200A55F17 /* TTAttribute.cpp in Sources */,
-				22A35A24110CB20400A55F17 /* TTCallback.cpp in Sources */,
-				22A35A25110CB20A00A55F17 /* TTClass.cpp in Sources */,
-				22A35A26110CB21200A55F17 /* TTDataObject.cpp in Sources */,
-				22A35A27110CB21800A55F17 /* TTElement.cpp in Sources */,
-				22A35A28110CB21E00A55F17 /* TTEnvironment.cpp in Sources */,
-				22A35A29110CB22200A55F17 /* TTFoundation.cpp in Sources */,
-				22A35A2A110CB22700A55F17 /* TTHash.cpp in Sources */,
-				22A35A2B110CB22A00A55F17 /* TTList.cpp in Sources */,
-				22A35A2C110CB22D00A55F17 /* TTMessage.cpp in Sources */,
-				22A35A2D110CB23000A55F17 /* TTMutex.cpp in Sources */,
-				22A35A2E110CB23300A55F17 /* TTObject.cpp in Sources */,
-				22A35A2F110CB23600A55F17 /* TTQueue.cpp in Sources */,
-				22A35A30110CB23900A55F17 /* TTSymbol.cpp in Sources */,
-				22A35A31110CB23C00A55F17 /* TTSymbolCache.cpp in Sources */,
-				22A35A32110CB23F00A55F17 /* TTSymbolTable.cpp in Sources */,
-				22A35A33110CB24200A55F17 /* TTThread.cpp in Sources */,
-				22A35A34110CB24600A55F17 /* TTValueCache.cpp in Sources */,
-				22A35A35110CB24900A55F17 /* TTValue.cpp in Sources */,
+				22610B4A11DD7298000A3DA8 /* TTAttribute.cpp in Sources */,
+				22610B4B11DD7298000A3DA8 /* TTFoundation.cpp in Sources */,
+				22610B4C11DD7298000A3DA8 /* TTClass.cpp in Sources */,
+				22610B4D11DD7298000A3DA8 /* TTDataObject.cpp in Sources */,
+				22610B4E11DD7298000A3DA8 /* TTElement.cpp in Sources */,
+				22610B4F11DD7298000A3DA8 /* TTEnvironment.cpp in Sources */,
+				22610B5011DD7298000A3DA8 /* TTHash.cpp in Sources */,
+				22610B5111DD7298000A3DA8 /* TTList.cpp in Sources */,
+				22610B5211DD7298000A3DA8 /* TTMessage.cpp in Sources */,
+				22610B5311DD7298000A3DA8 /* TTMutex.cpp in Sources */,
+				22610B5411DD7298000A3DA8 /* TTObject.cpp in Sources */,
+				22610B5511DD7298000A3DA8 /* TTQueue.cpp in Sources */,
+				22610B5611DD7298000A3DA8 /* TTSymbol.cpp in Sources */,
+				22610B5711DD7298000A3DA8 /* TTSymbolCache.cpp in Sources */,
+				22610B5811DD7298000A3DA8 /* TTSymbolTable.cpp in Sources */,
+				22610B5911DD7298000A3DA8 /* TTThread.cpp in Sources */,
+				22610B5A11DD7298000A3DA8 /* TTValue.cpp in Sources */,
+				22610B5B11DD7298000A3DA8 /* TTValueCache.cpp in Sources */,
+				22610B5C11DD7298000A3DA8 /* TTNode.cpp in Sources */,
+				22610B5D11DD7298000A3DA8 /* TTNodeDirectory.cpp in Sources */,
+				22610B5E11DD7298000A3DA8 /* TTCallback.cpp in Sources */,
+				22610B5F11DD7298000A3DA8 /* TTDictionary.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,15 +302,16 @@
 			};
 			name = Deployment;
 		};
-		222B17FE0F1D4009008B1A46 /* Development */ = {
+		221826F911DD71CA00EC7AB7 /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2227748E0EF1BFF100CA7476 /* JamomaFoundation.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				DEPLOYMENT_LOCATION = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TTBluePrefix.pch;
@@ -483,82 +319,39 @@
 					TT_DEBUG,
 					TTFOUNDATION_EXPORTS,
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_UNROLL_LOOPS = YES;
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_SHADOW = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				LD_GENERATE_MAP_FILE = YES;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
 				);
-				SKIP_INSTALL = YES;
+				PREBINDING = NO;
+				PRODUCT_NAME = JamomaFoundation;
 			};
 			name = Development;
 		};
-		222B17FF0F1D4009008B1A46 /* Deployment */ = {
+		221826FA11DD71CA00EC7AB7 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2227748E0EF1BFF100CA7476 /* JamomaFoundation.xcconfig */;
 			buildSettings = {
-				DEPLOYMENT_LOCATION = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TTBluePrefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = TTFOUNDATION_EXPORTS;
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_UNROLL_LOOPS = YES;
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_SHADOW = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				LD_GENERATE_MAP_FILE = YES;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
-				);
-				SKIP_INSTALL = YES;
-			};
-			name = Deployment;
-		};
-		22A35A1A110CB15C00A55F17 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					TT_PLATFORM_IPHONE,
-					TTFOUNDATION_EXPORTS,
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
 				);
 				PREBINDING = NO;
-				PRODUCT_NAME = "JamomaFoundation-iPhone";
-				SDKROOT = iphonesimulator3.1.2;
-			};
-			name = Development;
-		};
-		22A35A1B110CB15C00A55F17 /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					TT_PLATFORM_IPHONE,
-					TTFOUNDATION_EXPORTS,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "JamomaFoundation-iPhone";
-				SDKROOT = iphonesimulator3.1.2;
+				PRODUCT_NAME = JamomaFoundation;
 			};
 			name = Deployment;
 		};
@@ -574,20 +367,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
 		};
-		222B17FD0F1D4009008B1A46 /* Build configuration list for PBXNativeTarget "JamomaFoundation" */ = {
+		221826FB11DD71FD00EC7AB7 /* Build configuration list for PBXNativeTarget "JamomaFoundation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				222B17FE0F1D4009008B1A46 /* Development */,
-				222B17FF0F1D4009008B1A46 /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Deployment;
-		};
-		22A35A1E110CB19B00A55F17 /* Build configuration list for PBXNativeTarget "JamomaFoundation-iPhone" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				22A35A1A110CB15C00A55F17 /* Development */,
-				22A35A1B110CB15C00A55F17 /* Deployment */,
+				221826F911DD71CA00EC7AB7 /* Development */,
+				221826FA11DD71CA00EC7AB7 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
