@@ -8,16 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		22526A9A10385A7C00CD634E /* Clipper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22526A9910385A7C00CD634E /* Clipper.cpp */; };
-		22D43B740F1D9F3500C16BB0 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D43B730F1D9F3500C16BB0 /* JamomaDSP.framework */; };
-		22EB3986102E0F2E006D027A /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EB3985102E0F2E006D027A /* JamomaFoundation.framework */; };
+		22610DA111DD865A000A3DA8 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22610D9F11DD865A000A3DA8 /* JamomaDSP.dylib */; };
+		22610DA211DD865A000A3DA8 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22610DA011DD865A000A3DA8 /* JamomaFoundation.dylib */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22526A9910385A7C00CD634E /* Clipper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clipper.cpp; sourceTree = "<group>"; };
-		22D43B730F1D9F3500C16BB0 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
-		22EB3985102E0F2E006D027A /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
+		22610D9F11DD865A000A3DA8 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
+		22610DA011DD865A000A3DA8 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
 		D2AAC09D05546B4700DB518D /* Clipper.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = Clipper.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -27,8 +27,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
-				22D43B740F1D9F3500C16BB0 /* JamomaDSP.framework in Frameworks */,
-				22EB3986102E0F2E006D027A /* JamomaFoundation.framework in Frameworks */,
+				22610DA111DD865A000A3DA8 /* JamomaDSP.dylib in Frameworks */,
+				22610DA211DD865A000A3DA8 /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,8 +56,8 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				22EB3985102E0F2E006D027A /* JamomaFoundation.framework */,
-				22D43B730F1D9F3500C16BB0 /* JamomaDSP.framework */,
+				22610D9F11DD865A000A3DA8 /* JamomaDSP.dylib */,
+				22610DA011DD865A000A3DA8 /* JamomaFoundation.dylib */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -160,11 +160,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = ttdylib;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -172,6 +168,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = ../prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
@@ -194,16 +194,16 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = ttdylib;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = ../prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
