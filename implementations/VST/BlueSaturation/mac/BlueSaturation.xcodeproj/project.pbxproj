@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		224B0D9111DFE76100B6EF48 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0D8F11DFE76100B6EF48 /* JamomaDSP.dylib */; };
+		224B0D9211DFE76100B6EF48 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0D9011DFE76100B6EF48 /* JamomaFoundation.dylib */; };
 		22C9F493103253460062F7B8 /* audioeffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F48E103253460062F7B8 /* audioeffect.cpp */; };
 		22C9F494103253460062F7B8 /* audioeffectx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F490103253460062F7B8 /* audioeffectx.cpp */; };
 		22C9F495103253460062F7B8 /* vstplugmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F492103253460062F7B8 /* vstplugmain.cpp */; };
-		22C9F4981032535D0062F7B8 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F4971032535D0062F7B8 /* JamomaDSP.framework */; };
-		22C9F4A11032536B0062F7B8 /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F4A01032536B0062F7B8 /* JamomaFoundation.framework */; };
 		22DEC0320E1C435000F4ADDF /* BlueSaturation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DEC0300E1C435000F4ADDF /* BlueSaturation.cpp */; };
 		22DEC0610E1C460700F4ADDF /* BlueSaturation.vst in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D01CCD20486CAD60068D4B7 /* BlueSaturation.vst */; };
 /* End PBXBuildFile section */
@@ -31,14 +31,14 @@
 
 /* Begin PBXFileReference section */
 		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		224B0D8F11DFE76100B6EF48 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
+		224B0D9011DFE76100B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
 		22C9F48D103253460062F7B8 /* aeffeditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aeffeditor.h; sourceTree = "<group>"; };
 		22C9F48E103253460062F7B8 /* audioeffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = audioeffect.cpp; sourceTree = "<group>"; };
 		22C9F48F103253460062F7B8 /* audioeffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audioeffect.h; sourceTree = "<group>"; };
 		22C9F490103253460062F7B8 /* audioeffectx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = audioeffectx.cpp; sourceTree = "<group>"; };
 		22C9F491103253460062F7B8 /* audioeffectx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audioeffectx.h; sourceTree = "<group>"; };
 		22C9F492103253460062F7B8 /* vstplugmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vstplugmain.cpp; sourceTree = "<group>"; };
-		22C9F4971032535D0062F7B8 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
-		22C9F4A01032536B0062F7B8 /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
 		22DEC0300E1C435000F4ADDF /* BlueSaturation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BlueSaturation.cpp; path = ../source/BlueSaturation.cpp; sourceTree = SOURCE_ROOT; };
 		22DEC0310E1C435000F4ADDF /* BlueSaturation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlueSaturation.h; path = ../source/BlueSaturation.h; sourceTree = SOURCE_ROOT; };
 		22DEC0590E1C458E00F4ADDF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -51,8 +51,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22C9F4981032535D0062F7B8 /* JamomaDSP.framework in Frameworks */,
-				22C9F4A11032536B0062F7B8 /* JamomaFoundation.framework in Frameworks */,
+				224B0D9111DFE76100B6EF48 /* JamomaDSP.dylib in Frameworks */,
+				224B0D9211DFE76100B6EF48 /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,8 +74,8 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				22C9F4A01032536B0062F7B8 /* JamomaFoundation.framework */,
-				22C9F4971032535D0062F7B8 /* JamomaDSP.framework */,
+				224B0D8F11DFE76100B6EF48 /* JamomaDSP.dylib */,
+				224B0D9011DFE76100B6EF48 /* JamomaFoundation.dylib */,
 				F4476B78093DD675008998C4 /* QuickTime.framework */,
 				08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */,
 			);
@@ -204,6 +204,11 @@
 					"$(SRCROOT)/../../vstsdk-2.4",
 				);
 				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
@@ -232,6 +237,11 @@
 					"$(SRCROOT)/../../vstsdk-2.4",
 				);
 				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",

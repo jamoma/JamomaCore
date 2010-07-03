@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		224B0B2711DF589B00B6EF48 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0B2511DF589B00B6EF48 /* JamomaDSP.dylib */; };
+		224B0B2811DF589B00B6EF48 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0B2611DF589B00B6EF48 /* JamomaFoundation.dylib */; };
 		22526AC410385B9700CD634E /* EffectsLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22526AC310385B9700CD634E /* EffectsLib.cpp */; };
 		22759F131003DD3B006BA4FB /* TTBalance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22759F041003DD3B006BA4FB /* TTBalance.cpp */; };
 		22759F141003DD3B006BA4FB /* TTBalance.h in Headers */ = {isa = PBXBuildFile; fileRef = 22759F051003DD3B006BA4FB /* TTBalance.h */; };
@@ -22,13 +24,13 @@
 		22759F1F1003DD3B006BA4FB /* TTOverdrive.h in Headers */ = {isa = PBXBuildFile; fileRef = 22759F101003DD3B006BA4FB /* TTOverdrive.h */; };
 		22759F201003DD3B006BA4FB /* TTPulseSub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22759F111003DD3B006BA4FB /* TTPulseSub.cpp */; };
 		22759F211003DD3B006BA4FB /* TTPulseSub.h in Headers */ = {isa = PBXBuildFile; fileRef = 22759F121003DD3B006BA4FB /* TTPulseSub.h */; };
-		22D43C4C0F1DA02200C16BB0 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */; };
-		22EB3988102E0F33006D027A /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EB3987102E0F33006D027A /* JamomaFoundation.framework */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		224B0B2511DF589B00B6EF48 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
+		224B0B2611DF589B00B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
 		22526AC310385B9700CD634E /* EffectsLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectsLib.cpp; sourceTree = "<group>"; };
 		22759F041003DD3B006BA4FB /* TTBalance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTBalance.cpp; sourceTree = "<group>"; };
 		22759F051003DD3B006BA4FB /* TTBalance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBalance.h; sourceTree = "<group>"; };
@@ -44,8 +46,6 @@
 		22759F101003DD3B006BA4FB /* TTOverdrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOverdrive.h; sourceTree = "<group>"; };
 		22759F111003DD3B006BA4FB /* TTPulseSub.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTPulseSub.cpp; sourceTree = "<group>"; };
 		22759F121003DD3B006BA4FB /* TTPulseSub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPulseSub.h; sourceTree = "<group>"; };
-		22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
-		22EB3987102E0F33006D027A /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
 		D2AAC09D05546B4700DB518D /* EffectsLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = EffectsLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -55,8 +55,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
-				22D43C4C0F1DA02200C16BB0 /* JamomaDSP.framework in Frameworks */,
-				22EB3988102E0F33006D027A /* JamomaFoundation.framework in Frameworks */,
+				224B0B2711DF589B00B6EF48 /* JamomaDSP.dylib in Frameworks */,
+				224B0B2811DF589B00B6EF48 /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,8 +84,8 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				22EB3987102E0F33006D027A /* JamomaFoundation.framework */,
-				22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */,
+				224B0B2511DF589B00B6EF48 /* JamomaDSP.dylib */,
+				224B0B2611DF589B00B6EF48 /* JamomaFoundation.dylib */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -231,6 +231,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INSTALL_PATH = /usr/local/lib;
 				LD_DYLIB_INSTALL_NAME = "/Library/Application Support/Jamoma/Extensions/$(EXECUTABLE_PATH)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
@@ -265,6 +269,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INSTALL_PATH = /usr/local/lib;
 				LD_DYLIB_INSTALL_NAME = "/Library/Application Support/Jamoma/Extensions/$(EXECUTABLE_PATH)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",

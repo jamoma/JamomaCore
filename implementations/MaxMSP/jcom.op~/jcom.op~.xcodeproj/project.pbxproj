@@ -11,11 +11,11 @@
 		222AD830109A03EA0074753C /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222AD82F109A03EA0074753C /* MaxAPI.framework */; };
 		222AD835109A03F60074753C /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222AD834109A03F60074753C /* MaxAudioAPI.framework */; };
 		222AD894109A05E20074753C /* jcom.op~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222AD893109A05E20074753C /* jcom.op~.cpp */; };
-		222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */; };
+		224B0CCA11DFE2CA00B6EF48 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0CC811DFE2CA00B6EF48 /* JamomaDSP.dylib */; };
+		224B0CCB11DFE2CA00B6EF48 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0CC911DFE2CA00B6EF48 /* JamomaFoundation.dylib */; };
 		226C44D9109A33EC00E2BFB0 /* TTClassWrapperMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226C44D7109A33EC00E2BFB0 /* TTClassWrapperMax.cpp */; };
 		226C44DA109A33EC00E2BFB0 /* TTClassWrapperMax.h in Headers */ = {isa = PBXBuildFile; fileRef = 226C44D8109A33EC00E2BFB0 /* TTClassWrapperMax.h */; };
 		22EB3AE1102E6073006D027A /* tt-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22EB3AE0102E6073006D027A /* tt-max.xcconfig */; };
-		22EB3B31102E61EA006D027A /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EB3B30102E61EA006D027A /* JamomaFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,11 +23,11 @@
 		222AD82F109A03EA0074753C /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
 		222AD834109A03F60074753C /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
 		222AD893109A05E20074753C /* jcom.op~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.op~.cpp"; sourceTree = "<group>"; };
-		222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
+		224B0CC811DFE2CA00B6EF48 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
+		224B0CC911DFE2CA00B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
 		226C44D7109A33EC00E2BFB0 /* TTClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTClassWrapperMax.cpp; path = ../../../supports/max/TTClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
 		226C44D8109A33EC00E2BFB0 /* TTClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTClassWrapperMax.h; path = ../../../supports/max/TTClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
 		22EB3AE0102E6073006D027A /* tt-max.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max.xcconfig"; path = "../../../supports/max/tt-max.xcconfig"; sourceTree = SOURCE_ROOT; };
-		22EB3B30102E61EA006D027A /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
 		2FBBEAE508F335360078DB84 /* jcom.op~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.op~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -36,10 +36,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */,
-				22EB3B31102E61EA006D027A /* JamomaFoundation.framework in Frameworks */,
 				222AD830109A03EA0074753C /* MaxAPI.framework in Frameworks */,
 				222AD835109A03F60074753C /* MaxAudioAPI.framework in Frameworks */,
+				224B0CCA11DFE2CA00B6EF48 /* JamomaDSP.dylib in Frameworks */,
+				224B0CCB11DFE2CA00B6EF48 /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,10 +60,10 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				224B0CC811DFE2CA00B6EF48 /* JamomaDSP.dylib */,
+				224B0CC911DFE2CA00B6EF48 /* JamomaFoundation.dylib */,
 				222AD834109A03F60074753C /* MaxAudioAPI.framework */,
 				222AD82F109A03EA0074753C /* MaxAPI.framework */,
-				22EB3B30102E61EA006D027A /* JamomaFoundation.framework */,
-				222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -206,6 +206,10 @@
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+				);
 			};
 			name = Development;
 		};
@@ -229,6 +233,10 @@
 					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/max-includes\"",
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes\"",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
 				);
 			};
 			name = Deployment;

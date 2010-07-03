@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		2201CF411137165600392292 /* TTMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 2201CF401137165600392292 /* TTMatrix.h */; };
 		2201CF431137165D00392292 /* TTMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2201CF421137165D00392292 /* TTMatrix.cpp */; };
+		224B0B8811DF598600B6EF48 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0B8611DF598600B6EF48 /* JamomaDSP.dylib */; };
+		224B0B8911DF598600B6EF48 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0B8711DF598600B6EF48 /* JamomaFoundation.dylib */; };
 		22BA7E581046F098009771BC /* MathLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BA7E571046F098009771BC /* MathLib.cpp */; };
 		22BA7E5B1046F0A2009771BC /* TTMatrixMixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BA7E591046F0A2009771BC /* TTMatrixMixer.cpp */; };
 		22BA7E5C1046F0A2009771BC /* TTOperator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BA7E5A1046F0A2009771BC /* TTOperator.cpp */; };
 		22BA7E5F1046F0B0009771BC /* TTOperator.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BA7E5D1046F0B0009771BC /* TTOperator.h */; };
 		22BA7E601046F0B0009771BC /* TTMatrixMixer.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BA7E5E1046F0B0009771BC /* TTMatrixMixer.h */; };
-		22D43C4C0F1DA02200C16BB0 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */; };
-		22EB398A102E0F41006D027A /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EB3989102E0F41006D027A /* JamomaFoundation.framework */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,13 +23,13 @@
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		2201CF401137165600392292 /* TTMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMatrix.h; path = includes/TTMatrix.h; sourceTree = "<group>"; };
 		2201CF421137165D00392292 /* TTMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMatrix.cpp; path = source/TTMatrix.cpp; sourceTree = "<group>"; };
+		224B0B8611DF598600B6EF48 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
+		224B0B8711DF598600B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
 		22BA7E571046F098009771BC /* MathLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MathLib.cpp; sourceTree = "<group>"; };
 		22BA7E591046F0A2009771BC /* TTMatrixMixer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMatrixMixer.cpp; path = source/TTMatrixMixer.cpp; sourceTree = "<group>"; };
 		22BA7E5A1046F0A2009771BC /* TTOperator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTOperator.cpp; path = source/TTOperator.cpp; sourceTree = "<group>"; };
 		22BA7E5D1046F0B0009771BC /* TTOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTOperator.h; path = includes/TTOperator.h; sourceTree = "<group>"; };
 		22BA7E5E1046F0B0009771BC /* TTMatrixMixer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMatrixMixer.h; path = includes/TTMatrixMixer.h; sourceTree = "<group>"; };
-		22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
-		22EB3989102E0F41006D027A /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
 		D2AAC09D05546B4700DB518D /* MathLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = MathLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -39,8 +39,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
-				22D43C4C0F1DA02200C16BB0 /* JamomaDSP.framework in Frameworks */,
-				22EB398A102E0F41006D027A /* JamomaFoundation.framework in Frameworks */,
+				224B0B8811DF598600B6EF48 /* JamomaDSP.dylib in Frameworks */,
+				224B0B8911DF598600B6EF48 /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,8 +68,8 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				22EB3989102E0F41006D027A /* JamomaFoundation.framework */,
-				22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */,
+				224B0B8611DF598600B6EF48 /* JamomaDSP.dylib */,
+				224B0B8711DF598600B6EF48 /* JamomaFoundation.dylib */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -204,6 +204,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = ../prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
@@ -235,6 +239,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = ../prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",

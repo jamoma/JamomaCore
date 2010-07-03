@@ -11,13 +11,13 @@
 		22282A4C10EE629600E48152 /* WelchWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 22282A4810EE629600E48152 /* WelchWindow.h */; };
 		22282A4D10EE629600E48152 /* WindowFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22282A4910EE629600E48152 /* WindowFunction.cpp */; };
 		22282A4E10EE629600E48152 /* WindowFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 22282A4A10EE629600E48152 /* WindowFunction.h */; };
+		224B0BAC11DF59BA00B6EF48 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0BAA11DF59BA00B6EF48 /* JamomaDSP.dylib */; };
+		224B0BAD11DF59BA00B6EF48 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0BAB11DF59BA00B6EF48 /* JamomaFoundation.dylib */; };
 		22526B0010385E3600CD634E /* WindowFunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22526AFF10385E3600CD634E /* WindowFunctionLib.cpp */; };
 		229BBF6411D3C28D00FE6675 /* BlackmanWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 229BBF6211D3C28D00FE6675 /* BlackmanWindow.cpp */; };
 		229BBF6511D3C28D00FE6675 /* BlackmanWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 229BBF6311D3C28D00FE6675 /* BlackmanWindow.h */; };
 		229BBF6811D3C2B200FE6675 /* KaiserWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 229BBF6611D3C2B200FE6675 /* KaiserWindow.cpp */; };
 		229BBF6911D3C2B200FE6675 /* KaiserWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 229BBF6711D3C2B200FE6675 /* KaiserWindow.h */; };
-		22D43C4C0F1DA02200C16BB0 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */; };
-		22EB398A102E0F41006D027A /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EB3989102E0F41006D027A /* JamomaFoundation.framework */; };
 		A75C75CB10ED143A00A97CD5 /* RectangularWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A75C75C910ED143A00A97CD5 /* RectangularWindow.cpp */; };
 		A75C75CC10ED143A00A97CD5 /* RectangularWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = A75C75CA10ED143A00A97CD5 /* RectangularWindow.h */; };
 		A75C75E710EE09A000A97CD5 /* BartlettWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A75C75E510EE09A000A97CD5 /* BartlettWindow.cpp */; };
@@ -37,13 +37,13 @@
 		22282A4810EE629600E48152 /* WelchWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelchWindow.h; sourceTree = "<group>"; };
 		22282A4910EE629600E48152 /* WindowFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WindowFunction.cpp; sourceTree = "<group>"; };
 		22282A4A10EE629600E48152 /* WindowFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowFunction.h; sourceTree = "<group>"; };
+		224B0BAA11DF59BA00B6EF48 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
+		224B0BAB11DF59BA00B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
 		22526AFF10385E3600CD634E /* WindowFunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WindowFunctionLib.cpp; sourceTree = SOURCE_ROOT; };
 		229BBF6211D3C28D00FE6675 /* BlackmanWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BlackmanWindow.cpp; sourceTree = "<group>"; };
 		229BBF6311D3C28D00FE6675 /* BlackmanWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackmanWindow.h; sourceTree = "<group>"; };
 		229BBF6611D3C2B200FE6675 /* KaiserWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KaiserWindow.cpp; sourceTree = "<group>"; };
 		229BBF6711D3C2B200FE6675 /* KaiserWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaiserWindow.h; sourceTree = "<group>"; };
-		22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
-		22EB3989102E0F41006D027A /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
 		A75C75C910ED143A00A97CD5 /* RectangularWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RectangularWindow.cpp; sourceTree = "<group>"; };
 		A75C75CA10ED143A00A97CD5 /* RectangularWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RectangularWindow.h; sourceTree = "<group>"; };
 		A75C75E510EE09A000A97CD5 /* BartlettWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BartlettWindow.cpp; sourceTree = "<group>"; };
@@ -63,8 +63,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
-				22D43C4C0F1DA02200C16BB0 /* JamomaDSP.framework in Frameworks */,
-				22EB398A102E0F41006D027A /* JamomaFoundation.framework in Frameworks */,
+				224B0BAC11DF59BA00B6EF48 /* JamomaDSP.dylib in Frameworks */,
+				224B0BAD11DF59BA00B6EF48 /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,8 +92,8 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				22EB3989102E0F41006D027A /* JamomaFoundation.framework */,
-				22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */,
+				224B0BAA11DF59BA00B6EF48 /* JamomaDSP.dylib */,
+				224B0BAB11DF59BA00B6EF48 /* JamomaFoundation.dylib */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -252,6 +252,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = ../prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
@@ -283,6 +287,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = ../prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
