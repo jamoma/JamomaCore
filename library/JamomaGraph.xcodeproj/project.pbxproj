@@ -7,36 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2220192C10F8E7760010D781 /* TTGraphOutlet.h in Headers */ = {isa = PBXBuildFile; fileRef = 2220192B10F8E7760010D781 /* TTGraphOutlet.h */; };
-		222019D810F90A2D0010D781 /* TTGraphInlet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222019D710F90A2D0010D781 /* TTGraphInlet.cpp */; };
-		226AAF7F10F80EDE002C6057 /* TTGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7310F80EDE002C6057 /* TTGraph.h */; };
-		226AAF8010F80EDE002C6057 /* TTGraphAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7410F80EDE002C6057 /* TTGraphAPI.h */; };
-		226AAF8110F80EDE002C6057 /* TTGraphInlet.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7510F80EDE002C6057 /* TTGraphInlet.h */; };
-		226AAF8210F80EDE002C6057 /* TTGraphObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7610F80EDE002C6057 /* TTGraphObject.h */; };
-		226AAF8510F80EDE002C6057 /* TTGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7A10F80EDE002C6057 /* TTGraph.cpp */; };
-		226AAF8710F80EDE002C6057 /* TTGraphObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7C10F80EDE002C6057 /* TTGraphObject.cpp */; };
-		22A084911138C0F600D6D843 /* TTGraphSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A084901138C0F600D6D843 /* TTGraphSource.cpp */; };
-		22A084931138C10C00D6D843 /* TTGraphSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A084921138C10C00D6D843 /* TTGraphSource.h */; };
-		22A084DB1138D24A00D6D843 /* TTGraphDestination.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A084DA1138D24A00D6D843 /* TTGraphDestination.h */; };
-		22A084DD1138D26100D6D843 /* TTGraphDestination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A084DC1138D26100D6D843 /* TTGraphDestination.cpp */; };
-		22A085631138E1BB00D6D843 /* TTGraphInput.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A085621138E1BB00D6D843 /* TTGraphInput.h */; };
-		22A085651138E1D200D6D843 /* TTGraphInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A085641138E1D200D6D843 /* TTGraphInput.cpp */; };
-		22A085821138E5D500D6D843 /* TTGraphOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A085811138E5D500D6D843 /* TTGraphOutput.cpp */; };
-		22A085841138E5E400D6D843 /* TTGraphOutput.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A085831138E5E400D6D843 /* TTGraphOutput.h */; };
-		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
-		22C9F59F10325CDB0062F7B8 /* TTFoundationAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F59E10325CDB0062F7B8 /* TTFoundationAPI.h */; };
-		22C9F5A110325CDF0062F7B8 /* TTDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5A010325CDF0062F7B8 /* TTDSP.h */; };
-		22C9F5C110325E1F0062F7B8 /* portaudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5C010325E1F0062F7B8 /* portaudio.h */; };
-		22C9F5CC10325E650062F7B8 /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */; };
-		22DF22510F2441BD00DBBEE9 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */; };
-		22F25DD9111E0B6F00A67D8D /* TTGraphDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F25DD8111E0B6F00A67D8D /* TTGraphDescription.h */; };
-		22F25F18111FC59900A67D8D /* TTGraphDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F25F17111FC59900A67D8D /* TTGraphDescription.cpp */; };
+		224B06CB11DE9D0200B6EF48 /* TTGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7A10F80EDE002C6057 /* TTGraph.cpp */; };
+		224B06CC11DE9D0200B6EF48 /* TTGraphObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7C10F80EDE002C6057 /* TTGraphObject.cpp */; };
+		224B06CD11DE9D0200B6EF48 /* TTGraphInlet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222019D710F90A2D0010D781 /* TTGraphInlet.cpp */; };
+		224B06CE11DE9D0200B6EF48 /* TTGraphDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F25F17111FC59900A67D8D /* TTGraphDescription.cpp */; };
+		224B06CF11DE9D0200B6EF48 /* TTGraphSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A084901138C0F600D6D843 /* TTGraphSource.cpp */; };
+		224B06D011DE9D0200B6EF48 /* TTGraphDestination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A084DC1138D26100D6D843 /* TTGraphDestination.cpp */; };
+		224B06D111DE9D0200B6EF48 /* TTGraphInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A085641138E1D200D6D843 /* TTGraphInput.cpp */; };
+		224B06D211DE9D0200B6EF48 /* TTGraphOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A085811138E5D500D6D843 /* TTGraphOutput.cpp */; };
+		224B06D711DE9D4300B6EF48 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B06D611DE9D4300B6EF48 /* JamomaFoundation.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2220192B10F8E7760010D781 /* TTGraphOutlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphOutlet.h; path = includes/TTGraphOutlet.h; sourceTree = "<group>"; };
 		222019D710F90A2D0010D781 /* TTGraphInlet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTGraphInlet.cpp; path = source/TTGraphInlet.cpp; sourceTree = "<group>"; };
 		2238134B1108C23A0031E8B6 /* TTRuby.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTRuby.cpp; path = ../../Ruby/library/TTRuby.cpp; sourceTree = SOURCE_ROOT; };
+		224B069D11DE9B7A00B6EF48 /* JamomaGraph.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = JamomaGraph.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		224B06D611DE9D4300B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
 		226AAF7310F80EDE002C6057 /* TTGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraph.h; path = includes/TTGraph.h; sourceTree = "<group>"; };
 		226AAF7410F80EDE002C6057 /* TTGraphAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphAPI.h; path = includes/TTGraphAPI.h; sourceTree = "<group>"; };
 		226AAF7510F80EDE002C6057 /* TTGraphInlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphInlet.h; path = includes/TTGraphInlet.h; sourceTree = "<group>"; };
@@ -55,22 +42,17 @@
 		22C9F59E10325CDB0062F7B8 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = ../../Foundation/library/includes/TTFoundationAPI.h; sourceTree = SOURCE_ROOT; };
 		22C9F5A010325CDF0062F7B8 /* TTDSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDSP.h; path = ../../DSP/library/includes/TTDSP.h; sourceTree = SOURCE_ROOT; };
 		22C9F5C010325E1F0062F7B8 /* portaudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = portaudio.h; path = ../../DSP/library/portaudio/include/portaudio.h; sourceTree = SOURCE_ROOT; };
-		22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
 		22D4365A113883600044357E /* JamomaGraph.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaGraph.xcconfig; sourceTree = "<group>"; };
-		22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		22F25DD8111E0B6F00A67D8D /* TTGraphDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphDescription.h; path = includes/TTGraphDescription.h; sourceTree = "<group>"; };
 		22F25F17111FC59900A67D8D /* TTGraphDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTGraphDescription.cpp; path = source/TTGraphDescription.cpp; sourceTree = "<group>"; };
-		8DC2EF5B0486A6940098B216 /* JamomaGraph.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JamomaGraph.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8DC2EF560486A6940098B216 /* Frameworks */ = {
+		224B069B11DE9B7A00B6EF48 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */,
-				22DF22510F2441BD00DBBEE9 /* JamomaDSP.framework in Frameworks */,
-				22C9F5CC10325E650062F7B8 /* JamomaFoundation.framework in Frameworks */,
+				224B06D711DE9D4300B6EF48 /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,7 +62,7 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8DC2EF5B0486A6940098B216 /* JamomaGraph.framework */,
+				224B069D11DE9B7A00B6EF48 /* JamomaGraph.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -105,8 +87,7 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */,
-				22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */,
+				224B06D611DE9D4300B6EF48 /* JamomaFoundation.dylib */,
 				22A403830CAD7B9400E5299E /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -162,49 +143,22 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		8DC2EF500486A6940098B216 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22C9F59F10325CDB0062F7B8 /* TTFoundationAPI.h in Headers */,
-				22C9F5A110325CDF0062F7B8 /* TTDSP.h in Headers */,
-				22C9F5C110325E1F0062F7B8 /* portaudio.h in Headers */,
-				226AAF7F10F80EDE002C6057 /* TTGraph.h in Headers */,
-				226AAF8010F80EDE002C6057 /* TTGraphAPI.h in Headers */,
-				226AAF8110F80EDE002C6057 /* TTGraphInlet.h in Headers */,
-				226AAF8210F80EDE002C6057 /* TTGraphObject.h in Headers */,
-				2220192C10F8E7760010D781 /* TTGraphOutlet.h in Headers */,
-				22F25DD9111E0B6F00A67D8D /* TTGraphDescription.h in Headers */,
-				22A084931138C10C00D6D843 /* TTGraphSource.h in Headers */,
-				22A084DB1138D24A00D6D843 /* TTGraphDestination.h in Headers */,
-				22A085631138E1BB00D6D843 /* TTGraphInput.h in Headers */,
-				22A085841138E5E400D6D843 /* TTGraphOutput.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		8DC2EF4F0486A6940098B216 /* Graph */ = {
+		224B069C11DE9B7A00B6EF48 /* JamomaGraph */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "Graph" */;
+			buildConfigurationList = 224B06A411DE9B9700B6EF48 /* Build configuration list for PBXNativeTarget "JamomaGraph" */;
 			buildPhases = (
-				8DC2EF500486A6940098B216 /* Headers */,
-				8DC2EF520486A6940098B216 /* Resources */,
-				8DC2EF540486A6940098B216 /* Sources */,
-				8DC2EF560486A6940098B216 /* Frameworks */,
-				22C8C0650CB31E500094575E /* ShellScript */,
+				224B069A11DE9B7A00B6EF48 /* Sources */,
+				224B069B11DE9B7A00B6EF48 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = Graph;
-			productInstallPath = "$(HOME)/Library/Frameworks";
-			productName = MaxObject;
-			productReference = 8DC2EF5B0486A6940098B216 /* JamomaGraph.framework */;
-			productType = "com.apple.product-type.framework";
+			name = JamomaGraph;
+			productName = JamomaGraph;
+			productReference = 224B069D11DE9B7A00B6EF48 /* JamomaGraph.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
 
@@ -219,123 +173,30 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DC2EF4F0486A6940098B216 /* Graph */,
+				224B069C11DE9B7A00B6EF48 /* JamomaGraph */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		8DC2EF520486A6940098B216 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		22C8C0650CB31E500094575E /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\" ]\n\tthen /bin/rm -rf \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\"\nfi\n\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION\" /Library/Frameworks\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		8DC2EF540486A6940098B216 /* Sources */ = {
+		224B069A11DE9B7A00B6EF48 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				226AAF8510F80EDE002C6057 /* TTGraph.cpp in Sources */,
-				226AAF8710F80EDE002C6057 /* TTGraphObject.cpp in Sources */,
-				222019D810F90A2D0010D781 /* TTGraphInlet.cpp in Sources */,
-				22F25F18111FC59900A67D8D /* TTGraphDescription.cpp in Sources */,
-				22A084911138C0F600D6D843 /* TTGraphSource.cpp in Sources */,
-				22A084DD1138D26100D6D843 /* TTGraphDestination.cpp in Sources */,
-				22A085651138E1D200D6D843 /* TTGraphInput.cpp in Sources */,
-				22A085821138E5D500D6D843 /* TTGraphOutput.cpp in Sources */,
+				224B06CB11DE9D0200B6EF48 /* TTGraph.cpp in Sources */,
+				224B06CC11DE9D0200B6EF48 /* TTGraphObject.cpp in Sources */,
+				224B06CD11DE9D0200B6EF48 /* TTGraphInlet.cpp in Sources */,
+				224B06CE11DE9D0200B6EF48 /* TTGraphDescription.cpp in Sources */,
+				224B06CF11DE9D0200B6EF48 /* TTGraphSource.cpp in Sources */,
+				224B06D011DE9D0200B6EF48 /* TTGraphDestination.cpp in Sources */,
+				224B06D111DE9D0200B6EF48 /* TTGraphInput.cpp in Sources */,
+				224B06D211DE9D0200B6EF48 /* TTGraphOutput.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		1DEB91AE08733DA50010E9CD /* Development */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22D4365A113883600044357E /* JamomaGraph.xcconfig */;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /Library/Frameworks;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../Foundation/library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/build/UninstalledProducts\"",
-				);
-				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = graph.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					TT_DEBUG,
-					_DLL_EXPORT,
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_UNROLL_LOOPS = YES;
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_SHADOW = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
-				);
-				SKIP_INSTALL = YES;
-			};
-			name = Development;
-		};
-		1DEB91AF08733DA50010E9CD /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22D4365A113883600044357E /* JamomaGraph.xcconfig */;
-			buildSettings = {
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /Library/Frameworks;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../Foundation/library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/build/UninstalledProducts\"",
-				);
-				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = graph.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = _DLL_EXPORT;
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_UNROLL_LOOPS = YES;
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_SHADOW = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
-				);
-				SKIP_INSTALL = YES;
-			};
-			name = Deployment;
-		};
 		1DEB91B208733DA50010E9CD /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -356,23 +217,77 @@
 			};
 			name = Deployment;
 		};
+		224B069E11DE9B7A00B6EF48 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22D4365A113883600044357E /* JamomaGraph.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = graph.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TTGRAPH_EXPORTS,
+					TT_DEBUG,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+			};
+			name = Development;
+		};
+		224B069F11DE9B7A00B6EF48 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22D4365A113883600044357E /* JamomaGraph.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = graph.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = TTGRAPH_EXPORTS;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+			};
+			name = Deployment;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "Graph" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1DEB91AE08733DA50010E9CD /* Development */,
-				1DEB91AF08733DA50010E9CD /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Deployment;
-		};
 		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "JamomaGraph" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB91B208733DA50010E9CD /* Development */,
 				1DEB91B308733DA50010E9CD /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+		224B06A411DE9B9700B6EF48 /* Build configuration list for PBXNativeTarget "JamomaGraph" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				224B069E11DE9B7A00B6EF48 /* Development */,
+				224B069F11DE9B7A00B6EF48 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
