@@ -7,31 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		222018D010F8C8C30010D781 /* TTAudioGraphGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 222018CF10F8C8C30010D781 /* TTAudioGraphGenerator.h */; };
-		222018D210F8C8CB0010D781 /* TTAudioGraphGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222018D110F8C8CB0010D781 /* TTAudioGraphGenerator.cpp */; };
-		2220192C10F8E7760010D781 /* TTAudioGraphOutlet.h in Headers */ = {isa = PBXBuildFile; fileRef = 2220192B10F8E7760010D781 /* TTAudioGraphOutlet.h */; };
-		222019D810F90A2D0010D781 /* TTAudioGraphSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222019D710F90A2D0010D781 /* TTAudioGraphSource.cpp */; };
-		226AAF7F10F80EDE002C6057 /* TTAudioGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7310F80EDE002C6057 /* TTAudioGraph.h */; };
-		226AAF8010F80EDE002C6057 /* TTAudioGraphAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7410F80EDE002C6057 /* TTAudioGraphAPI.h */; };
-		226AAF8110F80EDE002C6057 /* TTAudioGraphInlet.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7510F80EDE002C6057 /* TTAudioGraphInlet.h */; };
-		226AAF8210F80EDE002C6057 /* TTAudioGraphObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7610F80EDE002C6057 /* TTAudioGraphObject.h */; };
-		226AAF8310F80EDE002C6057 /* TTAudioGraphOutput.h in Headers */ = {isa = PBXBuildFile; fileRef = 226AAF7710F80EDE002C6057 /* TTAudioGraphOutput.h */; };
-		226AAF8510F80EDE002C6057 /* TTAudioGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7A10F80EDE002C6057 /* TTAudioGraph.cpp */; };
-		226AAF8710F80EDE002C6057 /* TTAudioGraphObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7C10F80EDE002C6057 /* TTAudioGraphObject.cpp */; };
-		226AAF8810F80EDE002C6057 /* TTAudioGraphOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7D10F80EDE002C6057 /* TTAudioGraphOutput.cpp */; };
-		227158AD113D991100F8CF53 /* JamomaGraph.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227158AC113D991100F8CF53 /* JamomaGraph.framework */; };
-		229D14F8112107B100D45E1B /* TTAudioGraphInput.h in Headers */ = {isa = PBXBuildFile; fileRef = 229D14F7112107B100D45E1B /* TTAudioGraphInput.h */; };
-		229D14FA11210ADF00D45E1B /* TTAudioGraphInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 229D14F911210ADF00D45E1B /* TTAudioGraphInput.cpp */; };
-		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
-		22B04659112F5A6E001D29FD /* TTAudioGraphSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B04658112F5A6E001D29FD /* TTAudioGraphSource.h */; };
-		22C9F59F10325CDB0062F7B8 /* TTFoundationAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F59E10325CDB0062F7B8 /* TTFoundationAPI.h */; };
-		22C9F5A110325CDF0062F7B8 /* TTDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5A010325CDF0062F7B8 /* TTDSP.h */; };
-		22C9F5A310325CED0062F7B8 /* JamomaAudioGraph.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F5A210325CED0062F7B8 /* JamomaAudioGraph.xcconfig */; };
-		22C9F5C110325E1F0062F7B8 /* portaudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5C010325E1F0062F7B8 /* portaudio.h */; };
-		22C9F5CC10325E650062F7B8 /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */; };
-		22DF22510F2441BD00DBBEE9 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */; };
-		22F25DD9111E0B6F00A67D8D /* TTAudioGraphDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F25DD8111E0B6F00A67D8D /* TTAudioGraphDescription.h */; };
-		22F25F18111FC59900A67D8D /* TTAudioGraphDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F25F17111FC59900A67D8D /* TTAudioGraphDescription.cpp */; };
+		224B070811DE9E2300B6EF48 /* TTAudioGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7A10F80EDE002C6057 /* TTAudioGraph.cpp */; };
+		224B070911DE9E2300B6EF48 /* TTAudioGraphObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7C10F80EDE002C6057 /* TTAudioGraphObject.cpp */; };
+		224B070A11DE9E2300B6EF48 /* TTAudioGraphOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226AAF7D10F80EDE002C6057 /* TTAudioGraphOutput.cpp */; };
+		224B070B11DE9E2300B6EF48 /* TTAudioGraphGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222018D110F8C8CB0010D781 /* TTAudioGraphGenerator.cpp */; };
+		224B070C11DE9E2300B6EF48 /* TTAudioGraphSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222019D710F90A2D0010D781 /* TTAudioGraphSource.cpp */; };
+		224B070D11DE9E2300B6EF48 /* TTAudioGraphDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F25F17111FC59900A67D8D /* TTAudioGraphDescription.cpp */; };
+		224B070E11DE9E2300B6EF48 /* TTAudioGraphInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 229D14F911210ADF00D45E1B /* TTAudioGraphInput.cpp */; };
+		224B073B11DE9F2900B6EF48 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B073811DE9F2900B6EF48 /* JamomaDSP.dylib */; };
+		224B073C11DE9F2900B6EF48 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B073911DE9F2900B6EF48 /* JamomaFoundation.dylib */; };
+		224B073D11DE9F2900B6EF48 /* JamomaGraph.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B073A11DE9F2900B6EF48 /* JamomaGraph.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +25,10 @@
 		2220192B10F8E7760010D781 /* TTAudioGraphOutlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphOutlet.h; path = includes/TTAudioGraphOutlet.h; sourceTree = "<group>"; };
 		222019D710F90A2D0010D781 /* TTAudioGraphSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphSource.cpp; path = source/TTAudioGraphSource.cpp; sourceTree = "<group>"; };
 		2238134B1108C23A0031E8B6 /* TTRuby.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTRuby.cpp; path = ../../Ruby/library/TTRuby.cpp; sourceTree = SOURCE_ROOT; };
+		224B070511DE9E0000B6EF48 /* JamomaAudioGraph.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = JamomaAudioGraph.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		224B073811DE9F2900B6EF48 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
+		224B073911DE9F2900B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
+		224B073A11DE9F2900B6EF48 /* JamomaGraph.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaGraph.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaGraph.dylib"; sourceTree = "<absolute>"; };
 		224C145C113D9B5400FED832 /* TTGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraph.h; path = ../../Graph/library/includes/TTGraph.h; sourceTree = SOURCE_ROOT; };
 		224C145D113D9B5400FED832 /* TTGraphAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphAPI.h; path = ../../Graph/library/includes/TTGraphAPI.h; sourceTree = SOURCE_ROOT; };
 		224C145E113D9B5400FED832 /* TTGraphDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphDescription.h; path = ../../Graph/library/includes/TTGraphDescription.h; sourceTree = SOURCE_ROOT; };
@@ -58,7 +47,6 @@
 		226AAF7A10F80EDE002C6057 /* TTAudioGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraph.cpp; path = source/TTAudioGraph.cpp; sourceTree = "<group>"; };
 		226AAF7C10F80EDE002C6057 /* TTAudioGraphObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphObject.cpp; path = source/TTAudioGraphObject.cpp; sourceTree = "<group>"; };
 		226AAF7D10F80EDE002C6057 /* TTAudioGraphOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphOutput.cpp; path = ../source/TTAudioGraphOutput.cpp; sourceTree = "<group>"; };
-		227158AC113D991100F8CF53 /* JamomaGraph.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaGraph.framework; path = ../../Graph/library/build/UninstalledProducts/JamomaGraph.framework; sourceTree = SOURCE_ROOT; };
 		229D14F7112107B100D45E1B /* TTAudioGraphInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAudioGraphInput.h; sourceTree = "<group>"; };
 		229D14F911210ADF00D45E1B /* TTAudioGraphInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphInput.cpp; path = ../source/TTAudioGraphInput.cpp; sourceTree = "<group>"; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -67,22 +55,18 @@
 		22C9F5A010325CDF0062F7B8 /* TTDSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDSP.h; path = ../../DSP/library/includes/TTDSP.h; sourceTree = SOURCE_ROOT; };
 		22C9F5A210325CED0062F7B8 /* JamomaAudioGraph.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaAudioGraph.xcconfig; sourceTree = "<group>"; };
 		22C9F5C010325E1F0062F7B8 /* portaudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = portaudio.h; path = ../../DSP/library/portaudio/include/portaudio.h; sourceTree = SOURCE_ROOT; };
-		22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
-		22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		22F25DD8111E0B6F00A67D8D /* TTAudioGraphDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphDescription.h; path = includes/TTAudioGraphDescription.h; sourceTree = "<group>"; };
 		22F25F17111FC59900A67D8D /* TTAudioGraphDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphDescription.cpp; path = source/TTAudioGraphDescription.cpp; sourceTree = "<group>"; };
-		8DC2EF5B0486A6940098B216 /* JamomaAudioGraph.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JamomaAudioGraph.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8DC2EF560486A6940098B216 /* Frameworks */ = {
+		224B070311DE9E0000B6EF48 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */,
-				22DF22510F2441BD00DBBEE9 /* JamomaDSP.framework in Frameworks */,
-				22C9F5CC10325E650062F7B8 /* JamomaFoundation.framework in Frameworks */,
-				227158AD113D991100F8CF53 /* JamomaGraph.framework in Frameworks */,
+				224B073B11DE9F2900B6EF48 /* JamomaDSP.dylib in Frameworks */,
+				224B073C11DE9F2900B6EF48 /* JamomaFoundation.dylib in Frameworks */,
+				224B073D11DE9F2900B6EF48 /* JamomaGraph.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,7 +76,7 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8DC2EF5B0486A6940098B216 /* JamomaAudioGraph.framework */,
+				224B070511DE9E0000B6EF48 /* JamomaAudioGraph.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -118,9 +102,9 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				227158AC113D991100F8CF53 /* JamomaGraph.framework */,
-				22C9F5CB10325E650062F7B8 /* JamomaFoundation.framework */,
-				22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */,
+				224B073811DE9F2900B6EF48 /* JamomaDSP.dylib */,
+				224B073911DE9F2900B6EF48 /* JamomaFoundation.dylib */,
+				224B073A11DE9F2900B6EF48 /* JamomaGraph.dylib */,
 				22A403830CAD7B9400E5299E /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -192,49 +176,22 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		8DC2EF500486A6940098B216 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22C9F59F10325CDB0062F7B8 /* TTFoundationAPI.h in Headers */,
-				22C9F5A110325CDF0062F7B8 /* TTDSP.h in Headers */,
-				22C9F5C110325E1F0062F7B8 /* portaudio.h in Headers */,
-				226AAF7F10F80EDE002C6057 /* TTAudioGraph.h in Headers */,
-				226AAF8010F80EDE002C6057 /* TTAudioGraphAPI.h in Headers */,
-				226AAF8110F80EDE002C6057 /* TTAudioGraphInlet.h in Headers */,
-				226AAF8210F80EDE002C6057 /* TTAudioGraphObject.h in Headers */,
-				226AAF8310F80EDE002C6057 /* TTAudioGraphOutput.h in Headers */,
-				222018D010F8C8C30010D781 /* TTAudioGraphGenerator.h in Headers */,
-				2220192C10F8E7760010D781 /* TTAudioGraphOutlet.h in Headers */,
-				22F25DD9111E0B6F00A67D8D /* TTAudioGraphDescription.h in Headers */,
-				229D14F8112107B100D45E1B /* TTAudioGraphInput.h in Headers */,
-				22B04659112F5A6E001D29FD /* TTAudioGraphSource.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		8DC2EF4F0486A6940098B216 /* AudioGraph */ = {
+		224B070411DE9E0000B6EF48 /* JamomaAudioGraph */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "AudioGraph" */;
+			buildConfigurationList = 224B072C11DE9E2E00B6EF48 /* Build configuration list for PBXNativeTarget "JamomaAudioGraph" */;
 			buildPhases = (
-				8DC2EF500486A6940098B216 /* Headers */,
-				8DC2EF520486A6940098B216 /* Resources */,
-				8DC2EF540486A6940098B216 /* Sources */,
-				8DC2EF560486A6940098B216 /* Frameworks */,
-				22C8C0650CB31E500094575E /* ShellScript */,
+				224B070211DE9E0000B6EF48 /* Sources */,
+				224B070311DE9E0000B6EF48 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = AudioGraph;
-			productInstallPath = "$(HOME)/Library/Frameworks";
-			productName = MaxObject;
-			productReference = 8DC2EF5B0486A6940098B216 /* JamomaAudioGraph.framework */;
-			productType = "com.apple.product-type.framework";
+			name = JamomaAudioGraph;
+			productName = JamomaAudioGraph;
+			productReference = 224B070511DE9E0000B6EF48 /* JamomaAudioGraph.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
 
@@ -249,131 +206,29 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DC2EF4F0486A6940098B216 /* AudioGraph */,
+				224B070411DE9E0000B6EF48 /* JamomaAudioGraph */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		8DC2EF520486A6940098B216 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22C9F5A310325CED0062F7B8 /* JamomaAudioGraph.xcconfig in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		22C8C0650CB31E500094575E /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\" ]\n\tthen /bin/rm -rf \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\"\nfi\n\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION\" /Library/Frameworks\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		8DC2EF540486A6940098B216 /* Sources */ = {
+		224B070211DE9E0000B6EF48 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				226AAF8510F80EDE002C6057 /* TTAudioGraph.cpp in Sources */,
-				226AAF8710F80EDE002C6057 /* TTAudioGraphObject.cpp in Sources */,
-				226AAF8810F80EDE002C6057 /* TTAudioGraphOutput.cpp in Sources */,
-				222018D210F8C8CB0010D781 /* TTAudioGraphGenerator.cpp in Sources */,
-				222019D810F90A2D0010D781 /* TTAudioGraphSource.cpp in Sources */,
-				22F25F18111FC59900A67D8D /* TTAudioGraphDescription.cpp in Sources */,
-				229D14FA11210ADF00D45E1B /* TTAudioGraphInput.cpp in Sources */,
+				224B070811DE9E2300B6EF48 /* TTAudioGraph.cpp in Sources */,
+				224B070911DE9E2300B6EF48 /* TTAudioGraphObject.cpp in Sources */,
+				224B070A11DE9E2300B6EF48 /* TTAudioGraphOutput.cpp in Sources */,
+				224B070B11DE9E2300B6EF48 /* TTAudioGraphGenerator.cpp in Sources */,
+				224B070C11DE9E2300B6EF48 /* TTAudioGraphSource.cpp in Sources */,
+				224B070D11DE9E2300B6EF48 /* TTAudioGraphDescription.cpp in Sources */,
+				224B070E11DE9E2300B6EF48 /* TTAudioGraphInput.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		1DEB91AE08733DA50010E9CD /* Development */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22C9F5A210325CED0062F7B8 /* JamomaAudioGraph.xcconfig */;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /Library/Frameworks;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../Foundation/library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../Graph/library/build/UninstalledProducts\"",
-				);
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					TT_DEBUG,
-					_DLL_EXPORT,
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_UNROLL_LOOPS = YES;
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_SHADOW = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				LD_GENERATE_MAP_FILE = YES;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
-				);
-				SKIP_INSTALL = YES;
-			};
-			name = Development;
-		};
-		1DEB91AF08733DA50010E9CD /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22C9F5A210325CED0062F7B8 /* JamomaAudioGraph.xcconfig */;
-			buildSettings = {
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /Library/Frameworks;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../Foundation/library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../Graph/library/build/UninstalledProducts\"",
-				);
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = _DLL_EXPORT;
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_UNROLL_LOOPS = YES;
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_SHADOW = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				LD_GENERATE_MAP_FILE = YES;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
-				);
-				SKIP_INSTALL = YES;
-			};
-			name = Deployment;
-		};
 		1DEB91B208733DA50010E9CD /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -394,23 +249,68 @@
 			};
 			name = Deployment;
 		};
+		224B070611DE9E0000B6EF48 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22C9F5A210325CED0062F7B8 /* JamomaAudioGraph.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TTAUDIOGRAPH_EXPORTS,
+					TT_DEBUG,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+				);
+			};
+			name = Development;
+		};
+		224B070711DE9E0000B6EF48 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22C9F5A210325CED0062F7B8 /* JamomaAudioGraph.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = TTAUDIOGRAPH_EXPORTS;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+				);
+			};
+			name = Deployment;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "AudioGraph" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1DEB91AE08733DA50010E9CD /* Development */,
-				1DEB91AF08733DA50010E9CD /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Deployment;
-		};
 		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "JamomaAudioGraph" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB91B208733DA50010E9CD /* Development */,
 				1DEB91B308733DA50010E9CD /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+		224B072C11DE9E2E00B6EF48 /* Build configuration list for PBXNativeTarget "JamomaAudioGraph" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				224B070611DE9E0000B6EF48 /* Development */,
+				224B070711DE9E0000B6EF48 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;

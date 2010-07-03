@@ -24,7 +24,7 @@
 	#include <algorithm>
 	using namespace std;
 #else // TT_PLATFORM_MAC
-	#ifdef _DLL_EXPORT
+	#ifdef TTAUDIOGRAPH_EXPORTS
 		#define TTAUDIOGRAPH_EXPORT __attribute__((visibility("default")))
 	#else
 		#define TTAUDIOGRAPH_EXPORT  

@@ -127,7 +127,7 @@ t_int* OutPerform(t_int* w)
 	self->audioGraphObject->process(self->audioSignal);
 	self->audioGraphObject->unlockProcessing();
 
-	numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannels());
+	numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannelsAsInt());
 	for(TTUInt16 channel=0; channel<numChannels; channel++)
 		self->audioSignal->getVector(channel, self->vectorSize, (TTFloat32*)w[channel+2]);
 	return w + (self->numChannels+2);
