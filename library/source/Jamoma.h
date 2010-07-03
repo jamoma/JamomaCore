@@ -63,8 +63,8 @@ extern "C" {
 
 	void		jamoma_dsp(t_object *, t_signal **sp, short *count);
 
-	void		jamoma_class_attr_new(t_class *c, char *attrName, t_symbol *attrType, method setter, method getter);
-	void		jamoma_class_attr_array_new(t_class *c, char *attrName, t_symbol *attrType, long list_size, method setter, method getter);
+	void		jamoma_class_attr_new(t_class *c, const char *attrName, t_symbol *attrType, method setter, method getter);
+	void		jamoma_class_attr_array_new(t_class *c, const char *attrName, t_symbol *attrType, long list_size, method setter, method getter);
 	void		jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *);
 
 }
