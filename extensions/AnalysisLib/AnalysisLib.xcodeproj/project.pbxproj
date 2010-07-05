@@ -21,7 +21,8 @@
 		22BA7EAC1046F322009771BC /* TTZerocross.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTZerocross.h; path = includes/TTZerocross.h; sourceTree = "<group>"; };
 		22BA7EAE1046F32A009771BC /* TTZerocross.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTZerocross.cpp; path = source/TTZerocross.cpp; sourceTree = "<group>"; };
 		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
-		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../../../TapTools/Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
+		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
+		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
 		D2AAC09D05546B4700DB518D /* AnalysisLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = AnalysisLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -50,6 +51,7 @@
 		0867D691FE84028FC02AAC07 /* TTFunctionLib */ = {
 			isa = PBXGroup;
 			children = (
+				22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */,
 				08FB77ACFE841707C02AAC07 /* Source */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DDFF38A45A11DB9C8B /* Products */,
@@ -99,9 +101,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		D2AAC09C05546B4700DB518D /* AnalysisLib */ = {
+		D2AAC09C05546B4700DB518D /* JamomaExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "AnalysisLib" */;
+			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "JamomaExtension" */;
 			buildPhases = (
 				D2AAC09905546B4700DB518D /* Headers */,
 				D2AAC09B05546B4700DB518D /* Frameworks */,
@@ -112,7 +114,7 @@
 			);
 			dependencies = (
 			);
-			name = AnalysisLib;
+			name = JamomaExtension;
 			productName = TTFunctionLib;
 			productReference = D2AAC09D05546B4700DB518D /* AnalysisLib.ttdylib */;
 			productType = "com.apple.product-type.library.dynamic";
@@ -130,7 +132,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D2AAC09C05546B4700DB518D /* AnalysisLib */,
+				D2AAC09C05546B4700DB518D /* JamomaExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -166,6 +168,7 @@
 /* Begin XCBuildConfiguration section */
 		1DEB916108733D950010E9CD /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -173,38 +176,20 @@
 					i386,
 				);
 				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				EXECUTABLE_EXTENSION = ttdylib;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
-				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = ../prefix.pch;
-				INSTALL_PATH = /usr/local/lib;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../../../TapTools/Foundation/library/build/UninstalledProducts\"",
-				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
-				PRODUCT_NAME = AnalysisLib;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Foundation/library/includes\" \"$(SRCROOT)/../../library/includes\"";
 			};
 			name = Development;
 		};
 		1DEB916208733D950010E9CD /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -212,29 +197,11 @@
 					i386,
 				);
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				EXECUTABLE_EXTENSION = ttdylib;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
-				);
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = ../prefix.pch;
-				INSTALL_PATH = /usr/local/lib;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../../../TapTools/Foundation/library/build/UninstalledProducts\"",
-				);
+				GCC_OPTIMIZATION_LEVEL = 3;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
-				PRODUCT_NAME = AnalysisLib;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Foundation/library/includes\" \"$(SRCROOT)/../../library/includes\"";
 			};
 			name = Deployment;
 		};
@@ -267,7 +234,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "AnalysisLib" */ = {
+		1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "JamomaExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB916108733D950010E9CD /* Development */,
