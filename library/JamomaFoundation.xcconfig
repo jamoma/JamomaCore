@@ -16,11 +16,9 @@ SVNREV = $Rev$
 
 
 // Paths
-//DSTROOT = $(SRCROOT)/build
 DSTROOT = /
-// (This next path is relative to DSTROOT)
-//INSTALL_PATH = /
 INSTALL_PATH = /Library/Application Support/Jamoma/Libraries
+SKIP_INSTALL = YES
 
 // Special Files
 INFOPLIST_FILE = $(SRCROOT)/Info.plist
