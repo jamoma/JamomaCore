@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		224B0B2711DF589B00B6EF48 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0B2511DF589B00B6EF48 /* JamomaDSP.dylib */; };
-		224B0B2811DF589B00B6EF48 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0B2611DF589B00B6EF48 /* JamomaFoundation.dylib */; };
 		22526AC410385B9700CD634E /* EffectsLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22526AC310385B9700CD634E /* EffectsLib.cpp */; };
 		22759F131003DD3B006BA4FB /* TTBalance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22759F041003DD3B006BA4FB /* TTBalance.cpp */; };
 		22759F141003DD3B006BA4FB /* TTBalance.h in Headers */ = {isa = PBXBuildFile; fileRef = 22759F051003DD3B006BA4FB /* TTBalance.h */; };
@@ -24,13 +22,13 @@
 		22759F1F1003DD3B006BA4FB /* TTOverdrive.h in Headers */ = {isa = PBXBuildFile; fileRef = 22759F101003DD3B006BA4FB /* TTOverdrive.h */; };
 		22759F201003DD3B006BA4FB /* TTPulseSub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22759F111003DD3B006BA4FB /* TTPulseSub.cpp */; };
 		22759F211003DD3B006BA4FB /* TTPulseSub.h in Headers */ = {isa = PBXBuildFile; fileRef = 22759F121003DD3B006BA4FB /* TTPulseSub.h */; };
+		22FA627E11E21C7D0097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA627D11E21C7D0097F43B /* JamomaDSP.dylib */; };
+		22FA628011E21C810097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA627F11E21C810097F43B /* JamomaFoundation.dylib */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		224B0B2511DF589B00B6EF48 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
-		224B0B2611DF589B00B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
 		22526AC310385B9700CD634E /* EffectsLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectsLib.cpp; sourceTree = "<group>"; };
 		22759F041003DD3B006BA4FB /* TTBalance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTBalance.cpp; sourceTree = "<group>"; };
 		22759F051003DD3B006BA4FB /* TTBalance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBalance.h; sourceTree = "<group>"; };
@@ -46,6 +44,8 @@
 		22759F101003DD3B006BA4FB /* TTOverdrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOverdrive.h; sourceTree = "<group>"; };
 		22759F111003DD3B006BA4FB /* TTPulseSub.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTPulseSub.cpp; sourceTree = "<group>"; };
 		22759F121003DD3B006BA4FB /* TTPulseSub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPulseSub.h; sourceTree = "<group>"; };
+		22FA627D11E21C7D0097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
+		22FA627F11E21C810097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../../../TapTools/Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		D2AAC09D05546B4700DB518D /* EffectsLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = EffectsLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -55,8 +55,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
-				224B0B2711DF589B00B6EF48 /* JamomaDSP.dylib in Frameworks */,
-				224B0B2811DF589B00B6EF48 /* JamomaFoundation.dylib in Frameworks */,
+				22FA627E11E21C7D0097F43B /* JamomaDSP.dylib in Frameworks */,
+				22FA628011E21C810097F43B /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,8 +84,8 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				224B0B2511DF589B00B6EF48 /* JamomaDSP.dylib */,
-				224B0B2611DF589B00B6EF48 /* JamomaFoundation.dylib */,
+				22FA627D11E21C7D0097F43B /* JamomaDSP.dylib */,
+				22FA627F11E21C810097F43B /* JamomaFoundation.dylib */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -233,7 +233,8 @@
 				LD_DYLIB_INSTALL_NAME = "/Library/Application Support/Jamoma/Extensions/$(EXECUTABLE_PATH)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../TapTools/Foundation/library/build/UninstalledProducts\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -271,7 +272,8 @@
 				LD_DYLIB_INSTALL_NAME = "/Library/Application Support/Jamoma/Extensions/$(EXECUTABLE_PATH)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../TapTools/Foundation/library/build/UninstalledProducts\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (

@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		224B0B0211DF585F00B6EF48 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0B0011DF585F00B6EF48 /* JamomaDSP.dylib */; };
-		224B0B0311DF585F00B6EF48 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0B0111DF585F00B6EF48 /* JamomaFoundation.dylib */; };
 		22526B1C10385E9500CD634E /* AudioUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22526B1B10385E9500CD634E /* AudioUnit.cpp */; };
 		22F4B8470E58997800BE6DDB /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4B8460E58997800BE6DDB /* AudioUnit.framework */; };
+		22FA624011E21BFB0097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623F11E21BFB0097F43B /* JamomaDSP.dylib */; };
+		22FA624411E21BFF0097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA624311E21BFF0097F43B /* JamomaFoundation.dylib */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		224B0B0011DF585F00B6EF48 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
-		224B0B0111DF585F00B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
 		22526B1B10385E9500CD634E /* AudioUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioUnit.cpp; sourceTree = "<group>"; };
 		22F4B8460E58997800BE6DDB /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
+		22FA623F11E21BFB0097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
+		22FA624311E21BFF0097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../../../TapTools/Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		D2AAC09D05546B4700DB518D /* AudioUnit.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = AudioUnit.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -30,8 +30,8 @@
 			files = (
 				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
 				22F4B8470E58997800BE6DDB /* AudioUnit.framework in Frameworks */,
-				224B0B0211DF585F00B6EF48 /* JamomaDSP.dylib in Frameworks */,
-				224B0B0311DF585F00B6EF48 /* JamomaFoundation.dylib in Frameworks */,
+				22FA624011E21BFB0097F43B /* JamomaDSP.dylib in Frameworks */,
+				22FA624411E21BFF0097F43B /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,8 +59,8 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				224B0B0011DF585F00B6EF48 /* JamomaDSP.dylib */,
-				224B0B0111DF585F00B6EF48 /* JamomaFoundation.dylib */,
+				22FA623F11E21BFB0097F43B /* JamomaDSP.dylib */,
+				22FA624311E21BFF0097F43B /* JamomaFoundation.dylib */,
 				22F4B8460E58997800BE6DDB /* AudioUnit.framework */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
 			);
@@ -178,7 +178,8 @@
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../TapTools/Foundation/library/build/UninstalledProducts\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -213,7 +214,8 @@
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../TapTools/Foundation/library/build/UninstalledProducts\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (

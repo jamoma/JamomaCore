@@ -17,9 +17,9 @@
 		2217FAA60E4F284500806778 /* PowerFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2217FA9C0E4F284500806778 /* PowerFunction.h */; };
 		2217FAA70E4F284500806778 /* TanhFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2217FA9D0E4F284500806778 /* TanhFunction.cpp */; };
 		2217FAA80E4F284500806778 /* TanhFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2217FA9E0E4F284500806778 /* TanhFunction.h */; };
-		224B0B6411DF596000B6EF48 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0B6211DF596000B6EF48 /* JamomaDSP.dylib */; };
-		224B0B6511DF596000B6EF48 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0B6311DF596000B6EF48 /* JamomaFoundation.dylib */; };
 		22526B0010385E3600CD634E /* FunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22526AFF10385E3600CD634E /* FunctionLib.cpp */; };
+		22FA62B711E21CC90097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA62B611E21CC90097F43B /* JamomaDSP.dylib */; };
+		22FA62BC11E21CDB0097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA62BB11E21CDB0097F43B /* JamomaFoundation.dylib */; };
 		A731218C0FFBF36F00266F90 /* ExpFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = A731218A0FFBF36F00266F90 /* ExpFunction.h */; };
 		A731218D0FFBF36F00266F90 /* ExpFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A731218B0FFBF36F00266F90 /* ExpFunction.cpp */; };
 		A78693EE0FFCF03B00B58540 /* LogFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A78693EC0FFCF03B00B58540 /* LogFunction.cpp */; };
@@ -39,9 +39,9 @@
 		2217FA9C0E4F284500806778 /* PowerFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerFunction.h; sourceTree = "<group>"; };
 		2217FA9D0E4F284500806778 /* TanhFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TanhFunction.cpp; sourceTree = "<group>"; };
 		2217FA9E0E4F284500806778 /* TanhFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TanhFunction.h; sourceTree = "<group>"; };
-		224B0B6211DF596000B6EF48 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
-		224B0B6311DF596000B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
 		22526AFF10385E3600CD634E /* FunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionLib.cpp; sourceTree = "<group>"; };
+		22FA62B611E21CC90097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
+		22FA62BB11E21CDB0097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../../../TapTools/Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		A731218A0FFBF36F00266F90 /* ExpFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpFunction.h; sourceTree = SOURCE_ROOT; };
 		A731218B0FFBF36F00266F90 /* ExpFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExpFunction.cpp; sourceTree = SOURCE_ROOT; };
 		A78693EC0FFCF03B00B58540 /* LogFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogFunction.cpp; sourceTree = SOURCE_ROOT; };
@@ -55,8 +55,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
-				224B0B6411DF596000B6EF48 /* JamomaDSP.dylib in Frameworks */,
-				224B0B6511DF596000B6EF48 /* JamomaFoundation.dylib in Frameworks */,
+				22FA62B711E21CC90097F43B /* JamomaDSP.dylib in Frameworks */,
+				22FA62BC11E21CDB0097F43B /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,8 +84,8 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				224B0B6211DF596000B6EF48 /* JamomaDSP.dylib */,
-				224B0B6311DF596000B6EF48 /* JamomaFoundation.dylib */,
+				22FA62B611E21CC90097F43B /* JamomaDSP.dylib */,
+				22FA62BB11E21CDB0097F43B /* JamomaFoundation.dylib */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -238,7 +238,8 @@
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../TapTools/Foundation/library/build/UninstalledProducts\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -273,7 +274,8 @@
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../TapTools/Foundation/library/build/UninstalledProducts\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (

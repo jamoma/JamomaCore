@@ -12,8 +12,6 @@
 		222B5ABC11CA8B9D0097A743 /* TTSoundfilePlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 222B5ABA11CA8B9D0097A743 /* TTSoundfilePlayer.h */; };
 		222B5EDD11CC0D8E0097A743 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B5EDC11CC0D8E0097A743 /* libsndfile.a */; };
 		222B5EDF11CC0D960097A743 /* sndfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 222B5EDE11CC0D960097A743 /* sndfile.h */; };
-		224B0B9A11DF599C00B6EF48 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0B9811DF599C00B6EF48 /* JamomaDSP.dylib */; };
-		224B0B9B11DF599C00B6EF48 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0B9911DF599C00B6EF48 /* JamomaFoundation.dylib */; };
 		22651E9311D2827400B38811 /* TTSoundfileRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22651E9111D2827400B38811 /* TTSoundfileRecorder.cpp */; };
 		22651E9411D2827400B38811 /* TTSoundfileRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 22651E9211D2827400B38811 /* TTSoundfileRecorder.h */; };
 		22EEB91611CC48EB008E13BD /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EEB91111CC48EB008E13BD /* libogg.a */; };
@@ -21,6 +19,8 @@
 		22EEB91811CC48EB008E13BD /* libvorbisenc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EEB91311CC48EB008E13BD /* libvorbisenc.a */; };
 		22EEB91911CC48EB008E13BD /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EEB91411CC48EB008E13BD /* libvorbisfile.a */; };
 		22EEB94311CC54A3008E13BD /* libFLAC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EEB94211CC54A3008E13BD /* libFLAC.a */; };
+		22FA62EE11E21EA60097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA62ED11E21EA60097F43B /* JamomaDSP.dylib */; };
+		22FA62F011E21EAA0097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA62EF11E21EAA0097F43B /* JamomaFoundation.dylib */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,8 +31,6 @@
 		222B5ABA11CA8B9D0097A743 /* TTSoundfilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSoundfilePlayer.h; sourceTree = "<group>"; };
 		222B5EDC11CC0D8E0097A743 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsndfile.a; path = libsndfile/libsndfile.a; sourceTree = "<group>"; };
 		222B5EDE11CC0D960097A743 /* sndfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sndfile.h; path = libsndfile/sndfile.h; sourceTree = "<group>"; };
-		224B0B9811DF599C00B6EF48 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
-		224B0B9911DF599C00B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
 		22651E9111D2827400B38811 /* TTSoundfileRecorder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSoundfileRecorder.cpp; sourceTree = "<group>"; };
 		22651E9211D2827400B38811 /* TTSoundfileRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSoundfileRecorder.h; sourceTree = "<group>"; };
 		22EEB91111CC48EB008E13BD /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = libsndfile/lib/libogg.a; sourceTree = "<group>"; };
@@ -40,6 +38,8 @@
 		22EEB91311CC48EB008E13BD /* libvorbisenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisenc.a; path = libsndfile/lib/libvorbisenc.a; sourceTree = "<group>"; };
 		22EEB91411CC48EB008E13BD /* libvorbisfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisfile.a; path = libsndfile/lib/libvorbisfile.a; sourceTree = "<group>"; };
 		22EEB94211CC54A3008E13BD /* libFLAC.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFLAC.a; path = libsndfile/lib/libFLAC.a; sourceTree = "<group>"; };
+		22FA62ED11E21EA60097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
+		22FA62EF11E21EAA0097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../../../TapTools/Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		D2AAC09D05546B4700DB518D /* SoundfileLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = SoundfileLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -55,8 +55,8 @@
 				22EEB91811CC48EB008E13BD /* libvorbisenc.a in Frameworks */,
 				22EEB91911CC48EB008E13BD /* libvorbisfile.a in Frameworks */,
 				22EEB94311CC54A3008E13BD /* libFLAC.a in Frameworks */,
-				224B0B9A11DF599C00B6EF48 /* JamomaDSP.dylib in Frameworks */,
-				224B0B9B11DF599C00B6EF48 /* JamomaFoundation.dylib in Frameworks */,
+				22FA62EE11E21EA60097F43B /* JamomaDSP.dylib in Frameworks */,
+				22FA62F011E21EAA0097F43B /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,8 +84,8 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				224B0B9811DF599C00B6EF48 /* JamomaDSP.dylib */,
-				224B0B9911DF599C00B6EF48 /* JamomaFoundation.dylib */,
+				22FA62ED11E21EA60097F43B /* JamomaDSP.dylib */,
+				22FA62EF11E21EAA0097F43B /* JamomaFoundation.dylib */,
 				222B5EDC11CC0D8E0097A743 /* libsndfile.a */,
 				22EEB94211CC54A3008E13BD /* libFLAC.a */,
 				22EEB91111CC48EB008E13BD /* libogg.a */,
@@ -228,7 +228,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/libsndfile\"",
 					"\"$(SRCROOT)/libsndfile/lib\"",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../TapTools/Foundation/library/build/UninstalledProducts\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -267,7 +268,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/libsndfile\"",
 					"\"$(SRCROOT)/libsndfile/lib\"",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../TapTools/Foundation/library/build/UninstalledProducts\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (

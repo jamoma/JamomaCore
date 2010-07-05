@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		2248BE9B11B5C32D002EA67F /* TTOnePole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2248BE9911B5C32D002EA67F /* TTOnePole.cpp */; };
 		2248BE9C11B5C32D002EA67F /* TTOnePole.h in Headers */ = {isa = PBXBuildFile; fileRef = 2248BE9A11B5C32D002EA67F /* TTOnePole.h */; };
-		224B0B5211DF58E400B6EF48 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0B5011DF58E400B6EF48 /* JamomaDSP.dylib */; };
-		224B0B5311DF58E400B6EF48 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0B5111DF58E400B6EF48 /* JamomaFoundation.dylib */; };
 		22526AE610385DDD00CD634E /* FilterLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22526AE510385DDD00CD634E /* FilterLib.cpp */; };
 		22CC002F0FDEFC310024A915 /* TTAllpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CC00290FDEFC310024A915 /* TTAllpass.cpp */; };
 		22CC00300FDEFC310024A915 /* TTAllpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 22CC002A0FDEFC310024A915 /* TTAllpass.h */; };
@@ -52,6 +50,8 @@
 		22CC00770FDEFC3D0024A915 /* TTLowpassTwoPole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22CC00550FDEFC3D0024A915 /* TTLowpassTwoPole.h */; };
 		22CC00780FDEFC3D0024A915 /* TTSvf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CC00560FDEFC3D0024A915 /* TTSvf.cpp */; };
 		22CC00790FDEFC3D0024A915 /* TTSvf.h in Headers */ = {isa = PBXBuildFile; fileRef = 22CC00570FDEFC3D0024A915 /* TTSvf.h */; };
+		22FA62A411E21CA60097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA62A311E21CA60097F43B /* JamomaDSP.dylib */; };
+		22FA62A611E21CAA0097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA62A511E21CAA0097F43B /* JamomaFoundation.dylib */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,8 +61,6 @@
 		220D07350FF644B20032DAF9 /* TTBandrejectButterworth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBandrejectButterworth2.h; sourceTree = "<group>"; };
 		2248BE9911B5C32D002EA67F /* TTOnePole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTOnePole.cpp; sourceTree = "<group>"; };
 		2248BE9A11B5C32D002EA67F /* TTOnePole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOnePole.h; sourceTree = "<group>"; };
-		224B0B5011DF58E400B6EF48 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
-		224B0B5111DF58E400B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
 		22526AE510385DDD00CD634E /* FilterLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FilterLib.cpp; sourceTree = "<group>"; };
 		22CC00290FDEFC310024A915 /* TTAllpass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTAllpass.cpp; sourceTree = "<group>"; };
 		22CC002A0FDEFC310024A915 /* TTAllpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAllpass.h; sourceTree = "<group>"; };
@@ -104,6 +102,8 @@
 		22CC00550FDEFC3D0024A915 /* TTLowpassTwoPole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTLowpassTwoPole.h; sourceTree = "<group>"; };
 		22CC00560FDEFC3D0024A915 /* TTSvf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSvf.cpp; sourceTree = "<group>"; };
 		22CC00570FDEFC3D0024A915 /* TTSvf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSvf.h; sourceTree = "<group>"; };
+		22FA62A311E21CA60097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
+		22FA62A511E21CAA0097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../../../TapTools/Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		D2AAC09D05546B4700DB518D /* FilterLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = FilterLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -113,8 +113,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
-				224B0B5211DF58E400B6EF48 /* JamomaDSP.dylib in Frameworks */,
-				224B0B5311DF58E400B6EF48 /* JamomaFoundation.dylib in Frameworks */,
+				22FA62A411E21CA60097F43B /* JamomaDSP.dylib in Frameworks */,
+				22FA62A611E21CAA0097F43B /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,8 +142,8 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				224B0B5011DF58E400B6EF48 /* JamomaDSP.dylib */,
-				224B0B5111DF58E400B6EF48 /* JamomaFoundation.dylib */,
+				22FA62A311E21CA60097F43B /* JamomaDSP.dylib */,
+				22FA62A511E21CAA0097F43B /* JamomaFoundation.dylib */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -354,7 +354,8 @@
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../TapTools/Foundation/library/build/UninstalledProducts\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -390,7 +391,8 @@
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../TapTools/Foundation/library/build/UninstalledProducts\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
