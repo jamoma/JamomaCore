@@ -23,7 +23,7 @@
 		222019D710F90A2D0010D781 /* TTGraphInlet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTGraphInlet.cpp; path = source/TTGraphInlet.cpp; sourceTree = "<group>"; };
 		2238134B1108C23A0031E8B6 /* TTRuby.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTRuby.cpp; path = ../../Ruby/library/TTRuby.cpp; sourceTree = SOURCE_ROOT; };
 		224B069D11DE9B7A00B6EF48 /* JamomaGraph.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = JamomaGraph.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		224B06D611DE9D4300B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
+		224B06D611DE9D4300B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
 		226AAF7310F80EDE002C6057 /* TTGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraph.h; path = includes/TTGraph.h; sourceTree = "<group>"; };
 		226AAF7410F80EDE002C6057 /* TTGraphAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphAPI.h; path = includes/TTGraphAPI.h; sourceTree = "<group>"; };
 		226AAF7510F80EDE002C6057 /* TTGraphInlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphInlet.h; path = includes/TTGraphInlet.h; sourceTree = "<group>"; };
@@ -233,7 +233,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -259,7 +259,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = TTGRAPH_EXPORTS;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
