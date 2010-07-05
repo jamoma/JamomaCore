@@ -16,10 +16,9 @@ SVNREV = 40156
 
 
 // Paths
-//DSTROOT = $(SRCROOT)/build
 DSTROOT = /
-// (This next path is relative to DSTROOT)
 INSTALL_PATH = /Library/Application Support/Jamoma/Libraries
+SKIP_INSTALL = YES
 
 
 // Special Files

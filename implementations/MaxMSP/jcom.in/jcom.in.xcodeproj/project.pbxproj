@@ -23,12 +23,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		22BD4F2611DFEE7100468F23 /* JamomaAudioGraph.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaAudioGraph.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaAudioGraph.dylib"; sourceTree = "<absolute>"; };
-		22BD4F2711DFEE7100468F23 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
-		22BD4F2811DFEE7100468F23 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
-		22BD4F2911DFEE7100468F23 /* JamomaGraph.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaGraph.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaGraph.dylib"; sourceTree = "<absolute>"; };
-		22BD4F2A11DFEE7100468F23 /* JamomaGraphics.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaGraphics.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaGraphics.dylib"; sourceTree = "<absolute>"; };
-		22BD4F2B11DFEE7100468F23 /* JamomaModular.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaModular.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaModular.dylib"; sourceTree = "<absolute>"; };
+		22BD4F2611DFEE7100468F23 /* JamomaAudioGraph.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaAudioGraph.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaAudioGraph.dylib"; sourceTree = "<absolute>"; };
+		22BD4F2711DFEE7100468F23 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
+		22BD4F2811DFEE7100468F23 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
+		22BD4F2911DFEE7100468F23 /* JamomaGraph.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaGraph.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaGraph.dylib"; sourceTree = "<absolute>"; };
+		22BD4F2A11DFEE7100468F23 /* JamomaGraphics.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaGraphics.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaGraphics.dylib"; sourceTree = "<absolute>"; };
+		22BD4F2B11DFEE7100468F23 /* JamomaModular.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaModular.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaModular.dylib"; sourceTree = "<absolute>"; };
 		22C6B2BE109A708000AD8BBF /* jcom.in.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.in.h; sourceTree = "<group>"; };
 		22C6B2BF109A708000AD8BBF /* jcom.in.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.in.cpp; sourceTree = "<group>"; };
 		22C9F7D1103338310062F7B8 /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
@@ -223,7 +223,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
 				);
 			};
 			name = Development;
@@ -251,7 +251,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
 				);
 			};
 			name = Deployment;

@@ -56,8 +56,8 @@
 		2236907A0D00DFBA002D560B /* JamomaSymbols.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaSymbols.cpp; path = source/JamomaSymbols.cpp; sourceTree = "<group>"; };
 		2236907C0D00DFC3002D560B /* JamomaSymbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaSymbols.h; path = source/JamomaSymbols.h; sourceTree = "<group>"; };
 		224B076511DEA0E000B6EF48 /* JamomaModular.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = JamomaModular.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		224B079D11DEA2EB00B6EF48 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
-		224B079E11DEA2EB00B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
+		224B079D11DEA2EB00B6EF48 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
+		224B079E11DEA2EB00B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
 		225AC96E0D1EC37C00F3F92F /* JamomaThreading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaThreading.h; path = source/JamomaThreading.h; sourceTree = "<group>"; };
 		225C90A00D1A1D5A00BDA981 /* DistanceDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DistanceDataspace.cpp; path = DataspaceLib/DistanceDataspace.cpp; sourceTree = "<group>"; };
 		225C90A10D1A1D5A00BDA981 /* DistanceDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DistanceDataspace.h; path = DataspaceLib/DistanceDataspace.h; sourceTree = "<group>"; };
@@ -400,7 +400,7 @@
 				GCC_PREFIX_HEADER = JamomaPrefix.pch;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
 				);
 			};
 			name = Development;
@@ -424,7 +424,7 @@
 				GCC_PREFIX_HEADER = JamomaPrefix.pch;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(LOCAL_LIBRARY_DIR)/Application Support/Jamoma/Libraries\"",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
 				);
 			};
 			name = Deployment;
