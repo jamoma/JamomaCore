@@ -41,11 +41,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../../Foundation/library/includes;../../../../DSP/library/includes;../../../library/source;../../../library/DataspaceLib;../../../library/FunctionLib;../../../library/RampLib;../../../library/PeerObject;&quot;../../../supports/objectivemax/SDKs/Max5/c74support/max-includes&quot;;../../../../../../../DeviceManager/DeviceManager/"
+				AdditionalIncludeDirectories="../../../../Foundation/library/includes;../../../../DSP/library/includes;../../../library/source;../../../library/DataspaceLib;../../../library/FunctionLib;../../../library/RampLib;../../../library/PeerObject;&quot;../../../supports/objectivemax/SDKs/Max5/c74support/max-includes&quot;"
 				PreprocessorDefinitions="TT_PLATFORM_WIN;WIN32;_DEBUG;_WINDOWS;WIN_VERSION;_CRT_SECURE_NO_WARNINGS"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="0"
 				RuntimeLibrary="3"
+				TreatWChar_tAsBuiltInType="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
@@ -62,9 +63,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="Advapi32.lib User32.lib"
-				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib TTModular.lib DeviceManager.lib $(NOINHERIT)"
+				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib TTModular.lib $(NOINHERIT)"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;../../../../Foundation/library/$(ConfigurationName)&quot;;&quot;../../../../DSP/library/$(ConfigurationName)&quot;;&quot;../../../library/$(ConfigurationName)&quot;;../../../../../../../DeviceManager/DeviceManager/Debug"
+				AdditionalLibraryDirectories="&quot;../../../../Foundation/library/$(ConfigurationName)&quot;;&quot;../../../../DSP/library/$(ConfigurationName)&quot;;&quot;../../../library/$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -170,6 +171,18 @@
 	</References>
 	<Files>
 		<File
+			RelativePath=".\Coordinate.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Coordinate.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Includes.h"
+			>
+		</File>
+		<File
 			RelativePath=".\main.cpp"
 			>
 		</File>
@@ -179,6 +192,14 @@
 		</File>
 		<File
 			RelativePath=".\Namespace.h"
+			>
+		</File>
+		<File
+			RelativePath=".\xmlParser.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\xmlParser.h"
 			>
 		</File>
 	</Files>
