@@ -66,3 +66,6 @@
 [submodule "UserLib/NavNav"]
 	path = UserLib/NavNav
 	url = git://github.com/navid/NavNav.git
+[submodule "UserLib/GDIF"]
+	path = UserLib/GDIF
+	url = git://github.com/krisny/Jamoma.GDIF.git
