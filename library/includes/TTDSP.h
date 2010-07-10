@@ -86,7 +86,7 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTAudioObject(arguments)
 // Prototypes
 
 // init the dsp lib, and the foundation if needed
-void TTDSP_EXPORT TTDSPInit();
+void TTDSP_EXPORT TTDSPInit(const char* pathToBinaries = NULL);
 
 // Convenience methods so that casting is not a worry:
 TTErr TTDSP_EXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, TTValue& arguments);
