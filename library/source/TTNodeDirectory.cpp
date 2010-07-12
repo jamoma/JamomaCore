@@ -296,7 +296,7 @@ TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, T
 	}
 }
 
-TTErr	TTNodeDirectory::LookingFor(TTListPtr whereToSearch, bool(testFunction)(TTNodePtr node, void*args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
+TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, void*args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
 {
 	TTList lk_children;
 	TTNodePtr n_r, n_child;
@@ -326,7 +326,7 @@ TTErr	TTNodeDirectory::LookingFor(TTListPtr whereToSearch, bool(testFunction)(TT
 				}
 				
 				// continu the research below all children
-				err = LookingFor(&lk_children, testFunction, argument, returnedTTNodes, firstReturnedTTNode);
+				err = LookFor(&lk_children, testFunction, argument, returnedTTNodes, firstReturnedTTNode);
 				
 				if(!returnedTTNodes.isEmpty())
 					returnedTTNodes.getHead().get(0, (TTPtr*)&firstReturnedTTNode);

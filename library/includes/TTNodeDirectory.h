@@ -123,7 +123,7 @@ public:
 	TTErr			Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
 	
 	/**	Find TTNodes by testing each TTNodes below an address 
-	 @param	oscAddress				The OSC address from where the research begin, possibly including wildcards and instance names/numbers.
+	 @param	oscAddress				A TTNode list from where to start the research
 	 @param testFunction			the test function have to take a TTNode as first argument, and a pointer to something as second argument (a structure for example) 
 									it have to return a boolean (true means that the node is ok).
 	 @param argument				argument for the testFunction
@@ -131,7 +131,7 @@ public:
 	 @param	firstReturnedTTNode		If non-null, the address of the first TTNode object pointer that is found for the given pattern is returned here.
 									The value of the pointer will be set upon return.
 	 @return						An error code. */
-	TTErr			LookingFor(TTListPtr whereToSearch, bool(testFunction)(TTNodePtr node, void*args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
+	TTErr			LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, void*args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
 	
 	/**	Is there is one TTNode or more that respect a test below an address 
 	 @param	oscAddress				The OSC address from where the research begin, possibly including wildcards and instance names/numbers.
