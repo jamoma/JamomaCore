@@ -98,7 +98,7 @@ TTErr jamoma_directory_get_node_by_type(TTSymbolPtr addressToStart, TTSymbolPtr 
 		
 		if(err == kTTErrNone){
 			
-			err = TTModularDirectory->LookingFor(&whereToSearch, testTTNodeType, type, returnedTTNodes, firstReturnedTTNode);
+			err = TTModularDirectory->LookFor(&whereToSearch, testTTNodeType, type, returnedTTNodes, firstReturnedTTNode);
 			
 			return err;
 		}
