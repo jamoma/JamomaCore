@@ -270,7 +270,7 @@ typedef struct XMLDLLENTRY XMLNode
      */
 
     /// Parse an XML file and return the root of a XMLNode tree representing the file. A very crude error checking is made. An attempt to guess the Char Encoding used in the file is made.
-    static XMLNode openFileHelper(XMLCSTR     filename, XMLCSTR tag=NULL);
+    static XMLError openFileHelper(XMLNode* xmlNode, XMLCSTR     filename, XMLCSTR tag=NULL);
     /**< The "openFileHelper" function reports to the screen all the warnings and errors that occurred during parsing of the XML file.
      * This function also tries to guess char Encoding (UTF-8, ASCII or SHIT-JIS) based on the first 200 bytes of the file. Since each
      * application has its own way to report and deal with errors, you should rather use the "parseFile" function to parse XML files
@@ -371,7 +371,7 @@ typedef struct XMLDLLENTRY XMLNode
     static XMLNode createXMLTopNode(XMLCSTR lpszName, char isDeclaration=FALSE);                    ///< Create the top node of an XMLNode structure
     XMLNode        addChild(XMLCSTR lpszName, char isDeclaration=FALSE, XMLElementPosition pos=-1); ///< Add a new child node
     XMLNode        addChild(XMLNode nodeToAdd, XMLElementPosition pos=-1);                          ///< If the "nodeToAdd" has some parents, it will be detached from it's parents before being attached to the current XMLNode
-	/* renamed by Laurent Garnier because method name conflict in an other lib */
+	/* renamed by Laurent Garnier because method name conflict with an other lib */
 	//XMLAttribute  *addAttribute(XMLCSTR lpszName, XMLCSTR lpszValuev);                              ///< Add a new attribute
 	XMLAttribute  *addAttribute_(XMLCSTR lpszName, XMLCSTR lpszValuev);                              ///< Add a new attribute
     XMLCSTR        addText(XMLCSTR lpszValue, XMLElementPosition pos=-1);                           ///< Add a new text content

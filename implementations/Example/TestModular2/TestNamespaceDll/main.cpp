@@ -1,7 +1,5 @@
-#include "TTModular.h"
 #include "Namespace.h"
 //#include "DeviceManager.h"
-#include "Coordinate.h"
 
 using namespace std;
 
@@ -51,70 +49,83 @@ main(int argc, char **argv)
 
 
 
-	//// Create a TTParameter : xposition Parameter
-	///////////////////////////////////////////////////////////
-
+	// Create a TTParameter : xposition Parameter
+	/////////////////////////////////////////////////////////
 	m_namespace->namespaceParameterCreate("/coordinates/cartesian/xposition", NULL/*, NULL, &parameter_return_value_callback*/);
 
 	// set type attribute as decimal
 	m_namespace->namespaceAttributeSet("/coordinates/cartesian/xposition", NSPAttr_TYPE, NSPType_FLOAT);
 	// set valueDefault attribute as 0
-	m_namespace->namespaceAttributeSet("/coordinates/cartesian/xposition", NSPAttr_DEFAULT, 0.0);
+	m_namespace->namespaceAttributeSet("/coordinates/cartesian/xposition", NSPAttr_DEFAULT, 0.67);
 	// set range attribute as [0, 1]
 	NSPValue v = new NSPValue(0.0, 1.0);
 	m_namespace->namespaceAttributeSet("/coordinates/cartesian/xposition", NSPAttr_RANGE, v);
 
 
-	//// Create a TTParameter : yposition Parameter
-	///////////////////////////////////////////////////////////
+	////// Create a TTParameter : yposition Parameter
+	/////////////////////////////////////////////////////////////
 
-	m_namespace->namespaceParameterCreate("/coordinates/cartesian/yposition", NULL, &parameter_return_value_callback);
+	//m_namespace->namespaceParameterCreate("/coordinates/cartesian/yposition", NULL, &parameter_return_value_callback);
 
-	// set type attribute as decimal
-	m_namespace->namespaceAttributeSet("/coordinates/cartesian/yposition", NSPAttr_TYPE, NSPType_FLOAT);
-	// set valueDefault attribute as 0
-	m_namespace->namespaceAttributeSet("/coordinates/cartesian/yposition", NSPAttr_DEFAULT, 0.0);
-	// set range attribute as [0, 1]
-	v = new NSPValue(0.0, 1.0);
-	m_namespace->namespaceAttributeSet("/coordinates/cartesian/yposition", NSPAttr_RANGE, v);
-
-
+	//// set type attribute as decimal
+	//m_namespace->namespaceAttributeSet("/coordinates/cartesian/yposition", NSPAttr_TYPE, NSPType_FLOAT);
+	//// set valueDefault attribute as 0
+	//m_namespace->namespaceAttributeSet("/coordinates/cartesian/yposition", NSPAttr_DEFAULT, 0.45);
+	//// set range attribute as [0, 1]
+	//v = new NSPValue(0.0, 1.0);
+	//m_namespace->namespaceAttributeSet("/coordinates/cartesian/yposition", NSPAttr_RANGE, v);
 
 
-	// Create a TTReceiver to observe the mValue attribute of /coordinates/xposition
+
+
+	//// Create a TTReceiver to observe the mValue attribute of /coordinates/xposition
+	//////////////////////////////////////////////////////////////////////
+	//m_namespace->namespaceObserverCreate("/coordinates/cartesian/xposition", NSPAttr_VAL, NULL, &myReceiver_return_value_callback
+	//																						  , &myReceiver_return_address_callback);
+
+
+
+
+	//// Send value 0.35 to set value attribute of /coordinates/xposition
 	////////////////////////////////////////////////////////////////////
-	m_namespace->namespaceObserverCreate("/coordinates/cartesian/xposition", NSPAttr_VAL, NULL, &myReceiver_return_value_callback
-																							  , &myReceiver_return_address_callback);
+	//m_namespace->namespaceValueSend("/coordinates/cartesian/xposition", NSPAttr_VAL, 0.35);
+	//// note : the value is returned by the Parameter and the Receiver
+	//
 
 
 
-
-	// Send value 0.35 to set value attribute of /coordinates/xposition
-	//////////////////////////////////////////////////////////////////
-	m_namespace->namespaceValueSend("/coordinates/cartesian/xposition", NSPAttr_VAL, 0.35);
-	// note : the value is returned by the Parameter and the Receiver
-	
+	//// Test using the namespace in another class
+	////////////////////////////////////////////////////////////////////
+	//Coordinate polar(m_namespace);
 
 
-
-	// Test using the namespace in another class
-	//////////////////////////////////////////////////////////////////
-	Coordinate polar(m_namespace);
-
-
-	// Display the namespace structure
-	//////////////////////////////////////////////////////////////////
-	TTLogMessage("\nNamespace :\n");
-	m_namespace->namespaceDisplay();
+	////// Display the namespace structure
+	//////////////////////////////////////////////////////////////////////
+	////TTLogMessage("\nNamespace :\n");
+	////m_namespace->namespaceDisplay();
 
 	// Save the namespace in a xml file
 	//////////////////////////////////////////////////////////////////
 	m_namespace->namespaceSaveToXml("Namespace.xml");
 
+	// Load the namespace from a xml file
+	//////////////////////////////////////////////////////////////////
+	m_namespace->namespaceLoadFromXml("Namespace.xml");
 
-	//m_namespace->namespaceFree();
+	// Get the NSPValue of the value attribute
+	//////////////////////////////////////////////////////////////////
+	TTValue v1;
+	v1.clear();
+	m_namespace->namespaceAttributeGet("/coordinates/cartesian/xposition", NSPAttr_DEFAULT, v1);
 
-	TTLogMessage("\n*** Ending my application *** \n");
+	TTString s;
+	v1.toString();
+	v1.get(0, s);
+	TTLogMessage("anObject mValueDefault is %s \n", s.data());
+
+	////m_namespace->namespaceFree();
+
+	//TTLogMessage("\n*** Ending my application *** \n");
 
 	//system("Pause");
 	return EXIT_SUCCESS;

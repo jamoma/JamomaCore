@@ -8,6 +8,7 @@
 #define NSPType_INT				kTTSym_integer
 #define NSPType_FLOAT			kTTSym_decimal
 #define NSPType_STRING			kTTSym_string
+#define NSPType_GENERIC			kTTSym_generic
 
 #define NSPAttr_VAL				kTTSym_Value
 #define NSPAttr_DEFAULT			kTTSym_ValueDefault

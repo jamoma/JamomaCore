@@ -1,17 +1,26 @@
-/* 
- * Namespace creating and dealing interface
- * Copyright © 2010, Laurent Garnier
- * Based on TTModular & TTFoundation libraries developped by Theo de la Hogue & Tim Place
- * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
- */
+// Le bloc ifdef suivant est la façon standard de créer des macros qui facilitent l'exportation 
+// à partir d'une DLL. Tous les fichiers contenus dans cette DLL sont compilés avec le symbole NAMESPACE_EXPORTS
+// défini sur la ligne de commande. Ce symbole ne doit pas être défini dans les projets
+// qui utilisent cette DLL. De cette manière, les autres projets dont les fichiers sources comprennent ce fichier considèrent les fonctions 
+// NAMESPACE_API comme étant importées à partir d'une DLL, tandis que cette DLL considère les symboles
+// définis avec cette macro comme étant exportés.
+#ifdef NAMESPACE_STATIC
+#define NAMESPACE_API
+#endif
 
-#ifndef Namespace_H
-#define Namespace_H
-#pragma once
+#ifdef NAMESPACE_EXPORTS
+	#define NAMESPACE_API __declspec(dllexport)
+#else
+#ifdef NAMESPACE_STATIC
+	#define NAMESPACE_API
+#else
+	#define NAMESPACE_API __declspec(dllimport)
+#endif
+#endif
+
 
 #include "Includes.h"
+#include "xmlParser.h"
 
 /** Symbols that can be used to access parameter attributes, types, and something else */
 
@@ -23,6 +32,7 @@
 //#define NSPType_INT
 //#define NSPType_FLOAT
 //#define NSPType_STRING
+//#define NSPType_GENERIC
 //
 //#define NSPAttr_VAL			//< NSP Parameter attribute symbols
 //#define NSPAttr_DEFAULT
@@ -36,10 +46,11 @@
 //#define NSPTask_DESTROY
 
 /* Returned Error Codes */
-enum NSPStatus { NSP_NO_ERROR, NSP_INIT_ERROR, NSP_RELEASE_ERROR, NSP_INVALID_APPNAME, NSP_INVALID_ADDRESS, NSP_INVALID_ATTRIBUTE, NSP_FILE_NOTFOUND, NSP_XMLPARSING_ERROR, NSP_XMLFORMAT_ERROR };
+enum NAMESPACE_API NSPStatus { NSP_NO_ERROR, NSP_INIT_ERROR, NSP_RELEASE_ERROR, NSP_INVALID_APPNAME, NSP_INVALID_ADDRESS, NSP_INVALID_ATTRIBUTE, NSP_FILE_NOTFOUND, NSP_XMLPARSING_ERROR, NSP_XMLFORMAT_ERROR };
 
-class Namespace
-{
+
+// Cette classe est exportée de Namespace.dll
+class NAMESPACE_API Namespace {
 public:
 	/** Constructor */
 	Namespace(std::string appName, std::string appVersion, std::string creatorName);
@@ -62,7 +73,7 @@ public:
 	NSPStatus namespaceAttributeSet(std::string address, NSPSymbol attribute, NSPValue value);
 
 	/** Get the value of a parameter attribute */
-	NSPStatus namespaceAttributeGet(std::string address, NSPSymbol attribute, NSPValue &value);
+	NSPStatus namespaceAttributeGet(std::string address, NSPSymbol attribute, NSPValue& value);
 
 	/** Create an oserver object on a parameter attribute which could execute callback methods when attribute value is updated */
 	NSPStatus namespaceObserverCreate(std::string address, NSPSymbol attribute, void* object, void (*returnValueCallback)	 (void*, NSPValue&)
@@ -78,15 +89,16 @@ public:
 	/** Save the namespace in a xml file */
 	NSPStatus namespaceSaveToXml(std::string filepath);
 
-	/** Load and build a namespace tree by parsing a xml file */
+	/** Load and build a namespace tree by parsing a xml file 
+		Note that namespace observers are not created */
 	NSPStatus namespaceLoadFromXml(std::string filepath);
 
-
+	
 private:
 	std::string m_appName;
 	std::string m_appVersion;
 	std::string m_creatorName;
 
+	void parseXmlParameters(XMLNode xmlNode);
 };
 
-#endif /*Namespace_H*/

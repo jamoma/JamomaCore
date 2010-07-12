@@ -9,9 +9,6 @@
 
 #include "Namespace.h"
 
-#include "xmlParser.h"
-
-
 Namespace::Namespace(std::string appName, std::string appVersion, std::string creatorName)
 {
 	m_appName = appName;
@@ -79,7 +76,7 @@ Namespace::namespaceParameterCreate(std::string address, void* object, void (*re
 }
 
 NSPStatus 
-Namespace::namespaceAttributeSet(std::string address, NSPSymbol attribute, TTValue value)
+Namespace::namespaceAttributeSet(std::string address, TTSymbolPtr attribute, TTValue value)
 {
 	TTErr err, err1;
 	TTList returnedTTNodes;
@@ -96,7 +93,6 @@ Namespace::namespaceAttributeSet(std::string address, NSPSymbol attribute, TTVal
 		firstReturnedTTNode->getAttributeValue(kTTSym_Object, v);
 		v.get(0, (TTPtr*)&param);
 
-		param->registerAttribute(attribute, value.getType(), (void*)address.c_str());
 		err1 = param->setAttributeValue(attribute, value);
 
 		if (err1 != kTTErrNone) {
@@ -111,8 +107,36 @@ Namespace::namespaceAttributeSet(std::string address, NSPSymbol attribute, TTVal
 }
 
 NSPStatus 
-Namespace::namespaceObserverCreate(std::string address, NSPSymbol attribute, void* object, void (*returnValueCallback)	(TTPtr, TTValue&)
-																						 , void (*returnAddressCallback)(TTPtr, TTValue&))
+Namespace::namespaceAttributeGet(std::string address, TTSymbolPtr attribute, TTValue& value)
+{
+	// get the node which represent our parameter
+	TTList			aNodeList;
+	TTNodePtr		aNode;
+	TTModularDirectory->Lookup(TT(address), aNodeList, &aNode);
+
+	// get the object stored in the node
+	TTParameterPtr	anObject;
+	aNode->getAttributeValue(kTTSym_Object, value);
+	value.get(0, (TTPtr*)&anObject);
+
+	if (anObject == NULL) {
+		//TTLogMessage("anObject isnot Parameter \n");
+		return NSP_INVALID_ADDRESS;
+	}
+
+	// get the attribute value of the parameter
+	value.clear();
+	TTErr err = anObject->getAttributeValue(attribute, value);
+	if (err != kTTErrNone) {
+		return NSP_INVALID_ATTRIBUTE;
+	}
+
+	return NSP_NO_ERROR;
+}
+
+NSPStatus 
+Namespace::namespaceObserverCreate(std::string address, TTSymbolPtr attribute, void* object, void (*returnValueCallback)	(TTPtr, TTValue&)
+																						   , void (*returnAddressCallback)	(TTPtr, TTValue&))
 {
 	TTReceiverPtr	myReceiver = NULL;
 	TTCallbackPtr	r_returnAddressCallback = NULL; 
@@ -147,7 +171,7 @@ Namespace::namespaceObserverCreate(std::string address, NSPSymbol attribute, voi
 }
 
 NSPStatus 
-Namespace::namespaceValueSend(std::string address, NSPSymbol attribute, TTValue value)
+Namespace::namespaceValueSend(std::string address, TTSymbolPtr attribute, TTValue value)
 {
 	TTSenderPtr	sender = NULL;
 	
@@ -168,35 +192,31 @@ Namespace::namespaceValueSend(std::string address, NSPSymbol attribute, TTValue 
 	return NSP_NO_ERROR;
 }
 
+void addAttributeToXml(TTParameterPtr param, XMLNode xmlNode, TTSymbolPtr attrName)
+{
+	TTValue		v;
+	TTString	s;
+
+	// get the Value of an attribute and format to string
+	param->getAttributeValue(attrName, v);
+	v.toString();
+	v.get(0, s);
+
+	// add this attribute in xml tree
+	XMLNode xparam = xmlNode.addChild("Attribute");
+	xparam.addAttribute_("name", attrName->getCString());
+	xparam.addAttribute_("value", s.c_str());
+}
+
 void snapshot(XMLNode xmlNode, TTNodePtr ttNode)
 {
 	TTSymbolPtr OSCaddress;
-	TTValue	attributeNameList;
-	TTSymbolPtr attributeName;
-	TTList childList;
-	TTNodePtr p_node;
+	TTValue		v;
+	TTList		childList;
+	TTNodePtr	p_node;
+	TTString	s;
 	
 	ttNode->getOscAddress(&OSCaddress);
-
-	// get the Object attribute of node
-	TTValue		v;
-	TTObjectPtr o;
-	ttNode->getAttributeValue(kTTSym_Object, v);
-	v.get(0, TTObjectHandle(&o));
-	
-	// if the Object is a Parameter get it attribute names
-	if (o->getName() == TT("Parameter") {
-		TTParameterPtr param;
-		TTValue v;
-		ttNode->getAttributeValue(kTTSym_Object, v);
-		v.get(0, (TTPtr*)&param);
-		param->getAttributeNames(attributeNameList);
-	} 
-	// else get node attribute names
-	else {
-		ttNode->getAttributeNames(attributeNameList);
-	}
-
 	ttNode->getChildren(S_WILDCARD, S_WILDCARD, childList);
 
 	XMLNode childNode;
@@ -208,13 +228,21 @@ void snapshot(XMLNode xmlNode, TTNodePtr ttNode)
 	childNode.addAttribute_("name", OSCaddress->getCString());
 
 	if (childList.isEmpty()) {
-		for (int i = 0; i < attributeNameList.getSize(); i++) {
-			attributeNameList.get(i,(TTSymbolPtr*)&attributeName);
-			XMLNode param = childNode.addChild("Attribute");
-			param.addAttribute_("name", attributeName->getCString());
-		}
+		// get the Parameter object of the Node
+		TTParameterPtr param;
+		ttNode->getAttributeValue(kTTSym_Object, v);
+		v.get(0, (TTPtr*)&param);
+
+		addAttributeToXml(param, childNode, kTTSym_Type);
+		addAttributeToXml(param, childNode, kTTSym_Value);
+		addAttributeToXml(param, childNode, kTTSym_ValueDefault);
+		addAttributeToXml(param, childNode, kTTSym_RangeBounds);
+		addAttributeToXml(param, childNode, kTTSym_ValueStepsize);
+		addAttributeToXml(param, childNode, kTTSym_Priority);
+		addAttributeToXml(param, childNode, kTTSym_Description);
 	}
 
+	// repeat recursively for each child
 	for (childList.begin(); childList.end(); childList.next()) {
 		childList.current().get(0,(TTPtr*)&p_node);
 		snapshot(childNode, p_node);
@@ -225,18 +253,113 @@ void snapshot(XMLNode xmlNode, TTNodePtr ttNode)
 NSPStatus 
 Namespace::namespaceSaveToXml(std::string filepath)
 {
-	XMLNode xMainNode = XMLNode::createXMLTopNode("xml",TRUE);
-    xMainNode.addAttribute_("version","1.0");
-
-	//TTList childList;
+	// add xml header
+	XMLNode xMainNode = XMLNode::createXMLTopNode("xml", true);
+    xMainNode.addAttribute_("version", "1.0");
+	XMLNode node = xMainNode.addChild("Namespace");
+	node.addAttribute_("appName", m_appName.data());
+	node.addAttribute_("appVersion", m_appVersion.data());
+	node.addAttribute_("creatorName", m_creatorName.data());
+	
 	TTNodePtr root = TTModularDirectory->getRoot();
-
-	//root->getChildren(S_WILDCARD, S_WILDCARD, childList);
 	
-	snapshot(xMainNode, root);
+	// recursive method to get the namespace and build the xml tree
+	snapshot(node, root);
 	
+	// write the datas in xml file
+	xMainNode.writeToFile(filepath.c_str(), "ISO-8859-1");
 
-	xMainNode.writeToFile(filepath.c_str(),"ISO-8859-1");
+	return NSP_NO_ERROR;
+}
+
+void 
+Namespace::parseXmlParameters(XMLNode xmlNode)
+{
+	int nChild = xmlNode.nChildNode();
+
+	// for each child of the node
+	for (int i = 0; i < nChild; i++) {
+		XMLNode child = xmlNode.getChildNode(i);
+
+		const char* name = child.getName();
+		
+		// check if it is a Parameter
+		if (strcmp(name, "Parameter") == 0) {
+			
+			// create the Parameter in the namespace tree
+			namespaceParameterCreate(child.getAttribute("name"), NULL);
+
+			int nAttrChild = child.nChildNode("Attribute");
+
+			const char* type = child.getChildNode(0).getAttribute("value");
+			
+			// get all it attributes
+			TTValue value;
+			for (int j = 0; j < nAttrChild; j++) {
+				XMLNode attrChild = child.getChildNode(j);
+
+				const char* attrName = attrChild.getAttribute("name");
+
+				value.clear();
+				
+				// convert attribute values from const char* to their real types
+				if (strcmp(attrName, NSPAttr_TYPE->getCString()) == 0 
+					|| strcmp(attrName, NSPAttr_RANGE->getCString()) == 0
+					|| strcmp(attrName, NSPAttr_PRIORITY->getCString()) == 0 
+					|| strcmp(attrName, NSPAttr_DESCRIPTION->getCString()) == 0) {
+
+					const char* type = attrChild.getAttribute("value");
+					value = TTValue(TT(type));
+					
+				}
+				if (strcmp(attrName, NSPAttr_VAL->getCString()) == 0 
+					|| strcmp(attrName, NSPAttr_DEFAULT->getCString()) == 0 
+					|| strcmp(attrName, NSPAttr_STEP->getCString()) == 0) {
+
+					const char* val = attrChild.getAttribute("value");
+
+					if (strncmp(type, NSPType_FLOAT->getCString(), 3) == 0) {
+						double tmp = atof(val);
+						value = TTValue(tmp);
+					} 
+					else if (strncmp(type, NSPType_INT->getCString(), 3) == 0) {
+						int tmp = atoi(val);
+						value = TTValue(tmp);
+					}
+					else if (strncmp(type, NSPType_BOOL->getCString(), 3) == 0) {
+						bool tmp = atoi(val);
+						value = TTValue(tmp);
+					}
+					else if (strncmp(type, NSPType_STRING->getCString(), 3) == 0) {
+						value = TTValue((std::string)val);
+					}
+					else if (strncmp(type, NSPType_GENERIC->getCString(), 3) == 0) {
+						void* tmp = (void*)val;
+						value = TTValue(tmp);
+					}
+				}
+
+				// Initialise the attribute in the namespace tree
+				namespaceAttributeSet(child.getAttribute("name"), TT(attrName), value);
+			} 
+		} else {
+			// if not a Parameter call it recursively for each child
+			parseXmlParameters(child);
+		}
+	}
+}
+
+NSPStatus 
+Namespace::namespaceLoadFromXml(std::string filepath)
+{
+	XMLNode xMainNode;
+	XMLError err = XMLNode::openFileHelper(&xMainNode, filepath.c_str(), "Namespace");
+	if (err == eXMLErrorFileNotFound)
+		return NSP_FILE_NOTFOUND;
+	if (err == eXMLErrorFirstTagNotFound)
+		return NSP_XMLPARSING_ERROR;
+
+	parseXmlParameters(xMainNode);
 
 	return NSP_NO_ERROR;
 }

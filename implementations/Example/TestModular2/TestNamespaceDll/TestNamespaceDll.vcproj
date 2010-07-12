@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="TestModular2"
-	ProjectGUID="{7CF22BB6-526E-4A3A-AD28-9F61B9D600C1}"
-	RootNamespace="TestModular2"
+	Name="TestNamespaceDll"
+	ProjectGUID="{B19D5AA1-4F5B-4B44-9B61-2F284DBD4859}"
+	RootNamespace="TestNamespaceDll"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -41,12 +41,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../../Foundation/library/includes;../../../../DSP/library/includes;../../../library/source;../../../library/DataspaceLib;../../../library/FunctionLib;../../../library/RampLib;../../../library/PeerObject;&quot;../../../supports/objectivemax/SDKs/Max5/c74support/max-includes&quot;"
-				PreprocessorDefinitions="TT_PLATFORM_WIN;WIN32;_DEBUG;_WINDOWS;WIN_VERSION;_CRT_SECURE_NO_WARNINGS"
-				MinimalRebuild="false"
-				BasicRuntimeChecks="0"
-				RuntimeLibrary="3"
-				TreatWChar_tAsBuiltInType="false"
+				AdditionalIncludeDirectories="&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Modular\implementations\Example\TestModular2\Namespace&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Modular\library\source&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Foundation\library\includes&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Modular\library\PeerObject&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Modular\library\DataspaceLib&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Modular\library\FunctionLib&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;TT_PLATFORM_WIN;TT_STATIC;NAMESPACE_STATIC;_CRT_SECURE_NO_WARNINGS"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
@@ -62,10 +61,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="Advapi32.lib User32.lib"
-				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib TTModular.lib $(NOINHERIT)"
+				AdditionalOptions="ws2_32.lib"
+				AdditionalDependencies="Namespace.lib JamomaFoundation.lib TTModular.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;../../../../Foundation/library/$(ConfigurationName)&quot;;&quot;../../../../DSP/library/$(ConfigurationName)&quot;;&quot;../../../library/$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Modular\implementations\Example\TestModular2\Namespace\Debug&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Foundation\library\build&quot;;&quot;C:\Users\Laurent Garnier\Travail\Galamus\NodeLib\Jamoma\Modules\Modular\library\Debug&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -119,7 +118,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -139,7 +138,7 @@
 				Name="VCLinkerTool"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
-				SubSystem="1"
+				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
@@ -170,38 +169,28 @@
 	<References>
 	</References>
 	<Files>
-		<File
-			RelativePath=".\Coordinate.cpp"
+		<Filter
+			Name="Fichiers sources"
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-		</File>
-		<File
-			RelativePath=".\Coordinate.h"
+			<File
+				RelativePath=".\main.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Fichiers d&apos;en-tête"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-		</File>
-		<File
-			RelativePath=".\Includes.h"
+		</Filter>
+		<Filter
+			Name="Fichiers de ressources"
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
-		</File>
-		<File
-			RelativePath=".\main.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\Namespace.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\Namespace.h"
-			>
-		</File>
-		<File
-			RelativePath=".\xmlParser.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\xmlParser.h"
-			>
-		</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

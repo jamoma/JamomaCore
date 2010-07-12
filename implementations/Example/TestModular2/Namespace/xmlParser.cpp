@@ -388,7 +388,7 @@ XMLCHAR xmltoc(XMLCSTR t,const XMLCHAR v){ if (t&&(*t)) return *t; return v; }
 
 // Since each application has its own way to report and deal with errors, you should modify & rewrite
 // the following "openFileHelper" function to get an "error reporting mechanism" tailored to your needs.
-XMLNode XMLNode::openFileHelper(XMLCSTR filename, XMLCSTR tag)
+XMLError XMLNode::openFileHelper(XMLNode* xmlNode, XMLCSTR filename, XMLCSTR tag)
 {
     // guess the value of the global parameter "characterEncoding"
     // (the guess is based on the first 200 bytes of the file).
@@ -403,14 +403,17 @@ XMLNode XMLNode::openFileHelper(XMLCSTR filename, XMLCSTR tag)
 
     // parse the file
     XMLResults pResults;
-    XMLNode xnode=XMLNode::parseFile(filename,tag,&pResults);
+    *xmlNode=XMLNode::parseFile(filename,tag,&pResults);
 
     // display error message (if any)
     if (pResults.error != eXMLErrorNone)
     {
         // create message
         char message[2000],*s1=(char*)"",*s3=(char*)""; XMLCSTR s2=_CXML("");
-        if (pResults.error==eXMLErrorFirstTagNotFound) { s1=(char*)"First Tag should be '"; s2=tag; s3=(char*)"'.\n"; }
+        if (pResults.error==eXMLErrorFirstTagNotFound) { 
+			s1=(char*)"First Tag should be '"; s2=tag; s3=(char*)"'.\n"; 
+			return eXMLErrorFirstTagNotFound;
+		}
         sprintf(message,
 #ifdef _XMLWIDECHAR
             "XML Parsing error inside file '%S'.\n%S\nAt line %i, column %i.\n%s%S%s"
@@ -425,9 +428,9 @@ XMLNode XMLNode::openFileHelper(XMLCSTR filename, XMLCSTR tag)
 #else
         printf("%s",message);
 #endif
-        exit(255);
+		return eXMLErrorFileNotFound;
     }
-    return xnode;
+	return eXMLErrorNone;
 }
 
 /////////////////////////////////////////////////////////////////////////
