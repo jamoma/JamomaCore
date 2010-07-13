@@ -29,9 +29,9 @@
 					"outlettype" : [ "bang" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 108.0, 88.0, 942.0, 659.0 ],
+						"rect" : [ 108.0, 88.0, 1268.0, 680.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 108.0, 88.0, 942.0, 659.0 ],
+						"defrect" : [ 108.0, 88.0, 1268.0, 680.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -47,6 +47,34 @@
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-8",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 290.0, 440.0, 321.0, 19.0 ],
+									"text" : "This is sufficient to verify that ramp was stopped prematurely"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-4",
+									"maxclass" : "newobj",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"patching_rect" : [ 240.0, 440.0, 41.0, 19.0 ],
+									"text" : "< 700"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -66,39 +94,12 @@
 									"fontsize" : 10.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-6",
+									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 415.0, 550.0, 398.0, 19.0 ],
+									"patching_rect" : [ 725.0, 495.0, 234.0, 31.0 ],
 									"text" : "- scheduler-driven ramping is screwed up: Goes immedeately to 100"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Verdana",
-									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-									"id" : "obj-4",
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 415.0, 535.0, 318.0, 19.0 ],
-									"text" : "- stop is not working as supposed to"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Verdana",
-									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-									"id" : "obj-3",
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 415.0, 520.0, 318.0, 19.0 ],
-									"text" : "This test currently indicates two problems:"
 								}
 
 							}
@@ -163,8 +164,8 @@
 									"maxclass" : "newobj",
 									"numinlets" : 2,
 									"numoutlets" : 0,
-									"patching_rect" : [ 240.0, 545.0, 155.0, 19.0 ],
-									"text" : "test.assert.equal TESTpi 500"
+									"patching_rect" : [ 240.0, 470.0, 143.0, 19.0 ],
+									"text" : "test.assert.equal TESTpi 1"
 								}
 
 							}
@@ -189,7 +190,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 290.0, 485.0, 54.0, 19.0 ],
+									"patching_rect" : [ 690.0, 465.0, 54.0, 19.0 ],
 									"text" : "pack 0 0"
 								}
 
@@ -203,7 +204,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 385.0, 400.0, 24.0, 19.0 ],
+									"patching_rect" : [ 785.0, 400.0, 24.0, 19.0 ],
 									"text" : "t b"
 								}
 
@@ -217,7 +218,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "float", "" ],
-									"patching_rect" : [ 365.0, 440.0, 37.0, 19.0 ],
+									"patching_rect" : [ 765.0, 435.0, 37.0, 19.0 ],
 									"text" : "timer"
 								}
 
@@ -270,7 +271,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "int", "bang" ],
-									"patching_rect" : [ 290.0, 385.0, 50.0, 19.0 ]
+									"patching_rect" : [ 690.0, 400.0, 50.0, 19.0 ]
 								}
 
 							}
@@ -310,7 +311,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 290.0, 520.0, 34.0, 19.0 ],
+									"patching_rect" : [ 690.0, 495.0, 34.0, 19.0 ],
 									"text" : "print"
 								}
 
@@ -508,15 +509,6 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-27", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-28", 1 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"destination" : [ "obj-29", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -526,10 +518,19 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-9", 0 ],
+									"destination" : [ "obj-4", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-28", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-27", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-4", 0 ]
 								}
 
 							}
@@ -547,13 +548,13 @@
 ,
 					"patching_rect" : [ 50.0, 100.0, 67.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"globalpatchername" : "",
-						"default_fontface" : 0
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p test_stop"
