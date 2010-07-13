@@ -20,6 +20,17 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-5",
+					"maxclass" : "gswitch2",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 50.0, 305.0, 39.0, 32.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-3",
@@ -29,9 +40,9 @@
 					"outlettype" : [ "bang" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 25.0, 69.0, 1016.0, 697.0 ],
+						"rect" : [ 182.0, 87.0, 1016.0, 697.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 25.0, 69.0, 1016.0, 697.0 ],
+						"defrect" : [ 182.0, 87.0, 1016.0, 697.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -71,51 +82,6 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 115.0, 625.0, 150.0, 19.0 ],
 									"text" : "Move on to the next test"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Verdana",
-									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-									"id" : "obj-49",
-									"linecount" : 3,
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 580.0, 425.0, 254.0, 43.0 ],
-									"text" : "The threshold is currently set to be more tolerant for scheduling than the ramp values themselves."
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Verdana",
-									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-									"id" : "obj-48",
-									"linecount" : 4,
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 580.0, 365.0, 254.0, 55.0 ],
-									"text" : "As we are dealing with floating point values, we check to ensure that the sum of absolute errors due to round of issues etc. are below a required threshold."
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Verdana",
-									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-									"id" : "obj-47",
-									"linecount" : 3,
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 580.0, 310.0, 233.0, 43.0 ],
-									"text" : "These two tests are examining the returned values during the ramp and the timing of the ramping respectively."
 								}
 
 							}
@@ -235,7 +201,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 495.0, 325.0, 41.0, 138.0 ],
+									"patching_rect" : [ 495.0, 325.0, 44.0, 138.0 ],
 									"text" : "0. 100. 200. 300. 400. 500. 600. 700. 800. 900. 1000."
 								}
 
@@ -334,7 +300,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 210.0, 325.0, 41.0, 138.0 ],
+									"patching_rect" : [ 210.0, 325.0, 44.0, 138.0 ],
 									"text" : "0. 100. 200. 300. 400. 500. 600. 700. 800. 900. 1000."
 								}
 
@@ -403,7 +369,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 270.0, 105.0, 125.0, 17.0 ],
+									"patching_rect" : [ 290.0, 105.0, 125.0, 17.0 ],
 									"text" : "attrset granularity 100"
 								}
 
@@ -459,8 +425,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 150.0, 105.0, 108.0, 17.0 ],
-									"text" : "0, 1000 ramp 1000"
+									"patching_rect" : [ 150.0, 105.0, 127.0, 17.0 ],
+									"text" : "set 0, 1000 ramp 1000"
 								}
 
 							}
@@ -475,6 +441,51 @@
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 150.0, 155.0, 241.0, 19.0 ],
 									"text" : "jcom.ramp @drive scheduler @function linear"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-49",
+									"linecount" : 3,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 580.0, 425.0, 254.0, 43.0 ],
+									"text" : "The threshold is currently set to be more tolerant for scheduling than the ramp values themselves."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-48",
+									"linecount" : 4,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 580.0, 365.0, 254.0, 55.0 ],
+									"text" : "As we are dealing with floating point values, we check to ensure that the sum of absolute errors due to round of issues etc. are below a required threshold."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-47",
+									"linecount" : 3,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 580.0, 310.0, 233.0, 43.0 ],
+									"text" : "These two tests are examining the returned values during the ramp and the timing of the ramping respectively."
 								}
 
 							}
@@ -501,7 +512,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-2", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 223.5, 91.5, 279.5, 91.5 ],
+									"midpoints" : [ 223.5, 91.5, 299.5, 91.5 ],
 									"source" : [ "obj-11", 2 ]
 								}
 
@@ -763,13 +774,13 @@
 ,
 					"patching_rect" : [ 50.0, 140.0, 125.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
-						"globalpatchername" : "",
 						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"fontface" : 0,
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p test-scheduler-linear"
@@ -1160,13 +1171,13 @@
 ,
 					"patching_rect" : [ 50.0, 100.0, 67.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
-						"globalpatchername" : "",
 						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"fontface" : 0,
 						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana"
 					}
 ,
 					"text" : "p test_stop"
@@ -1222,7 +1233,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 50.0, 320.0, 100.0, 19.0 ],
+					"patching_rect" : [ 50.0, 270.0, 100.0, 19.0 ],
 					"text" : "test.finished"
 				}
 
@@ -1230,9 +1241,9 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
+					"destination" : [ "obj-5", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
+					"midpoints" : [ 59.5, 296.5, 79.5, 296.5 ],
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -1252,6 +1263,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-4", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-5", 0 ]
 				}
 
 			}

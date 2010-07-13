@@ -42,7 +42,6 @@ SchedulerRamp::~SchedulerRamp()
 TTErr SchedulerRamp::setClock(const TTValue& newValue)
 {
 	attrClock = newValue;
-	//post("Tutten betutten");
 	return kTTErrNone;
 }
 
@@ -60,9 +59,10 @@ void SchedulerRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time
 		targetValue[i] = inValues[i];
 		startValue[i] = currentValue[i];
 	}
-	normalizedValue = 0.0;				// set the ramp to the beginning
+	normalizedValue = 0.0;							// set the ramp to the beginning
 	isRunning = true;
-	setclock_fdelay(NULL, clock, 0);	// start now
+	(callback)(baton, numValues, currentValue);		// output start values
+	setclock_fdelay(NULL, clock, attrGranularity);	// and schedule first tick
 }
 
 
