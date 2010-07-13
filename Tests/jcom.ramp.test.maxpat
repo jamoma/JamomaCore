@@ -164,8 +164,8 @@
 									"maxclass" : "newobj",
 									"numinlets" : 2,
 									"numoutlets" : 0,
-									"patching_rect" : [ 240.0, 470.0, 143.0, 19.0 ],
-									"text" : "test.assert.equal TESTpi 1"
+									"patching_rect" : [ 240.0, 470.0, 218.0, 19.0 ],
+									"text" : "test.assert.equal TEST-jcom.ramp-stop 1"
 								}
 
 							}
