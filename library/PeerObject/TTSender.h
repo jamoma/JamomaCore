@@ -26,7 +26,7 @@ public:
 private:
 	
 	TTBoolean			mIsSending;					///< a flag to lock the object in case of infinite loop
-	TTListPtr			mAddressObjectCache;		///< a cache containing all binded addresses and the object for quick access
+	TTListPtr			mObjectCache;				///< a cache containing all binded objects for quick access
 	TTObjectPtr			mObserver;					///< a life cycle observer
 	
 public:
@@ -37,7 +37,7 @@ public:
 	/**	Setter for mAttribute attribute. */
 	TTErr setAttribute(const TTValue& value);
 	
-	TTErr Send(TTValue& valueToSend);
+	TTErr send(TTValue& valueToSend);
 	
 private :
 	

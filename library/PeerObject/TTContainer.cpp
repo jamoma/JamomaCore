@@ -19,49 +19,103 @@ mDescription(""),
 mDirectory(NULL),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
-mParametersCache(NULL),
+mParametersObserversCache(NULL),
 mObserver(NULL)
 {
-	
-	TT_ASSERT("Correct number of args to create TTContainer", arguments.getSize() == 4);
-	
 	arguments.get(0, (TTPtr*)&mDirectory);
 	TT_ASSERT("Directory passed to TTContainer is not NULL", mDirectory);
-	arguments.get(1, &mAddress);
-	arguments.get(2, (TTPtr*)&mReturnAddressCallback);
-	TT_ASSERT("Return Address Callback passed to TTContainer is not NULL", mReturnAddressCallback);
-	arguments.get(3, (TTPtr*)&mReturnValueCallback);
-	TT_ASSERT("Return Value Callback passed to TTContainer is not NULL", mReturnValueCallback);
 	
+	if(arguments.getSize() == 3) {
+		arguments.get(1, (TTPtr*)&mReturnAddressCallback);
+		arguments.get(2, (TTPtr*)&mReturnValueCallback);
+	}
+	
+	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttribute(Priority, kTypeUInt8);
 	addAttribute(Description, kTypeString);
 
+	addMessageWithArgument(send);
+	
+	mIsSending = false;	
 }
 
 TTContainer::~TTContainer()
 {
-	;
+	unbind();
+}
+
+TTErr TTContainer::send(TTValue& AddressAndValue)
+{
+	TTValue			cacheElement;
+	TTValuePtr		valueToSend;
+	TTObjectPtr		aParameter;
+	TTSymbolPtr		aRelativeAddress;
+	TTErr			err;
+	
+	if (!mIsSending) {
+		
+		// lock
+		mIsSending = true;
+		
+		if (mParametersObserversCache) {
+			
+			// get relativeAddress and valueToSend
+			AddressAndValue.get(0, &aRelativeAddress);
+			AddressAndValue.get(1, (TTPtr*)&valueToSend);
+				
+			// get the Parameter object
+			err = mParametersObserversCache->lookup(aRelativeAddress, cacheElement);
+			
+			// if the relativeAddress is in the cache
+			if (!err) {
+				
+				cacheElement.get(0, (TTPtr*)&aParameter);
+				
+				// set the value attribute using a command
+				aParameter->sendMessage(kTTSym_Command, *valueToSend);
+			}
+			// if not use TTModularDirectory instead
+			else {
+				return kTTErrGeneric; // TODO : this would allow us to use * also
+			}
+				
+			//TODO : send to other attribute ?
+			
+		}
+
+		// unlock
+		mIsSending = false;	
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTContainer::setAddress(const TTValue& value)
+{	
+	unbind();
+	mAddress = value;
+	return bind();
 }
 
 TTErr TTContainer::bind()
 {
 	TTNodePtr		aNode;
-	TTValuePtr		newBaton, cacheParameter;
+	TTValuePtr		newBaton;
 	TTList			aNodeList, allParametersNodes;
 	TTValue			v;
+	TTErr			err = kTTErrNone;
 	
-	TTErr		err = kTTErrNone;
+	mParametersObserversCache  = new TTHash();
 	
 	// 1. Look for all Parameters under the address into the directory
 	err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
 	err = mDirectory->LookFor(&aNodeList, testObjectType, TT("Parameter"), allParametersNodes, &aNode);
 	
 	// 2. make a cache containing each relativeAddress : Parameter and Observer
-	mParametersCache  = new TTHash();
 	for (allParametersNodes.begin(); allParametersNodes.end(); allParametersNodes.next()) {
 		
 		allParametersNodes.current().get(0, (TTPtr*)&aNode);
-		makeCacheParameter(aNode, cacheParameter);
+		makeCacheElement(aNode);
 	}
 	
 	// 3. Observe any creation or destruction below the address
@@ -72,33 +126,43 @@ TTErr TTContainer::bind()
 	newBaton->append(TTPtr(kTTSymEmpty));
 	
 	mObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-	mObserver->setAttributeValue(TT("Function"), TTPtr(&TTSenderDirectoryCallback));
+	mObserver->setAttributeValue(TT("Function"), TTPtr(&TTContainerDirectoryCallback));
 	
 	mObserver->setAttributeValue(TT("Owner"), TT("TTContainer"));		// this is usefull only to debug
 	
 	mDirectory->addObserverForNotifications(mAddress, *mObserver);
 	
-	return err;
+	return kTTErrNone;
 }
 
-TTErr TTContainer::makeCacheParameter(TTNodePtr aNode, TTValuePtr cacheParameter)
+TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 {
-	TTSymbolPtr		anAddress, aRelativeAddress;
-	TTObjectPtr		aParameter, newObserver;	
+	TTValue			cacheElement;
+	TTSymbolPtr		anAddress, returnedPart1, aRelativeAddress;
+	TTObjectPtr		aParameter, newObserver;
+	TTString		addSlash;
 	TTAttributePtr	anAttribute = NULL;
 	TTValuePtr		newBaton;
 	TTValue			v;
+	TTUInt8			nbSeparator;
 	
 	// process the relative address
+	if (mAddress == S_SEPARATOR)
+		nbSeparator = 0;
+	else
+		nbSeparator = countSeparator(mAddress);
 	aNode->getOscAddress(&anAddress);
-	aRelativeAddress = anAddress; // TODO
+	splitAtOSCAddress(anAddress, nbSeparator, &returnedPart1, &aRelativeAddress);
+	addSlash = C_SEPARATOR;
+	addSlash += aRelativeAddress->getCString();
+	aRelativeAddress = TT(addSlash.data());
 	
-	// get the TTParameter object
+	// add parameter to the cacheElement
 	aNode->getAttributeValue(kTTSym_Object, v);
 	v.get(0, (TTPtr*)&aParameter);
-	cacheParameter = new TTValue((TTPtr)aParameter);
+	cacheElement.append((TTPtr)aParameter);
 	
-	// create a value Attribute observer on it
+	// create a Value Attribute observer on it
 	aParameter->findAttribute(kTTSym_Value, &anAttribute);
 	
 	newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -109,15 +173,111 @@ TTErr TTContainer::makeCacheParameter(TTNodePtr aNode, TTValuePtr cacheParameter
 	
 	newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
 	newObserver->setAttributeValue(TT("Function"), TTPtr(&TTContainerAttributeCallback));
-	
 	newObserver->setAttributeValue(TT("Owner"), TT("TTContainer"));					// this is usefull only to debug
 	
 	anAttribute->registerObserverForNotifications(*newObserver);
 	
-	cacheParameter->append(newObserver);
+	// add observer to the cacheElement
+	cacheElement.append((TTPtr)newObserver);
 	
-	// append to the cache hash table
-	mParametersCache->append(aRelativeAddress, cacheParameter);
+	// append the cacheElement to the cache hash table
+	mParametersObserversCache->append(aRelativeAddress, cacheElement);
+	
+	return kTTErrNone;
+}
+
+TTErr TTContainer::deleteCacheElement(TTSymbolPtr anAddress)
+{
+	TTSymbolPtr		returnedPart1, aRelativeAddress;
+	TTValue			v;
+	TTString		addSlash;
+	TTValue			cacheElement;
+	TTObjectPtr		aParameter, anObserver;
+	TTAttributePtr	anAttribute;
+	TTUInt8			nbSeparator;
+	TTErr			err;
+	
+	// process the relative address
+	if (mAddress == S_SEPARATOR)
+		nbSeparator = 0;
+	else
+		nbSeparator = countSeparator(mAddress);
+	splitAtOSCAddress(anAddress, nbSeparator, &returnedPart1, &aRelativeAddress);
+	addSlash = C_SEPARATOR;
+	addSlash += aRelativeAddress->getCString();
+	aRelativeAddress = TT(addSlash.data());
+	
+	// delete attribute observer
+	err = mParametersObserversCache->lookup(aRelativeAddress, cacheElement);
+	
+	if (!err) {
+		cacheElement.get(0, (TTPtr*)&aParameter);
+		cacheElement.get(1, (TTPtr*)&anObserver);
+		
+		anAttribute = NULL;
+		err = aParameter->findAttribute(kTTSym_Value, &anAttribute);
+		
+		if(!err){
+			
+			err = anAttribute->unregisterObserverForNotifications(*anObserver);
+			
+			if(!err)
+				TTObjectRelease(&anObserver);
+		}
+	}
+
+	// remove cacheParameter
+	return mParametersObserversCache->remove(aRelativeAddress);
+}
+
+TTErr TTContainer::unbind()
+{
+	TTValue			hk, v;
+	TTValue			cacheElement;
+	TTObjectPtr		aParameter, anObserver;
+	TTAttributePtr	anAttribute;
+	TTSymbolPtr		key;
+	TTUInt8			i;
+	TTErr			err;
+	
+	// delete all attribute observers of mParametersObserversCache
+	if (mParametersObserversCache) {
+		
+		mParametersObserversCache->getKeys(hk);
+		
+		for (i=0; i<mParametersObserversCache->getSize(); i++) {
+			
+			hk.get(i,(TTSymbolPtr*)&key);
+			mParametersObserversCache->lookup(key, cacheElement);
+			cacheElement.get(0, (TTPtr*)&aParameter);
+			cacheElement.get(1, (TTPtr*)&anObserver);
+			
+			anAttribute = NULL;
+			err = aParameter->findAttribute(kTTSym_Value, &anAttribute);
+			
+			if(!err){
+				
+				err = anAttribute->unregisterObserverForNotifications(*anObserver);
+				
+				if(!err)
+					TTObjectRelease(&anObserver);
+			}
+			
+		}
+		
+		delete mParametersObserversCache;
+	}
+	
+	// stop life cycle observation
+	if (mObserver && mDirectory) {
+		
+		err = mDirectory->removeObserverForNotifications(mAddress, *mObserver);
+		
+		if(!err)
+			TTObjectRelease(&mObserver);
+	}
+	
+	mAddress = kTTSymEmpty;
 	
 	return kTTErrNone;
 }
@@ -129,14 +289,12 @@ TTErr TTContainer::makeCacheParameter(TTNodePtr aNode, TTValuePtr cacheParameter
 
 TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 {
-	TTValuePtr		b, cacheParameter;
-	TTContainerPtr		aContainer;
+	TTValuePtr		b;
+	TTContainerPtr	aContainer;
 	TTCallbackPtr	anObserver;
 	TTNodePtr		aNode;
-	TTObjectPtr		anObject;
 	TTSymbolPtr		anAddress;
-	TTValue			v;
-	long			flag;
+	TTUInt8			flag;
 	
 	// unpack baton (a TTContainerPtr)
 	b = (TTValuePtr)baton;
@@ -152,18 +310,17 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 			
 		case kAddressCreated :
 		{
-			aContainer->makeCacheParameter(aNode, cacheParameter);
+			if (testObjectType(aNode, TT("Parameter")))
+			   aContainer->makeCacheElement(aNode);
 			
 			break;
 		}
 			
 		case kAddressDestroyed :
 		{
-			aNode->getAttributeValue(kTTSym_Object, v);
-			v.get(0, (TTPtr*)&anObject);
+			if (testObjectType(aNode, TT("Parameter"))) 
+				 aContainer->deleteCacheElement(anAddress);
 			
-			// TODO find the object in the cache and remove it
-
 			break;
 		}
 			
@@ -177,6 +334,27 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 
 TTErr TTContainerAttributeCallback(TTPtr baton, TTValue& data)
 {
+	TTValuePtr		b;
+	TTContainerPtr	aContainer;
+	TTSymbolPtr		oscAddress;
+	TTValue			address;
+		
+	// unpack baton
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&aContainer);
+	b->get(1, &oscAddress);
+	
+	if (aContainer->mReturnAddressCallback && aContainer->mReturnValueCallback) {
+		// return the address
+		address.append(oscAddress);
+		aContainer->mReturnAddressCallback->notify(address);
+		
+		// return the value
+		aContainer->mReturnValueCallback->notify(data);
+	}
+	else
+		return kTTErrGeneric;
+	
 	return kTTErrNone;
 }
 

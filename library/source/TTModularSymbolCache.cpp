@@ -12,6 +12,7 @@
 #include "TTModularSymbolCache.h"
 
 
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Address;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_boolean;
@@ -43,7 +44,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RampFunction;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Readonly;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RepetitionsAllow;
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Send;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_send;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Type;
@@ -56,6 +57,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ViewFreeze;
 
 void TTModularSymbolCacheInit()
 {
+	kTTSym_Address					= TT("Address");
 	kTTSym_array					= TT("array");
 	
 	kTTSym_boolean					= TT("boolean");
@@ -87,7 +89,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_Readonly					= TT("Readonly");
 	kTTSym_RepetitionsAllow			= TT("RepetitionsAllow");
 	
-	kTTSym_Send						= TT("Send");
+	kTTSym_send						= TT("send");
 	kTTSym_string					= TT("string");
 
 	kTTSym_Type						= TT("Type");

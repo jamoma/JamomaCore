@@ -11,6 +11,7 @@
 
 #include "TTSymbol.h"
 
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Address;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_boolean;
@@ -43,7 +44,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Readonly;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Receiver;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_RepetitionsAllow;
 
-extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Send;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_send;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Type;

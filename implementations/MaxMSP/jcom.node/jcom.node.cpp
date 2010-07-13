@@ -9,7 +9,8 @@
 
 #include "TTModularClassWrapperMax.h"
 
-#define data_out 0
+#define address_out 0
+#define data_out 1
 
 // Definitions
 void		WrapTTContainerClass(WrappedClassPtr c);
@@ -18,7 +19,12 @@ void		WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 t_max_err	node_notify(TTPtr self, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void		node_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
+void		node_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
+
 void		node_share_context_node(TTPtr self, TTNodePtr *contextNode);
+
+void		node_return_address(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
+void		node_return_value(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
 void		node_build(TTPtr self, SymbolPtr address);
 
@@ -39,6 +45,11 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)node_assist,					"assist",				A_CANT, 0L);
 	
 	class_addmethod(c->maxClass, (method)node_share_context_node,		"share_context_node",	A_CANT,	0);
+	
+	class_addmethod(c->maxClass, (method)node_return_address,			"return_address",		A_CANT, 0);
+	class_addmethod(c->maxClass, (method)node_return_value,				"return_value",			A_CANT, 0);
+	
+	class_addmethod(c->maxClass, (method)node_list,						"anything",				A_GIMME, 0L);
 	
 }
 
@@ -62,7 +73,10 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
 	defer_low((ObjectPtr)x, (method)node_build, address, 0, 0);
 	
-	// no outlet
+	// Make two outlets
+	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
+	x->outlets[address_out] = outlet_new(x, NULL);					// anything outlet to output address
+	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
 
 }
 
@@ -79,8 +93,11 @@ void node_build(TTPtr self, SymbolPtr address)
 	// if the subscription is successful
 	if (x->subscriberObject) {
 		
-		// debug
+		// set the Address attribute of the Container
 		x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
+		x->wrappedObject->setAttributeValue(kTTSym_Address, v);
+		
+		// debug
 		v.get(0, &nodeAddress);
 		object_post((ObjectPtr)x, "address = %s", nodeAddress->getCString());
 		
@@ -92,9 +109,7 @@ void node_build(TTPtr self, SymbolPtr address)
 		 node->getAttributeValue(TT("Context"), v);
 		v.get(0, (TTPtr*)&context);
 		object_attach_byptr_register(x, context, _sym_box);
-		
 
-		
 	}
 }
 
@@ -127,6 +142,25 @@ void node_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 		strcpy(dst, "");		
 	else if (msg==2)		// Outlets
 		strcpy(dst, "");
+}
+
+void node_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	jamoma_container_send((TTContainerPtr)x->wrappedObject, msg, argc, argv);
+}
+
+void node_return_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	outlet_anything(x->outlets[address_out], msg, argc, argv);
+}
+
+void node_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	outlet_anything(x->outlets[data_out], msg, argc, argv);
 }
 
 void node_share_context_node(TTPtr self, TTNodePtr *contextNode)

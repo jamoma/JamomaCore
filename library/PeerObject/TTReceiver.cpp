@@ -52,8 +52,7 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
 {
 	unbind();
 	mAddress = newValue;
-	bind();
-	return kTTErrNone;
+	return bind();
 }
 
 TTErr TTReceiver::setAttribute(const TTValue& newValue)
@@ -132,7 +131,7 @@ TTErr TTReceiver::bind()
 	TTNodePtr		aNode;
 	TTValue			v;
 	TTValuePtr		newBaton, newCouple;
-	TTErr			err = kTTErrNone;
+	TTErr			err;
 	
 	mNodesObserversCache = new TTList();
 	

@@ -415,13 +415,67 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextLi
 TTErr jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer)
 {
 	TTValue			args;
+	TTObjectPtr		returnAddressCallback, returnValueCallback;
+	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
-	// no arguments
+	// prepare arguments
+	
+	args.append(TTModularDirectory);
+	
+	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &returnAddressCallback, kTTValNONE);
+	returnAddressBaton = new TTValue(TTPtr(x));
+	returnAddressCallback->setAttributeValue(TT("Baton"), TTPtr(returnAddressBaton));
+	returnAddressCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_address));
+	args.append(returnAddressCallback);
+	
+	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
+	returnValueBaton = new TTValue(TTPtr(x));
+	returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
+	args.append(returnValueCallback);
 	
 	*returnedContainer = NULL;
 	TTObjectInstantiate(TT("Container"), TTObjectHandle(returnedContainer), args);
 	
 	return kTTErrNone;
+}
+
+/**	Send Max data using a container object */
+TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress, AtomCount argc, AtomPtr argv)
+{
+	TTSymbolPtr	r;
+	TTValue		v, data;
+	AtomCount	i;
+	
+	if (aContainer) {
+		
+		r = TT(relativeAddress->s_name);
+		data.append(r);
+		
+		if (argc == 0)
+			v = kTTValNONE;
+		else {
+			// convert Atom to TTValue
+			v.setSize(argc);
+			for (i=0; i<argc; i++) 
+			{
+				if (atom_gettype(argv+i) == A_LONG)
+					v.set(i, (int)atom_getlong(argv+i));
+				else if (atom_gettype(argv+i) == A_FLOAT)
+					v.set(i, atom_getfloat(argv+i));
+				else if (atom_gettype(argv+i) == A_SYM)
+					v.set(i, TT(atom_getsym(argv+i)->s_name));
+			}
+		}
+		data.append((TTPtr)&v);
+		
+		aContainer->sendMessage(kTTSym_send, data);
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
 }
 
 // Method to deal with TTParameter
@@ -539,7 +593,7 @@ TTErr jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, Ato
 			}
 		}
 		
-		aSender->sendMessage(kTTSym_Send, v);
+		aSender->sendMessage(kTTSym_send, v);
 		return kTTErrNone;
 	}
 	
@@ -636,7 +690,7 @@ void jamoma_callback_return_address(TTPtr p_baton, TTValue& data)
 	data.get(0, &address);
 	
 	// send data to a parameter using the return_value method
-	object_method(x, gensym("return_address"), SymbolGen(address->getCString()), 0, 0);
+	object_method(x, jps_return_address, SymbolGen(address->getCString()), 0, 0);
 }
 
 void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
@@ -686,7 +740,7 @@ void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 		msg = _sym_bang;
 	
 	// send data to a parameter using the return_value method
-	object_method(x, gensym("return_value"), msg, argc, argv);
+	object_method(x, jps_return_value, msg, argc, argv);
 	
 	sysmem_freeptr(argv);
 }

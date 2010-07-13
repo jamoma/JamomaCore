@@ -92,6 +92,9 @@ extern "C" {
 	/**	Create a container object */
 	TTErr			jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer);
 	
+	/**	Send Max data using a container object */
+	TTErr			jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress, AtomCount argc, AtomPtr argv);
+	
 	
 	// Method to deal with TTParameter
 	///////////////////////////////////////////////////////////////////////

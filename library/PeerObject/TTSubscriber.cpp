@@ -114,6 +114,9 @@ TTErr TTSubscriber::subscribe(TTObjectPtr anObject)
 
 				// Make a TTNode with TTContainer
 				aContainer = NULL;
+				args.append(TTModularDirectory);
+				args.append(NULL);
+				args.append(NULL);
 				TTObjectInstantiate(TT("Container"), TTObjectHandle(&aContainer), args);
 				
 				this->mContextNode->getAttributeValue(TT("Context"), aTempValue);
@@ -240,6 +243,9 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 					
 					// Make a TTNode with TTContainer
 					aContainer = NULL;
+					args.append(TTModularDirectory);
+					//args.append(NULL);
+					//args.append(NULL);
 					TTObjectInstantiate(TT("Container"), TTObjectHandle(&aContainer), args);
 					this->mDirectory->TTNodeCreate(TT(lowerContextAddress.data()), aContainer, aContext, &contextNode, &newInstanceCreated);
 
