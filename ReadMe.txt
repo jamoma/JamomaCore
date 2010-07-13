@@ -38,8 +38,8 @@ Jamoma Audio Graph is licensed as open source software under the terms of the GN
 
 
 Known Issues & Wish List
-See the issue tracker at http://redmine.jamoma.org/projects/multicore/issues
+See the issue tracker at http://redmine.jamoma.org/projects/audiograph/issues
 
 
 Change Log
-The change log can be found at http://redmine.jamoma.org/wiki/multicore
+The change log can be found at http://redmine.jamoma.org/wiki/audiograph
