@@ -25,8 +25,9 @@ mName(kTTSymEmpty)
 	addAttribute(Name, kTypeSymbol);
 	
 	addMessageWithArgument(LoadPlugins);
+	addMessageWithArgument(AddDevice);
+	
 	addMessageWithArgument(Scan);
-	addMessageWithArgument(AddMinuitDevice);
 	addMessageWithArgument(Discover);
 	addMessageWithArgument(Get);
 	addMessageWithArgument(Set);
@@ -56,7 +57,65 @@ TTErr TTDeviceManager::LoadPlugins(const TTValue& value)
 	TTSymbolPtr path;
 	value.get(0, &path);
 	
-	//mDeviceManager->pluginLoad(path->getCString());
+	mDeviceManager->pluginLoad(path->getCString());
+	mDeviceManager->pluginLaunch();
+	
+	return kTTErrNone;
+}
+
+TTErr TTDeviceManager::AddDevice(const TTValue& value)
+{
+	TTSymbolPtr	pluginToUse;
+	TTSymbolPtr deviceName;
+	TTSymbolPtr commParamName;
+	TTSymbolPtr commParam_SymValue;
+	TTInt32		commParam_IntValue;
+	TTFloat64	commParam_FloatValue;
+	TTValue		commParamValue;
+	TTString	commParamValueStr;
+	TTUInt8		i;
+	std::map<std::string, std::string> commParameters;
+
+	value.get(0, &deviceName);
+	value.get(1, &pluginToUse);
+	
+	// prepare commParameters
+	for (i=2; i<(value.getSize()-1); i=i+2) {
+		
+		if (value.getType(i) == kTypeSymbol) {
+			value.get(i, &commParamName);
+			
+			if ((i+1)<value.getSize() ) {
+				
+				commParamValue.clear();
+				if (value.getType(i+1) == kTypeSymbol) {
+					value.get(i+1, &commParam_SymValue);
+					commParamValue.append(commParam_SymValue);
+				}
+				else if (value.getType(i+1) == kTypeInt32) {
+					value.get(i+1, commParam_IntValue);
+					commParamValue.append(commParam_SymValue);
+				}
+				else if (value.getType(i+1) == kTypeFloat64) {
+					value.get(i+1, commParam_FloatValue);
+					commParamValue.append(commParam_FloatValue);
+				}
+				else return kTTErrGeneric;
+				
+				commParamValue.toString();
+				commParamValue.get(0, commParamValueStr);
+				
+				commParameters[commParamName->getCString()] = commParamValueStr.data();
+			}
+			else return kTTErrGeneric;
+		}
+		else return kTTErrGeneric;
+	}
+	
+
+	// create device
+	this->mDeviceManager->deviceAdd(deviceName->getCString(), pluginToUse->getCString(), &commParameters);
+	
 	return kTTErrNone;
 }
 
@@ -85,22 +144,6 @@ TTErr TTDeviceManager::Scan()
 		
 		++it;
 	}
-	
-	return kTTErrNone;
-}
-
-
-TTErr TTDeviceManager::AddMinuitDevice(TTSymbolPtr device_name, TTSymbolPtr ip, TTInt32 port)
-{
-	std::map<std::string, std::string> commParameters;
-	char s_port[8];
-	
-	snprintf(s_port, 8, "%ld", port);
-	
-	// create a new one
-	commParameters["ip"] = ip->getCString();
-	commParameters["port"] = s_port;
-	this->mDeviceManager->deviceAdd(device_name->getCString(), "Minuit", &commParameters);
 	
 	return kTTErrNone;
 }
@@ -380,7 +423,7 @@ void TTDeviceManagerDiscoverCallback(void* arg, Address whereToDiscover, std::ve
 				// if the node is a parameter : add it as a leaf
 				// else : add it as a node
 				aChild->getAttributeValue(TT("Object"), v);
-				v.get(0, TTObjectHandle(&o));
+				v.get(0, (TTPtr*)&o);
 				type = o->getName();
 				if(type == TT("Parameter"))
 					returnedLeaves.push_back(instanceName.c_str());
@@ -390,7 +433,7 @@ void TTDeviceManagerDiscoverCallback(void* arg, Address whereToDiscover, std::ve
 			
 			// Edit the vector with all attributes name
 			nodeToDiscover->getAttributeValue(TT("Object"), v);
-			v.get(0, TTObjectHandle(&o));
+			v.get(0, (TTPtr*)&o);
 			
 			// Add the access attribute which is not a jamoma attribute
 			// only for the parameter

@@ -130,8 +130,13 @@ TTErr TTSubscriber::subscribe(TTObjectPtr anObject)
 		
 		// Check if node exists
 		if ((_name != NO_NAME) && (_name->getCString()[0] != C_SEPARATOR))
-			nodeAddress += "/";
+			nodeAddress += C_SEPARATOR;
 		nodeAddress += _name->getCString();
+		
+		if (_instance != NO_INSTANCE) {
+			nodeAddress += C_INSTANCE;
+			nodeAddress += _instance->getCString();
+		}
 		
 		_node = TT(nodeAddress.data());
 		

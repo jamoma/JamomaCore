@@ -366,6 +366,9 @@ TTBoolean testObjectType(TTNodePtr n, void*args)
 	n->getAttributeValue(kTTSym_Object, v);
 	v.get(0, (TTPtr*)&o);
 	
-	return o->getName() == (TTSymbolPtr)args;
+	if (o)
+		return o->getName() == (TTSymbolPtr)args;
+	else
+		return NO;
 }
 

@@ -137,7 +137,7 @@ private:
 public:
 	
 	/************************************************
-	 CONTROLLER METHODS :
+	 DEVICE MANAGER METHODS :
 	 a set of methods used to handle DeviceManager.
 	 ************************************************/
 	

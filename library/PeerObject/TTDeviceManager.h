@@ -36,14 +36,15 @@ private:
 	
 public:
 	
+	/** Load all Plugins at a given location */
 	TTErr LoadPlugins(const TTValue& value);
 	
-	/** scan the network in order to add devices automatically */
+	/** Add a device manually giving < DeviceName, PluginToUse, commParamName1, commParamValue1, commParamName2, commParamValue2, ... > */
+	TTErr AddDevice(const TTValue& value);
+	
+	/** Scan the network in order to add devices automatically */
 	TTErr Scan();
-	
-	/** to add a Minuit device to the Jamoma Controller : /device_name IP port */
-	TTErr AddMinuitDevice(TTSymbolPtr device_name, TTSymbolPtr ip, TTInt32 port);
-	
+
 	/** to discover a remote device on the network */
 	TTErr Discover(TTSymbolPtr device, TTSymbolPtr address);
 	

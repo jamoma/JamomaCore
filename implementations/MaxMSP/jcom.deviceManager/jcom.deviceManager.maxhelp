@@ -1706,7 +1706,7 @@
 					"bgmode" : 1,
 					"id" : "obj-41",
 					"maxclass" : "bpatcher",
-					"name" : "jcom.maxhelpui.maxpat",
+					"name" : "jcom.maxhelpu.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 0.0, 0.0, 1142.0, 70.0 ],

@@ -48,7 +48,7 @@
 #include "TTReceiver.h"
 #include "TTMapper.h"
 #include "TTPreset.h"
-//#include "TTDeviceManager.h"
+#include "TTDeviceManager.h"
 
 // Macros
 
