@@ -1628,6 +1628,10 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		// Only one list member if @type is integer of decimal
 		if ( x->common.attr_type == jps_integer || x->common.attr_type == jps_decimal)
 			ac = 1;
+		// TODO: The below two commented lines cause #344 http://redmine.jamoma.org/issues/334
+		// On the other hand: How do we deal with ramping and multi-dimensional data spaces (e.g. position)?
+		// Will uncommenting them break that?
+		// I'll start out by developing tests that can help providing a clear defenition of desired behaviour
 //		else
 //		argc = argc - 2;
 		
