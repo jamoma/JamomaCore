@@ -644,7 +644,7 @@ void TTValue::set(const TTUInt16 index, const TTUInt16 newValue)
 	data[index].uint16 = newValue;
 }
 
-# if 1
+# if 0
 	void TTValue::set(const TTUInt16 index, const int newValue)
 #else
 	void TTValue::set(const TTUInt16 index, const TTInt32 newValue)
@@ -866,8 +866,8 @@ void TTValue::append(const TTUInt16 newValue)
 	set(numValues-1, newValue);
 }
 
-//void TTValue::append(const TTInt32 newValue)
-void TTValue::append(const int newValue)
+void TTValue::append(const TTInt32 newValue)
+//void TTValue::append(const int newValue)
 {
 	setSize(numValues + 1);
 	set(numValues-1, newValue);

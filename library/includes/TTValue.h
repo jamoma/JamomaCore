@@ -225,7 +225,7 @@ public:
 	void set(const TTUInt16 index, const TTUInt8 newValue);
 	void set(const TTUInt16 index, const TTInt16 newValue);
 	void set(const TTUInt16 index, const TTUInt16 value);
-# if 1
+# if 0
 	void set(const TTUInt16 index, const int newValue);
 #else
 	void set(const TTUInt16 index, const TTInt32 newValue);
@@ -284,8 +284,8 @@ public:
 	void append(const TTUInt8 newValue);
 	void append(const TTInt16 newValue);
 	void append(const TTUInt16 value);
-	//void append(const TTInt32 newValue);
-	void append(const int newValue);
+	void append(const TTInt32 newValue);
+	//void append(const int newValue);
 	void append(const TTUInt32 newValue);
 	void append(const TTInt64 newValue);
 	void append(const TTUInt64 newValue);
