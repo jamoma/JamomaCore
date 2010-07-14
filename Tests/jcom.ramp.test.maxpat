@@ -1110,8 +1110,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 115.0, 190.0, 54.0, 19.0 ],
-									"text" : "del 1100"
+									"patching_rect" : [ 115.0, 190.0, 48.0, 19.0 ],
+									"text" : "del 110"
 								}
 
 							}
