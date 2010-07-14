@@ -131,6 +131,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 }
 
 
+#pragma mark -
+#pragma mark life cycle
 /************************************************************************************/
 // Object Life
 
@@ -164,7 +166,8 @@ void ramp_free(t_ramp *x)
 	delete x->parameterNames;
 }
 
-
+#pragma mark -
+#pragma mark metods
 /************************************************************************************/
 // Methods bound to input/inlets
 
@@ -416,6 +419,8 @@ void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 }
 
 
+#pragma mark -
+#pragma mark attributes
 // RAMP UNIT ATTRIBUTES
 void ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 {
