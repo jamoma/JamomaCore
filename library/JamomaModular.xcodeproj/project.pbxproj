@@ -587,6 +587,7 @@
 					"\"$(SRCROOT)/DeviceManagerLib\"",
 					"\"$(SRCROOT)/../../../../Device-Manager\"",
 				);
+				OTHER_CODE_SIGN_FLAGS = "";
 				SDKROOT = macosx10.5;
 				SKIP_INSTALL = YES;
 			};

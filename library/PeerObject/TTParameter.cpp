@@ -25,8 +25,10 @@ mViewFreeze(NO),
 mRangeBoundsMin(0.0),
 mRangeBoundsMax(1.0),
 mRangeClipmode(kTTSym_none),
-//mRampDrive(kTTSym_none),
-//mRampFunction(kTTSymEmpty),
+#ifdef TTPARAMETER_RAMPLIB
+mRampDrive(kTTSym_none),
+mRampFunction(kTTSymEmpty),
+#endif
 mDataspace(kTTSym_none),
 mDataspaceUnitNative(kTTSym_none),
 mDataspaceUnitActive(kTTSym_none),
@@ -51,10 +53,10 @@ mDataspaceUnitDisplay(kTTSym_none)
 	addAttributeWithSetter(RangeBoundsMin, kTypeFloat64);
 	addAttributeWithSetter(RangeBoundsMax, kTypeFloat64);
 	addAttributeWithSetter(RangeClipmode, kTypeSymbol);
-	
-	//addAttributeWithSetter(RampDrive, kTypeSymbol);
-	//addAttributeWithSetter(RampFunction, kTypeSymbol);
-	
+#ifdef TTPARAMETER_RAMPLIB
+	addAttributeWithSetter(RampDrive, kTypeSymbol);
+	addAttributeWithSetter(RampFunction, kTypeSymbol);
+#endif	
 	addAttributeWithSetter(Dataspace, kTypeSymbol);
 	addAttributeWithSetter(DataspaceUnitNative, kTypeSymbol);
 	addAttributeWithSetter(DataspaceUnitActive, kTypeSymbol);
@@ -67,7 +69,10 @@ mDataspaceUnitDisplay(kTTSym_none)
 	mIsInitialised = NO;
 	
 	mValue = TTValue();
-	//mRamper = NULL;
+#ifdef TTPARAMETER_RAMPLIB
+	mRamper = NULL;
+	mRampParameterNames = new TTHash();
+#endif
 	dataspace_active2native	= NULL;
 	dataspace_override2active = NULL;
 	dataspace_active2display = NULL;
@@ -76,8 +81,10 @@ mDataspaceUnitDisplay(kTTSym_none)
 
 TTParameter::~TTParameter()
 {
-	//if (mRamper)
-	//	delete mRamper;
+#ifdef TTPARAMETER_RAMPLIB	
+	if (mRamper)
+	delete mRamper;
+#endif
 }
 
 TTErr TTParameter::Reset()
@@ -95,7 +102,9 @@ TTErr TTParameter::Reset()
 
 TTErr TTParameter::Command(const TTValue& command)
 {
-	//double		time;
+#ifdef TTPARAMETER_RAMPLIB
+	double		time;
+#endif
 	int			commandSize;
 	TTSymbolPtr	first, unit, ramp;
 	TTValue		aValue, convertedValue;
@@ -231,7 +240,7 @@ TTErr TTParameter::Command(const TTValue& command)
 	
 	// 5. Ramp the convertedValue
 	/////////////////////////////////
-	/*
+#ifdef TTPARAMETER_RAMPLIB
 	if (hasRamp) {
 		
 		command.get(commandSize - 1, time);
@@ -267,7 +276,7 @@ TTErr TTParameter::Command(const TTValue& command)
 		}
 	} 
 	else {
-	*/
+#endif
 		// check repetitions
 		if (!mRepetitionsAllow && mIsInitialised) {
 			if (mValue == convertedValue)
@@ -275,7 +284,10 @@ TTErr TTParameter::Command(const TTValue& command)
 		}
 		
 		setValue(convertedValue);
-	//}
+		
+#ifdef TTPARAMETER_RAMPLIB
+	}
+#endif
 	
 	return kTTErrNone;
 }
@@ -313,9 +325,12 @@ TTErr TTParameter::setValue(const TTValue& value)
 			if (mType == kTTSym_integer && ( value.getType() == kTypeFloat64 || value.getType() == kTypeFloat32 ))
 				mValue.truncate();
 			
+#ifdef TTPARAMETER_RAMPLIB
+			if (clipValue() && mRamper)
+				mRamper->stop();
+#else
 			clipValue();
-			//if (clipValue() && mRamper)
-			//	mRamper->stop();
+#endif
 			
 			// we have had our value set at least once
 			mIsInitialised = YES;
@@ -433,9 +448,11 @@ TTErr TTParameter::setType(const TTValue& value)
 			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
 			return kTTErrGeneric;
 		}
-	
-		//rampSetup();
-			
+
+#ifdef TTPARAMETER_RAMPLIB
+		rampSetup();
+#endif
+		
 		notifyObservers(kTTSym_Type, n);
 	}
 	return kTTErrNone;
@@ -489,7 +506,7 @@ TTErr TTParameter::setRangeClipmode(const TTValue& value)
 	return kTTErrNone;
 }
 
-/*
+#ifdef TTPARAMETER_RAMPLIB
 TTErr TTParameter::setRampDrive(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
@@ -500,9 +517,7 @@ TTErr TTParameter::setRampDrive(const TTValue& value)
 	notifyObservers(kTTSym_RampDrive, n);
 	return kTTErrNone;
 }
-*/
 
-/*
 TTErr TTParameter::setRampFunction(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
@@ -542,7 +557,7 @@ TTErr TTParameter::setRampFunction(const TTValue& value)
 	notifyObservers(kTTSym_RampFunction, n);
 	return kTTErrNone;
 }
-*/
+#endif
 
 TTErr TTParameter::setDataspace(const TTValue& value)
 {
@@ -695,7 +710,7 @@ TTBoolean TTParameter::clipValue()
 	return false;
 }
 
-/*
+#ifdef TTPARAMETER_RAMPLIB
 TTErr TTParameter::rampSetup()
 {
 
@@ -720,7 +735,7 @@ TTErr TTParameter::rampSetup()
 	
 	return kTTErrNone;	
 }
-*/
+#endif
 
 TTErr TTParameter::convertUnit(const TTValue& inValue, TTValue& outValue)
 {
@@ -750,7 +765,7 @@ TTErr TTParameter::notifyObservers(TTSymbolPtr attrName, const TTValue& value)
 #pragma mark Some Methods
 #endif
 
-/*
+#ifdef TTPARAMETER_RAMPLIB
 void TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 {
 	TTParameterPtr	aParameter = (TTParameterPtr)o;
@@ -773,4 +788,4 @@ void TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 		aParameter->notifyObservers(kTTSym_Value, aParameter->mValue);
 	}
 }
-*/
+#endif

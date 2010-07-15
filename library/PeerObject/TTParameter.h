@@ -13,7 +13,10 @@
 
 #include "DataspaceLib.h"
 #include "FunctionLib.h"
-//#include "RampLib.h"			// Excluding RampLib because it use MaxAPI...
+
+#ifdef TTPARAMETER_RAMPLIB
+#include "RampLib.h"			// Excluding RampLib because it use MaxAPI...
+#endif
 
 /**	TTParameter ... TODO : an explanation
  
@@ -32,8 +35,10 @@ TODO LIST :
  
  */				
 
-//class RampUnit;
-//typedef RampUnit*	RampUnitPtr;
+#ifdef TTPARAMETER_RAMPLIB
+class RampUnit;
+typedef RampUnit*	RampUnitPtr;
+#endif
 class DataspaceLib;
 typedef DataspaceLib*	DataspaceLibPtr;
 
@@ -58,9 +63,11 @@ public:
 	TTFloat64		mRangeBoundsMin;			///< ATTRIBUTE: 
 	TTFloat64		mRangeBoundsMax;			///< ATTRIBUTE: 
 	TTSymbolPtr		mRangeClipmode;				///< ATTRIBUTE: 
-	
-	//TTSymbolPtr		mRampDrive;					///< ATTRIBUTE: ramp mode 
-	//TTSymbolPtr		mRampFunction;				///< ATTRIBUTE: for setting the function used by the ramping
+
+#ifdef TTPARAMETER_RAMPLIB
+	TTSymbolPtr		mRampDrive;					///< ATTRIBUTE: ramp mode 
+	TTSymbolPtr		mRampFunction;				///< ATTRIBUTE: for setting the function used by the ramping
+#endif
 	
 	TTSymbolPtr		mDataspace;					///< ATTRIBUTE: The dataspace that this parameter uses (default is 'none')
 	TTSymbolPtr		mDataspaceUnitNative;		///< ATTRIBUTE: The native (model/algorithm) unit within the dataspace.
@@ -73,9 +80,11 @@ private:
 	
 	TTBoolean		mIsSending;					///< Flag to tell us if we are currently sending out our Value attribute
 	TTBoolean		mIsInitialised;				///< Flag to tell us if the Value attribute has been initialised
-	
-	//RampUnitPtr		mRamper;					///< Rampunit object to perform ramping of input values
-	//TTHashPtr		mRampParameterNames;		///< Cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
+
+#ifdef TTPARAMETER_RAMPLIB
+	RampUnitPtr		mRamper;					///< Rampunit object to perform ramping of input values
+	TTHashPtr		mRampParameterNames;		///< Cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
+#endif
 	
 	DataspaceLibPtr	dataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
 	DataspaceLibPtr	dataspace_override2active;	///< Performs conversion from messages like 'gain -6 db' to the active unit
@@ -134,12 +143,14 @@ public:
 	
 	/**	Setter for m attribute. */
 	TTErr setRangeClipmode(const TTValue& value);
+
+#ifdef TTPARAMETER_RAMPLIB
+	/**	Setter for m attribute. */
+	TTErr setRampDrive(const TTValue& value);
 	
 	/**	Setter for m attribute. */
-	//TTErr setRampDrive(const TTValue& value);
-	
-	/**	Setter for m attribute. */
-	//TTErr setRampFunction(const TTValue& value);
+	TTErr setRampFunction(const TTValue& value);
+#endif
 	
 	/**	Setter for m attribute. */
 	TTErr setDataspace(const TTValue& value);
@@ -157,20 +168,24 @@ private:
 	
 	TTBoolean	checkType(const TTValue& value);
 	TTBoolean	clipValue();
-	//TTErr		rampSetup();
 	TTErr		convertUnit(const TTValue& inValue, TTValue& outValue);
 	TTErr		notifyObservers(TTSymbolPtr attrName, const TTValue& value);
 	
-	//friend void TTMODULAR_EXPORT TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
+#ifdef TTPARAMETER_RAMPLIB
+	TTErr		rampSetup();
+	friend void TTMODULAR_EXPORT TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
+#endif
 	
 };
 
 typedef TTParameter* TTParameterPtr;
 
+#ifdef TTPARAMETER_RAMPLIB
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-//void TTMODULAR_EXPORT TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
+void TTMODULAR_EXPORT TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
+#endif
 
 #endif // __TT_PARAMETER_H__

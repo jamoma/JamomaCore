@@ -11,6 +11,7 @@
 
 #define TTMODULAR_VERSION_STRING "0.1"
 
+#define TTPARAMETER_RAMPLIB // to build TTParameter with the RampLib
 
 #ifdef TT_PLATFORM_WIN
 #include "windows.h"
