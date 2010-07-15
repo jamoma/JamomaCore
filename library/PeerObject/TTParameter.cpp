@@ -18,11 +18,12 @@ mValueDefault(TTValue(0.0)),
 mValueStepsize(TTValue(0.0)),
 mType(kTTSym_generic),
 mPriority(0),
-mDescription(""),
+mDescription(kTTSymEmpty),
 mRepetitionsAllow(YES),
 mReadonly(NO),
 mViewFreeze(NO),
-mRangeBounds(TTValue(0.0, 1.0)),
+mRangeBoundsMin(0.0),
+mRangeBoundsMax(1.0),
 mRangeClipmode(kTTSym_none),
 //mRampDrive(kTTSym_none),
 //mRampFunction(kTTSymEmpty),
@@ -42,12 +43,13 @@ mDataspaceUnitDisplay(kTTSym_none)
 	
 	addAttributeWithSetter(Type, kTypeSymbol);
 	addAttribute(Priority, kTypeUInt8);
-	addAttribute(Description, kTypeString);			// TODO : add case into defaultGetter and Setter in JamomaFoundation
+	addAttribute(Description, kTypeSymbol);
 	addAttributeWithSetter(RepetitionsAllow, kTypeBoolean);
 	addAttributeWithSetter(Readonly, kTypeBoolean);
 	addAttributeWithSetter(ViewFreeze, kTypeBoolean);
 	
-	addAttributeWithSetter(RangeBounds, kTypeNone);
+	addAttributeWithSetter(RangeBoundsMin, kTypeFloat64);
+	addAttributeWithSetter(RangeBoundsMax, kTypeFloat64);
 	addAttributeWithSetter(RangeClipmode, kTypeSymbol);
 	
 	//addAttributeWithSetter(RampDrive, kTypeSymbol);
@@ -303,9 +305,13 @@ TTErr TTParameter::setValue(const TTValue& value)
 		}
 		// otherwise check the type of the incoming value
 		else if (checkType(value)) {
-		
+			
 			// set internal value 
 			mValue = value;
+			
+			// float to integer case
+			if (mType == kTTSym_integer && ( value.getType() == kTypeFloat64 || value.getType() == kTypeFloat32 ))
+				mValue.truncate();
 			
 			clipValue();
 			//if (clipValue() && mRamper)
@@ -315,8 +321,11 @@ TTErr TTParameter::setValue(const TTValue& value)
 			mIsInitialised = YES;
 			
 		}
-		else
+		else {
+			// unlock
+			mIsSending = NO;
 			return kTTErrInvalidValue;
+		}
 		
 		// used new values to protect the attribute
 		r = mValue;
@@ -456,16 +465,18 @@ TTErr TTParameter::setViewFreeze(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::setRangeBounds(const TTValue& value)
+TTErr TTParameter::setRangeBoundsMin(const TTValue& value)
 {	
 	TTValue n = value;				// use new value to protect the attribute
+	mRangeBoundsMin = value;
+	notifyObservers(kTTSym_RangeBounds, n);
+	return kTTErrNone;
+}
 
-	if (value.getSize() == 1)
-		mRangeBounds.set(0, value.getFloat64());
-	
-	if (value.getSize() == 2)
-		mRangeBounds.set(1, value.getFloat64(1));
-	
+TTErr TTParameter::setRangeBoundsMax(const TTValue& value)
+{	
+	TTValue n = value;				// use new value to protect the attribute
+	mRangeBoundsMax = value;
 	notifyObservers(kTTSym_RangeBounds, n);
 	return kTTErrNone;
 }
@@ -634,16 +645,16 @@ TTBoolean TTParameter::checkType(const TTValue& value)
 	switch (value.getType()) 
 	{
 		case kTypeNone :		return mType == kTTSym_none;
-		case kTypeFloat32 :		return mType == kTTSym_decimal;
-		case kTypeFloat64 :		return mType == kTTSym_decimal;
-		case kTypeInt8 :		return mType == kTTSym_integer;
-		case kTypeUInt8 :		return mType == kTTSym_integer;
-		case kTypeInt16 :		return mType == kTTSym_integer;
-		case kTypeUInt16 :		return mType == kTTSym_integer;
-		case kTypeInt32 :		return mType == kTTSym_integer;
-		case kTypeUInt32 :		return mType == kTTSym_integer;
-		case kTypeInt64 :		return mType == kTTSym_integer;
-		case kTypeUInt64 :		return mType == kTTSym_integer;
+		case kTypeFloat32 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
+		case kTypeFloat64 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
+		case kTypeInt8 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
+		case kTypeUInt8 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
+		case kTypeInt16 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
+		case kTypeUInt16 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
+		case kTypeInt32 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
+		case kTypeUInt32 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
+		case kTypeInt64 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
+		case kTypeUInt64 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
 		case kTypeBoolean :		return mType == kTTSym_boolean;
 		case kTypeSymbol :		return mType == kTTSym_string;
 		case kTypeObject :		return false;
@@ -669,15 +680,15 @@ TTBoolean TTParameter::clipValue()
 		if (mType == kTTSym_generic || mType == kTTSym_integer || mType == kTTSym_decimal) {
 			
 			if (mRangeClipmode == kTTSym_low)
-				mValue.cliplow(mRangeBounds.getFloat64());
+				mValue.cliplow(mRangeBoundsMin);
 			else if (mRangeClipmode == kTTSym_high)
-				mValue.cliphigh(mRangeBounds.getFloat64(1));
+				mValue.cliphigh(mRangeBoundsMax);
 			else if (mRangeClipmode == kTTSym_both)
-				mValue.clip(mRangeBounds.getFloat64(), mRangeBounds.getFloat64(1));
+				mValue.clip(mRangeBoundsMin, mRangeBoundsMax);
 			else if (mRangeClipmode == kTTSym_wrap)
-				;//mValue.clipwrap(mRangeBounds.getFloat64(), mRangeBounds.getFloat64(1));
+				;//mValue.clipwrap(mRangeBoundsMin, mRangeBoundsMax);
 			else if (mRangeClipmode == kTTSym_fold)
-				;//mValue.clipfold(mRangeBounds.getFloat64(), mRangeBounds.getFloat64(1));
+				;//mValue.clipfold(mRangeBoundsMin, mRangeBoundsMax);
 		}
 	}
 	
@@ -743,7 +754,7 @@ TTErr TTParameter::notifyObservers(TTSymbolPtr attrName, const TTValue& value)
 void TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 {
 	TTParameterPtr	aParameter = (TTParameterPtr)o;
-	TTValue		rampedValue;
+	TTValue			rampedValue;
 	TTUInt16		i;
 	
 	rampedValue.setSize(n);

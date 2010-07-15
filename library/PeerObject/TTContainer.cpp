@@ -15,7 +15,7 @@
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
 mPriority(0), 
-mDescription(""),
+mDescription(kTTSymEmpty),
 mDirectory(NULL),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
@@ -32,7 +32,7 @@ mObserver(NULL)
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttribute(Priority, kTypeUInt8);
-	addAttribute(Description, kTypeString);
+	addAttribute(Description, kTypeSymbol);
 
 	addMessageWithArgument(send);
 	

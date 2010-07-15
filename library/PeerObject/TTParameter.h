@@ -50,12 +50,13 @@ public:
 	
 	TTSymbolPtr		mType;						///< ATTRIBUTE: type of this parameter's value
 	TTUInt8			mPriority;					///< ATTRIBUTE: does this parameter have a priority over other parameters ?
-	TTString		mDescription;				///< ATTRIBUTE: a text label to describe the role of this parameter
+	TTSymbolPtr		mDescription;				///< ATTRIBUTE: a text label to describe the role of this parameter
 	TTBoolean		mRepetitionsAllow;			///< ATTRIBUTE: is the same value can be update twice ?
 	TTBoolean		mReadonly;					///< ATTRIBUTE: 
 	TTBoolean		mViewFreeze;				///< ATTRIBUTE: freeze updating of graphical user interface
 	
-	TTValue			mRangeBounds;				///< ATTRIBUTE: 
+	TTFloat64		mRangeBoundsMin;			///< ATTRIBUTE: 
+	TTFloat64		mRangeBoundsMax;			///< ATTRIBUTE: 
 	TTSymbolPtr		mRangeClipmode;				///< ATTRIBUTE: 
 	
 	//TTSymbolPtr		mRampDrive;					///< ATTRIBUTE: ramp mode 
@@ -126,7 +127,10 @@ public:
 	TTErr setViewFreeze(const TTValue& value);
 	
 	/**	Setter for m attribute. */
-	TTErr setRangeBounds(const TTValue& value);
+	TTErr setRangeBoundsMin(const TTValue& value);
+	
+	/**	Setter for m attribute. */
+	TTErr setRangeBoundsMax(const TTValue& value);
 	
 	/**	Setter for m attribute. */
 	TTErr setRangeClipmode(const TTValue& value);

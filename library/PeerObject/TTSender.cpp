@@ -171,7 +171,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 	TTObjectPtr		anObject;
 	TTSymbolPtr		anAddress;
 	TTValue			v;
-	long			flag;
+	TTUInt8			flag;
 
 	// unpack baton (a TTSenderPtr)
 	b = (TTValuePtr)baton;

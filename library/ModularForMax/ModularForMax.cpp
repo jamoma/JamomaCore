@@ -462,7 +462,11 @@ TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress
 			for (i=0; i<argc; i++) 
 			{
 				if (atom_gettype(argv+i) == A_LONG)
+#if USE_TTInt32
+					v.set(i, (TTInt32)atom_getlong(argv+i));
+#else
 					v.set(i, (int)atom_getlong(argv+i));
+#endif
 				else if (atom_gettype(argv+i) == A_FLOAT)
 					v.set(i, atom_getfloat(argv+i));
 				else if (atom_gettype(argv+i) == A_SYM)
@@ -520,7 +524,11 @@ TTErr jamoma_parameter_command(TTParameterPtr aParameter, SymbolPtr msg, AtomCou
 			for (i=0; i<argc; i++) 
 			{
 				if (atom_gettype(argv+i) == A_LONG)
+#if USE_TTInt32
+					v.set(i, (TTInt32)atom_getlong(argv+i));
+#else
 					v.set(i, (int)atom_getlong(argv+i));
+#endif
 				else if (atom_gettype(argv+i) == A_FLOAT)
 					v.set(i, atom_getfloat(argv+i));
 				else if (atom_gettype(argv+i) == A_SYM)
@@ -585,7 +593,11 @@ TTErr jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, Ato
 			for (i=0; i<argc; i++) 
 			{
 				if (atom_gettype(argv+i) == A_LONG)
+#if USE_TTInt32
+					v.set(i, (TTInt32)atom_getlong(argv+i));
+#else
 					v.set(i, (int)atom_getlong(argv+i));
+#endif
 				else if (atom_gettype(argv+i) == A_FLOAT)
 					v.set(i, atom_getfloat(argv+i));
 				else if (atom_gettype(argv+i) == A_SYM)
@@ -664,7 +676,7 @@ TTErr jamoma_deviceManager_create(ObjectPtr x, SymbolPtr name, TTObjectPtr *retu
 	
 	// Make a TTDeviceManager object
 	args.append(TTModularDirectory);
-	args.append(name->s_name);
+	args.append(TT(name->s_name));
 	
 	*returnedDeviceManager = NULL;
 	TTObjectInstantiate(TT("DeviceManager"), TTObjectHandle(returnedDeviceManager), args);
@@ -726,7 +738,11 @@ void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 				//msg = _sym_symbol;
 			}
 			else{	// assume int
+#if USE_TTInt32
 				TTInt32		value;
+#else
+				int		value;
+#endif
 				v.get(i, value);
 				atom_setlong(argv+i, value);
 				//msg = _sym_long;

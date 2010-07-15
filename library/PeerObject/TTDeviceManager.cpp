@@ -50,6 +50,7 @@ TTDeviceManager::~TTDeviceManager()
 {
 	delete this->mDeviceManager;
 	delete mListernersCache;
+	
 }
 
 TTErr TTDeviceManager::LoadPlugins(const TTValue& value)
@@ -69,7 +70,11 @@ TTErr TTDeviceManager::AddDevice(const TTValue& value)
 	TTSymbolPtr deviceName;
 	TTSymbolPtr commParamName;
 	TTSymbolPtr commParam_SymValue;
+#if USE_TTInt32
 	TTInt32		commParam_IntValue;
+#else
+	int			commParam_IntValue = 0;
+#endif
 	TTFloat64	commParam_FloatValue;
 	TTValue		commParamValue;
 	TTString	commParamValueStr;
@@ -94,7 +99,7 @@ TTErr TTDeviceManager::AddDevice(const TTValue& value)
 				}
 				else if (value.getType(i+1) == kTypeInt32) {
 					value.get(i+1, commParam_IntValue);
-					commParamValue.append(commParam_SymValue);
+					commParamValue.append(commParam_IntValue);
 				}
 				else if (value.getType(i+1) == kTypeFloat64) {
 					value.get(i+1, commParam_FloatValue);
@@ -333,7 +338,7 @@ TTErr TTDeviceManagerDirectoryCallback(TTPtr baton, TTValue& data)
 	TTString			returnedValue;
 	TTSymbolPtr			oscAddress;
 	TTSymbolPtr			aNode;
-	long				flag;
+	TTUInt8				flag;
 	TTCallbackPtr		anObserver;
 	
 	// unpack baton (a t_object* and the name of the method to call)
@@ -463,7 +468,8 @@ void TTDeviceManagerGetCallback(void* arg, Address whereToGet, std::string attri
 	TTNodePtr nodeToGet;
 	TTList allChildren;
 	TTSymbolPtr nodeType, attributeName;
-	TTValue v;
+	TTValue v, min, max;
+	TTString s_min, s_max;
 	TTObjectPtr o;
 	
 	TTDeviceManagerPtr aTTDeviceManager = (TTDeviceManagerPtr) arg;
@@ -477,7 +483,7 @@ void TTDeviceManagerGetCallback(void* arg, Address whereToGet, std::string attri
 			
 			// test node type to get the access status
 			nodeToGet->getAttributeValue(TT("Object"), v);
-			v.get(0, TTObjectHandle(&o));
+			v.get(0, (TTPtr*)&o);
 			nodeType = o->getName();
 			
 			// Convert attribute into Jamoma style
@@ -489,6 +495,17 @@ void TTDeviceManagerGetCallback(void* arg, Address whereToGet, std::string attri
 				// TODO : add a Jamoma attribute for this
 				returnedValue = "getsetter";
 				
+			}
+			// filter Access attribute
+			else if(attributeName == TT("RangeBounds")){
+				
+				err = o->getAttributeValue(TT("RangeBoundsMin"), min);
+				err = o->getAttributeValue(TT("RangeBoundsMax"), max);
+				min.toString();
+				max.toString();
+				min.get(0, s_min);
+				max.get(0, s_max);
+				returnedValue = s_min + s_max;
 			}
 			else{
 				
@@ -515,7 +532,7 @@ void TTDeviceManagerSetCallback(void* arg, Address whereToSet, std::string attri
 	TTErr err;
 	TTNodePtr nodeToSet;
 	TTList allChildren;
-	TTSymbolPtr nodeType;
+	TTSymbolPtr nodeType, attrName;
 	TTValue attributeValue, v;
 	TTObjectPtr o;
 	
@@ -530,16 +547,20 @@ void TTDeviceManagerSetCallback(void* arg, Address whereToSet, std::string attri
 			
 			// test node type to get the access status
 			nodeToSet->getAttributeValue(TT("Object"), v);
-			v.get(0, TTObjectHandle(&o));
+			v.get(0, (TTPtr*)&o);
 			nodeType = o->getName();
 			
 			if(nodeType == TT("Parameter")){
 				
 				v.clear();
+				v.append(newValue);
+				v.fromString();
 				
-				// TODO : parse the value to have a TTValue
-				
-				nodeToSet->setAttributeValue(aTTDeviceManager->convertAttributeToJamoma(attribute), v);
+				attrName = aTTDeviceManager->convertAttributeToJamoma(attribute);
+				if (attrName == kTTSym_Value)
+					o->sendMessage(kTTSym_Command, v);
+				else
+					o->setAttributeValue(attrName, v);
 			}
 		}
 		else{
@@ -596,7 +617,7 @@ void TTDeviceManager::enableListening(std::string whereToSend, Address whereToLi
 			
 			// if the attribute exist
 			nodeToListen->getAttributeValue(TT("Object"), v);
-			v.get(0, TTObjectHandle(&o));
+			v.get(0, (TTPtr*)&o);
 			err = o->findAttribute(convertAttributeToJamoma(attributeToListen.c_str()), &anAttribute);
 			
 			if(!err){
@@ -629,8 +650,8 @@ void TTDeviceManager::disableListening(std::string whereToSend, Address whereToL
 	TTErr err;
 	TTAttributePtr anAttribute = NULL;
 	TTNodePtr nodeListened;
-	TTObjectPtr oldListener;
-	TTValue	temp;
+	TTObjectPtr oldListener, o;
+	TTValue	temp, v;
 	TTString keyLink;
 	
 	// Get the Node at the given address
@@ -661,7 +682,9 @@ void TTDeviceManager::disableListening(std::string whereToSend, Address whereToL
 			if(!err) {
 				
 				// if the attribute exist
-				err = nodeListened->findAttribute(convertAttributeToJamoma(attributeToListen), &anAttribute);
+				nodeListened->getAttributeValue(TT("Object"), v);
+				v.get(0, (TTPtr*)&o);
+				err = o->findAttribute(convertAttributeToJamoma(attributeToListen), &anAttribute);
 				
 				if(!err){
 					

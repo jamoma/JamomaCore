@@ -264,7 +264,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 	TTObjectPtr		newObserver, oldObserver, o;
 	TTNodePtr		aNode, p_node;
 	TTValue			c, address, v;
-	long			flag;
+	TTUInt8			flag;
 	TTBoolean		found;
 	TTCallbackPtr	anObserver;
 	TTValuePtr		newBaton, newCouple;

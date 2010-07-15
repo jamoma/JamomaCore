@@ -115,8 +115,13 @@ TTErr TTSubscriber::subscribe(TTObjectPtr anObject)
 				// Make a TTNode with TTContainer
 				aContainer = NULL;
 				args.append(TTModularDirectory);
+#if USE_TTInt32
+				args.append(0L);
+				args.append(0L);
+#else
 				args.append(NULL);
 				args.append(NULL);
+#endif
 				TTObjectInstantiate(TT("Container"), TTObjectHandle(&aContainer), args);
 				
 				this->mContextNode->getAttributeValue(TT("Context"), aTempValue);
@@ -160,7 +165,7 @@ TTErr TTSubscriber::subscribe(TTObjectPtr anObject)
 		// and set attribute access
 		else {
 			aTempValue.clear();
-			aTempValue.append(anObject);
+			aTempValue.append((TTPtr)anObject);
 			aNode->setAttributeValue(TT("Object"), aTempValue);
 			
 			// TODO : set attribute access after node creation

@@ -22,18 +22,18 @@ public:
 	
 	TTCLASS_SETUP(TTContainer)
 	
-	TTSymbolPtr			mAddress;					///< ATTRIBUTE: the address of the container in the directory
-	TTUInt8				mPriority;					///< ATTRIBUTE: does this container have a priority over other containers ?
-	TTString			mDescription;				///< ATTRIBUTE: a text label to describe the role of this container
+	TTSymbolPtr			mAddress;						///< ATTRIBUTE: the address of the container in the directory
+	TTUInt8				mPriority;						///< ATTRIBUTE: does this container have a priority over other containers ?
+	TTSymbolPtr			mDescription;					///< ATTRIBUTE: a text label to describe the role of this container
 	
 private:
 	
-	TTNodeDirectoryPtr	mDirectory;					///< the directory
-	TTCallbackPtr		mReturnAddressCallback;		///< a way to return received address to the owner of this receiver
-	TTCallbackPtr		mReturnValueCallback;		///< a way to return received value to the owner of this receiver
+	TTNodeDirectoryPtr	mDirectory;						///< the directory
+	TTCallbackPtr		mReturnAddressCallback;			///< a way to return received address to the owner of this receiver
+	TTCallbackPtr		mReturnValueCallback;			///< a way to return received value to the owner of this receiver
 	TTHashPtr			mParametersObserversCache;		///< a hast table containing all <relativeAddress : Parameters, Observer> for quick access
-	TTObjectPtr			mObserver;					///< a life cycle observer
-	TTBoolean			mIsSending;					///< a flag to lock the object in case of infinite loop 
+	TTObjectPtr			mObserver;						///< a life cycle observer
+	TTBoolean			mIsSending;						///< a flag to lock the object in case of infinite loop 
 	
 	friend TTErr TTMODULAR_EXPORT TTContainerDirectoryCallback(TTPtr baton, TTValue& data);
 	
