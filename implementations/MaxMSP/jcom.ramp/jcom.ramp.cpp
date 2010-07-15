@@ -166,8 +166,9 @@ void ramp_free(t_ramp *x)
 	delete x->parameterNames;
 }
 
+
 #pragma mark -
-#pragma mark metods
+#pragma mark methods
 /************************************************************************************/
 // Methods bound to input/inlets
 
@@ -186,120 +187,6 @@ void ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst)
 					break;
 		}
  	}		
-}
-
-
-void ramp_setFunction(t_ramp *x, t_symbol *functionName)
-{
-	long		n;
-	TTValue		names;
-	TTSymbol*	aName;
-	TTString	nameString;
-	
-	// set the function
-	x->rampUnit->setAttributeValue(TT("Function"), TT(functionName->s_name));
-	
-	// cache the function's attribute names
-	x->parameterNames->clear();
-	x->rampUnit->getFunctionParameterNames(names);
-	n = names.getSize();
-	for (int i=0; i<n; i++) {
-		names.get(i, &aName);
-		nameString = aName->getString();
-		
-		if (aName == TT("Bypass") || aName == TT("Mute") || aName == TT("MaxNumChannels") || aName == TT("SampleRate"))
-			continue;										// don't publish these parameters
-
-		if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
-			nameString[0] += 32;							// convert first letter to lower-case for Max
-
-			TTValuePtr v = new TTValue(aName);
-			x->parameterNames->append(TT(nameString.c_str()), *v);
-		}
-	}	
-}
-
-
-void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv)
-{
-	t_atom*		a;
-	TTSymbol*	parameterName;
-	TTValue		parameterValue;
-	int			numValues;
-	int			i;
-	TTSymbol*	tempSymbol;
-	double		tempValue;
-	TTValue		v;
-	
-	if (!argc) {
-		error("jcom.ramp: not enough arguments to function.parameter.get");
-		return;
-	}
-	
-	// get the correct TT name for the parameter given the Max name
-	parameterName = TT(atom_getsym(argv)->s_name);
-	obj->parameterNames->lookup(parameterName, v);
-	v.get(0, &parameterName);
-	
-	obj->rampUnit->getFunctionParameterValue(parameterName, parameterValue);
-	numValues = parameterValue.getSize();
-	if (numValues) {
-		a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
-		// First list item is name of parameter
-		atom_setsym(a, gensym((char*)parameterName->getCString()));
-		// Next the whole shebang is copied
-		for (i=0; i<numValues; i++) {
-			if (parameterValue.getType(i) == kTypeSymbol) {
-				parameterValue.get(i, &tempSymbol);
-				atom_setsym(a+i+1, gensym((char*)tempSymbol->getCString()));
-			}
-			else {
-				parameterValue.get(i, tempValue);
-				atom_setfloat(a+i+1, tempValue);
-			}
-		}
-		object_obex_dumpout(obj, gensym("function.parameter.get"), numValues+1, a);
-	
-		// The pointer to an atom assign in the getParameter method needs to be freed.
-		sysmem_freeptr(a);
-	}
-}
-
-
-void ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv)
-{
-	TTSymbol*	parameterName;
-	TTValue		newValue;
-	int			i;
-	TTValue		v;
-	
-	if (argc < 2) {
-		error("jcom.map: not enough arguments to setParameter");
-		return;
-	}
-	
-	// get the correct TT name for the parameter given the Max name
-	parameterName = TT(atom_getsym(argv)->s_name);
-	obj->parameterNames->lookup(parameterName, v);
-	v.get(0, &parameterName);
-	
-	for (i=1; i<=(argc-1); i++) {
-		if (argv[i].a_type == A_SYM)
-			newValue.append(TT(atom_getsym(argv+1)->s_name));
-		else
-			newValue.append(atom_getfloat(argv+i));
-	}
-	obj->rampUnit->setFunctionParameterValue(parameterName, newValue);
-}
-
-
-
-// ATTRIBUTE: set rampunit
-t_max_err ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv)
-{
-	x->attr_rampunit = atom_getsym(argv);
-	RampLib::createUnit(TT(x->attr_rampunit->s_name), &x->rampUnit, ramp_callback, (void *)x);
-	return MAX_ERR_NONE;
 }
 
 
@@ -421,7 +308,121 @@ void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 
 #pragma mark -
 #pragma mark attributes
-// RAMP UNIT ATTRIBUTES
+// ATTRIBUTE: set rampunit
+t_max_err ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv)
+{
+	x->attr_rampunit = atom_getsym(argv);
+	RampLib::createUnit(TT(x->attr_rampunit->s_name), &x->rampUnit, ramp_callback, (void *)x);
+	return MAX_ERR_NONE;
+}
+
+
+void ramp_setFunction(t_ramp *x, t_symbol *functionName)
+{
+	long		n;
+	TTValue		names;
+	TTSymbol*	aName;
+	TTString	nameString;
+	
+	// set the function
+	x->rampUnit->setAttributeValue(TT("Function"), TT(functionName->s_name));
+	
+	// cache the function's attribute names
+	x->parameterNames->clear();
+	x->rampUnit->getFunctionParameterNames(names);
+	n = names.getSize();
+	for (int i=0; i<n; i++) {
+		names.get(i, &aName);
+		nameString = aName->getString();
+		
+		if (aName == TT("Bypass") || aName == TT("Mute") || aName == TT("MaxNumChannels") || aName == TT("SampleRate"))
+			continue;										// don't publish these parameters
+		
+		if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
+			nameString[0] += 32;							// convert first letter to lower-case for Max
+			
+			TTValuePtr v = new TTValue(aName);
+			x->parameterNames->append(TT(nameString.c_str()), *v);
+		}
+	}	
+}
+
+
+#pragma mark -
+#pragma mark attributes of attributes
+void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	t_atom*		a;
+	TTSymbol*	parameterName;
+	TTValue		parameterValue;
+	int			numValues;
+	int			i;
+	TTSymbol*	tempSymbol;
+	double		tempValue;
+	TTValue		v;
+	
+	if (!argc) {
+		error("jcom.ramp: not enough arguments to function.parameter.get");
+		return;
+	}
+	
+	// get the correct TT name for the parameter given the Max name
+	parameterName = TT(atom_getsym(argv)->s_name);
+	obj->parameterNames->lookup(parameterName, v);
+	v.get(0, &parameterName);
+	
+	obj->rampUnit->getFunctionParameterValue(parameterName, parameterValue);
+	numValues = parameterValue.getSize();
+	if (numValues) {
+		a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
+		// First list item is name of parameter
+		atom_setsym(a, gensym((char*)parameterName->getCString()));
+		// Next the whole shebang is copied
+		for (i=0; i<numValues; i++) {
+			if (parameterValue.getType(i) == kTypeSymbol) {
+				parameterValue.get(i, &tempSymbol);
+				atom_setsym(a+i+1, gensym((char*)tempSymbol->getCString()));
+			}
+			else {
+				parameterValue.get(i, tempValue);
+				atom_setfloat(a+i+1, tempValue);
+			}
+		}
+		object_obex_dumpout(obj, gensym("function.parameter.get"), numValues+1, a);
+		
+		// The pointer to an atom assign in the getParameter method needs to be freed.
+		sysmem_freeptr(a);
+	}
+}
+
+
+void ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	TTSymbol*	parameterName;
+	TTValue		newValue;
+	int			i;
+	TTValue		v;
+	
+	if (argc < 2) {
+		error("jcom.map: not enough arguments to setParameter");
+		return;
+	}
+	
+	// get the correct TT name for the parameter given the Max name
+	parameterName = TT(atom_getsym(argv)->s_name);
+	obj->parameterNames->lookup(parameterName, v);
+	v.get(0, &parameterName);
+	
+	for (i=1; i<=(argc-1); i++) {
+		if (argv[i].a_type == A_SYM)
+			newValue.append(TT(atom_getsym(argv+1)->s_name));
+		else
+			newValue.append(atom_getfloat(argv+i));
+	}
+	obj->rampUnit->setFunctionParameterValue(parameterName, newValue);
+}
+
+
 void ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	TTSymbol*	parameterName;
