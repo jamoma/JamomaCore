@@ -43,6 +43,9 @@ void		ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst);
 /** Set what mechanism (RampUnit) is used to drive the ramp. */
 t_max_err 	ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv);
 
+/** Defered method making the actual connection to RampUnit */
+t_max_err	ramp_rampSetup(t_ramp *x);
+
 /** Set the function to use when ramping. */
 void		ramp_setFunction(t_ramp *x, void *attr, long argc, t_atom *argv);
 
@@ -322,9 +325,19 @@ void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 t_max_err ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv)
 {
 	x->attr_rampunit = atom_getsym(argv);
-	RampLib::createUnit(TT(x->attr_rampunit->s_name), &x->rampUnit, ramp_callback, (void *)x);
+	// Setting up the ramp have to be defered, as the function attribute might not yet have been set in the new method
+	defer(x, (method)ramp_rampSetup, NULL, 0, NULL);
 	return MAX_ERR_NONE;
 }
+
+
+// TODO: This function can be hit multiple times when the object is first created, because it is triggered by changes to several different attributes
+// We should eliminate the multiple firing since it is not very efficient at load time.
+t_max_err ramp_rampSetup(t_ramp *x)
+{
+	RampLib::createUnit(TT(x->attr_rampunit->s_name), &x->rampUnit, ramp_callback, (void *)x);
+	return MAX_ERR_NONE;
+}	
 
 
 void ramp_setFunction(t_ramp *x, void *attr, long argc, t_atom *argv)
