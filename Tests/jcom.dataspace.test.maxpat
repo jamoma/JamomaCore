@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 419.0, 63.0, 741.0, 375.0 ],
+		"rect" : [ 419.0, 63.0, 768.0, 375.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 419.0, 63.0, 741.0, 375.0 ],
+		"defrect" : [ 419.0, 63.0, 768.0, 375.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -298,9 +298,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 283.0, 56.0, 1247.0, 629.0 ],
+						"rect" : [ 193.0, 56.0, 1247.0, 629.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 283.0, 56.0, 1247.0, 629.0 ],
+						"defrect" : [ 193.0, 56.0, 1247.0, 629.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
