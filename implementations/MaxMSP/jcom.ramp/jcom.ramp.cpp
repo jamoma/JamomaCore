@@ -22,7 +22,8 @@ enum outlets {
 typedef struct _ramp {
 	t_object	 ob;					///< Data Structure for this object
 	void		*outlets[num_outlets];	///< Outlet array
-	t_symbol	*attr_rampunit;			///< Name of the current rampunit
+	t_symbol	*attr_rampunit;			///< Attribute: Name of the current rampunit
+	t_symbol	*attr_function;			///< Attribute: Name of the current function
 	RampUnit	*rampUnit;				///< Instance of the current rampunit
 	TTHashPtr	parameterNames;			// cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
 } t_ramp;
@@ -43,7 +44,7 @@ void		ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst);
 t_max_err 	ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv);
 
 /** Set the function to use when ramping. */
-void		ramp_setFunction(t_ramp *x, t_symbol *functionName);
+void		ramp_setFunction(t_ramp *x, void *attr, long argc, t_atom *argv);
 
 /** Get the function currently used when ramping. */
 void		ramp_getFunction(t_ramp *x);
@@ -122,6 +123,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addattr(c, 
 		attr_offset_new("drive", _sym_symbol, 0,
 		(method)0, (method)ramp_setrampunit, calcoffset(t_ramp, attr_rampunit)));
+	
+	// ATTRIBUTE: function
+	class_addattr(c, 
+		attr_offset_new("function", _sym_symbol, 0,
+		(method)0, (method)ramp_setFunction, calcoffset(t_ramp, attr_function)));	
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -154,6 +160,10 @@ void *ramp_new(t_symbol *s, long argc, t_atom *argv)
 		if (x->attr_rampunit == _sym_nothing) {
 			atom_setsym(&a, gensym("scheduler"));
 			object_attr_setvalueof(x, gensym("drive"), 1, &a);
+		}
+		if (x->attr_function == _sym_nothing) {
+			atom_setsym(&a, gensym("linear"));
+			object_attr_setvalueof(x, gensym("function"), 1, &a);
 		}
 	}
 	return (x);		// return the pointer to our new instantiation
@@ -317,7 +327,7 @@ t_max_err ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv)
 }
 
 
-void ramp_setFunction(t_ramp *x, t_symbol *functionName)
+void ramp_setFunction(t_ramp *x, void *attr, long argc, t_atom *argv)
 {
 	long		n;
 	TTValue		names;
@@ -325,7 +335,8 @@ void ramp_setFunction(t_ramp *x, t_symbol *functionName)
 	TTString	nameString;
 	
 	// set the function
-	x->rampUnit->setAttributeValue(TT("Function"), TT(functionName->s_name));
+	x->attr_function = atom_getsym(argv);
+	x->rampUnit->setAttributeValue(TT("Function"), TT(x->attr_function->s_name));
 	
 	// cache the function's attribute names
 	x->parameterNames->clear();
