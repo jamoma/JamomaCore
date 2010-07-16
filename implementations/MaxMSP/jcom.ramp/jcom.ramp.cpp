@@ -154,7 +154,8 @@ void *ramp_new(t_symbol *s, long argc, t_atom *argv)
 		x->parameterNames = new TTHash;
 
 		x->rampUnit = NULL;
-		x->attr_rampunit = _sym_nothing;		
+		x->attr_rampunit = _sym_nothing;
+		x->attr_function = _sym_nothing;
 		attr_args_process(x, argc, argv);	// handle attribute args
 
 		if (x->attr_rampunit == _sym_nothing) {
