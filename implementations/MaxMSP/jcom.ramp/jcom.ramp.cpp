@@ -145,7 +145,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 void *ramp_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_ramp	*x = (t_ramp *)object_alloc(ramp_class);
-	t_atom	a;
 
 	if (x) {
 		x->outlets[k_outlet_dumpout] = outlet_new(x, 0L);
@@ -159,12 +158,12 @@ void *ramp_new(t_symbol *s, long argc, t_atom *argv)
 		attr_args_process(x, argc, argv);	// handle attribute args
 
 		if (x->attr_rampunit == _sym_nothing) {
+			Atom a;
 			atom_setsym(&a, gensym("scheduler"));
 			object_attr_setvalueof(x, gensym("drive"), 1, &a);
 		}
 		if (x->attr_function == _sym_nothing) {
-			atom_setsym(&a, gensym("linear"));
-			object_attr_setvalueof(x, gensym("function"), 1, &a);
+			object_attr_setsym(x, gensym("function"), jps_linear);
 		}
 	}
 	return (x);		// return the pointer to our new instantiation
