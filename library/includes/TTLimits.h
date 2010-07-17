@@ -87,7 +87,7 @@ static void TTLimit(T& value, const T lowBound, const T highBound)
 
 /** A fast routine for clipping a number to a maximum range.  The bottom end of the range is not checked.  This routine does not use branching. */
 template<class T>
-static void TTLimitMax(T value, const T highBound)
+static void TTLimitMax(T& value, const T highBound)
 {
 	if (value > highBound)
 		value = highBound;
@@ -108,7 +108,7 @@ static void TTLimitMax(T value, const T highBound)
 /** A fast routine for clipping a number on it's low range.  The high end of the range is not checked.
 	This routine does not use branching. */
 template<class T>
-static void TTLimitMin(T value, const T lowBound)
+static void TTLimitMin(T& value, const T lowBound)
 {
 	if (value < lowBound)
 		value = lowBound;
