@@ -12,10 +12,12 @@
 #include "TTElement.h"
 #include "TTLimits.h"
 #include "TTSymbol.h"
+#include "TTSymbolTable.h"
 
 
 class TTObject;
 
+#define USE_TTInt32 NO			// to -- To easily change for TTInt32 instead of int in order to make test
 
 // macro for converting from one type to another regardless of type
 #define	CONVERT(dType) switch(*(type+index)) {\
@@ -57,6 +59,11 @@ class TTObject;
 				break;\
 		}
 
+TTBoolean TTFOUNDATION_EXPORT	isTTInt32( const TTString & str );
+TTBoolean TTFOUNDATION_EXPORT	isTTFloat32( const TTString & str );
+
+TTInt32 TTFOUNDATION_EXPORT		toTTInt32( const TTString & str );
+TTFloat32 TTFOUNDATION_EXPORT	toTTFloat32( const TTString & str );
 
 
 /****************************************************************************************************/
@@ -104,10 +111,10 @@ public:
 	TTValue(const TTUInt8 initialValue);
 	TTValue(const TTInt16 initialValue);
 	TTValue(const TTUInt16 initialValue);
-# if 1
-	TTValue(const int initialValue);
-#else
+# if USE_TTInt32
 	TTValue(const TTInt32 initialValue);
+#else
+	TTValue(const int initialValue);
 #endif	
 	TTValue(const TTUInt32 initialValue);
 	TTValue(const TTInt64 initialValue);
@@ -225,10 +232,10 @@ public:
 	void set(const TTUInt16 index, const TTUInt8 newValue);
 	void set(const TTUInt16 index, const TTInt16 newValue);
 	void set(const TTUInt16 index, const TTUInt16 value);
-# if 0
-	void set(const TTUInt16 index, const int newValue);
-#else
+# if USE_TTInt32
 	void set(const TTUInt16 index, const TTInt32 newValue);
+#else
+	void set(const TTUInt16 index, const int newValue);
 #endif
 	void set(const TTUInt16 index, const TTUInt32 newValue);
 	void set(const TTUInt16 index, const TTInt64 newValue);
@@ -248,7 +255,11 @@ public:
 	void get(const TTUInt16 index, TTUInt8 &value) const;
 	void get(const TTUInt16 index, TTInt16 &value) const;
 	void get(const TTUInt16 index, TTUInt16 &value) const;
+# if USE_TTInt32
 	void get(const TTUInt16 index, TTInt32 &value) const;
+#else
+	void get(const TTUInt16 index, int &value) const;
+#endif
 	void get(const TTUInt16 index, TTUInt32 &value) const;
 	void get(const TTUInt16 index, TTInt64 &value) const;
 	void get(const TTUInt16 index, TTUInt64 &value) const;
@@ -284,8 +295,11 @@ public:
 	void append(const TTUInt8 newValue);
 	void append(const TTInt16 newValue);
 	void append(const TTUInt16 value);
+# if USE_TTInt32
 	void append(const TTInt32 newValue);
-	//void append(const int newValue);
+#else
+	void append(const int newValue);
+#endif
 	void append(const TTUInt32 newValue);
 	void append(const TTInt64 newValue);
 	void append(const TTUInt64 newValue);
@@ -558,6 +572,26 @@ public:
 		}
 	}
 	
+	void truncate()
+	{
+		for (TTUInt16 i=0; i<numValues; i++) {
+			if (TTDataInfo::getIsNumerical(type[i])) {
+				// TODO: find a way to make this routine faster
+				switch(type[i]) {
+					case kTypeFloat32:
+						data[i].float32 = (TTInt32)data[i].float32;
+						break;
+					case kTypeFloat64:
+						data[i].float64 = (TTInt32)data[i].float64;
+						break;
+
+					default:
+						break;
+				}
+			}
+		}
+	}
+	
 	void toString()
 	{
 		TTString*	str = new TTString;
@@ -656,6 +690,67 @@ public:
 		append(*str);	// CHANGED: If we pass a pointer then this is appended at a generic TTPtr [TAP]
 	}
 	
+	void fromString()
+	{
+		if (*type == kTypeString) {
+			
+			std::vector<std::string> strList;
+			
+			std::istringstream iss(*(data->stringPtr));
+			std::copy(
+				 std::istream_iterator<string>( iss ),
+				 std::istream_iterator<string>(),
+				 back_inserter( strList ) );
+			
+			if (strList.size() > 0) {
+				
+				setSize(strList.size());
+				
+				for (unsigned int i = 0; i < strList.size(); ++i) {
+					TTString currentString = strList.at(i);
+					if (isTTInt32(currentString)) {
+						
+						data[i].int32 = toTTInt32(currentString);
+						type[i] = kTypeInt32;
+						
+					} else if (isTTFloat32(currentString)) {
+						
+						data[i].float32 = toTTFloat32(currentString);
+						type[i] = kTypeFloat32;
+						
+					} else {
+						
+						if (currentString.data()[0] == '"') {
+							TTString editString = currentString.substr(1, currentString.size());
+							
+							
+							while (currentString.data()[currentString.size()-1] != '"' && (i != (strList.size() - 1))) {
+								i++;
+								currentString = strList.at(i);
+								
+								editString += " ";
+								editString += currentString;
+							}
+							
+							if (i == (strList.size() - 1))
+								data[i].stringPtr = new TTString(editString);
+							else
+								data[i].stringPtr = new TTString(editString.substr(0, editString.size() - 1));
+							
+							type[i] = kTypeString;
+							
+						} else {
+							TTSymbolPtr editSymbol = TT(currentString.data());
+							data[i].sym = editSymbol;
+							type[i] = kTypeSymbol;
+						}
+					}
+				}
+			}
+		}
+	}
+		
+	
 	static void test();
 };
 
@@ -663,7 +758,7 @@ public:
 typedef TTValue* TTValuePtr;
 typedef TTValue& TTValueRef;
 typedef const TTValue& TTValueConstRef;
-
-
+	
+	
 #endif // __TT_VALUE_H__
 

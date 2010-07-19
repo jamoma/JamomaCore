@@ -644,12 +644,12 @@ void TTValue::set(const TTUInt16 index, const TTUInt16 newValue)
 	data[index].uint16 = newValue;
 }
 
-# if 0
-	void TTValue::set(const TTUInt16 index, const int newValue)
-#else
+# if USE_TTInt32
 	void TTValue::set(const TTUInt16 index, const TTInt32 newValue)
+	
+#else
+	void TTValue::set(const TTUInt16 index, const int newValue)
 #endif
-//void TTValue::set(const TTUInt16 index, const TTInt32 newValue)
 {
 	type[index] = kTypeInt32;
 	data[index].int32 = newValue;
@@ -759,7 +759,11 @@ void TTValue::get(const TTUInt16 index, TTUInt16 &value) const
 		CONVERT(TTUInt16)
 }
 
+#if USE_TTInt32
 void TTValue::get(const TTUInt16 index, TTInt32 &value) const
+#else
+void TTValue::get(const TTUInt16 index, int &value) const
+#endif
 {
 	if (type[index] == kTypeInt32)
 		value = (data+index)->int32;
@@ -866,8 +870,11 @@ void TTValue::append(const TTUInt16 newValue)
 	set(numValues-1, newValue);
 }
 
+#if USE_TTInt32
 void TTValue::append(const TTInt32 newValue)
-//void TTValue::append(const int newValue)
+#else
+void TTValue::append(const int newValue)
+#endif
 {
 	setSize(numValues + 1);
 	set(numValues-1, newValue);
@@ -982,3 +989,47 @@ void TTValue::test()
 	TT_ASSERT("== comparison for the same value", bool(a == c));
 	TT_ASSERT("== comparison for different values", !bool(a == b));
 }
+
+TTBoolean isTTInt32( const TTString & str )
+{
+	std::istringstream iss( str );
+	
+	TTInt32 tmp;
+	
+	return ( iss >> tmp ) && ( iss.eof() );
+}
+
+TTBoolean isTTFloat32( const TTString & str )
+{
+	std::istringstream iss( str );
+	
+	TTFloat32 tmp;
+	
+	return ( iss >> tmp ) && ( iss.eof() );
+}
+
+TTInt32 toTTInt32( const TTString & str )
+{
+	std::istringstream iss(str);
+	
+	TTInt32 result;
+	
+	iss >> result;
+	
+	return result;
+}
+
+TTFloat32 toTTFloat32( const TTString & str )
+{
+	std::istringstream iss(str);
+	
+	TTFloat32 result;
+	
+	iss >> result;
+	
+	return result;
+}
+
+
+
+
