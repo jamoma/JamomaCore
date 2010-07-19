@@ -30,6 +30,10 @@
 #include <string>
 #include <vector>
 
+#include <sstream>
+#include <iterator>
+#include <stdexcept>
+
 using namespace std;
 
 #ifdef TT_PLATFORM_LINUX
