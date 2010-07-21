@@ -41,7 +41,7 @@
 /*!
  * \class DeviceManager
  * \author Laurent Garnier (BlueYeti/LaBRI) : lo.garnier@yahoo.fr
- *		   ThÃ©o Delahogue  (GMEA)			: theod@gmea.net
+ *		   Théo Delahogue  (GMEA)			: theod@gmea.net
  * \date 03/06/09
  *
  * \brief The DeviceManager is a network plugin manager.
@@ -103,9 +103,7 @@ private:
 	
 	std::map<std::string, Plugin*> *netPlugins;						//< a map between a plugin name and an instance of this Plugin
 	std::map<std::string, Device*> *netDevices;						//< a map between a device name and an instance of this Device
-	unsigned int deviceId;											//< the device id witch is incremented automatically
-
-	Namespace *m_namespace;
+	unsigned int deviceId;											//< the device id witch is incremented automatically 
 
 	
 	void (*m_discover_callback)(void*, 
@@ -137,7 +135,7 @@ private:
 public:
 	
 	/************************************************
-	 DEVICE MANAGER METHODS :
+	 CONTROLLER METHODS :
 	 a set of methods used to handle DeviceManager.
 	 ************************************************/
 	
@@ -374,10 +372,6 @@ public:
 	 note : each method of this set is prepend by 'namespace'
 	 ************************************************/
 	
-	void namespaceInit();
-	void namespaceLoadXml(std::string filename);
-
-
 	/*!
 	 * Get the name of the application
 	 *
