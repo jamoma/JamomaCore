@@ -66,9 +66,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib"
+				AdditionalDependencies="JamomaFoundation.lib JamomaDSP.lib DeviceManager.lib"
 				LinkIncremental="0"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)\DeviceManagerLib&quot;"
 				GenerateManifest="false"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
@@ -203,6 +203,14 @@
 			</File>
 			<File
 				RelativePath=".\PeerObject\TTContainer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTDeviceManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PeerObject\TTDeviceManager.h"
 				>
 			</File>
 			<File
