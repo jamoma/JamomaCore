@@ -778,6 +778,9 @@ void TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 	
 	if (aParameter->mRepetitionsAllow || !(aParameter->mValue == rampedValue)) {
 		
+		if (aParameter->mType == kTTSym_integer)
+			rampedValue.truncate();
+		
 		// set internal value
 		aParameter->mValue = rampedValue;
 		
