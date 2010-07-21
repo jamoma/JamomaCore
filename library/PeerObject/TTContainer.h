@@ -69,6 +69,4 @@ TTErr TTMODULAR_EXPORT TTContainerDirectoryCallback(TTPtr baton, TTValue& data);
  @return							an error code */
 TTErr TTMODULAR_EXPORT TTContainerAttributeCallback(TTPtr baton, TTValue& data);
 
-TTBoolean testObjectType(TTNodePtr node, void*args);
-
 #endif // __TT_CONTAINER_H__

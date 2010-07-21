@@ -359,16 +359,3 @@ TTErr TTContainerAttributeCallback(TTPtr baton, TTValue& data)
 }
 
 
-TTBoolean testObjectType(TTNodePtr n, void*args)
-{
-	TTValue		v;
-	TTObjectPtr o;
-	n->getAttributeValue(kTTSym_Object, v);
-	v.get(0, (TTPtr*)&o);
-	
-	if (o)
-		return o->getName() == (TTSymbolPtr)args;
-	else
-		return NO;
-}
-
