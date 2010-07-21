@@ -603,76 +603,73 @@ public:
 			switch(type[i]) {
 				case kTypeFloat32:
 					temp = new char[16];
-					snprintf(temp, 16, "%f ", data[i].float32);
+					snprintf(temp, 16, "%f", data[i].float32);
 					break;
 				case kTypeFloat64:
 					temp = new char[16];
-					snprintf(temp, 16, "%lf ", data[i].float64);
+					snprintf(temp, 16, "%lf", data[i].float64);
 					break;
 				case kTypeInt8:
 					temp = new char[16];
-					snprintf(temp, 16, "%i ", data[i].int8);
+					snprintf(temp, 16, "%i", data[i].int8);
 					break;
 				case kTypeUInt8:
 					temp = new char[16];
-					snprintf(temp, 16, "%u ", data[i].uint8);
+					snprintf(temp, 16, "%u", data[i].uint8);
 					break;
 				case kTypeInt16:
 					temp = new char[16];
-					snprintf(temp, 16, "%i ", data[i].int16);
+					snprintf(temp, 16, "%i", data[i].int16);
 					break;
 				case kTypeUInt16:
 					temp = new char[16];
-					snprintf(temp, 16, "%u ", data[i].uint16);
+					snprintf(temp, 16, "%u", data[i].uint16);
 					break;
 				case kTypeInt32:
 					temp = new char[16];
-					snprintf(temp, 16, "%i ", (int)data[i].int32);
+					snprintf(temp, 16, "%i", (int)data[i].int32);
 					break;
 				case kTypeUInt32:
 					temp = new char[16];
-					snprintf(temp, 16, "%iu ", (unsigned int)data[i].uint32);
+					snprintf(temp, 16, "%iu", (unsigned int)data[i].uint32);
 					break;
 				case kTypeInt64:
 					temp = new char[16];
 #ifdef __LP64__ // Mac 64-Bit
-					snprintf(temp, 16, "%ld ", data[i].int64);
+					snprintf(temp, 16, "%ld", data[i].int64);
 #else
-					snprintf(temp, 16, "%lld ", data[i].int64);
+					snprintf(temp, 16, "%lld", data[i].int64);
 #endif
 					break;
 				case kTypeUInt64:
 					temp = new char[16];
 #ifdef __LP64__ // Mac 64-Bit
-					snprintf(temp, 16, "%lu ", data[i].int64);
+					snprintf(temp, 16, "%lu", data[i].int64);
 #else
-					snprintf(temp, 16, "%llu ", data[i].uint64);
+					snprintf(temp, 16, "%llu", data[i].uint64);
 #endif
 					break;
 				case kTypeBoolean:
 					if (data[i].boolean)
-						str->append("1 ");
+						str->append("1");
 					else
-						str->append("0 ");
+						str->append("0");
 					break;
 				case kTypeSymbol:
 					str->append(data[i].sym->getString());
-					str->append(" ");
 					break;
 				case kTypeString:
 					str->append(*data[i].stringPtr);
-					str->append(" ");
 					break;
 				case kTypeObject:
 					temp = new char[16];
-					snprintf(temp, 16, "%ld ", (TTPtrSizedInt)data[i].object);
+					snprintf(temp, 16, "%ld", (TTPtrSizedInt)data[i].object);
 					break;
 				case kTypePointer:
 					temp = new char[16];
-					snprintf(temp, 16, "%ld ", (TTPtrSizedInt)data[i].ptr);
+					snprintf(temp, 16, "%ld", (TTPtrSizedInt)data[i].ptr);
 					break;
 				default:
-					str->append(" ");
 					break;
 			}
 			
@@ -680,11 +677,12 @@ public:
 				str->append(temp);
 				delete temp;
 			}
+			
+			// no space at end
+			if (i < (numValues-1))
+				str->append(" ");
 		}
 		
-		// CHANGED: no longer calling this as it was corrupting memory on the Mac [TAP]
-		//str->erase(str->end());	// strip the trailing space
-
 		// now set the value to the string
 		clear();
 		append(*str);	// CHANGED: If we pass a pointer then this is appended at a generic TTPtr [TAP]
@@ -748,6 +746,8 @@ public:
 				}
 			}
 		}
+		else
+			this->clear();
 	}
 		
 	
