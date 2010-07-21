@@ -262,12 +262,13 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr rel
 	*returnedSubscriber = NULL;
 	TTObjectInstantiate(TT("Subscriber"), TTObjectHandle(returnedSubscriber), args);
 	
-	// pass the Subscriber to the TTObject m_subscriber member
+	/* pass the Subscriber to the TTObject m_subscriber member
 	// to -- this is a bad way to do... maybe the solution is to make TTContainer, TTParameter, ... as children class of TTSubscriber
 	// we have to pass the subscriber in order to notify internal changes of attributes
 	args.clear();
 	args.append(TTPtr(*returnedSubscriber));
 	aTTObject->setAttributeValue(TT("_subscriber"), args);
+	 */
 	
 	return kTTErrNone;
 }
@@ -635,7 +636,6 @@ TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjec
 		args.append(TTModularDirectory);
 		args.append(oscAddress_noAttribute);
 		
-		// TODO : convert attribute from value/stepsize into ValueStepsize
 		if (oscAddress_attribute != NO_ATTRIBUTE)
 			args.append(oscAddress_attribute);
 		else
@@ -663,6 +663,40 @@ TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjec
 	
 	return kTTErrGeneric;
 	
+}
+
+
+// Method to deal with TTHarvester
+///////////////////////////////////////////////////////////////////////
+
+/**	Create a container object */
+TTErr jamoma_harvester_create(ObjectPtr x, TTObjectPtr *returnedHarvester)
+{
+	TTValue			args;
+	TTObjectPtr		returnAddressCallback, returnValueCallback;
+	TTValuePtr		returnAddressBaton, returnValueBaton;
+	
+	// prepare arguments
+	args.append(TTModularDirectory);
+	
+	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &returnAddressCallback, kTTValNONE);
+	returnAddressBaton = new TTValue(TTPtr(x));
+	returnAddressCallback->setAttributeValue(TT("Baton"), TTPtr(returnAddressBaton));
+	returnAddressCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_address));
+	args.append(returnAddressCallback);
+	
+	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
+	returnValueBaton = new TTValue(TTPtr(x));
+	returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
+	args.append(returnValueCallback);
+	
+	*returnedHarvester = NULL;
+	TTObjectInstantiate(TT("Harvester"), TTObjectHandle(returnedHarvester), args);
+	
+	return kTTErrNone;
 }
 
 
