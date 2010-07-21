@@ -296,7 +296,7 @@ TTErr TTNodeDirectory::Lookup(TTSymbolPtr oscAddress, TTList& returnedTTNodes, T
 	}
 }
 
-TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, void*args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
+TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, TTPtr args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode)
 {
 	TTList lk_children;
 	TTNodePtr n_r, n_child;
@@ -734,4 +734,17 @@ unsigned int countSeparator(TTSymbolPtr oscAddress)
 	TTString toCount = oscAddress->getCString();
 
 	return count(toCount.begin(), toCount.end(), C_SEPARATOR);
+}
+
+TTBoolean testObjectType(TTNodePtr n, TTPtr args)
+{
+	TTValue		v;
+	TTObjectPtr o;
+	n->getAttributeValue(kTTSym_Object, v);
+	v.get(0, (TTPtr*)&o);
+	
+	if (o)
+		return o->getName() == (TTSymbolPtr)args;
+	else
+		return NO;
 }

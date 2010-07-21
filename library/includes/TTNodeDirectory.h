@@ -131,7 +131,7 @@ public:
 	 @param	firstReturnedTTNode		If non-null, the address of the first TTNode object pointer that is found for the given pattern is returned here.
 									The value of the pointer will be set upon return.
 	 @return						An error code. */
-	TTErr			LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, void*args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
+	TTErr			LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, TTPtr args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
 	
 	/**	Is there is one TTNode or more that respect a test below an address 
 	 @param	oscAddress				The OSC address from where the research begin, possibly including wildcards and instance names/numbers.
@@ -230,5 +230,11 @@ TTAddressComparisonFlag TTFOUNDATION_EXPORT compareOSCAddress(TTSymbolPtr oscAdd
  @param	oscAddress					An OSC address
  @return							The number of C_SEPARATOR */
 unsigned int TTFOUNDATION_EXPORT countSeparator(TTSymbolPtr oscAddress);
+
+/**	An test tool : test the type of the object stored inside the node. This method could be used as testFunction for the LookFor method.
+ @param	node						A node
+ @param args						An TTSymbolPtr argument for the type
+ @return							true if the object have the correct type */
+TTBoolean TTFOUNDATION_EXPORT testObjectType(TTNodePtr node, TTPtr args);
 
 #endif // __TT_NODE_DIRECTORY_H__
