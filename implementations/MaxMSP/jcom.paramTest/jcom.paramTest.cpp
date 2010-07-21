@@ -9,7 +9,8 @@
 
 #include "TTModularClassWrapperMax.h"
 
-#define data_out 0
+#define set_out 0
+#define data_out 1
 
 // Definitions
 void		WrapTTParameterClass(WrappedClassPtr c);
@@ -79,6 +80,7 @@ void WrappedParameterClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// Make one outlet
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
 	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
+	x->outlets[set_out] = outlet_new(x, NULL);						// anything outlet to output data prepend with a set symbol
 }
 
 void WrappedParameterClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -207,4 +209,5 @@ void paramTest_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	outlet_anything(x->outlets[data_out], msg, argc, argv);
+	outlet_anything(x->outlets[set_out], _sym_set, argc, argv);
 }
