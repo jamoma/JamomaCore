@@ -44,8 +44,8 @@ void WrapTTDeviceManagerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)dvmg_return_address,		"return_address",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)dvmg_return_value,			"return_value",			A_CANT, 0);
 	
-	class_addmethod(c->maxClass, (method)dvmg_dumpPlugins,			"dumpPlugins",			0);
-	class_addmethod(c->maxClass, (method)dvmg_dumpDevices,			"dumpDevices",			0);
+	class_addmethod(c->maxClass, (method)dvmg_dumpPlugins,			"dump/plugins",			0);
+	class_addmethod(c->maxClass, (method)dvmg_dumpDevices,			"dump/devices",			0);
 	
 }
 
