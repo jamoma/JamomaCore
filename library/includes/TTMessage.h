@@ -35,7 +35,6 @@
 	for TTMethod.
 */
 class TTFOUNDATION_EXPORT TTMessage : public TTObject {
-private:
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
 	const TTSymbolPtr	name;		///< the name of the message.

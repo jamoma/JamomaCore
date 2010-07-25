@@ -43,8 +43,6 @@ typedef TTHashMap::const_iterator			TTHashMapIter;
 	- For example, we may later make TTHash inherit from TTObject and want to address it with messages.
 	- This approach isolates coders from having to worry about an template craziness
 	- This approach offers the possibility, should the need ever arise, to change the underlying implementation away from STL.
- 
- 
 */
 class TTFOUNDATION_EXPORT TTHash : TTElement {
 private:

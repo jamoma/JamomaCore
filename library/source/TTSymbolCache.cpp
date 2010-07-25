@@ -43,6 +43,9 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_vectorSize;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_VectorSize;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_SampleRate;
 
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_tcp;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_udp;
+
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sine;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sineMod;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_cosine;
@@ -98,7 +101,10 @@ void TTSymbolCacheInit()
 	kTTSym_vectorSize				= TT("vectorSize");
 	kTTSym_VectorSize				= TT("VectorSize");
 	kTTSym_SampleRate				= TT("SampleRate");
-	
+
+	kTTSym_tcp						= TT("tcp");
+	kTTSym_udp						= TT("udp");
+
 	kTTSym_sine						= TT("sine");
 	kTTSym_sineMod					= TT("sineMod");
 	kTTSym_cosine					= TT("cosine");

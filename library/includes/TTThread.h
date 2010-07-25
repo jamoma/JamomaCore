@@ -63,5 +63,7 @@ public:
 	}
 };
 
+typedef TTThread* TThreadPtr;
+
 
 #endif // __TT_THREAD_H__

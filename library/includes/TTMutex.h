@@ -47,7 +47,6 @@ typedef TTMutex& TTMutexRef;
 	The idea for this comes from Effective STL #12, and uses the 'Resource Allocation is Initialization'
 	pattern popularized by Stroustrup.  http://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization
 */
-
 class TTFOUNDATION_EXPORT TTLock {
 private:
 	TTMutexPtr		mMutex;

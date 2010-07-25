@@ -104,7 +104,7 @@ public:
 	TTValue(const TTUInt8 initialValue);
 	TTValue(const TTInt16 initialValue);
 	TTValue(const TTUInt16 initialValue);
-# if 1
+#if 1
 	TTValue(const int initialValue);
 #else
 	TTValue(const TTInt32 initialValue);
@@ -136,6 +136,7 @@ public:
 	/** Return the type of a particular member of this value (assuming it is an array). */
 	TTDataType getType(const TTUInt16 index) const;
 
+	
 private:
 	/** Internal method used by the constructors. */
 	void init();
@@ -145,7 +146,8 @@ private:
 	
 	/** Performs a deep copy of the object */
 	inline void copy(const TTValue& obj);
-	
+
+
 public:
 	/** Return the number of values of this instance. */
 	TTUInt16 getSize() const;
@@ -429,6 +431,7 @@ public:
 		}
 	}
 	
+	
 	void cliplow(const TTFloat64& lowBound)
 	{
 		for (TTUInt16 i=0; i<numValues; i++) {
@@ -471,6 +474,7 @@ public:
 			}
 		}
 	}
+	
 	
 	void cliphigh(const TTFloat64& highBound)
 	{
@@ -515,6 +519,7 @@ public:
 		}
 	}
 	
+	
 	void round()
 	{
 		for (TTUInt16 i=0; i<numValues; i++) {
@@ -557,6 +562,7 @@ public:
 			}
 		}
 	}
+	
 	
 	void toString()
 	{
@@ -655,6 +661,7 @@ public:
 		clear();
 		append(*str);	// CHANGED: If we pass a pointer then this is appended at a generic TTPtr [TAP]
 	}
+	
 	
 	static void test();
 };

@@ -142,28 +142,15 @@ public:
 extern TTFOUNDATION_EXPORT TTEnvironment* ttEnvironment;
 
 
-
-
 // Public Interface
 // Some of this looks a bit crazy due to duplication -- however the use of templates causes problems for linking on some Macs and PCs
 // (while not neccessarily on others)
 TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, TTValue& arguments);
-//TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, TTValue& arguments);
-//TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, TTValue& arguments);
-
 TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const TTValue& arguments);
-//TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTValue& arguments);
-//TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTValue& arguments);
-
 TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
-//TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
-//TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTUInt16 arguments);
 
 TTFOUNDATION_EXPORT TTObjectPtr TTObjectReference(TTObjectPtr anObject);
-
 TTFOUNDATION_EXPORT TTErr TTObjectRelease(TTObjectPtr* anObject);
-//TTFOUNDATION_EXPORT TTErr TTObjectRelease(TTAudioObjectPtr* anObject);
-//TTFOUNDATION_EXPORT TTErr TTObjectRelease(TTAudioSignalPtr* anObject);
 
 TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbolPtr className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod);
 TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbolPtr className, TTImmutableCString tagString, const TTObjectInstantiationMethod anInstantiationMethod);

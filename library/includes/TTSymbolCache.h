@@ -44,6 +44,9 @@ extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_value;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_VectorSize;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_SampleRate;
 
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_tcp;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_udp;
+
 // waveforms
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sine;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sineMod;

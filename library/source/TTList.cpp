@@ -43,10 +43,12 @@ TTValue& TTList::getTail()
 	return *theList.back();
 }
 
+
 void TTList::begin()
 {
 	theIter = theList.begin();	
 }
+
 
 bool TTList::end()
 {
@@ -59,15 +61,18 @@ void TTList::next()
 	theIter++;
 }
 
+
 void TTList::prev()
 {
 	theIter--;
 }
 
+
 TTValue& TTList::current()
 {
 	return **theIter;
 }
+
 
 TTBoolean TTList::isEmpty()
 {
@@ -101,6 +106,7 @@ void TTList::append(const TTValue& newValue)
 	theList.insert(theList.end(), (TTValue*)&newValue);
 	unlock();
 }
+
 
 void TTList::appendUnique(const TTValuePtr newValue)
 {
@@ -237,6 +243,7 @@ void TTList::lock()
 	if (mThreadProtection)
 		mMutex->lock();
 }
+
 
 void TTList::unlock()
 {

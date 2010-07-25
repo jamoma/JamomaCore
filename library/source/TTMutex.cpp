@@ -28,9 +28,9 @@ TTMutex::TTMutex(bool recursive)
 TTMutex::~TTMutex()
 {
 	#ifdef TT_PLATFORM_WIN
-	DeleteCriticalSection(&pMutex);
+		DeleteCriticalSection(&pMutex);
 	#else // TT_PLATFORM_MAC or TT_PLATFORM_LINUX
-	pthread_mutex_destroy(&pMutex);
+		pthread_mutex_destroy(&pMutex);
 	#endif
 }
 
@@ -38,9 +38,9 @@ TTMutex::~TTMutex()
 void TTMutex::lock()
 {
 	#ifdef TT_PLATFORM_WIN
-	EnterCriticalSection(&pMutex);
+		EnterCriticalSection(&pMutex);
 	#else // TT_PLATFORM_MAC or TT_PLATFORM_LINUX
-	pthread_mutex_lock(&pMutex);
+		pthread_mutex_lock(&pMutex);
 	#endif
 }
 
@@ -48,8 +48,9 @@ void TTMutex::lock()
 void TTMutex::unlock()
 {
 	#ifdef TT_PLATFORM_WIN
-	LeaveCriticalSection(&pMutex);
+		LeaveCriticalSection(&pMutex);
 	#else // TT_PLATFORM_MAC or TT_PLATFORM_LINUX
-	pthread_mutex_unlock(&pMutex);
+		pthread_mutex_unlock(&pMutex);
 	#endif
 }
+

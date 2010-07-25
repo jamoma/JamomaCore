@@ -61,7 +61,7 @@ TTValue::TTValue(const TTUInt16 initialValue)
 	*type = kTypeUInt16;
 }
 
-# if 1
+#if 1
 	TTValue::TTValue(const int initialValue)
 #else
 	TTValue::TTValue(const TTInt32 initialValue)
@@ -222,8 +222,9 @@ void TTValue::setSize(const TTUInt16 arg)
 		TTUInt16	safeNumValues = (arg < numValues) ? arg : numValues;	// The safe number of values that can be copied.
 		
 		numValues = arg;
-		TTDataType* t = new TTDataType[numValues];
-		DataValue* d = new DataValue[numValues];
+		TTDataType*	t = new TTDataType[numValues];
+		DataValue*	d = new DataValue[numValues];
+		
 		if (safeNumValues) {
 			memcpy(t, type, sizeof(TTDataType) * safeNumValues);
 			memcpy(d, data, sizeof(TTValue::DataValue) * safeNumValues);
@@ -982,3 +983,4 @@ void TTValue::test()
 	TT_ASSERT("== comparison for the same value", bool(a == c));
 	TT_ASSERT("== comparison for different values", !bool(a == b));
 }
+

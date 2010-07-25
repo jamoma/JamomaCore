@@ -284,4 +284,3 @@ TTErr TTGetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searc
 	return ttEnvironment->getClassNamesWithTags(classNames, searchTags);
 }
 
-

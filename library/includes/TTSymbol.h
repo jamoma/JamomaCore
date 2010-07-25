@@ -37,8 +37,8 @@ __pragma(warning(push))
 __pragma(warning(disable:4251))
 #endif
 
-	TTUInt32				id;					///< a unique identifier for the given string
-	TTString				theString;			///< the actual string represented by this symbol
+	TTUInt32		id;					///< a unique identifier for the given string
+	TTString		theString;			///< the actual string represented by this symbol
 
 #if defined(_MSC_VER)
 __pragma(warning(pop))

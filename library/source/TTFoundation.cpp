@@ -110,7 +110,6 @@ void TTFoundationLoadExternalClasses()
 #elif TT_PLATFORM_WIN
 	TTString	fullpath;
 	char		temppath[4096];
-//	WCHAR		wc[4096];
 	HKEY		hKey = 0;
 	LONG		lRes;
 	DWORD		dwSize = sizeof(temppath);

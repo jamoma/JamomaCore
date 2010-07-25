@@ -16,7 +16,6 @@
 // Class Specification
 
 /**	
- 
 */
 class TTFOUNDATION_EXPORT TTDictionary : TTElement {
 private:
@@ -61,12 +60,9 @@ public:
 	
 	/** Return true if the hash has nothing stored in it. */
 	TTBoolean isEmpty();
-	
 };
-
 
 typedef TTDictionary* TTDictionaryPtr;
 
 
 #endif // __TT_DICTIONARY_H__
-

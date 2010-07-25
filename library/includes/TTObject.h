@@ -194,7 +194,6 @@ public:
 	TTErr registerAttributeProperty(const TTSymbolPtr attributeName, const TTSymbolPtr propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter);
 
 
-
 	/** return a list of names of the available attributes */
 	void getAttributeNames(TTValue& attributeNameList);
 	
@@ -211,7 +210,7 @@ public:
 	TTErr sendMessage(const TTSymbolPtr name);
 	TTErr sendMessage(const TTSymbolPtr name, TTValue& value);
 
-// TODO:
+// TODO: implement
 //	TTErr registerMessageProperty(const TTSymbolPtr messageName, const TTSymbolPtr propertyName, const TTValue& initialValue);
 	
 	TTErr registerObserverForMessage(const TTObject& observingObject, const TTSymbolPtr messageName);

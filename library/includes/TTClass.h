@@ -70,7 +70,7 @@ public:
 };
 
 
-typedef TTClass*	TTClassPtr;
+typedef TTClass* TTClassPtr;
 
 
 #endif // __TT_CLASS_H__
