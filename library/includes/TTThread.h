@@ -63,7 +63,7 @@ public:
 	}
 };
 
-typedef TTThread* TThreadPtr;
+typedef TTThread* TTThreadPtr;
 
 
 #endif // __TT_THREAD_H__
