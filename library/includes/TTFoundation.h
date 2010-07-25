@@ -58,7 +58,7 @@
 
 
 
-void TTFOUNDATION_EXPORT TTFoundationInit();
+void TTFOUNDATION_EXPORT TTFoundationInit(const char* pathToTheJamomaFolder = NULL);
 
 
 #endif // __TT_BLUE_H__
