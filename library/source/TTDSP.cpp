@@ -19,9 +19,9 @@ void TTDSPRegisterInternalClasses();
 
 /****************************************************************************************************/
 
-void TTDSPInit()
+void TTDSPInit(const char* pathToBinaries)
 {
-	TTFoundationInit();
+	TTFoundationInit(pathToBinaries);
 	
 	if (!TTDSPHasInitialized) {
 		TTDSPHasInitialized = true;

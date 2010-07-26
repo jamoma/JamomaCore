@@ -7,39 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		222B5AB811CA8B920097A743 /* SoundfileLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222B5AB711CA8B920097A743 /* SoundfileLib.cpp */; };
-		222B5ABB11CA8B9D0097A743 /* TTSoundfilePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222B5AB911CA8B9D0097A743 /* TTSoundfilePlayer.cpp */; };
-		222B5ABC11CA8B9D0097A743 /* TTSoundfilePlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 222B5ABA11CA8B9D0097A743 /* TTSoundfilePlayer.h */; };
-		222B5EDD11CC0D8E0097A743 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B5EDC11CC0D8E0097A743 /* libsndfile.a */; };
-		222B5EDF11CC0D960097A743 /* sndfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 222B5EDE11CC0D960097A743 /* sndfile.h */; };
-		22651E9311D2827400B38811 /* TTSoundfileRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22651E9111D2827400B38811 /* TTSoundfileRecorder.cpp */; };
-		22651E9411D2827400B38811 /* TTSoundfileRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 22651E9211D2827400B38811 /* TTSoundfileRecorder.h */; };
-		22EEB91611CC48EB008E13BD /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EEB91111CC48EB008E13BD /* libogg.a */; };
-		22EEB91711CC48EB008E13BD /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EEB91211CC48EB008E13BD /* libvorbis.a */; };
-		22EEB91811CC48EB008E13BD /* libvorbisenc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EEB91311CC48EB008E13BD /* libvorbisenc.a */; };
-		22EEB91911CC48EB008E13BD /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EEB91411CC48EB008E13BD /* libvorbisfile.a */; };
-		22EEB94311CC54A3008E13BD /* libFLAC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EEB94211CC54A3008E13BD /* libFLAC.a */; };
-		22FA62EE11E21EA60097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA62ED11E21EA60097F43B /* JamomaDSP.dylib */; };
-		22FA62F011E21EAA0097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA62EF11E21EAA0097F43B /* JamomaFoundation.dylib */; };
+		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
+		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
+		22FD477211E248FE007BBF7E /* sndfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD477011E248FE007BBF7E /* sndfile.h */; };
+		22FD477311E248FE007BBF7E /* SoundfileLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD477111E248FE007BBF7E /* SoundfileLib.cpp */; };
+		22FD477A11E24913007BBF7E /* TTSoundfilePlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD477611E24913007BBF7E /* TTSoundfilePlayer.h */; };
+		22FD477B11E24913007BBF7E /* TTSoundfilePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD477711E24913007BBF7E /* TTSoundfilePlayer.cpp */; };
+		22FD477C11E24913007BBF7E /* TTSoundfileRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD477811E24913007BBF7E /* TTSoundfileRecorder.h */; };
+		22FD477D11E24913007BBF7E /* TTSoundfileRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD477911E24913007BBF7E /* TTSoundfileRecorder.cpp */; };
+		22FD478611E2492A007BBF7E /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD478011E2492A007BBF7E /* libsndfile.a */; };
+		22FD478711E2492A007BBF7E /* libFLAC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD478111E2492A007BBF7E /* libFLAC.a */; };
+		22FD478811E2492A007BBF7E /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD478211E2492A007BBF7E /* libogg.a */; };
+		22FD478911E2492A007BBF7E /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD478311E2492A007BBF7E /* libvorbis.a */; };
+		22FD478A11E2492A007BBF7E /* libvorbisenc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD478411E2492A007BBF7E /* libvorbisenc.a */; };
+		22FD478B11E2492A007BBF7E /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD478511E2492A007BBF7E /* libvorbisfile.a */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		222B5AB711CA8B920097A743 /* SoundfileLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundfileLib.cpp; sourceTree = "<group>"; };
-		222B5AB911CA8B9D0097A743 /* TTSoundfilePlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSoundfilePlayer.cpp; sourceTree = "<group>"; };
-		222B5ABA11CA8B9D0097A743 /* TTSoundfilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSoundfilePlayer.h; sourceTree = "<group>"; };
-		222B5EDC11CC0D8E0097A743 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsndfile.a; path = libsndfile/libsndfile.a; sourceTree = "<group>"; };
-		222B5EDE11CC0D960097A743 /* sndfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sndfile.h; path = libsndfile/sndfile.h; sourceTree = "<group>"; };
-		22651E9111D2827400B38811 /* TTSoundfileRecorder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSoundfileRecorder.cpp; sourceTree = "<group>"; };
-		22651E9211D2827400B38811 /* TTSoundfileRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSoundfileRecorder.h; sourceTree = "<group>"; };
-		22EEB91111CC48EB008E13BD /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = libsndfile/lib/libogg.a; sourceTree = "<group>"; };
-		22EEB91211CC48EB008E13BD /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = libsndfile/lib/libvorbis.a; sourceTree = "<group>"; };
-		22EEB91311CC48EB008E13BD /* libvorbisenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisenc.a; path = libsndfile/lib/libvorbisenc.a; sourceTree = "<group>"; };
-		22EEB91411CC48EB008E13BD /* libvorbisfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisfile.a; path = libsndfile/lib/libvorbisfile.a; sourceTree = "<group>"; };
-		22EEB94211CC54A3008E13BD /* libFLAC.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFLAC.a; path = libsndfile/lib/libFLAC.a; sourceTree = "<group>"; };
-		22FA62ED11E21EA60097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
-		22FA62EF11E21EAA0097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../../../TapTools/Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
+		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
+		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
+		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
+		22FD477011E248FE007BBF7E /* sndfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sndfile.h; path = libsndfile/sndfile.h; sourceTree = "<group>"; };
+		22FD477111E248FE007BBF7E /* SoundfileLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundfileLib.cpp; sourceTree = "<group>"; };
+		22FD477611E24913007BBF7E /* TTSoundfilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSoundfilePlayer.h; sourceTree = "<group>"; };
+		22FD477711E24913007BBF7E /* TTSoundfilePlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSoundfilePlayer.cpp; sourceTree = "<group>"; };
+		22FD477811E24913007BBF7E /* TTSoundfileRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSoundfileRecorder.h; sourceTree = "<group>"; };
+		22FD477911E24913007BBF7E /* TTSoundfileRecorder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSoundfileRecorder.cpp; sourceTree = "<group>"; };
+		22FD478011E2492A007BBF7E /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsndfile.a; path = libsndfile/libsndfile.a; sourceTree = "<group>"; };
+		22FD478111E2492A007BBF7E /* libFLAC.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFLAC.a; path = libsndfile/lib/libFLAC.a; sourceTree = "<group>"; };
+		22FD478211E2492A007BBF7E /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = libsndfile/lib/libogg.a; sourceTree = "<group>"; };
+		22FD478311E2492A007BBF7E /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = libsndfile/lib/libvorbis.a; sourceTree = "<group>"; };
+		22FD478411E2492A007BBF7E /* libvorbisenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisenc.a; path = libsndfile/lib/libvorbisenc.a; sourceTree = "<group>"; };
+		22FD478511E2492A007BBF7E /* libvorbisfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisfile.a; path = libsndfile/lib/libvorbisfile.a; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* SoundfileLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = SoundfileLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -49,14 +50,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
-				222B5EDD11CC0D8E0097A743 /* libsndfile.a in Frameworks */,
-				22EEB91611CC48EB008E13BD /* libogg.a in Frameworks */,
-				22EEB91711CC48EB008E13BD /* libvorbis.a in Frameworks */,
-				22EEB91811CC48EB008E13BD /* libvorbisenc.a in Frameworks */,
-				22EEB91911CC48EB008E13BD /* libvorbisfile.a in Frameworks */,
-				22EEB94311CC54A3008E13BD /* libFLAC.a in Frameworks */,
-				22FA62EE11E21EA60097F43B /* JamomaDSP.dylib in Frameworks */,
-				22FA62F011E21EAA0097F43B /* JamomaFoundation.dylib in Frameworks */,
+				22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */,
+				22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */,
+				22FD478611E2492A007BBF7E /* libsndfile.a in Frameworks */,
+				22FD478711E2492A007BBF7E /* libFLAC.a in Frameworks */,
+				22FD478811E2492A007BBF7E /* libogg.a in Frameworks */,
+				22FD478911E2492A007BBF7E /* libvorbis.a in Frameworks */,
+				22FD478A11E2492A007BBF7E /* libvorbisenc.a in Frameworks */,
+				22FD478B11E2492A007BBF7E /* libvorbisfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,27 +72,28 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0867D691FE84028FC02AAC07 /* TTFilterLib */ = {
+		0867D691FE84028FC02AAC07 /* TTFunctionLib */ = {
 			isa = PBXGroup;
 			children = (
+				22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */,
 				08FB77ACFE841707C02AAC07 /* Source */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DDFF38A45A11DB9C8B /* Products */,
 			);
-			name = TTFilterLib;
+			name = TTFunctionLib;
 			sourceTree = "<group>";
 		};
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				22FA62ED11E21EA60097F43B /* JamomaDSP.dylib */,
-				22FA62EF11E21EAA0097F43B /* JamomaFoundation.dylib */,
-				222B5EDC11CC0D8E0097A743 /* libsndfile.a */,
-				22EEB94211CC54A3008E13BD /* libFLAC.a */,
-				22EEB91111CC48EB008E13BD /* libogg.a */,
-				22EEB91211CC48EB008E13BD /* libvorbis.a */,
-				22EEB91311CC48EB008E13BD /* libvorbisenc.a */,
-				22EEB91411CC48EB008E13BD /* libvorbisfile.a */,
+				22FA622D11E21BE20097F43B /* JamomaDSP.dylib */,
+				22FA623211E21BE60097F43B /* JamomaFoundation.dylib */,
+				22FD478011E2492A007BBF7E /* libsndfile.a */,
+				22FD478111E2492A007BBF7E /* libFLAC.a */,
+				22FD478211E2492A007BBF7E /* libogg.a */,
+				22FD478311E2492A007BBF7E /* libvorbis.a */,
+				22FD478411E2492A007BBF7E /* libvorbisenc.a */,
+				22FD478511E2492A007BBF7E /* libvorbisfile.a */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -100,22 +102,22 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				222B5EDE11CC0D960097A743 /* sndfile.h */,
-				222B5AB711CA8B920097A743 /* SoundfileLib.cpp */,
-				2217FAAA0E4F284D00806778 /* Filters */,
+				22FD477011E248FE007BBF7E /* sndfile.h */,
+				22FD477111E248FE007BBF7E /* SoundfileLib.cpp */,
+				2217FAAA0E4F284D00806778 /* Classes */,
 			);
 			name = Source;
 			sourceTree = "<group>";
 		};
-		2217FAAA0E4F284D00806778 /* Filters */ = {
+		2217FAAA0E4F284D00806778 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				222B5ABA11CA8B9D0097A743 /* TTSoundfilePlayer.h */,
-				222B5AB911CA8B9D0097A743 /* TTSoundfilePlayer.cpp */,
-				22651E9211D2827400B38811 /* TTSoundfileRecorder.h */,
-				22651E9111D2827400B38811 /* TTSoundfileRecorder.cpp */,
+				22FD477611E24913007BBF7E /* TTSoundfilePlayer.h */,
+				22FD477711E24913007BBF7E /* TTSoundfilePlayer.cpp */,
+				22FD477811E24913007BBF7E /* TTSoundfileRecorder.h */,
+				22FD477911E24913007BBF7E /* TTSoundfileRecorder.cpp */,
 			);
-			name = Filters;
+			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,18 +127,18 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				222B5ABC11CA8B9D0097A743 /* TTSoundfilePlayer.h in Headers */,
-				222B5EDF11CC0D960097A743 /* sndfile.h in Headers */,
-				22651E9411D2827400B38811 /* TTSoundfileRecorder.h in Headers */,
+				22FD477211E248FE007BBF7E /* sndfile.h in Headers */,
+				22FD477A11E24913007BBF7E /* TTSoundfilePlayer.h in Headers */,
+				22FD477C11E24913007BBF7E /* TTSoundfileRecorder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		D2AAC09C05546B4700DB518D /* SoundfileLib */ = {
+		D2AAC09C05546B4700DB518D /* JamomaExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "SoundfileLib" */;
+			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "JamomaExtension" */;
 			buildPhases = (
 				D2AAC09905546B4700DB518D /* Headers */,
 				D2AAC09B05546B4700DB518D /* Frameworks */,
@@ -147,8 +149,8 @@
 			);
 			dependencies = (
 			);
-			name = SoundfileLib;
-			productName = TTFilterLib;
+			name = JamomaExtension;
+			productName = TTFunctionLib;
 			productReference = D2AAC09D05546B4700DB518D /* SoundfileLib.ttdylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
@@ -160,12 +162,12 @@
 			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "SoundfileLib" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
-			mainGroup = 0867D691FE84028FC02AAC07 /* TTFilterLib */;
+			mainGroup = 0867D691FE84028FC02AAC07 /* TTFunctionLib */;
 			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D2AAC09C05546B4700DB518D /* SoundfileLib */,
+				D2AAC09C05546B4700DB518D /* JamomaExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -191,9 +193,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				222B5AB811CA8B920097A743 /* SoundfileLib.cpp in Sources */,
-				222B5ABB11CA8B9D0097A743 /* TTSoundfilePlayer.cpp in Sources */,
-				22651E9311D2827400B38811 /* TTSoundfileRecorder.cpp in Sources */,
+				22FD477311E248FE007BBF7E /* SoundfileLib.cpp in Sources */,
+				22FD477B11E24913007BBF7E /* TTSoundfilePlayer.cpp in Sources */,
+				22FD477D11E24913007BBF7E /* TTSoundfileRecorder.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,83 +204,50 @@
 /* Begin XCBuildConfiguration section */
 		1DEB916108733D950010E9CD /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
-					i386,
 					x86_64,
+					i386,
 				);
 				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				EXECUTABLE_EXTENSION = ttdylib;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
-				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = ../prefix.pch;
-				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/libsndfile\"",
 					"\"$(SRCROOT)/libsndfile/lib\"",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../../../TapTools/Foundation/library/build/UninstalledProducts\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
-				PRODUCT_NAME = SoundfileLib;
-				SDKROOT = macosx10.6;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Foundation/library/includes\" \"$(SRCROOT)/../../library/includes\"";
 			};
 			name = Development;
 		};
 		1DEB916208733D950010E9CD /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
-					i386,
 					x86_64,
+					i386,
 				);
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				EXECUTABLE_EXTENSION = ttdylib;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts\"",
-				);
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = ../prefix.pch;
-				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/libsndfile\"",
 					"\"$(SRCROOT)/libsndfile/lib\"",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../../../TapTools/Foundation/library/build/UninstalledProducts\"",
 				);
-				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
-				PRODUCT_NAME = SoundfileLib;
-				SDKROOT = macosx10.6;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Foundation/library/includes\" \"$(SRCROOT)/../../library/includes\"";
 			};
 			name = Deployment;
 		};
@@ -311,7 +280,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "SoundfileLib" */ = {
+		1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "JamomaExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB916108733D950010E9CD /* Development */,

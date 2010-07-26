@@ -18,8 +18,8 @@
 
 TT_AUDIO_CONSTRUCTOR,
 	mDelay(0), 
-	mDelayInSamples(0), 
 	mDelayMax(0), 
+	mDelayInSamples(0), 
 	mDelayMaxInSamples(0)
 {
 	TTUInt16	initialMaxNumChannels = arguments;

@@ -191,6 +191,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BlackmanWindow.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BlackmanWindow.h"
+				>
+			</File>
+			<File
 				RelativePath=".\HammingWindow.cpp"
 				>
 			</File>
@@ -204,6 +212,14 @@
 			</File>
 			<File
 				RelativePath=".\HanningWindow.h"
+				>
+			</File>
+			<File
+				RelativePath=".\KaiserWindow.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\KaiserWindow.h"
 				>
 			</File>
 			<File
