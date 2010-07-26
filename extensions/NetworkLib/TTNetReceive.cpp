@@ -15,11 +15,13 @@
 
 TT_OBJECT_CONSTRUCTOR,
 mPort(0),
-mMode(NULL),
+mMode(kTTSymEmpty),
 mSocket(NULL)
 {
-	addAttributeWithSetter(	Port,		kTypeUInt16);
-	addAttributeWithSetter( Mode,		kTypeSymbol);
+	addAttributeWithSetter(Port,	kTypeUInt16);
+	addAttributeWithSetter(Mode,	kTypeSymbol);
+
+	addMessageWithArgument(networkSocketReceive);	// callback from mSocket
 }
 
 
@@ -29,6 +31,18 @@ TTNetReceive::~TTNetReceive()
 }
 
 
+void TTNetReceive::bind()
+{
+	if (mPort && mMode && (mMode != kTTSymEmpty)) {
+		char		portAsCString[8];
+		TTString	address = "";
+		
+		snprintf(portAsCString, 8, "%i", mPort);
+		delete mSocket;
+		mSocket = new TTNetSocket(this, address, TTString(portAsCString), mMode);
+	}
+}
+
 
 TTErr TTNetReceive::setPort(const TTValue& newValue)
 {
@@ -37,6 +51,7 @@ TTErr TTNetReceive::setPort(const TTValue& newValue)
 	
 	if (mPort != newPort) {
 		mPort = newPort;
+		bind();
 	}
 	return err;
 }
@@ -49,7 +64,19 @@ TTErr TTNetReceive::setMode(const TTValue& newValue)
 	
 	if (mMode != newMode) {
 		mMode = newMode;
+		bind();
 	}
 	return err;
+}
+
+
+TTErr TTNetReceive::networkSocketReceive(const TTValue& message)
+{
+	//TTString s;
+	
+	//message.get(0, s);
+	//logMessage("received: %s", s.c_str());
+	this->sendNotification(TT("receivedMessage"), message);
+	return kTTErrNone;
 }
 

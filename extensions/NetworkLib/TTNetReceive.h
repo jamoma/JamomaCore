@@ -18,19 +18,24 @@
 class TTNetReceive : public TTObject {
 	TTCLASS_SETUP(TTNetReceive)
 
+public:
 	TTUInt16				mPort;		///< port number
 	TTSymbolPtr				mMode;		///< "tcp" or "udp"
 	
 	TTNetSocketPtr			mSocket;
 	
-	
+	// internal method
+	void bind();
 	
 	/**	Setter */
 	TTErr setPort(const TTValue& value);
 	
 	/**	Setter */
 	TTErr setMode(const TTValue& value);
-	
+
+	/**	Callback from socket receive */
+	TTErr networkSocketReceive(const TTValue& message);
+
 };
 
 

@@ -40,7 +40,7 @@ void TTNetSend::connect()
 		
 		snprintf(portAsCString, 8, "%i", mPort);
 		delete mSocket;
-		mSocket = new TTNetSocket(mAddress->getString(), TTString(portAsCString), mMode);
+		mSocket = new TTNetSocket(this, mAddress->getString(), TTString(portAsCString), mMode);
 	}
 }
 
