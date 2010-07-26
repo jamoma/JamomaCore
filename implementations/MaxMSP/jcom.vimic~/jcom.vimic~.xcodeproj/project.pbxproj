@@ -13,7 +13,6 @@
 		222AD8C4109A060F0074753C /* jcom.vimic~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222AD8C3109A060F0074753C /* jcom.vimic~.cpp */; };
 		226C4511109A341500E2BFB0 /* TTClassWrapperMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226C450F109A341500E2BFB0 /* TTClassWrapperMax.cpp */; };
 		226C4512109A341500E2BFB0 /* TTClassWrapperMax.h in Headers */ = {isa = PBXBuildFile; fileRef = 226C4510109A341500E2BFB0 /* TTClassWrapperMax.h */; };
-		22EB3AE1102E6073006D027A /* tt-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22EB3AE0102E6073006D027A /* tt-max.xcconfig */; };
 		66E6AE3610C5E7FE006F07ED /* Angle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66E6AE1810C5E7FE006F07ED /* Angle.cpp */; };
 		66E6AE3710C5E7FE006F07ED /* Angle.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E6AE1910C5E7FE006F07ED /* Angle.h */; };
 		66E6AE3810C5E7FE006F07ED /* Coordinate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66E6AE1A10C5E7FE006F07ED /* Coordinate.cpp */; };
@@ -44,6 +43,7 @@
 		66E6AE5110C5E7FE006F07ED /* Source.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E6AE3310C5E7FE006F07ED /* Source.h */; };
 		66E6AE5210C5E7FE006F07ED /* ViMic_Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66E6AE3410C5E7FE006F07ED /* ViMic_Engine.cpp */; };
 		66E6AE5310C5E7FE006F07ED /* ViMic_Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E6AE3510C5E7FE006F07ED /* ViMic_Engine.h */; };
+		A7FAFF0611FE36E200FB034A /* tt-max-dsp.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A7FAFF0511FE36E200FB034A /* tt-max-dsp.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,7 +53,6 @@
 		222AD8C3109A060F0074753C /* jcom.vimic~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.vimic~.cpp"; sourceTree = "<group>"; };
 		226C450F109A341500E2BFB0 /* TTClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTClassWrapperMax.cpp; path = ../../../supports/max/TTClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
 		226C4510109A341500E2BFB0 /* TTClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTClassWrapperMax.h; path = ../../../supports/max/TTClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
-		22EB3AE0102E6073006D027A /* tt-max.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max.xcconfig"; path = "../../../supports/max/tt-max.xcconfig"; sourceTree = SOURCE_ROOT; };
 		2FBBEAE508F335360078DB84 /* jcom.vimic~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.vimic~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E6AE1810C5E7FE006F07ED /* Angle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Angle.cpp; sourceTree = "<group>"; };
 		66E6AE1910C5E7FE006F07ED /* Angle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Angle.h; sourceTree = "<group>"; };
@@ -85,6 +84,7 @@
 		66E6AE3310C5E7FE006F07ED /* Source.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Source.h; sourceTree = "<group>"; };
 		66E6AE3410C5E7FE006F07ED /* ViMic_Engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViMic_Engine.cpp; sourceTree = "<group>"; };
 		66E6AE3510C5E7FE006F07ED /* ViMic_Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViMic_Engine.h; sourceTree = "<group>"; };
+		A7FAFF0511FE36E200FB034A /* tt-max-dsp.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max-dsp.xcconfig"; path = "../tt-max-dsp.xcconfig"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +103,7 @@
 		089C166AFE841209C02AAC07 /* iterator */ = {
 			isa = PBXGroup;
 			children = (
-				22EB3AE0102E6073006D027A /* tt-max.xcconfig */,
+				A7FAFF0511FE36E200FB034A /* tt-max-dsp.xcconfig */,
 				08FB77ADFE841716C02AAC07 /* Source */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB4FE9D528D11CA2CBB /* Products */,
@@ -240,7 +240,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22EB3AE1102E6073006D027A /* tt-max.xcconfig in Resources */,
+				A7FAFF0611FE36E200FB034A /* tt-max-dsp.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,7 +298,7 @@
 		};
 		2FBBEAE108F335360078DB84 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22EB3AE0102E6073006D027A /* tt-max.xcconfig */;
+			baseConfigurationReference = A7FAFF0511FE36E200FB034A /* tt-max-dsp.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -327,7 +327,6 @@
 		};
 		2FBBEAE208F335360078DB84 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22EB3AE0102E6073006D027A /* tt-max.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
