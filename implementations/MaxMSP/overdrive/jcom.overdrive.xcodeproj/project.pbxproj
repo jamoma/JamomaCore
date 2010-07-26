@@ -13,10 +13,6 @@
 		226C435C109A16A200E2BFB0 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 226C435B109A16A200E2BFB0 /* MaxAPI.framework */; };
 		226C435F109A16AB00E2BFB0 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 226C435E109A16AB00E2BFB0 /* MaxAudioAPI.framework */; };
 		22B046D3112F61B9001D29FD /* jcom.overdrive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B046D2112F61B9001D29FD /* jcom.overdrive.cpp */; };
-		22BD4CDF11DFE9D300468F23 /* JamomaAudioGraph.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22BD4CDB11DFE9D300468F23 /* JamomaAudioGraph.dylib */; };
-		22BD4CE011DFE9D300468F23 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22BD4CDC11DFE9D300468F23 /* JamomaDSP.dylib */; };
-		22BD4CE111DFE9D300468F23 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22BD4CDD11DFE9D300468F23 /* JamomaFoundation.dylib */; };
-		22BD4CE211DFE9D300468F23 /* JamomaGraph.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22BD4CDE11DFE9D300468F23 /* JamomaGraph.dylib */; };
 		22C9F5EE10325FE40062F7B8 /* maxAudioGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5EC10325FE40062F7B8 /* maxAudioGraph.h */; };
 		22C9F5EF10325FE40062F7B8 /* maxAudioGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F5ED10325FE40062F7B8 /* maxAudioGraph.cpp */; };
 		22EB3AE1102E6073006D027A /* tt-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22EB3AE0102E6073006D027A /* tt-max.xcconfig */; };
@@ -29,10 +25,6 @@
 		226C435B109A16A200E2BFB0 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
 		226C435E109A16AB00E2BFB0 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
 		22B046D2112F61B9001D29FD /* jcom.overdrive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.overdrive.cpp; sourceTree = "<group>"; };
-		22BD4CDB11DFE9D300468F23 /* JamomaAudioGraph.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaAudioGraph.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaAudioGraph.dylib"; sourceTree = "<absolute>"; };
-		22BD4CDC11DFE9D300468F23 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
-		22BD4CDD11DFE9D300468F23 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
-		22BD4CDE11DFE9D300468F23 /* JamomaGraph.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaGraph.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaGraph.dylib"; sourceTree = "<absolute>"; };
 		22C9F5EC10325FE40062F7B8 /* maxAudioGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = maxAudioGraph.h; path = ../maxAudioGraph.h; sourceTree = SOURCE_ROOT; };
 		22C9F5ED10325FE40062F7B8 /* maxAudioGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = maxAudioGraph.cpp; path = ../maxAudioGraph.cpp; sourceTree = SOURCE_ROOT; };
 		22EB3AE0102E6073006D027A /* tt-max.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max.xcconfig"; path = "../../../supports/max/tt-max.xcconfig"; sourceTree = SOURCE_ROOT; };
@@ -46,10 +38,6 @@
 			files = (
 				226C435C109A16A200E2BFB0 /* MaxAPI.framework in Frameworks */,
 				226C435F109A16AB00E2BFB0 /* MaxAudioAPI.framework in Frameworks */,
-				22BD4CDF11DFE9D300468F23 /* JamomaAudioGraph.dylib in Frameworks */,
-				22BD4CE011DFE9D300468F23 /* JamomaDSP.dylib in Frameworks */,
-				22BD4CE111DFE9D300468F23 /* JamomaFoundation.dylib in Frameworks */,
-				22BD4CE211DFE9D300468F23 /* JamomaGraph.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,10 +58,6 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				22BD4CDB11DFE9D300468F23 /* JamomaAudioGraph.dylib */,
-				22BD4CDC11DFE9D300468F23 /* JamomaDSP.dylib */,
-				22BD4CDD11DFE9D300468F23 /* JamomaFoundation.dylib */,
-				22BD4CDE11DFE9D300468F23 /* JamomaGraph.dylib */,
 				226C435E109A16AB00E2BFB0 /* MaxAudioAPI.framework */,
 				226C435B109A16A200E2BFB0 /* MaxAPI.framework */,
 			);
