@@ -72,10 +72,6 @@ TTErr TTNetReceive::setMode(const TTValue& newValue)
 
 TTErr TTNetReceive::networkSocketReceive(const TTValue& message)
 {
-	//TTString s;
-	
-	//message.get(0, s);
-	//logMessage("received: %s", s.c_str());
 	this->sendNotification(TT("receivedMessage"), message);
 	return kTTErrNone;
 }

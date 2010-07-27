@@ -163,26 +163,11 @@ void TTNetSocketConnection::Receive()
 			//			tcpreceive_removeconnection(x, sockfd);
 			//			outlet_float(x->x_connectout, --x->x_nconnections);
 		}
-		else {
-			//			for (i=0; i < status; i++) {
-			//				/* convert the bytes in the buffer to floats in a list */
-			//				x->x_msgoutbuf[i].a_w.w_float = (float)x->x_msginbuf[i];
-			//			}
-			// find sender's ip address and output it
-			// addr = tcpreceive_getconnection(x, sockfd);
-			// x->x_addrbytes[0].a_w.w_float = (addr & 0xFF000000)>>24;
-			// x->x_addrbytes[1].a_w.w_float = (addr & 0x0FF0000)>>16;
-			// x->x_addrbytes[2].a_w.w_float = (addr & 0x0FF00)>>8;
-			// x->x_addrbytes[3].a_w.w_float = (addr & 0x0FF);
-			// outlet_list(x->x_addrout, &s_list, 4L, x->x_addrbytes);
-			//			/* send the list out the outlet */
-			//			if (read > 1) 
-			//				outlet_list(x->x_msgout, &s_list, read, x->x_msgoutbuf);
-			//			else 
-			//				outlet_float(x->x_msgout, x->x_msgoutbuf[0].a_w.w_float);
-			//				;
-			
-			v.set(0, TTString(mReceiveBuffer));
+		else {			
+            TTString    message(mReceiveBuffer);
+            
+            message.resize(status-1);
+			v.set(0, message);
 			mSocket->mOwner->sendMessage(TT("networkSocketReceive"), v);
 		}
 		TTThread::sleep(10); // TODO: is this appropriate?
