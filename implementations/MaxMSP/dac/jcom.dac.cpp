@@ -152,6 +152,13 @@ MaxErr DacNotify(DacPtr self, SymbolPtr s, SymbolPtr msg, ObjectPtr sender, TTPt
 	}
 	else {
 		if (msg == _sym_free) {
+			ObjectPtr	sourceBox;	
+			ObjectPtr	sourceObject;
+			long		sourceOutlet;
+			ObjectPtr	destBox;		
+			ObjectPtr	destObject;	
+			long		destInlet;
+
 			if (self->patcherview)
 				goto out; // if there is no patcherview, then we are freeing the whole thing and can skip this
 			
@@ -160,16 +167,16 @@ MaxErr DacNotify(DacPtr self, SymbolPtr s, SymbolPtr msg, ObjectPtr sender, TTPt
 			#endif // DEBUG_NOTIFICATIONS
 			
 			// get boxes and inlets
-			ObjectPtr	sourceBox = jpatchline_get_box1(sender);
+			sourceBox = jpatchline_get_box1(sender);
 			if (!sourceBox)
 				goto out;
-			ObjectPtr	sourceObject = jbox_get_object(sourceBox);
-			long		sourceOutlet = jpatchline_get_outletnum(sender);
-			ObjectPtr	destBox = jpatchline_get_box2(sender);
+			sourceObject = jbox_get_object(sourceBox);
+			sourceOutlet = jpatchline_get_outletnum(sender);
+			destBox = jpatchline_get_box2(sender);
 			if (!destBox)
 				goto out;
-			ObjectPtr	destObject = jbox_get_object(destBox);
-			long		destInlet = jpatchline_get_inletnum(sender);
+			destObject = jbox_get_object(destBox);
+			destInlet = jpatchline_get_inletnum(sender);
 			
 			// if both boxes are audio graph objects 
 			if ( zgetfn(sourceObject, gensym("audio.object")) && zgetfn(destObject, gensym("audio.object")) ) {
