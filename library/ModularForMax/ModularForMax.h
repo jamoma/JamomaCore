@@ -123,11 +123,21 @@ extern "C" {
 	TTErr			jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectPtr *returnedReceiver);
 	
 	
-	// Method to deal with TTHarvester
+	// Method to deal with TTPresetManager
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a container object */
-	TTErr			jamoma_harvester_create(ObjectPtr x, TTObjectPtr *returnedHarvester);
+	TTErr			jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManager);
+	
+	
+	// Method to deal with TTMapper
+	///////////////////////////////////////////////////////////////////////
+	
+	/**	Create a mapper object */
+	TTErr			jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper);
+	
+	/**	Map a value */
+	TTErr			jamoma_mapper_map(TTMapperPtr aMapper, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 	
 	
 	// Method to deal with TTDeviceManager

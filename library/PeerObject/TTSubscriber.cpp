@@ -51,6 +51,12 @@ mRelativeAddress(kTTSymEmpty), mDirectory(NULL), mShareContextNodeCallback(NULL)
 TTSubscriber::~TTSubscriber()
 {	
 	this->mDirectory->TTNodeRemove(this->mNodeAddress);
+	
+	if (mShareContextNodeCallback)
+		TTObjectRelease(TTObjectHandle(&mShareContextNodeCallback));
+	
+	if (mGetContextListCallback)
+		TTObjectRelease(TTObjectHandle(&mGetContextListCallback));
 }
 
 TTErr TTSubscriber::subscribe(TTObjectPtr anObject)

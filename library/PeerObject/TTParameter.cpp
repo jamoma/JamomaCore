@@ -32,7 +32,8 @@ mRampFunction(kTTSymEmpty),
 mDataspace(kTTSym_none),
 mDataspaceUnitNative(kTTSym_none),
 mDataspaceUnitActive(kTTSym_none),
-mDataspaceUnitDisplay(kTTSym_none)
+mDataspaceUnitDisplay(kTTSym_none),
+mReturnValueCallback(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTParameter", arguments.getSize() == 1);
 	
@@ -85,6 +86,9 @@ TTParameter::~TTParameter()
 	if (mRamper)
 	delete mRamper;
 #endif
+	
+	if (mReturnValueCallback)
+		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
 }
 
 TTErr TTParameter::Reset()
@@ -385,6 +389,7 @@ TTErr TTParameter::setValueStepsize(const TTValue& value)
 
 TTErr TTParameter::setType(const TTValue& value)
 {
+	TTAttributePtr anAttribute;
 	// if the new type is different
 	if (!(TTValue(mType) == value)) {
 		
@@ -394,6 +399,14 @@ TTErr TTParameter::setType(const TTValue& value)
 		// Unregister mValue and mValueDefault Attribute
 		removeAttribute(kTTSym_Value);
 		removeAttribute(kTTSym_ValueDefault);
+		
+		// check if attribute exist before to remove it
+		if (!findAttribute(TT("RangeBoundsMin"), &anAttribute))
+			removeAttribute(TT("RangeBoundsMin"));
+		
+		// check if attribute exist before to remove it
+		if (!findAttribute(TT("RangeBoundsMax"), &anAttribute))
+			removeAttribute(TT("RangeBoundsMax"));
 
 		// register mValue Attribute and prepare memory
 		if (mType == kTTSym_integer) {
@@ -401,12 +414,20 @@ TTErr TTParameter::setType(const TTValue& value)
 			addAttributeWithGetterAndSetter(Value, kTypeInt32);
 			mValueDefault = TTValue(0);
 			addAttributeWithGetterAndSetter(ValueDefault, kTypeInt32);
+			addAttributeWithSetter(RangeBoundsMin, kTypeInt32);
+			mRangeBoundsMin = (TTInt32)mRangeBoundsMin;
+			addAttributeWithSetter(RangeBoundsMax, kTypeInt32);
+			mRangeBoundsMax = (TTInt32)mRangeBoundsMax;
 		}
 		else if (mType == kTTSym_decimal) {
 			mValue = TTValue(0.);
 			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue(0.);
 			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
+			addAttributeWithSetter(RangeBoundsMin, kTypeFloat64);
+			mRangeBoundsMin = 0.;
+			addAttributeWithSetter(RangeBoundsMax, kTypeFloat64);
+			mRangeBoundsMax = 1.;
 		}
 		else if (mType == kTTSym_string) {
 			mValue = TTValue("");
@@ -425,12 +446,20 @@ TTErr TTParameter::setType(const TTValue& value)
 			addAttributeWithGetterAndSetter(Value, kTypeInt32);
 			mValueDefault = TTValue();
 			addAttributeWithGetterAndSetter(ValueDefault, kTypeInt32);
+			addAttributeWithSetter(RangeBoundsMin, kTypeFloat64);
+			mRangeBoundsMin = 0.;
+			addAttributeWithSetter(RangeBoundsMax, kTypeFloat64);
+			mRangeBoundsMax = TTValue(1.);
 		}
 		else if (mType == kTTSym_array) {				// Is this case means something now we have TTValue?
 			mValue = TTValue();
 			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue();
 			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
+			addAttributeWithSetter(RangeBoundsMin, kTypeFloat64);
+			mRangeBoundsMin = 0.;
+			addAttributeWithSetter(RangeBoundsMax, kTypeFloat64);
+			mRangeBoundsMax = 1.;
 		}
 	//#ifdef JMOD_MESSAGE
 		else if (mType == kTTSym_none) {
@@ -446,6 +475,10 @@ TTErr TTParameter::setType(const TTValue& value)
 			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue();
 			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
+			addAttributeWithSetter(RangeBoundsMin, kTypeFloat64);
+			mRangeBoundsMin = 0.;
+			addAttributeWithSetter(RangeBoundsMax, kTypeFloat64);
+			mRangeBoundsMax = 1.;
 			return kTTErrGeneric;
 		}
 
@@ -484,16 +517,28 @@ TTErr TTParameter::setViewFreeze(const TTValue& value)
 
 TTErr TTParameter::setRangeBoundsMin(const TTValue& value)
 {	
-	TTValue n = value;				// use new value to protect the attribute
+	TTValue n;				// use new value to protect the attribute
 	mRangeBoundsMin = value;
+	
+	if (mType = kTTSym_integer)
+		mRangeBoundsMin = (TTInt32)mRangeBoundsMin;
+	
+	n = TTValue(mRangeBoundsMin);
+	
 	notifyObservers(kTTSym_RangeBounds, n);
 	return kTTErrNone;
 }
 
 TTErr TTParameter::setRangeBoundsMax(const TTValue& value)
 {	
-	TTValue n = value;				// use new value to protect the attribute
+	TTValue n;				// use new value to protect the attribute
 	mRangeBoundsMax = value;
+	
+	if (mType = kTTSym_integer)
+		mRangeBoundsMax = (TTInt32)mRangeBoundsMax;
+	
+	n = TTValue(mRangeBoundsMax);
+	
 	notifyObservers(kTTSym_RangeBounds, n);
 	return kTTErrNone;
 }

@@ -37,7 +37,7 @@ public:
 	/**	Setter for mAttribute attribute. */
 	TTErr setAttribute(const TTValue& value);
 	
-	TTErr send(TTValue& valueToSend);
+	TTErr send(TTValue& valueToSend);				// to -- lower case in order to hide the message durring the Class wrpping process
 	
 private :
 	

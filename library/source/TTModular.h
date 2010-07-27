@@ -10,6 +10,7 @@
 #define __TT_MODULAR_H__
 
 #define TTMODULAR_VERSION_STRING "0.1"
+#define TTMODULAR_XML_ENCODING "ISO-8859-1"
 
 #define TTPARAMETER_RAMPLIB // to build TTParameter with the RampLib
 
@@ -48,8 +49,11 @@
 #include "TTSender.h"
 #include "TTReceiver.h"
 #include "TTMapper.h"
-#include "TTHarvester.h"
+#include "TTPreset.h"
+#include "TTPresetManager.h"
 #include "TTDeviceManager.h"
+
+#include "TTXmlHandler.h"
 
 // Macros
 

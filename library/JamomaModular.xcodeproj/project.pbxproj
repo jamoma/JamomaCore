@@ -62,9 +62,13 @@
 		A7CA9C890D1F21FD0099D8CA /* PitchDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7CA9C970D1FD9960099D8CA /* GainDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CA9C950D1FD9960099D8CA /* GainDataspace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7CA9C980D1FD9960099D8CA /* GainDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */; };
-		D2505E1F11F5B474000CD68C /* TTHarvester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2505E1D11F5B474000CD68C /* TTHarvester.cpp */; };
-		D2505E2011F5B474000CD68C /* TTHarvester.h in Headers */ = {isa = PBXBuildFile; fileRef = D2505E1E11F5B474000CD68C /* TTHarvester.h */; };
+		D20A263611F7913F0001B0AD /* TTPreset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D20A263411F7913F0001B0AD /* TTPreset.cpp */; };
+		D20A263711F7913F0001B0AD /* TTPreset.h in Headers */ = {isa = PBXBuildFile; fileRef = D20A263511F7913F0001B0AD /* TTPreset.h */; };
+		D20A268311F7B9D70001B0AD /* TTPresetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D20A268111F7B9D70001B0AD /* TTPresetManager.cpp */; };
+		D20A268411F7B9D70001B0AD /* TTPresetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D20A268211F7B9D70001B0AD /* TTPresetManager.h */; };
 		D2505E2B11F5B521000CD68C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2505E2A11F5B521000CD68C /* libxml2.dylib */; };
+		D295D18311FA07D3001CAB3E /* TTXmlHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = D295D18111FA07D3001CAB3E /* TTXmlHandler.h */; };
+		D295D18411FA07D3001CAB3E /* TTXmlHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D295D18211FA07D3001CAB3E /* TTXmlHandler.cpp */; };
 		D29BCDBA11C9E7E600F7CF19 /* TTModular.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D29BCDB611C9E7E600F7CF19 /* TTModular.cpp */; };
 		D29BCDBB11C9E7E600F7CF19 /* TTModular.h in Headers */ = {isa = PBXBuildFile; fileRef = D29BCDB711C9E7E600F7CF19 /* TTModular.h */; };
 		D29BCDBC11C9E7E600F7CF19 /* TTModularSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D29BCDB811C9E7E600F7CF19 /* TTModularSymbolCache.cpp */; };
@@ -152,9 +156,13 @@
 		A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PitchDataspace.h; path = DataspaceLib/PitchDataspace.h; sourceTree = SOURCE_ROOT; };
 		A7CA9C950D1FD9960099D8CA /* GainDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GainDataspace.h; path = DataspaceLib/GainDataspace.h; sourceTree = SOURCE_ROOT; };
 		A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = GainDataspace.cpp; path = DataspaceLib/GainDataspace.cpp; sourceTree = SOURCE_ROOT; };
-		D2505E1D11F5B474000CD68C /* TTHarvester.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTHarvester.cpp; sourceTree = "<group>"; };
-		D2505E1E11F5B474000CD68C /* TTHarvester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTHarvester.h; sourceTree = "<group>"; };
+		D20A263411F7913F0001B0AD /* TTPreset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTPreset.cpp; sourceTree = "<group>"; };
+		D20A263511F7913F0001B0AD /* TTPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPreset.h; sourceTree = "<group>"; };
+		D20A268111F7B9D70001B0AD /* TTPresetManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTPresetManager.cpp; sourceTree = "<group>"; };
+		D20A268211F7B9D70001B0AD /* TTPresetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPresetManager.h; sourceTree = "<group>"; };
 		D2505E2A11F5B521000CD68C /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		D295D18111FA07D3001CAB3E /* TTXmlHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTXmlHandler.h; sourceTree = "<group>"; };
+		D295D18211FA07D3001CAB3E /* TTXmlHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTXmlHandler.cpp; sourceTree = "<group>"; };
 		D29BCDB611C9E7E600F7CF19 /* TTModular.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModular.cpp; path = source/TTModular.cpp; sourceTree = "<group>"; };
 		D29BCDB711C9E7E600F7CF19 /* TTModular.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModular.h; path = source/TTModular.h; sourceTree = "<group>"; };
 		D29BCDB811C9E7E600F7CF19 /* TTModularSymbolCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModularSymbolCache.cpp; path = source/TTModularSymbolCache.cpp; sourceTree = "<group>"; };
@@ -373,22 +381,26 @@
 		D29BCDDA11C9E87F00F7CF19 /* PeerObject */ = {
 			isa = PBXGroup;
 			children = (
-				D29BCDDB11C9E87F00F7CF19 /* TTContainer.cpp */,
 				D29BCDDC11C9E87F00F7CF19 /* TTContainer.h */,
-				D29BCDDD11C9E87F00F7CF19 /* TTDeviceManager.cpp */,
+				D29BCDDB11C9E87F00F7CF19 /* TTContainer.cpp */,
 				D29BCDDE11C9E87F00F7CF19 /* TTDeviceManager.h */,
-				D2505E1D11F5B474000CD68C /* TTHarvester.cpp */,
-				D2505E1E11F5B474000CD68C /* TTHarvester.h */,
-				D29BCDDF11C9E87F00F7CF19 /* TTMapper.cpp */,
+				D29BCDDD11C9E87F00F7CF19 /* TTDeviceManager.cpp */,
+				D295D18111FA07D3001CAB3E /* TTXmlHandler.h */,
+				D295D18211FA07D3001CAB3E /* TTXmlHandler.cpp */,
+				D20A268211F7B9D70001B0AD /* TTPresetManager.h */,
+				D20A268111F7B9D70001B0AD /* TTPresetManager.cpp */,
+				D20A263511F7913F0001B0AD /* TTPreset.h */,
+				D20A263411F7913F0001B0AD /* TTPreset.cpp */,
 				D29BCDE011C9E87F00F7CF19 /* TTMapper.h */,
-				D29BCDE111C9E87F00F7CF19 /* TTParameter.cpp */,
+				D29BCDDF11C9E87F00F7CF19 /* TTMapper.cpp */,
 				D29BCDE211C9E87F00F7CF19 /* TTParameter.h */,
-				D29BCDE511C9E87F00F7CF19 /* TTReceiver.cpp */,
+				D29BCDE111C9E87F00F7CF19 /* TTParameter.cpp */,
 				D29BCDE611C9E87F00F7CF19 /* TTReceiver.h */,
-				D29BCDE711C9E87F00F7CF19 /* TTSender.cpp */,
+				D29BCDE511C9E87F00F7CF19 /* TTReceiver.cpp */,
 				D29BCDE811C9E87F00F7CF19 /* TTSender.h */,
-				D29BCDE911C9E87F00F7CF19 /* TTSubscriber.cpp */,
+				D29BCDE711C9E87F00F7CF19 /* TTSender.cpp */,
 				D29BCDEA11C9E87F00F7CF19 /* TTSubscriber.h */,
+				D29BCDE911C9E87F00F7CF19 /* TTSubscriber.cpp */,
 			);
 			path = PeerObject;
 			sourceTree = "<group>";
@@ -446,7 +458,9 @@
 				D29BCDF811C9E87F00F7CF19 /* TTSender.h in Headers */,
 				D29BCDFA11C9E87F00F7CF19 /* TTSubscriber.h in Headers */,
 				D29BCE1C11C9EBB800F7CF19 /* ModularForMax.h in Headers */,
-				D2505E2011F5B474000CD68C /* TTHarvester.h in Headers */,
+				D20A263711F7913F0001B0AD /* TTPreset.h in Headers */,
+				D20A268411F7B9D70001B0AD /* TTPresetManager.h in Headers */,
+				D295D18311FA07D3001CAB3E /* TTXmlHandler.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,7 +571,9 @@
 				D29BCDF711C9E87F00F7CF19 /* TTSender.cpp in Sources */,
 				D29BCDF911C9E87F00F7CF19 /* TTSubscriber.cpp in Sources */,
 				D29BCE1B11C9EBB800F7CF19 /* ModularForMax.cpp in Sources */,
-				D2505E1F11F5B474000CD68C /* TTHarvester.cpp in Sources */,
+				D20A263611F7913F0001B0AD /* TTPreset.cpp in Sources */,
+				D20A268311F7B9D70001B0AD /* TTPresetManager.cpp in Sources */,
+				D295D18411FA07D3001CAB3E /* TTXmlHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

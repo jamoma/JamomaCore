@@ -666,25 +666,18 @@ TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjec
 }
 
 
-// Method to deal with TTHarvester
+// Method to deal with TTPresetManager
 ///////////////////////////////////////////////////////////////////////
 
-/**	Create a container object */
-TTErr jamoma_harvester_create(ObjectPtr x, TTObjectPtr *returnedHarvester)
+/**	Create a preset manager object */
+TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManager)
 {
 	TTValue			args;
-	TTObjectPtr		returnAddressCallback, returnValueCallback;
-	TTValuePtr		returnAddressBaton, returnValueBaton;
+	TTObjectPtr		returnValueCallback;
+	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
 	args.append(TTModularDirectory);
-	
-	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("Callback"), &returnAddressCallback, kTTValNONE);
-	returnAddressBaton = new TTValue(TTPtr(x));
-	returnAddressCallback->setAttributeValue(TT("Baton"), TTPtr(returnAddressBaton));
-	returnAddressCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_address));
-	args.append(returnAddressCallback);
 	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
@@ -693,10 +686,72 @@ TTErr jamoma_harvester_create(ObjectPtr x, TTObjectPtr *returnedHarvester)
 	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
 	args.append(returnValueCallback);
 	
-	*returnedHarvester = NULL;
-	TTObjectInstantiate(TT("Harvester"), TTObjectHandle(returnedHarvester), args);
+	*returnedPresetManager = NULL;
+	TTObjectInstantiate(TT("PresetManager"), TTObjectHandle(returnedPresetManager), args);
 	
 	return kTTErrNone;
+}
+
+
+// Method to deal with TTMapper
+///////////////////////////////////////////////////////////////////////
+
+/**	Create a mapper object */
+TTErr jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper)
+{
+	TTValue			args;
+	TTObjectPtr		returnValueCallback;
+	TTValuePtr		returnValueBaton;
+	
+	// prepare arguments
+	args.append(TTModularDirectory);
+	
+	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
+	returnValueBaton = new TTValue(TTPtr(x));
+	returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
+	args.append(returnValueCallback);
+	
+	*returnedMapper = NULL;
+	TTObjectInstantiate(TT("Mapper"), TTObjectHandle(returnedMapper), args);
+	
+	return kTTErrNone;
+}
+
+/**	Map a value */
+TTErr jamoma_mapper_map(TTMapperPtr aMapper, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	TTValue		v;
+	AtomCount	i;
+	
+	if (aMapper) {
+		
+		if (msg == _sym_bang || argc == 0)
+			v = kTTValNONE;
+		else {
+			// convert Atom to TTValue
+			v.setSize(argc);
+			for (i=0; i<argc; i++) 
+			{
+				if (atom_gettype(argv+i) == A_LONG)
+#if USE_TTInt32
+					v.set(i, (TTInt32)atom_getlong(argv+i));
+#else
+				v.set(i, (int)atom_getlong(argv+i));
+#endif
+				else if (atom_gettype(argv+i) == A_FLOAT)
+					v.set(i, atom_getfloat(argv+i));
+				else if (atom_gettype(argv+i) == A_SYM)
+					v.set(i, TT(atom_getsym(argv+i)->s_name));
+			}
+		}
+		
+		aMapper->sendMessage(kTTSym_map, v);
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
 }
 
 

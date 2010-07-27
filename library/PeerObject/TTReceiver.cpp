@@ -13,10 +13,11 @@
 #define thisTTClassTags		"node, receiver"
 
 TT_MODULAR_CONSTRUCTOR,
-mDirectory(NULL),
+
 mAddress(kTTSymEmpty),
 mAttribute(kTTSym_value),
 mEnable(YES),
+mDirectory(NULL),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
 mObserver(NULL),
@@ -46,6 +47,12 @@ mNodesObserversCache(NULL)
 TTReceiver::~TTReceiver()
 {
 	unbind();
+	
+	if (mReturnAddressCallback)
+		TTObjectRelease(TTObjectHandle(&mReturnAddressCallback));
+	
+	if (mReturnValueCallback)
+		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
 }
 
 TTErr TTReceiver::setAddress(const TTValue& newValue)

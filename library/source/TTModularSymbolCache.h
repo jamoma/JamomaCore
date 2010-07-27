@@ -32,6 +32,8 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_initialized;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_integer;
 
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_map;
+
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_none;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Priority;

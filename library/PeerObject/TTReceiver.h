@@ -19,13 +19,13 @@ class TTMODULAR_EXPORT TTReceiver : public TTObject
 	
 public:
 	
-	TTNodeDirectoryPtr	mDirectory;					///< the directory
 	TTSymbolPtr			mAddress;					///< the address to bind
 	TTSymbolPtr			mAttribute;					///< the attribute to bind (default : value)
 	TTBoolean			mEnable;					///< if false, received data won't be output without unregistered attribute observers (default true).
 	
 private :
 	
+	TTNodeDirectoryPtr	mDirectory;					///< the directory
 	TTCallbackPtr		mReturnAddressCallback;		///< a way to return received address to the owner of this receiver
 	TTCallbackPtr		mReturnValueCallback;		///< a way to return received value to the owner of this receiver
 	TTObjectPtr			mObserver;					///< a life cycle observer

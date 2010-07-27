@@ -42,6 +42,12 @@ mObserver(NULL)
 TTContainer::~TTContainer()
 {
 	unbind();
+	
+	if (mReturnAddressCallback)
+		TTObjectRelease(TTObjectHandle(&mReturnAddressCallback));
+	
+	if (mReturnValueCallback)
+		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
 }
 
 TTErr TTContainer::send(TTValue& AddressAndValue)

@@ -33,6 +33,8 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_initialized;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_integer;
 
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_map;
+
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_none;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Priority;
@@ -77,6 +79,8 @@ void TTModularSymbolCacheInit()
 	
 	kTTSym_initialized				= TT("initialized");
 	kTTSym_integer					= TT("integer");
+	
+	kTTSym_map						= TT("map");
 	
 	kTTSym_none						= TT("none");
 	
