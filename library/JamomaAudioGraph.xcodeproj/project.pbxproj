@@ -14,9 +14,6 @@
 		224B070C11DE9E2300B6EF48 /* TTAudioGraphSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222019D710F90A2D0010D781 /* TTAudioGraphSource.cpp */; };
 		224B070D11DE9E2300B6EF48 /* TTAudioGraphDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F25F17111FC59900A67D8D /* TTAudioGraphDescription.cpp */; };
 		224B070E11DE9E2300B6EF48 /* TTAudioGraphInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 229D14F911210ADF00D45E1B /* TTAudioGraphInput.cpp */; };
-		224B073B11DE9F2900B6EF48 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B073811DE9F2900B6EF48 /* JamomaDSP.dylib */; };
-		224B073C11DE9F2900B6EF48 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B073911DE9F2900B6EF48 /* JamomaFoundation.dylib */; };
-		224B073D11DE9F2900B6EF48 /* JamomaGraph.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B073A11DE9F2900B6EF48 /* JamomaGraph.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,9 +23,6 @@
 		222019D710F90A2D0010D781 /* TTAudioGraphSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphSource.cpp; path = source/TTAudioGraphSource.cpp; sourceTree = "<group>"; };
 		2238134B1108C23A0031E8B6 /* TTRuby.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTRuby.cpp; path = ../../Ruby/library/TTRuby.cpp; sourceTree = SOURCE_ROOT; };
 		224B070511DE9E0000B6EF48 /* JamomaAudioGraph.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = JamomaAudioGraph.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		224B073811DE9F2900B6EF48 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
-		224B073911DE9F2900B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
-		224B073A11DE9F2900B6EF48 /* JamomaGraph.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaGraph.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaGraph.dylib"; sourceTree = "<absolute>"; };
 		224C145C113D9B5400FED832 /* TTGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraph.h; path = ../../Graph/library/includes/TTGraph.h; sourceTree = SOURCE_ROOT; };
 		224C145D113D9B5400FED832 /* TTGraphAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphAPI.h; path = ../../Graph/library/includes/TTGraphAPI.h; sourceTree = SOURCE_ROOT; };
 		224C145E113D9B5400FED832 /* TTGraphDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGraphDescription.h; path = ../../Graph/library/includes/TTGraphDescription.h; sourceTree = SOURCE_ROOT; };
@@ -64,9 +58,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				224B073B11DE9F2900B6EF48 /* JamomaDSP.dylib in Frameworks */,
-				224B073C11DE9F2900B6EF48 /* JamomaFoundation.dylib in Frameworks */,
-				224B073D11DE9F2900B6EF48 /* JamomaGraph.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,9 +93,6 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				224B073811DE9F2900B6EF48 /* JamomaDSP.dylib */,
-				224B073911DE9F2900B6EF48 /* JamomaFoundation.dylib */,
-				224B073A11DE9F2900B6EF48 /* JamomaGraph.dylib */,
 				22A403830CAD7B9400E5299E /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -266,10 +254,6 @@
 					TTAUDIOGRAPH_EXPORTS,
 					TT_DEBUG,
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-				);
 			};
 			name = Development;
 		};
@@ -287,10 +271,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = TTAUDIOGRAPH_EXPORTS;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-				);
 			};
 			name = Deployment;
 		};

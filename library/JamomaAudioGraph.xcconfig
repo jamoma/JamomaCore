@@ -41,3 +41,8 @@ MACOSX_DEPLOYMENT_TARGET = 10.5
 WRAPPER_EXTENSION = dylib;
 WARNING_CFLAGS = -Wmost -Wno-four-char-constants -Wno-unknown-pragmas
 DEPLOYMENT_LOCATION = YES
+
+FOUNDATION = "$(SRCROOT)/../../Foundation"
+DSPLIB = "$(SRCROOT)/../../DSP"
+GRAPH = "$(SRCROOT)/../../Graph"
+OTHER_LDFLAGS = "$(FOUNDATION)/library/build/UninstalledProducts"/JamomaFoundation.dylib "$(DSPLIB)/library/build/UninstalledProducts"/JamomaDSP.dylib "$(GRAPH)/library/build/UninstalledProducts"/JamomaGraph.dylib
