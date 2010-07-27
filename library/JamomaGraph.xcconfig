@@ -8,7 +8,6 @@
 // by Timothy Place
 // Copyright © 2008
 
-
 // Name & Version
 PRODUCT_NAME = $(PROJECT_NAME)
 PRODUCT_VERSION = 0.1.2
@@ -41,3 +40,6 @@ MACOSX_DEPLOYMENT_TARGET = 10.5
 WRAPPER_EXTENSION = dylib;
 WARNING_CFLAGS = -Wmost -Wno-four-char-constants -Wno-unknown-pragmas
 DEPLOYMENT_LOCATION = YES
+
+FOUNDATION = "$(SRCROOT)/../../Foundation"
+OTHER_LDFLAGS = "$(FOUNDATION)/library/build/UninstalledProducts"/JamomaFoundation.dylib
