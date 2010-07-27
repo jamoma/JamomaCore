@@ -90,9 +90,19 @@ public:
 	
 	void appendUnique(const TTValuePtr newValue);
 	
+	/** Insert a value into the list at a given location.
+		@param	index		The location of the value after insertion.
+		@param	newValue	The value to add to the list.
+		@return	kTTErrGeneric if the value can't be inserted (bad index) */
+	TTErr insert(TTUInt32 index, const TTValue& newValue);
+	
 	/** Appends a list to the list.  
 		@param	newList	The list to add to the list.  */
 	void merge(TTList& newList);
+	
+	/** Sort a list using a comparison function
+		@param	comparisonFunction which return true if the first element have to be before the second */
+	void sort(TTBoolean(comparisonFunction)(TTValuePtr, TTValuePtr));
 	
 	/** Find a value in the list that is equal to a value passed-in. */
 	TTErr findEquals(const TTValue& valueToCompareAgainst, TTValue& foundValue);

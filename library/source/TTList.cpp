@@ -112,11 +112,37 @@ void TTList::appendUnique(const TTValuePtr newValue)
 		append(*newValue);
 }
 
+TTErr TTList::insert(TTUInt32 index, const TTValue& newValue)
+{
+	TTErr		err = kTTErrGeneric;
+	TTUInt32	i=0;
+	
+	lock();
+	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+		if (i==index) {
+			err = kTTErrNone;
+			theList.insert(iter, (TTValue*)&newValue);
+			break;
+		}
+		i++;
+	}
+	unlock();
+	
+	return err;
+}
 
 void TTList::merge(TTList& newList)
 {
 	lock();
 	theList.merge(newList.theList);
+	unlock();
+}
+
+
+void TTList::sort(TTBoolean(comparisonFunction)(TTValuePtr, TTValuePtr))
+{
+	lock();
+	theList.sort(comparisonFunction);
 	unlock();
 }
 
