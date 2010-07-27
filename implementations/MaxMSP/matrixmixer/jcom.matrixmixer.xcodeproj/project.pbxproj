@@ -15,7 +15,7 @@
 		226C435F109A16AB00E2BFB0 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 226C435E109A16AB00E2BFB0 /* MaxAudioAPI.framework */; };
 		22C9F5EE10325FE40062F7B8 /* maxAudioGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F5EC10325FE40062F7B8 /* maxAudioGraph.h */; };
 		22C9F5EF10325FE40062F7B8 /* maxAudioGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F5ED10325FE40062F7B8 /* maxAudioGraph.cpp */; };
-		22EB3AE1102E6073006D027A /* tt-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22EB3AE0102E6073006D027A /* tt-max.xcconfig */; };
+		A7FA013611FED77900FB034A /* tt-max-audiograph.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A7FA013511FED77900FB034A /* tt-max-audiograph.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,8 +27,8 @@
 		226C435E109A16AB00E2BFB0 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
 		22C9F5EC10325FE40062F7B8 /* maxAudioGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = maxAudioGraph.h; path = ../maxAudioGraph.h; sourceTree = SOURCE_ROOT; };
 		22C9F5ED10325FE40062F7B8 /* maxAudioGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = maxAudioGraph.cpp; path = ../maxAudioGraph.cpp; sourceTree = SOURCE_ROOT; };
-		22EB3AE0102E6073006D027A /* tt-max.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max.xcconfig"; path = "../../../supports/max/tt-max.xcconfig"; sourceTree = SOURCE_ROOT; };
 		2FBBEAE508F335360078DB84 /* jcom.matrixmixer≈.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.matrixmixer≈.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7FA013511FED77900FB034A /* tt-max-audiograph.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max-audiograph.xcconfig"; path = "../tt-max-audiograph.xcconfig"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +47,7 @@
 		089C166AFE841209C02AAC07 /* iterator */ = {
 			isa = PBXGroup;
 			children = (
-				22EB3AE0102E6073006D027A /* tt-max.xcconfig */,
+				A7FA013511FED77900FB034A /* tt-max-audiograph.xcconfig */,
 				08FB77ADFE841716C02AAC07 /* Source */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB4FE9D528D11CA2CBB /* Products */,
@@ -141,7 +141,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22EB3AE1102E6073006D027A /* tt-max.xcconfig in Resources */,
+				A7FA013611FED77900FB034A /* tt-max-audiograph.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,7 +186,7 @@
 		};
 		2FBBEAE108F335360078DB84 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22EB3AE0102E6073006D027A /* tt-max.xcconfig */;
+			baseConfigurationReference = A7FA013511FED77900FB034A /* tt-max-audiograph.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -218,7 +218,7 @@
 		};
 		2FBBEAE208F335360078DB84 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22EB3AE0102E6073006D027A /* tt-max.xcconfig */;
+			baseConfigurationReference = A7FA013511FED77900FB034A /* tt-max-audiograph.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
