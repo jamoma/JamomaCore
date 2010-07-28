@@ -1,6 +1,6 @@
 // TTRuby : Language Bindings to Make the Jamoma Runtime accessible via Ruby
 // Copyright © 2009, Timothy Place
-// GNU LGPL
+// License: New BSD License -- http://creativecommons.org/licenses/BSD/
 
 #include "TTAudioGraphAPI.h"
 #include "ruby.h"
