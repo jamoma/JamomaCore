@@ -72,6 +72,7 @@ public:
 		return mEndPointer;
 	}
 	
+	// check pointers (both directions) to ensure they are in-bounds
 	TTSampleValuePtr wrapPointer(TTSampleValuePtr ptr)
 	{
 		if (ptr > tail())
@@ -80,6 +81,27 @@ public:
 			ptr = tail() + (ptr - head()) + 1;
 		return ptr;
 	}
+	
+	// check pointers (only at the end) to ensure they are in-bounds
+	TTSampleValuePtr wrapPointerForward(TTSampleValuePtr ptr)
+	{
+		if (ptr > tail())
+			ptr = head() + (ptr - tail());
+		return ptr;
+	}
+	
+	void wrap()
+	{
+		mReadPointer = wrapPointer(mReadPointer);
+		mWritePointer = wrapPointer(mWritePointer);
+	}
+	
+	void wrapForward()
+	{
+		mReadPointer = wrapPointerForward(mReadPointer);
+		mWritePointer = wrapPointerForward(mWritePointer);
+	}
+	
 };
 typedef TTDelayBuffer*					TTDelayBufferPtr;
 typedef vector<TTDelayBuffer>			TTDelayBufferVector;
