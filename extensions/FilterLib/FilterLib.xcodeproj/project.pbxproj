@@ -10,49 +10,27 @@
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
 		22FD464F11E24714007BBF7E /* FilterLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD464E11E24714007BBF7E /* FilterLib.cpp */; };
-		22FD467C11E2471F007BBF7E /* TTAllpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD465011E2471F007BBF7E /* TTAllpass.h */; };
 		22FD467D11E2471F007BBF7E /* TTAllpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD465111E2471F007BBF7E /* TTAllpass.cpp */; };
-		22FD467E11E2471F007BBF7E /* TTBandpassButterworth2.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD465211E2471F007BBF7E /* TTBandpassButterworth2.h */; };
 		22FD467F11E2471F007BBF7E /* TTBandpassButterworth2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD465311E2471F007BBF7E /* TTBandpassButterworth2.cpp */; };
-		22FD468011E2471F007BBF7E /* TTBandrejectButterworth2.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD465411E2471F007BBF7E /* TTBandrejectButterworth2.h */; };
 		22FD468111E2471F007BBF7E /* TTBandrejectButterworth2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD465511E2471F007BBF7E /* TTBandrejectButterworth2.cpp */; };
-		22FD468211E2471F007BBF7E /* TTDCBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD465611E2471F007BBF7E /* TTDCBlock.h */; };
 		22FD468311E2471F007BBF7E /* TTDCBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD465711E2471F007BBF7E /* TTDCBlock.cpp */; };
-		22FD468411E2471F007BBF7E /* TTHighMidLowShelf.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD465811E2471F007BBF7E /* TTHighMidLowShelf.h */; };
 		22FD468511E2471F007BBF7E /* TTHighMidLowShelf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD465911E2471F007BBF7E /* TTHighMidLowShelf.cpp */; };
-		22FD468611E2471F007BBF7E /* TTHighpassButterworth1.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD465A11E2471F007BBF7E /* TTHighpassButterworth1.h */; };
 		22FD468711E2471F007BBF7E /* TTHighpassButterworth1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD465B11E2471F007BBF7E /* TTHighpassButterworth1.cpp */; };
-		22FD468811E2471F007BBF7E /* TTHighpassButterworth2.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD465C11E2471F007BBF7E /* TTHighpassButterworth2.h */; };
 		22FD468911E2471F007BBF7E /* TTHighpassButterworth2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD465D11E2471F007BBF7E /* TTHighpassButterworth2.cpp */; };
-		22FD468A11E2471F007BBF7E /* TTHighpassButterworth3.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD465E11E2471F007BBF7E /* TTHighpassButterworth3.h */; };
 		22FD468B11E2471F007BBF7E /* TTHighpassButterworth3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD465F11E2471F007BBF7E /* TTHighpassButterworth3.cpp */; };
-		22FD468C11E2471F007BBF7E /* TTHighpassButterworth4.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD466011E2471F007BBF7E /* TTHighpassButterworth4.h */; };
 		22FD468D11E2471F007BBF7E /* TTHighpassButterworth4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD466111E2471F007BBF7E /* TTHighpassButterworth4.cpp */; };
-		22FD468E11E2471F007BBF7E /* TTHighpassLinkwitzRiley2.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD466211E2471F007BBF7E /* TTHighpassLinkwitzRiley2.h */; };
 		22FD468F11E2471F007BBF7E /* TTHighpassLinkwitzRiley2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD466311E2471F007BBF7E /* TTHighpassLinkwitzRiley2.cpp */; };
-		22FD469011E2471F007BBF7E /* TTHighpassLinkwitzRiley4.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD466411E2471F007BBF7E /* TTHighpassLinkwitzRiley4.h */; };
 		22FD469111E2471F007BBF7E /* TTHighpassLinkwitzRiley4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD466511E2471F007BBF7E /* TTHighpassLinkwitzRiley4.cpp */; };
-		22FD469211E2471F007BBF7E /* TTLowpassButterworth1.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD466611E2471F007BBF7E /* TTLowpassButterworth1.h */; };
 		22FD469311E2471F007BBF7E /* TTLowpassButterworth1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD466711E2471F007BBF7E /* TTLowpassButterworth1.cpp */; };
-		22FD469411E2471F007BBF7E /* TTLowpassButterworth2.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD466811E2471F007BBF7E /* TTLowpassButterworth2.h */; };
 		22FD469511E2471F007BBF7E /* TTLowpassButterworth2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD466911E2471F007BBF7E /* TTLowpassButterworth2.cpp */; };
-		22FD469611E2471F007BBF7E /* TTLowpassButterworth3.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD466A11E2471F007BBF7E /* TTLowpassButterworth3.h */; };
 		22FD469711E2471F007BBF7E /* TTLowpassButterworth3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD466B11E2471F007BBF7E /* TTLowpassButterworth3.cpp */; };
-		22FD469811E2471F007BBF7E /* TTLowpassButterworth4.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD466C11E2471F007BBF7E /* TTLowpassButterworth4.h */; };
 		22FD469911E2471F007BBF7E /* TTLowpassButterworth4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD466D11E2471F007BBF7E /* TTLowpassButterworth4.cpp */; };
-		22FD469A11E2471F007BBF7E /* TTLowpassLinkwitzRiley2.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD466E11E2471F007BBF7E /* TTLowpassLinkwitzRiley2.h */; };
 		22FD469B11E2471F007BBF7E /* TTLowpassLinkwitzRiley2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD466F11E2471F007BBF7E /* TTLowpassLinkwitzRiley2.cpp */; };
-		22FD469C11E2471F007BBF7E /* TTLowpassLinkwitzRiley4.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD467011E2471F007BBF7E /* TTLowpassLinkwitzRiley4.h */; };
 		22FD469D11E2471F007BBF7E /* TTLowpassLinkwitzRiley4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD467111E2471F007BBF7E /* TTLowpassLinkwitzRiley4.cpp */; };
-		22FD469E11E2471F007BBF7E /* TTLowpassOnePole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD467211E2471F007BBF7E /* TTLowpassOnePole.h */; };
 		22FD469F11E2471F007BBF7E /* TTLowpassOnePole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD467311E2471F007BBF7E /* TTLowpassOnePole.cpp */; };
-		22FD46A011E2471F007BBF7E /* TTLowpassTwoPole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD467411E2471F007BBF7E /* TTLowpassTwoPole.h */; };
 		22FD46A111E2471F007BBF7E /* TTLowpassTwoPole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD467511E2471F007BBF7E /* TTLowpassTwoPole.cpp */; };
-		22FD46A211E2471F007BBF7E /* TTLowpassFourPole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD467611E2471F007BBF7E /* TTLowpassFourPole.h */; };
 		22FD46A311E2471F007BBF7E /* TTLowpassFourPole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD467711E2471F007BBF7E /* TTLowpassFourPole.cpp */; };
-		22FD46A411E2471F007BBF7E /* TTOnePole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD467811E2471F007BBF7E /* TTOnePole.h */; };
 		22FD46A511E2471F007BBF7E /* TTOnePole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD467911E2471F007BBF7E /* TTOnePole.cpp */; };
-		22FD46A611E2471F007BBF7E /* TTSvf.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD467A11E2471F007BBF7E /* TTSvf.h */; };
 		22FD46A711E2471F007BBF7E /* TTSvf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD467B11E2471F007BBF7E /* TTSvf.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
@@ -215,44 +193,11 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		D2AAC09905546B4700DB518D /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22FD467C11E2471F007BBF7E /* TTAllpass.h in Headers */,
-				22FD467E11E2471F007BBF7E /* TTBandpassButterworth2.h in Headers */,
-				22FD468011E2471F007BBF7E /* TTBandrejectButterworth2.h in Headers */,
-				22FD468211E2471F007BBF7E /* TTDCBlock.h in Headers */,
-				22FD468411E2471F007BBF7E /* TTHighMidLowShelf.h in Headers */,
-				22FD468611E2471F007BBF7E /* TTHighpassButterworth1.h in Headers */,
-				22FD468811E2471F007BBF7E /* TTHighpassButterworth2.h in Headers */,
-				22FD468A11E2471F007BBF7E /* TTHighpassButterworth3.h in Headers */,
-				22FD468C11E2471F007BBF7E /* TTHighpassButterworth4.h in Headers */,
-				22FD468E11E2471F007BBF7E /* TTHighpassLinkwitzRiley2.h in Headers */,
-				22FD469011E2471F007BBF7E /* TTHighpassLinkwitzRiley4.h in Headers */,
-				22FD469211E2471F007BBF7E /* TTLowpassButterworth1.h in Headers */,
-				22FD469411E2471F007BBF7E /* TTLowpassButterworth2.h in Headers */,
-				22FD469611E2471F007BBF7E /* TTLowpassButterworth3.h in Headers */,
-				22FD469811E2471F007BBF7E /* TTLowpassButterworth4.h in Headers */,
-				22FD469A11E2471F007BBF7E /* TTLowpassLinkwitzRiley2.h in Headers */,
-				22FD469C11E2471F007BBF7E /* TTLowpassLinkwitzRiley4.h in Headers */,
-				22FD469E11E2471F007BBF7E /* TTLowpassOnePole.h in Headers */,
-				22FD46A011E2471F007BBF7E /* TTLowpassTwoPole.h in Headers */,
-				22FD46A211E2471F007BBF7E /* TTLowpassFourPole.h in Headers */,
-				22FD46A411E2471F007BBF7E /* TTOnePole.h in Headers */,
-				22FD46A611E2471F007BBF7E /* TTSvf.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
 		D2AAC09C05546B4700DB518D /* JamomaExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "JamomaExtension" */;
 			buildPhases = (
-				D2AAC09905546B4700DB518D /* Headers */,
 				D2AAC09B05546B4700DB518D /* Frameworks */,
 				D2AAC09A05546B4700DB518D /* Sources */,
 				2217F9FF0E4E194400806778 /* ShellScript */,
@@ -273,7 +218,11 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "FilterLib" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* TTFunctionLib */;
 			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
 			projectDirPath = "";
