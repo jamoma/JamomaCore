@@ -244,38 +244,3 @@ TTErr TTAllpass::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	TTDELAY_WRAP_CALCULATE_METHOD(calculateValue);
 }
 
-/*
-// DSP LOOP
-TT_INLINE void tt_allpass::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
-{
-	tt_sample_value temp;
-	temp_vs = in->vectorsize;
-	
-	while (temp_vs--) {
-		temp = anti_denormal(*in->vector++);	// Input	
-		*ff_in_ptr = temp;		// Store the input in the feedforward buffer
-		
-		// Apply the filter
-		temp = anti_denormal((*ff_out_ptr) + (temp * (-gain)) + (*fb_out_ptr * gain));	
-		
-		*fb_in_ptr = temp;		// Store the output in the feedback buffer
-		*out->vector++ = temp;	// Output
-		
-		// Move the heads
-		ff_in_ptr++;
-		ff_out_ptr++;
-		fb_in_ptr++;
-		fb_out_ptr++;
-		
-		// Wrap the heads
-		if (ff_in_ptr > ff_end_ptr)
-			ff_in_ptr = ff_buffer;
-		if (ff_out_ptr > ff_end_ptr)
-			ff_out_ptr = ff_buffer;	
-		if (fb_in_ptr > fb_end_ptr)
-			fb_in_ptr = fb_buffer;
-		if (fb_out_ptr > fb_end_ptr)
-			fb_out_ptr = fb_buffer;	
-	}
-}
-*/

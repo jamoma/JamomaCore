@@ -27,16 +27,7 @@ class TTAllpass : TTAudioObject {
 	TTDelayBufferVector	mFeedforward;		///< ff buffers for each channel
 	TTDelayBufferVector	mFeedback;			///< fb buffers for each channel
 	
-//	TTSampleVector*	feedforward;		///< An array of feedforward sample buffers, one for each channel
-//	TTSampleVector*	feedback;			///< An array of feedback sample buffers, one for each channel
 	
-//	TTSampleVector*	ffEndPtr;			///< pointer to the last sample in the feedforward buffer (for each channel)
-//	TTSampleVector*	fbEndPtr;			///< pointer to the last sample in the feedback buffer (for each channel)
-//	TTSampleVector*	ffInPtr;			///< record pointer into the feedforward delay buffer (for each channel)
-//	TTSampleVector*	fbInPtr;			///< record pointer into the feedback delay buffer (for each channel)
-//	TTSampleVector*	ffOutPtr;			///< playback pointer from the feedforward delay buffer (for each channel)
-//	TTSampleVector*	fbOutPtr;			///< playback pointer from the feedback delay buffer (for each channel)
-
 	// Notifications
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	TTErr updateSr();
