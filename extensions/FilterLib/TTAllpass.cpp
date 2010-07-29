@@ -226,14 +226,8 @@ inline TTErr TTAllpass::calculateValue(const TTFloat64& x, TTFloat64& y, TTDelay
 	feedbackBuffer->mWritePointer++;
 		
 	// wrap the pointers in the buffer, if needed
-	if (feedforwardBuffer->mWritePointer > feedforwardBuffer->tail())
-		feedforwardBuffer->mWritePointer = feedforwardBuffer->head();
-	if (feedforwardBuffer->mReadPointer > feedforwardBuffer->tail())
-		feedforwardBuffer->mReadPointer = feedforwardBuffer->head();				
-	if (feedbackBuffer->mWritePointer > feedbackBuffer->tail())
-		feedbackBuffer->mWritePointer = feedbackBuffer->head();
-	if (feedbackBuffer->mReadPointer > feedbackBuffer->tail())
-		feedbackBuffer->mReadPointer = feedbackBuffer->head();				
+	feedforwardBuffer->wrapForward();
+	feedbackBuffer->wrapForward();
 	
 	return kTTErrNone;
 }
