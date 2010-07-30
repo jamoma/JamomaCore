@@ -65,7 +65,7 @@ class TTAllpass : TTAudioObject {
 	TTErr Clear();
 	
 
-	TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr data);
+	TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr* data);
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 };

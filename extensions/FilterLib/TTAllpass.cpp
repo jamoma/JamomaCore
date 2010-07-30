@@ -37,6 +37,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
 	setAttributeValue(TT("LinearGain"), 1.0);
+	setAttributeValue(TT("DelayMax"), 100.0);
 	setAttributeValue(TT("Delay"), 0.0);
 	setProcessMethod(processAudio);
 }
@@ -180,35 +181,10 @@ TTErr TTAllpass::setDelayMaxInSamples(const TTValue& newValue)
 #endif
 
 
-#define TTDELAY_WRAP_CALCULATE_METHOD(methodName) \
-	TTAudioSignal&		in = inputs->getSignal(0); \
-	TTAudioSignal&		out = outputs->getSignal(0); \
-	TTUInt16			vs; \
-	TTSampleValue*		inSample; \
-	TTSampleValue*		outSample; \
-	TTUInt16			numchannels = TTAudioSignal::getMinChannelCount(in, out); \
-	TTPtrSizedInt		channel; \
-	TTDelayBufferPtr	buffer; \
-	\
-	for (channel=0; channel<numchannels; channel++) { \
-		inSample = in.mSampleVectors[channel]; \
-		outSample = out.mSampleVectors[channel]; \
-		vs = in.getVectorSizeAsInt(); \
-		buffer = &mFeedforward[channel]; \
-		\
-		while (vs--) { \
-			methodName (*inSample, *outSample, buffer); \
-			outSample++; \
-			inSample++; \
-		} \
-	}\
-	return kTTErrNone;
-
-
-inline TTErr TTAllpass::calculateValue(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffers)
+inline TTErr TTAllpass::calculateValue(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr* buffers)
 {	
-	TTDelayBufferPtr	feedforwardBuffer = buffers;
-	TTDelayBufferPtr	feedbackBuffer = buffers+1;		// NOTE: This is a little tricky!
+	TTDelayBufferPtr	feedforwardBuffer = buffers[0];
+	TTDelayBufferPtr	feedbackBuffer = buffers[1];		// NOTE: This is a little tricky!
 	
 	// Store the input in the feedforward buffer
 	*feedforwardBuffer->mWritePointer = x;
@@ -241,6 +217,28 @@ inline TTErr TTAllpass::calculateValue(const TTFloat64& x, TTFloat64& y, TTDelay
 
 TTErr TTAllpass::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTDELAY_WRAP_CALCULATE_METHOD(calculateValue);
+	TTAudioSignal&		in = inputs->getSignal(0);
+	TTAudioSignal&		out = outputs->getSignal(0);
+	TTUInt16			vs;
+	TTSampleValue*		inSample;
+	TTSampleValue*		outSample;
+	TTUInt16			numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTPtrSizedInt		channel;
+	TTDelayBufferPtr	buffers[2];
+		
+	for (channel=0; channel<numchannels; channel++) {
+		inSample = in.mSampleVectors[channel];
+		outSample = out.mSampleVectors[channel];
+		vs = in.getVectorSizeAsInt();
+		buffers[0] = &mFeedforward[channel];
+		buffers[1] = &mFeedback[channel];
+
+		while (vs--) {
+			calculateValue(*inSample, *outSample, buffers);
+			outSample++;
+			inSample++;
+		}
+	}
+	return kTTErrNone;
 }
 
