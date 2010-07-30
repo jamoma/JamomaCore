@@ -239,23 +239,23 @@ TTErr TTPreset::readFromXml(const TTValue& value)
 	// Switch on the name of the XML node
 	
 	// Starts reading
-	if (aXmlHandler->mNodeName == TT("start")) {
+	if (aXmlHandler->mXmlNodeName == TT("start")) {
 		Clear();
 		return kTTErrNone;
 	}
 	
 	// Ends reading
-	if (aXmlHandler->mNodeName == TT("end")) {
+	if (aXmlHandler->mXmlNodeName == TT("end")) {
 		// do nothing
 		return kTTErrNone;
 	}
 	
 	// Comment Node
-	if (aXmlHandler->mNodeName == TT("#comment"))
+	if (aXmlHandler->mXmlNodeName == TT("#comment"))
 		return kTTErrNone;
 	
 	// Item node
-	if (aXmlHandler->mNodeName == TT("item")) {
+	if (aXmlHandler->mXmlNodeName == TT("item")) {
 		
 		// get address
 		if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "address") == 1) {
@@ -279,7 +279,7 @@ TTErr TTPreset::readFromXml(const TTValue& value)
 	}
 	
 	// Text node (e.g. the value)
-	if (aXmlHandler->mNodeName == TT("#text")) {
+	if (aXmlHandler->mXmlNodeName == TT("#text")) {
 		
 		// look for the current item
 		if (!mItemList->lookup(mCurrentItem, v)) {

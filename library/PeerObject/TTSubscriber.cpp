@@ -121,13 +121,8 @@ TTErr TTSubscriber::subscribe(TTObjectPtr anObject)
 				// Make a TTNode with TTContainer
 				aContainer = NULL;
 				args.append(TTModularDirectory);
-#if USE_TTInt32
-				args.append(0L);
-				args.append(0L);
-#else
 				args.append(NULL);
 				args.append(NULL);
-#endif
 				TTObjectInstantiate(TT("Container"), TTObjectHandle(&aContainer), args);
 				
 				this->mContextNode->getAttributeValue(TT("Context"), aTempValue);

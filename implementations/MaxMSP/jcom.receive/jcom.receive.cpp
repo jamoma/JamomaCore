@@ -22,6 +22,8 @@ void	receive_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 void	receive_return_address(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 void	receive_return_value(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
+void	receive_bang(TTPtr self);
+
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
@@ -39,6 +41,8 @@ void WrapTTReceiverClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)receive_return_address,		"return_address",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)receive_return_value,			"return_value",			A_CANT, 0);
+	
+	class_addmethod(c->maxClass, (method)receive_bang,					"bang",					0);
 	
 }
 
@@ -81,4 +85,11 @@ void receive_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr arg
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	outlet_anything(x->outlets[data_out], msg, argc, argv);
+}
+
+void receive_bang(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	x->wrappedObject->sendMessage(TT("get"));
 }

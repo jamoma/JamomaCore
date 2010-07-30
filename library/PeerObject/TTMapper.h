@@ -44,10 +44,21 @@ private:
 	
 	TTCallbackPtr		mReturnValueCallback;		///< a way to return received value to the owner of this mapper
 	
+	TTFloat64			mA, mB, mC, mD;				// Coefficients used for normalizing input(A, B) and output (C, D
+	TTAudioObjectPtr	mFunctionUnit;
+	TTBoolean			mValid;						// true if the functionUnit can be used
+	TTValue				mParameterNames;			// cache of parameter names in order to remove them
+	
 public:
 	
 	/** process mapping */
 	TTErr map(const TTValue& value);
+	
+	/** get functions names available wtih the FunctionLib */
+	TTErr GetFunctions(TTValue& value);
+	
+	/** get paramters names available wtih the FunctionUnit */
+	TTErr GetParameters(TTValue& value);
 	
 private :
 	
@@ -58,7 +69,22 @@ private :
 	TTErr setOutput(const TTValue& value);
 	
 	/** */
+	TTErr setInputMin(const TTValue& value);
+	
+	/** */
+	TTErr setInputMax(const TTValue& value);
+	
+	/** */
+	TTErr setOutputMin(const TTValue& value);
+	
+	/** */
+	TTErr setOutputMax(const TTValue& value);
+	
+	/** */
 	TTErr setFunction(const TTValue& value);
+	
+	TTErr scaleInput();
+	TTErr scaleOutput();
 	
 	friend TTErr TTMODULAR_EXPORT TTMapperReceiveAddressCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTMapperReceiveValueCallback(TTPtr baton, TTValue& data);

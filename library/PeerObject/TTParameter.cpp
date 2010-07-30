@@ -182,7 +182,7 @@ TTErr TTParameter::Command(const TTValue& command)
 		{
 			// Is the X-2 element is a ramp symbol ?
 			if (command.getType(commandSize - 2) == kTypeSymbol) {
-				command.get(commandSize - 3, &ramp);
+				command.get(commandSize - 2, &ramp);
 				if (ramp == kTTSym_ramp)
 					hasRamp = true;
 			}
@@ -821,19 +821,14 @@ void TTParameterRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 	for (i=0; i<n; i++)
 		rampedValue.set(i, rampedArray[i]);
 	
-	if (aParameter->mRepetitionsAllow || !(aParameter->mValue == rampedValue)) {
+	if (aParameter->mType == kTTSym_integer)
+		rampedValue.truncate();
+	
+	if (!aParameter->mRepetitionsAllow)
+		if (aParameter->mValue == rampedValue)
+			return;
 		
-		if (aParameter->mType == kTTSym_integer)
-			rampedValue.truncate();
-		
-		// set internal value
-		aParameter->mValue = rampedValue;
-		
-		// return the value to his owner
-		aParameter->mReturnValueCallback->notify(aParameter->mValue);
-		
-		// notify each observers
-		aParameter->notifyObservers(kTTSym_Value, aParameter->mValue);
-	}
+	// set internal value
+	aParameter->setValue(rampedValue);
 }
 #endif

@@ -24,7 +24,6 @@ void	map_int(TTPtr self, long value);
 void	map_float(TTPtr self, double value);
 void	map_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
-
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	ModularSpec *spec = new ModularSpec;
@@ -44,7 +43,6 @@ void WrapTTMapperClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)map_int,					"int",					A_LONG, 0L);
 	class_addmethod(c->maxClass, (method)map_float,					"float",				A_FLOAT, 0L);
 	class_addmethod(c->maxClass, (method)map_list,					"list",					A_GIMME, 0L);
-	
 }
 
 void WrappedMapperClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -99,7 +97,6 @@ void map_float(TTPtr self, double value)
 void map_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue		c;
 	
 	jamoma_mapper_map((TTMapperPtr)x->wrappedObject, msg, argc, argv);
 }

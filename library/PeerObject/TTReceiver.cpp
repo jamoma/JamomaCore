@@ -87,10 +87,11 @@ TTErr TTReceiver::setEnable(const TTValue& newValue)
 TTErr TTReceiver::get()
 {
 	TTNodePtr	aNode;
+	TTObjectPtr anObject;
 	TTSymbolPtr	oscAddress;
 	TTString	fullAddress;
 	TTValue		address;
-	TTValue		data;
+	TTValue		data, v;
 	TTErr		err;
 	
 	if (!mNodesObserversCache->isEmpty()) {
@@ -102,14 +103,17 @@ TTErr TTReceiver::get()
 			mNodesObserversCache->current().get(0,(TTPtr*)&aNode);
 			
 			// get the value of the attribute
-			err = aNode->getAttributeValue(mAttribute, data);
+			aNode->getAttributeValue(kTTSym_Object, v);
+			v.get(0, (TTPtr*)&anObject);
+			err = anObject->getAttributeValue(mAttribute, data);
+			
 			
 			if (!err) {
 				
 				// output the OSCAddress of the node (in case we use * inside the x->attrname)
 				aNode->getOscAddress(&oscAddress);
 				fullAddress = oscAddress->getCString();
-				if (mAttribute != kTTSym_value) {
+				if (mAttribute != kTTSym_Value) {
 					fullAddress += C_PROPERTY;
 					fullAddress += mAttribute->getCString();
 				}

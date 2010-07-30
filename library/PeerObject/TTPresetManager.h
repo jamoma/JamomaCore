@@ -26,7 +26,7 @@ class TTMODULAR_EXPORT TTPresetManager : public TTObject
 	
 public:
 	
-	TTSymbolPtr			mAddress;						///< ATTRIBUTE: the address of the preset manager in the directory
+	TTSymbolPtr			mAddress;						///< ATTRIBUTE : the address of the preset manager in the directory
 	
 private:
 	
@@ -38,7 +38,8 @@ private:
 	
 public:
 	
-	TTErr New();				
+	TTErr New();
+	TTErr Info(const TTValue& value);
 	
 	TTErr Store(const TTValue& value);
 	TTErr StoreCurrent();
@@ -49,6 +50,11 @@ public:
 	TTErr RecallCurrent();
 	TTErr RecallNext();
 	TTErr RecallPrevious();
+	
+	TTErr Remove(const TTValue& value);
+	TTErr RemoveCurrent();
+	TTErr RemoveNext();
+	TTErr RemovePrevious();
 	
 private :
 	
@@ -65,6 +71,8 @@ private :
 	
 	TTPresetPtr getPresetCurrent();
 	TTPresetPtr getPresetWithName(TTSymbolPtr name);
+	
+	TTErr refreshList();
 };
 
 typedef TTPresetManager* TTPresetManagerPtr;

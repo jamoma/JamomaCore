@@ -70,11 +70,7 @@ TTErr TTDeviceManager::AddDevice(const TTValue& value)
 	TTSymbolPtr deviceName;
 	TTSymbolPtr commParamName;
 	TTSymbolPtr commParam_SymValue;
-#if USE_TTInt32
-	TTInt32		commParam_IntValue;
-#else
-	int			commParam_IntValue = 0;
-#endif
+	TTInt32		commParam_IntValue = 0;
 	TTFloat64	commParam_FloatValue;
 	TTValue		commParamValue;
 	TTString	commParamValueStr;
@@ -99,7 +95,7 @@ TTErr TTDeviceManager::AddDevice(const TTValue& value)
 				}
 				else if (value.getType(i+1) == kTypeInt32) {
 					value.get(i+1, commParam_IntValue);
-					commParamValue.append(commParam_IntValue);
+					commParamValue.append((int)commParam_IntValue);
 				}
 				else if (value.getType(i+1) == kTypeFloat64) {
 					value.get(i+1, commParam_FloatValue);
@@ -442,7 +438,8 @@ void TTDeviceManagerDiscoverCallback(void* arg, Address whereToDiscover, std::ve
 			
 			// Add the access attribute which is not a jamoma attribute
 			// only for the parameter
-			if(o->getName() == TT("Parameter"))
+			type = o->getName();
+			if(type == TT("Parameter"))
 				returnedAttributes.push_back(NAMESPACE_ATTR_ACCESS);
 			
 			// Add all other attributes
@@ -496,7 +493,7 @@ void TTDeviceManagerGetCallback(void* arg, Address whereToGet, std::string attri
 				returnedValue = "getsetter";
 				
 			}
-			// filter Access attribute
+			// filter RangBounds attribute
 			else if(attributeName == TT("RangeBounds")){
 				
 				err = o->getAttributeValue(TT("RangeBoundsMin"), min);
@@ -561,6 +558,8 @@ void TTDeviceManagerSetCallback(void* arg, Address whereToSet, std::string attri
 					o->sendMessage(kTTSym_Command, v);
 				else
 					o->setAttributeValue(attrName, v);
+				
+				// TODO : case of RangeBondsMin and Max
 			}
 		}
 		else{

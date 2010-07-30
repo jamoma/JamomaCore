@@ -37,6 +37,7 @@
 #include <math.h>
 
 #include "TTFoundationAPI.h"		// TTBlue Headers...
+#include "TTDSP.h"
 
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
