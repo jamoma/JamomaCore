@@ -36,34 +36,34 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 {
 	TTDSPInit();
 	
-	//	TTAllpass::registerClass();					//"audio, processor, filter, allpass",					
+	TTAllpass::registerClass();
 	//	TTAverage::registerClass();
 
-	TTBandpassButterworth2::registerClass();		//"audio, processor, filter, bandpass, butterworth",	
-	TTBandRejectButterworth2::registerClass();		//"audio, processor, filter, notch",					
-	TTDCBlock::registerClass();						//"audio, processor, filter",							
-	TTHighMidLowShelf::registerClass();				//"audio, processor, filter",							
+	TTBandpassButterworth2::registerClass();
+	TTBandRejectButterworth2::registerClass();
+	TTDCBlock::registerClass();
+	TTHighMidLowShelf::registerClass();
 	
-	TTHighpassButterworth1::registerClass();		//"audio, processor, filter, highpass, butterworth",	
-	TTHighpassButterworth2::registerClass();		//"audio, processor, filter, highpass, butterworth",	
-	TTHighpassButterworth3::registerClass();		//"audio, processor, filter, highpass, butterworth",	
-	TTHighpassButterworth4::registerClass();		//"audio, processor, filter, highpass, butterworth",	
-	TTHighpassLinkwitzRiley2::registerClass();		//"audio, processor, filter, highpass",					
-	TTHighpassLinkwitzRiley4::registerClass();		//"audio, processor, filter, highpass, crossover",		
+	TTHighpassButterworth1::registerClass();
+	TTHighpassButterworth2::registerClass();
+	TTHighpassButterworth3::registerClass();
+	TTHighpassButterworth4::registerClass();
+	TTHighpassLinkwitzRiley2::registerClass();
+	TTHighpassLinkwitzRiley4::registerClass();
 	
-	TTLowpassButterworth1::registerClass();			//"audio, processor, filter, lowpass, butterworth",		
-	TTLowpassButterworth2::registerClass();			//"audio, processor, filter, lowpass, butterworth",		
-	TTLowpassButterworth3::registerClass();			//"audio, processor, filter, lowpass, butterworth",		
-	TTLowpassButterworth4::registerClass();			//"audio, processor, filter, lowpass, butterworth",		
-	TTLowpassLinkwitzRiley2::registerClass();		//"audio, processor, filter, lowpass",					
-	TTLowpassLinkwitzRiley4::registerClass();		//"audio, processor, filter, lowpass, crossover",		
+	TTLowpassButterworth1::registerClass();
+	TTLowpassButterworth2::registerClass();
+	TTLowpassButterworth3::registerClass();
+	TTLowpassButterworth4::registerClass();
+	TTLowpassLinkwitzRiley2::registerClass();
+	TTLowpassLinkwitzRiley4::registerClass();
 	
-	TTLowpassOnePole::registerClass();				//"audio, processor, filter, lowpass",					
-	TTLowpassTwoPole::registerClass();				//"audio, processor, filter, lowpass",					
-	TTLowpassFourPole::registerClass();				//"audio, processor, filter, lowpass",					
+	TTLowpassOnePole::registerClass();
+	TTLowpassTwoPole::registerClass();
+	TTLowpassFourPole::registerClass();
 	
 	TTOnePole::registerClass();
-	TTSvf::registerClass();							//"audio, processor, filter, lowpass, highpass, bandpass, notch",
+	TTSvf::registerClass();
 	
 	return kTTErrNone;
 }
