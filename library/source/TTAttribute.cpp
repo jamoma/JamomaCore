@@ -58,12 +58,18 @@ TTAttribute::TTAttribute(const TTSymbolPtr newName, const TTObjectPtr newGetterO
 	setter = (TTSetterMethod)&TTAttribute::callbackSetter;
 }
 
+TTAttribute::TTAttribute(TTAttributePtr extendedAttribute, const TTObjectPtr extendedObject)
+: TTObject(kTTValNONE), name(extendedAttribute->name), type(extendedAttribute->type), getterObject(extendedObject), setterObject(extendedObject), getterFlags(kTTAttrPassObject), setterFlags(kTTAttrPassObject),
+readOnly(extendedAttribute->readOnly), rangeLowBound(extendedAttribute->rangeLowBound), rangeHighBound(extendedAttribute->rangeHighBound), rangeChecking(extendedAttribute->rangeChecking)
+{
+	getter = (TTGetterMethod)&TTAttribute::extendedGetter;
+	setter = (TTSetterMethod)&TTAttribute::extendedSetter;
+}
 
 TTAttribute::~TTAttribute()
 {
 	;
 }
-
 
 void TTAttribute::setGetterFlags(TTAttributeFlags newFlags)
 {
@@ -213,6 +219,19 @@ TTErr TTAttribute::callbackSetter(const TTAttribute& attribute, TTValue& value)
 	return aSetter->notify(value);
 }
 
+TTErr TTAttribute::extendedGetter(const TTAttribute& attribute, TTValue& value)
+{
+	TTObjectPtr anExtendedObject = (TTObjectPtr)attribute.getterObject;
+	
+	return anExtendedObject->getAttributeValue(this->name, value);
+}
+
+TTErr TTAttribute::extendedSetter(const TTAttribute& attribute, TTValue& value)
+{
+	TTObjectPtr anExtendedObject = (TTObjectPtr)attribute.setterObject;
+	
+	return anExtendedObject->setAttributeValue((TTSymbolPtr)this->name, value);
+}
 
 TTErr TTAttribute::setreadOnly(const TTValue& newReadOnlyValue)
 {
