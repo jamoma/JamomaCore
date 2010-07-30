@@ -159,7 +159,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObjec
 		v.setSize(5);
 		v.set(0, oscAddress_name);
 		v.set(1, newInstance);
-		v.set(2, newObject);
+		v.set(2, (TTPtr)newObject);
 		v.set(3, aContext);
 		v.set(4, TTObjectRef(*this));
 		
@@ -555,6 +555,8 @@ TTErr splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* returnedParentOscAdre
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
 	//if(oscAddress->getCString()[0]!= C_SEPARATOR)
 	//	return kTTErrGeneric;
+	
+	// TODO : replace all ".0" by ""
 
 	to_split = (char *)malloc(sizeof(char)*(strlen(oscAddress->getCString())+1));
 	strcpy(to_split,oscAddress->getCString());

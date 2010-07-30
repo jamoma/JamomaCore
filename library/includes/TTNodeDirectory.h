@@ -203,6 +203,7 @@ public:
 TTErr TTFOUNDATION_EXPORT splitAtOSCAddress(TTSymbolPtr oscAddress, int whereToSplit, TTSymbolPtr* returnedPart1, TTSymbolPtr* returnedPart2);
 
 /**	An OSC parsing tool : split an OSC address in four part /parent/node.instance:property
+	and replace all inside the address ".0" by ""
 	@param	oscAddress					The OSC address to spilt
 	@param	returnedParentOscAddress	A pointer to TTNode parent symbol is returned in this parameter
 	@param	returnedTTNodeName			A pointer to the TTNode name symbol is returned in this parameter
