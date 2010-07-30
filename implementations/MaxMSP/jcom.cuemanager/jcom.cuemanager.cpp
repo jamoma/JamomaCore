@@ -760,8 +760,6 @@ void cuemng_dosave(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 	cuemng_write_buffer(x);
 
 	critical_exit(0);
-	
-	post("nb_written_line : %d", x->nb_written_lines);
 
 	// close the file
 	err = sysfile_seteof(x->fh, x->eof);
