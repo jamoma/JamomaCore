@@ -1,5 +1,5 @@
 /* 
- * Allpass Filter Object for Jamoma DSP
+ * First-Order Allpass Filter Object for Jamoma DSP
  * Copyright © 2003, Tim Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -9,7 +9,7 @@
 #include "TTAllpass.h"
 
 #define thisTTClass			TTAllpass
-#define thisTTClassName		"allpass"
+#define thisTTClassName		"allpass.1"
 #define thisTTClassTags		"audio, processor, filter, allpass"
 
 #ifdef TT_PLATFORM_WIN
