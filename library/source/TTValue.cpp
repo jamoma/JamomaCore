@@ -61,12 +61,11 @@ TTValue::TTValue(const TTUInt16 initialValue)
 	*type = kTypeUInt16;
 }
 
-# if 1
-	TTValue::TTValue(const int initialValue)
-#else
+#ifdef USE_TTInt32
 	TTValue::TTValue(const TTInt32 initialValue)
+#else
+	TTValue::TTValue(const int initialValue)
 #endif	
-//TTValue::TTValue(const TTInt32 initialValue)
 {
 	init();
 	data->int32 = initialValue;
@@ -644,7 +643,7 @@ void TTValue::set(const TTUInt16 index, const TTUInt16 newValue)
 	data[index].uint16 = newValue;
 }
 
-# if USE_TTInt32
+#ifdef USE_TTInt32
 	void TTValue::set(const TTUInt16 index, const TTInt32 newValue)
 	
 #else
@@ -759,7 +758,7 @@ void TTValue::get(const TTUInt16 index, TTUInt16 &value) const
 		CONVERT(TTUInt16)
 }
 
-#if USE_TTInt32
+#if 1   // always use TTInt32 for the get method
 void TTValue::get(const TTUInt16 index, TTInt32 &value) const
 #else
 void TTValue::get(const TTUInt16 index, int &value) const
@@ -870,7 +869,7 @@ void TTValue::append(const TTUInt16 newValue)
 	set(numValues-1, newValue);
 }
 
-#if USE_TTInt32
+#ifdef USE_TTInt32
 void TTValue::append(const TTInt32 newValue)
 #else
 void TTValue::append(const int newValue)

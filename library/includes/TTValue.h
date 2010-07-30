@@ -17,7 +17,7 @@
 
 class TTObject;
 
-#define USE_TTInt32 NO			// to -- To easily change for TTInt32 instead of int in order to make test
+//#define USE_TTInt32				// to -- To easily change for TTInt32 instead of int in order to make test
 
 // macro for converting from one type to another regardless of type
 #define	CONVERT(dType) switch(*(type+index)) {\
@@ -111,7 +111,7 @@ public:
 	TTValue(const TTUInt8 initialValue);
 	TTValue(const TTInt16 initialValue);
 	TTValue(const TTUInt16 initialValue);
-# if USE_TTInt32
+#ifdef USE_TTInt32
 	TTValue(const TTInt32 initialValue);
 #else
 	TTValue(const int initialValue);
@@ -232,7 +232,7 @@ public:
 	void set(const TTUInt16 index, const TTUInt8 newValue);
 	void set(const TTUInt16 index, const TTInt16 newValue);
 	void set(const TTUInt16 index, const TTUInt16 value);
-# if USE_TTInt32
+#ifdef USE_TTInt32
 	void set(const TTUInt16 index, const TTInt32 newValue);
 #else
 	void set(const TTUInt16 index, const int newValue);
@@ -255,7 +255,7 @@ public:
 	void get(const TTUInt16 index, TTUInt8 &value) const;
 	void get(const TTUInt16 index, TTInt16 &value) const;
 	void get(const TTUInt16 index, TTUInt16 &value) const;
-# if USE_TTInt32
+#if 1 // always use TTInt32 for the get method
 	void get(const TTUInt16 index, TTInt32 &value) const;
 #else
 	void get(const TTUInt16 index, int &value) const;
@@ -295,7 +295,7 @@ public:
 	void append(const TTUInt8 newValue);
 	void append(const TTInt16 newValue);
 	void append(const TTUInt16 value);
-# if USE_TTInt32
+#ifdef USE_TTInt32
 	void append(const TTInt32 newValue);
 #else
 	void append(const int newValue);
