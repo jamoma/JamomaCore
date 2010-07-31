@@ -9,7 +9,7 @@
 #include "TTAllpass.h"
 
 #define thisTTClass			TTAllpass
-#define thisTTClassName		"allpass.1"
+#define thisTTClassName		"allpass"
 #define thisTTClassTags		"audio, processor, filter, allpass"
 
 #ifdef TT_PLATFORM_WIN
