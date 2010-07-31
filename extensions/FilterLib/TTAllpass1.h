@@ -1,6 +1,6 @@
 /* 
- * Allpass Filter Object for Jamoma DSP
- * Copyright © 2010, Timothy Place
+ * First-Order Allpass Filter Object for Jamoma DSP
+ * Copyright © 2010, Tim Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -10,7 +10,6 @@
 #define __TT_ALLPASS1_H__
 
 #include "TTDSP.h"
-#include "TTDelayBuffer.h"
 
 
 /**	A first-order building-block allpass filter.

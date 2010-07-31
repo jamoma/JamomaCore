@@ -8,12 +8,13 @@
  */
 
 #include "TTDSP.h"
+
 #include "TTAllpass.h"
 #include "TTAllpass1.h"
+#include "TTAllpass2.h"
+
 #include "TTBandpassButterworth2.h"
 #include "TTBandrejectButterworth2.h"
-#include "TTDCBlock.h"
-#include "TTHighMidLowShelf.h"
 #include "TTHighpassButterworth1.h"
 #include "TTHighpassButterworth2.h"
 #include "TTHighpassButterworth3.h"
@@ -26,6 +27,9 @@
 #include "TTLowpassButterworth4.h"
 #include "TTLowpassLinkwitzRiley2.h"
 #include "TTLowpassLinkwitzRiley4.h"
+
+#include "TTDCBlock.h"
+#include "TTHighMidLowShelf.h"
 #include "TTLowpassOnePole.h"
 #include "TTLowpassTwoPole.h"
 #include "TTLowpassFourPole.h"

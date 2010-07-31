@@ -1,6 +1,6 @@
 /* 
  * First-Order Allpass Filter Object for Jamoma DSP
- * Copyright © 2003, Tim Place
+ * Copyright © 2010, Tim Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
