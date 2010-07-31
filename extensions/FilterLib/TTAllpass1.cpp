@@ -54,7 +54,7 @@ TTErr TTAllpass1::Clear()
 }
 
 
-inline TTErr TTAllpass::calculateValue(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr* buffers)
+inline TTErr TTAllpass1::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
 	y = ((x + mY1[channel]) * mAlpha) + mX1[channel];
 
@@ -66,7 +66,7 @@ inline TTErr TTAllpass::calculateValue(const TTFloat64& x, TTFloat64& y, TTDelay
 }
 
 
-TTErr TTAllpass::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTAllpass1::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TT_WRAP_CALCULATE_METHOD(calculateValue);
 }

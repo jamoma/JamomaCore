@@ -29,7 +29,7 @@ class TTAllpass1 : TTAudioObject {
 	TTErr Clear();
 	
 	// Do the processing
-	TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr* data);
+	TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 };
