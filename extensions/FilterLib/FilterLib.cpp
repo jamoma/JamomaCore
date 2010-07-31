@@ -9,6 +9,7 @@
 
 #include "TTDSP.h"
 #include "TTAllpass.h"
+#include "TTAllpass1.h"
 #include "TTBandpassButterworth2.h"
 #include "TTBandrejectButterworth2.h"
 #include "TTDCBlock.h"
@@ -37,6 +38,8 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	TTDSPInit();
 	
 	TTAllpass::registerClass();
+	TTAllpass1::registerClass();
+
 	//	TTAverage::registerClass();
 
 	TTBandpassButterworth2::registerClass();
