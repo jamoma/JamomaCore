@@ -135,24 +135,29 @@
 			isa = PBXGroup;
 			children = (
 				22FD464E11E24714007BBF7E /* FilterLib.cpp */,
-				2217FAAA0E4F284D00806778 /* Classes */,
+				2217FAAA0E4F284D00806778 /* Allpass-Based Filters */,
+				226C949A1203A368009E0717 /* Butterworth-Based Filters */,
+				226C949B1203A399009E0717 /* Other Filters */,
 			);
 			name = Source;
 			sourceTree = "<group>";
 		};
-		2217FAAA0E4F284D00806778 /* Classes */ = {
+		2217FAAA0E4F284D00806778 /* Allpass-Based Filters */ = {
 			isa = PBXGroup;
 			children = (
 				22FD465011E2471F007BBF7E /* TTAllpass.h */,
 				22FD465111E2471F007BBF7E /* TTAllpass.cpp */,
+			);
+			name = "Allpass-Based Filters";
+			sourceTree = "<group>";
+		};
+		226C949A1203A368009E0717 /* Butterworth-Based Filters */ = {
+			isa = PBXGroup;
+			children = (
 				22FD465211E2471F007BBF7E /* TTBandpassButterworth2.h */,
 				22FD465311E2471F007BBF7E /* TTBandpassButterworth2.cpp */,
 				22FD465411E2471F007BBF7E /* TTBandrejectButterworth2.h */,
 				22FD465511E2471F007BBF7E /* TTBandrejectButterworth2.cpp */,
-				22FD465611E2471F007BBF7E /* TTDCBlock.h */,
-				22FD465711E2471F007BBF7E /* TTDCBlock.cpp */,
-				22FD465811E2471F007BBF7E /* TTHighMidLowShelf.h */,
-				22FD465911E2471F007BBF7E /* TTHighMidLowShelf.cpp */,
 				22FD465A11E2471F007BBF7E /* TTHighpassButterworth1.h */,
 				22FD465B11E2471F007BBF7E /* TTHighpassButterworth1.cpp */,
 				22FD465C11E2471F007BBF7E /* TTHighpassButterworth2.h */,
@@ -177,6 +182,17 @@
 				22FD466F11E2471F007BBF7E /* TTLowpassLinkwitzRiley2.cpp */,
 				22FD467011E2471F007BBF7E /* TTLowpassLinkwitzRiley4.h */,
 				22FD467111E2471F007BBF7E /* TTLowpassLinkwitzRiley4.cpp */,
+			);
+			name = "Butterworth-Based Filters";
+			sourceTree = "<group>";
+		};
+		226C949B1203A399009E0717 /* Other Filters */ = {
+			isa = PBXGroup;
+			children = (
+				22FD465611E2471F007BBF7E /* TTDCBlock.h */,
+				22FD465711E2471F007BBF7E /* TTDCBlock.cpp */,
+				22FD465811E2471F007BBF7E /* TTHighMidLowShelf.h */,
+				22FD465911E2471F007BBF7E /* TTHighMidLowShelf.cpp */,
 				22FD467211E2471F007BBF7E /* TTLowpassOnePole.h */,
 				22FD467311E2471F007BBF7E /* TTLowpassOnePole.cpp */,
 				22FD467411E2471F007BBF7E /* TTLowpassTwoPole.h */,
@@ -188,7 +204,7 @@
 				22FD467A11E2471F007BBF7E /* TTSvf.h */,
 				22FD467B11E2471F007BBF7E /* TTSvf.cpp */,
 			);
-			name = Classes;
+			name = "Other Filters";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,6 +234,7 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "FilterLib" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
