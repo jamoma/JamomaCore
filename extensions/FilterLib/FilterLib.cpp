@@ -13,6 +13,7 @@
 #include "TTAllpass1.h"
 #include "TTAllpass2.h"
 #include "TTAllpass4.h"
+#include "TTHalfband5.h"
 
 #include "TTBandpassButterworth2.h"
 #include "TTBandrejectButterworth2.h"
@@ -46,6 +47,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	TTAllpass1::registerClass();
 	TTAllpass2::registerClass();
 	TTAllpass4::registerClass();
+	TTHalfband5::registerClass();
 
 	//	TTAverage::registerClass();
 

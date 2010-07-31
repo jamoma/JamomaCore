@@ -72,7 +72,7 @@ TTErr TTAllpass4::Clear()
 }
 
 
-inline TTErr TTAllpass4::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+TTErr TTAllpass4::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
 	TTFloat64 w1 = mD1 * (mX3[channel] + mY1[channel]);
 	TTFloat64 w2 = mD2 * (mX2[channel] + mY2[channel]);

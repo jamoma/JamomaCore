@@ -15,7 +15,7 @@
 /**	A second-order building-block allpass filter.
 	Based on Multirate Signal Processing for Communication Systems, Chapter 10, Figure 35. 
  */
-class TTAllpass2 : TTAudioObject {
+class TTAllpass2 : public TTAudioObject {
 	TTCLASS_SETUP(TTAllpass2)
 
 	TTFloat64			mC1;	///< first coefficient
