@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 419.0, 63.0, 741.0, 375.0 ],
+		"rect" : [ 419.0, 63.0, 768.0, 375.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 419.0, 63.0, 741.0, 375.0 ],
+		"defrect" : [ 419.0, 63.0, 768.0, 375.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -22,13 +22,37 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.101961, 0.121569, 0.172549, 1.0 ],
+					"id" : "obj-17",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 15.0, 170.0, 68.0, 19.0 ],
+					"text" : "loadmess 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-12",
+					"maxclass" : "gswitch2",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 80.0, 205.0, 39.0, 32.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-15",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 310.0, 325.0, 252.0, 19.0 ],
-					"presentation_rect" : [ 240.0, 283.0, 0.0, 0.0 ],
+					"patching_rect" : [ 340.0, 330.0, 252.0, 19.0 ],
 					"text" : "http://redmine.jamoma.org/issues/show/42"
 				}
 
@@ -37,13 +61,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.101961, 0.121569, 0.172549, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-14",
 					"linecount" : 4,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 230.0, 265.0, 150.0, 55.0 ],
+					"patching_rect" : [ 260.0, 270.0, 150.0, 55.0 ],
 					"text" : "this test is disconnected because it is testing something we haven't implemented."
 				}
 
@@ -55,7 +79,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 205.0, 295.0, 20.0, 20.0 ]
+					"patching_rect" : [ 235.0, 300.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -92,7 +116,7 @@
 									"fontsize" : 10.0,
 									"id" : "obj-6",
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 450.0, 190.0, 317.0, 19.0 ],
 									"text" : "test.assert.equal TEST1dataspace/convert_lists 60. 70."
@@ -133,7 +157,7 @@
 									"fontsize" : 10.0,
 									"id" : "obj-10",
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 75.0, 190.0, 342.0, 19.0 ],
 									"text" : "test.assert.equal TEST2dataspace/convert_lists 6000. 7200."
@@ -238,15 +262,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 205.0, 325.0, 104.0, 19.0 ],
+					"patching_rect" : [ 235.0, 330.0, 104.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
+						"fontface" : 0
 					}
 ,
 					"text" : "p DealingWithLists"
@@ -260,7 +284,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 440.0, 175.0, 20.0, 20.0 ]
+					"patching_rect" : [ 470.0, 180.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -274,9 +298,9 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 283.0, 56.0, 1247.0, 629.0 ],
+						"rect" : [ 193.0, 56.0, 1247.0, 629.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 283.0, 56.0, 1247.0, 629.0 ],
+						"defrect" : [ 193.0, 56.0, 1247.0, 629.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -298,7 +322,7 @@
 									"id" : "obj-28",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 535.0, 440.0, 186.0, 43.0 ],
 									"text" : "test.assert.equal TEST/dataspace/color/neutral2hsv 120. 100. 100."
@@ -312,7 +336,7 @@
 									"id" : "obj-43",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 730.0, 440.0, 202.0, 43.0 ],
 									"text" : "test.assert.equal TEST/dataspace/color/rgb82neutral 255. 127.5 0."
@@ -355,7 +379,7 @@
 									"id" : "obj-40",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 730.0, 215.0, 191.0, 43.0 ],
 									"text" : "test.assert.equal TEST/dataspace/color/rgb82neutral 1. 0.5 0."
@@ -395,7 +419,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.101961, 0.121569, 0.172549, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-39",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -412,7 +436,7 @@
 									"id" : "obj-26",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 150.0, 440.0, 191.0, 43.0 ],
 									"text" : "test.assert.equal TEST/Dataspace/color/neutral2cmy 255. 127.5 0."
@@ -426,7 +450,7 @@
 									"id" : "obj-27",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 350.0, 440.0, 178.0, 43.0 ],
 									"text" : "test.assert.equal TEST/datapace/color/neutral2hsl 120. 100. 50."
@@ -527,7 +551,7 @@
 									"id" : "obj-7",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 150.0, 215.0, 194.0, 43.0 ],
 									"text" : "test.assert.equal TEST/Dataspace/color/cmy2neutral 0. 0.5 1."
@@ -541,7 +565,7 @@
 									"id" : "obj-4",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 350.0, 215.0, 178.0, 43.0 ],
 									"text" : "test.assert.equal TEST/datapace/color/hsl2neutral 0. 1. 0."
@@ -555,7 +579,7 @@
 									"id" : "obj-10",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 535.0, 215.0, 188.0, 43.0 ],
 									"text" : "test.assert.equal TEST/dataspace/color/hsv2neutral 0. 1. 0."
@@ -566,7 +590,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.101961, 0.121569, 0.172549, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-29",
 									"linecount" : 6,
 									"maxclass" : "comment",
@@ -584,7 +608,7 @@
 									"id" : "obj-13",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 925.0, 215.0, 186.0, 43.0 ],
 									"text" : "test.assert.equal TEST/dataspace/color/rgb2neutral 0.912911 0.291039 0.500228"
@@ -682,7 +706,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.101961, 0.121569, 0.172549, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-45",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1003,15 +1027,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 440.0, 205.0, 118.0, 19.0 ],
+					"patching_rect" : [ 470.0, 210.0, 118.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
+						"fontface" : 0
 					}
 ,
 					"text" : "p ColorDataspaceTest"
@@ -1025,7 +1049,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 565.0, 175.0, 20.0, 20.0 ]
+					"patching_rect" : [ 595.0, 180.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -1036,7 +1060,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 315.0, 175.0, 20.0, 20.0 ]
+					"patching_rect" : [ 345.0, 180.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -1071,7 +1095,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.101961, 0.121569, 0.172549, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-65",
 									"linecount" : 3,
 									"maxclass" : "comment",
@@ -1155,7 +1179,7 @@
 									"fontsize" : 10.0,
 									"id" : "obj-49",
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 505.0, 545.0, 315.0, 19.0 ],
 									"text" : "test.assert.equal TESTdataspace/pitch/neutralspeed 2."
@@ -1168,7 +1192,7 @@
 									"fontsize" : 10.0,
 									"id" : "obj-50",
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 380.0, 570.0, 319.0, 19.0 ],
 									"text" : "test.assert.equal TESTdataspace/pitch/neutral2midi 69."
@@ -1181,7 +1205,7 @@
 									"fontsize" : 10.0,
 									"id" : "obj-51",
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 260.0, 595.0, 317.0, 19.0 ],
 									"text" : "test.assert.equal TESTdataspace/pitch/neutral2Hz 440."
@@ -1194,7 +1218,7 @@
 									"fontsize" : 10.0,
 									"id" : "obj-52",
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 135.0, 620.0, 337.0, 19.0 ],
 									"text" : "test.assert.equal TESTdataspace/pitch/neutral2cents 6900."
@@ -1234,7 +1258,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.101961, 0.121569, 0.172549, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-46",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1248,7 +1272,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.101961, 0.121569, 0.172549, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-45",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1290,7 +1314,7 @@
 									"fontsize" : 10.0,
 									"id" : "obj-11",
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 500.0, 235.0, 365.0, 19.0 ],
 									"text" : "test.assert.equal TESTdataspace/pitch/speed2neutral 16.351599"
@@ -1303,7 +1327,7 @@
 									"fontsize" : 10.0,
 									"id" : "obj-9",
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 375.0, 260.0, 326.0, 19.0 ],
 									"text" : "test.assert.equal TESTdataspace/pitch/midi2neutral 440."
@@ -1316,7 +1340,7 @@
 									"fontsize" : 10.0,
 									"id" : "obj-8",
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 255.0, 285.0, 317.0, 19.0 ],
 									"text" : "test.assert.equal TESTdataspace/pitch/Hz2neutral 440."
@@ -1329,7 +1353,7 @@
 									"fontsize" : 10.0,
 									"id" : "obj-10",
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 130.0, 310.0, 331.0, 19.0 ],
 									"text" : "test.assert.equal TESTdataspace/pitch/cents2neutral 440."
@@ -1666,15 +1690,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 315.0, 205.0, 116.0, 19.0 ],
+					"patching_rect" : [ 345.0, 210.0, 116.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
+						"fontface" : 0
 					}
 ,
 					"text" : "p PitchDataspaceTest"
@@ -1758,7 +1782,7 @@
 									"id" : "obj-17",
 									"linecount" : 2,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 100.0, 235.0, 244.0, 31.0 ],
 									"text" : "test.assert.equal TESTdataspace/nonexisting_dataspace 0."
@@ -1815,7 +1839,7 @@
 									"id" : "obj-9",
 									"linecount" : 2,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 350.0, 235.0, 241.0, 31.0 ],
 									"text" : "test.assert.equal TESTdataspace/input_unit_is_nonsense 0."
@@ -1826,7 +1850,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.101961, 0.121569, 0.172549, 1.0 ],
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"id" : "obj-2",
 									"linecount" : 3,
 									"maxclass" : "comment",
@@ -1887,7 +1911,7 @@
 									"id" : "obj-10",
 									"linecount" : 2,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 0,
 									"patching_rect" : [ 635.0, 235.0, 233.0, 31.0 ],
 									"text" : "test.assert.equal TESTdataspace/output_unit_is_nonsense 0."
@@ -2045,15 +2069,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 565.0, 205.0, 147.0, 19.0 ],
+					"patching_rect" : [ 595.0, 210.0, 147.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
+						"fontface" : 0
 					}
 ,
 					"text" : "p test_units_are_nonsense"
@@ -2069,7 +2093,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "bang" ],
-					"patching_rect" : [ 70.0, 80.0, 34.0, 19.0 ],
+					"patching_rect" : [ 100.0, 85.0, 34.0, 19.0 ],
 					"text" : "t b b"
 				}
 
@@ -2083,7 +2107,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 70.0, 55.0, 56.0, 19.0 ],
+					"patching_rect" : [ 100.0, 60.0, 56.0, 19.0 ],
 					"text" : "loadbang"
 				}
 
@@ -2095,7 +2119,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 70.0, 30.0, 20.0, 20.0 ]
+					"patching_rect" : [ 100.0, 35.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -2108,7 +2132,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 70.0, 200.0, 67.0, 19.0 ],
+					"patching_rect" : [ 100.0, 250.0, 67.0, 19.0 ],
 					"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ],
 					"text" : "thispatcher"
 				}
@@ -2123,7 +2147,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 70.0, 175.0, 100.0, 19.0 ],
+					"patching_rect" : [ 100.0, 170.0, 100.0, 19.0 ],
 					"text" : "test.finished"
 				}
 
@@ -2131,7 +2155,7 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
+					"destination" : [ "obj-12", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-1", 0 ]
@@ -2149,10 +2173,28 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-12", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 24.5, 194.0, 89.5, 194.0 ],
+					"source" : [ "obj-17", 0 ]
 				}
 
 			}

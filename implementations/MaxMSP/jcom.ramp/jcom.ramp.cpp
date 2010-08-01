@@ -60,16 +60,19 @@ void		ramp_clock(t_ramp *x, t_symbol *clockName);
 /** Get a new value now. */
 void		ramp_bang(t_ramp *x);
 
-/* Method for int input, instantly updates current value of the object. */
+/** Method for int input, instantly updates current value of the object. */
 void		ramp_int(t_ramp *x, long n);
 
-/* Method for float input, instantly updates current value of the object. */ 
+/** Method for float input, instantly updates current value of the object. */ 
 void		ramp_float(t_ramp *x, double f);
 
-/* Set current value while surpressing new value(s from being output. */
+/** Set current value while surpressing new value(s from being output. */
 void		ramp_set(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
 
-/* Method for list input <value(s), "ramp", ramptime> */
+/** Stop ongoing ramp */
+void ramp_stop(t_ramp *x);
+
+/** Method for list input <value(s), "ramp", ramptime> */
 void		ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
 
 /** Triggered by our Ramp Unit's tick function */
@@ -105,6 +108,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ramp_float,					"float",				A_DEFFLOAT,	0);
  	class_addmethod(c, (method)ramp_list,					"list",					A_GIMME,	0);
 	class_addmethod(c, (method)ramp_set,					"set",					A_GIMME,	0);
+	class_addmethod(c, (method)ramp_stop,					"stop",					0);
 	class_addmethod(c, (method)ramp_attrset,				"attrset",				A_GIMME, 	0);
 	class_addmethod(c, (method)ramp_attrget,				"attrget",				A_GIMME,	0);
 	class_addmethod(c, (method)ramp_setFunction,			"function",				A_SYM,		0);
@@ -127,6 +131,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 }
 
 
+#pragma mark -
+#pragma mark life cycle
 /************************************************************************************/
 // Object Life
 
@@ -160,7 +166,8 @@ void ramp_free(t_ramp *x)
 	delete x->parameterNames;
 }
 
-
+#pragma mark -
+#pragma mark metods
 /************************************************************************************/
 // Methods bound to input/inlets
 
@@ -362,6 +369,14 @@ void ramp_set(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 }
 
 
+// STOP RAMP
+void ramp_stop(t_ramp *x)
+{
+	x->rampUnit->stop();
+
+}
+
+
 // LIST INPUT <value, ramptime>
 void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 {
@@ -404,6 +419,8 @@ void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 }
 
 
+#pragma mark -
+#pragma mark attributes
 // RAMP UNIT ATTRIBUTES
 void ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 {
