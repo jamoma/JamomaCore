@@ -265,9 +265,9 @@
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 17.0, 483.0, 631.0, 48.0 ],
 					"presentation" : 1,
-					"presentation_linecount" : 4,
-					"presentation_rect" : [ 18.0, 205.0, 586.0, 62.0 ],
-					"text" : "jcom.paramTest level/myParameter @type decimal @value/default 500. @range/bounds/min -10. @range/bounds/max 1000. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @ramp/function cosine @dataspace time @dataspace/unit/active second @description \"a parameter to test decimal type\" @priority 1",
+					"presentation_linecount" : 3,
+					"presentation_rect" : [ 18.0, 205.0, 597.0, 48.0 ],
+					"text" : "jcom.paramTest level/myParameter @type decimal @value/default 500. @range/bounds -10. 1000. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @ramp/function cosine @dataspace time @dataspace/unit/active second @description \"a parameter to test decimal type\" @priority 1",
 					"varname" : "_param"
 				}
 
@@ -826,13 +826,13 @@
 ,
 					"patching_rect" : [ 1333.0, 485.0, 65.0, 20.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 11.595187,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 11.595187,
-						"default_fontsize" : 11.595187,
-						"fontname" : "Arial",
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Arial"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p cputimer"
@@ -1132,13 +1132,13 @@
 ,
 					"patching_rect" : [ 757.0, 512.0, 180.0, 20.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontsize" : 12.0,
-						"fontname" : "Arial",
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Arial"
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p jcom.view /level/myParameter"
