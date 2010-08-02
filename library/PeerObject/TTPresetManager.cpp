@@ -14,6 +14,8 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
+mNames(kTTValNONE),
+mCurrent(kTTValNONE),
 mDirectory(NULL),
 mPresetList(NULL),
 mCurrentIndex(0),
@@ -29,8 +31,13 @@ mReturnValueCallback(NULL)
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
+	addAttributeWithGetter(Names, kTypeLocalValue);
+	addAttributeProperty(Names, readOnly, YES);
+	
+	addAttributeWithGetter(Current, kTypeLocalValue);
+	addAttributeProperty(Current, readOnly, YES);
+	
 	addMessage(New);
-	addMessageWithArgument(Info);
 	
 	addMessageWithArgument(Store);
 	addMessage(StoreCurrent);
@@ -65,6 +72,32 @@ TTPresetManager::~TTPresetManager()
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
 }
 
+TTErr TTPresetManager::getNames(TTValue& value)
+{	
+	TTPresetPtr aPreset;
+	
+	for (mPresetList->begin(); mPresetList->end(); mPresetList->next()) {
+		mPresetList->current().get(0, (TTPtr*)&aPreset);
+		value.append(aPreset->mName);
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTPresetManager::getCurrent(TTValue& value)
+{	
+	TTPresetPtr aPreset;
+	
+	aPreset = getPresetCurrent();
+	
+	if (aPreset) {
+		value.append(mCurrentIndex);
+		value.append(aPreset->mName);
+	}
+	
+	return kTTErrNone;
+}
+
 TTErr TTPresetManager::setAddress(const TTValue& value)
 {	
 	New();
@@ -85,38 +118,6 @@ TTErr TTPresetManager::New()
 	mPresetList = NULL;
 	mPresetList = new TTList();
 	mCurrentIndex = 0;
-	
-	return kTTErrNone;
-}
-
-TTErr TTPresetManager::Info(const TTValue& value)
-{
-	TTPresetPtr aPreset;
-	TTValue		presetList, presetCurrent;
-	
-	if (!mReturnValueCallback)
-		return kTTErrGeneric;
-	
-	// to -- this is not a good way to output informations ...
-	
-	// Preset list
-	presetList.append(TT("preset/list"));
-	for (mPresetList->begin(); mPresetList->end(); mPresetList->next()) {
-		mPresetList->current().get(0, (TTPtr*)&aPreset);
-		presetList.append(aPreset->mName);
-	}
-	
-	mReturnValueCallback->notify(presetList);
-	
-	// Preset current
-	presetCurrent.append(TT("preset/current"));
-	aPreset = getPresetCurrent();
-	if (aPreset) {
-		presetCurrent.append(mCurrentIndex);
-		presetCurrent.append(aPreset->mName);
-	
-		mReturnValueCallback->notify(presetCurrent);
-	}
 	
 	return kTTErrNone;
 }

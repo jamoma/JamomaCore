@@ -27,19 +27,19 @@ class TTMODULAR_EXPORT TTPresetManager : public TTObject
 public:
 	
 	TTSymbolPtr			mAddress;						///< ATTRIBUTE : the address of the preset manager in the directory
-	
+	TTValue				mNames;							///< ATTRIBUTE : all preset names
+	TTValue				mCurrent;						///< ATTRIBUTE : <index, name> of the current preset
+
 private:
 	
 	TTNodeDirectoryPtr	mDirectory;						///< the directory
 	TTListPtr			mPresetList;					///< a list containing <TTPresetPtr> sorted by Number attribute
-	TTUInt8				mCurrentIndex;					///< the position of the current preset in the list (from 1 to list size, 0 mean no current index)
-	
+	TTUInt8				mCurrentIndex;					///< ATTRIBUTE : the position of the current preset in the list (from 1 to list size, 0 mean no current index)
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return received value to the owner of this preset manager
 	
 public:
 	
 	TTErr New();
-	TTErr Info(const TTValue& value);
 	
 	TTErr Store(const TTValue& value);
 	TTErr StoreCurrent();
@@ -58,7 +58,7 @@ public:
 	
 private :
 	
-	// needed to be handled by a TTXmlHandler
+	/**  needed to be handled by a TTXmlHandler */
 	TTErr writeAsXml(const TTValue& value);
 	TTErr readFromXml(const TTValue& value);
 	
@@ -67,6 +67,13 @@ private :
 	 TTErr readFromText(const TTValue& value);											// pass a text buffer ?
 	 */
 	
+	/** */
+	TTErr getNames(TTValue& value);
+	
+	/** */
+	TTErr getCurrent(TTValue& value);
+		
+	/** */
 	TTErr setAddress(const TTValue& value);
 	
 	TTPresetPtr getPresetCurrent();

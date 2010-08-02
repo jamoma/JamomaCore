@@ -189,7 +189,6 @@ TTErr TTPreset::Send()
 	TTValue			hk, hsk, v, a;
 	TTSymbolPtr		key, skey;
 	TTUInt8			i, j;
-	TTErr			err;
 	
 	mItemList->getKeys(hk);
 	for (i=0; i<mItemList->getSize(); i++) {
@@ -201,17 +200,13 @@ TTErr TTPreset::Send()
 		anItem->state->getKeys(hsk);
 		for (j=0; j<anItem->state->getSize(); j++) {
 			hsk.get(j,(TTSymbolPtr*)&skey);
+			anItem->state->lookup(skey, a);
 			
-			err = anItem->object->getAttributeValue(skey, a);
-			
-			if (!err) {
-				
-				// Don't send kTTValNONE
-				if (a == kTTValNONE)
-					continue;
+			// Don't send kTTValNONE
+			if (a == kTTValNONE)
+				continue;
 					
-				anItem->object->setAttributeValue(skey, a);
-			}
+			anItem->object->setAttributeValue(skey, a);
 		}
 	}
 		return kTTErrNone;
