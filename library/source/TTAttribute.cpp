@@ -139,9 +139,12 @@ TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
 			return kTTErrNone;
 		case kTypeNone:
 			return kTTErrNone;
+		case kTypeLocalValue:
+			value = *((TTValue*)attribute.address);
+			return kTTErrNone;
 			
 		case kTypeString:
-		case kTypeLocalValue:
+
 		case kNumTTDataTypes:
 			return kTTErrInvalidType;
 	}
@@ -223,14 +226,14 @@ TTErr TTAttribute::extendedGetter(const TTAttribute& attribute, TTValue& value)
 {
 	TTObjectPtr anExtendedObject = (TTObjectPtr)attribute.getterObject;
 	
-	return anExtendedObject->getAttributeValue(this->name, value);
+	return anExtendedObject->getAttributeValue(attribute.name, value);
 }
 
 TTErr TTAttribute::extendedSetter(const TTAttribute& attribute, TTValue& value)
 {
 	TTObjectPtr anExtendedObject = (TTObjectPtr)attribute.setterObject;
 	
-	return anExtendedObject->setAttributeValue((TTSymbolPtr)this->name, value);
+	return anExtendedObject->setAttributeValue((TTSymbolPtr)attribute.name, value);
 }
 
 TTErr TTAttribute::setreadOnly(const TTValue& newReadOnlyValue)
