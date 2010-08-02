@@ -289,6 +289,7 @@
 			buildPhases = (
 				224B076211DEA0E000B6EF48 /* Sources */,
 				224B076311DEA0E000B6EF48 /* Frameworks */,
+				226E86E91207779F00381853 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -306,7 +307,11 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "JamomaModular" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* MaxObject */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
@@ -316,6 +321,22 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		226E86E91207779F00381853 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/mkdir -p \"/Library/Application Support/Jamoma/Libraries\"\n/bin/rm -f \"/Library/Application Support/Jamoma/Libraries\"/$PRODUCT_NAME.$WRAPPER_EXTENSION\n/bin/cp $TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION \"/Library/Application Support/Jamoma/Libraries\"/$PRODUCT_NAME.$WRAPPER_EXTENSION\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		224B076211DEA0E000B6EF48 /* Sources */ = {
