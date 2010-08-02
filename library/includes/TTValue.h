@@ -692,6 +692,7 @@ public:
 	{
 		if (*type == kTypeString) {
 			
+			TTUInt32 n = 0;
 			std::vector<std::string> strList;
 			
 			std::istringstream iss(*(data->stringPtr));
@@ -708,19 +709,21 @@ public:
 					TTString currentString = strList.at(i);
 					if (isTTInt32(currentString)) {
 						
-						data[i].int32 = toTTInt32(currentString);
-						type[i] = kTypeInt32;
+						data[n].int32 = toTTInt32(currentString);
+						type[n] = kTypeInt32;
+						n++;
 						
 					} else if (isTTFloat32(currentString)) {
 						
-						data[i].float32 = toTTFloat32(currentString);
-						type[i] = kTypeFloat32;
+						data[n].float32 = toTTFloat32(currentString);
+						type[n] = kTypeFloat32;
+						n++;
 						
 					} else {
 						
 						if (currentString.data()[0] == '"') {
-							TTString editString = currentString.substr(1, currentString.size());
 							
+							TTString editString = currentString.substr(1, currentString.size());	// don't keep the leading "
 							
 							while (currentString.data()[currentString.size()-1] != '"' && (i != (strList.size() - 1))) {
 								i++;
@@ -730,21 +733,22 @@ public:
 								editString += currentString;
 							}
 							
-							if (i == (strList.size() - 1))
-								data[i].stringPtr = new TTString(editString);
-							else
-								data[i].stringPtr = new TTString(editString.substr(0, editString.size() - 1));
-							
-							type[i] = kTypeString;
-							
+							data[n].sym = TT(editString.substr(0, editString.size()-1));			// don't keep the last "
+							type[n] = kTypeSymbol;
+							n++;
+
 						} else {
 							TTSymbolPtr editSymbol = TT(currentString.data());
-							data[i].sym = editSymbol;
-							type[i] = kTypeSymbol;
+							data[n].sym = editSymbol;
+							type[n] = kTypeSymbol;
+							n++;
 						}
 					}
 				}
 			}
+			
+			// resize value
+			setSize(n);
 		}
 		else
 			this->clear();
