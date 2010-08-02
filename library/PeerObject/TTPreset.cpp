@@ -13,14 +13,24 @@
 #define thisTTClassTags		"preset"
 
 // Item CONSTRUCTOR / DESTRUCTOR
-Item::Item(TTParameterPtr p, const TTValue& v, const TTValue& e)
+Item::Item(TTNodePtr aNode)
 {
-	parameter = p;
-	value = v;
-	extra = e;
+	TTObjectPtr	anObject;
+	TTValue		v;
+	
+	// Get object
+	aNode->getAttributeValue(kTTSym_Object, v);
+	v.get(0, (TTPtr*)&anObject);
+	object = anObject;
+
+	// Prepare an empty state
+	state = new TTHash();
 }
 
-Item::~Item(){;}
+Item::~Item()
+{
+	delete state;
+}
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTSymEmpty),
@@ -49,6 +59,7 @@ mCurrentItem(kTTSymEmpty)
 	addMessageWithArgument(writeAsXml);
 	addMessageWithArgument(readFromXml);
 	
+	mToStore = new TTHash();
 	mItemList = new TTHash();
 }
 
@@ -69,28 +80,36 @@ TTErr TTPreset::setAddress(const TTValue& value)
 TTErr TTPreset::Fill()
 {
 	TTNodePtr		aNode;
-	TTList			aNodeList, allParametersNodes;
-	TTSymbolPtr		aRelativeAddress;
+	TTList			aNodeList, allObjectNodes;
+	TTSymbolPtr		aRelativeAddress, objectToStore;
 	ItemPtr			aNewItem = NULL;
-	TTValue			v;
-	TTErr			err = kTTErrNone;
+	TTValue			hk, attributeToStore;
+	TTUInt8			i;
 	
 	Clear();
 	
-	// 1. Look for all Parameters under the address into the directory
-	err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
-	err = mDirectory->LookFor(&aNodeList, testObjectType, TT("Parameter"), allParametersNodes, &aNode);
+	// DEBUG : store only Value of Parameter objects
+	// TODO : pass this as argument of the Fill method
+	mToStore->append(TT("Parameter"), TTValue(kTTSym_Value));
+	mToStore->append(TT("Container"), TTValue(kTTSym_Priority));
 	
-	// 2. Make an Item for each found parameter and store it at relativeAddress key.
-	for (allParametersNodes.begin(); allParametersNodes.end(); allParametersNodes.next()) {
+	mToStore->getKeys(hk);
+	for (i=0; i<mToStore->getSize(); i++) {
 		
-		allParametersNodes.current().get(0, (TTPtr*)&aNode);
+		hk.get(i,(TTSymbolPtr*)&objectToStore);
 		
-		makeRelativeAddress(aNode, &aRelativeAddress);
-		err = makeItem(aNode, &aNewItem);
+		// 1. Look for all Objects under the address into the directory
+		mDirectory->Lookup(mAddress, aNodeList, &aNode);
+		mDirectory->LookFor(&aNodeList, testObjectType, objectToStore, allObjectNodes, &aNode);
 		
-		if (!err)
+		// 2. Make an Item for each found object and store it at relativeAddress key.
+		for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
+			
+			allObjectNodes.current().get(0, (TTPtr*)&aNode);
+			makeRelativeAddress(aNode, &aRelativeAddress);
+			aNewItem = new Item(aNode);
 			mItemList->append(aRelativeAddress, TTValue((TTPtr)aNewItem));
+		}
 	}
 	
 	Update();
@@ -104,6 +123,10 @@ TTErr TTPreset::Clear()
 	TTValue			hk, v;
 	TTSymbolPtr		key;
 	TTUInt8			i;
+	
+	delete mToStore;
+	mToStore = NULL;
+	mToStore = new TTHash();
 	
 	mItemList->getKeys(hk);
 	for (i=0; i<mItemList->getSize(); i++) {
@@ -125,11 +148,12 @@ TTErr TTPreset::Clear()
 TTErr TTPreset::Update()
 {
 	ItemPtr			anItem;
-	TTValue			hk, v;
-	TTSymbolPtr		key;
-	TTUInt8			i;
+	TTValue			hk, hsk, v, a, attributeToStore;
+	TTSymbolPtr		key, skey;
+	TTUInt8			i, j;
 	TTErr			err;
 	
+	// for each item
 	mItemList->getKeys(hk);
 	for (i=0; i<mItemList->getSize(); i++) {
 		
@@ -137,8 +161,23 @@ TTErr TTPreset::Update()
 		mItemList->lookup(key, v);
 		v.get(0, (TTPtr*)&anItem);
 		
-		anItem->value.clear();
-		err = anItem->parameter->getAttributeValue(kTTSym_Value, anItem->value);
+		mToStore->lookup(anItem->object->getName(), attributeToStore);
+		
+		// get state
+		anItem->state->clear();
+		for (j=0; j<attributeToStore.getSize(); j++) {
+			attributeToStore.get(j, &skey);
+			
+			err = anItem->object->getAttributeValue(skey, a);
+			
+			if (!err) {
+				
+				// Don't store kTTValNONE
+				if (a == kTTValNONE)
+					continue;
+				anItem->state->append(skey, a);
+			}
+		}
 	}
 	
 	return kTTErrNone;
@@ -147,9 +186,9 @@ TTErr TTPreset::Update()
 TTErr TTPreset::Send()
 {
 	ItemPtr			anItem;
-	TTValue			hk, v, r, address;
-	TTSymbolPtr		key;
-	TTUInt8			i;
+	TTValue			hk, hsk, v, a;
+	TTSymbolPtr		key, skey;
+	TTUInt8			i, j;
 	TTErr			err;
 	
 	mItemList->getKeys(hk);
@@ -159,12 +198,21 @@ TTErr TTPreset::Send()
 		mItemList->lookup(key, v);
 		v.get(0, (TTPtr*)&anItem);
 		
-		// Don't send kTTValNONE
-		if (anItem->value == kTTValNONE)
-			continue;
-		
-		err = anItem->parameter->setAttributeValue(kTTSym_Value, anItem->value);
-		
+		anItem->state->getKeys(hsk);
+		for (j=0; j<anItem->state->getSize(); j++) {
+			hsk.get(j,(TTSymbolPtr*)&skey);
+			
+			err = anItem->object->getAttributeValue(skey, a);
+			
+			if (!err) {
+				
+				// Don't send kTTValNONE
+				if (a == kTTValNONE)
+					continue;
+					
+				anItem->object->setAttributeValue(skey, a);
+			}
+		}
 	}
 		return kTTErrNone;
 }
@@ -173,10 +221,10 @@ TTErr TTPreset::writeAsXml(const TTValue& value)
 {
 	TTXmlHandlerPtr		aXmlHandler;
 	ItemPtr				anItem;
-	TTValue				hk, v;
-	TTSymbolPtr			key;
+	TTValue				hk, hsk, v, a;
+	TTSymbolPtr			key, skey;
 	TTString			aString;
-	TTUInt8				i;
+	TTUInt8				i, j;
 	
 	value.get(0, (TTPtr*)&aXmlHandler);
 	
@@ -194,25 +242,30 @@ TTErr TTPreset::writeAsXml(const TTValue& value)
 		mItemList->lookup(key, v);
 		v.get(0, (TTPtr*)&anItem);
 		
-		// don't write kTTValNONE
-		if (anItem->value == kTTValNONE)
-			continue;
-		
-		// Start an Item
-		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "item");
+		// Start an Item by the type of his object
+		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST anItem->object->getName()->getCString());
 		
 		// Write address attribute
 		xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "address", BAD_CAST key->getCString());
 		
-		// Write the value
-		v = anItem->value;
-		v.toString();
-		v.get(0, aString);
-		xmlTextWriterWriteString(aXmlHandler->mWriter, BAD_CAST aString.data());
+		// Write the state
+		anItem->state->getKeys(hsk);
+		for (j=0; j<anItem->state->getSize(); j++) {
+			hsk.get(j,(TTSymbolPtr*)&skey);
+			anItem->state->lookup(skey, a);
+			
+			// Don't write kTTValNONE
+			if (a == kTTValNONE)
+				continue;
+			
+			a.toString();
+			a.get(0, aString);
+			xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST skey->getCString(), BAD_CAST aString.data());
+		}
 		
 		// to -- we don't need to write type and priority attribute anymore
 		// because the fromSting() method automatically parse the type 
-		// while reading and each parameter are sorted by order of priority (TODO)
+		// while reading and each item are sorted by order of priority (TODO)
 		
 		// maybe we could add extra data like : ramp time, unit, ... ?
 		
@@ -226,11 +279,11 @@ TTErr TTPreset::writeAsXml(const TTValue& value)
 TTErr TTPreset::readFromXml(const TTValue& value)
 {
 	TTXmlHandlerPtr		aXmlHandler = NULL;
-	TTSymbolPtr			absAddress;
+	TTSymbolPtr			absAddress, attributeName;
 	ItemPtr				anItem;
 	TTNodePtr			aNode;
-	TTValue				v;
-	TTErr				err;
+	TTValue				v, attributeToStore;
+	TTUInt8				i;
 	
 	value.get(0, (TTPtr*)&aXmlHandler);
 	if (!aXmlHandler)
@@ -250,57 +303,64 @@ TTErr TTPreset::readFromXml(const TTValue& value)
 		return kTTErrNone;
 	}
 	
-	// Comment Node
+	// Comment node
 	if (aXmlHandler->mXmlNodeName == TT("#comment"))
 		return kTTErrNone;
 	
-	// Item node
-	if (aXmlHandler->mXmlNodeName == TT("item")) {
-		
-		// get address
-		if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "address") == 1) {
+	// Text node (are only \n because of indentation)
+	if (aXmlHandler->mXmlNodeName == TT("#text")) 
+		return kTTErrNone;
+
+	// Any other nodes : 
+	// the first time a new type is parsed : add an entry in the toStore table and fill attributes then create items
+	// else only create items
+
+	// Get address attribute
+	if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "address") == 1) {
 			
-			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
-			if (v.getType() == kTypeSymbol) {
-				v.get(0, &mCurrentItem);
+		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+		if (v.getType() == kTypeSymbol) {
+			v.get(0, &mCurrentItem);
+			
+			// Fill the toStore table
+			// If the entry doesn't exist or is empty
+			mToStore->lookup(aXmlHandler->mXmlNodeName, attributeToStore);
+			if (attributeToStore.getSize() == 0) {
+				while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
+					
+					// Get attribute name
+					aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
+					if (v.getType() == kTypeSymbol) {
+						v.get(0, &attributeName);
+						attributeToStore.append(attributeName);
+					}
+				}
+				mToStore->append(aXmlHandler->mXmlNodeName, attributeToStore);
+			}
 				
-				// if the item doesn't exist create it 
-				if (mItemList->lookup(mCurrentItem, v)) {
-					makeAbsoluteAddress(mCurrentItem, &absAddress);
-					mDirectory->getTTNodeForOSC(absAddress, &aNode);
-					makeItem(aNode, &anItem);
-					mItemList->append(mCurrentItem, TTValue((TTPtr)anItem));
+			// if the item doesn't exist create it 
+			if (mItemList->lookup(mCurrentItem, v)) {
+				
+				makeAbsoluteAddress(mCurrentItem, &absAddress);
+				mDirectory->getTTNodeForOSC(absAddress, &aNode);
+				anItem = new Item(aNode);
+				mItemList->append(mCurrentItem, TTValue((TTPtr)anItem));
+				
+				// fill the item
+				for (i=0; i<attributeToStore.getSize(); i++) {
+					attributeToStore.get(i, &attributeName);
+					
+					if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST attributeName->getCString()) == 1) {
+						
+						aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+						anItem->state->append(attributeName, v);
+					}
 				}
 			}
 		}
-		
-		// TODO : fill other options
-		return kTTErrNone;
 	}
-	
-	// Text node (e.g. the value)
-	if (aXmlHandler->mXmlNodeName == TT("#text")) {
 		
-		// look for the current item
-		if (!mItemList->lookup(mCurrentItem, v)) {
-			v.get(0, (TTPtr*)&anItem);
-			
-			// read value
-			err = aXmlHandler->fromXmlChar(xmlTextReaderConstValue(aXmlHandler->mReader), anItem->value);
-			
-			// if parsing error on the value, remove item
-			if (err) {
-				delete anItem;
-				mItemList->remove(mCurrentItem);
-				mCurrentItem = kTTSymEmpty;
-			}
-		}
-		// if no CurrentItem do nothing
-		
-		return kTTErrNone;
-	}
-	
-	return kTTErrGeneric;
+	return kTTErrNone;
 }
 
 TTErr TTPreset::makeAbsoluteAddress(TTSymbolPtr relativeAddress, TTSymbolPtr *returnedAbsoluteAddress)
@@ -335,29 +395,6 @@ TTErr TTPreset::makeRelativeAddress(TTNodePtr aNode, TTSymbolPtr *returnedRelati
 	addSlash = C_SEPARATOR;
 	addSlash += (*returnedRelativeAddress)->getCString();
 	*returnedRelativeAddress = TT(addSlash.data());
-	
-	return kTTErrNone;	
-}
-
-TTErr TTPreset::makeItem(TTNodePtr aNode, ItemPtr *returnedItem)
-{
-	TTValue			v;
-	TTSymbolPtr		type;
-	TTParameterPtr	aParameter;
-	
-	// Get parameter
-	aNode->getAttributeValue(kTTSym_Object, v);
-	v.get(0, (TTPtr*)&aParameter);
-	
-	// Check type
-	v.clear();
-	aParameter->getAttributeValue(kTTSym_Type, v);
-	v.get(0, &type);
-	if (type == kTypeNone)
-		return kTTErrGeneric;
-	
-	// Create an empty item which bind on the parameter
-	*returnedItem = new Item(aParameter, kTTValNONE, kTTValNONE);
 	
 	return kTTErrNone;	
 }

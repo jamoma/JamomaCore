@@ -32,11 +32,12 @@ TTXmlHandler::~TTXmlHandler()
 TTErr TTXmlHandler::Write(const TTValue& args)
 {
     TTValue				v;
+	TTObjectPtr			aTTObject;
 	int					ret;
 	
 	// the first argument have to be a kTypePointer : this is a pointer on our TTObject
 	if (args.getType() == kTypePointer)
-		args.get(0, (TTPtr*)&mObject);
+		args.get(0, (TTPtr*)&aTTObject);
 	else
 		return kTTErrGeneric;
 	
@@ -68,6 +69,9 @@ TTErr TTXmlHandler::Write(const TTValue& args)
 			
 			mIsWriting = true;
 			
+			// to write a human readable file
+			xmlTextWriterSetIndent(mWriter, 1);
+			
 			// Start Header information
 			xmlTextWriterStartElement(mWriter, BAD_CAST "jamoma");
 			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "version",  BAD_CAST "0.6");
@@ -77,7 +81,7 @@ TTErr TTXmlHandler::Write(const TTValue& args)
 			// Write data of the given TTObject (which have to implement a writeAsXml message)
 			v.clear();
 			v.append((TTPtr)this);
-			mObject->sendMessage(TT("writeAsXml"), v);
+			aTTObject->sendMessage(TT("writeAsXml"), v);
 			
 			// End Header information
 			xmlTextWriterEndElement(mWriter);
@@ -92,13 +96,16 @@ TTErr TTXmlHandler::Write(const TTValue& args)
 			
 			mIsWriting = false;
 			
+			// memorize the TTObject as the last handled object
+			mObject = aTTObject;
+			
 			return kTTErrNone;
 		}
 	}
 	
 	// else
 	v.append((TTPtr)this);
-	return mObject->sendMessage(TT("writeAsXml"), v);
+	return aTTObject->sendMessage(TT("writeAsXml"), v);
 }
 
 TTErr TTXmlHandler::WriteAgain()
@@ -113,12 +120,13 @@ TTErr TTXmlHandler::WriteAgain()
 TTErr TTXmlHandler::Read(const TTValue& args)
 {
 	const xmlChar		*xName = 0;
+	TTObjectPtr			aTTObject;
 	TTValue				v;
 	int					ret;
 
 	// the first argument have to be a kTypePointer : this is a pointer on our TTObject
 	if (args.getType() == kTypePointer)
-		args.get(0, (TTPtr*)&mObject);
+		args.get(0, (TTPtr*)&aTTObject);
 	else
 		return kTTErrGeneric;
 	
@@ -162,7 +170,7 @@ TTErr TTXmlHandler::Read(const TTValue& args)
 					}
 
 					v.append((TTPtr)this);
-					mObject->sendMessage(TT("readFromXml"), v);
+					aTTObject->sendMessage(TT("readFromXml"), v);
 					
 					// next node
 					ret = xmlTextReaderRead(mReader);
@@ -173,6 +181,9 @@ TTErr TTXmlHandler::Read(const TTValue& args)
 				
 				xmlFreeTextReader(mReader);
 				mIsReading = false;
+				
+				// memorize the TTObject as the last handled object
+				mObject = aTTObject;
 			}
 			else
 				return kTTErrGeneric;
@@ -182,7 +193,7 @@ TTErr TTXmlHandler::Read(const TTValue& args)
 	
 	// else
 	v.append((TTPtr)this);
-	return mObject->sendMessage(TT("readFromXml"), v);
+	return aTTObject->sendMessage(TT("readFromXml"), v);
 }
 
 TTErr TTXmlHandler::ReadAgain()
@@ -194,12 +205,20 @@ TTErr TTXmlHandler::ReadAgain()
 	return Read(args);
 }
 
-TTErr TTXmlHandler::fromXmlChar(const xmlChar* xCh, TTValue& v)
+TTErr TTXmlHandler::fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuote)
 {
 	TTString cString;
 	
 	if (xCh) {
-		cString = TTString((char*)xCh);
+		
+		if (addQuote) {
+			cString = TTString("\"");
+			cString += (char*)xCh;
+			cString += "\"";
+		}
+		else
+			cString = TTString((char*)xCh);
+		
 		v.clear();
 		v = cString;
 		v.fromString();

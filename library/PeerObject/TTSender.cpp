@@ -86,7 +86,7 @@ TTErr TTSender::send(TTValue& valueToSend)
 				
 				if (mAttribute == kTTSym_Value)
 					// set the value attribute using a command
-					anObject->sendMessage(kTTSym_Command, valueToSend);
+					anObject->sendMessage(kTTSym_command, valueToSend);
 				else
 					// set the attribute of the object
 					anObject->setAttributeValue(mAttribute, valueToSend);

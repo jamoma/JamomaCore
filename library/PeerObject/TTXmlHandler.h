@@ -74,7 +74,7 @@ public:
 	TTErr ReadAgain();
 	
 	/** TTXmlReader make a TTValue from an xmlChar* using the fromString method (see in TTValue.h) */
-	TTErr fromXmlChar(const xmlChar* xCh, TTValue& v);
+	TTErr fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuote=false);
 	
 private :
 	

@@ -65,7 +65,7 @@ void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	else
 		address = _sym_nothing;
 	
-	// create the harvester
+	// create the preset manager
 	jamoma_presetManager_create((ObjectPtr)x, &x->wrappedObject);
 	
 	// The following must be deferred because we have to interrogate our box,

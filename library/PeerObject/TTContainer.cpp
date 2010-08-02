@@ -78,7 +78,7 @@ TTErr TTContainer::send(TTValue& AddressAndValue)
 				cacheElement.get(0, (TTPtr*)&aParameter);
 				
 				// set the value attribute using a command
-				aParameter->sendMessage(kTTSym_Command, *valueToSend);
+				aParameter->sendMessage(kTTSym_command, *valueToSend);
 			}
 			// if not use TTModularDirectory instead
 			else {

@@ -447,7 +447,8 @@ void TTDeviceManagerDiscoverCallback(void* arg, Address whereToDiscover, std::ve
 			for(i = 0; i < attributeNameList.getSize(); i++)
 			{
 				attributeNameList.get(i,(TTSymbolPtr*)&attributeName);
-				sAttribute = aTTDeviceManager->convertAttributeFromJamoma(attributeName->getCString());
+				//sAttribute = aTTDeviceManager->convertAttributeFromJamoma(attributeName->getCString());
+				sAttribute = attributeName->getCString();
 				
 				if(strcmp(sAttribute.c_str(), ""))
 					returnedAttributes.push_back(sAttribute);
@@ -484,7 +485,8 @@ void TTDeviceManagerGetCallback(void* arg, Address whereToGet, std::string attri
 			nodeType = o->getName();
 			
 			// Convert attribute into Jamoma style
-			attributeName = aTTDeviceManager->convertAttributeToJamoma(attribute);
+			//attributeName = aTTDeviceManager->convertAttributeToJamoma(attribute);
+			attributeName = TT(attribute);
 			
 			// filter Access attribute
 			if(attributeName == TT("Access")){
@@ -553,9 +555,10 @@ void TTDeviceManagerSetCallback(void* arg, Address whereToSet, std::string attri
 				v.append(newValue);
 				v.fromString();
 				
-				attrName = aTTDeviceManager->convertAttributeToJamoma(attribute);
+				//attrName = aTTDeviceManager->convertAttributeToJamoma(attribute);
+				attrName = TT(attribute);
 				if (attrName == kTTSym_Value)
-					o->sendMessage(kTTSym_Command, v);
+					o->sendMessage(kTTSym_command, v);
 				else
 					o->setAttributeValue(attrName, v);
 				
@@ -618,6 +621,7 @@ void TTDeviceManager::enableListening(std::string whereToSend, Address whereToLi
 			nodeToListen->getAttributeValue(TT("Object"), v);
 			v.get(0, (TTPtr*)&o);
 			err = o->findAttribute(convertAttributeToJamoma(attributeToListen.c_str()), &anAttribute);
+			
 			
 			if(!err){
 				

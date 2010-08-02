@@ -64,7 +64,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(DataspaceUnitDisplay, kTypeSymbol);
 	
 	addMessage(Reset);
-	addMessageWithArgument(Command);
+	addMessageWithArgument(command);
 	
 	mIsSending = NO;
 	mIsInitialised = NO;
@@ -104,7 +104,7 @@ TTErr TTParameter::Reset()
 	return kTTErrNone;
 }
 
-TTErr TTParameter::Command(const TTValue& command)
+TTErr TTParameter::command(const TTValue& command)
 {
 #ifdef TTPARAMETER_RAMPLIB
 	double		time;
@@ -520,7 +520,7 @@ TTErr TTParameter::setRangeBoundsMin(const TTValue& value)
 	TTValue n;				// use new value to protect the attribute
 	mRangeBoundsMin = value;
 	
-	if (mType = kTTSym_integer)
+	if (mType == kTTSym_integer)
 		mRangeBoundsMin = (TTInt32)mRangeBoundsMin;
 	
 	n = TTValue(mRangeBoundsMin);
@@ -534,7 +534,7 @@ TTErr TTParameter::setRangeBoundsMax(const TTValue& value)
 	TTValue n;				// use new value to protect the attribute
 	mRangeBoundsMax = value;
 	
-	if (mType = kTTSym_integer)
+	if (mType == kTTSym_integer)
 		mRangeBoundsMax = (TTInt32)mRangeBoundsMax;
 	
 	n = TTValue(mRangeBoundsMax);
@@ -800,7 +800,7 @@ TTErr TTParameter::notifyObservers(TTSymbolPtr attrName, const TTValue& value)
 	err = this->findAttribute(attrName, &anAttribute);
 	
 	if (!err)
-		anAttribute->sendNotification(kTTSym_notify, value);
+		anAttribute->sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
 }

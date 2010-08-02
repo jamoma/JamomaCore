@@ -98,15 +98,6 @@ public:
 	
 	/** reset value to default value */
 	TTErr Reset();
-	
-	/** control the parameter using a command like < value (unit) (ramp ramptime) >
-		It depends on the command size :
-			1		: 1 value 
-			2		: 2 values || 1 value + unit
-			3		: 3 values || 2 values + unit || 1 value + ramp ramptime
-			X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime
-	 */
-	TTErr Command(const TTValue& command);
 
 	/**	Getter for mValue attribute. */
 	TTErr getValue(TTValue& value);
@@ -165,6 +156,15 @@ public:
 	TTErr setDataspaceUnitDisplay(const TTValue& value);
 	
 private:
+	
+	/** control the parameter using a command like < value (unit) (ramp ramptime) >
+	 It depends on the command size :
+	 1		: 1 value 
+	 2		: 2 values || 1 value + unit
+	 3		: 3 values || 2 values + unit || 1 value + ramp ramptime
+	 X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime
+	 */
+	TTErr command(const TTValue& command);
 	
 	TTBoolean	checkType(const TTValue& value);
 	TTBoolean	clipValue();

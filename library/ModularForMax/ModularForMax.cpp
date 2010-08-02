@@ -448,28 +448,14 @@ TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress
 {
 	TTSymbolPtr	r;
 	TTValue		v, data;
-	AtomCount	i;
 	
 	if (aContainer) {
 		
 		r = TT(relativeAddress->s_name);
 		data.append(r);
 		
-		if (argc == 0)
-			v = kTTValNONE;
-		else {
-			// convert Atom to TTValue
-			v.setSize(argc);
-			for (i=0; i<argc; i++) 
-			{
-				if (atom_gettype(argv+i) == A_LONG)
-					v.set(i, (int)atom_getlong(argv+i));
-				else if (atom_gettype(argv+i) == A_FLOAT)
-					v.set(i, atom_getfloat(argv+i));
-				else if (atom_gettype(argv+i) == A_SYM)
-					v.set(i, TT(atom_getsym(argv+i)->s_name));
-			}
-		}
+		jamoma_ttvalue_from_Atom(v, relativeAddress, argc, argv);
+		
 		data.append((TTPtr)&v);
 		
 		aContainer->sendMessage(kTTSym_send, data);
@@ -509,27 +495,12 @@ TTErr jamoma_parameter_create(ObjectPtr x, TTObjectPtr *returnedParameter)
 TTErr jamoma_parameter_command(TTParameterPtr aParameter, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	TTValue		v;
-	AtomCount	i;
 	
 	if (aParameter) {
 		
-		if (msg == _sym_bang || argc == 0)
-			v = kTTValNONE;
-		else {
-			// convert Atom to TTValue
-			v.setSize(argc);
-			for (i=0; i<argc; i++) 
-			{
-				if (atom_gettype(argv+i) == A_LONG)
-					v.set(i, (int)atom_getlong(argv+i));
-				else if (atom_gettype(argv+i) == A_FLOAT)
-					v.set(i, atom_getfloat(argv+i));
-				else if (atom_gettype(argv+i) == A_SYM)
-					v.set(i, TT(atom_getsym(argv+i)->s_name));
-			}
-		}
+		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 		
-		aParameter->sendMessage(kTTSym_Command, v);
+		aParameter->sendMessage(kTTSym_command, v);
 		return kTTErrNone;
 	}
 	
@@ -574,25 +545,10 @@ TTErr jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectP
 TTErr jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	TTValue		v;
-	AtomCount	i;
 	
 	if (aSender) {
 		
-		if (msg == _sym_bang || argc == 0)
-			v = kTTValNONE;
-		else {
-			// convert Atom to TTValue
-			v.setSize(argc);
-			for (i=0; i<argc; i++) 
-			{
-				if (atom_gettype(argv+i) == A_LONG)
-					v.set(i, (int)atom_getlong(argv+i));
-				else if (atom_gettype(argv+i) == A_FLOAT)
-					v.set(i, atom_getfloat(argv+i));
-				else if (atom_gettype(argv+i) == A_SYM)
-					v.set(i, TT(atom_getsym(argv+i)->s_name));
-			}
-		}
+		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 		
 		aSender->sendMessage(kTTSym_send, v);
 		return kTTErrNone;
@@ -690,6 +646,7 @@ TTErr jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper)
 	TTValue			args;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
+	TTAttributePtr	anAttribute = NULL;
 	
 	// prepare arguments
 	args.append(TTModularDirectory);
@@ -711,25 +668,10 @@ TTErr jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper)
 TTErr jamoma_mapper_map(TTMapperPtr aMapper, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	TTValue		v;
-	AtomCount	i;
 	
 	if (aMapper) {
 		
-		if (msg == _sym_bang || argc == 0)
-			v = kTTValNONE;
-		else {
-			// convert Atom to TTValue
-			v.setSize(argc);
-			for (i=0; i<argc; i++) 
-			{
-				if (atom_gettype(argv+i) == A_LONG)
-					v.set(i, (int)atom_getlong(argv+i));
-				else if (atom_gettype(argv+i) == A_FLOAT)
-					v.set(i, atom_getfloat(argv+i));
-				else if (atom_gettype(argv+i) == A_SYM)
-					v.set(i, TT(atom_getsym(argv+i)->s_name));
-			}
-		}
+		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
 		
 		aMapper->sendMessage(kTTSym_map, v);
 		return kTTErrNone;
@@ -782,7 +724,6 @@ void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
-	AtomCount	i;
 	SymbolPtr	msg;
 	long		argc = 0;
 	AtomPtr		argv = NULL;
@@ -791,42 +732,135 @@ void jamoma_callback_return_value(TTPtr p_baton, TTValue& v)
 	b = (TTValuePtr)p_baton;
 	b->get(0, (TTPtr*)&x);
 
-	// convert TTValue to Atom
-	msg = _sym_nothing;
-	argc = v.getSize();
-	argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * argc);
+	jamoma_ttvalue_to_Atom(v, &msg, &argc, &argv);
 	
-	if (argc) {
-		for (i=0; i<argc; i++) {
-			if(v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
-				TTFloat64	value;
-				v.get(i, value);
-				atom_setfloat(argv+i, value);
-				msg = _sym_float;
-			}
-			else if(v.getType(i) == kTypeSymbol){
-				TTSymbolPtr	value = NULL;
-				v.get(i, &value);
-				atom_setsym(argv+i, gensym((char*)value->getCString()));
-				//msg = _sym_symbol;
-			}
-			else{	// assume int
-				TTInt32	value;
-				v.get(i, value);
-				atom_setlong(argv+i, value);
-				//msg = _sym_long;
-			}
-		}
-	
-		if (i>1)
-			msg = _sym_list;
-	}
-	else
-		msg = _sym_bang;
-	
-	// send data to a parameter using the return_value method
+	// send data to an external using the return_value method
 	object_method(x, jps_return_value, msg, argc, argv);
 	
 	sysmem_freeptr(argv);
 }
 
+
+
+// Method to deal with TTValue
+/////////////////////////////////////////
+
+/** Make a Atom array from a TTValue (!!! this method allocate memory for the Atom array ! free it after ! */
+void jamoma_ttvalue_to_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, AtomPtr *argv)
+{
+	AtomCount	i;
+	
+	*msg = _sym_nothing;
+	*argc = v.getSize();
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * (*argc));
+	
+	if (*argc) {
+		for (i=0; i<*argc; i++) {
+			if(v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
+				TTFloat64	value;
+				v.get(i, value);
+				atom_setfloat((*argv)+i, value);
+				*msg = _sym_float;
+			}
+			else if(v.getType(i) == kTypeSymbol){
+				TTSymbolPtr	value = NULL;
+				v.get(i, &value);
+				atom_setsym((*argv)+i, gensym((char*)value->getCString()));
+				//*msg = _sym_symbol;
+			}
+			else{	// assume int
+				TTInt32	value;
+				v.get(i, value);
+				atom_setlong((*argv)+i, value);
+				//*msg = _sym_long;
+			}
+		}
+		
+		if (i>1)
+			*msg = _sym_list;
+	}
+	else
+		*msg = _sym_bang;
+}
+
+
+/** TODO : Make a TTValue from Atom array */
+void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	AtomCount	i;
+	
+	if (msg == _sym_bang || argc == 0)
+		v = kTTValNONE;
+	else {
+		// convert Atom to TTValue
+		v.setSize(argc);
+		for (i=0; i<argc; i++) 
+		{
+			if (atom_gettype(argv+i) == A_LONG)
+				v.set(i, (int)atom_getlong(argv+i));
+			else if (atom_gettype(argv+i) == A_FLOAT)
+				v.set(i, atom_getfloat(argv+i));
+			else if (atom_gettype(argv+i) == A_SYM)
+				v.set(i, TT(atom_getsym(argv+i)->s_name));
+		}
+	}
+}
+
+SymbolPtr jamoma_TTName_To_MaxName(TTSymbolPtr TTName)
+{
+	TTCString	TTNameCString = NULL;
+	TTUInt32	TTNameSize = 0;
+	TTUInt32	nbUpperCase = 0;
+	TTUInt32	i;
+	TTCString	MaxNameCString = NULL;
+	TTUInt32	MaxNameSize = 0;
+	SymbolPtr	MaxNameSymbol;
+	
+	TTNameSize = strlen(TTName->getCString());
+	TTNameCString = new char[TTNameSize+1];
+	strncpy_zero(TTNameCString, TTName->getCString(), TTNameSize+1);
+	
+	// only expose TTName to Max if they begin with an upper-case letter
+	if (TTNameCString[0] > 64 && TTNameCString[0] < 91) {
+		
+		//  count how many upper-case letter there are in the TTName after the first letter
+		for (i=1; i<TTNameSize; i++) {
+			if (TTNameCString[i] > 64 && TTNameCString[i] < 91)
+				nbUpperCase++;
+		}
+		
+		// prepare the MaxName
+		MaxNameSize = TTNameSize + nbUpperCase;
+		MaxNameCString = new char[MaxNameSize+1];
+		
+		// convert first letter to lower-case for Max
+		MaxNameCString[0] = TTNameCString[0] + 32;													
+		
+		// copy each letter while checking upper-case letter to replace them by a / + lower-case letter
+		nbUpperCase = 0;
+		for (i=1; i<TTNameSize; i++) {
+			if (TTNameCString[i] > 64 && TTNameCString[i] < 91) {
+				MaxNameCString[i + nbUpperCase] = '/';
+				MaxNameCString[i + nbUpperCase + 1] = TTNameCString[i] + 32;
+				nbUpperCase++; 
+			}
+			else
+				MaxNameCString[i + nbUpperCase] = TTNameCString[i];
+		}
+		
+		// ends the CString with a NULL letter
+		MaxNameCString[MaxNameSize] = NULL;
+		
+		MaxNameSymbol = gensym(MaxNameCString);
+	}
+	else 
+		MaxNameSymbol = NULL;
+	
+	delete TTNameCString;
+	TTNameCString = NULL;
+	delete MaxNameCString;
+	MaxNameCString = NULL;
+	
+	return MaxNameSymbol;
+}

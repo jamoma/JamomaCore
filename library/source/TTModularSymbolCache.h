@@ -16,7 +16,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_boolean;
 
-extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Command;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_command;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_created;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Dataspace;

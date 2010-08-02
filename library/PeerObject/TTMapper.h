@@ -34,7 +34,10 @@ public:
 	TTFloat64			mOutputMin;					///< ATTRIBUTE : 
 	TTFloat64			mOutputMax;					///< ATTRIBUTE : 
 	
+	TTValue				mFunctionLibrary;			///< ATTRIBUTE : names of all available function from FunctionLib
 	TTSymbolPtr			mFunction;					///< ATTRIBUTE : name of the map function
+	TTValue				mFunctionParameters;		///< ATTRIBUTE : names of parameter's function
+	TTValue				mFunctionSamples;			///< ATTRIBUTE : an overview of the mapping (each value between [map(InputMin) :: map(InputMax)])
 	
 private:
 	
@@ -47,25 +50,24 @@ private:
 	TTFloat64			mA, mB, mC, mD;				// Coefficients used for normalizing input(A, B) and output (C, D
 	TTAudioObjectPtr	mFunctionUnit;
 	TTBoolean			mValid;						// true if the functionUnit can be used
-	TTValue				mParameterNames;			// cache of parameter names in order to remove them
 	
 public:
 	
 	/** process mapping */
-	TTErr map(const TTValue& value);
-	
-	/** get functions names available wtih the FunctionLib */
-	TTErr GetFunctions(TTValue& value);
-	
-	/** get paramters names available wtih the FunctionUnit */
-	TTErr GetParameters(TTValue& value);
+	TTErr map(TTValue& value);
 	
 private :
 	
 	/** */
-	TTErr setInput(const TTValue& value);
+	TTErr getFunctionLibrary(TTValue& value);
 	
 	/** */
+	TTErr getFunctionSamples(TTValue& value);
+	
+	/** set the input address and set InputMin and InputMax using RangeBounds attributes */
+	TTErr setInput(const TTValue& value);
+	
+	/**  set the output address and set OutputMin and OutputMax using RangeBounds attributes */
 	TTErr setOutput(const TTValue& value);
 	
 	/** */
@@ -80,11 +82,13 @@ private :
 	/** */
 	TTErr setOutputMax(const TTValue& value);
 	
-	/** */
+	/** set the function unit and set parameters name extending attributes of the unit */
 	TTErr setFunction(const TTValue& value);
 	
 	TTErr scaleInput();
 	TTErr scaleOutput();
+	
+	TTErr notifyObservers(TTSymbolPtr attrName, const TTValue& value);
 	
 	friend TTErr TTMODULAR_EXPORT TTMapperReceiveAddressCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTMapperReceiveValueCallback(TTPtr baton, TTValue& data);

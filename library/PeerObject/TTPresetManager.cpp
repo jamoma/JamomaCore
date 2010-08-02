@@ -475,7 +475,7 @@ TTErr TTPresetManager::readFromXml(const TTValue& value)
 		
 		// get name
 		if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "name") == 1) {
-			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v, true);
 			if (v.getType() == kTypeSymbol)
 				v.get(0, &presetName);
 		}

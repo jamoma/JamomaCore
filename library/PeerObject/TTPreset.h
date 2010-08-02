@@ -25,16 +25,16 @@
 class TTParameter;
 typedef TTParameter* TTParameterPtr;
 
-
+/** Internal class to store an Object and his state <attribute, value> 
+	The attributes to store are chosen when the item is created */
 class Item
 	{
 		public :
 		
-		TTParameterPtr	parameter;
-		TTValue			value;
-		TTValue			extra;			// TODO
+		TTObjectPtr		object;
+		TTHashPtr		state;
 		
-		Item(TTParameterPtr p, const TTValue& v, const TTValue& e);
+		Item(TTNodePtr aNode);
 		~Item();
 	};
 typedef Item* ItemPtr;
@@ -54,6 +54,7 @@ public:
 private:
 	
 	TTNodeDirectoryPtr	mDirectory;						///< the directory
+	TTHashPtr			mToStore;						///< a hash table containing <typeOfObjectToStore, attributeToStore>
 	TTHashPtr			mItemList;						///< a hash table containing <relativeAddress, ItemPtr>
 	
 	TTSymbolPtr			mCurrentItem;					///< a key to retrieve the current Item in the ItemList
@@ -79,9 +80,6 @@ private :
 	
 	TTErr makeAbsoluteAddress(TTSymbolPtr relativeAddress, TTSymbolPtr *returnedAbsoluteAddress);
 	TTErr makeRelativeAddress(TTNodePtr aNode, TTSymbolPtr *returnedRelativeAddress);
-	
-	TTErr makeItem(TTNodePtr aNode, ItemPtr *returnedItem);
-	
 };
 
 typedef TTPreset* TTPresetPtr;

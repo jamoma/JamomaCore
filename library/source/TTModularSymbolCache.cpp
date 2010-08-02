@@ -17,7 +17,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_boolean;
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Command;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_command;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_created;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Dataspace;
@@ -64,7 +64,7 @@ void TTModularSymbolCacheInit()
 	
 	kTTSym_boolean					= TT("boolean");
 	
-	kTTSym_Command					= TT("Command");
+	kTTSym_command					= TT("command");
 	kTTSym_created					= TT("created");
 	
 	kTTSym_Dataspace				= TT("Dataspace");

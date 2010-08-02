@@ -16,6 +16,7 @@
 extern "C" {
 #endif
 
+
 	// Method to deal with the jamoma directory
 	/////////////////////////////////////////
 	
@@ -147,16 +148,29 @@ extern "C" {
 	TTErr			jamoma_deviceManager_create(ObjectPtr x, SymbolPtr name, TTObjectPtr *returnedDeviceManager);
 	
 	
-
 	// Method to return data
 	///////////////////////////////////////////////////////////////////////
 	
-	/** Return the address to a jcom.receive external */
+	/** Return an address to a jcom. external */
 	void			jamoma_callback_return_address(TTPtr p_baton, TTValue& data);
 	
 	
 	/** Return the value to a jcom. external */
 	void			jamoma_callback_return_value(TTPtr p_baton, TTValue& v);
+	
+	
+	// Method to deal with TTValue
+	///////////////////////////////////////////////
+	
+	/** Make a Atom array from a TTValue (!!! this method allocate memory for the Atom array ! free it after ! */
+	void			jamoma_ttvalue_to_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, AtomPtr *argv);
+	
+	/** Make a TTValue from Atom array */
+	void			jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+	
+	/** Convert a TTSymbolPtr "MyObjectMessage" into a SymbolPtr "my/object/message" 
+		or return NULL if the TTSymbolPtr doesn't begin by an uppercase letter */
+	SymbolPtr		jamoma_TTName_To_MaxName(TTSymbolPtr TTName);
 	
 #ifdef __cplusplus
 }
