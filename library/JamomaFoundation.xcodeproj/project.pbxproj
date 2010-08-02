@@ -221,6 +221,7 @@
 			buildPhases = (
 				221826F511DD71CA00EC7AB7 /* Sources */,
 				221826F611DD71CA00EC7AB7 /* Frameworks */,
+				22ADBDF1120754DA00EC717F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -248,6 +249,22 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		22ADBDF1120754DA00EC717F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/mkdir -p \"/Library/Application Support/Jamoma/Libraries\"\n/bin/rm -f \"/Library/Application Support/Jamoma/Libraries\"/$PRODUCT_NAME.$WRAPPER_EXTENSION\n/bin/cp $TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION \"/Library/Application Support/Jamoma/Libraries\"/$PRODUCT_NAME.$WRAPPER_EXTENSION\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		221826F511DD71CA00EC7AB7 /* Sources */ = {
