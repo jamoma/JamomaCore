@@ -22,8 +22,7 @@ mDescription(kTTSymEmpty),
 mRepetitionsAllow(YES),
 mReadonly(NO),
 mViewFreeze(NO),
-mRangeBoundsMin(0.0),
-mRangeBoundsMax(1.0),
+mRangeBounds(0.0, 1.0),
 mRangeClipmode(kTTSym_none),
 #ifdef TTPARAMETER_RAMPLIB
 mRampDrive(kTTSym_none),
@@ -51,8 +50,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(Readonly, kTypeBoolean);
 	addAttributeWithSetter(ViewFreeze, kTypeBoolean);
 	
-	addAttributeWithSetter(RangeBoundsMin, kTypeFloat64);
-	addAttributeWithSetter(RangeBoundsMax, kTypeFloat64);
+	addAttributeWithSetter(RangeBounds, kTypeLocalValue);
 	addAttributeWithSetter(RangeClipmode, kTypeSymbol);
 #ifdef TTPARAMETER_RAMPLIB
 	addAttributeWithSetter(RampDrive, kTypeSymbol);
@@ -389,7 +387,6 @@ TTErr TTParameter::setValueStepsize(const TTValue& value)
 
 TTErr TTParameter::setType(const TTValue& value)
 {
-	TTAttributePtr anAttribute;
 	// if the new type is different
 	if (!(TTValue(mType) == value)) {
 		
@@ -399,14 +396,6 @@ TTErr TTParameter::setType(const TTValue& value)
 		// Unregister mValue and mValueDefault Attribute
 		removeAttribute(kTTSym_Value);
 		removeAttribute(kTTSym_ValueDefault);
-		
-		// check if attribute exist before to remove it
-		if (!findAttribute(TT("RangeBoundsMin"), &anAttribute))
-			removeAttribute(TT("RangeBoundsMin"));
-		
-		// check if attribute exist before to remove it
-		if (!findAttribute(TT("RangeBoundsMax"), &anAttribute))
-			removeAttribute(TT("RangeBoundsMax"));
 
 		// register mValue Attribute and prepare memory
 		if (mType == kTTSym_integer) {
@@ -414,52 +403,43 @@ TTErr TTParameter::setType(const TTValue& value)
 			addAttributeWithGetterAndSetter(Value, kTypeInt32);
 			mValueDefault = TTValue(0);
 			addAttributeWithGetterAndSetter(ValueDefault, kTypeInt32);
-			addAttributeWithSetter(RangeBoundsMin, kTypeInt32);
-			mRangeBoundsMin = (TTInt32)mRangeBoundsMin;
-			addAttributeWithSetter(RangeBoundsMax, kTypeInt32);
-			mRangeBoundsMax = (TTInt32)mRangeBoundsMax;
+			mRangeBounds = TTValue(0, 1);
 		}
 		else if (mType == kTTSym_decimal) {
 			mValue = TTValue(0.);
 			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue(0.);
 			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
-			addAttributeWithSetter(RangeBoundsMin, kTypeFloat64);
-			mRangeBoundsMin = 0.;
-			addAttributeWithSetter(RangeBoundsMax, kTypeFloat64);
-			mRangeBoundsMax = 1.;
+			mRangeBounds = TTValue(0., 1.);
 		}
 		else if (mType == kTTSym_string) {
 			mValue = TTValue("");
 			addAttributeWithGetterAndSetter(Value, kTypeSymbol);
 			mValueDefault = TTValue("");
 			addAttributeWithGetterAndSetter(ValueDefault, kTypeSymbol);
+			mRangeBounds = kTTValNONE;
 		}
 		else if (mType == kTTSym_boolean) {
 			mValue = TTValue(NO);
 			addAttributeWithGetterAndSetter(Value, kTypeBoolean);
 			mValueDefault = TTValue(NO);
 			addAttributeWithGetterAndSetter(ValueDefault, kTypeBoolean);
+			mRangeBounds = TTValue(0, 1);
 		}
 		else if (mType == kTTSym_generic) {
 			mValue = TTValue();
 			addAttributeWithGetterAndSetter(Value, kTypeInt32);
 			mValueDefault = TTValue();
 			addAttributeWithGetterAndSetter(ValueDefault, kTypeInt32);
-			addAttributeWithSetter(RangeBoundsMin, kTypeFloat64);
-			mRangeBoundsMin = 0.;
-			addAttributeWithSetter(RangeBoundsMax, kTypeFloat64);
-			mRangeBoundsMax = TTValue(1.);
+			mRangeBounds = TTValue(0., 1.);
+
 		}
 		else if (mType == kTTSym_array) {				// Is this case means something now we have TTValue?
 			mValue = TTValue();
 			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue();
 			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
-			addAttributeWithSetter(RangeBoundsMin, kTypeFloat64);
-			mRangeBoundsMin = 0.;
-			addAttributeWithSetter(RangeBoundsMax, kTypeFloat64);
-			mRangeBoundsMax = 1.;
+			mRangeBounds = TTValue(0., 1.);
 		}
 	//#ifdef JMOD_MESSAGE
 		else if (mType == kTTSym_none) {
@@ -467,6 +447,7 @@ TTErr TTParameter::setType(const TTValue& value)
 			addAttributeWithGetterAndSetter(Value, kTypeNone);
 			mValueDefault = kTTValNONE;
 			addAttributeWithGetterAndSetter(ValueDefault, kTypeNone);
+			mRangeBounds = kTTValNONE;
 		}
 	//#endif // JMOD_MESSAGE
 		else {
@@ -475,10 +456,7 @@ TTErr TTParameter::setType(const TTValue& value)
 			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue();
 			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
-			addAttributeWithSetter(RangeBoundsMin, kTypeFloat64);
-			mRangeBoundsMin = 0.;
-			addAttributeWithSetter(RangeBoundsMax, kTypeFloat64);
-			mRangeBoundsMax = 1.;
+			mRangeBounds = TTValue(0., 1.);
 			return kTTErrGeneric;
 		}
 
@@ -515,29 +493,15 @@ TTErr TTParameter::setViewFreeze(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::setRangeBoundsMin(const TTValue& value)
+TTErr TTParameter::setRangeBounds(const TTValue& value)
 {	
 	TTValue n;				// use new value to protect the attribute
-	mRangeBoundsMin = value;
+	mRangeBounds = value;
 	
 	if (mType == kTTSym_integer)
-		mRangeBoundsMin = (TTInt32)mRangeBoundsMin;
+		mRangeBounds.truncate();
 	
-	n = TTValue(mRangeBoundsMin);
-	
-	notifyObservers(kTTSym_RangeBounds, n);
-	return kTTErrNone;
-}
-
-TTErr TTParameter::setRangeBoundsMax(const TTValue& value)
-{	
-	TTValue n;				// use new value to protect the attribute
-	mRangeBoundsMax = value;
-	
-	if (mType == kTTSym_integer)
-		mRangeBoundsMax = (TTInt32)mRangeBoundsMax;
-	
-	n = TTValue(mRangeBoundsMax);
+	n = mRangeBounds;
 	
 	notifyObservers(kTTSym_RangeBounds, n);
 	return kTTErrNone;
@@ -740,15 +704,15 @@ TTBoolean TTParameter::clipValue()
 		if (mType == kTTSym_generic || mType == kTTSym_integer || mType == kTTSym_decimal) {
 			
 			if (mRangeClipmode == kTTSym_low)
-				mValue.cliplow(mRangeBoundsMin);
+				mValue.cliplow(mRangeBounds.getFloat64(0));
 			else if (mRangeClipmode == kTTSym_high)
-				mValue.cliphigh(mRangeBoundsMax);
+				mValue.cliphigh(mRangeBounds.getFloat64(1));
 			else if (mRangeClipmode == kTTSym_both)
-				mValue.clip(mRangeBoundsMin, mRangeBoundsMax);
+				mValue.clip(mRangeBounds.getFloat64(0), mRangeBounds.getFloat64(1));
 			else if (mRangeClipmode == kTTSym_wrap)
-				;//mValue.clipwrap(mRangeBoundsMin, mRangeBoundsMax);
+				;//mValue.clipwrap(mRangeBounds.getFloat64(0), mRangeBounds.getFloat64(1));
 			else if (mRangeClipmode == kTTSym_fold)
-				;//mValue.clipfold(mRangeBoundsMin, mRangeBoundsMax);
+				;//mValue.clipfold(mRangeBounds.getFloat64(0), mRangeBounds.getFloat64(1));
 		}
 	}
 	

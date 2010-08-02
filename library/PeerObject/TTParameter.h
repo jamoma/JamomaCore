@@ -60,8 +60,7 @@ public:
 	TTBoolean		mReadonly;					///< ATTRIBUTE: 
 	TTBoolean		mViewFreeze;				///< ATTRIBUTE: freeze updating of graphical user interface
 	
-	TTFloat64		mRangeBoundsMin;			///< ATTRIBUTE: 
-	TTFloat64		mRangeBoundsMax;			///< ATTRIBUTE: 
+	TTValue			mRangeBounds;				///< ATTRIBUTE: 
 	TTSymbolPtr		mRangeClipmode;				///< ATTRIBUTE: 
 
 #ifdef TTPARAMETER_RAMPLIB
@@ -127,10 +126,7 @@ public:
 	TTErr setViewFreeze(const TTValue& value);
 	
 	/**	Setter for m attribute. */
-	TTErr setRangeBoundsMin(const TTValue& value);
-	
-	/**	Setter for m attribute. */
-	TTErr setRangeBoundsMax(const TTValue& value);
+	TTErr setRangeBounds(const TTValue& value);
 	
 	/**	Setter for m attribute. */
 	TTErr setRangeClipmode(const TTValue& value);
