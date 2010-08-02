@@ -425,33 +425,46 @@ void TTDeviceManagerDiscoverCallback(void* arg, Address whereToDiscover, std::ve
 				// else : add it as a node
 				aChild->getAttributeValue(TT("Object"), v);
 				v.get(0, (TTPtr*)&o);
-				type = o->getName();
-				if(type == TT("Parameter"))
-					returnedLeaves.push_back(instanceName.c_str());
-				else
-					returnedNodes.push_back(instanceName.c_str());
+				
+				// if the object is a Parameter : push his name in the leaves list
+				if (o) {
+					type = o->getName();
+					if(type == TT("Parameter")) {
+						returnedLeaves.push_back(instanceName.c_str());
+						continue;
+					}
+				}
+				
+				// else in the nodes list
+				returnedNodes.push_back(instanceName.c_str());
 			}
 			
 			// Edit the vector with all attributes name
 			nodeToDiscover->getAttributeValue(TT("Object"), v);
 			v.get(0, (TTPtr*)&o);
 			
-			// Add the access attribute which is not a jamoma attribute
-			// only for the parameter
-			type = o->getName();
-			if(type == TT("Parameter"))
-				returnedAttributes.push_back(NAMESPACE_ATTR_ACCESS);
-			
-			// Add all other attributes
-			o->getAttributeNames(attributeNameList);
-			for(i = 0; i < attributeNameList.getSize(); i++)
-			{
-				attributeNameList.get(i,(TTSymbolPtr*)&attributeName);
-				//sAttribute = aTTDeviceManager->convertAttributeFromJamoma(attributeName->getCString());
-				sAttribute = attributeName->getCString();
+			// if there is an object push all
+			// this attributes in the attribute list
+			if (o) {
 				
-				if(strcmp(sAttribute.c_str(), ""))
-					returnedAttributes.push_back(sAttribute);
+				type = o->getName();
+				
+				// Add the access attribute which is not a jamoma attribute
+				// only for the parameter
+				if(type == TT("Parameter"))
+					returnedAttributes.push_back(NAMESPACE_ATTR_ACCESS);
+				
+				// Add all other attributes
+				o->getAttributeNames(attributeNameList);
+				for(i = 0; i < attributeNameList.getSize(); i++)
+				{
+					attributeNameList.get(i,(TTSymbolPtr*)&attributeName);
+					//sAttribute = aTTDeviceManager->convertAttributeFromJamoma(attributeName->getCString());
+					sAttribute = attributeName->getCString();
+					
+					if(strcmp(sAttribute.c_str(), ""))
+						returnedAttributes.push_back(sAttribute);
+				}
 			}
 		}
 		else{
