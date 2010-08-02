@@ -84,9 +84,11 @@ TTErr TTMapper::getFunctionSamples(TTValue& value)
 
 TTErr TTMapper::setInput(const TTValue& value)
 {
-	TTValue			args;
-	TTObjectPtr		returnAddressCallback, returnValueCallback;
+	TTValue			args, v, min, max;
+	TTNodePtr		aNode;
+	TTObjectPtr		returnAddressCallback, returnValueCallback, anObject;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
+	TTErr			err;
 	
 	mInput = value;
 	
@@ -112,12 +114,34 @@ TTErr TTMapper::setInput(const TTValue& value)
 	mReceiver = NULL;
 	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mReceiver), args);
 	
+	// Trying to get the Parameter at this address 
+	// and get some infos about range bounds 
+	// (but if the mapper created before we give up)
+	err = mDirectory->getTTNodeForOSC(mInput, &aNode);
+	
+	if (!err) {
+		aNode->getAttributeValue(kTTSym_Object, v);
+		v.get(0, (TTPtr*)&anObject);
+		
+		if (anObject)
+			if (anObject->getName() == TT("Parameter")) {
+				
+				anObject->getAttributeValue(kTTSym_RangeBounds, v);
+				
+				setInputMin(v.getFloat64(0));
+				setInputMax(v.getFloat64(1));
+			}
+	}
+	
 	return kTTErrNone;
 }
 
 TTErr TTMapper::setOutput(const TTValue& value)
 {
-	TTValue args;
+	TTValue			args, v, min, max;
+	TTNodePtr		aNode;
+	TTObjectPtr		anObject;
+	TTErr			err;
 	
 	mOutput = value;
 		
@@ -128,6 +152,25 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	
 	mSender = NULL;
 	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mSender), args);
+	
+	// Trying to get the Parameter at this address 
+	// and get some infos about range bounds 
+	// (but if the mapper created before we give up)
+	err = mDirectory->getTTNodeForOSC(mOutput, &aNode);
+	
+	if (!err) {
+		aNode->getAttributeValue(kTTSym_Object, v);
+		v.get(0, (TTPtr*)&anObject);
+		
+		if (anObject)
+			if (anObject->getName() == TT("Parameter")) {
+				
+				anObject->getAttributeValue(kTTSym_RangeBounds, v);
+				
+				setOutputMin(v.getFloat64(0));
+				setOutputMax(v.getFloat64(1));
+			}
+	}
 	
 	return kTTErrNone;
 }
