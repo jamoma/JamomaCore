@@ -14,16 +14,7 @@
 
 /**	TTPreset ... TODO : an explanation
  
- 
-	About XML preset file -- write breakline is a none XML way to do (no breakline) 
-	and it implies to catch '\n' in the readXmlNode method that fails...
-	However it would be nice to have human readable text documents !
-	So this would be a feature request.
- 
  */
-
-class TTParameter;
-typedef TTParameter* TTParameterPtr;
 
 /** Internal class to store an Object and his state <attribute, value> 
 	The attributes to store are chosen when the item is created */

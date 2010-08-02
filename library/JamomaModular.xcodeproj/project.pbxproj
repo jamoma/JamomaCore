@@ -89,6 +89,8 @@
 		D29BCDFA11C9E87F00F7CF19 /* TTSubscriber.h in Headers */ = {isa = PBXBuildFile; fileRef = D29BCDEA11C9E87F00F7CF19 /* TTSubscriber.h */; };
 		D29BCE1B11C9EBB800F7CF19 /* ModularForMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D29BCE1911C9EBB800F7CF19 /* ModularForMax.cpp */; };
 		D29BCE1C11C9EBB800F7CF19 /* ModularForMax.h in Headers */ = {isa = PBXBuildFile; fileRef = D29BCE1A11C9EBB800F7CF19 /* ModularForMax.h */; };
+		D2A78DC912077E2800B03A74 /* TTExplorer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2A78DC712077E2800B03A74 /* TTExplorer.cpp */; };
+		D2A78DCA12077E2800B03A74 /* TTExplorer.h in Headers */ = {isa = PBXBuildFile; fileRef = D2A78DC812077E2800B03A74 /* TTExplorer.h */; };
 		D2AD390210B17B5200EBE079 /* jcom.receive~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AD38FF10B17B5200EBE079 /* jcom.receive~.cpp */; };
 		D2AD390310B17B5200EBE079 /* jcom.receivemaster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AD390010B17B5200EBE079 /* jcom.receivemaster.cpp */; };
 		D2AD390410B17B5200EBE079 /* jcom.send~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2AD390110B17B5200EBE079 /* jcom.send~.cpp */; };
@@ -183,6 +185,8 @@
 		D29BCDEA11C9E87F00F7CF19 /* TTSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSubscriber.h; sourceTree = "<group>"; };
 		D29BCE1911C9EBB800F7CF19 /* ModularForMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModularForMax.cpp; sourceTree = "<group>"; };
 		D29BCE1A11C9EBB800F7CF19 /* ModularForMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModularForMax.h; sourceTree = "<group>"; };
+		D2A78DC712077E2800B03A74 /* TTExplorer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTExplorer.cpp; sourceTree = "<group>"; };
+		D2A78DC812077E2800B03A74 /* TTExplorer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTExplorer.h; sourceTree = "<group>"; };
 		D2AD38FF10B17B5200EBE079 /* jcom.receive~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.receive~.cpp"; sourceTree = "<group>"; };
 		D2AD390010B17B5200EBE079 /* jcom.receivemaster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receivemaster.cpp; sourceTree = "<group>"; };
 		D2AD390110B17B5200EBE079 /* jcom.send~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.send~.cpp"; sourceTree = "<group>"; };
@@ -385,6 +389,8 @@
 				D29BCDDB11C9E87F00F7CF19 /* TTContainer.cpp */,
 				D29BCDDE11C9E87F00F7CF19 /* TTDeviceManager.h */,
 				D29BCDDD11C9E87F00F7CF19 /* TTDeviceManager.cpp */,
+				D2A78DC712077E2800B03A74 /* TTExplorer.cpp */,
+				D2A78DC812077E2800B03A74 /* TTExplorer.h */,
 				D295D18111FA07D3001CAB3E /* TTXmlHandler.h */,
 				D295D18211FA07D3001CAB3E /* TTXmlHandler.cpp */,
 				D20A268211F7B9D70001B0AD /* TTPresetManager.h */,
@@ -461,6 +467,7 @@
 				D20A263711F7913F0001B0AD /* TTPreset.h in Headers */,
 				D20A268411F7B9D70001B0AD /* TTPresetManager.h in Headers */,
 				D295D18311FA07D3001CAB3E /* TTXmlHandler.h in Headers */,
+				D2A78DCA12077E2800B03A74 /* TTExplorer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +581,7 @@
 				D20A263611F7913F0001B0AD /* TTPreset.cpp in Sources */,
 				D20A268311F7B9D70001B0AD /* TTPresetManager.cpp in Sources */,
 				D295D18411FA07D3001CAB3E /* TTXmlHandler.cpp in Sources */,
+				D2A78DC912077E2800B03A74 /* TTExplorer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
