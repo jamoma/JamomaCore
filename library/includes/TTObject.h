@@ -116,8 +116,8 @@ public:
 	TTErr registerAttribute(const TTSymbolPtr name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
 	TTErr registerAttribute(const TTSymbolPtr name, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject);
 	
-	/** Extend the attribute of an existing TTObject to this TTObject */
-	TTErr extendAttribute(const TTSymbolPtr name, const TTObjectPtr extendedObject);
+	/** Extend the attribute of an existing TTObject to this TTObject (using another attribute name) */
+	TTErr extendAttribute(const TTSymbolPtr name, const TTObjectPtr extendedObject, const TTSymbolPtr extendedName);
 
 	TTErr removeAttribute(const TTSymbolPtr name);
 	
