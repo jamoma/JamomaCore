@@ -646,7 +646,6 @@ TTErr jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper)
 	TTValue			args;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
-	TTAttributePtr	anAttribute = NULL;
 	
 	// prepare arguments
 	args.append(TTModularDirectory);
