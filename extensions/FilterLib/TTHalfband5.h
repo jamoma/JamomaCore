@@ -14,7 +14,12 @@
 
 
 /**	A second-order building-block allpass filter.
-	Based on Multirate Signal Processing for Communication Systems, Chapter 10, Figure 42. 
+	Based on Multirate Signal Processing for Communication Systems, Chapter 10, Figure 42.
+ 
+	2010-08-03: testing in msp, this filter produces the same amplitude response as the first-order butterworth filter
+				when set to a cf of 11025 Hz, but this filter uses roughly double the amount of cpu.
+				in theory, however, this filter should provide roughly linear phase response, unlike the butterworth filter.
+				but how do we test that?
  */
 class TTHalfband5 : TTAudioObject {
 	TTCLASS_SETUP(TTHalfband5)
