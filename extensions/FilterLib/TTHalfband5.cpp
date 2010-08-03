@@ -106,7 +106,17 @@ TTErr TTHalfband5::calculateLowpass(const TTFloat64& x, TTFloat64& y, TTPtrSized
 
 TTErr TTHalfband5::calculateHighpass(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
-	// TODO: call internal filters	
+	TTFloat64 outputFromTopPath;
+	TTFloat64 outputFromBottomPathDelay;
+	TTFloat64 outputFromBottomPath;
+	
+	mF0->calculateValue(x, outputFromTopPath, channel);
+	
+	mDelay->calculateValue(x, outputFromBottomPathDelay, channel);
+	mF1->calculateValue(outputFromBottomPathDelay, outputFromBottomPath, channel);
+	
+	// the only difference between the lowpass and highpass is the sign of the bottom path in this calculation
+	y = (outputFromTopPath - outputFromBottomPath) * 0.5;
 	return kTTErrNone;
 }
 
