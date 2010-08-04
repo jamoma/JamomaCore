@@ -466,12 +466,13 @@ TTErr TTNode::getChildrenInstance(TTSymbolPtr aName, TTList& returnedChildrenIns
 	return kTTErrNone;
 }
 
-TTErr TTNode::getOscAddress(TTSymbolPtr *returnedOscAddress)
+TTErr TTNode::getOscAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr from)
 {
-	unsigned int i, nb_ancestor, len;
-	TTNodePtr ptr;
-	TTNodePtr *ancestor;
-	TTString OscAddress;
+	unsigned int	i, nb_ancestor, len;
+	TTSymbolPtr		returnedPart1, returnedPart2;
+	TTNodePtr		ptr;
+	TTNodePtr		*ancestor;
+	TTString		OscAddress;
 
 	// First, count the number of ancestor 
 	// and the length of the entire address (with slash and dot)
@@ -541,6 +542,14 @@ TTErr TTNode::getOscAddress(TTSymbolPtr *returnedOscAddress)
 	}
 	
 	if (len) {
+		
+		// make it relative from
+		if (from != S_SEPARATOR) {
+			splitAtOSCAddress(TT(OscAddress), countSeparator(from), &returnedPart1, &returnedPart2);
+			OscAddress = C_SEPARATOR;
+			OscAddress += returnedPart2->getCString();
+		}
+		
 		*returnedOscAddress = TT(OscAddress);
 		return kTTErrNone;
 	}

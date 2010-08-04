@@ -133,8 +133,9 @@ public:
 	
 	/** Get the OSC address of the TTNode 
 		It is computed dynamicaly by asking to all the ancestor of the TTNode	
-		@param	returnedOscAddress		A TTSymbolPtr with the OOSC address is returned in this parameter. */
-	TTErr			getOscAddress(TTSymbolPtr *returnedOscAddress);
+		@param	returnedOscAddress		A TTSymbolPtr with the OSC address is returned in this parameter.
+		@param	from					An address from where to start the returned address in order to have a relative address */
+	TTErr			getOscAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr from = S_SEPARATOR);
 
 	/** Generate a new instance of a given child
 		@param childName		the name of a child.
