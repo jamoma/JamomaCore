@@ -13,7 +13,15 @@
 #define thisTTClassTags		"node, subscriber"
 
 TT_MODULAR_CONSTRUCTOR,
-mRelativeAddress(kTTSymEmpty), mDirectory(NULL), mShareContextNodeCallback(NULL), mGetContextListCallback(NULL)
+mRelativeAddress(kTTSymEmpty),
+mNode(NULL),
+mNodeAddress(kTTSymEmpty),
+mContextNode(NULL),
+mContextAddress(kTTSymEmpty),
+mNewInstanceCreated(false),
+mDirectory(NULL),
+mShareContextNodeCallback(NULL),
+mGetContextListCallback(NULL)
 {
 	TTObjectPtr anObject;
 	
@@ -22,6 +30,8 @@ mRelativeAddress(kTTSymEmpty), mDirectory(NULL), mShareContextNodeCallback(NULL)
 	arguments.get(0, (TTPtr*)&anObject);
 	
 	arguments.get(1, &mRelativeAddress);
+	if (mRelativeAddress == kTTSymEmpty)
+		mRelativeAddress = S_SEPARATOR;
 	
 	arguments.get(2, (TTPtr*)&mDirectory);
 	TT_ASSERT("Directory passed to TTSubscriber is not NULL", mDirectory);
@@ -37,20 +47,33 @@ mRelativeAddress(kTTSymEmpty), mDirectory(NULL), mShareContextNodeCallback(NULL)
 	addAttribute(NodeAddress, kTypeSymbol);
 	addAttribute(ContextNode, kTypePointer);
 	addAttribute(ContextAddress, kTypeSymbol);
+	addAttribute(NewInstanceCreated, kTypeBoolean);
 	
 	addAttributeProperty(RelativeAddress, readOnly, YES);
 	addAttributeProperty(Node, readOnly, YES);
 	addAttributeProperty(NodeAddress, readOnly, YES);
 	addAttributeProperty(ContextNode, readOnly, YES);
 	addAttributeProperty(ContextAddress, readOnly, YES);
-
+	addAttributeProperty(NewInstanceCreated, readOnly, YES);
+	
 	if	(mDirectory && mShareContextNodeCallback && mGetContextListCallback)
 		this->subscribe(anObject);
 }
 
 TTSubscriber::~TTSubscriber()
 {	
-	this->mDirectory->TTNodeRemove(this->mNodeAddress);
+	TTList		childrenList;
+	TTValue		aTempValue;
+	
+	// set NULL object
+	aTempValue.clear();
+	aTempValue.append((TTPtr)NULL);
+	this->mNode->setAttributeValue(kTTSym_Object, aTempValue);
+
+	// If node have no more child : destroy the node
+	this->mNode->getChildren(S_WILDCARD, S_WILDCARD, childrenList);
+	if (childrenList.isEmpty())
+		this->mDirectory->TTNodeRemove(this->mNodeAddress);
 	
 	if (mShareContextNodeCallback)
 		TTObjectRelease(TTObjectHandle(&mShareContextNodeCallback));
@@ -59,17 +82,16 @@ TTSubscriber::~TTSubscriber()
 		TTObjectRelease(TTObjectHandle(&mGetContextListCallback));
 }
 
-TTErr TTSubscriber::subscribe(TTObjectPtr anObject)
+TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 {
-	TTSymbolPtr		_parent, _name, _instance, _attribute, _node;
+	TTSymbolPtr		contextAddress, absoluteAddress;
 	TTValue			aTempValue, args;
-	TTPtr			aContext;
+	TTPtr			ourContext;
 	TTListPtr		aContextList;
 	TTList			aNodeList;
-	TTNodePtr		aParentNode, aNode;
-	TTContainerPtr	aContainer;
+	TTNodePtr		aNode;
+	TTObjectPtr		hisObject;
 	TTString		nodeAddress;
-	TTBoolean		newInstanceCreated;
 	TTErr			err;
 	
 	// look for any other registered subscriber in the Context
@@ -98,82 +120,49 @@ TTErr TTSubscriber::subscribe(TTObjectPtr anObject)
 	// Build the node at /contextAddress/parent/node
 	if (this->mContextNode) {
 		
-		splitOSCAddress(this->mRelativeAddress, &_parent, &_name, &_instance, &_attribute);
+		// Get our Context
+		this->mContextNode->getAttributeValue(kTTSym_Context, aTempValue);
+		aTempValue.get(0, (TTPtr*)&ourContext);
 		
-		// start at /contextAddress
-		this->mContextNode->getOscAddress(&_node);
-		if (_node != S_SEPARATOR)
-			nodeAddress = _node->getCString();
+		// Make absolute address and check if the node exists
+		this->mContextNode->getOscAddress(&contextAddress);
+		joinOSCAddress(contextAddress, this->mRelativeAddress, &absoluteAddress);
+		err = this->mDirectory->Lookup(absoluteAddress, aNodeList, &aNode);
 		
-		// Check if parent exists
-		if ((_parent != NO_PARENT) && (_parent->getCString()[0] != C_SEPARATOR))
-			nodeAddress += "/";
-		nodeAddress += _parent->getCString();
+		// if the node doesn't exist, create it
+		if (err)
+			this->mDirectory->TTNodeCreate(absoluteAddress, ourObject, ourContext,  &aNode, &this->mNewInstanceCreated);
 		
-		err = this->mDirectory->Lookup(TT(nodeAddress.data()), aNodeList, &aParentNode);
-		
-		// if parent doesn't exist create it
-		if (err) {
-			
-			// the parent could be a container
-			if (_parent != NO_PARENT) {
-
-				// Make a TTNode with TTContainer
-				aContainer = NULL;
-				args.append(TTModularDirectory);
-				TTObjectInstantiate(TT("Container"), TTObjectHandle(&aContainer), args);
-				
-				this->mContextNode->getAttributeValue(TT("Context"), aTempValue);
-				aTempValue.get(0, (TTPtr*)&aContext);
-				
-				this->mDirectory->TTNodeCreate(TT(nodeAddress.data()), aContainer, aContext, &aParentNode, &newInstanceCreated);
-
-			}
-			// else the context himself...
-		}
-		
-		// Check if node exists
-		if ((_name != NO_NAME) && (_name->getCString()[0] != C_SEPARATOR))
-			nodeAddress += C_SEPARATOR;
-		nodeAddress += _name->getCString();
-		
-		if (_instance != NO_INSTANCE) {
-			nodeAddress += C_INSTANCE;
-			nodeAddress += _instance->getCString();
-		}
-		
-		_node = TT(nodeAddress.data());
-		
-		err = this->mDirectory->Lookup(_node, aNodeList, &aNode);
-		
-		// if node doesn't exist create it
-		if (err) {
-			// the node could be a container
-			if (_name != NO_NAME) {
-				
-				this->mContextNode->getAttributeValue(TT("Context"), aTempValue);
-				aTempValue.get(0, (TTPtr*)&aContext);
-				
-				this->mDirectory->TTNodeCreate(_node, anObject, aContext,  &aNode, &newInstanceCreated);
-			}
-			// or the Context himself
-			else 
-				aNode = this->mContextNode;
-		}
-		// else set the object
-		// and set attribute access
+		// else the node already exists
 		else {
-			aTempValue.clear();
-			aTempValue.append((TTPtr)anObject);
-			aNode->setAttributeValue(TT("Object"), aTempValue);
 			
-			// TODO : set attribute access after node creation
+			// Get his refered object
+			aNode->getAttributeValue(kTTSym_Object, aTempValue);
+			aTempValue.get(0, (TTPtr*)&hisObject);
+			
+			// if there is no refered object
+			if (!hisObject) {
+				
+				// set our object instead
+				aTempValue.clear();
+				aTempValue.append((TTPtr)ourObject);
+				aNode->setAttributeValue(kTTSym_Object, aTempValue);
+			}
+			
+			// else there is already an object
+			else {
+				
+				// if it is the ContextNode, do nothing (our object can't be refered)
+				// else create another instance to refer our object
+				if (aNode != this->mContextNode)
+					this->mDirectory->TTNodeCreate(absoluteAddress, ourObject, ourContext,  &aNode, &this->mNewInstanceCreated);
+			}
 		}
-		
+
 		this->mNode = aNode;
 		this->mNode->getOscAddress(&this->mNodeAddress);
 		this->mContextNode->getOscAddress(&this->mContextAddress);
-		
+		this->mNode->getOscAddress(&this->mRelativeAddress, this->mContextAddress);
 	}
 	else
 		return kTTErrGeneric;
@@ -187,7 +176,6 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 	TTSymbolPtr		formatedContextName, contextAddress, context_parent, context_name, context_instance, context_attribute;
 	TTList			contextNodeList, attributesAccess;
 	TTNodePtr		contextNode, lowerContextNode;
-	TTContainerPtr	aContainer;
 	TTString		lowerContextAddress;
 	TTPtr			aContext, lowerContext;
 	TTBoolean		found, newInstanceCreated;
@@ -229,7 +217,7 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 				contextNodeList.current().get(0, (TTPtr*)&lowerContextNode);
 				
 				// Check if objects are the same
-				lowerContextNode->getAttributeValue(TT("Context"), aTempValue);
+				lowerContextNode->getAttributeValue(kTTSym_Context, aTempValue);
 				aTempValue.get(0, (TTPtr*)&lowerContext);
 				
 				if (aContext == lowerContext) {
@@ -247,14 +235,11 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 				if (formatedContextName != S_SEPARATOR) {
 					lowerContextAddress = contextAddress->getCString();
 					if (contextAddress != S_SEPARATOR)
-						lowerContextAddress += "/";
+						lowerContextAddress += C_SEPARATOR;
 					lowerContextAddress += formatedContextName->getCString();
 					
-					// Make a TTNode with TTContainer
-					aContainer = NULL;
-					args.append(TTModularDirectory);
-					TTObjectInstantiate(TT("Container"), TTObjectHandle(&aContainer), args);
-					this->mDirectory->TTNodeCreate(TT(lowerContextAddress.data()), aContainer, aContext, &contextNode, &newInstanceCreated);
+					// Make a TTNode with no object
+					this->mDirectory->TTNodeCreate(TT(lowerContextAddress.data()), NULL, aContext, &contextNode, &newInstanceCreated);
 
 				}
 				else

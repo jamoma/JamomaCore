@@ -262,14 +262,6 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, SymbolPtr rel
 	*returnedSubscriber = NULL;
 	TTObjectInstantiate(TT("Subscriber"), TTObjectHandle(returnedSubscriber), args);
 	
-	/* pass the Subscriber to the TTObject m_subscriber member
-	// to -- this is a bad way to do... maybe the solution is to make TTContainer, TTParameter, ... as children class of TTSubscriber
-	// we have to pass the subscriber in order to notify internal changes of attributes
-	args.clear();
-	args.append(TTPtr(*returnedSubscriber));
-	aTTObject->setAttributeValue(TT("_subscriber"), args);
-	 */
-	
 	return kTTErrNone;
 }
 
@@ -516,29 +508,23 @@ TTErr jamoma_sender_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjectP
 	TTSymbolPtr oscAddress_parent, oscAddress_name, oscAddress_instance, oscAddress_attribute, oscAddress_noAttribute;
 	TTValue args;
 	
-	if (addressAndAttribute->s_name[0] == C_SEPARATOR)
-	{
-		
-		// Get address part and attribute part
-		splitOSCAddress(TT(addressAndAttribute->s_name), &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_attribute);
-		mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
-
-		// Make a TTSender object
-		args.append(TTModularDirectory);
-		args.append(oscAddress_noAttribute);
-		
-		// TODO : convert attribute from value/stepsize into ValueStepsize
-		if (oscAddress_attribute != NO_ATTRIBUTE)
-			args.append(oscAddress_attribute);
-		else
-			args.append(kTTSym_Value);
-		
-		*returnedSender = NULL;
-		TTObjectInstantiate(TT("Sender"), TTObjectHandle(returnedSender), args);
-		return kTTErrNone;
-	}
+	// Get address part and attribute part
+	splitOSCAddress(TT(addressAndAttribute->s_name), &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_attribute);
+	mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
 	
-	return kTTErrGeneric;
+	// Make a TTSender object
+	args.append(TTModularDirectory);
+	args.append(oscAddress_noAttribute);
+	
+	// TODO : convert attribute from value/stepsize into ValueStepsize
+	if (oscAddress_attribute != NO_ATTRIBUTE)
+		args.append(oscAddress_attribute);
+	else
+		args.append(kTTSym_Value);
+	
+	*returnedSender = NULL;
+	TTObjectInstantiate(TT("Sender"), TTObjectHandle(returnedSender), args);
+	return kTTErrNone;
 }
 
 /**	Send Max data using a sender object */
@@ -569,44 +555,38 @@ TTErr jamoma_receiver_create(ObjectPtr x, SymbolPtr addressAndAttribute, TTObjec
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
 	// prepare arguments
-	if (addressAndAttribute->s_name[0] == C_SEPARATOR)
-	{
-		
-		// Get address part and attribute part
-		splitOSCAddress(TT(addressAndAttribute->s_name), &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_attribute);
-		mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
-		
-		// Make a TTReceiver object
-		args.append(TTModularDirectory);
-		args.append(oscAddress_noAttribute);
-		
-		if (oscAddress_attribute != NO_ATTRIBUTE)
-			args.append(oscAddress_attribute);
-		else
-			args.append(TT("Value"));
-		
-		returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("Callback"), &returnAddressCallback, kTTValNONE);
-		returnAddressBaton = new TTValue(TTPtr(x));
-		returnAddressCallback->setAttributeValue(TT("Baton"), TTPtr(returnAddressBaton));
-		returnAddressCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_address));
-		args.append(returnAddressCallback);
-		
-		returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
-		returnValueBaton = new TTValue(TTPtr(x));
-		returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
-		returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
-		args.append(returnValueCallback);
-		
-		*returnedReceiver = NULL;
-		TTObjectInstantiate(TT("Receiver"), TTObjectHandle(returnedReceiver), args);
-		
-		return kTTErrNone;
-	}
+
+	// Get address part and attribute part
+	splitOSCAddress(TT(addressAndAttribute->s_name), &oscAddress_parent, &oscAddress_name, &oscAddress_instance, &oscAddress_attribute);
+	mergeOSCAddress(&oscAddress_noAttribute, oscAddress_parent, oscAddress_name, oscAddress_instance, NO_ATTRIBUTE);
 	
-	return kTTErrGeneric;
+	// Make a TTReceiver object
+	args.append(TTModularDirectory);
+	args.append(oscAddress_noAttribute);
 	
+	if (oscAddress_attribute != NO_ATTRIBUTE)
+		args.append(oscAddress_attribute);
+	else
+		args.append(TT("Value"));
+	
+	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &returnAddressCallback, kTTValNONE);
+	returnAddressBaton = new TTValue(TTPtr(x));
+	returnAddressCallback->setAttributeValue(TT("Baton"), TTPtr(returnAddressBaton));
+	returnAddressCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_address));
+	args.append(returnAddressCallback);
+	
+	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
+	returnValueBaton = new TTValue(TTPtr(x));
+	returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
+	args.append(returnValueCallback);
+	
+	*returnedReceiver = NULL;
+	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(returnedReceiver), args);
+	
+	return kTTErrNone;
 }
 
 
@@ -678,6 +658,34 @@ TTErr jamoma_mapper_map(TTMapperPtr aMapper, SymbolPtr msg, AtomCount argc, Atom
 	
 	return kTTErrGeneric;
 }
+
+
+// Method to deal with TTExplorer
+///////////////////////////////////////////////////////////////////////
+
+/**	Create an explorer object */
+TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
+{
+	TTValue			args;
+	TTObjectPtr		returnValueCallback;
+	TTValuePtr		returnValueBaton;
+	
+	// prepare arguments
+	args.append(TTModularDirectory);
+	
+	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
+	returnValueBaton = new TTValue(TTPtr(x));
+	returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
+	args.append(returnValueCallback);
+	
+	*returnedExplorer = NULL;
+	TTObjectInstantiate(TT("Explorer"), TTObjectHandle(returnedExplorer), args);
+	
+	return kTTErrNone;
+}
+
 
 
 // Method to deal with TTDeviceManager
@@ -862,4 +870,31 @@ SymbolPtr jamoma_TTName_To_MaxName(TTSymbolPtr TTName)
 	MaxNameCString = NULL;
 	
 	return MaxNameSymbol;
+}
+
+/** Get the Context Node of relative to a jcom.external */
+TTNodePtr jamoma_context_node_get(ObjectPtr x)
+{
+	TTValue						c;
+	TTNodePtr					contextNode = NULL;
+	TTList						whereToSearch, aContextList;
+	long						nbLevel = 0;
+	TTPtr						context;
+	TTBoolean					isThere = NO;
+	
+	// Get the context list 
+	jamoma_subscriber_get_context_list_method(x, &aContextList, &nbLevel);
+	
+	// Get the last context
+	if (aContextList.isEmpty())
+		return NULL;
+	
+	c = aContextList.getTail();
+	c.get(0, (TTPtr*)&context);
+	
+	// Is there a node with the same context
+	whereToSearch.append(TTModularDirectory->getRoot());
+	TTModularDirectory->IsThere(&whereToSearch, testNodeContext, context, &isThere, &contextNode);
+	
+	return contextNode;
 }

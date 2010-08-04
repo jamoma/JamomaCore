@@ -75,7 +75,7 @@ public:
 	
 private:
 	
-	TTCallbackPtr	mReturnValueCallback;		///< Callback to return the value to the owner of this parameter
+	TTCallbackPtr	mReturnValueCallback;		///< Callback to return back value to the owner of this parameter
 	
 	TTBoolean		mIsSending;					///< Flag to tell us if we are currently sending out our Value attribute
 	TTBoolean		mIsInitialised;				///< Flag to tell us if the Value attribute has been initialised

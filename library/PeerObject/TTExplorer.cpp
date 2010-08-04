@@ -13,15 +13,188 @@
 #define thisTTClassTags		"explorer"
 
 TT_MODULAR_CONSTRUCTOR,
-mDirectory(NULL)
+mAddress(kTTSymEmpty),
+mLookfor(kTTSymEmpty),
+mEqual(kTTValNONE),
+mDifferent(kTTValNONE),
+mDirectory(NULL),
+mObserver(NULL),
+mReturnValueCallback(NULL),
+mTempNode(NULL),
+mTempName(kTTSymEmpty),
+mResult(NULL)
 {
 	arguments.get(0, (TTPtr*)&mDirectory);
 	TT_ASSERT("Directory passed to TTPreset is not NULL", mDirectory);
+	
+	if(arguments.getSize() == 2)
+		arguments.get(1, (TTPtr*)&mReturnValueCallback);
+	
+	addAttributeWithSetter(Address, kTypeSymbol);
+	addAttributeWithSetter(Lookfor, kTypeSymbol);
+	addAttribute(Equal, kTypeLocalValue);
+	addAttribute(Different, kTypeLocalValue);
+	
+	addMessage(Explore);
+	
+	mResult = new TTHash();
 }
 
 TTExplorer::~TTExplorer()
-{;}
+{
+	TTSymbolPtr addressToObserve;
+	
+	// bind the right node
+	if (mLookfor == TT("Instances"))
+		addressToObserve = mTempParent;
+	else
+		addressToObserve = mAddress;
+	
+	if (mObserver && addressToObserve != kTTSymEmpty) {
+		mDirectory->removeObserverForNotifications(addressToObserve, *mObserver);
+		TTObjectRelease(TTObjectHandle(&mObserver));
+	}
+	
+	if (mReturnValueCallback)
+		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+	
+	delete mResult;
+}
 
+TTErr TTExplorer::setLookfor(const TTValue& value)
+{
+	mLookfor = value;
+	
+	setAddress(mAddress);
+	
+	return kTTErrNone;
+}
+
+TTErr TTExplorer::setAddress(const TTValue& value)
+{	
+	TTSymbolPtr inst, attr;
+	TTValuePtr	newBaton;
+	
+	// delete the old observer
+	if (mObserver && mTempObserve != kTTSymEmpty) {
+		mDirectory->removeObserverForNotifications(mTempObserve, *mObserver);
+		TTObjectRelease(TTObjectHandle(&mObserver));
+	}
+	
+	// change the address
+	mAddress = value;
+	
+	// change internal values
+	splitOSCAddress(mAddress, &mTempParent, &mTempName, &inst, &attr);
+	
+	// bind the new node
+	if (mLookfor == TT("Instances"))
+		mTempObserve = mTempParent;
+	else
+		mTempObserve = mAddress;
+	
+	// change the observer
+	if (mTempObserve != kTTSymEmpty){
+		
+		// observe any creation or destruction below the address
+		mObserver = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectInstantiate(TT("Callback"), TTObjectHandle(&mObserver), kTTValNONE);
+		
+		newBaton = new TTValue(TTPtr(this));
+		newBaton->append(TTPtr(kTTSymEmpty));
+		
+		mObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
+		mObserver->setAttributeValue(TT("Function"), TTPtr(&TTExplorerDirectoryCallback));
+		
+		mObserver->setAttributeValue(TT("Owner"), TT("TTExplorer"));						// this is usefull only to debug
+		
+		mDirectory->addObserverForNotifications(mTempObserve, *mObserver);
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTExplorer::Explore()
+{
+	TTSymbolPtr name;
+	TTList		aNodeList, nameList, allObjectNodes;
+	TTNodePtr	aNode;
+	TTObjectPtr	o;
+	TTValue		v;
+	TTErr		err;
+	
+	mResult->clear();
+	mTempNode = NULL;
+	
+	if (mLookfor == kTTSymEmpty)
+		return kTTErrGeneric;
+	
+	// bind the right node
+	if (mLookfor == TT("Instances"))
+		err = mDirectory->Lookup(mTempParent, aNodeList, &mTempNode);
+	else
+		err = mDirectory->Lookup(mAddress, aNodeList, &mTempNode);
+	
+	if (!err){
+		
+		// get children names
+		if (mLookfor == TT("Children"))
+			mTempNode->getChildrenName(nameList);
+		
+		// get instances names
+		else if (mLookfor == TT("Instances"))
+			mTempNode->getChildrenInstance(mTempName, nameList);
+		
+		// get attributes names
+		else if (mLookfor == TT("Attributes")) {
+			mTempNode->getAttributeValue(kTTSym_Object, v);
+			v.get(0, (TTPtr*)&o);
+			if (o) {
+				v.clear();
+				o->getAttributeNames(v);
+				// Memorized the result in a hash table
+				for (TTUInt32 i=0; i<v.getSize(); i++) {
+					v.get(i, &name);
+					mResult->append(name, kTTValNONE);
+				}
+			}
+		}
+		
+		// get relative address of this type of objects
+		else {
+			mDirectory->LookFor(&aNodeList, testNodeObjectType, mLookfor, allObjectNodes, &aNode);
+			
+			// Memorized the result in a hash table
+			for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
+				
+				allObjectNodes.current().get(0, (TTPtr*)&aNode);
+				aNode->getOscAddress(&name, mAddress);
+				mResult->append(name, kTTValNONE);
+			}
+		}
+		
+		// For Children and Instances cases : 
+		// Memorized the result in a hash table
+		if (!nameList.isEmpty()) {
+			for (nameList.begin(); nameList.end(); nameList.next()) {
+				
+				nameList.current().get(0,(TTSymbol **)&name);
+				
+				mResult->append(name, kTTValNONE);
+			}
+		}
+		
+		// Return the value result back
+		v.clear();
+		if (mReturnValueCallback) {
+			mResult->getKeys(v);
+			mReturnValueCallback->notify(v);
+		}
+		
+	}
+	
+	return kTTErrNone;
+}
 
 TTErr TTExplorer::writeAsXml(const TTValue& value)
 {
@@ -179,4 +352,105 @@ TTErr TTExplorer::readFromXml(const TTValue& value)
 #pragma mark Some Methods
 #endif
 
-
+TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
+{
+	TTValue			v = kTTValNONE;
+	TTValuePtr		b;
+	TTExplorerPtr	anExplorer;
+	TTSymbolPtr		oscAddress, relativeAddress, key;
+	TTNodePtr		aNode;
+	TTUInt8			flag;
+	TTCallbackPtr	anObserver;
+	TTObjectPtr		o;
+		
+	// Unpack baton
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&anExplorer);
+	
+	// Unpack data (oscAddress, aNode, flag, anObserver)
+	data.get(0, &oscAddress);
+	data.get(1, (TTPtr*)&aNode);
+	data.get(2, flag);
+	data.get(3, (TTPtr*)&anObserver);
+	
+	// Switch on what the explorer is looking for
+	if (anExplorer->mLookfor == kTTSymEmpty)
+		return kTTErrGeneric;
+	
+	// get children names
+	if (anExplorer->mLookfor == TT("Children")) {
+		if (aNode->getParent() == anExplorer->mTempNode)
+			v.append(aNode->getName());
+	}
+	
+	// get instances names
+	else if (anExplorer->mLookfor == TT("Instances")) {
+		 // TODO : if the TempNode is destroyed then rebuilt, the test below fails => observe his destruction and replace mTempNode
+		if ((aNode->getParent() == anExplorer->mTempNode) && (aNode->getName() == anExplorer->mTempName))
+			v.append(aNode->getInstance());
+	}
+	
+	// get attributes names
+	else if (anExplorer->mLookfor == TT("Attributes")) {
+		if (aNode == anExplorer->mTempNode) {
+			
+			// always clear the result
+			anExplorer->mResult->clear();
+			
+			aNode->getAttributeValue(kTTSym_Object, v);
+			v.get(0, (TTPtr*)&o);
+			if (o)
+				o->getAttributeNames(v);
+		}
+	}
+	
+	// get relative address of this type of objects
+	else {
+		
+		aNode->getAttributeValue(kTTSym_Object, v);
+		v.get(0, (TTPtr*)&o);
+		if (o) {
+			if (anExplorer->mLookfor == o->getName()) {
+				aNode->getOscAddress(&relativeAddress, anExplorer->mAddress);
+				v.append(relativeAddress);
+			}
+		}
+	}
+	
+	if (v == kTTValNONE)
+		return kTTErrGeneric;
+	
+	// Add or remove names depending on 
+	// if the node is created or destroyed
+	switch (flag) {
+			
+		case kAddressCreated :
+		{
+			for (TTUInt32 i=0; i<v.getSize(); i++) {
+				v.get(i, &key);
+				anExplorer->mResult->append(key, kTTValNONE);
+			}
+				break;
+		}
+			
+		case kAddressDestroyed :
+		{
+			for (TTUInt32 i=0; i<v.getSize(); i++) {
+				v.get(i, &key);
+				anExplorer->mResult->remove(key);
+			}
+			break;
+		}
+			
+		default :
+			break;
+	}
+	
+	// Return the value result back
+	if (anExplorer->mReturnValueCallback) {
+		anExplorer->mResult->getKeys(v);
+		anExplorer->mReturnValueCallback->notify(v);
+	}
+	
+	return kTTErrNone;
+}

@@ -50,6 +50,7 @@ void TTModularInit(TTString appName)
 		TTMapper::registerClass();
 		TTPreset::registerClass();
 		TTPresetManager::registerClass();
+		TTExplorer::registerClass();
 		TTDeviceManager::registerClass();
 		TTXmlHandler::registerClass();
 		

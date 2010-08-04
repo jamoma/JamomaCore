@@ -100,13 +100,13 @@ TTErr TTPreset::Fill()
 		
 		// 1. Look for all Objects under the address into the directory
 		mDirectory->Lookup(mAddress, aNodeList, &aNode);
-		mDirectory->LookFor(&aNodeList, testObjectType, objectToStore, allObjectNodes, &aNode);
+		mDirectory->LookFor(&aNodeList, testNodeObjectType, objectToStore, allObjectNodes, &aNode);
 		
 		// 2. Make an Item for each found object and store it at relativeAddress key.
 		for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
 			
 			allObjectNodes.current().get(0, (TTPtr*)&aNode);
-			makeRelativeAddress(aNode, &aRelativeAddress);
+			aNode->getOscAddress(&aRelativeAddress, mAddress);
 			aNewItem = new Item(aNode);
 			mItemList->append(aRelativeAddress, TTValue((TTPtr)aNewItem));
 		}
@@ -336,7 +336,7 @@ TTErr TTPreset::readFromXml(const TTValue& value)
 			// if the item doesn't exist create it 
 			if (mItemList->lookup(mCurrentItem, v)) {
 				
-				makeAbsoluteAddress(mCurrentItem, &absAddress);
+				joinOSCAddress(mAddress, mCurrentItem, &absAddress);
 				mDirectory->getTTNodeForOSC(absAddress, &aNode);
 				anItem = new Item(aNode);
 				mItemList->append(mCurrentItem, TTValue((TTPtr)anItem));
@@ -357,43 +357,6 @@ TTErr TTPreset::readFromXml(const TTValue& value)
 		
 	return kTTErrNone;
 }
-
-TTErr TTPreset::makeAbsoluteAddress(TTSymbolPtr relativeAddress, TTSymbolPtr *returnedAbsoluteAddress)
-{
-	TTString tmp;
-	
-	if (mAddress != S_SEPARATOR) {
-		tmp = mAddress->getCString();
-		tmp += relativeAddress->getCString();
-	}
-	else
-		tmp = relativeAddress->getCString();
-	
-	*returnedAbsoluteAddress = TT(tmp.data());
-	
-	return kTTErrNone;
-}
-
-TTErr TTPreset::makeRelativeAddress(TTNodePtr aNode, TTSymbolPtr *returnedRelativeAddress)
-{
-	TTSymbolPtr		anAddress, returnedPart1;
-	TTString		addSlash;
-	TTUInt8			nbSeparator;
-	
-	if (mAddress == S_SEPARATOR)
-		nbSeparator = 0;
-	else
-		nbSeparator = countSeparator(mAddress);
-	
-	aNode->getOscAddress(&anAddress);
-	splitAtOSCAddress(anAddress, nbSeparator, &returnedPart1, returnedRelativeAddress);
-	addSlash = C_SEPARATOR;
-	addSlash += (*returnedRelativeAddress)->getCString();
-	*returnedRelativeAddress = TT(addSlash.data());
-	
-	return kTTErrNone;	
-}
-
 
 #if 0
 #pragma mark -

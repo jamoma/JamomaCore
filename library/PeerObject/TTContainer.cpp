@@ -115,7 +115,7 @@ TTErr TTContainer::bind()
 	
 	// 1. Look for all Parameters under the address into the directory
 	err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
-	err = mDirectory->LookFor(&aNodeList, testObjectType, TT("Parameter"), allParametersNodes, &aNode);
+	err = mDirectory->LookFor(&aNodeList, testNodeObjectType, TT("Parameter"), allParametersNodes, &aNode);
 	
 	// 2. make a cache containing each relativeAddress : Parameter and Observer
 	for (allParametersNodes.begin(); allParametersNodes.end(); allParametersNodes.next()) {
@@ -316,7 +316,7 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 			
 		case kAddressCreated :
 		{
-			if (testObjectType(aNode, TT("Parameter")))
+			if (testNodeObjectType(aNode, TT("Parameter")))
 			   aContainer->makeCacheElement(aNode);
 			
 			break;
@@ -324,7 +324,7 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 			
 		case kAddressDestroyed :
 		{
-			if (testObjectType(aNode, TT("Parameter"))) 
+			if (testNodeObjectType(aNode, TT("Parameter"))) 
 				 aContainer->deleteCacheElement(anAddress);
 			
 			break;

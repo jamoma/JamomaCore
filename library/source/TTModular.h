@@ -52,6 +52,7 @@
 #include "TTMapper.h"
 #include "TTPreset.h"
 #include "TTPresetManager.h"
+#include "TTExplorer.h"
 #include "TTDeviceManager.h"
 
 #include "TTXmlHandler.h"

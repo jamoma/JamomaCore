@@ -29,8 +29,8 @@ public:
 private:
 	
 	TTNodeDirectoryPtr	mDirectory;						///< the directory
-	TTCallbackPtr		mReturnAddressCallback;			///< a way to return received address to the owner of this receiver
-	TTCallbackPtr		mReturnValueCallback;			///< a way to return received value to the owner of this receiver
+	TTCallbackPtr		mReturnAddressCallback;			///< a way to return back address to the owner of this container
+	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this container
 	TTHashPtr			mParametersObserversCache;		///< a hast table containing all <relativeAddress : Parameters, Observer> for quick access
 	TTObjectPtr			mObserver;						///< a life cycle observer
 	TTBoolean			mIsSending;						///< a flag to lock the object in case of infinite loop 

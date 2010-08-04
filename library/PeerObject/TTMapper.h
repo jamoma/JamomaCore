@@ -45,7 +45,7 @@ private:
 	TTReceiverPtr		mReceiver;					///< the receiver which binds on In parameter(s)
 	TTSenderPtr			mSender;					///< the sender which binds on Out parameter(s)
 	
-	TTCallbackPtr		mReturnValueCallback;		///< a way to return received value to the owner of this mapper
+	TTCallbackPtr		mReturnValueCallback;		///< a way to return back value to the owner of this mapper
 	
 	TTFloat64			mA, mB, mC, mD;				// Coefficients used for normalizing input(A, B) and output (C, D
 	TTAudioObjectPtr	mFunctionUnit;

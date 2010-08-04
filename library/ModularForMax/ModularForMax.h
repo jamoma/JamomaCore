@@ -141,6 +141,13 @@ extern "C" {
 	TTErr			jamoma_mapper_map(TTMapperPtr aMapper, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 	
 	
+	// Method to deal with TTExplorer
+	///////////////////////////////////////////////////////////////////////
+	
+	/**	Create an explorer object */
+	TTErr			jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer);
+	
+
 	// Method to deal with TTDeviceManager
 	///////////////////////////////////////////////////////////////////////
 	
@@ -159,7 +166,7 @@ extern "C" {
 	void			jamoma_callback_return_value(TTPtr p_baton, TTValue& v);
 	
 	
-	// Method to deal with TTValue
+	// Tools
 	///////////////////////////////////////////////
 	
 	/** Make a Atom array from a TTValue (!!! this method allocate memory for the Atom array ! free it after ! */
@@ -171,6 +178,9 @@ extern "C" {
 	/** Convert a TTSymbolPtr "MyObjectMessage" into a SymbolPtr "my/object/message" 
 		or return NULL if the TTSymbolPtr doesn't begin by an uppercase letter */
 	SymbolPtr		jamoma_TTName_To_MaxName(TTSymbolPtr TTName);
+	
+	/** Get the Context Node of relative to a jcom.external */
+	TTNodePtr		jamoma_context_node_get(ObjectPtr x);
 	
 #ifdef __cplusplus
 }

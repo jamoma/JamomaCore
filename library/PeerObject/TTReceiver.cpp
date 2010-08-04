@@ -40,7 +40,7 @@ mNodesObserversCache(NULL)
 	
 	addMessage(get);
 	
-	if	(mDirectory && mReturnAddressCallback && mReturnValueCallback)
+	if	(mDirectory && mReturnAddressCallback && mReturnValueCallback && mAddress != kTTSymEmpty)
 		bind();
 }
 

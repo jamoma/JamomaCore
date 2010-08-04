@@ -68,9 +68,6 @@ private :
 	 TTErr WriteAsText(const TTValue& value);			// pass an text buffer ?
 	 TTErr ReadFromText(const TTValue& value);			// pass an text buffer ?
 	 */
-	
-	TTErr makeAbsoluteAddress(TTSymbolPtr relativeAddress, TTSymbolPtr *returnedAbsoluteAddress);
-	TTErr makeRelativeAddress(TTNodePtr aNode, TTSymbolPtr *returnedRelativeAddress);
 };
 
 typedef TTPreset* TTPresetPtr;
