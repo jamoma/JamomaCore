@@ -28,6 +28,7 @@ TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_both;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_bypass;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clear;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_clipmode;
+TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_Context;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_fold;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_high;
 TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_low;
@@ -88,6 +89,7 @@ void TTSymbolCacheInit()
 	kTTSym_bypass					= TT("bypass");
 	kTTSym_clear					= TT("clear");
 	kTTSym_clipmode					= TT("clipmode");
+	kTTSym_Context					= TT("Context");
 	kTTSym_fold						= TT("fold");
 	kTTSym_high						= TT("high");
 	kTTSym_low						= TT("low");
