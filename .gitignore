@@ -9,6 +9,7 @@ Debug
 Release
 *.mode1v3
 *.pbxuser
+*.perspectivev3
 xcuserdata
 *.xcworkspace
 
