@@ -197,11 +197,16 @@ TTErr TTNodeDirectory::TTNodeCreate(TTSymbolPtr oscAddress, TTObjectPtr newObjec
 
 TTErr TTNodeDirectory::TTNodeRemove(TTSymbolPtr oscAddress)
 {
-	TTErr err;
-	TTNodePtr oldNode;
+	TTErr		err;
+	TTNodePtr	oldNode, parentNode;
+	TTList		childrenList;
+	TTValue		v;
+	TTObjectPtr	obj;
+	TTSymbolPtr parentAddress;
 	
 	// can't destroy the root (use the TTNodeDirectory destructor)
 	if (oscAddress != S_SEPARATOR) {
+		
 		// find the TTNode in the directory
 		err = this->getTTNodeForOSC(oscAddress, &oldNode);
 		
@@ -213,9 +218,23 @@ TTErr TTNodeDirectory::TTNodeRemove(TTSymbolPtr oscAddress)
 			// Remove his address
 			err = mDirectory->remove(oscAddress);
 			
+			// Get parent node
+			parentNode = oldNode->getParent();
+			
 			// Destroy the TTNode
 			if (!err)
 				err = TTObjectRelease(TTObjectHandle(&oldNode));
+			
+			// If parent node have no more child and refers to NULL object : destroy
+			parentNode->getChildren(S_WILDCARD, S_WILDCARD, childrenList);
+			parentNode->getAttributeValue(kTTSym_Object, v);
+			v.get(0, (TTPtr*)&obj);
+			
+			if (childrenList.isEmpty() && !obj) {
+				// find the TTNode in the directory
+				parentNode->getOscAddress(&parentAddress);
+				TTNodeRemove(parentAddress);
+			}
 		}
 	}
 	else
@@ -657,6 +676,31 @@ TTErr mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSym
 	return kTTErrNone;
 }
 
+TTErr joinOSCAddress(TTSymbolPtr firstPart, TTSymbolPtr secondPart, TTSymbolPtr *returnedAddress)
+{
+	TTString tmp = "";
+	
+	if (firstPart != S_SEPARATOR) {
+		if (firstPart->getCString()[0] != C_SEPARATOR) {
+			tmp += C_SEPARATOR;
+			tmp += firstPart->getCString();
+		}
+		else
+			tmp += firstPart->getCString();
+	}
+	
+	if (secondPart->getCString()[0] != C_SEPARATOR) {
+		tmp += C_SEPARATOR;
+		tmp += secondPart->getCString();
+	}
+	else
+		tmp += secondPart->getCString();
+	
+	*returnedAddress = TT(tmp.data());
+	
+	return kTTErrNone;
+}
+
 TTAddressComparisonFlag compareOSCAddress(TTSymbolPtr oscAddress1, TTSymbolPtr oscAddress2)
 {
 	TTErr err1 = kTTErrNone;
@@ -738,7 +782,7 @@ unsigned int countSeparator(TTSymbolPtr oscAddress)
 	return count(toCount.begin(), toCount.end(), C_SEPARATOR);
 }
 
-TTBoolean testObjectType(TTNodePtr n, TTPtr args)
+TTBoolean testNodeObjectType(TTNodePtr n, TTPtr args)
 {
 	TTValue		v;
 	TTObjectPtr o;
@@ -750,3 +794,17 @@ TTBoolean testObjectType(TTNodePtr n, TTPtr args)
 	else
 		return NO;
 }
+
+TTBoolean testNodeContext(TTNodePtr n, TTPtr args)
+{
+	TTValue		v;
+	TTPtr		c;
+	n->getAttributeValue(kTTSym_Context, v);
+	v.get(0, (TTPtr*)&c);
+	
+	if (c)
+		return c == args;
+	else
+		return NO;
+}
+

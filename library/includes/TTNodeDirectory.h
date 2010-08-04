@@ -221,6 +221,13 @@ TTErr TTFOUNDATION_EXPORT splitOSCAddress(TTSymbolPtr oscAddress, TTSymbolPtr* r
 	@return								An error code. */
 TTErr TTFOUNDATION_EXPORT mergeOSCAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr parent, TTSymbolPtr name, TTSymbolPtr instance, TTSymbolPtr property);
 
+/**	An OSC merging tool
+	@param	firstPart					A first part address
+	@param	secondPart					A second part address
+	@param	returnedAddress				The result
+	@return								An error code. */
+TTErr TTFOUNDATION_EXPORT joinOSCAddress(TTSymbolPtr firstPart, TTSymbolPtr secondPart, TTSymbolPtr *returnedAddress);
+
 /**	An OSC comparison tool
 	@param	oscAddress1					An OSC address to compare
 	@param	oscAddress1					An OSC address to compare
@@ -232,10 +239,16 @@ TTAddressComparisonFlag TTFOUNDATION_EXPORT compareOSCAddress(TTSymbolPtr oscAdd
  @return							The number of C_SEPARATOR */
 unsigned int TTFOUNDATION_EXPORT countSeparator(TTSymbolPtr oscAddress);
 
-/**	An test tool : test the type of the object stored inside the node. This method could be used as testFunction for the LookFor method.
+/**	An test tool : test the type of the object stored inside the node. This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
  @param args						An TTSymbolPtr argument for the type
  @return							true if the object have the correct type */
-TTBoolean TTFOUNDATION_EXPORT testObjectType(TTNodePtr node, TTPtr args);
+TTBoolean TTFOUNDATION_EXPORT testNodeObjectType(TTNodePtr n, TTPtr args);
+
+/**	An test tool : test the context of the object stored inside the node. This method could be used as testFunction for the LookFor or IsThere methods.
+ @param	node						A node
+ @param args						An TTSymbolPtr argument for the type
+ @return							true if the object have the correct context */
+TTBoolean TTFOUNDATION_EXPORT testNodeContext(TTNodePtr n, TTPtr args);
 
 #endif // __TT_NODE_DIRECTORY_H__
