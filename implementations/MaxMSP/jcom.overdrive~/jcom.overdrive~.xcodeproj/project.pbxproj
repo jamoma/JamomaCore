@@ -213,6 +213,7 @@
 		};
 		2FBBEAE208F335360078DB84 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A7FAFED911FE369900FB034A /* tt-max-dsp.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
