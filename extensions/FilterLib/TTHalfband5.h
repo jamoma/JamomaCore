@@ -27,7 +27,9 @@ class TTHalfband5 : TTAudioObject {
 	TTAllpass1*		mF0;		///< filter0 (in the upper path)
 	TTAllpass1*		mF1;		///< filter1 (in the lower path, second block)
 	TTAllpass1*		mDelay;		///< delay   (in the lower path, first block)
-		
+	TTFloat64		mA0;		///< coefficient for f0
+	TTFloat64		mA1;		///< coefficient for f1
+	
 	TTSymbolPtr		mMode;		///< Attribute: lowpass or highpass
 		
 	// Notifications
@@ -38,7 +40,9 @@ class TTHalfband5 : TTAudioObject {
 	
 	// attribute accessor
 	TTErr setMode(const TTValue& newValue);
-	
+	TTErr setA0(const TTValue& newValue);
+	TTErr setA1(const TTValue& newValue);
+
 	// Do the processing
 	TTErr processLowpass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processHighpass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);

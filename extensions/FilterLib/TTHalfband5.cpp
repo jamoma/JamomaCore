@@ -37,13 +37,15 @@ TT_AUDIO_CONSTRUCTOR,
 	
 	
 	// Now we set up the coefficients for the building blocks...
+	addAttributeWithSetter(A0, kTypeFloat64);
+	addAttributeWithSetter(A1, kTypeFloat64);
 	
 	// for the simple 1-sample delay, we set alpha (the feedback coefficient) to zero
-	mDelay->setAttributeValue(TT("mAlpha"), 0.0);
+	mDelay->setAttributeValue(TT("Alpha"), 0.0);
 	
 	// For info on these next two see p16 from chapter 10 of Multirate Signal Processing
-	mF0->setAttributeValue(TT("mAlpha"), 0.1413486);
-	mF1->setAttributeValue(TT("mAlpha"), 0.5899948);
+	mF0->setAttributeValue(TT("Alpha"), 0.1413486);
+	mF1->setAttributeValue(TT("Alpha"), 0.5899948);
 }
 
 
@@ -85,6 +87,18 @@ TTErr TTHalfband5::setMode(const TTValue& newValue)
 		setProcessMethod(processLowpass);
 	}
 	return kTTErrNone;
+}
+
+
+TTErr TTHalfband5::setA0(const TTValue& newValue)
+{
+	return mF0->setAttributeValue(TT("Alpha"), (TTValue&)newValue);
+}
+
+
+TTErr TTHalfband5::setA1(const TTValue& newValue)
+{
+	return mF1->setAttributeValue(TT("Alpha"), (TTValue&)newValue);
 }
 
 
