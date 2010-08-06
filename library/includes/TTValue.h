@@ -592,6 +592,59 @@ public:
 		}
 	}
 	
+	void booleanize()
+	{
+		for (TTUInt16 i=0; i<numValues; i++) {
+			if (TTDataInfo::getIsNumerical(type[i])) {
+				// TODO: find a way to make this routine faster
+				switch(type[i]) {
+					case kTypeFloat32:
+						data[i].boolean = data[i].float32 != 0.;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeFloat64:
+						data[i].boolean = data[i].float64 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeInt8:
+						data[i].boolean = data[i].int8 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeUInt8:
+						data[i].boolean = data[i].uint8 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeInt16:
+						data[i].boolean = data[i].int16 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeUInt16:
+						data[i].boolean = data[i].uint16 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeInt32:
+						data[i].boolean = data[i].int32 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeUInt32:
+						data[i].boolean = data[i].uint32 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeInt64:
+						data[i].boolean = data[i].int64 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					case kTypeUInt64:
+						data[i].boolean = data[i].uint64 != 0;
+						type[i] = kTypeBoolean;
+						break;
+					default:
+						break;
+				}
+			}
+		}
+	}
+	
 	void toString()
 	{
 		TTString*	str = new TTString;
