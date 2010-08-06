@@ -40,7 +40,9 @@ TTAllpass1b::~TTAllpass1b()
 TTErr TTAllpass1b::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	mX1.resize(maxNumChannels);
+	mX2.resize(maxNumChannels);
 	mY1.resize(maxNumChannels);
+	mY2.resize(maxNumChannels);
 	Clear();
 	return kTTErrNone;
 }
@@ -49,6 +51,8 @@ TTErr TTAllpass1b::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 TTErr TTAllpass1b::Clear()
 {
 	mX1.assign(maxNumChannels, 0.0);
+	mX2.assign(maxNumChannels, 0.0);
+	mY2.assign(maxNumChannels, 0.0);
 	mY1.assign(maxNumChannels, 0.0);
 	return kTTErrNone;
 }
@@ -56,11 +60,14 @@ TTErr TTAllpass1b::Clear()
 
 TTErr TTAllpass1b::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
-	TTFloat64 w = x - mY1[channel];
+	TTFloat64 w = x - mY2[channel];
 	TTFloat64 u = w * mAlpha;
-	y = u + mX1[channel];
-
+	
+	y = u + mX2[channel];
 	TTZeroDenormal(y);
+	
+	mX2[channel] = mX1[channel];
+	mY2[channel] = mY1[channel];
 	mX1[channel] = x;
 	mY1[channel] = y;
 
