@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="jcom.parameter"
-	ProjectGUID="{EC4B067D-6E03-40DF-BDC9-DA9B7745A637}"
-	RootNamespace="jcom.parameter"
+	Name="jcom.node"
+	ProjectGUID="{2BD6ECFF-E33F-43E5-8A14-2E3CD16A872E}"
+	RootNamespace="jcom.loader"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds\MaxMSP&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="output"
 			/>
 			<Tool
@@ -43,7 +43,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\..\..\supports\objectivemax\MaxObject&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\includes\&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\includes\&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\includes\units&quot;;..\..\..\library\source;..\..\..\library\Dataspacelib;..\..\..\library\Functionlib;..\..\..\library\Ramplib;..\..\..\library\NodeLib"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -69,6 +69,7 @@
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\supports\objectivemax\SDKs\Max5\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Foundation\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;..\..\..\library\$(ConfigurationName)&quot;"
 				GenerateManifest="false"
+				IgnoreAllDefaultLibraries="false"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -107,7 +108,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds\MaxMSP&quot;&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\..\..\Builds&quot;&#x0D;&#x0A;"
 				Outputs="output"
 			/>
 			<Tool
@@ -188,11 +189,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\jcom.parameter.clip.cpp"
+			RelativePath=".\jcom.node.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\jcom.parameter.cpp"
+			RelativePath=".\jcom.node.h"
 			>
 		</File>
 	</Files>
