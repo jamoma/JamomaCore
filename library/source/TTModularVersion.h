@@ -12,6 +12,6 @@
 #define __TT_MODULAR_VERSION_H__
 
 #define TT_MODULAR_VERSION "0.5.5 a5"
-#define TT_MODULAR_REV "9f271"
+#define TT_MODULAR_REV "aa579"
 
 #endif //__TT_MODULAR_VERSION_H__

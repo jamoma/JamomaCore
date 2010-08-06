@@ -643,23 +643,6 @@ TTErr jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper)
 	return kTTErrNone;
 }
 
-/**	Map a value */
-TTErr jamoma_mapper_map(TTMapperPtr aMapper, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	TTValue		v;
-	
-	if (aMapper) {
-		
-		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
-		
-		aMapper->sendMessage(kTTSym_map, v);
-		return kTTErrNone;
-	}
-	
-	return kTTErrGeneric;
-}
-
-
 // Method to deal with TTExplorer
 ///////////////////////////////////////////////////////////////////////
 
@@ -780,7 +763,7 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, A
 				TTInt32	value;
 				v.get(i, value);
 				atom_setlong((*argv)+i, value);
-				//*msg = _sym_long;
+				*msg = _sym_int;
 			}
 		}
 		

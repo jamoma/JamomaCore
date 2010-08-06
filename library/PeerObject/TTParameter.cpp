@@ -39,8 +39,8 @@ mReturnValueCallback(NULL)
 	arguments.get(0, (TTPtr*)&mReturnValueCallback);
 	TT_ASSERT("Return Value Callback passed to TTParameter is not NULL", mReturnValueCallback);
 	
-	addAttributeWithGetterAndSetter(Value, kTypeNone);
-	addAttributeWithGetterAndSetter(ValueDefault, kTypeNone);
+	addAttributeWithSetter(Value, kTypeNone);
+	addAttributeWithSetter(ValueDefault, kTypeNone);
 	addAttributeWithSetter(ValueStepsize, kTypeFloat32);
 	
 	addAttributeWithSetter(Type, kTypeSymbol);
@@ -62,12 +62,13 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(DataspaceUnitDisplay, kTypeSymbol);
 	
 	addMessage(Reset);
+	addMessageWithArgument(Inc);
+	addMessageWithArgument(Dec);
 	addMessageWithArgument(command);
 	
 	mIsSending = NO;
 	mIsInitialised = NO;
 	
-	mValue = TTValue();
 #ifdef TTPARAMETER_RAMPLIB
 	mRamper = NULL;
 	mRampParameterNames = new TTHash();
@@ -102,6 +103,136 @@ TTErr TTParameter::Reset()
 	return kTTErrNone;
 }
 
+TTErr TTParameter::Inc(const TTValue& value)
+{
+	TTUInt32	i;
+	TTFloat64	inc, ramptime, v;
+	TTSymbolPtr	ramp;
+	TTValue		command;
+	
+	switch (value.getSize()) {
+			
+			// 1 incrementation step	
+		case 1 :
+		{
+			if (value.getType(0) == kTypeFloat32 || value.getType(0)  == kTypeInt32) {
+				value.get(0, inc);
+				
+				for (i=0; i<mValue.getSize(); i++) {
+					mValue.get(i, v);
+					command.append(v + inc * mValueStepsize);
+				}
+			}
+			break;
+		}
+			
+			// 1 incrementation step + ramp ramptime
+		case 3 :
+		{
+			if (value.getType(0) == kTypeFloat32 || value.getType(0)  == kTypeInt32) {
+				value.get(0, inc);
+				
+				for (i=0; i<mValue.getSize(); i++) {
+					mValue.get(i, v);
+					command.append(v + inc * mValueStepsize);
+				}
+				
+				if (value.getType(1) == kTypeSymbol) {
+					value.get(1, &ramp);
+					if (ramp == kTTSym_ramp) {
+						command.append(ramp);
+						if (value.getType(2) == kTypeFloat32 || value.getType(2)  == kTypeInt32) {
+							value.get(2, ramptime);
+							command.append(ramptime);
+						}
+					}
+				}
+				break;	
+			}
+		}
+			
+			// no value or wrong value
+		default :
+		{
+			for (i=0; i<mValue.getSize(); i++) {
+				mValue.get(i, v);
+				command.append(v + mValueStepsize);
+			}
+			
+			break;	
+		}
+	}
+	
+	this->command(command);
+	
+	return kTTErrNone;
+}
+
+TTErr TTParameter::Dec(const TTValue& value)
+{
+	TTUInt32	i;
+	TTFloat64	dec, ramptime, v;
+	TTSymbolPtr	ramp;
+	TTValue		command;
+	
+	switch (value.getSize()) {
+			
+			// 1 decrementation step	
+		case 1 :
+		{
+			if (value.getType(0) == kTypeFloat32 || value.getType(0)  == kTypeInt32) {
+				value.get(0, dec);
+				
+				for (i=0; i<mValue.getSize(); i++) {
+					mValue.get(i, v);
+					command.append(v - dec * mValueStepsize);
+				}
+			}
+			break;
+		}
+			
+			// 1 decrementation step + ramp ramptime
+		case 3 :
+		{
+			if (value.getType(0) == kTypeFloat32 || value.getType(0)  == kTypeInt32) {
+				value.get(0, dec);
+				
+				for (i=0; i<mValue.getSize(); i++) {
+					mValue.get(i, v);
+					command.append(v - dec * mValueStepsize);
+				}
+				
+				if (value.getType(1) == kTypeSymbol) {
+					value.get(1, &ramp);
+					if (ramp == kTTSym_ramp) {
+						command.append(ramp);
+						if (value.getType(2) == kTypeFloat32 || value.getType(2)  == kTypeInt32) {
+							value.get(2, ramptime);
+							command.append(ramptime);
+						}
+					}
+				}
+				break;	
+			}
+		}
+			
+			// no value or wrong value
+		default :
+		{
+			for (i=0; i<mValue.getSize(); i++) {
+				mValue.get(i, v);
+				command.append(v - mValueStepsize);
+			}
+			
+			break;	
+		}
+	}
+	
+	this->command(command);
+	
+	return kTTErrNone;
+}
+
 TTErr TTParameter::command(const TTValue& command)
 {
 #ifdef TTPARAMETER_RAMPLIB
@@ -113,7 +244,7 @@ TTErr TTParameter::command(const TTValue& command)
 	bool		hasRamp = false;
 	bool		hasUnit = false;
 	
-	// 1. Parse the command to handle Property
+	// 1. Parse the command to handle Attributes
 	//////////////////////////////////////////////////
 	if (command.getType(0) == kTypeSymbol) {
 		command.get(0, &first);
@@ -294,12 +425,6 @@ TTErr TTParameter::command(const TTValue& command)
 	return kTTErrNone;
 }
 
-TTErr TTParameter::getValue(TTValue& value)
-{
-	value = mValue;
-	return kTTErrNone;
-}
-
 TTErr TTParameter::setValue(const TTValue& value)
 {
 	TTValue r, n;
@@ -324,8 +449,12 @@ TTErr TTParameter::setValue(const TTValue& value)
 			mValue = value;
 			
 			// float to integer case
-			if (mType == kTTSym_integer && ( value.getType() == kTypeFloat64 || value.getType() == kTypeFloat32 ))
+			if (mType == kTTSym_integer)
 				mValue.truncate();
+			
+			// integer/float to boolean case
+			if (mType == kTTSym_boolean)
+				mValue.booleanize();
 			
 #ifdef TTPARAMETER_RAMPLIB
 			if (clipValue() && mRamper)
@@ -363,12 +492,6 @@ TTErr TTParameter::setValue(const TTValue& value)
 	return kTTErrGeneric;
 }
 
-TTErr TTParameter::getValueDefault(TTValue& value)
-{
-	value = mValueDefault;
-	return kTTErrNone;
-}
-
 TTErr TTParameter::setValueDefault(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
@@ -400,62 +523,54 @@ TTErr TTParameter::setType(const TTValue& value)
 		// register mValue Attribute and prepare memory
 		if (mType == kTTSym_integer) {
 			mValue = TTValue(0);
-			addAttributeWithGetterAndSetter(Value, kTypeInt32);
+			addAttributeWithSetter(Value, kTypeInt32);
 			mValueDefault = TTValue(0);
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeInt32);
+			addAttributeWithSetter(ValueDefault, kTypeInt32);
 			mRangeBounds = TTValue(0, 1);
 		}
 		else if (mType == kTTSym_decimal) {
 			mValue = TTValue(0.);
-			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
+			addAttributeWithSetter(Value, kTypeFloat64);
 			mValueDefault = TTValue(0.);
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
+			addAttributeWithSetter(ValueDefault, kTypeFloat64);
 			mRangeBounds = TTValue(0., 1.);
 		}
 		else if (mType == kTTSym_string) {
 			mValue = TTValue("");
-			addAttributeWithGetterAndSetter(Value, kTypeSymbol);
+			addAttributeWithSetter(Value, kTypeSymbol);
 			mValueDefault = TTValue("");
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeSymbol);
+			addAttributeWithSetter(ValueDefault, kTypeSymbol);
 			mRangeBounds = kTTValNONE;
 		}
 		else if (mType == kTTSym_boolean) {
 			mValue = TTValue(NO);
-			addAttributeWithGetterAndSetter(Value, kTypeBoolean);
+			addAttributeWithSetter(Value, kTypeBoolean);
 			mValueDefault = TTValue(NO);
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeBoolean);
+			addAttributeWithSetter(ValueDefault, kTypeBoolean);
 			mRangeBounds = TTValue(0, 1);
 		}
-		else if (mType == kTTSym_generic) {
-			mValue = TTValue();
-			addAttributeWithGetterAndSetter(Value, kTypeInt32);
-			mValueDefault = TTValue();
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeInt32);
-			mRangeBounds = TTValue(0., 1.);
-
-		}
 		else if (mType == kTTSym_array) {				// Is this case means something now we have TTValue?
-			mValue = TTValue();
-			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
-			mValueDefault = TTValue();
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
+			mValue = TTValue(0.);
+			addAttributeWithSetter(Value, kTypeFloat64);
+			mValueDefault = TTValue(0.);
+			addAttributeWithSetter(ValueDefault, kTypeFloat64);
 			mRangeBounds = TTValue(0., 1.);
 		}
 	//#ifdef JMOD_MESSAGE
 		else if (mType == kTTSym_none) {
 			mValue = kTTValNONE;
-			addAttributeWithGetterAndSetter(Value, kTypeNone);
+			addAttributeWithSetter(Value, kTypeNone);
 			mValueDefault = kTTValNONE;
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeNone);
+			addAttributeWithSetter(ValueDefault, kTypeNone);
 			mRangeBounds = kTTValNONE;
 		}
 	//#endif // JMOD_MESSAGE
 		else {
 			mType = kTTSym_generic;						// Is this case means something now we have TTValue ?
-			mValue = TTValue();
-			addAttributeWithGetterAndSetter(Value, kTypeFloat64);
-			mValueDefault = TTValue();
-			addAttributeWithGetterAndSetter(ValueDefault, kTypeFloat64);
+			mValue = TTValue(0.);
+			addAttributeWithSetter(Value, kTypeFloat64);
+			mValueDefault = TTValue(0.);
+			addAttributeWithSetter(ValueDefault, kTypeFloat64);
 			mRangeBounds = TTValue(0., 1.);
 			return kTTErrGeneric;
 		}
@@ -669,16 +784,16 @@ TTBoolean TTParameter::checkType(const TTValue& value)
 	switch (value.getType()) 
 	{
 		case kTypeNone :		return mType == kTTSym_none;
-		case kTypeFloat32 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
-		case kTypeFloat64 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
-		case kTypeInt8 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
-		case kTypeUInt8 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
-		case kTypeInt16 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
-		case kTypeUInt16 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
-		case kTypeInt32 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
-		case kTypeUInt32 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
-		case kTypeInt64 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
-		case kTypeUInt64 :		return mType == kTTSym_integer || mType == kTTSym_decimal;
+		case kTypeFloat32 :		return mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_boolean;
+		case kTypeFloat64 :		return mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_boolean;
+		case kTypeInt8 :		return mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_boolean;
+		case kTypeUInt8 :		return mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_boolean;
+		case kTypeInt16 :		return mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_boolean;
+		case kTypeUInt16 :		return mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_boolean;
+		case kTypeInt32 :		return mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_boolean;
+		case kTypeUInt32 :		return mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_boolean;
+		case kTypeInt64 :		return mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_boolean;
+		case kTypeUInt64 :		return mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_boolean;
 		case kTypeBoolean :		return mType == kTTSym_boolean;
 		case kTypeSymbol :		return mType == kTTSym_string;
 		case kTypeObject :		return false;

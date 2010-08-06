@@ -137,9 +137,6 @@ extern "C" {
 	/**	Create a mapper object */
 	TTErr			jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper);
 	
-	/**	Map a value */
-	TTErr			jamoma_mapper_map(TTMapperPtr aMapper, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-	
 	
 	// Method to deal with TTExplorer
 	///////////////////////////////////////////////////////////////////////

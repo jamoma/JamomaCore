@@ -56,10 +56,40 @@ mValid(NO)
 	addAttributeProperty(FunctionSamples, readOnly, YES);
 	
 	addMessageWithArgument(map);
+	
+	scaleInput();
+	scaleOutput();
 }
 
 TTMapper::~TTMapper() // TODO : delete things...
-{;}
+{
+	long		n;
+	TTSymbolPtr	aName;
+	
+	if (mFunctionUnit) {
+		
+		// Remove former parameters
+		n = mFunctionParameters.getSize();
+		for (int i=0; i<n; i++) {
+			mFunctionParameters.get(i, &aName);
+			this->removeAttribute(aName);
+		}
+		
+		TTObjectRelease(TTObjectHandle(&mFunctionUnit));
+		mFunctionUnit = NULL;
+		mFunction = kTTSymEmpty;
+		mFunctionParameters.clear();
+	}
+	
+	if (mReturnValueCallback)
+		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+	
+	if (mSender)
+		TTObjectRelease(TTObjectHandle(&mSender));
+	
+	if (mReceiver)
+		TTObjectRelease(TTObjectHandle(&mReceiver));
+}
 
 TTErr TTMapper::getFunctionLibrary(TTValue& value)
 {
@@ -318,6 +348,13 @@ TTErr TTMapper::map(TTValue& value)
 	// clip output value
 	value.clip(mOutputMin, mOutputMax);
 	
+	// return value
+	if (mSender)
+		mSender->sendMessage(kTTSym_send, value);
+	
+	if (mReturnValueCallback)
+		mReturnValueCallback->notify(value);
+	
 	return kTTErrNone;
 }
 
@@ -359,12 +396,6 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
 	
 	// process the mapping
 	aMapper->map(v);
-	
-	if (aMapper->mSender)
-		aMapper->mSender->sendMessage(kTTSym_send, v);
-	
-	if (aMapper->mReturnValueCallback)
-		aMapper->mReturnValueCallback->notify(v);
 	
 	return kTTErrNone;
 }

@@ -97,15 +97,25 @@ public:
 	
 	/** reset value to default value */
 	TTErr Reset();
-
-	/**	Getter for mValue attribute. */
-	TTErr getValue(TTValue& value);
+	
+	/**	Increment mValue attribute (and ramp this incrementation)
+		It depends on the command size :
+			1		: 1 incrementation step
+			3		: 1 incrementation step + ramp ramptime
+			default	: no value or wrong value
+	 */
+	TTErr Inc(const TTValue& value);
+	
+	/**	Decrement mValue attribute (and ramp this decrementation)
+	 It depends on the command size :
+	 1		: 1 decrementation step
+	 3		: 1 decrementation step + ramp ramptime
+	 default	: no value or wrong value
+	 */
+	TTErr Dec(const TTValue& value);
 	
 	/**	Setter for mValue attribute. */
 	TTErr setValue(const TTValue& value);
-	
-	/**	Getter for mValueDefault attribute. */
-	TTErr getValueDefault(TTValue& value);
 
 	/**	Setter for mValueDefault attribute. */
 	TTErr setValueDefault(const TTValue& value);
@@ -160,7 +170,7 @@ private:
 	 3		: 3 values || 2 values + unit || 1 value + ramp ramptime
 	 X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime
 	 */
-	TTErr command(const TTValue& command);
+	TTErr		command(const TTValue& command);
 	
 	TTBoolean	checkType(const TTValue& value);
 	TTBoolean	clipValue();
