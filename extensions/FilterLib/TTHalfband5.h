@@ -10,6 +10,7 @@
 #define __TT_HALFBAND5_H__
 
 #include "TTDSP.h"
+#include "TTAllpass1a.h"
 #include "TTAllpass1b.h"
 
 
@@ -26,7 +27,7 @@ class TTHalfband5 : TTAudioObject {
 
 	TTAllpass1b*	mF0;		///< filter0 (in the upper path)
 	TTAllpass1b*	mF1;		///< filter1 (in the lower path, second block)
-	TTAllpass1b*	mDelay;		///< delay   (in the lower path, first block)
+	TTAllpass1a*	mDelay;		///< delay   (in the lower path, first block)
 	TTFloat64		mA0;		///< coefficient for f0
 	TTFloat64		mA1;		///< coefficient for f1
 	
