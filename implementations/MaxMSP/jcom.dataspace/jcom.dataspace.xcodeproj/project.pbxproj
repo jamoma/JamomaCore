@@ -17,6 +17,7 @@
 		22C9F7E2103338990062F7B8 /* tt-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F7E1103338990062F7B8 /* tt-max.xcconfig */; };
 		22C9F81910333A130062F7B8 /* MaxObjectTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9F81810333A130062F7B8 /* MaxObjectTypes.h */; };
 		22C9F82510333A4C0062F7B8 /* JamomaModular.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F82410333A4C0062F7B8 /* JamomaModular.framework */; };
+		D29A2FF6120CA1F500345A9E /* ModularForMax.h in Headers */ = {isa = PBXBuildFile; fileRef = D29A2FF5120CA1F500345A9E /* ModularForMax.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		22C9F81810333A130062F7B8 /* MaxObjectTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaxObjectTypes.h; path = ../../../supports/objectivemax/MaxObject/MaxObjectTypes.h; sourceTree = SOURCE_ROOT; };
 		22C9F82410333A4C0062F7B8 /* JamomaModular.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaModular.framework; path = ../../../library/build/UninstalledProducts/JamomaModular.framework; sourceTree = SOURCE_ROOT; };
 		2FBBEAE508F335360078DB84 /* jcom.dataspace.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.dataspace.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		D29A2FF5120CA1F500345A9E /* ModularForMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModularForMax.h; path = ../../../library/ModularForMax/ModularForMax.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			children = (
 				22C9F7E1103338990062F7B8 /* tt-max.xcconfig */,
 				22C9F81810333A130062F7B8 /* MaxObjectTypes.h */,
+				D29A2FF5120CA1F500345A9E /* ModularForMax.h */,
 				08FB77ADFE841716C02AAC07 /* Source */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB4FE9D528D11CA2CBB /* Products */,
@@ -100,6 +103,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C9F81910333A130062F7B8 /* MaxObjectTypes.h in Headers */,
+				D29A2FF6120CA1F500345A9E /* ModularForMax.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -147,10 +147,15 @@ void dataspace_int(t_dataspace *obj, long x)
 
 void dataspace_float(t_dataspace *obj, double x)
 {
-	t_atom	a[1];
+	SymbolPtr	msg;
+	TTValue		y;
 	
-	atom_setfloat(a, x);
-	obj->dataspace->convert(1, a, &obj->ac, &obj->av);
+	obj->dataspace->convert(TTValue(x), y);
+	
+	obj->ac = 0;
+	obj->av = NULL;
+	jamoma_ttvalue_to_Atom(y, &msg, &obj->ac, &obj->av);
+	
 	outlet_anything(obj->outlet_native, _sym_float, obj->ac, obj->av);
 	//outlet_float(obj->outlet_active, x);
 }
@@ -158,7 +163,16 @@ void dataspace_float(t_dataspace *obj, double x)
 
 void dataspace_list(t_dataspace *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	obj->dataspace->convert(argc, argv, &obj->ac, &obj->av);
+	TTValue		x, y;
+	
+	jamoma_ttvalue_from_Atom(x, msg, argc, argv);
+	
+	obj->dataspace->convert(x, y);
+	
+	obj->ac = 0;
+	obj->av = NULL;
+	jamoma_ttvalue_to_Atom(y, &msg, &obj->ac, &obj->av);
+	
 	outlet_anything(obj->outlet_native, _sym_list, obj->ac, obj->av);
 	//outlet_anything(obj->outlet_active, _sym_list, argc, argv);
 }
@@ -167,46 +181,45 @@ void dataspace_list(t_dataspace *obj, t_symbol *msg, long argc, t_atom *argv)
 void dataspace_getDataspaces(t_dataspace *obj)
 {
 	t_atom		a[2];
-	t_symbol	**dataspaceNames = NULL;
-	long		numDataspaces = 0;
+	TTValue		dataspaceNames;
+	TTSymbolPtr aName;
 	long		i;
 	
 	atom_setsym(a+0, gensym("clear"));
 	object_obex_dumpout(obj, gensym("DataspacesMenu"), 1, a);
 	
-	jamoma_getDataspaceList(&numDataspaces, &dataspaceNames);
+	getDataspaceList(dataspaceNames);
 	
-	for (i=0; i<numDataspaces; i++) {
+	for (i=0; i<dataspaceNames.getSize(); i++) {
+		
+		dataspaceNames.get(i, &aName);
+		
 		atom_setsym(a+0, gensym("append"));
-		atom_setsym(a+1, dataspaceNames[i]);
+		atom_setsym(a+1, gensym((char*)aName->getCString()));
 		object_obex_dumpout(obj, gensym("DataspacesMenu"), 2, a);
 	}
-	
-	if (numDataspaces)
-		sysmem_freeptr(dataspaceNames);
 }
 
 
 void dataspace_getUnits(t_dataspace *obj)
 {
 	t_atom		a[2];
-	t_symbol	**unitNames = NULL;
-	long		numUnits = 0;
+	TTValue		unitNames;
+	TTSymbolPtr	aName;
 	long		i;
 	
 	atom_setsym(a+0, gensym("clear"));
 	object_obex_dumpout(obj, gensym("UnitMenu"), 1, a);
+	obj->dataspace->getAvailableUnits(unitNames);
 	
-	obj->dataspace->getAvailableUnits(&numUnits, &unitNames);
-	
-	for (i=0; i<numUnits; i++) {
+	for (i=0; i<unitNames.getSize(); i++) {
+		
+		unitNames.get(i, &aName);
+		
 		atom_setsym(a+0, gensym("append"));
-		atom_setsym(a+1, unitNames[i]);
+		atom_setsym(a+1, gensym((char*)aName->getCString()));
 		object_obex_dumpout(obj, gensym("UnitMenu"), 2, a);
 	}
-	
-	if (numUnits)
-		sysmem_freeptr(unitNames);
 }
 
 
@@ -214,9 +227,10 @@ void dataspace_getUnits(t_dataspace *obj)
 t_max_err dataspace_setDataspace(t_dataspace *obj, void *attr, long argc, t_atom *argv)
 {
 	obj->attr_dataspace = atom_getsym(argv);
-	jamoma_getDataspace(obj->attr_dataspace, &obj->dataspace);
-	obj->attr_dataspace_active = obj->dataspace->neutralUnit;
-	obj->attr_dataspace_native = obj->dataspace->neutralUnit;
+	getDataspace(TT(obj->attr_dataspace->s_name), &obj->dataspace);
+	
+	obj->attr_dataspace_active = gensym((char*)obj->dataspace->neutralUnit->getCString());
+	obj->attr_dataspace_native = gensym((char*)obj->dataspace->neutralUnit->getCString());
 	return MAX_ERR_NONE;
 }
 
@@ -225,7 +239,7 @@ t_max_err dataspace_setDataspace(t_dataspace *obj, void *attr, long argc, t_atom
 t_max_err dataspace_setDataspaceActive(t_dataspace *obj, void *attr, long argc, t_atom *argv)
 {
 	obj->attr_dataspace_active = atom_getsym(argv);
-	obj->dataspace->setInputUnit(obj->attr_dataspace_active);
+	obj->dataspace->setInputUnit(TT(obj->attr_dataspace_active->s_name));
 	return MAX_ERR_NONE;
 }
 
@@ -234,7 +248,7 @@ t_max_err dataspace_setDataspaceActive(t_dataspace *obj, void *attr, long argc, 
 t_max_err dataspace_setDataspaceNative(t_dataspace *obj, void *attr, long argc, t_atom *argv)
 {
 	obj->attr_dataspace_native = atom_getsym(argv);
-	obj->dataspace->setOutputUnit(obj->attr_dataspace_native);
+	obj->dataspace->setOutputUnit(TT(obj->attr_dataspace_native->s_name));
 	return MAX_ERR_NONE;
 }
 
