@@ -40,7 +40,7 @@ DataspaceLib::~DataspaceLib()
 	for (i=0; i<hk.getSize(); i++) {
 		hk.get(i, &k);
 		unitHash->lookup(k, v);
-		v.get(0, (TTPtr*)unit);
+		v.get(0, (TTPtr*)&unit);
 		delete unit;
 	}
 		
