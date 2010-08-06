@@ -28,9 +28,9 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessage(Clear);
 	addMessageWithArgument(updateMaxNumChannels);
 
-	err = TTObjectInstantiate(TT("allpass.1"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
-	err = TTObjectInstantiate(TT("allpass.1"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
-	err = TTObjectInstantiate(TT("allpass.1"), (TTObjectPtr*)&mDelay, initialMaxNumChannels);
+	err = TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
+	err = TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
+	err = TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mDelay, initialMaxNumChannels);
 
 	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
 	setAttributeValue(TT("Mode"), TT("lowpass"));

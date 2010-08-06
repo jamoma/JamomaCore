@@ -10,7 +10,7 @@
 #define __TT_HALFBAND5_H__
 
 #include "TTDSP.h"
-#include "TTAllpass1.h"
+#include "TTAllpass1b.h"
 
 
 /**	A second-order building-block allpass filter.
@@ -24,9 +24,9 @@
 class TTHalfband5 : TTAudioObject {
 	TTCLASS_SETUP(TTHalfband5)
 
-	TTAllpass1*		mF0;		///< filter0 (in the upper path)
-	TTAllpass1*		mF1;		///< filter1 (in the lower path, second block)
-	TTAllpass1*		mDelay;		///< delay   (in the lower path, first block)
+	TTAllpass1b*	mF0;		///< filter0 (in the upper path)
+	TTAllpass1b*	mF1;		///< filter1 (in the lower path, second block)
+	TTAllpass1b*	mDelay;		///< delay   (in the lower path, first block)
 	TTFloat64		mA0;		///< coefficient for f0
 	TTFloat64		mA1;		///< coefficient for f1
 	

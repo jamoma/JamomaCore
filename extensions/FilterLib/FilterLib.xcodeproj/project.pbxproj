@@ -11,6 +11,7 @@
 		226C94A41203A8ED009E0717 /* TTAllpass2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226C94A21203A8ED009E0717 /* TTAllpass2.cpp */; };
 		226C94AB1203AC7E009E0717 /* TTAllpass4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226C94A91203AC7E009E0717 /* TTAllpass4.cpp */; };
 		226C94B11203B1D1009E0717 /* TTHalfband5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226C94AF1203B1D1009E0717 /* TTHalfband5.cpp */; };
+		22CFF5C3120C392300222C83 /* TTAllpass1m2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CFF5C1120C392300222C83 /* TTAllpass1m2.cpp */; };
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
 		22FD464F11E24714007BBF7E /* FilterLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD464E11E24714007BBF7E /* FilterLib.cpp */; };
@@ -49,6 +50,8 @@
 		226C94AA1203AC7E009E0717 /* TTAllpass4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAllpass4.h; sourceTree = "<group>"; };
 		226C94AF1203B1D1009E0717 /* TTHalfband5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTHalfband5.cpp; sourceTree = "<group>"; };
 		226C94B01203B1D1009E0717 /* TTHalfband5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTHalfband5.h; sourceTree = "<group>"; };
+		22CFF5C1120C392300222C83 /* TTAllpass1m2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTAllpass1m2.cpp; sourceTree = "<group>"; };
+		22CFF5C2120C392300222C83 /* TTAllpass1m2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAllpass1m2.h; sourceTree = "<group>"; };
 		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -159,8 +162,10 @@
 			children = (
 				22FD465011E2471F007BBF7E /* TTAllpass.h */,
 				22FD465111E2471F007BBF7E /* TTAllpass.cpp */,
-				226C949D1203A3F7009E0717 /* TTAllpass1.h */,
 				226C949C1203A3F7009E0717 /* TTAllpass1.cpp */,
+				226C949D1203A3F7009E0717 /* TTAllpass1.h */,
+				22CFF5C2120C392300222C83 /* TTAllpass1m2.h */,
+				22CFF5C1120C392300222C83 /* TTAllpass1m2.cpp */,
 				226C94A31203A8ED009E0717 /* TTAllpass2.h */,
 				226C94A21203A8ED009E0717 /* TTAllpass2.cpp */,
 				226C94AA1203AC7E009E0717 /* TTAllpass4.h */,
@@ -254,7 +259,6 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "FilterLib" */;
 			compatibilityVersion = "Xcode 3.1";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
@@ -317,6 +321,7 @@
 				226C94A41203A8ED009E0717 /* TTAllpass2.cpp in Sources */,
 				226C94AB1203AC7E009E0717 /* TTAllpass4.cpp in Sources */,
 				226C94B11203B1D1009E0717 /* TTHalfband5.cpp in Sources */,
+				22CFF5C3120C392300222C83 /* TTAllpass1m2.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
