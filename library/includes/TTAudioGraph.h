@@ -3,8 +3,8 @@
  * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
  * Copyright © 2008, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TTAUDIOGRAPH_H__
@@ -24,7 +24,7 @@
 	#include <algorithm>
 	using namespace std;
 #else // TT_PLATFORM_MAC
-	#ifdef _DLL_EXPORT
+	#ifdef TTAUDIOGRAPH_EXPORTS
 		#define TTAUDIOGRAPH_EXPORT __attribute__((visibility("default")))
 	#else
 		#define TTAUDIOGRAPH_EXPORT  

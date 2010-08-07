@@ -3,8 +3,8 @@
  *	External object for Pd to output TTAudioSignals from a Jamoma AudioGraph dsp chain.
  *	Copyright © 2010 by Timothy Place
  * 
- *	License: This code is licensed under the terms of the GNU LGPL
- *	http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "PureAudioGraph.h"
@@ -127,7 +127,7 @@ t_int* OutPerform(t_int* w)
 	self->audioGraphObject->process(self->audioSignal);
 	self->audioGraphObject->unlockProcessing();
 
-	numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannels());
+	numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannelsAsInt());
 	for(TTUInt16 channel=0; channel<numChannels; channel++)
 		self->audioSignal->getVector(channel, self->vectorSize, (TTFloat32*)w[channel+2]);
 	return w + (self->numChannels+2);

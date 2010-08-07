@@ -16,10 +16,9 @@ SVNREV = $Rev$
 
 
 // Paths
-//DSTROOT = $(SRCROOT)/build
-DSTROOT = /Library/Frameworks
-// (This next path is relative to DSTROOT)
-INSTALL_PATH = /
+DSTROOT = /
+INSTALL_PATH = /Library/Application Support/Jamoma/Libraries
+SKIP_INSTALL = YES
 
 
 // Special Files
@@ -30,15 +29,20 @@ LIBRARY_SEARCH_PATHS = $(inherited)
 
 // Per architecture and deployment settings
 ARCHS = i386 x86_64
-SDKROOT = /Developer/SDKs/MacOSX10.5.sdk
-SDKROOT[arch=i386] = /Developer/SDKs/MacOSX10.4u.sdk
-SDKROOT[arch=x86_64] = /Developer/SDKs/MacOSX10.5.sdk
-GCC_VERSION[arch=i386] = 4.0
+SDKROOT = $(DEVELOPER_DIR)/SDKs/MacOSX10.5.sdk
+SDKROOT[arch=i386] = $(DEVELOPER_DIR)/SDKs/MacOSX10.5.sdk
+SDKROOT[arch=x86_64] = $(DEVELOPER_DIR)/SDKs/MacOSX10.5.sdk
+GCC_VERSION[arch=i386] = 4.2
 GCC_VERSION[arch=x86_64] = 4.2
-MACOSX_DEPLOYMENT_TARGET = 10.4
+MACOSX_DEPLOYMENT_TARGET = 10.5
 
 
 // Static Configuration
-WRAPPER_EXTENSION = framework;
+WRAPPER_EXTENSION = dylib;
 WARNING_CFLAGS = -Wmost -Wno-four-char-constants -Wno-unknown-pragmas
 DEPLOYMENT_LOCATION = YES
+
+FOUNDATION = "$(SRCROOT)/../../Foundation"
+DSPLIB = "$(SRCROOT)/../../DSP"
+GRAPH = "$(SRCROOT)/../../Graph"
+OTHER_LDFLAGS = "$(FOUNDATION)/library/build/UninstalledProducts"/JamomaFoundation.dylib "$(DSPLIB)/library/build/UninstalledProducts"/JamomaDSP.dylib "$(GRAPH)/library/build/UninstalledProducts"/JamomaGraph.dylib
