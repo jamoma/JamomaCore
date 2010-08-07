@@ -3,8 +3,8 @@
  * External for Jamoma: the main control center
  * By Tim Place, Copyright � 2006
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 // TODO: get module name (by default) from the patcher name so it doesn't have to be specified manually

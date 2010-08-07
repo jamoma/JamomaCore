@@ -3,8 +3,8 @@
  * shared code for jcom.send and jcom.receive objects
  * By Tim Place, Copyright � 2006
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __JCOM_SENDRECEIVE_H__
