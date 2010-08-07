@@ -2,8 +2,8 @@
  * TTBlue Library
  * Copyright © 2008, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TTDSP_H__
@@ -86,7 +86,7 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTAudioObject(arguments)
 // Prototypes
 
 // init the dsp lib, and the foundation if needed
-void TTDSP_EXPORT TTDSPInit();
+void TTDSP_EXPORT TTDSPInit(const char* pathToBinaries = NULL);
 
 // Convenience methods so that casting is not a worry:
 TTErr TTDSP_EXPORT TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, TTValue& arguments);

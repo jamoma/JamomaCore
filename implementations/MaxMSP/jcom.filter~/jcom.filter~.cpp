@@ -5,8 +5,8 @@
  *	Example project for TTBlue
  *	Copyright © 2008 by Timothy Place & Trond Lossius
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTClassWrapperMax.h"
@@ -36,6 +36,7 @@ typedef struct _filter	{
 	float					attrFrequency;				///< ATTRIBUTE: Filter cutoff or center frequency, depending on the kind of filter
 	float					attrQ;						///< ATTRIBUTE: Filter resonance
 	t_symbol				*attrType;					///< ATTRIBUTE: what kind of filter to use
+	t_symbol				*attrMode;					// Most filters don't have this attribute...
 } t_filter;
 
 
@@ -84,6 +85,9 @@ t_max_err 	filter_setType(t_filter *x, void *attr, long argc, t_atom *argv);
 void filter_gettypes(t_filter *x);
 
 
+t_max_err filter_setMode(t_filter *x, void *attr, long argc, t_atom *argv);
+
+
 // Globals
 t_class *filter_class;				// Required. Global pointing to this class
 
@@ -120,6 +124,9 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	CLASS_ATTR_SYM(c,		"type",	0,	t_filter, attrType);
 	CLASS_ATTR_ACCESSORS(c,	"type",	NULL, filter_setType);
 
+	CLASS_ATTR_SYM(c,		"mode",	0,	t_filter, attrMode);
+	CLASS_ATTR_ACCESSORS(c,	"mode",	NULL, filter_setMode);
+
 	class_dspinit(c);
 	class_register(CLASS_BOX, c);
 	filter_class = c;
@@ -144,6 +151,7 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
 		x->attrBypass = 0;
 		x->attrFrequency = DEFAULT_F;
 		x->attrQ = DEFAULT_Q;
+		x->attrMode = _sym_nothing;
 		
 		x->maxNumChannels = 2;		// An initial argument to this object will set the maximum number of channels
 		if(attrstart && argv)
@@ -280,6 +288,14 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 			}
 		}
 	}
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err filter_setMode(t_filter *x, void *attr, long argc, t_atom *argv)
+{	
+	if (argc)
+		x->filter->setAttributeValue(TT("Mode"), TT(atom_getsym(argv)->s_name));
 	return MAX_ERR_NONE;
 }
 

@@ -1,15 +1,15 @@
 /* 
- * Allpass Filter Object for Jamoma DSP
+ * First-Order Allpass Filter Object for Jamoma DSP
  * Copyright © 2003, Tim Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTAllpass.h"
+#include "TTAllpass1.h"
 
-#define thisTTClass			TTAllpass
-#define thisTTClassName		"allpass"
+#define thisTTClass			TTAllpass1
+#define thisTTClassName		"allpass.1"
 #define thisTTClassTags		"audio, processor, filter, allpass"
 
 #ifdef TT_PLATFORM_WIN
@@ -18,8 +18,8 @@
 
 TT_AUDIO_CONSTRUCTOR,
 	mDelay(0), 
-	mDelayInSamples(0), 
 	mDelayMax(0), 
+	mDelayInSamples(0), 
 	mDelayMaxInSamples(0)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
@@ -37,12 +37,13 @@ TT_AUDIO_CONSTRUCTOR,
 
 	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
 	setAttributeValue(TT("LinearGain"), 1.0);
+	setAttributeValue(TT("DelayMax"), 100.0);
 	setAttributeValue(TT("Delay"), 0.0);
 	setProcessMethod(processAudio);
 }
 
 
-TTAllpass::~TTAllpass()
+TTAllpass1::~TTAllpass1()
 {
 	;
 }
@@ -52,7 +53,7 @@ TTAllpass::~TTAllpass()
 // 1. sr changes
 // 2. maxNumChannels changes
 // 3. maxNumSamples change
-TTErr TTAllpass::init(TTUInt64 newDelayMaxInSamples)
+TTErr TTAllpass1::init(TTUInt64 newDelayMaxInSamples)
 {
 	if (newDelayMaxInSamples) {
 		mDelayMaxInSamples = newDelayMaxInSamples;
@@ -72,7 +73,7 @@ TTErr TTAllpass::init(TTUInt64 newDelayMaxInSamples)
 }
 
 
-void TTAllpass::reset()
+void TTAllpass1::reset()
 {
 	for (TTDelayBufferIter buffer = mFeedforward.begin(); buffer != mFeedforward.end(); ++buffer)
 		buffer->setDelay(mDelayInSamples);
@@ -81,7 +82,7 @@ void TTAllpass::reset()
 }
 
 
-TTErr TTAllpass::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTAllpass1::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	mFeedforward.resize(maxNumChannels);
 	mFeedback.resize(maxNumChannels);
@@ -89,14 +90,14 @@ TTErr TTAllpass::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 }
 
 
-TTErr TTAllpass::updateSr()
+TTErr TTAllpass1::updateSr()
 {
 	init(long(srMill * mDelayMax));		// allocate a larger delay buffer if neccessary	
 	return setDelay(mDelay);			// hold the delay time in ms constant, despite the change of sr
 }
 
 
-TTErr TTAllpass::Clear()
+TTErr TTAllpass1::Clear()
 {
 	for_each(mFeedforward.begin(), mFeedforward.end(), mem_fun_ref(&TTDelayBuffer::clear));
 	for_each(mFeedback.begin(), mFeedback.end(), mem_fun_ref(&TTDelayBuffer::clear));
@@ -104,7 +105,7 @@ TTErr TTAllpass::Clear()
 }
 
 
-TTErr TTAllpass::setGain(const TTValue& newValue)
+TTErr TTAllpass1::setGain(const TTValue& newValue)
 {	
 	mGain = newValue;
 	mLinearGain = dbToLinear(mGain);
@@ -112,7 +113,7 @@ TTErr TTAllpass::setGain(const TTValue& newValue)
 }
 
 
-TTErr TTAllpass::setLinearGain(const TTValue& newValue)
+TTErr TTAllpass1::setLinearGain(const TTValue& newValue)
 {	
 	mLinearGain = newValue;
 	mGain = linearToDb(mLinearGain);
@@ -120,7 +121,7 @@ TTErr TTAllpass::setLinearGain(const TTValue& newValue)
 }
 
 
-TTErr TTAllpass::setDelay(const TTValue& newValue)
+TTErr TTAllpass1::setDelay(const TTValue& newValue)
 {
 	/*
 	delay = TTClip<TTFloat64>(newValue, 0.0, delayMax);
@@ -142,7 +143,7 @@ TTErr TTAllpass::setDelay(const TTValue& newValue)
 }
 
 
-TTErr TTAllpass::setDelayInSamples(const TTValue& newValue)
+TTErr TTAllpass1::setDelayInSamples(const TTValue& newValue)
 {
 //	mFractionalDelaySamples = TTClip<TTUInt64>(newValue, 0, mDelayMaxInSamples);
 	mDelayInSamples = TTClip<TTUInt64>(newValue, 0, mDelayMaxInSamples);
@@ -156,7 +157,7 @@ TTErr TTAllpass::setDelayInSamples(const TTValue& newValue)
 }
 
 
-TTErr TTAllpass::setDelayMax(const TTValue& newValue)
+TTErr TTAllpass1::setDelayMax(const TTValue& newValue)
 {
 	mDelayMax = newValue;
 	mDelayMaxInSamples = mDelayMax * srMill;
@@ -165,7 +166,7 @@ TTErr TTAllpass::setDelayMax(const TTValue& newValue)
 }
 
 
-TTErr TTAllpass::setDelayMaxInSamples(const TTValue& newValue)
+TTErr TTAllpass1::setDelayMaxInSamples(const TTValue& newValue)
 {
 	mDelayMaxInSamples = newValue;
 	mDelayMax = mDelayMaxInSamples * 1000.0 * srInv;
@@ -180,42 +181,23 @@ TTErr TTAllpass::setDelayMaxInSamples(const TTValue& newValue)
 #endif
 
 
-#define TTDELAY_WRAP_CALCULATE_METHOD(methodName) \
-	TTAudioSignal&		in = inputs->getSignal(0); \
-	TTAudioSignal&		out = outputs->getSignal(0); \
-	TTUInt16			vs; \
-	TTSampleValue*		inSample; \
-	TTSampleValue*		outSample; \
-	TTUInt16			numchannels = TTAudioSignal::getMinChannelCount(in, out); \
-	TTPtrSizedInt		channel; \
-	TTDelayBufferPtr	buffer; \
-	\
-	for (channel=0; channel<numchannels; channel++) { \
-		inSample = in.mSampleVectors[channel]; \
-		outSample = out.mSampleVectors[channel]; \
-		vs = in.getVectorSizeAsInt(); \
-		buffer = &mFeedforward[channel]; \
-		\
-		while (vs--) { \
-			methodName (*inSample, *outSample, buffer); \
-			outSample++; \
-			inSample++; \
-		} \
-	}\
-	return kTTErrNone;
-
-
-inline TTErr TTAllpass::calculateValue(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffers)
+inline TTErr TTAllpass1::calculateValue(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr* buffers)
 {	
-	TTDelayBufferPtr	feedforwardBuffer = buffers;
-	TTDelayBufferPtr	feedbackBuffer = buffers+1;		// NOTE: This is a little tricky!
+	TTDelayBufferPtr	feedforwardBuffer = buffers[0];
+	TTDelayBufferPtr	feedbackBuffer = buffers[1];		// NOTE: This is a little tricky!
 	
 	// Store the input in the feedforward buffer
 	*feedforwardBuffer->mWritePointer = x;
 	
 	// Apply the filter
-	y = (*feedforwardBuffer->mReadPointer) + (x * (-mLinearGain)) + (*feedbackBuffer->mReadPointer * mLinearGain);
-    TTZeroDenormal(y); 
+	// This first version is what Fred Harris refers to as a "Re-Ordered All-Pass Filter Structure" in Multirate Signal Processing
+	//	y = (*feedforwardBuffer->mReadPointer) + (x * (-mLinearGain)) + (*feedbackBuffer->mReadPointer * mLinearGain);
+	// And here is a "Single Coefficient All-Pass Filter" where we drop from 2 adds and 2 mults down to 2 adds and 1 mult
+	y = ((x + (*feedbackBuffer->mReadPointer)) * mLinearGain) + (*feedforwardBuffer->mReadPointer);
+
+	// The possibility of denormals is always lurking for IIR filters
+    TTZeroDenormal(y);
+	
 	// Store the output in the feedback buffer
 	*feedbackBuffer->mWritePointer = y;
 
@@ -226,56 +208,37 @@ inline TTErr TTAllpass::calculateValue(const TTFloat64& x, TTFloat64& y, TTDelay
 	feedbackBuffer->mWritePointer++;
 		
 	// wrap the pointers in the buffer, if needed
-	if (feedforwardBuffer->mWritePointer > feedforwardBuffer->tail())
-		feedforwardBuffer->mWritePointer = feedforwardBuffer->head();
-	if (feedforwardBuffer->mReadPointer > feedforwardBuffer->tail())
-		feedforwardBuffer->mReadPointer = feedforwardBuffer->head();				
-	if (feedbackBuffer->mWritePointer > feedbackBuffer->tail())
-		feedbackBuffer->mWritePointer = feedbackBuffer->head();
-	if (feedbackBuffer->mReadPointer > feedbackBuffer->tail())
-		feedbackBuffer->mReadPointer = feedbackBuffer->head();				
+	feedforwardBuffer->wrapForward();
+	feedbackBuffer->wrapForward();
 	
 	return kTTErrNone;
 }
 
 
-TTErr TTAllpass::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTAllpass1::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTDELAY_WRAP_CALCULATE_METHOD(calculateValue);
+	TTAudioSignal&		in = inputs->getSignal(0);
+	TTAudioSignal&		out = outputs->getSignal(0);
+	TTUInt16			vs;
+	TTSampleValue*		inSample;
+	TTSampleValue*		outSample;
+	TTUInt16			numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTPtrSizedInt		channel;
+	TTDelayBufferPtr	buffers[2];
+		
+	for (channel=0; channel<numchannels; channel++) {
+		inSample = in.mSampleVectors[channel];
+		outSample = out.mSampleVectors[channel];
+		vs = in.getVectorSizeAsInt();
+		buffers[0] = &mFeedforward[channel];
+		buffers[1] = &mFeedback[channel];
+
+		while (vs--) {
+			calculateValue(*inSample, *outSample, buffers);
+			outSample++;
+			inSample++;
+		}
+	}
+	return kTTErrNone;
 }
 
-/*
-// DSP LOOP
-TT_INLINE void tt_allpass::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
-{
-	tt_sample_value temp;
-	temp_vs = in->vectorsize;
-	
-	while (temp_vs--) {
-		temp = anti_denormal(*in->vector++);	// Input	
-		*ff_in_ptr = temp;		// Store the input in the feedforward buffer
-		
-		// Apply the filter
-		temp = anti_denormal((*ff_out_ptr) + (temp * (-gain)) + (*fb_out_ptr * gain));	
-		
-		*fb_in_ptr = temp;		// Store the output in the feedback buffer
-		*out->vector++ = temp;	// Output
-		
-		// Move the heads
-		ff_in_ptr++;
-		ff_out_ptr++;
-		fb_in_ptr++;
-		fb_out_ptr++;
-		
-		// Wrap the heads
-		if (ff_in_ptr > ff_end_ptr)
-			ff_in_ptr = ff_buffer;
-		if (ff_out_ptr > ff_end_ptr)
-			ff_out_ptr = ff_buffer;	
-		if (fb_in_ptr > fb_end_ptr)
-			fb_in_ptr = fb_buffer;
-		if (fb_out_ptr > fb_end_ptr)
-			fb_out_ptr = fb_buffer;	
-	}
-}
-*/

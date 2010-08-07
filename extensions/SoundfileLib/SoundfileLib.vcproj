@@ -190,6 +190,14 @@
 				RelativePath=".\TTSoundfilePlayer.h"
 				>
 			</File>
+			<File
+				RelativePath=".\TTSoundfileRecorder.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TTSoundfileRecorder.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\libsndfile-win\include\sndfile.h"

@@ -11,11 +11,9 @@
 		222AD830109A03EA0074753C /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222AD82F109A03EA0074753C /* MaxAPI.framework */; };
 		222AD835109A03F60074753C /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222AD834109A03F60074753C /* MaxAudioAPI.framework */; };
 		222AD8AC109A05FB0074753C /* jcom.ramp~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222AD8AB109A05FB0074753C /* jcom.ramp~.cpp */; };
-		222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */; };
 		226C44F5109A340100E2BFB0 /* TTClassWrapperMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226C44F3109A340000E2BFB0 /* TTClassWrapperMax.cpp */; };
 		226C44F6109A340100E2BFB0 /* TTClassWrapperMax.h in Headers */ = {isa = PBXBuildFile; fileRef = 226C44F4109A340100E2BFB0 /* TTClassWrapperMax.h */; };
-		22EB3AE1102E6073006D027A /* tt-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22EB3AE0102E6073006D027A /* tt-max.xcconfig */; };
-		22EB3B31102E61EA006D027A /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EB3B30102E61EA006D027A /* JamomaFoundation.framework */; };
+		A7FAFEF211FE36BD00FB034A /* tt-max-dsp.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A7FAFEF111FE36BD00FB034A /* tt-max-dsp.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,12 +21,10 @@
 		222AD82F109A03EA0074753C /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
 		222AD834109A03F60074753C /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
 		222AD8AB109A05FB0074753C /* jcom.ramp~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.ramp~.cpp"; sourceTree = "<group>"; };
-		222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		226C44F3109A340000E2BFB0 /* TTClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTClassWrapperMax.cpp; path = ../../../supports/max/TTClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
 		226C44F4109A340100E2BFB0 /* TTClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTClassWrapperMax.h; path = ../../../supports/max/TTClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
-		22EB3AE0102E6073006D027A /* tt-max.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max.xcconfig"; path = "../../../supports/max/tt-max.xcconfig"; sourceTree = SOURCE_ROOT; };
-		22EB3B30102E61EA006D027A /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
 		2FBBEAE508F335360078DB84 /* jcom.ramp~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.ramp~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7FAFEF111FE36BD00FB034A /* tt-max-dsp.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max-dsp.xcconfig"; path = "../tt-max-dsp.xcconfig"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,8 +32,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */,
-				22EB3B31102E61EA006D027A /* JamomaFoundation.framework in Frameworks */,
 				222AD830109A03EA0074753C /* MaxAPI.framework in Frameworks */,
 				222AD835109A03F60074753C /* MaxAudioAPI.framework in Frameworks */,
 			);
@@ -49,7 +43,7 @@
 		089C166AFE841209C02AAC07 /* iterator */ = {
 			isa = PBXGroup;
 			children = (
-				22EB3AE0102E6073006D027A /* tt-max.xcconfig */,
+				A7FAFEF111FE36BD00FB034A /* tt-max-dsp.xcconfig */,
 				08FB77ADFE841716C02AAC07 /* Source */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB4FE9D528D11CA2CBB /* Products */,
@@ -62,8 +56,6 @@
 			children = (
 				222AD834109A03F60074753C /* MaxAudioAPI.framework */,
 				222AD82F109A03EA0074753C /* MaxAPI.framework */,
-				22EB3B30102E61EA006D027A /* JamomaFoundation.framework */,
-				222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -142,7 +134,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22EB3AE1102E6073006D027A /* tt-max.xcconfig in Resources */,
+				A7FAFEF211FE36BD00FB034A /* tt-max-dsp.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,7 +178,7 @@
 		};
 		2FBBEAE108F335360078DB84 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22EB3AE0102E6073006D027A /* tt-max.xcconfig */;
+			baseConfigurationReference = A7FAFEF111FE36BD00FB034A /* tt-max-dsp.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -206,12 +198,16 @@
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+				);
 			};
 			name = Development;
 		};
 		2FBBEAE208F335360078DB84 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22EB3AE0102E6073006D027A /* tt-max.xcconfig */;
+			baseConfigurationReference = A7FAFEF111FE36BD00FB034A /* tt-max-dsp.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -229,6 +225,10 @@
 					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/max-includes\"",
 					"\"$(SRCROOT)/../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes\"",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
 				);
 			};
 			name = Deployment;

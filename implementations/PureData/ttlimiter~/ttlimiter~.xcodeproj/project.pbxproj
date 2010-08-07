@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22C9F4F2103256A80062F7B8 /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C9F4F1103256A80062F7B8 /* JamomaFoundation.framework */; };
+		224B0D7C11DFE73C00B6EF48 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0D7A11DFE73C00B6EF48 /* JamomaDSP.dylib */; };
+		224B0D7D11DFE73C00B6EF48 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 224B0D7B11DFE73C00B6EF48 /* JamomaFoundation.dylib */; };
 		22DEC1A90E1C89C600F4ADDF /* ttlimiter~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DEC1A80E1C89C600F4ADDF /* ttlimiter~.cpp */; };
-		22DEC1BF0E1C8A0600F4ADDF /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DEC1BE0E1C8A0600F4ADDF /* JamomaDSP.framework */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		22C9F4F1103256A80062F7B8 /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
+		224B0D7A11DFE73C00B6EF48 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaDSP.dylib"; sourceTree = "<absolute>"; };
+		224B0D7B11DFE73C00B6EF48 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = "../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib"; sourceTree = "<absolute>"; };
 		22DEC1A80E1C89C600F4ADDF /* ttlimiter~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "ttlimiter~.cpp"; sourceTree = "<group>"; };
-		22DEC1BE0E1C8A0600F4ADDF /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		32BAE0B70371A74B00C91783 /* prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prefix.pch; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* ttlimiter~.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "ttlimiter~.pd_darwin"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -28,8 +28,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
-				22DEC1BF0E1C8A0600F4ADDF /* JamomaDSP.framework in Frameworks */,
-				22C9F4F2103256A80062F7B8 /* JamomaFoundation.framework in Frameworks */,
+				224B0D7C11DFE73C00B6EF48 /* JamomaDSP.dylib in Frameworks */,
+				224B0D7D11DFE73C00B6EF48 /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,8 +57,8 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				22C9F4F1103256A80062F7B8 /* JamomaFoundation.framework */,
-				22DEC1BE0E1C8A0600F4ADDF /* JamomaDSP.framework */,
+				224B0D7A11DFE73C00B6EF48 /* JamomaDSP.dylib */,
+				224B0D7B11DFE73C00B6EF48 /* JamomaFoundation.dylib */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -161,6 +161,10 @@
 					PD,
 				);
 				INSTALL_PATH = /;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+				);
 				MACH_O_TYPE = mh_bundle;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -202,6 +206,10 @@
 					PD,
 				);
 				INSTALL_PATH = /;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+				);
 				MACH_O_TYPE = mh_bundle;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (

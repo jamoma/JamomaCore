@@ -2,8 +2,8 @@
  * Audio Delay Buffer Object for Jamoma DSP
  * Copyright © 2010, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_DELAYBUFFER_H__
@@ -72,6 +72,7 @@ public:
 		return mEndPointer;
 	}
 	
+	// check pointers (both directions) to ensure they are in-bounds
 	TTSampleValuePtr wrapPointer(TTSampleValuePtr ptr)
 	{
 		if (ptr > tail())
@@ -80,6 +81,27 @@ public:
 			ptr = tail() + (ptr - head()) + 1;
 		return ptr;
 	}
+	
+	// check pointers (only at the end) to ensure they are in-bounds
+	TTSampleValuePtr wrapPointerForward(TTSampleValuePtr ptr)
+	{
+		if (ptr > tail())
+			ptr = head() + (ptr - tail());
+		return ptr;
+	}
+	
+	void wrap()
+	{
+		mReadPointer = wrapPointer(mReadPointer);
+		mWritePointer = wrapPointer(mWritePointer);
+	}
+	
+	void wrapForward()
+	{
+		mReadPointer = wrapPointerForward(mReadPointer);
+		mWritePointer = wrapPointerForward(mWritePointer);
+	}
+	
 };
 typedef TTDelayBuffer*					TTDelayBufferPtr;
 typedef vector<TTDelayBuffer>			TTDelayBufferVector;

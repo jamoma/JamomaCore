@@ -22,6 +22,9 @@ LIB_INCLUDES += -L../../../../Foundation/library/build
 LIBS = -lJamomaFoundation
 LIBS += -lJamomaDSP
 
+#LIB_INCLUDES = 
+#LIBS = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib"
+#LIBS += "/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib"
 
 #########################################
 

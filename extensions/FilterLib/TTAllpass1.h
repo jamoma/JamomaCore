@@ -2,8 +2,8 @@
  * Allpass Filter Object for Jamoma DSP
  * Copyright © 2003, Tim Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_ALLPASS_H__
@@ -14,8 +14,8 @@
 
 
 /**	An allpass filter. */
-class TTAllpass : TTAudioObject {
-	TTCLASS_SETUP(TTAllpass)
+class TTAllpass1 : public TTAudioObject {
+	TTCLASS_SETUP(TTAllpass1)
 
 	TTFloat64			mDelay;				///< Attribute: delay time in milliseconds
 	TTFloat64			mDelayMax;			///< Maximum delay time in milliseconds (how long is the buffer?)
@@ -27,16 +27,7 @@ class TTAllpass : TTAudioObject {
 	TTDelayBufferVector	mFeedforward;		///< ff buffers for each channel
 	TTDelayBufferVector	mFeedback;			///< fb buffers for each channel
 	
-//	TTSampleVector*	feedforward;		///< An array of feedforward sample buffers, one for each channel
-//	TTSampleVector*	feedback;			///< An array of feedback sample buffers, one for each channel
 	
-//	TTSampleVector*	ffEndPtr;			///< pointer to the last sample in the feedforward buffer (for each channel)
-//	TTSampleVector*	fbEndPtr;			///< pointer to the last sample in the feedback buffer (for each channel)
-//	TTSampleVector*	ffInPtr;			///< record pointer into the feedforward delay buffer (for each channel)
-//	TTSampleVector*	fbInPtr;			///< record pointer into the feedback delay buffer (for each channel)
-//	TTSampleVector*	ffOutPtr;			///< playback pointer from the feedforward delay buffer (for each channel)
-//	TTSampleVector*	fbOutPtr;			///< playback pointer from the feedback delay buffer (for each channel)
-
 	// Notifications
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	TTErr updateSr();
@@ -74,7 +65,7 @@ class TTAllpass : TTAudioObject {
 	TTErr Clear();
 	
 
-	TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr data);
+	TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr* data);
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 };
