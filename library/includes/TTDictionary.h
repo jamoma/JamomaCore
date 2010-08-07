@@ -2,8 +2,8 @@
  * Foundation Dictionary Class
  * Copyright © 2010, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_DICTIONARY_H__
@@ -16,7 +16,6 @@
 // Class Specification
 
 /**	
- 
 */
 class TTFOUNDATION_EXPORT TTDictionary : TTElement {
 private:
@@ -61,12 +60,9 @@ public:
 	
 	/** Return true if the hash has nothing stored in it. */
 	TTBoolean isEmpty();
-	
 };
-
 
 typedef TTDictionary* TTDictionaryPtr;
 
 
 #endif // __TT_DICTIONARY_H__
-

@@ -2,8 +2,8 @@
  * TTBlue (Linked) List Class
  * Copyright © 2008, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_LIST_H__
@@ -79,6 +79,7 @@ public:
 	/** Appends a value to the list. 
 		@param	newValue	The value to add to the list.  */
 	void append(const TTValue& newValue);
+	
 	
 	/**	If we don't define a version of this function that takes a pointer, 
 		then when a pointer is provided a new temporary TTValue is created to provide the reference

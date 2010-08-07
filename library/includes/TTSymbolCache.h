@@ -2,8 +2,8 @@
  * TTBlue Class for caching common symbols for speed
  * Copyright © 2008, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_SYMBOL_CACHE_H__
@@ -43,6 +43,9 @@ extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_value;
 //extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_vectorSize;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_VectorSize;
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_SampleRate;
+
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_tcp;
+extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_udp;
 
 // waveforms
 extern TTFOUNDATION_EXPORT TTSymbolPtr	kTTSym_sine;

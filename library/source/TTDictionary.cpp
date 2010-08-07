@@ -2,8 +2,8 @@
  * Foundation Dictionary Class
  * Copyright © 2010, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTDictionary.h"
@@ -53,13 +53,11 @@ TTErr TTDictionary::setValue(const TTValue& newValue)
 	return append(TT("value"), newValue);
 }
 
+
 TTErr TTDictionary::getValue(TTValue& returnedValue) const
 {
 	return lookup(TT("value"), returnedValue);
 }
-
-
-
 
 
 TTErr TTDictionary::append(const TTSymbolPtr key, const TTValue& value)

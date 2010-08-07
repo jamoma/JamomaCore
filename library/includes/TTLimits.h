@@ -50,28 +50,6 @@ static void TTZeroDenormal(T& value)
 }
 
 
-/** Constrain a number to within a range. 
-	@seealso	TTLimit()
- */
-template<class T>
-static T TTClip(const T input, const T lowBound, const T highBound)
-{
-	T output = input;
-	TTLimit(output, lowBound, highBound);
-	return output;
-
-	// This function used to be implemented using the following algorithm:
-	// 
-	// value = T(((fabs(value - double(low_bound))) + (low_bound + high_bound)) - fabs(value - double(high_bound)));
-	// value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
-	// return value;
-	//
-	// That algorithm has the advantage of not branching.  On the PPC this yielded a dramatic performance improvement.
-	// When benchmarked on Intel processors, however, it was actually very slightly slower than the more traditional
-	// branching version, which is now implemented in the TTLimit() function.
-}
-
-
 /** Constrain a number to within a range.  Calculation is performed in-place. 
 	@seealso	TTClip()
  */
@@ -82,6 +60,28 @@ static void TTLimit(T& value, const T lowBound, const T highBound)
 		value = lowBound;
 	else if (value > highBound)
 		value = highBound;
+}
+
+
+/** Constrain a number to within a range. 
+ @seealso	TTLimit()
+ */
+template<class T>
+static T TTClip(const T input, const T lowBound, const T highBound)
+{
+	T output = input;
+	TTLimit(output, lowBound, highBound);
+	return output;
+	
+	// This function used to be implemented using the following algorithm:
+	// 
+	// value = T(((fabs(value - double(low_bound))) + (low_bound + high_bound)) - fabs(value - double(high_bound)));
+	// value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
+	// return value;
+	//
+	// That algorithm has the advantage of not branching.  On the PPC this yielded a dramatic performance improvement.
+	// When benchmarked on Intel processors, however, it was actually very slightly slower than the more traditional
+	// branching version, which is now implemented in the TTLimit() function.
 }
 
 
@@ -334,11 +334,6 @@ int main(int argc, char* argv[])
 	
 }
 */
-
-
-
-
-
 
 
 #endif // __TT_LIMITS_H__
