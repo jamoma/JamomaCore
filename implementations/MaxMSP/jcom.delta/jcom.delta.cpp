@@ -5,8 +5,8 @@
  * 20031227 initial port to OSX compiled by jasch <jasch@kat.ch>
  * 20060813 ported to Jamoma
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 	
 
