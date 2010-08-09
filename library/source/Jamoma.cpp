@@ -10,6 +10,12 @@
 #include "Jamoma.h"
 #include "JamomaObject.h"
 
+#include "AsyncRamp.h"
+#include "NoneRamp.h"
+#include "QueueRamp.h"
+#include "SchedulerRamp.h"
+
+
 // constants
 const double k_pi = 3.1415926535897932;		// pi
 const double k_twopi = 6.2831853071795864;	// 2 * pi
@@ -37,6 +43,12 @@ void jamoma_init(void)
 			max5 = true;
 		
 		TTDSPInit();
+		
+		AsyncRamp::registerClass();
+		NoneRamp::registerClass();
+		QueueRamp::registerClass();
+		SchedulerRamp::registerClass();
+		
 		common_symbols_init();
 		jamomaSymbolsInit();
 

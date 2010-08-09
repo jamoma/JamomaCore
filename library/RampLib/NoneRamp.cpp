@@ -11,8 +11,12 @@
 #include "Jamoma.h"
 #include "NoneRamp.h"
 
-NoneRamp::NoneRamp(RampUnitCallback aCallbackMethod, void *aBaton)
-	: RampUnit("ramp.none", aCallbackMethod, aBaton)
+#define thisTTClass			NoneRamp
+#define thisTTClassName		"NoneRamp"
+#define thisTTClassTags		"modular, max, rampunit"
+
+
+TT_RAMPUNIT_CONSTRUCTOR
 {
 	;
 }

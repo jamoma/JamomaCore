@@ -11,6 +11,11 @@
 #include "Jamoma.h"
 #include "SchedulerRamp.h"
 
+#define thisTTClass			SchedulerRamp
+#define thisTTClassName		"SchedulerRamp"
+#define thisTTClassTags		"modular, max, rampunit"
+
+
 // called by the Max queue, and provided to the qelem -- needs to have a C interface
 void schedulerramp_clockfn(SchedulerRamp *x)
 {
@@ -18,8 +23,9 @@ void schedulerramp_clockfn(SchedulerRamp *x)
 }
 
 
-SchedulerRamp::SchedulerRamp(RampUnitCallback aCallbackMethod, void *aBaton)
-	: RampUnit("ramp.scheduler", aCallbackMethod, aBaton), stepsize(0.0), isRunning(false)
+TT_RAMPUNIT_CONSTRUCTOR,
+	stepsize(0.0), 
+	isRunning(false)
 {
 	clock = clock_new(this, (method)&schedulerramp_clockfn);	// install the max timer
 
