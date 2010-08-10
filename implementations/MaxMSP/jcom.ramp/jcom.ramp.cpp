@@ -157,18 +157,18 @@ void *ramp_new(t_symbol *s, long argc, t_atom *argv)
 		x->parameterNames = new TTHash;
 
 		x->rampUnit = NULL;
-		x->attr_rampunit = _sym_nothing;
-		x->attr_function = _sym_nothing;
-		attr_args_process(x, argc, argv);	// handle attribute args
 
-		if (x->attr_rampunit == _sym_nothing) {
-			Atom a;
-			atom_setsym(&a, gensym("scheduler"));
-			object_attr_setvalueof(x, gensym("drive"), 1, &a);
-		}
-		if (x->attr_function == _sym_nothing) {
-			object_attr_setsym(x, gensym("function"), jps_linear);
-		}
+		// Set default attributes
+		// @drive
+		Atom a;
+		atom_setsym(&a, gensym("scheduler"));
+		object_attr_setvalueof(x, gensym("drive"), 1, &a);
+		// @function
+		object_attr_setsym(x, gensym("function"), jps_linear);
+
+		// Now set specified attributes, if any
+		attr_args_process(x, argc, argv);
+
 	}
 	return (x);		// return the pointer to our new instantiation
 }
