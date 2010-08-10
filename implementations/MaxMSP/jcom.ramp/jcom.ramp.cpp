@@ -117,7 +117,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ramp_stop,					"stop",					0);
 	class_addmethod(c, (method)ramp_attrset,				"attrset",				A_GIMME, 	0);
 	class_addmethod(c, (method)ramp_attrget,				"attrget",				A_GIMME,	0);
-	class_addmethod(c, (method)ramp_setFunction,			"function",				A_SYM,		0);
 	class_addmethod(c, (method)ramp_getFunctionParameter,	"function.parameter.get",	A_GIMME,	0);
 	class_addmethod(c, (method)ramp_setFunctionParameter,	"function.parameter",	A_GIMME,	0);
 	class_addmethod(c, (method)ramp_clock,					"clock",				A_SYM,		0);
