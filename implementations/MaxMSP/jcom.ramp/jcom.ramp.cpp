@@ -313,7 +313,7 @@ void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 			return;
 		}
 	else { // "ramp" is the second last list member, so we start ramping
-		x->rampUnit->go(argc-2, values, atom_getfloat(argv+arc-1));
+		x->rampUnit->go(argc-2, values, atom_getfloat(argv+argc-1));
 		}
 	}
 	free(values);
