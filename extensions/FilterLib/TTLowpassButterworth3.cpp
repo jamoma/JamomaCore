@@ -95,8 +95,8 @@ void TTLowpassButterworth3::calculateCoefficients() //TODO: with a little bit of
 	
 	mA0 = (mRadiansCubic)   / temp1; 
 	mA1 = (3*mRadiansCubic) / temp1; 
-	//mA2 = mA1; //mA2 = (3*mRadiansCubic) / temp1; 
-	//mA3 = mA0; //mA3 = (mRadiansCubic)   / temp1; 
+	mA2 = mA1; //mA2 = (3*mRadiansCubic) / temp1; 
+	mA3 = mA0; //mA3 = (mRadiansCubic)   / temp1; 
 
 	mB1 = (3*mRadiansCubic - 3*mKCubic + 2*mRadiansSquared*mK - 2*mRadians*mKSquared) / temp1; 
 	mB2 = (3*mRadiansCubic + 3*mKCubic - 2*mRadiansSquared*mK - 2*mRadians*mKSquared) / temp1; 
