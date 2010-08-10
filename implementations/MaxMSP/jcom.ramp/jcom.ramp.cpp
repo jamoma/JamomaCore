@@ -333,20 +333,45 @@ void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 void ramp_getDrives(t_ramp *x)
 {
 	t_atom		a[2];
-	t_symbol	**rampUnitNames = NULL;
 	long		numRampUnits = 0;
 	long		i;
+	TTValue		rampUnitNames;
+	TTSymbol*	aName;
 	
 	atom_setsym(a+0, gensym("clear"));
-	object_obex_dumpout(obj, gensym("DataspacesMenu"), 1, a);
+	object_obex_dumpout(x, gensym("drives"), 1, a);
 	
-	jamoma_getUnitNames(&numRampUnits, &dataspaceNames);
-}
+	RampLib::getUnitNames(rampUnitNames);
+	numRampUnits = rampUnitNames.getSize();
+	
+	atom_setsym(a+0, gensym("append"));
+	for (i=0; i<numRampUnits; i++) {
+		rampUnitNames.get(i, &aName);
+		atom_setsym(a+1, gensym((char*)aName->getCString()));
+		object_obex_dumpout(x, gensym("drives"), 2, a);
+	}}
 
 
 void ramp_getFunctions(t_ramp *x)
 {
+	t_atom		a[2];
+	long		numFunctions = 0;
+	long		i;
+	TTValue		functionNames;
+	TTSymbol*	aName;
 	
+	atom_setsym(a+0, gensym("clear"));
+	object_obex_dumpout(x, gensym("functions"), 1, a);
+	
+	FunctionLib::getUnitNames(functionNames);
+	numFunctions = functionNames.getSize();
+	
+	atom_setsym(a+0, gensym("append"));
+	for (i=0; i<numFunctions; i++) {
+		functionNames.get(i, &aName);
+		atom_setsym(a+1, gensym((char*)aName->getCString()));
+		object_obex_dumpout(x, gensym("functions"), 2, a);
+	}
 }
 
 
