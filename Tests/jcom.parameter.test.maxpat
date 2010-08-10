@@ -1831,7 +1831,7 @@
 																	"numoutlets" : 3,
 																	"outlettype" : [ "", "", "" ],
 																	"patching_rect" : [ 50.0, 215.0, 296.0, 19.0 ],
-																	"text" : "jcom.parameter test @type decimal @repetitons/allow 1"
+																	"text" : "jcom.parameter test @type decimal @repetitions/allow 1"
 																}
 
 															}
