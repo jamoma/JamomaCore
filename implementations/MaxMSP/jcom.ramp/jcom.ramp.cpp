@@ -303,8 +303,8 @@ void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 	}
 	
 	if (ramp_keyword_index == -1) { // just a list w/o ramp information
-	x->rampUnit->set(argc, values);
-	outlet_anything(x->outlets[k_outlet_value], _sym_list, argc, argv);
+		x->rampUnit->set(argc, values);
+		outlet_anything(x->outlets[k_outlet_value], _sym_list, argc, argv);
 	}
 	else {
 		if (argc != (ramp_keyword_index + 2)) { // "ramp" is not the second last list member
@@ -313,7 +313,7 @@ void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 			return;
 		}
 	else { // "ramp" is the second last list member, so we start ramping
-		x->rampUnit->go(argc-2, values, atom_getfloat(argv+ramp_keyword_index+1));
+		x->rampUnit->go(argc-2, values, atom_getfloat(argv+arc-1));
 		}
 	}
 	free(values);
