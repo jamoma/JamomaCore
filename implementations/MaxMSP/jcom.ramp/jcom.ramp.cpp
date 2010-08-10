@@ -109,19 +109,19 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	c = class_new("jcom.ramp",(method)ramp_new, (method)ramp_free, sizeof(t_ramp), (method)0L, A_GIMME, 0);
 	
 	// Make methods accessible for our class:
-	class_addmethod(c, (method)ramp_bang,					"bang",					0);
-	class_addmethod(c, (method)ramp_int,					"int",					A_DEFLONG,	0);
-	class_addmethod(c, (method)ramp_float,					"float",				A_DEFFLOAT,	0);
- 	class_addmethod(c, (method)ramp_list,					"list",					A_GIMME,	0);
-	class_addmethod(c, (method)ramp_set,					"set",					A_GIMME,	0);
-	class_addmethod(c, (method)ramp_stop,					"stop",					0);
-	class_addmethod(c, (method)ramp_attrset,				"attrset",				A_GIMME, 	0);
-	class_addmethod(c, (method)ramp_attrget,				"attrget",				A_GIMME,	0);
+	class_addmethod(c, (method)ramp_bang,					"bang",						0);
+	class_addmethod(c, (method)ramp_int,					"int",						A_DEFLONG,	0);
+	class_addmethod(c, (method)ramp_float,					"float",					A_DEFFLOAT,	0);
+ 	class_addmethod(c, (method)ramp_list,					"list",						A_GIMME,	0);
+	class_addmethod(c, (method)ramp_set,					"set",						A_GIMME,	0);
+	class_addmethod(c, (method)ramp_stop,					"stop",						0);
+	class_addmethod(c, (method)ramp_attrset,				"attrset",					A_GIMME, 	0);
+	class_addmethod(c, (method)ramp_attrget,				"attrget",					A_GIMME,	0);
 	class_addmethod(c, (method)ramp_getFunctionParameter,	"function.parameter.get",	A_GIMME,	0);
-	class_addmethod(c, (method)ramp_setFunctionParameter,	"function.parameter",	A_GIMME,	0);
-	class_addmethod(c, (method)ramp_clock,					"clock",				A_SYM,		0);
-	class_addmethod(c, (method)ramp_assist,					"assist",				A_CANT,		0); 
-    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",				A_CANT,		0);
+	class_addmethod(c, (method)ramp_setFunctionParameter,	"function.parameter",		A_GIMME,	0);
+	class_addmethod(c, (method)ramp_clock,					"clock",					A_SYM,		0);
+	class_addmethod(c, (method)ramp_assist,					"assist",					A_CANT,		0); 
+    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",					A_CANT,		0);
 
 	// ATTRIBUTE: rampunit
 	class_addattr(c, 
