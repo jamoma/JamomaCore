@@ -136,8 +136,8 @@ JamomaError RampLib::createUnit(const TTSymbol* unitName, RampUnit **unit, RampU
 	TTValue v;
 	
 	v.setSize(2);
-	v.set(0, callback);
-	v.set(1, baton);
+	v.set(0, TTPtr(callback));
+	v.set(1, TTPtr(baton));
 	
 	// These should be alphabetized
 	if (unitName == TT("async"))
