@@ -93,6 +93,8 @@ void 		ramp_attrget(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
 t_class		*ramp_class;				// Required: Global pointer for our class
 
 
+#pragma mark -
+#pragma mark main
 /************************************************************************************/
 // Class Definition
 
