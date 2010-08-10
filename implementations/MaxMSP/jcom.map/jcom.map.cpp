@@ -51,6 +51,8 @@ void 		map_scaleOutput(t_map *obj);
 t_class		*map_class;			// Required. Global pointing to this class
 
 
+#pragma mark -
+#pragma mark main
 /************************************************************************************/
 // Main() Function
 
@@ -104,6 +106,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 }
 
 
+#pragma mark -
+#pragma mark life cycle
 /************************************************************************************/
 // Object Life
 
@@ -141,6 +145,8 @@ void map_free(t_map *obj)
 }
 
 
+#pragma mark -
+#pragma mark methods
 /************************************************************************************/
 // Methods bound to input/inlets
 
@@ -330,12 +336,17 @@ void map_setParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 }
 
 
-// ATTRIBUTE:
+#pragma mark -
+#pragma mark attributes
+/************************************************************************************/
+// Attributes
+
+
 void map_doSetFunction(t_map *obj, t_symbol *newFunctionName)
 {
 	obj->attr_function = newFunctionName;
 	FunctionLib::createUnit(TT(obj->attr_function->s_name), (TTObject **)&obj->functionUnit);
-
+	
 	if (obj->functionUnit) {
 		long		n;
 		TTValue		names;
@@ -351,10 +362,10 @@ void map_doSetFunction(t_map *obj, t_symbol *newFunctionName)
 			
 			if (aName == TT("Bypass") || aName == TT("Mute") || aName == TT("MaxNumChannels") || aName == TT("SampleRate"))
 				continue;										// don't publish these parameters
-
+			
 			if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
 				nameString[0] += 32;							// convert first letter to lower-case for Max
-
+				
 				TTValuePtr v = new TTValue(aName);
 				obj->parameterNames->append(TT(nameString.c_str()), *v);
 			}
@@ -363,6 +374,8 @@ void map_doSetFunction(t_map *obj, t_symbol *newFunctionName)
 	obj->valid = true;
 }
 
+
+// ATTRIBUTE: Set function
 t_max_err map_setFunction(t_map *obj, void *attr, long argc, t_atom *argv)
 {
 	obj->valid = false;	// prevent values from being processed by the function while it is in a state of flux
