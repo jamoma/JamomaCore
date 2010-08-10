@@ -15,12 +15,9 @@
 
 
 class NoneRamp : public RampUnit{
-private:
+	TTCLASS_SETUP(NoneRamp)
 	
 public:
-	NoneRamp(RampUnitCallback aCallbackMethod, void *aBaton);
-	~NoneRamp();
-	
 	void go(TTUInt32 numValues, TTFloat64 *inValues, TTFloat64 time);
 	void stop();
 	void tick();

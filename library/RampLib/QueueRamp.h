@@ -15,6 +15,8 @@
 
 
 class QueueRamp : public RampUnit{
+	TTCLASS_SETUP(QueueRamp)
+
 private:
 	char				active;			///< is the ramp running?
 	float				ramptime;		///< in ms
@@ -23,9 +25,6 @@ private:
 	void				*qelem;			///< pointer to a Max queue element instance
 	
 public:
-	QueueRamp(RampUnitCallback aCallbackMethod, void *aBaton);
-	~QueueRamp();
-	
 	void go(TTUInt32 numValues, TTFloat64 *inValues, TTFloat64 time);
 	void stop();
 	void tick();

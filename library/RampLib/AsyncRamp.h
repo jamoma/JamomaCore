@@ -16,16 +16,15 @@
 
 
 class AsyncRamp : public RampUnit{
+	TTCLASS_SETUP(AsyncRamp)
+
 private:
 	char				active;			///< is the ramp running?
 	float				ramptime;		///< in ms
 	unsigned long		startTime;
 	unsigned long		targetTime;
 	
-public:
-	AsyncRamp(RampUnitCallback aCallbackMethod, void *aBaton);
-	~AsyncRamp();
-	
+public:	
 	void go(TTUInt32 numValues, TTFloat64 *inValues, TTFloat64 time);
 	void stop();
 	void tick();

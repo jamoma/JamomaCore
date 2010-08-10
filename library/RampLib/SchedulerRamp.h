@@ -15,6 +15,8 @@
 
 
 class SchedulerRamp : public RampUnit{
+	TTCLASS_SETUP(SchedulerRamp)
+
 private:
 	float				ramptime;			///< in ms
 	unsigned long		startTime;
@@ -30,9 +32,6 @@ private:
 	TTErr setClock(const TTValue& newValue);
 
 public:
-	SchedulerRamp(RampUnitCallback aCallbackMethod, void *aBaton);
-	~SchedulerRamp();
-	
 	void go(TTUInt32 numValues, TTFloat64 *inValues, TTFloat64 time);
 	void stop();
 	void tick();

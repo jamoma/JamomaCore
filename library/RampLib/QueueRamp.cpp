@@ -11,6 +11,11 @@
 #include "Jamoma.h"
 #include "QueueRamp.h"
 
+#define thisTTClass			QueueRamp
+#define thisTTClassName		"QueueRamp"
+#define thisTTClassTags		"modular, max, rampunit"
+
+
 // called by the Max queue, and provided to the qelem -- needs to have a C interface
 void queueramp_qfn(QueueRamp *x)
 {
@@ -18,10 +23,9 @@ void queueramp_qfn(QueueRamp *x)
 }
 
 
-QueueRamp::QueueRamp(RampUnitCallback aCallbackMethod, void *aBaton)
-	: RampUnit("ramp.queue", aCallbackMethod, aBaton)
+TT_RAMPUNIT_CONSTRUCTOR,
+	active(0)
 {
-	active = 0;
 	qelem = qelem_new(this, (method)queueramp_qfn);	// install the queue element
 }
 
