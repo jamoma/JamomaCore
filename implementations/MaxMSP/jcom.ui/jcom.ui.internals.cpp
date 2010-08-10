@@ -3,8 +3,8 @@
  * External for Jamoma: provide standard user interface component for modules
  * By Tim Place, Copyright © 2007
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "jcom.ui.h"
