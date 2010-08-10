@@ -266,7 +266,7 @@ void param_free(t_param *x)
 	jcom_core_subscriber_common_free((t_jcom_core_subscriber_common *)x);
 	qelem_free(x->ui_qelem);
 	if (x->ramper)
-		delete x->ramper;
+		TTObjectRelease((TTObjectPtr*)&x->ramper);
 	if (x->receive)
 		object_free(x->receive);
 	delete x->rampParameterNames;
@@ -1751,7 +1751,7 @@ void param_ramp_setup(t_param *x)
 {
 	// 1. destroy the old rampunit
 	if (x->ramper != NULL) {
-		delete x->ramper;
+		TTObjectRelease((TTObjectPtr*)&x->ramper);
 		x->ramper = NULL;
 	}
 		
