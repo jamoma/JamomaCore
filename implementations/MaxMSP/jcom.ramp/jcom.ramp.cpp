@@ -79,6 +79,13 @@ void ramp_stop(t_ramp *x);
 /** Method for list input <value(s), "ramp", ramptime> */
 void		ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
 
+/** Method for getting all available ramp units */
+void		ramp_getDrives(t_ramp *x);
+
+/** Method for getting all available functions */
+void		ramp_getFunctions(t_ramp *x);
+
+
 /** Triggered by our Ramp Unit's tick function */
 void		ramp_callback(void *v, long numvalues, double *values);
 
@@ -119,6 +126,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ramp_attrget,				"attrget",					A_GIMME,	0);
 	class_addmethod(c, (method)ramp_getFunctionParameter,	"function.parameter.get",	A_GIMME,	0);
 	class_addmethod(c, (method)ramp_setFunctionParameter,	"function.parameter",		A_GIMME,	0);
+	class_addmethod(c, (method)ramp_getDrives,				"drives.get",				0);
+	class_addmethod(c, (method)ramp_getFunctions,			"functions.get",			0);
 	class_addmethod(c, (method)ramp_clock,					"clock",					A_SYM,		0);
 	class_addmethod(c, (method)ramp_assist,					"assist",					A_CANT,		0); 
     class_addmethod(c, (method)object_obex_dumpout,			"dumpout",					A_CANT,		0);
@@ -320,9 +329,31 @@ void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 }
 
 
+
+void ramp_getDrives(t_ramp *x)
+{
+	t_atom		a[2];
+	t_symbol	**rampUnitNames = NULL;
+	long		numRampUnits = 0;
+	long		i;
+	
+	atom_setsym(a+0, gensym("clear"));
+	object_obex_dumpout(obj, gensym("DataspacesMenu"), 1, a);
+	
+	jamoma_getUnitNames(&numRampUnits, &dataspaceNames);
+}
+
+
+void ramp_getFunctions(t_ramp *x)
+{
+	
+}
+
+
 #pragma mark -
 #pragma mark attributes
-// ATTRIBUTE: set rampunit
+/************************************************************************************/
+// Attributes
 t_max_err ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv)
 {
 	x->attr_rampunit = atom_getsym(argv);
@@ -375,6 +406,8 @@ void ramp_setFunction(t_ramp *x, void *attr, long argc, t_atom *argv)
 
 #pragma mark -
 #pragma mark attributes of attributes
+/************************************************************************************/
+// Attributes of attributes
 void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_atom*		a;
