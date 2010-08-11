@@ -2,8 +2,8 @@
  * TTBlue (Linked) List Class
  * Copyright © 2008, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTList.h"
@@ -43,10 +43,12 @@ TTValue& TTList::getTail()
 	return *theList.back();
 }
 
+
 void TTList::begin()
 {
 	theIter = theList.begin();	
 }
+
 
 bool TTList::end()
 {
@@ -59,15 +61,18 @@ void TTList::next()
 	theIter++;
 }
 
+
 void TTList::prev()
 {
 	theIter--;
 }
 
+
 TTValue& TTList::current()
 {
 	return **theIter;
 }
+
 
 TTBoolean TTList::isEmpty()
 {
@@ -101,6 +106,7 @@ void TTList::append(const TTValue& newValue)
 	theList.insert(theList.end(), (TTValue*)&newValue);
 	unlock();
 }
+
 
 void TTList::appendUnique(const TTValuePtr newValue)
 {
@@ -261,6 +267,7 @@ void TTList::lock()
 	if (mThreadProtection)
 		mMutex->lock();
 }
+
 
 void TTList::unlock()
 {

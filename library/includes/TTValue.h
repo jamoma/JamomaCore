@@ -2,8 +2,8 @@
  * TTBlue Class for representing Values
  * Copyright © 2008, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_VALUE_H__
@@ -143,6 +143,7 @@ public:
 	/** Return the type of a particular member of this value (assuming it is an array). */
 	TTDataType getType(const TTUInt16 index) const;
 
+	
 private:
 	/** Internal method used by the constructors. */
 	void init();
@@ -152,7 +153,8 @@ private:
 	
 	/** Performs a deep copy of the object */
 	inline void copy(const TTValue& obj);
-	
+
+
 public:
 	/** Return the number of values of this instance. */
 	TTUInt16 getSize() const;
@@ -443,6 +445,7 @@ public:
 		}
 	}
 	
+	
 	void cliplow(const TTFloat64& lowBound)
 	{
 		for (TTUInt16 i=0; i<numValues; i++) {
@@ -486,6 +489,7 @@ public:
 		}
 	}
 	
+	
 	void cliphigh(const TTFloat64& highBound)
 	{
 		for (TTUInt16 i=0; i<numValues; i++) {
@@ -528,6 +532,7 @@ public:
 			}
 		}
 	}
+	
 	
 	void round()
 	{

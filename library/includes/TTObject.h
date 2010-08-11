@@ -2,8 +2,8 @@
  * TTBlue Object Base Class
  * Copyright © 2008, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_OBJECT_H__
@@ -197,7 +197,6 @@ public:
 	TTErr registerAttributeProperty(const TTSymbolPtr attributeName, const TTSymbolPtr propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter);
 
 
-
 	/** return a list of names of the available attributes */
 	void getAttributeNames(TTValue& attributeNameList);
 	
@@ -214,7 +213,7 @@ public:
 	TTErr sendMessage(const TTSymbolPtr name);
 	TTErr sendMessage(const TTSymbolPtr name, TTValue& value);
 
-// TODO:
+// TODO: implement
 //	TTErr registerMessageProperty(const TTSymbolPtr messageName, const TTSymbolPtr propertyName, const TTValue& initialValue);
 	
 	TTErr registerObserverForMessage(const TTObject& observingObject, const TTSymbolPtr messageName);

@@ -285,7 +285,7 @@ TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfPi;						///< pre-calculated v
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoPi;						///< pre-calculated value of pi * 2
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTAntiDenormalValue;			///< constant used by the ttantidenormal function
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTSqrt2;						///< pre-calculated square-root of 2
-
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTEpsilon;						///< a very very small value
 
 /** Platform and host independent method for posting messages. */
 void TTFOUNDATION_EXPORT TTLogMessage(TTImmutableCString message, ...);

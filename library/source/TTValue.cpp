@@ -2,8 +2,8 @@
  * TTBlue Class for representing Values
  * Copyright © 2008, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTValue.h"
@@ -221,8 +221,9 @@ void TTValue::setSize(const TTUInt16 arg)
 		TTUInt16	safeNumValues = (arg < numValues) ? arg : numValues;	// The safe number of values that can be copied.
 		
 		numValues = arg;
-		TTDataType* t = new TTDataType[numValues];
-		DataValue* d = new DataValue[numValues];
+		TTDataType*	t = new TTDataType[numValues];
+		DataValue*	d = new DataValue[numValues];
+		
 		if (safeNumValues) {
 			memcpy(t, type, sizeof(TTDataType) * safeNumValues);
 			memcpy(d, data, sizeof(TTValue::DataValue) * safeNumValues);

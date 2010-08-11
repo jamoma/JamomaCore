@@ -2,8 +2,8 @@
  * TTBlue Library
  * Copyright © 2008, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTFoundation.h"
@@ -23,7 +23,8 @@
 #endif
 
 
-static bool TTFoundationHasInitialized = false;
+static bool		TTFoundationHasInitialized = false;
+static TTString	TTFoundationBinaryPath = "";
 
 void		TTFoundationLoadExternalClasses();
 void		TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath);
@@ -31,10 +32,13 @@ TTObjectPtr	TTFoundationInstantiateInternalClass(TTSymbol* className, TTValue& a
 
 
 /****************************************************************************************************/
-void TTFoundationInit()
+void TTFoundationInit(const char* pathToBinaries)
 {
 	if (!TTFoundationHasInitialized) {
 		TTFoundationHasInitialized = true;
+		
+		if (pathToBinaries)
+			TTFoundationBinaryPath = pathToBinaries;
 		
 		ttSymbolTable = new TTSymbolTable;
 		for (int i=0; i<kNumTTDataTypes; i++)
@@ -46,10 +50,14 @@ void TTFoundationInit()
 		TTValueCacheInit();
 		
 #ifdef TT_DEBUG
-		TTLogMessage("JamomaFoundation -- Version %s -- Debugging Enabled\n", TTFOUNDATION_VERSION_STRING);
+		TTLogMessage("JamomaFoundation (TT_DEBUG) -- Version %s", TTFOUNDATION_VERSION_STRING);
 #else
-		TTLogMessage("JamomaFoundation -- Version %s\n", TTFOUNDATION_VERSION_STRING);
+		TTLogMessage("JamomaFoundation -- Version %s", TTFOUNDATION_VERSION_STRING);
 #endif
+		if (pathToBinaries)
+			TTLogMessage("-- Path %s\n", pathToBinaries);
+		else
+			TTLogMessage("\n");
 		
 		// register classes -- both internal and external
 		TTCallback::registerClass();
@@ -73,44 +81,49 @@ void TTFoundationShutdown()
 void TTFoundationLoadExternalClasses()
 {
 #ifdef TT_PLATFORM_MAC
-	OSErr		err = noErr;
-	FSRef		ref;
-	UInt8		path[4096];
-	TTString	fullpath;
-	
-	// Look in ~/Library/Application Support/TTBlue/Extensions
-	err = FSFindFolder(kLocalDomain, kApplicationSupportFolderType, kCreateFolder, &ref);
-	if (!err) {
-		FSRefMakePath(&ref, path, 4096);
-		fullpath = (char*)path;
-		fullpath += "/Jamoma/Extensions";
-		TTFoundationLoadExternalClassesFromFolder(fullpath);
+	if (!TTFoundationBinaryPath.empty()) {
+		// Look in the specified folder rather than the default location
+		TTString extensionsPath = TTFoundationBinaryPath + "/Extensions";
+		TTFoundationLoadExternalClassesFromFolder(extensionsPath);
 	}
-	
-	// Look in /Library/Application Support/TTBlue/Extensions
-	err = FSFindFolder(kUserDomain, kApplicationSupportFolderType, kCreateFolder, &ref);
-	if (!err) {
-		FSRefMakePath(&ref, path, 4096);
-		fullpath = (char*)path;
-		fullpath += "/Jamoma/Extensions";
-		TTFoundationLoadExternalClassesFromFolder(fullpath);
+	else {
+		OSErr		err = noErr;
+		FSRef		ref;
+		UInt8		path[4096];
+		TTString	fullpath;
+		
+		// Look in ~/Library/Application Support/Jamoma/Extensions
+		err = FSFindFolder(kLocalDomain, kApplicationSupportFolderType, kCreateFolder, &ref);
+		if (!err) {
+			FSRefMakePath(&ref, path, 4096);
+			fullpath = (char*)path;
+			fullpath += "/Jamoma/Extensions";
+			TTFoundationLoadExternalClassesFromFolder(fullpath);
+		}
+		
+		// Look in /Library/Application Support/Jamoma/Extensions
+		err = FSFindFolder(kUserDomain, kApplicationSupportFolderType, kCreateFolder, &ref);
+		if (!err) {
+			FSRefMakePath(&ref, path, 4096);
+			fullpath = (char*)path;
+			fullpath += "/Jamoma/Extensions";
+			TTFoundationLoadExternalClassesFromFolder(fullpath);
+		}
+		
+		// Look in the folder of the host application	
+		CFBundleRef mainBundle = CFBundleGetMainBundle();
+		CFURLRef	mainBundleURL = CFBundleCopyBundleURL(mainBundle);
+		CFStringRef mainBundlePath = CFURLCopyFileSystemPath(mainBundleURL, kCFURLPOSIXPathStyle);
+		char		mainBundleStr[4096];
+		
+		CFStringGetCString(mainBundlePath, mainBundleStr, 4096, kCFStringEncodingUTF8);
+		strncat(mainBundleStr, "/Contents/Jamoma/Extensions", 4096);
+		mainBundleStr[4095] = 0;
+		TTFoundationLoadExternalClassesFromFolder(mainBundleStr);
 	}
-	
-	// Look in the folder of the host application	
-	CFBundleRef mainBundle = CFBundleGetMainBundle();
-	CFURLRef	mainBundleURL = CFBundleCopyBundleURL(mainBundle);
-	CFStringRef mainBundlePath = CFURLCopyFileSystemPath(mainBundleURL, kCFURLPOSIXPathStyle);
-	char		mainBundleStr[4096];
-
-	CFStringGetCString(mainBundlePath, mainBundleStr, 4096, kCFStringEncodingUTF8);
-	strncat(mainBundleStr, "/Contents/Jamoma/Extensions", 4096);
-	mainBundleStr[4095] = 0;
-	TTFoundationLoadExternalClassesFromFolder(mainBundleStr);
-	
 #elif TT_PLATFORM_WIN
 	TTString	fullpath;
 	char		temppath[4096];
-//	WCHAR		wc[4096];
 	HKEY		hKey = 0;
 	LONG		lRes;
 	DWORD		dwSize = sizeof(temppath);

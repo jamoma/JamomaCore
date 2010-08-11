@@ -2,8 +2,8 @@
  * TTBlue Class for working with threads
  * Copyright © 2008, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_THREAD_H__
@@ -62,6 +62,8 @@ public:
 #endif
 	}
 };
+
+typedef TTThread* TTThreadPtr;
 
 
 #endif // __TT_THREAD_H__

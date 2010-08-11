@@ -2,8 +2,8 @@
  * TTBlue Data Object Base Class
  * Copyright © 2008, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_DATA_OBJECT_H__
@@ -12,7 +12,6 @@
 #include "TTObject.h"
 #include "TTSymbol.h"
 #include "TTValue.h"
-//#include "TTAudioObject.h"
 
 
 /****************************************************************************************************/
@@ -42,10 +41,10 @@ protected:
 protected:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/
 	TTDataObject(TTValue& arguments);
+
 public:	
 	/** Destructor. */
-	virtual ~TTDataObject();
-	
+	virtual ~TTDataObject();	
 	
 	/**	Setter for the sample-rate attribute.		*/
 	TTErr setSr(const TTValue& newValue);
@@ -53,4 +52,3 @@ public:
 
 
 #endif // __TT_DATA_OBJECT_H__
-

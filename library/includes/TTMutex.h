@@ -2,8 +2,8 @@
  * TTBlue Class that maintains a mutual exclusion lock
  * Copyright © 2008, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_MUTEX_H__
@@ -47,7 +47,6 @@ typedef TTMutex& TTMutexRef;
 	The idea for this comes from Effective STL #12, and uses the 'Resource Allocation is Initialization'
 	pattern popularized by Stroustrup.  http://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization
 */
-
 class TTFOUNDATION_EXPORT TTLock {
 private:
 	TTMutexPtr		mMutex;

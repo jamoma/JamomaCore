@@ -15,6 +15,9 @@ Release
 *.user
 *.mode1v3
 *.pbxuser
+*.perspectivev3
+xcuserdata
+project.xcworkspace
 *.orig
 *.o
 *.bundle

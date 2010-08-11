@@ -2,8 +2,8 @@
  * TTBlue Hash Table Class
  * Copyright © 2008, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_HASH_H__
@@ -43,8 +43,6 @@ typedef TTHashMap::const_iterator			TTHashMapIter;
 	- For example, we may later make TTHash inherit from TTObject and want to address it with messages.
 	- This approach isolates coders from having to worry about an template craziness
 	- This approach offers the possibility, should the need ever arise, to change the underlying implementation away from STL.
- 
- 
 */
 class TTFOUNDATION_EXPORT TTHash : TTElement {
 private:

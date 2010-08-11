@@ -2,8 +2,8 @@
  * TTBlue Object Base Class
  * Copyright © 2008, Timothy Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_MESSAGE_H__
@@ -35,7 +35,6 @@
 	for TTMethod.
 */
 class TTFOUNDATION_EXPORT TTMessage : public TTObject {
-private:
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
 	const TTSymbolPtr	name;		///< the name of the message.
