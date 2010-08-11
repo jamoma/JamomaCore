@@ -340,7 +340,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 40.0, 671.0, 134.0, 19.0 ],
-									"text" : "Right:"
+									"text" : "Middle:"
 								}
 
 							}

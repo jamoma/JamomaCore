@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 103.0, 236.0, 480.0, 457.0 ],
+		"rect" : [ 745.0, 47.0, 480.0, 457.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 103.0, 236.0, 480.0, 457.0 ],
+		"defrect" : [ 745.0, 47.0, 480.0, 457.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -15,6 +15,9 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
+		"enablehscroll" : 1,
+		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"args" : [ "@name", "jcom.datetime", "@description", "Return the date and time in ISO8601 format" ],
@@ -24,7 +27,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 1031.0, 60.0 ],
+					"patching_rect" : [ 0.0, 0.0, 480.0, 70.0 ],
 					"varname" : "maxhelpui"
 				}
 
@@ -62,6 +65,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-1",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -177,7 +181,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 24.0, 194.0, 146.0, 17.0 ],
-					"text" : "2009-18-07T16:14:48"
+					"text" : "2010-06-14 :13:27:41"
 				}
 
 			}
@@ -225,6 +229,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-13",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -238,23 +243,24 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-17",
-					"linecount" : 4,
+					"linecount" : 5,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 117.0, 115.0, 354.0, 55.0 ],
-					"text" : "MODE:\n0 = only date, no time\r1 = date and time in ISO8601 (YYYY-MM-DDTHH:MM:SS) (default)\r2 = date and time in almost ISO8601 (YYYY-MM-DDTHH-MM-SS)"
+					"patching_rect" : [ 117.0, 115.0, 354.0, 67.0 ],
+					"text" : "MODE:\n0 = only date, no time\r1 = date and time in ISO8601 (YYYY-MM-DDTHH:MM:SS) (default)\r2 = date and time in almost ISO8601 (YYYY-MM-DDTHH-MM-SS)\n3 = date and time  (YYYY-MM-DD HH:MM:SS)"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-12", 0 ],
+					"destination" : [ "obj-9", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 63.5, 139.5, 33.5, 139.5 ],
-					"source" : [ "obj-8", 0 ]
+					"midpoints" : [  ],
+					"source" : [ "obj-10", 0 ]
 				}
 
 			}
@@ -278,10 +284,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-9", 0 ],
-					"hidden" : 0,
+					"destination" : [ "obj-11", 0 ],
+					"hidden" : 1,
 					"midpoints" : [  ],
-					"source" : [ "obj-10", 0 ]
+					"source" : [ "obj-18", 0 ]
 				}
 
 			}
@@ -314,15 +320,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-6", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
 					"midpoints" : [ 33.5, 377.0, 73.5, 377.0 ],
@@ -332,6 +329,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-19", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 73.5, 385.5, 355.5, 385.5 ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -341,19 +347,19 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-11", 0 ],
-					"hidden" : 1,
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-18", 0 ]
+					"source" : [ "obj-6", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-19", 1 ],
+					"destination" : [ "obj-12", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 73.5, 385.5, 355.5, 385.5 ],
-					"source" : [ "obj-5", 0 ]
+					"midpoints" : [ 63.5, 139.5, 33.5, 139.5 ],
+					"source" : [ "obj-8", 0 ]
 				}
 
 			}

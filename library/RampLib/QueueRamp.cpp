@@ -4,11 +4,16 @@
  *
  * By Tim Place, Copyright � 2006, 2007
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "QueueRamp.h"
+
+#define thisTTClass			QueueRamp
+#define thisTTClassName		"QueueRamp"
+#define thisTTClassTags		"modular, max, rampunit"
+
 
 // called by the Max queue, and provided to the qelem -- needs to have a C interface
 void queueramp_qfn(QueueRamp *x)
@@ -17,10 +22,9 @@ void queueramp_qfn(QueueRamp *x)
 }
 
 
-QueueRamp::QueueRamp(RampUnitCallback aCallbackMethod, void *aBaton)
-	: RampUnit("ramp.queue", aCallbackMethod, aBaton)
+TT_RAMPUNIT_CONSTRUCTOR,
+	active(0)
 {
-	active = 0;
 	qelem = qelem_new(this, (method)queueramp_qfn);	// install the queue element
 }
 

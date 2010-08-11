@@ -3,12 +3,18 @@
  * Functions and resources used by Jamoma objects.
  * By Tim Place, Copyright © 2007
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "Jamoma.h"
 #include "JamomaObject.h"
+
+#include "AsyncRamp.h"
+#include "NoneRamp.h"
+#include "QueueRamp.h"
+#include "SchedulerRamp.h"
+
 
 // constants
 const double k_pi = 3.1415926535897932;		// pi
@@ -36,6 +42,12 @@ void jamoma_init(void)
 		
 		TTModularInit("Jamoma");
 		TTDSPInit();
+		
+		AsyncRamp::registerClass();
+		NoneRamp::registerClass();
+		QueueRamp::registerClass();
+		SchedulerRamp::registerClass();
+		
 		common_symbols_init();
 		jamomaSymbolsInit();
 		
@@ -216,7 +228,7 @@ void jamoma_dsp(t_object *, t_signal **sp, short *count)
 // for example:
 // 	jamoma_class_attr_new(c, "ramp/drive", _sym_symbol, (method)param_setramp, 
 //		calcoffset(t_param, attr_ramp));
-void jamoma_class_attr_new(t_class *c, char *attrName, t_symbol *attrType, method setter, method getter)
+void jamoma_class_attr_new(t_class *c, const char *attrName, t_symbol *attrType, method setter, method getter)
 {
 	t_object	*attr = NULL;
 	char		getterName[256];
@@ -231,7 +243,7 @@ void jamoma_class_attr_new(t_class *c, char *attrName, t_symbol *attrType, metho
 }
 
 
-void jamoma_class_attr_array_new(t_class *c, char *attrName, t_symbol *attrType, long list_size, method setter, method getter)
+void jamoma_class_attr_array_new(t_class *c, const char *attrName, t_symbol *attrType, long list_size, method setter, method getter)
 {
 	t_object	*attr = NULL;
 	char		getterName[256];
@@ -239,7 +251,7 @@ void jamoma_class_attr_array_new(t_class *c, char *attrName, t_symbol *attrType,
 	strcpy(getterName, attrName);
 	strcat(getterName, "/get");
 
-	attr = attr_offset_array_new(attrName, _sym_atom, list_size, 0, getter, setter, NULL, NULL);
+	attr = attr_offset_array_new((char*)attrName, _sym_atom, list_size, 0, getter, setter, NULL, NULL);
 	class_addattr(c, attr);
 
 	class_addmethod(c, (method)jamoma_class_attr_get, getterName, A_GIMME, 0);

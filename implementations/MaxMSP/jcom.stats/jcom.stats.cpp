@@ -1,10 +1,10 @@
 /*
  * jcom.stats
  * External for Jamoma: calculate running statistical values
- * By Trond Lossius, Copyright © 2001-06
+ * By Trond Lossius, Copyright ï¿½ 2001-06
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "Jamoma.h"
@@ -13,14 +13,14 @@ typedef struct _stats{			// Data structure for this object
 	struct	object ob;			// Must always be the first field; used by Max
 	double	sumOfValues;		// Sum of values
 	double	sumOfSquaredValues;	// Sum of squared values
-	long	maxWindowSize;		// Maximum window size
-	long	windowSize;			// Actual window size
+	unsigned long	maxWindowSize;		// Maximum window size
+	unsigned long	windowSize;			// Actual window size
 	long	attr_windowed;		// ATTRIBUTE: Flag indicating if we calculating windowed statistics
-	long	valueCount;			// Number of floats counted so far
+	unsigned long	valueCount;			// Number of floats counted so far
 	double	*values;			// Pointer to array of values
 	double	min;				// Min value recorded (within the window)
 	double	max;				// Max value recorded (within the window)
-	long	index;				// Next value goes at this index in array
+	unsigned long	index;				// Next value goes at this index in array
 	void	*outlet;			// Pointer to outlet. Need one for each outlet. This is for mean
 	void	*outlet2;			// This is for standard deviation
 	void	*outlet3;			// This is for counter
@@ -207,7 +207,7 @@ void stats_float(t_stats *x, double f)
 void stats_set(t_stats *x, double f)
 {
 	double old, temp;
-	long i;
+	unsigned long i;
 
 	// Calculating windowed statistics
 	if (x->attr_windowed) {	
@@ -294,7 +294,7 @@ void stats_window(t_stats *x, long n)
 // CLEAR input
 void stats_clear(t_stats *x)
 {
-	long i;
+	unsigned long i;
 
 	x->sumOfValues = 0;
 	x->sumOfSquaredValues = 0;

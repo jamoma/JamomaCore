@@ -3,8 +3,8 @@
  * External for Jamoma: to manage cues in a text file 
  * By ThÈo de la Hogue, Copyright 2009
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 #include "jcom.cuemanager.h"
 
@@ -760,8 +760,6 @@ void cuemng_dosave(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 	cuemng_write_buffer(x);
 
 	critical_exit(0);
-	
-	post("nb_written_line : %d", x->nb_written_lines);
 
 	// close the file
 	err = sysfile_seteof(x->fh, x->eof);

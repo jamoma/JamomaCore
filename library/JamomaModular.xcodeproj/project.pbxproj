@@ -22,8 +22,6 @@
 		227C7EDA109A372800D4D8EF /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227C7ED9109A372800D4D8EF /* MaxAPI.framework */; };
 		227C7EDD109A373000D4D8EF /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227C7EDC109A373000D4D8EF /* MaxAudioAPI.framework */; };
 		227C7EE7109A374300D4D8EF /* commonsyms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 227C7EE6109A374300D4D8EF /* commonsyms.cpp */; };
-		227C7EE9109A376600D4D8EF /* JamomaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227C7EE8109A376600D4D8EF /* JamomaFoundation.framework */; };
-		227C7F02109A378700D4D8EF /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227C7F01109A378700D4D8EF /* JamomaDSP.framework */; };
 		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22AEF3260D0DB77900F7762D /* FunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22AEF3200D0DB77900F7762D /* FunctionLib.cpp */; };
 		22AEF3270D0DB77900F7762D /* FunctionLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 22AEF3210D0DB77900F7762D /* FunctionLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -66,6 +64,8 @@
 		D20A263711F7913F0001B0AD /* TTPreset.h in Headers */ = {isa = PBXBuildFile; fileRef = D20A263511F7913F0001B0AD /* TTPreset.h */; };
 		D20A268311F7B9D70001B0AD /* TTPresetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D20A268111F7B9D70001B0AD /* TTPresetManager.cpp */; };
 		D20A268411F7B9D70001B0AD /* TTPresetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D20A268211F7B9D70001B0AD /* TTPresetManager.h */; };
+		D213510E12131E8B00D03362 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D213510D12131E8B00D03362 /* JamomaFoundation.dylib */; };
+		D213512012131EB600D03362 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D213511F12131EB600D03362 /* JamomaDSP.dylib */; };
 		D2505E2B11F5B521000CD68C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2505E2A11F5B521000CD68C /* libxml2.dylib */; };
 		D295D18311FA07D3001CAB3E /* TTXmlHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = D295D18111FA07D3001CAB3E /* TTXmlHandler.h */; };
 		D295D18411FA07D3001CAB3E /* TTXmlHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D295D18211FA07D3001CAB3E /* TTXmlHandler.cpp */; };
@@ -118,8 +118,6 @@
 		227C7ED9109A372800D4D8EF /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../supports/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
 		227C7EDC109A373000D4D8EF /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../supports/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
 		227C7EE6109A374300D4D8EF /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../supports/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
-		227C7EE8109A376600D4D8EF /* JamomaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaFoundation.framework; path = ../../Foundation/library/build/UninstalledProducts/JamomaFoundation.framework; sourceTree = SOURCE_ROOT; };
-		227C7F01109A378700D4D8EF /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22AEF3200D0DB77900F7762D /* FunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionLib.cpp; sourceTree = "<group>"; };
 		22AEF3210D0DB77900F7762D /* FunctionLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionLib.h; sourceTree = "<group>"; };
@@ -162,6 +160,8 @@
 		D20A263511F7913F0001B0AD /* TTPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPreset.h; sourceTree = "<group>"; };
 		D20A268111F7B9D70001B0AD /* TTPresetManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTPresetManager.cpp; sourceTree = "<group>"; };
 		D20A268211F7B9D70001B0AD /* TTPresetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPresetManager.h; sourceTree = "<group>"; };
+		D213510D12131E8B00D03362 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
+		D213511F12131EB600D03362 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../DSP/library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
 		D2505E2A11F5B521000CD68C /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D295D18111FA07D3001CAB3E /* TTXmlHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTXmlHandler.h; sourceTree = "<group>"; };
 		D295D18211FA07D3001CAB3E /* TTXmlHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTXmlHandler.cpp; sourceTree = "<group>"; };
@@ -205,10 +205,10 @@
 				22F4249D0CFA79820088332F /* CoreAudio.framework in Frameworks */,
 				227C7EDA109A372800D4D8EF /* MaxAPI.framework in Frameworks */,
 				227C7EDD109A373000D4D8EF /* MaxAudioAPI.framework in Frameworks */,
-				227C7EE9109A376600D4D8EF /* JamomaFoundation.framework in Frameworks */,
-				227C7F02109A378700D4D8EF /* JamomaDSP.framework in Frameworks */,
 				D2D15E9B11B3D7930014B1B1 /* libDeviceManager.a in Frameworks */,
 				D2505E2B11F5B521000CD68C /* libxml2.dylib in Frameworks */,
+				D213510E12131E8B00D03362 /* JamomaFoundation.dylib in Frameworks */,
+				D213512012131EB600D03362 /* JamomaDSP.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,10 +247,10 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D213510D12131E8B00D03362 /* JamomaFoundation.dylib */,
+				D213511F12131EB600D03362 /* JamomaDSP.dylib */,
 				D2D15E9A11B3D7930014B1B1 /* libDeviceManager.a */,
 				D2505E2A11F5B521000CD68C /* libxml2.dylib */,
-				227C7F01109A378700D4D8EF /* JamomaDSP.framework */,
-				227C7EE8109A376600D4D8EF /* JamomaFoundation.framework */,
 				227C7ED9109A372800D4D8EF /* MaxAPI.framework */,
 				227C7EDC109A373000D4D8EF /* MaxAudioAPI.framework */,
 				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
@@ -614,6 +614,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/DeviceManagerLib\"",
 					"\"$(SRCROOT)/../../../../Device-Manager\"",
+					"\"$(SRCROOT)/../../Foundation/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../DSP/library/build/UninstalledProducts\"",
 				);
 				OTHER_CODE_SIGN_FLAGS = "";
 				SDKROOT = macosx10.5;
@@ -653,6 +655,8 @@
 					"\"$(SRCROOT)/../../../../../virage/sequenceur/trunk/libController/Plugins\"",
 					"\"$(SRCROOT)/DeviceManagerLib\"",
 					"\"$(SRCROOT)/../../../../Device-Manager\"",
+					"\"$(SRCROOT)/../../Foundation/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../DSP/library/build/UninstalledProducts\"",
 				);
 				SDKROOT = macosx10.5;
 				SKIP_INSTALL = YES;

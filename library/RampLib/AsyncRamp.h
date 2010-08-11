@@ -5,8 +5,8 @@
  *
  * By Trond Lossius, Copyright © 2007
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __ASYNC_H__
@@ -16,16 +16,15 @@
 
 
 class AsyncRamp : public RampUnit{
+	TTCLASS_SETUP(AsyncRamp)
+
 private:
 	char				active;			///< is the ramp running?
 	float				ramptime;		///< in ms
 	unsigned long		startTime;
 	unsigned long		targetTime;
 	
-public:
-	AsyncRamp(RampUnitCallback aCallbackMethod, void *aBaton);
-	~AsyncRamp();
-	
+public:	
 	void go(TTUInt32 numValues, TTFloat64 *inValues, TTFloat64 time);
 	void stop();
 	void tick();

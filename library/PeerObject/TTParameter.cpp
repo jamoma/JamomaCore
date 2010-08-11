@@ -83,7 +83,7 @@ TTParameter::~TTParameter()
 {
 #ifdef TTPARAMETER_RAMPLIB	
 	if (mRamper)
-	delete mRamper;
+		TTObjectRelease(TTObjectHandle(&mRamper));
 #endif
 	
 	if (mReturnValueCallback)
@@ -840,7 +840,7 @@ TTErr TTParameter::rampSetup()
 
 	// 1. destroy the old rampunit
 	if (mRamper != NULL) {
-		delete mRamper;
+		TTObjectRelease(TTObjectHandle(&mRamper));
 		mRamper = NULL;
 	}
 	

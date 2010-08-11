@@ -2,8 +2,8 @@
  * Jamoma RampLib Base Class
  * Copyright © 2008, Tim Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifdef WIN_VERSION
@@ -11,14 +11,16 @@
 #endif // WIN_VERSION
 
 #include "RampLib.h"
+#include "ext.h"
 
 #define thisTTClass RampUnit
 
-RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void *aBaton) : 
+//RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void *aBaton) : 
+RampUnit::RampUnit(TTValue& arguments) :
 	TTObject(kTTValNONE),
 	mFunction(NULL),
-	callback(aCallbackMethod),
-	baton(aBaton),
+	callback(NULL),
+	baton(NULL),
 	startValue(NULL),
 	targetValue(NULL),
 	currentValue(NULL),
@@ -31,6 +33,9 @@ RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void 
 	targetValue[0] = 0.0;
 	startValue[0] = 0.0;
 
+	arguments.get(0, (TTPtr*)&callback);
+	arguments.get(1, (TTPtr*)&baton);
+	
 	addAttributeWithSetter(Function, kTypeSymbol);
 	setAttributeValue(TT("Function"), TT("linear"));
 }
@@ -128,23 +133,30 @@ void RampUnit::setNumValues(TTUInt32 newNumValues)
 
 TTErr RampLib::createUnit(const TTSymbol* unitName, RampUnit **unit, RampUnitCallback callback, void* baton)
 {
-	if (*unit)
-		delete *unit;
-
+	TTValue v;
+	
+	v.setSize(2);
+	v.set(0, TTPtr(callback));
+	v.set(1, TTPtr(baton));
+	
 	// These should be alphabetized
 	if (unitName == TT("async"))
-		*unit = (RampUnit*) new AsyncRamp(callback, baton);
+		TTObjectInstantiate(TT("AsyncRamp"), (TTObjectPtr*)unit, v);
+		//*unit = (RampUnit*) new AsyncRamp(callback, baton);
 	else if (unitName == TT("none"))
-		*unit = (RampUnit*) new NoneRamp(callback, baton);
+		TTObjectInstantiate(TT("NoneRamp"), (TTObjectPtr*)unit, v);
+//		*unit = (RampUnit*) new NoneRamp(callback, baton);
 	else if (unitName == TT("queue"))
-		*unit = (RampUnit*) new QueueRamp(callback, baton);
+		TTObjectInstantiate(TT("QueueRamp"), (TTObjectPtr*)unit, v);
+//		*unit = (RampUnit*) new QueueRamp(callback, baton);
 	else if (unitName == TT("scheduler"))
-		*unit = (RampUnit*) new SchedulerRamp(callback, baton);
+		TTObjectInstantiate(TT("SchedulerRamp"), (TTObjectPtr*)unit, v);
+//		*unit = (RampUnit*) new SchedulerRamp(callback, baton);
 	else {
 		// Invalid function specified default to linear
-		//error("Jamoma RampLib: Invalid RampUnit ( %s ) specified", (char*)unitName);
-		*unit = (RampUnit*) new NoneRamp(callback, baton);
-		return kTTErrGeneric;
+		error("Jamoma RampLib: Invalid RampUnit ( %s ) specified", (char*)unitName);
+		TTObjectInstantiate(TT("NoneRamp"), (TTObjectPtr*)unit, v);
+//		*unit = (RampUnit*) new NoneRamp(callback, baton);
 	}
 	return kTTErrNone;
 }

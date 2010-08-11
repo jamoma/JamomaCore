@@ -3,8 +3,8 @@
  * External for Jamoma: provide standard user interface component for modules
  * By Tim Place, Copyright © 2007
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 // TODO: Color of the gain know should change color over the range the same as the meter does?
@@ -422,7 +422,8 @@ void ui_paint(t_ui *x, t_object *view)
 	// draw the gain knob
 	if (x->attr_hasgain) {
 		long right_side = rect.width - 16.0;
-		float gain = TTClip(x->attr_gain, 0.0f, 127.0f);
+		float gain = x->attr_gain;
+		TTLimit(gain, 0.0f, 127.0f);
 
 		if (x->attr_hasmix)
 			right_side -= 16.0;
@@ -472,7 +473,8 @@ void ui_paint(t_ui *x, t_object *view)
 	// draw the mix knob
 	if (x->attr_hasmix) {
 		long right_side = rect.width - 16.0;
-		float mix = TTClip(x->attr_mix, 0.0f, 100.0f);
+		float mix = x->attr_mix;
+		TTLimit(mix, 0.0f, 100.0f);
 
 		if (x->attr_hasmute)
 			right_side -= 16.0;
@@ -764,11 +766,13 @@ void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 		factor = 0.02;
 	
 	if (x->mixDragging) {
-		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y * factor), 0.0, 100.0);
+		x->anchorValue = x->anchorValue - (pt.y * factor);
+		TTLimit(x->anchorValue, 0.0f, 100.0f);
 		object_attr_setfloat(x, gensym("mix"), x->anchorValue);
 	}
 	else if (x->gainDragging) {
-		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y * factor), 0.0, 127.0);
+		x->anchorValue = x->anchorValue - (pt.y * factor);
+		TTLimit(x->anchorValue, 0.0f, 127.0f);
 		object_attr_setfloat(x, gensym("gain"), x->anchorValue);
 	}
 }

@@ -49,9 +49,10 @@ typedef struct _meter{
 	long		attrDefeat;			// disable the meter
 	char		attrNumChannels;	// TODO: number of audio channels to display
 	float		attrInterval;		// TODO: make the polling interval dynamic
-	t_jrgba		attrBgColor;
+	t_jrgba		attrBgColor;		///< Background color
 	t_jrgba		attrBorderColor;
 	long		attrOrientation;	// the orientation mode
+	
 	long		effectOrientation;	// the effective orientation of the object (0: vertical, 1: horizontal)
 	TTFloat32	envelope;			// the result of the amplitude analysis [0.0, 1.0]
 	TTFloat32	newEnvelope;
@@ -128,6 +129,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_CATEGORY(c,					"orientation",	0,"Appearance");
 	CLASS_ATTR_ENUMINDEX(c,					"orientation",	0, "Automatic Horizontal Vertical");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT(c,		"orientation",	0,"0");
+	
+	CLASS_ATTR_RGBA(c,						"bgcolor",		0,	t_meter,	attrBgColor);
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bgcolor",		0,	"0.1 0.1 0.1 1.0");
+	CLASS_ATTR_STYLE(c,						"bgcolor",		0,	"rgba");
+	CLASS_ATTR_LABEL(c,						"bgcolor",		0,	"Background Color");
 	
 	CLASS_ATTR_LONG(c,						"defeat",	0, t_meter, attrDefeat);
 	CLASS_ATTR_LABEL(c,						"defeat",	0, "defeat");	
@@ -283,16 +289,12 @@ void meter_set(t_meter *x, double value)
 void meter_clock(t_meter *x)
 {	
 	double delta = fabs(x->newEnvelope - x->envelope);
-	
-	// Only re-draw if there was a change of some significance
-	if (delta > kMinimumChangeForRedraw) {	
-		x->envelope = x->newEnvelope;
-		jbox_redraw((t_jbox *)x);
-	}
-	else
-		x->envelope = x->newEnvelope;
-   
+	x->envelope = x->newEnvelope;
 	x->newEnvelope = 0;
+	// Only re-draw if there was a change of some significance
+	if (delta > kMinimumChangeForRedraw) 	
+		jbox_redraw((t_jbox *)x);
+	   	
     outlet_float(x->outlet, x->envelope); 
 	if (sys_getdspstate()) {							// if dsp is on then we schedule another tick
 		if (x->attrDefeat == 0)
@@ -344,8 +346,8 @@ void meter_dsp(t_meter *x, t_signal **sp, short *count)
 
 void *meter_oksize(t_meter *x, t_rect *newrect)
 {
-	TTClip(newrect->width, kWidthMinimum, kWidthMaximum);
-	TTClip(newrect->height, kHeightMinimum, kHeightMaximum);
+	TTLimit(newrect->width, kWidthMinimum, kWidthMaximum);
+	TTLimit(newrect->height, kHeightMinimum, kHeightMaximum);
 	meterCacheSurface(x);	// Now draw the gradient and cache it in our surface
 	return (void*)1;
 }
@@ -448,21 +450,18 @@ void meter_dopaint_horizontal(t_meter *x, t_object *view) {
 	rect.x = 0;
 	rect.y = 0;
 	position = rect.width * level * 0.96;
-	peakPosition = rect.width * x->peak * 0.96;
-
+	peakPosition = rect.width * x->peak * 0.96;	
+		
 	if (level > x->peak)
 		x->peak = level;
 						
 	// TODO: Can we export this from the kernel???	
 	//	jgraphics_image_surface_draw_fast(g, x->gradientSurface);
 	jgraphics_image_surface_draw(g, x->gradientSurface, x->gradientRect, rect);
-	
-	c.red = c.green = c.blue = 0.1;
-	c.alpha = 1.0;
-	jgraphics_set_source_jrgba(g, &c);
-
+    
+	jgraphics_set_source_jrgba(g, &x->attrBgColor);
 	jgraphics_rectangle_fill_fast(g, position, 0, rect.width-position, rect.height);
-
+    	
 	if (x->envelope > 1.0 || x->peak > 1.0) {
 		c.red = 1.0;
 		c.green = c.blue = 0.0;
@@ -474,6 +473,7 @@ void meter_dopaint_horizontal(t_meter *x, t_object *view) {
 		c.red = peakPosition / x->gradientRect.width;
 		c.green = 1.0;
 		c.blue = 0.0;
+		c.alpha = 1.0;
 		jgraphics_set_source_jrgba(g, &c);
 		// TODO: Can we export this from the kernel???	
 		// jgraphics_line_draw_fast(g, rect.width * level * 0.96, 0, rect.width * level * 0.96, rect.height, 1.0);
@@ -510,10 +510,7 @@ void meter_dopaint_vertical(t_meter *x, t_object *view) {
 	//	jgraphics_image_surface_draw_fast(g, x->gradientSurface);
 	jgraphics_image_surface_draw(g, x->gradientSurface, x->gradientRect, rect);
 	
-	c.red = c.green = c.blue = 0.1;
-	c.alpha = 1.0;
-	jgraphics_set_source_jrgba(g, &c);
-
+	jgraphics_set_source_jrgba(g, &x->attrBgColor);
 	jgraphics_rectangle_fill_fast(g, 0, 0, rect.width, rect.height-position);
 
 	if (x->envelope > 1.0 || x->peak > 1.0) {
@@ -527,6 +524,7 @@ void meter_dopaint_vertical(t_meter *x, t_object *view) {
 		c.red = peakPosition / x->gradientRect.height;
 		c.green = 1.0;
 		c.blue = 0.0;
+		c.alpha = 1.0;
 		jgraphics_set_source_jrgba(g, &c);
 		// TODO: Can we export this from the kernel???	
 		// jgraphics_line_draw_fast(g, rect.width * level * 0.96, 0, rect.width * level * 0.96, rect.height, 1.0);

@@ -4,11 +4,16 @@
  *
  * By Tim Place, Copyright © 2006, 2007
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "SchedulerRamp.h"
+
+#define thisTTClass			SchedulerRamp
+#define thisTTClassName		"SchedulerRamp"
+#define thisTTClassTags		"modular, max, rampunit"
+
 
 // called by the Max queue, and provided to the qelem -- needs to have a C interface
 void schedulerramp_clockfn(SchedulerRamp *x)
@@ -17,8 +22,9 @@ void schedulerramp_clockfn(SchedulerRamp *x)
 }
 
 
-SchedulerRamp::SchedulerRamp(RampUnitCallback aCallbackMethod, void *aBaton)
-	: RampUnit("ramp.scheduler", aCallbackMethod, aBaton), stepsize(0.0), isRunning(false)
+TT_RAMPUNIT_CONSTRUCTOR,
+	stepsize(0.0), 
+	isRunning(false)
 {
 	clock = clock_new(this, (method)&schedulerramp_clockfn);	// install the max timer
 
@@ -41,7 +47,6 @@ SchedulerRamp::~SchedulerRamp()
 TTErr SchedulerRamp::setClock(const TTValue& newValue)
 {
 	attrClock = newValue;
-	//post("Tutten betutten");
 	return kTTErrNone;
 }
 
@@ -51,17 +56,27 @@ void SchedulerRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time
 	TTUInt32 i;
 	
 	ramptime = time;
-	numgrains = ramptime / attrGranularity;
-	stepsize = 1.0 / numgrains;
-
 	setNumValues(inNumValues);
-	for (i=0; i<numValues; i++) {
-		targetValue[i] = inValues[i];
-		startValue[i] = currentValue[i];
+	
+	// Test: Do we need to ramp at all?
+	if (ramptime<=0.) {
+		for (i=0; i<numValues; i++)
+			currentValue[i] = inValues[i];
+		isRunning = false;
+		(callback)(baton, numValues, currentValue);		// output end values
 	}
-	normalizedValue = 0.0;				// set the ramp to the beginning
-	isRunning = true;
-	setclock_fdelay(NULL, clock, 0);	// start now
+	else {
+		numgrains = ramptime / attrGranularity;
+		stepsize = 1.0 / numgrains;		
+		for (i=0; i<numValues; i++) {
+			targetValue[i] = inValues[i];
+			startValue[i] = currentValue[i];
+		}
+		normalizedValue = 0.0;							// set the ramp to the beginning
+		isRunning = true;
+		(callback)(baton, numValues, currentValue);		// output start values
+		setclock_fdelay(NULL, clock, attrGranularity);	// and schedule first tick
+	}
 }
 
 
@@ -83,7 +98,7 @@ void SchedulerRamp::tick()
 	if (functionUnit && isRunning) {
 		// 1. go to the the next step in our ramp
 		numgrains--;
-		if (numgrains == 0) {
+		if (numgrains <= 0.) {
 			for (i=0; i < numValues; i++)
 				currentValue[i] = targetValue[i];
 		}
@@ -98,7 +113,7 @@ void SchedulerRamp::tick()
 		(callback)(baton, numValues, currentValue);
 
 		// 3. set the clock to fire again
-		if (numgrains)
+		if (numgrains > 0.)
 			setclock_fdelay(NULL, clock, attrGranularity);
 		else
 			isRunning = false;

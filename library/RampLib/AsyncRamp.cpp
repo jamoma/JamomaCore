@@ -5,17 +5,21 @@
  *
  * By Trond Lossius, (c) 2007
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "AsyncRamp.h"
 
+#define thisTTClass			AsyncRamp
+#define thisTTClassName		"AsyncRamp"
+#define thisTTClassTags		"modular, max, rampunit"
 
-AsyncRamp::AsyncRamp(RampUnitCallback aCallbackMethod, void *aBaton)
-	: RampUnit("ramp.async", aCallbackMethod, aBaton)
+
+TT_RAMPUNIT_CONSTRUCTOR,
+	active(0)
 {
-	active = 0;
+	;
 }
 
 

@@ -4,14 +4,18 @@
  *
  * By Tim Place, Copyright © 2006, 2007
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "NoneRamp.h"
 
-NoneRamp::NoneRamp(RampUnitCallback aCallbackMethod, void *aBaton)
-	: RampUnit("ramp.none", aCallbackMethod, aBaton)
+#define thisTTClass			NoneRamp
+#define thisTTClassName		"NoneRamp"
+#define thisTTClassTags		"modular, max, rampunit"
+
+
+TT_RAMPUNIT_CONSTRUCTOR
 {
 	;
 }
