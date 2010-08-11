@@ -299,7 +299,7 @@ void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 		return;
 	}*/
 
-	values = (double *)malloc((argc-2) * sizeof(double));
+	values = (double *)malloc((argc) * sizeof(double));
 	
 	for (i=0; i<argc; i++) {
 		if (argv[i].a_type == A_SYM) {
