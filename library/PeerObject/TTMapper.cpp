@@ -91,6 +91,20 @@ TTMapper::~TTMapper() // TODO : delete things...
 		TTObjectRelease(TTObjectHandle(&mReceiver));
 }
 
+TTErr TTMapper::map(TTValue& value)
+{
+	processMapping(value);
+	
+	// return value
+	if (mSender)
+		mSender->sendMessage(kTTSym_send, value);
+	
+	if (mReturnValueCallback)
+		mReturnValueCallback->notify(value);
+	
+	return kTTErrNone;
+}
+
 TTErr TTMapper::getFunctionLibrary(TTValue& value)
 {
 	FunctionLib::getUnitNames(mFunctionLibrary);
@@ -108,7 +122,8 @@ TTErr TTMapper::getFunctionSamples(TTValue& value)
 	for (s = mInputMin; s < mInputMax; s += resolution)
 		value.append(s);
 	
-	map(value);
+	processMapping(value);
+	
 	return kTTErrNone;
 }
 
@@ -314,7 +329,7 @@ TTErr TTMapper::scaleOutput()
 	return kTTErrNone;
 }
 
-TTErr TTMapper::map(TTValue& value)
+TTErr TTMapper::processMapping(TTValue& value)
 {
 	TTValue		in, out;
 	TTFloat64	f;
@@ -347,13 +362,6 @@ TTErr TTMapper::map(TTValue& value)
 	
 	// clip output value
 	value.clip(mOutputMin, mOutputMax);
-	
-	// return value
-	if (mSender)
-		mSender->sendMessage(kTTSym_send, value);
-	
-	if (mReturnValueCallback)
-		mReturnValueCallback->notify(value);
 	
 	return kTTErrNone;
 }
@@ -395,7 +403,14 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
 	v = data;
 	
 	// process the mapping
-	aMapper->map(v);
+	aMapper->processMapping(v);
+	
+	// return value
+	if (aMapper->mSender)
+		aMapper->mSender->sendMessage(kTTSym_send, v);
+	
+	if (aMapper->mReturnValueCallback)
+		aMapper->mReturnValueCallback->notify(v);
 	
 	return kTTErrNone;
 }

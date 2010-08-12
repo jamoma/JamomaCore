@@ -85,6 +85,9 @@ private :
 	/** set the function unit and set parameters name extending attributes of the unit */
 	TTErr setFunction(const TTValue& value);
 	
+	/** process mapping */
+	TTErr processMapping(TTValue& value);
+	
 	TTErr scaleInput();
 	TTErr scaleOutput();
 	

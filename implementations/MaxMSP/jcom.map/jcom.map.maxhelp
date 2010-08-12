@@ -20,6 +20,20 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-50",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "int", "" ],
+					"patching_rect" : [ 727.0, 365.0, 32.5, 19.0 ],
+					"text" : "t 0 l"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-38",
@@ -295,7 +309,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-12",
-					"items" : "Base",
+					"items" : "Fade",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -353,7 +367,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-15",
-					"items" : [ "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "tanh" ],
+					"items" : [ "cosine", ",", "exponential", ",", "linear", ",", "logarithm", ",", "lowpass", ",", "power", ",", "tanh", ",", "bartlett", ",", "blackman", ",", "hamming", ",", "hanning", ",", "kaiser", ",", "rectangular", ",", "trapezoid", ",", "welch" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -820,8 +834,8 @@
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p logarithm"
@@ -1465,8 +1479,8 @@
 										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"default_fontname" : "Verdana"
+										"default_fontname" : "Verdana",
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p ExponentialDecayEnvelopeExample"
@@ -1788,8 +1802,8 @@
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p exponential"
@@ -2041,8 +2055,8 @@
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p tanh"
@@ -2185,8 +2199,8 @@
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p lowpass"
@@ -2386,8 +2400,8 @@
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p power"
@@ -2939,8 +2953,8 @@
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Verdana"
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p list_support"
@@ -2995,7 +3009,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-24", 0 ],
+					"destination" : [ "obj-50", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-15", 1 ]
@@ -3323,6 +3337,24 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-50", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-24", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-50", 1 ]
 				}
 
 			}
