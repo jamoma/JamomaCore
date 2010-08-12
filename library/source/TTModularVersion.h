@@ -3,8 +3,8 @@
  * Functions and resources used by Jamoma Modular objects.
  * By Tim Place, Copyright © 2009
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 
@@ -12,6 +12,6 @@
 #define __TT_MODULAR_VERSION_H__
 
 #define TT_MODULAR_VERSION "0.5.5 a5"
-#define TT_MODULAR_REV "aa579"
+#define TT_MODULAR_REV "bd697"
 
 #endif //__TT_MODULAR_VERSION_H__

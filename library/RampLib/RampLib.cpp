@@ -11,7 +11,6 @@
 #endif // WIN_VERSION
 
 #include "RampLib.h"
-#include "ext.h"
 
 #define thisTTClass RampUnit
 

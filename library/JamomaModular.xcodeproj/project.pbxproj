@@ -54,6 +54,7 @@
 		D2CA88351213F4A80090DE41 /* TTModular.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88331213F4A80090DE41 /* TTModular.cpp */; };
 		D2CA88361213F4A80090DE41 /* TTModularSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2CA88341213F4A80090DE41 /* TTModularSymbolCache.cpp */; };
 		D2CA88471213F4F60090DE41 /* libDeviceManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CA883D1213F4F60090DE41 /* libDeviceManager.a */; };
+		D2CA88AC1213F9EB0090DE41 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,6 +148,7 @@
 		D2CA88381213F4B90090DE41 /* TTModular.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModular.h; path = source/TTModular.h; sourceTree = "<group>"; };
 		D2CA883A1213F4F60090DE41 /* DeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceManager.h; sourceTree = "<group>"; };
 		D2CA883D1213F4F60090DE41 /* libDeviceManager.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libDeviceManager.a; path = DeviceManagerLib/libDeviceManager.a; sourceTree = "<group>"; };
+		D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -164,6 +166,7 @@
 				224B086811DEA31700B6EF48 /* Cocoa.framework in Frameworks */,
 				224B086911DEA31700B6EF48 /* Carbon.framework in Frameworks */,
 				D2CA88471213F4F60090DE41 /* libDeviceManager.a in Frameworks */,
+				D2CA88AC1213F9EB0090DE41 /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +210,7 @@
 				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
 				22A403830CAD7B9400E5299E /* Carbon.framework */,
 				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
+				D2CA88AB1213F9EB0090DE41 /* libxml2.dylib */,
 				D2CA883D1213F4F60090DE41 /* libDeviceManager.a */,
 			);
 			name = "External Frameworks and Libraries";
