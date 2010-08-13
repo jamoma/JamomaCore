@@ -16,8 +16,10 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	MaxAudioGraphWrappedClassPtr			c = NULL;
 
 	TTAudioGraphInit();
-
+    
 	options->append(TT("generator"), value);
+	value = 2L;
+	options->append(TT("wrapperDefinesNumOutlets"), value);
 	wrapAsMaxAudioGraph(TT("soundfile.player"), "jcom.soundfile.player≈", &c, options);
 	
 	CLASS_ATTR_STYLE(c->maxClass,		"filePath", 0,	"file");

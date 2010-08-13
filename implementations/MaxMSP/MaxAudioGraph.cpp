@@ -63,6 +63,11 @@ ObjectPtr MaxAudioGraphWrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr 
 			if ((attrstart-argumentOffsetToDefineTheNumberOfInlets > 0) && argv+argumentOffsetToDefineTheNumberOfInlets)
 				self->numInputs = atom_getlong(argv+argumentOffsetToDefineTheNumberOfInlets);
 		}
+		if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("wrapperDefinesNumInlets"), v)) {
+			long wrapperDefinedNumberOfInlets = v;
+			if (wrapperDefinedNumberOfInlets > 0)
+				self->numInputs = wrapperDefinedNumberOfInlets;
+		}
 		for (TTUInt16 i=self->numInputs-1; i>0; i--)
 			self->inlets[i-1] = proxy_new(self, i, NULL);
 		
@@ -72,6 +77,11 @@ ObjectPtr MaxAudioGraphWrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr 
 			if ((attrstart-argumentOffsetToDefineTheNumberOfOutlets > 0) && argv+argumentOffsetToDefineTheNumberOfOutlets)
 				self->numOutputs = atom_getlong(argv+argumentOffsetToDefineTheNumberOfOutlets);
 		}
+		if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("wrapperDefinesNumOutlets"), v)) {
+			long wrapperDefinedNumberOfOutlets = v;
+			if (wrapperDefinedNumberOfOutlets > 0) 
+				self->numOutputs = wrapperDefinedNumberOfOutlets;
+		}		
 		for (TTInt16 i=self->numOutputs-1; i>=0; i--)
 			self->audioGraphOutlets[i] = outlet_new(self, "audio.connect");
 
