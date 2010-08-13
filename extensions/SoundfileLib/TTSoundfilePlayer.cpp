@@ -122,12 +122,13 @@ TTErr TTSoundfilePlayer::Resume()
 TTErr TTSoundfilePlayer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
+	TTAudioSignal&	outPlayhead = outputs->getSignal(1);
 	TTUInt16		outChannelCount = out.getMaxNumChannelsAsInt();
 	TTUInt16		numFrames = out.getVectorSizeAsInt();
 	TTBoolean		bufferNeedsResize = NO;
 	sf_count_t			numSamplesRead; 
 	TTUInt16			n;
-	TTSampleValuePtr	outSample;
+	TTSampleValuePtr	outSample;// outSamplePlayhead;
 	TTUInt16			channel;
 	
     
@@ -138,6 +139,8 @@ TTErr TTSoundfilePlayer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSigna
 		out.setMaxNumChannels(mNumChannels);
 		bufferNeedsResize = YES;
 		out.setNumChannelsWithInt(mNumChannels);
+		outPlayhead.setMaxNumChannels(1);
+		outPlayhead.setNumChannelsWithInt(1);
 	}
 	
 	if (mNumBufferFrames != numFrames) {
@@ -169,10 +172,12 @@ TTErr TTSoundfilePlayer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSigna
 
 		for (channel=0; channel<mNumChannels; channel++) {
 			outSample = out.mSampleVectors[channel];
-
-			for (n=0; n<numFrames; n++)
+        	for (n=0; n<numFrames; n++)
 				outSample[n] = mBuffer[n * mNumChannels + channel];
 		}
+	
+		for (n=0; n<numFrames; n++)	
+			outPlayhead.mSampleVectors[0][n] = n; // FIXME: this is a dummy value, replace with a proper playhead position
 	}	
 	else {         //no soundfile selected, we send out a zero signal on one channel 
 		out.setMaxNumChannels(1);
