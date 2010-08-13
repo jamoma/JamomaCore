@@ -19,6 +19,8 @@ typedef struct _wrappedInstance {
 	TTPtr						audioGraphOutlets[16];	///< Array of outlets, may eventually want this to be more dynamic
 	TTPtr						inlets[16];				///< Array of proxy inlets beyond the first inlet
 	MaxAudioGraphWrappedClassPtr	wrappedClassDefinition;	///< A pointer to the class definition
+	TTUInt8						numInputs;
+	TTUInt8						numOutputs;
 } WrappedInstance;
 
 typedef WrappedInstance* WrappedInstancePtr;		///< Pointer to a wrapped instance of our object.
@@ -34,13 +36,12 @@ ObjectPtr MaxAudioGraphWrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr 
     WrappedInstancePtr			self = NULL;
 	TTValue						v;
 	TTErr						err = kTTErrNone;
-	TTUInt8						numInputs = 1;
-	TTUInt8						numOutputs = 1;
+
  	long						attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	
 	// Find the WrappedClass
 	hashtab_lookup(wrappedMaxClasses, name, (ObjectPtr*)&wrappedMaxClass);
-	
+
 	// If the WrappedClass has a validity check defined, then call the validity check function.
 	// If it returns an error, then we won't instantiate the object.
 	if (wrappedMaxClass) {
@@ -55,29 +56,30 @@ ObjectPtr MaxAudioGraphWrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr 
 	if (!err)
 		self = (WrappedInstancePtr)object_alloc(wrappedMaxClass->maxClass);
     if (self){
-
+		self->numInputs = 1;
+		self->numOutputs = 1;
 		if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("argumentDefinesNumInlets"), v)) {
 			long argumentOffsetToDefineTheNumberOfInlets = v;
 			if ((attrstart-argumentOffsetToDefineTheNumberOfInlets > 0) && argv+argumentOffsetToDefineTheNumberOfInlets)
-				numInputs = atom_getlong(argv+argumentOffsetToDefineTheNumberOfInlets);
+				self->numInputs = atom_getlong(argv+argumentOffsetToDefineTheNumberOfInlets);
 		}
-		for (TTUInt16 i=numInputs-1; i>0; i--)
+		for (TTUInt16 i=self->numInputs-1; i>0; i--)
 			self->inlets[i-1] = proxy_new(self, i, NULL);
 		
     	object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));	// dumpout
 		if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("argumentDefinesNumOutlets"), v)) {
 			long argumentOffsetToDefineTheNumberOfOutlets = v;
 			if ((attrstart-argumentOffsetToDefineTheNumberOfOutlets > 0) && argv+argumentOffsetToDefineTheNumberOfOutlets)
-				numOutputs = atom_getlong(argv+argumentOffsetToDefineTheNumberOfOutlets);
+				self->numOutputs = atom_getlong(argv+argumentOffsetToDefineTheNumberOfOutlets);
 		}
-		for (TTInt16 i=numOutputs-1; i>=0; i--)
+		for (TTInt16 i=self->numOutputs-1; i>=0; i--)
 			self->audioGraphOutlets[i] = outlet_new(self, "audio.connect");
 
 		self->wrappedClassDefinition = wrappedMaxClass;
 		v.setSize(3);
 		v.set(0, wrappedMaxClass->ttClassName);
-		v.set(1, numInputs);
-		v.set(2, numOutputs);
+		v.set(1, self->numInputs);
+		v.set(2, self->numOutputs);
 		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
 		if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("generator"), v))
 			self->audioGraphObject->addAudioFlag(kTTAudioGraphGenerator);
@@ -307,13 +309,18 @@ void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, At
 // Method for Assistance Messages
 void MaxAudioGraphWrappedClass_assist(WrappedInstancePtr self, void *b, long msg, long arg, char *dst)
 {
-	if (msg==1)			// Inlets
-		strcpy(dst, "multichannel input and control messages");		
-	else if (msg==2) {	// Outlets
-		if (arg == 0)
-			strcpy(dst, "multichannel output");
-		else
-			strcpy(dst, "dumpout");
+	if (msg==1)		{	// Inlets
+		if(arg == 0)
+			strcpy(dst, "multichannel input and control messages");
+		else if(arg > 0)
+			snprintf(dst, 256, "multichannel input %ld", arg+1);
+	}
+	
+	else if(msg==2) {// Outlets		
+		if(arg == self->numOutputs)
+			strcpy(dst, "dumpout");					
+		else 
+			snprintf(dst, 256, "multichannel output %ld", arg+1); 	
 	}
 }
 
