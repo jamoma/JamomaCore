@@ -136,6 +136,12 @@ public:
 		@param	returnedOscAddress		A TTSymbolPtr with the OSC address is returned in this parameter.
 		@param	from					An address from where to start the returned address in order to have a relative address */
 	TTErr			getOscAddress(TTSymbolPtr *returnedOscAddress, TTSymbolPtr from = S_SEPARATOR);
+	
+	/** Get a pointer to the object binded by this node */
+	TTObjectPtr		getObject();
+	
+	/** Get a pointer to the context of this node */
+	TTPtr			getContext();
 
 	/** Generate a new instance of a given child
 		@param childName		the name of a child.

@@ -121,7 +121,8 @@ TTNode::~TTNode()
 TTSymbolPtr		TTNode::getName() {return this->name;}
 TTSymbolPtr		TTNode::getInstance() {return this->instance;}
 TTNodePtr		TTNode::getParent() {return this->parent;}
-
+TTObjectPtr		TTNode::getObject() {return this->mObject;};
+TTPtr			TTNode::getContext() {return this->mContext;};
 
 TTErr TTNode::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
 {
