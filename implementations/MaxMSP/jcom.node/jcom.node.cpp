@@ -101,7 +101,7 @@ void node_build(TTPtr self, SymbolPtr address)
 		if (newInstance) {
 			x->subscriberObject->getAttributeValue(TT("RelativeAddress"), v);
 			v.get(0, &relativeAddress);
-			object_post((t_object*)x, "Jamoma cannot create multiple jcom.node with the same OSC identifier (%s).  Using %s instead.", address->s_name, relativeAddress->getCString());
+			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.node with the same OSC identifier (%s).  Using %s instead.", address->s_name, relativeAddress->getCString());
 		}
 		
 		// Set the Address attribute of the Container

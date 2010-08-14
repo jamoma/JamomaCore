@@ -110,13 +110,24 @@ void param_build(TTPtr self, SymbolPtr address)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
 	TTNodePtr					node = NULL;
-	TTSymbolPtr					nodeAddress;
+	TTBoolean					newInstance;
+	TTSymbolPtr					nodeAddress, relativeAddress;
 	TTPtr						context;
 	
 	jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, address, &x->subscriberObject);
 	
 	// if the subscription is successful
 	if (x->subscriberObject) {
+		
+		// Is a new instance have been created ?
+		x->subscriberObject->getAttributeValue(TT("NewInstanceCreated"), v);
+		v.get(0, newInstance);
+		
+		if (newInstance) {
+			x->subscriberObject->getAttributeValue(TT("RelativeAddress"), v);
+			v.get(0, &relativeAddress);
+			object_warn((t_object*)x, "Jamoma cannot create multiple jcom.parameter with the same OSC identifier (%s).  Using %s instead.", address->s_name, relativeAddress->getCString());
+		}
 
 		// debug
 		x->subscriberObject->getAttributeValue(TT("NodeAddress"), v);
