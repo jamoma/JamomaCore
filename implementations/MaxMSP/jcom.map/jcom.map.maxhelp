@@ -640,8 +640,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 60.0, 450.0, 484.0, 19.0 ],
-									"text" : "jcom.map @function logarithm @inputMin 0.1 @inputMax 1. @outputMin -20. @outputMax 0."
+									"patching_rect" : [ 60.0, 450.0, 507.0, 19.0 ],
+									"text" : "jcom.map @function logarithm @input/min 0.1 @input/max 1. @output/min -20. @output/max 0."
 								}
 
 							}
@@ -723,8 +723,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 60.0, 300.0, 505.0, 19.0 ],
-									"text" : "jcom.map @function logarithm @inputMin 440. @inputMax 880. @outputMin 69. @outputMax 81."
+									"patching_rect" : [ 60.0, 300.0, 528.0, 19.0 ],
+									"text" : "jcom.map @function logarithm @input/min 440. @input/max 880. @output/min 69. @output/max 81."
 								}
 
 							}
@@ -834,8 +834,8 @@
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p logarithm"
@@ -1479,8 +1479,8 @@
 										"default_fontsize" : 10.0,
 										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
-										"globalpatchername" : ""
+										"globalpatchername" : "",
+										"default_fontname" : "Verdana"
 									}
 ,
 									"text" : "p ExponentialDecayEnvelopeExample"
@@ -1802,8 +1802,8 @@
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p exponential"
@@ -2055,8 +2055,8 @@
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p tanh"
@@ -2199,8 +2199,8 @@
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p lowpass"
@@ -2400,8 +2400,8 @@
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p power"
@@ -2953,8 +2953,8 @@
 						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p list_support"
