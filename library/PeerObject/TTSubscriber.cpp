@@ -65,15 +65,17 @@ TTSubscriber::~TTSubscriber()
 	TTList		childrenList;
 	TTValue		aTempValue;
 	
-	// set NULL object
-	aTempValue.clear();
-	aTempValue.append((TTPtr)NULL);
-	this->mNode->setAttributeValue(kTTSym_Object, aTempValue);
-
 	// If node have no more child : destroy the node
 	this->mNode->getChildren(S_WILDCARD, S_WILDCARD, childrenList);
 	if (childrenList.isEmpty())
 		this->mDirectory->TTNodeRemove(this->mNodeAddress);
+	
+	// Set NULL object (except for the root)
+	else if (this->mNodeAddress != S_SEPARATOR) {
+		aTempValue.clear();
+		aTempValue.append((TTPtr)NULL);
+		this->mNode->setAttributeValue(kTTSym_Object, aTempValue);
+	}
 	
 	if (mShareContextNodeCallback)
 		TTObjectRelease(TTObjectHandle(&mShareContextNodeCallback));
@@ -126,7 +128,10 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 		
 		// Make absolute address and check if the node exists
 		this->mContextNode->getOscAddress(&contextAddress);
-		joinOSCAddress(contextAddress, this->mRelativeAddress, &absoluteAddress);
+		if (this->mRelativeAddress == S_SEPARATOR)
+			absoluteAddress = contextAddress;
+		else
+			joinOSCAddress(contextAddress, this->mRelativeAddress, &absoluteAddress);
 		err = this->mDirectory->Lookup(absoluteAddress, aNodeList, &aNode);
 		
 		// if the node doesn't exist, create it

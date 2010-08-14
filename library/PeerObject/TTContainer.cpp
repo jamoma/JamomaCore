@@ -113,9 +113,12 @@ TTErr TTContainer::bind()
 	
 	mParametersObserversCache  = new TTHash();
 	
-	// 1. Look for all Parameters under the address into the directory
+	// 1. Look for all Parameters under the address into the directory with the same Context
 	err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
-	err = mDirectory->LookFor(&aNodeList, testNodeObjectType, TT("Parameter"), allParametersNodes, &aNode);
+	
+	v.append(TT("Parameter"));
+	v.append(aNode->getContext());
+	err = mDirectory->LookFor(&aNodeList, TTContainerTestObjectAndContext, v, allParametersNodes, &aNode);
 	
 	// 2. make a cache containing each relativeAddress : Parameter and Observer
 	for (allParametersNodes.begin(); allParametersNodes.end(); allParametersNodes.next()) {
@@ -144,28 +147,16 @@ TTErr TTContainer::bind()
 TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 {
 	TTValue			cacheElement;
-	TTSymbolPtr		anAddress, returnedPart1, aRelativeAddress;
+	TTSymbolPtr		aRelativeAddress;
 	TTObjectPtr		aParameter, newObserver;
-	TTString		addSlash;
 	TTAttributePtr	anAttribute = NULL;
 	TTValuePtr		newBaton;
-	TTValue			v;
-	TTUInt8			nbSeparator;
 	
 	// process the relative address
-	if (mAddress == S_SEPARATOR)
-		nbSeparator = 0;
-	else
-		nbSeparator = countSeparator(mAddress);
-	aNode->getOscAddress(&anAddress);
-	splitAtOSCAddress(anAddress, nbSeparator, &returnedPart1, &aRelativeAddress);
-	addSlash = C_SEPARATOR;
-	addSlash += aRelativeAddress->getCString();
-	aRelativeAddress = TT(addSlash.data());
+	aNode->getOscAddress(&aRelativeAddress, mAddress);
 	
 	// add parameter to the cacheElement
-	aNode->getAttributeValue(kTTSym_Object, v);
-	v.get(0, (TTPtr*)&aParameter);
+	aParameter= aNode->getObject();
 	cacheElement.append((TTPtr)aParameter);
 	
 	// create a Value Attribute observer on it
@@ -192,26 +183,16 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	return kTTErrNone;
 }
 
-TTErr TTContainer::deleteCacheElement(TTSymbolPtr anAddress)
+TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 {
-	TTSymbolPtr		returnedPart1, aRelativeAddress;
-	TTValue			v;
-	TTString		addSlash;
+	TTSymbolPtr		aRelativeAddress;
 	TTValue			cacheElement;
 	TTObjectPtr		aParameter, anObserver;
 	TTAttributePtr	anAttribute;
-	TTUInt8			nbSeparator;
 	TTErr			err;
 	
 	// process the relative address
-	if (mAddress == S_SEPARATOR)
-		nbSeparator = 0;
-	else
-		nbSeparator = countSeparator(mAddress);
-	splitAtOSCAddress(anAddress, nbSeparator, &returnedPart1, &aRelativeAddress);
-	addSlash = C_SEPARATOR;
-	addSlash += aRelativeAddress->getCString();
-	aRelativeAddress = TT(addSlash.data());
+	aNode->getOscAddress(&aRelativeAddress, mAddress);
 	
 	// delete attribute observer
 	err = mParametersObserversCache->lookup(aRelativeAddress, cacheElement);
@@ -268,7 +249,6 @@ TTErr TTContainer::unbind()
 				if(!err)
 					TTObjectRelease(&anObserver);
 			}
-			
 		}
 		
 		delete mParametersObserversCache;
@@ -325,7 +305,7 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 		case kAddressDestroyed :
 		{
 			if (testNodeObjectType(aNode, TT("Parameter"))) 
-				 aContainer->deleteCacheElement(anAddress);
+				 aContainer->deleteCacheElement(aNode);
 			
 			break;
 		}
@@ -335,7 +315,6 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 	}
 	
 	return kTTErrNone;
-	
 }
 
 TTErr TTContainerAttributeCallback(TTPtr baton, TTValue& data)
@@ -364,4 +343,26 @@ TTErr TTContainerAttributeCallback(TTPtr baton, TTValue& data)
 	return kTTErrNone;
 }
 
-
+/**	
+ @param	baton						..
+ @param	data						..
+ @return							an error code */
+TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
+{
+	TTValue		v, av;
+	TTPtr		c, t_c;
+	TTObjectPtr o;
+	TTSymbolPtr t;
+	
+	av = (TTValuePtr)args;
+	av.get(0, &t);
+	av.get(1, (TTPtr*)&t_c);
+	
+	o = n->getObject();
+	c = n->getContext();
+	
+	if (o && c)
+		return o->getName() == t && c == t_c;
+	else
+		return NO;
+}

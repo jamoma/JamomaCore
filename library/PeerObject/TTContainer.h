@@ -51,7 +51,7 @@ private:
 		TTErr unbind();
 	
 		TTErr makeCacheElement(TTNodePtr aNode);
-		TTErr deleteCacheElement(TTSymbolPtr anAddress);
+		TTErr deleteCacheElement(TTNodePtr aNode);
 	
 };
 
@@ -68,5 +68,11 @@ TTErr TTMODULAR_EXPORT TTContainerDirectoryCallback(TTPtr baton, TTValue& data);
  @param	data						..
  @return							an error code */
 TTErr TTMODULAR_EXPORT TTContainerAttributeCallback(TTPtr baton, TTValue& data);
+
+/**	
+ @param	baton						..
+ @param	data						..
+ @return							an error code */
+TTBoolean TTMODULAR_EXPORT TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args);
 
 #endif // __TT_CONTAINER_H__

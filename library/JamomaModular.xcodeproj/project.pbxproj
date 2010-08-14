@@ -333,8 +333,8 @@
 		D2CA880D1213F4740090DE41 /* ModularForMax */ = {
 			isa = PBXGroup;
 			children = (
-				D2CA880E1213F4740090DE41 /* ModularForMax.cpp */,
 				D2CA880F1213F4740090DE41 /* ModularForMax.h */,
+				D2CA880E1213F4740090DE41 /* ModularForMax.cpp */,
 			);
 			path = ModularForMax;
 			sourceTree = "<group>";
