@@ -786,8 +786,8 @@ TTBoolean testNodeObjectType(TTNodePtr n, TTPtr args)
 {
 	TTValue		v;
 	TTObjectPtr o;
-	n->getAttributeValue(kTTSym_Object, v);
-	v.get(0, (TTPtr*)&o);
+	
+	o = n->getObject();
 	
 	if (o)
 		return o->getName() == (TTSymbolPtr)args;
@@ -799,8 +799,8 @@ TTBoolean testNodeContext(TTNodePtr n, TTPtr args)
 {
 	TTValue		v;
 	TTPtr		c;
-	n->getAttributeValue(kTTSym_Context, v);
-	v.get(0, (TTPtr*)&c);
+	
+	c = n->getContext();
 	
 	if (c)
 		return c == args;
