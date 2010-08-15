@@ -9,8 +9,7 @@
 
 #include "TTModularClassWrapperMax.h"
 
-#define address_out 0
-#define data_out 1
+#define data_out 0
 
 // Definitions
 void		WrapTTContainerClass(WrappedClassPtr c);
@@ -74,8 +73,7 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	defer_low((ObjectPtr)x, (method)node_build, address, 0, 0);
 	
 	// Make two outlets
-	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
-	x->outlets[address_out] = outlet_new(x, NULL);					// anything outlet to output address
+	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
 	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
 
 }
@@ -165,13 +163,13 @@ void node_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 void node_return_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	outlet_anything(x->outlets[address_out], msg, argc, argv);
+	x->msg = msg;
 }
 
 void node_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	outlet_anything(x->outlets[data_out], msg, argc, argv);
+	outlet_anything(x->outlets[data_out], x->msg, argc, argv);
 }
 
 void node_share_context_node(TTPtr self, TTNodePtr *contextNode)

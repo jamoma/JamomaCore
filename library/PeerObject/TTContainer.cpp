@@ -118,7 +118,7 @@ TTErr TTContainer::bind()
 	
 	v.append(TT("Parameter"));
 	v.append(aNode->getContext());
-	err = mDirectory->LookFor(&aNodeList, TTContainerTestObjectAndContext, v, allParametersNodes, &aNode);
+	err = mDirectory->LookFor(&aNodeList, TTContainerTestObjectAndContext, &v, allParametersNodes, &aNode);
 	
 	// 2. make a cache containing each relativeAddress : Parameter and Observer
 	for (allParametersNodes.begin(); allParametersNodes.end(); allParametersNodes.next()) {
@@ -349,14 +349,15 @@ TTErr TTContainerAttributeCallback(TTPtr baton, TTValue& data)
  @return							an error code */
 TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 {
-	TTValue		v, av;
+	TTValue		v;
+	TTValuePtr	av;
 	TTPtr		c, t_c;
 	TTObjectPtr o;
 	TTSymbolPtr t;
 	
 	av = (TTValuePtr)args;
-	av.get(0, &t);
-	av.get(1, (TTPtr*)&t_c);
+	av->get(0, &t);
+	av->get(1, (TTPtr*)&t_c);
 	
 	o = n->getObject();
 	c = n->getContext();
