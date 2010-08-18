@@ -14,7 +14,7 @@
 #include "TTAllpass1b.h"
 
 
-/**	A 9th-order halfband lowpass/highpass filter built-up from allpass building blocks.
+/**	A 9-pole halfband lowpass/highpass filter built-up from allpass building blocks.
 	Based on Multirate Signal Processing for Communication Systems, Chapter 10, Page 18.
  
 	Passband edge (i.e. Fc or -3db) at Fs/4, and stopband edge (-60db) at Fs*0.284.
