@@ -210,6 +210,12 @@ inline TTErr TTDelay::calculateNoInterpolation(const TTFloat64& x, TTFloat64& y,
 	return kTTErrNone;
 }
 
+TTErr TTDelay::calculateNoInterpolation(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+{
+	TTDelayBufferPtr buffer = &mBuffers[channel];
+	return calculateNoInterpolation(x, y, buffer);
+}
+
 
 TTErr TTDelay::processAudioNoInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
