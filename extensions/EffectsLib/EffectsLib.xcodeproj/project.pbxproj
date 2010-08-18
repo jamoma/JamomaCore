@@ -14,8 +14,6 @@
 		22FD45F411E245D0007BBF7E /* TTBalance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD45E611E245D0007BBF7E /* TTBalance.cpp */; };
 		22FD45F511E245D0007BBF7E /* TTDegrade.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD45E711E245D0007BBF7E /* TTDegrade.h */; };
 		22FD45F611E245D0007BBF7E /* TTDegrade.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD45E811E245D0007BBF7E /* TTDegrade.cpp */; };
-		22FD45F711E245D0007BBF7E /* TTDelay.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD45E911E245D0007BBF7E /* TTDelay.h */; };
-		22FD45F811E245D0007BBF7E /* TTDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD45EA11E245D0007BBF7E /* TTDelay.cpp */; };
 		22FD45F911E245D0007BBF7E /* TTGain.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD45EB11E245D0007BBF7E /* TTGain.h */; };
 		22FD45FA11E245D0007BBF7E /* TTGain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD45EC11E245D0007BBF7E /* TTGain.cpp */; };
 		22FD45FB11E245D0007BBF7E /* TTLimiter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD45ED11E245D0007BBF7E /* TTLimiter.h */; };
@@ -37,8 +35,6 @@
 		22FD45E611E245D0007BBF7E /* TTBalance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTBalance.cpp; sourceTree = "<group>"; };
 		22FD45E711E245D0007BBF7E /* TTDegrade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDegrade.h; sourceTree = "<group>"; };
 		22FD45E811E245D0007BBF7E /* TTDegrade.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTDegrade.cpp; sourceTree = "<group>"; };
-		22FD45E911E245D0007BBF7E /* TTDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDelay.h; sourceTree = "<group>"; };
-		22FD45EA11E245D0007BBF7E /* TTDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTDelay.cpp; sourceTree = "<group>"; };
 		22FD45EB11E245D0007BBF7E /* TTGain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGain.h; sourceTree = "<group>"; };
 		22FD45EC11E245D0007BBF7E /* TTGain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTGain.cpp; sourceTree = "<group>"; };
 		22FD45ED11E245D0007BBF7E /* TTLimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTLimiter.h; sourceTree = "<group>"; };
@@ -109,8 +105,6 @@
 				22FD45E611E245D0007BBF7E /* TTBalance.cpp */,
 				22FD45E711E245D0007BBF7E /* TTDegrade.h */,
 				22FD45E811E245D0007BBF7E /* TTDegrade.cpp */,
-				22FD45E911E245D0007BBF7E /* TTDelay.h */,
-				22FD45EA11E245D0007BBF7E /* TTDelay.cpp */,
 				22FD45EB11E245D0007BBF7E /* TTGain.h */,
 				22FD45EC11E245D0007BBF7E /* TTGain.cpp */,
 				22FD45ED11E245D0007BBF7E /* TTLimiter.h */,
@@ -132,7 +126,6 @@
 			files = (
 				22FD45F311E245D0007BBF7E /* TTBalance.h in Headers */,
 				22FD45F511E245D0007BBF7E /* TTDegrade.h in Headers */,
-				22FD45F711E245D0007BBF7E /* TTDelay.h in Headers */,
 				22FD45F911E245D0007BBF7E /* TTGain.h in Headers */,
 				22FD45FB11E245D0007BBF7E /* TTLimiter.h in Headers */,
 				22FD45FD11E245D0007BBF7E /* TTOverdrive.h in Headers */,
@@ -203,7 +196,6 @@
 				22FD45E411E245C8007BBF7E /* EffectsLib.cpp in Sources */,
 				22FD45F411E245D0007BBF7E /* TTBalance.cpp in Sources */,
 				22FD45F611E245D0007BBF7E /* TTDegrade.cpp in Sources */,
-				22FD45F811E245D0007BBF7E /* TTDelay.cpp in Sources */,
 				22FD45FA11E245D0007BBF7E /* TTGain.cpp in Sources */,
 				22FD45FC11E245D0007BBF7E /* TTLimiter.cpp in Sources */,
 				22FD45FE11E245D0007BBF7E /* TTOverdrive.cpp in Sources */,

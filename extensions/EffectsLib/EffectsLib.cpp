@@ -10,7 +10,6 @@
 #include "TTDSP.h"
 #include "TTBalance.h"
 #include "TTDegrade.h"
-#include "TTDelay.h"
 #include "TTGain.h"
 #include "TTLimiter.h"
 #include "TTOverdrive.h"
@@ -23,7 +22,6 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	
 	TTBalance::registerClass();	
 	TTDegrade::registerClass();	
-	TTDelay::registerClass();	
 	TTGain::registerClass();	
 	TTLimiter::registerClass();	
 	TTOverdrive::registerClass();	

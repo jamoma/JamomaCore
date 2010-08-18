@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		221CA37E121C3A23003E2DC1 /* TTDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221CA37D121C3A23003E2DC1 /* TTDelay.cpp */; };
 		22610D5111DD856F000A3DA8 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22610D5211DD856F000A3DA8 /* libportaudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F110EC2762900A5EC32 /* libportaudio.a */; };
 		22610D5311DD856F000A3DA8 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F190EC276B200A5EC32 /* CoreAudio.framework */; };
@@ -23,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		221CA37C121C3A1B003E2DC1 /* TTDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDelay.h; path = includes/TTDelay.h; sourceTree = "<group>"; };
+		221CA37D121C3A23003E2DC1 /* TTDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDelay.cpp; path = source/TTDelay.cpp; sourceTree = "<group>"; };
 		2227748E0EF1BFF100CA7476 /* JamomaDSP.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = JamomaDSP.xcconfig; sourceTree = "<group>"; };
 		224FFBAA110E94CF00270ED3 /* TTDelayBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDelayBuffer.h; path = includes/TTDelayBuffer.h; sourceTree = "<group>"; };
 		22578F110EC2762900A5EC32 /* libportaudio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libportaudio.a; path = portaudio/libportaudio.a; sourceTree = "<group>"; };
@@ -81,6 +84,7 @@
 				228505CB102CFFFA004D74BC /* TTDSP.h */,
 				228505CC102D001E004D74BC /* TTDSP.cpp */,
 				08FB77AEFE84172EC02AAC07 /* Source */,
+				221CA37A121C3A01003E2DC1 /* UnitGenerators */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
@@ -120,6 +124,15 @@
 			name = Source;
 			sourceTree = "<group>";
 		};
+		221CA37A121C3A01003E2DC1 /* UnitGenerators */ = {
+			isa = PBXGroup;
+			children = (
+				221CA37C121C3A1B003E2DC1 /* TTDelay.h */,
+				221CA37D121C3A23003E2DC1 /* TTDelay.cpp */,
+			);
+			name = UnitGenerators;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -147,7 +160,6 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "JamomaDSP" */;
 			compatibilityVersion = "Xcode 3.1";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
@@ -189,6 +201,7 @@
 				22610D5B11DD8579000A3DA8 /* TTAudioSignalArray.cpp in Sources */,
 				22610D5C11DD8579000A3DA8 /* TTDSP.cpp in Sources */,
 				22610D5D11DD8579000A3DA8 /* TTBuffer.cpp in Sources */,
+				221CA37E121C3A23003E2DC1 /* TTDelay.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

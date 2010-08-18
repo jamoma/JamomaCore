@@ -70,6 +70,7 @@ void TTDSPShutdown()
 // Core
 #include "TTAudioSignal.h"
 #include "TTBuffer.h"
+#include "TTDelay.h"
 
 
 void TTDSPRegisterInternalClasses()
@@ -77,8 +78,9 @@ void TTDSPRegisterInternalClasses()
 	TTAudioSignal::registerClass();
 	TTAudioSignalArray::registerClass();
 	TTBuffer::registerClass();
+	TTDelay::registerClass();
 	
-	TTAudioEngine::registerClass();
+	TTAudioEngine::registerClass();	
 }
 
 
