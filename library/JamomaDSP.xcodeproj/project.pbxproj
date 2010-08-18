@@ -241,12 +241,6 @@
 					TTDSP_LIBRARY,
 					TT_DEBUG,
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/portaudio\"",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../Foundation/library/build/UninstalledProducts\"",
-				);
 				PREBINDING = NO;
 				PRODUCT_NAME = JamomaDSP;
 			};
@@ -263,12 +257,6 @@
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = TTDSP_LIBRARY;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/portaudio\"",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../Foundation/library/build/UninstalledProducts\"",
-				);
 				PREBINDING = NO;
 				PRODUCT_NAME = JamomaDSP;
 			};
