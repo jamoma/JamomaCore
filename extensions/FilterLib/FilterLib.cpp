@@ -9,6 +9,7 @@
 
 #include "TTDSP.h"
 
+#include "TTAllpass.h"
 #include "TTAllpass1.h"
 #include "TTAllpass1a.h"
 #include "TTAllpass1b.h"
@@ -16,6 +17,8 @@
 #include "TTAllpass2b.h"
 #include "TTAllpass4.h"
 #include "TTHalfband5.h"
+#include "TTHalfband9.h"
+#include "TTHalfbandLinear33.h"
 
 #include "TTBandpassButterworth2.h"
 #include "TTBandrejectButterworth2.h"
@@ -45,6 +48,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 {
 	TTDSPInit();
 	
+	TTAllpass::registerClass();
 	TTAllpass1::registerClass();
 	TTAllpass1a::registerClass();
 	TTAllpass1b::registerClass();
@@ -52,7 +56,9 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	TTAllpass2b::registerClass();
 	TTAllpass4::registerClass();
 	TTHalfband5::registerClass();
-
+	TTHalfband9::registerClass();
+	TTHalfbandLinear33::registerClass();
+	
 	//	TTAverage::registerClass();
 
 	TTBandpassButterworth2::registerClass();
