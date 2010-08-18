@@ -6,8 +6,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TT_ALLPASS_H__
-#define __TT_ALLPASS_H__
+#ifndef __TT_ALLPASS1_H__
+#define __TT_ALLPASS1_H__
 
 #include "TTDSP.h"
 #include "TTDelayBuffer.h"
@@ -71,4 +71,4 @@ class TTAllpass1 : public TTAudioObject {
 };
 
 
-#endif // __TT_ALLPASS_H__
+#endif // __TT_ALLPASS1_H__
