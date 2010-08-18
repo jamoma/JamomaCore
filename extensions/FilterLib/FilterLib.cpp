@@ -12,7 +12,7 @@
 #include "TTAllpass1.h"
 #include "TTAllpass1a.h"
 #include "TTAllpass1b.h"
-#include "TTAllpass2.h"
+#include "TTAllpass2a.h"
 #include "TTAllpass4.h"
 #include "TTHalfband5.h"
 
@@ -47,7 +47,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	TTAllpass1::registerClass();
 	TTAllpass1a::registerClass();
 	TTAllpass1b::registerClass();
-	TTAllpass2::registerClass();
+	TTAllpass2a::registerClass();
 	TTAllpass4::registerClass();
 	TTHalfband5::registerClass();
 

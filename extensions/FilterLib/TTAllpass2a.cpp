@@ -6,10 +6,10 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTAllpass2.h"
+#include "TTAllpass2a.h"
 
-#define thisTTClass			TTAllpass2
-#define thisTTClassName		"allpass.2"
+#define thisTTClass			TTAllpass2a
+#define thisTTClassName		"allpass.2a"
 #define thisTTClassTags		"audio, processor, filter, allpass"
 
 #ifdef TT_PLATFORM_WIN
@@ -33,13 +33,13 @@ TT_AUDIO_CONSTRUCTOR,
 }
 
 
-TTAllpass2::~TTAllpass2()
+TTAllpass2a::~TTAllpass2a()
 {
 	;
 }
 
 
-TTErr TTAllpass2::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTAllpass2a::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	mX1.resize(maxNumChannels);
 	mX2.resize(maxNumChannels);
@@ -50,7 +50,7 @@ TTErr TTAllpass2::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 }
 
 
-TTErr TTAllpass2::Clear()
+TTErr TTAllpass2a::Clear()
 {
 	mX1.assign(maxNumChannels, 0.0);
 	mX2.assign(maxNumChannels, 0.0);
@@ -60,7 +60,7 @@ TTErr TTAllpass2::Clear()
 }
 
 
-TTErr TTAllpass2::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+TTErr TTAllpass2a::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
 	TTFloat64 w1 = mC1 * (mX1[channel] + mY1[channel]);
 	TTFloat64 w2 = mC2 * (x + mY2[channel]);
@@ -77,7 +77,7 @@ TTErr TTAllpass2::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt
 }
 
 
-TTErr TTAllpass2::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTAllpass2a::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TT_WRAP_CALCULATE_METHOD(calculateValue);
 }
