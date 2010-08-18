@@ -14,13 +14,10 @@
 #include "TTAllpass1b.h"
 
 
-/**	A second-order building-block allpass filter.
-	Based on Multirate Signal Processing for Communication Systems, Chapter 10, Figure 42.
+/**	A 5th-order halfband lowpass/highpass filter built-up from allpass building blocks.
+	Based on Multirate Signal Processing for Communication Systems, Chapter 10, Page 18.
  
-	2010-08-03: testing in msp, this filter produces the same amplitude response as the first-order butterworth filter
-				when set to a cf of 11025 Hz, but this filter uses roughly double the amount of cpu.
-				in theory, however, this filter should provide roughly linear phase response, unlike the butterworth filter.
-				but how do we test that?
+	Passband edge (i.e. Fc or -3db) at Fs/4, and stopband edge (-60db) at Fs*0.370.
  */
 class TTHalfband5 : TTAudioObject {
 	TTCLASS_SETUP(TTHalfband5)
