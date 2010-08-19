@@ -1,0 +1,154 @@
+/* 
+ * 5th-order lowpass/highpass filter built up from a 2-path allpass structure
+ * Copyright © 2010, Tim Place
+ * 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
+ */
+
+#include "TTMirror5.h"
+
+#define thisTTClass			TTMirror5
+#define thisTTClassName		"mirror.5"
+#define thisTTClassTags		"audio, processor, filter, lowpass, highpass"
+
+#ifdef TT_PLATFORM_WIN
+#include <Algorithm>
+#endif
+
+TT_AUDIO_CONSTRUCTOR,
+	mF0(NULL),
+	mF1(NULL),
+	mDelay(NULL)
+{
+	TTUInt16	initialMaxNumChannels = arguments;
+	TTErr		err;
+
+	addAttributeWithSetter(Mode, kTypeSymbol);		
+	addAttributeWithSetter(Frequency, kTypeFloat64);
+	addMessage(Clear);
+	addMessageWithArgument(updateMaxNumChannels);
+
+	err = TTObjectInstantiate(TT("allpass.2a"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
+	err = TTObjectInstantiate(TT("allpass.2a"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
+	err = TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mDelay, initialMaxNumChannels);
+
+	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
+	setAttributeValue(TT("Mode"),			TT("lowpass"));
+	setAttributeValue(TT("Frequency"),		sr/4.0);
+}
+
+
+TTMirror5::~TTMirror5()
+{
+	TTObjectRelease((TTObjectPtr*)&mF0);
+	TTObjectRelease((TTObjectPtr*)&mF1);
+	TTObjectRelease((TTObjectPtr*)&mDelay);
+}
+
+
+TTErr TTMirror5::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+{
+	// TODO: update internal filters
+	Clear();
+	return kTTErrNone;
+}
+
+
+TTErr TTMirror5::Clear()
+{
+	// TODO: update internal filters
+	return kTTErrNone;
+}
+
+
+TTErr TTMirror5::setMode(const TTValue& newValue)
+{
+	TTSymbolPtr newMode = newValue;
+	
+	if (newMode == TT("highpass")) {
+		mMode = TT("highpass");
+		setCalculateMethod(calculateHighpass);
+		setProcessMethod(processHighpass);
+	}
+	else { // lowpass
+		mMode = TT("lowpass");
+		setCalculateMethod(calculateLowpass);
+		setProcessMethod(processLowpass);
+	}
+	return kTTErrNone;
+}
+
+
+TTErr TTMirror5::setFrequency(const TTValue& newValue)
+{
+	mFrequency = newValue;
+	
+	// where did alpha come from?  is the coefficient from the halfband?  
+	// that means we need to do this process twice?  once for each of the two alpha coefficients?
+
+	const TTFloat64	alpha_0 = 0.1413486;
+	const TTFloat64	alpha_1 = 0.5899948;
+	const TTFloat64	omega_b = mFrequency;
+	const TTFloat64	omega_s = sr;
+	const TTFloat64	theta_b = (omega_b / omega_s) * kTTTwoPi;
+	const TTFloat64	b = (1 - tan(theta_b / 2.0)) / (1 + tan(theta_b / 2.0));
+	TTFloat64		c_1 = ((2.0 * b) + (2.0 * b * alpha_0)) / (1 + alpha_0 * (b * b));
+	TTFloat64		c_2 = ((b*b) + alpha_0) / (1 + alpha_0 * (b*b));
+	
+	mF0->setAttributeValue(TT("C1"), c_1);
+	mF0->setAttributeValue(TT("C2"), c_2);
+
+	c_1 = ((2.0 * b) + (2.0 * b * alpha_1)) / (1 + alpha_1 * (b * b));
+	c_2 = ((b*b) + alpha_1) / (1 + alpha_1 * (b*b));
+	mF1->setAttributeValue(TT("C1"), c_1);
+	mF1->setAttributeValue(TT("C2"), c_2);
+
+	return kTTErrNone;
+}
+
+
+inline void TTMirror5::filterKernel(const TTFloat64& input, TTFloat64& outputPath0, TTFloat64& outputPath1, TTPtrSizedInt channel)
+{
+	TTFloat64 delayOutput;
+	
+	mF0->calculateValue(input,			outputPath0,	channel);
+	
+	mDelay->calculateValue(input,		delayOutput,	channel);
+	mF1->calculateValue(delayOutput,	outputPath1,	channel);
+}
+
+
+TTErr TTMirror5::calculateLowpass(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+{
+	TTFloat64 outputFromPath0;
+	TTFloat64 outputFromPath1;
+	
+	filterKernel(x, outputFromPath0, outputFromPath1, channel);
+	y = (outputFromPath0 + outputFromPath1) * 0.5;
+	return kTTErrNone;
+}
+
+
+TTErr TTMirror5::calculateHighpass(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+{
+	TTFloat64 outputFromPath0;
+	TTFloat64 outputFromPath1;
+	
+	filterKernel(x, outputFromPath0, outputFromPath1, channel);
+	y = (outputFromPath0 - outputFromPath1) * 0.5;
+	return kTTErrNone;
+}
+
+
+TTErr TTMirror5::processLowpass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TT_WRAP_CALCULATE_METHOD(calculateLowpass);
+}
+
+
+TTErr TTMirror5::processHighpass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TT_WRAP_CALCULATE_METHOD(calculateHighpass);
+}
+
