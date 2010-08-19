@@ -19,6 +19,7 @@
 #include "TTHalfband5.h"
 #include "TTHalfband9.h"
 #include "TTHalfbandLinear33.h"
+#include "TTMirror5.h"
 
 #include "TTBandpassButterworth2.h"
 #include "TTBandrejectButterworth2.h"
@@ -58,6 +59,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	TTHalfband5::registerClass();
 	TTHalfband9::registerClass();
 	TTHalfbandLinear33::registerClass();
+	TTMirror5::registerClass();
 	
 	//	TTAverage::registerClass();
 

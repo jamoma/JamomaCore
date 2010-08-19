@@ -19,7 +19,7 @@
 TT_AUDIO_CONSTRUCTOR,
 	mF0(NULL),
 	mF1(NULL),
-	mDelay(NULL)
+	mF2(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	TTErr		err;
@@ -30,8 +30,8 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessageWithArgument(updateMaxNumChannels);
 
 	err = TTObjectInstantiate(TT("allpass.2a"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
-	err = TTObjectInstantiate(TT("allpass.2a"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
-	err = TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mDelay, initialMaxNumChannels);
+	err = TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
+	err = TTObjectInstantiate(TT("allpass.2a"), (TTObjectPtr*)&mF2, initialMaxNumChannels);
 
 	setAttributeValue(TT("MaxNumChannels"),	initialMaxNumChannels);
 	setAttributeValue(TT("Mode"),			TT("lowpass"));
@@ -43,7 +43,7 @@ TTMirror5::~TTMirror5()
 {
 	TTObjectRelease((TTObjectPtr*)&mF0);
 	TTObjectRelease((TTObjectPtr*)&mF1);
-	TTObjectRelease((TTObjectPtr*)&mDelay);
+	TTObjectRelease((TTObjectPtr*)&mF2);
 }
 
 
@@ -84,12 +84,9 @@ TTErr TTMirror5::setFrequency(const TTValue& newValue)
 {
 	mFrequency = newValue;
 	
-	// where did alpha come from?  is the coefficient from the halfband?  
-	// that means we need to do this process twice?  once for each of the two alpha coefficients?
-
-	const TTFloat64	alpha_0 = 0.1413486;
+	const TTFloat64	alpha_0 = 0.1413486;	// alpha coefficients come from the halfband filter, which we are transforming
 	const TTFloat64	alpha_1 = 0.5899948;
-	const TTFloat64	omega_b = mFrequency;
+	const TTFloat64	omega_b = TTClip<TTFloat64>(sr/2.0 - mFrequency, 0.0, sr/2.0);
 	const TTFloat64	omega_s = sr;
 	const TTFloat64	theta_b = (omega_b / omega_s) * kTTTwoPi;
 	const TTFloat64	b = (1 - tan(theta_b / 2.0)) / (1 + tan(theta_b / 2.0));
@@ -101,8 +98,9 @@ TTErr TTMirror5::setFrequency(const TTValue& newValue)
 
 	c_1 = ((2.0 * b) + (2.0 * b * alpha_1)) / (1 + alpha_1 * (b * b));
 	c_2 = ((b*b) + alpha_1) / (1 + alpha_1 * (b*b));
-	mF1->setAttributeValue(TT("C1"), c_1);
-	mF1->setAttributeValue(TT("C2"), c_2);
+	mF1->setAttributeValue(TT("Alpha"), b);
+	mF2->setAttributeValue(TT("C1"), c_1);
+	mF2->setAttributeValue(TT("C2"), c_2);
 
 	return kTTErrNone;
 }
@@ -110,12 +108,12 @@ TTErr TTMirror5::setFrequency(const TTValue& newValue)
 
 inline void TTMirror5::filterKernel(const TTFloat64& input, TTFloat64& outputPath0, TTFloat64& outputPath1, TTPtrSizedInt channel)
 {
-	TTFloat64 delayOutput;
+	TTFloat64 temp;
 	
-	mF0->calculateValue(input,			outputPath0,	channel);
+	mF0->calculateValue(input,	outputPath0,	channel);
 	
-	mDelay->calculateValue(input,		delayOutput,	channel);
-	mF1->calculateValue(delayOutput,	outputPath1,	channel);
+	mF1->calculateValue(input,	temp,			channel);
+	mF2->calculateValue(temp,	outputPath1,	channel);
 }
 
 
