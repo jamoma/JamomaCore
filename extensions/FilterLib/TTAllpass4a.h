@@ -6,8 +6,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TT_ALLPASS4_H__
-#define __TT_ALLPASS4_H__
+#ifndef __TT_ALLPASS4A_H__
+#define __TT_ALLPASS4A_H__
 
 #include "TTDSP.h"
 
@@ -15,7 +15,7 @@
 /**	A second-order building-block allpass filter.
 	Based on Multirate Signal Processing for Communication Systems, Chapter 10, Figure 42. 
  */
-class TTAllpass4 : public TTAudioObject {
+class TTAllpass4a : public TTAudioObject {
 	TTCLASS_SETUP(TTAllpass4)
 
 	TTFloat64			mD1;	///< first coefficient
@@ -46,4 +46,4 @@ public:
 };
 
 
-#endif // __TT_ALLPASS4_H__
+#endif // __TT_ALLPASS4A_H__
