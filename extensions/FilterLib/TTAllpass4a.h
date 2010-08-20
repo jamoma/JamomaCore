@@ -16,7 +16,7 @@
 	Based on Multirate Signal Processing for Communication Systems, Chapter 10, Figure 42. 
  */
 class TTAllpass4a : public TTAudioObject {
-	TTCLASS_SETUP(TTAllpass4)
+	TTCLASS_SETUP(TTAllpass4a)
 
 	TTFloat64			mD1;	///< first coefficient
 	TTFloat64			mD2;	///< second coefficient
