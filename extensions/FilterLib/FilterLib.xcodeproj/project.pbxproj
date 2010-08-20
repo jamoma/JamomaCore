@@ -12,6 +12,8 @@
 		221CA3BF121C4E3B003E2DC1 /* TTAllpass2b.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221CA3BD121C4E3B003E2DC1 /* TTAllpass2b.cpp */; };
 		221CA462121C6A38003E2DC1 /* TTAllpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221CA460121C6A38003E2DC1 /* TTAllpass.cpp */; };
 		221CA529121CD44C003E2DC1 /* TTMirror5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221CA527121CD44C003E2DC1 /* TTMirror5.cpp */; };
+		221CA5C0121DEE06003E2DC1 /* TTMirrorBandpass10.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221CA5B0121DEC28003E2DC1 /* TTMirrorBandpass10.cpp */; };
+		221CA5D8121EC928003E2DC1 /* TTAllpass2c.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221CA5D6121EC928003E2DC1 /* TTAllpass2c.cpp */; };
 		22287BBE1210F0F30028FDAB /* TTAllpass1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22287BB81210F0F30028FDAB /* TTAllpass1.cpp */; };
 		22287BBF1210F0F30028FDAB /* TTAllpass1a.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22287BBA1210F0F30028FDAB /* TTAllpass1a.cpp */; };
 		22287BC01210F0F30028FDAB /* TTAllpass1b.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22287BBC1210F0F30028FDAB /* TTAllpass1b.cpp */; };
@@ -57,6 +59,10 @@
 		221CA461121C6A38003E2DC1 /* TTAllpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAllpass.h; sourceTree = "<group>"; };
 		221CA527121CD44C003E2DC1 /* TTMirror5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMirror5.cpp; sourceTree = "<group>"; };
 		221CA528121CD44C003E2DC1 /* TTMirror5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMirror5.h; sourceTree = "<group>"; };
+		221CA5B0121DEC28003E2DC1 /* TTMirrorBandpass10.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMirrorBandpass10.cpp; sourceTree = "<group>"; };
+		221CA5B1121DEC28003E2DC1 /* TTMirrorBandpass10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMirrorBandpass10.h; sourceTree = "<group>"; };
+		221CA5D6121EC928003E2DC1 /* TTAllpass2c.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTAllpass2c.cpp; sourceTree = "<group>"; };
+		221CA5D7121EC928003E2DC1 /* TTAllpass2c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAllpass2c.h; sourceTree = "<group>"; };
 		22287BB81210F0F30028FDAB /* TTAllpass1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTAllpass1.cpp; sourceTree = "<group>"; };
 		22287BB91210F0F30028FDAB /* TTAllpass1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAllpass1.h; sourceTree = "<group>"; };
 		22287BBA1210F0F30028FDAB /* TTAllpass1a.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTAllpass1a.cpp; sourceTree = "<group>"; };
@@ -187,6 +193,8 @@
 				226C94A21203A8ED009E0717 /* TTAllpass2a.cpp */,
 				221CA3BE121C4E3B003E2DC1 /* TTAllpass2b.h */,
 				221CA3BD121C4E3B003E2DC1 /* TTAllpass2b.cpp */,
+				221CA5D7121EC928003E2DC1 /* TTAllpass2c.h */,
+				221CA5D6121EC928003E2DC1 /* TTAllpass2c.cpp */,
 				226C94AA1203AC7E009E0717 /* TTAllpass4a.h */,
 				226C94A91203AC7E009E0717 /* TTAllpass4a.cpp */,
 				226C94B01203B1D1009E0717 /* TTHalfband5.h */,
@@ -197,6 +205,8 @@
 				221CA34A121C364D003E2DC1 /* TTHalfbandLinear33.cpp */,
 				221CA528121CD44C003E2DC1 /* TTMirror5.h */,
 				221CA527121CD44C003E2DC1 /* TTMirror5.cpp */,
+				221CA5B1121DEC28003E2DC1 /* TTMirrorBandpass10.h */,
+				221CA5B0121DEC28003E2DC1 /* TTMirrorBandpass10.cpp */,
 			);
 			name = "Allpass-Based Filters";
 			sourceTree = "<group>";
@@ -352,6 +362,8 @@
 				221CA3BF121C4E3B003E2DC1 /* TTAllpass2b.cpp in Sources */,
 				221CA462121C6A38003E2DC1 /* TTAllpass.cpp in Sources */,
 				221CA529121CD44C003E2DC1 /* TTMirror5.cpp in Sources */,
+				221CA5C0121DEE06003E2DC1 /* TTMirrorBandpass10.cpp in Sources */,
+				221CA5D8121EC928003E2DC1 /* TTAllpass2c.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
