@@ -71,7 +71,6 @@ TTErr TTAllpass::SetCoefficients(const TTValue& coefficients)
 		}
 	}
 	else if (mFilter == TT("allpass.2a") || mFilter == TT("allpass.2b")) {
-
 		mFilterObject->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
 		if (coefficients.getSize() == 2) {
 			TTFloat64 c1, c2;
@@ -80,6 +79,32 @@ TTErr TTAllpass::SetCoefficients(const TTValue& coefficients)
 			coefficients.get(1, c2);
 			err = mFilterObject->setAttributeValue(TT("C1"), c1);
 			err = mFilterObject->setAttributeValue(TT("C2"), c2);
+		}
+	}
+	else if (mFilter == TT("allpass.2c")) {
+		mFilterObject->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
+		if (coefficients.getSize() == 2) {
+			TTFloat64 e1, e2;
+			
+			coefficients.get(0, e1);
+			coefficients.get(1, e2);
+			err = mFilterObject->setAttributeValue(TT("E1"), e1);
+			err = mFilterObject->setAttributeValue(TT("E2"), e2);
+		}
+	}
+	else if (mFilter == TT("allpass.4a")) {
+		mFilterObject->setAttributeValue(TT("MaxNumChannels"), maxNumChannels);
+		if (coefficients.getSize() == 4) {
+			TTFloat64 d1, d2, d3, d4;
+			
+			coefficients.get(0, d1);
+			coefficients.get(1, d2);
+			coefficients.get(2, d3);
+			coefficients.get(3, d4);
+			err = mFilterObject->setAttributeValue(TT("D1"), d1);
+			err = mFilterObject->setAttributeValue(TT("D2"), d2);
+			err = mFilterObject->setAttributeValue(TT("D3"), d3);
+			err = mFilterObject->setAttributeValue(TT("D4"), d4);
 		}
 	}
 	
