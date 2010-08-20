@@ -74,10 +74,10 @@ TTErr TTAllpass4a::Clear()
 
 TTErr TTAllpass4a::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
-	TTFloat64 w1 = mD1 * (mX3[channel] + mY1[channel]);
-	TTFloat64 w2 = mD2 * (mX2[channel] + mY2[channel]);
-	TTFloat64 w3 = mD3 * (mX1[channel] + mY3[channel]);
-	TTFloat64 w4 = mD4 * (x            + mY4[channel]);
+	TTFloat64 w1 = mD1 * (mX3[channel] - mY1[channel]);
+	TTFloat64 w2 = mD2 * (mX2[channel] - mY2[channel]);
+	TTFloat64 w3 = mD3 * (mX1[channel] - mY3[channel]);
+	TTFloat64 w4 = mD4 * (x            - mY4[channel]);
 	
 	y = w1 + w2 + w3 + w4 + mX4[channel];
 
