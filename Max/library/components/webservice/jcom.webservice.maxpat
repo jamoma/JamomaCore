@@ -28,7 +28,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 910.0, 425.0, 70.0, 19.0 ],
-					"presentation_rect" : [ 897.0, 412.0, 0.0, 0.0 ],
 					"text" : "fromsymbol"
 				}
 
@@ -43,7 +42,6 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"patching_rect" : [ 910.0, 395.0, 33.0, 19.0 ],
-					"presentation_rect" : [ 911.0, 381.0, 0.0, 0.0 ],
 					"text" : "shell"
 				}
 
@@ -72,7 +70,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 910.0, 335.0, 100.0, 19.0 ],
-					"presentation_rect" : [ 652.0, 578.0, 0.0, 0.0 ],
 					"text" : "prepend osascript"
 				}
 
@@ -101,7 +98,6 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "int" ],
 					"patching_rect" : [ 910.0, 275.0, 129.0, 19.0 ],
-					"presentation_rect" : [ 652.0, 518.0, 0.0, 0.0 ],
 					"text" : "conformpath slash boot"
 				}
 
@@ -116,7 +112,6 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 915.0, 240.0, 67.0, 19.0 ],
-					"presentation_rect" : [ 657.0, 483.0, 0.0, 0.0 ],
 					"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ],
 					"text" : "thispatcher"
 				}
@@ -196,7 +191,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 770.0, 240.0, 119.0, 17.0 ],
-					"presentation_rect" : [ 771.0, 240.0, 0.0, 0.0 ],
 					"text" : "error executing script"
 				}
 
@@ -294,8 +288,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 390.0, 305.0, 291.0, 19.0 ],
-					"text" : "combine path jcom.AppleScript.ControlWebService.scpt"
+					"patching_rect" : [ 390.0, 305.0, 325.0, 19.0 ],
+					"text" : "combine path jcom.AppleScript.ControlWebService.applescript"
 				}
 
 			}
