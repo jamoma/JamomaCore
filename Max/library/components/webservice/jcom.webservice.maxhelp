@@ -27,7 +27,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 475.0, 140.0, 200.0, 19.0 ],
+					"patching_rect" : [ 475.0, 130.0, 200.0, 19.0 ],
 					"text" : "Check if you are hosting web services"
 				}
 
@@ -41,8 +41,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 55.0, 180.0, 219.0, 19.0 ],
-					"presentation_rect" : [ 53.0, 190.0, 0.0, 0.0 ],
+					"patching_rect" : [ 50.0, 195.0, 219.0, 19.0 ],
 					"text" : "These commands take a while to execute"
 				}
 
@@ -56,7 +55,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 55.0, 445.0, 246.0, 17.0 ]
+					"patching_rect" : [ 50.0, 445.0, 246.0, 17.0 ]
 				}
 
 			}
@@ -69,7 +68,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 55.0, 415.0, 68.0, 19.0 ],
+					"patching_rect" : [ 50.0, 415.0, 68.0, 19.0 ],
 					"text" : "r jcom.post"
 				}
 
@@ -84,7 +83,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 55.0, 140.0, 169.0, 31.0 ],
+					"patching_rect" : [ 50.0, 155.0, 169.0, 31.0 ],
 					"text" : "Enable or disable web sharing. Bang to get current state"
 				}
 
@@ -272,11 +271,12 @@
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-22",
+					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 50.0, 85.0, 374.0, 19.0 ],
-					"text" : "You will need administrator permissions to turn web shaping on and off."
+					"patching_rect" : [ 50.0, 100.0, 285.0, 43.0 ],
+					"text" : "You will need administrator permissions to turn web shaping on and off. This component is specific to Mac OSX."
 				}
 
 			}
@@ -308,7 +308,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
 					"patching_rect" : [ 360.0, 445.0, 320.0, 20.0 ],
-					"text" : "about:blank/",
+					"text" : "about:blank/.com/",
 					"truncate" : 2
 				}
 
@@ -380,7 +380,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 360.0, 140.0, 110.0, 17.0 ],
+					"patching_rect" : [ 360.0, 130.0, 110.0, 17.0 ],
 					"text" : "url http://127.0.0.1"
 				}
 
@@ -395,11 +395,11 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 360.0, 170.0, 320.0, 240.0 ],
+					"patching_rect" : [ 360.0, 155.0, 320.0, 250.0 ],
 					"res_report" : 1,
 					"scrollbars" : 1,
 					"textcolor" : [  ],
-					"url" : "about:blank/"
+					"url" : "about:blank/.com/"
 				}
 
 			}
@@ -467,7 +467,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-31", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 64.5, 439.0, 291.5, 439.0 ],
+					"midpoints" : [ 59.5, 439.0, 286.5, 439.0 ],
 					"source" : [ "obj-29", 0 ]
 				}
 
