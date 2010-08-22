@@ -27,7 +27,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 475.0, 130.0, 200.0, 19.0 ],
+					"patching_rect" : [ 475.0, 105.0, 200.0, 19.0 ],
 					"text" : "Check if you are hosting web services"
 				}
 
@@ -55,7 +55,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 50.0, 445.0, 246.0, 17.0 ]
+					"patching_rect" : [ 50.0, 450.0, 246.0, 17.0 ],
+					"text" : "jcom.webservice web running"
 				}
 
 			}
@@ -68,7 +69,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 50.0, 415.0, 68.0, 19.0 ],
+					"patching_rect" : [ 50.0, 420.0, 68.0, 19.0 ],
 					"text" : "r jcom.post"
 				}
 
@@ -252,11 +253,11 @@
 ,
 					"patching_rect" : [ 360.0, 415.0, 59.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
+						"fontname" : "Verdana",
 						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0
 					}
@@ -308,7 +309,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
 					"patching_rect" : [ 360.0, 445.0, 320.0, 20.0 ],
-					"text" : "about:blank/.com/",
+					"text" : "http://127.0.0.1/",
 					"truncate" : 2
 				}
 
@@ -323,7 +324,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 359.0, 445.0, 321.0, 20.0 ],
-					"size" : 2.0
+					"size" : 3.0
 				}
 
 			}
@@ -380,14 +381,14 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 360.0, 130.0, 110.0, 17.0 ],
+					"patching_rect" : [ 360.0, 105.0, 110.0, 17.0 ],
 					"text" : "url http://127.0.0.1"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"color" : [ 1.0, 1.0, 1.0, 1.0 ],
+					"color" : [ 0.866667, 0.466667, 0.466667, 1.0 ],
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-2",
@@ -395,11 +396,11 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 360.0, 155.0, 320.0, 250.0 ],
+					"patching_rect" : [ 360.0, 145.0, 320.0, 250.0 ],
 					"res_report" : 1,
 					"scrollbars" : 1,
 					"textcolor" : [  ],
-					"url" : "about:blank/.com/"
+					"url" : "http://127.0.0.1/"
 				}
 
 			}
@@ -414,6 +415,17 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 75.0, 295.0, 94.0, 19.0 ],
 					"text" : "jcom.webservice"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-5",
+					"maxclass" : "panel",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 350.0, 135.0, 340.0, 270.0 ],
+					"rounded" : 0
 				}
 
 			}
@@ -467,7 +479,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-31", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 59.5, 439.0, 286.5, 439.0 ],
+					"midpoints" : [ 59.5, 444.0, 286.5, 444.0 ],
 					"source" : [ "obj-29", 0 ]
 				}
 
