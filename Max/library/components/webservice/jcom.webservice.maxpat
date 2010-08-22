@@ -83,8 +83,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 910.0, 305.0, 292.0, 19.0 ],
-					"text" : "combine path jcom.AppleScript.MonitorWebService.scpt"
+					"patching_rect" : [ 910.0, 305.0, 326.0, 19.0 ],
+					"text" : "combine path jcom.AppleScript.MonitorWebService.applescript"
 				}
 
 			}
