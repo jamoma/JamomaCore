@@ -1,5 +1,7 @@
 /* 
  * 10th-order bandpass/notch filter built up from a 2-path allpass structure
+ * Transformed from 5th-order 'Mirror' lowpass filter
+ *
  * Copyright © 2010, Tim Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"

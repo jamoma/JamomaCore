@@ -106,15 +106,11 @@ TTErr TTMirrorBandpass10::calculateCoefficients(void)
 	
 	// Path-0
 	
-	alpha = 0.141348681136137;	// these values for alpha give us a -60dB stopband
+	alpha = 0.141348681136137;							// these values for alpha give us a -60dB stopband
 	d_0 = 1 + alpha*b*b;
-//	d_1 = (-2*c - 2*alpha*b*c - 2*b*c - 2*alpha*b*b*c)												/  d_0;
-//	d_2 = (c*c + 2*b*c*c + b*b*c*c + 2*b + alpha*c*c + 2*alpha*b*c*c + alpha*b*b*c*c + alpha*2*b)	/  d_0;
-//	d_3 = (-2*c - 2*alpha*b*c - 2*b*c - 2*alpha*b*b*c)												/  d_0;
-//	d_4 = (alpha + b*b)																				/  d_0;
-	d_1 = (-2*c*(1+b)*(1+alpha*b))				/  d_0;
-	d_2 = ((1+alpha)*(c*c*(1+b*b)+2*b*(1+c*c)))	/  d_0;
-	d_3 = (-2*c*(1+b)*(alpha + b))				/  d_0;
+	d_1 = (-2*c*(1+b)*(1+alpha*b))				/  d_0;	
+	d_2 = ((1+alpha)*(c*c*(1+b*b)+2*b*(1+c*c)))	/  d_0;	// This equation is wrong in the F.H. Book
+	d_3 = (-2*c*(1+b)*(alpha + b))				/  d_0;	// This equation is wrong in the Safari-online version of the F.H. Book
 	d_4 = (alpha + b*b)							/  d_0;
 	
 	mF0->setAttributeValue(TT("D1"), d_1);
@@ -124,23 +120,17 @@ TTErr TTMirrorBandpass10::calculateCoefficients(void)
 	
 	// Path-1
 	
-	e_1 = c + c*b;
-	e_2 = -b;
-	e_1 *= -1.0;
-	e_2 *= -1.0;
+	e_1 = -c - c*b;
+	e_2 = b;
 
 	mF1->setAttributeValue(TT("E1"), e_1);
 	mF1->setAttributeValue(TT("E2"), e_2);
 	
-	alpha = 0.589994872274064;
+	alpha = 0.589994872274064;							// these values for alpha give us a -60dB stopband
 	d_0 = 1 + alpha*b*b;
-	//	d_1 = (-2*c - 2*alpha*b*c - 2*b*c - 2*alpha*b*b*c)												/  d_0;
-	//	d_2 = (c*c + 2*b*c*c + b*b*c*c + 2*b + alpha*c*c + 2*alpha*b*c*c + alpha*b*b*c*c + alpha*2*b)	/  d_0;
-	//	d_3 = (-2*c - 2*alpha*b*c - 2*b*c - 2*alpha*b*b*c)												/  d_0;
-	//	d_4 = (alpha + b*b)																				/  d_0;
 	d_1 = (-2*c*(1+b)*(1+alpha*b))				/  d_0;
-	d_2 = ((1+alpha)*(c*c*(1+b*b)+2*b*(1+c*c)))	/  d_0;
-	d_3 = (-2*c*(1+b)*(alpha + b))				/  d_0;
+	d_2 = ((1+alpha)*(c*c*(1+b*b)+2*b*(1+c*c)))	/  d_0;	// This equation is wrong in the F.H. Book
+	d_3 = (-2*c*(1+b)*(alpha + b))				/  d_0;	// This equation is wrong in the Safari-online version of the F.H. Book
 	d_4 = (alpha + b*b)							/  d_0;
 	
 	mF2->setAttributeValue(TT("D1"), d_1);
