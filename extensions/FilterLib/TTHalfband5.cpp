@@ -42,11 +42,17 @@ TT_AUDIO_CONSTRUCTOR,
 	// for the simple 1-sample delay, we set alpha (the feedback coefficient) to zero
 	mDelay->setAttributeValue(TT("Alpha"), 0.0);
 	
-	// For info on these next two see p16 from chapter 10 of Multirate Signal Processing
-	mF0->setAttributeValue(TT("Alpha"), 0.1413486);
-	mF1->setAttributeValue(TT("Alpha"), 0.5899948);
-	mR0->setAttributeValue(TT("Alpha"), 0.1413486);
-	mR1->setAttributeValue(TT("Alpha"), 0.5899948);
+	// -60 db attenuation, stopband starts at fs * 0.37
+	//mF0->setAttributeValue(TT("Alpha"), 0.1413486);
+	//mF1->setAttributeValue(TT("Alpha"), 0.5899948);
+	//mR0->setAttributeValue(TT("Alpha"), 0.1413486);
+	//mR1->setAttributeValue(TT("Alpha"), 0.5899948);
+	
+	// -83 db attenuation, stopband starts at f_s * 0.42
+	mF0->setAttributeValue(TT("Alpha"), 0.117266261862726);
+	mF1->setAttributeValue(TT("Alpha"), 0.549470222366184);
+	mR0->setAttributeValue(TT("Alpha"), 0.117266261862726);
+	mR1->setAttributeValue(TT("Alpha"), 0.549470222366184);
 }
 
 
