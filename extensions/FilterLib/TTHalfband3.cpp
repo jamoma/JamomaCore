@@ -35,12 +35,12 @@ TT_AUDIO_CONSTRUCTOR,
 	setAttributeValue(TT("Mode"), TT("lowpass"));
 	
 	// this coefficient gives w0 (stopband edge) at 0.48 * F_nyquist, with an attentuation of -85dB
-	// mF0->setAttributeValue(TT("Alpha"), 0.334654061320571);
-	// mR0->setAttributeValue(TT("Alpha"), 0.334654061320571);
+	mF0->setAttributeValue(TT("Alpha"), 0.334654061320571);
+	mR0->setAttributeValue(TT("Alpha"), 0.334654061320571);
 	
 	// this coefficient gives w0 (stopband edge) at 0.45 * F_nyquist, with an attentuation of -60dB
-	mF0->setAttributeValue(TT("Alpha"), 0.341748648258737);
-	mR0->setAttributeValue(TT("Alpha"), 0.341748648258737);
+	//mF0->setAttributeValue(TT("Alpha"), 0.341748648258737);
+	//mR0->setAttributeValue(TT("Alpha"), 0.341748648258737);
 	
 	mDelay->setAttributeValue(TT("Alpha"), 0.0);
 }
