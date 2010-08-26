@@ -66,6 +66,8 @@ TTErr TTResample::setMode(const TTValue& newMode)
 		err = TTObjectInstantiate(TT("halfband.3"), (TTObjectPtr*)&mResamplingFilter, maxNumChannels);
 	else if (mMode == TT("fifth"))
 		err = TTObjectInstantiate(TT("halfband.5"), (TTObjectPtr*)&mResamplingFilter, maxNumChannels);
+	else if (mMode == TT("ninth"))
+		err = TTObjectInstantiate(TT("halfband.9"), (TTObjectPtr*)&mResamplingFilter, maxNumChannels);
 	else // mMode == TT("staircase")
 		err = TTObjectInstantiate(TT("staircase"), (TTObjectPtr*)&mResamplingFilter, maxNumChannels);
 	
