@@ -25,11 +25,13 @@ class TTHalfband5 : TTAudioObject {
 	TTAllpass1b*	mF0;		///< filter0 (in the upper path)
 	TTAllpass1b*	mF1;		///< filter1 (in the lower path, second block)
 	TTAllpass1a*	mDelay;		///< delay   (in the lower path, first block)
-	TTFloat64		mA0;		///< coefficient for f0
-	TTFloat64		mA1;		///< coefficient for f1
-	
+	TTAllpass1a*	mR0;		///< resampling filter0 (in the upper path)
+	TTAllpass1a*	mR1;		///< resampling filter1 (in the lower path, second block)
+	TTSampleVector	mRSwitch;	///< resampling switch (so we know which path to calculate)
+	TTSampleVector	mY0;		///< resampling path0 output (for each channel)
+	TTSampleVector	mY1;		///< resampling path1 output (for each channel)	
 	TTSymbolPtr		mMode;		///< Attribute: lowpass or highpass
-		
+	
 	// Notifications
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
@@ -42,12 +44,16 @@ class TTHalfband5 : TTAudioObject {
 	TTErr setA1(const TTValue& newValue);
 
 	// Do the processing
-	TTErr processLowpass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-	TTErr processHighpass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processLowpass	(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processHighpass	(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processDownsample	(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processUpsample	(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 public:
-	TTErr calculateLowpass(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);
-	TTErr calculateHighpass(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);
+	TTErr calculateLowpass		(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);
+	TTErr calculateHighpass		(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);
+	TTErr calculateDownsample	(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);
+	TTErr calculateUpsample		(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);
 };
 
 
