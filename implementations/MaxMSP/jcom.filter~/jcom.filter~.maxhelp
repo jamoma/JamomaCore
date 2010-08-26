@@ -39,7 +39,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 110.0, 370.0, 89.0, 17.0 ],
-					"presentation_rect" : [ 111.0, 368.0, 0.0, 0.0 ],
 					"text" : "mode bandpass"
 				}
 
@@ -54,7 +53,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 110.0, 390.0, 70.0, 17.0 ],
-					"presentation_rect" : [ 111.0, 388.0, 0.0, 0.0 ],
 					"text" : "mode notch"
 				}
 
@@ -1147,7 +1145,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-25",
-					"items" : [ "allpass", ",", "allpass.1", ",", "allpass.1a", ",", "allpass.1b", ",", "allpass.2a", ",", "allpass.2b", ",", "allpass.2c", ",", "allpass.4a", ",", "halfband.5", ",", "halfband.9", ",", "halfband.linear.33", ",", "mirror.5", ",", "mirror.bandpass.10", ",", "bandpass.butterworth.2", ",", "bandreject.butterworth.2", ",", "dcblock", ",", "highmidlowshelf", ",", "highpass.butterworth.1", ",", "highpass.butterworth.2", ",", "highpass.butterworth.3", ",", "highpass.butterworth.4", ",", "highpass.linkwitzriley.2", ",", "highpass.linkwitzriley.4", ",", "lowpass.butterworth.1", ",", "lowpass.butterworth.2", ",", "lowpass.butterworth.3", ",", "lowpass.butterworth.4", ",", "lowpass.linkwitzriley.2", ",", "lowpass.linkwitzriley.4", ",", "lowpass.1", ",", "lowpass.2", ",", "lowpass.4", ",", "onepole", ",", "svf" ],
+					"items" : [ "allpass", ",", "allpass.1", ",", "allpass.1a", ",", "allpass.1b", ",", "allpass.2a", ",", "allpass.2b", ",", "allpass.2c", ",", "allpass.4a", ",", "halfband.3", ",", "halfband.5", ",", "halfband.9", ",", "halfband.linear.33", ",", "mirror.5", ",", "mirror.bandpass.10", ",", "bandpass.butterworth.2", ",", "bandreject.butterworth.2", ",", "dcblock", ",", "highmidlowshelf", ",", "highpass.butterworth.1", ",", "highpass.butterworth.2", ",", "highpass.butterworth.3", ",", "highpass.butterworth.4", ",", "highpass.linkwitzriley.2", ",", "highpass.linkwitzriley.4", ",", "lowpass.butterworth.1", ",", "lowpass.butterworth.2", ",", "lowpass.butterworth.3", ",", "lowpass.butterworth.4", ",", "lowpass.linkwitzriley.2", ",", "lowpass.linkwitzriley.4", ",", "lowpass.1", ",", "lowpass.2", ",", "lowpass.4", ",", "onepole", ",", "svf" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,

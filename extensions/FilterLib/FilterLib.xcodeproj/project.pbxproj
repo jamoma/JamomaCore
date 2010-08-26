@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		220DC7E4122434BB00272071 /* TTHalfband3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 220DC7E2122434BB00272071 /* TTHalfband3.cpp */; };
 		221CA331121C251E003E2DC1 /* TTHalfband9.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221CA32F121C251E003E2DC1 /* TTHalfband9.cpp */; };
 		221CA34C121C364D003E2DC1 /* TTHalfbandLinear33.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221CA34A121C364D003E2DC1 /* TTHalfbandLinear33.cpp */; };
 		221CA3BF121C4E3B003E2DC1 /* TTAllpass2b.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221CA3BD121C4E3B003E2DC1 /* TTAllpass2b.cpp */; };
@@ -49,6 +50,8 @@
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		220DC7E2122434BB00272071 /* TTHalfband3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTHalfband3.cpp; sourceTree = "<group>"; };
+		220DC7E3122434BB00272071 /* TTHalfband3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTHalfband3.h; sourceTree = "<group>"; };
 		221CA32F121C251E003E2DC1 /* TTHalfband9.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTHalfband9.cpp; sourceTree = "<group>"; };
 		221CA330121C251E003E2DC1 /* TTHalfband9.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTHalfband9.h; sourceTree = "<group>"; };
 		221CA34A121C364D003E2DC1 /* TTHalfbandLinear33.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTHalfbandLinear33.cpp; sourceTree = "<group>"; };
@@ -197,6 +200,8 @@
 				221CA5D6121EC928003E2DC1 /* TTAllpass2c.cpp */,
 				226C94AA1203AC7E009E0717 /* TTAllpass4a.h */,
 				226C94A91203AC7E009E0717 /* TTAllpass4a.cpp */,
+				220DC7E3122434BB00272071 /* TTHalfband3.h */,
+				220DC7E2122434BB00272071 /* TTHalfband3.cpp */,
 				226C94B01203B1D1009E0717 /* TTHalfband5.h */,
 				226C94AF1203B1D1009E0717 /* TTHalfband5.cpp */,
 				221CA330121C251E003E2DC1 /* TTHalfband9.h */,
@@ -364,6 +369,7 @@
 				221CA529121CD44C003E2DC1 /* TTMirror5.cpp in Sources */,
 				221CA5C0121DEE06003E2DC1 /* TTMirrorBandpass10.cpp in Sources */,
 				221CA5D8121EC928003E2DC1 /* TTAllpass2c.cpp in Sources */,
+				220DC7E4122434BB00272071 /* TTHalfband3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

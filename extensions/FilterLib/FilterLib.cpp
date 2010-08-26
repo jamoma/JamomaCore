@@ -17,6 +17,7 @@
 #include "TTAllpass2b.h"
 #include "TTAllpass2c.h"
 #include "TTAllpass4a.h"
+#include "TTHalfband3.h"
 #include "TTHalfband5.h"
 #include "TTHalfband9.h"
 #include "TTHalfbandLinear33.h"
@@ -59,6 +60,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	TTAllpass2b::registerClass();
 	TTAllpass2c::registerClass();
 	TTAllpass4a::registerClass();
+	TTHalfband3::registerClass();
 	TTHalfband5::registerClass();
 	TTHalfband9::registerClass();
 	TTHalfbandLinear33::registerClass();
