@@ -100,6 +100,15 @@ public:
 		return mVectorSize;
 	}
 	
+	TTErr changeVectorSize(const TTUInt16 newVectorSize)
+	{
+		if (mIsLocallyOwned)
+			allocWithVectorSize(newVectorSize);
+		else
+			mVectorSize = newVectorSize;
+		return kTTErrNone;
+	}
+	
 
 	TTErr setNumChannels(const TTValue& newNumChannels)
 	{
