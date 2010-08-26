@@ -403,12 +403,12 @@ void ui_paint(t_ui *x, t_object *view)
 	// draw the menu icon
 	jgraphics_set_line_width(g, 1.5);
 	//jgraphics_oval(g, 3.0, 3.0, 13.0, 13.0);
-	jgraphics_arc(g, 9.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+	jgraphics_arc(g, 9.5, 9.5, 6.5, 0., kTTTwoPi);
 	jgraphics_fill(g);
 
 	jgraphics_set_source_jrgba(g, &s_color_border_button);
 	//jgraphics_oval(g, 3.0, 3.0, 13.0, 13.0);
-	jgraphics_arc(g, 9.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+	jgraphics_arc(g, 9.5, 9.5, 6.5, 0., kTTTwoPi);
 	jgraphics_stroke(g);
 
 	middle = 9.0;
@@ -445,27 +445,27 @@ void ui_paint(t_ui *x, t_object *view)
 		
 		jgraphics_set_line_width(g, 1.5);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_stroke(g);
-		
+
 		jgraphics_set_source_jrgba(g, &s_color_darkgreen);
 		
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, ((gain / 127.0) * TWOPI) + (PI/2)); // angles are in radians
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, kTTHalfPi, ((gain / 127.0) * kTTTwoPi) + kTTHalfPi); // angles are in radians
 		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
 		jgraphics_close_path(g);
 		jgraphics_fill(g);	
 		
 		jgraphics_set_source_jrgba(g, &s_color_green_ring);
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, ((gain / 127.0) * TWOPI) + (PI/2));
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, kTTHalfPi, ((gain / 127.0) * kTTTwoPi) + kTTHalfPi);
 		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
 		jgraphics_stroke(g);
 		
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 1.5, 0, TWOPI); // angles are in radians
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 1.5, 0, kTTTwoPi); // angles are in radians
 		jgraphics_fill(g);	
 	}
 	
@@ -494,27 +494,27 @@ void ui_paint(t_ui *x, t_object *view)
 		
 		jgraphics_set_line_width(g, 1.5);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_stroke(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_darkblue);
 		
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, ((mix / 100.0) * TWOPI) + (PI/2)); // angles are in radians
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, kTTHalfPi, ((mix / 100.0) * kTTTwoPi) + kTTHalfPi); // angles are in radians
 		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
 		jgraphics_close_path(g);
 		jgraphics_fill(g);	
 
 		jgraphics_set_source_jrgba(g, &s_color_blue_ring);
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, ((mix / 100.0) * TWOPI) + (PI/2));
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, kTTHalfPi, ((mix / 100.0) * kTTTwoPi) + kTTHalfPi);
 		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
 		jgraphics_stroke(g);
 		
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 1.5, 0, TWOPI); // angles are in radians
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 1.5, 0, kTTTwoPi); // angles are in radians
 		jgraphics_fill(g);	
 	}
 
@@ -542,12 +542,12 @@ void ui_paint(t_ui *x, t_object *view)
 		
 		jgraphics_set_line_width(g, 1.5);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_stroke(g);
 				
 		// m
@@ -584,12 +584,12 @@ void ui_paint(t_ui *x, t_object *view)
 		
 		jgraphics_set_line_width(g, 1.5);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_stroke(g);
 				
 		// b
@@ -623,12 +623,12 @@ void ui_paint(t_ui *x, t_object *view)
 		
 		jgraphics_set_line_width(g, 1.5);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_stroke(g);
 				
 		// f
@@ -660,12 +660,12 @@ void ui_paint(t_ui *x, t_object *view)
 		
 		jgraphics_set_line_width(g, 1.5);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_stroke(g);
 				
 		// p
@@ -690,12 +690,12 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_set_source_jrgba(g, &s_color_background_button);
 		jgraphics_set_line_width(g, 1.5);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_stroke(g);
 				
 		// i
