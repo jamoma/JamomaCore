@@ -179,9 +179,8 @@ TTErr TTHalfband9::calculateDownsample(const TTFloat64& x, TTFloat64& y, TTPtrSi
 	TTFloat64 temp_1;
 
 	if (mRSwitch[channel]) {
-		
 		mR0->calculateValue(x,		temp_0,			channel);
-		mR2->calculateValue(temp_0,	temp_1,	channel);
+		mR2->calculateValue(temp_0,	temp_1,			channel);
 		y = (temp_1 + mY1[channel]) * 0.5;
 		mRSwitch[channel] = 0;
 	}
@@ -190,6 +189,7 @@ TTErr TTHalfband9::calculateDownsample(const TTFloat64& x, TTFloat64& y, TTPtrSi
 		mR3->calculateValue(temp_0,	mY1[channel],	channel);
 		mRSwitch[channel] = 1;
 	}
+
 	return kTTErrNone;
 }
 
