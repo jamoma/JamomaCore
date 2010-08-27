@@ -304,11 +304,11 @@
 ,
 					"patching_rect" : [ 559.0, 155.0, 405.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
-						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana"
 					}
@@ -680,13 +680,13 @@
  ]
 					}
 ,
-					"patching_rect" : [ 229.0, 571.0, 75.0, 19.0 ],
+					"patching_rect" : [ 229.0, 571.0, 76.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
-						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana"
 					}
@@ -995,13 +995,13 @@
  ]
 					}
 ,
-					"patching_rect" : [ 231.0, 498.0, 75.0, 19.0 ],
+					"patching_rect" : [ 231.0, 498.0, 76.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
-						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana"
 					}
@@ -1310,13 +1310,13 @@
  ]
 					}
 ,
-					"patching_rect" : [ 212.0, 423.0, 75.0, 19.0 ],
+					"patching_rect" : [ 212.0, 423.0, 76.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
-						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana"
 					}
@@ -1704,7 +1704,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 27.0, 163.0, 221.0, 19.0 ],
+					"patching_rect" : [ 27.0, 163.0, 222.0, 19.0 ],
 					"text" : "Voices are only updated when audio is off.",
 					"textcolor" : [ 0.67451, 0.67451, 0.67451, 1.0 ]
 				}
@@ -1784,9 +1784,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 4,
-					"outlettype" : [ "", "multicore.connect", "multicore.connect", "multicore.connect" ],
+					"outlettype" : [ "", "audio.connect", "audio.connect", "audio.connect" ],
 					"patching_rect" : [ 158.0, 218.0, 133.0, 19.0 ],
-					"text" : "jalg.sur.multi.aux~"
+					"text" : "jalg.sur.aux~"
 				}
 
 			}
