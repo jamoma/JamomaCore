@@ -17,4 +17,16 @@
 		<item name="filtergain" type="decimal">0.</item>
 		<item name="filtertype" type="string">lowpass</item>
     </preset>
+	<preset number="2" name="Bandpass Octave filter 1000 Hz">
+		<item name="frequency" type="decimal">1000.</item>
+		<item name="q" type="decimal">1.408</item>
+		<item name="filtergain" type="decimal">0.</item>
+		<item name="filtertype" type="string">bandpass</item>
+    </preset>
+	<preset number="3" name="Bandpass 3rd-Octave filter 1000 Hz">
+		<item name="frequency" type="decimal">1000.</item>
+		<item name="q" type="decimal">4.33</item>
+		<item name="filtergain" type="decimal">0.</item>
+		<item name="filtertype" type="string">bandpass</item>
+    </preset>                             
 </jamoma>

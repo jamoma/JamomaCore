@@ -3,8 +3,8 @@
  * External for Jamoma: the main control center
  * By Tim Place, Copyright � 2006
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 // TODO: get module name (by default) from the patcher name so it doesn't have to be specified manually
@@ -248,7 +248,10 @@ void hub_examine_context(t_hub *x)
 	// Try to get OSC Name of module from an argument
 	jamoma_patcher_getargs(x->container, &argc, &argv);	// <-- this call allocates memory for argv
 	if (argc) {
-		x->osc_name = atom_getsym(argv+(argc-1));
+		if (context == gensym("bpatcher"))
+			x->osc_name = atom_getsym(argv);
+		else if (context == gensym("subpatcher"))
+			x->osc_name = atom_getsym(argv+1);
 		sysmem_freeptr(argv);
 	}
 	else
@@ -288,7 +291,6 @@ void hub_examine_context(t_hub *x)
 				boxRect.width = uiRect.width;
 				boxRect.height = uiRect.height;
 				object_attr_set_rect(box, _sym_patching_rect, &boxRect);
-
 				object_attr_get_rect(box, _sym_presentation_rect, &boxRect);
 				boxRect.width = uiRect.width;
 				boxRect.height = uiRect.height;
@@ -298,9 +300,15 @@ void hub_examine_context(t_hub *x)
 				object_attr_get_rect(ui, _sym_presentation_rect, &uiRect);
 				object_attr_get_rect(patcher, _sym_defrect, &boxRect);
 				boxRect.width = uiRect.width;
-				boxRect.height = uiRect.height;
+				boxRect.height = uiRect.height;				
 				object_attr_set_rect(patcher, _sym_defrect, &boxRect);				
-				object_attr_setchar(patcher, _sym_toolbarvisible, 0);				
+				object_attr_setchar(patcher, _sym_toolbarvisible, 0);	
+				object_method_parse(patcher, _sym_window, "flags nogrow", NULL); //get rid of the grow thingies
+				object_method_parse(patcher, _sym_window, "flags nozoom", NULL); //disable maximize button 
+				object_method_parse(patcher, _sym_window, "exec", NULL); 
+				object_attr_setsym(patcher, _sym_title, x->attr_name); //set the window title to the module class, jcom.ui shows osc_name already 
+				object_attr_setchar(patcher, _sym_enablehscroll, 0);   // turn off scroll bars
+				object_attr_setchar(patcher, _sym_enablevscroll, 0);				
 			}
 		
 		}

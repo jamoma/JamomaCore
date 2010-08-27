@@ -3,8 +3,8 @@
  * External for Jamoma: to manage cues in a text file 
  * By ThÈo de la Hogue, Copyright 2009
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 #include "jcom.cuemanager.h"
 
@@ -760,8 +760,6 @@ void cuemng_dosave(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 	cuemng_write_buffer(x);
 
 	critical_exit(0);
-	
-	post("nb_written_line : %d", x->nb_written_lines);
 
 	// close the file
 	err = sysfile_seteof(x->fh, x->eof);
@@ -1179,7 +1177,8 @@ void cuemng_set_mode(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 
 void cuemng_set_comment(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 {
-	long index, memo = 0;
+	long index = 0;
+	long memo = 0;
 	t_cue *c;
 	t_symbol *new_comment;
 	t_atom a[2];
@@ -2278,7 +2277,7 @@ void cuemng_output_line(t_line *l, t_cuemng *x)
 	switch(l->type) {
 		case  _PARAM : 
 			{
-				if ((l->ramp != NO_RAMP) && x->do_ramp && (x->global_ramp != NO_RAMP)) {
+				if (((l->ramp != NO_RAMP) || (x->global_ramp != NO_RAMP)) && x->do_ramp ) {
 
 					// create an array to send data + ramp
 					data_ramp = (t_atom *)sysmem_newptr((long)(2+l->n)*sizeof(t_atom));
@@ -2290,10 +2289,10 @@ void cuemng_output_line(t_line *l, t_cuemng *x)
 
 					// copy ramp
 					atom_setsym(&data_ramp[l->n],x->ps_ramp);
-					if (l->ramp = GLOBAL_RAMP) {
+					if ((l->ramp == GLOBAL_RAMP) && (x->global_ramp != NO_RAMP)) {
 						atom_setlong(&data_ramp[l->n+1],x->global_ramp);
 					}
-					else {
+					else if (l->ramp != NO_RAMP) {
 						atom_setlong(&data_ramp[l->n+1],l->ramp);
 					}
 
@@ -2482,8 +2481,8 @@ void cuemng_write_line(t_line *l, t_cuemng *x)
 			cuemng_write_long(x,l->ramp);
 		}
 		if (l->ramp == GLOBAL_RAMP) {
-			cuemng_write_sym(x,x->ps_ramp);
-			cuemng_write_sym(x,ps_ramp_global);
+				cuemng_write_sym(x,x->ps_ramp);
+				cuemng_write_sym(x,ps_ramp_global);
 		}
 		
 		// l->type : number of newline after

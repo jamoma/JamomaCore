@@ -3,8 +3,8 @@
  * External for Jamoma: parameter definition
  * By Tim Place, Copyright © 2006
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "jcom.parameter.h"			// everything we need is in here
@@ -266,7 +266,7 @@ void param_free(t_param *x)
 	jcom_core_subscriber_common_free((t_jcom_core_subscriber_common *)x);
 	qelem_free(x->ui_qelem);
 	if (x->ramper)
-		delete x->ramper;
+		TTObjectRelease((TTObjectPtr*)&x->ramper);
 	if (x->receive)
 		object_free(x->receive);
 	delete x->rampParameterNames;
@@ -1628,8 +1628,6 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		// Only one list member if @type is integer of decimal
 		if ( x->common.attr_type == jps_integer || x->common.attr_type == jps_decimal)
 			ac = 1;
-//		else
-//		argc = argc - 2;
 		
 		for (i=0; i<ac; i++) {
 			values[i] = atom_getfloat(av+i);
@@ -1640,7 +1638,22 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		}
 
 		if (time <= 0) {
-			jcom_core_atom_copy(&x->attr_value, av);
+			for (i = 0; i < ac; i++) {
+				switch(av[i].a_type) {
+					case A_LONG:
+						atom_setlong(&x->atom_list[i], atom_getlong(av + i));
+						break;
+					case A_FLOAT:
+						atom_setfloat(&x->atom_list[i], atom_getfloat(av + i));
+						break;
+					case A_SYM:
+						atom_setsym(&x->atom_list[i], atom_getsym(av + i));
+						break;
+					default:
+						error("param_list: no type specification");
+						break;
+				}
+			}
 			x->param_output(x);
 			return;
 		}	
@@ -1747,7 +1760,7 @@ void param_ramp_setup(t_param *x)
 {
 	// 1. destroy the old rampunit
 	if (x->ramper != NULL) {
-		delete x->ramper;
+		TTObjectRelease((TTObjectPtr*)&x->ramper);
 		x->ramper = NULL;
 	}
 		

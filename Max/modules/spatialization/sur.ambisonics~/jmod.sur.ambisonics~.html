@@ -5,7 +5,7 @@
 <title> jmod.sur.ambisonics~ </title>
 <style type="text/css">
 body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 24px;	font-weight:100;	padding-top: 1em;	margin: 0;}h2 {	font-size: 18px;	font-weight:200;	margin: 0;	color: #555;	text-transform: lowercase;}h3 {	color: #888;	border-bottom: 1px solid #333;	font-size: 18px;	font-weight:100;	margin-top: 20px;	margin-bottom: 10px;	margin-left: 2%;	margin-right: 2%;}h4{	color: #333;	font-size: 14px;	font-weight: bold;	margin-bottom: 0px;	margin-left: 2%;	margin-right: 2%;}h6 {	font-size: 12px;	font-weight:100;	line-height: 1.2;	margin-right: 2%;	margin-left: 2%;}p {	font-size: 12px;	font-weight:100;	margin: 5px 2%;	padding-bottom: 1em;}ul{	margin-top:0;	padding-top:0;}li {	font-size: 12px;	font-weight:100;	margin-top: 0;	margin-left: 10px;	padding: 0em 0em 0.3em;}img {	padding: 10px 10px 0px 0px;}#jmod_header{	display: block;	margin: 0 0 40px 0;}#jmod_header img{	float: left;}.objectname {	font-size: 24px;	font-weight: bold;}.moduleName {	font-size: 2em;	background-color: #c5c5c5;	text-align: right;	vertical-align: top;	font-weight: bold;}.moduleDescription {	font-size: 1em;	background-color: #000000;	color: #c5c5c5;	text-align: right;	vertical-align: top;}.tableHeading2 {	background-color: #eee;	text-align: left;	vertical-align: top;	font-weight:bold;	font-size: 12px;}table {	border: 0px;	width: 96%;	margin-top: 10px;	margin-bottom: 10px;	margin-left: 2%;	font-size: 14px;}
-.instructionName {	font-family: 'Courier New', Courier, mono;	background-color: #edd;	vertical-align: top;}.instructionType {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionDataspace {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRangeBounds {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionRangeClipmode {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRampDrive {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionRampFunction {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRepetitionsAllow {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionDescription {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}td {	padding-right: 5px;	padding-left: 5px;}ul {	list-style-type: disc;}.patchimage {	clear: both;}.comment {	color: #6666FF;}.smallTable {	width: 400px;	border: none;}caption {	font-size: 11px;	font-style: italic;}.filepath {	font-family: 'Courier New', Courier, mono;}.instruction {	font-family: 'Courier New', Courier, mono;}
+.instructionName {	font-family: 'Courier New', Courier, mono;	background-color: #edd;	vertical-align: top;}.instructionType {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionDataspace {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionDataspaceUnitNative {font-family: 'Times New Roman', Times, serif;background-color: #eee;vertical-align: top; } .instructionRangeBounds {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRangeClipmode {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionRampDrive {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRampFunction {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionRepetitionsAllow {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionDescription {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}td {	padding-right: 5px;	padding-left: 5px;}ul {	list-style-type: disc;}.patchimage {	clear: both;}.comment {	color: #6666FF;}.smallTable {	width: 400px;	border: none;}caption {	font-size: 11px;	font-style: italic;}.filepath {	font-family: 'Courier New', Courier, mono;}.instruction {	font-family: 'Courier New', Courier, mono;}
 </style>
 	</head>
 
@@ -21,7 +21,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	<p> Module Type: <code> control </code> <br>
 	Algorithm Type: <code> default </code> </p>
 	<p>Interface Size: <code> 1U-half </code> </p>
-	<p>Number of signal inlets: <code> 0 </ code> <br/>
+	<p>Number of signal inlets: <code> 0 </code> <br/>
 Number of signal outlets: <code> 0 </code> </p>
 	<h3> Parameters </h3>
 	<table>
@@ -33,6 +33,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td> /ramp/drive </td>
 			<td> /ramp/function </td>
 			<td> /dataspace </td>
+			<td> /dataspace/unit/native </td>
 			<td> /repetitions/allow </td>
 			<td> /description </td>
 		<tr>
@@ -44,6 +45,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set gain (as MIDI value by default). </td>
 		<tr>
@@ -55,6 +57,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> When active, this attribute turns off the module's processing algorithm to save CPU </td>
 		<tr>
@@ -66,6 +69,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> curvature of the distance function inside the center area </td>
 		<tr>
@@ -77,6 +81,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> max. attenuation inside the center area in dB </td>
 		<tr>
@@ -88,6 +93,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Size of the center (in model units) </td>
 		<tr>
@@ -99,8 +105,9 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Ambisonics type of decoding and encoding. Furse-Malham or N3D </td>
+			<td class ="instructionDescription"> Ambisonics type of decoding and encoding. Furse-Malham, N3D or SN3D </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> interpolation </td>
@@ -110,8 +117,9 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> switch blockwise interpolation of all coefficient changes on/off </td>
+			<td class ="instructionDescription"> switch on/off blockwise interpolation of all coefficient changes in the encoding stage. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> numSources </td>
@@ -121,6 +129,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Number of incomming mono sources to pan. </td>
 		<tr>
@@ -132,6 +141,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Number of speakers that signals are distributed to. </td>
 		<tr>
@@ -143,6 +153,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Ambisonics order of decoding and encoding </td>
 		<tr>
@@ -151,350 +162,382 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> integer </td>
 			<td class ="instructionRangeBounds"> 1 3 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.10/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.11/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.12/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.13/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.14/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.15/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.16/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.17/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.18/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.19/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.2/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 3 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.20/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.21/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.22/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.23/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.24/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.25/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.26/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.27/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.28/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.29/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.3/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 3 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.30/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.31/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.32/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.4/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.5/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.6/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.7/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.8/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.9/order </td>
 			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
+			<td class ="instructionRangeBounds"> 1 11 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the ambisonics order of the nth source. </td>
 		<tr>
@@ -506,6 +549,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> The border color of the module in the format RGBA where values range [0.0, 1.0]. </td>
 		<tr>
@@ -517,6 +561,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> The background color of the module in the format RGBA where values range [0.0, 1.0]. </td>
 		<tr>
@@ -528,6 +573,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0]. </td>
 		<tr>
@@ -539,6 +585,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]. </td>
 		<tr>
@@ -550,6 +597,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
 		<tr>
@@ -561,6 +609,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> The size of the module's UI. </td>
 		<tr>
@@ -578,6 +627,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td> /ramp/drive </td>
 			<td> /ramp/function </td>
 			<td> /dataspace </td>
+			<td> /dataspace/unit/native </td>
 			<td> /repetitions/allow </td>
 			<td> /description </td>
 		<tr>
@@ -589,6 +639,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Generate a documentation page for this module and save it to disk. </td>
 		<tr>
@@ -600,6 +651,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Initialize a module completely to the original state. </td>
 		<tr>
@@ -611,6 +663,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Clears all presets, providing a blank slate for saving new presets. </td>
 		<tr>
@@ -622,6 +675,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Create a new preset (2nd argument) by copying the contents of another preset (1st argument) </td>
 		<tr>
@@ -633,6 +687,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
 		<tr>
@@ -644,6 +699,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Dump all preset names. </td>
 		<tr>
@@ -655,6 +711,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument. </td>
 		<tr>
@@ -666,6 +723,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Post all presets to the Max window. </td>
 		<tr>
@@ -677,6 +735,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open. </td>
 		<tr>
@@ -688,6 +747,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu. </td>
 		<tr>
@@ -699,6 +759,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module. </td>
 		<tr>
@@ -710,6 +771,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Store on the last recalled or stored preset </td>
 		<tr>
@@ -721,6 +783,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Store a preset in the next preset slot.  Handy so that you do not need to specify a preset number manually. </td>
 		<tr>
@@ -732,6 +795,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
 		<tr>
@@ -743,8 +807,21 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Write on same xml-preset file. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> report </td>
+			<td class ="instructionType"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> reports the state of the ambisonics external in the max window </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.1/active </td>
@@ -754,6 +831,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -762,20 +840,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.1/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -787,17 +867,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.1/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -809,6 +891,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -820,6 +903,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -828,20 +912,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.10/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -853,17 +939,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.10/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -875,6 +963,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -886,6 +975,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -894,20 +984,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.11/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -919,17 +1011,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.11/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -941,6 +1035,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -952,6 +1047,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -960,20 +1056,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.12/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -985,17 +1083,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.12/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -1007,6 +1107,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -1018,6 +1119,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -1026,20 +1128,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.13/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -1051,17 +1155,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.13/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -1073,6 +1179,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -1084,6 +1191,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -1092,20 +1200,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.14/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -1117,17 +1227,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.14/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -1139,6 +1251,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -1150,6 +1263,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -1158,20 +1272,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.15/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -1183,17 +1299,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.15/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -1205,6 +1323,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -1216,6 +1335,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -1224,20 +1344,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.16/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -1249,17 +1371,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.16/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -1271,6 +1395,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -1282,6 +1407,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -1290,20 +1416,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.17/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -1315,17 +1443,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.17/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -1337,6 +1467,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -1348,6 +1479,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -1356,20 +1488,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.18/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -1381,17 +1515,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.18/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -1403,6 +1539,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -1414,6 +1551,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -1422,20 +1560,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.19/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -1447,17 +1587,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.19/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -1469,6 +1611,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -1480,6 +1623,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -1488,20 +1632,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.2/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -1513,17 +1659,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.2/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -1535,6 +1683,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -1546,6 +1695,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -1554,20 +1704,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.20/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -1579,17 +1731,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.20/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -1601,6 +1755,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -1612,6 +1767,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -1620,20 +1776,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.21/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -1645,17 +1803,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.21/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -1667,6 +1827,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -1678,6 +1839,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -1686,20 +1848,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.22/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -1711,17 +1875,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.22/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -1733,6 +1899,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -1744,6 +1911,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -1752,20 +1920,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.23/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -1777,17 +1947,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.23/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -1799,6 +1971,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -1810,6 +1983,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -1818,20 +1992,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.24/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -1843,17 +2019,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.24/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -1865,6 +2043,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -1876,6 +2055,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -1884,20 +2064,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.25/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -1909,17 +2091,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.25/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -1931,6 +2115,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -1942,6 +2127,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -1950,20 +2136,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.26/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -1975,17 +2163,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.26/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -1997,6 +2187,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2008,6 +2199,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -2016,20 +2208,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.27/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -2041,17 +2235,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.27/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -2063,6 +2259,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2074,6 +2271,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -2082,20 +2280,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.28/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -2107,17 +2307,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.28/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -2129,6 +2331,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2140,6 +2343,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -2148,20 +2352,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.29/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -2173,17 +2379,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.29/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -2195,6 +2403,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2206,6 +2415,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -2214,20 +2424,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.3/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -2239,17 +2451,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.3/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -2261,6 +2475,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2272,6 +2487,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -2280,20 +2496,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.30/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -2305,17 +2523,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.30/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -2327,6 +2547,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2338,6 +2559,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -2346,20 +2568,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.31/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -2371,17 +2595,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.31/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -2393,6 +2619,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2404,6 +2631,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -2412,20 +2640,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.32/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -2437,17 +2667,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.32/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -2459,6 +2691,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2470,6 +2703,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -2478,20 +2712,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.4/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -2503,17 +2739,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.4/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -2525,6 +2763,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2536,6 +2775,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -2544,20 +2784,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.5/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -2569,17 +2811,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.5/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -2591,6 +2835,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2602,6 +2847,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -2610,20 +2856,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.6/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -2635,17 +2883,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.6/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -2657,6 +2907,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2668,6 +2919,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -2676,20 +2928,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.7/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -2701,17 +2955,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.7/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -2723,6 +2979,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2734,6 +2991,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -2742,20 +3000,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.8/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -2767,17 +3027,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.8/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -2789,6 +3051,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2800,6 +3063,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Mute or unmute the nth source. </td>
 		<tr>
@@ -2808,20 +3072,22 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
+			<td class ="instructionDescription"> Sets the distance unit for the inverse proportional decrease distance model. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.9/distance/dbUnit </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
 			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> dB </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Sets the distance unit for the exponential distance model. </td>
 		<tr>
@@ -2833,17 +3099,19 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Off, 1-Exponential Decay,2-Inverse Proportional Decay </td>
+			<td class ="instructionDescription"> sets one of the three distance attenuation models. 0-off, 1-Exponential Decay, 2-Inverse Proportional Decay </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.9/gain </td>
 			<td class ="instructionType"> decimal </td>
 			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionDataspaceUnitNative"> midi </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Input gain for the nth source. </td>
 		<tr>
@@ -2855,6 +3123,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2866,6 +3135,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -2877,6 +3147,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2888,6 +3159,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -2899,6 +3171,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2910,6 +3183,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -2921,6 +3195,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2932,6 +3207,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -2943,6 +3219,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2954,6 +3231,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -2965,6 +3243,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2976,6 +3255,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -2987,6 +3267,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -2998,6 +3279,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3009,6 +3291,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3020,6 +3303,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3031,6 +3315,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3042,6 +3327,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3053,6 +3339,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3064,6 +3351,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3075,6 +3363,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3086,6 +3375,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3097,6 +3387,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3108,6 +3399,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3119,6 +3411,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3130,6 +3423,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3141,6 +3435,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3152,6 +3447,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3163,6 +3459,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3174,6 +3471,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3185,6 +3483,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3196,6 +3495,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3207,6 +3507,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3218,6 +3519,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3229,6 +3531,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3240,6 +3543,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3251,6 +3555,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3262,6 +3567,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3273,6 +3579,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3284,6 +3591,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3295,6 +3603,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3306,6 +3615,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3317,6 +3627,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3328,6 +3639,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3339,6 +3651,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3350,6 +3663,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3361,6 +3675,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3372,6 +3687,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3383,6 +3699,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3394,6 +3711,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3405,6 +3723,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3416,6 +3735,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3427,6 +3747,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3438,6 +3759,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3449,6 +3771,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3460,6 +3783,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3471,6 +3795,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3482,6 +3807,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3493,6 +3819,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3504,6 +3831,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3515,6 +3843,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3526,6 +3855,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3537,6 +3867,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3548,6 +3879,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> enables or disables a loudspeaker. </td>
 		<tr>
@@ -3559,6 +3891,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnitNative"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
@@ -3570,6 +3903,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
 		<tr>
@@ -3581,6 +3915,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Open an a module's control panel (inspector) if one is present. </td>
 		<tr>
@@ -3592,6 +3927,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Update displayed values for module to reflect current state. </td>
 		<tr>
@@ -3603,6 +3939,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnitNative"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Low-level module hacking.  Any arguments arguments to this message will be interpreted as patcher scripting for the top-level patcher of the module. </td>
 		<tr>
@@ -3620,6 +3957,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td> /ramp/drive </td>
 			<td> /ramp/function </td>
 			<td> /dataspace </td>
+			<td> /dataspace/unit/native </td>
 			<td> /repetitions/allow </td>
 			<td> /description </td>
 		<tr>

@@ -3,8 +3,8 @@
  * External for Jamoma: provide standard user interface component for modules
  * By Tim Place, Copyright © 2007
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 // TODO: Color of the gain know should change color over the range the same as the meter does?
@@ -403,12 +403,12 @@ void ui_paint(t_ui *x, t_object *view)
 	// draw the menu icon
 	jgraphics_set_line_width(g, 1.5);
 	//jgraphics_oval(g, 3.0, 3.0, 13.0, 13.0);
-	jgraphics_arc(g, 9.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+	jgraphics_arc(g, 9.5, 9.5, 6.5, 0., kTTTwoPi);
 	jgraphics_fill(g);
 
 	jgraphics_set_source_jrgba(g, &s_color_border_button);
 	//jgraphics_oval(g, 3.0, 3.0, 13.0, 13.0);
-	jgraphics_arc(g, 9.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+	jgraphics_arc(g, 9.5, 9.5, 6.5, 0., kTTTwoPi);
 	jgraphics_stroke(g);
 
 	middle = 9.0;
@@ -422,7 +422,8 @@ void ui_paint(t_ui *x, t_object *view)
 	// draw the gain knob
 	if (x->attr_hasgain) {
 		long right_side = rect.width - 16.0;
-		float gain = TTClip(x->attr_gain, 0.0f, 127.0f);
+		float gain = x->attr_gain;
+		TTLimit(gain, 0.0f, 127.0f);
 
 		if (x->attr_hasmix)
 			right_side -= 16.0;
@@ -444,27 +445,27 @@ void ui_paint(t_ui *x, t_object *view)
 		
 		jgraphics_set_line_width(g, 1.5);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_stroke(g);
-		
+
 		jgraphics_set_source_jrgba(g, &s_color_darkgreen);
 		
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, ((gain / 127.0) * TWOPI) + (PI/2)); // angles are in radians
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, kTTHalfPi, ((gain / 127.0) * kTTTwoPi) + kTTHalfPi); // angles are in radians
 		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
 		jgraphics_close_path(g);
 		jgraphics_fill(g);	
 		
 		jgraphics_set_source_jrgba(g, &s_color_green_ring);
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, ((gain / 127.0) * TWOPI) + (PI/2));
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, kTTHalfPi, ((gain / 127.0) * kTTTwoPi) + kTTHalfPi);
 		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
 		jgraphics_stroke(g);
 		
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 1.5, 0, TWOPI); // angles are in radians
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 1.5, 0, kTTTwoPi); // angles are in radians
 		jgraphics_fill(g);	
 	}
 	
@@ -472,7 +473,8 @@ void ui_paint(t_ui *x, t_object *view)
 	// draw the mix knob
 	if (x->attr_hasmix) {
 		long right_side = rect.width - 16.0;
-		float mix = TTClip(x->attr_mix, 0.0f, 100.0f);
+		float mix = x->attr_mix;
+		TTLimit(mix, 0.0f, 100.0f);
 
 		if (x->attr_hasmute)
 			right_side -= 16.0;
@@ -492,27 +494,27 @@ void ui_paint(t_ui *x, t_object *view)
 		
 		jgraphics_set_line_width(g, 1.5);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_stroke(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_darkblue);
 		
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, ((mix / 100.0) * TWOPI) + (PI/2)); // angles are in radians
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, kTTHalfPi, ((mix / 100.0) * kTTTwoPi) + kTTHalfPi); // angles are in radians
 		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
 		jgraphics_close_path(g);
 		jgraphics_fill(g);	
 
 		jgraphics_set_source_jrgba(g, &s_color_blue_ring);
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, ((mix / 100.0) * TWOPI) + (PI/2));
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, kTTHalfPi, ((mix / 100.0) * kTTTwoPi) + kTTHalfPi);
 		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
 		jgraphics_stroke(g);
 		
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 1.5, 0, TWOPI); // angles are in radians
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 1.5, 0, kTTTwoPi); // angles are in radians
 		jgraphics_fill(g);	
 	}
 
@@ -540,12 +542,12 @@ void ui_paint(t_ui *x, t_object *view)
 		
 		jgraphics_set_line_width(g, 1.5);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_stroke(g);
 				
 		// m
@@ -582,12 +584,12 @@ void ui_paint(t_ui *x, t_object *view)
 		
 		jgraphics_set_line_width(g, 1.5);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_stroke(g);
 				
 		// b
@@ -621,12 +623,12 @@ void ui_paint(t_ui *x, t_object *view)
 		
 		jgraphics_set_line_width(g, 1.5);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_stroke(g);
 				
 		// f
@@ -658,12 +660,12 @@ void ui_paint(t_ui *x, t_object *view)
 		
 		jgraphics_set_line_width(g, 1.5);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_stroke(g);
 				
 		// p
@@ -688,12 +690,12 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_set_source_jrgba(g, &s_color_background_button);
 		jgraphics_set_line_width(g, 1.5);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_fill(g);
 
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		//jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
-		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., JGRAPHICS_2PI);
+		jgraphics_arc(g, right_side+6.5, 9.5, 6.5, 0., kTTTwoPi);
 		jgraphics_stroke(g);
 				
 		// i
@@ -764,11 +766,13 @@ void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 		factor = 0.02;
 	
 	if (x->mixDragging) {
-		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y * factor), 0.0, 100.0);
+		x->anchorValue = x->anchorValue - (pt.y * factor);
+		TTLimit(x->anchorValue, 0.0f, 100.0f);
 		object_attr_setfloat(x, gensym("mix"), x->anchorValue);
 	}
 	else if (x->gainDragging) {
-		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y * factor), 0.0, 127.0);
+		x->anchorValue = x->anchorValue - (pt.y * factor);
+		TTLimit(x->anchorValue, 0.0f, 127.0f);
 		object_attr_setfloat(x, gensym("gain"), x->anchorValue);
 	}
 }

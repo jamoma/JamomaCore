@@ -1,10 +1,10 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 1.0, 44.0, 1445.0, 574.0 ],
+		"rect" : [ 86.0, 44.0, 1445.0, 574.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 1.0, 44.0, 1445.0, 574.0 ],
+		"defrect" : [ 86.0, 44.0, 1445.0, 574.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -254,12 +254,12 @@
 					"patching_rect" : [ 451.0, 342.0, 85.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontname" : "Arial",
-						"globalpatchername" : "",
-						"default_fontsize" : 12.0,
 						"fontname" : "Arial",
-						"default_fontface" : 0,
+						"default_fontsize" : 12.0,
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontface" : 0,
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p inc&dec"
@@ -275,7 +275,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 658.0, 342.0, 70.0, 19.0 ],
+					"patching_rect" : [ 678.0, 342.0, 70.0, 19.0 ],
 					"text" : "prepend set"
 				}
 
@@ -430,8 +430,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 1046.0, 238.0, 594.0, 43.0 ],
-					"text" : "jcom.message xyz.2 @type array @priority 4 @repetitions/allow 1 @description \"alternative description of position of voice #1 as xyz coodinate.\" @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz",
+					"patching_rect" : [ 1046.0, 238.0, 593.0, 43.0 ],
+					"text" : "jcom.message xyz.2 @type array @priority 4 @repetitions/allow 1 @description \"alternative description of position of voice #1 as xyz coodinate.\" @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @ramp/drive scheduler",
 					"varname" : "parameter[3]"
 				}
 
@@ -642,8 +642,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 349.0, 304.0, 636.0, 31.0 ],
-					"text" : "jcom.parameter xyz.0 @type array @priority 4 @repetitions/allow 1 @description \"Position of voice 0 as xyz coordinates.\" @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz",
+					"patching_rect" : [ 349.0, 304.0, 677.0, 31.0 ],
+					"text" : "jcom.parameter xyz.0 @type array @priority 4 @repetitions/allow 1 @description \"Position of voice 0 as xyz coordinates.\" @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @ramp/drive scheduler",
 					"varname" : "parameter"
 				}
 
@@ -653,7 +653,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-2", 10 ],
 					"hidden" : 0,
-					"midpoints" : [ 667.5, 371.0, 332.0, 371.0, 332.0, 297.0, 297.5, 297.0 ],
+					"midpoints" : [ 687.5, 371.0, 332.0, 371.0, 332.0, 297.0, 297.5, 297.0 ],
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -770,7 +770,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-38", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 667.0, 338.5, 526.5, 338.5 ],
+					"midpoints" : [ 687.5, 338.5, 526.5, 338.5 ],
 					"source" : [ "obj-22", 1 ]
 				}
 
@@ -860,17 +860,8 @@
 				"patchline" : 				{
 					"destination" : [ "obj-28", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 1343.0, 288.0, 986.0, 288.0, 986.0, 216.0, 924.5, 216.0 ],
+					"midpoints" : [ 1342.5, 288.0, 986.0, 288.0, 986.0, 216.0, 924.5, 216.0 ],
 					"source" : [ "obj-27", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-22", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 924.5, 259.0, 336.0, 259.0, 336.0, 297.0, 358.5, 297.0 ],
-					"source" : [ "obj-28", 0 ]
 				}
 
 			}
@@ -984,15 +975,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-22", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 460.5, 363.0, 342.5, 363.0, 342.5, 304.0, 358.5, 304.0 ],
-					"source" : [ "obj-38", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-18", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -1024,6 +1006,24 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-2", 10 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 924.5, 259.0, 336.0, 259.0, 336.0, 297.0, 358.5, 297.0 ],
+					"source" : [ "obj-28", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 460.5, 363.0, 342.5, 363.0, 342.5, 304.0, 358.5, 304.0 ],
+					"source" : [ "obj-38", 0 ]
 				}
 
 			}

@@ -148,13 +148,13 @@
 ,
 					"patching_rect" : [ 30.0, 550.0, 40.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"fontname" : "Verdana",
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p SAB"
@@ -284,13 +284,13 @@
 ,
 					"patching_rect" : [ 30.0, 140.0, 61.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"fontname" : "Verdana",
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p tutorials"
@@ -987,13 +987,13 @@
 ,
 					"patching_rect" : [ 30.0, 495.0, 57.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"fontname" : "Verdana",
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p UserLib"
@@ -1349,13 +1349,13 @@
 ,
 					"patching_rect" : [ 30.0, 380.0, 75.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"fontname" : "Verdana",
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p javascripts"
@@ -1390,6 +1390,54 @@
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-15",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 335.0, 240.0, 61.0, 17.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 636.0, 418.0, 140.0, 17.0 ],
+									"text" : "jcom.qom"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"id" : "obj-157",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 845.0, 636.0, 19.0, 19.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 1025.0, 625.0, 18.0, 19.0 ],
+									"text" : "*"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-156",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 985.0, 695.0, 140.0, 17.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 1040.0, 625.0, 129.0, 17.0 ],
+									"text" : "jcom.vimic~"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -1988,7 +2036,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 985.0, 683.0, 132.0, 28.0 ],
+									"patching_rect" : [ 985.0, 670.0, 132.0, 28.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 1027.0, 573.0, 137.0, 28.0 ],
 									"text" : "Spatialization"
@@ -2883,7 +2931,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 225.0, 230.0, 130.0, 17.0 ],
+									"patching_rect" : [ 40.0, 610.0, 130.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 55.0, 250.0, 120.0, 17.0 ],
 									"text" : "jcom.in~"
@@ -3078,7 +3126,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 733.0, 498.0, 123.0, 31.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 621.0, 420.0, 162.0, 19.0 ],
+									"presentation_rect" : [ 621.0, 450.0, 162.0, 19.0 ],
 									"text" : "ICST Ambimonitor Converter:"
 								}
 
@@ -3588,7 +3636,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 735.0, 556.0, 115.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 1040.0, 655.0, 134.0, 17.0 ],
+									"presentation_rect" : [ 1040.0, 670.0, 134.0, 17.0 ],
 									"text" : "jcom.sur.ambi2UHJ~"
 								}
 
@@ -3604,7 +3652,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 735.0, 573.0, 115.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 1040.0, 675.0, 134.0, 17.0 ],
+									"presentation_rect" : [ 1040.0, 690.0, 134.0, 17.0 ],
 									"text" : "jcom.sur.UHJ2ambi~"
 								}
 
@@ -3620,7 +3668,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 731.0, 541.0, 123.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 1040.0, 630.0, 123.0, 19.0 ],
+									"presentation_rect" : [ 1040.0, 645.0, 123.0, 19.0 ],
 									"text" : "Ambisonics Converter:"
 								}
 
@@ -4272,7 +4320,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 1008.0, 124.0, 148.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 626.0, 445.0, 149.0, 17.0 ],
+									"presentation_rect" : [ 626.0, 475.0, 149.0, 17.0 ],
 									"text" : "jcom.ambimonitor2position"
 								}
 
@@ -4288,7 +4336,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 1009.0, 101.0, 148.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 626.0, 465.0, 148.0, 17.0 ],
+									"presentation_rect" : [ 626.0, 495.0, 148.0, 17.0 ],
 									"text" : "jcom.position2ambimonitor"
 								}
 
@@ -4690,6 +4738,15 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-47", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-15", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-96", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -4712,6 +4769,15 @@
 									"hidden" : 1,
 									"midpoints" : [  ],
 									"source" : [ "obj-153", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-162", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-156", 0 ]
 								}
 
 							}
@@ -5395,13 +5461,13 @@
 ,
 					"patching_rect" : [ 30.0, 440.0, 79.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"fontname" : "Verdana",
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p components"
@@ -6923,13 +6989,13 @@
 ,
 					"patching_rect" : [ 30.0, 320.0, 74.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"fontname" : "Verdana",
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p externals"
@@ -7436,13 +7502,13 @@
 ,
 					"patching_rect" : [ 30.0, 260.0, 74.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"fontname" : "Verdana",
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p examples"
@@ -8077,7 +8143,7 @@
 									"patching_rect" : [ 256.0, 369.0, 113.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 220.0, 340.0, 162.0, 17.0 ],
-									"text" : "jmod.sur.multi.aux~"
+									"text" : "jmod.sur.aux~"
 								}
 
 							}
@@ -8093,7 +8159,7 @@
 									"patching_rect" : [ 256.0, 352.0, 122.0, 17.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 220.0, 300.0, 163.0, 17.0 ],
-									"text" : "jmod.sur.multi.input~"
+									"text" : "jmod.sur.input~"
 								}
 
 							}
@@ -10689,13 +10755,13 @@
 ,
 					"patching_rect" : [ 30.0, 200.0, 74.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana"
+						"fontname" : "Verdana",
+						"default_fontname" : "Verdana",
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p modules"

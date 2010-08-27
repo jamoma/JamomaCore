@@ -3,8 +3,8 @@
  * External for Jamoma: map input to output: y=f(x)
  * Copyright © 2007
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "Jamoma.h"
@@ -42,6 +42,8 @@ t_max_err	dataspace_setDataspaceNative(t_dataspace *obj, void *attr, long argc, 
 t_class		*dataspace_class;
 
 
+#pragma mark -
+#pragma mark main
 /************************************************************************************/
 // Main() Function
 
@@ -88,6 +90,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 }
 
 
+#pragma mark -
+#pragma mark life cycle
 /************************************************************************************/
 // Object Life
 
@@ -122,6 +126,9 @@ void dataspace_free(t_dataspace *obj)
 }
 
 
+
+#pragma mark -
+#pragma mark methods
 /************************************************************************************/
 // Methods bound to input/inlets
 
@@ -210,6 +217,9 @@ void dataspace_getUnits(t_dataspace *obj)
 }
 
 
+
+#pragma mark -
+#pragma mark attributes
 // ATTRIBUTE:
 t_max_err dataspace_setDataspace(t_dataspace *obj, void *attr, long argc, t_atom *argv)
 {

@@ -3,8 +3,8 @@
  * External for Jamoma: return data from our module to the outside world
  * By Tim Place, Copyright � 2006
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "Jamoma.h"
@@ -338,11 +338,11 @@ void return_int(t_return *x, long value)
 	}
 	if (x->common.attr_clipmode != _sym_none) {
 		if (x->common.attr_clipmode == jps_both)
-			value = TTClip<TTInt32>(value, x->common.attr_range[0], x->common.attr_range[1]);
+			TTLimit<TTInt32>(value, x->common.attr_range[0], x->common.attr_range[1]);
 		else if (x->common.attr_clipmode == jps_low)
-			value = TTLimitMin<TTInt32>(value, x->common.attr_range[0]);
+			TTLimitMin<TTInt32>(value, x->common.attr_range[0]);
 		else if (x->common.attr_clipmode == jps_high)
-			value = TTLimitMax<TTInt32>(value, x->common.attr_range[1]);
+			TTLimitMax<TTInt32>(value, x->common.attr_range[1]);
 		else if (x->common.attr_clipmode == jps_wrap)
 			value = TTInfWrap<TTInt32>(value,x->common.attr_range[0], x->common.attr_range[1]);
 		else if (x->common.attr_clipmode == jps_fold)
@@ -368,15 +368,15 @@ void return_float(t_return *x, double value)
 	}
 	if (x->common.attr_clipmode != _sym_none) {
 		if (x->common.attr_clipmode == jps_both)
-			value = TTClip<TTFloat32>(value, x->common.attr_range[0], x->common.attr_range[1]);
+			TTLimit<TTFloat64>(value, x->common.attr_range[0], x->common.attr_range[1]);
 		else if (x->common.attr_clipmode == jps_low)
-			value = TTLimitMin<TTFloat32>(value, x->common.attr_range[0]);
+			TTLimitMin<TTFloat64>(value, x->common.attr_range[0]);
 		else if (x->common.attr_clipmode == jps_high)
-			value = TTLimitMax<TTFloat32>(value, x->common.attr_range[1]);
+			TTLimitMax<TTFloat64>(value, x->common.attr_range[1]);
 		else if (x->common.attr_clipmode == jps_wrap)
-			value = TTInfWrap<TTFloat32>(value, x->common.attr_range[0], x->common.attr_range[1]);
+			value = TTInfWrap<TTFloat64>(value, x->common.attr_range[0], x->common.attr_range[1]);
 		else if (x->common.attr_clipmode == jps_fold)
-			value = TTFold<TTFloat32>(value, x->common.attr_range[0], x->common.attr_range[1]);
+			value = TTFold<TTFloat64>(value, x->common.attr_range[0], x->common.attr_range[1]);
 	}
 
 	atom_setfloat(&x->output[1], value);

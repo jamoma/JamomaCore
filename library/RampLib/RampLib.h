@@ -2,8 +2,8 @@
  * Jamoma RampLib Base Class
  * Copyright © 2008, Tim Place
  * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __RAMPLIB_H__
@@ -14,6 +14,14 @@
 #include "FunctionLib.h"
 
 typedef void (*RampUnitCallback)(void *, long, double *);
+
+
+#define TT_RAMPUNIT_CONSTRUCTOR \
+TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {return new thisTTClass (arguments);} \
+\
+extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
+\
+thisTTClass :: thisTTClass (TTValue& arguments) : RampUnit(arguments)
 
 
 /****************************************************************************************************/
@@ -41,13 +49,14 @@ class JAMOMA_EXPORT RampUnit : public TTObject {
 		/** memory allocation -- sends a message "numValuesChanged" to subclasses after this has run */
 		void setNumValues(TTUInt32 newNumValues);
 
-	public:
 		/** constructor */
-		RampUnit(const char* functionName, RampUnitCallback aCallbackMethod, void *aBaton);
-		
+		//RampUnit(const char* functionName, RampUnitCallback aCallbackMethod, void *aBaton);
+		RampUnit(TTValue& arguments);
+
 		/** destructor */
 		virtual ~RampUnit();
 		
+	public:
 		TTErr getFunctionParameterNames(TTValue& names);
 		TTErr setFunctionParameterValue(TTSymbol* parameterName, TTValue& newValue);
 		TTErr getFunctionParameterValue(TTSymbol* parameterName, TTValue& value);
