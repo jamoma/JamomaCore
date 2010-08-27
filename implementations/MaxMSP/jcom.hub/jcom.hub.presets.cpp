@@ -10,7 +10,6 @@
 #include "jcom.hub.h"
 #include "ext_dictionary.h"
 #include "jpatcher_api.h"
-#include "jpatcher_utils.h"
 #include "libxml/xmlreader.h"
 #include "libxml/xmlschemas.h"
 #include <functional>
