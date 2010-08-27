@@ -10,6 +10,7 @@
 #include "jcom.hub.h"
 #include "ext_dictionary.h"
 #include "jpatcher_api.h"
+#include "jpatcher_utils.h"
 #include "libxml/xmlreader.h"
 #include "libxml/xmlschemas.h"
 #include <functional>
@@ -867,18 +868,47 @@ void hub_presets_post(t_hub *x, t_symbol*, long, t_atom*)
 		item = p->item;
 		for (itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
 			presetItem = *itemIterator;
-			if ((presetItem->type == jps_integer) || (presetItem->type == jps_boolean)) {
+			int singleton = (presetItem->type == jps_generic  ||  presetItem->type == jps_array) 
+					&& presetItem->list_size == 1;
+			int type = presetItem->value.a_type; // presetItem->value_list[0].a_type;
+            
+			if (presetItem->type == jps_integer  ||  presetItem->type == jps_boolean  ||  (singleton  &&  type == A_LONG)) {
 				object_post((t_object*)x, "    %s (type %s, priority %i): %ld", presetItem->param_name->s_name,
 				 	presetItem->type->s_name, presetItem->priority, atom_getlong(&(presetItem->value)));
 			}
-			else if (presetItem->type == jps_string)
+			else if (presetItem->type == jps_decimal  ||  (singleton  &&  type == A_FLOAT))
+				object_post((t_object*)x, "    %s (type %s, priority %i): %f", presetItem->param_name->s_name, 
+					presetItem->type->s_name, presetItem->priority, atom_getfloat(&(presetItem->value)));
+			else if (presetItem->type == jps_string  ||  (singleton  &&  type == A_SYM))
 				object_post((t_object*)x, "    %s (type %s, priority %i): %s", presetItem->param_name->s_name,
 				 	presetItem->type->s_name, presetItem->priority, 
 					atom_getsym(&(presetItem->value))->s_name);
-			else
-				object_post((t_object*)x, "    %s (type %s, priority %i): %f", presetItem->param_name->s_name, 
-					presetItem->type->s_name, presetItem->priority, atom_getfloat(&(presetItem->value)));
-		}		
+			else // non-singleton array, generic, none
+			{
+			  object_post((t_object*)x, "    %s (type %s, priority %i, list size %d):", presetItem->param_name->s_name, 
+				      presetItem->type->s_name, presetItem->priority, presetItem->list_size);
+
+			  for (int i = 0; i < presetItem->list_size; i++)
+			    switch (presetItem->value_list[i].a_type)
+			    {
+			        case A_LONG:
+				  object_post((t_object*)x, "        %ld", atom_getlong(&(presetItem->value_list[i])));
+				break;
+
+			        case A_FLOAT:
+				  object_post((t_object*)x, "        %f", atom_getfloat(&(presetItem->value_list[i])));
+				break;
+
+			        case A_SYM:
+				  object_post((t_object*)x, "        %s", atom_getsym(&(presetItem->value_list[i]))->s_name);
+				break;
+
+			        default:
+				  object_post((t_object*)x, "        unknown atom type");
+				break;
+			    }
+			}
+		}
 	}
 	critical_exit(0);
 }
