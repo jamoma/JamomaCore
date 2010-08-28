@@ -27,8 +27,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 347.0, 221.0, 46.0, 17.0 ],
-					"text" : "size $1"
+					"patching_rect" : [ 345.0, 220.0, 58.0, 17.0 ],
+					"text" : "voices $1"
 				}
 
 			}
@@ -495,13 +495,13 @@
 ,
 									"patching_rect" : [ 112.0, 60.0, 72.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontsize" : 10.0
+										"globalpatchername" : "",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p hide-show"
@@ -772,13 +772,13 @@
 ,
 									"patching_rect" : [ 259.0, 93.0, 62.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontsize" : 10.0
+										"globalpatchername" : "",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p selmode"
@@ -1072,13 +1072,13 @@
 ,
 									"patching_rect" : [ 91.0, 334.0, 195.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontsize" : 10.0
+										"globalpatchername" : "",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p"
@@ -1338,13 +1338,13 @@
 ,
 									"patching_rect" : [ 276.0, 235.0, 36.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Verdana",
+										"fontname" : "Verdana",
+										"default_fontsize" : 10.0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontsize" : 10.0
+										"globalpatchername" : "",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p init"
@@ -1799,13 +1799,13 @@
 ,
 					"patching_rect" : [ 273.0, 268.0, 46.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0
+						"globalpatchername" : "",
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p panel"
@@ -1822,8 +1822,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 407.0, 267.0, 588.0, 43.0 ],
-					"text" : "jcom.parameterArray speaker.[8]/delay @type decimal @repetitions/allow 1 @value/default 0. @range/bounds 0. 1000. @range/clipmode both @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @dataspace/unit/display ms @description \"delay to be applied on the Nth speaker  in [ms] by default\""
+					"patching_rect" : [ 407.0, 267.0, 583.0, 43.0 ],
+					"text" : "jcom.parameter.array 8 speaker delay @type decimal @repetitions/allow 1 @value/default 0. @range/bounds 0. 1000. @range/clipmode both @dataspace time @dataspace/unit/active ms @dataspace/unit/native ms @dataspace/unit/display ms @description \"delay to be applied on the Nth speaker  in [ms] by default\""
 				}
 
 			}
@@ -1837,8 +1837,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 408.0, 221.0, 566.0, 43.0 ],
-					"text" : "jcom.messageArray speaker.[8]/position @type array @repetitions/allow 1 @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
+					"patching_rect" : [ 408.0, 221.0, 567.0, 43.0 ],
+					"text" : "jcom.message.array 8 speaker position @type array @repetitions/allow 1 @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
 				}
 
 			}
