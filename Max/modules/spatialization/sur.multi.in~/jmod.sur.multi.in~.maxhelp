@@ -325,7 +325,7 @@
 					"name" : "jmod.sur.multi.in~.maxpat",
 					"numinlets" : 33,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "multicore.connect" ],
+					"outlettype" : [ "", "audio.connect" ],
 					"patching_rect" : [ 120.0, 275.0, 300.0, 35.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 35.0 ]
 				}

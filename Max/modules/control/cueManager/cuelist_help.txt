@@ -3,13 +3,31 @@
  KEYCUE "Init_cue" 
  
  
- 	 	 	 	 /CONFIG /degrade~ 1 1 /input~ 1 1 /output~ 3 1 /cueTrigger 99 0 
+ 	 	 	 	 /CONFIG /input~ 1 1 /degrade~ 1 1 /output~ 3 1 /onDeck 99 1 /cueTrigger 99 0 
+ 	 	 	 	 /AUTOFOLLOW 0 
  # 
  ######################## 
  # 
+ # Module /input~ 
+ 	 	 	 	 /input~/audio/active 0 
+ 	 	 	 	 /input~/audio/gain 0.000000 
+ 	 	 	 	 /input~/balance 0.000000 
+ 	 	 	 	 /input~/ch.1 1 
+ 	 	 	 	 /input~/ch.2 2 
+ 	 	 	 	 /input~/clicktrain/rate 1.000003 
+ 	 	 	 	 /input~/soundfile/loop 1 
+ 	 	 	 	 /input~/soundfile/play 0 
+ 	 	 	 	 /input~/source none 
+ 	 	 	 	 /input~/view/color/border 0 
+ 	 	 	 	 /input~/view/color/contentBackground 0 
+ 	 	 	 	 /input~/view/color/toolbarBackground 0 
+ 	 	 	 	 /input~/view/color/toolbarText 0 
+ 	 	 	 	 /input~/view/freeze 0 
+ 	 	 	 	 /input~/view/size 300 140 
+ # 
  # Module /degrade~ 
  	 	 	 	 /degrade~/audio/bypass 0 
- 	 	 	 	 /degrade~/audio/gain 127.000000 
+ 	 	 	 	 /degrade~/audio/gain 0.000000 
  	 	 	 	 /degrade~/audio/mix 100.000000 
  	 	 	 	 /degrade~/audio/mute 0 
  	 	 	 	 /degrade~/bitdepth 24 
@@ -21,26 +39,10 @@
  	 	 	 	 /degrade~/view/freeze 0 
  	 	 	 	 /degrade~/view/size 300 70 
  # 
- # Module /input~ 
- 	 	 	 	 /input~/audio/active 0 
- 	 	 	 	 /input~/audio/gain 0.000000 
- 	 	 	 	 /input~/balance 0.000000 
- 	 	 	 	 /input~/ch.1 1 
- 	 	 	 	 /input~/ch.2 2 
- 	 	 	 	 /input~/clicktrain/rate 1.000002 
- 	 	 	 	 /input~/soundfile/loop 1 
- 	 	 	 	 /input~/soundfile/play 0 
- 	 	 	 	 /input~/source none 
- 	 	 	 	 /input~/view/color/border 0 
- 	 	 	 	 /input~/view/color/contentBackground 0 
- 	 	 	 	 /input~/view/color/toolbarBackground 0 
- 	 	 	 	 /input~/view/color/toolbarText 0 
- 	 	 	 	 /input~/view/freeze 0 
- 	 	 	 	 /input~/view/size 300 140 
- # 
  # Module /output~ 
  	 	 	 	 /output~/audio/active 0 
  	 	 	 	 /output~/audio/gain 0.000000 
+ 	 	 	 	 /output~/balance 0.000000 
  	 	 	 	 /output~/ch.1 1 
  	 	 	 	 /output~/ch.2 2 
  	 	 	 	 /output~/limiter/active 1 
@@ -62,18 +64,26 @@
  	 	 	 	 /output~/view/freeze 0 
  	 	 	 	 /output~/view/size 300 140 
  # 
+ # Module /onDeck 
+ 	 	 	 	 /onDeck/view/color/border 0 
+ 	 	 	 	 /onDeck/view/color/contentBackground 0 
+ 	 	 	 	 /onDeck/view/color/toolbarBackground 0 
+ 	 	 	 	 /onDeck/view/color/toolbarText 0 
+ 	 	 	 	 /onDeck/view/freeze 0 
+ 	 	 	 	 /onDeck/view/size 300 70 
+ # 
  ######################## 
  
  
  
- CUE "Cue_2" 
+ CUE "Cue_2" ramp 5000 
  
  
  	 	 	 	 /input~/audio/active 1 
  	 	 	 	 /output~/audio/active 1 
  	 	 	 	 /degrade~/audio/mute 0 
  	 	 	 	 /degrade~/audio/gain 127.000000 ramp global 
- 	 	 	 	 /input~/audio/gain 98.136368 ramp global 
+ 	 	 	 	 /input~/audio/gain 98.136368 ramp 10000 
  	 	 	 	 /input~/source 1KHz 
  
  

@@ -428,7 +428,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "multicore.connect" ],
+					"outlettype" : [ "audio.connect" ],
 					"patcher" : 					{
 						"fileversion" : 1,
 						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -470,7 +470,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 2,
-									"outlettype" : [ "multicore.connect", "" ],
+									"outlettype" : [ "audio.connect", "" ],
 									"patching_rect" : [ 50.0, 122.0, 80.0, 19.0 ],
 									"text" : "jcom.pack≈ 1"
 								}
@@ -617,7 +617,7 @@
 									"maxclass" : "inlet",
 									"numinlets" : 0,
 									"numoutlets" : 1,
-									"outlettype" : [ "multicore.connect" ],
+									"outlettype" : [ "audio.connect" ],
 									"patching_rect" : [ 50.0, 40.0, 25.0, 25.0 ]
 								}
 
@@ -961,7 +961,7 @@
 					"name" : "jmod.sur.ambipanning~.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "multicore.connect" ],
+					"outlettype" : [ "", "audio.connect" ],
 					"patching_rect" : [ 25.0, 370.0, 300.0, 105.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 105.0 ]
 				}

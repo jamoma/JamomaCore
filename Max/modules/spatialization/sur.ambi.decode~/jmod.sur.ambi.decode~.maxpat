@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 209.0, 79.0, 838.0, 449.0 ],
+		"rect" : [ 39.0, 44.0, 1225.0, 589.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 209.0, 79.0, 838.0, 449.0 ],
+		"defrect" : [ 39.0, 44.0, 1225.0, 589.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -19,6 +19,20 @@
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-18",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 539.0, 56.0, 46.0, 17.0 ],
+					"text" : "size $1"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -282,8 +296,7 @@
 						"default_fontsize" : 12.0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p set_multislider"
@@ -651,8 +664,7 @@
 										"default_fontsize" : 12.0,
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p setCellblock"
@@ -959,8 +971,7 @@
 						"default_fontsize" : 12.0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p panel"
@@ -1096,8 +1107,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 601.0, 136.0, 560.0, 31.0 ],
-					"text" : "jcom.message.array 32 speaker gain @type decimal @value/default 1 @value 1 @description \"gain value of loudspeaker channel\""
+					"patching_rect" : [ 600.0, 166.0, 558.0, 31.0 ],
+					"text" : "jcom.messageArray speaker.[8]/gain @type decimal @value/default 1 @value 1 @description \"gain value of loudspeaker channel\""
 				}
 
 			}
@@ -1216,7 +1227,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 601.0, 17.0, 604.0, 31.0 ],
+					"patching_rect" : [ 602.0, 218.0, 604.0, 31.0 ],
 					"text" : "jcom.message report @repetitions/allow 1 @type generic @description \"reports the state of the ambiencode external in the max window\""
 				}
 
@@ -1262,7 +1273,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 566.0, 218.0, 22.0, 19.0 ],
+					"patching_rect" : [ 566.0, 11.0, 22.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 58.0, 22.0, 27.0, 19.0 ],
 					"triangle" : 0
@@ -1372,7 +1383,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
+					"outlettype" : [ "", "audio.connect" ],
 					"patching_rect" : [ 129.0, 318.0, 195.0, 19.0 ],
 					"text" : "jalg.sur.ambi.decode~"
 				}
@@ -1473,7 +1484,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 601.0, 212.0, 600.0, 43.0 ],
+					"patching_rect" : [ 601.0, 5.0, 600.0, 43.0 ],
 					"text" : "jcom.parameter numSpeakers @type integer @repetitions/allow 0 @range/bounds 1 32 @range/clipmode both @description \"The number of audio channels that the ambisonic signal is diffused to. Changes only take effect when audio is off.\"",
 					"varname" : "voices"
 				}
@@ -1576,6 +1587,33 @@
 					"hidden" : 0,
 					"midpoints" : [ 32.5, 548.0, 497.5, 548.0 ],
 					"source" : [ "obj-16", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-10", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 548.5, 77.0, 609.5, 77.0 ],
+					"source" : [ "obj-18", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 548.5, 129.0, 609.5, 129.0 ],
+					"source" : [ "obj-18", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 548.5, 165.0, 609.5, 165.0 ],
+					"source" : [ "obj-18", 0 ]
 				}
 
 			}
@@ -1720,6 +1758,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-41", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 901.0, 51.5, 548.5, 51.5 ],
+					"source" : [ "obj-44", 1 ]
 				}
 
 			}
