@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 37.0, 56.0, 1243.0, 528.0 ],
+		"rect" : [ 38.0, 160.0, 1243.0, 528.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 37.0, 56.0, 1243.0, 528.0 ],
+		"defrect" : [ 38.0, 160.0, 1243.0, 528.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -27,8 +27,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 557.0, 210.0, 46.0, 17.0 ],
-					"text" : "size $1"
+					"patching_rect" : [ 557.0, 210.0, 58.0, 17.0 ],
+					"text" : "voices $1"
 				}
 
 			}
@@ -42,8 +42,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 539.0, 276.0, 587.0, 31.0 ],
-					"text" : "jcom.messageArray source.[3]/active @type boolean @value/default 1 @value 1 @description \"active 0 will mute the Nth source.\""
+					"patching_rect" : [ 539.0, 276.0, 600.0, 31.0 ],
+					"text" : "jcom.message.array 3 source active @type boolean @value/default 1 @value 1 @description \"active 0 will mute the Nth source.\""
 				}
 
 			}
@@ -58,7 +58,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 539.0, 231.0, 593.0, 43.0 ],
-					"text" : "jcom.messageArray source.[3]/position @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth source. In cartesian coordinates (xyz) by default \""
+					"text" : "jcom.message.array 3 source position @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth source. In cartesian coordinates (xyz) by default \""
 				}
 
 			}
