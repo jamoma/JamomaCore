@@ -719,7 +719,7 @@
 					"name" : "jmod.sur.dbap~.maxpat",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "multicore.connect" ],
+					"outlettype" : [ "", "audio.connect" ],
 					"patching_rect" : [ 32.0, 505.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
 				}
@@ -733,7 +733,7 @@
 					"name" : "jmod.sur.multi.in~.maxpat",
 					"numinlets" : 33,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "multicore.connect" ],
+					"outlettype" : [ "", "audio.connect" ],
 					"patching_rect" : [ 32.0, 385.0, 300.0, 35.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 35.0 ]
 				}
