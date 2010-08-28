@@ -224,7 +224,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 234.0, 47.0, 62.0, 21.0 ],
 					"rounded" : 8.0,
-					"text" : "generic"
+					"text" : "controls"
 				}
 
 			}
@@ -242,7 +242,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 234.0, 25.0, 61.0, 21.0 ],
 					"rounded" : 8.0,
-					"text" : "custom"
+					"text" : "editor"
 				}
 
 			}
@@ -536,7 +536,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 555.0, 185.0, 564.0, 31.0 ],
-					"text" : "jcom.message au/view @type string @description \"Open the plug-in's edit window. \\\"custom\\\" or \\\"generic\\\" specifies what interface will be shown.\" @repetitions/allow 1"
+					"text" : "jcom.message au/view @type string @description \"Open the plug-in's edit window. \\\"editor\\\" or \\\"controls\\\" specifies what interface will be shown.\" @repetitions/allow 1"
 				}
 
 			}
