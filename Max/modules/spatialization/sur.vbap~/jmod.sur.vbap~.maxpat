@@ -27,8 +27,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 695.0, 207.0, 46.0, 17.0 ],
-					"text" : "size $1"
+					"patching_rect" : [ 695.0, 207.0, 58.0, 17.0 ],
+					"text" : "voices $1"
 				}
 
 			}
@@ -41,8 +41,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 667.0, 427.0, 46.0, 17.0 ],
-					"text" : "size $1"
+					"patching_rect" : [ 667.0, 427.0, 58.0, 17.0 ],
+					"text" : "voices $1"
 				}
 
 			}
@@ -56,8 +56,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 530.0, 447.0, 436.0, 31.0 ],
-					"text" : "jcom.messageArray speaker.[32]/position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
+					"patching_rect" : [ 530.0, 447.0, 594.0, 31.0 ],
+					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
 				}
 
 			}
@@ -71,8 +71,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 426.0, 337.0, 520.0, 31.0 ],
-					"text" : "jcom.messageArray source.[32]/active @type boolean @description \"Mute ( /active 0) or unmute (/active 1) the nth source.\" @value/default 1"
+					"patching_rect" : [ 426.0, 337.0, 595.0, 31.0 ],
+					"text" : "jcom.message.array 32 source active @type boolean @description \"Mute ( /active 0) or unmute (/active 1) the nth source.\" @value/default 1"
 				}
 
 			}
@@ -86,8 +86,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 426.0, 302.0, 520.0, 31.0 ],
-					"text" : "jcom.messageArray source.[32]/gain @type decimal @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\" @ramp/drive scheduler @ramp/function linear"
+					"patching_rect" : [ 426.0, 302.0, 583.0, 31.0 ],
+					"text" : "jcom.message.array 32 source gain @type decimal @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\" @ramp/drive scheduler @ramp/function linear"
 				}
 
 			}
@@ -101,8 +101,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 426.0, 267.0, 517.0, 31.0 ],
-					"text" : "jcom.messageArray source.[32]/blur @type decimal @range/bounds 0. 100. @description \"Set spatial blur of the nth source.\""
+					"patching_rect" : [ 426.0, 267.0, 599.0, 31.0 ],
+					"text" : "jcom.message.array 32 source blur @type decimal @range/bounds 0. 100. @description \"Set spatial blur of the nth source.\""
 				}
 
 			}
@@ -190,8 +190,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 426.0, 232.0, 514.0, 31.0 ],
-					"text" : "jcom.messageArray source.[32]/position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
+					"patching_rect" : [ 426.0, 232.0, 588.0, 31.0 ],
+					"text" : "jcom.message.array 32 source position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
 				}
 
 			}
