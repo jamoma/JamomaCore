@@ -27,8 +27,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 754.0, 132.0, 46.0, 17.0 ],
-					"text" : "size $1"
+					"patching_rect" : [ 754.0, 132.0, 58.0, 17.0 ],
+					"text" : "voices $1"
 				}
 
 			}
@@ -42,8 +42,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 473.0, 202.0, 593.0, 31.0 ],
-					"text" : "jcom.messageArray source.[32]/active @type boolean @value/default 1 @value 1 @description \"active 0 will mute the Nth source.\""
+					"patching_rect" : [ 473.0, 202.0, 587.0, 31.0 ],
+					"text" : "jcom.message.array 32 source active @type boolean @value/default 1 @value 1 @description \"active 0 will mute the Nth source.\""
 				}
 
 			}
@@ -58,7 +58,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 473.0, 157.0, 593.0, 43.0 ],
-					"text" : "jcom.messageArray source.[32]/position @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth source. In cartesian coordinates (xyz) by default \""
+					"text" : "jcom.message.array 32 source position @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth source. In cartesian coordinates (xyz) by default \""
 				}
 
 			}
