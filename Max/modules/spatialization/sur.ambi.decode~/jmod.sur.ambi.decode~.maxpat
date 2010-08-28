@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 39.0, 44.0, 1225.0, 589.0 ],
+		"rect" : [ 39.0, 44.0, 1255.0, 706.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 39.0, 44.0, 1225.0, 589.0 ],
+		"defrect" : [ 39.0, 44.0, 1255.0, 706.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -27,8 +27,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 539.0, 56.0, 46.0, 17.0 ],
-					"text" : "size $1"
+					"patching_rect" : [ 539.0, 56.0, 58.0, 17.0 ],
+					"text" : "voices $1"
 				}
 
 			}
@@ -296,6 +296,7 @@
 						"default_fontsize" : 12.0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
+						"globalpatchername" : "",
 						"default_fontface" : 0
 					}
 ,
@@ -664,6 +665,7 @@
 										"default_fontsize" : 12.0,
 										"fontface" : 0,
 										"fontsize" : 12.0,
+										"globalpatchername" : "",
 										"default_fontface" : 0
 									}
 ,
@@ -971,6 +973,7 @@
 						"default_fontsize" : 12.0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
+						"globalpatchername" : "",
 						"default_fontface" : 0
 					}
 ,
@@ -1107,8 +1110,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 600.0, 166.0, 558.0, 31.0 ],
-					"text" : "jcom.messageArray speaker.[8]/gain @type decimal @value/default 1 @value 1 @description \"gain value of loudspeaker channel\""
+					"patching_rect" : [ 600.0, 166.0, 553.0, 31.0 ],
+					"text" : "jcom.message.array 8 speaker gain @type decimal @value/default 1 @value 1 @description \"gain value of loudspeaker channel\""
 				}
 
 			}
@@ -1197,7 +1200,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 601.0, 102.0, 573.0, 31.0 ],
+					"patching_rect" : [ 601.0, 132.0, 573.0, 31.0 ],
 					"text" : "jcom.message.array 32 speaker active @type boolean @value/default 1 @value 1 @description \"active 0 will mute the Nth speaker.\""
 				}
 
@@ -1212,7 +1215,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 601.0, 52.0, 598.0, 43.0 ],
+					"patching_rect" : [ 601.0, 82.0, 598.0, 43.0 ],
 					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
 				}
 
@@ -1594,7 +1597,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 548.5, 77.0, 609.5, 77.0 ],
+					"midpoints" : [ 548.5, 80.0, 610.5, 80.0 ],
 					"source" : [ "obj-18", 0 ]
 				}
 
@@ -1603,7 +1606,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-12", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 548.5, 129.0, 609.5, 129.0 ],
+					"midpoints" : [ 548.5, 129.0, 610.5, 129.0 ],
 					"source" : [ "obj-18", 0 ]
 				}
 
