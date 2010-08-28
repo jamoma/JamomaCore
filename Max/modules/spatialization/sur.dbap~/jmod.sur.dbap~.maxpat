@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 78.0, 102.0, 946.0, 603.0 ],
+		"rect" : [ 223.0, 157.0, 1150.0, 577.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 78.0, 102.0, 946.0, 603.0 ],
+		"defrect" : [ 223.0, 157.0, 1150.0, 577.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -27,8 +27,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 408.0, 232.0, 46.0, 17.0 ],
-					"text" : "size $1"
+					"patching_rect" : [ 408.0, 232.0, 58.0, 17.0 ],
+					"text" : "voices $1"
 				}
 
 			}
@@ -41,8 +41,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 803.0, 159.0, 46.0, 17.0 ],
-					"text" : "size $1"
+					"patching_rect" : [ 803.0, 159.0, 58.0, 17.0 ],
+					"text" : "voices $1"
 				}
 
 			}
@@ -56,8 +56,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 470.0, 393.0, 590.0, 31.0 ],
-					"text" : "jcom.parameterArray source.[3]/weight @type array @range/bounds 0. 1. @description \"Set spatial weight of the nth source.\""
+					"patching_rect" : [ 470.0, 393.0, 603.0, 31.0 ],
+					"text" : "jcom.parameter.array 3 source weight @type array @range/bounds 0. 1. @description \"Set spatial weight of the nth source.\""
 				}
 
 			}
@@ -71,8 +71,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 470.0, 360.0, 586.0, 31.0 ],
-					"text" : "jcom.messageArray source.[3]/active @type boolean @repetitions/allow 1 @description \"Mute or unmute the nth source.\""
+					"patching_rect" : [ 470.0, 360.0, 579.0, 31.0 ],
+					"text" : "jcom.message.array 3 source active @type boolean @repetitions/allow 1 @description \"Mute or unmute the nth source.\""
 				}
 
 			}
@@ -86,8 +86,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 470.0, 325.0, 584.0, 31.0 ],
-					"text" : "jcom.messageArray source.[3]/gain @type decimal @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\""
+					"patching_rect" : [ 470.0, 325.0, 577.0, 31.0 ],
+					"text" : "jcom.message.array 3 source gain @type decimal @dataspace gain @dataspace/unit/active linear @description \"Input gain for the nth source.\""
 				}
 
 			}
@@ -101,8 +101,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 470.0, 290.0, 599.0, 31.0 ],
-					"text" : "jcom.messageArray source.[3]/blur @type decimal @range/bounds 0. 100. @description \"Set spatial blur of the nth source.\""
+					"patching_rect" : [ 470.0, 290.0, 592.0, 31.0 ],
+					"text" : "jcom.message.array 3 source blur @type decimal @range/bounds 0. 100. @description \"Set spatial blur of the nth source.\""
 				}
 
 			}
@@ -144,8 +144,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 470.0, 460.0, 593.0, 31.0 ],
-					"text" : "jcom.messageArray speaker.[8]/position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
+					"patching_rect" : [ 470.0, 460.0, 588.0, 31.0 ],
+					"text" : "jcom.message.array 8 speaker position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
 				}
 
 			}
@@ -159,8 +159,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 470.0, 255.0, 588.0, 31.0 ],
-					"text" : "jcom.messageArray source.[3]/position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
+					"patching_rect" : [ 470.0, 255.0, 581.0, 31.0 ],
+					"text" : "jcom.message.array 3 source position @type array @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\""
 				}
 
 			}
@@ -183,8 +183,8 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"type" : "none",
 						"description" : "Get info on current positions of sources and speakers",
+						"type" : "none",
 						"name" : "info"
 					}
 ,
