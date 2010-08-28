@@ -27,8 +27,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 815.0, 176.0, 46.0, 17.0 ],
-					"text" : "size $1"
+					"patching_rect" : [ 815.0, 176.0, 58.0, 17.0 ],
+					"text" : "voices $1"
 				}
 
 			}
@@ -56,8 +56,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 524.0, 199.0, 566.0, 43.0 ],
-					"text" : "jcom.messageArray speaker.[32]/position @type array @repetitions/allow 1 @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
+					"patching_rect" : [ 524.0, 199.0, 567.0, 43.0 ],
+					"text" : "jcom.message.array 32 speaker position @type array @repetitions/allow 1 @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
 				}
 
 			}
