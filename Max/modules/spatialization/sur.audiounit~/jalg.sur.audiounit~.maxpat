@@ -84,7 +84,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "bang", "bang", "" ],
 									"patching_rect" : [ 50.0, 80.0, 111.0, 20.0 ],
-									"text" : "sel custom generic"
+									"text" : "sel editor controls"
 								}
 
 							}
