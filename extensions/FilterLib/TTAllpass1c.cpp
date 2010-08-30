@@ -6,10 +6,10 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTAllpass1b.h"
+#include "TTAllpass1c.h"
 
-#define thisTTClass			TTAllpass1b
-#define thisTTClassName		"allpass.1b"
+#define thisTTClass			TTAllpass1c
+#define thisTTClassName		"allpass.1c"
 #define thisTTClassTags		"audio, processor, filter, allpass"
 
 #ifdef TT_PLATFORM_WIN
@@ -31,39 +31,33 @@ TT_AUDIO_CONSTRUCTOR,
 }
 
 
-TTAllpass1b::~TTAllpass1b()
+TTAllpass1c::~TTAllpass1c()
 {
 	;
 }
 
 
-TTErr TTAllpass1b::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+TTErr TTAllpass1c::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	mX1.resize(maxNumChannels);
-	mX2.resize(maxNumChannels);
 	mY1.resize(maxNumChannels);
-	mY2.resize(maxNumChannels);
 	Clear();
 	return kTTErrNone;
 }
 
 
-TTErr TTAllpass1b::Clear()
+TTErr TTAllpass1c::Clear()
 {
 	mX1.assign(maxNumChannels, 0.0);
-	mX2.assign(maxNumChannels, 0.0);
-	mY2.assign(maxNumChannels, 0.0);
 	mY1.assign(maxNumChannels, 0.0);
 	return kTTErrNone;
 }
 
 
-TTErr TTAllpass1b::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+TTErr TTAllpass1c::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
-	y = mX2[channel] + mAlpha * (x - mY2[channel]);
+	y = -mX1[channel] - mAlpha * (x + mY1[channel]);
 	TTZeroDenormal(y);
-	mX2[channel] = mX1[channel];
-	mY2[channel] = mY1[channel];
 	mX1[channel] = x;
 	mY1[channel] = y;
 
@@ -71,7 +65,7 @@ TTErr TTAllpass1b::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedIn
 }
 
 
-TTErr TTAllpass1b::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTAllpass1c::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TT_WRAP_CALCULATE_METHOD(calculateValue);
 }

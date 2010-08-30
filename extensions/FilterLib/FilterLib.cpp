@@ -13,6 +13,7 @@
 #include "TTAllpass1.h"
 #include "TTAllpass1a.h"
 #include "TTAllpass1b.h"
+#include "TTAllpass1c.h"
 #include "TTAllpass2a.h"
 #include "TTAllpass2b.h"
 #include "TTAllpass2c.h"
@@ -21,6 +22,7 @@
 #include "TTHalfband5.h"
 #include "TTHalfband9.h"
 #include "TTHalfbandLinear33.h"
+#include "TTHilbert9.h"
 #include "TTMirror5.h"
 #include "TTMirrorBandpass10.h"
 
@@ -56,6 +58,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	TTAllpass1::registerClass();
 	TTAllpass1a::registerClass();
 	TTAllpass1b::registerClass();
+	TTAllpass1c::registerClass();
 	TTAllpass2a::registerClass();
 	TTAllpass2b::registerClass();
 	TTAllpass2c::registerClass();
@@ -64,6 +67,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	TTHalfband5::registerClass();
 	TTHalfband9::registerClass();
 	TTHalfbandLinear33::registerClass();
+	TTHilbert9::registerClass();
 	TTMirror5::registerClass();
 	TTMirrorBandpass10::registerClass();
 	
