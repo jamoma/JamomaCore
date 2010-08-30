@@ -37,11 +37,6 @@ class TTHalfband9 : TTAudioObject {
 	TTSampleVector	mY0;		///< resampling path0 output (for each channel)
 	TTSampleVector	mY1;		///< resampling path1 output (for each channel)	
 	
-	TTFloat64		mA0;		///< coefficient for f0
-	TTFloat64		mA1;		///< coefficient for f1
-	TTFloat64		mA2;		///< coefficient for f2
-	TTFloat64		mA3;		///< coefficient for f3
-	
 	TTSymbolPtr		mMode;		///< Attribute: lowpass or highpass
 		
 	// Notifications

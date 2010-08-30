@@ -19,13 +19,13 @@
 TT_AUDIO_CONSTRUCTOR,
 	mF0(NULL),
 	mF2(NULL),
-	mF1(NULL),
-	mF3(NULL),
-	mDelay(NULL),
 	mR0(NULL),
 	mR2(NULL),
+	mF1(NULL),
+	mF3(NULL),
 	mR1(NULL),
-	mR3(NULL)
+	mR3(NULL),
+	mDelay(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	TTErr		err;
