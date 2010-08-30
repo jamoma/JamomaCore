@@ -77,6 +77,15 @@ public:
 	}
 	
 	
+	TTErr Mode(const TTValue& newMode)
+	{
+		if (mActualFilterObject)
+			return mActualFilterObject->setAttributeValue(TT("Mode"), const_cast<TTValue&>(newMode));
+		else
+			return kTTErrNone;
+	}
+	
+	
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	{
 		if (mActualFilterObject)
@@ -112,6 +121,7 @@ TT_AUDIO_CONSTRUCTOR_EXPORT,
 	
 	addMessageWithArgument(getTypes);
 	addMessage(clear);
+	addMessageWithArgument(Mode);	// some filters have a 'mode' attribute, some don't, so this is a message instead of an attribute 
 	
 	addMessageWithArgument(updateMaxNumChannels);
 	addMessage(updateSr);
