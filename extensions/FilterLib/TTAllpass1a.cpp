@@ -56,10 +56,11 @@ TTErr TTAllpass1a::Clear()
 
 TTErr TTAllpass1a::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
-	TTFloat64 w = x - mY1[channel];
-	TTFloat64 u = w * mAlpha;
-	y = u + mX1[channel];
+//	TTFloat64 w = x - mY1[channel];
+//	TTFloat64 u = w * mAlpha;
+//	y = u + mX1[channel];
 
+	y = mX1[channel] + mAlpha * (x - mY1[channel]);
 	TTZeroDenormal(y);
 	mX1[channel] = x;
 	mY1[channel] = y;
