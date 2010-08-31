@@ -24,6 +24,7 @@
 #include "TTHalfband9.h"
 #include "TTHalfbandLinear33.h"
 #include "TTHilbert9.h"
+#include "TTHilbertLinear33.h"
 #include "TTMirror5.h"
 #include "TTMirrorBandpass10.h"
 
@@ -70,6 +71,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 	TTHalfband9::registerClass();
 	TTHalfbandLinear33::registerClass();
 	TTHilbert9::registerClass();
+	TTHilbertLinear33::registerClass();
 	TTMirror5::registerClass();
 	TTMirrorBandpass10::registerClass();
 	

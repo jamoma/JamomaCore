@@ -24,7 +24,7 @@
  
 	The coefficients can be calculated using the "lineardesign_2.m" Matlab script.
 	To generate the particular set of coefficients currently hard-coded into this filter, 
-	choose the following settings:
+	choose the following settings (yields a roughly -60dB stopband attenuation):
 		iterations: 100	(iterations bring the filter toward equiripple in the stopband)
 		wc = 0.2895		(this is the normalized frequency of the start of the stopband)
 		number of paths = 2
