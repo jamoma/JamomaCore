@@ -18,7 +18,8 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	TTAudioGraphInit();
     
 	options->append(TT("wrapperDefinesNumOutlets"), value);
-	wrapAsMaxAudioGraph(TT("hilbert.9"), "jcom.hilbert≈", &c, options);
+//	wrapAsMaxAudioGraph(TT("hilbert.9"), "jcom.hilbert≈", &c, options);
+	wrapAsMaxAudioGraph(TT("hilbert.linear.33"), "jcom.hilbert≈", &c, options);
 		
 	return 0;
 }
