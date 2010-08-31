@@ -21,6 +21,37 @@
  
 	Same magnitude response with respect to frequency as TTHalfband9, but with nearly linear
 	phase response.
+ 
+	The coefficients can be calculated using the "lineardesign_2.m" Matlab script.
+	To generate the particular set of coefficients currently hard-coded into this filter, 
+	choose the following settings:
+		iterations: 100	(iterations bring the filter toward equiripple in the stopband)
+		wc = 0.2895		(this is the normalized frequency of the start of the stopband)
+		number of paths = 2
+		number of coefficients = 8
+ 
+	The result is:
+		Roots =
+
+		-0.832302165608369                     
+		-0.338171398434493 + 0.342959068350197i
+		-0.338171398434493 - 0.342959068350197i
+		-0.001794835916660 + 0.437771696086791i
+		-0.001794835916660 - 0.437771696086791i
+		0.421285425003053                     
+		0.298484480776670 + 0.301855022798834i
+		0.298484480776670 - 0.301855022798834i
+
+		branch 1 - type1     coefficient    0.8323021656083688    -0.4212854250030528
+		branch 1 - type2 1st coefficient    0.6763427968689864   0.003589671833320152      -0.59696896155334
+		branch 1 - type2 2nd coefficient    0.2319808172827758     0.1916472793306732     0.1802094400534031
+ 
+	The ordering of the coefficients may not be at first obvious.  The first line of coefficients
+	are the two alpha coefficients for the first two (first-order) allpass filters, F0 and F1.
+ 
+	The second and third lines together provide the coefficient pairs for the remaining (second-order)
+	filters.  Thus, 0.6763427968689864 and 0.2319808172827758 are the coefficient pair for the first filter
+	0.003589671833320152 and 0.1916472793306732 are the coefficient pair for the second filter, and so on.
  */
 class TTHalfbandLinear33 : TTAudioObject {
 	TTCLASS_SETUP(TTHalfbandLinear33)
