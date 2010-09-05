@@ -129,8 +129,8 @@
 /* Begin XCBuildConfiguration section */
 		1DEB916108733D950010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A7C88B271233D60200CB9EE7 /* tt-max-audiograph.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = i386;
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = YES;
@@ -138,11 +138,6 @@
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = "";
 				EXECUTABLE_EXTENSION = pd_darwin;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
-				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -156,10 +151,6 @@
 					PD,
 				);
 				INSTALL_PATH = /;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-				);
 				MACH_O_TYPE = mh_bundle;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -167,19 +158,19 @@
 					"-Wno-deprecated",
 				);
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-flat_namespace",
 					"-undefined",
 					suppress,
 				);
 				PRODUCT_NAME = "jcom_unpack=";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../../Graph/library/includes\" \"$(SRCROOT)/../../../../DSP/library/includes\" \"$(SRCROOT)/../../../../Foundation/library/includes\" \"$(SRCROOT)/..\" \"$(SRCROOT)/../../../library/includes\"";
 			};
 			name = Debug;
 		};
 		1DEB916208733D950010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A7C88B271233D60200CB9EE7 /* tt-max-audiograph.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = i386;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_LOCATION = YES;
@@ -187,11 +178,6 @@
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = "";
 				EXECUTABLE_EXTENSION = pd_darwin;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
-					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
-				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ../prefix.pch;
@@ -202,10 +188,6 @@
 					PD,
 				);
 				INSTALL_PATH = /;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
-				);
 				MACH_O_TYPE = mh_bundle;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -213,12 +195,12 @@
 					"-Wno-deprecated",
 				);
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-flat_namespace",
 					"-undefined",
 					suppress,
 				);
 				PRODUCT_NAME = "jcom_unpack=";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../../Graph/library/includes\" \"$(SRCROOT)/../../../../DSP/library/includes\" \"$(SRCROOT)/../../../../Foundation/library/includes\" \"$(SRCROOT)/..\" \"$(SRCROOT)/../../../library/includes\"";
 			};
 			name = Release;
 		};
