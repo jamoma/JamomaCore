@@ -87,7 +87,7 @@ InPtr InNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		self->audioGraphObjectOutlet = outlet_new(SELF, gensym("audio.connect"));
 	
-		for (int i=1; i<self->maxNumChannels; i++)
+		for (TTUInt16 i=1; i<self->maxNumChannels; i++)
 			inlet_new(&self->obj, &self->obj.ob_pd, &s_signal, &s_signal);
 		
 		//self->obj.z_misc = Z_NO_INPLACE | Z_PUT_FIRST;
