@@ -40,6 +40,7 @@ private:
 	TTUInt16		mVectorSize;		///< Vector Size for this signal.  Every channel in a signal must have the same vector-size.
 	TTUInt16		mNumChannels;		///< The number of audio channels that have valid sample values stored in them.
 	TTUInt8			mBitdepth;			///< Currently supported bitdepths are 32 and 64. This is set by the setVector() method.
+	TTUInt32		mSampleRate;		///< Audio signal metadata, defined in Hertz or set to 0 if not available.
 
 public:
 	TTSampleValue**	mSampleVectors;		///< An array of pointers to the first sample in each vector. Declared Public for fast access.
@@ -51,6 +52,17 @@ private:
 public:
 	/**	Attribute accessor. */
 	TTErr setMaxNumChannels(const TTValue& newMaxNumChannels);
+	
+	
+	void setSampleRate(const TTUInt32& newSampleRate)
+	{
+		mSampleRate = newSampleRate;
+	}
+	
+	TTUInt32 getSampleRate()
+	{
+		return mSampleRate;
+	}
 	
 	
 	/** Assigns a vector of sample values to a channel in this signal.

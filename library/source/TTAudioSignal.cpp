@@ -21,6 +21,7 @@ TT_OBJECT_CONSTRUCTOR,
 	mVectorSize(0),
 	mNumChannels(0),
 	mBitdepth(0),
+	mSampleRate(0),
 	mSampleVectors(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
