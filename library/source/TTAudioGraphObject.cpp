@@ -191,6 +191,8 @@ TTErr TTAudioGraphObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 for
 					mOutputSignals->matchNumChannels(mInputSignals);
 				}
 				mOutputSignals->allocAllWithVectorSize(mInputSignals->getVectorSize());
+				
+				getUnitGenerator()->adaptMaxNumChannels(mInputSignals->getMaxNumChannels());
 				getUnitGenerator()->process(mInputSignals, mOutputSignals);
 			}
 			
