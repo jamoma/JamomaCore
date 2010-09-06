@@ -20,14 +20,14 @@
 		"devicewidth" : 0.0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.gain≈", "@description", "Control overall level" ],
+					"args" : [ "@name", "jcom.audiounit≈", "@description", "Host AudioUnit plugins" ],
 					"bgmode" : 1,
 					"id" : "obj-44",
 					"maxclass" : "bpatcher",
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 332.0, 70.0 ]
+					"patching_rect" : [ 0.0, 0.0, 531.0, 70.0 ]
 				}
 
 			}
