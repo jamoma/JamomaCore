@@ -100,6 +100,15 @@ public:
 	/**	Setter for the maxNumChannels attribute. 	*/
 	TTErr setMaxNumChannels(const TTValue& newValue);
 
+	/**	Increase the maxNumChannels attribute, if neccessary. 	*/
+	TTErr adaptMaxNumChannels(const TTUInt16 newMaxNumChannels)
+	{
+		if (newMaxNumChannels > maxNumChannels)
+			return setAttributeValue(TT("MaxNumChannels"), newMaxNumChannels);
+		else
+			return kTTErrNone;
+	}
+	
 	/**	Setter for the sample-rate attribute.		*/
 	TTErr setSr(const TTValue& newValue);
 

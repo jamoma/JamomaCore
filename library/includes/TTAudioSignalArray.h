@@ -88,6 +88,17 @@ public:
 		// TODO, for all channels that are not in this array, but are in another array, we should zero the numChannels
 	}
 	
+	TTUInt16 getMaxNumChannels()
+	{
+		TTUInt16 maxNumChannels = 0;
+		
+		for (TTUInt16 i=0; i<maxNumAudioSignals; i++) {
+			if (audioSignals[i]->getMaxNumChannelsAsInt() > maxNumChannels)
+				maxNumChannels = audioSignals[i]->getMaxNumChannelsAsInt();
+		}
+		return maxNumChannels;
+	}
+	
 };
 
 
