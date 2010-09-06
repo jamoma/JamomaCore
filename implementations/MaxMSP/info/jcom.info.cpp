@@ -125,7 +125,7 @@ void InfoQfn(InfoPtr self)
 	if (self->audioSourceObject) {
 		outlet_int(self->outletNumChannels, self->audioSourceObject->getOutputNumChannels(self->audioSourceOutlet));
 		outlet_int(self->outletVectorSize, self->audioSourceObject->getOutputVectorSize(self->audioSourceOutlet));
-		outlet_int(self->outletSampleRate, self->audioSourceObject->getSampleRate());
+		outlet_int(self->outletSampleRate, self->audioSourceObject->getOutputSampleRate(self->audioSourceOutlet));
 	}
 	else {
 		object_post(SELF, "No valid audio signals connected.");

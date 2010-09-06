@@ -83,9 +83,17 @@ public:
 			return 0;
 	}
 	
-	TTUInt16 getSampleRate()
+	TTUInt32 getOutputSampleRate(TTUInt16 forOutletNumber)
 	{
-		TTUInt16 sr;
+		if (forOutletNumber < mAudioOutlets.size())
+			return mAudioOutlets[forOutletNumber].mBufferedOutput->getSampleRate();
+		else
+			return 0;
+	}
+	
+	TTUInt32 getSampleRate()
+	{
+		TTUInt32 sr;
 		mKernel->getAttributeValue(kTTSym_SampleRate, sr);
 		return sr;
 	}
