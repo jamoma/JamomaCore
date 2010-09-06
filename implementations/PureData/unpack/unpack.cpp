@@ -83,6 +83,7 @@ OutPtr OutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.set(0, TT("gain"));
 		v.set(1, 1); // arg is the number of inlets
 		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
+		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("LinearGain"), 1.0);		
 		
 		for(i=0; i < self->maxNumChannels; i++)
 			outlet_new(SELF, gensym("signal"));
