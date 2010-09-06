@@ -266,6 +266,7 @@ public:
 		if (rightHandValue.mMaxNumChannels > mMaxNumChannels)
 			setMaxNumChannels(rightHandValue.mMaxNumChannels);
 		mNumChannels = rightHandValue.mNumChannels;
+		mSampleRate = rightHandValue.mSampleRate;
 		
 		setVectorSizeWithInt(rightHandValue.mVectorSize);
 		if (mIsLocallyOwned)

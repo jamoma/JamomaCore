@@ -286,6 +286,7 @@ TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
 		inputArray->setSignal(0, &in);
 		outputArray->numAudioSignals = 1;
 		outputArray->setSignal(0, &out);
+		out.setSampleRate(sr);
 		err = (this->*currentProcessMethod)(inputArray, outputArray);
 		unlock();
 	}
@@ -302,6 +303,7 @@ TTErr TTAudioObject::process(TTAudioSignal& out)
 		inputArray->numAudioSignals = 0;
 		outputArray->numAudioSignals = 1;
 		outputArray->setSignal(0, &out);
+		out.setSampleRate(sr);
 		err = (this->*currentProcessMethod)(inputArray, outputArray);
 		unlock();
 	}
@@ -321,6 +323,8 @@ TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSign
 		outputArray->numAudioSignals = 2;
 		outputArray->setSignal(0, &out1);
 		outputArray->setSignal(1, &out2);
+		out1.setSampleRate(sr);
+		out2.setSampleRate(sr);
 		err = (this->*currentProcessMethod)(inputArray, outputArray);
 		unlock();
 	}
@@ -339,6 +343,7 @@ TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSign
 		inputArray->setSignal(1, &in2);
 		outputArray->numAudioSignals = 1;
 		outputArray->setSignal(0, &out);
+		out.setSampleRate(sr);
 		err = (this->*currentProcessMethod)(inputArray, outputArray);
 		unlock();
 	}
@@ -352,6 +357,7 @@ TTErr TTAudioObject::process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 	
 	if (valid) {
 		lock();
+		outputs->setAllSampleRates(sr);
 		err = (this->*currentProcessMethod)(inputs, outputs);
 		unlock();
 	}

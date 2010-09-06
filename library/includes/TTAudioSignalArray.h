@@ -39,6 +39,12 @@ public:
 	void		setAllMaxNumChannels(TTUInt16 newMaxNumChannels);
 	void		setAllNumChannels(TTUInt16 newNumChannels);
 	
+	void setAllSampleRates(TTUInt32 newSampleRate)
+	{
+		for (TTUInt16 i=0; i<maxNumAudioSignals; i++)
+			audioSignals[i]->setSampleRate(newSampleRate);
+	}
+	
 	/**	Note: calling this function will invalidate all audioSignal pointers contained within the array. */
 	void setMaxNumAudioSignals(TTUInt16 newMaxNumAudioSignals)
 	{

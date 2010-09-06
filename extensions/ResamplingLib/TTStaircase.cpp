@@ -49,7 +49,8 @@ TTErr TTStaircase::processDownsample(TTAudioSignalArrayPtr inputs, TTAudioSignal
 	TTUInt16		targetVectorSize = in.getVectorSizeAsInt() / 2;
 	TTErr			err;
 	
-	err = out.changeVectorSize(targetVectorSize);
+	out.changeVectorSize(targetVectorSize);
+	out.setSampleRate(in.getSampleRate() / 2);
 	for (channel=0; channel<numchannels; channel++) {
 		TTUInt16 n = targetVectorSize;
 		
@@ -78,6 +79,7 @@ TTErr TTStaircase::processUpsample(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 	
 	err = out.changeVectorSize(targetVectorSize);
 	if (!err) {
+		out.setSampleRate(in.getSampleRate() * 2);
 		for (channel=0; channel<numchannels; channel++) {
 			TTUInt16		n = in.getVectorSizeAsInt();
 			TTSampleValue	x;
