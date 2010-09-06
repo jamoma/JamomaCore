@@ -149,7 +149,7 @@ public:
 	// collect and sum the sources
 	TTErr process()
 	{
-		int					err;
+		int					err = kTTErrNone;
 		TTAudioSignalPtr	foo;
 		
 		for (TTAudioGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
