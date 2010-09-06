@@ -192,7 +192,11 @@ TTErr TTAudioGraphObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 for
 				}
 				mOutputSignals->allocAllWithVectorSize(mInputSignals->getVectorSize());
 				
+				// adapt ugen based on the input we are going to process
 				getUnitGenerator()->adaptMaxNumChannels(mInputSignals->getMaxNumChannels());
+				getUnitGenerator()->setSampleRate(mInputSignals->getSignal(0).getSampleRate());
+				
+				// finally, process the audio
 				getUnitGenerator()->process(mInputSignals, mOutputSignals);
 			}
 			
