@@ -111,7 +111,18 @@ public:
 	
 	/**	Setter for the sample-rate attribute.		*/
 	TTErr setSr(const TTValue& newValue);
-
+	
+	
+	/**	Convenience method for updating the sample-rate.	*/
+	TTErr setSampleRate(const TTUInt32& newSampleRate)
+	{
+		if (newSampleRate && newSampleRate != sr)
+			return setAttributeValue(kTTSym_SampleRate, newSampleRate);
+		else
+			return kTTErrNone;
+	}
+	
+	
 protected:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/
 	TTAudioObject(TTValue& arguments);
