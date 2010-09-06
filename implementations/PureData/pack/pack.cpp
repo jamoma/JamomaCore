@@ -155,17 +155,16 @@ void InDsp(InPtr self, t_signal** sp, short* count)
 	
 	self->numChannels = 0;
 	for (i=0; i < self->maxNumChannels; i++) {
-		self->numChannels++;				
+		self->numChannels++;
 		audioVectors[k] = sp[i]->s_vec;
 		k++;
 	}
-	
+
 	self->audioGraphObject->setOutputNumChannels(0, self->maxNumChannels);
 	self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("VectorSize"), self->vectorSize);
-	self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("maxNumChannels"), self->maxNumChannels);
+	self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("MaxNumChannels"), self->maxNumChannels);
 	self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("SampleRate"), sp[0]->s_sr);
-	
+
 	dsp_addv(InPerform, k, (t_int*)audioVectors);
 	free(audioVectors);
 }
-
