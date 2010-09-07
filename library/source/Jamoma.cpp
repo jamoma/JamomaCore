@@ -304,7 +304,7 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 	object_obex_dumpout(o, sAttrName, ac, av);
 	if (x->hub != NULL) {
 		char		s[256];
-		t_atom		a[4];
+		t_atom		*a = (t_atom *) alloca((ac + 1) * sizeof(t_atom));
 	
 		snprintf(s, 256, "%s:/%s", x->attr_name->s_name, attrName->s_name);
 		atom_setsym(a+0, SymbolGen(s));
