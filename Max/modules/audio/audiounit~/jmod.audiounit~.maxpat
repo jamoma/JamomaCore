@@ -146,7 +146,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 240.0, 65.0, 48.0, 21.0 ],
 					"rounded" : 8.0,
-					"text" : "generic"
+					"text" : "controls"
 				}
 
 			}
@@ -164,7 +164,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 191.0, 65.0, 48.0, 21.0 ],
 					"rounded" : 8.0,
-					"text" : "custom"
+					"text" : "editor"
 				}
 
 			}
@@ -475,7 +475,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 245.0, 564.0, 31.0 ],
-					"text" : "jcom.message au/view @type string @description \"Open the plug-in's edit window. \\\"custom\\\" or \\\"generic\\\" specifies what interface will be shown.\" @repetitions/allow 1"
+					"text" : "jcom.message au/view @type string @description \"Open the plug-in's edit window. \\\"editor\\\" or \\\"controls\\\" specifies what interface will be shown.\" @repetitions/allow 1"
 				}
 
 			}
@@ -507,7 +507,6 @@
 						"enablehscroll" : 0,
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"comment" : "",
