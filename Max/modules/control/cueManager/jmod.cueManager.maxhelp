@@ -150,11 +150,11 @@
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
 						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p spacebar"
@@ -337,11 +337,11 @@
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"globalpatchername" : "",
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
 						"fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p cueTriggerCompatibility"
@@ -357,7 +357,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 675.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 699.0, 70.0 ],
 					"prototypename" : "bphelp",
 					"varname" : "maxhelpui"
 				}
