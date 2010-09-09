@@ -17,7 +17,7 @@ Installing
 Place the folder containing this ReadMe somewhere on your hard-drive. Then Make sure your compiler has access to it in order to compile the code.
 
 Install Locations are as follows:
-	Mac 	library is expected @		/Library/Frameworks/JamomaDSP.framework
+	Mac 	library is expected @		/Library/Application Support/Jamoma/Libraries/JamomaDSP.dylib
 			extensions are expected @	/Library/Application Support/Jamoma/Extensions/*.ttdylib
 										~/Library/Application Support/Jamoma/Extensions/*.ttdylib
 
@@ -36,7 +36,7 @@ Doxygen generated documentation is located in the "documentation" folder.
 
 
 License
-TTBlue is licensed as open source software under the terms of the GNU LPGL.
+TTBlue is licensed as open source software under the terms of the "New BSD License".
 
 
 Known Issues & Wish List
