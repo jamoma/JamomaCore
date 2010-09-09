@@ -22,7 +22,7 @@ Doxygen generated documentation is located in the "documentation" folder.
 
 
 License
-Jamoma Foundation is licensed as open source software under the terms of the GNU LPGL.
+Jamoma Foundation is licensed as open source software under the terms of the "New BSD License".
 
 
 Known Issues & Wish List
