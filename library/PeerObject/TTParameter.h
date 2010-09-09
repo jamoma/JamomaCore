@@ -59,6 +59,7 @@ public:
 	TTBoolean		mRepetitionsAllow;			///< ATTRIBUTE: is the same value can be update twice ?
 	TTBoolean		mReadonly;					///< ATTRIBUTE: 
 	TTBoolean		mViewFreeze;				///< ATTRIBUTE: freeze updating of graphical user interface
+	TTBoolean		mInitialized;				///< ATTRIBUTE: is the Value attribute has been initialized ?
 	
 	TTValue			mRangeBounds;				///< ATTRIBUTE: 
 	TTSymbolPtr		mRangeClipmode;				///< ATTRIBUTE: 
@@ -78,7 +79,6 @@ private:
 	TTCallbackPtr	mReturnValueCallback;		///< Callback to return back value to the owner of this parameter
 	
 	TTBoolean		mIsSending;					///< Flag to tell us if we are currently sending out our Value attribute
-	TTBoolean		mIsInitialised;				///< Flag to tell us if the Value attribute has been initialised
 
 #ifdef TTPARAMETER_RAMPLIB
 	RampUnitPtr		mRamper;					///< Rampunit object to perform ramping of input values

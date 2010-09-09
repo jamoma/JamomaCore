@@ -22,6 +22,7 @@ mDescription(kTTSymEmpty),
 mRepetitionsAllow(YES),
 mReadonly(NO),
 mViewFreeze(NO),
+mInitialized(NO),
 mRangeBounds(0.0, 1.0),
 mRangeClipmode(kTTSym_none),
 #ifdef TTPARAMETER_RAMPLIB
@@ -50,12 +51,17 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(Readonly, kTypeBoolean);
 	addAttributeWithSetter(ViewFreeze, kTypeBoolean);
 	
+	addAttribute(Initialized, kTypeBoolean);
+	addAttributeProperty(Initialised, readOnly, YES);
+	
 	addAttributeWithSetter(RangeBounds, kTypeLocalValue);
 	addAttributeWithSetter(RangeClipmode, kTypeSymbol);
+	
 #ifdef TTPARAMETER_RAMPLIB
 	addAttributeWithSetter(RampDrive, kTypeSymbol);
 	addAttributeWithSetter(RampFunction, kTypeSymbol);
-#endif	
+#endif
+	
 	addAttributeWithSetter(Dataspace, kTypeSymbol);
 	addAttributeWithSetter(DataspaceUnitNative, kTypeSymbol);
 	addAttributeWithSetter(DataspaceUnitActive, kTypeSymbol);
@@ -67,7 +73,6 @@ mReturnValueCallback(NULL)
 	addMessageWithArgument(command);
 	
 	mIsSending = NO;
-	mIsInitialised = NO;
 	
 #ifdef TTPARAMETER_RAMPLIB
 	mRamper = NULL;
@@ -98,7 +103,8 @@ TTErr TTParameter::Reset()
 	
 	// Set parameter to be uninitialised
 	// to circumvent filtering of repetitions when outputing value from default preset
-	mIsInitialised = NO;
+	mInitialized = NO;
+	notifyObservers(kTTSym_Initialized, NO);
 	
 	return kTTErrNone;
 }
@@ -383,7 +389,7 @@ TTErr TTParameter::command(const TTValue& command)
 			return kTTErrNone;
 		}	
 		
-		if (!mRepetitionsAllow && mIsInitialised) {
+		if (!mRepetitionsAllow && mInitialized) {
 			if (mValue == convertedValue)
 				return kTTErrNone;	// nothing to do
 		}
@@ -411,7 +417,7 @@ TTErr TTParameter::command(const TTValue& command)
 	else {
 #endif
 		// check repetitions
-		if (!mRepetitionsAllow && mIsInitialised) {
+		if (!mRepetitionsAllow && mInitialized) {
 			if (mValue == convertedValue)
 				return kTTErrNone;	// nothing to do
 		}
@@ -438,9 +444,10 @@ TTErr TTParameter::setValue(const TTValue& value)
 		if (value == kTTValNONE) {
 			
 			// if mType is 'none' we have had our value set at least once
-			if (mType == kTTSym_none)
-				mIsInitialised = YES;
-			
+			if (mType == kTTSym_none && !mInitialized) {
+				mInitialized = YES;
+				notifyObservers(kTTSym_Initialized, YES);
+			}
 		}
 		// otherwise check the type of the incoming value
 		else if (checkType(value)) {
@@ -464,7 +471,10 @@ TTErr TTParameter::setValue(const TTValue& value)
 #endif
 			
 			// we have had our value set at least once
-			mIsInitialised = YES;
+			if (!mInitialized) {
+				mInitialized = YES;
+				notifyObservers(kTTSym_Initialized, YES);
+			}
 			
 		}
 		else {

@@ -165,10 +165,8 @@ TTErr TTMapper::setInput(const TTValue& value)
 	err = mDirectory->getTTNodeForOSC(mInput, &aNode);
 	
 	if (!err) {
-		aNode->getAttributeValue(kTTSym_Object, v);
-		v.get(0, (TTPtr*)&anObject);
-		
-		if (anObject)
+
+		if (anObject = aNode->getObject())
 			if (anObject->getName() == TT("Parameter")) {
 				
 				anObject->getAttributeValue(kTTSym_RangeBounds, v);
@@ -204,10 +202,8 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	err = mDirectory->getTTNodeForOSC(mOutput, &aNode);
 	
 	if (!err) {
-		aNode->getAttributeValue(kTTSym_Object, v);
-		v.get(0, (TTPtr*)&anObject);
-		
-		if (anObject)
+
+		if (anObject = aNode->getObject())
 			if (anObject->getName() == TT("Parameter")) {
 				
 				anObject->getAttributeValue(kTTSym_RangeBounds, v);

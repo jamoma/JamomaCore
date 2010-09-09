@@ -65,13 +65,13 @@ TTSubscriber::~TTSubscriber()
 	TTList		childrenList;
 	TTValue		aTempValue;
 	
-	// If node have no more child : destroy the node
+	// If node have no more child : destroy the node (except for root)
 	this->mNode->getChildren(S_WILDCARD, S_WILDCARD, childrenList);
-	if (childrenList.isEmpty())
+	if (childrenList.isEmpty() && this->mNode != this->mDirectory->getRoot())
 		this->mDirectory->TTNodeRemove(this->mNodeAddress);
 	
-	// Set NULL object (except for the root)
-	else if (this->mNodeAddress != S_SEPARATOR) {
+	// Set NULL object
+	else {
 		aTempValue.clear();
 		aTempValue.append((TTPtr)NULL);
 		this->mNode->setAttributeValue(kTTSym_Object, aTempValue);
@@ -126,12 +126,14 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 		this->mContextNode->getAttributeValue(kTTSym_Context, aTempValue);
 		aTempValue.get(0, (TTPtr*)&ourContext);
 		
-		// Make absolute address and check if the node exists
+		// Make absolute address 
 		this->mContextNode->getOscAddress(&contextAddress);
 		if (this->mRelativeAddress == S_SEPARATOR)
 			absoluteAddress = contextAddress;
 		else
 			joinOSCAddress(contextAddress, this->mRelativeAddress, &absoluteAddress);
+		
+		// Check if the node exists
 		err = this->mDirectory->Lookup(absoluteAddress, aNodeList, &aNode);
 		
 		// if the node doesn't exist, create it
@@ -142,8 +144,7 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 		else {
 			
 			// Get his refered object
-			aNode->getAttributeValue(kTTSym_Object, aTempValue);
-			aTempValue.get(0, (TTPtr*)&hisObject);
+			hisObject = aNode->getObject();
 			
 			// if there is no refered object
 			if (!hisObject) {
@@ -152,6 +153,12 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 				aTempValue.clear();
 				aTempValue.append((TTPtr)ourObject);
 				aNode->setAttributeValue(kTTSym_Object, aTempValue);
+				
+				// notify for the creation of the address when replacing the Object
+				// !!! Maybe this could introduce confusion for namespace observer !!!
+				// introduce a new flag (kAddressObjectChanged) ?
+				mDirectory->notifyObservers(absoluteAddress, aNode, kAddressCreated);
+				
 			}
 			
 			// else there is already an object

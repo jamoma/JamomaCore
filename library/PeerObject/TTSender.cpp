@@ -118,8 +118,7 @@ TTErr TTSender::bind()
 	for (aNodeList.begin(); aNodeList.end(); aNodeList.next()) {
 		
 		aNodeList.current().get(0, (TTPtr*)&aNode);
-		aNode->getAttributeValue(kTTSym_Object, v);
-		v.get(0, (TTPtr*)&anObject);
+		anObject = aNode->getObject();
 		
 		aCacheElement = new TTValue((TTPtr)anObject);
 		
@@ -186,8 +185,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 			
 		case kAddressCreated :
 		{
-			aNode->getAttributeValue(kTTSym_Object, v);
-			v.get(0, (TTPtr*)&anObject);
+			anObject = aNode->getObject();
 			
 			aCacheElement = new TTValue((TTPtr)anObject);
 			
@@ -197,8 +195,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 			
 		case kAddressDestroyed :
 		{
-			aNode->getAttributeValue(kTTSym_Object, v);
-			v.get(0, (TTPtr*)&anObject);
+			anObject = aNode->getObject();
 			
 			// find the object in the cache and remove it
 			for (aSender->mObjectCache->begin(); aSender->mObjectCache->end(); aSender->mObjectCache->next()) {

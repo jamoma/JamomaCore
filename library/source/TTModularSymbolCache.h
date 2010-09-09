@@ -17,7 +17,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_boolean;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_command;
-extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_created;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Created;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Dataspace;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_DataspaceUnitActive;
@@ -25,11 +25,11 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_DataspaceUnitDisplay;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_DataspaceUnitNative;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_decimal;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Description;
-extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_destroyed;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Destroyed;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
 
-extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_initialized;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Initialized;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_integer;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_map;

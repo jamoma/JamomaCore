@@ -103,30 +103,30 @@ TTErr TTReceiver::get()
 			mNodesObserversCache->current().get(0,(TTPtr*)&aNode);
 			
 			// get the value of the attribute
-			aNode->getAttributeValue(kTTSym_Object, v);
-			v.get(0, (TTPtr*)&anObject);
-			err = anObject->getAttributeValue(mAttribute, data);
-			
-			
-			if (!err) {
+			if (anObject = aNode->getObject()) {
 				
-				// output the OSCAddress of the node (in case we use * inside the x->attrname)
-				aNode->getOscAddress(&oscAddress);
-				fullAddress = oscAddress->getCString();
-				if (mAttribute != kTTSym_Value) {
-					fullAddress += C_PROPERTY;
-					fullAddress += mAttribute->getCString();
+				err = anObject->getAttributeValue(mAttribute, data);
+				
+				if (!err) {
+					
+					// output the OSCAddress of the node (in case we use * inside the binded address)
+					aNode->getOscAddress(&oscAddress);
+					fullAddress = oscAddress->getCString();
+					if (mAttribute != kTTSym_Value) {
+						fullAddress += C_PROPERTY;
+						fullAddress += mAttribute->getCString();
+					}
+					
+					// return the address
+					address.append(TT(fullAddress.data()));
+					this->mReturnAddressCallback->notify(address);
+					
+					// return the value
+					this->mReturnValueCallback->notify(data);
 				}
-				
-				// return the address
-				address.append(TT(fullAddress.data()));
-				this->mReturnAddressCallback->notify(address);
-				
-				// return the value
-				this->mReturnValueCallback->notify(data);
+				else
+					;// TODO : error "%s doesn't exist"
 			}
-			else
-				;// TODO : error "%s doesn't exist"
 		}
 	}
 	
@@ -146,8 +146,8 @@ TTErr TTReceiver::bind()
 	
 	mNodesObserversCache = new TTList();
 	
-	// for any Attribute observation except created, destroyed and initialized
-	if ((mAttribute != kTTSym_created) && (mAttribute != kTTSym_destroyed) && (mAttribute != kTTSym_initialized))
+	// for any Attribute observation except created, destroyed
+	if ((mAttribute != kTTSym_Created) && (mAttribute != kTTSym_Destroyed))
 	{
 		// Look for node(s) into the directory
 		err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
@@ -163,30 +163,31 @@ TTErr TTReceiver::bind()
 				// prepare the callback mecanism to
 				// be notified about changing value attribute
 				// if the attribute exist
-				aNode->getAttributeValue(kTTSym_Object, v);
-				v.get(0, (TTPtr*)&o);
-				err = o->findAttribute(mAttribute, &anAttribute);
-				
-				if (!err) {
+				if (o = aNode->getObject()) {
 					
-					newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-					TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
+					err = o->findAttribute(mAttribute, &anAttribute);
 					
-					newBaton = new TTValue(TTPtr(this));
-					aNode->getOscAddress(&oscAddress);
-					newBaton->append(oscAddress);
-					
-					newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-					newObserver->setAttributeValue(TT("Function"), TTPtr(&TTReceiverAttributeCallback));
-					
-					newObserver->setAttributeValue(TT("Owner"), TT("TTReceiver"));					// this is usefull only to debug
-					
-					anAttribute->registerObserverForNotifications(*newObserver);
-					
-					// memorize the node and his attribute observer
-					newCouple = new TTValue((TTPtr)aNode);
-					newCouple->append((TTPtr)newObserver);
-					mNodesObserversCache->appendUnique(newCouple);
+					if (!err) {
+						
+						newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+						TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
+						
+						newBaton = new TTValue(TTPtr(this));
+						aNode->getOscAddress(&oscAddress);
+						newBaton->append(oscAddress);
+						
+						newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
+						newObserver->setAttributeValue(TT("Function"), TTPtr(&TTReceiverAttributeCallback));
+						
+						newObserver->setAttributeValue(TT("Owner"), TT("TTReceiver"));					// this is usefull only to debug
+						
+						anAttribute->registerObserverForNotifications(*newObserver);
+						
+						// memorize the node and his attribute observer
+						newCouple = new TTValue((TTPtr)aNode);
+						newCouple->append((TTPtr)newObserver);
+						mNodesObserversCache->appendUnique(newCouple);
+					}
 				}
 			}
 		}
@@ -233,17 +234,18 @@ TTErr TTReceiver::unbind()
 			
 			// stop attribute observation of the node
 			// if the attribute exist
-			p_node->getAttributeValue(kTTSym_Object, v);
-			v.get(0, (TTPtr*)&o);
-			anAttribute = NULL;
-			err = o->findAttribute(mAttribute, &anAttribute);
-			
-			if(!err){
+			if (o = p_node->getObject()) {
 				
-				err = anAttribute->unregisterObserverForNotifications(*oldObserver);
+				anAttribute = NULL;
+				err = o->findAttribute(mAttribute, &anAttribute);
 				
-				if(!err)
-					TTObjectRelease(&oldObserver);
+				if(!err){
+					
+					err = anAttribute->unregisterObserverForNotifications(*oldObserver);
+					
+					if(!err)
+						TTObjectRelease(&oldObserver);
+				}
 			}
 			
 			// forget this couple
@@ -291,18 +293,22 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 	data.get(2, flag);
 	data.get(3, (TTPtr*)&anObserver);
 	
+	// if address are not equal
+	if (compareOSCAddress(aReceiver->mAddress, oscAddress) != kAddressEqual)
+		return kTTErrGeneric;
+	
 	switch (flag) {
 			
 		case kAddressCreated :
 		{
 			
-			if (aReceiver->mAttribute == kTTSym_created)
+			if (aReceiver->mAttribute == kTTSym_Created)
 			{
 				// return the address
 				address.append(oscAddress);
 				aReceiver->mReturnAddressCallback->notify(address);
 			}
-			else if ( (aReceiver->mAttribute != kTTSym_destroyed) && (aReceiver->mAttribute != kTTSym_initialized) )
+			else if (aReceiver->mAttribute != kTTSym_Destroyed)
 			{
 				// is the observer already exist ?
 				found = false;
@@ -325,29 +331,30 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 					// prepare the callback mecanism to
 					// be notified about changing value attribute
 					// if the attribute exist
-					aNode->getAttributeValue(kTTSym_Object, v);
-					v.get(0, (TTPtr*)&o);
-					err = o->findAttribute(aReceiver->mAttribute, &anAttribute);
-					
-					if (!err) {
+					if (o = aNode->getObject()) {
 						
-						newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-						TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
+						err = o->findAttribute(aReceiver->mAttribute, &anAttribute);
 						
-						newBaton = new TTValue(TTPtr(aReceiver));
-						newBaton->append(oscAddress);
-						
-						newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
-						newObserver->setAttributeValue(TT("Function"), TTPtr(&TTReceiverAttributeCallback));
-						
-						newObserver->setAttributeValue(TT("Owner"), TT("TTReceiver"));			// this is usefull only to debug
-						
-						anAttribute->registerObserverForNotifications(*newObserver);
-						
-						// memorize the node and his attribute observer
-						newCouple = new TTValue((TTPtr)aNode);
-						newCouple->append((TTPtr)newObserver);
-						aReceiver->mNodesObserversCache->appendUnique(newCouple);
+						if (!err) {
+							
+							newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+							TTObjectInstantiate(TT("Callback"), &newObserver, kTTValNONE);
+							
+							newBaton = new TTValue(TTPtr(aReceiver));
+							newBaton->append(oscAddress);
+							
+							newObserver->setAttributeValue(TT("Baton"), TTPtr(newBaton));
+							newObserver->setAttributeValue(TT("Function"), TTPtr(&TTReceiverAttributeCallback));
+							
+							newObserver->setAttributeValue(TT("Owner"), TT("TTReceiver"));			// this is usefull only to debug
+							
+							anAttribute->registerObserverForNotifications(*newObserver);
+							
+							// memorize the node and his attribute observer
+							newCouple = new TTValue((TTPtr)aNode);
+							newCouple->append((TTPtr)newObserver);
+							aReceiver->mNodesObserversCache->appendUnique(newCouple);
+						}
 					}
 				}
 			}
@@ -357,13 +364,13 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 			
 		case kAddressDestroyed :
 		{
-			if (aReceiver->mAttribute == kTTSym_destroyed)
+			if (aReceiver->mAttribute == kTTSym_Destroyed)
 			{
 				// return the address
 				address.append(oscAddress);
 				aReceiver->mReturnAddressCallback->notify(address);
 			}
-			else if ( (aReceiver->mAttribute != kTTSym_created) && (aReceiver->mAttribute != kTTSym_initialized) )
+			else if (aReceiver->mAttribute != kTTSym_Created)
 			{
 				// look at the node among memorized <node, observer>
 					
@@ -399,18 +406,6 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 			break;
 		}
 			
-		case kAddressInitialized :
-		{
-
-			if(aReceiver->mAttribute == kTTSym_initialized)
-			{
-				// return the address
-				address.append(oscAddress);
-				aReceiver->mReturnAddressCallback->notify(address);
-			}
-			break;
-		}
-			
 		default:
 			break;
 	}
@@ -423,6 +418,7 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 	TTValuePtr		b;
 	TTReceiverPtr	aReceiver;
 	TTSymbolPtr		oscAddress;
+	TTString		fullAddress;
 	TTValue			address;
 	
 	// unpack baton
@@ -433,7 +429,12 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 	if(aReceiver->mEnable) {
 		
 		// return the address
-		address.append(oscAddress);
+		fullAddress = oscAddress->getCString();
+		if (aReceiver->mAttribute != kTTSym_Value) {
+			fullAddress += C_PROPERTY;
+			fullAddress += aReceiver->mAttribute->getCString();
+		}
+		address.append(TT(fullAddress.data()));
 		aReceiver->mReturnAddressCallback->notify(address);
 											  
 		// return the value

@@ -18,7 +18,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_boolean;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_command;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_created;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Created;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Dataspace;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_DataspaceUnitActive;
@@ -26,11 +26,11 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_DataspaceUnitDisplay;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_DataspaceUnitNative;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_decimal;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Description;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_destroyed;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Destroyed;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_initialized;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Initialized;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_integer;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_map;
@@ -65,7 +65,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_boolean					= TT("boolean");
 	
 	kTTSym_command					= TT("command");
-	kTTSym_created					= TT("created");
+	kTTSym_Created					= TT("Created");
 	
 	kTTSym_Dataspace				= TT("Dataspace");
 	kTTSym_DataspaceUnitActive		= TT("DataspaceUnitActive");
@@ -73,11 +73,11 @@ void TTModularSymbolCacheInit()
 	kTTSym_DataspaceUnitNative		= TT("DataspaceUnitNative");
 	kTTSym_decimal					= TT("decimal");
 	kTTSym_Description				= TT("Description");
-	kTTSym_destroyed				= TT("destroyed");
+	kTTSym_Destroyed				= TT("Destroyed");
 	
 	kTTSym_generic					= TT("generic");
 	
-	kTTSym_initialized				= TT("initialized");
+	kTTSym_Initialized				= TT("Initialized");
 	kTTSym_integer					= TT("integer");
 	
 	kTTSym_map						= TT("map");

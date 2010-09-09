@@ -147,9 +147,7 @@ TTErr TTExplorer::Explore()
 		
 		// get attributes names
 		else if (mLookfor == TT("Attributes")) {
-			mTempNode->getAttributeValue(kTTSym_Object, v);
-			v.get(0, (TTPtr*)&o);
-			if (o) {
+			if (o = mTempNode->getObject()) {
 				v.clear();
 				o->getAttributeNames(v);
 				// Memorized the result in a hash table
@@ -397,9 +395,7 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 			// always clear the result
 			anExplorer->mResult->clear();
 			
-			aNode->getAttributeValue(kTTSym_Object, v);
-			v.get(0, (TTPtr*)&o);
-			if (o)
+			if (o = aNode->getObject())
 				o->getAttributeNames(v);
 		}
 	}
@@ -407,9 +403,7 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	// get relative address of this type of objects
 	else {
 		
-		aNode->getAttributeValue(kTTSym_Object, v);
-		v.get(0, (TTPtr*)&o);
-		if (o) {
+		if (o = aNode->getObject()) {
 			if (anExplorer->mLookfor == o->getName()) {
 				aNode->getOscAddress(&relativeAddress, anExplorer->mAddress);
 				v.append(relativeAddress);

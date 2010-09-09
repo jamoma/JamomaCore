@@ -21,7 +21,7 @@ Item::Item(TTNodePtr aNode)
 	// Get object
 	aNode->getAttributeValue(kTTSym_Object, v);
 	v.get(0, (TTPtr*)&anObject);
-	object = anObject;
+	object = aNode->getObject();
 
 	// Prepare an empty state
 	state = new TTHash();
