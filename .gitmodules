@@ -1,30 +1,30 @@
 [submodule "Modules/Graphics"]
 	path = Modules/Graphics
-	url = git://github.com/tap/JamomaGraphics.git
+	url = git://github.com/jamoma/JamomaGraphics.git
 [submodule "Modules/DSP"]
 	path = Modules/DSP
-	url = git://github.com/tap/JamomaDSP.git
+	url = git://github.com/jamoma/JamomaDSP.git
 [submodule "Modules/Modular"]
 	path = Modules/Modular
-	url = git://github.com/tap/JamomaModular.git
+	url = git://github.com/jamoma/JamomaModular.git
 [submodule "Modules/Foundation"]
 	path = Modules/Foundation
-	url = git://github.com/tap/JamomaFoundation.git
+	url = git://github.com/jamoma/JamomaFoundation.git
 [submodule "Modules/Ruby"]
 	path = Modules/Ruby
-	url = git://github.com/tap/JamomaRuby.git
+	url = git://github.com/jamoma/JamomaRuby.git
 [submodule "Tools/supports"]
 	path = Tools/supports
-	url = git://github.com/tap/JamomaSupport.git
+	url = git://github.com/jamoma/JamomaSupport.git
 [submodule "Modules/Test"]
 	path = Modules/Test
-	url = git://github.com/tap/JamomaTest.git
+	url = git://github.com/jamoma/JamomaTest.git
 [submodule "Modules/Graph"]
 	path = Modules/Graph
-	url = git://github.com/tap/JamomaGraph.git
+	url = git://github.com/jamoma/JamomaGraph.git
 [submodule "Modules/AudioGraph"]
 	path = Modules/AudioGraph
-	url = git://github.com/tap/JamomaAudioGraph.git
+	url = git://github.com/jamoma/JamomaAudioGraph.git
 
 [submodule "Modules/Dependencies"]
 	path = Modules/Dependencies
