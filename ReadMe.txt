@@ -9,7 +9,7 @@ Jamoma Modular is an open source framework currently implemented for the Max/MSP
 
 Installing
 - Users run the Installer from the Jamoma.org website 
-- Developers run the update.rb and build.rb script in the "Jamoma/Tools" folder
+- Developers do "git clone git://github.com/jamoma/Jamoma.git" and run the update.rb and build.rb script in the "Jamoma/Tools" folder
 
 The Jamoma distribution depend on certain 3rd party externals. For simplicity we have chosen to include these externals as part of the distribution. If you already have installed some or all of these externals, make sure that that the Jamoma distribution do not introduce older versions of the externals than you have already. All such externals can be found in the "Dependencies" folder.
 
