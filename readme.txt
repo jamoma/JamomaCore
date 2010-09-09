@@ -2,7 +2,7 @@ This project is the master project for the Jamoma platform.
 
 It is intended to contain sub-projects representing the various modules of the Jamoma platform.
 
-- Audio Graph
+- AudioGraph
 - Dependencies
 - DSP
 - Foundation
@@ -30,7 +30,7 @@ All sources needed to build Jamoma can be updated to last version following thes
 
 'ruby update.rb'
 
-3) Wait until it is done�
+3) Wait until it is done
 
 4) When the update process is finished, you have the latest version Jamoma repository
 --------------------------------------------------
@@ -74,7 +74,7 @@ Again, if you want a developer release rather than a nice, clean release version
 
 'ruby all.rb master Development clean'
 
-3) Wait until it is done�
+3) Wait until it is done
 
 4) When the update process is finished, you have the latest version Jamoma repository
 --------------------------------------------------
