@@ -2,6 +2,7 @@
 .DS_Store
 
 Installers
+Publications
 Builds/MaxMSP/*.mxo
 Builds/MaxMSP/*.maxhelp
 Builds/PureData/*.pd_darwin
