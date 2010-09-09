@@ -39,15 +39,6 @@ enum TTAddressComparisonFlag{
 enum TTAddressNotificationFlag{
 	kAddressDestroyed = 0,				///< this flag means that a TTNode have been destroyed in the tree structure
 	kAddressCreated = 1,				///< this flag means that a TTNode have been created in the tree structure
-	
-	kAddressInitialized = 2				///< this flag means that a TTNode have been initialized (this notification is sent by the application)
-										/*	TODO -- the last flag makes appears a futur problem : how to allow users of NodeLib to pass specific
-											notifications. Maybe we could have two NotifyObservers method : one private that used TTAddressNotificationFlag
-											and one public which used just a long but this would be a problem for obervers that received the notification
-											because they couln't make difference between TTAddressNotificationFlag and a long... so maybe TTAddressNotificationFlag
-											have to be struct with a boolean member that said if this is an internal TTAddressNotificationFlag or a specific application
-											notification flag... (?)
-										 */
 };
 
 /**
