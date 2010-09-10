@@ -18,7 +18,8 @@ Release
 *.suo
 *.user
 *.tm_build_errors
-
+*.xcworkspace
+xcuserdata
 
 
 
