@@ -200,10 +200,10 @@ VALUE TTRubyGetMessages(VALUE self)
 			
 			instance->messageNames->getKeys(names);
 			//instance->obj->getMessageNames(v);			
-			size = v.getSize();
+			size = names.getSize();
 			returnValue = rb_ary_new2(size);
 			for (TTUInt16 i=0; i<size; i++) {				
-				v.get(i, &s);
+				names.get(i, &s);
 				c = (TTCString)s->getCString();
 				rb_ary_store(returnValue, i, rb_str_new(c, strlen(c)));
 			}
@@ -307,10 +307,10 @@ VALUE TTRubyGetAttributes(VALUE self)
 			
 			instance->parameterNames->getKeys(names);
 			//instance->obj->getAttributeNames(v);			
-			size = v.getSize();
+			size = names.getSize();
 			returnValue = rb_ary_new2(size);
 			for (TTUInt16 i=0; i<size; i++) {				
-				v.get(i, &s);
+				names.get(i, &s);
 				c = (TTCString)s->getCString();
 				rb_ary_store(returnValue, i, rb_str_new(c, strlen(c)));
 			}
@@ -593,10 +593,10 @@ VALUE TTAudioGetMessages(VALUE self)
 			
 			instance->messageNames->getKeys(names);	
 			//instance->obj->getUnitGenerator()->getMessageNames(v);			
-			size = v.getSize();
+			size = names.getSize();
 			returnValue = rb_ary_new2(size);
 			for (TTUInt16 i=0; i<size; i++) {				
-				v.get(i, &s);
+				names.get(i, &s);
 				c = (TTCString)s->getCString();
 				rb_ary_store(returnValue, i, rb_str_new(c, strlen(c)));
 			}
@@ -701,10 +701,10 @@ VALUE TTAudioGetAttributes(VALUE self)
 			instance->parameterNames->getKeys(names);
 			//instance->obj->getAttributeNames(v);			
 			//instance->obj->getUnitGenerator()->getAttributeNames(v);			
-			size = v.getSize();
+			size = names.getSize();
 			returnValue = rb_ary_new2(size);
 			for (TTUInt16 i=0; i<size; i++) {				
-				v.get(i, &s);
+				names.get(i, &s);
 				c = (TTCString)s->getCString();
 				rb_ary_store(returnValue, i, rb_str_new(c, strlen(c)));
 			}
