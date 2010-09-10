@@ -31,7 +31,9 @@ TTErr  	OpSetupAudio	(OpPtr self);
 //TTErr	OpSetup			(OpPtr self);
 TTErr  	OpConnectAudio	(OpPtr self, TTAudioGraphObjectPtr audioSourceObject, long sourceOutletNumber);
 MaxErr 	OpSetOperator	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
+MaxErr	OpGetOperator	(OpPtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv);
 MaxErr 	OpSetOperand	(OpPtr self, void* attr, AtomCount argc, AtomPtr argv);
+MaxErr	OpGetOperand	(OpPtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv);
 
 
 // Globals
@@ -64,10 +66,10 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",				A_CANT, 0);  
 	
 	CLASS_ATTR_SYM(c,		"operator",	0,		Op,	attrOperator);
-	CLASS_ATTR_ACCESSORS(c,	"operator",	NULL,	OpSetOperator);
+	CLASS_ATTR_ACCESSORS(c,	"operator",	OpGetOperator,	OpSetOperator);
 	
 	CLASS_ATTR_FLOAT(c,		"operand",	0,		Op,	attrOperand);
-	CLASS_ATTR_ACCESSORS(c,	"operand",	NULL,	OpSetOperand);
+	CLASS_ATTR_ACCESSORS(c,	"operand",	OpGetOperand,	OpSetOperand);
 	
 	class_register(_sym_box, c);
 	sOpClass = c;
@@ -183,6 +185,36 @@ MaxErr OpSetOperator(OpPtr self, void* attr, AtomCount argc, AtomPtr argv)
 }
 
 
+MaxErr OpGetOperator(OpPtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
+{
+	TTValue v;
+	
+	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("Operator"), v);
+	
+	*argc = v.getSize();
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * v.getSize());
+	
+	for (int i=0; i<v.getSize(); i++) {
+		if(v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
+			TTFloat64	value;
+			v.get(i, value);
+			atom_setfloat(*argv+i, value);
+		}
+		else if(v.getType(i) == kTypeSymbol){
+			TTSymbolPtr	value = NULL;
+			v.get(i, &value);
+			atom_setsym(*argv+i, gensym((char*)value->getCString()));
+		}
+		else{	// assume int
+			TTInt32		value;
+			v.get(i, value);
+			atom_setlong(*argv+i, value);
+		}
+	}	
+	return MAX_ERR_NONE;
+}
+
 MaxErr OpSetOperand(OpPtr self, void* attr, AtomCount argc, AtomPtr argv)
 {
 	if (argc) {
@@ -192,3 +224,33 @@ MaxErr OpSetOperand(OpPtr self, void* attr, AtomCount argc, AtomPtr argv)
 	return MAX_ERR_NONE;
 }
 
+
+MaxErr OpGetOperand(OpPtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
+{
+	TTValue v;
+	
+	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("Operand"), v);
+	
+	*argc = v.getSize();
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * v.getSize());
+	
+	for (int i=0; i<v.getSize(); i++) {
+		if(v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
+			TTFloat64	value;
+			v.get(i, value);
+			atom_setfloat(*argv+i, value);
+		}
+		else if(v.getType(i) == kTypeSymbol){
+			TTSymbolPtr	value = NULL;
+			v.get(i, &value);
+			atom_setsym(*argv+i, gensym((char*)value->getCString()));
+		}
+		else{	// assume int
+			TTInt32		value;
+			v.get(i, value);
+			atom_setlong(*argv+i, value);
+		}
+	}	
+	return MAX_ERR_NONE;
+}
