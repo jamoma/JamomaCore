@@ -50,6 +50,7 @@
 #include "TTSender.h"
 #include "TTReceiver.h"
 #include "TTMapper.h"
+#include "TTViewer.h"
 #include "TTPreset.h"
 #include "TTPresetManager.h"
 #include "TTExplorer.h"

@@ -80,7 +80,7 @@ extern "C" {
 	 To understand how this method have to work see in TTSubscriber.h and .cpp */
 	void			jamoma_subscriber_get_context_list(TTPtr p_baton, TTValue& data);
 	
-	/** Look recursively to every jmod.contextPatcher above an object in order to know his place in the tree
+	/** Look recursively for every jmod.contextPatcher above an object in order to know his place in the tree
 	 note : a contextPatcher is a patcher named [jmod.something otherName] 
 	 return a <formatedContextName, patcher> list 
 	 To understand how this method have to work see in TTSubscriber.h and .cpp */
@@ -137,6 +137,17 @@ extern "C" {
 	/**	Create a mapper object */
 	TTErr			jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper);
 	
+	
+	// Method to deal with TTViewer
+	///////////////////////////////////////////////////////////////////////
+	
+	/**	Create a viewer object */
+	TTErr			jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer);
+	
+	/** Look for the jview.contextPatcher above an object in order to know the address of the model it binds
+	 note : a contextPatcher is a patcher named [jview.modelName /addressToBind] 
+	 return the model address and the patcher. */
+	void			jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTPtr *aContext);
 	
 	// Method to deal with TTExplorer
 	///////////////////////////////////////////////////////////////////////

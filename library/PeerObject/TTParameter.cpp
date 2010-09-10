@@ -258,7 +258,7 @@ TTErr TTParameter::command(const TTValue& command)
 		if (c) {
 			// TODO
 			//if (param_handleProperty(x, msg, argc, argv))
-			return kTTErrGeneric;
+			// return kTTErrGeneric;
 		}
 	}
 	

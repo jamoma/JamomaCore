@@ -246,7 +246,11 @@ void param_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTBoolean	freeze;
 	TTUInt8		i;
 	
-	outlet_anything(x->outlets[data_out], msg, argc, argv);
+	// avoid blank before data
+	if (msg == _sym_nothing)
+		outlet_atoms(x->outlets[data_out], argc, argv);
+	else
+		outlet_anything(x->outlets[data_out], msg, argc, argv);
 	
 	// Check ViewFreeze attribute
 	x->wrappedObject->getAttributeValue(kTTSym_ViewFreeze, v);

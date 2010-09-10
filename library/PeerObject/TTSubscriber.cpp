@@ -93,7 +93,6 @@ TTErr TTSubscriber::subscribe(TTObjectPtr ourObject)
 	TTList			aNodeList;
 	TTNodePtr		aNode;
 	TTObjectPtr		hisObject;
-	TTString		nodeAddress;
 	TTErr			err;
 	
 	// look for any other registered subscriber in the Context

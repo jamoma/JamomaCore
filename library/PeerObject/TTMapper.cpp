@@ -31,7 +31,7 @@ mFunctionUnit(NULL),
 mValid(NO)
 {	
 	arguments.get(0, (TTPtr*)&mDirectory);
-	TT_ASSERT("Directory passed to TTReceiver is not NULL", mDirectory);
+	TT_ASSERT("Directory passed to TTMapper is not NULL", mDirectory);
 	
 	if(arguments.getSize() == 2)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);

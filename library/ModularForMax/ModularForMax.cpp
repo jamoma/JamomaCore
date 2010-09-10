@@ -367,7 +367,7 @@ void jamoma_subscriber_get_context_list_method(ObjectPtr z, TTListPtr aContextLi
 		// Try to get context name from the patcher scripting name
 		else {
 			box = object_attr_getobj(patcher, jps_box);
-			contextName = object_attr_getsym(box, gensym("varname"));
+			contextName = object_attr_getsym(box, _sym_varname);
 			if (!contextName)
 				contextName = _sym_nothing;
 		}
@@ -642,6 +642,109 @@ TTErr jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper)
 	
 	return kTTErrNone;
 }
+
+
+// Method to deal with TTViewer
+///////////////////////////////////////////////////////////////////////
+
+/**	Create a viewer object */
+TTErr			jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer)
+{
+	TTValue			args;
+	TTObjectPtr		returnValueCallback;
+	TTValuePtr		returnValueBaton;
+	
+	// prepare arguments
+	args.append(TTModularDirectory);
+	
+	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("Callback"), &returnValueCallback, kTTValNONE);
+	returnValueBaton = new TTValue(TTPtr(x));
+	returnValueCallback->setAttributeValue(TT("Baton"), TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(TT("Function"), TTPtr(&jamoma_callback_return_value));
+	args.append(returnValueCallback);
+	
+	*returnedViewer = NULL;
+	TTObjectInstantiate(TT("Viewer"), TTObjectHandle(returnedViewer), args);
+	
+	return kTTErrNone;
+}
+
+void jamoma_viewer_get_model_address(ObjectPtr z, TTSymbolPtr *modelAddress, TTPtr *aContext)
+{
+	AtomCount		ac = 0;
+	AtomPtr			av = NULL;
+	bool			isJviewPatcher;
+	ObjectPtr		box, patcher = jamoma_object_getpatcher(z);
+	SymbolPtr		context;
+	SymbolPtr		patcherName;
+	SymbolPtr		address = _sym_nothing;
+	TTString		addSlash;
+	
+	// If z is a bpatcher, the patcher is NULL
+	if (!patcher){
+		patcher = object_attr_getobj(z, _sym_parentpatcher);
+	}
+	
+	context = jamoma_patcher_getcontext(patcher);
+	patcherName = object_attr_getsym(patcher, _sym_name);
+	
+	// if the patcher name begin by "jview."
+	// Strip jview. from the beginning of patch name
+	isJviewPatcher = strncmp(patcherName->s_name, "jview.", 6) == 0;
+	if (isJviewPatcher)
+		patcherName = gensym(patcherName->s_name + 6);						// TODO : replace each "." by the Uppercase of the letter after the "."
+	
+	// Is the patcher embedded in a jmod.patcher ?
+	// The topLevel patcher name have not to be include in the address
+	if (isJviewPatcher && ((context == _sym_bpatcher) || (context == _sym_subpatcher)) ) {
+		
+		// Try to get context name from the patcher arguments
+		jamoma_patcher_getargs(patcher, &ac, &av);
+		if ((context == _sym_subpatcher) && (ac == 2))
+			address = atom_getsym(av+1);
+		else if ((context == _sym_bpatcher) && (ac == 1))
+			address = atom_getsym(av);
+		
+		// Try to get context name from the patcher scripting name
+		else {
+			box = object_attr_getobj(patcher, jps_box);
+			address = object_attr_getsym(box, _sym_varname);
+			if (!address)
+				address = _sym_nothing;
+		}
+		
+		// If the contextName is still nothing
+		// get it from the patcher name if it start by "jview."
+		if (address == _sym_nothing) {
+			addSlash = S_SEPARATOR->getCString();
+			addSlash += patcherName->s_name;
+			address = gensym((char*)addSlash.data());
+		}
+		
+		// return the address and patcher
+		*modelAddress = TT(address->s_name);
+		*aContext = (TTPtr)patcher;
+
+		if (av)
+			sysmem_freeptr(av);
+	}
+	// case where the object is in a subpatcher
+	else if (!isJviewPatcher && (context == _sym_subpatcher) ) {
+		// ignore this level
+		jamoma_viewer_get_model_address(patcher, modelAddress, aContext);
+	}
+	// case where the user is editing the module 
+	// or because there are jcom to register in the toplevel patcher
+	else if (context == gensym("toplevel")) {
+		
+		// return / and patcher
+		*modelAddress = S_SEPARATOR;
+		*aContext = (TTPtr)patcher;
+	}
+}
+
+
 
 // Method to deal with TTExplorer
 ///////////////////////////////////////////////////////////////////////
