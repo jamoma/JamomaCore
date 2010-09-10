@@ -124,6 +124,32 @@ TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 		mDictionary->setValue(v);
 		// NOTE: doesn't have inlet/outlet info at this point
 	}
+	else if (schema == TT("message")) {
+		TTValue		nameValue;
+		TTSymbolPtr	nameSymbol = NULL;
+		
+		aDictionary.lookup(TT("name"), nameValue);
+		aDictionary.getValue(v);
+		nameValue.get(0, &nameSymbol);
+		err = mKernel->sendMessage(nameSymbol, v);
+
+		mDictionary->setSchema(TT("message"));
+		mDictionary->append(TT("name"), nameValue);
+		mDictionary->setValue(v);
+	}
+	else if (schema == TT("attribute")) {
+		TTValue		nameValue;
+		TTSymbolPtr	nameSymbol = NULL;
+		
+		aDictionary.lookup(TT("name"), nameValue);
+		aDictionary.getValue(v);
+		nameValue.get(0, &nameSymbol);
+		err = mKernel->setAttributeValue(nameSymbol, v);
+		
+		mDictionary->setSchema(TT("attribute"));
+		mDictionary->append(TT("name"), nameValue);
+		mDictionary->setValue(v);
+	}
 	else {
 		// not sure what to do with other dictionary schemas yet...
 	}
